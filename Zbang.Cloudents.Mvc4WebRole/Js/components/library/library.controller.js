@@ -78,6 +78,7 @@
             libraryService.createClass(l.boxName, l.code, l.professor, nodeId).then(function (response) {
                 l.createClassShow = l.secondStep = false;
                 resetFiled(myform);
+                $scope.app.showToaster(resManager.get('toasterCreateCourse'));
                 $location.url(response.url);
             }, function (response) {
                 myform.professor.$setValidity('server', false);

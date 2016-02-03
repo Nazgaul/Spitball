@@ -168,10 +168,22 @@
   <data name="settingsDone" xml:space="preserve">
     <value>done</value>
   </data>
-  <data name="universityChooseContinue" xml:space="preserve">
-    <value>Complete finding your school before navigating</value>
-  </data>
   <data name="changeEmailSuccess" xml:space="preserve">
     <value>The new email was saved</value>
+  </data>
+  <data name="toasterCreateBox" xml:space="preserve">
+    <value>CreateBox</value>
+    <comment>New</comment>
+  </data>
+  <data name="toasterCreateCourse" xml:space="preserve">
+    <value>Create Course</value>
+    <comment>New</comment>
+  </data>
+  <data name="toasterInviteComplete" xml:space="preserve">
+    <value>Invite send</value>
+    <comment>New</comment>
+  </data>
+  <data name="toasterUploadComplete" xml:space="preserve">
+    <value>Upload doc</value>
   </data>
 </root>

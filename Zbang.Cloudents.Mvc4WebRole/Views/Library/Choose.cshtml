@@ -1,6 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
-
-<div ng-if="!lc.needCode" id="lib-choose">
+<div ng-if="!lc.needCode && !lc.createUniversity" id="lib-choose">
     <div class="search-form-wrapper">
         <div class="intro-text">@LibraryResources.UniversitySearchTitle</div>
         <form name="libraryChooseForm" novalidate ng-submit="lc.universitySearch(libraryChooseForm)" layout="row" layout-wrap>
@@ -36,6 +35,7 @@
         </div>
     </div>
 
-    @{ Html.RenderPartial("_ChooseCreateUniversity");}
+   
 </div>
+@{ Html.RenderPartial("_ChooseCreateUniversity");}
 @{ Html.RenderPartial("_ChooseEnterCode");}

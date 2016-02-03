@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -235,6 +236,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var command = new DeleteNotificationCommand(messageId);
             ZboxWriteService.DeleteNotification(command);
             return JsonOk();
+        }
+
+        [ZboxAuthorize, HttpGet]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult InviteDialog()
+        {
+            return PartialView();
         }
     }
 }

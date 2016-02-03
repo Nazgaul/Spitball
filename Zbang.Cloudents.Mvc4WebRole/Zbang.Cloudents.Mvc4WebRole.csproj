@@ -1771,9 +1771,11 @@
     <Content Include="Js\components\account\unregisterShow.directive.js" />
     <Content Include="Js\components\ads.controller.js" />
     <Content Include="Js\components\box\box.routes.js" />
+    <Content Include="Js\components\box\feed.likes.controller.js" />
     <Content Include="Js\components\box\slideit.directive.js" />
     <Content Include="Js\components\contactUs.controller.js" />
     <Content Include="Js\components\dashboard\createBox.controller.js" />
+    <Content Include="Js\components\dashboard\dashboard.routes.js" />
     <Content Include="Js\components\item\comments.controller.js" />
     <Content Include="Js\components\item\externalProviderUpload.service.js" />
     <Content Include="Js\components\library\countryService.service.js" />
@@ -2785,6 +2787,8 @@
     <Content Include="Views\Home\Index2.cshtml" />
     <Content Include="Views\Box\_FeedAddComment.cshtml" />
     <Content Include="Views\Box\LikesDialog.cshtml" />
+    <Content Include="Views\Item\UploadDialog.cshtml" />
+    <Content Include="Views\Share\InviteDialog.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2867,7 +2871,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.ar.resx" />
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.he.resx">
       <SubType>Designer</SubType>
@@ -2877,7 +2880,6 @@
       <LastGenOutput>AccountControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.ru.resx" />
-    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.ar.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.resx">
@@ -2885,7 +2887,6 @@
       <LastGenOutput>BaseControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.ru.resx" />
-    <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.ar.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.resx">
@@ -2893,7 +2894,6 @@
       <LastGenOutput>BoxControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.ru.resx" />
-    <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.ar.resx" />
     <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.resx">
@@ -2901,7 +2901,6 @@
       <LastGenOutput>HomeControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.ru.resx" />
-    <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.ar.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.en-gb.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.resx">
@@ -2909,9 +2908,6 @@
       <LastGenOutput>LibraryControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.ru.resx" />
-    <EmbeddedResource Include="Js\Resources\JsResources.ar.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Js\Resources\JsResources.en-gb.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -2922,7 +2918,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Js\Resources\JsResources.ru.resx" />
-    <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.ar.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.en-gb.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.he.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.resx">
@@ -2931,7 +2926,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.ru.resx" />
-    <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.ar.resx" />
     <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.he.resx" />
     <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.resx">
@@ -2940,7 +2934,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.ru.resx" />
-    <EmbeddedResource Include="Models\Account\Resources\LogOnResources.ar.resx" />
     <EmbeddedResource Include="Models\Account\Resources\LogOnResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Account\Resources\LogOnResources.he.resx" />
     <EmbeddedResource Include="Models\Account\Resources\LogOnResources.resx">
@@ -2949,7 +2942,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Account\Resources\LogOnResources.ru.resx" />
-    <EmbeddedResource Include="Models\Account\Resources\RegisterResources.ar.resx" />
     <EmbeddedResource Include="Models\Account\Resources\RegisterResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Account\Resources\RegisterResources.he.resx" />
     <EmbeddedResource Include="Models\Account\Resources\RegisterResources.resx">
@@ -2958,7 +2950,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Account\Resources\RegisterResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\AddLinkResources.ar.resx" />
     <EmbeddedResource Include="Models\Resources\AddLinkResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Resources\AddLinkResources.he.resx">
       <SubType>Designer</SubType>
@@ -2968,7 +2959,6 @@
       <LastGenOutput>AddLinkResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\AddLinkResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateBoxResources.ar.resx" />
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.he.resx">
       <SubType>Designer</SubType>
@@ -2979,7 +2969,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateUniversityResources.ar.resx" />
     <EmbeddedResource Include="Models\Resources\CreateUniversityResources.en-gb.resx" />
     <EmbeddedResource Include="Models\Resources\CreateUniversityResources.he.resx" />
     <EmbeddedResource Include="Models\Resources\CreateUniversityResources.resx">
@@ -2987,7 +2976,6 @@
       <LastGenOutput>CreateUniversityResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\CreateUniversityResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\InvitationResources.ar.resx" />
     <EmbeddedResource Include="Models\Resources\InvitationResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Resources\InvitationResources.he.resx" />
     <EmbeddedResource Include="Models\Resources\InvitationResources.resx">
@@ -2996,7 +2984,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Resources\InvitationResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.ar.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.he.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.resx">
@@ -3009,7 +2996,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AboutUsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\AccountResource.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.resx">
@@ -3017,7 +3003,6 @@
       <LastGenOutput>AccountResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\HomePageResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.resx">
@@ -3025,7 +3010,6 @@
       <LastGenOutput>HomePageResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\HomeResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.resx">
@@ -3034,7 +3018,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\LogOnResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3043,7 +3026,6 @@
       <LastGenOutput>LogOnResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\RegisterResources.ar.resx" />
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.he.resx">
       <SubType>Designer</SubType>
@@ -3054,7 +3036,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.ru.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\BoxResources.ar.resx" />
     <EmbeddedResource Include="Views\Box\Resources\BoxResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Box\Resources\BoxResources.he.resx" />
     <EmbeddedResource Include="Views\Box\Resources\BoxResources.resx">
@@ -3063,7 +3044,6 @@
       <LastGenOutput>BoxResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Box\Resources\BoxResources.ru.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.ar.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.en-GB.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.he.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.resx">
@@ -3071,7 +3051,6 @@
       <LastGenOutput>DashboardResource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.ru.resx" />
-    <EmbeddedResource Include="Views\Error\Resources\ErrorResources.ar.resx" />
     <EmbeddedResource Include="Views\Error\Resources\ErrorResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Error\Resources\ErrorResources.he.resx" />
     <EmbeddedResource Include="Views\Error\Resources\ErrorResources.resx">
@@ -3079,7 +3058,6 @@
       <LastGenOutput>ErrorResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Error\Resources\ErrorResources.ru.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\HomeResources.ar.resx" />
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.he.resx" />
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.resx">
@@ -3087,7 +3065,6 @@
       <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.ru.resx" />
-    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ar.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.he.resx">
       <SubType>Designer</SubType>
@@ -3098,7 +3075,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ru.resx" />
-    <EmbeddedResource Include="Views\Library\Resources\LibraryResources.ar.resx" />
     <EmbeddedResource Include="Views\Library\Resources\LibraryResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Library\Resources\LibraryResources.he.resx" />
     <EmbeddedResource Include="Views\Library\Resources\LibraryResources.resx">
@@ -3106,7 +3082,6 @@
       <LastGenOutput>LibraryResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Library\Resources\LibraryResources.ru.resx" />
-    <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.ar.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.he.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.resx">
@@ -3114,7 +3089,6 @@
       <LastGenOutput>QuizResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.ru.resx" />
-    <EmbeddedResource Include="Views\Search\Resources\SearchResources.ar.resx" />
     <EmbeddedResource Include="Views\Search\Resources\SearchResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Search\Resources\SearchResources.he.resx" />
     <EmbeddedResource Include="Views\Search\Resources\SearchResources.resx">
@@ -3122,7 +3096,6 @@
       <LastGenOutput>SearchResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Search\Resources\SearchResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\FooterResources.ar.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.he.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.resx">
@@ -3130,7 +3103,6 @@
       <LastGenOutput>FooterResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.ar.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.he.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.resx">
@@ -3138,7 +3110,6 @@
       <LastGenOutput>GeneralResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\IndexResources.ar.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.he.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.resx">
@@ -3147,9 +3118,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ar.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.he.resx">
       <SubType>Designer</SubType>
@@ -3160,7 +3128,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ru.resx" />
-    <EmbeddedResource Include="Views\User\Resources\UserResources.ar.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.resx">

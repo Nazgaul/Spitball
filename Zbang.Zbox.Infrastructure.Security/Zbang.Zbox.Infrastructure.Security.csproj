@@ -107,9 +107,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502080955543_initial.ar.resx">
-      <DependentUpon>201502080955543_initial.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502080955543_initial.en-GB.resx">
       <DependentUpon>201502080955543_initial.cs</DependentUpon>
     </EmbeddedResource>

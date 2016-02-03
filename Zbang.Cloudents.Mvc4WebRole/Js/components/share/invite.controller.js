@@ -1,9 +1,10 @@
 ﻿(function () {
     angular.module('app').controller('inviteController', invite);
 
-    invite.$inject = ['googleService', 'shareService', '$scope', '$stateParams', '$anchorScroll', '$timeout'];
+    invite.$inject = ['googleService', 'shareService', '$scope', '$stateParams',
+        '$anchorScroll', '$timeout', 'resManager'];
 
-    function invite(googleService, shareService, $scope, $stateParams, $anchorScroll, $timeout) {
+    function invite(googleService, shareService, $scope, $stateParams, $anchorScroll, $timeout, resManager) {
         var self = this;
         self.querySearch = querySearch;
         self.allContacts = [];// loadContacts();
@@ -143,6 +144,7 @@
         }
 
         function successSend() {
+            $scope.app.showToaster(resManager.get('toasterInviteComplete'));
             self.closeInvite();
             self.submitDisabled = false;
         }

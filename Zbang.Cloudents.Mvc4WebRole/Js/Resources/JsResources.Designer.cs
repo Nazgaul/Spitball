@@ -214,20 +214,47 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CreateBox.
+        /// </summary>
+        public static string toasterCreateBox {
+            get {
+                return ResourceManager.GetString("toasterCreateBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Course.
+        /// </summary>
+        public static string toasterCreateCourse {
+            get {
+                return ResourceManager.GetString("toasterCreateCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invite send.
+        /// </summary>
+        public static string toasterInviteComplete {
+            get {
+                return ResourceManager.GetString("toasterInviteComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload doc.
+        /// </summary>
+        public static string toasterUploadComplete {
+            get {
+                return ResourceManager.GetString("toasterUploadComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Would you like to unfollow this class?.
         /// </summary>
         public static string unfollowClass {
             get {
                 return ResourceManager.GetString("unfollowClass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Complete finding your school before navigating.
-        /// </summary>
-        public static string universityChooseContinue {
-            get {
-                return ResourceManager.GetString("universityChooseContinue", resourceCulture);
             }
         }
     }

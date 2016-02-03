@@ -1,8 +1,9 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
-    box.$inject = ['boxService', 'boxData', '$stateParams', '$scope', '$state', 'user', '$rootScope', 'userDetailsFactory'];
+    box.$inject = ['boxService', 'boxData', '$stateParams', '$scope',
+        '$state', 'user', '$rootScope', 'userDetailsFactory', 'ajaxService'];
 
-    function box(boxService, boxData, $stateParams, $scope, $state, user, $rootScope, userDetailsFactory) {
+    function box(boxService, boxData, $stateParams, $scope, $state, user, $rootScope, userDetailsFactory, ajaxService) {
 
         if ($state.current.name === 'box') {
             $state.go('box.feed', $stateParams, { location: "replace" });
@@ -22,7 +23,7 @@
         b.url = b.user.url;
         b.image = b.user.image;
         b.isActiveState = isActiveState;
-
+        b.inviteExpand = inviteExpand;
         b.toggleSettings = toggleSettings;
 
         //stuff for child elements
@@ -110,6 +111,14 @@
             $rootScope.$broadcast('close-collapse');
             b.inviteOpen = true;
             $scope.$broadcast('open_invite');
+        }
+        function inviteExpand() {
+            if (b.html) {
+                return;
+            }
+            return ajaxService.getHtml('/share/invitedialog/').then(function (response) {
+                b.html = response;
+            });
         }
 
         function closeCollapse() {

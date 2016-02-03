@@ -513,6 +513,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
+        [ZboxAuthorize, HttpGet]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult UploadDialog()
+        {
+            return PartialView();
+        }
+
 
     }
 }

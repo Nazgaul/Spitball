@@ -1,9 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div uib-collapse="!b.inviteOpen">
-    @* ReSharper disable once Mvc.PartialViewNotResolved *@
-    @{Html.RenderPartial("_Invite");}
+<div uib-collapse="!b.inviteOpen" compile-html="b.html" expanding="b.inviteExpand()">
 </div>
 
 <div class="page-head">
