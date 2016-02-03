@@ -228,7 +228,6 @@
     <Compile Include="Repositories\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Enums\Resources\EnumResources.ar.resx" />
     <EmbeddedResource Include="Enums\Resources\EnumResources.en-GB.resx" />
     <EmbeddedResource Include="Enums\Resources\EnumResources.he.resx" />
     <EmbeddedResource Include="Enums\Resources\EnumResources.resx">
@@ -277,7 +276,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Enums\Resources\QuestionResource.ar.resx" />
     <EmbeddedResource Include="Enums\Resources\QuestionResource.en-gb.resx" />
     <EmbeddedResource Include="Enums\Resources\QuestionResource.he.resx" />
     <EmbeddedResource Include="Enums\Resources\QuestionResource.resx">
@@ -286,7 +284,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Enums\Resources\QuestionResource.ru.resx" />
-    <EmbeddedResource Include="Security\Resources\Validation.ar.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.en-GB.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.he.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.resx">

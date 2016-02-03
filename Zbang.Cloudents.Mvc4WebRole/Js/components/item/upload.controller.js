@@ -68,7 +68,6 @@
 
         function closeUpload() {
             u.open = false;
-
             $rootScope.$broadcast('close_upload');
         }
 

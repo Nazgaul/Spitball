@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('CreateBoxController', controller);
 
-    controller.$inject = ['dashboardService', '$location', '$scope', '$rootScope'];
-    function controller(dashboardService, $location, $scope, $rootScope) {
+    controller.$inject = ['dashboardService', '$location', '$scope', '$rootScope', 'resManager'];
+    function controller(dashboardService, $location, $scope, $rootScope, resManager) {
         var self = this;
         self.create = create;
         self.cancel = cancel;
@@ -14,6 +14,7 @@
                 $scope.$parent.d.createBoxOn = false;
                 cancel(myform);
                 $rootScope.$broadcast('refresh-boxes');
+                $scope.app.showToaster(resManager.get('toasterCreateBox'));
                 $location.url(response.url);
             }, function (response) {
                 myform.name.$setValidity('server', false);

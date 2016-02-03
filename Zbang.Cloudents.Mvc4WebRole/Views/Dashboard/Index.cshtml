@@ -1,9 +1,9 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div uib-collapse="!d.inviteOpen">
+<div uib-collapse="!d.inviteOpen" compile-html="d.html" expanding="d.inviteExpand()">
     @* ReSharper disable once Mvc.PartialViewNotResolved *@
-    @{Html.RenderPartial("_Invite");}
+    @*@{Html.RenderPartial("_Invite");}*@
 </div>
 <div class="page-title">
     <h1>@DashboardResource.Title</h1>

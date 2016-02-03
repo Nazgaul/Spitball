@@ -188,7 +188,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\CommandHandlerResources.ar.resx" />
     <EmbeddedResource Include="Resources\CommandHandlerResources.en-GB.resx" />
     <EmbeddedResource Include="Resources\CommandHandlerResources.he.resx" />
     <EmbeddedResource Include="Resources\CommandHandlerResources.resx">

@@ -110,7 +110,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\EmailResource.ar.resx" />
     <EmbeddedResource Include="Resources\EmailResource.en-GB.resx" />
     <EmbeddedResource Include="Resources\EmailResource.he.resx" />
     <EmbeddedResource Include="Resources\EmailResource.resx">

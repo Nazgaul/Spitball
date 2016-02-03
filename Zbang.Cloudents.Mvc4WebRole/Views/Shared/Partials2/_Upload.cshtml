@@ -3,9 +3,8 @@
     const string url = "~/images/site/uploadIcons.svg";
 }
 
-<div class="margin-bottom-20" ng-cloak uib-collapse="!u.open" expanding="u.uploadOpen()"
+<div class="margin-bottom-20" uib-collapse="!u.open" expanding="u.uploadOpen()"
      collapsed="u.uploadCollapsed()" ng-controller="Upload as u" compile-html="u.html">
-
 </div>
 <script type="text/ng-template" id="file-upload.html">
     <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
