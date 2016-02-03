@@ -1,9 +1,4 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
-
-
-{{lc.createUniversity}}
-{{lc.needCode}}
-{{!lc.needCode || !lc.createUniversity}}
 <div ng-if="!lc.needCode && !lc.createUniversity" id="lib-choose">
     <div class="search-form-wrapper">
         <div class="intro-text">@LibraryResources.UniversitySearchTitle</div>

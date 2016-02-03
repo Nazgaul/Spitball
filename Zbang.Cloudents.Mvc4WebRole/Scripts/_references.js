@@ -256,3 +256,5 @@
 /// <reference path="../bower_components/textAngular/src/textAngularSetup.js" />
 /// <reference path="../bower_components/textAngular/src/validators.js" />
 /// <reference path="../js/homepage/waypoints.min.js" />
+/// <reference path="../js/components/box/feed.likes.controller.js" />
+/// <reference path="../js/components/dashboard/dashboard.routes.js" />

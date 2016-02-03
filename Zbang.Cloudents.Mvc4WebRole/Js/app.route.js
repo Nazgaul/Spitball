@@ -116,29 +116,7 @@
                             //onEnter: routerHelper.universityRedirect
                         },
                         templateUrl: '/search/indexpartial/'
-                    },
-                    //{
-                    //    state: 'search',
-                    //    config: {
-                    //        url: '/search/',
-                    //        controller: 'SearchController as s',
-                    //        data: { animateClass: 'search full-screen' },
-                    //        reloadOnSearch: false
-                    //        //onEnter: routerHelper.universityRedirect
-                    //    },
-                    //    templateUrl: '/search/indexpartial/'
-                    //},
-                     {
-                         state: 'dashboard',
-                         config: {
-                             url: '/dashboard/',
-                             controller: 'Dashboard as d',
-                             data: { animateClass: 'dashboard' },
-                             //onEnter: routerHelper.universityRedirect
-
-                         },
-                         templateUrl: '/dashboard/indexpartial/'
-                     }
+                    }
             ];
         }
     }

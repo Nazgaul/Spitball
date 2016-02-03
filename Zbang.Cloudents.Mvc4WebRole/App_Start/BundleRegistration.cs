@@ -188,7 +188,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/user/updates.service.js"),
 
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.service.js"),
+                        
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.controller.js"),
+                        new JsFileWithCdn("~/js/components/dashboard/dashboard.routes.js"),
                        
                         new JsFileWithCdn("~/js/components/dashboard/university.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/createBox.controller.js"),
@@ -203,6 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/box/box.controller.js"),
                         new JsFileWithCdn("~/js/components/box/box.routes.js"),
                         new JsFileWithCdn("~/js/components/box/feed.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/feed.likes.controller.js"),
                         new JsFileWithCdn("~/js/components/box/item.controller.js"),
                         new JsFileWithCdn("~/js/components/box/quizzes.controller.js"),
                         new JsFileWithCdn("~/js/components/box/members.controller.js"),

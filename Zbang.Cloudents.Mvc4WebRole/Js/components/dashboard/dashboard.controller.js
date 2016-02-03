@@ -1,30 +1,27 @@
 ﻿(function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
-    dashboard.$inject = ['dashboardService', '$scope', '$mdDialog', 'boxService', '$rootScope', 'resManager'];
+    dashboard.$inject = ['dashboardService', 'boxes', '$scope', '$mdDialog', 'boxService', '$rootScope', 'resManager'];
 
-    function dashboard(dashboardService, $scope, $mdDialog, boxService, $rootScope,
+    function dashboard(dashboardService, boxes, $scope, $mdDialog, boxService, $rootScope,
         resManager) {
         var d = this;
         d.boxes = [];
         d.inviteOpen = false;
+        d.showLeaderboard = true;
         d.inviteToSpitabll = function () {
             d.inviteOpen = true;
             $scope.$broadcast('open_invite');
         }
 
-        
-        d.boxes = [];
-        dashboardService.getBoxes().then(function (response) {
-            d.boxes = d.boxes.concat(response);
-            dashboardService.recommended().then(function (response2) {
-                for (var i = 0; i < response2.length; i++) {
-                    var retVal = response2[i];
-                    retVal.recommended = true;
-                    retVal.updates = 0;
 
-                }
-                d.boxes = d.boxes.concat(response2);
-            });
+        d.boxes = boxes;
+        dashboardService.recommended().then(function (response2) {
+            d.suggested = response2;
+            for (var i = 0; i < response2.length; i++) {
+                var retVal = response2[i];
+                retVal.recommended = true;
+                retVal.updates = 0;
+            }
         });
 
         d.deleteBox = deleteBox;
@@ -33,12 +30,6 @@
         function openCreate() {
             d.createBoxOn = true;
             d.createBoxFocus = true;
-            //$location.hash('create');
-            //$timeout(function() {
-            //    $anchorScroll.yOffset = 100;
-            //    $anchorScroll('create');
-            //    //$location.hash('');
-            //});
         }
 
         function deleteBox(ev, box) {
@@ -60,6 +51,10 @@
 
         $scope.$on("close_invite", function () {
             d.inviteOpen = false;
+        });
+
+        $scope.$on('hide-leader-board', function () {
+           d.showLeaderboard = false;
         });
 
     }
