@@ -79,6 +79,7 @@
                 fileUploaded: function (uploader, file, response) {
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
+                        showToast(resManager.get('toasterUploadPic'),'section-1');
                         self.data.image = obj.payload;
                         cacheFactory.clearAll();
                         userDetailsFactory.setImage(obj.payload);

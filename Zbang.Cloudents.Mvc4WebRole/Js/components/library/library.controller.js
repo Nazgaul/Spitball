@@ -95,6 +95,7 @@
                 l.createDepartmentOn = false;
                 l.createClassShow = false;
                 resetFiled(myform);
+                $scope.app.showToaster(resManager.get('toasterCreateDepartment'));
             }, function (response) {
                 myform.name.$setValidity('server', false);
                 l.error = response;

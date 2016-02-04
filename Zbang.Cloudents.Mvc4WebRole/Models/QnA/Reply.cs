@@ -8,9 +8,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.QnA
     {
         [AllowHtml]
         public string Content { get; set; }
-        [Required]
+        [Range(1, long.MaxValue)]
         public long BoxId { get; set; }
 
+        //TODO: Guid can be empty
         [Required]
         public Guid CommentId { get; set; }
 

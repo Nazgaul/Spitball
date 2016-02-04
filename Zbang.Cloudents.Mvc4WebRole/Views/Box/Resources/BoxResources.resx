@@ -177,4 +177,8 @@
   <data name="RibbonNew" xml:space="preserve">
     <value>New</value>
   </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comments</value>
+    <comment>New</comment>
+  </data>
 </root>

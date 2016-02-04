@@ -171,6 +171,10 @@
   <data name="changeEmailSuccess" xml:space="preserve">
     <value>The new email was saved</value>
   </data>
+  <data name="toasterBoxSettings" xml:space="preserve">
+    <value>Settings complete</value>
+    <comment>New</comment>
+  </data>
   <data name="toasterCreateBox" xml:space="preserve">
     <value>CreateBox</value>
     <comment>New</comment>
@@ -179,11 +183,36 @@
     <value>Create Course</value>
     <comment>New</comment>
   </data>
+  <data name="toasterCreateDepartment" xml:space="preserve">
+    <value>Create department</value>
+    <comment>New</comment>
+  </data>
+  <data name="toasterCreateQuiz" xml:space="preserve">
+    <value>Create Quiz</value>
+    <comment>New</comment>
+  </data>
+  <data name="toasterFollowBox" xml:space="preserve">
+    <value>Follow box</value>
+    <comment>New</comment>
+  </data>
   <data name="toasterInviteComplete" xml:space="preserve">
     <value>Invite send</value>
     <comment>New</comment>
   </data>
+  <data name="toasterLikeItem" xml:space="preserve">
+    <value>Like item</value>
+    <comment>New</comment>
+  </data>
+  <data name="toasterOpenSchool" xml:space="preserve">
+    <value>Open school</value>
+    <comment>New</comment>
+  </data>
   <data name="toasterUploadComplete" xml:space="preserve">
     <value>Upload doc</value>
+    <comment>New</comment>
+  </data>
+  <data name="toasterUploadPic" xml:space="preserve">
+    <value>Upload pic</value>
+    <comment>New</comment>
   </data>
 </root>

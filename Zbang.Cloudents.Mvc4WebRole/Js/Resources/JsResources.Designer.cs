@@ -214,6 +214,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings complete.
+        /// </summary>
+        public static string toasterBoxSettings {
+            get {
+                return ResourceManager.GetString("toasterBoxSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CreateBox.
         /// </summary>
         public static string toasterCreateBox {
@@ -232,6 +241,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create department.
+        /// </summary>
+        public static string toasterCreateDepartment {
+            get {
+                return ResourceManager.GetString("toasterCreateDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Quiz.
+        /// </summary>
+        public static string toasterCreateQuiz {
+            get {
+                return ResourceManager.GetString("toasterCreateQuiz", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follow box.
+        /// </summary>
+        public static string toasterFollowBox {
+            get {
+                return ResourceManager.GetString("toasterFollowBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invite send.
         /// </summary>
         public static string toasterInviteComplete {
@@ -241,11 +277,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Like item.
+        /// </summary>
+        public static string toasterLikeItem {
+            get {
+                return ResourceManager.GetString("toasterLikeItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open school.
+        /// </summary>
+        public static string toasterOpenSchool {
+            get {
+                return ResourceManager.GetString("toasterOpenSchool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Upload doc.
         /// </summary>
         public static string toasterUploadComplete {
             get {
                 return ResourceManager.GetString("toasterUploadComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload pic.
+        /// </summary>
+        public static string toasterUploadPic {
+            get {
+                return ResourceManager.GetString("toasterUploadPic", resourceCulture);
             }
         }
         

@@ -228,7 +228,6 @@
     <Compile Include="Repositories\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Enums\Resources\EnumResources.en-GB.resx" />
     <EmbeddedResource Include="Enums\Resources\EnumResources.he.resx" />
     <EmbeddedResource Include="Enums\Resources\EnumResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -263,9 +262,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Enums\Resources\EnumResources.ru.resx" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
       <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
       <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
@@ -276,22 +272,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Enums\Resources\QuestionResource.en-gb.resx" />
     <EmbeddedResource Include="Enums\Resources\QuestionResource.he.resx" />
     <EmbeddedResource Include="Enums\Resources\QuestionResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>QuestionResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Enums\Resources\QuestionResource.ru.resx" />
-    <EmbeddedResource Include="Security\Resources\Validation.en-GB.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.he.resx" />
     <EmbeddedResource Include="Security\Resources\Validation.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Validation.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Security\Resources\Validation.ru.resx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Profile\Resources\S100X100Lib1.jpg" />

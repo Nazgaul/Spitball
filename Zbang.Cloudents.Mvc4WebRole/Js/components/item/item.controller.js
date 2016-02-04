@@ -1,9 +1,9 @@
 ﻿(function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope', '$timeout'];
+        'itemData', '$scope', '$timeout', 'resManager'];
 
-    function item($stateParams, itemService, $sce, $location, $q, user, itemData, $scope, $timeout) {
+    function item($stateParams, itemService, $sce, $location, $q, user, itemData, $scope, $timeout, resManager) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
@@ -124,6 +124,7 @@
             if (i.details.like) {
                 i.details.likes--;
             } else {
+                $scope.app.showToaster(resManager.get('toasterLikeItem'));
                 i.details.likes++;
             }
             i.details.like = !i.details.like;

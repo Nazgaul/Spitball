@@ -16,15 +16,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         public string LastName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
-        [RegularExpression(Validation.EmailRegexWithTrailingEndingSpaces, ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotCorrect")]
-        [Display(ResourceType = typeof(RegisterResources), Name = "EmailAddress")]
+        //[RegularExpression(Validation.EmailRegexWithTrailingEndingSpaces, ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotCorrect")]
+        [DataType(DataType.EmailAddress, ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotCorrect")]
+        //[Display(ResourceType = typeof(RegisterResources), Name = "EmailAddress")]
         public string NewEmail { get; set; }
 
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "PwdRequired")]
         [ValidatePasswordLength(ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
         [DataType(DataType.Password)]
-        [Display(ResourceType = typeof(RegisterResources), Name = "Password")]
+        //[Display(ResourceType = typeof(RegisterResources), Name = "Password")]
         public string Password { get; set; }
 
         public long? UniversityId { get; set; }

@@ -183,4 +183,8 @@
   <data name="Download" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="Likes" xml:space="preserve">
+    <value>Likes</value>
+    <comment>New</comment>
+  </data>
 </root>

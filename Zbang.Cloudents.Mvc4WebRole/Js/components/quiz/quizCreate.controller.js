@@ -36,9 +36,9 @@
 
         self.questions = draft.questions;
 
-        var defer = $q.defer();
-        defer.resolve();
-        var currentPromise = defer.promise;
+        //var defer = $q.defer();
+        //defer.resolve();
+        var currentPromise = $q.when();
 
 
 
@@ -69,15 +69,20 @@
             return false;
         }
         function addToCurrent(promise) {
-            currentPromise.then(promise);
+            currentPromise = currentPromise.then(promise);
         }
         function saveName() {
             if (self.id) {
                 addToCurrent(quizService.updateQuiz(self.id, self.name));
             } else {
-                addToCurrent(quizService.createQuiz($stateParams.boxId, self.name).then(function (response) {
-                    self.id = response;
-                }));
+                addToCurrent(function () {
+                    var defer = $q.defer();
+                    quizService.createQuiz($stateParams.boxId, self.name).then(function (response) {
+                        self.id = response;
+                        defer.resolve();
+                    });
+                    return defer.promise;
+                });
             }
         };
         function saveNameOnBlur() {
@@ -85,28 +90,34 @@
             if (self.id) {
                 return;
             }
-
-            addToCurrent(quizService.createQuiz($stateParams.boxId, self.name).then(function (response) {
-                self.id = response;
-            }));
+            addToCurrent(function () {
+                var defer = $q.defer();
+                quizService.createQuiz($stateParams.boxId, self.name).then(function (response) {
+                    self.id = response;
+                    defer.resolve();
+                });
+                return defer.promise;
+            });
 
         }
         function saveQuestion(q) {
-            currentPromise.then(function () {
                 if (!q.id) {
-                    addToCurrent(quizService.createQuestion(self.id, q.text).then(function (response) {
-                        q.id = response;
-                    }));
+                    addToCurrent(function () {
+                        var defer = $q.defer();
+                        quizService.createQuestion(self.id, q.text).then(function (response) {
+                            q.id = response;
+                            defer.resolve();
+                        });
+                        return defer.promise;
+                    });
 
                 } else {
                     addToCurrent(quizService.updateQuestion(q.id, q.text));
                 }
-            });
 
         }
         function saveAnswer(q, a) {
 
-            currentPromise.then(function () {
                 if (!a.text) {
                     if (a.id) {
                         if (q.correctAnswer === a.id) {
@@ -118,29 +129,37 @@
                     return;
                 }
                 if (!q.id) {
-                    addToCurrent(quizService.createQuestion(self.id, q.text).then(function (response) {
-                        q.id = response;
-                        quizService.createAnswer(q.id, a.text).then(function (response2) {
-                            a.id = response2;
+                    addToCurrent(function () {
+                        var defer = $q.defer();
+                        quizService.createQuestion(self.id, q.text).then(function (response) {
+                            q.id = response;
+                            quizService.createAnswer(q.id, a.text).then(function (response2) {
+                                a.id = response2;
+                                defer.resolve();
+                            });
                         });
-                    }));
+                        return defer.promise;
+                    });
                     return;
                 }
                 if (!a.id) {
-                    addToCurrent(quizService.createAnswer(q.id, a.text).then(function (response2) {
-                        a.id = response2;
-                    }));
+                    addToCurrent(function () {
+                        var defer = $q.defer();
+                        quizService.createAnswer(q.id, a.text).then(function (response2) {
+                            a.id = response2;
+                            defer.resolve();
+                        });
+                        return defer.promise;
+                    });
                     return;
                 }
                 addToCurrent(quizService.updateAnswer(a.id, a.text));
 
-            });
         }
         function deleteAnswerShow(q) {
             return q.answers.length > 2;
         }
         function deleteAnswer(q, a) {
-            currentPromise.then(function () {
                 if (a.id) {
 
                     if (q.correctAnswer === a.id) {
@@ -153,7 +172,6 @@
                 }
                 var index = q.answers.indexOf(a);
                 q.answers.splice(index, 1);
-            });
         }
         function editQuestion(q) {
             q.done = false;
@@ -162,7 +180,6 @@
             return self.questions.length > 1;
         }
         function deleteQuestion(q) {
-            currentPromise.then(function () {
                 if (q.id) {
                     addToCurrent(quizService.deleteQuestion(q.id));
                 }
@@ -171,14 +188,11 @@
                 self.questions.splice(index, 1);
 
 
-            });
         }
         function markcorrect(q, a) {
 
-            currentPromise.then(function () {
-                q.correctAnswer = a.id;
-                addToCurrent(quizService.markCorrect(a.id));
-            });
+            q.correctAnswer = a.id;
+            addToCurrent(quizService.markCorrect(a.id));
         }
         function addQuestion() {
             var valid = true;

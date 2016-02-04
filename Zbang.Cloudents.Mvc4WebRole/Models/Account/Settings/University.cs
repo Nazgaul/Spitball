@@ -5,14 +5,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 {
     public class University
     {
-        [Required(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "SchoolRequired")]
+        [Range(1, int.MaxValue, ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "SchoolRequired")]
         public long UniversityId { get; set; }
 
-
-        // public long? DepartmentId { get; set; }
-
-        // public string GroupNumber { get; set; }
-        // public string RegisterNumber { get; set; }
 
         public string StudentId { get; set; }
 
