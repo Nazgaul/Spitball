@@ -18,6 +18,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "homePage", new[]
                     {
+                        "~/content/site/general.css",
                          "~/Content/HomePage/homePage.css",
                          //"~/Content/homepage/bootstrap.css", //TODO: check if we need this.
                         "~/Content/signin/components-md.css",

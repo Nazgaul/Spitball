@@ -38,15 +38,37 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
+                const string boxesSql = @"select 
+                                b.BoxName as Name,
+                                b.quizcount + b.itemcount as ItemCount,
+                                b.MembersCount as MembersCount,
+                                b.CourseCode as CourseCode,
+                                b.ProfessorName,
+								b.Url as Url
+                                from Zbox.box b 
+                                where b.BoxId in (125092, 125567, 113537);";
                 const string sql = @"with 
 usersCount(users) as (SELECT count(*) as users from [Zbox].[Users]),
 itemsCount(items) as (SELECT count(*) as items from [Zbox].[Item] where IsDeleted = 0),
 quizzesCount(quizzes) as (SELECT count(*) as quizzes from [Zbox].[Quiz] where IsDeleted = 0 and Publish = 1)
-select * from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesCount as QuizzesCount";
-                var retVal = await conn.QueryAsync<HomePageDataDto>(sql);
-                return retVal.FirstOrDefault();
+select * from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesCount as QuizzesCount;";
+                //var retVal = await conn.QueryAsync<HomePageDataDto>(sql);
+
+
+                //return retVal.FirstOrDefault();
+
+
+                using (var grid = await conn.QueryMultipleAsync(sql + boxesSql))
+                {
+                    var retVal = grid.Read<HomePageDataDto>().First();
+                    retVal.Boxes = await grid.ReadAsync<Box.RecommendBoxDto>();
+                    return retVal;
+
+                }
+
             }
         }
+
 
         /// <summary>
         /// used to get the dashboard and the activity and wall in dashboard

@@ -14,18 +14,18 @@
         decimal: '.',
         prefix: ''
     };
-    var studentsCount = 180000;
+
     options.suffix = ' ' + $('#students').data('statistic');
+    var studentsCount = ' ' + $('#students').data('value');
     new CountUp("students", 0, studentsCount, 0, 2.5, options).start();;
 
-    var documentsCount = 300000;
     options.suffix = ' ' + $('#documents').data('statistic');
+    var documentsCount = ' ' + $('#documents').data('value');
     new CountUp("documents", 0, documentsCount, 0, 2.5, options).start();;
 
-    var quizzesCount = 220000;
     options.suffix = ' ' + $('#quizzes').data('statistic');
+    var quizzesCount = ' ' + $('#quizzes').data('value');
     new CountUp("quizzes", 0, quizzesCount, 0, 2.5, options).start();;
-
     //#endregion
 
 
