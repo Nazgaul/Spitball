@@ -8,7 +8,7 @@
     <!--The margin (in pixel) around and between the constituent images.-->
     <margin>1</margin>
     <!--File extension of sprite image.-->
-    <outputType>jpg</outputType>
+    <outputType>png</outputType>
     <!--Determine whether to generate/re-generate this sprite on building the solution.-->
     <runOnBuild>false</runOnBuild>
     <!--Use full path to generate unique class or mixin name in CSS, LESS and SASS files. Consider disabling this if you want class names to be filename only.-->
@@ -26,9 +26,11 @@
   </settings>
   <!--The order of the <file> elements determines the order of the images in the sprite.-->
   <files>
+    <file>/Images/HomePage2/google.png</file>
     <file>/Images/HomePage2/testimonial1.jpg</file>
     <file>/Images/HomePage2/testimonial2.jpg</file>
     <file>/Images/HomePage2/testimonial3.jpg</file>
     <file>/Images/HomePage2/testimonial4.jpg</file>
+    <file>/Images/HomePage2/apple.png</file>
   </files>
 </sprite>

@@ -111,17 +111,20 @@
                                     <div class="signin-options">
                                         <button type="button" class="login-option facebook">
                                             <div>
-                                                @Html.Svg("/images/signin/loginoptions.svg", "facebook")
+                                                @Html.Svg(socialIconsSvg, "facebook")
                                                 <span>@LogOnResources.ExternalProvider</span>
                                             </div>
                                         </button>
                                         <button type="button" class="login-option google">
                                             <div>
-                                                @Html.Svg("/images/signin/loginoptions.svg", "google")
+                                                @Html.Svg(socialIconsSvg, "google")
                                                 <span>@LogOnResources.ExternalProvider</span>
                                             </div>
                                         </button>
                                     </div>
+                                    
+                                    
+
                                     <div class="create-account">
                                         <p>
                                             @LogOnResources.DontHaveAnAccount&nbsp; <a href="javascript:;" id="register-btn">
@@ -208,13 +211,13 @@
                                     <div class="signin-options">
                                         <button type="button" class="login-option facebook">
                                             <div>
-                                                @Html.Svg("/images/signin/loginoptions.svg", "facebook")
+                                                @Html.Svg(socialIconsSvg, "facebook")
                                                 <span>@LogOnResources.ExternalProvider</span>
                                             </div>
                                         </button>
                                         <button type="button" class="login-option google">
                                             <div>
-                                                @Html.Svg("/images/signin/loginoptions.svg", "google")
+                                                @Html.Svg(socialIconsSvg, "google")
                                                 <span>@LogOnResources.ExternalProvider</span>
                                             </div>
                                         </button>
@@ -232,17 +235,19 @@
                     <div class="signin-options">
                         <button type="button" class="login-option facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                             <div>
-                                @Html.Svg("/images/signin/loginoptions.svg", "facebook")
+                                @Html.Svg(socialIconsSvg, "facebook")
                                 <span>@LogOnResources.ExternalProvider</span>
                             </div>
                         </button>
                         <button type="button" class="login-option google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                             <div>
-                                @Html.Svg("/images/signin/loginoptions.svg", "google")
+                                @Html.Svg(socialIconsSvg, "google")
                                 <span>@LogOnResources.ExternalProvider</span>
                             </div>
                         </button>
-                        <a class="login-option signup os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s" href="@Url.Action("SignUp", "Account", new { universityid = Request.QueryString["universityid"] })" target="_self">@HomePageResources.A5</a>
+                        <button type="button" class="login-option signup os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                @HomePageResources.A5
+                        </button>
                     </div>
                     <div class="statistics os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
                         <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
@@ -413,11 +418,11 @@
                                     queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
                                 }
                             }
-                            <a target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)" class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                <img src="@Url.CdnContent("~/Images/HomePage2/apple.png")" alt="apple" />
+                            <a target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)" class="appSotre os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                @*<img src="@Url.CdnContent("~/Images/HomePage2/apple.png")" alt="apple" />*@
                             </a>
-                            <a target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.4s">
-                                <img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" />
+                            <a target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="googlePlay os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.4s">
+                                @*<img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" />*@
                             </a>
                         </div>
                     </div>

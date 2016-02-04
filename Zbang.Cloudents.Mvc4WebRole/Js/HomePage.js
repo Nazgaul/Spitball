@@ -89,7 +89,7 @@
 
     var animatonSpeed = 300;
 
-    $(document.getElementById('signin')).click(function () {
+    $('#signin, .login-option.signup').click(function () {
         toggleForm();
         $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
     });

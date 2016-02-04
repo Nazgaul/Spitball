@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/layout.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
-                        new JsFileWithCdn("~/Js/HomePage/waypoints.min.js"),
+                        new JsFileWithCdn("~/scripts/waypoints.min.js"),
                         new JsFileWithCdn("~/Scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/Scripts/CountUp.js"),
                         new JsFileWithCdn("~/Js/HomePage.js")
