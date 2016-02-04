@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
     box.$inject = ['boxService', 'boxData', '$stateParams', '$scope',
-        '$state', 'user', '$rootScope', 'userDetailsFactory', 'ajaxService', 'resManager'];
+        '$state', 'user', '$rootScope', 'userDetailsFactory', 'ajaxService', 'resManager', '$timeout'];
 
     function box(boxService, boxData, $stateParams, $scope, $state, user,
-        $rootScope, userDetailsFactory, ajaxService, resManager) {
+        $rootScope, userDetailsFactory, ajaxService, resManager, $timeout) {
 
         if ($state.current.name === 'box') {
             $state.go('box.feed', $stateParams, { location: "replace" });
@@ -30,8 +30,15 @@
         //stuff for child elements
         b.canDelete = canDelete;
 
+
+        $scope.$on('$viewContentLoaded', function() {
+            $timeout(function() {
+                a2a.init('page');
+            });
+        });
         $scope.$on("close_invite", function () {
             b.inviteOpen = false;
+           
         });
 
         function isActiveState(state) {

@@ -13,6 +13,7 @@
             $window.dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl });
             $window.Intercom('update');
             svg4everybody();
+           
         });
         userDetails.init().then(function () {
             setTheme();

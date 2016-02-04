@@ -1643,12 +1643,12 @@ a.badge:focus {
 .pull-left {
   float: left !important;
 }
-.hide {
-  display: none !important;
+/*.hide {
+  display: none;
 }
 .show {
   display: block !important;
-}
+}*/
 .invisible {
   visibility: hidden;
 }
