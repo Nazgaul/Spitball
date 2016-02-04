@@ -1,13 +1,20 @@
-﻿<md-dialog>
-    <md-toolbar>
+﻿<md-dialog class="like-dialog">
+    <md-toolbar layout="row" layout-align="space-between center" class="backgroundTC3">
         <h2>Spitballers who like this</h2>
         <md-button ng-click="lc.close()">
-            @Html.Svg("~/images/site/icons.svg", "close", new { @class = "color-override svgColor3" })
+            @Html.Svg("~/images/site/icons.svg", "close", new { @class = "svgTC4" })
         </md-button>
     </md-toolbar>
-    <md-dialog-content>
-        <ul class="list-unstyled">
-            <li ng-repeat="e in ::lc.users" ng-include="'user-template.html'"></li>
+    <md-dialog-content class="backgroundTC1">
+        <ul class="list-unstyled" ng-slimscroll height="400px" watch-content="true" color="#BBB">
+            <li class="borderTC2" ng-repeat="e in ::lc.users" ng-include="'user-template.html'"></li>
+            <li class="borderTC2" ng-repeat="e in ::lc.users" ng-include="'user-template.html'"></li>
+            <li class="borderTC2" ng-repeat="e in ::lc.users" ng-include="'user-template.html'"></li>
+            <li class="borderTC2" ng-repeat="e in ::lc.users" ng-include="'user-template.html'"></li>
+            <li class="borderTC2" ng-repeat="e in ::lc.users" ng-include="'user-template.html'"></li>
+            <li class="borderTC2" ng-repeat="e in ::lc.users" ng-include="'user-template.html'"></li>
+            <li class="borderTC2" ng-repeat="e in ::lc.users" ng-include="'user-template.html'"></li>
         </ul>
     </md-dialog-content>
 </md-dialog>
+
