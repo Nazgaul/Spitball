@@ -22,8 +22,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
         //private const string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
-
-        public Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri,  int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public virtual Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             if (indexNum > 0)
             {
@@ -43,13 +42,13 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public bool CanProcessFile(Uri blobName)
+        public virtual bool CanProcessFile(Uri blobName)
         {
             return !blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl);
         }
 
 
-        public async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public virtual async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             const string url2PngApiKey = "PE733F61DA16EFE";
             const string url2PngPrivateKey = "S_B085D82FEC756";

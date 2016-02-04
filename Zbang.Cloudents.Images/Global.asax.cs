@@ -20,8 +20,16 @@ namespace Zbang.Cloudents.Images
 
                     //var splitUrl = args.VirtualPath.Split(new[] {"/"}, StringSplitOptions.RemoveEmptyEntries);
                     var blobName = args.VirtualPath.Replace("/preview/", string.Empty);
-                    if (blobName.ToLower().StartsWith("http"))
+                    
+                    if (blobName.ToLower().StartsWith("http")) //link
                     {
+                        if (blobName.ToLower().Contains("google"))//google link
+                        {
+                            args.VirtualPath = "preview";
+                            args.QueryString["404"] = "~/images/Icons_720_drive.png";
+                            return;
+
+                        }
                         args.QueryString["404"] = "~/images/link_720.png";
                         //Uri uri;
                         var url = c.Request.ServerVariables["UNENCODED_URL"];

@@ -68,7 +68,7 @@
                            ng-blur="app.expandSearch = false"
                            ng-model="st.term"
                            ng-minlength="2"
-                           ng-model-options="{debounce : 300}"
+                           ng-model-options="{debounce : 1000}"
                            type="search" class="text"
                            user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
                     <button type="submit" class="search-btn color-override backgroundColor11">
@@ -165,5 +165,14 @@
 
     </script>
     @RenderSection("scripts", false)
+    @*<script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript" src="https://ss.sharethis.com/loader.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "2afcb9e2-a0a5-40ad-8de2-dfdbcce8d24d", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+    <script>
+        var options={ "publisher": "2afcb9e2-a0a5-40ad-8de2-dfdbcce8d24d", "position": "right", "ad": { "visible": false, "openDelay": 5, "closeDelay": 0}, "chicklets": { "items": ["facebook", "email", "whatsapp", "twitter"]}};
+        var st_hover_widget = new sharethis.widgets.hoverbuttons(options);
+    </script>*@
+    <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
 </body>
 </html>

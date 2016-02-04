@@ -14,7 +14,8 @@
             if (data.id) {
                 isAuthenticated = true;
                 var dateCreate = new Date(data.dateTime);
-                window.Intercom('boot', {
+                // ReSharper disable UseOfImplicitGlobalInFunctionScope
+                Intercom('boot', {
                     app_id: "njmpgayv",
                     name: data.name,
                     email: data.email,
@@ -28,6 +29,8 @@
                     university_country: data.universityCountry
 
                 });
+                __insp.push(['identify', data.id]);
+                // ReSharper restore UseOfImplicitGlobalInFunctionScope
             } else {
                 window.Intercom('boot', {
                     app_id: "njmpgayv"
@@ -103,7 +106,7 @@
                 userData.university.id = id;
                 $rootScope.$broadcast('universityChange', userData);
             },
-            setTheme: function(theme) {
+            setTheme: function (theme) {
                 userData.theme = theme;
                 //$rootScope.$broadcast('themeChange', userData);
             }

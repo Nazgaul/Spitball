@@ -10,9 +10,13 @@
             var path = $location.path(),
                 absUrl = $location.absUrl(),
                 virtualUrl = absUrl.substring(absUrl.indexOf(path));
-            $window.dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl });
-            $window.Intercom('update');
+            // ReSharper disable UseOfImplicitGlobalInFunctionScope
+            dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl }); // google tag manger
+            Intercom('update'); //intercom
+            __insp.push(["virtualPage"]); //inspectlet
             svg4everybody();
+            // ReSharper restore UseOfImplicitGlobalInFunctionScope
+           
         });
         userDetails.init().then(function () {
             setTheme();
