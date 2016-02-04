@@ -51,12 +51,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
                 }
+                BaseControllerResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
                 if (model.BoxType == BoxType.Box)
                 {
                     ViewBag.title = string.Format("{0} | {1}", model.Name, BaseControllerResources.Cloudents);
                     return View("Empty");
                 }
-                BaseControllerResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
+                
                 ViewBag.title = string.Format("{0} | {1} | {2} | {3}", model.Name, model.DepartmentName,
                     model.UniversityName, BaseControllerResources.Cloudents);
                 ViewBag.metaDescription = Regex.Replace(string.Format(
