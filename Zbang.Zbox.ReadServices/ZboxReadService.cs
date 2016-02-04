@@ -52,11 +52,6 @@ usersCount(users) as (SELECT count(*) as users from [Zbox].[Users]),
 itemsCount(items) as (SELECT count(*) as items from [Zbox].[Item] where IsDeleted = 0),
 quizzesCount(quizzes) as (SELECT count(*) as quizzes from [Zbox].[Quiz] where IsDeleted = 0 and Publish = 1)
 select users as StudentsCount, items as DocumentCount, quizzes as QuizzesCount from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesCount as QuizzesCount;";
-                //var retVal = await conn.QueryAsync<HomePageDataDto>(sql);
-
-
-                //return retVal.FirstOrDefault();
-
 
                 using (var grid = await conn.QueryMultipleAsync(sql + boxesSql))
                 {
