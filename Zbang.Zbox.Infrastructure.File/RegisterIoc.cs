@@ -19,6 +19,7 @@ namespace Zbang.Zbox.Infrastructure.File
             ioc.RegisterType<IContentProcessor, TiffProcessor>();
             ioc.RegisterType<IContentProcessor, LinkProcessor>();
             ioc.RegisterType<IContentProcessor, YoutubeProcessor>();
+            ioc.RegisterType<IContentProcessor, GoogleDriveProcessor>();
             ioc.RegisterType<IContentProcessor, VideoProcessor>();
             ioc.RegisterType<IContentProcessor, TextProcessor>();
             ioc.RegisterType<IContentProcessor, AudioProcessor>();

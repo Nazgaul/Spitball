@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private const string ContentFormat = "<iframe class=\"youtubeframe\" width=\"{0}\" height=\"{1}\" src=\"https://www.youtube.com/embed/{2}\" frameborder=\"0\" allowfullscreen></iframe>";
 
-        public new Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobName, int width, int height, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobName, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var match = YoutubeRegex.Match(blobName.AbsoluteUri);
             if (match.Groups.Count < 2 || String.IsNullOrEmpty(match.Groups[1].Value))
@@ -59,7 +59,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        public new bool CanProcessFile(Uri blobName)
+        public override bool CanProcessFile(Uri blobName)
         {
 
             return Domains.Any(d => blobName.AbsoluteUri.StartsWith(d, StringComparison.OrdinalIgnoreCase));
