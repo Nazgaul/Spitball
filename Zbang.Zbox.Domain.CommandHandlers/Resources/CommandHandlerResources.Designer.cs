@@ -61,15 +61,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot change user email.
-        /// </summary>
-        public static string CannotChangeEmail {
-            get {
-                return ResourceManager.GetString("CannotChangeEmail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cannot change password.
         /// </summary>
         public static string CannotChangePwd {

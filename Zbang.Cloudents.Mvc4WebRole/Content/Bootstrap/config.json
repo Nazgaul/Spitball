@@ -384,11 +384,13 @@
   "css": [
     "type.less",
     "buttons.less",
+    "glyphicons.less",
+    "button-groups.less",
     "badges.less",
     "component-animations.less",
     "tooltip.less",
     "modals.less"
   ],
   "js": [],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=983711e4218e66874592"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=8b6a568befa2ef800677"
 }

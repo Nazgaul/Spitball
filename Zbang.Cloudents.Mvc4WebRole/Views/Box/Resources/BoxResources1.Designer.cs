@@ -88,6 +88,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comments.
+        /// </summary>
+        public static string Comments {
+            get {
+                return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Class Feed.
         /// </summary>
         public static string Feed {
@@ -187,6 +196,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New.
+        /// </summary>
+        public static string RibbonNew {
+            get {
+                return ResourceManager.GetString("RibbonNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
@@ -230,12 +248,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
                 return ResourceManager.GetString("Whats", resourceCulture);
             }
         }
-        public static string RibbonNew
-        {
-            get {
-                return ResourceManager.GetString("RibbonNew", resourceCulture);
-            }
-        }
-        
     }
 }

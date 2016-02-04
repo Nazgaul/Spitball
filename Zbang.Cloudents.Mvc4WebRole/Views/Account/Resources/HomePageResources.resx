@@ -129,23 +129,11 @@
   <data name="A5" xml:space="preserve">
     <value>Or sign up with your email</value>
   </data>
-  <data name="A6" xml:space="preserve">
-    <value>Built by students for students</value>
-  </data>
-  <data name="A7" xml:space="preserve">
-    <value>Get the Spitball app</value>
-  </data>
   <data name="A8" xml:space="preserve">
     <value>Blog</value>
   </data>
-  <data name="B1" xml:space="preserve">
-    <value>Spitball Features</value>
-  </data>
   <data name="B10" xml:space="preserve">
     <value>Create your own quizzes and assess your progress using thousands of existing quizzes</value>
-  </data>
-  <data name="B2" xml:space="preserve">
-    <value>Here are some of the features that make Spitball so unique:</value>
   </data>
   <data name="B3" xml:space="preserve">
     <value>AVAILABLE EVERYWHERE</value>
@@ -188,12 +176,6 @@
   </data>
   <data name="D6" xml:space="preserve">
     <value>Communicate with your classmates</value>
-  </data>
-  <data name="D7" xml:space="preserve">
-    <value>Create and solve quizzes interactively</value>
-  </data>
-  <data name="D8" xml:space="preserve">
-    <value>Post and share anonymously</value>
   </data>
   <data name="F1" xml:space="preserve">
     <value>Get it now</value>
@@ -239,17 +221,17 @@
   </data>
   <data name="statsStudents" xml:space="preserve">
     <value>Students</value>
-  </data>
+  <comment>New</comment></data>
   <data name="statsDocuments" xml:space="preserve">
     <value>Documents</value>
-  </data>
+  <comment>New</comment></data>
   <data name="statsQuizzes" xml:space="preserve">
     <value>Quizzes</value>
-  </data>
+  <comment>New</comment></data>
   <data name="infoSection1" xml:space="preserve">
     <value>Company</value>
-  </data>
+  <comment>New</comment></data>
   <data name="infoSection2" xml:space="preserve">
     <value>Support</value>
-  </data>
+  <comment>New</comment></data>
 </root>

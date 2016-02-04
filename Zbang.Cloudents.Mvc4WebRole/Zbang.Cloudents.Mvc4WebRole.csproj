@@ -444,6 +444,11 @@
     <Compile Include="Models\UploadFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Views\Box\Resources\BoxResources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BoxResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Home\Resources\AboutUsResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -473,11 +478,6 @@
       <DependentUpon>RegisterResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\Box\Resources\BoxResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BoxResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Dashboard\Resources\DashboardResource1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2871,7 +2871,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -2879,37 +2878,25 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AccountControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\Resources\AccountControllerResources.ru.resx" />
-    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BaseControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\Resources\BaseControllerResources.ru.resx" />
-    <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>BoxControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\Resources\BoxControllerResources.ru.resx" />
-    <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.en-GB.resx" />
     <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\Resources\HomeControllerResources.ru.resx" />
-    <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.en-gb.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LibraryControllerResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.ru.resx" />
-    <EmbeddedResource Include="Js\Resources\JsResources.en-gb.resx">
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Js\Resources\JsResources.he.resx" />
     <EmbeddedResource Include="Js\Resources\JsResources.resx">
@@ -2917,40 +2904,30 @@
       <LastGenOutput>JsResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Js\Resources\JsResources.ru.resx" />
-    <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.en-gb.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.he.resx" />
     <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AccountSettingsResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\Account\Resources\AccountSettingsResources.ru.resx" />
-    <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.he.resx" />
     <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ForgotPasswordResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\Account\Resources\ForgotPasswordResources.ru.resx" />
-    <EmbeddedResource Include="Models\Account\Resources\LogOnResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Account\Resources\LogOnResources.he.resx" />
     <EmbeddedResource Include="Models\Account\Resources\LogOnResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LogOnResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\Account\Resources\LogOnResources.ru.resx" />
-    <EmbeddedResource Include="Models\Account\Resources\RegisterResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Account\Resources\RegisterResources.he.resx" />
     <EmbeddedResource Include="Models\Account\Resources\RegisterResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RegisterResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\Account\Resources\RegisterResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\AddLinkResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Resources\AddLinkResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -2958,8 +2935,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AddLinkResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\Resources\AddLinkResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateBoxResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Resources\CreateBoxResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -2968,56 +2943,42 @@
       <LastGenOutput>CreateBoxResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\Resources\CreateBoxResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\CreateUniversityResources.en-gb.resx" />
     <EmbeddedResource Include="Models\Resources\CreateUniversityResources.he.resx" />
     <EmbeddedResource Include="Models\Resources\CreateUniversityResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateUniversityResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\Resources\CreateUniversityResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\InvitationResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Resources\InvitationResources.he.resx" />
     <EmbeddedResource Include="Models\Resources\InvitationResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>InvitationResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\Resources\InvitationResources.ru.resx" />
-    <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.en-GB.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.he.resx" />
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ValidatePasswordResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.ru.resx" />
     <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.he.resx" />
     <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AboutUsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\AccountResource.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AccountResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\AccountResource.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\HomePageResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomePageResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\HomePageResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\HomeResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomeResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\HomeResources.ru.resx" />
-    <EmbeddedResource Include="Views\Account\Resources\LogOnResources.ru.resx" />
     <EmbeddedResource Include="Views\Account\Resources\LogOnResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3026,7 +2987,6 @@
       <LastGenOutput>LogOnResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\RegisterResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Account\Resources\RegisterResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3035,37 +2995,27 @@
       <LastGenOutput>RegisterResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Account\Resources\RegisterResources.ru.resx" />
-    <EmbeddedResource Include="Views\Box\Resources\BoxResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Box\Resources\BoxResources.he.resx" />
     <EmbeddedResource Include="Views\Box\Resources\BoxResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>BoxResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Box\Resources\BoxResources.ru.resx" />
-    <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.en-GB.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.he.resx" />
     <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DashboardResource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Dashboard\Resources\DashboardResource.ru.resx" />
-    <EmbeddedResource Include="Views\Error\Resources\ErrorResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Error\Resources\ErrorResources.he.resx" />
     <EmbeddedResource Include="Views\Error\Resources\ErrorResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Error\Resources\ErrorResources.ru.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\HomeResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.he.resx" />
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Home\Resources\HomeResources.ru.resx" />
-    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3074,51 +3024,37 @@
       <LastGenOutput>ItemsResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Item\Resources\ItemsResources.ru.resx" />
-    <EmbeddedResource Include="Views\Library\Resources\LibraryResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Library\Resources\LibraryResources.he.resx" />
     <EmbeddedResource Include="Views\Library\Resources\LibraryResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LibraryResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Library\Resources\LibraryResources.ru.resx" />
-    <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.he.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>QuizResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.ru.resx" />
-    <EmbeddedResource Include="Views\Search\Resources\SearchResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Search\Resources\SearchResources.he.resx" />
     <EmbeddedResource Include="Views\Search\Resources\SearchResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SearchResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Search\Resources\SearchResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\FooterResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.he.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FooterResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\FooterResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.he.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GeneralResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\IndexResources.en-GB.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.he.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\IndexResources.ru.resx" />
-    <EmbeddedResource Include="Views\Shared\Resources\SharedResources.en-gb.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\SharedResources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -3127,14 +3063,11 @@
       <LastGenOutput>SharedResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Shared\Resources\SharedResources.ru.resx" />
-    <EmbeddedResource Include="Views\User\Resources\UserResources.en-gb.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UserResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\User\Resources\UserResources.ru.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\_ViewStart.cshtml" />

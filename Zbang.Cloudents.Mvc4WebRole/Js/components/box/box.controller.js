@@ -1,9 +1,10 @@
 ﻿(function () {
     angular.module('app.box').controller('BoxController', box);
     box.$inject = ['boxService', 'boxData', '$stateParams', '$scope',
-        '$state', 'user', '$rootScope', 'userDetailsFactory', 'ajaxService'];
+        '$state', 'user', '$rootScope', 'userDetailsFactory', 'ajaxService', 'resManager'];
 
-    function box(boxService, boxData, $stateParams, $scope, $state, user, $rootScope, userDetailsFactory, ajaxService) {
+    function box(boxService, boxData, $stateParams, $scope, $state, user,
+        $rootScope, userDetailsFactory, ajaxService, resManager) {
 
         if ($state.current.name === 'box') {
             $state.go('box.feed', $stateParams, { location: "replace" });
@@ -94,6 +95,7 @@
                 boxService.updateBox(boxId, b.data.name, b.settings.courseId, b.settings.professorName, b.settings.privacy, b.settings.notificationSettings).then(function (response) {
                     b.settingsOpen = false;
                     $stateParams.boxName = response.queryString;
+                    $scope.app.showToaster(resManager.get('toasterBoxSettings'));
                     $state.go('box.feed', $stateParams, { location: "replace" });
 
                 }).finally(function() {
@@ -144,6 +146,7 @@
 
         function followBox() {
             b.needFollow = false;
+            $scope.app.showToaster(resManager.get('toasterFollowBox'));
             $rootScope.$broadcast('refresh-boxes');
         }
 

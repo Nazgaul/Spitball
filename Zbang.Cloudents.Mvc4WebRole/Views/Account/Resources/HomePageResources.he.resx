@@ -129,20 +129,11 @@
   <data name="A5" xml:space="preserve">
     <value>או הירשם באמצעות כתובת המייל שלך</value>
   </data>
-  <data name="A6" xml:space="preserve">
-    <value>ספיטבול נבנתה ע״י סטודנטים ובעבור סטודנטים</value>
-  </data>
   <data name="A8" xml:space="preserve">
     <value>בלוג</value>
   </data>
-  <data name="B1" xml:space="preserve">
-    <value>מה מחכה לכם בפנים:</value>
-  </data>
   <data name="B10" xml:space="preserve">
     <value>אלפי מבחנים כבר מחכים לכם! צרו ותרגלו מבחנים בצורה אינטרקטיבית כחלק ממערכת חדשנית לתרגול ויצירת מבחנים.</value>
-  </data>
-  <data name="B2" xml:space="preserve">
-    <value>הינה הצצה קצרה לחלק מהפיצ׳רים שהופכים את ספיטבול למה שהיא</value>
   </data>
   <data name="B3" xml:space="preserve">
     <value>הלימודים שלך איתך בכל מקום</value>
@@ -186,12 +177,6 @@
   <data name="D6" xml:space="preserve">
     <value>השתתף בדיון קבוצתי עם כל הכיתה</value>
   </data>
-  <data name="D7" xml:space="preserve">
-    <value>צור ותרגל מבחנים אינטרקטיביים</value>
-  </data>
-  <data name="D8" xml:space="preserve">
-    <value>שתף באנונימיות (תחת עילום שם)</value>
-  </data>
   <data name="F1" xml:space="preserve">
     <value>הורד בחינם</value>
   </data>
@@ -234,8 +219,5 @@
   </data>
   <data name="Testimonial4Title" xml:space="preserve">
     <value>מנהל עסקים, האוניברסיטה הפתוחה</value>
-  </data>
-  <data name="A7" xml:space="preserve">
-    <value>הורד את האפליקציה לנייד</value>
   </data>
 </root>

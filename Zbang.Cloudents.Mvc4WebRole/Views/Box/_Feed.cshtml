@@ -42,8 +42,8 @@
                         </div>
 
                         <div class="indent stats">
-                            <span user-not-register-popup="click" ng-click="f.openReply(post)">{{post.repliesCount}} comments</span>&#9642;
-                            <span user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)">{{post.likesCount}} likes</span>
+                            <span user-not-register-popup="click" ng-click="f.openReply(post)">{{post.repliesCount}} @BoxResources.Comments</span>&#9642;
+                            <span user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)">{{post.likesCount}} @GeneralResources.Likes</span>
                         </div>
                         <div class="indent actions color-override borderColor9 text-capitalize">
                             <button user-not-register-popup="click" type="button" ng-click="f.openReply(post)" ga-track-event="['box-feed', 'comment-icons']">
@@ -90,7 +90,6 @@
                                 <div class="indent actions">
                                     <button type="button" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']">
                                         @GeneralResources.Like
-
                                     </button>&#9642;
                                     <button type="button" ng-click="f.likeReplyDialog(reply,$event)">
                                         @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })
