@@ -1,27 +1,39 @@
 ﻿/*
 @import this file directly into your existing Scss files to use these mixins
 */
+@mixin sprite-Images-HomePage2-google() {
+/* You may have to set 'display: block' */
+	width: 160px;
+	height: 46px;
+	background: url('homePage.png') -1px -1px;
+}
 @mixin sprite-Images-HomePage2-testimonial1() {
 /* You may have to set 'display: block' */
 	width: 128px;
 	height: 128px;
-	background: url('testimonials.jpg') -1px -1px;
+	background: url('homePage.png') -1px -48px;
 }
 @mixin sprite-Images-HomePage2-testimonial2() {
 /* You may have to set 'display: block' */
 	width: 128px;
 	height: 128px;
-	background: url('testimonials.jpg') -1px -130px;
+	background: url('homePage.png') -1px -177px;
 }
 @mixin sprite-Images-HomePage2-testimonial3() {
 /* You may have to set 'display: block' */
 	width: 128px;
 	height: 128px;
-	background: url('testimonials.jpg') -1px -259px;
+	background: url('homePage.png') -1px -306px;
 }
 @mixin sprite-Images-HomePage2-testimonial4() {
 /* You may have to set 'display: block' */
 	width: 128px;
 	height: 128px;
-	background: url('testimonials.jpg') -1px -388px;
+	background: url('homePage.png') -1px -435px;
+}
+@mixin sprite-Images-HomePage2-apple() {
+/* You may have to set 'display: block' */
+	width: 160px;
+	height: 46px;
+	background: url('homePage.png') -1px -564px;
 }

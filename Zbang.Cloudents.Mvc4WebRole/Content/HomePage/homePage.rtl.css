@@ -4,6 +4,9 @@
 .homePage {
   font-family: sans-serif;
 }
+.homePage .hidden {
+  display: none !important;
+}
 .homePage .page-content header {
   position: fixed;
   z-index: 2;
@@ -11,6 +14,7 @@
   right: 0;
   left: 0;
   width: 100%;
+  height: 100px;
 }
 @media (min-width: 750px) {
   .homePage .page-content header {
@@ -32,7 +36,7 @@
   flex-wrap: wrap;
 }
 .homePage .page-content nav .navbar-header .logo {
-  background-image: url("../../Images/HomePage2/logo.png");
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPgAAABSCAMAAABOiOmxAAACBFBMVEUAAAD///////////////////8AAAD///////////////////////////////////////////8AAAD///8AAAD///////////8AAAD///8AAAAAAAD///8AAAD///8AAAD///////////////////////////////////8AAAAAAAD///////8AAAAAAAD///////////8AAAD///////////////////////////////////////////////////////////8AAAD///8AAAD///8AAAAAAAD///8AAAAAAAAAAAAAAAAAAAAAAAD///////////8AAAD///8yk/YQEBAcU4uAgIAZSnsgICADCQ/9/f0peMkDBAXR0dESN10ICAjx8fHg4OCkpKRUVFQMDAzFxcUmb7qysrINJj8oKCgbGxsXFxfs7OwviuiJiYlra2tISEiWlpaRkZF6enpmZmZbW1sjIyP6+vro6Ojj4+Pc3NwsgdjJyckhYqWgoKCfn593d3cVPmdOTk5BQUEKHzT29vYxkPEth+PV1dWLi4txcXEXQ3EWQW5iYmJfX18PLk06Ojo0NDQuLi4EDRYxkfPu7u4qes66urq3t7cjZ62pqamampodVY+Dg4MyMjIHFSQGEh8GER0ODg4wjesodcS8vLwfWpYeWJMdVpEaTYEIFyeLOW3+AAAAUnRSTlMAcFAQ0OBQQJCwYPCAIMCgMPvkWiLlTQTKxLmxqQ0MAwK2lGMzLBEJBvvw69x/eWdJPSwi9tjTvKSaiYN0a1ZENxb93tbNr415dnFUPTUWFI8Z4AZ7LwAABWFJREFUeNrt3GdX01AYwPEHFStVEESKKCLIVBwg7r33vA8VIbaULisF2Vtkuvfee+uXtLU3aWxyU1OqEm9/LyDcm5PT/zk5GUACCQm8mXtg/hwSi6Xz9h0Gw1q1gEzE7kNgSIuWLyETNP8oGM/CvWTi5swFo1m0gBAuy5eT+Ji3CAxl1RISJyvAUBaQeFm6EAxkLomfg2AgK+IYPg8MZH4cw3caaV+fQ+LoCBgHiafpYBzx6LXyGG5tGrb3tpF7TZyFXxdcLXZs8KFwi6vwe8KA43XjK2cvYrODp3Bfu9PedemW7Tliv42ncFebyzuIwt2OSyg0chTe6Bq/7+pAvO1uRnT6+Qm3+4lnsKMBm+87H+FQOzfhLWNDZEQQEPFqc7uvtYWbcLvHa6114k+Ct7uJm/B+0vai1dM1gEG+QQ834Vf9nut9HddaXzzt7O7EwTZuwhu9je5Wt6sZsd/1vG/ImLv6m5snGUbJWXHxRkR5ra/NTcj4iLumpquryYjncdvLaqYz5JS4eJpE6mpxBL42vfe8chjyWv1CdYzhpNHXbR0fc495DHl3dqdad3jY/XuOHptB78ef6QhnUIaXbVk3TY0FNBynK2VCAV0qAslKOrQJdAlvKm8aJYaf/wPhx/agOjNoSMGQJEjGEBNIZmHIbNAlvKmpSInh58Sy8xeJUmzhBWik8BskSviDs0Hf6YSDHV6MhgqvjxZeH/z27AE9ojsHbrHCV/5/4ZdH6XBbAyK2M8KTMCTDMjVCGWjIE1f6y+EXooefeUNHawQM6tYOLwBV6eakCOZiCLDQn9KlT7tYXKFQFp6ZJFlZUQohqXQ0rHB7vnb4lfAh/KTct/q6iPA74j7h/4Qhdu3wFFCRmoMqCnYodnW5ZFn4NJQpz/y5r6xHFWuLNcM/VrOcG1U/qnc3o8iqGZ4GSiXJqGptqa7wsK0A+etQ1cwqZjgtY7kpTV/+8k4s9I88QlGtZjjuL0oP2wFBG5Fhc4zhWdmwFRlytcLrrrDDL78NhX84GcyWuKOEm1FVThEALEOGnBjDsRLWI8NqrXByUaP8VDD88c068oueKOGprM9RCTATQ8o3Jf20URzYpQjXPLhtzkEqE9LEswhdf1YWUlO1wsmDl8zL1gtk9Kvygq42SjhsYJQvy5fCLZEn/WSd5/Eysc4shW8CKj1auMRWJ3fnoXgVe0O2io7w0lxGeaUUngqUKcZwKdcsW6KmRgtXkm7RHz7+XP+WSO4OeXWEB3Jm5KaESbueeZKHn62/aCNhr1sGEO1Rw9lKyg0SLtN029WHQVejH9zY0owUbusZ6+wkNUhd8hNR66QIz5lg+EiNwrWOYZ/XKSDiE9KJov5rdHq4V294aRY7fLNG+BZl+Np8CMkrV4TP0BXegBqGyW3UIHhUw00zfrV4DSrDi0NzuRniqU4lPCOXbmEW7Edqj7hN5XkcU0JzpomHu4lfQDYv6yaFxRQOnxIxtU4Wnqa8cstElu0wO2IkacLhdhsh7cg2rjM8q4wdXigL36IML5mJ6nblQ0W8w509hBDHE2QQrhN94RkWYIanZcvCs3MU4VDI2OY2AMiNa3hfi5UE2VrtqKL36V2iL3xZBbDCMzaUgiwc8jZkRIbD1ixUWmOCgOyNq/WHv7eqc5Awh8q8xm9Zq6aosKQDyMNPyOZMJRCwnf5UBQElpiky2yAgv8gSsc2KYqDyKmXDVdniUjZso0vHpLF/8y+d4XCIwWT4M3EiPBGeCE+Eq1mfErIDft9/ET4pJMIT4ZyEc/sUErfPnXH7pCG3z5Zy+zQxv8+Pc/vGAH7fEcHtW0H4fQ8Mv2/+4fhdTwm8+AHVp0YxuJWnyAAAAABJRU5ErkJggg==') /*../../Images/HomePage2/logo.png*/;
   width: 173px;
   height: 35px;
   background-repeat: no-repeat;
@@ -70,7 +74,8 @@
   display: inline-block;
 }
 .homePage .page-content nav ul li a,
-.homePage .page-content nav ul li label {
+.homePage .page-content nav ul li label,
+.homePage .page-content nav ul li span {
   color: #f5f5f5;
   text-decoration: none;
   align-items: center;
@@ -84,9 +89,11 @@
   -ms-transform: translate3d(0, 0, 0);
   -o-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
+  cursor: pointer;
 }
 .homePage .page-content nav ul li a:hover,
-.homePage .page-content nav ul li label:hover {
+.homePage .page-content nav ul li label:hover,
+.homePage .page-content nav ul li span:hover {
   color: #3293f6;
 }
 .homePage .page-content nav ul li label {
@@ -107,6 +114,7 @@
   margin: 0 -10px 0 0;
   background: rgba(255, 255, 255, 0.8);
   font-size: 14px;
+  margin-left: 100%;
 }
 .homePage .page-content nav ul li.language ul li {
   width: 100%;
@@ -144,20 +152,21 @@
     margin: 0;
     padding: 0;
     background: rgba(10, 10, 10, 0.85);
-    -moz-transform: scaleY(1);
-    -ms-transform: scaleY(1);
-    -o-transform: scaleY(1);
+    -moz-transform: scaleY(scaleSize);
+    -ms-transform: scaleY(scaleSize);
+    -o-transform: scaleY(scaleSize);
     -webkit-transform: scaleY(1);
-    transform: scaleY(1);
+    transform: scaleY(scaleSize);
     -moz-transform-origin: top;
     -ms-transform-origin: top;
     -o-transform-origin: top;
     -webkit-transform-origin: top;
     transform-origin: top;
-    -moz-transition: transform 0.26s ease;
-    -o-transition: transform 0.26s ease;
-    -webkit-transition: transform 0.26s ease;
-    transition: transform 0.26s ease;
+    -moz-transition: transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
+    -webkit-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
+    /*display: block;*/
   }
   .homePage .page-content nav ul li {
     display: block;
@@ -171,20 +180,21 @@
   }
   .homePage .page-content nav #menu-toggle:not(:checked) ~ ul {
     overflow: hidden;
-    -moz-transform: scaleY(0);
-    -ms-transform: scaleY(0);
-    -o-transform: scaleY(0);
+    -moz-transform: scaleY(scaleSize);
+    -ms-transform: scaleY(scaleSize);
+    -o-transform: scaleY(scaleSize);
     -webkit-transform: scaleY(0);
-    transform: scaleY(0);
+    transform: scaleY(scaleSize);
     -moz-transform-origin: top;
     -ms-transform-origin: top;
     -o-transform-origin: top;
     -webkit-transform-origin: top;
     transform-origin: top;
-    -moz-transition: transform 0.26s ease;
-    -o-transition: transform 0.26s ease;
-    -webkit-transition: transform 0.26s ease;
-    transition: transform 0.26s ease;
+    -moz-transition: transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
+    -webkit-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
+    /*display: block;*/
   }
   .homePage .page-content nav li {
     padding-right: 35px;
@@ -210,6 +220,10 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+.homePage .home-page-body .hide-section {
+  height: 0 !important;
+  padding: 0 !important;
+}
 .homePage .home-page-body section:not(.main) h1 {
   font-size: 46px;
   text-align: center;
@@ -220,6 +234,16 @@
   padding-bottom: 200px;
   margin-top: 100px;
   background: linear-gradient(to top, #000000 -50px, transparent 400px, transparent 100%);
+  padding: 0;
+}
+.homePage .home-page-body section.main #main-wrapper {
+  padding: 0 5% 50px 5%;
+  overflow: hidden;
+  position: relative;
+  /*&.collapse {
+                        padding: 0;
+                        height: 0;
+                    }*/
 }
 .homePage .home-page-body section.main h1 {
   color: #f5f5f5;
@@ -227,7 +251,7 @@
   max-width: 800px;
   text-align: center;
   margin: 0 auto;
-  margin: 100px auto 80px auto;
+  margin: 150px auto 80px auto;
   font-size: 50px;
   font-weight: bold;
   text-transform: capitalize;
@@ -257,6 +281,7 @@
   margin-bottom: 20px;
   font-size: 18px;
   line-height: 25px;
+  cursor: pointer;
 }
 .homePage .home-page-body section.main .signin-options .login-option > div {
   display: -webkit-flex;
@@ -275,6 +300,7 @@
   background: rgba(24, 28, 29, 0.85);
   text-align: center;
   line-height: 25px;
+  margin-bottom: 100px;
 }
 .homePage .home-page-body section.main .signin-options .login-option svg {
   width: 25px;
@@ -329,6 +355,431 @@
   width: 35px;
   height: 35px;
   fill: #f5f5f5;
+}
+.homePage .home-page-body section.main .login-wrapper {
+  display: none;
+}
+.homePage .home-page-body section.main .login-wrapper form {
+  position: relative;
+}
+.homePage .home-page-body section.main .login-wrapper form .close-form {
+  position: absolute;
+  left: -25px;
+  top: -10px;
+  padding: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+.homePage .home-page-body section.main .login-wrapper form .close-form svg {
+  width: 15px;
+  height: 15px;
+  fill: #888b8e;
+}
+.homePage .home-page-body section.main .login-wrapper .signin-options {
+  padding: 0 20px;
+  margin: 0 -30px 25px -30px;
+  width: inherit;
+}
+.homePage .home-page-body section.main .login-wrapper .signin-options .login-option {
+  margin: 0 0 20px 0;
+}
+.homePage .home-page-body section.main .login-wrapper input.form-control {
+  width: 100%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.homePage .home-page-body section.main .login-wrapper .form-actions {
+  display: flex;
+  justify-content: space-between;
+}
+.homePage .home-page-body section.main .login-wrapper .form-actions-container .form-group {
+  padding-left: 15px;
+  text-align: right;
+}
+.homePage .home-page-body section.main .login-wrapper.expand {
+  height: 100%;
+  min-height: calc(100vh - 100px);
+}
+.homePage .home-page-body section.main .login-wrapper.login {
+  margin: 50px 0;
+  /* select2 dropdowns */
+  /* footer copyright */
+}
+.homePage .home-page-body section.main .login-wrapper.login .logo {
+  padding: 15px;
+  text-align: center;
+}
+.homePage .home-page-body section.main .login-wrapper.login .logo svg {
+  fill: white;
+  width: 180px;
+  height: 43px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-bottom: 0;
+  padding: 30px;
+  padding-top: 20px;
+  padding-bottom: 15px;
+  background: rgba(24, 26, 22, 0.93);
+}
+.homePage .home-page-body section.main .login-wrapper.login .content h4 {
+  color: #8c99a6;
+  float: right;
+  font-size: 18px;
+  white-space: nowrap;
+  margin: 10px 0 10px 10px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content h3 {
+  color: #3598dc;
+  margin-top: 0;
+  margin-bottom: 28px;
+  text-align: center;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .create-account p,
+.homePage .home-page-body section.main .login-wrapper.login .content .login-account p {
+  color: #f5f5f5;
+  line-height: 40px;
+  margin-bottom: 0;
+  margin-top: 35px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .forget-password {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .forget-password p {
+  color: #8c99a6;
+  font-size: 11px;
+  margin: 0;
+  text-align: right;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-actions-container label {
+  color: #8c99a6;
+  font-size: 11px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .checker {
+  margin-right: -2px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .login-form,
+.homePage .home-page-body section.main .login-wrapper.login .content .forget-form {
+  padding: 0;
+  margin: 0;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-control {
+  padding-left: 1em;
+  background-color: #dde3ec;
+  color: #282828;
+  border-radius: 0;
+  padding-right: 15px;
+  border: 1px solid #c3c3c3;
+  -webkit-box-shadow: 0 0 0px 1000px #e9eaed inset;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-control:focus {
+  border-color: #c3ccda;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .forget-form {
+  display: none;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .register-form {
+  display: none;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-group {
+  margin-bottom: 20px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-group.first {
+  width: 44%;
+  float: right;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-group.second {
+  width: calc(56% - 10px);
+  float: left;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-group input {
+  height: 48px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .form-group input::-webkit-input-placeholder {
+  color: #8c99a6;
+}
+.homePage .home-page-body section.main .login-wrapper.login .form-group input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #8c99a6;
+}
+.homePage .home-page-body section.main .login-wrapper.login .form-group input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #8c99a6;
+}
+.homePage .home-page-body section.main .login-wrapper.login .form-group input:-ms-input-placeholder {
+  color: #8c99a6;
+}
+.homePage .home-page-body section.main .login-wrapper.login .form-actions-container {
+  display: flex;
+  margin-top: -20px;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.homePage .home-page-body section.main .login-wrapper.login .form-actions-container .form-group {
+  align-self: center;
+  max-width: 250px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-title {
+  font-weight: 300;
+  margin-bottom: 25px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .password-update-form .form-actions {
+  margin-bottom: 55px;
+  float: left;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .forgot-password-form .text {
+  margin-bottom: 30px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #8c99a6;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .forgot-password-form .form-actions {
+  margin-bottom: 55px;
+  float: left;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .forgot-password-form .form-actions .btn.blue {
+  margin-right: 10px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .check-email-message {
+  text-align: center;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .check-email-message .form-title {
+  margin-right: 0;
+  margin-bottom: 38px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .check-email-message .text {
+  margin-bottom: 145px;
+  font-size: 18px;
+  line-height: 22px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .check-email-message .text p {
+  color: #8c99a6;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .check-email-message .text .bold {
+  color: #6a737d;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .check-email-message .text svg {
+  fill: #5f6871;
+  width: 45px;
+  height: 45px;
+  margin-top: 25px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .check-email-message .text button {
+  color: #3293f6;
+  background: none;
+  border: none;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-actions {
+  background-color: transparent;
+  clear: both;
+  border: 0;
+  padding: 0 25px 25px 25px;
+  margin-right: -25px;
+  margin-left: -25px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-actions .checkbox-design {
+  display: inline-block;
+  width: inherit;
+  color: #8c99a6;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-actions .checkbox-design .remember-me {
+  display: inline-flex;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #888b8e;
+  padding: 0;
+  border-radius: 3px;
+  background: grey;
+  background: -webkit-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
+  background: -moz-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
+  background: -o-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
+  background: -ms-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
+  background: linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfff4', endColorstr='#b3bead', GradientType=0);
+  margin: 10px auto;
+  -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 1px 1px white, 0 1px 1px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-actions .checkbox-design .remember-me:before {
+  opacity: 0;
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 4px;
+  background: transparent;
+  top: 2px;
+  right: 1px;
+  border: 2px solid #000;
+  border-top: none;
+  border-right: none ;
+  -webkit-transform: rotate(-45deg) ;
+  -moz-transform: rotate(-45deg) ;
+  -o-transform: rotate(-45deg) ;
+  -ms-transform: rotate(-45deg) ;
+  transform: rotate(-45deg) ;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-actions .checkbox-design input[type="checkbox"] {
+  display: none;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-actions .checkbox-design input[type=checkbox]:checked ~ label:before {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-actions .btn-default {
+  margin-right: 10px;
+}
+.homePage .home-page-body section.main .login-wrapper.login #forget-password {
+  color: #3293f6;
+}
+.homePage .home-page-body section.main .login-wrapper.login #forget-password:hover {
+  color: #337ab7;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .forget-form .form-actions {
+  border: 0;
+  margin-bottom: 0;
+  padding-bottom: 20px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .register-form .form-actions {
+  border: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 0;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-actions .btn {
+  margin-top: 1px;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 17px;
+  font-weight: normal;
+  text-transform: none;
+  padding: 7px 24px;
+  background-color: #4190b9;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-actions .btn.cancel {
+  color: #333;
+  background-color: #c3c3c3;
+  margin-left: 5px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .create-account {
+  padding-top: 10px;
+  margin-top: 15px;
+  min-height: 50px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .login-account,
+.homePage .home-page-body section.main .login-wrapper.login .content .create-account {
+  padding-top: 0;
+  clear: both;
+  background: #4190b9;
+  margin: -30px;
+  text-align: center;
+  border: none;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .create-account a,
+.homePage .home-page-body section.main .login-wrapper.login .content .login-account a {
+  display: inline-block;
+  margin-top: 5px;
+  color: #f5f5f5;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .select2-container i {
+  display: inline-block;
+  position: relative;
+  color: #ccc;
+  z-index: 1;
+  top: 1px;
+  margin: 4px -1px 0 4px;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  text-align: center;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .has-error .select2-container i,
+.homePage .home-page-body section.main .login-wrapper.login .field-validation-error {
+  color: #b94a48;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .select2-container a span {
+  font-size: 13px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .select2-container a span img {
+  margin-right: 4px;
+}
+.homePage .home-page-body section.main .login-wrapper.login #ssIFrame_google {
+  right: -9999px !important;
+}
+.homePage .home-page-body section.main .login-wrapper.login .copyright {
+  text-align: center;
+  margin: 0 auto;
+  padding: 10px;
+  color: #eee;
+  font-size: 13px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .login-options {
+  clear: both;
+}
+.homePage .home-page-body section.main .login-wrapper.login .login-options .facebook,
+.homePage .home-page-body section.main .login-wrapper.login .login-options .google {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 0;
+  width: inherit;
+  float: left;
+}
+.homePage .home-page-body section.main .login-wrapper.login .login-options .facebook svg {
+  fill: #8493B3;
+}
+.homePage .home-page-body section.main .login-wrapper.login .login-options .google svg {
+  fill: #E07B6F;
+}
+.homePage .home-page-body section.main .login-wrapper.login .login-options svg {
+  width: 37px;
+  height: 37px;
+  margin-left: 0;
+}
+.homePage .home-page-body section.main .login-wrapper.login label a {
+  color: #30333A;
+}
+@media (max-width: 480px) {
+  .homePage .home-page-body section.main .login-wrapper.login {
+    /***
+  Login page
+  ***/
+    /*.login .logo {
+    margin-top: 10px;
+  }*/
+  }
+  .homePage .home-page-body section.main .login-wrapper.login .content {
+    padding: 30px;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .homePage .home-page-body section.main .login-wrapper.login .content h3 {
+    font-size: 22px;
+  }
+  .homePage .home-page-body section.main .login-wrapper.login .checkbox {
+    font-size: 13px;
+  }
 }
 .homePage .home-page-body section.about {
   background: #4190B9;
@@ -548,25 +999,25 @@
   /* You may have to set 'display: block' */
   width: 128px;
   height: 128px;
-  background: url('../../Images/HomePage2/testimonials.jpg') -1px -388px;
+  background: url('../../Images/HomePage2/homePage.png') -1px -435px;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+2) .user-image {
   /* You may have to set 'display: block' */
   width: 128px;
   height: 128px;
-  background: url('../../Images/HomePage2/testimonials.jpg') -1px -1px;
+  background: url('../../Images/HomePage2/homePage.png') -1px -48px;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+3) .user-image {
   /* You may have to set 'display: block' */
   width: 128px;
   height: 128px;
-  background: url('../../Images/HomePage2/testimonials.jpg') -1px -130px;
+  background: url('../../Images/HomePage2/homePage.png') -1px -177px;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+4) .user-image {
   /* You may have to set 'display: block' */
   width: 128px;
   height: 128px;
-  background: url('../../Images/HomePage2/testimonials.jpg') -1px -259px;
+  background: url('../../Images/HomePage2/homePage.png') -1px -306px;
 }
 .homePage .home-page-body footer {
   background: #5d6063;
@@ -593,6 +1044,21 @@
 }
 .homePage .home-page-body footer .content .app .app-links {
   margin-top: 70px;
+}
+.homePage .home-page-body footer .content .app .app-links a {
+  display: inline-block;
+}
+.homePage .home-page-body footer .content .app .app-links .googlePlay {
+  /* You may have to set 'display: block' */
+  width: 160px;
+  height: 46px;
+  background: url('../../Images/HomePage2/homePage.png') -1px -1px;
+}
+.homePage .home-page-body footer .content .app .app-links .appSotre {
+  /* You may have to set 'display: block' */
+  width: 160px;
+  height: 46px;
+  background: url('../../Images/HomePage2/homePage.png') -1px -564px;
 }
 .homePage .home-page-body footer .content .info {
   width: 100%;
@@ -634,9 +1100,6 @@
   .homePage .home-page-body section:not(.main) h1 {
     margin-top: 0;
     font-size: 11vw;
-  }
-  .homePage .home-page-body section.main {
-    padding-bottom: 100px;
   }
   .homePage .home-page-body section.main h1 {
     font-size: 8vw;

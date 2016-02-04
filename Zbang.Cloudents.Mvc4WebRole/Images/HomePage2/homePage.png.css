@@ -1,27 +1,39 @@
 ﻿/*
 This is an example of how to use the image sprite in your own CSS files
 */
+.Images-HomePage2-google {
+/* You may have to set 'display: block' */
+	width: 160px;
+	height: 46px;
+	background: url('homePage.png') -1px -1px;
+}
 .Images-HomePage2-testimonial1 {
 /* You may have to set 'display: block' */
 	width: 128px;
 	height: 128px;
-	background: url('testimonials.jpg') -1px -1px;
+	background: url('homePage.png') -1px -48px;
 }
 .Images-HomePage2-testimonial2 {
 /* You may have to set 'display: block' */
 	width: 128px;
 	height: 128px;
-	background: url('testimonials.jpg') -1px -130px;
+	background: url('homePage.png') -1px -177px;
 }
 .Images-HomePage2-testimonial3 {
 /* You may have to set 'display: block' */
 	width: 128px;
 	height: 128px;
-	background: url('testimonials.jpg') -1px -259px;
+	background: url('homePage.png') -1px -306px;
 }
 .Images-HomePage2-testimonial4 {
 /* You may have to set 'display: block' */
 	width: 128px;
 	height: 128px;
-	background: url('testimonials.jpg') -1px -388px;
+	background: url('homePage.png') -1px -435px;
+}
+.Images-HomePage2-apple {
+/* You may have to set 'display: block' */
+	width: 160px;
+	height: 46px;
+	background: url('homePage.png') -1px -564px;
 }

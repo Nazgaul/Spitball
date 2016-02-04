@@ -35,8 +35,7 @@
         handler: function (direction) {
             if (direction === 'down') {
                 $('.go-top').css('bottom', '12px').css('opacity', '1');
-            }
-            else {
+            } else {
                 $('.go-top').css('bottom', '-44px').css('opacity', '0');
             }
         }
@@ -84,5 +83,29 @@
 
     //#endregion
 
+    Metronic.init(); // init metronic core components
+    Layout.init(); // init current layout
+    Login.init();
+
+    var animatonSpeed = 300;
+
+    $('#signin, .login-option.signup').click(function () {
+        toggleForm();
+        $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
+    });
+
+    $('.close-form').click(function () {
+        toggleForm();
+        $('#main-wrapper').css('min-height', 0).height('auto');
+    });
+
+    function toggleForm() {
+        $.each($('.home-page-body > *:not(.main)'),
+            function () {
+                $(this).slideToggle(animatonSpeed);
+            });
+        $('.login-wrapper, #main-wrapper h1').slideToggle(animatonSpeed);
+        $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options, header ul, .navbar-toggle').toggleClass('hidden');
+    }
 
 })(window.document);
