@@ -183,9 +183,6 @@
 .add-comment.new-post .new-comment-border :placeholder-shown {
   color: #888b8e;
 }
-.add-comment.new-post .actions {
-  border-top: 1px solid #888b8e;
-}
 .member-invite {
   background: #4190b9;
 }
@@ -197,7 +194,8 @@
 }
 .item .base,
 .quiz .base {
-  border: 1px solid #3d4348;
+  border-width: 1px;
+  border-style: solid;
 }
 .item .stats,
 .quiz .stats {
@@ -346,7 +344,7 @@ body {
 }
 .dashboard-stat2,
 .box-cube {
-  outline: 1px solid transparent;
+  border: 1px solid transparent;
   background: #323538;
 }
 .dashboard-stat2 .display .number small {
@@ -1234,4 +1232,238 @@ md-chips .md-chips.md-focused {
 }
 .color-1 {
   color: #4190b9;
+}
+.theme-dark .backgroundTC1 {
+  background: #323538 !important;
+}
+.theme-dark .textTC1 {
+  color: #323538 !important;
+}
+.theme-dark .inputTC1::-webkit-input-placeholder {
+  color: #323538 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC1:-moz-placeholder {
+  /* Firefox 18- */
+  color: #323538 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC1::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #323538 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC1:-ms-input-placeholder {
+  color: #323538 !important;
+  opacity: 1 !important;
+}
+.theme-dark .svgTC1 {
+  fill: #323538 !important;
+}
+.theme-dark .borderTC1 {
+  border-color: #323538 !important;
+}
+.theme-dark .hoverBackgroundTC1:hover {
+  background: #323538 !important;
+}
+.theme-dark .hoverTextTC1:hover {
+  color: #323538 !important;
+}
+.theme-dark .hoverSvgTC1:hover {
+  fill: #323538 !important;
+}
+.theme-dark .backgroundTC2 {
+  background: #888b8e !important;
+}
+.theme-dark .textTC2 {
+  color: #888b8e !important;
+}
+.theme-dark .inputTC2::-webkit-input-placeholder {
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC2:-moz-placeholder {
+  /* Firefox 18- */
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC2::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC2:-ms-input-placeholder {
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-dark .svgTC2 {
+  fill: #888b8e !important;
+}
+.theme-dark .borderTC2 {
+  border-color: #888b8e !important;
+}
+.theme-dark .hoverBackgroundTC2:hover {
+  background: #888b8e !important;
+}
+.theme-dark .hoverTextTC2:hover {
+  color: #888b8e !important;
+}
+.theme-dark .hoverSvgTC2:hover {
+  fill: #888b8e !important;
+}
+.theme-dark .backgroundTC3 {
+  background: #4190b9 !important;
+}
+.theme-dark .textTC3 {
+  color: #4190b9 !important;
+}
+.theme-dark .inputTC3::-webkit-input-placeholder {
+  color: #4190b9 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC3:-moz-placeholder {
+  /* Firefox 18- */
+  color: #4190b9 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC3::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #4190b9 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC3:-ms-input-placeholder {
+  color: #4190b9 !important;
+  opacity: 1 !important;
+}
+.theme-dark .svgTC3 {
+  fill: #4190b9 !important;
+}
+.theme-dark .borderTC3 {
+  border-color: #4190b9 !important;
+}
+.theme-dark .hoverBackgroundTC3:hover {
+  background: #4190b9 !important;
+}
+.theme-dark .hoverTextTC3:hover {
+  color: #4190b9 !important;
+}
+.theme-dark .hoverSvgTC3:hover {
+  fill: #4190b9 !important;
+}
+.theme-dark .backgroundTC4 {
+  background: #f5f5f5 !important;
+}
+.theme-dark .textTC4 {
+  color: #f5f5f5 !important;
+}
+.theme-dark .inputTC4::-webkit-input-placeholder {
+  color: #f5f5f5 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC4:-moz-placeholder {
+  /* Firefox 18- */
+  color: #f5f5f5 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC4::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #f5f5f5 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC4:-ms-input-placeholder {
+  color: #f5f5f5 !important;
+  opacity: 1 !important;
+}
+.theme-dark .svgTC4 {
+  fill: #f5f5f5 !important;
+}
+.theme-dark .borderTC4 {
+  border-color: #f5f5f5 !important;
+}
+.theme-dark .hoverBackgroundTC4:hover {
+  background: #f5f5f5 !important;
+}
+.theme-dark .hoverTextTC4:hover {
+  color: #f5f5f5 !important;
+}
+.theme-dark .hoverSvgTC4:hover {
+  fill: #f5f5f5 !important;
+}
+.theme-dark .backgroundTC5 {
+  background: #3d4348 !important;
+}
+.theme-dark .textTC5 {
+  color: #3d4348 !important;
+}
+.theme-dark .inputTC5::-webkit-input-placeholder {
+  color: #3d4348 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC5:-moz-placeholder {
+  /* Firefox 18- */
+  color: #3d4348 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC5::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #3d4348 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC5:-ms-input-placeholder {
+  color: #3d4348 !important;
+  opacity: 1 !important;
+}
+.theme-dark .svgTC5 {
+  fill: #3d4348 !important;
+}
+.theme-dark .borderTC5 {
+  border-color: #3d4348 !important;
+}
+.theme-dark .hoverBackgroundTC5:hover {
+  background: #3d4348 !important;
+}
+.theme-dark .hoverTextTC5:hover {
+  color: #3d4348 !important;
+}
+.theme-dark .hoverSvgTC5:hover {
+  fill: #3d4348 !important;
+}
+.theme-dark .backgroundTC6 {
+  background: #2698d4 !important;
+}
+.theme-dark .textTC6 {
+  color: #2698d4 !important;
+}
+.theme-dark .inputTC6::-webkit-input-placeholder {
+  color: #2698d4 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC6:-moz-placeholder {
+  /* Firefox 18- */
+  color: #2698d4 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC6::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #2698d4 !important;
+  opacity: 1 !important;
+}
+.theme-dark .inputTC6:-ms-input-placeholder {
+  color: #2698d4 !important;
+  opacity: 1 !important;
+}
+.theme-dark .svgTC6 {
+  fill: #2698d4 !important;
+}
+.theme-dark .borderTC6 {
+  border-color: #2698d4 !important;
+}
+.theme-dark .hoverBackgroundTC6:hover {
+  background: #2698d4 !important;
+}
+.theme-dark .hoverTextTC6:hover {
+  color: #2698d4 !important;
+}
+.theme-dark .hoverSvgTC6:hover {
+  fill: #2698d4 !important;
 }

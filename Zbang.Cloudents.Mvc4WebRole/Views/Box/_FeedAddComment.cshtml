@@ -17,7 +17,7 @@
             <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: '!'}" ng-include="'file-upload.html'">
         </ul>
     </div>
-    <div class="actions" layout="row" layout-align="space-between center">
+    <div class="actions borderTC2" layout="row" layout-align="space-between center">
         <div class="upload-options" layout="row" layout-wrap layout-align="space-between start">
             <a user-not-register-popup="click" plupload="f.add.fileUpload.url" ng-click="f.add.upload()"
                plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks" ga-track-event="['box-new-commnet', 'addFile']">

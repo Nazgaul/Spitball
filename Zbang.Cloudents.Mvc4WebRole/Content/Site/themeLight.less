@@ -464,7 +464,7 @@
     }
     /*#endregion*/
     /*#region feed.less*/
-     .feed {
+    .feed {
         .comment-date {
             color: @svgDots;
         }
@@ -481,29 +481,24 @@
             .c-img {
                 border: 3px solid @borderColorDarkGrey;
             }
-
             //.like {
             //    color: @textColorLike;
             //}
-
             .user-name {
                 color: @textColorBlue;
             }
         }
 
         .reply {
-
             //.like {
             //    color: @textColorDarkGrey;
             //}
-
             //.margins {
             //    &:hover {
             //        border-color: @textColorHover;
             //        color: @textColorHover;
             //    }
             //}
-
             .user-name {
                 color: @textColorBlue;
             }
@@ -511,8 +506,7 @@
 
         .actions {
             color: @textColorBlue;
-            border-top: 1px solid @textColorDarkGrey;
-
+            //border-top: 1px solid @textColorDarkGrey;
             svg {
                 fill: @textColorGrey;
             }
@@ -591,10 +585,6 @@
             border-color: @Color !important;
         }
 
-        &.outline@{name} {
-            outline-color: @Color !important;
-        }
-
         &.hoverBackground@{name} {
             &:hover {
                 background: @Color !important;
@@ -658,4 +648,14 @@
     }
     /*#endregion*/
     /*#endregion*/
+}
+
+
+.theme-light {
+    .themeClasses(TC1, @backgroundColorMenu);
+    .themeClasses(TC2, @textColorLightGrey);
+    .themeClasses(TC3, @buttonColorBlue);
+    .themeClasses(TC4, @textColorBlack);
+    .themeClasses(TC5, @textColorGrey);
+    .themeClasses(TC6, @textColorBlue);
 }

@@ -243,10 +243,6 @@
                     color: @textColorGrey;
                 }
             }
-
-            .actions {
-                border-top: 1px solid @textColorGrey;
-            }
         }
     }
 
@@ -267,7 +263,8 @@
     .item, .quiz {
 
         .base {
-            border: 1px solid @borderColorGrey;
+            border-width: 1px;
+            border-style: solid;
         }
 
         .stats {
@@ -467,7 +464,7 @@
     }
 
     .dashboard-stat2, .box-cube {
-        outline: 1px solid transparent;
+        border: 1px solid transparent;
         background: @backgroundColorMenu;
     }
 

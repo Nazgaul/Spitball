@@ -293,6 +293,8 @@
   font-size: 18px;
 }
 .add-comment.new-post .actions {
+  border-top-width: 1px;
+  border-top-style: solid;
   padding: 10px;
 }
 .member-invite {

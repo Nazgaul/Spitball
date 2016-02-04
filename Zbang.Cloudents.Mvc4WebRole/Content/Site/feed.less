@@ -7,17 +7,19 @@
     .ribbon {
         bottom: 1em;
     }
+
     .stats {
-        color:@textColorGrey;
-        font-size:13px;
+        color: @textColorGrey;
+        font-size: 13px;
     }
 
     .comment-date {
         color: @svgDots;
         font-size: 12px;
     }
+
     .indent {
-        margin-left:50px;
+        margin-left: 50px;
     }
 
     .items-slider {
@@ -75,6 +77,8 @@
             //color:@textColorBlue;
             margin: 20px 40px 0;
             padding: 10px 0;
+            border-top-width: 1px;
+            border-top-style: solid;
 
             svg {
                 fill: @textColorBlue;
@@ -137,7 +141,6 @@
             margin-top: 5px;
             display: inline-block;
         }
-
         /*.comment-date {
             margin-left: 47px;
         }*/
@@ -149,7 +152,7 @@
 
         .actions {
             margin-top: 0;
-            border:none;
+            border: none;
             //&.padding {
             //    padding-left: 9px;
             //    margin-top: 10px;
@@ -182,28 +185,27 @@
             color: @textColorBlue;
             font-weight: normal;
         }
-
         /*.comment-date {
             margin-left: 51px;
         }*/
-
         //.content-text {
-            //margin-left: 50px;
-            /*-ms-word-break: break-word;
+        //margin-left: 50px;
+        /*-ms-word-break: break-word;
             word-break: break-word;*/
         //}
     }
 
     .actions {
         color: @textColorBlue;
-        border-top: 1px solid @textColorDarkGrey;
+        //border-top: 1px solid @textColorDarkGrey;
         //padding-bottom: 10px;
         margin-top: 10px;
         font-size: 13px;
         position: relative; // this is for ribbon
         svg {
-            width: 20px;
-            height: 20px;
+            width: 17px;
+            height: 17px;
+            padding-bottom: 2px;
             fill: @textColorGrey;
             vertical-align: middle;
         }
@@ -276,5 +278,65 @@
     }*/
     .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
         fill: @anonymousColor;
+    }
+}
+
+
+
+.md-dialog-container {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.like-dialog {
+    max-width: 450px;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    background: none;
+
+    md-toolbar {
+        min-height: 0;
+        padding: 20px 25px;
+
+        h2 {
+            margin: 0;
+            font-size: 16px;
+            min-height: 0;
+        }
+
+        button {
+            @closeHeight: 15px;
+            min-width: 0;
+            min-height: 0;
+            margin: 0;
+            padding: 0;
+            line-height: 0;
+            height: @closeHeight;
+
+            svg {
+                width: @closeHeight;
+                height: @closeHeight;
+            }
+        }
+    }
+
+    md-dialog-content {
+        ul {
+            margin-bottom: 0;
+            //max-height: 400px;
+            li {
+                padding: 15px 0;
+                margin: 0 25px;
+
+                &:not(:nth-last-child(2)) {
+                    border-bottom: 1px solid;
+                }
+
+                a {
+                    align-items: center;
+                    margin-bottom: 0;
+                }
+            }
+        }
     }
 }

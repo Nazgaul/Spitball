@@ -208,3 +208,45 @@
     -webkit-line-clamp: @lines;
     -webkit-box-orient: vertical;
 }
+
+
+
+.themeClasses(@name, @Color) {
+    .background@{name} {
+        background: @Color !important;
+    }
+
+    .text@{name} {
+        color: @Color !important;
+    }
+
+    .input@{name} {
+        .placeHolder(@Color) !important;
+    }
+
+    .svg@{name} {
+        fill: @Color !important;
+    }
+
+    .border@{name} {
+        border-color: @Color !important;
+    }
+
+    .hoverBackground@{name} {
+        &:hover {
+            background: @Color !important;
+        }
+    }
+
+    .hoverText@{name} {
+        &:hover {
+            color: @Color !important;
+        }
+    }
+
+    .hoverSvg@{name} {
+        &:hover {
+            fill: @Color !important;
+        }
+    }
+}
