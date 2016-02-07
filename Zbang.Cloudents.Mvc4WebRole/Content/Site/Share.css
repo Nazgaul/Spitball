@@ -16,6 +16,9 @@
   display: block;
   margin: 0 auto;
 }
+.portlet.light.invite span {
+  white-space: pre-wrap;
+}
 .invite-container {
   display: flex;
   padding: 12px;

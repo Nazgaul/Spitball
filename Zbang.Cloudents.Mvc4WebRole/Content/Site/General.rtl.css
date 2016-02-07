@@ -370,6 +370,9 @@ md-tabs md-ink-bar {
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
   flex-direction: column;
+  white-space: pre-wrap;
+  font-size: 16px;
+  line-height: 16px;
 }
 .create-box .create-txt,
 .create-box .create-department {
@@ -395,7 +398,8 @@ md-tabs md-ink-bar {
   margin: 0;
 }
 .create-box .plus {
-  margin-bottom: 12px;
+  margin-bottom: 25px;
+  margin-top: 20px;
 }
 .create-box .plus svg {
   width: 50px;

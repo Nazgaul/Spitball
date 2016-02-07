@@ -6,14 +6,14 @@
 }
 
 <div class="aboutUs-page">
-    <div class="row margin-bottom-40 about-header">
-        <div class="col-md-12">
+    <div class="about-header">
+        <div flex="100">
             <h1>@AboutUsResources.Title</h1>
             <h2>@AboutUsResources.Subtitle</h2>
         </div>
     </div>
-    <div class="advantages row margin-bottom-20">
-        <div class="col-lg-3 col-md-6">
+    <div class="advantages" layout="row" layout-align="space-between start" layout-wrap>
+        <div flex="50" flex-lg="25" flex-xs="100">
             <div class="portlet light">
                 <div class="card-icon web">
                     @Html.Svg("/images/homepage2/homePageIcons.svg", "web")
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div flex="50" flex-lg="25" flex-xs="100">
             <div class="portlet light">
                 <div class="card-icon speech">
                     @Html.Svg("/images/homepage2/homePageIcons.svg", "speech")
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div flex="50" flex-lg="25" flex-xs="100">
             <div class="portlet light">
                 <div class="card-icon social-network">
                     @Html.Svg("/images/homepage2/homePageIcons.svg", "social-network")
@@ -58,7 +58,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div flex="50" flex-lg="25" flex-xs="100">
             <div class="portlet light">
                 <div class="card-icon hand">
                     @Html.Svg("/images/homepage2/homePageIcons.svg", "hand214")
@@ -74,8 +74,8 @@
             </div>
         </div>
     </div>
-    <div class="middle-area margin-bottom-40" layout="row" layout-align="space-between start" layout-wrap>
-        <div class="about-text-wrapper" flex-xs="100" flex-gt-xs="45">
+    <div class="middle-area" layout="row" layout-align="space-between start" layout-wrap>
+        <div class="about-text-wrapper" flex="100" flex-gt-sm="45">
             <div class="portlet light about-text">
                 <h4>
                     @AboutUsResources.DescriptionQ1
@@ -85,19 +85,19 @@
                 </p>
             </div>
         </div>
-        <div flex-xs="100" flex-gt-xs="50">
+        <div flex="100" flex-gt-sm="50">
             <div class="video-wrapper">
                 <iframe src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
     </div>
-    <div class="row margin-bottom-40 team-header" data-auto-height="true">
-        <div class="col-md-12 margin-top-20">
+    <div class="team-header" data-auto-height="true">
+        <div flex-md="100">
             <h1>@AboutUsResources.TeamHeader</h1>
         </div>
     </div>
-    <div class="row margin-bottom-40 team">
-        <div class="col-lg-3 col-md-6">
+    <div class="team" layout="row" layout-wrap>
+        <div flex="50" flex-lg="25" flex-xs="100">
             <div class="portlet light">
                 <div class="photo">
                     <img src="/images/aboutUs/eidan.png" alt="" class="img-responsive" />
@@ -110,7 +110,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div flex="50" flex-lg="25" flex-xs="100">
             <div class="portlet light">
                 <div class="photo">
                     <img src="/images/aboutUs/matan.png" alt="" class="img-responsive" />
@@ -123,7 +123,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div flex="50" flex-lg="25" flex-xs="100">
             <div class="portlet light">
                 <div class="photo">
                     <img src="/images/aboutUs/ram.png" alt="" class="img-responsive" />
@@ -136,7 +136,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-6">
+        <div flex="50" flex-lg="25" flex-xs="100">
             <div class="portlet light">
                 <div class="photo">
                     <img src="/images/aboutUs/shlomi.png" alt="" class="img-responsive" />
@@ -150,7 +150,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-6">
+        <div flex="50" flex-lg="25" flex-xs="100">
             <div class="portlet light">
                 <div class="photo">
                     <img src="/images/aboutUs/irena.png" alt="" class="img-responsive" />

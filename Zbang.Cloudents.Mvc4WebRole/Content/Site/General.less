@@ -63,10 +63,10 @@ em {
 
 input, li, [contenteditable], span, textarea, [role="button"] {
     outline: 0;
-    
 }
+
 input[type="search"] {
-    box-sizing:border-box;
+    box-sizing: border-box;
 }
 
 .page-body {
@@ -406,6 +406,9 @@ md-tabs {
             -ms-flex-direction: column;
             -webkit-flex-direction: column;
             flex-direction: column;
+            white-space: pre-wrap;
+            font-size: 16px;
+            line-height: 16px;
         }
     }
 
@@ -430,7 +433,8 @@ md-tabs {
     }
 
     .plus {
-        margin-bottom: 12px;
+        margin-bottom: 25px;
+        margin-top: 20px;
 
         svg {
             width: 50px;
@@ -899,10 +903,11 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
     -webkit-flex: 1;
     flex: 1;
 }
+
 .google-ad {
     .displayFlex();
-
 }
+
 .i-student-ad {
     padding: 12px;
 

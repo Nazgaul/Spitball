@@ -127,7 +127,8 @@
     <value>Follow</value>
   </data>
   <data name="InviteFriends" xml:space="preserve">
-    <value>Invite friends</value>
+    <value>Invite your classmates to get the most of this class</value>
+    <comment>New</comment>
   </data>
   <data name="Items" xml:space="preserve">
     <value>Documents</value>
