@@ -118,7 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddSchool" xml:space="preserve">
-    <value>Add your university</value>
+    <value>Add your school</value>
+    <comment>New</comment>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
@@ -163,6 +164,25 @@
     <value>Find your school</value>
   </data>
   <data name="UniversitySearchTitle" xml:space="preserve">
-    <value>Welcome to Spitball!</value>
+    <value>Select your school to start Spitballing with your classmates</value>
+    <comment>New</comment>
+  </data>
+  <data name="UniveristySearchNoUniversityTitle" xml:space="preserve">
+    <value>Um, this is awkward...</value>
+    <comment>New</comment>
+  </data>
+  <data name="UniversityAddSchoolTitle" xml:space="preserve">
+    <value>Thank you for making the effort to do 
+something big for you and your classmates</value>
+    <comment>New</comment>
+  </data>
+  <data name="UniversitySearchNoUniversityText" xml:space="preserve">
+    <value>We can't find your school in our records
+Make Spitball better by adding it</value>
+    <comment>New</comment>
+  </data>
+  <data name="UniversitySearchTitleTyping" xml:space="preserve">
+    <value>Let’s Spitball!</value>
+    <comment>New</comment>
   </data>
 </root>

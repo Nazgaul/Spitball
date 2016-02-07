@@ -4,6 +4,7 @@
     @media (min-width: 960px) {
         margin-left: -250px;
     }
+
     .univeristy {
         .displayFlex();
         font-weight: 700;
@@ -33,11 +34,25 @@
         width: 100%;
     }
 
-    .add-uni-btn {
-        .displayFlex();
-        .align-items(center);
-        margin-bottom: 30px;
+    .no-result {
+        text-align: center;
 
+        h4 {
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .sub-text {
+            white-space: pre-wrap;
+            font-size: 23px;
+            margin-bottom: 50px;
+        }
+    }
+
+    .add-uni-btn {
+        //.displayFlex();
+        //.align-items(center);
+        //.justifyContet(center);
         span {
             height: 70px;
             width: 70px;
@@ -61,6 +76,20 @@
     .add-univeristy {
         max-width: 450px;
         margin: 0 auto;
+
+        h2 {
+            text-align: center;
+            white-space: pre-wrap;
+        }
+
+        form > div {
+            border-width:1px;
+            border-style:solid;
+            //border: 1px solid #c3c3c3;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
 
         .btn {
             padding: 0 16px;

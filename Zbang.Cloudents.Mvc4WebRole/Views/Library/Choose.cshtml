@@ -1,7 +1,9 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 <div ng-if="!lc.needCode && !lc.createUniversity" id="lib-choose">
     <div class="search-form-wrapper">
-        <div class="intro-text">@LibraryResources.UniversitySearchTitle</div>
+
+        <div class="intro-text" ng-if="!lc.term">@LibraryResources.UniversitySearchTitle</div>
+        <div class="intro-text" ng-if="lc.term">@LibraryResources.UniversitySearchTitleTyping</div>
         <form name="libraryChooseForm" novalidate ng-submit="lc.universitySearch(libraryChooseForm)" layout="row" layout-wrap>
             <input spellcheck="false" autofocus required ng-disabled="lc.createUniversity" type="search" class="search-text color-override inputColor6" placeholder="@LibraryResources.UniversitySearchPlaceholder"
                    ng-model="lc.term" ng-model-options="{debounce : 250}" ng-change="lc.universitySearch(libraryChooseForm)" ng-minlength="2" />
@@ -11,31 +13,30 @@
         </form>
     </div>
 
-    <div layout="row" layout-align="start center" layout-padding layout-wrap ng-if="!lc.createUniversity" srph-infinite-scroll="lc.paging()" class="results">
-        <div flex="100" class="flex" ng-repeat="u in lc.universities track by u.id">
-            <div ng-click="lc.selectUniversity(u)" class="univeristy" ga-track-event="['universityChoose', 'selected university']">
-                <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
-                <div>
-                    <span class="ellipsis color-1">{{::u.name}}</span>
-                    <ul class="list-inline">
-                        <li ng-repeat="img in ::u.userImages track by $index">
-                            <img ng-src="{{::img}}" width="30" height="30" />
-                        </li>
-                        <li ng-if="u.extraPeople">+{{::u.extraPeople}}</li>
-                    </ul>
-
-                </div>
+    <div ng-if="!lc.createUniversity" srph-infinite-scroll="lc.paging()" class="results">
+        <div ng-repeat="u in lc.universities track by u.id" ng-click="lc.selectUniversity(u)" class="univeristy" ga-track-event="['universityChoose', 'selected university']">
+            <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
+            <div>
+                <span class="ellipsis color-1">{{::u.name}}</span>
+                <ul class="list-inline">
+                    <li ng-repeat="img in ::u.userImages track by $index">
+                        <img ng-src="{{::img}}" width="30" height="30" />
+                    </li>
+                    <li ng-if="u.extraPeople">+{{::u.extraPeople}}</li>
+                </ul>
             </div>
         </div>
-        <div flex="100" class="flex" ng-if="lc.term.length > 2">
-            <div class="add-uni-btn" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">
+        <div ng-if="lc.term.length > 2" class="no-result">
+            <h4 class="textTC7">@LibraryResources.UniveristySearchNoUniversityTitle</h4>
+            <div class="sub-text">@LibraryResources.UniversitySearchNoUniversityText</div>
+            <div layout="row" layout-align="center center" class="add-uni-btn textTC2" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">
                 <span>@Html.Svg("~/images/site/icons.svg", "add")</span>
                 <div class="text-capitalize">@LibraryResources.AddSchool</div>
             </div>
         </div>
     </div>
 
-   
+
 </div>
 @{ Html.RenderPartial("_ChooseCreateUniversity");}
 @{ Html.RenderPartial("_ChooseEnterCode");}

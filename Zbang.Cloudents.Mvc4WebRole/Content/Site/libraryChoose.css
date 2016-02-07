@@ -28,13 +28,17 @@
 .library-choose .search-text {
   width: 100%;
 }
-.library-choose .add-uni-btn {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  margin-bottom: 30px;
+.library-choose .no-result {
+  text-align: center;
+}
+.library-choose .no-result h4 {
+  font-size: 25px;
+  font-weight: 700;
+}
+.library-choose .no-result .sub-text {
+  white-space: pre-wrap;
+  font-size: 23px;
+  margin-bottom: 50px;
 }
 .library-choose .add-uni-btn span {
   height: 70px;
@@ -55,6 +59,17 @@
 .library-choose .add-univeristy {
   max-width: 450px;
   margin: 0 auto;
+}
+.library-choose .add-univeristy h2 {
+  text-align: center;
+  white-space: pre-wrap;
+}
+.library-choose .add-univeristy form > div {
+  border-width: 1px;
+  border-style: solid;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 4px;
 }
 .library-choose .add-univeristy .btn {
   padding: 0 16px;
