@@ -576,6 +576,7 @@ md-tabs md-ink-bar {
 }
 .button-Blue {
   background: #4190b9 !important;
+  text-transform: initial;
   /*&:focus {
         color: inherit;
     }*/

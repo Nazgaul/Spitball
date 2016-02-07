@@ -160,11 +160,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No results were found.
+        ///   Looks up a localized string similar to We came out short....
         /// </summary>
-        public static string NoResults {
+        public static string NoResultsTitle {
             get {
-                return ResourceManager.GetString("NoResults", resourceCulture);
+                return ResourceManager.GetString("NoResultsTitle", resourceCulture);
             }
         }
         
@@ -228,6 +228,63 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no courses in your school that matches your search,
+        ///but try checking the quizzes tab for related material.
+        /// </summary>
+        public static string SearchEmptyStateClassesText {
+            get {
+                return ResourceManager.GetString("SearchEmptyStateClassesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you are taking a course that hasn&apos;t been made yet, .
+        /// </summary>
+        public static string SearchEmptyStateCreateCourse {
+            get {
+                return ResourceManager.GetString("SearchEmptyStateCreateCourse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to create it!.
+        /// </summary>
+        public static string SearchEmptyStateCreateCourseLinkText {
+            get {
+                return ResourceManager.GetString("SearchEmptyStateCreateCourseLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for documents.
+        /// </summary>
+        public static string SearchEmptyStateDocumentsButton {
+            get {
+                return ResourceManager.GetString("SearchEmptyStateDocumentsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no documents in your school that matches your search,
+        ///but try checking the classes tab for related material.
+        /// </summary>
+        public static string SearchEmptyStateDocumentsText {
+            get {
+                return ResourceManager.GetString("SearchEmptyStateDocumentsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no quizzes in your school that matches your search,
+        ///but try checking the documents tab for related material.
+        /// </summary>
+        public static string SearchEmptyStateQuizzesText {
+            get {
+                return ResourceManager.GetString("SearchEmptyStateQuizzesText", resourceCulture);
             }
         }
         

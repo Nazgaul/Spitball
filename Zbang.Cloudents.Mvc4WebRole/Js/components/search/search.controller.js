@@ -46,7 +46,7 @@
 
         }
         function assignTab() {
-            self.tab = self.state.box;
+            self.tab = self.state.item;
             self.tabIndex = 0;
             var index = 0;
             for (var prop in self.state) {

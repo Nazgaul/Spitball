@@ -4,8 +4,8 @@
 
 @*<button type="button" class="close" ng-click="app.back('/dashboard/')" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>*@
 @*<form novalidate remove-keyboard ng-submit="s.search()">
-    <input type="search" class="search-text" placeholder="@GeneralResources.Search" autofocus ng-model="s.term" ng-model-options="{debounce : 300}" ng-change="s.search()" ng-minlength="2" />
-</form>*@
+        <input type="search" class="search-text" placeholder="@GeneralResources.Search" autofocus ng-model="s.term" ng-model-options="{debounce : 300}" ng-change="s.search()" ng-minlength="2" />
+    </form>*@
 <div class="page-head">
     <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title" ng-class="{'need-follow' : b.needFollow}">
         <h1 flex>@SearchResources.SearchTitle</h1>
@@ -14,21 +14,34 @@
 </div>
 <div srph-infinite-scroll="s.myPagingFunction()">
     <md-tabs md-dynamic-height="true" md-selected="s.tabIndex">
+        <md-tab md-on-select="s.changeTab(s.state.item)" md-active="s.tab === s.state.item" ga-track-event="['search', 'search items']">
+            <md-tab-label>@BoxResources.Items</md-tab-label>
+            <md-tab-body>
+                <div layout="row" layout-padding layout-wrap>
+                    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'item-template.html'"></div>
+                </div>
+                <div class="no-results" ng-show="s.noResults">
+                    <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
+                    <div>@GeneralResources.SearchEmptyStateDocumentsText</div>
+                </div>
+            </md-tab-body>
+        </md-tab>
         <md-tab md-on-select="s.changeTab(s.state.box)" md-active="s.tab === s.state.box" ga-track-event="['search', 'search classes']">
             <md-tab-label>@GeneralResources.Classes</md-tab-label>
             <md-tab-body>
                 <div layout="row" layout-padding layout-wrap>
                     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in s.result" ng-include="'box-template.html'"></div>
                 </div>
-            </md-tab-body>
-        </md-tab>
-        <md-tab md-on-select="s.changeTab(s.state.item)" md-active="s.tab === s.state.item" ga-track-event="['search', 'search items']">
-            <md-tab-label>@BoxResources.Items</md-tab-label>
-            <md-tab-body>
-                <div layout="row" layout-padding layout-wrap >
-                    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'item-template.html'"></div>
+                <div class="no-results" ng-show="s.noResults">
+                    <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
+                    <div>@GeneralResources.SearchEmptyStateClassesText</div>
+                    <md-button class="button-Blue" ng-click="s.changeTab(s.state.item)">
+                        @GeneralResources.SearchEmptyStateDocumentsButton
+                    </md-button>
+                    <div class="create-class textTC2">@GeneralResources.SearchEmptyStateCreateCourse<a href="@Url.RouteUrl("LibraryDesktop")">@GeneralResources.SearchEmptyStateCreateCourseLinkText</a></div>
                 </div>
             </md-tab-body>
+
         </md-tab>
         <md-tab md-on-select="s.changeTab(s.state.quiz)" md-active="s.tab === s.state.quiz" ga-track-event="['search', 'search quizzes']">
             <md-tab-label>@GeneralResources.Quizzes</md-tab-label>
@@ -36,13 +49,17 @@
                 <div layout="row" layout-padding layout-wrap>
                     <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'quiz-template.html'"></div>
                 </div>
+                <div class="no-results" ng-show="s.noResults">
+                    <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
+                    <div>@GeneralResources.SearchEmptyStateQuizzesText</div>
+                </div>
             </md-tab-body>
         </md-tab>
     </md-tabs>
-    <div class="no-results" ng-show="s.noResults">
-        <div class="wrapper">
-            <img src="@Url.CdnContent("~/Images/Site/noResults.png")" alt="No results were found">
-            <div class="color-override textColor7">@GeneralResources.NoResults</div>
-        </div>
-    </div>
+    @*<div class="no-results" ng-show="s.noResults">
+            <div class="wrapper">
+                <img src="@Url.CdnContent("~/Images/Site/noResults.png")" alt="No results were found">
+                <div class="color-override textColor7">@GeneralResources.NoResults</div>
+            </div>
+        </div>*@
 </div>

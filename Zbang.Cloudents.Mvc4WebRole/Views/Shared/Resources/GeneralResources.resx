@@ -177,14 +177,42 @@
   <data name="Search" xml:space="preserve">
     <value>Search...</value>
   </data>
-  <data name="NoResults" xml:space="preserve">
-    <value>No results were found</value>
+  <data name="NoResultsTitle" xml:space="preserve">
+    <value>We came out short...</value>
+    <comment>New</comment>
   </data>
   <data name="Download" xml:space="preserve">
     <value>Download</value>
   </data>
   <data name="Likes" xml:space="preserve">
     <value>Likes</value>
+    <comment>New</comment>
+  </data>
+  <data name="SearchEmptyStateClassesText" xml:space="preserve">
+    <value>There are no courses in your school that matches your search,
+but try checking the quizzes tab for related material</value>
+    <comment>New</comment>
+  </data>
+  <data name="SearchEmptyStateCreateCourse" xml:space="preserve">
+    <value>If you are taking a course that hasn't been made yet, </value>
+    <comment>New</comment>
+  </data>
+  <data name="SearchEmptyStateCreateCourseLinkText" xml:space="preserve">
+    <value>create it!</value>
+    <comment>New</comment>
+  </data>
+  <data name="SearchEmptyStateDocumentsButton" xml:space="preserve">
+    <value>Search for documents</value>
+    <comment>New</comment>
+  </data>
+  <data name="SearchEmptyStateDocumentsText" xml:space="preserve">
+    <value>There are no documents in your school that matches your search,
+but try checking the classes tab for related material</value>
+    <comment>New</comment>
+  </data>
+  <data name="SearchEmptyStateQuizzesText" xml:space="preserve">
+    <value>There are no quizzes in your school that matches your search,
+but try checking the documents tab for related material</value>
     <comment>New</comment>
   </data>
 </root>
