@@ -9,8 +9,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         {
             var redirectResult = filterContext.Result as RedirectToRouteResult;
 
-
-
             if (redirectResult != null)
             {
                 var query = filterContext.HttpContext.Request.QueryString;

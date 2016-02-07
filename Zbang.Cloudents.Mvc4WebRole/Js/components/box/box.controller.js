@@ -21,8 +21,8 @@
 
         b.user = userDetailsFactory.get();
         
-        b.url = b.user.url;
-        b.image = b.user.image;
+        //b.url = b.user.url;
+        //b.image = b.user.image;
         b.isActiveState = isActiveState;
         b.inviteExpand = inviteExpand;
         b.toggleSettings = toggleSettings;

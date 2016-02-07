@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 @{
     const string url = "~/images/site/uploadIcons.svg";
 }
@@ -91,7 +92,7 @@
                                     <div ng-message="server">{{u.error}}</div>
                                 </div>
                             </md-input-container>
-                            <input type="submit" class="btn button-Blue btn-primary pull-right" ng-disabled="u.submitFormProcess || !uploadLink.$valid" value="share" />
+                            <input type="submit" class="btn button-Blue btn-primary pull-right" ng-disabled="u.submitFormProcess || !uploadLink.$valid" value="@UserResources.Share" />
                         </form>
                     </div>
                 </div>
