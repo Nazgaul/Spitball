@@ -61,3 +61,21 @@
   width: calc(100% - 24px);
   margin: 0 auto;
 }
+.library .empty-top h2 {
+  white-space: pre-wrap;
+  font-size: 30px;
+  font-weight: 700;
+}
+.library .empty-top > div {
+  margin: 10px 0;
+}
+.library .empty-top form {
+  max-width: 550px;
+}
+.library .empty-top form > div {
+  border-width: 1px;
+  border-style: solid;
+  padding: 20px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}

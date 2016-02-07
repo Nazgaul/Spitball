@@ -1,0 +1,38 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+<div ng-if="l.state.emptyTopTree" layout="column" layout-align="center center" class="empty-top">
+    <h2>@LibraryResources.EmptyStateTopNodeTitle</h2>
+    <div>@LibraryResources.EmptyStateTopNodeText</div>
+    <form ng-submit="l.createFirstBox(createFirstBox)" class="text-capitalize" novalidate name="createFirstBox">
+        <div class="borderTC8" layout="row" layout-wrap>
+            <md-input-container flex="100">
+                <label>@LibraryResources.EnterClassName</label>
+                <input autofocus autocomplete="off" name="name" required ng-model="l.boxName"
+                       ng-change="createFirstBox.depName.$setValidity('server',true)" />
+                <div ng-messages="createFirstBox.name.$error">
+                    <div ng-message="required">@GeneralResources.RequiredField</div>
+                </div>
+            </md-input-container>
+            <md-input-container flex="45">
+                <label>@LibraryResources.EnterCode</label>
+                <input autocomplete="off" ng-model="l.code" ng-change="createFirstBox.depName.$setValidity('server',true)" />
+            </md-input-container>
+            <div flex="10"></div>
+            <md-input-container flex="45">
+                <label>@LibraryResources.Instructor</label>
+                <input autocomplete="off" name="professor" ng-model="l.professor"
+                       ng-change="createFirstBox.depName.$setValidity('server',true)" />
+            </md-input-container>
+            <md-input-container flex="100">
+                <label>@LibraryResources.EnterDepName</label>
+                <input autocomplete="off" name="depName" required ng-model="l.departmentName"
+                       ng-change="createFirstBox.depName.$setValidity('server',true)" />
+                <div ng-messages="createFirstBox.depName.$error">
+                    <div ng-message="required">@GeneralResources.RequiredField</div>
+                    <div ng-message="server">{{l.error}}</div>
+                </div>
+            </md-input-container>
+        </div>
+        <button type="submit" class="btn button-Blue btn-primary pull-right" ng-disabled="l.submitDisabled" ga-track-event="['university', 'first time populate university']">@GeneralResources.Create</button>
+    </form>
+</div>

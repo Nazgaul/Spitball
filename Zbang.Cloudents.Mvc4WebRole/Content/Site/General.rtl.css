@@ -93,6 +93,10 @@ textarea,
 input[type="search"] {
   box-sizing: border-box;
 }
+input[disabled],
+button[disabled] {
+  cursor: wait!important;
+}
 .page-body {
   margin-top: 90px;
   padding: 0 10px;

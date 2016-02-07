@@ -2783,6 +2783,7 @@
     <Content Include="Views\Box\LikesDialog.cshtml" />
     <Content Include="Views\Item\UploadDialog.cshtml" />
     <Content Include="Views\Share\InviteDialog.cshtml" />
+    <Content Include="Views\Library\_EmptyStateTopTree.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
