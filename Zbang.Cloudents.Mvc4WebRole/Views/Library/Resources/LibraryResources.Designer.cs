@@ -106,6 +106,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Be a pioneer and create X&apos;s profile
+        ///Every new school makes Spitball more useful to everyone!.
+        /// </summary>
+        public static string EmptyStateTopNodeText {
+            get {
+                return ResourceManager.GetString("EmptyStateTopNodeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yeesh... I&apos;m feeling a little exposed.
+        /// </summary>
+        public static string EmptyStateTopNodeTitle {
+            get {
+                return ResourceManager.GetString("EmptyStateTopNodeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter class name.
         /// </summary>
         public static string EnterClassName {

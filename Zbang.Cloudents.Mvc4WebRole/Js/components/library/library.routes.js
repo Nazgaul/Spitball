@@ -20,7 +20,8 @@
                                return libraryService.getDepartments();
                            }
                         ]
-                    }
+                    },
+                    data: { animateClass: 'library' },
                 },
 
                 templateUrl: partial
@@ -35,7 +36,8 @@
                                return libraryService.getDepartments($stateParams.nodeId);
                            }
                         ]
-                    }
+                    },
+                    data: { animateClass: 'library' },
                 },
                 templateUrl: partial
             },

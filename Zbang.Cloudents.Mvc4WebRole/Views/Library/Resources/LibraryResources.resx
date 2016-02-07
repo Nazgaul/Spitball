@@ -185,4 +185,13 @@ Make Spitball better by adding it</value>
     <value>Let’s Spitball!</value>
     <comment>New</comment>
   </data>
+  <data name="EmptyStateTopNodeText" xml:space="preserve">
+    <value>Be a pioneer and create X's profile
+Every new school makes Spitball more useful to everyone!</value>
+    <comment>New</comment>
+  </data>
+  <data name="EmptyStateTopNodeTitle" xml:space="preserve">
+    <value>yeesh... I'm feeling a little exposed</value>
+    <comment>New</comment>
+  </data>
 </root>

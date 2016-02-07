@@ -57,6 +57,7 @@
 
         > a {
             width: 50%;
+
             @media (max-width: 600px) {
                 width: ~"calc(100% - 40px)";
             }
@@ -80,5 +81,29 @@
     .settings {
         width: ~"calc(100% - 24px)";
         margin: 0 auto;
+    }
+
+    .empty-top {
+        h2 {
+            white-space: pre-wrap;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        > div {
+            margin: 10px 0;
+        }
+
+        form {
+            max-width: 550px;
+
+            > div {
+                border-width: 1px;
+                border-style: solid;
+                padding: 20px;
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+        }
     }
 }
