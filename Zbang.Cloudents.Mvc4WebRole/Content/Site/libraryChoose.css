@@ -57,12 +57,18 @@
   font-size: 22px;
 }
 .library-choose .add-univeristy {
-  max-width: 450px;
   margin: 0 auto;
 }
 .library-choose .add-univeristy h2 {
   text-align: center;
   white-space: pre-wrap;
+  font-size: 30px;
+  padding: 80px 0 20px 0;
+  font-weight: bold;
+}
+.library-choose .add-univeristy form {
+  max-width: 450px;
+  margin: 0 auto;
 }
 .library-choose .add-univeristy form > div {
   border-width: 1px;
@@ -73,10 +79,19 @@
 }
 .library-choose .add-univeristy .btn {
   padding: 0 16px;
+  min-height: 24px;
+  float: right;
+  margin-right: 0;
 }
 .library-choose .add-univeristy .btn-default {
   margin-right: 20px;
   border: none;
+}
+.library-choose .add-univeristy div > md-input-container {
+  margin-bottom: 0;
+}
+.library-choose .add-univeristy md-autocomplete-wrap > md-input-container {
+  padding-bottom: 0;
 }
 .library-choose .code {
   max-width: 430px;

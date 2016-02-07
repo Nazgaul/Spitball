@@ -74,25 +74,35 @@
     }
 
     .add-univeristy {
-        max-width: 450px;
         margin: 0 auto;
 
         h2 {
             text-align: center;
             white-space: pre-wrap;
+            font-size: 30px;
+            padding: 80px 0 20px 0;
+            font-weight: bold;
         }
 
-        form > div {
-            border-width:1px;
-            border-style:solid;
-            //border: 1px solid #c3c3c3;
-            padding: 20px;
-            margin-bottom: 10px;
-            border-radius: 4px;
+        form {
+            max-width: 450px;
+            margin: 0 auto;
+
+            > div {
+                border-width: 1px;
+                border-style: solid;
+                //border: 1px solid #c3c3c3;
+                padding: 20px;
+                margin-bottom: 10px;
+                border-radius: 4px;
+            }
         }
 
         .btn {
             padding: 0 16px;
+            min-height: 24px;
+            float: right;
+            margin-right: 0;
         }
         //.btn-primary {
         //    .buttonBlue();
@@ -100,6 +110,14 @@
         .btn-default {
             margin-right: 20px;
             border: none;
+        }
+
+        div > md-input-container {
+            margin-bottom: 0;
+        }
+
+        md-autocomplete-wrap > md-input-container {
+            padding-bottom: 0;
         }
     }
 
