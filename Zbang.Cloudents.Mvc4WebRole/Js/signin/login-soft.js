@@ -372,6 +372,7 @@ var Login = function () {
         return vars;
     }
 
+
     return {
         //main function to initiate the module
         init: function () {
@@ -381,16 +382,17 @@ var Login = function () {
             handleRegister();
             //handleLanguage();
             //handleExtenalLogin();
+            if (window.location.pathname.indexOf('/signin') > -1) {
+                handleLoginElements('login-form');
+
+            }
+
             if (window.location.pathname.indexOf('/signup') > -1) {
-                jQuery('.login-form, .forgot-password-form').hide();
-                jQuery('.register-form').show();
-                //loadRegisterData();
+                handleLoginElements('register-form');
             }
 
             if (window.location.pathname.indexOf('/resetpassword') > -1) {
-                jQuery('.login-form, .register-form').hide();
-                jQuery('.forgot-password-form').show();
-                //loadRegisterData();
+                handleLoginElements('forgot-password-form');
             }
 
             $.each(jQuery.validator.messages, function (key, value) {
@@ -409,6 +411,14 @@ var Login = function () {
     };
 
 }();
+function handleLoginElements(formClass) {
+    $.each($('.home-page-body > *:not(.main)'), function () {
+        $(this).hide();
+    });
+    $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
+    $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options, header ul, .navbar-toggle, #main-wrapper h1, .login-wrapper .content > :not(.' + formClass + ')').hide();
+    $('.login-wrapper, .login-wrapper .content > .'+formClass).show();
+}
 
 function trackConversion() {
     window.google_trackConversion({
