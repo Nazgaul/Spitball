@@ -152,7 +152,7 @@ var Login = function () {
             trackConversion();
         });
 
-        jQuery('#login-btn, .forgot-password-form .cancel').click(function () {
+        jQuery('#signin, .login-option.signup, .forgot-password-form .cancel').click(function () {
             jQuery('.login-form').show();
             jQuery('.register-form, .forgot-password-form').hide();
             pushState(loginState);
@@ -340,11 +340,24 @@ var Login = function () {
         }
     }
     function pushState(state) {
+        if (!window.history) {
+            return;
+        }
         var universityId = getUrlVars()['universityid'];
         var ext = '';
         if (universityId) {
             ext = '?universityid=' + universityId;
         }
+        if (state === loginState) {
+
+            window.history.replaceState(null, "Signin", "/account/signin/" + ext);
+            return;
+        }
+        if (state === signupState) {
+            window.history.replaceState(null, "Sign up", "/account/signup/" + ext);
+            return;
+        }
+        window.history.replaceState(null, "Forgot password", "/account/resetpassword/");
         $(window).scrollTop(0);
     }
 
