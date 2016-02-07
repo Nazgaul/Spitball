@@ -127,6 +127,8 @@
                     }
 
                     &.language {
+                        position: relative;
+
                         svg {
                             width: 17px;
                             height: 17px;
@@ -134,12 +136,12 @@
                         }
 
                         ul {
-                            height: 130px;
+                            height: inherit;
                             display: block;
                             position: absolute;
                             width: 220px;
-                            padding: 0 20px;
-                            top: 100px;
+                            padding: 0;
+                            top: 70px;
                             margin: 0 0 0 -10px;
                             background: rgba(255, 255, 255, 0.8);
                             font-size: 14px;
@@ -148,8 +150,10 @@
                             li {
                                 width: 100%;
                                 line-height: 40px;
+                                padding: 0;
 
                                 a {
+                                    padding: 8px 30px;
                                     color: @textColorBlack;
 
 
@@ -169,10 +173,25 @@
                 display: block;
             }
 
-            #language-menu:not(:checked) ~ ul {
-                height: 0;
-                overflow: hidden;
-                display: none;
+            #language-menu:not(:checked) {
+                ~ ul {
+                    height: 0;
+                    overflow: hidden;
+                    display: none;
+                }
+
+                ~ .language-close {
+                    display: none;
+                }
+            }
+
+            #language-menu:checked ~ .language-close {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                cursor: auto;
             }
 
             @media(max-width: 750px) {
@@ -203,7 +222,6 @@
 
                         &.language ul {
                             position: unset;
-                            padding: 0 15px;
 
                             li {
                                 padding: 0;
@@ -774,6 +792,7 @@
                             padding: 7px 24px;
                             background-color: @buttonColorBlue;
                             cursor: pointer;
+
                             &.cancel {
                                 color: #333;
                                 background-color: @textColorLightGrey;

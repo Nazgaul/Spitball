@@ -99,18 +99,21 @@
 .homePage .page-content nav ul li label {
   display: flex;
 }
+.homePage .page-content nav ul li.language {
+  position: relative;
+}
 .homePage .page-content nav ul li.language svg {
   width: 17px;
   height: 17px;
   fill: #f5f5f5;
 }
 .homePage .page-content nav ul li.language ul {
-  height: 130px;
+  height: inherit;
   display: block;
   position: absolute;
   width: 220px;
-  padding: 0 20px;
-  top: 100px;
+  padding: 0;
+  top: 70px;
   margin: 0 0 0 -10px;
   background: rgba(255, 255, 255, 0.8);
   font-size: 14px;
@@ -119,8 +122,10 @@
 .homePage .page-content nav ul li.language ul li {
   width: 100%;
   line-height: 40px;
+  padding: 0;
 }
 .homePage .page-content nav ul li.language ul li a {
+  padding: 8px 30px;
   color: #282828;
 }
 .homePage .page-content nav ul li.language ul li a:hover {
@@ -134,6 +139,17 @@
   height: 0;
   overflow: hidden;
   display: none;
+}
+.homePage .page-content nav #language-menu:not(:checked) ~ .language-close {
+  display: none;
+}
+.homePage .page-content nav #language-menu:checked ~ .language-close {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: auto;
 }
 @media (max-width: 750px) {
   .homePage .page-content nav .navbar-header {
@@ -173,7 +189,6 @@
   }
   .homePage .page-content nav ul li.language ul {
     position: unset;
-    padding: 0 15px;
   }
   .homePage .page-content nav ul li.language ul li {
     padding: 0;

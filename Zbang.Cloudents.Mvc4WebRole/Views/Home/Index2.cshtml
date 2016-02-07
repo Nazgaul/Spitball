@@ -55,6 +55,7 @@
                     <li class="language">
                         <input type="checkbox" id="language-menu" />
                         <label for="language-menu">@Html.Svg("/images/homepage2/homePageIcons.svg", "globus", new { @class = "globus" })&nbsp;<span>@Languages.EnglishUsName</span></label>
+                        <label class="language-close" for="language-menu"></label>
                         <ul class="dropdown-menu dropdown-menu-left ">
                             <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-US" })">@Languages.EnglishUsName</a> </li>
                             <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-UK" })">@Languages.EnglishGbName</a> </li>
