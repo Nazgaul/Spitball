@@ -55,7 +55,6 @@
                         i.preview = $sce.trustAsHtml(data.preview);
                     } else {
                         var element = angular.element(data.preview);
-                        
                         i.preview += data.preview;
                         if (element.find('img,svg').length === 3) {
                             needLoadMore = true;
@@ -85,15 +84,12 @@
         }
 
         function loadMore() {
-            var defer = $q.defer();
-
             if (needLoadMore && user.id) {
                 needLoadMore = false;
                 ++index;
                 return getPreview();
             }
-            defer.resolve();
-            return defer.promise;
+            return $q.when(); 
         };
         function renameItem() {
             if (i.renameText === i.details.name) {

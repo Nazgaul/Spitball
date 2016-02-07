@@ -25,6 +25,24 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { controller = "Home", action = "Index", lang = UrlParameter.Optional },
                 new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" });
 
+            routes.MapRoute("signin",
+              "account/signin",
+              new { controller = "Home", action = "Index" }
+              );
+            routes.MapRoute("signup",
+             "account/signup",
+             new { controller = "Home", action = "Index" }
+             );
+            routes.MapRoute("resetpassword",
+            "account/resetpassword",
+            new { controller = "Home", action = "Index" }
+            );
+           
+
+
+            //[Route("account/signin/")]
+            //[Route("account/resetpassword/")]
+            //[Route("account/signup")]
 
             #region Box
 

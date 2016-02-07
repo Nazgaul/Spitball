@@ -461,7 +461,7 @@ md-tabs md-ink-bar {
   background-color: #323538;
   border-bottom: 5px solid #282828;
   height: 80px;
-  line-height: 80px;
+  line-height: 75px;
   position: fixed;
   right: 0;
   left: 0;

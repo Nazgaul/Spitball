@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain
         {
 
         }
-        public ItemRate(User user, Item item, Guid id/*, int rate*/)
+        public ItemRate(User user, Item item, Guid id)
         {
             if (user == null)
             {
@@ -22,12 +22,15 @@ namespace Zbang.Zbox.Domain
             User = user;
             Rate = 1;
             Item = item;
+            CreationTime = DateTime.UtcNow;
         }
         
 
         public virtual Guid Id { get; private set; }
         public virtual User User { get; private set; }
         public virtual Item Item { get; private set; }
-        public virtual int Rate { get; set; }
+        public virtual int Rate { get; private set; }
+
+        public virtual DateTime CreationTime { get; private set; }
     }
 }

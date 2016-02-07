@@ -55,10 +55,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             // m_ThemeCookieHelper = themeCookieHelper;
         }
 
-        //[DonutOutputCache(VaryByParam = "lang;invId",
-        //   VaryByCustom = CustomCacheKeys.Lang + ";" +  CustomCacheKeys.Auth,
-        //   Duration = TimeConsts.Day,
-        //   Location = OutputCacheLocation.Server)]
+        [DonutOutputCache(VaryByParam = "lang;invId",
+           VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Auth,
+           Duration = TimeConsts.Day,
+           Location = OutputCacheLocation.Server)]
+        //[Route("account/signin/")]
+        //[Route("account/resetpassword/")]
+        //[Route("account/signup")]
         public async Task<ActionResult> Index(string lang, string invId)
         {
             if (User.Identity.IsAuthenticated)
@@ -69,7 +72,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 m_LanguageCookie.InjectCookie(lang);
                 RouteData.Values.Remove("lang");
-                return RedirectToAction("Index", new { invId });
+                return RedirectToRoute("Default", new { invId });
             }
             if (!string.IsNullOrEmpty(invId))
             {

@@ -67,38 +67,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToActionPermanent("Index", "Home", new { lang, invId });
         }
 
-        [DonutOutputCache(VaryByParam = "lang;invId",
-            VaryByCustom = CustomCacheKeys.Lang,
-            Duration = TimeConsts.Second,
-            Location = OutputCacheLocation.Server, Order = 2)]
-        public ActionResult SignIn()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            return View();
-        }
-        [DonutOutputCache(VaryByParam = "lang;invId",
-           VaryByCustom = CustomCacheKeys.Lang,
-           Duration = TimeConsts.Day,
-           Location = OutputCacheLocation.Server, Order = 2)]
-        public ActionResult Signup(string invId)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            if (!string.IsNullOrEmpty(invId))
-            {
-                var guid = GuidEncoder.TryParseNullableGuid(invId);
-                if (guid.HasValue)
-                {
-                    m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
-                }
-            }
-            return View("Signin");
-        }
+        //[DonutOutputCache(VaryByParam = "lang;invId",
+        //    VaryByCustom = CustomCacheKeys.Lang,
+        //    Duration = TimeConsts.Second,
+        //    Location = OutputCacheLocation.Server, Order = 2)]
+        //public ActionResult SignIn()
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        return RedirectToAction("Index", "Dashboard");
+        //    }
+        //    return View();
+        //}
+        //[DonutOutputCache(VaryByParam = "lang;invId",
+        //   VaryByCustom = CustomCacheKeys.Lang,
+        //   Duration = TimeConsts.Day,
+        //   Location = OutputCacheLocation.Server, Order = 2)]
+        //public ActionResult Signup(string invId)
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        return RedirectToAction("Index", "Dashboard");
+        //    }
+        //    if (!string.IsNullOrEmpty(invId))
+        //    {
+        //        var guid = GuidEncoder.TryParseNullableGuid(invId);
+        //        if (guid.HasValue)
+        //        {
+        //            m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
+        //        }
+        //    }
+        //    return View("Signin");
+        //}
 
 
 
@@ -627,19 +627,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region passwordReset
-        [HttpGet]
+        //[HttpGet]
         //issue with ie
         //[DonutOutputCache(VaryByParam = "none", VaryByCustom = CustomCacheKeys.Auth + ";"
         //   + CustomCacheKeys.Lang + ";"
         //   + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 15)]
-        public ActionResult ResetPassword()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Dashboard");
-            }
-            return View("Signin");
-        }
+        //public ActionResult ResetPassword()
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        return RedirectToAction("Index", "Dashboard");
+        //    }
+        //    return View("Signin");
+        //}
 
         [HttpPost]
         public async Task<JsonResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model, CancellationToken cancellationToken)
