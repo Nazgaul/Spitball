@@ -103,7 +103,7 @@
 
                         <form class="add-comment add-reply" ng-if="post.showReplies" ng-submit="f.add.createReply(post)">
                             <md-input-container md-no-float class="reply-wrapper">
-                                <textarea focus-me="post.focusReply" ng-model="f.add.newReplyText" placeholder="@BoxResources.replyPostPlaceholder" class="color-override inputColor6 textColor7"></textarea>
+                                <textarea focus-me="post.focusReply" ng-model="f.add.newReplyText" placeholder="@BoxResources.replyPostPlaceholder" class="color-override inputColor12 textColor7"></textarea>
                             </md-input-container>
                             <ul class="list-inline">
                                 <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: post.id}" ng-include="'file-upload.html'">
