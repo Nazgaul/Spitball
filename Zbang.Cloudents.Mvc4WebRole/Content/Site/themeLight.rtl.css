@@ -1510,7 +1510,11 @@ Page Loading
   fill: #4190b9;
 }
 .theme-light .aboutUs-page .advantages {
+  margin-bottom: 20px;
   color: #888b8e;
+}
+.theme-light .aboutUs-page .advantages > div {
+  padding: 15px;
 }
 .theme-light .aboutUs-page .advantages .portlet {
   background-color: #212325;
@@ -1524,9 +1528,22 @@ Page Loading
 .theme-light .aboutUs-page .advantages .card-title {
   color: #ffffff;
 }
+.theme-light .aboutUs-page .middle-area {
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+.theme-light .aboutUs-page .about-header {
+  margin-bottom: 40px;
+}
 .theme-light .aboutUs-page .about-text {
   color: #212325;
   background: none;
+}
+.theme-light .aboutUs-page .team-header {
+  margin-bottom: 40px;
+}
+.theme-light .aboutUs-page .team-header > div {
+  margin-top: 20px;
 }
 .theme-light .aboutUs-page .team .portlet {
   background: #212325;
@@ -1534,6 +1551,10 @@ Page Loading
 }
 .theme-light .aboutUs-page .about-header {
   color: #212325;
+}
+.theme-light .aboutUs-page .team,
+.theme-light .aboutUs-page .advantages {
+  margin: -15px;
 }
 .theme-light .userPage .portlet.box {
   color: #212325;

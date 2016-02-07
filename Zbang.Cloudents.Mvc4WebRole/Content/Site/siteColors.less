@@ -141,7 +141,7 @@
 
 
 
-   
+
 
 
 
@@ -1482,7 +1482,12 @@ Page Loading
 
     .aboutUs-page {
         .advantages {
+            margin-bottom: 20px;
             color: @textColorGrey;
+
+            > div {
+                padding: 15px;
+            }
 
             .portlet {
                 background-color: @backgroundColorWhite;
@@ -1501,9 +1506,24 @@ Page Loading
             }
         }
 
+        .middle-area {
+            margin-bottom: 40px;
+            margin-top: 40px;
+        }
+        .about-header{
+            margin-bottom: 40px;
+        }
         .about-text {
             color: @textColorWhite;
             background: none;
+        }
+
+        .team-header {
+            margin-bottom: 40px;
+
+            > div{
+                 margin-top: 20px;
+            }
         }
 
         .team {
@@ -1515,6 +1535,10 @@ Page Loading
 
         .about-header {
             color: @textColorWhite;
+        }
+
+        .team, .advantages {
+            margin: -15px;
         }
     }
     /*#endregion*/

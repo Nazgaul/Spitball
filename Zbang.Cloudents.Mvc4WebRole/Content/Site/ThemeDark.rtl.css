@@ -1169,7 +1169,11 @@ md-chips .md-chips.md-focused {
   fill: #4190b9;
 }
 .aboutUs-page .advantages {
+  margin-bottom: 20px;
   color: #888b8e;
+}
+.aboutUs-page .advantages > div {
+  padding: 15px;
 }
 .aboutUs-page .advantages .portlet {
   background-color: #f5f5f5;
@@ -1183,9 +1187,22 @@ md-chips .md-chips.md-focused {
 .aboutUs-page .advantages .card-title {
   color: #323538;
 }
+.aboutUs-page .middle-area {
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+.aboutUs-page .about-header {
+  margin-bottom: 40px;
+}
 .aboutUs-page .about-text {
   color: #f5f5f5;
   background: none;
+}
+.aboutUs-page .team-header {
+  margin-bottom: 40px;
+}
+.aboutUs-page .team-header > div {
+  margin-top: 20px;
 }
 .aboutUs-page .team .portlet {
   background: #f5f5f5;
@@ -1193,6 +1210,10 @@ md-chips .md-chips.md-focused {
 }
 .aboutUs-page .about-header {
   color: #f5f5f5;
+}
+.aboutUs-page .team,
+.aboutUs-page .advantages {
+  margin: -15px;
 }
 /*#endregion*/
 /*#region user.less*/
