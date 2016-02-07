@@ -1,6 +1,4 @@
-﻿//using Microsoft.AspNet.SignalR;
-
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Mvc.Routing;
 using System.Web.Mvc.Routing.Constraints;
 using System.Web.Routing;
@@ -38,12 +36,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             new { controller = "Home", action = "Index" }
             );
            
-
-
-            //[Route("account/signin/")]
-            //[Route("account/resetpassword/")]
-            //[Route("account/signup")]
-
             #region Box
 
             routes.MapRoute("PrivateBox",
