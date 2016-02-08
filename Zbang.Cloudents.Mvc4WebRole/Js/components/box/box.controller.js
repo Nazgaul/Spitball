@@ -148,13 +148,14 @@
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
+            $scope.app.showToaster(resManager.get('toasterFollowBox'));
             boxService.follow(boxId);
             followBox();
         }
 
         function followBox() {
             b.needFollow = false;
-            $scope.app.showToaster(resManager.get('toasterFollowBox'));
+            
             $rootScope.$broadcast('refresh-boxes');
         }
 

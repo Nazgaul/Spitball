@@ -49,7 +49,7 @@
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
     </div>
 
-    <div class="nav-bar color-override backgroundColor2 borderTransparent" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
+    <header class="nav-bar color-override backgroundColor2 borderTransparent" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
         <button type="button" ng-if="app.showMenu" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
             @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
         </button>
@@ -126,7 +126,7 @@
                 <a class="btn button-Blue btn-primary" target="_self" href="@Url.RouteUrl("signin", new { returnUrl, invId })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
             </div>
         </div>
-    </div>
+    </header>
 
 
     @*<div class="page-container">*@

@@ -58,7 +58,7 @@
         }
 
         function showToaster(text, parentId, theme) {
-            var element = $document.find('body');
+            var element = $document.find('header');
             if (parentId) {
                 element = $document[0].querySelector('#' + parentId);
             }

@@ -263,11 +263,6 @@
     max-width: 100%;
   }
 }
-@media (max-width: 960px) {
-  .nav-bar {
-    position: absolute;
-  }
-}
 .page-header {
   top: 100px;
 }
