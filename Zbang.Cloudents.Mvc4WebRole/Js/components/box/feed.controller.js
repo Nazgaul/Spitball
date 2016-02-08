@@ -256,6 +256,7 @@
                     files: self.add.files.map(pushItem)
                 };
                 comment.replies.push(newComment);
+                assignData();
                 self.add.newReplyText = '';
                 self.add.files = [];
                 comment.focusReply = false;
@@ -303,6 +304,7 @@
                     files: files.map(pushItem)
                 };
                 self.data.unshift(newComment);
+                assignData();
                 self.add.newText = '';
                 self.add.files = [];
                 self.add.anonymous = false;

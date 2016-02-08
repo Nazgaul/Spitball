@@ -4,6 +4,8 @@
 
     const string svgUrl = "~/images/site/icons.svg";
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
+
+    var logoLink = User.Identity.IsAuthenticated ? Url.Action("Index", "dashboard") : Url.RouteUrl("homePage");
 }
 <!DOCTYPE html>
 <!--[if IE]>
@@ -56,7 +58,7 @@
         <div class="logo-search" layout="row" layout-align="start center" flex="100">
             <div class="logo">
                 <div class="page-logo">
-                    <a ui-sref="dashboard" @shouldPostBack ga-track-event="['header', 'logo']">
+                    <a href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']">
                         @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
                         @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-small", hide = "", show_xs = "" })
                     </a>
@@ -166,13 +168,13 @@
     </script>
     @RenderSection("scripts", false)
     @*<script type="text/javascript">var switchTo5x=true;</script>
-    <script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript" src="https://ss.sharethis.com/loader.js"></script>
-    <script type="text/javascript">stLight.options({publisher: "2afcb9e2-a0a5-40ad-8de2-dfdbcce8d24d", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
-    <script>
-        var options={ "publisher": "2afcb9e2-a0a5-40ad-8de2-dfdbcce8d24d", "position": "right", "ad": { "visible": false, "openDelay": 5, "closeDelay": 0}, "chicklets": { "items": ["facebook", "email", "whatsapp", "twitter"]}};
-        var st_hover_widget = new sharethis.widgets.hoverbuttons(options);
-    </script>*@
+        <script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
+        <script type="text/javascript" src="https://ss.sharethis.com/loader.js"></script>
+        <script type="text/javascript">stLight.options({publisher: "2afcb9e2-a0a5-40ad-8de2-dfdbcce8d24d", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+        <script>
+            var options={ "publisher": "2afcb9e2-a0a5-40ad-8de2-dfdbcce8d24d", "position": "right", "ad": { "visible": false, "openDelay": 5, "closeDelay": 0}, "chicklets": { "items": ["facebook", "email", "whatsapp", "twitter"]}};
+            var st_hover_widget = new sharethis.widgets.hoverbuttons(options);
+        </script>*@
     <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
 </body>
 </html>

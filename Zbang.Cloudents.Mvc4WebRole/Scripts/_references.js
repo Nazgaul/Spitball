@@ -40,7 +40,6 @@
 /// <reference path="../js/components/box/quizzes.controller.js" />
 /// <reference path="../js/components/box/recommended.controller.js" />
 /// <reference path="../js/components/box/slideit.directive.js" />
-/// <reference path="../js/components/contactus.controller.js" />
 /// <reference path="../js/components/dashboard/createbox.controller.js" />
 /// <reference path="../Js/components/dashboard/dashboard.controller.js" />
 /// <reference path="../js/components/dashboard/dashboard.service.js" />

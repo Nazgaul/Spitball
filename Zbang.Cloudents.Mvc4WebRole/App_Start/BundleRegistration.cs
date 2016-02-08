@@ -294,14 +294,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/versionChecker.js")
                     }
 
-                },
-                {
-                    "contactUs", new[]
-                    {
-                         new JsFileWithCdn("~/scripts/site/gmaps.js"),
-                          new JsFileWithCdn("~/js/components/contactUs.controller.js")
-                    }
                 }
+                //{
+                //    "contactUs", new[]
+                //    {
+                //         new JsFileWithCdn("~/scripts/site/gmaps.js"),
+                //          new JsFileWithCdn("~/js/components/contactUs.controller.js")
+                //    }
+                //}
             };
 
 

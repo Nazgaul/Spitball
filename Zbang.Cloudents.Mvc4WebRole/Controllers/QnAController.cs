@@ -213,6 +213,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 v.Url,
                                 v.UserId,
                                 v.UserImage,
+                                
                                 v.LikesCount,
                                 Files = v.Files.Select(b => new
                                 {
@@ -257,6 +258,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             v.Url,
                             v.UserId,
                             v.UserImage,
+                            v.UserName,
                             v.LikesCount,
                             Files = v.Files.Select(b => new
                             {

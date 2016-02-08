@@ -1778,7 +1778,6 @@
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\box\feed.likes.controller.js" />
     <Content Include="Js\components\box\slideit.directive.js" />
-    <Content Include="Js\components\contactUs.controller.js" />
     <Content Include="Js\components\dashboard\createBox.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.routes.js" />
     <Content Include="Js\components\item\comments.controller.js" />
@@ -3078,9 +3077,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\AboutUs.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\ContactUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Privacy.cshtml" />

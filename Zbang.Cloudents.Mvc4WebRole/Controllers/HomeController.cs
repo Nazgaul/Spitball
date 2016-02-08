@@ -112,11 +112,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //[DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
         //    + CustomCacheKeys.Lang)]
-        public ActionResult ContactUs()
-        {
-            ViewBag.postBag = true;
-            return View();
-        }
+        //public ActionResult ContactUs()
+        //{
+        //    ViewBag.postBag = true;
+        //    return View();
+        //}
 
         [HttpPost]
         public async Task<JsonResult> Feedback(Feedback model)
@@ -418,12 +418,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                        Priority = 0.95,
                        Frequency = SitemapFrequency.Daily
                    });
-                nodes.Add(
-                    new SitemapNode(requestContext, new { area = "", controller = "Home", action = "ContactUs" })
-                    {
-                        Priority = 0.95,
-                        Frequency = SitemapFrequency.Daily
-                    });
+                //nodes.Add(
+                //    new SitemapNode(requestContext, new { area = "", controller = "Home", action = "ContactUs" })
+                //    {
+                //        Priority = 0.95,
+                //        Frequency = SitemapFrequency.Daily
+                //    });
                 nodes.Add(
                     new SitemapNode(requestContext, new { area = "", controller = "Home", action = "Privacy" })
                     {
