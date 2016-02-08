@@ -5,6 +5,10 @@
     function ads(ajaxService, userDetailsFactory) {
         var ad = this;
         ad.show = true;
+        if (!userDetailsFactory.isAuthenticated()) {
+            ad.show = false;
+            return;
+        }
         if (userDetailsFactory.get().university.country.toLowerCase() !== 'il') {
             ad.show = false;
             return;

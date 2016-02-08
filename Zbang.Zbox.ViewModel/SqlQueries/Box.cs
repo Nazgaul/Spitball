@@ -104,8 +104,9 @@ order by name;";
        
         public const string GetBoxComments = @"SELECT q.[QuestionId] as id
     ,u.[UserName] as UserName
-	  ,u.UserImageLarge as UserImage
-	  ,u.userid as UserId
+	,u.UserImageLarge as UserImage
+	,u.userid as UserId
+    ,u.url as Url
     ,[Text] as Content
     ,q.CreationTime as creationTime
 	,q.ReplyCount as RepliesCount
@@ -145,6 +146,7 @@ order by name;";
 	  ,u.[UserName] as UserName
       ,u.UserImageLarge as UserImage
       ,u.userid as UserId
+      ,u.url as Url
       ,a.[Text] as Content
       ,a.LikeCount as LikesCount
       ,a.QuestionId as questionId
@@ -170,8 +172,8 @@ select questionid,LastReplyId from zbox.question
     i.QuestionId as QuestionId,
     i.AnswerId as AnswerId,
     i.Discriminator as Type,
-    i.BlobName as Source
-	
+    i.BlobName as Source,
+	i.Url as Url
     from zbox.item i cross apply (select * from questions q
 	             where i.QuestionId = q.QuestionId or (LastReplyId is not null and i.AnswerId = LastReplyId) 
 				
@@ -184,6 +186,7 @@ select questionid,LastReplyId from zbox.question
     i.Name as Name,
     i.UserId as OwnerId,
     i.QuestionId as QuestionId,
+    i.url as Url,
     'Quiz' as Type
     from zbox.Quiz i
     where i.IsDeleted = 0

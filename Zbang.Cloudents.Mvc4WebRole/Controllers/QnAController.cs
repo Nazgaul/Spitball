@@ -179,7 +179,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var query = new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(id, page, 20);
+                var query = new GetBoxQuestionsQuery(id, page, 20);
                 var retVal =
                   await ZboxReadService.GetQuestionsWithLastAnswerAsync(query);
                 //removing user name

@@ -18,7 +18,7 @@
 	position: relative;
 	margin: 0 auto 60px;
 	padding: 0;
-    direction: ltr;/*rtl:ignore*/
+    direction: ltr /*rtl:ignore*/;
 	/**zoom: 1;*/
 }
 
@@ -35,15 +35,15 @@
 	-webkit-box-shadow: 0 0 5px #ccc;
 	box-shadow: 0 0 5px #ccc;
 	border:  5px solid #fff;*/
-	left: -5px;
+	left: -5px  /*rtl:ignore*/;
 	/*background: #fff;*/
 	
 	/*fix other elements on the page moving (on Chrome)*/
-	-webkit-transform: translatez(0);
-	-moz-transform: translatez(0);
-    	-ms-transform: translatez(0);
-    	-o-transform: translatez(0);
-    	transform: translatez(0);
+	-webkit-transform: translatez(0) /*rtl:ignore*/;
+	-moz-transform: translatez(0) /*rtl:ignore*/;
+    	-ms-transform: translatez(0) /*rtl:ignore*/;
+    	-o-transform: translatez(0) /*rtl:ignore*/;
+    	transform: translatez(0) /*rtl:ignore*/;
 }
 
 .bx-wrapper .bx-pager,
@@ -62,7 +62,7 @@
 	width: 100%;
 	position: absolute;
 	top: 0;
-	left: 0;
+	left: 0 /*rtl:ignore*/;
 	z-index: 2000;
 }
 
@@ -92,8 +92,6 @@
 	height: 10px;
 	margin: 0 5px;
 	outline: 0;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
 	border-radius: 5px;
 }
 
@@ -228,8 +226,6 @@
   height: 10px;
   margin: 0 5px;
   outline: 0;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
 }
 .bx-wrapper .bx-pager.bx-default-pager a:hover,
