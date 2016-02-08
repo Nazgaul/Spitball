@@ -80,12 +80,20 @@
         }
 
         function likeComment(comment) {
+            if (!user.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             $scope.$emit('follow-box');
             boxService.likeComment(comment.id, boxId).then(function (response) {
                 response ? comment.likesCount++ : comment.likesCount--;
             });
         }
         function likeReply(reply) {
+            if (!user.id) {
+                $rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
             $scope.$emit('follow-box');
             boxService.likeReply(reply.id, boxId).then(function (response) {
                 response ? reply.likesCount++ : reply.likesCount--;
