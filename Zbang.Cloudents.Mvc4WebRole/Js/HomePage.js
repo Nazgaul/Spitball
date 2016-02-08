@@ -101,7 +101,6 @@
     });
 
     $('.close-form').click(function () {
-        console.log($(this).parent().attr('class'));
         toggleForm($(this).parent().attr('class'));
         $('#main-wrapper').css('min-height', 0).height('auto');
         window.history.replaceState(null, "Home", "/");
@@ -117,8 +116,6 @@
             $(this).addClass('hidden');
         });
         $('.login-wrapper .content > form.' + form).removeClass('hidden').show();
-        console.log('.login-wrapper .content > form:not(.' + form + ')');
-        console.log('.login-wrapper .content > form.' + form);
         $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options, header ul, .navbar-toggle').toggleClass('hidden');
     }
 
