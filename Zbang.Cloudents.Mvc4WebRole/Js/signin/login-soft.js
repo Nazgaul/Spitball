@@ -144,16 +144,16 @@ var Login = function () {
             }
         });
 
-        jQuery('#register-btn').click(function () {
+        jQuery('#register-btn, .login-option.signup').click(function () {
             jQuery('.login-form, .forgot-password-form').hide();
-            jQuery('.register-form').show();
+            jQuery('.register-form').removeClass('hidden').show();
             pushState(signupState);
             ga('send', 'pageview', '/account/signup');
             trackConversion();
         });
 
-        jQuery('#signin, .login-option.signup, .forgot-password-form .cancel').click(function () {
-            jQuery('.login-form').show();
+        jQuery('#signin, #login-btn, .forgot-password-form .cancel').click(function () {
+            jQuery('.login-form').removeClass('hidden').show();
             jQuery('.register-form, .forgot-password-form').hide();
             pushState(loginState);
             ga('send', 'pageview', '/account/signin');
@@ -162,7 +162,7 @@ var Login = function () {
 
 
         jQuery('#forget-password').click(function () {
-            jQuery('.forgot-password-form').show();
+            jQuery('.forgot-password-form').removeClass('hidden').show();
             jQuery('.login-form, .register-form').hide();
             pushState(forgotPasswordState);
             ga('send', 'pageview', '/account/resetpassword');
@@ -416,7 +416,7 @@ function handleLoginElements(formClass) {
         $(this).hide();
     });
     $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
-    $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options, header ul, .navbar-toggle, #main-wrapper h1, .login-wrapper .content > :not(.' + formClass + ')').hide();
+    $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options, header ul, .navbar-toggle, #main-wrapper h1, .login-wrapper .content > :not(.' + formClass + ')').toggleClass('hidden');
     $('.login-wrapper, .login-wrapper .content > .'+formClass).show();
 }
 
