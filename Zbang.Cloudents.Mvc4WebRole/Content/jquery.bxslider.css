@@ -18,6 +18,7 @@
 	position: relative;
 	margin: 0 auto 60px;
 	padding: 0;
+    direction: ltr;/*rtl:ignore*/
 	/**zoom: 1;*/
 }
 
