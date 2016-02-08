@@ -247,7 +247,7 @@
                     userName: user.name,
                     files: self.add.files.map(pushItem)
                 };
-                comment.answers.push(newComment);
+                comment.replies.push(newComment);
                 self.add.newReplyText = '';
                 self.add.files = [];
                 comment.focusReply = false;
