@@ -89,7 +89,9 @@
 
     var animatonSpeed = 300;
 
-    //$('#signin)' +
+    $('.login-wrapper input').focus(function() {
+        $('.alert-danger').slideUp(animatonSpeed);
+    });
 
     $('.login-option.signup').click(function () {
         toggleForm('register-form');
