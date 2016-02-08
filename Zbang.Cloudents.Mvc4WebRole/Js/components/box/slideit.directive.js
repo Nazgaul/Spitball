@@ -69,7 +69,7 @@
                     //adaptiveHeight: true,
                     infiniteLoop: false,
                     slideWidth: 119,
-                    minSlides: 2,
+                    //minSlides: 2,
                     maxSlides: 5,
                     pager: false,
                    // controls: false,
