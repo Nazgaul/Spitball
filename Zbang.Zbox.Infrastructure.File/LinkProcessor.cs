@@ -55,7 +55,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
             string url = WebUtility.UrlEncode(blobUri.AbsoluteUri);
 
-            string getstring = "fullpage=true&url=" + url;
+            string getstring = "url=" + url;
 
             string securityHashUrl2Png = Md5HashPhpCompliant(url2PngPrivateKey + "+" + getstring).ToLower();
 
