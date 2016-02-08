@@ -798,6 +798,20 @@
     font-size: 13px;
   }
 }
+.homePage .home-page-body section.main .login-wrapper .alert {
+  padding: 15px;
+  border: 1px solid transparent;
+}
+.homePage .home-page-body section.main .login-wrapper .alert .close {
+  float: left;
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .2;
+  filter: alpha(opacity=20);
+}
 .homePage .home-page-body section.about {
   background: #4190B9;
   color: #f5f5f5;

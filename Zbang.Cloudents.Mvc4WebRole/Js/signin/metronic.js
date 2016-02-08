@@ -405,23 +405,23 @@ var Metronic = function () {
     //    });
     //};
 
-    //var handleAlerts = function () {
-    //    $('body').on('click', '[data-close="alert"]', function (e) {
-    //        $(this).parent('.alert').hide();
-    //        $(this).closest('.note').hide();
-    //        e.preventDefault();
-    //    });
+    var handleAlerts = function() {
+        $('body').on('click', '[data-close="alert"]', function(e) {
+            $(this).parent('.alert').hide();
+            $(this).closest('.note').hide();
+            e.preventDefault();
+        });
 
-    //    $('body').on('click', '[data-close="note"]', function (e) {
-    //        $(this).closest('.note').hide();
-    //        e.preventDefault();
-    //    });
+        $('body').on('click', '[data-close="note"]', function(e) {
+            $(this).closest('.note').hide();
+            e.preventDefault();
+        });
 
     //    $('body').on('click', '[data-remove="note"]', function (e) {
     //        $(this).closest('.note').remove();
     //        e.preventDefault();
     //    });
-    //};
+    };
 
     // Handle Hower Dropdowns
     //var handleDropdownHover = function () {
@@ -548,7 +548,7 @@ var Metronic = function () {
             //handleFancybox(); // handle fancy box
             //handleSelect2(); // handle custom Select2 dropdowns
             handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
-            //handleAlerts(); //handle closabled alerts
+            handleAlerts(); //handle closabled alerts
             //handleDropdowns(); // handle dropdowns
             //handleTabs(); // handle tabs
             //handleTooltips(); // handle bootstrap tooltips
