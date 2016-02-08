@@ -101,79 +101,99 @@
 .help-page h2 {
   font-size: 16px;
 }
-.contactUs-page {
-  margin: 0 auto;
-}
-.contactUs-page .page-title {
-  padding: 0;
-}
-.contactUs-page .page-title h1 {
-  font-size: 25px;
-  font-weight: bold;
-  padding: 20px 0;
-}
-@media (min-width: 960px) {
-  .contactUs-page .contact-us {
-    padding-right: 25px;
-  }
-}
-.contactUs-page .contact-us .data {
-  font-size: 28px;
-  font-weight: normal;
-}
-.contactUs-page .contact-us .data h4 {
-  display: inline-block;
-  width: 180px;
-  font-size: 22px;
-  padding: 10px;
-  font-weight: bold;
-  margin: 0;
-}
-.contactUs-page .contact-us .data address {
-  padding: 8px;
-  margin: 0;
-}
-.contactUs-page .contact-us .data address.address {
-  margin-bottom: 30px;
-}
-.contactUs-page .feedback md-content {
-  background: transparent;
-}
-.contactUs-page .feedback .submit-wrapper {
-  text-align: right;
-}
-.contactUs-page .contact-us .data,
-.contactUs-page .feedback .data,
-.contactUs-page .contact-us h3,
-.contactUs-page .feedback h3 {
-  padding: 25px;
-  margin: 0;
-  font-size: 22px;
-}
-.contactUs-page .contact-us h3,
-.contactUs-page .feedback h3 {
-  font-weight: bold;
-}
-.contactUs-page .feedback .data {
-  padding-top: 0;
-  line-height: initial;
-}
-.contactUs-page .social-links {
-  margin-top: 15px;
-}
-.contactUs-page .social-links svg {
-  width: 50px;
-  height: 50px;
-  margin-right: 15px;
-  border-radius: 100%;
-}
-.contactUs-page .social-links a {
-  float: left;
-  border-radius: 100%;
-}
-.contactUs-page .social-links .wrapper {
-  display: inline-block;
-}
+/*.contactUs-page {
+    margin: 0 auto;
+
+    .page-title {
+        padding: 0;
+
+        h1 {
+            font-size: 25px;
+            font-weight: bold;
+            padding: 20px 0;
+        }
+    }
+
+
+    .contact-us {
+        @media (min-width: 960px) {
+            padding-right: 25px;
+        }
+
+        .data {
+            font-size: 28px;
+            font-weight: normal;
+
+            h4 {
+                display: inline-block;
+                width: 180px;
+                font-size: 22px;
+                padding: 10px;
+                font-weight: bold;
+                margin: 0;
+            }
+
+            address {
+                padding: 8px;
+                margin: 0;
+
+                &.address {
+                    margin-bottom: 30px;
+                }
+            }
+        }
+    }
+
+    .feedback {
+        md-content {
+            background: transparent;
+        }
+
+        .submit-wrapper {
+            text-align: right;
+        }
+    }
+
+    .contact-us, .feedback {
+        .data, h3 {
+            padding: 25px;
+            margin: 0;
+            font-size: 22px;
+        }
+
+        h3 {
+            font-weight: bold;
+        }
+    }
+
+    .feedback .data {
+        padding-top: 0;
+        line-height: initial;
+    }
+
+
+
+
+    .social-links {
+        margin-top: 15px;
+
+        svg {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 100%;
+        }
+
+        a {
+            float: left;
+            border-radius: 100%;
+        }
+
+        .wrapper {
+            display: inline-block;
+        }
+    }
+}*/
 .aboutUs-page {
   margin-top: 5px;
 }

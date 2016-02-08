@@ -35,7 +35,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             "account/resetpassword",
             new { controller = "Home", action = "Index" }
             );
-           
+            routes.MapRoute("homePage",
+             "",
+             new { controller = "Home", action = "Index" }
+             );
+            
             #region Box
 
             routes.MapRoute("PrivateBox",

@@ -113,7 +113,7 @@
     <a class="posts" href="{{::e.url}}">
         <div>
             <span class="post-headline" d-color="{{::e.boxName.length}}">{{::e.boxName}}</span>
-            <span class="post-content">{{::e.content}}</span>
+            <span class="post-content" ng-bind-html="::e.content"></span>
         </div>
         <span class="time-ago">{{::e.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
     </a>

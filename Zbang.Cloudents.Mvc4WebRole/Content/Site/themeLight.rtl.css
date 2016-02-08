@@ -47,6 +47,42 @@ Page Loading
   /*#region Share.less*/
   /*#endregion*/
   /*#region staticPages.less*/
+  /*.contactUs-page {
+        #map {
+            color: @textColorBlack;
+        }
+
+        .contact-us {
+
+            .data {
+                background: @backgroundColorWhite;
+                color: @textColorBlack;
+
+                h4 {
+                    background: @buttonColorBlue;
+                    color: @textColorWhite;
+                }
+
+                address {
+                    a {
+                        color: @textColorBlack;
+                    }
+                }
+            }
+        }
+
+        .feedback {
+            label {
+                color: @textColorGrey !important;
+            }
+        }
+
+        .social-links {
+            svg {
+                fill: @buttonColorBlue;
+            }
+        }
+    }*/
   /*#endregion*/
   /*#region user.less*/
   /*#endregion*/
@@ -1485,26 +1521,6 @@ Page Loading
 }
 .theme-light .help-page .accordion-toggle:not(.collapsed) .panel-heading {
   background: #4190b9;
-}
-.theme-light .contactUs-page #map {
-  color: #ffffff;
-}
-.theme-light .contactUs-page .contact-us .data {
-  background: #212325;
-  color: #ffffff;
-}
-.theme-light .contactUs-page .contact-us .data h4 {
-  background: #4190b9;
-  color: #212325;
-}
-.theme-light .contactUs-page .contact-us .data address a {
-  color: #ffffff;
-}
-.theme-light .contactUs-page .feedback label {
-  color: #888b8e !important;
-}
-.theme-light .contactUs-page .social-links svg {
-  fill: #4190b9;
 }
 .theme-light .aboutUs-page .advantages {
   margin-bottom: 20px;
