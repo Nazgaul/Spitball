@@ -6,7 +6,6 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
@@ -409,7 +408,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, AccountControllerResources.UnspecifiedError);
+                ModelState.AddModelError(string.Empty, BaseControllerResources.UnspecifiedError);
                 TraceLog.WriteError("Register model:" + model, ex);
             }
             return JsonError(GetErrorFromModelState());
@@ -695,7 +694,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("ForgotPassword email: {0}", model.Email), ex);
-                return JsonError(AccountControllerResources.UnspecifiedError);
+                return JsonError(BaseControllerResources.UnspecifiedError);
             }
 
         }
@@ -703,19 +702,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public ActionResult PasswordUpdate(string key)
         {
-            //if (User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("Index", "Dashboard");
-            //}
-            //if (string.IsNullOrWhiteSpace(key))
-            //{
-            //    return RedirectToAction("index");
-            //}
-            //var data = UnEncryptElement(key);
-            //if (data == null)
-            //{
-            //    return RedirectToAction("index");
-            //}
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                return RedirectToRoute("Default");
+            }
+            var data = UnEncryptElement(key);
+            if (data == null)
+            {
+                return RedirectToRoute("Default");
+            }
             return View();
         }
 

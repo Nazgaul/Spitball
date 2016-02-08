@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Domain.Common
        // void ShareBoxFacebook(ShareBoxFacebookCommand command);
        // void InviteSystemFromFacebook(InviteToSystemFacebookCommand inviteCommand);
 
-        Task SendMessageAsync(SendMessageCommand command);
+        //Task SendMessageAsync(SendMessageCommand command);
         Task SubscribeToSharedBoxAsync(SubscribeToSharedBoxCommand command);
         ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command);
 
@@ -80,8 +80,8 @@ namespace Zbang.Zbox.Domain.Common
         Task AddReputationAsync(AddReputationCommand command);
         void DeleteUpdates(DeleteUpdatesCommand command);
 
-        void MarkMessageAsRead(MarkMessagesAsReadCommand command);
-        void DeleteNotification(DeleteNotificationCommand command);
+        //void MarkMessageAsRead(MarkMessagesAsReadCommand command);
+        //void DeleteNotification(DeleteNotificationCommand command);
 
         #region Quiz
         Task CreateQuizAsync(CreateQuizCommand command);

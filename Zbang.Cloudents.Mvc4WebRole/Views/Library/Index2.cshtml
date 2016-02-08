@@ -73,6 +73,6 @@
     <div ng-controller="adController as ad" ng-show="ad.show && l.state.topTree" flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" flex-order="1" class="i-student-ad flex" ng-bind-html="ad.content" ga-track-event="['istudentad', 'library']"></div>
 
 </div>
-<button type="button" class="add" hide show-xs ng-click="l.createShow()" ng-if="l.createDepartmentShow || l.createClassShow" ng-hide="l.createOn || l.createDepartmentShow && l.createClassShow" ga-track-event="['dashboard', 'createbox', 'plus']">
+<button type="button" class="add" hide show-xs ng-click="l.createShow()" ng-if="l.state.withDepartmentAdmin || l.state.withBoxes" ng-hide="l.createOn || l.createDepartmentShow && l.createClassShow" ga-track-event="['dashboard', 'createbox', 'plus']">
     @Html.Svg("~/images/site/icons.svg", "add", new { @class = "color-override svgColor8" })
 </button>

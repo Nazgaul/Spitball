@@ -211,18 +211,13 @@ select users as StudentsCount, items as DocumentCount, quizzes as QuizzesCount f
 
         }
 
-        /// <summary>
-        /// Get user invite - header page section
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query)
-        {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<InviteDto>(Sql.Sql.UserInvites, new { query.UserId });
-            }
-        }
+        //public async Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query)
+        //{
+        //    using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<InviteDto>(Sql.Sql.UserInvites, new { query.UserId });
+        //    }
+        //}
 
 
 

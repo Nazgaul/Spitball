@@ -186,14 +186,14 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public async Task SendMessageAsync(SendMessageCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                await m_CommandBus.SendAsync(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public async Task SendMessageAsync(SendMessageCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        await m_CommandBus.SendAsync(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
         public async Task ShareBoxAsync(ShareBoxCommand command)
         {
@@ -633,23 +633,23 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void MarkMessageAsRead(MarkMessagesAsReadCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void MarkMessageAsRead(MarkMessagesAsReadCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
-        public void DeleteNotification(DeleteNotificationCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void DeleteNotification(DeleteNotificationCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
 
         public void RegisterMobileDevice(RegisterMobileDeviceCommand command)
         {

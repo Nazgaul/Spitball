@@ -81,7 +81,6 @@
     <Compile Include="DeleteItemCommentReplyCommandHandler.cs" />
     <Compile Include="DeleteItemTabCommandHandler.cs" />
     <Compile Include="DeleteNodeFromLibraryCommandHandler.cs" />
-    <Compile Include="DeleteNotificationCommandHandler.cs" />
     <Compile Include="DeleteReplyCommandHandler.cs" />
     <Compile Include="DeleteCommentCommandHandler.cs" />
     <Compile Include="DeleteUpdatesCommandHandler.cs" />
@@ -90,7 +89,6 @@
     <Compile Include="Ioc\RegisterIoc.cs" />
     <Compile Include="LikeCommentCommandHandler.cs" />
     <Compile Include="LikeReplyCommandHandler.cs" />
-    <Compile Include="MarkMessagesAsReadCommandHandler.cs" />
     <Compile Include="Quiz\CreateAnswerCommandHandler.cs" />
     <Compile Include="Quiz\CreateDiscussionCommandHandler.cs" />
     <Compile Include="Quiz\CreateQuestionCommandHandler.cs" />
@@ -112,7 +110,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CommandHandlerResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SendMessageCommandHandler.cs" />
     <Compile Include="AddReputationCommandHandler.cs" />
     <Compile Include="SubscribeToSharedBoxCommandHandler.cs" />
     <Compile Include="ShareBoxCommandHandler.cs" />

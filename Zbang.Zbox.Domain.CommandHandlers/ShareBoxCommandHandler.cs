@@ -43,8 +43,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (command == null) throw new ArgumentNullException("command");
             
             var sender = m_UserRepository.Load(command.InviteeId);
-            var box = m_BoxRepository.Load(command.BoxId);
+            var box = m_BoxRepository.Get(command.BoxId);
 
+            if (box is AcademicBox)
+            {
+                return SendInvitesAsync(command, sender, box);
+            }
+            if (box.Owner.Id == sender.Id)
+            {
+                return SendInvitesAsync(command, sender, box);
+            }
+            throw new UnauthorizedAccessException();
+        }
+
+        private Task SendInvitesAsync(ShareBoxCommand command, User sender, Box box)
+        {
             var tasks = new List<Task>();
             foreach (var recipientEmail in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
             {

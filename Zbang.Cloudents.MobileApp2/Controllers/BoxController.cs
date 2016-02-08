@@ -291,12 +291,18 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
+            try
+            {
+                var userId = User.GetCloudentsUserId();
+                var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recipients);
 
-            var userId = User.GetCloudentsUserId();
-            var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recipients);
-
-            await ZboxWriteService.ShareBoxAsync(shareCommand);
-            return Request.CreateResponse();
+                await ZboxWriteService.ShareBoxAsync(shareCommand);
+                return Request.CreateResponse();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Request.CreateUnauthorizedResponse();
+            }
         }
     }
 }

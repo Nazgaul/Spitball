@@ -275,6 +275,9 @@ md-toast .md-toast-content {
 .layout-padding > .flex {
   padding: 12px;
 }
+md-toast.md-warn-theme .md-toast-content {
+  background: #db4437;
+}
 .profile-content md-tabs-wrapper {
   margin-bottom: 0;
 }

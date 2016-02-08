@@ -34,7 +34,7 @@
 
         $scope.$on("open_invite", function () {
             $anchorScroll.yOffset = 100;
-            $timeout(function() {
+            $timeout(function () {
                 $anchorScroll('invite');
             });
             googleService.initGApi().then(function () {
@@ -131,13 +131,20 @@
         }
 
         function sendInvite() {
+            if (self.contacts.length) {
+
+            }
             self.submitDisabled = true;
             var contacts = self.contacts.map(function (c) {
                 return c.email;
             });
             if (self.inBox) {
                 $scope.$emit('follow-box');
-                shareService.inviteToBox(contacts, $stateParams.boxId).finally(successSend);
+                shareService.inviteToBox(contacts, $stateParams.boxId).then(successSend, function (response) {
+                    $scope.app.showToaster(response, null, 'warn');
+                }).finally(function () {
+                    self.submitDisabled = false;
+                });
             } else {
                 shareService.inviteToSystem(contacts).finally(successSend);
             }
@@ -146,7 +153,7 @@
         function successSend() {
             $scope.app.showToaster(resManager.get('toasterInviteComplete'));
             self.closeInvite();
-            self.submitDisabled = false;
+
         }
 
     }

@@ -33,7 +33,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query);
         Task<UniversityInfoDto> GetUniversityDetailAsync(GetUniversityDetailQuery query);
-        Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query);
+       // Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query);
 
         Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query);
         Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetWebServiceBoxItemsPagedAsync(GetBoxItemsPagedQuery query);

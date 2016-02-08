@@ -126,4 +126,7 @@
   <data name="FillComment" xml:space="preserve">
     <value>You must start a discussion or post a document</value>
   </data>
+  <data name="UnspecifiedError" xml:space="preserve">
+    <value>Whoops, we seem to be experiencing a technical error. Please try again</value>
+  </data>
 </root>

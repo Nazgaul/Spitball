@@ -126,4 +126,7 @@
   <data name="FillComment" xml:space="preserve">
     <value>עליך להתחיל דיון חדש או לשתף קובץ</value>
   </data>
+  <data name="UnspecifiedError" xml:space="preserve">
+    <value>אופס..קרתה שגיאה. אנא נסה שוב</value>
+  </data>
 </root>

@@ -122,14 +122,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
                 return ResourceManager.GetString("LogonError", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Whoops, we seem to be experiencing a technical error. Please try again.
-        /// </summary>
-        internal static string UnspecifiedError {
-            get {
-                return ResourceManager.GetString("UnspecifiedError", resourceCulture);
-            }
-        }
     }
 }

@@ -11,8 +11,9 @@
         }
         var b = this, boxId = $stateParams.boxId;
         b.data = boxData;
-        b.showLeaderboard = b.isAcademic = b.data.boxType === 'academic';
+        b.showLeaderboard = b.isAcademic = boxData.boxType === 'academic';
         b.needFollow = boxData.userType === 'invite' || boxData.userType === 'none';
+        b.canInvite = b.isAcademic || (boxData.userType === 'owner' && !b.isAcademic);
         b.owner = boxData.userType === 'owner';
         b.follow = follow;
         b.updateBox = updateBox;

@@ -206,19 +206,19 @@ q.NumberOfViews as numOfViews
 //";
 
 
-        public const string UserInvites = @"
-select id as MsgId, u.UserImageLarge as userpic,
- u.UserName as username, 
- i.CreationTime as date,
- b.BoxName,
-b.Url ,  isRead as [IsRead]
-from zbox.UserBoxRel ub
-join zbox.Invite i on ub.UserBoxRelId = i.UserBoxRelId and i.IsUsed = 0  and i.isdeleted = 0
-join zbox.Users u on i.SenderId = u.UserId
-join zbox.box b on ub.BoxId = b.BoxId and b.isdeleted = 0
-where ub.UserType = 1
-and ub.UserId = @userid
-order by isRead asc, i.CreationTime desc ";
+//        public const string UserInvites = @"
+//select id as MsgId, u.UserImageLarge as userpic,
+// u.UserName as username, 
+// i.CreationTime as date,
+// b.BoxName,
+//b.Url ,  isRead as [IsRead]
+//from zbox.UserBoxRel ub
+//join zbox.Invite i on ub.UserBoxRelId = i.UserBoxRelId and i.IsUsed = 0  and i.isdeleted = 0
+//join zbox.Users u on i.SenderId = u.UserId
+//join zbox.box b on ub.BoxId = b.BoxId and b.isdeleted = 0
+//where ub.UserType = 1
+//and ub.UserId = @userid
+//order by isRead asc, i.CreationTime desc ";
 
         public const string RecommendedCourses =
             @"select top(3) b.BoxId, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,

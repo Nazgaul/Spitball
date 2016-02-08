@@ -14,14 +14,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<AcademicBox> m_AcademicBoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IUserBoxRelRepository m_UserboxRelationshipRepository;
-        public ChangeBoxInfoCommandHandler(IRepository<Box> boxRepository, IRepository<AcademicBox> academicBoxRepositoy,
+        public ChangeBoxInfoCommandHandler(IRepository<Box> boxRepository, IRepository<AcademicBox> academicBoxRepository,
             IUserRepository userRepository,
             IUserBoxRelRepository userBoxRelRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_UserboxRelationshipRepository = userBoxRelRepository;
-            m_AcademicBoxRepository = academicBoxRepositoy;
+            m_AcademicBoxRepository = academicBoxRepository;
         }
         public void Handle(ChangeBoxInfoCommand command)
         {

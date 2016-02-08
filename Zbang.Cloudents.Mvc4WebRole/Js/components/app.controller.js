@@ -16,7 +16,7 @@
             __insp.push(["virtualPage"]); //inspectlet
             svg4everybody();
             // ReSharper restore UseOfImplicitGlobalInFunctionScope
-           
+
         });
         userDetails.init().then(function () {
             setTheme();
@@ -57,17 +57,20 @@
             $rootScope.$broadcast('open-menu');
         }
 
-        function showToaster(text, parentId) {
+        function showToaster(text, parentId, theme) {
             var element = $document.find('body');
             if (parentId) {
                 element = $document[0].querySelector('#' + parentId);
             }
+
             $mdToast.show(
-                  $mdToast.simple()
-                  .textContent(text)
-                  .position('top')
-                  .parent(element)
-                  .hideDelay(2000));
+                 $mdToast.simple()
+                 .textContent(text)
+                 .capsule(true)
+                 .position('top')
+                 .parent(element)
+                 .theme(theme)
+                 .hideDelay(2000));
         }
 
         // var originatorEv;

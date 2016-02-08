@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
+using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -49,7 +50,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(string.Format("Share/Invite user: {0} model: {1}", User.GetUserId(), model), ex);
-                return JsonError("Unspecified error. try again later");
+                return JsonError(BaseControllerResources.UnspecifiedError);
             }
         }
         
@@ -60,7 +61,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-
                 if (!ModelState.IsValid)
                 {
                     return JsonError(GetErrorFromModelState());
@@ -73,7 +73,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (UnauthorizedAccessException ex)
             {
-                ModelState.AddModelError(string.Empty, @"You do not have permission to share a box");
+                ModelState.AddModelError(string.Empty, ShareControllerResources.ShareController_InviteBox_You_do_not_have_permission_to_share_a_box);
                 TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", User.GetUserId(), model), ex);
                 return JsonError(GetErrorFromModelState());
             }
@@ -86,7 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
 
                 TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", User.GetUserId(), model), ex);
-                ModelState.AddModelError(string.Empty, @"Unspecified error. try again later");
+                ModelState.AddModelError(string.Empty, BaseControllerResources.UnspecifiedError);
                 return JsonError(GetErrorFromModelState());
             }
         }
@@ -140,28 +140,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [ZboxAuthorize(IsAuthenticationRequired = false)]//we need that because of verify account this happen - so infinite loop
-        //[OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]
-        [HttpGet]
-        public async Task<ActionResult> Notifications()
-        {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return JsonOk(new string[0]);
-            }
-            var userid = User.GetUserId();
-            try
-            {
-                var query = new GetInvitesQuery(userid);
-                var invites = await ZboxReadService.GetInvitesAsync(query);
-                return JsonOk(invites);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("Share Notifications userid " + userid, ex);
-                return JsonOk(new string[0]);
-            }
-        }
+        //[ZboxAuthorize(IsAuthenticationRequired = false)]//we need that because of verify account this happen - so infinite loop
+        ////[OutputCache(Duration = TimeConsts.Minute, VaryByParam = "none", Location = OutputCacheLocation.Client, NoStore = true)]
+        //[HttpGet]
+        //public async Task<ActionResult> Notifications()
+        //{
+        //    if (!User.Identity.IsAuthenticated)
+        //    {
+        //        return JsonOk(new string[0]);
+        //    }
+        //    var userid = User.GetUserId();
+        //    try
+        //    {
+        //        var query = new GetInvitesQuery(userid);
+        //        var invites = await ZboxReadService.GetInvitesAsync(query);
+        //        return JsonOk(invites);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("Share Notifications userid " + userid, ex);
+        //        return JsonOk(new string[0]);
+        //    }
+        //}
 
 
        
@@ -208,35 +208,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> Facebook(string postId)
-        {
-            if (string.IsNullOrWhiteSpace(postId))
-            {
-                return JsonError();
-            }
-            var command = new AddReputationCommand(User.GetUserId(), Zbox.Infrastructure.Enums.ReputationAction.ShareFacebook);
-            await ZboxWriteService.AddReputationAsync(command);
-            return JsonOk();
-        }
+        //[HttpPost]
+        //[ZboxAuthorize]
+        //public async Task<JsonResult> Facebook(string postId)
+        //{
+        //    if (string.IsNullOrWhiteSpace(postId))
+        //    {
+        //        return JsonError();
+        //    }
+        //    var command = new AddReputationCommand(User.GetUserId(), Zbox.Infrastructure.Enums.ReputationAction.ShareFacebook);
+        //    await ZboxWriteService.AddReputationAsync(command);
+        //    return JsonOk();
+        //}
 
-        [HttpPost, ZboxAuthorize]
-        public ActionResult NotificationAsRead(Guid messageId)
-        {
-            var command = new MarkMessagesAsReadCommand(User.GetUserId(), messageId);
-            ZboxWriteService.MarkMessageAsRead(command);
-            return Json(new JsonResponse(true));
-        }
+        //[HttpPost, ZboxAuthorize]
+        //public ActionResult NotificationAsRead(Guid messageId)
+        //{
+        //    var command = new MarkMessagesAsReadCommand(User.GetUserId(), messageId);
+        //    ZboxWriteService.MarkMessageAsRead(command);
+        //    return JsonOk();
+        //}
 
         
-        [HttpPost, ZboxAuthorize]
-        public ActionResult NotificationDelete(Guid messageId)
-        {
-            var command = new DeleteNotificationCommand(messageId);
-            ZboxWriteService.DeleteNotification(command);
-            return JsonOk();
-        }
+        //[HttpPost, ZboxAuthorize]
+        //public ActionResult NotificationDelete(Guid messageId)
+        //{
+        //    var command = new DeleteNotificationCommand(messageId);
+        //    ZboxWriteService.DeleteNotification(command);
+        //    return JsonOk();
+        //}
 
         [ZboxAuthorize, HttpGet]
         [DonutOutputCache(CacheProfile = "PartialPage")]

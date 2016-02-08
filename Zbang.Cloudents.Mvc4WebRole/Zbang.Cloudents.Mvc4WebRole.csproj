@@ -294,6 +294,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LibraryControllerResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Resources\ShareControllerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShareControllerResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\ShareController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
@@ -2893,6 +2898,10 @@
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LibraryControllerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Resources\ShareControllerResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ShareControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Js\Resources\JsResources.he.resx" />
     <EmbeddedResource Include="Js\Resources\JsResources.resx">

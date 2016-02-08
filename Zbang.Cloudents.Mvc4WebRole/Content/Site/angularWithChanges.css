@@ -12790,7 +12790,7 @@ md-radio-group.md-focused .md-checked .md-container:before {
 
 .md-select-menu-container {
   position: fixed;
-  left: 0;/*rtl:ignore*/;
+  left: 0/*rtl:ignore*/;
   top: 0;
   z-index: 90;
   opacity: 0;

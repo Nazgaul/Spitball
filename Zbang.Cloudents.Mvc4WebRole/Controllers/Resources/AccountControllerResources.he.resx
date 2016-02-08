@@ -132,9 +132,6 @@
   <data name="LogonError" xml:space="preserve">
     <value>שם משתמש או הסיסמה שהזנת שגויים</value>
   </data>
-  <data name="UnspecifiedError" xml:space="preserve">
-    <value>אופס..קרתה שגיאה. אנא נסה שוב</value>
-  </data>
   <data name="GoogleForgotPasswordError" xml:space="preserve">
     <value>נרשמת לספיטבול באמצעות גוגל. עליך לחזור לדף הבית ולהתחבר באמצעות גוגל</value>
   </data>

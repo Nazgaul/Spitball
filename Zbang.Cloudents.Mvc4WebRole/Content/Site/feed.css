@@ -40,17 +40,23 @@
 }
 .feed .items-slider .items-next {
   right: 0;
+  -moz-transform: rotate(0) /*rtl:rotate(180deg)*/;
+  -ms-transform: rotate(0) /*rtl:rotate(180deg)*/;
+  -o-transform: rotate(0) /*rtl:rotate(180deg)*/;
+  -webkit-transform: rotate(0) /*rtl:rotate(180deg)*/;
+  transform: rotate(0) /*rtl:rotate(180deg)*/;
 }
 .feed .items-slider .items-prev {
-  -moz-transform: rotate(180deg) /*rtl:ignore*/;
-  -ms-transform: rotate(180deg) /*rtl:ignore*/;
-  -o-transform: rotate(180deg) /*rtl:ignore*/;
-  -webkit-transform: rotate(180deg) /*rtl:ignore*/;
-  transform: rotate(180deg) /*rtl:ignore*/;
+  -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
+  -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
+  -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
+  -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
+  transform: rotate(180deg) /*rtl:rotate(0)*/;
   left: 0;
 }
 .feed .items-container {
   margin: 0 50px 10px;
+  direction: ltr /*rtl:ignore*/;
 }
 .feed .items-container .feed-item {
   width: 119px;
