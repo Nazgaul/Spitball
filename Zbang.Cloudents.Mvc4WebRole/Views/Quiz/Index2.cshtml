@@ -98,13 +98,13 @@
                     <li class="comment reply color-override backgroundTransparent" ng-repeat="post in q.questions[q.index].comments">
                         <div>
                             <div class="top">
-                                <a href="{{::post.url}}" layout="row" layout-align="start center" class="username" ga-track-event="['quiz', 'go to user page']">
+                                <a href="{{::post.userUrl}}" layout="row" layout-align="start center" class="indent username" ga-track-event="['quiz', 'go to user page']">
                                     <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="48" height="48"></user-image>
                                     <span class="user-name">{{::post.userName}}</span>
                                 </a>
-                                <div ng-bind-html="::post.content" class="content-text"></div>
+                                <div ng-bind-html="::post.content" class="indent content-text"></div>
                             </div>
-                            <span class="comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
+                            <span class="indent comment-date">{{::post.creationTime | date : 'MMM d,yyyy H:mm'}}</span>
                         </div>
 
                         <md-menu ng-if="post.userId === q.user.id">

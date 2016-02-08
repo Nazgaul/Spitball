@@ -56,6 +56,7 @@ u.UserName,
 qd.CreationTime as Date,
 u.UserImageLarge as UserPicture,
 u.UserId,
+u.Url as UserUrl,
 qd.Text,
 qd.QuestionId
 from zbox.QuizDiscussion qd
