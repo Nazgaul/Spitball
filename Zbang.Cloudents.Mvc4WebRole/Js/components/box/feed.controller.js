@@ -329,17 +329,29 @@ userName: "ram y"*/
             postId = post;
             externalUploadProvider.dropBox(boxId).then(externalUploadComplete);
         }
-        function externalUploadComplete(response) {
-            var link = response.item;
-            self.add.files.push({
-                complete: true,
-                name: link.name,
-                system: link,
-                postId: postId,
-                remove: function () {
-                    removeItem(link);
+        function externalUploadComplete(response2) {
+            if (angular.isArray(response2)) {
+                for (var j = 0; j < response2.length; j++) {
+                    pushItem(response2[j]);
                 }
-            });
+                return;
+            }
+            pushItem2(response2);
+            function pushItem2(response) {
+                if (!response) {
+                    return;
+                }
+                var link = response.item;
+                self.add.files.push({
+                    complete: true,
+                    name: link.name,
+                    system: link,
+                    postId: postId,
+                    remove: function() {
+                        removeItem(link);
+                    }
+                });
+            }
         }
 
         var postId;

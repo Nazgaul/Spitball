@@ -193,17 +193,29 @@
 
 
         //upload
-        $rootScope.$on('item_upload', function (event, response) {
-            if (response.boxId != $stateParams.boxId) { // string an int comarison
+        $rootScope.$on('item_upload', function (event, response2) {
+            if (angular.isArray(response2)) {
+                for (var j = 0; j < response2.length; j++) {
+                    pushItem(response2[j]);
+                }
                 return;
             }
-            if (response.tabId != i.tabSelected.id) {
-                return; //not the same tab
+            pushItem(response2);
+            function pushItem(response) {
+                if (!response) {
+                    return;
+                }
+                if (response.boxId != $stateParams.boxId) { // string an int comarison
+                    return;
+                }
+                if (response.tabId != i.tabSelected.id) {
+                    return; //not the same tab
+                }
+                followBox();
+                var item = response.item;
+                buildItem(item);
+                i.items.unshift(item);
             }
-            followBox();
-            var item = response.item;
-            buildItem(item);
-            i.items.unshift(item);
         });
         $rootScope.$on('close_upload', function () {
             i.uploadShow = true;
