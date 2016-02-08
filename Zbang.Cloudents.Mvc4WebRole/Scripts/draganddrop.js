@@ -29,25 +29,27 @@
 
     var module = angular.module('ang-drag-drop', []);
 
-    module.directive('uiDraggable', ['$parse', '$rootScope', '$dragImage', function($parse, $rootScope, $dragImage) {
-        return function(scope, element, attrs) {
-            var isDragHandleUsed = false,
+    module.directive('uiDraggable', ['$parse', '$rootScope', '$dragImage', function ($parse, $rootScope, $dragImage) {
+        return function (scope, element, attrs) {
+            var isDragHandleUsed = false, stop = true,
                 dragHandleClass,
                 draggingClass = attrs.draggingClass || 'on-dragging',
                 dragTarget;
 
             element.attr('draggable', false);
 
-            scope.$watch(attrs.uiDraggable, function(newValue) {
+            scope.$watch(attrs.uiDraggable, function (newValue) {
                 if (newValue) {
                     element.attr('draggable', newValue);
                     element.bind('dragend', dragendHandler);
                     element.bind('dragstart', dragstartHandler);
+                    element.bind('drag', dragHandler);
                 }
                 else {
                     element.removeAttr('draggable');
                     element.unbind('dragend', dragendHandler);
                     element.unbind('dragstart', dragstartHandler);
+                    element.unbind('drag', dragHandler);
                 }
 
             });
@@ -56,13 +58,15 @@
                 isDragHandleUsed = true;
                 dragHandleClass = attrs.dragHandleClass.trim() || 'drag-handle';
 
-                element.bind('mousedown', function(e) {
+                element.bind('mousedown', function (e) {
                     dragTarget = e.target;
                 });
             }
 
             function dragendHandler(e) {
-                setTimeout(function() {
+                console.log('here');
+                stop = true;
+                setTimeout(function () {
                     element.unbind('$destroy', dragendHandler);
                 }, 0);
                 var sendChannel = attrs.dragChannel || 'defaultchannel';
@@ -73,15 +77,15 @@
                 if (e.dataTransfer && e.dataTransfer.dropEffect !== 'none') {
                     if (attrs.onDropSuccess) {
                         var onDropSuccessFn = $parse(attrs.onDropSuccess);
-                        scope.$evalAsync(function() {
-                            onDropSuccessFn(scope, {$event: e});
+                        scope.$evalAsync(function () {
+                            onDropSuccessFn(scope, { $event: e });
                         });
                     }
-                }else if (e.dataTransfer && e.dataTransfer.dropEffect === 'none'){
+                } else if (e.dataTransfer && e.dataTransfer.dropEffect === 'none') {
                     if (attrs.onDropFailure) {
                         var onDropFailureFn = $parse(attrs.onDropFailure);
-                        scope.$evalAsync(function() {
-                            onDropFailureFn(scope, {$event: e});
+                        scope.$evalAsync(function () {
+                            onDropFailureFn(scope, { $event: e });
                         });
                     }
                 }
@@ -97,8 +101,8 @@
 
                 dragImageElementFn = $parse(dragImageElementId);
 
-                scope.$apply(function() {
-                    var elementId = dragImageElementFn(scope, {$event: e}),
+                scope.$apply(function () {
+                    var elementId = dragImageElementFn(scope, { $event: e }),
                         dragElement;
 
                     if (!(elementId && angular.isString(elementId))) {
@@ -136,8 +140,8 @@
                     //If there is a draggable image passed in, then set the image to be dragged.
                     if (dragImage && hasNativeDraggable) {
                         var dragImageFn = $parse(attrs.dragImage);
-                        scope.$apply(function() {
-                            var dragImageParameters = dragImageFn(scope, {$event: e});
+                        scope.$apply(function () {
+                            var dragImageParameters = dragImageFn(scope, { $event: e });
                             if (dragImageParameters) {
                                 if (angular.isString(dragImageParameters)) {
                                     dragImageParameters = $dragImage.generate(dragImageParameters);
@@ -153,8 +157,8 @@
                         setDragElement(e, attrs.dragImageElementId);
                     }
 
-                    var offset = {x: e.originalEvent.offsetX, y: e.originalEvent.offsetY};
-                    var transferDataObject = {data: dragData, channel: sendChannel, offset: offset};
+                    var offset = { x: e.originalEvent.offsetX, y: e.originalEvent.offsetY };
+                    var transferDataObject = { data: dragData, channel: sendChannel, offset: offset };
                     var transferDataText = angular.toJson(transferDataObject);
 
                     e.dataTransfer.setData('text', transferDataText);
@@ -166,12 +170,37 @@
                     e.preventDefault();
                 }
             }
+
+
+            function dragHandler(e) {
+                stop = true;
+
+                if (e.originalEvent.clientY < 150) {
+                    stop = false;
+                    scroll(-1);
+                }
+
+                if (e.originalEvent.clientY > ($(window).height() - 150)) {
+                    stop = false;
+                    scroll(1);
+                }
+            }
+            //http://stackoverflow.com/questions/18809678/make-html5-draggable-items-scroll-the-page
+            function scroll(step) {
+                var scrollY = $(window).scrollTop();
+                $(window).scrollTop(scrollY + step);
+                if (!stop) {
+                    setTimeout(function () {
+                        scroll(step);
+                    }, 20);
+                }
+            }
         };
     }
     ]);
 
-    module.directive('uiOnDrop', ['$parse', '$rootScope', function($parse, $rootScope) {
-        return function(scope, element, attr) {
+    module.directive('uiOnDrop', ['$parse', '$rootScope', function ($parse, $rootScope) {
+        return function (scope, element, attr) {
             var dragging = 0; //Ref. http://stackoverflow.com/a/10906204
             var dropChannel = attr.dropChannel || 'defaultchannel';
             var dragChannel = '';
@@ -210,8 +239,8 @@
                 }
 
                 var uiOnDragOverFn = $parse(attr.uiOnDragOver);
-                scope.$evalAsync(function() {
-                    uiOnDragOverFn(scope, {$event: e, $channel: dropChannel});
+                scope.$evalAsync(function () {
+                    uiOnDragOverFn(scope, { $event: e, $channel: dropChannel });
                 });
 
                 return false;
@@ -228,16 +257,16 @@
                 dragging--;
 
                 if (dragging === 0) {
-                    scope.$evalAsync(function() {
-                        customDragLeaveEvent(scope, {$event: e, $channel: dropChannel});
+                    scope.$evalAsync(function () {
+                        customDragLeaveEvent(scope, { $event: e, $channel: dropChannel });
                     });
                     element.addClass(dragEnterClass);
                     element.removeClass(dragHoverClass);
                 }
 
                 var uiOnDragLeaveFn = $parse(attr.uiOnDragLeave);
-                scope.$evalAsync(function() {
-                    uiOnDragLeaveFn(scope, {$event: e, $channel: dropChannel});
+                scope.$evalAsync(function () {
+                    uiOnDragLeaveFn(scope, { $event: e, $channel: dropChannel });
                 });
             }
 
@@ -251,8 +280,8 @@
                 }
 
                 if (dragging === 0) {
-                    scope.$evalAsync(function() {
-                        customDragEnterEvent(scope, {$event: e, $channel: dropChannel});
+                    scope.$evalAsync(function () {
+                        customDragEnterEvent(scope, { $event: e, $channel: dropChannel });
                     });
                     element.removeClass(dragEnterClass);
                     element.addClass(dragHoverClass);
@@ -260,8 +289,8 @@
                 dragging++;
 
                 var uiOnDragEnterFn = $parse(attr.uiOnDragEnter);
-                scope.$evalAsync(function() {
-                    uiOnDragEnterFn(scope, {$event: e, $channel: dropChannel});
+                scope.$evalAsync(function () {
+                    uiOnDragEnterFn(scope, { $event: e, $channel: dropChannel });
                 });
 
                 $rootScope.$broadcast('ANGULAR_HOVER', dragChannel);
@@ -279,22 +308,22 @@
                 sendData = angular.fromJson(sendData);
 
                 var dropOffset = calculateDropOffset(e);
-                
+
                 var position = dropOffset ? {
                     x: dropOffset.x - sendData.offset.x,
                     y: dropOffset.y - sendData.offset.y
                 } : null;
-                
+
                 determineEffectAllowed(e);
 
                 var uiOnDropFn = $parse(attr.uiOnDrop);
-                scope.$evalAsync(function() {
-                    uiOnDropFn(scope, {$data: sendData.data, $event: e, $channel: sendData.channel, $position: position});
+                scope.$evalAsync(function () {
+                    uiOnDropFn(scope, { $data: sendData.data, $event: e, $channel: sendData.channel, $position: position });
                 });
                 element.removeClass(dragEnterClass);
                 dragging = 0;
             }
-            
+
             function isDragChannelAccepted(dragChannel, dropChannel) {
                 if (dropChannel === '*') {
                     return true;
@@ -316,7 +345,7 @@
                 return false;
             }
 
-            var deregisterDragStart = $rootScope.$on('ANGULAR_DRAG_START', function(_, e, channel, transferDataObject) {
+            var deregisterDragStart = $rootScope.$on('ANGULAR_DRAG_START', function (_, e, channel, transferDataObject) {
                 dragChannel = channel;
 
                 var valid = true;
@@ -328,7 +357,7 @@
                 if (valid && attr.dropValidate) {
                     var validateFn = $parse(attr.dropValidate);
                     valid = validateFn(scope, {
-                        $drop: {scope: scope, element: element},
+                        $drop: { scope: scope, element: element },
                         $event: e,
                         $data: transferDataObject.data,
                         $channel: transferDataObject.channel
@@ -354,7 +383,7 @@
             });
 
 
-            var deregisterDragEnd = $rootScope.$on('ANGULAR_DRAG_END', function() {
+            var deregisterDragEnd = $rootScope.$on('ANGULAR_DRAG_END', function () {
                 element.unbind('dragover', onDragOver);
                 element.unbind('dragenter', onDragEnter);
                 element.unbind('dragleave', onDragLeave);
@@ -369,13 +398,13 @@
                 element.unbind('drop', preventNativeDnD);
             });
 
-            scope.$on('$destroy', function() {
+            scope.$on('$destroy', function () {
                 deregisterDragStart();
                 deregisterDragEnd();
             });
 
 
-            attr.$observe('dropChannel', function(value) {
+            attr.$observe('dropChannel', function (value) {
                 if (value) {
                     dropChannel = value;
                 }
@@ -397,7 +426,7 @@
         yOffset: 0
     });
 
-    module.service('$dragImage', ['$dragImageConfig', function(defaultConfig) {
+    module.service('$dragImage', ['$dragImageConfig', function (defaultConfig) {
         var ELLIPSIS = '…';
 
         function fitString(canvas, text, config) {
@@ -412,7 +441,7 @@
             return text + ELLIPSIS;
         }
 
-        this.generate = function(text, options) {
+        this.generate = function (text, options) {
             var config = angular.extend({}, defaultConfig, options || {});
             var el = document.createElement('canvas');
 
