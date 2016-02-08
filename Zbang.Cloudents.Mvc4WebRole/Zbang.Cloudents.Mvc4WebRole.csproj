@@ -1746,7 +1746,6 @@
     <Content Include="Images\Site\info.svg" />
     <Content Include="Images\Site\libChooseIcons.svg" />
     <Content Include="Images\Site\membersOnly.png" />
-    <Content Include="Images\Site\noResults.png" />
     <Content Include="Images\Site\oops.png" />
     <Content Include="Images\Site\preview_failed_icon.png" />
     <Content Include="Images\Site\quizbackground.png" />
@@ -1796,6 +1795,7 @@
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
+    <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Scripts\waypoints.min.js" />
     <Content Include="Js\menu\menulink.directive.js" />
     <Content Include="Js\menu\nospace.filter.js" />
@@ -1844,7 +1844,6 @@
     <Content Include="Js\components\user\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />
-    <Content Include="Js\homePage\theme.js" />
     <Content Include="Js\routerHelperProvider.js" />
     <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\shared\dropbox.js" />

@@ -4,7 +4,7 @@
     $('.bxslider').bxSlider({
         auto: true,
         controls: false,
-
+        pause: 15000,
     });
 
     var options = {
@@ -89,22 +89,35 @@
 
     var animatonSpeed = 300;
 
-    $('#signin, .login-option.signup').click(function () {
-        toggleForm();
+    $('.login-wrapper input').focus(function() {
+        $('.alert-danger').slideUp(animatonSpeed);
+    });
+
+    $('.login-option.signup').click(function () {
+        toggleForm('register-form');
+        $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
+    });
+    $('#signin').click(function () {
+        toggleForm('login-form');
         $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
     });
 
     $('.close-form').click(function () {
-        toggleForm();
+        toggleForm($(this).parent().attr('class'));
         $('#main-wrapper').css('min-height', 0).height('auto');
+        window.history.replaceState(null, "Home", "/");
     });
 
-    function toggleForm() {
+    function toggleForm(form) {
         $.each($('.home-page-body > *:not(.main)'),
             function () {
                 $(this).slideToggle(animatonSpeed);
             });
         $('.login-wrapper, #main-wrapper h1').slideToggle(animatonSpeed);
+        $('.login-wrapper .content > form:not(.' + form + ')').each(function() {
+            $(this).addClass('hidden');
+        });
+        $('.login-wrapper .content > form.' + form).removeClass('hidden').show();
         $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options, header ul, .navbar-toggle').toggleClass('hidden');
     }
 

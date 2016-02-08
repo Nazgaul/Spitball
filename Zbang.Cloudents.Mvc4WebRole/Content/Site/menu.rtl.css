@@ -83,6 +83,9 @@
   width: 22px;
   height: 22px;
 }
+.page-body md-backdrop.md-sidenav-backdrop {
+  z-index: 9;
+}
 .side-menu,
 .side-menu ul {
   list-style: none;

@@ -1,19 +1,4 @@
-﻿var oxyThemeData = {
-    navbarHeight: 100,
-    navbarScrolled: 90,
-    navbarScrolledPoint: 30,
-    menuClose: 'off',
-    scrollFinishedMessage: 'No more items to load.',
-    hoverMenu:
-    {
-        hoverActive: false,
-        hoverDelay: 200,
-        hoverFadeDelay: 200
-    },
-    siteLoader: 'on'
-};
-
-function getCookie(cname) {
+﻿function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
@@ -26,18 +11,9 @@ function getCookie(cname) {
 
 window.addEventListener("load", function load(event) {
     window.removeEventListener("load", load, false); //remove listener, no longer needed
-    //var removeCloudentsBanner = 'removeCloudentsBanner';
-    //$('.alert').on('closed.bs.alert', function () {
-    //    localStorage.setItem(removeCloudentsBanner, '1');
-    //});
-
-    //var willShow = localStorage.getItem(removeCloudentsBanner);
-    //if (willShow != null) {
-    //    $('.alert').alert('close');
-    //}
     var val = getCookie('l3').toLowerCase();
     var text = document.querySelector('[href$="' + val + '/"]').text;
-    document.querySelector('[data-toggle=dropdown] span').innerText = text;
+    document.querySelector('nav li.language span').innerText = text;
 
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

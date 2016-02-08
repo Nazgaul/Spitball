@@ -2430,3 +2430,81 @@ Page Loading
 .theme-light .hoverSvgTC8:hover {
   fill: #c3c3c3 !important;
 }
+.theme-light .backgroundTC9 {
+  background: #e0b17d !important;
+}
+.theme-light .textTC9 {
+  color: #e0b17d !important;
+}
+.theme-light .inputTC9::-webkit-input-placeholder {
+  color: #e0b17d !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC9:-moz-placeholder {
+  /* Firefox 18- */
+  color: #e0b17d !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC9::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #e0b17d !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC9:-ms-input-placeholder {
+  color: #e0b17d !important;
+  opacity: 1 !important;
+}
+.theme-light .svgTC9 {
+  fill: #e0b17d !important;
+}
+.theme-light .borderTC9 {
+  border-color: #e0b17d !important;
+}
+.theme-light .hoverBackgroundTC9:hover {
+  background: #e0b17d !important;
+}
+.theme-light .hoverTextTC9:hover {
+  color: #e0b17d !important;
+}
+.theme-light .hoverSvgTC9:hover {
+  fill: #e0b17d !important;
+}
+.theme-light .backgroundTC10 {
+  background: #888b8e !important;
+}
+.theme-light .textTC10 {
+  color: #888b8e !important;
+}
+.theme-light .inputTC10::-webkit-input-placeholder {
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC10:-moz-placeholder {
+  /* Firefox 18- */
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC10::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC10:-ms-input-placeholder {
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-light .svgTC10 {
+  fill: #888b8e !important;
+}
+.theme-light .borderTC10 {
+  border-color: #888b8e !important;
+}
+.theme-light .hoverBackgroundTC10:hover {
+  background: #888b8e !important;
+}
+.theme-light .hoverTextTC10:hover {
+  color: #888b8e !important;
+}
+.theme-light .hoverSvgTC10:hover {
+  fill: #888b8e !important;
+}
