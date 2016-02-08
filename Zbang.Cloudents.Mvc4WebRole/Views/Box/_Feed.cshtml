@@ -102,12 +102,13 @@
                         </ol>
 
                         <form class="add-comment add-reply" ng-if="post.showReplies" ng-submit="f.add.createReply(post)">
-                            <md-input-container md-no-float class="reply-wrapper">
-                                <textarea focus-me="post.focusReply" ng-model="f.add.newReplyText" placeholder="@BoxResources.replyPostPlaceholder" class="color-override inputColor12 textColor7"></textarea>
-                            </md-input-container>
-                            <ul class="list-inline">
-                                <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: post.id}" ng-include="'file-upload.html'">
-                            </ul>
+                            <div class="reply-wrapper">
+                                <md-input-container md-no-float>
+                                    <textarea focus-me="post.focusReply" ng-model="f.add.newReplyText" placeholder="@BoxResources.replyPostPlaceholder" class="color-override inputColor12 textColor7"></textarea>
+                                </md-input-container>
+                                <ul class="list-inline file-upload-area" ng-if="f.add.files.length">
+                                    <li class=" file-upload" ng-repeat="file in f.add.files | filter:{postId: post.id}" ng-include="'file-upload.html'"></ul>
+                            </div>
                             <div layout="row" layout-align="space-between center">
                                 <div class="upload-options" layout="row" layout-wrap layout-align="space-between start">
                                     <a plupload="f.add.fileUpload.url" ng-click="f.add.upload(post.id)"
@@ -153,7 +154,7 @@
             <div flex="100" flex-gt-md="50" class="flex">
                 <adsense ad-client="ca-pub-1215688692145777" ad-slot="1567632158" inline-style="display:inline-block;width:100%;height:179px"></adsense>
             </div>
-            
+
         </div>
     </div>
 </div>
