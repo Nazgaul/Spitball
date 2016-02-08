@@ -25,19 +25,49 @@
         self.googleDriveInit = function () {
             return $q.all([googleService.initDrive(), googleService.initGApi()]);
         }
-
+        function buildGoogleDeferes(link,boxId,name) {
+            var defer1 = $q.defer();
+            itemService.addLink(link, boxId, null, name).then(function (response2) {
+                defer1.resolve(response2);
+            },function() {
+                defer1.resolve();
+            });
+            return defer1.promise;
+        }
         self.google = function (boxId) {
             var defer = $q.defer();
             googleService.picker().then(function (response) {
-                defer.resolve(itemService.addLink(response[0].link, boxId, null, response[0].name));
+                var filesUpload = [];
+                for (var i = 0; i < response.length; i++) {
+                    
+                    filesUpload.push(buildGoogleDeferes(response[i].link, boxId, response[i].name));
+                    //    );
+                }
+                $q.all(filesUpload).then(function (retVal) {
+                    defer.resolve(retVal);
+                });
             });
             return defer.promise;
         }
-
+        function buildDropBoxDeferes(link, boxId, name) {
+            var defer1 = $q.defer();
+            itemService.addFromDropBox(boxId, link, name).then(function (response2) {
+                defer1.resolve(response2);
+            }, function () {
+                defer1.resolve();
+            });
+            return defer1.promise;
+        }
         self.dropBox = function (boxId) {
             var defer = $q.defer();
             dropboxService.choose().then(function (response) {
-                defer.resolve(itemService.addFromDropBox(boxId, response[0].link, response[0].name));
+                var filesUpload = [];
+                for (var i = 0; i < response.length; i++) {
+                    filesUpload.push(buildDropBoxDeferes(response[i].link, boxId, response[i].name));
+                }
+                $q.all(filesUpload).then(function (retVal) {
+                    defer.resolve(retVal);
+                });
             });
             return defer.promise;
 
