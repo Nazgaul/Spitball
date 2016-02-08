@@ -1251,393 +1251,393 @@ md-chips .md-chips.md-focused {
 .color-1 {
   color: #4190b9;
 }
-.theme-dark .backgroundTC1 {
+.backgroundTC1 {
   background: #323538 !important;
 }
-.theme-dark .textTC1 {
+.textTC1 {
   color: #323538 !important;
 }
-.theme-dark .inputTC1::-webkit-input-placeholder {
+.inputTC1::-webkit-input-placeholder {
   color: #323538 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC1:-moz-placeholder {
+.inputTC1:-moz-placeholder {
   /* Firefox 18- */
   color: #323538 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC1::-moz-placeholder {
+.inputTC1::-moz-placeholder {
   /* Firefox 19+ */
   color: #323538 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC1:-ms-input-placeholder {
+.inputTC1:-ms-input-placeholder {
   color: #323538 !important;
   opacity: 1 !important;
 }
-.theme-dark .svgTC1 {
+.svgTC1 {
   fill: #323538 !important;
 }
-.theme-dark .borderTC1 {
+.borderTC1 {
   border-color: #323538 !important;
 }
-.theme-dark .hoverBackgroundTC1:hover {
+.hoverBackgroundTC1:hover {
   background: #323538 !important;
 }
-.theme-dark .hoverTextTC1:hover {
+.hoverTextTC1:hover {
   color: #323538 !important;
 }
-.theme-dark .hoverSvgTC1:hover {
+.hoverSvgTC1:hover {
   fill: #323538 !important;
 }
-.theme-dark .backgroundTC2 {
+.backgroundTC2 {
   background: #888b8e !important;
 }
-.theme-dark .textTC2 {
+.textTC2 {
   color: #888b8e !important;
 }
-.theme-dark .inputTC2::-webkit-input-placeholder {
+.inputTC2::-webkit-input-placeholder {
   color: #888b8e !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC2:-moz-placeholder {
+.inputTC2:-moz-placeholder {
   /* Firefox 18- */
   color: #888b8e !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC2::-moz-placeholder {
+.inputTC2::-moz-placeholder {
   /* Firefox 19+ */
   color: #888b8e !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC2:-ms-input-placeholder {
+.inputTC2:-ms-input-placeholder {
   color: #888b8e !important;
   opacity: 1 !important;
 }
-.theme-dark .svgTC2 {
+.svgTC2 {
   fill: #888b8e !important;
 }
-.theme-dark .borderTC2 {
+.borderTC2 {
   border-color: #888b8e !important;
 }
-.theme-dark .hoverBackgroundTC2:hover {
+.hoverBackgroundTC2:hover {
   background: #888b8e !important;
 }
-.theme-dark .hoverTextTC2:hover {
+.hoverTextTC2:hover {
   color: #888b8e !important;
 }
-.theme-dark .hoverSvgTC2:hover {
+.hoverSvgTC2:hover {
   fill: #888b8e !important;
 }
-.theme-dark .backgroundTC3 {
+.backgroundTC3 {
   background: #4190b9 !important;
 }
-.theme-dark .textTC3 {
+.textTC3 {
   color: #4190b9 !important;
 }
-.theme-dark .inputTC3::-webkit-input-placeholder {
+.inputTC3::-webkit-input-placeholder {
   color: #4190b9 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC3:-moz-placeholder {
+.inputTC3:-moz-placeholder {
   /* Firefox 18- */
   color: #4190b9 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC3::-moz-placeholder {
+.inputTC3::-moz-placeholder {
   /* Firefox 19+ */
   color: #4190b9 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC3:-ms-input-placeholder {
+.inputTC3:-ms-input-placeholder {
   color: #4190b9 !important;
   opacity: 1 !important;
 }
-.theme-dark .svgTC3 {
+.svgTC3 {
   fill: #4190b9 !important;
 }
-.theme-dark .borderTC3 {
+.borderTC3 {
   border-color: #4190b9 !important;
 }
-.theme-dark .hoverBackgroundTC3:hover {
+.hoverBackgroundTC3:hover {
   background: #4190b9 !important;
 }
-.theme-dark .hoverTextTC3:hover {
+.hoverTextTC3:hover {
   color: #4190b9 !important;
 }
-.theme-dark .hoverSvgTC3:hover {
+.hoverSvgTC3:hover {
   fill: #4190b9 !important;
 }
-.theme-dark .backgroundTC4 {
+.backgroundTC4 {
   background: #f5f5f5 !important;
 }
-.theme-dark .textTC4 {
+.textTC4 {
   color: #f5f5f5 !important;
 }
-.theme-dark .inputTC4::-webkit-input-placeholder {
+.inputTC4::-webkit-input-placeholder {
   color: #f5f5f5 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC4:-moz-placeholder {
+.inputTC4:-moz-placeholder {
   /* Firefox 18- */
   color: #f5f5f5 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC4::-moz-placeholder {
+.inputTC4::-moz-placeholder {
   /* Firefox 19+ */
   color: #f5f5f5 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC4:-ms-input-placeholder {
+.inputTC4:-ms-input-placeholder {
   color: #f5f5f5 !important;
   opacity: 1 !important;
 }
-.theme-dark .svgTC4 {
+.svgTC4 {
   fill: #f5f5f5 !important;
 }
-.theme-dark .borderTC4 {
+.borderTC4 {
   border-color: #f5f5f5 !important;
 }
-.theme-dark .hoverBackgroundTC4:hover {
+.hoverBackgroundTC4:hover {
   background: #f5f5f5 !important;
 }
-.theme-dark .hoverTextTC4:hover {
+.hoverTextTC4:hover {
   color: #f5f5f5 !important;
 }
-.theme-dark .hoverSvgTC4:hover {
+.hoverSvgTC4:hover {
   fill: #f5f5f5 !important;
 }
-.theme-dark .backgroundTC5 {
+.backgroundTC5 {
   background: #3d4348 !important;
 }
-.theme-dark .textTC5 {
+.textTC5 {
   color: #3d4348 !important;
 }
-.theme-dark .inputTC5::-webkit-input-placeholder {
+.inputTC5::-webkit-input-placeholder {
   color: #3d4348 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC5:-moz-placeholder {
+.inputTC5:-moz-placeholder {
   /* Firefox 18- */
   color: #3d4348 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC5::-moz-placeholder {
+.inputTC5::-moz-placeholder {
   /* Firefox 19+ */
   color: #3d4348 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC5:-ms-input-placeholder {
+.inputTC5:-ms-input-placeholder {
   color: #3d4348 !important;
   opacity: 1 !important;
 }
-.theme-dark .svgTC5 {
+.svgTC5 {
   fill: #3d4348 !important;
 }
-.theme-dark .borderTC5 {
+.borderTC5 {
   border-color: #3d4348 !important;
 }
-.theme-dark .hoverBackgroundTC5:hover {
+.hoverBackgroundTC5:hover {
   background: #3d4348 !important;
 }
-.theme-dark .hoverTextTC5:hover {
+.hoverTextTC5:hover {
   color: #3d4348 !important;
 }
-.theme-dark .hoverSvgTC5:hover {
+.hoverSvgTC5:hover {
   fill: #3d4348 !important;
 }
-.theme-dark .backgroundTC6 {
+.backgroundTC6 {
   background: #2698d4 !important;
 }
-.theme-dark .textTC6 {
+.textTC6 {
   color: #2698d4 !important;
 }
-.theme-dark .inputTC6::-webkit-input-placeholder {
+.inputTC6::-webkit-input-placeholder {
   color: #2698d4 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC6:-moz-placeholder {
+.inputTC6:-moz-placeholder {
   /* Firefox 18- */
   color: #2698d4 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC6::-moz-placeholder {
+.inputTC6::-moz-placeholder {
   /* Firefox 19+ */
   color: #2698d4 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC6:-ms-input-placeholder {
+.inputTC6:-ms-input-placeholder {
   color: #2698d4 !important;
   opacity: 1 !important;
 }
-.theme-dark .svgTC6 {
+.svgTC6 {
   fill: #2698d4 !important;
 }
-.theme-dark .borderTC6 {
+.borderTC6 {
   border-color: #2698d4 !important;
 }
-.theme-dark .hoverBackgroundTC6:hover {
+.hoverBackgroundTC6:hover {
   background: #2698d4 !important;
 }
-.theme-dark .hoverTextTC6:hover {
+.hoverTextTC6:hover {
   color: #2698d4 !important;
 }
-.theme-dark .hoverSvgTC6:hover {
+.hoverSvgTC6:hover {
   fill: #2698d4 !important;
 }
-.theme-dark .backgroundTC7 {
+.backgroundTC7 {
   background: #dfb07c !important;
 }
-.theme-dark .textTC7 {
+.textTC7 {
   color: #dfb07c !important;
 }
-.theme-dark .inputTC7::-webkit-input-placeholder {
+.inputTC7::-webkit-input-placeholder {
   color: #dfb07c !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC7:-moz-placeholder {
+.inputTC7:-moz-placeholder {
   /* Firefox 18- */
   color: #dfb07c !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC7::-moz-placeholder {
+.inputTC7::-moz-placeholder {
   /* Firefox 19+ */
   color: #dfb07c !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC7:-ms-input-placeholder {
+.inputTC7:-ms-input-placeholder {
   color: #dfb07c !important;
   opacity: 1 !important;
 }
-.theme-dark .svgTC7 {
+.svgTC7 {
   fill: #dfb07c !important;
 }
-.theme-dark .borderTC7 {
+.borderTC7 {
   border-color: #dfb07c !important;
 }
-.theme-dark .hoverBackgroundTC7:hover {
+.hoverBackgroundTC7:hover {
   background: #dfb07c !important;
 }
-.theme-dark .hoverTextTC7:hover {
+.hoverTextTC7:hover {
   color: #dfb07c !important;
 }
-.theme-dark .hoverSvgTC7:hover {
+.hoverSvgTC7:hover {
   fill: #dfb07c !important;
 }
-.theme-dark .backgroundTC8 {
+.backgroundTC8 {
   background: #c3c3c3 !important;
 }
-.theme-dark .textTC8 {
+.textTC8 {
   color: #c3c3c3 !important;
 }
-.theme-dark .inputTC8::-webkit-input-placeholder {
+.inputTC8::-webkit-input-placeholder {
   color: #c3c3c3 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC8:-moz-placeholder {
+.inputTC8:-moz-placeholder {
   /* Firefox 18- */
   color: #c3c3c3 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC8::-moz-placeholder {
+.inputTC8::-moz-placeholder {
   /* Firefox 19+ */
   color: #c3c3c3 !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC8:-ms-input-placeholder {
+.inputTC8:-ms-input-placeholder {
   color: #c3c3c3 !important;
   opacity: 1 !important;
 }
-.theme-dark .svgTC8 {
+.svgTC8 {
   fill: #c3c3c3 !important;
 }
-.theme-dark .borderTC8 {
+.borderTC8 {
   border-color: #c3c3c3 !important;
 }
-.theme-dark .hoverBackgroundTC8:hover {
+.hoverBackgroundTC8:hover {
   background: #c3c3c3 !important;
 }
-.theme-dark .hoverTextTC8:hover {
+.hoverTextTC8:hover {
   color: #c3c3c3 !important;
 }
-.theme-dark .hoverSvgTC8:hover {
+.hoverSvgTC8:hover {
   fill: #c3c3c3 !important;
 }
-.theme-dark .backgroundTC9 {
+.backgroundTC9 {
   background: #e0b17d !important;
 }
-.theme-dark .textTC9 {
+.textTC9 {
   color: #e0b17d !important;
 }
-.theme-dark .inputTC9::-webkit-input-placeholder {
+.inputTC9::-webkit-input-placeholder {
   color: #e0b17d !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC9:-moz-placeholder {
+.inputTC9:-moz-placeholder {
   /* Firefox 18- */
   color: #e0b17d !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC9::-moz-placeholder {
+.inputTC9::-moz-placeholder {
   /* Firefox 19+ */
   color: #e0b17d !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC9:-ms-input-placeholder {
+.inputTC9:-ms-input-placeholder {
   color: #e0b17d !important;
   opacity: 1 !important;
 }
-.theme-dark .svgTC9 {
+.svgTC9 {
   fill: #e0b17d !important;
 }
-.theme-dark .borderTC9 {
+.borderTC9 {
   border-color: #e0b17d !important;
 }
-.theme-dark .hoverBackgroundTC9:hover {
+.hoverBackgroundTC9:hover {
   background: #e0b17d !important;
 }
-.theme-dark .hoverTextTC9:hover {
+.hoverTextTC9:hover {
   color: #e0b17d !important;
 }
-.theme-dark .hoverSvgTC9:hover {
+.hoverSvgTC9:hover {
   fill: #e0b17d !important;
 }
-.theme-dark .backgroundTC10 {
+.backgroundTC10 {
   background: #888b8e !important;
 }
-.theme-dark .textTC10 {
+.textTC10 {
   color: #888b8e !important;
 }
-.theme-dark .inputTC10::-webkit-input-placeholder {
+.inputTC10::-webkit-input-placeholder {
   color: #888b8e !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC10:-moz-placeholder {
+.inputTC10:-moz-placeholder {
   /* Firefox 18- */
   color: #888b8e !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC10::-moz-placeholder {
+.inputTC10::-moz-placeholder {
   /* Firefox 19+ */
   color: #888b8e !important;
   opacity: 1 !important;
 }
-.theme-dark .inputTC10:-ms-input-placeholder {
+.inputTC10:-ms-input-placeholder {
   color: #888b8e !important;
   opacity: 1 !important;
 }
-.theme-dark .svgTC10 {
+.svgTC10 {
   fill: #888b8e !important;
 }
-.theme-dark .borderTC10 {
+.borderTC10 {
   border-color: #888b8e !important;
 }
-.theme-dark .hoverBackgroundTC10:hover {
+.hoverBackgroundTC10:hover {
   background: #888b8e !important;
 }
-.theme-dark .hoverTextTC10:hover {
+.hoverTextTC10:hover {
   color: #888b8e !important;
 }
-.theme-dark .hoverSvgTC10:hover {
+.hoverSvgTC10:hover {
   fill: #888b8e !important;
 }
