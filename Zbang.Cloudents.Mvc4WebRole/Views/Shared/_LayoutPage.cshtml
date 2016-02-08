@@ -50,6 +50,9 @@
     </div>
 
     <div class="nav-bar color-override backgroundColor2 borderTransparent" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
+        <button type="button" ng-if="app.showMenu" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
+            @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
+        </button>
         <div class="logo-search" layout="row" layout-align="start center" flex="100">
             <div class="logo">
                 <div class="page-logo">
@@ -122,9 +125,6 @@
                 <a class="btn btn-default" target="_self" href="@Url.RouteUrl("signup", new { returnUrl, invId })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
                 <a class="btn button-Blue btn-primary" target="_self" href="@Url.RouteUrl("signin", new { returnUrl, invId })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
             </div>
-            <button type="button" ng-if="app.showMenu" flex="none" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
-                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
-            </button>
         </div>
     </div>
 

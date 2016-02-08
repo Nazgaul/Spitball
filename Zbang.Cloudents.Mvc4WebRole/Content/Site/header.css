@@ -216,6 +216,7 @@
 }
 .nav-bar .menu-toggler {
   height: 20px;
+  align-self: center;
 }
 @media (min-width: 990px) {
   .nav-bar .menu-toggler {
