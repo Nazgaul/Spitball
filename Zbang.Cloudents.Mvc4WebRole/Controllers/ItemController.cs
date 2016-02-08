@@ -403,8 +403,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 if (!retVal.Content.Any())
                 {
-                    TraceLog.WriteError(string.Format("in content without data blobname {0} index {1} itemid {2} ",
-                        blobName, index, id));
                     return JsonOk();
                 }
                 if (string.IsNullOrEmpty(retVal.ViewName))

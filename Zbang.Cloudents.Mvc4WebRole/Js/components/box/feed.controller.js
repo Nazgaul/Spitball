@@ -247,7 +247,7 @@
                     userName: user.name,
                     files: self.add.files.map(pushItem)
                 };
-                comment.answers.push(newComment);
+                comment.replies.push(newComment);
                 self.add.newReplyText = '';
                 self.add.files = [];
                 comment.focusReply = false;
@@ -357,8 +357,10 @@ userName: "ram y"*/
             }
             if (post.repliesCount > 1 && post.repliesCount !== post.replies.length) {
                 boxService.getReplies(boxId, post.id).then(function (response) {
+                    
                     response.reverse().pop();
                     post.replies = response.concat(post.replies);
+                    assignData();
                     expandReply();
                 });
             } else {
