@@ -68,8 +68,14 @@ input, li, [contenteditable], span, textarea, [role="button"] {
 input[type="search"] {
     box-sizing: border-box;
 }
+
 input[disabled], button[disabled] {
-    cursor:wait!important;
+    cursor: wait !important;
+}
+
+body {
+    max-width: 100vw;
+    overflow: hidden;
 }
 
 .page-body {
@@ -289,7 +295,7 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
 }
 
 md-toast.md-warn-theme .md-toast-content {
-     background: @buttonColorRed;
+    background: @buttonColorRed;
 }
 
 .profile-content md-tabs-wrapper {
