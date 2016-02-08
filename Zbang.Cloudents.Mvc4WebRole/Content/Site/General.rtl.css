@@ -99,7 +99,7 @@ button[disabled] {
 }
 body {
   max-width: 100vw;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .page-body {
   margin-top: 90px;

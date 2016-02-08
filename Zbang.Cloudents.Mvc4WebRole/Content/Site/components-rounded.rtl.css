@@ -2111,6 +2111,7 @@ Dashboard Stats 2
   text-transform: uppercase;
   height: 16px;
   display: inline-block;
+  max-width: 100%;
 }
 .dashboard-stat2 .progress-info {
   clear: both;
