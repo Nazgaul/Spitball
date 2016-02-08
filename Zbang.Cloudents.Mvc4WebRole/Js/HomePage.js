@@ -4,7 +4,7 @@
     $('.bxslider').bxSlider({
         auto: true,
         controls: false,
-
+        pause: 15000,
     });
 
     var options = {

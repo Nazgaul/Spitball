@@ -242,6 +242,7 @@
 .homePage .home-page-body section:not(.main) h1 {
   font-size: 46px;
   text-align: center;
+  margin-top: 0;
 }
 .homePage .home-page-body section.main {
   position: relative;
