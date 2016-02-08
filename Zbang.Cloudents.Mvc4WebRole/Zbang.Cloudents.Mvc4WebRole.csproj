@@ -1790,6 +1790,7 @@
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
+    <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Scripts\waypoints.min.js" />
     <Content Include="Js\menu\menulink.directive.js" />
     <Content Include="Js\menu\nospace.filter.js" />
@@ -1838,7 +1839,6 @@
     <Content Include="Js\components\user\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />
-    <Content Include="Js\homePage\theme.js" />
     <Content Include="Js\routerHelperProvider.js" />
     <Content Include="Js\shared\colorOnLength.js" />
     <Content Include="Js\shared\dropbox.js" />
