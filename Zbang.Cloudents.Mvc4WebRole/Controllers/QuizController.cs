@@ -138,6 +138,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 s.Id,
                 s.QuestionId,
                 Content = s.Text,
+                s.UserUrl,
                 s.UserId,
                 s.UserName,
                 UserImage = s.UserPicture

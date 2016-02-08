@@ -172,6 +172,7 @@
 }
 .feed .post > .content-text {
   padding: 30px 50px 0 0;
+  overflow: hidden;
 }
 .feed li.post:last-child {
   margin-bottom: 0;
