@@ -222,6 +222,7 @@
 .add-comment .new-comment-border {
   max-height: 250px;
   overflow: auto;
+  min-height: 80px;
 }
 .add-comment textarea {
   width: 100%;
@@ -288,7 +289,6 @@
   border: none;
 }
 .add-comment.new-post .new-comment-border textarea {
-  min-height: 80px;
   padding: 10px 0 0 45px;
   font-size: 18px;
 }
@@ -663,7 +663,7 @@ md-tabs.box-nav-bar md-tabs-wrapper {
 }
 .file-upload-area.list-inline,
 .reply-wrapper.list-inline {
-  padding: 22px 0 10px 0;
+  padding: 17px 0 10px 0;
   overflow-x: hidden;
   -ms-word-wrap: break-word;
   word-wrap: break-word;

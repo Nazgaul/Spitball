@@ -38,39 +38,47 @@
     }
 
     .panel-group {
-        .panel-heading {
-            background: #888b8e;
-            color: #f5f5f5;
-            font-size: 18px;
-            border-radius: 0;
-            padding: 0;
+        .panel {
+            background: white;
+            margin: 5px 0;
+            color: #181C1D;
+            border: none;
+            border-radius: 7px;
+            overflow: hidden;
 
-            .panel-title {
+            .panel-heading {
+                background: #888b8e;
+                font-size: 18px;
+                border-radius: 0;
                 padding: 0;
+                overflow: hidden;
 
-                a {
-                    display: block;
-                    padding: 10px 15px;
+                .panel-title {
+                    padding: 0;
+                    margin: 0;
+
+                    a {
+                        color: #f5f5f5;
+                        display: block;
+                        padding: 10px 15px;
+                    }
                 }
             }
+
+            .panel-body {
+                padding: 20px 15px;
+                overflow: hidden;
+
+                p {
+                    margin: 0;
+                }
+            }
+
+            &.panel-open .panel-heading {
+                background: #4190B9;
+            }
         }
-
-        .panel-open .panel-heading{
-            background: #4190B9;
-        }
     }
-
-    .in ~ .panel-heading {
-        background: #4190B9;
-    }
-
-    .panel-group .panel {
-        color: #181C1D;
-        border: none;
-        border-radius: 7px;
-        overflow: hidden;
-    }
-
 
     .nav-tabs {
         margin-bottom: 0;
