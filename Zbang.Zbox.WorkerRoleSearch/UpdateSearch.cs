@@ -10,6 +10,7 @@ using Microsoft.WindowsAzure.Storage;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
+using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -178,13 +179,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (processor.ContentProcessor == null) return;
             var previewContainer = m_BlobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
             var previewBlobName = WebUtility.UrlEncode(msgData.BlobName + ".jpg");
-            if (previewBlobName != null && previewBlobName.Length > 1024)
+            if (previewBlobName != null && previewBlobName.Length > 1024) //blob name cannot exceed 1024
             {
                 return;
             }
             var blobInPreview = previewContainer.GetBlockBlobReference(previewBlobName);
-
-            if (blobInPreview.Exists())
+            if (blobInPreview.Exists() && !(processor.ContentProcessor is LinkProcessor)) //rerun on links need to do it once.
             {
                 return;
             }
