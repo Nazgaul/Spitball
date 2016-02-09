@@ -171,6 +171,12 @@
 .side-menu .md-button span.icon {
   width: 22px;
 }
+.side-menu .md-button span.badge {
+  width: initial;
+  -ms-text-overflow: clip;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+}
 .menu-toggle-list {
   background: #fff;
   max-height: 1300px;
