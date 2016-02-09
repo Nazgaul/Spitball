@@ -221,17 +221,25 @@
   </data>
   <data name="statsStudents" xml:space="preserve">
     <value>Students</value>
-  <comment>New</comment></data>
+    <comment>New</comment>
+  </data>
   <data name="statsDocuments" xml:space="preserve">
     <value>Documents</value>
-  <comment>New</comment></data>
+    <comment>New</comment>
+  </data>
   <data name="statsQuizzes" xml:space="preserve">
     <value>Quizzes</value>
-  <comment>New</comment></data>
+    <comment>New</comment>
+  </data>
   <data name="infoSection1" xml:space="preserve">
     <value>Company</value>
-  <comment>New</comment></data>
+    <comment>New</comment>
+  </data>
   <data name="infoSection2" xml:space="preserve">
     <value>Support</value>
-  <comment>New</comment></data>
+    <comment>New</comment>
+  </data>
+  <data name="A3" xml:space="preserve">
+    <value>Product</value>
+  </data>
 </root>

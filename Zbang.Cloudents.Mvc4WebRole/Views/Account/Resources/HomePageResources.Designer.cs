@@ -92,6 +92,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Product.
+        /// </summary>
+        public static string A3
+        {
+            get
+            {
+                return ResourceManager.GetString("A3", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Share knowledge in a social and open study network.
         /// </summary>
         public static string A4
@@ -114,28 +125,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Built by students for students.
-        /// </summary>
-        public static string A6
-        {
-            get
-            {
-                return ResourceManager.GetString("A6", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Get the Spitball app.
-        /// </summary>
-        public static string A7
-        {
-            get
-            {
-                return ResourceManager.GetString("A7", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Blog.
         /// </summary>
         public static string A8
@@ -147,17 +136,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Spitball Features.
-        /// </summary>
-        public static string B1
-        {
-            get
-            {
-                return ResourceManager.GetString("B1", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Create your own quizzes and assess your progress using thousands of existing quizzes.
         /// </summary>
         public static string B10
@@ -165,17 +143,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
             get
             {
                 return ResourceManager.GetString("B10", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Here are some of the features that make Spitball so unique:.
-        /// </summary>
-        public static string B2
-        {
-            get
-            {
-                return ResourceManager.GetString("B2", resourceCulture);
             }
         }
 
@@ -330,28 +297,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
             get
             {
                 return ResourceManager.GetString("D6", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Create and solve quizzes interactively.
-        /// </summary>
-        public static string D7
-        {
-            get
-            {
-                return ResourceManager.GetString("D7", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Post and share anonymously.
-        /// </summary>
-        public static string D8
-        {
-            get
-            {
-                return ResourceManager.GetString("D8", resourceCulture);
             }
         }
 
