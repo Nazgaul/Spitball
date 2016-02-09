@@ -23,6 +23,9 @@
                 </div>
             </md-input-container>
         </div>
-        <button type="submit" class="btn button-Blue btn-primary pull-right" ng-disabled="!enterId.$valid || || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">@LibraryResources.Continue</button>
+        <div class="buttons" layout="row" layout-align="end center">
+            <button type="reset" ng-click="lc.needCode = false" class="btn btn-default">@GeneralResources.Cancel</button>
+            <button type="submit" class="btn button-Blue btn-primary" ng-disabled="!enterId.$valid || || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">@LibraryResources.Continue</button>
+        </div>
     </form>
 </div>
