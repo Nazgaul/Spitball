@@ -56,7 +56,7 @@
         }
     }
 
-    button.btn-default {
+    button.btn-default.close {
         background: transparent;
         top: 0;
         position: absolute;
@@ -121,9 +121,25 @@
         box-shadow: 0 1px #888b8e;
     }
 
+    .tab-content {
+        .buttons {
+            margin-top: 15px;
+            .displayFlex;
 
-    .upload-button {
-        margin-top: 15px;
+            > * {
+                min-height: 0;
+                line-height: 25px;
+                margin-top: 0;
+                text-transform: capitalize;
+            }
+        }
+
+        .uploadLink .buttons {
+            justify-content: flex-end;
+        }
+        .uploadFile .buttons {
+            justify-content: center;
+        }
     }
 }
 
