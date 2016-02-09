@@ -50,12 +50,17 @@
                             </button>
                         </div>
                     </div>
-                    <div ng-if="u.uploadStep === 1" id="dropElement" class="text-center">
+                    <div ng-if="u.uploadStep === 1" id="dropElement" class="uploadFile text-center">
                         <div ng-hide="u.files.length">
                             <div>@IndexResources.DragHere</div>
-                            <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn button-Blue btn-primary upload-button color-override hoverTextColor8" plupload-callbacks="u.fileUpload.callbacks">
-                                @IndexResources.UploadFiles
-                            </a>
+                            <div class="buttons">
+                                <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn button-Blue btn-primary upload-button color-override hoverTextColor8" plupload-callbacks="u.fileUpload.callbacks">
+                                    @IndexResources.UploadFiles
+                                </a>
+                                <md-button class="btn btn-default" ng-click="u.uploadStep = 0">
+                                    @GeneralResources.Cancel
+                                </md-button>
+                            </div>
                         </div>
                         <h5 ng-if="u.files.length">
                             <span class="completed">{{u.filesCompleteCount}} @IndexResources.Completed</span> |
@@ -63,25 +68,25 @@
                         </h5>
                         <ul class="list-inline file-upload-area">
                             @*<li class="file-upload">
-                                    <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
-                                    <div class="file" layout="column" layout-align="space-between center">
-                                        <div class="file-name">
-                                            <div class="multi-line-ellipsis limit-three">
-                                                this is a test
-                                            </div>
-                                            <md-progress-linear class="file-upload-progress" value="50" ng-if="!file.complete" md-mode="determinate">
-                                            </md-progress-linear>
-                                        </div>
-                                        <div class="file-footer">
-                                            <div class="file-size">25kb</div>
-                                            <button type="button" ng-click="file.remove()">@IndexResources.Remove</button>
-                                        </div>
-                                    </div>
-                                </li>*@
+                    <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
+                    <div class="file" layout="column" layout-align="space-between center">
+                        <div class="file-name">
+                            <div class="multi-line-ellipsis limit-three">
+                                this is a test
+                            </div>
+                            <md-progress-linear class="file-upload-progress" value="50" ng-if="!file.complete" md-mode="determinate">
+                            </md-progress-linear>
+                        </div>
+                        <div class="file-footer">
+                            <div class="file-size">25kb</div>
+                            <button type="button" ng-click="file.remove()">@IndexResources.Remove</button>
+                        </div>
+                    </div>
+                </li>*@
                             <li class="file-upload" ng-repeat="file in u.files" ng-include="'file-upload.html'">
                         </ul>
                     </div>
-                    <div ng-if="u.uploadStep === 4" ng-form="uploadLink">
+                    <div class="uploadLink" ng-if="u.uploadStep === 4" ng-form="uploadLink">
                         <form name="uploadLink" novalidate ng-submit="u.uploadLink(uploadLink)">
                             <md-input-container class="padding">
                                 <label>@IndexResources.Share</label>
@@ -92,11 +97,20 @@
                                     <div ng-message="server">{{u.error}}</div>
                                 </div>
                             </md-input-container>
-                            <input type="submit" class="btn button-Blue btn-primary pull-right" ng-disabled="u.submitFormProcess || !uploadLink.$valid" value="@UserResources.Share" />
+                            <div class="buttons">
+                                <input type="submit" class="btn button-Blue btn-primary pull-right" ng-disabled="u.submitFormProcess || !uploadLink.$valid" value="@UserResources.Share" />
+
+                                @*<md-button type="submit" class="btn button-Blue btn-primary" ng-click="u.uploadStep = 0" ng-disabled="u.submitFormProcess || !uploadLink.$valid">
+                        @UserResources.Share
+                    </md-button>*@
+                                <md-button class="btn btn-default" ng-click="u.uploadStep = 0">
+                                    @GeneralResources.Cancel
+                                </md-button>
+                            </div>
                         </form>
                     </div>
                 </div>
-                <button type="button" class="btn btn-default text-capitalize pull-right" ng-click="u.closeUpload()">@Html.Svg("~/images/site/icons.svg", "close")</button>
+                <button type="button" class="close btn btn-default text-capitalize pull-right" ng-click="u.closeUpload()">@Html.Svg("~/images/site/icons.svg", "close")</button>
             </div>
         </div>
     </div>

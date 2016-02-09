@@ -45,7 +45,7 @@
 .invite .tab-from-r .mail {
   margin-right: 0;
 }
-.invite button.btn-default {
+.invite button.btn-default.close {
   background: transparent;
   top: 0;
   position: absolute;
@@ -53,10 +53,10 @@
   padding: 5px 15px;
   margin: 6px auto;
 }
-.invite button.btn-default:active:hover {
+.invite button.btn-default.close:active:hover {
   background: transparent;
 }
-.invite button.btn-default svg {
+.invite button.btn-default.close svg {
   width: 15px;
   height: 15px;
 }
@@ -101,8 +101,23 @@
 .invite md-chips .md-chips {
   box-shadow: 0 1px #888b8e;
 }
-.invite .upload-button {
+.invite .tab-content .buttons {
   margin-top: 15px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.invite .tab-content .buttons > * {
+  min-height: 0;
+  line-height: 25px;
+  margin-top: 0;
+  text-transform: capitalize;
+}
+.invite .tab-content .uploadLink .buttons {
+  justify-content: flex-end;
+}
+.invite .tab-content .uploadFile .buttons {
+  justify-content: center;
 }
 .chipsdemoContactChips md-content.autocomplete {
   min-height: 300px;

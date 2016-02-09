@@ -1657,3 +1657,81 @@ md-chips .md-chips.md-focused {
 .hoverSvgTC10:hover {
   fill: #888b8e !important;
 }
+.backgroundTC11 {
+  background: #484f56 !important;
+}
+.textTC11 {
+  color: #484f56 !important;
+}
+.inputTC11::-webkit-input-placeholder {
+  color: #484f56 !important;
+  opacity: 1 !important;
+}
+.inputTC11:-moz-placeholder {
+  /* Firefox 18- */
+  color: #484f56 !important;
+  opacity: 1 !important;
+}
+.inputTC11::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #484f56 !important;
+  opacity: 1 !important;
+}
+.inputTC11:-ms-input-placeholder {
+  color: #484f56 !important;
+  opacity: 1 !important;
+}
+.svgTC11 {
+  fill: #484f56 !important;
+}
+.borderTC11 {
+  border-color: #484f56 !important;
+}
+.hoverBackgroundTC11:hover {
+  background: #484f56 !important;
+}
+.hoverTextTC11:hover {
+  color: #484f56 !important;
+}
+.hoverSvgTC11:hover {
+  fill: #484f56 !important;
+}
+.backgroundTC12 {
+  background: #9e9e9e !important;
+}
+.textTC12 {
+  color: #9e9e9e !important;
+}
+.inputTC12::-webkit-input-placeholder {
+  color: #9e9e9e !important;
+  opacity: 1 !important;
+}
+.inputTC12:-moz-placeholder {
+  /* Firefox 18- */
+  color: #9e9e9e !important;
+  opacity: 1 !important;
+}
+.inputTC12::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #9e9e9e !important;
+  opacity: 1 !important;
+}
+.inputTC12:-ms-input-placeholder {
+  color: #9e9e9e !important;
+  opacity: 1 !important;
+}
+.svgTC12 {
+  fill: #9e9e9e !important;
+}
+.borderTC12 {
+  border-color: #9e9e9e !important;
+}
+.hoverBackgroundTC12:hover {
+  background: #9e9e9e !important;
+}
+.hoverTextTC12:hover {
+  color: #9e9e9e !important;
+}
+.hoverSvgTC12:hover {
+  fill: #9e9e9e !important;
+}

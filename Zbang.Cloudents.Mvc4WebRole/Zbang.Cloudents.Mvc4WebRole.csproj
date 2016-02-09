@@ -1692,8 +1692,9 @@
       <DependentUpon>homePage.png</DependentUpon>
     </Content>
     <Content Include="Images\HomePage2\HP_image.jpg" />
+    <Content Include="Images\HomePage2\infographics_eng.png" />
+    <Content Include="Images\HomePage2\infographics_heb.png" />
     <Content Include="Images\HomePage2\video.png" />
-    <Content Include="Images\signin\loginOptions.svg" />
     <Content Include="Images\Site\404_image.png" />
     <Content Include="Images\HomePage2\apple.png" />
     <Content Include="Images\HomePage2\google.png" />
@@ -1715,9 +1716,6 @@
     <Content Include="Images\favIcons\mstile-310x150.png" />
     <Content Include="Images\favIcons\mstile-310x310.png" />
     <Content Include="Images\favIcons\mstile-70x70.png" />
-    <Content Include="Images\signin\1a.png" />
-    <Content Include="Images\signin\2a.png" />
-    <Content Include="Images\signin\3a.png" />
     <Content Include="Images\HomePage2\computer.png" />
     <Content Include="Images\HomePage2\grid-20.png" />
     <Content Include="Images\HomePage2\headr_image2.png" />
@@ -1735,11 +1733,6 @@
     <Content Include="Images\HomePage2\testimonial3.jpg" />
     <Content Include="Images\HomePage2\testimonial4.jpg" />
     <Content Include="Images\HomePage2\user.png" />
-    <Content Include="Images\signin\googleplus.png" />
-    <Content Include="Images\signin\signup_logo.png" />
-    <Content Include="Images\signin\icons.svg" />
-    <Content Include="Images\signin\sprite.png" />
-    <Content Include="Images\signin\syncfusion-icons-white.png" />
     <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\browsers.svg" />
     <Content Include="Images\aboutUs\aboutUsIcons.svg" />
@@ -2788,6 +2781,7 @@
     <Content Include="Views\Item\UploadDialog.cshtml" />
     <Content Include="Views\Share\InviteDialog.cshtml" />
     <Content Include="Views\Library\_EmptyStateTopTree.cshtml" />
+    <Content Include="Views\Home\Product.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -142,6 +142,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
+        [NoCache]
+        public ActionResult Product(string lang)
+        {
+            ViewBag.postBag = true;
+            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
+                Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                ViewBag.lang = "he";
+            }
+            return View();
+        }
 
 
 
