@@ -104,7 +104,7 @@
     <Compile Include="Quiz\UpdateQuestionCommandHandler.cs" />
     <Compile Include="Quiz\UpdateQuizCommandHandler.cs" />
     <Compile Include="RateItemCommandHandler.cs" />
-    <Compile Include="RenameNodeCommandHandler.cs" />
+    <Compile Include="UpdateNodeSettingsCommandHandler.cs" />
     <Compile Include="Resources\CommandHandlerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

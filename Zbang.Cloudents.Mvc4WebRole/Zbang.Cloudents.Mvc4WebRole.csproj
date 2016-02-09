@@ -414,7 +414,7 @@
     <Compile Include="Models\NewComment.cs" />
     <Compile Include="Models\QnA\Reply.cs" />
     <Compile Include="Models\QnA\Comment.cs" />
-    <Compile Include="Models\RenameLibraryNode.cs" />
+    <Compile Include="Models\DepartmentSettings.cs" />
     <Compile Include="Models\Resources\AddLinkResources.Designer.cs">
       <DependentUpon>AddLinkResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>

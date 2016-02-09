@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.SqlServer.Types;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
@@ -13,9 +15,11 @@ namespace Zbang.Zbox.Domain
         {
             Children = new List<Library>();
             Boxes = new HashSet<Box>();
+            UserLibraryRelationship = new HashSet<UserLibraryRel>();
             AmountOfNodes = 0;
         }
-        public Library(Guid id, string name, Library parent, University university)
+
+        public Library(Guid id, string name, University university, Library parent, User user)
             : this()
         {
             Id = id;
@@ -23,6 +27,34 @@ namespace Zbang.Zbox.Domain
             Parent = parent;
             University = university;
             GenerateUrl();
+            CreatedUser = user;
+        }
+
+        public Library(Guid id, string name, University university, User user)
+            : this(id, name, university, null, user)
+        {
+            HierarchyId = SqlHierarchyId.GetRoot(); // HierarchyId.GetRoot();    
+            var rootSiblings = university.Libraries.LastOrDefault(w => w.Parent == null);
+            var rootSiblingsHierarchyId = SqlHierarchyId.Null;
+            if (rootSiblings != null)
+            {
+                rootSiblingsHierarchyId = rootSiblings.HierarchyId;
+            }
+            HierarchyId = HierarchyId.GetDescendant(rootSiblingsHierarchyId, SqlHierarchyId.Null);
+        }
+
+        public Library(Guid id, string name, Library parent, University university, User user)
+            : this(id, name, university, parent, user)
+        {
+            var sibling = parent.Children.LastOrDefault();
+            var siblingHierarchyId = SqlHierarchyId.Null;
+            if (sibling != null)
+            {
+                siblingHierarchyId = sibling.HierarchyId;
+            }
+            HierarchyId = parent.HierarchyId.GetDescendant(siblingHierarchyId, SqlHierarchyId.Null);
+            Settings = parent.Settings;
+
         }
 
         public virtual Guid Id { get; protected set; }
@@ -33,9 +65,17 @@ namespace Zbang.Zbox.Domain
 
         public virtual University University { get; protected set; }
 
+        public virtual User CreatedUser { get; set; }
+
+        public virtual LibraryNodeSettings Settings { get; protected set; }
+
         public virtual ICollection<Library> Children { get; protected set; }
 
         public virtual ICollection<Box> Boxes { get; protected set; }
+
+        public virtual ICollection<UserLibraryRel> UserLibraryRelationship { get; protected set; }
+
+        public virtual SqlHierarchyId HierarchyId { get; protected set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string Url { get; protected set; }
@@ -47,7 +87,7 @@ namespace Zbang.Zbox.Domain
         {
             Url = UrlConsts.BuildLibraryUrl(Id, Name);
         }
-        public Library CreateSubLibrary(Guid id, string nodeName)
+        public Library CreateSubLibrary(Guid id, string nodeName, User user)
         {
             if (nodeName == null)
             {
@@ -57,14 +97,12 @@ namespace Zbang.Zbox.Domain
             if (CheckIfBoxesExists())
             {
                 throw new BoxesInDepartmentNodeException();
-                //throw new ArgumentException("Cannot add library to box node");
             }
             if (Children.Any(a => a.Name == nodeName))
             {
                 throw new DuplicateDepartmentNameException();
-                //throw new ArgumentException(DomainResources.DeptNameExists);
             }
-            var libraryNode = new Library(id, nodeName, this, University);
+            var libraryNode = new Library(id, nodeName, this, University, user);
 
             Children.Add(libraryNode);
             AmountOfNodes = Children.Count;
@@ -73,29 +111,50 @@ namespace Zbang.Zbox.Domain
 
         public void ChangeName(string newName)
         {
+            if (Name == newName)
+            {
+                return;
+            }
             if (newName == null)
             {
                 throw new ArgumentNullException("newName");
             }
-            //if (newName.Contains('.'))
-            //{
-            //    throw new ArgumentException(@"name cannot contain dot", "newName");
-            //}
             newName = newName.Trim();
 
             if (Parent == null && University.Libraries.Any(a => a.Name == newName))
             {
                 throw new DuplicateDepartmentNameException();
-                //throw new ArgumentException(DomainResources.DeptNameExists);
             }
             if (Parent != null && Parent.Children.Any(a => a.Name == newName))
             {
                 throw new DuplicateDepartmentNameException();
-                //throw new ArgumentException(DomainResources.DeptNameExists);
             }
 
             Name = newName;
             GenerateUrl();
+        }
+
+        public void UpdateSettings(LibraryNodeSettings settings, User user, Guid id)
+        {
+            if (Settings == settings)
+            {
+                return;
+            }
+            if (Settings == LibraryNodeSettings.Closed)
+            {
+                throw new ArgumentException();
+            }
+            if (Parent != null)
+            {
+                throw new ArgumentException();
+            }
+            if (AmountOfNodes > 0 || NoOfBoxes > 0)
+            {
+                throw new ArgumentException();
+            }
+            Settings = settings;
+            var rel = new UserLibraryRel(id, user, this, UserLibraryRelationType.Owner);
+            UserLibraryRelationship.Add(rel);
         }
 
         public bool CheckIfBoxesExists()
@@ -110,7 +169,7 @@ namespace Zbang.Zbox.Domain
         public IEnumerable<Library> UpdateNumberOfBoxes()
         {
             var listOfDepartments = new List<Library>();
-            
+
             var currentNode = this;
             while (currentNode != null)
             {

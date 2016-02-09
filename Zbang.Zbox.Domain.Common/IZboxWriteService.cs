@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain.Common
 
 
         //void AddNodeToLibrary(AddNodeToLibraryCommand command);
-        void RenameNodeLibrary(RenameNodeCommand command);
+        void UpdateNodeSettings(UpdateNodeSettingsCommand command);
         void DeleteNodeLibrary(DeleteNodeFromLibraryCommand command);
 
 

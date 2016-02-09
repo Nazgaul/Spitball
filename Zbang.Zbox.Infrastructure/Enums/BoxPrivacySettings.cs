@@ -12,4 +12,10 @@ namespace Zbang.Zbox.Infrastructure.Enums
         PrivateUniversity = 4
 
     }
+
+    public enum LibraryNodeSettings
+    {
+        Open = 0,
+        Closed = 1
+    }
 }

@@ -6,7 +6,7 @@
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
         $location, $scope, resManager) {
 
-       
+
 
 
         var l = this;
@@ -16,7 +16,7 @@
         l.boxes = nodeData.boxes || [];
         l.nodeDetail = nodeData.details;
         buildState();
-        
+
 
         l.universityName = userDetailsFactory.get().university.name;
         //l.topTree = nodeId == null;
@@ -56,7 +56,7 @@
             if (!myform.$valid) {
                 return;
             }
-            
+
             l.submitDisabled = true;
             libraryService.createDepartment(l.departmentName).then(function (response) {
                 l.departments.push(response);
@@ -70,7 +70,7 @@
                 }).finally(function () {
                     l.submitDisabled = false;
                 });
-            },function (response) {
+            }, function (response) {
                 myform.depName.$setValidity('server', false);
                 l.error = response;
             }).finally(function () {
@@ -83,22 +83,26 @@
             l.createOn = true;
             if (l.createClassShow) {
                 openCreateBox();
-            } 
+            }
             if (l.createDepartmentShow) {
                 openCreateDepartment();
             }
-            
+
         }
 
         function renameNode(myform) {
+            if (!myform.$valid) {
+                return;
+            }
+
             l.submitDisabled = true;
-            libraryService.renameNode(l.settings.name, nodeId).then(function () {
+            libraryService.updateSettings(l.settings.name, nodeId, l.settings.privacy).then(function () {
                 l.nodeDetail.name = l.settings.name;
                 l.settingsOpen = false;
-            }, function(response) {
+            }, function (response) {
                 myform.name.$setValidity('server', false);
                 l.error = response;
-            }).finally(function() {
+            }).finally(function () {
                 l.submitDisabled = false;
             });
 
@@ -119,7 +123,7 @@
             l.createDepartmentOn = true;
             l.settingsOpen = false;
             l.focusCreateDepartment = true;
-           
+
         }
 
         function createBox(myform) {

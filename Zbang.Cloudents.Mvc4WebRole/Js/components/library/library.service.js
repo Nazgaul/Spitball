@@ -19,12 +19,6 @@
                 studentId: studentId
             });
         }
-        //d.getUniversityByFriends = function (token) {
-        //    return ajaxservice.get('/library/getuniversitybyfriends/', {
-        //        token: token
-        //    });
-
-        //}
         d.createUniversity = function (name, country) {
             return ajaxservice.post('/library/createuniversity/', {
                 name: name,
@@ -54,10 +48,11 @@
             });
         };
 
-        d.renameNode = function (name, nodeId) {
-            return ajaxservice.post('/library/renamenode/', {
+        d.updateSettings = function (name, nodeId, settings) {
+            return ajaxservice.post('/library/changesettings/', {
                 id: nodeId,
-                newName: name
+                name: name,
+                settings: settings
             });
         }
     }

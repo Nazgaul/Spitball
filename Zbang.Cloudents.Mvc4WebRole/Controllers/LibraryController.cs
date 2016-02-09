@@ -126,7 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return (long)num;
         }
 
-        
+
         [HttpGet]
         public async Task<JsonResult> Nodes(string section)
         {
@@ -173,29 +173,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        public JsonResult RenameNode(RenameLibraryNode model)
+        public JsonResult ChangeSettings(DepartmentSettings model)
         {
-            var guid = GuidEncoder.TryParseNullableGuid(model.Id);
-            if (!guid.HasValue)
-            {
-                return JsonError("need node");
-            }
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
             }
-
-            var universityId = User.GetUniversityData();
-
-            if (!universityId.HasValue)
+            var guid = GuidEncoder.TryParseNullableGuid(model.Id);
+            if (!guid.HasValue)
             {
-                return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
+                TraceLog.WriteError("need node " + model);
+                return JsonError(BaseControllerResources.UnspecifiedError);
             }
             try
             {
-                var command = new RenameNodeCommand(model.NewName, guid.Value, universityId.Value);
-
-                ZboxWriteService.RenameNodeLibrary(command);
+                var command = new UpdateNodeSettingsCommand(model.Name, guid.Value, model.Settings, User.GetUserId());
+                ZboxWriteService.UpdateNodeSettings(command);
                 return JsonOk();
             }
             catch (DuplicateDepartmentNameException)
@@ -286,11 +279,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-       
+
 
         #endregion
 
-      
+
 
         [HttpPost]
 

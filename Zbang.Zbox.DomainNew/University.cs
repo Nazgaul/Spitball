@@ -72,14 +72,13 @@ namespace Zbang.Zbox.Domain
             NoOfBoxes = boxesCount;
         }
 
-        public virtual Library CreateNewLibraryRoot(Guid id, string nodeName)
+        public virtual Library CreateNewLibraryRoot(Guid id, string nodeName, User user)
         {
             if (UniversityData.Libraries.Any(f => f.Name == nodeName))
             {
                 throw new DuplicateDepartmentNameException();
-                //throw new ArgumentException(DomainResources.DeptNameExists);
             }
-            var library = new Library(id, nodeName, null, UniversityData);
+            var library = new Library(id, nodeName, UniversityData, user);
             Libraries.Add(library);
             return library;
         }

@@ -275,7 +275,7 @@ namespace Zbang.Zbox.Domain.Services
         //    }
         //}
 
-        public void RenameNodeLibrary(RenameNodeCommand command)
+        public void UpdateNodeSettings(UpdateNodeSettingsCommand command)
         {
             using (UnitOfWork.Start())
             {
