@@ -31,6 +31,7 @@
             </div>
             <div class="display">
                 <div class="number">
+                    <div ng-if="::dep.state === 'closed'">closed</div>
                     <h3 class="multi-line-ellipsis limit-two">{{::dep.name}}</h3>
                 </div>
             </div>

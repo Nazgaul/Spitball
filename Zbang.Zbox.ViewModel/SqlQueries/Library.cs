@@ -21,14 +21,18 @@
 
        public const string GetLibraryNode = @" select l.libraryid as Id, l.Name as Name, l.NoOfBoxes as NoBoxes,
      l.AmountOfChildren as NoDepartment,
-     l.Url as Url
+     l.Url as Url,
+     l.settings as state
      from zbox.Library l
     where l.Id = @UniversityId
     and l.parentid is null
     order by name;";
 
+
+       //TODO: check if we can do it better
        public const string GetLibraryNodeDetails = @"select l.name as Name
-	 ,coalesce( p.Url ,'/library/')  as ParentUrl
+	 ,coalesce( p.Url ,'/library/')  as ParentUrl,
+     l.settings as state
 	 from zbox.Library l 
 	 left  join zbox.Library p on l.ParentId = p.LibraryId
 	 where l.LibraryId = @LibraryId";
@@ -36,7 +40,8 @@
        public const string GetLibraryNodeWithParent = @"
  select l.libraryid as Id, l.Name as Name, l.NoOfBoxes as NoBoxes,
     l.AmountOfChildren as NoDepartment,
-     l.Url as Url
+     l.Url as Url,
+     l.settings as state
      from zbox.Library l
     where l.Id = @UniversityId
     and l.parentid = @ParentId

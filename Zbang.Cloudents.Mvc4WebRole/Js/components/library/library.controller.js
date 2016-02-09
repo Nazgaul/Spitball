@@ -98,6 +98,7 @@
             l.submitDisabled = true;
             libraryService.updateSettings(l.settings.name, nodeId, l.settings.privacy).then(function () {
                 l.nodeDetail.name = l.settings.name;
+                l.nodeDetail.state = l.settings.privacy;
                 l.settingsOpen = false;
             }, function (response) {
                 myform.name.$setValidity('server', false);
@@ -109,7 +110,8 @@
         }
         function toggleSettings() {
             l.settings = {
-                name: l.nodeDetail.name
+                name: l.nodeDetail.name,
+                privacy: l.nodeDetail.state
             };
             l.settingsOpen = true;
         }
@@ -144,6 +146,7 @@
         function createDepartment(myform) {
             l.submitDisabled = true;
             libraryService.createDepartment(l.departmentName, nodeId).then(function (response) {
+                response.state = l.nodeDetail.state;
                 l.departments.push(response);
                 l.createDepartmentOn = false;
                 l.createClassShow = false;
