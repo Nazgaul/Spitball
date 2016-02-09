@@ -2524,3 +2524,81 @@ Page Loading
 .theme-light .hoverSvgTC10:hover {
   fill: #888b8e !important;
 }
+.theme-light .backgroundTC11 {
+  background: #888b8e !important;
+}
+.theme-light .textTC11 {
+  color: #888b8e !important;
+}
+.theme-light .inputTC11::-webkit-input-placeholder {
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC11:-moz-placeholder {
+  /* Firefox 18- */
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC11::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC11:-ms-input-placeholder {
+  color: #888b8e !important;
+  opacity: 1 !important;
+}
+.theme-light .svgTC11 {
+  fill: #888b8e !important;
+}
+.theme-light .borderTC11 {
+  border-color: #888b8e !important;
+}
+.theme-light .hoverBackgroundTC11:hover {
+  background: #888b8e !important;
+}
+.theme-light .hoverTextTC11:hover {
+  color: #888b8e !important;
+}
+.theme-light .hoverSvgTC11:hover {
+  fill: #888b8e !important;
+}
+.theme-light .backgroundTC12 {
+  background: #5d6063 !important;
+}
+.theme-light .textTC12 {
+  color: #5d6063 !important;
+}
+.theme-light .inputTC12::-webkit-input-placeholder {
+  color: #5d6063 !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC12:-moz-placeholder {
+  /* Firefox 18- */
+  color: #5d6063 !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC12::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #5d6063 !important;
+  opacity: 1 !important;
+}
+.theme-light .inputTC12:-ms-input-placeholder {
+  color: #5d6063 !important;
+  opacity: 1 !important;
+}
+.theme-light .svgTC12 {
+  fill: #5d6063 !important;
+}
+.theme-light .borderTC12 {
+  border-color: #5d6063 !important;
+}
+.theme-light .hoverBackgroundTC12:hover {
+  background: #5d6063 !important;
+}
+.theme-light .hoverTextTC12:hover {
+  color: #5d6063 !important;
+}
+.theme-light .hoverSvgTC12:hover {
+  fill: #5d6063 !important;
+}
