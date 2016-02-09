@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     {
                         TraceLog.WriteError("On update quiz views itemid:" + itemId.ItemId, ex);
                     }
-                    break;
+                    continue;
                 }
                 var item = m_ItemRepository.Get(itemId.ItemId);// we use get because we need to cast to File and get proxy
                 if (item == null)
