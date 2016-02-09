@@ -212,6 +212,7 @@
 .itemPage .comments-wrapper .title {
   font-size: 16px;
   padding: 10px 0;
+  line-height: 30px;
 }
 .itemPage .comments-wrapper .comments {
   width: 300px;

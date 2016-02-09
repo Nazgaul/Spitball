@@ -184,18 +184,15 @@
                 position: relative;
                 border-radius: 5px;
                 overflow: hidden;
+                .displayFlex;
 
                 .search-btn {
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                    height: 100%;
                     line-height: 100%;
                     background: @buttonColorBlue;
                     width: 20%;
                     max-width: 60px;
                     min-width: 30px;
-                    padding-top: 5px;
+                    padding: 0;
                 }
 
                 .text {
@@ -204,8 +201,7 @@
                     font-size: 15px;
                     height: 35px;
                     line-height: 35px;
-                    padding-left: 15px;
-                    padding-right: 20%;
+                    padding: 0 15px;
                     border: 0;
                     .placeHolder(@backgroundColor);
                     width: 100%;
@@ -245,7 +241,6 @@
     .menu-toggler {
         height: 20px;
         //align-self: center;
-
         @media (min-width: 990px) {
             display: none;
         }
