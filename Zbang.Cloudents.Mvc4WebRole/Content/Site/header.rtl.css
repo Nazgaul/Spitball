@@ -129,6 +129,7 @@
   z-index: 10;
   background: #323538;
   border-bottom: 5px solid #181c1d;
+  align-items: center;
 }
 .nav-bar .logo-search {
   height: 100%;
@@ -216,7 +217,6 @@
 }
 .nav-bar .menu-toggler {
   height: 20px;
-  align-self: center;
 }
 @media (min-width: 990px) {
   .nav-bar .menu-toggler {

@@ -64,6 +64,10 @@
                     background-position: -82px -30px;
                     background-size: 248px;
                     margin: 32px 0;
+
+                    @media (max-width: 750px) {
+                        width: 100%;
+                    }
                 }
 
                 .navbar-toggle {
@@ -213,11 +217,11 @@
 
             @media(max-width: 750px) {
                 .navbar-header {
-                    display: flex;
+                    .displayFlex;
                     justify-content: space-between;
                     width: 100%;
                     background: @backgroundColor;
-                    align-items: center;
+                    align-items: stretch;
 
 
                     .navbar-toggle {

@@ -1,8 +1,8 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<div class="folder-selected" layout="row" layout-align="start center" ng-if="i.tabSelected.id">
+<div class="folder-selected" layout="row" layout-align="start center" ng-if="i.tabSelected.id" flex="100" flex-gt-xs="50">
     @Html.Svg("~/images/site/icons.svg", "arrow", new { flex = "none", @class = "arrow svgTC11", ng_click = "i.upDir()" })
-    <div flex="100" flex-gt-xs="50" class="folder-name">
+    <div class="folder-name" flex="100">
         <div layout="row" layout-align="start center" class="folder-name-inner color-override backgroundColor10">
             <div class="name-and-icon" layout="row" layout-align="start center">
                 <div class="text ellipsis" ng-if="!i.openRenameTab">
