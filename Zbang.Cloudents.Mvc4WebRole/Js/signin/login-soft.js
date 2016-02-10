@@ -70,6 +70,7 @@ var Login = function () {
         });
 
         function sendRequest() {
+            console.log('ok',serializedEmail)
             $.post('/account/resetpassword/', serializedEmail).done(function (data) {
                 $forgotPassword.find(':submit').removeAttr('disabled');
                 if (!data.success) {
@@ -77,7 +78,7 @@ var Login = function () {
                     alert(text);
                     return;
                 }
-                $('.check-email-message').show();
+                $('.check-email-message').removeClass('hidden').show();
                 $('.forgot-password-form').hide();
             });
         }
