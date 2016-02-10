@@ -74,7 +74,7 @@
 @progressbarColorQuiz: #85A7B8;
 @progressbarBackgroundColor: #dfe2e9;
 
-@color-beige: #DFB07C;
+@color-beige: #f76446;
 
 
 /*#endregion*/
@@ -131,7 +131,7 @@
         background: @backgroundColorMenu;
     }
 
-    md-input-container:not(.md-input-invalid).md-input-has-value label {
+    md-input-container:not(.md-input-invalid) label {
         color: @textColorGrey;
     }
 
@@ -505,7 +505,7 @@
             }
         }
 
-        .actions {
+        .actions, .reply-actions {
             color: @textColorBlue;
             //border-top: 1px solid @textColorDarkGrey;
             svg {
@@ -667,4 +667,11 @@
     .themeClasses(TC10, @textColorGrey);
     .themeClasses(TC11, @textColorGrey);
     .themeClasses(TC12, @svgDots);
+    .themeClasses(TC13,@textColorGrey);
+    .themeClasses(TC14, @textColorLightGrey);
+
+
+    input[type="search"], textarea {
+        .placeHolder(@textColorGrey) !important;
+    }
 }

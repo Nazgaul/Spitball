@@ -59,19 +59,19 @@
             if (!reply.likesCount) {
                 return;
             }
-            showLikes(function() {
+            showLikes(function () {
                 return boxService.replyLikes(reply.id, boxId);
             }, ev);
         }
 
-        function showLikes(func,ev) {
+        function showLikes(func, ev) {
             $mdDialog.show({
                 controller: 'likesController',
                 controllerAs: 'lc',
                 templateUrl: routerHelper.buildUrl('/box/likesdialog/'),
                 parent: angular.element(document.body),
                 resolve: {
-                    users: func 
+                    users: func
                 },
                 targetEvent: ev,
                 clickOutsideToClose: true,
@@ -86,7 +86,14 @@
             }
             $scope.$emit('follow-box');
             boxService.likeComment(comment.id, boxId).then(function (response) {
-                response ? comment.likesCount++ : comment.likesCount--;
+                console.log('response', response);
+                if (response) {
+                    comment.likesCount++;
+                    comment.isLiked = true;
+                } else {
+                    comment.likesCount--;
+                    comment.isLiked = false;
+                }
             });
         }
         function likeReply(reply) {
@@ -96,7 +103,13 @@
             }
             $scope.$emit('follow-box');
             boxService.likeReply(reply.id, boxId).then(function (response) {
-                response ? reply.likesCount++ : reply.likesCount--;
+                if (response) {
+                    reply.likesCount++;
+                    reply.isLiked = true;
+                } else {
+                    reply.likesCount--;
+                    reply.isLiked = false;
+                }
             });
         }
 
@@ -349,7 +362,7 @@ userName: "ram y"*/
                     name: link.name,
                     system: link,
                     postId: postId,
-                    remove: function() {
+                    remove: function () {
                         removeItem(link);
                     }
                 });
@@ -379,7 +392,7 @@ userName: "ram y"*/
             }
             if (post.repliesCount > 1 && post.repliesCount !== post.replies.length) {
                 boxService.getReplies(boxId, post.id).then(function (response) {
-                    
+
                     response.reverse().pop();
                     post.replies = response.concat(post.replies);
                     assignData();

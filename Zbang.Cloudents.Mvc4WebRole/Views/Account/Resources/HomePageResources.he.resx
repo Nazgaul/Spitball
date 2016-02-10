@@ -133,7 +133,7 @@
     <value>בלוג</value>
   </data>
   <data name="B10" xml:space="preserve">
-    <value>אלפי מבחנים כבר מחכים לכם! צרו ותרגלו מבחנים בצורה אינטרקטיבית כחלק ממערכת חדשנית לתרגול ויצירת מבחנים.</value>
+    <value>אלפי מבחנים מקוונים כבר מחכים לכם! צרו ותרגלו מבחנים בצורה אינטרקטיבית כחלק ממערכת חדשנית לתרגול ויצירת מבחנים.</value>
   </data>
   <data name="B3" xml:space="preserve">
     <value>הלימודים שלך איתך בכל מקום</value>
@@ -142,7 +142,7 @@
     <value>במחשב בנייד או בטאבלט, עם ספיטבול תוכלו להישאר מעודכנים תמיד כדי שלא תפספסו כלום</value>
   </data>
   <data name="B5" xml:space="preserve">
-    <value>עזרה מחברים</value>
+    <value>קבלו עזרה מהחברים</value>
   </data>
   <data name="B6" xml:space="preserve">
     <value>באמצעות "עדכונים" תוכלו להיעזר בחבריכם לכיתה, לעורר דיונים, לשאול ולענות על שאלות.</value>
@@ -181,7 +181,7 @@
     <value>הורד בחינם</value>
   </data>
   <data name="F2" xml:space="preserve">
-    <value>על גבי המחשב האישי או המכשיר הנייד, למידה חברתית בכל זמן ובכל מקום</value>
+    <value>על גבי המחשב האישי או במכשיר הנייד, למידה חברתית בכל זמן ובכל מקום</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
     <value>אחרי שנמאס לי לשאול את אותה חברה בכל פעם שנתקלתי בשאלה או בעיה בשעורי הבית, חיפשתי פתרון אמיתי שלא כולל קבוצת וואטסאפ של 50 סטודנטים! 
@@ -219,5 +219,23 @@
   </data>
   <data name="Testimonial4Title" xml:space="preserve">
     <value>מנהל עסקים, האוניברסיטה הפתוחה</value>
+  </data>
+  <data name="A3" xml:space="preserve">
+    <value>איך להתשתמש בספיטבול כמו מקצוען</value>
+  </data>
+  <data name="infoSection1" xml:space="preserve">
+    <value>מי עומד מאחורי ספיטבול</value>
+  </data>
+  <data name="infoSection2" xml:space="preserve">
+    <value>תמיכה</value>
+  </data>
+  <data name="statsDocuments" xml:space="preserve">
+    <value>סיכומים, מבחנים ומאמרים</value>
+  </data>
+  <data name="statsQuizzes" xml:space="preserve">
+    <value>מבחנים מקוונים</value>
+  </data>
+  <data name="statsStudents" xml:space="preserve">
+    <value>סטודנטים</value>
   </data>
 </root>

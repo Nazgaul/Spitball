@@ -69,12 +69,15 @@
 }
 .feed .posts-list .actions {
   margin: 20px 40px 0;
-  padding: 10px 0;
   border-top-width: 1px;
   border-top-style: solid;
 }
 .feed .posts-list .actions svg {
   fill: #2698d4;
+}
+.feed .reply-actions,
+.feed .actions {
+  padding: 10px 0;
 }
 .feed .quiz .top .first-letter {
   font-size: 38px;
@@ -92,6 +95,10 @@
   top: -15px;
   right: -18px;
   z-index: 1;
+}
+.feed .reply .username,
+.feed .comment .userblock {
+  margin-bottom: 4px;
 }
 .feed .comment {
   background: #181c1d;
@@ -130,9 +137,10 @@
 .feed .reply .actions {
   margin-top: 0;
   border: none;
+  padding: 5px 3px 8px 3px;
 }
 .feed .reply .c-img {
-  border: none;
+  border: 2px solid #323538;
   top: -7px;
 }
 .feed .reply .user-name {
@@ -146,8 +154,8 @@
   position: relative;
 }
 .feed .actions svg {
-  width: 17px;
-  height: 17px;
+  width: 22px;
+  height: 22px;
   padding-bottom: 2px;
   fill: #888b8e;
   vertical-align: middle;
@@ -174,6 +182,10 @@
   padding: 20px 50px 0 0;
   overflow: hidden;
 }
+.feed .reply > .content-text {
+  margin-bottom: 0;
+  margin-top: 6px;
+}
 .feed li.post:last-child {
   margin-bottom: 0;
 }
@@ -196,6 +208,27 @@
 }
 .feed .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
   fill: #d39f10;
+}
+.feed .feed-upload {
+  padding: 0 12px;
+}
+.feed .feed-upload svg {
+  width: 22px;
+  height: 22px;
+  padding-bottom: 2px;
+}
+.feed .like-btn svg {
+  width: 16px;
+  height: 16px;
+}
+.feed .comment-btn svg {
+  width: 14px;
+  height: 14px;
+}
+.feed .show-more {
+  padding: 0 50px 15px 0;
+  color: #888b8e;
+  font-size: 14px;
 }
 .md-dialog-container {
   background: rgba(0, 0, 0, 0.5);

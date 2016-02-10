@@ -214,7 +214,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings complete.
+        ///   Looks up a localized string similar to Your settings have been updated.
         /// </summary>
         public static string toasterBoxSettings {
             get {
@@ -223,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CreateBox.
+        ///   Looks up a localized string similar to You have created a study group.
         /// </summary>
         public static string toasterCreateBox {
             get {
@@ -232,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Course.
+        ///   Looks up a localized string similar to You have created a course.
         /// </summary>
         public static string toasterCreateCourse {
             get {
@@ -241,7 +241,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create department.
+        ///   Looks up a localized string similar to You have created a department.
         /// </summary>
         public static string toasterCreateDepartment {
             get {
@@ -250,7 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Quiz.
+        ///   Looks up a localized string similar to You Have Created A Quiz.
         /// </summary>
         public static string toasterCreateQuiz {
             get {
@@ -259,7 +259,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Follow box.
+        ///   Looks up a localized string similar to You Are Following this Course.
         /// </summary>
         public static string toasterFollowBox {
             get {
@@ -268,7 +268,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite send.
+        ///   Looks up a localized string similar to An Invite has been sent.
         /// </summary>
         public static string toasterInviteComplete {
             get {
@@ -277,7 +277,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Like item.
+        ///   Looks up a localized string similar to Liked.
         /// </summary>
         public static string toasterLikeItem {
             get {
@@ -286,7 +286,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open school.
+        ///   Looks up a localized string similar to Opened.
         /// </summary>
         public static string toasterOpenSchool {
             get {
@@ -295,7 +295,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload doc.
+        ///   Looks up a localized string similar to Document Uploaded.
         /// </summary>
         public static string toasterUploadComplete {
             get {
@@ -304,7 +304,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload pic.
+        ///   Looks up a localized string similar to Your image has updated.
         /// </summary>
         public static string toasterUploadPic {
             get {

@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to in .
+        ///   Looks up a localized string similar to in.
         /// </summary>
         public static string CommentPublishedIn {
             get {

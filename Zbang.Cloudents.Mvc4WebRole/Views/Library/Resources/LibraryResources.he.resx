@@ -163,6 +163,24 @@
     <value>מצא את מוסד הלימודים שלך</value>
   </data>
   <data name="UniversitySearchTitle" xml:space="preserve">
-    <value>ברוך הבא לספיטבול!</value>
+    <value>מצא את מוסד הלימודים שלך והצטרף לכל השאר</value>
+  </data>
+  <data name="EmptyStateTopNodeText" xml:space="preserve">
+    <value>זה הזמן להיות הראשון ולהקים את את x בספיטבול. כל מוסד אקדמי חדש שנוצר הופך את ספיטבול לטוב יותר עבור כולנו</value>
+  </data>
+  <data name="EmptyStateTopNodeTitle" xml:space="preserve">
+    <value>ואוו.. אני מרגיש קצת חשוף</value>
+  </data>
+  <data name="UniveristySearchNoUniversityTitle" xml:space="preserve">
+    <value>אמ.. זה קצת מביך</value>
+  </data>
+  <data name="UniversityAddSchoolTitle" xml:space="preserve">
+    <value>תודה! מעריכים את המאמץ שהשקעת</value>
+  </data>
+  <data name="UniversitySearchNoUniversityText" xml:space="preserve">
+    <value>לא הצלחנו למצוא את המוסד האקדמי שלך בספיטבול</value>
+  </data>
+  <data name="UniversitySearchTitleTyping" xml:space="preserve">
+    <value>קדימה!</value>
   </data>
 </root>

@@ -43,9 +43,9 @@
   background-repeat: no-repeat;
   background-position: -82px -30px;
   background-size: 248px;
-  margin: 32px 0;
+  margin: 32px 24px;
 }
-@media (max-width: 750px) {
+@media (max-width: 780px) {
   .homePage .page-content nav .navbar-header .logo {
     width: 100%;
   }
@@ -139,7 +139,7 @@
 .homePage .page-content nav ul li.language ul li a:hover {
   color: #3293f6;
 }
-@media (min-width: 750px) {
+@media (min-width: 780px) {
   .homePage .page-content nav ul li#signin span {
     padding: 0 16px;
     background: #4190b9;
@@ -171,7 +171,7 @@
   right: 0;
   cursor: auto;
 }
-@media (max-width: 750px) {
+@media (max-width: 780px) {
   .homePage .page-content nav .navbar-header {
     display: -webkit-flex;
     display: -ms-flex;

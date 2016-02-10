@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Comment" xml:space="preserve">
-    <value>Comment</value>
+    <value>Cmment</value>
   </data>
   <data name="Feed" xml:space="preserve">
     <value>Class Feed</value>
@@ -179,7 +179,10 @@
     <value>New</value>
   </data>
   <data name="Comments" xml:space="preserve">
-    <value>Comments</value>
+    <value>more comments</value>
     <comment>New</comment>
+  </data>
+  <data name="ViewComments" xml:space="preserve">
+    <value>View</value>
   </data>
 </root>

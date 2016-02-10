@@ -84,8 +84,13 @@
   margin-right: 0;
 }
 .library-choose .add-univeristy .btn-default {
-  margin-right: 20px;
+  margin-right: 4px;
   border: none;
+  text-transform: capitalize;
+}
+.library-choose .add-univeristy .btn-default:hover {
+  color: white;
+  background: #888b8e;
 }
 .library-choose .add-univeristy div > md-input-container {
   margin-bottom: 0;
@@ -168,10 +173,11 @@
   max-width: 600px;
 }
 .library-choose .search-form-wrapper .intro-text {
-  font-size: 36px;
+  font-size: 30px;
+  line-height: 32px;
   font-weight: bold;
   padding-top: 30px;
-  padding-bottom: 20px;
+  padding-bottom: 35px;
 }
 .library-choose .search-form-wrapper form {
   border-radius: 15px;

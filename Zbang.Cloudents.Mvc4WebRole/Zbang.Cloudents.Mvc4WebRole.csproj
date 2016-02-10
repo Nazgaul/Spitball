@@ -1699,6 +1699,7 @@
     <Content Include="Images\HomePage2\apple.png" />
     <Content Include="Images\HomePage2\google.png" />
     <Content Include="Images\Site\500_image.png" />
+    <Content Include="Images\Site\activeLike.svg" />
     <Content Include="Images\Site\box-icons.svg" />
     <Content Include="Images\favIcons\favicon_114.png" />
     <Content Include="Images\favIcons\favicon_120.png" />
@@ -2891,6 +2892,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LibraryControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Resources\ShareControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\ShareControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ShareControllerResources.Designer.cs</LastGenOutput>

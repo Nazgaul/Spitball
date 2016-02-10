@@ -172,47 +172,47 @@
     <value>The new email was saved</value>
   </data>
   <data name="toasterBoxSettings" xml:space="preserve">
-    <value>Settings complete</value>
+    <value>Your settings have been updated</value>
     <comment>New</comment>
   </data>
   <data name="toasterCreateBox" xml:space="preserve">
-    <value>CreateBox</value>
+    <value>You have created a study group</value>
     <comment>New</comment>
   </data>
   <data name="toasterCreateCourse" xml:space="preserve">
-    <value>Create Course</value>
+    <value>You have created a course</value>
     <comment>New</comment>
   </data>
   <data name="toasterCreateDepartment" xml:space="preserve">
-    <value>Create department</value>
+    <value>You have created a department</value>
     <comment>New</comment>
   </data>
   <data name="toasterCreateQuiz" xml:space="preserve">
-    <value>Create Quiz</value>
+    <value>You Have Created A Quiz</value>
     <comment>New</comment>
   </data>
   <data name="toasterFollowBox" xml:space="preserve">
-    <value>Follow box</value>
+    <value>You Are Following this Course</value>
     <comment>New</comment>
   </data>
   <data name="toasterInviteComplete" xml:space="preserve">
-    <value>Invite send</value>
+    <value>An Invite has been sent</value>
     <comment>New</comment>
   </data>
   <data name="toasterLikeItem" xml:space="preserve">
-    <value>Like item</value>
+    <value>Liked</value>
     <comment>New</comment>
   </data>
   <data name="toasterOpenSchool" xml:space="preserve">
-    <value>Open school</value>
+    <value>Opened</value>
     <comment>New</comment>
   </data>
   <data name="toasterUploadComplete" xml:space="preserve">
-    <value>Upload doc</value>
+    <value>Document Uploaded</value>
     <comment>New</comment>
   </data>
   <data name="toasterUploadPic" xml:space="preserve">
-    <value>Upload pic</value>
+    <value>Your image has updated</value>
     <comment>New</comment>
   </data>
 </root>

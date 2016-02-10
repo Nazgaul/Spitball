@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comment.
+        ///   Looks up a localized string similar to Cmment.
         /// </summary>
         public static string Comment {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comments.
+        ///   Looks up a localized string similar to more comments.
         /// </summary>
         public static string Comments {
             get {
@@ -237,6 +237,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         public static string UploadFiles {
             get {
                 return ResourceManager.GetString("UploadFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        public static string ViewComments {
+            get {
+                return ResourceManager.GetString("ViewComments", resourceCulture);
             }
         }
         
