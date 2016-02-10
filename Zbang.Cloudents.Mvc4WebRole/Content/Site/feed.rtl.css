@@ -230,6 +230,10 @@
   color: #888b8e;
   font-size: 14px;
 }
+.feed .like-icon {
+  margin-bottom: 2px;
+  display: inline-block;
+}
 .md-dialog-container {
   background: rgba(0, 0, 0, 0.5);
 }

@@ -301,7 +301,7 @@
 }
 .homePage .home-page-body section.main .signin-options {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
   max-width: 420px;
   margin: 0 auto;
@@ -326,11 +326,17 @@
   display: -ms-flex;
   display: flex;
 }
-.homePage .home-page-body section.main .signin-options .login-option.facebook {
-  background: #3A5795;
-}
+.homePage .home-page-body section.main .signin-options .login-option.facebook,
 .homePage .home-page-body section.main .signin-options .login-option.google {
-  background: #DD4B39;
+  background: none;
+  width: inherit;
+  padding: 0;
+}
+.homePage .home-page-body section.main .signin-options .login-option.facebook svg {
+  fill: #8493b3;
+}
+.homePage .home-page-body section.main .signin-options .login-option.google svg {
+  fill: #e07b6f;
 }
 .homePage .home-page-body section.main .signin-options .login-option.signup {
   width: 100%;
@@ -341,10 +347,9 @@
   margin-bottom: 100px;
 }
 .homePage .home-page-body section.main .signin-options .login-option svg {
-  width: 25px;
-  height: 25px;
+  width: 37px;
+  height: 37px;
   fill: #f5f5f5;
-  margin-left: 11px;
 }
 .homePage .home-page-body section.main .signin-options .login-option span {
   align-self: center;
@@ -417,11 +422,11 @@
 }
 .homePage .home-page-body section.main .login-wrapper .signin-options {
   padding: 0 20px;
-  margin: 0 -30px 25px -30px;
+  margin: 0 -20px 25px -20px;
   width: inherit;
 }
 .homePage .home-page-body section.main .login-wrapper .signin-options .login-option {
-  margin: 0 0 20px 0;
+  margin: 0 0 20px 10px;
 }
 .homePage .home-page-body section.main .login-wrapper input.form-control {
   width: 100%;
@@ -713,6 +718,7 @@
   padding: 7px 24px;
   background-color: #4190b9;
   cursor: pointer;
+  border-radius: 4px;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-actions .btn.cancel {
   color: #333;
@@ -783,19 +789,10 @@
   width: inherit;
   float: right;
 }
-.homePage .home-page-body section.main .login-wrapper.login .login-options .facebook svg {
-  fill: #8493B3;
-}
-.homePage .home-page-body section.main .login-wrapper.login .login-options .google svg {
-  fill: #E07B6F;
-}
 .homePage .home-page-body section.main .login-wrapper.login .login-options svg {
   width: 37px;
   height: 37px;
   margin-right: 0;
-}
-.homePage .home-page-body section.main .login-wrapper.login label a {
-  color: #30333A;
 }
 @media (max-width: 480px) {
   .homePage .home-page-body section.main .login-wrapper.login {

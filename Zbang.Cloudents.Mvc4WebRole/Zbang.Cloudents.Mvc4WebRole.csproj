@@ -1699,7 +1699,6 @@
     <Content Include="Images\HomePage2\apple.png" />
     <Content Include="Images\HomePage2\google.png" />
     <Content Include="Images\Site\500_image.png" />
-    <Content Include="Images\Site\activeLike.svg" />
     <Content Include="Images\Site\box-icons.svg" />
     <Content Include="Images\favIcons\favicon_114.png" />
     <Content Include="Images\favIcons\favicon_120.png" />

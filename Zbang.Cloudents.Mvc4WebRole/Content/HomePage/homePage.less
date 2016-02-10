@@ -337,7 +337,7 @@
 
                 .signin-options {
                     display: flex;
-                    justify-content: space-between;
+                    justify-content: flex-end;
                     width: 100%;
                     max-width: 420px;
                     margin: 0 auto;
@@ -361,12 +361,18 @@
                             .displayFlex;
                         }
 
-                        &.facebook {
-                            background: #3A5795;
+                        &.facebook, &.google {
+                            background: none;
+                            width: inherit;
+                            padding: 0;
                         }
 
-                        &.google {
-                            background: #DD4B39;
+                          &.facebook svg{
+                            fill: #8493b3;
+                        }   
+                          
+                          &.google svg {
+                            fill: #e07b6f;
                         }
 
                         &.signup {
@@ -379,10 +385,9 @@
                         }
 
                         svg {
-                            width: 25px;
-                            height: 25px;
+                            width: 37px;
+                            height: 37px;
                             fill: @textColorWhite;
-                            margin-left: 11px;
                         }
 
                         span {
@@ -466,11 +471,11 @@
 
                     .signin-options {
                         padding: 0 20px;
-                        margin: 0 -30px 25px -30px;
+                        margin: 0 -20px 25px -20px;
                         width: inherit;
 
                         .login-option {
-                            margin: 0 0 20px 0;
+                            margin: 0 0 20px 10px;
                         }
                     }
 
@@ -815,6 +820,7 @@
                             padding: 7px 24px;
                             background-color: @buttonColorBlue;
                             cursor: pointer;
+                            border-radius: 4px;
 
                             &.cancel {
                                 color: #333;
@@ -897,24 +903,11 @@
                             float: right;
                         }
 
-                        .login-options .facebook svg {
-                            fill: #8493B3;
-                        }
-
-                        .login-options .google svg {
-                            fill: #E07B6F;
-                        }
-
                         .login-options svg {
                             width: 37px;
                             height: 37px;
                             margin-right: 0;
                         }
-
-                        label a {
-                            color: #30333A;
-                        }
-
 
                         @media (max-width: 480px) {
                             /***

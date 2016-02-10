@@ -147,7 +147,7 @@
                     }
                     item.done = true;
                 }
-                for (var k = 0; k < self.data[i].replies.length; k++) {
+                for (var k = 0; self.data[i].replies && k < self.data[i].replies.length; k++) {
                     self.data[i].replies[k].files = itemThumbnailService.assignValues(self.data[i].replies[k].files, 100, 141);
                 }
             }
@@ -237,8 +237,8 @@
                   .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
-                var index = post.answers.indexOf(reply);
-                post.answers.splice(index, 1);
+                var index = post.replies.indexOf(reply);
+                post.replies.splice(index, 1);
                 boxService.deleteReply(reply.id);
             });
         }
@@ -314,7 +314,8 @@
                     userId: response.userId,
                     userImage: response.userImage,
                     userName: response.userName,
-                    files: files.map(pushItem)
+                    files: files.map(pushItem),
+                    replies: []
                 };
                 self.data.unshift(newComment);
                 assignData();

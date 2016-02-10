@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cmment.
+        ///   Looks up a localized string similar to Comment.
         /// </summary>
         public static string Comment {
             get {
