@@ -8,5 +8,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
         public string ParentUrl { get; set; }
 
         public LibraryNodeSettings State { get; set; }
+
+        public UserLibraryRelationType UserType { get; set; }
     }
 }

@@ -45,8 +45,12 @@
                             window.location.reload(true);
                             break;
                         case 401:
-                        case 403:
+                            //case 403:
                             window.open('/', '_self');
+                            break;
+                        case 403:
+
+                            window.open('/error/membersonly/?returnUrl=' + encodeURIComponent(location.href), '_self');
                             break;
                         case 404:
                             window.open('/error/notfound/', '_self');
@@ -67,7 +71,7 @@
         }]);
         $httpProvider.interceptors.push('requestinterceptor');
 
-        
+
 
     }
 

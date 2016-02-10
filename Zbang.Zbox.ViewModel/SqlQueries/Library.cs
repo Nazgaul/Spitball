@@ -33,12 +33,22 @@
 
 
        //TODO: check if we can do it better
-       public const string GetLibraryNodeDetails = @"select l.name as Name
+       public const string GetLibraryNodeDetails = @" select l.name as Name
 	 ,coalesce( p.Url ,'/library/')  as ParentUrl,
-     l.settings as state
+     l.settings as state,
+	 case l.settings
+	    when 1 then (
+		select usertype from zbox.userlibraryrel where userid = @userid and libraryid in (
+SELECT top 1
+    libraryid
+FROM zbox.Library
+where (select level from zbox.library where Libraryid = @ParentId).IsDescendantOf(level) = 1
+)
+		) 
+		end as UserType
 	 from zbox.Library l 
 	 left  join zbox.Library p on l.ParentId = p.LibraryId
-	 where l.LibraryId = @LibraryId";
+	 where l.LibraryId = @ParentId";
 
        public const string GetLibraryNodeWithParent = @"
  select l.libraryid as Id, l.Name as Name, l.NoOfBoxes as NoBoxes,
@@ -47,7 +57,7 @@
      l.settings as state,
      case l.settings
 	    when 1 then (
-		select usertype from zbox.userlibraryrel where userid = 1 and libraryid in (
+		select usertype from zbox.userlibraryrel where userid = @UserId and libraryid in (
 SELECT top 1
     libraryid
 FROM zbox.Library

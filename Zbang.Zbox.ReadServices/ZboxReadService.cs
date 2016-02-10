@@ -183,7 +183,15 @@ select users as StudentsCount, items as DocumentCount, quizzes as QuizzesCount f
 
                     if (grid.IsConsumed) return retVal;
                     retVal.Boxes = await grid.ReadAsync<BoxDto>();
-                    retVal.Details = grid.Read<NodeDetails>().FirstOrDefault();
+                    retVal.Details = grid.Read<NodeDetails>().First();
+                    if (retVal.Details.State == LibraryNodeSettings.Closed)
+                    {
+                        if (retVal.Details.UserType == UserLibraryRelationType.Pending ||
+                            retVal.Details.UserType == UserLibraryRelationType.None)
+                        {
+                            throw new UnauthorizedAccessException();
+                        }
+                    }
                     return retVal;
                 }
             }

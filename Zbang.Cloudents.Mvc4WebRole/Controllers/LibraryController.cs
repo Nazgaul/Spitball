@@ -128,19 +128,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet]
-        public async Task<JsonResult> Nodes(string section)
+        public async Task<ActionResult> Nodes(string section)
         {
-            var guid = GuidEncoder.TryParseNullableGuid(section);
-            var universityId = User.GetUniversityData();
-
-            if (!universityId.HasValue)
+            try
             {
-                return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
-            }
-            var query = new GetLibraryNodeQuery(universityId.Value, guid, User.GetUserId());
-            var result = await ZboxReadService.GetLibraryNodeAsync(query);
-            return JsonOk(result);
+                var guid = GuidEncoder.TryParseNullableGuid(section);
+                var universityId = User.GetUniversityData();
 
+                if (!universityId.HasValue)
+                {
+                    return
+                        JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
+                }
+                var query = new GetLibraryNodeQuery(universityId.Value, guid, User.GetUserId());
+                var result = await ZboxReadService.GetLibraryNodeAsync(query);
+                return JsonOk(result);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+            }
         }
 
 
