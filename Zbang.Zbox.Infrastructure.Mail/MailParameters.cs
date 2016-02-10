@@ -5,6 +5,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
     public abstract class MailParameters
     {
         internal const string WelcomeResolver = "Welcome";
+        internal const string DepartmentRequestAccessResolver = "Department";
         internal const string InvitationToCloudentsResolver = "InviteCloudents";
         internal const string ForgotPswResolver = "Forgot";
         internal const string InviteResolver = "Invite";
@@ -12,9 +13,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
         internal const string UpdateResolver = "Update";
         internal const string ChangeEmailResolver = "ChangeEmail";
         internal const string FlagBadItemResolver = "FlagBadItem";
-        internal const string PartnersResolver = "Partners";
-        internal const string OrderResolver = "Order";
-        internal const string StoreContactResolver = "StoreContact";
 
         public const string DefaultEmail = "no-reply@Spitball.co";
 
