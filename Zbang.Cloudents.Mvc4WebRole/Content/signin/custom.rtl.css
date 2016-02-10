@@ -14,7 +14,6 @@
   background: #3a5795;
   border: none;
   padding: 10px;
-  margin-left: 5px;
   width: calc(49% - 5px);
   color: #fff;
   outline: 0;
@@ -22,7 +21,6 @@
 }
 .google {
   margin-left: 0;
-  margin-right: 5px;
   background: #DD4B39;
 }
 .login-options svg {

@@ -1,4 +1,11 @@
-﻿.folder-selected .folder-name,
+﻿.folder-selected .folder-name {
+  max-width: calc(100% - 40px);
+}
+.folder-selected .name-and-icon {
+  width: 100%;
+  max-width: calc(100% - 40px);
+}
+.folder-selected .folder-name,
 .folders .folder-name {
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
@@ -132,6 +139,7 @@
 .folders .text,
 .folder-selected .text {
   font-size: 18px;
+  padding: 0 10px;
 }
 .folder-selected .text {
   padding-left: 6px;

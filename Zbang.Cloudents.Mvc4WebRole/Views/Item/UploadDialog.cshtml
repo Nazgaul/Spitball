@@ -54,12 +54,12 @@
                         <div ng-hide="u.files.length">
                             <div>@IndexResources.DragHere</div>
                             <div class="buttons">
-                                <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn button-Blue btn-primary upload-button color-override hoverTextColor8" plupload-callbacks="u.fileUpload.callbacks">
-                                    @IndexResources.UploadFiles
-                                </a>
                                 <md-button class="btn btn-default" ng-click="u.uploadStep = 0">
                                     @GeneralResources.Cancel
                                 </md-button>
+                                <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn button-Blue btn-primary upload-button color-override hoverTextColor8" plupload-callbacks="u.fileUpload.callbacks">
+                                    @IndexResources.UploadFiles
+                                </a>
                             </div>
                         </div>
                         <h5 ng-if="u.files.length">
@@ -98,14 +98,10 @@
                                 </div>
                             </md-input-container>
                             <div class="buttons">
-                                <input type="submit" class="btn button-Blue btn-primary pull-right" ng-disabled="u.submitFormProcess || !uploadLink.$valid" value="@UserResources.Share" />
-
-                                @*<md-button type="submit" class="btn button-Blue btn-primary" ng-click="u.uploadStep = 0" ng-disabled="u.submitFormProcess || !uploadLink.$valid">
-                        @UserResources.Share
-                    </md-button>*@
                                 <md-button class="btn btn-default" ng-click="u.uploadStep = 0">
                                     @GeneralResources.Cancel
                                 </md-button>
+                                <input type="submit" class="btn button-Blue btn-primary pull-right" ng-disabled="u.submitFormProcess || !uploadLink.$valid" value="@UserResources.Share" />
                             </div>
                         </form>
                     </div>

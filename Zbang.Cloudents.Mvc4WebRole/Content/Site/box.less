@@ -1,5 +1,15 @@
 ﻿@import "variables.less";
 
+.folder-selected {
+    .folder-name {
+        max-width: ~"calc(100% - 40px)";
+    }
+
+    .name-and-icon {
+        width: 100%;
+        max-width: ~"calc(100% - 40px)";
+    }
+}
 
 .folder-selected, .folders {
     .folder-name {
@@ -182,6 +192,7 @@
 
 .folders .text, .folder-selected .text {
     font-size: 18px;
+    padding: 0 10px;
 }
 
 .folder-selected .text {
@@ -414,11 +425,13 @@
         //}
         .new-comment-border {
             border: none;
+
             textarea {
                 padding: 10px 0 0 45px;
                 font-size: 18px;
             }
         }
+
         .actions {
             border-top-width: 1px;
             border-top-style: solid;

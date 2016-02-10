@@ -45,6 +45,11 @@
   background-size: 248px;
   margin: 32px 0;
 }
+@media (max-width: 750px) {
+  .homePage .page-content nav .navbar-header .logo {
+    width: 100%;
+  }
+}
 .homePage .page-content nav .navbar-header .navbar-toggle {
   display: none;
   background: none;
@@ -168,11 +173,13 @@
 }
 @media (max-width: 750px) {
   .homePage .page-content nav .navbar-header {
+    display: -webkit-flex;
+    display: -ms-flex;
     display: flex;
     justify-content: space-between;
     width: 100%;
     background: #181c1d;
-    align-items: center;
+    align-items: stretch;
   }
   .homePage .page-content nav .navbar-header .navbar-toggle {
     display: inline-block;
