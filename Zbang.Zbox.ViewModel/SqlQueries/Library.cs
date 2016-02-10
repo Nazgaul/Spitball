@@ -22,7 +22,10 @@
        public const string GetLibraryNode = @" select l.libraryid as Id, l.Name as Name, l.NoOfBoxes as NoBoxes,
      l.AmountOfChildren as NoDepartment,
      l.Url as Url,
-     l.settings as state
+     l.settings as state,
+	 case l.settings
+	    when 1 then (select usertype from zbox.userlibraryrel where libraryid = l.LibraryId and userid = @Userid) 
+		end as UserType
      from zbox.Library l
     where l.Id = @UniversityId
     and l.parentid is null

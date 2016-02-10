@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Enums
 
-<div uib-collapse="!l.settingsOpen" class="settings">
+<div uib-collapse="!l.settingsOpen" class="settings" ng-if="l.nodeDetail">
     <form ng-submit="l.renameNode(nodeSettings)" novalidate name="nodeSettings" layout="row" layout-wrap>
         <md-input-container flex="100">
             <label class="text-capitalize">@GeneralResources.Rename</label>
@@ -11,7 +11,7 @@
                 <div ng-message="server">{{l.error}}</div>
             </div>
         </md-input-container>
-        <md-input-container flex="100" ng-if="l.nodeDetail.state === 'open' l.state.emptyNodeAdmin && l.nodeDetail.parentUrl == '/library/'">
+        <md-input-container flex="100" ng-if="l.nodeDetail.state === 'open' && l.state.emptyNodeAdmin && l.nodeDetail.parentUrl == '/library/'">
             <label>Close department</label>
             <md-select name="privacy" ng-model="l.settings.privacy" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
                 <md-option value="@LibraryNodeSettings.Closed.GetStringValueLowerCase()">@LibraryNodeSettings.Closed.GetEnumDescription()</md-option>

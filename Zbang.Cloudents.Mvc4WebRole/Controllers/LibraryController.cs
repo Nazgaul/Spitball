@@ -284,9 +284,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
 
+        [HttpPost]
+        public async Task<JsonResult> RequestAccess(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return JsonError("need dep id");
+            }
+            var command = new RequestAccessLibraryNodeCommand(id, User.GetUserId());
+           await  ZboxWriteService.RequestAccessToDepartmentAsync(command);
+            return JsonOk();
+        }
 
         [HttpPost]
-
         public JsonResult CreateUniversity(CreateUniversity model)
         {
             if (!ModelState.IsValid)

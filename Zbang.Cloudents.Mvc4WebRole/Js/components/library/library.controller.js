@@ -37,9 +37,27 @@
         l.createShow = createShow;
 
         l.createFirstBox = createFirstBox;
-
+        l.goToSubLib = goToSubLib;
         l.submitDisabled = false;
 
+        function goToSubLib(dep, $event) {
+            if (dep.state === 'closed' && (dep.userType === 'pending' || dep.userType === 'none')) {
+                var confirm = $mdDialog.confirm()
+                  .title('you need to request access to this node')
+                  .targetEvent($event)
+                   .ok(resManager.get('dialogOk'))
+                 .cancel(resManager.get('dialogCancel'));
+
+                $mdDialog.show(confirm).then(function () {
+                    libraryService.requestAccess(dep.id).then(function () {
+                        $mdDialog.show($mdDialog.alert()
+                            .title('your request has being send')
+                            .ok(resManager.get('dialogOk')));
+                    })
+                });
+                $event.preventDefault();
+            }
+        }
 
         function buildState() {
             l.state = {

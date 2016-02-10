@@ -55,5 +55,10 @@
                 settings: settings
             });
         }
+        d.requestAccess = function(nodeId) {
+            return ajaxservice.post('/library/requestaccess/', {
+                id: nodeId,
+            });
+        }
     }
 })();

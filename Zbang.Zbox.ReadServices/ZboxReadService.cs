@@ -1,14 +1,11 @@
 ﻿using System.Diagnostics;
 using Dapper;
-using NHibernate;
-using NHibernate.Transform;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
-using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Query;
@@ -165,7 +162,7 @@ select users as StudentsCount, items as DocumentCount, quizzes as QuizzesCount f
         /// <returns></returns>
         public async Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var sql = query.ParentNode.HasValue ?
                     Sql.Library.GetLibraryNodeWithParent +

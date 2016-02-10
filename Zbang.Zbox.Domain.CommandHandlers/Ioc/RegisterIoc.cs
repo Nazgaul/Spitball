@@ -135,7 +135,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             //library
             ioc.RegisterType(typeof(ICommandHandler<AddNodeToLibraryCommand>),
                 typeof(AddNodeToLibraryCommandHandler));
-
+            ioc.RegisterType(typeof(ICommandHandlerAsync<RequestAccessLibraryNodeCommand>),
+                typeof(RequestAccessLibraryNodeCommandHandler));
 
         }
     }

@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         }
 
-        
+
 
         public bool IsNotUsedCode(string code, long userId)
         {
@@ -74,7 +74,7 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         public void UpdateUserReputation(int reputation, long userid)
         {
-           // const string hqlUpdate = "update User c set c.Reputation = :reputation where c.Id = :userid";
+            // const string hqlUpdate = "update User c set c.Reputation = :reputation where c.Id = :userid";
             UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserReputation")//.Get.CreateQuery(hqlUpdate)
                 .SetInt64("reputation", reputation)
                 .SetInt64("userid", userid)
@@ -83,12 +83,25 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         public void RegisterUserNotification(long userid, MobileOperatingSystem os)
         {
-            // update User c set c.MobileDevice = :mobileDevice, c.NotificationEnabled = 1 where c.Id = :userid
-           // const string hqlUpdate = "update User c set c.Reputation = :reputation where c.Id = :userid";
             int updatedEntities = UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserMobileDevice")
                 .SetInt64("userid", userid)
                 .SetEnum("mobileDevice", os)
                 .ExecuteUpdate();
+        }
+
+
+        public UserLibraryRelationType GetUserToDepartmentRelationShipType(long userId, Guid departmentId)
+        {
+
+            var userBoxRel = UnitOfWork.CurrentSession.QueryOver<UserLibraryRel>().
+               Where(w => w.User.Id == userId)
+               .Where(w => w.Library.Id == departmentId).SingleOrDefault();
+
+
+
+            if (userBoxRel == null)
+                return UserLibraryRelationType.None;
+            return userBoxRel.UserType;
         }
     }
 }

@@ -44,6 +44,7 @@ namespace Zbang.Zbox.Domain.Common
         //void AddNodeToLibrary(AddNodeToLibraryCommand command);
         void UpdateNodeSettings(UpdateNodeSettingsCommand command);
         void DeleteNodeLibrary(DeleteNodeFromLibraryCommand command);
+        Task RequestAccessToDepartmentAsync(RequestAccessLibraryNodeCommand command);
 
 
 

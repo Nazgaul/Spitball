@@ -633,6 +633,15 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+        public async Task RequestAccessToDepartmentAsync(RequestAccessLibraryNodeCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                await m_CommandBus.SendAsync(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
         //public void MarkMessageAsRead(MarkMessagesAsReadCommand command)
         //{
         //    using (UnitOfWork.Start())
