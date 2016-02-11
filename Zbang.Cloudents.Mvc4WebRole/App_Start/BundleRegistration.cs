@@ -84,6 +84,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/libraryChoose.css",
                         "~/content/site/error.css",
                         "~/content/site/staticPages.css",
+                        "~/content/site/accordion.css",
                         "~/content/site/themedark.css", 
                         "~/content/site/themelight.css"
                     }

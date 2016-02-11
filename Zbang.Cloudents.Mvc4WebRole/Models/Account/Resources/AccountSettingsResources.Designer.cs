@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        public static string AcceptUserRequest {
+            get {
+                return ResourceManager.GetString("AcceptUserRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose new password.
         /// </summary>
         public static string ChoosePassword {

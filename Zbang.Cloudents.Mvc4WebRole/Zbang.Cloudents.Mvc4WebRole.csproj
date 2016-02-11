@@ -604,6 +604,12 @@
     <Content Include="Content\jquery.bxslider.rtl.css">
       <DependentUpon>jquery.bxslider.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\accordion.css">
+      <DependentUpon>accordion.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\accordion.rtl.css">
+      <DependentUpon>accordion.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\angularWithChanges.css" />
     <Content Include="Content\Site\angularWithChanges.rtl.css">
       <DependentUpon>angularWithChanges.css</DependentUpon>
@@ -1916,6 +1922,7 @@
     <Content Include="Images\HomePage2\homePage.png.scss">
       <DependentUpon>homePage.png</DependentUpon>
     </Content>
+    <Content Include="Content\Site\accordion.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

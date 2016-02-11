@@ -1,12 +1,20 @@
-﻿<uib-accordion>
+﻿@using Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources
+<uib-accordion class="private-departments">
     <uib-accordion-group is-open="dep.isOpen" ng-repeat="dep in ad.departments track by dep.id"
                          heading="{{::dep.name}}">
         <div ng-controller="accountSettingsDepController">
-            <ul class="list-unstyled">
-                <li ng-repeat="user in ::dep.users track by user.id" layout="row">
-                    <user-image name="::user.name" image="::user.image" width="40" height="40"></user-image>
-                    <div>{{::user.name}}</div>
-                    <md-button ng-if="user.userType === 1" ng-click="ad.approve(dep,user)">pending</md-button>
+            <ul class="requests list-unstyled" layout-wrap layout="row" layout-align="space-between center">
+                <li ng-repeat="user in ::dep.users track by user.id" flex="45" layout="row" layout-align="space-between center">
+
+                    @*<user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="125" height="125"></user-image>*@
+
+                    <a class="user-details" href="{{::user.url}}" layout="row" layout-align="start center">
+                        <user-image class="img-circle" name="::user.name" image="::user.image" width="40" height="40"></user-image>
+                        <div class="user-name">{{::user.name}}</div>
+                    </a>
+                    <md-button class="btn button-Blue btn-primary text-uppercase" ng-if="user.userType === 'pending'" ng-click="ad.approve(dep,user)">
+                        @AccountSettingsResources.AcceptUserRequest
+                    </md-button>
                 </li>
             </ul>
         </div>

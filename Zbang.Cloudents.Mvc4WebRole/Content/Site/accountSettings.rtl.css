@@ -164,6 +164,16 @@
 .accountPage-wrapper .university {
   margin-bottom: 20px;
 }
+.accountPage-wrapper .private-departments .requests .user-name {
+  margin-right: 10px;
+  color: #282828;
+}
+.accountPage-wrapper .private-departments .requests button {
+  min-height: 0;
+  line-height: initial;
+  min-width: 0;
+  padding: 3px 15px;
+}
 .change-email-dialog {
   padding: 30px 30px 30px 50px;
 }
