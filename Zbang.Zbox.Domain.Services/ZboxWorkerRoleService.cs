@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -109,21 +110,59 @@ offset @pageNumber*50 ROWS
 
         private void UpdateHierarchyInLibrary()
         {
-            const long universityId = 920;
+            //const long universityId = 920;
+
+
             //first round
             using (var unitOfWork = UnitOfWork.Start())
             {
-                var libraries = UnitOfWork.CurrentSession.Query<Library>()
-                    .Where(w => w.University.Id == universityId && w.Parent == null)
-                    .ToList();
-                foreach (var library in libraries)
+                var universitiesId = UnitOfWork.CurrentSession.Connection.Query<long?>(@"select distinct id from zbox.Library");
+                foreach (var universityId in universitiesId)
                 {
-                    library.UpdateLevel();
-                    UnitOfWork.CurrentSession.Save(library);
-                   
+                    IList libraryIds =
+                        UnitOfWork.CurrentSession.Connection.Query<Guid>(
+                            @"select LibraryId from zbox.library where id =@universityId and ParentId is null and level is null;", new { universityId }).ToList();
+
+
+                    var updateMade = false;
+                    //var libraries = UnitOfWork.CurrentSession.Query<Library>()
+                    //    .Where(w => w.University.Id == universityId && w.Parent == null)
+                    //    .ToList();
+                    foreach (var libraryId in libraryIds)
+                    {
+                        var lib = UnitOfWork.CurrentSession.Load<Library>(libraryId);
+                        updateMade = lib.UpdateLevel();
+                        if (updateMade)
+                            UnitOfWork.CurrentSession.Save(lib);
+
+                    }
+                    if (updateMade)
+                        unitOfWork.TransactionalFlush();
+
+                    updateMade = false;
+                    libraryIds =
+                        UnitOfWork.CurrentSession.Connection.Query<Guid>(@"select LibraryId from zbox.Library where ParentId in (
+select LibraryId from zbox.Library where id = @universityId and level is not null) and level is null;",
+                            new { universityId }).ToList();
+                    do
+                    {
+                        foreach (var libraryId in libraryIds)
+                        {
+                            var lib = UnitOfWork.CurrentSession.Load<Library>(libraryId);
+                            updateMade = lib.UpdateLevel();
+                            if (updateMade)
+                                UnitOfWork.CurrentSession.Save(lib);
+                        }
+                        if (updateMade)
+                            unitOfWork.TransactionalFlush();
+                        updateMade = false;
+                        libraryIds =
+                            UnitOfWork.CurrentSession.Connection.Query<Guid>(@"select LibraryId from zbox.Library where ParentId in (
+select LibraryId from zbox.Library where id = @universityId and level is not null) and level is null;",
+                                new { universityId }).ToList();
+                    } while (libraryIds.Count > 0);
+
                 }
-                unitOfWork.TransactionalFlush();
-               
             }
 
         }
