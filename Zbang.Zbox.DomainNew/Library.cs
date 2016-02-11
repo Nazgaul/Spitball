@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Domain
 
         }
 
-        
+
 
         public virtual Guid Id { get; protected set; }
         public virtual string Name { get; protected set; }
@@ -181,10 +181,14 @@ namespace Zbang.Zbox.Domain
             return listOfDepartments;
         }
         //Temp dbi 
-        public void UpdateLevel()
+        public bool UpdateLevel()
         {
             if (Parent == null)
             {
+                if (!HierarchyId.IsNull)
+                {
+                    return false;
+                }
                 //HierarchyId = ; // HierarchyId.GetRoot();    
                 var rootSiblings = University.Libraries.LastOrDefault(w => w.Parent == null && !w.HierarchyId.IsNull);
                 var rootSiblingsHierarchyId = SqlHierarchyId.Null;
@@ -196,7 +200,11 @@ namespace Zbang.Zbox.Domain
             }
             else
             {
-                var sibling = Parent.Children.LastOrDefault();
+                if (!HierarchyId.IsNull)
+                {
+                    return false;
+                }
+                var sibling = Parent.Children.LastOrDefault(w => !w.HierarchyId.IsNull);
                 var siblingHierarchyId = SqlHierarchyId.Null;
                 if (sibling != null)
                 {
@@ -204,6 +212,7 @@ namespace Zbang.Zbox.Domain
                 }
                 HierarchyId = Parent.HierarchyId.GetDescendant(siblingHierarchyId, SqlHierarchyId.Null);
             }
+            return true;
         }
 
 
