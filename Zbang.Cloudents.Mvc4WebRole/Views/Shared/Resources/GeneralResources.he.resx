@@ -183,4 +183,28 @@
   <data name="Download" xml:space="preserve">
     <value>הורד</value>
   </data>
+  <data name="Likes" xml:space="preserve">
+    <value>אהבתי</value>
+  </data>
+  <data name="NoResultsTitle" xml:space="preserve">
+    <value>לא נמצאו תוצאות</value>
+  </data>
+  <data name="SearchEmptyStateClassesText" xml:space="preserve">
+    <value>לא נמצאו קורסים התואמים את החיפוש לך </value>
+  </data>
+  <data name="SearchEmptyStateCreateCourse" xml:space="preserve">
+    <value>אם אתה לומד קורס שלא קיים בפיסטבול</value>
+  </data>
+  <data name="SearchEmptyStateCreateCourseLinkText" xml:space="preserve">
+    <value>צור אותו!</value>
+  </data>
+  <data name="SearchEmptyStateDocumentsButton" xml:space="preserve">
+    <value>חפש סיכומים, מבחנים ומאמרים</value>
+  </data>
+  <data name="SearchEmptyStateDocumentsText" xml:space="preserve">
+    <value>לא נמצאו סיכומים, מבחנים ומאמרים התואמים את החיפוש שלך</value>
+  </data>
+  <data name="SearchEmptyStateQuizzesText" xml:space="preserve">
+    <value>לא נמצאו מבחנים מקוונים התואמים את החיפוש שלך</value>
+  </data>
 </root>

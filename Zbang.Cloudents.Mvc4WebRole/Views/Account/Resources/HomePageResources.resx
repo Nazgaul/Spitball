@@ -133,7 +133,7 @@
     <value>Blog</value>
   </data>
   <data name="B10" xml:space="preserve">
-    <value>Create your own quizzes and assess your progress using thousands of existing quizzes</value>
+    <value>Create your own quizzes and check your progress using thousands of existing quizzes</value>
   </data>
   <data name="B3" xml:space="preserve">
     <value>AVAILABLE EVERYWHERE</value>
@@ -160,25 +160,25 @@
     <value>See it in action</value>
   </data>
   <data name="D1" xml:space="preserve">
-    <value>Mobile First</value>
+    <value>What Is Spitball?</value>
   </data>
   <data name="D2" xml:space="preserve">
-    <value>Available on Android and iOS, Spitball is revolutionizing the way students study. Built by students for students, Spitball's features help make you a better learner</value>
+    <value>Spitball is a social study app where students from around the world swap notes, meet their classmates, exchange ideas and quiz themselves</value>
   </data>
   <data name="D3" xml:space="preserve">
     <value>Connect with your classmates</value>
   </data>
   <data name="D4" xml:space="preserve">
-    <value>Ask and answer questions freely</value>
+    <value>Meet and message your classmates directly</value>
   </data>
   <data name="D5" xml:space="preserve">
-    <value>Access and share class notes</value>
+    <value>Miss a class? Browse and upload syllabi, course reading and lecture slides</value>
   </data>
   <data name="D6" xml:space="preserve">
-    <value>Communicate with your classmates</value>
+    <value>Check out an unlimited number of classes and schools at any time</value>
   </data>
   <data name="F1" xml:space="preserve">
-    <value>Get it now</value>
+    <value>Stressed over exams? Test yourself with thousands of quizzes on your subjects</value>
   </data>
   <data name="F2" xml:space="preserve">
     <value>Study socially on your smartphone, laptop and tablet anytime, anywhere</value>
@@ -193,7 +193,7 @@
     <value>Sophomore at UC Davis</value>
   </data>
   <data name="Testimonial2" xml:space="preserve">
-    <value>There have been many times when I would try to share files and documents with friends and classmates over the school’s portal or other online studying tools, but it was a huge hassle! Then I started using Spitball and everything changed - I was easily able to upload all of my files, even video and audio files!</value>
+    <value>There have been many times when I would try to share files or a document with friends and classmates over the school’s portal or other online studying tools, but it was a huge hassle! Then I started using Spitball and everything changed - I was easily able to upload all of my files, even video and audio files!</value>
   </data>
   <data name="Testimonial2Person" xml:space="preserve">
     <value>Jack Harris</value>
@@ -202,7 +202,7 @@
     <value>Junior at UC Berkeley</value>
   </data>
   <data name="Testimonial3" xml:space="preserve">
-    <value>It’s so nice to have all my notes, questions, answers, lectures, etc. in one place and always available online and in the palm of my hand! Spitball comes in handy when I need to compare class notes. Thank you Spitball for making my life a whole lot easier! I already know who I have to thank first on graduation day :)</value>
+    <value>It’s so nice to have all my notes, questions, answers, lectures, etc. in one place and always available online and in the palm of my hand! Spitball comes in handy when I need to compare class notes. Thank you Spitball for making my life a whole lot easier! I already know whom I have to thank first on graduation day :)</value>
   </data>
   <data name="Testimonial3Person" xml:space="preserve">
     <value>Daniel Kaplan</value>
@@ -211,7 +211,7 @@
     <value>Senior at UCLA</value>
   </data>
   <data name="Testimonial4" xml:space="preserve">
-    <value>Spitball is such a great idea! I love the quizzes - such a great way to interactively test my knowledge of the coursework! The chat feed is really helpful if you miss a class or don't understand the material. During my last semester, I feel like all I did was talk about Spitball! It was funny, people actually thought that it was my job.</value>
+    <value>Spitball is such a great idea! I love the quizzes - such a great way to interactively test my knowledge of the coursework! The chat feed is really helpful if you miss a class or don't understand the material. During my last semester, I feel like all I did was talk about Spitball! It was funny; people actually thought that it was my job.</value>
   </data>
   <data name="Testimonial4Person" xml:space="preserve">
     <value>Sarah Friedman</value>
@@ -240,7 +240,7 @@
     <comment>New</comment>
   </data>
   <data name="A3" xml:space="preserve">
-    <value>Product</value>
+    <value>How To Spitball Like A Pro</value>
     <comment>New</comment>
   </data>
 </root>

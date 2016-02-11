@@ -63,9 +63,10 @@
                     background-repeat: no-repeat;
                     background-position: -82px -30px;
                     background-size: 248px;
-                    margin: 32px 0;
+                    margin: 32px 24px;
 
-                    @media (max-width: 750px) {
+
+                    @media (max-width: 780px) {
                         width: 100%;
                     }
                 }
@@ -173,7 +174,7 @@
                     }
 
                     &#signin span {
-                        @media (min-width: 750px) {
+                        @media (min-width: 780px) {
                             padding: 0 16px;
                             background: @buttonColorBlue;
                             line-height: 25px;
@@ -215,7 +216,7 @@
                 cursor: auto;
             }
 
-            @media(max-width: 750px) {
+            @media(max-width: 780px) {
                 .navbar-header {
                     .displayFlex;
                     justify-content: space-between;
@@ -314,6 +315,47 @@
                         padding: 0;
                         height: 0;
                     }*/
+                    > .signin-options .social-signin {
+                        display: flex;
+                        justify-content: space-between;
+                        width: 100%;
+                        -ms-flex-wrap: wrap;
+                        -webkit-flex-wrap: wrap;
+                        flex-wrap: wrap;
+
+                        .login-option {
+                            &.facebook, &.google {
+                                width: 200px;
+                                color: @textColorWhite;
+                                text-decoration: none;
+                                margin-bottom: 20px;
+                                font-size: 18px;
+                                line-height: 25px;
+                                cursor: pointer;
+                                border-radius: 16px;
+                                padding: 8px;
+
+                                @media(max-width: 460px){
+                                    width: 100%;
+                                }
+
+                                svg {
+                                    width: 25px;
+                                    height: 25px;
+                                    margin-left: 10px;
+                                    fill: @textColorWhite;
+                                }
+                            }
+
+                            &.google {
+                                background: #dd4b39;
+                            }
+
+                            &.facebook {
+                                background: #3a5795;
+                            }
+                        }
+                    }
                 }
 
                 h1 {
@@ -336,7 +378,7 @@
 
                 .signin-options {
                     display: flex;
-                    justify-content: space-between;
+                    justify-content: flex-end;
                     width: 100%;
                     max-width: 420px;
                     margin: 0 auto;
@@ -360,12 +402,18 @@
                             .displayFlex;
                         }
 
-                        &.facebook {
-                            background: #3A5795;
+                        &.facebook, &.google {
+                            background: none;
+                            width: inherit;
+                            padding: 0;
                         }
 
-                        &.google {
-                            background: #DD4B39;
+                        &.facebook svg {
+                            fill: #3a5795;
+                        }
+
+                        &.google svg {
+                            fill: #dd4b39;
                         }
 
                         &.signup {
@@ -378,10 +426,9 @@
                         }
 
                         svg {
-                            width: 25px;
-                            height: 25px;
+                            width: 37px;
+                            height: 37px;
                             fill: @textColorWhite;
-                            margin-left: 11px;
                         }
 
                         span {
@@ -465,11 +512,11 @@
 
                     .signin-options {
                         padding: 0 20px;
-                        margin: 0 -30px 25px -30px;
+                        margin: 0 -20px 25px -20px;
                         width: inherit;
 
                         .login-option {
-                            margin: 0 0 20px 0;
+                            margin: 0 0 20px 10px;
                         }
                     }
 
@@ -488,6 +535,10 @@
                     .form-actions-container .form-group {
                         padding-right: 15px;
                         text-align: left;
+
+                        label a {
+                            color: @textColorWhite;
+                        }
                     }
 
                     &.expand {
@@ -814,6 +865,7 @@
                             padding: 7px 24px;
                             background-color: @buttonColorBlue;
                             cursor: pointer;
+                            border-radius: 4px;
 
                             &.cancel {
                                 color: #333;
@@ -896,24 +948,11 @@
                             float: right;
                         }
 
-                        .login-options .facebook svg {
-                            fill: #8493B3;
-                        }
-
-                        .login-options .google svg {
-                            fill: #E07B6F;
-                        }
-
                         .login-options svg {
                             width: 37px;
                             height: 37px;
                             margin-right: 0;
                         }
-
-                        label a {
-                            color: #30333A;
-                        }
-
 
                         @media (max-width: 480px) {
                             /***

@@ -194,7 +194,7 @@ but try checking the quizzes tab for related material</value>
     <comment>New</comment>
   </data>
   <data name="SearchEmptyStateCreateCourse" xml:space="preserve">
-    <value>If you are taking a course that hasn't been made yet, </value>
+    <value>If you are taking a course that hasn't been made yet,</value>
     <comment>New</comment>
   </data>
   <data name="SearchEmptyStateCreateCourseLinkText" xml:space="preserve">

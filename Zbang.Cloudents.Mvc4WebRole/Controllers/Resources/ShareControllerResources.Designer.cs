@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You do not have permission to share a box.
+        ///   Looks up a localized string similar to You do not have permission to share this study group.
         /// </summary>
         internal static string ShareController_InviteBox_You_do_not_have_permission_to_share_a_box {
             get {

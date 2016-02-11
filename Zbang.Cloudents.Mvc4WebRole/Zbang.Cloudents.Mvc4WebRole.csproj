@@ -2893,6 +2893,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LibraryControllerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Resources\ShareControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\ShareControllerResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ShareControllerResources.Designer.cs</LastGenOutput>

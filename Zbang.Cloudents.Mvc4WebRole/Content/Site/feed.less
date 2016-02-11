@@ -78,11 +78,9 @@
     }
 
     .posts-list {
-
         .actions {
             //color:@textColorBlue;
             margin: 20px 40px 0;
-            padding: 10px 0;
             border-top-width: 1px;
             border-top-style: solid;
 
@@ -90,6 +88,10 @@
                 fill: @textColorBlue;
             }
         }
+    }
+
+    .reply-actions, .actions {
+        padding: 10px 0;
     }
 
     .quiz {
@@ -110,6 +112,10 @@
             left: -18px;
             z-index: 1;
         }
+    }
+
+    .reply .username, .comment .userblock {
+        margin-bottom: 4px;
     }
 
     .comment {
@@ -159,6 +165,7 @@
         .actions {
             margin-top: 0;
             border: none;
+            padding: 5px 3px 8px 3px;
             //&.padding {
             //    padding-left: 9px;
             //    margin-top: 10px;
@@ -167,7 +174,7 @@
         }
 
         .c-img {
-            border: none;
+            border: 2px solid @textColorDarkGrey;
             top: -7px;
         }
         //.like {
@@ -209,8 +216,8 @@
         font-size: 13px;
         position: relative; // this is for ribbon
         svg {
-            width: 17px;
-            height: 17px;
+            width: 22px;
+            height: 22px;
             padding-bottom: 2px;
             fill: @textColorGrey;
             vertical-align: middle;
@@ -253,6 +260,11 @@
         overflow: hidden;
     }
 
+    .reply > .content-text {
+        margin-bottom: 0;
+        margin-top: 6px;
+    }
+
     li.post:last-child {
         margin-bottom: 0;
     }
@@ -270,6 +282,8 @@
         }
     }
 
+
+
     .add-reply {
         // display: none;
         .reply-wrapper {
@@ -285,6 +299,41 @@
     }*/
     .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
         fill: @anonymousColor;
+    }
+
+    .feed-upload {
+        padding: 0 12px;
+
+        svg {
+            width: 22px;
+            height: 22px;
+            padding-bottom: 2px;
+        }
+    }
+
+    .like-btn {
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .comment-btn {
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    .show-more {
+        padding: 0 0 15px 50px;
+        color: @textColorGrey;
+        font-size: 14px;
+    }
+
+    .like-icon {
+        margin-bottom: 2px;
+        display: inline-block;
     }
 }
 

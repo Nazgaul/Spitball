@@ -4,7 +4,7 @@
 <div ng-if="lc.createUniversity" class="add-univeristy" ng-init="lc.countryCode = '@ViewBag.country'">
     <h2>@LibraryResources.UniversityAddSchoolTitle</h2>
     <form ng-submit="lc.createNewUniversity(createUniversity)" class="text-capitalize" novalidate name="createUniversity">
-        <div class="borderTC8">
+        <div class="borderTC13">
             <md-input-container>
                 <label>@LibraryResources.Country</label>
                 <md-select ng-model="lc.countryCode" md-container-class="dd-list">
@@ -21,7 +21,8 @@
                                  md-search-text="lc.universityName"
                                  md-items="item in lc.searchAutoComplete(lc.universityName,createUniversity)"
                                  md-item-text="item.name"
-                                 md-floating-label="@LibraryResources.SchoolName">
+                                 md-floating-label="@LibraryResources.SchoolName"
+                                 md-theme="aaaa">
                     <md-item-template>
                         <span md-highlight-text="lc.universityName">{{item.name}}</span>
                     </md-item-template>

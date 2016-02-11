@@ -179,7 +179,10 @@
     <value>New</value>
   </data>
   <data name="Comments" xml:space="preserve">
-    <value>Comments</value>
+    <value>more comments</value>
     <comment>New</comment>
+  </data>
+  <data name="ViewComments" xml:space="preserve">
+    <value>View</value>
   </data>
 </root>

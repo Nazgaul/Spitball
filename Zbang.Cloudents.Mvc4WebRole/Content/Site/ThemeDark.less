@@ -73,7 +73,11 @@
 @progressbarColorQuiz: #85A7B8;
 @progressbarBackgroundColor: #dfe2e9;
 
-@color-beige: #DFB07C;
+@color-beige: #f76446;
+
+md-input-container:not(.md-input-invalid) label {
+    color: @textColorGrey;
+}
 
 @import "siteColors.less";
 .theme();
@@ -89,3 +93,10 @@
 .themeClasses(TC10, @textColorGrey);
 .themeClasses(TC11, @svgColorGrey);
 .themeClasses(TC12, @backgroundColor2);
+.themeClasses(TC13,@textColorLightGrey);
+.themeClasses(TC14, @backgroundColorMenu);
+
+
+input[type="search"], textarea {
+    .placeHolder(@borderColorGrey) !important;
+}

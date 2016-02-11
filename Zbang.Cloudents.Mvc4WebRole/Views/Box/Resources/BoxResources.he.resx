@@ -127,7 +127,7 @@
     <value>עקוב</value>
   </data>
   <data name="InviteFriends" xml:space="preserve">
-    <value>הזמן את חבריך</value>
+    <value>הזמן את חבריך לכיתה כדי שתוכלו להצליח ביחד</value>
   </data>
   <data name="Items" xml:space="preserve">
     <value>פריטים</value>
@@ -176,5 +176,11 @@
   </data>
   <data name="RibbonNew" xml:space="preserve">
     <value>חדש</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>תגובות נוספות</value>
+  </data>
+  <data name="ViewComments" xml:space="preserve">
+    <value>הצג</value>
   </data>
 </root>
