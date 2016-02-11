@@ -25,6 +25,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
         public string Image { get; set; }
         public UserLibraryRelationType UserType { get; set; }
 
+        public long Id { get; set; }
         public string Url { get; set; }
     }
 }

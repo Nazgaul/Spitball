@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccessApprovedData.cs" />
     <Compile Include="BadItemData.cs" />
     <Compile Include="BadPostData.cs" />
     <Compile Include="ChangeEmailData.cs" />

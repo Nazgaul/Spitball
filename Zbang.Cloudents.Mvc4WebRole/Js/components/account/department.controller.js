@@ -1,11 +1,11 @@
-﻿(function() {
+﻿(function () {
     angular.module('app.account').controller('AccountSettingsDepartmentController', department);
     department.$inject = ['accountService', '$scope'];
 
     function department(accountService, $scope) {
         var ad = this;
         ad.departments = [];
-        accountService.closeddepartment().then(function(response) {
+        accountService.closeddepartment().then(function (response) {
             ad.departments = response;
         });
         $scope.$on('open-dep', function (e, dep) {
@@ -13,9 +13,18 @@
                 dep.users = response;
             });
         });
+
+        ad.approve = approve;
+
+        function approve(dep, user) {
+            //TODO: add disable state
+            accountService.approveRequest(dep.id, user.id).then(function() {
+                user.userType = 2;
+            });
+        }
     }
 })();
-(function() {
+(function () {
     angular.module('app.account').controller('accountSettingsDepController', department);
 
     department.$inject = ['$scope'];

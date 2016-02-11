@@ -77,7 +77,8 @@ where l.Settings = 1
 and ParentId is null
 and userid = @UserId";
 
-       public const string GetClosedLibraryUsers = @"select ul.UserType,Url, UserImageLarge as image, UserName as name
+       public const string GetClosedLibraryUsers = @"select ul.UserType,Url,
+UserImageLarge as image, UserName as name, u.UserId as id
  from zbox.UserLibraryRel ul join zbox.Users u on ul.UserId = u.UserId
 where ul.LibraryId = @LibraryId
 and exists (select * from zbox.UserLibraryRel where LibraryId = @LibraryId and UserId = @Userid and UserType = 3)

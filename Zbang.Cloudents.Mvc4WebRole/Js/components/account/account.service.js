@@ -93,5 +93,11 @@
                 id: id
             });
         }
+        self.approveRequest = function (id, userId) {
+            return ajaxservice.post('/library/approverequest/', {
+                id: id,
+                userId: userId
+            });
+        }
     }
 })();

@@ -303,6 +303,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
+        [HttpPost]
+        public async Task<JsonResult> ApproveRequest(Guid id, long userId)
+        {
+            var command = new LibraryNodeApproveAccessCommand(User.GetUserId(), id, userId);
+            await ZboxWriteService.RequestAccessToDepartmentApprovedAsync(command);
+            return JsonOk();
+
+        }
+
 
         [HttpGet]
         public async Task<JsonResult> ClosedDepartment()

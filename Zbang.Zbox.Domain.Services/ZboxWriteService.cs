@@ -641,6 +641,14 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+        public async Task RequestAccessToDepartmentApprovedAsync(LibraryNodeApproveAccessCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                await m_CommandBus.SendAsync(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
 
         //public void MarkMessageAsRead(MarkMessagesAsReadCommand command)
         //{

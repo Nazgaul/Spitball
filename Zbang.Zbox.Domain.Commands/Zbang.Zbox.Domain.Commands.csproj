@@ -99,6 +99,7 @@
     <Compile Include="DeleteUserFromBoxCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InviteToSystemCommand.cs" />
+    <Compile Include="LibraryNodeApproveAccessCommand.cs" />
     <Compile Include="LikeCommentCommand.cs" />
     <Compile Include="LikeReplyCommand.cs" />
     <Compile Include="Quiz\CreateAnswerCommand.cs" />

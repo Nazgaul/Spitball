@@ -53,11 +53,11 @@
                  .cancel(resManager.get('dialogCancel'));
 
                 $mdDialog.show(confirm).then(function () {
-                    libraryService.requestAccess(dep.id).then(function () {
+                    libraryService.requestAccess(dep.id).then(function() {
                         $mdDialog.show($mdDialog.alert()
                             .title('your request has being send')
                             .ok(resManager.get('dialogOk')));
-                    })
+                    });
                 });
                 $event.preventDefault();
             }
