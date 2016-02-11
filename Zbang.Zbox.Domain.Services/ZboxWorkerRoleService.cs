@@ -36,8 +36,9 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            UpdateUsersReputation();
+            //UpdateUsersReputation();
             //UpdateMismatchUrl();
+            UpdateHierarchyInLibrary();
         }
 
         private void UpdateUsersReputation()
@@ -105,6 +106,27 @@ offset @pageNumber*50 ROWS
             }
         }
 
+
+        private void UpdateHierarchyInLibrary()
+        {
+            const long universityId = 920;
+            //first round
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                var libraries = UnitOfWork.CurrentSession.Query<Library>()
+                    .Where(w => w.University.Id == universityId && w.Parent == null)
+                    .ToList();
+                foreach (var library in libraries)
+                {
+                    library.UpdateLevel();
+                    UnitOfWork.CurrentSession.Save(library);
+                   
+                }
+                unitOfWork.TransactionalFlush();
+               
+            }
+
+        }
         /// <summary>
         /// this function is greated due to merge tool
         /// </summary>

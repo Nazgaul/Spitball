@@ -33,14 +33,13 @@ namespace Zbang.Zbox.Domain
         public Library(Guid id, string name, University university, User user)
             : this(id, name, university, null, user)
         {
-            HierarchyId = SqlHierarchyId.GetRoot(); // HierarchyId.GetRoot();    
             var rootSiblings = university.Libraries.LastOrDefault(w => w.Parent == null);
             var rootSiblingsHierarchyId = SqlHierarchyId.Null;
             if (rootSiblings != null)
             {
                 rootSiblingsHierarchyId = rootSiblings.HierarchyId;
             }
-            HierarchyId = HierarchyId.GetDescendant(rootSiblingsHierarchyId, SqlHierarchyId.Null);
+            HierarchyId = SqlHierarchyId.GetRoot().GetDescendant(rootSiblingsHierarchyId, SqlHierarchyId.Null);
         }
 
         public Library(Guid id, string name, Library parent, University university, User user)
@@ -56,6 +55,8 @@ namespace Zbang.Zbox.Domain
             Settings = parent.Settings;
 
         }
+
+        
 
         public virtual Guid Id { get; protected set; }
         public virtual string Name { get; protected set; }
@@ -178,6 +179,31 @@ namespace Zbang.Zbox.Domain
                 currentNode = currentNode.Parent;
             }
             return listOfDepartments;
+        }
+        //Temp dbi 
+        public void UpdateLevel()
+        {
+            if (Parent == null)
+            {
+                //HierarchyId = ; // HierarchyId.GetRoot();    
+                var rootSiblings = University.Libraries.LastOrDefault(w => w.Parent == null && !w.HierarchyId.IsNull);
+                var rootSiblingsHierarchyId = SqlHierarchyId.Null;
+                if (rootSiblings != null)
+                {
+                    rootSiblingsHierarchyId = rootSiblings.HierarchyId;
+                }
+                HierarchyId = SqlHierarchyId.GetRoot().GetDescendant(rootSiblingsHierarchyId, SqlHierarchyId.Null);
+            }
+            else
+            {
+                var sibling = Parent.Children.LastOrDefault();
+                var siblingHierarchyId = SqlHierarchyId.Null;
+                if (sibling != null)
+                {
+                    siblingHierarchyId = sibling.HierarchyId;
+                }
+                HierarchyId = Parent.HierarchyId.GetDescendant(siblingHierarchyId, SqlHierarchyId.Null);
+            }
         }
 
 

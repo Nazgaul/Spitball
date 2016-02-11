@@ -60,7 +60,17 @@ namespace Zbang.Zbox.Infrastructure.Data.Types
                 ((IDataParameter)cmd.Parameters[index]).Value = DBNull.Value;
 
             else if (value is SqlHierarchyId)
-                ((IDataParameter)cmd.Parameters[index]).Value = ((SqlHierarchyId)value).ToString();
+            {
+                var sqlHierarchyId = (SqlHierarchyId) value;
+                if (sqlHierarchyId.IsNull)
+                {
+                    ((IDataParameter) cmd.Parameters[index]).Value = DBNull.Value;
+                }
+                else
+                {
+                    ((IDataParameter) cmd.Parameters[index]).Value = sqlHierarchyId.ToString();
+                }
+            }
         }
 
         public object DeepCopy(object value)
