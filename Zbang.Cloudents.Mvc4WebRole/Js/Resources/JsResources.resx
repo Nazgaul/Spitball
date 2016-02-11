@@ -215,4 +215,12 @@
     <value>Your image has updated</value>
     <comment>New</comment>
   </data>
+  <data name="privateDepPopupTitle" xml:space="preserve">
+    <value>Private department</value>
+    <comment>New</comment>
+  </data>
+  <data name="privateDepPopupContent" xml:space="preserve">
+    <value>You need to request access to this node</value>
+    <comment>New</comment>
+  </data>
 </root>

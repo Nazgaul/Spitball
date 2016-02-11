@@ -29,6 +29,11 @@
 .library .department .status {
   margin-top: 15px;
 }
+.library .department .status .lock {
+  width: 22px;
+  height: 22px;
+  fill: #c3c3c3;
+}
 .library .back-arrow svg {
   vertical-align: middle;
 }
@@ -60,6 +65,30 @@
 .library .settings {
   width: calc(100% - 24px);
   margin: 0 auto;
+}
+.library .settings md-input-container {
+  margin-bottom: 0;
+}
+.library .settings md-input-container.private-switch {
+  margin: 0;
+}
+.library .settings md-input-container.private-switch md-switch {
+  margin-top: 0;
+}
+.library .settings md-switch.md-default-theme.md-checked .md-thumb,
+.library .settings md-switch.md-checked .md-thumb {
+  background-color: #2698d4;
+}
+.library .settings md-switch.md-default-theme.md-checked .md-ink-ripple,
+.library .settings md-switch.md-checked .md-ink-ripple {
+  color: #2698d4;
+}
+.library .settings md-switch.md-default-theme.md-checked .md-bar,
+.library .settings md-switch.md-checked .md-bar,
+.library .settings md-switch.md-default-theme.md-checked.md-focused .md-thumb:before,
+.library .settings md-switch.md-checked.md-focused .md-thumb:before {
+  background-color: #2698d4;
+  opacity: 0.5;
 }
 .library .empty-top h2 {
   white-space: pre-wrap;
