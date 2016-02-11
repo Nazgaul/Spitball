@@ -126,21 +126,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return (long)num;
         }
 
-        
+
         [HttpGet]
-        public async Task<JsonResult> Nodes(string section)
+        public async Task<ActionResult> Nodes(string section)
         {
-            var guid = GuidEncoder.TryParseNullableGuid(section);
-            var universityId = User.GetUniversityData();
-
-            if (!universityId.HasValue)
+            try
             {
-                return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
-            }
-            var query = new GetLibraryNodeQuery(universityId.Value, guid, User.GetUserId());
-            var result = await ZboxReadService.GetLibraryNodeAsync(query);
-            return JsonOk(result);
+                var guid = GuidEncoder.TryParseNullableGuid(section);
+                var universityId = User.GetUniversityData();
 
+                if (!universityId.HasValue)
+                {
+                    return
+                        JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
+                }
+                var query = new GetLibraryNodeQuery(universityId.Value, guid, User.GetUserId());
+                var result = await ZboxReadService.GetLibraryNodeAsync(query);
+                return JsonOk(result);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.Forbidden);
+            }
         }
 
 
@@ -173,29 +180,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        public JsonResult RenameNode(RenameLibraryNode model)
+        public JsonResult ChangeSettings(DepartmentSettings model)
         {
-            var guid = GuidEncoder.TryParseNullableGuid(model.Id);
-            if (!guid.HasValue)
-            {
-                return JsonError("need node");
-            }
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
             }
-
-            var universityId = User.GetUniversityData();
-
-            if (!universityId.HasValue)
+            var guid = GuidEncoder.TryParseNullableGuid(model.Id);
+            if (!guid.HasValue)
             {
-                return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
+                TraceLog.WriteError("need node " + model);
+                return JsonError(BaseControllerResources.UnspecifiedError);
             }
             try
             {
-                var command = new RenameNodeCommand(model.NewName, guid.Value, universityId.Value);
-
-                ZboxWriteService.RenameNodeLibrary(command);
+                var command = new UpdateNodeSettingsCommand(model.Name, guid.Value, model.Settings, User.GetUserId());
+                ZboxWriteService.UpdateNodeSettings(command);
                 return JsonOk();
             }
             catch (DuplicateDepartmentNameException)
@@ -286,14 +286,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-       
+
 
         #endregion
 
-      
 
         [HttpPost]
+        public async Task<JsonResult> RequestAccess(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return JsonError("need dep id");
+            }
+            var command = new RequestAccessLibraryNodeCommand(id, User.GetUserId());
+            await ZboxWriteService.RequestAccessToDepartmentAsync(command);
+            return JsonOk();
+        }
 
+
+        [HttpGet]
+        public async Task<JsonResult> ClosedDepartment()
+        {
+            var retVal = await ZboxReadService.GetUserClosedDepartmentAsync(new QueryBase(User.GetUserId()));
+            return JsonOk(retVal);
+        }
+        [HttpGet]
+        public async Task<JsonResult> ClosedDepartmentMembers(Guid id)
+        {
+            var query = new GetClosedNodeMembersQuery(User.GetUserId(), id);
+            var retVal = await ZboxReadService.GetMembersClosedDepartmendAsync(query);
+            return JsonOk(retVal);
+        }
+
+
+        [HttpPost]
         public JsonResult CreateUniversity(CreateUniversity model)
         {
             if (!ModelState.IsValid)

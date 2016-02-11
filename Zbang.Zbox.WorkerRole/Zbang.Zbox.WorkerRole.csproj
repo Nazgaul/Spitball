@@ -128,6 +128,7 @@
     <Compile Include="Mail\Invite2.cs" />
     <Compile Include="Mail\InviteToCloudents.cs" />
     <Compile Include="Mail\Message2.cs" />
+    <Compile Include="Mail\RequestAccess.cs" />
     <Compile Include="Mail\Welcome.cs" />
     <Compile Include="Jobs\UpdateDataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -32,8 +32,8 @@ namespace Zbang.Zbox.ReadServices
         Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query);
 
         Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query);
-        Task<UniversityInfoDto> GetUniversityDetailAsync(GetUniversityDetailQuery query);
-       // Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query);
+        Task<IEnumerable<ClosedNodeDto>> GetUserClosedDepartmentAsync(QueryBase query);
+        Task<IEnumerable<ClosedNodeUsersDto>> GetMembersClosedDepartmendAsync(GetClosedNodeMembersQuery query);
 
         Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query);
         Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetWebServiceBoxItemsPagedAsync(GetBoxItemsPagedQuery query);
@@ -70,7 +70,7 @@ namespace Zbang.Zbox.ReadServices
        // BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId);
 
         Task<IEnumerable<UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query);
-        Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query);
+        //Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query);
 
         Task<UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query);
 
@@ -98,7 +98,7 @@ namespace Zbang.Zbox.ReadServices
 
         //Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);
 
-        Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId);
+        //Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId);
 
 
 

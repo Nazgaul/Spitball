@@ -83,13 +83,13 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, loginResult);
         }
 
-        [HttpGet]
-        [Route("api/account/university/russianDepartments")]
-        public async Task<HttpResponseMessage> RussianDepartments()
-        {
-            var retVal = await ZboxReadService.GetRussianDepartmentList(984);
-            return Request.CreateResponse(retVal);
-        }
+        //[HttpGet]
+        //[Route("api/account/university/russianDepartments")]
+        //public async Task<HttpResponseMessage> RussianDepartments()
+        //{
+        //    var retVal = await ZboxReadService.GetRussianDepartmentList(984);
+        //    return Request.CreateResponse(retVal);
+        //}
 
         [HttpPost, Route("api/account/university/create")]
         public HttpResponseMessage CreateUniversity(CreateUniversityRequest model)

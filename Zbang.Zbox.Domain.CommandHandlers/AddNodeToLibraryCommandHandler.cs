@@ -28,24 +28,24 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (!user.IsAdmin())
             {
-                throw new UnauthorizedAccessException("user don't have enough points");
+                throw new UnauthorizedAccessException();
             }
-            
+
             var university = m_UniversityRepository.Load(message.UniversityId);
 
             var id = m_IdGenerator.GetId();
 
             if (message.ParentId.HasValue)
             {
-                var libraryNode = m_LibraryRepository.Get(message.ParentId);
-                var childNode = libraryNode.CreateSubLibrary(id, message.Name);
+                var libraryNode = m_LibraryRepository.Load(message.ParentId);
+                var childNode = libraryNode.CreateSubLibrary(id, message.Name, user);
                 m_LibraryRepository.Save(childNode);
                 message.Url = childNode.Url;
             }
             //need to be in the root
             else
             {
-                var lib = university.CreateNewLibraryRoot(id, message.Name);
+                var lib = university.CreateNewLibraryRoot(id, message.Name, user);
 
                 m_LibraryRepository.Save(lib);
                 m_UniversityRepository.Save(university);
@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             message.Id = id;
-            
+
         }
     }
 }

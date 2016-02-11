@@ -1,0 +1,14 @@
+﻿<uib-accordion>
+    <uib-accordion-group is-open="dep.isOpen" ng-repeat="dep in ad.departments track by dep.id"
+                         heading="{{::dep.name}}">
+        <div ng-controller="accountSettingsDepController">
+            <ul class="list-unstyled">
+                <li ng-repeat="user in dep.users" layout="row">
+                    <div>ram</div>
+                    <div>some image</div>
+                    <md-button>xxx</md-button>
+                </li>
+            </ul>
+        </div>
+    </uib-accordion-group>
+</uib-accordion>

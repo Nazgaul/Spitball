@@ -275,7 +275,7 @@ namespace Zbang.Zbox.Domain.Services
         //    }
         //}
 
-        public void RenameNodeLibrary(RenameNodeCommand command)
+        public void UpdateNodeSettings(UpdateNodeSettingsCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -629,6 +629,15 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
+        public async Task RequestAccessToDepartmentAsync(RequestAccessLibraryNodeCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

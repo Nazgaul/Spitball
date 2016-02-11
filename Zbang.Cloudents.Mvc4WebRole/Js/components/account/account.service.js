@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.account').service('accountService', accountService);
-    accountService.$inject = ['ajaxService', '$q', '$rootScope'];
+    accountService.$inject = ['ajaxService'];
 
-    function accountService(ajaxservice, $q, $rootScope) {
+    function accountService(ajaxservice) {
         var self = this;
 
         //self.changeImage = function (src) {
@@ -51,6 +51,7 @@
             return ajaxservice.get('/user/notification/');
         }
 
+
         self.setNotification = function(boxId, notification) {
             return ajaxservice.post('/box/changenotification/', {
                 boxId: boxId,
@@ -80,6 +81,16 @@
             return ajaxservice.post('/account/googlelogin/', {
                 token: token,
                 boxId: boxId
+            });
+        }
+
+        self.closeddepartment = function() {
+            return ajaxservice.get('/library/closeddepartment/');
+        }
+        self.closedMembers = function(id) {
+            return ajaxservice.get('/library/closeddepartmentmembers/',
+            {
+                id: id
             });
         }
     }

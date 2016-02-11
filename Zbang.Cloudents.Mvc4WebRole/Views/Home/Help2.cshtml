@@ -24,30 +24,7 @@
                                     j++;
                                 }
                             </uib-accordion>
-                            @*<div id="tab_@i" class="tab-pane @active">
-                <div id="accordion@(i)" class="panel-group">
-                    @foreach (var faq in category.QuestionNAnswers)
-                    {
-                        var inClass = j == 1 ? "in" : null;
-                        var collapsed = j != 1 ? "collapsed" : null;
-                        <div class="panel panel-default">
-                            <a class="accordion-toggle @collapsed" data-toggle="collapse" data-parent="#accordion@(i)" href="#accordion@(i)_@j" ga-track-event="['help', 'click on collapsed']">
-                                <div class="panel-heading color-override textColor3">
-                                    <h4 class="panel-title">
-                                        @faq.Question
-                                    </h4>
-                                </div>
-                            </a>
-                            <div id="accordion@(i)_@j" class="panel-collapse collapse @inClass">
-                                <div class="panel-body">
-                                    @Html.Raw(faq.Answer)
-                                </div>
-                            </div>
-                        </div>
-                        j++;
-                    }
-                </div>
-            </div>*@
+                            
                         </md-tab-body>
                     </md-tab>
                                     i++;

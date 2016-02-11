@@ -49,6 +49,14 @@
                         parent: 'settings'
                     },
                     templateUrl: '/account/notification/'
+                }, {
+                    state: 'settings.department',
+                    config: {
+                        url: 'department/',
+                        controller: 'AccountSettingsDepartmentController as ad',
+                        parent: 'settings'
+                    },
+                    templateUrl: '/account/department/'
                 }
 
             ];

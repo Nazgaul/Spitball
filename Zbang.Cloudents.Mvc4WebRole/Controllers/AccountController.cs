@@ -846,6 +846,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView();
         }
 
+        [HttpGet, ZboxAuthorize]
+        public PartialViewResult Department()
+        {
+            return PartialView();
+        }
+
 
         //protected override void Dispose(bool disposing)
         //{

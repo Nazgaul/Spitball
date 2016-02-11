@@ -117,7 +117,8 @@
     <Compile Include="Quiz\UpdateQuestionCommand.cs" />
     <Compile Include="Quiz\UpdateQuizCommand.cs" />
     <Compile Include="RateItemCommand.cs" />
-    <Compile Include="RenameNodeCommand.cs" />
+    <Compile Include="RequestAccessLibraryNodeCommand.cs" />
+    <Compile Include="UpdateNodeSettingsCommand.cs" />
     <Compile Include="AddReputationCommand.cs" />
     <Compile Include="UnFollowBoxCommand.cs" />
     <Compile Include="UpdateDirtyToRegularCommand.cs" />

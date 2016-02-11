@@ -6,7 +6,7 @@
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
         $location, $scope, resManager) {
 
-       
+
 
 
         var l = this;
@@ -16,7 +16,7 @@
         l.boxes = nodeData.boxes || [];
         l.nodeDetail = nodeData.details;
         buildState();
-        
+
 
         l.universityName = userDetailsFactory.get().university.name;
         //l.topTree = nodeId == null;
@@ -37,9 +37,27 @@
         l.createShow = createShow;
 
         l.createFirstBox = createFirstBox;
-
+        l.goToSubLib = goToSubLib;
         l.submitDisabled = false;
 
+        function goToSubLib(dep, $event) {
+            if (dep.state === 'closed' && (dep.userType === 'pending' || dep.userType === 'none')) {
+                var confirm = $mdDialog.confirm()
+                  .title('you need to request access to this node')
+                  .targetEvent($event)
+                   .ok(resManager.get('dialogOk'))
+                 .cancel(resManager.get('dialogCancel'));
+
+                $mdDialog.show(confirm).then(function () {
+                    libraryService.requestAccess(dep.id).then(function () {
+                        $mdDialog.show($mdDialog.alert()
+                            .title('your request has being send')
+                            .ok(resManager.get('dialogOk')));
+                    })
+                });
+                $event.preventDefault();
+            }
+        }
 
         function buildState() {
             l.state = {
@@ -56,7 +74,7 @@
             if (!myform.$valid) {
                 return;
             }
-            
+
             l.submitDisabled = true;
             libraryService.createDepartment(l.departmentName).then(function (response) {
                 l.departments.push(response);
@@ -70,7 +88,7 @@
                 }).finally(function () {
                     l.submitDisabled = false;
                 });
-            },function (response) {
+            }, function (response) {
                 myform.depName.$setValidity('server', false);
                 l.error = response;
             }).finally(function () {
@@ -83,29 +101,35 @@
             l.createOn = true;
             if (l.createClassShow) {
                 openCreateBox();
-            } 
+            }
             if (l.createDepartmentShow) {
                 openCreateDepartment();
             }
-            
+
         }
 
         function renameNode(myform) {
+            if (!myform.$valid) {
+                return;
+            }
+
             l.submitDisabled = true;
-            libraryService.renameNode(l.settings.name, nodeId).then(function () {
+            libraryService.updateSettings(l.settings.name, nodeId, l.settings.privacy).then(function () {
                 l.nodeDetail.name = l.settings.name;
+                l.nodeDetail.state = l.settings.privacy;
                 l.settingsOpen = false;
-            }, function(response) {
+            }, function (response) {
                 myform.name.$setValidity('server', false);
                 l.error = response;
-            }).finally(function() {
+            }).finally(function () {
                 l.submitDisabled = false;
             });
 
         }
         function toggleSettings() {
             l.settings = {
-                name: l.nodeDetail.name
+                name: l.nodeDetail.name,
+                privacy: l.nodeDetail.state
             };
             l.settingsOpen = true;
         }
@@ -119,7 +143,7 @@
             l.createDepartmentOn = true;
             l.settingsOpen = false;
             l.focusCreateDepartment = true;
-           
+
         }
 
         function createBox(myform) {
@@ -140,6 +164,7 @@
         function createDepartment(myform) {
             l.submitDisabled = true;
             libraryService.createDepartment(l.departmentName, nodeId).then(function (response) {
+                response.state = l.nodeDetail.state;
                 l.departments.push(response);
                 l.createDepartmentOn = false;
                 l.createClassShow = false;

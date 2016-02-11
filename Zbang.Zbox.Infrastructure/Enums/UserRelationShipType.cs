@@ -9,4 +9,12 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Subscribe = 2,
         Owner = 3
     }
+
+    public enum UserLibraryRelationType : int
+    {
+        None = 0,
+        Pending = 1,
+        Subscribe = 2,
+        Owner = 3
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Dto.Library
 {
@@ -12,5 +13,9 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
         public int NoBoxes { get; set; }
 
         public int NoDepartment { get; set; }
+
+        public LibraryNodeSettings State { get; set; }
+
+        public UserLibraryRelationType UserType { get; set; }
     }
 }

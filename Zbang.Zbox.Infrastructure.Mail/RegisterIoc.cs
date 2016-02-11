@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             ioc.RegisterType<IMailBuilder, ChangeEmailMail>(MailParameters.ChangeEmailResolver, LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, FlagItemMail>(MailParameters.FlagBadItemResolver, LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, InvitationToCloudentsMail>(MailParameters.InvitationToCloudentsResolver, LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IMailBuilder, DepartmentRequestAccessMail>(MailParameters.DepartmentRequestAccessResolver, LifeTimeManager.PerHttpRequest);
 
         }
     }

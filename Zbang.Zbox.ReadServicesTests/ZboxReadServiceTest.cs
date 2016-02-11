@@ -116,19 +116,19 @@ namespace Zbang.Zbox.ReadServicesTests
                 Assert.Fail("Expected no exception, but got: " + ex.Message);
             }
         }
-        [TestMethod]
-        public void GetUniversityDetail_Query_ReturnResult()
-        {
-            var query = new GetUniversityDetailQuery(1);
-            try
-            {
-                var x = m_ZboxReadService.GetUniversityDetailAsync(query).Result;
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail("Expected no exception, but got: " + ex.Message);
-            }
-        }
+        //[TestMethod]
+        //public void GetUniversityDetail_Query_ReturnResult()
+        //{
+        //    var query = new GetUniversityDetailQuery(1);
+        //    try
+        //    {
+        //        var x = m_ZboxReadService.GetUniversityDetailAsync(query).Result;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Assert.Fail("Expected no exception, but got: " + ex.Message);
+        //    }
+        //}
         //[TestMethod]
         //public void GetInvites_Query_ReturnResult()
         //{

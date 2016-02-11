@@ -51,11 +51,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetLibraryNodeAsync(query);
         }
 
-        public Task<UniversityInfoDto> GetUniversityDetailAsync(GetUniversityDetailQuery query)
-        {
-            return m_Cache.QueryAsync
-                (m_ReadService.GetUniversityDetailAsync, query);
-        }
+        //public Task<UniversityInfoDto> GetUniversityDetailAsync(GetUniversityDetailQuery query)
+        //{
+        //    return m_Cache.QueryAsync
+        //        (m_ReadService.GetUniversityDetailAsync, query);
+        //}
 
         //public Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query)
         //{
@@ -128,10 +128,10 @@ namespace Zbang.Zbox.ReadServices
         {
             return m_ReadService.GetBoxMembersAsync(query);
         }
-        public Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query)
-        {
-            return m_ReadService.GetBoxUsersIdAsync(query);
-        }
+        //public Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query)
+        //{
+        //    return m_ReadService.GetBoxUsersIdAsync(query);
+        //}
 
         public Task<UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query)
         {
@@ -241,10 +241,10 @@ namespace Zbang.Zbox.ReadServices
         //}
 
 
-        public Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
-        {
-            return m_ReadService.GetRussianDepartmentList(universityId);
-        }
+        //public Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
+        //{
+        //    return m_ReadService.GetRussianDepartmentList(universityId);
+        //}
 
 
        
@@ -426,6 +426,18 @@ namespace Zbang.Zbox.ReadServices
         public Task<HomePageDataDto> GetHomePageDataAsync()
         {
             return m_ReadService.GetHomePageDataAsync();
+        }
+
+
+        public Task<IEnumerable<ClosedNodeDto>> GetUserClosedDepartmentAsync(QueryBase query)
+        {
+            return m_ReadService.GetUserClosedDepartmentAsync(query);
+        }
+
+
+        public Task<IEnumerable<ClosedNodeUsersDto>> GetMembersClosedDepartmendAsync(GetClosedNodeMembersQuery query)
+        {
+            return m_ReadService.GetMembersClosedDepartmendAsync(query);
         }
     }
 }

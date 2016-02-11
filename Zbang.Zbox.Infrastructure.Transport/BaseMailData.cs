@@ -8,10 +8,12 @@ namespace Zbang.Zbox.Infrastructure.Transport
     //[ProtoInclude(12, typeof(ForgotPasswordData))]
 
     [ProtoInclude(13, typeof(MessageMailData))]
-    [ProtoInclude(18, typeof(MessageMailData2))]
+    
     [ProtoInclude(15, typeof(ChangeEmailData))]
     [ProtoInclude(16, typeof(ForgotPasswordData2))]
     [ProtoInclude(17, typeof(InviteToCloudentsData))]
+    [ProtoInclude(18, typeof(MessageMailData2))]
+    [ProtoInclude(19, typeof(RequestAccessData))]
     public abstract class BaseMailData
     {
         public const string WelcomeResolver = "welcome";
@@ -20,6 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public const string MessageResolver = "message";
         public const string ChangeEmailResolver = "ChangeEmail";
         public const string InviteToCloudentsResolver = "inviteToCloudents";
+        public const string RequestAccessResolver = "requestAccessResolver";
 
         protected BaseMailData()
         {

@@ -22,13 +22,11 @@ namespace Zbang.Zbox.Domain
             BoxId = Box.Id;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
-            //Star = false;
 
         }
         public virtual long Id { get; protected set; }
         public virtual UserRelationshipType UserRelationshipType { get; set; }
         public virtual NotificationSettings NotificationSettings { get; set; }
-        //public virtual bool Star { get; set; }
         public virtual UserTimeDetails UserTime { get; set; }
 
         public virtual User User { get; set; }

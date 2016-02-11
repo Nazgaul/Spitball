@@ -3,22 +3,22 @@
     public static class Sql
     {
 
-        public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, 
-                            uWrap.UniversityName  as Name, uWrap.LargeImage as Image,
-                            uWrap.UniversityName as UniversityName,
-                            uWrap.WebSiteUrl,
-                            uWrap.MailAddress,
-                            uWrap.FacebookUrl,
-                            uWrap.TwitterUrl,
-                            uWrap.TwitterWidgetId,
-                            uWrap.YouTubeUrl,
-                            uWrap.LetterUrl,
-                            uWrap.NoOfBoxes as BoxesCount,
-							uWrap.NoOfItems + uWrap.NoOfQuizzes as ItemCount,
-                            uWrap.NoOfUsers as MemberCount
-                            from zbox.University uWrap  
-                            where 
-                             uWrap.Id =@UniversityWrapper";
+//        public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, 
+//                            uWrap.UniversityName  as Name, uWrap.LargeImage as Image,
+//                            uWrap.UniversityName as UniversityName,
+//                            uWrap.WebSiteUrl,
+//                            uWrap.MailAddress,
+//                            uWrap.FacebookUrl,
+//                            uWrap.TwitterUrl,
+//                            uWrap.TwitterWidgetId,
+//                            uWrap.YouTubeUrl,
+//                            uWrap.LetterUrl,
+//                            uWrap.NoOfBoxes as BoxesCount,
+//							uWrap.NoOfItems + uWrap.NoOfQuizzes as ItemCount,
+//                            uWrap.NoOfUsers as MemberCount
+//                            from zbox.University uWrap  
+//                            where 
+//                             uWrap.Id =@UniversityWrapper";
 
 
         /// <summary>

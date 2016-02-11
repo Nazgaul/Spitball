@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Domain
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             UserBoxRel = new HashSet<UserBoxRel>();
-
+            UserLibraryRel = new HashSet<UserLibraryRel>();
             //Invites = new HashSet<Invite>();
             Quota = new Quota();
             UserTime = new UserTimeDetails("Sys");
@@ -89,12 +89,11 @@ namespace Zbang.Zbox.Domain
         public virtual Quota Quota { get; set; }
         public virtual UserTimeDetails UserTime { get; set; }
         public virtual ICollection<UserBoxRel> UserBoxRel { get; protected set; }
-        // protected virtual ICollection<Invite> Invites { get; set; }
+        public virtual ICollection<UserLibraryRel> UserLibraryRel { get; protected set; }
         public virtual Guid? MembershipId { get; set; }
         public virtual long? FacebookId { get; set; }
         public virtual string GoogleId { get; set; }
 
-       // public virtual string Image { get; set; }
         public virtual string ImageLarge { get; set; }
 
 
@@ -106,7 +105,6 @@ namespace Zbang.Zbox.Domain
 
         public virtual RussianDepartment RussianDepartment { get; set; }
 
-        // public virtual Library Department { get; set; }
 
         public virtual string GroupNumber { get; set; }
         public virtual string RegisterNumber { get; set; }
@@ -126,18 +124,29 @@ namespace Zbang.Zbox.Domain
 
         public void ChangeUserRelationShipToBoxType(Box box, UserRelationshipType newUserType)
         {
-            //RemoveInviteState(box);
             var userType = UserBoxRel.FirstOrDefault(w => w.BoxId == box.Id);
             if (userType == null)
             {
                 userType = new UserBoxRel(this, box, UserRelationshipType.Subscribe);
                 UserBoxRel.Add(userType);
                 box.UserBoxRelationship.Add(userType);
-                //throw new ArgumentException("user is not connected to box");
             }
             userType.UserRelationshipType = newUserType;
             userType.UserTime.UpdateUserTime(Email);
         }
+
+        //public void ChangeUserRelationShipToLibraryType(Library library, UserLibraryRelationType newUserType)
+        //{
+        //    var userType = UserLibraryRel.FirstOrDefault(w => w.Library.Id == library.Id);
+        //    if (userType == null)
+        //    {
+        //        userType = new UserLibraryRel((this, box, UserRelationshipType.Subscribe);
+        //        UserBoxRel.Add(userType);
+        //        box.UserBoxRelationship.Add(userType);
+        //    }
+        //    userType.UserRelationshipType = newUserType;
+        //    //userType.UserTime.UpdateUserTime(Email);
+        //}
 
 
 

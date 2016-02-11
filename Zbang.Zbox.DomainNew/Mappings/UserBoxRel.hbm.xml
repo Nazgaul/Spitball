@@ -22,7 +22,6 @@
       <key column="UserBoxRelId" foreign-key="InviteUserBoxRelId"/>
       <one-to-many class="InviteToBox"/>
     </bag>
-    
 
     <component name="UserTime" class="UserTimeDetails">
       <property name="CreationTime" insert="true" update="false">
@@ -38,5 +37,14 @@
         <column name="UpdatedUser" not-null="true" default="'Sys'"/>
       </property>
     </component>
+  </class>
+  
+  <class name="UserLibraryRel" table="UserLibraryRel">
+    <id name="Id" >
+      <generator class="assigned"/>
+    </id>
+    <property not-null="true" name="UserType"/>
+    <many-to-one name="User" class="User" column="UserId" not-null="true" unique-key="userlibraryrelUserIdLibraryId"/>
+    <many-to-one name="Library" class="Library" column="LibraryId" not-null="true"  unique-key="userlibraryrelUserIdLibraryId"/>
   </class>
 </hibernate-mapping>

@@ -12,6 +12,8 @@ namespace Zbang.Zbox.Domain.DataAccess
         User GetUserByGoogleId(string googleUserId);
 
         UserRelationshipType GetUserToBoxRelationShipType(long userId, long boxId);
+
+        UserLibraryRelationType GetUserToDepartmentRelationShipType(long userId, Guid departmentId);
         UserBoxRel GetUserBoxRelationship(long userId, long boxId);
 
         //UserRelationshipType GetUserToBoxRelationShipTypeWithInvite(long userId, long boxId);
