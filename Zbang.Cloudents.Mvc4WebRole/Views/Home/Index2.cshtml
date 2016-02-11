@@ -51,7 +51,7 @@
                         </label>
                     </li>
                     <li id="product">
-                            <span>@HomePageResources.A3</span>
+                        <span>@HomePageResources.A3</span>
                     </li>
                     <li class="jobs"><a href="@Url.RouteUrl("Jobs")">@HomePageResources.A2</a></li>
                     <li class="language">
@@ -231,16 +231,20 @@
                         </div>
                     </div>
                     <div class="signin-options">
-                        <button type="button" class="login-option facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                            <div>
-                                @Html.Svg(socialIconsSvg, "facebook")
-                            </div>
-                        </button>
-                        <button type="button" class="login-option google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                            <div>
-                                @Html.Svg(socialIconsSvg, "google")
-                            </div>
-                        </button>
+                        <div class="social-signin">
+                            <button type="button" class="login-option facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                <div>
+                                    @Html.Svg(socialIconsSvg, "facebook")
+                                    <span>@LogOnResources.ExternalProvider</span>
+                                </div>
+                            </button>
+                            <button type="button" class="login-option google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                                <div>
+                                    @Html.Svg(socialIconsSvg, "google")
+                                    <span>@LogOnResources.ExternalProvider</span>
+                                </div>
+                            </button>
+                        </div>
                         <button type="button" class="login-option signup os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                             @HomePageResources.A5
                         </button>
@@ -303,7 +307,7 @@
                 <div class="boxes">
                     @foreach (var box in Model.Boxes)
                     {
-                        var boxClass = "color"+box.Name.Length;
+                        var boxClass = "color" + box.Name.Length;
                         <a href="@box.Url" class="box os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
 
                             <h2 class="@boxClass">@box.Name</h2>
@@ -314,7 +318,7 @@
                             <hr class="background @boxClass" />
                             <div class="box-info">
                                 @*resources*@<div>@box.MembersCount Members</div>
-                               @*resources*@<div>@box.ItemCount items</div>
+                                @*resources*@<div>@box.ItemCount items</div>
                             </div>
 
                         </a>
