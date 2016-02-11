@@ -8,6 +8,7 @@ using NHibernate.UserTypes;
 
 namespace Zbang.Zbox.Infrastructure.Data.Types
 {
+    [Serializable]
     public class HierarchyId : IUserType
     {
         #region Properties

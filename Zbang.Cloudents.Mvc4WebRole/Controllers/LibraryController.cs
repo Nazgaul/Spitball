@@ -299,9 +299,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError("need dep id");
             }
             var command = new RequestAccessLibraryNodeCommand(id, User.GetUserId());
-           await  ZboxWriteService.RequestAccessToDepartmentAsync(command);
+            await ZboxWriteService.RequestAccessToDepartmentAsync(command);
             return JsonOk();
         }
+
+
+        [HttpGet]
+        public async Task<JsonResult> ClosedDepartment()
+        {
+            var retVal = await ZboxReadService.GetUserClosedDepartmentAsync(new QueryBase(User.GetUserId()));
+            return JsonOk(retVal);
+        }
+        [HttpGet]
+        public async Task<JsonResult> ClosedDepartmentMembers(Guid id)
+        {
+            var query = new GetClosedNodeMembersQuery(User.GetUserId(), id);
+            var retVal = await ZboxReadService.GetMembersClosedDepartmendAsync(query);
+            return JsonOk(retVal);
+        }
+
 
         [HttpPost]
         public JsonResult CreateUniversity(CreateUniversity model)

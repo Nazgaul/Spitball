@@ -156,7 +156,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.MapRoute("AccountSettingsPart",
             "account/settings/{part}",
             new { controller = "Home", action = "IndexEmpty" },
-            new { part = "info|password|notification" }
+            new { part = "info|password|notification|department" }
            );
 
             routes.MapRoute("Blog2",

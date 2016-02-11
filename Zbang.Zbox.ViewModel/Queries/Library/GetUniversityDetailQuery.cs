@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Query;
 namespace Zbang.Zbox.ViewModel.Queries.Library
 {

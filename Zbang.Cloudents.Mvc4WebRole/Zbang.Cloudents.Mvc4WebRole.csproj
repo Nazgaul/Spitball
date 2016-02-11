@@ -1762,6 +1762,7 @@
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
     <Content Include="Js\components\account\account.routes.js" />
     <Content Include="Js\components\account\account.service.js" />
+    <Content Include="Js\components\account\department.controller.js" />
     <Content Include="Js\components\account\info.controller.js" />
     <Content Include="Js\components\account\notification.controller.js" />
     <Content Include="Js\components\account\password.controller.js" />
@@ -2782,6 +2783,7 @@
     <Content Include="Views\Share\InviteDialog.cshtml" />
     <Content Include="Views\Library\_EmptyStateTopTree.cshtml" />
     <Content Include="Views\Home\Product.cshtml" />
+    <Content Include="Views\Account\Department.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

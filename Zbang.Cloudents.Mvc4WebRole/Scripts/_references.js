@@ -251,3 +251,4 @@
 /// <reference path="../js/components/dashboard/dashboard.routes.js" />
 /// <reference path="waypoints.min.js" />
 /// <reference path="../js/homepage/homescreen.js" />
+/// <reference path="../js/components/account/department.controller.js" />

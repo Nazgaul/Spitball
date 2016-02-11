@@ -198,6 +198,30 @@ select users as StudentsCount, items as DocumentCount, quizzes as QuizzesCount f
 
         }
 
+        public async Task<IEnumerable<ClosedNodeDto>> GetUserClosedDepartmentAsync(QueryBase query)
+        {
+
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal =
+                    await conn.QueryAsync<ClosedNodeDto>(Sql.Library.GetClosedLibraryByUser, new { query.UserId });
+
+                return retVal;
+            }
+        }
+
+        public async Task<IEnumerable<ClosedNodeUsersDto>> GetMembersClosedDepartmendAsync(GetClosedNodeMembersQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var retVal =
+                   await conn.QueryAsync<ClosedNodeUsersDto>(Sql.Library.GetClosedLibraryUsers,
+                   new { query.UserId, query.LibraryId });
+
+                return retVal;
+            }
+        }
+
 
 
 
@@ -206,15 +230,15 @@ select users as StudentsCount, items as DocumentCount, quizzes as QuizzesCount f
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<UniversityInfoDto> GetUniversityDetailAsync(GetUniversityDetailQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var retVal = await conn.QueryAsync<UniversityInfoDto>(Sql.Sql.GetUniversityDataByUserId, new { UniversityWrapper = query.UserId });
-                return retVal.First();
-            }
+        //public async Task<UniversityInfoDto> GetUniversityDetailAsync(GetUniversityDetailQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var retVal = await conn.QueryAsync<UniversityInfoDto>(Sql.Sql.GetUniversityDataByUserId, new { UniversityWrapper = query.UserId });
+        //        return retVal.First();
+        //    }
 
-        }
+        //}
 
         //public async Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query)
         //{
@@ -705,16 +729,16 @@ select users as StudentsCount, items as DocumentCount, quizzes as QuizzesCount f
             }
         }
 
-        public async Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<RussianDepartmentDto>(Sql.LibraryChoose.GetRussianDepartments, new
-                {
-                    universityId
-                });
-            }
-        }
+        //public async Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<RussianDepartmentDto>(Sql.LibraryChoose.GetRussianDepartments, new
+        //        {
+        //            universityId
+        //        });
+        //    }
+        //}
 
         public async Task<UniversityWithCodeDto> GetUniversityNeedIdAsync(long universityId)
         {
@@ -814,20 +838,20 @@ select users as StudentsCount, items as DocumentCount, quizzes as QuizzesCount f
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<long>(Sql.Box.BoxUserIds,
-                    new
-                    {
-                        query.BoxId,
-                        pageNumber = query.PageNumber,
-                        rowsperpage = query.RowsPerPage,
-                        query.UserId
-                    });
-            }
-        }
+        //public async Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<long>(Sql.Box.BoxUserIds,
+        //            new
+        //            {
+        //                query.BoxId,
+        //                pageNumber = query.PageNumber,
+        //                rowsperpage = query.RowsPerPage,
+        //                query.UserId
+        //            });
+        //    }
+        //}
 
         #endregion
 

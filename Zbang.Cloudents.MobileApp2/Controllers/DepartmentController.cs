@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -32,7 +33,12 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             }
             var query = new GetLibraryNodeQuery(universityId.Value, guid, User.GetCloudentsUserId());
             var result = await ZboxReadService.GetLibraryNodeAsync(query);
-            return Request.CreateResponse(result);
+            return Request.CreateResponse(new
+            {
+                result.Boxes,
+                result.Details,
+                Nodes = result.Nodes.Where(w => w.State != Zbox.Infrastructure.Enums.LibraryNodeSettings.Closed)
+            });
         }
 
         public HttpResponseMessage Post(CreateLibraryRequest model)

@@ -2,8 +2,8 @@
 {
     public static class LibraryChoose
     {
-        public const string GetRussianDepartments = @"select id,name,year from zbox.department
-                where universityid = @universityId";
+//        public const string GetRussianDepartments = @"select id,name,year from zbox.department
+//                where universityid = @universityId";
 
 
         public const string GetDepartmentsByTerm =
