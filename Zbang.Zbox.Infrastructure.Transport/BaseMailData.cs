@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
     [ProtoInclude(17, typeof(InviteToCloudentsData))]
     [ProtoInclude(18, typeof(MessageMailData2))]
     [ProtoInclude(19, typeof(RequestAccessData))]
+    [ProtoInclude(20, typeof(AccessApprovedData))]
     public abstract class BaseMailData
     {
         public const string WelcomeResolver = "welcome";
@@ -23,6 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public const string ChangeEmailResolver = "ChangeEmail";
         public const string InviteToCloudentsResolver = "inviteToCloudents";
         public const string RequestAccessResolver = "requestAccessResolver";
+        public const string AccessApprovedResolver = "accessApprovedResolver";
 
         protected BaseMailData()
         {
