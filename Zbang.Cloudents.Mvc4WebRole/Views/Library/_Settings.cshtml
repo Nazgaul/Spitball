@@ -11,13 +11,10 @@
                 <div ng-message="server">{{l.error}}</div>
             </div>
         </md-input-container>
-        <md-input-container flex="100" ng-if="l.nodeDetail.state === 'open' && l.state.emptyNodeAdmin && l.nodeDetail.parentUrl == '/library/'">
-            <label>Close department</label>
-            <md-select name="privacy" ng-model="l.settings.privacy" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
-                <md-option value="@LibraryNodeSettings.Closed.GetStringValueLowerCase()">@LibraryNodeSettings.Closed.GetEnumDescription()</md-option>
-                <md-option value="@LibraryNodeSettings.Open.GetStringValueLowerCase()">@LibraryNodeSettings.Open.GetEnumDescription()</md-option>
-            </md-select>
+        <md-input-container flex="100" class="private-switch" ng-if="l.nodeDetail.state === 'open' && l.state.emptyNodeAdmin && l.nodeDetail.parentUrl == '/library/'">
+            <md-switch ng-model="l.nodeDetail.isPrivate">Set private</md-switch>
         </md-input-container>
+
         <div layout="row" layout-align="end center" class="text-capitalize" flex="100">
             <button type="button" class="btn btn-default" ng-click="l.settingsOpen = false" ga-track-event="['university', 'cancel settings']">@GeneralResources.Cancel</button>
             <button type="submit" class="btn button-Blue btn-primary" ng-disabled="l.submitDisabled" ga-track-event="['itemPage', 'save settings']">@GeneralResources.SaveChanges</button>

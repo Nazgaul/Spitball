@@ -38,6 +38,12 @@
 
         .status {
             margin-top: 15px;
+
+            .lock {
+                width: 22px;
+                height: 22px;
+                fill: @textColorLightGrey;
+            }
         }
     }
 
@@ -81,6 +87,36 @@
     .settings {
         width: ~"calc(100% - 24px)";
         margin: 0 auto;
+
+        md-input-container {
+            margin-bottom: 0;
+
+            &.private-switch {
+                margin: 0;
+
+                md-switch {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        md-switch.md-default-theme.md-checked .md-thumb,
+        md-switch.md-checked .md-thumb {
+            background-color: @textColorBlue;
+        }
+
+        md-switch.md-default-theme.md-checked .md-ink-ripple,
+        md-switch.md-checked .md-ink-ripple {
+            color: @textColorBlue;
+        }
+
+        md-switch.md-default-theme.md-checked .md-bar,
+        md-switch.md-checked .md-bar,
+        md-switch.md-default-theme.md-checked.md-focused .md-thumb:before,
+        md-switch.md-checked.md-focused .md-thumb:before {
+            background-color: @textColorBlue;
+            opacity: 0.5;
+        }
     }
 
     .empty-top {

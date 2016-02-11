@@ -15,6 +15,9 @@
         l.departments = nodeData.nodes;
         l.boxes = nodeData.boxes || [];
         l.nodeDetail = nodeData.details;
+        if (l.nodeDetail) {
+            l.nodeDetail.isPrivate = false;
+        }
         buildState();
 
 
@@ -43,7 +46,8 @@
         function goToSubLib(dep, $event) {
             if (dep.state === 'closed' && (dep.userType === 'pending' || dep.userType === 'none')) {
                 var confirm = $mdDialog.confirm()
-                  .title('you need to request access to this node')
+                  .title(resManager.get('privateDepPopupTitle'))
+                  .content(resManager.get('privateDepPopupContent'))
                   .targetEvent($event)
                    .ok(resManager.get('dialogOk'))
                  .cancel(resManager.get('dialogCancel'));
@@ -114,6 +118,7 @@
             }
 
             l.submitDisabled = true;
+            l.settings.privacy = l.nodeDetail.isPrivate ? 'closed' : 'open';
             libraryService.updateSettings(l.settings.name, nodeId, l.settings.privacy).then(function () {
                 l.nodeDetail.name = l.settings.name;
                 l.nodeDetail.state = l.settings.privacy;
@@ -164,7 +169,7 @@
         function createDepartment(myform) {
             l.submitDisabled = true;
             libraryService.createDepartment(l.departmentName, nodeId).then(function (response) {
-                response.state = l.nodeDetail.state;
+                response.state = l.nodeDetail ? l.nodeDetail.state : 'open';
                 l.departments.push(response);
                 l.createDepartmentOn = false;
                 l.createClassShow = false;

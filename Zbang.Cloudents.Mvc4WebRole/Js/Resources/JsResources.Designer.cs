@@ -151,6 +151,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You need to request access to this node.
+        /// </summary>
+        public static string privateDepPopupContent {
+            get {
+                return ResourceManager.GetString("privateDepPopupContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Private department.
+        /// </summary>
+        public static string privateDepPopupTitle {
+            get {
+                return ResourceManager.GetString("privateDepPopupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select the correct answer.
         /// </summary>
         public static string quizCreateCorrectAnswer {
