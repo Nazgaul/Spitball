@@ -13,7 +13,8 @@
         b.data = boxData;
         b.showLeaderboard = b.isAcademic = boxData.boxType === 'academic' || boxData.boxType === 'academicClosed';
         b.needFollow = boxData.userType === 'invite' || boxData.userType === 'none';
-        b.canInvite = boxData.boxType !== 'academicClosed' &&  b.isAcademic || (boxData.userType === 'owner' && !b.isAcademic);
+        b.canInvite = boxData.boxType !== 'academicClosed' && b.isAcademic || (boxData.userType === 'owner' && !b.isAcademic);
+        b.canShare = boxData.boxType !== 'academicClosed' && b.isAcademic && !b.needFollow;
         b.owner = boxData.userType === 'owner';
         b.follow = follow;
         b.updateBox = updateBox;
