@@ -44,17 +44,19 @@
                         <div class="indent stats">
                             <span user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)">{{post.likesCount}} @GeneralResources.Likes</span>
                         </div>
-                        <div class="indent actions color-override borderTC14 text-capitalize">
-                            <button class="comment-btn" user-not-register-popup="click" type="button" ng-click="f.openReply(post)" ga-track-event="['box-feed', 'comment-icons']">
-                                @Html.Svg("~/images/site/box-icons.svg", "comment", new { @class = "svgTC6" })
-                                <span>@BoxResources.Comment</span>
-                            </button>
-                            <button class="like-btn" user-not-register-popup="click" type="button" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
-                                @*@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "svgTC6" })*@
-                                <span class="like-icon" ng-if="!post.isLiked">@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "svgTC6" })</span>
-                                <span class="like-icon" ng-if="post.isLiked">@Html.Svg("~/images/site/box-icons.svg", "activeLike", new { @class = "svgTC6" })</span>
-                                <span>@GeneralResources.Like</span>
-                            </button>
+                        <div class="actions-wrapper">
+                            <div class="indent actions color-override borderTC14 text-capitalize">
+                                <button class="comment-btn" user-not-register-popup="click" type="button" ng-click="f.reply(post)" ga-track-event="['box-feed', 'comment-icons']">
+                                    @Html.Svg("~/images/site/box-icons.svg", "comment", new { @class = "svgTC6" })
+                                    <span>@BoxResources.Comment</span>
+                                </button>
+                                <button class="like-btn" user-not-register-popup="click" type="button" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
+                                    @*@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "svgTC6" })*@
+                                    <span class="like-icon" ng-if="!post.isLiked">@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "svgTC6" })</span>
+                                    <span class="like-icon" ng-if="post.isLiked">@Html.Svg("~/images/site/box-icons.svg", "activeLike", new { @class = "svgTC6" })</span>
+                                    <span>@GeneralResources.Like</span>
+                                </button>
+                            </div>
                             <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.replies.length">
@@ -91,16 +93,17 @@
                                     </div>
                                     <button type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                                 </div>
-
-                                <div class="like-btn indent actions">
-                                    <button type="button" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']">
-                                        @GeneralResources.Like
-                                    </button>
-                                    <button type="button" ng-click="f.likeReplyDialog(reply,$event)">
-                                        <span class="like-icon" ng-if="!reply.isLiked">@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "svgTC6" })</span>
-                                        <span class="like-icon" ng-if="reply.isLiked">@Html.Svg("~/images/site/box-icons.svg", "activeLike", new { @class = "svgTC6" })</span>
-                                        <span>  {{reply.likesCount}}</span>
-                                    </button>
+                                <div class="actions-wrapper">
+                                    <div class="like-btn indent actions">
+                                        <button type="button" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']">
+                                            @GeneralResources.Like
+                                        </button>
+                                        <button type="button" ng-click="f.likeReplyDialog(reply,$event)">
+                                            <span class="like-icon" ng-if="!reply.isLiked">@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "svgTC6" })</span>
+                                            <span class="like-icon" ng-if="reply.isLiked">@Html.Svg("~/images/site/box-icons.svg", "activeLike", new { @class = "svgTC6" })</span>
+                                            <span>  {{reply.likesCount}}</span>
+                                        </button>
+                                    </div>
                                     <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
                                 </div>
                             </li>

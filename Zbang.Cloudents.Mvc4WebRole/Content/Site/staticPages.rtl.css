@@ -334,13 +334,49 @@
   font-size: 22px;
 }
 .product-page {
+  background-image: url("../../Images/HomePage2/HP_image.jpg");
+  background-size: cover;
+  background-position: 50% 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100vw;
+  margin-top: -20px;
   text-align: center;
+  box-shadow: inset -100vw 0 0 rgba(0, 0, 0, 0.5);
+  margin-right: -10px;
+  padding-bottom: 70px;
+}
+.product-page .image-wrapper {
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+}
+.product-page .close svg {
+  width: 25px;
+  height: 25px;
+  fill: #f5f5f5;
+  position: fixed;
+  left: 20px;
+}
+@media (max-width: 959px) {
+  .product-page .close svg {
+    margin-top: 20px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+  }
 }
 @media (min-width: 960px) {
   .product-page {
-    margin-right: -250px;
+    margin-right: -270px;
+    padding: 30px 0 70px 0;
   }
 }
 .product-page img {
   max-width: 100%;
+}
+@media (max-width: 959px) {
+  .product-page img {
+    margin-top: 15px;
+  }
 }

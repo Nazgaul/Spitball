@@ -89,7 +89,7 @@
 
     var animatonSpeed = 300;
 
-    $('.login-wrapper input').focus(function() {
+    $('.login-wrapper input').focus(function () {
         $('.alert-danger').slideUp(animatonSpeed);
     });
 
@@ -103,9 +103,16 @@
     });
 
     $('.close-form').click(function () {
-        toggleForm($(this).parent().attr('class'));
+        $.each($('.home-page-body > *:not(.main)'),
+            function () {
+                $(this).slideDown(animatonSpeed);
+            });
+        $('.login-wrapper, #main-wrapper h1').slideDown(animatonSpeed).removeClass('hidden');
+        $('.login-wrapper').slideUp(animatonSpeed);
+        $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options, header ul, .navbar-toggle').removeClass('hidden');
         $('#main-wrapper').css('min-height', 0).height('auto');
         window.history.replaceState(null, "Home", "/");
+
     });
 
     function toggleForm(form) {
@@ -114,7 +121,7 @@
                 $(this).slideToggle(animatonSpeed);
             });
         $('.login-wrapper, #main-wrapper h1').slideToggle(animatonSpeed);
-        $('.login-wrapper .content > form:not(.' + form + ')').each(function() {
+        $('.login-wrapper .content > form:not(.' + form + ')').each(function () {
             $(this).addClass('hidden');
         });
         $('.login-wrapper .content > form.' + form).removeClass('hidden').show();
