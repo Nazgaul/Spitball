@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Accept.
+        ///   Looks up a localized string similar to Pending.
         /// </summary>
         public static string AcceptUserRequest {
             get {

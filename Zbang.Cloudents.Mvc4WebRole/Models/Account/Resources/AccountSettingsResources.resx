@@ -155,7 +155,7 @@
     <value>Confirm password</value>
   </data>
   <data name="AcceptUserRequest" xml:space="preserve">
-    <value>Accept</value>
+    <value>Pending</value>
     <comment>New</comment>
   </data>
 </root>

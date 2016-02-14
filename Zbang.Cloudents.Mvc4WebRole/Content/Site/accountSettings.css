@@ -164,6 +164,19 @@
 .accountPage-wrapper .university {
   margin-bottom: 20px;
 }
+.accountPage-wrapper .private-departments .panel-group .panel .panel-body {
+  padding: 5px 15px;
+}
+.accountPage-wrapper .private-departments .panel-group .panel .panel-body .requests-wrapper {
+  max-height: 300px;
+}
+.accountPage-wrapper .private-departments .panel-group .panel .panel-body .requests-wrapper ul {
+  margin-bottom: 0;
+}
+.accountPage-wrapper .private-departments .panel-group .panel .panel-body .requests-wrapper ul li {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
 .accountPage-wrapper .private-departments .requests .user-name {
   margin-left: 10px;
   color: #282828;
