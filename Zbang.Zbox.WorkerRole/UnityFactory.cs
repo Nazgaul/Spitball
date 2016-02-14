@@ -79,6 +79,7 @@ namespace Zbang.Zbox.WorkerRole
             Unity.RegisterType<IMail2, ChangeEmail>(BaseMailData.ChangeEmailResolver);
             Unity.RegisterType<IMail2, InviteToCloudents>(BaseMailData.InviteToCloudentsResolver);
             Unity.RegisterType<IMail2, RequestAccess>(BaseMailData.RequestAccessResolver);
+            Unity.RegisterType<IMail2, LibraryAccessApproved>(BaseMailData.AccessApprovedResolver);
 
 
             Unity.RegisterType<IDomainProcess, Statistics>(Infrastructure.Transport.DomainProcess.StatisticsResolver);

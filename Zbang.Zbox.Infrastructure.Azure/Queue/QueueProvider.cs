@@ -148,10 +148,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 
 
 
-        public async Task InsertMessageToStoreAsync(StoreData message)
-        {
-            await QueueClient.GetQueueReference(QueueName.OrderQueueName.ToLower()).InsertToQueueProtoAsync(message);
-        }
+       
     }
 
 

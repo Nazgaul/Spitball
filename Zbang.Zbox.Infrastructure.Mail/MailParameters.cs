@@ -6,6 +6,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
     {
         internal const string WelcomeResolver = "Welcome";
         internal const string DepartmentRequestAccessResolver = "Department";
+        internal const string DepartmentRequestApprovedResolver = "DepartmentApproved";
         internal const string InvitationToCloudentsResolver = "InviteCloudents";
         internal const string ForgotPswResolver = "Forgot";
         internal const string InviteResolver = "Invite";

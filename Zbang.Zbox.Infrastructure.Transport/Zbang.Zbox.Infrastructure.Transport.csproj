@@ -65,9 +65,6 @@
     <Compile Include="ReputationData.cs" />
     <Compile Include="RequestAccessData.cs" />
     <Compile Include="StatisticsData.cs" />
-    <Compile Include="StoreContactData.cs" />
-    <Compile Include="StoreData.cs" />
-    <Compile Include="StoreOrderData.cs" />
     <Compile Include="UniversityData.cs" />
     <Compile Include="UpdateData.cs" />
     <Compile Include="UrlToDownloadData.cs" />
