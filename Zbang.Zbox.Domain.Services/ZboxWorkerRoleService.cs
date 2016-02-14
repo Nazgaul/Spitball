@@ -224,6 +224,7 @@ order by 1";
             DeleteOldUpdates();
             UpdateUniversityStats();
             UpdateMismatchUrl();
+            UpdateHierarchyInLibrary();
             return false;
         }
 
@@ -232,9 +233,11 @@ order by 1";
             using (UnitOfWork.Start())
             {
                 var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteOldUpdates");
-                query.ExecuteUpdate();
+                var result = query.ExecuteUpdate();
+                TraceLog.WriteInfo("delete old updates " + result);
                 query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteNotConnectedUpdates");
-                query.ExecuteUpdate();
+                result = query.ExecuteUpdate();
+                TraceLog.WriteInfo("delete Delete Not Connected Updates " + result);
             }
         }
 

@@ -6,7 +6,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
     {
         public const string QueueName2 = "zboxCacheQueue";
         public const string NewMailQueueName = "zboxMailQueue2";
-        public const string OrderQueueName = "zboxStoreOrder";
         public const string UpdateDomainQueueName = "transactionQueueName";
         public const string DownloadContentFromUrl = "downloadcontentfromurl";
         public const string DownloadContentFromUrlPhase2 = "downloadcontentfromurlphase2";
@@ -16,14 +15,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         }
     }
 
-    public class OrderQueueName : QueueName
-    {
-
-        public override string Name
-        {
-            get { return OrderQueueName; }
-        }
-    }
+    
 
     public class MailQueueNameNew : QueueName
     {

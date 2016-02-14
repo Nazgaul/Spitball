@@ -38,6 +38,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             node.ChangeName(message.NewName);
             if (message.Settings.HasValue)
             {
+                if (message.UserId != node.CreatedUser.Id)
+                {
+                    throw new UnauthorizedAccessException();
+                }
                 node.UpdateSettings(message.Settings.Value, user, m_GuidGenerator.GetId());
             }
             m_LibraryRepository.Save(node);

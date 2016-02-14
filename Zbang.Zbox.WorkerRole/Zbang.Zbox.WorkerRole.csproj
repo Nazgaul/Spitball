@@ -70,6 +70,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4\Microsoft.Practices.TransientFaultHandling.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -128,6 +131,7 @@
     <Compile Include="Mail\Invite2.cs" />
     <Compile Include="Mail\InviteToCloudents.cs" />
     <Compile Include="Mail\Message2.cs" />
+    <Compile Include="Mail\LibraryAccessApproved.cs" />
     <Compile Include="Mail\RequestAccess.cs" />
     <Compile Include="Mail\Welcome.cs" />
     <Compile Include="Jobs\UpdateDataBase.cs" />
