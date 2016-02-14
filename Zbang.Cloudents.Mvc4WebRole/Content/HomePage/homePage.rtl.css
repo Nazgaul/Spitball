@@ -50,7 +50,7 @@
 }
 @media (max-width: 780px) {
   .homePage .page-content nav .navbar-header .logo {
-    width: 100%;
+    display: inline-block;
   }
 }
 .homePage .page-content nav .navbar-header .navbar-toggle {
