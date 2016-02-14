@@ -4,7 +4,8 @@
     public enum BoxType : int
     {
         Box = 0,
-        Academic = 2
+        Academic = 2,
+        AcademicClosed = 3
     }
 
     // ReSharper disable once EnumUnderlyingTypeIsInt - need for dapper

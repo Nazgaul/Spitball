@@ -80,6 +80,12 @@
       <many-to-one name="Department" column="LibraryId" class="Library" not-null="false" foreign-key="LibraryBoxes3"/>
       <!--<many-to-one name="Department" class="Department" not-null="false" foreign-key="DepartmentBoxes"/>-->
       <many-to-one name="University" class="University" not-null="false" foreign-key="UniversityBoxes"/>
+      
+      <subclass name="AcademicBoxClosed" discriminator-value="AcademicClosed">
+        <many-to-one name="ParentDepartment" column="LibraryParentId" class="Library" not-null="false" foreign-key="LibraryBoxes4"/>
+      </subclass>  
     </subclass>
+
+    
   </class>
 </hibernate-mapping>

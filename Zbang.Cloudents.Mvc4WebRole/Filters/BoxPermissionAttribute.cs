@@ -67,7 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                     new Permission
                     {
                         BoxId = boxId,
-                        Expire = DateTime.UtcNow.AddMinutes(10),
+                        Expire = DateTime.UtcNow.AddMinutes(20),
                         UserId = userId,
                         UserType = userType
                     });

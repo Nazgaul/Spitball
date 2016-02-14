@@ -11,23 +11,23 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class CreateAcademicBoxCommandHandler : CreateBoxCommandHandler
     {
         private readonly IAcademicBoxRepository m_AcademicRepository;
-        private readonly IRepository<Library> m_DepartmentRepository;
+        private readonly ILibraryRepository m_DepartmentRepository;
         private readonly IUniversityRepository m_UniversityRepository;
-        
+
 
         public CreateAcademicBoxCommandHandler(
             IBoxRepository boxRepository,
             IUserRepository userRepository,
             IRepository<UserBoxRel> userBoxRelRepository,
             IAcademicBoxRepository academicRepository,
-            IRepository<Library> departmentRepository,
+            ILibraryRepository departmentRepository,
             IUniversityRepository universityRepository, IGuidIdGenerator guidGenerator)
             : base(boxRepository, userRepository, userBoxRelRepository, guidGenerator)
         {
             m_AcademicRepository = academicRepository;
             m_DepartmentRepository = departmentRepository;
             m_UniversityRepository = universityRepository;
-           
+
         }
         public override CreateBoxCommandResult Execute(CreateBoxCommand command)
         {
@@ -59,10 +59,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new BoxNameAlreadyExistsException();
             }
 
-            box = new AcademicBox(academicCommand.BoxName, department,
-                  academicCommand.CourseCode, academicCommand.Professor,
-                   user, m_GuidGenerator.GetId());
+            if (department.Settings == LibraryNodeSettings.Closed)
+            {
+                var topDepartmentId = m_DepartmentRepository.GetTopTreeNode(academicCommand.DepartmentId);
+                var topDepartment = m_DepartmentRepository.Load(topDepartmentId);
+                box = new AcademicBoxClosed(academicCommand.BoxName, department,
+                    academicCommand.CourseCode, academicCommand.Professor,
+                    user, m_GuidGenerator.GetId(), topDepartment);
+            }
+            else
+            {
 
+                box = new AcademicBox(academicCommand.BoxName, department,
+                    academicCommand.CourseCode, academicCommand.Professor,
+                    user, m_GuidGenerator.GetId());
+            }
             box.UserBoxRelationship.Add(new UserBoxRel(user, box, UserRelationshipType.Owner));
             SaveRepositories(user, box);
 

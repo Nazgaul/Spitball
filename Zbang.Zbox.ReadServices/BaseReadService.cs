@@ -6,6 +6,7 @@ using System.Linq;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
 using ExtensionTransformers = Zbang.Zbox.Infrastructure.Data.Transformers;
@@ -85,22 +86,30 @@ namespace Zbang.Zbox.ReadServices
         #endregion
 
 
-        private UserRelationshipType GetUserStatusToBox(BoxPrivacySettings privacySettings, UserRelationshipType userRelationShipType)
+        private UserRelationshipType GetUserStatusToBox(BoxSecurityDto securityDto)
         {
-            if (userRelationShipType == UserRelationshipType.Owner)
+            if (securityDto.BoxType == BoxType.AcademicClosed)
             {
-                return userRelationShipType;
+                if (securityDto.LibraryUserType == UserLibraryRelationType.None ||
+                    securityDto.LibraryUserType == UserLibraryRelationType.Pending)
+                {
+                    throw new BoxAccessDeniedException();
+                }
             }
-            if (privacySettings == BoxPrivacySettings.AnyoneWithUrl)
+            if (securityDto.UserType == UserRelationshipType.Owner)
             {
-                return userRelationShipType;
+                return securityDto.UserType;
+            }
+            if (securityDto.PrivacySetting == BoxPrivacySettings.AnyoneWithUrl)
+            {
+                return securityDto.UserType;
             }
 
-            if (privacySettings == BoxPrivacySettings.MembersOnly)
+            if (securityDto.PrivacySetting == BoxPrivacySettings.MembersOnly)
             {
-                if (userRelationShipType == UserRelationshipType.Subscribe || userRelationShipType == UserRelationshipType.Invite)
+                if (securityDto.UserType == UserRelationshipType.Subscribe || securityDto.UserType == UserRelationshipType.Invite)
                 {
-                    return userRelationShipType;
+                    return securityDto.UserType;
                 }
             }
 
@@ -112,8 +121,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = DapperConnection.OpenConnection())
             {
-                var sqlQueries = string.Format("{0} {1} ", ViewModel.SqlQueries.Security.GetBoxPrivacySettings,
-                    ViewModel.SqlQueries.Security.GetUserToBoxRelationship);
+                var sqlQueries = ViewModel.SqlQueries.Security.GetUserAccessParams;// string.Format("{0} {1} ", ViewModel.SqlQueries.Security.GetBoxPrivacySettings,
+                //ViewModel.SqlQueries.Security.GetUserToBoxRelationship);
                 if (inviteId.HasValue)
                 {
                     sqlQueries += " " + ViewModel.SqlQueries.Security.GetInviteToBoxInvite;
@@ -124,9 +133,10 @@ namespace Zbang.Zbox.ReadServices
                 {
                     try
                     {
-                        var privacySettings = grid.Read<BoxPrivacySettings>().First();
-                        var userType = grid.Read<UserRelationshipType>().FirstOrDefault();
-                        if (inviteId.HasValue)
+                        var userAccess = grid.Read<BoxSecurityDto>().First();
+                        //var privacySettings = grid.Read<BoxPrivacySettings>().First();
+                        //var userType = grid.Read<UserRelationshipType>().FirstOrDefault();
+                        if (inviteId.HasValue && userAccess.BoxType != BoxType.AcademicClosed)
                         {
                             var x = grid.Read<int>();
                             if (x.Any())
@@ -134,7 +144,7 @@ namespace Zbang.Zbox.ReadServices
                                 return UserRelationshipType.Invite;
                             }
                         }
-                        return GetUserStatusToBox(privacySettings, userType);
+                        return GetUserStatusToBox(userAccess);
                     }
                     catch (InvalidOperationException)
                     {
@@ -148,23 +158,17 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (
-                    var grid =
-                          await conn.QueryMultipleAsync(
-                                string.Format("{0} {1} ", ViewModel.SqlQueries.Security.GetBoxPrivacySettings,
-                                    ViewModel.SqlQueries.Security.GetUserToBoxRelationship), new { boxId, userId }))
+                try
                 {
-                    try
-                    {
-                        var privacySettings = grid.Read<BoxPrivacySettings>().First();
-                        var userType = grid.Read<UserRelationshipType>().FirstOrDefault();
-                        return GetUserStatusToBox(privacySettings, userType);
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        throw new BoxDoesntExistException();
-                    }
+                    var reVal = (await conn.QueryAsync<BoxSecurityDto>(ViewModel.SqlQueries.Security.GetUserAccessParams,
+                        new { boxId, userId })).First();
+                    return GetUserStatusToBox(reVal);
                 }
+                catch (InvalidOperationException)
+                {
+                    throw new BoxDoesntExistException();
+                }
+
 
             }
         }

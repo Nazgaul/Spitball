@@ -71,7 +71,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
                 m_Configuration.AddAssembly("Zbang.Zbox.Domain");
                 m_Configuration.AddAssembly("Zbang.Zbox.ViewModel");
-                //m_Configuration.AddAssembly("Zbang.Zbox.ApiViewModel");
+
 
 
                 SaveConfiguration();

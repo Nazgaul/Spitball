@@ -32,7 +32,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var query = new GetBoxesQuery(userid, page, sizePerPage);
             var data = await ZboxReadService.GetUserBoxesOld(query);
 
-            return Request.CreateResponse(data.Select(s => new
+            return Request.CreateResponse(data.Where(w=>w.BoxType != Zbox.Infrastructure.Enums.BoxType.AcademicClosed).Select(s => new
             {
                 s.Name,
                 s.Id,
@@ -55,7 +55,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             var query = new GetBoxesQuery(userid, page, sizePerPage);
             var data = await ZboxReadService.GetUserBoxesAsync(query);
 
-            return Request.CreateResponse(data.Select(s => new
+            return Request.CreateResponse(data.Where(w => w.BoxType != Zbox.Infrastructure.Enums.BoxType.AcademicClosed).Select(s => new
             {
                 s.Name,
                 s.Id,

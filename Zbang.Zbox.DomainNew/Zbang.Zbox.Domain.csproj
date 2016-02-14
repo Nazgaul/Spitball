@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcademicBox.cs" />
+    <Compile Include="AcademicBoxClosed.cs" />
     <Compile Include="Answer.cs" />
     <Compile Include="Box.cs" />
     <Compile Include="Comment.cs">

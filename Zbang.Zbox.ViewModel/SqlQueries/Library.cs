@@ -42,7 +42,7 @@
 SELECT top 1
     libraryid
 FROM zbox.Library
-where (select level from zbox.library where Libraryid = @ParentId).IsDescendantOf(level) = 1
+where (select level from zbox.library where Libraryid = @ParentId).IsDescendantOf(level) = 1 and id = @UniversityId
 )
 		) 
 		end as UserType
@@ -61,7 +61,7 @@ where (select level from zbox.library where Libraryid = @ParentId).IsDescendantO
 SELECT top 1
     libraryid
 FROM zbox.Library
-where (select level from zbox.library where Libraryid = @ParentId).IsDescendantOf(level) = 1
+where (select level from zbox.library where Libraryid = @ParentId).IsDescendantOf(level) = 1 and id = @UniversityId
 )
 		) 
 		end as UserType

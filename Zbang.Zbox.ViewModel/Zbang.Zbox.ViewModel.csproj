@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="Dto\ActivityDtos\AnnotationDto.cs" />
     <Compile Include="Dto\ActivityDtos\AnnotationReplyDto.cs" />
+    <Compile Include="Dto\BoxSecurityDto.cs" />
     <Compile Include="Dto\HomePageDataDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxDto2.cs" />
     <Compile Include="Dto\BoxDtos\BoxMetaDto.cs" />
@@ -125,12 +126,6 @@
     <Compile Include="Dto\Search\SearchDto.cs" />
     <Compile Include="Dto\Search\SearchItems.cs" />
     <Compile Include="Dto\Search\SearchQuizzes.cs" />
-    <Compile Include="Dto\Store\BannerDto.cs" />
-    <Compile Include="Dto\Store\CategoryDto.cs" />
-    <Compile Include="Dto\Store\ProductDto.cs" />
-    <Compile Include="Dto\Store\ProductCheckOutDto.cs" />
-    <Compile Include="Dto\Store\ProductFeatures.cs" />
-    <Compile Include="Dto\Store\ProductWithDetailDto.cs" />
     <Compile Include="Dto\TabDto.cs" />
     <Compile Include="Dto\BoxDto.cs" />
     <Compile Include="Dto\UpdatesDto.cs" />

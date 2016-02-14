@@ -23,12 +23,9 @@ namespace Zbang.Zbox.Domain.DataAccess
                             .RowCount();
         }
 
-        //public int GetNumberOfUsers(long universityId)
-        //{
-        //    return UnitOfWork.CurrentSession.QueryOver<User>()
-        //        .Where(w => w.University.Id == universityId)
-        //        .RowCount();
-        //}
+        
+
+       
 
         public UniversityStats GetStats(long universityId)
         {
@@ -58,18 +55,9 @@ namespace Zbang.Zbox.Domain.DataAccess
                 QuizzesCount = boxStats[0] == null ? 0 : (int)boxStats[0],
                 UsersCount = usersCount
             };
-            //return 0;
 
         }
 
-        //public int GetNumberOfItems(long universityId)
-        //{
-        //    return UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
-        //        .Where(w => w.University.Id == universityId)
-        //        .Where(w => w.IsDeleted == false)
-        //        .Select(Projections.Sum<AcademicBox>(s => s.ItemCount))
-        //        .SingleOrDefault<int>();
-        //}
 
         public int GetAdminScore(long universityId)
         {
