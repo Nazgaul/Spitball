@@ -7,7 +7,9 @@
     Layout = null;
     ViewBag.metaDescription = HomePageResources.A4;
     var socialIconsSvg = "~/images/site/social-icons.svg";
+    var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 
+    var logoLink = User.Identity.IsAuthenticated ? Url.Action("Index", "dashboard") : Url.RouteUrl("homePage");
 
 }
 <!doctype html>
@@ -38,10 +40,12 @@
         <header>
             <nav>
                 <div class="navbar-header">
-                    <div class="logo"></div>
-                    <button type="button" class="navbar-toggle collapsed">
+                    <a class="logo-wrapper" href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']">
+                        <div class="logo"></div>
+                    </a>
+                    <div class="navbar-toggle collapsed">
                         <label for="menu-toggle">@Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "headerMenu" })</label>
-                    </button>
+                    </div>
                 </div>
                 <input type="checkbox" id="menu-toggle" />
                 <ul>
