@@ -49,11 +49,6 @@
                 </div>
                 <input type="checkbox" id="menu-toggle" />
                 <ul>
-                    <li id="signin">
-                        <label for="menu-toggle">
-                            <span>@HomePageResources.A1</span>
-                        </label>
-                    </li>
                     <li id="product">
                         <a href="@Url.RouteUrl("Product")">@HomePageResources.A3</a>
                     </li>
@@ -69,6 +64,11 @@
                         </ul>
                     </li>
                     <li class="blog"><a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a></li>
+                    <li id="signin">
+                        <label for="menu-toggle">
+                            <span>@HomePageResources.A1</span>
+                        </label>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -311,7 +311,7 @@
                 <div class="boxes">
                     @foreach (var box in Model.Boxes)
                     {
-                        var boxClass = "color" + box.Name.Length;
+                        var boxClass = "color" + box.Name.Length%11;
                         <a href="@box.Url" class="box os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
 
                             <h2 class="@boxClass">@box.Name</h2>

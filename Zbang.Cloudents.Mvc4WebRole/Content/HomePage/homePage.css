@@ -921,7 +921,14 @@
   color: rgba(245, 245, 245, 0.7);
 }
 .homePage .home-page-body section.about .description .features ul {
-  margin: 0;
+  width: calc(50% - 40px);
+  margin: 0 auto;
+}
+@media (max-width: 800px) {
+  .homePage .home-page-body section.about .description .features ul {
+    max-width: 550px;
+    width: 100%;
+  }
 }
 .homePage .home-page-body section.about .description .features li {
   margin-bottom: 40px;
