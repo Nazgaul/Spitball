@@ -76,6 +76,10 @@
     <Compile Include="Comment.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="InviteToBox.cs" />
+    <Compile Include="InviteToSystem.cs" />
+    <Compile Include="ItemCommentBase.cs" />
+    <Compile Include="ItemCommentReply.cs" />
     <Compile Include="ReplyLike.cs" />
     <Compile Include="CommentLike.cs" />
     <Compile Include="CommentReplies.cs">
@@ -178,7 +182,6 @@
     <EmbeddedResource Include="Mappings\Quiz.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

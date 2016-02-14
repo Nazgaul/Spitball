@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Domain
