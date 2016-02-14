@@ -334,11 +334,22 @@
   font-size: 22px;
 }
 .product-page {
+  background-image: url("../../Images/HomePage2/HP_image.jpg");
+  background-size: cover;
+  background-position: 50% 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  width: 100vw;
+  margin-top: -20px;
   text-align: center;
+  box-shadow: inset 100vw 0 0 rgba(0, 0, 0, 0.5);
+  margin-left: -10px;
+  padding-bottom: 70px;
 }
 @media (min-width: 960px) {
   .product-page {
-    margin-left: -250px;
+    margin-left: -270px;
+    padding: 30px 0 70px 0;
   }
 }
 .product-page img {
