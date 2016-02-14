@@ -311,7 +311,7 @@
                 <div class="boxes">
                     @foreach (var box in Model.Boxes)
                     {
-                        var boxClass = "color" + box.Name.Length%11;
+                        var boxClass = "color" + (box.Name.Length)%11;
                         <a href="@box.Url" class="box os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
 
                             <h2 class="@boxClass">@box.Name</h2>
