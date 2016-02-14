@@ -67,6 +67,9 @@
   user-select: none;
   display: inline-block;
 }
+.feed .posts-list .actions-wrapper {
+  position: relative;
+}
 .feed .posts-list .actions {
   margin: 20px 40px 0;
   border-top-width: 1px;
