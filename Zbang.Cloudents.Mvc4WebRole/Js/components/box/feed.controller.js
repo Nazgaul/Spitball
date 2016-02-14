@@ -373,6 +373,12 @@ userName: "ram y"*/
         var postId;
         self.add.upload = uploadFile;
         self.openReply = openReply;
+        self.reply = reply;
+
+        function reply(post) {
+            openReply(post);
+            post.focusReply = true;
+        }
 
         function openReply(post) {
             $scope.b.closeCollapse();
