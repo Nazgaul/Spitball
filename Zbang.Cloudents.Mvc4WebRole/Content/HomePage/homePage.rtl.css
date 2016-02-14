@@ -185,7 +185,8 @@
     align-items: stretch;
   }
   .homePage .page-content nav .navbar-header .navbar-toggle {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
   }
   .homePage .page-content nav ul {
     display: block;
