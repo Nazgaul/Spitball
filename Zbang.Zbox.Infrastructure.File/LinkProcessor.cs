@@ -21,19 +21,20 @@ namespace Zbang.Zbox.Infrastructure.File
             BlobProvider = blobProvider;
         }
 
-        //private const string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
+        private const string ContentFormat = "<a target=\"_Blank\" href=\"{0}\"><img src=\"{1}\"/></a>";
         public virtual Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             if (indexNum > 0)
             {
                 return Task.FromResult(new PreviewResult { Content = new List<string>() });
             }
-            var blobsNamesInCache = new List<string>
+            var previewLink = "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode(blobUri.AbsoluteUri) +
+                              string.Format(".jpg?width={0}&height={1}", 1024, 768);
+            return Task.FromResult(new PreviewResult { Content = new List<string>
             {
-                "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode( blobUri.AbsoluteUri) +
-                string.Format(".jpg?width={0}&height={1}", 1024, 768)
-            };
-            return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
+                string.Format(ContentFormat, blobUri.AbsoluteUri,previewLink)
+            } });
+            //return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
         }
 
         public string TypeOfView
