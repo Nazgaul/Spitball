@@ -149,9 +149,7 @@
                 <div class="circle">
                     <button type="button" ng-disabled="q.isSolved" class="counter-view" ng-class="{'answer-selected' : question.selectedAnswer === answer, 'correct-answer': q.isCorrectAnswer(question,answer)}" ng-click="q.selectAnswer(question,answer)"></button>
                 </div>
-                <div class="a-body">
-                    {{::answer.text}}
-                </div>
+                <div class="a-body" ng-bind-html="::answer.text"></div>
             </li>
         </ol>
     </div>
