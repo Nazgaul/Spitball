@@ -75,7 +75,10 @@
         <div class="home-page-body">
             <section class="main">
                 <div id="main-wrapper">
-                    <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.A4</h1>
+                    <div class="welcome-text">
+                        <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.A4</h1>
+                        <h2 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.A6</h2>
+                    </div>
                     <div class="login-wrapper login">
                         <div class="wrapper">
                             <div class="content" style="display:none;">
@@ -86,7 +89,7 @@
                                     <div class="form-group">
                                         <input class="form-control" required type="email" placeholder="@LogOnResources.Email" name="email" />
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group last">
                                         <input class="form-control" required type="password" placeholder="@LogOnResources.Password" name="password" />
                                     </div>
                                     <div id="login_alert_text" class="alert alert-danger display-hide">
@@ -115,6 +118,7 @@
                                         </p>
                                     </div>
                                     <div class="signin-options">
+                                        <div class="social-text">@HomePageResources.A7</div>
                                         <button type="button" class="login-option facebook">
                                             <div>
                                                 @Html.Svg(socialIconsSvg, "facebook")
@@ -143,15 +147,15 @@
                                     <h3 class="form-title">
                                         @LogOnResources.ForgotYourPassword
                                     </h3>
-                                    <div id="resetPassword_alert_text" class="alert alert-danger display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        <span></span>
-                                    </div>
                                     <div class="text">
                                         <p>@AccountResource.EmailToReset</p>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group last">
                                         <input class="form-control" required type="email" placeholder="@LogOnResources.Email" name="email" />
+                                    </div>
+
+                                    <div id="resetPassword_alert_text" class="alert alert-danger display-hide">
+                                        <span></span>
                                     </div>
                                     <div class="form-actions">
                                         <button type="reset" class="btn btn-default pull-right cancel">@GeneralResources.Cancel</button>
@@ -181,11 +185,7 @@
                                 <form class="register-form" action="" method="post">
                                     @{ Html.RenderAction("AntiForgeryToken", "Home", true);}
                                     <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
-                                    <h3>@LogOnResources.CreateAccount</h3>
-                                    <div id="register_alert_text" class="alert alert-danger display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        <span></span>
-                                    </div>
+                                    <h3>@LogOnResources.CreateAccountFormHeader</h3>
                                     <div class="form-group first">
                                         <input class="form-control" type="text" required placeholder="@AccountResource.First" name="firstName" />
                                     </div>
@@ -195,8 +195,11 @@
                                     <div class="form-group">
                                         <input class="form-control" type="email" required placeholder="@SharedResources.Email" name="NewEmail" id="register_email" />
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group last">
                                         <input class="form-control" type="password" required autocomplete="off" placeholder="@LogOnResources.Password" name="Password" />
+                                    </div>
+                                    <div id="register_alert_text" class="alert alert-danger display-hide">
+                                        <span></span>
                                     </div>
 
                                     <div class="form-actions-container" layout="row" layout-align="center center">
@@ -215,6 +218,7 @@
                                         </div>
                                     </div>
                                     <div class="signin-options">
+                                        <div class="social-text">@HomePageResources.A7</div>
                                         <button type="button" class="login-option facebook">
                                             <div>
                                                 @Html.Svg(socialIconsSvg, "facebook")

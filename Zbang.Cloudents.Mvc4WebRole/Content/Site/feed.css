@@ -228,6 +228,7 @@
 .feed .comment-btn svg {
   width: 14px;
   height: 14px;
+  margin-right: 5px;
 }
 .feed .show-more {
   padding: 0 0 15px 50px;

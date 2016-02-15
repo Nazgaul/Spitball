@@ -330,21 +330,25 @@
 .homePage .home-page-body section.main #main-wrapper > .signin-options .social-signin .login-option.facebook {
   background: #3a5795;
 }
-.homePage .home-page-body section.main h1 {
-  color: #f5f5f5;
+.homePage .home-page-body section.main .welcome-text {
   width: 100%;
   max-width: 800px;
   text-align: center;
-  margin: 0 auto;
   margin: 150px auto 80px auto;
-  font-size: 50px;
-  font-weight: bold;
-  text-transform: capitalize;
-  text-shadow: -2px 2px 4px #282828;
   padding: 0 35px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  color: #f5f5f5;
+}
+.homePage .home-page-body section.main .welcome-text > * {
+  text-shadow: -2px 2px 4px #282828;
+}
+.homePage .home-page-body section.main .welcome-text h1 {
+  font-weight: bold;
+  margin: 0;
+  font-size: 50px;
+  text-transform: capitalize;
 }
 .homePage .home-page-body section.main .signin-options {
   display: flex;
@@ -355,6 +359,13 @@
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
+}
+.homePage .home-page-body section.main .signin-options .social-text {
+  color: #888b8e;
+  flex-grow: 1;
+  text-align: right;
+  align-self: center;
+  font-size: 14px;
 }
 .homePage .home-page-body section.main .signin-options .login-option {
   border: none;
@@ -394,20 +405,20 @@
   margin-bottom: 100px;
 }
 .homePage .home-page-body section.main .signin-options .login-option svg {
-  width: 37px;
-  height: 37px;
+  width: 30px;
+  height: 30px;
   fill: #f5f5f5;
   z-index: 1;
 }
 .homePage .home-page-body section.main .signin-options .login-option::before {
   content: '';
   background: white;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   display: block;
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 2px;
+  right: 2px;
   border-radius: 100%;
   z-index: 0;
 }
@@ -485,9 +496,10 @@
   padding: 0 20px;
   margin: 0 -20px 25px -20px;
   width: inherit;
+  padding-bottom: 10px;
 }
 .homePage .home-page-body section.main .login-wrapper .signin-options .login-option {
-  margin: 0 10px 20px 0;
+  margin: 0 10px 0 0;
   position: relative;
 }
 .homePage .home-page-body section.main .login-wrapper input.form-control {
@@ -516,11 +528,8 @@
   padding-left: 15px;
   text-align: right;
 }
-.homePage .home-page-body section.main .login-wrapper .form-actions-container .form-group:last-child {
-  margin-bottom: 0;
-}
 .homePage .home-page-body section.main .login-wrapper .form-actions-container .form-group label a {
-  color: #f5f5f5;
+  color: #c3c3c3;
 }
 .homePage .home-page-body section.main .login-wrapper.expand {
   height: 100%;
@@ -550,7 +559,7 @@
   background: rgba(24, 26, 22, 0.93);
 }
 .homePage .home-page-body section.main .login-wrapper.login .content h4 {
-  color: #8c99a6;
+  color: #888b8e;
   float: right;
   font-size: 18px;
   white-space: nowrap;
@@ -565,28 +574,30 @@
 .homePage .home-page-body section.main .login-wrapper.login .content .create-account p,
 .homePage .home-page-body section.main .login-wrapper.login .content .login-account p {
   color: #f5f5f5;
-  line-height: 40px;
-  margin-bottom: 0;
-  margin-top: 35px;
+  text-align: center;
+  margin: 0 auto;
+  align-self: center;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .forget-password {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #888b8e;
+  padding-bottom: 10px;
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .forget-password p {
-  color: #8c99a6;
+  color: #888b8e;
   font-size: 11px;
   margin: 0;
   text-align: right;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-actions-container label {
-  color: #8c99a6;
+  color: #888b8e;
   font-size: 11px;
 }
 .homePage .home-page-body section.main .login-wrapper.login .checker {
@@ -596,6 +607,9 @@
 .homePage .home-page-body section.main .login-wrapper.login .content .forget-form {
   padding: 0;
   margin: 0;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .login-form .form-actions {
+  margin-top: 20px;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-control {
   padding-left: 1em;
@@ -617,6 +631,9 @@
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-group {
   margin-bottom: 20px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .form-group.last {
+  margin-bottom: 0;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-group.first {
   width: 44%;
@@ -645,16 +662,16 @@
 }
 .homePage .home-page-body section.main .login-wrapper.login .form-actions-container {
   display: flex;
-  margin-top: -20px;
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-top: 20px;
 }
 .homePage .home-page-body section.main .login-wrapper.login .form-actions-container .form-group {
   align-self: center;
   max-width: 250px;
-  margin-top: 20px;
+  /*margin-top: 20px;*/
   margin-bottom: 20px;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-title {
@@ -669,10 +686,11 @@
   margin-bottom: 30px;
   font-size: 16px;
   font-weight: normal;
-  color: #8c99a6;
+  color: #888b8e;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .forgot-password-form .form-actions {
   margin-bottom: 55px;
+  margin-top: 20px;
   float: left;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .forgot-password-form .form-actions .btn.blue {
@@ -718,7 +736,7 @@
 .homePage .home-page-body section.main .login-wrapper.login .content .form-actions .checkbox-design {
   display: inline-block;
   width: inherit;
-  color: #8c99a6;
+  color: #888b8e;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-actions .checkbox-design .remember-me {
   display: inline-flex;
@@ -770,7 +788,7 @@
   margin-right: 10px;
 }
 .homePage .home-page-body section.main .login-wrapper.login #forget-password {
-  color: #f5f5f5;
+  color: #c3c3c3;
 }
 .homePage .home-page-body section.main .login-wrapper.login #forget-password:hover {
   cursor: pointer;
@@ -781,9 +799,17 @@
   margin-bottom: 0;
   padding-bottom: 20px;
 }
+.homePage .home-page-body section.main .login-wrapper.login .content .register-form h3 {
+  white-space: pre-wrap;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .register-form .form-actions-container {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #888b8e;
+  padding-bottom: 15px;
+}
 .homePage .home-page-body section.main .login-wrapper.login .content .register-form .form-actions {
   border: 0;
-  margin-top: 20px;
+  margin-top: 0;
   margin-bottom: 20px;
   padding-bottom: 0;
 }
@@ -807,21 +833,23 @@
 .homePage .home-page-body section.main .login-wrapper.login .content .create-account {
   padding-top: 10px;
   margin-top: 15px;
-  min-height: 50px;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .login-account,
 .homePage .home-page-body section.main .login-wrapper.login .content .create-account {
   padding-top: 0;
   clear: both;
   background: #4190b9;
-  margin: -30px;
+  margin: -20px -30px;
   text-align: center;
   border: none;
+  height: 50px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .create-account a,
 .homePage .home-page-body section.main .login-wrapper.login .content .login-account a {
   display: inline-block;
-  margin-top: 5px;
   color: #f5f5f5;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .select2-container i {
@@ -869,8 +897,8 @@
   float: left;
 }
 .homePage .home-page-body section.main .login-wrapper.login .login-options svg {
-  width: 37px;
-  height: 37px;
+  width: 30px;
+  height: 30px;
   margin-left: 0;
 }
 @media (max-width: 480px) {
@@ -902,6 +930,10 @@
   display: block;
   border: 1px solid transparent;
   margin-bottom: 0;
+  margin-top: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
   /*.close {
                             float: right;
                             font-size: 21px;
