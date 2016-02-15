@@ -52,10 +52,9 @@
                     <li id="product">
                         <a href="@Url.RouteUrl("Product")">@HomePageResources.A3</a>
                     </li>
-                    <li class="jobs"><a href="@Url.RouteUrl("Jobs")">@HomePageResources.A2</a></li>
                     <li class="language">
                         <input type="checkbox" id="language-menu" />
-                        <label for="language-menu">@Html.Svg("/images/homepage2/homePageIcons.svg", "globus", new { @class = "globus" })&nbsp;<span>@Languages.EnglishUsName</span></label>
+                        <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
                         <label class="language-close" for="language-menu"></label>
                         <ul class="dropdown-menu dropdown-menu-left ">
                             <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-US" })">@Languages.EnglishUsName</a> </li>
@@ -63,7 +62,6 @@
                             <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "he-IL" })">@Languages.HebrewName</a> </li>
                         </ul>
                     </li>
-                    <li class="blog"><a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a></li>
                     <li id="signin">
                         <label for="menu-toggle">
                             <span>@HomePageResources.A1</span>
@@ -260,7 +258,7 @@
                         </button>
                     </div>
                     <div class="statistics os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
-                        <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
+                        @*<h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>*@
                         <div id="students" data-statistic="@HomePageResources.statsStudents" data-value="@Model.StudentsCount"></div>
                         <div id="documents" data-statistic="@HomePageResources.statsDocuments" data-value="@Model.DocumentCount"></div>
                         <div id="quizzes" data-statistic="@HomePageResources.statsQuizzes" data-value="@Model.QuizzesCount"></div>
@@ -285,10 +283,10 @@
                     <div class="features">
                         <ul>
                             <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.1s">@HomePageResources.D3</li>
-                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.2s">@HomePageResources.D5</li>
+                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.2s">@HomePageResources.D5</li>
                         </ul>
                         <ul>
-                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.3s">@HomePageResources.D4</li>
+                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.3s">@HomePageResources.D4</li>
                             <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.4s">@HomePageResources.D6</li>
                         </ul>
                     </div>
