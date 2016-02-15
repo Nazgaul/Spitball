@@ -126,7 +126,6 @@
             }
             var userWithNoUniversityState = 'universityChoose';
             if (toStateName !== userWithNoUniversityState) {
-                //showToaster(resManager.get('universityChooseContinue'), 'lib-choose');
                 $rootScope.$broadcast('state-change-start-prevent');
                 event.preventDefault();
             }
