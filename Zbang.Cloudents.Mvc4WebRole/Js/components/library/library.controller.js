@@ -116,9 +116,6 @@
             if (!myform.$valid) {
                 return;
             }
-
-            l.submitDisabled = true;
-            l.settings.privacy = l.nodeDetail.isPrivate ? 'closed' : 'open';
             libraryService.updateSettings(l.settings.name, nodeId, l.settings.privacy).then(function () {
                 l.nodeDetail.name = l.settings.name;
                 l.nodeDetail.state = l.settings.privacy;

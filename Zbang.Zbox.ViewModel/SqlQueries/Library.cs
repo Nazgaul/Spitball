@@ -14,7 +14,7 @@
     b.Discriminator as BoxType,
     b.Url as Url
     from zbox.box b 
-    where b.IsDeleted = 0  and b.discriminator = 2
+    where b.IsDeleted = 0  and b.discriminator in (2,3)
     and  b.LibraryId = @ParentId
     ORDER BY  
           BoxName asc;";

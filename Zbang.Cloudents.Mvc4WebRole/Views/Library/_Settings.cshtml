@@ -12,9 +12,10 @@
                 <div ng-message="server">{{l.error}}</div>
             </div>
         </md-input-container>
-        <div class="set-private">
-            <md-input-container flex="100" class="private-switch" ng-if="l.nodeDetail.state === 'open' && l.state.emptyNodeAdmin && l.nodeDetail.parentUrl == '/library/'">
-                <md-switch ng-model="l.nodeDetail.isPrivate">@BoxResources.PrivacySwitchText</md-switch>
+        <div class="set-private" ng-if="l.nodeDetail.state === 'open' && l.state.emptyNodeAdmin && l.nodeDetail.parentUrl == '/library/'">
+            <md-input-container flex="100" class="private-switch">
+                <md-switch ng-model="l.settings.private" ng-true-value="'@LibraryNodeSettings.Closed.GetStringValueLowerCase()'"
+                           ng-false-value="'@LibraryNodeSettings.Open.GetStringValueLowerCase()'">@BoxResources.PrivacySwitchText</md-switch>
             </md-input-container>
             <div class="warning">@BoxResources.PrivacyOneWayClick</div>
         </div>
