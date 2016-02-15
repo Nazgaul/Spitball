@@ -7,25 +7,25 @@ namespace Zbang.Zbox.Infrastructure.Culture
 {
     public static class Languages
     {
-        public const string EnglishUsName = "English \u200E(US)\u200E";
-        public const string EnglishGbName = "English \u200E(UK)\u200E";
+        public const string EnglishUsName = "English";
+        //public const string EnglishGbName = "English \u200E(UK)\u200E";
         public const string HebrewName = "עברית";
-        public const string ArabicName = "العربية";
-        public const string RussianName = "Pусский";
+        //public const string ArabicName = "العربية";
+        //public const string RussianName = "Pусский";
         // public const string ChineseName = "中文";
 
-        public static readonly List<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
-            new LanguagesDetail(EnglishUsName,"en-US"),
-            new LanguagesDetail(EnglishGbName,"en-GB"),
-            new LanguagesDetail(HebrewName,"he-IL"),
-            new LanguagesDetail(ArabicName,"ar-AE"),
-            new LanguagesDetail(RussianName,"ru-RU")
-        };
+        //public static readonly List<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
+        //    new LanguagesDetail(EnglishUsName,"en-US"),
+        //    //new LanguagesDetail(EnglishGbName,"en-GB"),
+        //    new LanguagesDetail(HebrewName,"he-IL"),
+        //    //new LanguagesDetail(ArabicName,"ar-AE"),
+        //    //new LanguagesDetail(RussianName,"ru-RU")
+        //};
 
-        public static readonly List<LanguagesDetail> SpitballSupportedCultures = new List<LanguagesDetail> {
-            new LanguagesDetail(EnglishUsName,"en-US"),
-            new LanguagesDetail(HebrewName,"he-IL"),
-        }; 
+        public static readonly List<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
+            new LanguagesDetail(EnglishUsName,new [] {"en" ,"en-US"}),
+            new LanguagesDetail(HebrewName, new [] {"he","he-IL" }),
+        };
 
         /// <summary>
         /// used by razor to generate the languages
@@ -71,21 +71,23 @@ namespace Zbang.Zbox.Infrastructure.Culture
             {
                 return false;
             }
-            return SupportedCultures.Any(s => String.Equals(s.Culture, culture, StringComparison.CurrentCultureIgnoreCase));
+            return SupportedCultures.Any(a => a.Culture.Any(a1 => String.Equals(a1, culture, StringComparison.CurrentCultureIgnoreCase)));
+            //return SupportedCultures.Any(s => 
+            //    String.Equals(s.Culture, culture, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public static string GetCultureBaseOnCulture(string culture)
         {
             if (string.IsNullOrEmpty(culture))
             {
-                return GetDefaultSystemCulture().Culture;
+                return GetDefaultSystemCulture().Culture.First();
             }
-            var supportCulture = SupportedCultures.FirstOrDefault(s => s.Culture.ToLower().StartsWith(culture.ToLower()));
+            var supportCulture = SupportedCultures.FirstOrDefault(s => s.Culture.Any(a => a.ToLower().StartsWith(culture.ToLower())));
             if (supportCulture == null)
             {
                 return CultureInfo.CurrentCulture.Name;
             }
-            return supportCulture.Culture;
+            return supportCulture.Culture.First();
         }
 
 
@@ -98,12 +100,12 @@ namespace Zbang.Zbox.Infrastructure.Culture
     }
     public class LanguagesDetail
     {
-        public LanguagesDetail(string name, string culture)
+        public LanguagesDetail(string name, string[] culture)
         {
             Name = name;
             Culture = culture;
         }
         public string Name { get; set; }
-        public string Culture { get; set; }
+        public string[] Culture { get; set; }
     }
 }

@@ -85,12 +85,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
             foreach (var language in Languages.SupportedCultures)
             {
-                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(language.Culture);
-                var angularResource = string.Format("{0}_{1}.js", HttpContext.Current.Server.MapPath("/Scripts/i18n/angular-locale"),
-                                        Thread.CurrentThread.CurrentUICulture.Name);
+                foreach (var culture in language.Culture)
+                {
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
+                    var angularResource = string.Format("{0}_{1}.js", HttpContext.Current.Server.MapPath("/Scripts/i18n/angular-locale"),
+                                            Thread.CurrentThread.CurrentUICulture.Name);
 
-                RegisterLocaleJs(File.ReadAllText(angularResource),
-                    JsResourceHelper.BuildResourceObject(), language.Culture);
+                    RegisterLocaleJs(File.ReadAllText(angularResource),
+                        JsResourceHelper.BuildResourceObject(), culture);
+                }
+                
             }
 
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -48,14 +49,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                     await Next.Invoke(context);
                     return;
                 }
-                var country = await GetCountryByIpAsync(m_ContextBase);
+
+                var language = m_ContextBase.Request.UserLanguages.FirstOrDefault(Languages.CheckIfLanguageIsSupported);
+                if (string.IsNullOrEmpty(language))
+                {
+                    language = Languages.GetDefaultSystemCulture().Culture.First();
+                }
+                //var country = await GetCountryByIpAsync(m_ContextBase);
                 //if (country.ToLower() == "nl")
                 //{
                 //    country = "gb";
                 //}
-                var culture = Languages.GetCultureBaseOnCountry(country);
-                m_LanguageCookie.InjectCookie(culture);
-                ChangeThreadCulture(culture);
+                //var culture = Languages.GetCultureBaseOnCountry(country);
+                m_LanguageCookie.InjectCookie(language);
+                ChangeThreadLanguage(language);
                 await Next.Invoke(context);
                 return;
             }
@@ -92,43 +99,43 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
         }
 
-        public Task<string> GetCountryByIpAsync(HttpContextBase context)
-        {
+        //public Task<string> GetCountryByIpAsync(HttpContextBase context)
+        //{
 
-            var ipNumber = Ip2Long(GetIpFromClient(context));
-            return m_ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(ipNumber));
-        }
+        //    var ipNumber = Ip2Long(GetIpFromClient(context));
+        //    return m_ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(ipNumber));
+        //}
 
-        public static string GetIpFromClient(HttpContextBase context)
-        {
-            string userIp = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            if (string.IsNullOrWhiteSpace(userIp))
-            {
-                userIp = context.Request.ServerVariables["REMOTE_ADDR"];
-            }
-            if (context.Request.IsLocal)
-            {
-                //userIp = "109.158.31.75";
-                userIp = "81.218.135.73";
-            }
-            return userIp;
-        }
+        //public static string GetIpFromClient(HttpContextBase context)
+        //{
+        //    string userIp = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+        //    if (string.IsNullOrWhiteSpace(userIp))
+        //    {
+        //        userIp = context.Request.ServerVariables["REMOTE_ADDR"];
+        //    }
+        //    if (context.Request.IsLocal)
+        //    {
+        //        //userIp = "109.158.31.75";
+        //        userIp = "81.218.135.73";
+        //    }
+        //    return userIp;
+        //}
 
-        public static long Ip2Long(string ip)
-        {
-            double num = 0;
-            if (!string.IsNullOrEmpty(ip))
-            {
-                string[] ipBytes = ip.Split('.');
-                for (int i = ipBytes.Length - 1; i >= 0; i--)
-                {
-                    int temp;
-                    int.TryParse(ipBytes[i], out temp);
-                    num += ((temp % 256) * Math.Pow(256, (3 - i)));
-                }
-            }
-            return (long)num;
-        }
+        //public static long Ip2Long(string ip)
+        //{
+        //    double num = 0;
+        //    if (!string.IsNullOrEmpty(ip))
+        //    {
+        //        string[] ipBytes = ip.Split('.');
+        //        for (int i = ipBytes.Length - 1; i >= 0; i--)
+        //        {
+        //            int temp;
+        //            int.TryParse(ipBytes[i], out temp);
+        //            num += ((temp % 256) * Math.Pow(256, (3 - i)));
+        //        }
+        //    }
+        //    return (long)num;
+        //}
 
 
 

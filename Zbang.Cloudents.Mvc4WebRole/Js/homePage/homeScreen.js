@@ -9,10 +9,10 @@
     return "";
 }
 
-window.addEventListener("load", function load(event) {
+window.addEventListener("load", function load() {
     window.removeEventListener("load", load, false); //remove listener, no longer needed
     var val = getCookie('l3').toLowerCase();
-    var text = document.querySelector('[href$="' + val + '/"]').text;
+    var text = $('.language').find('[href*="' + val + '"]').text();
     document.querySelector('nav li.language span').innerText = text;
 
     (function (i, s, o, g, r, a, m) {
