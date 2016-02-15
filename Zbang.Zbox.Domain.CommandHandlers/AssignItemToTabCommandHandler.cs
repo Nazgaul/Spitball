@@ -23,9 +23,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException("message");
 
-            var itemTab = m_ItemTabRepository.Load(message.TabId);
             var item = m_ItemRepository.Load(message.ItemId);
-            itemTab.AddItemToTab(item);
+            ItemTab itemTab;
+            if (!message.TabId.HasValue)
+            {
+                itemTab = item.Tab;
+                itemTab.DeleteItemFromTab(item);
+
+            }
+            else
+            {
+                itemTab = m_ItemTabRepository.Load(message.TabId.Value);
+                itemTab.AddItemToTab(item);
+            }
             m_ItemTabRepository.Save(itemTab);
         }
     }

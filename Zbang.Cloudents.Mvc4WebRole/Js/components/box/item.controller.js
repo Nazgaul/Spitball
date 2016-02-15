@@ -35,6 +35,7 @@
         i.renameTabOpen = renameTabOpen;
         i.deleteTab = deleteTab;
         i.downloadItem = followBox;
+        i.removeItemFromTab = removeItemFromTab;
 
         getItems();
 
@@ -68,7 +69,12 @@
                 i.newFolderName = '';
             });
         }
-
+        function removeItemFromTab(item) {
+            boxService.addItemToTab(boxId, null, item.id);
+            i.tabSelected.count--;
+            var index = i.items.indexOf(item);
+            i.items.splice(index, 1);
+        }
         function addItemToTab($data, tab) {
             if (!user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
@@ -84,7 +90,6 @@
         }
         function tabChange(tab) {
             $rootScope.$broadcast('close-collapse');
-            //i.tabSelectedId = tab.id;
             i.tabSelected = tab;
             resetParams();
             getItems();

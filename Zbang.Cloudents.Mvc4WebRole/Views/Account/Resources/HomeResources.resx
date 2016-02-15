@@ -120,7 +120,4 @@
   <data name="AboutCloudents" xml:space="preserve">
     <value>About Spitball</value>
   </data>
-  <data name="ContactUs" xml:space="preserve">
-    <value>Contact us page</value>
-  </data>
 </root>

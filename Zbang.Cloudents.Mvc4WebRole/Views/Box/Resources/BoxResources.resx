@@ -128,7 +128,6 @@
   </data>
   <data name="InviteFriends" xml:space="preserve">
     <value>Invite your classmates to get the most of this class</value>
-    <comment>New</comment>
   </data>
   <data name="Items" xml:space="preserve">
     <value>Documents</value>
@@ -180,17 +179,17 @@
   </data>
   <data name="Comments" xml:space="preserve">
     <value>more comments</value>
-    <comment>New</comment>
   </data>
   <data name="ViewComments" xml:space="preserve">
     <value>View</value>
   </data>
   <data name="PrivacySwitchText" xml:space="preserve">
     <value>Set as private</value>
-    <comment>New</comment>
   </data>
   <data name="PrivacyOneWayClick" xml:space="preserve">
     <value>Once you go private, you can't reverse it</value>
-    <comment>New</comment>
+  </data>
+  <data name="ItemRemoveFolder" xml:space="preserve">
+    <value>Remove from folder</value>
   </data>
 </root>

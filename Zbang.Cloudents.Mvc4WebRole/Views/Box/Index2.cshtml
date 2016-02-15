@@ -8,12 +8,18 @@
     <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title box-title" ng-class="{'need-follow' : b.needFollow}">
         <h1 flex class="multi-line-ellipsis limit-two">{{b.data.name}}</h1>
         <!-- AddToAny BEGIN -->
-        <div ng-if="b.canShare" class="a2a_kit a2a_kit_size_32 a2a_default_style" onload="b.share()">
+        <div ng-if="b.canShare" class="a2a_kit a2a_kit_size_32 a2a_default_style"
+             onload="b.share()" >
             @*<a class="a2a_dd" href="https://www.addtoany.com/share"></a>*@
-            <a class="a2a_button_facebook"></a>
-            <a hide show-xs class="a2a_button_whatsapp"></a>
+            <a class="a2a_button_facebook">
+                @Html.Svg("/Images/Site/social-icons.svg","facebook")
+            </a>
+            <a hide show-xs class="a2a_button_whatsapp">
+                @Html.Svg("/Images/Site/social-icons.svg", "whatsapp")
+            </a>
             @*<a class="a2a_button_google_gmail"></a>*@
         </div>
+        
         <!-- AddToAny END -->
         <button flex="none" ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn text-capitalize color-override backgroundColor8" ga-track-event="['box', 'follow']">@BoxResources.Follow</button>
         <button flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "svgTC12" })</button>

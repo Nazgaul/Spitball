@@ -119,7 +119,7 @@
   </resheader>
   <data name="AddSchool" xml:space="preserve">
     <value>Add your school</value>
-    <comment>New</comment>
+    
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
@@ -165,33 +165,33 @@
   </data>
   <data name="UniversitySearchTitle" xml:space="preserve">
     <value>Select your school to start Spitballing with your classmates</value>
-    <comment>New</comment>
+    
   </data>
   <data name="UniveristySearchNoUniversityTitle" xml:space="preserve">
     <value>Um, this is awkward...</value>
-    <comment>New</comment>
+    
   </data>
   <data name="UniversityAddSchoolTitle" xml:space="preserve">
     <value>Get ready to do something big for you and your classmates
 something big for you and your classmates</value>
-    <comment>New</comment>
+    
   </data>
   <data name="UniversitySearchNoUniversityText" xml:space="preserve">
     <value>We can't find your school in our records
 Make Spitball better by adding it</value>
-    <comment>New</comment>
+    
   </data>
   <data name="UniversitySearchTitleTyping" xml:space="preserve">
     <value>Let’s Spitball!</value>
-    <comment>New</comment>
+    
   </data>
   <data name="EmptyStateTopNodeText" xml:space="preserve">
     <value>Be a pioneer and create X's profile
 Every new school makes Spitball more useful to everyone!</value>
-    <comment>New</comment>
+    
   </data>
   <data name="EmptyStateTopNodeTitle" xml:space="preserve">
     <value>Yeesh… we’re feeling a little exposed here</value>
-    <comment>New</comment>
+    
   </data>
 </root>

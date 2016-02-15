@@ -25,13 +25,18 @@
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item ng-if="b.canDelete(e.ownerId)">
-                    <md-button aria-label="delete post" ng-click="i.deleteItem($event,e)" ga-track-event="['box-items', 'didDelete']">
+                    <md-button ng-click="i.deleteItem($event,e)" ga-track-event="['box-items', 'didDelete']">
                         @GeneralResources.Delete
                     </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                    <md-button aria-label="download item" ng-href="{{::e.downloadLink}}" ng-click="i.downloadItem()" target="_blank" ga-track-event="['box-items', 'download']">
+                    <md-button ng-href="{{::e.downloadLink}}" ng-click="i.downloadItem()" target="_blank" ga-track-event="['box-items', 'download']">
                         @GeneralResources.Download
+                    </md-button>
+                </md-menu-item>
+                <md-menu-item ng-if="i.tabSelected.id">
+                    <md-button ng-click="i.removeItemFromTab(e)" ga-track-event="['box-tabs', 'didDelete']">
+                        @BoxResources.ItemRemoveFolder
                     </md-button>
                 </md-menu-item>
             </md-menu-content>

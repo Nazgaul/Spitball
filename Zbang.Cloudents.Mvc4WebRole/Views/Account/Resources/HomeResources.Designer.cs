@@ -68,14 +68,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
                 return ResourceManager.GetString("AboutCloudents", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contact us page.
-        /// </summary>
-        public static string ContactUs {
-            get {
-                return ResourceManager.GetString("ContactUs", resourceCulture);
-            }
-        }
     }
 }
