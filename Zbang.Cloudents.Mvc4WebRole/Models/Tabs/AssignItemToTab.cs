@@ -9,10 +9,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Tabs
         [Required]
         public long BoxId { get; set; }
 
-        [Required]
-        public Guid TabId { get; set; }
+        public Guid? TabId { get; set; }
         
-        // the list can be empty
+        [Range(1,long.MaxValue)]
         public long ItemId { get; set; }
 
  // ReSharper restore UnusedAutoPropertyAccessor.Global

@@ -79,15 +79,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email address.
-        /// </summary>
-        public static string EmailAddress {
-            get {
-                return ResourceManager.GetString("EmailAddress", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Email is not in the correct format.
         /// </summary>
         public static string EmailNotCorrect {

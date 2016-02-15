@@ -18,15 +18,16 @@
                 </md-button>
                 <md-menu-content width="1">
                     <md-menu-item>
-                        <md-button aria-label="delete post" ng-click="i.renameTabOpen()" ga-track-event="['box-tab', 'rename']">
+                        <md-button ng-click="i.renameTabOpen()" ga-track-event="['box-tab', 'rename']">
                             @GeneralResources.Rename
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
-                        <md-button aria-label="delete post" ng-click="i.deleteTab($event)" ga-track-event="['box-tabs', 'didDelete']">
+                        <md-button ng-click="i.deleteTab($event)" ga-track-event="['box-tabs', 'didDelete']">
                             @GeneralResources.Delete
                         </md-button>
                     </md-menu-item>
+                    
                 </md-menu-content>
             </md-menu>
         </div>

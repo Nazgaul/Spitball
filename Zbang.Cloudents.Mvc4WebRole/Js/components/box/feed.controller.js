@@ -226,7 +226,7 @@
                 boxService.deleteComment(post.id);
             });
         }
-        function deleteReply(ev, post, reply) {
+        function deleteReply(ev, post, reply2) {
 
             //boxType //userType
             var confirm = $mdDialog.confirm()
@@ -237,9 +237,9 @@
                   .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
-                var index = post.replies.indexOf(reply);
+                var index = post.replies.indexOf(reply2);
                 post.replies.splice(index, 1);
-                boxService.deleteReply(reply.id);
+                boxService.deleteReply(reply2.id);
             });
         }
         function createReply(comment) {
