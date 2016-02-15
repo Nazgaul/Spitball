@@ -183,4 +183,13 @@
   <data name="ViewComments" xml:space="preserve">
     <value>הצג</value>
   </data>
+  <data name="ItemRemoveFolder" xml:space="preserve">
+    <value>העבר לתיקייה ראשית</value>
+  </data>
+  <data name="PrivacyOneWayClick" xml:space="preserve">
+    <value>הגדרת המחלקה כ״פרטית״ הינו בלתי הפיך</value>
+  </data>
+  <data name="PrivacySwitchText" xml:space="preserve">
+    <value>הגדר כפרטית</value>
+  </data>
 </root>

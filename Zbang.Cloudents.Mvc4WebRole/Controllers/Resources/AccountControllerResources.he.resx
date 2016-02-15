@@ -130,7 +130,7 @@
     <value>נרשמת לספיטבול באמצעות פייסבוק. עליך לחזור לדף הבית ולהתחבר באמצעות פייסבוק</value>
   </data>
   <data name="LogonError" xml:space="preserve">
-    <value>שם משתמש או הסיסמה שהזנת שגויים</value>
+    <value>שם המשתמש או הסיסמה שהזנת שגויים</value>
   </data>
   <data name="GoogleForgotPasswordError" xml:space="preserve">
     <value>נרשמת לספיטבול באמצעות גוגל. עליך לחזור לדף הבית ולהתחבר באמצעות גוגל</value>

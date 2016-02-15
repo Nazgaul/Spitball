@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We&apos;ve emailed you password.
+        ///   Looks up a localized string similar to We&apos;ve emailed you a new password.
         /// </summary>
         public static string EmailedPassword {
             get {

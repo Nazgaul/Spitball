@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By joining, I agree to Spitball&apos;s .
+        ///   Looks up a localized string similar to By joining, I agree to Spitball.
         /// </summary>
         public static string IAgree {
             get {

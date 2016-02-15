@@ -118,22 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="deleteDepartment" xml:space="preserve">
-    <value>האם אתה רוצה למחוק את המחלקה הזו?</value>
+    <value>האם ברצונך למחוק מחלקה זו?</value>
   </data>
   <data name="deleteItem" xml:space="preserve">
-    <value>האם את רוצה למחוק את הפריט הזה?</value>
+    <value>האם ברצונך למחוק פריט זה?</value>
   </data>
   <data name="deletePost" xml:space="preserve">
-    <value>האם אתה רוצה למחוק את הפוסט הזה?</value>
+    <value>האם ברצונך למחוק פוסט זה?</value>
   </data>
   <data name="deleteQuiz" xml:space="preserve">
-    <value>האם אתה רוצה למחוק את המבחן הזה?</value>
+    <value>האם ברצונך למחוק מבחן זה?</value>
   </data>
   <data name="deleteReply" xml:space="preserve">
-    <value>האם אתה רוצה למחוק את התגובה הזו?</value>
+    <value>האם ברצונך למחוק תגובה זו?</value>
   </data>
   <data name="deleteTab" xml:space="preserve">
-    <value>האם אתה רוצה למחוק את התיקיה הזו?</value>
+    <value>האם ברצונך למחוק תיקייה זו?</value>
   </data>
   <data name="dialogCancel" xml:space="preserve">
     <value>בטל</value>

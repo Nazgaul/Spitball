@@ -207,13 +207,16 @@ but try checking the quizzes tab for related material</value>
     
   </data>
   <data name="SearchEmptyStateDocumentsText" xml:space="preserve">
-    <value>There are no documents in your school that match your search,
+    <value>There are no documents that match your search,
 but try checking the classes tab for related material</value>
     
   </data>
   <data name="SearchEmptyStateQuizzesText" xml:space="preserve">
-    <value>There are no quizzes in your school that match your search,
+    <value>There are no quizzes that match your search,
 but try checking the documents tab for related material</value>
     
+  </data>
+  <data name="NoResults" xml:space="preserve">
+    <value>No results found</value>
   </data>
 </root>

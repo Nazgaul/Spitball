@@ -139,7 +139,7 @@
     <value>נסה את מזלך</value>
   </data>
   <data name="CompletedQuiz" xml:space="preserve">
-    <value>סיימת את המבחן!</value>
+    <value>סיימת את המבחן המקוון!</value>
   </data>
   <data name="Correct" xml:space="preserve">
     <value>נכון</value>
@@ -154,7 +154,7 @@
     <value>חזור אחורה ובדוק את התשובות שלך</value>
   </data>
   <data name="Leave" xml:space="preserve">
-    <value>לא סיימת את המבחן, בטוח שאתה רוצה לצאת?</value>
+    <value>לא סיימת את המבחן המקוון, בטוח שאתה רוצה לצאת?</value>
   </data>
   <data name="NoAnswer" xml:space="preserve">
     <value>לא הזנת תשובה</value>
@@ -163,7 +163,7 @@
     <value>חלק זה אינו נתמך</value>
   </data>
   <data name="OfClassmates" xml:space="preserve">
-    <value>מחבריך עשו את המבחן</value>
+    <value>מחבריך פתרו את המבחן המקוון</value>
   </data>
   <data name="OnlyYou" xml:space="preserve">
     <value>רק אתה יכול לראות ולערוך את הטיוטא</value>
@@ -199,10 +199,10 @@
     <value>עבודה טובה</value>
   </data>
   <data name="EnterQuizName" xml:space="preserve">
-    <value>הזן שם מבחן</value>
+    <value>הזן את שם המבחן המקוון</value>
   </data>
   <data name="Take" xml:space="preserve">
-    <value>להבחן</value>
+    <value>היבחן</value>
   </data>
   <data name="WriteComment" xml:space="preserve">
     <value>הוסף תגובה</value>

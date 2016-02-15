@@ -124,7 +124,7 @@
     <value>משרות</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>שתף, התחבר ולמד כחלק מרשת לימודים חברתית</value>
+    <value>למה ללמוד קשה כשאפשר ללמוד חכם</value>
   </data>
   <data name="A5" xml:space="preserve">
     <value>או הירשם באמצעות כתובת המייל שלך</value>
@@ -139,7 +139,7 @@
     <value>הלימודים שלך איתך בכל מקום</value>
   </data>
   <data name="B4" xml:space="preserve">
-    <value>במחשב בנייד או בטאבלט, עם ספיטבול תוכלו להישאר מעודכנים תמיד כדי שלא תפספסו כלום</value>
+    <value>במחשב, בנייד או בטאבלט, עם ספיטבול תוכלו להישאר מעודכנים תמיד כדי שלא תפספסו כלום</value>
   </data>
   <data name="B5" xml:space="preserve">
     <value>קבלו עזרה מהחברים</value>
@@ -172,10 +172,10 @@
     <value>שאל וענה על שאלות בצורה חופשית</value>
   </data>
   <data name="D5" xml:space="preserve">
-    <value>קרא ושתף סיכומים ומבחנים</value>
+    <value>הזמן את חבריך לקבוצת למידה פרטית כדי שתוכלו ללמוד ביחד </value>
   </data>
   <data name="D6" xml:space="preserve">
-    <value>הזמן את חבריך לקבוצת למידה פרטית כדי שתוכלו ללמוד ביחד </value>
+    <value>לחוץ מהמבחנים? אלפי מבחנים מקוונים מחכים לך בפנים כחלק ממערכת אינטרקטיבית לתרגול מבחנים</value>
   </data>
   <data name="F1" xml:space="preserve">
     <value>על גבי המחשב האישי או במכשיר הנייד, למידה חברתית בכל זמן ובכל מקום</value>
@@ -184,7 +184,7 @@
     <value>אפליקציית הלימודים החברתית של ספיטבול כבר מחכה לכם בחנויות האפליקציות</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
-    <value>דבר ראשו תודה רבה על האתר! הוא ממש מעולה ונח ללימוד, מייעל אותו פי כמה וכמה.. ממש גאוני! תודה תודה תודה</value>
+    <value>דבר ראשון תודה רבה על האתר! הוא ממש מעולה ונוח ללימוד, מייעל אותו פי כמה וכמה.. ממש גאוני! תודה תודה תודה</value>
   </data>
   <data name="Testimonial1Person" xml:space="preserve">
     <value>שירה</value>
@@ -193,7 +193,7 @@
     <value>המרכז האקדמי לב</value>
   </data>
   <data name="Testimonial2" xml:space="preserve">
-    <value>אוהבים את הכל!!!' אין על האתר הזזה, הכי עוזר שיש</value>
+    <value>אוהבים את הכל!!! אין על האתר הזזה, הכי עוזר שיש</value>
   </data>
   <data name="Testimonial2Person" xml:space="preserve">
     <value>חן נעים</value>
@@ -221,7 +221,7 @@
     <value>האוניברסיטה הפתוחה</value>
   </data>
   <data name="A3" xml:space="preserve">
-    <value>איך זה עובד</value>
+    <value>מה זה ספיטבול?</value>
   </data>
   <data name="infoSection1" xml:space="preserve">
     <value>מי עומד מאחורי ספיטבול</value>
@@ -237,5 +237,13 @@
   </data>
   <data name="statsStudents" xml:space="preserve">
     <value>סטודנטים</value>
+  </data>
+  <data name="A6" xml:space="preserve">
+    <value>עם ספיטבול אתם יכולים להתחבר עם חבריכם לכיתה, לשתף חומרי לימוד, לשאול, לענות
+ולהתדיין על נושאים אקדמאים רלוונטיים לנושאי הלימוד שלכם ולפתור מבחנים שאתם עצמכם יוצרים. 
+</value>
+  </data>
+  <data name="A7" xml:space="preserve">
+    <value>הצטרף מהר יותר באמצעות</value>
   </data>
 </root>

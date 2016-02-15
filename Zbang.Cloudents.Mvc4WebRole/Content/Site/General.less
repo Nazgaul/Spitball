@@ -354,6 +354,30 @@ md-tabs {
         width: 30px;
         height: 30px;
         fill: @textColorWhite;
+    }
+
+    .facebook {
+        position: relative;
+
+        svg {
+            fill: #3a5795;
+        }
+
+        &:before {
+            content: '';
+            background: white;
+            width: 20px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            top: 5px;
+            left: 7px;
+            border-radius: 100%;
+            z-index: 0;
+        }
+    }
+
+    .box-settings svg {
         opacity: .3;
     }
 }

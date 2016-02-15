@@ -133,7 +133,7 @@
     <value>ישנה בעיה עם כתובת הURL שהזנת</value>
   </data>
   <data name="DashboardController_Create_Problem_with_Create_new_box" xml:space="preserve">
-    <value>בעיה ביצירת קופסא חדשה</value>
+    <value>אירעה בעיה ביצירת קבוצת לימוד חדשה</value>
   </data>
   <data name="LinkNotFound" xml:space="preserve">
     <value>הקישור לא נמצא</value>
