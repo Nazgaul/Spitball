@@ -44,7 +44,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             var user = new User("some email", "some largeImage", "some first name", "some last name", "en-US");
             user.GetType().GetProperty("Id").SetValue(user, userid);
-            var item = new Link("some name", user, 1, new Box("some box", user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid()), "some url", "some thumbnail", "some img url");
+            var item = new Link("some name", user, 1, new PrivateBox("some box", user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid()), "some url", "some thumbnail", "some img url");
 
             m_StubItemRepository.Stub(x => x.Load(itemid)).Return(item);
             m_StubUserRepository.Stub(x => x.Load(userid)).Return(user);
@@ -71,7 +71,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var user = new User("some email", "some largeImage", "some first name", "some last name", "en-US");
             user.GetType().GetProperty("Id").SetValue(user, userid);
             user.Reputation = 5;
-            var item = new Link("some name", user, 1, new Box("some box", user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid()), "some url", "some thumbnail", "some img url");
+            var item = new Link("some name", user, 1, new PrivateBox("some box", user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid()), "some url", "some thumbnail", "some img url");
 
             m_StubItemRepository.Stub(x => x.Load(itemid)).Return(item);
             m_StubUserRepository.Stub(x => x.Load(userid)).Return(user);

@@ -47,27 +47,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 return;
             }
-            if (type == UserRelationshipType.Invite)
-            {
-                var user = m_UserRepository.Load(command.UserId);
-                var box2 = m_BoxRepository.Load(command.BoxId);
-                user.ChangeUserRelationShipToBoxType(box2, UserRelationshipType.Subscribe);
-                m_UserRepository.Save(user);
-                if (userBoxRel != null) await GiveReputation(userBoxRel.Id);
-                box2.CalculateMembers();
-                m_BoxRepository.Save(box2);
-            }
             var box = m_BoxRepository.Load(command.BoxId);
-            if (type == UserRelationshipType.None && box.PrivacySettings.PrivacySetting == BoxPrivacySettings.AnyoneWithUrl)
+            if (type == UserRelationshipType.Invite ||
+                type == UserRelationshipType.None && box.PrivacySettings.PrivacySetting == BoxPrivacySettings.AnyoneWithUrl)
             {
                 var user = m_UserRepository.Load(command.UserId);
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
                 m_UserRepository.Save(user);
+                if (userBoxRel != null) await GiveReputation(userBoxRel.Id);
                 box.CalculateMembers();
                 m_BoxRepository.Save(box);
             }
-
         }
+
+        
 
         private async Task GiveReputation(long userBoxRelId)
         {

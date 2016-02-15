@@ -10,6 +10,7 @@ using Microsoft.WindowsAzure.Mobile.Service.Security;
 using Zbang.Cloudents.MobileApp2.Extensions;
 using Zbang.Cloudents.MobileApp2.Models;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
@@ -46,7 +47,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             // Services.Log.Info(String.Format("search boxes query: {0}", query));
             var retVal = await BoxSearchService.SearchBox(query, default(CancellationToken)) ?? new List<SearchBoxes>();
 
-            return Request.CreateResponse(retVal.Select(s => new
+            return Request.CreateResponse(retVal.Where(w => w.Type != BoxType.AcademicClosed).Select(s => new
              {
                  s.Id,
                  s.Name,
@@ -72,7 +73,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             // Services.Log.Info(String.Format("search boxes query: {0}", query));
             var retVal = await BoxSearchService2.SearchBoxAsync(query, default(CancellationToken)) ?? new List<SearchBoxes>();
 
-            return Request.CreateResponse(retVal.Select(s => new
+            return Request.CreateResponse(retVal.Where(w => w.Type != BoxType.AcademicClosed).Select(s => new
             {
                 s.Id,
                 s.Name,
@@ -98,7 +99,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             // Services.Log.Info(String.Format("search boxes query: {0}", query));
             var retVal = await BoxSearchService2.SearchBoxAsync(query, default(CancellationToken)) ?? new List<SearchBoxes>();
 
-            return Request.CreateResponse(retVal.Select(s => new
+            return Request.CreateResponse(retVal.Where(w => w.Type != BoxType.AcademicClosed).Select(s => new
             {
                 s.Id,
                 s.Name,

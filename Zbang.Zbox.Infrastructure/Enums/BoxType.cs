@@ -5,7 +5,8 @@
     {
         Box = 0,
         Academic = 2,
-        AcademicClosed = 3
+        AcademicClosed = 3,
+        Abstract = -1
     }
 
     // ReSharper disable once EnumUnderlyingTypeIsInt - need for dapper

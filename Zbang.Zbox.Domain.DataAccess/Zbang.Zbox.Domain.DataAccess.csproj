@@ -93,7 +93,9 @@
     <Compile Include="IUniversityRepository.cs" />
     <Compile Include="IUpdatesRepository.cs" />
     <Compile Include="IUserBoxRelRepository.cs" />
+    <Compile Include="IUserLibraryRelRepository.cs" />
     <Compile Include="IUserRepository.cs" />
+    <Compile Include="LibraryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionRepository.cs" />
     <Compile Include="ItemRateRepository.cs" />

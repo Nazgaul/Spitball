@@ -11,12 +11,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class LibraryNodeApproveAccessCommandHandler : ICommandHandlerAsync<LibraryNodeApproveAccessCommand>
     {
         private readonly IUserLibraryRelRepository m_UserLibraryRepository;
+        private readonly ILibraryRepository m_LibraryRepository;
         private readonly IQueueProvider m_QueueProvider;
 
-        public LibraryNodeApproveAccessCommandHandler(IUserLibraryRelRepository userLibraryRepository, IQueueProvider queueProvider)
+        public LibraryNodeApproveAccessCommandHandler(IUserLibraryRelRepository userLibraryRepository, IQueueProvider queueProvider, ILibraryRepository libraryRepository)
         {
             m_UserLibraryRepository = userLibraryRepository;
             m_QueueProvider = queueProvider;
+            m_LibraryRepository = libraryRepository;
         }
 
 
@@ -29,7 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             var userToLibraryRel = m_UserLibraryRepository.GetUserLibraryRelationship(message.ApprovedUserId, message.DepartmentId);
-            
+
             if (userToLibraryRel == null)
             {
                 throw new ArgumentException();
@@ -38,9 +40,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new ArgumentException();
             }
-            
+
             userToLibraryRel.UserType = Infrastructure.Enums.UserLibraryRelationType.Subscribe;
-            m_UserLibraryRepository.Save(userToLibraryRel);
+            m_UserLibraryRepository.Save(userToLibraryRel, true);
+            m_LibraryRepository.UpdateElementToIsDirty(message.DepartmentId);
             await m_QueueProvider.InsertMessageToMailNewAsync(new AccessApprovedData(userToLibraryRel.User.Email, userToLibraryRel.User.Culture));
 
         }

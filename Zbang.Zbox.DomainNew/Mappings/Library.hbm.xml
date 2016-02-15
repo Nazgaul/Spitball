@@ -35,4 +35,22 @@
       <one-to-many class="UserLibraryRel"/>
     </set>
 </class>
+  <query name="updateItem">
+    <![CDATA[
+    update Item set IsDirty = 1
+    where BoxId in ( select Id from AcademicBoxClosed where  ParentDepartmentId = :depId )
+    ]]>
+  </query>
+  <query name="updateQuiz">
+    <![CDATA[
+    update Quiz set IsDirty = 1
+    where BoxId in ( select Id from AcademicBoxClosed where  ParentDepartmentId = :depId )
+    ]]>
+  </query>
+  <query name="updateBox">
+    <![CDATA[
+    update AcademicBoxClosed set isdirty = 1
+    where ParentDepartmentId = :depId
+    ]]>
+  </query>
 </hibernate-mapping>

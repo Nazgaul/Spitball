@@ -3,9 +3,19 @@
     public static class Search
     {
         public const string GetBoxToUploadToSearch =
-            @"select top (@top) b.boxid  as Id
-,b.BoxName as Name, b.ProfessorName as Professor ,b.CourseCode as CourseCode
-, b.Url as Url, b.University as UniversityId ,  b.discriminator as Type
+            @"select top (@top) 
+b.boxid  as Id
+,b.BoxName as Name
+, b.ProfessorName as Professor
+,b.CourseCode as CourseCode
+, b.Url as Url
+, case b.Discriminator
+   when 2 then
+       b.University
+	   else null
+	   end
+   as universityid
+,  b.discriminator as Type
   from zbox.box b
   where isdirty = 1 and isdeleted = 0 and url is not null and b.boxid % @count  = @index
   order by b.BoxId;";
@@ -45,7 +55,12 @@ select Name,boxid from c";
   i.blobName as blobName,
   i.Url as url,
   i.discriminator as type,
-  u.id as universityid,
+  case b.Discriminator
+   when 2 then
+       b.University
+	   else null
+	   end
+   as universityid,
   b.BoxName as boxname,
   u.UniversityName as universityName,
   b.BoxId as boxid
@@ -59,8 +74,7 @@ select Name,boxid from c";
 
         public const string GetItemUsersToUploadToSearch =
             @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
-select top (@top) i.boxid  from zbox.item i  join zbox.box b on i.BoxId = b.BoxId
-   left join zbox.University u on b.University = u.id
+select top (@top) i.boxid  from zbox.item i  
   where  i.isdirty = 1 
   and i.isdeleted = 0 
    and i.itemid % @count  = @index
@@ -82,7 +96,12 @@ q.Name,
  q.BoxId,
  q.Url,
  u.UniversityName as universityName,
- u.id as universityid
+  case b.Discriminator
+   when 2 then
+       b.University
+	   else null
+	   end
+   as universityid
 from zbox.quiz q 
 join zbox.Box b on q.BoxId = b.BoxId
 left join zbox.University u on b.University = u.id

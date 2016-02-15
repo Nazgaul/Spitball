@@ -22,5 +22,8 @@ namespace Zbang.Zbox.Domain
 
         }
         public Library ParentDepartment { get; set; }
+
+        public Guid ParentDepartmentId { get; set; }
+
     }
 }

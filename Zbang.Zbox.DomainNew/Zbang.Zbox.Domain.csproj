@@ -81,6 +81,7 @@
     <Compile Include="InviteToSystem.cs" />
     <Compile Include="ItemCommentBase.cs" />
     <Compile Include="ItemCommentReply.cs" />
+    <Compile Include="PrivateBox.cs" />
     <Compile Include="ReplyLike.cs" />
     <Compile Include="CommentLike.cs" />
     <Compile Include="CommentReplies.cs">
