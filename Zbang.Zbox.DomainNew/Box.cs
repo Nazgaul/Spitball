@@ -8,7 +8,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class Box : IDirty
+    public abstract class Box : IDirty
     {
         public const int NameLength = 120;
         protected Box()
@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain
             ShouldMakeDirty = () => true;
         }
 
-        public Box(string boxName, User user, BoxPrivacySettings privacySettings, Guid newCommentId)
+        protected Box(string boxName, User user, BoxPrivacySettings privacySettings, Guid newCommentId)
             : this(boxName, user, privacySettings)
         {
             Comments.Add(new Comment(user, null,

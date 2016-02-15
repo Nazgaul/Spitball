@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Web;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Connection;
@@ -31,7 +32,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         internal UnitOfWorkFactory()
         {
-
             ConfigureNHibernate();
 
             //  Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.ILocalStorageProvider>();

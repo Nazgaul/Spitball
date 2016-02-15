@@ -4,7 +4,7 @@
                    assembly="Zbang.Zbox.Domain"
                    namespace="Zbang.Zbox.Domain">
 
-  <class name="Box" table="Box" discriminator-value="null">
+  <class name="Box" abstract="true" table="Box" discriminator-value="Abstract">
     <id name="Id" column="BoxId" type="long">
       <generator class="native"></generator>
     </id>
@@ -72,8 +72,11 @@
       <column name="CommentCount" default="0" not-null="true"/>
     </property>
     <property name="QuizCount" />
-  
 
+
+    <subclass name="PrivateBox" discriminator-value="null">
+      
+    </subclass>
     <subclass name="AcademicBox" discriminator-value="Academic">
       <property name="CourseCode"/>
       <property name="Professor" column="ProfessorName"/>
@@ -83,6 +86,7 @@
       
       <subclass name="AcademicBoxClosed" discriminator-value="AcademicClosed">
         <many-to-one name="ParentDepartment" column="LibraryParentId" class="Library" not-null="false" foreign-key="LibraryBoxes4"/>
+        <property name="ParentDepartmentId" column="LibraryParentId" not-null="false"/>
       </subclass>  
     </subclass>
 
