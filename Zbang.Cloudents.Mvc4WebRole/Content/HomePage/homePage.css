@@ -77,7 +77,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 450px;
+    width: 400px;
     padding: 0 50px;
   }
 }
@@ -114,10 +114,16 @@
 .homePage .page-content nav ul li.language {
   position: relative;
 }
-.homePage .page-content nav ul li.language svg {
-  width: 17px;
-  height: 17px;
-  fill: #f5f5f5;
+.homePage .page-content nav ul li.language .arrow {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 7px 0 7px;
+  margin-left: 10px;
+  border-color: #f5f5f5 transparent transparent transparent;
+}
+.homePage .page-content nav ul li.language .language-toggle:hover .arrow {
+  border-top-color: #3293f6;
 }
 .homePage .page-content nav ul li.language ul {
   height: inherit;
@@ -267,7 +273,8 @@
   padding: 0 !important;
 }
 .homePage .home-page-body section:not(.main) h1 {
-  font-size: 46px;
+  font-size: 36px;
+  font-weight: bold;
   text-align: center;
   margin-top: 0;
 }
@@ -334,7 +341,7 @@
   width: 100%;
   max-width: 800px;
   text-align: center;
-  margin: 150px auto 80px auto;
+  margin: 70px auto 80px auto;
   padding: 0 35px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -348,7 +355,9 @@
   font-weight: bold;
   margin: 0;
   font-size: 50px;
-  text-transform: capitalize;
+}
+.homePage .home-page-body section.main .welcome-text h2 {
+  font-size: 18px;
 }
 .homePage .home-page-body section.main .signin-options {
   display: flex;
@@ -441,9 +450,9 @@
   display: flex;
   justify-content: space-between;
   max-width: 700px;
-  margin: 110px auto 0 auto;
+  margin: 110px auto 25px auto;
   color: #f5f5f5;
-  font-size: 24px;
+  font-size: 18px;
   position: absolute;
   width: 100%;
   bottom: 0;
@@ -961,6 +970,8 @@
   text-align: center;
   max-width: 950px;
   margin: 0 auto 50px auto;
+  font-size: 24px;
+  line-height: normal;
 }
 .homePage .home-page-body section.about .description .features {
   display: flex;
@@ -981,8 +992,9 @@
   }
 }
 .homePage .home-page-body section.about .description .features li {
-  margin-bottom: 40px;
-  font-size: 24px;
+  margin-bottom: 50px;
+  font-size: 20px;
+  line-height: normal;
 }
 .homePage .home-page-body section.about .video-image {
   margin: 0 auto;
@@ -1156,7 +1168,7 @@
 .homePage .home-page-body section.reviews blockquote .comment {
   font-family: sans-serif;
   font-style: italic;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 32px;
   color: #6a737d;
 }
@@ -1167,38 +1179,38 @@
   color: #323538;
 }
 .homePage .home-page-body section.reviews li .user-image {
-  width: 128px;
-  height: 128px;
+  width: 110px;
+  height: 110px;
   border: 1px solid #282828;
   border-radius: 100%;
   margin: 0 auto;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+1) .user-image {
   /* You may have to set 'display: block' */
-  width: 128px;
-  height: 128px;
+  width: 110px;
+  height: 110px;
   background: url('../../Images/HomePage2/homePage.png') -1px -435px;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+2) .user-image {
   /* You may have to set 'display: block' */
-  width: 128px;
-  height: 128px;
+  width: 110px;
+  height: 110px;
   background: url('../../Images/HomePage2/homePage.png') -1px -48px;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+3) .user-image {
   /* You may have to set 'display: block' */
-  width: 128px;
-  height: 128px;
+  width: 110px;
+  height: 110px;
   background: url('../../Images/HomePage2/homePage.png') -1px -177px;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+4) .user-image {
   /* You may have to set 'display: block' */
-  width: 128px;
-  height: 128px;
+  width: 110px;
+  height: 110px;
   background: url('../../Images/HomePage2/homePage.png') -1px -306px;
 }
 .homePage .home-page-body footer {
-  background: #5d6063;
+  background: #424346;
 }
 .homePage .home-page-body footer a {
   text-decoration: none;
@@ -1219,6 +1231,13 @@
 .homePage .home-page-body footer .content .app {
   margin-right: 40px;
   margin-bottom: 40px;
+}
+.homePage .home-page-body footer .content .app h1 {
+  font-size: 22px;
+}
+.homePage .home-page-body footer .content .app h2 {
+  font-size: 18px;
+  color: #c3c3c3;
 }
 .homePage .home-page-body footer .content .app .app-links {
   margin-top: 70px;
@@ -1248,11 +1267,14 @@
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }
+.homePage .home-page-body footer .content .info .links a,
+.homePage .home-page-body footer .content .info .links h2 {
+  font-size: 14px;
+}
 .homePage .home-page-body footer .content .info .links a {
   color: #c3c3c3;
   display: block;
   line-height: 32px;
-  font-size: 20px;
 }
 .homePage .home-page-body footer .content .info .social-links {
   margin-top: 60px;
@@ -1277,16 +1299,26 @@
 @media (max-width: 600px) {
   .homePage .home-page-body section:not(.main) h1 {
     margin-top: 0;
-    font-size: 11vw;
-  }
-  .homePage .home-page-body section.main h1 {
     font-size: 8vw;
+  }
+  .homePage .home-page-body section.main .welcome-text {
+    padding: 0;
+    margin: 50px auto 50px auto;
+  }
+  .homePage .home-page-body section.main .welcome-text h1 {
+    font-size: 10vw;
     margin: 25px 0;
+  }
+  .homePage .home-page-body section.main .welcome-text h2 {
+    font-size: 5vw;
   }
   .homePage .home-page-body section.main .statistics {
     font-size: 5vw;
     margin-top: 20px;
     padding-bottom: 10px;
+  }
+  .homePage .home-page-body section.main .statistics > div {
+    white-space: normal;
   }
   .homePage .home-page-body section.main .social-links {
     display: none;
@@ -1295,17 +1327,28 @@
     font-size: 6vw;
     line-height: inherit;
   }
-  .homePage .home-page-body section.reviews .content blockquote img {
+  .homePage .home-page-body section.about .description p {
+    font-size: 5vw;
+  }
+  .homePage .home-page-body section.about .description .features li {
+    font-size: 5vw;
+  }
+  .homePage .home-page-body section.reviews blockquote img {
     width: 80px;
   }
-  .homePage .home-page-body section.reviews .content blockquote .comment {
-    font-size: 6vw;
+  .homePage .home-page-body section.reviews blockquote .comment {
+    font-size: 4vw;
+    line-height: 7vw;
   }
-  .homePage .home-page-body section.reviews .content blockquote .comment > span {
+  .homePage .home-page-body section.reviews blockquote .comment > span {
     font-size: 11vw;
   }
   .homePage .home-page-body footer .content .app {
     margin-right: 0;
+  }
+  .homePage .home-page-body footer .content .app h1,
+  .homePage .home-page-body footer .content .app h2 {
+    font-size: 5vw;
   }
   .homePage .home-page-body footer .content .app .app-links {
     margin-top: 20px;
@@ -1319,10 +1362,14 @@
     max-width: 160px;
   }
   .homePage .home-page-body footer .content .app .app-links h2 {
-    font-size: 5vw;
+    font-size: 4vw;
   }
+  .homePage .home-page-body footer .content .info .links h2,
   .homePage .home-page-body footer .content .info .links a {
     font-size: 4vw;
+  }
+  .homePage .home-page-body footer .content .info .links a {
+    line-height: 7vw;
   }
   .homePage .home-page-body footer .content .info .social-links {
     text-align: center;

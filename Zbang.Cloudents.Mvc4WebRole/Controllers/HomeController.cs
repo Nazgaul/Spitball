@@ -55,10 +55,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             // m_ThemeCookieHelper = themeCookieHelper;
         }
 
-        [DonutOutputCache(VaryByParam = "lang;invId",
-           VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Auth,
-           Duration = TimeConsts.Day,
-           Location = OutputCacheLocation.Server)]
+        //[DonutOutputCache(VaryByParam = "lang;invId",
+        //   VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Auth,
+        //   Duration = TimeConsts.Day,
+        //   Location = OutputCacheLocation.Server)]
         //[Route("account/signin/")]
         //[Route("account/resetpassword/")]
         //[Route("account/signup")]

@@ -103,7 +103,7 @@
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    width: 450px;
+                    width: 400px;
                     padding: 0 50px;
                 }
 
@@ -140,10 +140,17 @@
                     &.language {
                         position: relative;
 
-                        svg {
-                            width: 17px;
-                            height: 17px;
-                            fill: @textColorWhite;
+                        .arrow {
+                            width: 0;
+                            height: 0;
+                            border-style: solid;
+                            border-width: 8px 7px 0 7px;
+                            margin-left: 10px;
+                            border-color: @textColorWhite transparent transparent transparent;
+                        }
+
+                        .language-toggle:hover .arrow {
+                            border-top-color: @textColorSpitballBlue;
                         }
 
                         ul {
@@ -298,7 +305,8 @@
 
         section {
             &:not(.main) h1 {
-                font-size: 46px;
+                font-size: 36px;
+                font-weight: bold;
                 text-align: center;
                 margin-top: 0;
             }
@@ -372,7 +380,7 @@
                     width: 100%;
                     max-width: 800px;
                     text-align: center;
-                    margin: 150px auto 80px auto;
+                    margin: 70px auto 80px auto;
                     padding: 0 35px;
                     -moz-box-sizing: border-box;
                     -webkit-box-sizing: border-box;
@@ -387,7 +395,10 @@
                         font-weight: bold;
                         margin: 0;
                         font-size: 50px;
-                        text-transform: capitalize;
+                    }
+
+                    h2 {
+                        font-size: 18px;
                     }
                 }
 
@@ -494,9 +505,9 @@
                     .displayFlex;
                     justify-content: space-between;
                     max-width: 700px;
-                    margin: 110px auto 0 auto;
+                    margin: 110px auto 25px auto;
                     color: @textColorWhite;
-                    font-size: 24px;
+                    font-size: 18px;
                     position: absolute;
                     width: 100%;
                     bottom: 0;
@@ -1101,6 +1112,8 @@
                         text-align: center;
                         max-width: 950px;
                         margin: 0 auto 50px auto;
+                        font-size: 24px;
+                        line-height: normal;
                     }
 
                     .features {
@@ -1122,8 +1135,9 @@
                         }
 
                         li {
-                            margin-bottom: 40px;
-                            font-size: 24px;
+                            margin-bottom: 50px;
+                            font-size: 20px;
+                            line-height: normal;
                         }
                     }
                 }
@@ -1316,7 +1330,7 @@
                     .comment {
                         font-family: sans-serif;
                         font-style: italic;
-                        font-size: 24px;
+                        font-size: 18px;
                         line-height: 32px;
                         color: @backgroundColorItem;
 
@@ -1331,8 +1345,8 @@
 
                 li {
                     .user-image {
-                        width: 128px;
-                        height: 128px;
+                        width: 110px;
+                        height: 110px;
                         border: 1px solid @borderColorBlack;
                         border-radius: 100%;
                         //background-size: 130px;
@@ -1360,7 +1374,7 @@
         }
 
         footer {
-            background: @borderColorBottomGrey;
+            background: #424346;
 
             a {
                 text-decoration: none;
@@ -1383,6 +1397,15 @@
                 .app {
                     margin-right: 40px;
                     margin-bottom: 40px;
+
+                    h1 {
+                        font-size: 22px;
+                    }
+
+                    h2 {
+                        font-size: 18px;
+                        color: @textColorLightGrey;
+                    }
 
                     .app-links {
                         margin-top: 70px;
@@ -1411,11 +1434,14 @@
                         -webkit-flex-wrap: wrap;
                         flex-wrap: wrap;
 
+                        a, h2 {
+                            font-size: 14px;
+                        }
+
                         a {
                             color: @textColorLightGrey;
                             display: block;
                             line-height: 32px;
-                            font-size: 20px;
                         }
                     }
 
@@ -1450,19 +1476,32 @@
             section {
                 &:not(.main) h1 {
                     margin-top: 0;
-                    font-size: 11vw;
+                    font-size: 8vw;
                 }
 
                 &.main {
-                    h1 {
-                        font-size: 8vw;
-                        margin: 25px 0;
+                    .welcome-text {
+                        padding: 0;
+                        margin: 50px auto 50px auto;
+
+                        h1 {
+                            font-size: 10vw;
+                            margin: 25px 0;
+                        }
+
+                        h2 {
+                            font-size: 5vw;
+                        }
                     }
 
                     .statistics {
                         font-size: 5vw;
                         margin-top: 20px;
                         padding-bottom: 10px;
+
+                        > div {
+                            white-space: normal;
+                        }
                     }
 
                     .social-links {
@@ -1470,18 +1509,29 @@
                     }
                 }
 
-                &.about .description {
-                    font-size: 6vw;
-                    line-height: inherit;
+                &.about {
+                    .description {
+                        font-size: 6vw;
+                        line-height: inherit;
+
+                        p {
+                            font-size: 5vw;
+                        }
+
+                        .features li {
+                            font-size: 5vw;
+                        }
+                    }
                 }
 
-                &.reviews .content blockquote {
+                &.reviews blockquote {
                     img {
                         width: 80px;
                     }
 
                     .comment {
-                        font-size: 6vw;
+                        font-size: 4vw;
+                        line-height: 7vw;
 
                         > span {
                             font-size: 11vw;
@@ -1494,6 +1544,10 @@
                 .content {
                     .app {
                         margin-right: 0;
+
+                        h1, h2 {
+                            font-size: 5vw;
+                        }
 
                         .app-links {
                             margin-top: 20px;
@@ -1509,7 +1563,7 @@
                             }
 
                             h2 {
-                                font-size: 5vw;
+                                font-size: 4vw;
                             }
                         }
                     }
@@ -1517,8 +1571,14 @@
                     .info {
 
 
-                        .links a {
-                            font-size: 4vw;
+                        .links {
+                            h2, a {
+                                font-size: 4vw;
+                            }
+
+                            a {
+                                line-height: 7vw;
+                            }
                         }
 
 
