@@ -29,7 +29,7 @@
             }
             d.coursesOpen = !d.coursesOpen;
             d.boxesOpen = false;
-            $timeout(function() {
+            $timeout(function () {
                 $rootScope.$broadcast('updateScroll');
             }, 800);
         }
@@ -82,7 +82,7 @@
             dashboardService.getBoxes().then(function (response2) {
                 for (var i = 0; i < response2.length; i++) {
                     var b = response2[i];
-                    if (b.boxType === 'academic') {
+                    if (b.boxType.startsWith('academic')) {
                         d.courses.push(b);
                     } else {
                         d.privateBoxes.push(b);
