@@ -368,22 +368,30 @@
                     }
                 }
 
-                h1 {
-                    color: @textColorWhite;
+                .welcome-text {
                     width: 100%;
                     max-width: 800px;
                     text-align: center;
-                    margin: 0 auto;
                     margin: 150px auto 80px auto;
-                    font-size: 50px;
-                    font-weight: bold;
-                    text-transform: capitalize;
-                    text-shadow: 2px 2px 4px @textColorBlack;
                     padding: 0 35px;
                     -moz-box-sizing: border-box;
                     -webkit-box-sizing: border-box;
                     box-sizing: border-box;
+                    color: @textColorWhite;
+
+                    > * {
+                        text-shadow: 2px 2px 4px @textColorBlack;
+                    }
+
+                    h1 {
+                        font-weight: bold;
+                        margin: 0;
+                        font-size: 50px;
+                        text-transform: capitalize;
+                    }
                 }
+
+
 
 
                 .signin-options {
@@ -395,6 +403,14 @@
                     -ms-flex-wrap: wrap;
                     -webkit-flex-wrap: wrap;
                     flex-wrap: wrap;
+
+                    .social-text {
+                        color: @textColorGrey;
+                        flex-grow: 1;
+                        text-align: left;
+                        align-self: center;
+                        font-size: 14px;
+                    }
 
                     .login-option {
                         border: none;
@@ -439,8 +455,8 @@
 
 
                         svg {
-                            width: 37px;
-                            height: 37px;
+                            width: 30px;
+                            height: 30px;
                             fill: @textColorWhite;
                             z-index: 1;
                         }
@@ -448,12 +464,12 @@
                         &::before {
                             content: '';
                             background: white;
-                            width: 30px;
-                            height: 30px;
+                            width: 25px;
+                            height: 25px;
                             display: block;
                             position: absolute;
-                            top: 4px;
-                            left: 4px;
+                            top: 2px;
+                            left: 2px;
                             border-radius: 100%;
                             z-index: 0;
                         }
@@ -542,9 +558,10 @@
                         padding: 0 20px;
                         margin: 0 -20px 25px -20px;
                         width: inherit;
+                        padding-bottom: 10px;
 
                         .login-option {
-                            margin: 0 0 20px 10px;
+                            margin: 0 0 0 10px;
                             position: relative;
                         }
                     }
@@ -579,12 +596,8 @@
                         padding-right: 15px;
                         text-align: left;
 
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
-
                         label a {
-                            color: @textColorWhite;
+                            color: @textColorLightGrey;
                         }
                     }
 
@@ -619,7 +632,7 @@
                             background: rgba(24, 26, 22, 0.93);
 
                             h4 {
-                                color: @borderColorLightGrey;
+                                color: @textColorGrey;
                                 float: left;
                                 font-size: 18px;
                                 white-space: nowrap;
@@ -636,21 +649,23 @@
                             .create-account p,
                             .login-account p {
                                 color: @textColorWhite;
-                                line-height: 40px;
-                                margin-bottom: 0;
-                                margin-top: 35px;
+                                text-align: center;
+                                margin: 0 auto;
+                                align-self: center;
                             }
 
                             .forget-password {
                                 .displayFlex;
                                 align-items: center;
-                                margin-bottom: 20px;
+                                margin-bottom: 15px;
+                                border-bottom: 1px solid #888b8e;
+                                padding-bottom: 10px;
                                 -ms-flex-wrap: wrap;
                                 -webkit-flex-wrap: wrap;
                                 flex-wrap: wrap;
 
                                 p {
-                                    color: @borderColorLightGrey;
+                                    color: @textColorGrey;
                                     font-size: 11px;
                                     margin: 0;
                                     text-align: left;
@@ -658,7 +673,7 @@
                             }
 
                             .form-actions-container label {
-                                color: @borderColorLightGrey;
+                                color: @textColorGrey;
                                 font-size: 11px;
                             }
                         }
@@ -671,6 +686,10 @@
                         .content .forget-form {
                             padding: 0;
                             margin: 0;
+                        }
+
+                        .content .login-form .form-actions {
+                            margin-top: 20px;
                         }
 
                         .content .form-control {
@@ -697,6 +716,10 @@
 
                         .content .form-group {
                             margin-bottom: 20px;
+
+                            &.last {
+                                margin-bottom: 0;
+                            }
                         }
 
                         .content .form-group.first {
@@ -731,16 +754,16 @@
 
                         .form-actions-container {
                             display: flex;
-                            margin-top: -20px;
                             -ms-flex-wrap: wrap;
                             -webkit-flex-wrap: wrap;
                             flex-wrap: wrap;
                             justify-content: space-between;
+                            margin-top: 20px;
 
                             .form-group {
                                 align-self: center;
                                 max-width: 250px;
-                                margin-top: 20px;
+                                /*margin-top: 20px;*/
                                 margin-bottom: 20px;
                             }
                         }
@@ -761,11 +784,12 @@
                                 margin-bottom: 30px;
                                 font-size: 16px;
                                 font-weight: normal;
-                                color: @borderColorLightGrey;
+                                color: @textColorGrey;
                             }
 
                             .form-actions {
                                 margin-bottom: 55px;
+                                margin-top: 20px;
                                 float: right;
 
                                 .btn.blue {
@@ -821,7 +845,7 @@
                             .checkbox-design {
                                 display: inline-block;
                                 width: inherit;
-                                color: @borderColorLightGrey;
+                                color: @textColorGrey;
 
                                 .remember-me {
                                     display: inline-flex;
@@ -880,7 +904,7 @@
                         }
 
                         #forget-password {
-                            color: @textColorWhite;
+                            color: @textColorLightGrey;
                         }
 
                         #forget-password:hover {
@@ -894,11 +918,23 @@
                             padding-bottom: 20px;
                         }
 
-                        .content .register-form .form-actions {
-                            border: 0;
-                            margin-top: 20px;
-                            margin-bottom: 20px;
-                            padding-bottom: 0;
+                        .content .register-form {
+                            h3 {
+                                white-space: pre-wrap;
+                            }
+
+                            .form-actions-container {
+                                margin-bottom: 15px;
+                                border-bottom: 1px solid @textColorGrey;
+                                padding-bottom: 15px;
+                            }
+
+                            .form-actions {
+                                border: 0;
+                                margin-top: 0;
+                                margin-bottom: 20px;
+                                padding-bottom: 0;
+                            }
                         }
 
                         .content .form-actions .btn {
@@ -923,7 +959,6 @@
                         .content .create-account {
                             padding-top: 10px;
                             margin-top: 15px;
-                            min-height: 50px;
                         }
 
                         .content .login-account,
@@ -931,15 +966,16 @@
                             padding-top: 0;
                             clear: both;
                             background: @buttonColorBlue;
-                            margin: -30px;
+                            margin: -20px -30px;
                             text-align: center;
                             border: none;
+                            height: 50px;
+                            .displayFlex;
                         }
 
                         .content .create-account a,
                         .content .login-account a {
                             display: inline-block;
-                            margin-top: 5px;
                             color: @textColorWhite;
                         }
                         /* select2 dropdowns */
@@ -995,8 +1031,8 @@
                         }
 
                         .login-options svg {
-                            width: 37px;
-                            height: 37px;
+                            width: 30px;
+                            height: 30px;
                             margin-right: 0;
                         }
 
@@ -1027,10 +1063,14 @@
 
                     .alert {
                         padding: 0;
-                        color: rgb(243, 86, 93);
+                        color: #f3565d;
                         display: block;
                         border: 1px solid transparent;
                         margin-bottom: 0;
+                        margin-top: 0;
+                        background: none;
+                        border: none;
+                        box-shadow: none;
                         /*.close {
                             float: right;
                             font-size: 21px;

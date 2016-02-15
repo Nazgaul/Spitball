@@ -124,7 +124,8 @@
     <value>Jobs</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>Study Smarter Not Harder, For Free!</value>
+    <value>Study smarter, not harder.</value>
+    <comment>NewShlomi</comment>
   </data>
   <data name="A5" xml:space="preserve">
     <value>or sign up with email</value>
@@ -161,9 +162,11 @@
   </data>
   <data name="D1" xml:space="preserve">
     <value>What Is Spitball?</value>
+    <comment>NewShlomi</comment>
   </data>
   <data name="D2" xml:space="preserve">
     <value>Spitball is a social study app where students meet their classmates, exchange ideas and quiz themselves</value>
+    <comment>NewShlomi</comment>
   </data>
   <data name="D3" xml:space="preserve">
     <value>Meet and message your classmates directly</value>
@@ -240,7 +243,14 @@
     <comment>New</comment>
   </data>
   <data name="A3" xml:space="preserve">
-    <value>Explore Spitball</value>
-    <comment>New</comment>
+    <value>What is Spitball?</value>
+    <comment>NewShlomi</comment>
+  </data>
+  <data name="A6" xml:space="preserve">
+    <value>Relax, Spitball brings all tools you need to communicate with your classmates, swap notes and exchange ideas, for FREE.</value>
+  </data>
+  <data name="A7" xml:space="preserve">
+    <value>Spitball even faster through</value>
+    <comment>NewShlomi</comment>
   </data>
 </root>

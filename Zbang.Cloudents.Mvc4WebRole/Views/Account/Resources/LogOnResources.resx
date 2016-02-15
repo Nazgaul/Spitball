@@ -148,7 +148,7 @@
     <value>Here</value>
   </data>
   <data name="LoginToAccount" xml:space="preserve">
-    <value>Login to your account</value>
+    <value>Welcome back Spitballer</value>
   </data>
   <data name="NoWorries" xml:space="preserve">
     <value>No worries, click</value>
@@ -170,5 +170,10 @@
   </data>
   <data name="CheckEmailTitle" xml:space="preserve">
     <value>Check your email</value>
+  </data>
+  <data name="CreateAccountFormHeader" xml:space="preserve">
+    <value>Let’s connect you with
+your study buddies</value>
+    <comment>NewShlomi</comment>
   </data>
 </root>

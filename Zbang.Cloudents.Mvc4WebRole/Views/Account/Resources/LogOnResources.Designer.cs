@@ -88,6 +88,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Let’s connect you with
+        ///your study buddies.
+        /// </summary>
+        public static string CreateAccountFormHeader {
+            get {
+                return ResourceManager.GetString("CreateAccountFormHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t have an account?.
         /// </summary>
         public static string DontHaveAnAccount {
@@ -142,7 +152,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login to your account.
+        ///   Looks up a localized string similar to Welcome back Spitballer.
         /// </summary>
         public static string LoginToAccount {
             get {
