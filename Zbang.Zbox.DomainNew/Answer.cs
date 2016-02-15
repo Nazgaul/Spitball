@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Domain
 {

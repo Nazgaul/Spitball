@@ -129,8 +129,6 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Skip = query.RowsPerPage * query.PageNumber,
                 Select = new[] { IdField, NameField, ProfessorField, CourseField, TypeFiled },
                 HighlightFields = new[] { NameField },
-               // HighlightPreTag = "<b>",
-               // HighlightPostTag = "</b>"
             }, cancelToken);
             return result.Select(s => new SearchBoxes
             {
