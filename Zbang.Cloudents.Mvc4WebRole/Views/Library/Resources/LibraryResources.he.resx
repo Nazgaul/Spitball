@@ -148,7 +148,7 @@
     <value>הזן קוד</value>
   </data>
   <data name="Instructor" xml:space="preserve">
-    <value>מרצה</value>
+    <value>מרצה (אופציונלי)</value>
   </data>
   <data name="Next" xml:space="preserve">
     <value>הבא</value>
@@ -163,7 +163,7 @@
     <value>מצא את מוסד הלימודים שלך</value>
   </data>
   <data name="UniversitySearchTitle" xml:space="preserve">
-    <value>מצא את מוסד הלימודים שלך והצטרף לכל השאר</value>
+    <value>מצא את מוסד הלימודים שלך והצטרף לשאר חבריך ללימודים</value>
   </data>
   <data name="EmptyStateTopNodeText" xml:space="preserve">
     <value>זה הזמן להיות הראשון ולהקים את את x בספיטבול. כל מוסד אקדמי חדש שנוצר הופך את ספיטבול לטוב יותר עבור כולנו</value>

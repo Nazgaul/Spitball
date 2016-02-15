@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cannot add library to box node.
+        ///   Looks up a localized string similar to Departments cannot be placed inside classes.
         /// </summary>
         public static string LibraryController_Create_Cannot_add_library_to_box_node {
             get {

@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You need to request access to this node.
+        ///   Looks up a localized string similar to Send a request to access.
         /// </summary>
         public static string privateDepPopupContent {
             get {

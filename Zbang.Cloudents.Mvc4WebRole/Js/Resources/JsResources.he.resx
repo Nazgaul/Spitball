@@ -178,7 +178,7 @@
     <value>קבוצת הלימוד נוצרה בהצלחה</value>
   </data>
   <data name="toasterCreateCourse" xml:space="preserve">
-    <value>הקרוס נוצר בהצלחה</value>
+    <value>הקורס נוצר בהצלחה</value>
   </data>
   <data name="toasterCreateDepartment" xml:space="preserve">
     <value>המחלקה נוצרה בהצלחה</value>
@@ -187,13 +187,13 @@
     <value>המבחן המקוון נוצר בהצלחה</value>
   </data>
   <data name="toasterFollowBox" xml:space="preserve">
-    <value>מעכשיו את עוקב אחרי קורס זה</value>
+    <value>מעכשיו אתה עוקב אחרי קורס זה</value>
   </data>
   <data name="toasterInviteComplete" xml:space="preserve">
     <value>ההזמנה נשלחה</value>
   </data>
   <data name="toasterLikeItem" xml:space="preserve">
-    <value>סומן כאהבתי</value>
+    <value>סומן כ"אהבתי"</value>
   </data>
   <data name="toasterOpenSchool" xml:space="preserve">
     <value>נפתח</value>
@@ -203,5 +203,11 @@
   </data>
   <data name="toasterUploadPic" xml:space="preserve">
     <value>תמונת הפרופיל שלך עודכנה בצהלחה</value>
+  </data>
+  <data name="privateDepPopupContent" xml:space="preserve">
+    <value>עליך לשלוח בקשה על מנת לקבל גישה לתוכן זה</value>
+  </data>
+  <data name="privateDepPopupTitle" xml:space="preserve">
+    <value>מחלקה פרטית</value>
   </data>
 </root>

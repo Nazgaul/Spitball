@@ -160,10 +160,10 @@
     <value>תראו את ספיטבול בפעולה</value>
   </data>
   <data name="D1" xml:space="preserve">
-    <value>אפליקציית ספיטבול לנייד</value>
+    <value>מה זה ספיטבול?</value>
   </data>
   <data name="D2" xml:space="preserve">
-    <value>אפליקציית הלימודים החברתית של ספיטבול כבר מחכה לכם בחנויות האפליקציות. ספיטבול מאפשרת לסטודנטים להצליח בלימדים באמצעות כלים ייעודים שתוכננו ופותחו ע״י סטודנטים ובעבורם:</value>
+    <value>ספיטבול מאפשרת לסטודנטים להצליח בלימודים באמצעות כלים ייעודים שתוכננו ופותחו ע״י סטודנטים ובעבורם</value>
   </data>
   <data name="D3" xml:space="preserve">
     <value>למד עם חבריך בצורה מקוונת</value>
@@ -175,53 +175,53 @@
     <value>קרא ושתף סיכומים ומבחנים</value>
   </data>
   <data name="D6" xml:space="preserve">
-    <value>השתתף בדיון קבוצתי עם כל הכיתה</value>
+    <value>הזמן את חבריך לקבוצת למידה פרטית כדי שתוכלו ללמוד ביחד </value>
   </data>
   <data name="F1" xml:space="preserve">
-    <value>הורד בחינם</value>
-  </data>
-  <data name="F2" xml:space="preserve">
     <value>על גבי המחשב האישי או במכשיר הנייד, למידה חברתית בכל זמן ובכל מקום</value>
   </data>
+  <data name="F2" xml:space="preserve">
+    <value>אפליקציית הלימודים החברתית של ספיטבול כבר מחכה לכם בחנויות האפליקציות</value>
+  </data>
   <data name="Testimonial1" xml:space="preserve">
-    <value>אחרי שנמאס לי לשאול את אותה חברה בכל פעם שנתקלתי בשאלה או בעיה בשעורי הבית, חיפשתי פתרון אמיתי שלא כולל קבוצת וואטסאפ של 50 סטודנטים! 
-לשמחתי נתקלתי בספיטבול, עכשיו אני וכל שאר הסטודנטים מהכיתה שלי סוף סוף לומדים יחד בצורה שמתאימה לנו.</value>
+    <value>דבר ראשו תודה רבה על האתר! הוא ממש מעולה ונח ללימוד, מייעל אותו פי כמה וכמה.. ממש גאוני! תודה תודה תודה</value>
   </data>
   <data name="Testimonial1Person" xml:space="preserve">
-    <value>דנה</value>
+    <value>שירה</value>
   </data>
   <data name="Testimonial1Title" xml:space="preserve">
-    <value>משפטים ממשל, המרכז הבינתחומי הרצליה</value>
+    <value>המרכז האקדמי לב</value>
   </data>
   <data name="Testimonial2" xml:space="preserve">
-    <value>בגלל המילואים יצא לי להפסיד מלא שיעורים הסמסטר, בזכות ספיטבול הייתי בעניינים גם כשלא הייתי נוכח בשיעור</value>
+    <value>אוהבים את הכל!!!' אין על האתר הזזה, הכי עוזר שיש</value>
   </data>
   <data name="Testimonial2Person" xml:space="preserve">
-    <value>אדם</value>
+    <value>חן נעים</value>
   </data>
   <data name="Testimonial2Title" xml:space="preserve">
-    <value>סוציולוגיה אנטרופולוגיה, אוניברסיטת תל אביב</value>
+    <value>המכללה האקדמית אשקלון</value>
   </data>
   <data name="Testimonial3" xml:space="preserve">
-    <value>מדהים מדהים!!!!! איך עד היום לא היו דברים כאלו....כל מה שהייתי צריך ובמקום אחד.. פשוט הציל לי את התואר!</value>
+    <value> זו הפעם הראשונה שאני מעיין באתר וחייב לומר שזה מדהים! אני יכול לתאר את זה כאילו ראיתי אוצר!</value>
   </data>
   <data name="Testimonial3Person" xml:space="preserve">
-    <value>ירון</value>
+    <value>ציון רובין</value>
   </data>
   <data name="Testimonial3Title" xml:space="preserve">
-    <value>הנדסת תעשייה וניהול, אוניברסיטת בן גוריון</value>
+    <value>מכללת רמת גן</value>
   </data>
   <data name="Testimonial4" xml:space="preserve">
-    <value>תודה לכם ספיטבול! לא הספקתי לכתוב מילה כל הסמסטר ופשוט לא היה לי ממה ללמוד לבחינה. נכנסתי לספיטבול, מצאתי את הקורס שלי, ולתדהמתי היו שם חמישה סיכומים שחיכו שאני אלמד מהם!</value>
+    <value>אתר מעולה תורם רבות בעיקר ללמוד לקראת מבחנים, מאוד מועיל תודה רבה :)</value>
   </data>
   <data name="Testimonial4Person" xml:space="preserve">
-    <value>מיכל</value>
+    <value> ענת פלד
+</value>
   </data>
   <data name="Testimonial4Title" xml:space="preserve">
-    <value>מנהל עסקים, האוניברסיטה הפתוחה</value>
+    <value>האוניברסיטה הפתוחה</value>
   </data>
   <data name="A3" xml:space="preserve">
-    <value>איך להתשתמש בספיטבול כמו מקצוען</value>
+    <value>איך זה עובד</value>
   </data>
   <data name="infoSection1" xml:space="preserve">
     <value>מי עומד מאחורי ספיטבול</value>

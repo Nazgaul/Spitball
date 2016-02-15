@@ -187,6 +187,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Once you go private, you can&apos;t reverse it.
+        /// </summary>
+        public static string PrivacyOneWayClick {
+            get {
+                return ResourceManager.GetString("PrivacyOneWayClick", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set as private.
+        /// </summary>
+        public static string PrivacySwitchText {
+            get {
+                return ResourceManager.GetString("PrivacySwitchText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What&apos;s on your mind?.
         /// </summary>
         public static string replyPostPlaceholder {

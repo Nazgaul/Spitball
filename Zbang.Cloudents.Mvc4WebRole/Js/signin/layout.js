@@ -3,7 +3,6 @@ Core script to handle the entire theme and core functions
 **/
 var Layout = function () {
 
-
     var resBreakpointMd = 961;// Metronic.getResponsiveBreakpoint('md');
 
     // Handles the go to top button at the footer

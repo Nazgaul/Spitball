@@ -133,7 +133,7 @@
     <value>שדה זה הינו חובה</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>סיסמה</value>
+    <value>סיסמא</value>
   </data>
   <data name="PwdRequired" xml:space="preserve">
     <value>עליך למלא סיסמה</value>

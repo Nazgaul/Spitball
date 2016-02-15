@@ -133,6 +133,6 @@
     <value>Department ID is required</value>
   </data>
   <data name="LibraryController_Create_Cannot_add_library_to_box_node" xml:space="preserve">
-    <value>Cannot add library to box node</value>
+    <value>Departments cannot be placed inside classes</value>
   </data>
 </root>

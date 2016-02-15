@@ -143,7 +143,7 @@
     <value>Add a class</value>
   </data>
   <data name="EnterClassName" xml:space="preserve">
-    <value>Enter class name</value>
+    <value>Enter the class details and make Spitball more useful </value>
   </data>
   <data name="EnterCode" xml:space="preserve">
     <value>Course Number (optional)</value>
@@ -172,7 +172,7 @@
     <comment>New</comment>
   </data>
   <data name="UniversityAddSchoolTitle" xml:space="preserve">
-    <value>Thank you for making the effort to do 
+    <value>Get ready to do something big for you and your classmates
 something big for you and your classmates</value>
     <comment>New</comment>
   </data>
@@ -191,7 +191,7 @@ Every new school makes Spitball more useful to everyone!</value>
     <comment>New</comment>
   </data>
   <data name="EmptyStateTopNodeTitle" xml:space="preserve">
-    <value>yeesh... I'm feeling a little exposed</value>
+    <value>Yeesh… we’re feeling a little exposed here</value>
     <comment>New</comment>
   </data>
 </root>

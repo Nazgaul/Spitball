@@ -116,7 +116,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to yeesh... I&apos;m feeling a little exposed.
+        ///   Looks up a localized string similar to Yeesh… we’re feeling a little exposed here.
         /// </summary>
         public static string EmptyStateTopNodeTitle {
             get {
@@ -125,7 +125,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter class name.
+        ///   Looks up a localized string similar to Enter the class details and make Spitball more useful .
         /// </summary>
         public static string EnterClassName {
             get {
@@ -215,7 +215,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you for making the effort to do 
+        ///   Looks up a localized string similar to Get ready to do something big for you and your classmates
         ///something big for you and your classmates.
         /// </summary>
         public static string UniversityAddSchoolTitle {

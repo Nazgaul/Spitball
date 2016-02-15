@@ -160,7 +160,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We came out short....
+        ///   Looks up a localized string similar to we came UP short...
+        ///.
         /// </summary>
         public static string NoResultsTitle {
             get {
@@ -232,7 +233,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no courses in your school that matches your search,
+        ///   Looks up a localized string similar to There are no courses in your school that match your search,
         ///but try checking the quizzes tab for related material.
         /// </summary>
         public static string SearchEmptyStateClassesText {
@@ -269,7 +270,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no documents in your school that matches your search,
+        ///   Looks up a localized string similar to There are no documents in your school that match your search,
         ///but try checking the classes tab for related material.
         /// </summary>
         public static string SearchEmptyStateDocumentsText {
@@ -279,7 +280,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no quizzes in your school that matches your search,
+        ///   Looks up a localized string similar to There are no quizzes in your school that match your search,
         ///but try checking the documents tab for related material.
         /// </summary>
         public static string SearchEmptyStateQuizzesText {

@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change univeristy.
+        ///   Looks up a localized string similar to Change university.
         /// </summary>
         public static string changeUniversityBtn {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check your mail spam folder or.
+        ///   Looks up a localized string similar to Check your spam folder or.
         /// </summary>
         public static string CheckEmailSpam {
             get {

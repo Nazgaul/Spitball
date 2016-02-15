@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="answer" xml:space="preserve">
-    <value>תגובה</value>
+    <value>תשובה</value>
   </data>
   <data name="answers" xml:space="preserve">
-    <value>תגובות</value>
+    <value>תשובות</value>
   </data>
   <data name="InviteSubject" xml:space="preserve">
     <value>הזמנה ל{0}</value>
@@ -133,9 +133,9 @@
     <value>פריטים</value>
   </data>
   <data name="question" xml:space="preserve">
-    <value>הודעה</value>
+    <value>שאלה</value>
   </data>
   <data name="questions" xml:space="preserve">
-    <value>הודעות</value>
+    <value>שאלות</value>
   </data>
 </root>

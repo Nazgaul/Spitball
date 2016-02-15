@@ -127,6 +127,6 @@
     <value>כבר קיים משתמש עם כתובת מייל זו</value>
   </data>
   <data name="CreateItemTabCommandHandler_Handle_Cannot_have_several_tabs_with_the_same_name" xml:space="preserve">
-    <value>לא ניתן להוסיף תקיות בעלות שם זהה</value>
+    <value>לא ניתן להוסיף תיקיות בעלות שם זהה</value>
   </data>
 </root>

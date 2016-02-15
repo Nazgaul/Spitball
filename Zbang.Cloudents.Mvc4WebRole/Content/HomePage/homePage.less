@@ -488,6 +488,7 @@
                     right: 0;
 
                     div {
+                        white-space: nowrap;
                         display: inline-block;
                         text-align: center;
                         padding: 0 10px;
@@ -558,11 +559,29 @@
                     .form-actions {
                         display: flex;
                         justify-content: space-between;
+
+                        .loader {
+                            display: none;
+                        }
+
+                        button[type="submit"].disabled ~ .loader {
+                            display: block;
+                            position: absolute;
+                            top: calc(50%);
+                            left: ~"calc(50% - 40px)";
+                            color: @textColorWhite;
+                            width: 80px;
+                            text-align: center;
+                        }
                     }
 
                     .form-actions-container .form-group {
                         padding-right: 15px;
                         text-align: left;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
 
                         label a {
                             color: @textColorWhite;
@@ -861,11 +880,10 @@
                         }
 
                         #forget-password {
-                            color: @textColorSpitballBlue;
+                            color: @textColorWhite;
                         }
 
                         #forget-password:hover {
-                            color: #337ab7;
                             cursor: pointer;
                             text-decoration: underline;
                         }
@@ -1008,10 +1026,12 @@
                     }
 
                     .alert {
-                        padding: 15px;
+                        padding: 0;
+                        color: rgb(243, 86, 93);
+                        display: block;
                         border: 1px solid transparent;
-
-                        .close {
+                        margin-bottom: 0;
+                        /*.close {
                             float: right;
                             font-size: 21px;
                             font-weight: bold;
@@ -1020,7 +1040,7 @@
                             text-shadow: 0 1px 0 #fff;
                             opacity: .2;
                             filter: alpha(opacity=20);
-                        }
+                        }*/
                     }
                 }
             }
@@ -1052,7 +1072,7 @@
                         color: rgba(245,245,245,0.7);
 
                         ul {
-                            width: ~"calc(50% - 40px)";
+                            width: ~"calc(50% - 70px)";
                             margin: 0 auto;
 
                             @media(max-width: 800px) {
@@ -1063,6 +1083,7 @@
 
                         li {
                             margin-bottom: 40px;
+                            font-size: 24px;
                         }
                     }
                 }

@@ -178,7 +178,7 @@
     <value>לא קבלת מייל מאיתנו?</value>
   </data>
   <data name="CheckEmailSpam" xml:space="preserve">
-    <value>אנא בדוק את תקיית ״דואר זבל״ בתיבת המייל שלך</value>
+    <value>אנא בדוק את תיקיית ״דואר זבל״ בתיבת המייל שלך</value>
   </data>
   <data name="AnotherRequest" xml:space="preserve">
     <value>שלח בקשה נוספת</value>

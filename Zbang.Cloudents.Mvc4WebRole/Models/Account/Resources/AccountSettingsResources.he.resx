@@ -153,4 +153,7 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>אימות סיסמה</value>
   </data>
+  <data name="AcceptUserRequest" xml:space="preserve">
+    <value>מחכה לאישור</value>
+  </data>
 </root>

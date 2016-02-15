@@ -131,6 +131,7 @@
 .feed .reply {
   position: relative;
   margin-right: 26px;
+  margin-bottom: 5px;
   /*.comment-date {
             margin-left: 51px;
         }*/

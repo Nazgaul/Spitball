@@ -220,7 +220,7 @@
     <comment>New</comment>
   </data>
   <data name="privateDepPopupContent" xml:space="preserve">
-    <value>You need to request access to this node</value>
+    <value>Send a request to access</value>
     <comment>New</comment>
   </data>
 </root>

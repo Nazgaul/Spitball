@@ -154,7 +154,7 @@
     <value>Change</value>
   </data>
   <data name="changeUniversityBtn" xml:space="preserve">
-    <value>Change univeristy</value>
+    <value>Change university</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
@@ -178,7 +178,7 @@
     <value>Didn't receive the email?</value>
   </data>
   <data name="CheckEmailSpam" xml:space="preserve">
-    <value>Check your mail spam folder or</value>
+    <value>Check your spam folder or</value>
   </data>
   <data name="AnotherRequest" xml:space="preserve">
     <value>send another request</value>

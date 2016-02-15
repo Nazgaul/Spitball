@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comment.
+        ///   Looks up a localized string similar to Answer.
         /// </summary>
         internal static string answer {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comments.
+        ///   Looks up a localized string similar to Answers.
         /// </summary>
         internal static string answers {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Post.
+        ///   Looks up a localized string similar to Question.
         /// </summary>
         internal static string question {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Posts.
+        ///   Looks up a localized string similar to Questions.
         /// </summary>
         internal static string questions {
             get {

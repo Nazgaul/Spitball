@@ -172,7 +172,7 @@
     <value>פרסם</value>
   </data>
   <data name="QuestionNumber" xml:space="preserve">
-    <value>שאלה</value>
+    <value>שאלה #</value>
   </data>
   <data name="Retake" xml:space="preserve">
     <value>היבחן שוב</value>

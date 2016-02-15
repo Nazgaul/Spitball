@@ -83,16 +83,15 @@
                                     @{ Html.RenderAction("AntiForgeryToken", "Home", true);}
                                     <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
                                     <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
-
-                                    <div id="login_alert_text" class="alert alert-danger display-hide">
-                                        <button class="close" data-close="alert"></button>
-                                        <span></span>
-                                    </div>
                                     <div class="form-group">
                                         <input class="form-control" required type="email" placeholder="@LogOnResources.Email" name="email" />
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control" required type="password" placeholder="@LogOnResources.Password" name="password" />
+                                    </div>
+                                    <div id="login_alert_text" class="alert alert-danger display-hide">
+                                        @*<button class="close" data-close="alert"></button>*@
+                                        <span></span>
                                     </div>
                                     <div class="form-actions">
                                         <div class="checkbox-design">
@@ -104,6 +103,7 @@
                                         <button type="submit" class="btn button-Blue btn-primary pull-right">
                                             @LogOnResources.LogIn
                                         </button>
+                                        <div class="loader">Loading...</div>
                                     </div>
                                     <div class="forget-password">
                                         <h4>@LogOnResources.ForgotYourPassword</h4>
@@ -156,6 +156,7 @@
                                     <div class="form-actions">
                                         <button type="reset" class="btn btn-default pull-right cancel">@GeneralResources.Cancel</button>
                                         <button type="submit" class="btn button-Blue btn-primary pull-right">@LogOnResources.Submit</button>
+                                        <div class="loader">Loading...</div>
                                     </div>
                                     <div class="create-account"></div>
                                 </form>
@@ -210,6 +211,7 @@
                                             <button type="submit" id="register-submit-btn" class="btn button-Blue btn-primary">
                                                 @LogOnResources.SignUp
                                             </button>
+                                            <div class="loader">Loading...</div>
                                         </div>
                                     </div>
                                     <div class="signin-options">
@@ -279,10 +281,10 @@
                     <div class="features">
                         <ul>
                             <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.1s">@HomePageResources.D3</li>
-                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.3s">@HomePageResources.D4</li>
+                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.2s">@HomePageResources.D5</li>
                         </ul>
                         <ul>
-                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.2s">@HomePageResources.D5</li>
+                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.3s">@HomePageResources.D4</li>
                             <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.4s">@HomePageResources.D6</li>
                         </ul>
                     </div>
@@ -311,7 +313,7 @@
                 <div class="boxes">
                     @foreach (var box in Model.Boxes)
                     {
-                        var boxClass = "color" + (box.Name.Length)%11;
+                        var boxClass = "color" + (box.Name.Length) % 11;
                         <a href="@box.Url" class="box os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
 
                             <h2 class="@boxClass">@box.Name</h2>
@@ -437,6 +439,11 @@
             </footer>
         </div>
 
+    </div>
+    <div class="page-footer">
+        <div class="scroll-to-top">
+            @Html.Svg("~/images/site/icons.svg", "arrow")
+        </div>
     </div>
     <div id="cssCheck"></div>
     <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)"></script>

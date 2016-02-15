@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Whoops, we seem to be experiencing a technical error. Please try again.
+        ///   Looks up a localized string similar to Whoops... we seem to be experiencing a technical error. Please try again.
         /// </summary>
         internal static string UnspecifiedError {
             get {

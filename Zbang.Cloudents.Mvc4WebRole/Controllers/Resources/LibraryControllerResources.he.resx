@@ -133,6 +133,6 @@
     <value>נדרש קוד המחלקה</value>
   </data>
   <data name="LibraryController_Create_Cannot_add_library_to_box_node" xml:space="preserve">
-    <value />
+    <value>לא ניתן להוסיף מחלקה לתאור הקורס</value>
   </data>
 </root>

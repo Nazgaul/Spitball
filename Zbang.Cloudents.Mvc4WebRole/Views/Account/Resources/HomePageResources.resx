@@ -124,10 +124,10 @@
     <value>Jobs</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>Share knowledge in a social and open study network</value>
+    <value>Study Smarter Not Harder, For Free!</value>
   </data>
   <data name="A5" xml:space="preserve">
-    <value>Or sign up with your email</value>
+    <value>or sign up with email</value>
   </data>
   <data name="A8" xml:space="preserve">
     <value>Blog</value>
@@ -163,25 +163,25 @@
     <value>What Is Spitball?</value>
   </data>
   <data name="D2" xml:space="preserve">
-    <value>Spitball is a social study app where students from around the world swap notes, meet their classmates, exchange ideas and quiz themselves</value>
+    <value>Spitball is a social study app where students meet their classmates, exchange ideas and quiz themselves</value>
   </data>
   <data name="D3" xml:space="preserve">
-    <value>Connect with your classmates</value>
-  </data>
-  <data name="D4" xml:space="preserve">
     <value>Meet and message your classmates directly</value>
   </data>
+  <data name="D4" xml:space="preserve">
+    <value>Miss a class? Browse and upload study guide, course reading and lecture slides</value>
+  </data>
   <data name="D5" xml:space="preserve">
-    <value>Miss a class? Browse and upload syllabi, course reading and lecture slides</value>
+    <value>Invite your friends to a private study group to work on projects as a team</value>
   </data>
   <data name="D6" xml:space="preserve">
-    <value>Check out an unlimited number of classes and schools at any time</value>
-  </data>
-  <data name="F1" xml:space="preserve">
     <value>Stressed over exams? Test yourself with thousands of quizzes on your subjects</value>
   </data>
-  <data name="F2" xml:space="preserve">
+  <data name="F1" xml:space="preserve">
     <value>Study socially on your smartphone, laptop and tablet anytime, anywhere</value>
+  </data>
+  <data name="F2" xml:space="preserve">
+    <value>Try our mobile App!</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
     <value>As a sophomore, I found myself looking for a new way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that fit my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me.</value>
@@ -211,7 +211,7 @@
     <value>Senior at UCLA</value>
   </data>
   <data name="Testimonial4" xml:space="preserve">
-    <value>Spitball is such a great idea! I love the quizzes - such a great way to interactively test my knowledge of the coursework! The chat feed is really helpful if you miss a class or don't understand the material. During my last semester, I feel like all I did was talk about Spitball! It was funny; people actually thought that it was my job.</value>
+    <value>Spitball is such a great idea! I love the quizzes - such a great way to interactively test my knowledge of the coursework! The chat feed is really helpful if you miss a class or don't understand the material. During my last semester, I feel like all I did was talk about Spitball! It was funny- people actually thought that it was my job.</value>
   </data>
   <data name="Testimonial4Person" xml:space="preserve">
     <value>Sarah Friedman</value>
@@ -240,7 +240,7 @@
     <comment>New</comment>
   </data>
   <data name="A3" xml:space="preserve">
-    <value>How To Spitball Like A Pro</value>
+    <value>Explore Spitball</value>
     <comment>New</comment>
   </data>
 </root>

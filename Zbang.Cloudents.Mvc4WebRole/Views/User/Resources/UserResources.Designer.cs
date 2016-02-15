@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating a quiz: 30 pts.
+        ///   Looks up a localized string similar to Creating a quiz: 300 pts.
         /// </summary>
         public static string Creating {
             get {

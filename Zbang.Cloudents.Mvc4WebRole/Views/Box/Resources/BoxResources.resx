@@ -185,4 +185,12 @@
   <data name="ViewComments" xml:space="preserve">
     <value>View</value>
   </data>
+  <data name="PrivacySwitchText" xml:space="preserve">
+    <value>Set as private</value>
+    <comment>New</comment>
+  </data>
+  <data name="PrivacyOneWayClick" xml:space="preserve">
+    <value>Once you go private, you can't reverse it</value>
+    <comment>New</comment>
+  </data>
 </root>

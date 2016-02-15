@@ -148,7 +148,7 @@
     <value>הודעה</value>
   </data>
   <data name="Quizzes" xml:space="preserve">
-    <value>מבחנים</value>
+    <value>מבחנים מקוונים</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>שלח</value>
@@ -190,10 +190,10 @@
     <value>לא נמצאו תוצאות</value>
   </data>
   <data name="SearchEmptyStateClassesText" xml:space="preserve">
-    <value>לא נמצאו קורסים התואמים את החיפוש לך </value>
+    <value>לא נמצאו קורסים התואמים את החיפוש שלך </value>
   </data>
   <data name="SearchEmptyStateCreateCourse" xml:space="preserve">
-    <value>אם אתה לומד קורס שלא קיים בפיסטבול</value>
+    <value>אם אתה לומד בקורס שלא קיים בספיטבול</value>
   </data>
   <data name="SearchEmptyStateCreateCourseLinkText" xml:space="preserve">
     <value>צור אותו!</value>
