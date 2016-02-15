@@ -37,6 +37,13 @@
 .invite.light {
   margin: 0;
 }
+.invite .nav-tabs {
+  list-style: none;
+  margin-top: 15px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
 .invite .tab-from-r {
   background: none;
   padding-top: 0;
@@ -45,12 +52,30 @@
 .invite .tab-from-r .mail {
   margin-right: 0;
 }
+.invite .md-chip-input-container input::-webkit-input-placeholder {
+  color: #c2c2c2 !important;
+  opacity: 1 !important;
+}
+.invite .md-chip-input-container input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #c2c2c2 !important;
+  opacity: 1 !important;
+}
+.invite .md-chip-input-container input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #c2c2c2 !important;
+  opacity: 1 !important;
+}
+.invite .md-chip-input-container input:-ms-input-placeholder {
+  color: #c2c2c2 !important;
+  opacity: 1 !important;
+}
 .invite button.btn-default.close {
   background: transparent;
   top: 0;
   position: absolute;
   right: 0;
-  padding: 5px 15px;
+  padding: 7px 15px;
   margin: 6px auto;
 }
 .invite button.btn-default.close:active:hover {

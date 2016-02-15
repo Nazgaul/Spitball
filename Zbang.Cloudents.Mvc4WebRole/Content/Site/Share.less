@@ -45,6 +45,11 @@
         margin: 0;
     }
 
+    .nav-tabs {
+        list-style: none;
+        margin-top: 15px;
+        .displayFlex;
+    }
 
     .tab-from-r {
         background: none;
@@ -56,12 +61,16 @@
         }
     }
 
+    .md-chip-input-container input {
+        .placeHolder(@svgLightGrey) !important;
+    }
+
     button.btn-default.close {
         background: transparent;
         top: 0;
         position: absolute;
         right: 0;
-        padding: 5px 15px;
+        padding: 7px 15px;
         margin: 6px auto;
 
         &:active:hover {
@@ -137,6 +146,7 @@
         .uploadLink .buttons {
             justify-content: flex-end;
         }
+
         .uploadFile .buttons {
             justify-content: center;
         }
