@@ -169,7 +169,7 @@
     <value>Enter verification code</value>
   </data>
   <data name="EmailedPassword" xml:space="preserve">
-    <value>We've emailed you password</value>
+    <value>We've emailed you a new password</value>
   </data>
   <data name="ResetInstructions" xml:space="preserve">
     <value>reset instructions.</value>

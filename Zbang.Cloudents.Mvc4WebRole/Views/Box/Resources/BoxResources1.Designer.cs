@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove from folder.
+        ///   Looks up a localized string similar to Move to main folder.
         /// </summary>
         public static string ItemRemoveFolder {
             get {

@@ -124,7 +124,7 @@
     <value>כתובת המייל שהזנת אינה חוקית</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>סיסמא</value>
+    <value>סיסמה</value>
   </data>
   <data name="PwdAtLeast6Chars" xml:space="preserve">
     <value>הסיסמה חייבת להיות מורכבת מ-6 תווים לכל הפחות</value>
@@ -148,7 +148,7 @@
     <value>התחבר</value>
   </data>
   <data name="ForgotYourPassword" xml:space="preserve">
-    <value>שכחת סיסמא?</value>
+    <value>שכחת סיסמה?</value>
   </data>
   <data name="Here" xml:space="preserve">
     <value>כאן</value>
@@ -172,12 +172,15 @@
     <value>הרשם</value>
   </data>
   <data name="ToResetPassword" xml:space="preserve">
-    <value>לאיפוס סיסמא</value>
+    <value>לאיפוס סיסמה</value>
   </data>
   <data name="CheckEmailTitle" xml:space="preserve">
     <value>בדוק את תיבת המייל שלך</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>שלח</value>
+  </data>
+  <data name="CreateAccountFormHeader" xml:space="preserve">
+    <value>זה הזמן להצטרף לחבריך לספסל הלימודים</value>
   </data>
 </root>

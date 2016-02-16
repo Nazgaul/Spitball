@@ -193,7 +193,7 @@
     <value>העלה קבצים</value>
   </data>
   <data name="UploadFromComputer" xml:space="preserve">
-    <value>העלה קבצים מהמחשב</value>
+    <value>העלה קבצים מכונן מקומי</value>
   </data>
   <data name="UploadFromDropbox" xml:space="preserve">
     <value>העלה קבצים מ- Dropbox</value>

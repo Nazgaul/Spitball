@@ -106,7 +106,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Relax, Spitball brings all tools you need to communicate with your classmates, swap notes and exchange ideas, for FREE..
+        ///   Looks up a localized string similar to Relax, Spitball brings all the tools you need to communicate with your 
+        ///classmates, swap notes and exchange ideas, for FREE..
         /// </summary>
         public static string A6 {
             get {

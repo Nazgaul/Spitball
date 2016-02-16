@@ -322,7 +322,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your image has updated.
+        ///   Looks up a localized string similar to Your image has been updated.
         /// </summary>
         public static string toasterUploadPic {
             get {

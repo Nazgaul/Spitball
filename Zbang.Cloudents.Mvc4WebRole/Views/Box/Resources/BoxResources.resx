@@ -190,6 +190,6 @@
     <value>Once you go private, you can't reverse it</value>
   </data>
   <data name="ItemRemoveFolder" xml:space="preserve">
-    <value>Remove from folder</value>
+    <value>Move to main folder</value>
   </data>
 </root>

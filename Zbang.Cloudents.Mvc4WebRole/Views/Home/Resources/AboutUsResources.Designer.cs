@@ -81,7 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Build by students for students.
+        ///   Looks up a localized string similar to Built by students for students.
         /// </summary>
         public static string Subtitle {
             get {

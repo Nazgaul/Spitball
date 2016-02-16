@@ -145,7 +145,7 @@
     <value>הזן שם קורס</value>
   </data>
   <data name="EnterCode" xml:space="preserve">
-    <value>הזן קוד</value>
+    <value>הזן קוד קורס</value>
   </data>
   <data name="Instructor" xml:space="preserve">
     <value>מרצה (אופציונלי)</value>

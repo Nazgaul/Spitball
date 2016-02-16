@@ -2996,7 +2996,6 @@
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\AccountResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>AccountResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.he.resx" />
     <EmbeddedResource Include="Views\Account\Resources\HomePageResources.resx">

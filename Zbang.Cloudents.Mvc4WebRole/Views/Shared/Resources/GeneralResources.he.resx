@@ -139,7 +139,7 @@
     <value>קורסים</value>
   </data>
   <data name="CreateQuiz" xml:space="preserve">
-    <value>צור מבחן</value>
+    <value>צור מבחן מקוון</value>
   </data>
   <data name="Members" xml:space="preserve">
     <value>חברים</value>
@@ -190,7 +190,7 @@
     <value>לא נמצאו תוצאות</value>
   </data>
   <data name="SearchEmptyStateClassesText" xml:space="preserve">
-    <value>לא נמצאו קורסים התואמים את החיפוש שלך </value>
+    <value>לא נמצאו במוסד הלימודים שלך קורסים התואמים את החיפוש </value>
   </data>
   <data name="SearchEmptyStateCreateCourse" xml:space="preserve">
     <value>אם אתה לומד בקורס שלא קיים בספיטבול</value>

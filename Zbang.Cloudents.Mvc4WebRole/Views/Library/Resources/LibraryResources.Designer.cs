@@ -215,8 +215,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get ready to do something big for you and your classmates
-        ///something big for you and your classmates.
+        ///   Looks up a localized string similar to Get ready to do something big for you and your classmates.
         /// </summary>
         public static string UniversityAddSchoolTitle {
             get {

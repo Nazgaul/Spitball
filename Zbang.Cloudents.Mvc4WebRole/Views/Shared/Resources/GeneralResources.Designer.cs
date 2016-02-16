@@ -160,6 +160,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No results found.
+        /// </summary>
+        public static string NoResults {
+            get {
+                return ResourceManager.GetString("NoResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to we came UP short...
         ///.
         /// </summary>
@@ -270,7 +279,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no documents in your school that match your search,
+        ///   Looks up a localized string similar to There are no documents that match your search,
         ///but try checking the classes tab for related material.
         /// </summary>
         public static string SearchEmptyStateDocumentsText {
@@ -280,7 +289,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no quizzes in your school that match your search,
+        ///   Looks up a localized string similar to There are no quizzes that match your search,
         ///but try checking the documents tab for related material.
         /// </summary>
         public static string SearchEmptyStateQuizzesText {
