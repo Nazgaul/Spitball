@@ -27,6 +27,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public override void Run()
         {
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch is running");
+            SqlServerTypes.Utilities.LoadNativeAssemblies(AppDomain.CurrentDomain.BaseDirectory);
             try
             {
                 RunAsync(m_CancellationTokenSource.Token).Wait();

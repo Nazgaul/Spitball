@@ -8,6 +8,7 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -116,13 +117,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 Task.FromResult<object>(null);
             }
-            var removeHtmlRegex = new Regex("<[^>]*>", RegexOptions.Compiled);
-            var textToPush = removeHtmlRegex.Replace(comment.Text, string.Empty);
-            if (string.IsNullOrEmpty(textToPush))
+            try
             {
-                Task.FromResult<object>(null);
+                var removeHtmlRegex = new Regex("<[^>]*>", RegexOptions.Compiled);
+                var textToPush = removeHtmlRegex.Replace(comment.Text, string.Empty);
+                if (string.IsNullOrEmpty(textToPush))
+                {
+                    Task.FromResult<object>(null);
+                }
+                return m_SendPush.SendAddPostNotification(comment.User.Name, textToPush, box.Name, box.Id, userIds);
             }
-            return m_SendPush.SendAddPostNotification(comment.User.Name, textToPush, box.Name, box.Id, userIds);
+            catch (ArgumentNullException ex)
+            {
+                TraceLog.WriteError("regex error text: " + comment.Text, ex);
+                throw;
+            }
         }
 
     }
