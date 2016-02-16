@@ -176,7 +176,7 @@ namespace Testing
             //var x = TestMediaServices();
             //Task.WaitAll(x);
             // return;
-            //Emails();
+            Emails();
 
             //var y =  GetCountries();
 
@@ -242,7 +242,7 @@ namespace Testing
             //         "failed connect to remove db ");
             //var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
             //t.Wait();
-            IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
+            //IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
             //writeService.UpdateReputation(new UpdateReputationCommand(1));
             //writeService.AddNewUpdateAsync(new AddNewUpdatesCommand(
             //    21481,
@@ -252,7 +252,7 @@ namespace Testing
             //    null,
             //   null
             //    )).Wait();
-            writeService.OneTimeDbi();
+            //writeService.OneTimeDbi();
             //while (writeService.Dbi(0))
             //{
 
@@ -603,6 +603,23 @@ namespace Testing
 
 
             var mail = new MailManager2();
+
+            var t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
+                new DepartmentRequestAccessMailParams(new CultureInfo("en")));
+            t.Wait();
+
+            t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
+                new DepartmentRequestAccessMailParams(new CultureInfo("he")));
+            t.Wait();
+
+            t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
+               new DepartmentApprovedMailParams(new CultureInfo("he")));
+            t.Wait();
+
+            t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
+               new DepartmentApprovedMailParams(new CultureInfo("en")));
+            t.Wait();
+
             mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com",
                 new FlagItemMailParams("דגכחלדיג", "חדיגחלכדיכ", "גלחכךדגחכך", "asdas", "asda")).Wait();
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new StoreOrder("ram y", "הליכון משגע", 12341234));
@@ -615,15 +632,15 @@ namespace Testing
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg", new CultureInfo("he-IL"), "yaari.ram@gmail.com", null));
 
             //mail.GenerateAndSendEmail("noatseitlin@facebook.com", new WelcomeMailParams("ram", new CultureInfo("ru-RU")));
-            mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new WelcomeMailParams("ram2", new CultureInfo("en-Us"))).Wait();
-
-            mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new ForgotPasswordMailParams2("hfgkjsdhf##askjd", "https://www.spitball.co", "ram", new CultureInfo("en-Us"))).Wait();
-            ////mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams2("h$$$sdhf##askjd", new CultureInfo("en-Us")));
-
-            mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("he-IL"))).Wait();
-            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("en-Us")));
-
-            mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new MessageMailParams("some message", "some user name", new CultureInfo("he-IL"), "ram.y@outlook.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg")).Wait();
+           // mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new WelcomeMailParams("ram2", new CultureInfo("en-Us"))).Wait();
+           //
+           // mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new ForgotPasswordMailParams2("hfgkjsdhf##askjd", "https://www.spitball.co", "ram", new CultureInfo("en-Us"))).Wait();
+           // ////mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams2("h$$$sdhf##askjd", new CultureInfo("en-Us")));
+           //
+           // mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("he-IL"))).Wait();
+           // //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("en-Us")));
+           //
+           // mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new MessageMailParams("some message", "some user name", new CultureInfo("he-IL"), "ram.y@outlook.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg")).Wait();
             ////mail.GenerateAndSendEmail("itsik.bitran@facebook.com", new MessageMailParams("some message", "some user name", new CultureInfo("en-Us"), "ram.y@outlook.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"));
 
 
