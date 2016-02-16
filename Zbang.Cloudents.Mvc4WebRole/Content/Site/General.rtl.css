@@ -99,6 +99,9 @@ input[disabled],
 button[disabled] {
   cursor: wait !important;
 }
+html {
+  background: transparent;
+}
 .page-body {
   margin-top: 90px;
   padding: 0 10px;
@@ -319,16 +322,33 @@ md-tabs md-ink-bar {
   background: #3598dc;
 }
 /*#endregion*/
+.page-title {
+  align-items: center;
+}
+.page-title .share-social {
+  line-height: 32px;
+  border-left: 2px solid #323538;
+  margin-left: 5px;
+  padding-left: 5px;
+}
 .page-title svg {
   width: 30px;
   height: 30px;
   fill: #f5f5f5;
 }
+.page-title .facebook,
+.page-title .whatsapp {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
 .page-title .facebook {
   position: relative;
+  padding: 0;
 }
 .page-title .facebook svg {
-  fill: #3a5795;
+  fill: #3a5795 !important;
+  position: absolute;
 }
 .page-title .facebook:before {
   content: '';
@@ -341,6 +361,9 @@ md-tabs md-ink-bar {
   right: 7px;
   border-radius: 100%;
   z-index: 0;
+}
+.page-title .box-settings {
+  display: flex;
 }
 .page-title .box-settings svg {
   opacity: .3;

@@ -75,6 +75,10 @@ input[disabled], button[disabled] {
     cursor: wait !important;
 }
 
+html {
+    background: transparent;
+}
+
 body {
     //this cause the md dialog not to show on scroll page
     //max-width: 100vw;
@@ -350,17 +354,35 @@ md-tabs {
 /*#endregion*/
 //if page title have svg its settings
 .page-title {
+    align-items: center;
+
+    .share-social {
+        line-height: 32px;
+        border-right: 2px solid #323538;
+        margin-right: 5px;
+        padding-right: 5px;
+    }
+
     svg {
         width: 30px;
         height: 30px;
         fill: @textColorWhite;
     }
 
+    .facebook, .whatsapp {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+
     .facebook {
         position: relative;
+        padding: 0;
+
 
         svg {
-            fill: #3a5795;
+            fill: #3a5795 !important;
+            position: absolute;
         }
 
         &:before {
@@ -377,8 +399,12 @@ md-tabs {
         }
     }
 
-    .box-settings svg {
-        opacity: .3;
+    .box-settings {
+        display: flex;
+
+        svg {
+            opacity: .3;
+        }
     }
 }
 

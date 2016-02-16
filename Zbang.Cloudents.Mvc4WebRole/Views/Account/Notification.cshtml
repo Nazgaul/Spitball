@@ -6,7 +6,7 @@
     <ul class="list-unstyled notification-list">
         <li ng-repeat="box in ::n.notifications track by box.id" class="clearfix" layout-wrap>
             <div class="box-data" d-color="{{::box.name.length}}">
-                <div class="name">{{::box.name}}</div>
+                <div class="name ellipsis">{{::box.name}}</div>
                 <div class="owner">@AccountResource.NotificationOwner: {{::box.userName}}</div>
             </div>
             <md-input-container flex-xs="100" flex-gt-xs="30">
