@@ -49,13 +49,14 @@
                   .title(resManager.get('privateDepPopupTitle'))
                   .content(resManager.get('privateDepPopupContent'))
                   .targetEvent($event)
-                   .ok(resManager.get('dialogOk'))
+                   .ok(resManager.get('privateDepPopupRequestButton'))
                  .cancel(resManager.get('dialogCancel'));
 
                 $mdDialog.show(confirm).then(function () {
                     libraryService.requestAccess(dep.id).then(function() {
                         $mdDialog.show($mdDialog.alert()
-                            .title('your request has being send')
+                            .title(resManager.get('privateDepPopupTitleOnSend'))
+                            .content(resManager.get('privateDepPopupContentOnSend'))
                             .ok(resManager.get('dialogOk')));
                     });
                 });
