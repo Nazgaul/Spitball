@@ -1121,9 +1121,6 @@ Page Loading
 .theme-light .library-choose .code .arrow-up:before {
   border-bottom: 20px solid #ffffff;
 }
-.theme-light html {
-  background: #e9eaed;
-}
 .theme-light body {
   background: #e9eaed;
 }

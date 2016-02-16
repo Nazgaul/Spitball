@@ -1147,6 +1147,7 @@
 .homePage .home-page-body section.reviews {
   background: #f5f5f5;
   padding-top: 10px;
+  overflow-x: hidden;
 }
 .homePage .home-page-body section.reviews blockquote {
   text-align: center;

@@ -141,6 +141,7 @@
 }
 .accountPage-wrapper .notification-list li .box-data {
   flex-grow: 1;
+  max-width: 100%;
 }
 .accountPage-wrapper .notification-list li .owner {
   color: #888b8e;
