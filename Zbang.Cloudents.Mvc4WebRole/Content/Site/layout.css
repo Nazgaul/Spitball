@@ -1094,6 +1094,8 @@ Page Loading
 }
 .unreg-user .content-wrapper .content {
   margin: 0 auto;
+  max-width: 400px;
+  width: 100%;
 }
 .unreg-user .noHeight,
 .unreg-user .smallHeight,
@@ -1143,7 +1145,7 @@ Page Loading
 }
 .unreg-user .facebook {
   font-size: 15px;
-  margin: 35px auto 10px;
+  margin-top: 35px;
   cursor: pointer;
   padding: 8px 15px 9px 55px;
   position: relative;
@@ -1221,17 +1223,31 @@ Page Loading
   cursor: pointer;
   display: inline-block;
 }
+.unreg-user .social-signin {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
 .unreg-user .facebook,
 .unreg-user .google {
   background: #3a5795;
   border: none;
   padding: 10px;
-  margin-right: 5px;
   width: 190px;
+  margin-left: 0;
+  margin-right: 0;
   color: #fff;
   outline: 0;
   font-size: 16px;
   border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .unreg-user .facebook svg,
 .unreg-user .google svg {
@@ -1243,8 +1259,7 @@ Page Loading
   fill: #fff;
 }
 .unreg-user .google {
-  margin-right: 0;
-  margin-left: 5px;
+  margin-top: 10px;
   background: #DD4B39;
 }
 .unreg-user .btnSignIn {
@@ -1264,12 +1279,17 @@ Page Loading
 }
 .unreg-user .btn-primary {
   font-size: 20px;
-  max-width: 390px;
   border-radius: 10px;
   margin-top: 10px !important;
-  width: 60vw;
   white-space: normal;
   min-width: 190px;
+  width: 100%;
+  max-width: 390px;
+}
+@media (max-width: 390px) {
+  .unreg-user .btn-primary {
+    width: 190px;
+  }
 }
 .unreg-user .btn-primary:hover {
   text-decoration: none;

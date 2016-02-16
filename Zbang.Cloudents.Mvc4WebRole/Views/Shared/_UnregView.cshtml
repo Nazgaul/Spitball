@@ -6,21 +6,23 @@
 }
 @if (User != null && !User.Identity.IsAuthenticated && !ViewBag.postBag)
 {
-    <div class="unreg-user" >
+    <div class="unreg-user">
         <div class="content-wrapper noHeight text-center" unregister-show>
             <div class="content" ng-controller="UnregisterShowController as ur">
                 <div class="text">
                     <p class="large">@GeneralResources.ThereIsMore...</p>
                     <p class="normal">@GeneralResources.RegisterTakesLess</p>
                 </div>
-                <button type="button" ng-click="ur.facebook()" class="facebook">@Html.Svg("/images/signin/loginoptions.svg", "facebook") @LogOnResources.ExternalProvider</button>
-                <button type="button" ng-click="ur.google()" ng-disabled="ur.googleDisabled" class="google">@Html.Svg("/images/signin/loginoptions.svg", "google") @LogOnResources.ExternalProvider</button>
-                <br />
-                <a href="@Url.Action("SignUp", "Account", new { returnUrl = Request.Url })" target="_blank" class="btn button-Blue btn-primary btn-lg bold btnSignIn"
-                   target="_self">
-                    @HomePageResources.A5
-                </a>
+                <div class="social-signin">
+                    <button type="button" ng-click="ur.facebook()" class="facebook">@Html.Svg("/images/signin/loginoptions.svg", "facebook") @LogOnResources.ExternalProvider</button>
+                    <button type="button" ng-click="ur.google()" ng-disabled="ur.googleDisabled" class="google">@Html.Svg("/images/signin/loginoptions.svg", "google") @LogOnResources.ExternalProvider</button>
+                </div>
+                    
+                    <a href="@Url.Action("SignUp", "Account", new { returnUrl = Request.Url })" target="_blank" class="btn button-Blue btn-primary btn-lg bold btnSignIn"
+                       target="_self">
+                        @HomePageResources.A5
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-}
+        }
