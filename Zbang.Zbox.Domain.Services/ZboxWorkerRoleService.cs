@@ -219,12 +219,26 @@ order by 1";
             }
         }
 
+
+        private void UpdateFeedDbi()
+        {
+            const string sql = @"update zbox.Question 
+set ReplyCount = (select count(*) from zbox.Answer a where a.QuestionId = zbox.Question.QuestionId),
+lastreplyid = (select max(a.AnswerId) from zbox.Answer a where a.QuestionId = zbox.Question.QuestionId)
+";
+            using (var con = DapperConnection.OpenConnection())
+            {
+                con.Execute(sql);
+            }
+        }
+
         public bool Dbi(int index)
         {
             DeleteOldUpdates();
             UpdateUniversityStats();
             UpdateMismatchUrl();
             UpdateHierarchyInLibrary();
+            UpdateFeedDbi();
             return false;
         }
 

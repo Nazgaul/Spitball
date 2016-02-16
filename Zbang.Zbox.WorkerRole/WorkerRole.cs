@@ -29,6 +29,7 @@ namespace Zbang.Zbox.WorkerRole
             try
             {
                 TraceLog.WriteInfo("starting service");
+                SqlServerTypes.Utilities.LoadNativeAssemblies(AppDomain.CurrentDomain.BaseDirectory);
                 m_Unity = new UnityFactory();
 #if DEBUG
                 XmlConfigurator.Configure();
