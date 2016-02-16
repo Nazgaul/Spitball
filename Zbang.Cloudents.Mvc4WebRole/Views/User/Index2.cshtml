@@ -56,7 +56,7 @@
                     </md-tab-body>
                 </md-tab>
                 <md-tab md-on-select="u.changeTab(u.state.item)" md-active="u.tab === u.state.item">
-                    <md-tab-label><h3>@UserResources.Uploads</h3> <div class="number">{{::u.details.numItem | megaNumber}}</div></md-tab-label>
+                    <md-tab-label><h3>@UserResources.Uploads</h3> <div class="number">{{u.details.numItem | megaNumber}}</div></md-tab-label>
                     
                     <md-tab-body>
                         <div layout="row" layout-padding layout-fill layout-wrap srph-infinite-scroll="u.myPagingFunction()">
@@ -68,8 +68,13 @@
                                     </md-button>
                                     <md-menu-content width="1">
                                         <md-menu-item>
-                                            <md-button aria-label="download item" ng-href="{{::e.downloadLink}}" ng-click="u.downloadItem()" target="_blank" ga-track-event="['user-uploads', 'download']">
+                                            <md-button ng-href="{{::e.downloadLink}}" ng-click="u.downloadItem()" target="_blank" ga-track-event="['user-uploads', 'download']">
                                                 @GeneralResources.Download
+                                            </md-button>
+                                        </md-menu-item>
+                                        <md-menu-item ng-if="u.canDelete">
+                                            <md-button ng-click="u.deleteItem($event,e)" ga-track-event="['box-items', 'didDelete']">
+                                                @GeneralResources.Delete
                                             </md-button>
                                         </md-menu-item>
                                     </md-menu-content>

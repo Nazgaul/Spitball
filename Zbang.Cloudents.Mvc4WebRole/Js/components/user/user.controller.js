@@ -1,8 +1,10 @@
 ﻿(function () {
     angular.module('app.user').controller('UserController', user);
-    user.$inject = ['userService', '$stateParams', 'userData', 'itemThumbnailService', '$q'];
+    user.$inject = ['userService', 'userData', 'itemThumbnailService', '$q',
+        'userDetailsFactory', '$mdDialog', 'resManager', 'boxService'];
 
-    function user(userService, $stateParams, userData, itemThumbnailService, $q) {
+    function user(userService, userData, itemThumbnailService, $q, userDetailsFactory,
+        $mdDialog, resManager, boxService) {
         var self = this;
         var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0, quizzesPage = 0;
         self.friends = [];
@@ -11,7 +13,7 @@
         self.feed = [];
         self.quiz = [];
 
-
+        self.canDelete = userDetailsFactory.get().id == userData.id;
         self.details = userData;
         self.state = {
             box: 'b',
@@ -58,7 +60,22 @@
             }
         }
         self.changeTab(self.tab);
+        self.deleteItem = deleteItem;
 
+        function deleteItem(ev, item) {
+            var confirm = $mdDialog.confirm()
+                 .title(resManager.get('deleteItem'))
+                 .targetEvent(ev)
+                 .ok(resManager.get('dialogOk'))
+                 .cancel(resManager.get('dialogCancel'));
+
+            $mdDialog.show(confirm).then(function () {
+                var index = self.files.indexOf(item);
+                self.files.splice(index, 1);
+                self.details.numItem--;
+                boxService.deleteItem(item.id);
+            });
+        }
         
         //TODO: write this as one function.
         function loadItems(fromTab) {
@@ -69,7 +86,7 @@
                 return returnEmptyPromise();
             }
             self.itemsLoading = true;
-            return userService.files($stateParams.userId, itemsPage).then(function (response) {
+            return userService.files(userData.id, itemsPage).then(function (response) {
                 angular.forEach(response, function (value) {
                     //value.downloadLink = value.url + 'download/';
                     var retVal = itemThumbnailService.assignValue(value.source);
@@ -92,7 +109,7 @@
                 return returnEmptyPromise();
             }
             self.quizLoading = true;
-            return userService.quiz($stateParams.userId, quizzesPage).then(function (response) {
+            return userService.quiz(userData.id, quizzesPage).then(function (response) {
                 for (var i = 0; i < response.length; i++) {
                     response[i].publish = true;
                 }
@@ -112,7 +129,7 @@
                 return returnEmptyPromise();
             }
             self.boxesLoading = true;
-            return userService.boxes($stateParams.userId, boxesPage).then(function (response) {
+            return userService.boxes(userData.id, boxesPage).then(function (response) {
                 self.boxes = self.boxes.concat(response);
                 if (response.length) {
                     self.boxesLoading = false;
@@ -132,7 +149,7 @@
                 return returnEmptyPromise();
             }
             self.commentsLoading = true;
-            return userService.feed($stateParams.userId, commentPage).then(function (response) {
+            return userService.feed(userData.id, commentPage).then(function (response) {
                 self.feed = self.feed.concat(response);
 
                 if (response.length) {
@@ -151,7 +168,7 @@
                 return returnEmptyPromise();
             }
             self.friendLoading = true;
-            return userService.friends($stateParams.userId, friendPage).then(function (response) {
+            return userService.friends(userData.id, friendPage).then(function (response) {
                 self.friends = self.friends.concat(response);
                 if (response.length) {
                     friendPage++;

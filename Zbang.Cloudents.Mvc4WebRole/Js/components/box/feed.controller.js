@@ -434,7 +434,7 @@ userName: "ram y"*/
         }
         function removeItem(item) {
             if (item.system) {
-                boxService.deleteItem(item.system.id, boxId);
+                boxService.deleteItem(item.system.id);
             }
             var index = self.add.files.indexOf(item);
             self.add.files.splice(index, 1);

@@ -51,10 +51,9 @@
                 boxId: boxId
             });
         }
-        d.deleteItem = function (itemId, boxId) {
+        d.deleteItem = function (itemId) {
             return ajaxservice.post('/item/delete/', {
-                itemId: itemId,
-                boxId: boxId
+                itemId: itemId
             });
         };
         d.filterItem = function (term, boxId, page) {
