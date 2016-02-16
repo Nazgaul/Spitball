@@ -358,20 +358,25 @@ md-tabs {
 
     .share-social {
         line-height: 32px;
-        border-right: 2px solid #323538;
+        border-right: 2px solid @borderColorDarkGrey;
         margin-right: 5px;
         padding-right: 5px;
     }
 
+    svg, .facebook, .whatsapp {
+        max-width: 31px;
+        max-height: 30px;
+        width: 5vw;
+        height: 5vw;
+        min-width: 25px;
+        min-height: 25px;
+    }
+
     svg {
-        width: 30px;
-        height: 30px;
         fill: @textColorWhite;
     }
 
     .facebook, .whatsapp {
-        width: 30px;
-        height: 30px;
         margin-right: 10px;
     }
 
@@ -388,12 +393,16 @@ md-tabs {
         &:before {
             content: '';
             background: white;
-            width: 20px;
-            height: 20px;
+            max-width: 25px;
+            max-height: 25px;
+            min-width: 20px;
+            min-height: 20px;
+            width: 4vw;
+            height: 4vw;
             display: block;
             position: absolute;
-            top: 5px;
-            left: 7px;
+            top: 2px;
+            left: 2px;
             border-radius: 100%;
             z-index: 0;
         }
