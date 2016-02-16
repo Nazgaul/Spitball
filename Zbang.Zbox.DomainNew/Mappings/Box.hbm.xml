@@ -86,7 +86,7 @@
       
       <subclass name="AcademicBoxClosed" discriminator-value="AcademicClosed">
         <many-to-one name="ParentDepartment" column="LibraryParentId" class="Library" not-null="false" foreign-key="LibraryBoxes4"/>
-        <property name="ParentDepartmentId" column="LibraryParentId" not-null="false"/>
+        <property name="ParentDepartmentId" column="LibraryParentId" insert="false" update="false" />
       </subclass>  
     </subclass>
 
