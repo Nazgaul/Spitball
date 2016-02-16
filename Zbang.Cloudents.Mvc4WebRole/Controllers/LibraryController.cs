@@ -75,14 +75,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<JsonResult> SearchUniversity(string term, int page, CancellationToken cancellationToken)
         {
             var source = CreateCancellationToken(cancellationToken);
-            var country = string.Empty;
             if (string.IsNullOrEmpty(term))
             {
-                country = await GetCountryByIpAsync(HttpContext);
+                return JsonError("need term");
+                //country = await GetCountryByIpAsync(HttpContext);
             }
             try
             {
-                var retVal = await m_UniversitySearch.Value.SearchUniversityAsync(new UniversitySearchQuery(term, pageNumber: page, country: country, rowsPerPage: 25), source.Token);
+                var retVal = await m_UniversitySearch.Value.SearchUniversityAsync(new UniversitySearchQuery(term, pageNumber: page, rowsPerPage: 25), source.Token);
                 return JsonOk(retVal);
             }
             catch (OperationCanceledException)
