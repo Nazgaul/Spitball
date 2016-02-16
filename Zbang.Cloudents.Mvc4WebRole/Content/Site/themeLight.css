@@ -2447,43 +2447,43 @@ Page Loading
   fill: #c3c3c3 !important;
 }
 .theme-light .backgroundTC9 {
-  background: #e0b17d !important;
+  background: #f76446 !important;
 }
 .theme-light .textTC9 {
-  color: #e0b17d !important;
+  color: #f76446 !important;
 }
 .theme-light .inputTC9::-webkit-input-placeholder {
-  color: #e0b17d !important;
+  color: #f76446 !important;
   opacity: 1 !important;
 }
 .theme-light .inputTC9:-moz-placeholder {
   /* Firefox 18- */
-  color: #e0b17d !important;
+  color: #f76446 !important;
   opacity: 1 !important;
 }
 .theme-light .inputTC9::-moz-placeholder {
   /* Firefox 19+ */
-  color: #e0b17d !important;
+  color: #f76446 !important;
   opacity: 1 !important;
 }
 .theme-light .inputTC9:-ms-input-placeholder {
-  color: #e0b17d !important;
+  color: #f76446 !important;
   opacity: 1 !important;
 }
 .theme-light .svgTC9 {
-  fill: #e0b17d !important;
+  fill: #f76446 !important;
 }
 .theme-light .borderTC9 {
-  border-color: #e0b17d !important;
+  border-color: #f76446 !important;
 }
 .theme-light .hoverBackgroundTC9:hover {
-  background: #e0b17d !important;
+  background: #f76446 !important;
 }
 .theme-light .hoverTextTC9:hover {
-  color: #e0b17d !important;
+  color: #f76446 !important;
 }
 .theme-light .hoverSvgTC9:hover {
-  fill: #e0b17d !important;
+  fill: #f76446 !important;
 }
 .theme-light .backgroundTC10 {
   background: #888b8e !important;

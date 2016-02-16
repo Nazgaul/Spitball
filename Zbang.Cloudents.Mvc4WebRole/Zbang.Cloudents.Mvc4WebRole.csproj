@@ -1663,6 +1663,9 @@
     <Content Include="Content\Site\ThemeDark.rtl.css">
       <DependentUpon>ThemeDark.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\ThemeDark.rtl.rtl.css">
+      <DependentUpon>ThemeDark.rtl.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\themeLight.css">
       <DependentUpon>themeLight.less</DependentUpon>
     </Content>

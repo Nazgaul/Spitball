@@ -5,6 +5,12 @@
   .search .page-head {
     display: none;
   }
+  .search .page-head .close svg {
+    fill: #888b8e;
+  }
+}
+.search .page-head .close svg {
+  fill: #888b8e;
 }
 .search .item,
 .search .quiz {
@@ -68,12 +74,17 @@
   font-size: 20px;
   white-space: pre-wrap;
 }
-.no-results .button-Blue {
+.no-results button.button-Blue {
   padding: 0 20px;
   margin: 30px;
+  color: #f5f5f5;
+}
+.no-results button.button-Blue:hover {
+  color: #f5f5f5 !important;
 }
 .no-results .create-class {
   font-size: 16px;
+  color: #888b8e;
 }
 /*.search-text {
     font-size: 7vw;

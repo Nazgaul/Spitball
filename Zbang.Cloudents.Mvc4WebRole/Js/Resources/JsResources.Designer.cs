@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send a request to access.
+        ///   Looks up a localized string similar to Want in? Ask the owner for access.
         /// </summary>
         public static string privateDepPopupContent {
             get {
@@ -160,11 +160,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Private department.
+        ///   Looks up a localized string similar to You will receive an email if and when the owner approves your request..
+        /// </summary>
+        public static string privateDepPopupContentOnSend {
+            get {
+                return ResourceManager.GetString("privateDepPopupContentOnSend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request access.
+        /// </summary>
+        public static string privateDepPopupRequestButton {
+            get {
+                return ResourceManager.GetString("privateDepPopupRequestButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need permission to access this section.
         /// </summary>
         public static string privateDepPopupTitle {
             get {
                 return ResourceManager.GetString("privateDepPopupTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your request for access has been sent..
+        /// </summary>
+        public static string privateDepPopupTitleOnSend {
+            get {
+                return ResourceManager.GetString("privateDepPopupTitleOnSend", resourceCulture);
             }
         }
         

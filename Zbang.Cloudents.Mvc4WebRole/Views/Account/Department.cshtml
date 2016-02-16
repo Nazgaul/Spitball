@@ -4,7 +4,7 @@
                          heading="{{::dep.name}}">
         <div class="requests-wrapper" ng-slimscroll watch-content="true" height="auto" ng-controller="accountSettingsDepController">
             <ul class="requests list-unstyled" layout-wrap layout="row" layout-align="space-between center">
-                <li ng-repeat="user in ::dep.users track by user.id" flex="45" layout="row" layout-align="space-between center">
+                <li ng-repeat="user in ::dep.users track by user.id" flex="100" flex-gt-xs="45" layout="row" layout-align="space-between center">
 
                     @*<user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="125" height="125"></user-image>*@
 
