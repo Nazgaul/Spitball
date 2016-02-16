@@ -123,7 +123,7 @@
                 });
             }
             if (file.systemId) {
-                boxService.deleteItem(file.systemId, boxid);
+                boxService.deleteItem(file.systemId);
                 $rootScope.$broadcast('item_delete', file.systemId);
 
             }

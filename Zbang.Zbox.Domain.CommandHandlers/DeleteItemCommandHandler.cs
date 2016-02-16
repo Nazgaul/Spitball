@@ -40,12 +40,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public Task HandleAsync(DeleteItemCommand command)
         {
             if (command == null) throw new ArgumentNullException("command");
-            var userType = m_UserRepository.GetUserToBoxRelationShipType(command.UserId, command.BoxId);
-
-
-            Item item = m_ItemRepository.Load(command.ItemId);
-            User user = m_UserRepository.Load(command.UserId);
-
+            var item = m_ItemRepository.Load(command.ItemId);
+            var user = m_UserRepository.Load(command.UserId);
+            var userType = m_UserRepository.GetUserToBoxRelationShipType(user.Id, item.Box.Id);
 
             bool isAuthorize = userType == UserRelationshipType.Owner
                 || Equals(item.Uploader, user)
@@ -57,7 +54,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             item.DateTimeUser.UpdateUserTime(user.Email);
-            Box box = m_BoxRepository.Load(command.BoxId);
+            // Box box = m_BoxRepository.Load(command.BoxId);
+            var box = item.Box;
             box.ShouldMakeDirty = () => false;
             var uploaderFileId = item.UploaderId;
             var usersAffectReputation = new List<long> { uploaderFileId };

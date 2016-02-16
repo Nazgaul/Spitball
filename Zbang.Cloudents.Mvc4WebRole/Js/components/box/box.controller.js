@@ -22,7 +22,7 @@
         b.closeCollapse = closeCollapse;
 
         b.user = userDetailsFactory.get();
-        
+
         //b.url = b.user.url;
         //b.image = b.user.image;
         b.isActiveState = isActiveState;
@@ -33,14 +33,14 @@
         b.canDelete = canDelete;
 
 
-        $scope.$on('$viewContentLoaded', function() {
-            $timeout(function() {
+        $scope.$on('$viewContentLoaded', function () {
+            $timeout(function () {
                 a2a.init('page');
             });
         });
         $scope.$on("close_invite", function () {
             b.inviteOpen = false;
-           
+
         });
 
         function isActiveState(state) {
@@ -56,7 +56,7 @@
         function toggleSettings() {
             $rootScope.$broadcast('close-collapse');
             b.settingsOpen = true;
-            
+
             b.settings = b.settings || {};
             //boxType
             //privacySetting
@@ -79,7 +79,7 @@
         }
 
         function updateBox(updateBoxForm) {
-           
+
             if (b.settings.needFollow) {
                 boxService.unfollow(boxId);
                 $rootScope.$broadcast('remove-box', boxId);
@@ -96,6 +96,7 @@
             if (needToSave) {
 
                 b.data.name = b.settings.name;
+                b.data.privacySetting = b.settings.privacy;
                 if (b.isAcademic) {
                     b.data.courseId = b.settings.courseId;
                     b.data.professorName = b.settings.professorName;
@@ -107,7 +108,7 @@
                     $scope.app.showToaster(resManager.get('toasterBoxSettings'));
                     $state.go('box.feed', $stateParams, { location: "replace" });
 
-                }).finally(function() {
+                }).finally(function () {
                     b.settings.submitDisabled = false;
                 });
 
@@ -156,7 +157,7 @@
 
         function followBox() {
             b.needFollow = false;
-            
+
             $rootScope.$broadcast('refresh-boxes');
         }
 

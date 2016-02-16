@@ -5,11 +5,10 @@ namespace Zbang.Zbox.Domain.Commands
     public class DeleteItemCommand : ICommandAsync
     {
 
-        public DeleteItemCommand(long itemId, long userId, long boxId)
+        public DeleteItemCommand(long itemId, long userId)
         {
             ItemId = itemId;
             UserId = userId;
-            BoxId = boxId;
         }
 
         public long ItemId
@@ -18,7 +17,6 @@ namespace Zbang.Zbox.Domain.Commands
             private set;
 
         }
-        public long BoxId { get; private set; }
 
         public long UserId { get; private set; }
 
