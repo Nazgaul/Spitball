@@ -50,19 +50,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                     return;
                 }
 
-                var language = m_ContextBase.Request.UserLanguages.FirstOrDefault(Languages.CheckIfLanguageIsSupported);
-                if (string.IsNullOrEmpty(language))
+                if (m_ContextBase.Request.UserLanguages != null)
                 {
-                    language = Languages.GetDefaultSystemCulture().Culture.First();
+                    var language = m_ContextBase.Request.UserLanguages.FirstOrDefault(Languages.CheckIfLanguageIsSupported);
+                    if (string.IsNullOrEmpty(language))
+                    {
+                        language = Languages.GetDefaultSystemCulture().Culture.First();
+                    }
+                    //var country = await GetCountryByIpAsync(m_ContextBase);
+                    //if (country.ToLower() == "nl")
+                    //{
+                    //    country = "gb";
+                    //}
+                    //var culture = Languages.GetCultureBaseOnCountry(country);
+                    m_LanguageCookie.InjectCookie(language);
+                    ChangeThreadLanguage(language);
                 }
-                //var country = await GetCountryByIpAsync(m_ContextBase);
-                //if (country.ToLower() == "nl")
-                //{
-                //    country = "gb";
-                //}
-                //var culture = Languages.GetCultureBaseOnCountry(country);
-                m_LanguageCookie.InjectCookie(language);
-                ChangeThreadLanguage(language);
                 await Next.Invoke(context);
                 return;
             }

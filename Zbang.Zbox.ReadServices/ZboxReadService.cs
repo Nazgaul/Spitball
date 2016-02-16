@@ -509,8 +509,6 @@ select users as StudentsCount, items as DocumentCount, quizzes as QuizzesCount f
                     ),
                     new { query.BoxId, query.PageNumber, query.RowsPerPage }))
                 {
-                    var sw = new Stopwatch();
-                    sw.Start();
                     var comments = grid.Read<Qna.CommentDto>().ToList();
                     var replies = grid.Read<Qna.ReplyDto>().ToDictionary(x => x.QuestionId);
                     var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToLookup(c => c.QuestionId);
@@ -541,8 +539,6 @@ select users as StudentsCount, items as DocumentCount, quizzes as QuizzesCount f
                         //}
 
                     }
-                    sw.Stop();
-                    TraceLog.WriteInfo("feed " + sw.ElapsedTicks);
 
                     return comments;
                 }

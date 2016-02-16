@@ -34,6 +34,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
         // GET api/CustomLogin
         public async Task<HttpResponseMessage> Post(LogInRequest loginRequest)
         {
+            Services.Log.Info("regular login " + loginRequest);
             if (loginRequest == null)
             {
                 return Request.CreateBadRequestResponse();
@@ -46,12 +47,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             try
             {
                 var query = new GetUserByEmailQuery(loginRequest.Email);
-
                 var user = await UserManager.FindByEmailAsync(loginRequest.Email);
-
-                //await Task.WhenAll(tSystemData, tUserIdentity);
-
-
                 var tSystemData = ZboxReadService.GetUserDetailsByEmail(query);
                 var tLogIn = UserManager.CheckPasswordAsync(user, loginRequest.Password);
                 await Task.WhenAll(tSystemData, tLogIn);
@@ -77,6 +73,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
             {
 
                 Services.Log.Error(string.Format("LogOn model : {0} ", loginRequest), ex);
+                
                 //ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
             }
             return Request.CreateBadRequestResponse();
