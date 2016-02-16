@@ -55,12 +55,12 @@
                 return boxService.commentLikes(comment.id, boxId);
             }, ev);
         }
-        function likeReplyDialog(reply, ev) {
-            if (!reply.likesCount) {
+        function likeReplyDialog(reply2, ev) {
+            if (!reply2.likesCount) {
                 return;
             }
             showLikes(function () {
-                return boxService.replyLikes(reply.id, boxId);
+                return boxService.replyLikes(reply2.id, boxId);
             }, ev);
         }
 
@@ -86,7 +86,6 @@
             }
             $scope.$emit('follow-box');
             boxService.likeComment(comment.id, boxId).then(function (response) {
-                console.log('response', response);
                 if (response) {
                     comment.likesCount++;
                     comment.isLiked = true;
@@ -96,19 +95,19 @@
                 }
             });
         }
-        function likeReply(reply) {
+        function likeReply(reply2) {
             if (!user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
             $scope.$emit('follow-box');
-            boxService.likeReply(reply.id, boxId).then(function (response) {
+            boxService.likeReply(reply2.id, boxId).then(function (response) {
                 if (response) {
-                    reply.likesCount++;
-                    reply.isLiked = true;
+                    reply2.likesCount++;
+                    reply2.isLiked = true;
                 } else {
-                    reply.likesCount--;
-                    reply.isLiked = false;
+                    reply2.likesCount--;
+                    reply2.isLiked = false;
                 }
             });
         }
@@ -463,6 +462,7 @@ userName: "ram y"*/
                     }, 1);
                 },
                 beforeUpload: function (up, file) {
+                    self.add.disabled = true;
                     up.settings.multipart_params = {
                         fileName: file.name,
                         fileSize: file.size,
@@ -477,6 +477,9 @@ userName: "ram y"*/
                         file.system = obj.payload.item;
                         cacheFactory.clearAll();
                     }
+                },
+                uploadComplete: function () {
+                    self.add.disabled = false;
                 }
                 //error: function (uploader, error) {
                 //    u.alert = error.message;
