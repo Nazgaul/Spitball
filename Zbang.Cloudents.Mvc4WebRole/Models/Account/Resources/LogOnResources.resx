@@ -160,7 +160,7 @@
     <value>Log in</value>
   </data>
   <data name="LoginToAccount" xml:space="preserve">
-    <value>Welcome back Spitballer</value>
+    <value>Login to your account</value>
   </data>
   <data name="NoWorries" xml:space="preserve">
     <value>No worries, click</value>

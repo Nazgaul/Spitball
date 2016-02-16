@@ -158,33 +158,38 @@
     <value>Quizzes and Review Sheets</value>
   </data>
   <data name="C1" xml:space="preserve">
-    <value>See it in action</value>
+    <value>See it in Action</value>
   </data>
   <data name="D1" xml:space="preserve">
-    <value>What Is Spitball?</value>
+    <value>Spitball in a Nutshell</value>
     <comment>NewShlomi</comment>
   </data>
   <data name="D2" xml:space="preserve">
-    <value>Spitball is a social study app where students meet their classmates, exchange ideas and quiz themselves</value>
+    <value>Spitball’s crowdsourcing technology enables students to find and share study material, ask and answer questions and create online quizzes for themselves and their peers. 
+</value>
     <comment>NewShlomi</comment>
   </data>
   <data name="D3" xml:space="preserve">
-    <value>Meet and message your classmates directly</value>
+    <value>Connect with your classmates online directly or through the class discussion
+</value>
   </data>
   <data name="D4" xml:space="preserve">
-    <value>Miss a class? Browse and upload study guide, course reading and lecture slides</value>
+    <value>Access course specific materials to study with more efficiency  
+</value>
   </data>
   <data name="D5" xml:space="preserve">
-    <value>Invite your friends to a private study group to work on projects as a team</value>
+    <value>Access all our services with your smartphone using Spitball Free Apps
+</value>
   </data>
   <data name="D6" xml:space="preserve">
-    <value>Stressed over exams? Test yourself with thousands of quizzes on your subjects</value>
+    <value>Spitball helps you get the grades you want for every exam 
+</value>
   </data>
   <data name="F1" xml:space="preserve">
-    <value>Study socially on your smartphone, laptop and tablet anytime, anywhere</value>
+    <value>Get the App</value>
   </data>
   <data name="F2" xml:space="preserve">
-    <value>Try our mobile App!</value>
+    <value>Study socially on your smartphone, laptop and tablet anytime, anywhere</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
     <value>As a sophomore, I found myself looking for a new way to communicate and study with my classmates. After searching online, I was shocked that there was no real solution that fit my lifestyle (nothing I could easily access on my phone or computer). Then someone invited me to Spitball... it saved me.</value>
@@ -247,7 +252,7 @@
     <comment>NewShlomi</comment>
   </data>
   <data name="A6" xml:space="preserve">
-    <value>Relax, Spitball brings all the tools you need to communicate with your 
+    <value>Relax, Spitball brings all the tools you need to communicate with your
 classmates, swap notes and exchange ideas, for FREE.</value>
   </data>
   <data name="A7" xml:space="preserve">
