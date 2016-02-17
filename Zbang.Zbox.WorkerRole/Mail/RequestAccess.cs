@@ -25,12 +25,13 @@ namespace Zbang.Zbox.WorkerRole.Mail
             {
                 throw new NullReferenceException("parameters");
             }
-            string userName =parameters.UserName;
-            string userImage =parameters.UserImage;
-            string depName = parameters.DepName;
+            //string userName =parameters.UserName;
+            //string userImage =parameters.UserImage;
+            //string depName = parameters.DepName;
 
             await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
-                 new DepartmentRequestAccessMailParams(new CultureInfo(parameters.Culture),userName,userImage,depName));
+                 new DepartmentRequestAccessMailParams(new CultureInfo(parameters.Culture),
+                     parameters.UserName, parameters.UserImage, parameters.DepName));
 
             return true;
         }

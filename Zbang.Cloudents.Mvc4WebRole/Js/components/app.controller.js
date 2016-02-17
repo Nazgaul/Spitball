@@ -67,7 +67,7 @@
                  $mdToast.simple()
                  .textContent(text)
                  .capsule(true)
-                 .position('top')
+                 .position('top right')
                  .parent(element)
                  .theme(theme)
                  .hideDelay(2000));
@@ -122,6 +122,7 @@
             }
             var details = userDetails.get();
             if (details.university.id) {
+                document.title = 'Spitball';
                 return;
             }
             var userWithNoUniversityState = 'universityChoose';
@@ -129,6 +130,7 @@
                 $rootScope.$broadcast('state-change-start-prevent');
                 event.preventDefault();
             }
+          
 
         });
 
