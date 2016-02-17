@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var lib = new UserLibraryRel(m_GuidGenerator.GetId(), user, library,
                 Infrastructure.Enums.UserLibraryRelationType.Pending);
 
-            await m_QueueProvider.InsertMessageToMailNewAsync(new RequestAccessData(library.CreatedUser.Email,library.CreatedUser.Culture));
+            await m_QueueProvider.InsertMessageToMailNewAsync(new RequestAccessData(library.CreatedUser.Email,library.CreatedUser.Culture,user.Name, user.ImageLarge, library.Name));
             m_UserLibraryRelRepository.Save(lib);
         }
     }

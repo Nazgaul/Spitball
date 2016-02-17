@@ -124,7 +124,8 @@
     <value>משרות</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>למה ללמוד קשה כשאפשר ללמוד חכם</value>
+    <value>למה ללמוד קשה כשאפשר
+ללמוד חכם</value>
   </data>
   <data name="A5" xml:space="preserve">
     <value>או הירשם באמצעות כתובת המייל שלך</value>
@@ -184,13 +185,13 @@
     <value>למדו ביחד על גבי המחשב האישי או במכשיר הנייד, למידה חברתית בכל זמן ובכל מקום</value>
   </data>
   <data name="Testimonial1" xml:space="preserve">
-    <value>דבר ראשון תודה רבה על האתר! הוא ממש מעולה ונוח ללימוד, מייעל אותו פי כמה וכמה.. ממש גאוני! תודה תודה תודה</value>
+    <value>כל הכבוד על היוזמה. אתר טוב מאוד ויעיל. תודה רבה</value>
   </data>
   <data name="Testimonial1Person" xml:space="preserve">
-    <value>שירה</value>
+    <value>ורד סלקמן</value>
   </data>
   <data name="Testimonial1Title" xml:space="preserve">
-    <value>המרכז האקדמי לב</value>
+    <value>האוניברסיטה הפתוחה </value>
   </data>
   <data name="Testimonial2" xml:space="preserve">
     <value>אוהבים את הכל!!! אין על האתר הזה, הכי עוזר שיש</value>
@@ -202,13 +203,13 @@
     <value>המכללה האקדמית אשקלון</value>
   </data>
   <data name="Testimonial3" xml:space="preserve">
-    <value> זו הפעם הראשונה שאני מעיין באתר וחייב לומר שזה מדהים! אני יכול לתאר את זה כאילו ראיתי אוצר!</value>
+    <value>אתר מדהים! ממשק פשוט ונוח מאגר חומרי לימוד יעיל ועדכני</value>
   </data>
   <data name="Testimonial3Person" xml:space="preserve">
-    <value>ציון רובין</value>
+    <value>טובי כהן</value>
   </data>
   <data name="Testimonial3Title" xml:space="preserve">
-    <value>מכללת רמת גן</value>
+    <value>האוניברסיטה הפתוחה</value>
   </data>
   <data name="Testimonial4" xml:space="preserve">
     <value>אתר מעולה תורם רבות בעיקר ללמוד לקראת מבחנים, מאוד מועיל תודה רבה :)</value>
@@ -221,7 +222,7 @@
     <value>האוניברסיטה הפתוחה</value>
   </data>
   <data name="A3" xml:space="preserve">
-    <value>מה זה ספיטבול?</value>
+    <value>שימוש בספיטבול</value>
   </data>
   <data name="infoSection1" xml:space="preserve">
     <value>מי עומד מאחורי ספיטבול</value>
@@ -239,11 +240,21 @@
     <value>סטודנטים</value>
   </data>
   <data name="A6" xml:space="preserve">
-    <value>עם ספיטבול אתם יכולים להתחבר עם חבריכם לכיתה, לשתף חומרי לימוד, לשאול, לענות
-ולהתדיין על נושאים אקדמאים רלוונטיים לנושאי הלימוד שלכם ולפתור מבחנים שאתם עצמכם יוצרים. 
+    <value>עם ספיטבול אתם יכולים להתחבר עם חבריכם לכיתה, לשתף חומרי לימוד, לשאול, 
+לענות ולהתדיין על נושאים אקדמאים רלוונטיים לנושאי הלימוד שלכם ולפתור מבחנים
+שאתם עצמכם יוצרים. 
 </value>
   </data>
   <data name="A7" xml:space="preserve">
     <value>הצטרף מהר יותר באמצעות</value>
+  </data>
+  <data name="A9" xml:space="preserve">
+    <value>מה זה ספיטבול?</value>
+  </data>
+  <data name="A10" xml:space="preserve">
+    <value>הכרת ספיטבול</value>
+  </data>
+  <data name="A11" xml:space="preserve">
+    <value>אפליקציה</value>
   </data>
 </root>

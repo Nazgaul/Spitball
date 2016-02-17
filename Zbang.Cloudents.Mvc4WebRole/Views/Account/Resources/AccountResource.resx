@@ -195,4 +195,7 @@
   <data name="ChangeThemeLight" xml:space="preserve">
     <value>Light theme</value>
   </data>
+  <data name="Department" xml:space="preserve">
+    <value>Department</value>
+  </data>
 </root>

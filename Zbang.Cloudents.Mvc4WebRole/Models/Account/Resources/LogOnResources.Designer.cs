@@ -161,7 +161,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login to your account.
+        ///   Looks up a localized string similar to Welcome back Spitballer.
         /// </summary>
         public static string LoginToAccount {
             get {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using SendGrid;
 
 namespace Zbang.Zbox.Infrastructure.Mail
@@ -20,8 +21,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.RequestDepartmentAccess");
             message.Subject = Subject;
-
-            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "requestAccess");
+            message.Html = message.Html.Replace("{USER_NAME}", departmentRequestAccessParams.UserName);
+            message.Html = message.Html.Replace("{USER_IMG}", departmentRequestAccessParams.UserImage);
+            message.Html = message.Html.Replace("{DEP_NAME}", departmentRequestAccessParams.DepName);
         }
     }
 }

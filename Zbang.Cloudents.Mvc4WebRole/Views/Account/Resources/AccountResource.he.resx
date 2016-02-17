@@ -195,4 +195,7 @@
   <data name="ChangeThemeLight" xml:space="preserve">
     <value>צבע רקע בהיר</value>
   </data>
+  <data name="Department" xml:space="preserve">
+    <value>מחלקה</value>
+  </data>
 </root>
