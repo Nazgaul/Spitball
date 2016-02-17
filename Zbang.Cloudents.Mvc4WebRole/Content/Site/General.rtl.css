@@ -436,6 +436,11 @@ md-tabs md-ink-bar {
   font-size: 16px;
   line-height: 16px;
 }
+.create-box .create-btn .title {
+  max-width: 250px;
+  display: inline-block;
+  line-height: 22px;
+}
 .create-box .create-txt,
 .create-box .create-department {
   display: -webkit-flex;

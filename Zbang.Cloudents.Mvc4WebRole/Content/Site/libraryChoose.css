@@ -65,6 +65,8 @@
   font-size: 30px;
   padding: 80px 0 20px 0;
   font-weight: bold;
+  max-width: 500px;
+  margin: 0 auto;
 }
 .library-choose .add-univeristy form {
   max-width: 450px;
