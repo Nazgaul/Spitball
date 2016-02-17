@@ -26,9 +26,9 @@
   </settings>
   <!--The order of the <file> elements determines the order of the images in the sprite.-->
   <files>
-    <file>/Images/HomePage2/testimonial4_he.jpg</file>
-    <file>/Images/HomePage2/testimonial3_he.jpg</file>
-    <file>/Images/HomePage2/testimonial2_he.jpg</file>
     <file>/Images/HomePage2/testimonial1_he.jpg</file>
+    <file>/Images/HomePage2/testimonial2_he.jpg</file>
+    <file>/Images/HomePage2/testimonial3_he.jpg</file>
+    <file>/Images/HomePage2/testimonial4_he.jpg</file>
   </files>
 </sprite>

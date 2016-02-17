@@ -2,31 +2,31 @@
   "images": [
     {
       "name": "/Images/HomePage2/testimonial1.jpg",
-      "width": 128,
-      "height": 128,
+      "width": 110,
+      "height": 110,
       "offsetX": 1,
       "offsetY": 1
     },
     {
       "name": "/Images/HomePage2/testimonial2.jpg",
-      "width": 128,
-      "height": 128,
+      "width": 110,
+      "height": 110,
       "offsetX": 1,
-      "offsetY": 130
+      "offsetY": 112
     },
     {
       "name": "/Images/HomePage2/testimonial3.jpg",
-      "width": 128,
-      "height": 128,
+      "width": 110,
+      "height": 110,
       "offsetX": 1,
-      "offsetY": 259
+      "offsetY": 223
     },
     {
       "name": "/Images/HomePage2/testimonial4.jpg",
-      "width": 128,
-      "height": 128,
+      "width": 110,
+      "height": 110,
       "offsetX": 1,
-      "offsetY": 388
+      "offsetY": 334
     }
   ]
 }

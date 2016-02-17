@@ -1,32 +1,32 @@
 {
   "images": [
     {
-      "name": "/Images/HomePage2/testimonial4_he.jpg",
-      "width": 128,
-      "height": 128,
+      "name": "/Images/HomePage2/testimonial1_he.jpg",
+      "width": 110,
+      "height": 110,
       "offsetX": 1,
       "offsetY": 1
     },
     {
-      "name": "/Images/HomePage2/testimonial3_he.jpg",
-      "width": 128,
-      "height": 128,
-      "offsetX": 1,
-      "offsetY": 130
-    },
-    {
       "name": "/Images/HomePage2/testimonial2_he.jpg",
-      "width": 128,
-      "height": 128,
+      "width": 110,
+      "height": 110,
       "offsetX": 1,
-      "offsetY": 259
+      "offsetY": 112
     },
     {
-      "name": "/Images/HomePage2/testimonial1_he.jpg",
-      "width": 128,
-      "height": 128,
+      "name": "/Images/HomePage2/testimonial3_he.jpg",
+      "width": 110,
+      "height": 110,
       "offsetX": 1,
-      "offsetY": 388
+      "offsetY": 223
+    },
+    {
+      "name": "/Images/HomePage2/testimonial4_he.jpg",
+      "width": 110,
+      "height": 110,
+      "offsetX": 1,
+      "offsetY": 334
     }
   ]
 }
