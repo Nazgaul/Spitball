@@ -1,0 +1,15 @@
+﻿/*
+@import this file directly into your existing Scss files to use these mixins
+*/
+@mixin sprite-Images-HomePage2-google() {
+/* You may have to set 'display: block' */
+	width: 160px;
+	height: 46px;
+	background: url('apps.png') -1px -1px;
+}
+@mixin sprite-Images-HomePage2-apple() {
+/* You may have to set 'display: block' */
+	width: 160px;
+	height: 46px;
+	background: url('apps.png') -1px -48px;
+}

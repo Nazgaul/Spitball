@@ -1,6 +1,12 @@
 ﻿/*
 @import this file directly into your existing Less files to use these mixins
 */
+/*
+@import this file directly into your existing Less files to use these mixins
+*/
+/*
+@import this file directly into your existing Less files to use these mixins
+*/
 .homePage {
   font-family: sans-serif;
 }
@@ -261,6 +267,11 @@
   bottom: 0;
   right: 0;
 }
+@media (max-width: 600px) {
+  .homePage .home-page-body {
+    bottom: -70vh;
+  }
+}
 .homePage .home-page-body > * {
   overflow: auto;
   padding: 50px 5%;
@@ -270,7 +281,7 @@
 }
 .homePage .home-page-body .hide-section {
   height: 0 !important;
-  padding: 0 !important;
+  1padding: 0 !important;
 }
 .homePage .home-page-body section {
   position: relative;
@@ -1091,7 +1102,7 @@
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
-  max-width: 1400px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 @media (max-width: 900px) {
@@ -1185,9 +1196,10 @@
   font-size: 18px;
   line-height: 32px;
   color: #6a737d;
+  direction: ltr;
 }
 .homePage .home-page-body section.reviews blockquote .comment > span {
-  font-size: 60px;
+  font-size: 36px;
   font-family: serif;
   font-style: initial;
   color: #323538;
@@ -1201,27 +1213,31 @@
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+1) .user-image {
   /* You may have to set 'display: block' */
-  width: 110px;
-  height: 110px;
-  background: url('../../Images/HomePage2/homePage.png') -1px -435px;
+  width: 128px;
+  height: 128px;
+  background: url('../../Images/HomePage2/testimonials_en.jpg') -1px -388px;
+  background-image: url('../../Images/HomePage2/testimonials_en.jpg') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+2) .user-image {
   /* You may have to set 'display: block' */
-  width: 110px;
-  height: 110px;
-  background: url('../../Images/HomePage2/homePage.png') -1px -48px;
+  width: 128px;
+  height: 128px;
+  background: url('../../Images/HomePage2/testimonials_en.jpg') -1px -1px;
+  background-image: url('../../Images/HomePage2/testimonials_en.jpg') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+3) .user-image {
   /* You may have to set 'display: block' */
-  width: 110px;
-  height: 110px;
-  background: url('../../Images/HomePage2/homePage.png') -1px -177px;
+  width: 128px;
+  height: 128px;
+  background: url('../../Images/HomePage2/testimonials_en.jpg') -1px -130px;
+  background-image: url('../../Images/HomePage2/testimonials_en.jpg') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+4) .user-image {
   /* You may have to set 'display: block' */
-  width: 110px;
-  height: 110px;
-  background: url('../../Images/HomePage2/homePage.png') -1px -306px;
+  width: 128px;
+  height: 128px;
+  background: url('../../Images/HomePage2/testimonials_en.jpg') -1px -259px;
+  background-image: url('../../Images/HomePage2/testimonials_en.jpg') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
 }
 .homePage .home-page-body footer {
   background: #424346;
@@ -1264,13 +1280,13 @@
   /* You may have to set 'display: block' */
   width: 160px;
   height: 46px;
-  background: url('../../Images/HomePage2/homePage.png') -1px -1px;
+  background: url('../../Images/HomePage2/apps.png') -1px -1px;
 }
 .homePage .home-page-body footer .content .app .app-links .appSotre {
   /* You may have to set 'display: block' */
   width: 160px;
   height: 46px;
-  background: url('../../Images/HomePage2/homePage.png') -1px -564px;
+  background: url('../../Images/HomePage2/apps.png') -1px -48px;
 }
 .homePage .home-page-body footer .content .info {
   width: 100%;

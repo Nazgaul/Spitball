@@ -1,5 +1,7 @@
 ﻿@import "../Site/variables.less";
-@import "../../Images/HomePage2/homePage.png.less";
+@import "../../Images/HomePage2/apps.png.less";
+@import "../../Images/HomePage2/testimonials_he.jpg.less";
+@import "../../Images/HomePage2/testimonials_en.jpg.less";
 
 .homePage {
     font-family: sans-serif;
@@ -289,6 +291,9 @@
         bottom: 0;
         right: 0;
 
+        @media(max-width: 600px) {
+            bottom: -70vh;
+        }
 
         > * {
             overflow: auto;
@@ -300,7 +305,7 @@
 
         .hide-section {
             height: 0 !important;
-            padding: 0 !important;
+            1 padding: 0 !important;
         }
 
         section {
@@ -1245,7 +1250,7 @@
                     -ms-flex-wrap: wrap;
                     -webkit-flex-wrap: wrap;
                     flex-wrap: wrap;
-                    max-width: 1400px;
+                    max-width: 1280px;
                     margin: 0 auto;
 
                     @media(max-width: 900px) {
@@ -1347,9 +1352,10 @@
                         font-size: 18px;
                         line-height: 32px;
                         color: @backgroundColorItem;
+                        direction: ltr;
 
                         > span {
-                            font-size: 60px;
+                            font-size: 36px;
                             font-family: serif;
                             font-style: initial;
                             color: @textColorDarkGrey;
@@ -1369,19 +1375,24 @@
 
                     &:nth-child(4n+1) .user-image {
                         .sprite-Images-HomePage2-testimonial4();
+                        background-image: url('../../Images/HomePage2/testimonials_en.jpg')/*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
                     }
 
                     &:nth-child(4n+2) .user-image {
                         .sprite-Images-HomePage2-testimonial1();
-                        // background-position: -1px -1px;
+                        background-image: url('../../Images/HomePage2/testimonials_en.jpg')/*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
                     }
 
                     &:nth-child(4n+3) .user-image {
                         .sprite-Images-HomePage2-testimonial2();
+                        
+                        background-image: url('../../Images/HomePage2/testimonials_en.jpg')/*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
                     }
 
                     &:nth-child(4n+4) .user-image {
                         .sprite-Images-HomePage2-testimonial3();
+                        
+                        background-image: url('../../Images/HomePage2/testimonials_en.jpg')/*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
                     }
                 }
             }

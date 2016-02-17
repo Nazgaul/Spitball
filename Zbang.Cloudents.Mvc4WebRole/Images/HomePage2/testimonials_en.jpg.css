@@ -1,0 +1,27 @@
+﻿/*
+This is an example of how to use the image sprite in your own CSS files
+*/
+.Images-HomePage2-testimonial1 {
+/* You may have to set 'display: block' */
+	width: 128px;
+	height: 128px;
+	background: url('testimonials_en.jpg') -1px -1px;
+}
+.Images-HomePage2-testimonial2 {
+/* You may have to set 'display: block' */
+	width: 128px;
+	height: 128px;
+	background: url('testimonials_en.jpg') -1px -130px;
+}
+.Images-HomePage2-testimonial3 {
+/* You may have to set 'display: block' */
+	width: 128px;
+	height: 128px;
+	background: url('testimonials_en.jpg') -1px -259px;
+}
+.Images-HomePage2-testimonial4 {
+/* You may have to set 'display: block' */
+	width: 128px;
+	height: 128px;
+	background: url('testimonials_en.jpg') -1px -388px;
+}
