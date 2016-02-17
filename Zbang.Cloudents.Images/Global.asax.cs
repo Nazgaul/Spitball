@@ -41,7 +41,7 @@ namespace Zbang.Cloudents.Images
                                 urlPath.IndexOf("?", StringComparison.Ordinal));
                         }
                         var encodedUrlPath = Server.UrlEncode(urlPath);
-                        if (encodedUrlPath != null && encodedUrlPath.Length > 1024)
+                        if (encodedUrlPath != null && encodedUrlPath.Length > 260)
                         {
                             args.VirtualPath = "preview";
                             return;

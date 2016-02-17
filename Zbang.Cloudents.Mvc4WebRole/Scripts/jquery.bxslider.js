@@ -972,6 +972,7 @@
 				start: {x: 0, y: 0},
 				end: {x: 0, y: 0}
 			}
+		    console.log(slider.viewport);
 			slider.viewport.bind('touchstart', onTouchStart);
 		}
 
