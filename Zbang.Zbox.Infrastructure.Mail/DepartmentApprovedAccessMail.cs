@@ -22,6 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.Subject = Subject;
 
             message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "approved Access");
+            message.Html = message.Html.Replace("{DEP_NAME}", departmentApprovedAccessParams.DepName);
         }
     }
 }

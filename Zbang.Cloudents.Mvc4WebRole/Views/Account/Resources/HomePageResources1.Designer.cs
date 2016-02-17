@@ -70,6 +70,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Meet spitball.
+        /// </summary>
+        public static string A10 {
+            get {
+                return ResourceManager.GetString("A10", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apps.
+        /// </summary>
+        public static string A11 {
+            get {
+                return ResourceManager.GetString("A11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jobs.
         /// </summary>
         public static string A2 {
@@ -79,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What is Spitball?.
+        ///   Looks up a localized string similar to Using Spitball.
         /// </summary>
         public static string A3 {
             get {
@@ -130,6 +148,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         public static string A8 {
             get {
                 return ResourceManager.GetString("A8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spitball features.
+        /// </summary>
+        public static string A9 {
+            get {
+                return ResourceManager.GetString("A9", resourceCulture);
             }
         }
         

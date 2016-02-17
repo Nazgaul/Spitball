@@ -52,6 +52,15 @@
                     <li id="product">
                         <a href="@Url.RouteUrl("Product")">@HomePageResources.A3</a>
                     </li>
+                    <li id="features">
+                        <a href="#about-section">@HomePageResources.A9</a>
+                    </li>
+                    <li id="meet">
+                        <a href="#check-us-section">@HomePageResources.A10</a>
+                    </li>
+                    <li id="apps">
+                        <a href="#app-section">@HomePageResources.A11</a>
+                    </li>
                     <li class="language">
                         <input type="checkbox" id="language-menu" />
                         <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
@@ -103,7 +112,22 @@
                                         <button type="submit" class="btn button-Blue btn-primary pull-right">
                                             @LogOnResources.LogIn
                                         </button>
-                                        <div class="loader">Loading...</div>
+                                        <div class="loader">
+                                            <li class="sk-fading-circle selected">
+                                                <div class="sk-circle1 sk-circle"></div>
+                                                <div class="sk-circle2 sk-circle"></div>
+                                                <div class="sk-circle3 sk-circle"></div>
+                                                <div class="sk-circle4 sk-circle"></div>
+                                                <div class="sk-circle5 sk-circle"></div>
+                                                <div class="sk-circle6 sk-circle"></div>
+                                                <div class="sk-circle7 sk-circle"></div>
+                                                <div class="sk-circle8 sk-circle"></div>
+                                                <div class="sk-circle9 sk-circle"></div>
+                                                <div class="sk-circle10 sk-circle"></div>
+                                                <div class="sk-circle11 sk-circle"></div>
+                                                <div class="sk-circle12 sk-circle"></div>
+                                            </li>
+                                        </div>
                                     </div>
                                     <div class="forget-password">
                                         <h4>@LogOnResources.ForgotYourPassword</h4>
@@ -276,6 +300,7 @@
             </section>
 
             <section class="about">
+                <div id="about-section" class="section-start"></div>
                 <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.D1</h1>
                 <div class="description os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
                     <p>@HomePageResources.D2</p>
@@ -310,6 +335,7 @@
 
             </section>
             <section class="check-us">
+                <div id="check-us-section" class="section-start"></div>
                 <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.C1</h1>
                 <div class="boxes">
                     @foreach (var box in Model.Boxes)
@@ -395,6 +421,7 @@
             <footer>
                 <div class="content">
                     <div class="app">
+                        <div id="app-section" class="section-start"></div>
                         <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.F1</h1>
                         <h2 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.F2</h2>
                         <div class="app-links">

@@ -208,6 +208,15 @@
     <value>עליך לשלוח בקשה על מנת לקבל גישה לתוכן זה</value>
   </data>
   <data name="privateDepPopupTitle" xml:space="preserve">
-    <value>מחלקה פרטית</value>
+    <value>עליך לקבל גישה על מנת לצפות בתוכן זה</value>
+  </data>
+  <data name="privateDepPopupContentOnSend" xml:space="preserve">
+    <value>אתה עתיד לקבל מייל אם וכאשר תאושר גישתך לתוכן המבוקש</value>
+  </data>
+  <data name="privateDepPopupRequestButton" xml:space="preserve">
+    <value>בקש גישה</value>
+  </data>
+  <data name="privateDepPopupTitleOnSend" xml:space="preserve">
+    <value>בקשתך לקבלת גישה נשלחה בצלחה</value>
   </data>
 </root>

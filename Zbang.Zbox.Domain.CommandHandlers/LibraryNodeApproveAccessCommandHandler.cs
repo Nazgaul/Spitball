@@ -44,7 +44,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             userToLibraryRel.UserType = Infrastructure.Enums.UserLibraryRelationType.Subscribe;
             m_UserLibraryRepository.Save(userToLibraryRel, true);
             m_LibraryRepository.UpdateElementToIsDirty(message.DepartmentId);
-            await m_QueueProvider.InsertMessageToMailNewAsync(new AccessApprovedData(userToLibraryRel.User.Email, userToLibraryRel.User.Culture));
+            var library = m_LibraryRepository.Load(message.DepartmentId);
+            await m_QueueProvider.InsertMessageToMailNewAsync(new AccessApprovedData(userToLibraryRel.User.Email, userToLibraryRel.User.Culture, library.Name));
 
         }
     }

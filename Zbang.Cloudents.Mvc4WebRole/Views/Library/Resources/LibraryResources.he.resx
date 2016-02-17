@@ -166,7 +166,7 @@
     <value>מצא את מוסד הלימודים שלך והצטרף לשאר חבריך ללימודים</value>
   </data>
   <data name="EmptyStateTopNodeText" xml:space="preserve">
-    <value>זה הזמן להיות הראשון ולהקים את את x בספיטבול. כל מוסד אקדמי חדש שנוצר הופך את ספיטבול לטוב יותר עבור כולנו</value>
+    <value>השלם את פרטי הקורס כדי שכולם יוכלו להנות מספיטבול</value>
   </data>
   <data name="EmptyStateTopNodeTitle" xml:space="preserve">
     <value>ואוו.. אני מרגיש קצת חשוף</value>

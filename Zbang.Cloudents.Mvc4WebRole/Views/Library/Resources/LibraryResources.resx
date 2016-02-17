@@ -143,7 +143,7 @@
     <value>Add a class</value>
   </data>
   <data name="EnterClassName" xml:space="preserve">
-    <value>Enter the class details and make Spitball more useful </value>
+    <value>Enter Class Name </value>
   </data>
   <data name="EnterCode" xml:space="preserve">
     <value>Course Number (optional)</value>
@@ -185,8 +185,7 @@ Make Spitball better by adding it</value>
     
   </data>
   <data name="EmptyStateTopNodeText" xml:space="preserve">
-    <value>Be a pioneer and create X's profile
-Every new school makes Spitball more useful to everyone!</value>
+    <value>Enter the class details and make Spitball more useful </value>
     
   </data>
   <data name="EmptyStateTopNodeTitle" xml:space="preserve">

@@ -229,26 +229,21 @@
   </data>
   <data name="statsStudents" xml:space="preserve">
     <value>Students</value>
-    
   </data>
   <data name="statsDocuments" xml:space="preserve">
     <value>Documents</value>
-    
   </data>
   <data name="statsQuizzes" xml:space="preserve">
     <value>Quizzes</value>
-    
   </data>
   <data name="infoSection1" xml:space="preserve">
     <value>Company</value>
-    
   </data>
   <data name="infoSection2" xml:space="preserve">
     <value>Support</value>
-    
   </data>
   <data name="A3" xml:space="preserve">
-    <value>What is Spitball?</value>
+    <value>Using Spitball</value>
     <comment>NewShlomi</comment>
   </data>
   <data name="A6" xml:space="preserve">
@@ -258,5 +253,14 @@ classmates, swap notes and exchange ideas, for FREE.</value>
   <data name="A7" xml:space="preserve">
     <value>Spitball even faster through</value>
     <comment>NewShlomi</comment>
+  </data>
+  <data name="A10" xml:space="preserve">
+    <value>Meet spitball</value>
+  </data>
+  <data name="A11" xml:space="preserve">
+    <value>Apps</value>
+  </data>
+  <data name="A9" xml:space="preserve">
+    <value>Spitball features</value>
   </data>
 </root>

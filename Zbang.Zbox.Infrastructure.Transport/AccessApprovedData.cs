@@ -2,17 +2,21 @@
 
 namespace Zbang.Zbox.Infrastructure.Transport
 {
-     [ProtoContract]
+    [ProtoContract]
     public class AccessApprovedData : BaseMailData
     {
-         protected AccessApprovedData()
-        {
-
-        }
-         public AccessApprovedData(string emailAddress, string culture)
+        public AccessApprovedData(string emailAddress, string culture, string depName)
             : base(emailAddress, culture)
         {
+            DepName = depName;
         }
+
+        protected AccessApprovedData()
+        {
+        }
+        [ProtoMember(1)]
+        public string DepName { get; private set; }
+
         public override string MailResover
         {
             get { return AccessApprovedResolver; }

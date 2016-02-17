@@ -25,10 +25,10 @@ namespace Zbang.Zbox.WorkerRole.Mail
             {
                 throw new NullReferenceException("parameters");
             }
-
+            string depName = parameters.DepName;
 
             await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
-                 new DepartmentRequestAccessMailParams(new CultureInfo(parameters.Culture)));
+                 new DepartmentApprovedMailParams(new CultureInfo(parameters.Culture), depName));
 
             return true;
         }

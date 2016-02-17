@@ -160,7 +160,7 @@
     <value>Log in</value>
   </data>
   <data name="LoginToAccount" xml:space="preserve">
-    <value>Login to your account</value>
+    <value>Welcome back Spitballer</value>
   </data>
   <data name="NoWorries" xml:space="preserve">
     <value>No worries, click</value>
@@ -183,5 +183,5 @@
   <data name="CreateAccountFormHeader" xml:space="preserve">
     <value>Let’s connect you with
 your study buddies</value>
-  </data>
+  <comment>NewShlomi</comment></data>
 </root>
