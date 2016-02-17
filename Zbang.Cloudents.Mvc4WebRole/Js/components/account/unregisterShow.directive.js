@@ -50,7 +50,7 @@
                 function $handle() {
                     var scrollPos = $container.scrollTop();
                     //var unregContainer = $(".unreg-user .content-wrapper");
-                    if (scrollPos > 0) {
+                    if (scrollPos > 500) {
                         $rootScope.$broadcast('show-unregisterd-box');
                         if (scrollPos > windowHeight * 0.5) {
                             $rootScope.$broadcast('show-unregisterd-box-medium');
