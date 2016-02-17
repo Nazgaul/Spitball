@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public Task HandleAsync(AddNewUpdatesCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-            var box = m_BoxRepository.Load(message.BoxId);
+            var box = m_BoxRepository.Get(message.BoxId); //need to know the type
             var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId).Select(s => s.UserId).ToList();
             if (usersToUpdate.Count == 0)
             {
@@ -86,7 +86,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var item = m_ItemRepository.Load(itemId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, item));
-
+            if (box is AcademicBoxClosed)
+            {
+                return Task.FromResult<object>(null);
+            }
            return m_SendPush.SendAddItemNotification(item.Uploader.Name, box.Name, box.Id, userIds);
                         
           
@@ -102,6 +105,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
              var reply =  m_ReplyRepository.Load(replyId.Value);
              DoUpdateLoop(userIds, u => new Updates(u, box, reply));
+             if (box is AcademicBoxClosed)
+             {
+                 return Task.FromResult<object>(null);
+             }
              return m_SendPush.SendAddReplyNotification(reply.User.Name, reply.Text, box.Name, box.Id, reply.Question.Id, userIds);
         }
 
@@ -117,6 +124,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 Task.FromResult<object>(null);
             }
+            if (box is AcademicBoxClosed)
+            {
+                return Task.FromResult<object>(null);
+            }
             try
             {
                 var removeHtmlRegex = new Regex("<[^>]*>", RegexOptions.Compiled);
@@ -125,6 +136,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 {
                     Task.FromResult<object>(null);
                 }
+
                 return m_SendPush.SendAddPostNotification(comment.User.Name, textToPush, box.Name, box.Id, userIds);
             }
             catch (ArgumentNullException ex)
