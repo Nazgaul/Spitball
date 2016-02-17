@@ -187,7 +187,7 @@ select questionid,LastReplyId from zbox.question
     i.UserId as OwnerId,
     i.QuestionId as QuestionId,
     i.url as Url,
-    'Quiz' as Type
+    'quiz' as Type
     from zbox.Quiz i
     where i.IsDeleted = 0
 	and i.Publish = 1

@@ -131,8 +131,8 @@
         }
         function toggleSettings() {
             l.settings = {
-                name: l.nodeDetail.name,
-                privacy: l.nodeDetail.state
+                name: l.nodeDetail.name
+               // privacy: l.nodeDetail.state
             };
             l.settingsOpen = true;
         }
