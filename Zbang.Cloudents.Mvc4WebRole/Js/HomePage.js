@@ -97,9 +97,10 @@
         toggleForm('register-form');
         $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
     });
-    $('#signin').click(function () {
+    $('.signin-btn').click(function () {
         toggleForm('login-form');
         $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
+        $(this).addClass('hidden');
     });
 
     $('.close-form').click(function () {
@@ -109,7 +110,7 @@
             });
         $('.login-wrapper, #main-wrapper .welcome-text').slideDown(animatonSpeed).removeClass('hidden');
         $('.login-wrapper').slideUp(animatonSpeed);
-        $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options, header ul, .navbar-toggle').removeClass('hidden');
+        $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options, header ul, .navbar-toggle, .signin-btn').removeClass('hidden');
         $('#main-wrapper').css('min-height', 0).height('auto');
         window.history.replaceState(null, "Home", "/");
 
