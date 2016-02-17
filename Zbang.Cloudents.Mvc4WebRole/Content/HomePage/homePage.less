@@ -68,10 +68,35 @@
                     margin: 16px 24px;
 
 
-                    @media (max-width: 780px) {
+                    @media (max-width: 900px) {
                         display: inline-block;
                     }
                 }
+
+                .logo-small {
+                    display: none;
+                }
+
+                @media (max-width: 600px) {
+                    .logo-wrapper {
+                        height: 70px;
+                        display: flex;
+                        align-items: center;
+
+                        .logo {
+                            display: none;
+                        }
+
+                        .logo-small {
+                            display: block;
+                            height: 30px;
+                            width: 60px;
+                            fill: #fff;
+                            margin: 0 24px;
+                        }
+                    }
+                }
+
 
                 .navbar-toggle {
                     display: none;
@@ -86,7 +111,7 @@
                         padding: 10px;
                     }
                 }
-            }2
+            }
 
 
             label {
@@ -127,7 +152,7 @@
                 top: 22px;
                 right: 15px;
 
-                @media(max-width: 780px) {
+                @media(max-width: 900px) {
                     right: 50px;
                 }
 
@@ -148,12 +173,12 @@
             ul {
                 list-style: none;
 
-                @media(min-width: 780px) {
+                @media(min-width: 900px) {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    width: 600px;
-                    padding: 0 140px 0 50px;
+                    width: 500px;
+                    padding: 0 120px 0 50px;
                 }
 
 
@@ -187,8 +212,8 @@
                             position: absolute;
                             width: 220px;
                             padding: 0;
-                            top: 70px;
-                            margin: 0 0 0 -10px;
+                            top: 55px;
+                            margin: 0 0 10px -10px;
                             background: rgba(255, 255, 255, 0.8);
                             font-size: 14px;
                             margin-right: 100%;
@@ -240,7 +265,7 @@
                 cursor: auto;
             }
 
-            @media(max-width: 780px) {
+            @media(max-width: 900px) {
                 .navbar-header {
                     .displayFlex;
                     justify-content: space-between;
@@ -487,6 +512,11 @@
                             text-align: center;
                             line-height: 25px;
                             margin-bottom: 200px;
+
+
+                            @media(max-width: 600px) {
+                                margin-bottom: 100px;
+                            }
                         }
 
 

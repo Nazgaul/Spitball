@@ -42,6 +42,7 @@
                 <div class="navbar-header">
                     <a class="logo-wrapper" href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']">
                         <div class="logo"></div>
+                        @Html.Svg("~/images/site/icons.svg", "smallLogo", new { @class = "logo-small"})
                     </a>
                     <div class="navbar-toggle collapsed">
                         <label for="menu-toggle">@Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "headerMenu" })</label>

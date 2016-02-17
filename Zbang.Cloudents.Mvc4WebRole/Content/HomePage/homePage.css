@@ -51,9 +51,29 @@
   background-size: 248px;
   margin: 16px 24px;
 }
-@media (max-width: 780px) {
+@media (max-width: 900px) {
   .homePage .page-content nav .navbar-header .logo {
     display: inline-block;
+  }
+}
+.homePage .page-content nav .navbar-header .logo-small {
+  display: none;
+}
+@media (max-width: 600px) {
+  .homePage .page-content nav .navbar-header .logo-wrapper {
+    height: 70px;
+    display: flex;
+    align-items: center;
+  }
+  .homePage .page-content nav .navbar-header .logo-wrapper .logo {
+    display: none;
+  }
+  .homePage .page-content nav .navbar-header .logo-wrapper .logo-small {
+    display: block;
+    height: 30px;
+    width: 60px;
+    fill: #fff;
+    margin: 0 24px;
   }
 }
 .homePage .page-content nav .navbar-header .navbar-toggle {
@@ -68,7 +88,7 @@
   height: 20px;
   padding: 10px;
 }
-.homePage .page-content nav 2 label {
+.homePage .page-content nav label {
   cursor: pointer;
   display: inline-block;
   height: 40px;
@@ -105,7 +125,7 @@
   top: 22px;
   right: 15px;
 }
-@media (max-width: 780px) {
+@media (max-width: 900px) {
   .homePage .page-content nav .signin-btn {
     right: 50px;
   }
@@ -122,13 +142,13 @@
 .homePage .page-content nav ul {
   list-style: none;
 }
-@media (min-width: 780px) {
+@media (min-width: 900px) {
   .homePage .page-content nav ul {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 600px;
-    padding: 0 140px 0 50px;
+    width: 500px;
+    padding: 0 120px 0 50px;
   }
 }
 .homePage .page-content nav ul li {
@@ -157,8 +177,8 @@
   position: absolute;
   width: 220px;
   padding: 0;
-  top: 70px;
-  margin: 0 0 0 -10px;
+  top: 55px;
+  margin: 0 0 10px -10px;
   background: rgba(255, 255, 255, 0.8);
   font-size: 14px;
   margin-right: 100%;
@@ -195,7 +215,7 @@
   right: 0;
   cursor: auto;
 }
-@media (max-width: 780px) {
+@media (max-width: 900px) {
   .homePage .page-content nav .navbar-header {
     display: -webkit-flex;
     display: -ms-flex;
@@ -440,6 +460,11 @@
   text-align: center;
   line-height: 25px;
   margin-bottom: 200px;
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .signin-options .login-option.signup {
+    margin-bottom: 100px;
+  }
 }
 .homePage .home-page-body section.main .signin-options .login-option svg {
   width: 30px;
