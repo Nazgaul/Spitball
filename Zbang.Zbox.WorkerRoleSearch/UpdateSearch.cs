@@ -179,7 +179,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             if (processor.ContentProcessor == null) return;
             var previewContainer = m_BlobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
             var previewBlobName = WebUtility.UrlEncode(msgData.BlobName + ".jpg");
-            if (previewBlobName != null && previewBlobName.Length > 1024) //blob name cannot exceed 1024
+            if (previewBlobName != null && previewBlobName.Length > 260) //The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters.
             {
                 return;
             }

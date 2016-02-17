@@ -17,6 +17,7 @@
             if (!response) {
                 ad.show = false;
             }
+            console.log(response);
             ad.content = response;
         });
     }

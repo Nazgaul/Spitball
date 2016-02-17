@@ -423,9 +423,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetForgotPasswordByEmailAsync(query, token);
         }
 
-        public Task<HomePageDataDto> GetHomePageDataAsync()
+        public Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query)
         {
-            return m_ReadService.GetHomePageDataAsync();
+            return m_ReadService.GetHomePageDataAsync(query);
         }
 
 

@@ -20,8 +20,9 @@
         $timeout(function () {
             $scope.$broadcast('itemData', itemData);
         }, 1);
-        i.details.downloadUrl = $location.url() + 'download/';
-        i.details.printUrl = $location.url() + 'print/';
+
+        i.details.downloadUrl = $location.path() + 'download/';
+        i.details.printUrl = $location.path() + 'print/';
         i.details.boxUrl = i.details.boxUrl + 'items/';
         getPreview();
 

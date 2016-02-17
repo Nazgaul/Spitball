@@ -187,7 +187,7 @@ select questionid,LastReplyId from zbox.question
     i.UserId as OwnerId,
     i.QuestionId as QuestionId,
     i.url as Url,
-    'Quiz' as Type
+    'quiz' as Type
     from zbox.Quiz i
     where i.IsDeleted = 0
 	and i.Publish = 1
@@ -237,6 +237,7 @@ from zbox.userboxrel ub join zbox.box b on ub.boxid = b.boxid and b.isdeleted = 
 where userid in (
 select userid from zbox.userboxrel where boxid = @BoxId)
 and b.boxid <> @BoxId
+and b.discriminator = 2
 and b.university = (select university from zbox.box where boxid = @BoxId)
 and @UserId not in (select ub2.userid from zbox.UserBoxRel ub2 where ub2.BoxId = b.BoxId)
 group by b.boxid, b.BoxName ,b.CourseCode,b.ProfessorName ,

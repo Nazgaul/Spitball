@@ -16,7 +16,12 @@ namespace Zbang.Zbox.Domain
 
        public override void CalculateMembers()
        {
+           var count = MembersCount;
            base.CalculateMembers();
+           if (count == MembersCount)
+           {
+               return;
+           }
            foreach (var item in Items)
            {
                item.IsDirty = true;

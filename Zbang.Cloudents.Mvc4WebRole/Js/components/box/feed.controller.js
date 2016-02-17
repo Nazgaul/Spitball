@@ -136,7 +136,7 @@
                     if (item.done) {
                         continue;
                     }
-                    if (item.type) {
+                    if (item.type !== 'quiz') {
                         var retVal = itemThumbnailService.assignValue(item.source, 100, 141);
                         item.thumbnail = retVal.thumbnail;
                         item.nameExtension = item.name.replace(/\.[^/.]+$/, "");
@@ -160,10 +160,11 @@
         }
 
         function postItemTemplate(elmenet) {
-            if (elmenet.type) {
-                return 'item-template.html';
+            if (elmenet.type == 'quiz') {
+                return 'quiz-template.html';
             }
-            return 'quiz-template.html';
+            return 'item-template.html';
+            
         }
         function attachNew(update) {
             if (update.itemId) {

@@ -26,8 +26,9 @@
       <Setting name="StorageCdnEndpoint" />
       <Setting name="AzureSeachServiceName" />
       <Setting name="AzureSearchKey" />
-      <Setting name="MobileWebSite" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+      <Setting name="HomePageBoxIds" />
+      <Setting name="HomePageBoxIdshe" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Spitball" storeLocation="LocalMachine" storeName="My" />

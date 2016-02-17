@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Dapper;
+﻿using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +8,6 @@ using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Query;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.Library;
@@ -31,7 +29,7 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadService : BaseReadService, IZboxReadService, IUniversityWithCode
     {
-        public async Task<HomePageDataDto> GetHomePageDataAsync()
+        public async Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -43,14 +41,14 @@ namespace Zbang.Zbox.ReadServices
                                 b.ProfessorName,
 								b.Url as Url
                                 from Zbox.box b 
-                                where b.BoxId in (125092, 125567, 113537);";
+                                where b.BoxId in @BoxIds;";
                 const string sql = @"with 
 usersCount(users) as (SELECT count(*) as users from [Zbox].[Users]),
 itemsCount(items) as (SELECT count(*) as items from [Zbox].[Item] where IsDeleted = 0),
 quizzesCount(quizzes) as (SELECT count(*) as quizzes from [Zbox].[Quiz] where IsDeleted = 0 and Publish = 1)
-select users as StudentsCount, items as DocumentCount, quizzes as QuizzesCount from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesCount as QuizzesCount;";
+select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as DocumentCount, ROUND (quizzes * 1.22,0) as QuizzesCount from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesCount as QuizzesCount;";
 
-                using (var grid = await conn.QueryMultipleAsync(sql + boxesSql))
+                using (var grid = await conn.QueryMultipleAsync(sql + boxesSql, new { query.BoxIds }))
                 {
                     var retVal = grid.Read<HomePageDataDto>().First();
                     retVal.Boxes = await grid.ReadAsync<Box.RecommendBoxDto>();

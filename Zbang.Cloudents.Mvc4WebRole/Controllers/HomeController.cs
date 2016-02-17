@@ -55,13 +55,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             // m_ThemeCookieHelper = themeCookieHelper;
         }
 
-        //[DonutOutputCache(VaryByParam = "lang;invId",
-        //   VaryByCustom = CustomCacheKeys.Lang + ";" + CustomCacheKeys.Auth,
-        //   Duration = TimeConsts.Day,
-        //   Location = OutputCacheLocation.Server)]
-        //[Route("account/signin/")]
-        //[Route("account/resetpassword/")]
-        //[Route("account/signup")]
+        [DonutOutputCache(CacheProfile = "HomePage")]
         public async Task<ActionResult> Index(string lang, string invId)
         {
             if (User.Identity.IsAuthenticated)
@@ -82,8 +76,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
                 }
             }
+            var prefix = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+            var boxIdsStr = ConfigFetcher.Fetch("HomePageBoxIds" + prefix);
+            if (string.IsNullOrEmpty(boxIdsStr))
+            {
+                boxIdsStr = ConfigFetcher.Fetch("HomePageBoxIds");
 
-            var homeStats = await ZboxReadService.GetHomePageDataAsync();
+            }
+            var arr = boxIdsStr.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            var boxIds = Array.ConvertAll(arr, s =>
+            {
+                long l;
+                long.TryParse(s, out l);
+                return l;
+            });
+            var query = new GetHomePageQuery(boxIds);
+            var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
 
             //ViewBag.title = Views.Account.Resources.HomeResources.Title;
             //ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
@@ -269,7 +277,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-       
+
 
         [ChildActionOnly]
         public ActionResult AntiForgeryToken()
