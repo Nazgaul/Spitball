@@ -147,7 +147,8 @@
                     item.done = true;
                 }
                 for (var k = 0; self.data[i].replies && k < self.data[i].replies.length; k++) {
-                    self.data[i].replies[k].files = itemThumbnailService.assignValues(self.data[i].replies[k].files, 100, 141);
+                    angular.forEach(self.data[i].replies[k].files, buildItem);
+                    //self.data[i].replies[k].files = itemThumbnailService.assignValues(self.data[i].replies[k].files, 100, 141);
                 }
             }
             userUpdatesService.boxUpdates(boxId, function (updates) {
@@ -157,6 +158,11 @@
 
                 }
             });
+            function buildItem(elem) {
+                var retVal2 = itemThumbnailService.assignValue(elem.source, 100, 141);
+                elem.thumbnail = retVal2.thumbnail;
+                elem.nameExtension = elem.name.replace(/\.[^/.]+$/, "");
+            }
         }
 
         function postItemTemplate(elmenet) {
