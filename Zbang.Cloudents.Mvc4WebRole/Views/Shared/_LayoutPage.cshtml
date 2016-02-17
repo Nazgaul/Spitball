@@ -5,7 +5,7 @@
     const string svgUrl = "~/images/site/icons.svg";
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 
-    var logoLink = User.Identity.IsAuthenticated ? Url.Action("Index", "dashboard") : Url.RouteUrl("homePage");
+    var logoLink =  Url.Action("Index", "dashboard"); //: Url.RouteUrl("homePage");
 }
 <!DOCTYPE html>
 <!--[if IE]>

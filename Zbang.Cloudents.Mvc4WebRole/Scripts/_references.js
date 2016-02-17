@@ -120,7 +120,6 @@
 /// <reference path="draganddrop.min.js" />
 /// <reference path="jquery.bxslider.js" />
 /// <reference path="jquery.validate.js" />
-/// <reference path="jquery-2.1.4.min.js" />
 /// <reference path="jquery-2.2.0.min.js" />
 /// <reference path="Modernizr.js" />
 /// <reference path="plupload2/angular-plupload.js" />
