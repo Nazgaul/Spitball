@@ -39,41 +39,42 @@
     <div class="page-content">
         <header>
             <nav>
+                <input type="checkbox" id="menu-toggle" />
                 <div class="navbar-header">
                     <div class="navbar-toggle collapsed">
                         <label for="menu-toggle">@Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "headerMenu" })</label>
+                        <label for="menu-toggle" class="menu-close"></label>
                     </div>
                     <a class="logo-wrapper" href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']">
                         <div class="logo"></div>
-                        @Html.Svg("~/images/site/icons.svg", "smallLogo", new { @class = "logo-small"})
+                        @Html.Svg("~/images/site/icons.svg", "smallLogo", new { @class = "logo-small" })
                     </a>
                 </div>
-                    <input type="checkbox" id="menu-toggle" />
-                    <ul>
-                        <li id="product">
-                            <a href="@Url.RouteUrl("Product")">@HomePageResources.A3</a>
-                        </li>
-                        <li id="features">
-                            <a href="#about-section">@HomePageResources.A9</a>
-                        </li>
-                        <li id="meet">
-                            <a href="#check-us-section">@HomePageResources.A10</a>
-                        </li>
-                        <li id="apps">
-                            <a href="#app-section">@HomePageResources.A11</a>
-                        </li>
-                        <li class="language">
-                            <input type="checkbox" id="language-menu" />
-                            <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
-                            <label class="language-close" for="language-menu"></label>
-                            <ul class="dropdown-menu dropdown-menu-left ">
-                                <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-us" })">@Languages.EnglishUsName</a> </li>
-                                <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "he-il" })">@Languages.HebrewName</a> </li>
-                            </ul>
-                        </li>
-                    </ul>
+                <ul>
+                    <li id="product">
+                        <a href="@Url.RouteUrl("Product")">@HomePageResources.A3</a>
+                    </li>
+                    <li id="features">
+                        <a href="#about-section">@HomePageResources.A9</a>
+                    </li>
+                    <li id="meet">
+                        <a href="#check-us-section">@HomePageResources.A10</a>
+                    </li>
+                    <li id="apps">
+                        <a href="#app-section">@HomePageResources.A11</a>
+                    </li>
+                    <li class="language">
+                        <input type="checkbox" id="language-menu" />
+                        <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
+                        <label class="language-close" for="language-menu"></label>
+                        <ul class="dropdown-menu dropdown-menu-left ">
+                            <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-us" })">@Languages.EnglishUsName</a> </li>
+                            <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "he-il" })">@Languages.HebrewName</a> </li>
+                        </ul>
+                    </li>
+                </ul>
 
-                    <span class="signin-btn">@HomePageResources.A1</span>
+                <span class="signin-btn">@HomePageResources.A1</span>
             </nav>
         </header>
         <div class="home-page-body">
@@ -259,7 +260,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="signin-options">
+                    <div class="signin-options-section">
                         <div class="social-signin">
                             <button type="button" class="login-option facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                 <div>

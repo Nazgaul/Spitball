@@ -252,8 +252,10 @@
 
                 ~ .language-close {
                     display: none;
+                    height: 0;
                 }
             }
+
 
             #language-menu:checked ~ .language-close {
                 position: fixed;
@@ -262,7 +264,13 @@
                 left: 0;
                 right: 0;
                 cursor: auto;
+                height: 100vh;
+
+                @media(max-width: 900px) {
+                    display: none;
+                }
             }
+
 
             @media(max-width: 900px) {
                 .navbar-header {
@@ -301,9 +309,27 @@
                     }
                 }
 
-                #menu-toggle:not(:checked) ~ ul {
-                    overflow: hidden;
-                    .transform(0, top);
+
+
+                #menu-toggle:not(:checked) {
+                    ~ ul {
+                        overflow: hidden;
+                        .transform(0, top);
+                    }
+
+                    ~ .navbar-header .menu-close {
+                        display: none;
+                    }
+                }
+
+                #menu-toggle:checked ~ .navbar-header .menu-close {
+                    position: fixed;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    cursor: auto;
+                    height: 100vh;
                 }
 
 
@@ -375,53 +401,6 @@
                         padding: 0;
                         height: 0;
                     }*/
-                    > .signin-options {
-                        button::before {
-                            display: none;
-                        }
-
-                        .social-signin {
-                            display: flex;
-                            justify-content: space-between;
-                            width: 100%;
-                            -ms-flex-wrap: wrap;
-                            -webkit-flex-wrap: wrap;
-                            flex-wrap: wrap;
-
-                            .login-option {
-                                &.facebook, &.google {
-                                    width: 200px;
-                                    color: @textColorWhite;
-                                    text-decoration: none;
-                                    margin-bottom: 20px;
-                                    font-size: 18px;
-                                    line-height: 25px;
-                                    cursor: pointer;
-                                    border-radius: 16px;
-                                    padding: 8px;
-
-                                    @media(max-width: 460px) {
-                                        width: 100%;
-                                    }
-
-                                    svg {
-                                        width: 25px;
-                                        height: 25px;
-                                        margin-left: 10px;
-                                        fill: @textColorWhite;
-                                    }
-                                }
-
-                                &.google {
-                                    background: #dd4b39;
-                                }
-
-                                &.facebook {
-                                    background: #3a5795;
-                                }
-                            }
-                        }
-                    }
                 }
 
                 .welcome-text {
