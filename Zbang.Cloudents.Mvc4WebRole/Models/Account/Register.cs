@@ -15,7 +15,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         public string LastName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
-        [ValidateEmail(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail")]
+        [EmailAddress(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail")]
         public string NewEmail { get; set; }
 
 

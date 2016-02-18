@@ -12,8 +12,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
             RememberMe = true;
         }
 
-        //[DataType(DataType.EmailAddress,ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail")]
-        [ValidateEmail(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail")]
+        [EmailAddress(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail")]
         [Required(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "EmailRequired")]
         public string Email { get; set; }
 
