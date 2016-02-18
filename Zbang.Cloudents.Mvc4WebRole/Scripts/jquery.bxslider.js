@@ -319,8 +319,9 @@
 			if (slider.settings.pager) updatePagerActive(slider.settings.startSlide);
 			// check for any updates to the controls (like hideControlOnEnd updates)
 			if (slider.settings.controls) updateDirectionControls();
-			// if touchEnabled is true, setup the touch events
-			if (slider.settings.touchEnabled && !slider.settings.ticker) initTouch();
+		    // if touchEnabled is true, setup the touch events
+            //Ram : add need more then one child
+			if (slider.settings.touchEnabled && !slider.settings.ticker && slider.children.length > 1) initTouch();
 		}
 
 		/**

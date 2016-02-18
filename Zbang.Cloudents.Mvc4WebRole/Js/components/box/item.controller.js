@@ -213,7 +213,7 @@
                 if (response.boxId != $stateParams.boxId) { // string an int comarison
                     return;
                 }
-                if (response.tabId != i.tabSelected.id) {
+                if (response.item.tabId != i.tabSelected.id) {
                     return; //not the same tab
                 }
                 followBox();

@@ -354,7 +354,7 @@ userName: "ram y"*/
         function externalUploadComplete(response2) {
             if (angular.isArray(response2)) {
                 for (var j = 0; j < response2.length; j++) {
-                    pushItem(response2[j]);
+                    pushItem2(response2[j]);
                 }
                 return;
             }

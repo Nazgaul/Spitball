@@ -49,8 +49,9 @@
         self.toggleMenu = toggleMenu;
         function logOut() {
             cacheFactory.clearAll();
+            Intercom('shutdown');
         }
-        function setTheme() { 
+        function setTheme() {
             self.theme = 'theme-' + userDetails.get().theme;
         }
         function toggleMenu() {
@@ -75,6 +76,7 @@
 
         // var originatorEv;
         function openMenu($mdOpenMenu, ev) {
+            self.menuOpened = true;
             //originatorEv = ev;
             if (!userDetails.isAuthenticated()) {
                 $rootScope.$broadcast('show-unregisterd-box');
@@ -83,11 +85,15 @@
             $mdOpenMenu(ev);
         };
 
+
         function resetForm(myform) {
             myform.$setPristine();
             myform.$setUntouched();
         }
 
+        $rootScope.$on('$mdMenuClose', function() {
+            self.menuOpened = false;
+        });
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             self.showMenu = true; // if user comes from university choose need to remove this.
         });
@@ -130,7 +136,7 @@
                 $rootScope.$broadcast('state-change-start-prevent');
                 event.preventDefault();
             }
-          
+
 
         });
 

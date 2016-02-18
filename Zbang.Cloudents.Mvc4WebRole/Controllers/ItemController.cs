@@ -153,9 +153,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 await Task.WhenAll(tItem, tTransAction);
                 var retVal = tItem.Result;
-                //retVal.UserType = ViewBag.UserType;
-                //retVal.Name = Path.GetFileNameWithoutExtension(retVal.Name);
-                // retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(itemId).ToString());
                 return JsonOk(new
                 {
                     retVal.Blob,
@@ -164,18 +161,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     retVal.Name,
                     retVal.Navigation.Next,
                     retVal.Navigation.Previous,
-                    //retVal.NumberOfDownloads,
-                    //retVal.NumberOfViews,
                     retVal.Owner,
                     retVal.OwnerUrl,
-
-                    //retVal.OwnerId,
-                    //retVal.PrintUrl,
+                    retVal.Type,
                     retVal.Like,
                     retVal.Likes,
-                    //retVal.ShortUrl,
                     UpdateTime = retVal.Date,
-                    //retVal.UserType
                 });
             }
             catch (BoxAccessDeniedException)
