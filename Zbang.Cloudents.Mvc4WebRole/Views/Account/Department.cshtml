@@ -4,17 +4,20 @@
                          heading="{{::dep.name}}">
         <div class="requests-wrapper" ng-slimscroll watch-content="true" height="auto" ng-controller="accountSettingsDepController">
             <ul class="requests list-unstyled" layout-wrap layout="row" layout-align="space-between center">
-                <li ng-repeat="user in ::dep.users track by user.id" flex="100" flex-gt-xs="45" layout="row" layout-align="space-between center">
+                <li ng-repeat="user in ::dep.users track by user.id" >
+                    <div layout="row" layout-align="space-between center">
+                        @*<user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="125" height="125"></user-image>*@
 
-                    @*<user-image ng-if="u.details" class="img-responsive" name="u.details.name" image="u.details.image" width="125" height="125"></user-image>*@
-
-                    <a class="user-details" href="{{::user.url}}" layout="row" layout-align="start center">
-                        <user-image class="img-circle" name="::user.name" image="::user.image" width="40" height="40"></user-image>
-                        <div class="user-name">{{::user.name}}</div>
-                    </a>
-                    <md-button class="btn button-Blue btn-primary text-uppercase" ng-if="user.userType === 'pending'" ng-click="ad.approve(dep,user)">
-                        @AccountSettingsResources.AcceptUserRequest
-                    </md-button>
+                        <a layout="row" layout-align="start center" class="user-details" href="{{::user.url}}">
+                            <user-image flex="none" class="img-circle" name="::user.name" image="::user.image" width="40" height="40"></user-image>
+                            <div class="user-name">{{::user.name}}</div>
+                        </a>
+                        <div>
+                            <md-button class="btn button-Blue btn-primary text-uppercase" ng-if="user.userType === 'pending'" ng-click="ad.approve(dep,user)">
+                                @AccountSettingsResources.AcceptUserRequest
+                            </md-button>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
