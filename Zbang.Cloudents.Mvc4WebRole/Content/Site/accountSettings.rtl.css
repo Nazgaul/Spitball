@@ -177,10 +177,23 @@
 .accountPage-wrapper .private-departments .panel-group .panel .panel-body .requests-wrapper ul li {
   margin-bottom: 15px;
   margin-top: 15px;
+  width: 48%;
+}
+@media (max-width: 600px) {
+  .accountPage-wrapper .private-departments .panel-group .panel .panel-body .requests-wrapper ul li {
+    width: 100%;
+  }
 }
 .accountPage-wrapper .private-departments .requests .user-name {
   margin-right: 10px;
   color: #282828;
+  -ms-word-break: break-word;
+  word-break: break-word;
+}
+.accountPage-wrapper .private-departments .requests .userLetter {
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 .accountPage-wrapper .private-departments .requests button {
   min-height: 0;

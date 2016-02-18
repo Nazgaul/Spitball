@@ -222,6 +222,11 @@
                     li {
                         margin-bottom: 15px;
                         margin-top: 15px;
+                        width: 48%;
+
+                        @media(max-width: 600px){
+                            width: 100%;
+                        }
                     }
                 }
             }
@@ -231,8 +236,15 @@
             .user-name {
                 margin-left: 10px;
                 color: @textColorBlack;
+                -ms-word-break: break-word;
+                word-break: break-word;
             }
 
+            .userLetter {
+                -webkit-flex: 0 0 auto;
+                -ms-flex: 0 0 auto;
+                flex: 0 0 auto;
+            }
 
             button {
                 min-height: 0;
