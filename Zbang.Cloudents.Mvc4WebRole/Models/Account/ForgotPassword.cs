@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
@@ -6,7 +7,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
     public class ForgotPassword
     {
         [Required(ErrorMessageResourceType = typeof(ForgotPasswordResources), ErrorMessageResourceName = "EmailNotMatch")]
-        [DataType(DataType.EmailAddress,ErrorMessageResourceType = typeof(ForgotPasswordResources), ErrorMessageResourceName = "EmailNotValid")]
+        [ValidateEmail(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail")]
         public string Email { get; set; }
 
 

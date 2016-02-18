@@ -3,7 +3,6 @@ using System.Text;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Models.Resources;
-using Zbang.Zbox.Domain.Common;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 {
@@ -16,9 +15,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         public string LastName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
-        //[RegularExpression(Validation.EmailRegexWithTrailingEndingSpaces, ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotCorrect")]
-        [DataType(DataType.EmailAddress, ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotCorrect")]
-        //[Display(ResourceType = typeof(RegisterResources), Name = "EmailAddress")]
+        [ValidateEmail(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail")]
         public string NewEmail { get; set; }
 
 
