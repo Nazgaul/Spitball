@@ -49,7 +49,7 @@
 
 <script type="text/ng-template" id="create-quiz-question-template.html">
     <div id="{{question.$$hashKey}}" ng-form="questionForm" class="portlet box blue create-question">
-        <div class="portlet-title">
+        <div class="portlet-title" layout="row" layout-align="start center">
             <div class="caption text-capitalize">@QuizResources.QuestionNumber{{$index + 1}}</div>
             <div class="tools">
                 <button type="button" ng-show="q.deleteQuestionShow()" ng-click="q.deleteQuestion(question)" ga-track-event="['createQuiz', 'delete question']">@Html.Svg("~/images/site/icons.svg", "delete")</button>

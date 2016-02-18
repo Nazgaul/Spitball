@@ -110,7 +110,10 @@
   overflow: hidden;
 }
 .quiz-create .quiz-wrapper .portlet-title .caption {
-  padding-left: 10px;
+  padding: 0 0 0 10px;
+}
+.quiz-create .quiz-wrapper .portlet-title .tools {
+  height: 20px;
 }
 .quiz-create .quiz-wrapper .quiz-question {
   padding: 15px;

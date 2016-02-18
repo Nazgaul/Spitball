@@ -4,6 +4,7 @@
     header {
         padding: 0 25px;
     }
+
     md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
         background: @buttonColorRed;
     }
@@ -11,7 +12,7 @@
     .not-supported {
         height: 100vh;
         padding: 0 15px;
-         background: @backgroundColor;
+        background: @backgroundColor;
         color: @textColorGrey;
 
         .bubble {
@@ -53,13 +54,13 @@
             left: ~"calc(60% + 1px)";
             top: -37px;
             border: 19px solid;
-             border-color: transparent transparent @backgroundColor @backgroundColor;
+            border-color: transparent transparent @backgroundColor @backgroundColor;
         }
     }
 
     .supported {
         margin: @fullScreenHeaderHeight + 16px auto;
-          color: @textColorGrey;
+        color: @textColorGrey;
         width: 800px;
         padding: 10px 15px 0;
 
@@ -94,12 +95,12 @@
         }
 
         .add-question {
-             color: @textColorWhite;
+            color: @textColorWhite;
             border: 1px solid @textColorSpitballBlue;
             background: transparent;
 
             svg {
-                 fill: @backgroundColorWhite;
+                fill: @backgroundColorWhite;
                 margin-right: 10px;
                 width: 15px;
                 height: 15px;
@@ -117,7 +118,7 @@
     }
 
     .header {
-         color: @backgroundColor2;
+        color: @backgroundColor2;
         padding: 10px 0;
     }
 
@@ -131,8 +132,14 @@
         border-radius: 5px;
         overflow: hidden;
 
-        .portlet-title .caption {
-            padding-left: 10px;
+        .portlet-title {
+            .caption {
+                padding: 0 0 0 10px;
+            }
+
+            .tools {
+                height: 20px;
+            }
         }
 
         .quiz-question {
@@ -142,14 +149,14 @@
 
     .portlet.box > .portlet-body {
         background-color: #fff;
-         border: 5px solid @borderColorBlue;
+        border: 5px solid @borderColorBlue;
         padding: 10px;
         border-top-width: 0;
     }
 
 
     .form-control {
-         color: @textColorDarkGrey;
+        color: @textColorDarkGrey;
         background-color: @backgroundColorWhite;
         border-radius: 0;
         margin-bottom: 20px;
@@ -185,11 +192,12 @@
         svg {
             width: 18px;
             height: 18px;
-             fill: @fileColor;
+            fill: @fileColor;
         }
     }
+
     .question-content {
-         border: 1px solid @borderColorLightGrey;
+        border: 1px solid @borderColorLightGrey;
         margin-bottom: 12px;
 
         img {
@@ -199,7 +207,8 @@
         ol {
             padding-left: 40px;
         }
-         div[contenteditable="true"]:before {
+
+        div[contenteditable="true"]:before {
             color: @backgroundColor2;
         }
     }
@@ -211,7 +220,7 @@
     .ta-toolbar {
         display: none;
         padding: 8px 0;
-         background: @backgroundColorWhite;
+        background: @backgroundColorWhite;
         margin: 0; //override on bootstrap
         .btn-group {
             border: 1px solid @borderColorLightGrey;
@@ -223,7 +232,7 @@
             padding: 0;
             border-radius: 0;
             border: 0;
-             background: @backgroundColorWhite;
+            background: @backgroundColorWhite;
         }
 
         &.focussed {
@@ -281,7 +290,7 @@
         &:after {
             content: '';
             display: inline-block;
-             border-top: @heightOfAnswer solid @backgroundColorSpitballBlue;
+            border-top: @heightOfAnswer solid @backgroundColorSpitballBlue;
             border-right: 10px solid #fff;
             vertical-align: middle;
         }
@@ -297,7 +306,7 @@
 
         > div {
             display: inline-block;
-             border: 1px solid @borderColorSpitballBlue;
+            border: 1px solid @borderColorSpitballBlue;
             width: 70%;
 
             input, .disabled {
@@ -365,9 +374,10 @@
 
     .error {
         [contenteditable="true"] {
-             border: 1px solid @borderColorRed;
+            border: 1px solid @borderColorRed;
             background: #FFD0C5;
         }
+
         .counter-view {
             &:before {
                 background: @backgroundColorRed;
@@ -386,6 +396,7 @@
         .ng-invalid {
             background: @backgroundColorWhite;
         }
+
         .error-answer-msg {
             display: inline;
         }
@@ -395,6 +406,7 @@
         width: 50px;
         line-height: 15px;
         margin-left: 4px;
+
         &.error {
             color: @textColorRed;
         }
@@ -402,7 +414,7 @@
 
     .error-answer-msg {
         display: none;
-         color: @textColorRed;
+        color: @textColorRed;
     }
 
     .add-answer {
@@ -419,6 +431,7 @@
         div {
             border-color: @backgroundColor2;
         }
+
         input:disabled {
             background: #fff;
         }
@@ -452,7 +465,7 @@
     }
 
     h4 {
-         color: @textColorRed;
+        color: @textColorRed;
         font-size: 20px;
     }
 
@@ -461,7 +474,7 @@
 
         button:last-child {
             &:hover {
-                background-color:#fff;
+                background-color: #fff;
             }
         }
     }
@@ -472,7 +485,7 @@
     }
 
     .save {
-         color: @textColorWhite;
+        color: @textColorWhite;
         background-color: @backgroundColorSpitballBlue;
         border: none;
     }

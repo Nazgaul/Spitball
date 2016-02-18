@@ -95,10 +95,6 @@ input[type="search"] {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-input[disabled],
-button[disabled] {
-  cursor: wait !important;
-}
 html {
   background: transparent;
 }
