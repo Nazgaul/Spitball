@@ -24,9 +24,10 @@ where cte.itemid = @itemid;
 
         public const string ItemDetail = @" select 
  i.Name as name,
- i.UpdateTime as updateTime,
+ i.creationTime as date,
     u.UserName as owner, 
     u.userid as ownerId,
+    u.url as ownerUrl,
 	i.NumberOfViews as numberOfViews,
 	i.numberofdownloads as numberOfDownloads,
     i.BlobName as blob,

@@ -29,9 +29,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public Task HandleAsync(DeleteBoxCommand message)
         {
 
-            var box = m_BoxRepository.Get(message.BoxId);
+            var box = m_BoxRepository.Load(message.BoxId);
 
-            var academicBox = box as AcademicBox;
+            var academicBox = box.Actual as AcademicBox;
             var users = box.UserBoxRelationship.Select(s => s.User.Id).ToList();
 
 

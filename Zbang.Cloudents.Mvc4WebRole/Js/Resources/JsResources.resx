@@ -173,65 +173,53 @@
   </data>
   <data name="toasterBoxSettings" xml:space="preserve">
     <value>Your settings have been updated</value>
-    <comment>New</comment>
   </data>
   <data name="toasterCreateBox" xml:space="preserve">
     <value>You have created a study group</value>
-    <comment>New</comment>
   </data>
   <data name="toasterCreateCourse" xml:space="preserve">
     <value>You have created a course</value>
-    <comment>New</comment>
   </data>
   <data name="toasterCreateDepartment" xml:space="preserve">
     <value>You have created a department</value>
-    <comment>New</comment>
   </data>
   <data name="toasterCreateQuiz" xml:space="preserve">
     <value>You Have Created A Quiz</value>
-    <comment>New</comment>
   </data>
   <data name="toasterFollowBox" xml:space="preserve">
     <value>You Are Following this Course</value>
-    <comment>New</comment>
   </data>
   <data name="toasterInviteComplete" xml:space="preserve">
     <value>An Invite has been sent</value>
-    <comment>New</comment>
   </data>
   <data name="toasterLikeItem" xml:space="preserve">
     <value>Liked</value>
-    <comment>New</comment>
   </data>
   <data name="toasterOpenSchool" xml:space="preserve">
     <value>Opened</value>
-    <comment>New</comment>
   </data>
   <data name="toasterUploadComplete" xml:space="preserve">
     <value>Document Uploaded</value>
-    <comment>New</comment>
   </data>
   <data name="toasterUploadPic" xml:space="preserve">
     <value>Your image has been updated</value>
-    <comment>New</comment>
   </data>
   <data name="privateDepPopupTitle" xml:space="preserve">
     <value>You need permission to access this section</value>
-    <comment>New</comment>
   </data>
   <data name="privateDepPopupContent" xml:space="preserve">
     <value>Want in? Ask the owner for access</value>
-    <comment>NewShlomi</comment>
   </data>
   <data name="privateDepPopupContentOnSend" xml:space="preserve">
     <value>You will receive an email if and when the owner approves your request.</value>
-    <comment>New</comment>
   </data>
   <data name="privateDepPopupRequestButton" xml:space="preserve">
     <value>Request access</value>
   </data>
   <data name="privateDepPopupTitleOnSend" xml:space="preserve">
     <value>Your request for access has been sent.</value>
-    <comment>New</comment>
+  </data>
+  <data name="siteName" xml:space="preserve">
+    <value>Spitball</value>
   </data>
 </root>

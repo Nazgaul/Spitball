@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public Task HandleAsync(AddNewUpdatesCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-            var box = m_BoxRepository.Get(message.BoxId); //need to know the type
+            var box = m_BoxRepository.Load(message.BoxId); 
             var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId).Select(s => s.UserId).ToList();
             if (usersToUpdate.Count == 0)
             {
@@ -86,7 +86,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var item = m_ItemRepository.Load(itemId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, item));
-            if (box is AcademicBoxClosed)
+            if (box.Actual is AcademicBoxClosed)
             {
                 return Task.FromResult<object>(null);
             }

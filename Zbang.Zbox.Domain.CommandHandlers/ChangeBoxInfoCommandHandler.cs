@@ -28,10 +28,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (command == null) throw new ArgumentNullException("command");
             // 
 
-            Box box = m_BoxRepository.Get(command.BoxId); // need to get not to get proxy
+            var box = m_BoxRepository.Load(command.BoxId); // need to get not to get proxy
             User user = m_UserRepository.Load(command.UserId);
 
-            var academicBox = box as AcademicBox;
+            var academicBox = box.Actual as AcademicBox;
             if (academicBox != null)
             {
                 academicBox.UpdateBoxInfo(command.CourseCode, command.ProfessorName);

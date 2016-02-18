@@ -13,7 +13,7 @@
 
         var googleContact = [];
 
-
+       
         self.importGoogleContract = importGoogleContacts;
         self.contactSelected = contactSelected;
         self.sendInvite = sendInvite;
@@ -25,6 +25,11 @@
             $scope.$emit('close_invite');
         }
         self.inBox = $stateParams.boxId ? true : false;
+        if (self.inBox) {
+            self.title = $scope.b.data.name;
+        } else {
+            self.title = resManager.get('siteName');
+        }
         self.inMail = true;
 
         self.mail = function () { changeTab(true); }
