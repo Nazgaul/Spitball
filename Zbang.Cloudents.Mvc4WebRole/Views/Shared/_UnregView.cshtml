@@ -3,6 +3,7 @@
 
 @{
     ViewBag.postBag = ViewBag.postBag ?? false;
+    var socialIconsSvg = "~/images/site/social-icons.svg";
 }
 @if (User != null && !User.Identity.IsAuthenticated && !ViewBag.postBag)
 {
@@ -10,18 +11,28 @@
         <div class="content-wrapper noHeight text-center" unregister-show>
             <div class="content" ng-controller="UnregisterShowController as ur">
                 <div class="text">
-                    <p class="large">@GeneralResources.ThereIsMore...</p>
-                    <p class="normal">@GeneralResources.RegisterTakesLess</p>
+                    <p class="large">@HomePageResources.A4</p>
+                    <p class="normal">@GeneralResources.UnregSubtitle</p>
                 </div>
-                <div class="social-signin">
-                    <button type="button" ng-click="ur.facebook()" class="facebook">@Html.Svg("/images/site/social-icons.svg", "facebook") @LogOnResources.ExternalProvider</button>
-                    <button type="button" ng-click="ur.google()" ng-disabled="ur.googleDisabled" class="google">@Html.Svg("/images/site/social-icons.svg", "google") @LogOnResources.ExternalProvider</button>
-                </div>
-                    
-                    <a href="@Url.Action("SignUp", "Account", new { returnUrl = Request.Url })" target="_blank" class="btn button-Blue btn-primary btn-lg bold btnSignIn"
-                       target="_self">
+                <div class="signin-options-section">
+                    <div class="social-signin">
+                        <button type="button" class="login-option facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                            <div>
+                                @Html.Svg(socialIconsSvg, "facebook")
+                                <span>@LogOnResources.ExternalProvider</span>
+                            </div>
+                        </button>
+                        <button type="button" class="login-option google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                            <div>
+                                @Html.Svg(socialIconsSvg, "google")
+                                <span>@LogOnResources.ExternalProvider</span>
+                            </div>
+                        </button>
+                    </div>
+                    <button type="button" class="login-option signup os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                         @HomePageResources.A5
-                    </a>
+                    </button>
+                </div>
                 </div>
             </div>
         </div>

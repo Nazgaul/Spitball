@@ -168,11 +168,9 @@
   <data name="Courses" xml:space="preserve">
     <value>Courses</value>
   </data>
-  <data name="ThereIsMore" xml:space="preserve">
-    <value>There is more to see</value>
-  </data>
-  <data name="RegisterTakesLess" xml:space="preserve">
-    <value>Register, it takes less than 15 seconds!</value>
+  <data name="UnregSubtitle" xml:space="preserve">
+    <value>Connect with your classmates, get help on homework,
+access quality study notes for FREE!</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search...</value>

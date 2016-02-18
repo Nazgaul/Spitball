@@ -168,11 +168,9 @@
   <data name="TooShort" xml:space="preserve">
     <value>קצר מידי</value>
   </data>
-  <data name="ThereIsMore" xml:space="preserve">
-    <value>יש עוד הרבה מה לראות</value>
-  </data>
-  <data name="RegisterTakesLess" xml:space="preserve">
-    <value>הירשם, זה לוקח פחות מ-15 שניות!</value>
+  <data name="UnregSubtitle" xml:space="preserve">
+    <value>הצטרפו לחבריכם לכיתה, קבלו עזרה בשיעורי הבית
+ותהנו ממאות אלפי סיכומים ומבחנים בחינם!</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>חפש...</value>

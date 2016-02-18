@@ -110,7 +110,7 @@
             });
         $('.login-wrapper, #main-wrapper .welcome-text').slideDown(animatonSpeed).removeClass('hidden');
         $('.login-wrapper').slideUp(animatonSpeed);
-        $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options, header ul, .navbar-toggle, .signin-btn').removeClass('hidden');
+        $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options-section, header ul, .navbar-toggle, .signin-btn').removeClass('hidden');
         $('#main-wrapper').css('min-height', 0).height('auto');
         window.history.replaceState(null, "Home", "/");
 
@@ -126,7 +126,7 @@
             $(this).addClass('hidden');
         });
         $('.login-wrapper .content > form.' + form).removeClass('hidden').show();
-        $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options, header ul, .navbar-toggle').toggleClass('hidden');
+        $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options-section, header ul, .navbar-toggle').toggleClass('hidden');
     }
 
 })(window.document);
