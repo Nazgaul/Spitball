@@ -166,13 +166,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     retVal.Navigation.Previous,
                     //retVal.NumberOfDownloads,
                     //retVal.NumberOfViews,
-                    //retVal.Owner,
+                    retVal.Owner,
+                    retVal.OwnerUrl,
+
                     //retVal.OwnerId,
                     //retVal.PrintUrl,
                     retVal.Like,
                     retVal.Likes,
                     //retVal.ShortUrl,
-                    //retVal.UpdateTime,
+                    UpdateTime = retVal.Date,
                     //retVal.UserType
                 });
             }

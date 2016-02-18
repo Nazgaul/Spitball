@@ -43,9 +43,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (command == null) throw new ArgumentNullException("command");
             
             var sender = m_UserRepository.Load(command.InviteeId);
-            var box = m_BoxRepository.Get(command.BoxId);
-
-            if (box is AcademicBox)
+            var box = m_BoxRepository.Load(command.BoxId);
+            
+            if (box.Actual is AcademicBox)
             {
                 return SendInvitesAsync(command, sender, box);
             }

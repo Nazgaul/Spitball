@@ -10,7 +10,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         private DateTime m_Date;
         public string Name { get; set; }
 
-        public DateTime UpdateTime
+        public DateTime Date
         {
             get { return DateTime.SpecifyKind(m_Date, DateTimeKind.Utc); }
             set { m_Date = value; }
@@ -18,6 +18,8 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public string Owner { get; set; }
         public long OwnerId { get; set; }
+
+        public string OwnerUrl { get; set; }
 
         public int NumberOfViews { get; set; }
 

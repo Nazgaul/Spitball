@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite your friends to Spitball.
+        ///   Looks up a localized string similar to Invite your friends to .
         /// </summary>
         public static string Invite {
             get {

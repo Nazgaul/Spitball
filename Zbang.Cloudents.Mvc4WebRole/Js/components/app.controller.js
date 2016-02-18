@@ -122,7 +122,7 @@
             }
             var details = userDetails.get();
             if (details.university.id) {
-                document.title = 'Spitball';
+                document.title = resManager.get('siteName');
                 return;
             }
             var userWithNoUniversityState = 'universityChoose';

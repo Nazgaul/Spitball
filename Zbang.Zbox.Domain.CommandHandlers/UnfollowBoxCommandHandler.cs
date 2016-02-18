@@ -30,10 +30,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public async Task HandleAsync(UnFollowBoxCommand message)
         {
             if (message == null) throw new ArgumentNullException("message");
-            var box = m_BoxRepository.Get(message.BoxId);
+            var box = m_BoxRepository.Load(message.BoxId);
             var user = m_UserRepository.Load(message.UserId);
 
-            var academicBox = box as AcademicBox;
+            var academicBox = box.Actual as AcademicBox;
             if (academicBox != null)
             {
                 //if (message.ShouldDelete && user.IsAdmin() && user.University.Id == academicBox.University.Id)
