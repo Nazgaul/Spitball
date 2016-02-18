@@ -50,7 +50,7 @@
             </span>
         </button>
         <form class="content" ng-if="i.newFolderTabOpened" ng-submit="i.addTab()" name="addTabForm">
-            <input required autofocus type="text" class="designed-input" ng-model="i.newFolderName" ng-blur="i.addTab()" />
+            <input required focus-me="i.newFolderTabOpened" type="text" class="designed-input" ng-model="i.newFolderName" ng-blur="i.addTab()" />
         </form>
     </li>
 </ul>

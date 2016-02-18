@@ -51,20 +51,21 @@
         u.uploadOpen = uploadOpen;
 
         function google() {
-            externalUploadProvider.google(boxid).then(function (response) {
-                $rootScope.$broadcast('item_upload', response);
-            }, function (response) {
+            externalUploadProvider.google(boxid).then(externalUploadCallback, function (response) {
                 $scope.app.showToaster(response, 'uploadSection');
             });
         }
 
         function dropBox() {
-            externalUploadProvider.dropBox(boxid).then(function (response) {
-                $rootScope.$broadcast('item_upload', response);
-            }, function (response) {
+            externalUploadProvider.dropBox(boxid).then(externalUploadCallback, function (response) {
                 $scope.app.showToaster(response, 'uploadSection');
             });
         };
+        function externalUploadCallback(response) {
+            $rootScope.$broadcast('item_upload', response);
+            $scope.app.showToaster(resManager.get('toasterUploadComplete'));
+            $timeout(closeUpload, 2000);
+        }
 
         function closeUpload() {
             u.open = false;
@@ -99,6 +100,8 @@
             u.submitFormProcess = true;
             itemService.addLink(u.link, boxid).then(function (response) {
                 $rootScope.$broadcast('item_upload', response);
+                $scope.app.showToaster(resManager.get('toasterUploadComplete'));
+                
                 u.uploadStep = uploadChoose.none;
             }, function (response) {
                 myform.link.$setValidity('server', false);
