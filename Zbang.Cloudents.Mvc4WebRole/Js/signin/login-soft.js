@@ -70,7 +70,7 @@ var Login = function () {
         });
 
         function sendRequest() {
-            console.log('ok',serializedEmail)
+            console.log('ok', serializedEmail)
             $.post('/account/resetpassword/', serializedEmail).done(function (data) {
                 $forgotPassword.find(':submit').removeAttr('disabled');
                 if (!data.success) {
@@ -385,15 +385,18 @@ var Login = function () {
             //handleExtenalLogin();
             if (window.location.pathname.indexOf('/signin') > -1) {
                 handleLoginElements('login-form');
+                $('.signin-btn').addClass('hidden');
 
             }
 
             if (window.location.pathname.indexOf('/signup') > -1) {
                 handleLoginElements('register-form');
+                $('.signin-btn').addClass('hidden');
             }
 
             if (window.location.pathname.indexOf('/resetpassword') > -1) {
                 handleLoginElements('forgot-password-form');
+                $('.signin-btn').addClass('hidden');
             }
 
             $.each(jQuery.validator.messages, function (key, value) {
@@ -417,7 +420,7 @@ function handleLoginElements(formClass) {
         $(this).hide();
     });
     $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
-    $('#main-wrapper .social-links, .statistics, #main-wrapper > .signin-options-section, header ul, .navbar-toggle, #main-wrapper .welcome-text, .login-wrapper .content > :not(.' + formClass + ')').toggleClass('hidden');
+    $('.signin-btn, #main-wrapper .social-links, .statistics, #main-wrapper > .signin-options-section, header ul, .navbar-toggle, #main-wrapper .welcome-text, .login-wrapper .content > :not(.' + formClass + ')').toggleClass('hidden');
     $('.login-wrapper, .login-wrapper .content > .'+formClass).show();
 }
 

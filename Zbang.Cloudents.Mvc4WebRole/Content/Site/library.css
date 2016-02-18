@@ -1,4 +1,7 @@
 ﻿/* Set default body */
+.library {
+  margin-bottom: 50px;
+}
 .library .corner:after {
   content: "";
   display: inline-block;
