@@ -64,9 +64,9 @@
   -ms-text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
-  margin: 0 auto;
   overflow: hidden;
   padding: 20px 0;
+  letter-spacing: 0.5px;
 }
 .itemPage .fileName .name-info {
   margin: 0 auto;
@@ -102,12 +102,12 @@
   padding: 5px 10px;
   margin-bottom: 20px;
 }
-.itemPage .fileName a {
+.itemPage .fileName .info {
   line-height: 0;
   margin-right: 10px;
   position: relative;
 }
-.itemPage .fileName a:hover:after {
+.itemPage .fileName .info:hover:after {
   content: '';
   width: 0;
   height: 0;
@@ -122,6 +122,12 @@
   fill: #c2c2c2;
   width: 20px;
   height: 20px;
+}
+.itemPage .second-line {
+  font-size: 13px;
+}
+.itemPage .second-line span {
+  color: #888b8e;
 }
 .itemPage .iframeContent {
   border: 0;

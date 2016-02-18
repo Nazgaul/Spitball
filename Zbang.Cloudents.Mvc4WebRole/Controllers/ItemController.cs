@@ -166,7 +166,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     retVal.Type,
                     retVal.Like,
                     retVal.Likes,
-                    UpdateTime = retVal.Date,
+                    retVal.Date,
                 });
             }
             catch (BoxAccessDeniedException)

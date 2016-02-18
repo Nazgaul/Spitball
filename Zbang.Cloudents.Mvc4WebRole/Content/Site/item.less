@@ -85,10 +85,10 @@
         -ms-text-overflow: ellipsis;
         -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
-        margin: 0 auto;
+        //margin: 0 auto;
         overflow: hidden;
         padding: 20px 0;
-
+        letter-spacing: 0.5px;
         .name-info {
             margin: 0 auto;
         }
@@ -130,7 +130,7 @@
             }
         }
 
-        a {
+        .info {
             line-height: 0;
             margin-left: 10px;
             position: relative;
@@ -152,6 +152,12 @@
             fill: @svgLightGrey;
             width: 20px;
             height: 20px;
+        }
+    }
+    .second-line{
+        font-size:13px;
+        span {
+            color:@textColorGrey;
         }
     }
 
