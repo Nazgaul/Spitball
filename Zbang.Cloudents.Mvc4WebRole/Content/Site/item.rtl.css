@@ -105,6 +105,18 @@
 .itemPage .fileName a {
   line-height: 0;
   margin-right: 10px;
+  position: relative;
+}
+.itemPage .fileName a:hover:after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 5px 6px 5px;
+  border-color: transparent transparent #000000 transparent;
+  position: absolute;
+  top: 22px;
+  left: 5px;
 }
 .itemPage .fileName svg {
   fill: #c2c2c2;
@@ -348,13 +360,19 @@
   margin: 10px 0;
 }
 .copy-left {
-  width: 500px;
+  max-width: 500px;
 }
-.tooltip-inner {
+.tooltip {
+  margin-left: 10px;
+}
+.tooltip .tooltip-arrow {
+  display: none;
+}
+.tooltip .tooltip-inner {
   max-width: 500px;
 }
 @media (max-width: 600px) {
-  .tooltip-inner {
+  .tooltip .tooltip-inner {
     max-width: 60vw;
   }
 }
