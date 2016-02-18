@@ -97,13 +97,27 @@
   background-color: #2698d4;
   opacity: 0.5;
 }
+.library .empty-top h2,
+.library .empty-top > div {
+  text-align: center;
+}
 .library .empty-top h2 {
   white-space: pre-wrap;
   font-size: 30px;
   font-weight: 700;
+  max-width: 515px;
+  text-align: center;
 }
 .library .empty-top > div {
-  margin: 10px 0;
+  margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .library .empty-top h2 {
+    font-size: 6vw;
+  }
+  .library .empty-top > div {
+    max-width: 260px;
+  }
 }
 .library .empty-top form {
   max-width: 550px;

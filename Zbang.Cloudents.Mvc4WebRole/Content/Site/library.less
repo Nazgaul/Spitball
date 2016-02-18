@@ -128,14 +128,30 @@
     }
 
     .empty-top {
+        h2, > div {
+            text-align: center;
+        }
+
         h2 {
             white-space: pre-wrap;
             font-size: 30px;
             font-weight: 700;
+            max-width: 515px;
+            text-align: center;
         }
 
         > div {
-            margin: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        @media(max-width: 600px) {
+            h2 {
+                font-size: 6vw;
+            }
+
+            > div {
+                max-width: 260px;
+            }
         }
 
         form {

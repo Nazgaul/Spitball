@@ -604,20 +604,20 @@ namespace Testing
 
             var mail = new MailManager2();
 
-            var t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-                new DepartmentRequestAccessMailParams(new CultureInfo("en"), "Irena", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", "my department"));
+            var t = mail.GenerateAndSendEmailAsync("irenad88@gmail.com",
+                new DepartmentRequestAccessMailParams(new CultureInfo("en"), "Ire", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", "woop"));
             t.Wait();
 
-            t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-                new DepartmentRequestAccessMailParams(new CultureInfo("he"), "Irena", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", "my department"));
+            t = mail.GenerateAndSendEmailAsync("irenad88@gmail.com",
+                new DepartmentRequestAccessMailParams(new CultureInfo("he"), "Ire", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", "woop"));
             t.Wait();
 
-            t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-               new DepartmentApprovedMailParams(new CultureInfo("he"), "my department"));
+            t = mail.GenerateAndSendEmailAsync("irenad88@gmail.com",
+               new DepartmentApprovedMailParams(new CultureInfo("he"), "woop"));
             t.Wait();
 
-            t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-               new DepartmentApprovedMailParams(new CultureInfo("en"), "my department"));
+            t = mail.GenerateAndSendEmailAsync("irenad88@gmail.com",
+               new DepartmentApprovedMailParams(new CultureInfo("en"), "woop"));
             t.Wait();
 
             mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com",
