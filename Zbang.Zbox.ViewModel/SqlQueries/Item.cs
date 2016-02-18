@@ -22,7 +22,7 @@ LEFT JOIN CTE nex ON nex.rownum = CTE.rownum + 1
 where cte.itemid = @itemid;
 ";
 
-        public const string ItemDetail = @" select 
+        public const string ItemDetail = @"select 
  i.Name as name,
  i.creationTime as date,
     u.UserName as owner, 
@@ -31,6 +31,7 @@ where cte.itemid = @itemid;
 	i.NumberOfViews as numberOfViews,
 	i.numberofdownloads as numberOfDownloads,
     i.BlobName as blob,
+    i.Discriminator as type,
     i.likeCount as Likes,
     b.Url as BoxUrl
     from zbox.Item i

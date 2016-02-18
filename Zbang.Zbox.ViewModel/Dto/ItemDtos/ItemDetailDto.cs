@@ -29,7 +29,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public int Like { get; set; }
         public int Likes { get; set; }
-
+        public string Type { get; set; }
 
         public string BoxUrl { get; set; }
 

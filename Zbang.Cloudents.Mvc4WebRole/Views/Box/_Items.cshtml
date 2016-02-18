@@ -30,7 +30,7 @@
                     </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                    <md-button ng-href="{{::e.downloadLink}}" target="_self" ga-track-event="['box-items', 'download']">
+                    <md-button ng-href="{{::e.downloadLink}}" target="{{::e.type == 'File' ? '_self' : '_blank'}}" ga-track-event="['box-items', 'download']">
                         @GeneralResources.Download
                     </md-button>
                 </md-menu-item>

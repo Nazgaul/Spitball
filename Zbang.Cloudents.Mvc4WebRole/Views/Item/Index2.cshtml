@@ -18,7 +18,7 @@
             </div>
 
             <div class="item-actions">
-                <a target="_self" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download", new { @class = "color-override svgColor3" })</a>
+                <a target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download", new { @class = "color-override svgColor3" })</a>
                 <a target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print", new { @class = "color-override svgColor3" })</a>
                 <md-menu flex>
                     <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
