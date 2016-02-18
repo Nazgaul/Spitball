@@ -280,6 +280,10 @@ md-toast .md-toast-content {
 .layout-padding > .flex {
   padding: 12px;
 }
+md-toast .md-toast-content {
+  min-height: 40px;
+  margin-top: 12px;
+}
 md-toast.md-warn-theme .md-toast-content {
   background: #db4437;
 }
