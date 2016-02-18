@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advertise with us.
+        /// </summary>
+        public static string Advertise {
+            get {
+                return ResourceManager.GetString("Advertise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {

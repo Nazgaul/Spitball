@@ -1464,6 +1464,7 @@
 
                     h1 {
                         font-size: 22px;
+                        font-weight: bold;
                     }
 
                     h2 {
@@ -1506,14 +1507,18 @@
                         a {
                             color: @textColorLightGrey;
                             display: block;
-                            line-height: 32px;
+                            line-height: 28px;
                         }
                     }
 
                     .social-links {
-                        margin-top: 38px;
+                        margin-top: 26px;
                         display: inline-block;
                         margin-bottom: 50px;
+
+                        @media(max-width: 600px) {
+                            margin-top: 40px;
+                        }
 
                         a {
                             display: inline-block;

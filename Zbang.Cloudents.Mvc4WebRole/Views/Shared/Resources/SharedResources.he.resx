@@ -132,4 +132,7 @@
   <data name="Jobs" xml:space="preserve">
     <value>משרות</value>
   </data>
+  <data name="Advertise" xml:space="preserve">
+    <value>פרסמו אצלנו</value>
+  </data>
 </root>
