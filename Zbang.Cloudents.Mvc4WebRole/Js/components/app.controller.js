@@ -50,7 +50,7 @@
         function logOut() {
             cacheFactory.clearAll();
         }
-        function setTheme() {
+        function setTheme() { 
             self.theme = 'theme-' + userDetails.get().theme;
         }
         function toggleMenu() {

@@ -132,4 +132,7 @@
   <data name="Jobs" xml:space="preserve">
     <value>Jobs</value>
   </data>
+  <data name="Advertise" xml:space="preserve">
+    <value>Advertise with us</value>
+  </data>
 </root>
