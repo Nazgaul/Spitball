@@ -27,7 +27,8 @@
         q.removeComment = removeComment;
         q.next = next;
         q.back = back;
-
+        q.swipeLeft = next;
+        q.swipeRight = back;
         q.user = {
             id: userDetailsFactory.get().id,
             name: userDetailsFactory.get().name,
@@ -74,8 +75,7 @@
             q.classmatesCount = response.solversCount;
         });
 
-        q.swipeLeft = next;
-        q.swipeRight = back;
+        
 
 
         function start() {
