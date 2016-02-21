@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
+using System.Diagnostics;
 
 namespace Zbang.Cloudents.MobileApp2
 {
@@ -12,37 +8,11 @@ namespace Zbang.Cloudents.MobileApp2
 
         protected void Application_Start(object sender, EventArgs e)
         {
+            Trace.TraceInformation("Starting service");
+            SqlServerTypes.Utilities.LoadNativeAssemblies(Server.MapPath("~/bin"));
+            Trace.TraceInformation("Load native assemblies complete");
             WebApiConfig.Register();
         }
-
-        protected void Session_Start(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_BeginRequest(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_AuthenticateRequest(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_Error(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Session_End(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void Application_End(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

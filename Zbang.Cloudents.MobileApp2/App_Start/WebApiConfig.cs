@@ -23,7 +23,8 @@ namespace Zbang.Cloudents.MobileApp2
     {
         public static void Register()
         {
-            Trace.TraceInformation("Starting service");
+            
+            
             // Use this class to set configuration options for your mobile service
             var options = new ConfigOptions();
             options.LoginProviders.Add(typeof(CustomLoginProvider));

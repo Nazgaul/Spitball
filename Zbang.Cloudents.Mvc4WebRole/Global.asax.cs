@@ -17,7 +17,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         protected void Application_Start()
         {
-            SqlServerTypes.Utilities.LoadNativeAssemblies(Server.MapPath("~/bin"));
 #if DEBUG
             log4net.Config.XmlConfigurator.Configure();
 #endif

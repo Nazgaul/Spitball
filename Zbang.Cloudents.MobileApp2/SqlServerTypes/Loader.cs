@@ -24,7 +24,6 @@ namespace SqlServerTypes
             var nativeBinaryPath = IntPtr.Size > 4
                 ? Path.Combine(rootApplicationPath, @"SqlServerTypes\x64\")
                 : Path.Combine(rootApplicationPath, @"SqlServerTypes\x86\");
-
             LoadNativeAssembly(nativeBinaryPath, "msvcr100.dll");
             LoadNativeAssembly(nativeBinaryPath, "SqlServerSpatial110.dll");
         }

@@ -10,10 +10,10 @@
     <property name="AmountOfNodes" column="AmountOfChildren" not-null="true"/>
     <property name="NoOfBoxes" column="NoOfBoxes" not-null="true"/>
     <property name="Url" column="Url" not-null="true"/>
-    <property name="HierarchyId"
+    <!--<property name="HierarchyId"
               type="Zbang.Zbox.Infrastructure.Data.Types.HierarchyId,  Zbang.Zbox.Infrastructure.Data" >
       <column name="level" not-null="true" sql-type="hierarchyid" />
-    </property>
+    </property>-->
     
     <many-to-one name="Parent" class="Library" column="ParentId" foreign-key="LibraryParent"  />
     <many-to-one update="false" name="University" class="University" column="Id" not-null="true" foreign-key="LibraryUniversity2"/>

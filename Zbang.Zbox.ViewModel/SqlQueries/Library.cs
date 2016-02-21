@@ -33,43 +33,55 @@
 
 
        //TODO: check if we can do it better
-       public const string GetLibraryNodeDetails = @" select l.name as Name
+       public const string GetLibraryNodeDetails = @"with name_tree as (
+   select libraryid, parentId, name
+   from zbox.library
+   where libraryid = @ParentId -- this is the starting point you want in your recursion
+   union all
+   select c.libraryid, c.parentId, c.name
+   from zbox.library c
+     join name_tree p on p.parentId = c.libraryid  -- this is the recursion
+) 
+	  select l.name as Name
 	 ,coalesce( p.Url ,'/library/')  as ParentUrl,
      l.settings as state,
 	 case l.settings
 	    when 1 then (
-		select usertype from zbox.userlibraryrel where userid = @userid and libraryid in (
-SELECT top 1
-    libraryid
-FROM zbox.Library
-where (select level from zbox.library where Libraryid = @ParentId).IsDescendantOf(level) = 1 and id = @UniversityId
-)
+		select usertype from zbox.userlibraryrel where userid = @userid and libraryid = (select libraryid
+from name_tree
+where parentId is null)
 		) 
 		end as UserType
 	 from zbox.Library l 
 	 left  join zbox.Library p on l.ParentId = p.LibraryId
 	 where l.LibraryId = @ParentId";
 
-       public const string GetLibraryNodeWithParent = @"
- select l.libraryid as Id, l.Name as Name, l.NoOfBoxes as NoBoxes,
+       public const string GetLibraryNodeWithParent = @"with name_tree as (
+   select libraryid, parentId, name
+   from zbox.library
+   where libraryid = @ParentId -- this is the starting point you want in your recursion
+   union all
+   select c.libraryid, c.parentId, c.name
+   from zbox.library c
+     join name_tree p on p.parentId = c.libraryid  -- this is the recursion
+) 
+
+select l.libraryid as Id, l.Name as Name, l.NoOfBoxes as NoBoxes,
     l.AmountOfChildren as NoDepartment,
      l.Url as Url,
      l.settings as state,
      case l.settings
 	    when 1 then (
-		select usertype from zbox.userlibraryrel where userid = @UserId and libraryid in (
-SELECT top 1
-    libraryid
-FROM zbox.Library
-where (select level from zbox.library where Libraryid = @ParentId).IsDescendantOf(level) = 1 and id = @UniversityId
-)
+		select usertype from zbox.userlibraryrel where userid = @UserId and libraryid = 
+		 (select libraryid
+from name_tree
+where parentId is null)
 		) 
 		end as UserType
      from zbox.Library l
     where l.Id = @UniversityId
     and l.parentid = @ParentId
-    order by name;
-";
+    order by name;";
 
       
        public const string GetClosedLibraryByUser = @"select l.LibraryId as id, l.Name from zbox.Library l
