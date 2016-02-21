@@ -1012,7 +1012,6 @@
 .homePage .home-page-body section.about .description .features ul {
   width: calc(40% - 70px);
   margin: 0 auto;
-  min-width: 400px;
 }
 @media (max-width: 800px) {
   .homePage .home-page-body section.about .description .features ul {
