@@ -45,7 +45,7 @@
                  {
                      state: 'abousUs',
                      config: {
-                         url: '/home/aboutus/',
+                         url: '/aboutus/',
                          data: {
                              staticPage: true
                          }
@@ -55,7 +55,7 @@
                  {
                      state: 'privacy',
                      config: {
-                         url: '/home/privacy/',
+                         url: '/privacy/',
                          data: {
                              staticPage: true
                          }
