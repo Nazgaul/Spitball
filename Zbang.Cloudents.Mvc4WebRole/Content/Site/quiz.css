@@ -75,7 +75,6 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 10px;
-  width: calc(100% - 70px);
 }
 .quizPage .wrapper .retake-wrapper {
   margin: 0 auto;
@@ -374,12 +373,16 @@
 }
 .quiz-challenge {
   margin-top: 30px;
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding: 100px 10px;
   background-image: url("/images/site/quizbackground.png");
   text-align: center;
   background-size: cover;
   border-radius: 15px;
+}
+@media (max-width: 600px) {
+  .quiz-challenge {
+    padding-top: 35px;
+  }
 }
 .quiz-challenge .completed-quiz {
   margin: 0 auto;
@@ -472,7 +475,7 @@
 @media (max-width: 600px) {
   .quiz-challenge .buttons .scared,
   .quiz-challenge .buttons .chance {
-    font-size: 4.5vmin;
+    font-size: 5vmin;
   }
 }
 .quiz-challenge .buttons .scared {
