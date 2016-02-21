@@ -22,7 +22,7 @@
 <div md-swipe-left="q.swipeLeft()" md-swipe-right="q.swipeRight()">
 
     <div class="arrows prev" ng-if="q.state === 2 || q.state === 4">
-        <button type="button" ng-click="q.back()" ng-show="q.index > 0 && q.index < q.questions.length" ga-track-event="['quiz', 'previous question']">
+        <button type="button" ng-click="q.back()" hide-xs ng-show="q.index > 0 && q.index < q.questions.length" ga-track-event="['quiz', 'previous question']">
             @Html.Svg("~/images/site/icons.svg", "arrow")
         </button>
     </div>
@@ -128,7 +128,7 @@
         </div>
     </div>
     <div class="arrows next" ng-if="q.state === 2 || q.state === 4">
-        <button type="button" ng-show="(q.state === 2 && q.index < q.questions.length) || (q.state === 4 && q.index < q.questions.length - 1)" ng-click="q.next()" ga-track-event="['quiz', 'next question']">
+        <button type="button" hide-xs ng-show="(q.state === 2 && q.index < q.questions.length) || (q.state === 4 && q.index < q.questions.length - 1)" ng-click="q.next()" ga-track-event="['quiz', 'next question']">
             @Html.Svg("~/images/site/icons.svg", "arrow")
         </button>
     </div>
