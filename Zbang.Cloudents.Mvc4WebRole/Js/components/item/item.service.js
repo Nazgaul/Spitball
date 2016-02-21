@@ -23,7 +23,7 @@
                 url: url,
                 boxid: boxid,
 
-                quesion: question,
+                question: question,
                 name: name
             });
         }

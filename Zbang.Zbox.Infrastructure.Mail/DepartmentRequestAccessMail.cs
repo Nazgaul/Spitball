@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using SendGrid;
 
 namespace Zbang.Zbox.Infrastructure.Mail
@@ -7,7 +6,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
     internal class DepartmentRequestAccessMail : IMailBuilder
     {
         const string Category = "Request access";
-        const string Subject = "Someone request access";
+        const string Subject = "Someone requests access";
 
 
         public void GenerateMail(ISendGrid message, MailParameters parameters)

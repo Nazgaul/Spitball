@@ -170,7 +170,7 @@
                 return 'quiz-template.html';
             }
             return 'item-template.html';
-            
+
         }
         function attachNew(update) {
             if (update.itemId) {
@@ -345,11 +345,11 @@ userName: "ram y"*/
         }
         function google(post) {
             postId = post;
-            externalUploadProvider.google(boxId).then(externalUploadComplete);
+            externalUploadProvider.google(boxId, true).then(externalUploadComplete);
         }
         function dropbox(post) {
             postId = post;
-            externalUploadProvider.dropBox(boxId).then(externalUploadComplete);
+            externalUploadProvider.dropBox(boxId, true).then(externalUploadComplete);
         }
         function externalUploadComplete(response2) {
             if (angular.isArray(response2)) {
