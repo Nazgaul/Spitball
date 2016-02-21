@@ -71,16 +71,20 @@
 .itemPage .fileName .name-info {
   margin: 0 auto;
 }
+.itemPage .fileName .name-info h1 {
+  font-size: 20px;
+  margin: 0;
+}
 .itemPage .fileName .name-info,
 .itemPage .fileName .flag-form {
   max-width: 430px;
   width: 100%;
-  padding: 0 40px;
+  padding: 3px 40px;
 }
 .itemPage .fileName .rename-form {
   max-width: 746px;
   width: 100%;
-  padding: 0 40px;
+  padding: 3px 40px;
 }
 .itemPage .fileName form {
   margin: 0 auto;

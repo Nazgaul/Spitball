@@ -1221,28 +1221,28 @@
   width: 110px;
   height: 110px;
   background: url('../../Images/HomePage2/testimonials_en.jpg') -1px -334px;
-  background-image: url('../../Images/HomePage2/testimonials_en.jpg') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
+  background-image: url('../../Images/HomePage2/testimonials_en.jpg?v=1') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg?v=1')*/;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+2) .user-image {
   /* You may have to set 'display: block' */
   width: 110px;
   height: 110px;
   background: url('../../Images/HomePage2/testimonials_en.jpg') -1px -1px;
-  background-image: url('../../Images/HomePage2/testimonials_en.jpg') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
+  background-image: url('../../Images/HomePage2/testimonials_en.jpg?v=1') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg?v=1')*/;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+3) .user-image {
   /* You may have to set 'display: block' */
   width: 110px;
   height: 110px;
   background: url('../../Images/HomePage2/testimonials_en.jpg') -1px -112px;
-  background-image: url('../../Images/HomePage2/testimonials_en.jpg') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
+  background-image: url('../../Images/HomePage2/testimonials_en.jpg?v=1') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg?v=1')*/;
 }
 .homePage .home-page-body section.reviews li:nth-child(4n+4) .user-image {
   /* You may have to set 'display: block' */
   width: 110px;
   height: 110px;
   background: url('../../Images/HomePage2/testimonials_en.jpg') -1px -223px;
-  background-image: url('../../Images/HomePage2/testimonials_en.jpg') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg')*/;
+  background-image: url('../../Images/HomePage2/testimonials_en.jpg?v=1') /*rtl: url('../../Images/HomePage2/testimonials_he.jpg?v=1')*/;
 }
 .homePage .home-page-body footer {
   background: #424346;

@@ -378,6 +378,8 @@
   padding-bottom: 100px;
   background-image: url("/images/site/quizbackground.png");
   text-align: center;
+  background-size: cover;
+  border-radius: 15px;
 }
 .quiz-challenge .completed-quiz {
   margin: 0 auto;
@@ -470,7 +472,7 @@
 @media (max-width: 600px) {
   .quiz-challenge .buttons .scared,
   .quiz-challenge .buttons .chance {
-    font-size: 5vmin;
+    font-size: 4.5vmin;
   }
 }
 .quiz-challenge .buttons .scared {
