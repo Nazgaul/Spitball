@@ -110,8 +110,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
-        [Route("home/aboutus", Name = "AboutUs")]
-        [Route("home/privacy", Name = "Privacy")]
+        [Route("aboutus", Name = "AboutUs")]
+        [Route("privacy", Name = "Privacy")]
         [Route("terms", Name = "TOS")]
         public ActionResult IndexEmptyRoute()
         {
@@ -165,6 +165,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult TermsOfService()
         {
             return RedirectToRoutePermanent("TOS");
+        }
+        public ActionResult Privacy()
+        {
+            return RedirectToRoutePermanent("Privacy");
+        }
+        public ActionResult AboutUs()
+        {
+            return RedirectToRoutePermanent("AboutUs");
         }
 
         public ActionResult TermsPartial()
