@@ -2,8 +2,9 @@
     angular.module('app.search').controller('SearchController', search);
 
     search.$inject = ['searchService', 'itemThumbnailService', '$q', '$rootScope', '$scope', 'Analytics',
-        '$stateParams', '$location', '$state'];
-    function search(searchService, itemThumbnailService, $q, $rootScope, $scope, analytics, $stateParams, $location, $state) {
+        '$stateParams', '$location', '$state', '$timeout'];
+    function search(searchService, itemThumbnailService, $q, $rootScope,
+        $scope, analytics, $stateParams, $location, $state, $timeout) {
         var self = this, page = 0, needToBringMore = true, term;
         self.state = {
             box: 'box',
@@ -64,7 +65,9 @@
             self.tab = tab;
             $state.go('searchinfo', { q: $stateParams.q, t: self.tab });
             self.result = [];
-            searchElements();
+            //bug 5411
+            $timeout(searchElements);
+            //searchElements();
         }
 
         function createEmptyPromise() {
