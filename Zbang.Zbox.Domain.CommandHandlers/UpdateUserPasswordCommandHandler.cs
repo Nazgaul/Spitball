@@ -4,7 +4,6 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Security;
-using System.Web.Security;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -26,13 +25,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (command == null) throw new ArgumentNullException("command");
             User user = m_UserRepository.Load(command.Id);
-
-
+            var id = await m_AccountService.GetUserIdAsync(user.Email);
+            
             if (!user.MembershipId.HasValue)
             {
-                throw new Infrastructure.Exceptions.UserNotFoundException();
+                user.MembershipId = id;
             }
-            await ChangeUserPasswordAsync(user.MembershipId.Value, command.CurrentPassword, command.NewPassword);
+            await ChangeUserPasswordAsync(id, command.CurrentPassword, command.NewPassword);
 
             m_UserRepository.Save(user);
             return m_Result;

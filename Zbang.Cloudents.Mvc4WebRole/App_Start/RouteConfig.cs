@@ -35,6 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             "account/resetpassword",
             new { controller = "Home", action = "Index" }, new { httpMethod = new HttpMethodConstraint("GET") }
             );
+
             routes.MapRoute("homePage",
              "",
              new { controller = "Home", action = "Index" }

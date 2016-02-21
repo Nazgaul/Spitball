@@ -15,14 +15,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         public string LastName { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
-        [EmailAddress(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail")]
+        //Error message = null , bug 5416 http://stackoverflow.com/questions/12474876/either-errormessagestring-or-errormessageresourcename-must-be-set-but-not-both
+        [EmailAddress(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail", ErrorMessage = null)]
         public string NewEmail { get; set; }
 
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "PwdRequired")]
         [ValidatePasswordLength(ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
         [DataType(DataType.Password)]
-        //[Display(ResourceType = typeof(RegisterResources), Name = "Password")]
         public string Password { get; set; }
 
         public long? UniversityId { get; set; }

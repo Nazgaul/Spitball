@@ -11,8 +11,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         {
             RememberMe = true;
         }
-
-        [EmailAddress(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail")]
+        //Error message = null , bug 5416 http://stackoverflow.com/questions/12474876/either-errormessagestring-or-errormessageresourcename-must-be-set-but-not-both
+        [EmailAddress(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "NotValidEmail", ErrorMessage = null)]
         [Required(ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "EmailRequired")]
         public string Email { get; set; }
 

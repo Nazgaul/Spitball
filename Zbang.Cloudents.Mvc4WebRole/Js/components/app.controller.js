@@ -106,6 +106,7 @@
                 return;
             }
             $mdMenu.hide(); //closes menu
+            $mdToast.hide(); // hide toasters
             $rootScope.$broadcast('close-menu');
 
             var toStateName = toState.name;

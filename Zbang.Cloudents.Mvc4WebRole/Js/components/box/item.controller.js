@@ -53,6 +53,7 @@
         function addTab() {
             if (!i.newFolderName) {
                 i.newFolderTabOpened = false;
+                return;
             }
             if (submitDisabled) {
                 return;

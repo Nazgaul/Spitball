@@ -82,12 +82,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private const int MaxInterval = 240;
         private async Task SleepAndIncreaseInterval(CancellationToken cancellationToken)
         {
-            var previous = m_Interval;
             m_Interval = Math.Min(MaxInterval, m_Interval * 2);
-            if (previous != m_Interval)
-            {
-                TraceLog.WriteInfo("increase interval in item to " + m_Interval);
-            }
             await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
 
         }

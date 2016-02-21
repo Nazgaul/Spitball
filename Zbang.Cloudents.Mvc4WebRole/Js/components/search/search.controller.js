@@ -63,14 +63,12 @@
         function changeTab(tab) {
             self.tab = tab;
             $state.go('searchinfo', { q: $stateParams.q, t: self.tab });
-
+            self.result = [];
             searchElements();
         }
 
         function createEmptyPromise() {
-            var defer = $q.defer();
-            defer.resolve();
-            return defer.promise;
+            return $q.when();
         }
 
         function doQuery(needToAppend) {
@@ -125,6 +123,7 @@
             });
         }
         function getQuizzes(needToAppend) {
+            
             return searchService.searchQuizzes(term, page).then(function (response) {
                 self.noResults = false;
                 for (var j = 0; j < response.length; j++) {

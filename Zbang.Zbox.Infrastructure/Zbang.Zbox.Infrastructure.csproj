@@ -178,7 +178,7 @@
     <Compile Include="Security\GoogleAuthenticationService.cs" />
     <Compile Include="Security\GoogleUserData.cs" />
     <Compile Include="Security\IFacebookService.cs" />
-    <Compile Include="Security\IMembershipService.cs" />
+    <Compile Include="Security\IAccountService.cs" />
     <Compile Include="Security\Resources\Validation.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

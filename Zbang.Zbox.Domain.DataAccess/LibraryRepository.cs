@@ -8,14 +8,18 @@ namespace Zbang.Zbox.Domain.DataAccess
     {
         public Guid GetTopTreeNode(Guid departmentId)
         {
-            var sqlQuery = UnitOfWork.CurrentSession.CreateSQLQuery(@"with node as (
-select level,Id from zbox.library where Libraryid = :parentid
-)
-
-SELECT top 1
-    l.libraryid
-FROM zbox.Library l , node n
-where (n.level).IsDescendantOf(l.level) = 1 and l.id = n.Id");
+            var sqlQuery = UnitOfWork.CurrentSession.CreateSQLQuery(@"with name_tree as (
+   select libraryid, parentId, name
+   from zbox.library
+   where libraryid = :parentid -- this is the starting point you want in your recursion
+   union all
+   select c.libraryid, c.parentId, c.name
+   from zbox.library c
+     join name_tree p on p.parentId = c.libraryid  -- this is the recursion
+) 
+select libraryid
+from name_tree
+where  parentId is null");
             sqlQuery.SetGuid("parentid", departmentId);
             sqlQuery.SetReadOnly(true);
             return sqlQuery.UniqueResult<Guid>();

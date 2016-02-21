@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Zbang.Zbox.Infrastructure.Exceptions;
 
 namespace Zbang.Zbox.Infrastructure.Security
 {
@@ -133,6 +134,17 @@ namespace Zbang.Zbox.Infrastructure.Security
                 return Guid.Parse(user.Id);
             }
             return null;
+        }
+
+
+        public async Task<Guid> GetUserIdAsync(string email)
+        {
+            var user = await FindByEmailAsync(email);
+            if (user == null)
+            {
+                throw new UserNotFoundException();
+            }
+            return Guid.Parse(user.Id);
         }
     }
 }
