@@ -9,8 +9,6 @@ namespace Zbang.Cloudents.MobileApp2
         protected void Application_Start(object sender, EventArgs e)
         {
             Trace.TraceInformation("Starting service");
-            SqlServerTypes.Utilities.LoadNativeAssemblies(Server.MapPath("~/bin"));
-            Trace.TraceInformation("Load native assemblies complete");
             WebApiConfig.Register();
         }
         
