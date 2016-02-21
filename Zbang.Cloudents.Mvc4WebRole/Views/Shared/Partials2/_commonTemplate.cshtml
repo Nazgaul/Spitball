@@ -33,9 +33,9 @@
         <div class="base borderTC5">
             <div class="item-ratio">
                 <div class="content">
-                    <img class="img-responsive" ng-src="{{::e.thumbnail}}" width="368" height="520" alt="thumbnail" />
+                    <img class="img-responsive" ng-src="{{::e.thumbnail}}" width="368" height="520" alt="{{::e.nameExtension}}" />
                     <div class="extra" id="drag{{::$index}}">
-                        <h5 class="multi-line-ellipsis color-override textColor3" ng-bind-html="::e.nameExtension"></h5>
+                        <h2 class="multi-line-ellipsis color-override textColor3" ng-bind-html="::e.nameExtension"></h2>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                         <span class="draft">@IndexResources.Draft</span>
                     </div>
                     <div class="bottom color-override backgroundColor3">
-                        <span class="name ellipsis color-override textColor7" ng-bind-html="::e.name"></span>
+                        <h2 class="name ellipsis color-override textColor7" ng-bind-html="::e.name"></h2>
                         @Html.Svg(svgUrl, "corner", new { @class = "corner", viewBox = "0 0 70 70" })
                     </div>
                 </div>
