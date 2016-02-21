@@ -1211,7 +1211,7 @@ Page Loading
   overflow: hidden;
 }
 .unreg-user .smallHeight {
-  height: 300px;
+  height: 400px;
 }
 .unreg-user .mediumHeight {
   height: 60vh;
@@ -1237,10 +1237,10 @@ Page Loading
   font-size: 56px;
   font-weight: bold;
   margin-bottom: 0;
-  max-width: 740px;
+  max-width: 714px;
   width: 100%;
   text-align: center;
-  margin: 0 auto;
+  margin: 0 auto 10px auto;
   line-height: initial;
 }
 @media (max-width: 600px) {

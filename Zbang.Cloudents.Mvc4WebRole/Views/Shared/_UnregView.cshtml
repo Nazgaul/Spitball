@@ -16,22 +16,26 @@
                 </div>
                 <div class="signin-options-section">
                     <div class="social-signin">
-                        <button type="button" class="login-option facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                        <button type="button" ng-click="ur.facebook()" class="login-option facebook os-animation">
                             <div>
                                 @Html.Svg(socialIconsSvg, "facebook")
                                 <span>@LogOnResources.ExternalProvider</span>
                             </div>
                         </button>
-                        <button type="button" class="login-option google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                        <button type="button" ng-click="ur.google()" class="login-option google os-animation">
                             <div>
                                 @Html.Svg(socialIconsSvg, "google")
                                 <span>@LogOnResources.ExternalProvider</span>
                             </div>
                         </button>
                     </div>
-                    <button type="button" class="login-option signup os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                    <a href="@Url.Action("SignUp", "Account", new { returnUrl = Request.Url })" target="_blank" class="login-option signup os-animation"
+                       target="_self">
                         @HomePageResources.A5
-                    </button>
+                    </a>
+                    @*<button type="button" class="login-option signup os-animation">
+                        @HomePageResources.A5
+                    </button>*@
                 </div>
                 </div>
             </div>
