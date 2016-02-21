@@ -432,7 +432,6 @@ md-tabs md-ink-bar {
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
   flex-direction: column;
-  white-space: pre-wrap;
   font-size: 16px;
   line-height: 16px;
 }

@@ -171,4 +171,7 @@
   <data name="CheckEmailTitle" xml:space="preserve">
     <value>בדוק את תיבת המייל שלך</value>
   </data>
+  <data name="CreateAccountFormHeader" xml:space="preserve">
+    <value>זה הזמן להצטרף לחבריך לספסל הלימודים</value>
+  </data>
 </root>
