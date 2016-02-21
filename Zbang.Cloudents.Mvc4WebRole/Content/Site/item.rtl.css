@@ -292,7 +292,7 @@
 }
 @media (min-width: 890px) {
   .itemPage .arrows {
-    margin-right: calc(50% - 445px);
+    margin-right: calc(50% - 450px);
   }
 }
 .itemPage .arrows svg {
