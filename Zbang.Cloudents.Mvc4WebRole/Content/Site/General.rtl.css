@@ -833,6 +833,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 .btn {
   padding: 0 16px;
+  line-height: 25px;
 }
 .btn-default {
   border: none;
