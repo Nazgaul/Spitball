@@ -36,6 +36,9 @@
   margin-top: 10px;
   margin: 10px;
 }
+.invite .portlet-title {
+  padding-left: 25px;
+}
 .invite.light {
   margin: 0;
 }
@@ -195,6 +198,11 @@
 .chipsdemoContactChips .fixedRows {
   height: 250px;
   overflow: auto;
+}
+.chipsdemoContactChips .fixedRows .contact-item .md-list-item-text h3 {
+  white-space: normal;
+  -ms-word-break: break-word;
+  word-break: break-word;
 }
 .md-contact-suggestion img {
   vertical-align: baseline;
