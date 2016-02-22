@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
     internal class DepartmentRequestAccessMail : IMailBuilder
     {
         const string Category = "Request access";
-        const string Subject = "Someone requests access";
+        const string Subject = "Another spitballer requests access";
 
 
         public void GenerateMail(ISendGrid message, MailParameters parameters)
