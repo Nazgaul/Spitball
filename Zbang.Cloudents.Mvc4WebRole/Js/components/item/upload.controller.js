@@ -109,6 +109,7 @@
             }).finally(function () {
                 u.link = '';
                 u.submitFormProcess = false;
+                $timeout(closeUpload, 2000);
             });
 
         }
