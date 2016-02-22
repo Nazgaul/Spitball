@@ -130,6 +130,9 @@
             }
             return ajaxService.getHtml('/share/invitedialog/').then(function (response) {
                 b.html = response;
+                $timeout(function () {
+                    $scope.$broadcast('open_invite');
+                });
             });
         }
 
