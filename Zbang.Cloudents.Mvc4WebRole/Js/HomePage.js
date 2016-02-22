@@ -117,6 +117,7 @@
     });
 
     function toggleForm(form) {
+        document.body.scrollTop = 0;
         $.each($('.home-page-body > *:not(.main)'),
             function () {
                 $(this).slideToggle(animatonSpeed);

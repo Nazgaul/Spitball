@@ -354,7 +354,7 @@
         right: 0;
 
         @media(max-width: 600px) {
-            bottom: -70vh;
+            bottom: -58vh;
         }
 
         > * {
@@ -389,14 +389,15 @@
                 position: relative;
                 text-align: center;
                 padding-bottom: 200px;
-                margin-top: 100px;
+                margin-top: 70px;
                 background: linear-gradient(to top, #000 -50px, transparent 400px, transparent 100%);
                 padding: 0;
 
                 #main-wrapper {
-                    padding: 0 5% 50px 5%;
+                    padding: 0 5% 80px 5%;
                     overflow: hidden;
                     position: relative;
+
                     /*&.collapse {
                         padding: 0;
                         height: 0;
@@ -407,7 +408,7 @@
                     width: 100%;
                     max-width: 800px;
                     text-align: center;
-                    margin: 70px auto 80px auto;
+                    margin: 100px auto 80px auto;
                     padding: 0 35px;
                     -moz-box-sizing: border-box;
                     -webkit-box-sizing: border-box;
@@ -450,6 +451,7 @@
                         text-align: left;
                         align-self: center;
                         font-size: 14px;
+                        width: calc(100% - 80px);
                     }
 
                     .login-option {
@@ -527,7 +529,7 @@
                     }
 
                     @media(max-width: 460px) {
-                        max-width: 300px;
+                        //max-width: 300px;
 
                         .login-option {
                             width: 100%;
@@ -577,7 +579,11 @@
 
                 .login-wrapper {
                     display: none;
-
+                    min-height: 119vh;
+                    margin-top: 80px;
+                    @media(max-width: 600px){
+                        margin-top: 50px;
+                    }
                     form {
                         position: relative;
 
@@ -601,7 +607,7 @@
 
                     .signin-options {
                         padding: 0 20px;
-                        margin: 0 -20px 25px -20px;
+                        margin: 0 -20px 35px -20px;
                         width: inherit;
                         padding-bottom: 10px;
 
@@ -654,7 +660,7 @@
 
                     &.login {
                         //background-color: #666 !important;
-                        margin: 50px 0;
+                        //margin: 50px 0;
 
                         .logo {
                             //margin: 60px auto 20px auto;
@@ -1012,7 +1018,7 @@
                             padding-top: 0;
                             clear: both;
                             background: @buttonColorBlue;
-                            margin: -20px -30px;
+                            margin: -30px;
                             text-align: center;
                             border: none;
                             height: 50px;
@@ -1564,6 +1570,7 @@
 
                         > div {
                             white-space: normal;
+                            width: 30%
                         }
                     }
 

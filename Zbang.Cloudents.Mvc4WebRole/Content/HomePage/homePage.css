@@ -311,7 +311,7 @@
 }
 @media (max-width: 600px) {
   .homePage .home-page-body {
-    bottom: -70vh;
+    bottom: -58vh;
   }
 }
 .homePage .home-page-body > * {
@@ -342,12 +342,12 @@
   position: relative;
   text-align: center;
   padding-bottom: 200px;
-  margin-top: 100px;
+  margin-top: 70px;
   background: linear-gradient(to top, #000000 -50px, transparent 400px, transparent 100%);
   padding: 0;
 }
 .homePage .home-page-body section.main #main-wrapper {
-  padding: 0 5% 50px 5%;
+  padding: 0 5% 80px 5%;
   overflow: hidden;
   position: relative;
   /*&.collapse {
@@ -359,7 +359,7 @@
   width: 100%;
   max-width: 800px;
   text-align: center;
-  margin: 70px auto 80px auto;
+  margin: 100px auto 80px auto;
   padding: 0 35px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -395,6 +395,7 @@
   text-align: left;
   align-self: center;
   font-size: 14px;
+  width: calc(20%);
 }
 .homePage .home-page-body section.main .signin-options .login-option {
   border: none;
@@ -462,9 +463,6 @@
   width: calc(100% - 65px);
 }
 @media (max-width: 460px) {
-  .homePage .home-page-body section.main .signin-options {
-    max-width: 300px;
-  }
   .homePage .home-page-body section.main .signin-options .login-option {
     width: 100%;
   }
@@ -507,6 +505,13 @@
 }
 .homePage .home-page-body section.main .login-wrapper {
   display: none;
+  min-height: 119vh;
+  margin-top: 80px;
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .login-wrapper {
+    margin-top: 50px;
+  }
 }
 .homePage .home-page-body section.main .login-wrapper form {
   position: relative;
@@ -528,7 +533,7 @@
 }
 .homePage .home-page-body section.main .login-wrapper .signin-options {
   padding: 0 20px;
-  margin: 0 -20px 25px -20px;
+  margin: 0 -20px 35px -20px;
   width: inherit;
   padding-bottom: 10px;
 }
@@ -571,7 +576,6 @@
   min-height: calc(100vh - 100px);
 }
 .homePage .home-page-body section.main .login-wrapper.login {
-  margin: 50px 0;
   /* select2 dropdowns */
   /* footer copyright */
 }
@@ -874,7 +878,7 @@
   padding-top: 0;
   clear: both;
   background: #4190b9;
-  margin: -20px -30px;
+  margin: -30px;
   text-align: center;
   border: none;
   height: 50px;
@@ -1372,6 +1376,7 @@
   }
   .homePage .home-page-body section.main .statistics > div {
     white-space: normal;
+    width: 30%;
   }
   .homePage .home-page-body section.main .social-links {
     display: none;

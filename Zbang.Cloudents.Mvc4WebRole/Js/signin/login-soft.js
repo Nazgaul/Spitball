@@ -146,6 +146,7 @@ var Login = function () {
         });
 
         jQuery('#register-btn, .login-option.signup').click(function () {
+            document.body.scrollTop = 0;
             jQuery('.login-form, .forgot-password-form').hide();
             jQuery('.register-form').removeClass('hidden').show();
             pushState(signupState);
@@ -154,6 +155,7 @@ var Login = function () {
         });
 
         jQuery('.signin-btn, #login-btn, .forgot-password-form .cancel').click(function () {
+            document.body.scrollTop = 0;
             jQuery('.login-form').removeClass('hidden').show();
             jQuery('.register-form, .forgot-password-form').hide();
             pushState(loginState);
@@ -163,6 +165,7 @@ var Login = function () {
 
 
         jQuery('#forget-password').click(function () {
+            document.body.scrollTop = 0;
             jQuery('.forgot-password-form').removeClass('hidden').show();
             jQuery('.login-form, .register-form').hide();
             pushState(forgotPasswordState);
