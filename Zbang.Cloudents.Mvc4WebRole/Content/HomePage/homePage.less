@@ -397,7 +397,6 @@
                     padding: 0 5% 80px 5%;
                     overflow: hidden;
                     position: relative;
-
                     /*&.collapse {
                         padding: 0;
                         height: 0;
@@ -530,7 +529,6 @@
 
                     @media(max-width: 460px) {
                         //max-width: 300px;
-
                         .login-option {
                             width: 100%;
                         }
@@ -550,11 +548,17 @@
                     left: 0;
                     right: 0;
 
-                    div {
-                        white-space: nowrap;
-                        display: inline-block;
+                    .statistic {
                         text-align: center;
                         padding: 0 10px;
+
+                        .value {
+                            margin: 0 10px;
+                        }
+
+                        > div {
+                            display: inline-block;
+                        }
                     }
                 }
 
@@ -581,9 +585,11 @@
                     display: none;
                     min-height: 119vh;
                     margin-top: 80px;
-                    @media(max-width: 600px){
+
+                    @media(max-width: 600px) {
                         margin-top: 50px;
                     }
+
                     form {
                         position: relative;
 
@@ -661,7 +667,6 @@
                     &.login {
                         //background-color: #666 !important;
                         //margin: 50px 0;
-
                         .logo {
                             //margin: 60px auto 20px auto;
                             padding: 15px;
@@ -1570,7 +1575,6 @@
 
                         > div {
                             white-space: normal;
-                            width: 30%
                         }
                     }
 

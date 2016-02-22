@@ -12,18 +12,16 @@
         useGrouping: true,
         separator: ',',
         decimal: '.',
-        prefix: ''
+        prefix: '',
+        suffix: ''
     };
 
-    options.suffix = ' ' + $('#students').data('statistic');
     var studentsCount = ' ' + $('#students').data('value');
     new CountUp("students", 0, studentsCount, 0, 2.5, options).start();;
 
-    options.suffix = ' ' + $('#documents').data('statistic');
     var documentsCount = ' ' + $('#documents').data('value');
     new CountUp("documents", 0, documentsCount, 0, 2.5, options).start();;
 
-    options.suffix = ' ' + $('#quizzes').data('statistic');
     var quizzesCount = ' ' + $('#quizzes').data('value');
     new CountUp("quizzes", 0, quizzesCount, 0, 2.5, options).start();;
     //#endregion

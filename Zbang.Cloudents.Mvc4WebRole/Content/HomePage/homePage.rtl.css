@@ -482,11 +482,15 @@
   right: 0;
   left: 0;
 }
-.homePage .home-page-body section.main .statistics div {
-  white-space: nowrap;
-  display: inline-block;
+.homePage .home-page-body section.main .statistics .statistic {
   text-align: center;
   padding: 0 10px;
+}
+.homePage .home-page-body section.main .statistics .statistic .value {
+  margin: 0 10px;
+}
+.homePage .home-page-body section.main .statistics .statistic > div {
+  display: inline-block;
 }
 .homePage .home-page-body section.main .social-links {
   width: 35px;
@@ -1376,7 +1380,6 @@
   }
   .homePage .home-page-body section.main .statistics > div {
     white-space: normal;
-    width: 30%;
   }
   .homePage .home-page-body section.main .social-links {
     display: none;

@@ -54,7 +54,7 @@
                    uib-tooltip="@ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
             </div>
             <div class="second-line" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
-                <a href="{{::i.details.ownerUrl}}">{{::i.details.owner}}</a>&nbsp;-&nbsp;<span>{{::i.details.date | date : 'mediumDate'}}</span>
+                <a href="{{::i.details.ownerUrl}}" user-not-register-popup="click">{{::i.details.owner}}</a>&nbsp;-&nbsp;<span>{{::i.details.date | date : 'mediumDate'}}</span>
             </div>
             <form name="renameItem" class="rename-form" novalidate ng-submit="i.renameItem(renameItem)" ng-if="i.selectedState === i.state.rename">
                 <md-content>
