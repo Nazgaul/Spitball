@@ -372,9 +372,10 @@
 }
 .homePage .home-page-body section.main .welcome-text h1 {
   font-weight: bold;
-  margin: 0;
   font-size: 50px;
   white-space: pre-wrap;
+  width: 520px;
+  margin: 0 auto;
 }
 .homePage .home-page-body section.main .welcome-text h2 {
   font-size: 18px;

@@ -124,8 +124,7 @@
     <value>משרות</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>למה ללמוד קשה כשאפשר
-ללמוד חכם</value>
+    <value>למה ללמוד קשה כשאפשר ללמוד חכם</value>
   </data>
   <data name="A5" xml:space="preserve">
     <value>או הירשם באמצעות כתובת המייל שלך</value>
@@ -231,19 +230,16 @@
     <value>תמיכה</value>
   </data>
   <data name="statsDocuments" xml:space="preserve">
-    <value>סיכומים, מבחנים ומאמרים</value>
+    <value>מסמכי לימוד</value>
   </data>
   <data name="statsQuizzes" xml:space="preserve">
-    <value>מבחנים מקוונים</value>
+    <value>מבחנים אונליין</value>
   </data>
   <data name="statsStudents" xml:space="preserve">
     <value>סטודנטים</value>
   </data>
   <data name="A6" xml:space="preserve">
-    <value>עם ספיטבול אתם יכולים להתחבר עם חבריכם לכיתה, לשתף חומרי לימוד, לשאול, 
-לענות ולהתדיין על נושאים אקדמיים רלוונטיים לנושאי הלימוד שלכם ולפתור מבחנים
-שאתם עצמכם יוצרים. 
-</value>
+    <value>שיתוף חומרי לימוד בין חברים. שיחות קובצתיות. תירגול מבחנים אונליין.</value>
   </data>
   <data name="A7" xml:space="preserve">
     <value>הצטרף מהר יותר באמצעות</value>
@@ -256,5 +252,8 @@
   </data>
   <data name="A11" xml:space="preserve">
     <value>אפליקציה</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>בחינם.</value>
   </data>
 </root>
