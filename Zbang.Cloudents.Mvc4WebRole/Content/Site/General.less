@@ -240,7 +240,7 @@ md-input-container:not(.md-input-has-value) input:not(:focus) {
 }
 
 .md-select-value *:first-child {
-        max-width: ~"calc(100% - 20px)";
+    max-width: ~"calc(100% - 20px)";
 }
 
 md-dialog-actions {
@@ -618,6 +618,11 @@ md-tabs {
 
 .md-dialog-container {
     z-index: 80;
+}
+//fix bug in angular material v1.0.3
+.md-dialog-is-showing {
+    max-height: none;
+    overflow: hidden;
 }
 
 .r-table {

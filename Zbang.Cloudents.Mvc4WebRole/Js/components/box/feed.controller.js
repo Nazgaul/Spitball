@@ -183,8 +183,8 @@
                         questionForItem.isNew = true;
                         return;
                     }
-                    for (var k = 0; k < questionForItem.answers.length; k++) {
-                        exists = questionForItem.answers[k].files.find(function (e) {
+                    for (var k = 0; k < questionForItem.replies.length; k++) {
+                        exists = questionForItem.replies[k].files.find(function (e) {
                             return e.id === update.itemId;
                         });
                         if (exists) {
@@ -204,7 +204,7 @@
                     // console.log('something wrong');
                 }
                 if (update.answerId) {
-                    var answer = question.answers.find(function (e) {
+                    var answer = question.replies.find(function (e) {
                         return e.id === update.answerId;
                     });
                     if (!answer) {

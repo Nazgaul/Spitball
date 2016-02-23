@@ -76,7 +76,7 @@
                            ng-model-options="{debounce : 1000}"
                            type="search" class="text"
                            user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
-                    <button type="submit" class="search-btn color-override backgroundColor11">
+                    <button type="submit" class="search-btn color-override backgroundColor11" ng-disabled="!st.term.length">
                         @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })
                     </button>
                 </div>
@@ -130,11 +130,12 @@
         </div>
     </header>
 
-
+   
     @*<div class="page-container">*@
     <div class="page-body">
         @RenderBody()
     </div>
+    <div class="clearfix"></div>
     @*</div>*@
     <div class="page-footer">
         <div class="scroll-to-top">

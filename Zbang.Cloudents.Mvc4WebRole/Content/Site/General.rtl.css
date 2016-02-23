@@ -551,6 +551,10 @@ md-tabs md-ink-bar {
 .md-dialog-container {
   z-index: 80;
 }
+.md-dialog-is-showing {
+  max-height: none;
+  overflow: hidden;
+}
 .r-table {
   display: table;
 }

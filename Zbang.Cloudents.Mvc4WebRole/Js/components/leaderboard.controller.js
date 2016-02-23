@@ -11,23 +11,19 @@
             if ($stateParams.boxtype.toLowerCase() === 'box') {
                 self.hide = true;
             } else {
-                boxService.leaderBoard($stateParams.boxId).then(function (response) {
-                    self.leaderboard = response;
-                    if (!response.length) {
-                        $scope.$emit('hide-leader-board');
-                    }
-                    self.loading = false;
-                });
+                boxService.leaderBoard($stateParams.boxId).then(successCallback);
             }
         }
         else {
-            dashboardService.leaderboard().then(function (response) {
-                self.leaderboard = response;
-                if (response.length < 3) {
-                    $scope.$emit('hide-leader-board');
-                }
-                self.loading = false;
-            });
+            dashboardService.leaderboard().then(successCallback);
+        }
+
+        function successCallback(response) {
+            self.leaderboard = response;
+            if (response.length < 3) {
+                $scope.$emit('hide-leader-board');
+            }
+            self.loading = false;
         }
 
 
