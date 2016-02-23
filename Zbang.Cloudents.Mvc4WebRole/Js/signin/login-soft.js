@@ -195,6 +195,7 @@ var Login = function () {
     function signup(form) {
         var submitBtn = $(form).find('.btn-primary');
         disableState(submitBtn);
+        $(form).find('.form-actions').addClass('loading');
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
         var universityId = getUrlVars()['universityid'];
@@ -237,6 +238,7 @@ var Login = function () {
     function signin(form) {
         var submitBtn = $(form).find('.btn-primary');
         disableState(submitBtn);
+        $(form).find('.form-actions').addClass('loading');
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
 

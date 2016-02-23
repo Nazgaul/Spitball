@@ -610,24 +610,25 @@
                         box-sizing: border-box;
                     }
 
+                    .loader {
+                        display: none;
+                        position: absolute;
+                        top: ~"calc(50% - 25px)";
+                        left: ~"calc(50% - 25px)";
+                        color: transparent;
+                        height: 50px;
+                        width: 50px;
+                        text-align: center;
+                    }
+
+
+                    .form-actions.loading ~ .loader {
+                        display: block;
+                    }
+
                     .form-actions {
                         display: flex;
                         justify-content: space-between;
-
-                        .loader {
-                            display: none;
-                        }
-
-                        button[type="submit"].disabled ~ .loader {
-                            display: block;
-                            position: absolute;
-                            top: ~"calc(50% - 25px)";
-                            left: ~"calc(50% - 25px)";
-                            color: transparent;
-                            height: 50px;
-                            width: 50px;
-                            text-align: center;
-                        }
                     }
 
                     .form-actions-container .form-group {

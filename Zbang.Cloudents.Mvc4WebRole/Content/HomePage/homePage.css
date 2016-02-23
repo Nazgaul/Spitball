@@ -534,15 +534,8 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.homePage .home-page-body section.main .login-wrapper .form-actions {
-  display: flex;
-  justify-content: space-between;
-}
-.homePage .home-page-body section.main .login-wrapper .form-actions .loader {
+.homePage .home-page-body section.main .login-wrapper .loader {
   display: none;
-}
-.homePage .home-page-body section.main .login-wrapper .form-actions button[type="submit"].disabled ~ .loader {
-  display: block;
   position: absolute;
   top: calc(50% - 25px);
   left: calc(50% - 25px);
@@ -550,6 +543,13 @@
   height: 50px;
   width: 50px;
   text-align: center;
+}
+.homePage .home-page-body section.main .login-wrapper .form-actions.loading ~ .loader {
+  display: block;
+}
+.homePage .home-page-body section.main .login-wrapper .form-actions {
+  display: flex;
+  justify-content: space-between;
 }
 .homePage .home-page-body section.main .login-wrapper .form-actions-container .form-group {
   padding-right: 15px;
