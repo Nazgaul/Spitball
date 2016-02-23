@@ -57,7 +57,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ViewBag.title = string.Format("{0} | {1}", model.Name, BaseControllerResources.Cloudents);
                     return View("Empty");
                 }
-                
+
                 ViewBag.title = string.Format("{0} | {1} | {2} | {3}", model.Name, model.DepartmentName,
                     model.UniversityName, BaseControllerResources.Cloudents);
                 ViewBag.metaDescription = Regex.Replace(string.Format(
@@ -207,7 +207,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var result = await ZboxReadService.GetBoxLeaderBoardAsync(query);
             if (IsCrawler())
             {
-                return JsonOk(result.Select(s => new
+                return JsonOk(result.Where(w => w.Id != User.GetUserId(false)).Select(s => new
                 {
                     s.Id,
                     s.Image,
@@ -215,7 +215,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     s.Url,
                 }));
             }
-            return JsonOk(result);
+            return JsonOk(result.Where(w => w.Id != User.GetUserId(false)));
         }
 
         [HttpGet]

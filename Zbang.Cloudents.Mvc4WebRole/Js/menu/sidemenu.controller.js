@@ -54,25 +54,6 @@
             }
             return true;
         }
-        //function isOpen(section) {
-        //    return openedSection === section;
-        //}
-
-        //function toggleOpen(section) {
-        //    if (section === openedSection) {
-        //        openedSection = null;
-        //        return;
-        //    }
-        //    openedSection = section;
-        //    if (!userDetails.isAuthenticated()) {
-        //        $rootScope.$broadcast('show-unregisterd-box');
-        //        return;
-        //    }
-        //    if (notloaded) {
-        //        getBoxes();
-        //        notloaded = false;
-        //    }
-        //}
 
         function isSectionSelected(section) {
             return $location.url().startsWith(section);
@@ -91,19 +72,20 @@
 
             });
         }
-        $rootScope.$on('close-menu', function () {
+        
+        $scope.$on('close-menu', function () {
             $mdSidenav('left').close();
             $scope.app.menuOpened = false;
             self.menuOpened = !self.menuOpened;
         });
-        $rootScope.$on('open-menu', function () {
+        $scope.$on('open-menu', function () {
             $mdSidenav('left').toggle();
             $scope.app.menuOpened = !$scope.app.menuOpened;
             $timeout(function () {
                 $rootScope.$broadcast('updateScroll');
             });
         });
-        $rootScope.$on('remove-box', function (e, arg) {
+        $scope.$on('remove-box', function (e, arg) {
             arg = parseInt(arg, 10);
             removeElement(d.courses, arg);
             removeElement(d.privateBoxes, arg);
