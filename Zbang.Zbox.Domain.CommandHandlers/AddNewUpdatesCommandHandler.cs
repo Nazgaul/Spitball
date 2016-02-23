@@ -105,7 +105,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
              var reply =  m_ReplyRepository.Load(replyId.Value);
              DoUpdateLoop(userIds, u => new Updates(u, box, reply));
-             if (box is AcademicBoxClosed)
+             if (box.Actual is AcademicBoxClosed)
              {
                  return Task.FromResult<object>(null);
              }
@@ -124,7 +124,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 Task.FromResult<object>(null);
             }
-            if (box is AcademicBoxClosed)
+            if (box.Actual is AcademicBoxClosed)
             {
                 return Task.FromResult<object>(null);
             }
