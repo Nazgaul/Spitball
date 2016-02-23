@@ -222,4 +222,7 @@
   <data name="siteName" xml:space="preserve">
     <value>ספיטבול</value>
   </data>
+  <data name="toasterDepartmentApproved" xml:space="preserve">
+    <value>האישור נשלח</value>
+  </data>
 </root>

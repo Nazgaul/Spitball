@@ -1813,6 +1813,45 @@ md-chips .md-chips.md-focused {
 .hoverSvgTC14:hover {
   fill: #323538 !important;
 }
+.backgroundTC15 {
+  background: #484f56 !important;
+}
+.textTC15 {
+  color: #484f56 !important;
+}
+.inputTC15::-webkit-input-placeholder {
+  color: #484f56 !important;
+  opacity: 1 !important;
+}
+.inputTC15:-moz-placeholder {
+  /* Firefox 18- */
+  color: #484f56 !important;
+  opacity: 1 !important;
+}
+.inputTC15::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #484f56 !important;
+  opacity: 1 !important;
+}
+.inputTC15:-ms-input-placeholder {
+  color: #484f56 !important;
+  opacity: 1 !important;
+}
+.svgTC15 {
+  fill: #484f56 !important;
+}
+.borderTC15 {
+  border-color: #484f56 !important;
+}
+.hoverBackgroundTC15:hover {
+  background: #484f56 !important;
+}
+.hoverTextTC15:hover {
+  color: #484f56 !important;
+}
+.hoverSvgTC15:hover {
+  fill: #484f56 !important;
+}
 input[type="search"]::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   color: #3d4348 !important;

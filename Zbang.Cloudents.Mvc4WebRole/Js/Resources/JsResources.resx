@@ -223,6 +223,7 @@
     <value>Spitball</value>
   </data>
   <data name="toasterDepartmentApproved" xml:space="preserve">
-    <value>Request has been granted</value>
+    <value>Access was granted
+</value>
   </data>
 </root>

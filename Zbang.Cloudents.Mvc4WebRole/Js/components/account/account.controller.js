@@ -4,6 +4,8 @@
 
     function account($stateParams, $state, userData) {
         var self = this;
+
+        self.canChangePassword = userData.system;
         if ($state.current.name === 'settings') {
             $state.go('settings.profile', $stateParams, { location: "replace" });
         }

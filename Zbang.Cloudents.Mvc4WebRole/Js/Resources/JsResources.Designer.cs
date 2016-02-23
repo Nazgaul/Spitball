@@ -313,7 +313,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Request has been granted.
+        ///   Looks up a localized string similar to Access was granted
+        ///.
         /// </summary>
         public static string toasterDepartmentApproved {
             get {

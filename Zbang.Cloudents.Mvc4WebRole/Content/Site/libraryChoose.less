@@ -218,12 +218,19 @@
         width: 95%;
         max-width: 600px;
 
-        .intro-text {
-            font-size: 30px;
-            line-height: 32px;
-            font-weight: bold;
-            padding-top: 30px;
-            padding-bottom: 35px;
+        .intro-text-wrapper {
+            height: 135px;
+            .displayFlex;
+            -ms-flex-direction: column;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            justify-content: center;
+
+            .intro-text {
+                font-size: 30px;
+                line-height: 32px;
+                font-weight: bold;
+            }
         }
 
         form {

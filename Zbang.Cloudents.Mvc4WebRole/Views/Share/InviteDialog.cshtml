@@ -47,7 +47,9 @@
                     </md-list-item>
                 </md-list>
                 <button class="btn gmail text-capitalize" ng-click="i.importGoogleContract()" ng-if="!(i.allContacts.length) && i.inMail" type="button" ga-track-event="['invite', 'import gmail']">
-                    @Html.Svg("/images/site/icons.svg", "gmail")
+                    <div>
+                        @Html.Svg("/images/site/icons.svg", "gmail")
+                    </div>
                     <span>
                         @IndexResources.GmailContact
                     </span>
