@@ -100,10 +100,8 @@
   margin: 10px 15px;
 }
 .invite .gmail {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  padding: 10px 16px 10px 0;
+  display: table;
+  padding: 10px;
   margin: 0 auto;
   width: 196px;
   white-space: normal;
@@ -117,6 +115,10 @@
   -webkit-transform: translate(50%, -50%);
   transform: translate(50%, -50%);
 }
+.invite .gmail > * {
+  display: table-cell;
+  vertical-align: middle;
+}
 .invite .gmail svg {
   width: 60px;
   height: 44px;
@@ -124,7 +126,7 @@
 }
 .invite .gmail span {
   line-height: 18px;
-  width: 60%;
+  width: calc(100% - 60px);
   margin-top: 3px;
   padding-right: 5px;
 }

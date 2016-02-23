@@ -324,6 +324,9 @@ md-tabs md-ink-bar {
 /*#endregion*/
 .page-title {
   align-items: center;
+  /*svg {
+        fill: @textColorWhite;
+    }*/
 }
 .page-title .share-social {
   line-height: 32px;
@@ -341,42 +344,15 @@ md-tabs md-ink-bar {
   min-width: 25px;
   min-height: 25px;
 }
-.page-title svg {
-  fill: #f5f5f5;
-}
 .page-title .facebook,
 .page-title .whatsapp {
   margin-right: 10px;
 }
 .page-title .facebook {
-  position: relative;
   padding: 0;
-}
-.page-title .facebook svg {
-  fill: #3a5795 !important;
-  position: absolute;
-}
-.page-title .facebook:before {
-  content: '';
-  background: white;
-  max-width: 25px;
-  max-height: 25px;
-  min-width: 20px;
-  min-height: 20px;
-  width: 4vw;
-  height: 4vw;
-  display: block;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  border-radius: 100%;
-  z-index: 0;
 }
 .page-title .box-settings {
   display: flex;
-}
-.page-title .box-settings svg {
-  opacity: .3;
 }
 .close {
   float: right;

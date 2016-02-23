@@ -12,7 +12,7 @@
              onload="b.share()">
             @*<a class="a2a_dd" href="https://www.addtoany.com/share"></a>*@
             <a class="facebook a2a_button_facebook">
-                @Html.Svg("/Images/Site/social-icons.svg", "facebook")
+                @Html.Svg("/Images/Site/social-icons.svg", "facebook-colored")
             </a>
             <a hide show-xs class="whatsapp a2a_button_whatsapp">
                 @Html.Svg("/Images/Site/social-icons.svg", "whatsapp")
@@ -22,7 +22,7 @@
         
         <!-- AddToAny END -->
         <button flex="none" ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn text-capitalize color-override backgroundColor8" ga-track-event="['box', 'follow']">@BoxResources.Follow</button>
-        <button class="box-settings" flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "svgTC12" })</button>
+        <button class="box-settings" flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "svgTC15" })</button>
     </div>
 </div>
 <div uib-collapse="!b.settingsOpen" class="settings" ng-cloak>
