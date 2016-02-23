@@ -53,7 +53,7 @@
                  .cancel(resManager.get('dialogCancel'));
 
                 $mdDialog.show(confirm).then(function () {
-                    libraryService.requestAccess(dep.id).then(function() {
+                    libraryService.requestAccess(dep.id).then(function () {
                         $mdDialog.show($mdDialog.alert()
                             .title(resManager.get('privateDepPopupTitleOnSend'))
                             .content(resManager.get('privateDepPopupContentOnSend'))
@@ -132,7 +132,7 @@
         function toggleSettings() {
             l.settings = {
                 name: l.nodeDetail.name
-               // privacy: l.nodeDetail.state
+                // privacy: l.nodeDetail.state
             };
             l.settingsOpen = true;
         }
@@ -168,6 +168,7 @@
             l.submitDisabled = true;
             libraryService.createDepartment(l.departmentName, nodeId).then(function (response) {
                 response.state = l.nodeDetail ? l.nodeDetail.state : 'open';
+                response.userType = l.nodeDetail ? l.nodeDetail.userType : 'none';
                 l.departments.push(response);
                 l.createDepartmentOn = false;
                 l.createClassShow = false;
