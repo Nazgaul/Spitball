@@ -195,7 +195,9 @@ var Login = function () {
     function signup(form) {
         var submitBtn = $(form).find('.btn-primary');
         disableState(submitBtn);
-        $(form).find('.form-actions').addClass('loading');
+        setTimeout(function () {
+            $(form).find('.form-actions').addClass('loading');
+        }, 200);
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
         var universityId = getUrlVars()['universityid'];
@@ -238,7 +240,9 @@ var Login = function () {
     function signin(form) {
         var submitBtn = $(form).find('.btn-primary');
         disableState(submitBtn);
-        $(form).find('.form-actions').addClass('loading');
+        setTimeout(function () {
+            $(form).find('.form-actions').addClass('loading');
+        }, 200);
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
 
@@ -425,7 +429,7 @@ function handleLoginElements(formClass) {
     });
     $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
     $('.signin-btn, #main-wrapper .social-links, .statistics, #main-wrapper > .signin-options-section, header ul, .navbar-toggle, #main-wrapper .welcome-text, .login-wrapper .content > :not(.' + formClass + ')').toggleClass('hidden');
-    $('.login-wrapper, .login-wrapper .content > .'+formClass).show();
+    $('.login-wrapper, .login-wrapper .content > .' + formClass).show();
 }
 
 //function trackConversion() {
