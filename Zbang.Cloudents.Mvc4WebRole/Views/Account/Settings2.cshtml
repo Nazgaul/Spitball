@@ -10,7 +10,7 @@
         <md-tab ui-sref="settings.profile" md-active="a.isActiveState('settings.profile')">
             <md-tab-label>@AccountResource.ProfileAccount</md-tab-label>
         </md-tab>
-        <md-tab ui-sref="settings.password" md-active="a.isActiveState('settings.password')">
+        <md-tab ng-if="a.canChangePassword" ui-sref="settings.password" md-active="a.isActiveState('settings.password')">
             <md-tab-label>@AccountResource.ChangePassword</md-tab-label>
         </md-tab>
         
