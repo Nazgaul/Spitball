@@ -13,7 +13,7 @@ window.addEventListener("load", function load() {
     window.removeEventListener("load", load, false); //remove listener, no longer needed
     var val = getCookie('l3').toLowerCase();
     var text = $('.language').find('[href*="' + val + '"]').text();
-    document.querySelector('nav li.language span').innerText = text;
+    $('nav li.language span:first').text(text);
 
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

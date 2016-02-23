@@ -527,10 +527,6 @@ md-tabs md-ink-bar {
 .md-dialog-container {
   z-index: 80;
 }
-.md-dialog-is-showing {
-  max-height: none;
-  overflow: hidden;
-}
 .r-table {
   display: table;
 }
@@ -858,9 +854,6 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 .i-student-ad img {
   max-width: 100%;
-}
-body.menuOpened {
-  overflow: hidden;
 }
 .md-dialog-content {
   padding: 24px 65px;
