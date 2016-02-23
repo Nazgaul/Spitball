@@ -150,7 +150,7 @@ var Login = function () {
             jQuery('.register-form').removeClass('hidden').show();
             pushState(signupState);
             ga('send', 'pageview', '/account/signup');
-            trackConversion();
+            //trackConversion();
         });
 
         jQuery('.signin-btn, #login-btn, .forgot-password-form .cancel').click(function () {
@@ -159,7 +159,7 @@ var Login = function () {
             jQuery('.register-form, .forgot-password-form').hide();
             pushState(loginState);
             ga('send', 'pageview', '/account/signin');
-            trackConversion();
+            //trackConversion();
         });
 
 
@@ -169,7 +169,7 @@ var Login = function () {
             jQuery('.login-form, .register-form').hide();
             pushState(forgotPasswordState);
             ga('send', 'pageview', '/account/resetpassword');
-            trackConversion();
+            //trackConversion();
         });
 
     }
@@ -273,7 +273,7 @@ var Login = function () {
         var authInstance = gapi.auth2.getAuthInstance();
         authInstance.signIn().then(function (googleUser) {
             var idToken = googleUser.getAuthResponse().id_token;
-            trackConversion();
+            //trackConversion();
             $.post('/account/GoogleLogin', {
                 token: idToken,
                 universityId: getUrlVars()['universityid'],
@@ -294,7 +294,7 @@ var Login = function () {
         }, { scope: 'email,user_friends' });
 
         function processLogin(accessToken) {
-            trackConversion();
+            //trackConversion();
             $.post('/account/facebookLogin', {
                 token: accessToken,
                 universityId: getUrlVars()['universityid'],
@@ -426,16 +426,16 @@ function handleLoginElements(formClass) {
     $('.login-wrapper, .login-wrapper .content > .'+formClass).show();
 }
 
-function trackConversion() {
-    window.google_trackConversion({
-        conversion_id: 939226062,
-        conversion_language: "en",
-        conversion_format: "3",
-        conversion_color: "ffffff",
-        conversion_label: "KiNvCODoqWAQzuftvwM",
-        remarketing_only: false
-    });
-}
+//function trackConversion() {
+//    window.google_trackConversion({
+//        conversion_id: 939226062,
+//        conversion_language: "en",
+//        conversion_format: "3",
+//        conversion_color: "ffffff",
+//        conversion_label: "KiNvCODoqWAQzuftvwM",
+//        remarketing_only: false
+//    });
+//}
 
 function googleLoad() {
     gapi.load('auth2', function () {
