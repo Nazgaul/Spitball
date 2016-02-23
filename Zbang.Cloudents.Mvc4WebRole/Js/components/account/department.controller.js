@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.account').controller('AccountSettingsDepartmentController', department);
-    department.$inject = ['accountService', '$scope'];
+    department.$inject = ['accountService', '$scope', 'resManager'];
 
-    function department(accountService, $scope) {
+    function department(accountService, $scope, resManager) {
         var ad = this;
         ad.departments = [];
         accountService.closeddepartment().then(function (response) {
@@ -13,13 +13,15 @@
                 dep.users = response;
             });
         });
-
+        ad.disabled = false;
         ad.approve = approve;
-
         function approve(dep, user) {
-            //TODO: add disable state
-            accountService.approveRequest(dep.id, user.id).then(function() {
-                user.userType = 2;
+            ad.disabled = true;
+            accountService.approverequest(dep.id, user.id).then(function () {
+                user.usertype = 2;
+                $scope.app.showToaster(resManager.get('toasterDepartmentApproved'));
+            }).finally(function () {
+                ad.disabled = false;
             });
         }
     }

@@ -222,4 +222,7 @@
   <data name="siteName" xml:space="preserve">
     <value>Spitball</value>
   </data>
+  <data name="toasterDepartmentApproved" xml:space="preserve">
+    <value>Request has been granted</value>
+  </data>
 </root>

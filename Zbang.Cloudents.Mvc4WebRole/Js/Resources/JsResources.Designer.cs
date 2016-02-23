@@ -313,6 +313,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request has been granted.
+        /// </summary>
+        public static string toasterDepartmentApproved {
+            get {
+                return ResourceManager.GetString("toasterDepartmentApproved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You Are Following this Course.
         /// </summary>
         public static string toasterFollowBox {
