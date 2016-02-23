@@ -17,8 +17,8 @@
         ad.approve = approve;
         function approve(dep, user) {
             ad.disabled = true;
-            accountService.approverequest(dep.id, user.id).then(function () {
-                user.usertype = 2;
+            accountService.approveRequest(dep.id, user.id).then(function () {
+                user.userType = 2;
                 $scope.app.showToaster(resManager.get('toasterDepartmentApproved'));
             }).finally(function () {
                 ad.disabled = false;
