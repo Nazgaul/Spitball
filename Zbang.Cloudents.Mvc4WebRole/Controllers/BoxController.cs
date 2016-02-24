@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -31,9 +32,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class BoxController : BaseController
     {
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
-        //   Duration = TimeConsts.Day, VaryByParam = "boxId",
-        //   Location = OutputCacheLocation.Server, Order = 4)]
+        [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
+           Duration = TimeConsts.Day, VaryByParam = "boxId",
+           Location = OutputCacheLocation.Server, Order = 4)]
         [BoxPermission("boxId", Order = 3)]
         public async Task<ActionResult> Index(long boxId, string boxName, string invId)
         {
@@ -85,8 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-
-        //[PreserveQueryString]
+        
         public async Task<ActionResult> ShortUrl(string box62Id)
         {
             var base62 = new Base62(box62Id);

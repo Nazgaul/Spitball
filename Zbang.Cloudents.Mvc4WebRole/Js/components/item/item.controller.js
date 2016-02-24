@@ -1,12 +1,14 @@
 ﻿(function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope', '$timeout', 'resManager'];
+        'itemData', 'history'];
 
-    function item($stateParams, itemService, $sce, $location, $q, user, itemData, $scope, $timeout, resManager) {
+    function item($stateParams, itemService, $sce, $location, $q,
+        user, itemData, history2) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
+        console.log(history2.firstState());
         i.state = {
             regular: 0,
             rename: 1,
@@ -14,12 +16,10 @@
         };
 
         i.preview = '';
-
+        
 
         i.details = itemData;
-        $timeout(function () {
-            $scope.$broadcast('itemData', itemData);
-        }, 1);
+       
 
         i.details.downloadUrl = $location.path() + 'download/';
         i.details.printUrl = $location.path() + 'print/';

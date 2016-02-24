@@ -4,9 +4,10 @@
 
     function comments($stateParams, itemService, $scope, userDetailsFactory, $mdDialog, resManager, $mdSidenav, $rootScope) {
         var c = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
-        $scope.$on('itemData', function (e, arg) {
-            c.comments = arg.comments;
-        });
+        //$scope.$on('itemData', function (e, arg) {
+        //    c.comments = arg.comments;
+        //});
+        c.comments = $scope.i.details.comments;
         c.currUser = userDetailsFactory.get();
 
         c.addComment = addComment;
