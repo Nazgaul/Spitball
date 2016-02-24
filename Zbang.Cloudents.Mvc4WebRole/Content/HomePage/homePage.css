@@ -27,6 +27,9 @@
     background: rgba(10, 10, 10, 0.9);
   }
 }
+.homePage .page-content nav {
+  height: inherit;
+}
 .homePage .page-content nav .nav-content {
   display: -webkit-flex;
   display: -ms-flex;
