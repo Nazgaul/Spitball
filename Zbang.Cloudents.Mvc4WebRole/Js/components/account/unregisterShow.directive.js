@@ -109,7 +109,7 @@
                     //iphone takes time to close keyboard and then he kicks in the hide scroll - we put delay
                     $timeout(function () {
                         $rootScope.$broadcast('show-unregisterd-box');
-                    }, 1);
+                    }, 10);
                 });
             }
         };
