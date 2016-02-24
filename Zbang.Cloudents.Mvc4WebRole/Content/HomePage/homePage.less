@@ -62,7 +62,7 @@
             .navbar-header {
                 .logo-wrapper {
                     height: 70px;
-                    display: flex;
+                    .displayFlex;
                     align-items: center;
                     margin: 0 10px;
 
@@ -175,7 +175,7 @@
                 list-style: none;
 
                 @media(min-width: 900px) {
-                    display: flex;
+                    .displayFlex;
                     justify-content: space-between;
                     align-items: center;
                     width: 500px;
@@ -188,7 +188,7 @@
 
 
                     label {
-                        display: flex;
+                        .displayFlex;
                     }
 
                     &.language {
@@ -284,7 +284,7 @@
 
 
                     .navbar-toggle {
-                        display: inline-flex;
+                        .displayInlineFlex;
                         align-items: center;
                     }
                 }
@@ -424,9 +424,9 @@
                         font-weight: bold;
                         font-size: 50px;
                         white-space: pre-wrap;
-                        margin: 0 auto;
                         width: 100%;
                         max-width: 100% /*rtl:520px*/;
+                        margin: 0 auto;
                     }
 
                     h2 {
@@ -447,7 +447,7 @@
 
 
                 .signin-options {
-                    display: flex;
+                    .displayFlex;
                     justify-content: flex-end;
                     width: 100%;
                     max-width: 420px;
@@ -645,7 +645,7 @@
                     }
 
                     .form-actions {
-                        display: flex;
+                        .displayFlex;
                         justify-content: space-between;
                     }
 
@@ -809,7 +809,7 @@
                         }
 
                         .form-actions-container {
-                            display: flex;
+                            .displayFlex;
                             -ms-flex-wrap: wrap;
                             -webkit-flex-wrap: wrap;
                             flex-wrap: wrap;
@@ -863,20 +863,23 @@
                             }
 
                             .text {
-                                margin-bottom: 145px;
+                                margin-bottom: 135px;
                                 font-size: 18px;
                                 line-height: 22px;
 
                                 p {
-                                    color: @borderColorLightGrey;
+                                    color: @textColorGrey;
                                 }
 
                                 .bold {
-                                    color: @backgroundColorItem;
+                                    color: @textColorGrey;
+                                }
+                                span:not(.bold){
+                                    color: @textColorLightGrey;
                                 }
 
                                 svg {
-                                    fill: @headerImagesColor;
+                                    fill: @textColorWhite;
                                     width: 45px;
                                     height: 45px;
                                     margin-top: 25px;
@@ -886,6 +889,7 @@
                                     color: @textColorSpitballBlue;
                                     background: none;
                                     border: none;
+                                    margin-top: 10px;
                                 }
                             }
                         }
@@ -1159,7 +1163,7 @@
                     }
 
                     .features {
-                        display: flex;
+                        .displayFlex;
                         justify-content: space-between;
                         -ms-flex-wrap: wrap;
                         -webkit-flex-wrap: wrap;
@@ -1271,7 +1275,7 @@
 
                 .boxes {
                     width: 100%;
-                    display: flex;
+                    .displayFlex;
                     justify-content: space-between;
                     -ms-flex-wrap: wrap;
                     -webkit-flex-wrap: wrap;
@@ -1291,9 +1295,7 @@
                         padding: 15px;
                         color: @textColorWhite;
                         background: @backgroundColorMenu;
-                        display: -webkit-flex;
-                        display: -ms-flex;
-                        display: flex;
+                        .displayFlex;
                         -ms-flex-direction: column;
                         -webkit-flex-direction: column;
                         flex-direction: column;
@@ -1332,7 +1334,7 @@
 
                         .box-info {
                             flex-shrink: 1;
-                            display: flex;
+                            .displayFlex;
                             justify-content: space-between;
                         }
 
@@ -1430,7 +1432,7 @@
             }
 
             .content {
-                display: flex;
+                .displayFlex;
                 justify-content: space-between;
                 color: @textColorWhite;
                 -ms-flex-wrap: wrap;
@@ -1479,7 +1481,7 @@
                     width: 100%;
 
                     .links {
-                        display: flex;
+                        .displayFlex;
                         justify-content: space-between;
                         -ms-flex-wrap: wrap;
                         -webkit-flex-wrap: wrap;

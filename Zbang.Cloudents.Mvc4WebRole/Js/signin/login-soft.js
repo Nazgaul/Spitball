@@ -66,7 +66,10 @@ var Login = function () {
 
         });
         $('#resendRequest').click(function () {
-            sendRequest();
+            var requestSent = sendRequest();
+            if (requestSent) {
+                alert($(this).data("response"));
+            }
         });
 
         function sendRequest() {
@@ -80,6 +83,7 @@ var Login = function () {
                 $('.check-email-message').removeClass('hidden').show();
                 $('.forgot-password-form').hide();
             });
+            return true;
         }
     }
 

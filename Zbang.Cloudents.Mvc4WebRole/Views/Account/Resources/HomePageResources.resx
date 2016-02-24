@@ -158,7 +158,7 @@
     <value>Quizzes and Review Sheets</value>
   </data>
   <data name="C1" xml:space="preserve">
-    <value>See it in Action</value>
+    <value>See our courses in action</value>
   </data>
   <data name="D1" xml:space="preserve">
     <value>Spitball in a Nutshell</value>
@@ -265,5 +265,8 @@ classmates, swap notes and exchange ideas, for FREE.</value>
   </data>
   <data name="Free" xml:space="preserve">
     <value></value>
+  </data>
+  <data name="resetPassEmailSent" xml:space="preserve">
+    <value>Another request was sent</value>
   </data>
 </root>

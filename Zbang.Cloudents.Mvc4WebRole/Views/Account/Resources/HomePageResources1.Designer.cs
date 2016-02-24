@@ -233,7 +233,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to See it in Action.
+        ///   Looks up a localized string similar to See our courses in action.
         /// </summary>
         public static string C1 {
             get {
@@ -342,6 +342,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         public static string infoSection2 {
             get {
                 return ResourceManager.GetString("infoSection2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Another request was sent.
+        /// </summary>
+        public static string resetPassEmailSent {
+            get {
+                return ResourceManager.GetString("resetPassEmailSent", resourceCulture);
             }
         }
         

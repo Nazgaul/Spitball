@@ -1450,35 +1450,43 @@ Page Loading
     }
 
     .text {
-        margin-bottom: 50px;
+        width: 100%;
+        max-width: 530px/*rtl:470px*/;
+        margin: 0 auto;
+        margin-bottom: 44px;
+
+        @media(max-width: 600px) {
+            width: 85vw/*rtl:70vw*/;
+            margin: 20px auto;
+        }
 
         p {
             margin-bottom: 0;
         }
 
         .large {
-            font-size: 56px;
+            font-size: 44px;
             font-weight: bold;
             margin-bottom: 0;
-            max-width: 100%/*rtl: 714px*/;
+            max-width: 100% /*rtl: 714px*/;
             width: 100%;
             text-align: center;
             margin: 0 auto 10px auto;
             line-height: initial;
 
             @media(max-width: 600px) {
-                font-size: 10vw;
+                font-size: 7vw;
             }
         }
 
         .normal {
             text-align: center;
             width: 100%;
-            font-size: 18px;
+            font-size: 4.5vw;
 
             @media(min-width: 600px) {
                 white-space: pre-wrap;
-                font-size: 22px;
+                font-size: 20px;
             }
         }
     }

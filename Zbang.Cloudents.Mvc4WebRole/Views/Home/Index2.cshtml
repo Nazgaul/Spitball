@@ -212,9 +212,9 @@
                                         @Html.Svg("/images/Site/icons.svg", "info")
                                         <p>
                                             <span class="bold">@AccountResource.DidntReceivedEmail</span><br />
-                                            @AccountResource.CheckEmailSpam<br />
+                                            <span>@AccountResource.CheckEmailSpam</span><br />
 
-                                            <button id="resendRequest">@AccountResource.AnotherRequest</button>
+                                            <button id="resendRequest" data-response="@HomePageResources.resetPassEmailSent">@AccountResource.AnotherRequest</button>
                                         </p>
                                     </div>
                                     <div class="create-account"></div>
