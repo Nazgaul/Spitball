@@ -70,8 +70,8 @@ input[type="search"] {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     //ios fucked up design
-    border-radius:0;
-    -webkit-appearance:none;
+    border-radius: 0;
+    -webkit-appearance: none;
 }
 
 html {
@@ -375,11 +375,9 @@ md-tabs {
         min-width: 25px;
         min-height: 25px;
     }
-
     /*svg {
         fill: @textColorWhite;
     }*/
-
     .facebook, .whatsapp {
         margin-right: 10px;
     }
@@ -462,7 +460,7 @@ md-tabs {
         }
 
         .title {
-            max-width: 350px/*rtl:250px*/;
+            max-width: 350px /*rtl:250px*/;
             display: inline-block;
             line-height: 22px;
         }
@@ -549,7 +547,7 @@ md-tabs {
     overflow-y: auto;
     height: 100vh;
     width: 100vw;
-    top:0;
+    top: 0;
 
     &.itemPage {
         top: 0;
@@ -561,6 +559,7 @@ md-tabs {
 
     &.quizPage {
         top: 0;
+        padding-bottom: 80px //for intercom
     }
 
 
@@ -589,6 +588,7 @@ md-tabs {
     .full-screen-body {
         margin-top: @fullScreenHeaderHeight;
         min-height: ~"calc( 100% - 80px)";
+        margin-bottom: 80px; //so intercom icon wont clash with page's items
     }
 }
 

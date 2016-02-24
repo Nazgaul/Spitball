@@ -104,7 +104,7 @@
                                 </a>
                                 <div ng-bind-html="::post.content" class="indent content-text"></div>
                             </div>
-                            <span class="indent comment-date">{{::post.creationTime | date : 'medium'}}</span>
+                            <span class="indent comment-date">{{::post.creationTime | date : 'mediumDate'}} &nbsp; {{::post.creationTime | date : 'shortTime'}}</span>
                         </div>
 
                         <md-menu ng-if="post.userId === q.user.id">
