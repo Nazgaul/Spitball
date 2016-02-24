@@ -374,12 +374,20 @@
   font-weight: bold;
   font-size: 50px;
   white-space: pre-wrap;
-  width: 520px;
   margin: 0 auto;
+  width: 100%;
+  max-width: 520px;
 }
 .homePage .home-page-body section.main .welcome-text h2 {
   font-size: 18px;
   white-space: pre-wrap;
+  max-width: 350px;
+  margin: 0 auto;
+  margin-top: 16px;
+  width: 100%;
+}
+.homePage .home-page-body section.main .welcome-text h2 span {
+  font-weight: bold;
 }
 .homePage .home-page-body section.main .signin-options {
   display: flex;
