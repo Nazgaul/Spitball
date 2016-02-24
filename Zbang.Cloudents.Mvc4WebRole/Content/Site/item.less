@@ -5,20 +5,41 @@
     header {
         position: fixed;
 
-        a {
-            margin: 0 15px;
-            height: 17px;
-            width: 17px;
+        .page-logo {
+            svg {
+                width: 180px;
+                fill: #fff;
+                margin: 0 16px;
+                line-height: 80px;
+                height: 35px;
+                display: block;
+
+                &.logo-small {
+                    height: 30px;
+                    width: 60px;
+                }
+            }
         }
 
-        svg {
-            width: 17px;
-            height: 17px;
-            fill: @svgLightGrey;
+        .item-actions, .close-btn {
+
+
+            a {
+                margin: 0 15px;
+                height: 17px;
+                width: 17px;
+            }
+
+            svg {
+                width: 17px;
+                height: 17px;
+                fill: @svgLightGrey;
+            }
         }
 
         .fb-like {
             white-space: nowrap;
+            display: inline-block;
 
             button {
                 font-size: 14px;
@@ -26,13 +47,15 @@
                 padding-left: 25px;
                 text-transform: capitalize;
 
+                .content {
+                    .displayFlex;
+                }
 
                 svg {
-                    width: 30px;
-                    height: 30px;
-                    margin-right: 10px;
-                    vertical-align: middle;
-                    margin-bottom: 14px;
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 8px;
+                    margin-bottom: -2px;
                 }
             }
         }
