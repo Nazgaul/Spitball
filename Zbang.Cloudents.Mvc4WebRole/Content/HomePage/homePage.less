@@ -564,11 +564,11 @@
 
                 .login-wrapper {
                     display: none;
-                    min-height: 119vh;
                     margin-top: 80px;
 
                     @media(max-width: 600px) {
                         margin-top: 50px;
+                        min-height: 119vh;
                     }
 
                     form {
@@ -977,16 +977,13 @@
                         }
 
                         .content .form-actions .btn {
-                            margin-top: 1px;
-                            border-radius: 0;
-                            box-shadow: none;
-                            font-size: 17px;
-                            font-weight: normal;
-                            text-transform: none;
-                            padding: 7px 24px;
-                            background-color: @buttonColorBlue;
-                            cursor: pointer;
+                            padding: 0 16px;
+                            line-height: 25px;
+                            height: 25px;
                             border-radius: 4px;
+                            text-transform: none;
+                            font-weight: normal;
+                            font-size: 14px;
 
                             &.cancel {
                                 color: #333;

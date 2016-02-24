@@ -147,7 +147,7 @@ var Login = function () {
         jQuery('#register-btn, .login-option.signup').click(function () {
             document.body.scrollTop = 0;
             jQuery('.login-form, .forgot-password-form').hide();
-            jQuery('.register-form').removeClass('hidden').show();
+            jQuery('.register-form').removeClass('hidden').fadeIn();
             pushState(signupState);
             ga('send', 'pageview', '/account/signup');
             //trackConversion();
@@ -155,7 +155,7 @@ var Login = function () {
 
         jQuery('.signin-btn, #login-btn, .forgot-password-form .cancel').click(function () {
             document.body.scrollTop = 0;
-            jQuery('.login-form').removeClass('hidden').show();
+            jQuery('.login-form').removeClass('hidden').fadeIn();
             jQuery('.register-form, .forgot-password-form').hide();
             pushState(loginState);
             ga('send', 'pageview', '/account/signin');
@@ -165,7 +165,7 @@ var Login = function () {
 
         jQuery('#forget-password').click(function () {
             document.body.scrollTop = 0;
-            jQuery('.forgot-password-form').removeClass('hidden').show();
+            jQuery('.forgot-password-form').removeClass('hidden').fadeIn();
             jQuery('.login-form, .register-form').hide();
             pushState(forgotPasswordState);
             ga('send', 'pageview', '/account/resetpassword');
@@ -428,8 +428,8 @@ function handleLoginElements(formClass) {
         $(this).hide();
     });
     $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
-    $('.signin-btn, #main-wrapper .social-links, .statistics, #main-wrapper > .signin-options-section, header ul, .navbar-toggle, #main-wrapper .welcome-text, .login-wrapper .content > :not(.' + formClass + ')').toggleClass('hidden');
-    $('.login-wrapper, .login-wrapper .content > .' + formClass).show();
+    $('.toggle, #main-wrapper .welcome-text, .login-wrapper .content > :not(.' + formClass + ')').toggleClass('hidden');
+    $('.login-wrapper, .login-wrapper .content > .' + formClass).fadeIn();
 }
 
 //function trackConversion() {

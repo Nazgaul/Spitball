@@ -42,7 +42,7 @@
                 <div class="nav-content">
                     <input type="checkbox" id="menu-toggle" />
                     <div class="navbar-header">
-                        <div class="navbar-toggle collapsed">
+                        <div class="navbar-toggle toggle collapsed">
                             <label for="menu-toggle">@Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "headerMenu" })</label>
                             <label for="menu-toggle" class="menu-close"></label>
                         </div>
@@ -51,7 +51,7 @@
                             @Html.Svg("~/images/site/icons.svg", "smallLogo", new { @class = "logo-small" })
                         </a>
                     </div>
-                    <ul>
+                    <ul class="toggle">
                         <li id="product">
                             <a href="@Url.RouteUrl("Product")">@HomePageResources.A3</a>
                         </li>
@@ -75,7 +75,7 @@
                         </li>
                     </ul>
                 </div>
-                <span class="signin-btn">@HomePageResources.A1</span>
+                <span class="signin-btn toggle">@HomePageResources.A1</span>
             </nav>
         </header>
         <div class="home-page-body">
@@ -291,7 +291,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="signin-options-section">
+                    <div class="signin-options-section toggle">
                         <div class="social-signin">
                             <button type="button" class="login-option facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                                 <div>
@@ -310,7 +310,7 @@
                             @HomePageResources.A5
                         </button>
                     </div>
-                    <div class="statistics os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
+                    <div class="statistics os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
                         @*<h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>*@
                         <div class="statistic">
                             <div id="students" class="value" data-value="@Model.StudentsCount"></div>
@@ -325,7 +325,7 @@
                             <div>@HomePageResources.statsQuizzes</div>
                         </div>
                     </div>
-                    <div class="social-links os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.6s">
+                    <div class="social-links os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.6s">
                         <div class="wrapper" dir="ltr">
                             <a target="_blank" href="https://www.facebook.com/spitballstudy/">@Html.Svg(socialIconsSvg, "facebook")</a>
                             <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg(socialIconsSvg, "twitter")</a>
