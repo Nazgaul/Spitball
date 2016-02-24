@@ -124,7 +124,8 @@
     <value>Jobs</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>Study smarter, not harder.</value>
+    <value>Study smarter,
+ not harder.</value>
     <comment>NewShlomi</comment>
   </data>
   <data name="A5" xml:space="preserve">
@@ -264,7 +265,7 @@ classmates, swap notes and exchange ideas, for FREE.</value>
     <value>Spitball features</value>
   </data>
   <data name="Free" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="resetPassEmailSent" xml:space="preserve">
     <value>Another request was sent</value>
