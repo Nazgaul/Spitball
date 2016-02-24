@@ -5,7 +5,8 @@
         auto: true,
         controls: false,
         pause: 15000,
-        pager: false
+        pager: false,
+        touchEnabled:false
 
     });
 

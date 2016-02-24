@@ -493,6 +493,7 @@ md-tabs md-ink-bar {
   overflow-y: auto;
   height: 100vh;
   width: 100vw;
+  top: 0;
 }
 .full-screen.itemPage {
   top: 0;

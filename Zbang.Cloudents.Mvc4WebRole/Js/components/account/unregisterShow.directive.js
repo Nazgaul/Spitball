@@ -92,9 +92,9 @@
 
 (function () {
     angular.module('app').directive('userNotRegisterPopup', unregShow);
-    unregShow.$inject = ['$window', '$rootScope', 'userDetailsFactory'];
+    unregShow.$inject = ['$window', '$rootScope', 'userDetailsFactory', '$timeout'];
 
-    function unregShow($window, $rootScope, userDetailsFactory) {
+    function unregShow($window, $rootScope, userDetailsFactory, $timeout) {
         return {
             restrict: 'A',
             priority: -1,
@@ -106,7 +106,10 @@
                     e.preventDefault();
                     e.stopImmediatePropagation();
                     element.blur();
-                    $rootScope.$broadcast('show-unregisterd-box');
+                    //iphone takes time to close keyboard and then he kicks in the hide scroll - we put delay
+                    $timeout(function () {
+                        $rootScope.$broadcast('show-unregisterd-box');
+                    }, 1);
                 });
             }
         };
