@@ -369,7 +369,6 @@
 }
 .homePage .home-page-body section.main .welcome-text {
   width: 100%;
-  max-width: 800px;
   text-align: center;
   margin: 100px auto 80px auto;
   padding: 0 35px;
@@ -384,15 +383,17 @@
 .homePage .home-page-body section.main .welcome-text h1 {
   font-weight: bold;
   font-size: 50px;
-  white-space: pre-wrap;
-  width: 100%;
-  max-width: 520px;
+  max-width: 100%;
   margin: 0 auto;
+}
+@media (max-width: 960px) {
+  .homePage .home-page-body section.main .welcome-text h1 {
+    white-space: pre-wrap;
+  }
 }
 .homePage .home-page-body section.main .welcome-text h2 {
   font-size: 18px;
   white-space: pre-wrap;
-  max-width: 350px;
   margin: 0 auto;
   margin-top: 16px;
   width: 100%;
@@ -1375,12 +1376,6 @@
 .homePage .home-page-body footer .content .app h1,
 .homePage .home-page-body footer .content .links h2 {
   text-transform: uppercase;
-}
-@media (max-width: 768px) {
-  .homePage .home-page-body section.main .welcome-text h1,
-  .homePage .home-page-body section.main .welcome-text h2 {
-    white-space: normal;
-  }
 }
 @media (max-width: 600px) {
   .homePage .home-page-body section:not(.main) h1 {

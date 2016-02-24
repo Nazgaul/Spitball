@@ -44,7 +44,8 @@
         }
 
         nav {
-            height:inherit;
+            height: inherit;
+
             .nav-content {
                 .displayFlex();
                 -ms-flex-direction: row;
@@ -408,7 +409,7 @@
 
                 .welcome-text {
                     width: 100%;
-                    max-width: 800px;
+                    //max-width: 800px;
                     text-align: center;
                     margin: 100px auto 80px auto;
                     padding: 0 35px;
@@ -424,16 +425,21 @@
                     h1 {
                         font-weight: bold;
                         font-size: 50px;
-                        white-space: pre-wrap;
-                        width: 100%;
-                        max-width: 100% /*rtl:520px*/;
+                        //white-space: pre-wrap;
+                        //width: 100%;
+                        max-width: 100%; //rtl:520px
                         margin: 0 auto;
+
+                        @media(max-width: 960px) {
+                            white-space: pre-wrap;
+                        }
                     }
+
 
                     h2 {
                         font-size: 18px;
                         white-space: pre-wrap;
-                        max-width: 100% /*rtl:350px*/;
+                        //max-width: 100% /*rtl:350px*/;
                         margin: 0 auto;
                         margin-top: 16px;
                         width: 100%;
@@ -1532,15 +1538,13 @@
                 }
             }
         }
-
-        @media(max-width: 768px) {
-            section.main .welcome-text {
-                h1, h2 {
-                    white-space: normal;
-                }
-            }
-        }
-
+        //@media(max-width: 768px) {
+        //    section.main .welcome-text {
+        //        h1, h2 {
+        //            white-space: normal;
+        //        }
+        //    }
+        //}
         @media(max-width: 600px) {
             section {
                 &:not(.main) h1 {
