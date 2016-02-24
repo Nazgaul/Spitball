@@ -481,7 +481,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var command = new DeleteUpdatesCommand(userId, boxId);
-               // ZboxWriteService.DeleteUpdates(command);
+                ZboxWriteService.DeleteUpdates(command);
                 return JsonOk();
             }
             catch (Exception ex)
