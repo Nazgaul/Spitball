@@ -317,8 +317,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connect with your classmates, get help on homework,
-        ///access quality study notes for FREE!.
+        ///   Looks up a localized string similar to We have so much more to share with you..
+        /// </summary>
+        public static string UnregHeader {
+            get {
+                return ResourceManager.GetString("UnregHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to So give us a shot, boost your grades with access to more notes, ideas and quizzes, for FREE!.
         /// </summary>
         public static string UnregSubtitle {
             get {

@@ -2,22 +2,28 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @{
     const string svgUrl = "~/images/site/itemIcons.svg";
+    const string logoUrl = "~/images/site/icons.svg";
 }
 <div class="full-screen" srph-infinite-scroll="i.loadMore()" container="true" unregister-scroll="true">
     <header class="color-override backgroundColor2 borderColor2">
         <div layout="row" layout-align="space-between center">
-            <div class="fb-like" ng-class="{blue : i.details.like}">
-                <button user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
-                    <div class="content">
-                        @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })
-                        <span class="like-text color-override textColor3">
-                            {{i.details.likes}} @GeneralResources.Like
-                        </span>
-                    </div>
-                </button>
+            <div class="page-logo">
+                <a href="@Url.Action("Index", "dashboard")" target="_self" ga-track-event="['header', 'logo']">
+                    @Html.Svg(logoUrl, "logo", new { @class = "logo-default", hide_xs = "" })
+                    @Html.Svg(logoUrl, "smallLogo", new { @class = "logo-small", hide = "", show_xs = "" })
+                </a>
             </div>
-
             <div class="item-actions">
+                <div class="fb-like" ng-class="{blue : i.details.like}">
+                    <button user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
+                        <div class="content-wrapper">
+                            <div class="content">
+                                <div>@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" }){{i.details.likes}}</div>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+
                 <a target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download", new { @class = "color-override svgColor3" })</a>
                 <a target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print", new { @class = "color-override svgColor3" })</a>
                 <md-menu flex>

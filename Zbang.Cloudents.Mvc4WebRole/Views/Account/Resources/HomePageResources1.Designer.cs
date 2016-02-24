@@ -233,7 +233,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to See it in Action.
+        ///   Looks up a localized string similar to See our courses in action.
         /// </summary>
         public static string C1 {
             get {
