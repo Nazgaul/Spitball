@@ -503,6 +503,7 @@ md-tabs md-ink-bar {
 }
 .full-screen.quizPage {
   top: 0;
+  padding-bottom: 80px;
 }
 .full-screen header {
   top: 0;
@@ -526,6 +527,7 @@ md-tabs md-ink-bar {
 .full-screen .full-screen-body {
   margin-top: 80px;
   min-height: calc( 100% - 80px);
+  margin-bottom: 80px;
 }
 .md-dialog-container {
   z-index: 80;
