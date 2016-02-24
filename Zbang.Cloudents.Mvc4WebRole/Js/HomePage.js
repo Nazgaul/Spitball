@@ -5,6 +5,8 @@
         auto: true,
         controls: false,
         pause: 15000,
+        pager: false,
+        touchEnabled: false
     });
 
     var options = {
@@ -70,13 +72,13 @@
     //#endregion
 
     //#region video shadowbox
-    $(document.getElementById('close-video')).click(function () {
-        $(document.getElementById('video')).empty();
-    });
-
-    $(document.getElementById('open-video')).click(function () {
-        var videoHtml = '<iframe id="spitball-video" src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>';
-        $(document.getElementById('video')).html(videoHtml);
+    $('#showVideo').change(function () {
+        if (this.checked) {
+            var videoHtml = '<iframe id="spitball-video" src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>';
+            $(document.getElementById('video')).html(videoHtml);
+        } else {
+            $(document.getElementById('video')).empty();
+        }
     });
 
     //#endregion

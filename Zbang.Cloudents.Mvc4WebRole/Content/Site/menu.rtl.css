@@ -49,6 +49,7 @@
   margin-right: 0;
   margin-top: 10px;
   z-index: 10;
+  height: calc(100vh - 90px);
 }
 .page-body .main-md-sidenav md-content,
 .page-body .main-md-sidenav .side-menu ul {
