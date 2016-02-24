@@ -201,10 +201,12 @@
                                     <div class="create-account"></div>
                                 </form>
 
-                                <div class="check-email-message" style="display:none;">
+                                <div class="check-email-message toggle" style="display:none;">
                                     <h3 class=" form-title">
                                         @LogOnResources.CheckEmailTitle
                                     </h3>
+                                    <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
+
                                     <div class="text">
                                         <p>@AccountResource.EmailedPassword<br />@AccountResource.ResetInstructions</p>
                                         @Html.Svg("/images/Site/icons.svg", "info")

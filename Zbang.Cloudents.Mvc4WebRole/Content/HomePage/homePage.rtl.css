@@ -501,10 +501,12 @@
     min-height: 119vh;
   }
 }
-.homePage .home-page-body section.main .login-wrapper form {
+.homePage .home-page-body section.main .login-wrapper form,
+.homePage .home-page-body section.main .login-wrapper .check-email-message {
   position: relative;
 }
-.homePage .home-page-body section.main .login-wrapper form .close-form {
+.homePage .home-page-body section.main .login-wrapper form .close-form,
+.homePage .home-page-body section.main .login-wrapper .check-email-message .close-form {
   position: absolute;
   left: -25px;
   top: -10px;
@@ -514,10 +516,17 @@
   cursor: pointer;
   outline: none;
 }
-.homePage .home-page-body section.main .login-wrapper form .close-form svg {
+.homePage .home-page-body section.main .login-wrapper form .close-form svg,
+.homePage .home-page-body section.main .login-wrapper .check-email-message .close-form svg {
   width: 15px;
   height: 15px;
   fill: #888b8e;
+}
+.homePage .home-page-body section.main .login-wrapper #resendRequest {
+  cursor: pointer;
+}
+.homePage .home-page-body section.main .login-wrapper #resendRequest:hover {
+  text-decoration: underline;
 }
 .homePage .home-page-body section.main .login-wrapper .signin-options {
   padding: 0 20px;

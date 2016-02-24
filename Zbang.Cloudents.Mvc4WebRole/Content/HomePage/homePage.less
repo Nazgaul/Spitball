@@ -571,7 +571,7 @@
                         min-height: 119vh;
                     }
 
-                    form {
+                    form, .check-email-message {
                         position: relative;
 
                         .close-form {
@@ -592,6 +592,12 @@
                         }
                     }
 
+                    #resendRequest{
+                        cursor: pointer;
+                        &:hover{
+                            text-decoration: underline;
+                        }
+                    }
                     .signin-options {
                         padding: 0 20px;
                         margin: 0 -20px 35px -20px;
