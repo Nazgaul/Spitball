@@ -124,8 +124,8 @@
     <value>Jobs</value>
   </data>
   <data name="A4" xml:space="preserve">
-    <value>Study smarter, not harder.</value>
-    <comment>NewShlomi</comment>
+    <value>Study smarter,
+ not harder.</value>
   </data>
   <data name="A5" xml:space="preserve">
     <value>or sign up with email</value>
@@ -162,12 +162,10 @@
   </data>
   <data name="D1" xml:space="preserve">
     <value>Spitball in a Nutshell</value>
-    <comment>NewShlomi</comment>
   </data>
   <data name="D2" xml:space="preserve">
     <value>Spitball’s crowdsourcing technology enables students to find and share study material, ask and answer questions and create online quizzes for themselves and their peers. 
 </value>
-    <comment>NewShlomi</comment>
   </data>
   <data name="D3" xml:space="preserve">
     <value>Connect with your classmates online directly or through the class discussion
@@ -244,7 +242,6 @@
   </data>
   <data name="A3" xml:space="preserve">
     <value>Using Spitball</value>
-    <comment>NewShlomi</comment>
   </data>
   <data name="A6" xml:space="preserve">
     <value>Relax, Spitball brings all the tools you need to communicate with your
@@ -252,7 +249,6 @@ classmates, swap notes and exchange ideas, for FREE.</value>
   </data>
   <data name="A7" xml:space="preserve">
     <value>Spitball even faster through</value>
-    <comment>NewShlomi</comment>
   </data>
   <data name="A10" xml:space="preserve">
     <value>Meet spitball</value>
@@ -264,6 +260,9 @@ classmates, swap notes and exchange ideas, for FREE.</value>
     <value>Spitball features</value>
   </data>
   <data name="Free" xml:space="preserve">
-    <value></value>
+    <value />
+  </data>
+  <data name="resetPassEmailSent" xml:space="preserve">
+    <value>Another request was sent</value>
   </data>
 </root>

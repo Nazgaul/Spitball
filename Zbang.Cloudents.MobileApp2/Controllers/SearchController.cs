@@ -22,7 +22,6 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
     [AuthorizeLevel(AuthorizationLevel.User)]
     public class SearchController : ApiController
     {
-        public IBoxReadSearchProviderOld BoxSearchService { get; set; }
 
         public IBoxReadSearchProvider2 BoxSearchService2 { get; set; }
         public IItemReadSearchProvider2 ItemSearchService2 { get; set; }
@@ -45,7 +44,7 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
 
             var query = new SearchBoxesQuery(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
             // Services.Log.Info(String.Format("search boxes query: {0}", query));
-            var retVal = await BoxSearchService.SearchBox(query, default(CancellationToken)) ?? new List<SearchBoxes>();
+            var retVal = await BoxSearchService2.SearchBoxWithoutHighlightWithUrlAsync(query, default(CancellationToken)) ?? new List<SearchBoxes>();
 
             return Request.CreateResponse(retVal.Where(w => w.Type != BoxType.AcademicClosed).Select(s => new
              {

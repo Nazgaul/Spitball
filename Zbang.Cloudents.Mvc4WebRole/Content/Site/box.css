@@ -269,6 +269,9 @@
   max-width: 160px;
   padding: 0 12px;
 }
+.add-comment .upload-options a {
+  z-index: 1;
+}
 .add-comment .upload-options a,
 .add-comment .upload-options button {
   padding: 0;

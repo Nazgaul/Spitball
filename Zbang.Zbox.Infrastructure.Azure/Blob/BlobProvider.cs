@@ -177,7 +177,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public CloudBlockBlob GetFile(string blobName)
         {
             var blob = BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).GetBlockBlobReference(blobName);
-
             return blob;
         }
 
@@ -517,6 +516,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public Task<Stream> DownloadFileAsync2(string fileName, CancellationToken cancelToken)
         {
             CloudBlockBlob blob = GetFile(fileName);
+            return blob.OpenReadAsync(cancelToken);
+        }
+
+        public Task<Stream> DownloadFileAsync(string fileName, string containerName, CancellationToken cancelToken = default(CancellationToken))
+        {
+            
+            var container = BlobClient.GetContainerReference(containerName.ToLower());
+            var blob = container.GetBlobReference(fileName);
             return blob.OpenReadAsync(cancelToken);
         }
 

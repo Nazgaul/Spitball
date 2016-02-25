@@ -233,8 +233,11 @@
                 }
             }
         }
+        
         function back() {
-            q.state = q.states.solving;
+            if (q.state === q.states.complete) {
+                q.state = q.states.solving;
+            }
             if (q.index > 0) {
                 q.index--;
             }

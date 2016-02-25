@@ -218,6 +218,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         }
+        [Route("advertisewithus", Name = "Advertise")]
+        public async Task<FileStreamResult> AdvertiseWithUs()
+        {
+            var stream = await m_BlobProvider.Value.DownloadFileAsync("SB.pdf", "zboxhelp");
+
+            return new FileStreamResult(stream, "application/pdf");
+
+
+        }
         public ActionResult Help()
         {
             return RedirectToRoutePermanent("Help");

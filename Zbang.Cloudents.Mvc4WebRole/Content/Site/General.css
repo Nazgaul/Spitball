@@ -94,6 +94,8 @@ input[type="search"] {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  border-radius: 0;
+  -webkit-appearance: none;
 }
 html {
   background: transparent;
@@ -485,12 +487,14 @@ md-tabs md-ink-bar {
   z-index: 20;
   background: #f5f5f5;
   position: fixed;
+  top: 0;
   right: 0;
   left: 0;
   bottom: 0;
   overflow-y: auto;
   height: 100vh;
   width: 100vw;
+  top: 0;
 }
 .full-screen.itemPage {
   top: 0;
@@ -500,6 +504,7 @@ md-tabs md-ink-bar {
 }
 .full-screen.quizPage {
   top: 0;
+  padding-bottom: 80px;
 }
 .full-screen header {
   top: 0;
@@ -523,6 +528,7 @@ md-tabs md-ink-bar {
 .full-screen .full-screen-body {
   margin-top: 80px;
   min-height: calc( 100% - 80px);
+  margin-bottom: 80px;
 }
 .md-dialog-container {
   z-index: 80;
