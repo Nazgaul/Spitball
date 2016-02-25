@@ -55,9 +55,6 @@
         </div>
         <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
     </header>
-
-
-
     <div class="full-screen-body" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
 
         <div class="fileName">
@@ -102,5 +99,13 @@
         @{ Html.RenderPartial("_ItemComments");}
         <div class="preview" ng-bind-html="i.preview">
         </div>
+
+
+        <uib-accordion ng-if="i.firstPage">
+            <uib-accordion-group heading="page content">
+                {{::i.document}}
+            </uib-accordion-group>
+        </uib-accordion>
+        
     </div>
 </div>

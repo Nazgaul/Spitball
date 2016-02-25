@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Zbox.Infrastructure.Cache;
-using Zbang.Zbox.Infrastructure.Query;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.ViewModel.Dto.Search;
 using Zbang.Zbox.ViewModel.Queries.Search;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
