@@ -1,8 +1,10 @@
 ﻿(function () {
     angular.module('app.item').controller('CommentsController', comments);
-    comments.$inject = ['$stateParams', 'itemService', '$scope', 'userDetailsFactory', '$mdDialog', 'resManager', '$mdSidenav', '$rootScope'];
+    comments.$inject = ['$stateParams', 'itemService', '$scope',
+        'userDetailsFactory', '$mdDialog', 'resManager', '$mdSidenav', '$rootScope', '$timeout'];
 
-    function comments($stateParams, itemService, $scope, userDetailsFactory, $mdDialog, resManager, $mdSidenav, $rootScope) {
+    function comments($stateParams, itemService, $scope, userDetailsFactory,
+        $mdDialog, resManager, $mdSidenav, $rootScope, $timeout) {
         var c = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         $scope.$on('itemData', function (e, arg) {
             c.comments = arg.comments;
@@ -26,6 +28,9 @@
 
         function toggleComments() {
             $mdSidenav('commentsMenu').toggle();
+            $timeout(function() {
+                $rootScope.$broadcast('updateScroll');
+            },50);
         }
 
         function displayUnregBox() {
