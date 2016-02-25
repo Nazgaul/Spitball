@@ -42,20 +42,36 @@
             display: inline-block;
 
             button {
+                border: 1px solid @svgLightGrey;
+                border-radius: 5px;
+                padding: 0 6px;
+                display: flex;
+                line-height: 24px;
+                min-width: 56px;
+                justify-content: space-around;
+                align-items: center;
                 font-size: 14px;
                 color: @svgLightGrey;
-                padding-left: 25px;
-                text-transform: capitalize;
+                margin: 0 8px;
 
                 .content {
                     .displayFlex;
                 }
 
                 svg {
-                    width: 20px;
-                    height: 20px;
+                    width: 16px;
+                    height: 16px;
                     margin-right: 8px;
-                    margin-bottom: -2px;
+                }
+            }
+
+            &.blue button {
+                background: #4190b9;
+                color: @textColorWhite;
+                border-color: #4190b9;
+
+                svg {
+                    fill: @textColorWhite;
                 }
             }
         }
@@ -70,22 +86,14 @@
 
         .close-btn {
             padding: 15px;
-            margin-left: 50px;
+            margin-left: 40px;
             line-height: normal;
         }
 
-        @media (max-width: 400px) {
-            .like-text {
-                display: none;
-            }
-
+        @media (min-width: 600px) {
             .close-btn {
-                margin-left: 15px;
+                margin-left: 150px;
             }
-        }
-
-        .fb-like.blue svg {
-            fill: #4190b9;
         }
     }
 

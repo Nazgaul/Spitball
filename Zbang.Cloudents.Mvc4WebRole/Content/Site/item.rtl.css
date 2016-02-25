@@ -30,10 +30,17 @@
   display: inline-block;
 }
 .itemPage header .fb-like button {
+  border: 1px solid #c2c2c2;
+  border-radius: 5px;
+  padding: 0 6px;
+  display: flex;
+  line-height: 24px;
+  min-width: 56px;
+  justify-content: space-around;
+  align-items: center;
   font-size: 14px;
   color: #c2c2c2;
-  padding-right: 25px;
-  text-transform: capitalize;
+  margin: 0 8px;
 }
 .itemPage header .fb-like button .content {
   display: -webkit-flex;
@@ -41,10 +48,17 @@
   display: flex;
 }
 .itemPage header .fb-like button svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   margin-left: 8px;
-  margin-bottom: -2px;
+}
+.itemPage header .fb-like.blue button {
+  background: #4190b9;
+  color: #f5f5f5;
+  border-color: #4190b9;
+}
+.itemPage header .fb-like.blue button svg {
+  fill: #f5f5f5;
 }
 .itemPage header .item-actions {
   white-space: nowrap;
@@ -54,19 +68,13 @@
 }
 .itemPage header .close-btn {
   padding: 15px;
-  margin-right: 50px;
+  margin-right: 40px;
   line-height: normal;
 }
-@media (max-width: 400px) {
-  .itemPage header .like-text {
-    display: none;
-  }
+@media (min-width: 600px) {
   .itemPage header .close-btn {
-    margin-right: 15px;
+    margin-right: 150px;
   }
-}
-.itemPage header .fb-like.blue svg {
-  fill: #4190b9;
 }
 .itemPage md-select:not([disabled]):focus .md-select-value {
   color: #282828;

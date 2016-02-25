@@ -178,6 +178,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Print.
+        /// </summary>
+        public static string Print {
+            get {
+                return ResourceManager.GetString("Print", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Processing new media file.
         /// </summary>
         public static string Processing {
