@@ -101,7 +101,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-              //  await BuildIndex();
+                //  await BuildIndex();
             }
             var listOfCommands = new List<IndexAction<ItemSearch>>();
             if (itemToUpload != null)
@@ -217,7 +217,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             var term = query.Term;
             if (!query.Term.Contains(" "))
             {
-                term+= "*";
+                term += "*";
             }
             var filter = await m_FilterProvider.BuildFilterExpression(
                query.UniversityId, UniversityidField, UserIdsField, query.UserId);
@@ -277,6 +277,12 @@ namespace Zbang.Zbox.Infrastructure.Search
             });
         }
 
+        public async Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
+        {
+            var item = await m_IndexClient.Documents.GetAsync<ItemSearch>(itemId.ToString(CultureInfo.InvariantCulture), new[] { ContentField }, cancelToken);
+            return item.Document.Content;
+        }
+
 
         private static string HighLightInField(SearchResult<ItemSearch> record, string field, string defaultValue)
         {
@@ -292,14 +298,6 @@ namespace Zbang.Zbox.Infrastructure.Search
             return defaultValue;
         }
 
-        //private string HighLightInName(SearchQueryRecord record)
-        //{
-        //    string[] highLight;
-        //    if (record.Highlights.TryGetValue(NameField, out highLight))
-        //    {
-        //        return String.Join("...", highLight);
-        //    }
-        //    return SeachConnection.ConvertToType<string>(record.Properties[NameField]);
-        //}
+
     }
 }

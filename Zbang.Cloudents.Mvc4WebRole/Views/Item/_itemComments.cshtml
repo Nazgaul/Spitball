@@ -4,7 +4,8 @@
     <button type="button" class="menu-icon" ng-click="c.toggleComments()">
         @Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "commentsMenu" })
     </button>
-    <md-sidenav ng-cloak class="comments-wrapper md-sidenav" md-component-id="commentsMenu" md-is-locked-open="$mdMedia('min-width: 1500px')">
+    <md-sidenav class="comments-wrapper md-sidenav" md-component-id="commentsMenu" 
+                md-is-locked-open="$mdMedia('min-width: 1500px')">
         <md-content role="navigation">
             <div class="menu-toggler">
                 <button type="button" class="menu-icon" ng-click="c.toggleComments()">
@@ -14,7 +15,8 @@
             @*<button type="button" class="menu-icon" ng-if="!c.showCommentMenu" ng-click="c.showCommentMenu = true">
                     @Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "commentsMenu" })
                 </button>*@
-            <div class="comments" ng-slimscroll watch-content="true" height="calc(100vh - 85px)" color="#BBB">
+            <div class="comments" ng-slimscroll watch-content="true" 
+                 height="calc(100vh - 85px)" color="#BBB">
                 <div class="title">@ItemsResources.CreateComment</div>
 
                 <div class="new-comment" layout="row">

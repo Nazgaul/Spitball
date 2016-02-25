@@ -27,6 +27,9 @@
         c.toggleComments = toggleComments;
         c.displayUnregBox = displayUnregBox;
 
+        //$timeout(function () {
+        //    $rootScope.$broadcast('updateScroll');
+        //},151);
         function toggleComments() {
             $mdSidenav('commentsMenu').toggle();
             $timeout(function() {

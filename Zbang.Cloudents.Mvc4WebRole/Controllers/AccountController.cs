@@ -109,70 +109,73 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         public async Task<JsonResult> GoogleLogin(ExternalLogIn model, string returnUrl, CancellationToken cancellationToken)
         {
-            var source = CreateCancellationToken(cancellationToken);
+            
             var googleUserData = await m_GoogleService.Value.GoogleLogInAsync(model.Token);
             if (googleUserData == null)
             {
                 return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
             }
             var query = new GetUserByGoogleQuery(googleUserData.Id);
-            LogInUserDto user = await ZboxReadService.GetUserDetailsByGoogleIdAsync(query, source.Token);
-            if (user == null)
+            using (var source = CreateCancellationToken(cancellationToken))
             {
+                var user = await ZboxReadService.GetUserDetailsByGoogleIdAsync(query, source.Token);
+                if (user == null)
+                {
 
-                var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
-                Guid? invId = null;
-                if (inv != null)
-                {
-                    invId = inv.InviteId;
+                    var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
+                    Guid? invId = null;
+                    if (inv != null)
+                    {
+                        invId = inv.InviteId;
+                    }
+                    model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl(returnUrl);
+                    var command = new CreateGoogleUserCommand(googleUserData.Email,
+                        googleUserData.Id,
+                        googleUserData.Picture,
+                        model.UniversityId,
+                        googleUserData.FirstName,
+                        googleUserData.LastName,
+                        googleUserData.Locale,
+                        invId,
+                        model.BoxId);
+                    var commandResult = await ZboxWriteService.CreateUserAsync(command);
+                    user = new LogInUserDto
+                    {
+                        Id = commandResult.User.Id,
+                        Culture = commandResult.User.Culture,
+                        Image = googleUserData.Picture,
+                        Name = googleUserData.Name,
+                        UniversityId = commandResult.UniversityId,
+                        UniversityData = commandResult.UniversityData,
+                        Score = commandResult.User.Reputation
+                    };
                 }
-                model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl(returnUrl);
-                var command = new CreateGoogleUserCommand(googleUserData.Email,
-                    googleUserData.Id,
-                    googleUserData.Picture,
-                    model.UniversityId,
-                    googleUserData.FirstName,
-                    googleUserData.LastName,
-                    googleUserData.Locale,
-                    invId,
-                    model.BoxId);
-                var commandResult = await ZboxWriteService.CreateUserAsync(command);
-                user = new LogInUserDto
-                {
-                    Id = commandResult.User.Id,
-                    Culture = commandResult.User.Culture,
-                    Image = googleUserData.Picture,
-                    Name = googleUserData.Name,
-                    UniversityId = commandResult.UniversityId,
-                    UniversityData = commandResult.UniversityData,
-                    Score = commandResult.User.Reputation
-                };
-            }
-            m_LanguageCookie.InjectCookie(user.Culture);
-            var identity = new ClaimsIdentity(new List<Claim>
+                m_LanguageCookie.InjectCookie(user.Culture);
+                var identity = new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(ClaimConsts.UserIdClaim, user.Id.ToString(CultureInfo.InvariantCulture)),
-                   
+
                 },
-                "ApplicationCookie");
-            if (user.UniversityId.HasValue)
-            {
-                identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
-                    user.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
-            }
-            if (user.UniversityData.HasValue)
-            {
-                identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
-                    user.UniversityData.Value.ToString(CultureInfo.InvariantCulture)));
-            }
+                    "ApplicationCookie");
+                if (user.UniversityId.HasValue)
+                {
+                    identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                        user.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
+                }
+                if (user.UniversityData.HasValue)
+                {
+                    identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                        user.UniversityData.Value.ToString(CultureInfo.InvariantCulture)));
+                }
 
 
-            m_AuthenticationManager.SignIn(identity);
-            m_CookieHelper.RemoveCookie(Invite.CookieName);
-            var url = user.UniversityId.HasValue
-                   ? Url.Action("Index", "Dashboard")
-                   : Url.Action("Choose", "Library");
-            return JsonOk(url);
+                m_AuthenticationManager.SignIn(identity);
+                m_CookieHelper.RemoveCookie(Invite.CookieName);
+                var url = user.UniversityId.HasValue
+                    ? Url.Action("Index", "Dashboard")
+                    : Url.Action("Choose", "Library");
+                return JsonOk(url);
+            }
         }
 
         [HttpPost]
@@ -650,45 +653,48 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var source = CreateCancellationToken(cancellationToken);
-                var query = new GetUserByEmailQuery(model.Email);
-                var tUser = m_UserManager.FindByEmailAsync(model.Email);
-                var tResult = ZboxReadService.GetForgotPasswordByEmailAsync(query, source.Token);
-
-                await Task.WhenAll(tUser, tResult);
-
-                var systemUser = tResult.Result;
-                if (systemUser == null)
+                using (var source = CreateCancellationToken(cancellationToken))
                 {
+                    var query = new GetUserByEmailQuery(model.Email);
+                    var tUser = m_UserManager.FindByEmailAsync(model.Email);
+                    var tResult = ZboxReadService.GetForgotPasswordByEmailAsync(query, source.Token);
+
+                    await Task.WhenAll(tUser, tResult);
+
+                    var systemUser = tResult.Result;
+                    if (systemUser == null)
+                    {
+                        TraceLog.WriteInfo("Email not exists " + model);
+                        return JsonError(AccountControllerResources.EmailDoesNotExists);
+                    }
+
+                    if (systemUser.IdentityId.HasValue)
+                    {
+                        var user = tUser.Result;
+                        var identitylinkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+                        var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1, identitylinkData);
+
+                        var linkData = EncryptElement(data);
+                        await
+                            m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(linkData,
+                                tResult.Result.FirstName, model.Email, tResult.Result.Culture));
+
+                        return JsonOk();
+                    }
+                    if (systemUser.FacebookId.HasValue)
+                    {
+                        TraceLog.WriteInfo("facebook user " + model);
+                        return JsonError(AccountControllerResources.FbRegisterError);
+                    }
+                    if (!string.IsNullOrEmpty(systemUser.GoogleId))
+                    {
+                        TraceLog.WriteInfo("google user " + model);
+                        return JsonError(AccountControllerResources.GoogleForgotPasswordError);
+                    }
                     TraceLog.WriteInfo("Email not exists " + model);
                     return JsonError(AccountControllerResources.EmailDoesNotExists);
                 }
-
-                if (systemUser.IdentityId.HasValue)
-                {
-                    var user = tUser.Result;
-                    var identitylinkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
-
-                    var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1, identitylinkData);
-
-                    var linkData = EncryptElement(data);
-                    await m_QueueProvider.Value.InsertMessageToMailNewAsync(new ForgotPasswordData2(linkData, tResult.Result.FirstName, model.Email, tResult.Result.Culture));
-
-                    return JsonOk();
-                }
-                if (systemUser.FacebookId.HasValue)
-                {
-                    TraceLog.WriteInfo("facebook user " + model);
-                    return JsonError(AccountControllerResources.FbRegisterError);
-                }
-                if (!string.IsNullOrEmpty(systemUser.GoogleId))
-                {
-                    TraceLog.WriteInfo("google user " + model);
-                    return JsonError(AccountControllerResources.GoogleForgotPasswordError);
-                }
-                TraceLog.WriteInfo("Email not exists " + model);
-                return JsonError(AccountControllerResources.EmailDoesNotExists);
-
             }
 
             catch (Exception ex)

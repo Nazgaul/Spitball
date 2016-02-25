@@ -17,5 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         Task<IEnumerable<SearchItems>> SearchItemAsync(ViewModel.Queries.Search.SearchItemInBox query,
             CancellationToken cancelToken);
+
+        Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken);
     }
 }

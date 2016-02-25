@@ -84,7 +84,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Func<SearchQuery, CancellationToken, Task<TD>> func)
             where TD : class
         {
-            var source = CreateCancellationToken(cancellationToken);
+           
             try
             {
                 
@@ -94,8 +94,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     //var result = await m_WithCache.QueryAsync(func, query, source.Token);
                     //return JsonOk(result);
                 }
-                var retVal = await func(query, source.Token);
-                return JsonOk(retVal);
+                using (var source = CreateCancellationToken(cancellationToken))
+                {
+                    var retVal = await func(query, source.Token);
+                    return JsonOk(retVal);
+                }
             }
             catch (OperationCanceledException)
             {
@@ -125,7 +128,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<JsonResult> ItemInBox(string term, long boxId, int page, CancellationToken cancellationToken, int sizePerPage = 20)
         {
-            var source = CreateCancellationToken(cancellationToken);
+            
             if (string.IsNullOrEmpty(term))
             {
                 return JsonError();
@@ -133,8 +136,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var query = new SearchItemInBox(term, boxId, page, sizePerPage);
-                var retVal = await m_ItemSearchService.SearchItemAsync(query, source.Token);
-                return JsonOk(retVal);
+                using (var source = CreateCancellationToken(cancellationToken))
+                {
+                    var retVal = await m_ItemSearchService.SearchItemAsync(query, source.Token);
+                    return JsonOk(retVal);
+                }
             }
             catch (OperationCanceledException)
             {

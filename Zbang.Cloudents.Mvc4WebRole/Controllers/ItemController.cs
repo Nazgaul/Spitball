@@ -21,6 +21,7 @@ using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
+using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -38,18 +39,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
         private readonly Lazy<IGuidIdGenerator> m_GuidGenerator;
+        private readonly Lazy<IItemReadSearchProvider2> m_ItemSearchProvider;
 
 
         public ItemController(
             IBlobProvider blobProvider,
             IFileProcessorFactory fileProcessorFactory,
-            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator, ICloudBlockProvider cloudBlobProvider)
+            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator, ICloudBlockProvider cloudBlobProvider, Lazy<IItemReadSearchProvider2> itemSearchProvider)
         {
             m_BlobProvider = blobProvider;
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProvider = queueProvider;
             m_GuidGenerator = guidGenerator;
             m_CloudBlobProvider = cloudBlobProvider;
+            m_ItemSearchProvider = itemSearchProvider;
         }
 
 
@@ -184,6 +187,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Json(new JsonResponse(false));
             }
 
+        }
+
+
+
+        [BoxPermission("boxId"), HttpGet, ZboxAuthorize(IsAuthenticationRequired = false)]
+        public async Task<ActionResult> Content(long boxId, long itemId, CancellationToken cancellationToken)
+        {
+            using (var token = CreateCancellationToken(cancellationToken))
+            {
+                var content = await m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
+                return JsonOk(content);
+            }
         }
 
         /// <summary>
@@ -404,7 +419,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonOk(new { preview = retVal.Content.First() });
                 }
 
-                
+
                 return JsonOk(new
                 {
                     preview = RenderRazorViewToString("_Preview" + retVal.ViewName,
