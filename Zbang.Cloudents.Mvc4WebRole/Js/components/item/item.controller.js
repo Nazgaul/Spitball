@@ -25,6 +25,8 @@
         i.details.printUrl = $location.path() + 'print/';
         i.details.boxUrl = i.details.boxUrl + 'items/';
         getPreview();
+        i.firstPage = history2.firstState();
+        
 
 
         //i.renameOn = true;
@@ -42,6 +44,11 @@
         i.swipeLeft = swipeLeft;
         i.swipeRight = swipeRight;
         
+        if (i.firstPage) {
+            itemService.content(boxid, itemId).then(function (response) {
+                i.document = response;
+            });
+        }
         function getPreview() {
             i.loader = true;
             return itemService.getPreview(i.details.blob, index, itemId, boxid).then(function (data) {
