@@ -15,15 +15,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IBoxWriteSearchProvider2 m_BoxSearchProvider;
-        private readonly IBoxWriteSearchProviderOld m_BoxSearchProviderOld;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
 
         private const string PrefixLog = "Search Box";
-        public UpdateSearchBox(IZboxReadServiceWorkerRole zboxReadService, IBoxWriteSearchProvider2 boxSearchProvider, IBoxWriteSearchProviderOld boxSearchProviderOld, IZboxWorkerRoleService zboxWriteService)
+        public UpdateSearchBox(IZboxReadServiceWorkerRole zboxReadService, 
+            IBoxWriteSearchProvider2 boxSearchProvider, 
+            IZboxWorkerRoleService zboxWriteService)
         {
             m_ZboxReadService = zboxReadService;
             m_BoxSearchProvider = boxSearchProvider;
-            m_BoxSearchProviderOld = boxSearchProviderOld;
             m_ZboxWriteService = zboxWriteService;
         }
 
@@ -85,7 +85,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 TraceLog.WriteInfo(PrefixLog, string.Format("box updating {0} deleting {1}", updates.BoxesToUpdate.Count(),
                     updates.BoxesToDelete.Count()));
-                await m_BoxSearchProviderOld.UpdateData(updates.BoxesToUpdate, updates.BoxesToDelete);
                 var isSuccess =
                     await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete);
                 if (isSuccess)

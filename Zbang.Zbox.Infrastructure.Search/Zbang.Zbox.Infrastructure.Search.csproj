@@ -93,7 +93,6 @@
   <ItemGroup>
     <Compile Include="BoxSearch.cs" />
     <Compile Include="BoxSearchProvider.cs" />
-    <Compile Include="BoxSearchProviderOld.cs" />
     <Compile Include="FilterProvider.cs" />
     <Compile Include="IBoxSearchProvider.cs" />
     <Compile Include="IItemReadSearchProvider.cs" />

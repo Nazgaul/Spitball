@@ -117,6 +117,30 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             m_CheckIndexExists = true;
         }
+        public async Task<IEnumerable<SearchBoxes>> SearchBoxWithoutHighlightWithUrlAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
+        {
+            if (query == null) throw new ArgumentNullException("query");
+            var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
+            {
+                Filter =
+                    string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityIdField, UserIdsField,
+                        query.UniversityId, query.UserId),
+                Top = query.RowsPerPage,
+                Skip = query.RowsPerPage * query.PageNumber,
+                Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField,TypeFiled },
+            }, cancelToken);
+            return result.Select(s => new SearchBoxes
+            {
+                Id = long.Parse(s.Document.Id),
+                Name = s.Document.Name,
+                Professor = s.Document.Professor,
+                CourseCode = s.Document.Course,
+                Url = s.Document.Url,
+                Type = (BoxType)s.Document.Type.Value
+            });
+           
+           
+        }
         public async Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException("query");
