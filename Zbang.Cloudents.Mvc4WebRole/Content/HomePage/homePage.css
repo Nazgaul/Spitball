@@ -92,7 +92,10 @@
   fill: #f5f5f5;
   width: 20px;
   height: 20px;
-  padding: 10px 0 10px 10px;
+}
+.homePage .page-content nav .navbar-header .navbar-toggle label {
+  height: 20px;
+  padding-left: 10px;
 }
 .homePage .page-content nav label {
   cursor: pointer;
@@ -1224,6 +1227,11 @@
   margin: 25px 0;
   font-size: 14px;
 }
+@media (max-width: 600px) {
+  .homePage .home-page-body section.reviews blockquote .reviewer .details {
+    font-size: 3.5vw;
+  }
+}
 .homePage .home-page-body section.reviews blockquote .reviewer .details span {
   color: #888b8e;
 }
@@ -1427,8 +1435,8 @@
     width: 80px;
   }
   .homePage .home-page-body section.reviews blockquote .comment {
-    font-size: 4vw;
-    line-height: 7vw;
+    font-size: 3.5vw;
+    line-height: 6vw;
   }
   .homePage .home-page-body section.reviews blockquote .comment > span {
     font-size: 11vw;

@@ -45,6 +45,7 @@
 
         nav {
             height: inherit;
+
             .nav-content {
                 .displayFlex();
                 -ms-flex-direction: row;
@@ -114,7 +115,11 @@
                         fill: @textColorWhite;
                         width: 20px;
                         height: 20px;
-                        padding: 10px 0 10px 10px;
+                    }
+
+                    label {
+                        height: 20px;
+                        padding-left: 10px;
                     }
                 }
             }
@@ -875,7 +880,8 @@
                                 .bold {
                                     color: @textColorGrey;
                                 }
-                                span:not(.bold){
+
+                                span:not(.bold) {
                                     color: @textColorLightGrey;
                                 }
 
@@ -1370,6 +1376,10 @@
                         margin: 25px 0;
                         font-size: 14px;
 
+                        @media(max-width: 600px) {
+                            font-size: 3.5vw;
+                        }
+
                         span {
                             color: @textColorGrey;
                         }
@@ -1603,8 +1613,8 @@
                     }
 
                     .comment {
-                        font-size: 4vw;
-                        line-height: 7vw;
+                        font-size: 3.5vw;
+                        line-height: 6vw;
 
                         > span {
                             font-size: 11vw;
