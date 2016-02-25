@@ -25,15 +25,12 @@
   height: 17px;
   fill: #c2c2c2;
 }
-.itemPage header .fb-like {
+.itemPage header button.fb-like {
   white-space: nowrap;
-  display: inline-block;
-}
-.itemPage header .fb-like button {
+  display: table-row;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
   padding: 0 6px;
-  display: flex;
   line-height: 24px;
   min-width: 56px;
   justify-content: space-around;
@@ -42,29 +39,32 @@
   color: #c2c2c2;
   margin: 0 8px;
 }
-.itemPage header .fb-like button .content {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
+.itemPage header button.fb-like > span {
+  display: table-cell;
 }
-.itemPage header .fb-like button svg {
+.itemPage header button.fb-like svg {
   width: 16px;
   height: 16px;
   margin-right: 8px;
+  margin-bottom: -2px;
 }
-.itemPage header .fb-like.blue button {
+.itemPage header button.fb-like.blue {
   background: #4190b9;
   color: #f5f5f5;
   border-color: #4190b9;
 }
-.itemPage header .fb-like.blue button svg {
+.itemPage header button.fb-like.blue svg {
   fill: #f5f5f5;
 }
 .itemPage header .item-actions {
   white-space: nowrap;
+  height: 80px;
 }
 .itemPage header .item-actions .md-icon-button {
   margin: 0;
+}
+.itemPage header .item-actions a svg {
+  display: inherit;
 }
 .itemPage header .close-btn {
   padding: 15px;
@@ -233,6 +233,10 @@
   top: 85px;
   background: #f5f5f5;
   width: 300px;
+  border-top: 1px solid #8c99a6;
+  color: #2698d4;
+  padding-top: 10px;
+  margin-top: 10px;
 }
 @media (max-width: 1500px) {
   .itemPage .comments-wrapper {
@@ -245,6 +249,9 @@
 }
 .itemPage .comments-wrapper .title {
   color: #2698d4;
+  font-size: 16px;
+  padding: 10px 0;
+  line-height: 30px;
 }
 .itemPage .comments-wrapper .comments-list > li {
   border: 1px solid #3598dc;
@@ -255,18 +262,15 @@
 .itemPage .comments-wrapper .reply-btn {
   border-top: 1px solid #8c99a6;
   color: #2698d4;
+  padding-top: 10px;
+  margin-top: 10px;
 }
 .itemPage .comments-wrapper > div {
   margin: 0 auto;
 }
-.itemPage .comments-wrapper .title {
-  font-size: 16px;
-  padding: 10px 0;
-  line-height: 30px;
-}
 .itemPage .comments-wrapper .comments {
   width: 300px;
-  padding: 15px;
+  padding: 15px 15px 65px 15px;
   display: inline-block;
   height: calc(100vh - 120px);
 }
@@ -311,10 +315,6 @@
 }
 .itemPage .comments-wrapper .new-comment .new-comment-form {
   width: 100%;
-}
-.itemPage .comments-wrapper .reply-btn {
-  padding-top: 10px;
-  margin-top: 10px;
 }
 .itemPage .arrows {
   position: fixed;
