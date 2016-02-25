@@ -66,7 +66,10 @@ var Login = function () {
 
         });
         $('#resendRequest').click(function () {
-            sendRequest();
+            var requestSent = sendRequest();
+            if (requestSent) {
+                alert($(this).data("response"));
+            }
         });
 
         function sendRequest() {
@@ -80,6 +83,7 @@ var Login = function () {
                 $('.check-email-message').removeClass('hidden').show();
                 $('.forgot-password-form').hide();
             });
+            return true;
         }
     }
 
@@ -195,7 +199,7 @@ var Login = function () {
     function signup(form) {
         var submitBtn = $(form).find('.btn-primary');
         disableState(submitBtn);
-        setTimeout(function () {
+        var t = setTimeout(function () {
             $(form).find('.form-actions').addClass('loading');
         }, 200);
         var values = $(form).serialize();
@@ -234,13 +238,16 @@ var Login = function () {
             }
 
             window.location.href = data.payload;
+        }).always(function () {
+            clearTimeout(t);
+            $(form).find('.form-actions').removeClass('loading');
         });
     }
 
     function signin(form) {
         var submitBtn = $(form).find('.btn-primary');
         disableState(submitBtn);
-        setTimeout(function () {
+        var t = setTimeout(function () {
             $(form).find('.form-actions').addClass('loading');
         }, 200);
         var values = $(form).serialize();
@@ -272,6 +279,9 @@ var Login = function () {
             }
             window.location.href = data.payload;
 
+        }).always(function () {
+            clearTimeout(t);
+            $(form).find('.form-actions').removeClass('loading');
         });
     }
 

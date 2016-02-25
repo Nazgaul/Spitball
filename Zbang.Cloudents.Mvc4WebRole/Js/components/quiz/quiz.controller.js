@@ -233,6 +233,7 @@
                 }
             }
         }
+        
         function back() {
             if (q.state === q.states.complete) {
                 q.state = q.states.solving;

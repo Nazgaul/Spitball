@@ -258,4 +258,7 @@
   <data name="Free" xml:space="preserve">
     <value>בחינם.</value>
   </data>
+  <data name="resetPassEmailSent" xml:space="preserve">
+    <value>בקשה נוספת נשלחה</value>
+  </data>
 </root>

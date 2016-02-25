@@ -71,13 +71,19 @@
 .library-choose .add-univeristy form {
   max-width: 450px;
   margin: 0 auto;
+  margin-bottom: 60px;
+  width: 100%;
 }
-.library-choose .add-univeristy form > div {
+.library-choose .add-univeristy form .fields {
   border-width: 1px;
   border-style: solid;
   padding: 20px;
   margin-bottom: 10px;
   border-radius: 4px;
+}
+.library-choose .add-univeristy form .buttons {
+  display: inline-block;
+  width: 100%;
 }
 .library-choose .add-univeristy .btn {
   padding: 0 16px;

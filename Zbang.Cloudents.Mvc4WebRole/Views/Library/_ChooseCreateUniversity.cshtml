@@ -4,7 +4,7 @@
 <div ng-if="lc.createUniversity" class="add-univeristy" ng-init="lc.countryCode = '@ViewBag.country'">
     <h2>@LibraryResources.UniversityAddSchoolTitle</h2>
     <form ng-submit="lc.createNewUniversity(createUniversity)" class="text-capitalize" novalidate name="createUniversity">
-        <div class="borderTC13">
+        <div class="fields borderTC13">
             <md-input-container>
                 <label>@LibraryResources.Country</label>
                 <md-select ng-model="lc.countryCode" md-container-class="dd-list">
@@ -34,11 +34,13 @@
                 </md-autocomplete>
             </md-input-container>
         </div>
-        <md-button type="submit" class="btn button-Blue btn-primary" ng-disabled="!createUniversity.$valid || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">
-            @GeneralResources.Create
-        </md-button>
-        <md-button class="btn btn-default" ng-click="lc.createUniversity = false" ga-track-event="['universityChoose', 'cancel new university']">
-            @GeneralResources.Cancel
-        </md-button>
+        <div class="buttons">
+            <md-button type="submit" class="btn button-Blue btn-primary" ng-disabled="!createUniversity.$valid || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">
+                @GeneralResources.Create
+            </md-button>
+            <md-button class="btn btn-default" ng-click="lc.createUniversity = false" ga-track-event="['universityChoose', 'cancel new university']">
+                @GeneralResources.Cancel
+            </md-button>
+        </div>
     </form>
 </div>

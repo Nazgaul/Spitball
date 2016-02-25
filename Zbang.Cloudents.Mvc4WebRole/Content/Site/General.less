@@ -548,6 +548,7 @@ md-tabs {
     overflow-y: auto;
     height: 100vh;
     width: 100vw;
+    top: 0;
 
     &.itemPage {
         top: 0;
@@ -559,6 +560,7 @@ md-tabs {
 
     &.quizPage {
         top: 0;
+        padding-bottom: 80px //for intercom
     }
 
 
@@ -587,6 +589,7 @@ md-tabs {
     .full-screen-body {
         margin-top: @fullScreenHeaderHeight;
         min-height: ~"calc( 100% - 80px)";
+        margin-bottom: 80px; //so intercom icon wont clash with page's items
     }
 }
 

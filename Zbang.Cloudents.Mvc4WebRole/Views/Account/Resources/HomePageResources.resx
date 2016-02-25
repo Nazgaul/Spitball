@@ -262,4 +262,7 @@ classmates, swap notes and exchange ideas, for FREE.</value>
   <data name="Free" xml:space="preserve">
     <value />
   </data>
+  <data name="resetPassEmailSent" xml:space="preserve">
+    <value>Another request was sent</value>
+  </data>
 </root>

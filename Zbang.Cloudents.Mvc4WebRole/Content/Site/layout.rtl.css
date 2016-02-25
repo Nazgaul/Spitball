@@ -1228,13 +1228,22 @@ Page Loading
   /*white-space: pre-wrap;*/
 }
 .unreg-user .text {
-  margin-bottom: 50px;
+  width: 100%;
+  max-width: 470px;
+  margin: 0 auto;
+  margin-bottom: 44px;
+}
+@media (max-width: 600px) {
+  .unreg-user .text {
+    width: 70vw;
+    margin: 20px auto;
+  }
 }
 .unreg-user .text p {
   margin-bottom: 0;
 }
 .unreg-user .text .large {
-  font-size: 56px;
+  font-size: 44px;
   font-weight: bold;
   margin-bottom: 0;
   max-width:  714px;
@@ -1245,18 +1254,18 @@ Page Loading
 }
 @media (max-width: 600px) {
   .unreg-user .text .large {
-    font-size: 10vw;
+    font-size: 7vw;
   }
 }
 .unreg-user .text .normal {
   text-align: center;
   width: 100%;
-  font-size: 18px;
+  font-size: 4.5vw;
 }
 @media (min-width: 600px) {
   .unreg-user .text .normal {
     white-space: pre-wrap;
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 .unreg-user .signin-options-section .signup {

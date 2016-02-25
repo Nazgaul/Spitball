@@ -19,8 +19,8 @@
     <div class="ellipsis text-center" id="quiz-top" ng-bind-html="::q.name"></div>
     <button type="button" ng-click="app.back(q.boxUrl)" class="close" ga-track-event="['quiz', 'close quiz']">@Html.Svg("~/images/site/icons.svg", "close", new { @class = "color-override svgColor8" })</button>
 </header>
-<div md-swipe-left="q.swipeLeft()" md-swipe-right="q.swipeRight()">
 
+<div md-swipe-left="q.swipeLeft()" md-swipe-right="q.swipeRight()">
     <div class="arrows prev" ng-if="q.state === 2 || q.state === 4">
         <button type="button" ng-click="q.back()" hide-xs ng-show="q.index > 0 && q.index < q.questions.length" ga-track-event="['quiz', 'previous question']">
             @Html.Svg("~/images/site/icons.svg", "arrow")
@@ -104,7 +104,7 @@
                                 </a>
                                 <div ng-bind-html="::post.content" class="indent content-text"></div>
                             </div>
-                            <span class="indent comment-date">{{::post.creationTime | date : 'medium'}}</span>
+                            <span class="indent comment-date">{{::post.creationTime | date : 'mediumDate'}} &nbsp; {{::post.creationTime | date : 'shortTime'}}</span>
                         </div>
 
                         <md-menu ng-if="post.userId === q.user.id">
