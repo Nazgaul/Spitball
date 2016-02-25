@@ -345,5 +345,11 @@ namespace Zbang.Zbox.Infrastructure.StorageApp
         {
             throw new NotImplementedException();
         }
+
+
+        public Task<Stream> DownloadFileAsync(string fileName, string containerName, CancellationToken cancelToken = default(CancellationToken))
+        {
+            throw new NotImplementedException();
+        }
     }
 }
