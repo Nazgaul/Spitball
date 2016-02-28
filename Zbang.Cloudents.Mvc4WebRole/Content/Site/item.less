@@ -37,50 +37,56 @@
             }
         }
 
-        .fb-like {
+
+
+
+        button.fb-like {
             white-space: nowrap;
-            display: inline-block;
+            display: table-row;
+            border: 1px solid @svgLightGrey;
+            border-radius: 5px;
+            padding: 0 6px;
+            //.displayFlex;
+            line-height: 24px;
+            min-width: 56px;
+            justify-content: space-around;
+            align-items: center;
+            font-size: 14px;
+            color: @svgLightGrey;
+            margin: 0 8px;
 
-            button {
-                border: 1px solid @svgLightGrey;
-                border-radius: 5px;
-                padding: 0 6px;
-                display: flex;
-                line-height: 24px;
-                min-width: 56px;
-                justify-content: space-around;
-                align-items: center;
-                font-size: 14px;
-                color: @svgLightGrey;
-                margin: 0 8px;
-
-                .content {
-                    .displayFlex;
-                }
-
-                svg {
-                    width: 16px;
-                    height: 16px;
-                    margin-right: 8px;
-                }
+            > span {
+                display: table-cell;
             }
 
-            &.blue button {
-                background: #4190b9;
-                color: @textColorWhite;
-                border-color: #4190b9;
+            svg {
+                width: 16px;
+                height: 16px;
+                margin-right: 8px;
+                margin-bottom: -2px;
+            }
+        }
 
-                svg {
-                    fill: @textColorWhite;
-                }
+        button.fb-like.blue {
+            background: #4190b9;
+            color: @textColorWhite;
+            border-color: #4190b9;
+
+            svg {
+                fill: @textColorWhite;
             }
         }
 
         .item-actions {
             white-space: nowrap;
+            height: 80px;
 
             .md-icon-button {
                 margin: 0;
+            }
+
+            a svg {
+                display: inherit;
             }
         }
 
@@ -300,6 +306,9 @@
 
         .title {
             color: @textColorBlue;
+            font-size: 16px;
+            padding: 10px 0;
+            line-height: 30px;
         }
 
         .comments-list > li {
@@ -315,21 +324,17 @@
         .reply-btn {
             border-top: 1px solid @borderColorLightGrey;
             color: @textColorBlue;
+            padding-top: 10px;
+            margin-top: 10px;
         }
 
         > div {
             margin: 0 auto;
         }
 
-        .title {
-            font-size: 16px;
-            padding: 10px 0;
-            line-height: 30px;
-        }
-
         .comments {
             width: 300px;
-            padding: 15px;
+            padding: 15px 15px 65px 15px;
             display: inline-block;
             height: ~"calc(100vh - 120px)";
 
@@ -389,10 +394,7 @@
             }
         }
 
-        .reply-btn {
-            padding-top: 10px;
-            margin-top: 10px;
-        }
+        .reply-btn
     }
 
     .arrows {

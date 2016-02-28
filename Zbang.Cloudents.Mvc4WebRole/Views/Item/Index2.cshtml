@@ -4,7 +4,7 @@
     const string svgUrl = "~/images/site/itemIcons.svg";
     const string logoUrl = "~/images/site/icons.svg";
 }
-<div class="full-screen" srph-infinite-scroll="i.loadMore()" container="true" unregister-scroll="true">
+<div class="full-screen" @*srph-infinite-scroll="i.loadMore()"*@ @*container="true"*@ @*unregister-scroll="true"*@>
     <header class="color-override backgroundColor2 borderColor2">
         <div layout="row" layout-align="space-between center">
             <div class="page-logo">
@@ -13,13 +13,13 @@
                     @Html.Svg(logoUrl, "smallLogo", new { @class = "logo-small", hide = "", show_xs = "" })
                 </a>
             </div>
-            <div class="item-actions">
-                <div class="fb-like" ng-class="{blue : i.details.like}">
-                    <button class="content-wrapper" user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
-                        @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })
-                        <span>{{i.details.likes}}</span>
-                    </button>
-                </div>
+            <div class="item-actions" layout="row" layout-align="space-between center">
+                @*<div >*@
+                <button class="fb-like content-wrapper" ng-class="{blue : i.details.like}" layout="row" layout-align="space-between center" user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
+                    <span>@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })</span>
+                    <span>{{i.details.likes}}</span>
+                </button>
+                @*</div>*@
                 <a hide-xs target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download", new { @class = "color-override svgColor3" })</a>
                 <a hide-xs target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print", new { @class = "color-override svgColor3" })</a>
                 <md-menu flex>
