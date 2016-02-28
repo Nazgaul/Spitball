@@ -35,11 +35,11 @@
             //}
         }
 
-        //if (!window.app && scripts.length) {
-        //    scripts = getCdnScripts(cdnCdPath);
-        //    load(cdnPath);
-        //    isBootstrap = true;
-        //}
+        if (!window.Login) {
+            scripts = getCdnScripts(cdnCdPath);
+            load(cdnPath);
+            isBootstrap = true;
+        }
 
         if (!isBootstrap) {
             return;
