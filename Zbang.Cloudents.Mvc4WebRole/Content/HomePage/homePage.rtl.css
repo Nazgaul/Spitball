@@ -347,7 +347,7 @@
   position: absolute;
   top: -65px;
 }
-.homePage .home-page-body section:not(.main) h1 {
+.homePage .home-page-body section:not(.main) h2 {
   font-size: 36px;
   font-weight: bold;
   text-align: center;
@@ -386,6 +386,7 @@
 .homePage .home-page-body section.main .welcome-text h1 {
   font-weight: bold;
   font-size: 50px;
+  max-width: 100%;
   margin: 0 auto;
 }
 @media (max-width: 960px) {
@@ -493,11 +494,12 @@
 .homePage .home-page-body section.main .statistics .statistic {
   text-align: center;
   padding: 0 10px;
+  font-size: 18px;
 }
 .homePage .home-page-body section.main .statistics .statistic .value {
   margin: 0 10px;
 }
-.homePage .home-page-body section.main .statistics .statistic > div {
+.homePage .home-page-body section.main .statistics .statistic > span {
   display: inline-block;
 }
 .homePage .home-page-body section.main .social-links {
@@ -1174,6 +1176,7 @@
   }
 }
 .homePage .home-page-body section.check-us .boxes .box h2 {
+  text-align: right;
   flex-grow: 1;
   font-weight: normal;
   display: -webkit-box;
@@ -1309,11 +1312,11 @@
   margin-left: 40px;
   margin-bottom: 40px;
 }
-.homePage .home-page-body footer .content .app h1 {
+.homePage .home-page-body footer .content .app h3 {
   font-size: 22px;
   font-weight: bold;
 }
-.homePage .home-page-body footer .content .app h2 {
+.homePage .home-page-body footer .content .app h4 {
   font-size: 18px;
   color: #c3c3c3;
 }
@@ -1349,7 +1352,7 @@
   flex-wrap: wrap;
 }
 .homePage .home-page-body footer .content .info .links a,
-.homePage .home-page-body footer .content .info .links h2 {
+.homePage .home-page-body footer .content .info .links h4 {
   font-size: 14px;
 }
 .homePage .home-page-body footer .content .info .links a {
@@ -1377,19 +1380,20 @@
   margin-left: 10px;
   display: inline-block;
 }
-.homePage .home-page-body footer .content h2 {
+.homePage .home-page-body footer .content h4 {
   font-weight: normal;
   margin-bottom: 10px;
+  margin-top: 15px;
 }
-.homePage .home-page-body footer .content h1 {
+.homePage .home-page-body footer .content h3 {
   margin-bottom: 10px;
 }
-.homePage .home-page-body footer .content .app h1,
-.homePage .home-page-body footer .content .links h2 {
+.homePage .home-page-body footer .content .app h3,
+.homePage .home-page-body footer .content .links h4 {
   text-transform: uppercase;
 }
 @media (max-width: 600px) {
-  .homePage .home-page-body section:not(.main) h1 {
+  .homePage .home-page-body section:not(.main) h2 {
     margin-top: 0;
     font-size: 8vw;
   }

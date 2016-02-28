@@ -386,7 +386,7 @@
                 top: -65px;
             }
 
-            &:not(.main) h1 {
+            &:not(.main) h2 {
                 font-size: 36px;
                 font-weight: bold;
                 text-align: center;
@@ -430,9 +430,9 @@
                         font-size: 50px;
                         max-width: 100%; //rtl:520px
                         margin: 0 auto;
+
                         @media(max-width: 960px) {
                             white-space: pre-wrap;
-                        }
                         }
                     }
 
@@ -446,7 +446,6 @@
 
                         span {
                             font-weight: bold;
-                        }
                         }
                     }
                 }
@@ -549,12 +548,13 @@
                     .statistic {
                         text-align: center;
                         padding: 0 10px;
+                        font-size: 18px;
 
                         .value {
                             margin: 0 10px;
                         }
 
-                        > div {
+                        > span {
                             display: inline-block;
                         }
                     }
@@ -1319,6 +1319,7 @@
                         }
 
                         h2 {
+                            text-align: left;
                             flex-grow: 1;
                             font-weight: normal;
                             display: -webkit-box;
@@ -1462,12 +1463,12 @@
                     margin-right: 40px;
                     margin-bottom: 40px;
 
-                    h1 {
+                    h3 {
                         font-size: 22px;
                         font-weight: bold;
                     }
 
-                    h2 {
+                    h4 {
                         font-size: 18px;
                         color: @textColorLightGrey;
                     }
@@ -1500,7 +1501,7 @@
                         -webkit-flex-wrap: wrap;
                         flex-wrap: wrap;
 
-                        a, h2 {
+                        a, h4 {
                             font-size: 14px;
                         }
 
@@ -1534,16 +1535,17 @@
                     }
                 }
 
-                h2 {
+                h4 {
                     font-weight: normal;
                     margin-bottom: 10px;
+                    margin-top: 15px;
                 }
 
-                h1 {
+                h3 {
                     margin-bottom: 10px;
                 }
 
-                .app h1, .links h2 {
+                .app h3, .links h4 {
                     text-transform: uppercase;
                 }
             }
@@ -1558,7 +1560,7 @@
         //}
         @media(max-width: 600px) {
             section {
-                &:not(.main) h1 {
+                &:not(.main) h2 {
                     margin-top: 0;
                     font-size: 8vw;
                 }
