@@ -53,6 +53,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "HomePage")]
         public async Task<ActionResult> Index(string lang, string invId)
         {
+            ViewBag.title = SeoResources.HomePageTitle;
+            ViewBag.metaDescription = SeoResources.HomePageMeta;
+            return await HomePageAsync(lang, invId);
+        }
+
+        [DonutOutputCache(CacheProfile = "HomePage")]
+        [Route("account/signin", Name = "signin")]
+        public async Task<ActionResult> SignIn(string lang, string invId)
+        {
+            ViewBag.title = SeoResources.SignInTitle;
+            ViewBag.metaDescription = SeoResources.SignInMeta;
+            return await HomePageAsync(lang, invId);
+        }
+
+        [NonAction]
+        private async Task<ActionResult> HomePageAsync(string lang, string invId)
+        {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
@@ -88,10 +105,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetHomePageQuery(boxIds);
             var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
 
-            ViewBag.title = SeoResources.HomePageTitle;
-            ViewBag.metaDescription = SeoResources.HomePageMeta;
 
-            return View(homeStats);
+
+            return View("Index", homeStats);
         }
 
 
@@ -105,7 +121,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
-        
+
         [Route("privacy", Name = "Privacy")]
         [Route("terms", Name = "TOS")]
         public ActionResult IndexEmptyRoute()
@@ -137,7 +153,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoutePermanent("homePage");
         }
 
-        
+
 
         public ActionResult Blog(string lang)
         {
@@ -211,7 +227,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 QuestionNAnswers = faqs.Select(s =>
                                     new QnA
                                     {
-                                        Answer =   s.Element("answer").Value ,
+                                        Answer = s.Element("answer").Value,
                                         Question = s.Element("question").Value,
                                         Order = int.Parse(s.Attribute("order").Value)
 
@@ -292,7 +308,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
-// ReSharper disable once InconsistentNaming
+        // ReSharper disable once InconsistentNaming
         public ActionResult IFrame()
         {
             return View();

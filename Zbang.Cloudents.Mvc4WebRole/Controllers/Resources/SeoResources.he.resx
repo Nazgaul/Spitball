@@ -153,4 +153,10 @@
   <data name="HelpTitle" xml:space="preserve">
     <value>עזרה | ספיטבול</value>
   </data>
+  <data name="SignInMeta" xml:space="preserve">
+    <value>התחברו אל ספיטבול עוד היום והצטרפו למהפכת הלימודים החברתית! פתחו חשבון חינמי ותתחילו להוריד סיכומים, לפתוח קבוצות לימוד ולחלוק מידע עם חבריכם לכיתה.</value>
+  </data>
+  <data name="SignInTitle" xml:space="preserve">
+    <value>login | ספיטבול</value>
+  </data>
 </root>

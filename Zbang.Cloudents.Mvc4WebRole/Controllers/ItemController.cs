@@ -67,6 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
           Duration = TimeConsts.Hour * 1, VaryByParam = "itemid",
           Location = OutputCacheLocation.Server, Order = 4)]
+        [Route("item/{universityName}/{boxId:long}/{boxName}/{itemid:long}/{itemName}", Name = "Item")]
         public async Task<ActionResult> Index(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
 
@@ -114,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-
+        [Route(UrlConsts.ShortItem, Name = "shortItem")]
         public async Task<ActionResult> ShortUrl(string item62Id)
         {
             var base62 = new Base62(item62Id);
