@@ -297,7 +297,7 @@
 
         @media (max-width: 1500px) {
             box-shadow: -10px 10px 75px @backgroundColorMenu;
-            z-index: 1;
+            z-index: 2;
         }
 
         md-content {
@@ -393,8 +393,6 @@
                 width: 100%;
             }
         }
-
-        .reply-btn
     }
 
     .arrows {
@@ -437,6 +435,29 @@
 }
 
 
+.raw-text {
+    color: @textColorBlack;
+
+    md-switch {
+        margin: 20px auto;
+    }
+
+    md-switch, .text {
+        max-width: 800px;
+    }
+
+    .text-wrapper {
+        background: @backgroundColor2;
+        padding: 20px 12px;
+
+        .text {
+            margin: 0 auto;
+            background: #fff;
+            min-height: 300px;
+            padding: 10px;
+        }
+    }
+}
 
 .preview {
     text-align: center;

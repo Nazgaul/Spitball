@@ -171,4 +171,7 @@
   <data name="Print" xml:space="preserve">
     <value>Print</value>
   </data>
+  <data name="ShowRawText" xml:space="preserve">
+    <value>See the raw text of the file</value>
+  </data>
 </root>

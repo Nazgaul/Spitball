@@ -171,4 +171,7 @@
   <data name="Print" xml:space="preserve">
     <value>הדפסה</value>
   </data>
+  <data name="ShowRawText" xml:space="preserve">
+    <value>צפה בטקסט המסמך</value>
+  </data>
 </root>
