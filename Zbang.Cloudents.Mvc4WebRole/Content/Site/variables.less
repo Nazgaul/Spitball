@@ -211,42 +211,55 @@
 
 
 
-.themeClasses(@name, @Color) {
-    .background@{name} {
-        background: @Color !important;
-    }
+.themeClasses(@name, @Color, @attributes) {
+    .generateAttributes(@array) {
+        & {
+            .loop(@i: 1) when (@i =< length(@array)) {
+                @currentItem: extract(@array, @i);
+                .background@{name} when (@currentItem = background) {
+                    background: @Color !important;
+                }
 
-    .text@{name} {
-        color: @Color !important;
-    }
+                .text@{name} when (@currentItem = text) {
+                    color: @Color !important;
+                }
 
-    .input@{name} {
-        .placeHolder(@Color) !important;
-    }
+                .input@{name} when (@currentItem = input) {
+                    .placeHolder(@Color) !important;
+                }
 
-    .svg@{name} {
-        fill: @Color !important;
-    }
+                .svg@{name} when (@currentItem = svg) {
+                    fill: @Color !important;
+                }
 
-    .border@{name} {
-        border-color: @Color !important;
-    }
+                .border@{name} when (@currentItem = border) {
+                    border-color: @Color !important;
+                }
 
-    .hoverBackground@{name} {
-        &:hover {
-            background: @Color !important;
+                .hoverBackground@{name} when (@currentItem = hoverBackground) {
+                    &:hover {
+                        background: @Color !important;
+                    }
+                }
+
+                .hoverText@{name} when (@currentItem = hoverText) {
+                    &:hover {
+                        color: @Color !important;
+                    }
+                }
+
+                .hoverSvg@{name} when (@currentItem = hoverSvg) {
+                    &:hover {
+                        fill: @Color !important;
+                    }
+                }
+
+                .loop(@i + 1)
+            }
+
+            .loop();
         }
     }
 
-    .hoverText@{name} {
-        &:hover {
-            color: @Color !important;
-        }
-    }
-
-    .hoverSvg@{name} {
-        &:hover {
-            fill: @Color !important;
-        }
-    }
+    .generateAttributes(@attributes);
 }
