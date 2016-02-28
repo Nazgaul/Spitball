@@ -62,13 +62,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
                 if (string.IsNullOrEmpty(model.Country)) return View("Empty");
-
-
-
-                var culture = Languages.GetCultureBaseOnCountry(model.Country);
-                BaseControllerResources.Culture = culture;
+                SeoResources.Culture = Languages.GetCultureBaseOnCountry(model.Country); ;
                 ViewBag.title = string.Format("{0} | {1} | {2} | {3} | {4}",
-                   model.BoxName, model.Name, model.DepartmentName, model.UniversityName, BaseControllerResources.Cloudents);
+                   model.BoxName, model.Name, model.DepartmentName, model.UniversityName, SeoResources.Cloudents);
 
                 ViewBag.metaDescription = Zbox.Infrastructure.TextManipulation.RemoveHtmlTags.Replace(model.FirstQuestion, string.Empty);
                 return View("Empty");

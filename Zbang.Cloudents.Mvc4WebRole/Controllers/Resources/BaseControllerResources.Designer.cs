@@ -61,65 +61,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Study and share your class notes for Course {0}, online or via the Spitball app. Use Spitball for free today!.
-        /// </summary>
-        internal static string BoxMetaDescription {
-            get {
-                return ResourceManager.GetString("BoxMetaDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Notes.
-        /// </summary>
-        internal static string BoxTitleItems {
-            get {
-                return ResourceManager.GetString("BoxTitleItems", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Quizzes.
-        /// </summary>
-        internal static string BoxTitleQuizzes {
-            get {
-                return ResourceManager.GetString("BoxTitleQuizzes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spitball.
-        /// </summary>
-        internal static string Cloudents {
-            get {
-                return ResourceManager.GetString("Cloudents", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You must start a discussion or post a document.
         /// </summary>
         internal static string FillComment {
             get {
                 return ResourceManager.GetString("FillComment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Get class notes for free with spitball:.
-        /// </summary>
-        internal static string ItemMataDescription {
-            get {
-                return ResourceManager.GetString("ItemMataDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Study and share your class notes for {0} {1} {2} , online or via the Spitball app.
-        /// </summary>
-        internal static string MetaDescription {
-            get {
-                return ResourceManager.GetString("MetaDescription", resourceCulture);
             }
         }
         

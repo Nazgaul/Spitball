@@ -65,30 +65,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
                 }
-                BaseControllerResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
+                SeoResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
                 if (model.BoxType == BoxType.Box)
                 {
-                    ViewBag.title = string.Format("{0} | {1}", model.Name, BaseControllerResources.Cloudents);
+                    ViewBag.title = string.Format("{0} | {1}", model.Name, SeoResources.Cloudents);
                     return View("Empty");
                 }
 
 
-                ViewBag.metaDescription = string.Format(BaseControllerResources.BoxMetaDescription, model.Name);
+                ViewBag.metaDescription = string.Format(SeoResources.BoxMetaDescription, model.Name);
 
                 if (part == "feed" || part == "members")
                 {
                     ViewBag.title = string.Format("{0} - {1} | {2}", model.Name, model.UniversityName,
-                        BaseControllerResources.Cloudents);
+                        SeoResources.Cloudents);
                 }
                 if (part == "items")
                 {
                     ViewBag.title = string.Format("{3} {0} - {1} | {2}", model.Name, model.DepartmentName,
-                        BaseControllerResources.Cloudents, BaseControllerResources.BoxTitleItems);
+                        SeoResources.Cloudents, SeoResources.BoxTitleItems);
                 }
                 if (part == "quizzes")
                 {
                     ViewBag.title = string.Format("{3} {0} - {1} | {2}", model.Name, model.DepartmentName,
-                        BaseControllerResources.Cloudents, BaseControllerResources.BoxTitleQuizzes);
+                        SeoResources.Cloudents, SeoResources.BoxTitleQuizzes);
                 }
                 return View("Empty");
             }

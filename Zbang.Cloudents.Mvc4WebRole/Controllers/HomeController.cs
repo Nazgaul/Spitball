@@ -21,7 +21,6 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Url;
@@ -37,13 +36,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly ILanguageCookieHelper m_LanguageCookie;
         private readonly ICookieHelper m_CookieHelper;
-        private readonly IMailComponent m_MailComponent;
-        //private readonly IThemeCookieHelper m_ThemeCookieHelper;
 
         public HomeController(
             Lazy<IBlobProvider> blobProvider,
-            Lazy<ICache> cacheProvider, Lazy<IQueueProvider> queueProvider, ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper, IMailComponent mailComponent
-            //, IThemeCookieHelper themeCookieHelper
+            Lazy<ICache> cacheProvider, Lazy<IQueueProvider> queueProvider,
+            ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper
             )
         {
             m_BlobProvider = blobProvider;
@@ -51,8 +48,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_QueueProvider = queueProvider;
             m_LanguageCookie = languageCookie;
             m_CookieHelper = cookieHelper;
-            m_MailComponent = mailComponent;
-            // m_ThemeCookieHelper = themeCookieHelper;
         }
 
         [DonutOutputCache(CacheProfile = "HomePage")]
@@ -93,8 +88,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetHomePageQuery(boxIds);
             var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
 
-            ViewBag.title = HomeControllerResources.HomePageTitle;
-            ViewBag.metaDescription = HomeControllerResources.HomePageMeta;
+            ViewBag.title = SeoResources.HomePageTitle;
+            ViewBag.metaDescription = SeoResources.HomePageMeta;
 
             return View(homeStats);
         }
@@ -110,11 +105,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
-        [Route("aboutus", Name = "AboutUs")]
+        
         [Route("privacy", Name = "Privacy")]
         [Route("terms", Name = "TOS")]
         public ActionResult IndexEmptyRoute()
         {
+            return View("Empty");
+        }
+
+        [Route("help", Name = "Help")]
+        public ActionResult Help()
+        {
+            ViewBag.title = SeoResources.HelpTitle;
+            ViewBag.metaDescription = SeoResources.HelpMeta;
+            return View("Empty");
+        }
+
+        [DonutOutputCache(CacheProfile = "FullPage")]
+        [NoUniversity]
+        [Route("aboutus", Name = "AboutUs")]
+        public ActionResult AboutUs()
+        {
+            ViewBag.title = SeoResources.AboutUsTitle;
+            ViewBag.metaDescription = SeoResources.AboutUsMeta;
             return View("Empty");
         }
 
@@ -124,17 +137,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoutePermanent("homePage");
         }
 
-        [HttpPost]
-        public async Task<JsonResult> Feedback(Feedback model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return JsonError(GetErrorFromModelState());
-            }
-            await m_MailComponent.FeedbackEmailAsync(model.Subject, model.Name, model.Email, model.Message);
-            return JsonOk();
-
-        }
+        
 
         public ActionResult Blog(string lang)
         {
@@ -170,7 +173,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return RedirectToRoutePermanent("Privacy");
         }
-        public ActionResult AboutUs()
+        [Route("home/aboutus")]
+        public ActionResult AboutUsOld()
         {
             return RedirectToRoutePermanent("AboutUs");
         }
@@ -207,7 +211,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 QuestionNAnswers = faqs.Select(s =>
                                     new QnA
                                     {
-                                        Answer = s.Element("answer").Value,
+                                        Answer =   s.Element("answer").Value ,
                                         Question = s.Element("question").Value,
                                         Order = int.Parse(s.Attribute("order").Value)
 
@@ -227,7 +231,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         }
-        public ActionResult Help()
+        [Route("home/help")]
+        public ActionResult HelpOld()
         {
             return RedirectToRoutePermanent("Help");
         }
@@ -287,6 +292,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
+// ReSharper disable once InconsistentNaming
         public ActionResult IFrame()
         {
             return View();
@@ -520,25 +526,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(VersionHelper.CurrentVersion(true));
         }
 
-        //[ChildActionOnly]
-        //[ZboxAuthorize(IsAuthenticationRequired = false)]
-        //public ContentResult Theme()
-        //{
-        //    var theme = m_ThemeCookieHelper.ReadCookie();
-        //    if (theme == null)
-        //    {
-        //        theme = Zbang.Zbox.Infrastructure.Enums.Theme.Dark;
-        //        if (User.Identity.IsAuthenticated)
-        //        {
-
-        //            var userTheme = ZboxReadService.GetUserTheme(new GetUserDetailsQuery(User.GetUserId()));
-
-        //            theme = userTheme;
-        //        }
-        //        m_ThemeCookieHelper.InjectCookie(theme.Value);
-        //    }
-        //    var cssLinks = BundleConfig.CssLink("theme" + theme.GetStringValue());
-        //    return Content(cssLinks);
-        //}
     }
 }

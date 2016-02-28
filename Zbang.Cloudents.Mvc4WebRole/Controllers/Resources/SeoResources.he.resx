@@ -117,10 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HelpTitle" xml:space="preserve">
-    <value>עזרה</value>
+  <data name="BoxMetaDescription" xml:space="preserve">
+    <value>למד ושתף את הסיכומים שלך ב{0}, אונליין או באמצעות אפליקציית ספיטבול לנייד. החל להשתמש בספיטבול בחינם עוד היום!</value>
   </data>
-  <data name="JobTitle" xml:space="preserve">
-    <value>משרות</value>
+  <data name="BoxTitleItems" xml:space="preserve">
+    <value>סיכומים</value>
+  </data>
+  <data name="BoxTitleQuizzes" xml:space="preserve">
+    <value>מבחנים</value>
+  </data>
+  <data name="Cloudents" xml:space="preserve">
+    <value>ספיטבול</value>
+  </data>
+  <data name="HomePageMeta" xml:space="preserve">
+    <value>ברוכים הבאים לספיטבול! כאן תוכלו להוריד סיכומים, לפתוח קבוצות לימוד ולחלוק מידע עם חבריכם לכיתה. הצטרפו למהפכת הלימודים החברתית והורידו את אפליקציית ספיטבול לנייד!</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>אפליקציית לימודים חברתית וחינמית | ספיטבול</value>
+  </data>
+  <data name="MetaDescription" xml:space="preserve">
+    <value>למד ושתף את הסיכומים שלך  ב{0} {1} {2}, אונליין או באמצעות אפליקציית ספיטבול לנייד</value>
+  </data>
+  <data name="AboutUsMeta" xml:space="preserve">
+    <value>הכירו את ספיטבול - פלטפורמת לימודים חברתית וחינמית אשר נבנתה ע"י סטודנטים ובעבורם. הצטרפו עוד היום למהפכת הלימודים החברתית והורידו את אפליקציית ספיטבול לנייד!</value>
+  </data>
+  <data name="ItemMataDescription" xml:space="preserve">
+    <value>מבחר סיכומים מחכים לך בחינם באפליקציית ספיטבול: </value>
+  </data>
+  <data name="AboutUsTitle" xml:space="preserve">
+    <value>אודות ספיטבול | ספיטבול</value>
+  </data>
+  <data name="HelpMeta" xml:space="preserve">
+    <value>כאן תוכלו לגלות את כל מה שרציתם לדעת על ספיטבול. פתחו חשבון חינמי עוד היום ותתחילו להוריד סיכומים, לפתוח קבוצות לימוד ולחלוק מידע עם חבריכם לכיתה.</value>
+  </data>
+  <data name="HelpTitle" xml:space="preserve">
+    <value>עזרה | ספיטבול</value>
   </data>
 </root>

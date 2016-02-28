@@ -117,25 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MetaDescription" xml:space="preserve">
-    <value>למד ושתף את הסיכומים שלך  ב{0} {1} {2}, אונליין או באמצעות אפליקציית ספיטבול לנייד</value>
-  </data>
-  <data name="Cloudents" xml:space="preserve">
-    <value>ספיטבול</value>
-  </data>
   <data name="FillComment" xml:space="preserve">
     <value>עליך להתחיל דיון חדש או לשתף קובץ</value>
   </data>
   <data name="UnspecifiedError" xml:space="preserve">
     <value>אופס..קרתה שגיאה. אנא נסה שוב</value>
-  </data>
-  <data name="BoxMetaDescription" xml:space="preserve">
-    <value>למד ושתף את הסיכומים שלך ב{0}, אונליין או באמצעות אפליקציית ספיטבול לנייד. החל להשתמש בספיטבול בחינם עוד היום!</value>
-  </data>
-  <data name="BoxTitleItems" xml:space="preserve">
-    <value>סיכומים</value>
-  </data>
-  <data name="BoxTitleQuizzes" xml:space="preserve">
-    <value>מבחנים</value>
   </data>
 </root>

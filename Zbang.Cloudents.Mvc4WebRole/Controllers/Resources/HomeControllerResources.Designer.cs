@@ -70,24 +70,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Join Spitball&apos;s growing community of students! Get class notes, chat with your friends, create study groups and share your knowledge! Open a free account today!.
-        /// </summary>
-        internal static string HomePageMeta {
-            get {
-                return ResourceManager.GetString("HomePageMeta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Free Social Studying App | Spitball.
-        /// </summary>
-        internal static string HomePageTitle {
-            get {
-                return ResourceManager.GetString("HomePageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Jobs.
         /// </summary>
         internal static string JobTitle {

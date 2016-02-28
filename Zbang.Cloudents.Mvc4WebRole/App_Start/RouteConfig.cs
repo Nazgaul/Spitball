@@ -178,10 +178,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { controller = "Home", action = "IndexEmpty" }
             );
 
-            routes.MapRoute("Help",
-             "help",
-             new { controller = "Home", action = "IndexEmpty" }
-           );
+           // routes.MapRoute("Help",
+           //  "help",
+           //  new { controller = "Home", action = "IndexEmpty" }
+           //);
             //routes.MapRoute("TOS",
             //"terms",
             //new { controller = "Home", action = "Terms" }

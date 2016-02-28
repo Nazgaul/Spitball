@@ -90,13 +90,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (string.IsNullOrEmpty(model.Country)) return View("Empty");
 
                 var culture = Languages.GetCultureBaseOnCountry(model.Country);
-                BaseControllerResources.Culture = culture;
+                SeoResources.Culture = culture;
                 var seoItemName = Path.GetFileNameWithoutExtension(model.Name);
 
                 ViewBag.title = string.Format("{0} - {1} - {2} | {3}", model.BoxName, model.DepartmentName, model.Name,
-                    BaseControllerResources.Cloudents);
+                    SeoResources.Cloudents);
 
-                ViewBag.metaDescription = BaseControllerResources.ItemMataDescription;
+                ViewBag.metaDescription = SeoResources.ItemMataDescription;
                 if (!string.IsNullOrEmpty(model.Description))
                 {
                     ViewBag.metaDescription += model.Description.RemoveEndOfString(100);

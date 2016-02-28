@@ -294,6 +294,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LibraryControllerResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Resources\SeoResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SeoResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Resources\ShareControllerResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2936,6 +2941,11 @@
     <EmbeddedResource Include="Controllers\Resources\LibraryControllerResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LibraryControllerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Resources\SeoResources.he.resx" />
+    <EmbeddedResource Include="Controllers\Resources\SeoResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SeoResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Controllers\Resources\ShareControllerResources.he.resx" />
     <EmbeddedResource Include="Controllers\Resources\ShareControllerResources.resx">

@@ -107,18 +107,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
         }
 
-        public Task FeedbackEmailAsync(string subject, string name, string mailAddress,string feedBack)
-        {
-            var sendGridMail = new SendGridMessage
-            {
-                From = new MailAddress(mailAddress),
-                To = new[] { new MailAddress("eidan@cloudents.com")},
-                Text = feedBack,
-                Subject = "user feedback - subject: " + subject + " name: " + name,
-
-            };
-            return SendAsync(sendGridMail);
-        }
+        
 
     }
 }
