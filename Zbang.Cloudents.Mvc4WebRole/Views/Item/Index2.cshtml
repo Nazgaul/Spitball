@@ -20,7 +20,6 @@
                     <span>{{i.details.likes}}</span>
                 </button>
                 @*</div>*@
-
                 <a hide-xs target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download", new { @class = "color-override svgColor3" })</a>
                 <a hide-xs target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print", new { @class = "color-override svgColor3" })</a>
                 <md-menu flex>
@@ -56,7 +55,6 @@
         <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
     </header>
     <div class="full-screen-body" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
-
         <div class="fileName">
             <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
                 <h1 class="ellipsis">{{i.details.name}}</h1>
@@ -76,7 +74,6 @@
                         </div>
                     </md-input-container>
                 </md-content>
-
                 <span layout="row" layout-align="end center  text-capitalize">
                     <button type="button" class="btn grey btn-default" ng-click="i.selectedState = i.state.regular" ga-track-event="['itemPage', 'cancel rename']">@GeneralResources.Cancel</button>
                     <button type="submit" class="btn blue" ng-disabled="!renameItem.$valid || i.submitDisabled" ga-track-event="['itemPage', 'save rename']">@ItemsResources.Save</button>
@@ -95,17 +92,12 @@
                 <a ng-if="i.details.next" href="{{i.details.next}}" hide-xs class="arrow right" ga-track-event="['itemPage', 'next item']">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
             </div>
         </div>
-
         @{ Html.RenderPartial("_ItemComments");}
-        <div class="preview" ng-bind-html="i.preview">
-        </div>
-
-
+        <div class="preview" ng-bind-html="i.preview"></div>
         <uib-accordion ng-if="i.firstPage">
             <uib-accordion-group heading="page content">
                 {{::i.document}}
             </uib-accordion-group>
         </uib-accordion>
-        
     </div>
 </div>
