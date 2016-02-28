@@ -63,7 +63,6 @@
 /// <reference path="../js/components/quiz/quiz.controller.js" />
 /// <reference path="../js/components/quiz/quiz.routes.js" />
 /// <reference path="../js/components/quiz/quiz.service.js" />
-/// <reference path="../js/components/quiz/quizcreate.close.controller.js" />
 /// <reference path="../js/components/quiz/quizcreate.controller.js" />
 /// <reference path="../Js/components/quiz/stopwatch.directive.js" />
 /// <reference path="../Js/components/quiz/stopwatch.filter.js" />

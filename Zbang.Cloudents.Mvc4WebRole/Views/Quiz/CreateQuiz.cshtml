@@ -4,7 +4,7 @@
 
 <header class="color-override backgroundColor2 borderColor8" layout="row">
     <div flex class="text-center text-capitalize">@GeneralResources.CreateQuiz</div>
-    <button flex="none" type="button" ng-click="q.openClose()" class="close" ga-track-event="['createQuiz', 'close']">@Html.Svg("~/images/site/icons.svg", "close", new { @class = "color-override svgColor8" })</button>
+    <button flex="none" type="button" ng-click="q.openClose($event)" class="close" ga-track-event="['createQuiz', 'close']">@Html.Svg("~/images/site/icons.svg", "close", new { @class = "color-override svgColor8" })</button>
 </header>
 <div class="not-supported" hide-gt-sm show-xs show-sm>
     <div class="bubble">
@@ -111,13 +111,3 @@
     </div>
 </script>
 
-
-<script type="text/ng-template" id="quiz-create-leave-template.html">
-    <h4 class="text-capitalize">@QuizResources.Leave</h4>
-    <div class="text-capitalize">@QuizResources.CanChoose</div>
-    <div>(@QuizResources.OnlyYou)</div>
-    <div class="buttons text-capitalize">
-        <button type="button" class="btn btn-default save" ng-click="c.draft()">@QuizResources.Draft</button>
-        <button type="button" class="btn btn-default" ng-click="c.delete()">@GeneralResources.Delete</button>
-    </div>
-</script>

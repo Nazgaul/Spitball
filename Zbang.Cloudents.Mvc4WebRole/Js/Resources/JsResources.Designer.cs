@@ -232,6 +232,43 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string quizDelete {
+            get {
+                return ResourceManager.GetString("quizDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save this quiz as a draft for future editing
+        ///(Only you are able to see and edit the draft).
+        /// </summary>
+        public static string quizLeaveContent {
+            get {
+                return ResourceManager.GetString("quizLeaveContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You haven&apos;t finished this quiz. Do you want to leave?.
+        /// </summary>
+        public static string quizLeaveTitle {
+            get {
+                return ResourceManager.GetString("quizLeaveTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save as draft.
+        /// </summary>
+        public static string quizSaveAsDraft {
+            get {
+                return ResourceManager.GetString("quizSaveAsDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to update complete.
         /// </summary>
         public static string settingsChangeName {

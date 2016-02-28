@@ -225,4 +225,17 @@
   <data name="toasterDepartmentApproved" xml:space="preserve">
     <value>האישור נשלח</value>
   </data>
+  <data name="quizLeaveContent" xml:space="preserve">
+    <value>שמור את המבחן כ"טיוטא" לשם עריכה
+(רק אתה יכול לראות ולערוך את הטיוטא)</value>
+  </data>
+  <data name="quizLeaveTitle" xml:space="preserve">
+    <value>לא סיימת את המבחן המקוון, בטוח שאתה רוצה לצאת?</value>
+  </data>
+  <data name="quizSaveAsDraft" xml:space="preserve">
+    <value>שמור כטיוטא</value>
+  </data>
+  <data name="quizDelete" xml:space="preserve">
+    <value>מחק</value>
+  </data>
 </root>

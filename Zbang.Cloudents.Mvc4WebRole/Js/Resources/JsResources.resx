@@ -226,4 +226,17 @@
     <value>Access was granted
 </value>
   </data>
+  <data name="quizDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="quizSaveAsDraft" xml:space="preserve">
+    <value>Save as draft</value>
+  </data>
+  <data name="quizLeaveTitle" xml:space="preserve">
+    <value>You haven't finished this quiz. Do you want to leave?</value>
+  </data>
+  <data name="quizLeaveContent" xml:space="preserve">
+    <value>Save this quiz as a draft for future editing
+(Only you are able to see and edit the draft)</value>
+  </data>
 </root>
