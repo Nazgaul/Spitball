@@ -167,5 +167,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
                 return ResourceManager.GetString("MetaDescription", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login to Spitball and join the social studying revolution! Get class notes, chat with your friends, create study groups and share your knowledge!.
+        /// </summary>
+        internal static string SignInMeta {
+            get {
+                return ResourceManager.GetString("SignInMeta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login | Spitball.
+        /// </summary>
+        internal static string SignInTitle {
+            get {
+                return ResourceManager.GetString("SignInTitle", resourceCulture);
+            }
+        }
     }
 }
