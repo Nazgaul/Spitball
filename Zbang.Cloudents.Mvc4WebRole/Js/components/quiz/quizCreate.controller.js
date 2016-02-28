@@ -1,6 +1,7 @@
 ﻿(function () {
     angular.module('app.quiz').controller('QuizCreateController', quizCreate);
-    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q', '$location', '$scope',
+    quizCreate.$inject = ['quizService', 'draft', 'boxUrl', '$stateParams', '$q',
+        '$location', '$scope',
         '$uibModal', 'boxName', '$rootScope', 'resManager', '$mdDialog', '$timeout'];
 
 

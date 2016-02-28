@@ -120,6 +120,12 @@
   <data name="HelpTitle" xml:space="preserve">
     <value>Help</value>
   </data>
+  <data name="HomePageMeta" xml:space="preserve">
+    <value>Join Spitball's growing community of students! Get class notes, chat with your friends, create study groups and share your knowledge! Open a free account today!</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>Free Social Studying App | Spitball</value>
+  </data>
   <data name="JobTitle" xml:space="preserve">
     <value>Jobs</value>
   </data>

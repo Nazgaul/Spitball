@@ -31,17 +31,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class BoxController : BaseController
     {
+        [Route("box/my/{boxId:long}/{boxName}", Name = "PrivateBox")]
+        [Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox")]
+        public ActionResult RedirectToFeed(long boxId, string boxName, string invId, string universityName)
+        {
+            if (string.IsNullOrEmpty(universityName))
+            {
+                return RedirectToRoutePermanent("PrivateBoxWithSub", new { boxId, boxName, part = "feed" });
+            }
+            return RedirectToRoutePermanent("CourseBoxWithSub", new { universityName, boxId, boxName, part = "feed" });
+        }
+
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
            Duration = TimeConsts.Day, VaryByParam = "boxId",
            Location = OutputCacheLocation.Server, Order = 4)]
         [BoxPermission("boxId", Order = 3)]
-        public async Task<ActionResult> Index(long boxId, string boxName, string invId)
+        [Route("box/my/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members))}", Name = "PrivateBoxWithSub")]
+        [Route("course/{universityName}/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members))}", Name = "CourseBoxWithSub")]
+        public async Task<ActionResult> Index(long boxId, string boxName, string invId, string part)
         {
-            var userId = User.GetUserId(false);
+
             try
             {
-                var query = new GetBoxSeoQuery(boxId, userId);
+                var query = new GetBoxSeoQuery(boxId);
                 var model = await ZboxReadService.GetBoxSeoAsync(query);
                 if (model == null)
                 {
@@ -58,15 +71,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ViewBag.title = string.Format("{0} | {1}", model.Name, BaseControllerResources.Cloudents);
                     return View("Empty");
                 }
-                
-                ViewBag.title = string.Format("{0} | {1} | {2} | {3}", model.Name, model.DepartmentName,
-                    model.UniversityName, BaseControllerResources.Cloudents);
-                ViewBag.metaDescription = Regex.Replace(string.Format(
-                    BaseControllerResources.MetaDescription, model.Name,
-                    string.IsNullOrWhiteSpace(model.CourseId) ? string.Empty : string.Format(", #{0}", model.CourseId),
-                        string.Empty
-                         ),
-                    @"\s+", " ");
+
+
+                ViewBag.metaDescription = string.Format(BaseControllerResources.BoxMetaDescription, model.Name);
+
+                if (part == "feed" || part == "members")
+                {
+                    ViewBag.title = string.Format("{0} - {1} | {2}", model.Name, model.UniversityName,
+                        BaseControllerResources.Cloudents);
+                }
+                if (part == "items")
+                {
+                    ViewBag.title = string.Format("{3} {0} - {1} | {2}", model.Name, model.DepartmentName,
+                        BaseControllerResources.Cloudents, BaseControllerResources.BoxTitleItems);
+                }
+                if (part == "quizzes")
+                {
+                    ViewBag.title = string.Format("{3} {0} - {1} | {2}", model.Name, model.DepartmentName,
+                        BaseControllerResources.Cloudents, BaseControllerResources.BoxTitleQuizzes);
+                }
                 return View("Empty");
             }
             catch (BoxAccessDeniedException)
@@ -81,17 +104,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
+                var userId = User.GetUserId(false);
                 TraceLog.WriteError(string.Format("Box Index boxId {0} userid {1}", boxId, userId), ex);
                 return RedirectToAction("Index", "Error");
             }
         }
 
-        
+
+
+
         public async Task<ActionResult> ShortUrl(string box62Id)
         {
             var base62 = new Base62(box62Id);
-            var userId = User.GetUserId(false);
-            var query = new GetBoxSeoQuery(base62.Value, userId);
+            var query = new GetBoxSeoQuery(base62.Value);
             try
             {
                 var model = await ZboxReadService.GetBoxSeoAsync(query);
@@ -105,6 +130,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         }
+
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public PartialViewResult IndexPartial()

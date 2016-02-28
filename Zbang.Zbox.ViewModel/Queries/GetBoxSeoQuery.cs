@@ -1,9 +1,9 @@
 ﻿namespace Zbang.Zbox.ViewModel.Queries
 {
-    public class GetBoxSeoQuery : QueryBase
+    public class GetBoxSeoQuery //: QueryBase
     {
-        public GetBoxSeoQuery(long boxId, long userId)
-            : base(userId)
+        public GetBoxSeoQuery(long boxId)
+            //: base(userId)
         {
             BoxId = boxId;
         }

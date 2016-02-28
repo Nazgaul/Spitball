@@ -129,4 +129,16 @@
   <data name="UnspecifiedError" xml:space="preserve">
     <value>Whoops... we seem to be experiencing a technical error. Please try again</value>
   </data>
+  <data name="BoxMetaDescription" xml:space="preserve">
+    <value>Study and share your class notes for Course {0}, online or via the Spitball app. Use Spitball for free today!</value>
+  </data>
+  <data name="BoxTitleItems" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="BoxTitleQuizzes" xml:space="preserve">
+    <value>Quizzes</value>
+  </data>
+  <data name="ItemMataDescription" xml:space="preserve">
+    <value>Get class notes for free with spitball:</value>
+  </data>
 </root>

@@ -123,4 +123,10 @@
   <data name="JobTitle" xml:space="preserve">
     <value>משרות</value>
   </data>
+  <data name="HomePageMeta" xml:space="preserve">
+    <value>ברוכים הבאים לספיטבול! כאן תוכלו להוריד סיכומים, לפתוח קבוצות לימוד ולחלוק מידע עם חבריכם לכיתה. הצטרפו למהפכת הלימודים החברתית והורידו את אפליקציית ספיטבול לנייד!</value>
+  </data>
+  <data name="HomePageTitle" xml:space="preserve">
+    <value>אפליקציית לימודים חברתית וחינמית | ספיטבול</value>
+  </data>
 </root>

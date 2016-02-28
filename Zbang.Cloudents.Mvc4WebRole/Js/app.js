@@ -1,32 +1,33 @@
 ﻿/// <reference path="../Scripts/angular.js" />
+var app;
 (function () {
     "use strict";
     //TODO: download ui bootstap only what needed
-    angular.module('app', [
-        'ui.router',
-        'ngSanitize',
-        'ui.bootstrap',
-        'angular-google-analytics',
-        'ngAnimate',
-        'ngMessages',
-        'ngMaterial',
-        'textAngular',
-        'ang-drag-drop',
-        'angular-plupload',
-        'countUpModule',
-        //'infinite-scroll',
-        'srph.infinite-scroll',
-        'jkuri.slimscroll',
-       // 'displayTime',
-        'app.dashboard',
-        'app.library',
-        'app.user',
-        'app.account',
-        'app.box',
-        'app.item',
-        'app.quiz',
-        'app.upload',
-        'app.search'
+    app = angular.module('app', [
+         'ui.router',
+         'ngSanitize',
+         'ui.bootstrap',
+         'angular-google-analytics',
+         'ngAnimate',
+         'ngMessages',
+         'ngMaterial',
+         'textAngular',
+         'ang-drag-drop',
+         'angular-plupload',
+         'countUpModule',
+         //'infinite-scroll',
+         'srph.infinite-scroll',
+         'jkuri.slimscroll',
+        // 'displayTime',
+         'app.dashboard',
+         'app.library',
+         'app.user',
+         'app.account',
+         'app.box',
+         'app.item',
+         'app.quiz',
+         'app.upload',
+         'app.search'
     ]);
     //]).config(config);
 
@@ -40,7 +41,7 @@
 
 })();
 
-(function() {
+(function () {
     angular.module('app').run(appRun);
     appRun.$inject = ['versionCheckerFactory'];
     function appRun(versionCheckerFactory) {

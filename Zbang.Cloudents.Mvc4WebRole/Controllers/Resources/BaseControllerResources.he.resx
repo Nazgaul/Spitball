@@ -129,4 +129,13 @@
   <data name="UnspecifiedError" xml:space="preserve">
     <value>אופס..קרתה שגיאה. אנא נסה שוב</value>
   </data>
+  <data name="BoxMetaDescription" xml:space="preserve">
+    <value>למד ושתף את הסיכומים שלך ב{0}, אונליין או באמצעות אפליקציית ספיטבול לנייד. החל להשתמש בספיטבול בחינם עוד היום!</value>
+  </data>
+  <data name="BoxTitleItems" xml:space="preserve">
+    <value>סיכומים</value>
+  </data>
+  <data name="BoxTitleQuizzes" xml:space="preserve">
+    <value>מבחנים</value>
+  </data>
 </root>

@@ -40,32 +40,32 @@ namespace Zbang.Cloudents.Mvc4WebRole
              "",
              new { controller = "Home", action = "Index" }
              );
-            
+
             #region Box
 
-            routes.MapRoute("PrivateBox",
-            "box/my/{boxId}/{boxName}",
-            new { controller = "Box", action = "Index" },
-            new { boxId = new LongRouteConstraint() }
-            );
-            routes.MapRoute("PrivateBoxWithSub",
-           "box/my/{boxId}/{boxName}/{part}",
-           new { controller = "Box", action = "Index" },
-           new { boxId = new LongRouteConstraint(), part = "feed|items|quizzes|members" }
-           );
-           
+            //routes.MapRoute("PrivateBox",
+            //"box/my/{boxId}/{boxName}",
+            //new { controller = "Box", action = "Index" },
+            //new { boxId = new LongRouteConstraint() }
+            //);
+            //routes.MapRoute("PrivateBoxWithSub",
+            //"box/my/{boxId}/{boxName}/{part}",
+            //new { controller = "Box", action = "Index" },
+            //new { boxId = new LongRouteConstraint(), part = "feed|items|quizzes|members" }
+            //);
 
-            routes.MapRoute("CourseBox",
-              "course/{universityName}/{boxId}/{boxName}",
-              new { controller = "Box", action = "Index" },
-              new { boxId = new LongRouteConstraint() }
-            );
-            routes.MapRoute("CourseBoxWithSub",
-              "course/{universityName}/{boxId}/{boxName}/{part}",
-              new { controller = "Box", action = "Index" },
-              new { boxId = new LongRouteConstraint(), part = "feed|items|quizzes|members" }
-            );
-         
+
+            //routes.MapRoute("CourseBox",
+            //  "course/{universityName}/{boxId}/{boxName}",
+            //  new { controller = "Box", action = "Index" },
+            //  new { boxId = new LongRouteConstraint() }
+            //);
+            //routes.MapRoute("CourseBoxWithSub",
+            //  "course/{universityName}/{boxId}/{boxName}/{part}",
+            //  new { controller = "Box", action = "Index" },
+            //  new { boxId = new LongRouteConstraint(), part = "feed|items|quizzes|members" }
+            //);
+
 
             routes.MapRoute("shortBox",
                 UrlConsts.ShortBox,
@@ -186,7 +186,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //"terms",
             //new { controller = "Home", action = "Terms" }
             //);
-            
+
 
             routes.MapRoute("Default", "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }

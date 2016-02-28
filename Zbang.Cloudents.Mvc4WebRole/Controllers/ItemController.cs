@@ -64,9 +64,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [BoxPermission("boxId", Order = 2)]
-        //[DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
-        //  Duration = TimeConsts.Hour * 1, VaryByParam = "itemid",
-        //  Location = OutputCacheLocation.Server, Order = 4)]
+        [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
+          Duration = TimeConsts.Hour * 1, VaryByParam = "itemid",
+          Location = OutputCacheLocation.Server, Order = 4)]
         public async Task<ActionResult> Index(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
 
@@ -93,18 +93,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 BaseControllerResources.Culture = culture;
                 var seoItemName = Path.GetFileNameWithoutExtension(model.Name);
 
-                ViewBag.title = string.Format("{0} | {1} | {2} | {3} | {4}",
-                    model.BoxName, seoItemName, model.DepartmentName, model.UniversityName, BaseControllerResources.Cloudents);
+                ViewBag.title = string.Format("{0} - {1} - {2} | {3}", model.BoxName, model.DepartmentName, model.Name,
+                    BaseControllerResources.Cloudents);
 
-                ViewBag.Description = model.Description;
-
-
+                ViewBag.metaDescription = BaseControllerResources.ItemMataDescription;
                 if (!string.IsNullOrEmpty(model.Description))
                 {
-                    var metaDescription = model.Description.RemoveEndOfString(197);
-                    ViewBag.metaDescription = metaDescription.Length == 197
-                        ? metaDescription + "..."
-                        : metaDescription;
+                    ViewBag.metaDescription += model.Description.RemoveEndOfString(100);
                 }
                 return View("Empty");
             }

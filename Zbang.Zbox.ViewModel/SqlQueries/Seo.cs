@@ -75,8 +75,6 @@ where itemid = @ItemId
 and i.IsDeleted = 0;";
 
         public const string BoxSeo = @"select b.BoxName as name 
-,b.CourseCode as courseId
-,b.ProfessorName as professor
 ,b.url
 ,b.Discriminator as boxType
 ,u.Country

@@ -93,10 +93,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var query = new GetHomePageQuery(boxIds);
             var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
 
-            //ViewBag.title = Views.Account.Resources.HomeResources.Title;
-            //ViewBag.metaDescription = Views.Account.Resources.HomeResources.Description;
+            ViewBag.title = HomeControllerResources.HomePageTitle;
+            ViewBag.metaDescription = HomeControllerResources.HomePageMeta;
 
-            return View("Index2", homeStats);
+            return View(homeStats);
         }
 
 

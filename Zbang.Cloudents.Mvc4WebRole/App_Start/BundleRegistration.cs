@@ -19,13 +19,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "homePage", new[]
                     {
                         "~/content/site/general.css",
-                         "~/Content/HomePage/homePage.css",
+                        "~/content/homepage/homePage.css",
                          //"~/Content/homepage/bootstrap.css", //TODO: check if we need this.
-                        "~/Content/signin/components-md.css",
-                        "~/Content/signin/plugins-md.css",
-                        "~/Content/site/layout.css",
-                        "~/Content/signin/default.css",
-                        "~/Content/signin/custom.css"
+                        "~/content/signin/components-md.css",
+                        "~/content/signin/plugins-md.css",
+                        "~/content/site/layout.css",
+                        "~/content/signin/default.css",
+                        "~/content/signin/custom.css",
+                        "~/content/jquery.bxslider.css"
                     }
                 },
                   {
@@ -138,7 +139,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
                         
                         //new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
-                        new JsFileWithCdn("~/scripts/angular.min.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"),
+                        new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"),
                         
 
                         new JsFileWithCdn("~/scripts/angular-ui-router.js"),
