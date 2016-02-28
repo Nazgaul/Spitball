@@ -1814,6 +1814,8 @@
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\homePage\homeScreen.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-1.2.1.js" />
+    <Content Include="Scripts\ui-bootstrap-custom-tpls-1.2.1.min.js" />
     <Content Include="Scripts\waypoints.min.js" />
     <Content Include="Js\menu\menulink.directive.js" />
     <Content Include="Js\menu\nospace.filter.js" />
@@ -2749,8 +2751,6 @@
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\svg4everybody.js" />
     <None Include="Scripts\_references.js" />
-    <Content Include="Scripts\ui-bootstrap-custom-tpls-1.1.0.js" />
-    <Content Include="Scripts\ui-bootstrap-custom-tpls-1.1.0.min.js" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Item\Print.cshtml" />
     <Content Include="Web.config">

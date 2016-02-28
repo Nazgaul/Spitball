@@ -52,10 +52,7 @@
                 }
                 return;
             }
-
             clearInterval(interval);
-
-
             if (angular.element('app').injector()) {
                 return;
             }
