@@ -8,7 +8,6 @@
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
-        console.log(history2.firstState());
         i.state = {
             regular: 0,
             rename: 1,
