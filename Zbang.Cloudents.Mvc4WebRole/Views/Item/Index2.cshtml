@@ -82,6 +82,9 @@
 
             @{ Html.RenderPartial("_FlagItem");}
         </div>
+        <div class="google-ad">
+            <adsense ad-client="ca-pub-1215688692145777" ad-slot="3709208558" inline-style="display:inline-block;width:100%;max-width:728px;height:90px"></adsense>
+        </div>
         <div class="arrows" layout="row" layout-align="space-between center" hide-xs>
             <div>
                 <a ng-if=" i.details.previous" href="{{i.details.previous}}" hide-xs class="arrow left" ga-track-event="['itemPage', 'previous item']">
@@ -94,7 +97,7 @@
         </div>
         @{ Html.RenderPartial("_ItemComments");}
         <div class="preview" ng-bind-html="i.preview"></div>
-        <div class="raw-text" ng-if="i.firstPage">
+        <div class="raw-text" ng-if="i.firstPage && i.document">
             <md-switch ng-model="i.showRawText">
                 @ItemsResources.ShowRawText
             </md-switch>
