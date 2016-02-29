@@ -68,6 +68,26 @@ namespace Zbang.Cloudents.MobileApp2.Controllers
                 shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(s.Id).ToString())
             }));
         }
+        [VersionedRoute("api/boxes", 3)]
+        public async Task<HttpResponseMessage> GetBoxes3(int page, int sizePerPage = 15)
+        {
+            var userid = User.GetCloudentsUserId();
+            var query = new GetBoxesQuery(userid, page, sizePerPage);
+            var data = await ZboxReadService.GetUserBoxesAsync(query);
+
+            return Request.CreateResponse(data.Select(s => new
+            {
+                s.Name,
+                s.Id,
+                s.ItemCount,
+                s.CommentCount,
+                s.BoxType,
+                s.UserType,
+                s.Professor,
+                s.CourseCode,
+                shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(s.Id).ToString())
+            }));
+        }
 
         [HttpGet]
         [Route("api/boxes/recommend")]
