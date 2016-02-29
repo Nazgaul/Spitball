@@ -66,6 +66,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.metaDescription = SeoResources.SignInMeta;
             return await HomePageAsync(lang, invId);
         }
+        [DonutOutputCache(CacheProfile = "HomePage")]
+        [Route("account/signup", Name = "signup")]
+        public async Task<ActionResult> SignUp(string lang, string invId)
+        {
+            ViewBag.title = SeoResources.SignInTitle;
+            ViewBag.metaDescription = SeoResources.SignInMeta;
+            return await HomePageAsync(lang, invId);
+        }
 
         [NonAction]
         private async Task<ActionResult> HomePageAsync(string lang, string invId)
@@ -104,9 +112,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             });
             var query = new GetHomePageQuery(boxIds);
             var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
-
-
-
             return View("Index", homeStats);
         }
 
@@ -121,19 +126,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
-
-        [Route("privacy", Name = "Privacy")]
         [Route("terms", Name = "TOS")]
-        public ActionResult IndexEmptyRoute()
+        public ActionResult Terms()
         {
+            ViewBag.title = SeoResources.TermsTitle;
+            ViewBag.metaDescription = SeoResources.TermsMeta;
             return View("Empty");
         }
 
+
+        [DonutOutputCache(CacheProfile = "FullPage")]
+        [NoUniversity]
         [Route("help", Name = "Help")]
         public ActionResult Help()
         {
             ViewBag.title = SeoResources.HelpTitle;
             ViewBag.metaDescription = SeoResources.HelpMeta;
+            return View("Empty");
+        }
+        [DonutOutputCache(CacheProfile = "FullPage")]
+        [NoUniversity]
+        [Route("jobs", Name = "Jobs")]
+        public ActionResult Jobs()
+        {
+            ViewBag.title = SeoResources.HelpTitle;
+            ViewBag.metaDescription = SeoResources.HelpMeta;
+            return View("Empty");
+        }
+        [DonutOutputCache(CacheProfile = "FullPage")]
+        [NoUniversity]
+        [Route("privacy", Name = "Privacy")]
+        public ActionResult Privacy()
+        {
+            ViewBag.title = SeoResources.PrivacyTitle;
+            ViewBag.metaDescription = SeoResources.PrivacyMeta;
             return View("Empty");
         }
 
@@ -185,7 +211,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return RedirectToRoutePermanent("TOS");
         }
-        public ActionResult Privacy()
+
+        [Route("home/privacy")]
+        public ActionResult PrivacyOld()
         {
             return RedirectToRoutePermanent("Privacy");
         }
@@ -209,7 +237,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
-        public async Task<ActionResult> Jobs()
+        [Route("home/jobs")]
+        public async Task<ActionResult> JobsPartials()
         {
             ViewBag.Title = "Jobs | Spitball | Study better by working together";
             ViewBag.pageTitle = HomeControllerResources.JobTitle;
@@ -439,55 +468,69 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (index == 1)
             {
                 nodes.Add(
-                new SitemapNode(requestContext, new { area = "", controller = "Home", action = "Index" })
+                new SitemapNode(requestContext, "homePage", null)
                 {
                     Priority = 1.0,
                     Frequency = SitemapFrequency.Daily
                 });
                 nodes.Add(
-                    new SitemapNode("/account/he-il/", requestContext)
+                    new SitemapNode(requestContext, "AccountLanguage", new { lang = "he-il" })
                     {
                         Priority = 1.0,
                         Frequency = SitemapFrequency.Daily
                     });
+
                 nodes.Add(
-                    new SitemapNode("/account/ru-ru/", requestContext)
-                    {
-                        Priority = 1.0,
-                        Frequency = SitemapFrequency.Daily
-                    });
-                nodes.Add(
-                    new SitemapNode(requestContext, "Blog", null)
+                    new SitemapNode(requestContext, "Blog", new { lang = "en-us" })
                     {
                         Priority = 0.95,
                         Frequency = SitemapFrequency.Daily
                     });
                 nodes.Add(
-                    new SitemapNode(requestContext, new { area = "", controller = "Home", action = "AboutUs" })
+                    new SitemapNode(requestContext, "Blog", new { lang = "he-il" })
                     {
                         Priority = 0.95,
                         Frequency = SitemapFrequency.Daily
                     });
                 nodes.Add(
-                   new SitemapNode(requestContext, new { area = "", controller = "Home", action = "Jobs" })
+                    new SitemapNode(requestContext, "AboutUs", null)
+                    {
+                        Priority = 0.95,
+                        Frequency = SitemapFrequency.Daily
+                    });
+                nodes.Add(
+                   new SitemapNode(requestContext, "Help", null)
                    {
                        Priority = 0.95,
                        Frequency = SitemapFrequency.Daily
                    });
-                //nodes.Add(
-                //    new SitemapNode(requestContext, new { area = "", controller = "Home", action = "ContactUs" })
-                //    {
-                //        Priority = 0.95,
-                //        Frequency = SitemapFrequency.Daily
-                //    });
                 nodes.Add(
-                    new SitemapNode(requestContext, new { area = "", controller = "Home", action = "Privacy" })
+                  new SitemapNode(requestContext, "signin", null)
+                  {
+                      Priority = 0.95,
+                      Frequency = SitemapFrequency.Daily
+                  });
+                nodes.Add(
+                  new SitemapNode(requestContext, "signup", null)
+                  {
+                      Priority = 0.95,
+                      Frequency = SitemapFrequency.Daily
+                  });
+                nodes.Add(
+                   new SitemapNode(requestContext, "Jobs", null)
+                   {
+                       Priority = 0.95,
+                       Frequency = SitemapFrequency.Daily
+                   });
+
+                nodes.Add(
+                    new SitemapNode(requestContext, "Privacy", null)
                     {
                         Priority = 0.8,
                         Frequency = SitemapFrequency.Daily
                     });
                 nodes.Add(
-                    new SitemapNode(requestContext, new { area = "", controller = "Home", action = "TermsOfService" })
+                    new SitemapNode(requestContext, "TOS", null)
                     {
                         Priority = 0.8,
                         Frequency = SitemapFrequency.Daily

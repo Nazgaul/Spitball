@@ -157,6 +157,30 @@
     <value>התחברו אל ספיטבול עוד היום והצטרפו למהפכת הלימודים החברתית! פתחו חשבון חינמי ותתחילו להוריד סיכומים, לפתוח קבוצות לימוד ולחלוק מידע עם חבריכם לכיתה.</value>
   </data>
   <data name="SignInTitle" xml:space="preserve">
-    <value>login | ספיטבול</value>
+    <value>התחבר | ספיטבול</value>
+  </data>
+  <data name="JobsMeta" xml:space="preserve">
+    <value>ספיטבול מחפשת עובדים! הצטרפו אל מהפכת הלימודים החברתית של ספיטבול ועזרו לנו לבנות קהילת סטודנטים גדולה של משתמשים מרוצים! בואו לעבוד איתנו!</value>
+  </data>
+  <data name="JobsTitle" xml:space="preserve">
+    <value>משרות | ספיטבול</value>
+  </data>
+  <data name="PrivacyMeta" xml:space="preserve">
+    <value>בספיטבול אנו לוקחים את נושא הבטיחות והפרטיות מאוד ברצינות, כך שאנו מקפידים להגן על המידע הפרטי של המשתמשים שלנו. הצטרפו עוד היום למהפכת הלימודים החברתית של ספיטבול!</value>
+  </data>
+  <data name="PrivacyTitle" xml:space="preserve">
+    <value>מדיניות פרטיות | ספיטבול</value>
+  </data>
+  <data name="SignUpMeta" xml:space="preserve">
+    <value>פתחו חשבון חינמי בספיטבול עוד היום והצטרפו למהפכת הלימודים החברתית! תתחילו להוריד סיכומים, לפתוח קבוצות לימוד ולחלוק מידע עם חבריכם לכיתה.</value>
+  </data>
+  <data name="SignUpTitle" xml:space="preserve">
+    <value>הרשם | ספיטבול</value>
+  </data>
+  <data name="TermsMeta" xml:space="preserve">
+    <value>כאן תוכלו לגלות את כל מה שרציתם לדעת על תנאי השימוש של ספיטבול. פתחו חשבון חינמי עוד היום ותתחילו להוריד סיכומים, לפתוח קבוצות לימוד ולחלוק מידע עם חבריכם לכיתה.</value>
+  </data>
+  <data name="TermsTitle" xml:space="preserve">
+    <value>תנאי שימוש | ספיטבול</value>
   </data>
 </root>
