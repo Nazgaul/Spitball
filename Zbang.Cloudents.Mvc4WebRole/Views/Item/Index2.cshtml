@@ -94,10 +94,15 @@
         </div>
         @{ Html.RenderPartial("_ItemComments");}
         <div class="preview" ng-bind-html="i.preview"></div>
-        <uib-accordion ng-if="i.firstPage">
-            <uib-accordion-group heading="page content">
-                {{::i.document}}
-            </uib-accordion-group>
-        </uib-accordion>
+        <div class="raw-text" ng-if="i.firstPage">
+            <md-switch ng-model="i.showRawText">
+                @ItemsResources.ShowRawText
+            </md-switch>
+            <div class="text-wrapper" ng-class="{'collapse': !i.showRawText}">
+                <div class="text">
+                    {{::i.document}}
+                </div>
+            </div>
+        </div>
     </div>
 </div>

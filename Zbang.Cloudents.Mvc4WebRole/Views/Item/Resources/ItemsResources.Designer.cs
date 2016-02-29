@@ -221,5 +221,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources {
                 return ResourceManager.GetString("Save", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See the raw text of the file.
+        /// </summary>
+        public static string ShowRawText {
+            get {
+                return ResourceManager.GetString("ShowRawText", resourceCulture);
+            }
+        }
     }
 }

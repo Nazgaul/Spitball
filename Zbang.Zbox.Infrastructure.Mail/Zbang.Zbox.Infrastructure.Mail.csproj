@@ -190,9 +190,7 @@
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesList1He.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\UpdatesList1Ru.html" />
     <EmbeddedResource Include="MailTemplate\Welcome.html" />
-    <EmbeddedResource Include="MailTemplate\WelcomeAr.html" />
     <EmbeddedResource Include="MailTemplate\WelcomeHe.html" />
-    <EmbeddedResource Include="MailTemplate\WelcomeRu.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\RequestDepartmentAccess.html" />

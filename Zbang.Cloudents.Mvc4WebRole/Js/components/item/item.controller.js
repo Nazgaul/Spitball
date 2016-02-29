@@ -25,6 +25,7 @@
         i.details.boxUrl = i.details.boxUrl + 'items/';
         getPreview();
         i.firstPage = history2.firstState();
+        i.showRawText = false;
         
 
 

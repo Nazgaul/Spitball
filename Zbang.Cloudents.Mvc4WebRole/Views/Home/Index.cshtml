@@ -309,18 +309,15 @@
                     </div>
                     <div class="statistics os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
                         @*<h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>*@
-                        <div class="statistic">
-                            <div id="students" class="value" data-value="@Model.StudentsCount"></div>
-                            <div>@HomePageResources.statsStudents</div>
-                        </div>
-                        <div class="statistic">
-                            <div id="documents" class="value" data-value="@Model.DocumentCount"></div>
-                            <div>@HomePageResources.statsDocuments</div>
-                        </div>
-                        <div class="statistic">
-                            <div id="quizzes" class="value" data-value="@Model.QuizzesCount"></div>
-                            <div>@HomePageResources.statsQuizzes</div>
-                        </div>
+                        <h3 class="statistic">
+                            <span id="students" class="value" data-value="@Model.StudentsCount"></span><span>@HomePageResources.statsStudents</span>
+                        </h3>
+                        <h3 class="statistic">
+                            <span id="documents" class="value" data-value="@Model.DocumentCount"></span><span>@HomePageResources.statsDocuments</span>
+                        </h3>
+                        <h3 class="statistic">
+                            <span id="quizzes" class="value" data-value="@Model.QuizzesCount"></span><span>@HomePageResources.statsQuizzes</span>
+                        </h3>
                     </div>
                     <div class="social-links os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.6s">
                         <div class="wrapper" dir="ltr">
@@ -337,7 +334,7 @@
 
             <section class="about">
                 <div id="about-section" class="section-start"></div>
-                <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.D1</h1>
+                <h2 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.D1</h2>
                 <div class="description os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
                     <p>@HomePageResources.D2</p>
                     <div class="features">
@@ -372,7 +369,7 @@
             </section>
             <section class="check-us">
                 <div id="check-us-section" class="section-start"></div>
-                <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.C1</h1>
+                <h2 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.C1</h2>
                 <div class="boxes">
                     @foreach (var box in Model.Boxes)
                     {
@@ -458,8 +455,8 @@
                 <div class="content">
                     <div class="app">
                         <div id="app-section" class="section-start"></div>
-                        <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.F1</h1>
-                        <h2 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.F2</h2>
+                        <h3 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.F1</h3>
+                        <h4 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.F2</h4>
                         <div class="app-links">
                             @{
                                 var queryString = string.Empty;
@@ -479,13 +476,13 @@
                     <div class="info">
                         <div class="links os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
                             <div>
-                                <h2>@HomePageResources.infoSection1</h2>
+                                <h4>@HomePageResources.infoSection1</h4>
                                 <a href="@Url.RouteUrl("AboutUs")">@HomeResources.AboutCloudents</a>
                                 <a href="@Url.RouteUrl("Jobs")">@SharedResources.Jobs</a>
                                 <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a>
                             </div>
                             <div>
-                                <h2>@HomePageResources.infoSection2</h2>
+                                <h4>@HomePageResources.infoSection2</h4>
                                 <a href="@Url.RouteUrl("Privacy")">@FooterResources.PrivacyPolicy</a>
                                 <a href="@Url.RouteUrl("TOS")">@FooterResources.TermsOfService</a>
                                 <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>

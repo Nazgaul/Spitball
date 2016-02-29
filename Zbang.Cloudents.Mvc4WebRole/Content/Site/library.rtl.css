@@ -85,21 +85,6 @@
   padding-right: 45px;
   margin-top: -10px;
 }
-.library .settings md-switch.md-default-theme.md-checked .md-thumb,
-.library .settings md-switch.md-checked .md-thumb {
-  background-color: #2698d4;
-}
-.library .settings md-switch.md-default-theme.md-checked .md-ink-ripple,
-.library .settings md-switch.md-checked .md-ink-ripple {
-  color: #2698d4;
-}
-.library .settings md-switch.md-default-theme.md-checked .md-bar,
-.library .settings md-switch.md-checked .md-bar,
-.library .settings md-switch.md-default-theme.md-checked.md-focused .md-thumb:before,
-.library .settings md-switch.md-checked.md-focused .md-thumb:before {
-  background-color: #2698d4;
-  opacity: 0.5;
-}
 .library .empty-top h2,
 .library .empty-top > div {
   text-align: center;
