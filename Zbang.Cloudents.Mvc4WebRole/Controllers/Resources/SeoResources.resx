@@ -150,13 +150,40 @@
   <data name="ItemMataDescription" xml:space="preserve">
     <value>Get class notes for free with spitball:</value>
   </data>
+  <data name="JobsMeta" xml:space="preserve">
+    <value>Spitball is hiring! Join the social studying revolution and help Spitball build an ever growing community of students. Come and work for us!</value>
+  </data>
+  <data name="JobsTitle" xml:space="preserve">
+    <value>Jobs | Spitball</value>
+  </data>
   <data name="MetaDescription" xml:space="preserve">
     <value>Study and share your class notes for {0} {1} {2} , online or via the Spitball app</value>
+  </data>
+  <data name="PrivacyMeta" xml:space="preserve">
+    <value>At Spitball we take security and privacy very seriously. Your personal information is actively protected by us. Join the social studying revolution at Spitball!</value>
+  </data>
+  <data name="PrivacyTitle" xml:space="preserve">
+    <value>Privacy Policy | Spitball</value>
+  </data>
+  <data name="QuizTitle" xml:space="preserve">
+    <value>Quiz</value>
   </data>
   <data name="SignInMeta" xml:space="preserve">
     <value>Login to Spitball and join the social studying revolution! Get class notes, chat with your friends, create study groups and share your knowledge!</value>
   </data>
   <data name="SignInTitle" xml:space="preserve">
     <value>Login | Spitball</value>
+  </data>
+  <data name="SignUpMeta" xml:space="preserve">
+    <value>Sign up to Spitball and join the social studying revolution! Get class notes, chat with your friends, create study groups and share your knowledge!</value>
+  </data>
+  <data name="SignUpTitle" xml:space="preserve">
+    <value>Sign Up | Spitball</value>
+  </data>
+  <data name="TermsMeta" xml:space="preserve">
+    <value>Find out all you need to know about Spitball's terms of service. Get class notes, chat with your friends, create study groups and share your knowledge!</value>
+  </data>
+  <data name="TermsTitle" xml:space="preserve">
+    <value>Terms of Service | Spitball</value>
   </data>
 </root>

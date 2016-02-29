@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -111,8 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-
-
+        [Route(UrlConsts.ShortBox, Name = "shortBox")]
         public async Task<ActionResult> ShortUrl(string box62Id)
         {
             var base62 = new Base62(box62Id);

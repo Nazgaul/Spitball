@@ -43,6 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
          Duration = TimeConsts.Hour * 1, VaryByParam = "quizId",
          Location = OutputCacheLocation.Server, Order = 4)]
+        [Route("quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long}/{quizName}", Name = "Quiz")]
         public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName,
             string boxName)
         {
@@ -63,8 +64,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 if (string.IsNullOrEmpty(model.Country)) return View("Empty");
                 SeoResources.Culture = Languages.GetCultureBaseOnCountry(model.Country); ;
-                ViewBag.title = string.Format("{0} | {1} | {2} | {3} | {4}",
-                   model.BoxName, model.Name, model.DepartmentName, model.UniversityName, SeoResources.Cloudents);
+                ViewBag.title = string.Format("{0} - {1} - {2} | {3}",
+                   SeoResources.QuizTitle, model.Name, model.UniversityName, SeoResources.Cloudents);
 
                 ViewBag.metaDescription = Zbox.Infrastructure.TextManipulation.RemoveHtmlTags.Replace(model.FirstQuestion, string.Empty);
                 return View("Empty");

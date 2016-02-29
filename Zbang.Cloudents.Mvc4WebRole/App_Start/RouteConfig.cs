@@ -2,7 +2,6 @@
 using System.Web.Mvc.Routing;
 using System.Web.Mvc.Routing.Constraints;
 using System.Web.Routing;
-using Zbang.Zbox.Infrastructure.Consts;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
@@ -27,10 +26,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //  "account/signin",
             //  new { controller = "Home", action = "Index" }
             //  );
-            routes.MapRoute("signup",
-             "account/signup",
-             new { controller = "Home", action = "Index" }
-             );
+            //routes.MapRoute("signup",
+            // "account/signup",
+            // new { controller = "Home", action = "Index" }
+            // );
             routes.MapRoute("resetpassword",
             "account/resetpassword",
             new { controller = "Home", action = "Index" }, new { httpMethod = new HttpMethodConstraint("GET") }
@@ -41,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
              new { controller = "Home", action = "Index" }
              );
 
-            #region Box
+            //#region Box
 
             //routes.MapRoute("PrivateBox",
             //"box/my/{boxId}/{boxName}",
@@ -67,11 +66,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //);
 
 
-            routes.MapRoute("shortBox",
-                UrlConsts.ShortBox,
-                new { controller = "Box", action = "ShortUrl" });
+            //routes.MapRoute("shortBox",
+            //    UrlConsts.ShortBox,
+            //    new { controller = "Box", action = "ShortUrl" });
 
-            #endregion
+            //#endregion
 
             routes.MapRoute(
               "Sitemap",
@@ -115,19 +114,19 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "course/{universityName}/{boxId}/{boxName}/quizcreate",
                 new { controller = "Home", action = "IndexEmpty" });
 
-            routes.MapRoute("Quiz",
-                "quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
-                new
-                {
-                    controller = "Quiz",
-                    action = "Index"
-                },
-                new
-                {
-                    boxId = new LongRouteConstraint(),
-                    quizId = new LongRouteConstraint()
-                }
-                );
+            //routes.MapRoute("Quiz",
+            //    "quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
+            //    new
+            //    {
+            //        controller = "Quiz",
+            //        action = "Index"
+            //    },
+            //    new
+            //    {
+            //        boxId = new LongRouteConstraint(),
+            //        quizId = new LongRouteConstraint()
+            //    }
+            //    );
             #endregion
 
             routes.MapRoute("LibraryDesktop",
@@ -169,10 +168,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" }
           );
 
-            routes.MapRoute("Jobs",
-              "jobs",
-              new { controller = "Home", action = "IndexEmpty" }
-            );
+            //routes.MapRoute("Jobs",
+            //  "jobs",
+            //  new { controller = "Home", action = "IndexEmpty" }
+            //);
 
         
 
