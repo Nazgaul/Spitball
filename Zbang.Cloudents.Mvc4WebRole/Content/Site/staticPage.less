@@ -20,6 +20,12 @@
         /*display: block;*/
     }
 
+    * {
+        -moz-box-sizing: unset;
+        -webkit-box-sizing: unset;
+        box-sizing: unset;
+    }
+
     @media(min-width: 750px) {
         background: rgba(10, 10, 10, 0.9);
     }
@@ -176,6 +182,7 @@
                 align-items: center;
                 width: 500px;
                 padding: 0 120px 0 50px;
+                margin: 0;
             }
 
 
@@ -456,66 +463,66 @@
 
 
 
-      @media(max-width: 600px) {
-                .content {
-                    .app {
-                        margin-right: 0;
+    @media(max-width: 600px) {
+        .content {
+            .app {
+                margin-right: 0;
 
-                        h1, h2 {
-                            font-size: 5vw;
-                        }
+                h1, h2 {
+                    font-size: 5vw;
+                }
 
-                        .app-links {
-                            margin-top: 20px;
+                .app-links {
+                    margin-top: 20px;
 
-                            a {
-                                width: 49%;
-                                display: inline-block;
+                    a {
+                        width: 49%;
+                        display: inline-block;
 
-                                img {
-                                    width: 100%;
-                                    max-width: 160px;
-                                }
-                            }
-
-                            h2 {
-                                font-size: 4vw;
-                            }
-                        }
-                    }
-
-                    .info {
-
-
-                        .links {
-                            h2, a {
-                                font-size: 4vw;
-                            }
-
-                            a {
-                                line-height: 7vw;
-                            }
-                        }
-
-
-                        .social-links {
-                            text-align: center;
-
-                            svg {
-                                width: 40px;
-                                height: 40px;
-                            }
+                        img {
+                            width: 100%;
+                            max-width: 160px;
                         }
                     }
 
                     h2 {
-                        font-size: 5vw;
+                        font-size: 4vw;
                     }
                 }
             }
+
+            .info {
+
+
+                .links {
+                    h2, a {
+                        font-size: 4vw;
+                    }
+
+                    a {
+                        line-height: 7vw;
+                    }
+                }
+
+
+                .social-links {
+                    text-align: center;
+
+                    svg {
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
+            }
+
+            h2 {
+                font-size: 5vw;
+            }
+        }
+    }
 }
 
 
-.static-page > .content{
+.static-page > .content {
     margin-top: 70px;
 }
