@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
             ioc.RegisterType<IMediaSevicesProvider, MediaSevicesProvider>(LifeTimeManager.Singleton);
 
             ioc.RegisterType<IBlobProvider, BlobProvider>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IBlobUpload, BlobProvider>(LifeTimeManager.PerHttpRequest);
             //ioc.RegisterType<IBlobProductProvider, BlobProvider>();
             ioc.RegisterType<ICloudBlockProvider, BlobProvider>();
 
