@@ -254,6 +254,7 @@
     <Compile Include="DataObjects\UpdateUniversityRequest.cs" />
     <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
     <Compile Include="Extensions\IPrincipalExtensions.cs" />
+    <Compile Include="Filters\JsonSerializeAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

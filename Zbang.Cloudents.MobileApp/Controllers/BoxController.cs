@@ -32,11 +32,14 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_ZboxReadService = zboxReadService;
             m_ZboxReadSecurityService = zboxReadSecurityService;
             m_ZboxWriteService = zboxWriteService;
+
+            
+
         }
 
 
         //[VersionedRoute("api/box", 2)]
-        [ HttpGet]
+        [HttpGet]
         [Route("api/box")]
         public async Task<HttpResponseMessage> GetBox2(long id, int numberOfPeople = 6)
         {

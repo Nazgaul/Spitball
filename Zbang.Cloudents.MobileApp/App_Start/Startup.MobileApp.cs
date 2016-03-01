@@ -4,6 +4,8 @@ using System.Web.Http;
 using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using Owin;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -14,6 +16,8 @@ using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Autofac.Integration.WebApi;
 using System.Reflection;
+using System.Linq;
+using Zbang.Cloudents.MobileApp.Filters;
 
 namespace Zbang.Cloudents.MobileApp
 {
@@ -24,34 +28,41 @@ namespace Zbang.Cloudents.MobileApp
             var config = new HttpConfiguration();
             config.MapHttpAttributeRoutes();
 
-
-            //var isoSettings = config.Formatters.JsonFormatter.SerializerSettings.Converters.OfType<IsoDateTimeConverter>().Single();
-            //isoSettings.DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
+            
 
 
-            new MobileAppConfiguration()
-               .UseDefaultConfiguration()
-               .ApplyTo(config);
+             new MobileAppConfiguration()
+                 .UseDefaultConfiguration()
+            .ApplyTo(config);
 
 
             MobileAppSettingsDictionary settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
             //if (string.IsNullOrEmpty(settings.HostName))
             //{
-                app.UseAppServiceAuthentication(new AppServiceAuthenticationOptions
-                {
-                    // This middleware is intended to be used locally for debugging. By default, HostName will
-                    // only have a value when running in an App Service application.
-                    SigningKey = Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY"),
-                    ValidAudiences = new[] { ConfigurationManager.AppSettings["ValidAudience"] },
-                    ValidIssuers = new[] { ConfigurationManager.AppSettings["ValidIssuer"] },
-                    TokenHandler = config.GetAppServiceTokenHandler()
-                });
+            app.UseAppServiceAuthentication(new AppServiceAuthenticationOptions
+            {
+                // This middleware is intended to be used locally for debugging. By default, HostName will
+                // only have a value when running in an App Service application.
+                SigningKey = Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY"),
+                ValidAudiences = new[] { ConfigurationManager.AppSettings["ValidAudience"] },
+                ValidIssuers = new[] { ConfigurationManager.AppSettings["ValidIssuer"] },
+                TokenHandler = config.GetAppServiceTokenHandler()
+            });
             //}
             ConfigureDependencies(app, config);
-           
+
+            config.Filters.Add(new JsonSerializeAttribute());
             app.UseWebApi(config);
-            
+            //var json = config.Formatters.JsonFormatter;
+            //json.SerializerSettings.ContractResolver =
+            //    new CamelCasePropertyNamesContractResolver();
+            //json.SerializerSettings.NullValueHandling =
+            //    Newtonsoft.Json.NullValueHandling.Ignore;
+            //json.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
+            //json.SerializerSettings.Converters.Add(new IsoDateTimeConverter { DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal });
+            //var isoSettings = config.Formatters.JsonFormatter.SerializerSettings.Converters.OfType<IsoDateTimeConverter>().Single();
+            //isoSettings.DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
             //config.Routes.MapHttpRoute("CustomAuth", ".auth/login/CustomAuth", new { controller = "CustomAuth" });
         }
 
