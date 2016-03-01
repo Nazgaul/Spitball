@@ -24,7 +24,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         {
 
             ConfigureStorageAccount();
-            ConfigureLocalStorage();
+            try {
+                ConfigureLocalStorage();
+            }
+            catch { }
         }
         private static void ConfigureLocalStorage()
         {
