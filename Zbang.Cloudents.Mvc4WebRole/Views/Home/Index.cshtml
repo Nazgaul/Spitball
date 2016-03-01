@@ -32,47 +32,7 @@
         })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');
     </script>
     <div class="page-content">
-        <header>
-            <nav>
-                <div class="nav-content">
-                    <input type="checkbox" id="menu-toggle" />
-                    <div class="navbar-header">
-                        <div class="navbar-toggle toggle collapsed">
-                            <label for="menu-toggle">@Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "headerMenu" })</label>
-                            <label for="menu-toggle" class="menu-close"></label>
-                        </div>
-                        <a class="logo-wrapper" href="@Url.RouteUrl("homePage")" ga-track-event="['header', 'logo']">
-                            <div class="logo"></div>
-                            @Html.Svg("~/images/site/icons.svg", "smallLogo", new { @class = "logo-small" })
-                        </a>
-                    </div>
-                    <ul class="toggle">
-                        <li id="product">
-                            <a href="@Url.RouteUrl("Product")">@HomePageResources.A3</a>
-                        </li>
-                        <li id="features">
-                            <a href="#about-section">@HomePageResources.A9</a>
-                        </li>
-                        <li id="meet">
-                            <a href="#check-us-section">@HomePageResources.A10</a>
-                        </li>
-                        <li id="apps">
-                            <a href="#app-section">@HomePageResources.A11</a>
-                        </li>
-                        <li class="language">
-                            <input type="checkbox" id="language-menu" />
-                            <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
-                            <label class="language-close" for="language-menu"></label>
-                            <ul class="dropdown-menu dropdown-menu-left ">
-                                <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-us" })">@Languages.EnglishUsName</a> </li>
-                                <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "he-il" })">@Languages.HebrewName</a> </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <span class="signin-btn toggle">@HomePageResources.A1</span>
-            </nav>
-        </header>
+        @{Html.RenderPartial("_StaticPageHeader");}
         <div class="home-page-body">
             <section class="main">
                 <div id="main-wrapper">
@@ -451,54 +411,7 @@
                     </li>
                 </ul>
             </section>
-            <footer>
-                <div class="content">
-                    <div class="app">
-                        <div id="app-section" class="section-start"></div>
-                        <h3 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.F1</h3>
-                        <h4 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.F2</h4>
-                        <div class="app-links">
-                            @{
-                                var queryString = string.Empty;
-                                if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
-                                {
-                                    queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
-                                }
-                            }
-                            <a target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)" class="appSotre os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                                @*<img src="@Url.CdnContent("~/Images/HomePage2/apple.png")" alt="apple" />*@
-                            </a>
-                            <a target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="googlePlay os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.4s">
-                                @*<img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" />*@
-                            </a>
-                        </div>
-                    </div>
-                    <div class="info">
-                        <div class="links os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
-                            <div>
-                                <h4>@HomePageResources.infoSection1</h4>
-                                <a href="@Url.RouteUrl("AboutUs")">@HomeResources.AboutCloudents</a>
-                                <a href="@Url.RouteUrl("Jobs")">@SharedResources.Jobs</a>
-                                <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a>
-                            </div>
-                            <div>
-                                <h4>@HomePageResources.infoSection2</h4>
-                                <a href="@Url.RouteUrl("Privacy")">@FooterResources.PrivacyPolicy</a>
-                                <a href="@Url.RouteUrl("TOS")">@FooterResources.TermsOfService</a>
-                                <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>
-                                <a href="@Url.RouteUrl("Advertise")" target="_blank">@SharedResources.Advertise</a>
-                            </div>
-                        </div>
-                        <div class="social-links os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.6s" dir="ltr">
-                            <a target="_blank" href="https://www.facebook.com/spitballstudy/">@Html.Svg(socialIconsSvg, "facebook")</a>
-                            <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg(socialIconsSvg, "twitter")</a>
-                            <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg(socialIconsSvg, "google")</a>
-                            <a target="_blank" href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg">@Html.Svg(socialIconsSvg, "youtube")</a>
-                            <a target="_blank" href="http://instagram.com/spitballstudy">@Html.Svg(socialIconsSvg, "instagram")</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+           @{Html.RenderPartial("_StaticPageFooter");}
         </div>
 
     </div>
