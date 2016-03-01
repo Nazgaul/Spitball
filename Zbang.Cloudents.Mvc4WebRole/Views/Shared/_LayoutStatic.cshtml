@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+@{ Html.RenderPartial("_Head");}
+<head>
+    @Html.Css2("staticPage")
+</head>
+<body class="static-page">
+
+    @{Html.RenderPartial("_StaticPageHeader");}
+    <div class="content">
+        @RenderBody();
+    </div>
+    @{Html.RenderPartial("_StaticPageFooter");}
+</body>
+</html>

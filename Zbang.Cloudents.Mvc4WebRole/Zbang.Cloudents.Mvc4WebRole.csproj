@@ -1635,6 +1635,12 @@
     <Content Include="Content\Site\siteColors.rtl.css">
       <DependentUpon>siteColors.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\staticPage.css">
+      <DependentUpon>staticPage.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\staticPage.rtl.css">
+      <DependentUpon>staticPage.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\staticPages.css">
       <DependentUpon>staticPages.less</DependentUpon>
     </Content>
@@ -1969,6 +1975,7 @@
     <Content Include="Images\HomePage2\testimonials_en.jpg.scss">
       <DependentUpon>testimonials_en.jpg</DependentUpon>
     </Content>
+    <Content Include="Content\Site\staticPage.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2833,6 +2840,9 @@
     <Content Include="Views\Library\_EmptyStateTopTree.cshtml" />
     <Content Include="Views\Home\Product.cshtml" />
     <Content Include="Views\Account\Department.cshtml" />
+    <Content Include="Views\Shared\Partials2\_StaticPageHeader.cshtml" />
+    <Content Include="Views\Shared\Partials2\_StaticPageFooter.cshtml" />
+    <Content Include="Views\Shared\_LayoutStatic.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
