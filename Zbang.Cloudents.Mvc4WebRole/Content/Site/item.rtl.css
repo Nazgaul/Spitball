@@ -346,6 +346,9 @@
   transform: rotate(0);
   right: 10px;
 }
+.itemPage .google-ad {
+  text-align: center;
+}
 .raw-text {
   color: #282828;
 }

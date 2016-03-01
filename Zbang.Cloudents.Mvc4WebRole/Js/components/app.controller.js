@@ -102,6 +102,8 @@
 
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            self.showBoxAd = toState.parent === 'box';
+
             if (!fromState.name) {
                 return;
             }
