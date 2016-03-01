@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 return Task.FromResult(new PreviewResult { Content = new List<string>() });
             }
             var previewLink = "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode(blobUri.AbsoluteUri) +
-                              string.Format(".jpg?width={0}&height={1}", 1024, 768);
+                              string.Format(".jpg?width={0}&height={1}", 800, 768);
             return Task.FromResult(new PreviewResult { Content = new List<string>
             {
                 string.Format(ContentFormat, blobUri.AbsoluteUri,previewLink)

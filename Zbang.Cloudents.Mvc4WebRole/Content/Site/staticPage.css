@@ -10,6 +10,11 @@
   width: 100%;
   height: 70px;
 }
+.static-page-header * {
+  -moz-box-sizing: unset;
+  -webkit-box-sizing: unset;
+  box-sizing: unset;
+}
 @media (min-width: 750px) {
   .static-page-header {
     background: rgba(10, 10, 10, 0.9);
@@ -143,6 +148,7 @@
     align-items: center;
     width: 500px;
     padding: 0 120px 0 50px;
+    margin: 0;
   }
 }
 .static-page-header nav ul li {

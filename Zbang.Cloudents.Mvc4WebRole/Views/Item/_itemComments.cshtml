@@ -48,7 +48,7 @@
                                 </a>
                             </div>
                             <div class="comment-text">
-                                <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::comment.userUrl}}"> {{::comment.userName}}</a></span><span class="date">@ItemsResources.CommentPublishedIn&nbsp;{{::comment.creationDate | date : 'medium'}}</span></div>
+                                <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::comment.userUrl}}" user-not-register-popup="click"> {{::comment.userName}}</a></span><span class="date">@ItemsResources.CommentPublishedIn&nbsp;{{::comment.creationDate | date : 'medium'}}</span></div>
                                 <div class="comment-content" ng-bind-html="::comment.comment"></div>
 
                             </div>
@@ -69,12 +69,12 @@
                             <li ng-repeat="reply in comment.replies" class="reply">
                                 <div class="reply-data" layout="row">
                                     <div class="user-image">
-                                        <a href="{{::reply.userUrl}}" user-not-register-popup=" click" class="username">
+                                        <a href="{{::reply.userUrl}}" user-not-register-popup="click" class="username">
                                             <user-image class="img-circle c-img" name="comment.userName" image="comment.userImage" width="25" height="25"></user-image>
                                         </a>
                                     </div>
                                     <div class="reply-text">
-                                        <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::reply.userUrl}}"> {{::reply.userName}}</a></span> <span class="date">@ItemsResources.CommentPublishedIn&nbsp;{{::reply.creationDate | date : 'medium'}}</span></div>
+                                        <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::reply.userUrl}}" user-not-register-popup="click"> {{::reply.userName}}</a></span> <span class="date">@ItemsResources.CommentPublishedIn&nbsp;{{::reply.creationDate | date : 'medium'}}</span></div>
                                         <div class="comment-content">{{::reply.comment}}</div>
                                     </div>
                                     <md-menu ng-if="c.canDelete(reply.userId)">
