@@ -1,0 +1,237 @@
+﻿using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http;
+using Microsoft.Azure.Mobile.Server.Config;
+using Zbang.Cloudents.MobileApp.DataObjects;
+using Zbang.Cloudents.MobileApp.Extensions;
+using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.IdGenerator;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
+using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.Domain.Commands;
+
+namespace Zbang.Cloudents.MobileApp.Controllers
+{
+    [MobileAppController]
+    [Authorize]
+    public class FeedController : ApiController
+    {
+        private readonly IZboxCacheReadService m_ZboxReadService;
+        private readonly IGuidIdGenerator m_GuidGenerator;
+        private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly IQueueProvider m_QueueProvider;
+
+        public FeedController(IZboxCacheReadService zboxReadService, IGuidIdGenerator guidGenerator, IZboxWriteService zboxWriteService, IQueueProvider queueProvider)
+        {
+            m_ZboxReadService = zboxReadService;
+            m_GuidGenerator = guidGenerator;
+            m_ZboxWriteService = zboxWriteService;
+            m_QueueProvider = queueProvider;
+        }
+
+
+        /// <summary>
+        /// created on 17/9/15 added quizzes to feed
+        /// </summary>
+        /// <param name="boxId"></param>
+        /// <param name="page"></param>
+        /// <param name="sizePerPage"></param>
+        /// <returns></returns>
+        [HttpGet]
+        //, VersionedRoute("api/box/{boxId:long}/feed", 3)]
+        [Route("api/box/{boxId:long}/feed")]
+        public async Task<HttpResponseMessage> Feed3(long boxId, int page, int sizePerPage = 20)
+        {
+            try
+            {
+                var retVal =
+                  await m_ZboxReadService.GetQuestionsWithLastAnswerAsync(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
+                return Request.CreateResponse(retVal.Select(s => new
+                {
+                    s.Id,
+                    Answers = s.Replies.Select(x => new
+                    {
+                        x.Content,
+                        x.CreationTime,
+                        Files = x.Files.Select(z => new
+                        {
+                            z.Id,
+                            z.Name,
+                            z.OwnerId,
+                            z.Type,
+                            z.Source,
+                            Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(z.Source) +
+                                  ".jpg?width=148&height=187&mode=crop"
+                        }),
+                        x.Id,
+                        x.UserId,
+                        x.UserImage,
+                        x.UserName
+                    }),
+                    s.Content,
+                    s.CreationTime,
+                    Files = s.Files.Select(v => new
+                    {
+                        v.Id,
+                        v.Name,
+                        v.OwnerId,
+                        v.Type,
+                        v.Source,
+                        Thumbnail = string.IsNullOrEmpty(v.Source) ? null : "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(v.Source) +
+                              ".jpg?width=148&height=187&mode=crop"
+                    }),
+                    s.RepliesCount,
+                    s.UserId,
+                    s.UserImage,
+                    s.UserName
+                }));
+            }
+            catch (BoxAccessDeniedException)
+            {
+                return Request.CreateUnauthorizedResponse();
+            }
+            catch (BoxDoesntExistException)
+            {
+                return Request.CreateNotFoundResponse();
+            }
+        }
+
+        [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}")]
+        public async Task<HttpResponseMessage> Post(long boxId, Guid feedId)
+        {
+            var retVal =
+                await m_ZboxReadService.GetQuestionAsync(new Zbox.ViewModel.Queries.QnA.GetQuestionQuery(feedId, boxId));
+
+            return Request.CreateResponse(new
+            {
+                retVal.Files,
+                retVal.Id,
+                retVal.RepliesCount,
+                retVal.UserId,
+                retVal.UserImage,
+                retVal.UserName,
+                retVal.Content,
+                retVal.CreationTime
+            });
+        }
+
+        [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]
+        public async Task<HttpResponseMessage> GetReplies(long boxId, Guid feedId, int page, int sizePerPage = 20)
+        {
+            var retVal =
+                 await m_ZboxReadService.GetRepliesAsync(new Zbox.ViewModel.Queries.QnA.GetCommentRepliesQuery(boxId, feedId, page, sizePerPage));
+            return Request.CreateResponse(retVal.Select(s => new
+            {
+                s.Id,
+                s.UserImage,
+                s.UserName,
+                s.UserId,
+                s.Content,
+                s.CreationTime,
+
+                Files = s.Files.Select(d => new
+                {
+                    d.Id,
+                    d.Name,
+                    d.OwnerId,
+                    d.Type,
+                    d.Source,
+                    Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(d.Source) +
+                               ".jpg?width=148&height=187&mode=crop"
+                })
+
+
+            }));
+        }
+
+
+
+        [HttpPost]
+        // [VersionedRoute("api/box/{boxId:long}/feed", 2)]
+        [Route("api/box/{boxId:long}/feed")]
+        public async Task<HttpResponseMessage> PostCommentAnonymous(long boxId, AddCommentRequest model)
+        {
+            if (string.IsNullOrEmpty(model.Content))
+            {
+                ModelState.AddModelError(string.Empty, "You need to write something or post files");
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+
+            var questionId = m_GuidGenerator.GetId();
+            var command = new AddCommentCommand(User.GetCloudentsUserId(),
+                boxId, model.Content, questionId, model.FileIds, model.Anonymously);
+            var result = await m_ZboxWriteService.AddCommentAsync(command);
+            return Request.CreateResponse(new
+            {
+                result.CommentId,
+                result.UserId,
+                result.UserImage,
+                result.UserName
+            });
+        }
+
+        [HttpPost]
+        [Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]
+        public async Task<HttpResponseMessage> PostReply(long boxId, Guid feedId, AddCommentRequest model)
+        {
+            if (string.IsNullOrEmpty(model.Content))
+            {
+                ModelState.AddModelError(string.Empty, "You need to write something or post files");
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            var answerId = m_GuidGenerator.GetId();
+            var command = new AddReplyToCommentCommand(User.GetCloudentsUserId(), boxId,
+                model.Content, answerId, feedId, model.FileIds);
+            await m_ZboxWriteService.AddReplyAsync(command);
+            return Request.CreateResponse(answerId);
+        }
+
+
+        [HttpDelete]
+        [Route("api/box/{boxId:long}/feed/{feedId:guid}")]
+        public async Task<HttpResponseMessage> DeleteComment(long boxId, Guid feedId)
+        {
+            var command = new DeleteCommentCommand(feedId, User.GetCloudentsUserId());
+            await m_ZboxWriteService.DeleteCommentAsync(command);
+            return Request.CreateResponse();
+        }
+
+        [HttpDelete]
+        [Route("api/box/{boxId:long}/reply/{replyId:guid}")]
+        public async Task<HttpResponseMessage> DeleteReply(long boxId, Guid replyId)
+        {
+            var command = new DeleteReplyCommand(replyId, User.GetCloudentsUserId());
+            await m_ZboxWriteService.DeleteReplyAsync(command);
+            return Request.CreateResponse();
+        }
+
+
+        [Route("api/feed/flag")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> Flag(FlagPostReplyRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            await m_QueueProvider.InsertMessageToTranactionAsync(new BadPostData(User.GetCloudentsUserId(), model.PostId));
+            return Request.CreateResponse();
+        }
+
+    }
+}

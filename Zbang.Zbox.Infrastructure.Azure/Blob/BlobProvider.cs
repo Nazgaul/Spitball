@@ -17,7 +17,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
-    public class BlobProvider : IBlobProvider, ICloudBlockProvider
+    public class BlobProvider : IBlobProvider, ICloudBlockProvider, IBlobUpload
     {
         private const int CacheContainerItemAvailableInMinutes = 30;
         private const string LastAccessTimeMetaDataKey = "LastTimeAccess";
@@ -602,5 +602,32 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
 
 
+
+        public string GenerateWriteAccessPermissionToBlob(string blobName, string mimeType)
+        {
+            var blob = GetFile(blobName);
+            var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                Permissions = SharedAccessBlobPermissions.Write,
+                SharedAccessExpiryTime = DateTime.Now.AddHours(2)
+            }, new SharedAccessBlobHeaders
+            {
+                ContentType = mimeType,
+                CacheControl = "private max-age=604800"
+            });
+            return blob.Uri + queryString;
+        }
+
+        public string GenerateReadAccessPermissionToBlob(string blobName)
+        {
+            var blob = GetFile(blobName);
+            var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessStartTime = DateTime.Now.AddMinutes(-2),
+                SharedAccessExpiryTime = DateTime.Now.AddHours(2)
+            });
+            return blob.Uri + queryString;
+        }
     }
 }
