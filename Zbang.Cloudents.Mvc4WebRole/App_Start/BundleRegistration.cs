@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         "~/content/site/general.css",
                         "~/content/site/staticPage.css",
-                            //"~/Content/homepage/bootstrap.css", //TODO: check if we need this.
+                            "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
                         "~/content/signin/components-md.css",
                         "~/content/signin/plugins-md.css",
                         "~/content/site/layout.css",
@@ -128,6 +128,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/Scripts/CountUp.js"),
                         new JsFileWithCdn("~/Js/HomePage.js"),
                         new JsFileWithCdn("~/js/homePage/homeScreen.js")
+                    }
+                },
+                {
+                    "staticPage", new[]
+                    {
+                        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
+                        new JsFileWithCdn("~/js/signin/bootstrap.min.js")
                     }
                 },
                 {

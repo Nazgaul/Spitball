@@ -143,39 +143,60 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.title = SeoResources.HelpTitle;
             ViewBag.metaDescription = SeoResources.HelpMeta;
 
-            using (var stream = await m_BlobProvider.Value.GetJobsXmlAsync())
+            using (var stream = await m_BlobProvider.Value.GetFaqQuestionAsync())
             {
                 var data = XDocument.Load(stream);
                 var model = from category in data.Descendants("category")
-                    let faqs = category.Descendants("content")
-                    orderby int.Parse(category.Attribute("order").Value)
-                    select new Category
-                    {
-                        Language = category.Attribute("lang").Value,
-                        Name = category.Attribute("name").Value,
-                        Order = int.Parse(category.Attribute("order").Value),
-                        QuestionNAnswers = faqs.Select(s =>
-                            new QnA
+                            let faqs = category.Descendants("content")
+                            orderby int.Parse(category.Attribute("order").Value)
+                            select new Category
                             {
-                                Answer = s.Element("answer").Value,
-                                Question = s.Element("question").Value,
-                                Order = int.Parse(s.Attribute("order").Value)
+                                Language = category.Attribute("lang").Value,
+                                Name = category.Attribute("name").Value,
+                                Order = int.Parse(category.Attribute("order").Value),
+                                QuestionNAnswers = faqs.Select(s =>
+                                    new QnA
+                                    {
+                                        Answer = s.Element("answer").Value,
+                                        Question = s.Element("question").Value,
+                                        Order = int.Parse(s.Attribute("order").Value)
 
-                            }).OrderBy(s => s.Order).ToList()
+                                    }).OrderBy(s => s.Order).ToList()
 
-                    };
-            return View("Help2",
-                        model);
-                    };
+                            };
+                return View("Help2", model);
+            }
         }
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
         [Route("jobs", Name = "Jobs")]
-        public ActionResult Jobs()
+        public async Task<ActionResult> Jobs()
         {
             ViewBag.title = SeoResources.HelpTitle;
             ViewBag.metaDescription = SeoResources.HelpMeta;
-            return View("Empty");
+
+            using (var stream = await m_BlobProvider.Value.GetJobsXmlAsync())
+            {
+                var data = XDocument.Load(stream);
+                var model = from category in data.Descendants("category")
+                            let faqs = category.Descendants("content")
+                            orderby int.Parse(category.Attribute("order").Value)
+                            select new Category
+                            {
+                                Language = category.Attribute("lang").Value,
+                                Name = category.Attribute("name").Value,
+                                Order = int.Parse(category.Attribute("order").Value),
+                                QuestionNAnswers = faqs.Select(s =>
+                                    new QnA
+                                    {
+                                        Answer = s.Element("answer").Value,
+                                        Question = s.Element("question").Value,
+                                        Order = int.Parse(s.Attribute("order").Value)
+
+                                    }).OrderBy(s => s.Order).ToList()
+                            };
+                return PartialView("help2", model);
+            }
         }
         [DonutOutputCache(CacheProfile = "FullPage")]
         [NoUniversity]
