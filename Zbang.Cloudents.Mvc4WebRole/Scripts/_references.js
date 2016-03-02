@@ -249,5 +249,4 @@
 /// <reference path="waypoints.min.js" />
 /// <reference path="../js/homepage/homescreen.js" />
 /// <reference path="../js/components/account/department.controller.js" />
-/// <reference path="../Js/components/quiz/quizCreate.close.controller.js" />
 /// <reference path="ui-bootstrap-custom-tpls-1.2.1.js" />
