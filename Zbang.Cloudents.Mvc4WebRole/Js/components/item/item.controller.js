@@ -44,7 +44,7 @@
         i.swipeLeft = swipeLeft;
         i.swipeRight = swipeRight;
         
-        if (i.firstPage) {
+        if (i.firstPage && i.details.type === "File") {
             itemService.content(boxid, itemId).then(function (response) {
                 i.document = response;
             });
