@@ -42,9 +42,19 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var result = await m_ZboxReadService.GetLibraryNodeAsync(query);
             return Request.CreateResponse(new
             {
-                result.Boxes,
-                result.Details,
-                Nodes = result.Nodes.Where(w => w.State != Zbox.Infrastructure.Enums.LibraryNodeSettings.Closed)
+                Boxes = result.Boxes.Select(s=> new
+                {
+                   s.Id 
+                }),
+                Details = new { result.Details.Name, result.Details.State, result.Details.UserType } ,
+                Nodes = result.Nodes.Select(s=> new
+                {
+                    s.UserType,
+                    s.State,
+                    s.Name,
+                    s.Id,
+                    s.NoBoxes
+                })
             });
         }
 

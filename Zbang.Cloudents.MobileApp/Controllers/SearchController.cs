@@ -55,7 +55,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             // Services.Log.Info(String.Format("search boxes query: {0}", query));
             var retVal = await m_BoxSearchService2.SearchBoxAsync(query, default(CancellationToken)) ?? new List<SearchBoxes>();
 
-            return Request.CreateResponse(retVal.Where(w => w.Type != BoxType.AcademicClosed).Select(s => new
+            return Request.CreateResponse(retVal.Select(s => new
             {
                 s.Id,
                 s.Name,

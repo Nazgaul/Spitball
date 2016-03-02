@@ -249,6 +249,7 @@
     <Compile Include="DataObjects\LogInRequest.cs" />
     <Compile Include="DataObjects\PasswordUpdateRequest.cs" />
     <Compile Include="DataObjects\Register.cs" />
+    <Compile Include="DataObjects\RegisterDeviceRequest.cs" />
     <Compile Include="DataObjects\ResetPasswordRequest.cs" />
     <Compile Include="DataObjects\SaveUserAnswersRequests.cs" />
     <Compile Include="DataObjects\UpdateUniversityRequest.cs" />
