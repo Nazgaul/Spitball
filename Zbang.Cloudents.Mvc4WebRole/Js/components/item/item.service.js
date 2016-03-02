@@ -21,11 +21,11 @@
         };
 
 
-        d.addLink = function (url, boxid, question, name) {
+        d.addLink = function (url, boxid, tabid, question, name) {
             return ajaxservice.post('/upload/link', {
                 url: url,
                 boxid: boxid,
-
+                tabid: tabid,
                 question: question,
                 name: name
             });

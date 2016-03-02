@@ -1819,7 +1819,6 @@
     <Content Include="Js\components\quiz\nextQuestion.js" />
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
-    <Content Include="Js\components\quiz\quizCreate.close.controller.js" />
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\search\searchTrigger.controller.js" />

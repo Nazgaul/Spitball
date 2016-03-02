@@ -279,8 +279,19 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<string> ItemContentAsync(long itemId, CancellationToken cancelToken)
         {
-            var item = await m_IndexClient.Documents.GetAsync<ItemSearch>(itemId.ToString(CultureInfo.InvariantCulture), new[] { ContentField }, cancelToken);
-            return item.Document.Content;
+            try
+            {
+                var item =
+                    await
+                        m_IndexClient.Documents.GetAsync<ItemSearch>(itemId.ToString(CultureInfo.InvariantCulture),
+                            new[] {ContentField}, cancelToken);
+                return item.Document.Content;
+            }
+            //item may not exists in the search....
+            catch (CloudException)
+            {
+                return null;
+            }
         }
 
 
