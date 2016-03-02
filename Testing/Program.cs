@@ -603,13 +603,49 @@ namespace Testing
 
 
             var mail = new MailManager2();
-            var t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-                new WelcomeMailParams("Irena",new CultureInfo("en")));
+            var t  = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
+                new WelcomeMailParams("אירנה", new CultureInfo("he")));
             t.Wait();
 
             t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-                new WelcomeMailParams("Irena", new CultureInfo("he")));
+               new WelcomeMailParams("Irena", new CultureInfo("en")));
             t.Wait();
+
+
+            t = mail.GenerateAndSendEmailAsync("shlomi@cloudents.com",
+                new WelcomeMailParams("אירנה", new CultureInfo("he")));
+            t.Wait();
+
+            t = mail.GenerateAndSendEmailAsync("shlomi@cloudents.com",
+               new WelcomeMailParams("Irena", new CultureInfo("en")));
+            t.Wait();
+
+
+            t = mail.GenerateAndSendEmailAsync("eidan@spitball.co",
+                new WelcomeMailParams("אירנה", new CultureInfo("he")));
+            t.Wait();
+
+            t = mail.GenerateAndSendEmailAsync("eidan@spitball.co",
+               new WelcomeMailParams("Irena", new CultureInfo("en")));
+            t.Wait();
+
+            t = mail.GenerateAndSendEmailAsync("matan@cloudents.com",
+                new WelcomeMailParams("אירנה", new CultureInfo("he")));
+            t.Wait();
+
+            t = mail.GenerateAndSendEmailAsync("matan@cloudents.com",
+               new WelcomeMailParams("Irena", new CultureInfo("en")));
+            t.Wait();
+
+            t = mail.GenerateAndSendEmailAsync("ram@cloudents.com",
+                new WelcomeMailParams("אירנה", new CultureInfo("he")));
+            t.Wait();
+
+            t = mail.GenerateAndSendEmailAsync("ram@cloudents.com",
+               new WelcomeMailParams("Irena", new CultureInfo("en")));
+            t.Wait();
+
+
             
             t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
                 new DepartmentRequestAccessMailParams(new CultureInfo("en"), "Ire", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", "woop"));
