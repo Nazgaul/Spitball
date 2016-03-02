@@ -98,18 +98,17 @@
 
         function uploadLink(myform) {
             u.submitFormProcess = true;
-            itemService.addLink(u.link, boxid).then(function (response) {
+            itemService.addLink(u.link, boxid, tab).then(function (response) {
                 $rootScope.$broadcast('item_upload', response);
                 $scope.app.showToaster(resManager.get('toasterUploadComplete'));
-                
                 u.uploadStep = uploadChoose.none;
+                u.link = '';
+                $timeout(closeUpload, 2000);
             }, function (response) {
                 myform.link.$setValidity('server', false);
                 u.error = response;
             }).finally(function () {
-                u.link = '';
                 u.submitFormProcess = false;
-                $timeout(closeUpload, 2000);
             });
 
         }
