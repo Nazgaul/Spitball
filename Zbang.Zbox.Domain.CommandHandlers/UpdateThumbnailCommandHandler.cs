@@ -22,11 +22,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (command == null) throw new ArgumentNullException("command");
 
-            var file = m_ItemRepository.Get(command.ItemId);
-            if (file == null)
-            {
-                throw new ArgumentException("file does not exist " + command.ItemId);
-            }
+            var file = m_ItemRepository.Load(command.ItemId);
             if (file.ItemContentUrl != command.OldBlobName)
             {
                 throw new ArgumentException("file id does not match blob id");
@@ -42,7 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             else
             {
-                file.Content = System.Net.WebUtility.HtmlEncode(command.FileContent).RemoveEndOfString(500);
+                file.Content = System.Net.WebUtility.HtmlEncode(command.FileContent).RemoveEndOfString(200);
             }
             if (string.IsNullOrWhiteSpace(command.ThumbnailUrl))
             {

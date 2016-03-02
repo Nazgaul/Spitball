@@ -29,7 +29,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         {
             var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
             var model = await m_ZboxReadService.GetUserBoxesActivityAsync(query);
-            return Request.CreateResponse(model.Where(w=>w.BoxType != Zbox.Infrastructure.Enums.BoxType.AcademicClosed).Select(s => new
+            return Request.CreateResponse(model.Select(s => new
             {
                 s.Id,
                 s.Name,
