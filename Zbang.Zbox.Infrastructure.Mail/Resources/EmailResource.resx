@@ -138,4 +138,7 @@
   <data name="questions" xml:space="preserve">
     <value>Questions</value>
   </data>
+  <data name="WelcomeSubject" xml:space="preserve">
+    <value>Welcome to Spitball</value>
+  </data>
 </root>

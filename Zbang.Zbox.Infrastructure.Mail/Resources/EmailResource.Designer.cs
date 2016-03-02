@@ -122,5 +122,14 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
                 return ResourceManager.GetString("questions", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to Spitball.
+        /// </summary>
+        internal static string WelcomeSubject {
+            get {
+                return ResourceManager.GetString("WelcomeSubject", resourceCulture);
+            }
+        }
     }
 }
