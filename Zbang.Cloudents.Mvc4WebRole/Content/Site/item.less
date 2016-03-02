@@ -28,6 +28,7 @@
                 margin: 0 15px;
                 height: 17px;
                 width: 17px;
+                .displayInlineFlex;
             }
 
             svg {
@@ -42,11 +43,10 @@
 
         button.fb-like {
             white-space: nowrap;
-            display: table-row;
+            display: inline-table;
             border: 1px solid @svgLightGrey;
             border-radius: 5px;
             padding: 0 6px;
-            //.displayFlex;
             line-height: 24px;
             min-width: 56px;
             justify-content: space-around;
@@ -54,10 +54,6 @@
             font-size: 14px;
             color: @svgLightGrey;
             margin: 0 8px;
-
-            > span {
-                display: table-cell;
-            }
 
             svg {
                 width: 16px;
@@ -80,6 +76,7 @@
         .item-actions {
             white-space: nowrap;
             height: 80px;
+            padding-right: 40px;
 
             .md-icon-button {
                 margin: 0;
@@ -92,13 +89,12 @@
 
         .close-btn {
             padding: 15px;
-            margin-left: 40px;
             line-height: normal;
         }
 
         @media (min-width: 600px) {
-            .close-btn {
-                margin-left: 150px;
+            .item-actions {
+                padding-right: 170px;
             }
         }
     }

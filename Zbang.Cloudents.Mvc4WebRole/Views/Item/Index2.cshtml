@@ -22,33 +22,35 @@
                 @*</div>*@
                 <a hide-xs target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download", new { @class = "color-override svgColor3" })</a>
                 <a hide-xs target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print", new { @class = "color-override svgColor3" })</a>
-                <md-menu flex>
-                    <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
-                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor3" })
-                    </md-button>
-                    <md-menu-content width="1">
-                        <md-menu-item hide-gt-xs>
-                            <md-button target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">
-                                @ItemsResources.Download
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-item hide-gt-xs>
-                            <md-button target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">
-                                @ItemsResources.Print
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button class="text-capitalize" ng-click="i.showRename()" ga-track-event="['itemPage', 'rename']">
-                                @GeneralResources.Rename
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="i.selectedState = i.state.flag" ga-track-event="['itemPage', 'flag']">
-                                @ItemsResources.Flag
-                            </md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
+                <div>
+                    <md-menu flex>
+                        <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
+                            @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor3" })
+                        </md-button>
+                        <md-menu-content width="1">
+                            <md-menu-item hide-gt-xs>
+                                <md-button target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">
+                                    @ItemsResources.Download
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item hide-gt-xs>
+                                <md-button target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">
+                                    @ItemsResources.Print
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button class="text-capitalize" ng-click="i.showRename()" ga-track-event="['itemPage', 'rename']">
+                                    @GeneralResources.Rename
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="i.selectedState = i.state.flag" ga-track-event="['itemPage', 'flag']">
+                                    @ItemsResources.Flag
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
             </div>
             <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close", new { @class = "color-override svgColor3" })</button>
         </div>

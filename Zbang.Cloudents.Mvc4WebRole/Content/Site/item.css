@@ -18,6 +18,9 @@
   margin: 0 15px;
   height: 17px;
   width: 17px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: inline-flex;
 }
 .itemPage header .item-actions svg,
 .itemPage header .close-btn svg {
@@ -27,7 +30,7 @@
 }
 .itemPage header button.fb-like {
   white-space: nowrap;
-  display: table-row;
+  display: inline-table;
   border: 1px solid #c2c2c2;
   border-radius: 5px;
   padding: 0 6px;
@@ -38,9 +41,6 @@
   font-size: 14px;
   color: #c2c2c2;
   margin: 0 8px;
-}
-.itemPage header button.fb-like > span {
-  display: table-cell;
 }
 .itemPage header button.fb-like svg {
   width: 16px;
@@ -59,6 +59,7 @@
 .itemPage header .item-actions {
   white-space: nowrap;
   height: 80px;
+  padding-right: 40px;
 }
 .itemPage header .item-actions .md-icon-button {
   margin: 0;
@@ -68,12 +69,11 @@
 }
 .itemPage header .close-btn {
   padding: 15px;
-  margin-left: 40px;
   line-height: normal;
 }
 @media (min-width: 600px) {
-  .itemPage header .close-btn {
-    margin-left: 150px;
+  .itemPage header .item-actions {
+    padding-right: 170px;
   }
 }
 .itemPage md-select:not([disabled]):focus .md-select-value {
