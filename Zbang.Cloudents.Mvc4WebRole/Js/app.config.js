@@ -172,11 +172,11 @@
                            .defineSlot('/107474526/Test_With_Asaf', [300, 250], 'div-gpt-ad-1457018235153-0');
 
         DoubleClickProvider.defineSizeMapping('div-gpt-ad-1457014054898-0')
-            .addSize([760, 768], [728, 90])
-            .addSize([620, 690], [480, 320]);
+            .addSize([1900, 768], [728, 90])
+            //.addSize([620, 690], [480, 320]);
             //.addSize([420, 480], [400, 90])
             //// Fits browsers of any size smaller than 640 x 480
-            //.addSize([0, 0], [300, 90]);
+            .addSize([0, 0], [480, 320]);
         
         DoubleClickProvider.setRefreshInterval(30000);
 
