@@ -184,6 +184,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
                         new JsFileWithCdn("~/scripts/angular-google-adsense.js"),
+                        new JsFileWithCdn("~/scripts/angular-dfp.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 

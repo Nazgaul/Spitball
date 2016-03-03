@@ -8,6 +8,7 @@ var app;
          'ngSanitize',
          'ui.bootstrap',
          'angular-google-analytics',
+         'ngDfp',
          'ngAnimate',
          'ngMessages',
          'ngMaterial',

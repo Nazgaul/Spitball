@@ -97,8 +97,9 @@
                 </md-button>
             </li>
             <li class="google-ad nav-item box-ad" hide-xs>
-                <adsense ng-if="app.showBoxAd" ad-client="ca-pub-1215688692145777" ad-slot="8279008953" inline-style="display:inline-block;width:100%;max-width:300px;height:250px"></adsense>
-                 <adsense ng-if="!app.showBoxAd" ad-client="ca-pub-1215688692145777" ad-slot="2372076158" inline-style="display:inline-block;width:100%;max-width:300px;height:250px"></adsense>
+                
+                <div @*ng-if="app.showBoxAd"*@ data-ng-dfp-ad="div-gpt-ad-1457008885167-0" style="display:inline-block;width:100%;max-width:300px;height:250px"></div>
+                @*<div ng-if="app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1457008885167-0"></div>*@
             </li>
         </ul>
     </md-content>

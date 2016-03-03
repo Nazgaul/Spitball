@@ -250,3 +250,4 @@
 /// <reference path="../js/homepage/homescreen.js" />
 /// <reference path="../js/components/account/department.controller.js" />
 /// <reference path="ui-bootstrap-custom-tpls-1.2.1.js" />
+/// <reference path="angular-dfp.js" />
