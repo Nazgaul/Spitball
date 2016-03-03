@@ -14,12 +14,10 @@
                 </a>
             </div>
             <div class="item-actions" layout="row" layout-align="space-between center">
-                @*<div >*@
                 <button class="fb-like content-wrapper" ng-class="{blue : i.details.like}" layout="row" layout-align="space-between center" user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
                     <span>@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })</span>
                     <span>{{i.details.likes}}</span>
                 </button>
-                @*</div>*@
                 <a hide-xs target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download", new { @class = "color-override svgColor3" })</a>
                 <a hide-xs target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print", new { @class = "color-override svgColor3" })</a>
                 <div>
@@ -99,7 +97,7 @@
         </div>
         @{ Html.RenderPartial("_ItemComments");}
         <div class="preview" ng-bind-html="i.preview"></div>
-        <div class="raw-text" ng-if="i.firstPage && i.document">
+        <div class="raw-text" ng-if="i.document">
             <md-switch ng-model="i.showRawText">
                 @ItemsResources.ShowRawText
             </md-switch>

@@ -98,8 +98,8 @@
                            url: '/item/{universityName}/{boxId}/{boxName}/{itemId}/{itemName}/',
                            controller: 'ItemController as i',
                            resolve: {
-                               itemData: ['itemService', '$stateParams', '$rootScope', function (itemService, $stateParams) {
-                                   return itemService.getDetails($stateParams.boxId, $stateParams.itemId);
+                               itemData: ['itemService', '$stateParams', 'history', function (itemService, $stateParams, history2) {
+                                   return itemService.getDetails($stateParams.boxId, $stateParams.itemId, history2.firstState());
                                }]
                            },
                            data: { animateClass: 'itemPage' }
