@@ -135,4 +135,7 @@
   <data name="Advertise" xml:space="preserve">
     <value>Advertise with us</value>
   </data>
+  <data name="LoaderText" xml:space="preserve">
+    <value>Let's Spitball</value>
+  </data>
 </root>
