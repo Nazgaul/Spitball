@@ -275,7 +275,7 @@
 .homePage .home-page-body section.main .login-wrapper .loader {
   display: none;
   position: absolute;
-  top: calc(50% - 25px);
+  top: 35%;
   right: calc(50% - 25px);
   color: transparent;
   height: 50px;
@@ -283,14 +283,15 @@
   text-align: center;
 }
 .homePage .home-page-body section.main .login-wrapper .loader .loader-text {
-  color: #fff;
+  color: #f76446;
   position: absolute;
   top: calc(50% - 25px);
   right: calc(50% - 50px);
   width: 100px;
   text-align: center;
   margin-top: 55px;
-  font-size: 11px;
+  font-size: 12px;
+  letter-spacing: 1px;
 }
 .homePage .home-page-body section.main .login-wrapper .form-actions.loading ~ .loader {
   display: block;
@@ -1213,7 +1214,7 @@
   margin: 0 auto;
   width: 15%;
   height: 15%;
-  background-color: #fff;
+  background-color: #f76446;
   border-radius: 100%;
   -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
   animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
