@@ -86,10 +86,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var item = m_ItemRepository.Load(itemId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, item));
-            if (box.Actual is AcademicBoxClosed)
-            {
-                return Task.FromResult<object>(null);
-            }
+            //if (box.Actual is AcademicBoxClosed)
+            //{
+            //    return Task.FromResult<object>(null);
+            //}
            return m_SendPush.SendAddItemNotification(item.Uploader.Name, box.Name, box.Id, userIds);
                         
           
@@ -105,10 +105,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
              var reply =  m_ReplyRepository.Load(replyId.Value);
              DoUpdateLoop(userIds, u => new Updates(u, box, reply));
-             if (box.Actual is AcademicBoxClosed)
-             {
-                 return Task.FromResult<object>(null);
-             }
+             //if (box.Actual is AcademicBoxClosed)
+             //{
+             //    return Task.FromResult<object>(null);
+             //}
              return m_SendPush.SendAddReplyNotification(reply.User.Name, reply.Text, box.Name, box.Id, reply.Question.Id, userIds);
         }
 
@@ -124,10 +124,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 Task.FromResult<object>(null);
             }
-            if (box.Actual is AcademicBoxClosed)
-            {
-                return Task.FromResult<object>(null);
-            }
+            //if (box.Actual is AcademicBoxClosed)
+            //{
+            //    return Task.FromResult<object>(null);
+            //}
             try
             {
                 var removeHtmlRegex = new Regex("<[^>]*>", RegexOptions.Compiled);
