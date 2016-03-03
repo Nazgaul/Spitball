@@ -486,12 +486,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Priority = 0.95,
                         Frequency = SitemapFrequency.Daily
                     });
-                nodes.Add(
-                    new SitemapNode(requestContext, "Blog", new { lang = "he-il" })
-                    {
-                        Priority = 0.95,
-                        Frequency = SitemapFrequency.Daily
-                    });
+                //Something is wrong with this url
+                //nodes.Add(
+                //    new SitemapNode(requestContext, "Blog", new { lang = "he-il" })
+                //    {
+                //        Priority = 0.95,
+                //        Frequency = SitemapFrequency.Daily
+                //    });
                 nodes.Add(
                     new SitemapNode(requestContext, "AboutUs", null)
                     {

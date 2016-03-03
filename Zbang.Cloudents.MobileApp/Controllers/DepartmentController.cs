@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -9,6 +10,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.Infrastructure.Url;
@@ -40,14 +42,16 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             var query = new GetLibraryNodeQuery(universityId.Value, guid, User.GetCloudentsUserId());
             var result = await m_ZboxReadService.GetLibraryNodeAsync(query);
+
             return Request.CreateResponse(new
             {
-                Boxes = result.Boxes.Select(s=> new
+                Boxes = (result.Boxes ?? new List<BoxDto>())
+                .Select(s=> new
                 {
                    s.Id 
                 }),
-                Details = new { result.Details.Name, result.Details.State, result.Details.UserType } ,
-                Nodes = result.Nodes.Select(s=> new
+                Details = result.Details == null ? null : new { result.Details.Name, result.Details.State, result.Details.UserType } ,
+                Nodes = (result.Nodes ?? new List<NodeDto>()).Select(s=> new
                 {
                     s.UserType,
                     s.State,
