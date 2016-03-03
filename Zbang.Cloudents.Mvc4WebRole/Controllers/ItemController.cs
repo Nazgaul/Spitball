@@ -132,7 +132,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> Load(long boxId, long itemId)
+        public async Task<ActionResult> Load(long boxId, long itemId,bool firstTime, CancellationToken cancellationToken)
         {
             try
             {
@@ -151,8 +151,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         }
                     }, userId, DateTime.UtcNow));
 
-                await Task.WhenAll(tItem, tTransAction);
+                var tContent = Task.FromResult<string>(null);
+                if (firstTime)
+                {
+                    using (var token = CreateCancellationToken(cancellationToken))
+                    {
+                        tContent =  m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
+                        
+                    }
+                }
+                await Task.WhenAll(tItem, tTransAction, tContent);
                 var retVal = tItem.Result;
+
                 return JsonOk(new
                 {
                     retVal.Blob,
@@ -167,6 +177,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     retVal.Like,
                     retVal.Likes,
                     retVal.Date,
+                    fileContent = tContent.Result
                 });
             }
             catch (BoxAccessDeniedException)
@@ -180,22 +191,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError("On item load boxid = " + boxId + " ,itemid = " + itemId, ex);
-                return Json(new JsonResponse(false));
+                return JsonError();
             }
 
         }
 
 
 
-        [BoxPermission("boxId"), HttpGet, ZboxAuthorize(IsAuthenticationRequired = false)]
-        public async Task<ActionResult> Content(long boxId, long itemId, CancellationToken cancellationToken)
-        {
-            using (var token = CreateCancellationToken(cancellationToken))
-            {
-                var content = await m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
-                return JsonOk(content);
-            }
-        }
+        //[BoxPermission("boxId"), HttpGet, ZboxAuthorize(IsAuthenticationRequired = false)]
+        //public async Task<ActionResult> Content(long boxId, long itemId, CancellationToken cancellationToken)
+        //{
+        //    using (var token = CreateCancellationToken(cancellationToken))
+        //    {
+        //        var content = await m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
+        //        return JsonOk(content);
+        //    }
+        //}
 
         /// <summary>
         /// Download Item

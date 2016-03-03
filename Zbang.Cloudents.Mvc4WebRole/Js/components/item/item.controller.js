@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', 'history'];
+        'itemData'];
 
     function item($stateParams, itemService, $sce, $location, $q,
-        user, itemData, history2) {
+        user, itemData) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
@@ -24,7 +24,7 @@
         i.details.printUrl = $location.path() + 'print/';
         i.details.boxUrl = i.details.boxUrl + 'items/';
         getPreview();
-        i.firstPage = history2.firstState();
+       // i.firstPage = history2.firstState();
         i.showRawText = false;
         
 
@@ -43,12 +43,13 @@
 
         i.swipeLeft = swipeLeft;
         i.swipeRight = swipeRight;
-        
-        if (i.firstPage && i.details.type === "File") {
-            itemService.content(boxid, itemId).then(function (response) {
-                i.document = response;
-            });
-        }
+
+        i.document = itemData.fileContent;
+        //if (i.firstPage && i.details.type === "File") {
+        //    itemService.content(boxid, itemId).then(function (response) {
+        //        i.document = response;
+        //    });
+        //}
         function getPreview() {
             i.loader = true;
             return itemService.getPreview(i.details.blob, index, itemId, boxid).then(function (data) {

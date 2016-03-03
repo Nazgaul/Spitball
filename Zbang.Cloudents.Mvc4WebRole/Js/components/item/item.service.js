@@ -5,12 +5,12 @@
     function library(ajaxservice) {
         var d = this;
 
-        d.getDetails = function (boxId, itemId) {
-            return ajaxservice.get('/item/load/', { boxId: boxId, itemId: itemId });
+        d.getDetails = function (boxId, itemId, firstTime) {
+            return ajaxservice.get('/item/load/', { boxId: boxId, itemId: itemId, firstTime: firstTime });
         };
-        d.content = function(boxId, itemId) {
-            return ajaxservice.get('/item/content/', { boxId: boxId, itemId: itemId })
-        }
+        //d.content = function(boxId, itemId) {
+        //    return ajaxservice.get('/item/content/', { boxId: boxId, itemId: itemId })
+        //}
         d.getPreview = function (blobName, index, itemId, boxId) {
             return ajaxservice.get('/item/preview/', {
                 blobName: blobName,

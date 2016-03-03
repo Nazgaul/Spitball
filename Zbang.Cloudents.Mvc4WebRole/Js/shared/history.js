@@ -43,7 +43,7 @@
             return arr.pop();
         }
         self.firstState = function() {
-            return arr.length === 1;
+            return arr.length === 0;
         }
         
     }
