@@ -102,7 +102,7 @@
                 @ItemsResources.ShowRawText
             </md-switch>
             <div class="text-wrapper" ng-class="{'collapse': !i.showRawText}">
-                <div class="text">
+                <div class="text" @*ng-bind-html="::i.document"*@>
                     {{::i.document}}
                 </div>
             </div>

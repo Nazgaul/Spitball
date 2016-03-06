@@ -19,7 +19,7 @@ using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class UpdateSearch : IJob
+    public class UpdateSearchItem : IJob
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
@@ -30,7 +30,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly Microsoft.WindowsAzure.Storage.Blob.CloudBlobClient m_BlobClient;
         private const string PrefixLog = "Search Item";
 
-        public UpdateSearch(IZboxReadServiceWorkerRole zboxReadService,
+        public UpdateSearchItem(IZboxReadServiceWorkerRole zboxReadService,
             IZboxWorkerRoleService zboxWriteService,
             IFileProcessorFactory fileProcessorFactory,
              ICloudBlockProvider blobProvider, IItemWriteSearchProvider3 itemSearchProvider3)

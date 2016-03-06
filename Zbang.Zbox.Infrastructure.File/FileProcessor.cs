@@ -55,6 +55,7 @@ namespace Zbang.Zbox.Infrastructure.File
             input = spaceReg.Replace(input, " ");
             input = input.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
             input = input.Replace("\0", string.Empty);
+            input = input.Replace("בס\"ד", string.Empty);
             return input;
         }
 

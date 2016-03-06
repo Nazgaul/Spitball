@@ -1,5 +1,5 @@
 User-agent: *
-Disallow: /error/
+disallow: /error/
 disallow: /dashboard/
 disallow: /library/
 disallow: /user/
@@ -7,8 +7,6 @@ disallow: /invite/
 disallow: /account/changelanguage/
 disallow: /account/forgotpassword/
 disallow: /account/resetpassword/
-disallow: /account/welcome/
-disallow: /store/
 disallow: */print/$
 disallow: */download/$
 disallow: /b/
