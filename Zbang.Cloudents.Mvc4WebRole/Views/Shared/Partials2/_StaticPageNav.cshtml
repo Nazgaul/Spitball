@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div class="nav-bar">
-    <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
+    <button type="button" class="nav-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
     <div class="items-container">
         <a href="@Url.RouteUrl("AboutUs")">@HomeResources.AboutCloudents</a>
         <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>
@@ -11,5 +11,5 @@
         <a href="@Url.RouteUrl("Jobs")">@SharedResources.Jobs</a>
         <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a>
     </div>
-    <button type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
+    <button type="button" class="nav-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
 </div>

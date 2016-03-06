@@ -158,6 +158,8 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
+  font-weight: normal;
+  margin-bottom: 0;
 }
 .static-page-header nav ul li.language {
   position: relative;
@@ -453,4 +455,52 @@
 }
 .static-page > .content {
   margin-top: 70px;
+}
+.static-page > .content .nav-bar {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+}
+.static-page > .content .nav-bar button {
+  position: absolute;
+  top: 4px;
+  padding: 0;
+}
+.static-page > .content .nav-bar button svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+}
+.static-page > .content .nav-bar button.nav-prev {
+  right: 0;
+  -moz-transform: rotate(-180deg);
+  -ms-transform: rotate(-180deg);
+  -o-transform: rotate(-180deg);
+  -webkit-transform: rotate(-180deg);
+  transform: rotate(-180deg);
+}
+.static-page > .content .nav-bar button.nav-next {
+  left: 0;
+}
+.static-page > .content .nav-bar .bx-wrapper {
+  padding: 0 20px;
+  max-width: 880px;
+}
+.static-page > .content .nav-bar .bx-wrapper .items-container a {
+  text-align: center;
+}
+.help-page .panel-body img {
+  max-width: 100%;
+  height: inherit;
+}
+.top-image {
+  height: 260px;
+  background-image: url("../../Images/HomePage2/HP_image.jpg");
+  background-position: 50% 75%;
+  background-size: cover;
+}
+@media (max-width: 600px) {
+  .top-image {
+    height: 100px;
+  }
 }
