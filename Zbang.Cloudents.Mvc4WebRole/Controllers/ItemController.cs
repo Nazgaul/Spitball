@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.SessionState;
-using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
@@ -63,10 +60,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index2");
         }
 
-        [BoxPermission("boxId", Order = 2)]
-        [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
-          Duration = TimeConsts.Hour * 1, VaryByParam = "itemid",
-          Location = OutputCacheLocation.Server, Order = 4)]
+        [BoxPermission("boxId", Order = 1)]
+        [DonutOutputCache(CacheProfile = "ItemPage", Order = 2)]
         [Route("item/{universityName}/{boxId:long}/{boxName}/{itemid:long}/{itemName}", Name = "Item")]
         public async Task<ActionResult> Index(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
@@ -92,7 +87,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var culture = Languages.GetCultureBaseOnCountry(model.Country);
                 SeoResources.Culture = culture;
-                var seoItemName = Path.GetFileNameWithoutExtension(model.Name);
 
                 ViewBag.title = string.Format("{0} - {1} - {2} | {3}", model.BoxName, model.DepartmentName, model.Name,
                     SeoResources.Cloudents);
@@ -102,6 +96,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     ViewBag.metaDescription += model.Description.RemoveEndOfString(100);
                 }
+                ViewBag.metaDescription = Server.HtmlDecode(ViewBag.metaDescription);
                 return View("Empty");
             }
             catch (ItemNotFoundException)
@@ -123,16 +118,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var model = await ZboxReadService.GetItemSeoAsync(query);
             return RedirectPermanent(model.Url);
         }
+
         /// <summary>
         /// Ajax Request - item data
         /// </summary>
         /// <param name="boxId"></param>
         /// <param name="itemId"></param>
+        /// <param name="firstTime"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> Load(long boxId, long itemId,bool firstTime, CancellationToken cancellationToken)
+        public async Task<ActionResult> Load(long boxId, long itemId, bool firstTime, CancellationToken cancellationToken)
         {
             try
             {
@@ -156,8 +154,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     using (var token = CreateCancellationToken(cancellationToken))
                     {
-                        tContent =  m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
-                        
+                        tContent = m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
+
                     }
                 }
                 await Task.WhenAll(tItem, tTransAction, tContent);
