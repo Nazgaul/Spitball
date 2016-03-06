@@ -130,7 +130,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> Load(long boxId, long itemId, bool firstTime, CancellationToken cancellationToken)
+        public async Task<ActionResult> Load(long boxId, long itemId, bool? firstTime, CancellationToken cancellationToken)
         {
             try
             {
@@ -150,7 +150,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     }, userId, DateTime.UtcNow));
 
                 var tContent = Task.FromResult<string>(null);
-                if (firstTime)
+                if (firstTime.HasValue && firstTime.Value)
                 {
                     using (var token = CreateCancellationToken(cancellationToken))
                     {

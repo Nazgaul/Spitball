@@ -106,15 +106,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateItem(int instanceId, int instanceCount)
         {
-            //var updates = new ItemToUpdateSearchDto
-            //{
-            //    ItemsToUpdate = new List<ItemSearchDto>
-            //    {
-            //        new ItemSearchDto {Id = 291153, BlobName = "12e5fe33-aca7-4aee-b194-2c99a0739d04.docx"}
-            //    },
-            //    ItemsToDelete = new List<long>()
-
-            //};
+            
             var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount, 10);
             if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return false;
             var tasks = new List<Task>();
@@ -172,17 +164,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //var blob = m_BlobProvider.GetFile(msgData.BlobName);
             //var processor = m_FileProcessorFactory.GetProcessor(blob.Uri);
             if (processor.ContentProcessor == null) return;
-            var previewContainer = m_BlobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
+           // var previewContainer = m_BlobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
             var previewBlobName = WebUtility.UrlEncode(msgData.BlobName + ".jpg");
             if (previewBlobName != null && previewBlobName.Length > 260) //The fully qualified file name must be less than 260 characters, and the directory name must be less than 248 characters.
             {
                 return;
             }
-            var blobInPreview = previewContainer.GetBlockBlobReference(previewBlobName);
-            if (blobInPreview.Exists() && !(processor.ContentProcessor is LinkProcessor)) //rerun on links need to do it once.
-            {
-                return;
-            }
+            //var blobInPreview = previewContainer.GetBlockBlobReference(previewBlobName);
+            //if (blobInPreview.Exists() && !(processor.ContentProcessor is LinkProcessor)) //rerun on links need to do it once.
+            //{
+            //    return;
+            //}
             //taken from : http://blogs.msdn.com/b/nikhil_agarwal/archive/2014/04/02/10511934.aspx
             var wait = new ManualResetEvent(false);
 
