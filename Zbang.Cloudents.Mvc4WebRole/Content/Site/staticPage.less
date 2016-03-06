@@ -528,43 +528,56 @@
 .static-page > .content {
     margin-top: 70px;
 
+    .static-body {
+        background: @textColorWhite;
+        padding-bottom: 25px;
+    }
 
-    .nav-bar {
-        position: relative;
-        max-width: 880px;
-        margin: 0 auto;
+    .panel-group{
+        margin-bottom: 0;
+    }
 
-        button {
-            position: absolute;
-            top: 4px;
-            padding: 0;
+    .nav-bar-wrapper {
+        background: #424346;
+        padding: 10px;
 
-            svg {
-                width: 15px;
-                height: 15px;
-                display: block;
-            }
-
-            &.nav-prev {
-                left: 0;
-                -moz-transform: rotate(180deg);
-                -ms-transform: rotate(180deg);
-                -o-transform: rotate(180deg);
-                -webkit-transform: rotate(180deg);
-                transform: rotate(180deg);
-            }
-
-            &.nav-next {
-                right: 0;
-            }
-        }
-
-        .bx-wrapper {
-            padding: 0 20px;
+        .nav-bar {
+            position: relative;
             max-width: 880px;
+            margin: 0 auto;
 
-            .items-container a {
-                text-align: center;
+            button {
+                position: absolute;
+                top: 4px;
+                padding: 0;
+
+                svg {
+                    width: 15px;
+                    height: 15px;
+                    display: block;
+                }
+
+                &.nav-prev {
+                    left: 0;
+                    -moz-transform: rotate(180deg);
+                    -ms-transform: rotate(180deg);
+                    -o-transform: rotate(180deg);
+                    -webkit-transform: rotate(180deg);
+                    transform: rotate(180deg);
+                }
+
+                &.nav-next {
+                    right: 0;
+                }
+            }
+
+            .bx-wrapper {
+                padding: 0 20px;
+                max-width: 880px;
+
+                .items-container a {
+                    text-align: center;
+                }
             }
         }
     }
