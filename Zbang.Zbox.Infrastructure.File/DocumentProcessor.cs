@@ -29,6 +29,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             var thumbnailUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
             var text = extractTextFromDocument();
+           
             using (var msPreview = previewStream())
             {
                 using (var ms = thumbnailStream())
