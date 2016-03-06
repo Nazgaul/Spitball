@@ -5,12 +5,20 @@
 .homePage {
     font-family: sans-serif;
 
+<<<<<<< HEAD
+=======
 
+
+>>>>>>> fd8d0b177b0b0bded32bdce77232945c9f0509e4
     .hidden {
         display: none !important;
     }
 
     .page-content {
+<<<<<<< HEAD
+=======
+
+>>>>>>> fd8d0b177b0b0bded32bdce77232945c9f0509e4
     }
 
     .home-page-body {
@@ -1114,6 +1122,10 @@
                 }
             }
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> fd8d0b177b0b0bded32bdce77232945c9f0509e4
         //@media(max-width: 768px) {
         //@media(max-width: 768px) {
         //    section.main .welcome-text {

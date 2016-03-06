@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<Zbang.Cloudents.Mvc4WebRole.Models.FAQ.Category>
+@{
+    //Layout = null;
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+}
 <div class="help-page">
+    @{Html.RenderPartial("_StaticPageNav");}
     <div class="portlet light color-override backgroundTransparent">
         <div class="caption caption-md">
             <h2 class="caption-subject uppercase">@ViewBag.pageTitle</h2>
@@ -15,21 +20,38 @@
                     <md-tab ui-sref="#tab_@i" md-active="i == 1">
                         <md-tab-label class="text-capitalize">@category.Name</md-tab-label>
                         <md-tab-body>
-                            <uib-accordion>
-                                @foreach (var faq in category.QuestionNAnswers)
+                            @*<div>*@
+                                
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    @foreach (var faq in category.QuestionNAnswers)
                                 {
-                                    <uib-accordion-group heading="@faq.Question" is-open="@(j==1 ? "true" :"false")">
-                                        @Html.Raw(faq.Answer)
-                                    </uib-accordion-group>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="heading-@j">
+                                            <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-@j" aria-expanded="true" aria-controls="collapse-@j">
+                                                    @faq.Question
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse-@j" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-@j">
+                                            <div class="panel-body">
+                                                @Html.Raw(faq.Answer)
+                                            </div>
+                                        </div>
+                                    </div>
                                     j++;
                                 }
-                            </uib-accordion>
-                            
+                                </div>
+                               
+                            @*</div>*@
+
                         </md-tab-body>
                     </md-tab>
-                                    i++;
+                    i++;
                 }
             }
         </md-tabs>
     </div>
 </div>
+
+
