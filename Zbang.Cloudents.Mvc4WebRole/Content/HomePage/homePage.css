@@ -4,9 +4,6 @@
 /*
 @import this file directly into your existing Less files to use these mixins
 */
-/*
-@import this file directly into your existing Less files to use these mixins
-*/
 .homePage {
   font-family: sans-serif;
 }
@@ -1046,44 +1043,6 @@
   }
   .homePage .home-page-body section.reviews blockquote .comment > span {
     font-size: 11vw;
-  }
-  .homePage .home-page-body footer .content .app {
-    margin-right: 0;
-  }
-  .homePage .home-page-body footer .content .app h1,
-  .homePage .home-page-body footer .content .app h2 {
-    font-size: 5vw;
-  }
-  .homePage .home-page-body footer .content .app .app-links {
-    margin-top: 20px;
-  }
-  .homePage .home-page-body footer .content .app .app-links a {
-    width: 49%;
-    display: inline-block;
-  }
-  .homePage .home-page-body footer .content .app .app-links a img {
-    width: 100%;
-    max-width: 160px;
-  }
-  .homePage .home-page-body footer .content .app .app-links h2 {
-    font-size: 4vw;
-  }
-  .homePage .home-page-body footer .content .info .links h2,
-  .homePage .home-page-body footer .content .info .links a {
-    font-size: 4vw;
-  }
-  .homePage .home-page-body footer .content .info .links a {
-    line-height: 7vw;
-  }
-  .homePage .home-page-body footer .content .info .social-links {
-    text-align: center;
-  }
-  .homePage .home-page-body footer .content .info .social-links svg {
-    width: 40px;
-    height: 40px;
-  }
-  .homePage .home-page-body footer .content h2 {
-    font-size: 5vw;
   }
 }
 /*#region animations*/
