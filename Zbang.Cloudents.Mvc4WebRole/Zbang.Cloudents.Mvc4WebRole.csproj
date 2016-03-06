@@ -1824,6 +1824,7 @@
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\homePage\homeScreen.js" />
+    <Content Include="Js\shared\staticPages.js" />
     <Content Include="Scripts\angular-dfp.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-1.2.1.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-1.2.1.min.js" />

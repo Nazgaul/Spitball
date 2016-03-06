@@ -168,7 +168,7 @@
         //AnalyticsProvider.setDomainName('XXX');
 
 
-        DoubleClickProvider.defineSlot('/107474526/Matan_Test2', [[300, 250], [468, 60], [728, 90]], 'div-gpt-ad-1457014054898-0')
+        DoubleClickProvider.defineSlot('/107474526/Matan_Test2', [[300, 75], [468, 60], [728, 90]], 'div-gpt-ad-1457014054898-0')
                            .defineSlot('/107474526/Test_With_Asaf', [250, 250], 'div-gpt-ad-1457018235153-0');
 
         DoubleClickProvider.defineSizeMapping('div-gpt-ad-1457014054898-0')
@@ -176,7 +176,7 @@
             .addSize([640, 480], [468, 60])
            // .addSize([500, 350], [480, 320])
             //// Fits browsers of any size smaller than 640 x 480
-            .addSize([0, 0], [300, 250]);
+            .addSize([0, 0], [300, 75]);
         
         DoubleClickProvider.setRefreshInterval(30000);
 
