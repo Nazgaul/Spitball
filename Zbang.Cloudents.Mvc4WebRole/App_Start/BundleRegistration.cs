@@ -42,8 +42,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     }
                 },
                   {
-                },
-                  {
                     "signin", new[]
                     {
                         "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
