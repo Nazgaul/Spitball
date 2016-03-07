@@ -6,11 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
-using Microsoft.WindowsAzure.Storage;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
-using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -27,7 +25,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IItemWriteSearchProvider3 m_ItemSearchProvider3;
         private readonly ICloudBlockProvider m_BlobProvider;
 
-        private readonly Microsoft.WindowsAzure.Storage.Blob.CloudBlobClient m_BlobClient;
+       // private readonly Microsoft.WindowsAzure.Storage.Blob.CloudBlobClient m_BlobClient;
         private const string PrefixLog = "Search Item";
 
         public UpdateSearchItem(IZboxReadServiceWorkerRole zboxReadService,
@@ -41,11 +39,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_BlobProvider = blobProvider;
             m_ItemSearchProvider3 = itemSearchProvider3;
 
-            var cloudStorageAccount = CloudStorageAccount.Parse(
+           // var cloudStorageAccount = CloudStorageAccount.Parse(
 
-                    Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("StorageConnectionString"));
+             //       Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("StorageConnectionString"));
 
-            m_BlobClient = cloudStorageAccount.CreateCloudBlobClient();
+            //m_BlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
 
