@@ -122,5 +122,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
                 return ResourceManager.GetString("SignIn", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Built by students for students.
+        /// </summary>
+        public static string StaticPageHeader {
+            get {
+                return ResourceManager.GetString("StaticPageHeader", resourceCulture);
+            }
+        }
     }
 }

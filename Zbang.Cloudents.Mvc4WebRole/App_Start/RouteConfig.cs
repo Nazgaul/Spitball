@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         );
             routes.MapRoute("Blog2",
              "blog",
-             new { controller = "Home", action = "IndexEmpty" }
+             new { controller = "Home", action = "Blog" }
          );
             routes.MapRoute("Blog",
               "blog/{lang}",

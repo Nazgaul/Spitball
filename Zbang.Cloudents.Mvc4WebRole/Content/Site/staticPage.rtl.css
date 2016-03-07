@@ -1,6 +1,41 @@
 ﻿/*
 @import this file directly into your existing Less files to use these mixins
 */
+body {
+  direction: rtl;
+}
+.static-page .page-content {
+  max-width: 1200px;
+  min-height: 1000px;
+  margin: 25px auto;
+}
+iframe {
+  display: block;
+  width: 100%;
+  height: calc(100vh - 430px);
+  border: none;
+}
+.privacy h1,
+.terms h1 {
+  color: #4190b9;
+  margin-top: 0;
+  font-size: 24px;
+  padding: 10px;
+  font-weight: bold;
+}
+.privacy h3,
+.terms h3 {
+  color: #4190b9;
+  font-size: 26px;
+}
+.privacy > div,
+.terms > div {
+  margin: 10px;
+}
+.privacy .content,
+.terms .content {
+  font-size: 20px;
+}
 .static-page-header {
   position: fixed;
   z-index: 2;
@@ -453,19 +488,18 @@
     font-size: 5vw;
   }
 }
+.static-page {
+  background: #f5f5f5;
+}
 .static-page > .content {
   margin-top: 70px;
-}
-.static-page > .content .static-body {
-  background: #f5f5f5;
-  padding-bottom: 25px;
 }
 .static-page > .content .panel-group {
   margin-bottom: 0;
 }
 .static-page > .content .nav-bar-wrapper {
   background: #424346;
-  padding: 10px;
+  padding: 0 10px;
 }
 .static-page > .content .nav-bar-wrapper .nav-bar {
   position: relative;
@@ -475,7 +509,12 @@
 .static-page > .content .nav-bar-wrapper .nav-bar button {
   position: absolute;
   top: 4px;
-  padding: 0;
+  padding: 14px 0;
+}
+@media (min-width: 900px) {
+  .static-page > .content .nav-bar-wrapper .nav-bar button {
+    display: none;
+  }
 }
 .static-page > .content .nav-bar-wrapper .nav-bar button svg {
   width: 15px;
@@ -499,19 +538,201 @@
 }
 .static-page > .content .nav-bar-wrapper .nav-bar .bx-wrapper .items-container a {
   text-align: center;
+  line-height: 42px;
+  color: #f5f5f5;
+  padding-top: 4px;
+  border-bottom: 4px solid transparent;
+  text-decoration: none;
+}
+.static-page > .content .nav-bar-wrapper .nav-bar .bx-wrapper .items-container a:hover {
+  color: #4190b9;
+}
+.static-page > .content .nav-bar-wrapper .nav-bar .bx-wrapper .items-container a.active {
+  border-bottom-color: #4190b9;
 }
 .help-page .panel-body img {
   max-width: 100%;
   height: inherit;
+}
+.help-page #main-accordion {
+  padding: 0 10px;
+}
+.help-page #main-accordion .panel {
+  border-radius: 8px;
+  overflow: hidden;
+}
+.help-page #main-accordion .panel > .panel-heading {
+  background: #888b8e;
+  color: #f5f5f5;
+}
+.help-page #main-accordion .panel > .panel-heading a:hover {
+  color: #f5f5f5;
+}
+.help-page #main-accordion .panel .panel-body {
+  font-size: 13px;
+}
+.help-page #main-accordion .panel.expanded > .panel-heading {
+  background: #4190b9;
 }
 .top-image {
   height: 260px;
   background-image: url("../../Images/HomePage2/HP_image.jpg");
   background-position: 50% 75%;
   background-size: cover;
+  text-align: center;
+}
+.top-image .text {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  height: 100%;
+  align-items: flex-end;
+  justify-content: center;
+  text-transform: uppercase;
+  color: #f5f5f5;
+  background: linear-gradient(to top, #000000 0, transparent 200px, transparent 100%);
+  font-size: 34px;
+  padding-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .top-image .text {
+    font-size: 5vw;
+    padding-bottom: 10px;
+  }
 }
 @media (max-width: 600px) {
   .top-image {
     height: 100px;
   }
+}
+.aboutUs-page {
+  margin-top: 5px;
+}
+.aboutUs-page .advantages .portlet {
+  border-radius: 0;
+  text-align: center;
+  padding: 22px 30px;
+  min-height: 240px;
+}
+.aboutUs-page .advantages .card-icon {
+  border-radius: 100%;
+  display: inline-block;
+  width: 70px;
+  height: 70px;
+  padding: 14px;
+  margin-bottom: 20px;
+}
+.aboutUs-page .advantages .card-icon.speech svg {
+  width: 40px;
+  height: 40px;
+}
+.aboutUs-page .advantages .card-icon.web svg {
+  width: 40px;
+  height: 40px;
+}
+.aboutUs-page .advantages .card-icon.social-network {
+  padding: 10px;
+}
+.aboutUs-page .advantages .card-icon.social-network svg {
+  width: 45px;
+  height: 45px;
+}
+.aboutUs-page .advantages .card-icon.hand {
+  padding: 15px;
+}
+.aboutUs-page .advantages .card-icon.hand svg {
+  width: 37px;
+  height: 37px;
+}
+.aboutUs-page .advantages .card-icon svg {
+  width: 65px;
+  height: 65px;
+}
+.aboutUs-page .advantages .card-title {
+  font-weight: bold;
+}
+.aboutUs-page .advantages .card-desc span {
+  line-height: 17px;
+  display: block;
+}
+.aboutUs-page .about-text {
+  font-size: 16px;
+  line-height: initial;
+  background: transparent;
+  padding: 0;
+  height: 360px;
+  overflow: scroll;
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+.aboutUs-page .about-text h4 {
+  font-weight: bold;
+  margin: 0;
+}
+.aboutUs-page .about-text div {
+  margin-bottom: 20px;
+}
+.aboutUs-page .team-header h1 {
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+.aboutUs-page .team > div {
+  padding: 15px;
+}
+.aboutUs-page .team .portlet {
+  text-align: center;
+  border-radius: 0;
+}
+.aboutUs-page .team .portlet .desc {
+  height: 44px;
+  display: block;
+}
+.aboutUs-page .team .portlet .desc span {
+  white-space: pre-wrap;
+}
+.aboutUs-page .team .portlet .photo {
+  display: inline-block;
+  width: 50%;
+}
+.aboutUs-page .middle-area {
+  margin-left: 0;
+  margin-right: 0;
+  text-align: center;
+}
+.aboutUs-page .middle-area .about-text-wrapper {
+  text-align: right;
+}
+.aboutUs-page .middle-area .video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+.aboutUs-page .middle-area .video-wrapper iframe,
+.aboutUs-page .middle-area .video-wrapper object,
+.aboutUs-page .middle-area .video-wrapper embed {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+.aboutUs-page .about-header {
+  height: 500px;
+  background-image: url("/Images/aboutUs/aboutBg.jpg");
+  background-position: center;
+  margin: 0 -5px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.aboutUs-page .about-header h1 {
+  font-weight: 600;
+  font-size: 52px;
+}
+.aboutUs-page .about-header h2 {
+  text-transform: uppercase;
+  font-size: 22px;
 }

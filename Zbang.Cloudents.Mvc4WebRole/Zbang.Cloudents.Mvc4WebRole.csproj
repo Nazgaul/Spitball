@@ -2845,6 +2845,7 @@
     <Content Include="Views\Shared\Partials2\_StaticPageFooter.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageNav.cshtml" />
+    <Content Include="Views\Home\AdvertiseWithUs.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -3,14 +3,10 @@
     //Layout = null;
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
 }
-<div class="help-page">
-    <div class="top-image"></div>
+<div class="help-page static-page">
     <div class="static-body">
         @{Html.RenderPartial("_StaticPageNav");}
-        <div class="portlet light color-override backgroundTransparent">
-            <div class="caption caption-md">
-                <h2 class="caption-subject uppercase">@ViewBag.pageTitle</h2>
-            </div>
+        <div class="page-content">
             <div class="panel-group" id="main-accordion" role="tablist" aria-multiselectable="true">
                 @{
                     int i = 1;
@@ -23,20 +19,20 @@
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="heading-@i">
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-@i" aria-expanded="true" aria-controls="collapse-@i">
+                                    <a role="button" data-toggle="collapse" data-parent="#main-accordion" href="#collapse-@i" aria-expanded="true" aria-controls="collapse-@i">
                                         @category.Name
                                     </a>
                                 </h4>
                             </div>
                             <div id="collapse-@i" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-@i">
                                 <div class="panel-body">
-                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel-group" id="accordion-@i" role="tablist" aria-multiselectable="true">
                                         @foreach (var faq in category.QuestionNAnswers)
                                         {
                                             <div class="panel panel-default">
                                                 <div class="panel-heading" role="tab" id="heading-@i@j">
                                                     <h4 class="panel-title">
-                                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-@i@j" aria-expanded="true" aria-controls="collapse-@i@j">
+                                                        <a role="button" data-toggle="collapse" data-parent="#accordion-@i" href="#collapse-@i@j" aria-expanded="true" aria-controls="collapse-@i@j">
                                                             @faq.Question
                                                         </a>
                                                     </h4>
@@ -54,7 +50,7 @@
                             </div>
                         </div>
 
-                                        i++;
+                        i++;
                     }
                 }
             </div>

@@ -131,7 +131,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             ViewBag.title = SeoResources.TermsTitle;
             ViewBag.metaDescription = SeoResources.TermsMeta;
-            return View("Empty");
+            return View("TermsOfService");
         }
 
 
@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             ViewBag.title = SeoResources.PrivacyTitle;
             ViewBag.metaDescription = SeoResources.PrivacyMeta;
-            return View("Empty");
+            return View();
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
@@ -215,7 +215,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             ViewBag.title = SeoResources.AboutUsTitle;
             ViewBag.metaDescription = SeoResources.AboutUsMeta;
-            return View("Empty");
+            return View();
         }
 
         [Route("home")]
@@ -223,7 +223,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return RedirectToRoutePermanent("homePage");
         }
-
 
 
         public ActionResult Blog(string lang)
@@ -234,7 +233,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 iFrameSrc = "https://spitballcoh.wordpress.com/";
             }
-            return PartialView("Blog", iFrameSrc);
+            ViewBag.iFrameSrc = iFrameSrc;
+            return View();
         }
 
 
@@ -258,10 +258,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //}
 
 
-        public ActionResult TermsOfService()
-        {
-            return RedirectToRoutePermanent("TOS");
-        }
+        //public ActionResult TermsOfService()
+        //{
+        //    return RedirectToRoutePermanent("TOS");
+        //}
 
         [Route("home/privacy")]
         public ActionResult PrivacyOld()
@@ -319,13 +319,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
         [Route("advertisewithus", Name = "Advertise")]
-        public async Task<FileStreamResult> AdvertiseWithUs()
+        public ActionResult AdvertiseWithUs()
         {
-            var stream = await m_BlobProvider.Value.DownloadFileAsync("SB.pdf", "zboxhelp");
-
-            return new FileStreamResult(stream, "application/pdf");
-
-
+            return View();
         }
         [Route("home/help")]
         public ActionResult HelpOld()

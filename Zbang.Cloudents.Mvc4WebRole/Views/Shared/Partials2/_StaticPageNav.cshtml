@@ -1,5 +1,9 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div class="top-image">
+    <div class="text">@SharedResources.StaticPageHeader</div>
+</div>
 <div class="nav-bar-wrapper">
     <div class="nav-bar">
         <button type="button" class="nav-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
@@ -7,7 +11,7 @@
             <a href="@Url.RouteUrl("AboutUs")">@HomeResources.AboutCloudents</a>
             <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>
             <a href="@Url.RouteUrl("Privacy")">@FooterResources.PrivacyPolicy</a>
-            <a href="@Url.RouteUrl("Advertise")" target="_blank">@SharedResources.Advertise</a>
+            <a href="@Url.RouteUrl("Advertise")">@SharedResources.Advertise</a>
             <a href="@Url.RouteUrl("TOS")">@FooterResources.TermsOfService</a>
             <a href="@Url.RouteUrl("Jobs")">@SharedResources.Jobs</a>
             <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a>

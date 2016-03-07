@@ -2,16 +2,12 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
 
 @{
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
     ViewBag.Title = "About Us | Spitball";
 }
 
 <div class="aboutUs-page">
-    <div class="about-header">
-        <div flex="100">
-            <h1>@AboutUsResources.Title</h1>
-            <h2>@AboutUsResources.Subtitle</h2>
-        </div>
-    </div>
+    @{Html.RenderPartial("_StaticPageNav");}
     <div class="advantages" layout="row" layout-align="space-between start" layout-wrap>
         <div flex="50" flex-gt-md="25" flex-xs="100">
             <div class="portlet light">
