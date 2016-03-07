@@ -63,11 +63,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Spitball is a free online and mobile social studying application. We are a community built around academic activity so you can focus on studying. It is a place for students of any academic level to work together on assignments, find the study material they need, test their knowledge and discuss ideas.
         ///
-        ///As university students, we found ourselves struggling to find a fast and efficient way to share notes and study together online. Although some schools had official services for doing just that, they were of [rest of string was truncated]&quot;;.
+        ///All Spitball features are specifically designed with a student’s needs in mind, integrated as part of a single, easy to use and free social studying platform. Uploading and sharing documents with peers, tak [rest of string was truncated]&quot;;.
         /// </summary>
         public static string DescriptionA1 {
             get {
                 return ResourceManager.GetString("DescriptionA1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to As university students, we found ourselves struggling to find a fast and efficient way to share notes and study together online. Although some schools had official services for doing just that, they were often clunky and inflexible, making it difficult for us to share ideas with students outside of our class. Social sites made it easier to meet and communicate with one another, but they were not designed for academic life (and distractions were always close at hand). To fill this gap we set out to create a  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string DescriptionA2 {
+            get {
+                return ResourceManager.GetString("DescriptionA2", resourceCulture);
             }
         }
         
@@ -77,6 +86,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         public static string DescriptionQ1 {
             get {
                 return ResourceManager.GetString("DescriptionQ1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Our Vision.
+        /// </summary>
+        public static string DescriptionQ2 {
+            get {
+                return ResourceManager.GetString("DescriptionQ2", resourceCulture);
             }
         }
         
