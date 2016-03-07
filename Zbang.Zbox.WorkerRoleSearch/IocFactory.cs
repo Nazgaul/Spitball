@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using RegisterIoc = Zbang.Zbox.Infrastructure.RegisterIoc;
@@ -23,12 +22,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public const string StoreOrder = "StoreOrder";
 
         public const string EmailPartners = "EmailPartners";
-        public const string UpdateSearch = "UpdateSearch";
+        public const string UpdateSearchItem = "UpdateSearchItem";
         public const string UpdateSearchBox = "UpdateSearchBox";
         public const string UpdateSearchQuiz = "UpdateSearchQuiz";
         public const string UpdateSearchUniversity = "UpdateSearchUniversity";
 
-        public Zbang.Zbox.Infrastructure.Ioc.IocFactory Unity { get; private set; }
+        public Infrastructure.Ioc.IocFactory Unity { get; private set; }
         public IocFactory()
         {
             Unity = Infrastructure.Ioc.IocFactory.IocWrapper;
@@ -63,7 +62,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private void RegisterTypes()
         {
             //Unity.RegisterType<IJob, DeleteCacheBlobContainer>(DeleteCahceBlobContainer);
-            Unity.RegisterType<IJob, ProcessFile>(PreProcessFiles);
+            //Unity.RegisterType<IJob, ProcessFile>(PreProcessFiles);
             //Unity.RegisterType<IJob, DigestEmail2>(DigestEmail2);
             //Unity.RegisterType<IJob, UpdateDataBase>(Dbi);
             //Unity.RegisterType<IJob, UpdateDomainProcess>(Transaction);
@@ -72,7 +71,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //Unity.RegisterType<IJob, PartnersEmail>(EmailPartners);
             //Unity.RegisterType<IJob, StoreDataSync>(Product);
             //Unity.RegisterType<IJob, ProcessStoreOrder>(StoreOrder);
-            Unity.RegisterType<IJob, UpdateSearchItem>(UpdateSearch);
+            Unity.RegisterType<IJob, UpdateSearchItem>(UpdateSearchItem);
             Unity.RegisterType<IJob, UpdateSearchBox>(UpdateSearchBox);
             Unity.RegisterType<IJob, UpdateSearchQuiz>(UpdateSearchQuiz);
             Unity.RegisterType<IJob, UpdateSearchUniversity>(UpdateSearchUniversity);

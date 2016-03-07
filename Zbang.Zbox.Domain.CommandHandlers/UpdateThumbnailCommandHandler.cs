@@ -39,6 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             else
             {
                 file.Content = System.Net.WebUtility.HtmlEncode(command.FileContent).RemoveEndOfString(200);
+               
             }
             if (string.IsNullOrWhiteSpace(command.ThumbnailUrl))
             {
