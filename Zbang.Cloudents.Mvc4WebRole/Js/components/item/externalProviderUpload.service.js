@@ -49,21 +49,21 @@
             });
             return defer.promise;
         }
-        function buildDropBoxDeferes(link, boxId, name, isQuestion) {
+        function buildDropBoxDeferes(link, boxId, tab, name, isQuestion) {
             var defer1 = $q.defer();
-            itemService.addFromDropBox(boxId, link, name, isQuestion).then(function (response2) {
+            itemService.addFromDropBox(boxId, tab, link, name, isQuestion).then(function (response2) {
                 defer1.resolve(response2);
             }, function () {
                 defer1.resolve();
             });
             return defer1.promise;
         }
-        self.dropBox = function (boxId, isQuestion) {
+        self.dropBox = function (boxId, tab, isQuestion) {
             var defer = $q.defer();
             dropboxService.choose().then(function (response) {
                 var filesUpload = [];
                 for (var i = 0; i < response.length; i++) {
-                    filesUpload.push(buildDropBoxDeferes(response[i].link, boxId, response[i].name, isQuestion));
+                    filesUpload.push(buildDropBoxDeferes(response[i].link, boxId, tab, response[i].name, isQuestion));
                 }
                 $q.all(filesUpload).then(function (retVal) {
                     defer.resolve(retVal);

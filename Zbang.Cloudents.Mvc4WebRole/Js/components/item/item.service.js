@@ -30,9 +30,10 @@
                 name: name
             });
         }
-        d.addFromDropBox = function (boxId, url, name, question) {
+        d.addFromDropBox = function (boxId, tabid, url, name, question) {
             return ajaxservice.post('/upload/dropbox/', {
                 boxId: boxId,
+                tabId: tabid,
                 url: url,
                 name: name,
                 question: question

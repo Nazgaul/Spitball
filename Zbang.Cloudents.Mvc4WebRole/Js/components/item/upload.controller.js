@@ -57,7 +57,7 @@
         }
 
         function dropBox() {
-            externalUploadProvider.dropBox(boxid).then(externalUploadCallback, function (response) {
+            externalUploadProvider.dropBox(boxid, tab).then(externalUploadCallback, function (response) {
                 $scope.app.showToaster(response, 'uploadSection');
             });
         };
