@@ -25,22 +25,22 @@
         self.googleDriveInit = function () {
             return $q.all([googleService.initDrive(), googleService.initGApi()]);
         }
-        function buildGoogleDeferes(link, boxId, name, isQuestion) {
+        function buildGoogleDeferes(link, boxId, tab, name, isQuestion) {
             var defer1 = $q.defer();
-            itemService.addLink(link, boxId, isQuestion, name).then(function (response2) {
+            itemService.addLink(link, boxId, tab, isQuestion, name).then(function (response2) {
                 defer1.resolve(response2);
             },function() {
                 defer1.resolve();
             });
             return defer1.promise;
         }
-        self.google = function (boxId,isQuestion) {
+        self.google = function (boxId, tab, isQuestion) {
             var defer = $q.defer();
             googleService.picker().then(function (response) {
                 var filesUpload = [];
                 for (var i = 0; i < response.length; i++) {
                     
-                    filesUpload.push(buildGoogleDeferes(response[i].link, boxId, response[i].name, isQuestion));
+                    filesUpload.push(buildGoogleDeferes(response[i].link, boxId, tab, response[i].name, isQuestion));
                     //    );
                 }
                 $q.all(filesUpload).then(function (retVal) {

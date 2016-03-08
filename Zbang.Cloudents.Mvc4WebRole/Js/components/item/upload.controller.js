@@ -51,7 +51,7 @@
         u.uploadOpen = uploadOpen;
 
         function google() {
-            externalUploadProvider.google(boxid).then(externalUploadCallback, function (response) {
+            externalUploadProvider.google(boxid, tab).then(externalUploadCallback, function (response) {
                 $scope.app.showToaster(response, 'uploadSection');
             });
         }
