@@ -13,10 +13,11 @@
 
                     foreach (var category in Model)
                     {
-                        var active = i == 1 ? "active" : null;
+                        var active = i == 1 ? "in" : null;
+                        var expanded = i == 1 ? "expanded" : null;
                         var j = 1;
 
-                        <div class="panel panel-default">
+                        <div class="panel panel-default @expanded">
                             <div class="panel-heading" role="tab" id="heading-@i">
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#main-accordion" href="#collapse-@i" aria-expanded="true" aria-controls="collapse-@i">
@@ -24,7 +25,7 @@
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapse-@i" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-@i">
+                            <div id="collapse-@i" class="panel-collapse collapse @active" role="tabpanel" aria-labelledby="heading-@i">
                                 <div class="panel-body">
                                     <div class="panel-group" id="accordion-@i" role="tablist" aria-multiselectable="true">
                                         @foreach (var faq in category.QuestionNAnswers)
@@ -50,7 +51,7 @@
                             </div>
                         </div>
 
-                        i++;
+                                        i++;
                     }
                 }
             </div>

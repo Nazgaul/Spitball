@@ -533,11 +533,21 @@ iframe {
 .static-page > .content .nav-bar-wrapper .nav-bar button.nav-next {
   left: 0;
 }
-.static-page > .content .nav-bar-wrapper .nav-bar .bx-wrapper {
-  padding: 0 20px;
-  max-width: 880px;
+.static-page > .content .nav-bar-wrapper .nav-bar > .items-container {
+  white-space: nowrap;
 }
-.static-page > .content .nav-bar-wrapper .nav-bar .bx-wrapper .items-container a {
+.static-page > .content .nav-bar-wrapper .nav-bar > .items-container a {
+  display: inline-block;
+  width: 114px;
+}
+.static-page > .content .nav-bar-wrapper .nav-bar .bx-wrapper {
+  max-width: 830px;
+  padding: 0 20px;
+}
+.static-page > .content .nav-bar-wrapper .nav-bar .items-container {
+  padding: 0 50px;
+}
+.static-page > .content .nav-bar-wrapper .nav-bar .items-container a {
   text-align: center;
   line-height: 42px;
   color: #f5f5f5;
@@ -545,10 +555,10 @@ iframe {
   border-bottom: 4px solid transparent;
   text-decoration: none;
 }
-.static-page > .content .nav-bar-wrapper .nav-bar .bx-wrapper .items-container a:hover {
+.static-page > .content .nav-bar-wrapper .nav-bar .items-container a:hover {
   color: #4190b9;
 }
-.static-page > .content .nav-bar-wrapper .nav-bar .bx-wrapper .items-container a.active {
+.static-page > .content .nav-bar-wrapper .nav-bar .items-container a.active {
   border-bottom-color: #4190b9;
 }
 .help-page .panel-body img {
