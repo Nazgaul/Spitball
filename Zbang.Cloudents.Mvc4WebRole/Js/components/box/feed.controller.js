@@ -345,7 +345,7 @@ userName: "ram y"*/
         }
         function google(post) {
             postId = post;
-            externalUploadProvider.google(boxId, true).then(externalUploadComplete);
+            externalUploadProvider.google(boxId, null, true).then(externalUploadComplete);
         }
         function dropbox(post) {
             postId = post;
