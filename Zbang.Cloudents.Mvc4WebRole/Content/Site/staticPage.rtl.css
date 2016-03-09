@@ -13,7 +13,7 @@ body {
 iframe {
   display: block;
   width: 100%;
-  height: calc(100vh - 430px);
+  height: 1000px;
   border: none;
 }
 .subtitle {
@@ -540,20 +540,21 @@ iframe {
 }
 .static-page > .content .nav-bar-wrapper .nav-bar > .items-container {
   white-space: nowrap;
+  direction: ltr ;
 }
 .static-page > .content .nav-bar-wrapper .nav-bar > .items-container a {
   display: inline-block;
   width: 114px;
 }
 .static-page > .content .nav-bar-wrapper .nav-bar .bx-wrapper {
-  max-width: 830px;
+  max-width: 870px;
   padding: 0 20px;
 }
 .static-page > .content .nav-bar-wrapper .nav-bar .bx-viewport {
   direction: ltr ;
 }
 .static-page > .content .nav-bar-wrapper .nav-bar .items-container {
-  padding: 0 50px;
+  padding: 0 20px;
 }
 .static-page > .content .nav-bar-wrapper .nav-bar .items-container a {
   text-align: center;
