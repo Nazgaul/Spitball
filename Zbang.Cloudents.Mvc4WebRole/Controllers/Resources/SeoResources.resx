@@ -186,4 +186,16 @@
   <data name="TermsTitle" xml:space="preserve">
     <value>Terms of Service | Spitball</value>
   </data>
+  <data name="AdvertiseWithUsTitle" xml:space="preserve">
+    <value>Advertise with us | Spitball</value>
+  </data>
+  <data name="BlogTitle" xml:space="preserve">
+    <value>Blog | Spitball</value>
+  </data>
+  <data name="AdvertiseWithUsMeta" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BlogMeta" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

@@ -46,6 +46,12 @@ iframe {
     }
 }
 
+.privacy, .terms {
+    #google_translate_element {
+        text-align: left;
+    }
+}
+
 .static-page-header {
     .transform(@scaleSize, @direction) {
         -moz-transform: scaleY(@scaleSize);
@@ -602,28 +608,27 @@ iframe {
                         display: block;
                         fill: @textColorGrey;
                     }
+
                     &.nav-next {
-                        right: 0/*rtl:ignore*/;
-                 
-                    }
-                    &.nav-prev {
-                        left: 0/*rtl:ignore*/;
-                        -moz-transform: rotate(180deg)/*rtl:ignore*/;
-                        -ms-transform: rotate(180deg)/*rtl:ignore*/;
-                        -o-transform: rotate(180deg)/*rtl:ignore*/;
-                        -webkit-transform: rotate(180deg)/*rtl:ignore*/;
-                        transform: rotate(180deg)/*rtl:ignore*/;
+                        right: 0 /*rtl:ignore*/;
                     }
 
+                    &.nav-prev {
+                        left: 0 /*rtl:ignore*/;
+                        -moz-transform: rotate(180deg) /*rtl:ignore*/;
+                        -ms-transform: rotate(180deg) /*rtl:ignore*/;
+                        -o-transform: rotate(180deg) /*rtl:ignore*/;
+                        -webkit-transform: rotate(180deg) /*rtl:ignore*/;
+                        transform: rotate(180deg) /*rtl:ignore*/;
+                    }
                 }
 
                 > .items-container {
-                        white-space: nowrap;
+                    white-space: nowrap;
 
                     a {
                         display: inline-block;
                         width: 114px;
-                        
                     }
                 }
 
@@ -632,7 +637,10 @@ iframe {
                     padding: 0 20px;
                 }
 
-                .bx-viewport{ direction: ltr/*rtl:ignore*/; }
+                .bx-viewport {
+                    direction: ltr /*rtl:ignore*/;
+                }
+
                 .items-container {
                     padding: 0 50px;
 

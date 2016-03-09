@@ -183,4 +183,10 @@
   <data name="TermsTitle" xml:space="preserve">
     <value>תנאי שימוש | ספיטבול</value>
   </data>
+  <data name="AdvertiseWithUsTitle" xml:space="preserve">
+    <value>פרסמו אצלנו | ספיטבול</value>
+  </data>
+  <data name="BlogTitle" xml:space="preserve">
+    <value>בלוג | ספיטבול</value>
+  </data>
 </root>

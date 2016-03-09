@@ -37,6 +37,10 @@ iframe {
 .aboutUs-page .content {
   font-size: 20px;
 }
+.privacy #google_translate_element,
+.terms #google_translate_element {
+  text-align: right;
+}
 .static-page-header {
   position: fixed;
   z-index: 2;

@@ -79,6 +79,42 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string AdvertiseWithUsMeta {
+            get {
+                return ResourceManager.GetString("AdvertiseWithUsMeta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Advertise with us | Spitball.
+        /// </summary>
+        internal static string AdvertiseWithUsTitle {
+            get {
+                return ResourceManager.GetString("AdvertiseWithUsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string BlogMeta {
+            get {
+                return ResourceManager.GetString("BlogMeta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blog | Spitball.
+        /// </summary>
+        internal static string BlogTitle {
+            get {
+                return ResourceManager.GetString("BlogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Study and share your class notes for Course {0}, online or via the Spitball app. Use Spitball for free today!.
         /// </summary>
         internal static string BoxMetaDescription {

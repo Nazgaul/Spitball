@@ -172,8 +172,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("jobs", Name = "Jobs")]
         public async Task<ActionResult> Jobs()
         {
-            ViewBag.title = SeoResources.HelpTitle;
-            ViewBag.metaDescription = SeoResources.HelpMeta;
+            ViewBag.title = SeoResources.JobsTitle;
+            ViewBag.metaDescription = SeoResources.JobsMeta;
 
             using (var stream = await m_BlobProvider.Value.GetJobsXmlAsync())
             {
@@ -227,7 +227,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult Blog(string lang)
         {
-
+            ViewBag.title = SeoResources.BlogTitle;
+            ViewBag.metaDescription = SeoResources.BlogMeta;
             var iFrameSrc = "https://spitballblog.wordpress.com/";
             if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" || Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
             {
@@ -321,6 +322,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("advertisewithus", Name = "Advertise")]
         public ActionResult AdvertiseWithUs()
         {
+            ViewBag.title = SeoResources.AdvertiseWithUsTitle;
+            ViewBag.metaDescription = SeoResources.AdvertiseWithUsMeta;
             return View();
         }
         [Route("home/help")]
