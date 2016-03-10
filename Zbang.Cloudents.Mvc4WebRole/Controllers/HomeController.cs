@@ -326,6 +326,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ViewBag.metaDescription = SeoResources.AdvertiseWithUsMeta;
             return View();
         }
+
+        [Route("apps", Name = "apps")]
+        public ActionResult Apps()
+        {
+            //ViewBag.title = SeoResources.Apps;
+            //ViewBag.metaDescription = SeoResources.Apps;
+            return View();
+        }
+
         [Route("home/help")]
         public ActionResult HelpOld()
         {

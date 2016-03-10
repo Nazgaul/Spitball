@@ -500,6 +500,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Home\Resources\AppsResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppsResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Home\Resources\HomeResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1711,6 +1716,10 @@
     <Content Include="Images\HomePage2\apps.png.css">
       <DependentUpon>apps.png</DependentUpon>
     </Content>
+    <Content Include="Images\HomePage2\app_mobile.png" />
+    <Content Include="Images\HomePage2\app_screen1.png" />
+    <Content Include="Images\HomePage2\app_screen2.png" />
+    <Content Include="Images\HomePage2\app_screen3.png" />
     <Content Include="Images\HomePage2\HP_image.jpg" />
     <Content Include="Images\HomePage2\infographics_eng.png" />
     <Content Include="Images\HomePage2\infographics_heb.png" />
@@ -2846,6 +2855,7 @@
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageNav.cshtml" />
     <Content Include="Views\Home\AdvertiseWithUs.cshtml" />
+    <Content Include="Views\Home\Apps.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -3078,6 +3088,11 @@
     <EmbeddedResource Include="Views\Error\Resources\ErrorResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorResources1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home\Resources\AppsResources.he.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\AppsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.he.resx" />
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.resx">

@@ -1,0 +1,66 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
+@{
+    //Layout = null;
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+}
+<div class="static-page apps-page">
+    <div class="top-image">
+        <div class="text"></div>
+    </div>
+    <section class="download-app">
+        <div class="section-wrapper">
+            <div class="text-wrapper">
+                <div>
+                    <h1>@AppsResources.Title</h1>
+                    <h2>@AppsResources.Subtitle</h2>
+                </div>
+                <div class="app-links">
+                    @{
+                        var queryString = string.Empty;
+                        if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
+                        {
+                            queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
+                        }
+                    }
+                    <a target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)" class="appSotre os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                        @*<img src="@Url.CdnContent("~/Images/HomePage2/apple.png")" alt="apple" />*@
+                    </a>
+                    <a target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="googlePlay os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.4s">
+                        @*<img src="@Url.CdnContent("~/Images/HomePage2/google.png")" alt="google" />*@
+                    </a>
+                </div>
+
+            </div>
+            <div class="phone-wrapper">
+                <img src=@Url.CdnContent("~/Images/HomePage2/app_mobile.png") />
+            </div>
+        </div>
+    </section>
+    <section class="feature">
+        <div class="wrapper">
+            <img src=@Url.CdnContent("~/Images/HomePage2/app_screen1.png") />
+            <div class="text">
+                <h3>@AppsResources.SectionTitle1</h3>
+                <div class="description">@AppsResources.SectionText1</div>
+            </div>
+        </div>
+    </section>
+    <section class="feature">
+        <div class="wrapper">
+            <img src=@Url.CdnContent("~/Images/HomePage2/app_screen2.png") />
+            <div class="text">
+                <h3>@AppsResources.SectionTitle2</h3>
+                <div class="description">@AppsResources.SectionText2</div>
+            </div>
+        </div>
+    </section>
+    <section class="feature">
+        <div class="wrapper">
+            <img src=@Url.CdnContent("~/Images/HomePage2/app_screen3.png") />
+            <div class="text">
+                <h3>@AppsResources.SectionTitle3</h3>
+                <div class="description">@AppsResources.SectionText3</div>
+            </div>
+        </div>
+    </section>
+</div>
