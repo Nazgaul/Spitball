@@ -117,28 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Title" xml:space="preserve">
-    <value>מהיום יש דרך פשוטה לחלוק חומרי לימוד, מבחנים ושאלות</value>
-  </data>
-  <data name="Subtitle" xml:space="preserve">
-    <value>הורידו את אפליקציית ספיטבול לנייד!</value>
-  </data>
-  <data name="SectionTitle1" xml:space="preserve">
-    <value>בחרו את מוסד הלימודים שלכם ותתחילו ללמוד בצורה חכמה</value>
-  </data>
-  <data name="SectionText1" xml:space="preserve">
+  <data name="AppsSectionText1" xml:space="preserve">
     <value>למדו ביחד בכל זמן ובכל מקום עם האפליקצייה של ספיטבול. מצאו בקלות את כל חומרי הלימוד שתזדקקו להם ישירות במכשיר הנייד שלכם.</value>
   </data>
-  <data name="SectionTitle2" xml:space="preserve">
-    <value>יש לכם שאלות בנוגע לשיעור של אתמול?</value>
-  </data>
-  <data name="SectionText2" xml:space="preserve">
+  <data name="AppsSectionText2" xml:space="preserve">
     <value>שכחתם מתי אתם אמורים אמורים להגיש את העבודה הקרובה? שאלו כל שאלה בספיטבול וקבלו תשובות ישירות מחבריכם לכיתה.</value>
   </data>
-  <data name="SectionTitle3" xml:space="preserve">
+  <data name="AppsSectionText3" xml:space="preserve">
+    <value>השיעור שפספסתם או המאמר שחיפשתם בספרייה יכולים להמצא בקלות באפליקציית ספיטבול. דברו עם חבריכם לכיתה, שאלו שאלות והתחילו ללמוד למבחן הבא שלכם מכל מכשיר הנמצא ברשותכם.</value>
+  </data>
+  <data name="AppsSectionTitle1" xml:space="preserve">
+    <value>בחרו את מוסד הלימודים שלכם ותתחילו ללמוד בצורה חכמה</value>
+  </data>
+  <data name="AppsSectionTitle2" xml:space="preserve">
+    <value>יש לכם שאלות בנוגע לשיעור של אתמול?</value>
+  </data>
+  <data name="AppsSectionTitle3" xml:space="preserve">
     <value>מצאו את הקורס שלכם ותתחילו ללמוד ביחד</value>
   </data>
-  <data name="SectionText3" xml:space="preserve">
-    <value>השיעור שפספסתם או המאמר שחיפשתם בספרייה יכולים להמצא בקלות באפליקציית ספיטבול. דברו עם חבריכם לכיתה, שאלו שאלות והתחילו ללמוד למבחן הבא שלכם מכל מכשיר הנמצא ברשותכם.</value>
+  <data name="AppsSubtitle" xml:space="preserve">
+    <value>הורידו את אפליקציית ספיטבול לנייד!</value>
+  </data>
+  <data name="AppsTitle" xml:space="preserve">
+    <value>מהיום יש דרך פשוטה לחלוק חומרי לימוד, מבחנים ושאלות</value>
+  </data>
+  <data name="ProductTitle" xml:space="preserve">
+    <value>השתמשו בספיטבול כמו מקצוענים</value>
+  </data>
+  <data name="ProductText" xml:space="preserve">
+    <value>עקבו אחרי מספר שלבים פשוטים ותתחילו להשתמש בספיטבול כמו מקצוענים אמיתיים: פתחו חשבון חינמי בספיטבול ומצאו את בית הספר שלכם - קיימים מעל ל-325 מכללות ואוניברסיטאות במערכת. אם לא מצאתם את המוסד האקדמי המתאים יש עדיין הרבה דברים שתוכלו לעשות: מצאו את חומרי הלימוד שאתם זקוקים להם בבתי ספר אחרים, או שתהיו הראשונים להוסיף את בית הספר שלכם למערכת של ספיטבול וכך תעזרו לנו להגדיל את הקהילה (והיי, אולי אפילו תרוויחו כמה שקלים). כעת תוכלו למצוא ולהצטרף לכל קורס שתרצו, קיימים מעל ל-57,000 קורסים במערכת שמחכים רק לכם. מצאו את חומרי הלימוד שאתם זקוקים להם ותתחילו ללמוד עם חבריכם לכיתה. שאלו שאלות, חלקו רעיונות וחומרי לימוד עם החברים שלכם לכיתה, הם יוכלו לעזור לכם לענות על שאלות בקלות, במקום שתאלצו לחכות לשעות קבלה של המרצה או המתרגל. בחנו את עצמכם עם אחד מאלפי מבחנים מקוונים שנוצרו על ידי חבריכם לכיתה, או העלו מבחן בעצמכם - חשיבה על שאלות היא דרך מצוינת להתכונן למבחן המתקרב ותעזור לסטודנדטים האחרים בכיתה בהכנות שלהם למבחן. כל חבר שהתווסף, שאלה שנשאלת, חומר לימוד שהועלה או מבחן שנוצר יוכל לעזור לכם להפוך לתלמידים טובים יותר ולסיים את התואר בהצטיינות. פתחו חשבון חינמי בספיטבול עוד היום</value>
   </data>
 </root>

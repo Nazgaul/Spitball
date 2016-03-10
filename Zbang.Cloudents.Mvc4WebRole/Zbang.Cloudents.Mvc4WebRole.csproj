@@ -500,10 +500,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\Resources\AppsResources.Designer.cs">
+    <Compile Include="Views\Home\Resources\StaticPagesResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>AppsResources.resx</DependentUpon>
+      <DependentUpon>StaticPagesResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Home\Resources\HomeResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -3089,10 +3089,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Home\Resources\AppsResources.he.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\AppsResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>AppsResources.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="Views\Home\Resources\StaticPagesResources.he.resx" />
+    <EmbeddedResource Include="Views\Home\Resources\StaticPagesResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StaticPagesResources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.he.resx" />
     <EmbeddedResource Include="Views\Home\Resources\HomeResources.resx">

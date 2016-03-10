@@ -8,10 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
+namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
+{
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,30 +23,35 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AppsResources {
-        
+    public class StaticPagesResources
+    {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AppsResources() {
+        internal StaticPagesResources()
+        {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
-            get {
-                if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources.AppsResources", typeof(AppsResources).Assembly);
+        public static global::System.Resources.ResourceManager ResourceManager
+        {
+            get
+            {
+                if (object.ReferenceEquals(resourceMan, null))
+                {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources.StaticPagesResources", typeof(StaticPagesResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -53,91 +59,123 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         public static global::System.Globalization.CultureInfo Culture
         {
-            get {
+            get
+            {
                 return resourceCulture;
             }
-            set {
+            set
+            {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Study Socially anytime and everywhere with the Spitball app. Access all of your class materials directly from your phone..
         /// </summary>
-        public static string SectionText1
+        public static string AppsSectionText1
         {
-            get {
-                return ResourceManager.GetString("SectionText1", resourceCulture);
+            get
+            {
+                return ResourceManager.GetString("AppsSectionText1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Can&apos;t remember when your paper is due? Post a question on Spitball and get input from your peers..
         /// </summary>
-        public static string SectionText2
+        public static string AppsSectionText2
         {
-            get {
-                return ResourceManager.GetString("SectionText2", resourceCulture);
+            get
+            {
+                return ResourceManager.GetString("AppsSectionText2", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Find the class you&apos;ve missed or the article you&apos;ve been looking for in the library in the palm of your hand! Chat with your friends, ask questions and start studying for your next exam from any device..
         /// </summary>
-        public static string SectionText3
+        public static string AppsSectionText3
         {
-            get {
-                return ResourceManager.GetString("SectionText3", resourceCulture);
+            get
+            {
+                return ResourceManager.GetString("AppsSectionText3", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Find your school and start Spitballing. .
         /// </summary>
-        public static string SectionTitle1
+        public static string AppsSectionTitle1
         {
-            get {
-                return ResourceManager.GetString("SectionTitle1", resourceCulture);
+            get
+            {
+                return ResourceManager.GetString("AppsSectionTitle1", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Questions about yesterday&apos;s class?.
         /// </summary>
-        public static string SectionTitle2
+        public static string AppsSectionTitle2
         {
-            get {
-                return ResourceManager.GetString("SectionTitle2", resourceCulture);
+            get
+            {
+                return ResourceManager.GetString("AppsSectionTitle2", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Browse through thousands of class notes.
         /// </summary>
-        public static string SectionTitle3
+        public static string AppsSectionTitle3
         {
-            get {
-                return ResourceManager.GetString("SectionTitle3", resourceCulture);
+            get
+            {
+                return ResourceManager.GetString("AppsSectionTitle3", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Download the Spitball App!.
         /// </summary>
-        public static string Subtitle
+        public static string AppsSubtitle
         {
-            get {
-                return ResourceManager.GetString("Subtitle", resourceCulture);
+            get
+            {
+                return ResourceManager.GetString("AppsSubtitle", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The simple way to share class notes, study guides, quizzes and more for FREE!.
         /// </summary>
-        public static string Title
+        public static string AppsTitle
         {
-            get {
-                return ResourceManager.GetString("Title", resourceCulture);
+            get
+            {
+                return ResourceManager.GetString("AppsTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Start studying like a pro with Spitball by following a few simple steps: Open a free spitball account and pick your school - there are more than 325 schools available. If you cannot find your school there is still a lot you can do: Find a relevant class material from other schools, or be the first to add your school and help us build the community (and hey, you might even make a few bucks). Now you can find and Join your class, there are more than 57,00 classes waiting just for you. Find the material you ne [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string ProductText
+        {
+            get
+            {
+                return ResourceManager.GetString("ProductText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Use Spitball like a Pro.
+        /// </summary>
+        public static string ProductTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("ProductTitle", resourceCulture);
             }
         }
     }

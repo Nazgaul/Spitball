@@ -117,28 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="SectionText1" xml:space="preserve">
+  <data name="AppsSectionText1" xml:space="preserve">
     <value>Study Socially anytime and everywhere with the Spitball app. Access all of your class materials directly from your phone.</value>
   </data>
-  <data name="SectionText2" xml:space="preserve">
+  <data name="AppsSectionText2" xml:space="preserve">
     <value>Can't remember when your paper is due? Post a question on Spitball and get input from your peers.</value>
   </data>
-  <data name="SectionText3" xml:space="preserve">
+  <data name="AppsSectionText3" xml:space="preserve">
     <value>Find the class you've missed or the article you've been looking for in the library in the palm of your hand! Chat with your friends, ask questions and start studying for your next exam from any device.</value>
   </data>
-  <data name="SectionTitle1" xml:space="preserve">
+  <data name="AppsSectionTitle1" xml:space="preserve">
     <value>Find your school and start Spitballing. </value>
   </data>
-  <data name="SectionTitle2" xml:space="preserve">
+  <data name="AppsSectionTitle2" xml:space="preserve">
     <value>Questions about yesterday's class?</value>
   </data>
-  <data name="SectionTitle3" xml:space="preserve">
+  <data name="AppsSectionTitle3" xml:space="preserve">
     <value>Browse through thousands of class notes</value>
   </data>
-  <data name="Subtitle" xml:space="preserve">
+  <data name="AppsSubtitle" xml:space="preserve">
     <value>Download the Spitball App!</value>
   </data>
-  <data name="Title" xml:space="preserve">
+  <data name="AppsTitle" xml:space="preserve">
     <value>The simple way to share class notes, study guides, quizzes and more for FREE!</value>
+  </data>
+  <data name="ProductTitle" xml:space="preserve">
+    <value>Use Spitball like a Pro</value>
+  </data>
+  <data name="ProductText" xml:space="preserve">
+    <value>Start studying like a pro with Spitball by following a few simple steps: Open a free spitball account and pick your school - there are more than 325 schools available. If you cannot find your school there is still a lot you can do: Find a relevant class material from other schools, or be the first to add your school and help us build the community (and hey, you might even make a few bucks). Now you can find and Join your class, there are more than 57,00 classes waiting just for you. Find the material you need and start studying with your classmates. Ask questions, share ideas and notes with you friends, they can help answer questions when your TAs and professors are too busy. Quiz yourself with one of the thousands of quizzes your classmates have created, or upload your own quiz - coming up with a quiz is a great way to prepare for an exam, and can help your friends in their preparations. Every added friend, question asked, class note uploaded or quiz created can help you become a better student and get better grades. Open your free spitball account today!</value>
   </data>
 </root>
