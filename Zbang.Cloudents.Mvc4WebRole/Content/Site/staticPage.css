@@ -968,32 +968,77 @@ iframe {
     margin-left: 0 /*rtl:ignore*/;
   }
 }
-.product-page {
-  background: #181c1d;
-}
-.product-page h1 {
-  font-size: 42px;
-  font-weight: bold;
+.features-page h2 {
+  margin: 0;
 }
 .product-page .intro-text {
   font-size: 22px;
-  max-width: 800px;
   margin: auto;
-  color: #f5f5f5;
-}
-@media (max-width: 600px) {
-  .product-page h1 {
-    font-size: 28px;
-  }
-  .product-page .intro-text {
-    font-size: 18px;
-  }
 }
 .product-page .infographic {
   display: block;
   margin: 0 auto;
   width: 100%;
   max-width: 700px;
+}
+.product-page,
+.features-page {
+  background: #181c1d;
+  color: #f5f5f5;
+}
+.product-page h1,
+.features-page h1 {
+  font-size: 42px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.product-page .intro-text,
+.features-page .intro-text,
+.product-page section > *,
+.features-page section > * {
+  font-size: 20px;
+}
+.product-page .page-content,
+.features-page .page-content {
+  max-width: 800px;
+}
+.product-page .page-content h2,
+.features-page .page-content h2 {
+  font-size: 26px;
+}
+.product-page .page-content section,
+.features-page .page-content section {
+  margin-top: 50px;
+}
+@media (max-width: 600px) {
+  .product-page .page-content section,
+  .features-page .page-content section {
+    margin-top: 30px;
+  }
+}
+.product-page .page-content section h3,
+.features-page .page-content section h3 {
+  font-weight: bold;
+}
+.product-page .page-content section > img,
+.features-page .page-content section > img {
+  width: 100%;
+  border: 5px solid #f5f5f5;
+  margin: 20px 0;
+}
+@media (max-width: 600px) {
+  .product-page h1,
+  .features-page h1 {
+    font-size: 28px;
+  }
+  .product-page .page-content h2,
+  .features-page .page-content h2 {
+    font-size: 20px;
+  }
+  .product-page .page-content .intro-text,
+  .features-page .page-content .intro-text {
+    font-size: 18px;
+  }
 }
 .flex-100 {
   -webkit-flex: 1 1 100%;

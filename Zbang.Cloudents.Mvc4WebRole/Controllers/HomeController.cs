@@ -251,7 +251,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-
+        [DonutOutputCache(CacheProfile = "FullPage")]
+        [NoUniversity]
+        [Route("features", Name = "Features")]
+        public ActionResult Features(string lang)
+        {
+            ViewBag.postBag = true;
+            ViewBag.lang = "en";
+            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
+                Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                ViewBag.lang = "he";
+            }
+            return View();
+        }
         //[NoCache]
         //public ActionResult Static(string lang)
         //{

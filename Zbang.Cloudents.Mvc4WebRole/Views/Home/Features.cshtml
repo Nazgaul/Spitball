@@ -1,0 +1,41 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
+@{
+    //Layout = null;
+    ViewBag.Title = "Features | Spitball";
+    Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+
+}
+<div class="static-page features-page">
+    <div class="top-image">
+        <div class="text"><h1>@StaticPagesResources.FeaturesTitle</h1></div>
+    </div>
+    <div class="page-content">
+        <h2>@StaticPagesResources.FeaturesSubTitle</h2>
+        <section>
+            <h3>@StaticPagesResources.FeaturesSectionTitle1</h3>
+            <div class="intro-text">@StaticPagesResources.FeaturesSectionText1</div>
+            <img src=@UrlHelperExtension.CdnContent(@Url, "/images/Features/doc_" + ViewBag.lang + ".png" ) />
+        </section>
+        <section>
+            <h3>@StaticPagesResources.FeaturesSectionTitle2</h3>
+            <div class="intro-text">@StaticPagesResources.FeaturesSectionText2</div>
+            <img src=@UrlHelperExtension.CdnContent(@Url, "/images/Features/quiz_" + ViewBag.lang + ".png" ) />
+        </section>
+        <section>
+            <h3>@StaticPagesResources.FeaturesSectionTitle3</h3>
+            <div class="intro-text">@StaticPagesResources.FeaturesSectionText3</div>
+            <img src=@UrlHelperExtension.CdnContent(@Url, "/images/Features/courses_" + ViewBag.lang + ".png" ) />
+        </section>
+        <section>
+            <h3>@StaticPagesResources.FeaturesSectionTitle4</h3>
+            <div class="intro-text">@StaticPagesResources.FeaturesSectionText4</div>
+            <img src=@UrlHelperExtension.CdnContent(@Url, "/images/Features/feed_" + ViewBag.lang + ".png" ) />
+
+        </section>
+        <section>
+            <h3>@StaticPagesResources.FeaturesSectionTitle5</h3>
+            <div class="intro-text">@StaticPagesResources.FeaturesSectionText5</div>
+            <img src=@UrlHelperExtension.CdnContent(@Url, "/images/Features/uni_" + ViewBag.lang + ".png" ) />
+        </section>
+    </div>
+</div>

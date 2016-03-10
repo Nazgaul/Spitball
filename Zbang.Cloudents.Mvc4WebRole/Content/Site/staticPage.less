@@ -1149,30 +1149,17 @@ iframe {
 }
 
 
-.product-page {
-    background: @backgroundColor;
 
-
-    h1 {
-        font-size: 42px;
-        font-weight: bold;
+.features-page {
+    h2 {
+        margin: 0;
     }
+}
 
+.product-page {
     .intro-text {
         font-size: 22px;
-        max-width: 800px;
         margin: auto;
-        color: @textColorWhite;
-    }
-
-    @media (max-width: 600px) {
-        h1 {
-            font-size: 28px;
-        }
-
-        .intro-text {
-            font-size: 18px;
-        }
     }
 
 
@@ -1181,6 +1168,65 @@ iframe {
         margin: 0 auto;
         width: 100%;
         max-width: 700px;
+    }
+}
+
+.product-page, .features-page {
+    background: @backgroundColor;
+    color: @textColorWhite;
+
+    h1 {
+        font-size: 42px;
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+
+    .intro-text, section > * {
+        font-size: 20px;
+    }
+
+
+    .page-content {
+        max-width: 800px;
+
+        h2 {
+            font-size: 26px;
+        }
+
+        section {
+            margin-top: 50px;
+
+            @media(max-width: 600px) {
+                margin-top: 30px;
+            }
+
+            h3 {
+                font-weight: bold;
+            }
+
+            > img {
+                width: 100%;
+                border: 5px solid @borderColorWhite;
+                margin: 20px 0;
+            }
+        }
+    }
+
+    @media (max-width: 600px) {
+
+        h1 {
+            font-size: 28px;
+        }
+
+        .page-content {
+            h2 {
+                font-size: 20px;
+            }
+
+            .intro-text {
+                font-size: 18px;
+            }
+        }
     }
 }
 

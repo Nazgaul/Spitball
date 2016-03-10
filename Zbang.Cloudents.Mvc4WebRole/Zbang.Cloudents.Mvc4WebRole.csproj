@@ -1710,6 +1710,16 @@
     <Content Include="Images\aboutUs\shlomi.png" />
     <Content Include="Images\bx_loader.gif" />
     <Content Include="Images\controls.png" />
+    <Content Include="Images\Features\courses_en.png" />
+    <Content Include="Images\Features\courses_he.png" />
+    <Content Include="Images\Features\doc_en.png" />
+    <Content Include="Images\Features\doc_he.png" />
+    <Content Include="Images\Features\feed_en.png" />
+    <Content Include="Images\Features\feed_he.png" />
+    <Content Include="Images\Features\quiz_en.png" />
+    <Content Include="Images\Features\quiz_he.png" />
+    <Content Include="Images\Features\uni_en.png" />
+    <Content Include="Images\Features\uni_he.png" />
     <Content Include="Images\HomePage2\apps.png">
       <DependentUpon>apps.sprite</DependentUpon>
     </Content>
@@ -2856,6 +2866,7 @@
     <Content Include="Views\Shared\Partials2\_StaticPageNav.cshtml" />
     <Content Include="Views\Home\AdvertiseWithUs.cshtml" />
     <Content Include="Views\Home\Apps.cshtml" />
+    <Content Include="Views\Home\Features.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
