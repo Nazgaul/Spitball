@@ -2869,6 +2869,7 @@
     <Content Include="Views\Home\Apps.cshtml" />
     <Content Include="Views\Home\Features.cshtml" />
     <Content Include="Views\Home\ClassNotes.cshtml" />
+    <Content Include="Views\Home\Courses.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

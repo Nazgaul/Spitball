@@ -355,6 +355,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             //ViewBag.metaDescription = SeoResources.Apps;
             return View();
         }
+
+        [Route("courses", Name = "courses")]
+        public Task<ActionResult> Courses()
+        {
+            //ViewBag.title = SeoResources.Apps;
+            //ViewBag.metaDescription = SeoResources.Apps;
+            return CoursePageAsync();
+        }
         [Route("home/help")]
         public ActionResult HelpOld()
         {
