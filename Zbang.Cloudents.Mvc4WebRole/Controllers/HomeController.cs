@@ -357,7 +357,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Route("courses", Name = "courses")]
-        public ActionResult Product()
+        public ActionResult Courses()
         {
             //ViewBag.title = SeoResources.Apps;
             //ViewBag.metaDescription = SeoResources.Apps;
