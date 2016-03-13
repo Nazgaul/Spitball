@@ -348,6 +348,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
+        [Route("classnotes", Name = "classnotes")]
+        public ActionResult ClassNotes()
+        {
+            //ViewBag.title = SeoResources.Apps;
+            //ViewBag.metaDescription = SeoResources.Apps;
+            return View();
+        }
         [Route("home/help")]
         public ActionResult HelpOld()
         {

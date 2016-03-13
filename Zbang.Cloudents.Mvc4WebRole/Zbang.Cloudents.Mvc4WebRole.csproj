@@ -1710,6 +1710,7 @@
     <Content Include="Images\aboutUs\shlomi.png" />
     <Content Include="Images\bx_loader.gif" />
     <Content Include="Images\controls.png" />
+    <Content Include="Images\Features\app.png" />
     <Content Include="Images\Features\courses_en.png" />
     <Content Include="Images\Features\courses_he.png" />
     <Content Include="Images\Features\doc_en.png" />
@@ -2867,6 +2868,7 @@
     <Content Include="Views\Home\AdvertiseWithUs.cshtml" />
     <Content Include="Views\Home\Apps.cshtml" />
     <Content Include="Views\Home\Features.cshtml" />
+    <Content Include="Views\Home\ClassNotes.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

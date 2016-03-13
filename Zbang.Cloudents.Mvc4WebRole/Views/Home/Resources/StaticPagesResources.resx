@@ -186,4 +186,25 @@
   <data name="FeaturesTitle" xml:space="preserve">
     <value>Our Features</value>
   </data>
+  <data name="FeaturesDescription" xml:space="preserve">
+    <value>Spitball can help revolutionize the way you study: Whether you’ve missed your last class and are scrambling to get class notes, have a question regarding a particularly annoying assignment, or just looking for a way to test your knowledge before your finals - Spitball has got you covered! Sign up for free, find your school and your courses and start Spitballing with your friends!</value>
+  </data>
+  <data name="FeaturesSectionText6" xml:space="preserve">
+    <value>Study socially anytime and everywhere with the spitball app. Access all of your class materials directly from your phone. Chat with your friends, ask questions and start studying for your next exam from any device.</value>
+  </data>
+  <data name="FeaturesSectionTitle6" xml:space="preserve">
+    <value>Spitball’s app</value>
+  </data>
+  <data name="ClassNotesTitle" xml:space="preserve">
+    <value>Class Notes</value>
+  </data>
+  <data name="ClassNotesSubtitle" xml:space="preserve">
+    <value>Check out spitball's variety of class notes and articles!</value>
+  </data>
+  <data name="CoursesTitle" xml:space="preserve">
+    <value>Courses</value>
+  </data>
+  <data name="CoursesSubtitle" xml:space="preserve">
+    <value>Check out spitball's variety of courses!</value>
+  </data>
 </root>

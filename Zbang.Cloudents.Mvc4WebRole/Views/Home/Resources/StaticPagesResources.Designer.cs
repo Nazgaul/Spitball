@@ -158,6 +158,61 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Check out spitball&apos;s variety of class notes and articles!.
+        /// </summary>
+        public static string ClassNotesSubtitle
+        {
+            get
+            {
+                return ResourceManager.GetString("ClassNotesSubtitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Class Notes.
+        /// </summary>
+        public static string ClassNotesTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("ClassNotesTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Check out spitball&apos;s variety of courses!.
+        /// </summary>
+        public static string CoursesSubtitle
+        {
+            get
+            {
+                return ResourceManager.GetString("CoursesSubtitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Courses.
+        /// </summary>
+        public static string CoursesTitle
+        {
+            get
+            {
+                return ResourceManager.GetString("CoursesTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Spitball can help revolutionize the way you study: Whether you’ve missed your last class and are scrambling to get class notes, have a question regarding a particularly annoying assignment, or just looking for a way to test your knowledge before your finals - Spitball has got you covered! Sign up for free, find your school and your courses and start Spitballing with your friends!.
+        /// </summary>
+        public static string FeaturesDescription
+        {
+            get
+            {
+                return ResourceManager.GetString("FeaturesDescription", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Browse through thousands of class notes to find the class you&apos;ve missed. Access all of your class material within a few clicks and upload your own class notes to help your friends excel in their upcoming papers &amp; exams. You can download the document you need to any device, print it, or check it out later, it’s not going anywhere..
         /// </summary>
         public static string FeaturesSectionText1
@@ -213,6 +268,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Study socially anytime and everywhere with the spitball app. Access all of your class materials directly from your phone. Chat with your friends, ask questions and start studying for your next exam from any device..
+        /// </summary>
+        public static string FeaturesSectionText6
+        {
+            get
+            {
+                return ResourceManager.GetString("FeaturesSectionText6", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Class notes.
         /// </summary>
         public static string FeaturesSectionTitle1
@@ -264,6 +330,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
             get
             {
                 return ResourceManager.GetString("FeaturesSectionTitle5", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Spitball’s app.
+        /// </summary>
+        public static string FeaturesSectionTitle6
+        {
+            get
+            {
+                return ResourceManager.GetString("FeaturesSectionTitle6", resourceCulture);
             }
         }
 
