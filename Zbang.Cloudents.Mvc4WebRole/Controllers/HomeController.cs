@@ -343,24 +343,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("apps", Name = "apps")]
         public ActionResult Apps()
         {
-            //ViewBag.title = SeoResources.Apps;
-            //ViewBag.metaDescription = SeoResources.Apps;
+            ViewBag.title = SeoResources.AppsTitle;
+            ViewBag.metaDescription = SeoResources.AppsMeta;
             return View();
         }
 
         [Route("classnotes", Name = "classnotes")]
         public ActionResult ClassNotes()
         {
-            //ViewBag.title = SeoResources.Apps;
-            //ViewBag.metaDescription = SeoResources.Apps;
+            ViewBag.title = SeoResources.ClassNotesTitle;
+            ViewBag.metaDescription = SeoResources.ClassNotesMeta;
             return View();
         }
 
         [Route("courses", Name = "courses")]
         public ActionResult Courses()
         {
-            //ViewBag.title = SeoResources.Apps;
-            //ViewBag.metaDescription = SeoResources.Apps;
+            ViewBag.title = SeoResources.CoursesTitle;
+            ViewBag.metaDescription = SeoResources.CoursesMeta;
             return View();
         }
         [Route("home/help")]

@@ -9,8 +9,8 @@ body {
 .static-page .page-content {
     max-width: 1200px;
     min-height: 1000px;
-    margin: 25px auto 0 auto;
-    padding: 10px;
+    margin: 15px auto 0 auto;
+    padding: 5px 5px 25px 5px;
 }
 
 iframe {
@@ -92,6 +92,7 @@ iframe {
 
     nav {
         height: inherit;
+        @mobileBreakPoint: 880px;
 
         .nav-content {
             .displayFlex();
@@ -125,7 +126,7 @@ iframe {
                     margin: 0 24px;
 
 
-                    @media (max-width: 900px) {
+                    @media (max-width: @mobileBreakPoint) {
                         display: inline-block;
                         margin: 0;
                     }
@@ -198,6 +199,7 @@ iframe {
             transform: translate3d(0,0,0);
             cursor: pointer;
             font-size: 14px;
+            text-transform: capitalize;
         }
 
 
@@ -227,12 +229,12 @@ iframe {
         ul {
             list-style: none;
 
-            @media(min-width: 900px) {
+            @media(min-width: @mobileBreakPoint) {
                 .displayFlex;
                 justify-content: space-between;
                 align-items: center;
                 width: 500px;
-                padding: 0 120px 0 50px;
+                padding: 0 120px 0 20px;
                 margin: 0;
             }
 
@@ -259,8 +261,14 @@ iframe {
                         border-color: @textColorWhite transparent transparent transparent;
                     }
 
-                    .language-toggle:hover .arrow {
-                        border-top-color: @textColorSpitballBlue;
+                    .language-toggle {
+                        span:not(.arrow) {
+                            min-width: 50px;
+                        }
+
+                        &:hover .arrow {
+                            border-top-color: @textColorSpitballBlue;
+                        }
                     }
 
                     ul {
@@ -324,13 +332,13 @@ iframe {
             cursor: auto;
             height: 100vh;
 
-            @media(max-width: 900px) {
+            @media(max-width: @mobileBreakPoint) {
                 display: none;
             }
         }
 
 
-        @media(max-width: 900px) {
+        @media(max-width: @mobileBreakPoint) {
             .navbar-header {
                 .displayFlex;
                 justify-content: flex-start;
@@ -1151,10 +1159,6 @@ iframe {
 
 
 .features-page {
-    h2 {
-        margin: 0;
-    }
-
     .description {
         font-size: 18px;
         margin-top: 25px;
@@ -1167,9 +1171,16 @@ iframe {
 }
 
 .product-page {
+    h2{
+        text-align: center;
+    }
     .intro-text {
         font-size: 22px;
         margin: auto;
+
+        .first-line {
+            text-align: center;
+        }
     }
 
 
@@ -1181,7 +1192,7 @@ iframe {
     }
 }
 
-.product-page, .features-page {
+.product-page, .features-page, .courses-page, .class-notes-page {
     background: @backgroundColor;
     color: @textColorWhite;
 
@@ -1191,6 +1202,134 @@ iframe {
         text-transform: capitalize;
     }
 
+    h2 {
+        margin: 0;
+        font-size: 26px;
+    }
+
+    .boxes, .items {
+        margin-top: 20px;
+    }
+}
+
+.courses-page {
+    h2 {
+        text-align: center;
+    }
+}
+
+.class-notes-page {
+    @itemWidth: 160px;
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .items {
+        list-style: none;
+        padding-left: 0;
+        max-width: @itemWidth*6 + 20;
+        margin: 0 auto;
+
+        @media(max-width:1030px) {
+            max-width: @itemWidth*5 + 20;
+        }
+
+        @media(max-width:850px) {
+            max-width: @itemWidth*4 + 20;
+        }
+
+        @media(max-width:700px) {
+            max-width: @itemWidth*3 + 20;
+        }
+
+        li {
+            display: inline-block;
+            width: @itemWidth;
+            text-align: center;
+            padding: 1% 0;
+
+
+
+            .item {
+                padding: 5px;
+                border: 1px solid #3d4348;
+                display: inline-block;
+
+                &:hover {
+                    text-decoration: none;
+                }
+
+                .data {
+                    display: inline-block;
+                    position: relative;
+                    width: inherit;
+
+                    .extra {
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        height: 70px;
+                        color: @textColorWhite;
+                        opacity: .95;
+                        background: @borderColorBottomGrey;
+
+                        h3 {
+                            margin: 5px;
+                            font-size: 13px;
+                            text-align: left;
+                            .elipsisWebKit(3);
+                        }
+                    }
+                }
+
+                img {
+                    height: auto;
+                }
+
+                img, .stats {
+                    width: inherit;
+                }
+
+                .wrapper {
+                    width: 140px;
+                }
+
+                .stats {
+                    .displayFlex;
+                    justify-content: space-between;
+
+                    div {
+                        color: #f5f5f5;
+                    }
+
+                    svg {
+                        width: 12px;
+                        height: 12px;
+                        fill: #f5f5f5;
+                    }
+                }
+            }
+        }
+
+
+        @media(max-width:530px) {
+            max-width: 285px;
+
+            li {
+                width: 140px;
+            }
+
+            li .item .wrapper {
+                width: 120px;
+            }
+        }
+    }
+}
+
+.product-page, .features-page {
     .intro-text, section > * {
         font-size: 18px;
         line-height: 25px;
@@ -1225,11 +1364,6 @@ iframe {
     }
 
     @media (max-width: 600px) {
-
-        h1 {
-            font-size: 28px;
-        }
-
         .page-content {
             h2 {
                 font-size: 20px;
@@ -1242,6 +1376,95 @@ iframe {
     }
 }
 
+
+.boxes {
+    width: 100%;
+    .displayFlex;
+    justify-content: space-between;
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    max-width: 1280px;
+    margin: 0 auto;
+
+    @media(max-width: 900px) {
+        display: block;
+    }
+
+    .box {
+        width: ~"calc(33% - 2vw)";
+        margin: 1vw;
+        max-width: 400px;
+        min-width: 250px;
+        padding: 15px;
+        color: @textColorWhite;
+        background: @backgroundColorMenu;
+        .displayFlex;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        text-decoration: none;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+
+        @media(max-width: 900px) {
+            width: 100%;
+            margin: 0 auto 25px auto;
+        }
+
+        h2 {
+            text-align: left;
+            flex-grow: 1;
+            font-weight: normal;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin: 0 0 8px 0;
+            padding: 0;
+            font-size: 25px;
+            line-height: 29px;
+            height: 58px;
+            overflow: hidden;
+            -ms-word-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        .course-info {
+            flex-shrink: 1;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        .box-info {
+            flex-shrink: 1;
+            .displayFlex;
+            justify-content: space-between;
+        }
+
+        hr {
+            height: 4px;
+            border: none;
+            border-radius: 10px;
+            width: 100%;
+            margin: 15px 0;
+        }
+    }
+}
+
+
+
+@media (max-width: 600px) {
+
+    .top-image h1 {
+        font-size: 28px;
+    }
+
+    .page-content h2 {
+        font-size: 20px;
+    }
+}
 
 .flex-100 {
     -webkit-flex: 1 1 100%;

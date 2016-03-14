@@ -251,18 +251,21 @@ classmates, swap notes and exchange ideas, for FREE.</value>
     <value>Spitball even faster through</value>
   </data>
   <data name="A10" xml:space="preserve">
-    <value>Meet spitball</value>
+    <value>Class notes</value>
   </data>
   <data name="A11" xml:space="preserve">
     <value>Apps</value>
   </data>
   <data name="A9" xml:space="preserve">
-    <value>Spitball features</value>
+    <value>Features</value>
   </data>
   <data name="Free" xml:space="preserve">
     <value />
   </data>
   <data name="resetPassEmailSent" xml:space="preserve">
     <value>Another request was sent</value>
+  </data>
+  <data name="A12" xml:space="preserve">
+    <value>Courses</value>
   </data>
 </root>

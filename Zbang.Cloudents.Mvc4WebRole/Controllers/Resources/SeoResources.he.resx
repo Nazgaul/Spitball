@@ -189,4 +189,13 @@
   <data name="BlogTitle" xml:space="preserve">
     <value>בלוג | ספיטבול</value>
   </data>
+  <data name="AppsTitle" xml:space="preserve">
+    <value>אפליקציות | ספיטבול</value>
+  </data>
+  <data name="ClassNotesTitle" xml:space="preserve">
+    <value>חומרי לימוד | ספיטבול</value>
+  </data>
+  <data name="CoursesTitle" xml:space="preserve">
+    <value>קורסים | ספיטבול</value>
+  </data>
 </root>

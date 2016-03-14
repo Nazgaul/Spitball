@@ -144,8 +144,8 @@
   <data name="ProductTitle" xml:space="preserve">
     <value>Use Spitball like a Pro</value>
   </data>
-  <data name="ProductText" xml:space="preserve">
-    <value>Start studying like a pro with Spitball by following a few simple steps: Open a free spitball account and pick your school - there are more than 325 schools available. If you cannot find your school there is still a lot you can do: Find a relevant class material from other schools, or be the first to add your school and help us build the community (and hey, you might even make a few bucks). Now you can find and Join your class, there are more than 57,00 classes waiting just for you. Find the material you need and start studying with your classmates. Ask questions, share ideas and notes with you friends, they can help answer questions when your TAs and professors are too busy. Quiz yourself with one of the thousands of quizzes your classmates have created, or upload your own quiz - coming up with a quiz is a great way to prepare for an exam, and can help your friends in their preparations. Every added friend, question asked, class note uploaded or quiz created can help you become a better student and get better grades. Open your free spitball account today!</value>
+  <data name="ProductTextBegining" xml:space="preserve">
+    <value>Start studying like a pro with Spitball by following a few simple steps:</value>
   </data>
   <data name="FeaturesSubTitle" xml:space="preserve">
     <value>Use Spitball to study with your friends and get better grades!</value>
@@ -206,5 +206,8 @@
   </data>
   <data name="CoursesSubtitle" xml:space="preserve">
     <value>Check out spitball's variety of courses!</value>
+  </data>
+  <data name="ProductText" xml:space="preserve">
+    <value>Open a free spitball account and pick your school - there are more than 325 schools available. If you cannot find your school there is still a lot you can do: Find a relevant class material from other schools, or be the first to add your school and help us build the community (and hey, you might even make a few bucks). Now you can find and Join your class, there are more than 57,00 classes waiting just for you. Find the material you need and start studying with your classmates. Ask questions, share ideas and notes with you friends, they can help answer questions when your TAs and professors are too busy. Quiz yourself with one of the thousands of quizzes your classmates have created, or upload your own quiz - coming up with a quiz is a great way to prepare for an exam, and can help your friends in their preparations. Every added friend, question asked, class note uploaded or quiz created can help you become a better student and get better grades. Open your free spitball account today!</value>
   </data>
 </root>

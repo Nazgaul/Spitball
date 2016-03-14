@@ -198,4 +198,22 @@
   <data name="BlogMeta" xml:space="preserve">
     <value></value>
   </data>
+  <data name="AppsTitle" xml:space="preserve">
+    <value>Apps | Spitball</value>
+  </data>
+  <data name="AppsMeta" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ClassNotesTitle" xml:space="preserve">
+    <value>Class Notes | Spitball</value>
+  </data>
+  <data name="ClassNotesMeta" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="CoursesTitle" xml:space="preserve">
+    <value>Courses | Spitball</value>
+  </data>
+  <data name="CoursesMeta" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

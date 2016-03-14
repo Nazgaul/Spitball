@@ -250,7 +250,7 @@
     <value>מה זה ספיטבול?</value>
   </data>
   <data name="A10" xml:space="preserve">
-    <value>הכרת ספיטבול</value>
+    <value>חומרי לימוד</value>
   </data>
   <data name="A11" xml:space="preserve">
     <value>אפליקציה</value>
@@ -260,5 +260,8 @@
   </data>
   <data name="resetPassEmailSent" xml:space="preserve">
     <value>בקשה נוספת נשלחה</value>
+  </data>
+  <data name="A12" xml:space="preserve">
+    <value>קורסים</value>
   </data>
 </root>

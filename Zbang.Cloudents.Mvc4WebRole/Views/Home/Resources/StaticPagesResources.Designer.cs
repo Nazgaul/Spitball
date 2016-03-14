@@ -378,13 +378,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Start studying like a pro with Spitball by following a few simple steps: Open a free spitball account and pick your school - there are more than 325 schools available. If you cannot find your school there is still a lot you can do: Find a relevant class material from other schools, or be the first to add your school and help us build the community (and hey, you might even make a few bucks). Now you can find and Join your class, there are more than 57,00 classes waiting just for you. Find the material you ne [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to Open a free spitball account and pick your school - there are more than 325 schools available. If you cannot find your school there is still a lot you can do: Find a relevant class material from other schools, or be the first to add your school and help us build the community (and hey, you might even make a few bucks). Now you can find and Join your class, there are more than 57,00 classes waiting just for you. Find the material you need and start studying with your classmates. Ask questions, share ideas an [rest of string was truncated]&quot;;.
         /// </summary>
         public static string ProductText
         {
             get
             {
                 return ResourceManager.GetString("ProductText", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Start studying like a pro with Spitball by following a few simple steps:.
+        /// </summary>
+        public static string ProductTextBegining
+        {
+            get
+            {
+                return ResourceManager.GetString("ProductTextBegining", resourceCulture);
             }
         }
 

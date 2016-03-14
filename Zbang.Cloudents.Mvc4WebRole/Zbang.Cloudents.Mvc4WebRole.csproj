@@ -1646,12 +1646,6 @@
     <Content Include="Content\Site\staticPage.rtl.css">
       <DependentUpon>staticPage.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\staticPages.css">
-      <DependentUpon>staticPages.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\staticPages.rtl.css">
-      <DependentUpon>staticPages.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\ThemeDark.css">
       <DependentUpon>ThemeDark.less</DependentUpon>
     </Content>
@@ -1948,7 +1942,6 @@
     <Content Include="Content\Site\libraryChoose.less" />
     <Content Include="Content\Site\error.less" />
     <Content Include="Content\category.png.less" />
-    <Content Include="Content\Site\staticPages.less" />
     <Content Include="Content\Site\ThemeDark.less" />
     <Content Include="Content\Site\themeLight.less" />
     <Content Include="Content\Site\siteColors.less" />

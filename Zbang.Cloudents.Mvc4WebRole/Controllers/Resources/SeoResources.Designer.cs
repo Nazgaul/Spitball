@@ -99,6 +99,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        internal static string AppsMeta {
+            get {
+                return ResourceManager.GetString("AppsMeta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apps | Spitball.
+        /// </summary>
+        internal static string AppsTitle {
+            get {
+                return ResourceManager.GetString("AppsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         internal static string BlogMeta {
             get {
                 return ResourceManager.GetString("BlogMeta", resourceCulture);
@@ -142,11 +160,47 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string ClassNotesMeta {
+            get {
+                return ResourceManager.GetString("ClassNotesMeta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class Notes | Spitball.
+        /// </summary>
+        internal static string ClassNotesTitle {
+            get {
+                return ResourceManager.GetString("ClassNotesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spitball.
         /// </summary>
         internal static string Cloudents {
             get {
                 return ResourceManager.GetString("Cloudents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string CoursesMeta {
+            get {
+                return ResourceManager.GetString("CoursesMeta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Courses | Spitball.
+        /// </summary>
+        internal static string CoursesTitle {
+            get {
+                return ResourceManager.GetString("CoursesTitle", resourceCulture);
             }
         }
         
