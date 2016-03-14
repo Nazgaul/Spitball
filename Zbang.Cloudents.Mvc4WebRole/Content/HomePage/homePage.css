@@ -46,7 +46,7 @@
   position: absolute;
   top: -65px;
 }
-.homePage .home-page-body section:not(.main) h2 {
+.homePage .home-page-body section:not(.main) > h2 {
   font-size: 36px;
   font-weight: bold;
   text-align: center;
