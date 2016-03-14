@@ -410,6 +410,7 @@ iframe {
 
     .app-links {
         margin-top: 70px;
+        margin-left: -10px;
 
         a {
             display: inline-block;
@@ -548,9 +549,19 @@ iframe {
                     margin-top: 20px;
 
                     a {
-                        width: 49%;
+                        width: 120px;
+                        height: 40px;
+                        background-size: cover;
                         max-width: 160px;
                         display: inline-block;
+
+                        &.googlePlay {
+                            background-position: 0 0;
+                        }
+
+                        &.appSotre {
+                            background-position: 0 -33px;
+                        }
 
                         img {
                             width: 100%;
@@ -954,7 +965,7 @@ iframe {
     }
 
     section {
-        display: inline-block;
+        display: block;
         width: 100%;
 
         &:nth-child(3) {
@@ -1063,6 +1074,7 @@ iframe {
 
         &.feature {
             text-align: center;
+            overflow: hidden;
 
             .wrapper {
                 .displayInlineFlex;
@@ -1137,7 +1149,7 @@ iframe {
 
                     > * {
                         font-size: 18px;
-                        line-height: inherit;
+                        line-height: 25px;
                     }
 
                     .description {
@@ -1166,14 +1178,15 @@ iframe {
     }
 
     .page-content {
-        padding-bottom: 100px;
+        // padding-bottom: 100px;
     }
 }
 
 .product-page {
-    h2{
+    h2 {
         text-align: center;
     }
+
     .intro-text {
         font-size: 22px;
         margin: auto;
@@ -1337,7 +1350,7 @@ iframe {
 
 
     .page-content {
-        max-width: 800px;
+        max-width: 1000px;
 
         h2 {
             font-size: 26px;

@@ -354,6 +354,7 @@ iframe {
 .static-page-footer .app-links,
 .static-page.apps-page .app-links {
   margin-top: 70px;
+  margin-left: -10px;
 }
 .static-page-footer .app-links a,
 .static-page.apps-page .app-links a {
@@ -482,9 +483,17 @@ iframe {
     margin-top: 20px;
   }
   .static-page-footer .content .app .app-links a {
-    width: 49%;
+    width: 120px;
+    height: 40px;
+    background-size: cover;
     max-width: 160px;
     display: inline-block;
+  }
+  .static-page-footer .content .app .app-links a.googlePlay {
+    background-position: 0 0;
+  }
+  .static-page-footer .content .app .app-links a.appSotre {
+    background-position: 0 -33px;
   }
   .static-page-footer .content .app .app-links a img {
     width: 100%;
@@ -809,7 +818,7 @@ iframe {
   }
 }
 .apps-page section {
-  display: inline-block;
+  display: block;
   width: 100%;
 }
 .apps-page section:nth-child(3) {
@@ -901,6 +910,7 @@ iframe {
 }
 .apps-page section.feature {
   text-align: center;
+  overflow: hidden;
 }
 .apps-page section.feature .wrapper {
   display: -webkit-flex;
@@ -962,7 +972,7 @@ iframe {
   }
   .apps-page section.feature .wrapper .text > * {
     font-size: 18px;
-    line-height: inherit;
+    line-height: 25px;
   }
   .apps-page section.feature .wrapper .text .description {
     padding-bottom: 30px;
@@ -976,9 +986,6 @@ iframe {
   font-size: 18px;
   margin-top: 25px;
   line-height: 25px;
-}
-.features-page .page-content {
-  padding-bottom: 100px;
 }
 .product-page h2 {
   text-align: center;
@@ -1137,7 +1144,7 @@ iframe {
 }
 .product-page .page-content,
 .features-page .page-content {
-  max-width: 800px;
+  max-width: 1000px;
 }
 .product-page .page-content h2,
 .features-page .page-content h2 {
