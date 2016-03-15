@@ -58,8 +58,12 @@
         <div class="fileName">
             <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
                 <h1 class="ellipsis">{{i.details.name}}</h1>
-                <a class="info" href="#" tooltip-placement="bottom" tooltip-class="copy-right"
-                   uib-tooltip="@ItemsResources.CopyRight">@Html.Svg(svgUrl, "info")</a>
+                <div class="info">
+                    @Html.Svg(svgUrl, "info")
+                    <md-tooltip>
+                        @ItemsResources.CopyRight
+                    </md-tooltip>
+                </div>
             </div>
             <div class="second-line" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
                 <a href="{{::i.details.ownerUrl}}" user-not-register-popup="click">{{::i.details.owner}}</a>&nbsp;-&nbsp;<span>{{::i.details.date | date : 'mediumDate'}}</span>

@@ -9,6 +9,17 @@
   width: 100%;
   -webkit-justify-content: center;
   justify-content: center;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0;
+}
+.portlet.light.invite button {
+  padding: 12px 20px 15px 20px;
 }
 .portlet.light.invite svg {
   width: 75px;

@@ -41,6 +41,11 @@ iframe {
 .terms #google_translate_element {
   text-align: left;
 }
+.privacy a,
+.terms a {
+  -ms-word-break: break-all;
+  word-break: break-all;
+}
 .static-page-header {
   position: fixed;
   z-index: 2;
@@ -51,9 +56,9 @@ iframe {
   height: 70px;
 }
 .static-page-header * {
-  -moz-box-sizing: unset;
-  -webkit-box-sizing: unset;
-  box-sizing: unset;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
 }
 @media (min-width: 750px) {
   .static-page-header {
