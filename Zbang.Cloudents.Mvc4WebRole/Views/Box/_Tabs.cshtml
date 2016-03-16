@@ -1,56 +1,58 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<div class="folder-selected" layout="row" layout-align="start center" ng-if="i.tabSelected.id" flex="100" flex-gt-xs="50">
-    @Html.Svg("~/images/site/icons.svg", "arrow", new { flex = "none", @class = "arrow svgTC11", ng_click = "i.upDir()" })
-    <div class="folder-name" flex="100">
-        <div layout="row" layout-align="start center" class="folder-name-inner color-override backgroundColor10">
-            <div class="name-and-icon" layout="row" layout-align="start center">
-                <div class="text ellipsis" ng-if="!i.openRenameTab">
-                    {{i.tabSelected.name}}
+<div ng-controller="TabsController as t">
+    <div class="folder-selected" layout="row" layout-align="start center" ng-if="i.tabSelected.id" flex="100" flex-gt-xs="50">
+        @Html.Svg("~/images/site/icons.svg", "arrow", new { flex = "none", @class = "arrow svgTC11", ng_click = "t.upDir()" })
+        <div class="folder-name" flex="100">
+            <div layout="row" layout-align="start center" class="folder-name-inner color-override backgroundColor10">
+                <div class="name-and-icon" layout="row" layout-align="start center">
+                    <div class="text ellipsis" ng-if="!t.openRenameTab">
+                        {{i.tabSelected.name}}
+                    </div>
+                    <form class="content" ng-if="t.openRenameTab" ng-submit="t.renameTab()">
+                        <input autofocus class="designed-input" type="text" required ng-model="t.tabNewName" ng-blur="t.renameTab()" />
+                    </form>
                 </div>
-                <form class="content" ng-if="i.openRenameTab" ng-submit="i.renameTab()">
-                    <input autofocus class="designed-input" type="text" required ng-model="i.tabNewName" ng-blur="i.renameTab()" />
-                </form>
+                <md-menu ng-if="!b.needFollow">
+                    <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-tabs', 'deleteTab']">
+                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
+                    </md-button>
+                    <md-menu-content width="1">
+                        <md-menu-item>
+                            <md-button ng-click="t.renameTabOpen()" ga-track-event="['box-tab', 'rename']">
+                                @GeneralResources.Rename
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="t.deleteTab($event)" ga-track-event="['box-tabs', 'didDelete']">
+                                @GeneralResources.Delete
+                            </md-button>
+                        </md-menu-item>
+
+                    </md-menu-content>
+                </md-menu>
             </div>
-            <md-menu ng-if="!b.needFollow">
-                <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-tabs', 'deleteTab']">
-                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
-                </md-button>
-                <md-menu-content width="1">
-                    <md-menu-item>
-                        <md-button ng-click="i.renameTabOpen()" ga-track-event="['box-tab', 'rename']">
-                            @GeneralResources.Rename
-                        </md-button>
-                    </md-menu-item>
-                    <md-menu-item>
-                        <md-button ng-click="i.deleteTab($event)" ga-track-event="['box-tabs', 'didDelete']">
-                            @GeneralResources.Delete
-                        </md-button>
-                    </md-menu-item>
-                    
-                </md-menu-content>
-            </md-menu>
         </div>
     </div>
-</div>
-<ul id="tabSection" layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start stretch" ng-if="!i.tabSelected.id">
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" ui-on-drop="i.addItemToTab($data,e)" class="folder-name i-q-wrapper" ng-repeat="e in i.tabs" ng-click="i.tabChange(e)">
-        <div class="name-and-icon content color-override textColor8">
-            <div class="text ellipsis background-blue">
-                {{:: e.name}}
+    <ul id="tabSection" layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start stretch" ng-if="!i.tabSelected.id">
+        <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" ui-on-drop="i.addItemToTab($data,e)" class="folder-name i-q-wrapper" ng-repeat="e in t.tabs" ng-click="t.tabChange(e)">
+            <div class="name-and-icon content color-override textColor8">
+                <div class="text ellipsis background-blue">
+                    {{:: e.name}}
+                </div>
+                <div>{{e.count}} @BoxResources.itemsInTab</div>
             </div>
-            <div>{{e.count}} @BoxResources.itemsInTab</div>
-        </div>
-    </li>
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="add-folder folder-name item-animate i-q-wrapper">
-        <button type="button" ga-track-event="['box-Tabs', 'addFolder']" class="content color-override backgroundTransparent" ng-if="!i.newFolderTabOpened" user-not-register-popup="click" ng-click="i.newFolderTabOpened = true">
-            @Html.Svg("~/images/site/icons.svg", "add")
-            <span>
-                @BoxResources.AddFolder
-            </span>
-        </button>
-        <form class="content" ng-if="i.newFolderTabOpened" ng-submit="i.addTab()" name="addTabForm">
-            <input required focus-me="i.newFolderTabOpened" type="text" class="designed-input" ng-model="i.newFolderName" ng-blur="i.addTab()" />
-        </form>
-    </li>
-</ul>
+        </li>
+        <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="add-folder folder-name item-animate i-q-wrapper">
+            <button type="button" ga-track-event="['box-Tabs', 'addFolder']" class="content color-override backgroundTransparent" ng-if="!t.newFolderTabOpened" user-not-register-popup="click" ng-click="t.newFolderTabOpened = true">
+                @Html.Svg("~/images/site/icons.svg", "add")
+                <span>
+                    @BoxResources.AddFolder
+                </span>
+            </button>
+            <form class="content" ng-if="t.newFolderTabOpened" ng-submit="t.addTab()" name="addTabForm">
+                <input required focus-me="t.newFolderTabOpened" type="text" class="designed-input" ng-model="t.newFolderName" ng-blur="t.addTab()" />
+            </form>
+        </li>
+    </ul>
+</div>

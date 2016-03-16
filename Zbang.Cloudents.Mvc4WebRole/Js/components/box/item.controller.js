@@ -11,10 +11,6 @@
         i.tabSelected = {};
         var page = 0, needToBringMore = true;
 
-        boxService.getTabs(boxId).then(function (data) {
-            i.tabs = data;
-        });
-
         i.myPagingFunction = function () {
             if (!user.id || i.term) {
                 var defer = $q.defer();
@@ -26,50 +22,22 @@
         i.filter = filter;
         i.openUpload = openUpload;
         i.deleteItem = deleteItem;
-        i.tabChange = tabChange;
-        i.upDir = upDir;
         i.addItemToTab = addItemToTab;
         i.dropToTabSuccess = dropToTabSuccess;
-        i.addTab = addTab;
-        i.renameTab = renameTab;
-        i.renameTabOpen = renameTabOpen;
-        i.deleteTab = deleteTab;
         i.downloadItem = followBox;
         i.removeItemFromTab = removeItemFromTab;
+        $scope.setTab = setTab;
 
         getItems();
 
-        function renameTabOpen() {
-            i.openRenameTab = true;
-            i.tabNewName = i.tabSelected.name;
+        function setTab(tab) {
+            i.tabSelected = tab;
         }
-
 
         function followBox() {
             $scope.$emit('follow-box');
         }
 
-        var submitDisabled = false;
-        function addTab() {
-            if (!i.newFolderName) {
-                i.newFolderTabOpened = false;
-                return;
-            }
-            if (submitDisabled) {
-                return;
-            }
-            submitDisabled = true;
-            boxService.createTab(i.newFolderName, boxId).then(function (response) {
-                i.tabs.push(response);
-                followBox();
-                i.newFolderTabOpened = false;
-            }, function (response) {
-                $scope.app.showToaster(response, 'tabSection');
-            }).finally(function () {
-                submitDisabled = false;
-                i.newFolderName = '';
-            });
-        }
         function removeItemFromTab(item) {
             boxService.addItemToTab(boxId, null, item.id);
             i.tabSelected.count--;
@@ -89,46 +57,18 @@
         function dropToTabSuccess(index) {
             i.items.splice(index, 1);
         }
-        function tabChange(tab) {
-            $rootScope.$broadcast('close-collapse');
-            i.tabSelected = tab;
-            resetParams();
-            getItems();
-        }
 
+        $scope.$on('resetParams', function () {
+            resetParams();
+        });
+        $scope.$on('getItems', function () {
+            getItems();
+        });
         function resetParams() {
             page = 0;
             needToBringMore = true;
         }
-
-        function upDir() {
-            tabChange({});
-        }
-
-        function renameTab() {
-            boxService.renameTab(i.tabSelected.id, i.tabNewName, boxId).then(function () {
-                i.tabSelected.name = i.tabNewName;
-                i.openRenameTab = false;
-            }, function (response) {
-                $scope.app.showToaster(response, 'tabSection');
-            });
-        }
-        function deleteTab(ev) {
-            var confirm = $mdDialog.confirm()
-                 .title(resManager.get('deleteTab'))
-                 .targetEvent(ev)
-                 .ok(resManager.get('dialogOk'))
-                 .cancel(resManager.get('dialogCancel'));
-
-            $mdDialog.show(confirm).then(function () {
-                var index = i.tabs.indexOf(i.tabSelected);
-                i.tabs.splice(index, 1);
-                boxService.deleteTab(i.tabSelected.id, boxId).then(function () {
-                    upDir();
-                });
-            });
-        }
-
+        
         function openUpload() {
             if (!user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');

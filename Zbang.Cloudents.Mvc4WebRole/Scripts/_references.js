@@ -252,3 +252,4 @@
 /// <reference path="ui-bootstrap-custom-tpls-1.2.1.js" />
 /// <reference path="angular-dfp.js" />
 /// <reference path="../js/shared/staticpages.js" />
+/// <reference path="../js/components/box/tab.controller.js" />
