@@ -1726,8 +1726,8 @@
     <Content Include="Images\HomePage2\app_screen2.png" />
     <Content Include="Images\HomePage2\app_screen3.png" />
     <Content Include="Images\HomePage2\HP_image.jpg" />
-    <Content Include="Images\HomePage2\infographics_eng.png" />
-    <Content Include="Images\HomePage2\infographics_heb.png" />
+    <Content Include="Images\HomePage2\infographics_en.png" />
+    <Content Include="Images\HomePage2\infographics_he.png" />
     <Content Include="Images\HomePage2\testimonial1_he.jpg" />
     <Content Include="Images\HomePage2\testimonial2_he.jpg" />
     <Content Include="Images\HomePage2\testimonial3_he.jpg" />
