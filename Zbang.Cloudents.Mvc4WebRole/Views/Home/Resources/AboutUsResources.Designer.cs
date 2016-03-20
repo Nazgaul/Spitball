@@ -72,6 +72,71 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spitball is a free online and mobile social studying application. We are a community built around academic activity so you can focus on studying. It is a place for students of any academic level to work together on assignments, find the study material they need, test their knowledge and discuss ideas.
+        ///
+        ///All .
+        /// </summary>
+        public static string DescriptionA1a {
+            get {
+                return ResourceManager.GetString("DescriptionA1a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spitball features.
+        /// </summary>
+        public static string DescriptionA1b {
+            get {
+                return ResourceManager.GetString("DescriptionA1b", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  are specifically designed with a student’s needs in mind, integrated as part of a single, easy to use and free social studying platform. Uploading and sharing documents with peers, taking quizzes, browsing thousands of notes from our universal database and creating new .
+        /// </summary>
+        public static string DescriptionA1c {
+            get {
+                return ResourceManager.GetString("DescriptionA1c", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to courses.
+        /// </summary>
+        public static string DescriptionA1d {
+            get {
+                return ResourceManager.GetString("DescriptionA1d", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  as needed are all part of the freedom within our application. This freedom has allowed 250,000 students to upload .
+        /// </summary>
+        public static string DescriptionA1e {
+            get {
+                return ResourceManager.GetString("DescriptionA1e", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 300,000 documents.
+        /// </summary>
+        public static string DescriptionA1f {
+            get {
+                return ResourceManager.GetString("DescriptionA1f", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  so far, with no barriers between them and the material they need. .
+        /// </summary>
+        public static string DescriptionA1g {
+            get {
+                return ResourceManager.GetString("DescriptionA1g", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to As university students, we found ourselves struggling to find a fast and efficient way to share notes and study together online. Although some schools had official services for doing just that, they were often clunky and inflexible, making it difficult for us to share ideas with students outside of our class. Social sites made it easier to meet and communicate with one another, but they were not designed for academic life (and distractions were always close at hand). To fill this gap we set out to create a  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string DescriptionA2 {

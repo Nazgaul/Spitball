@@ -219,8 +219,13 @@
                             margin: 0 10px;
                         }
 
-                        > span {
+                        span {
                             display: inline-block;
+                            color: @textColorWhite;
+                        }
+
+                        a:hover span {
+                            color: #4190B9;
                         }
                     }
                 }
@@ -854,7 +859,6 @@
                         -ms-flex-wrap: wrap;
                         -webkit-flex-wrap: wrap;
                         flex-wrap: wrap;
-                        color: rgba(245,245,245,0.7);
                         width: 90%;
                         margin: 0 auto;
 
@@ -872,6 +876,14 @@
                             margin-bottom: 50px;
                             font-size: 20px;
                             line-height: normal;
+
+                            a {
+                                color: rgba(245,245,245,0.7);
+                                text-decoration: none;
+                                &:hover{
+                                  color:  #20495F;
+                                }
+                            }
                         }
                     }
                 }
@@ -958,8 +970,6 @@
                 background: @backgroundColor;
                 color: @textColorWhite;
                 padding-bottom: 100px;
-
-               
             }
 
             &.reviews {

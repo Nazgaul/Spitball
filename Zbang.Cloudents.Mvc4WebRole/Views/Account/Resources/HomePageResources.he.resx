@@ -139,8 +139,8 @@
   <data name="B3" xml:space="preserve">
     <value>הלימודים שלך איתך בכל מקום</value>
   </data>
-  <data name="B4" xml:space="preserve">
-    <value>במחשב, בנייד או בטאבלט, עם ספיטבול תוכלו להישאר מעודכנים תמיד כדי שלא תפספסו כלום</value>
+  <data name="B4a" xml:space="preserve">
+    <value>עם ספיטבול תוכלו להישאר מעודכנים תמיד כדי שלא תפספסו כלום - </value>
   </data>
   <data name="B5" xml:space="preserve">
     <value>קבלו עזרה מהחברים</value>
@@ -263,5 +263,8 @@
   </data>
   <data name="A12" xml:space="preserve">
     <value>קורסים</value>
+  </data>
+  <data name="B4b" xml:space="preserve">
+    <value>במחשב, בנייד או בטאבלט</value>
   </data>
 </root>

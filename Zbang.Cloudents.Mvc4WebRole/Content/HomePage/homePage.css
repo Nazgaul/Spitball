@@ -198,8 +198,12 @@
 .homePage .home-page-body section.main .statistics .statistic .value {
   margin: 0 10px;
 }
-.homePage .home-page-body section.main .statistics .statistic > span {
+.homePage .home-page-body section.main .statistics .statistic span {
   display: inline-block;
+  color: #f5f5f5;
+}
+.homePage .home-page-body section.main .statistics .statistic a:hover span {
+  color: #4190B9;
 }
 .homePage .home-page-body section.main .social-links {
   width: 35px;
@@ -749,7 +753,6 @@
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
-  color: rgba(245, 245, 245, 0.7);
   width: 90%;
   margin: 0 auto;
 }
@@ -767,6 +770,13 @@
   margin-bottom: 50px;
   font-size: 20px;
   line-height: normal;
+}
+.homePage .home-page-body section.about .description .features li a {
+  color: rgba(245, 245, 245, 0.7);
+  text-decoration: none;
+}
+.homePage .home-page-body section.about .description .features li a:hover {
+  color: #20495F;
 }
 .homePage .home-page-body section.about .video-image {
   margin: 0 auto;

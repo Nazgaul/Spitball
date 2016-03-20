@@ -189,11 +189,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Study when you want, from where you want - download to your phone, laptop and tablet.
+        ///   Looks up a localized string similar to Study when you want, from where you want - .
         /// </summary>
-        public static string B4 {
+        public static string B4a {
             get {
-                return ResourceManager.GetString("B4", resourceCulture);
+                return ResourceManager.GetString("B4a", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to download to your phone, laptop and tablet.
+        /// </summary>
+        public static string B4b {
+            get {
+                return ResourceManager.GetString("B4b", resourceCulture);
             }
         }
         

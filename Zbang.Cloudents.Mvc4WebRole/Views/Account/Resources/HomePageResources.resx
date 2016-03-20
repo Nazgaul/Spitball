@@ -139,8 +139,8 @@
   <data name="B3" xml:space="preserve">
     <value>AVAILABLE EVERYWHERE</value>
   </data>
-  <data name="B4" xml:space="preserve">
-    <value>Study when you want, from where you want - download to your phone, laptop and tablet</value>
+  <data name="B4a" xml:space="preserve">
+    <value>Study when you want, from where you want - </value>
   </data>
   <data name="B5" xml:space="preserve">
     <value>Get your questions answered</value>
@@ -267,5 +267,8 @@ classmates, swap notes and exchange ideas, for FREE.</value>
   </data>
   <data name="A12" xml:space="preserve">
     <value>Courses</value>
+  </data>
+  <data name="B4b" xml:space="preserve">
+    <value>download to your phone, laptop and tablet</value>
   </data>
 </root>

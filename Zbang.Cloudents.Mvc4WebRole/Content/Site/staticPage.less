@@ -835,6 +835,8 @@ iframe {
             background: #fff;
             padding: 40px 10px 25px 10px;
             min-height: 160px;
+
+            .seo-link();
         }
 
         .card-title {
@@ -883,7 +885,6 @@ iframe {
 
             .photo {
                 display: inline-block;
-                width: 50%;
                 position: absolute;
                 width: 130px;
                 left: ~"calc(50% - 65px)";
@@ -908,6 +909,8 @@ iframe {
 
         .about-text-wrapper {
             text-align: left;
+
+            .seo-link();
         }
 
         .video-wrapper {
@@ -1106,6 +1109,8 @@ iframe {
                     .description {
                         padding-bottom: 50px;
                     }
+
+                    .seo-link();
                 }
 
                 img {
@@ -1175,15 +1180,30 @@ iframe {
 
 
 
-.features-page {
+.features-page.static-page {
     .description {
         font-size: 18px;
         margin-top: 25px;
         line-height: 25px;
     }
 
-    .page-content {
-        // padding-bottom: 100px;
+    .description, section {
+        .seo-link();
+    }
+
+    .page-content section {
+        padding-top: 100px;
+        margin-top: -50px;
+
+
+        @media(max-width: 600px) {
+            padding-top: 100px;
+            margin-top: -100px;
+        }
+
+        &:last-child {
+            margin-bottom: 30px;
+        }
     }
 }
 
@@ -1199,6 +1219,8 @@ iframe {
         .first-line {
             text-align: center;
         }
+
+        .seo-link();
     }
 
 
@@ -1373,9 +1395,9 @@ iframe {
                 font-size: 22px;
             }
 
-            > img {
+            > img, > a img {
                 width: 100%;
-                margin: 20px 0;
+                margin-top: 20px;
                 border: 3px solid @borderColorWhite;
             }
         }
@@ -1394,6 +1416,9 @@ iframe {
     }
 }
 
+
+.features-page {
+}
 
 .boxes {
     width: 100%;
@@ -1576,4 +1601,16 @@ iframe {
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+}
+
+
+.seo-link(){
+    a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+            color: @buttonColorBlue;
+        }
+    }
 }

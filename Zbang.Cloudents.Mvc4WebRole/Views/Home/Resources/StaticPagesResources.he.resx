@@ -210,4 +210,106 @@
   <data name="ProductTextBegining" xml:space="preserve">
     <value>עקבו אחרי מספר שלבים פשוטים ותתחילו להשתמש בספיטבול כמו מקצוענים אמיתיים:</value>
   </data>
+  <data name="FeaturesDescriptionA" xml:space="preserve">
+    <value>הצטרפו למהפכת הלימודים של ספיטבול: בין אם פספסתם את השיעור האחרון ואתם מחפשים </value>
+  </data>
+  <data name="FeaturesDescriptionB" xml:space="preserve">
+    <value>סיכומים</value>
+  </data>
+  <data name="FeaturesDescriptionC" xml:space="preserve">
+    <value> באופן נואש, יש לכם שאלה לגביי עבודה מציקה שיש להגיש בקרוב, או שאתם מחפשים דרך פשוטה לבחון את הידע שלכם לפני הבחינה הגדולה - ספיטבול כאן בשביל לעזור לכם! </value>
+  </data>
+  <data name="FeaturesDescriptionD" xml:space="preserve">
+    <value>הרשמו בחינם</value>
+  </data>
+  <data name="FeaturesDescriptionE" xml:space="preserve">
+    <value>, בחרו את האוניברסיטה/מכללה שלכם ואת הקורס המבוקש ותתחילו לחלוק מידע עם חבריכם לכיתה בעזרת ספיטבול.</value>
+  </data>
+  <data name="FeaturesSectionText5A" xml:space="preserve">
+    <value>בחרו את </value>
+  </data>
+  <data name="FeaturesSectionText5B" xml:space="preserve">
+    <value>מוסד הלימודים</value>
+  </data>
+  <data name="FeaturesSectionText5C" xml:space="preserve">
+    <value> שלכם ותתחילו ליהנות מכל מה שיש לספיטבול להציע. בכל יום מתווספים למערכת של ספיטבול</value>
+  </data>
+  <data name="FeaturesSectionText5D" xml:space="preserve">
+    <value>קורסים</value>
+  </data>
+  <data name="FeaturesSectionText5E" xml:space="preserve">
+    <value> וסיכומים נוספים, כך שתוכלו להיות בטוחים שאתם מקבלים את החומרים העדכניים והרלוונטיים ביותר. עזרו לנו לבנות את קהילת ספיטבול של בית הספר שלכם וקבלו גישה לכל חומרי הלימוד שתצטרכו במקום אחד. לא מצאתם את בית הספר שלכם? תוכלו תמיד למצוא חומרי לימוד רלוונטיים נוספים מבתי ספר אחרים, או להיות הנציגים הראשונים של בית הספר שלכם במערכת של ספיטבול ולהוביל את המהפכה!</value>
+  </data>
+  <data name="FeaturesSectionText3A" xml:space="preserve">
+    <value>מצאו את הקורס המבוקש ותתחילו ללמוד יחד עם חבריכם לכיתה - קיימים למעלה מ-</value>
+  </data>
+  <data name="FeaturesSectionText3B" xml:space="preserve">
+    <value>50,000 קורסים</value>
+  </data>
+  <data name="FeaturesSectionText3C" xml:space="preserve">
+    <value> במערכת של ספיטבול. לא מצאתם את הקורס שחיפשתם? אל דאגה, תוכלו לפתוח קורס חדש תוך מספר שניות. עכשיו תוכלו להזמין את חבריכם להצטרף לקורס ולהעלות סיכומים, וכמובן לזכות בנקודות נוספות שיעזרו לכם להפוך למצטיינים בכיתה הוירטואלית של ספיטבול.</value>
+  </data>
+  <data name="FeaturesSectionText1A" xml:space="preserve">
+    <value>מצאו בקלות בין </value>
+  </data>
+  <data name="FeaturesSectionText1B" xml:space="preserve">
+    <value>אלפי קבצים של חומרי לימוד</value>
+  </data>
+  <data name="FeaturesSectionText1C" xml:space="preserve">
+    <value> את השיעור שהחמצתם. קליקים בודדים מפרידים ביניכם לבין חומרי הלימוד שיעזרו לכם לשפר את הציונים שלכם, אז חפשו את חומרי הלימוד המבוקשים במערכת או שתעזרו לחברים שלכם להצליח במבחנים ובעבודות הקרובות ותתחילו להעלות את חומרי הלימוד שלכם. תוכלו להוריד את המסמך שאתם זקוקים לו לכל מכשיר, להדפיס אותו, או לחזור אליו במועד מאוחר, הוא לא הולך לשום מקום.</value>
+  </data>
+  <data name="FeaturesSectionText6A" xml:space="preserve">
+    <value>למדו ביחד בכל זמן ובכל מקום עם </value>
+  </data>
+  <data name="FeaturesSectionText6B" xml:space="preserve">
+    <value>האפליקצייה של ספיטבול</value>
+  </data>
+  <data name="FeaturesSectionText6C" xml:space="preserve">
+    <value>. מצאו בקלות את כל חומרי הלימוד שתזדקקו להם ישירות במכשיר הנייד שלכם. דברו עם חבריכם לכיתה, שאלו שאלות והתחילו ללמוד למבחן הבא שלכם מכל מכשיר הנמצא ברשותכם.</value>
+  </data>
+  <data name="AppsSectionText1A" xml:space="preserve">
+    <value>למדו ביחד בכל זמן ובכל מקום עם האפליקצייה של ספיטבול. מצאו בקלות את כל </value>
+  </data>
+  <data name="AppsSectionText1B" xml:space="preserve">
+    <value>חומרי הלימוד</value>
+  </data>
+  <data name="AppsSectionText1C" xml:space="preserve">
+    <value> שתזדקקו להם ישירות במכשיר הנייד שלכם.</value>
+  </data>
+  <data name="AppsSectionTitle3A" xml:space="preserve">
+    <value>מצאו את הקורס שלכם ותתחילו ללמוד ביחד</value>
+  </data>
+  <data name="ProductTextA" xml:space="preserve">
+    <value>פתחו חשבון חינמי בספיטבול ומצאו את בית הספר שלכם - קיימים מעל ל-</value>
+  </data>
+  <data name="ProductTextB" xml:space="preserve">
+    <value>325 מכללות</value>
+  </data>
+  <data name="ProductTextC" xml:space="preserve">
+    <value> ואוניברסיטאות במערכת. אם לא מצאתם את המוסד האקדמי המתאים יש עדיין הרבה דברים שתוכלו לעשות: מצאו את חומרי הלימוד שאתם זקוקים להם בבתי ספר אחרים, או שתהיו הראשונים להוסיף את בית הספר שלכם למערכת של ספיטבול וכך תעזרו לנו להגדיל את הקהילה (והיי, אולי אפילו תרוויחו כמה שקלים). כעת תוכלו למצוא ולהצטרף לכל קורס שתרצו, קיימים מעל ל-</value>
+  </data>
+  <data name="ProductTextD" xml:space="preserve">
+    <value>57,000 קורסים</value>
+  </data>
+  <data name="ProductTextE" xml:space="preserve">
+    <value> במערכת שמחכים רק לכם. מצאו את </value>
+  </data>
+  <data name="ProductTextF" xml:space="preserve">
+    <value>חומרי הלימוד שאתם זקוקים להם</value>
+  </data>
+  <data name="ProductTextG" xml:space="preserve">
+    <value> ותתחילו ללמוד עם חבריכם לכיתה. שאלו שאלות, חלקו רעיונות וחומרי לימוד עם החברים שלכם לכיתה, הם יוכלו לעזור לכם לענות על שאלות בקלות, במקום שתאלצו לחכות לשעות קבלה של המרצה או המתרגל. בחנו את עצמכם עם אחד מאלפי מבחנים מקוונים שנוצרו על ידי חבריכם לכיתה, או העלו מבחן בעצמכם - חשיבה על שאלות היא דרך מצוינת להתכונן למבחן המתקרב ותעזור לסטודנדטים האחרים בכיתה בהכנות שלהם למבחן. כל חבר שהתווסף, שאלה שנשאלת, חומר לימוד שהועלה או מבחן שנוצר יוכל לעזור לכם להפוך ל</value>
+  </data>
+  <data name="ProductTextH" xml:space="preserve">
+    <value>תלמידים טובים יותר</value>
+  </data>
+  <data name="ProductTextI" xml:space="preserve">
+    <value> ולסיים את התואר בהצטיינות. </value>
+  </data>
+  <data name="ProductTextJ" xml:space="preserve">
+    <value>פתחו חשבון חינמי בספיטבול עוד היום</value>
+  </data>
+  <data name="AppsSectionTitle3B" xml:space="preserve">
+    <value />
+  </data>
 </root>

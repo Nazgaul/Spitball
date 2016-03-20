@@ -262,7 +262,7 @@
                             <span id="students" class="value" data-value="@Model.StudentsCount"></span><span>@HomePageResources.statsStudents</span>
                         </h3>
                         <h3 class="statistic">
-                            <span id="documents" class="value" data-value="@Model.DocumentCount"></span><span>@HomePageResources.statsDocuments</span>
+                            <a href="@Url.RouteUrl("ClassNotes")"><span id="documents" class="value" data-value="@Model.DocumentCount"></span><span>@HomePageResources.statsDocuments</span></a>
                         </h3>
                         <h3 class="statistic">
                             <span id="quizzes" class="value" data-value="@Model.QuizzesCount"></span><span>@HomePageResources.statsQuizzes</span>
@@ -288,12 +288,12 @@
                     <p>@HomePageResources.D2</p>
                     <div class="features">
                         <ul>
-                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.1s">@HomePageResources.D3</li>
-                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.2s">@HomePageResources.D5</li>
+                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.1s"><a href="@Url.RouteUrl("Features")#class_feed">@HomePageResources.D3</a></li>
+                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.2s"><a href="@Url.RouteUrl("Apps")">@HomePageResources.D5</a></li>
                         </ul>
                         <ul>
-                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.3s">@HomePageResources.D4</li>
-                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.4s">@HomePageResources.D6</li>
+                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.3s"><a href="@Url.RouteUrl("ClassNotes")">@HomePageResources.D4</a></li>
+                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.4s"><a href="@Url.RouteUrl("Features")">@HomePageResources.D6</a></li>
                         </ul>
                     </div>
                 </div>
