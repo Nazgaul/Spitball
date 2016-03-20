@@ -21,6 +21,8 @@
   height: 50%;
   border-radius: 50% !important;
   line-height: 117px !important;
+  max-width: 125px;
+  max-height: 125px;
 }
 .profile-usertitle {
   text-align: center;
