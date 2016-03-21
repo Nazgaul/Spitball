@@ -216,10 +216,14 @@
 
     .comments-section .menu-icon {
         margin-top: 5px;
+        background: @buttonColorBlue;
+        padding: 13px;
+        height: 50px;
+        border-radius: 0 10px 10px 0;
 
         svg {
-            width: 20px;
-            height: 20px;
+            width: 25px;
+            height: 25px;
         }
     }
 
@@ -230,12 +234,16 @@
     .commentsMenu {
         width: 20px;
         height: 20px;
-        fill: @borderColorLightGrey;
+        fill: @textColorWhite;
     }
 
     .comments-wrapper .menu-toggler {
-        width: 100%;
-        position: absolute;
+        width: initial;
+        position: fixed;
+        z-index: 1;
+        right: 2px;
+        padding: 0;
+        display: block !important;
     }
 
     .comments-section {
@@ -247,6 +255,10 @@
             position: fixed;
             top: 80px;
             margin-top: 10px;
+            background: @buttonColorBlue;
+            padding: 13px;
+            height: 50px;
+            border-radius: 0 10px 10px 0;
         }
 
         .comment-info {
@@ -272,32 +284,31 @@
     }
 
     .menu-toggler {
-        text-align: right;
-        position: fixed;
-        width: 100%;
-        padding: 0 5px;
-        z-index: 1;
-        background: @textColorWhite;
-
-        @media (min-width: 1500px) {
-            display: none;
-        }
+        display: none;
     }
 
     .comments-wrapper {
         position: fixed !important;
         top: 85px;
-        background: @textColorWhite;
+        background: none;
         width: 300px;
-
-
-        @media (max-width: 1500px) {
-            box-shadow: -10px 10px 75px @backgroundColorMenu;
-            z-index: 2;
+        z-index: 2;
+        padding-right: 53px;
+        -moz-box-sizing: content-box;
+        -webkit-box-sizing: content-box;
+        box-sizing: content-box;
+        min-width: 0;
+        &.md-closed {
+            -webkit-transform: translate3d(~"calc(-100% + 53px)", 0, 0);
+            -moz-transform: translate3d(~"calc(-100% + 53px)", 0, 0);
+            -ms-transform: translate3d(~"calc(-100% + 53px)", 0, 0);
+            -o-transform: translate3d(~"calc(-100% + 53px)", 0, 0);
+            transform: translate3d(~"calc(-100% + 53px)", 0, 0);
         }
 
         md-content {
             background-color: @textColorWhite;
+            box-shadow: -10px 10px 34px @backgroundColorMenu;
         }
 
         .title {

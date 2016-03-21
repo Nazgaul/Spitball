@@ -2,16 +2,16 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div class="comments-section" ng-controller="CommentsController as c">
     <button type="button" class="menu-icon" ng-click="c.toggleComments()">
-        @Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "commentsMenu" })
+        @Html.Svg("~/images/site/box-icons.svg", "comment", new { @class = "commentsMenu" })
     </button>
     <md-sidenav class="comments-wrapper md-sidenav" md-component-id="commentsMenu" 
-                md-is-locked-open="$mdMedia('min-width: 1500px')">
+                md-is-locked-close="true">
+        <div class="menu-toggler">
+            <button type="button" class="menu-icon" ng-click="c.toggleComments()">
+                @Html.Svg("~/images/site/box-icons.svg", "comment", new { @class = "commentsMenu" })
+            </button>
+        </div>
         <md-content role="navigation">
-            <div class="menu-toggler">
-                <button type="button" class="menu-icon" ng-click="c.toggleComments()">
-                    @Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "commentsMenu" })
-                </button>
-            </div>
             @*<button type="button" class="menu-icon" ng-if="!c.showCommentMenu" ng-click="c.showCommentMenu = true">
                     @Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "commentsMenu" })
                 </button>*@
