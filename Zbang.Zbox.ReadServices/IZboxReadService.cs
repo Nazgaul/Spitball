@@ -22,7 +22,8 @@ namespace Zbang.Zbox.ReadServices
     {
         // home page
         Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query);
-
+        Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync(string lang);
+        Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync(string lang);
         Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query);
         Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query);
 
@@ -65,9 +66,9 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<BoxNotificationDto>> GetUserBoxesNotificationAsync(GetUserDetailsQuery query);
         Task<NotificationSettings> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId);
 
-        
 
-       // BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId);
+
+        // BoxSettingsDto GetBoxSetting(GetBoxQuery query, long userId);
 
         Task<IEnumerable<UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query);
         //Task<IEnumerable<long>> GetBoxUsersIdAsync(GetBoxWithUserQuery query);
@@ -103,7 +104,7 @@ namespace Zbang.Zbox.ReadServices
 
 
         Task<UniversityWithCodeDto> GetUniversityNeedIdAsync(long universityId);
-       
+
 
 
         Task<IEnumerable<UpdatesDto>> GetUpdatesAsync(QueryBase query);

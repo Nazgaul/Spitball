@@ -349,19 +349,37 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Route("classnotes", Name = "classnotes")]
-        public ActionResult ClassNotes()
+        public async Task<ActionResult> ClassNotes(string lang)
         {
             ViewBag.title = SeoResources.ClassNotesTitle;
             ViewBag.metaDescription = SeoResources.ClassNotesMeta;
-            return View();
+            var language = "en";
+            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
+                Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                language = "he";
+            }
+            var items = await ZboxReadService.GetItemsPageDataAsync(language);
+
+            return View("ClassNotes", items);
         }
 
         [Route("courses", Name = "courses")]
-        public ActionResult Courses()
+        public async Task<ActionResult> Courses(string lang)
         {
             ViewBag.title = SeoResources.CoursesTitle;
             ViewBag.metaDescription = SeoResources.CoursesMeta;
-            return View();
+
+            var language = "en";
+
+            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
+                Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                language = "he";
+
+            }
+            var courses = await ZboxReadService.GetCoursesPageDataAsync(language);
+            return View("Courses", courses);
         }
         [Route("home/help")]
         public ActionResult HelpOld()

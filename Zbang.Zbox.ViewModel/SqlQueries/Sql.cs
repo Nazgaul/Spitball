@@ -3,22 +3,22 @@
     public static class Sql
     {
 
-//        public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, 
-//                            uWrap.UniversityName  as Name, uWrap.LargeImage as Image,
-//                            uWrap.UniversityName as UniversityName,
-//                            uWrap.WebSiteUrl,
-//                            uWrap.MailAddress,
-//                            uWrap.FacebookUrl,
-//                            uWrap.TwitterUrl,
-//                            uWrap.TwitterWidgetId,
-//                            uWrap.YouTubeUrl,
-//                            uWrap.LetterUrl,
-//                            uWrap.NoOfBoxes as BoxesCount,
-//							uWrap.NoOfItems + uWrap.NoOfQuizzes as ItemCount,
-//                            uWrap.NoOfUsers as MemberCount
-//                            from zbox.University uWrap  
-//                            where 
-//                             uWrap.Id =@UniversityWrapper";
+        //        public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, 
+        //                            uWrap.UniversityName  as Name, uWrap.LargeImage as Image,
+        //                            uWrap.UniversityName as UniversityName,
+        //                            uWrap.WebSiteUrl,
+        //                            uWrap.MailAddress,
+        //                            uWrap.FacebookUrl,
+        //                            uWrap.TwitterUrl,
+        //                            uWrap.TwitterWidgetId,
+        //                            uWrap.YouTubeUrl,
+        //                            uWrap.LetterUrl,
+        //                            uWrap.NoOfBoxes as BoxesCount,
+        //							uWrap.NoOfItems + uWrap.NoOfQuizzes as ItemCount,
+        //                            uWrap.NoOfUsers as MemberCount
+        //                            from zbox.University uWrap  
+        //                            where 
+        //                             uWrap.Id =@UniversityWrapper";
 
 
         /// <summary>
@@ -186,39 +186,39 @@ q.NumberOfViews as numOfViews
         /// <summary>
         ///  Used in user page to get user invites
         /// </summary>
-//        public const string UserPersonalInvites = @"
-//   select i.Image as userImage, i.UserName as username, 
-// null as boxName,null as boxid, i.email,
-// i.IsUsed as status, i.TypeOfMsg as InviteType
-//   from zbox.Invite i
-//   where senderid =@Me
-//   and TypeOfMsg = 3
-//union all
-//select u.UserImageLarge as userImage, u.UserName as username, 
-// b.BoxName as boxName,b.boxid as boxid, i.email,
-// i.IsUsed as status, i.TypeOfMsg as InviteType
-//   from zbox.Invite i
-//   inner join zbox.UserBoxRel ub on i.UserBoxRelId = ub.UserBoxRelId
-//   inner join zbox.Box b on ub.BoxId = b.BoxId
-//   inner join zbox.Users u on ub.UserId = u.UserId
-//   where senderid =@Me
-//   and TypeOfMsg = 2
-//";
+        //        public const string UserPersonalInvites = @"
+        //   select i.Image as userImage, i.UserName as username, 
+        // null as boxName,null as boxid, i.email,
+        // i.IsUsed as status, i.TypeOfMsg as InviteType
+        //   from zbox.Invite i
+        //   where senderid =@Me
+        //   and TypeOfMsg = 3
+        //union all
+        //select u.UserImageLarge as userImage, u.UserName as username, 
+        // b.BoxName as boxName,b.boxid as boxid, i.email,
+        // i.IsUsed as status, i.TypeOfMsg as InviteType
+        //   from zbox.Invite i
+        //   inner join zbox.UserBoxRel ub on i.UserBoxRelId = ub.UserBoxRelId
+        //   inner join zbox.Box b on ub.BoxId = b.BoxId
+        //   inner join zbox.Users u on ub.UserId = u.UserId
+        //   where senderid =@Me
+        //   and TypeOfMsg = 2
+        //";
 
 
-//        public const string UserInvites = @"
-//select id as MsgId, u.UserImageLarge as userpic,
-// u.UserName as username, 
-// i.CreationTime as date,
-// b.BoxName,
-//b.Url ,  isRead as [IsRead]
-//from zbox.UserBoxRel ub
-//join zbox.Invite i on ub.UserBoxRelId = i.UserBoxRelId and i.IsUsed = 0  and i.isdeleted = 0
-//join zbox.Users u on i.SenderId = u.UserId
-//join zbox.box b on ub.BoxId = b.BoxId and b.isdeleted = 0
-//where ub.UserType = 1
-//and ub.UserId = @userid
-//order by isRead asc, i.CreationTime desc ";
+        //        public const string UserInvites = @"
+        //select id as MsgId, u.UserImageLarge as userpic,
+        // u.UserName as username, 
+        // i.CreationTime as date,
+        // b.BoxName,
+        //b.Url ,  isRead as [IsRead]
+        //from zbox.UserBoxRel ub
+        //join zbox.Invite i on ub.UserBoxRelId = i.UserBoxRelId and i.IsUsed = 0  and i.isdeleted = 0
+        //join zbox.Users u on i.SenderId = u.UserId
+        //join zbox.box b on ub.BoxId = b.BoxId and b.isdeleted = 0
+        //where ub.UserType = 1
+        //and ub.UserId = @userid
+        //order by isRead asc, i.CreationTime desc ";
 
         public const string RecommendedCourses =
             @"select top(3) b.BoxId, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
@@ -261,10 +261,10 @@ left join zbox.University uu on u.UniversityId = uu.Id
 where u.userid = @UserId";
 
 
-//        public const string UserTheme = @"select 
-//u.theme as Theme
-//from zbox.Users u 
-//where u.userid = @UserId";
+        //        public const string UserTheme = @"select 
+        //u.theme as Theme
+        //from zbox.Users u 
+        //where u.userid = @UserId";
 
         public const string GetUserByMembershipId = @" select u.UserId as Id, u.UserName as Name, u.Culture as Culture, 
     u.UserImageLarge as Image, u.Email as Email,
@@ -347,8 +347,79 @@ u.GoogleUserId as GoogleId
     case when u.MembershipUserId is null then 0 else 1 end  as System
     from zbox.Users u left join zbox.University v on u.UniversityId = v.Id
     where u.userId = @UserId";
-    }
 
+        public const string GetCoursesPageBoxesEn = @"select top 16 b.boxid as id,
+                                b.BoxName as Name,
+                                b.quizcount + b.itemcount as ItemCount,
+                                b.MembersCount as MembersCount,
+                                b.CourseCode,
+                                b.ProfessorName,
+                                b.Url as Url
+                                from zbox.box b join zbox.university u on b.university=u.id
+                                where  MembersCount > 5
+                                and b.[IsDeleted] = 0 
+                                and b.Discriminator = 2
+                                and country='US' 
+                                and id!=170400
+                                order by  b.[UpdateTime] desc;";
+
+
+        public const string GetCoursesPageBoxesHe = @"select top 16 b.boxid as id,
+                                b.BoxName as Name,
+                                b.quizcount + b.itemcount as ItemCount,
+                                b.MembersCount as MembersCount,
+                                b.CourseCode,
+                                b.ProfessorName,
+                                b.Url as Url
+                                from zbox.box b join zbox.university u on b.university=u.id
+                                where  MembersCount >20
+                                and b.[UpdateTime]> getdate()-30 
+                                and b.Discriminator = 2
+                                and ItemCount> 20
+                                and CommentCount> 10 
+                                and b.[IsDeleted]=0 
+                                and country='IL' 
+                                and id!=170460 
+                                order by b.[UpdateTime];";
+
+
+        public const string GetItemsPageItemsEn = @"select top 40 i.Name as Name,
+                                i.LikeCount as Likes,
+                                i.NumberOfViews as NumOfViews,
+                                i.Url as Url
+                                from zbox.box b join zbox.university u on b.university=u.id join zbox.item i on i.boxid=b.boxid
+                                where  MembersCount >3
+                                and i.creationtime> getdate()-30 
+                                and b.[Discriminator]=2 
+                                and i.[IsDeleted]=0 
+                                and i.Discriminator = 'File'
+                                and u.country='US' 
+                                and id!=170460 
+                                order by NumberOfViews desc;";
+
+        //Name OwnerId Discriminator NumOfViews Likes Description BlobName NumOfDownloads Date commentsCount Url type source
+        public const string GetItemsPageItemsHe = @"select top 40 i.Name as Name,
+                                i.LikeCount as Likes,
+                                i.NumberOfViews as NumOfViews,
+                                i.Url as Url
+                                from zbox.box b join zbox.university u on b.university=u.id join zbox.item i on i.boxid=b.boxid
+                                where  MembersCount >20
+                                and i.creationtime> getdate()-30 
+                                and NumberOfDownloads    >20
+                                and NumberOfViews        >50
+                                and b.[Discriminator]=2 
+                                and i.Discriminator = 'File'
+                                and i.[IsDeleted]=0 
+                                and u.country='IL' 
+                                and id!=170460 
+                                order by i.creationtime, NumberOfViews desc;";
+
+
+
+
+
+
+    }
 
 
 }
