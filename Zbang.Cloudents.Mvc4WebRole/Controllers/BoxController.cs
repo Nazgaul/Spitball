@@ -81,12 +81,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 if (part == "items")
                 {
-                    ViewBag.title = string.Format("{3} {0} - {1} | {2}", model.Name, model.DepartmentName,
+                    ViewBag.title = string.Format("{3} - {0} - {1} | {2}", model.Name, model.DepartmentName,
                         SeoResources.Cloudents, SeoResources.BoxTitleItems);
                 }
                 if (part == "quizzes")
                 {
-                    ViewBag.title = string.Format("{3} {0} - {1} | {2}", model.Name, model.DepartmentName,
+                    ViewBag.title = string.Format("{3} - {0} - {1} | {2}", model.Name, model.DepartmentName,
                         SeoResources.Cloudents, SeoResources.BoxTitleQuizzes);
                 }
                 return View("Empty");

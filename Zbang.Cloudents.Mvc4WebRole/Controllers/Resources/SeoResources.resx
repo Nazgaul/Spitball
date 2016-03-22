@@ -124,7 +124,7 @@
     <value>About Us | Spitball</value>
   </data>
   <data name="BoxMetaDescription" xml:space="preserve">
-    <value>Study and share your class notes for Course {0}, online or via the Spitball app. Use Spitball for free today!</value>
+    <value>Study and share your class notes for {0}, online or via the Spitball app. Use Spitball for free today!</value>
   </data>
   <data name="BoxTitleItems" xml:space="preserve">
     <value>Notes</value>
@@ -193,27 +193,27 @@
     <value>Blog | Spitball</value>
   </data>
   <data name="AdvertiseWithUsMeta" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="BlogMeta" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AppsTitle" xml:space="preserve">
     <value>Apps | Spitball</value>
   </data>
   <data name="AppsMeta" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ClassNotesTitle" xml:space="preserve">
     <value>Class Notes | Spitball</value>
   </data>
   <data name="ClassNotesMeta" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="CoursesTitle" xml:space="preserve">
     <value>Courses | Spitball</value>
   </data>
   <data name="CoursesMeta" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
 </root>

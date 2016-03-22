@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Study and share your class notes for Course {0}, online or via the Spitball app. Use Spitball for free today!.
+        ///   Looks up a localized string similar to Study and share your class notes for {0}, online or via the Spitball app. Use Spitball for free today!.
         /// </summary>
         internal static string BoxMetaDescription {
             get {
