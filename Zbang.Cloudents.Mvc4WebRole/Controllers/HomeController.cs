@@ -70,8 +70,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("account/signup", Name = "signup")]
         public async Task<ActionResult> SignUp(string lang, string invId)
         {
-            ViewBag.title = SeoResources.SignInTitle;
-            ViewBag.metaDescription = SeoResources.SignInMeta;
+            ViewBag.title = SeoResources.SignUpTitle;
+            ViewBag.metaDescription = SeoResources.SignUpMeta;
             return await HomePageAsync(lang, invId);
         }
 

@@ -117,11 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DescriptionA1" xml:space="preserve">
-    <value>Spitball is a free online and mobile social studying application. We are a community built around academic activity so you can focus on studying. It is a place for students of any academic level to work together on assignments, find the study material they need, test their knowledge and discuss ideas.
-
-All Spitball features are specifically designed with a student’s needs in mind, integrated as part of a single, easy to use and free social studying platform. Uploading and sharing documents with peers, taking quizzes, browsing thousands of notes from our universal database and creating new courses as needed are all part of the freedom within our application. This freedom has allowed 250,000 students to upload 300,000 documents so far, with no barriers between them and the material they need. </value>
-  </data>
   <data name="DescriptionQ1" xml:space="preserve">
     <value>What is Spitball?</value>
   </data>
@@ -162,9 +157,6 @@ Co-Founder</value>
   </data>
   <data name="TeamWebDevName" xml:space="preserve">
     <value>Irena Dorfman</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>About Us</value>
   </data>
   <data name="DescriptionQ2" xml:space="preserve">
     <value>Our Vision</value>

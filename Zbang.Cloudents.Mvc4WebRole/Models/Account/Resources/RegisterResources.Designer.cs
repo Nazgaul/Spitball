@@ -79,15 +79,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email is not in the correct format.
-        /// </summary>
-        public static string EmailNotCorrect {
-            get {
-                return ResourceManager.GetString("EmailNotCorrect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to That email address is invalid. Please try again.
         /// </summary>
         public static string EmailNotValid {

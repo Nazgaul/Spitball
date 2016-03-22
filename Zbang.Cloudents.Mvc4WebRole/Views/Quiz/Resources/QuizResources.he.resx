@@ -132,9 +132,6 @@
   <data name="Answers" xml:space="preserve">
     <value>תשובות:</value>
   </data>
-  <data name="CanChoose" xml:space="preserve">
-    <value>שמור את המבחן כ"טיוטא" לשם עריכה</value>
-  </data>
   <data name="Chance" xml:space="preserve">
     <value>נסה את מזלך</value>
   </data>
@@ -147,14 +144,8 @@
   <data name="CorrectAnswer" xml:space="preserve">
     <value>תשובה נכונה</value>
   </data>
-  <data name="Draft" xml:space="preserve">
-    <value>שמור כטיוטא</value>
-  </data>
   <data name="GoBack" xml:space="preserve">
     <value>חזור אחורה ובדוק את התשובות שלך</value>
-  </data>
-  <data name="Leave" xml:space="preserve">
-    <value>לא סיימת את המבחן המקוון, בטוח שאתה רוצה לצאת?</value>
   </data>
   <data name="NoAnswer" xml:space="preserve">
     <value>לא הזנת תשובה</value>
@@ -164,9 +155,6 @@
   </data>
   <data name="OfClassmates" xml:space="preserve">
     <value>מחבריך פתרו את המבחן המקוון</value>
-  </data>
-  <data name="OnlyYou" xml:space="preserve">
-    <value>רק אתה יכול לראות ולערוך את הטיוטא</value>
   </data>
   <data name="Publish" xml:space="preserve">
     <value>פרסם</value>

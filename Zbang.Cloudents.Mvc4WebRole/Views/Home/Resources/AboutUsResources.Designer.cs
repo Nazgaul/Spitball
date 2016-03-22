@@ -63,17 +63,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Spitball is a free online and mobile social studying application. We are a community built around academic activity so you can focus on studying. It is a place for students of any academic level to work together on assignments, find the study material they need, test their knowledge and discuss ideas.
         ///
-        ///All Spitball features are specifically designed with a student’s needs in mind, integrated as part of a single, easy to use and free social studying platform. Uploading and sharing documents with peers, tak [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string DescriptionA1 {
-            get {
-                return ResourceManager.GetString("DescriptionA1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spitball is a free online and mobile social studying application. We are a community built around academic activity so you can focus on studying. It is a place for students of any academic level to work together on assignments, find the study material they need, test their knowledge and discuss ideas.
-        ///
         ///All .
         /// </summary>
         public static string DescriptionA1a {
@@ -270,15 +259,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         public static string TeamWebDevName {
             get {
                 return ResourceManager.GetString("TeamWebDevName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to About Us.
-        /// </summary>
-        public static string Title {
-            get {
-                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }

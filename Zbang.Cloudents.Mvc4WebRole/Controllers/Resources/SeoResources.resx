@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutUsMeta" xml:space="preserve">
-    <value>Meet Spitball - A free online and mobile social studying application built by student for students. Join the social studying revolution at Spitball!</value>
+    <value>Meet Spitball - A free online and mobile social studying application built by students for students. Join the social studying revolution at Spitball!</value>
   </data>
   <data name="AboutUsTitle" xml:space="preserve">
     <value>About Us | Spitball</value>
   </data>
   <data name="BoxMetaDescription" xml:space="preserve">
-    <value>Study and share your class notes for Course {0}, online or via the Spitball app. Use Spitball for free today!</value>
+    <value>Study and share your class notes for {0}, online or via the Spitball app. Use Spitball for free today!</value>
   </data>
   <data name="BoxTitleItems" xml:space="preserve">
     <value>Notes</value>
@@ -136,7 +136,7 @@
     <value>Spitball</value>
   </data>
   <data name="HelpMeta" xml:space="preserve">
-    <value>Find out all you need to know about the Spitball's system. Get class notes, chat with your friends, create study groups and share your knowledge!</value>
+    <value>Find out all you need to know about Spitball's system. Get class notes, chat with your friends, create study groups and share your knowledge!</value>
   </data>
   <data name="HelpTitle" xml:space="preserve">
     <value>FAQ | Spitball</value>
@@ -155,9 +155,6 @@
   </data>
   <data name="JobsTitle" xml:space="preserve">
     <value>Jobs | Spitball</value>
-  </data>
-  <data name="MetaDescription" xml:space="preserve">
-    <value>Study and share your class notes for {0} {1} {2} , online or via the Spitball app</value>
   </data>
   <data name="PrivacyMeta" xml:space="preserve">
     <value>At Spitball we take security and privacy very seriously. Your personal information is actively protected by us. Join the social studying revolution at Spitball!</value>
@@ -193,27 +190,30 @@
     <value>Blog | Spitball</value>
   </data>
   <data name="AdvertiseWithUsMeta" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="BlogMeta" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="AppsTitle" xml:space="preserve">
     <value>Apps | Spitball</value>
   </data>
   <data name="AppsMeta" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="ClassNotesTitle" xml:space="preserve">
     <value>Class Notes | Spitball</value>
   </data>
   <data name="ClassNotesMeta" xml:space="preserve">
-    <value></value>
+    <value />
   </data>
   <data name="CoursesTitle" xml:space="preserve">
     <value>Courses | Spitball</value>
   </data>
   <data name="CoursesMeta" xml:space="preserve">
-    <value></value>
+    <value />
+  </data>
+  <data name="QuizMetaDescription" xml:space="preserve">
+    <value>See how well you are doing in {0} and test yourself with the {1} quiz your classmates have built. Start getting better grades with Spitball!</value>
   </data>
 </root>

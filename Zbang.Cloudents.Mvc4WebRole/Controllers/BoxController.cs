@@ -43,7 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
-           Duration = TimeConsts.Day, VaryByParam = "boxId",
+           Duration = TimeConsts.Day, VaryByParam = "boxId;part",
            Location = OutputCacheLocation.Server, Order = 4)]
         [BoxPermission("boxId", Order = 3)]
         [Route("box/my/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members))}", Name = "PrivateBoxWithSub")]
@@ -81,12 +81,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 if (part == "items")
                 {
-                    ViewBag.title = string.Format("{3} {0} - {1} | {2}", model.Name, model.DepartmentName,
+                    ViewBag.title = string.Format("{3} - {0} - {1} | {2}", model.Name, model.DepartmentName,
                         SeoResources.Cloudents, SeoResources.BoxTitleItems);
                 }
                 if (part == "quizzes")
                 {
-                    ViewBag.title = string.Format("{3} {0} - {1} | {2}", model.Name, model.DepartmentName,
+                    ViewBag.title = string.Format("{3} - {0} - {1} | {2}", model.Name, model.DepartmentName,
                         SeoResources.Cloudents, SeoResources.BoxTitleQuizzes);
                 }
                 return View("Empty");

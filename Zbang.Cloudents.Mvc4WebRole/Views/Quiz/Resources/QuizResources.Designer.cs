@@ -106,15 +106,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save this quiz as a draft for future editing.
-        /// </summary>
-        public static string CanChoose {
-            get {
-                return ResourceManager.GetString("CanChoose", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Take a chance.
         /// </summary>
         public static string Chance {
@@ -151,15 +142,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save as draft.
-        /// </summary>
-        public static string Draft {
-            get {
-                return ResourceManager.GetString("Draft", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enter quiz name.
         /// </summary>
         public static string EnterQuizName {
@@ -187,15 +169,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You haven&apos;t finished this quiz. Do you want to leave?.
-        /// </summary>
-        public static string Leave {
-            get {
-                return ResourceManager.GetString("Leave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No answer given.
         /// </summary>
         public static string NoAnswer {
@@ -219,15 +192,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         public static string OfClassmates {
             get {
                 return ResourceManager.GetString("OfClassmates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only you are able to see and edit the draft.
-        /// </summary>
-        public static string OnlyYou {
-            get {
-                return ResourceManager.GetString("OnlyYou", resourceCulture);
             }
         }
         

@@ -17,15 +17,15 @@
         self.needCode = false;
         self.countries = [];
         self.paging = paging;
-        self.code = {}
-        self.code.userName = userDetailsFactory.get().name;
+        self.code = {
+            userName: userDetailsFactory.get().name
+        }
 
         $scope.app.showMenu = false;
 
         countryService.getCountries(function (iso, country) {
             self.countries.push({ iso: iso, name: country });
         });
-        //assignData(universityInit);
         function universitySearch(libraryChooseForm) {
             if (libraryChooseForm.$valid) {
                 search();
@@ -53,6 +53,7 @@
 
         function selectUniversity(university, myform) {
             self.submitDisabled = true;
+            
             libraryService.chooseUniversity(university.id, self.code.studentId).then(function (response) {
                 if (response) {
 
@@ -74,10 +75,6 @@
         }
 
         function assignData(response, needPage) {
-
-            //if (!self.term && !needPage) {
-            //    response = universitySuggest.concat(response);
-            //}
             var data = [];
             for (var i = 0; i < response.length; i++) {
                 var uni = response[i];
@@ -95,10 +92,12 @@
             }
             if (needPage) {
                 self.universities = self.universities.concat(data);
-
                 return;
             }
-
+            if (!data.length) {
+                
+            }
+            self.showNoResult = !data.length;
             self.universities = data;
         }
         function createNewUniversity(myform) {

@@ -510,6 +510,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HomeResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Home\Resources\StaticPagesResources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StaticPagesResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Item\Resources\ItemsResources.Designer.cs">
       <DependentUpon>ItemsResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -2827,7 +2832,6 @@
     <Content Include="Views\Quiz\Index2.cshtml" />
     <Content Include="Views\Shared\Partials2\_commonTemplate.cshtml" />
     <Content Include="Views\Quiz\_QuizChallenge.cshtml" />
-    <Content Include="Views\Quiz\_QuizScore.cshtml" />
     <Content Include="Views\Account\Info.cshtml" />
     <Content Include="Views\Account\Password.cshtml" />
     <Content Include="Views\Account\Notification.cshtml" />

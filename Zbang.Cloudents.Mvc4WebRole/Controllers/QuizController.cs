@@ -37,7 +37,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[UserNavNWelcome]
         [NoCache]
         [BoxPermission("boxId", Order = 2)]
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
@@ -65,9 +64,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (string.IsNullOrEmpty(model.Country)) return View("Empty");
                 SeoResources.Culture = Languages.GetCultureBaseOnCountry(model.Country); ;
                 ViewBag.title = string.Format("{0} - {1} - {2} | {3}",
-                   SeoResources.QuizTitle, model.Name, model.UniversityName, SeoResources.Cloudents);
+                   SeoResources.QuizTitle, model.Name, model.BoxName, SeoResources.Cloudents);
 
-                ViewBag.metaDescription = Zbox.Infrastructure.TextManipulation.RemoveHtmlTags.Replace(model.FirstQuestion, string.Empty).RemoveEndOfString(200);
+                ViewBag.metaDescription = string.Format(SeoResources.QuizMetaDescription, model.BoxName, model.Name);
                 return View("Empty");
             }
             catch (ItemNotFoundException)

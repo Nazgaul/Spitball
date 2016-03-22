@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meet Spitball - A free online and mobile social studying application built by student for students. Join the social studying revolution at Spitball!.
+        ///   Looks up a localized string similar to Meet Spitball - A free online and mobile social studying application built by students for students. Join the social studying revolution at Spitball!.
         /// </summary>
         internal static string AboutUsMeta {
             get {
@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Study and share your class notes for Course {0}, online or via the Spitball app. Use Spitball for free today!.
+        ///   Looks up a localized string similar to Study and share your class notes for {0}, online or via the Spitball app. Use Spitball for free today!.
         /// </summary>
         internal static string BoxMetaDescription {
             get {
@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find out all you need to know about the Spitball&apos;s system. Get class notes, chat with your friends, create study groups and share your knowledge!.
+        ///   Looks up a localized string similar to Find out all you need to know about Spitball&apos;s system. Get class notes, chat with your friends, create study groups and share your knowledge!.
         /// </summary>
         internal static string HelpMeta {
             get {
@@ -268,15 +268,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Study and share your class notes for {0} {1} {2} , online or via the Spitball app.
-        /// </summary>
-        internal static string MetaDescription {
-            get {
-                return ResourceManager.GetString("MetaDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to At Spitball we take security and privacy very seriously. Your personal information is actively protected by us. Join the social studying revolution at Spitball!.
         /// </summary>
         internal static string PrivacyMeta {
@@ -291,6 +282,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         internal static string PrivacyTitle {
             get {
                 return ResourceManager.GetString("PrivacyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See how well you are doing in {0} and test yourself with the {1} quiz your classmates have built. Start getting better grades with Spitball!.
+        /// </summary>
+        internal static string QuizMetaDescription {
+            get {
+                return ResourceManager.GetString("QuizMetaDescription", resourceCulture);
             }
         }
         
