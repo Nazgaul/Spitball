@@ -205,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find out all you need to know about the Spitball&apos;s system. Get class notes, chat with your friends, create study groups and share your knowledge!.
+        ///   Looks up a localized string similar to Find out all you need to know about Spitball&apos;s system. Get class notes, chat with your friends, create study groups and share your knowledge!.
         /// </summary>
         internal static string HelpMeta {
             get {
