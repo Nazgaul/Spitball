@@ -135,9 +135,6 @@
   <data name="HomePageTitle" xml:space="preserve">
     <value>אפליקציית לימודים חברתית וחינמית | ספיטבול</value>
   </data>
-  <data name="MetaDescription" xml:space="preserve">
-    <value>למד ושתף את הסיכומים שלך  ב{0} {1} {2}, אונליין או באמצעות אפליקציית ספיטבול לנייד</value>
-  </data>
   <data name="AboutUsMeta" xml:space="preserve">
     <value>הכירו את ספיטבול - פלטפורמת לימודים חברתית וחינמית אשר נבנתה ע"י סטודנטים ובעבורם. הצטרפו עוד היום למהפכת הלימודים החברתית והורידו את אפליקציית ספיטבול לנייד!</value>
   </data>
@@ -197,5 +194,11 @@
   </data>
   <data name="CoursesTitle" xml:space="preserve">
     <value>קורסים | ספיטבול</value>
+  </data>
+  <data name="QuizTitle" xml:space="preserve">
+    <value>מבחן</value>
+  </data>
+  <data name="QuizMetaDescription" xml:space="preserve">
+    <value>השתמשו במבחנים המקוונים של ספיטבול כדי לבדוק את הרמה שלכם ב  - {0}. בחנו את עצמכם עם מבחן ב{1} שנבנה על ידי חבריכם לכיתה. פתחו חשבון בספיטבול!</value>
   </data>
 </root>

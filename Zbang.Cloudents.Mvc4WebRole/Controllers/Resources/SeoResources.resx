@@ -156,9 +156,6 @@
   <data name="JobsTitle" xml:space="preserve">
     <value>Jobs | Spitball</value>
   </data>
-  <data name="MetaDescription" xml:space="preserve">
-    <value>Study and share your class notes for {0} {1} {2} , online or via the Spitball app</value>
-  </data>
   <data name="PrivacyMeta" xml:space="preserve">
     <value>At Spitball we take security and privacy very seriously. Your personal information is actively protected by us. Join the social studying revolution at Spitball!</value>
   </data>
@@ -215,5 +212,8 @@
   </data>
   <data name="CoursesMeta" xml:space="preserve">
     <value />
+  </data>
+  <data name="QuizMetaDescription" xml:space="preserve">
+    <value>See how well you are doing in {0} and test yourself with the {1} quiz your classmates have built. Start getting better grades with Spitball!</value>
   </data>
 </root>

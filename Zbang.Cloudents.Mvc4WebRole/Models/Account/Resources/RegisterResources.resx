@@ -120,9 +120,6 @@
   <data name="ConfirmPasswordComapre" xml:space="preserve">
     <value>Your passwords don't match. Please double check and try again</value>
   </data>
-  <data name="EmailNotCorrect" xml:space="preserve">
-    <value>Email is not in the correct format</value>
-  </data>
   <data name="EmailNotValid" xml:space="preserve">
     <value>That email address is invalid. Please try again</value>
   </data>

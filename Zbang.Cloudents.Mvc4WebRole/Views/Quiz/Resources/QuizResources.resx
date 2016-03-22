@@ -132,9 +132,6 @@
   <data name="Answers" xml:space="preserve">
     <value>Answers:</value>
   </data>
-  <data name="CanChoose" xml:space="preserve">
-    <value>Save this quiz as a draft for future editing</value>
-  </data>
   <data name="Chance" xml:space="preserve">
     <value>Take a chance</value>
   </data>
@@ -147,17 +144,11 @@
   <data name="CorrectAnswer" xml:space="preserve">
     <value>Correct answer</value>
   </data>
-  <data name="Draft" xml:space="preserve">
-    <value>Save as draft</value>
-  </data>
   <data name="EnterQuizName" xml:space="preserve">
     <value>Enter quiz name</value>
   </data>
   <data name="GoBack" xml:space="preserve">
     <value>Go back and check your answers</value>
-  </data>
-  <data name="Leave" xml:space="preserve">
-    <value>You haven't finished this quiz. Do you want to leave?</value>
   </data>
   <data name="NoAnswer" xml:space="preserve">
     <value>No answer given</value>
@@ -167,9 +158,6 @@
   </data>
   <data name="OfClassmates" xml:space="preserve">
     <value>of your classmates took this quiz</value>
-  </data>
-  <data name="OnlyYou" xml:space="preserve">
-    <value>Only you are able to see and edit the draft</value>
   </data>
   <data name="Publish" xml:space="preserve">
     <value>Publish</value>

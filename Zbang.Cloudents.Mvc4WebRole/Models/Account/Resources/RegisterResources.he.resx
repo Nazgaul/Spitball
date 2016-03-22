@@ -120,9 +120,6 @@
   <data name="ConfirmPasswordComapre" xml:space="preserve">
     <value>הסיסמאות חייבות להיות זהות</value>
   </data>
-  <data name="EmailNotCorrect" xml:space="preserve">
-    <value>כתובת המייל שהזנת אינה חוקית</value>
-  </data>
   <data name="EmailNotValid" xml:space="preserve">
     <value>כתובת המייל שהזנת אינה חוקית. אנא נסה שוב</value>
   </data>

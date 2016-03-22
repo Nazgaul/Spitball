@@ -97,15 +97,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jobs.
-        /// </summary>
-        public static string A2 {
-            get {
-                return ResourceManager.GetString("A2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Using Spitball.
         /// </summary>
         public static string A3 {
