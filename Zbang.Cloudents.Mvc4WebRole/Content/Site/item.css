@@ -183,6 +183,9 @@
   width: 25px;
   height: 25px;
 }
+.itemPage .comments-section > .menu-icon {
+  z-index: 2;
+}
 .itemPage .comments-wrapper,
 .itemPage .comments-wrapper md-input-container .md-input {
   color: #282828;
@@ -194,9 +197,9 @@
 }
 .itemPage .comments-wrapper .menu-toggler {
   width: initial;
-  position: fixed;
+  position: absolute;
   z-index: 1;
-  right: 2px;
+  left: 100%;
   padding: 0;
   display: block !important;
 }
@@ -241,13 +244,19 @@
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
   min-width: 0;
+  overflow: hidden;
 }
 .itemPage .comments-wrapper.md-closed {
-  -webkit-transform: translate3d(calc(-100% + 53px), 0, 0);
-  -moz-transform: translate3d(calc(-100% + 53px), 0, 0);
-  -ms-transform: translate3d(calc(-100% + 53px), 0, 0);
-  -o-transform: translate3d(calc(-100% + 53px), 0, 0);
-  transform: translate3d(calc(-100% + 53px), 0, 0);
+  -webkit-transform: translate3d(calc(53px - 100%), 0, 0) /*rtl: translate3d(300px, 0, 0)*/;
+  -moz-transform: translate3d(-300px, 0, 0);
+  -ms-transform: translate3d(-300px, 0, 0);
+  -o-transform: translate3d(calc(53px - 100%), 0, 0) /*rtl: translate3d(300px, 0, 0)*/;
+  transform: translate3d(calc(53px - 100%), 0, 0) /*rtl: translate3d(300px, 0, 0)*/;
+  display: block;
+}
+.itemPage .comments-wrapper > div {
+  width: 100%;
+  position: relative;
 }
 .itemPage .comments-wrapper md-content {
   background-color: #f5f5f5;

@@ -195,7 +195,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                                     }).OrderBy(s => s.Order).ToList()
                             };
-                return PartialView("help2", model);
+                return View("help2", model);
             }
         }
         [DonutOutputCache(CacheProfile = "FullPage")]
@@ -291,14 +291,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult TermsPartial()
         {
             //ViewBag.postBag = true;
-            return PartialView("TermsOfService");
+            return View("TermsOfService");
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         public ActionResult PrivacyPartial()
         {
             //ViewBag.postBag = true;
-            return PartialView("Privacy");
+            return View("Privacy");
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
@@ -327,7 +327,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                                     }).OrderBy(s => s.Order).ToList()
                             };
-                return PartialView("help2", model);
+                return View("help2", model);
             }
 
 
