@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Meet Spitball - A free online and mobile social studying application built by student for students. Join the social studying revolution at Spitball!.
+        ///   Looks up a localized string similar to Meet Spitball - A free online and mobile social studying application built by students for students. Join the social studying revolution at Spitball!.
         /// </summary>
         internal static string AboutUsMeta {
             get {

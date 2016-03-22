@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutUsMeta" xml:space="preserve">
-    <value>Meet Spitball - A free online and mobile social studying application built by student for students. Join the social studying revolution at Spitball!</value>
+    <value>Meet Spitball - A free online and mobile social studying application built by students for students. Join the social studying revolution at Spitball!</value>
   </data>
   <data name="AboutUsTitle" xml:space="preserve">
     <value>About Us | Spitball</value>
