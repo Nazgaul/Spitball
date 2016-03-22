@@ -302,13 +302,14 @@
         -webkit-box-sizing: content-box;
         box-sizing: content-box;
         min-width: 0;
+        overflow: hidden;
 
         &.md-closed {
-            -webkit-transform: translate3d(-300px, 0, 0);
+            -webkit-transform: translate3d(~"calc(53px - 100%)", 0, 0)/*rtl: translate3d(300px, 0, 0)*/;
             -moz-transform: translate3d(-300px, 0, 0);
             -ms-transform: translate3d(-300px, 0, 0);
-            -o-transform: translate3d(-300px, 0, 0);
-            transform: translate3d(-300px, 0, 0);
+            -o-transform: translate3d(~"calc(53px - 100%)", 0, 0)/*rtl: translate3d(300px, 0, 0)*/;
+            transform: translate3d(~"calc(53px - 100%)", 0, 0)/*rtl: translate3d(300px, 0, 0)*/;
             display: block;
         }
 
