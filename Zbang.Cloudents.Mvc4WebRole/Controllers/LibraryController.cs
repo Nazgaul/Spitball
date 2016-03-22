@@ -16,7 +16,6 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Search;
-using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Dto.Library;
@@ -31,14 +30,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class LibraryController : BaseController
     {
         private readonly Lazy<IUniversityReadSearchProvider> m_UniversitySearch;
-        private readonly Lazy<IFacebookService> m_FacebookService;
 
         public LibraryController(
-            Lazy<IUniversityReadSearchProvider> universitySearch,
-            Lazy<IFacebookService> facebookService)
+            Lazy<IUniversityReadSearchProvider> universitySearch)
         {
             m_UniversitySearch = universitySearch;
-            m_FacebookService = facebookService;
         }
 
         public ActionResult DepartmentRedirect()
@@ -74,11 +70,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<JsonResult> SearchUniversity(string term, int page, CancellationToken cancellationToken)
         {
-            
             if (string.IsNullOrEmpty(term))
             {
                 return JsonError("need term");
-                //country = await GetCountryByIpAsync(HttpContext);
             }
             try
             {

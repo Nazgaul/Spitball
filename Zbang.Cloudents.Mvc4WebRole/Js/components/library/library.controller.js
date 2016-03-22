@@ -6,12 +6,7 @@
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
         $location, $scope, resManager) {
 
-
-
-
-        var l = this;
-        var nodeId = $stateParams.nodeId;
-
+        var l = this, nodeId = $stateParams.nodeId;
         l.departments = nodeData.nodes;
         l.boxes = nodeData.boxes || [];
         l.nodeDetail = nodeData.details;

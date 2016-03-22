@@ -37,7 +37,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        //[UserNavNWelcome]
         [NoCache]
         [BoxPermission("boxId", Order = 2)]
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
