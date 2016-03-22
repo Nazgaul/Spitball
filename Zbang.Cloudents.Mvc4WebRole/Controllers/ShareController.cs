@@ -36,6 +36,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
+                if (model == null)
+                {
+                    return JsonError("no data");
+                }
                 if (model.Recipients.Length == 0)
                 {
                     return JsonError("recipients is empty");
