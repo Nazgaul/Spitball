@@ -29,6 +29,15 @@ function getCookie(cname) {
     return "";
 }
 
+$('.item').each(function () {
+    var $this = $(this);
+    var image = $this.find('img');
+    image.attr('src', 'https://az779114.vo.msecnd.net/preview/' + encodeURIComponent(image.data('source')) + '.jpg');
+    var $name = $this.find('.item-name');
+    $name.html($name.html().replace(/\.[^/.]+$/, ""));
+});
+
+
 window.addEventListener("load", function load() {
     window.removeEventListener("load", load, false); //remove listener, no longer needed
     var val = getCookie('l3').toLowerCase();
@@ -50,7 +59,7 @@ window.addEventListener("load", function load() {
         ga('send', 'event', 'Mobile Link', e.target.id);
     });
 
-    $('.nav-bar .items-container a').each(function() {
+    $('.nav-bar .items-container a').each(function () {
         if (window.location.href.indexOf($(this).attr('href')) > -1) {
             $(this).addClass('active');
         }

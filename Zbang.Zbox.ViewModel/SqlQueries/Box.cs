@@ -285,7 +285,7 @@ union
 	    where ub.BoxId=@BoxId
 		order by u.UserReputation desc";
 
-
+        //TODO: improve the query
         public const string Items = @"
     select
     i.itemid as Id,
@@ -299,7 +299,6 @@ union
     i.LikeCount as Likes,
     i.sponsored as Sponsored,
     i.content as Description,
-    i.BlobName as BlobName,
     i.NumberOfDownloads as NumOfDownloads,
     i.creationTime as Date,
 	i.numberofcomments as commentsCount,
