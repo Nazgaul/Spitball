@@ -1841,6 +1841,7 @@
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\homePage\homeScreen.js" />
+    <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\intercom.js" />
     <Content Include="Js\shared\staticPages.js" />
     <Content Include="Scripts\angular-dfp.js" />
@@ -3190,6 +3191,7 @@
     <Content Include="cdn\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Js\shared\inlineManual.ts" />
     <TypeScriptCompile Include="Js\shared\intercom.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />

@@ -1,6 +1,6 @@
 /// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 (function () {
-    angular.module('app').factory('intercomFactory', intercom);
+    angular.module('app').run(intercom);
     intercom.$inject = ['userDetailsFactory', '$rootScope'];
     function intercom(userDetailsFactory, $rootScope) {
         function start() {
@@ -30,9 +30,13 @@
         function stop() {
             Intercom('shutdown');
         }
-        return {
-            start: start,
-            stop: stop
-        };
+        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+            if (toState.name === 'dashboard') {
+                start();
+            }
+            else {
+                stop();
+            }
+        });
     }
 })();

@@ -1,11 +1,11 @@
 ﻿(function () {
     angular.module('app').controller('AppController', appController);
     appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state',
-        'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager', 'CacheFactory',
-        'intercomFactory'];
+        'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager', 'CacheFactory'
+        ];
 
     function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast,
-        $document, $mdMenu, resManager, cacheFactory, intercomFactory) {
+        $document, $mdMenu, resManager, cacheFactory) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
             var path = $location.path(),
@@ -97,11 +97,7 @@
         });
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             self.showMenu = true; // if user comes from university choose need to remove this.
-            if (toState.name === 'dashboard') {
-                intercomFactory.start();
-            } else {
-                intercomFactory.stop();
-            }
+            
         });
 
 

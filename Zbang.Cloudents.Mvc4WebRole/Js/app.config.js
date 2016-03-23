@@ -144,7 +144,7 @@
 (function () {
     angular.module('app').config(config);
     config.$inject = ['AnalyticsProvider', 'DoubleClickProvider'];
-    function config(analyticsProvider, DoubleClickProvider) {
+    function config(analyticsProvider, doubleClickProvider) {
 
         var analyticsObj = {
             'siteSpeedSampleRate': 70,
@@ -168,22 +168,22 @@
         //AnalyticsProvider.setDomainName('XXX');
 
 
-        DoubleClickProvider.defineSlot('/107474526/Matan_Test2', [[300, 75], [468, 60], [728, 90]], 'div-gpt-ad-1457014054898-0')
+        doubleClickProvider.defineSlot('/107474526/Matan_Test2', [[300, 75], [468, 60], [728, 90]], 'div-gpt-ad-1457014054898-0')
                            .defineSlot('/107474526/Test_With_Asaf', [[250, 250], [234, 60]], 'div-gpt-ad-1457450571630-0');
 
-        DoubleClickProvider.defineSizeMapping('div-gpt-ad-1457014054898-0')
+        doubleClickProvider.defineSizeMapping('div-gpt-ad-1457014054898-0')
             .addSize([1050, 768], [728, 90])
             .addSize([640, 480], [468, 60])
            // .addSize([500, 350], [480, 320])
             //// Fits browsers of any size smaller than 640 x 480
             .addSize([0, 0], [300, 75]);
 
-        DoubleClickProvider.defineSizeMapping('div-gpt-ad-1457450571630-0')
+        doubleClickProvider.defineSizeMapping('div-gpt-ad-1457450571630-0')
             .addSize([1050, 850], [250, 250])
            // .addSize([500, 350], [480, 320])
             //// Fits browsers of any size smaller than 640 x 480
             .addSize([0, 0], [234, 60]);
-        DoubleClickProvider.setRefreshInterval(30000);
+        doubleClickProvider.setRefreshInterval(60000);
 
 
     }
