@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -77,7 +76,7 @@ namespace Zbang.Zbox.WorkerRole
                 m_Unity.Resolve<IJob>(UnityFactory.AddFiles),
                 m_Unity.Resolve<IJob>(UnityFactory.Transaction),
                 m_Unity.Resolve<IJob>(UnityFactory.Dbi),
-                m_Unity.Resolve<IJob>(UnityFactory.MailProcess2), 
+                m_Unity.Resolve<IJob>(UnityFactory.MailProcess2) 
                 //m_Unity.Resolve<IJob>(UnityFactory.EmailPartners), // no need that for now
             };
         }
