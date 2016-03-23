@@ -49,8 +49,8 @@
                     <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
                     <label class="language-close" for="language-menu"></label>
                     <ul class="dropdown-menu dropdown-menu-left ">
-                        <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "en-us" })">@Languages.EnglishUsName</a> </li>
-                        <li class="menu-item"> <a href="@Url.RouteUrl("AccountLanguage", new { lang = "he-il" })">@Languages.HebrewName</a> </li>
+                        <li class="menu-item"> <button data-cookie="en-US">@Languages.EnglishUsName</button> </li>
+                        <li class="menu-item"> <button data-cookie="he-il">@Languages.HebrewName</button> </li>
                     </ul>
                 </li>
             </ul>

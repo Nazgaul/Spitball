@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Net.Http;
+using System.Threading;
 using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using System;
@@ -225,17 +226,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        public ActionResult Blog(string lang)
+        public async Task<ViewResult> Blog(string lang)
         {
             ViewBag.title = SeoResources.BlogTitle;
             ViewBag.metaDescription = SeoResources.BlogMeta;
-            var iFrameSrc = "https://spitballblog.wordpress.com/";
-            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" || Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+
+            using (var httpClient = new HttpClient())
             {
-                iFrameSrc = "https://spitballcoh.wordpress.com/";
+               var content = await httpClient.GetStringAsync("https://spitballblog.wordpress.com/");
+               ViewBag.test = content;
+               return View();
             }
-            ViewBag.iFrameSrc = iFrameSrc;
-            return View();
+            //var iFrameSrc = "https://spitballblog.wordpress.com/";
+            //if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" || Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            //{
+            //    iFrameSrc = "https://spitballcoh.wordpress.com/";
+            //}
+            //ViewBag.iFrameSrc = iFrameSrc;
+            //return View();
         }
 
 
