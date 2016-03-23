@@ -38,14 +38,14 @@
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
+(function (w, d, s, l, i) {
+    w[l] = w[l] || []; w[l].push({
+        'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+    }); var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
     <!-- End Google Tag Manager -->
     <div ng-spinner-bar class="sb-loader">
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
@@ -166,6 +166,10 @@
     @*add to any*@
     <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
     @*inline manual*@
-    <script>!function(){var e=document.createElement("script"),t=document.getElementsByTagName("script")[0];e.async=1,e.src="https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js",e.charset="UTF-8",t.parentNode.insertBefore(e,t)}();</script>
+
+    <script>
+        window.inlineManualOptions = { language: '@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName'};
+        !function(){var e=document.createElement("script"),t=document.getElementsByTagName("script")[0];e.async=1,e.src="https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js",e.charset="UTF-8",t.parentNode.insertBefore(e,t)}();
+    </script>
 </body>
 </html>
