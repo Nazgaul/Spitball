@@ -1,7 +1,7 @@
-﻿$('.items-container').bxSlider({
+﻿var slider = $('.items-container').bxSlider({
     infiniteLoop: false,
     slideWidth: 110,
-    maxSlides: 5,
+    maxSlides: 7,
     pager: false,
     nextSelector: $('.nav-next'),
     prevSelector: $('.nav-prev'),
@@ -63,10 +63,7 @@ window.addEventListener("load", function load() {
         ga('send', 'event', 'Mobile Link', e.target.id);
     });
 
-    $('.nav-bar .items-container a').each(function () {
-        if (window.location.href.indexOf($(this).attr('href')) > -1) {
-            $(this).addClass('active');
-        }
-    });
+    var active = $('.nav-bar .items-container a[href="/' + window.location.href.split("/")[3] + '/"]').addClass('active');
+    slider.goToSlide($('.items-container a').index(active));
 
 }, false);
