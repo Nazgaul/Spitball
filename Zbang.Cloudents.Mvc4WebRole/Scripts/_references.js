@@ -253,3 +253,4 @@
 /// <reference path="angular-dfp.js" />
 /// <reference path="../js/shared/staticpages.js" />
 /// <reference path="../js/components/box/tab.controller.js" />
+/// <reference path="../js/shared/intercom.js" />
