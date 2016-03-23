@@ -507,6 +507,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HomeResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Home\Resources\StaticPagesResources1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StaticPagesResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Item\Resources\ItemsResources.Designer.cs">
       <DependentUpon>ItemsResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
