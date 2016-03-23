@@ -317,7 +317,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/facebook.js"),
                         new JsFileWithCdn("~/js/shared/resourceManager.js"),
                         new JsFileWithCdn("~/js/shared/versionChecker.js"),
-                        new JsFileWithCdn("~/js/shared/intercom.js")
+                        new JsFileWithCdn("~/js/shared/intercom.js"),
+                        new JsFileWithCdn("~/js/shared/inlineManual.js")
                     }
 
                 }

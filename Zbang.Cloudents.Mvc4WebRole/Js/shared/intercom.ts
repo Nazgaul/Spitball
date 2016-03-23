@@ -1,21 +1,13 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 declare var Intercom: any;
-interface IIntercomFactory {
-    start(): void;
-    stop(): void;
-}
 interface IUserDetailsFactory {
     init(): void;
     get():any;
 }
 (() => {
-    angular.module('app').factory('intercomFactory', intercom);
-    intercom.$inject = ['userDetailsFactory','$rootScope'];
-
-    function intercom(userDetailsFactory: IUserDetailsFactory,
-        $rootScope: ng.IRootScopeService): IIntercomFactory {
-
-       
+    angular.module('app').run(intercom);
+    intercom.$inject = ['userDetailsFactory', '$rootScope'];
+    function intercom(userDetailsFactory: IUserDetailsFactory, $rootScope: ng.IRootScopeService) {
         function start() {
             var data = userDetailsFactory.get();
             var dateCreate = new Date(data.dateTime);
@@ -45,10 +37,14 @@ interface IUserDetailsFactory {
             Intercom('shutdown');
         }
 
-        return {
-            start: start,
-            stop: stop
-        }
+        $rootScope.$on('$stateChangeSuccess', (event, toState) => {
+            if (toState.name === 'dashboard') {
+                start();
+            } else {
+                stop();
+            }
+        });
+        
     }
 })();
 
