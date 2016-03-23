@@ -82,16 +82,16 @@
                      },
                      templateUrl: '/home/blog/'
                  },
-                  {
-                      state: 'help',
-                      config: {
-                          url: '/help/',
-                          data: {
-                              staticPage: true
-                          }
-                      },
-                      templateUrl: '/home/helppartial/'
-                  },
+                  //{
+                  //    state: 'help',
+                  //    config: {
+                  //        url: '/help/',
+                  //        data: {
+                  //            staticPage: true
+                  //        }
+                  //    },
+                  //    templateUrl: '/home/helppartial/'
+                  //},
                    {
                        state: 'item',
                        config: {

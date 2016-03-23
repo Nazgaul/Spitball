@@ -9,10 +9,15 @@
     return "";
 }
 
+$('.language button').click(function () {
+    document.cookie = "l3 =" + $(this).data('cookie') + "; path=/";
+    location.reload();
+});
+
 window.addEventListener("load", function load() {
     window.removeEventListener("load", load, false); //remove listener, no longer needed
     var val = getCookie('l3').toLowerCase();
-    var text = $('.language').find('[href*="' + val + '"]').text();
+    var text = $('.language').find('button[data-cookie="' + val + '"]').html();
     $('nav li.language span:first').text(text);
 
     (function (i, s, o, g, r, a, m) {

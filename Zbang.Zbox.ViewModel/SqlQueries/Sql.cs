@@ -386,7 +386,8 @@ u.GoogleUserId as GoogleId
         public const string GetItemsPageItemsEn = @"select top 40 i.Name as Name,
                                 i.LikeCount as Likes,
                                 i.NumberOfViews as NumOfViews,
-                                i.Url as Url
+                                i.Url as Url,
+                                i.BlobName as source
                                 from zbox.box b join zbox.university u on b.university=u.id join zbox.item i on i.boxid=b.boxid
                                 where  MembersCount >3
                                 and i.creationtime> getdate()-30 
@@ -401,7 +402,8 @@ u.GoogleUserId as GoogleId
         public const string GetItemsPageItemsHe = @"select top 40 i.Name as Name,
                                 i.LikeCount as Likes,
                                 i.NumberOfViews as NumOfViews,
-                                i.Url as Url
+                                i.Url as Url,
+                                i.BlobName as source
                                 from zbox.box b join zbox.university u on b.university=u.id join zbox.item i on i.boxid=b.boxid
                                 where  MembersCount >20
                                 and i.creationtime> getdate()-30 

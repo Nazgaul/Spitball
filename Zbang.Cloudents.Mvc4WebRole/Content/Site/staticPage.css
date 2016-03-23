@@ -144,6 +144,7 @@ iframe {
   display: none;
 }
 .static-page-header nav li a,
+.static-page-header nav li button,
 .static-page-header nav li label,
 .static-page-header nav li span,
 .static-page-header nav .signin-btn {
@@ -163,6 +164,12 @@ iframe {
   cursor: pointer;
   font-size: 14px;
   text-transform: capitalize;
+}
+.static-page-header nav .dropdown-menu li button:hover {
+  text-decoration: none;
+  background-image: none;
+  background-color: #f6f6f6;
+  color: #555;
 }
 .static-page-header nav .signin-btn {
   padding: 0 16px;
@@ -241,11 +248,16 @@ iframe {
   line-height: 40px;
   padding: 0;
 }
-.static-page-header nav ul li.language ul li a {
+.static-page-header nav ul li.language ul li button {
   padding: 8px 30px;
   color: #282828;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: left;
+  width: 100%;
 }
-.static-page-header nav ul li.language ul li a:hover {
+.static-page-header nav ul li.language ul li button:hover {
   color: #3293f6;
 }
 .static-page-header nav .language ul {
