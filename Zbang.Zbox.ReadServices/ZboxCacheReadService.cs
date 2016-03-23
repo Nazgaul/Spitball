@@ -428,6 +428,15 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetHomePageDataAsync(query);
         }
 
+        public Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync(string lang)
+        {
+            return m_ReadService.GetCoursesPageDataAsync(lang);
+        }
+
+        public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync(string lang)
+        {
+            return m_ReadService.GetItemsPageDataAsync(lang);
+        }
 
         public Task<IEnumerable<ClosedNodeDto>> GetUserClosedDepartmentAsync(QueryBase query)
         {

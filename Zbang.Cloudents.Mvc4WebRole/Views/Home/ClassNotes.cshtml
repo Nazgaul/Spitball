@@ -1,4 +1,6 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
+﻿@model IEnumerable<Zbang.Zbox.ViewModel.Dto.ItemDtos.ItemDto>
+
+@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
 
 @{
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
@@ -11,7 +13,31 @@
     <div class="page-content">
         <h2>@StaticPagesResources.ClassNotesSubtitle</h2>
         <ul class="items">
-            <li>
+            
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a class="clearfix item" href="@item.Url">
+                        <div class="wrapper">
+                            <div class="data">
+                                <img src="" width="368" height="520" alt="@item.Name" />
+                                <div class="extra">
+                                    <h3 class="multi-line-ellipsis">@item.Name</h3>
+                                </div>
+                            </div>
+                            <div class="stats">
+                                <div>
+                                    @item.NumOfViews<svg><use xlink:href="/images/site/box-icons.svg?16.3.8#eye" /></svg>
+                                </div>
+                                <div>
+                                    @item.Likes <svg><use xlink:href="/images/site/box-icons.svg?16.3.8#like" /></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+            @*<li>
                 <a class="clearfix item" href="">
                     <div class="wrapper">
                         <div class="data">
@@ -170,7 +196,7 @@
                         </div>
                     </div>
                 </a>
-            </li>
+            </li>*@
         </ul>
     </div>
 </div>

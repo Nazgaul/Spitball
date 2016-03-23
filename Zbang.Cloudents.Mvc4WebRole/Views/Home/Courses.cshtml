@@ -1,4 +1,5 @@
-﻿
+﻿@model IEnumerable<Zbang.Zbox.ViewModel.Dto.BoxDtos.RecommendBoxDto>
+
 @using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
 
 @{
@@ -12,90 +13,24 @@
     <div class="page-content">
         <h2>@StaticPagesResources.CoursesSubtitle</h2>
         <div class="boxes">
-            <a href="/course/university-of-michigan/111795/introduction-to-psychology-as-a-natural-science/" class="box os-animation animated fadeIn" data-os-animation="fadeIn" data-os-animation-delay="0.1s" style="animation-delay: 0.1s;">
+            @foreach (var box in Model)
+            {
+                var boxClass = "color" + (box.Name.Length) % 11;
+                <a href="@box.Url" class="box os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
 
-                <h2 class="color3">Introduction to Psychology as a Natural Science</h2>
-                <div class="course-info">
-                    <div class="lecturer"></div>
-                    <div class="course-num">Psych 112</div>
-                </div>
-                <hr class="background color3">
-                <div class="box-info">
-                    <div>11 Members</div>
-                    <div>35 items</div>
-                </div>
+                    <h2 class="@boxClass">@box.Name</h2>
+                    <div class="course-info">
+                        <div class="lecturer">@box.Professor</div>
+                        <div class="course-num">@box.CourseCode</div>
+                    </div>
+                    <hr class="background @boxClass" />
+                    <div class="box-info">
+                        @*resources*@<div>@box.MembersCount Members</div>
+                        @*resources*@<div>@box.ItemCount items</div>
+                    </div>
 
-            </a>
-            <a href="/course/university-of-michigan/113537/econ-101/" class="box os-animation animated fadeIn" data-os-animation="fadeIn" data-os-animation-delay="0.1s" style="animation-delay: 0.1s;">
-
-                <h2 class="color8">Econ 101</h2>
-                <div class="course-info">
-                    <div class="lecturer"></div>
-                    <div class="course-num"></div>
-                </div>
-                <hr class="background color8">
-                <div class="box-info">
-                    <div>36 Members</div>
-                    <div>95 items</div>
-                </div>
-
-            </a>
-            <a href="/course/university-of-michigan/113546/comm-102/" class="box os-animation animated fadeIn" data-os-animation="fadeIn" data-os-animation-delay="0.1s" style="animation-delay: 0.1s;">
-
-                <h2 class="color8">Comm 102</h2>
-                <div class="course-info">
-                    <div class="lecturer"></div>
-                    <div class="course-num"></div>
-                </div>
-                <hr class="background color8">
-                <div class="box-info">
-                    <div>32 Members</div>
-                    <div>104 items</div>
-                </div>
-
-            </a>
-            <a href="/course/nyu-new-york-university/125092/environmental-engineering/" class="box os-animation animated fadeIn" data-os-animation="fadeIn" data-os-animation-delay="0.1s" style="animation-delay: 0.1s;">
-
-                <h2 class="color3">Environmental Engineering</h2>
-                <div class="course-info">
-                    <div class="lecturer"></div>
-                    <div class="course-num">CE 3223</div>
-                </div>
-                <hr class="background color3">
-                <div class="box-info">
-                    <div>21 Members</div>
-                    <div>290 items</div>
-                </div>
-
-            </a>
-            <a href="/course/nyu-new-york-university/125175/construction-methods/" class="box os-animation animated fadeIn" data-os-animation="fadeIn" data-os-animation-delay="0.1s" style="animation-delay: 0.1s;">
-
-                <h2 class="color9">Construction Methods</h2>
-                <div class="course-info">
-                    <div class="lecturer"></div>
-                    <div class="course-num">CE 2513</div>
-                </div>
-                <hr class="background color9">
-                <div class="box-info">
-                    <div>12 Members</div>
-                    <div>186 items</div>
-                </div>
-
-            </a>
-            <a href="/course/nyu-new-york-university/125567/introduction-to-geophysics/" class="box os-animation animated fadeIn" data-os-animation="fadeIn" data-os-animation-delay="0.1s" style="animation-delay: 0.1s;">
-
-                <h2 class="color4">Introduction to Geophysics</h2>
-                <div class="course-info">
-                    <div class="lecturer"></div>
-                    <div class="course-num">PH2823</div>
-                </div>
-                <hr class="background color4">
-                <div class="box-info">
-                    <div>16 Members</div>
-                    <div>178 items</div>
-                </div>
-
-            </a>
+                </a>
+            }
         </div>
 
     </div>

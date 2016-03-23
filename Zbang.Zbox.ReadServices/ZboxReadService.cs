@@ -59,7 +59,32 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             }
         }
 
+        public async Task<IEnumerable<Box.RecommendBoxDto>> GetCoursesPageDataAsync(string lang)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var coursesQuery = Sql.Sql.GetCoursesPageBoxesEn;
+                    
+                if (lang == "he"){
+                    coursesQuery = Sql.Sql.GetCoursesPageBoxesHe;
+                }
+                return await conn.QueryAsync<Box.RecommendBoxDto>(coursesQuery);
+            }
 
+        }
+        public async Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync(string lang)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var itemsQuery = Sql.Sql.GetItemsPageItemsEn;
+                    
+                if (lang == "he"){
+                    itemsQuery = Sql.Sql.GetItemsPageItemsHe;
+                }
+                return await conn.QueryAsync<Item.ItemDto>(itemsQuery);
+            }
+
+        }
         /// <summary>
         /// used to get the dashboard and the activity and wall in dashboard
         /// </summary>
