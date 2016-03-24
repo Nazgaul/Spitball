@@ -1,4 +1,5 @@
 /// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="../shared/userDetails.ts" />
 (function () {
     angular.module('app').run(intercom);
     intercom.$inject = ['userDetailsFactory', '$rootScope'];
