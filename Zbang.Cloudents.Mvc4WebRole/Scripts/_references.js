@@ -100,7 +100,6 @@
 /// <reference path="../js/shared/meganumbers.js" />
 /// <reference path="../js/shared/removekeyboard.js" />
 /// <reference path="../js/shared/resourcemanager.js" />
-/// <reference path="../js/shared/userdetails.js" />
 /// <reference path="../js/shared/userimage.js" />
 /// <reference path="../js/shared/versionchecker.js" />
 /// <reference path="../Js/signin/bootstrap.min.js" />

@@ -1,16 +1,52 @@
-/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-(function () {
+﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+declare var __insp: any;
+
+
+interface IUserDetailsFactory {
+    init(refresh): void;
+    get(): any;
+    isAuthenticated(): boolean;
+    setName(first, last): void;
+    setImage(image): void;
+    setUniversity(name, id): void;
+    setTheme(theme): void;
+}
+
+interface IUniversity {
+    country: string;
+    name: string;
+    id: number;
+}
+
+interface IUserData {
+    id: number;
+    name: string;
+    image: string;
+    score: number;
+    url: string;
+    isAdmin: boolean;
+    theme: string;
+    university: IUniversity;
+}
+
+(() => {
     angular.module('app').factory('userDetailsFactory', userDetails);
     userDetails.$inject = ['$rootScope', '$filter', '$timeout', '$q', '$http', 'ajaxService', 'Analytics'];
-    function userDetails($rootScope, $filter, $timeout, $q, $http, ajaxService, analytics) {
+    function userDetails($rootScope, $filter, $timeout, $q, $http, ajaxService, analytics): IUserDetailsFactory {
         "use strict";
-        var isAuthenticated = false, userData, serverCall = false, deferDetails = $q.defer();
+        var
+            isAuthenticated = false,
+            userData:IUserData,
+            serverCall = false,
+            deferDetails = $q.defer();
+
         function setDetails(data) {
-            // data = data || {};
+           // data = data || {};
             if (data.id) {
                 isAuthenticated = true;
                 // ReSharper disable UseOfImplicitGlobalInFunctionScope
                 __insp.push(['identify', data.id]);
+                // ReSharper restore UseOfImplicitGlobalInFunctionScope
             }
             analytics.set('dimension1', data.universityName || null);
             analytics.set('dimension2', data.universityCountry || null);
@@ -25,14 +61,16 @@
                 isAdmin: data.isAdmin,
                 theme: data.theme,
                 university: {
-                    country: data.universityCountry,
-                    name: data.universityName,
+                    country: data.universityCountry, // for google analytics
+                    name: data.universityName, // in library page
                     id: data.universityId
                 }
             };
+
         }
+
         return {
-            init: function (refresh) {
+            init: refresh => {
                 if (refresh) {
                     deferDetails = $q.defer();
                     userData = null;
@@ -43,7 +81,8 @@
                 }
                 if (!serverCall) {
                     serverCall = true;
-                    ajaxService.get('/account/details/').then(function (response) {
+
+                    ajaxService.get('/account/details/').then(response => {
                         setDetails(response);
                         deferDetails.resolve(userData);
                         serverCall = false;
@@ -51,30 +90,62 @@
                 }
                 return deferDetails.promise;
             },
-            get: function () { return userData; },
-            isAuthenticated: function () { return isAuthenticated; },
-            setName: function (first, last) {
+            get: () => userData,
+
+
+
+            isAuthenticated: () => isAuthenticated,
+            setName: (first, last) => {
                 //userData.firstName = first;
                 //userData.lastName = last;
                 userData.name = first + " " + last;
                 $rootScope.$broadcast('userDetailsChange');
             },
-            setImage: function (image) {
+            setImage: image => {
                 if (!image) {
                     return;
                 }
                 userData.image = image;
                 $rootScope.$broadcast('userDetailsChange');
             },
-            setUniversity: function (name, id) {
+            setUniversity: (name, id) => {
                 userData.university.name = name;
                 userData.university.id = id;
                 $rootScope.$broadcast('universityChange', userData);
             },
-            setTheme: function (theme) {
+            setTheme: theme => {
                 userData.theme = theme;
                 //$rootScope.$broadcast('themeChange', userData);
             }
+            //updateChange: function () {
+            //    $rootScope.$broadcast('userDetailsChange');
+            //},
+
+            //getUniversity: function () {
+            //    if (_.isEmpty(userData.university)) {
+            //        return false;
+            //    }
+            //    return userData.university;
+
+            //},
+            //initDetails: function () {
+            //    if (this.isAuthenticated()) {
+            //        var defer = $q.defer();
+            //        $timeout(function () {
+            //            defer.resolve();
+            //        });
+            //        return defer.promise;
+            //    }
+
+            //    var promise = sAccount.details();
+
+            //    promise.then(function (response) {
+            //        setDetails(response);
+            //    });
+
+            //    return promise;
+            //}
         };
     }
+
 })();
