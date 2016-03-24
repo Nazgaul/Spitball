@@ -22,8 +22,11 @@
                 image: data.image,
                 score: data.score,
                 url: data.url,
+                createTime: new Date(data.dateTime),
                 isAdmin: data.isAdmin,
                 theme: data.theme,
+                culture: data.culture,
+                email: data.email,
                 university: {
                     country: data.universityCountry,
                     name: data.universityName,
@@ -78,4 +81,3 @@
         };
     }
 })();
-//# sourceMappingURL=userDetails.js.map
