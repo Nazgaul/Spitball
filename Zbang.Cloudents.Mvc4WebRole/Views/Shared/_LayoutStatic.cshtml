@@ -2,6 +2,14 @@
     Layout = null;
 }
 <!DOCTYPE html>
+<!--[if IE]>
+   <script>
+       if (!window.document.documentMode || window.document.documentMode < 10) {
+           window.location = "/Error/Unsupported";
+       }
+   </script>
+   <![endif]-->
+
 <html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
 
 <head>
@@ -10,8 +18,10 @@
     @Html.Css2("staticPage")
 </head>
 <body class="static-page">
+    @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{Html.RenderPartial("_StaticPageHeader");}
     <div class="content">@RenderBody()</div>
+    @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{Html.RenderPartial("_StaticPageFooter");}
     @Html.Script2("staticPage")
 

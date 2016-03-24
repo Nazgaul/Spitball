@@ -12,25 +12,25 @@ where University in (select v.id from zbox.University v where needcode = 0)
 and Discriminator = 2
 and IsDeleted = 0
 )
-select b.Url +'feed/' as url 
+select b.boxid, b.Url +'feed/' as url 
 from boxseo b
 union all
-select b.Url +'items/' as url 
+select b.boxid, b.Url +'items/' as url 
 from boxseo b
 union all
-select b.Url +'quizzes/' as url 
+select b.boxid, b.Url +'quizzes/' as url 
 from boxseo b
 union all
-select b.Url +'members/' as url 
+select  b.boxid, b.Url +'members/' as url 
 from boxseo b
 union all
-select i.url as url
+select b.boxid,i.url as url
 from zbox.item i join boxSeo b on i.BoxId = b.BoxId
 where i.IsDeleted = 0
 and i.content is not null
 and i.Discriminator = 'FILE'
 union all
-select q.url as Url
+select b.boxid,q.url as Url
 from zbox.quiz q join boxSeo b on q.BoxId = b.BoxId
 where q.IsDeleted = 0
 and q.publish = 1

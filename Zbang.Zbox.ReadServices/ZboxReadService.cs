@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System.Reflection;
+using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -59,28 +60,36 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             }
         }
 
-        public async Task<IEnumerable<Box.RecommendBoxDto>> GetCoursesPageDataAsync(string lang)
+        public async Task<IEnumerable<Box.RecommendBoxDto>> GetCoursesPageDataAsync()
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var coursesQuery = Sql.Sql.GetCoursesPageBoxesEn;
-                    
-                if (lang == "he"){
-                    coursesQuery = Sql.Sql.GetCoursesPageBoxesHe;
+                var fieldInfo = typeof(Sql.Sql).GetFields(BindingFlags.Public | BindingFlags.Static |
+                                            BindingFlags.FlattenHierarchy)
+                                            .FirstOrDefault(fi => fi.IsLiteral && !fi.IsInitOnly && fi.Name == "GetCoursesPageBoxes_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower());
+
+                var coursesQuery = Sql.Sql.GetCoursesPageBoxes_en;
+                if (fieldInfo != null)
+                {
+                    coursesQuery = fieldInfo.GetValue(null).ToString();
                 }
                 return await conn.QueryAsync<Box.RecommendBoxDto>(coursesQuery);
             }
 
         }
-        
-        public async Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync(string lang)
+
+        public async Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync()
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var itemsQuery = Sql.Sql.GetItemsPageItemsEn;
-                    
-                if (lang == "he"){
-                    itemsQuery = Sql.Sql.GetItemsPageItemsHe;
+                var fieldInfo = typeof(Sql.Sql).GetFields(BindingFlags.Public | BindingFlags.Static |
+                                            BindingFlags.FlattenHierarchy)
+                                            .FirstOrDefault(fi => fi.IsLiteral && !fi.IsInitOnly && fi.Name == "GetItemsPageItems_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower());
+                
+                var itemsQuery = Sql.Sql.GetItemsPageItems_en;
+                if (fieldInfo != null)
+                {
+                    itemsQuery = fieldInfo.GetValue(null).ToString();
                 }
                 return await conn.QueryAsync<Item.ItemDto>(itemsQuery);
             }
@@ -967,7 +976,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         #endregion
 
         #region Seo
-        public async Task<IEnumerable<string>> GetSeoItemsAsync(int page)
+        public async Task<IEnumerable<SeoDto>> GetSeoItemsAsync(int page)
         {
             const int pageSize = 49950;
             if (page < 1)
@@ -976,7 +985,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             }
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<string>(String.Format("{0}", Sql.Seo.GetSeoItemsByPage),
+                return await conn.QueryAsync<SeoDto>(String.Format("{0}", Sql.Seo.GetSeoItemsByPage),
                     new { rowsperpage = pageSize, pageNumber = page });
             }
         }
