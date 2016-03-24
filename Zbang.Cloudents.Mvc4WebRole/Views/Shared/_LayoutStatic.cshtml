@@ -2,7 +2,7 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html>
+<html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
 
 <head>
     @{ Html.RenderPartial("_Head");}
@@ -14,8 +14,8 @@
     <div class="content">@RenderBody()</div>
     @{Html.RenderPartial("_StaticPageFooter");}
     @Html.Script2("staticPage")
-    
-    
+
+
     <div id="cssCheck"></div>
     <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)"></script>
     @Html.JqueryValidateLocale()

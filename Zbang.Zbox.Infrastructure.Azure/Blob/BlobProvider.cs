@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using Zbang.Zbox.Infrastructure.Azure.Storage;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -50,6 +51,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             m_BlobClient = StorageProvider.ZboxCloudStorage.CreateCloudBlobClient();
             var serviceProperties = m_BlobClient.GetServiceProperties();
             serviceProperties.DefaultServiceVersion = "2014-02-14";
+            //var corsRule = new CorsRule
+            //{
+            //    AllowedOrigins = new[]
+            //    {"https://develop.spitball.co", "https://dev.spitball.co", "https://www.spitball.co"},
+            //    AllowedMethods = CorsHttpMethods.Get,
+            //    MaxAgeInSeconds = 1800
+            //};
+            //serviceProperties.Cors.CorsRules.Add(corsRule);
             m_BlobClient.SetServiceProperties(serviceProperties);
             //System.Net.ServicePointManager.DefaultConnectionLimit = 20;
             //m_BlobClient.ParallelOperationThreadCount = 20;

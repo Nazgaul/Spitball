@@ -286,7 +286,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 50,000 classes.
+        ///   Looks up a localized string similar to 57,000 classes.
         /// </summary>
         public static string FeaturesSectionText3B {
             get {
@@ -493,7 +493,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 57,00 classes.
+        ///   Looks up a localized string similar to 57,000 classes.
         /// </summary>
         public static string ProductTextD {
             get {

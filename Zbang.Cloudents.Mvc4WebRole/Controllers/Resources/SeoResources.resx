@@ -205,15 +205,27 @@
     <value>Class Notes | Spitball</value>
   </data>
   <data name="ClassNotesMeta" xml:space="preserve">
-    <value />
+    <value>Missed the last class? Spitball got you covered! Access all of your classmates' class notes anytime, anywhere. Join Spitball and open a free account today!</value>
   </data>
   <data name="CoursesTitle" xml:space="preserve">
     <value>Courses | Spitball</value>
   </data>
   <data name="CoursesMeta" xml:space="preserve">
-    <value />
+    <value>Join Spitball's growing community! Find your course and start chatting with your friends, create study groups and share your knowledge! Open a free account today!</value>
   </data>
   <data name="QuizMetaDescription" xml:space="preserve">
     <value>See how well you are doing in {0} and test yourself with the {1} quiz your classmates have built. Start getting better grades with Spitball!</value>
+  </data>
+  <data name="FeaturesMeta" xml:space="preserve">
+    <value>Get to know Spitball - the social study platform! Get class notes, chat with your friends, create study groups and share your knowledge! Open a free account today!</value>
+  </data>
+  <data name="FeaturesTitle" xml:space="preserve">
+    <value>Features | Spitball</value>
+  </data>
+  <data name="ProductMeta" xml:space="preserve">
+    <value>Start using Spitball like a real pro! Get class notes, chat with your friends, create study groups and share your knowledge! Study anytime, anywhere with Spitball!</value>
+  </data>
+  <data name="ProductTitle" xml:space="preserve">
+    <value>Product - Use Spitball like a Pro | Spitball</value>
   </data>
 </root>

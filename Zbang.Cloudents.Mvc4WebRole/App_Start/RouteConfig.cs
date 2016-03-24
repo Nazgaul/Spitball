@@ -40,37 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
              new { controller = "Home", action = "Index" }
              );
 
-            //#region Box
-
-            //routes.MapRoute("PrivateBox",
-            //"box/my/{boxId}/{boxName}",
-            //new { controller = "Box", action = "Index" },
-            //new { boxId = new LongRouteConstraint() }
-            //);
-            //routes.MapRoute("PrivateBoxWithSub",
-            //"box/my/{boxId}/{boxName}/{part}",
-            //new { controller = "Box", action = "Index" },
-            //new { boxId = new LongRouteConstraint(), part = "feed|items|quizzes|members" }
-            //);
-
-
-            //routes.MapRoute("CourseBox",
-            //  "course/{universityName}/{boxId}/{boxName}",
-            //  new { controller = "Box", action = "Index" },
-            //  new { boxId = new LongRouteConstraint() }
-            //);
-            //routes.MapRoute("CourseBoxWithSub",
-            //  "course/{universityName}/{boxId}/{boxName}/{part}",
-            //  new { controller = "Box", action = "Index" },
-            //  new { boxId = new LongRouteConstraint(), part = "feed|items|quizzes|members" }
-            //);
-
-
-            //routes.MapRoute("shortBox",
-            //    UrlConsts.ShortBox,
-            //    new { controller = "Box", action = "ShortUrl" });
-
-            //#endregion
+            
 
             routes.MapRoute(
               "Sitemap",
@@ -88,21 +58,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
 
-            //#region item
-
-            //routes.MapRoute("Item",
-            //    "item/{universityName}/{boxId}/{boxName}/{itemid}/{itemName}",
-            //    new { controller = "Item", action = "Index" },
-            //    new
-            //    {
-            //        boxId = new LongRouteConstraint(),
-            //        itemid = new LongRouteConstraint()
-            //    }
-            //    );
-            //routes.MapRoute("shortItem",
-            //   UrlConsts.ShortItem,
-            //   new { controller = "Item", action = "ShortUrl" });
-            //#endregion
+            
 
             #region quiz
 
@@ -154,10 +110,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
             new { controller = "Home", action = "IndexEmpty" },
             new { part = "info|password|notification|department" }
            );
-            routes.MapRoute("Product",
-            "product",
-            new { controller = "Home", action = "Product" }
-        );
+        //    routes.MapRoute("Product",
+        //    "product",
+        //    new { controller = "Home", action = "Product" }
+        //);
             routes.MapRoute("Blog2",
              "blog",
              new { controller = "Home", action = "Blog" }

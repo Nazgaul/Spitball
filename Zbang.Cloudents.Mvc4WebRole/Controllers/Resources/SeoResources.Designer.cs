@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Missed the last class? Spitball got you covered! Access all of your classmates&apos; class notes anytime, anywhere. Join Spitball and open a free account today!.
         /// </summary>
         internal static string ClassNotesMeta {
             get {
@@ -187,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Join Spitball&apos;s growing community! Find your course and start chatting with your friends, create study groups and share your knowledge! Open a free account today!.
         /// </summary>
         internal static string CoursesMeta {
             get {
@@ -201,6 +201,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         internal static string CoursesTitle {
             get {
                 return ResourceManager.GetString("CoursesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Get to know Spitball - the social study platform! Get class notes, chat with your friends, create study groups and share your knowledge! Open a free account today!.
+        /// </summary>
+        internal static string FeaturesMeta {
+            get {
+                return ResourceManager.GetString("FeaturesMeta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Features | Spitball.
+        /// </summary>
+        internal static string FeaturesTitle {
+            get {
+                return ResourceManager.GetString("FeaturesTitle", resourceCulture);
             }
         }
         
@@ -282,6 +300,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         internal static string PrivacyTitle {
             get {
                 return ResourceManager.GetString("PrivacyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start using Spitball like a real pro! Get class notes, chat with your friends, create study groups and share your knowledge! Study anytime, anywhere with Spitball!.
+        /// </summary>
+        internal static string ProductMeta {
+            get {
+                return ResourceManager.GetString("ProductMeta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product - Use Spitball like a Pro | Spitball.
+        /// </summary>
+        internal static string ProductTitle {
+            get {
+                return ResourceManager.GetString("ProductTitle", resourceCulture);
             }
         }
         

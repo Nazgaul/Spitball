@@ -1,5 +1,4 @@
-﻿using System.Net.Http;
-using System.Threading;
+﻿using System.Threading;
 using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using System;
@@ -19,10 +18,8 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 using Zbang.Cloudents.Mvc4WebRole.Models.FAQ;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
-using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Url;
@@ -34,23 +31,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class HomeController : BaseController
     {
         private readonly Lazy<IBlobProvider> m_BlobProvider;
-        private readonly Lazy<ICache> m_CacheProvider;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
-        private readonly Lazy<IPdfProcessor> m_PdfProcessor;
         private readonly ILanguageCookieHelper m_LanguageCookie;
         private readonly ICookieHelper m_CookieHelper;
 
         public HomeController(
             Lazy<IBlobProvider> blobProvider,
-            Lazy<ICache> cacheProvider, Lazy<IQueueProvider> queueProvider,
-            ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper, Lazy<IPdfProcessor> pdfProcessor)
+            Lazy<IQueueProvider> queueProvider,
+            ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper)
         {
             m_BlobProvider = blobProvider;
-            m_CacheProvider = cacheProvider;
             m_QueueProvider = queueProvider;
             m_LanguageCookie = languageCookie;
             m_CookieHelper = cookieHelper;
-            m_PdfProcessor = pdfProcessor;
         }
 
         [DonutOutputCache(CacheProfile = "HomePage")]
@@ -128,7 +121,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
-        [NoUniversity]
         [Route("terms", Name = "TOS")]
         public ActionResult Terms()
         {
@@ -139,7 +131,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [DonutOutputCache(CacheProfile = "FullPage")]
-        [NoUniversity]
         [Route("help", Name = "Help")]
         public async Task<ViewResult> Help()
         {
@@ -171,7 +162,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         [DonutOutputCache(CacheProfile = "FullPage")]
-        [NoUniversity]
         [Route("jobs", Name = "Jobs")]
         public async Task<ActionResult> Jobs()
         {
@@ -202,7 +192,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         [DonutOutputCache(CacheProfile = "FullPage")]
-        [NoUniversity]
         [Route("privacy", Name = "Privacy")]
         public ActionResult Privacy()
         {
@@ -212,7 +201,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
-        [NoUniversity]
         [Route("aboutus", Name = "AboutUs")]
         public ActionResult AboutUs()
         {
@@ -227,65 +215,60 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoutePermanent("homePage");
         }
 
-
+        [DonutOutputCache(CacheProfile = "FullPage")]
         public async Task<ViewResult> Blog(string lang)
         {
             ViewBag.title = SeoResources.BlogTitle;
             ViewBag.metaDescription = SeoResources.BlogMeta;
 
-            using (var httpClient = new HttpClient())
-            {
-                var content = await httpClient.GetStringAsync("https://spitballblog.wordpress.com/");
-                ViewBag.test = content;
-                return View();
-            }
-            //var iFrameSrc = "https://spitballblog.wordpress.com/";
-            //if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" || Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            //using (var httpClient = new HttpClient())
             //{
-            //    iFrameSrc = "https://spitballcoh.wordpress.com/";
+            //    var content = await httpClient.GetStringAsync("https://spitballblog.wordpress.com/");
+            //    ViewBag.test = content;
+            //    return View();
             //}
-            //ViewBag.iFrameSrc = iFrameSrc;
-            //return View();
+            var iFrameSrc = "https://spitballblog.wordpress.com/";
+            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" || Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            {
+                iFrameSrc = "https://spitballcoh.wordpress.com/";
+            }
+            ViewBag.iFrameSrc = iFrameSrc;
+            return View();
         }
 
-
-        [NoCache]
+        [Route("product", Name = "Product")]
+        [Route("product/{lang:regex(^(en|he))}", Name = "Product2")]
         public ActionResult Product(string lang)
         {
-            ViewBag.postBag = true;
-            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
-                Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            if (!string.IsNullOrEmpty(lang))
             {
-                ViewBag.lang = "he";
+                LanguageMiddleware.ChangeThreadLanguage(lang);
             }
+            ViewBag.title = SeoResources.ProductTitle;
+            ViewBag.metaDescription = SeoResources.ProductMeta;
+            //ViewBag.postBag = true;
+
+            //if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
+            //    Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            //{
+            //    ViewBag.lang = "he";
+            //}
             return View();
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
-        [NoUniversity]
         [Route("features", Name = "Features")]
+        [Route("features/{lang:regex(^(en|he))}", Name = "Features2")]
         public ActionResult Features(string lang)
         {
-            ViewBag.postBag = true;
-            ViewBag.lang = "en";
-            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
-                Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            if (!string.IsNullOrEmpty(lang))
             {
-                ViewBag.lang = "he";
+                LanguageMiddleware.ChangeThreadLanguage(lang);
             }
+            ViewBag.title = SeoResources.FeaturesTitle;
+            ViewBag.metaDescription = SeoResources.HelpMeta;
             return View();
         }
-        //[NoCache]
-        //public ActionResult Static(string lang)
-        //{
-        //    return View("_LayoutStatic");
-        //}
-
-
-        //public ActionResult TermsOfService()
-        //{
-        //    return RedirectToRoutePermanent("TOS");
-        //}
 
         [Route("home/privacy")]
         public ActionResult PrivacyOld()
@@ -298,52 +281,53 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoutePermanent("AboutUs");
         }
 
-        public ActionResult TermsPartial()
-        {
-            //ViewBag.postBag = true;
-            return View("TermsOfService");
-        }
+        //public ActionResult TermsPartial()
+        //{
+        //    //ViewBag.postBag = true;
+        //    return View("TermsOfService");
+        //}
 
-        [DonutOutputCache(CacheProfile = "FullPage")]
-        public ActionResult PrivacyPartial()
-        {
-            //ViewBag.postBag = true;
-            return View("Privacy");
-        }
+        //[DonutOutputCache(CacheProfile = "FullPage")]
+        //public ActionResult PrivacyPartial()
+        //{
+        //    //ViewBag.postBag = true;
+        //    return View("Privacy");
+        //}
 
-        [DonutOutputCache(CacheProfile = "FullPage")]
-        [Route("home/jobs")]
-        public async Task<ActionResult> JobsPartials()
-        {
-            ViewBag.Title = "Jobs | Spitball | Study better by working together";
-            ViewBag.pageTitle = HomeControllerResources.JobTitle;
-            using (var stream = await m_BlobProvider.Value.GetJobsXmlAsync())
-            {
-                var data = XDocument.Load(stream);
-                var model = from category in data.Descendants("category")
-                            let faqs = category.Descendants("content")
-                            orderby int.Parse(category.Attribute("order").Value)
-                            select new Category
-                            {
-                                Language = category.Attribute("lang").Value,
-                                Name = category.Attribute("name").Value,
-                                Order = int.Parse(category.Attribute("order").Value),
-                                QuestionNAnswers = faqs.Select(s =>
-                                    new QnA
-                                    {
-                                        Answer = s.Element("answer").Value,
-                                        Question = s.Element("question").Value,
-                                        Order = int.Parse(s.Attribute("order").Value)
+        //[DonutOutputCache(CacheProfile = "FullPage")]
+        //[Route("home/jobs")]
+        //public async Task<ActionResult> JobsPartials()
+        //{
+        //    ViewBag.Title = "Jobs | Spitball | Study better by working together";
+        //    ViewBag.pageTitle = HomeControllerResources.JobTitle;
+        //    using (var stream = await m_BlobProvider.Value.GetJobsXmlAsync())
+        //    {
+        //        var data = XDocument.Load(stream);
+        //        var model = from category in data.Descendants("category")
+        //                    let faqs = category.Descendants("content")
+        //                    orderby int.Parse(category.Attribute("order").Value)
+        //                    select new Category
+        //                    {
+        //                        Language = category.Attribute("lang").Value,
+        //                        Name = category.Attribute("name").Value,
+        //                        Order = int.Parse(category.Attribute("order").Value),
+        //                        QuestionNAnswers = faqs.Select(s =>
+        //                            new QnA
+        //                            {
+        //                                Answer = s.Element("answer").Value,
+        //                                Question = s.Element("question").Value,
+        //                                Order = int.Parse(s.Attribute("order").Value)
 
-                                    }).OrderBy(s => s.Order).ToList()
-                            };
-                return View("help2", model);
-            }
+        //                            }).OrderBy(s => s.Order).ToList()
+        //                    };
+        //        return View("help2", model);
+        //    }
 
 
-        }
+        //}
         [Route("advertiseWithUs", Name = "Advertise")]
-        public ViewResult AdvertiseWithUs(CancellationToken cancellationToken)
+        [DonutOutputCache(CacheProfile = "FullPage")]
+        public ViewResult AdvertiseWithUs()
         {
             ViewBag.title = SeoResources.AdvertiseWithUsTitle;
             ViewBag.metaDescription = SeoResources.AdvertiseWithUsMeta;
@@ -359,6 +343,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Route("apps", Name = "apps")]
+        [DonutOutputCache(CacheProfile = "FullPage")]
         public ActionResult Apps()
         {
             ViewBag.title = SeoResources.AppsTitle;
@@ -369,14 +354,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("classnotes", Name = "classnotes")]
         public async Task<ActionResult> ClassNotes(string lang)
         {
-            ViewBag.title = SeoResources.ClassNotesTitle;
-            ViewBag.metaDescription = SeoResources.ClassNotesMeta;
+            
             var language = "en";
             if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
                 Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
             {
                 language = "he";
             }
+
+            ViewBag.title = SeoResources.ClassNotesTitle;
+            ViewBag.metaDescription = SeoResources.ClassNotesMeta;
             var items = await ZboxReadService.GetItemsPageDataAsync(language);
 
             return View("ClassNotes", items);
@@ -412,52 +399,52 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(str);
         }
 
-        public async Task<ActionResult> HelpPartial()
-        {
-            const string viewName = "help2";
-            ViewBag.pageTitle = HomeControllerResources.HelpTitle;
-            const string faqQuestionCacheName = "faqQuestionCacheName";
-            var model = await m_CacheProvider.Value.GetFromCacheAsync<IEnumerable<Category>>(faqQuestionCacheName, faqQuestionCacheName);
+        //public async Task<ActionResult> HelpPartial()
+        //{
+        //    const string viewName = "help2";
+        //    ViewBag.pageTitle = HomeControllerResources.HelpTitle;
+        //    const string faqQuestionCacheName = "faqQuestionCacheName";
+        //    var model = await m_CacheProvider.Value.GetFromCacheAsync<IEnumerable<Category>>(faqQuestionCacheName, faqQuestionCacheName);
 
-            if (model != null)
-            {
-                return PartialView(viewName, model.Where(w => String.Equals(w.Language,
-                     Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
+        //    if (model != null)
+        //    {
+        //        return PartialView(viewName, model.Where(w => String.Equals(w.Language,
+        //             Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
-            }
-            using (var stream = await m_BlobProvider.Value.GetFaqQuestionAsync())
-            {
-                var data = XDocument.Load(stream);
-                model = from category in data.Descendants("category")
-                        let faqs = category.Descendants("content")
-                        orderby int.Parse(category.Attribute("order").Value)
-                        select new Category
-                        {
-                            Language = category.Attribute("lang").Value,
-                            Name = category.Attribute("name").Value,
-                            Order = int.Parse(category.Attribute("order").Value),
-                            QuestionNAnswers = faqs.Select(s =>
-                                new QnA
-                                {
-                                    Answer = s.Element("answer").Value,
-                                    Question = s.Element("question").Value,
-                                    Order = int.Parse(s.Attribute("order").Value)
+        //    }
+        //    using (var stream = await m_BlobProvider.Value.GetFaqQuestionAsync())
+        //    {
+        //        var data = XDocument.Load(stream);
+        //        model = from category in data.Descendants("category")
+        //                let faqs = category.Descendants("content")
+        //                orderby int.Parse(category.Attribute("order").Value)
+        //                select new Category
+        //                {
+        //                    Language = category.Attribute("lang").Value,
+        //                    Name = category.Attribute("name").Value,
+        //                    Order = int.Parse(category.Attribute("order").Value),
+        //                    QuestionNAnswers = faqs.Select(s =>
+        //                        new QnA
+        //                        {
+        //                            Answer = s.Element("answer").Value,
+        //                            Question = s.Element("question").Value,
+        //                            Order = int.Parse(s.Attribute("order").Value)
 
-                                }).OrderBy(s => s.Order).ToList()
-                        };
-                model = model.ToList();
-                await m_CacheProvider.Value.AddToCacheAsync(faqQuestionCacheName, model, TimeSpan.FromHours(1), faqQuestionCacheName);
-            }
-            return PartialView(viewName, model.Where(w => String.Equals(w.Language,
-                Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
+        //                        }).OrderBy(s => s.Order).ToList()
+        //                };
+        //        model = model.ToList();
+        //        await m_CacheProvider.Value.AddToCacheAsync(faqQuestionCacheName, model, TimeSpan.FromHours(1), faqQuestionCacheName);
+        //    }
+        //    return PartialView(viewName, model.Where(w => String.Equals(w.Language,
+        //        Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
 
-        }
-        [DonutOutputCache(CacheProfile = "FullPage")]
-        public ActionResult AboutUsPartial()
-        {
+        //}
+        //[DonutOutputCache(CacheProfile = "FullPage")]
+        //public ActionResult AboutUsPartial()
+        //{
 
-            return View("AboutUs");
-        }
+        //    return View("AboutUs");
+        //}
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         // ReSharper disable once InconsistentNaming
@@ -596,12 +583,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Priority = 1.0,
                     Frequency = SitemapFrequency.Daily
                 });
-                nodes.Add(
-                    new SitemapNode(requestContext, "AccountLanguage", new { lang = "he-il" })
-                    {
-                        Priority = 1.0,
-                        Frequency = SitemapFrequency.Daily
-                    });
+                //nodes.Add(
+                //    new SitemapNode(requestContext, "AccountLanguage", new { lang = "he-il" })
+                //    {
+                //        Priority = 1.0,
+                //        Frequency = SitemapFrequency.Daily
+                //    });
 
                 nodes.Add(
                     new SitemapNode(requestContext, "Blog", new { lang = "en-us" })
@@ -659,6 +646,42 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Priority = 0.8,
                         Frequency = SitemapFrequency.Daily
                     });
+                nodes.Add(
+                    new SitemapNode(requestContext, "Advertise", null)
+                    {
+                        Priority = 0.8,
+                        Frequency = SitemapFrequency.Daily
+                    });
+                nodes.Add(
+                   new SitemapNode(requestContext, "Product2", new { lang  = "en"})
+                   {
+                       Priority = 0.8,
+                       Frequency = SitemapFrequency.Daily
+                   });
+                nodes.Add(
+                   new SitemapNode(requestContext, "Product2", new { lang = "he" })
+                   {
+                       Priority = 0.8,
+                       Frequency = SitemapFrequency.Daily
+                   });
+                nodes.Add(
+                  new SitemapNode(requestContext, "Features2", new { lang = "en" })
+                  {
+                      Priority = 0.8,
+                      Frequency = SitemapFrequency.Daily
+                  });
+                nodes.Add(
+                  new SitemapNode(requestContext, "Features2", new { lang = "he" })
+                  {
+                      Priority = 0.8,
+                      Frequency = SitemapFrequency.Daily
+                  });
+                nodes.Add(
+                   new SitemapNode(requestContext, "apps", null)
+                   {
+                       Priority = 0.8,
+                       Frequency = SitemapFrequency.Daily
+                   });
             }
 
             var seoItems = await ZboxReadService.GetSeoItemsAsync(index);

@@ -141,7 +141,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region Language
-        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
 

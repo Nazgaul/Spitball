@@ -66,44 +66,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToActionPermanent("Index", "Home", new { lang, invId });
         }
 
-        //[DonutOutputCache(VaryByParam = "lang;invId",
-        //    VaryByCustom = CustomCacheKeys.Lang,
-        //    Duration = TimeConsts.Second,
-        //    Location = OutputCacheLocation.Server, Order = 2)]
-        //public ActionResult SignIn()
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        return RedirectToAction("Index", "Dashboard");
-        //    }
-        //    return View();
-        //}
-        //[DonutOutputCache(VaryByParam = "lang;invId",
-        //   VaryByCustom = CustomCacheKeys.Lang,
-        //   Duration = TimeConsts.Day,
-        //   Location = OutputCacheLocation.Server, Order = 2)]
-        //public ActionResult Signup(string invId)
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        return RedirectToAction("Index", "Dashboard");
-        //    }
-        //    if (!string.IsNullOrEmpty(invId))
-        //    {
-        //        var guid = GuidEncoder.TryParseNullableGuid(invId);
-        //        if (guid.HasValue)
-        //        {
-        //            m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
-        //        }
-        //    }
-        //    return View("Signin");
-        //}
-
-
-
-
-
-
         #region Login
 
         [HttpPost]

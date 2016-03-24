@@ -1,9 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
 @{
-    //Layout = null;
-    ViewBag.Title = "Features | Spitball";
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
-
 }
 <div class="static-page features-page">
     <div class="top-image">
@@ -13,9 +10,9 @@
         <h2>@StaticPagesResources.FeaturesSubTitle</h2>
         <div class="description">
             @StaticPagesResources.FeaturesDescriptionA
-            <a href="@Url.RouteUrl("ClassNotes")" target="_blank">@StaticPagesResources.FeaturesDescriptionB</a>
+            <a href="@Url.RouteUrl("ClassNotes")">@StaticPagesResources.FeaturesDescriptionB</a>
             @StaticPagesResources.FeaturesDescriptionC
-            <a href="@Url.Action("SignIn", "Account")" target="_blank">@StaticPagesResources.FeaturesDescriptionD</a>
+            <a href="@Url.RouteUrl("signin")">@StaticPagesResources.FeaturesDescriptionD</a>
             @StaticPagesResources.FeaturesDescriptionE
         </div>
         <section id="schools">
@@ -24,47 +21,47 @@
                 @StaticPagesResources.FeaturesSectionText5A
                 @StaticPagesResources.FeaturesSectionText5B
                 @StaticPagesResources.FeaturesSectionText5C
-                <a href="@Url.RouteUrl("Courses")" target="_blank">@StaticPagesResources.FeaturesSectionText5D</a>
+                <a href="@Url.RouteUrl("Courses")">@StaticPagesResources.FeaturesSectionText5D</a>
                 @StaticPagesResources.FeaturesSectionText5E
             </div>
-            <a href="@Url.Action("SignUp", "Account")"><img src=@UrlHelperExtension.CdnContent(@Url, "/images/Features/uni_" + ViewBag.lang + ".png" ) alt="Spitball's Schools" /></a>
+            <a href="@Url.RouteUrl("signup")"><img src="@Url.CdnContent("/images/Features/uni_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName + ".png")" alt="Spitball's Schools" /></a>
         </section>
         <section id="courses">
             <h3>@StaticPagesResources.FeaturesSectionTitle3</h3>
             <div class="intro-text">
                 @StaticPagesResources.FeaturesSectionText3A
-                <a href="@Url.RouteUrl("Courses")" target="_blank">@StaticPagesResources.FeaturesSectionText3B</a>
+                <a href="@Url.RouteUrl("Courses")">@StaticPagesResources.FeaturesSectionText3B</a>
                 @StaticPagesResources.FeaturesSectionText3C
             </div>
-            <a href="@Url.RouteUrl("Courses")" target="_blank"><img src=@UrlHelperExtension.CdnContent(@Url, "/images/Features/courses_" + ViewBag.lang + ".png" ) alt="Spitball's Courses" /></a>
+            <a href="@Url.RouteUrl("Courses")"><img src="@Url.CdnContent("/images/Features/courses_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName + ".png")" alt="Spitball's Courses" /></a>
         </section>
         <section id="class_notes">
             <h3>@StaticPagesResources.FeaturesSectionTitle1</h3>
             <div class="intro-text">
                 @StaticPagesResources.FeaturesSectionText1A
-                <a href="@Url.RouteUrl("ClassNotes")" target="_blank">@StaticPagesResources.FeaturesSectionText1B</a>
+                <a href="@Url.RouteUrl("ClassNotes")">@StaticPagesResources.FeaturesSectionText1B</a>
                 @StaticPagesResources.FeaturesSectionText1C
             </div>
-            <a href="@Url.RouteUrl("ClassNotes")" target="_blank"><img src=@UrlHelperExtension.CdnContent(@Url, "/images/Features/doc_" + ViewBag.lang + ".png" ) alt="Spitball's Class Notes" /></a>
+            <a href="@Url.RouteUrl("ClassNotes")"><img src="@Url.CdnContent("/images/Features/doc_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName + ".png")" alt="Spitball's Class Notes" /></a>
         </section>
         <section id="quizzes">
             <h3>@StaticPagesResources.FeaturesSectionTitle2</h3>
             <div class="intro-text">@StaticPagesResources.FeaturesSectionText2</div>
-            <img src=@UrlHelperExtension.CdnContent(@Url, "/images/Features/quiz_" + ViewBag.lang + ".png" ) alt="Spitball's Quizzes" />
+            <img src="@Url.CdnContent("/images/Features/quiz_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName + ".png")" alt="Spitball's Quizzes" />
         </section>
         <section id="class_feed">
             <h3>@StaticPagesResources.FeaturesSectionTitle4</h3>
             <div class="intro-text">@StaticPagesResources.FeaturesSectionText4</div>
-            <img src=@UrlHelperExtension.CdnContent(@Url, "/images/Features/feed_" + ViewBag.lang + ".png" ) alt="Spitball's Class feed" />
+            <img src="@Url.CdnContent("/images/Features/feed_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName + ".png")" alt="Spitball's Class feed" />
         </section>
         <section id="app">
             <h3>@StaticPagesResources.FeaturesSectionTitle6</h3>
             <div class="intro-text">
                 @StaticPagesResources.FeaturesSectionText6A
-                <a href="@Url.RouteUrl("Apps")" target="_blank">@StaticPagesResources.FeaturesSectionText6B</a>
+                <a href="@Url.RouteUrl("Apps")">@StaticPagesResources.FeaturesSectionText6B</a>
                 @StaticPagesResources.FeaturesSectionText6C
             </div>
-            <a href="@Url.RouteUrl("Apps")" target="_blank"><img class="app" src=@UrlHelperExtension.CdnContent(@Url, "/images/Features/app.png?v=1" ) alt="Spitball's App" /></a>
+            <a href="@Url.RouteUrl("Apps")"><img class="app" src="@Url.CdnContent("/images/Features/app.png?v=1")" alt="Spitball's App" /></a>
         </section>
     </div>
 </div>

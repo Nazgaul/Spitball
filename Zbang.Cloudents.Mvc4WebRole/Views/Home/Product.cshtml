@@ -1,9 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
 @{
-    //Layout = null;
-    ViewBag.Title = "Product | Spitball";
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
-    var imageSrc = (ViewBag.lang == "he") ? @Url.CdnContent("/images/HomePage2/infographics_he.png") : @Url.CdnContent("/images/HomePage2/infographics_en.png");
+    var imageSrc = (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "he") ? @Url.CdnContent("/images/HomePage2/infographics_he.png") : @Url.CdnContent("/images/HomePage2/infographics_en.png");
 
 }
 <div class="static-page product-page">
@@ -17,13 +15,13 @@
             @StaticPagesResources.ProductTextA
             @StaticPagesResources.ProductTextB
             @StaticPagesResources.ProductTextC
-            <a href="@Url.RouteUrl("Courses")" target="_blank">@StaticPagesResources.ProductTextD</a>
+            <a href="@Url.RouteUrl("Courses")">@StaticPagesResources.ProductTextD</a>
             @StaticPagesResources.ProductTextE
-            <a href="@Url.RouteUrl("ClassNotes")" target="_blank">@StaticPagesResources.ProductTextF</a>
+            <a href="@Url.RouteUrl("ClassNotes")">@StaticPagesResources.ProductTextF</a>
             @StaticPagesResources.ProductTextG
-            <a href="@Url.RouteUrl("Features")" target="_blank">@StaticPagesResources.ProductTextH</a>
+            <a href="@Url.RouteUrl("Features")">@StaticPagesResources.ProductTextH</a>
             @StaticPagesResources.ProductTextI
-            <a href="@Url.Action("SignUp", "Account")">@StaticPagesResources.ProductTextJ</a>
+            <a href="@Url.RouteUrl("signup")">@StaticPagesResources.ProductTextJ</a>
         </div>
     </div>
 </div>

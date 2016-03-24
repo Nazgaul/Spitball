@@ -3,12 +3,12 @@
     //Layout = null;
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     const string svgUrl = "~/images/site/icons.svg";
-    var socialIconsSvg = "~/images/site/social-icons.svg";
+    const string socialIconsSvg = "~/images/site/social-icons.svg";
 }
 
 
 
-<a class="siteLogo" href="~/" target="_blank" style="padding-top: 0;">
+<a class="siteLogo" href="@Url.RouteUrl("homePage")" style="padding-top: 0;">
     @Html.Svg(svgUrl, "logo", new { @class = "logo-default" })
 </a>
 <div class="container">
@@ -28,8 +28,8 @@
             <button type="button" class="facebook os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg(socialIconsSvg, "google") @LogOnResources.ExternalProvider</button>
             <button type="button" class="google os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@Html.Svg(socialIconsSvg, "google") @LogOnResources.ExternalProvider</button>
             <br />
-            <a href="@Url.Action("SignUp", "Account")" target="_blank" class="btn-primary btn-lg element-bottom-20 element-top-20 text-center bold os-animation btnSignIn"
-               target="_self" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+            <a href="@Url.RouteUrl("signup")" target="_blank" class="btn-primary btn-lg element-bottom-20 element-top-20 text-center bold os-animation btnSignIn"
+                data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                 @HomePageResources.A5
             </a>
             @*<a href="@Url.Action("SignIn", "Account")" class="btn btn-primary btn-lg  text-center bold element-top-20 element-bottom-20 os-animation btnSignIn"
