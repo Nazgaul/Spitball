@@ -59,8 +59,8 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 }
                 if (googleMessage != null)
                 {
-                    TraceLog.WriteInfo(String.Format("sending gcm push notification data: {0} to users {1}",
-                        googleMessage, String.Join(",", users)));
+                    //TraceLog.WriteInfo(String.Format("sending gcm push notification data: {0} to users {1}",
+                    //    googleMessage, String.Join(",", users)));
                     list.Add(SendNotificationAsync(new GcmNotification(googleMessage.ToString()), users));
                 }
                 if (appleMessage != null)

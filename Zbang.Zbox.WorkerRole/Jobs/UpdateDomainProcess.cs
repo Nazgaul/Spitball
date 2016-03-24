@@ -54,8 +54,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
           //    return Task.FromResult(messages);
 
           //}, TimeSpan.FromMinutes(1), 5);
-            
 
+            TraceLog.WriteInfo("Running update domain queue");
             await m_QueueProcess.RunQueue(new UpdateDomainQueueName(), async msg =>
               {
                  

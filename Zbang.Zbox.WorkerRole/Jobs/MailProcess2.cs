@@ -42,6 +42,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
+            TraceLog.WriteInfo("Running mail queue");
             await m_QueueProcess.RunQueue(new MailQueueNameNew(), msg =>
              {
                  try

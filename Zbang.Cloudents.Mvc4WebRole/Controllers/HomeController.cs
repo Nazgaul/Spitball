@@ -22,6 +22,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.File;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Url;
@@ -35,20 +36,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IBlobProvider> m_BlobProvider;
         private readonly Lazy<ICache> m_CacheProvider;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
+        private readonly Lazy<IPdfProcessor> m_PdfProcessor;
         private readonly ILanguageCookieHelper m_LanguageCookie;
         private readonly ICookieHelper m_CookieHelper;
 
         public HomeController(
             Lazy<IBlobProvider> blobProvider,
             Lazy<ICache> cacheProvider, Lazy<IQueueProvider> queueProvider,
-            ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper
-            )
+            ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper, Lazy<IPdfProcessor> pdfProcessor)
         {
             m_BlobProvider = blobProvider;
             m_CacheProvider = cacheProvider;
             m_QueueProvider = queueProvider;
             m_LanguageCookie = languageCookie;
             m_CookieHelper = cookieHelper;
+            m_PdfProcessor = pdfProcessor;
         }
 
         [DonutOutputCache(CacheProfile = "HomePage")]
@@ -233,9 +235,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             using (var httpClient = new HttpClient())
             {
-               var content = await httpClient.GetStringAsync("https://spitballblog.wordpress.com/");
-               ViewBag.test = content;
-               return View();
+                var content = await httpClient.GetStringAsync("https://spitballblog.wordpress.com/");
+                ViewBag.test = content;
+                return View();
             }
             //var iFrameSrc = "https://spitballblog.wordpress.com/";
             //if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" || Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
@@ -340,12 +342,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         }
-        [Route("advertisewithus", Name = "Advertise")]
-        public ActionResult AdvertiseWithUs()
+        [Route("advertiseWithUs", Name = "Advertise")]
+        public ViewResult AdvertiseWithUs(CancellationToken cancellationToken)
         {
             ViewBag.title = SeoResources.AdvertiseWithUsTitle;
             ViewBag.metaDescription = SeoResources.AdvertiseWithUsMeta;
+            //var stream = await m_BlobProvider.Value.DownloadFileAsync("SB.pdf", "zboxhelp");
             return View();
+            //return View( new FileStreamResult(stream, "application/pdf");
+            //using (var source = CreateCancellationToken(cancellationToken))
+            //{
+            //    var str = await m_PdfProcessor.Value.ConvertToHtmlAsync("SB.pdf", "zboxhelp", source.Token);
+            //    return View("AdvertiseWithUs",str);
+            //}
+
         }
 
         [Route("apps", Name = "apps")]
