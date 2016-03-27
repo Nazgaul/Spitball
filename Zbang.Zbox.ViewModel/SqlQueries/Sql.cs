@@ -246,6 +246,7 @@ and userreputation > 0
 u.UserId as Id, 
 u.UserName as Name, 
 u.UserImageLarge as Image,
+u.Sex as Sex,
 u.Url as Url,
 u.Culture as Culture,
 u.UserReputation as Score,

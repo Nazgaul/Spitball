@@ -22,6 +22,7 @@ interface IUserData {
     id: number;
     name: string;
     image: string;
+    sex: number;
     score: number;
     email: string;
     url: string;
@@ -59,6 +60,7 @@ interface IUserData {
                 id: data.id,
                 name: data.name,
                 image: data.image,
+                sex: data.sex,
                 score: data.score,
                 url: data.url,
                 createTime: new Date(data.dateTime),

@@ -20,6 +20,7 @@
                 id: data.id,
                 name: data.name,
                 image: data.image,
+                sex: data.sex,
                 score: data.score,
                 url: data.url,
                 createTime: new Date(data.dateTime),
@@ -81,4 +82,3 @@
         };
     }
 })();
-//# sourceMappingURL=userDetails.js.map
