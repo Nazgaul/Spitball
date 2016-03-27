@@ -4,7 +4,7 @@
 <div ng-if="lc.createUniversity" class="add-univeristy" ng-init="lc.countryCode = '@ViewBag.country'">
     <h2>@LibraryResources.UniversityAddSchoolTitle</h2>
     <form ng-submit="lc.createNewUniversity(createUniversity)" class="text-capitalize" novalidate name="createUniversity">
-        <div class="fields borderTC13">
+        <div class="fields">
             <md-input-container>
                 <label>@LibraryResources.Country</label>
                 <md-select ng-model="lc.countryCode" md-container-class="dd-list">

@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Items.
+        ///   Looks up a localized string similar to Documents.
         /// </summary>
         public static string Items {
             get {

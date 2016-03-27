@@ -729,7 +729,8 @@
 .homePage .home-page-body section.about {
   background: #4190B9;
   color: #f5f5f5;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
   padding-bottom: 0;
 }
 .homePage .home-page-body section.about .description {
@@ -786,9 +787,23 @@
   display: block;
   cursor: pointer;
   width: 100%;
-  max-width: 500px;
-  border: 3px solid #fff;
-  box-shadow: -3px 3px 17px rgba(0, 0, 0, 0.7);
+  display: none;
+}
+.homePage .home-page-body section.about .video-image.desktop {
+  width: 660px;
+}
+@media (min-width: 600px) {
+  .homePage .home-page-body section.about .video-image.desktop {
+    display: block;
+  }
+}
+.homePage .home-page-body section.about .video-image.mobile {
+  max-width: 700px;
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.about .video-image.mobile {
+    display: block;
+  }
 }
 .homePage .home-page-body section.about .shadowbox {
   position: fixed;
@@ -809,11 +824,30 @@
 }
 .homePage .home-page-body section.about .video-wrapper {
   text-align: center;
-  margin-bottom: -7px;
-  margin-top: 15px;
+  z-index: 1;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  height: 400px;
 }
-.homePage .home-page-body section.about #open-video {
-  display: inline-block;
+@media (max-width: 600px) {
+  .homePage .home-page-body section.about .video-wrapper {
+    height: initial;
+    padding-bottom: 25px;
+  }
+}
+@media (min-width: 600px) {
+  .homePage .home-page-body section.about #open-video {
+    display: inline-block;
+    position: absolute;
+    bottom: -123px;
+    right: -280px;
+    left: 0;
+    width: 650px;
+    max-width: 500px;
+    display: block;
+    margin: 0 auto;
+  }
 }
 .homePage .home-page-body section.about #showVideo {
   display: none;

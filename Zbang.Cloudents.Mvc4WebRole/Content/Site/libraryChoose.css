@@ -1,4 +1,40 @@
-﻿@media (min-width: 960px) {
+﻿.library-choose {
+  /*
+            #lib-choose {
+        background-image: url('../../Images/Site/search_uni.png');
+        background-repeat: no-repeat;
+        background-position: 100% 0;
+        display: table;
+        margin: 0 auto;
+    }
+
+    .search-form-wrapper {
+        text-align: center;
+        margin: 0 auto;
+        max-width: 850px;
+        padding-right: 180px;
+        padding-left: 180px;
+        padding-top: 240px;
+
+        .intro-text-wrapper {
+            height: 135px;
+            display: -webkit-flex;
+            display: -ms-flex;
+            display: flex;
+            -ms-flex-direction: column;
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            justify-content: center;
+
+            .intro-text {
+                font-size: 30px;
+                line-height: 32px;
+                font-weight: bold;
+            }
+        }
+    */
+}
+@media (min-width: 960px) {
   .library-choose {
     margin-left: -250px;
   }
@@ -57,7 +93,21 @@
   font-size: 22px;
 }
 .library-choose .add-univeristy {
-  margin: 0 auto;
+  /*@media(min-width: 900px) {
+            padding-bottom: 300px;
+        }*/
+}
+@media (min-width: 600px) {
+  .library-choose .add-univeristy {
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-position: calc(50% + 350px) 100%;
+    background-image: url('../../Images/Site/create_uni_b.png');
+    max-width: 1150px;
+    padding-right: 12vw;
+    padding-left: 12vw;
+    background-size: 380px;
+  }
 }
 .library-choose .add-univeristy h2 {
   text-align: center;
@@ -65,7 +115,7 @@
   font-size: 30px;
   padding: 80px 0 20px 0;
   font-weight: bold;
-  max-width: 500px;
+  max-width: 470px;
   margin: 0 auto;
 }
 .library-choose .add-univeristy form {
@@ -73,17 +123,37 @@
   margin: 0 auto;
   margin-bottom: 60px;
   width: 100%;
+  padding-bottom: 350px;
+}
+@media (min-width: 600px) {
+  .library-choose .add-univeristy form {
+    max-width: 380px;
+    margin: 0 auto;
+    background: url('../../Images/Site/create_uni_text.png');
+    background-repeat: no-repeat;
+    background-position: 50% 60%;
+  }
 }
 .library-choose .add-univeristy form .fields {
   border-width: 1px;
   border-style: solid;
-  padding: 20px;
+  border: none;
+  padding: 20px 20px 0 20px;
   margin-bottom: 10px;
   border-radius: 4px;
 }
 .library-choose .add-univeristy form .buttons {
   display: inline-block;
   width: 100%;
+  padding-right: 20px;
+}
+@media (min-width: 900px) {
+  .library-choose .add-univeristy {
+    background-position: calc(50% + 400px) 100%;
+  }
+  .library-choose .add-univeristy form {
+    max-width: 450px;
+  }
 }
 .library-choose .add-univeristy .btn {
   padding: 0 16px;
@@ -179,6 +249,28 @@
   margin: 0 auto;
   width: 95%;
   max-width: 600px;
+  padding-bottom: 0;
+}
+@media (min-width: 600px) {
+  .library-choose .search-form-wrapper:not(.no-results) {
+    max-width: 860px;
+    margin-top: calc(90px + 4vw);
+    background-repeat: no-repeat;
+    background-image: url('../../Images/Site/search_uni.png');
+    background-position: 100% 0;
+    padding-right: 0;
+    padding-left: 0;
+    padding-top: 13vw;
+    background-size: 23vw;
+  }
+}
+@media (min-width: 900px) {
+  .library-choose .search-form-wrapper:not(.no-results) {
+    padding-top: 226px;
+    padding-right: 142px;
+    padding-left: 160px;
+    background-size: 300px;
+  }
 }
 .library-choose .search-form-wrapper .intro-text-wrapper {
   height: 135px;
@@ -189,6 +281,8 @@
   -webkit-flex-direction: column;
   flex-direction: column;
   justify-content: center;
+  max-width: 536px;
+  margin: 0 auto;
 }
 .library-choose .search-form-wrapper .intro-text-wrapper .intro-text {
   font-size: 30px;
@@ -199,6 +293,8 @@
   border-radius: 15px;
   overflow: hidden;
   margin-bottom: 30px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 .library-choose .search-form-wrapper form .search-text {
   background: #f5f5f5;
@@ -233,6 +329,21 @@
 .library-choose .results {
   max-width: 600px;
   margin: 0 auto;
+}
+@media (min-width: 600px) {
+  .library-choose .results .no-result .sub-text {
+    padding-bottom: 330px;
+    margin: 0;
+    background-image: url('../../Images/Site/no_uni.png');
+    background-repeat: no-repeat;
+    background-position: 60% 100%;
+  }
+}
+@media (min-width: 600px) and (max-height: 800px) {
+  .library-choose .results .no-result .sub-text {
+    background-size: 296px;
+    padding-bottom: 224px;
+  }
 }
 .library-choose .results > div {
   padding: 20px 0;

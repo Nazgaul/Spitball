@@ -836,7 +836,8 @@
             &.about {
                 background: #4190B9;
                 color: @textColorWhite;
-                overflow: hidden;
+                overflow: visible;
+                position: relative;
                 padding-bottom: 0;
 
                 .description {
@@ -880,8 +881,9 @@
                             a {
                                 color: rgba(245,245,245,0.7);
                                 text-decoration: none;
-                                &:hover{
-                                  color:  #20495F;
+
+                                &:hover {
+                                    color: #20495F;
                                 }
                             }
                         }
@@ -896,9 +898,23 @@
                     display: block;
                     cursor: pointer;
                     width: 100%;
-                    max-width: 500px;
-                    border: 3px solid #fff;
-                    box-shadow: 3px 3px 17px rgba(0,0,0,0.7);
+                    display: none;
+
+                    &.desktop {
+                        width: 660px;
+
+                        @media(min-width: 600px) {
+                            display: block;
+                        }
+                    }
+
+                    &.mobile {
+                        max-width: 700px;
+
+                        @media(max-width: 600px) {
+                            display: block;
+                        }
+                    }
                 }
 
                 .shadowbox {
@@ -922,12 +938,31 @@
 
                 .video-wrapper {
                     text-align: center;
-                    margin-bottom: -7px;
-                    margin-top: 15px;
+                    z-index: 1;
+                    width: 100%;
+                    margin: 0 auto;
+                    position: relative;
+                    height: 400px;
+
+                    @media(max-width: 600px) {
+                        height: initial;
+                        padding-bottom: 25px;
+                    }
                 }
 
                 #open-video {
-                    display: inline-block;
+                    @media(min-width: 600px) {
+                        display: inline-block;
+                        position: absolute;
+                        bottom: -123px;
+                        left: -280px;
+                        right: 0;
+                        width: 650px;
+                        margin: 0 auto;
+                        max-width: 500px;
+                        display: block;
+                        margin: 0 auto;
+                    }
                 }
 
                 #showVideo {

@@ -2136,6 +2136,12 @@ Page Loading
 .theme-light .library-choose .search-form-wrapper form {
   border: 1px solid #888b8e;
 }
+.theme-light .library-choose .add-univeristy {
+  background-image: url('../../Images/Site/create_uni_w.png');
+}
+.theme-light .library-choose .add-univeristy form {
+  background-image: url('../../Images/Site/create_uni_text_white.png');
+}
 .theme-light .backgroundTC1 {
   background: #ffffff !important;
 }

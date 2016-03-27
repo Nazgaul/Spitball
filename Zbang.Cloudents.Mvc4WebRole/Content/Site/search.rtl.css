@@ -60,29 +60,43 @@
     height: 3vw;
   }
 }
-.no-results {
+.search .no-results {
   text-align: center;
   margin: 0 auto;
   padding-bottom: 50px;
 }
-.no-results h2 {
+@media (min-width: 600px) {
+  .search .no-results {
+    text-align: center;
+    margin: 0 auto;
+    padding-bottom: 50px;
+    max-width: 660px;
+    padding-left: 300px;
+    background-image: url('../../Images/Site/no_search_results.png');
+    background-repeat: no-repeat;
+    padding: 120px 0 220px 160px;
+    background-position: 0% 50%;
+    background-size: 180px;
+  }
+}
+.search .no-results h2 {
   font-size: 32px;
   font-weight: bold;
-  margin: 80px 0 30px 0;
+  margin: 60px 0 30px 0;
 }
-.no-results div {
+.search .no-results div {
   font-size: 20px;
   white-space: pre-wrap;
 }
-.no-results button.button-Blue {
+.search .no-results button.button-Blue {
   padding: 0 20px;
   margin: 30px;
   color: #f5f5f5;
 }
-.no-results button.button-Blue:hover {
+.search .no-results button.button-Blue:hover {
   color: #f5f5f5 !important;
 }
-.no-results .create-class {
+.search .no-results .create-class {
   font-size: 16px;
   color: #888b8e;
 }

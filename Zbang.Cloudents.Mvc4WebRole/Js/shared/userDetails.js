@@ -78,3 +78,4 @@
         };
     }
 })();
+//# sourceMappingURL=userDetails.js.map

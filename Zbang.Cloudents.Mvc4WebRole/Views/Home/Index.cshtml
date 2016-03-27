@@ -305,7 +305,9 @@
                 <div class="video-wrapper">
                     <input type="checkbox" id="showVideo" />
                     <label id="open-video" for="showVideo">
-                        <img class="video-image os-animation" src="@Url.CdnContent("~/Images/HomePage2/video.png")" alt="Spitball video" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
+                        @*<div class="video-image desktop os-animation"></div>*@
+                        <img class="video-image desktop os-animation" src="@Url.CdnContent("~/Images/HomePage2/homepage-desktop.png")" alt="Spitball video" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
+                        <img class="video-image mobile os-animation" src="@Url.CdnContent("~/Images/HomePage2/homepage-mobile.png")" alt="Spitball video" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
                     </label>
                     <div class="shadowbox os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                         <div class="video-section">
@@ -332,8 +334,8 @@
                             </div>
                             <hr class="background @boxClass" />
                             <div class="box-info">
-                                @*resources*@<div>@box.MembersCount Members</div>
-                                @*resources*@<div>@box.ItemCount items</div>
+                                @*resources*@<div>@box.MembersCount @IndexResources.Members</div>
+                                @*resources*@<div>@box.ItemCount @IndexResources.Items</div>
                             </div>
 
                         </a>
