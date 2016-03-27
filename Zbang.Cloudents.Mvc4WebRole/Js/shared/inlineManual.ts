@@ -11,7 +11,6 @@ declare var inlineManualTracking: any;
         userDetailsFactory: IUserDetailsFactory) {
 
         userDetailsFactory.init().then((userData) => {
-            console.log(userData.createTime.getTime());
             inlineManualTracking = {
                 uid: userData.id,
                 email: userData.email,

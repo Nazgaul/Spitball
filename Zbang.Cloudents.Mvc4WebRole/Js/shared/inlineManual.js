@@ -5,7 +5,6 @@
     inlineManual.$inject = ['$rootScope', '$timeout', '$document', 'userDetailsFactory'];
     function inlineManual($rootScope, $timeout, $document, userDetailsFactory) {
         userDetailsFactory.init().then(function (userData) {
-            console.log(userData.createTime.getTime());
             inlineManualTracking = {
                 uid: userData.id,
                 email: userData.email,

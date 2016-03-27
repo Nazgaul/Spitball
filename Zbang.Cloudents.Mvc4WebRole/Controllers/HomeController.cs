@@ -235,7 +235,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Route("product", Name = "Product")]
-        [Route("product/{lang:regex(^(en|he))}", Name = "Product2")]
+        [Route("product/{lang:regex(^(he))}", Name = "Product2")]
         public ActionResult Product(string lang)
         {
             if (!string.IsNullOrEmpty(lang))

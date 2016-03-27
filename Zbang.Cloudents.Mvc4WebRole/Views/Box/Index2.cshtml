@@ -8,16 +8,15 @@
     <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title box-title" ng-class="{'need-follow' : b.needFollow}">
         <h1 flex class="multi-line-ellipsis limit-two">{{b.data.name}}</h1>
         <!-- AddToAny BEGIN -->
-        <div ng-if="b.canShare" ng-cloak class="share-social a2a_kit a2a_kit_size_32 a2a_default_style"
-             onload="b.share()">
-            @*<a class="a2a_dd" href="https://www.addtoany.com/share"></a>*@
+        <div ng-if="b.canShare" ng-cloak 
+             class="share-social a2a_kit a2a_kit_size_32 a2a_default_style"
+             @*onload="b.share()"*@>
             <a class="facebook a2a_button_facebook">
                 @Html.Svg("/Images/Site/social-icons.svg", "facebook-colored")
             </a>
             <a hide show-xs class="whatsapp a2a_button_whatsapp">
                 @Html.Svg("/Images/Site/social-icons.svg", "whatsapp")
             </a>
-            @*<a class="a2a_button_google_gmail"></a>*@
         </div>
         
         <!-- AddToAny END -->
