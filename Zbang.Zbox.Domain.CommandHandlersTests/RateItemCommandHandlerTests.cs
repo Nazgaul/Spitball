@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Zbang.Zbox.Domain.DataAccess;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Rhino.Mocks;
 using Zbang.Zbox.Domain.Commands;
@@ -42,7 +43,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
             m_StubItemRateRepositoy.Stub(x => x.GetRateOfUser(userid, itemid)).Return(null);
 
-            var user = new User("some email", "some largeImage", "some first name", "some last name", "en-US");
+            var user = new User("some email", "some largeImage", "some first name", "some last name", "en-US", Sex.NotApplicable);
             user.GetType().GetProperty("Id").SetValue(user, userid);
             var item = new Link("some name", user, 1, new PrivateBox("some box", user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid()), "some url", "some thumbnail", "some img url");
 
@@ -68,7 +69,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
 
 
 
-            var user = new User("some email", "some largeImage", "some first name", "some last name", "en-US");
+            var user = new User("some email", "some largeImage", "some first name", "some last name", "en-US", Sex.NotApplicable);
             user.GetType().GetProperty("Id").SetValue(user, userid);
             user.Reputation = 5;
             var item = new Link("some name", user, 1, new PrivateBox("some box", user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid()), "some url", "some thumbnail", "some img url");

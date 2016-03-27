@@ -1,4 +1,7 @@
 ﻿
+using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Trace;
+
 namespace Zbang.Zbox.Infrastructure.Security
 {
 
@@ -19,13 +22,22 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public string Locale { get; set; }
 
-        public bool GetGender()
+        public Sex GetGender()
         {
             if (string.IsNullOrEmpty(Gender))
             {
-                return true;
+                return Sex.NotKnown;
             }
-            return Gender.ToLower() == "male";
+            if (Gender.ToLower() == "male")
+            {
+                return Sex.Male;
+            }
+            if (Gender.ToLower() == "female")
+            {
+                return Sex.Female;
+            }
+            TraceLog.WriteError("read reading gender from facebook " + Gender.ToLower());
+            return Sex.NotKnown;
         }
         public override string ToString()
         {

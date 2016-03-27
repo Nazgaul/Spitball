@@ -22,8 +22,8 @@ namespace Zbang.Zbox.ReadServices
     {
         // home page
         Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query);
-        Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync(string lang);
-        Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync(string lang);
+        Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync();
+        Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync();
         Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query);
         Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query);
 
@@ -94,7 +94,7 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<QuizDto>> GetUserQuizActivityAsync(GetUserWithFriendQuery query);
         Task<UserWithStats> GetUserProfileWithStatsAsync(GetUserWithFriendQuery query);
 
-        Task<IEnumerable<string>> GetSeoItemsAsync(int page);
+        Task<IEnumerable<SeoDto>> GetSeoItemsAsync(int page);
         Task<int> GetSeoItemCountAsync();
 
         //Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);

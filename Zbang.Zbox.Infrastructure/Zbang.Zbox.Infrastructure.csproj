@@ -143,6 +143,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Enums\SchoolType.cs" />
+    <Compile Include="Enums\Sex.cs" />
     <Compile Include="Enums\StatisticsAction.cs" />
     <Compile Include="Enums\StoreBannerLocation.cs" />
     <Compile Include="Enums\UserType.cs" />

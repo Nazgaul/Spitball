@@ -23,19 +23,19 @@ namespace Zbang.Zbox.Domain
         }
 
 
-        public User(string email, string largeImage)
-            : this()
-        {
-            if (email == null) throw new ArgumentNullException("email");
-            Name = Email = email.Trim();
-            IsRegisterUser = false;
-           // Image = smallImage;
-            ImageLarge = largeImage;
-            Culture = System.Globalization.CultureInfo.CurrentCulture.Name;
-        }
+        //public User(string email, string largeImage)
+        //    : this()
+        //{
+        //    if (email == null) throw new ArgumentNullException("email");
+        //    Name = Email = email.Trim();
+        //    IsRegisterUser = false;
+        //   // Image = smallImage;
+        //    ImageLarge = largeImage;
+        //    Culture = System.Globalization.CultureInfo.CurrentCulture.Name;
+        //}
 
         public User(string email, string image,
-            string firstName, string lastName,  string culture
+            string firstName, string lastName, string culture, Sex sex
             )
             : this()
         {
@@ -48,6 +48,7 @@ namespace Zbang.Zbox.Domain
             LastName = lastName.Trim();
             CreateName();
             UpdateLanguage(culture);
+            Sex = sex;
             AddReputation(ReputationAction.Register);
         }
         // ReSharper restore DoNotCallOverridableMethodsInConstructor
@@ -84,6 +85,7 @@ namespace Zbang.Zbox.Domain
         //public virtual string MiddleName { get; set; }
         public virtual string LastName { get; set; }
 
+        public virtual Sex Sex { get; set; }
         public virtual string Url { get; set; }
 
         public virtual Quota Quota { get; set; }
@@ -135,18 +137,7 @@ namespace Zbang.Zbox.Domain
             userType.UserTime.UpdateUserTime(Email);
         }
 
-        //public void ChangeUserRelationShipToLibraryType(Library library, UserLibraryRelationType newUserType)
-        //{
-        //    var userType = UserLibraryRel.FirstOrDefault(w => w.Library.Id == library.Id);
-        //    if (userType == null)
-        //    {
-        //        userType = new UserLibraryRel((this, box, UserRelationshipType.Subscribe);
-        //        UserBoxRel.Add(userType);
-        //        box.UserBoxRelationship.Add(userType);
-        //    }
-        //    userType.UserRelationshipType = newUserType;
-        //    //userType.UserTime.UpdateUserTime(Email);
-        //}
+       
 
 
 

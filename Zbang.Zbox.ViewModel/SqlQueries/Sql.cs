@@ -348,7 +348,7 @@ u.GoogleUserId as GoogleId
     from zbox.Users u left join zbox.University v on u.UniversityId = v.Id
     where u.userId = @UserId";
 
-        public const string GetCoursesPageBoxesEn = @"select top 16 b.boxid as id,
+        public const string GetCoursesPageBoxes_en = @"select top 16 b.boxid as id,
                                 b.BoxName as Name,
                                 b.quizcount + b.itemcount as ItemCount,
                                 b.MembersCount as MembersCount,
@@ -364,7 +364,7 @@ u.GoogleUserId as GoogleId
                                 order by  b.[UpdateTime] desc;";
 
 
-        public const string GetCoursesPageBoxesHe = @"select top 16 b.boxid as id,
+        public const string GetCoursesPageBoxes_he = @"select top 16 b.boxid as id,
                                 b.BoxName as Name,
                                 b.quizcount + b.itemcount as ItemCount,
                                 b.MembersCount as MembersCount,
@@ -383,7 +383,7 @@ u.GoogleUserId as GoogleId
                                 order by b.[UpdateTime];";
 
 
-        public const string GetItemsPageItemsEn = @"select top 40 i.Name as Name,
+        public const string GetItemsPageItems_en = @"select top 40 i.Name as Name,
                                 i.LikeCount as Likes,
                                 i.NumberOfViews as NumOfViews,
                                 i.Url as Url,
@@ -399,7 +399,7 @@ u.GoogleUserId as GoogleId
                                 order by NumberOfViews desc;";
 
         //Name OwnerId Discriminator NumOfViews Likes Description BlobName NumOfDownloads Date commentsCount Url type source
-        public const string GetItemsPageItemsHe = @"select top 40 i.Name as Name,
+        public const string GetItemsPageItems_he = @"select top 40 i.Name as Name,
                                 i.LikeCount as Likes,
                                 i.NumberOfViews as NumOfViews,
                                 i.Url as Url,
@@ -415,13 +415,5 @@ u.GoogleUserId as GoogleId
                                 and u.country='IL' 
                                 and id!=170460 
                                 order by i.creationtime, NumberOfViews desc;";
-
-
-
-
-
-
     }
-
-
 }

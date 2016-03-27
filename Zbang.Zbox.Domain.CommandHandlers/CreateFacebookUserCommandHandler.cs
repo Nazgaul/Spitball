@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 {
                     user = CreateUser(command.Email, facebookCommand.LargeUserImage,
                     command.FirstName,
-                    command.LastName, command.Culture);
+                    command.LastName, command.Culture, command.Sex);
                     UserRepository.Save(user, true);
                     user.GenerateUrl();
                 }

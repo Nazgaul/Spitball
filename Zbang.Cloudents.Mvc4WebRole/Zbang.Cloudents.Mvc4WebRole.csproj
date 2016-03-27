@@ -447,6 +447,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Models\SitemapFrequency.cs" />
     <Compile Include="Models\SitemapNode.cs" />
     <Compile Include="Models\Statistics.cs" />
     <Compile Include="Models\Tabs\AssignItemToTab.cs" />
@@ -1854,6 +1855,7 @@
     <Content Include="Js\shared\intercom.js" />
     <Content Include="Js\shared\staticPages.js" />
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
+    <Content Include="Js\shared\userDetails.js" />
     <Content Include="Scripts\angular-dfp.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-1.2.1.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-1.2.1.min.js" />

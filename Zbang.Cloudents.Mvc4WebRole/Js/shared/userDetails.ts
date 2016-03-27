@@ -3,8 +3,8 @@ declare var __insp: any;
 
 
 interface IUserDetailsFactory {
-    init(refresh): void;
-    get(): any;
+    init(refresh?): ng.IPromise<IUserData>;
+    get(): IUserData;
     isAuthenticated(): boolean;
     setName(first, last): void;
     setImage(image): void;
@@ -23,9 +23,12 @@ interface IUserData {
     name: string;
     image: string;
     score: number;
+    email: string;
     url: string;
     isAdmin: boolean;
     theme: string;
+    culture:string;
+    createTime: Date;
     university: IUniversity;
 }
 
@@ -36,12 +39,12 @@ interface IUserData {
         "use strict";
         var
             isAuthenticated = false,
-            userData:IUserData,
+            userData: IUserData,
             serverCall = false,
             deferDetails = $q.defer();
 
         function setDetails(data) {
-           // data = data || {};
+            // data = data || {};
             if (data.id) {
                 isAuthenticated = true;
                 // ReSharper disable UseOfImplicitGlobalInFunctionScope
@@ -58,8 +61,11 @@ interface IUserData {
                 image: data.image,
                 score: data.score,
                 url: data.url,
+                createTime: new Date(data.dateTime),
                 isAdmin: data.isAdmin,
                 theme: data.theme,
+                culture: data.culture,
+                email: data.email,
                 university: {
                     country: data.universityCountry, // for google analytics
                     name: data.universityName, // in library page

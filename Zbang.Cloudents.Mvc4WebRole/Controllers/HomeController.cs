@@ -216,28 +216,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [DonutOutputCache(CacheProfile = "FullPage")]
-        public async Task<ViewResult> Blog(string lang)
+        public ViewResult Blog(string lang)
         {
-            ViewBag.title = SeoResources.BlogTitle;
-            ViewBag.metaDescription = SeoResources.BlogMeta;
 
-            //using (var httpClient = new HttpClient())
-            //{
-            //    var content = await httpClient.GetStringAsync("https://spitballblog.wordpress.com/");
-            //    ViewBag.test = content;
-            //    return View();
-            //}
+            if (!string.IsNullOrEmpty(lang))
+            {
+                LanguageMiddleware.ChangeThreadLanguage(lang);
+            }
             var iFrameSrc = "https://spitballblog.wordpress.com/";
-            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" || Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
             {
                 iFrameSrc = "https://spitballcoh.wordpress.com/";
             }
+            ViewBag.title = SeoResources.BlogTitle;
+            ViewBag.metaDescription = SeoResources.BlogMeta;
             ViewBag.iFrameSrc = iFrameSrc;
             return View();
         }
 
         [Route("product", Name = "Product")]
-        [Route("product/{lang:regex(^(en|he))}", Name = "Product2")]
+        [Route("product/{lang:regex(^(he))}", Name = "Product2")]
         public ActionResult Product(string lang)
         {
             if (!string.IsNullOrEmpty(lang))
@@ -246,13 +244,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             ViewBag.title = SeoResources.ProductTitle;
             ViewBag.metaDescription = SeoResources.ProductMeta;
-            //ViewBag.postBag = true;
-
-            //if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
-            //    Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-            //{
-            //    ViewBag.lang = "he";
-            //}
             return View();
         }
 
@@ -281,50 +272,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoutePermanent("AboutUs");
         }
 
-        //public ActionResult TermsPartial()
-        //{
-        //    //ViewBag.postBag = true;
-        //    return View("TermsOfService");
-        //}
 
-        //[DonutOutputCache(CacheProfile = "FullPage")]
-        //public ActionResult PrivacyPartial()
-        //{
-        //    //ViewBag.postBag = true;
-        //    return View("Privacy");
-        //}
-
-        //[DonutOutputCache(CacheProfile = "FullPage")]
-        //[Route("home/jobs")]
-        //public async Task<ActionResult> JobsPartials()
-        //{
-        //    ViewBag.Title = "Jobs | Spitball | Study better by working together";
-        //    ViewBag.pageTitle = HomeControllerResources.JobTitle;
-        //    using (var stream = await m_BlobProvider.Value.GetJobsXmlAsync())
-        //    {
-        //        var data = XDocument.Load(stream);
-        //        var model = from category in data.Descendants("category")
-        //                    let faqs = category.Descendants("content")
-        //                    orderby int.Parse(category.Attribute("order").Value)
-        //                    select new Category
-        //                    {
-        //                        Language = category.Attribute("lang").Value,
-        //                        Name = category.Attribute("name").Value,
-        //                        Order = int.Parse(category.Attribute("order").Value),
-        //                        QuestionNAnswers = faqs.Select(s =>
-        //                            new QnA
-        //                            {
-        //                                Answer = s.Element("answer").Value,
-        //                                Question = s.Element("question").Value,
-        //                                Order = int.Parse(s.Attribute("order").Value)
-
-        //                            }).OrderBy(s => s.Order).ToList()
-        //                    };
-        //        return View("help2", model);
-        //    }
-
-
-        //}
         [Route("advertiseWithUs", Name = "Advertise")]
         [DonutOutputCache(CacheProfile = "FullPage")]
         public ViewResult AdvertiseWithUs()
@@ -352,38 +300,41 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [Route("classnotes", Name = "classnotes")]
+        [Route("classnotes/{lang:regex(^(en|he))}", Name = "classnotes2")]
         public async Task<ActionResult> ClassNotes(string lang)
         {
-            
-            var language = "en";
-            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
-                Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-            {
-                language = "he";
-            }
 
+            if (!string.IsNullOrEmpty(lang))
+            {
+                LanguageMiddleware.ChangeThreadLanguage(lang);
+            }
             ViewBag.title = SeoResources.ClassNotesTitle;
             ViewBag.metaDescription = SeoResources.ClassNotesMeta;
-            var items = await ZboxReadService.GetItemsPageDataAsync(language);
+            var items = await ZboxReadService.GetItemsPageDataAsync();
 
             return View("ClassNotes", items);
         }
 
         [Route("courses", Name = "courses")]
+        [Route("courses/{lang:regex(^(en|he))}", Name = "courses2")]
         public async Task<ActionResult> Courses(string lang)
         {
+            if (!string.IsNullOrEmpty(lang))
+            {
+                LanguageMiddleware.ChangeThreadLanguage(lang);
+            }
             ViewBag.title = SeoResources.CoursesTitle;
             ViewBag.metaDescription = SeoResources.CoursesMeta;
 
-            var language = "en";
+            //var language = "en";
 
-            if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
-                Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-            {
-                language = "he";
+            //if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
+            //    Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            //{
+            //    language = "he";
 
-            }
-            var courses = await ZboxReadService.GetCoursesPageDataAsync(language);
+            //}
+            var courses = await ZboxReadService.GetCoursesPageDataAsync();
             return View("Courses", courses);
         }
         [Route("home/help")]
@@ -399,52 +350,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(str);
         }
 
-        //public async Task<ActionResult> HelpPartial()
-        //{
-        //    const string viewName = "help2";
-        //    ViewBag.pageTitle = HomeControllerResources.HelpTitle;
-        //    const string faqQuestionCacheName = "faqQuestionCacheName";
-        //    var model = await m_CacheProvider.Value.GetFromCacheAsync<IEnumerable<Category>>(faqQuestionCacheName, faqQuestionCacheName);
 
-        //    if (model != null)
-        //    {
-        //        return PartialView(viewName, model.Where(w => String.Equals(w.Language,
-        //             Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
-
-        //    }
-        //    using (var stream = await m_BlobProvider.Value.GetFaqQuestionAsync())
-        //    {
-        //        var data = XDocument.Load(stream);
-        //        model = from category in data.Descendants("category")
-        //                let faqs = category.Descendants("content")
-        //                orderby int.Parse(category.Attribute("order").Value)
-        //                select new Category
-        //                {
-        //                    Language = category.Attribute("lang").Value,
-        //                    Name = category.Attribute("name").Value,
-        //                    Order = int.Parse(category.Attribute("order").Value),
-        //                    QuestionNAnswers = faqs.Select(s =>
-        //                        new QnA
-        //                        {
-        //                            Answer = s.Element("answer").Value,
-        //                            Question = s.Element("question").Value,
-        //                            Order = int.Parse(s.Attribute("order").Value)
-
-        //                        }).OrderBy(s => s.Order).ToList()
-        //                };
-        //        model = model.ToList();
-        //        await m_CacheProvider.Value.AddToCacheAsync(faqQuestionCacheName, model, TimeSpan.FromHours(1), faqQuestionCacheName);
-        //    }
-        //    return PartialView(viewName, model.Where(w => String.Equals(w.Language,
-        //        Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
-
-        //}
-        //[DonutOutputCache(CacheProfile = "FullPage")]
-        //public ActionResult AboutUsPartial()
-        //{
-
-        //    return View("AboutUs");
-        //}
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         // ReSharper disable once InconsistentNaming
@@ -496,6 +402,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        [NoAsyncTimeout]
         [OutputCache(Duration = 2 * TimeConsts.Day, VaryByParam = "index", Location = OutputCacheLocation.Any)]
         public async Task<ActionResult> SiteMap(int? index)
         {
@@ -540,26 +447,52 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NonAction]
         private async Task<string> GetSitemapXml(int index)
         {
-            const string sitemapsNamespace = "http://www.sitemaps.org/schemas/sitemap/0.9";
-            XNamespace xmlns = sitemapsNamespace;
-
+            XNamespace xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
+            XNamespace xhtml = "http://www.w3.org/1999/xhtml";
             var nodes = await GetSitemapNodes(index);
 
-            var root = new XElement(xmlns + "urlset");
+            var root = new XElement(xmlns + "urlset",
+                //new XAttribute("xmlns", xmlns.NamespaceName),
+                new XAttribute(XNamespace.Xmlns + "xhtml", xhtml));
 
 
 
             foreach (var node in nodes)
             {
-                root.Add(
-                new XElement(xmlns + "url",
-                    new XElement(xmlns + "loc", node.Url),
-                    node.Priority == null ? null : new XElement(xmlns + "priority", node.Priority.Value.ToString("F1", CultureInfo.InvariantCulture)),
-                    node.LastModified == null ? null : new XElement(xmlns + "lastmod", node.LastModified.Value.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz")),
-                    node.Frequency == null ? null : new XElement(xmlns + "changefreq", node.Frequency.Value.ToString().ToLowerInvariant())
-                    ));
-            }
+                var locContent = new XElement(xmlns + "loc", node.Url);
+                var priorityContent = node.Priority == null
+                        ? null
+                        : new XElement(xmlns + "priority",
+                            node.Priority.Value.ToString("F1", CultureInfo.InvariantCulture));
+                var lastmodContent = node.LastModified == null
+                    ? null
+                    : new XElement(xmlns + "lastmod",
+                        node.LastModified.Value.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz"));
+                var frequencyContent = node.Frequency == null
+                    ? null
+                    : new XElement(xmlns + "changefreq", node.Frequency.Value.ToString().ToLowerInvariant());
 
+
+                var url = new XElement(xmlns + "url", locContent, priorityContent, lastmodContent, frequencyContent);
+                //var langLink = new List<XElement>();
+                if (node.SitemapLangNodes != null)
+                {
+                    foreach (var lang in node.SitemapLangNodes)
+                    {
+                        var langNode = new XElement(xhtml + "link",
+                        new XAttribute("rel", "alternate"),
+                        new XAttribute("hreflang", lang.Language),
+                        new XAttribute("href", lang.Url));
+
+                        url.Add(langNode);
+                        //        langLink.Add(langNode);
+                    }
+                }
+
+
+                root.Add(url);
+
+            }
             using (var ms = new MemoryStream())
             {
                 using (var writer = new StreamWriter(ms, Encoding.UTF8))
@@ -652,30 +585,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Priority = 0.8,
                         Frequency = SitemapFrequency.Daily
                     });
-                nodes.Add(
-                   new SitemapNode(requestContext, "Product2", new { lang  = "en"})
-                   {
-                       Priority = 0.8,
-                       Frequency = SitemapFrequency.Daily
-                   });
-                nodes.Add(
-                   new SitemapNode(requestContext, "Product2", new { lang = "he" })
-                   {
-                       Priority = 0.8,
-                       Frequency = SitemapFrequency.Daily
-                   });
+                nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
+                    new SitemapNodeLangHelper("Product", null, "en"),
+                    new SitemapNodeLangHelper("Product2", new { lang = "he" }, "he")
+                    ));
+
                 nodes.Add(
                   new SitemapNode(requestContext, "Features2", new { lang = "en" })
                   {
                       Priority = 0.8,
                       Frequency = SitemapFrequency.Daily
                   });
-                nodes.Add(
-                  new SitemapNode(requestContext, "Features2", new { lang = "he" })
-                  {
-                      Priority = 0.8,
-                      Frequency = SitemapFrequency.Daily
-                  });
+                //nodes.Add(
+                //  new SitemapNode(requestContext, "Features2", new { lang = "he" })
+                //  {
+                //      Priority = 0.8,
+                //      Frequency = SitemapFrequency.Daily
+                //  });
                 nodes.Add(
                    new SitemapNode(requestContext, "apps", null)
                    {
@@ -685,8 +611,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
             var seoItems = await ZboxReadService.GetSeoItemsAsync(index);
-            nodes.AddRange(seoItems.Where(w => !string.IsNullOrEmpty(w))
-                .Select(s => new SitemapNode(s, requestContext)));
+            nodes.AddRange(seoItems.Where(w => !string.IsNullOrEmpty(w.Url))
+                .Select(s => new SitemapNode(s.Url, requestContext)));
 
             return nodes;
         }

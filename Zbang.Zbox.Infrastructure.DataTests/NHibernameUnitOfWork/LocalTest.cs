@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading;
 using Zbang.Zbox.Domain;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
 {
@@ -20,7 +21,7 @@ namespace Zbang.Zbox.Infrastructure.DataTests.NHibernameUnitOfWork
         {
             Local.Data["one"] = "This is a string";
             Local.Data["two"] = 99.9m;
-            var person = new User("some email", "some largeImage", "some first name", "some last name",   "en-US");
+            var person = new User("some email", "some largeImage", "some first name", "some last name",   "en-US",Sex.NotApplicable);
             Local.Data[1] = person;
 
             Assert.AreEqual(3, Local.Data.Count);

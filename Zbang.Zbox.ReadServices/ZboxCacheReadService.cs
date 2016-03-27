@@ -300,7 +300,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserCommentActivityAsync(query);
         }
 
-        public Task<IEnumerable<string>> GetSeoItemsAsync(int page)
+        public Task<IEnumerable<SeoDto>> GetSeoItemsAsync(int page)
         {
             return m_ReadService.GetSeoItemsAsync(page);
         }
@@ -428,14 +428,14 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetHomePageDataAsync(query);
         }
 
-        public Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync(string lang)
+        public Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync()
         {
-            return m_ReadService.GetCoursesPageDataAsync(lang);
+            return m_ReadService.GetCoursesPageDataAsync();
         }
 
-        public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync(string lang)
+        public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync()
         {
-            return m_ReadService.GetItemsPageDataAsync(lang);
+            return m_ReadService.GetItemsPageDataAsync();
         }
 
         public Task<IEnumerable<ClosedNodeDto>> GetUserClosedDepartmentAsync(QueryBase query)

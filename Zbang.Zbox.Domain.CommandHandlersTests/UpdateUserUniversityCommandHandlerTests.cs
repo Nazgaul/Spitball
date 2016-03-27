@@ -4,6 +4,7 @@ using Zbang.Zbox.Domain.DataAccess;
 using Rhino.Mocks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain.CommandHandlersTests
@@ -35,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, null);
 
 
-            var someUser = new User("some email",  "some largeImage", "some first name", "some last name", "en-US");
+            var someUser = new User("some email",  "some largeImage", "some first name", "some last name", "en-US",Sex.NotApplicable);
             var someUniversity = new University(someUniversityId, "some name", "some country", "some email");
 
             someUniversity.GetType().GetProperty("NeedCode").SetValue(someUniversity, true);
@@ -125,7 +126,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, null);
 
 
-            var someUser = new User("some email",  "some largeImage", "some first name", "some last name", "en-US");
+            var someUser = new User("some email", "some largeImage", "some first name", "some last name", "en-US", Sex.NotApplicable);
             var someUniversity = new University(someUniversityId, "some name", "some country", "some email");
 
             someUser.StudentId = "N10028";
@@ -149,7 +150,7 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var command = new UpdateUserUniversityCommand(someUniversityId, someUserId, null);
 
 
-            var someUser = new User("some email",  "some largeImage", "some first name", "some last name", "en-US");
+            var someUser = new User("some email", "some largeImage", "some first name", "some last name", "en-US", Sex.NotApplicable);
             var someUniversity = new University(someUniversityId, "some name", "some country", "some email");
 
             m_StubUserRepository.Stub(x => x.Get(someUserId)).Return(someUser);

@@ -8,20 +8,20 @@ declare var Intercom: any;
     function intercom(userDetailsFactory: IUserDetailsFactory, $rootScope: ng.IRootScopeService) {
         function start() {
             var data = userDetailsFactory.get();
-            var dateCreate = new Date(data.dateTime);
+           // var dateCreate = new Date(data.createTime);
             if (data.id) {
                 Intercom('boot', {
                     app_id: "njmpgayv",
                     name: data.name,
                     email: data.email,
-                    created_at: Math.round(dateCreate.getTime() / 1000),
+                    created_at: Math.round(data.createTime.getTime() / 1000),
                     user_id: data.id,
                     user_image: data.image,
-                    university_id: data.universityId,
-                    university_name: data.universityName,
+                    university_id: data.university.id,
+                    university_name: data.university.name,
                     reputation: data.score,
                     language: data.culture,
-                    university_country: data.universityCountry
+                    university_country: data.university.country
 
                 });
             } else {

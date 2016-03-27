@@ -254,3 +254,4 @@
 /// <reference path="../js/components/box/tab.controller.js" />
 /// <reference path="../js/shared/intercom.js" />
 /// <reference path="../js/shared/inlinemanual.js" />
+/// <reference path="../js/shared/userdetails.js" />
