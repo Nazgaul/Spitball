@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Zbang.Zbox.Domain;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.DomainTests
 {
@@ -12,7 +13,7 @@ namespace Zbang.Zbox.DomainTests
         [TestInitialize]
         public void Setup()
         {
-            m_SomeUser = new User("some email", "some largeImage", "some first name", "some last name",  "en-US");
+            m_SomeUser = new User("some email", "some largeImage", "some first name", "some last name", "en-US", Sex.NotApplicable);
         }
 
         //[TestMethod]
@@ -28,7 +29,7 @@ namespace Zbang.Zbox.DomainTests
         public void ChangeUserRelationShipToBoxType_UserChangeRelationShipToBox_UpdateUserTimeUpdated()
         {
             long someBoxId = 1;
-            var someOtherUser = new User("some email2",  "some largeImage2", "some first name2", "some last nam2e",   "en-US");
+            var someOtherUser = new User("some email2", "some largeImage2", "some first name2", "some last nam2e", "en-US", Sex.NotApplicable);
             var someBox = new PrivateBox("some box", someOtherUser, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid());
             someBox.GetType().GetProperty("Id").SetValue(someBox, someBoxId);
 

@@ -80,14 +80,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return UserRepository.GetUserByEmail(email);
         }
 
-        protected User CreateUser(string email,  string largeImage,
+        protected User CreateUser(string email, string largeImage,
             string firstName, string lastName,
-              string culture)
+              string culture, Sex sex)
         {
             return new User(email, largeImage,
                    firstName,
-                  
-                   lastName, culture);
+
+                   lastName, culture, sex);
         }
 
         protected bool IsUserRegistered(User user)
@@ -101,8 +101,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             user.FirstName = command.FirstName;
             user.LastName = command.LastName;
+            user.Sex = command.Sex;
             user.CreateName();
-           
+
 
             user.Quota.AllocateStorage();
             return TriggerWelcomeMail(user);

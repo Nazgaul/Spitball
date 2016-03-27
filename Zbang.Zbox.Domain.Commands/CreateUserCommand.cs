@@ -1,13 +1,15 @@
 ﻿using System;
 using Zbang.Zbox.Infrastructure.Commands;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain.Commands
 {
     public abstract class CreateUserCommand : ICommandAsync
     {
         protected CreateUserCommand(string emailId, long? universityId, string firstName, string lastName,
-             string culture, Guid? inviteId, long? boxId)
+             string culture, Guid? inviteId, long? boxId, Sex sex)
         {
+            Sex = sex;
             BoxId = boxId;
             InviteId = inviteId;
             Culture = culture;
@@ -25,7 +27,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public string Email { get; private set; }
 
-        //public string UserName { get; private set; }
         public string FirstName { get; private set; }
 
         public string LastName { get; private set; }
@@ -41,6 +42,8 @@ namespace Zbang.Zbox.Domain.Commands
         public abstract string CommandResolveName { get; }
 
         public Guid? InviteId { get; private set; }
+
+        public Sex Sex { get; private set; }
 
     }
 }

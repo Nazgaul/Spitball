@@ -12,6 +12,7 @@ using Microsoft.Azure.Mobile.Server.Login;
 using Zbang.Cloudents.MobileApp.DataObjects;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
@@ -127,7 +128,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                          facebookUserData.LargeImage, null,
                         facebookUserData.First_name,
                         facebookUserData.Last_name,
-                        facebookUserData.Locale);
+                        facebookUserData.Locale, facebookUserData.GetGender());
                     var commandResult = await m_ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -196,7 +197,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                         null,
                         googleUserData.FirstName,
                         googleUserData.LastName,
-                        googleUserData.Locale);
+                        googleUserData.Locale, Sex.NotKnown);
                     var commandResult = await m_ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -229,7 +230,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     AuthenticationToken = token.RawData
                 });
 
-                
+
             }
             catch (Exception ex)
             {

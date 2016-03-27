@@ -488,7 +488,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         //        langLink.Add(langNode);
                     }
                 }
-                
+
 
                 root.Add(url);
 
@@ -586,22 +586,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Frequency = SitemapFrequency.Daily
                     });
                 nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
-                    new SitemapNodeLangHelper("Product2", new {lang = "en"}, "en"),
-                    new SitemapNodeLangHelper("Product2", new {lang = "he"}, "he")
+                    new SitemapNodeLangHelper("Product", null, "en"),
+                    new SitemapNodeLangHelper("Product2", new { lang = "he" }, "he")
                     ));
-                
+
                 nodes.Add(
                   new SitemapNode(requestContext, "Features2", new { lang = "en" })
                   {
                       Priority = 0.8,
                       Frequency = SitemapFrequency.Daily
                   });
-                nodes.Add(
-                  new SitemapNode(requestContext, "Features2", new { lang = "he" })
-                  {
-                      Priority = 0.8,
-                      Frequency = SitemapFrequency.Daily
-                  });
+                //nodes.Add(
+                //  new SitemapNode(requestContext, "Features2", new { lang = "he" })
+                //  {
+                //      Priority = 0.8,
+                //      Frequency = SitemapFrequency.Daily
+                //  });
                 nodes.Add(
                    new SitemapNode(requestContext, "apps", null)
                    {

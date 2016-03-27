@@ -71,7 +71,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         public async Task<JsonResult> GoogleLogin(ExternalLogIn model, string returnUrl, CancellationToken cancellationToken)
         {
-            
+
             var googleUserData = await m_GoogleService.Value.GoogleLogInAsync(model.Token);
             if (googleUserData == null)
             {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         model.UniversityId,
                         googleUserData.FirstName,
                         googleUserData.LastName,
-                        googleUserData.Locale,
+                        googleUserData.Locale, Sex.NotKnown,
                         invId,
                         model.BoxId);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
@@ -152,7 +152,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
                 }
                 var query = new GetUserByFacebookQuery(facebookUserData.Id);
-                LogInUserDto user = await ZboxReadService.GetUserDetailsByFacebookId(query);
+                var user = await ZboxReadService.GetUserDetailsByFacebookId(query);
                 if (user == null)
                 {
 
@@ -168,7 +168,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         facebookUserData.First_name,
 
                         facebookUserData.Last_name,
-                        facebookUserData.Locale, invId, model.BoxId);
+                        facebookUserData.Locale, facebookUserData.GetGender(), invId, model.BoxId);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -347,7 +347,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     CreateUserCommand command = new CreateMembershipUserCommand(Guid.Parse(user.Id),
                         model.NewEmail, model.UniversityId,
                         model.FirstName, model.LastName,
-                        lang, invId, model.BoxId);
+                        lang, Sex.NotKnown, invId, model.BoxId);
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     m_LanguageCookie.InjectCookie(result.User.Culture);
 

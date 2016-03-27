@@ -12,6 +12,7 @@ using Microsoft.Azure.Mobile.Server.Config;
 using Microsoft.Azure.Mobile.Server.Login;
 using Zbang.Cloudents.MobileApp.DataObjects;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -50,7 +51,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
                 CreateUserCommand command = new CreateMembershipUserCommand(Guid.Parse(user.Id),
                     model.NewEmail, null, model.FirstName, model.LastName,
-                    model.Culture);
+                    model.Culture, Sex.NotKnown);
                 var result = await m_ZboxWriteService.CreateUserAsync(command);
 
                 var identity = await user.GenerateUserIdentityAsync(m_UserManager, result.User.Id, result.UniversityId,
@@ -74,7 +75,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     AuthenticationToken = token.RawData
                 });
 
-                
+
 
             }
             var errors = string.Join(" ", createStatus.Errors);
