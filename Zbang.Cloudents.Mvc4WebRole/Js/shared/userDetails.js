@@ -16,6 +16,9 @@
             analytics.set('dimension2', data.universityCountry || null);
             analytics.set('dimension3', data.id || null);
             analytics.set('dimension4', data.theme || 'dark');
+            $timeout(function () {
+                googletag.pubads().setTargeting('gender', data.sex);
+            }, 1000);
             userData = {
                 id: data.id,
                 name: data.name,
@@ -82,3 +85,4 @@
         };
     }
 })();
+//# sourceMappingURL=userDetails.js.map

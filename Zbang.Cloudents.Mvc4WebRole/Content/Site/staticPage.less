@@ -1277,24 +1277,27 @@ iframe {
     .items {
         list-style: none;
         padding-left: 0;
-        max-width: @itemWidth*6 + 20;
+        max-width: @itemWidth*6 + 100;
         margin: 0 auto;
 
         @media(max-width:1030px) {
-            max-width: @itemWidth*5 + 20;
+            max-width: @itemWidth*5 + 80;
         }
 
         @media(max-width:850px) {
-            max-width: @itemWidth*4 + 20;
+            max-width: @itemWidth*4 + 60;
         }
 
         @media(max-width:700px) {
-            max-width: @itemWidth*3 + 20;
+            max-width: @itemWidth*3 + 40;
+        }
+
+        @media(max-width:500px) {
+            max-width: @itemWidth*2 + 20;
         }
 
         li {
             display: inline-block;
-            width: @itemWidth;
             text-align: center;
             padding: 1% 0;
 
@@ -1304,6 +1307,7 @@ iframe {
                 padding: 5px;
                 border: 1px solid #3d4348;
                 display: inline-block;
+                height: 220px;
 
                 &:hover {
                     text-decoration: none;
@@ -1313,6 +1317,8 @@ iframe {
                     display: inline-block;
                     position: relative;
                     width: inherit;
+                    height: inherit;
+                    overflow: hidden;
 
                     .extra {
                         position: absolute;
@@ -1335,19 +1341,21 @@ iframe {
 
                 img {
                     height: auto;
+                    height: inherit;
+                    width: initial;
                 }
-
-                img, .stats {
+                /*img, .stats {
                     width: inherit;
-                }
-
+                }*/
                 .wrapper {
-                    width: 140px;
+                    width: 148px;
+                    height: 188px;
                 }
 
                 .stats {
                     .displayFlex;
                     justify-content: space-between;
+                    height: initial;
 
                     div {
                         color: #f5f5f5;
@@ -1361,9 +1369,7 @@ iframe {
                 }
             }
         }
-
-
-        @media(max-width:530px) {
+        /*@media(max-width:530px) {
             max-width: 285px;
 
             li {
@@ -1373,7 +1379,7 @@ iframe {
             li .item .wrapper {
                 width: 120px;
             }
-        }
+        }*/
     }
 }
 
