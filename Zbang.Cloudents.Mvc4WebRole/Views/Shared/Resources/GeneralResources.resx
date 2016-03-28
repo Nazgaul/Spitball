@@ -199,10 +199,6 @@ but try checking the quizzes tab for related material</value>
     <value>create it!</value>
     
   </data>
-  <data name="SearchEmptyStateDocumentsButton" xml:space="preserve">
-    <value>Search for documents</value>
-    
-  </data>
   <data name="SearchEmptyStateDocumentsText" xml:space="preserve">
     <value>There are no documents that match your search,
 but try checking the classes tab for related material</value>

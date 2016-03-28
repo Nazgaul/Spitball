@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Zbang.Zbox.ViewModel.Dto.BoxDtos.RecommendBoxDto>
 
 @using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
@@ -25,8 +26,8 @@
                     </div>
                     <hr class="background @boxClass" />
                     <div class="box-info">
-                        @*resources*@<div>@box.MembersCount Members</div>
-                        @*resources*@<div>@box.ItemCount items</div>
+                        <div>@box.MembersCount @IndexResources.Members</div>
+                        <div>@box.ItemCount @IndexResources.Items</div>
                     </div>
 
                 </a>

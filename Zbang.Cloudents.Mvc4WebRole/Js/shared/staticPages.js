@@ -64,6 +64,8 @@ window.addEventListener("load", function load() {
     });
 
     var active = $('.nav-bar .items-container a[href="/' + window.location.href.split("/")[3] + '/"]').addClass('active');
-    slider.goToSlide($('.items-container a').index(active));
+    if (slider.length) {
+        slider.goToSlide($('.items-container a').index(active));
+    }
 
 }, false);

@@ -195,9 +195,6 @@
   <data name="SearchEmptyStateCreateCourseLinkText" xml:space="preserve">
     <value>צור אותו!</value>
   </data>
-  <data name="SearchEmptyStateDocumentsButton" xml:space="preserve">
-    <value>חפש סיכומים, מבחנים ומאמרים</value>
-  </data>
   <data name="SearchEmptyStateDocumentsText" xml:space="preserve">
     <value>לא נמצאו סיכומים, מבחנים ומאמרים התואמים את החיפוש שלך</value>
   </data>

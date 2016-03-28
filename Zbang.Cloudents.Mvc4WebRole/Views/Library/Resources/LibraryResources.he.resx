@@ -163,7 +163,8 @@
     <value>מצא את מוסד הלימודים שלך</value>
   </data>
   <data name="UniversitySearchTitle" xml:space="preserve">
-    <value>מצא את מוסד הלימודים שלך והצטרף לשאר חבריך ללימודים</value>
+    <value>מצא את מוסד הלימודים שלך
+והצטרף לשאר חבריך ללימודים</value>
   </data>
   <data name="EmptyStateTopNodeText" xml:space="preserve">
     <value>השלם את פרטי הקורס כדי שכולם יוכלו להנות מספיטבול</value>

@@ -257,7 +257,7 @@
     margin-top: calc(90px + 4vw);
     background-repeat: no-repeat;
     background-image: url('../../Images/Site/search_uni.png');
-    background-position: 0% 0;
+    background-position: 100% 0 ;
     padding-left: 0;
     padding-right: 0;
     padding-top: 13vw;
@@ -266,10 +266,10 @@
 }
 @media (min-width: 900px) {
   .library-choose .search-form-wrapper:not(.no-results) {
-    padding-top: 226px;
-    padding-left: 142px;
-    padding-right: 160px;
-    background-size: 300px;
+    padding-top: 150px;
+    padding-left: 100px;
+    padding-right: 100px;
+    background-size: 220px;
   }
 }
 .library-choose .search-form-wrapper .intro-text-wrapper {
@@ -288,6 +288,11 @@
   font-size: 30px;
   line-height: 32px;
   font-weight: bold;
+}
+@media (min-width: 600px) {
+  .library-choose .search-form-wrapper .intro-text-wrapper .intro-text {
+    white-space: pre-wrap;
+  }
 }
 .library-choose .search-form-wrapper form {
   border-radius: 15px;
@@ -332,7 +337,8 @@
 }
 @media (min-width: 600px) {
   .library-choose .results .no-result .sub-text {
-    padding-bottom: 330px;
+    background-size: 350px;
+    padding-bottom: 280px;
     margin: 0;
     background-image: url('../../Images/Site/no_uni.png');
     background-repeat: no-repeat;
