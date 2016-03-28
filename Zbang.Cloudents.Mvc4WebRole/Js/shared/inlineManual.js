@@ -9,18 +9,18 @@
                 uid: userData.id,
                 email: userData.email,
                 username: userData.name,
-                created: userData.createTime.getTime(),
+                created: Math.round(userData.createTime.getTime() / 1000),
             };
             !function () { var e = document.createElement("script"), t = document.getElementsByTagName("script")[0]; e.async = true, e.src = "https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js", e.charset = "UTF-8", t.parentNode.insertBefore(e, t); }();
         });
         $rootScope.$on("$stateChangeSuccess", function () {
             // Inline manual fix for angular
-            var element = $document.find('[ui-view][animation-class]');
-            if (angular.isDefined(inline_manual_player)) {
-                $timeout(function () {
-                    inline_manual_player.manualReinit(element[0]);
-                }, 1000);
-            }
+            //var element = $document.find('[ui-view][animation-class]');
+            $timeout(function () {
+                if (angular.isDefined(inline_manual_player)) {
+                    inline_manual_player.manualReinit();
+                }
+            }, 1000);
         });
     }
 })();

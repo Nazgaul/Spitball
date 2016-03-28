@@ -232,6 +232,10 @@
   overflow: auto;
   min-height: 80px;
 }
+.add-comment .new-comment-border > md-input-container,
+.add-comment .new-comment-border textarea {
+  min-height: 80px;
+}
 .add-comment textarea {
   width: 100%;
   border: none;

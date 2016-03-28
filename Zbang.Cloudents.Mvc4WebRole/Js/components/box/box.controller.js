@@ -2,10 +2,10 @@
     angular.module('app.box').controller('BoxController', box);
     box.$inject = ['boxService', 'boxData', '$stateParams', '$scope',
         '$state', 'user', '$rootScope', 'userDetailsFactory',
-        'ajaxService', 'resManager', '$timeout', '$location'];
+        'ajaxService', 'resManager', '$timeout'];
 
     function box(boxService, boxData, $stateParams, $scope, $state, user,
-        $rootScope, userDetailsFactory, ajaxService, resManager, $timeout, $location) {
+        $rootScope, userDetailsFactory, ajaxService, resManager, $timeout) {
 
         if ($state.current.name === 'box') {
             $state.go('box.feed', $stateParams, { location: "replace" });
@@ -36,7 +36,6 @@
 
         $scope.$on('$viewContentLoaded', function () {
             $timeout(function () {
-                a2a_config.linkurl = $location.absUrl();
                 a2a.init('page');
             });
         });
