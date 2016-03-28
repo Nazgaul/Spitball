@@ -98,6 +98,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string InviteToSpitballHeader {
+            get {
+                return ResourceManager.GetString("InviteToSpitballHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Top of the school.
         /// </summary>
         public static string LeaderboardTitle {

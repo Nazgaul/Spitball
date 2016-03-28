@@ -151,7 +151,7 @@
     <value>הזמן את חבריך ל</value>
   </data>
   <data name="Items" xml:space="preserve">
-    <value>פריטים</value>
+    <value>מסמכים</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>התחבר</value>
@@ -163,7 +163,7 @@
     <value>כתובת מייל</value>
   </data>
   <data name="Members" xml:space="preserve">
-    <value>חברים</value>
+    <value>סטודנטים</value>
   </data>
   <data name="Oops" xml:space="preserve">
     <value>אופס!</value>

@@ -281,12 +281,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string D3H {
+            get {
+                return ResourceManager.GetString("D3H", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access course specific materials to study with more efficiency  
         ///.
         /// </summary>
         public static string D4 {
             get {
                 return ResourceManager.GetString("D4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string D4H {
+            get {
+                return ResourceManager.GetString("D4H", resourceCulture);
             }
         }
         
@@ -301,12 +319,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string D5H {
+            get {
+                return ResourceManager.GetString("D5H", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Spitball helps you get the grades you want for every exam 
         ///.
         /// </summary>
         public static string D6 {
             get {
                 return ResourceManager.GetString("D6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string D6H {
+            get {
+                return ResourceManager.GetString("D6H", resourceCulture);
             }
         }
         

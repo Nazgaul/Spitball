@@ -1,4 +1,5 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div class="portlet light unibox color-override backgroundColor5" ng-controller="UniversityController as u">
@@ -12,7 +13,7 @@
         <div class="universityStats  color-override textColor6">
             <div>{{::u.info.numOfBoxes | megaNumber}} @GeneralResources.Classes</div>
             <div>{{::u.info.numOfUsers | megaNumber}} @GeneralResources.Members</div>
-            <div>{{::u.info.numOfItems | megaNumber}} @DashboardResource.Files</div>
+            <div>{{::u.info.numOfItems | megaNumber}} @BoxResources.Items</div>
         </div>
     </div>
     <a ui-sref="department" class="universityLink text-capitalize button-Blue  color-override textColor3" ga-track-event="['dashboard', 'browse classes']">@DashboardResource.Browse</a>

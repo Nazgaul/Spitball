@@ -54,29 +54,29 @@
                                             @LogOnResources.LogIn
                                         </button>
                                     </div>
-                                        <div class="loader">
-                                            <div class="sk-fading-circle selected">
-                                                <div class="sk-circle1 sk-circle"></div>
-                                                <div class="sk-circle2 sk-circle"></div>
-                                                <div class="sk-circle3 sk-circle"></div>
-                                                <div class="sk-circle4 sk-circle"></div>
-                                                <div class="sk-circle5 sk-circle"></div>
-                                                <div class="sk-circle6 sk-circle"></div>
-                                                <div class="sk-circle7 sk-circle"></div>
-                                                <div class="sk-circle8 sk-circle"></div>
-                                                <div class="sk-circle9 sk-circle"></div>
-                                                <div class="sk-circle10 sk-circle"></div>
-                                                <div class="sk-circle11 sk-circle"></div>
-                                                <div class="sk-circle12 sk-circle"></div>
-                                            </div>
-                                            <div class="loader-text">@SharedResources.LoaderText</div>
+                                    <div class="loader">
+                                        <div class="sk-fading-circle selected">
+                                            <div class="sk-circle1 sk-circle"></div>
+                                            <div class="sk-circle2 sk-circle"></div>
+                                            <div class="sk-circle3 sk-circle"></div>
+                                            <div class="sk-circle4 sk-circle"></div>
+                                            <div class="sk-circle5 sk-circle"></div>
+                                            <div class="sk-circle6 sk-circle"></div>
+                                            <div class="sk-circle7 sk-circle"></div>
+                                            <div class="sk-circle8 sk-circle"></div>
+                                            <div class="sk-circle9 sk-circle"></div>
+                                            <div class="sk-circle10 sk-circle"></div>
+                                            <div class="sk-circle11 sk-circle"></div>
+                                            <div class="sk-circle12 sk-circle"></div>
                                         </div>
+                                        <div class="loader-text">@SharedResources.LoaderText</div>
+                                    </div>
                                     <div class="forget-password">
                                         <h4>@LogOnResources.ForgotYourPassword</h4>
                                         <p>
                                             @LogOnResources.NoWorries <span id="forget-password">
-                                                                          @LogOnResources.Here
-                                                                      </span>
+                                                @LogOnResources.Here
+                                            </span>
                                             @LogOnResources.ToResetPassword.
                                         </p>
                                     </div>
@@ -99,8 +99,8 @@
                                     <div class="create-account">
                                         <p>
                                             @LogOnResources.DontHaveAnAccount&nbsp; <a href="javascript:;" id="register-btn">
-                                                                                        @LogOnResources.CreateAccount
-                                                                                    </a>
+                                                @LogOnResources.CreateAccount
+                                            </a>
                                         </p>
                                     </div>
                                 </form>
@@ -176,8 +176,12 @@
                                     <div class="form-group">
                                         <input class="form-control" type="email" required placeholder="@SharedResources.Email" name="NewEmail" id="register_email" />
                                     </div>
-                                    <div class="form-group last">
+                                    <div class="form-group">
                                         <input class="form-control" type="password" required autocomplete="off" placeholder="@LogOnResources.Password" name="Password" />
+                                    </div>
+                                    <div class="form-group last">
+                                        <input class="" type="radio" required name="gender" value="male" /><span>Male</span>
+                                        <input class="" type="radio" required name="gender" value="female" /><span>Female</span>
                                     </div>
                                     <div id="register_alert_text" class="alert alert-danger display-hide">
                                         <span></span>
@@ -267,15 +271,6 @@
                         <h3 class="statistic">
                             <span id="quizzes" class="value" data-value="@Model.QuizzesCount"></span><span>@HomePageResources.statsQuizzes</span>
                         </h3>
-                    </div>
-                    <div class="social-links os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.6s">
-                        <div class="wrapper" dir="ltr">
-                            <a target="_blank" href="https://www.facebook.com/spitballstudy/">@Html.Svg(socialIconsSvg, "facebook")</a>
-                            <a target="_blank" href="https://twitter.com/SpitballStudy">@Html.Svg(socialIconsSvg, "twitter")</a>
-                            <a target="_blank" href="https://plus.google.com/+Cloudents">@Html.Svg(socialIconsSvg, "google")</a>
-                            <a target="_blank" href="https://www.youtube.com/channel/UCamYabfxHUP3A9EFt1p94Lg">@Html.Svg(socialIconsSvg, "youtube")</a>
-                            <a target="_blank" href="http://instagram.com/spitballstudy">@Html.Svg(socialIconsSvg, "instagram")</a>
-                        </div>
                     </div>
                 </div>
 

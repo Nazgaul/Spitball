@@ -130,7 +130,7 @@
     <value>הזמן את חבריך לכיתה כדי שתוכלו להצליח ביחד</value>
   </data>
   <data name="Items" xml:space="preserve">
-    <value>פריטים</value>
+    <value>מסמכים</value>
   </data>
   <data name="Lecturer" xml:space="preserve">
     <value>מרצה</value>
@@ -166,7 +166,7 @@
     <value>אנונימי</value>
   </data>
   <data name="itemsInTab" xml:space="preserve">
-    <value>פריטים</value>
+    <value>מסמכים</value>
   </data>
   <data name="Whats" xml:space="preserve">
     <value>שאלו שאלות או שתפו קבצים</value>
