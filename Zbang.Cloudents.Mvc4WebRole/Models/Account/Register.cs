@@ -3,6 +3,7 @@ using System.Text;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Models.Resources;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
 {
@@ -24,6 +25,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         [ValidatePasswordLength(ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
+        public Sex Sex { get; set; }
 
         public long? UniversityId { get; set; }
 

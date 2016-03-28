@@ -347,7 +347,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     CreateUserCommand command = new CreateMembershipUserCommand(Guid.Parse(user.Id),
                         model.NewEmail, model.UniversityId,
                         model.FirstName, model.LastName,
-                        lang, Sex.NotKnown, invId, model.BoxId);
+                        lang, model.Sex, invId, model.BoxId);
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     m_LanguageCookie.InjectCookie(result.User.Culture);
 

@@ -421,7 +421,7 @@
   width: calc(56% - 10px);
   float: left;
 }
-.homePage .home-page-body section.main .login-wrapper.login .content .form-group input {
+.homePage .home-page-body section.main .login-wrapper.login .content .form-group input:not([type="radio"]) {
   height: 48px;
 }
 .homePage .home-page-body section.main .login-wrapper.login .form-group input::-webkit-input-placeholder {
@@ -453,6 +453,23 @@
   max-width: 250px;
   /*margin-top: 20px;*/
   margin-bottom: 20px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .form-group.sex {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -ms-flex-direction: row;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  align-items: center;
+  color: #f5f5f5;
+}
+.homePage .home-page-body section.main .login-wrapper.login .form-group.sex > * {
+  margin: 0;
+  align-items: flex-start;
+}
+.homePage .home-page-body section.main .login-wrapper.login .form-group.sex label {
+  margin: 0 5px 0 30px;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-title {
   font-weight: 300;

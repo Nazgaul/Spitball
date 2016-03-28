@@ -478,7 +478,7 @@
                             float: right;
                         }
 
-                        .content .form-group input {
+                        .content .form-group input:not([type="radio"]) {
                             height: 48px;
                         }
 
@@ -511,6 +511,24 @@
                                 max-width: 250px;
                                 /*margin-top: 20px;*/
                                 margin-bottom: 20px;
+                            }
+                        }
+
+                        .form-group.sex {
+                            .displayFlex();
+                            -ms-flex-direction: row;
+                            -webkit-flex-direction: row;
+                            flex-direction: row;
+                            align-items: center;
+                            color: @textColorWhite;
+
+                            > * {
+                                margin: 0;
+                                align-items: flex-start;
+                            }
+
+                            label {
+                                margin: 0 30px 0 5px;
                             }
                         }
 

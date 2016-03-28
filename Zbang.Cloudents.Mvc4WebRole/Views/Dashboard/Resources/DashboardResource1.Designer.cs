@@ -98,15 +98,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string InviteToSpitballHeader {
-            get {
-                return ResourceManager.GetString("InviteToSpitballHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Top of the school.
         /// </summary>
         public static string LeaderboardTitle {
@@ -122,6 +113,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         public static string StudyGroup {
             get {
                 return ResourceManager.GetString("StudyGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string StudyGroupHeader {
+            get {
+                return ResourceManager.GetString("StudyGroupHeader", resourceCulture);
             }
         }
         
