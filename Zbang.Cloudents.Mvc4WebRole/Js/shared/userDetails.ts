@@ -1,5 +1,6 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 declare var __insp: any;
+declare var googletag: any;
 
 
 interface IUserDetailsFactory {
@@ -28,7 +29,7 @@ interface IUserData {
     url: string;
     isAdmin: boolean;
     theme: string;
-    culture:string;
+    culture: string;
     createTime: Date;
     university: IUniversity;
 }
@@ -56,6 +57,11 @@ interface IUserData {
             analytics.set('dimension2', data.universityCountry || null);
             analytics.set('dimension3', data.id || null);
             analytics.set('dimension4', data.theme || 'dark');
+            
+            $timeout(() => {
+                googletag.pubads().setTargeting('gender', data.sex);
+            }, 1000);
+
             userData = {
                 id: data.id,
                 name: data.name,
