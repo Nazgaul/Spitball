@@ -192,4 +192,7 @@
   <data name="ItemRemoveFolder" xml:space="preserve">
     <value>Move to main folder</value>
   </data>
+  <data name="membersInvite" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

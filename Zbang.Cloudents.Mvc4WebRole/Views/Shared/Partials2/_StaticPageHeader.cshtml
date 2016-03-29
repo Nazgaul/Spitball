@@ -1,18 +1,19 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Culture
 <noscript>
     <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
             height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');
 </script>
 <header class="static-page-header">
     <nav>
@@ -55,8 +56,9 @@
                 </li>
             </ul>
         </div>
-        <a class="signin-btn toggle login-option signup os-animation" href="@Url.RouteUrl("signin")">
-            @HomePageResources.A1
-        </a>
+        <div class="login-buttons">
+            <a class="signup-btn login-option signup os-animation" href="@Url.RouteUrl("signup")">@IndexResources.Signup</a>
+            <a class="signin-btn toggle login-option signup os-animation" href="@Url.RouteUrl("signin")">@HomePageResources.A1</a>
+        </div>
     </nav>
 </header>
