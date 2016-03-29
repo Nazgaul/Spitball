@@ -18,6 +18,7 @@
             analytics.set('dimension4', data.theme || 'dark');
             $timeout(function () {
                 googletag.pubads().setTargeting('gender', data.sex);
+                googletag.pubads().setTargeting('university', data.university.id);
             }, 1000);
             userData = {
                 id: data.id,
