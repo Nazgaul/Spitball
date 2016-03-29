@@ -175,13 +175,13 @@
     <value>Class Notes</value>
   </data>
   <data name="ClassNotesSubtitle" xml:space="preserve">
-    <value>Check out spitball's variety of class notes and articles!</value>
+    <value>Check out Spitball's variety of class notes and articles!</value>
   </data>
   <data name="CoursesTitle" xml:space="preserve">
     <value>Courses</value>
   </data>
   <data name="CoursesSubtitle" xml:space="preserve">
-    <value>Check out spitball's variety of courses!</value>
+    <value>Check out Spitball's variety of courses!</value>
   </data>
   <data name="FeaturesDescriptionA" xml:space="preserve">
     <value>Spitball can help revolutionize the way you study: Whether you’ve missed your last class and are scrambling to get </value>
@@ -235,7 +235,7 @@
     <value>Study socially anytime and everywhere with the </value>
   </data>
   <data name="FeaturesSectionText6B" xml:space="preserve">
-    <value>spitball app</value>
+    <value>Spitball app</value>
   </data>
   <data name="FeaturesSectionText6C" xml:space="preserve">
     <value>. Access all of your class materials directly from your phone. Chat with your friends, ask questions and start studying for your next exam from any device.</value>
@@ -256,7 +256,7 @@
     <value>class notes</value>
   </data>
   <data name="ProductTextA" xml:space="preserve">
-    <value>Open a free spitball account and pick your school - there are more than </value>
+    <value>Open a free Spitball account and pick your school - there are more than </value>
   </data>
   <data name="ProductTextB" xml:space="preserve">
     <value>325 schools</value>
@@ -283,6 +283,6 @@
     <value> and get better grades. </value>
   </data>
   <data name="ProductTextJ" xml:space="preserve">
-    <value>Open your free spitball account today!</value>
+    <value>Open your free Spitball account today!</value>
   </data>
 </root>

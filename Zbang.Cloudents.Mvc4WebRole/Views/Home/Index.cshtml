@@ -18,6 +18,7 @@
 </head>
 <body class="homePage">
     <div class="page-content">
+        @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{Html.RenderPartial("_StaticPageHeader");}
         <div class="home-page-body">
             <section class="main">
@@ -180,8 +181,8 @@
                                         <input class="form-control" type="password" required autocomplete="off" placeholder="@LogOnResources.Password" name="Password" />
                                     </div>
                                     <div class="form-group sex last">
-                                        <input class="" type="radio" required name="sex" value="male" id="male" /><label for="male">Male</label>
-                                        <input class="" type="radio" required name="sex" value="female" id="female" /><label for="female">Female</label>
+                                        <input type="radio" required name="sex" value="@Zbang.Zbox.Infrastructure.Enums.Sex.Male.GetStringValueLowerCase()" id="male" /><label for="male">@Zbang.Zbox.Infrastructure.Enums.Sex.Male.GetEnumDescription()</label>
+                                        <input type="radio" required name="sex" value="@Zbang.Zbox.Infrastructure.Enums.Sex.Female.GetStringValueLowerCase()" id="female" /><label for="female">@Zbang.Zbox.Infrastructure.Enums.Sex.Female.GetEnumDescription()</label>
                                     </div>
                                     <div id="register_alert_text" class="alert alert-danger display-hide">
                                         <span></span>
@@ -191,7 +192,7 @@
                                         <div class="form-group">
                                             <label>
                                                 @RegisterResources.IAgree
-                                                <a class="tos" target="_blank" href="@Url.Action("TermsOfService", "Home")">&nbsp;@RegisterResources.TermsOfServices</a>&nbsp;@RegisterResources.And&nbsp;<a target="_blank" href="@Url.RouteUrl("Privacy")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
+                                                <a class="tos" target="_blank" href="@Url.RouteUrl("TOS")">&nbsp;@RegisterResources.TermsOfServices</a>&nbsp;@RegisterResources.And&nbsp;<a target="_blank" href="@Url.RouteUrl("Privacy")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
                                             </label>
                                         </div>
 
@@ -397,6 +398,7 @@
                     </li>
                 </ul>
             </section>
+            @* ReSharper disable once Mvc.PartialViewNotResolved *@
             @{Html.RenderPartial("_StaticPageFooter");}
         </div>
 
