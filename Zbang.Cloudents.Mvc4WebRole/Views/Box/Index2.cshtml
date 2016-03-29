@@ -7,19 +7,7 @@
 <div class="page-head">
     <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title box-title" ng-class="{'need-follow' : b.needFollow}">
         <h1 flex class="multi-line-ellipsis limit-two">{{b.data.name}}</h1>
-        <!-- AddToAny BEGIN -->
-        <div ng-if="b.canShare" ng-cloak 
-             class="share-social a2a_kit a2a_kit_size_32 a2a_default_style"
-             @*onload="b.share()"*@>
-            <a class="facebook a2a_button_facebook">
-                @Html.Svg("/Images/Site/social-icons.svg", "facebook-colored")
-            </a>
-            <a hide show-xs class="whatsapp a2a_button_whatsapp">
-                @Html.Svg("/Images/Site/social-icons.svg", "whatsapp")
-            </a>
-        </div>
-        
-        <!-- AddToAny END -->
+        <div ng-if="b.canShare" ng-cloak add-to-any></div>
         <button flex="none" ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn text-capitalize color-override backgroundColor8" ga-track-event="['box', 'follow']">@BoxResources.Follow</button>
         <button class="box-settings" flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "svgTC15" })</button>
     </div>
@@ -42,5 +30,16 @@
     </md-tab>
 </md-tabs>
 <div class="page-animation" ui-view unregister-scroll></div>
+
+<script type="text/ng-template" id="addToAnyTemplate.html">
+    <div class="share-social a2a_kit a2a_kit_size_32 a2a_default_style">
+        <a class="facebook a2a_button_facebook" data-a2a-url="{{url}}">
+            @Html.Svg("/Images/Site/social-icons.svg", "facebook-colored")
+        </a>
+        <a hide show-xs class="whatsapp a2a_button_whatsapp" data-a2a-url="{{url}}">
+            @Html.Svg("/Images/Site/social-icons.svg", "whatsapp")
+        </a>
+    </div>
+</script>
 
 

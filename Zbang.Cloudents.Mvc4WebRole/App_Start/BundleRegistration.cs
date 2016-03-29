@@ -237,7 +237,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/menu/sidemenu.controller.js"),
                         new JsFileWithCdn("~/js/menu/nospace.filter.js"),
 
+                       
                         new JsFileWithCdn("~/js/components/box/box.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/addToAny.directive.js"),
                         new JsFileWithCdn("~/js/components/box/tab.controller.js"),
                         new JsFileWithCdn("~/js/components/box/box.routes.js"),
                         new JsFileWithCdn("~/js/components/box/feed.controller.js"),
