@@ -239,6 +239,9 @@ iframe {
     padding-left: calc(100% - 650px);
     min-width: 75px;
   }
+  .static-page-header nav ul li.language ul.dropdown-menu-left {
+    margin-left: calc(100% - 110px);
+  }
 }
 .static-page-header nav ul li.language .arrow {
   width: 0;

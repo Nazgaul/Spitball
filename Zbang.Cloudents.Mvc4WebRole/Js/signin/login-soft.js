@@ -1,5 +1,5 @@
 var Login = function () {
-
+    console.log('woop');
     var forgotPasswordState = 0,
         loginState = 1,
         signupState = 2;
