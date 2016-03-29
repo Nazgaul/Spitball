@@ -10,6 +10,15 @@
 .homePage .hidden {
   display: none !important;
 }
+@media (min-width: 1080px) {
+  .homePage nav .nav-content ul {
+    padding-left: 120px;
+    width: calc(100% - 350px);
+  }
+}
+.homePage nav .login-buttons a.signup-btn {
+  display: none;
+}
 .homePage .home-page-body {
   background-image: url("../../Images/HomePage2/HP_image.jpg");
   background-attachment: scroll;

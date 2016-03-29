@@ -13,6 +13,19 @@
     .page-content {
     }
 
+    nav {
+        .nav-content ul {
+            @media(min-width: @staticPageBreakPoint) {
+                padding-right: 120px;
+                width: ~"calc(100% - 350px)";
+            }
+        }
+
+        .login-buttons a.signup-btn {
+            display: none;
+        }
+    }
+
     .home-page-body {
         background-image: url("../../Images/HomePage2/HP_image.jpg");
         background-attachment: scroll;

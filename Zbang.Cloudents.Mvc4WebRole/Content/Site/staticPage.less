@@ -97,7 +97,6 @@ iframe {
 
     nav {
         height: inherit;
-        @mobileBreakPoint: 880px;
 
         .nav-content {
             .displayFlex();
@@ -131,7 +130,7 @@ iframe {
                     margin: 0 24px;
 
 
-                    @media (max-width: @mobileBreakPoint) {
+                    @media (max-width: @staticPageBreakPoint) {
                         display: inline-block;
                         margin: 0;
                     }
@@ -214,14 +213,28 @@ iframe {
             color: #555;
         }
 
-        .signin-btn {
-            padding: 0 16px;
-            background: @buttonColorBlue;
-            line-height: 25px;
-            border-radius: 4px;
+        .login-buttons {
             position: absolute;
             top: 22px;
             right: 15px;
+
+            a {
+                padding: 0 16px;
+                line-height: 25px;
+                display: inline-block;
+                border-radius: 4px;
+                color: @textColorWhite;
+
+                &.signup-btn {
+                    color: #333;
+                    background-color: #fff;
+                }
+
+                &.signin-btn {
+                    background: @buttonColorBlue;
+                    margin-left: 15px;
+                }
+            }
 
             &:hover {
                 background: @buttonColorHover;
@@ -237,15 +250,22 @@ iframe {
             }
         }
 
+        @media(min-width: @staticPageBreakPoint) {
+            li:not(:nth-last-child(2)) a {
+                padding-right: 15px;
+                border-right: 1px solid #484F56;
+            }
+        }
+
         ul {
             list-style: none;
 
-            @media(min-width: @mobileBreakPoint) {
+            @media(min-width: @staticPageBreakPoint) {
                 .displayFlex;
                 justify-content: space-between;
                 align-items: center;
-                width: 500px;
-                padding: 0 120px 0 20px;
+                width: ~"calc(100% - 455px)";
+                padding: 0 220px 0 0;
                 margin: 0;
             }
 
@@ -262,6 +282,11 @@ iframe {
 
                 &.language {
                     position: relative;
+
+                    @media(min-width: @staticPageBreakPoint) {
+                        padding-left: ~"calc(100% - 650px)";
+                        min-width: 75px;
+                    }
 
                     .arrow {
                         width: 0;
@@ -347,13 +372,13 @@ iframe {
             cursor: auto;
             height: 100vh;
 
-            @media(max-width: @mobileBreakPoint) {
+            @media(max-width: @staticPageBreakPoint) {
                 display: none;
             }
         }
 
 
-        @media(max-width: @mobileBreakPoint) {
+        @media(max-width: @staticPageBreakPoint) {
             .navbar-header {
                 .displayFlex;
                 justify-content: flex-start;
@@ -365,6 +390,7 @@ iframe {
                 .navbar-toggle {
                     .displayInlineFlex;
                     align-items: center;
+                    margin-right: 0;
                 }
             }
 
@@ -1622,9 +1648,6 @@ iframe {
     a {
         color: inherit;
         text-decoration: none;
-
-        &:hover {
-            color: @buttonColorBlue;
-        }
+        color: @buttonColorBlue;
     }
 }
