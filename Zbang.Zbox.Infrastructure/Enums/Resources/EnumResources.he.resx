@@ -171,4 +171,10 @@
   <data name="WrongPassword" xml:space="preserve">
     <value>הסיסמה שהקלדת אינה נכונה, אנא נסה שנית.</value>
   </data>
+  <data name="Female" xml:space="preserve">
+    <value>נקבה</value>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>זכר</value>
+  </data>
 </root>

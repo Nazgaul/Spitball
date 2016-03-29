@@ -160,7 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check out spitball&apos;s variety of class notes and articles!.
+        ///   Looks up a localized string similar to Check out Spitball&apos;s variety of class notes and articles!.
         /// </summary>
         public static string ClassNotesSubtitle {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check out spitball&apos;s variety of courses!.
+        ///   Looks up a localized string similar to Check out Spitball&apos;s variety of courses!.
         /// </summary>
         public static string CoursesSubtitle {
             get {
@@ -367,7 +367,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to spitball app.
+        ///   Looks up a localized string similar to Spitball app.
         /// </summary>
         public static string FeaturesSectionText6B {
             get {
@@ -457,7 +457,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open a free spitball account and pick your school - there are more than .
+        ///   Looks up a localized string similar to Open a free Spitball account and pick your school - there are more than .
         /// </summary>
         public static string ProductTextA {
             get {
@@ -547,7 +547,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open your free spitball account today!.
+        ///   Looks up a localized string similar to Open your free Spitball account today!.
         /// </summary>
         public static string ProductTextJ {
             get {

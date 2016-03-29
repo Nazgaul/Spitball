@@ -259,7 +259,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get class notes for free with spitball:.
+        ///   Looks up a localized string similar to Get class notes for free with Spitball:.
         /// </summary>
         internal static string ItemMataDescription {
             get {

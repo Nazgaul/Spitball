@@ -287,9 +287,9 @@ var Login = function () {
 
     function googleLogIn() {
         var authInstance = gapi.auth2.getAuthInstance();
+
         authInstance.signIn().then(function (googleUser) {
             var idToken = googleUser.getAuthResponse().id_token;
-            //trackConversion();
             $.post('/account/GoogleLogin', {
                 token: idToken,
                 universityId: getUrlVars()['universityid'],
