@@ -2,9 +2,15 @@
 
 <div class="preview preview-page">
     <div class="preview-svg">
+        @{var firstPage = true;}
         @foreach (var item in Model.Src)
         {
             <img class="svgContent" src="@item" alt="" />
+            if (firstPage)
+            {
+                <div data-ng-dfp-ad="div-gpt-ad-1459259529611-0"></div>
+            }
+            firstPage = false;
         }
     </div>
 </div>

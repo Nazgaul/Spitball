@@ -365,8 +365,18 @@
   transform: rotate(180deg) /*rtl:rotate(0)*/;
   left: 10px;
 }
+.itemPage .google-side-ad {
+  position: absolute;
+  right: 24px;
+}
+@media (max-width: 1300px) {
+  .itemPage .google-side-ad {
+    display: none;
+  }
+}
 .itemPage .google-ad {
   text-align: center;
+  display: inline;
 }
 .raw-text {
   color: #282828;

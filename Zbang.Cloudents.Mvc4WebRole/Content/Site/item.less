@@ -228,7 +228,7 @@
     }
 
     .comments-section > .menu-icon {
-        z-index: 2
+        z-index: 2;
     }
 
     .comments-wrapper, .comments-wrapper md-input-container .md-input {
@@ -305,11 +305,11 @@
         overflow: hidden;
 
         &.md-closed {
-            -webkit-transform: translate3d(~"calc(53px - 100%)", 0, 0)/*rtl: translate3d(300px, 0, 0)*/;
+            -webkit-transform: translate3d(~"calc(53px - 100%)", 0, 0) /*rtl: translate3d(300px, 0, 0)*/;
             -moz-transform: translate3d(-300px, 0, 0);
             -ms-transform: translate3d(-300px, 0, 0);
-            -o-transform: translate3d(~"calc(53px - 100%)", 0, 0)/*rtl: translate3d(300px, 0, 0)*/;
-            transform: translate3d(~"calc(53px - 100%)", 0, 0)/*rtl: translate3d(300px, 0, 0)*/;
+            -o-transform: translate3d(~"calc(53px - 100%)", 0, 0) /*rtl: translate3d(300px, 0, 0)*/;
+            transform: translate3d(~"calc(53px - 100%)", 0, 0) /*rtl: translate3d(300px, 0, 0)*/;
             display: block;
         }
 
@@ -452,8 +452,18 @@
         left: 10px;
     }
 
+    .google-side-ad {
+        position: absolute;
+        right: 24px;
+
+        @media(max-width: 1300px) {
+            display: none;
+        }
+    }
+
     .google-ad {
         text-align: center;
+        display: inline;
     }
 }
 

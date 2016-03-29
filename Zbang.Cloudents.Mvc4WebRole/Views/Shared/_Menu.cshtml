@@ -97,7 +97,9 @@
                 </md-button>
             </li>
             <li class="google-ad nav-item box-ad" hide-xs>
-                <div data-ng-dfp-ad="div-gpt-ad-1457450571630-0"></div>
+                <div ng-if="app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459261777271-0"></div>
+                <div ng-if="!app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459255888335-0"></div>
+                
             </li>
         </ul>
     </md-content>

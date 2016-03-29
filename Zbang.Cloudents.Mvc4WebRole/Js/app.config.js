@@ -167,27 +167,54 @@
         analyticsProvider.setPageEvent('$stateChangeSuccess');
         //AnalyticsProvider.setDomainName('XXX');
 
+        var matanTest2Code = 'div-gpt-ad-1459256517867-0';      //top of dashboard
+        var testWithAsafCode = 'div-gpt-ad-1459255888335-0';    // for menu ad (outside box)
+        var box250X250AtfCode = 'div-gpt-ad-1459261777271-0';    // for menu ad (in box)
+        var search728X90AtfCode = 'div-gpt-ad-1459258380236-0'; //top of search
+        var item728X90AtfCode = 'div-gpt-ad-1459258538511-0';   //top of item
+        var item160X300SideCode = 'div-gpt-ad-1459259151004-0'; //side of item
+        var item728X250Utf = 'div-gpt-ad-1459259529611-0';      //after first item's page
 
-        doubleClickProvider.defineSlot('/107474526/Matan_Test2', [[300, 75], [468, 60], [728, 90]], 'div-gpt-ad-1459154929003-0')
-                           .defineSlot('/107474526/Test_With_Asaf', [[250, 250], [234, 60]], 'div-gpt-ad-1457450571630-0')
-                           .defineSlot('/107474526/Box_315X179_LS', [315, 179], 'div-gpt-ad-1459076812828-0');
+        doubleClickProvider.defineSlot('/107474526/Matan_Test2', [[300, 75], [468, 60], [728, 90]], matanTest2Code)
+                           .defineSlot('/107474526/Test_With_Asaf', [[250, 250], [234, 60]], testWithAsafCode)
+                           .defineSlot('/107474526/Box_250x250_ATF', [[250, 250], [234, 60]], box250X250AtfCode)
+                           .defineSlot('/107474526/search_728x90_ATF', [[300, 75], [468, 60], [728, 90]], search728X90AtfCode)
+                           .defineSlot('/107474526/Item_728x90_ATF', [[300, 75], [468, 60], [728, 90]], item728X90AtfCode)
+                           .defineSlot('/107474526/Item_728x250_UTF', [[300, 75], [468, 60], [728, 90]], item728X250Utf)
+                           .defineSlot('/107474526/Item_160x300_Side', [[160, 600]], item160X300SideCode);
 
-        doubleClickProvider.defineSizeMapping('div-gpt-ad-1459154929003-0')
+        doubleClickProvider.defineSizeMapping(matanTest2Code)
             .addSize([1050, 768], [728, 90])
             .addSize([640, 480], [468, 60])
            // .addSize([500, 350], [480, 320])
             //// Fits browsers of any size smaller than 640 x 480
             .addSize([0, 0], [300, 75]);
 
-        doubleClickProvider.defineSizeMapping('div-gpt-ad-1457450571630-0')
+        doubleClickProvider.defineSizeMapping(testWithAsafCode)
             .addSize([1050, 850], [250, 250])
-            // .addSize([500, 350], [480, 320])
-            //// Fits browsers of any size smaller than 640 x 480
             .addSize([0, 0], [234, 60]);
-          //  .setTargeting('gender', );
 
-        doubleClickProvider.defineSizeMapping('div-gpt-ad-1459076812828-0')
-            .addSize([0, 0], [315, 179]);
+        doubleClickProvider.defineSizeMapping(box250X250AtfCode)
+            .addSize([1050, 850], [250, 250])
+            .addSize([0, 0], [234, 60]);
+
+        doubleClickProvider.defineSizeMapping(search728X90AtfCode)
+            .addSize([1050, 768], [728, 90])
+            .addSize([640, 480], [468, 60])
+            .addSize([0, 0], [300, 75]);
+
+        doubleClickProvider.defineSizeMapping(item728X90AtfCode)
+            .addSize([1050, 768], [728, 90])
+            .addSize([640, 480], [468, 60])
+            .addSize([0, 0], [300, 75]);
+
+        doubleClickProvider.defineSizeMapping(item728X250Utf)
+            .addSize([1050, 768], [728, 90])
+            .addSize([640, 480], [468, 60])
+            .addSize([0, 0], [300, 75]);
+
+        doubleClickProvider.defineSizeMapping(item160X300SideCode)
+            .addSize([0, 0], [160, 600]);
 
         doubleClickProvider.setRefreshInterval(30000);
 

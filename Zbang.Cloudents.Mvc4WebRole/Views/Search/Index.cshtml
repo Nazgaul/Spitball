@@ -7,6 +7,7 @@
         <input type="search" class="search-text" placeholder="@GeneralResources.Search" autofocus ng-model="s.term" ng-model-options="{debounce : 300}" ng-change="s.search()" ng-minlength="2" />
     </form>*@
 <div class="page-head">
+    <div data-ng-dfp-ad="div-gpt-ad-1459258380236-0"></div>
     <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title" ng-class="{'need-follow' : b.needFollow}">
         <h1 flex>@SearchResources.SearchTitle</h1>
         <button flex="none" type="button" class="close" ng-click="s.back()" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>
