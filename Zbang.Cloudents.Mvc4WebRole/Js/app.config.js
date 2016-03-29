@@ -168,9 +168,9 @@
         //AnalyticsProvider.setDomainName('XXX');
 
 
-        doubleClickProvider.defineSlot('/107474526/Matan_Test2', [[300, 75], [468, 60], [728, 90]], 'div-gpt-ad-1459154929003-0');
-                           //.defineSlot('/107474526/Test_With_Asaf', [[250, 250], [234, 60]], 'div-gpt-ad-1457450571630-0')
-                           //.defineSlot('/107474526/Box_315X179_LS', [315, 179], 'div-gpt-ad-1459076812828-0');
+        doubleClickProvider.defineSlot('/107474526/Matan_Test2', [[300, 75], [468, 60], [728, 90]], 'div-gpt-ad-1459154929003-0')
+                           .defineSlot('/107474526/Test_With_Asaf', [[250, 250], [234, 60]], 'div-gpt-ad-1457450571630-0')
+                           .defineSlot('/107474526/Box_315X179_LS', [315, 179], 'div-gpt-ad-1459076812828-0');
 
         doubleClickProvider.defineSizeMapping('div-gpt-ad-1459154929003-0')
             .addSize([1050, 768], [728, 90])
@@ -179,17 +179,17 @@
             //// Fits browsers of any size smaller than 640 x 480
             .addSize([0, 0], [300, 75]);
 
-        //doubleClickProvider.defineSizeMapping('div-gpt-ad-1457450571630-0')
-        //    .addSize([1050, 850], [250, 250])
-        //    // .addSize([500, 350], [480, 320])
-        //    //// Fits browsers of any size smaller than 640 x 480
-        //    .addSize([0, 0], [234, 60]);
-        //  //  .setTargeting('gender', );
+        doubleClickProvider.defineSizeMapping('div-gpt-ad-1457450571630-0')
+            .addSize([1050, 850], [250, 250])
+            // .addSize([500, 350], [480, 320])
+            //// Fits browsers of any size smaller than 640 x 480
+            .addSize([0, 0], [234, 60]);
+          //  .setTargeting('gender', );
 
-        //doubleClickProvider.defineSizeMapping('div-gpt-ad-1459076812828-0')
-        //    .addSize([0, 0], [315, 179]);
+        doubleClickProvider.defineSizeMapping('div-gpt-ad-1459076812828-0')
+            .addSize([0, 0], [315, 179]);
 
-        doubleClickProvider.setRefreshInterval(60000);
+        doubleClickProvider.setRefreshInterval(30000);
 
 
     }

@@ -255,3 +255,4 @@
 /// <reference path="../js/shared/intercom.js" />
 /// <reference path="../js/shared/inlinemanual.js" />
 /// <reference path="../js/shared/userdetails.js" />
+/// <reference path="../js/components/box/addtoany.directive.js" />

@@ -34,11 +34,11 @@
         b.canDelete = canDelete;
 
 
-        $scope.$on('$viewContentLoaded', function () {
-            $timeout(function () {
-                a2a.init('page');
-            });
-        });
+        //$scope.$on('$viewContentLoaded', function () {
+        //    $timeout(function () {
+        //        a2a.init('page');
+        //    });
+        //});
         $scope.$on("close_invite", function () {
             b.inviteOpen = false;
 
