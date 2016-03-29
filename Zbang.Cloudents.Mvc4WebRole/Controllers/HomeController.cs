@@ -158,7 +158,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                     }).OrderBy(s => s.Order).ToList()
 
                             };
-                return View("Help2", model);
+                return View("Help2", model.Where(w => String.Equals(w.Language,
+                     Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
             }
         }
         [DonutOutputCache(CacheProfile = "FullPage")]
