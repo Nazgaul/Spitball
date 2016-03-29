@@ -22,7 +22,6 @@
             var interval = window.setInterval(function () {
                 if (googletag.pubads !== undefined && googletag.pubads) {
                     googletag.pubads().setTargeting('gender', data.sex);
-                googletag.pubads().setTargeting('university', data.university.id);
                     window.clearInterval(interval);
                 }
             }, 20);
@@ -92,3 +91,4 @@
         };
     }
 })();
+//# sourceMappingURL=userDetails.js.map

@@ -147,7 +147,8 @@ iframe {
 .static-page-header nav li button,
 .static-page-header nav li label,
 .static-page-header nav li span,
-.static-page-header nav .signin-btn {
+.static-page-header nav .signin-btn,
+.static-page-header nav .signup-btn {
   color: #f5f5f5;
   text-decoration: none;
   align-items: center;
@@ -182,16 +183,21 @@ iframe {
   display: inline-block;
   border-radius: 4px;
   color: #f5f5f5;
+  text-decoration: none;
 }
 .static-page-header nav .login-buttons a.signup-btn {
   color: #333;
   background-color: #fff;
+  margin-left: 15px;
+}
+.static-page-header nav .login-buttons a.signup-btn:hover {
+  background-color: #e6e6e6;
+  border-color: #adadad;
 }
 .static-page-header nav .login-buttons a.signin-btn {
   background: #4190b9;
-  margin-right: 15px;
 }
-.static-page-header nav .login-buttons:hover {
+.static-page-header nav .login-buttons a.signin-btn:hover {
   background: #26566e;
   color: #f5f5f5;
 }

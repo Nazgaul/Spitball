@@ -187,7 +187,7 @@ iframe {
             display: none;
         }
 
-        li a, li button, li label, li span, .signin-btn {
+        li a, li button, li label, li span, .signin-btn, .signup-btn {
             color: @textColorWhite;
             text-decoration: none;
             align-items: center;
@@ -224,21 +224,26 @@ iframe {
                 display: inline-block;
                 border-radius: 4px;
                 color: @textColorWhite;
-
+                text-decoration: none;
                 &.signup-btn {
                     color: #333;
                     background-color: #fff;
+                    margin-right: 15px;
+
+                    &:hover {
+                        background-color: #e6e6e6;
+                        border-color: #adadad;
+                    }
                 }
 
                 &.signin-btn {
                     background: @buttonColorBlue;
-                    margin-left: 15px;
-                }
-            }
 
-            &:hover {
-                background: @buttonColorHover;
-                color: @textColorWhite;
+                    &:hover {
+                        background: @buttonColorHover;
+                        color: @textColorWhite;
+                    }
+                }
             }
         }
 
@@ -287,7 +292,7 @@ iframe {
                         padding-left: ~"calc(100% - 650px)";
                         min-width: 75px;
 
-                        ul.dropdown-menu-left{
+                        ul.dropdown-menu-left {
                             margin-left: ~"calc(100% - 110px)";
                         }
                     }
