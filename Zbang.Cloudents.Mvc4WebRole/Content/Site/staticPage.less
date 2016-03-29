@@ -225,6 +225,7 @@ iframe {
                 border-radius: 4px;
                 color: @textColorWhite;
                 text-decoration: none;
+
                 &.signup-btn {
                     color: #333;
                     background-color: #fff;
@@ -255,13 +256,6 @@ iframe {
             }
         }
 
-        @media(min-width: @staticPageBreakPoint) {
-            li:not(:nth-last-child(2)) a {
-                padding-right: 15px;
-                border-right: 1px solid #484F56;
-            }
-        }
-
         ul {
             list-style: none;
 
@@ -278,6 +272,16 @@ iframe {
             li {
                 display: inline-block;
 
+                &.pipe {
+                    display: none;
+
+                    @media(min-width: @staticPageBreakPoint) {
+                        line-height: 10px;
+                        display: block;
+                        height: 15px;
+                        border-left: 1px solid #484F56;
+                    }
+                }
 
                 label {
                     .displayFlex;

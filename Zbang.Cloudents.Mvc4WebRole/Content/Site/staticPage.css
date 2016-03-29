@@ -206,12 +206,6 @@ iframe {
 .static-page-header nav li span:hover {
   color: #3293f6;
 }
-@media (min-width: 1080px) {
-  .static-page-header nav li:not(:nth-last-child(2)) a {
-    padding-right: 15px;
-    border-right: 1px solid #484F56;
-  }
-}
 .static-page-header nav ul {
   list-style: none;
 }
@@ -229,6 +223,17 @@ iframe {
 }
 .static-page-header nav ul li {
   display: inline-block;
+}
+.static-page-header nav ul li.pipe {
+  display: none;
+}
+@media (min-width: 1080px) {
+  .static-page-header nav ul li.pipe {
+    line-height: 10px;
+    display: block;
+    height: 15px;
+    border-left: 1px solid #484F56;
+  }
 }
 .static-page-header nav ul li label {
   display: -webkit-flex;
