@@ -30,11 +30,7 @@ namespace Zbang.Zbox.ReadServices
             m_Cache = cache;
         }
 
-        [Obsolete]
-        public Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query)
-        {
-            return m_ReadService.GetUserBoxesOld(query);
-        }
+       
 
         public Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query)
         {
