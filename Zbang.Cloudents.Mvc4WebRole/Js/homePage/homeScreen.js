@@ -10,7 +10,7 @@
 }
 
 $('.language button').click(function () {
-    document.cookie = "l3 =" + $(this).data('cookie') + "; path=/";
+    document.cookie = "l3 =" + $(this).data('cookie') + "; path=/;domain=spitball.co";
     location.reload();
 });
 

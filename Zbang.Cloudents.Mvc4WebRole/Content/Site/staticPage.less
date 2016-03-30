@@ -295,10 +295,6 @@ iframe {
                     @media(min-width: @staticPageBreakPoint) {
                         padding-left: ~"calc(100% - 650px)";
                         min-width: 75px;
-
-                        ul.dropdown-menu-left {
-                            margin-left: ~"calc(100% - 110px)";
-                        }
                     }
 
                     .arrow {
@@ -330,7 +326,8 @@ iframe {
                         margin: 0 0 10px -10px;
                         background: rgba(255, 255, 255, 0.8);
                         font-size: 14px;
-                        margin-right: 100%;
+                        left: inherit;
+                        right: -105px;
 
                         li {
                             width: 100%;

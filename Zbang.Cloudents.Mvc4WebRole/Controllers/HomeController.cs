@@ -216,7 +216,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoutePermanent("homePage");
         }
 
-        [DonutOutputCache(CacheProfile = "FullPage")]
+        //remove output cache due to language issues
+
+      //  [DonutOutputCache(CacheProfile = "FullPage")]
         public ViewResult Blog(string lang)
         {
 

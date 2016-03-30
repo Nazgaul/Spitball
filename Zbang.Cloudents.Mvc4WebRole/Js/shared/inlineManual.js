@@ -29,3 +29,4 @@
         });
     }
 })();
+//# sourceMappingURL=inlineManual.js.map
