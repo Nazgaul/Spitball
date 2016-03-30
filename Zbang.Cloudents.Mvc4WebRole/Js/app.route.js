@@ -32,56 +32,56 @@
 
         function getStates() {
             return [
-                {
-                    state: 'jobs',
-                    config: {
-                        url: '/jobs/',
-                        data: {
-                            staticPage: true
-                        }
-                    },
-                    templateUrl: '/home/jobs/'
-                },
-                 {
-                     state: 'abousUs',
-                     config: {
-                         url: '/aboutus/',
-                         data: {
-                             staticPage: true
-                         }
-                     },
-                     templateUrl: '/home/aboutuspartial/'
-                 },
-                 {
-                     state: 'privacy',
-                     config: {
-                         url: '/privacy/',
-                         data: {
-                             staticPage: true
-                         }
-                     },
-                     templateUrl: '/home/privacypartial/'
-                 },
-                 {
-                     state: 'terms',
-                     config: {
-                         url: '/terms/',
-                         data: {
-                             staticPage: true
-                         }
-                     },
-                     templateUrl: '/home/termspartial/'
-                 },
-                 {
-                     state: 'blog',
-                     config: {
-                         url: '/blog/',
-                         data: {
-                             staticPage: true
-                         }
-                     },
-                     templateUrl: '/home/blog/'
-                 },
+                //{
+                //    state: 'jobs',
+                //    config: {
+                //        url: '/jobs/',
+                //        data: {
+                //            staticPage: true
+                //        }
+                //    },
+                //    templateUrl: '/home/jobs/'
+                //},
+                 //{
+                 //    state: 'abousUs',
+                 //    config: {
+                 //        url: '/aboutus/',
+                 //        data: {
+                 //            staticPage: true
+                 //        }
+                 //    },
+                 //    templateUrl: '/home/aboutuspartial/'
+                 //},
+                 //{
+                 //    state: 'privacy',
+                 //    config: {
+                 //        url: '/privacy/',
+                 //        data: {
+                 //            staticPage: true
+                 //        }
+                 //    },
+                 //    templateUrl: '/home/privacypartial/'
+                 //},
+                 //{
+                 //    state: 'terms',
+                 //    config: {
+                 //        url: '/terms/',
+                 //        data: {
+                 //            staticPage: true
+                 //        }
+                 //    },
+                 //    templateUrl: '/home/termspartial/'
+                 //},
+                 //{
+                 //    state: 'blog',
+                 //    config: {
+                 //        url: '/blog/',
+                 //        data: {
+                 //            staticPage: true
+                 //        }
+                 //    },
+                 //    templateUrl: '/home/blog/'
+                 //},
                   //{
                   //    state: 'help',
                   //    config: {

@@ -95,22 +95,18 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             }
 
         }
-        /// <summary>
-        /// used to get the dashboard and the activity and wall in dashboard
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        [Obsolete]
-        public async Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<BoxDto>(Sql.Dashboard.UserBoxesOld,
-                    new { query.UserId, query.RowsPerPage, query.PageNumber });
+        
+        //[Obsolete]
+        //public async Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<BoxDto>(Sql.Dashboard.UserBoxesOld,
+        //            new { query.UserId, query.RowsPerPage, query.PageNumber });
 
-            }
+        //    }
 
-        }
+        //}
         /// <summary>
         /// used to get the dashboard and the activity and wall in dashboard
         /// </summary>
@@ -913,7 +909,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<BoxDto>(Sql.Sql.UserWithFriendBoxes,
+                var retVal = await conn.QueryAsync<BoxDto>(Sql.User.UserWithFriendBoxes,
                     new
                     {
                         Me = query.UserId,
@@ -929,7 +925,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Item.QuizDto>(Sql.Sql.UserWithFriendQuizzes, new
+                return await conn.QueryAsync<Item.QuizDto>(Sql.User.UserWithFriendQuizzes, new
                 {
                     Me = query.UserId,
                     Myfriend = query.FriendId,
@@ -944,7 +940,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Item.ItemDto>(Sql.Sql.UserWithFriendFiles, new
+                return await conn.QueryAsync<Item.ItemDto>(Sql.User.UserWithFriendFiles, new
                   {
                       Me = query.UserId,
                       Myfriend = query.FriendId,

@@ -3,23 +3,6 @@
     public static class Sql
     {
 
-        //        public const string GetUniversityDataByUserId = @"  select  uWrap.Id as Id, 
-        //                            uWrap.UniversityName  as Name, uWrap.LargeImage as Image,
-        //                            uWrap.UniversityName as UniversityName,
-        //                            uWrap.WebSiteUrl,
-        //                            uWrap.MailAddress,
-        //                            uWrap.FacebookUrl,
-        //                            uWrap.TwitterUrl,
-        //                            uWrap.TwitterWidgetId,
-        //                            uWrap.YouTubeUrl,
-        //                            uWrap.LetterUrl,
-        //                            uWrap.NoOfBoxes as BoxesCount,
-        //							uWrap.NoOfItems + uWrap.NoOfQuizzes as ItemCount,
-        //                            uWrap.NoOfUsers as MemberCount
-        //                            from zbox.University uWrap  
-        //                            where 
-        //                             uWrap.Id =@UniversityWrapper";
-
 
         /// <summary>
         /// Used in user page to bring friends
@@ -52,109 +35,9 @@ from zbox.university uWrap
 where uWrap.Id = @UniversityId";
 
 
-        /// <summary>
-        /// Used in user page to get boxes common with current user and his friend
-        /// </summary>
-        public const string UserWithFriendBoxes = @"select 
-b.boxid as id,
-b.BoxName as boxName,
-        COALESCE( uMe.UserType,0) as userType,
-        b.quizcount + b.itemcount as ItemCount,
-        b.MembersCount as MembersCount,
-        b.commentcount as CommentCount,
-        b.CourseCode,
-        b.ProfessorName,
-        b.Discriminator as boxType,
-        b.Url as Url
-        from 
-    zbox.UserBoxRel uFriend
-    join zbox.box b on b.BoxId = uFriend.BoxId and b.IsDeleted = 0
-    left join zbox.UserBoxRel uMe on b.BoxId = uMe.BoxId and uMe.UserId = @Me
-    where uFriend.UserId = @Myfriend
-    and (b.PrivacySetting = 3 or uMe.UserId = @Me)
-	ORDER BY b.UpdateTime desc
-    offset @pageNumber*@rowsperpage ROWS
-    FETCH NEXT @rowsperpage ROWS ONLY;";
+       
 
-        /// <summary>
-        /// Used in user page to get files common with current user
-        /// </summary>
-        public const string UserWithFriendFiles = @"select i.ItemId as id,
-i.blobname as source, 
-i.CreationTime as date,
-i.LikeCount as likes,
-i.Content,
-i.NumberOfViews as numOfViews,
-i.Name as name,
-i.url as Url,
-i.Discriminator as Type,
-b.BoxId as boxId
-
-                        from zbox.item i 
-                        join zbox.box b on i.boxid = b.BoxId and b.IsDeleted = 0
-                        left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
-                        where i.UserId = @Myfriend
-                        and i.IsDeleted = 0
-                        and (b.PrivacySetting = 3 or 
-                         ub.UserId = @Me)
-                        order by i.itemid desc
-    offset @pageNumber*@rowsperpage ROWS
-    FETCH NEXT @rowsperpage ROWS ONLY;";
-
-        /// <summary>
-        /// Used in user page to get quizzes common with current user
-        /// </summary>
-        public const string UserWithFriendQuizzes = @"select q.Id as id,
-q.url as Url,
-q.Name as name,
-q.Rate as rate,
-q.NumberOfViews as numOfViews
-                        from zbox.Quiz q 
-                        join zbox.box b on q.boxid = b.BoxId and b.IsDeleted = 0
-                        left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
-                        where q.UserId = @Myfriend
-                        and q.IsDeleted = 0
-						and q.Publish = 1
-                        and (b.PrivacySetting = 3 or 
-                         ub.UserId = @Me)
-                        order by q.Id desc
-    offset @pageNumber*@rowsperpage ROWS
-    FETCH NEXT @rowsperpage ROWS ONLY;";
-
-        /// <summary>
-        ///  Used in user page to get question common with current user
-        /// </summary>
-        public const string UserWithFriendQuestion = @" select b.BoxName as boxName,q.Text as content, b.BoxId as boxId,
-                        (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
-						b.url as Url, q.QuestionId as id
-                          from zbox.Question q
-                         join zbox.box b on b.BoxId = q.BoxId and b.IsDeleted = 0
-                         left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
-                        where q.UserId = @Myfriend
-                        and q.IsSystemGenerated = 0
-                        and (b.PrivacySetting = 3 or 
-                         ub.UserId = @Me)
-                    order by q.QuestionId desc
-  offset @pageNumber*@rowsperpage ROWS
-    FETCH NEXT @rowsperpage ROWS ONLY;";
-
-        /// <summary>
-        ///  Used in user page to get answers common with current user
-        /// </summary>
-        public const string UserWithFriendAnswer = @"select b.BoxId as boxId, b.BoxName as boxName, q.UserId as qUserId, q.Text as qContent, 
-                   uQuestion.UserImageLarge as qUserImage, uQuestion.UserName as qUserName, a.Text as Content, 
-                   (select count(*) from zbox.Answer a where a.QuestionId = q.QuestionId) as answersCount,
-				  b.url as Url , a.AnswerId as Id
-                 from zbox.Answer a
-                 join zbox.Question q on a.QuestionId = q.QuestionId
-                 join zbox.Users uQuestion on uQuestion.UserId = q.UserId
-                 join zbox.box b on b.BoxId = a.BoxId and b.IsDeleted = 0
-                 left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
-                 where a.UserId = @Myfriend
-                 and (b.PrivacySetting = 3 or  ub.UserId = @Me)
-                 order by a.AnswerId desc
-  offset @pageNumber*@rowsperpage ROWS
-    FETCH NEXT @rowsperpage ROWS ONLY;";
+        
 
 
         /// <summary>
@@ -164,61 +47,23 @@ q.NumberOfViews as numOfViews
 	select b.boxid, q.Text, b.BoxName,q.QuestionId,'comment' as Type, q.CreationTime, null as PostId, b.Url
                           from zbox.Question q
                          join zbox.box b on b.BoxId = q.BoxId and b.IsDeleted = 0
-                         left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
                         where q.UserId = @Myfriend
                         and q.IsSystemGenerated = 0
                         and q.text is not null
-                        and (b.PrivacySetting = 3 or 
-                         ub.UserId = @Me)
+                        and b.Discriminator = 2 
 					union 
 			select b.BoxId, a.Text,b.BoxName,a.AnswerId,'reply', a.CreationTime, a.QuestionId ,b.Url
                  from zbox.Answer a
                  join zbox.box b on b.BoxId = a.BoxId and b.IsDeleted = 0
-                 left join zbox.userboxrel ub on b.BoxId = ub.BoxId and ub.UserId = @Me
                  where a.UserId = @Myfriend
                  and a.text is not null
-                 and (b.PrivacySetting = 3 or  ub.UserId = @Me)
+                 and b.Discriminator = 2 
 				 ) as t
 				 order by t.CreationTime desc
   offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
 
-        /// <summary>
-        ///  Used in user page to get user invites
-        /// </summary>
-        //        public const string UserPersonalInvites = @"
-        //   select i.Image as userImage, i.UserName as username, 
-        // null as boxName,null as boxid, i.email,
-        // i.IsUsed as status, i.TypeOfMsg as InviteType
-        //   from zbox.Invite i
-        //   where senderid =@Me
-        //   and TypeOfMsg = 3
-        //union all
-        //select u.UserImageLarge as userImage, u.UserName as username, 
-        // b.BoxName as boxName,b.boxid as boxid, i.email,
-        // i.IsUsed as status, i.TypeOfMsg as InviteType
-        //   from zbox.Invite i
-        //   inner join zbox.UserBoxRel ub on i.UserBoxRelId = ub.UserBoxRelId
-        //   inner join zbox.Box b on ub.BoxId = b.BoxId
-        //   inner join zbox.Users u on ub.UserId = u.UserId
-        //   where senderid =@Me
-        //   and TypeOfMsg = 2
-        //";
-
-
-        //        public const string UserInvites = @"
-        //select id as MsgId, u.UserImageLarge as userpic,
-        // u.UserName as username, 
-        // i.CreationTime as date,
-        // b.BoxName,
-        //b.Url ,  isRead as [IsRead]
-        //from zbox.UserBoxRel ub
-        //join zbox.Invite i on ub.UserBoxRelId = i.UserBoxRelId and i.IsUsed = 0  and i.isdeleted = 0
-        //join zbox.Users u on i.SenderId = u.UserId
-        //join zbox.box b on ub.BoxId = b.BoxId and b.isdeleted = 0
-        //where ub.UserType = 1
-        //and ub.UserId = @userid
-        //order by isRead asc, i.CreationTime desc ";
+        
 
         public const string RecommendedCourses =
             @"select top(3) b.BoxId, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,

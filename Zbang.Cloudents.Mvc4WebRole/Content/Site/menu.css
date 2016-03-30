@@ -10,14 +10,11 @@
   width: 19px;
   height: 19px;
 }
-.page-sidebar-menu .dashboard.icon svg,
-.page-sidebar-menu .help.icon svg,
-.page-sidebar-menu .logout.icon svg {
+.page-sidebar-menu .dashboard.icon svg {
   width: 20px;
   height: 20px;
 }
-.page-sidebar-menu .settings.icon svg,
-.page-sidebar-menu .blog.icon svg {
+.page-sidebar-menu .settings.icon svg {
   width: 21px;
   height: 21px;
 }

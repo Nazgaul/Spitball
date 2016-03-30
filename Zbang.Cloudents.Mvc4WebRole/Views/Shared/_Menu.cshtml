@@ -72,30 +72,30 @@
                     @IndexResources.Settings
                 </md-button>
             </li>
-            <li class="help nav-item">
+            @*<li class="help nav-item">
                 <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" @shouldPostBack href="@Url.RouteUrl("Help")">
                     <span class="icon">
                         @Html.Svg(svgUrl, "headerHelp")
                     </span>
                     @SharedResources.Help
                 </md-button>
-            </li>
-            <li class="blog nav-item">
+            </li>*@
+            @*<li class="blog nav-item">
                 <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("Blog2")')}" @shouldPostBack href="@Url.RouteUrl("Blog2")">
                     <span class="icon">
                         @Html.Svg(svgUrl, "blog")
                     </span>
                     @GeneralResources.Blog
                 </md-button>
-            </li>
-            <li class="logout nav-item">
+            </li>*@
+            @*<li class="logout nav-item">
                 <md-button user-not-register-popup="click" target="_self" ng-click="app.logOut()" href="@Url.Action("logoff","account")">
                     <span class="icon">
                         @Html.Svg(svgUrl, "logOffMenu")
                     </span>
                     @IndexResources.Logout
                 </md-button>
-            </li>
+            </li>*@
             <li class="google-ad nav-item box-ad" hide-xs>
                 <div ng-if="app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459261777271-0"></div>
                 <div ng-if="!app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459255888335-0"></div>

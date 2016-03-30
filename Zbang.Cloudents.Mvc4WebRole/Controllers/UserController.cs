@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
