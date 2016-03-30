@@ -104,6 +104,9 @@ var Login = function () {
                     required: true,
                     email: true
                 },
+                sex: {
+                    required: true
+                },
                 Password: {
                     required: true,
                     minlength: 6
@@ -127,6 +130,11 @@ var Login = function () {
                 if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
                     error.insertAfter($('#register_tnc_error'));
                     error.insertAfter(element);
+                    return;
+                }
+                if (element.attr("name") == "sex") {
+                    console.log('here');
+                    error.insertAfter($('label[for="female"]'));
                     return;
                 }
                 error.insertAfter(element);

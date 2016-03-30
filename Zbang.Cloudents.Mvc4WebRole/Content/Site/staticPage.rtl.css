@@ -250,9 +250,6 @@ iframe {
     padding-right: calc(100% - 650px);
     min-width: 75px;
   }
-  .static-page-header nav ul li.language ul.dropdown-menu-left {
-    margin-right: calc(100% - 110px);
-  }
 }
 .static-page-header nav ul li.language .arrow {
   width: 0;
@@ -278,7 +275,8 @@ iframe {
   margin: 0 -10px 10px 0;
   background: rgba(255, 255, 255, 0.8);
   font-size: 14px;
-  margin-left: 100%;
+  right: inherit;
+  left: -105px;
 }
 .static-page-header nav ul li.language ul li {
   width: 100%;
