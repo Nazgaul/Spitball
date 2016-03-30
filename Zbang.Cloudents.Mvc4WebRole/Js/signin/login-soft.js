@@ -1,5 +1,4 @@
 var Login = function () {
-    console.log('woop');
     var forgotPasswordState = 0,
         loginState = 1,
         signupState = 2;
@@ -159,8 +158,8 @@ var Login = function () {
 
         jQuery('.signin-btn, #login-btn, .forgot-password-form .cancel').click(function () {
             document.body.scrollTop = 0;
-            jQuery('.login-form').removeClass('hidden').fadeIn();
             jQuery('.register-form, .forgot-password-form').hide();
+            jQuery('.login-form').removeClass('hidden').fadeIn();
             pushState(loginState);
             ga('send', 'pageview', '/account/signin');
             //trackConversion();
@@ -169,8 +168,8 @@ var Login = function () {
 
         jQuery('#forget-password').click(function () {
             document.body.scrollTop = 0;
-            jQuery('.forgot-password-form').removeClass('hidden').fadeIn();
             jQuery('.login-form, .register-form').hide();
+            jQuery('.forgot-password-form').removeClass('hidden').fadeIn();
             pushState(forgotPasswordState);
             ga('send', 'pageview', '/account/resetpassword');
             //trackConversion();

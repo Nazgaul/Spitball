@@ -24,3 +24,4 @@
         });
     }
 })();
+//# sourceMappingURL=inlineManual.js.map
