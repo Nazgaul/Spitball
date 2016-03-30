@@ -91,4 +91,3 @@
         };
     }
 })();
-//# sourceMappingURL=userDetails.js.map

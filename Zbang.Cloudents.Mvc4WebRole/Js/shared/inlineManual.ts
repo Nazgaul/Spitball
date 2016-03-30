@@ -9,8 +9,12 @@ declare var inlineManualTracking: any;
         $timeout: ng.ITimeoutService,
         $document: ng.IDocumentService,
         userDetailsFactory: IUserDetailsFactory) {
-
+        var registeredUser: boolean = false;
         userDetailsFactory.init().then((userData) => {
+            if (!userData.id) {
+                return;
+            }
+            registeredUser = true;
             inlineManualTracking = {
                 uid: userData.id,
                 email: userData.email,
@@ -29,7 +33,7 @@ declare var inlineManualTracking: any;
             //var element = $document.find('[ui-view][animation-class]');
 
             $timeout(() => {
-                if (angular.isDefined(inline_manual_player)) {
+                if (registeredUser && angular.isDefined(inline_manual_player)) {
                     inline_manual_player.manualReinit(/*element[0]*/);
                 }
             }, 1000);

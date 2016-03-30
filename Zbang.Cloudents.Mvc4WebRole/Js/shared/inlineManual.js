@@ -4,7 +4,12 @@
     angular.module('app').run(inlineManual);
     inlineManual.$inject = ['$rootScope', '$timeout', '$document', 'userDetailsFactory'];
     function inlineManual($rootScope, $timeout, $document, userDetailsFactory) {
+        var registeredUser = false;
         userDetailsFactory.init().then(function (userData) {
+            if (!userData.id) {
+                return;
+            }
+            registeredUser = true;
             inlineManualTracking = {
                 uid: userData.id,
                 email: userData.email,
@@ -17,11 +22,10 @@
             // Inline manual fix for angular
             //var element = $document.find('[ui-view][animation-class]');
             $timeout(function () {
-                if (angular.isDefined(inline_manual_player)) {
+                if (registeredUser && angular.isDefined(inline_manual_player)) {
                     inline_manual_player.manualReinit();
                 }
             }, 1000);
         });
     }
 })();
-//# sourceMappingURL=inlineManual.js.map
