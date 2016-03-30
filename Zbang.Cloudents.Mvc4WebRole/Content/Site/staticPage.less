@@ -673,12 +673,12 @@ iframe {
 
             .nav-bar {
                 position: relative;
-                max-width: 880px;
+                max-width: 980px;
                 margin: 0 auto;
 
                 button {
                     position: absolute;
-                    top: 4px;
+                    top: 0;
                     padding: 14px 0;
 
                     @media(min-width: 900px) {
@@ -712,13 +712,12 @@ iframe {
 
                     a {
                         display: inline-block;
-                        width: 114px;
+                        width: 131px;
                     }
                 }
 
                 .bx-wrapper {
-                    max-width: 870px;
-                    padding: 0 20px;
+                    padding: 12px 20px;
                 }
 
                 .bx-viewport {
@@ -727,28 +726,57 @@ iframe {
 
                 .items-container {
                     padding: 0 20px;
+                    line-height: 16px;
+                    padding-left: 20px;
 
-                    a {
+                    > div {
                         text-align: center;
-                        line-height: 42px;
-                        color: @textColorWhite;
-                        padding-top: 4px;
-                        border-bottom: 4px solid transparent;
-                        text-decoration: none;
+                        display: inline-block;
+                        border-left: none;
+                        padding: 12px 0;
 
-                        &:hover {
-                            color: @buttonColorBlue;
+                        a:not(.active) {
+                            color: @textColorWhite;
                         }
 
-                        &.active {
-                            border-bottom-color: @buttonColorBlue;
+                        a {
+                            text-align: center;
+                            text-decoration: none;
+
+                            &:hover {
+                                color: @buttonColorBlue;
+                            }
+                        }
+                    }
+                }
+
+                .items-container:not(.bx-wrapper) a {
+                    width: 127px;
+                }
+
+                .bx-wrapper .items-container {
+                    padding: 0;
+
+                    > div {
+                        padding: 0;
+
+                        &:not(:first-child) {
+                            border-left: 1px solid @borderColorLightGrey;
                         }
                     }
                 }
             }
         }
     }
+
+    .static-page-header nav li, .items-container {
+        a.active {
+            font-weight: bold;
+            color: #4190B9;
+        }
+    }
 }
+
 
 .help-page {
     .panel-body {

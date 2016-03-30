@@ -1,11 +1,10 @@
 ﻿var slider = $('.items-container').bxSlider({
     infiniteLoop: false,
-    slideWidth: 110,
+    slideWidth: 130,
     maxSlides: 7,
     pager: false,
     nextSelector: $('.nav-next'),
     prevSelector: $('.nav-prev'),
-    slideMargin: 10,
     hideControlOnEnd: true,
     mode: 'horizontal'
 });
@@ -62,9 +61,9 @@ window.addEventListener("load", function load() {
     $('.mobileLink').click(function (e) {
         ga('send', 'event', 'Mobile Link', e.target.id);
     });
-
-    var active = $('.nav-bar .items-container a[href="/' + window.location.href.split("/")[3] + '/"]').addClass('active');
-    if (slider.length) {
+    var currUrl = window.location.href.split("/")[3];
+    var active = $('.nav-bar .items-container a[href="/' + currUrl + '/"], .static-page-header li a[href="/' + currUrl + '/"]').addClass('active');
+    if (slider.length && window.innerWidth < $('.nav-bar').width()+40) {
         slider.goToSlide($('.items-container a').index(active));
     }
 
