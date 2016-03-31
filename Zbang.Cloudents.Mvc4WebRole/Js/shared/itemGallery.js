@@ -57,9 +57,11 @@ function createGallery(imageContainer) {
 
     thumbnails.click(function () {
         openImage($(this), thumbnails);
+        $('body').addClass('gallery-open');
         $('.gallery').show();
         $('.close-button').click(function () {
             $('.gallery').hide().find('.image').empty();
+            $('body').removeClass('gallery-open');
         });
     });
 
