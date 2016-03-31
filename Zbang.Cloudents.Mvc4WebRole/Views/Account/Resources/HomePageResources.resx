@@ -161,27 +161,22 @@
     <value>Spitball in a Nutshell</value>
   </data>
   <data name="D2" xml:space="preserve">
-    <value>Spitball’s crowdsourcing technology enables students to find and share study material, ask and answer questions and create online quizzes for themselves and their peers. 
-</value>
+    <value>Spitball’s study App enables students to find and share study materials, interact with their classmates, create online quizzes and get better grades.</value>
   </data>
   <data name="D3" xml:space="preserve">
-    <value>Connect with your classmates online directly or through the class discussion
-</value>
+    <value>Connect with your classmates online, via the class feed.</value>
   </data>
   <data name="D4" xml:space="preserve">
-    <value>Access course specific materials to study with more efficiency  
-</value>
+    <value>Study more efficiently and get direct access to all of your courses' study materials.</value>
   </data>
   <data name="D5" xml:space="preserve">
-    <value>Access all our services with your smartphone using Spitball Free Apps
-</value>
+    <value>Access all of Spitball’s services directly from your smartphone using Spitball’s free app.</value>
   </data>
   <data name="D6" xml:space="preserve">
-    <value>Spitball helps you get the grades you want for every exam 
-</value>
+    <value>Improve your grades by solving quizzes and sharing your knowledge with your classmates.</value>
   </data>
   <data name="F1" xml:space="preserve">
-    <value>Get the App</value>
+    <value>Get Spitball App</value>
   </data>
   <data name="F2" xml:space="preserve">
     <value>Study socially on your smartphone, laptop and tablet anytime, anywhere</value>
@@ -248,7 +243,7 @@ classmates, swap notes and exchange ideas, for FREE.</value>
     <value>Spitball even faster through</value>
   </data>
   <data name="A10" xml:space="preserve">
-    <value>Shared Notes</value>
+    <value>Shared Documents</value>
   </data>
   <data name="A11" xml:space="preserve">
     <value>Mobile App</value>
@@ -269,15 +264,15 @@ classmates, swap notes and exchange ideas, for FREE.</value>
     <value>download to your phone, laptop and tablet</value>
   </data>
   <data name="D3H" xml:space="preserve">
-    <value></value>
+    <value>Interact with your friends</value>
   </data>
   <data name="D4H" xml:space="preserve">
-    <value></value>
+    <value>Study Smarter</value>
   </data>
   <data name="D5H" xml:space="preserve">
-    <value></value>
+    <value>Get our mobile app</value>
   </data>
   <data name="D6H" xml:space="preserve">
-    <value></value>
+    <value>Get Better grades</value>
   </data>
 </root>

@@ -331,7 +331,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User Page.
+        ///   Looks up a localized string similar to My Profile.
         /// </summary>
         public static string User {
             get {

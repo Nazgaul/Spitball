@@ -673,6 +673,9 @@ iframe {
   max-width: 100%;
   height: inherit;
 }
+.help-page .panel-body li {
+  margin-left: 15px;
+}
 .help-page #main-accordion {
   padding: 0 10px;
 }
@@ -1485,3 +1488,9 @@ iframe {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
+/*#region cssCheck*/
+#cssCheck {
+  position: absolute;
+  top: -2000px;
+}
+/*#endregion*/

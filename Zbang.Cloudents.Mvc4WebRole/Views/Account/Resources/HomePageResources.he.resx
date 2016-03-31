@@ -161,22 +161,25 @@
     <value>ספיטבול על קצה המזלג</value>
   </data>
   <data name="D2" xml:space="preserve">
-    <value>ספיטבול מאפשרת לסטודנטים להתחבר עם חבריהם לכיתה, לשתף חומרי לימוד, לשאול, לענות ולדון בנושאים אקדמיים הרלוונטיים לנושאי הלימוד שלהם ולפתור מבחנים שהם עצמם יוצרים</value>
+    <value>ספיטבול מאפשרת לסטודנטים להתחבר עם חבריהם לכיתה, לשתף חומרי לימוד, לשאול, לענות ולדון בנושאים אקדמיים הרלוונטיים לנושאי הלימוד שלהם, לפתור מבחנים שהם עצמם יוצרים ולקבל ציונים טובים יותר.
+</value>
   </data>
   <data name="D3" xml:space="preserve">
-    <value>באמצעות "עדכונים" תוכלו להיעזר בחבריכם לכיתה, לעורר דיונים, לשאול ולענות על שאלות.</value>
+    <value>היעזרו בחבריכם לכיתה, עוררו דיונים וקבלו תשובות לכל השאלות.
+</value>
   </data>
   <data name="D4" xml:space="preserve">
-    <value>מעל 300,000 סיכומים, מבחנים ומאמרים המסודרים לפי הקורסים שלכם כבר מחכים בפנים! </value>
+    <value>מצאו מעל ל-300,000 סיכומים, מבחנים ומאמרים המסודרים לפי הקורסים שלכם ומחכים רק לכם!
+</value>
   </data>
   <data name="D5" xml:space="preserve">
-    <value>תהנו מספיטבול בכל מקום באמצעות האפליקציה החינמית של ספיטבול לנייד</value>
+    <value>תהנו מספיטבול בכל מקום באמצעות האפליקציה החינמית של ספיטבול לנייד.</value>
   </data>
   <data name="D6" xml:space="preserve">
-    <value>ספיטבול עוזרת לכם להשיג את הציונים שאתם רוצים </value>
+    <value>שפרו את הציונים שלכם, פתרו מבחנים וחלקו את הידע עם חבריכם לכיתה.</value>
   </data>
   <data name="F1" xml:space="preserve">
-    <value>הורידו את האפליציה לנייד</value>
+    <value>הורידו את אפליקציית ספיטבול</value>
   </data>
   <data name="F2" xml:space="preserve">
     <value>למדו ביחד על גבי המחשב האישי או במכשיר הנייד, למידה חברתית בכל זמן ובכל מקום</value>
@@ -263,5 +266,17 @@
   </data>
   <data name="B4b" xml:space="preserve">
     <value>במחשב, בנייד או בטאבלט</value>
+  </data>
+  <data name="D3H" xml:space="preserve">
+    <value>למדו יחד</value>
+  </data>
+  <data name="D4H" xml:space="preserve">
+    <value>למדו בצורה חכמה</value>
+  </data>
+  <data name="D5H" xml:space="preserve">
+    <value>הורידו את האפליקצייה</value>
+  </data>
+  <data name="D6H" xml:space="preserve">
+    <value>קבלו ציונים טובים יותר</value>
   </data>
 </root>

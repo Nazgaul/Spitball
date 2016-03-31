@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shared Notes.
+        ///   Looks up a localized string similar to Shared Documents.
         /// </summary>
         public static string A10 {
             get {
@@ -261,8 +261,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spitball’s crowdsourcing technology enables students to find and share study material, ask and answer questions and create online quizzes for themselves and their peers. 
-        ///.
+        ///   Looks up a localized string similar to Spitball’s study App enables students to find and share study materials, interact with their classmates, create online quizzes and get better grades..
         /// </summary>
         public static string D2 {
             get {
@@ -271,8 +270,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connect with your classmates online directly or through the class discussion
-        ///.
+        ///   Looks up a localized string similar to Connect with your classmates online, via the class feed..
         /// </summary>
         public static string D3 {
             get {
@@ -281,7 +279,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Interact with your friends.
         /// </summary>
         public static string D3H {
             get {
@@ -290,8 +288,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Access course specific materials to study with more efficiency  
-        ///.
+        ///   Looks up a localized string similar to Study more efficiently and get direct access to all of your courses&apos; study materials..
         /// </summary>
         public static string D4 {
             get {
@@ -300,7 +297,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Study Smarter.
         /// </summary>
         public static string D4H {
             get {
@@ -309,8 +306,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Access all our services with your smartphone using Spitball Free Apps
-        ///.
+        ///   Looks up a localized string similar to Access all of Spitball’s services directly from your smartphone using Spitball’s free app..
         /// </summary>
         public static string D5 {
             get {
@@ -319,7 +315,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Get our mobile app.
         /// </summary>
         public static string D5H {
             get {
@@ -328,8 +324,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spitball helps you get the grades you want for every exam 
-        ///.
+        ///   Looks up a localized string similar to Improve your grades by solving quizzes and sharing your knowledge with your classmates..
         /// </summary>
         public static string D6 {
             get {
@@ -338,7 +333,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Get Better grades.
         /// </summary>
         public static string D6H {
             get {
@@ -347,7 +342,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get the App.
+        ///   Looks up a localized string similar to Get Spitball App.
         /// </summary>
         public static string F1 {
             get {

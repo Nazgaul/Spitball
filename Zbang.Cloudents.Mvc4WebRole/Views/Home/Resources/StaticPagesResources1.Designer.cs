@@ -160,16 +160,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check out Spitball&apos;s variety of class notes and articles!.
+        ///   Looks up a localized string similar to Here’s a sample of Spitball’s 270,000 documents. .
         /// </summary>
-        public static string ClassNotesSubtitle {
+        public static string ClassNotesSubtitleA {
             get {
-                return ResourceManager.GetString("ClassNotesSubtitle", resourceCulture);
+                return ResourceManager.GetString("ClassNotesSubtitleA", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Class Notes.
+        ///   Looks up a localized string similar to  for free to find the documents relevant to you!.
+        /// </summary>
+        public static string ClassNotesSubtitleB {
+            get {
+                return ResourceManager.GetString("ClassNotesSubtitleB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shared Documents.
         /// </summary>
         public static string ClassNotesTitle {
             get {
@@ -178,11 +187,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check out Spitball&apos;s variety of courses!.
+        ///   Looks up a localized string similar to Check out spitball&apos;s top courses. .
         /// </summary>
-        public static string CoursesSubtitle {
+        public static string CoursesSubtitleA {
             get {
-                return ResourceManager.GetString("CoursesSubtitle", resourceCulture);
+                return ResourceManager.GetString("CoursesSubtitleA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  for free to find your course!.
+        /// </summary>
+        public static string CoursesSubtitleB {
+            get {
+                return ResourceManager.GetString("CoursesSubtitleB", resourceCulture);
             }
         }
         
@@ -219,15 +237,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         public static string FeaturesDescriptionC {
             get {
                 return ResourceManager.GetString("FeaturesDescriptionC", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sign up for free.
-        /// </summary>
-        public static string FeaturesDescriptionD {
-            get {
-                return ResourceManager.GetString("FeaturesDescriptionD", resourceCulture);
             }
         }
         
@@ -561,6 +570,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         public static string ProductTitle {
             get {
                 return ResourceManager.GetString("ProductTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign up for free.
+        /// </summary>
+        public static string SignUpForFree {
+            get {
+                return ResourceManager.GetString("SignUpForFree", resourceCulture);
             }
         }
     }
