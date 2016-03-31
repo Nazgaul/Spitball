@@ -172,16 +172,16 @@
     <value>Spitball’s app</value>
   </data>
   <data name="ClassNotesTitle" xml:space="preserve">
-    <value>Class Notes</value>
+    <value>Shared Documents</value>
   </data>
-  <data name="ClassNotesSubtitle" xml:space="preserve">
-    <value>Check out Spitball's variety of class notes and articles!</value>
+  <data name="ClassNotesSubtitleA" xml:space="preserve">
+    <value>Here’s a sample of Spitball’s 270,000 documents. </value>
   </data>
   <data name="CoursesTitle" xml:space="preserve">
     <value>Courses</value>
   </data>
-  <data name="CoursesSubtitle" xml:space="preserve">
-    <value>Check out Spitball's variety of courses!</value>
+  <data name="CoursesSubtitleA" xml:space="preserve">
+    <value>Check out spitball's top courses. </value>
   </data>
   <data name="FeaturesDescriptionA" xml:space="preserve">
     <value>Spitball can help revolutionize the way you study: Whether you’ve missed your last class and are scrambling to get </value>
@@ -192,7 +192,7 @@
   <data name="FeaturesDescriptionC" xml:space="preserve">
     <value>, have a question regarding a particularly annoying assignment, or just looking for a way to test your knowledge before your finals - Spitball has got you covered! </value>
   </data>
-  <data name="FeaturesDescriptionD" xml:space="preserve">
+  <data name="SignUpForFree" xml:space="preserve">
     <value>Sign up for free</value>
   </data>
   <data name="FeaturesDescriptionE" xml:space="preserve">
@@ -284,5 +284,11 @@
   </data>
   <data name="ProductTextJ" xml:space="preserve">
     <value>Open your free Spitball account today!</value>
+  </data>
+  <data name="ClassNotesSubtitleB" xml:space="preserve">
+    <value> for free to find the documents relevant to you!</value>
+  </data>
+  <data name="CoursesSubtitleB" xml:space="preserve">
+    <value> for free to find your course!</value>
   </data>
 </root>

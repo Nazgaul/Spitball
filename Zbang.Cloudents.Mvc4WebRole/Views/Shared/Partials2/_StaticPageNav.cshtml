@@ -10,13 +10,13 @@
     <div class="nav-bar">
         <button type="button" class="nav-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
         <div class="items-container">
-            <a href="@Url.RouteUrl("AboutUs")">@HomeResources.AboutCloudents</a>
-            <a href="@Url.RouteUrl("Help")">@SharedResources.Help</a>
-            <a href="@Url.RouteUrl("Privacy")">@FooterResources.PrivacyPolicy</a>
-            <a href="@Url.RouteUrl("TOS")">@FooterResources.TermsOfService</a>
-            <a href="@Url.RouteUrl("Advertise")">@SharedResources.Advertise</a>
-            <a href="@Url.RouteUrl("Jobs")">@SharedResources.Jobs</a>
-            <a href="@Url.RouteUrl("Blog2")">@HomePageResources.A8</a>
+            <div><a href="@Url.RouteUrl("AboutUs")"><span>@HomeResources.AboutCloudents</span></a></div>
+            <div><a href="@Url.RouteUrl("Help")"><span>@SharedResources.Help</span></a></div>
+            <div><a href="@Url.RouteUrl("Privacy")"><span>@FooterResources.PrivacyPolicy</span></a></div>
+            <div><a href="@Url.RouteUrl("TOS")"><span>@FooterResources.TermsOfService</span></a></div>
+            <div><a href="@Url.RouteUrl("Advertise")"><span>@SharedResources.Advertise</span></a></div>
+            <div><a href="@Url.RouteUrl("Jobs")"><span>@SharedResources.Jobs</span></a></div>
+            <div><a href="@Url.RouteUrl("Blog2")"><span>@HomePageResources.A8</span></a></div>
         </div>
         <button type="button" class="nav-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
     </div>

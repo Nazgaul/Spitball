@@ -138,4 +138,7 @@
   <data name="LeaderboardTitle" xml:space="preserve">
     <value>הסטודנט המצטיין</value>
   </data>
+  <data name="StudyGroupHeader" xml:space="preserve">
+    <value>צור קובצת לימוד</value>
+  </data>
 </root>

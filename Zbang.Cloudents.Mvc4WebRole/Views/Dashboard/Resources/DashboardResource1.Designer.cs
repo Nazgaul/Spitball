@@ -117,7 +117,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Create Study Group.
         /// </summary>
         public static string StudyGroupHeader {
             get {

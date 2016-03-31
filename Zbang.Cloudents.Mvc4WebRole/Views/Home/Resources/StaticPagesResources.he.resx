@@ -171,14 +171,15 @@
   <data name="ClassNotesTitle" xml:space="preserve">
     <value>חומרי לימוד</value>
   </data>
-  <data name="ClassNotesSubtitle" xml:space="preserve">
-    <value>מגוון חומרי לימוד, סיכומים ומאמרים מחכים לכם בספיטבול!</value>
+  <data name="ClassNotesSubtitleA" xml:space="preserve">
+    <value>הנה דוגמה לרק כמה מ-  המסמכים הקיימים בספיטבול. 270,000</value>
   </data>
   <data name="CoursesTitle" xml:space="preserve">
     <value>קורסים</value>
   </data>
-  <data name="CoursesSubtitle" xml:space="preserve">
-    <value>מגוון קורסים מחכים לכם בספיטבול!</value>
+  <data name="CoursesSubtitleA" xml:space="preserve">
+    <value>מגוון קורסים מחכים לכם בספיטבול,
+</value>
   </data>
   <data name="ProductTextBegining" xml:space="preserve">
     <value>עקבו אחרי מספר שלבים פשוטים ותתחילו להשתמש בספיטבול כמו מקצוענים אמיתיים:</value>
@@ -192,8 +193,8 @@
   <data name="FeaturesDescriptionC" xml:space="preserve">
     <value> באופן נואש, יש לכם שאלה לגביי עבודה מציקה שיש להגיש בקרוב, או שאתם מחפשים דרך פשוטה לבחון את הידע שלכם לפני הבחינה הגדולה - ספיטבול כאן בשביל לעזור לכם! </value>
   </data>
-  <data name="FeaturesDescriptionD" xml:space="preserve">
-    <value>הרשמו בחינם</value>
+  <data name="SignUpForFree" xml:space="preserve">
+    <value>פתחו חשבון חינמי</value>
   </data>
   <data name="FeaturesDescriptionE" xml:space="preserve">
     <value>, בחרו את האוניברסיטה/מכללה שלכם ואת הקורס המבוקש ותתחילו לחלוק מידע עם חבריכם לכיתה בעזרת ספיטבול.</value>
@@ -284,5 +285,11 @@
   </data>
   <data name="AppsSectionTitle3B" xml:space="preserve">
     <value />
+  </data>
+  <data name="ClassNotesSubtitleB" xml:space="preserve">
+    <value> ומצאו את חומרי הלימוד הרלוונטיים לכם!</value>
+  </data>
+  <data name="CoursesSubtitleB" xml:space="preserve">
+    <value> ומצאו את הקורס שלכם!</value>
   </data>
 </root>

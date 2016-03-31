@@ -143,6 +143,6 @@ your friends in private settings</value>
     <value>Top of the school</value>
   </data>
   <data name="StudyGroupHeader" xml:space="preserve">
-    <value></value>
+    <value>Create Study Group</value>
   </data>
 </root>
