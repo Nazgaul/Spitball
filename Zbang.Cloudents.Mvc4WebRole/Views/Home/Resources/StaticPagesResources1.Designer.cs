@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  for free to find the documents relevant to you!.
+        ///   Looks up a localized string similar to  to get full access!.
         /// </summary>
         public static string ClassNotesSubtitleB {
             get {
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  for free to find your course!.
+        ///   Looks up a localized string similar to  to find your course!.
         /// </summary>
         public static string CoursesSubtitleB {
             get {
