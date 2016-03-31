@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Zbang.Zbox.ViewModel.Dto.ItemDtos.ItemDto>
+﻿@*@model IEnumerable<Zbang.Zbox.ViewModel.Dto.ItemDtos.ItemDto>*@
 
 @using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
 
@@ -16,31 +16,17 @@
             <a href="@Url.RouteUrl("signup")" target="_blank">@StaticPagesResources.SignUpForFree</a>
             @StaticPagesResources.ClassNotesSubtitleB
         </h2>
-        <ul class="items">
-
-            @foreach (var item in Model)
-            {
-                <li>
-                    <a class="clearfix item" href="@item.Url">
-                        <div class="wrapper">
-                            <div class="data">
-                                <img data-source="@item.Source" src="" width="368" height="520" alt="@item.Name" />
-                                <div class="extra">
-                                    <h3 class="item-name multi-line-ellipsis">@item.Name</h3>
-                                </div>
-                            </div>
-                            <div class="stats">
-                                <div>
-                                    @item.NumOfViews<svg><use xlink:href="/images/site/box-icons.svg?16.3.8#eye" /></svg>
-                                </div>
-                                <div>
-                                    @item.Likes <svg><use xlink:href="/images/site/box-icons.svg?16.3.8#like" /></svg>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-            }
-        </ul>
+        <div class="gallery-images">
+            <ul class="thumbnails">
+                @{
+                    for (var i = 1; i < 21; i++)
+                    {
+                        <li id="thumb-@i">
+                            <img src="@Url.CdnContent("~/images/ClassNotes/thumbnails/" + @i + ".png")" data-image="@Url.CdnContent("~/images/ClassNotes/items/" + @i + ".png")" alt="Class note thumbnail" />
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
     </div>
 </div>

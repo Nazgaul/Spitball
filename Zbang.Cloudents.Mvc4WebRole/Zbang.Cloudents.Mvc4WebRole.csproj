@@ -1487,6 +1487,12 @@
     <Content Include="Content\Site\item.rtl.min.css">
       <DependentUpon>item.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\itemGallery.css">
+      <DependentUpon>itemGallery.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\itemGallery.rtl.css">
+      <DependentUpon>itemGallery.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\leaderboard.css">
       <DependentUpon>leaderboard.less</DependentUpon>
     </Content>
@@ -1706,6 +1712,46 @@
     <Content Include="Images\aboutUs\ram.png" />
     <Content Include="Images\aboutUs\shlomi.png" />
     <Content Include="Images\bx_loader.gif" />
+    <Content Include="Images\ClassNotes\items\1.png" />
+    <Content Include="Images\ClassNotes\items\10.png" />
+    <Content Include="Images\ClassNotes\items\11.png" />
+    <Content Include="Images\ClassNotes\items\12.png" />
+    <Content Include="Images\ClassNotes\items\13.png" />
+    <Content Include="Images\ClassNotes\items\14.png" />
+    <Content Include="Images\ClassNotes\items\15.png" />
+    <Content Include="Images\ClassNotes\items\16.png" />
+    <Content Include="Images\ClassNotes\items\17.png" />
+    <Content Include="Images\ClassNotes\items\18.png" />
+    <Content Include="Images\ClassNotes\items\19.png" />
+    <Content Include="Images\ClassNotes\items\2.png" />
+    <Content Include="Images\ClassNotes\items\20.png" />
+    <Content Include="Images\ClassNotes\items\3.png" />
+    <Content Include="Images\ClassNotes\items\4.png" />
+    <Content Include="Images\ClassNotes\items\5.png" />
+    <Content Include="Images\ClassNotes\items\6.png" />
+    <Content Include="Images\ClassNotes\items\7.png" />
+    <Content Include="Images\ClassNotes\items\8.png" />
+    <Content Include="Images\ClassNotes\items\9.png" />
+    <Content Include="Images\ClassNotes\thumbnails\1.png" />
+    <Content Include="Images\ClassNotes\thumbnails\10.png" />
+    <Content Include="Images\ClassNotes\thumbnails\11.png" />
+    <Content Include="Images\ClassNotes\thumbnails\12.png" />
+    <Content Include="Images\ClassNotes\thumbnails\13.png" />
+    <Content Include="Images\ClassNotes\thumbnails\14.png" />
+    <Content Include="Images\ClassNotes\thumbnails\15.png" />
+    <Content Include="Images\ClassNotes\thumbnails\16.png" />
+    <Content Include="Images\ClassNotes\thumbnails\17.png" />
+    <Content Include="Images\ClassNotes\thumbnails\18.png" />
+    <Content Include="Images\ClassNotes\thumbnails\19.png" />
+    <Content Include="Images\ClassNotes\thumbnails\2.png" />
+    <Content Include="Images\ClassNotes\thumbnails\20.png" />
+    <Content Include="Images\ClassNotes\thumbnails\3.png" />
+    <Content Include="Images\ClassNotes\thumbnails\4.png" />
+    <Content Include="Images\ClassNotes\thumbnails\5.png" />
+    <Content Include="Images\ClassNotes\thumbnails\6.png" />
+    <Content Include="Images\ClassNotes\thumbnails\7.png" />
+    <Content Include="Images\ClassNotes\thumbnails\8.png" />
+    <Content Include="Images\ClassNotes\thumbnails\9.png" />
     <Content Include="Images\controls.png" />
     <Content Include="Images\Features\app.png" />
     <Content Include="Images\Features\courses_en.png" />
@@ -1854,6 +1900,7 @@
     <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\intercom.js" />
+    <Content Include="Js\shared\itemGallery.js" />
     <Content Include="Js\shared\staticPages.js" />
     <TypeScriptCompile Include="Js\components\box\addToAny.directive.ts" />
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
@@ -2008,6 +2055,7 @@
       <DependentUpon>testimonials_en.jpg</DependentUpon>
     </Content>
     <Content Include="Content\Site\staticPage.less" />
+    <Content Include="Content\Site\itemGallery.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

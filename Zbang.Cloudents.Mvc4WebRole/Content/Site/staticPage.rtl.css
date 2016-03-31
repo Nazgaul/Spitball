@@ -1155,108 +1155,24 @@ iframe {
   text-align: center;
   margin-bottom: 20px;
 }
-.class-notes-page .items {
-  list-style: none;
-  padding-right: 0;
-  max-width: 1060px;
-  margin: 0 auto;
-  /*@media(max-width:530px) {
-            max-width: 285px;
-
-            li {
-                width: 140px;
-            }
-
-            li .item .wrapper {
-                width: 120px;
-            }
-        }*/
-}
-@media (max-width: 1030px) {
-  .class-notes-page .items {
-    max-width: 880px;
-  }
-}
-@media (max-width: 850px) {
-  .class-notes-page .items {
-    max-width: 700px;
-  }
-}
-@media (max-width: 700px) {
-  .class-notes-page .items {
-    max-width: 520px;
-  }
-}
-@media (max-width: 500px) {
-  .class-notes-page .items {
-    max-width: 340px;
-  }
-}
-.class-notes-page .items li {
-  display: inline-block;
-  text-align: center;
-  padding: 1% 0;
-}
-.class-notes-page .items li .item {
-  padding: 5px;
-  border: 1px solid #3d4348;
-  display: inline-block;
-  height: 225px;
-  /*img, .stats {
-                    width: inherit;
-                }*/
-}
-.class-notes-page .items li .item:hover {
-  text-decoration: none;
-}
-.class-notes-page .items li .item .data {
-  display: inline-block;
-  position: relative;
-  width: inherit;
-  height: inherit;
-  overflow: hidden;
-}
-.class-notes-page .items li .item .data .extra {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  height: 70px;
-  color: #f5f5f5;
-  opacity: .95;
-  background: #5d6063;
-}
-.class-notes-page .items li .item .data .extra h3 {
-  margin: 5px;
-  font-size: 13px;
-  text-align: right;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
-.class-notes-page .items li .item img {
-  height: auto;
-  height: inherit;
-  width: initial;
-}
-.class-notes-page .items li .item .wrapper {
-  width: 148px;
-  height: 188px;
-}
-.class-notes-page .items li .item .stats {
+.class-notes-page .gallery-images .thumbnails {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  justify-content: space-between;
-  height: initial;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
 }
-.class-notes-page .items li .item .stats div {
-  color: #f5f5f5;
+.class-notes-page .gallery-images .thumbnails li {
+  padding: 10px;
+  cursor: pointer;
 }
-.class-notes-page .items li .item .stats svg {
-  width: 12px;
-  height: 12px;
-  fill: #f5f5f5;
+.class-notes-page .gallery-images .images {
+  list-style: none;
+  padding: 0;
 }
 .product-page .intro-text,
 .features-page .intro-text,

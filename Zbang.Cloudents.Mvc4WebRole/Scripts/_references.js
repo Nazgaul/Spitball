@@ -256,3 +256,4 @@
 /// <reference path="../js/shared/inlinemanual.js" />
 /// <reference path="../js/shared/userdetails.js" />
 /// <reference path="../js/components/box/addtoany.directive.js" />
+/// <reference path="../js/shared/itemgallery.js" />
