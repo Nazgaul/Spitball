@@ -39,7 +39,7 @@ when TypeOfMsg = 2 then 50
 else 0
 end as invitesScore
  from zbox.Invite
-where isused = 1 and senderid = 1) t
+where isused = 1 and senderid = @userid) t
 ),
 share as (
 select count(distinct(DATEADD(DAY, DATEDIFF(DAY, 0, r.creationTime), 0)))*50 as shareScore from zbox.Reputation r where r.Action = 7 and r.UserId = @userid )
