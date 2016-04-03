@@ -1854,7 +1854,7 @@
     <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\intercom.js" />
-    <Content Include="Js\shared\staticPages.js" />
+    <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\components\box\addToAny.directive.ts" />
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
     <Content Include="Js\shared\userDetails.js" />
