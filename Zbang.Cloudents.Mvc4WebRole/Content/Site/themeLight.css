@@ -1356,7 +1356,7 @@ Page Loading
   fill: #212325;
 }
 .theme-light .page-body md-sidenav {
-  background: none;
+  background: #e9eaed;
 }
 .theme-light .page-body md-sidenav md-content .md-button {
   color: #212325;

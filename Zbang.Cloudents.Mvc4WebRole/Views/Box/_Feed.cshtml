@@ -61,7 +61,7 @@
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.replies.length">
                             <li class="show-more" ng-if="post.repliesCount > 1 && !post.showReplies">
-                                <span user-not-register-popup="click" ng-click="f.openReply(post)"> @BoxResources.ViewComments {{post.repliesCount-1}} @BoxResources.Comments</span>
+                                <span @*user-not-register-popup="click"*@ ng-click="f.openReply(post)"> @BoxResources.ViewComments {{post.repliesCount-1}} @BoxResources.Comments</span>
                             </li>
                             <li ng-repeat="reply in post.replies track by reply.id" class="reply" ng-if="$last || post.showReplies">
                                 <md-menu ng-if="b.canDelete(reply.userId)">
