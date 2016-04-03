@@ -125,8 +125,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Relax, Spitball brings all the tools you need to communicate with your
-        ///classmates, swap notes and exchange ideas, for FREE..
+        ///   Looks up a localized string similar to Spitball’s study platform enables students to find and share study materials,
+        ///interact with their classmates, create online quizzes and get better grades, for FREE..
         /// </summary>
         public static string A6 {
             get {
@@ -342,7 +342,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get Spitball App.
+        ///   Looks up a localized string similar to Get The Spitball App.
         /// </summary>
         public static string F1 {
             get {

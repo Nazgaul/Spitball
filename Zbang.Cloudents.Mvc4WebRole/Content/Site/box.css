@@ -276,10 +276,6 @@
 .add-comment .upload-options a {
   z-index: 1;
 }
-.add-comment .upload-options a,
-.add-comment .upload-options button {
-  padding: 0;
-}
 .add-comment .google svg:first-child {
   display: none;
 }
