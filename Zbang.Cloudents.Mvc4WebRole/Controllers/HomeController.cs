@@ -351,12 +351,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoutePermanent("Help");
         }
 
-        [OutputCache(Duration = TimeConsts.Minute * 15)]
-        public async Task<JsonResult> StudentAd()
-        {
-            var str = await m_BlobProvider.Value.GetAdHtmlAsync();
-            return JsonOk(str);
-        }
+        //[OutputCache(Duration = TimeConsts.Minute * 15)]
+        //public async Task<JsonResult> StudentAd()
+        //{
+        //    var str = await m_BlobProvider.Value.GetAdHtmlAsync();
+        //    return JsonOk(str);
+        //}
 
 
 
