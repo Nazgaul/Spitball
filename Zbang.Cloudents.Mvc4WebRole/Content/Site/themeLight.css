@@ -1363,7 +1363,7 @@ Page Loading
   fill: #212325;
 }
 .theme-light .page-body md-sidenav {
-  background: #ffffff;
+  background: none;
 }
 .theme-light .page-body md-sidenav md-content .md-button {
   color: #212325;
