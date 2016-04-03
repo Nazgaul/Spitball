@@ -6,6 +6,7 @@
         $panel.siblings().removeClass('expanded');
     });
 
+    
     function getCookie(cname) {
         var name = cname + "=";
         var ca = document.cookie.split(';');
@@ -72,6 +73,6 @@
             ga('send', 'event', 'Mobile Link', e.target.id);
         });
 
-
+        createGallery('.gallery-images');
     });
 })()

@@ -37,6 +37,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/staticPage.css",
                             "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
                         "~/content/site/layout.css",
+                        "~/content/site/itemGallery.css"
                         //"~/content/signin/default.css",
                         //"~/content/signin/custom.css",
                     }
@@ -135,6 +136,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/js/signin/staticPages.js")
+                        new JsFileWithCdn("~/js/shared/itemGallery.js")
                     }
                 },
                 {

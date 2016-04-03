@@ -974,7 +974,7 @@ body {
   fill: #f5f5f5;
 }
 .page-body md-sidenav {
-  background: #323538;
+  background: none;
 }
 .page-body md-sidenav md-content .md-button {
   color: #f5f5f5;
