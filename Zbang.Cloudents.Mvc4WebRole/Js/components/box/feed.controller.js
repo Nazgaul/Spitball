@@ -192,8 +192,6 @@
                             return;
                         }
                     }
-                    //console.log(update.itemId);
-
                 }
             }
             if (update.questionId) {
