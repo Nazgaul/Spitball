@@ -291,4 +291,10 @@
   <data name="CoursesSubtitleB" xml:space="preserve">
     <value> to find your course!</value>
   </data>
+  <data name="CoursesExtra" xml:space="preserve">
+    <value>Find courses that are relevant to you by</value>
+  </data>
+  <data name="CoursesSigningUp" xml:space="preserve">
+    <value>signing up</value>
+  </data>
 </root>

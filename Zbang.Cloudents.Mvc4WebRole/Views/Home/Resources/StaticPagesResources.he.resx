@@ -292,4 +292,10 @@
   <data name="CoursesSubtitleB" xml:space="preserve">
     <value> ומצאו את הקורס שלכם!</value>
   </data>
+  <data name="CoursesExtra" xml:space="preserve">
+    <value>למציאת הקורס שלכם</value>
+  </data>
+  <data name="CoursesSigningUp" xml:space="preserve">
+    <value>הירשמו עכשיו</value>
+  </data>
 </root>

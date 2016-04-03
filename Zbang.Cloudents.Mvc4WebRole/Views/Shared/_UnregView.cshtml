@@ -3,14 +3,16 @@
 
 @{
     ViewBag.postBag = ViewBag.postBag ?? false;
-    var socialIconsSvg = "~/images/site/social-icons.svg";
+    const string socialIconsSvg = "~/images/site/social-icons.svg";
 }
 @if (User != null && !User.Identity.IsAuthenticated && !ViewBag.postBag)
 {
     <div class="unreg-user">
         <div class="content-wrapper noHeight text-center" unregister-show>
+            
             <div class="content" ng-controller="UnregisterShowController as ur">
                 <div class="text">
+                    <button type="button" ng-click="ur.close()">@Html.Svg("~/images/site/icons.svg", "close")</button>
                     <p class="large">@GeneralResources.UnregHeader</p>
                     <p class="normal">@GeneralResources.UnregSubtitle</p>
                 </div>
@@ -29,15 +31,11 @@
                             </div>
                         </button>
                     </div>
-                    <a href="@Url.Action("SignUp", "Account", new { returnUrl = Request.Url })" target="_self" class="login-option signup os-animation"
-                       target="_self">
+                    <a href="@Url.RouteUrl("signup", new { returnUrl = Request.Url })" target="_self" class="login-option signup os-animation">
                         @HomePageResources.A5
                     </a>
-                    @*<button type="button" class="login-option signup os-animation">
-                        @HomePageResources.A5
-                    </button>*@
-                </div>
                 </div>
             </div>
+        </div>
         </div>
         }

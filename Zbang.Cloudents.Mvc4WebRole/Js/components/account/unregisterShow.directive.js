@@ -17,9 +17,9 @@
                 $rootScope.$on('show-unregisterd-box-medium', function () {
                     element.removeClass(css).addClass('mediumHeight');
                 });
-                $rootScope.$on('show-unregisterd-box-large', function () {
-                    element.removeClass(css).addClass('largeHeight');
-                });
+                //$rootScope.$on('show-unregisterd-box-large', function () {
+                //    element.removeClass(css).addClass('largeHeight');
+                //});
 
             }
         };
@@ -54,9 +54,9 @@
                         $rootScope.$broadcast('show-unregisterd-box');
                         if (scrollPos > windowHeight * 0.5) {
                             $rootScope.$broadcast('show-unregisterd-box-medium');
-                            if (scrollPos > windowHeight * 0.75) {
-                                $rootScope.$broadcast('show-unregisterd-box-large');
-                            }
+                            //if (scrollPos > windowHeight * 0.75) {
+                            //    $rootScope.$broadcast('show-unregisterd-box-large');
+                            //}
                         }
                     } else {
                         $rootScope.$broadcast('hide-unregisterd-box');
