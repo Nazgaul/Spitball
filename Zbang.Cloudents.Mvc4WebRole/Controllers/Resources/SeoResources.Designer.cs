@@ -133,33 +133,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Study and share your class notes for {0}, online or via the Spitball app. Use Spitball for free today!.
-        /// </summary>
-        internal static string BoxMetaDescription {
-            get {
-                return ResourceManager.GetString("BoxMetaDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Notes.
-        /// </summary>
-        internal static string BoxTitleItems {
-            get {
-                return ResourceManager.GetString("BoxTitleItems", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Quizzes.
-        /// </summary>
-        internal static string BoxTitleQuizzes {
-            get {
-                return ResourceManager.GetString("BoxTitleQuizzes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Missed the last class? Spitball got you covered! Access all of your classmates&apos; class notes anytime, anywhere. Join Spitball and open a free account today!.
         /// </summary>
         internal static string ClassNotesMeta {
@@ -174,15 +147,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         internal static string ClassNotesTitle {
             get {
                 return ResourceManager.GetString("ClassNotesTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spitball.
-        /// </summary>
-        internal static string Cloudents {
-            get {
-                return ResourceManager.GetString("Cloudents", resourceCulture);
             }
         }
         
@@ -259,15 +223,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get class notes for free with Spitball:.
-        /// </summary>
-        internal static string ItemMataDescription {
-            get {
-                return ResourceManager.GetString("ItemMataDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Spitball is hiring! Join the social studying revolution and help Spitball build an ever growing community of students. Come and work for us!.
         /// </summary>
         internal static string JobsMeta {
@@ -318,24 +273,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         internal static string ProductTitle {
             get {
                 return ResourceManager.GetString("ProductTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to See how well you are doing in {0} and test yourself with the {1} quiz your classmates have built. Start getting better grades with Spitball!.
-        /// </summary>
-        internal static string QuizMetaDescription {
-            get {
-                return ResourceManager.GetString("QuizMetaDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Quiz.
-        /// </summary>
-        internal static string QuizTitle {
-            get {
-                return ResourceManager.GetString("QuizTitle", resourceCulture);
             }
         }
         

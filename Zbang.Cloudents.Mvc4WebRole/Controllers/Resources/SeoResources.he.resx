@@ -117,18 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BoxMetaDescription" xml:space="preserve">
-    <value>למדו ושתפו את הסיכומים שלך ב{0}, אונליין או באמצעות אפליקציית ספיטבול לנייד. החל להשתמש בספיטבול בחינם עוד היום!</value>
-  </data>
-  <data name="BoxTitleItems" xml:space="preserve">
-    <value>סיכומים</value>
-  </data>
-  <data name="BoxTitleQuizzes" xml:space="preserve">
-    <value>מבחנים</value>
-  </data>
-  <data name="Cloudents" xml:space="preserve">
-    <value>ספיטבול</value>
-  </data>
   <data name="HomePageMeta" xml:space="preserve">
     <value>ברוכים הבאים לספיטבול! כאן תוכלו להוריד סיכומים, לפתוח קבוצות לימוד ולחלוק מידע עם חבריכם לכיתה. הצטרפו למהפכת הלימודים החברתית והורידו את אפליקציית ספיטבול לנייד!</value>
   </data>
@@ -137,9 +125,6 @@
   </data>
   <data name="AboutUsMeta" xml:space="preserve">
     <value>הכירו את ספיטבול - פלטפורמת לימודים חברתית וחינמית אשר נבנתה ע"י סטודנטים ובעבורם. הצטרפו עוד היום למהפכת הלימודים החברתית והורידו את אפליקציית ספיטבול לנייד!</value>
-  </data>
-  <data name="ItemMataDescription" xml:space="preserve">
-    <value>מבחר סיכומים מחכים לך בחינם באפליקציית ספיטבול: </value>
   </data>
   <data name="AboutUsTitle" xml:space="preserve">
     <value>אודות ספיטבול | ספיטבול</value>
@@ -194,12 +179,6 @@
   </data>
   <data name="CoursesTitle" xml:space="preserve">
     <value>קורסים | ספיטבול</value>
-  </data>
-  <data name="QuizTitle" xml:space="preserve">
-    <value>מבחן</value>
-  </data>
-  <data name="QuizMetaDescription" xml:space="preserve">
-    <value>השתמשו במבחנים המקוונים של ספיטבול כדי לבדוק את הרמה שלכם ב  - {0}. בחנו את עצמכם עם מבחן ב{1} שנבנה על ידי חבריכם לכיתה. פתחו חשבון בספיטבול!</value>
   </data>
   <data name="ClassNotesMeta" xml:space="preserve">
     <value>פספסתם את השיעור האחרון? ספיטבול כאן כדי לעזור לכם להשלים את החסר. הורידו סיכומי שיעור בכל זמן ומכל מקום! הצטרפו למהפכת הלימודים החברתית ופתחו חשבון חינמי היום!</value>

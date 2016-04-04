@@ -62,30 +62,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
                 }
-                SeoResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
+                SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
                 if (model.BoxType == BoxType.Box)
                 {
-                    ViewBag.title = string.Format("{0} | {1}", model.Name, SeoResources.Cloudents);
+                    ViewBag.title = string.Format("{0} | {1}", model.Name, SeoBaseUniversityResources.Cloudents);
                     return View("Empty");
                 }
 
 
-                ViewBag.metaDescription = string.Format(SeoResources.BoxMetaDescription, model.Name);
+                ViewBag.metaDescription = string.Format(SeoBaseUniversityResources.BoxMetaDescription, model.Name);
 
                 if (part == "feed" || part == "members")
                 {
                     ViewBag.title = string.Format("{0} - {1} | {2}", model.Name, model.UniversityName,
-                        SeoResources.Cloudents);
+                        SeoBaseUniversityResources.Cloudents);
                 }
                 if (part == "items")
                 {
                     ViewBag.title = string.Format("{3} - {0} - {1} | {2}", model.Name, model.DepartmentName,
-                        SeoResources.Cloudents, SeoResources.BoxTitleItems);
+                        SeoBaseUniversityResources.Cloudents, SeoBaseUniversityResources.BoxTitleItems);
                 }
                 if (part == "quizzes")
                 {
                     ViewBag.title = string.Format("{3} - {0} - {1} | {2}", model.Name, model.DepartmentName,
-                        SeoResources.Cloudents, SeoResources.BoxTitleQuizzes);
+                        SeoBaseUniversityResources.Cloudents, SeoBaseUniversityResources.BoxTitleQuizzes);
                 }
                 return View("Empty");
             }

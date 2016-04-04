@@ -117,94 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutUsMeta" xml:space="preserve">
-    <value>Meet Spitball - A free online and mobile social studying application built by students for students. Join the social studying revolution at Spitball!</value>
+  <data name="BoxMetaDescription" xml:space="preserve">
+    <value>למדו ושתפו את הסיכומים שלך ב{0}, אונליין או באמצעות אפליקציית ספיטבול לנייד. החל להשתמש בספיטבול בחינם עוד היום!</value>
   </data>
-  <data name="AboutUsTitle" xml:space="preserve">
-    <value>About Us | Spitball</value>
+  <data name="Cloudents" xml:space="preserve">
+    <value>ספיטבול</value>
   </data>
-  <data name="HelpMeta" xml:space="preserve">
-    <value>Find out all you need to know about Spitball's system. Get class notes, chat with your friends, create study groups and share your knowledge!</value>
+  <data name="QuizMetaDescription" xml:space="preserve">
+    <value>השתמשו במבחנים המקוונים של ספיטבול כדי לבדוק את הרמה שלכם ב  - {0}. בחנו את עצמכם עם מבחן ב{1} שנבנה על ידי חבריכם לכיתה. פתחו חשבון בספיטבול!</value>
   </data>
-  <data name="HelpTitle" xml:space="preserve">
-    <value>FAQ | Spitball</value>
+  <data name="QuizTitle" xml:space="preserve">
+    <value>מבחן</value>
   </data>
-  <data name="HomePageMeta" xml:space="preserve">
-    <value>Join Spitball's growing community of students! Get class notes, chat with your friends, create study groups and share your knowledge! Open a free account today!</value>
+  <data name="ItemMataDescription" xml:space="preserve">
+    <value>מבחר סיכומים מחכים לך בחינם באפליקציית ספיטבול: </value>
   </data>
-  <data name="HomePageTitle" xml:space="preserve">
-    <value>Free Social Studying App | Spitball</value>
+  <data name="BoxTitleItems" xml:space="preserve">
+    <value>סיכומים</value>
   </data>
-  <data name="JobsMeta" xml:space="preserve">
-    <value>Spitball is hiring! Join the social studying revolution and help Spitball build an ever growing community of students. Come and work for us!</value>
-  </data>
-  <data name="JobsTitle" xml:space="preserve">
-    <value>Jobs | Spitball</value>
-  </data>
-  <data name="PrivacyMeta" xml:space="preserve">
-    <value>At Spitball we take security and privacy very seriously. Your personal information is actively protected by us. Join the social studying revolution at Spitball!</value>
-  </data>
-  <data name="PrivacyTitle" xml:space="preserve">
-    <value>Privacy Policy | Spitball</value>
-  </data>
-  <data name="SignInMeta" xml:space="preserve">
-    <value>Login to Spitball and join the social studying revolution! Get class notes, chat with your friends, create study groups and share your knowledge!</value>
-  </data>
-  <data name="SignInTitle" xml:space="preserve">
-    <value>Login | Spitball</value>
-  </data>
-  <data name="SignUpMeta" xml:space="preserve">
-    <value>Sign up to Spitball and join the social studying revolution! Get class notes, chat with your friends, create study groups and share your knowledge!</value>
-  </data>
-  <data name="SignUpTitle" xml:space="preserve">
-    <value>Sign Up | Spitball</value>
-  </data>
-  <data name="TermsMeta" xml:space="preserve">
-    <value>Find out all you need to know about Spitball's terms of service. Get class notes, chat with your friends, create study groups and share your knowledge!</value>
-  </data>
-  <data name="TermsTitle" xml:space="preserve">
-    <value>Terms of Service | Spitball</value>
-  </data>
-  <data name="AdvertiseWithUsTitle" xml:space="preserve">
-    <value>Advertise with us | Spitball</value>
-  </data>
-  <data name="BlogTitle" xml:space="preserve">
-    <value>Blog | Spitball</value>
-  </data>
-  <data name="AdvertiseWithUsMeta" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BlogMeta" xml:space="preserve">
-    <value />
-  </data>
-  <data name="AppsTitle" xml:space="preserve">
-    <value>Apps | Spitball</value>
-  </data>
-  <data name="AppsMeta" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ClassNotesTitle" xml:space="preserve">
-    <value>Class Notes | Spitball</value>
-  </data>
-  <data name="ClassNotesMeta" xml:space="preserve">
-    <value>Missed the last class? Spitball got you covered! Access all of your classmates' class notes anytime, anywhere. Join Spitball and open a free account today!</value>
-  </data>
-  <data name="CoursesTitle" xml:space="preserve">
-    <value>Courses | Spitball</value>
-  </data>
-  <data name="CoursesMeta" xml:space="preserve">
-    <value>Join Spitball's growing community! Find your course and start chatting with your friends, create study groups and share your knowledge! Open a free account today!</value>
-  </data>
-  <data name="FeaturesMeta" xml:space="preserve">
-    <value>Get to know Spitball - the social study platform! Get class notes, chat with your friends, create study groups and share your knowledge! Open a free account today!</value>
-  </data>
-  <data name="FeaturesTitle" xml:space="preserve">
-    <value>Features | Spitball</value>
-  </data>
-  <data name="ProductMeta" xml:space="preserve">
-    <value>Start using Spitball like a real pro! Get class notes, chat with your friends, create study groups and share your knowledge! Study anytime, anywhere with Spitball!</value>
-  </data>
-  <data name="ProductTitle" xml:space="preserve">
-    <value>Product - Use Spitball like a Pro | Spitball</value>
+  <data name="BoxTitleQuizzes" xml:space="preserve">
+    <value>מבחנים</value>
   </data>
 </root>
