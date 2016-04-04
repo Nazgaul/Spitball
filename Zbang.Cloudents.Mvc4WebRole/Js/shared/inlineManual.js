@@ -20,10 +20,11 @@
         });
         $rootScope.$on("$stateChangeSuccess", function () {
             // Inline manual fix for angular
-            //var element = $document.find('[ui-view][animation-class]');
+            var element = $document.find('[ui-view][animation-class]');
             $timeout(function () {
                 if (registeredUser && angular.isDefined(inline_manual_player)) {
-                    inline_manual_player.manualReinit();
+                    inline_manual_player.manualReinit(element[0]);
+                    inline_manual_player.setMetadata(inlineManualTracking);
                 }
             }, 1000);
         });

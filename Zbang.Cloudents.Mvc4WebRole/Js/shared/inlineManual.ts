@@ -30,11 +30,12 @@ declare var inlineManualTracking: any;
 
         $rootScope.$on("$stateChangeSuccess", () => {
             // Inline manual fix for angular
-            //var element = $document.find('[ui-view][animation-class]');
+            var element = $document.find('[ui-view][animation-class]');
 
             $timeout(() => {
                 if (registeredUser && angular.isDefined(inline_manual_player)) {
-                    inline_manual_player.manualReinit(/*element[0]*/);
+                    inline_manual_player.manualReinit(element[0]);
+                    inline_manual_player.setMetadata(inlineManualTracking);
                 }
             }, 1000);
 

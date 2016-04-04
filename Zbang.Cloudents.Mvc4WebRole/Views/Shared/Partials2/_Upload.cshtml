@@ -6,6 +6,7 @@
 <div class="margin-bottom-20" uib-collapse="!u.open" expanding="u.uploadOpen()"
      collapsed="u.uploadCollapsed()" ng-controller="Upload as u" compile-html="u.html">
 </div>
+@*TODO: we can bring that async as well - focus on feed bring that as well as upload click*@
 <script type="text/ng-template" id="file-upload.html">
     <span class="check-mark" ng-if="file.complete">@Html.Svg(url, "checkMark")</span>
     <span class="check-mark error" ng-if="file.error">@Html.Svg("~/images/site/icons.svg", "close")</span>

@@ -2,9 +2,10 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div id="create" class="dashboard-stat2 color-override backgroundTransparent">
     <button ng-hide="d.createBoxOn" type="button" ng-click="d.createBoxOn = true" class="create-btn" ga-track-event="['dashboard', 'createbox']">
-        <div>
+        <div class="title">
             <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-            <div class="title">@DashboardResource.StudyGroup</div>
+            <b>@DashboardResource.StudyGroupHeader</b>
+            <div>@DashboardResource.StudyGroup</div>
         </div>
     </button>
     <form name="createBox" class="create-txt" novalidate ng-submit="cb.create(createBox)" ng-show="d.createBoxOn" ng-controller="CreateBoxController as cb">

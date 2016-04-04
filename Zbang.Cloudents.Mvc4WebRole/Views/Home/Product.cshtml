@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
 @{
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
-    var imageSrc = (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "he") ? @Url.CdnContent("/images/HomePage2/infographics_he.png") : @Url.CdnContent("/images/HomePage2/infographics_en.png");
+    var imageSrc = (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "he") ? @Url.CdnContent("/images/HomePage2/infographics_he.png") : @Url.CdnContent("/images/HomePage2/infographics_en.png?v=1");
 
 }
 <div class="static-page product-page">
@@ -10,7 +10,7 @@
     </div>
     <div class="page-content">
         <h2>@StaticPagesResources.ProductTextBegining</h2>
-        <img class="infographic" src="@imageSrc" />
+        <img class="infographic" src="@imageSrc" alt="Use Spitball's study app like a pro" />
         <div class="intro-text">
             @StaticPagesResources.ProductTextA
             @StaticPagesResources.ProductTextB

@@ -373,27 +373,17 @@
         width: 45%;
         max-width: 160px;
         padding: 0 12px;
+        //margin-right:10px;
 
         a {
             z-index: 1;
         }
 
-        a, button {
-            padding: 0;
+        a, button:not(:last-child) {
+            //padding: 0;
         }
     }
-    // .file {
-    //     &:hover {
-    //         fill: @fileColor;
-    //     }
-    // }
-    //
-    // .dropbox {
-    //     &:hover {
-    //         fill: @dropboxColor;
-    //     }
-    // }
-    .google {
+     .google {
         svg:first-child {
             display: none;
         }
@@ -412,17 +402,10 @@
             }
         }
     }
-    //.link {
-    //    &:hover {
-    //        fill: @linkColor;
-    //    }
-    //}
-    .anonymous {
+     .anonymous {
         width: 35px;
         height: 35px;
-        //&:hover {
-        //    fill: @anonymousColor;
-        //}
+       
     }
 
     &.new-post {

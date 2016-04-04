@@ -42,9 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
-           Duration = TimeConsts.Day, VaryByParam = "boxId;part",
-           Location = OutputCacheLocation.Server, Order = 4)]
+        [DonutOutputCache(CacheProfile = "BoxPage")]
         [BoxPermission("boxId", Order = 3)]
         [Route("box/my/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members))}", Name = "PrivateBoxWithSub")]
         [Route("course/{universityName}/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members))}", Name = "CourseBoxWithSub")]

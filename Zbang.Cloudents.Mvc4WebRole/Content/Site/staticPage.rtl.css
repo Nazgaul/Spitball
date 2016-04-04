@@ -1227,7 +1227,6 @@ iframe {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  justify-content: space-between;
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -1299,6 +1298,12 @@ iframe {
   border-radius: 10px;
   width: 100%;
   margin: 15px 0;
+}
+.boxes .box:last-child {
+  background: #181C1D;
+  font-size: 20px;
+  text-align: center;
+  display: block;
 }
 @media (max-width: 600px) {
   .top-image h1 {

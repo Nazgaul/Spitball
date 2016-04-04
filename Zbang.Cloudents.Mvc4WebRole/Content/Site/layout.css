@@ -1181,6 +1181,9 @@ Page Loading
   position: fixed;
   bottom: 0;
   z-index: 110;
+  /*.largeHeight {
+        height: 80vh; //bug 4909
+    }*/
 }
 .unreg-user .content-wrapper {
   width: 100%;
@@ -1214,10 +1217,7 @@ Page Loading
   height: 400px;
 }
 .unreg-user .mediumHeight {
-  height: 60vh;
-}
-.unreg-user .largeHeight {
-  height: 80vh;
+  height: 50vh;
 }
 .unreg-user h1 {
   font-weight: normal;
@@ -1232,6 +1232,7 @@ Page Loading
   max-width: 530px /*rtl:470px*/;
   margin: 0 auto;
   margin-bottom: 44px;
+  position: relative;
 }
 @media (max-width: 600px) {
   .unreg-user .text {
@@ -1241,6 +1242,19 @@ Page Loading
 }
 .unreg-user .text p {
   margin-bottom: 0;
+}
+.unreg-user .text button {
+  background: #000;
+  position: absolute;
+  right: -70px;
+  top: -50px;
+  border-radius: 50%;
+  padding: 18px;
+}
+.unreg-user .text button svg {
+  fill: #fff;
+  width: 30px;
+  height: 30px;
 }
 .unreg-user .text .large {
   font-size: 44px;

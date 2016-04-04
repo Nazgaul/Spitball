@@ -135,8 +135,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
-                        new JsFileWithCdn("~/js/shared/staticPages.js"),
-                        new JsFileWithCdn("~/js/shared/itemGallery.js")
+                        new JsFileWithCdn("~/js/signin/staticPages.js"),
+                        new JsFileWithCdn("~/js/signin/itemGallery.js")
                     }
                 },
                 {
@@ -270,7 +270,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         
 
                         new JsFileWithCdn("~/js/components/leaderboard.controller.js"),
-                        new JsFileWithCdn("~/js/components/ads.controller.js"),
+                        //new JsFileWithCdn("~/js/components/ads.controller.js"),
                        
 
                         new JsFileWithCdn("~/js/components/library/library.controller.js"),

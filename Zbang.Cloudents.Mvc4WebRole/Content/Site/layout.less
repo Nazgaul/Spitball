@@ -1430,16 +1430,11 @@ Page Loading
     }
 
     .mediumHeight {
-        height: 60vh;
+        height: 50vh;
     }
-
-    .largeHeight {
+    /*.largeHeight {
         height: 80vh; //bug 4909
-    }
-
-
-
-
+    }*/
     h1 {
         font-weight: normal;
         font-size: 24px;
@@ -1454,6 +1449,7 @@ Page Loading
         max-width: 530px /*rtl:470px*/;
         margin: 0 auto;
         margin-bottom: 44px;
+        position: relative;
 
         @media(max-width: 600px) {
             width: 85vw /*rtl:70vw*/;
@@ -1462,6 +1458,21 @@ Page Loading
 
         p {
             margin-bottom: 0;
+        }
+
+        button {
+            background: #000;
+            position: absolute;
+            right: -70px;
+            top: -50px;
+            border-radius: 50%;
+            padding: 18px;
+
+            svg {
+                fill: #fff;
+                width: 30px;
+                height: 30px;
+            }
         }
 
         .large {

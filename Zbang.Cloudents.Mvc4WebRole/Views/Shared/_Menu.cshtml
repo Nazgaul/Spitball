@@ -4,7 +4,7 @@
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 
-<md-sidenav ng-if="app.showMenu" ng-cloak class="main-md-sidenav color-override backgroundColor1"
+<md-sidenav ng-if="app.showMenu" ng-cloak class="main-md-sidenav color-override backgroundColor1 svgColor9"
             md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" close-menu="left">
     <md-content role="navigation" ng-controller="SideMenu as d">
         <ul class="side-menu" ng-slimscroll height="calc(100vh - 90px)" color="#BBB">
@@ -73,33 +73,33 @@
                 </md-button>
             </li>
             @*<li class="help nav-item">
-                <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" @shouldPostBack href="@Url.RouteUrl("Help")">
-                    <span class="icon">
-                        @Html.Svg(svgUrl, "headerHelp")
-                    </span>
-                    @SharedResources.Help
-                </md-button>
-            </li>*@
+                    <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" @shouldPostBack href="@Url.RouteUrl("Help")">
+                        <span class="icon">
+                            @Html.Svg(svgUrl, "headerHelp")
+                        </span>
+                        @SharedResources.Help
+                    </md-button>
+                </li>*@
             @*<li class="blog nav-item">
-                <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("Blog2")')}" @shouldPostBack href="@Url.RouteUrl("Blog2")">
-                    <span class="icon">
-                        @Html.Svg(svgUrl, "blog")
-                    </span>
-                    @GeneralResources.Blog
-                </md-button>
-            </li>*@
-            @*<li class="logout nav-item">
+                    <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("Blog2")')}" @shouldPostBack href="@Url.RouteUrl("Blog2")">
+                        <span class="icon">
+                            @Html.Svg(svgUrl, "blog")
+                        </span>
+                        @GeneralResources.Blog
+                    </md-button>
+                </li>*@
+            <li class="logout nav-item" hide-gt-xs>
                 <md-button user-not-register-popup="click" target="_self" ng-click="app.logOut()" href="@Url.Action("logoff","account")">
                     <span class="icon">
                         @Html.Svg(svgUrl, "logOffMenu")
                     </span>
                     @IndexResources.Logout
                 </md-button>
-            </li>*@
+            </li>
             <li class="google-ad nav-item box-ad" hide-xs>
                 <div ng-if="app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459261777271-0"></div>
                 <div ng-if="!app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459255888335-0"></div>
-                
+
             </li>
         </ul>
     </md-content>

@@ -30,7 +30,7 @@
             </button>
             <button user-not-register-popup="click" type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()" ga-track-event="['box-new-commnet', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
         </div>
-        <div class="submit" layout="row" layout-align="space-between center">
+        <div layout="row" layout-align="space-between center">
             <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
             <label class="anonymous-wrapper" title="@BoxResources.Anonymous" for="anonymous" ga-track-event="['box-new-commnet', 'anonymous']"><span class="text">@BoxResources.Anonymous</span>@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
             <button type="submit" class="btn button-Blue btn-primary text-uppercase" ng-disabled="f.add.disabled" ga-track-event="['box-new-commnet', 'postComment']">@GeneralResources.Post</button>

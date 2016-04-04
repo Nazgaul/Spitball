@@ -160,13 +160,13 @@
     <value>See how well you are doing and quiz yourself with one of the hundreds of quizzes that your friends have built. Build and upload your own quiz to help your fellow classmates and check your own progress. Coming up with a quiz is a great way to prepare for an exam, so gain extra Spitball points and start building quizzes.</value>
   </data>
   <data name="FeaturesSectionText4" xml:space="preserve">
-    <value>Get to know your classmates, share notes, ideas, ask questions and chat with your friends about all class related aspects. Study together and be on your way to ace your finals! Get answers directly from your classmates - they can quickly help you solve problems when your TA’s and professors are too busy.</value>
+    <value>"Get to know your classmates, share notes and ideas, ask questions and chat with your friends about anything class related. Study together and be on your way to acing your finals! Get answers directly from your classmates to quickly solve problems when your TAs and professors are too busy.</value>
   </data>
   <data name="FeaturesSectionTitle5" xml:space="preserve">
     <value>Schools </value>
   </data>
   <data name="FeaturesTitle" xml:space="preserve">
-    <value>Our Features</value>
+    <value>Key Features</value>
   </data>
   <data name="FeaturesSectionTitle6" xml:space="preserve">
     <value>Spitball’s app</value>
@@ -178,10 +178,10 @@
     <value>Here’s a sample of Spitball’s 270,000 documents. </value>
   </data>
   <data name="CoursesTitle" xml:space="preserve">
-    <value>Courses</value>
+    <value>Top Courses</value>
   </data>
   <data name="CoursesSubtitleA" xml:space="preserve">
-    <value>Check out spitball's top courses. </value>
+    <value>Check out Spitball's top courses. </value>
   </data>
   <data name="FeaturesDescriptionA" xml:space="preserve">
     <value>Spitball can help revolutionize the way you study: Whether you’ve missed your last class and are scrambling to get </value>
@@ -241,7 +241,7 @@
     <value>. Access all of your class materials directly from your phone. Chat with your friends, ask questions and start studying for your next exam from any device.</value>
   </data>
   <data name="AppsSectionText1A" xml:space="preserve">
-    <value>Study Socially anytime and everywhere with the Spitball app. Access all of your </value>
+    <value>Study socially anytime and everywhere with the Spitball app. Access all of your </value>
   </data>
   <data name="AppsSectionText1B" xml:space="preserve">
     <value>class materials</value>
@@ -290,5 +290,11 @@
   </data>
   <data name="CoursesSubtitleB" xml:space="preserve">
     <value> to find your course!</value>
+  </data>
+  <data name="CoursesExtra" xml:space="preserve">
+    <value>Find courses that are relevant to you by</value>
+  </data>
+  <data name="CoursesSigningUp" xml:space="preserve">
+    <value>signing up</value>
   </data>
 </root>

@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Study Socially anytime and everywhere with the Spitball app. Access all of your .
+        ///   Looks up a localized string similar to Study socially anytime and everywhere with the Spitball app. Access all of your .
         /// </summary>
         public static string AppsSectionText1A {
             get {
@@ -187,7 +187,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check out spitball&apos;s top courses. .
+        ///   Looks up a localized string similar to Find courses that are relevant to you by.
+        /// </summary>
+        public static string CoursesExtra {
+            get {
+                return ResourceManager.GetString("CoursesExtra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to signing up.
+        /// </summary>
+        public static string CoursesSigningUp {
+            get {
+                return ResourceManager.GetString("CoursesSigningUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check out Spitball&apos;s top courses. .
         /// </summary>
         public static string CoursesSubtitleA {
             get {
@@ -205,7 +223,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Courses.
+        ///   Looks up a localized string similar to Top Courses.
         /// </summary>
         public static string CoursesTitle {
             get {
@@ -313,7 +331,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get to know your classmates, share notes, ideas, ask questions and chat with your friends about all class related aspects. Study together and be on your way to ace your finals! Get answers directly from your classmates - they can quickly help you solve problems when your TA’s and professors are too busy..
+        ///   Looks up a localized string similar to &quot;Get to know your classmates, share notes and ideas, ask questions and chat with your friends about anything class related. Study together and be on your way to acing your finals! Get answers directly from your classmates to quickly solve problems when your TAs and professors are too busy..
         /// </summary>
         public static string FeaturesSectionText4 {
             get {
@@ -457,7 +475,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Our Features.
+        ///   Looks up a localized string similar to Key Features.
         /// </summary>
         public static string FeaturesTitle {
             get {

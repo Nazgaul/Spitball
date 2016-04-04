@@ -4,7 +4,7 @@
 @{
     const string url = "~/images/site/uploadIcons.svg";
 }
-<div layout="row" layout-padding layout-wrap layout-align="space-between start" class="margin-top-10 feed-wrapper">
+<div layout="row" layout-padding layout-wrap @*layout-align="space-between start"*@ class="margin-top-10 feed-wrapper">
     <div class="flex" layout-padding flex="100" flex-md="66" flex-lg="60" flex-gt-lg="60">
         <div class="portlet light">
             <div class="portlet-body feed">
@@ -45,7 +45,7 @@
                             <span user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)">{{post.likesCount}} @GeneralResources.Likes</span>
                         </div>
                         <div class="actions-wrapper">
-                            <div class="indent actions color-override borderTC14 text-capitalize">
+                            <div class="indent actions color-override text-capitalize">
                                 <button class="comment-btn" user-not-register-popup="click" type="button" ng-click="f.reply(post)" ga-track-event="['box-feed', 'comment-icons']">
                                     @Html.Svg("~/images/site/box-icons.svg", "comment", new { @class = "svgTC6" })
                                     <span>@BoxResources.Comment</span>
@@ -61,7 +61,7 @@
                         </div>
                         <ol class="list-unstyled replies" ng-if="post.replies.length">
                             <li class="show-more" ng-if="post.repliesCount > 1 && !post.showReplies">
-                                <span user-not-register-popup="click" ng-click="f.openReply(post)"> @BoxResources.ViewComments {{post.repliesCount-1}} @BoxResources.Comments</span>
+                                <span @*user-not-register-popup="click"*@ ng-click="f.openReply(post)"> @BoxResources.ViewComments {{post.repliesCount-1}} @BoxResources.Comments</span>
                             </li>
                             <li ng-repeat="reply in post.replies track by reply.id" class="reply" ng-if="$last || post.showReplies">
                                 <md-menu ng-if="b.canDelete(reply.userId)">
@@ -160,7 +160,7 @@
         <div layout="row" layout-padding layout-wrap layout-align="space-between center" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
             <div data-ng-dfp-ad="div-gpt-ad-1459076812828-0"></div>
             @*<div ng-controller="adController as ad" ng-show="ad.show" flex="100" flex-gt-md="50" class="i-student-ad flex" ga-track-event="['istudentad', 'box']"></div>*@
-            <div flex="100" flex-gt-md="50" class="flex" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>
+            <div flex="100" flex-gt-md="100" class="flex" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>
             @*<div flex="100" flex-gt-md="50" class="flex">
                     <adsense ad-client="ca-pub-1215688692145777" ad-slot="1567632158" inline-style="display:inline-block;width:100%;height:179px"></adsense>
                 </div>*@

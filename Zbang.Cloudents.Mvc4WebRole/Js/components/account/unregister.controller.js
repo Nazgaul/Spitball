@@ -1,8 +1,8 @@
 ﻿(function () {
     angular.module('app.account').controller('UnregisterShowController', unregister);
-    unregister.$inject = ['facebookService', 'accountService', 'googleService', '$state'];
+    unregister.$inject = ['facebookService', 'accountService', 'googleService', '$state', '$rootScope'];
 
-    function unregister(facebookService, accountService, googleService, $state) {
+    function unregister(facebookService, accountService, googleService, $state, $rootScope) {
         if ($state.current.data && $state.current.data.staticPage) {
             return;
         }
@@ -12,10 +12,16 @@
         ur.facebook = facebook;
         ur.google = google;
         ur.googleDisabled = true;
+        ur.close = close;
+
 
         googleService.initAuth().then(function () {
             ur.googleDisabled = false;
         });
+
+        function close() {
+            $rootScope.$broadcast('hide-unregisterd-box');
+        }
         function facebook() {
             var boxId = $state.params.boxId;
             facebookService.loginFacebook().then(function (authToken) {
