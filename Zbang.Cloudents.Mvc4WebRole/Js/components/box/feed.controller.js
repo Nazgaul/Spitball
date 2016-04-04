@@ -123,7 +123,10 @@
                 if (!response.length) {
                     return;
                 }
-                self.data = self.data.concat(response);
+                self.data = self.data.concat(response.filter(function(item) {
+                    return self.data.indexOf(item) < 0;
+                }));
+                //self.data = self.data.concat(response);
                 assignData();
             });
         }
