@@ -19,12 +19,19 @@
         <div class="gallery-images">
             <ul class="thumbnails">
                 @{
-                    for (var i = 1; i < 21; i++)
+                    for (var i = 1; i < 20; i++)
                     {
                         <li id="thumb-@i">
                             <img src="@Url.CdnContent("~/images/ClassNotes/thumbnails/" + @i + ".png")" data-image="@Url.CdnContent("~/images/ClassNotes/items/" + @i + ".png")" alt="Class note thumbnail" />
                         </li>
                     }
+                    <li class="signup-container">
+                        <div>
+                            <span>@StaticPagesResources.ClassNotesFindDocText</span>
+                            <a class="sign-up" href="@Url.RouteUrl("signup")">@StaticPagesResources.CoursesSigningUp</a>
+                        </div>
+                    </li>
+                    <li></li>
                 }
             </ul>
         </div>

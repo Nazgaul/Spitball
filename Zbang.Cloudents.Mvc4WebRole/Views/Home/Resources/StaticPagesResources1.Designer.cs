@@ -160,6 +160,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find documents that are relevant to you by .
+        /// </summary>
+        public static string ClassNotesFindDocText {
+            get {
+                return ResourceManager.GetString("ClassNotesFindDocText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Here’s a sample of Spitball’s 270,000 documents. .
         /// </summary>
         public static string ClassNotesSubtitleA {

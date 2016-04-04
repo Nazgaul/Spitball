@@ -93,25 +93,25 @@
                 <md-menu-content md-menu-align-target class="md-user-menu">
                     <md-menu-item class="user-menu-item">
                         <md-button href="{{::ud.url}}" @shouldPostBack ga-track-event="['header', 'user activities']">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "userMenu")</md-icon>
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "userMenu", new { @class = "svgTC16" })</md-icon>
                             @IndexResources.Activities
                         </md-button>
                     </md-menu-item>
                     <md-menu-item class="user-menu-item">
                         <md-button href="@Url.RouteUrl("AccountSettings")" @shouldPostBack ga-track-event="['header', 'settings']">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "settingMenu")</md-icon>
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "settingMenu", new { @class = "svgTC16" })</md-icon>
                             @IndexResources.Settings
                         </md-button>
                     </md-menu-item>
                     <md-menu-item class="user-menu-item">
                         <md-button href="@Url.RouteUrl("Help")" target="_self" ga-track-event="['header', 'help']">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "headerHelp")</md-icon>
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "headerHelp", new { @class = "svgTC16" })</md-icon>
                             @SharedResources.Help
                         </md-button>
                     </md-menu-item>
                     <md-menu-item class="user-menu-item">
                         <md-button ng-click="app.logOut()" target="_self" href="@Url.Action("logoff","account")" @shouldPostBack ga-track-event="['header', 'logout']">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "logOffMenu")</md-icon>
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "logOffMenu", new { @class = "svgTC16" })</md-icon>
                             @IndexResources.Logout
                         </md-button>
                     </md-menu-item>
