@@ -298,4 +298,7 @@
   <data name="CoursesSigningUp" xml:space="preserve">
     <value>הירשמו עכשיו</value>
   </data>
+  <data name="ClassNotesFindDocText" xml:space="preserve">
+    <value>למציאת המסמכים שמעניינים אתכם </value>
+  </data>
 </root>

@@ -297,4 +297,7 @@
   <data name="CoursesSigningUp" xml:space="preserve">
     <value>signing up</value>
   </data>
+  <data name="ClassNotesFindDocText" xml:space="preserve">
+    <value>Find documents that are relevant to you by </value>
+  </data>
 </root>

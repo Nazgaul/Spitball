@@ -1360,7 +1360,6 @@ Page Loading
 }
 .theme-light .page-body md-sidenav md-content .md-button {
   color: #212325;
-  fill: #212325;
 }
 .theme-light .side-menu .md-button.active {
   background: #dadce2;
@@ -2179,6 +2178,9 @@ Page Loading
 }
 .theme-light .svgTC15 {
   fill: #9e9e9e !important;
+}
+.theme-light .svgTC16 {
+  fill: #888b8e !important;
 }
 .theme-light input[type="search"]::-webkit-input-placeholder,
 .theme-light textarea::-webkit-input-placeholder {

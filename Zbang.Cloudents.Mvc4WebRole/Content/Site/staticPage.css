@@ -1151,6 +1151,41 @@ iframe {
 .courses-page h2 {
   text-align: center;
 }
+.class-notes-page .signup-container,
+.courses-page .signup-container {
+  display: -webkit-flex !important;
+  display: -ms-flex !important;
+  display: flex !important;
+  -ms-flex-direction: row !important;
+  -webkit-flex-direction: row !important;
+  flex-direction: row !important;
+  align-items: center;
+}
+.class-notes-page .signup-container > div,
+.courses-page .signup-container > div {
+  font-size: 20px;
+  line-height: 24px;
+  padding: 0 16px;
+  text-align: center;
+  max-width: 250px;
+  margin: 0 auto;
+}
+.class-notes-page .signup-container > div a.sign-up,
+.courses-page .signup-container > div a.sign-up {
+  background: #4190B9;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-top: 15px;
+  padding: 0 12px;
+  display: inline-block;
+  margin: 15px auto 0 auto;
+  color: #f5f5f5;
+  text-decoration: none;
+  width: inherit;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+}
 .class-notes-page h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -1169,6 +1204,12 @@ iframe {
 .class-notes-page .gallery-images .thumbnails li {
   padding: 10px;
   cursor: pointer;
+}
+.class-notes-page .gallery-images .thumbnails li:nth-last-child(2) {
+  max-width: 246px;
+}
+.class-notes-page .gallery-images .thumbnails li:last-child {
+  width: 246px;
 }
 .class-notes-page .gallery-images .images {
   list-style: none;

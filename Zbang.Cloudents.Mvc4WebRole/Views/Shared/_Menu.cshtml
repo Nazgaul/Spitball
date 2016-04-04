@@ -10,7 +10,7 @@
         <ul class="side-menu" ng-slimscroll height="calc(100vh - 90px)" color="#BBB">
             <li class="dashboard nav-item">
                 <md-button user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.Action("Index","Dashboard")')}" @shouldPostBack href="@Url.Action("Index","Dashboard")">
-                    <span class="icon">@Html.Svg(svgUrl, "houseMenu")</span>
+                    <span class="icon">@Html.Svg(svgUrl, "houseMenu", new { @class = "svgTC16" })</span>
                     @IndexResources.Dashboard
                 </md-button>
             </li>
@@ -18,7 +18,7 @@
                 <md-button user-not-register-popup="click" class="md-button-toggle" ng-click="d.toggleCourses()">
                     <div flex layout="row" layout-align="start center">
                         <span class="arrow icon" ng-class="{toggled:d.coursesOpen}">
-                            @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
+                            @Html.Svg("~/images/site/icons.svg", "sideMenuArrow", new { @class = "svgTC16" })
                         </span>
                         <span class="title">
                             @IndexResources.Classes
@@ -35,7 +35,7 @@
                 <md-button user-not-register-popup="click" class="md-button-toggle" ng-click="d.toggleBoxes()">
                     <div flex layout="row" layout-align="start center">
                         <span class="arrow icon" ng-class="{toggled:d.boxesOpen}">
-                            @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
+                            @Html.Svg("~/images/site/icons.svg", "sideMenuArrow", new { @class = "svgTC16" })
                         </span>
                         <span class="title">
                             @IndexResources.Group
@@ -51,7 +51,7 @@
             <li class="uni nav-item">
                 <md-button user-not-register-popup="click" class="ellipsis" ng-class="{active: d.isSectionSelected('@Url.RouteUrl("LibraryDesktop")')}" @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
                     <span class="icon">
-                        @Html.Svg(svgUrl, "universityMenu")
+                        @Html.Svg(svgUrl, "universityMenu", new { @class = "svgTC16" })
                     </span>
                     @IndexResources.Uni
                 </md-button>
@@ -59,7 +59,7 @@
             <li class="user nav-item">
                 <md-button user-not-register-popup="click" ng-class="{active:d.isSectionSelected(d.userUrl)}" @shouldPostBack href="{{::d.userUrl}}">
                     <span class="icon">
-                        @Html.Svg(svgUrl, "userMenu")
+                        @Html.Svg(svgUrl, "userMenu", new { @class = "svgTC16" })
                     </span>
                     @IndexResources.User
                 </md-button>
@@ -67,7 +67,7 @@
             <li class="settings nav-item">
                 <md-button user-not-register-popup="click" ng-class="{active:d.isSectionSelected('@Url.RouteUrl("AccountSettings")')}" @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
                     <span class="icon">
-                        @Html.Svg(svgUrl, "settingMenu")
+                        @Html.Svg(svgUrl, "settingMenu", new { @class = "svgTC16" })
                     </span>
                     @IndexResources.Settings
                 </md-button>
@@ -91,7 +91,7 @@
             <li class="logout nav-item" hide-gt-xs>
                 <md-button user-not-register-popup="click" target="_self" ng-click="app.logOut()" href="@Url.Action("logoff","account")">
                     <span class="icon">
-                        @Html.Svg(svgUrl, "logOffMenu")
+                        @Html.Svg(svgUrl, "logOffMenu", new { @class = "svgTC16" })
                     </span>
                     @IndexResources.Logout
                 </md-button>
