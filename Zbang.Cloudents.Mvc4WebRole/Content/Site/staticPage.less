@@ -8,9 +8,12 @@ body {
 
 .static-page .page-content {
     max-width: 1200px;
-    min-height: 1000px;
     margin: 15px auto 0 auto;
     padding: 5px 5px 25px 5px;
+
+    @media(min-width: 600px) {
+        min-height: 1000px;
+    }
 }
 
 iframe {
@@ -760,7 +763,7 @@ iframe {
                         padding: 0;
 
                         &:not(:first-child) {
-                            border-left: 1px solid @borderColorLightGrey;
+                            border-left: 1px solid @borderColorLightGrey/*rtl:ignore*/;
                         }
                     }
                 }

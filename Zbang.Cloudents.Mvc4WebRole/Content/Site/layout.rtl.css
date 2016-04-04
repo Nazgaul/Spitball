@@ -1199,11 +1199,22 @@ Page Loading
   background: black;
   position: absolute;
   top: -30px;
+  left: 0;
 }
 .unreg-user .close-wrapper button.close svg {
   width: 30px;
   height: 30px;
   fill: white;
+}
+@media (max-width: 600px) {
+  .unreg-user .close-wrapper button.close {
+    padding: 15px;
+    top: -18px;
+  }
+  .unreg-user .close-wrapper button.close svg {
+    width: 15px;
+    height: 15px;
+  }
 }
 .unreg-user .content-wrapper {
   position: relative;

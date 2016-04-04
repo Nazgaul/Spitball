@@ -6,9 +6,13 @@ body {
 }
 .static-page .page-content {
   max-width: 1200px;
-  min-height: 1000px;
   margin: 15px auto 0 auto;
   padding: 5px 5px 25px 5px;
+}
+@media (min-width: 600px) {
+  .static-page .page-content {
+    min-height: 1000px;
+  }
 }
 iframe {
   display: block;
@@ -662,7 +666,7 @@ iframe {
   padding: 0;
 }
 .static-page > .content .nav-bar-wrapper .nav-bar .bx-wrapper .items-container > div:not(:first-child) {
-  border-right: 1px solid #8c99a6;
+  border-left: 1px solid #8c99a6 ;
 }
 .static-page .static-page-header nav li a.active,
 .static-page .items-container a.active {

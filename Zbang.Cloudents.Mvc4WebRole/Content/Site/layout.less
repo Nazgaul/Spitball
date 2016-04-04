@@ -1413,11 +1413,22 @@ Page Loading
             background: black;
             position: absolute;
             top: -30px;
+            right: 0;
 
             svg {
                 width: 30px;
                 height: 30px;
                 fill: white;
+            }
+
+            @media(max-width: 600px) {
+                padding: 15px;
+                top: -18px;
+
+                svg {
+                    width: 15px;
+                    height: 15px;
+                }
             }
         }
     }
