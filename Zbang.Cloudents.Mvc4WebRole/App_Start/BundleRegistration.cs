@@ -118,8 +118,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
-                        new JsFileWithCdn("~/js/signin/metronic.js"),
-                        new JsFileWithCdn("~/js/signin/layout.js"),
+                        new JsFileWithCdn("~/js/signin/metronic.js"), //TODO : do we need this
+                        new JsFileWithCdn("~/js/signin/layout.js"),//TODO : do we need this
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/scripts/waypoints.min.js"),
@@ -140,6 +140,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     }
                 },
                 {
+                    //TODO: maybe we can remove this???
                     "signin", new[]
                     {
 

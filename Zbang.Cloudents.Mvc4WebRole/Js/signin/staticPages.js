@@ -1,4 +1,5 @@
-﻿(function () {
+﻿var Login; //we need this for cdn fallback.
+(function () {
     $(document).on('click', '.panel-title a', function (e) {
         var $panel = $(this).parents('.panel').first();
         $panel.toggleClass('expanded');
