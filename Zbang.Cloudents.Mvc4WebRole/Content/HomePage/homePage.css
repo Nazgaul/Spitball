@@ -757,6 +757,7 @@
   line-height: 40px;
   max-width: 1150px;
   margin: 0 auto;
+  overflow: hidden;
 }
 .homePage .home-page-body section.about .description p {
   text-align: center;
@@ -860,7 +861,7 @@
     display: inline-block;
     position: absolute;
     bottom: -123px;
-    left: -280px;
+    left: 0;
     right: 0;
     width: 650px;
     max-width: 500px;

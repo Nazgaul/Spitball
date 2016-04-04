@@ -8,9 +8,12 @@ body {
 
 .static-page .page-content {
     max-width: 1200px;
-    min-height: 1000px;
     margin: 15px auto 0 auto;
     padding: 5px 5px 25px 5px;
+
+    @media(min-width: 600px) {
+        min-height: 1000px;
+    }
 }
 
 iframe {
@@ -760,7 +763,7 @@ iframe {
                         padding: 0;
 
                         &:not(:first-child) {
-                            border-left: 1px solid @borderColorLightGrey;
+                            border-left: 1px solid @borderColorLightGrey/*rtl:ignore*/;
                         }
                     }
                 }
@@ -1331,6 +1334,13 @@ iframe {
     h2 {
         text-align: center;
     }
+
+    .boxes .box:last-child {
+        background: @backgroundColor;
+        font-size: 20px;
+        text-align: center;
+        display: block;
+    }
 }
 
 .class-notes-page, .courses-page {
@@ -1530,13 +1540,6 @@ iframe {
             border-radius: 10px;
             width: 100%;
             margin: 15px 0;
-        }
-
-        &:last-child {
-            background: #181C1D;
-            font-size: 20px;
-            text-align: center;
-            display: block;
         }
     }
 }

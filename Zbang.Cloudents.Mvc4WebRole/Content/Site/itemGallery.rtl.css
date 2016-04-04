@@ -26,11 +26,14 @@
   margin: 0 auto;
   max-width: 700px;
 }
+.gallery .content image {
+  min-height: calc(100vh - 150px);
+}
 .gallery .content img {
-  max-height: calc(100vh - 70px);
   margin: 40px 0;
   max-width: 100%;
   box-shadow: 0 0 50px #000;
+  max-height: calc(100vh - 150px);
 }
 .gallery .content .arrow.prev:after {
   content: '❮';

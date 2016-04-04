@@ -70,11 +70,6 @@
           ng-class="{'create-box-show' : l.createBoxOn, 'create-init' : l.createDepartmentShow && l.createClassShow}" class="create-box flex" ng-if="l.createClassShow">
         @{ Html.RenderPartial("_CreateCourse");}
     </div>
-    @*<div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" flex-order="0" ng-if="l.state.topTree">
-        <adsense ad-client="ca-pub-1215688692145777" ad-slot="1567632158" inline-style="display:inline-block;width:100%;height:179px"></adsense>
-    </div>*@
-    <div ng-controller="adController as ad" ng-show="ad.show && l.state.topTree" flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" flex-order="1" class="i-student-ad flex" ng-bind-html="ad.content" ga-track-event="['istudentad', 'library']"></div>
-
 </div>
 <button type="button" class="add" hide show-xs ng-click="l.createShow()" ng-if="l.state.withDepartmentAdmin || l.state.withBoxes" ng-hide="l.createOn || l.createDepartmentShow && l.createClassShow" ga-track-event="['dashboard', 'createbox', 'plus']">
     @Html.Svg("~/images/site/icons.svg", "add", new { @class = "color-override svgColor8" })

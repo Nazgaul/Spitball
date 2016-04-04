@@ -12,12 +12,14 @@ function openImage(thumbImage, thumbnails) {
     var nextImage = $(thumbnails[currThumbIndex + 1]);
     var prevImage = $(thumbnails[currThumbIndex - 1]);
     var largeImage = '<img src="' + $(thumbImage).data("image") + '" alt="Class note">';
+    var largeImageUrl = $(thumbImage).data("image");
 
     var imageContainer = $('.gallery .image');
-    if ($('.gallery .image img').length) {
-        $('.gallery .image img').fadeOut(300, function () {
-            imageContainer.empty().append(largeImage);
-            $('.gallery .image img').fadeIn(300);
+    var image = $('.gallery .image img');
+    if (image.length) {
+        image.fadeOut(300, function () {
+            image.attr('src', largeImageUrl);
+            image.fadeIn(300);
         });
     } else {
         imageContainer.append(largeImage);
