@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
-using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
@@ -27,7 +26,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/user/{userId}/boxes")]
         public async Task<HttpResponseMessage> Boxes(long userId, int page, int sizePerPage = 15)
         {
-            var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
+            var query = new GetUserWithFriendQuery(userId, page, sizePerPage);
             var model = await m_ZboxReadService.GetUserBoxesActivityAsync(query);
             return Request.CreateResponse(model.Select(s => new
             {
@@ -76,7 +75,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/user/{userId}/activity")]
         public async Task<HttpResponseMessage> Activity(long userId, int page, int sizePerPage = 15)
         {
-            var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
+            var query = new GetUserWithFriendQuery( userId, page, sizePerPage);
             var result = await m_ZboxReadService.GetUserCommentActivityAsync(query);
 
             return Request.CreateResponse(result.Select( s=> new
@@ -95,7 +94,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/user/{userId}/items")]
         public async Task<HttpResponseMessage> Items(long userId, int page, int sizePerPage = 15)
         {
-            var query = new GetUserWithFriendQuery(User.GetCloudentsUserId(), userId, page, sizePerPage);
+            var query = new GetUserWithFriendQuery(userId, page, sizePerPage);
             var result = await m_ZboxReadService.GetUserItemsActivityAsync(query);
 
             return Request.CreateResponse(result.Select(s => new

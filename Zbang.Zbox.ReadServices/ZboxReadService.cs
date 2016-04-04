@@ -678,7 +678,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
 
                 using (var grid = await conn.QueryMultipleAsync(Sql.User.UserProfileWithStats, new
                 {
-                    Me = query.UserId,
+                    //Me = query.UserId,
                     Myfriend = query.FriendId,
                 }))
                 {
@@ -912,7 +912,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                 var retVal = await conn.QueryAsync<BoxDto>(Sql.User.UserWithFriendBoxes,
                     new
                     {
-                        Me = query.UserId,
+                        //Me = query.UserId,
                         Myfriend = query.FriendId,
                         pageNumber = query.PageNumber,
                         rowsperpage = query.RowsPerPage
@@ -927,7 +927,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             {
                 return await conn.QueryAsync<Item.QuizDto>(Sql.User.UserWithFriendQuizzes, new
                 {
-                    Me = query.UserId,
+                    //Me = query.UserId,
                     Myfriend = query.FriendId,
                     pageNumber = query.PageNumber,
                     rowsperpage = query.RowsPerPage
@@ -942,7 +942,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             {
                 return await conn.QueryAsync<Item.ItemDto>(Sql.User.UserWithFriendFiles, new
                   {
-                      Me = query.UserId,
+                     // Me = query.UserId,
                       Myfriend = query.FriendId,
                       pageNumber = query.PageNumber,
                       rowsperpage = query.RowsPerPage
@@ -961,7 +961,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             {
                 return await conn.QueryAsync<User.ActivityDto>(Sql.Sql.UserQuestionAndAnswersActivityMobileApi, new
                 {
-                    Me = query.UserId,
+                    //Me = query.UserId,
                     Myfriend = query.FriendId,
                     pageNumber = query.PageNumber,
                     rowsperpage = query.RowsPerPage

@@ -12,7 +12,7 @@
                 <ol class="list-unstyled posts-list" srph-infinite-scroll="f.myPagingFunction()">
                     <li ng-repeat="post in f.data track by post.id" class="post comment">
                         <div class="indent">
-                            <a href="{{::post.url}}" user-not-register-popup="click" @*layout="row" layout-align="start center"*@ class="userblock" ga-track-event="['box-feed', 'userNameImage']">
+                            <a href="{{::post.url}}" class="userblock" ga-track-event="['box-feed', 'userNameImage']">
                                 <user-image class="c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
                                 <span class="user-name">{{::post.userName}}</span>
                             </a>
@@ -77,7 +77,7 @@
                                     </md-menu-content>
                                 </md-menu>
                                 <div class="indent">
-                                    <a href="{{::reply.url}}" user-not-register-popup="click" layout="row" layout-align="start center" class="username" ga-track-event="['box-feed', 'replyUserNameImg']">
+                                    <a href="{{::reply.url}}" layout="row" layout-align="start center" class="username" ga-track-event="['box-feed', 'replyUserNameImg']">
                                         <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                         <span class="user-name">{{::reply.userName}}</span>
                                     </a>
