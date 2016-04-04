@@ -8,32 +8,35 @@
 @if (User != null && !User.Identity.IsAuthenticated && !ViewBag.postBag)
 {
     <div class="unreg-user">
-        <div class="content-wrapper noHeight text-center" unregister-show>
-            
-            <div class="content" ng-controller="UnregisterShowController as ur">
-                <div class="text">
-                    <button type="button" ng-click="ur.close()">@Html.Svg("~/images/site/icons.svg", "close")</button>
-                    <p class="large">@GeneralResources.UnregHeader</p>
-                    <p class="normal">@GeneralResources.UnregSubtitle</p>
-                </div>
-                <div class="signin-options-section">
-                    <div class="social-signin">
-                        <button type="button" ng-click="ur.facebook()" class="login-option facebook os-animation">
-                            <div>
-                                @Html.Svg(socialIconsSvg, "facebook")
-                                <span>@LogOnResources.ExternalProvider</span>
-                            </div>
-                        </button>
-                        <button type="button" ng-click="ur.google()" class="login-option google os-animation">
-                            <div>
-                                @Html.Svg(socialIconsSvg, "google")
-                                <span>@LogOnResources.ExternalProvider</span>
-                            </div>
-                        </button>
+        <div class="content-wrapper noHeight text-center" unregister-show ng-controller="UnregisterShowController as ur">
+            <div class="close-wrapper">
+                <button type="button" class="close" ng-click="ur.close()">@Html.Svg("~/images/site/icons.svg", "close")</button>
+            </div>
+            <div class="content-container">
+                <div class="content">
+                    <div class="text">
+                        <p class="large">@GeneralResources.UnregHeader</p>
+                        <p class="normal">@GeneralResources.UnregSubtitle</p>
                     </div>
-                    <a href="@Url.RouteUrl("signup", new { returnUrl = Request.Url })" target="_self" class="login-option signup os-animation">
-                        @HomePageResources.A5
-                    </a>
+                    <div class="signin-options-section">
+                        <div class="social-signin">
+                            <button type="button" ng-click="ur.facebook()" class="login-option facebook os-animation">
+                                <div>
+                                    @Html.Svg(socialIconsSvg, "facebook")
+                                    <span>@LogOnResources.ExternalProvider</span>
+                                </div>
+                            </button>
+                            <button type="button" ng-click="ur.google()" class="login-option google os-animation">
+                                <div>
+                                    @Html.Svg(socialIconsSvg, "google")
+                                    <span>@LogOnResources.ExternalProvider</span>
+                                </div>
+                            </button>
+                        </div>
+                        <a href="@Url.RouteUrl("signup", new { returnUrl = Request.Url })" target="_self" class="login-option signup os-animation">
+                            @HomePageResources.A5
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

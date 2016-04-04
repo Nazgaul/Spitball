@@ -1151,6 +1151,12 @@ iframe {
 .courses-page h2 {
   text-align: center;
 }
+.courses-page .boxes .box:last-child {
+  background: #181c1d;
+  font-size: 20px;
+  text-align: center;
+  display: block;
+}
 .class-notes-page .signup-container,
 .courses-page .signup-container {
   display: -webkit-flex !important;
@@ -1339,12 +1345,6 @@ iframe {
   border-radius: 10px;
   width: 100%;
   margin: 15px 0;
-}
-.boxes .box:last-child {
-  background: #181C1D;
-  font-size: 20px;
-  text-align: center;
-  display: block;
 }
 @media (max-width: 600px) {
   .top-image h1 {

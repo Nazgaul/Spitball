@@ -1185,11 +1185,34 @@ Page Loading
         height: 80vh; //bug 4909
     }*/
 }
-.unreg-user .content-wrapper {
+.unreg-user .close-wrapper {
+  position: relative;
+  display: block;
   width: 100%;
+  max-width: 700px;
+  height: 20px;
+  margin: 0 auto;
+}
+.unreg-user .close-wrapper button.close {
+  padding: 18px;
+  border-radius: 50%;
+  background: black;
   position: absolute;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.95);
+  top: -30px;
+}
+.unreg-user .close-wrapper button.close svg {
+  width: 30px;
+  height: 30px;
+  fill: white;
+}
+.unreg-user .content-wrapper {
+  position: relative;
+  display: block;
+  background: black;
+  /*.displayFlex();
+        .align-items(center);*/
+}
+.unreg-user .content-wrapper .content-container {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -1198,7 +1221,6 @@ Page Loading
 }
 .unreg-user .content-wrapper .content {
   margin: 0 auto;
-  width: 100%;
 }
 .unreg-user .noHeight,
 .unreg-user .smallHeight,
@@ -1242,19 +1264,6 @@ Page Loading
 }
 .unreg-user .text p {
   margin-bottom: 0;
-}
-.unreg-user .text button {
-  background: #000;
-  position: absolute;
-  left: -70px;
-  top: -50px;
-  border-radius: 50%;
-  padding: 18px;
-}
-.unreg-user .text button svg {
-  fill: #fff;
-  width: 30px;
-  height: 30px;
 }
 .unreg-user .text .large {
   font-size: 44px;
