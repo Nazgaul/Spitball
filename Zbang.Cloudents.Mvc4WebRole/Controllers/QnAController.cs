@@ -123,10 +123,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(retVal.Liked);
         }
 
-        [HttpGet, BoxPermission("boxId"), ZboxAuthorize]
+        [HttpGet, BoxPermission("boxId")]
         public async Task<JsonResult> Replies(Guid id, long boxId)
         {
-            var query = new Zbox.ViewModel.Queries.QnA.GetCommentRepliesQuery(boxId, id);
+            var query = new GetCommentRepliesQuery(boxId, id);
             var retVal =
                   await ZboxReadService.GetRepliesAsync(query);
             if (IsCrawler())
