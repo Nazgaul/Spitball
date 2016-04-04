@@ -119,20 +119,23 @@
                 return defer.promise;
             }
             page++;
-            return boxService.getFeed(boxId, page).then(function (response) {
+            return boxService.getFeed(boxId, page).then(function(response) {
                 if (!response.length) {
                     return;
                 }
-                self.data = self.data.concat(response.filter(function(item) {
-                    return self.data.indexOf(item) < 0;
-                }));
-                //self.data = self.data.concat(response);
+                self.data = self.data.concat(response);
                 assignData();
             });
         }
 
         function assignData() {
             for (var i = 0; i < self.data.length; i++) {
+                //making the array unique
+                for (var z = i + 1; z < self.data.length; ++z) {
+                    if (self.data[i].id === self.data[z].id) {
+                        self.data.splice(z--, 1);
+                    }
+                }
                 var files = self.data[i].files;
                 for (var j = 0; j < files.length; j++) {
                     var item = files[j];
