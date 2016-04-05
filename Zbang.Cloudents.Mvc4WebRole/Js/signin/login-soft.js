@@ -155,7 +155,8 @@ var Login = function () {
             }
         });
 
-        jQuery('#register-btn, .login-option.signup').click(function () {
+        jQuery('#register-btn, .login-option.signup').click(function (e) {
+            e.preventDefault();
             document.body.scrollTop = 0;
             jQuery('.login-form, .forgot-password-form').hide();
             jQuery('.register-form').removeClass('hidden').fadeIn();
@@ -176,6 +177,7 @@ var Login = function () {
 
 
         jQuery('#forget-password').click(function () {
+           
             document.body.scrollTop = 0;
             jQuery('.login-form, .register-form').hide();
             jQuery('.forgot-password-form').removeClass('hidden').fadeIn();
