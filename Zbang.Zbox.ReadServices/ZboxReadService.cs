@@ -78,23 +78,23 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
 
         }
 
-        public async Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync()
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var fieldInfo = typeof(Sql.Sql).GetFields(BindingFlags.Public | BindingFlags.Static |
-                                            BindingFlags.FlattenHierarchy)
-                                            .FirstOrDefault(fi => fi.IsLiteral && !fi.IsInitOnly && fi.Name == "GetItemsPageItems_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower());
+        //public async Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync()
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var fieldInfo = typeof(Sql.Sql).GetFields(BindingFlags.Public | BindingFlags.Static |
+        //                                    BindingFlags.FlattenHierarchy)
+        //                                    .FirstOrDefault(fi => fi.IsLiteral && !fi.IsInitOnly && fi.Name == "GetItemsPageItems_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower());
                 
-                var itemsQuery = Sql.Sql.GetItemsPageItems_en;
-                if (fieldInfo != null)
-                {
-                    itemsQuery = fieldInfo.GetValue(null).ToString();
-                }
-                return await conn.QueryAsync<Item.ItemDto>(itemsQuery);
-            }
+        //        var itemsQuery = Sql.Sql.GetItemsPageItems_en;
+        //        if (fieldInfo != null)
+        //        {
+        //            itemsQuery = fieldInfo.GetValue(null).ToString();
+        //        }
+        //        return await conn.QueryAsync<Item.ItemDto>(itemsQuery);
+        //    }
 
-        }
+        //}
         
         //[Obsolete]
         //public async Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query)
