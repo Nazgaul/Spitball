@@ -36,9 +36,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrEmpty(universityName))
             {
-                return RedirectToRoutePermanent("PrivateBoxWithSub", new { boxId, boxName, part = "feed" });
+                return RedirectToRoutePermanent("PrivateBoxWithSub", new { boxId, boxName, invId, part = "feed" });
             }
-            return RedirectToRoutePermanent("CourseBoxWithSub", new { universityName, boxId, boxName, part = "feed" });
+            return RedirectToRoutePermanent("CourseBoxWithSub", new { universityName, boxId, boxName, invId, part = "feed" });
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
