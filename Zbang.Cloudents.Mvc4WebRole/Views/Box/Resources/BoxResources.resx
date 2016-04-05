@@ -148,7 +148,7 @@
     <value>Privacy Settings</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Search</value>
+    <value>Search documents</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status:</value>
@@ -194,5 +194,8 @@
   </data>
   <data name="membersInvite" xml:space="preserve">
     <value>Invite Friends</value>
+  </data>
+  <data name="InviteFriendsMember" xml:space="preserve">
+    <value>Invite Students</value>
   </data>
 </root>

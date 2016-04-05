@@ -224,7 +224,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search for documents, classes and more....
+        ///   Looks up a localized string similar to Search for documents, classes.
         /// </summary>
         public static string Search {
             get {
