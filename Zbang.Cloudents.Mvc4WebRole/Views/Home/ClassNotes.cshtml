@@ -4,6 +4,8 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
+    var lang = (System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "he") ? "he" : "en";
+
 
 }
 <div class="static-page class-notes-page">
@@ -22,7 +24,7 @@
                     for (var i = 1; i < 20; i++)
                     {
                         <li id="thumb-@i">
-                            <img src="@Url.CdnContent("~/images/ClassNotes/thumbnails/" + @i + ".png")" data-image="@Url.CdnContent("~/images/ClassNotes/items/" + @i + ".png")" alt="Class note thumbnail" />
+                            <img src="@Url.CdnContent("~/images/ClassNotes/thumbnails/" + @lang +"/"+ @i + ".png")" data-image="@Url.CdnContent("~/images/ClassNotes/items/" + @lang +"/" + @i + ".png")" alt="Class note thumbnail" />
                         </li>
                     }
                     <li class="signup-container">
