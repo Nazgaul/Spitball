@@ -49,9 +49,10 @@
                 <li id="apps">
                     <a href="@Url.RouteUrl("Apps")">@HomePageResources.A11</a>
                 </li>
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    <li class="language">
+
+                <li class="language">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
                         <input type="checkbox" id="language-menu" />
                         <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
                         <label class="language-close" for="language-menu"></label>
@@ -59,8 +60,9 @@
                             <li class="menu-item"> <button data-cookie="en-US">@Languages.EnglishUsName</button> </li>
                             <li class="menu-item"> <button data-cookie="he-il">@Languages.HebrewName</button> </li>
                         </ul>
-                    </li>
-                }
+                    }
+                </li>
+
             </ul>
         </div>
         @if (!User.Identity.IsAuthenticated)
