@@ -72,14 +72,14 @@
                     @IndexResources.Settings
                 </md-button>
             </li>
-            @*<li class="help nav-item">
-                    <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" @shouldPostBack href="@Url.RouteUrl("Help")">
-                        <span class="icon">
-                            @Html.Svg(svgUrl, "headerHelp")
-                        </span>
-                        @SharedResources.Help
-                    </md-button>
-                </li>*@
+            <li class="help nav-item" hide-gt-xs>
+                <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" @shouldPostBack href="@Url.RouteUrl("Help")">
+                    <span class="icon">
+                        @Html.Svg(svgUrl, "headerHelp")
+                    </span>
+                    @SharedResources.Help
+                </md-button>
+            </li>
             @*<li class="blog nav-item">
                     <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("Blog2")')}" @shouldPostBack href="@Url.RouteUrl("Blog2")">
                         <span class="icon">
