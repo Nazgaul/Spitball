@@ -28,7 +28,8 @@
     bottom: -58vh;
   }
 }
-.homePage .home-page-body > * {
+.homePage .home-page-body > section,
+.homePage .home-page-body footer {
   overflow: auto;
   padding: 50px 5%;
   -moz-box-sizing: border-box;
@@ -80,7 +81,8 @@
   color: #f5f5f5;
   text-transform: capitalize;
 }
-.homePage .home-page-body section.main .welcome-text > * {
+.homePage .home-page-body section.main .welcome-text > h1,
+.homePage .home-page-body section.main .welcome-text h2 {
   text-shadow: 2px 2px 4px #282828;
 }
 .homePage .home-page-body section.main .welcome-text h1 {
@@ -398,7 +400,7 @@
   border-radius: 0;
   padding-left: 15px;
   border: 1px solid #c3c3c3;
-  -webkit-box-shadow: 0 0 0px 1000px #e9eaed inset;
+  box-shadow: 0 0 0 1000px #e9eaed inset;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-control:focus {
   border-color: #c3ccda;
@@ -408,6 +410,20 @@
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .register-form {
   display: none;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .register-form h3 {
+  white-space: pre-wrap;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .register-form .form-actions-container {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #888b8e;
+  padding-bottom: 15px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .register-form .form-actions {
+  border: 0;
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 0;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-group {
   margin-bottom: 20px;
@@ -466,7 +482,8 @@
   align-items: center;
   color: #f5f5f5;
 }
-.homePage .home-page-body section.main .login-wrapper.login .form-group.sex > * {
+.homePage .home-page-body section.main .login-wrapper.login .form-group.sex > input,
+.homePage .home-page-body section.main .login-wrapper.login .form-group.sex label {
   margin: 0;
   align-items: flex-start;
 }
@@ -556,8 +573,6 @@
   background: linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfff4', endColorstr='#b3bead', GradientType=0);
   margin: 10px auto;
-  -webkit-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0, 0, 0, 0.5);
   box-shadow: inset 0 1px 1px white, 0 1px 1px rgba(0, 0, 0, 0.2);
   position: relative;
 }
@@ -601,20 +616,6 @@
   border: 0;
   margin-bottom: 0;
   padding-bottom: 20px;
-}
-.homePage .home-page-body section.main .login-wrapper.login .content .register-form h3 {
-  white-space: pre-wrap;
-}
-.homePage .home-page-body section.main .login-wrapper.login .content .register-form .form-actions-container {
-  margin-bottom: 15px;
-  border-bottom: 1px solid #888b8e;
-  padding-bottom: 15px;
-}
-.homePage .home-page-body section.main .login-wrapper.login .content .register-form .form-actions {
-  border: 0;
-  margin-top: 0;
-  margin-bottom: 20px;
-  padding-bottom: 0;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-actions .btn {
   padding: 0 16px;
@@ -728,7 +729,6 @@
   padding: 0;
   color: #f3565d;
   display: block;
-  border: 1px solid transparent;
   margin-bottom: 0;
   margin-top: 0;
   background: none;
@@ -770,41 +770,42 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
   width: 90%;
   margin: 0 auto;
-}
-.homePage .home-page-body section.about .description .features ul {
-  width: calc(40% - 70px);
-  margin: 0 auto;
-}
-@media (max-width: 800px) {
-  .homePage .home-page-body section.about .description .features ul {
-    max-width: 550px;
-    width: 100%;
-  }
-}
-.homePage .home-page-body section.about .description .features li {
-  margin-bottom: 50px;
-  font-size: 20px;
+  margin-bottom: 20px;
+  font-size: 18px;
   line-height: normal;
 }
-.homePage .home-page-body section.about .description .features li a {
+.homePage .home-page-body section.about .description .features section {
+  width: 400px;
+  margin-bottom: 44px;
+  margin-left: 20px;
+}
+.homePage .home-page-body section.about .description .features h4 {
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+.homePage .home-page-body section.about .description .features a {
   color: rgba(245, 245, 245, 0.7);
   text-decoration: none;
 }
-.homePage .home-page-body section.about .description .features li a:hover {
+.homePage .home-page-body section.about .description .features a:hover {
   color: #20495F;
+}
+.homePage .home-page-body section.about .description .features a:before {
+  content: '\2022';
+  position: absolute;
+  left: -20px;
 }
 .homePage .home-page-body section.about .video-image {
   margin: 0 auto;
   padding: 0;
   border: none;
   background: none;
-  display: block;
   cursor: pointer;
   width: 100%;
   display: none;
@@ -858,13 +859,11 @@
 }
 @media (min-width: 600px) {
   .homePage .home-page-body section.about #open-video {
-    display: inline-block;
     position: absolute;
     bottom: -123px;
     left: 0;
     right: 0;
     width: 650px;
-    max-width: 500px;
     display: block;
     margin: 0 auto;
   }
@@ -1034,11 +1033,23 @@
 /*#region animations*/
 .animated {
   -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  -o-animation-duration: 1s;
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
   animation-fill-mode: both;
 }
 @-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeIn {
   0% {
     opacity: 0;
   }
@@ -1056,6 +1067,8 @@
 }
 .fadeIn {
   -webkit-animation-name: fadeIn;
+  -moz-animation-name: fadeIn;
+  -o-animation-name: fadeIn;
   animation-name: fadeIn;
 }
 @-webkit-keyframes fadeInLeft {
@@ -1162,105 +1175,151 @@
   background-color: #f76446;
   border-radius: 100%;
   -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
+  -moz-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
+  -o-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
   animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
 }
 .sk-fading-circle .sk-circle2 {
   -webkit-transform: rotate(30deg);
   -ms-transform: rotate(30deg);
+  -moz-transform: rotate(30deg);
+  -o-transform: rotate(30deg);
   transform: rotate(30deg);
 }
 .sk-fading-circle .sk-circle3 {
   -webkit-transform: rotate(60deg);
   -ms-transform: rotate(60deg);
+  -moz-transform: rotate(60deg);
+  -o-transform: rotate(60deg);
   transform: rotate(60deg);
 }
 .sk-fading-circle .sk-circle4 {
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 .sk-fading-circle .sk-circle5 {
   -webkit-transform: rotate(120deg);
   -ms-transform: rotate(120deg);
+  -moz-transform: rotate(120deg);
+  -o-transform: rotate(120deg);
   transform: rotate(120deg);
 }
 .sk-fading-circle .sk-circle6 {
   -webkit-transform: rotate(150deg);
   -ms-transform: rotate(150deg);
+  -moz-transform: rotate(150deg);
+  -o-transform: rotate(150deg);
   transform: rotate(150deg);
 }
 .sk-fading-circle .sk-circle7 {
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 .sk-fading-circle .sk-circle8 {
   -webkit-transform: rotate(210deg);
   -ms-transform: rotate(210deg);
+  -moz-transform: rotate(210deg);
+  -o-transform: rotate(210deg);
   transform: rotate(210deg);
 }
 .sk-fading-circle .sk-circle9 {
   -webkit-transform: rotate(240deg);
   -ms-transform: rotate(240deg);
+  -moz-transform: rotate(240deg);
+  -o-transform: rotate(240deg);
   transform: rotate(240deg);
 }
 .sk-fading-circle .sk-circle10 {
   -webkit-transform: rotate(270deg);
   -ms-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
   transform: rotate(270deg);
 }
 .sk-fading-circle .sk-circle11 {
   -webkit-transform: rotate(300deg);
   -ms-transform: rotate(300deg);
+  -moz-transform: rotate(300deg);
+  -o-transform: rotate(300deg);
   transform: rotate(300deg);
 }
 .sk-fading-circle .sk-circle12 {
   -webkit-transform: rotate(330deg);
   -ms-transform: rotate(330deg);
+  -moz-transform: rotate(330deg);
+  -o-transform: rotate(330deg);
   transform: rotate(330deg);
 }
 .sk-fading-circle .sk-circle2:before {
   -webkit-animation-delay: -1.1s;
+  -moz-animation-delay: -1.1s;
+  -o-animation-delay: -1.1s;
   animation-delay: -1.1s;
 }
 .sk-fading-circle .sk-circle3:before {
   -webkit-animation-delay: -1s;
+  -moz-animation-delay: -1s;
+  -o-animation-delay: -1s;
   animation-delay: -1s;
 }
 .sk-fading-circle .sk-circle4:before {
   -webkit-animation-delay: -0.9s;
+  -moz-animation-delay: -0.9s;
+  -o-animation-delay: -0.9s;
   animation-delay: -0.9s;
 }
 .sk-fading-circle .sk-circle5:before {
   -webkit-animation-delay: -0.8s;
+  -moz-animation-delay: -0.8s;
+  -o-animation-delay: -0.8s;
   animation-delay: -0.8s;
 }
 .sk-fading-circle .sk-circle6:before {
   -webkit-animation-delay: -0.7s;
+  -moz-animation-delay: -0.7s;
+  -o-animation-delay: -0.7s;
   animation-delay: -0.7s;
 }
 .sk-fading-circle .sk-circle7:before {
   -webkit-animation-delay: -0.6s;
+  -moz-animation-delay: -0.6s;
+  -o-animation-delay: -0.6s;
   animation-delay: -0.6s;
 }
 .sk-fading-circle .sk-circle8:before {
   -webkit-animation-delay: -0.5s;
+  -moz-animation-delay: -0.5s;
+  -o-animation-delay: -0.5s;
   animation-delay: -0.5s;
 }
 .sk-fading-circle .sk-circle9:before {
   -webkit-animation-delay: -0.4s;
+  -moz-animation-delay: -0.4s;
+  -o-animation-delay: -0.4s;
   animation-delay: -0.4s;
 }
 .sk-fading-circle .sk-circle10:before {
   -webkit-animation-delay: -0.3s;
+  -moz-animation-delay: -0.3s;
+  -o-animation-delay: -0.3s;
   animation-delay: -0.3s;
 }
 .sk-fading-circle .sk-circle11:before {
   -webkit-animation-delay: -0.2s;
+  -moz-animation-delay: -0.2s;
+  -o-animation-delay: -0.2s;
   animation-delay: -0.2s;
 }
 .sk-fading-circle .sk-circle12:before {
   -webkit-animation-delay: -0.1s;
+  -moz-animation-delay: -0.1s;
+  -o-animation-delay: -0.1s;
   animation-delay: -0.1s;
 }
 @-webkit-keyframes sk-circleFadeDelay {
