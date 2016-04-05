@@ -1,19 +1,17 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 <div ng-if="!lc.needCode && !lc.createUniversity" id="lib-choose">
-    <div class="form-container">
-        <div class="search-form-wrapper" ng-class="{'no-results': lc.term.length > 1 && lc.showNoResult}">
-            <div class="intro-text-wrapper">
-                <div class="intro-text" ng-if="!lc.term">@LibraryResources.UniversitySearchTitle</div>
-                <div class="intro-text" ng-if="lc.term">@LibraryResources.UniversitySearchTitleTyping</div>
-            </div>
-            <form name="libraryChooseForm" novalidate ng-submit="lc.universitySearch(libraryChooseForm)" layout="row" layout-wrap>
-                <input spellcheck="false" autofocus required ng-disabled="lc.createUniversity" type="search" class="search-text color-override inputColor6" placeholder="@LibraryResources.UniversitySearchPlaceholder"
-                       ng-model="lc.term" ng-model-options="{debounce : 350}" ng-change="lc.universitySearch(libraryChooseForm)" ng-minlength="2" />
-                <button type="submit" class="search-button" ng-disabled="!lc.term.length">
-                    @Html.Svg("~/images/site/icons.svg", "searchIcon")
-                </button>
-            </form>
+    <div class="search-form-wrapper" ng-class="{'no-results': lc.term.length > 1 && lc.showNoResult}">
+        <div class="intro-text-wrapper">
+            <div class="intro-text" ng-if="!lc.term">@LibraryResources.UniversitySearchTitle</div>
+            <div class="intro-text" ng-if="lc.term">@LibraryResources.UniversitySearchTitleTyping</div>
         </div>
+        <form name="libraryChooseForm" novalidate ng-submit="lc.universitySearch(libraryChooseForm)" layout="row" layout-wrap>
+            <input spellcheck="false" autofocus required ng-disabled="lc.createUniversity" type="search" class="search-text color-override inputColor6" placeholder="@LibraryResources.UniversitySearchPlaceholder"
+                   ng-model="lc.term" ng-model-options="{debounce : 350}" ng-change="lc.universitySearch(libraryChooseForm)" ng-minlength="2" />
+            <button type="submit" class="search-button" ng-disabled="!lc.term.length">
+                @Html.Svg("~/images/site/icons.svg", "searchIcon")
+            </button>
+        </form>
     </div>
 
     <div ng-if="!lc.createUniversity" srph-infinite-scroll="lc.paging()" class="results">

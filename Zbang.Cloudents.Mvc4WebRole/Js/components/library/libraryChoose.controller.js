@@ -29,6 +29,8 @@
         function universitySearch(libraryChooseForm) {
             if (libraryChooseForm.$valid) {
                 search();
+            } else {
+                self.universities = [];
             }
         }
 
