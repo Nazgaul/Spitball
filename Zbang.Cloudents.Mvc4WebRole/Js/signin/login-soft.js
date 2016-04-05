@@ -164,7 +164,8 @@ var Login = function () {
             //trackConversion();
         });
 
-        jQuery('.signin-btn, #login-btn, .forgot-password-form .cancel').click(function () {
+        jQuery('.signin-btn, #login-btn, .forgot-password-form .cancel').click(function (e) {
+            e.preventDefault();
             document.body.scrollTop = 0;
             jQuery('.register-form, .forgot-password-form').hide();
             jQuery('.login-form').removeClass('hidden').fadeIn();
