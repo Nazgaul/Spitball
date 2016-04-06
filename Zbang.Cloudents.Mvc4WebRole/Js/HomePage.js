@@ -102,15 +102,17 @@
         $('.alert-danger').slideUp(animatonSpeed);
     });
 
-    $('.login-option.signup').click(function () {
+    $('.login-option.signup').click(function (e) {
+        e.preventDefault();
         toggleForm('register-form');
         $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
     });
-    //$('.signin-btn').click(function () {
-    //    toggleForm('login-form');
-    //    $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
-    //    $(this).addClass('hidden');
-    //});
+    $('.signin-btn').click(function (e) {
+        e.preventDefault();
+        toggleForm('login-form');
+        $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
+        $(this).addClass('hidden');
+    });
 
     $('.close-form').click(function () {
         $.each($('.home-page-body > *:not(.main)'),

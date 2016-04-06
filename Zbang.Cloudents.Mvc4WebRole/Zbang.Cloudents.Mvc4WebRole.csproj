@@ -2962,7 +2962,6 @@
     <Content Include="Views\Library\_EmptyStateTopTree.cshtml" />
     <Content Include="Views\Home\Product.cshtml" />
     <Content Include="Views\Account\Department.cshtml" />
-    <Content Include="Views\Shared\Partials2\_StaticPageHeader.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageFooter.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageNav.cshtml" />

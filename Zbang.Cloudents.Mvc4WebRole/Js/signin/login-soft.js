@@ -155,32 +155,33 @@ var Login = function () {
             }
         });
 
-        jQuery('#register-btn, .login-option.signup').click(function (e) {
-            e.preventDefault();
-            document.body.scrollTop = 0;
-            jQuery('.login-form, .forgot-password-form').hide();
-            jQuery('.register-form').removeClass('hidden').fadeIn();
-            pushState(signupState);
-            ga('send', 'pageview', '/account/signup');
-            //trackConversion();
-        });
+        //$('#register-btn, .login-option.signup').click(function (e) {
+        //    e.preventDefault();
+        ////    document.body.scrollTop = 0;
+        ////    $('.login-form, .forgot-password-form').hide();
+        ////    //$('.register-form').removeClass('hidden').fadeIn();
+        ////    pushState(signupState);
+        ////    ga('send', 'pageview', '/account/signup');
+        ////    //trackConversion();
+        //});
 
-        jQuery('.signin-btn, #login-btn, .forgot-password-form .cancel').click(function (e) {
+        //for forgot password
+        $('.signin-btn, #login-btn, .forgot-password-form .cancel').click(function (e) {
             e.preventDefault();
             document.body.scrollTop = 0;
-            jQuery('.register-form, .forgot-password-form').hide();
-            jQuery('.login-form').removeClass('hidden').fadeIn();
+            $('.register-form, .forgot-password-form').hide();
+            $('.login-form').removeClass('hidden').fadeIn();
             pushState(loginState);
             ga('send', 'pageview', '/account/signin');
-            //trackConversion();
+           
         });
 
 
-        jQuery('#forget-password').click(function () {
+        $('#forget-password').click(function () {
            
             document.body.scrollTop = 0;
-            jQuery('.login-form, .register-form').hide();
-            jQuery('.forgot-password-form').removeClass('hidden').fadeIn();
+            $('.login-form, .register-form').hide();
+            $('.forgot-password-form').removeClass('hidden').fadeIn();
             pushState(forgotPasswordState);
             ga('send', 'pageview', '/account/resetpassword');
             //trackConversion();
@@ -189,11 +190,11 @@ var Login = function () {
     }
 
     var handleExtenalLogin = function () {
-        jQuery('.facebook').click(function () {
+        $('.facebook').click(function () {
             facebookLogin();
         });
 
-        jQuery('.google').click(function () {
+        $('.google').click(function () {
             googleLogIn();
         });
         window.Intercom('boot', {
@@ -427,8 +428,8 @@ var Login = function () {
                 $('.signin-btn').addClass('hidden');
             }
 
-            $.each(jQuery.validator.messages, function (key, value) {
-                if ($.type(value) == 'string') { jQuery.validator.messages[key] = value.replace('.', ''); }
+            $.each($.validator.messages, function (key, value) {
+                if ($.type(value) == 'string') { $.validator.messages[key] = value.replace('.', ''); }
             });
 
 
