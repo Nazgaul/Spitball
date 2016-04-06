@@ -242,11 +242,31 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select your school to start Spitballing with your classmates.
+        ///   Looks up a localized string similar to Select your school to start 
+        ///Spitballing with your classmates.
         /// </summary>
         public static string UniversitySearchTitle {
             get {
                 return ResourceManager.GetString("UniversitySearchTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Um... We can&apos;t find your school in our records
+        ///.
+        /// </summary>
+        public static string UniversitySearchTitleNoResult {
+            get {
+                return ResourceManager.GetString("UniversitySearchTitleNoResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try different keywords or add your own.
+        /// </summary>
+        public static string UniversitySearchTitleNoResultSub {
+            get {
+                return ResourceManager.GetString("UniversitySearchTitleNoResultSub", resourceCulture);
             }
         }
         

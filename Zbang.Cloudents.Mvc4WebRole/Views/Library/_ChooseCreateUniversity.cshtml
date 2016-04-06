@@ -38,7 +38,7 @@
             <md-button type="submit" class="btn button-Blue btn-primary" ng-disabled="!createUniversity.$valid || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">
                 @GeneralResources.Create
             </md-button>
-            <md-button class="btn btn-default" ng-click="lc.createUniversity = false" ga-track-event="['universityChoose', 'cancel new university']">
+            <md-button class="btn btn-default" ng-click="lc.createCancel()" ga-track-event="['universityChoose', 'cancel new university']">
                 @GeneralResources.Cancel
             </md-button>
         </div>

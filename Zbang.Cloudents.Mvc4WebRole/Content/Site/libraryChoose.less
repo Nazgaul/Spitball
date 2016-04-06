@@ -5,6 +5,13 @@
         margin-left: -250px;
     }
 
+    .md-button {
+        padding: 0 17px;
+        border-radius: 5px;
+        line-height: 30px;
+        min-height: 30px;
+    }
+
     .univeristy {
         .displayFlex();
         font-weight: 700;
@@ -36,8 +43,7 @@
 
     .no-result {
         text-align: center;
-
-        h4 {
+        /*h4 {
             font-size: 25px;
             font-weight: 700;
         }
@@ -46,31 +52,43 @@
             white-space: pre-wrap;
             font-size: 23px;
             margin-bottom: 50px;
+        }*/
+        img {
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 10px;
         }
     }
 
     .add-uni-btn {
+        text-align: center;
+        color: #fff;
+
+
+        div {
+            font-size: 18px;
+        }
         //.displayFlex();
         //.align-items(center);
         //.justifyContet(center);
-        span {
-            height: 70px;
-            width: 70px;
-            line-height: 0;
-            text-align: center;
-            border-radius: 50%;
-
-            svg {
-                width: 64px;
-                height: 64px;
-                padding: 15px;
-            }
-        }
-
-        div {
-            margin-left: 15px;
-            font-size: 22px;
-        }
+        // span {
+        //     height: 70px;
+        //     width: 70px;
+        //     line-height: 0;
+        //     text-align: center;
+        //     border-radius: 50%;
+        //
+        //     svg {
+        //         width: 64px;
+        //         height: 64px;
+        //         padding: 15px;
+        //     }
+        // }
+        //
+        // div {
+        //     margin-left: 15px;
+        //     font-size: 22px;
+        // }
     }
 
 
@@ -252,16 +270,14 @@
 
     @buttonWidth: 60px;
     @buttonWidthMobile: 50px;
-    
+
 
     .search-form-wrapper {
         text-align: center;
         margin: 0 auto;
         width: 95%;
-        max-width: 600px;
+        //max-width: 600px;
         padding-bottom: 0;
-
-
         //&:not(.no-results) {
         //    @media(min-width: 600px) {
         //        max-width: 860px;
@@ -282,7 +298,6 @@
         //        background-size: 220px;
         //    }
         //}
-
         .intro-text-wrapper {
             height: 135px;
             .displayFlex;
@@ -290,17 +305,19 @@
             -webkit-flex-direction: column;
             flex-direction: column;
             justify-content: center;
-            max-width: 536px;
+            //max-width: 536px;
             margin: 0 auto;
+            font-size: 30px;
+            line-height: 32px;
+            font-weight: bold;
 
-            .intro-text {
-                font-size: 30px;
-                line-height: 32px;
-                font-weight: bold;
+            @media(min-width: 600px) {
+                white-space: pre-wrap;
+            }
 
-                @media(min-width: 600px) {
-                    white-space: pre-wrap;
-                }
+            .sub-text {
+                color: @textColorGrey;
+                font-size: 26px;
             }
         }
 
@@ -318,6 +335,7 @@
                 padding: 0 10px 0 25px;
                 width: ~"calc(100% - @{buttonWidth})";
                 border: 0;
+                .placeHolder(@textColorGrey);
             }
 
             .search-button {
@@ -356,26 +374,32 @@
     .results {
         max-width: 600px;
         margin: 0 auto;
-
-
-        .no-result .sub-text {
-            @media(min-width: 600px) {
-                background-size: 350px;
-                padding-bottom: 280px;
-                margin: 0;
-                background-image: url('../../Images/Site/no_uni.png');
-                background-repeat: no-repeat;
-                background-position: 60% 100%;
-
-                @media(max-height: 800px) {
-                    background-size: 296px;
-                    padding-bottom: 224px;
-                }
-            }
-        }
-
+        //.no-result .sub-text {
+        //    @media(min-width: 600px) {
+        //        background-size: 350px;
+        //        padding-bottom: 280px;
+        //        margin: 0;
+        //        background-image: url('../../Images/Site/no_uni.png');
+        //        background-repeat: no-repeat;
+        //        background-position: 60% 100%;
+        //
+        //        @media(max-height: 800px) {
+        //            background-size: 296px;
+        //            padding-bottom: 224px;
+        //        }
+        //    }
+        //}
         > div {
             padding: 20px 0;
+        }
+
+        > img {
+            display: block;
+            margin: 30px auto 0;
+
+            @media(max-width:600px) {
+                display: none;
+            }
         }
     }
 }

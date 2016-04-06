@@ -176,12 +176,20 @@
     <value>אמ.. זה קצת מביך</value>
   </data>
   <data name="UniversityAddSchoolTitle" xml:space="preserve">
-    <value>תודה! מעריכים את המאמץ שהשקעת</value>
+    <value>תודה! הוספת מוסד לימודים חדש
+עוזרת לך ולחברים שלך</value>
   </data>
   <data name="UniversitySearchNoUniversityText" xml:space="preserve">
     <value>לא הצלחנו למצוא את המוסד האקדמי שלך בספיטבול</value>
   </data>
   <data name="UniversitySearchTitleTyping" xml:space="preserve">
-    <value>מתחילים...</value>
+    <value>קליק אחד ואתם בספיטבול</value>
+  </data>
+  <data name="UniversitySearchTitleNoResult" xml:space="preserve">
+    <value>!קצת מביך... לא מצאנו את מוסד הלימודים שלכם
+</value>
+  </data>
+  <data name="UniversitySearchTitleNoResultSub" xml:space="preserve">
+    <value>נסו שם אחר או הוסיפו מוסד לימודים חדש</value>
   </data>
 </root>

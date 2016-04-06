@@ -416,9 +416,6 @@ Page Loading
 .theme-light .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
   fill: #d39f10;
 }
-.theme-light .theme-light .page-title > h1 {
-  color: #484f56;
-}
 .theme-light .folder-selected .folder-name .folder-name-inner,
 .theme-light .folders .folder-name .folder-name-inner {
   background: #ffffff;
@@ -1069,7 +1066,7 @@ Page Loading
   color: #ffa500;
 }
 .theme-light .library .department {
-  border: 4px solid #c3c3c3;
+  border: 3px solid #c3c3c3;
   color: #888b8e;
 }
 .theme-light .library .dots-3 {
@@ -1084,22 +1081,6 @@ Page Loading
 }
 .theme-light .library-choose .univeristy .img-circle {
   background: #212325;
-}
-.theme-light .library-choose .add-uni-btn span {
-  border: 3px solid #888b8e;
-}
-.theme-light .library-choose .add-uni-btn span svg {
-  fill: #888b8e;
-  vertical-align: text-top;
-}
-.theme-light .library-choose .add-uni-btn:hover {
-  color: #4190b9;
-}
-.theme-light .library-choose .add-uni-btn:hover span {
-  border-color: #4190b9;
-}
-.theme-light .library-choose .add-uni-btn:hover span svg {
-  fill: #4190b9;
 }
 .theme-light .library-choose .code h4 {
   color: #212325;
@@ -2130,6 +2111,9 @@ Page Loading
 }
 .theme-light .library-choose .search-form-wrapper form {
   border: 1px solid #888b8e;
+}
+.theme-light .page-title > h1 {
+  color: #484f56;
 }
 @media (min-width: 600px) {
   .theme-light .library-choose .add-univeristy {

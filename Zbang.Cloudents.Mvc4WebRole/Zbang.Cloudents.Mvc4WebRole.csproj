@@ -1886,7 +1886,6 @@
     <Content Include="Images\HomePage2\testimonial3.jpg" />
     <Content Include="Images\HomePage2\testimonial4.jpg" />
     <Content Include="Images\HomePage2\user.png" />
-    <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\browsers.svg" />
     <Content Include="Images\aboutUs\aboutUsIcons.svg" />
     <Content Include="Images\Site\info.svg" />

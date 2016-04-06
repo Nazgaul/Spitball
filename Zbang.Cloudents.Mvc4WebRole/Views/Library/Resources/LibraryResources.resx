@@ -119,7 +119,6 @@
   </resheader>
   <data name="AddSchool" xml:space="preserve">
     <value>Add your school</value>
-    
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
@@ -164,32 +163,33 @@
     <value>Find your school</value>
   </data>
   <data name="UniversitySearchTitle" xml:space="preserve">
-    <value>Select your school to start Spitballing with your classmates</value>
-    
+    <value>Select your school to start 
+Spitballing with your classmates</value>
   </data>
   <data name="UniveristySearchNoUniversityTitle" xml:space="preserve">
     <value>Um, this is awkward...</value>
-    
   </data>
   <data name="UniversityAddSchoolTitle" xml:space="preserve">
     <value>Get ready to do something big for you and your classmates</value>
-    
   </data>
   <data name="UniversitySearchNoUniversityText" xml:space="preserve">
     <value>We can't find your school in our records
 Make Spitball better by adding it</value>
-    
   </data>
   <data name="UniversitySearchTitleTyping" xml:space="preserve">
     <value>Let’s Spitball!</value>
-    
   </data>
   <data name="EmptyStateTopNodeText" xml:space="preserve">
     <value>Enter the class details and make Spitball more useful </value>
-    
   </data>
   <data name="EmptyStateTopNodeTitle" xml:space="preserve">
     <value>Yeesh… we’re feeling a little exposed here</value>
-    
+  </data>
+  <data name="UniversitySearchTitleNoResult" xml:space="preserve">
+    <value>Um... We can't find your school in our records
+</value>
+  </data>
+  <data name="UniversitySearchTitleNoResultSub" xml:space="preserve">
+    <value>Try different keywords or add your own</value>
   </data>
 </root>
