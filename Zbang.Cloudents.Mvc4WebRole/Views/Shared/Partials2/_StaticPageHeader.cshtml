@@ -1,0 +1,62 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Zbox.Infrastructure.Culture
+<header class="static-page-header">
+    <nav>
+        <div class="nav-content">
+            <input type="checkbox" id="menu-toggle" />
+            <div class="navbar-header">
+                <div class="navbar-toggle toggle collapsed">
+                    <label for="menu-toggle">@Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "headerMenu" })</label>
+                    <label for="menu-toggle" class="menu-close"></label>
+                </div>
+                <a class="logo-wrapper" href="@Url.RouteUrl("homePage")" ga-track-event="['header', 'logo']">
+                    <div class="logo"></div>
+                    @Html.Svg("~/images/site/icons.svg", "smallLogo", new { @class = "logo-small" })
+                </a>
+            </div>
+            <ul class="toggle">
+                <li id="product">
+                    <a href="@Url.RouteUrl("Product")">@HomePageResources.A3</a>
+                </li>
+                <li class="pipe"></li>
+                <li id="features">
+                    <a href="@Url.RouteUrl("Features")">@HomePageResources.A9</a>
+                </li>
+                <li class="pipe"></li>
+                <li id="meet">
+                    <a href="@Url.RouteUrl("ClassNotes")">@HomePageResources.A10</a>
+                </li>
+                <li class="pipe"></li>
+                <li id="meet">
+                    <a href="@Url.RouteUrl("Courses")">@HomePageResources.A12</a>
+                </li>
+                <li class="pipe"></li>
+                <li id="apps">
+                    <a href="@Url.RouteUrl("Apps")">@HomePageResources.A11</a>
+                </li>
+
+                <li class="language">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <input type="checkbox" id="language-menu" />
+                        <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
+                        <label class="language-close" for="language-menu"></label>
+                        <ul class="dropdown-menu dropdown-menu-left ">
+                            <li class="menu-item"> <button data-cookie="en-US">@Languages.EnglishUsName</button> </li>
+                            <li class="menu-item"> <button data-cookie="he-il">@Languages.HebrewName</button> </li>
+                        </ul>
+                    }
+                </li>
+
+            </ul>
+        </div>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="login-buttons">
+                <a class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("signup")">@IndexResources.Signup</a>
+                <a class="signin-btn toggle login-option os-animation" href="@Url.RouteUrl("signin")">@HomePageResources.A1</a>
+            </div>
+        }
+    </nav>
+</header>
