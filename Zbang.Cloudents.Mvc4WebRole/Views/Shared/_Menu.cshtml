@@ -73,7 +73,7 @@
                 </md-button>
             </li>
             <li class="help nav-item" hide-gt-xs>
-                <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" @shouldPostBack href="@Url.RouteUrl("Help")">
+                <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" target="_self" href="@Url.RouteUrl("Help")">
                     <span class="icon">
                         @Html.Svg(svgUrl, "headerHelp", new { @class = "svgTC16" })
                     </span>
