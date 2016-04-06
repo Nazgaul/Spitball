@@ -256,3 +256,4 @@
 /// <reference path="../js/components/box/addtoany.directive.js" />
 /// <reference path="../Js/signin/staticPages.js" />
 /// <reference path="../js/signin/itemgallery.js" />
+/// <reference path="../js/doubleclick.config.js" />

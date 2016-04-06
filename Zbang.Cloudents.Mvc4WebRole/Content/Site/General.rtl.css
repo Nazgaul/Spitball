@@ -1295,7 +1295,7 @@ md-tabs md-ink-bar {
   top: 0;
 }
 .full-screen.itemPage header > div {
-  height: 80px;
+  height: 70px;
 }
 .full-screen.quizPage {
   top: 0;
@@ -1306,8 +1306,8 @@ md-tabs md-ink-bar {
   color: #f5f5f5;
   background-color: #323538;
   border-bottom: 5px solid #282828;
-  height: 80px;
-  line-height: 75px;
+  height: 70px;
+  line-height: 65px;
   position: fixed;
   right: 0;
   left: 0;
@@ -1321,7 +1321,7 @@ md-tabs md-ink-bar {
   opacity: 1;
 }
 .full-screen .full-screen-body {
-  margin-top: 80px;
+  margin-top: 70px;
   min-height: calc( 100% - 80px);
   margin-bottom: 80px;
 }

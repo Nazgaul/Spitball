@@ -1,5 +1,5 @@
 ﻿@import "variables.less";
-
+@import "layout.less";
 .itemPage {
 
     header {
@@ -458,8 +458,9 @@
     }
 
     .google-side-ad {
-        position: absolute;
-        right: 10px;
+        position: fixed;
+        right: ~"calc(50% - 650px)";
+        top: @heightOfHeader + 5;
 
         @media(max-width: 1279px) {
             display: none;
