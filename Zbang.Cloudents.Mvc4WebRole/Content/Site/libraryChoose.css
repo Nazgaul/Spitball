@@ -215,27 +215,6 @@
   max-width: 600px;
   padding-bottom: 0;
 }
-@media (min-width: 600px) {
-  .library-choose .search-form-wrapper:not(.no-results) {
-    max-width: 860px;
-    margin-top: calc(90px + 4vw);
-    background-repeat: no-repeat;
-    background-image: url('../../Images/Site/search_uni.png');
-    background-position: 100% 0 /*rtl:ignore*/;
-    padding-right: 0;
-    padding-left: 0;
-    padding-top: 13vw;
-    background-size: 23vw;
-  }
-}
-@media (min-width: 900px) {
-  .library-choose .search-form-wrapper:not(.no-results) {
-    padding-top: 150px;
-    padding-right: 100px;
-    padding-left: 100px;
-    background-size: 220px;
-  }
-}
 .library-choose .search-form-wrapper .intro-text-wrapper {
   height: 135px;
   display: -webkit-flex;

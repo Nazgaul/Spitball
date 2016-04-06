@@ -75,7 +75,7 @@
             <li class="help nav-item" hide-gt-xs>
                 <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" @shouldPostBack href="@Url.RouteUrl("Help")">
                     <span class="icon">
-                        @Html.Svg(svgUrl, "headerHelp")
+                        @Html.Svg(svgUrl, "headerHelp", new { @class = "svgTC16" })
                     </span>
                     @SharedResources.Help
                 </md-button>
@@ -98,7 +98,7 @@
             </li>
             <li class="google-ad nav-item box-ad" hide-xs>
                 <div ng-if="app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459261777271-0"></div>
-                <div ng-if="!app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459255888335-0"></div>
+                <div ng-if="!app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459868085288-0"></div>
 
             </li>
         </ul>

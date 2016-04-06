@@ -1,5 +1,5 @@
 ﻿@import "variables.less";
-
+@import "layout";
 @boxColor0: #64A9F8;
 @boxColor1: #ff9853;
 @boxColor2: #e775ce;
@@ -85,7 +85,7 @@ body {
 }
 
 .page-body {
-    margin-top: 90px;
+    margin-top: @heightOfHeader + 5;
     padding: 0 10px;
 
     @media (min-width: 960px) {

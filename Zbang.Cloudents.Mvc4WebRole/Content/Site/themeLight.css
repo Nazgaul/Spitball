@@ -416,6 +416,9 @@ Page Loading
 .theme-light .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
   fill: #d39f10;
 }
+.theme-light .theme-light .page-title > h1 {
+  color: #484f56;
+}
 .theme-light .folder-selected .folder-name .folder-name-inner,
 .theme-light .folders .folder-name .folder-name-inner {
   background: #ffffff;

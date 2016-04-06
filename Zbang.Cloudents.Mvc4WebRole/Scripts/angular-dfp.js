@@ -110,7 +110,7 @@ angular.module('ngDfp', [])
         if (collapseEmptyDivs) {
           googletag.pubads().collapseEmptyDivs();
         }
-
+          googletag.pubads().enableVideoAds();
         googletag.pubads().enableSingleRequest();
         googletag.enableServices();
 

@@ -1,5 +1,5 @@
 ﻿@import "variables.less";
-
+@import "layout";
 
 .page-sidebar-menu {
 
@@ -56,13 +56,13 @@
 .page-body {
     .main-md-sidenav {
         position: fixed !important;
-        top: 80px;
+        top: @heightOfHeader - 5;
         border-radius: 5px;
         width: 250px;
         margin-left: 0;
         margin-top: 10px;
         z-index: 10;
-        height: ~"calc(100vh - 90px)";
+        height: ~"calc(100vh - @{heightOfHeader} + 5px)";
 
         md-content, .side-menu ul {
             background: transparent;
