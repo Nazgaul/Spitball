@@ -155,15 +155,19 @@ var Login = function () {
             }
         });
 
-        //$('#register-btn, .login-option.signup').click(function (e) {
-        //    e.preventDefault();
-        ////    document.body.scrollTop = 0;
-        ////    $('.login-form, .forgot-password-form').hide();
-        ////    //$('.register-form').removeClass('hidden').fadeIn();
-        ////    pushState(signupState);
-        ////    ga('send', 'pageview', '/account/signup');
-        ////    //trackConversion();
-        //});
+
+        $('#register-btn, .login-option.signup').click(function (e) {
+            e.preventDefault();
+            pushState(signupState);
+            ga('send', 'pageview', '/account/signup');
+        });
+
+        $('#register-btn').click(function (e) {
+            document.body.scrollTop = 0;
+            $('.login-form, .forgot-password-form').hide();
+            $('.register-form').removeClass('hidden').fadeIn();
+            //trackConversion();
+        });
 
         //for forgot password
         $('.signin-btn, #login-btn, .forgot-password-form .cancel').click(function (e) {
@@ -173,12 +177,12 @@ var Login = function () {
             $('.login-form').removeClass('hidden').fadeIn();
             pushState(loginState);
             ga('send', 'pageview', '/account/signin');
-           
+
         });
 
 
         $('#forget-password').click(function () {
-           
+
             document.body.scrollTop = 0;
             $('.login-form, .register-form').hide();
             $('.forgot-password-form').removeClass('hidden').fadeIn();
@@ -414,17 +418,17 @@ var Login = function () {
             //handleExtenalLogin();
             if (window.location.pathname.indexOf('/signin') > -1) {
                 handleLoginElements('login-form');
-                $('.signin-btn').addClass('hidden');
+                $('.signin-btn').addClass('hidden', true);
 
             }
 
             if (window.location.pathname.indexOf('/signup') > -1) {
                 handleLoginElements('register-form');
-                $('.signin-btn').addClass('hidden');
+                $('.signin-btn').addClass('hidden', true);
             }
 
             if (window.location.pathname.indexOf('/resetpassword') > -1) {
-                handleLoginElements('forgot-password-form');
+                handleLoginElements('forgot-password-form', true);
                 $('.signin-btn').addClass('hidden');
             }
 
@@ -444,13 +448,58 @@ var Login = function () {
     };
 
 }();
-function handleLoginElements(formClass) {
-    $.each($('.home-page-body > *:not(.main)'), function () {
-        $(this).hide();
-    });
+
+
+var animatonSpeed = 300;
+
+$('.login-wrapper input').focus(function () {
+    $('.alert-danger').slideUp(animatonSpeed);
+});
+
+$('.login-option.signup').click(function (e) {
+    e.preventDefault();
+    handleLoginElements('register-form', false);
+});
+$('.signin-btn').click(function (e) {
+    e.preventDefault();
+    handleLoginElements('login-form', false);
+});
+
+$('.close-form').click(function () {
+    $.each($('.home-page-body > *:not(.main)'),
+        function () {
+            $(this).slideDown(animatonSpeed);
+        });
+    $('.login-wrapper, #main-wrapper .welcome-text').slideDown(animatonSpeed).removeClass('hidden');
+    $('.login-wrapper').slideUp(animatonSpeed);
+    $('.toggle').removeClass('hidden');
+    $('#main-wrapper').css('min-height', 0).height('auto');
+    window.history.replaceState(null, "Home", "/");
+
+});
+
+function handleLoginElements(formClass, fromUrl) {
+    var $mainSection = $('.home-page-body > *:not(.main)');
+    if (fromUrl) {
+        $.each($mainSection, function () {
+            $(this).hide();
+        });
+        $('.toggle, #main-wrapper .welcome-text, .login-wrapper .content > :not(.' + formClass + ')').toggleClass('hidden');
+        $('.login-wrapper, .login-wrapper .content > .' + formClass).fadeIn();
+    } else {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+        $.each($mainSection, function () {
+            $(this).slideToggle(animatonSpeed);
+        });
+        $('.login-wrapper, #main-wrapper .welcome-text').slideToggle(animatonSpeed);
+        $('.login-wrapper .content > form:not(.' + formClass + ')').each(function () {
+            $(this).addClass('hidden');
+        });
+        $('.login-wrapper .content > form.' + formClass).removeClass('hidden').show();
+        $('.toggle').toggleClass('hidden');
+    }
     $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
-    $('.toggle, #main-wrapper .welcome-text, .login-wrapper .content > :not(.' + formClass + ')').toggleClass('hidden');
-    $('.login-wrapper, .login-wrapper .content > .' + formClass).fadeIn();
+
 }
 
 //function trackConversion() {
