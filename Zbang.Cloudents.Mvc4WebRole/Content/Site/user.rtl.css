@@ -64,13 +64,6 @@
 .userPage md-tabs {
   padding: 0;
 }
-.userPage md-tabs md-pagination-wrapper {
-  -moz-transform: none !important;
-  -ms-transform: none !important;
-  -o-transform: none !important;
-  -webkit-transform: none !important;
-  transform: none !important;
-}
 .userPage md-tabs md-tab-content {
   margin: 0 -12px;
 }
