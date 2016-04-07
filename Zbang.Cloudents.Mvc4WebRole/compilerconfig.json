@@ -34,5 +34,9 @@
   {
     "outputFile": "Content/Site/General.css",
     "inputFile": "Content/Site/General.less"
+  },
+  {
+    "outputFile": "Content/HomePage/homePage.css",
+    "inputFile": "Content/HomePage/homePage.less"
   }
 ]
