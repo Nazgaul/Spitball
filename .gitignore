@@ -4,6 +4,7 @@
 **/cdn/Images/
 **/cdn/Content/
 *.min.css
+node_modules/
 
 
 # mstest test results

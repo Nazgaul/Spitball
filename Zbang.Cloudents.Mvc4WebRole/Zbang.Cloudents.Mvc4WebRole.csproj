@@ -615,6 +615,9 @@
     <Content Include="Content\HomePage\homePage.css">
       <DependentUpon>homePage.less</DependentUpon>
     </Content>
+    <Content Include="Content\HomePage\homePage.min.css">
+      <DependentUpon>homePage.css</DependentUpon>
+    </Content>
     <Content Include="Content\HomePage\homePage.rtl.css">
       <DependentUpon>homePage.css</DependentUpon>
     </Content>
@@ -1329,9 +1332,9 @@
     <Content Include="bower_components\angular-cache\README.md" />
     <Content Include="bower_components\angular-cache\TRANSITION.md" />
     <None Include="compilerconfig.json" />
-    <Content Include="compilerconfig.json.defaults">
+    <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Content\signin\components-md.min.css">
       <DependentUpon>components-md.css</DependentUpon>
     </Content>
@@ -1707,6 +1710,8 @@
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Gruntfile.js" />
+    <Content Include="gulpfile.js" />
     <Content Include="Images\3rdParty\fbShare.png" />
     <Content Include="Images\3rdParty\logo_120_4_google.png" />
     <Content Include="Images\aboutUs\aboutBg.jpg" />
@@ -2869,6 +2874,7 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="package.json" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />

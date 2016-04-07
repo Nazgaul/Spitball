@@ -1,4 +1,4 @@
-﻿@media (min-width: 960px) {
+@media (min-width: 960px) {
   .library-choose {
     margin-right: -250px;
   }
@@ -68,7 +68,7 @@
   .library-choose .add-univeristy {
     margin: 0 auto;
     background-repeat: no-repeat;
-    background-position: calc(50% + 350px) 100%;
+    background-position: calc(100%-(50% + 350px)) 100%;
     background-image: url('../../Images/Site/create_uni_b.png');
     max-width: 1150px;
     padding-left: 12vw;
@@ -116,7 +116,7 @@
 }
 @media (min-width: 900px) {
   .library-choose .add-univeristy {
-    background-position: calc(50% + 400px) 100%;
+    background-position: calc(100%-(50% + 400px)) 100%;
   }
   .library-choose .add-univeristy form {
     max-width: 450px;
