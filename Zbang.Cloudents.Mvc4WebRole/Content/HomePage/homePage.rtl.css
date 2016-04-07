@@ -703,14 +703,6 @@
   margin-left: 0;
 }
 @media (max-width: 480px) {
-  .homePage .home-page-body section.main .login-wrapper.login {
-    /***
-  Login page
-  ***/
-    /*.login .logo {
-    margin-top: 10px;
-  }*/
-  }
   .homePage .home-page-body section.main .login-wrapper.login .content {
     padding: 30px;
     width: 100%;

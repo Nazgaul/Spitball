@@ -11,12 +11,11 @@
    <![endif]-->
 
 <html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName">
-
-<head>
-    @{ Html.RenderPartial("_Head");}
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-    @Html.Css2("staticPage")
-</head>
+    <head>
+        @Html.Css2("staticPage")
+        @{ Html.RenderPartial("_Head");}
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    </head>
 <body class="static-page">
     @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{Html.RenderPartial("_StaticPageHeader");}
