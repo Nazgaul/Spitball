@@ -96,9 +96,9 @@
                     @IndexResources.Logout
                 </md-button>
             </li>
-            <li class="google-ad nav-item box-ad" hide-xs>
-                <div ng-if="app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459950737650-1"></div>
-                <div ng-if="!app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459950737650-3"></div>
+            <li class="google-ad nav-item" hide-xs data-ng-dfp-ad-container>
+                <div ng-if="app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459950737650-1" data-ng-dfp-ad-hide-when-empty></div>
+                <div ng-if="!app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459950737650-3" data-ng-dfp-ad-hide-when-empty></div>
 
             </li>
         </ul>
