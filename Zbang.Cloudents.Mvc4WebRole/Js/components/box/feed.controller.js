@@ -113,11 +113,6 @@
         }
 
         function myPagingFunction() {
-            if (!user.id) {
-                var defer = $q.defer();
-                defer.resolve();
-                return defer.promise;
-            }
             page++;
             return boxService.getFeed(boxId, page).then(function(response) {
                 if (!response.length) {

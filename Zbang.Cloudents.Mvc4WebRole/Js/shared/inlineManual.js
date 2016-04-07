@@ -30,3 +30,4 @@
         });
     }
 })();
+//# sourceMappingURL=inlineManual.js.map

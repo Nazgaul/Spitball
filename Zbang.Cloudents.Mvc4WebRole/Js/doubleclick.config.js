@@ -44,3 +44,4 @@
         doubleClickProvider.setRefreshInterval(60000);
     }
 })();
+//# sourceMappingURL=doubleclick.config.js.map
