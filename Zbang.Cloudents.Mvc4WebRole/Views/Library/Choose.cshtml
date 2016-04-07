@@ -33,11 +33,11 @@
             <md-button class="btn button-Blue btn-primary" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']" class="text-capitalize">@LibraryResources.AddSchool</md-button>
         </div>
         <div ng-if="lc.term.length > 1 && lc.showNoResult" class="no-result">
-            <img src="@Url.CdnContent("/Images/Site/no_uni.png")" alt="lama no university" />
+            <img src="@Url.CdnContent("/Images/Site/no_uni.png?v=3")" alt="lama no university" />
             <md-button class="btn button-Blue btn-primary" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']" class="text-capitalize">@LibraryResources.AddSchool</md-button>
         </div>
        
-        <img ng-if="!lc.term" src="@Url.CdnContent("/Images/Site/search_uni.png")" alt="lama search" />
+        <img ng-if="!lc.term" src="@Url.CdnContent("/Images/Site/search_uni.png?v=3")" alt="lama search" />
     </div>
 
 

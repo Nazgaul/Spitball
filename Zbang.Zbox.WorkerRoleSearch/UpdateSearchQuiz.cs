@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -75,7 +77,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateQuiz(int instanceId, int instanceCount)
         {
-            var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, 100);
+            //var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, 100);
+            var updates = new QuizToUpdateSearchDto()
+            {
+                QuizzesToUpdate = new List<QuizSearchDto>(),
+                QuizzesToDelete = new long[] { 17153L, 17156L }
+            };
             if (updates.QuizzesToUpdate.Any() || updates.QuizzesToDelete.Any())
             {
                 TraceLog.WriteInfo(PrefixLog, string.Format("quiz updating {0} deleting {1}", updates.QuizzesToUpdate.Count(),
