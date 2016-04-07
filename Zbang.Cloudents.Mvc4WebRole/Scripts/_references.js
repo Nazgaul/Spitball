@@ -245,7 +245,6 @@
 /// <reference path="../js/components/box/feed.likes.controller.js" />
 /// <reference path="../js/components/dashboard/dashboard.routes.js" />
 /// <reference path="waypoints.min.js" />
-/// <reference path="../js/homepage/homescreen.js" />
 /// <reference path="../js/components/account/department.controller.js" />
 /// <reference path="ui-bootstrap-custom-tpls-1.2.1.js" />
 /// <reference path="angular-dfp.js" />
