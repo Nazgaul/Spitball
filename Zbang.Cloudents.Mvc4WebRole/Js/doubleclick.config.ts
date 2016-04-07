@@ -3,7 +3,6 @@
 (() => {
     angular.module('app').config(config);
     config.$inject = ['DoubleClickProvider'];
-
     function config(doubleClickProvider) {
         var topDashboard = 'div-gpt-ad-1459950737650-0', //top of dashboard
             boxMenu = 'div-gpt-ad-1459950737650-1',

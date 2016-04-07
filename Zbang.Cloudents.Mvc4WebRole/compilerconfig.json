@@ -38,5 +38,21 @@
   {
     "outputFile": "Content/HomePage/homePage.css",
     "inputFile": "Content/HomePage/homePage.less"
+  },
+  {
+    "outputFile": "Content/Site/feed.css",
+    "inputFile": "Content/Site/feed.less"
+  },
+  {
+    "outputFile": "Content/Site/header.css",
+    "inputFile": "Content/Site/header.less"
+  },
+  {
+    "outputFile": "Content/Site/item.css",
+    "inputFile": "Content/Site/item.less"
+  },
+  {
+    "outputFile": "Content/Site/staticPage.css",
+    "inputFile": "Content/Site/staticPage.less"
   }
 ]
