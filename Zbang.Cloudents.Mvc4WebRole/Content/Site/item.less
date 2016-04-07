@@ -1,5 +1,5 @@
 ﻿@import "variables.less";
-
+@import "layout.less";
 .itemPage {
 
     header {
@@ -75,7 +75,7 @@
 
         .item-actions {
             white-space: nowrap;
-            height: 80px;
+            height: @fullScreenHeaderHeight;
             padding-right: 40px;
 
             .md-icon-button {
@@ -135,7 +135,7 @@
         .name-info, .flag-form {
             width: 100%;
             padding: 3px 40px;
-            margin-left:15px;
+            margin-left:0 auto;
         }
         .flag-form {
             max-width: 430px;
@@ -170,6 +170,7 @@
                 border-radius: 5px;
                 padding: 5px 10px;
                 margin-bottom: 20px;
+                display:block;
             }
         }
 
@@ -457,8 +458,9 @@
     }
 
     .google-side-ad {
-        position: absolute;
-        right: 10px;
+        position: fixed;
+        right: ~"calc(50% - 650px)";
+        top: @heightOfHeader + 5;
 
         @media(max-width: 1279px) {
             display: none;

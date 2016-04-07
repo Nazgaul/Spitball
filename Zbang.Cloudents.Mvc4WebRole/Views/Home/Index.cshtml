@@ -283,21 +283,29 @@
                 <div class="description os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">
                     <p>@HomePageResources.D2</p>
                     <div class="features">
-                        <ul>
-                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.1s"><a href="@Url.RouteUrl("Features")#class_feed">@HomePageResources.D3</a></li>
-                            <li class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.2s"><a href="@Url.RouteUrl("Apps")">@HomePageResources.D5</a></li>
-                        </ul>
-                        <ul>
-                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.3s"><a href="@Url.RouteUrl("ClassNotes")">@HomePageResources.D4</a></li>
-                            <li class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.4s"><a href="@Url.RouteUrl("Features")">@HomePageResources.D6</a></li>
-                        </ul>
+                            <section class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.1s">
+                                <h4>@HomePageResources.D3H</h4>
+                                <a href="@Url.RouteUrl("Features")#class_feed">@HomePageResources.D3</a>
+                            </section>
+                        <section class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.2s">
+                            <h4>@HomePageResources.D5H</h4>
+                            <a href="@Url.RouteUrl("Apps")">@HomePageResources.D5</a>
+                        </section>
+                        <section class="os-animation" data-os-animation="fadeInLeft" data-os-animation-delay="0.3s">
+                            <h4>@HomePageResources.D4H</h4>
+                            <a href="@Url.RouteUrl("ClassNotes")">@HomePageResources.D4</a>
+                        </section>
+                            <section class="os-animation" data-os-animation="fadeInRight" data-os-animation-delay="0.4s">
+                                <h4>@HomePageResources.D6H</h4>
+                                <a href="@Url.RouteUrl("Features")">@HomePageResources.D6</a>
+                            </section>
                     </div>
                 </div>
                 @*<div class="video-section os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
-                <div class="video">
-                    <iframe src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>*@
+                        <div class="video">
+                            <iframe src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>*@
                 <div class="video-wrapper">
                     <input type="checkbox" id="showVideo" />
                     <label id="open-video" for="showVideo">

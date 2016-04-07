@@ -309,7 +309,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Route("classnotes", Name = "classnotes")]
         [Route("classnotes/{lang:regex(^(en|he))}", Name = "classnotes2")]
-        public async Task<ActionResult> ClassNotes(string lang)
+        public ActionResult ClassNotes(string lang)
         {
 
             if (!string.IsNullOrEmpty(lang))
@@ -318,9 +318,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             ViewBag.title = SeoResources.ClassNotesTitle;
             ViewBag.metaDescription = SeoResources.ClassNotesMeta;
-            var items = await ZboxReadService.GetItemsPageDataAsync();
+            //var items = await ZboxReadService.GetItemsPageDataAsync();
 
-            return View("ClassNotes", items);
+            return View();
         }
 
         [Route("courses", Name = "courses")]

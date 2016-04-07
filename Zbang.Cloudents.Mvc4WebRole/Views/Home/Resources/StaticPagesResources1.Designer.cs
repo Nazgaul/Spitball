@@ -340,7 +340,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Get to know your classmates, share notes and ideas, ask questions and chat with your friends about anything class related. Study together and be on your way to acing your finals! Get answers directly from your classmates to quickly solve problems when your TAs and professors are too busy..
+        ///   Looks up a localized string similar to Get to know your classmates, share notes and ideas, ask questions and chat with your friends about anything class related. Study together and be on your way to acing your finals! Get answers directly from your classmates to quickly solve problems when your TAs and professors are too busy..
         /// </summary>
         public static string FeaturesSectionText4 {
             get {

@@ -72,14 +72,14 @@
                     @IndexResources.Settings
                 </md-button>
             </li>
-            @*<li class="help nav-item">
-                    <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" @shouldPostBack href="@Url.RouteUrl("Help")">
-                        <span class="icon">
-                            @Html.Svg(svgUrl, "headerHelp")
-                        </span>
-                        @SharedResources.Help
-                    </md-button>
-                </li>*@
+            <li class="help nav-item" hide-gt-xs>
+                <md-button ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" target="_self" href="@Url.RouteUrl("Help")">
+                    <span class="icon">
+                        @Html.Svg(svgUrl, "headerHelp", new { @class = "svgTC16" })
+                    </span>
+                    @SharedResources.Help
+                </md-button>
+            </li>
             @*<li class="blog nav-item">
                     <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("Blog2")')}" @shouldPostBack href="@Url.RouteUrl("Blog2")">
                         <span class="icon">
@@ -97,8 +97,8 @@
                 </md-button>
             </li>
             <li class="google-ad nav-item box-ad" hide-xs>
-                <div ng-if="app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459261777271-0"></div>
-                <div ng-if="!app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459255888335-0"></div>
+                <div ng-if="app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459950737650-1"></div>
+                <div ng-if="!app.showBoxAd" data-ng-dfp-ad="div-gpt-ad-1459950737650-3"></div>
 
             </li>
         </ul>

@@ -1,5 +1,5 @@
 ﻿@import "variables";
-
+@import "layout";
 .headerMenu {
     width: 20px;
     height: 20px;
@@ -163,7 +163,7 @@
     top: 0;
     right: 0;
     left: 0;
-    height: 85px;
+    height: @heightOfHeader;
     z-index: 10;
     background: @backgroundColorMenu;
     border-bottom: 5px solid @backgroundColor;
@@ -262,7 +262,7 @@
 
         .md-icon-button {
             width: inherit;
-            height: 80px;
+            height: @heightOfHeader - 5;
 
             @media (max-width: 600px) {
                 display: none;

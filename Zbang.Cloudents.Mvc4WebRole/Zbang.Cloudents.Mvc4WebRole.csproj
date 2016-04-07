@@ -1886,7 +1886,6 @@
     <Content Include="Images\HomePage2\testimonial3.jpg" />
     <Content Include="Images\HomePage2\testimonial4.jpg" />
     <Content Include="Images\HomePage2\user.png" />
-    <Content Include="Images\Site\BG.png" />
     <Content Include="Images\Site\browsers.svg" />
     <Content Include="Images\aboutUs\aboutUsIcons.svg" />
     <Content Include="Images\Site\info.svg" />
@@ -1941,12 +1940,14 @@
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
+    <Content Include="Js\doubleclick.config.js" />
     <Content Include="Js\homePage\homeScreen.js" />
     <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\intercom.js" />
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\components\box\addToAny.directive.ts" />
+    <TypeScriptCompile Include="Js\doubleclick.config.ts" />
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
     <Content Include="Js\shared\userDetails.js" />
     <Content Include="Scripts\angular-dfp.js" />
@@ -2963,7 +2964,6 @@
     <Content Include="Views\Library\_EmptyStateTopTree.cshtml" />
     <Content Include="Views\Home\Product.cshtml" />
     <Content Include="Views\Account\Department.cshtml" />
-    <Content Include="Views\Shared\Partials2\_StaticPageHeader.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageFooter.cshtml" />
     <Content Include="Views\Shared\_LayoutStatic.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageNav.cshtml" />
@@ -2972,6 +2972,7 @@
     <Content Include="Views\Home\Features.cshtml" />
     <Content Include="Views\Home\ClassNotes.cshtml" />
     <Content Include="Views\Home\Courses.cshtml" />
+    <Content Include="Views\Shared\Partials2\_StaticPageHeader.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

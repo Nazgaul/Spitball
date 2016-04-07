@@ -15,6 +15,7 @@
         self.selectUniversity = selectUniversity;
         self.createUniversity = false;
         self.needCode = false;
+        self.createCancel = createCancel;
         self.countries = [];
         self.paging = paging;
         self.code = {
@@ -26,9 +27,16 @@
         countryService.getCountries(function (iso, country) {
             self.countries.push({ iso: iso, name: country });
         });
+        function createCancel() {
+            self.createUniversity = false;
+            self.term = '';
+
+        }
         function universitySearch(libraryChooseForm) {
             if (libraryChooseForm.$valid) {
                 search();
+            } else {
+                self.universities = [];
             }
         }
 

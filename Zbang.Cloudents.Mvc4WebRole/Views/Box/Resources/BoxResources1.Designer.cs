@@ -124,6 +124,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invite Students.
+        /// </summary>
+        public static string InviteFriendsMember {
+            get {
+                return ResourceManager.GetString("InviteFriendsMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move to main folder.
         /// </summary>
         public static string ItemRemoveFolder {
@@ -241,7 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search.
+        ///   Looks up a localized string similar to Search documents.
         /// </summary>
         public static string Search {
             get {

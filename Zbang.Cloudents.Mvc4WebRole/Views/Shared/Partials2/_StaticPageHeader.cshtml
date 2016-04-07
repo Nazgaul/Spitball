@@ -1,20 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Culture
-<noscript>
-    <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
-<script>
-    (function (w, d, s, l, i) {
-        w[l] = w[l] || []; w[l].push({
-            'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-        }); var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');
-</script>
 <header class="static-page-header">
     <nav>
         <div class="nav-content">
@@ -49,9 +35,10 @@
                 <li id="apps">
                     <a href="@Url.RouteUrl("Apps")">@HomePageResources.A11</a>
                 </li>
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    <li class="language">
+
+                <li class="language">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
                         <input type="checkbox" id="language-menu" />
                         <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
                         <label class="language-close" for="language-menu"></label>
@@ -59,15 +46,16 @@
                             <li class="menu-item"> <button data-cookie="en-US">@Languages.EnglishUsName</button> </li>
                             <li class="menu-item"> <button data-cookie="he-il">@Languages.HebrewName</button> </li>
                         </ul>
-                    </li>
-                }
+                    }
+                </li>
+
             </ul>
         </div>
         @if (!User.Identity.IsAuthenticated)
         {
             <div class="login-buttons">
                 <a class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("signup")">@IndexResources.Signup</a>
-                <a class="signin-btn toggle login-option signup os-animation" href="@Url.RouteUrl("signin")">@HomePageResources.A1</a>
+                <a class="signin-btn toggle login-option os-animation" href="@Url.RouteUrl("signin")">@HomePageResources.A1</a>
             </div>
         }
     </nav>

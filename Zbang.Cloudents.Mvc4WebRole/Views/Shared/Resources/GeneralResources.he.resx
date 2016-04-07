@@ -121,7 +121,7 @@
     <value>בטל</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>צור</value>
+    <value>הוסף</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>מחק</value>
@@ -172,7 +172,7 @@
     <value>אל תפספסו את ההזדמנות, הצטרפו לחבריכם לכיתה ותהנו ממאות אלפי סיכומים ומבחנים בחינם!</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>חפש מסמכים, קורסים ועוד...</value>
+    <value>חפש מסמכים, קורסים</value>
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>לא נמצאו תוצאות</value>

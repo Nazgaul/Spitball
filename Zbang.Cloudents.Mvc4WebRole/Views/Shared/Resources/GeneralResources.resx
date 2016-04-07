@@ -172,42 +172,35 @@
     <value>Boost your grades by getting free access to more notes, ideas and quizzes, created by thousands of students just like you. Open a FREE account!</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Search for documents, classes and more...</value>
+    <value>Search for documents, classes</value>
   </data>
   <data name="NoResultsTitle" xml:space="preserve">
     <value>we came UP short...
 </value>
-    
   </data>
   <data name="Download" xml:space="preserve">
     <value>Download</value>
   </data>
   <data name="Likes" xml:space="preserve">
     <value>Likes</value>
-    
   </data>
   <data name="SearchEmptyStateClassesText" xml:space="preserve">
     <value>There are no courses in your school that match your search,
 but try checking the quizzes tab for related material</value>
-    
   </data>
   <data name="SearchEmptyStateCreateCourse" xml:space="preserve">
     <value>If you are taking a course that hasn't been made yet,</value>
-    
   </data>
   <data name="SearchEmptyStateCreateCourseLinkText" xml:space="preserve">
     <value>create it!</value>
-    
   </data>
   <data name="SearchEmptyStateDocumentsText" xml:space="preserve">
     <value>There are no documents that match your search,
 but try checking the classes tab for related material</value>
-    
   </data>
   <data name="SearchEmptyStateQuizzesText" xml:space="preserve">
     <value>There are no quizzes that match your search,
 but try checking the documents tab for related material</value>
-    
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>No results found</value>

@@ -148,7 +148,7 @@
     <value>הגדרות פרטיות:</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>חיפוש...</value>
+    <value>חיפוש מסמכים...</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>סטטוס:</value>
@@ -193,6 +193,9 @@
     <value>הגדר כפרטית</value>
   </data>
   <data name="membersInvite" xml:space="preserve">
+    <value>הזמן חברים</value>
+  </data>
+  <data name="InviteFriendsMember" xml:space="preserve">
     <value>הזמן חברים</value>
   </data>
 </root>
