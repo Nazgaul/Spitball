@@ -23,9 +23,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/staticPage.css",
                          //"~/Content/homepage/bootstrap.css", //TODO: check if we need this.
                         "~/content/signin/components-md.css",
-                        "~/content/signin/plugins-md.css",
+                        //"~/content/signin/plugins-md.css",
                         "~/content/site/layout.css",
-                        "~/content/signin/default.css",
+                        //"~/content/signin/default.css",
                         "~/content/signin/custom.css",
                         "~/content/jquery.bxslider.css"
                     }

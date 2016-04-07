@@ -2101,6 +2101,7 @@
     </Content>
     <Content Include="Content\Site\staticPage.less" />
     <Content Include="Content\Site\itemGallery.less" />
+    <Content Include="Images\Web.config" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
