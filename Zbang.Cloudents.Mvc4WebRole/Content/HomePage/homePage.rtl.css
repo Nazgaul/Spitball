@@ -58,7 +58,7 @@
   text-align: center;
   padding-bottom: 200px;
   margin-top: 70px;
-  background: linear-gradient(to top, #000000 -50px, transparent 400px, transparent 100%);
+  background: linear-gradient(to top, #000 -50px, transparent 400px, transparent 100%);
   padding: 0;
 }
 .homePage .home-page-body section.main #main-wrapper {
@@ -540,7 +540,7 @@
   margin-top: 25px;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .check-email-message .text button {
-  color: #3293f6;
+  color: #3293F6;
   background: none;
   border: none;
   margin-top: 10px;
@@ -566,11 +566,11 @@
   padding: 0;
   border-radius: 3px;
   background: grey;
-  background: -webkit-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
-  background: -moz-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
-  background: -o-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
-  background: -ms-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
-  background: linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #cccccc 100%);
+  background: -webkit-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #ccc 100%);
+  background: -moz-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #ccc 100%);
+  background: -o-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #ccc 100%);
+  background: -ms-linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #ccc 100%);
+  background: linear-gradient(top, #fcfff4 0, #dfe5d7 40%, #ccc 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfff4', endColorstr='#b3bead', GradientType=0);
   margin: 10px auto;
   box-shadow: inset 0 1px 1px white, 0 1px 1px rgba(0, 0, 0, 0.2);
@@ -706,8 +706,6 @@
   .homePage .home-page-body section.main .login-wrapper.login .content {
     padding: 30px;
     width: 100%;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
   }
   .homePage .home-page-body section.main .login-wrapper.login .content h3 {

@@ -235,10 +235,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     var relativePath = filePath.Replace(appRoot, string.Empty);
                     cdnFilePath = Path.Combine(cdnRoot, relativePath);
-                    if (File.Exists(Path.Combine(cdnRoot, relativePath)))
-                    {
-                        continue;
-                    }
+                    //if (File.Exists(Path.Combine(cdnRoot, relativePath)))
+                    //{
+                    //    continue;
+                    //}
                     var directory = Path.GetDirectoryName(cdnFilePath);
                     if (directory != null) Directory.CreateDirectory(directory);
                     File.Copy(filePath, Path.Combine(cdnRoot, relativePath), true);
