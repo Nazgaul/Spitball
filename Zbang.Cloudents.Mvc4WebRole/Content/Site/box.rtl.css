@@ -1,4 +1,4 @@
-﻿.folder-selected .folder-name {
+.folder-selected .folder-name {
   max-width: calc(100% - 40px);
 }
 .folder-selected .name-and-icon {
