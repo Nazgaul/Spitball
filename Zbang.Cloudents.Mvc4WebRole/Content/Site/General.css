@@ -851,10 +851,10 @@ Page Loading
   background: #ff9853;
 }
 .color0 {
-  color: #64a9f8;
+  color: #64A9F8;
 }
 .color0.background {
-  background: #64a9f8;
+  background: #64A9F8;
 }
 button {
   border: 0;
@@ -985,10 +985,10 @@ html {
   border: none;
 }
 .dd-list md-option[selected] {
-  color: #2698d4;
+  color: #2698D4;
 }
 .dd-list md-option[selected]:focus {
-  color: #2698d4;
+  color: #2698D4;
 }
 .dd-list md-select-menu:not(.md-overflow) md-content {
   padding-top: 0;
@@ -996,7 +996,7 @@ html {
 }
 md-select:not([disabled]):focus .md-select-value {
   color: #f5f5f5;
-  border-bottom: 1px solid #376e8c;
+  border-bottom: 1px solid #376E8C;
 }
 md-select .md-select-value.md-select-placeholder {
   color: #f5f5f5;
@@ -1038,7 +1038,7 @@ md-input-container .md-input:focus,
 md-select .md-select-value:active,
 md-input-container .md-input:active,
 .form-group.form-md-line-input .form-control:active {
-  color: #2698d4;
+  color: #2698D4;
 }
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
 md-input-container:not(.md-input-invalid).md-input-focused .md-input {
@@ -1069,7 +1069,7 @@ md-toast .md-toast-content {
   padding: 0;
 }
 .layout-padding > .flex {
-  padding: 12px;
+  padding: 8px;
 }
 md-toast .md-toast-content {
   min-height: 40px;
@@ -1498,7 +1498,7 @@ md-tabs md-ink-bar {
 .tabbable li:hover,
 .nav-tabs li:focus,
 .tabbable li:focus {
-  color: #2698d4;
+  color: #2698D4;
   background: transparent;
 }
 .nav-tabs li.active,
@@ -1532,7 +1532,7 @@ md-tabs md-ink-bar {
 .nav-tabs li > a:hover,
 .tabbable li > a:hover {
   border: none;
-  color: #2698d4;
+  color: #2698D4;
 }
 .ribbon {
   position: absolute;
@@ -1665,17 +1665,17 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 md-switch.md-default-theme.md-checked .md-thumb,
 md-switch.md-checked .md-thumb {
-  background-color: #2698d4;
+  background-color: #2698D4;
 }
 md-switch.md-default-theme.md-checked .md-ink-ripple,
 md-switch.md-checked .md-ink-ripple {
-  color: #2698d4;
+  color: #2698D4;
 }
 md-switch.md-default-theme.md-checked .md-bar,
 md-switch.md-checked .md-bar,
 md-switch.md-default-theme.md-checked.md-focused .md-thumb:before,
 md-switch.md-checked.md-focused .md-thumb:before {
-  background-color: #2698d4;
+  background-color: #2698D4;
   opacity: 0.5;
 }
 md-tooltip .md-content {
