@@ -4,7 +4,7 @@
     .folder-name {
         max-width: ~"calc(100% - 40px)";
     }
-
+    
     .name-and-icon {
         width: 100%;
         max-width: ~"calc(100% - 40px)";
@@ -370,18 +370,18 @@
     }
 
     .upload-options {
-        width: 45%;
+        width: 60%;
         min-width: 120px;
         max-width: 160px;
-        padding: 0 12px;
+        padding: 0;
         //margin-right:10px;
 
-        a {
+        /*a { //not sure why z-index needed - removing this fixed bug 5672
             z-index: 1;
-        }
+        }*/
 
-        a, button:not(:last-child) {
-            //padding: 0;
+        a, button {
+            padding: 0;
         }
     }
      .google {

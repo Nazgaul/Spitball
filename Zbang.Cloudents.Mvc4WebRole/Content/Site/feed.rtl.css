@@ -74,7 +74,7 @@
   margin: 20px 40px 0;
 }
 .feed .posts-list .actions svg {
-  fill: #2698d4;
+  fill: #2698D4;
 }
 .feed .reply-actions,
 .feed .actions {
@@ -121,7 +121,7 @@
   right: -15px;
 }
 .feed .comment .user-name {
-  color: #2698d4;
+  color: #2698D4;
   font-weight: 400;
   margin-top: 5px;
   display: inline-block;
@@ -146,11 +146,11 @@
   top: -7px;
 }
 .feed .reply .user-name {
-  color: #2698d4;
+  color: #2698D4;
   font-weight: normal;
 }
 .feed .actions {
-  color: #2698d4;
+  color: #2698D4;
   margin-top: 10px;
   font-size: 13px;
   position: relative;
@@ -174,7 +174,7 @@
   margin-left: 12px;
 }
 .feed .actions .dropbox:hover {
-  fill: #007ee5;
+  fill: #007EE5;
 }
 .feed .replies {
   border-top: 2px solid #323538;
@@ -213,7 +213,7 @@
   fill: #d39f10;
 }
 .feed .feed-upload {
-  padding: 0 12px;
+  padding: 0 12px 0 20px;
 }
 .feed .feed-upload svg {
   width: 22px;
