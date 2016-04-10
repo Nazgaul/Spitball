@@ -63,7 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult Index(string lang, string invId)
         {
-            return RedirectToActionPermanent("Index", "Home", new { lang, invId });
+            return RedirectToRoutePermanent("homePage", new { lang, invId });
         }
 
         #region Login

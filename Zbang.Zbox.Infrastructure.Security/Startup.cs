@@ -50,7 +50,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                     LogoutPath = new PathString("/account/logoff/"),
                     SlidingExpiration = true,
                     AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                    LoginPath = new PathString("/account/"),
+                    LoginPath = new PathString("/"),
                     Provider = new CookieAuthenticationProvider
                     {
                         OnApplyRedirect = ctx =>

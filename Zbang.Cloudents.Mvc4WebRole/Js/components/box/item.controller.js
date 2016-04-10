@@ -12,7 +12,7 @@
         var page = 0, needToBringMore = true;
 
         i.myPagingFunction = function () {
-            if (!user.id || i.term) {
+            if (i.term) {
                 var defer = $q.defer();
                 defer.resolve();
                 return defer.promise;
