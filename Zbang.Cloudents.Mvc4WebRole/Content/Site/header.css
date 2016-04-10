@@ -907,11 +907,6 @@ Page Loading
   padding: 10px;
   white-space: nowrap;
 }
-@media (max-width: 600px) {
-  .login-buttons {
-    display: none;
-  }
-}
 .nav-bar {
   padding: 0 10px;
   position: fixed;
