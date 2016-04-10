@@ -62,5 +62,9 @@
   {
     "outputFile": "Content/Site/ThemeDark.css",
     "inputFile": "Content/Site/ThemeDark.less"
+  },
+  {
+    "outputFile": "Content/Site/menu.css",
+    "inputFile": "Content/Site/menu.less"
   }
 ]
