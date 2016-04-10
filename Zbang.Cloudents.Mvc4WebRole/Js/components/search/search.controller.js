@@ -16,6 +16,8 @@
         self.quizzes = [];
         assignTab();
 
+      
+
         $rootScope.$on('search-query', searchElements);
         self.changeTab = changeTab;
 
