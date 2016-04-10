@@ -94,6 +94,14 @@
     md-tabs {
         padding: 0;
 
+        /*Fixed color box overalying members and items*/
+        md-tab-content.md-left:not(.md-active) {
+            -webkit-transform: none !important;
+            transform: none !important;
+            -webkit-animation: none !important;
+            animation: none !important;
+        }
+
         md-tab-content {
             margin: 0 -12px;
             //bottom: 0;
