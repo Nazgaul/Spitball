@@ -54,5 +54,13 @@
   {
     "outputFile": "Content/Site/staticPage.css",
     "inputFile": "Content/Site/staticPage.less"
+  },
+  {
+    "outputFile": "Content/Site/themeLight.css",
+    "inputFile": "Content/Site/themeLight.less"
+  },
+  {
+    "outputFile": "Content/Site/ThemeDark.css",
+    "inputFile": "Content/Site/ThemeDark.less"
   }
 ]

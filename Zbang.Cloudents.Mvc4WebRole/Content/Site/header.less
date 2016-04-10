@@ -4,18 +4,13 @@
 .headerMenu {
     width: 20px;
     height: 20px;
-    fill: @borderColorBottomGrey;
-
-    &:hover {
-        fill: @backgroundColorMouseOver;
-    }
 }
 
 
 .searchIcon {
     max-width: 23px;
     max-height: 23px;
-    width: 85%;
+    width: 56%;
     height: 100%;
     fill: @textColorWhite;
 }
@@ -152,8 +147,6 @@
 .login-buttons {
     padding: 10px;
     white-space: nowrap;
-
-
     //@media (max-width: 600px) {
     //    display: none;
     //}
@@ -196,14 +189,17 @@
                     max-width: 60px;
                     min-width: 30px;
                     padding: 0;
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(center);
                 }
 
                 .text {
                     background: @textColorWhite;
                     color: @backgroundColor;
                     font-size: 13px;
-                    height: 35px;
-                    line-height: 35px;
+                    height: 32px;
+                    line-height: 32px;
                     padding: 0 15px;
                     border: 0;
                     .placeHolder(@backgroundColor);
@@ -228,7 +224,7 @@
 
             .logo-small {
                 height: 30px;
-                width: 60px;
+                width: 48px;
                 fill: #fff;
                 display: none;
 

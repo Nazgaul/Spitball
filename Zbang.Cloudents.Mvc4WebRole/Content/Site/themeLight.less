@@ -315,14 +315,6 @@
         color: @textColorLike;
     }
     /*#region header.less*/
-    .headerMenu {
-        fill: @borderColorBottomGrey;
-    }
-
-    .headerMenu:hover {
-        fill: @backgroundColorMouseOver;
-    }
-
     .searchIcon {
         fill: @textColorWhite;
     }
@@ -531,8 +523,6 @@
     .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
         fill: @anonymousColor;
     }
-
-    
     /*#endregion*/
     .theme();
     /*#region ***************  OVERRIDE  ***************/
@@ -648,6 +638,7 @@
     .library-choose .search-form-wrapper form {
         border: 1px solid @textColorGrey;
     }
+
     .page-title > h1 {
         color: @svgColorGrey;
     }
@@ -669,17 +660,19 @@
     .themeClasses(TC1, @backgroundColorMenu, background text);
     .themeClasses(TC2, @textColorLightGrey, border text);
     .themeClasses(TC3, @buttonColorBlue, background);
-    .themeClasses(TC4, @textColorBlack, svg);
+    .themeClasses(TC4, @textColorBlack, svg text);
     .themeClasses(TC5, @textColorGrey, border);
     .themeClasses(TC6, @textColorBlue, svg);
     .themeClasses(TC7,@color-beige, text);
     .themeClasses(TC9,#F76446, text);
     .themeClasses(TC10, @textColorGrey, text);
     .themeClasses(TC11, @textColorGrey, svg);
-    .themeClasses(TC13,@textColorGrey, border);
+    .themeClasses(TC13, @textColorGrey, border);
     .themeClasses(TC14, @textColorLightGrey, border);
     .themeClasses(TC15, @backgroundColor2, svg);
     .themeClasses(TC16, @textColorGrey, svg);
+    .themeClasses(TC17, #dadce2, svg);
+    .themeClasses(TC18, @borderColorBottomGrey, hoverSvg);
 
     input[type="search"], textarea {
         .placeHolder(@textColorGrey) !important;
