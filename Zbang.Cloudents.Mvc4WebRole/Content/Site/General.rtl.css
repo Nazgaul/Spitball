@@ -1641,21 +1641,21 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
   -webkit-flex: 1;
   flex: 1;
 }
-.google-ad {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
+.ad {
+  text-align: center;
 }
-.i-student-ad {
-  padding: 12px;
-}
-.i-student-ad a {
-  display: inline-block;
-  width: 100%;
-}
-.i-student-ad img {
-  max-width: 100%;
-}
+/*.i-student-ad {
+    padding: 12px;
+
+    a {
+        display: inline-block;
+        width: 100%;
+    }
+
+    img {
+        max-width: 100%;
+    }
+}*/
 .md-dialog-content {
   padding: 24px 65px;
 }

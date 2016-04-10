@@ -104,10 +104,10 @@
   padding-top: 4px;
   text-decoration: none;
 }
-.dashboard .google-ad {
+.dashboard .ad {
   text-align: center;
   padding: 8px;
 }
-.dashboard .google-ad > div {
+.dashboard .ad > div {
   margin: 0 auto;
 }

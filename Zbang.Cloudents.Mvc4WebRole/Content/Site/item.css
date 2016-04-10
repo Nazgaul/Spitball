@@ -1163,17 +1163,17 @@ Page Loading
   transform: rotate(180deg) /*rtl:rotate(0)*/;
   left: 10px;
 }
-.itemPage .google-side-ad {
+.itemPage .side-ad {
   position: fixed;
   right: calc(50% - 650px);
   top: 75px;
 }
 @media (max-width: 1279px) {
-  .itemPage .google-side-ad {
+  .itemPage .side-ad {
     display: none;
   }
 }
-.itemPage .google-ad {
+.itemPage .ad {
   text-align: center;
   display: inline;
 }
