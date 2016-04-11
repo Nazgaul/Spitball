@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Azure.Search;
 using Microsoft.WindowsAzure.ServiceRuntime;
-using RedDog.Search;
-using RedDog.Search.Http;
-using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Search
@@ -18,10 +13,10 @@ namespace Zbang.Zbox.Infrastructure.Search
         //    = new Lazy<SeachConnection>(() => new SeachConnection());
 
        // SearchIndexClient 
-        private readonly ApiConnection m_Connection;
+       // private readonly ApiConnection m_Connection;
         private readonly SearchServiceClient m_SearchServiceClient;
-        private IndexQueryClient m_ReadClient;
-        private IndexManagementClient m_IndexClient;
+       // private IndexQueryClient m_ReadClient;
+       // private IndexManagementClient m_IndexClient;
 
         public bool IsDevelop { get; private set; }
         // private to prevent direct instantiation.
@@ -30,63 +25,63 @@ namespace Zbang.Zbox.Infrastructure.Search
         public SeachConnection(string serviceName, string serviceKey)
         {
             m_SearchServiceClient = new SearchServiceClient(serviceName, new SearchCredentials(serviceKey));
-            m_Connection = ApiConnection.Create(serviceName, serviceKey);
+          //  m_Connection = ApiConnection.Create(serviceName, serviceKey);
           //  m_Connection = ApiConnection.Create(serviceName, serviceKey);
             IsDevelop = IsDevelopEnvironment();
         }
 
         private bool IsDevelopEnvironment()
         {
-            //return false;
-            try
-            {
-                if (!RoleEnvironment.IsAvailable)
-                {
-                    return true;
-                }
-                if (RoleEnvironment.IsEmulated)
-                {
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(ex);
-            }
-
             return false;
+            //try
+            //{
+            //    if (!RoleEnvironment.IsAvailable)
+            //    {
+            //        return true;
+            //    }
+            //    if (RoleEnvironment.IsEmulated)
+            //    {
+            //        return true;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    TraceLog.WriteError(ex);
+            //}
+
+            //return false;
         }
 
-        public SeachConnection(string serviceName, string serviceKey, bool isDevelop)
-        {
-            m_SearchServiceClient = new SearchServiceClient(serviceName, new SearchCredentials(serviceKey));
-            m_Connection = ApiConnection.Create(serviceName, serviceKey);
-            IsDevelop = isDevelop;
-        }
+        //public SeachConnection(string serviceName, string serviceKey, bool isDevelop)
+        //{
+        //    m_SearchServiceClient = new SearchServiceClient(serviceName, new SearchCredentials(serviceKey));
+        //    m_Connection = ApiConnection.Create(serviceName, serviceKey);
+        //    IsDevelop = isDevelop;
+        //}
 
-        public IndexQueryClient IndexQuery
-        {
-            get
-            {
-                if (m_ReadClient == null)
-                {
-                    m_ReadClient = new IndexQueryClient(m_Connection);
-                }
-                return m_ReadClient;
-            }
-        }
+        //public IndexQueryClient IndexQuery
+        //{
+        //    get
+        //    {
+        //        if (m_ReadClient == null)
+        //        {
+        //            m_ReadClient = new IndexQueryClient(m_Connection);
+        //        }
+        //        return m_ReadClient;
+        //    }
+        //}
 
-        public IndexManagementClient IndexManagement
-        {
-            get
-            {
-                if (m_IndexClient == null)
-                {
-                    m_IndexClient = new IndexManagementClient(m_Connection);
-                }
-                return m_IndexClient;
-            }
-        }
+        //public IndexManagementClient IndexManagement
+        //{
+        //    get
+        //    {
+        //        if (m_IndexClient == null)
+        //        {
+        //            m_IndexClient = new IndexManagementClient(m_Connection);
+        //        }
+        //        return m_IndexClient;
+        //    }
+        //}
 
        
 
@@ -99,22 +94,10 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         private void Dispose(bool p)
         {
-            if (m_ReadClient != null)
-            {
-                m_ReadClient.Dispose(p);
-            }
-            if (m_IndexClient != null)
-            {
-                m_IndexClient.Dispose(p);
-            }
-            if (m_Connection != null)
-            {
-                m_Connection.Dispose();
-            }
-            if (m_SearchServiceClient != null)
-            {
-                m_SearchServiceClient.Dispose();
-            }
+           // m_ReadClient?.Dispose(p);
+           // m_IndexClient?.Dispose(p);
+           // m_Connection?.Dispose();
+            m_SearchServiceClient?.Dispose();
         }
 
         internal static T ConvertToType<T>(object b)
@@ -130,25 +113,21 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public const int DescriptionLength = 250;
 
-        internal static string LimitContentHighlight(IEnumerable<string> highLight)
-        {
-            var sb = new StringBuilder();
-            foreach (var s in highLight)
-            {
-                sb.Append(s);
-                if (sb.Length > DescriptionLength)
-                {
-                    break;
-                }
-                sb.Append("...");
-            }
-            return sb.ToString();
-        }
+        //internal static string LimitContentHighlight(IEnumerable<string> highLight)
+        //{
+        //    var sb = new StringBuilder();
+        //    foreach (var s in highLight)
+        //    {
+        //        sb.Append(s);
+        //        if (sb.Length > DescriptionLength)
+        //        {
+        //            break;
+        //        }
+        //        sb.Append("...");
+        //    }
+        //    return sb.ToString();
+        //}
 
-        public SearchServiceClient SearchClient
-        {
-
-            get { return m_SearchServiceClient; }
-        }
+        public SearchServiceClient SearchClient => m_SearchServiceClient;
     }
 }

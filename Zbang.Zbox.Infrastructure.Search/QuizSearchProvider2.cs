@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Hyak.Common;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
-using RedDog.Search.Model;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
@@ -70,8 +67,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(BoxIdField, DataType.Int64) { IsRetrievable = true}
 
             });
-            var scoringFunction = new TagScoringFunction(new TagScoringParameters(ScoringProfileName),
-               UniversityidField, 2);
+            var scoringFunction = new TagScoringFunction(UniversityidField, 2, ScoringProfileName);
+               //UniversityidField, 2);
             var scoringProfile = new ScoringProfile("universityTag")
             {
                 FunctionAggregation = ScoringFunctionAggregation.Sum,
@@ -102,11 +99,12 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 await BuildIndex();
             }
-            var listOfCommands = new List<IndexAction<QuizSearch>>();
+            //var listOfCommands = new List<IndexAction<QuizSearch>>();
 
             if (quizToUpload != null)
             {
-                listOfCommands.AddRange(quizToUpload.Select(s => new IndexAction<QuizSearch>(IndexActionType.MergeOrUpload, new QuizSearch
+
+               var uploadBatch =  quizToUpload.Select(s => new QuizSearch
                 {
                     Answers = s.Answers.ToArray(),
                     BoxId = s.BoxId,
@@ -119,42 +117,27 @@ namespace Zbang.Zbox.Infrastructure.Search
                     UniversityName = s.UniversityName,
                     Url = s.Url,
                     UserId = s.UserIds.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray()
-                })));
+                });
+                var batch = IndexBatch.Upload(uploadBatch);
+                await m_IndexClient.Documents.IndexAsync(batch);
             }
             if (quizToDelete != null)
             {
-                listOfCommands.AddRange(quizToDelete.Select(s =>
-                    new IndexAction<QuizSearch>(IndexActionType.Delete, new QuizSearch
+                var deleteBatch = quizToDelete.Select(s =>
+                     new QuizSearch
                     {
                         Id = s.ToString(CultureInfo.InvariantCulture)
-                    })));
+                    });
+                var batch = IndexBatch.Delete(deleteBatch);
+                await m_IndexClient.Documents.IndexAsync(batch);
             }
-            var commands = listOfCommands.ToArray();
-            if (commands.Length == 0) return true;
-
-            try
-            {
-                await m_IndexClient.Documents.IndexAsync(IndexBatch.Create(listOfCommands.ToArray()));
-            }
-            catch (IndexBatchException ex)
-            {
-                TraceLog.WriteError("Failed to index some of the documents: " +
-                                    String.Join(", ",
-                                        ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
-                return false;
-            }
-            catch (CloudException ex)
-            {
-                TraceLog.WriteError("Failed to do batch", ex);
-                return false;
-            }
-
             return true;
+            
         }
 
         public async Task<IEnumerable<SearchQuizzes>> SearchQuizAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
             var filter = await m_FilterProvider.BuildFilterExpression(
               query.UniversityId, UniversityidField, UseridsField, query.UserId);
 
@@ -165,12 +148,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = "universityTag",
-                ScoringParameters = new[] { "university:" + query.UniversityId },
+                ScoringParameters = new[] { new ScoringParameter( "university" , query.UniversityId.ToString() )},
                 HighlightFields = new[] { QuestionsField, AnswersField, NameField },
                 Select = new[] { NameField, IdField, BoxNameField, UniversityNameField, UrlField, ContentField }
-            });
+            }, cancellationToken: cancelToken);
 
-            return result.Select(s => new SearchQuizzes
+            return result.Results.Select(s => new SearchQuizzes
             {
                 Boxname = s.Document.BoxName,
                 Content = HighLightInField(s, new[] { QuestionsField, AnswersField }, s.Document.MetaContent),
@@ -192,7 +175,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 IList<string> highLight;
                 if (record.Highlights.TryGetValue(field, out highLight))
                 {
-                    return String.Join("...", highLight);
+                    return string.Join("...", highLight);
                 }
             }
             return defaultValue;

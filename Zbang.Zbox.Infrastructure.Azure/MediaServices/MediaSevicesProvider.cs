@@ -117,7 +117,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
             var fileContainer = m_BlobProvider.BlobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
             var newBlob = fileContainer.GetBlockBlobReference(newBlobName);
 
-            await newBlob.StartCopyFromBlobAsync(blob, cancelToken);
+            await newBlob.StartCopyAsync(blob, cancelToken);
 
             return newBlobName;
         }
@@ -412,11 +412,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
                 SharedAccessExpiryTime = DateTime.UtcNow.AddHours(24)
             });
 
-            ICloudBlob destinationBlob = destinationContainer.GetBlockBlobReference(sourceBlob.Name);
+            var destinationBlob = destinationContainer.GetBlockBlobReference(sourceBlob.Name);
 
             if (!destinationBlob.Exists())
             {
-                destinationBlob.StartCopyFromBlob(new Uri(sourceBlob.Uri.AbsoluteUri + signature));
+                var blob = new CloudBlockBlob(new Uri(sourceBlob.Uri.AbsoluteUri + signature));
+                // destinationBlob.StartCopyFromBlob(new Uri(sourceBlob.Uri.AbsoluteUri + signature));
+                destinationBlob.StartCopy(blob);
 
             }
         }

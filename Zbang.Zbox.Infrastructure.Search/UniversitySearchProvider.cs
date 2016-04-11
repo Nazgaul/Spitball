@@ -59,8 +59,9 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(MembersImagesField, DataType.Collection(DataType.String)) {IsRetrievable = true}
 
             });
-            var scoringFunction = new TagScoringFunction(new TagScoringParameters("country"),
-               CountryField, 3);
+            var scoringFunction = new TagScoringFunction("country", 3, CountryField);
+            //var scoringFunction = new TagScoringFunction(new TagScoringParameters("country"),
+            //   CountryField, 3);
             var scoringProfile = new ScoringProfile(CountryScoringProfile)
             {
                 FunctionAggregation = ScoringFunctionAggregation.Sum,
@@ -95,11 +96,11 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<UniversityByPrefixDto>> SearchUniversityAsync(UniversitySearchQuery query, CancellationToken cancelToken)
         {
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
 
             if (string.IsNullOrEmpty(query.Term) && string.IsNullOrEmpty(query.Country))
             {
-                throw new ArgumentNullException("query");
+                throw new ArgumentNullException(nameof(query));
             }
             //{
             //    return null;
@@ -115,43 +116,45 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (string.IsNullOrEmpty(term))//obsolete
             {
                 searchParametes.ScoringProfile = CountryScoringProfile;
-                searchParametes.ScoringParameters = new[] {"country:" + query.Country};
+                searchParametes.ScoringParameters = new[] { new ScoringParameter("country", query.Country) };
             }
             else
             {
                 term = query.Term.Replace("\"", string.Empty);
             }
-            var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(term + "*", searchParametes, cancelToken);
+            
+            var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(term + "*", searchParametes, cancellationToken: cancelToken);
 
-            var tSuggest = Task.FromResult<DocumentSuggestResponse<UniversitySearch>>(null);
+            var tSuggest = Task.FromResult<DocumentSuggestResult<UniversitySearch>>(null);
             if (!string.IsNullOrEmpty(query.Term) && query.Term.Length >= 3 && query.PageNumber == 0)
             {
                 tSuggest = m_IndexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, NameSuggest, new SuggestParameters
-                 {
-                     UseFuzzyMatching = true,
-                     Select = listOfSelectParams
-                 });
+                {
+                    UseFuzzyMatching = true,
+                    Select = listOfSelectParams
+                }, cancellationToken: cancelToken);
             }
             await Task.WhenAll(tResult, tSuggest);
 
-            var result = tResult.Result.Select(
+            
+            var result = tResult.Result.Results.Select(
                     s => new UniversityByPrefixDto
                     {
                         Id = long.Parse(s.Document.Id),
                         Image = s.Document.Image,
                         Name = s.Document.Name2,
-                        NumOfUsers = s.Document.MembersCount.HasValue ? s.Document.MembersCount.Value : 0,
+                        NumOfUsers = s.Document.MembersCount ?? 0,
                         UserImages = s.Document.MembersImages
                     });
             if (tSuggest.Result != null)
             {
-                result = result.Union(tSuggest.Result.Select(
+                result = result.Union(tSuggest.Result.Results.Select(
                       s => new UniversityByPrefixDto
                       {
                           Id = long.Parse(s.Document.Id),
                           Image = s.Document.Image,
                           Name = s.Document.Name2,
-                          NumOfUsers = s.Document.MembersCount.HasValue ? s.Document.MembersCount.Value : 0,
+                          NumOfUsers = s.Document.MembersCount ?? 0,
                           UserImages = s.Document.MembersImages
                       }));
             }
@@ -168,64 +171,72 @@ namespace Zbang.Zbox.Infrastructure.Search
                 await BuildIndex();
             }
 
-            var listOfCommands = new List<IndexAction<UniversitySearch>>();
+            //var listOfCommands = new List<IndexAction<UniversitySearch>>();
             if (universityToUpload != null)
             {
-                listOfCommands.AddRange(
-                    universityToUpload.Select(s =>
-                    {
-                        return new IndexAction<UniversitySearch>(IndexActionType.MergeOrUpload,
+                //listOfCommands.AddRange(
+                var uploadBatch = universityToUpload.Select(s =>
+                        new UniversitySearch
+                        {
+                            Id = s.Id.ToString(CultureInfo.InvariantCulture),
+                            Name = s.Name.Trim(),
+                            Name2 = s.Name.Trim(),
+                            Extra1 = s.Extra,
+                            Extra2 = string.Join(
+                                " ",
+                                s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                                    .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
+                                    .Select(s1 => s1.Remove(0, 1))
+                                    .Union(s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                                        .Where(w => w.Contains('"'))
 
-                            new UniversitySearch
-                            {
-                                Id = s.Id.ToString(CultureInfo.InvariantCulture),
-                                Name = s.Name.Trim(),
-                                Name2 = s.Name.Trim(),
-                                Extra1 = s.Extra,
-                                Extra2 = String.Join(
-                                    " ",
-                                    s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                                        .Where(w => w.StartsWith("ה") || w.StartsWith("ל"))
-                                        .Select(s1 => s1.Remove(0, 1))
-                                        .Union(s.Name.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
-                                            .Where(w => w.Contains('"'))
-
-                                            .Select(s2 => s2.Replace("\"", string.Empty)))),
-                                Image = string.IsNullOrEmpty(s.Image) ? null : s.Image.Trim(),
-                                Country = s.Country,
-                                MembersCount = s.NoOfUsers,
-                                MembersImages = s.UsersImages.Where(w => w != null).ToArray()
-                            }
+                                        .Select(s2 => s2.Replace("\"", string.Empty)))),
+                            Image = string.IsNullOrEmpty(s.Image) ? null : s.Image.Trim(),
+                            Country = s.Country,
+                            MembersCount = s.NoOfUsers,
+                            MembersImages = s.UsersImages.Where(w => w != null).ToArray()
+                        }
                             );
-                    }));
 
+                //);
+
+                var batch = IndexBatch.Upload(uploadBatch);
+                await m_IndexClient.Documents.IndexAsync(batch);
 
 
             }
             if (universityToDelete != null)
             {
-                listOfCommands.AddRange(universityToDelete.Select(s =>
-                   new IndexAction<UniversitySearch>(IndexActionType.Delete, new UniversitySearch
-                   {
-                       Id = s.ToString(CultureInfo.InvariantCulture)
-                   })));
+                var deleteBatch = universityToDelete.Select(s =>
+                new UniversitySearch
+                {
+                    Id = s.ToString(CultureInfo.InvariantCulture)
+                });
+                var batch = IndexBatch.Delete(deleteBatch);
+                await m_IndexClient.Documents.IndexAsync(batch);
+                //listOfCommands.AddRange(universityToDelete.Select(s =>
+                //   new IndexAction<UniversitySearch>(IndexActionType.Delete, new UniversitySearch
+                //   {
+                //       Id = s.ToString(CultureInfo.InvariantCulture)
+                //   })));
 
             }
-            var commands = listOfCommands.ToArray();
-            if (commands.Length <= 0) return true;
-            try
-            {
-                await m_IndexClient.Documents.IndexAsync(IndexBatch.Create(listOfCommands.ToArray()));
-            }
-            catch (IndexBatchException ex)
-            {
-                TraceLog.WriteError("Failed to index some of the documents: " +
-                                    String.Join(", ",
-                                        ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
-                return false;
-            }
-
             return true;
+            //var commands = listOfCommands.ToArray();
+            //if (commands.Length <= 0) return true;
+            //try
+            //{
+            //    await m_IndexClient.Documents.IndexAsync(IndexBatch.Create(listOfCommands.ToArray()));
+            //}
+            //catch (IndexBatchException ex)
+            //{
+            //    TraceLog.WriteError("Failed to index some of the documents: " +
+            //                        String.Join(", ",
+            //                            ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
+            //    return false;
+            //}
+
+            //return true;
         }
 
 

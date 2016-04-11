@@ -71,8 +71,9 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(BlobNameField, DataType.String) { IsRetrievable = true}
 
             });
-            var scoringFunction = new TagScoringFunction(new TagScoringParameters("university"),
-                UniversityidField, 2);
+            var scoringFunction = new TagScoringFunction("university", 2, UniversityidField);
+            //var scoringFunction = new TagScoringFunction(new TagScoringParameters("university"),
+            //    UniversityidField, 2);
             var scoringProfile = new ScoringProfile(ScoringProfileName)
             {
                 FunctionAggregation = ScoringFunctionAggregation.Sum,
@@ -103,10 +104,10 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 //  await BuildIndex();
             }
-            var listOfCommands = new List<IndexAction<ItemSearch>>();
+            //var listOfCommands = new List<IndexAction<ItemSearch>>();
             if (itemToUpload != null)
             {
-                listOfCommands.AddRange(itemToUpload.Select(item => new IndexAction<ItemSearch>(IndexActionType.MergeOrUpload, new ItemSearch
+                var uploadBatch = itemToUpload.Select(item => new ItemSearch
                 {
                     BoxId = item.BoxId,
                     BoxId2 = item.BoxId,
@@ -122,36 +123,41 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Url = item.Url,
                     UserId = item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray(),
                     BlobName = item.BlobName
-                })));
+                });
+                var batch = IndexBatch.Upload(uploadBatch);
+                await m_IndexClient.Documents.IndexAsync(batch);
             }
             if (itemToDelete != null)
             {
-                listOfCommands.AddRange(itemToDelete.Select(s =>
-                    new IndexAction<ItemSearch>(IndexActionType.Delete, new ItemSearch
+                var deleteBatch = itemToDelete.Select(s =>
+                     new ItemSearch
                     {
                         Id = s.ToString(CultureInfo.InvariantCulture)
-                    })));
+                    });
+                var batch = IndexBatch.Delete(deleteBatch);
+                await m_IndexClient.Documents.IndexAsync(batch);
             }
-            var commands = listOfCommands.ToArray();
-            if (commands.Length == 0) return;
+           
+            //var commands = listOfCommands.ToArray();
+            //if (commands.Length == 0) return;
 
-            try
-            {
-                await m_IndexClient.Documents.IndexAsync(IndexBatch.Create(listOfCommands.ToArray()));
-            }
-            catch (IndexBatchException ex)
-            {
-                TraceLog.WriteError("Failed to index some of the documents: " +
-                                    String.Join(", ",
-                                        ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
-                throw;
-            }
-            catch (CloudException ex)
-            {
-                TraceLog.WriteError("Failed to do batch", ex);
-                //return false;
-                throw;
-            }
+            //try
+            //{
+            //    await m_IndexClient.Documents.IndexAsync(IndexBatch.Create(listOfCommands.ToArray()));
+            //}
+            //catch (IndexBatchException ex)
+            //{
+            //    TraceLog.WriteError("Failed to index some of the documents: " +
+            //                        String.Join(", ",
+            //                            ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
+            //    throw;
+            //}
+            //catch (CloudException ex)
+            //{
+            //    TraceLog.WriteError("Failed to do batch", ex);
+            //    //return false;
+            //    throw;
+            //}
 
         }
 
@@ -159,7 +165,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<SearchItems>> SearchItemOldMobileServiceAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
 
             var filter = await m_FilterProvider.BuildFilterExpression(
                query.UniversityId, UniversityidField, UserIdsField, query.UserId);
@@ -170,11 +176,11 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = ScoringProfileName,
-                ScoringParameters = new[] { "university:" + query.UniversityId },
+                ScoringParameters = new[] { new ScoringParameter( "university" , query.UniversityId.ToString()) },
                 Select = new[] { IdField, NameField, UrlField },
-            }, cancelToken);
+            }, cancellationToken: cancelToken);
 
-            return result.Select(s => new SearchItems
+            return result.Results.Select(s => new SearchItems
             {
                 Id = long.Parse(s.Document.Id),
                 Url = s.Document.Url,
@@ -185,7 +191,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         public async Task<IEnumerable<SearchItems>> SearchItemAsync(
             ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
         {
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
 
             var filter = await m_FilterProvider.BuildFilterExpression(
                query.UniversityId, UniversityidField, UserIdsField, query.UserId);
@@ -196,12 +202,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = ScoringProfileName,
-                ScoringParameters = new[] { "university:" + query.UniversityId },
+                ScoringParameters = new[] { new ScoringParameter("university" , query.UniversityId.ToString()) },
                 Select = new[] { SmallContentField, IdField, NameField, BoxIdField, ExtensionField },
                 HighlightFields = new[] { ContentField, NameField },
-            }, cancelToken);
+            },  cancellationToken: cancelToken);
 
-            return result.Select(s => new SearchItems
+            return result.Results.Select(s => new SearchItems
             {
                 Content = HighLightInField(s, ContentField, s.Document.MetaContent),
                 Id = long.Parse(s.Document.Id),
@@ -213,7 +219,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<SearchItems>> SearchItemAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
             var term = query.Term;
             if (!query.Term.Contains(" "))
             {
@@ -228,12 +234,12 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = ScoringProfileName,
-                ScoringParameters = new[] { "university:" + query.UniversityId },
+                ScoringParameters = new[] { new ScoringParameter("university" , query.UniversityId.ToString()) },
                 Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
                 HighlightFields = new[] { ContentField, NameField }
-            }, cancelToken);
+            },  cancellationToken: cancelToken);
 
-            return result.Select(s => new SearchItems
+            return result.Results.Select(s => new SearchItems
             {
                 Boxname = s.Document.BoxName,
                 Content = HighLightInField(s, ContentField, s.Document.MetaContent),
@@ -259,13 +265,13 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(term + "*", new SearchParameters
             {
-                Filter = string.Format("{0} eq {1}", BoxId2Field, query.BoxId),
+                Filter = $"{BoxId2Field} eq {query.BoxId}",
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
-            }, cancelToken);
+            },  cancellationToken: cancelToken);
 
-            return result.Select(s => new SearchItems
+            return result.Results.Select(s => new SearchItems
             {
                 Boxname = s.Document.BoxName,
                 Id = long.Parse(s.Document.Id),
@@ -284,8 +290,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var item =
                     await
                         m_IndexClient.Documents.GetAsync<ItemSearch>(itemId.ToString(CultureInfo.InvariantCulture),
-                            new[] {ContentField}, cancelToken);
-                return item.Document.Content;
+                            new[] {ContentField},  cancellationToken: cancelToken);
+                return item.Content;
             }
             //item may not exists in the search....
             catch (CloudException)

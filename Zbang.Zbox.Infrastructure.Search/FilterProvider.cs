@@ -23,10 +23,10 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             var uniToEnterFilter =
                 m_UniversityWithcode.Where(w => w != universityId)
-                    .Select(s => string.Format("({0} ne '{1}')", uniIdField, s));
+                    .Select(s => $"({uniIdField} ne '{s}')");
 
             var val = "(" + string.Join(" and ", uniToEnterFilter) + " and (not(" + uniIdField + " eq '-1')))";
-            return val + string.Format(" or ({0}/any(t: t eq '{1}')  ) ", userField, userId);
+            return val + $" or ({userField}/any(t: t eq '{userId}')  ) ";
         }
 
 
