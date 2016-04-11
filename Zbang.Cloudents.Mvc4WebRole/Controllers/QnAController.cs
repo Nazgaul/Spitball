@@ -86,7 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Delete question questionId {0} userid {1}", questionId.ToString(), User.GetUserId()), ex);
+                TraceLog.WriteError($"Delete question questionId {questionId} userid {User.GetUserId()}", ex);
                 return JsonError();
             }
         }
@@ -102,7 +102,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Delete answer answerId {0} userid {1}", answerId, User.GetUserId()), ex);
+                TraceLog.WriteError($"Delete answer answerId {answerId} userid {User.GetUserId()}", ex);
                 return JsonError();
             }
         }

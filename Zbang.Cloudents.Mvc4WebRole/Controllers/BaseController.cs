@@ -37,12 +37,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     RouteTable.Routes.GetRouteData(
                         new HttpContextWrapper(
                             new HttpContext(new HttpRequest(null, new UriBuilder(url).ToString(), string.Empty),
-                                new HttpResponse(new System.IO.StringWriter()))));
-                if (routeFromUrl == null)
-                {
-                    return null;
-                }
-                if (routeFromUrl.Values["boxId"] == null)
+                                new HttpResponse(new StringWriter()))));
+                if (routeFromUrl?.Values["boxId"] == null)
                 {
                     return null;
                 }
@@ -83,8 +79,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         protected override void OnException(ExceptionContext filterContext)
         {
             var parameters = filterContext.HttpContext.Request.Params.ToString().Replace("&", "\n");
-            var info = string.Format("on exception base controller url {0} user {1} ",
-                filterContext.HttpContext.Request.RawUrl, User.Identity.Name);
+            var info =
+                $"on exception base controller url {filterContext.HttpContext.Request.RawUrl} user {User.Identity.Name} ";
             TraceLog.WriteError(info, filterContext.Exception, parameters);
             base.OnException(filterContext);
         }

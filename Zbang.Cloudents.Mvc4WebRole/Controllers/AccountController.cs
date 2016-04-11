@@ -280,7 +280,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("LogOn model : {0} ", model), ex);
+                TraceLog.WriteError($"LogOn model : {model} ", ex);
                 ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
             }
             return JsonError(GetErrorFromModelState());
@@ -515,9 +515,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
                 user.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
-                        command.UniversityDataId.HasValue ?
-                        command.UniversityDataId.Value.ToString(CultureInfo.InvariantCulture)
-                        : command.UniversityId.ToString(CultureInfo.InvariantCulture)));
+                        command.UniversityDataId?.ToString(CultureInfo.InvariantCulture) ?? command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
 
                 m_AuthenticationManager.SignIn(user);
@@ -661,7 +659,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("ForgotPassword email: {0}", model.Email), ex);
+                TraceLog.WriteError($"ForgotPassword email: {model.Email}", ex);
                 return JsonError(BaseControllerResources.UnspecifiedError);
             }
 

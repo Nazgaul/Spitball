@@ -5,7 +5,6 @@ using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
-using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models.Share;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -53,7 +52,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Share/Invite user: {0} model: {1}", User.GetUserId(), model), ex);
+                TraceLog.WriteError($"Share/Invite user: {User.GetUserId()} model: {model}", ex);
                 return JsonError(BaseControllerResources.UnspecifiedError);
             }
         }
@@ -78,7 +77,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (UnauthorizedAccessException ex)
             {
                 ModelState.AddModelError(string.Empty, ShareControllerResources.ShareController_InviteBox_You_do_not_have_permission_to_share_a_box);
-                TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", User.GetUserId(), model), ex);
+                TraceLog.WriteError($"InviteBox user: {User.GetUserId()} model: {model}", ex);
                 return JsonError(GetErrorFromModelState());
             }
             catch (ArgumentException ex)
@@ -89,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
 
-                TraceLog.WriteError(string.Format("InviteBox user: {0} model: {1}", User.GetUserId(), model), ex);
+                TraceLog.WriteError($"InviteBox user: {User.GetUserId()} model: {model}", ex);
                 ModelState.AddModelError(string.Empty, BaseControllerResources.UnspecifiedError);
                 return JsonError(GetErrorFromModelState());
             }
@@ -136,7 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("SubscribeToBox userid {0} boxid {1}", userid, boxId), ex);
+                TraceLog.WriteError($"SubscribeToBox userid {userid} boxid {boxId}", ex);
                 return JsonError();
             }
 
@@ -204,7 +203,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("FromEmail key:{0} email:{1}", key, email), ex);
+                TraceLog.WriteError($"FromEmail key:{key} email:{email}", ex);
                 return membersOnlyErrorPageRedirect;
 
             }

@@ -88,8 +88,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var culture = Languages.GetCultureBaseOnCountry(model.Country);
                 SeoBaseUniversityResources.Culture = culture;
 
-                ViewBag.title = string.Format("{0} - {1} - {2} | {3}", model.BoxName, model.DepartmentName, model.Name,
-                    SeoBaseUniversityResources.Cloudents);
+                ViewBag.title =
+                    $"{model.BoxName} - {model.DepartmentName} - {model.Name} | {SeoBaseUniversityResources.Cloudents}";
 
                 ViewBag.metaDescription = SeoBaseUniversityResources.ItemMataDescription;
                 if (!string.IsNullOrEmpty(model.Description))
@@ -290,7 +290,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("ChangeFileName newFileName {0} ItemUid {1} userId {2}", model.NewName, model.Id, userId), ex);
+                TraceLog.WriteError($"ChangeFileName newFileName {model.NewName} ItemUid {model.Id} userId {userId}", ex);
                 return JsonError("Error");
             }
 
@@ -346,7 +346,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("DeleteItem user: {0}  itemId {1}", User.GetUserId(), itemId), ex);
+                TraceLog.WriteError($"DeleteItem user: {User.GetUserId()}  itemId {itemId}", ex);
                 return JsonError();
             }
         }
@@ -370,7 +370,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Rate user: {0} itemId {1}", User.GetUserId(), model.ItemId), ex);
+                TraceLog.WriteError($"Rate user: {User.GetUserId()} itemId {model.ItemId}", ex);
                 return JsonError();
             }
         }
@@ -437,7 +437,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("GeneratePreview filename: {0}", blobName), ex);
+                TraceLog.WriteError($"GeneratePreview filename: {blobName}", ex);
                 if (index == 0)
                 {
                     return JsonOk(new
