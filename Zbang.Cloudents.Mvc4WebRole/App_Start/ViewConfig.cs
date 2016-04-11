@@ -28,6 +28,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             };
             
             
+            
             razorViewEngine.PartialViewLocationFormats = 
                 razorViewEngine.PartialViewLocationFormats.Union(customPartialLocation).ToArray();
             ViewEngines.Engines.Add(razorViewEngine);

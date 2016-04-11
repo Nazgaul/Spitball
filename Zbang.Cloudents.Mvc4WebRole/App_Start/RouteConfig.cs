@@ -22,15 +22,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { controller = "Home", action = "Index", lang = UrlParameter.Optional },
                 new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" });
 
-            //routes.MapRoute("signin",
-            //  "account/signin",
-            //  new { controller = "Home", action = "Index" }
-            //  );
-            //routes.MapRoute("signup",
-            // "account/signup",
-            // new { controller = "Home", action = "Index" }
-            // );
-           
 
             routes.MapRoute("homePage",
              "",
@@ -41,8 +32,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
            "account/resetpassword",
            new { controller = "Home", action = "Index" }, new { httpMethod = new HttpMethodConstraint("GET") }
            );
-
-
 
             routes.MapRoute(
               "Sitemap",
@@ -72,19 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "course/{universityName}/{boxId}/{boxName}/quizcreate",
                 new { controller = "Home", action = "IndexEmpty" });
 
-            //routes.MapRoute("Quiz",
-            //    "quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}",
-            //    new
-            //    {
-            //        controller = "Quiz",
-            //        action = "Index"
-            //    },
-            //    new
-            //    {
-            //        boxId = new LongRouteConstraint(),
-            //        quizId = new LongRouteConstraint()
-            //    }
-            //    );
+            
             #endregion
 
             routes.MapRoute("LibraryDesktop",
@@ -112,10 +89,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             new { controller = "Home", action = "IndexEmpty" },
             new { part = "info|password|notification|department" }
            );
-        //    routes.MapRoute("Product",
-        //    "product",
-        //    new { controller = "Home", action = "Product" }
-        //);
+      
             routes.MapRoute("Blog2",
              "blog",
              new { controller = "Home", action = "Blog" }
@@ -125,14 +99,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { controller = "Home", action = "IndexEmpty", lang = UrlParameter.Optional },
               new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" }
           );
-
-            //routes.MapRoute("Jobs",
-            //  "jobs",
-            //  new { controller = "Home", action = "IndexEmpty" }
-            //);
-
-        
-
 
             routes.MapRoute("Default", "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }

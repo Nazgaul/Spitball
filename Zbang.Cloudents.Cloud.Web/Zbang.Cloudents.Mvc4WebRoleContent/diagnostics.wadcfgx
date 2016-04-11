@@ -4,7 +4,12 @@
     <WadCfg>
       <DiagnosticMonitorConfiguration overallQuotaInMB="4096">
         <PerformanceCounters scheduledTransferPeriod="PT5M">
-          <PerformanceCounterConfiguration counterSpecifier="\.NET CLR Memory(_Global_)\% Time in GC" sampleRate="PT0S" />
+          <PerformanceCounterConfiguration counterSpecifier="\Processor(_Total)\% Processor Time" sampleRate="PT0S" />
+          <PerformanceCounterConfiguration counterSpecifier="\ASP.NET Applications(__Total__)\Requests/Sec" sampleRate="PT0S" />
+          <PerformanceCounterConfiguration counterSpecifier="\ASP.NET Applications(__Total__)\Errors Total/Sec" sampleRate="PT0S" />
+          <PerformanceCounterConfiguration counterSpecifier="\ASP.NET\Requests Queued" sampleRate="PT0S" />
+          <PerformanceCounterConfiguration counterSpecifier="\ASP.NET\Requests Rejected" sampleRate="PT0S" />
+          <PerformanceCounterConfiguration counterSpecifier="\Process(WaWorkerHost)\% Processor Time" sampleRate="PT0S" />
         </PerformanceCounters>
         <Logs scheduledTransferPeriod="PT1M" />
       </DiagnosticMonitorConfiguration>
