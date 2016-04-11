@@ -25,7 +25,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         public override void ExecuteResult(ControllerContext context)
         {
             if (context == null)
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
 
             var response = context.HttpContext.Response;
 

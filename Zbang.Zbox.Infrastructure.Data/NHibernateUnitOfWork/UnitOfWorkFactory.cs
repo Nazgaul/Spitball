@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Web;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Connection;
@@ -14,7 +13,6 @@ using Zbang.Zbox.Infrastructure.Data.Events;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 using Environment = NHibernate.Cfg.Environment;
 
@@ -65,6 +63,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 m_Configuration.SetListener(ListenerType.PreInsert, new AuditEventListener());
                 m_Configuration.SetListener(ListenerType.PreUpdate, new AuditEventListener());
 
+                //m_Configuration.SetProperty(Environment.ConnectionDriver, typeof(MiniProfiler.NHibernate.MiniProfilerSql2008ClientDriver).AssemblyQualifiedName)
                 m_Configuration.SetProperty(Environment.ConnectionProvider, "NHibernate.Connection.DriverConnectionProvider");
                 m_Configuration.SetProperty(Environment.UseProxyValidator, bool.FalseString);
                 m_Configuration.SetProperty(Environment.DefaultSchema, "Zbox");
@@ -105,7 +104,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             var buildVersion = Assembly.GetExecutingAssembly().GetName().Version.Revision;
             var domainBuildVersion = domain.GetName().Version.Revision;
             var viewModelBuildVersion = viewModel.GetName().Version.Revision;
-            var fileInfo = string.Format("{0}{1}{2}{3}", SerializationFile, buildVersion, domainBuildVersion, viewModelBuildVersion);
+            var fileInfo = $"{SerializationFile}{buildVersion}{domainBuildVersion}{viewModelBuildVersion}";
             return fileInfo;
         }
 
@@ -143,21 +142,9 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             return new UnitOfWorkImplementor(this, session);
         }
 
-        public Configuration Configuration
-        {
-            get
-            {
-                return m_Configuration;
-            }
-        }
+        public Configuration Configuration => m_Configuration;
 
-        public ISessionFactory SessionFactory
-        {
-            get
-            {
-                return m_SessionFactory;
-            }
-        }
+        public ISessionFactory SessionFactory => m_SessionFactory;
 
         public ISession CurrentSession
         {

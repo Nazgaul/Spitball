@@ -158,13 +158,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 
         public override void Write(byte[] buffer, int offset, int count)
         {
-            //var str = Encoding.UTF8.GetString(buffer);
-            //var x = new Regex(@"<!--Donut#(.*)#-->", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-            //str = x.Replace(str, string.Empty);
-            //var buffer2 = Encoding.UTF8.GetBytes(str);
             m_Md5.TransformBlock(buffer, 0, buffer.Length, null, 0);
             m_Filter.Write(buffer, 0, buffer.Length);
-            //base.Write(buffer2, 0, buffer2.Length);
         }
 
         public override void Flush()

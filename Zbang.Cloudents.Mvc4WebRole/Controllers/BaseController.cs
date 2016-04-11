@@ -107,16 +107,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding)
         {
-            return new JsonNetResult
+            return new JilJsonResult
             {
                 Data = data,
                 ContentType = contentType,
                 ContentEncoding = contentEncoding
             };
+            //return new JsonNetResult
+            //{
+            //    Data = data,
+            //    ContentType = contentType,
+            //    ContentEncoding = contentEncoding
+            //};
         }
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
         {
-            return new JsonNetResult
+            return new JilJsonResult
             {
                 Data = data,
                 ContentType = contentType,
@@ -133,6 +139,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return Json(new JsonResponse(false, data));
         }
+
+        
 
 
 

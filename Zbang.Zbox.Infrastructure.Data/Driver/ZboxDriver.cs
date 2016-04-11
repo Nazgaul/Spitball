@@ -1,8 +1,9 @@
 ﻿using NHibernate.Driver;
+using StackExchange.Profiling.NHibernate.Drivers;
 
 namespace Zbang.Zbox.Infrastructure.Data.Driver
 {
-    public class ZboxDriver :  Sql2008ClientDriver
+    public class ZboxDriver : MiniProfilerSql2008ClientDriver  //Sql2008ClientDriver
     {
         //public override IDbCommand CreateCommand()
         //{
