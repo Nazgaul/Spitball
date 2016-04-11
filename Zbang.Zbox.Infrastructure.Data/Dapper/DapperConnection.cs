@@ -34,6 +34,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
         {
             var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
             connection.Open();
+            
             return new StackExchange.Profiling.Data.ProfiledDbConnection(connection, MiniProfiler.Current);
             //return connection;
 

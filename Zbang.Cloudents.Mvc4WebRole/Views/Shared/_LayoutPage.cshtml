@@ -1,5 +1,4 @@
-﻿@using StackExchange.Profiling
-@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
 
@@ -171,6 +170,6 @@
         inlineManualOptions = { language: '@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName' };
 
     </script>
-    @MiniProfiler.RenderIncludes()
+    @StackExchange.Profiling.MiniProfiler.RenderIncludes(showTimeWithChildren:true,showTrivial:true)
 </body>
 </html>

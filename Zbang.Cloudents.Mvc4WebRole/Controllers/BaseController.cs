@@ -6,6 +6,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using StackExchange.Profiling;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.Common;
@@ -107,12 +108,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding)
         {
-            return new JilJsonResult
-            {
-                Data = data,
-                ContentType = contentType,
-                ContentEncoding = contentEncoding
-            };
+            return Json(data, contentType, contentEncoding, JsonRequestBehavior.AllowGet);
+            //return new JilJsonResult
+            //{
+            //    Data = data,
+            //    ContentType = contentType,
+            //    ContentEncoding = contentEncoding
+            //};
             //return new JsonNetResult
             //{
             //    Data = data,
@@ -122,13 +124,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
         {
-            return new JilJsonResult
+            var profiler = MiniProfiler.Current; // it's ok if this is null
+            using (profiler.Step("Json render"))
             {
-                Data = data,
-                ContentType = contentType,
-                ContentEncoding = contentEncoding,
-                JsonRequestBehavior = behavior
-            };
+                return new JilJsonResult
+                {
+                    Data = data,
+                    ContentType = contentType,
+                    ContentEncoding = contentEncoding,
+                    JsonRequestBehavior = behavior
+                };
+            }
+        
         }
 
         protected JsonResult JsonOk(object data = null)
