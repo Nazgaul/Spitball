@@ -1,6 +1,6 @@
 /**
- * @license AngularJS v1.4.10
- * (c) 2010-2015 Google, Inc. http://angularjs.org
+ * @license AngularJS v1.5.3
+ * (c) 2010-2016 Google, Inc. http://angularjs.org
  * License: MIT
  */
 (function(window, angular, undefined) {'use strict';
@@ -415,6 +415,13 @@ angular.module('ngMessages', [])
 
          $scope.$watchCollection($attrs.ngMessages || $attrs['for'], ctrl.render);
 
+         // If the element is destroyed, proactively destroy all the currently visible messages
+         $element.on('$destroy', function() {
+           forEach(messages, function(item) {
+             item.message.detach();
+           });
+         });
+
          this.reRender = function() {
            if (!renderLater) {
              renderLater = true;
@@ -449,6 +456,7 @@ angular.module('ngMessages', [])
          function findPreviousMessage(parent, comment) {
            var prevNode = comment;
            var parentLookup = [];
+
            while (prevNode && prevNode !== parent) {
              var prevKey = prevNode.$$ngMessageNode;
              if (prevKey && prevKey.length) {
@@ -460,8 +468,11 @@ angular.module('ngMessages', [])
              if (prevNode.childNodes.length && parentLookup.indexOf(prevNode) == -1) {
                parentLookup.push(prevNode);
                prevNode = prevNode.childNodes[prevNode.childNodes.length - 1];
+             } else if (prevNode.previousSibling) {
+               prevNode = prevNode.previousSibling;
              } else {
-               prevNode = prevNode.previousSibling || prevNode.parentNode;
+               prevNode = prevNode.parentNode;
+               parentLookup.push(prevNode);
              }
            }
          }
@@ -548,7 +559,10 @@ angular.module('ngMessages', [])
              element.after(contents);
 
              // the anchor is placed for debugging purposes
-             var anchor = jqLite($document[0].createComment(' ngMessagesInclude: ' + src + ' '));
+             var comment = $compile.$$createComment ?
+                 $compile.$$createComment('ngMessagesInclude', src) :
+                 $document[0].createComment(' ngMessagesInclude: ' + src + ' ');
+             var anchor = jqLite(comment);
              element.after(anchor);
 
              // we don't want to pollute the DOM anymore by keeping an empty directive element
@@ -591,13 +605,14 @@ angular.module('ngMessages', [])
     *
     * @param {expression} ngMessage|when a string value corresponding to the message key.
     */
-  .directive('ngMessage', ngMessageDirectiveFactory('AE'))
+  .directive('ngMessage', ngMessageDirectiveFactory())
 
 
    /**
     * @ngdoc directive
     * @name ngMessageExp
     * @restrict AE
+    * @priority 1
     * @scope
     *
     * @description
@@ -623,13 +638,14 @@ angular.module('ngMessages', [])
     *
     * @param {expression} ngMessageExp|whenExp an expression value corresponding to the message key.
     */
-  .directive('ngMessageExp', ngMessageDirectiveFactory('A'));
+  .directive('ngMessageExp', ngMessageDirectiveFactory());
 
-function ngMessageDirectiveFactory(restrict) {
+function ngMessageDirectiveFactory() {
   return ['$animate', function($animate) {
     return {
       restrict: 'AE',
       transclude: 'element',
+      priority: 1, // must run before ngBind, otherwise the text is set on the comment
       terminal: true,
       require: '^^ngMessages',
       link: function(scope, element, attrs, ngMessagesCtrl, $transclude) {
@@ -669,8 +685,8 @@ function ngMessageDirectiveFactory(restrict) {
                 // when we are destroying the node later.
                 var $$attachId = currentElement.$$attachId = ngMessagesCtrl.getAttachId();
 
-                // in the event that the parent element is destroyed
-                // by any other structural directive then it's time
+                // in the event that the element or a parent element is destroyed
+                // by another structural directive then it's time
                 // to deregister the message from the controller
                 currentElement.on('$destroy', function() {
                   if (currentElement && currentElement.$$attachId === $$attachId) {
