@@ -1,3 +1,23 @@
+##### 4.5.0 12 January 2016
+
+###### Backwards compatible API changes
+
+- #205 - Feature request: Cache.getAllValues
+
+###### Backwards compatible bug fixes
+
+- #211 - Expires value gets sometimes automatically set to null
+- #212 - Internal Cache not reloaded on Reload
+
+###### Other
+
+- Upgraded to CacheFactory v1.4.0
+
+##### 4.4.3 30 December 2015
+
+- #179 - capacity does not work on often reload
+- #210 - Why does angular-cache ignore capacity configuration?
+
 ##### 4.4.1 12 October 2015
 
 - #203 - trouble: bundle with r.js not works

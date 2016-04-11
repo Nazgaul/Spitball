@@ -242,7 +242,14 @@ textAngular.directive("textAngular", [
 							event.preventDefault();
 							event.stopPropagation();
 							_body.off('mousemove', mousemove);
-							scope.showPopover(_el);
+							// at this point, we need to force the model to update! since the css has changed!
+							// this fixes bug: #862 - we now hide the popover -- as this seems more consitent.
+							// there are still issues under firefox, the window does not repaint. -- not sure
+							// how best to resolve this, but clicking anywhere works.
+							scope.$apply(function (){
+								scope.hidePopover();
+								scope.updateTaBindtaTextElement();
+							}, 100);
 						});
 						event.stopPropagation();
 						event.preventDefault();
@@ -861,17 +868,16 @@ textAngular.service('textAngularManager', ['taToolExecuteAction', 'taTools', 'ta
 		},
 		// this is used by taBind to send a key command in response to a special key event
 		sendKeyCommand: function(scope, event){
-			angular.forEach(editors, function(_editor){
-				/* istanbul ignore else: if nothing to do, do nothing */
-				if (_editor.editorFunctions.sendKeyCommand(event)){
-					/* istanbul ignore else: don't run if already running */
-					if(!scope._bUpdateSelectedStyles){
-						scope.updateSelectedStyles();
-					}
-					event.preventDefault();
-					return false;
+			var _editor = editors[scope._name];
+			/* istanbul ignore else: if nothing to do, do nothing */
+			if (_editor && _editor.editorFunctions.sendKeyCommand(event)) {
+				/* istanbul ignore else: don't run if already running */
+				if(!scope._bUpdateSelectedStyles){
+					scope.updateSelectedStyles();
 				}
-			});
+				event.preventDefault();
+				return false;
+			}
 		}
 	};
 }]);
