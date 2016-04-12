@@ -125,7 +125,7 @@
 
         function assignData() {
             for (var i = 0; i < self.data.length; i++) {
-                making the array unique
+                //making the array unique
                 for (var z = i + 1; z < self.data.length; ++z) {
                     if (self.data[i].id === self.data[z].id) {
                         self.data.splice(z--, 1);
