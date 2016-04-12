@@ -125,14 +125,14 @@
 
         function assignData() {
             for (var i = 0; i < self.data.length; i++) {
-                //making the array unique
-                //for (var z = i + 1; z < self.data.length; ++z) {
-                //    if (self.data[i].id === self.data[z].id) {
-                //        self.data.splice(z--, 1);
-                //    }
-                //}
+                making the array unique
+                for (var z = i + 1; z < self.data.length; ++z) {
+                    if (self.data[i].id === self.data[z].id) {
+                        self.data.splice(z--, 1);
+                    }
+                }
                 var files = self.data[i].files;
-                for (var j = 0; j < files.length; j++) {//get files
+                for (var j = 0; j < files.length; j++) {
                     var item = files[j];
                     if (item.done) {
                         continue;
@@ -147,7 +147,7 @@
                     }
                     item.done = true;
                 }
-                for (var k = 0; self.data[i].replies && k < self.data[i].replies.length; k++) {//get replies
+                for (var k = 0; self.data[i].replies && k < self.data[i].replies.length; k++) {
                     angular.forEach(self.data[i].replies[k].files, buildItem);
                     //self.data[i].replies[k].files = itemThumbnailService.assignValues(self.data[i].replies[k].files, 100, 141);
                 }
