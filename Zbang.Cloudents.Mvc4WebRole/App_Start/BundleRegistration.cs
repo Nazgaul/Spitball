@@ -22,7 +22,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/homepage/homePage.css",
                         "~/content/site/staticPage.css",
                          //"~/Content/homepage/bootstrap.css", //TODO: check if we need this.
-                        "~/content/signin/components-md.css",
+                        //"~/content/signin/components-md.css",
                         //"~/content/signin/plugins-md.css",
                         "~/content/site/layout.css",
                         //"~/content/signin/default.css",
@@ -42,18 +42,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //"~/content/signin/custom.css",
                     }
                 },
-                  {
-                    "signin", new[]
-                    {
-                        "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
-                        "~/Content/signin/login-soft.css",
-                        "~/Content/signin/components-md.css",
-                        "~/Content/signin/plugins-md.css",
-                        "~/Content/site/layout.css",
-                        "~/Content/signin/default.css",
-                        "~/Content/signin/custom.css"
-                    }
-                },
+                //  {
+                //    "signin", new[] // passwordUpdate uses it - this page will be modified in v4.
+                //    {
+                //        "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
+                //        "~/Content/signin/login-soft.css",
+                //        "~/Content/signin/components-md.css",
+                //        "~/Content/signin/plugins-md.css",
+                //        "~/Content/site/layout.css",
+                //        "~/Content/signin/default.css",
+                //        "~/Content/signin/custom.css"
+                //    }
+                //},
                 {
                     "themeDark", new []
                     {
@@ -116,8 +116,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "homePage", new[]
                     {
-                        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
-                        new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
+                        //new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"), //changed to bower components
+                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
+                        //new JsFileWithCdn("~/scripts/jquery.validate.min.js"), //changed to bower components
+                        new JsFileWithCdn("~/bower_components/jquery.validate/dist/jquery.validate.min.js"),
                         new JsFileWithCdn("~/js/signin/metronic.js"), //TODO : do we need this
                         new JsFileWithCdn("~/js/signin/layout.js"),//TODO : do we need this
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
@@ -131,42 +133,46 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "staticPage", new[]
                     {
-                        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
+                        //new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"), //changed to bower components
+                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/js/signin/staticPages.js"),
                         new JsFileWithCdn("~/js/signin/itemGallery.js")
                     }
                 },
-                {
-                    //TODO: maybe we can remove this???
-                    "signin", new[]
-                    {
+                //{
+                //    //TODO: maybe we can remove this??? // passwordUpdate uses it - this page will be modified in v4.
+                //    "signin", new[]
+                //    {
 
 
-                        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
-                        //new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
-                        new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
-                        //new JsFileWithCdn("~/js/signin/demo.js"),
-                        new JsFileWithCdn("~/js/signin/metronic.js"),
-                        new JsFileWithCdn("~/js/signin/layout.js"),
-                        new JsFileWithCdn("~/js/signin/login-soft.js"),
-                        new JsFileWithCdn("~/scripts/svg4everybody.js")
-                    }
-                },
+                //        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
+                //        //new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
+                //        new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
+                //        //new JsFileWithCdn("~/js/signin/demo.js"),
+                //        new JsFileWithCdn("~/js/signin/metronic.js"),
+                //        new JsFileWithCdn("~/js/signin/layout.js"),
+                //        new JsFileWithCdn("~/js/signin/login-soft.js"),
+                //        new JsFileWithCdn("~/scripts/svg4everybody.js")
+                //    }
+                //},
                 {
                     "site4", new[]
                     {
 
-                        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
+                        //new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"), //changed to bower components
+                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
                         
                         //new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
-                        new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"),
-                        
+                        //new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"), //changed to bower components
+                        new JsFileWithCdn("~/bower_components/angular/angular.min.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"),
 
-                        new JsFileWithCdn("~/scripts/angular-ui-router.js"),
-                        new JsFileWithCdn("~/scripts/angular-messages.js"),
+                        //new JsFileWithCdn("~/scripts/angular-ui-router.js"), //changed to bower components
+                        new JsFileWithCdn("~/bower_components/ui-router/release/angular-ui-router.js"),
+                        //new JsFileWithCdn("~/scripts/angular-messages.js"), //changed to bower components
+                        new JsFileWithCdn("~/bower_components/angular-messages/angular-messages.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-cache/dist/angular-cache.min.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-sanitize.min.js"),
@@ -177,9 +183,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngularSetup.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
                         
-                        new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"),
+                        new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
-                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"),
+                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.js"), // should be 1.0.7 but not found on google cdn
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
                         

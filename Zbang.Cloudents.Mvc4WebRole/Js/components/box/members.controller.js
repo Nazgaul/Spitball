@@ -10,5 +10,6 @@
         boxService.getMembers($stateParams.boxId).then(function (response) {
             m.members = response;
         });
+
     }
 })();

@@ -11,9 +11,14 @@
     "textAngular": "~1.5.0",
     "ngSlimscroll": "*",
     "angular-cache": "~4.5.0",
-    "font-awesome": "~4.5.0"
+    "font-awesome": "~4.5.0",
+    "jquery": "2.1.4",
+    "jquery.validate": "~1.13.0",
+    "angular-locale": "~0.1.10",
+    "angular-i18n": "1.4.6",
+    "ui-router": "~0.2.18"
   },
   "resolutions": {
-    "angular": ">=1.x"
+    "angular": ">=1"
   }
 }
