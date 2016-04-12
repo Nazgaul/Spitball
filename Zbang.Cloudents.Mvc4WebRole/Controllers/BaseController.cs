@@ -6,6 +6,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using StackExchange.Profiling;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.Common;
@@ -37,12 +38,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     RouteTable.Routes.GetRouteData(
                         new HttpContextWrapper(
                             new HttpContext(new HttpRequest(null, new UriBuilder(url).ToString(), string.Empty),
-                                new HttpResponse(new System.IO.StringWriter()))));
-                if (routeFromUrl == null)
-                {
-                    return null;
-                }
-                if (routeFromUrl.Values["boxId"] == null)
+                                new HttpResponse(new StringWriter()))));
+                if (routeFromUrl?.Values["boxId"] == null)
                 {
                     return null;
                 }
@@ -83,8 +80,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         protected override void OnException(ExceptionContext filterContext)
         {
             var parameters = filterContext.HttpContext.Request.Params.ToString().Replace("&", "\n");
-            var info = string.Format("on exception base controller url {0} user {1} ",
-                filterContext.HttpContext.Request.RawUrl, User.Identity.Name);
+            var info =
+                $"on exception base controller url {filterContext.HttpContext.Request.RawUrl} user {User.Identity.Name} ";
             TraceLog.WriteError(info, filterContext.Exception, parameters);
             base.OnException(filterContext);
         }
@@ -111,22 +108,34 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding)
         {
-            return new JsonNetResult
-            {
-                Data = data,
-                ContentType = contentType,
-                ContentEncoding = contentEncoding
-            };
+            return Json(data, contentType, contentEncoding, JsonRequestBehavior.AllowGet);
+            //return new JilJsonResult
+            //{
+            //    Data = data,
+            //    ContentType = contentType,
+            //    ContentEncoding = contentEncoding
+            //};
+            //return new JsonNetResult
+            //{
+            //    Data = data,
+            //    ContentType = contentType,
+            //    ContentEncoding = contentEncoding
+            //};
         }
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
         {
-            return new JsonNetResult
+            var profiler = MiniProfiler.Current; // it's ok if this is null
+            using (profiler.Step("Json render"))
             {
-                Data = data,
-                ContentType = contentType,
-                ContentEncoding = contentEncoding,
-                JsonRequestBehavior = behavior
-            };
+                return new JilJsonResult
+                {
+                    Data = data,
+                    ContentType = contentType,
+                    ContentEncoding = contentEncoding,
+                    JsonRequestBehavior = behavior
+                };
+            }
+        
         }
 
         protected JsonResult JsonOk(object data = null)
@@ -137,6 +146,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return Json(new JsonResponse(false, data));
         }
+
+        
 
 
 

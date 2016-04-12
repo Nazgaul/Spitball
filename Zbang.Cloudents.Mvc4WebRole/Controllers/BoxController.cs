@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.UI;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -60,12 +60,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 //var urlBoxName = Server.UrlDecode(Request.Url.Segments[4]);
                 if (UrlConsts.NameToQueryString(model.Name) != boxName)
                 {
-                    throw new BoxDoesntExistException(Request.Url.AbsoluteUri);
+                    throw new BoxDoesntExistException(Request.Url?.AbsoluteUri);
                 }
                 SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
                 if (model.BoxType == BoxType.Box)
                 {
-                    ViewBag.title = string.Format("{0} | {1}", model.Name, SeoBaseUniversityResources.Cloudents);
+                    ViewBag.title = $"{model.Name} | {SeoBaseUniversityResources.Cloudents}";
                     return View("Empty");
                 }
 
@@ -74,8 +74,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 if (part == "feed" || part == "members")
                 {
-                    ViewBag.title = string.Format("{0} - {1} | {2}", model.Name, model.UniversityName,
-                        SeoBaseUniversityResources.Cloudents);
+                    ViewBag.title = $"{model.Name} - {model.UniversityName} | {SeoBaseUniversityResources.Cloudents}";
                 }
                 if (part == "items")
                 {
@@ -102,7 +101,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 var userId = User.GetUserId(false);
-                TraceLog.WriteError(string.Format("Box Index boxId {0} userid {1}", boxId, userId), ex);
+                TraceLog.WriteError($"Box Index boxId {boxId} userid {userId}", ex);
                 return RedirectToAction("Index", "Error");
             }
         }
@@ -205,7 +204,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Index id {0}", id), ex);
+                TraceLog.WriteError($"Box Index id {id}", ex);
                 return JsonError();
             }
         }
@@ -253,7 +252,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Tabs id {0}", id), ex);
+                TraceLog.WriteError($"Box Tabs id {id}", ex);
                 return JsonError();
             }
         }
@@ -298,7 +297,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxId {0}", id), ex);
+                TraceLog.WriteError($"Box Items BoxId {id}", ex);
                 return JsonError();
             }
         }
@@ -318,7 +317,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Box Items BoxId {0} ", id), ex);
+                TraceLog.WriteError($"Box Items BoxId {id} ", ex);
                 return JsonError();
             }
         }
@@ -371,7 +370,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("on UpdateBox info model: {0} userid {1}", model, User.GetUserId()), ex);
+                TraceLog.WriteError($"on UpdateBox info model: {model} userid {User.GetUserId()}", ex);
                 return JsonError();
             }
         }
@@ -487,6 +486,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(GetErrorFromModelState());
             }
             var userId = User.GetUserId();
+            Debug.Assert(model.TabId != null, "model.TabId != null");
             var command = new DeleteItemTabCommand(userId, model.TabId.Value, model.BoxId);
             ZboxWriteService.DeleteBoxItemTab(command);
             return JsonOk();

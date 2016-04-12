@@ -66,7 +66,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 FileUploadDetails fileUploadedDetails = GetCookieUpload(model.FileSize, model.FileName, uploadedfile);
 
 
-                string blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName).ToLower();
+                string blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
 
 
                 fileUploadedDetails.CurrentIndex = await m_BlobProvider.UploadFileBlockAsync(blobAddressUri, uploadedfile.InputStream, fileUploadedDetails.CurrentIndex);
@@ -115,9 +115,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Upload UploadFileAsync BoxId {0} fileName {1} fileSize {2} userid {3} HttpContextRequestCount {4} HttpContextRequestKeys {5}",
-                    model.BoxId, model.FileName, model.FileSize, userId,
-                    HttpContext.Request.Files.Count, string.Join(",", HttpContext.Request.Files.AllKeys)), ex);
+                TraceLog.WriteError(
+                    $"Upload UploadFileAsync BoxId {model.BoxId} fileName {model.FileName} fileSize {model.FileSize} userid {userId} HttpContextRequestCount {HttpContext.Request.Files.Count} HttpContextRequestKeys {string.Join(",", HttpContext.Request.Files.AllKeys)}", ex);
                 return JsonError(BoxControllerResources.Error);
             }
 
@@ -311,7 +310,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var userId = User.GetUserId();
 
 
-            var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(model.Name).ToLower();
+            var blobAddressUri = Guid.NewGuid().ToString().ToLower() + Path.GetExtension(model.Name)?.ToLower();
 
             var size = 0L;
             bool notUploaded;

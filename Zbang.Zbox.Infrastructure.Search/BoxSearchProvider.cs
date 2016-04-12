@@ -64,11 +64,11 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
 
 
-            var listOfCommands = new List<IndexAction<BoxSearch>>();
             if (boxToUpload != null)
             {
-                listOfCommands.AddRange(
-                    boxToUpload.Select(s => new IndexAction<BoxSearch>(IndexActionType.MergeOrUpload, new BoxSearch
+                
+                
+                var uploadBatch =     boxToUpload.Select(s => new BoxSearch
                     {
                         Course = s.CourseCode,
                         Department = s.Department.ToArray(),
@@ -80,27 +80,19 @@ namespace Zbang.Zbox.Infrastructure.Search
                         Url = s.Url,
                         UserId = s.UserIds.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray()
 
-                    })));
+                    });
+                var batch = IndexBatch.Upload(uploadBatch);
+                await m_IndexClient.Documents.IndexAsync(batch);
             }
             if (boxToDelete != null)
             {
-                listOfCommands.AddRange(boxToDelete.Select(s =>
-                   new IndexAction<BoxSearch>(IndexActionType.Delete, new BoxSearch
+                var deleteBatch = boxToDelete.Select(s =>
+                    new BoxSearch
                    {
                        Id = s.ToString(CultureInfo.InvariantCulture)
-                   })));
-            }
-            var commands = listOfCommands.ToArray();
-            if (commands.Length <= 0) return true;
-            try
-            {
-                await m_IndexClient.Documents.IndexAsync(IndexBatch.Create(listOfCommands.ToArray()));
-            }
-            catch (IndexBatchException ex)
-            {
-                TraceLog.WriteError("Failed to index some of the documents: " +
-                                    String.Join(", ", ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
-                return false;
+                   });
+                var batch = IndexBatch.Delete(deleteBatch);
+                await m_IndexClient.Documents.IndexAsync(batch);
             }
             return true;
         }
@@ -119,7 +111,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         }
         public async Task<IEnumerable<SearchBoxes>> SearchBoxWithoutHighlightWithUrlAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
             var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
             {
                 Filter =
@@ -128,8 +120,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField,TypeFiled },
-            }, cancelToken);
-            return result.Select(s => new SearchBoxes
+            }, cancellationToken: cancelToken);
+            return result.Results.Select(s => new SearchBoxes
             {
                 Id = long.Parse(s.Document.Id),
                 Name = s.Document.Name,
@@ -143,7 +135,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         }
         public async Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
         {
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
             var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
             {
                 Filter =
@@ -153,8 +145,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Skip = query.RowsPerPage * query.PageNumber,
                 Select = new[] { IdField, NameField, ProfessorField, CourseField, TypeFiled },
                 HighlightFields = new[] { NameField },
-            }, cancelToken);
-            return result.Select(s => new SearchBoxes
+            }, cancellationToken: cancelToken);
+            return result.Results.Select(s => new SearchBoxes
             {
                 Id = long.Parse(s.Document.Id),
                 Name = HighLightInField(s, NameField, s.Document.Name),
@@ -166,7 +158,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
             var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
             {
                 Filter =
@@ -175,8 +167,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField, TypeFiled }
-            }, cancelToken);
-            return result.Select(s => new SearchBoxes(
+            }, cancellationToken: cancelToken);
+            return result.Results.Select(s => new SearchBoxes(
                 SeachConnection.ConvertToType<long>(s.Document.Id),
                 s.Document.Name,
                 s.Document.Professor,

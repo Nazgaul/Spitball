@@ -281,7 +281,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("CreateAcademic user: {0} model: {1}", User.GetUserId(), model), ex);
+                TraceLog.WriteError($"CreateAcademic user: {User.GetUserId()} model: {model}", ex);
                 return JsonError(LibraryControllerResources.Problem_with_create_a_course);
             }
         }
@@ -366,13 +366,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 command.Id,
             });
         }
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
-
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
     }
 }

@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("BoxList user: {0}", userid), ex);
+                TraceLog.WriteError($"BoxList user: {userid}", ex);
                 return JsonError();
             }
         }
@@ -107,7 +107,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("CreateNewBox user: {0} model: {1}", User.GetUserId(), model), ex);
+                TraceLog.WriteError($"CreateNewBox user: {User.GetUserId()} model: {model}", ex);
                 return JsonError(BoxControllerResources.DashboardController_Create_Problem_with_Create_new_box);
             }
         }

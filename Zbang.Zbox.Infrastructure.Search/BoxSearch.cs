@@ -3,7 +3,7 @@ using Microsoft.Azure.Search.Models;
 namespace Zbang.Zbox.Infrastructure.Search
 {
     [SerializePropertyNamesAsCamelCase]
-    class BoxSearch
+    internal class BoxSearch
     {
         public string Id { get; set; }
         public string Name { get; set; }

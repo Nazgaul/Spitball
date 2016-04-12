@@ -5,7 +5,7 @@
     const string svgUrl = "~/images/site/icons.svg";
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 
-    var logoLink =  Url.Action("Index", "dashboard"); //: Url.RouteUrl("homePage");
+    var logoLink = Url.Action("Index", "dashboard"); //: Url.RouteUrl("homePage");
 }
 <!DOCTYPE html>
 <!--[if IE]>
@@ -37,14 +37,14 @@
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <script>
-(function (w, d, s, l, i) {
-    w[l] = w[l] || []; w[l].push({
-        'gtm.start':
-            new Date().getTime(), event: 'gtm.js'
-    }); var f = d.getElementsByTagName(s)[0],
-        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-        '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-})(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
     <!-- End Google Tag Manager -->
     <div ng-spinner-bar class="sb-loader">
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
@@ -63,7 +63,7 @@
                     </a>
                 </div>
             </div>
-            
+
             <form ng-controller="SearchTriggerController as st" ng-show="st.show"
                   ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
                   novalidate class="search-form search-form-expanded" ng-if="app.showMenu">
@@ -129,7 +129,7 @@
         </div>
     </header>
 
-   
+
     <div class="page-body">
         @RenderBody()
     </div>
@@ -167,8 +167,9 @@
     @*inline manual*@
 
     <script>
-        inlineManualOptions = { language: '@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName'};
-        
+        inlineManualOptions = { language: '@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName' };
+
     </script>
+    @StackExchange.Profiling.MiniProfiler.RenderIncludes(showTimeWithChildren:true,showTrivial:true)
 </body>
 </html>

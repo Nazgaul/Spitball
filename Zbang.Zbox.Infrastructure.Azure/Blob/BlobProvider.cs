@@ -315,6 +315,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             var blob = GetFile(blobName);
             await blob.UploadFromFileAsync(filePath, FileMode.Open);
+            //await blob.UploadFromFileAsync(filePath);
             blob.Properties.ContentType = mimeType;
             await blob.SetPropertiesAsync();
         }
@@ -323,7 +324,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             var blob = GetFile(blobName);
             var newBlob = GetFile(newName);
-            newBlob.StartCopyFromBlob(blob);
+            newBlob.StartCopy(blob);
+            //newBlob.StartCopyFromBlob(blob);
             newBlob.Properties.ContentType = newMimeType ?? blob.Properties.ContentType;
             newBlob.SetProperties();
             blob.Delete();

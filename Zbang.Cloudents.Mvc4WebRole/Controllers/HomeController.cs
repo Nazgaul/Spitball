@@ -151,8 +151,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 QuestionNAnswers = faqs.Select(s =>
                                     new QnA
                                     {
-                                        Answer = s.Element("answer").Value,
-                                        Question = s.Element("question").Value,
+                                        Answer = s.Element("answer")?.Value,
+                                        Question = s.Element("question")?.Value,
                                         Order = int.Parse(s.Attribute("order").Value)
 
                                     }).OrderBy(s => s.Order).ToList()
@@ -183,8 +183,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 QuestionNAnswers = faqs.Select(s =>
                                     new QnA
                                     {
-                                        Answer = s.Element("answer").Value,
-                                        Question = s.Element("question").Value,
+                                        Answer = s.Element("answer")?.Value,
+                                        Question = s.Element("question")?.Value,
                                         Order = int.Parse(s.Attribute("order").Value)
 
                                     }).OrderBy(s => s.Order).ToList()
@@ -434,7 +434,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 root.Add(
                     new XElement(xmlns + "sitemap",
-                        new XElement(xmlns + "loc", string.Format("https://www.spitball.co/sitemap-{0}.xml", i))
+                        new XElement(xmlns + "loc", $"https://www.spitball.co/sitemap-{i}.xml")
                            )
                         );
 

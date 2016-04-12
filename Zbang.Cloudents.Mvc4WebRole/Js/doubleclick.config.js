@@ -1,10 +1,8 @@
-/// <reference path="../scripts/typings/angularjs/angular.d.ts" />
 (function () {
     angular.module('app').config(config);
     config.$inject = ['DoubleClickProvider'];
     function config(doubleClickProvider) {
-        var topDashboard = 'div-gpt-ad-1459950737650-0', //top of dashboard
-        boxMenu = 'div-gpt-ad-1459950737650-1', menu = 'div-gpt-ad-1459950737650-3', topBox = 'div-gpt-ad-1459950737650-2', itemSide = 'div-gpt-ad-1459950737650-4', itemBetween = 'div-gpt-ad-1459950737650-5', topItem = 'div-gpt-ad-1459950737650-6', searchTop = 'div-gpt-ad-1459950737650-7';
+        var topDashboard = 'div-gpt-ad-1459950737650-0', boxMenu = 'div-gpt-ad-1459950737650-1', menu = 'div-gpt-ad-1459950737650-3', topBox = 'div-gpt-ad-1459950737650-2', itemSide = 'div-gpt-ad-1459950737650-4', itemBetween = 'div-gpt-ad-1459950737650-5', topItem = 'div-gpt-ad-1459950737650-6', searchTop = 'div-gpt-ad-1459950737650-7';
         doubleClickProvider.defineSlot('/107474526/Dash(N)_728x90_ATF', [[300, 75], [728, 90], [468, 60]], topDashboard)
             .defineSlot('/107474526/Box_250x250_ATF', [[234, 60], [250, 250]], boxMenu)
             .defineSlot('/107474526/Box_728x90_ATF', [[300, 75], [728, 90], [468, 60]], topBox)
@@ -44,4 +42,3 @@
         doubleClickProvider.setRefreshInterval(60000);
     }
 })();
-//# sourceMappingURL=doubleclick.config.js.map

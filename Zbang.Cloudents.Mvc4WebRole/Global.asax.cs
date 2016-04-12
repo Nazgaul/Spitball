@@ -4,9 +4,12 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using StackExchange.Profiling;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
+
 //using Microsoft.AspNet.SignalR.ServiceBus;
 
 namespace Zbang.Cloudents.Mvc4WebRole
@@ -41,13 +44,36 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //this disable identity check
             System.Web.Helpers.AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
             MvcHandler.DisableMvcResponseHeader = true;
+
+            MiniProfiler.Settings.Results_Authorize = IsUserAllowedToSeeMiniProfilerUI;
         }
+
+        private bool IsUserAllowedToSeeMiniProfilerUI(HttpRequest httpRequest)
+        {
+            // Implement your own logic for who 
+            // should be able to access ~/mini-profiler-resources/results
+            var principal = httpRequest.RequestContext.HttpContext.User;
+            return principal.GetUserId(false) == 1;
+        }
+
         protected void Application_End()
         {
             TraceLog.WriteInfo("Application ending");
         }
 
+        protected void Application_BeginRequest()
+        {
+            if (Request.IsLocal)
+            {
+                MiniProfiler.Start();
 
+                
+            }
+        }
+        protected void Application_EndRequest()
+        {
+            MiniProfiler.Stop();
+        }
         ////for output cache
         //protected void Application_AcquireRequestState()
         //{
@@ -74,7 +100,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     if (key == CustomCacheKeys.Auth)
                     {
-                        if (User != null && User.Identity != null)
+                        if (User?.Identity != null)
                         {
                             value += User.Identity.IsAuthenticated.ToString(CultureInfo.InvariantCulture);
                         }
@@ -92,7 +118,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("GetVaryByCustomString custom {0} context {1}", custom, context), ex);
+                TraceLog.WriteError($"GetVaryByCustomString custom {custom} context {context}", ex);
                 throw;
             }
         }
@@ -112,12 +138,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             if (currentRouteData != null)
             {
-                if (currentRouteData.Values["controller"] != null && !String.IsNullOrEmpty(currentRouteData.Values["controller"].ToString()))
+                if (!string.IsNullOrEmpty(currentRouteData.Values["controller"]?.ToString()))
                 {
                     currentController = currentRouteData.Values["controller"].ToString();
                 }
 
-                if (currentRouteData.Values["action"] != null && !String.IsNullOrEmpty(currentRouteData.Values["action"].ToString()))
+                if (!string.IsNullOrEmpty(currentRouteData.Values["action"]?.ToString()))
                 {
                     currentAction = currentRouteData.Values["action"].ToString();
                 }
@@ -156,7 +182,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 return;
             }
-            var uriBuilder = new UriBuilder(HttpContext.Current.Request.Url) {Path = "/error"};
+            //var uriBuilder = new UriBuilder(HttpContext.Current.Request.Url) {Path = "/error"};
 
 
             controller.ViewData.Model = new HandleErrorInfo(ex, currentController, currentAction);

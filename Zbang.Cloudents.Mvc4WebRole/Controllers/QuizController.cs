@@ -62,9 +62,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
                 if (string.IsNullOrEmpty(model.Country)) return View("Empty");
-                SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country); ;
-                ViewBag.title = string.Format("{0} - {1} - {2} | {3}",
-                   SeoBaseUniversityResources.QuizTitle, model.Name, model.BoxName, SeoBaseUniversityResources.Cloudents);
+                SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
+                ViewBag.title =
+                    $"{SeoBaseUniversityResources.QuizTitle} - {model.Name} - {model.BoxName} | {SeoBaseUniversityResources.Cloudents}";
 
                 ViewBag.metaDescription = string.Format(SeoBaseUniversityResources.QuizMetaDescription, model.BoxName, model.Name);
                 return View("Empty");
@@ -197,7 +197,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Save answers model: {0}", model), ex);
+                TraceLog.WriteError($"Save answers model: {model}", ex);
                 return JsonError();
             }
         }

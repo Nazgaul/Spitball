@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("GetUserFriends userid: {0}", id), ex);
+                TraceLog.WriteError($"GetUserFriends userid: {id}", ex);
                 return JsonError("Problem with get user friends");
             }
         }
@@ -63,7 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("User/Boxes user , userRequest {0}", id), ex);
+                TraceLog.WriteError($"User/Boxes user , userRequest {id}", ex);
                 return JsonError();
             }
         }
