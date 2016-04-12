@@ -1,5 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
-<div layout="row" layout-padding class="margin-top-10" >
+<div layout="row" layout-padding class="margin-top-10">
     <div flex-gt-md="25" flex-md="33" flex-sm="50" hide-xs ng-if="b.canInvite">
         <button type="button" ng-click="b.inviteToBox()" class="member-invite color-override textColor3 " ga-track-event="['box-members', 'inviteFriends']">
             @Html.Svg("~/images/site/icons.svg", "invite", new { @class = "color-override svgColor3" })
@@ -7,9 +7,14 @@
         </button>
     </div>
 </div>
-<div layout-padding layout="row" layout-wrap>
+@*<div layout-padding layout="row" layout-wrap>
     <div flex-gt-md="25" flex-md="33" flex-sm="50" flex-xs="100" ng-repeat="e in m.members" ng-include="'user-template.html'"></div>
-</div>
+</div>*@
+    <md-virtual-repeat-container layout-padding layout="row" layout-wrap style="width: 100%; height: 500px;">
+        <div flex-gt-md="25" flex-md="33" flex-sm="50" flex-xs="100" md-virtual-repeat="e in m.members">
+            <div ng-include="'user-template.html'"></div>
+        </div>
+    </md-virtual-repeat-container>
 <button type="button" class="add" hide show-xs ng-click="b.inviteToBox()" ga-track-event="['box-members', 'inviteFriends']">
     @Html.Svg("~/images/site/icons.svg", "add")
 </button>
