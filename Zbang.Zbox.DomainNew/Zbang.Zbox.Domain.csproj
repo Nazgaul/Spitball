@@ -73,10 +73,12 @@
     <Compile Include="Comment.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="File.cs" />
     <Compile Include="InviteToBox.cs" />
     <Compile Include="InviteToSystem.cs" />
     <Compile Include="ItemCommentBase.cs" />
     <Compile Include="ItemCommentReply.cs" />
+    <Compile Include="Link.cs" />
     <Compile Include="PrivateBox.cs" />
     <Compile Include="ReplyLike.cs" />
     <Compile Include="CommentLike.cs" />

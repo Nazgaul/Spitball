@@ -20,7 +20,6 @@ using Zbang.Zbox.ViewModel.Queries.QnA;
 using Zbang.Zbox.ViewModel.Queries.Search;
 using Activity = Zbang.Zbox.ViewModel.Dto.ActivityDtos;
 using Box = Zbang.Zbox.ViewModel.Dto.BoxDtos;
-using ExtensionTransformers = Zbang.Zbox.Infrastructure.Data.Transformers;
 using Item = Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Qna = Zbang.Zbox.ViewModel.Dto.Qna;
 using User = Zbang.Zbox.ViewModel.Dto.UserDtos;
@@ -78,35 +77,6 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
 
         }
 
-        //public async Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetItemsPageDataAsync()
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var fieldInfo = typeof(Sql.Sql).GetFields(BindingFlags.Public | BindingFlags.Static |
-        //                                    BindingFlags.FlattenHierarchy)
-        //                                    .FirstOrDefault(fi => fi.IsLiteral && !fi.IsInitOnly && fi.Name == "GetItemsPageItems_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower());
-                
-        //        var itemsQuery = Sql.Sql.GetItemsPageItems_en;
-        //        if (fieldInfo != null)
-        //        {
-        //            itemsQuery = fieldInfo.GetValue(null).ToString();
-        //        }
-        //        return await conn.QueryAsync<Item.ItemDto>(itemsQuery);
-        //    }
-
-        //}
-        
-        //[Obsolete]
-        //public async Task<IEnumerable<BoxDto>> GetUserBoxesOld(GetBoxesQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<BoxDto>(Sql.Dashboard.UserBoxesOld,
-        //            new { query.UserId, query.RowsPerPage, query.PageNumber });
-
-        //    }
-
-        //}
         /// <summary>
         /// used to get the dashboard and the activity and wall in dashboard
         /// </summary>
@@ -131,27 +101,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         }
 
 
-        //public async Task<DashboardDto> GetDashboardSideBarAsync(GetDashboardQuery query)
-        //{
-        //    using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1}",
-        //            Sql.Sql.DashboardInfo,
-        //            Sql.Sql.UniversityLeaderBoard),
-        //            new { query.UniversityId }))
-        //        {
-        //            var retVal = new DashboardDto
-        //            {
 
-        //                Info = grid.Read<UniversityDashboardInfoDto>().FirstOrDefault(),
-        //                LeaderBoard = await grid.ReadAsync<LeaderBoardDto>()
-
-        //            };
-
-        //            return retVal;
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// Used in dashboard
@@ -251,38 +201,6 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             }
         }
 
-
-
-
-        /// <summary>
-        /// University page - the header with all the details
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        //public async Task<UniversityInfoDto> GetUniversityDetailAsync(GetUniversityDetailQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var retVal = await conn.QueryAsync<UniversityInfoDto>(Sql.Sql.GetUniversityDataByUserId, new { UniversityWrapper = query.UserId });
-        //        return retVal.First();
-        //    }
-
-        //}
-
-        //public async Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query)
-        //{
-        //    using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<InviteDto>(Sql.Sql.UserInvites, new { query.UserId });
-        //    }
-        //}
-
-
-
-
-
-
-
         public async Task<Box.BoxDto2> GetBox2Async(GetBoxQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -303,11 +221,12 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
 
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1}", Sql.Box.BoxData, Sql.Box.BoxMembersWithoutInvited), new
-                {
-                    query.BoxId,
-                    top = numberOfMembers
-                }))
+                using (var grid = await conn.QueryMultipleAsync(
+                    $"{Sql.Box.BoxData} {Sql.Box.BoxMembersWithoutInvited}", new
+                    {
+                        query.BoxId,
+                        top = numberOfMembers
+                    }))
                 {
                     var box = grid.Read<Box.BoxDtoWithMembers>().FirstOrDefault();
                     if (box == null)
@@ -351,15 +270,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                 });
                 return val.FirstOrDefault();
             }
-            //using (UnitOfWork.Start())
-            //{
-            //    IQuery dbQuery = UnitOfWork.CurrentSession.GetNamedQuery("GetBoxNotificationByUser");
-            //    dbQuery.SetInt64("BoxId", query.BoxId);
-            //    dbQuery.SetInt64("UserId", userId);
 
-            //    return dbQuery.UniqueResult<NotificationSettings>();
-            //    //dbQuery.SetResultTransformer(Transformers.AliasToBean<NotificationSettings>());
-            //}
         }
 
         /// <summary>
@@ -372,12 +283,12 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<Item.ItemDto>(Sql.Box.Items, new
-                 {
-                     query.BoxId,
-                     pageNumber = query.PageNumber,
-                     rowsperpage = query.RowsPerPage,
-                     query.TabId
-                 });
+                {
+                    query.BoxId,
+                    pageNumber = query.PageNumber,
+                    rowsperpage = query.RowsPerPage,
+                    query.TabId
+                });
             }
         }
 
@@ -439,13 +350,8 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                 using (
                     var grid =
                         await
-                            conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4}",
-                            Sql.Item.ItemDetail,
-                            Sql.Item.Navigation,
-                            Sql.Item.ItemComments,
-                            Sql.Item.ItemCommentReply,
-                            Sql.Item.UserItemRate
-                            ),
+                            conn.QueryMultipleAsync(
+                                $"{Sql.Item.ItemDetail} {Sql.Item.Navigation} {Sql.Item.ItemComments} {Sql.Item.ItemCommentReply} {Sql.Item.UserItemRate}",
                                 new { query.ItemId, query.BoxId, query.UserId }))
                 {
                     var retVal = grid.Read<Item.ItemDetailDto>().FirstOrDefault();
@@ -490,36 +396,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         }
 
 
-        //public async Task<IEnumerable<Qna.QuestionDto>> GetQuestionsWithAnswersAsync(GetBoxQuestionsQuery query)
-        //{
-        //    using (var con = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3}",
-        //            Sql.Box.GetBoxQuestion,
-        //            Sql.Box.GetBoxAnswers,
-        //            Sql.Box.GetBoxQnAItem,
-        //            Sql.Box.GetBoxQnaQuiz
-        //            ),
-        //            new { query.BoxId, query.PageNumber, query.RowsPerPage }))
-        //        {
-        //            var questions = grid.Read<Qna.QuestionDto>().ToList();
-        //            var answers = grid.Read<Qna.AnswerDto>().ToList();
-        //            var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToList();
 
-        //            foreach (var answer in answers)
-        //            {
-        //                answer.Files.AddRange(items.Where(w => w.AnswerId.HasValue && w.AnswerId.Value == answer.Id));
-        //            }
-        //            foreach (var question in questions)
-        //            {
-        //                question.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == question.Id));
-        //                question.Answers.AddRange(answers.Where(s => s.QuestionId == question.Id));
-        //            }
-
-        //            return questions;
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// Used in mobile service to retrieve the comment and the last reply
@@ -530,43 +407,28 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1} {2} {3}",
-                    Sql.Box.GetBoxComments,
-                    Sql.Box.GetLastReplyOfComment,
-                    Sql.Box.GetItemsForCommentsAndLastReply,
-                    Sql.Box.GetQuizzesForCommentsAndLastReply
-                    ),
+                using (var grid = await con.QueryMultipleAsync(
+                    $"{Sql.Box.GetBoxComments} {Sql.Box.GetLastReplyOfComment} {Sql.Box.GetItemsForCommentsAndLastReply} {Sql.Box.GetQuizzesForCommentsAndLastReply}",
                     new { query.BoxId, query.PageNumber, query.RowsPerPage }))
                 {
-                    var comments = grid.Read<Qna.CommentDto>().ToList();
+                    var comments = grid.Read<Qna.CommentDto>();
                     var replies = grid.Read<Qna.ReplyDto>().ToDictionary(x => x.QuestionId);
-                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToLookup(c => c.QuestionId);
+                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToLookup(c => c.QuestionId ?? c.AnswerId);
 
-
-                    var replyItems = items[null].ToList();
                     foreach (var reply in replies)
                     {
 
-                        reply.Value.Files.AddRange(replyItems.Where(w => w.AnswerId == reply.Value.Id));
-                        //reply.Files.AddRange(items.Where(w => w.AnswerId.HasValue && w.AnswerId.Value == reply.Id));
+                        reply.Value.Files.AddRange(items[reply.Value.Id]);
                     }
                     foreach (var comment in comments)
                     {
-                        // var x =  items[comment.Id];
-                        //comment.Files.AddRange();
                         comment.Files.AddRange(items[comment.Id]);
-                        //comment.Files.AddRange(items.Where(w => w.QuestionId.HasValue && w.QuestionId.Value == comment.Id));
                         Qna.ReplyDto reply;
                         // replies[comment.Id];// replies.FirstOrDefault(s => s.QuestionId == comment.Id);
                         if (replies.TryGetValue(comment.Id, out reply))
                         {
                             comment.Replies.Add(reply);
                         }
-                        //if (reply != null)
-                        //{
-                        //    comment.Answers.Add(reply);
-                        //}
-
                     }
 
                     return comments;
@@ -578,10 +440,8 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1}",
-                    Sql.Box.GetCommentForMobile,
-                    Sql.Box.GetCommentFileForMobile
-                    ),
+                using (var grid = await con.QueryMultipleAsync(
+                    $"{Sql.Box.GetCommentForMobile} {Sql.Box.GetCommentFileForMobile}",
                     new { query.BoxId, query.QuestionId }))
                 {
                     var comment = grid.Read<Qna.CommentDto>().First();
@@ -613,13 +473,11 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await con.QueryMultipleAsync(string.Format("{0} {1}",
-                    Sql.Box.GetCommentRepliesInMobile,
-                    Sql.Box.GetCommentRepliesItemsInMobile
-                    ),
+                using (var grid = await con.QueryMultipleAsync(
+                    $"{Sql.Box.GetCommentRepliesInMobile} {Sql.Box.GetCommentRepliesItemsInMobile}",
                     new { query.BoxId, query.PageNumber, query.RowsPerPage, query.CommentId }))
                 {
-                    var replies = grid.Read<Qna.ReplyDto>().ToList();
+                    var replies = grid.Read<Qna.ReplyDto>();
                     var items = grid.Read<Qna.ItemDto>().ToLookup(c => c.AnswerId);
 
                     foreach (var reply in replies)
@@ -941,12 +799,12 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<Item.ItemDto>(Sql.User.UserWithFriendFiles, new
-                  {
-                     // Me = query.UserId,
-                      Myfriend = query.FriendId,
-                      pageNumber = query.PageNumber,
-                      rowsperpage = query.RowsPerPage
-                  });
+                {
+                    // Me = query.UserId,
+                    Myfriend = query.FriendId,
+                    pageNumber = query.PageNumber,
+                    rowsperpage = query.RowsPerPage
+                });
             }
         }
 
@@ -981,7 +839,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             }
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<SeoDto>(String.Format("{0}", Sql.Seo.GetSeoItemsByPage),
+                return await conn.QueryAsync<SeoDto>($"{Sql.Seo.GetSeoItemsByPage}",
                     new { rowsperpage = pageSize, pageNumber = page });
             }
         }
@@ -991,7 +849,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             const int pageSize = 49950;
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<int>(String.Format("{0}", Sql.Seo.GetSeoItemsCount));
+                var retVal = await conn.QueryAsync<int>($"{Sql.Seo.GetSeoItemsCount}");
                 return (retVal.FirstOrDefault() / pageSize) + 1;
             }
         }
@@ -1040,10 +898,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = string.Format("{0} {1}",
-                    Sql.Quiz.TopUsers,
-                    Sql.Quiz.NumberOfQuizSolved
-                    );
+                var sql = $"{Sql.Quiz.TopUsers} {Sql.Quiz.NumberOfQuizSolved}";
                 using (
                     var grid =
                         await conn.QueryMultipleAsync(sql, new { query.QuizId, topusers = query.NumberOfUsers }))
@@ -1063,13 +918,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = string.Format("{0} {1} {2} {3}",
-                   Sql.Quiz.Question,
-                   Sql.Quiz.Answer,
-                   Sql.Quiz.UserAnswer,
-                   Sql.Quiz.UserQuiz
-
-                   );
+                var sql = $"{Sql.Quiz.Question} {Sql.Quiz.Answer} {Sql.Quiz.UserAnswer} {Sql.Quiz.UserQuiz}";
                 using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.UserId }))
                 {
                     var retVal = new Item.QuizQuestionWithSolvedAnswersDto
@@ -1095,15 +944,8 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             var retVal = new Item.QuizWithDetailSolvedDto();
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var sql = string.Format("{0} {1} {2} {3} {4} {5}",
-                    Sql.Quiz.QuizQuery,
-                    Sql.Quiz.Question,
-                    Sql.Quiz.Answer,
-
-                    Sql.Quiz.UserQuiz,
-                    Sql.Quiz.UserAnswer,
-                    Sql.Quiz.TopUsers
-                    );
+                var sql =
+                    $"{Sql.Quiz.QuizQuery} {Sql.Quiz.Question} {Sql.Quiz.Answer} {Sql.Quiz.UserQuiz} {Sql.Quiz.UserAnswer} {Sql.Quiz.TopUsers}";
                 using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.BoxId, query.UserId, topusers = 3 }))
                 {
                     retVal.Quiz = grid.Read<Item.QuizWithDetailDto>().First();
@@ -1141,10 +983,8 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
 
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2}",
-                    Sql.Quiz.QuizQuery,
-                    Sql.Quiz.Question,
-                    Sql.Quiz.Answer), new { query.QuizId }))
+                using (var grid = await conn.QueryMultipleAsync(
+                    $"{Sql.Quiz.QuizQuery} {Sql.Quiz.Question} {Sql.Quiz.Answer}", new { query.QuizId }))
                 {
                     var retVal = grid.Read<Item.QuizWithDetailDto>().First();
                     retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();

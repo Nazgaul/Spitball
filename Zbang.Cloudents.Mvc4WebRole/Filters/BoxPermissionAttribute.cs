@@ -25,6 +25,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            System.Threading.Thread.Sleep(500);
             var boxid = filterContext.ActionParameters[m_BoxParamsId];
             var boxId = Convert.ToInt64(boxid);
             var userId = filterContext.HttpContext.User.GetUserId(false);

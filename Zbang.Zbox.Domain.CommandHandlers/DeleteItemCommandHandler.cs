@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public Task HandleAsync(DeleteItemCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
             var item = m_ItemRepository.Load(command.ItemId);
             var user = m_UserRepository.Load(command.UserId);
             var userType = m_UserRepository.GetUserToBoxRelationShipType(user.Id, item.Box.Id);

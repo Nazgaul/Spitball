@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(UpdateThumbnailCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
 
             var file = m_ItemRepository.Load(command.ItemId);
             if (file.ItemContentUrl != command.OldBlobName)

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Repositories;
 
@@ -21,7 +19,7 @@ namespace Zbang.Zbox.Domain
             string thumbnailBlobName, string thumbmailUrl)
             : this()
         {
-            if (uploader == null) throw new ArgumentNullException("uploader");
+            if (uploader == null) throw new ArgumentNullException(nameof(uploader));
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             DateTimeUser = new UserTimeDetails(uploader.Email);
 
@@ -111,7 +109,7 @@ namespace Zbang.Zbox.Domain
         public ICollection<ItemRate> ItemRates { get; set; }
 
 
-        public void DeleteAssociation()
+        public virtual void DeleteAssociation()
         {
             ItemRates.Clear();
             Updates.Clear();
@@ -123,69 +121,5 @@ namespace Zbang.Zbox.Domain
 
 
         public Func<bool> ShouldMakeDirty { get; set; }
-    }
-
-    public class Link : Item
-    {
-        protected Link()
-        {
-            ShouldMakeDirty = () => false;
-        }
-        public Link(string itemName, User uploaderUser, long sized, Box box,
-            string linkTitle, string thumbnailBlobName, string thumbnailUrl)
-            : base(linkTitle, uploaderUser, sized, box, itemName, thumbnailBlobName, thumbnailUrl)
-        { }
-
-
-
-
-
-        public override string ChangeName(string newName)
-        {
-            Name = newName;
-            GenerateUrl();
-            return Name;
-        }
-    }
-
-    public class File : Item
-    {
-        protected File()
-        {
-            ShouldMakeDirty = () => true;
-        }
-
-        public virtual int NumberOfDownloads { get; private set; }
-
-        public virtual string Content { get; set; }
-
-
-
-
-        public File(string itemName, User uploaderUser, long sized, string blobName,
-            string thumbnailBlobName, Box box, string thumbnailUrl)
-            : base(itemName, uploaderUser, sized, box, blobName, thumbnailBlobName, thumbnailUrl)
-        { }
-
-        public void IncreaseNumberOfDownloads()
-        {
-            NumberOfDownloads++;
-        }
-
-
-
-        public override string ChangeName(string newName)
-        {
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(newName);
-            if (fileNameWithoutExtension == Path.GetFileNameWithoutExtension(Name))
-            {
-                return Name;
-            }
-
-
-            Name = newName;
-            GenerateUrl();
-            return Name;
-        }
     }
 }
