@@ -70,7 +70,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError(string.Format("Digest email2 report:{0} user {1}", m_DigestEmailHourBack, user), ex);
+                    TraceLog.WriteError($"Digest email2 report:{m_DigestEmailHourBack} user {user}", ex);
                 }
             }
             await Task.Delay(m_TimeToSleepAfterExecuting);
@@ -99,7 +99,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 updates.Add(new UpdateMailParams.BoxUpdate(box.BoxName,
                     userSpecificUpdates.Take(4),
                     box.Url,
-                    userSpecificUpdates.Count() - 4));
+                    userSpecificUpdates.Count - 4));
             }
 
             if (updates.Count == 0)
@@ -109,7 +109,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
             await m_MailComponent.GenerateAndSendEmailAsync(
                 email, new UpdateMailParams(updates,
-                  new CultureInfo("en-US"), userName,
+                  new CultureInfo(culture), userName,
                   numOfQuestion,
                   numOfAnswers,
                   numOfItems));
