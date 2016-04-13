@@ -76,7 +76,15 @@ order by name;";
 	and i.QuestionId = @QuestionId  
 ";
 
-        public const string GetLastReplyOfComment = @" SELECT  a.[AnswerId] as id
+        public const string GetLastReplyOfComment = @"with questions as (
+select questionid,LastReplyId from zbox.question
+ where boxid = @boxid 
+ and CreationTime < @TimeStamp
+	            order by updatetime desc
+	            offset @pageNumber*@rowsperpage ROWS
+	            FETCH NEXT @rowsperpage ROWS ONLY
+)
+SELECT  a.[AnswerId] as id
 	  ,u.[UserName] as UserName
       ,u.UserImageLarge as UserImage
       ,u.userid as UserId
@@ -85,13 +93,8 @@ order by name;";
       ,a.LikeCount as LikesCount
       ,a.QuestionId as questionId
       ,a.CreationTime as creationTime
-      FROM [Zbox].[Answer] a join zbox.Question q on a.AnswerId = q.LastReplyId
-	  join zbox.users u on u.userid = a.userid
-	  where q.BoxId = @BoxId
-      and q.CreationTime < @TimeStamp
-    order by q.[updatetime] desc
-    offset @pageNumber*@rowsperpage ROWS
-	FETCH NEXT @rowsperpage ROWS ONLY;";
+      FROM [Zbox].[Answer] a join questions q on a.AnswerId = q.LastReplyId
+	  join zbox.users u on u.userid = a.userid;";
 
         public const string GetItemsForCommentsAndLastReply = @"with questions as (
 select questionid,LastReplyId from zbox.question

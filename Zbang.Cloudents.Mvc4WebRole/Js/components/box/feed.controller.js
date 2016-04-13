@@ -41,8 +41,12 @@
         self.likeReply = likeReply;
         self.likeReplyDialog = likeReplyDialog;
         self.likeCommentDialog = likeCommentDialog;
+        var d = new Date(),
+            currentTimestamp = d.toISOString(),
+            inHour = new Date(d.setHours(d.getHours() + 1)),
+            timestamp = inHour.toISOString();
 
-        boxService.getFeed(boxId, page).then(function (response) {
+        boxService.getFeed(boxId, page, timestamp).then(function (response) {
             self.data = response;
             assignData();
 
@@ -114,7 +118,8 @@
 
         function myPagingFunction() {
             page++;
-            return boxService.getFeed(boxId, page).then(function (response) {
+            timestamp = currentTimestamp;
+            return boxService.getFeed(boxId, page, timestamp).then(function (response) {
                 if (!response.length) {
                     return;
                 }
@@ -134,13 +139,6 @@
             });
 
             for (var i = 0; i < self.data.length; i++) {
-                //making the array unique
-                for (var z = i + 1; z < self.data.length; ++z) {
-                    if (self.data[i].id === self.data[z].id) {
-                        self.data.splice(z--, 1);
-                    }
-                }
-
                 var currentPost = self.data[i];
                 if (boxUpdates[currentPost.id]) {
                     currentPost.isNew = true
@@ -185,7 +183,7 @@
             return 'item-template.html';
 
         }
-        
+
         function deleteComment(ev, post) {
 
             //boxType //userType
