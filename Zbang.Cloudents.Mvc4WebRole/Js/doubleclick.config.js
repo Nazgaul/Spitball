@@ -30,7 +30,7 @@
             .addSize([640, 480], [468, 60])
             .addSize([0, 0], [300, 75]);
         doubleClickProvider.defineSizeMapping(topItem)
-            .addSize([1050, 768], [728, 90])
+            .addSize([1050, 768], [970, 300])
             .addSize([640, 480], [468, 60])
             .addSize([0, 0], [300, 75]);
         doubleClickProvider.defineSizeMapping(itemBetween)
