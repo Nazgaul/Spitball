@@ -124,18 +124,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
         {
-            var profiler = MiniProfiler.Current; // it's ok if this is null
-            using (profiler.Step("Json render"))
+            //var profiler = MiniProfiler.Current; // it's ok if this is null
+            //using (profiler.Step("Json render"))
+            //{
+            //    return new JilJsonResult
+            //    {
+            //        Data = data,
+            //        ContentType = contentType,
+            //        ContentEncoding = contentEncoding,
+            //        JsonRequestBehavior = behavior
+            //    };
+            //}
+
+            return new JsonNetResult
             {
-                return new JilJsonResult
-                {
-                    Data = data,
-                    ContentType = contentType,
-                    ContentEncoding = contentEncoding,
-                    JsonRequestBehavior = behavior
-                };
-            }
-        
+                Data = data,
+                ContentType = contentType,
+                ContentEncoding = contentEncoding,
+                JsonRequestBehavior = behavior
+            };
+
         }
 
         protected JsonResult JsonOk(object data = null)

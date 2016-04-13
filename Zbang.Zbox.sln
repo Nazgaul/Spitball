@@ -33,8 +33,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReadModel", "ReadModel", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{EDC210D9-AF1F-42CB-B44A-E9AEDA8511C2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalProviders", "ExternalProviders", "{EFA82140-5B66-491F-9C3A-B5F9C3A1BADA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Infrastructure", "Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj", "{3E0F1FBF-60D1-40B2-B649-933142C27CB7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Domain.CommandHandlers", "Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj", "{9ED04567-B2D0-4040-88A6-1AD752A3D83F}"

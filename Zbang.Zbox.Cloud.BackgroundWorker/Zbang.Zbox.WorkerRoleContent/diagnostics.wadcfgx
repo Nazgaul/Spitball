@@ -2,9 +2,17 @@
 <DiagnosticsConfiguration xmlns="http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration">
   <PublicConfig xmlns="http://schemas.microsoft.com/ServiceHosting/2010/10/DiagnosticsConfiguration">
     <WadCfg>
-      <DiagnosticMonitorConfiguration overallQuotaInMB="4096">
+      <DiagnosticMonitorConfiguration overallQuotaInMB="4096" sinks="applicationInsights.errors">
         <Logs scheduledTransferPeriod="PT1M" scheduledTransferLogLevelFilter="Verbose" />
       </DiagnosticMonitorConfiguration>
+      <SinksConfig>
+        <Sink name="applicationInsights">
+          <ApplicationInsights />
+          <Channels>
+            <Channel logLevel="Error" name="errors" />
+          </Channels>
+        </Sink>
+      </SinksConfig>
     </WadCfg>
     <StorageAccount />
   </PublicConfig>

@@ -22,11 +22,13 @@ namespace Zbang.Zbox.Domain
             : this(user, box)
         {
             Quiz = quiz;
+            Comment = quiz.Comment;
         }
         public Updates(User user, Box box, Item item)
             : this(user, box)
         {
             Item = item;
+            Comment = item.Comment;
         }
 
         public Updates(User user, Box box, Comment comment) : this(user,box)

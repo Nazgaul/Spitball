@@ -18,6 +18,7 @@
       <Setting name="ServiceBusHubName" value="" />
       <Setting name="platform" value="workerRole" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
+      <Setting name="APPINSIGHTS_INSTRUMENTATIONKEY" value="bceed25d-fdd9-4581-b477-068120221ebd" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="0267B38009E324635F83B6794EA3263BAC55B894" thumbprintAlgorithm="sha1" />
