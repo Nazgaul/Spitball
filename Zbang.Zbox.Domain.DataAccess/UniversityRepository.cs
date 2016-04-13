@@ -50,9 +50,9 @@ namespace Zbang.Zbox.Domain.DataAccess
             var boxStats = countFuture.Value;
             return new UniversityStats
             {
-                BoxesCount = boxStats[2] == null ? 0 : (int) boxStats[2],
-                ItemsCount = boxStats[1] == null ? 0 : (int)boxStats[1],
-                QuizzesCount = boxStats[0] == null ? 0 : (int)boxStats[0],
+                BoxesCount = (int?) boxStats[2] ?? 0,
+                ItemsCount = (int?) boxStats[1] ?? 0,
+                QuizzesCount = (int?) boxStats[0] ?? 0,
                 UsersCount = usersCount
             };
 
