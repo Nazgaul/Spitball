@@ -175,11 +175,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("id")]
-        public async Task<JsonResult> Index(long id, int page)
+        public async Task<JsonResult> Index(long id, int page, DateTime? timestamp)
         {
             try
             {
-                var query = new GetBoxQuestionsQuery(id, page, 20);
+                if (!timestamp.HasValue)
+                {
+                    timestamp =  DateTime.UtcNow;
+                }
+                var query = new GetBoxQuestionsQuery(id, timestamp.Value, page, 20);
                 var retVal =
                   await ZboxReadService.GetQuestionsWithLastAnswerAsync(query);
                 //removing user name
@@ -213,7 +217,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                 v.Url,
                                 v.UserId,
                                 v.UserImage,
-                                
+
                                 v.LikesCount,
                                 Files = v.Files.Select(b => new
                                 {
@@ -285,7 +289,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-         [HttpGet, BoxPermission("boxId"), ZboxAuthorize]
+        [HttpGet, BoxPermission("boxId"), ZboxAuthorize]
         public async Task<JsonResult> CommentLikes(Guid id, long boxId)
         {
             var query = new GetFeedLikesQuery(id);
@@ -293,8 +297,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(retVal);
         }
 
-         [HttpGet, BoxPermission("boxId"), ZboxAuthorize]
-         public async Task<JsonResult> ReplyLikes(Guid id, long boxId)
+        [HttpGet, BoxPermission("boxId"), ZboxAuthorize]
+        public async Task<JsonResult> ReplyLikes(Guid id, long boxId)
         {
             var query = new GetFeedLikesQuery(id);
             var retVal = await ZboxReadService.GetReplyLikesAsync(query);

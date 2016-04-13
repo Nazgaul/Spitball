@@ -34,73 +34,6 @@ where boxid = @BoxId
 order by name;";
 
 
-//        public const string GetBoxQuestion = @"
-// SELECT q.[QuestionId] as id
-//    ,u.[UserName] as UserName
-//	  ,u.UserImageLarge as UserImage
-//	  ,u.userid as UserId
-//    ,u.Url as Url
-//    ,[Text] as Content
-//    ,q.CreationTime as creationTime
-//    FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
-//    where q.BoxId = @BoxId
-//    order by q.[QuestionId] desc
-//    offset @pageNumber*@rowsperpage ROWS
-//	FETCH NEXT @rowsperpage ROWS ONLY;";
-
-     
-
-//        public const string GetBoxAnswers = @"  SELECT a.[AnswerId] as id
-//	  ,u.[UserName] as UserName
-//      ,u.UserImageLarge as UserImage
-//      ,u.userid as UserId
-//      ,u.Url as Url
-//      ,[Text] as Content
-//      ,[QuestionId] as questionId
-//      ,a.CreationTime as creationTime
-//      FROM [Zbox].[Answer] a join zbox.users u on u.userid = a.userid
-//	  where a.boxid = @BoxId
-//	  and  a.questionid in 
-//            (select questionid from zbox.question where boxid = @boxid 
-//	            order by questionid desc
-//	            offset @pageNumber*@rowsperpage ROWS
-//	            FETCH NEXT @rowsperpage ROWS ONLY)
-//	  order by id;";
-
-//        public const string GetBoxQnAItem = @"  select
-//    i.itemid as Id,
-//    i.Name as Name,
-//    i.UserId as OwnerId,
-//    i.QuestionId as QuestionId,
-//    i.AnswerId as AnswerId,
-//    i.Url as Url,
-//    i.Discriminator as Type,
-//    i.BlobName as Source
-//    from zbox.item i
-//    where i.IsDeleted = 0
-//    and i.BoxId = @BoxId
-//    and (QuestionId in  (select questionid from zbox.question where boxid = @boxid 
-//	            order by questionid desc
-//	            offset @pageNumber*@rowsperpage ROWS
-//	            FETCH NEXT @rowsperpage ROWS ONLY)
-//				or AnswerId is not null);";
-
-
-//        public const string GetBoxQnaQuiz = @"	select
-//    i.Id as Id,
-//    i.Name as Name,
-//    i.UserId as OwnerId,
-//    i.QuestionId as QuestionId,
-//    i.Url as Url
-//    from zbox.Quiz i
-//    where i.Publish = 1
-//    and i.isdeleted = 0
-//    and i.BoxId = @BoxId
-//    and QuestionId in  (select questionid from zbox.question where boxid = @boxid 
-//	            order by questionid desc
-//	            offset @pageNumber*@rowsperpage ROWS
-//	            FETCH NEXT @rowsperpage ROWS ONLY);";
-
        
         public const string GetBoxComments = @"SELECT q.[QuestionId] as id
     ,u.[UserName] as UserName
@@ -113,6 +46,7 @@ order by name;";
 	,q.LikeCount as LikesCount
 	FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
     where q.BoxId = @BoxId
+    and q.CreationTime < @TimeStamp
     order by q.[updatetime] desc
     offset @pageNumber*@rowsperpage ROWS
 	FETCH NEXT @rowsperpage ROWS ONLY;";
@@ -154,6 +88,7 @@ order by name;";
       FROM [Zbox].[Answer] a join zbox.Question q on a.AnswerId = q.LastReplyId
 	  join zbox.users u on u.userid = a.userid
 	  where q.BoxId = @BoxId
+      and q.CreationTime < @TimeStamp
     order by q.[updatetime] desc
     offset @pageNumber*@rowsperpage ROWS
 	FETCH NEXT @rowsperpage ROWS ONLY;";
@@ -161,6 +96,7 @@ order by name;";
         public const string GetItemsForCommentsAndLastReply = @"with questions as (
 select questionid,LastReplyId from zbox.question
  where boxid = @boxid 
+ and CreationTime < @TimeStamp
 	            order by updatetime desc
 	            offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY
@@ -193,6 +129,7 @@ select questionid,LastReplyId from zbox.question
 	and i.Publish = 1
     and i.BoxId = @BoxId
     and QuestionId in  (select questionid from zbox.question where boxid = @boxid 
+                and CreationTime < @TimeStamp
 	            order by updatetime desc
 	            offset @pageNumber*@rowsperpage ROWS
 	            FETCH NEXT @rowsperpage ROWS ONLY)";
@@ -256,12 +193,7 @@ join zbox.users u on ub.userid = u.userid
  order by userreputation desc;";
 
 
-//        public const string BoxUserIds = @"select userid from zbox.userboxrel
-//where boxid = @BoxId
-//and userid != @UserId
-//    order by userid
-//    offset @pageNumber*@rowsperpage ROWS
-//    FETCH NEXT @rowsperpage ROWS ONLY;";
+
 
         public const string BoxMembers =
             @"  select u.UserId as Id , u.UserName as Name,u.UserImageLarge as Image , ub.UserType as userStatus, u.url as Url , null as Email

@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             try
             {
                 var retVal =
-                  await m_ZboxReadService.GetQuestionsWithLastAnswerAsync(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, page, sizePerPage));
+                  await m_ZboxReadService.GetQuestionsWithLastAnswerAsync(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, DateTime.UtcNow.AddHours(1), page, sizePerPage));
                 return Request.CreateResponse(retVal.Select(s => new
                 {
                     s.Id,
