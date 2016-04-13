@@ -114,7 +114,7 @@
 
         function myPagingFunction() {
             page++;
-            return boxService.getFeed(boxId, page).then(function(response) {
+            return boxService.getFeed(boxId, page).then(function (response) {
                 if (!response.length) {
                     return;
                 }
@@ -124,6 +124,15 @@
         }
 
         function assignData() {
+            var boxUpdates = {};
+            userUpdatesService.boxUpdates(boxId, function (updates) {
+                for (var jj = 0; jj < updates.length; jj++) {
+                    var update = updates[jj];
+                    boxUpdates[updates[jj].questionId] = true;
+                    boxUpdates[updates[jj].answerId] = true;
+                }
+            });
+
             for (var i = 0; i < self.data.length; i++) {
                 //making the array unique
                 for (var z = i + 1; z < self.data.length; ++z) {
@@ -131,7 +140,12 @@
                         self.data.splice(z--, 1);
                     }
                 }
-                var files = self.data[i].files;
+
+                var currentPost = self.data[i];
+                if (boxUpdates[currentPost.id]) {
+                    currentPost.isNew = true
+                }
+                var files = currentPost.files;
                 for (var j = 0; j < files.length; j++) {
                     var item = files[j];
                     if (item.done) {
@@ -147,18 +161,16 @@
                     }
                     item.done = true;
                 }
-                for (var k = 0; self.data[i].replies && k < self.data[i].replies.length; k++) {
-                    angular.forEach(self.data[i].replies[k].files, buildItem);
+                for (var k = 0; currentPost.replies && k < currentPost.replies.length; k++) {
+                    var currentReply = currentPost.replies[k];
+                    angular.forEach(currentReply.files, buildItem);
+                    if (boxUpdates[currentReply.id]) {
+                        currentReply.isNew = true
+                    }
                     //self.data[i].replies[k].files = itemThumbnailService.assignValues(self.data[i].replies[k].files, 100, 141);
                 }
             }
-            userUpdatesService.boxUpdates(boxId, function (updates) {
-                for (var jj = 0; jj < updates.length; jj++) {
-                    var update = updates[jj];
-                    attachNew(update);
 
-                }
-            });
             function buildItem(elem) {
                 var retVal2 = itemThumbnailService.assignValue(elem.source, 100, 141);
                 elem.thumbnail = retVal2.thumbnail;
@@ -173,49 +185,7 @@
             return 'item-template.html';
 
         }
-        function attachNew(update) {
-            if (update.itemId) {
-                for (var i = 0; i < self.data.length; i++) {
-                    var questionForItem = self.data[i];
-                    var exists = questionForItem.files.find(function (e) {
-                        return e.id === update.itemId;
-                    });
-                    if (exists) {
-                        questionForItem.isNew = true;
-                        return;
-                    }
-                    for (var k = 0; k < questionForItem.replies.length; k++) {
-                        exists = questionForItem.replies[k].files.find(function (e) {
-                            return e.id === update.itemId;
-                        });
-                        if (exists) {
-                            questionForItem.isNew = true;
-                            return;
-                        }
-                    }
-                }
-            }
-            if (update.questionId) {
-                var question = self.data.find(function (e) {
-                    return e.id === update.questionId;
-                });
-                if (!question) {
-                    // console.log('something wrong');
-                }
-                if (update.answerId) {
-                    var answer = question.replies.find(function (e) {
-                        return e.id === update.answerId;
-                    });
-                    if (!answer) {
-                        // console.log('something wrong');
-                    }
-                    answer.isNew = true;
-                }
-                question.isNew = true;
-
-
-            }
-        }
+        
         function deleteComment(ev, post) {
 
             //boxType //userType
