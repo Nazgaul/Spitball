@@ -10,7 +10,7 @@
             topBox = 'div-gpt-ad-1459950737650-2',
             itemSide = 'div-gpt-ad-1459950737650-4',
             itemBetween = 'div-gpt-ad-1459950737650-5',
-            topItem = 'div-gpt-ad-1459950737650-6',
+            topItem = 'div-gpt-ad-1460629845791-0',
             searchTop = 'div-gpt-ad-1459950737650-7';
 
 
