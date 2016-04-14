@@ -1,23 +1,24 @@
 ﻿.feed {
   font-size: 16px;
   line-height: 1;
+  /*.comment-date {
+        color: @svgDots;
+        font-size: 12px;
+    }*/
   /*.quiz .quiz-ratio {
         .aspect-ratio(0.8,1);
     }*/
 }
 .feed .ribbon {
   bottom: 1em;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 5px 13px;
+  font-weight: bold;
 }
 .feed .stats {
   color: #888b8e;
   font-size: 13px;
-}
-.feed .comment-date {
-  color: #5d6063;
-  font-size: 12px;
-}
-.feed .indent {
-  margin-left: 50px;
 }
 .feed .items-slider {
   position: relative;
@@ -71,14 +72,14 @@
   position: relative;
 }
 .feed .posts-list .actions {
-  margin: 20px 40px 0;
+  margin: 10px 0 10px 64px;
+}
+.feed .posts-list .actions button {
+  margin: 0 20px 0 0;
+  padding: 0;
 }
 .feed .posts-list .actions svg {
-  fill: #2698D4;
-}
-.feed .reply-actions,
-.feed .actions {
-  padding: 10px 0;
+  fill: #4190b9;
 }
 .feed .quiz .top .first-letter {
   font-size: 38px;
@@ -86,45 +87,163 @@
   height: 38px;
   line-height: 38px;
 }
-.feed .comment > .top,
-.feed .add-comment > .top {
-  padding-top: 5px;
-  padding-bottom: 5px;
+.feed .comment,
+.feed .add-comment {
+  background: #fff;
+  margin-bottom: 25px;
+  padding: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.feed .comment a img.c-img,
+.feed .add-comment a img.c-img {
+  border: 1px solid #fff;
+  background: none;
+}
+.feed .comment .user-comment,
+.feed .add-comment .user-comment {
+  padding: 10px;
+}
+.feed .comment .user-comment > .top,
+.feed .add-comment .user-comment > .top {
   border-radius: 10px 10px 0 0;
   color: #f5f5f5;
-  position: absolute;
-  top: -15px;
-  left: -18px;
-  z-index: 1;
 }
-.feed .reply .username,
-.feed .comment .userblock {
-  margin-bottom: 4px;
+.feed .comment .user-comment .new-comment-border,
+.feed .add-comment .user-comment .new-comment-border {
+  max-height: 250px;
+  overflow: auto;
+  min-height: 80px;
+}
+.feed .comment .user-comment .new-comment-border textarea,
+.feed .add-comment .user-comment .new-comment-border textarea {
+  min-height: 80px;
+  background: none;
+  width: 100%;
+  border: none;
+  padding-left: 10px;
+  padding-top: 14px;
+}
+.feed .comment label,
+.feed .add-comment label {
+  margin-bottom: 0;
+}
+.feed .comment .list-inline > li,
+.feed .add-comment .list-inline > li {
+  margin: 10px;
+  padding: 5px 5px 0;
+  width: calc(50% - 20px);
+  max-width: 115px;
+}
+.feed .comment md-input-container,
+.feed .add-comment md-input-container {
+  padding-bottom: 0;
+  width: 100%;
+  margin: 0;
+}
+.feed .comment md-input-container .md-input:active,
+.feed .add-comment md-input-container .md-input:active,
+.feed .comment md-input-container .md-input:focus,
+.feed .add-comment md-input-container .md-input:focus {
+  color: #fff;
+}
+.feed .comment md-input-container .md-errors-spacer,
+.feed .add-comment md-input-container .md-errors-spacer {
+  display: none;
+}
+.feed .comment input[type=checkbox],
+.feed .add-comment input[type=checkbox] {
+  display: none;
+}
+@media (min-width: 600px) {
+  .feed .comment input[type=checkbox]:checked + label .text,
+  .feed .add-comment input[type=checkbox]:checked + label .text {
+    padding-right: 10px;
+    font-size: 12px;
+    display: inline-block;
+  }
+}
+.feed .comment svg,
+.feed .add-comment svg {
+  width: 25px;
+  height: 35px;
+  vertical-align: middle;
+}
+.feed .comment .upload-options,
+.feed .add-comment .upload-options {
+  width: 60%;
+  min-width: 120px;
+  max-width: 160px;
+  padding: 0;
+  /*a { //not sure why z-index needed - removing this fixed bug 5672
+            z-index: 1;
+        }*/
+}
+.feed .comment .upload-options a,
+.feed .add-comment .upload-options a,
+.feed .comment .upload-options button,
+.feed .add-comment .upload-options button {
+  padding: 0;
+}
+.feed .comment .google svg:first-child,
+.feed .add-comment .google svg:first-child {
+  display: none;
+}
+.feed .comment .google svg:last-child,
+.feed .add-comment .google svg:last-child {
+  display: inline;
+}
+.feed .comment .google:hover svg:first-child,
+.feed .add-comment .google:hover svg:first-child {
+  display: inline;
+}
+.feed .comment .google:hover svg:last-child,
+.feed .add-comment .google:hover svg:last-child {
+  display: none;
+}
+.feed .comment .anonymous,
+.feed .add-comment .anonymous {
+  width: 35px;
+  height: 35px;
+}
+.feed .comment.new-post,
+.feed .add-comment.new-post {
+  padding: 0;
+}
+.feed .comment.new-post .new-comment-border,
+.feed .add-comment.new-post .new-comment-border {
+  border: none;
+  /*textarea {
+                    padding-top: 10px;
+                    font-size: 18px;
+                }*/
+}
+.feed .comment.new-post .actions,
+.feed .add-comment.new-post .actions {
+  padding: 4px 10px;
+  background: #d7dde0;
 }
 .feed .comment {
-  background: #181c1d;
   position: relative;
   border-radius: 10px;
   margin-bottom: 25px;
-  /*.comment-date {
-            margin-left: 47px;
-        }*/
-}
-.feed .comment .userblock {
-  display: block;
 }
 .feed .comment .c-img {
-  border: 3px solid #323538;
   border-radius: 50px;
-  position: absolute;
-  top: -15px;
-  left: -15px;
+  margin-right: 10px;
 }
 .feed .comment .user-name {
   color: #2698D4;
   font-weight: 400;
-  margin-top: 5px;
-  display: inline-block;
+  margin-top: 0;
+  padding-bottom: 12px;
+}
+.feed .comment .comment-date {
+  color: #888b8e;
+  font-size: 12px;
+  position: absolute;
+  bottom: 10px;
+  left: 64px;
 }
 .feed .reply {
   position: relative;
@@ -142,7 +261,6 @@
   padding: 5px 3px 8px 3px;
 }
 .feed .reply .c-img {
-  border: 2px solid #323538;
   top: -7px;
 }
 .feed .reply .user-name {
@@ -150,20 +268,21 @@
   font-weight: normal;
 }
 .feed .actions {
-  color: #2698D4;
-  margin-top: 10px;
-  font-size: 13px;
-  position: relative;
+  color: #4190b9;
+  /*//border-top: 1px solid @textColorDarkGrey;
+        //padding-bottom: 10px;
+        font-size: 13px;
+        position: relative; // this is for ribbon*/
 }
 .feed .actions svg {
   width: 22px;
   height: 22px;
-  padding-bottom: 2px;
   fill: #888b8e;
   vertical-align: middle;
 }
 .feed .actions span {
   vertical-align: middle;
+  font-size: 14px;
 }
 .feed .actions .anonymous-wrapper .text {
   display: none;
@@ -180,9 +299,14 @@
   border-top: 2px solid #323538;
   padding-top: 15px;
 }
+.feed .post .info {
+  position: relative;
+  margin-bottom: 8px;
+}
 .feed .post > .content-text {
-  padding: 20px 0 0 50px;
+  padding-left: 64px;
   overflow: hidden;
+  color: #282828;
 }
 .feed .reply > .content-text {
   margin-bottom: 0;
@@ -225,8 +349,8 @@
   height: 16px;
 }
 .feed .comment-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   margin-right: 5px;
 }
 .feed .show-more {

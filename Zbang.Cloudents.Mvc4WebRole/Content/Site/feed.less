@@ -1,27 +1,28 @@
 ﻿@import "variables.less";
 
+@feedActionsBackground: #d7dde0;
+@userImageIndent: 64px;
+
 .feed {
     font-size: 16px;
     line-height: 1;
 
     .ribbon {
         bottom: 1em;
+        text-transform: uppercase;
+        font-size: 14px;
+        padding: 5px 13px;
+        font-weight: bold;
     }
 
     .stats {
         color: @textColorGrey;
         font-size: 13px;
     }
-
-    .comment-date {
+    /*.comment-date {
         color: @svgDots;
         font-size: 12px;
-    }
-
-    .indent {
-        margin-left: 50px;
-    }
-
+    }*/
     .items-slider {
         position: relative;
 
@@ -83,19 +84,17 @@
         }
 
         .actions {
-            //color:@textColorBlue;
-            margin: 20px 40px 0;
-            //border-top-width: 1px;
-            //border-top-style: solid;
+            margin: 10px 0 10px @userImageIndent;
+
+            button {
+                margin: 0 20px 0 0;
+                padding: 0;
+            }
 
             svg {
-                fill: @textColorBlue;
+                fill: @buttonColorBlue;
             }
         }
-    }
-
-    .reply-actions, .actions {
-        padding: 10px 0;
     }
 
     .quiz {
@@ -106,39 +105,173 @@
     }
 
     .comment, .add-comment {
-        & > .top {
-            padding-top: 5px;
-            padding-bottom: 5px;
-            border-radius: 10px 10px 0 0;
-            color: @textColorWhite;
-            position: absolute;
-            top: -15px;
-            left: -18px;
+        background: #fff;
+        margin-bottom: 25px;
+        padding: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+
+        a img.c-img {
+            border: 1px solid #fff;
+            background: none;
+        }
+
+        .user-comment {
+            padding: 10px;
+
+
+            > .top {
+                border-radius: 10px 10px 0 0;
+                color: @textColorWhite;
+            }
+
+
+
+            .new-comment-border {
+                // border: 1px solid @svgDots;
+                max-height: 250px;
+                overflow: auto;
+                min-height: 80px;
+
+                textarea {
+                    min-height: 80px;
+                    background: none;
+                    width: 100%;
+                    border: none;
+                    // background: @backgroundColor;
+                    padding-left: 10px;
+                    padding-top: 14px;
+                }
+            }
+        }
+
+
+
+        label {
+            margin-bottom: 0;
+        }
+
+        .list-inline > li {
+            margin: 10px;
+            //border: 1px solid @borderColorGrey;
+            padding: 5px 5px 0;
+            width: ~"calc(50% - 20px)";
+            max-width: 115px;
+        }
+
+
+
+
+        md-input-container {
+            padding-bottom: 0;
+            width: 100%;
+            margin: 0;
+
+            .md-input:active, .md-input:focus {
+                color: #fff;
+            }
+            //TODO: should be fix in 1.1 https://github.com/angular/material/pull/6209
+            .md-errors-spacer {
+                display: none;
+            }
+        }
+
+        input[type=checkbox] {
+            display: none;
+
+            &:checked + label {
+                .text {
+                    @media (min-width: 600px) {
+                        padding-right: 10px;
+                        font-size: 12px;
+                        display: inline-block;
+                        //  color: @anonymousColor;
+                    }
+                }
+                //svg {
+                //    fill: @anonymousColor;
+                //}
+            }
+        }
+
+        svg {
+            width: 25px;
+            height: 35px;
+            vertical-align: middle;
+            // fill: @svgColorGrey;
+        }
+
+        .upload-options {
+            width: 60%;
+            min-width: 120px;
+            max-width: 160px;
+            padding: 0;
+            //margin-right:10px;
+            /*a { //not sure why z-index needed - removing this fixed bug 5672
             z-index: 1;
+        }*/
+            a, button {
+                padding: 0;
+            }
+        }
+
+        .google {
+            svg:first-child {
+                display: none;
+            }
+
+            svg:last-child {
+                display: inline;
+            }
+
+            &:hover {
+                svg:first-child {
+                    display: inline;
+                }
+
+                svg:last-child {
+                    display: none;
+                }
+            }
+        }
+
+        .anonymous {
+            width: 35px;
+            height: 35px;
+        }
+
+        &.new-post {
+            padding: 0;
+            //position: relative;
+            //.top img {
+            //    background: @borderColorDarkGrey;
+            //    border: 3px solid @borderColorDarkGrey;
+            //}
+            .new-comment-border {
+                border: none;
+                /*textarea {
+                    padding-top: 10px;
+                    font-size: 18px;
+                }*/
+            }
+
+            .actions {
+                padding: 4px 10px;
+                background: @feedActionsBackground;
+            }
         }
     }
 
-    .reply .username, .comment .userblock {
-        margin-bottom: 4px;
-    }
-
     .comment {
-        background: @backgroundColor;
         position: relative;
         //overflow: hidden;
         border-radius: 10px;
         margin-bottom: 25px;
 
-        .userblock {
-            display: block;
-        }
 
         .c-img {
-            border: 3px solid @borderColorDarkGrey;
             border-radius: 50px;
-            position: absolute;
-            top: -15px;
-            left: -15px;
+            margin-right: 10px;
         }
         //.margins {
         //    margin: 0 10px 10px 0;
@@ -153,13 +286,17 @@
         .user-name {
             color: @textColorBlue;
             font-weight: 400;
-            //margin-left: 50px;
-            margin-top: 5px;
-            display: inline-block;
+            margin-top: 0;
+            padding-bottom: 12px;
         }
-        /*.comment-date {
-            margin-left: 47px;
-        }*/
+
+        .comment-date {
+            color: @textColorGrey;
+            font-size: 12px;
+            position: absolute;
+            bottom: 10px;
+            left: @userImageIndent;
+        }
     }
 
     .reply {
@@ -179,7 +316,6 @@
         }
 
         .c-img {
-            border: 2px solid @textColorDarkGrey;
             top: -7px;
         }
         //.like {
@@ -214,22 +350,21 @@
     }
 
     .actions {
-        color: @textColorBlue;
-        //border-top: 1px solid @textColorDarkGrey;
+        color: @buttonColorBlue;
+        /*//border-top: 1px solid @textColorDarkGrey;
         //padding-bottom: 10px;
-        margin-top: 10px;
         font-size: 13px;
-        position: relative; // this is for ribbon
+        position: relative; // this is for ribbon*/
         svg {
             width: 22px;
             height: 22px;
-            padding-bottom: 2px;
             fill: @textColorGrey;
             vertical-align: middle;
         }
 
         span {
             vertical-align: middle;
+            font-size: 14px;
         }
 
         .anonymous-wrapper {
@@ -260,9 +395,17 @@
         padding-top: 15px;
     }
 
-    .post > .content-text {
-        padding: 20px 0 0 50px;
-        overflow: hidden;
+    .post {
+        .info {
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        > .content-text {
+            padding-left: @userImageIndent;
+            overflow: hidden;
+            color: @textColorBlack;
+        }
     }
 
     .reply > .content-text {
@@ -287,8 +430,6 @@
             max-width: 100%;
         }
     }
-
-
 
     .add-reply {
         // display: none;
@@ -326,8 +467,8 @@
 
     .comment-btn {
         svg {
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             margin-right: 5px;
         }
     }
