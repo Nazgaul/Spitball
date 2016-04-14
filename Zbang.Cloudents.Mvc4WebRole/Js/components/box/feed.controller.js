@@ -41,6 +41,7 @@
         self.likeReply = likeReply;
         self.likeReplyDialog = likeReplyDialog;
         self.likeCommentDialog = likeCommentDialog;
+        self.feedUpdates = {};
         var d = new Date(),
             currentTimestamp = d.toISOString(),
             inHour = new Date(d.setHours(d.getHours() + 1)),
@@ -48,7 +49,10 @@
 
         boxService.getFeed(boxId, page, timestamp).then(function (response) {
             self.data = response;
-            assignData();
+            userUpdatesService.boxUpdates(boxId, function (updates) {
+                self.feedUpdates = updates;
+                assignData();
+            });
 
         });
         function likeCommentDialog(comment, ev) {
@@ -129,18 +133,9 @@
         }
 
         function assignData() {
-            var boxUpdates = {};
-            userUpdatesService.boxUpdates(boxId, function (updates) {
-                for (var jj = 0; jj < updates.length; jj++) {
-                    var update = updates[jj];
-                    boxUpdates[updates[jj].questionId] = true;
-                    boxUpdates[updates[jj].answerId] = true;
-                }
-            });
-
             for (var i = 0; i < self.data.length; i++) {
                 var currentPost = self.data[i];
-                if (boxUpdates[currentPost.id]) {
+                if (self.feedUpdates && self.feedUpdates[currentPost.id]) {
                     currentPost.isNew = true
                 }
                 var files = currentPost.files;
@@ -162,7 +157,7 @@
                 for (var k = 0; currentPost.replies && k < currentPost.replies.length; k++) {
                     var currentReply = currentPost.replies[k];
                     angular.forEach(currentReply.files, buildItem);
-                    if (boxUpdates[currentReply.id]) {
+                    if (self.feedUpdates && self.feedUpdates[currentReply.id]) {
                         currentReply.isNew = true
                     }
                     //self.data[i].replies[k].files = itemThumbnailService.assignValues(self.data[i].replies[k].files, 100, 141);
