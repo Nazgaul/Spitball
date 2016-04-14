@@ -11,6 +11,7 @@ namespace Zbang.Cloudents.MobileApp
         public void Configuration(IAppBuilder app)
         {
             Trace.TraceInformation("Starting service");
+            Zbox.Infrastructure.Security.Startup.ConfigureAuth(app, false);
             ConfigureMobileApp(app);
         }
     }

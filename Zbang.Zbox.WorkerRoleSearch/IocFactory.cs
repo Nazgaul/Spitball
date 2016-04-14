@@ -9,25 +9,27 @@ namespace Zbang.Zbox.WorkerRoleSearch
     internal class IocFactory
     {
         // UnityContainer unityFactory;
-        public const string DeleteCacheBlobContainer = "deleteCacheBlobContainer";
-        public const string PreProcessFiles = "generateDocumentCache";
-        public const string MailProcess2 = "mailProcess2";
-        public const string DigestEmail2 = "digestEmail2";
-        public const string AddFiles = "addFiles";
+        //public const string DeleteCacheBlobContainer = "deleteCacheBlobContainer";
+        //public const string PreProcessFiles = "generateDocumentCache";
+        //public const string MailProcess2 = "mailProcess2";
+        //public const string DigestEmail2 = "digestEmail2";
+        //public const string AddFiles = "addFiles";
+        //
+        //public const string Dbi = "Dbi";
+        //public const string Transaction = "Transaction";
+        //
+        //public const string Product = "Product";
+        //public const string StoreOrder = "StoreOrder";
+        //
+        //public const string EmailPartners = "EmailPartners";
 
-        public const string Dbi = "Dbi";
-        public const string Transaction = "Transaction";
-
-        public const string Product = "Product";
-        public const string StoreOrder = "StoreOrder";
-
-        public const string EmailPartners = "EmailPartners";
         public const string UpdateSearchItem = "UpdateSearchItem";
         public const string UpdateSearchBox = "UpdateSearchBox";
         public const string UpdateSearchQuiz = "UpdateSearchQuiz";
         public const string UpdateSearchUniversity = "UpdateSearchUniversity";
+        public const string ShdulerListiner = "ShdulerListiner";
 
-        public Infrastructure.Ioc.IocFactory Unity { get; private set; }
+        public Infrastructure.Ioc.IocFactory Unity { get; }
         public IocFactory()
         {
             Unity = Infrastructure.Ioc.IocFactory.IocWrapper;
@@ -75,7 +77,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Unity.RegisterType<IJob, UpdateSearchBox>(UpdateSearchBox);
             Unity.RegisterType<IJob, UpdateSearchQuiz>(UpdateSearchQuiz);
             Unity.RegisterType<IJob, UpdateSearchUniversity>(UpdateSearchUniversity);
-
+            Unity.RegisterType<IJob, SchdulerListener>(nameof(SchdulerListener));
             //Unity.RegisterType<IMail2, Welcome>(BaseMailData.WelcomeResolver);
             //Unity.RegisterType<IMail2, Invite2>(BaseMailData.InviteResolver);
             //Unity.RegisterType<IMail2, ForgotPassword>(BaseMailData.ForgotPasswordResolver);

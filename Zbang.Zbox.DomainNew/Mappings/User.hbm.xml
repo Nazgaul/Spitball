@@ -57,6 +57,7 @@
     <property name="MobileDevice" />
     <property name="PushNotificationSetting" />
     <property name="Theme" />
+    <property name="EmailSendSettings" />
     <set name="UserBoxRel" cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="UserId"/>
       <one-to-many class="UserBoxRel"/>

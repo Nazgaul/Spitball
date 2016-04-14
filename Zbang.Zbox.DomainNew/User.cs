@@ -20,27 +20,19 @@ namespace Zbang.Zbox.Domain
             Quota = new Quota();
             UserTime = new UserTimeDetails("Sys");
             UserType = UserType.Regular;
+            EmailSendSettings = EmailSend.CanSend;
         }
 
 
-        //public User(string email, string largeImage)
-        //    : this()
-        //{
-        //    if (email == null) throw new ArgumentNullException("email");
-        //    Name = Email = email.Trim();
-        //    IsRegisterUser = false;
-        //   // Image = smallImage;
-        //    ImageLarge = largeImage;
-        //    Culture = System.Globalization.CultureInfo.CurrentCulture.Name;
-        //}
+       
 
         public User(string email, string image,
             string firstName, string lastName, string culture, Sex sex
             )
             : this()
         {
-            if (firstName == null) throw new ArgumentNullException("firstName");
-            if (lastName == null) throw new ArgumentNullException("lastName");
+            if (firstName == null) throw new ArgumentNullException(nameof(firstName));
+            if (lastName == null) throw new ArgumentNullException(nameof(lastName));
             Email = email;
             ImageLarge = image;
 
@@ -111,6 +103,8 @@ namespace Zbang.Zbox.Domain
         public virtual string GroupNumber { get; set; }
         public virtual string RegisterNumber { get; set; }
 
+
+        public EmailSend EmailSendSettings { get; set; }
         
 
         public virtual MobileOperatingSystem MobileDevice { get; set; }
@@ -190,16 +184,13 @@ namespace Zbang.Zbox.Domain
             var user = other as User;
             if (user == null) return false;
 
-            return String.Equals(Email.Trim(), user.Email.Trim(), StringComparison.CurrentCultureIgnoreCase);
+            return string.Equals(Email.Trim(), user.Email.Trim(), StringComparison.CurrentCultureIgnoreCase);
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var result = Email.GetHashCode();
-                return result;
-            }
+            var result = Email.GetHashCode();
+            return result;
         }
         #endregion
 

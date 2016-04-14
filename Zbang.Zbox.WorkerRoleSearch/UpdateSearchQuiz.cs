@@ -25,22 +25,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
         }
-        private int GetIndex()
-        {
-            int currentIndex;
+        
 
-            string instanceId = RoleEnvironment.CurrentRoleInstance.Id;
-            bool withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".", StringComparison.Ordinal) + 1), out currentIndex);
-            if (!withSuccess)
-            {
-                int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_", StringComparison.Ordinal) + 1), out currentIndex);
-            }
-            return currentIndex;
-        }
-
-        public async Task Run(CancellationToken cancellationToken)
+        public async Task RunAsync(CancellationToken cancellationToken)
         {
-            var index = GetIndex();
+            var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
             TraceLog.WriteWarning("quiz index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)

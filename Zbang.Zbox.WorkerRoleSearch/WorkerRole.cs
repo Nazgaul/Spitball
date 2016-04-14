@@ -15,7 +15,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly CancellationTokenSource m_CancellationTokenSource = new CancellationTokenSource();
         private readonly ManualResetEvent m_RunCompleteEvent = new ManualResetEvent(false);
 
-        readonly IocFactory m_Unity;
+        private readonly IocFactory m_Unity;
 
         public WorkerRole()
         {
@@ -89,7 +89,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     Trace.TraceInformation("Working");
-                    var list = jobs.Select(job => job.Run(cancellationToken)).ToList();
+                    var list = jobs.Select(job => job.RunAsync(cancellationToken)).ToList();
                     await Task.WhenAll(list);
                     await Task.Delay(1000, cancellationToken);
                 }
@@ -108,8 +108,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                    // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox),
-                   m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz),
-                   // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity)
+                   //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz),
+                   // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity),
+                   m_Unity.Resolve<IJob>(nameof(SchdulerListener))
                 };
             }
             return new List<IJob>

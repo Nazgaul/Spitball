@@ -12,8 +12,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
            TimeSpan invisibleTimeinQueue, int deQueueCount = 100);
 
 
-        Task<bool> RunQueueMultiple(QueueName queueName,
-            Func<IEnumerable<CloudQueueMessage>, Task<IEnumerable<CloudQueueMessage>>> func,
-            TimeSpan invisibleTimeinQueue, int deQueueCount = 100);
+        //Task<bool> RunQueueMultiple(QueueName queueName,
+        //    Func<IEnumerable<CloudQueueMessage>, Task<IEnumerable<CloudQueueMessage>>> func,
+        //    TimeSpan invisibleTimeinQueue, int deQueueCount = 100);
     }
 }
