@@ -16,7 +16,6 @@
     <property name="Name" column="UserName" not-null="false"/>
 
     <property name="FirstName" not-null="false"/>
-    <!--<property name="MiddleName" not-null="false"/>-->
     <property name="LastName" not-null="false"/>
     <property name="Sex" not-null="false"/>
     <property name="Url" not-null="false"/>
@@ -32,19 +31,11 @@
     <property name="MembershipId" column="MembershipUserId"  not-null="false"/>
     <property name="FacebookId" column="FacebookUserId" not-null="false"/>
     <property name="GoogleId" column="GoogleUserId" not-null="false"/>
-    <!--<property name="Image" column="UserImage" not-null="false"/>-->
     <property name="ImageLarge" column="UserImageLarge" not-null="false"/>
     <property name="StudentId" column="UserCode"/>
     <property name="Reputation" column="UserReputation"/>
 
-    <!--<component name="FirstTime" class="UserFirstTime">
-      <property name="Dashboard" not-null="true">
-        <column name="FirstTimeDashboard" default="1"/>
-      </property>
-      <property name="Library" not-null="true" column="FirstTimeLibrary"/>
-      <property name="Item" not-null="true" column="FirstTimeItem"/>
-      <property name="Box" not-null="true" column="FirstTimeBox"/>
-    </component>-->
+   
 
     <component name="Quota" class="Quota">
       <property name="AllocatedSize"/>

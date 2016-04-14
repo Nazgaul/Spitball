@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using Zbang.Zbox.ViewModel.Dto.Library;
+using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Emails;
 
 namespace Zbang.Zbox.ReadServices
@@ -27,5 +29,10 @@ namespace Zbang.Zbox.ReadServices
 
         Task<ItemToUpdateSearchDto> GetItemDirtyUpdatesAsync(int index, int total, int top);
         Task<QuizToUpdateSearchDto> GetQuizzesDirtyUpdatesAsync(int index, int total, int top);
+
+
+
+        Task<IEnumerable<UserWithNoUniversityDto>> GetUsersWithoutUniversityAsync(UserWithoutUniversityQuery query,
+            CancellationToken token);
     }
 }

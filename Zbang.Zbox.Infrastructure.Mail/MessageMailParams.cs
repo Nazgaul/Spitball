@@ -21,9 +21,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
         //public string SenderUserName { get; private set; }
         public string SenderImage { get; private set; }
         //public string SenderEmail { get; private set; }
-        public override string MailResover
-        {
-            get { return MessageResolver; }
-        }
+        public override string MailResover => MessageResolver;
     }
 }

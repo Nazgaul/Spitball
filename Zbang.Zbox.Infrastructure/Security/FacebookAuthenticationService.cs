@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.IO;
@@ -40,7 +39,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                             }
                             if (string.IsNullOrEmpty(user.Email))
                             {
-                                user.Email = string.Format("{0}@facebook.com", user.Id);
+                                user.Email = $"{user.Id}@facebook.com";
                             }
 
                         }
@@ -48,7 +47,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                 }
 
                 var businessObj = JObject.Parse(tBusiness.Result);
-                var userId = businessObj["data"].Where(w => ((string)w["app"]["name"] == "Cloudents")).Select(s => (long?)s["id"]).FirstOrDefault();
+                var userId = businessObj["data"].Where(w => (string)w["app"]["name"] == "Cloudents").Select(s => (long?)s["id"]).FirstOrDefault();
                 if (userId.HasValue)
                 {
                     user.Id = userId.Value;

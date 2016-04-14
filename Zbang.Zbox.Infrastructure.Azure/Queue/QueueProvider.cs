@@ -122,6 +122,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return cloudQueueMessages.Any();
         }
 
+
+        public Task UpdateMessageAsync(QueueName queueName, CloudQueueMessage msg)
+        {
+            var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
+            return queue.UpdateMessageAsync(msg, TimeSpan.FromHours(1),
+                MessageUpdateFields.Content | MessageUpdateFields.Visibility);
+        }
+
         //public async Task<bool> RunQueueMultiple(QueueName queueName,
         //    Func<IEnumerable<CloudQueueMessage>, Task<IEnumerable<CloudQueueMessage>>> func,
         //  TimeSpan invisibleTimeinQueue, int deQueueCount = 100)

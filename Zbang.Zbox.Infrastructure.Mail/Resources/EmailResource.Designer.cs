@@ -106,6 +106,21 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to We are so happy that you have chosen Spitball, but it works best for you when you have selected a school! 
+        ///
+        ///Once you select your school, you can follow or create the courses you are enrolled in. 
+        ///
+        ///From there, you can message your classmates directly with questions on homework, share and compare uploaded notes, create quizzes and more! 
+        ///
+        ///Log in to pick your school and find your courses now!.
+        /// </summary>
+        internal static string NoUniversityText {
+            get {
+                return ResourceManager.GetString("NoUniversityText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
         internal static string question {

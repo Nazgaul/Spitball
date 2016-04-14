@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
 
 
-        public async Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters)
+        public Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
                 sendGridMail.EnableClickTracking();
                 sendGridMail.EnableOpenTracking();
-                await SendAsync(sendGridMail);
+                return SendAsync(sendGridMail);
             }
             catch (FormatException ex)
             {
@@ -87,9 +87,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                         new StringContent(string.Empty);
                     await
                         client.PostAsync(
-                            string.Format(
-                                "https://sendgrid.com/api/unsubscribes.delete.json?api_user={0}&api_key={1}&email={2}",
-                                SendGridUserName, SendGridPassword, email)
+                            $"https://sendgrid.com/api/unsubscribes.delete.json?api_user={SendGridUserName}&api_key={SendGridPassword}&email={email}"
                             , content);
                 }
             }
@@ -101,13 +99,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
 
 
-        public async Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, MailParameters parameters)
-        {
-            foreach (var recipient in recipients)
-            {
-                await GenerateAndSendEmailAsync(recipient, parameters);
-            }
-        }
+        //public async Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, MailParameters parameters)
+        //{
+        //    foreach (var recipient in recipients)
+        //    {
+        //        await GenerateAndSendEmailAsync(recipient, parameters);
+        //    }
+        //}
 
         
 

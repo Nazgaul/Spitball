@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain
             Quota = new Quota();
             UserTime = new UserTimeDetails("Sys");
             UserType = UserType.Regular;
-            EmailSendSettings = EmailSend.CanSend;
+            
         }
 
 
