@@ -1536,40 +1536,12 @@ md-tabs md-ink-bar {
 }
 .ribbon {
   position: absolute;
-  bottom: 5em;
-  left: 0;
+  bottom: 4.4em;
+  left: 15px;
   margin-right: 1em;
-  padding: .75em .75em .75em 1.25em;
-  border-radius: 0 .5em .5em 0;
-  background-image: linear-gradient(to left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.1) 100%);
-  box-shadow: inset 0 0.062em 0 rgba(255, 255, 255, 0.6), 0 0.125em 0.25em rgba(0, 0, 0, 0.2);
+  padding: 0.3em .5em;
   color: #fff;
-  text-shadow: 0 -0.062em 0 rgba(0, 0, 0, 0.2);
-  white-space: nowrap;
   background-color: #db4437;
-}
-.ribbon:before,
-.ribbon:after {
-  position: absolute;
-  background-color: inherit;
-  content: "";
-}
-.ribbon:before {
-  bottom: 0;
-  left: -0.5em;
-  width: .5em;
-  height: 3em;
-  border-radius: 0 0 0 .5em;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0) 100%);
-}
-.ribbon:after {
-  top: -1em;
-  left: -0.5em;
-  width: .5em;
-  height: 1em;
-  border-radius: .5em 0 0 .5em;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.2) 100%);
-  box-shadow: 0 0.062em 0 rgba(255, 255, 255, 0.6);
 }
 .md-button.md-icon-button .md-ripple-container {
   right: 10px;
@@ -1628,7 +1600,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
   z-index: 90;
 }
 .feed-wrapper {
-  margin: -12px;
+  margin: -16px;
   /* This is a patch - to be fixed in future*/
 }
 #intercom-container,
