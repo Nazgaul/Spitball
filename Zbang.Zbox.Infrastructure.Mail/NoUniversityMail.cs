@@ -18,13 +18,18 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 throw new NullReferenceException(nameof(noUniversityMailParams));
             }
 
-
+           
             message.SetCategory("No University");
             var html = LoadMailTempate.LoadMailFromContentWithDot(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
             html.Replace("{name}", noUniversityMailParams.Name);
             html.Replace("{body}", EmailResource.NoUniversityText);
 
             message.Html = html.ToString();
+        }
+
+        public void AddSubject(ISendGrid message)
+        {
+            message.Subject = "Selecting Your School";
         }
     }
 }

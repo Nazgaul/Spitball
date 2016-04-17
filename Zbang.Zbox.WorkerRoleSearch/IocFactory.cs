@@ -2,6 +2,7 @@
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.WorkerRoleSearch.Mail;
 using RegisterIoc = Zbang.Zbox.Infrastructure.RegisterIoc;
 
 namespace Zbang.Zbox.WorkerRoleSearch
@@ -27,7 +28,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public const string UpdateSearchBox = "UpdateSearchBox";
         public const string UpdateSearchQuiz = "UpdateSearchQuiz";
         public const string UpdateSearchUniversity = "UpdateSearchUniversity";
-        public const string ShdulerListiner = "ShdulerListiner";
+        //public const string ShdulerListiner = "ShdulerListiner";
 
         public Infrastructure.Ioc.IocFactory Unity { get; }
         public IocFactory()
@@ -39,6 +40,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Infrastructure.Data.RegisterIoc.Register();
             Infrastructure.File.RegisterIoc.Register();
             Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            Infrastructure.Mail.RegisterIoc.Register();
 
             Unity.ContainerBuilder.RegisterType<SeachConnection>()
              .As<ISearchConnection>()
@@ -78,6 +80,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Unity.RegisterType<IJob, UpdateSearchQuiz>(UpdateSearchQuiz);
             Unity.RegisterType<IJob, UpdateSearchUniversity>(UpdateSearchUniversity);
             Unity.RegisterType<IJob, SchdulerListener>(nameof(SchdulerListener));
+            Unity.RegisterType<IMailProcess, NoUniversityMailProcess >("universityNotSelected");
+            Unity.RegisterType<IMailProcess, NoUniversityMailProcess >("notFollowing");
+
+
             //Unity.RegisterType<IMail2, Welcome>(BaseMailData.WelcomeResolver);
             //Unity.RegisterType<IMail2, Invite2>(BaseMailData.InviteResolver);
             //Unity.RegisterType<IMail2, ForgotPassword>(BaseMailData.ForgotPasswordResolver);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Mail
@@ -10,5 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
 
         Task DeleteUnsubscribeAsync(string email);
+
+        Task<IEnumerable<string>> GetUnsubscribesAsync(DateTime startTime, int page);
     }
 }

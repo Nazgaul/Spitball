@@ -31,5 +31,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public string SenderEmail { get; private set; }
         public string SenderName { get; private set; }
+
+        
     }
 }

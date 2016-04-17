@@ -5,8 +5,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     internal class DepartmentApprovedAccessMail : IMailBuilder
     {
-        const string Category = "Request approved";
-        const string Subject = "Approved access";
+        private const string Category = "Request approved";
+        private const string Subject = "Approved access";
 
 
         public void GenerateMail(ISendGrid message, MailParameters parameters)
@@ -19,10 +19,15 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.DepartmentApprovedAccess");
-            message.Subject = Subject;
+            
 
             message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "approved Access");
             message.Html = message.Html.Replace("{DEP_NAME}", departmentApprovedAccessParams.DepName);
+        }
+
+        public void AddSubject(ISendGrid message)
+        {
+            message.Subject = Subject;
         }
     }
 }

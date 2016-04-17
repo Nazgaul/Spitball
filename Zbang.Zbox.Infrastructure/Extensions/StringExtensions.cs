@@ -6,8 +6,7 @@ public static class StringExtensions
 {
     public static string RemoveEndOfString(this String word, int length)
     {
-        if (word == null) return null;
-        return word.Substring(0, Math.Min(word.Length, length));
+        return word?.Substring(0, Math.Min(word.Length, length));
     }
 
     public static string UppercaseFirst(this String s)
@@ -21,12 +20,8 @@ public static class StringExtensions
         return char.ToUpper(s[0]) + s.Substring(1);
     }
 
-    public static string TrimEnd(this String s, params string[] remove)
+    public static string TrimEnd(this string s, params string[] remove)
     {
-        
-
-
-
         foreach (string item in remove)
             if (s.EndsWith(item))
             {
@@ -52,7 +47,7 @@ public static class StringExtensions
             
         }
         string[] temp = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-        return String.Join(newVal, temp);
+        return string.Join(newVal, temp);
     }
 }
 

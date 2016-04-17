@@ -301,9 +301,10 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token))
             {
-                const string sql = @"select email,Culture,UserName from zbox.Users
+                const string sql = @"select email,Culture,UserName as Name from zbox.Users
 where UniversityId is null
 and EmailSendSettings = 0
+and (creationtime>'2015' or [LastAccessTime] >'2015')
 order by userid
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY";

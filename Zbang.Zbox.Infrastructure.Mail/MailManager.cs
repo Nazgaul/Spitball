@@ -5,8 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using SendGrid;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -33,7 +35,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
 
 
-        public Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters)
+        public async Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters)
         {
             try
             {
@@ -46,7 +48,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 };
 
                 var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
-
+                mail.AddSubject(sendGridMail);
                 mail.GenerateMail(sendGridMail, parameters);
 
                 //sendGridMail.AddTo("yaari.ram@gmail.com");
@@ -65,13 +67,29 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
                 sendGridMail.EnableClickTracking();
                 sendGridMail.EnableOpenTracking();
-                return SendAsync(sendGridMail);
+                await SendAsync(sendGridMail);
             }
             catch (FormatException ex)
             {
                 TraceLog.WriteError("recipient: " + recipient + " on trying to send mail", ex);
                 throw;
             }
+
+        }
+
+        public async Task<IEnumerable<string>> GetUnsubscribesAsync(DateTime startTime, int page)
+        {
+            const string apiKey = "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";
+
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            var unixDateTime = (startTime.ToUniversalTime() - epoch).TotalSeconds;
+
+            var client = new Client(apiKey);
+            var result = await client.Get($"v3/suppression/unsubscribes?limit={500}&offset={page}&start_time={unixDateTime}");
+            var data = await result.Content.ReadAsStringAsync();
+            var emailArray = JArray.Parse(data);
+            return emailArray.Select(s => s["email"].ToString());
+
 
         }
 
@@ -82,6 +100,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
                 using (var client = new HttpClient())
                 {
+                    
 
                     var content =
                         new StringContent(string.Empty);
@@ -107,7 +126,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         //    }
         //}
 
-        
+
 
     }
 }

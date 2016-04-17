@@ -206,7 +206,7 @@
     <EmbeddedResource Include="MailTemplate\DepartmentApprovedAccessHe.html" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MailTemplate\MarketingTemplate.html" />
+    <EmbeddedResource Include="MailTemplate\MarketingTemplate.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

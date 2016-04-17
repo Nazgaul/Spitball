@@ -30,7 +30,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             while (!cancellationToken.IsCancellationRequested)
             {
                 var queueName = new SchedulerQueueName();
-                await m_QueueProviderExtract.RunQueueAsync(queueName, msg =>
+                await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                 {
                     StorageQueueMessage message;
                     using (var xmlstream = new MemoryStream(Encoding.Unicode.GetBytes(msg.AsString)))
@@ -38,15 +38,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         message = (StorageQueueMessage)m_Dcs.Deserialize(xmlstream);
                     }
                     var messageContent = JObject.Parse(message.Message);
-                    //var jobs = message.Message.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
                     var properties = messageContent.Properties();
                     foreach (var propery in properties)
                     {
-                        var t = propery.Value<int?>();
+                        var t = (int?) propery;
                         //messageContent
                         // var namedjob = sep(job);
                         var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IMailProcess>(propery.Name);
-                        process.ExcecuteAsync(t ?? 0, async p =>
+                       await process.ExcecuteAsync(t ?? 0, async p =>
                          {
                              propery.Value = p;
                              message.Message = JsonConvert.SerializeObject(messageContent);
@@ -60,7 +59,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                          }, cancellationToken);
                     }
 
-                    return Task.FromResult(false);
+                    return false;
                 }, TimeSpan.FromMinutes(1), int.MaxValue);
                 await Task.Delay(TimeSpan.FromHours(1), cancellationToken);
 

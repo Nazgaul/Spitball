@@ -29,5 +29,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.Html = sb.ToString();
             
         }
+
+        public void AddSubject(ISendGrid message)
+        {
+            message.Subject = string.Empty;
+        }
     }
 }

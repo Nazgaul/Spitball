@@ -25,23 +25,32 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         {
             var page = index;
             var needToContinueRun = true;
+            var list = new List<Task>();
             while (needToContinueRun)
             {
-                var list = new List<Task>();
+                
                 needToContinueRun = false;
                 var result = await m_ZboxReadService.GetUsersWithoutUniversityAsync(
                         new ViewModel.Queries.Emails.UserWithoutUniversityQuery(page, 100), token);
                 foreach (var user in result)
                 {
                     needToContinueRun = true;
-                    list.Add( m_MailComponent.GenerateAndSendEmailAsync(user.Email,
-                        new NoUniversityMailParams(user.Name, new System.Globalization.CultureInfo(user.Culture))));
+                    var email = user.Email;
+#if DEBUG
+                    email = "eidan@spitball.co";
+#endif
+                    var culture = string.IsNullOrEmpty(user.Culture)
+                        ? Thread.CurrentThread.CurrentCulture
+                        : new System.Globalization.CultureInfo(user.Culture);
+
+                    list.Add( m_MailComponent.GenerateAndSendEmailAsync(email,
+                        new NoUniversityMailParams(user.Name, culture)));
                 }
                 await Task.WhenAll(list);
-                //m_MailComponent.GenerateAndSendEmailAsync(result.)
-
-                progress(page);
+                list.Clear();
                 page++;
+                progress(page);
+                
             }
             return true;
 

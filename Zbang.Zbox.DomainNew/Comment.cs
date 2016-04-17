@@ -15,11 +15,11 @@ namespace Zbang.Zbox.Domain
         {
             if (user == null)
             {
-                throw new ArgumentNullException("user");
+                throw new ArgumentNullException(nameof(user));
             }
             if (box == null)
             {
-                throw new ArgumentNullException("box");
+                throw new ArgumentNullException(nameof(box));
             }
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain
 
         private string ExtractCommentText(FeedType feedType, string text, User user)
         {
-            if (user == null) throw new ArgumentNullException("user");
+            if (user == null) throw new ArgumentNullException(nameof(user));
             if (feedType == Infrastructure.Enums.FeedType.None) return string.IsNullOrEmpty(text) ? null : text.Trim();
             return feedType.GetEnumDescription(Languages.GetCultureBaseOnCountry(user.University.Country));
         }
@@ -44,7 +44,7 @@ namespace Zbang.Zbox.Domain
         public virtual User User { get; set; }
         public virtual string Text { get; set; }
         public virtual Box Box { get; set; }
-        protected virtual ICollection<Item> Items { get; private set; }
+        protected virtual ICollection<Item> Items { get; set; }
 
 
 
@@ -53,9 +53,8 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<CommentReplies> Replies { get; set; }
         protected virtual ICollection<Updates> Updates { get; set; }
         protected virtual ICollection<CommentLike> Likes { get; set; }
-        public ICollection<CommentReplies> RepliesReadOnly { get { return Replies.ToList().AsReadOnly(); } }
-        public ICollection<Item> ItemsReadOnly { get { return Items.ToList().AsReadOnly(); } }
-
+        public ICollection<CommentReplies> RepliesReadOnly => Replies.ToList().AsReadOnly();
+        public ICollection<Item> ItemsReadOnly => Items.ToList().AsReadOnly();
 
 
         public virtual FeedType? FeedType { get; set; }

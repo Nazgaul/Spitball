@@ -5,5 +5,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
     public interface IMailBuilder
     {
         void GenerateMail(ISendGrid message, MailParameters parameters);
+
+
+        void AddSubject(ISendGrid message);
     }
 }

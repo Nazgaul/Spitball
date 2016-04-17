@@ -6,8 +6,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     internal class ChangeEmailMail : IMailBuilder
     {
-        const string Category = "Change Email";
-        const string Subject = "Change Email";
+        private const string Category = "Change Email";
+        private const string Subject = "Change Email";
 
 
         public void GenerateMail(ISendGrid message, MailParameters parameters)
@@ -21,8 +21,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ChangeEmail");
-            message.Subject = Subject;
+           
             message.AddSubstitution("{CODE}", new List<string> { changeMailParams.Code });
+        }
+
+        public void AddSubject(ISendGrid message)
+        {
+            message.Subject = Subject;
         }
     }
 }
