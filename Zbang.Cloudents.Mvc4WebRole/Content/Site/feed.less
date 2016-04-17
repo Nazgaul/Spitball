@@ -84,7 +84,7 @@
         }
 
         .actions {
-            margin: 10px 0 10px @userImageIndent;
+            padding: 10px 0 10px @userImageIndent;
 
             button {
                 margin: 0 20px 0 0;
@@ -107,7 +107,7 @@
     .comment, .add-comment {
         background: #fff;
         margin-bottom: 25px;
-        padding: 10px;
+        //padding: 10px;
         border-radius: 5px;
         overflow: hidden;
 
@@ -265,7 +265,7 @@
     .comment {
         position: relative;
         //overflow: hidden;
-        border-radius: 10px;
+        border-radius: 5px;
         margin-bottom: 25px;
 
 
@@ -297,12 +297,25 @@
             bottom: 10px;
             left: @userImageIndent;
         }
+
+        .delete {
+            padding: 0;
+            height: 17px;
+            width: 34px;
+            text-align: center;
+            right: 0;
+            
+            svg{
+                width: 17px;
+                height: 17px;
+            }
+        }
     }
 
     .reply {
         position: relative;
         margin-left: 26px;
-        margin-bottom: 5px;
+        padding-bottom: 5px;
 
         .actions {
             margin-top: 0;
@@ -391,8 +404,9 @@
     }
 
     .replies {
-        border-top: 2px solid @borderColorDarkGrey;
+        //border-top: 2px solid @borderColorDarkGrey;
         padding-top: 15px;
+        background: #c3c3c3;
     }
 
     .post {
@@ -405,6 +419,10 @@
             padding-left: @userImageIndent;
             overflow: hidden;
             color: @textColorBlack;
+        }
+
+        .comments-wrapper {
+            padding: 10px;
         }
     }
 

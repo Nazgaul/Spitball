@@ -72,7 +72,7 @@
   position: relative;
 }
 .feed .posts-list .actions {
-  margin: 10px 0 10px 64px;
+  padding: 10px 0 10px 64px;
 }
 .feed .posts-list .actions button {
   margin: 0 20px 0 0;
@@ -91,7 +91,6 @@
 .feed .add-comment {
   background: #fff;
   margin-bottom: 25px;
-  padding: 10px;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -225,7 +224,7 @@
 }
 .feed .comment {
   position: relative;
-  border-radius: 10px;
+  border-radius: 5px;
   margin-bottom: 25px;
 }
 .feed .comment .c-img {
@@ -245,10 +244,21 @@
   bottom: 10px;
   left: 64px;
 }
+.feed .comment .delete {
+  padding: 0;
+  height: 17px;
+  width: 34px;
+  text-align: center;
+  right: 0;
+}
+.feed .comment .delete svg {
+  width: 17px;
+  height: 17px;
+}
 .feed .reply {
   position: relative;
   margin-left: 26px;
-  margin-bottom: 5px;
+  padding-bottom: 5px;
   /*.comment-date {
             margin-left: 51px;
         }*/
@@ -296,8 +306,8 @@
   fill: #007EE5;
 }
 .feed .replies {
-  border-top: 2px solid #323538;
   padding-top: 15px;
+  background: #c3c3c3;
 }
 .feed .post .info {
   position: relative;
@@ -307,6 +317,9 @@
   padding-left: 64px;
   overflow: hidden;
   color: #282828;
+}
+.feed .post .comments-wrapper {
+  padding: 10px;
 }
 .feed .reply > .content-text {
   margin-bottom: 0;
