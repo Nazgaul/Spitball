@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Mail;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -19,7 +20,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             m_MailComponent = mailComponent;
             m_ZboxWorkerRoleService = zboxWorkerRoleService;
-            m_DateTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            m_DateTime = new DateTime(2016, 4, 17, 0, 0, 0, DateTimeKind.Utc);
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
@@ -31,22 +32,31 @@ namespace Zbang.Zbox.WorkerRoleSearch
             
             while (!cancellationToken.IsCancellationRequested)
             {
-                //var needToContinueRun = true;
-                var page = 0;
-                while (true)
+                try
                 {
-
-                   var result =
-                        (await m_MailComponent.GetUnsubscribesAsync(m_DateTime, page++, cancellationToken)).ToList();
-                    if (result.Count == 0)
+                    //var needToContinueRun = true;
+                    TraceLog.WriteInfo("update unsubscribe list");
+                    var page = 0;
+                    while (true)
                     {
-                        break;
+                       
+                        var result =
+                            (await m_MailComponent.GetUnsubscribesAsync(m_DateTime, page++, cancellationToken)).ToList();
+                        if (result.Count == 0)
+                        {
+                            break;
+                        }
+                        m_ZboxWorkerRoleService.UpdateUserFromUnsubscribe(
+                            new Domain.Commands.UnsubscribeUsersFromEmailCommand(result));
                     }
-                    m_ZboxWorkerRoleService.UpdateUserFromUnsubscribe(
-                        new Domain.Commands.UnsubscribeUsersFromEmailCommand(result));
+                    TraceLog.WriteInfo("update unsubscribe list complete");
+                    m_DateTime = DateTime.UtcNow.AddDays(-10);
+                    await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
                 }
-                m_DateTime = DateTime.UtcNow.AddDays(-10);
-                await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError("unsubscribe list ", ex);
+                }
 
 
             }

@@ -37,7 +37,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     needToContinueRun = true;
                     var email = user.Email;
 #if DEBUG
-                    email = "eidan@spitball.co";
+                    email = "ram@cloudents.com";
 #endif
                     var culture = string.IsNullOrEmpty(user.Culture)
                         ? Thread.CurrentThread.CurrentCulture

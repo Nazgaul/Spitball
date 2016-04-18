@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.SetCategory("No University");
             var html = LoadMailTempate.LoadMailFromContentWithDot(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
             html.Replace("{name}", noUniversityMailParams.Name);
-            html.Replace("{body}", EmailResource.NoUniversityText);
+            html.Replace("{body}", EmailResource.NoUniversityText.Replace("\n", "<br><br>"));
 
             message.Html = html.ToString();
         }

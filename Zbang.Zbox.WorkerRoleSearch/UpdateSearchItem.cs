@@ -191,7 +191,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             });
             work.Start();
-            Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(10));
+            var signal = wait.WaitOne(TimeSpan.FromMinutes(10));
             if (!signal)
             {
                 work.Abort();
@@ -199,7 +199,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
+        private readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
         private string ExtractContentToUploadToSearch(ItemSearchDto elem)
         {
             if (elem.Type.ToLower() != "file")

@@ -116,6 +116,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
 
             return m_Container.ResolveNamed<T>(name);
         }
+       
         public IEnumerable<T> ResolveAll<T>()
         {
             return m_Container.Resolve<IEnumerable<T>>();
