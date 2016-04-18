@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Mail;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Zbox.WorkerRoleSearch.Mail
@@ -28,7 +29,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             var list = new List<Task>();
             while (needToContinueRun)
             {
-                
+                TraceLog.WriteInfo($"running no university mail page {page}");
                 needToContinueRun = false;
                 var result = await m_ZboxReadService.GetUsersWithoutUniversityAsync(
                         new ViewModel.Queries.Emails.UserWithoutUniversityQuery(page, 100), token);
@@ -52,6 +53,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 progress(page);
                 
             }
+            TraceLog.WriteInfo($"finish running no university mail page {index}");
             return true;
 
         }

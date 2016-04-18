@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public void AddSubject(ISendGrid message)
         {
-            message.Subject = "Selecting Your School";
+            message.Subject = EmailResource.NoUniversitySubject;
         }
     }
 }

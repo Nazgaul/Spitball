@@ -33,9 +33,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
+                    TraceLog.WriteInfo("schduler lister run");
                     var queueName = new SchedulerQueueName();
                     await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
+                        TraceLog.WriteInfo("schduler lister message" + msg.AsString);
                         StorageQueueMessage message;
                         using (var xmlstream = new MemoryStream(Encoding.Unicode.GetBytes(msg.AsString)))
                         {
@@ -71,12 +73,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         await Task.WhenAll(list);
 
                         return false;
-                    }, TimeSpan.FromMinutes(1), int.MaxValue);
+                    }, TimeSpan.FromMinutes(30), int.MaxValue);
                 }
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("on SchdulerListener", ex);
                 }
+                TraceLog.WriteInfo("schduler lister going to sleep");
                 await Task.Delay(TimeSpan.FromHours(1), cancellationToken);
 
             }
