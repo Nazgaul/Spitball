@@ -315,14 +315,15 @@ md-toast.md-warn-theme .md-toast-content {
 }
 /*tabs*/
 md-tabs {
+    &.borderTC19 {
+        border: 1px solid;
+    }
 
     md-tabs-wrapper {
-        background: #323538;
         border-radius: 5px;
         font-size: 16px;
         padding: 0 10px 0;
         margin-bottom: 20px;
-        background: #323538;
     }
 
 
@@ -343,6 +344,10 @@ md-tabs {
             color: @textColorWhite;
         }
 
+        &.md-active span.textTC20 {
+            color: @textColorWhite !important;
+        }
+
         @media (max-width: 600px) {
             float: left /*rtl:ignore*/;
         }
@@ -356,39 +361,45 @@ md-tabs {
         background: @borderColorBlue;
     }
 }
+
+md-tabs-canvas {
+    height: 40px;
+}
+
+md-pagination-wrapper {
+    height: 40px;
+}
+
+.md-tab {
+    padding: 8px 24px;
+}
+
+
 /*#endregion*/
 //if page title have svg its settings
 .page-title {
     align-items: center;
 
-    .share-social {
-        line-height: 32px;
-        border-right: 2px solid @borderColorDarkGrey;
-        margin-right: 5px;
-        padding-right: 5px;
+    .share-section {
+        button {
+            border-radius: 0;
+
+            .text {
+                display: none;
+            }
+        }
     }
 
-    svg, .facebook, .whatsapp {
-        max-width: 31px;
-        max-height: 30px;
-        width: 5vw;
-        height: 5vw;
-        min-width: 25px;
-        min-height: 25px;
-    }
-    /*svg {
-        fill: @textColorWhite;
-    }*/
-    .facebook, .whatsapp {
-        margin-right: 10px;
-    }
-
-    .facebook {
-        padding: 0;
+    svg {
+        fill: #777777;
+        width: 25px;
+        height: 25px;
     }
 
     .box-settings {
         display: flex;
+        padding: 0;
+        margin-left: 10px;
     }
 }
 
@@ -922,7 +933,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 
 .feed-wrapper {
-    margin: -16px; /* This is a patch - to be fixed in future*/
+    //margin: -16px; /* This is a patch - to be fixed in future*/
 }
 
 #intercom-container, #intercom-launcher {

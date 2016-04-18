@@ -1,13 +1,13 @@
 ﻿.feed {
   font-size: 16px;
   line-height: 1;
-  /*.comment-date {
-        color: @svgDots;
-        font-size: 12px;
-    }*/
+  padding: 8px 16px 0 0 !important;
   /*.quiz .quiz-ratio {
         .aspect-ratio(0.8,1);
     }*/
+}
+.feed .dots-3 {
+  fill: #888b8e;
 }
 .feed .ribbon {
   bottom: 1em;
@@ -71,10 +71,13 @@
 .feed .posts-list .actions-wrapper {
   position: relative;
 }
-.feed .posts-list .actions {
-  padding: 10px 0 10px 64px;
+@media (min-width: 600px) {
+  .feed .posts-list .actions {
+    padding: 0 0 0 62px;
+  }
 }
-.feed .posts-list .actions button {
+.feed .posts-list .actions .comment-btn,
+.feed .posts-list .actions .like-btn {
   margin: 0 20px 0 0;
   padding: 0;
 }
@@ -89,14 +92,15 @@
 }
 .feed .comment,
 .feed .add-comment {
-  background: #fff;
-  margin-bottom: 25px;
+  background: #eeeeee;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  margin-bottom: 15px;
   border-radius: 5px;
   overflow: hidden;
 }
 .feed .comment a img.c-img,
 .feed .add-comment a img.c-img {
-  border: 1px solid #fff;
+  border: none;
   background: none;
 }
 .feed .comment .user-comment,
@@ -116,12 +120,20 @@
 }
 .feed .comment .user-comment .new-comment-border textarea,
 .feed .add-comment .user-comment .new-comment-border textarea {
-  min-height: 80px;
+  min-height: 96px;
   background: none;
   width: 100%;
   border: none;
-  padding-left: 10px;
-  padding-top: 14px;
+  padding: 14px 0 10px 10px;
+  color: #212325;
+}
+.feed .comment .user-comment .new-comment-border textarea:focus,
+.feed .add-comment .user-comment .new-comment-border textarea:focus {
+  color: #212325;
+}
+.feed .comment .user-comment .new-comment-border .md-input-container,
+.feed .add-comment .user-comment .new-comment-border .md-input-container {
+  border: none;
 }
 .feed .comment label,
 .feed .add-comment label {
@@ -139,12 +151,7 @@
   padding-bottom: 0;
   width: 100%;
   margin: 0;
-}
-.feed .comment md-input-container .md-input:active,
-.feed .add-comment md-input-container .md-input:active,
-.feed .comment md-input-container .md-input:focus,
-.feed .add-comment md-input-container .md-input:focus {
-  color: #fff;
+  padding: 0;
 }
 .feed .comment md-input-container .md-errors-spacer,
 .feed .add-comment md-input-container .md-errors-spacer {
@@ -170,13 +177,8 @@
 }
 .feed .comment .upload-options,
 .feed .add-comment .upload-options {
-  width: 60%;
-  min-width: 120px;
-  max-width: 160px;
-  padding: 0;
-  /*a { //not sure why z-index needed - removing this fixed bug 5672
-            z-index: 1;
-        }*/
+  width: 120px;
+  padding: 0 0 0 10px;
 }
 .feed .comment .upload-options a,
 .feed .add-comment .upload-options a,
@@ -212,27 +214,22 @@
 .feed .comment.new-post .new-comment-border,
 .feed .add-comment.new-post .new-comment-border {
   border: none;
-  /*textarea {
-                    padding-top: 10px;
-                    font-size: 18px;
-                }*/
 }
 .feed .comment.new-post .actions,
 .feed .add-comment.new-post .actions {
-  padding: 4px 10px;
+  padding: 7px 10px;
   background: #d7dde0;
 }
 .feed .comment {
   position: relative;
   border-radius: 5px;
-  margin-bottom: 25px;
 }
 .feed .comment .c-img {
   border-radius: 50px;
   margin-right: 10px;
 }
 .feed .comment .user-name {
-  color: #2698D4;
+  color: #282828;
   font-weight: 400;
   margin-top: 0;
   padding-bottom: 12px;
@@ -242,14 +239,16 @@
   font-size: 12px;
   position: absolute;
   bottom: 10px;
-  left: 64px;
+  left: 62px;
 }
 .feed .comment .delete {
-  padding: 0;
   height: 17px;
-  width: 34px;
+  width: 25px;
   text-align: center;
   right: 0;
+  top: 0;
+  margin: 0;
+  padding: 0 4px;
 }
 .feed .comment .delete svg {
   width: 17px;
@@ -257,18 +256,12 @@
 }
 .feed .reply {
   position: relative;
-  margin-left: 26px;
   padding-bottom: 5px;
-  /*.comment-date {
-            margin-left: 51px;
-        }*/
-  /*-ms-word-break: break-word;
-            word-break: break-word;*/
 }
 .feed .reply .actions {
   margin-top: 0;
   border: none;
-  padding: 5px 3px 8px 3px;
+  padding: 5px 3px 8px 0;
 }
 .feed .reply .c-img {
   top: -7px;
@@ -277,21 +270,46 @@
   color: #2698D4;
   font-weight: normal;
 }
-.feed .actions {
-  color: #4190b9;
-  /*//border-top: 1px solid @textColorDarkGrey;
-        //padding-bottom: 10px;
-        font-size: 13px;
-        position: relative; // this is for ribbon*/
+.feed .reply > .content-text {
+  margin-bottom: 0;
+  margin-top: -6px;
 }
-.feed .actions svg {
+.feed .reply .actions-wrapper {
+  margin-left: 62px;
+}
+.feed .actions svg,
+.feed .reply-actions svg {
   width: 22px;
   height: 22px;
-  fill: #888b8e;
-  vertical-align: middle;
+  fill: #777471;
+}
+.feed .actions .post-comment,
+.feed .reply-actions .post-comment {
+  padding: 8px;
+  border-radius: 100%;
+  margin-top: -40px;
+  line-height: normal;
+  margin-right: 8px;
+}
+.feed .actions .post-comment svg,
+.feed .reply-actions .post-comment svg {
+  width: 26px;
+  height: 26px;
+}
+.feed .actions {
+  color: #4190b9;
+}
+.feed .actions .post-comment {
+  margin-right: 14px;
+}
+.feed .actions .share-section {
+  padding: 0;
+}
+.feed .actions .share-section .share {
+  min-height: 0;
+  height: 24px;
 }
 .feed .actions span {
-  vertical-align: middle;
   font-size: 14px;
 }
 .feed .actions .anonymous-wrapper .text {
@@ -300,51 +318,87 @@
 .feed .actions .anonymous-wrapper .anonymous {
   width: 28px;
   height: 28px;
-  margin-right: 12px;
+  margin-right: 15px;
+}
+.feed .actions .share {
+  text-transform: capitalize;
+  width: auto;
+}
+.feed .actions .share svg {
+  margin-bottom: 5px;
+  width: 15px;
+  height: 15px;
 }
 .feed .actions .dropbox:hover {
   fill: #007EE5;
 }
+.feed .actions button {
+  padding: 0;
+}
+.feed .actions .like-icon,
+.feed .actions .comment-icon {
+  margin: 0 5px 2px 0;
+}
+.feed .actions .reply-count,
+.feed .actions .like-count {
+  margin-right: 8px;
+}
 .feed .replies {
-  padding-top: 15px;
-  background: #c3c3c3;
+  padding: 15px 15px 10px 15px;
+}
+.feed .comments-wrapper,
+.feed .add-comment .user-comment {
+  background: #fff;
 }
 .feed .post .info {
   position: relative;
-  margin-bottom: 8px;
 }
 .feed .post > .content-text {
-  padding-left: 64px;
+  padding-left: 62px;
   overflow: hidden;
   color: #282828;
 }
 .feed .post .comments-wrapper {
-  padding: 10px;
+  padding: 10px 10px 10px 15px;
 }
-.feed .reply > .content-text {
-  margin-bottom: 0;
-  margin-top: 6px;
+.feed .post .content-text,
+.feed .reply .content-text {
+  font-size: 17px;
 }
 .feed li.post:last-child {
   margin-bottom: 0;
 }
 .feed .content-text {
   line-height: 22px;
-  margin-bottom: 10px;
-  margin-right: 70px;
   -ms-word-break: break-word;
   word-break: break-word;
   white-space: pre-wrap;
-  max-width: 600px;
+  color: #181c1d;
+  margin: 10px 10px 10px 62px;
 }
 .feed .content-text img {
   max-width: 100%;
 }
-.feed .add-reply .reply-wrapper {
-  border: 1px solid #5d6063;
-}
-.feed .add-reply .reply-wrapper textarea {
+.feed .add-reply-wrapper {
   padding: 10px;
+}
+.feed .add-reply-wrapper .add-reply {
+  box-shadow: 0 1px 3px rgba(24, 28, 29, 0.5);
+  margin: 0;
+}
+.feed .add-reply-wrapper .add-reply .reply-wrapper {
+  background: #fff;
+}
+.feed .add-reply-wrapper .add-reply .reply-wrapper textarea {
+  background: none;
+  padding: 20px 10px 20px 20px;
+  border: none;
+  min-height: 120px;
+  color: #212325;
+}
+.feed .add-reply-wrapper .add-reply .reply-actions {
+  padding: 8px 5px;
+  background: #D7DDE0;
 }
 .feed .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
   fill: #d39f10;
@@ -357,23 +411,16 @@
   height: 22px;
   padding-bottom: 2px;
 }
-.feed .like-btn svg {
-  width: 16px;
-  height: 16px;
-}
+.feed .like-btn svg,
 .feed .comment-btn svg {
   width: 16px;
   height: 16px;
-  margin-right: 5px;
 }
 .feed .show-more {
-  padding: 0 0 15px 50px;
-  color: #888b8e;
-  font-size: 14px;
-}
-.feed .like-icon {
-  margin-bottom: 2px;
-  display: inline-block;
+  margin-bottom: 15px;
+  padding: 0 0 10px 64px;
+  border-bottom: 1px solid #c3c3c3;
+  color: #181c1d;
 }
 .md-dialog-container {
   background: rgba(0, 0, 0, 0.5);
@@ -419,4 +466,41 @@
 .like-dialog md-dialog-content ul li a {
   align-items: center;
   margin-bottom: 0;
+}
+.share-menu {
+  min-width: 0;
+}
+.share-menu .share-fb button,
+.share-menu .share-whatsapp button,
+.share-menu .share-fb a,
+.share-menu .share-whatsapp a {
+  padding: 3px 0;
+  min-width: 30px;
+}
+@media (max-width: 600px) {
+  .share-menu .share-fb button.md-button,
+  .share-menu .share-whatsapp button.md-button,
+  .share-menu .share-fb a.md-button,
+  .share-menu .share-whatsapp a.md-button {
+    background-color: #e9eaed !important;
+  }
+}
+.share-menu .share-fb svg {
+  width: 46px;
+  height: 30px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.share-menu .share-whatsapp svg {
+  width: 50px;
+  height: 30px;
+  border-left: 1px solid #fff;
+}
+.share-menu svg {
+  padding: 0 8px;
+}
+.share-menu .md-button .md-default-theme:not([disabled]):hover,
+.share-menu .md-button :not([disabled]):hover {
+  background: none;
 }

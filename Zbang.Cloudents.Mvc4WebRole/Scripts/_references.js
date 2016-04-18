@@ -46,6 +46,7 @@
 /// <reference path="../Js/components/box/members.controller.js" />
 /// <reference path="../js/components/box/quizzes.controller.js" />
 /// <reference path="../js/components/box/recommended.controller.js" />
+/// <reference path="../js/components/box/sharebox.directive.js" />
 /// <reference path="../js/components/box/slideit.directive.js" />
 /// <reference path="../js/components/box/tab.controller.js" />
 /// <reference path="../js/components/dashboard/createbox.controller.js" />
