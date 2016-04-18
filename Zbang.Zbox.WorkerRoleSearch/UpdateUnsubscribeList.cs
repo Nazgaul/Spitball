@@ -39,15 +39,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var page = 0;
                     while (true)
                     {
-                       
+
                         var result =
-                            (await m_MailComponent.GetUnsubscribesAsync(m_DateTime, page++, cancellationToken)).ToList();
-                        if (result.Count == 0)
+                            await m_MailComponent.GetUnsubscribesAsync(m_DateTime, page++, cancellationToken);
+                        var resultList = result.ToList();
+                        if (resultList.Count == 0)
                         {
                             break;
                         }
                         m_ZboxWorkerRoleService.UpdateUserFromUnsubscribe(
-                            new Domain.Commands.UnsubscribeUsersFromEmailCommand(result));
+                            new Domain.Commands.UnsubscribeUsersFromEmailCommand(resultList));
                     }
                     TraceLog.WriteInfo("update unsubscribe list complete");
                     m_DateTime = DateTime.UtcNow.AddDays(-10);

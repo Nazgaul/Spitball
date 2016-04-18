@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -38,29 +39,36 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         StorageQueueMessage message;
                         using (var xmlstream = new MemoryStream(Encoding.Unicode.GetBytes(msg.AsString)))
                         {
-                            message = (StorageQueueMessage) m_Dcs.Deserialize(xmlstream);
+                            message = (StorageQueueMessage)m_Dcs.Deserialize(xmlstream);
                         }
                         var messageContent = JObject.Parse(message.Message);
                         var properties = messageContent.Properties();
+                        var list = new List<Task>();
                         foreach (var propery in properties)
                         {
-                            var t = (int?) propery;
+
+                            var t = (int?)propery;
                             //messageContent
                             // var namedjob = sep(job);
-                            var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IMailProcess>(propery.Name);
-                            await process.ExcecuteAsync(t ?? 0, async p =>
+                            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>(propery.Name);
+                            if (process != null)
                             {
-                                propery.Value = p;
-                                message.Message = JsonConvert.SerializeObject(messageContent);
-                                using (var memoryStream = new MemoryStream())
-                                {
-                                    m_Dcs.Serialize(memoryStream, message);
-                                    msg.SetMessageContent(memoryStream.ToArray());
-                                    await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg);
-                                }
+                                list.Add(process.ExcecuteAsync(t ?? 0, async p =>
+                               {
+                                   propery.Value = p;
+                                   message.Message = JsonConvert.SerializeObject(messageContent);
+                                   using (var memoryStream = new MemoryStream())
+                                   {
+                                       m_Dcs.Serialize(memoryStream, message);
+                                       msg.SetMessageContent(memoryStream.ToArray());
+                                       await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg);
+                                   }
 
-                            }, cancellationToken);
+                               }, cancellationToken));
+                            }
+
                         }
+                        await Task.WhenAll(list);
 
                         return false;
                     }, TimeSpan.FromMinutes(1), int.MaxValue);

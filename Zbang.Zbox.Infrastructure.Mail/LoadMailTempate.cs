@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             while (!culture.Equals(CultureInfo.InvariantCulture))
             {
-                var assemblyResourceName = $"{resourceName}.{culture.Name.ToLower()}.html";
+                var assemblyResourceName = $"{resourceName}_{culture.Name.ToLower()}.html";
                 var resource = LoadResource(assemblyResourceName);
                 if (!string.IsNullOrEmpty(resource))
                 {

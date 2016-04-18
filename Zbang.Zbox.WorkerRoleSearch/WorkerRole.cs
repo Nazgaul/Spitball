@@ -17,9 +17,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private readonly IocFactory m_Unity;
 
+
+        private readonly IEnumerable<IJob> m_Jobs;
+        private readonly List<Task> m_Tasks = new List<Task>();
+
         public WorkerRole()
         {
             m_Unity = new IocFactory();
+            m_Jobs = GetJob();
+
         }
         public override void Run()
         {
@@ -86,17 +92,39 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
-
-            var jobs = GetJob();
-            // TODO: Replace the following with your own logic.
+            foreach (var job in m_Jobs)
+            {
+                var t = Task.Factory.StartNew(async () => await job.RunAsync(cancellationToken), cancellationToken);
+                m_Tasks.Add(t);
+            }
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {
-                    Trace.TraceInformation("Working");
-                    var list = jobs.Select(job => job.RunAsync(cancellationToken)).ToList();
-                    await Task.WhenAll(list);
-                    await Task.Delay(1000, cancellationToken);
+                    for (int i = 0; i < m_Tasks.Count; i++)
+                    {
+                        var task = m_Tasks[i];
+                        if (!task.IsFaulted) continue;
+                        // Observe unhandled exception
+                        if (task.Exception != null)
+                        {
+                            TraceLog.WriteError("Job threw an exception: ", task.Exception.InnerException);
+                        }
+                        else
+                        {
+                            TraceLog.WriteInfo("Job Failed and no exception thrown.");
+                        }
+
+                        var jobToRestart = m_Jobs.ElementAt(i);
+                        m_Tasks[i] = Task.Factory.StartNew(async () => await jobToRestart.RunAsync(cancellationToken), cancellationToken);
+                    }
+                    await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
+                    //Thread.Sleep(TimeSpan.FromSeconds(30));
+
+
+                    //var list = jobs.Select(job => job.RunAsync(cancellationToken)).ToList();
+                    //await Task.WhenAll(list);
+                    //await Task.Delay(1000, cancellationToken);
                 }
                 catch (Exception ex)
                 {
@@ -111,13 +139,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 return new List<IJob>
                 {
-                    m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
+                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox),
                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz),
                    // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity),
-                   //m_Unity.Resolve<IJob>(nameof(SchdulerListener))
-                   m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList))
-                   
+                   m_Unity.Resolve<IJob>(nameof(SchdulerListener))
+                  // m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList))
+
                 };
             }
             return new List<IJob>
@@ -126,7 +154,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox),
                 m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz),
                 m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity),
-                m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList))
+               // m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList))
             };
         }
     }
