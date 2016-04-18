@@ -31,4 +31,13 @@ namespace Zbang.Zbox.Infrastructure.Enums
         None = 0,
         On = 1
     }
+
+    [Flags]
+    public enum EmailSend
+    {
+        CanSend = 0,
+        Bounce = 1,
+        Unsubscribe = 2,
+        NoSend = 4
+    }
 }

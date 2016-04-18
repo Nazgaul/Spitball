@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,7 +8,6 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
-using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -25,22 +23,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
         }
-        private int GetIndex()
-        {
-            int currentIndex;
+        
 
-            string instanceId = RoleEnvironment.CurrentRoleInstance.Id;
-            bool withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".", StringComparison.Ordinal) + 1), out currentIndex);
-            if (!withSuccess)
-            {
-                int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_", StringComparison.Ordinal) + 1), out currentIndex);
-            }
-            return currentIndex;
-        }
-
-        public async Task Run(CancellationToken cancellationToken)
+        public async Task RunAsync(CancellationToken cancellationToken)
         {
-            var index = GetIndex();
+            var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
             TraceLog.WriteWarning("quiz index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
@@ -65,7 +52,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             TraceLog.WriteError("On finish run");
         }
-        int m_Interval = MinInterval;
+
+        public void Stop()
+        {
+           
+        }
+
+        private int m_Interval = MinInterval;
         private const int MinInterval = 30;
         private const int MaxInterval = 240;
         private async Task SleepAndIncreaseInterval(CancellationToken cancellationToken)
@@ -77,16 +70,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateQuiz(int instanceId, int instanceCount)
         {
-            //var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, 100);
-            var updates = new QuizToUpdateSearchDto()
-            {
-                QuizzesToUpdate = new List<QuizSearchDto>(),
-                QuizzesToDelete = new long[] { 17153L, 17156L }
-            };
+            var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, 100);
+            //var updates = new QuizToUpdateSearchDto()
+            //{
+            //    QuizzesToUpdate = new List<QuizSearchDto>(),
+            //    QuizzesToDelete = new long[] { 17153L, 17156L }
+            //};
             if (updates.QuizzesToUpdate.Any() || updates.QuizzesToDelete.Any())
             {
-                TraceLog.WriteInfo(PrefixLog, string.Format("quiz updating {0} deleting {1}", updates.QuizzesToUpdate.Count(),
-                    updates.QuizzesToDelete.Count()));
+                TraceLog.WriteInfo(PrefixLog,
+                    $"quiz updating {updates.QuizzesToUpdate.Count()} deleting {updates.QuizzesToDelete.Count()}");
 
                 var isSuccess =
                     await m_QuizSearchProvider.UpdateDataAsync(updates.QuizzesToUpdate, updates.QuizzesToDelete);

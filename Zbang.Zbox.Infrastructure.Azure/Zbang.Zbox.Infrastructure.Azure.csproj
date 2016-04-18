@@ -106,6 +106,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blob\AutoRenewLease.cs" />
     <Compile Include="Blob\BlobProvider.cs" />
     <Compile Include="Blob\ICloudBlockProvider.cs" />
     <Compile Include="Blob\IdGenerator.cs" />

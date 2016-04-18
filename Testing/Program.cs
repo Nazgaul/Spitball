@@ -603,6 +603,10 @@ namespace Testing
 
 
             var mail = new MailManager2();
+           var x =  mail.GetUnsubscribesAsync(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc),0);
+            x.Wait();
+
+
             var t  = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
                 new WelcomeMailParams("אירנה", new CultureInfo("he")));
             t.Wait();

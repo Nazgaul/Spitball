@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using Zbang.Zbox.Infrastructure.Azure.Storage;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -51,18 +50,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             m_BlobClient = StorageProvider.ZboxCloudStorage.CreateCloudBlobClient();
             var serviceProperties = m_BlobClient.GetServiceProperties();
             serviceProperties.DefaultServiceVersion = "2014-02-14";
-            //var corsRule = new CorsRule
-            //{
-            //    AllowedOrigins = new[]
-            //    {"https://develop.spitball.co", "https://dev.spitball.co", "https://www.spitball.co"},
-            //    AllowedMethods = CorsHttpMethods.Get,
-            //    MaxAgeInSeconds = 1800
-            //};
-            //serviceProperties.Cors.CorsRules.Add(corsRule);
             m_BlobClient.SetServiceProperties(serviceProperties);
-            //System.Net.ServicePointManager.DefaultConnectionLimit = 20;
-            //m_BlobClient.ParallelOperationThreadCount = 20;
-            //CreateBlobStorages(m_BlobClient);
 
             BlobContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).Uri.AbsoluteUri);
 
@@ -149,7 +137,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public string GetThumbnailLinkUrl()
         {
-            return GetThumbnailUrl("linkv2.jpg"); ;
+            return GetThumbnailUrl("linkv2.jpg");
         }
 
         private CloudBlobClient m_BlobClient;
@@ -199,7 +187,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public Task SaveMetaDataToBlobAsync(string blobName, IDictionary<string, string> metaData)
         {
-            if (metaData == null) throw new ArgumentNullException("metaData");
+            if (metaData == null) throw new ArgumentNullException(nameof(metaData));
             var blob = GetFile(blobName);
             foreach (var item in metaData)
             {
@@ -238,7 +226,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes)
         {
-            if (blobUri == null) throw new ArgumentNullException("blobUri");
+            if (blobUri == null) throw new ArgumentNullException(nameof(blobUri));
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
 
 
@@ -386,8 +374,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public async Task<Uri> UploadProfilePictureAsync(string blobName, Stream fileContent)
         {
-            if (blobName == null) throw new ArgumentNullException("blobName");
-            if (fileContent == null) throw new ArgumentNullException("fileContent");
+            if (blobName == null) throw new ArgumentNullException(nameof(blobName));
+            if (fileContent == null) throw new ArgumentNullException(nameof(fileContent));
             var blob = ProfilePictureFile(blobName);
             if (await blob.ExistsAsync())
             {
@@ -413,8 +401,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public async Task<string> UploadQuizImage(Stream content, string mimeType, long boxId, string fileName)
         {
-            if (content == null) throw new ArgumentNullException("content");
-            if (fileName == null) throw new ArgumentNullException("fileName");
+            if (content == null) throw new ArgumentNullException(nameof(content));
+            if (fileName == null) throw new ArgumentNullException(nameof(fileName));
             if (!mimeType.ToLower().Contains("image"))
             {
                 throw new ArgumentException("this is not an image. mime type: " + mimeType);
@@ -453,7 +441,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         #region Thumbnail
         public void UploadFileThumbnail(string fileName, Stream ms, string mimeType)
         {
-            if (ms == null) throw new ArgumentNullException("ms");
+            if (ms == null) throw new ArgumentNullException(nameof(ms));
             ms.Seek(0, SeekOrigin.Begin);
             var thumbnailBlob = ThumbnailFile(fileName);
             thumbnailBlob.Properties.ContentType = mimeType;
@@ -470,7 +458,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType, CancellationToken token)
         {
-            if (ms == null) throw new ArgumentNullException("ms");
+            if (ms == null) throw new ArgumentNullException(nameof(ms));
             ms.Seek(0, SeekOrigin.Begin);
             var thumbnailBlob = ThumbnailFile(fileName);
             thumbnailBlob.Properties.ContentType = mimeType;

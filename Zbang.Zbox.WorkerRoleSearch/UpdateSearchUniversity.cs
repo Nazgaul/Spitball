@@ -26,22 +26,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_UniversitySearchProvider = universitySearchProvider;
             m_ZboxWriteService = zboxWriteService;
         }
-        private int GetIndex()
-        {
-            int currentIndex;
+        
 
-            string instanceId = RoleEnvironment.CurrentRoleInstance.Id;
-            bool withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".", StringComparison.Ordinal) + 1), out currentIndex);
-            if (!withSuccess)
-            {
-                int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_", StringComparison.Ordinal) + 1), out currentIndex);
-            }
-            return currentIndex;
-        }
-
-        public async Task Run(CancellationToken cancellationToken)
+        public async Task RunAsync(CancellationToken cancellationToken)
         {
-            var index = GetIndex();
+            var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
             TraceLog.WriteWarning("university index " + index + " count " + count);
             while (!cancellationToken.IsCancellationRequested)
@@ -67,7 +56,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             TraceLog.WriteError("On finish run");
         }
 
-        int m_Interval = MinInterval;
+        public void Stop()
+        {
+        }
+
+        private int m_Interval = MinInterval;
         private const int MinInterval = 5;
         private const int MaxInterval = 60;
         private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
@@ -83,8 +76,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var updates = await m_ZboxReadService.GetUniversityDirtyUpdates(instanceId, instanceCount, updatesPerCycle);
             if (!updates.UniversitiesToDelete.Any() && !updates.UniversitiesToUpdate.Any()) return false;
             
-            TraceLog.WriteInfo(PrefixLog, string.Format("university updating {0} deleting {1}", updates.UniversitiesToUpdate.Count(),
-                updates.UniversitiesToDelete.Count()));
+            TraceLog.WriteInfo(PrefixLog,
+                $"university updating {updates.UniversitiesToUpdate.Count()} deleting {updates.UniversitiesToDelete.Count()}");
             var isSuccess =
                 await m_UniversitySearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
             if (isSuccess)

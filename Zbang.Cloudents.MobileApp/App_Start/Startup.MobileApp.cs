@@ -17,6 +17,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Autofac.Integration.WebApi;
 using System.Reflection;
 using System.Linq;
+using System.Web.Http.ExceptionHandling;
 using Zbang.Cloudents.MobileApp.Filters;
 
 namespace Zbang.Cloudents.MobileApp
@@ -36,7 +37,7 @@ namespace Zbang.Cloudents.MobileApp
             .ApplyTo(config);
 
 
-            MobileAppSettingsDictionary settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
+           // MobileAppSettingsDictionary settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
 
             //if (string.IsNullOrEmpty(settings.HostName))
             //{
@@ -53,6 +54,7 @@ namespace Zbang.Cloudents.MobileApp
             ConfigureDependencies(app, config);
 
             config.Filters.Add(new JsonSerializeAttribute());
+            config.Services.Replace(typeof(IExceptionLogger), new TraceExceptionLogger());
             app.UseWebApi(config);
             //var json = config.Formatters.JsonFormatter;
             //json.SerializerSettings.ContractResolver =

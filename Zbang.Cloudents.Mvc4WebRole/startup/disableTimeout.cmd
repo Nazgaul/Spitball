@@ -1,6 +1,6 @@
 ::http://fabriccontroller.net/blog/posts/iis-8-0-application-initialization-module-in-a-windows-azure-web-role/
-::Echo Installing Application Initialization
-::PKGMGR.EXE /iu:IIS-ApplicationInit
+Echo Installing Application Initialization
+PKGMGR.EXE /iu:IIS-ApplicationInit
 
 %windir%\system32\inetsrv\appcmd set config -section:applicationPools -applicationPoolDefaults.processModel.idleTimeout:00:00:00
 %windir%\system32\inetsrv\appcmd set config -section:applicationPools -applicationPoolDefaults.startMode:AlwaysRunning

@@ -20,12 +20,18 @@ namespace Zbang.Zbox.Infrastructure.Mail
             {
                 throw new NullReferenceException("inviteParams");
             }
-            message.Subject = string.Format(EmailResource.InviteSubject, inviteParams.BoxName);
+           
             message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "InvitationToBox");
             message.Html = message.Html.Replace("{INVITOR}", inviteParams.Invitor);
             message.Html = message.Html.Replace("{BOXNAME}", inviteParams.BoxName);
             message.Html = message.Html.Replace("{BoxUrl}", inviteParams.BoxUrl);
             message.Html = message.Html.Replace("{ImgUrl}", inviteParams.InvitorImage);
+        }
+
+        public void AddSubject(ISendGrid message)
+        {
+            message.Subject = string.Empty;
+            //message.Subject = string.Format(EmailResource.InviteSubject, inviteParams.BoxName);
         }
     }
 }

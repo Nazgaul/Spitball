@@ -38,18 +38,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_FileProcessorFactory = fileProcessorFactory;
             m_BlobProvider = blobProvider;
             m_ItemSearchProvider3 = itemSearchProvider3;
-
-           // var cloudStorageAccount = CloudStorageAccount.Parse(
-
-             //       Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("StorageConnectionString"));
-
-            //m_BlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
 
-        public async Task Run(CancellationToken cancellationToken)
+        public async Task RunAsync(CancellationToken cancellationToken)
         {
-            var index = GetIndex();
+            var index = RoleIndexProcessor.GetIndex();
             var count = RoleEnvironment.CurrentRoleInstance.Role.Instances.Count;
             TraceLog.WriteWarning("item index " + index + " count " + count);
 
@@ -75,7 +69,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             TraceLog.WriteError("On finish run");
         }
-        int m_Interval = MinInterval;
+
+        public void Stop()
+        {
+        }
+
+        private int m_Interval = MinInterval;
         private const int MinInterval = 5;
         private const int MaxInterval = 240;
         private async Task SleepAndIncreaseInterval(CancellationToken cancellationToken)
@@ -85,18 +84,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         }
 
-        private int GetIndex()
-        {
-            int currentIndex;
-
-            string instanceId = RoleEnvironment.CurrentRoleInstance.Id;
-            bool withSuccess = int.TryParse(instanceId.Substring(instanceId.LastIndexOf(".", StringComparison.Ordinal) + 1), out currentIndex);
-            if (!withSuccess)
-            {
-                int.TryParse(instanceId.Substring(instanceId.LastIndexOf("_", StringComparison.Ordinal) + 1), out currentIndex);
-            }
-            return currentIndex;
-        }
+       
 
 
 
@@ -203,7 +191,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             });
             work.Start();
-            Boolean signal = wait.WaitOne(TimeSpan.FromMinutes(10));
+            var signal = wait.WaitOne(TimeSpan.FromMinutes(10));
             if (!signal)
             {
                 work.Abort();
@@ -211,7 +199,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-        readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
+        private readonly TimeSpan m_TimeToWait = TimeSpan.FromMinutes(3);
         private string ExtractContentToUploadToSearch(ItemSearchDto elem)
         {
             if (elem.Type.ToLower() != "file")

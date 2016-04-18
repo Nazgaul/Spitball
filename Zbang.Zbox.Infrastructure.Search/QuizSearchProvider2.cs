@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-                await BuildIndex();
+                //await BuildIndex();
             }
             //var listOfCommands = new List<IndexAction<QuizSearch>>();
 
@@ -119,7 +119,10 @@ namespace Zbang.Zbox.Infrastructure.Search
                     UserId = s.UserIds.Select(v => v.ToString(CultureInfo.InvariantCulture)).ToArray()
                 });
                 var batch = IndexBatch.Upload(uploadBatch);
-                await m_IndexClient.Documents.IndexAsync(batch);
+                if (batch.Actions.Any())
+                {
+                    await m_IndexClient.Documents.IndexAsync(batch);
+                }
             }
             if (quizToDelete != null)
             {
@@ -129,7 +132,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                         Id = s.ToString(CultureInfo.InvariantCulture)
                     });
                 var batch = IndexBatch.Delete(deleteBatch);
-                await m_IndexClient.Documents.IndexAsync(batch);
+                if (batch.Actions.Any())
+                    await m_IndexClient.Documents.IndexAsync(batch);
             }
             return true;
             

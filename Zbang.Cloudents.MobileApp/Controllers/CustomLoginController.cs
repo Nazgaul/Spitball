@@ -96,7 +96,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("LogOn model : {0} ", loginRequest), ex);
+                TraceLog.WriteError($"LogOn model : {loginRequest} ", ex);
 
                 //ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
             }

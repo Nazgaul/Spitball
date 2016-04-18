@@ -2,6 +2,7 @@
 using NHibernate;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
@@ -21,11 +22,11 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<UserDigestDto>(Email.GetUserListByNotificationSettings,
-                      new
-                      {
-                          Notification = query.NotificationSettings,
-                          NotificationTime = query.MinutesPerNotificationSettings
-                      });
+                    new
+                    {
+                        Notification = query.NotificationSettings,
+                        NotificationTime = query.MinutesPerNotificationSettings
+                    });
             }
 
         }
@@ -35,11 +36,11 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 return await conn.QueryAsync<BoxDigestDto>(Email.GetBoxPossibleUpdateByUser,
-                      new
-                      {
-                          Notification = query.MinutesPerNotificationSettings,
-                          query.UserId
-                      });
+                    new
+                    {
+                        Notification = query.MinutesPerNotificationSettings,
+                        query.UserId
+                    });
             }
 
         }
@@ -48,17 +49,13 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await conn.QueryMultipleAsync(string.Format("{0} {1} {2} {3} {4}",
-                    Email.GetItemUpdateByBox,
-                    Email.GetQuizUpdateByBox,
-                    Email.GetQuizDiscussionUpdateByBox,
-                    Email.GetQuestionUpdateByBox,
-                    Email.GetAnswerUpdateByBox),
-                     new
-                      {
-                          Notification = query.MinutesPerNotificationSettings,
-                          query.BoxId
-                      }))
+                using (var grid = await conn.QueryMultipleAsync(
+                    $"{Email.GetItemUpdateByBox} {Email.GetQuizUpdateByBox} {Email.GetQuizDiscussionUpdateByBox} {Email.GetQuestionUpdateByBox} {Email.GetAnswerUpdateByBox}",
+                    new
+                    {
+                        Notification = query.MinutesPerNotificationSettings,
+                        query.BoxId
+                    }))
                 {
                     var retVal = new BoxUpdatesDigestDto
                     {
@@ -129,7 +126,7 @@ namespace Zbang.Zbox.ReadServices
                 and itemid >=  @start
                 order by itemid
                 OFFSET @Offset ROWS
-                FETCH NEXT @RowSize ROWS ONLY", new { Offset = index * 100, RowSize = 100, start });
+                FETCH NEXT @RowSize ROWS ONLY", new {Offset = index*100, RowSize = 100, start});
 
                 //                return await conn.QueryAsync<string>(@"select blobname from zbox.item where 
                 //(blobname like '%.jpg'
@@ -173,19 +170,23 @@ namespace Zbang.Zbox.ReadServices
 
 
                 using (var grid = await conn.QueryMultipleAsync(Search.GetUniversityToUploadToSearch +
-                    Search.GetUniversityPeopleToUploadToSearch + Search.GetUniversitiesToDeleteFromSearch
-                    , new { index, count = total, top }))
+                                                                Search.GetUniversityPeopleToUploadToSearch +
+                                                                Search.GetUniversitiesToDeleteFromSearch
+                    , new {index, count = total, top}))
                 {
                     var retVal = new UniversityToUpdateSearchDto
                     {
                         UniversitiesToUpdate = await grid.ReadAsync<UniversitySearchDto>()
                     };
                     var images = await grid.ReadAsync<UserImagesForUniversitySearchDto>();
-                    var userImagesForUniversitySearchDtos = images as UserImagesForUniversitySearchDto[] ?? images.ToArray();
+                    var userImagesForUniversitySearchDtos = images as UserImagesForUniversitySearchDto[] ??
+                                                            images.ToArray();
                     foreach (var university in retVal.UniversitiesToUpdate)
                     {
                         UniversitySearchDto university1 = university;
-                        university.UsersImages = userImagesForUniversitySearchDtos.Where(w => w.UniversityId == university1.Id).Select(s => s.Image);
+                        university.UsersImages =
+                            userImagesForUniversitySearchDtos.Where(w => w.UniversityId == university1.Id)
+                                .Select(s => s.Image);
                     }
                     retVal.UniversitiesToDelete = await grid.ReadAsync<long>();
 
@@ -203,9 +204,9 @@ namespace Zbang.Zbox.ReadServices
 
                 using (var grid = await conn.QueryMultipleAsync
                     (Search.GetBoxToUploadToSearch +
-                    Search.GetBoxUsersToUploadToSearch +
-                    Search.GetBoxDepartmentToUploadToSearch +
-                    Search.GetBoxToDeleteToSearch, new { index, count = total, top }))
+                     Search.GetBoxUsersToUploadToSearch +
+                     Search.GetBoxDepartmentToUploadToSearch +
+                     Search.GetBoxToDeleteToSearch, new {index, count = total, top}))
                 {
                     var retVal = new BoxToUpdateSearchDto
                     {
@@ -237,8 +238,8 @@ namespace Zbang.Zbox.ReadServices
             {
                 using (var grid = await conn.QueryMultipleAsync
                     (Search.GetItemsToUploadToSearch +
-                    Search.GetItemUsersToUploadToSearch +
-                    Search.GetItemToDeleteToSearch, new { index, count = total, top }
+                     Search.GetItemUsersToUploadToSearch +
+                     Search.GetItemToDeleteToSearch, new {index, count = total, top}
                     ))
                 {
                     var retVal = new ItemToUpdateSearchDto
@@ -268,7 +269,7 @@ namespace Zbang.Zbox.ReadServices
                      Search.GetQuizzesQuestionToUploadToSearch +
                      Search.GetQuizzesAnswersToUploadToSearch +
                      Search.GetQuizzesUsersToUploadToSearch +
-                     Search.GetQuizzesToDeleteFromSearch, new { index, count = total, top }
+                     Search.GetQuizzesToDeleteFromSearch, new {index, count = total, top}
                     ))
                 {
                     var retVal = new QuizToUpdateSearchDto
@@ -294,5 +295,21 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+
+        public async Task<IEnumerable<UserWithNoUniversityDto>> GetUsersWithoutUniversityAsync(UserWithoutUniversityQuery query,
+            CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            {
+                const string sql = @"select email,Culture,UserName as Name from zbox.Users
+where UniversityId is null
+and EmailSendSettings = 0
+and (creationtime>'2015' or [LastAccessTime] >'2015')
+order by userid
+offset @PageNumber*@RowsPerPage ROWS
+FETCH NEXT @RowsPerPage ROWS ONLY";
+                return await conn.QueryAsync<UserWithNoUniversityDto>(sql, new {query.RowsPerPage, query.PageNumber});
+            }
+        }
     }
 }

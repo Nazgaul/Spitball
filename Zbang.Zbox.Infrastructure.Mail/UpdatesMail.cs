@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
 
             //message.Text = textBody;
-            message.Subject = Subject;
+            
 
             message.Html = message.Html.Replace("{UPDATES}", sb.ToString());
             message.Html = message.Html.Replace("{USERNAME}", updateParams.UserName);
@@ -51,6 +51,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
             var spaceInGmail = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
             message.Html = message.Html.Replace(spaceInGmail, string.Empty);
             message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "updateEmail");
+        }
+
+        public void AddSubject(ISendGrid message)
+        {
+            message.Subject = Subject;
         }
 
         private string AggregateAnswers(int numOfAnswers)
@@ -65,17 +70,17 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             return AggregateWithString(numOfItems, EmailResource.item, EmailResource.items);
         }
-        private string AggregateWithString(int number, string single, string many)
+        private static string AggregateWithString(int number, string single, string many)
         {
             if (number == 1)
             {
-                return string.Format("1 {0},", single);
+                return $"1 {single},";
             }
             if (number == 0)
             {
                 return string.Empty;
             }
-            return string.Format("{0} {1},", number, many);
+            return $"{number} {many},";
         }
 
         private string GenerateBoxCube(UpdateMailParams.BoxUpdate boxUpdate, CultureInfo culture, string cube)

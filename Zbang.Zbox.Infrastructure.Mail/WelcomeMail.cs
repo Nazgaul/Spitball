@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     internal class WelcomeMail : IMailBuilder
     {
-        const string Category = "Welcome";
+        private const string Category = "Welcome";
 
 
         public void GenerateMail(ISendGrid message, MailParameters parameters)
@@ -20,10 +20,15 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.Welcome");
-            message.Subject = EmailResource.WelcomeSubject;
+           
             message.AddSubstitution("{Name}", new List<string> { welcomeParams.Name });
 
             message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "welcomeEmail");
+        }
+
+        public void AddSubject(ISendGrid message)
+        {
+            message.Subject = EmailResource.WelcomeSubject; 
         }
     }
 }

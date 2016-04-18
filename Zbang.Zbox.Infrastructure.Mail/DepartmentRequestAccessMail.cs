@@ -5,8 +5,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     internal class DepartmentRequestAccessMail : IMailBuilder
     {
-        const string Category = "Request access";
-        const string Subject = "Another spitballer requests access";
+        private const string Category = "Request access";
+        private const string Subject = "Another spitballer requests access";
 
 
         public void GenerateMail(ISendGrid message, MailParameters parameters)
@@ -19,10 +19,15 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.RequestDepartmentAccess");
-            message.Subject = Subject;
+            
             message.Html = message.Html.Replace("{USER_NAME}", departmentRequestAccessParams.UserName);
             message.Html = message.Html.Replace("{USER_IMG}", departmentRequestAccessParams.UserImage);
             message.Html = message.Html.Replace("{DEP_NAME}", departmentRequestAccessParams.DepName);
+        }
+
+        public void AddSubject(ISendGrid message)
+        {
+            message.Subject = Subject;
         }
     }
 }

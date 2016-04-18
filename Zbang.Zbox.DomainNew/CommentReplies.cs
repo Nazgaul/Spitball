@@ -14,26 +14,27 @@ namespace Zbang.Zbox.Domain
         {
             if (user == null)
             {
-                throw new ArgumentNullException("user");
+                throw new ArgumentNullException(nameof(user));
             }
             if (box == null)
             {
-                throw new ArgumentNullException("box");
+                throw new ArgumentNullException(nameof(box));
             }
             if (question == null)
             {
-                throw new ArgumentNullException("question");
+                throw new ArgumentNullException(nameof(question));
             }
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
 
             User = user;
             Box = box;
-            if (text != null)
+            if (string.IsNullOrEmpty(text))
             {
-                text = text.Trim();
+                text = null;
+
             }
-            Text = text;
+            Text = text?.Trim();
             DateTimeUser = new UserTimeDetails(user.Email);
             Question = question;
             Items = items;

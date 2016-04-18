@@ -99,7 +99,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         }
 
         public async Task UpdateDataAsync(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
-        {
+       {
             if (!m_CheckIndexExists)
             {
                 //  await BuildIndex();
@@ -125,7 +125,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     BlobName = item.BlobName
                 });
                 var batch = IndexBatch.Upload(uploadBatch);
-                await m_IndexClient.Documents.IndexAsync(batch);
+                if (batch.Actions.Any())
+                    await m_IndexClient.Documents.IndexAsync(batch);
             }
             if (itemToDelete != null)
             {
@@ -135,7 +136,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                         Id = s.ToString(CultureInfo.InvariantCulture)
                     });
                 var batch = IndexBatch.Delete(deleteBatch);
-                await m_IndexClient.Documents.IndexAsync(batch);
+                if (batch.Actions.Any())
+                    await m_IndexClient.Documents.IndexAsync(batch);
             }
            
             //var commands = listOfCommands.ToArray();

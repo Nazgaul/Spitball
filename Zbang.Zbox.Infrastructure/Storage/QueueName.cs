@@ -9,46 +9,38 @@ namespace Zbang.Zbox.Infrastructure.Storage
         public const string UpdateDomainQueueName = "transactionQueueName";
         public const string DownloadContentFromUrl = "downloadcontentfromurl";
         public const string DownloadContentFromUrlPhase2 = "downloadcontentfromurlphase2";
+        public const string Schduler = "zbox-scheduler";
+
         public abstract string Name
         {
             get;
         }
     }
 
-    
+    public class SchedulerQueueName : QueueName
+    {
+        public override string Name => Schduler;
+    }
 
     public class MailQueueNameNew : QueueName
     {
 
-        public override string Name
-        {
-            get { return NewMailQueueName; }
-        }
+        public override string Name => NewMailQueueName;
     }
 
     public class CacheQueueName : QueueName
     {
-        public override string Name
-        {
-            get { return QueueName2; }
-        }
+        public override string Name => QueueName2;
     }
 
     public class UpdateDomainQueueName : QueueName
     {
-        public override string Name
-        {
-            get { return UpdateDomainQueueName; }
-        }
+        public override string Name => UpdateDomainQueueName;
     }
 
     public class DownloadQueueName : QueueName
     {
-        public override string Name
-        {
-            get { return DownloadContentFromUrlPhase2; }
-        }
-
+        public override string Name => DownloadContentFromUrlPhase2;
     }
 
 

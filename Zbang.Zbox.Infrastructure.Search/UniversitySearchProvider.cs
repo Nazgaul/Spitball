@@ -168,7 +168,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-                await BuildIndex();
+               // await BuildIndex();
             }
 
             //var listOfCommands = new List<IndexAction<UniversitySearch>>();
@@ -201,7 +201,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 //);
 
                 var batch = IndexBatch.Upload(uploadBatch);
-                await m_IndexClient.Documents.IndexAsync(batch);
+                if (batch.Actions.Any())
+                    await m_IndexClient.Documents.IndexAsync(batch);
 
 
             }
@@ -213,7 +214,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Id = s.ToString(CultureInfo.InvariantCulture)
                 });
                 var batch = IndexBatch.Delete(deleteBatch);
-                await m_IndexClient.Documents.IndexAsync(batch);
+                if (batch.Actions.Any())
+                    await m_IndexClient.Documents.IndexAsync(batch);
                 //listOfCommands.AddRange(universityToDelete.Select(s =>
                 //   new IndexAction<UniversitySearch>(IndexActionType.Delete, new UniversitySearch
                 //   {

@@ -6,8 +6,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
     internal class FlagItemMail : IMailBuilder
     {
 
-        const string Category = "Flag Bad Item";
-        const string Subject = "Flag Bad Item";
+        private const string Category = "Flag Bad Item";
+        private const string Subject = "Flag Bad Item";
 
 
         public void GenerateMail(ISendGrid message, MailParameters parameters)
@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.SetCategory(Category);
             message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.FlaggedItem");
-            message.Subject = Subject;
+            
 
             message.Html = message.Html.Replace("{ItemUrl}", flagItemsParams.Url);
             message.Html = message.Html.Replace("{ITEM NAME}", flagItemsParams.ItemName);
@@ -28,6 +28,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.Html = message.Html.Replace("{FLAGGER-USERNAME}", flagItemsParams.UserName);
             message.Html = message.Html.Replace("{FLAGGER-EMAIL}", flagItemsParams.Email);
             
+        }
+
+        public void AddSubject(ISendGrid message)
+        {
+            message.Subject = Subject;
         }
     }
 }

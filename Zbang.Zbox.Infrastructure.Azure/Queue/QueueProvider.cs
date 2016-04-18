@@ -83,8 +83,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         public async Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
            TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
         {
-            if (queueName == null) throw new ArgumentNullException("queueName");
-            if (func == null) throw new ArgumentNullException("func");
+            if (queueName == null) throw new ArgumentNullException(nameof(queueName));
+            if (func == null) throw new ArgumentNullException(nameof(func));
             var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
             var messages = await queue.GetMessagesAsync(MaxQueuePopLimit, invisibleTimeinQueue, new QueueRequestOptions(), new OperationContext());
             if (messages == null)
@@ -122,29 +122,37 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return cloudQueueMessages.Any();
         }
 
-        public async Task<bool> RunQueueMultiple(QueueName queueName,
-            Func<IEnumerable<CloudQueueMessage>, Task<IEnumerable<CloudQueueMessage>>> func,
-          TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
-        {
-            if (queueName == null) throw new ArgumentNullException("queueName");
-            if (func == null) throw new ArgumentNullException("func");
-            var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
-            var messages = await queue.GetMessagesAsync(MaxQueuePopLimit, invisibleTimeinQueue, new QueueRequestOptions(), new OperationContext());
-            if (messages == null)
-            {
-                return false;
-            }
-            var cloudQueueMessages = messages as IList<CloudQueueMessage> ?? messages.ToList();
-            var listToWait = new List<Task>
-            {
-                queue.DeleteMessagesAsync(cloudQueueMessages.Where(w => w.DequeueCount < deQueueCount))
-            };
 
-            var messagesToDelete = await func.Invoke(cloudQueueMessages);
-            listToWait.Add(queue.DeleteMessagesAsync(messagesToDelete));
-            await Task.WhenAll(listToWait);
-            return cloudQueueMessages.Any();
+        public Task UpdateMessageAsync(QueueName queueName, CloudQueueMessage msg)
+        {
+            var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
+            return queue.UpdateMessageAsync(msg, TimeSpan.FromMinutes(1),
+                MessageUpdateFields.Content | MessageUpdateFields.Visibility);
         }
+
+        //public async Task<bool> RunQueueMultiple(QueueName queueName,
+        //    Func<IEnumerable<CloudQueueMessage>, Task<IEnumerable<CloudQueueMessage>>> func,
+        //  TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
+        //{
+        //    if (queueName == null) throw new ArgumentNullException(nameof(queueName));
+        //    if (func == null) throw new ArgumentNullException(nameof(func));
+        //    var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
+        //    var messages = await queue.GetMessagesAsync(MaxQueuePopLimit, invisibleTimeinQueue, new QueueRequestOptions(), new OperationContext());
+        //    if (messages == null)
+        //    {
+        //        return false;
+        //    }
+        //    var cloudQueueMessages = messages as IList<CloudQueueMessage> ?? messages.ToList();
+        //    var listToWait = new List<Task>
+        //    {
+        //        queue.DeleteMessagesAsync(cloudQueueMessages.Where(w => w.DequeueCount < deQueueCount))
+        //    };
+
+        //    var messagesToDelete = await func.Invoke(cloudQueueMessages);
+        //    listToWait.Add(queue.DeleteMessagesAsync(messagesToDelete));
+        //    await Task.WhenAll(listToWait);
+        //    return cloudQueueMessages.Any();
+        //}
 
 
 
