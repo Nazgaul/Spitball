@@ -208,6 +208,9 @@
     padding-right: 30px;
   }
 }
+.right-side-area.flex {
+  padding: 0;
+}
 .right-side-area .leaderboard-container {
   display: flex;
 }

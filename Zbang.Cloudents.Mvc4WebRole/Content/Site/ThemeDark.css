@@ -155,9 +155,6 @@
 .add-comment input[type=checkbox]:checked + label svg {
   fill: #d39f10;
 }
-.add-comment svg {
-  fill: #888b8e;
-}
 .add-comment .file:hover {
   fill: #f9f9f9;
 }
@@ -1298,6 +1295,15 @@ md-chips .md-chips.md-focused {
 }
 .hoverSvgTC18:hover {
   fill: #212325 !important;
+}
+.backgroundTC19 {
+  background: #323538 !important;
+}
+.borderTC19 {
+  border-color: #323538 !important;
+}
+.textTC20 {
+  color: #888b8e !important;
 }
 /*input[type="search"], textarea {
     .placeHolder(@borderColorGrey) !important;

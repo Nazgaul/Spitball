@@ -7,7 +7,7 @@
     <div class="user-comment" layout="row">
         <div class="top" flex-none>
             <a href="{{::b.user.url}}" user-not-register-popup="click" class="username" ga-track-event="['box-feed', 'userNameImage']">
-                <user-image class="img-circle c-img" name="b.user.name" image="b.user.image" width="54" height="54" noremove="true"></user-image>
+                <user-image class="img-circle c-img" name="b.user.name" image="b.user.image" width="52" height="52" noremove="true"></user-image>
             </a>
         </div>
         <div class="new-comment-border" flex-grow>
@@ -35,7 +35,9 @@
         <div layout="row" layout-align="space-between center">
             <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
             <label class="anonymous-wrapper" title="@BoxResources.Anonymous" for="anonymous" ga-track-event="['box-new-commnet', 'anonymous']"><span class="text">@BoxResources.Anonymous</span>@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
-            <button type="submit" class="btn button-Blue btn-primary text-uppercase" ng-disabled="f.add.disabled" ga-track-event="['box-new-commnet', 'postComment']">@GeneralResources.Post</button>
+            <button type="submit" class="btn button-Blue btn-primary text-uppercase post-comment" ng-disabled="f.add.disabled" ga-track-event="['box-new-commnet', 'postComment']">
+                @Html.Svg(url, "post")
+            </button>
         </div>
     </div>
 </form>

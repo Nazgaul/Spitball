@@ -15,7 +15,6 @@
   /*#endregion*/
   /*#region box.less*/
   /*#endregion*/
-  /*#region feed.less*/
   /*#endregion*/
   /*#region box.less*/
   /*#endregion*/
@@ -184,9 +183,6 @@ Page Loading
 .theme-light md-toast .md-toast-content {
   background: #26566e;
 }
-.theme-light md-tabs md-tabs-wrapper {
-  background: #323538;
-}
 .theme-light md-tabs .md-tab {
   color: #888b8e;
 }
@@ -195,7 +191,7 @@ Page Loading
 }
 .theme-light md-tabs md-ink-bar {
   color: #3598dc;
-  background: #3598dc;
+  background: #fff;
 }
 .theme-light .close:hover {
   color: #212325;
@@ -370,43 +366,6 @@ Page Loading
 .theme-light .folder-selected .arrow {
   fill: #ffffff;
 }
-.theme-light .feed .comment-date {
-  color: #5d6063;
-}
-.theme-light .feed .comment > .top,
-.theme-light .feed .add-comment > .top {
-  color: #212325;
-}
-.theme-light .feed .comment {
-  background: #e9eaed;
-}
-.theme-light .feed .comment .c-img {
-  border: 3px solid #ffffff;
-}
-.theme-light .feed .comment .user-name {
-  color: #2698D4;
-}
-.theme-light .feed .reply .user-name {
-  color: #2698D4;
-}
-.theme-light .feed .actions,
-.theme-light .feed .reply-actions {
-  color: #2698D4;
-}
-.theme-light .feed .actions svg,
-.theme-light .feed .reply-actions svg {
-  fill: #888b8e;
-}
-.theme-light .feed .actions .dropbox:hover,
-.theme-light .feed .reply-actions .dropbox:hover {
-  fill: #007EE5;
-}
-.theme-light .feed .replies {
-  border-top: 2px solid #ffffff;
-}
-.theme-light .feed .add-reply .reply-wrapper {
-  border: 1px solid #5d6063;
-}
 .theme-light .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
   fill: #d39f10;
 }
@@ -561,9 +520,6 @@ Page Loading
 }
 .theme-light .add-comment input[type=checkbox]:checked + label svg {
   fill: #d39f10;
-}
-.theme-light .add-comment svg {
-  fill: #888b8e;
 }
 .theme-light .add-comment .file:hover {
   fill: #f9f9f9;
@@ -2087,9 +2043,6 @@ Page Loading
 .theme-light .color-override.hoverSvgTransparent:hover {
   fill: transparent !important;
 }
-.theme-light md-tabs md-tabs-wrapper {
-  background: #ffffff;
-}
 .theme-light md-tabs .md-tab.md-active {
   color: #4190b9;
 }
@@ -2172,6 +2125,15 @@ Page Loading
 }
 .theme-light .hoverSvgTC18:hover {
   fill: #5d6063 !important;
+}
+.theme-light .borderTC19 {
+  border-color: #4190b9 !important;
+}
+.theme-light .backgroundTC19 {
+  background: #4190b9 !important;
+}
+.theme-light .textTC20 {
+  color: #b2daef !important;
 }
 .theme-light input[type="search"]::-webkit-input-placeholder,
 .theme-light textarea::-webkit-input-placeholder {

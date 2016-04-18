@@ -1,11 +1,17 @@
 ﻿@import "variables.less";
 
 @feedActionsBackground: #d7dde0;
-@userImageIndent: 64px;
+@userImageIndent: 62px;
 
 .feed {
     font-size: 16px;
     line-height: 1;
+    padding: 8px 16px 0 0 !important;
+
+
+    .dots-3 {
+        fill: @textColorGrey;
+    }
 
     .ribbon {
         bottom: 1em;
@@ -19,10 +25,7 @@
         color: @textColorGrey;
         font-size: 13px;
     }
-    /*.comment-date {
-        color: @svgDots;
-        font-size: 12px;
-    }*/
+
     .items-slider {
         position: relative;
 
@@ -84,9 +87,11 @@
         }
 
         .actions {
-            padding: 10px 0 10px @userImageIndent;
+            @media(min-width: 600px) {
+                padding: 0 0 0 @userImageIndent;
+            }
 
-            button {
+            .comment-btn, .like-btn {
                 margin: 0 20px 0 0;
                 padding: 0;
             }
@@ -105,14 +110,14 @@
     }
 
     .comment, .add-comment {
-        background: #fff;
-        margin-bottom: 25px;
-        //padding: 10px;
+        background: #eeeeee;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        margin-bottom: 15px;
         border-radius: 5px;
         overflow: hidden;
 
         a img.c-img {
-            border: 1px solid #fff;
+            border: none;
             background: none;
         }
 
@@ -128,19 +133,25 @@
 
 
             .new-comment-border {
-                // border: 1px solid @svgDots;
                 max-height: 250px;
                 overflow: auto;
                 min-height: 80px;
 
                 textarea {
-                    min-height: 80px;
+                    min-height: 96px;
                     background: none;
                     width: 100%;
                     border: none;
-                    // background: @backgroundColor;
-                    padding-left: 10px;
-                    padding-top: 14px;
+                    padding: 14px 0 10px 10px;
+                    color: @backgroundColorMouseOver;
+
+                    &:focus {
+                        color: @backgroundColorMouseOver;
+                    }
+                }
+
+                .md-input-container {
+                    border: none;
                 }
             }
         }
@@ -153,7 +164,6 @@
 
         .list-inline > li {
             margin: 10px;
-            //border: 1px solid @borderColorGrey;
             padding: 5px 5px 0;
             width: ~"calc(50% - 20px)";
             max-width: 115px;
@@ -166,10 +176,7 @@
             padding-bottom: 0;
             width: 100%;
             margin: 0;
-
-            .md-input:active, .md-input:focus {
-                color: #fff;
-            }
+            padding: 0;
             //TODO: should be fix in 1.1 https://github.com/angular/material/pull/6209
             .md-errors-spacer {
                 display: none;
@@ -185,12 +192,8 @@
                         padding-right: 10px;
                         font-size: 12px;
                         display: inline-block;
-                        //  color: @anonymousColor;
                     }
                 }
-                //svg {
-                //    fill: @anonymousColor;
-                //}
             }
         }
 
@@ -198,18 +201,12 @@
             width: 25px;
             height: 35px;
             vertical-align: middle;
-            // fill: @svgColorGrey;
         }
 
         .upload-options {
-            width: 60%;
-            min-width: 120px;
-            max-width: 160px;
-            padding: 0;
-            //margin-right:10px;
-            /*a { //not sure why z-index needed - removing this fixed bug 5672
-            z-index: 1;
-        }*/
+            width: 120px;
+            padding: 0 0 0 10px;
+
             a, button {
                 padding: 0;
             }
@@ -242,21 +239,13 @@
 
         &.new-post {
             padding: 0;
-            //position: relative;
-            //.top img {
-            //    background: @borderColorDarkGrey;
-            //    border: 3px solid @borderColorDarkGrey;
-            //}
+
             .new-comment-border {
                 border: none;
-                /*textarea {
-                    padding-top: 10px;
-                    font-size: 18px;
-                }*/
             }
 
             .actions {
-                padding: 4px 10px;
+                padding: 7px 10px;
                 background: @feedActionsBackground;
             }
         }
@@ -264,27 +253,15 @@
 
     .comment {
         position: relative;
-        //overflow: hidden;
         border-radius: 5px;
-        margin-bottom: 25px;
-
 
         .c-img {
             border-radius: 50px;
             margin-right: 10px;
         }
-        //.margins {
-        //    margin: 0 10px 10px 0;
-        //}
-        //.like {
-        //    // border: 1px solid #5B9CC2;
-        //    //background: #4190b9;
-        //    //color: @textColorLike;
-        //    //margin-left: 18px;
-        //    //margin-right: 0;
-        //}
+
         .user-name {
-            color: @textColorBlue;
+            color: @textColorBlack;
             font-weight: 400;
             margin-top: 0;
             padding-bottom: 12px;
@@ -299,13 +276,15 @@
         }
 
         .delete {
-            padding: 0;
             height: 17px;
-            width: 34px;
+            width: 25px;
             text-align: center;
             right: 0;
-            
-            svg{
+            top: 0;
+            margin: 0;
+            padding: 0 4px;
+
+            svg {
                 width: 17px;
                 height: 17px;
             }
@@ -314,69 +293,71 @@
 
     .reply {
         position: relative;
-        margin-left: 26px;
         padding-bottom: 5px;
 
         .actions {
             margin-top: 0;
             border: none;
-            padding: 5px 3px 8px 3px;
-            //&.padding {
-            //    padding-left: 9px;
-            //    margin-top: 10px;
-            //    border: none;
-            //}
+            padding: 5px 3px 8px 0;
         }
 
         .c-img {
             top: -7px;
         }
-        //.like {
-        //    //background-color: transparent;
-        //    //border: 1px solid #6E7983;
-        //    //color: @textColorDarkGrey;
-        //    //margin-right: 0;
-        //}
-        //.margins {
-        //    margin: 0 10px 10px 0;
-        //    //&:hover {
-        //    //    border-color: @textColorHover;
-        //    //    color: @textColorHover;
-        //    //}
-        //}
-        //.items-container {
-        //    padding-left: 40px;
-        //    margin: 0 5px;
-        //}
+
         .user-name {
             color: @textColorBlue;
             font-weight: normal;
         }
-        /*.comment-date {
-            margin-left: 51px;
-        }*/
-        //.content-text {
-        //margin-left: 50px;
-        /*-ms-word-break: break-word;
-            word-break: break-word;*/
-        //}
+
+        > .content-text {
+            margin-bottom: 0;
+            margin-top: -6px;
+        }
+
+        .actions-wrapper {
+            margin-left: @userImageIndent;
+        }
+    }
+
+    .actions, .reply-actions {
+        svg {
+            width: 22px;
+            height: 22px;
+            fill: #777471;
+        }
+
+        .post-comment {
+            padding: 8px;
+            border-radius: 100%;
+            margin-top: -40px;
+            line-height: normal;
+            margin-right: 8px;
+
+            svg {
+                width: 26px;
+                height: 26px;
+            }
+        }
     }
 
     .actions {
         color: @buttonColorBlue;
-        /*//border-top: 1px solid @textColorDarkGrey;
-        //padding-bottom: 10px;
-        font-size: 13px;
-        position: relative; // this is for ribbon*/
-        svg {
-            width: 22px;
-            height: 22px;
-            fill: @textColorGrey;
-            vertical-align: middle;
+
+        .post-comment {
+            margin-right: 14px;
+        }
+
+        .share-section {
+            padding: 0;
+
+            .share {
+                min-height: 0;
+                height: 24px;
+            }
         }
 
         span {
-            vertical-align: middle;
             font-size: 14px;
         }
 
@@ -388,10 +369,18 @@
             .anonymous {
                 width: 28px;
                 height: 28px;
-                margin-right: 12px;
-                // &:hover {
-                //     fill: @anonymousColor;
-                // }
+                margin-right: 15px;
+            }
+        }
+
+        .share {
+            text-transform: capitalize;
+            width: auto;
+
+            svg {
+                margin-bottom: 5px;
+                width: 15px;
+                height: 15px;
             }
         }
 
@@ -401,18 +390,31 @@
                 fill: @dropboxColor;
             }
         }
+
+        button {
+            padding: 0;
+        }
+
+        .like-icon, .comment-icon {
+            margin: 0 5px 2px 0;
+        }
+
+        .reply-count, .like-count {
+            margin-right: 8px;
+        }
     }
 
     .replies {
-        //border-top: 2px solid @borderColorDarkGrey;
-        padding-top: 15px;
-        background: #c3c3c3;
+        padding: 15px 15px 10px 15px;
+    }
+
+    .comments-wrapper, .add-comment .user-comment {
+        background: #fff;
     }
 
     .post {
         .info {
             position: relative;
-            margin-bottom: 8px;
         }
 
         > .content-text {
@@ -422,13 +424,14 @@
         }
 
         .comments-wrapper {
-            padding: 10px;
+            padding: 10px 10px 10px 15px;
         }
     }
 
-    .reply > .content-text {
-        margin-bottom: 0;
-        margin-top: 6px;
+    .post, .reply {
+        .content-text {
+            font-size: 17px;
+        }
     }
 
     li.post:last-child {
@@ -437,25 +440,39 @@
 
     .content-text {
         line-height: 22px;
-        margin-bottom: 10px;
-        margin-right: 70px;
         -ms-word-break: break-word;
         word-break: break-word;
         white-space: pre-wrap;
-        max-width: 600px;
+        color: @backgroundColor;
+        margin: 10px 10px 10px @userImageIndent;
 
         img {
             max-width: 100%;
         }
     }
 
-    .add-reply {
-        // display: none;
-        .reply-wrapper {
-            border: 1px solid @svgDots;
+    .add-reply-wrapper {
+        padding: 10px;
 
-            textarea {
-                padding: 10px;
+        .add-reply {
+            box-shadow: 0 1px 3px rgba(24, 28, 29, 0.5);
+            margin: 0;
+
+            .reply-wrapper {
+                background: #fff;
+
+                textarea {
+                    background: none;
+                    padding: 20px 10px 20px 20px;
+                    border: none;
+                    min-height: 120px;
+                    color: @backgroundColorMouseOver;
+                }
+            }
+
+            .reply-actions {
+                padding: 8px 5px;
+                background: #D7DDE0;
             }
         }
     }
@@ -476,30 +493,18 @@
         }
     }
 
-    .like-btn {
+    .like-btn, .comment-btn {
         svg {
             width: 16px;
             height: 16px;
-        }
-    }
-
-    .comment-btn {
-        svg {
-            width: 16px;
-            height: 16px;
-            margin-right: 5px;
         }
     }
 
     .show-more {
-        padding: 0 0 15px 50px;
-        color: @textColorGrey;
-        font-size: 14px;
-    }
-
-    .like-icon {
-        margin-bottom: 2px;
-        display: inline-block;
+        margin-bottom: 15px;
+        padding: 0 0 10px 64px;
+        border-bottom: 1px solid @textColorLightGrey;
+        color: @backgroundColor;
     }
 }
 
@@ -545,7 +550,7 @@
     md-dialog-content {
         ul {
             margin-bottom: 0;
-            //max-height: 400px;
+
             li {
                 padding: 15px 0;
                 margin: 0 25px;
@@ -559,6 +564,45 @@
                     margin-bottom: 0;
                 }
             }
+        }
+    }
+}
+
+.share-menu {
+    min-width: 0;
+
+    .share-fb, .share-whatsapp {
+        button, a {
+            padding: 3px 0;
+            min-width: 30px;
+
+            @media(max-width: 600px) {
+                &.md-button {
+                    background-color: #e9eaed !important;
+                }
+            }
+        }
+    }
+
+    .share-fb svg {
+        width: 46px;
+        height: 30px;
+        .displayFlex;
+    }
+
+    .share-whatsapp svg {
+        width: 50px;
+        height: 30px;
+        border-left: 1px solid #fff;
+    }
+
+    svg {
+        padding: 0 8px;
+    }
+
+    .md-button {
+        .md-default-theme:not([disabled]):hover, :not([disabled]):hover {
+            background: none;
         }
     }
 }

@@ -230,7 +230,7 @@ Page content
   clear: both;
 }
 .page-title {
-  padding: 10px;
+  padding: 0;
 }
 .page-title > h1 {
   font-size: 25px;
@@ -1082,12 +1082,14 @@ md-toast.md-warn-theme .md-toast-content {
   margin-bottom: 0;
 }
 /*tabs*/
+md-tabs.borderTC19 {
+  border: 1px solid;
+}
 md-tabs md-tabs-wrapper {
   border-radius: 5px;
   font-size: 16px;
   padding: 0 10px 0;
   margin-bottom: 20px;
-  background: #323538;
 }
 md-tabs md-pagination-wrapper {
   right: 0;
@@ -1107,6 +1109,9 @@ md-tabs .md-tab {
 md-tabs .md-tab.md-active {
   color: #f5f5f5;
 }
+md-tabs .md-tab.md-active span.textTC20 {
+  color: #f5f5f5 !important;
+}
 @media (max-width: 600px) {
   md-tabs .md-tab {
     float: left ;
@@ -1116,38 +1121,34 @@ md-tabs md-ink-bar {
   color: #3598dc;
   background: #3598dc;
 }
+md-tabs-canvas {
+  height: 40px;
+}
+md-pagination-wrapper {
+  height: 40px;
+}
+.md-tab {
+  padding: 8px 24px;
+}
 /*#endregion*/
 .page-title {
   align-items: center;
-  /*svg {
-        fill: @textColorWhite;
-    }*/
 }
-.page-title .share-social {
-  line-height: 32px;
-  border-left: 2px solid #323538;
-  margin-left: 5px;
-  padding-left: 5px;
+.page-title .share-section button {
+  border-radius: 0;
 }
-.page-title svg,
-.page-title .facebook,
-.page-title .whatsapp {
-  max-width: 31px;
-  max-height: 30px;
-  width: 5vw;
-  height: 5vw;
-  min-width: 25px;
-  min-height: 25px;
+.page-title .share-section button .text {
+  display: none;
 }
-.page-title .facebook,
-.page-title .whatsapp {
-  margin-left: 10px;
-}
-.page-title .facebook {
-  padding: 0;
+.page-title svg {
+  fill: #777777;
+  width: 25px;
+  height: 25px;
 }
 .page-title .box-settings {
   display: flex;
+  padding: 0;
+  margin-right: 10px;
 }
 .close {
   float: left;
@@ -1598,10 +1599,6 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
   -webkit-align-items: center;
   align-items: center;
   z-index: 90;
-}
-.feed-wrapper {
-  margin: -16px;
-  /* This is a patch - to be fixed in future*/
 }
 #intercom-container,
 #intercom-launcher {

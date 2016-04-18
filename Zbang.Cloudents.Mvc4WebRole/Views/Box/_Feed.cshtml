@@ -12,9 +12,9 @@
         <ol class="list-unstyled posts-list" srph-infinite-scroll="f.myPagingFunction()">
             <li ng-repeat="post in f.data track by post.id" class="post comment">
                 <div class="comments-wrapper">
-                    <div class="info">
+                    <div class="info" layout="row" align-items="start-center">
                         <a href="{{::post.url}}" class="userblock" layout="row" layout-align="start center" ga-track-event="['box-feed', 'userNameImage']">
-                            <user-image class="c-img" name="::post.userName" image="::post.userImage" width="54" height="54"></user-image>
+                            <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
                             <span class="user-name">{{::post.userName}}</span>
                         </a>
                         <span class="comment-date">{{::post.creationTime | date : 'medium'}}</span>
@@ -44,16 +44,19 @@
 
 
                     <div class="actions-wrapper">
-                        <div class="indent actions color-override text-capitalize">
-                            <button class="comment-btn" user-not-register-popup="click" type="button" ng-click="f.reply(post)" ga-track-event="['box-feed', 'comment-icons']">
-                                @Html.Svg("~/images/site/box-icons.svg", "comment")<span>@BoxResources.Comment</span>
+                        <div class="indent actions color-override text-capitalize" layout="row" layout-align="start center">
+                            <button class="comment-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-click="f.reply(post)" ga-track-event="['box-feed', 'comment-icons']">
+                                <span ng-if="post.repliesCount" class="reply-count">{{post.repliesCount}}</span><span class="comment-icon">@Html.Svg("~/images/site/box-icons.svg", "comment")</span><span>@BoxResources.Comment</span>
                             </button>
-                            <button class="like-btn" user-not-register-popup="click" type="button" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
+                            <button user-not-register-popup="click" type="button" ng-click="f.likeCommentDialog(post,$event)">
+                                <span class="like-count">{{post.likesCount}}</span>
+                            </button>
+                            <button class="like-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
                                 @*@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "svgTC6" })*@
-                                <span user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)">{{post.likesCount}}</span>
-                                <span class="like-icon" ng-if="!post.isLiked">@Html.Svg("~/images/site/box-icons.svg", "like")</span>&nbsp;
+                                <span class="like-icon" ng-if="!post.isLiked">@Html.Svg("~/images/site/box-icons.svg", "like")</span>
                                 <span class="like-icon" ng-if="post.isLiked">@Html.Svg("~/images/site/box-icons.svg", "activeLike")</span><span>@GeneralResources.Like</span>
                             </button>
+                            <share-box></share-box>
                         </div>
                         <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
                     </div>
@@ -75,9 +78,9 @@
                                 </md-menu-item>
                             </md-menu-content>
                         </md-menu>
-                        <div class="indent">
+                        <div class="indent info">
                             <a href="{{::reply.url}}" layout="row" layout-align="start center" class="username" ga-track-event="['box-feed', 'replyUserNameImg']">
-                                <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
+                                <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="52" height="52"></user-image>
                                 <span class="user-name">{{::reply.userName}}</span>
                             </a>
                             <span class="comment-date">{{::reply.creationTime | date : 'medium'}}</span>
@@ -93,47 +96,50 @@
                             <button type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                         </div>
                         <div class="actions-wrapper">
-                            <div class="like-btn actions">
-                                <button type="button" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']">
-                                    @GeneralResources.Like
+                            <div class="like-btn actions" layout="row" layout-align="start center">
+                                <button type="button" ng-if="reply.likesCount" ng-click="f.likeReplyDialog(reply,$event)">
+                                    <span class="like-count">{{reply.likesCount}}</span>
                                 </button>
-                                <button type="button" ng-click="f.likeReplyDialog(reply,$event)">
+                                <button type="button" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']" layout="row" layout-align="start center">
                                     <span class="like-icon" ng-if="!reply.isLiked">@Html.Svg("~/images/site/box-icons.svg", "like")</span>
                                     <span class="like-icon" ng-if="reply.isLiked">@Html.Svg("~/images/site/box-icons.svg", "activeLike")</span>
-                                    <span>  {{reply.likesCount}}</span>
+                                    <span>@GeneralResources.Like</span>
                                 </button>
                             </div>
                             <span class="ribbon" ng-if="reply.isNew">@BoxResources.RibbonNew</span>
                         </div>
                     </li>
                 </ol>
-
-                <form class="add-comment add-reply" ng-if="post.showReplies" ng-submit="f.add.createReply(post)">
-                    <div class="reply-wrapper">
-                        <md-input-container md-no-float>
-                            <textarea focus-me="post.focusReply" ng-model="f.add.newReplyText" placeholder="@BoxResources.replyPostPlaceholder" class="color-override inputColor12 textColor7"></textarea>
-                        </md-input-container>
-                        <ul class="list-inline file-upload-area" ng-if="f.add.files.length">
-                            <li class=" file-upload" ng-repeat="file in f.add.files | filter:{postId: post.id}" ng-include="'file-upload.html'">
-                        </ul>
-                    </div>
-                    <div class="reply-actions" layout="row" layout-align="space-between center">
-                        <div class="upload-options feed-upload" layout="row" layout-wrap layout-align="space-between start">
-                            <a plupload="f.add.fileUpload.url" ng-click="f.add.upload(post.id)"
-                               plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks" ga-track-event="['box-feed', 'addFile']">
-                                @Html.Svg(url, "file", new { @class = "file color-override hoverSvgColor2" })
-                            </a>
-                            <button type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)" ga-track-event="['box-feed', 'googleDrive']">
-                                @Html.Svg(url, "googleDrive")
-                                @Html.Svg(url, "googleDriveClean")
-                            </button>
-                            <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)" ga-track-event="['box-feed', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
+                <div class="add-reply-wrapper" ng-if="post.showReplies">
+                    <form class="add-comment add-reply" ng-submit="f.add.createReply(post)">
+                        <div class="reply-wrapper">
+                            <md-input-container md-no-float>
+                                <textarea focus-me="post.focusReply" ng-model="f.add.newReplyText" placeholder="@BoxResources.replyPostPlaceholder" class="color-override inputColor12 textColor7"></textarea>
+                            </md-input-container>
+                            <ul class="list-inline file-upload-area" ng-if="f.add.files.length">
+                                <li class=" file-upload" ng-repeat="file in f.add.files | filter:{postId: post.id}" ng-include="'file-upload.html'">
+                            </ul>
                         </div>
-                        <div class="submit" layout="row" layout-align="space-between center">
-                            <button type="submit" class="btn button-Blue btn-primary text-uppercase" ng-disabled="f.add.disabled" ga-track-event="['box-feed', 'postReply']">@GeneralResources.Post</button>
+                        <div class="reply-actions" layout="row" layout-align="space-between center">
+                            <div class="upload-options feed-upload" layout="row" layout-wrap layout-align="space-between start">
+                                <a plupload="f.add.fileUpload.url" ng-click="f.add.upload(post.id)"
+                                   plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks" ga-track-event="['box-feed', 'addFile']">
+                                    @Html.Svg(url, "file", new { @class = "file color-override hoverSvgColor2" })
+                                </a>
+                                <button type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)" ga-track-event="['box-feed', 'googleDrive']">
+                                    @Html.Svg(url, "googleDrive")
+                                    @Html.Svg(url, "googleDriveClean")
+                                </button>
+                                <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)" ga-track-event="['box-feed', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
+                            </div>
+                            <div class="submit" layout="row" layout-align="space-between center">
+                                <button type="submit" class="btn button-Blue btn-primary text-uppercase post-comment" ng-disabled="f.add.disabled" ga-track-event="['box-feed', 'postReply']">
+                                    @Html.Svg(url, "post")
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </li>
         </ol>
 
@@ -154,11 +160,12 @@
                     </button>
                 </div>
             </div>
+            <div layout="row" layout-padding layout-wrap layout-align="space-between center" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
+                @*<div data-ng-dfp-ad="div-gpt-ad-1459076812828-0"></div>*@
+                <div flex="100" flex-gt-md="100" class="flex" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>
+            </div>
         </div>
 
-        <div layout="row" layout-padding layout-wrap layout-align="space-between center" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
-            @*<div data-ng-dfp-ad="div-gpt-ad-1459076812828-0"></div>*@
-            <div flex="100" flex-gt-md="100" class="flex" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>
-        </div>
+
     </div>
 </div>
