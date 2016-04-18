@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Linq;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
@@ -83,9 +84,16 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         public void RegisterUserNotification(long userid, MobileOperatingSystem os)
         {
-            int updatedEntities = UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserMobileDevice")
+            UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserMobileDevice")
                 .SetInt64("userid", userid)
                 .SetEnum("mobileDevice", os)
+                .ExecuteUpdate();
+        }
+
+        public void UnsubscibeUserFromMail(IEnumerable<string> emails)
+        {
+            var x = UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserUnsubscribe")
+                .SetParameterList("userEmail", emails)
                 .ExecuteUpdate();
         }
 
@@ -93,15 +101,11 @@ namespace Zbang.Zbox.Domain.DataAccess
         public UserLibraryRelationType GetUserToDepartmentRelationShipType(long userId, Guid departmentId)
         {
 
-            var userBoxRel = UnitOfWork.CurrentSession.QueryOver<UserLibraryRel>().
-               Where(w => w.User.Id == userId)
-               .Where(w => w.Library.Id == departmentId).SingleOrDefault();
+            var userBoxRel = UnitOfWork.CurrentSession.QueryOver<UserLibraryRel>()
+                .Where(w => w.User.Id == userId)
+                .Where(w => w.Library.Id == departmentId).SingleOrDefault();
 
-
-
-            if (userBoxRel == null)
-                return UserLibraryRelationType.None;
-            return userBoxRel.UserType;
+            return userBoxRel?.UserType ?? UserLibraryRelationType.None;
         }
     }
 }

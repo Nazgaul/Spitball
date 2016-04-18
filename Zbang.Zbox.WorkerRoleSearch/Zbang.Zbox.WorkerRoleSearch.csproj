@@ -135,6 +135,7 @@
     <Compile Include="UpdateSearchBox.cs" />
     <Compile Include="UpdateSearchQuiz.cs" />
     <Compile Include="UpdateSearchUniversity.cs" />
+    <Compile Include="UpdateUnsubscribeList.cs" />
     <Compile Include="WorkerRole.cs" />
   </ItemGroup>
   <ItemGroup>

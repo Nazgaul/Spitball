@@ -25,5 +25,7 @@ namespace Zbang.Zbox.Domain.Common
         Task UpdateSearchBoxDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
         Task UpdateSearchItemDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
         Task UpdateSearchQuizDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
+
+        void UpdateUserFromUnsubscribe(UnsubscribeUsersFromEmailCommand command);
     }
 }

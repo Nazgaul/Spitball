@@ -106,6 +106,7 @@
     <Compile Include="Quiz\UpdateQuizCommandHandler.cs" />
     <Compile Include="RateItemCommandHandler.cs" />
     <Compile Include="RequestAccessLibraryNodeCommandHandler.cs" />
+    <Compile Include="UnsubscribeUsersFromEmailCommandHandler.cs" />
     <Compile Include="UpdateNodeSettingsCommandHandler.cs" />
     <Compile Include="Resources\CommandHandlerResources.Designer.cs">
       <AutoGen>True</AutoGen>

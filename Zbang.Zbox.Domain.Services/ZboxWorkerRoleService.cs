@@ -327,6 +327,15 @@ order by 1";
             }
         }
 
+        public void UpdateUserFromUnsubscribe(UnsubscribeUsersFromEmailCommand command)
+        {
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                unitOfWork.TransactionalFlush();
+            }
+        }
+
 
         public async Task DeleteBoxAsync(DeleteBoxCommand command)
         {
@@ -366,6 +375,13 @@ order by 1";
             {
                 m_CommandBus.Send(command);
                 unitOfWork.TransactionalFlush();
+            }
+        }
+
+        public async Task UpdateUnsubscribeUser()
+        {
+            using (var unitOfWork = UnitOfWork.Start())
+            {
             }
         }
 

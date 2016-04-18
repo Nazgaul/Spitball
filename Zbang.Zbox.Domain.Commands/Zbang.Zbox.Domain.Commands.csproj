@@ -119,6 +119,7 @@
     <Compile Include="Quiz\UpdateQuizCommand.cs" />
     <Compile Include="RateItemCommand.cs" />
     <Compile Include="RequestAccessLibraryNodeCommand.cs" />
+    <Compile Include="UnsubscribeUsersFromEmailCommand.cs" />
     <Compile Include="UpdateNodeSettingsCommand.cs" />
     <Compile Include="AddReputationCommand.cs" />
     <Compile Include="UnFollowBoxCommand.cs" />

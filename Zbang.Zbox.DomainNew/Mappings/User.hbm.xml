@@ -118,4 +118,9 @@
     update User c set c.MobileDevice = :mobileDevice, c.PushNotificationSetting = 1 where c.Id = :userid
     ]]>
   </query>
+  <query name="UpdateUserUnsubscribe">
+    <![CDATA[
+    update User c set c.EmailSendSettings = 2 where c.Email in (:userEmail) and c.EmailSendSettings = 0
+    ]]>
+  </query>
 </hibernate-mapping>

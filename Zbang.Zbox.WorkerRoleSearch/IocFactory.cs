@@ -80,6 +80,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Unity.RegisterType<IJob, UpdateSearchQuiz>(UpdateSearchQuiz);
             Unity.RegisterType<IJob, UpdateSearchUniversity>(UpdateSearchUniversity);
             Unity.RegisterType<IJob, SchdulerListener>(nameof(SchdulerListener));
+            Unity.RegisterType<IJob, UpdateUnsubscribeList>(nameof(UpdateUnsubscribeList));
             Unity.RegisterType<IMailProcess, NoUniversityMailProcess >("universityNotSelected");
             Unity.RegisterType<IMailProcess, NoUniversityMailProcess >("notFollowing");
 

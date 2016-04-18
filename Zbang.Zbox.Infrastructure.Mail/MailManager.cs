@@ -5,7 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -35,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
 
 
-        public async Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters)
+        public async Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters, CancellationToken cancellationToken = default(CancellationToken))
         {
             try
             {
@@ -77,15 +76,15 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         }
 
-        public async Task<IEnumerable<string>> GetUnsubscribesAsync(DateTime startTime, int page)
+        public async Task<IEnumerable<string>> GetUnsubscribesAsync(DateTime startTime, int page, CancellationToken cancellationToken = default(CancellationToken))
         {
             const string apiKey = "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";
 
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            var unixDateTime = (startTime.ToUniversalTime() - epoch).TotalSeconds;
+            var unixDateTime = (long)(startTime.ToUniversalTime() - epoch).TotalSeconds;
 
             var client = new Client(apiKey);
-            var result = await client.Get($"v3/suppression/unsubscribes?limit={500}&offset={page}&start_time={unixDateTime}");
+            var result = await client.Get($"v3/suppression/unsubscribes?limit={500}&offset={500 * page}&start_time={unixDateTime}");
             var data = await result.Content.ReadAsStringAsync();
             var emailArray = JArray.Parse(data);
             return emailArray.Select(s => s["email"].ToString());
@@ -100,7 +99,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
                 using (var client = new HttpClient())
                 {
-                    
+
 
                     var content =
                         new StringContent(string.Empty);

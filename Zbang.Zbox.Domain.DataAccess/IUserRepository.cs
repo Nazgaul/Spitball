@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Enums;
 
@@ -23,5 +24,6 @@ namespace Zbang.Zbox.Domain.DataAccess
         bool IsNotUsedCode(string code, long userId);
         void UpdateUserReputation(int reputation, long userid);
         void RegisterUserNotification(long userid, MobileOperatingSystem os);
+        void UnsubscibeUserFromMail(IEnumerable<string> emails);
     }
 }
