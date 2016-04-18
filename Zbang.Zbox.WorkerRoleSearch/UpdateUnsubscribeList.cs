@@ -24,6 +24,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
+            if (RoleIndexProcessor.GetIndex() != 0)
+            {
+                return;
+            }
             
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -46,6 +50,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
 
             }
+        }
+
+        public void Stop()
+        {
         }
     }
 }

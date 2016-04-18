@@ -44,7 +44,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                         : new System.Globalization.CultureInfo(user.Culture);
 
                     list.Add( m_MailComponent.GenerateAndSendEmailAsync(email,
-                        new NoUniversityMailParams(user.Name, culture)));
+                        new NoUniversityMailParams(user.Name, culture), token));
                 }
                 await Task.WhenAll(list);
                 list.Clear();

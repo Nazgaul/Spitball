@@ -378,13 +378,6 @@ order by 1";
             }
         }
 
-        public async Task UpdateUnsubscribeUser()
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-            }
-        }
-
 
     }
 }

@@ -38,12 +38,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_FileProcessorFactory = fileProcessorFactory;
             m_BlobProvider = blobProvider;
             m_ItemSearchProvider3 = itemSearchProvider3;
-
-           // var cloudStorageAccount = CloudStorageAccount.Parse(
-
-             //       Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("StorageConnectionString"));
-
-            //m_BlobClient = cloudStorageAccount.CreateCloudBlobClient();
         }
 
 
@@ -75,7 +69,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             TraceLog.WriteError("On finish run");
         }
-        int m_Interval = MinInterval;
+
+        public void Stop()
+        {
+        }
+
+        private int m_Interval = MinInterval;
         private const int MinInterval = 5;
         private const int MaxInterval = 240;
         private async Task SleepAndIncreaseInterval(CancellationToken cancellationToken)

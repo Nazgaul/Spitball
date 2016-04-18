@@ -66,5 +66,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
 
         }
+
+        public void Stop()
+        {
+        }
     }
 }

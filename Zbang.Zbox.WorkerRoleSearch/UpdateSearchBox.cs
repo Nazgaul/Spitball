@@ -57,6 +57,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             TraceLog.WriteError("On finish run");
         }
+
+        public void Stop()
+        {
+        }
+
         int m_Interval = MinInterval;
         private const int MinInterval = 30;
         private const int MaxInterval = 240;
@@ -72,8 +77,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var updates = await m_ZboxReadService.GetBoxDirtyUpdates(instanceId, instanceCount, 100);
             if (updates.BoxesToUpdate.Any() || updates.BoxesToDelete.Any())
             {
-                TraceLog.WriteInfo(PrefixLog, string.Format("box updating {0} deleting {1}", updates.BoxesToUpdate.Count(),
-                    updates.BoxesToDelete.Count()));
+                TraceLog.WriteInfo(PrefixLog,
+                    $"box updating {updates.BoxesToUpdate.Count()} deleting {updates.BoxesToDelete.Count()}");
                 var isSuccess =
                     await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete);
                 if (isSuccess)
