@@ -411,13 +411,12 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                     $"{Sql.Box.GetBoxComments} {Sql.Box.GetLastReplyOfComment} {Sql.Box.GetItemsForCommentsAndLastReply} {Sql.Box.GetQuizzesForCommentsAndLastReply}",
                     new { query.BoxId, query.PageNumber, query.RowsPerPage, query.TimeStamp }))
                 {
-                    var comments = grid.Read<Qna.CommentDto>();
+                    var comments = grid.Read<Qna.CommentDto>().ToList();
                     var replies = grid.Read<Qna.ReplyDto>().ToDictionary(x => x.QuestionId);
                     var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToLookup(c => c.QuestionId ?? c.AnswerId);
 
                     foreach (var reply in replies)
                     {
-
                         reply.Value.Files.AddRange(items[reply.Value.Id]);
                     }
                     foreach (var comment in comments)

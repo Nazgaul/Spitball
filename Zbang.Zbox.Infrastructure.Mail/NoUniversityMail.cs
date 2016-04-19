@@ -37,16 +37,14 @@ namespace Zbang.Zbox.Infrastructure.Mail
     {
         public void GenerateMail(ISendGrid message, MailParameters parameters)
         {
-            var noUniversityMailParams = parameters as NoUniversityMailParams;
-            if (noUniversityMailParams == null)
+            var mailParams = parameters as NoFollowingBoxMailParams;
+            if (mailParams == null)
             {
-                throw new NullReferenceException(nameof(noUniversityMailParams));
+                throw new NullReferenceException(nameof(NoFollowingBoxMailParams));
             }
-
-
             message.SetCategory("No Follow Box");
             var html = LoadMailTempate.LoadMailFromContentWithDot(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
-            html.Replace("{name}", noUniversityMailParams.Name);
+            html.Replace("{name}", mailParams.Name);
             html.Replace("{body}", EmailResource.NoFollowBoxText.Replace("\n", "<br><br>"));
 
             message.Html = html.ToString();
