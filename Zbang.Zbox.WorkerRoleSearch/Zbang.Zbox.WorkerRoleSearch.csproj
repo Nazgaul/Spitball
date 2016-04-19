@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IJob.cs" />
+    <Compile Include="Mail\BaseMarketingMailProcess.cs" />
     <Compile Include="Mail\IMailProcess.cs" />
     <Compile Include="Mail\NoFollowClassMailProcess.cs" />
     <Compile Include="Mail\NoUniversityMailProcess.cs" />

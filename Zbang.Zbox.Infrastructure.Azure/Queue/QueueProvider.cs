@@ -126,7 +126,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         public Task UpdateMessageAsync(QueueName queueName, CloudQueueMessage msg)
         {
             var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
-            return queue.UpdateMessageAsync(msg, TimeSpan.FromMinutes(30),
+            return queue.UpdateMessageAsync(msg, TimeSpan.FromMinutes(15),
                 MessageUpdateFields.Content | MessageUpdateFields.Visibility);
         }
 

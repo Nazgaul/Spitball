@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Zbang.Zbox.ViewModel.Queries.Emails
 {
-    public class UserWithoutUniversityQuery : IPagedQuery
+    public class MarketingQuery : IPagedQuery
     {
-        public UserWithoutUniversityQuery(int pageNumber, int rowsPerPage)
+        public MarketingQuery(int pageNumber, int rowsPerPage)
         {
             PageNumber = pageNumber;
             RowsPerPage = rowsPerPage;

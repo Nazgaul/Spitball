@@ -62,6 +62,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         m_Interval = MinInterval;
                     }
                 }
+                catch (TaskCanceledException)
+                {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
+                  
+                }
                 catch (Exception ex)
                 {
                     TraceLog.WriteError(ex);
