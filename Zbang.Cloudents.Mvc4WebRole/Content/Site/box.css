@@ -214,6 +214,11 @@
     max-width: 400px !important;
   }
 }
+@media (max-width: 600px) {
+  .right-side-area > div {
+    margin: -8px;
+  }
+}
 .right-side-area.flex {
   padding: 0;
 }

@@ -69,7 +69,7 @@
             });
             return dfd.promise;
         }
-        function get(url, data, ttl) {
+        function get(url, data, ttl, disableCancel) {
             var dfd = $q.defer(),
                 startTime = new Date().getTime();
 
@@ -82,9 +82,10 @@
                 cancelObjs[url].resolve();
             }
 
-            cancelObjs[url] = $q.defer();
-            getObj.timeout = cancelObjs[url].promise;
-
+            if (!disableCancel) {
+                cancelObjs[url] = $q.defer();
+                getObj.timeout = cancelObjs[url].promise;
+            }
             ttl = ttl || 45000;
             getObj.cache = getCache(ttl);
 
