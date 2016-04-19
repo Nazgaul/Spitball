@@ -127,11 +127,12 @@
     }
 }
 
-.box-title h1 {
+.page-title.box-title h1 {
     line-height: 29px;
     max-height: 58px;
     -ms-word-break: break-word;
     word-break: break-word;
+    font-weight: bold;
 }
 
 .folders {
@@ -282,15 +283,24 @@
 
 
 .right-side-area {
-    &.flex{
-    padding: 0;
+    @media(min-width: 960px) {
+        max-width: 400px !important;
     }
+
+    &.flex {
+        padding: 0;
+    }
+
     .leaderboard-container {
         display: flex;
 
         .leaderboard {
             width: 100%;
         }
+    }
+
+    .recomanded {
+        padding: 0 !important;
     }
 }
 
@@ -713,6 +723,7 @@ md-tabs.box-nav-bar md-tabs-wrapper {
     }
 
     .file-upload {
+        color: @textColorDarkGrey;
         text-align: center;
         width: 115px;
         height: 165px;
@@ -754,6 +765,10 @@ md-tabs.box-nav-bar md-tabs-wrapper {
                 width: 20px;
                 height: 20px;
                 vertical-align: middle;
+
+                &:hover {
+                    fill: @buttonColorBlue;
+                }
             }
         }
 
@@ -762,6 +777,7 @@ md-tabs.box-nav-bar md-tabs-wrapper {
         .file-size {
             font-weight: bold;
             line-height: 20px;
+            color: @textColorBlack;
         }
 
         .file-upload-progress {
@@ -790,6 +806,7 @@ md-tabs.box-nav-bar md-tabs-wrapper {
             border-radius: 5px;
             line-height: 20px;
             margin: 0;
+            color: @textColorWhite;
         }
     }
 }
