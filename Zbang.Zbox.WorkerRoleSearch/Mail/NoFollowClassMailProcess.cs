@@ -27,7 +27,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         protected override MarketingMailParams BuildMarkertingMail(string name, CultureInfo info)
         {
-            throw new NotImplementedException();
+            return new NoFollowingBoxMailParams(name, info);
         }
 
         protected override string ServiceName => "No follow class";

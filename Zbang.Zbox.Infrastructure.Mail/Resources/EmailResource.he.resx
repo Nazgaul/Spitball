@@ -150,4 +150,11 @@
   <data name="NoUniversitySubject" xml:space="preserve">
     <value>בחר את מקום הלימודים שלך</value>
   </data>
+  <data name="NoFollowBoxSubject" xml:space="preserve">
+    <value>מצא את הקורסים שלך</value>
+  </data>
+  <data name="NoFollowBoxText" xml:space="preserve">
+    <value>איזה באסה לגלות ברגע האחרון שמשהו התעדכן בקורס שלך ואתה לא יודע מה. מערך הקורסים בספיטבול גדל , כדי להיות מעודכן במה שקורה בקורס כדאי לעקוב אחרי הקורסים שלך. 
+אם לא מצאת אותם בעבר, יתכן ועכשיו הקורסים שלך נמצאים במערכת. תכנס עכשיו לספיטבול ותחפש אותם. אם אתה לא מוצא אותם תוסיף בקליק אחד.</value>
+  </data>
 </root>
