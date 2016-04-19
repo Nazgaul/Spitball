@@ -125,9 +125,11 @@
   <ItemGroup>
     <Compile Include="IJob.cs" />
     <Compile Include="Mail\BaseMarketingMailProcess.cs" />
+    <Compile Include="Mail\FollowLowActivityCourses.cs" />
     <Compile Include="Mail\IMailProcess.cs" />
     <Compile Include="Mail\NoFollowClassMailProcess.cs" />
     <Compile Include="Mail\NoUniversityMailProcess.cs" />
+    <Compile Include="Mail\UniversityWithLowActivation.cs" />
     <Compile Include="SchdulerListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IocFactory.cs" />

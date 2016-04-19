@@ -1,58 +1,72 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SendGrid;
 using Zbang.Zbox.Infrastructure.Mail.Resources;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
-    public class NoUniversityMail : IMailBuilder
+    public abstract class MarketingMail : IMailBuilder
     {
         public void GenerateMail(ISendGrid message, MailParameters parameters)
         {
-            var noUniversityMailParams = parameters as NoUniversityMailParams;
-            if (noUniversityMailParams == null)
+            var marketingMailParams = parameters as MarketingMailParams;
+            if (marketingMailParams == null)
             {
-                throw new NullReferenceException(nameof(noUniversityMailParams));
+                throw new NullReferenceException(nameof(marketingMailParams));
             }
 
-           
-            message.SetCategory("No University");
+
+            message.SetCategory(CategoryName);
             var html = LoadMailTempate.LoadMailFromContentWithDot(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
-            html.Replace("{name}", noUniversityMailParams.Name);
-            html.Replace("{body}", EmailResource.NoUniversityText.Replace("\n", "<br><br>"));
+            html.Replace("{name}", marketingMailParams.Name);
+            html.Replace("{body}", Text.Replace("\n", "<br><br>"));
 
             message.Html = html.ToString();
         }
+        protected abstract string Text { get; }
+        protected abstract string CategoryName { get; }
+        public abstract void AddSubject(ISendGrid message);
+    }
+    public class NoUniversityMail : MarketingMail
+    {
+       protected override string Text => EmailResource.NoUniversityText;
+        protected override string CategoryName => "No University";
 
-        public void AddSubject(ISendGrid message)
+        public override void AddSubject(ISendGrid message)
         {
             message.Subject = EmailResource.NoUniversitySubject;
         }
     }
 
-    public class NoFollowingBoxMail : IMailBuilder
+    public class NoFollowingBoxMail : MarketingMail
     {
-        public void GenerateMail(ISendGrid message, MailParameters parameters)
-        {
-            var mailParams = parameters as NoFollowingBoxMailParams;
-            if (mailParams == null)
-            {
-                throw new NullReferenceException(nameof(NoFollowingBoxMailParams));
-            }
-            message.SetCategory("No Follow Box");
-            var html = LoadMailTempate.LoadMailFromContentWithDot(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
-            html.Replace("{name}", mailParams.Name);
-            html.Replace("{body}", EmailResource.NoFollowBoxText.Replace("\n", "<br><br>"));
+        protected override string Text => EmailResource.NoFollowBoxText;
+        protected override string CategoryName => "No Follow Box";
 
-            message.Html = html.ToString();
-        }
-
-        public void AddSubject(ISendGrid message)
+        public override void AddSubject(ISendGrid message)
         {
             message.Subject = EmailResource.NoFollowBoxSubject;
         }
     }
+
+    public class UniversityLowActivityMail : MarketingMail
+    {
+        protected override string Text => EmailResource.UniversityLowActivityText;
+        protected override string CategoryName => "university low activity";
+        public override void AddSubject(ISendGrid message)
+        {
+            message.Subject = EmailResource.UniversityLowActivitySubject;
+        }
+    }
+
+    public class LowCoursesActivityMail : MarketingMail
+    {
+        protected override string Text => EmailResource.CoursesLowActivityText;
+        protected override string CategoryName => "courses low activity";
+        public override void AddSubject(ISendGrid message)
+        {
+            message.Subject = EmailResource.CoursesLowActivitySubject;
+        }
+    }
+
+
 }

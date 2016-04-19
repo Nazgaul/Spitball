@@ -70,7 +70,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 progress(page);
 
             }
-            await m_MailComponent.GenerateSystemEmailAsync($"finish to run {ServiceName}");
+            await m_MailComponent.GenerateSystemEmailAsync($"finish to run {ServiceName} with page {page}");
             TraceLog.WriteInfo($"finish running {ServiceName} mail page {index}");
             return true;
 
