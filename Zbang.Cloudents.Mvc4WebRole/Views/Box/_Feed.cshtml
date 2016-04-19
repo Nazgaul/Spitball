@@ -17,7 +17,7 @@
                             <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
                             <span class="user-name">{{::post.userName}}</span>
                         </a>
-                        <span class="comment-date">{{::post.creationTime | date : 'medium'}}</span>
+                        <span class="comment-date">{{::post.creationTime | date : 'MMM d, y h:mm a'}}</span>
                     </div>
                     <md-menu ng-if="b.canDelete(post.userId)">
                         <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
@@ -79,11 +79,11 @@
                             </md-menu-content>
                         </md-menu>
                         <div class="indent info">
-                            <a href="{{::reply.url}}" layout="row" layout-align="start center" class="username" ga-track-event="['box-feed', 'replyUserNameImg']">
+                            <a href="{{::reply.url}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
                                 <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="52" height="52"></user-image>
                                 <span class="user-name">{{::reply.userName}}</span>
                             </a>
-                            <span class="comment-date">{{::reply.creationTime | date : 'medium'}}</span>
+                            <span class="comment-date">{{::reply.creationTime | date : 'MMM d, y h:mm a'}}</span>
                         </div>
                         <div ng-bind-html="::reply.content" class="indent content-text"></div>
                         <div class="items-slider" ng-if="reply.files.length">
@@ -148,7 +148,7 @@
     </div>
     <div class="right-side-area flex" layout-padding flex="100" flex-md="33" flex-lg="30" flex-gt-lg="30">
         <div layout-wrap layout-padding layout="row" layout-align="space-between stretch">
-            <div flex="100" ng-if="b.showLeaderboard" class="flex leaderboard-container">
+            <div flex="100" flex-sm="50" ng-if="b.showLeaderboard" class="flex leaderboard-container">
                 @* ReSharper disable once Mvc.PartialViewNotResolved *@
                 @{ Html.RenderPartial("_LeaderBoard", IndexResources.Best);}
             </div>
@@ -160,9 +160,9 @@
                     </button>
                 </div>
             </div>
-            <div layout="row" layout-padding layout-wrap layout-align="space-between center" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
+            <div class="recomanded" layout="row" layout-padding layout-wrap layout-align="space-between center" flex="100" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
                 @*<div data-ng-dfp-ad="div-gpt-ad-1459076812828-0"></div>*@
-                <div flex="100" flex-gt-md="100" class="flex" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>
+                <div flex="100" flex-gt-md="100"  flex-sm="50" class="flex" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>
             </div>
         </div>
 

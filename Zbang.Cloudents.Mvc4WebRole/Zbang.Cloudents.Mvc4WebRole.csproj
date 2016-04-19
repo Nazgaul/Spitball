@@ -2834,9 +2834,6 @@
     <Content Include="bower_components\textAngular\dist\textAngular.css" />
     <Content Include="bower_components\textAngular\dist\textAngular.js" />
     <Content Include="bower_components\textAngular\dist\textAngular.min.js" />
-    <Content Include="bower_components\textAngular\dist\textAngular.rtl.css">
-      <DependentUpon>textAngular.css</DependentUpon>
-    </Content>
     <Content Include="bower_components\textAngular\dist\textAngularSetup.js" />
     <Content Include="bower_components\textAngular\karma-jqlite.conf.js" />
     <Content Include="bower_components\textAngular\karma-jquery.conf.js" />
@@ -3870,8 +3867,6 @@
     <Content Include="Scripts\angular-countUp.js" />
     <Content Include="Scripts\angular-google-adsense.js" />
     <Content Include="Scripts\angular-srph-infinite-scroll.js" />
-    <Content Include="Scripts\angular-ui-router.js" />
-    <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\browser-deeplink.js" />
     <Content Include="Scripts\browser-deeplink.min.js" />
     <Content Include="Scripts\CountUp.js" />

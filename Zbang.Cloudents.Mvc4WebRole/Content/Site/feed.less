@@ -6,8 +6,15 @@
 .feed {
     font-size: 16px;
     line-height: 1;
-    padding: 8px 16px 0 0 !important;
+    padding: 8px !important;
 
+    @media(max-width: 600px) {
+        padding: 0 0 8px 0 !important;
+    }
+
+    .userblock img {
+        border: 1px solid @feedActionsBackground;
+    }
 
     .dots-3 {
         fill: @textColorGrey;
@@ -67,7 +74,7 @@
     }
 
     .items-container {
-        margin: 0 50px 10px;
+        margin: 0 0 10px @userImageIndent+5;
         direction: ltr /*rtl:ignore*/;
 
         .feed-item {
@@ -117,7 +124,6 @@
         overflow: hidden;
 
         a img.c-img {
-            border: none;
             background: none;
         }
 
@@ -138,7 +144,7 @@
                 min-height: 80px;
 
                 textarea {
-                    min-height: 96px;
+                    min-height: 50px;
                     background: none;
                     width: 100%;
                     border: none;
@@ -148,6 +154,10 @@
                     &:focus {
                         color: @backgroundColorMouseOver;
                     }
+                }
+
+                .file-upload-area {
+                    padding: 0;
                 }
 
                 .md-input-container {
@@ -235,6 +245,10 @@
         .anonymous {
             width: 35px;
             height: 35px;
+
+            &:hover {
+                fill: #d39f10;
+            }
         }
 
         &.new-post {
@@ -328,15 +342,15 @@
         }
 
         .post-comment {
-            padding: 8px;
+            padding: 10px;
             border-radius: 100%;
             margin-top: -40px;
             line-height: normal;
             margin-right: 8px;
 
             svg {
-                width: 26px;
-                height: 26px;
+                width: 22px;
+                height: 22px;
             }
         }
     }
@@ -405,11 +419,12 @@
     }
 
     .replies {
-        padding: 15px 15px 10px 15px;
+        padding: 15px 15px 0 15px;
     }
 
     .comments-wrapper, .add-comment .user-comment {
         background: #fff;
+        padding: 10px 10px 10px 15px;
     }
 
     .post {
@@ -421,10 +436,6 @@
             padding-left: @userImageIndent;
             overflow: hidden;
             color: @textColorBlack;
-        }
-
-        .comments-wrapper {
-            padding: 10px 10px 10px 15px;
         }
     }
 
@@ -444,7 +455,7 @@
         word-break: break-word;
         white-space: pre-wrap;
         color: @backgroundColor;
-        margin: 10px 10px 10px @userImageIndent;
+        margin: 0 10px 10px @userImageIndent;
 
         img {
             max-width: 100%;
@@ -472,7 +483,7 @@
 
             .reply-actions {
                 padding: 8px 5px;
-                background: #D7DDE0;
+                background: @feedActionsBackground;
             }
         }
     }

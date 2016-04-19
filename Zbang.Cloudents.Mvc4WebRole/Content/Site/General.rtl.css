@@ -896,6 +896,11 @@ html {
   margin-top: 75px;
   padding: 0 10px;
 }
+@media (max-width: 600px) {
+  .page-body {
+    padding: 0 5px;
+  }
+}
 @media (min-width: 960px) {
   .page-body {
     margin-right: 250px;

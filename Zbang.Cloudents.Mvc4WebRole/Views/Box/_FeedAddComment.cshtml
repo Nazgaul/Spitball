@@ -6,7 +6,7 @@
 <form class="add-comment new-post" ng-submit="f.add.createComment()">
     <div class="user-comment" layout="row">
         <div class="top" flex-none>
-            <a href="{{::b.user.url}}" user-not-register-popup="click" class="username" ga-track-event="['box-feed', 'userNameImage']">
+            <a href="{{::b.user.url}}" user-not-register-popup="click" class="username userblock" ga-track-event="['box-feed', 'userNameImage']">
                 <user-image class="img-circle c-img" name="b.user.name" image="b.user.image" width="52" height="52" noremove="true"></user-image>
             </a>
         </div>
@@ -24,7 +24,7 @@
             <a user-not-register-popup="click" plupload="f.add.fileUpload.url" ng-click="f.add.upload()"
                plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks"
                ga-track-event="['box-new-commnet', 'addFile']">
-                @Html.Svg(url, "file", new { @class = "file color-override hoverSvgColor2" })
+                @Html.Svg(url, "file", new { @class = "file color-override hoverSvgTC2" })
             </a>
             <button user-not-register-popup="click" type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()" ga-track-event="['box-new-commnet', 'googleDrive']">
                 @Html.Svg(url, "googleDrive")

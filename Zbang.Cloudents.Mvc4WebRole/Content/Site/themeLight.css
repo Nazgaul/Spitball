@@ -532,7 +532,6 @@ Page Loading
 }
 .theme-light .add-comment.new-post .top img {
   background: #ffffff;
-  border: 3px solid #ffffff;
 }
 .theme-light .add-comment.new-post .new-comment-border ::-webkit-input-placeholder {
   color: #888b8e;
@@ -644,7 +643,6 @@ Page Loading
 }
 .theme-light .file-upload-area .file-upload,
 .theme-light .reply-wrapper .file-upload {
-  color: #ffffff;
   background: #f9f9f9;
 }
 .theme-light .file-upload-area .file-upload .btn,
@@ -671,7 +669,6 @@ Page Loading
 .theme-light .file-upload-area .file-upload button,
 .theme-light .reply-wrapper .file-upload button {
   background-color: #db4437;
-  color: #212325;
 }
 .theme-light body {
   color: #212325;
@@ -2060,6 +2057,10 @@ Page Loading
 }
 .theme-light .page-title > h1 {
   color: #484F56;
+}
+.theme-light .box-nav-bar md-next-button svg,
+.theme-light .box-nav-bar md-prev-button svg {
+  fill: #ffffff;
 }
 @media (min-width: 600px) {
   .theme-light .library-choose .add-univeristy {
