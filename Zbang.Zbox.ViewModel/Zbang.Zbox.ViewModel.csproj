@@ -71,7 +71,7 @@
     <Compile Include="Dto\ActivityDtos\AnnotationDto.cs" />
     <Compile Include="Dto\ActivityDtos\AnnotationReplyDto.cs" />
     <Compile Include="Dto\BoxSecurityDto.cs" />
-    <Compile Include="Dto\Emails\UserWithNoUniversityDto.cs" />
+    <Compile Include="Dto\Emails\MarketingDto.cs" />
     <Compile Include="Dto\HomePageDataDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxDto2.cs" />
     <Compile Include="Dto\BoxDtos\BoxNotificationDto.cs" />
@@ -151,7 +151,7 @@
     <Compile Include="Queries\Emails\GetItemsLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetMembersLastUpdateQuery.cs" />
     <Compile Include="Queries\Emails\GetUserByNotificationQuery.cs" />
-    <Compile Include="Queries\Emails\UserWithoutUniversityQuery.cs" />
+    <Compile Include="Queries\Emails\MarketingQuery.cs" />
     <Compile Include="Queries\GetBoxQuizesPagedQuery.cs" />
     <Compile Include="Queries\GetBoxSeoQuery.cs" />
     <Compile Include="Queries\GetBoxSideBarQuery.cs" />

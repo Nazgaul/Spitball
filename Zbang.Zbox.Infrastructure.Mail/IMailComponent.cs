@@ -14,5 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         Task DeleteUnsubscribeAsync(string email);
 
         Task<IEnumerable<string>> GetUnsubscribesAsync(DateTime startTime, int page, CancellationToken cancellationToken = default(CancellationToken));
+
+        Task GenerateSystemEmailAsync(string text);
     }
 }

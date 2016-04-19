@@ -115,6 +115,26 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
         }
 
+        public async Task GenerateSystemEmailAsync(string text)
+        {
+            var sendGridMail = new SendGridMessage
+            {
+                From = new MailAddress("no-reply@spitball.co", "spitball system"),
+                Text = text,
+                Subject = "system notification"
+            };
+
+            //var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
+            //mail.AddSubject(sendGridMail);
+            //mail.GenerateMail(sendGridMail, parameters);
+
+
+
+            //sendGridMail.AddTo("yaari.ram@gmail.com");
+            sendGridMail.AddTo("ram@cloudents.com");
+            await SendAsync(sendGridMail);
+        }
+
 
 
         //public async Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, MailParameters parameters)

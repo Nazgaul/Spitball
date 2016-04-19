@@ -32,7 +32,10 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        Task<IEnumerable<UserWithNoUniversityDto>> GetUsersWithoutUniversityAsync(UserWithoutUniversityQuery query,
+        Task<IEnumerable<MarketingDto>> GetUsersWithoutUniversityAsync(MarketingQuery query,
+            CancellationToken token);
+
+        Task<IEnumerable<MarketingDto>> GetUsersWithUniversityWithoutSubscribedBoxesAsync(MarketingQuery query,
             CancellationToken token);
     }
 }

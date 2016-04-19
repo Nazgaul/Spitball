@@ -50,8 +50,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         {
 
                             var t = (int?)propery;
-                            //messageContent
-                            // var namedjob = sep(job);
                             var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>(propery.Name);
                             if (process != null)
                             {
@@ -73,14 +71,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         await Task.WhenAll(list);
 
                         return false;
-                    }, TimeSpan.FromMinutes(30), int.MaxValue);
+                    }, TimeSpan.FromMinutes(15), int.MaxValue);
+                }
+                catch (TaskCanceledException)
+                {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
                 }
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("on SchdulerListener", ex);
                 }
                 TraceLog.WriteInfo("schduler lister going to sleep");
-                await Task.Delay(TimeSpan.FromHours(1), cancellationToken);
+                await Task.Delay(TimeSpan.FromMinutes(30), cancellationToken);
 
             }
 

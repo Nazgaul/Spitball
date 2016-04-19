@@ -296,7 +296,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public async Task<IEnumerable<UserWithNoUniversityDto>> GetUsersWithoutUniversityAsync(UserWithoutUniversityQuery query,
+        public async Task<IEnumerable<MarketingDto>> GetUsersWithoutUniversityAsync(MarketingQuery query,
             CancellationToken token)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token))
@@ -305,11 +305,33 @@ namespace Zbang.Zbox.ReadServices
 where UniversityId is null
 and EmailSendSettings = 0
 and (creationtime>'2015' or [LastAccessTime] >'2015')
+and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
+and creationtime < dateadd(HOUR,-2,GETUTCDATE())
 order by userid
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY";
-                return await conn.QueryAsync<UserWithNoUniversityDto>(sql, new {query.RowsPerPage, query.PageNumber});
+                return await conn.QueryAsync<MarketingDto>(sql, new {query.RowsPerPage, query.PageNumber});
             }
         }
+
+        public async Task<IEnumerable<MarketingDto>> GetUsersWithUniversityWithoutSubscribedBoxesAsync(MarketingQuery query,
+            CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            {
+                const string sql = @"select email,Culture,UserName as Name from zbox.users u
+where universityid is not null
+and not exists (select userid from zbox.userboxrel ub where ub.userid = u.userid)
+and EmailSendSettings = 0
+and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
+and (creationtime>'2015' or [LastAccessTime] >'2015') 
+and creationtime < dateadd(HOUR,-2,GETUTCDATE())
+order by userid
+offset @PageNumber*@RowsPerPage ROWS
+FETCH NEXT @RowsPerPage ROWS ONLY";
+                return await conn.QueryAsync<MarketingDto>(sql, new { query.RowsPerPage, query.PageNumber });
+            }
+        }
+
     }
 }
