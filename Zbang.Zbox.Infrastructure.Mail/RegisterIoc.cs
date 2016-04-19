@@ -20,6 +20,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             ioc.RegisterType<IMailBuilder, DepartmentRequestAccessMail>(MailParameters.DepartmentRequestAccessResolver, LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, DepartmentApprovedAccessMail>(MailParameters.DepartmentRequestApprovedResolver, LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, NoUniversityMail>(nameof(NoUniversityMailParams), LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IMailBuilder, NoFollowingBoxMail>(nameof(NoFollowingBoxMailParams), LifeTimeManager.PerHttpRequest);
 
         }
     }

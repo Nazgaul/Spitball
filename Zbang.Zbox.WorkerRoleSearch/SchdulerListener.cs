@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
                         var messageContent = JObject.Parse(message.Message);
                         var properties = messageContent.Properties();
-                        var list = new List<Task>();
+                        var list = new List<Task<bool>>();
                         foreach (var propery in properties)
                         {
 
@@ -69,8 +70,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                         }
                         await Task.WhenAll(list);
-
-                        return false;
+                        return list.All(a => a.Result);
+                        
                     }, TimeSpan.FromMinutes(15), int.MaxValue);
                 }
                 catch (TaskCanceledException)

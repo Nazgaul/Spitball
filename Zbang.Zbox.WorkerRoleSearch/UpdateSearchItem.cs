@@ -265,7 +265,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                 });
                 work.Start();
-                Boolean signal = wait.WaitOne(m_TimeToWait);
+                bool signal = wait.WaitOne(m_TimeToWait);
                 if (!signal)
                 {
                     work.Abort();

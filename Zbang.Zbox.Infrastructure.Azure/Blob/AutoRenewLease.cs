@@ -11,13 +11,59 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
     public class AutoRenewLease : IDisposable
     {
-        public bool HasLease { get { return leaseId != null; } }
 
-        AccessCondition _accessCondition;
-        private CloudBlockBlob blob;
-        private string leaseId;
-        private Thread renewalThread;
-        private bool disposed = false;
+
+        public bool HasLease => m_LeaseId != null;
+
+        readonly AccessCondition m_AccessCondition;
+        private readonly CloudBlockBlob m_Blob;
+        private readonly string m_LeaseId;
+        private Thread m_RenewalThread;
+        private bool m_Disposed;
+
+
+        public AutoRenewLease(CloudBlockBlob blob)
+        {
+            m_Blob = blob;
+            blob.Container.CreateIfNotExists();
+            try
+            {
+                if (!blob.Exists())
+                {
+                    blob.UploadFromByteArray(new byte[0], 0, 0, AccessCondition.GenerateIfNoneMatchCondition("*"));// new BlobRequestOptions { AccessCondition = AccessCondition.IfNoneMatch("*") });
+                }
+            }
+            catch (StorageException e)
+            {
+                if (e.RequestInformation.HttpStatusCode != (int)HttpStatusCode.PreconditionFailed // 412 from trying to modify a blob that's leased
+                    && e.RequestInformation.ExtendedErrorInformation.ErrorCode != BlobErrorCodeStrings.BlobAlreadyExists
+                    )
+                {
+                    throw;
+                }
+            }
+            try
+            {
+                m_LeaseId = blob.AcquireLease(TimeSpan.FromSeconds(60), null);
+                m_AccessCondition = new AccessCondition { LeaseId = m_LeaseId };
+            }
+            catch (Exception)
+            {
+                System.Diagnostics.Trace.WriteLine("==========> Lease rejected! <==========");
+            }
+
+            if (!HasLease) return;
+            m_RenewalThread = new Thread(() =>
+            {
+                while (true)
+                {
+                    Thread.Sleep(TimeSpan.FromSeconds(40));
+                    var ac = new AccessCondition {LeaseId = m_LeaseId};
+                    blob.RenewLease(ac);//.RenewLease(leaseId);
+                }
+            });
+            m_RenewalThread.Start();
+        }
 
         public static void DoOnce(CloudBlockBlob blob, Action action) { DoOnce(blob, action, TimeSpan.FromSeconds(5)); }
         public static void DoOnce(CloudBlockBlob blob, Action action, TimeSpan pollingFrequency)
@@ -31,8 +77,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                     {
                         action();
                         blob.Metadata["progress"] = "done";
-                        AccessCondition ac = new AccessCondition();
-                        ac.LeaseId = arl.leaseId;
+                        AccessCondition ac = new AccessCondition {LeaseId = arl.m_LeaseId};
                         blob.SetMetadata(ac);
                     }
                     else
@@ -97,7 +142,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                             lastPerformed = DateTimeOffset.UtcNow;
                             blob.Metadata["lastPerformed"] = lastPerformed.ToString("R");
                             AccessCondition ac = new AccessCondition();
-                            ac.LeaseId = arl.leaseId;
+                            ac.LeaseId = arl.m_LeaseId;
                             blob.SetMetadata(ac);
                         }
                     }
@@ -111,51 +156,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             }
         }
 
-        public AutoRenewLease(CloudBlockBlob blob)
-        {
-            this.blob = blob;
-            blob.Container.CreateIfNotExists();
-            try
-            {
-                if (!blob.Exists())
-                {
-                    blob.UploadFromByteArray(new byte[0], 0, 0, AccessCondition.GenerateIfNoneMatchCondition("*"));// new BlobRequestOptions { AccessCondition = AccessCondition.IfNoneMatch("*") });
-                }
-            }
-            catch (StorageException e)
-            {
-                if (e.RequestInformation.HttpStatusCode != (int)HttpStatusCode.PreconditionFailed // 412 from trying to modify a blob that's leased
-                    && e.RequestInformation.ExtendedErrorInformation.ErrorCode != BlobErrorCodeStrings.BlobAlreadyExists
-                    )
-                {
-                    throw;
-                }
-            }
-            try
-            {
-                leaseId = blob.AcquireLease(TimeSpan.FromSeconds(60), null);
-                _accessCondition = new AccessCondition { LeaseId = leaseId };
-            }
-            catch (Exception)
-            {
-                System.Diagnostics.Trace.WriteLine("==========> Lease rejected! <==========");
-            }
-
-            if (HasLease)
-            {
-                renewalThread = new Thread(() =>
-                {
-                    while (true)
-                    {
-                        Thread.Sleep(TimeSpan.FromSeconds(40));
-                        var ac = new AccessCondition();
-                        ac.LeaseId = leaseId;
-                        blob.RenewLease(ac);//.RenewLease(leaseId);
-                    }
-                });
-                renewalThread.Start();
-            }
-        }
+        
 
         public void Dispose()
         {
@@ -165,18 +166,18 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (!m_Disposed)
             {
                 if (disposing)
                 {
-                    if (renewalThread != null)
+                    if (m_RenewalThread != null)
                     {
-                        renewalThread.Abort();
-                        blob.ReleaseLease(_accessCondition);
-                        renewalThread = null;
+                        m_RenewalThread.Abort();
+                        m_Blob.ReleaseLease(m_AccessCondition);
+                        m_RenewalThread = null;
                     }
                 }
-                disposed = true;
+                m_Disposed = true;
             }
         }
 
