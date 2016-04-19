@@ -298,6 +298,11 @@
   height: 22px;
   fill: #777471;
 }
+.feed .actions .btn[disabled],
+.feed .reply-actions .btn[disabled] {
+  background: #888b8e !important;
+  opacity: 1;
+}
 .feed .actions .post-comment,
 .feed .reply-actions .post-comment {
   padding: 10px;

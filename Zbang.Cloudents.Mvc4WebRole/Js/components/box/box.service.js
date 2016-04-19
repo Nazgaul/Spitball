@@ -8,7 +8,7 @@
             return ajaxservice.get('/box/data/', { id: boxid });
         };
         d.getFeed = function (boxid, page, timestamp) {
-            return ajaxservice.get('/qna/', { id: boxid, page: page, timestamp: timestamp });
+            return ajaxservice.get('/qna/', { id: boxid, page: page, timestamp: timestamp }, null, true);
         };
         d.getReplies = function(boxid, commentId) {
             return ajaxservice.get('/qna/replies/', { boxid: boxid, id: commentId});

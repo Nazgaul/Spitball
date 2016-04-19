@@ -423,7 +423,10 @@ userName: "ram y"*/
                         file.sizeFormated = plupload.formatSize(file.size);
                         file.complete = false;
                         file.postId = postId;
-                        file.remove = function () { removeFile(file, uploader); }
+                        file.remove = function () {
+                            removeFile(file, uploader);
+                            self.add.disabled = false;
+                        }
                         self.add.files.push(file);
                     }
                     $timeout(function () {
