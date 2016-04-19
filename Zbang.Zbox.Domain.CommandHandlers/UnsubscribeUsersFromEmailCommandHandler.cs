@@ -20,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(UnsubscribeUsersFromEmailCommand message)
         {
-            m_UserRepository.UnsubscibeUserFromMail(message.Emails);
+            m_UserRepository.UnsubscibeUserFromMail(message.Emails,message.Type);
         }
     }
 }

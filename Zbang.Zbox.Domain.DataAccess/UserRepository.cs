@@ -90,9 +90,10 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .ExecuteUpdate();
         }
 
-        public void UnsubscibeUserFromMail(IEnumerable<string> emails)
+        public void UnsubscibeUserFromMail(IEnumerable<string> emails, EmailSend type)
         {
             var x = UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserUnsubscribe")
+                .SetEnum("emailSettings",type)
                 .SetParameterList("userEmail", emails)
                 .ExecuteUpdate();
         }

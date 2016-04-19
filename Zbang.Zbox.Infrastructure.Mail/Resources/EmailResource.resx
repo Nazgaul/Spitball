@@ -148,7 +148,15 @@ you are enrolled in.
 From there, you can message your classmates directly with questions on homework, share and compare uploaded notes, create quizzes and more! 
 Log in to pick your school and find your courses now!</value>
   </data>
+  <data name="NoFollowBoxText" xml:space="preserve">
+    <value>Spitball’s course listing is always expanding and open to everyone. 
+Search for courses made by your classmates to start sharing notes and quizzes. 
+If you can’t find your course, make Spitball that much more useful by creating it!</value>
+  </data>
   <data name="NoUniversitySubject" xml:space="preserve">
     <value>Selecting Your School</value>
+  </data>
+  <data name="NoFollowBoxSubject" xml:space="preserve">
+    <value>Find your courses</value>
   </data>
 </root>

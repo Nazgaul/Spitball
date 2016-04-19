@@ -38,6 +38,7 @@ namespace Zbang.Zbox.Infrastructure.Enums
         CanSend = 0,
         Bounce = 1,
         Unsubscribe = 2,
-        NoSend = 4
+        NoSend = 4,
+        Invalid = 8
     }
 }

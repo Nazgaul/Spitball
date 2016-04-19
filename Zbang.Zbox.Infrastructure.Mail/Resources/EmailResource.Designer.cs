@@ -106,6 +106,26 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Find your courses.
+        /// </summary>
+        internal static string NoFollowBoxSubject {
+            get {
+                return ResourceManager.GetString("NoFollowBoxSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spitball’s course listing is always expanding and open to everyone. 
+        ///Search for courses made by your classmates to start sharing notes and quizzes. 
+        ///If you can’t find your course, make Spitball that much more useful by creating it!.
+        /// </summary>
+        internal static string NoFollowBoxText {
+            get {
+                return ResourceManager.GetString("NoFollowBoxText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecting Your School.
         /// </summary>
         internal static string NoUniversitySubject {

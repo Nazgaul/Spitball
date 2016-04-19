@@ -53,13 +53,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 //sendGridMail.AddTo("yaari.ram@gmail.com");
 
                 sendGridMail.AddTo(recipient);
-                var embarkeData = new Dictionary<string, string>
-                {
-                    {"embarkeAppId", "3f61a514-0610-412e-9024-b4eb5670eb9d"},
-                    {"embarkeMsgId", Guid.NewGuid().ToString()}
-                };
+                //var embarkeData = new Dictionary<string, string>
+                //{
+                //    {"embarkeAppId", "3f61a514-0610-412e-9024-b4eb5670eb9d"},
+                //    {"embarkeMsgId", Guid.NewGuid().ToString()}
+                //};
 
-                sendGridMail.AddUniqueArgs(embarkeData);
+                //sendGridMail.AddUniqueArgs(embarkeData);
 
                 sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
                 sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
@@ -76,7 +76,20 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         }
 
-        public async Task<IEnumerable<string>> GetUnsubscribesAsync(DateTime startTime, int page, CancellationToken cancellationToken = default(CancellationToken))
+        public Task<IEnumerable<string>> GetUnsubscribesAsync(DateTime startTime, int page, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return GetEmailListFromApiCallAsync("v3/suppression/unsubscribes", startTime, page, cancellationToken);
+        }
+
+        public Task<IEnumerable<string>> GetInvalidEmailsAsync(DateTime startTime, int page,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return GetEmailListFromApiCallAsync("v3/suppression/invalid_emails", startTime, page, cancellationToken);
+
+        }
+
+        private async Task<IEnumerable<string>> GetEmailListFromApiCallAsync(string requestUrl, DateTime startTime, int page,
+            CancellationToken cancellationToken = default(CancellationToken))
         {
             const string apiKey = "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";
 
@@ -84,12 +97,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
             var unixDateTime = (long)(startTime.ToUniversalTime() - epoch).TotalSeconds;
 
             var client = new Client(apiKey);
-            var result = await client.Get($"v3/suppression/unsubscribes?limit={500}&offset={500 * page}&start_time={unixDateTime}");
+            var result = await client.Get($"{requestUrl}?limit={500}&offset={500 * page}&start_time={unixDateTime}");
             var data = await result.Content.ReadAsStringAsync();
             var emailArray = JArray.Parse(data);
             return emailArray.Select(s => s["email"].ToString());
-
-
         }
 
         public async Task DeleteUnsubscribeAsync(string email)

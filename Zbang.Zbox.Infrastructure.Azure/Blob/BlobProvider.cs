@@ -177,6 +177,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob;
         }
 
+        public CloudBlockBlob GetFile(string blobName, string containerName)
+        {
+            return BlobClient.GetContainerReference(containerName.ToLower()).GetBlockBlobReference(blobName);
+        }
+
         public async Task<IDictionary<string, string>> FetechBlobMetaDataAsync(string blobName)
         {
             var blob = GetFile(blobName);

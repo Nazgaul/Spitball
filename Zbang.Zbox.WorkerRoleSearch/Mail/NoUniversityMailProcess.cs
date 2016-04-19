@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Mail;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Queries.Emails;
@@ -59,9 +55,9 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 //            return true;
 
 //        }
-        protected override async Task<IEnumerable<MarketingDto>> GetDataAsync(MarketingQuery query, CancellationToken token)
+        protected override Task<IEnumerable<MarketingDto>> GetDataAsync(MarketingQuery query, CancellationToken token)
         {
-            return await m_ZboxReadService.GetUsersWithoutUniversityAsync(query, token);
+            return m_ZboxReadService.GetUsersWithoutUniversityAsync(query, token);
         }
 
         protected override MarketingMailParams BuildMarkertingMail(string name, CultureInfo info)
