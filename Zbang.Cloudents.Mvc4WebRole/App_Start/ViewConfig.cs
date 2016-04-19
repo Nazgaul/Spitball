@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using StackExchange.Profiling.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 
 namespace Zbang.Cloudents.Mvc4WebRole
@@ -32,11 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             
             razorViewEngine.PartialViewLocationFormats = 
                 razorViewEngine.PartialViewLocationFormats.Union(customPartialLocation).ToArray();
-#if DEBUG
-            ViewEngines.Engines.Add(new ProfilingViewEngine(razorViewEngine));
-#else
             ViewEngines.Engines.Add(razorViewEngine);
-#endif
         }
     }
 

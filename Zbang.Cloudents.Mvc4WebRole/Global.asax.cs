@@ -4,11 +4,9 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using StackExchange.Profiling;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 
 //using Microsoft.AspNet.SignalR.ServiceBus;
 
@@ -45,16 +43,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
             System.Web.Helpers.AntiForgeryConfig.SuppressIdentityHeuristicChecks = true;
             MvcHandler.DisableMvcResponseHeader = true;
 
-            MiniProfiler.Settings.Results_Authorize = IsUserAllowedToSeeMiniProfilerUI;
         }
 
-        private bool IsUserAllowedToSeeMiniProfilerUI(HttpRequest httpRequest)
-        {
-            // Implement your own logic for who 
-            // should be able to access ~/mini-profiler-resources/results
-            var principal = httpRequest.RequestContext.HttpContext.User;
-            return principal.GetUserId(false) == 1;
-        }
+       
 
         protected void Application_End()
         {
@@ -63,16 +54,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         protected void Application_BeginRequest()
         {
-            if (Request.IsLocal)
-            {
-                MiniProfiler.Start();
+            
 
-                
-            }
+            
         }
         protected void Application_EndRequest()
         {
-            MiniProfiler.Stop();
         }
         ////for output cache
         //protected void Application_AcquireRequestState()
