@@ -67,6 +67,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 await Task.WhenAll(list);
                 list.Clear();
                 page++;
+                if (RoleEnvironment.IsEmulated)
+                {
+                    needToContinueRun = false;
+                }
                 progress(page);
 
             }
