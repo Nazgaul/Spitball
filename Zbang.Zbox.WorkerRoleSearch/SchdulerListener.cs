@@ -38,7 +38,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var queueName = new SchedulerQueueName();
                     await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
-                        TraceLog.WriteInfo("schduler lister message" + msg.AsString);
+                        TraceLog.WriteInfo($"schduler lister message  {msg.AsString}");
                         StorageQueueMessage message;
                         using (var xmlstream = new MemoryStream(Encoding.Unicode.GetBytes(msg.AsString)))
                         {
@@ -70,8 +70,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                         }
                         await Task.WhenAll(list);
-                        return list.All(a => a.Result);
-                        
+                        var result =  list.All(a => a.Result);
+                        TraceLog.WriteInfo($"schduler lister delete message: {result}");
+                        return result;
+
                     }, TimeSpan.FromMinutes(15), int.MaxValue);
                 }
                 catch (TaskCanceledException)

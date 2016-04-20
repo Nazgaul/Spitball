@@ -3,9 +3,9 @@
 
     angular.module('app').config(config);
 
-    config.$inject = ['$controllerProvider', '$locationProvider', '$provide', '$httpProvider', 'CacheFactoryProvider'];
+    config.$inject = ['$controllerProvider', '$locationProvider', '$provide', '$httpProvider', 'CacheFactoryProvider', '$compileProvider'];
 
-    function config($controllerProvider, $locationProvider, $provide, $httpProvider, cacheFactoryProvider) {
+    function config($controllerProvider, $locationProvider, $provide, $httpProvider, cacheFactoryProvider, $compileProvider) {
         //$locationProvider.html5Mode(true).hashPrefix('!');
         $controllerProvider.allowGlobals();
         angular.extend(cacheFactoryProvider.defaults, {
@@ -71,6 +71,7 @@
         }]);
         $httpProvider.interceptors.push('requestinterceptor');
 
+        $compileProvider.debugInfoEnabled(false);
 
 
     }
@@ -167,7 +168,7 @@
         analyticsProvider.setPageEvent('$stateChangeSuccess');
         //AnalyticsProvider.setDomainName('XXX');
 
-        
+
 
 
     }
