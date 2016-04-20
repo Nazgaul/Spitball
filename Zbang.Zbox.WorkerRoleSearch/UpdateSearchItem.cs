@@ -52,10 +52,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 try
                 {
-                    var itemUpdate = await UpdateItem(index, count);
+                    var itemUpdate = await UpdateItemAsync(index, count);
                     if (!itemUpdate)
                     {
-                        await SleepAndIncreaseInterval(cancellationToken);
+                        await SleepAndIncreaseIntervalAsync(cancellationToken);
                     }
                     else
                     {
@@ -85,7 +85,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private int m_Interval = MinInterval;
         private const int MinInterval = 5;
         private const int MaxInterval = 240;
-        private async Task SleepAndIncreaseInterval(CancellationToken cancellationToken)
+        private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
         {
             m_Interval = Math.Min(MaxInterval, m_Interval * 2);
             await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
@@ -98,7 +98,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
 
 
-        private async Task<bool> UpdateItem(int instanceId, int instanceCount)
+        private async Task<bool> UpdateItemAsync(int instanceId, int instanceCount)
         {
             
             var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount, 10);

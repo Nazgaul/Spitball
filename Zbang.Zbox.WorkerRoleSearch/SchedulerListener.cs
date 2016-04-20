@@ -16,12 +16,12 @@ using Zbang.Zbox.WorkerRoleSearch.Mail;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class SchdulerListener : IJob
+    public class SchedulerListener : IJob
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
         private readonly XmlSerializer m_Dcs = new XmlSerializer(typeof(StorageQueueMessage));
 
-        public SchdulerListener(IQueueProviderExtract queueProviderExtract)
+        public SchedulerListener(IQueueProviderExtract queueProviderExtract)
         {
             m_QueueProviderExtract = queueProviderExtract;
         }
@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    TraceLog.WriteInfo("schduler lister run");
+                    TraceLog.WriteInfo("Scheduler Listener run");
                     var queueName = new SchedulerQueueName();
                     await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
@@ -47,16 +47,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var messageContent = JObject.Parse(message.Message);
                         var properties = messageContent.Properties();
                         var list = new List<Task<bool>>();
-                        foreach (var propery in properties)
+                        foreach (var property in properties)
                         {
 
-                            var t = (int?)propery;
-                            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>(propery.Name);
+                            var t = (int?)property;
+                            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>(property.Name);
                             if (process != null)
                             {
-                                list.Add(process.ExcecuteAsync(t ?? 0, async p =>
+                                list.Add(process.ExecuteAsync(t ?? 0, async p =>
                                 {
-                                    propery.Value = p;
+                                    property.Value = p;
                                     message.Message = JsonConvert.SerializeObject(messageContent);
                                     using (var memoryStream = new MemoryStream())
                                     {
@@ -69,7 +69,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             }
                             else
                             {
-                                TraceLog.WriteWarning($"cant resolve {propery.Name}");
+                                TraceLog.WriteWarning($"cant resolve {property.Name}");
                             }
 
                         }
@@ -89,9 +89,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError("on SchdulerListener", ex);
+                    TraceLog.WriteError("on SchedulerListener", ex);
                 }
-                TraceLog.WriteInfo("schduler lister going to sleep");
+                TraceLog.WriteInfo("Scheduler Listener going to sleep");
                 await Task.Delay(TimeSpan.FromMinutes(30), cancellationToken);
 
             }

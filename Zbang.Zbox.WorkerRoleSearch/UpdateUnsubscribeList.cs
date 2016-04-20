@@ -113,6 +113,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<CloudBlockBlob> ReadBlobDataAsync(CancellationToken cancellationToken)
         {
+            // ReSharper disable once StringLiteralTypo
             var blob = m_CloudBlockProvider.GetFile("sendGridApiQuery", "zboxidgenerator");
             if (!await blob.ExistsAsync(cancellationToken))
             {
@@ -125,7 +126,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 long num;
                 if (long.TryParse(txt, out num))
                 {
-                    //m_DateTime = DateTime.FromFileTimeUtc(num);
+                    m_DateTime = DateTime.FromFileTimeUtc(num);
                 }
             }
             return blob;

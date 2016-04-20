@@ -18,14 +18,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("notFollowing");
             if (process != null)
             {
-                x.Add( process.ExcecuteAsync(0, p =>
+                x.Add( process.ExecuteAsync(0, p =>
                 {
                 }, cancellationToken));
             }
             process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("universityLowActivity");
             if (process != null)
             {
-                x.Add( process.ExcecuteAsync(0, p =>
+                x.Add( process.ExecuteAsync(0, p =>
                 {
                 }, cancellationToken));
             }
@@ -33,7 +33,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("followLowActivity");
             if (process != null)
             {
-                x.Add( process.ExcecuteAsync(0, p =>
+                x.Add( process.ExecuteAsync(0, p =>
                 {
                 }, cancellationToken));
             }

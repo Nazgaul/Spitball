@@ -48,7 +48,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
 
-
+        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         //[VersionedRoute("api/item", 2),
         [HttpGet]
         [Route("api/item")]
@@ -89,7 +89,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
             });
         }
-
+        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpGet]
         [Route("api/item/{id:long}/download")]
         public async Task<string> Download(long boxId, long id)
@@ -127,7 +127,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         }
 
-
+        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpDelete, Route("api/item")]
         public async Task<HttpResponseMessage> Delete(long id/*, long boxId*/)
         {
@@ -149,7 +149,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
             return m_BlobUpload.GenerateWriteAccessPermissionToBlob(blob, mimeType);
         }
-
+        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpPost]
         [Route("api/item/upload/link")]
         public async Task<HttpResponseMessage> Link(AddLinkRequest model)
@@ -211,7 +211,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
         }
-
+        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpPost]
         [Route("api/item/upload/dropbox")]
         public async Task<HttpResponseMessage> DropBox(DropboxUploadRequest model)
@@ -266,7 +266,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
         }
-
+        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [Route("api/item/upload/commit")]
         [HttpPost]
         public async Task<HttpResponseMessage> CommitFile(FileUploadRequest model)
@@ -344,7 +344,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
 
         }
-
+        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [Route("api/item/like")]
         [HttpPost]
         public async Task<HttpResponseMessage> Like(ItemLikeRequest model)
@@ -361,7 +361,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         }
 
-
+        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [Route("api/item/flag")]
         [HttpPost]
         public async Task<HttpResponseMessage> Flag(FlagItemRequest model)
