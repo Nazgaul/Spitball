@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Answering a question: 100 pts.
+        ///   Looks up a localized string similar to Reply to a Class Feed comment: 100 pts.
         /// </summary>
         public static string Answering {
             get {
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Asking a question: 50 pts.
+        ///   Looks up a localized string similar to Submit a Class Feed comment: 50 pts.
         /// </summary>
         public static string Asking {
             get {
@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creating a quiz: 300 pts.
+        ///   Looks up a localized string similar to Creating a quiz: 50 pts.
         /// </summary>
         public static string Creating {
             get {
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload an item to a class: 100 pts.
+        ///   Looks up a localized string similar to Upload a document to a class: 100 pts.
         /// </summary>
         public static string UploadItem {
             get {

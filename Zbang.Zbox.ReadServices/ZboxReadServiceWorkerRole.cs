@@ -59,6 +59,7 @@ namespace Zbang.Zbox.ReadServices
                 {
                     var retVal = new BoxUpdatesDigestDto
                     {
+
                         Items = await grid.ReadAsync<ItemDigestDto>(),
                         Quizzes = await grid.ReadAsync<QuizDigestDto>(),
                         QuizDiscussions = await grid.ReadAsync<QuizDiscussionDigestDto>(),

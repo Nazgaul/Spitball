@@ -55,17 +55,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             if (process != null)
                             {
                                 list.Add(process.ExcecuteAsync(t ?? 0, async p =>
-                               {
-                                   propery.Value = p;
-                                   message.Message = JsonConvert.SerializeObject(messageContent);
-                                   using (var memoryStream = new MemoryStream())
-                                   {
-                                       m_Dcs.Serialize(memoryStream, message);
-                                       msg.SetMessageContent(memoryStream.ToArray());
-                                       await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg);
-                                   }
+                                {
+                                    propery.Value = p;
+                                    message.Message = JsonConvert.SerializeObject(messageContent);
+                                    using (var memoryStream = new MemoryStream())
+                                    {
+                                        m_Dcs.Serialize(memoryStream, message);
+                                        msg.SetMessageContent(memoryStream.ToArray());
+                                        await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg);
+                                    }
 
-                               }, cancellationToken));
+                                }, cancellationToken));
+                            }
+                            else
+                            {
+                                TraceLog.WriteWarning($"cant resolve {propery.Name}");
                             }
 
                         }
