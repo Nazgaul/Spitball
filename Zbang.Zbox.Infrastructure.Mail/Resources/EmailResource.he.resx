@@ -150,4 +150,30 @@
   <data name="NoUniversitySubject" xml:space="preserve">
     <value>בחר את מקום הלימודים שלך</value>
   </data>
+  <data name="NoFollowBoxSubject" xml:space="preserve">
+    <value>מצא את הקורסים שלך</value>
+  </data>
+  <data name="NoFollowBoxText" xml:space="preserve">
+    <value>אל תהיה אחרון לגלות את מה שחברים שלך כבר יודעים. מצא את הקורסים שאתה לומד והתחל לעקוב אחריהם על מנת להיות מעודכן.
+אם גילית שהקורס לא קיים, תהיה חבר, צור אותו והזמן אליו חברים כדי שישאר עדכני.
+מאות אלפי סטודנטים לומדים טוב יותר עם ספיטבול, גם לך מגיע.
+כנס עכשיו ועשה מהפך.</value>
+  </data>
+  <data name="CoursesLowActivitySubject" xml:space="preserve">
+    <value>המסמכים לא יעלו את עצמם</value>
+  </data>
+  <data name="CoursesLowActivityText" xml:space="preserve">
+    <value>פעילות שוטפת שלך בקורסים תגרום לחברייך לבקר יותר בקורסים, לשאול שאלות להעלות חומרים.
+תהיה חבר, שתף חומרים והזמן חברים לעשות כמוך.
+מאות אלפי סטודנטים לומדים טוב יותר עם ספיטבול, גם לך מגיע.
+כנס עכשיו ועשה מהפך. </value>
+  </data>
+  <data name="UniversityLowActivitySubject" xml:space="preserve">
+    <value>זה לא כל-כך נעים לראות מוסד לימודים ריק</value>
+  </data>
+  <data name="UniversityLowActivityText" xml:space="preserve">
+    <value>מוסד הלימודים שלך יכול להיות מושלם. תהיה חבר, צור קורסים שחסרים, הזמן את חבריך ושתפו חומרים. צעד קטן לך צעד גדול לחבריך
+מאות אלפי סטודנטים לומדים טוב יותר עם ספיטבול, גם לך מגיע.
+כנס עכשיו ועשה מהפך.</value>
+  </data>
 </root>

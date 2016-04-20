@@ -39,7 +39,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             {
                 TraceLog.WriteInfo($"running {ServiceName} mail page {page}");
                 needToContinueRun = false;
-                var query = new MarketingQuery(page, 100);
+                int pageSize = 100;
+                if (RoleEnvironment.IsEmulated)
+                {
+                    pageSize = 10;
+                }
+
+                var query = new MarketingQuery(page, pageSize);
                 var result = await GetDataAsync(query, token);
                 
                 foreach (var user in result)
@@ -61,10 +67,14 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 await Task.WhenAll(list);
                 list.Clear();
                 page++;
+                if (RoleEnvironment.IsEmulated)
+                {
+                    needToContinueRun = false;
+                }
                 progress(page);
 
             }
-            await m_MailComponent.GenerateSystemEmailAsync($"finish to run {ServiceName}");
+            await m_MailComponent.GenerateSystemEmailAsync($"finish to run {ServiceName} with page {page}");
             TraceLog.WriteInfo($"finish running {ServiceName} mail page {index}");
             return true;
 

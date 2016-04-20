@@ -79,6 +79,25 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Getting Your Class Online.
+        /// </summary>
+        internal static string CoursesLowActivitySubject {
+            get {
+                return ResourceManager.GetString("CoursesLowActivitySubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ever notice how your courses never has anything posted in it? 
+        ///Change that by inviting a classmate via Facebook or email and uploading a doc that you want them to see..
+        /// </summary>
+        internal static string CoursesLowActivityText {
+            get {
+                return ResourceManager.GetString("CoursesLowActivityText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invite to {0}.
         /// </summary>
         internal static string InviteSubject {
@@ -162,6 +181,24 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         internal static string questions {
             get {
                 return ResourceManager.GetString("questions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finding Friends, Uploading Notes.
+        /// </summary>
+        internal static string UniversityLowActivitySubject {
+            get {
+                return ResourceManager.GetString("UniversityLowActivitySubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your university’s Spitball page needs a little work… Be the study pioneer your classmates need and start uploading notes and inviting friends to join you via email..
+        /// </summary>
+        internal static string UniversityLowActivityText {
+            get {
+                return ResourceManager.GetString("UniversityLowActivityText", resourceCulture);
             }
         }
         

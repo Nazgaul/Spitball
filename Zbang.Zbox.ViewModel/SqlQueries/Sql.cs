@@ -228,37 +228,5 @@ u.GoogleUserId as GoogleId
                                 and id!=170460 
                                 order by b.[UpdateTime];";
 
-
-//        public const string GetItemsPageItems_en = @"select top 40 i.Name as Name,
-//                                i.LikeCount as Likes,
-//                                i.NumberOfViews as NumOfViews,
-//                                i.Url as Url,
-//                                i.BlobName as source
-//                                from zbox.box b join zbox.university u on b.university=u.id join zbox.item i on i.boxid=b.boxid
-//                                where  MembersCount >3
-//                                and i.creationtime> getdate()-30 
-//                                and b.[Discriminator]=2 
-//                                and i.[IsDeleted]=0 
-//                                and i.Discriminator = 'File'
-//                                and u.country='US' 
-//                                and id!=170460 
-//                                order by NumberOfViews desc;";
-
-//        public const string GetItemsPageItems_he = @"select top 40 i.Name as Name,
-//                                i.LikeCount as Likes,
-//                                i.NumberOfViews as NumOfViews,
-//                                i.Url as Url,
-//                                i.BlobName as source
-//                                from zbox.box b join zbox.university u on b.university=u.id join zbox.item i on i.boxid=b.boxid
-//                                where  MembersCount >20
-//                                and i.creationtime> getdate()-30 
-//                                and NumberOfDownloads    >20
-//                                and NumberOfViews        >50
-//                                and b.[Discriminator]=2 
-//                                and i.Discriminator = 'File'
-//                                and i.[IsDeleted]=0 
-//                                and u.country='IL' 
-//                                and id!=170460 
-//                                order by i.creationtime, NumberOfViews desc;";
     }
 }

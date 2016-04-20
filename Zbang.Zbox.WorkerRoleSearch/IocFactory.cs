@@ -55,7 +55,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
             //Store.RegisterIoc.Register();
-           
+
 
             //Unity = new UnityContainer();
             RegisterTypes();
@@ -81,8 +81,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Unity.RegisterType<IJob, UpdateSearchUniversity>(UpdateSearchUniversity);
             Unity.RegisterType<IJob, SchdulerListener>(nameof(SchdulerListener));
             Unity.RegisterType<IJob, UpdateUnsubscribeList>(nameof(UpdateUnsubscribeList));
-            Unity.RegisterType<IMailProcess, NoUniversityMailProcess >("universityNotSelected");
-           // Unity.RegisterType<IMailProcess, NoUniversityMailProcess >("notFollowing");
+            Unity.RegisterType<IJob, TestingJob>(nameof(TestingJob));
+            Unity.RegisterType<IMailProcess, NoUniversityMailProcess>("universityNotSelected");
+            Unity.RegisterType<IMailProcess, NoFollowClassMailProcess>("notFollowing");
+            Unity.RegisterType<IMailProcess, UniversityWithLowActivation>("universityLowActivity");
+            Unity.RegisterType<IMailProcess, FollowLowActivityCourses>("followLowActivity");
 
 
             //Unity.RegisterType<IMail2, Welcome>(BaseMailData.WelcomeResolver);
@@ -103,7 +106,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //    Infrastructure.Transport.DomainProcess.QuotaResolver);
 
         }
-       
+
         public T Resolve<T>(string name)
         {
             return Unity.Resolve<T>(name);

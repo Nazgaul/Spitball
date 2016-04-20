@@ -12,24 +12,24 @@ using Zbang.Zbox.ViewModel.Queries.Emails;
 
 namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
-    public class NoFollowClassMailProcess : BaseMarketingMailProcess
+    public class FollowLowActivityCourses : BaseMarketingMailProcess
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
-        public NoFollowClassMailProcess(IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService) : base(mailComponent)
+        public FollowLowActivityCourses(IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService) : base(mailComponent)
         {
             m_ZboxReadService = zboxReadService;
         }
 
         protected override Task<IEnumerable<MarketingDto>> GetDataAsync(MarketingQuery query, CancellationToken token)
         {
-            return m_ZboxReadService.GetUsersWithUniversityWithoutSubscribedBoxesAsync(query, token);
+            return m_ZboxReadService.GetUsersFollowingCoursesNoActivityAsync(query, token);
         }
 
         protected override MarketingMailParams BuildMarkertingMail(string name, CultureInfo info)
         {
-            return new NoFollowingBoxMailParams(name, info);
+            return new LowCoursesActivityMailParams(name, info);
         }
 
-        protected override string ServiceName => "No follow class";
+        protected override string ServiceName => "Follow low activity courses";
     }
 }

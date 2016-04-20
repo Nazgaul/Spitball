@@ -296,12 +296,10 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public async Task<IEnumerable<MarketingDto>> GetUsersWithoutUniversityAsync(MarketingQuery query,
+        public Task<IEnumerable<MarketingDto>> GetUsersWithoutUniversityAsync(MarketingQuery query,
             CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(token))
-            {
-                const string sql = @"select email,Culture,UserName as Name from zbox.Users
+            const string sql = @"select email,Culture,UserName as Name from zbox.Users
 where UniversityId is null
 and EmailSendSettings = 0
 and (creationtime>'2015' or [LastAccessTime] >'2015')
@@ -310,16 +308,14 @@ and creationtime < dateadd(HOUR,-2,GETUTCDATE())
 order by userid
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY";
-                return await conn.QueryAsync<MarketingDto>(sql, new {query.RowsPerPage, query.PageNumber});
-            }
+            return GetMarketingDataAsync(query, sql, token);
+           
         }
 
-        public async Task<IEnumerable<MarketingDto>> GetUsersWithUniversityWithoutSubscribedBoxesAsync(MarketingQuery query,
+        public Task<IEnumerable<MarketingDto>> GetUsersWithUniversityWithoutSubscribedBoxesAsync(MarketingQuery query,
             CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(token))
-            {
-                const string sql = @"select email,Culture,UserName as Name from zbox.users u
+            const string sql = @"select email,Culture,UserName as Name from zbox.users u
 where universityid is not null
 and not exists (select userid from zbox.userboxrel ub where ub.userid = u.userid)
 and EmailSendSettings = 0
@@ -329,7 +325,59 @@ and creationtime < dateadd(HOUR,-2,GETUTCDATE())
 order by userid
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY";
-                return await conn.QueryAsync<MarketingDto>(sql, new { query.RowsPerPage, query.PageNumber });
+            return GetMarketingDataAsync(query, sql, token);
+        }
+
+        public Task<IEnumerable<MarketingDto>> GetUsersWithLowActivityUniversitiesAsync(MarketingQuery query,
+            CancellationToken token)
+        {
+            const string sql = @"select email,Culture,UserName as Name 
+from zbox.Users u2 where u2.UniversityId in (
+select Id from zbox.University u where u.NoOfBoxes < 5 and isdeleted = 0)
+and EmailSendSettings = 0
+and (creationtime>'2015' or [LastAccessTime] >'2015')
+and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
+and creationtime < dateadd(HOUR,-2,GETUTCDATE())
+order by userid
+offset @PageNumber*@RowsPerPage ROWS
+FETCH NEXT @RowsPerPage ROWS ONLY";
+            return GetMarketingDataAsync(query, sql, token);
+        }
+
+        public Task<IEnumerable<MarketingDto>> GetUsersFollowingCoursesNoActivityAsync(MarketingQuery query,
+            CancellationToken token)
+        {
+            const string sql = @"with boxWithLowUpdate as (
+select b.boxid from zbox.Box b
+join zbox.University u on b.University = u.Id and u.NoOfBoxes < 5
+where b.UpdateTime < dateadd(DAY,-3,GETUTCDATE())
+and b.IsDeleted = 0
+and Discriminator in (2,3))
+
+select email,Culture,UserName as Name 
+from zbox.Users where userid in (
+select distinct ub.userid from zbox.UserBoxRel ub
+where ub.boxid in (select boxid from boxWithLowUpdate)
+except
+select distinct ub.userid from zbox.UserBoxRel ub join zbox.UserBoxRel ub2 on ub.UserId = ub2.UserId 
+where ub.boxid in (select boxid from boxWithLowUpdate)
+and ub2.boxid not in (select boxid from boxWithLowUpdate))
+and EmailSendSettings = 0
+and (creationtime>'2015' or [LastAccessTime] >'2015')
+and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
+and creationtime < dateadd(HOUR,-2,GETUTCDATE())
+order by UserId
+offset @PageNumber*@RowsPerPage ROWS
+FETCH NEXT @RowsPerPage ROWS ONLY";
+            return GetMarketingDataAsync(query, sql, token);
+        }
+
+        private async Task<IEnumerable<MarketingDto>> GetMarketingDataAsync(MarketingQuery query, string sql,
+            CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            {
+                return await conn.QueryAsync<MarketingDto>(sql, new {query.RowsPerPage, query.PageNumber});
             }
         }
 
