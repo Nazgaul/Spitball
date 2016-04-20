@@ -3198,9 +3198,6 @@
     <Content Include="Content\Site\feed.css">
       <DependentUpon>feed.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\feed.min.css">
-      <DependentUpon>feed.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\feed.rtl.css">
       <DependentUpon>feed.css</DependentUpon>
     </Content>
@@ -3402,9 +3399,6 @@
     <Content Include="Content\Site\ThemeDark.css">
       <DependentUpon>ThemeDark.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\ThemeDark.min.css">
-      <DependentUpon>ThemeDark.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\ThemeDark.rtl.css">
       <DependentUpon>ThemeDark.css</DependentUpon>
     </Content>
@@ -3413,9 +3407,6 @@
     </Content>
     <Content Include="Content\Site\themeLight.css">
       <DependentUpon>themeLight.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\themeLight.min.css">
-      <DependentUpon>themeLight.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\themeLight.rtl.css">
       <DependentUpon>themeLight.css</DependentUpon>

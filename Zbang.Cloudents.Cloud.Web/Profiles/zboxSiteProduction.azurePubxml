@@ -11,14 +11,14 @@
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>True</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
     <AzureHostedServiceLabel>zboxtest</AzureHostedServiceLabel>
     <AzureHostedServiceName>zboxtest</AzureHostedServiceName>
-    <AzureEnableIntelliTrace>True</AzureEnableIntelliTrace>
+    <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
     <AzureStorageAccountLabel>zboxstorage</AzureStorageAccountLabel>
     <AzureStorageAccountName>zboxstorage</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
-    <EnableRemoteDebugger>False</EnableRemoteDebugger>
+    <EnableRemoteDebugger>True</EnableRemoteDebugger>
     <RemoteDebuggerConnectorCertificateThumbprint>63251ED7C172D698B5B9F4BCA5405C0D09D53E56</RemoteDebuggerConnectorCertificateThumbprint>
   </PropertyGroup>
 </Project>
