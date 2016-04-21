@@ -19,42 +19,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             m_ZboxReadService = zboxReadService;
         }
 
-
-//        public async Task<bool> ExcecuteAsync(int index, Action<int> progress, CancellationToken token)
-//        {
-//            var page = index;
-//            var needToContinueRun = true;
-//            var list = new List<Task>();
-//            while (needToContinueRun)
-//            {
-//                TraceLog.WriteInfo($"running no university mail page {page}");
-//                needToContinueRun = false;
-//                var result = await m_ZboxReadService.GetUsersWithoutUniversityAsync(
-//                        new ViewModel.Queries.Emails.MarketingQuery(page, 100), token);
-//                foreach (var user in result)
-//                {
-//                    needToContinueRun = true;
-//                    var email = user.Email;
-//#if DEBUG
-//                    //email = "ram@cloudents.com";
-//#endif
-//                    var culture = string.IsNullOrEmpty(user.Culture)
-//                        ? Thread.CurrentThread.CurrentCulture
-//                        : new System.Globalization.CultureInfo(user.Culture);
-
-//                    list.Add( m_MailComponent.GenerateAndSendEmailAsync(email,
-//                        new NoUniversityMailParams(user.Name, culture), token));
-//                }
-//                await Task.WhenAll(list);
-//                list.Clear();
-//                page++;
-//                progress(page);
-                
-//            }
-//            TraceLog.WriteInfo($"finish running no university mail page {index}");
-//            return true;
-
-//        }
         protected override Task<IEnumerable<MarketingDto>> GetDataAsync(MarketingQuery query, CancellationToken token)
         {
             return m_ZboxReadService.GetUsersWithoutUniversityAsync(query, token);

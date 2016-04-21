@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(UpdateReputationCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             if (message.UserIds == null) return;
             foreach (var userId in message.UserIds)
             {

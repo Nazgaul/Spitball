@@ -96,7 +96,7 @@ namespace Zbang.Zbox.Domain
 
         private bool NeedToRemoveComment()
         {
-            return (Items.Count == 0 && Quizes.Count == 0)
+            return Items.Count == 0 && Quizes.Count == 0
                 && (string.IsNullOrEmpty(Text)
                 || FeedType == Infrastructure.Enums.FeedType.AddedItems);
         }

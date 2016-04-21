@@ -193,14 +193,11 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Services.Client" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Spatial, Version=5.6.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.6.4\lib\net40\System.Spatial.dll</HintPath>
       <Private>True</Private>
@@ -217,9 +214,6 @@
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -3198,9 +3192,6 @@
     <Content Include="Content\Site\feed.css">
       <DependentUpon>feed.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\feed.min.css">
-      <DependentUpon>feed.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\feed.rtl.css">
       <DependentUpon>feed.css</DependentUpon>
     </Content>
@@ -3402,9 +3393,6 @@
     <Content Include="Content\Site\ThemeDark.css">
       <DependentUpon>ThemeDark.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\ThemeDark.min.css">
-      <DependentUpon>ThemeDark.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\ThemeDark.rtl.css">
       <DependentUpon>ThemeDark.css</DependentUpon>
     </Content>
@@ -3413,9 +3401,6 @@
     </Content>
     <Content Include="Content\Site\themeLight.css">
       <DependentUpon>themeLight.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\themeLight.min.css">
-      <DependentUpon>themeLight.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\themeLight.rtl.css">
       <DependentUpon>themeLight.css</DependentUpon>

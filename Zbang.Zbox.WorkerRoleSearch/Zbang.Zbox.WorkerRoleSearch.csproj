@@ -130,7 +130,7 @@
     <Compile Include="Mail\NoFollowClassMailProcess.cs" />
     <Compile Include="Mail\NoUniversityMailProcess.cs" />
     <Compile Include="Mail\UniversityWithLowActivation.cs" />
-    <Compile Include="SchdulerListener.cs" />
+    <Compile Include="SchedulerListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IocFactory.cs" />
     <Compile Include="RoleIndexProcessor.cs" />

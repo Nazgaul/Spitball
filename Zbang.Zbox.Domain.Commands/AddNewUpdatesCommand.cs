@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class AddNewUpdatesCommand : ICommandAsync
     {
-        public AddNewUpdatesCommand(long boxId, long userId, Guid? commentId, Guid? replyId, long? itemId, long? quizId)
+        public AddNewUpdatesCommand(long boxId, long userId, Guid? commentId, Guid? replyId, long? itemId, long? quizId, long? itemDiscussionId, long? itemDiscussionReplyId, Guid? quizDiscussionId)
         {
             BoxId = boxId;
             UserId = userId;
@@ -14,14 +14,23 @@ namespace Zbang.Zbox.Domain.Commands
             ReplyId = replyId;
             ItemId = itemId;
             QuizId = quizId;
+            ItemDiscussionId = itemDiscussionId;
+            ItemDiscussionReplyId = itemDiscussionReplyId;
+            QuizDiscussionId = quizDiscussionId;
         }
-        public long BoxId { get; set; }
+        public long BoxId { get;private set; }
 
-        public long UserId { get; set; }
+        public long UserId { get; private set; }
 
-        public Guid? CommentId { get; set; }
-        public Guid? ReplyId { get; set; }
-        public long? ItemId { get; set; }
-        public long? QuizId { get; set; }
+        public Guid? CommentId { get; private set; }
+        public Guid? ReplyId { get; private set; }
+        public long? ItemId { get; private set; }
+        public long? QuizId { get; private set; }
+
+        public long? ItemDiscussionId { get; private set; }
+        public long? ItemDiscussionReplyId { get; private set; }
+        public Guid? QuizDiscussionId  { get; private set; }
+
+
     }
 }

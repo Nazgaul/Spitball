@@ -79,7 +79,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                       TraceLog.WriteError("UpdateDomainProcess run", ex);
                   }
                   return false;
-              }, TimeSpan.FromMinutes(1), 5);
+              }, TimeSpan.FromMinutes(1), 100);
         }
 
         public void Stop()

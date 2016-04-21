@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Zbang.Zbox.Domain
 {
-    public class User
+    public class User //: EqualityAndHashCodeProvider<User,long>
     {
         protected User()
         {
@@ -24,7 +24,11 @@ namespace Zbang.Zbox.Domain
         }
 
 
-       
+
+        //public User(long id)
+        //{
+        //    Id = id;
+        //}
 
         public User(string email, string image,
             string firstName, string lastName, string culture, Sex sex
@@ -63,7 +67,7 @@ namespace Zbang.Zbox.Domain
             Url = UrlConsts.BuildUserUrl(Id, Name);
         }
 
-        public virtual long Id { get; protected set; }
+        public long Id { get; protected set; }
 
         public virtual string Email { get; protected set; }
         public virtual string Culture { get; private set; }
@@ -110,6 +114,8 @@ namespace Zbang.Zbox.Domain
         public virtual MobileOperatingSystem MobileDevice { get; set; }
         public virtual PushNotificationSettings PushNotificationSetting { get; set; }
 
+        
+
         public Reputation AddReputation(ReputationAction action)
         {
             var reputation = new Reputation(GuidIdGenerator.GetGuid(), this, action);
@@ -145,8 +151,8 @@ namespace Zbang.Zbox.Domain
 
         public void UpdateUserProfile(string firstName, string lastName)
         {
-            if (firstName == null) throw new ArgumentNullException("firstName");
-            if (lastName == null) throw new ArgumentNullException("lastName");
+            if (firstName == null) throw new ArgumentNullException(nameof(firstName));
+            if (lastName == null) throw new ArgumentNullException(nameof(lastName));
             FirstName = firstName.Trim();
             LastName = lastName.Trim();
             CreateName();
@@ -176,23 +182,25 @@ namespace Zbang.Zbox.Domain
 
        
 
-        #region Nhibernate
-        public override bool Equals(object other)
-        {
-            if (this == other) return true;
-
-            var user = other as User;
-            if (user == null) return false;
-
-            return string.Equals(Email.Trim(), user.Email.Trim(), StringComparison.CurrentCultureIgnoreCase);
-        }
-
-        public override int GetHashCode()
-        {
-            var result = Email.GetHashCode();
-            return result;
-        }
-        #endregion
+        //#region Nhibernate
+        //public override bool Equals(object other)
+        //{
+        //    if (this == other) return true;
+        //
+        //    var user = other as User;
+        //    if (user == null) return false;
+        //
+        //    return string.Equals(Email.Trim(), user.Email.Trim(), StringComparison.CurrentCultureIgnoreCase);
+        //}
+        //
+        //public override int GetHashCode()
+        //{
+        //    var result = Email.GetHashCode();
+        //    return result;
+        //}
+        //#endregion
 
     }
+
+
 }

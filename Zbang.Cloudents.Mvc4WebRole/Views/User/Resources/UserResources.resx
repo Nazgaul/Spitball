@@ -124,13 +124,13 @@
     <value>Each accepted class invite: 50 pts</value>
   </data>
   <data name="Answering" xml:space="preserve">
-    <value>Answering a question: 100 pts</value>
+    <value>Reply to a Class Feed comment: 100 pts</value>
   </data>
   <data name="Asking" xml:space="preserve">
-    <value>Asking a question: 50 pts</value>
+    <value>Submit a Class Feed comment: 50 pts</value>
   </data>
   <data name="Creating" xml:space="preserve">
-    <value>Creating a quiz: 300 pts</value>
+    <value>Creating a quiz: 50 pts</value>
   </data>
   <data name="Friends" xml:space="preserve">
     <value>Friends</value>
@@ -148,7 +148,7 @@
     <value>Sharing on FB: 50 pts</value>
   </data>
   <data name="UploadItem" xml:space="preserve">
-    <value>Upload an item to a class: 100 pts</value>
+    <value>Upload a document to a class: 100 pts</value>
   </data>
   <data name="Uploads" xml:space="preserve">
     <value>Uploads</value>

@@ -12,19 +12,13 @@ namespace Zbang.Zbox.Domain
         }
         public Question(Guid id, Quiz quiz, string text)
         {
-            if (quiz == null) throw new ArgumentNullException("quiz");
+            if (quiz == null) throw new ArgumentNullException(nameof(quiz));
             Id = id;
             if (string.IsNullOrWhiteSpace(text))
             {
                 text = null;
             }
-            if (text != null)
-            {
-                text = text.Trim();
-
-            }
-
-            Text = text;
+            Text = text?.Trim(); ;
             Quiz = quiz;
             DateTimeUser = new UserTimeDetails(quiz.Owner.Email);
         }
@@ -48,10 +42,7 @@ namespace Zbang.Zbox.Domain
                 newText = null;
             }
             //Throw.OnNull(newText, "newText", false);
-            if (newText != null)
-            {
-                newText = newText.Trim();
-            }
+            newText = newText?.Trim();
             Text = newText;
             DateTimeUser.UpdateTime = DateTime.UtcNow;
 

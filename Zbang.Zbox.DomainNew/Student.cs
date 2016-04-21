@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Domain
 
         public Student(University university, string id)
         {
-            if (id == null) throw new ArgumentNullException("id");
+            if (id == null) throw new ArgumentNullException(nameof(id));
             ID = id.PadLeft(9, '0');
             University = university;
         }

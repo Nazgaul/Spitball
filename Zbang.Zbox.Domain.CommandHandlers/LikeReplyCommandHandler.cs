@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public LikeReplyCommandResult Execute(LikeReplyCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
 
             var replyLike = m_ReplyLikeRepository.GetUserLike(message.UserId, message.ReplyId);
             var reply = m_ReplyRepository.Load(message.ReplyId);

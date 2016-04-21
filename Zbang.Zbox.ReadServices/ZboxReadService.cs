@@ -411,23 +411,53 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                     $"{Sql.Box.GetBoxComments} {Sql.Box.GetLastReplyOfComment} {Sql.Box.GetItemsForCommentsAndLastReply} {Sql.Box.GetQuizzesForCommentsAndLastReply}",
                     new { query.BoxId, query.PageNumber, query.RowsPerPage, query.TimeStamp }))
                 {
-                    var comments = grid.Read<Qna.CommentDto>().ToList();
-                    var replies = grid.Read<Qna.ReplyDto>().ToDictionary(x => x.QuestionId);
-                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToLookup(c => c.QuestionId ?? c.AnswerId);
+                    var sw = new System.Diagnostics.Stopwatch();
+                    sw.Start();
+                    var comments = grid.Read<Qna.CommentDto>();//.ToList();
+                    var replies = grid.Read<Qna.ReplyDto>();//.ToDictionary(x => x.QuestionId);
+                    var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>());//.ToLookup(c => c.QuestionId ?? c.AnswerId);
 
-                    foreach (var reply in replies)
+
+                    replies = replies.Select(s =>
                     {
-                        reply.Value.Files.AddRange(items[reply.Value.Id]);
-                    }
-                    foreach (var comment in comments)
+                        s.Files = items.Where(w => w.AnswerId == s.Id);
+                        return s;
+                    });
+                    comments = comments.Select(s =>
                     {
-                        comment.Files.AddRange(items[comment.Id]);
-                        Qna.ReplyDto reply;
-                        if (replies.TryGetValue(comment.Id, out reply))
-                        {
-                            comment.Replies.Add(reply);
-                        }
-                    }
+                        s.Files = items.Where(w => w.QuestionId == s.Id);
+                        s.Replies = replies.Where(w => w.QuestionId == s.Id);
+                        return s;
+                    });
+
+
+                    // var comments = grid.Read<Qna.CommentDto>().ToList();
+                    // var replies = grid.Read<Qna.ReplyDto>().ToDictionary(x => x.QuestionId);
+                    // sw.Stop();
+                    // Infrastructure.Trace.TraceLog.WriteInfo(sw.ElapsedMilliseconds.ToString());
+                    // sw.Restart();
+                    // var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToLookup(c => c.QuestionId ?? c.AnswerId);
+                    // sw.Stop();
+                    // Infrastructure.Trace.TraceLog.WriteInfo(sw.ElapsedMilliseconds.ToString());
+                    // sw.Restart();
+                    // foreach (var reply in replies)
+                    // {
+                    //     reply.Value.Files = items[reply.Value.Id];
+                    // }
+                    // sw.Stop();
+                    // Infrastructure.Trace.TraceLog.WriteInfo(sw.ElapsedMilliseconds.ToString());
+                    // sw.Restart();
+                    // foreach (var comment in comments)
+                    // {
+                    //     comment.Files = items[comment.Id];
+                    //     Qna.ReplyDto reply;
+                    //     if (replies.TryGetValue(comment.Id, out reply))
+                    //     {
+                    //         comment.Replies.Add(reply);
+                    //     }
+                    // }
+                    // sw.Stop();
+                    // Infrastructure.Trace.TraceLog.WriteInfo(sw.ElapsedMilliseconds.ToString());
 
                     return comments;
                 }
@@ -480,7 +510,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
 
                     foreach (var reply in replies)
                     {
-                        reply.Files.AddRange(items[reply.Id]);
+                        reply.Files = items[reply.Id];
                     }
 
                     return replies;

@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public async Task HandleAsync(UpdateUserEmailCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
             var user = m_UserRepository.Load(command.Id);
             if (!IsChangeEmailNeeded(command.Email, user.Email))
             {

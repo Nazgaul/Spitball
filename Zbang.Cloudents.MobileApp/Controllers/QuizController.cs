@@ -124,7 +124,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
         [Route("api/quiz/{id:long}/discussion"), HttpPost]
-        public HttpResponseMessage PostDiscussion(DiscussionRequest model)
+        // ReSharper disable once ConsiderUsingAsyncSuffix
+        public async Task<HttpResponseMessage> PostDiscussion(DiscussionRequest model)
         {
             if (!ModelState.IsValid)
             {
@@ -132,7 +133,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             var id = m_GuidGenerator.GetId();
             var command = new CreateDiscussionCommand(User.GetCloudentsUserId(), model.Text, model.QuestionId, id);
-            m_ZboxWriteService.CreateItemInDiscussion(command);
+            await m_ZboxWriteService.CreateItemInDiscussionAsync(command);
             return Request.CreateResponse(id);
         }
 

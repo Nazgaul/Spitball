@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(DeleteUserFromBoxCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
             var box = m_BoxRepository.Load(command.BoxId);
             if (box.Owner.Id == command.UserToDeleteId)
             {

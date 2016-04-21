@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Domain
         {
             if (question == null)
             {
-                throw new ArgumentNullException("question");
+                throw new ArgumentNullException(nameof(question));
             }
             Id = id;
             Quiz = question.Quiz;
@@ -21,10 +21,7 @@ namespace Zbang.Zbox.Domain
             {
                 text = null;
             }
-            if (text != null)
-            {
-                text = text.Trim();
-            }
+            text = text?.Trim();
             Text = text;
             Question = question;
 
@@ -52,7 +49,7 @@ namespace Zbang.Zbox.Domain
             //Throw.OnNull(newText, "newText", false);
             if (newText == null)
             {
-                throw new ArgumentNullException("newText");
+                throw new ArgumentNullException(nameof(newText));
             }
             Text = newText.Trim();
         }

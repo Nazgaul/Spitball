@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(DeleteUpdatesCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
 
             var feedDelete = message as DeleteUpdatesFeedCommand;
             if (feedDelete != null)

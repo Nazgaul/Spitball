@@ -1,6 +1,4 @@
-﻿
-using System;
-using Zbang.Zbox.Infrastructure.Commands;
+﻿using System;
 
 namespace Zbang.Zbox.Domain.Commands
 {
@@ -39,9 +37,6 @@ namespace Zbang.Zbox.Domain.Commands
 
 
 
-        public override string ResolverName
-        {
-            get { return FileResolver; }
-        }
+        public override string ResolverName => FileResolver;
     }
 }

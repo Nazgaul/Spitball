@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(UpdateUserLanguageCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             User user = m_UserRepository.Get(message.UserId);
             if (user == null)
             {

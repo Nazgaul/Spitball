@@ -8,7 +8,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
         private DateTime m_Date;
         public ReplyDto()
         {
-            Files = new List<ItemDto>();
+           // Files = new List<ItemDto>();
         }
         public Guid Id { get; set; }
         public string UserImage { get; set; }
@@ -24,7 +24,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
             }
         }
         public int LikesCount { get; set; }
-        public List<ItemDto> Files { get; set; }
+        public IEnumerable<ItemDto> Files { get; set; }
 
         public string Url { get; set; }
 

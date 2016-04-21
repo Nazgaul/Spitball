@@ -29,8 +29,8 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
                     parameters.QuestionId,
                     parameters.AnswerId,
                     parameters.ItemId,
-                    parameters.QuizId
-                    ));
+                    parameters.QuizId, parameters.ItemDiscussionId, parameters.ItemDiscussionReplyId,parameters.QuizDiscussionId)
+                    );
             }
             catch (Exception ex)
             {

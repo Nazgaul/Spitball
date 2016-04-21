@@ -12,21 +12,21 @@ namespace Zbang.Zbox.Domain
         {
             if (author == null)
             {
-                throw new ArgumentNullException("author");
+                throw new ArgumentNullException(nameof(author));
             }
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
            
             if (parent == null)
             {
-                throw new ArgumentNullException("parent");
+                throw new ArgumentNullException(nameof(parent));
             }
            
             if (comment == null)
             {
-                throw new ArgumentNullException("comment");
+                throw new ArgumentNullException(nameof(comment));
             }
 
 

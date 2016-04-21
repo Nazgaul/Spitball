@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(CreateUniversityCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
 
 
             var user = m_UserRepository.Load(message.UserId);

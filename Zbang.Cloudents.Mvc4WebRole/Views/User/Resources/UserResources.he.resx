@@ -124,13 +124,13 @@
     <value>50 נק' בעבור הזמנת חבר לקורס שנענה</value>
   </data>
   <data name="Answering" xml:space="preserve">
-    <value>100 נק' בעבור תשובה</value>
+    <value>100 נק' בעבור תגובה להודעה בעמוד העדכונים הכיתתי</value>
   </data>
   <data name="Asking" xml:space="preserve">
-    <value>50 נק' בעבור שאלה</value>
+    <value>50 נק' בעבור הודעה בעמוד העדכונים הכיתתי</value>
   </data>
   <data name="Creating" xml:space="preserve">
-    <value>300 נק' בעבור יצירת מבחן מקוון</value>
+    <value>50 נק' בעבור יצירת מבחן מקוון</value>
   </data>
   <data name="Friends" xml:space="preserve">
     <value>חברים</value>

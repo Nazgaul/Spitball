@@ -21,12 +21,6 @@ namespace Zbang.Zbox.Domain
 
         public virtual long AllocatedSize { get; set; }
         public virtual long UsedSpace { get; set; }
-        public long FreeSpace 
-        {
-            get
-            {
-                return AllocatedSize - UsedSpace;
-            }
-        }
+        public long FreeSpace => AllocatedSize - UsedSpace;
     }    
 }

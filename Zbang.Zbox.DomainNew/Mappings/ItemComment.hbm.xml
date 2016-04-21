@@ -20,7 +20,14 @@
       <one-to-many class="ItemCommentReply"/>
     </bag>
     <many-to-one name="Author" class="User" column="UserId" not-null="true" foreign-key="userIdItemComment"/>
+    
+    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+      <key column="ItemCommentId" foreign-key="NewUpdatesItemComment"/>
+      <one-to-many class="Updates"/>
+    </bag>
   </class>
+  
+  
   <class name="ItemCommentReply" table="ItemCommentReply">
     <id name="Id" column="ItemReplyId">
       <generator class="assigned"></generator>
@@ -35,7 +42,10 @@
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>
     <property name="Comment" not-null="true" length="8000"></property>
-    <!--<property name="ImageId" not-null="true"></property>-->
+    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+      <key column="ItemCommentReplyId" foreign-key="NewUpdatesItemCommentReply"/>
+      <one-to-many class="Updates"/>
+    </bag>
   </class>
 
 </hibernate-mapping>

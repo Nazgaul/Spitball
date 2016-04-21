@@ -4,12 +4,13 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Hyak.Common;
+//using Hyak.Common;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using System.IO;
+using Microsoft.Rest.Azure;
 using Zbang.Zbox.ViewModel.Dto.Search;
 
 namespace Zbang.Zbox.Infrastructure.Search

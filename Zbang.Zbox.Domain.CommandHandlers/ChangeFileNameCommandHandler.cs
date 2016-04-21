@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public ChangeFileNameCommandResult Execute(ChangeFileNameCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
             var user = m_UserRepository.Load(command.UserId);
             var item = m_ItemRepository.Load(command.FileId);
             var fileName = GetUniqueFileNameToBox(command.NewFileName, item.BoxId);
@@ -42,8 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 do
                 {
                     index++;
-                    fileName = string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(origFileName), index,
-                        Path.GetExtension(fileName));
+                    fileName = $"{Path.GetFileNameWithoutExtension(origFileName)}({index}){Path.GetExtension(fileName)}";
                     fileExists = m_ItemRepository.CheckFileNameExists(fileName, boxId);
                 } while (fileExists);
             }

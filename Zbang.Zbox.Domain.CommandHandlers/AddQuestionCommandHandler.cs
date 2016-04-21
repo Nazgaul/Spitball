@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public async Task<AddCommentCommandResult> ExecuteAsync(AddCommentCommand command)
         {
-            if (command == null) throw new ArgumentNullException("message");
+            if (command == null) throw new ArgumentNullException(nameof(command));
 
             var userId = command.UserId;
             if (command.PostAnonymously)

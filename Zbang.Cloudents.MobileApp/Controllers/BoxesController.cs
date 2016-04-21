@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -8,6 +9,8 @@ using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
@@ -21,23 +24,30 @@ namespace Zbang.Cloudents.MobileApp.Controllers
     {
         private readonly IZboxWriteService m_ZboxWriteService;
         private readonly IZboxCacheReadService m_ZboxReadService;
-
-        public BoxesController(IZboxWriteService zboxWriteService, IZboxCacheReadService zboxReadService)
+        private readonly IQueueProvider m_QueueProvider;
+        public BoxesController(IZboxWriteService zboxWriteService, IZboxCacheReadService zboxReadService, IQueueProvider queueProvider)
         {
             m_ZboxWriteService = zboxWriteService;
             m_ZboxReadService = zboxReadService;
+            m_QueueProvider = queueProvider;
         }
 
 
         //[VersionedRoute("api/boxes", 3)]
         [Route("api/boxes")]
+        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         public async Task<HttpResponseMessage> GetBoxes3(int page, int sizePerPage = 15)
         {
             var userid = User.GetCloudentsUserId();
             var query = new GetBoxesQuery(userid, page, sizePerPage);
-            var data = await m_ZboxReadService.GetUserBoxesAsync(query);
+            var tData = m_ZboxReadService.GetUserBoxesAsync(query);
 
-            return Request.CreateResponse(data.Select(s => new
+            var tTransaction =  m_QueueProvider.InsertMessageToTranactionAsync(
+                     new StatisticsData4(null, userid, DateTime.UtcNow));
+
+            await Task.WhenAll(tData, tTransaction);
+
+            return Request.CreateResponse(tData.Result.Select(s => new
             {
                 s.Name,
                 s.Id,
@@ -51,6 +61,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }));
         }
 
+        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpGet]
         [Route("api/boxes/recommend")]
         public async Task<HttpResponseMessage> Recommend()
@@ -79,7 +90,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
 
-
+        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpPost, Route("api/invite")]
         public async Task<HttpResponseMessage> Invite(InviteToSystemRequest model)
         {

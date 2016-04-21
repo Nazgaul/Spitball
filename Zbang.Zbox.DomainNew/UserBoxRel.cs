@@ -44,9 +44,8 @@ namespace Zbang.Zbox.Domain
             if (this == other) return true;
 
             var userBoxRel = other as UserBoxRel;
-            if (userBoxRel == null) return false; // null or not a cat
 
-            if (UserId != userBoxRel.UserId) return false;
+            if (UserId != userBoxRel?.UserId) return false;
             if (BoxId != userBoxRel.BoxId) return false;
             return UserRelationshipType == userBoxRel.UserRelationshipType;
         }

@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public async Task HandleAsync(UnFollowBoxCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var box = m_BoxRepository.Load(message.BoxId);
             var user = m_UserRepository.Load(message.UserId);
 

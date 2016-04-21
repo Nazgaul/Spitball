@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public async Task<AddItemToBoxCommandResult> ExecuteAsync(AddItemToBoxCommand itemCommand)
         {
-            if (itemCommand == null) throw new ArgumentNullException("itemCommand");
+            if (itemCommand == null) throw new ArgumentNullException(nameof(itemCommand));
 
             var command = itemCommand as AddFileToBoxCommand;
             if (command == null) throw new NullReferenceException("command");
@@ -118,8 +118,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 do
                 {
                     index++;
-                    fileName = string.Format("{0}({1}){2}", Path.GetFileNameWithoutExtension(origFileName), index,
-                        Path.GetExtension(fileName));
+                    fileName = $"{Path.GetFileNameWithoutExtension(origFileName)}({index}){Path.GetExtension(fileName)}";
                     fileExists = m_ItemRepository.CheckFileNameExists(fileName, boxId);
                 } while (fileExists);
             }

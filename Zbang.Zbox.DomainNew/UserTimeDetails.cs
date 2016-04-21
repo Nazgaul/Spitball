@@ -27,14 +27,14 @@ namespace Zbang.Zbox.Domain
                 platform = string.Empty;
             }
 
-            CreatedUser = UpdatedUser = UpdatedUser = string.Format("{0} {1}", userName, platform);
+            CreatedUser = UpdatedUser = UpdatedUser = $"{userName} {platform}";
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
         public virtual DateTime CreationTime { get; set; }
         public virtual DateTime UpdateTime { get; set; }
 
-        public virtual string CreatedUser { get; internal protected set; }
+        public virtual string CreatedUser { get; protected internal set; }
         public virtual string UpdatedUser { get; protected set; }
 
         public void UpdateUserTime(string userName/*, Platform platform = Platform.Default*/)
@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Domain
             {
                 platform = string.Empty;
             }
-            UpdatedUser = string.Format("{0} {1}", userName, platform);
+            UpdatedUser = $"{userName} {platform}";
         }
     }
 }

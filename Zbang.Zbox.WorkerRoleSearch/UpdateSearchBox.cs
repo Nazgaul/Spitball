@@ -40,10 +40,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 try
                 {
-                    var retVal = await UpdateBox(index, count);
+                    var retVal = await UpdateBoxAsync(index, count);
                     if (!retVal)
                     {
-                        await SleepAndIncreaseInterval(cancellationToken);
+                        await SleepAndIncreaseIntervalAsync(cancellationToken);
                     }
                     else
                     {
@@ -65,32 +65,29 @@ namespace Zbang.Zbox.WorkerRoleSearch
         int m_Interval = MinInterval;
         private const int MinInterval = 30;
         private const int MaxInterval = 240;
-        private async Task SleepAndIncreaseInterval(CancellationToken cancellationToken)
+        private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
         {
             m_Interval = Math.Min(MaxInterval, m_Interval * 2);
             await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
 
         }
 
-        private async Task<bool> UpdateBox(int instanceId, int instanceCount)
+        private async Task<bool> UpdateBoxAsync(int instanceId, int instanceCount)
         {
             var updates = await m_ZboxReadService.GetBoxDirtyUpdates(instanceId, instanceCount, 100);
-            if (updates.BoxesToUpdate.Any() || updates.BoxesToDelete.Any())
+            if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return false;
+            TraceLog.WriteInfo(PrefixLog,
+                $"box updating {updates.BoxesToUpdate.Count()} deleting {updates.BoxesToDelete.Count()}");
+            var isSuccess =
+                await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete);
+            if (isSuccess)
             {
-                TraceLog.WriteInfo(PrefixLog,
-                    $"box updating {updates.BoxesToUpdate.Count()} deleting {updates.BoxesToDelete.Count()}");
-                var isSuccess =
-                    await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete);
-                if (isSuccess)
-                {
-                    await m_ZboxWriteService.UpdateSearchBoxDirtyToRegularAsync(
-                        new UpdateDirtyToRegularCommand(
-                            updates.BoxesToDelete.Union(updates.BoxesToUpdate.Select(s => s.Id))));
-                }
-
-                return true;
+                await m_ZboxWriteService.UpdateSearchBoxDirtyToRegularAsync(
+                    new UpdateDirtyToRegularCommand(
+                        updates.BoxesToDelete.Union(updates.BoxesToUpdate.Select(s => s.Id))));
             }
-            return false;
+
+            return true;
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public async Task HandleAsync(SubscribeToSharedBoxCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
            // var user = m_UserRepository.Load(command.UserId);
             //var box = m_BoxRepository.Load(command.BoxId);
 

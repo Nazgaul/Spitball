@@ -1,4 +1,6 @@
-﻿namespace Zbang.Zbox.Domain
+﻿using System.Collections.Generic;
+
+namespace Zbang.Zbox.Domain
 {
     public abstract class ItemCommentBase
     {
@@ -11,5 +13,7 @@
         public virtual UserTimeDetails UserTime { get; set; }
 
         public virtual User Author { get; set; }
+
+        protected virtual ICollection<Updates> Updates { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Domain
             base(boxName, creator, BoxPrivacySettings.AnyoneWithUrl)
         {
             University = department.University;
-            if (creator == null) throw new ArgumentNullException("creator");
+            if (creator == null) throw new ArgumentNullException(nameof(creator));
             CourseCode = courseCode;
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Professor = professor;
@@ -67,7 +67,7 @@ namespace Zbang.Zbox.Domain
         }
         public override void DeleteAssociation()
         {
-            this.Department = null;
+            Department = null;
             base.DeleteAssociation();
         }
     }

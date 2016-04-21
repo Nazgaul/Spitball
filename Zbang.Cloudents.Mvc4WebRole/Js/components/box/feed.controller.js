@@ -82,7 +82,7 @@
                     users: func
                 },
                 targetEvent: ev,
-                clickOutsideToClose: true,
+                clickOutsideToClose: true
                 //fullscreen: true
             });
         }
@@ -136,7 +136,7 @@
             for (var i = 0; i < self.data.length; i++) {
                 var currentPost = self.data[i];
                 if (self.feedUpdates && self.feedUpdates[currentPost.id]) {
-                    currentPost.isNew = true
+                    currentPost.isNew = true;
                 }
                 var files = currentPost.files;
                 for (var j = 0; j < files.length; j++) {
@@ -158,7 +158,7 @@
                     var currentReply = currentPost.replies[k];
                     angular.forEach(currentReply.files, buildItem);
                     if (self.feedUpdates && self.feedUpdates[currentReply.id]) {
-                        currentReply.isNew = true
+                        currentReply.isNew = true;
                     }
                     //self.data[i].replies[k].files = itemThumbnailService.assignValues(self.data[i].replies[k].files, 100, 141);
                 }
@@ -172,7 +172,7 @@
         }
 
         function postItemTemplate(elmenet) {
-            if (elmenet.type == 'quiz') {
+            if (elmenet.type === 'quiz') {
                 return 'quiz-template.html';
             }
             return 'item-template.html';
@@ -216,7 +216,7 @@
                 return;
             }
             var filesId = self.add.files.filter(function (e) {
-                return e.postId == comment.id;
+                return e.postId === comment.id;
             }).map(function (c) {
                 return c.system.id;
             });
@@ -305,6 +305,7 @@ userName: "ram y"*/
                 self.add.disabled = false;
             });
         }
+        var postId;
         function google(post) {
             postId = post;
             externalUploadProvider.google(boxId, null, true).then(externalUploadComplete);
@@ -338,7 +339,7 @@ userName: "ram y"*/
             }
         }
 
-        var postId;
+       
         self.add.upload = uploadFile;
         self.openReply = openReply;
         self.reply = reply;

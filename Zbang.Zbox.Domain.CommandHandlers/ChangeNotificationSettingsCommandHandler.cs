@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(ChangeNotificationSettingsCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
             var userBoxRel = m_UserboxRelationshipRepository.GetUserBoxRelationship(command.UserId, command.BoxId);
             userBoxRel.NotificationSettings = command.NewNotificationSettings;
         }

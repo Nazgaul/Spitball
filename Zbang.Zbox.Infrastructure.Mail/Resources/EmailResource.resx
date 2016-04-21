@@ -162,11 +162,11 @@ If you can’t find your course, make Spitball that much more useful by creating
   <data name="CoursesLowActivitySubject" xml:space="preserve">
     <value>Getting Your Class Online</value>
   </data>
-  <data name="UniversityLowActivitySubject" xml:space="preserve">
-    <value>Finding Friends, Uploading Notes</value>
-  </data>
   <data name="UniversityLowActivityText" xml:space="preserve">
     <value>Your university’s Spitball page needs a little work… Be the study pioneer your classmates need and start uploading notes and inviting friends to join you via email.</value>
+  </data>
+  <data name="UniversityLowActivitySubject" xml:space="preserve">
+    <value>Finding Friends, Uploading Notes</value>
   </data>
   <data name="CoursesLowActivityText" xml:space="preserve">
     <value>Ever notice how your courses never has anything posted in it? 

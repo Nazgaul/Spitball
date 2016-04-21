@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(RegisterMobileDeviceCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             m_UserRepository.RegisterUserNotification(message.UserId, message.OperatingSystem);
 
         }

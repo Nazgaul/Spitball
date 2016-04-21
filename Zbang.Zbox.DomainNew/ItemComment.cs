@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain
 {
@@ -15,15 +14,15 @@ namespace Zbang.Zbox.Domain
         {
             if (author == null)
             {
-                throw new ArgumentNullException("author");
+                throw new ArgumentNullException(nameof(author));
             }
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
             if (comment == null)
             {
-                throw new ArgumentNullException("comment");
+                throw new ArgumentNullException(nameof(comment));
             }
 
 
