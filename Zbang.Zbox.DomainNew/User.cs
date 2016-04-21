@@ -67,7 +67,7 @@ namespace Zbang.Zbox.Domain
             Url = UrlConsts.BuildUserUrl(Id, Name);
         }
 
-        public long Id { get; protected set; }
+        public virtual long Id { get; protected set; }
 
         public virtual string Email { get; protected set; }
         public virtual string Culture { get; private set; }

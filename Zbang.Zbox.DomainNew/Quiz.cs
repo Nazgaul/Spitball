@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain
         public virtual float Rate { get; protected set; }
 
         public virtual int NumberOfViews { get; private set; }
-        public virtual int NumberOfComments { get; private set; }
+        //public virtual int NumberOfComments { get; private set; }
         public virtual UserTimeDetails DateTimeUser { get; private set; }
         public virtual ICollection<Question> Questions { get; protected set; }
 
@@ -73,10 +73,10 @@ namespace Zbang.Zbox.Domain
             DateTimeUser.UpdateTime = DateTime.UtcNow;
         }
 
-        public virtual void UpdateNumberOfComments(int count)
-        {
-            NumberOfComments = count;
-        }
+        //public virtual void UpdateNumberOfComments(int count)
+        //{
+        //    NumberOfComments = count;
+        //}
         public virtual void UpdateNumberOfViews()
         {
             NumberOfViews++;
@@ -86,7 +86,7 @@ namespace Zbang.Zbox.Domain
 
         public bool IsDirty {get;set;}
 
-        public Func<bool> ShouldMakeDirty
+        public virtual Func<bool> ShouldMakeDirty
         {
             get;
             set;

@@ -120,6 +120,6 @@ namespace Zbang.Zbox.Domain
         public bool IsDirty { get; set; }
 
 
-        public Func<bool> ShouldMakeDirty { get; set; }
+        public virtual Func<bool> ShouldMakeDirty { get; set; }
     }
 }
