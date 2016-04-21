@@ -1,7 +1,5 @@
 ﻿using System;
 using Microsoft.Azure.Search;
-using Microsoft.WindowsAzure.ServiceRuntime;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {

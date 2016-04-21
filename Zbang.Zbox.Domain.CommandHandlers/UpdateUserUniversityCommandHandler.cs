@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(UpdateUserUniversityCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var university = m_UniversityRepository.Load(message.UniversityId);
 
             //RussianDepartment department = null;

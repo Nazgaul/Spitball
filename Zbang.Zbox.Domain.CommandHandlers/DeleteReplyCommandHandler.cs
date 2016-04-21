@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public Task HandleAsync(DeleteReplyCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var answer = m_ReplyRepository.Load(message.AnswerId);
             var box = answer.Box;
             var user = m_UserRepository.Load(message.UserId);

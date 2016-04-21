@@ -15,9 +15,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public string GoogleId { get; private set; }
         public string Image { get; private set; }
-        public override string CommandResolveName
-        {
-            get { return ResolveName; }
-        }
+        public override string CommandResolveName => ResolveName;
     }
 }

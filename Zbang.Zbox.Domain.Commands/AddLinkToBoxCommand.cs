@@ -21,9 +21,6 @@ namespace Zbang.Zbox.Domain.Commands
         public bool IsQuestion { get; private set; }
 
 
-        public override string ResolverName
-        {
-            get { return LinkResolver; }
-        }
+        public override string ResolverName => LinkResolver;
     }
 }

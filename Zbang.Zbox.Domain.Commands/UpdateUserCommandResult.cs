@@ -15,12 +15,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public string Error { get; set; }
         public string Field { get; set; }
-        public bool HasErrors
-        {
-            get
-            {
-                return !string.IsNullOrWhiteSpace(Error);
-            }
-        }
+        public bool HasErrors => !string.IsNullOrWhiteSpace(Error);
     }
 }

@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Domain
         {
             if (string.IsNullOrEmpty(text))
             {
-                throw new ArgumentNullException("text");
+                throw new ArgumentNullException(nameof(text));
             }
             Id = id;
             Sender = sender;

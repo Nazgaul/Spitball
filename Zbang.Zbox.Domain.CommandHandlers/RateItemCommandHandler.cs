@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public async Task HandleAsync(RateItemCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var userRate = m_ItemRateRepository.GetRateOfUser(message.UserId, message.ItemId);
 
             var item = m_ItemRepository.Load(message.ItemId);

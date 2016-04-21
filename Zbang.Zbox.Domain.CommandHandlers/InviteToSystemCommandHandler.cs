@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public Task HandleAsync(InviteToSystemCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
             User sender = m_UserRepository.Load(command.SenderId);
 
             var tasks = new List<Task>();

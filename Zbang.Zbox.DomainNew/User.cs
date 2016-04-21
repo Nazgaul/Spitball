@@ -145,8 +145,8 @@ namespace Zbang.Zbox.Domain
 
         public void UpdateUserProfile(string firstName, string lastName)
         {
-            if (firstName == null) throw new ArgumentNullException("firstName");
-            if (lastName == null) throw new ArgumentNullException("lastName");
+            if (firstName == null) throw new ArgumentNullException(nameof(firstName));
+            if (lastName == null) throw new ArgumentNullException(nameof(lastName));
             FirstName = firstName.Trim();
             LastName = lastName.Trim();
             CreateName();

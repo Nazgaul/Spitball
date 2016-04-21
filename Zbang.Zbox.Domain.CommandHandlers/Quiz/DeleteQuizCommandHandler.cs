@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         }
         public void Handle(DeleteQuizCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
 
             var quiz = m_QuizRepository.Load(message.QuizId); // need that because we save box
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, quiz.Box.Id);

@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public Task HandleAsync(ShareBoxCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
             
             var sender = m_UserRepository.Load(command.InviteeId);
             var box = m_BoxRepository.Load(command.BoxId);

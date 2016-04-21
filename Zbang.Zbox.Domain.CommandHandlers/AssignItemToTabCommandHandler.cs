@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(AssignItemToTabCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
 
             var item = m_ItemRepository.Load(message.ItemId);
             ItemTab itemTab;

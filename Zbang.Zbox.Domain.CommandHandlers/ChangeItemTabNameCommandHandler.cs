@@ -19,7 +19,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(ChangeItemTabNameCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
 
             if (userType == Infrastructure.Enums.UserRelationshipType.None || userType == Infrastructure.Enums.UserRelationshipType.Invite)

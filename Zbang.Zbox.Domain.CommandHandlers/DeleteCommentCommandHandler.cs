@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public Task HandleAsync(DeleteCommentCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var comment = m_BoxCommentRepository.Load(message.CommentId);
             var user = m_UserRepository.Load(message.UserId);
             var box = comment.Box;

@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public Task HandleAsync(AddAnnotationCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
 
             var user = m_UserRepository.Load(message.UserId);
             var item = m_ItemRepository.Load(message.ItemId);

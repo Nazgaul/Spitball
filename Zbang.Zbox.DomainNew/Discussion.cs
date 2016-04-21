@@ -10,9 +10,9 @@ namespace Zbang.Zbox.Domain
         }
         public Discussion(Guid id, User owner, string text, Question question)
         {
-            if (owner == null) throw new ArgumentNullException("owner");
-            if (text == null) throw new ArgumentNullException("text");
-            if (question == null) throw new ArgumentNullException("question");
+            if (owner == null) throw new ArgumentNullException(nameof(owner));
+            if (text == null) throw new ArgumentNullException(nameof(text));
+            if (question == null) throw new ArgumentNullException(nameof(question));
 
 // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;

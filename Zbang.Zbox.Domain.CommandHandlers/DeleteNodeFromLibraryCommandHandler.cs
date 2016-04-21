@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(DeleteNodeFromLibraryCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var node = m_LibraryRepository.Get(message.NodeId);
             if (node == null)
             {

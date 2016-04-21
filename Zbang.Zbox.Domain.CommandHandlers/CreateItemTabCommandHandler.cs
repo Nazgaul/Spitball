@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(CreateItemTabCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             if (string.IsNullOrEmpty(message.Name))
             {
                 throw new NullReferenceException("message.Name");

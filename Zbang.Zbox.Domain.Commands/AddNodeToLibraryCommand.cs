@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain.Commands
         public AddNodeToLibraryCommand(string name, long universityId , Guid? parentId, long userId)
         {
             UserId = userId;
-            if (name == null) throw new ArgumentNullException("name");
+            if (name == null) throw new ArgumentNullException(nameof(name));
 
             Name = name;
             UniversityId = universityId;

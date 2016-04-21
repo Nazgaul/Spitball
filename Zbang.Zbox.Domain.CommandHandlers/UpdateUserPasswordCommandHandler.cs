@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public async Task<UpdateUserCommandResult> ExecuteAsync(UpdateUserPasswordCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
             User user = m_UserRepository.Load(command.Id);
             var id = await m_AccountService.GetUserIdAsync(user.Email);
             

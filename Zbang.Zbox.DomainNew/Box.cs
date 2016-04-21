@@ -36,11 +36,11 @@ namespace Zbang.Zbox.Domain
         {
             if (boxName == null)
             {
-                throw new ArgumentNullException("boxName");
+                throw new ArgumentNullException(nameof(boxName));
             }
             if (user == null)
             {
-                throw new ArgumentNullException("user");
+                throw new ArgumentNullException(nameof(user));
             }
             Name = boxName.Trim();
             PrivacySettings.PrivacySetting = privacySettings;
@@ -89,7 +89,7 @@ namespace Zbang.Zbox.Domain
         {
             if (newBoxName == null)
             {
-                throw new ArgumentNullException("newBoxName");
+                throw new ArgumentNullException(nameof(newBoxName));
             }
             if (String.Equals(Name, newBoxName, StringComparison.CurrentCultureIgnoreCase))
             {
@@ -303,6 +303,6 @@ namespace Zbang.Zbox.Domain
 
         public Func<bool> ShouldMakeDirty { get; set; }
 
-        public virtual object Actual { get { return this; } }
+        public virtual object Actual => this;
     }
 }

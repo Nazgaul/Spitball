@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public async Task HandleAsync(RequestAccessLibraryNodeCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var userToLibraryRel = m_UserRepository.GetUserToDepartmentRelationShipType(message.UserId, message.DepartmentId);
             if (userToLibraryRel != Infrastructure.Enums.UserLibraryRelationType.None)
             {

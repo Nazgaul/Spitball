@@ -14,16 +14,15 @@ namespace Zbang.Zbox.Domain.Commands
             CommentId = commentId;
         }
 
-        public string UserName { get; private set; }
-        public string UserImage { get; private set; }
-        public Guid CommentId { get; private set; }
-        public string UserUrl { get; private set; }
-        public long UserId { get; private set; }
+        public string UserName { get; }
+        public string UserImage { get; }
+        public Guid CommentId { get; }
+        public string UserUrl { get; }
+        public long UserId { get; }
 
         public override string ToString()
         {
-           return string.Format("userid {0} user url {1} userimage {2} username {3} commentid {4}", UserId, UserUrl, UserImage,
-                UserName, CommentId);
+           return $"userid {UserId} user url {UserUrl} userimage {UserImage} username {UserName} commentid {CommentId}";
         }
     }
 }

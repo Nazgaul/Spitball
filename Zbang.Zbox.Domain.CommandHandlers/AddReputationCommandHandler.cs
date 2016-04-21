@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public Task HandleAsync(AddReputationCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var user = m_UserRepository.Load(message.UserId);
             var reputation = user.AddReputation(Infrastructure.Enums.ReputationAction.ShareFacebook);
 

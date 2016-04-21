@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private Task TriggerWelcomeMail(User user)
         {
-            if (user == null) throw new ArgumentNullException("user");
+            if (user == null) throw new ArgumentNullException(nameof(user));
             return m_QueueRepository.InsertMessageToMailNewAsync(new WelcomeMailData(user.Email, user.Name, user.Culture));
         }
 
@@ -114,8 +114,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected void UpdateUniversity(long universityId, CreateUserCommandResult result, User user)
         {
-            if (result == null) throw new ArgumentNullException("result");
-            if (user == null) throw new ArgumentNullException("user");
+            if (result == null) throw new ArgumentNullException(nameof(result));
+            if (user == null) throw new ArgumentNullException(nameof(user));
             var university = m_UniversityRepository.Get(universityId);
             if (university == null)
             {

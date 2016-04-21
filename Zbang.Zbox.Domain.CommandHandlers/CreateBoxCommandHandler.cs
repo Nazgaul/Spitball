@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public virtual CreateBoxCommandResult Execute(CreateBoxCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
             if (command.BoxName.Length > Box.NameLength)
             {
                 throw new OverflowException("Box Name exceed" + Box.NameLength);

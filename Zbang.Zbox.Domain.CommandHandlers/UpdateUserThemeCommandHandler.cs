@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public void Handle(UpdateUserThemeCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var user = m_UserRepository.Load(message.Id);
             user.Theme = message.Theme;
             m_UserRepository.Save(user);

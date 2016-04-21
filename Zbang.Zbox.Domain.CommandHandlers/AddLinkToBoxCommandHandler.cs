@@ -44,7 +44,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public async Task<AddItemToBoxCommandResult> ExecuteAsync(AddItemToBoxCommand itemCommand)
         {
-            if (itemCommand == null) throw new ArgumentNullException("itemCommand");
+            if (itemCommand == null) throw new ArgumentNullException(nameof(itemCommand));
 
             var command = itemCommand as AddLinkToBoxCommand;
             if (command == null) throw new NullReferenceException("command");
@@ -95,7 +95,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             string url = command.Url;
             if (Validation.IsUrlWithoutSceme(url))
             {
-                url = string.Format("http://{0}", url);
+                url = $"http://{url}";
             }
             Uri u;
             if (!Uri.TryCreate(url, UriKind.Absolute, out u))

@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
         }
         public void Handle(MarkAnswerCorrectCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var answer = m_AnswerRepository.Load(message.Id);
 
             if (answer.Quiz.Owner.Id != message.UserId)

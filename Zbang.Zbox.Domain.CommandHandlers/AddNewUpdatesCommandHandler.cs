@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
         public Task HandleAsync(AddNewUpdatesCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             var box = m_BoxRepository.Load(message.BoxId); 
             var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId).Select(s => s.UserId).ToList();
             if (usersToUpdate.Count == 0)

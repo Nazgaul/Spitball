@@ -18,9 +18,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         //public string UniversityName  { get; private set; }           
 
-        public override string CommandResolveName
-        {
-            get { return ResolveName; }
-        }
+        public override string CommandResolveName => ResolveName;
     }
 }

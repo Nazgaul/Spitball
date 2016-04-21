@@ -91,7 +91,7 @@ namespace Zbang.Zbox.Domain
         {
             if (nodeName == null)
             {
-                throw new ArgumentNullException("nodeName");
+                throw new ArgumentNullException(nameof(nodeName));
             }
             nodeName = nodeName.Trim();
             if (CheckIfBoxesExists())
@@ -117,7 +117,7 @@ namespace Zbang.Zbox.Domain
             }
             if (newName == null)
             {
-                throw new ArgumentNullException("newName");
+                throw new ArgumentNullException(nameof(newName));
             }
             newName = newName.Trim();
 

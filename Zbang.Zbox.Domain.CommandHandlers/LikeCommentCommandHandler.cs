@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public LikeCommentCommandResult Execute(LikeCommentCommand message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
 
             var commentLike = m_CommentLikeRepository.GetUserLike(message.UserId, message.CommentId);
             var comment = m_CommentRepository.Load(message.CommentId);
