@@ -94,6 +94,6 @@ namespace Zbang.Zbox.Domain
         }
 
 
-        public Func<bool> ShouldMakeDirty { get; set; }
+        public virtual Func<bool> ShouldMakeDirty { get; set; }
     }
 }

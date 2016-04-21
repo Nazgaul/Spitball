@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //Get Box
             var box = m_BoxRepository.Load(command.BoxId);
             var user = m_UserRepository.Load(command.UserId);
-           
+
             //Add link to Box 
             var link = box.AddLink(u.AbsoluteUri, user, LinkStorageSize, command.UrlTitle, DefaultPicture.LinkTypePicture,
                m_BlobProvider.GetThumbnailLinkUrl());
@@ -74,7 +74,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_BoxRepository.Save(box, true);
             AddItemToTab(command.TabId, link);// DUPLICATE in FILE as well
 
-            await m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, link.Id));
+            await m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, itemId: link.Id));
             return new AddLinkToBoxCommandResult(link);
 
 

@@ -183,11 +183,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             return Request.CreateResponse(result.Where(w => w.Publish).Select(s => new
             {
                 s.Name,
-                s.Id,
-                //creationTime = s.Date,
-                //s.Owner,
-                //s.OwnerId
-                //s.Url
+                s.Id
             }));
 
         }

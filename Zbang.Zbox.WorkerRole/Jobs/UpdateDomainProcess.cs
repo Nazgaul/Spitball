@@ -12,14 +12,11 @@ namespace Zbang.Zbox.WorkerRole.Jobs
     public class UpdateDomainProcess : IJob
     {
 
-        readonly private QueueProcess m_QueueProcess;
-       // private readonly IQueueProviderExtract m_QueueProvider;
+        private readonly QueueProcess m_QueueProcess;
         private bool m_KeepRunning;
-
 
         public UpdateDomainProcess(IQueueProviderExtract queueProvider)
         {
-           // m_QueueProvider = queueProvider;
             m_QueueProcess = new QueueProcess(queueProvider, TimeSpan.FromSeconds(1));
         }
 
@@ -45,19 +42,9 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
         private async Task ExecuteAsync()
         {
-          //var retVal = await  m_QueueProvider.RunQueueMultiple(new UpdateDomainQueueName(), messages =>
-          //{
-          //     var messagesData = messages.Select(s => s.FromMessageProto < Infrastructure.Transport.DomainProcess>());
-
-
-          //    return Task.FromResult(messages);
-
-          //}, TimeSpan.FromMinutes(1), 5);
-
-           // TraceLog.WriteInfo("Running update domain queue");
             await m_QueueProcess.RunQueue(new UpdateDomainQueueName(), async msg =>
               {
-                 
+
                   try
                   {
                       var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
@@ -79,7 +66,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                       TraceLog.WriteError("UpdateDomainProcess run", ex);
                   }
                   return false;
-              }, TimeSpan.FromMinutes(1), 100);
+              }, TimeSpan.FromMinutes(1), 5);
         }
 
         public void Stop()

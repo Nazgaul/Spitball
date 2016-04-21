@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Domain
             CreationTime = DateTime.UtcNow;
             Quiz = question.Quiz;
             Question = question;
-            Quiz.Box.UserTime.UpdateUserTime(owner.Email);
+            
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
         }

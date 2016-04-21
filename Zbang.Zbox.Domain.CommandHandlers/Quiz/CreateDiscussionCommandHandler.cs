@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
     {
         // private readonly IIdGenerator m_IdGenerator;
         private readonly IRepository<Question> m_QuestionRepository;
-        private readonly IRepository<Domain.Quiz> m_QuizRepository;
+        //private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IRepository<QuizDiscussion> m_DiscussionRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
@@ -24,12 +24,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             IUserRepository userRepository,
             IRepository<Question> questionRepository,
             IRepository<QuizDiscussion> discussionRepository,
-            IRepository<Domain.Quiz> quizRepository, IQueueProvider queueProvider)
+            //IRepository<Domain.Quiz> quizRepository, 
+            IQueueProvider queueProvider)
         {
             m_QuestionRepository = questionRepository;
             m_DiscussionRepository = discussionRepository;
             m_UserRepository = userRepository;
-            m_QuizRepository = quizRepository;
+           // m_QuizRepository = quizRepository;
             m_QueueProvider = queueProvider;
         }
         public Task HandleAsync(CreateDiscussionCommand message)
@@ -46,14 +47,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
 
             var discussion = new QuizDiscussion(message.DiscussionId, user, TextManipulation.EncodeText(message.Text), question);
-
-            var noOfDiscussion = m_DiscussionRepository.GetQuerable().Count(w => w.Quiz == question.Quiz);
-            question.Quiz.UpdateNumberOfComments(noOfDiscussion + 1); // the current one is not saved yet
-
-
-
-
-            m_QuizRepository.Save(question.Quiz);
+            //to get to box we have 3 selects.
+            discussion.Quiz.Box.UserTime.UpdateUserTime(user.Id.ToString());
+            discussion.Quiz.Box.ShouldMakeDirty = () => false;
             m_DiscussionRepository.Save(discussion);
             return m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, question.Quiz.Box.Id, quizDiscussionId: discussion.Id));
         }
