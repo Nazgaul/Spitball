@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
+        private readonly IUserBoxRelRepository m_UserBoxRelRepository;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<CommentReplies> m_ReplyRepository;
         private readonly IRepository<Comment> m_CommentRepository;
@@ -32,7 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<CommentReplies> replyRepository,
             IRepository<Comment> commentRepository,
             IRepository<Updates> updatesRepository,
-            IRepository<Domain.Quiz> quizRepository, ISendPush sendPush, IUserRepository userRepository, IRepository<ItemComment> itemCommentRepository, IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<QuizDiscussion> quizDiscussionRepository)
+            IRepository<Domain.Quiz> quizRepository, ISendPush sendPush, IUserRepository userRepository, IRepository<ItemComment> itemCommentRepository, IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<QuizDiscussion> quizDiscussionRepository, IUserBoxRelRepository userBoxRelRepository)
         {
             m_BoxRepository = boxRepository;
             m_ItemRepository = itemRepository;
@@ -45,16 +46,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemCommentRepository = itemCommentRepository;
             m_ItemCommentReplyRepository = itemCommentReplyRepository;
             m_QuizDiscussionRepository = quizDiscussionRepository;
+            m_UserBoxRelRepository = userBoxRelRepository;
         }
         public Task HandleAsync(AddNewUpdatesCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var box = m_BoxRepository.Load(message.BoxId);
-            var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId).Select(s => s.UserId).ToList();
-            if (usersToUpdate.Count == 0)
-            {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
-            }
+            var usersToUpdate = m_UserBoxRelRepository.GetUserIdsConnectedToBox(message.BoxId).Where(w => w != message.UserId).ToList();
+            //var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId)
+            //    .Select(s => s.UserId).ToList();
+            //if (usersToUpdate.Count == 0)
+            //{
+            //    return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            //}
             
             var tQuiz = UpdateQuizAsync(message.QuizId, usersToUpdate, box);
             var tItem = UpdateItemAsync(message.ItemId, usersToUpdate, box);
@@ -98,7 +102,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var item = m_ItemRepository.Load(itemId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, item));
-            return m_SendPush.SendAddItemNotification(item.Uploader.Name, box.Name, box.Id, userIds);
+            return m_SendPush.SendAddItemNotificationAsync(item.Uploader.Name, box.Name, box.Id, userIds);
         }
 
 
@@ -111,7 +115,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var reply = m_ReplyRepository.Load(replyId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, reply));
-            return m_SendPush.SendAddReplyNotification(reply.User.Name, reply.Text, box.Name, box.Id, reply.Question.Id, userIds);
+            return m_SendPush.SendAddReplyNotificationAsync(reply.User.Name, reply.Text, box.Name, box.Id, reply.Question.Id, userIds);
         }
 
         private Task UpdateCommentAsync(Guid? commentId, IList<long> userIds, Box box)
@@ -135,7 +139,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     return Infrastructure.Extensions.TaskExtensions.CompletedTask;
                 }
 
-                return m_SendPush.SendAddPostNotification(comment.User.Name, textToPush, box.Name, box.Id, userIds);
+                return m_SendPush.SendAddPostNotificationAsync(comment.User.Name, textToPush, box.Name, box.Id, userIds);
             }
             catch (ArgumentNullException ex)
             {
@@ -144,7 +148,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
         }
 
-        private Task UpdateItemDiscussionAsync(long? itemDiscussionId, IList<long> userIds, Box box)
+        private Task UpdateItemDiscussionAsync(long? itemDiscussionId, IEnumerable<long> userIds, Box box)
         {
             if (!itemDiscussionId.HasValue)
             {
@@ -154,7 +158,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             DoUpdateLoop(userIds, u => Updates.UpdateItemDiscussion(u,box,itemDiscussion) );
             return Infrastructure.Extensions.TaskExtensions.CompletedTask;
         }
-        private Task UpdateItemReplyDiscussionAsync(long? itemReplyDiscussionId, IList<long> userIds, Box box)
+        private Task UpdateItemReplyDiscussionAsync(long? itemReplyDiscussionId, IEnumerable<long> userIds, Box box)
         {
             if (!itemReplyDiscussionId.HasValue)
             {
@@ -164,7 +168,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             DoUpdateLoop(userIds, u => Updates.UpdateItemDiscussionReply(u, box, itemReplyDiscussion));
             return Infrastructure.Extensions.TaskExtensions.CompletedTask;
         }
-        private Task UpdateQuizDiscussionAsync(Guid? quizDiscussionId, IList<long> userIds, Box box)
+        private Task UpdateQuizDiscussionAsync(Guid? quizDiscussionId, IEnumerable<long> userIds, Box box)
         {
             if (!quizDiscussionId.HasValue)
             {

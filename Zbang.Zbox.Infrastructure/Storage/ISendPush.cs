@@ -6,21 +6,21 @@ namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface ISendPush
     {
-        Task SendAddItemNotification(string userNameOfAction,
+        Task SendAddItemNotificationAsync(string userNameOfAction,
             string boxName, long boxId,
             IList<long> userIds);
 
-        Task SendAddReplyNotification(string userNameOfAction,
+        Task SendAddReplyNotificationAsync(string userNameOfAction,
             string text,
             string boxName, long boxId, Guid commentId,
             IList<long> userIds);
 
-        Task SendAddPostNotification(string userNameOfAction,
+        Task SendAddPostNotificationAsync(string userNameOfAction,
             string text,
             string boxName, long boxId,
             IList<long> userIds);
 
-        Task SendInviteNotification(string userNameOfAction,
+        Task SendInviteNotificationAsync(string userNameOfAction,
             string boxName, long boxId,
             long userId);
     }

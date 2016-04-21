@@ -11,15 +11,9 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
     public class NHibernateRepository<T> : IRepository<T> where T : class
     {
 
-        protected ISession Session
-        {
-            get
-            { return UnitOfWork.CurrentSession; }
-        }
-        protected virtual ISessionFactory SessionFactory
-        {
-            get { return UnitOfWork.CurrentSession.GetSessionImplementation().Factory; }
-        }
+        protected ISession Session => UnitOfWork.CurrentSession;
+
+        protected virtual ISessionFactory SessionFactory => UnitOfWork.CurrentSession.GetSessionImplementation().Factory;
 
         protected ICriteria CreateCriteria()
         {

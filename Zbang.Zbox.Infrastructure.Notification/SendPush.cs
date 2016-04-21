@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ServiceBus.Notifications;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Notifications
 {
@@ -27,11 +26,11 @@ namespace Zbang.Zbox.Infrastructure.Notifications
 
             if (message == null)
             {
-                throw new ArgumentNullException("message");
+                throw new ArgumentNullException(nameof(message));
             }
             if (tags == null)
             {
-                throw new ArgumentNullException("tags");
+                throw new ArgumentNullException(nameof(tags));
             }
             if (m_Hub == null)
             {
@@ -42,7 +41,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         }
 
 
-        private Task SendNotification(GooglePushMessage googleMessage, ApplePushMessage appleMessage, ICollection<long> tags)
+        private Task SendNotificationAsync(GooglePushMessage googleMessage, ApplePushMessage appleMessage, ICollection<long> tags)
         {
             if (tags.Count == 0)
             {
@@ -72,7 +71,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             return Task.WhenAll(list);
         }
 
-        public Task SendAddPostNotification(string userNameOfAction,
+        public Task SendAddPostNotificationAsync(string userNameOfAction,
             string text,
             string boxName, long boxId,
             IList<long> userIds)
@@ -95,10 +94,10 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 };
             applePushMessage.Add("action", PushAction.PostComment);
             applePushMessage.Add("boxId", boxId);
-            return SendNotification(googleMessage, applePushMessage, userIds);
+            return SendNotificationAsync(googleMessage, applePushMessage, userIds);
         }
 
-        public Task SendAddReplyNotification(string userNameOfAction,
+        public Task SendAddReplyNotificationAsync(string userNameOfAction,
             string text,
             string boxName, long boxId, Guid commentId,
             IList<long> userIds)
@@ -124,10 +123,10 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             applePushMessage.Add("action", PushAction.PostReply);
             applePushMessage.Add("boxId", boxId);
             applePushMessage.Add("commentId", commentId);
-            return SendNotification(googleMessage, applePushMessage, userIds);
+            return SendNotificationAsync(googleMessage, applePushMessage, userIds);
         }
 
-        public Task SendAddItemNotification(string userNameOfAction,
+        public Task SendAddItemNotificationAsync(string userNameOfAction,
             string boxName, long boxId,
             IList<long> userIds)
         {
@@ -148,10 +147,10 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 };
             applePushMessage.Add("action", PushAction.AddItem);
             applePushMessage.Add("boxId", boxId);
-            return SendNotification(googleMessage, applePushMessage, userIds);
+            return SendNotificationAsync(googleMessage, applePushMessage, userIds);
         }
 
-        public Task SendInviteNotification(string userNameOfAction,
+        public Task SendInviteNotificationAsync(string userNameOfAction,
             string boxName, long boxId,
             long userId)
         {
@@ -173,7 +172,7 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 };
             applePushMessage.Add("action", PushAction.Invite);
             applePushMessage.Add("boxId", boxId);
-            return SendNotification(googleMessage, null, new[] { userId });
+            return SendNotificationAsync(googleMessage, null, new[] { userId });
         }
 
 
