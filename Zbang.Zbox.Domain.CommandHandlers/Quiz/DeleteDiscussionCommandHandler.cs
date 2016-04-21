@@ -8,10 +8,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 {
     public class DeleteDiscussionCommandHandler : ICommandHandler<DeleteDiscussionCommand>
     {
-        private readonly IRepository<Discussion> m_DiscussionRepository;
+        private readonly IRepository<QuizDiscussion> m_DiscussionRepository;
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
 
-        public DeleteDiscussionCommandHandler(IRepository<Discussion> discussionRepository,
+        public DeleteDiscussionCommandHandler(IRepository<QuizDiscussion> discussionRepository,
              IRepository<Domain.Quiz> quizRepository)
         {
             m_DiscussionRepository = discussionRepository;

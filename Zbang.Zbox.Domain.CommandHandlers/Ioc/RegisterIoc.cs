@@ -65,8 +65,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
 
 
             //annotation
-            ioc.RegisterType(typeof(ICommandHandlerAsync<AddAnnotationCommand>), typeof(AddAnnotationCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandlerAsync<AddReplyToAnnotationCommand>), typeof(AddReplyToAnnotationCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddItemCommentCommand>), typeof(AddItemCommentCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddItemReplyToCommentCommand>), typeof(AddItemReplyToCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteItemCommentCommand>), typeof(DeleteItemCommentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<DeleteItemCommentReplyCommand>), typeof(DeleteItemCommentReplyCommandHandler));
 
@@ -125,7 +125,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             .RegisterType(typeof(ICommandHandler<UpdateAnswerCommand>), typeof(UpdateAnswerCommandHandler))
             .RegisterType(typeof(ICommandHandlerAsync<SaveQuizCommand, SaveQuizCommandResult>), typeof(SaveQuizCommandHandler))
             .RegisterType(typeof(ICommandHandler<SaveUserQuizCommand>), typeof(SaveUserQuizCommandHandler))
-            .RegisterType(typeof(ICommandHandler<CreateDiscussionCommand>), typeof(CreateDiscussionCommandHandler))
+            .RegisterType(typeof(ICommandHandlerAsync<CreateDiscussionCommand>), typeof(CreateDiscussionCommandHandler))
             .RegisterType(typeof(ICommandHandler<DeleteDiscussionCommand>), typeof(DeleteDiscussionCommandHandler))
             .RegisterType(typeof(ICommandHandler<CreateAnswerCommand>), typeof(CreateAnswerCommandHandler))
             .RegisterType(typeof(ICommandHandler<MarkAnswerCorrectCommand>), typeof(MarkAnswerCorrectCommandHandler));

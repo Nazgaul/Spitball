@@ -3,7 +3,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands.Quiz
 {
-    public class CreateDiscussionCommand : ICommand
+    public class CreateDiscussionCommand : ICommandAsync
     {
         public CreateDiscussionCommand(long userId, string text, Guid questionId, Guid discussionId)
         {

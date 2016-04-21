@@ -64,8 +64,8 @@ namespace Zbang.Zbox.Domain.Common
         Task<AddItemToBoxCommandResult> AddItemToBoxAsync(AddItemToBoxCommand command);
 
         #region annotation
-        Task AddAnnotationAsync(AddAnnotationCommand command);
-        Task AddReplyAnnotationAsync(AddReplyToAnnotationCommand command);
+        Task AddAnnotationAsync(AddItemCommentCommand command);
+        Task AddReplyAnnotationAsync(AddItemReplyToCommentCommand command);
         void DeleteAnnotation(DeleteItemCommentCommand command);
         void DeleteItemCommentReply(DeleteItemCommentReplyCommand command);
         #endregion
@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateAnswer(UpdateAnswerCommand command);
         Task<SaveQuizCommandResult> SaveQuizAsync(SaveQuizCommand command);
         Task SaveUserAnswersAsync(SaveUserQuizCommand command);
-        void CreateItemInDiscussion(CreateDiscussionCommand command);
+        Task CreateItemInDiscussionAsync(CreateDiscussionCommand command);
         void DeleteItemInDiscussion(DeleteDiscussionCommand command);
 
         void MarkAnswerAsCorrect(MarkAnswerCorrectCommand command);

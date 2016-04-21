@@ -478,9 +478,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             try
             {
-                var command = new AddAnnotationCommand(model.Comment, model.ItemId, User.GetUserId(), model.BoxId);
+                var command = new AddItemCommentCommand(model.Comment, model.ItemId, User.GetUserId(), model.BoxId);
                 await ZboxWriteService.AddAnnotationAsync(command);
-                return JsonOk(command.AnnotationId);
+                return JsonOk(command.CommentId);
             }
             catch (UnauthorizedAccessException)
             {
@@ -508,7 +508,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(GetErrorFromModelState());
 
             }
-            var command = new AddReplyToAnnotationCommand(User.GetUserId(), model.ItemId, model.Comment, model.CommentId, model.BoxId);
+            var command = new AddItemReplyToCommentCommand(User.GetUserId(), model.ItemId, model.Comment, model.CommentId, model.BoxId);
             await ZboxWriteService.AddReplyAnnotationAsync(command);
             return JsonOk(command.ReplyId);
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using Zbang.Zbox.Infrastructure.Commands;
+﻿using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
@@ -12,25 +11,5 @@ namespace Zbang.Zbox.Domain.Commands
         }
         public long UserId { get; private set; }
         public long BoxId { get;private set; }
-    }
-
-    public class DeleteUpdatesFeedCommand : DeleteUpdatesCommand
-    {
-        public DeleteUpdatesFeedCommand(long userId, long boxId,Guid commentId)
-            :base(userId,boxId)
-        {
-            CommentId = commentId;
-        }
-
-        public Guid  CommentId { get; private set; }
-    }
-
-    public class DeleteUpdatesItemCommand : DeleteUpdatesCommand
-    {
-        public DeleteUpdatesItemCommand(long userId, long boxId)
-            :base(userId,boxId)
-        {
-            
-        }
     }
 }

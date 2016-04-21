@@ -15,6 +15,10 @@
     <many-to-one name="Item" class="Item" column="ItemId" not-null="false" foreign-key="NewUpdatesItem"/>
     
     <many-to-one name="Quiz" class="Quiz" column="QuizId" not-null="false" foreign-key="NewUpdatesQuiz"/>
+
+    <many-to-one name="ItemComment" class="ItemComment" column="ItemCommentId" not-null="false" foreign-key="NewUpdatesItemComment"/>
+    <many-to-one name="ItemCommentReply" class="ItemCommentReply" column="ItemCommentReplyId" not-null="false" foreign-key="NewUpdatesItemCommentReply"/>
+    <many-to-one name="QuizDiscussion" class="QuizDiscussion" column="QuizDiscussionId" not-null="false" foreign-key="NewUpdatesQuizDiscussion"/>
     <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
   </class>
 

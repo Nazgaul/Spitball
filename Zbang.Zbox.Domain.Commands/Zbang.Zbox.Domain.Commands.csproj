@@ -55,7 +55,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddAnnotationCommand.cs" />
+    <Compile Include="AddItemCommentCommand.cs" />
     <Compile Include="AddReplyToCommentCommand.cs" />
     <Compile Include="AddCommentCommandResult.cs" />
     <Compile Include="AddFileToBoxCommand.cs" />
@@ -67,7 +67,7 @@
     <Compile Include="AddNewUpdatesCommand.cs" />
     <Compile Include="AddCommentCommand.cs" />
     <Compile Include="AddNodeToLibraryCommand.cs" />
-    <Compile Include="AddReplyToAnnotationCommand.cs" />
+    <Compile Include="AddItemReplyToCommentCommand.cs" />
     <Compile Include="AddStudentCommand.cs" />
     <Compile Include="AssignItemToTabCommand.cs" />
     <Compile Include="ChangeBoxInfoCommand.cs" />
@@ -91,6 +91,8 @@
     <Compile Include="DeleteReplyCommand.cs" />
     <Compile Include="DeleteCommentCommand.cs" />
     <Compile Include="DeleteUpdatesCommand.cs" />
+    <Compile Include="DeleteUpdatesFeedCommand.cs" />
+    <Compile Include="DeleteUpdatesItemCommand.cs" />
     <Compile Include="DeleteUserFromBoxCommand.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InviteToSystemCommand.cs" />

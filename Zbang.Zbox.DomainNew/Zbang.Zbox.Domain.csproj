@@ -69,6 +69,7 @@
     <Compile Include="Comment.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="EqualityAndHashCodeProvider.cs" />
     <Compile Include="File.cs" />
     <Compile Include="InviteToBox.cs" />
     <Compile Include="InviteToSystem.cs" />
@@ -86,7 +87,7 @@
     <Compile Include="ItemTab.cs" />
     <Compile Include="Library.cs" />
     <Compile Include="RussianDepartment.cs" />
-    <Compile Include="Discussion.cs" />
+    <Compile Include="QuizDiscussion.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemRate.cs" />
     <Compile Include="Message.cs" />

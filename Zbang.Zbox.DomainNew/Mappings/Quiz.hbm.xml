@@ -116,7 +116,7 @@
     <property name="Correct" not-null="true" ></property>
   </class>
 
-  <class name="Discussion" table="QuizDiscussion">
+  <class name="QuizDiscussion" table="QuizDiscussion">
     <id name="Id" column="Id">
       <generator class="assigned"/>
     </id>
@@ -125,6 +125,10 @@
     <many-to-one name="Question" class="Question" column="QuestionId" not-null="true" foreign-key="QuestionIdSolvedQuestion"/>
     <property name="Text" not-null="true" length="8000"></property>
     <property name="CreationTime" not-null="true" type="DateTime2" ></property>
+    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+      <key column="QuizDiscussionId" foreign-key="NewUpdatesQuizDiscussion"/>
+      <one-to-many class="Updates"/>
+    </bag>
   </class>
 
 

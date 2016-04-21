@@ -42,10 +42,7 @@ namespace Zbang.Zbox.Domain
                 newText = null;
             }
             //Throw.OnNull(newText, "newText", false);
-            if (newText != null)
-            {
-                newText = newText.Trim();
-            }
+            newText = newText?.Trim();
             Text = newText;
             DateTimeUser.UpdateTime = DateTime.UtcNow;
 

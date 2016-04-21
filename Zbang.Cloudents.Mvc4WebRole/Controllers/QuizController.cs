@@ -409,7 +409,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region Discussion
         [HttpPost, ZboxAuthorize]
-        public ActionResult CreateDiscussion(Discussion model)
+        // ReSharper disable once ConsiderUsingAsyncSuffix
+        public async Task<JsonResult> CreateDiscussion(Discussion model)
         {
             if (!ModelState.IsValid)
             {
@@ -417,7 +418,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var id = m_GuidGenerator.GetId();
             var command = new CreateDiscussionCommand(User.GetUserId(), model.Text, model.QuestionId, id);
-            ZboxWriteService.CreateItemInDiscussion(command);
+            await ZboxWriteService.CreateItemInDiscussionAsync(command);
             return JsonOk(id);
         }
 

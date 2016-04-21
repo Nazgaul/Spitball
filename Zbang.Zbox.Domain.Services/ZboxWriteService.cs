@@ -346,7 +346,7 @@ namespace Zbang.Zbox.Domain.Services
 
 
         #region annotation
-        public async Task AddAnnotationAsync(AddAnnotationCommand command)
+        public async Task AddAnnotationAsync(AddItemCommentCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -357,7 +357,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public async Task AddReplyAnnotationAsync(AddReplyToAnnotationCommand command)
+        public async Task AddReplyAnnotationAsync(AddItemReplyToCommentCommand command)
         {
             using (UnitOfWork.Start())
             {
@@ -597,11 +597,11 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-        public void CreateItemInDiscussion(CreateDiscussionCommand command)
+        public async Task CreateItemInDiscussionAsync(CreateDiscussionCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
