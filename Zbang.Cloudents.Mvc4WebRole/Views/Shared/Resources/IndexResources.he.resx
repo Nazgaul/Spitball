@@ -142,7 +142,7 @@
     <value>גרור ושחרר את הקבצים שלך כאן</value>
   </data>
   <data name="GmailContact" xml:space="preserve">
-    <value>ייבוא אנשי קשר מ Gmail</value>
+    <value>הזמן חברים מתוך חשבון Gmail שלך</value>
   </data>
   <data name="Group" xml:space="preserve">
     <value>קבוצות הלימוד שלי</value>
@@ -215,5 +215,8 @@
   </data>
   <data name="Share" xml:space="preserve">
     <value>אנא הזן את כתובת הURL שברצונך לשתף כאן</value>
+  </data>
+  <data name="FacebookContact" xml:space="preserve">
+    <value>שתף קורס זה עם חבריך בפייסבוק</value>
   </data>
 </root>

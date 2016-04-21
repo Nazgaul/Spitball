@@ -143,7 +143,7 @@
     <value>Drag and drop your files here</value>
   </data>
   <data name="GmailContact" xml:space="preserve">
-    <value>Import contacts from Gmail</value>
+    <value>Invite your friends from your Gmail account</value>
   </data>
   <data name="Group" xml:space="preserve">
     <value>My Study Groups</value>
@@ -216,5 +216,8 @@
   </data>
   <data name="WentWrong" xml:space="preserve">
     <value>Something went wrong</value>
+  </data>
+  <data name="FacebookContact" xml:space="preserve">
+    <value>Share this class with your facebook friends</value>
   </data>
 </root>

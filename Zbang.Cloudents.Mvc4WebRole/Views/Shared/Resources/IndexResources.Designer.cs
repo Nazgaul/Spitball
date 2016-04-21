@@ -133,7 +133,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import contacts from Gmail.
+        ///   Looks up a localized string similar to Share this class with your facebook friends.
+        /// </summary>
+        public static string FacebookContact {
+            get {
+                return ResourceManager.GetString("FacebookContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invite your friends from your Gmail account.
         /// </summary>
         public static string GmailContact {
             get {

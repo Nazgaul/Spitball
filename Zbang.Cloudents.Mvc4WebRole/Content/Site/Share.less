@@ -36,8 +36,6 @@
     }
 }
 
-
-
 .invite-container {
     display: flex;
     padding: 12px;
@@ -50,9 +48,221 @@
 
 .invite {
     position: relative;
-    padding: 0 10px 10px;
     margin-top: 10px;
-    margin: 10px;
+    background: @borderColorDarkGrey;
+
+    &.invite-dialog {
+        max-width: 900px;
+        background: none;
+
+        .content {
+            border: 1px solid #323538;
+            border-radius: 5px;
+
+
+            .tabs {
+                border-radius: 5px 5px 0 0;
+                overflow: hidden;
+
+                button {
+                    height: 55px;
+                    background: @backgroundColorMenu;
+
+
+                    span {
+                        //display: inline-flex;
+                    }
+
+                    &.spitball {
+                        span, svg {
+                            width: 50px;
+                            height: 25px;
+                            fill: @textColorSpitballBlue;
+                        }
+                    }
+
+                    &.email {
+                        margin: 0 4px;
+
+                        span, svg {
+                            width: 35px;
+                            height: 25px;
+                        }
+                    }
+
+                    &.facebook {
+                        span, svg {
+                            height: 35px;
+                            width: 35px;
+                        }
+                    }
+
+                    &.active {
+                        background: @textColorWhite;
+                        border-bottom: 3px solid @buttonColorBlue;
+                    }
+
+                    &:not(.active) svg {
+                        fill: #585F66;
+                    }
+                }
+            }
+
+            .center {
+                min-height: 350px;
+                position: relative;
+
+                .search-user {
+                    padding: 10px 15px;
+                }
+
+                .email, .facebook {
+                    position: absolute;
+                    top: 30%;
+                    text-align: center;
+                    width: 100%;
+
+                    .text {
+                        color: @textColorGrey;
+                        max-width: 300px;
+                        font-size: 22px;
+                        display: inline-block;
+                        margin-bottom: 20px;
+                    }
+                }
+
+                md-input-container {
+                    margin-bottom: 0;
+                }
+
+
+                .user {
+                    font-size: 14px;
+                    margin-top: 8px;
+                    margin-bottom: 8px;
+                    min-width: 80%;
+
+                    .avatar {
+                        img, span {
+                            margin: 0;
+                        }
+                    }
+
+                    .md-list-item-text {
+                        margin-left: 16px;
+                    }
+
+                    .checkbox:before {
+                        content: '\2714';
+                        width: 40px;
+                        height: 40px;
+                        background: @buttonColorBlue;
+                        color: @textColorWhite;
+                        text-align: center;
+                        line-height: 40px;
+                        border-radius: 100%;
+                        display: block;
+                        font-size: 24px;
+                    }
+                    /*****************/
+                    /* entire container, keeps perspective */
+                    .flip-container {
+                        perspective: 1000;
+                    }
+                    /* flip the pane when hovered */
+                    /*.flip-container:hover .flipper, .flip-container.hover .flipper {
+                        transform: rotateY(180deg);
+                    }*/
+                    &.selected {
+                        .flip-container .flipper {
+                            transform: rotateY(180deg);
+                        }
+                    }
+
+                    .flip-container, .avatar, .checkbox {
+                        width: 40px;
+                        height: 40px;
+                    }
+                    /* flip speed goes here */
+                    .flipper {
+                        transition: 0.6s;
+                        transform-style: preserve-3d;
+                        position: relative;
+                        width: 40px;
+                    }
+                    /* hide back of pane during swap */
+                    .avatar, .checkbox {
+                        backface-visibility: hidden;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                    }
+                    /* front pane, placed above back */
+                    .avatar {
+                        z-index: 2;
+                        /* for firefox 31 */
+                        transform: rotateY(0deg);
+                    }
+                    /* back, initially hidden pane */
+                    .checkbox {
+                        transform: rotateY(180deg);
+                    }
+                    /****************/
+                    /*.checkbox:before {
+                        content: '\2714';
+                        width: 40px;
+                        height: 40px;
+                        background: @buttonColorBlue;
+                        color: @textColorWhite;
+                        text-align: center;
+                        line-height: 40px;
+                        border-radius: 100%;
+                        margin-top: 8px;
+                        margin-bottom: 8px;
+                        margin-right: 16px;
+                        display: none;
+                    }
+
+                    &.selected {
+                        .md-avatar {
+                            display: none;
+                        }
+
+                        &:before {
+                            display: block;
+                        }
+                    }*/
+                }
+
+                md-checkbox {
+                    margin: 0;
+                }
+
+                md-checkbox.md-default-theme .md-icon,
+                md-checkbox .md-icon {
+                    border-color: rgba(255, 255, 255, 0.54);
+                }
+
+                md-checkbox .md-ink-ripple {
+                    color: rgba(50, 147, 246,0.87);
+                }
+
+                md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+                    background-color: rgba(50, 147, 246,0.87);
+                }
+            }
+
+            .bottom {
+                text-align: right;
+                margin: 5px;
+
+                .send {
+                    margin: 5px;
+                    float: none;
+                }
+            }
+        }
+    }
 
     .portlet-title {
         padding-right: 25px;
@@ -78,11 +288,7 @@
         }
     }
 
-    .md-chip-input-container input {
-        .placeHolder(@svgLightGrey) !important;
-    }
-
-    button.btn-default.close {
+    &.upload button.btn-default.close {
         background: transparent;
         top: 0;
         position: absolute;
@@ -107,45 +313,6 @@
 
     md-list md-list-item button.md-button:not([disabled]):hover {
         background-color: transparent;
-    }
-
-    .send {
-        margin: 10px 15px;
-    }
-
-    .gmail {
-        display: table;
-        padding: 10px;
-        margin: 0 auto;
-        width: 196px;
-        white-space: normal;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        border-radius: 10px;
-        -moz-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        -o-transform: translate(-50%, -50%);
-        -webkit-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-
-        > * {
-            display: table-cell;
-            vertical-align: middle;
-        }
-
-        svg {
-            width: 60px;
-            height: 44px;
-            vertical-align: middle;
-        }
-
-        span {
-            line-height: 18px;
-            width: ~"calc(100% - 60px)";
-            margin-top: 3px;
-            padding-left: 5px;
-        }
     }
 
     md-chips .md-chips {
@@ -176,6 +343,35 @@
 }
 
 
+@media(max-width: 600px) {
+    .invite-container {
+        position: fixed;
+        bottom: 0;
+        left: 15px;
+        z-index: 999;
+
+        &.hidden-elemnt{
+            display:none;
+        }
+
+        .portlet.light.invite {
+            border-radius: 100%;
+            width: initial;
+
+            button {
+                padding: 10px;
+
+                svg {
+                    width: 30px;
+                    height: 30px;
+                }
+                span{
+                    display: none;
+                }
+            }
+        }
+    }
+}
 
 .chipsdemoContactChips md-content.autocomplete {
     min-height: 300px;
@@ -233,16 +429,6 @@
     padding: 5px 0 8px;
 }
 
-.chipsdemoContactChips .fixedRows {
-    height: 250px;
-    overflow: auto;
-
-    .contact-item .md-list-item-text h3 {
-        white-space: normal;
-        -ms-word-break: break-word;
-        word-break: break-word;
-    }
-}
 
 //override bootstrap
 .md-contact-suggestion img {

@@ -21,9 +21,7 @@
         b.updateBox = updateBox;
         b.inviteToBox = inviteToBox;
         b.closeCollapse = closeCollapse;
-
         b.user = userDetailsFactory.get();
-
         //b.url = b.user.url;
         //b.image = b.user.image;
         b.isActiveState = isActiveState;
@@ -166,7 +164,6 @@
         }
 
         $scope.$on('follow-box', followBox);
-
 
     }
 })();
