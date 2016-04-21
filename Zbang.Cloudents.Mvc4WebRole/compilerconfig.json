@@ -66,5 +66,9 @@
   {
     "outputFile": "Content/Site/menu.css",
     "inputFile": "Content/Site/menu.less"
+  },
+  {
+    "outputFile": "Content/Site/Share.css",
+    "inputFile": "Content/Site/Share.less"
   }
 ]

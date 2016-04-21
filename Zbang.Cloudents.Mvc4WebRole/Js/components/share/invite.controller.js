@@ -10,12 +10,23 @@
         self.allContacts = [];// loadContacts();
         self.contacts = [];
         self.filterSelected = true;
-
         var googleContact = [];
+        self.filterQuery = '';
 
-       
+        self.state = {
+            email: 'e',
+            facebook: 'f',
+            spitball: 's'
+        }
+
+        self.switchTab = switchTab;
+        self.tab = self.state.spitball;
+        getSystemUsers();
+
         self.importGoogleContract = importGoogleContacts;
+        self.fbShare = fbShare;
         self.contactSelected = contactSelected;
+        self.toggleContact = toggleContact;
         self.sendInvite = sendInvite;
         self.submitDisabled = false;
 
@@ -39,6 +50,9 @@
 
         $scope.$on("open_invite", function () {
             $anchorScroll.yOffset = 100;
+            if (self.state.spitball) {
+                getSystemUsers('');
+            }
             $timeout(function () {
                 $anchorScroll('invite');
             });
@@ -61,11 +75,31 @@
             }
         }
 
+        function fbShare() {
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location), "pop", "width=600, height=400, scrollbars=no");
+        }
+
+        function switchTab(tab) {
+            self.tab = tab;
+            self.allContacts = [];
+            switch (self.tab) {
+                case self.state.spitball:
+                    getSystemUsers('');
+                    break;
+                case self.state.email:
+                    self.allContacts = googleContact;
+                    break;
+                case self.state.facebook:
+                    break;
+            }
+        }
+
+
         /**
          * Search for contacts.
          */
         function querySearch(query) {
-            if (!self.inMail) {
+            if (self.tab === self.state.spitball) {
                 return getSystemUsers(query);
             } else {
                 var results = query ?
@@ -84,6 +118,19 @@
             self.contacts.push(contact);
             $scope.$$childHead.$mdContactChipsCtrl.searchText = '';
         }
+
+        function toggleContact(contact) {
+            var index = self.contacts.indexOf(contact);
+            if (index > -1) {
+                self.contacts.splice(index, 1);
+                contact.isSelected = false;
+            }
+            else {
+                self.contacts.push(contact);
+                contact.isSelected = true;
+            }
+        }
+
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
             return function filterFn(contact) {
@@ -131,7 +178,6 @@
                         _lowername: c.name.toLowerCase()
                     }
                 });
-
             });
         }
 

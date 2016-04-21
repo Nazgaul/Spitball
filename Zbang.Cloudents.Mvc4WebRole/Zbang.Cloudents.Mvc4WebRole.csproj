@@ -3693,6 +3693,7 @@
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\components\box\addToAny.directive.ts" />
+    <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
     <Content Include="Js\shared\userDetails.js" />

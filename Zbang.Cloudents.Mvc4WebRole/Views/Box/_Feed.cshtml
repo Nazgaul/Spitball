@@ -5,7 +5,7 @@
     const string url = "~/images/site/uploadIcons.svg";
 }
 <div layout="row" layout-padding layout-wrap @*layout-align="space-between start"*@ class="margin-top-10 feed-wrapper">
-    <div class="@*flex*@ feed" flex="100" flex-md="66" flex-lg="60" flex-gt-lg="60">
+    <div class="feed" flex="100" flex-md="66" flex-lg="60" flex-gt-lg="60">
         @*<div class="portlet light">*@
         @*<div class="portlet-bodyfeed">*@
         @{ Html.RenderPartial("_FeedAddComment");}
@@ -152,11 +152,12 @@
                 @* ReSharper disable once Mvc.PartialViewNotResolved *@
                 @{ Html.RenderPartial("_LeaderBoard", IndexResources.Best);}
             </div>
-            <div class="invite-container" flex class="flex" ng-if="b.canInvite">
+            <div class="invite-container flex" flex ng-if="b.canInvite">
                 <div class="flex portlet light invite button-Blue">
+                    @*<div>{{f.showInvite}}</div>*@
                     <button type="button" ng-click="b.inviteToBox()" class="portlet-body color-override textColor3" ga-track-event="['box-feed', 'inviteFriends']">
                         @Html.Svg("~/images/site/icons.svg", "invite")
-                        @BoxResources.InviteFriends
+                        <span class="text">@BoxResources.InviteFriends</span>
                     </button>
                 </div>
             </div>

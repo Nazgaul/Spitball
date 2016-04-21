@@ -48,8 +48,6 @@ Page Loading
   /*#endregion*/
   /*#region share.less*/
   /*#endregion*/
-  /*#region Share.less*/
-  /*#endregion*/
   /*#region staticPages.less*/
   /*.contactUs-page {
         #map {
@@ -1343,58 +1341,6 @@ Page Loading
 }
 .theme-light .portlet.light.invite svg {
   fill: #f9f9f9;
-}
-.theme-light .invite {
-  background: #ffffff;
-}
-.theme-light .invite button.btn-default:active:hover svg {
-  fill: #9E9E9E;
-}
-.theme-light .invite button.btn-default svg {
-  fill: #c3c3c3;
-}
-.theme-light .invite .body {
-  background: #e9eaed;
-}
-.theme-light .invite md-content {
-  background: #e9eaed;
-}
-.theme-light .invite md-content::-webkit-input-placeholder {
-  color: #888b8e;
-  opacity: 1;
-}
-.theme-light .invite md-content:-moz-placeholder {
-  /* Firefox 18- */
-  color: #888b8e;
-  opacity: 1;
-}
-.theme-light .invite md-content::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #888b8e;
-  opacity: 1;
-}
-.theme-light .invite md-content:-ms-input-placeholder {
-  color: #888b8e;
-  opacity: 1;
-}
-.theme-light .invite .gmail {
-  background: #9E9E9E;
-}
-.theme-light .md-chips .md-chip-input-container {
-  color: #212325;
-}
-.theme-light md-chips .md-chips.md-focused {
-  box-shadow: 0 2px #888b8e;
-}
-.theme-light .chipsdemoContactChips .contact-item .md-list-item-text h3,
-.theme-light .chipsdemoContactChips .contact-item .md-list-item-text p {
-  color: #c3c3c3;
-}
-.theme-light .portlet.light.invite svg {
-  fill: #f9f9f9;
-}
-.theme-light .invite {
-  background: #ffffff;
 }
 .theme-light .invite button.btn-default:active:hover svg {
   fill: #9E9E9E;

@@ -1,64 +1,67 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
+
 <a id="invite"></a>
-<div class="portlet invite color-override backgroundColor2" ng-cloak ng-controller="inviteController as i">
+<div class="portlet invite invite-dialog color-override backgroundColor2" ng-cloak ng-controller="inviteController as i">
     <div class="portlet-title">
         <div class="caption text-capitalize">
             @IndexResources.Invite {{i.title}}
         </div>
     </div>
-    <div class="body clearfix tabbable-line">
-        <div class="clearfix" ng-show="i.inBox">
-            <ul class="nav nav-tabs tab-from-r text-capitalize color-override backgroundTransparent">
-                <li class="mail" ng-class="{active: i.inMail}">
-                    <a ng-click="i.mail()">@IndexResources.Mail</a>
-                </li>
-                <li ng-class="{active: !i.inMail}">
-                    <a ng-click="i.system()">@GeneralResources.Spitball</a>
-                </li>
-
-            </ul>
+    <div class="content">
+        <div class="tabs" layout="row">
+            <button class="spitball" ng-class="{active: i.tab === i.state.spitball}" ng-click="i.switchTab(i.state.spitball)" flex="33" layout="row" layout-align="center center"><span>@Html.Svg("~/images/site/icons.svg", "smallLogo")</span></button>
+            <button class="email" ng-class="{active: i.tab === i.state.email}" ng-click="i.switchTab(i.state.email)" flex="33" layout="row" layout-align="center center"><span>@Html.Svg("~/images/site/icons.svg", "gmail")</span></button>
+            <button class="facebook" ng-class="{active: i.tab === i.state.facebook}" ng-click="i.switchTab(i.state.facebook)" flex="33" layout="row" layout-align="center center"><span>@Html.Svg("~/images/site/social-icons.svg", "facebook-colored")</span></button>
         </div>
-        <div layout="column" ng-cloak class="chipsdemoContactChips">
-            <md-content class="md-padding autocomplete" layout="column">
-                <md-contact-chips ng-model="i.contacts"
-                                  md-contacts="i.querySearch($query)"
-                                  md-contact-name="name"
-                                  md-contact-image="image"
-                                  md-contact-email="email"
-                                  md-require-match="true"
-                                  md-highlight-flags="i"
-                                  filter-selected="i.filterSelected"
-                                  placeholder="@IndexResources.AddMail">
-                </md-contact-chips>
+        <div class="center">
+            <div ng-if="i.allContacts.length">
+                <div class="search-user">
+                    <md-input-container class="md-block">
+                        <label>@IndexResources.AddMail</label>
+                        <input ng-model="i.filterQuery" ng-change="i.querySearch(i.filterQuery)">
+                    </md-input-container>
+                </div>
+                <md-list ng-if="i.tab === i.state.email || i.tab === i.state.spitball" flex="100" layout-wrap layout="row" layout-align="start start" ng-slimscroll watch-content="true" height="290px" width="100%" color="#BBB">
 
-                <md-list class="fixedRows" ng-if="i.allContacts.length">
-                    <md-list-item ng-click="i.contactSelected(contact)" class="md-2-line contact-item" ng-repeat="(index, contact) in i.allContacts"
-                                  ng-if="i.contacts.indexOf(contact) < 0">
-                        <user-image class="md-avatar" name="contact.name" image="contact.image" width="40" height="40"></user-image>
-                        <div class="md-list-item-text compact">
-                            <h3 class="color-override textColor7">{{contact.name}}</h3>
+                    <md-list-item class="contact-item" flex-xs="100" flex-sm="50" flex="33" ng-repeat="contact in i.allContacts">
+                        <div class="item-wrapper" layout="row" layout-align="space-between center" flex="100">
+                            <div class="user" layout="row" layout-align="start center" ng-class="{selected: contact.isSelected}" ng-click="i.toggleContact(contact)">
+                                <div class="flip-container">
+                                    <div class="flipper">
+                                        <div class="avatar"><user-image class="md-avatar" name="contact.name" image="contact.image" width="40" height="40"></user-image></div>
+                                        <div class="checkbox"></div>
+                                    </div>
+                                </div>
+                                <div class="md-list-item-text compact">{{contact.name}}</div>
+                            </div>
                         </div>
                     </md-list-item>
-                    <md-list-item class="md-2-line contact-item selected" ng-repeat="(index, contact) in i.contacts">
-                        <user-image class="md-avatar" name="contact.name" image="contact.image" width="40" height="40"></user-image>
-                        <div class="md-list-item-text compact">
-                            <h3>{{contact.name}}</h3>
-                        </div>
-                    </md-list-item>
+
                 </md-list>
-                <button class="btn gmail text-capitalize" ng-click="i.importGoogleContract()" ng-if="!(i.allContacts.length) && i.inMail" type="button" ga-track-event="['invite', 'import gmail']">
-                    <div>
-                        @Html.Svg("/images/site/icons.svg", "gmail")
-                    </div>
+            </div>
+            <div class="email" ng-if="!(i.allContacts.length) && i.tab === i.state.email">
+                <div><span class="text">@IndexResources.GmailContact</span></div>
+                <button class="btn button-Blue btn-primary gmail" ng-click="i.importGoogleContract()" type="button" ga-track-event="['invite', 'import gmail']">
                     <span>
-                        @IndexResources.GmailContact
+                        @LogOnResources.ExternalProvider
                     </span>
                 </button>
-
-            </md-content>
+            </div>
+            <div class="facebook" ng-if="i.tab === i.state.facebook">
+                <div><span class="text">@IndexResources.FacebookContact</span></div>
+                <button class="btn button-Blue btn-primary gmail" ng-click="i.fbShare()" type="button" ga-track-event="['invite', 'import gmail']">
+                    <span>
+                        @UserResources.Share
+                    </span>
+                </button>
+            </div>
         </div>
-        <button type="button" class="btn button-Blue btn-primary send pull-right text-capitalize" ga-track-event="['invite', 'send']" ng-click="i.sendInvite()" ng-disabled="i.submitDisabled">@IndexResources.Send</button>
-        <button type="button" class="btn btn-default text-capitalize pull-right close" ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+        <div class="bottom">
+            <button type="button" class="close btn btn-default send" ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">@GeneralResources.Cancel</button>
+            <button type="button" class="btn button-Blue btn-primary send" ga-track-event="['invite', 'send']"  ng-if="i.allContacts.length" ng-click="i.sendInvite()" ng-disabled="i.submitDisabled">@IndexResources.Send</button>
+        </div>
     </div>
 </div>
 
