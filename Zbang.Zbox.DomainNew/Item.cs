@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Domain
         {
             if (uploader == null) throw new ArgumentNullException(nameof(uploader));
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            DateTimeUser = new UserTimeDetails(uploader.Email);
+            DateTimeUser = new UserTimeDetails(uploader.Id);
 
             Name = itemName.Trim();
             Uploader = uploader;

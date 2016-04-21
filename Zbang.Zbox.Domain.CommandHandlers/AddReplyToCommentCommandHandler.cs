@@ -61,8 +61,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var reputation = user.AddReputation(ReputationAction.AddAnswer);
             question.ReplyCount++;
             question.LastReplyId = answer.Id;
-            question.DateTimeUser.UpdateUserTime(user.Email);
-            box.UserTime.UpdateUserTime(user.Email);
+            question.DateTimeUser.UpdateUserTime(user.Id);
+            box.UserTime.UpdateUserTime(user.Id);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, answerId: answer.Id));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
 

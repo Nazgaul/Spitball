@@ -7,16 +7,12 @@ namespace Zbang.Zbox.Domain
     {
         protected UserTimeDetails()
         {
-            DateTime now = DateTime.UtcNow;
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            CreationTime = now;
-
-            UpdateTime = now;
-            CreatedUser = string.Empty;
-            UpdatedUser = string.Empty;
+            CreationTime = UpdateTime = DateTime.UtcNow;
+            UpdatedUser = CreatedUser = string.Empty;
         }
 
-        public UserTimeDetails(string userName/*, Platform platform = Platform.Default*/)
+        public UserTimeDetails(long userId)
         {
             DateTime now = DateTime.UtcNow;
             CreationTime = now;
@@ -27,7 +23,7 @@ namespace Zbang.Zbox.Domain
                 platform = string.Empty;
             }
 
-            CreatedUser = UpdatedUser = UpdatedUser = $"{userName} {platform}";
+            CreatedUser = UpdatedUser = UpdatedUser = $"{userId} {platform}";
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
@@ -37,7 +33,7 @@ namespace Zbang.Zbox.Domain
         public virtual string CreatedUser { get; protected internal set; }
         public virtual string UpdatedUser { get; protected set; }
 
-        public void UpdateUserTime(string userName/*, Platform platform = Platform.Default*/)
+        public void UpdateUserTime(long userId)
         {
             DateTime now = DateTime.UtcNow;
             UpdateTime = now;
@@ -46,7 +42,7 @@ namespace Zbang.Zbox.Domain
             {
                 platform = string.Empty;
             }
-            UpdatedUser = $"{userName} {platform}";
+            UpdatedUser = $"{userId} {platform}";
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Zbang.Zbox.Domain
             }
             Name = boxName.Trim();
             PrivacySettings.PrivacySetting = privacySettings;
-            UserTime = new UserTimeDetails(user.Email);
+            UserTime = new UserTimeDetails(user.Id);
             Owner = user;
             UserBoxRelationship.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
             CalculateMembers();
@@ -97,7 +97,7 @@ namespace Zbang.Zbox.Domain
             }
 
             Name = newBoxName.Trim();
-            UserTime.UpdateUserTime(user.Email);
+            UserTime.UpdateUserTime(user.Id);
             GenerateUrl();
         }
 
@@ -144,7 +144,7 @@ namespace Zbang.Zbox.Domain
             //Need to put in here unique item name check per box
             Items.Add(item);
             UpdateItemCount();
-            UserTime.UpdateUserTime(item.Uploader.Email);
+            UserTime.UpdateUserTime(item.Uploader.Id);
             return item;
         }
 
@@ -154,7 +154,7 @@ namespace Zbang.Zbox.Domain
             ShouldMakeDirty = () => false;
             Comments.Add(comment);
             UpdateCommentsCount();
-            UserTime.UpdateUserTime(user.Email);
+            UserTime.UpdateUserTime(user.Id);
             return comment;
         }
 

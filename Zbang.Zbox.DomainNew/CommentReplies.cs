@@ -35,10 +35,10 @@ namespace Zbang.Zbox.Domain
 
             }
             Text = text?.Trim();
-            DateTimeUser = new UserTimeDetails(user.Email);
+            DateTimeUser = new UserTimeDetails(user.Id);
             Question = question;
             Items = items;
-            Box.UserTime.UpdateUserTime(user.Email);
+            Box.UserTime.UpdateUserTime(user.Id);
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
         }

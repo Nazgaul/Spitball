@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 UserRepository.Save(user, true);
                 user.GenerateUrl();
             }
-            await UpdateUser(user, command);
+            await UpdateUserAsync(user, command);
 
             user.MembershipId = membershipCommand.MembershipUserId;
 

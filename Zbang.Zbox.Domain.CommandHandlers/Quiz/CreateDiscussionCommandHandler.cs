@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
             var discussion = new QuizDiscussion(message.DiscussionId, user, TextManipulation.EncodeText(message.Text), question);
             //to get to box we have 3 selects.
-            discussion.Quiz.Box.UserTime.UpdateUserTime(user.Id.ToString());
+            discussion.Quiz.Box.UserTime.UpdateUserTime(user.Id);
             discussion.Quiz.Box.ShouldMakeDirty = () => false;
             m_DiscussionRepository.Save(discussion);
             return m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, question.Quiz.Box.Id, quizDiscussionId: discussion.Id));

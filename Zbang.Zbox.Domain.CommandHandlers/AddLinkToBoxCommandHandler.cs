@@ -70,7 +70,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_CommentRepository.Save(comment);
             }
 
-            box.UserTime.UpdateUserTime(user.Name);
+            box.UserTime.UpdateUserTime(user.Id);
             m_BoxRepository.Save(box, true);
             AddItemToTab(command.TabId, link);// DUPLICATE in FILE as well
 

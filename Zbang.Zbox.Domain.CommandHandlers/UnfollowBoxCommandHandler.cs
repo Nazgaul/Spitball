@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
             if (userType == UserRelationshipType.Owner)
             {
-                await DeleteBox(box, user);
+                await DeleteBoxAsync(box, user);
                 return;
             }
             if (userType == UserRelationshipType.Subscribe)
@@ -74,9 +74,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         }
 
-        private Task DeleteBox(Box box, User user)
+        private Task DeleteBoxAsync(Box box, User user)
         {
-            box.UserTime.UpdateUserTime(user.Email);
+            box.UserTime.UpdateUserTime(user.Id);
             box.IsDeleted = true;
             m_BoxRepository.Save(box);
             return m_QueueProvider.InsertMessageToTranactionAsync(new DeleteBoxData(box.Id));

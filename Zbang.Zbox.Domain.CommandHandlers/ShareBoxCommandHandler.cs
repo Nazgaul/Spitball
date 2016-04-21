@@ -72,7 +72,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
                     var inviteToBox = new InviteToBox(id, sender, box, null, null, recipientEmail, recipientEmail);
                     m_InviteRepository.Save(inviteToBox);
-                    tasks.Add(SendInvite(sender.Name, box.Name,
+                    tasks.Add(SendInviteAsync(sender.Name, box.Name,
                         id, box.Id,
                         recipientEmail, sender.ImageLarge, sender.Email,
                         System.Globalization.CultureInfo.CurrentCulture.Name, box.Url, null));
@@ -90,14 +90,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 box.CalculateMembers();
                 m_BoxRepository.Save(box);
 
-                tasks.Add(SendInvite(sender.Name, box.Name,
+                tasks.Add(SendInviteAsync(sender.Name, box.Name,
                     id, box.Id,
                     recipientUser.Email, sender.ImageLarge, sender.Email, recipientUser.Culture, box.Url, recipientUser.Id));
             }
             return Task.WhenAll(tasks);
         }
 
-        private Task SendInvite(string senderName,
+        private Task SendInviteAsync(string senderName,
             string boxName, Guid id, long boxId,
             string recipientEmail, string senderImage, string senderEmail,
             string culture, string boxUrl, long? recipientId)

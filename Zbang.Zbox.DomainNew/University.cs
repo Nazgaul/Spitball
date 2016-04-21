@@ -13,12 +13,12 @@ namespace Zbang.Zbox.Domain
         {
             ShouldMakeDirty = () => true;
         }
-        public University(long id, string name, string country, string userEmail)
+        public University(long id, string name, string country, long userId)
         {
             Id = id;
             UniversityName = name;
             Country = country;
-            UserTime = new UserTimeDetails(userEmail);
+            UserTime = new UserTimeDetails(userId);
             NoOfBoxes = 0;
             AdminNoOfPeople = 10;
             AdminScore = 0;

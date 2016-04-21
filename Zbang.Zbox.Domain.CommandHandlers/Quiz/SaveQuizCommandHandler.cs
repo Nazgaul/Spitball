@@ -86,7 +86,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
             quiz.Content = sb.ToString().Substring(0, Math.Min(sb.Length, 254));
 
-            quiz.Box.UserTime.UpdateUserTime(quiz.Owner.Email);
+            quiz.Box.UserTime.UpdateUserTime(quiz.Owner.Id);
             quiz.Box.UpdateItemCount();
             quiz.GenerateUrl();
             m_BoxRepository.Save(quiz.Box);

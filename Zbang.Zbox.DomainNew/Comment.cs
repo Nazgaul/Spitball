@@ -28,8 +28,8 @@ namespace Zbang.Zbox.Domain
             User = user;
             Box = box;
             Text = ExtractCommentText(feedType, text, user);
-            DateTimeUser = new UserTimeDetails(user.Email);
-            Box.UserTime.UpdateUserTime(user.Email);
+            DateTimeUser = new UserTimeDetails(user.Id);
+            Box.UserTime.UpdateUserTime(user.Id);
             FeedType = feedType;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }

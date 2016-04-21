@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("User is unauthorized to delete file");
             }
 
-            item.DateTimeUser.UpdateUserTime(user.Email);
+            item.DateTimeUser.UpdateUserTime(user.Id);
             // Box box = m_BoxRepository.Load(command.BoxId);
             var box = item.Box;
             box.ShouldMakeDirty = () => false;

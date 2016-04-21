@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain
         protected UserBoxRel()
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            UserTime = new UserTimeDetails("Sys");
+            UserTime = new UserTimeDetails(0);
             Invites = new List<InviteToBox>();
         }
         public UserBoxRel(User user, Box box, UserRelationshipType userType)

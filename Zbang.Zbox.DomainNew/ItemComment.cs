@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain
             Author = author;
             Item = item;
             Comment = comment.Trim();
-            UserTime = new UserTimeDetails(Author.Email);
+            UserTime = new UserTimeDetails(Author.Id);
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 

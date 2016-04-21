@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var user = m_UserRepository.Load(command.UserId);
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
                 m_UserRepository.Save(user);
-                if (userBoxRel != null) await GiveReputation(userBoxRel.Id);
+                if (userBoxRel != null) await GiveReputationAsync(userBoxRel.Id);
                 box.CalculateMembers();
                 m_BoxRepository.Save(box);
             }
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         
 
-        private async Task GiveReputation(long userBoxRelId)
+        private async Task GiveReputationAsync(long userBoxRelId)
         {
             var invite = m_InviteRepository.GetUserInvite(userBoxRelId);
             if (invite == null)

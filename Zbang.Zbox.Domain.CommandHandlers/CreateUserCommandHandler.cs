@@ -38,7 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public abstract Task<CreateUserCommandResult> ExecuteAsync(CreateUserCommand command);
 
-        private Task TriggerWelcomeMail(User user)
+        private Task TriggerWelcomeMailAsync(User user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
             return m_QueueRepository.InsertMessageToMailNewAsync(new WelcomeMailData(user.Email, user.Name, user.Culture));
@@ -95,7 +95,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return user.IsRegisterUser;
         }
 
-        protected Task UpdateUser(User user, CreateUserCommand command)
+        protected Task UpdateUserAsync(User user, CreateUserCommand command)
         {
             user.IsRegisterUser = true;
 
@@ -106,7 +106,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
             user.Quota.AllocateStorage();
-            return TriggerWelcomeMail(user);
+            return TriggerWelcomeMailAsync(user);
         }
 
 

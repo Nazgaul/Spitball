@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Domain
             UserLibraryRel = new HashSet<UserLibraryRel>();
             //Invites = new HashSet<Invite>();
             Quota = new Quota();
-            UserTime = new UserTimeDetails("Sys");
+            UserTime = new UserTimeDetails(0);
             UserType = UserType.Regular;
             
         }
@@ -134,7 +134,7 @@ namespace Zbang.Zbox.Domain
                 box.UserBoxRelationship.Add(userType);
             }
             userType.UserRelationshipType = newUserType;
-            userType.UserTime.UpdateUserTime(Email);
+            userType.UserTime.UpdateUserTime(Id);
         }
 
        

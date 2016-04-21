@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new ArgumentException(Resources.CommandHandlerResources.EmailTaken);
             }
 
-            await ChangeUserEmail(command.Email, user);
+            await ChangeUserEmailAsync(command.Email, user);
 
         }
 
@@ -49,10 +49,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private bool IsChangeEmailNeeded(string newUserEmail, string currentEmail)
         {
-            return !String.Equals(currentEmail, newUserEmail, StringComparison.CurrentCultureIgnoreCase);
+            return !string.Equals(currentEmail, newUserEmail, StringComparison.CurrentCultureIgnoreCase);
         }
 
-        private async Task ChangeUserEmail(string email, User user)
+        private async Task ChangeUserEmailAsync(string email, User user)
         {
             if (!Validation.IsEmailValid(email))
             {

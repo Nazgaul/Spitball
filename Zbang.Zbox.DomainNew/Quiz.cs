@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Domain
             Owner = owner;
             Box = box;
 
-            DateTimeUser = new UserTimeDetails(owner.Email);
+            DateTimeUser = new UserTimeDetails(owner.Id);
         }
         public virtual long Id { get; private set; }
         public virtual string Name { get; private set; }

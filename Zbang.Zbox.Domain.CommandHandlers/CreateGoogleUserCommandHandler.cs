@@ -65,7 +65,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     user.GenerateUrl();
                 }
             }
-            await UpdateUser(user, command);
+            await UpdateUserAsync(user, command);
 
             user.GoogleId = googleCommand.GoogleId;
 
