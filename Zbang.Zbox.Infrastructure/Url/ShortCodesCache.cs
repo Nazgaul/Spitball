@@ -31,10 +31,7 @@ namespace Zbang.Zbox.Infrastructure.Url
         }
 
 
-        public static IShortCodesCache Create()
-        {
-            return Ioc.IocFactory.IocWrapper.Resolve<IShortCodesCache>();
-        }
+      
 
 
     }

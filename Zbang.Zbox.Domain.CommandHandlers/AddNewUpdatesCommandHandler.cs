@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -26,6 +28,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<ItemCommentReply> m_ItemCommentReplyRepository;
         private readonly IRepository<QuizDiscussion> m_QuizDiscussionRepository;
         private readonly ISendPush m_SendPush;
+        private readonly IMailComponent m_MailComponent;
 
         public AddNewUpdatesCommandHandler(
             IBoxRepository boxRepository,
@@ -33,7 +36,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<CommentReplies> replyRepository,
             IRepository<Comment> commentRepository,
             IRepository<Updates> updatesRepository,
-            IRepository<Domain.Quiz> quizRepository, ISendPush sendPush, IUserRepository userRepository, IRepository<ItemComment> itemCommentRepository, IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<QuizDiscussion> quizDiscussionRepository, IUserBoxRelRepository userBoxRelRepository)
+            IRepository<Domain.Quiz> quizRepository, ISendPush sendPush, IUserRepository userRepository, IRepository<ItemComment> itemCommentRepository, IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<QuizDiscussion> quizDiscussionRepository, IUserBoxRelRepository userBoxRelRepository, IMailComponent mailComponent)
         {
             m_BoxRepository = boxRepository;
             m_ItemRepository = itemRepository;
@@ -47,6 +50,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemCommentReplyRepository = itemCommentReplyRepository;
             m_QuizDiscussionRepository = quizDiscussionRepository;
             m_UserBoxRelRepository = userBoxRelRepository;
+            m_MailComponent = mailComponent;
         }
         public Task HandleAsync(AddNewUpdatesCommand message)
         {
@@ -55,11 +59,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var usersToUpdate = m_UserBoxRelRepository.GetUserIdsConnectedToBox(message.BoxId).Where(w => w != message.UserId).ToList();
             //var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId)
             //    .Select(s => s.UserId).ToList();
-            //if (usersToUpdate.Count == 0)
-            //{
-            //    return Infrastructure.Extensions.TaskExtensions.CompletedTask;
-            //}
-            
+            if (usersToUpdate.Count == 0)
+            {
+                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            }
+
             var tQuiz = UpdateQuizAsync(message.QuizId, usersToUpdate, box);
             var tItem = UpdateItemAsync(message.ItemId, usersToUpdate, box);
             var tComment = UpdateCommentAsync(message.CommentId, usersToUpdate, box);
@@ -76,8 +80,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             foreach (var userId in userIds)
             {
-                //var user = ;
-                //var user = new User(userId);
                 var newUpdate = update(m_UserRepository.Load(userId));
                 m_UpdatesRepository.Save(newUpdate);
             }
@@ -115,7 +117,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var reply = m_ReplyRepository.Load(replyId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, reply));
-            return m_SendPush.SendAddReplyNotificationAsync(reply.User.Name, reply.Text, box.Name, box.Id, reply.Question.Id, userIds);
+            var t1 = m_MailComponent.GenerateAndSendEmailAsync(reply.Question.User.Email,
+                 new ReplyToCommentMailParams(new CultureInfo(reply.Question.User.Culture), reply.Question.User.Name, reply.User.Name, box.Name, box.Url));
+            var t2 = m_SendPush.SendAddReplyNotificationAsync(reply.User.Name, reply.Text, box.Name, box.Id, reply.Question.Id, userIds);
+            return Task.WhenAll(t1, t2);
         }
 
         private Task UpdateCommentAsync(Guid? commentId, IList<long> userIds, Box box)
@@ -155,7 +160,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 return Infrastructure.Extensions.TaskExtensions.CompletedTask;
             }
             var itemDiscussion = m_ItemCommentRepository.Load(itemDiscussionId.Value);
-            DoUpdateLoop(userIds, u => Updates.UpdateItemDiscussion(u,box,itemDiscussion) );
+            DoUpdateLoop(userIds, u => Updates.UpdateItemDiscussion(u, box, itemDiscussion));
             return Infrastructure.Extensions.TaskExtensions.CompletedTask;
         }
         private Task UpdateItemReplyDiscussionAsync(long? itemReplyDiscussionId, IEnumerable<long> userIds, Box box)
@@ -166,7 +171,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var itemReplyDiscussion = m_ItemCommentReplyRepository.Load(itemReplyDiscussionId.Value);
             DoUpdateLoop(userIds, u => Updates.UpdateItemDiscussionReply(u, box, itemReplyDiscussion));
-            return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            return m_MailComponent.GenerateAndSendEmailAsync(itemReplyDiscussion.Parent.Author.Email,
+                 new ReplyToCommentMailParams(new CultureInfo(itemReplyDiscussion.Parent.Author.Culture), itemReplyDiscussion.Parent.Author.Name, itemReplyDiscussion.Author.Name, box.Name, box.Url));
         }
         private Task UpdateQuizDiscussionAsync(Guid? quizDiscussionId, IEnumerable<long> userIds, Box box)
         {
