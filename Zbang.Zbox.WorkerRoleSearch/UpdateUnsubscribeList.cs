@@ -47,8 +47,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 var blob = await ReadBlobDataAsync(cancellationToken);
                 try
                 {
+                    TraceLog.WriteInfo($"running unsubscribe process");
                     if (DateTime.UtcNow.AddDays(-1) < m_DateTime.AddHours(6))
                     {
+                        TraceLog.WriteInfo($"running unsubscribe ran recently going to sleep");
                         await Task.Delay(m_SleepTime, cancellationToken);
                         continue;
                     }
@@ -60,13 +62,14 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
                         if (e.RequestInformation.HttpStatusCode == (int)HttpStatusCode.Conflict)
                         {
+                            TraceLog.WriteInfo($"running unsubscribe is locked going to sleep");
                             await Task.Delay(m_SleepTime, cancellationToken);
                             continue;
                         }
                     }
 
                     //var needToContinueRun = true;
-                    TraceLog.WriteInfo("update unsubscribe list");
+                    TraceLog.WriteInfo($"update unsubscribe list data {m_DateTime}");
                     
                     foreach (var job in m_Jobs)
                     {

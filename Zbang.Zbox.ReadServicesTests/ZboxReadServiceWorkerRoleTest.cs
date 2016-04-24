@@ -29,7 +29,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetUserByNotificationQuery(NotificationSettings.OnceADay);
             try
             {
-                m_ZboxReadService.GetUsersByNotificationSettings(query);
+                m_ZboxReadService.GetUsersByNotificationSettingsAsync(query);
             }
             catch (Exception ex)
             {
@@ -58,7 +58,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxesLastUpdateQuery(NotificationSettings.OnceADay,1);
             try
             {
-                m_ZboxReadService.GetBoxesLastUpdates(query);
+                m_ZboxReadService.GetBoxesLastUpdatesAsync(query);
             }
             catch (Exception ex)
             {
@@ -73,7 +73,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetBoxLastUpdateQuery(NotificationSettings.OnceADay, 4511);
             try
             {
-                await m_ZboxReadService.GetBoxLastUpdates(query);
+                await m_ZboxReadService.GetBoxLastUpdatesAsync(query);
             }
             catch (Exception ex)
             {

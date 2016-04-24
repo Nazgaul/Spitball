@@ -46,7 +46,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         }
                         var messageContent = JObject.Parse(message.Message);
                         var properties = messageContent.Properties();
-                        var list = new List<Task<bool>>();
+                        var list = new List<bool>();
                         foreach (var property in properties)
                         {
 
@@ -54,27 +54,42 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>(property.Name);
                             if (process != null)
                             {
-                                list.Add(process.ExecuteAsync(t ?? 0, async p =>
+                                list.Add(await process.ExecuteAsync(t ?? 0, async p =>
                                 {
                                     property.Value = p;
                                     message.Message = JsonConvert.SerializeObject(messageContent);
                                     using (var memoryStream = new MemoryStream())
                                     {
-                                        m_Dcs.Serialize(memoryStream, message);
-                                        msg.SetMessageContent(memoryStream.ToArray());
-                                        await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg);
+                                        SemaphoreSlim criticalCode = new SemaphoreSlim(0, 1);
+                                        await criticalCode.WaitAsync(cancellationToken);
+                                        try
+                                        {
+                                            m_Dcs.Serialize(memoryStream, message);
+                                            msg.SetMessageContent(memoryStream.ToArray());
+                                            await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg);
+                                            TraceLog.WriteError($"SchedulerListener - updating queue {message}");
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            TraceLog.WriteError("SchedulerListener - trying to update queue", ex);
+                                        }
+                                        finally
+                                        {
+                                            criticalCode.Release();
+                                        }
                                     }
 
                                 }, cancellationToken));
                             }
                             else
                             {
+                                list.Add(false);
                                 TraceLog.WriteWarning($"cant resolve {property.Name}");
                             }
 
                         }
-                        await Task.WhenAll(list);
-                        var result =  list.All(a => a.Result);
+                        //await Task.WhenAll(list);
+                        var result = list.All(a => a);
                         TraceLog.WriteInfo($"schduler lister delete message: {result}");
                         return result;
 

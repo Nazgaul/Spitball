@@ -74,7 +74,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateBoxAsync(int instanceId, int instanceCount)
         {
-            var updates = await m_ZboxReadService.GetBoxDirtyUpdates(instanceId, instanceCount, 100);
+            var updates = await m_ZboxReadService.GetBoxDirtyUpdatesAsync(instanceId, instanceCount, 100);
             if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return false;
             TraceLog.WriteInfo(PrefixLog,
                 $"box updating {updates.BoxesToUpdate.Count()} deleting {updates.BoxesToDelete.Count()}");

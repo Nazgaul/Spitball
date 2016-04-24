@@ -101,6 +101,7 @@
     <Compile Include="Enums\FeedType.cs" />
     <Compile Include="Enums\ImageSize.cs" />
     <Compile Include="Enums\LibraryNodeSettings.cs" />
+    <Compile Include="Enums\LikeType.cs" />
     <Compile Include="Enums\LogInStatus.cs" />
     <Compile Include="Enums\MessageType.cs" />
     <Compile Include="Enums\MobileOperatingSystem.cs" />

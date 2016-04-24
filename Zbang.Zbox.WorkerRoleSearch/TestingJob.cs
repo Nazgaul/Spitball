@@ -15,28 +15,28 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var x = new List<Task<bool>>();
-            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("notFollowing");
+            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("likesReport");
             if (process != null)
             {
                 x.Add( process.ExecuteAsync(0, p =>
                 {
                 }, cancellationToken));
             }
-            process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("universityLowActivity");
-            if (process != null)
-            {
-                x.Add( process.ExecuteAsync(0, p =>
-                {
-                }, cancellationToken));
-            }
+            //process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("universityLowActivity");
+            //if (process != null)
+            //{
+            //    x.Add( process.ExecuteAsync(0, p =>
+            //    {
+            //    }, cancellationToken));
+            //}
 
-            process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("followLowActivity");
-            if (process != null)
-            {
-                x.Add( process.ExecuteAsync(0, p =>
-                {
-                }, cancellationToken));
-            }
+            //process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("followLowActivity");
+            //if (process != null)
+            //{
+            //    x.Add( process.ExecuteAsync(0, p =>
+            //    {
+            //    }, cancellationToken));
+            //}
 
             await Task.WhenAll(x);
             var result  =  x.All(a => a.Result);

@@ -31,14 +31,14 @@ public static class EnumExtension
     }
     public static string GetStringValue(this Enum value)
     {
-        if (value == null) throw new ArgumentNullException("value");
+        if (value == null) throw new ArgumentNullException(nameof(value));
         return GetStringValue(value.ToString("G"));
     }
 
 
     public static string GetStringValueLowerCase(this Enum value)
     {
-        if (value == null) throw new ArgumentNullException("value");
+        if (value == null) throw new ArgumentNullException(nameof(value));
         return value.ToString("G").Substring(0, 1).ToLower() + value.ToString("G").Substring(1);
     }
 
@@ -48,7 +48,7 @@ public static class EnumExtension
     }
     public static string GetEnumDescription(this Enum value, CultureInfo culture)
     {
-        if (value == null) throw new ArgumentNullException("value");
+        if (value == null) throw new ArgumentNullException(nameof(value));
         var fi = value.GetType().GetField(value.ToString());
 
         var attributes = (EnumDescription[])fi.GetCustomAttributes(typeof(EnumDescription), false);

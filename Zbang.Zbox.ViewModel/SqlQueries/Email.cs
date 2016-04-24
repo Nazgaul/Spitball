@@ -68,5 +68,34 @@
 	  join zbox.Quiz q on q.Id = d.QuizId
     where q.boxid = @BoxId
     and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@Notification,d.creationTime)) >0;";
+
+
+        public const string GetLikesOnItem =
+            @"select u2.username as likePersonName, u.email,i.name as onElement, u.userid, u.username as name, u.culture from zbox.itemrate ir 
+join zbox.item i on i.itemid = ir.itemid 
+join zbox.users u on i.userid = u.userid
+join zbox.users u2 on u2.userid = ir.ownerid
+where ir.creationtime > dateadd(day,@timeDiff,getutcdate())
+and u.userid != u2.userid
+and u.EmailSendSettings = 0;";
+
+        public const string GetLikesOnReplies =
+            @"select u2.username as likePersonName, u.email,a.text as onElement, u.userid , u.username as name, u.culture from zbox.ReplyLike rl
+join zbox.answer a on a.AnswerId = rl.replyid 
+join zbox.users u on a.userid = u.userid
+join zbox.users u2 on u2.userid = rl.ownerid
+where rl.creationtime > dateadd(day,@timeDiff,getutcdate())
+and u.userid != u2.userid
+and u.EmailSendSettings = 0;";
+
+
+        public const string GetLikesOnComments =
+            @"select u2.username as likePersonName, u.email, q.text as onElement,u.userid , u.username as name, u.culture from zbox.CommentLike cl
+join zbox.question q on q.questionid = cl.CommentId 
+join zbox.users u on q.userid = u.userid
+join zbox.users u2 on u2.userid = cl.ownerid
+where cl.creationtime > dateadd(day,@timeDiff,getutcdate())
+and u.userid != u2.userid
+and u.EmailSendSettings = 0;";
     }
 }

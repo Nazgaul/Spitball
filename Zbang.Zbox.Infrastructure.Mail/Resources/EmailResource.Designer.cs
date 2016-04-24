@@ -125,6 +125,43 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your esteemed classmates hold your Spitball posts in the highest regard. Keep posting documents, quizzes, and comments to improve Spitball for everyone..
+        /// </summary>
+        internal static string LikesMailFooter {
+            get {
+                return ResourceManager.GetString("LikesMailFooter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} likes your {1} {2}.
+        /// </summary>
+        internal static string LikesMailLineDetails {
+            get {
+                return ResourceManager.GetString("LikesMailLineDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You Have New Likes on Spitball.
+        /// </summary>
+        internal static string LikesMailSubject {
+            get {
+                return ResourceManager.GetString("LikesMailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have {0} more likes on your Spitball posts:
+        ///Check them out:.
+        /// </summary>
+        internal static string LikesMailTitle {
+            get {
+                return ResourceManager.GetString("LikesMailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find your courses.
         /// </summary>
         internal static string NoFollowBoxSubject {

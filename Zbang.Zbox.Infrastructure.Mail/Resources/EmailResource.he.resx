@@ -176,4 +176,17 @@
 מאות אלפי סטודנטים לומדים טוב יותר עם ספיטבול, גם לך מגיע.
 כנס עכשיו ועשה מהפך. </value>
   </data>
+  <data name="LikesMailSubject" xml:space="preserve">
+    <value>החברים מפרגנים לך בספיטבול</value>
+  </data>
+  <data name="LikesMailFooter" xml:space="preserve">
+    <value>החברים בספיטבול מתלהבים ממך. צעד קטן לך צעד גדול לחברים שלך.</value>
+  </data>
+  <data name="LikesMailLineDetails" xml:space="preserve">
+    <value>{0} אוהב את  {1} שלך {2}</value>
+  </data>
+  <data name="LikesMailTitle" xml:space="preserve">
+    <value>{0} מהחברים שלך אוהבים את הפעילות שלך בספיטבול
+הנה החברים שאהבו:</value>
+  </data>
 </root>

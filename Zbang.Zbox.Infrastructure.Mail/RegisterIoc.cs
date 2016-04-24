@@ -23,6 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             ioc.RegisterType<IMailBuilder, NoFollowingBoxMail>(nameof(NoFollowingBoxMailParams), LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, UniversityLowActivityMail>(nameof(UniversityLowActivityMailParams), LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, LowCoursesActivityMail>(nameof(LowCoursesActivityMailParams), LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IMailBuilder, LikesMail>(nameof(LikesMailParams), LifeTimeManager.PerHttpRequest);
         }
     }
 }

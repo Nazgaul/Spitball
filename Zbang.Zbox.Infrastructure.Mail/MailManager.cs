@@ -50,17 +50,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 mail.AddSubject(sendGridMail);
                 mail.GenerateMail(sendGridMail, parameters);
 
-                //sendGridMail.AddTo("yaari.ram@gmail.com");
-
                 sendGridMail.AddTo(recipient);
-                //var embarkeData = new Dictionary<string, string>
-                //{
-                //    {"embarkeAppId", "3f61a514-0610-412e-9024-b4eb5670eb9d"},
-                //    {"embarkeMsgId", Guid.NewGuid().ToString()}
-                //};
-
-                //sendGridMail.AddUniqueArgs(embarkeData);
-
                 sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
                 sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
 

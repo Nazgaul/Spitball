@@ -16,10 +16,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             NoOfAnswers = numberOfAnswers;
             NoOfItems = numberOfItems;
         }
-        public override string MailResover
-        {
-            get { return UpdateResolver; }
-        }
+        public override string MailResover => UpdateResolver;
 
         public IEnumerable<BoxUpdate> Updates { get; private set; }
         public string UserName { get; private set; }
@@ -149,30 +146,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 return sb.ToString();
             }
         }
-
-        //public class UserJoin : BoxUpdateDetails
-        //{
-        //    public UserJoin(string name, string picture, string boxName, string url, long userId)
-        //        : base(url, picture, userId)
-        //    {
-        //        Name = name;
-        //        BoxName = boxName;
-        //    }
-        //    public string Name { get; set; }
-        //    public string BoxName { get; private set; }
-
-
-        //    public override string BuildMailLine(CultureInfo culture)
-        //    {
-        //        var sb = new StringBuilder(LoadMailTempate.LoadMailFromContent(culture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.UpdatesEmail.Member1"));
-        //        sb.Replace("{MEMBER-NAME}", Name);
-        //        sb.Replace("{MEMBER_URL}", Url);
-        //        sb.Replace("{MEMBER_PICTURE}", Picture);
-        //        sb.Replace("{BOX-NAME}", BoxName);
-
-        //        return sb.ToString();
-        //    }
-        //}
 
 
     }

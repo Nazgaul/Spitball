@@ -177,4 +177,13 @@
   <data name="Male" xml:space="preserve">
     <value>Male</value>
   </data>
+  <data name="LikeTypeComment" xml:space="preserve">
+    <value>Post</value>
+  </data>
+  <data name="LikeTypeItem" xml:space="preserve">
+    <value>Document</value>
+  </data>
+  <data name="LikeTypeReply" xml:space="preserve">
+    <value>Comment</value>
+  </data>
 </root>
