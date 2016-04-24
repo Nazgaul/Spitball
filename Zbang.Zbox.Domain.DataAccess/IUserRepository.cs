@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain.DataAccess
     public interface IUserRepository : IRepository<User>
     {
         User GetUserByEmail(string iEmail);
-        User GetUserByMembershipId(Guid membershipId);
+        //User GetUserByMembershipId(Guid membershipId);
         User GetUserByFacebookId(long facebookUserId);
         User GetUserByGoogleId(string googleUserId);
 

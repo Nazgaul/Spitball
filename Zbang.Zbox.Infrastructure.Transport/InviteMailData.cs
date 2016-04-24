@@ -39,9 +39,6 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(7)]
         public long BoxId { get; private set; }
 
-        public override string MailResover
-        {
-            get { return InviteResolver; }
-        }
+        public override string MailResover => InviteResolver;
     }
 }

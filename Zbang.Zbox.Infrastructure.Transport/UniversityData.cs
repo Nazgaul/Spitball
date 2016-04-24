@@ -22,9 +22,6 @@ namespace Zbang.Zbox.Infrastructure.Transport
           [ProtoMember(3)]
         public long Id { get;private set; }
 
-        public override string ProcessResolver
-        {
-            get { return UniversityResolver; }
-        }
+        public override string ProcessResolver => UniversityResolver;
     }
 }

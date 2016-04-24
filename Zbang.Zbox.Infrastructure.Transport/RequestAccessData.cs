@@ -24,9 +24,6 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public string DepName { get; private set; }
 
 
-        public override string MailResover
-        {
-            get { return RequestAccessResolver; }
-        }
+        public override string MailResover => RequestAccessResolver;
     }
 }

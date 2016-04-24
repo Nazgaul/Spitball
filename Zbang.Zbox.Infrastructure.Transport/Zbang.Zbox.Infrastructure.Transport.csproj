@@ -55,7 +55,6 @@
     <Compile Include="BaseMailData.cs" />
     <Compile Include="DeleteBoxData.cs" />
     <Compile Include="DomainProcess.cs" />
-    <Compile Include="FileProcessData.cs" />
     <Compile Include="ForgotPasswordData.cs" />
     <Compile Include="InviteLinkData.cs" />
     <Compile Include="InviteMailData.cs" />

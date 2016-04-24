@@ -22,9 +22,6 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(2)]
         public Guid PostId { get; private set; }
 
-        public override string ProcessResolver
-        {
-            get { return BadItemResolver; }
-        }
+        public override string ProcessResolver => BadItemResolver;
     }
 }
