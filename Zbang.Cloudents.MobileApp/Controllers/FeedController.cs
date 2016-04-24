@@ -14,6 +14,7 @@ using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.ViewModel.Queries.QnA;
 
 namespace Zbang.Cloudents.MobileApp.Controllers
 {
@@ -49,8 +50,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         {
             try
             {
+               var query =  GetBoxQuestionsQuery.GetBoxQueryOldVersion(boxId, page, sizePerPage);
                 var retVal =
-                  await m_ZboxReadService.GetQuestionsWithLastAnswerAsync(new Zbox.ViewModel.Queries.QnA.GetBoxQuestionsQuery(boxId, DateTime.UtcNow.AddHours(1), page, sizePerPage));
+                  await m_ZboxReadService.GetQuestionsWithLastAnswerAsync(query);
                 return Request.CreateResponse(retVal.Select(s => new
                 {
                     s.Id,
@@ -105,7 +107,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public async Task<HttpResponseMessage> Post(long boxId, Guid feedId)
         {
             var retVal =
-                await m_ZboxReadService.GetQuestionAsync(new Zbox.ViewModel.Queries.QnA.GetQuestionQuery(feedId, boxId));
+                await m_ZboxReadService.GetQuestionAsync(new GetQuestionQuery(feedId, boxId));
 
             return Request.CreateResponse(new
             {
@@ -124,7 +126,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public async Task<HttpResponseMessage> GetReplies(long boxId, Guid feedId, int page, int sizePerPage = 20)
         {
             var retVal =
-                 await m_ZboxReadService.GetRepliesAsync(new Zbox.ViewModel.Queries.QnA.GetCommentRepliesQuery(boxId, feedId, page, sizePerPage));
+                 await m_ZboxReadService.GetRepliesAsync(new GetCommentRepliesQuery(boxId, feedId, page, sizePerPage));
             return Request.CreateResponse(retVal.Select(s => new
             {
                 s.Id,

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//https://ayende.com/blog/2500/generic-entity-equality
+//https://docs.jboss.org/hibernate/stable/core.old/reference/en/html/persistent-classes-equalshashcode.html
 namespace Zbang.Zbox.Domain
 {
     /// <summary>

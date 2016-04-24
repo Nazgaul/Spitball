@@ -46,10 +46,9 @@ order by name;";
 	,q.LikeCount as LikesCount
 	FROM [Zbox].[Question] q join zbox.users u on u.userid = q.userid
     where q.BoxId = @BoxId
-    and q.CreationTime < @TimeStamp
     order by q.[updatetime] desc
-    offset @pageNumber*@rowsperpage ROWS
-	FETCH NEXT @rowsperpage ROWS ONLY;";
+    offset @skip ROWS
+	FETCH NEXT @top ROWS ONLY;";
 
         //used for reply view in mobile app
         public const string GetCommentForMobile = @" SELECT q.[QuestionId] as id
@@ -79,10 +78,9 @@ order by name;";
         public const string GetLastReplyOfComment = @"with questions as (
 select questionid,LastReplyId from zbox.question
  where boxid = @boxid 
- and CreationTime < @TimeStamp
-	            order by updatetime desc
-	            offset @pageNumber*@rowsperpage ROWS
-	            FETCH NEXT @rowsperpage ROWS ONLY
+ order by updatetime desc
+ offset @skip ROWS
+ FETCH NEXT @top ROWS ONLY;
 )
 SELECT  a.[AnswerId] as id
 	  ,u.[UserName] as UserName
@@ -99,10 +97,9 @@ SELECT  a.[AnswerId] as id
         public const string GetItemsForCommentsAndLastReply = @"with questions as (
 select questionid,LastReplyId from zbox.question
  where boxid = @boxid 
- and CreationTime < @TimeStamp
-	            order by updatetime desc
-	            offset @pageNumber*@rowsperpage ROWS
-	            FETCH NEXT @rowsperpage ROWS ONLY
+ order by updatetime desc
+ offset @skip ROWS
+ FETCH NEXT @top ROWS ONLY;
 )
  select
     i.itemid as Id,
@@ -132,10 +129,10 @@ select questionid,LastReplyId from zbox.question
 	and i.Publish = 1
     and i.BoxId = @BoxId
     and QuestionId in  (select questionid from zbox.question where boxid = @boxid 
-                and CreationTime < @TimeStamp
+                
 	            order by updatetime desc
-	            offset @pageNumber*@rowsperpage ROWS
-	            FETCH NEXT @rowsperpage ROWS ONLY)";
+	            offset @skip ROWS
+	FETCH NEXT @top ROWS ONLY;)";
 
         public const string GetCommentRepliesInMobile = @" SELECT  a.[AnswerId] as id
 	  ,u.[UserName] as UserName
