@@ -34,7 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             foreach (var user in result.GroupBy(g => g.Email))
             {
                 var email = user.Key;
-                if (RoleEnvironment.IsEmulated)
+                if (RoleIndexProcessor.IsEmulated)
                 {
                     email = "ram@cloudents.com";
                 }
