@@ -409,7 +409,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             {
                 using (var grid = await con.QueryMultipleAsync(
                     $"{Sql.Box.GetBoxComments} {Sql.Box.GetLastReplyOfComment} {Sql.Box.GetItemsForCommentsAndLastReply} {Sql.Box.GetQuizzesForCommentsAndLastReply}",
-                    new { query.BoxId, query.Top, query.Skip,  }))
+                    new { query.BoxId, query.Top, query.Skip}))
                 {
                     var comments = grid.Read<Qna.CommentDto>();//.ToList();
                     var replies = grid.Read<Qna.ReplyDto>();//.ToDictionary(x => x.QuestionId);
