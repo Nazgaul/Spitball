@@ -3192,7 +3192,7 @@
     <Content Include="Content\Site\feed.css">
       <DependentUpon>feed.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\feed.rtl.css">
+    <Content Include="Content\Site\feed.min.css">
       <DependentUpon>feed.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\General.css">

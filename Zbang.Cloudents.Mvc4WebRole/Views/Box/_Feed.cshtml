@@ -48,14 +48,16 @@
                             <button class="comment-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-click="f.reply(post)" ga-track-event="['box-feed', 'comment-icons']">
                                 <span ng-if="post.repliesCount" class="reply-count">{{post.repliesCount}}</span><span class="comment-icon">@Html.Svg("~/images/site/box-icons.svg", "comment")</span><span>@BoxResources.Comment</span>
                             </button>
-                            <button user-not-register-popup="click" type="button" ng-click="f.likeCommentDialog(post,$event)">
-                                <span class="like-count">{{post.likesCount}}</span>
-                            </button>
-                            <button class="like-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
-                                @*@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "svgTC6" })*@
-                                <span class="like-icon" ng-if="!post.isLiked">@Html.Svg("~/images/site/box-icons.svg", "like")</span>
-                                <span class="like-icon" ng-if="post.isLiked">@Html.Svg("~/images/site/box-icons.svg", "activeLike")</span><span>@GeneralResources.Like</span>
-                            </button>
+                            <div layout="row" layout-align="start center">
+                                <button user-not-register-popup="click" type="button" ng-click="f.likeCommentDialog(post,$event)">
+                                    <span class="like-count">{{post.likesCount}}</span>
+                                </button>
+                                <button class="like-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
+                                    @*@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "svgTC6" })*@
+                                    <span class="like-icon" ng-if="!post.isLiked">@Html.Svg("~/images/site/box-icons.svg", "like")</span>
+                                    <span class="like-icon" ng-if="post.isLiked">@Html.Svg("~/images/site/box-icons.svg", "activeLike")</span><span>@GeneralResources.Like</span>
+                                </button>
+                            </div>
                             <share-box></share-box>
                         </div>
                         <span class="ribbon" ng-if="post.isNew">@BoxResources.RibbonNew</span>
@@ -66,6 +68,13 @@
                         <span @*user-not-register-popup="click"*@ ng-click="f.openReply(post)"> @BoxResources.ViewComments {{post.repliesCount-1}} @BoxResources.Comments</span>
                     </li>
                     <li ng-repeat="reply in post.replies track by reply.id" class="reply" ng-if="$last || post.showReplies">
+                        <div class="indent info">
+                            <a href="{{::reply.url}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
+                                <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="52" height="52"></user-image>
+                                <span class="user-name">{{::reply.userName}}</span>
+                            </a>
+                            <span class="comment-date">{{::reply.creationTime | date : 'MMM d, y h:mm a'}}</span>
+                        </div>
                         <md-menu ng-if="b.canDelete(reply.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
                                 @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
@@ -78,13 +87,6 @@
                                 </md-menu-item>
                             </md-menu-content>
                         </md-menu>
-                        <div class="indent info">
-                            <a href="{{::reply.url}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
-                                <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="52" height="52"></user-image>
-                                <span class="user-name">{{::reply.userName}}</span>
-                            </a>
-                            <span class="comment-date">{{::reply.creationTime | date : 'MMM d, y h:mm a'}}</span>
-                        </div>
                         <div ng-bind-html="::reply.content" class="indent content-text"></div>
                         <div class="items-slider" ng-if="reply.files.length">
                             <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
@@ -163,7 +165,7 @@
             </div>
             <div class="recomanded" layout="row" layout-padding layout-wrap layout-align="space-between center" flex="100" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
                 @*<div data-ng-dfp-ad="div-gpt-ad-1459076812828-0"></div>*@
-                <div flex="100" flex-gt-md="100"  flex-sm="50" class="flex" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>
+                <div flex="100" flex-gt-md="100" flex-sm="50" class="flex" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>
             </div>
         </div>
 
