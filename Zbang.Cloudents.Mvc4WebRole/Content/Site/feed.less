@@ -101,6 +101,11 @@
             .comment-btn, .like-btn {
                 margin: 0 20px 0 0;
                 padding: 0;
+                display: block;
+
+                svg {
+                    margin-bottom: 4px;
+                }
             }
 
             svg {
@@ -245,10 +250,6 @@
         .anonymous {
             width: 35px;
             height: 35px;
-
-            &:hover {
-                fill: #d39f10;
-            }
         }
 
         &.new-post {
@@ -373,6 +374,7 @@
             .share {
                 min-height: 0;
                 height: 24px;
+                overflow: inherit;
             }
         }
 
@@ -411,11 +413,16 @@
         }
 
         button {
+            display: block;
             padding: 0;
         }
 
         .like-icon, .comment-icon {
             margin: 0 5px 2px 0;
+        }
+
+        .like-icon svg {
+            margin-bottom: 4px;
         }
 
         .reply-count, .like-count {
@@ -495,10 +502,6 @@
     /*.quiz .quiz-ratio {
         .aspect-ratio(0.8,1);
     }*/
-    .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
-        fill: @anonymousColor;
-    }
-
     .feed-upload {
         padding: 0 20px 0 12px;
 
@@ -621,4 +624,9 @@
             background: none;
         }
     }
+}
+
+
+.mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
+    fill: @anonymousColor;
 }

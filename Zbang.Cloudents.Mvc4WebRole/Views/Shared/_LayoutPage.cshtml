@@ -77,7 +77,7 @@
                            type="search" class="text"
                            user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
                     <button type="submit" class="search-btn color-override backgroundColor11" ng-disabled="!st.term.length">
-                        @Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })
+                        <span>@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })</span>
                     </button>
                 </div>
             </form>

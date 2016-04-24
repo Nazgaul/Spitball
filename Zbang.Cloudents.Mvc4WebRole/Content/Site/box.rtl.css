@@ -151,8 +151,9 @@
   border-width: 0 0 1px 0;
   padding: 0 10px;
 }
-.need-follow {
+.page-head .need-follow {
   border-radius: 5px;
+  padding: 0 10px;
 }
 .invite-btn {
   border-radius: 4px;

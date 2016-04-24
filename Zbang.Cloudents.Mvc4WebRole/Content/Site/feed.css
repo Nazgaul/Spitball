@@ -88,6 +88,11 @@
 .feed .posts-list .actions .like-btn {
   margin: 0 20px 0 0;
   padding: 0;
+  display: block;
+}
+.feed .posts-list .actions .comment-btn svg,
+.feed .posts-list .actions .like-btn svg {
+  margin-bottom: 4px;
 }
 .feed .posts-list .actions svg {
   fill: #4190b9;
@@ -218,10 +223,6 @@
   width: 35px;
   height: 35px;
 }
-.feed .comment .anonymous:hover,
-.feed .add-comment .anonymous:hover {
-  fill: #d39f10;
-}
 .feed .comment.new-post,
 .feed .add-comment.new-post {
   padding: 0;
@@ -328,6 +329,7 @@
 .feed .actions .share-section .share {
   min-height: 0;
   height: 24px;
+  overflow: inherit;
 }
 .feed .actions span {
   font-size: 14px;
@@ -353,11 +355,15 @@
   fill: #007EE5;
 }
 .feed .actions button {
+  display: block;
   padding: 0;
 }
 .feed .actions .like-icon,
 .feed .actions .comment-icon {
   margin: 0 5px 2px 0;
+}
+.feed .actions .like-icon svg {
+  margin-bottom: 4px;
 }
 .feed .actions .reply-count,
 .feed .actions .like-count {
@@ -417,9 +423,6 @@
 .feed .add-reply-wrapper .add-reply .reply-actions {
   padding: 8px 5px;
   background: #d7dde0;
-}
-.feed .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
-  fill: #d39f10;
 }
 .feed .feed-upload {
   padding: 0 20px 0 12px;
@@ -521,4 +524,7 @@
 .share-menu .md-button .md-default-theme:not([disabled]):hover,
 .share-menu .md-button :not([disabled]):hover {
   background: none;
+}
+.mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
+  fill: #d39f10;
 }
