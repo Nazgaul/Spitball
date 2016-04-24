@@ -96,10 +96,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             //user.Quota.UsedSpace = m_UserRepository.GetItemsByUser(user.Id);
             AddItemToTab(command.TabId, item);
-            var t1 = TriggerCacheDocumentAsync(command.BlobAddressName, item.Id);
+           // var t1 = TriggerCacheDocumentAsync(command.BlobAddressName, item.Id);
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id,itemId: item.Id));
             var t3 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(user.Id));
-            await Task.WhenAll(t1, t2, t3);
+            await Task.WhenAll(t2, t3);
 
             var result = new AddFileToBoxCommandResult(item);
 
@@ -129,14 +129,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         
 
-        private Task TriggerCacheDocumentAsync(string blobAddress, long itemId)
-        {
-            var uri = new Uri(m_BlobProvider.GetBlobUrl(blobAddress));
+        //private Task TriggerCacheDocumentAsync(string blobAddress, long itemId)
+        //{
+        //    var uri = new Uri(m_BlobProvider.GetBlobUrl(blobAddress));
 
-            var queueMessage = new FileProcessData { BlobName = uri, ItemId = itemId };
-            return m_QueueProvider.InsertMessageToCacheAsync(queueMessage);
+        //    var queueMessage = new FileProcessData { BlobName = uri, ItemId = itemId };
+        //    return m_QueueProvider.InsertMessageToCacheAsync(queueMessage);
 
-        }
+        //}
         private void AddItemToTab(Guid? tabid, Item item)
         {
             if (!tabid.HasValue)

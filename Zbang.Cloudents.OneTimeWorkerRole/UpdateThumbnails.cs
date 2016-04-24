@@ -62,7 +62,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                 {
                     //blobId.UploadText(id.ToString(CultureInfo.InvariantCulture));
                     TraceLog.WriteWarning("processing now index starting from  " + id);
-                    var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobs(0, id).Result.ToList();
+                    var items = m_ZboxReadServiceWorkerRole.GetMissingThumbnailBlobsAsync(0, id).Result.ToList();
                     if (!items.Any())
                     {
                         cont = false;

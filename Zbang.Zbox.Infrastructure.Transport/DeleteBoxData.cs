@@ -17,10 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(1)]
         public long BoxId { get; private set; }
 
-        public override string ProcessResolver
-        {
-            get { return DeleteBoxResolver; }
-        }
+        public override string ProcessResolver => DeleteBoxResolver;
 
         public override string ToString()
         {

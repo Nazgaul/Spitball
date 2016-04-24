@@ -83,11 +83,19 @@
     <Compile Include="InvitationToCloudentsMailParams.cs" />
     <Compile Include="InviteMail.cs" />
     <Compile Include="InviteMailParams.cs" />
+    <Compile Include="LikesMail.cs" />
+    <Compile Include="LikesMailParams.cs" />
     <Compile Include="LoadMailTempate.cs" />
+    <Compile Include="LowCoursesActivityMail.cs" />
+    <Compile Include="LowCoursesActivityMailParams.cs" />
     <Compile Include="MailManager.cs" />
     <Compile Include="MailParameters.cs" />
+    <Compile Include="MarketingMail.cs" />
+    <Compile Include="MarketingMailParams.cs" />
     <Compile Include="MessageMail.cs" />
     <Compile Include="MessageMailParams.cs" />
+    <Compile Include="NoFollowingBoxMail.cs" />
+    <Compile Include="NoFollowingBoxMailParams.cs" />
     <Compile Include="NoUniversityMail.cs" />
     <Compile Include="NoUniversityMailParams.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,6 +105,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EmailResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="UniversityLowActivityMail.cs" />
+    <Compile Include="UniversityLowActivityMailParams.cs" />
     <Compile Include="UpdateMailParams.cs" />
     <Compile Include="UpdatesMail.cs" />
     <Compile Include="WelcomeMail.cs" />

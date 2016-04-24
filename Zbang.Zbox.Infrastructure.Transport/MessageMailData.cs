@@ -19,10 +19,7 @@
         public string SenderUserName { get; private set; }
 
 
-        public override string MailResover
-        {
-            get { return MessageResolver; }
-        }
+        public override string MailResover => MessageResolver;
     }
 
     [ProtoBuf.ProtoContract]
@@ -50,9 +47,6 @@
         [ProtoBuf.ProtoMember(4)]
         public string SenderUserEmail { get; private set; }
 
-        public override string MailResover
-        {
-            get { return MessageResolver; }
-        }
+        public override string MailResover => MessageResolver;
     }
 }

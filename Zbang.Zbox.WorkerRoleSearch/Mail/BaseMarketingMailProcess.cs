@@ -14,6 +14,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
     public abstract class BaseMarketingMailProcess : IMailProcess
     {
         private readonly IMailComponent m_MailComponent;
+       
 
         protected BaseMarketingMailProcess(IMailComponent mailComponent)
         {
@@ -31,16 +32,16 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         public async Task<bool> ExecuteAsync(int index, Action<int> progress, CancellationToken token)
         {
-          await  m_MailComponent.GenerateSystemEmailAsync($"starting to run {ServiceName}");
+            await  m_MailComponent.GenerateSystemEmailAsync($"{ServiceName} starting to run ");
             var page = index;
             var needToContinueRun = true;
             var list = new List<Task>();
             while (needToContinueRun)
             {
-                TraceLog.WriteInfo($"running {ServiceName} mail page {page}");
+                TraceLog.WriteInfo($"{ServiceName} running  mail page {page}");
                 needToContinueRun = false;
                 int pageSize = 100;
-                if (RoleEnvironment.IsEmulated)
+                if (RoleIndexProcessor.IsEmulated)
                 {
                     pageSize = 10;
                 }
@@ -52,30 +53,31 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 {
                     needToContinueRun = true;
                     var email = user.Email;
-                    if (RoleEnvironment.IsEmulated)
+                    if (RoleIndexProcessor.IsEmulated)
                     {
                         email = "ram@cloudents.com";
                     }
 
                     var culture = string.IsNullOrEmpty(user.Culture)
-                        ? Thread.CurrentThread.CurrentCulture
+                        ? new CultureInfo("en-US")
                         : new CultureInfo(user.Culture);
                     var markertingMail = BuildMarkertingMail(user.Name, culture);
                     list.Add(m_MailComponent.GenerateAndSendEmailAsync(email,
                         markertingMail, token));
+
                 }
                 await Task.WhenAll(list);
                 list.Clear();
                 page++;
-                if (RoleEnvironment.IsEmulated)
+                if (RoleIndexProcessor.IsEmulated)
                 {
                     needToContinueRun = false;
                 }
                 progress(page);
 
             }
-            await m_MailComponent.GenerateSystemEmailAsync($"finish to run {ServiceName} with page {page}");
-            TraceLog.WriteInfo($"finish running {ServiceName} mail page {index}");
+            await m_MailComponent.GenerateSystemEmailAsync($"{ServiceName} finish to run  with page {page}");
+            TraceLog.WriteInfo($"{ServiceName} finish running  mail page {index}");
             return true;
 
         }

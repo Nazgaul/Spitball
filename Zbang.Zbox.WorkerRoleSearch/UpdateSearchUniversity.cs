@@ -73,7 +73,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private async Task<bool> UpdateUniversityAsync(int instanceId, int instanceCount)
         {
             const int updatesPerCycle = 10;
-            var updates = await m_ZboxReadService.GetUniversityDirtyUpdates(instanceId, instanceCount, updatesPerCycle);
+            var updates = await m_ZboxReadService.GetUniversityDirtyUpdatesAsync(instanceId, instanceCount, updatesPerCycle);
             if (!updates.UniversitiesToDelete.Any() && !updates.UniversitiesToUpdate.Any()) return false;
             
             TraceLog.WriteInfo(PrefixLog,

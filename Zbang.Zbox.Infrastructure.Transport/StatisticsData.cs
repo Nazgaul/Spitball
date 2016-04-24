@@ -30,10 +30,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public DateTime StatTime { get; private set; }
 
 
-        public override string ProcessResolver
-        {
-            get { return StatisticsResolver; }
-        }
+        public override string ProcessResolver => StatisticsResolver;
 
         [ProtoContract]
         public class StatisticItemData

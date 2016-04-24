@@ -133,6 +133,33 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Post.
+        /// </summary>
+        internal static string LikeTypeComment {
+            get {
+                return ResourceManager.GetString("LikeTypeComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Document.
+        /// </summary>
+        internal static string LikeTypeItem {
+            get {
+                return ResourceManager.GetString("LikeTypeItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        internal static string LikeTypeReply {
+            get {
+                return ResourceManager.GetString("LikeTypeReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This email has been locked out. To retrieve your password, go to Forgot Password.
         /// </summary>
         internal static string LockedOut {

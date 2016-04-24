@@ -60,21 +60,36 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                     message.Message = JsonConvert.SerializeObject(messageContent);
                                     using (var memoryStream = new MemoryStream())
                                     {
-                                        m_Dcs.Serialize(memoryStream, message);
-                                        msg.SetMessageContent(memoryStream.ToArray());
-                                        await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg);
+                                        SemaphoreSlim criticalCode = new SemaphoreSlim(0, 1);
+                                        await criticalCode.WaitAsync(cancellationToken);
+                                        try
+                                        {
+                                            m_Dcs.Serialize(memoryStream, message);
+                                            msg.SetMessageContent(memoryStream.ToArray());
+                                            await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg);
+                                            TraceLog.WriteInfo($"SchedulerListener - updating queue {message}");
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            TraceLog.WriteError("SchedulerListener - trying to update queue", ex);
+                                        }
+                                        finally
+                                        {
+                                            criticalCode.Release();
+                                        }
                                     }
 
                                 }, cancellationToken));
                             }
                             else
                             {
+                                list.Add(Task.FromResult(false));
                                 TraceLog.WriteWarning($"cant resolve {property.Name}");
                             }
 
                         }
                         await Task.WhenAll(list);
-                        var result =  list.All(a => a.Result);
+                        var result = list.All(a => a.Result);
                         TraceLog.WriteInfo($"schduler lister delete message: {result}");
                         return result;
 

@@ -28,7 +28,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public const string UpdateSearchBox = "UpdateSearchBox";
         public const string UpdateSearchQuiz = "UpdateSearchQuiz";
         public const string UpdateSearchUniversity = "UpdateSearchUniversity";
-        //public const string ShdulerListiner = "ShdulerListiner";
 
         public Infrastructure.Ioc.IocFactory Unity { get; }
         public IocFactory()
@@ -86,6 +85,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Unity.RegisterType<IMailProcess, NoFollowClassMailProcess>("notFollowing");
             Unity.RegisterType<IMailProcess, UniversityWithLowActivation>("universityLowActivity");
             Unity.RegisterType<IMailProcess, FollowLowActivityCourses>("followLowActivity");
+            Unity.RegisterType<IMailProcess, LikesMailProcess>("likesReport");
 
 
             //Unity.RegisterType<IMail2, Welcome>(BaseMailData.WelcomeResolver);

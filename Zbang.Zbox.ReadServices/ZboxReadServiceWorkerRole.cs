@@ -17,7 +17,7 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadServiceWorkerRole : IZboxReadServiceWorkerRole
     {
-        public async Task<IEnumerable<UserDigestDto>> GetUsersByNotificationSettings(GetUserByNotificationQuery query)
+        public async Task<IEnumerable<UserDigestDto>> GetUsersByNotificationSettingsAsync(GetUserByNotificationQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -31,7 +31,7 @@ namespace Zbang.Zbox.ReadServices
 
         }
 
-        public async Task<IEnumerable<BoxDigestDto>> GetBoxesLastUpdates(GetBoxesLastUpdateQuery query)
+        public async Task<IEnumerable<BoxDigestDto>> GetBoxesLastUpdatesAsync(GetBoxesLastUpdateQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -45,7 +45,7 @@ namespace Zbang.Zbox.ReadServices
 
         }
 
-        public async Task<BoxUpdatesDigestDto> GetBoxLastUpdates(GetBoxLastUpdateQuery query)
+        public async Task<BoxUpdatesDigestDto> GetBoxLastUpdatesAsync(GetBoxLastUpdateQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -98,7 +98,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<dynamic>> GetMissingThumbnailBlobs(int index, long start)
+        public async Task<IEnumerable<dynamic>> GetMissingThumbnailBlobsAsync(int index, long start)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -127,7 +127,7 @@ namespace Zbang.Zbox.ReadServices
                 and itemid >=  @start
                 order by itemid
                 OFFSET @Offset ROWS
-                FETCH NEXT @RowSize ROWS ONLY", new {Offset = index*100, RowSize = 100, start});
+                FETCH NEXT @RowSize ROWS ONLY", new { Offset = index * 100, RowSize = 100, start });
 
                 //                return await conn.QueryAsync<string>(@"select blobname from zbox.item where 
                 //(blobname like '%.jpg'
@@ -152,19 +152,19 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-        public async Task<IEnumerable<UniversitySearchDto>> GetUniversityDetail()
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var retVal = conn.Query<UniversitySearchDto>(LibraryChoose.GetUniversityDetail);
-                return retVal;
-            }
-        }
+        //public async Task<IEnumerable<UniversitySearchDto>> GetUniversityDetailAsync()
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var retVal = conn.Query<UniversitySearchDto>(LibraryChoose.GetUniversityDetail);
+        //        return retVal;
+        //    }
+        //}
 
 
 
 
-        public async Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdates(int index, int total, int top)
+        public async Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdatesAsync(int index, int total, int top)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -173,7 +173,7 @@ namespace Zbang.Zbox.ReadServices
                 using (var grid = await conn.QueryMultipleAsync(Search.GetUniversityToUploadToSearch +
                                                                 Search.GetUniversityPeopleToUploadToSearch +
                                                                 Search.GetUniversitiesToDeleteFromSearch
-                    , new {index, count = total, top}))
+                    , new { index, count = total, top }))
                 {
                     var retVal = new UniversityToUpdateSearchDto
                     {
@@ -198,7 +198,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdates(int index, int total, int top)
+        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdatesAsync(int index, int total, int top)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
@@ -207,7 +207,7 @@ namespace Zbang.Zbox.ReadServices
                     (Search.GetBoxToUploadToSearch +
                      Search.GetBoxUsersToUploadToSearch +
                      Search.GetBoxDepartmentToUploadToSearch +
-                     Search.GetBoxToDeleteToSearch, new {index, count = total, top}))
+                     Search.GetBoxToDeleteToSearch, new { index, count = total, top }))
                 {
                     var retVal = new BoxToUpdateSearchDto
                     {
@@ -240,7 +240,7 @@ namespace Zbang.Zbox.ReadServices
                 using (var grid = await conn.QueryMultipleAsync
                     (Search.GetItemsToUploadToSearch +
                      Search.GetItemUsersToUploadToSearch +
-                     Search.GetItemToDeleteToSearch, new {index, count = total, top}
+                     Search.GetItemToDeleteToSearch, new { index, count = total, top }
                     ))
                 {
                     var retVal = new ItemToUpdateSearchDto
@@ -270,7 +270,7 @@ namespace Zbang.Zbox.ReadServices
                      Search.GetQuizzesQuestionToUploadToSearch +
                      Search.GetQuizzesAnswersToUploadToSearch +
                      Search.GetQuizzesUsersToUploadToSearch +
-                     Search.GetQuizzesToDeleteFromSearch, new {index, count = total, top}
+                     Search.GetQuizzesToDeleteFromSearch, new { index, count = total, top }
                     ))
                 {
                     var retVal = new QuizToUpdateSearchDto
@@ -310,7 +310,7 @@ order by userid
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY";
             return GetMarketingDataAsync(query, sql, token);
-           
+
         }
 
         public Task<IEnumerable<MarketingDto>> GetUsersWithUniversityWithoutSubscribedBoxesAsync(MarketingQuery query,
@@ -378,7 +378,22 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token))
             {
-                return await conn.QueryAsync<MarketingDto>(sql, new {query.RowsPerPage, query.PageNumber});
+                return await conn.QueryAsync<MarketingDto>(sql, new { query.RowsPerPage, query.PageNumber });
+            }
+        }
+
+        public async Task<IEnumerable<LikesDto>> GetLikesDataAsync(CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            {
+                using (var grid = await conn.QueryMultipleAsync($"{Email.GetLikesOnItem} {Email.GetLikesOnReplies} {Email.GetLikesOnComments}", new { timeDiff = -1 }))
+                {
+                    IEnumerable<LikesDto> items = await grid.ReadAsync<ItemLikesDto>();
+                    IEnumerable<LikesDto> replies = await grid.ReadAsync<ReplyLikesDto>();
+                    IEnumerable<LikesDto> comments = await grid.ReadAsync<CommentLikesDto>();
+                    
+                    return items.Union(replies).Union(comments);
+                }
             }
         }
 

@@ -5,6 +5,7 @@ using NHibernate.Linq;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 using Zbang.Zbox.Infrastructure.Data.Repositories;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Domain.DataAccess
 {
@@ -18,13 +19,13 @@ namespace Zbang.Zbox.Domain.DataAccess
             return criteria.SingleOrDefault();
         }
 
-        public User GetUserByMembershipId(Guid membershipId)
-        {
-            var criteria = UnitOfWork.CurrentSession.QueryOver<User>();
-            criteria.Where(w => w.MembershipId == membershipId);
+        //public User GetUserByMembershipId(Guid membershipId)
+        //{
+        //    var criteria = UnitOfWork.CurrentSession.QueryOver<User>();
+        //    criteria.Where(w => w.MembershipId == membershipId);
 
-            return criteria.SingleOrDefault();
-        }
+        //    return criteria.SingleOrDefault();
+        //}
         public User GetUserByFacebookId(long facebookUserId)
         {
             var criteria = UnitOfWork.CurrentSession.QueryOver<User>();
@@ -96,6 +97,8 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .SetEnum("emailSettings",type)
                 .SetParameterList("userEmail", emails)
                 .ExecuteUpdate();
+            TraceLog.WriteInfo($"updating {x} users in type {type}");
+
         }
 
 

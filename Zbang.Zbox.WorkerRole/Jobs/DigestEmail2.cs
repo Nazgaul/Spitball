@@ -60,7 +60,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 await Task.Delay(TimeSpan.FromMinutes(5));
                 return;
             }
-            var users = await m_ZboxReadService.GetUsersByNotificationSettings(new GetUserByNotificationQuery(m_DigestEmailHourBack));
+            var users = await m_ZboxReadService.GetUsersByNotificationSettingsAsync(new GetUserByNotificationQuery(m_DigestEmailHourBack));
             foreach (var user in users)
             {
 
@@ -79,7 +79,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private async Task BuildUserReport(long userid, string email, string culture, string userName)
         {
             var updates = new List<UpdateMailParams.BoxUpdate>();
-            var boxes = await m_ZboxReadService.GetBoxesLastUpdates(new GetBoxesLastUpdateQuery(m_DigestEmailHourBack, userid));
+            var boxes = await m_ZboxReadService.GetBoxesLastUpdatesAsync(new GetBoxesLastUpdateQuery(m_DigestEmailHourBack, userid));
 
             int numOfQuestion = 0, numOfAnswers = 0, numOfItems = 0;
 
@@ -121,7 +121,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
         private async Task<IEnumerable<UpdateMailParams.BoxUpdateDetails>> GetBoxData(BoxDigestDto box)
         {
             var boxUpdates =
-                await m_ZboxReadService.GetBoxLastUpdates(new GetBoxLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
+                await m_ZboxReadService.GetBoxLastUpdatesAsync(new GetBoxLastUpdateQuery(m_DigestEmailHourBack, box.BoxId));
 
 
             var itemsUpdate = boxUpdates.Items.Select(s => new UpdateMailParams.ItemUpdate(s.Name,

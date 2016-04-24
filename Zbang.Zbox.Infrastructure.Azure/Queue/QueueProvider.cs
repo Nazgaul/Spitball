@@ -45,11 +45,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return GetQueue(QueueName.UpdateDomainQueueName.ToLower());
         }
 
-        public Task InsertMessageToCacheAsync(FileProcessData message)
-        {
-            var queue = GetCacheQueue();
-            return queue.InsertToQueueProtoAsync(message);
-        }
+        //public Task InsertMessageToCacheAsync(FileProcessData message)
+        //{
+        //    var queue = GetCacheQueue();
+        //    return queue.InsertToQueueProtoAsync(message);
+        //}
 
         public Task InsertMessageToMailNewAsync(BaseMailData message)
         {

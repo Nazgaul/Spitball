@@ -33,9 +33,6 @@ namespace Zbang.Zbox.Infrastructure.Transport
         [ProtoMember(4)]
         public string Name { get; private set; }
 
-        public override string MailResover
-        {
-            get { return ForgotPasswordResolver; }
-        }
+        public override string MailResover => ForgotPasswordResolver;
     }
 }
