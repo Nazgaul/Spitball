@@ -188,11 +188,11 @@ Check them out:</value>
   <data name="ReplyToCommentLink" xml:space="preserve">
     <value>Click here</value>
   </data>
-  <data name="ReplyToCommentSubject" xml:space="preserve">
-    <value>Someone commented on your post</value>
-  </data>
   <data name="ReplyToCommentText" xml:space="preserve">
     <value>{0} commented on a post you made on {1}.
 {2} to read what your classmate wrote and respond to their post. Spitball is all about being social, after all.</value>
+  </data>
+  <data name="ReplyToCommentSubject" xml:space="preserve">
+    <value>Someone commented on your post</value>
   </data>
 </root>

@@ -56,13 +56,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var box = m_BoxRepository.Load(message.BoxId);
-            var usersToUpdate = m_UserBoxRelRepository.GetUserIdsConnectedToBox(message.BoxId).Where(w => w != message.UserId).ToList();
-            //var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId)
-            //    .Select(s => s.UserId).ToList();
-            if (usersToUpdate.Count == 0)
-            {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
-            }
+            //var usersToUpdate = m_UserBoxRelRepository.GetUserIdsConnectedToBox(message.BoxId).Where(w => w != message.UserId).ToList();
+            var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId).Select(s => s.UserId).ToList();
 
             var tQuiz = UpdateQuizAsync(message.QuizId, usersToUpdate, box);
             var tItem = UpdateItemAsync(message.ItemId, usersToUpdate, box);
@@ -117,8 +112,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var reply = m_ReplyRepository.Load(replyId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, reply));
-            var t1 = m_MailComponent.GenerateAndSendEmailAsync(reply.Question.User.Email,
-                 new ReplyToCommentMailParams(new CultureInfo(reply.Question.User.Culture), reply.Question.User.Name, reply.User.Name, box.Name, box.Url));
+
+            var t1 =  Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            if (reply.Question.User.Id != reply.User.Id)
+            {
+                t1 = m_MailComponent.GenerateAndSendEmailAsync(reply.Question.User.Email,
+                new ReplyToCommentMailParams(new CultureInfo(reply.Question.User.Culture), reply.Question.User.Name, reply.User.Name, box.Name, box.Url));
+            }
             var t2 = m_SendPush.SendAddReplyNotificationAsync(reply.User.Name, reply.Text, box.Name, box.Id, reply.Question.Id, userIds);
             return Task.WhenAll(t1, t2);
         }
@@ -171,8 +171,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var itemReplyDiscussion = m_ItemCommentReplyRepository.Load(itemReplyDiscussionId.Value);
             DoUpdateLoop(userIds, u => Updates.UpdateItemDiscussionReply(u, box, itemReplyDiscussion));
+            if (itemReplyDiscussion.Parent.Author.Id == itemReplyDiscussion.Author.Id)
+            {
+                return Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            }
             return m_MailComponent.GenerateAndSendEmailAsync(itemReplyDiscussion.Parent.Author.Email,
-                 new ReplyToCommentMailParams(new CultureInfo(itemReplyDiscussion.Parent.Author.Culture), itemReplyDiscussion.Parent.Author.Name, itemReplyDiscussion.Author.Name, box.Name, box.Url));
+                 new ReplyToCommentMailParams(new CultureInfo(itemReplyDiscussion.Parent.Author.Culture), itemReplyDiscussion.Parent.Author.Name, itemReplyDiscussion.Author.Name, itemReplyDiscussion.Item.Name, itemReplyDiscussion.Item.Url));
         }
         private Task UpdateQuizDiscussionAsync(Guid? quizDiscussionId, IEnumerable<long> userIds, Box box)
         {

@@ -30,6 +30,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             sb.AppendLine(string.Format(EmailResource.ReplyToCommentText, mailParams.UserWhoMadeActionName,mailParams.BoxName, link));
             html.Replace("{body}", sb.ToString().Replace("\n", "<br>"));
             message.Html = html.ToString();
+            
         }
 
         public void AddSubject(ISendGrid message)

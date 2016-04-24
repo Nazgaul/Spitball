@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using SendGrid;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -46,14 +47,23 @@ namespace Zbang.Zbox.Infrastructure.Mail
                     From = new MailAddress(parameters.SenderEmail, parameters.SenderName)
                 };
 
+                if (ConfigFetcher.IsEmulated)
+                {
+                    sendGridMail.AddTo("ram@cloudents.com");
+                }
+                else
+                {
+                    sendGridMail.AddTo(recipient);
+                }
+
                 var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
                 mail.AddSubject(sendGridMail);
                 mail.GenerateMail(sendGridMail, parameters);
 
-                sendGridMail.AddTo(recipient);
+                
                 sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
                 sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
-
+                
                 sendGridMail.EnableClickTracking();
                 sendGridMail.EnableOpenTracking();
                 await SendAsync(sendGridMail);
