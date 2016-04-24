@@ -2,13 +2,13 @@
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
-        'resManager', 'CacheFactory', '$q', 'routerHelper'];
+        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper) {
-        var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0;
-
+        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window) {
+        var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0, top = ($window.innerHeight <= 600) ? 10 : 20;
+        
         self.add = {
             files: [],
             disabled: false,
@@ -42,12 +42,8 @@
         self.likeReplyDialog = likeReplyDialog;
         self.likeCommentDialog = likeCommentDialog;
         self.feedUpdates = {};
-        var d = new Date(),
-            currentTimestamp = d.toISOString(),
-            inHour = new Date(d.setHours(d.getHours() + 1)),
-            timestamp = inHour.toISOString();
 
-        boxService.getFeed(boxId, page, timestamp).then(function (response) {
+        boxService.getFeed(boxId, top, 0).then(function (response) {
             self.data = response;
             userUpdatesService.boxUpdates(boxId, function (updates) {
                 self.feedUpdates = updates;
@@ -121,9 +117,8 @@
         }
 
         function myPagingFunction() {
-            page++;
-            timestamp = currentTimestamp;
-            return boxService.getFeed(boxId, page, timestamp).then(function (response) {
+            //timestamp = currentTimestamp;
+            return boxService.getFeed(boxId, top, self.data.length).then(function (response) {
                 if (!response.length) {
                     return;
                 }
@@ -339,7 +334,7 @@ userName: "ram y"*/
             }
         }
 
-       
+
         self.add.upload = uploadFile;
         self.openReply = openReply;
         self.reply = reply;

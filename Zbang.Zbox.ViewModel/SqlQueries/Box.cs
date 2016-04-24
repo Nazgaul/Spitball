@@ -80,7 +80,7 @@ select questionid,LastReplyId from zbox.question
  where boxid = @boxid 
  order by updatetime desc
  offset @skip ROWS
- FETCH NEXT @top ROWS ONLY;
+ FETCH NEXT @top ROWS ONLY
 )
 SELECT  a.[AnswerId] as id
 	  ,u.[UserName] as UserName
@@ -99,7 +99,7 @@ select questionid,LastReplyId from zbox.question
  where boxid = @boxid 
  order by updatetime desc
  offset @skip ROWS
- FETCH NEXT @top ROWS ONLY;
+ FETCH NEXT @top ROWS ONLY
 )
  select
     i.itemid as Id,
@@ -132,7 +132,7 @@ select questionid,LastReplyId from zbox.question
                 
 	            order by updatetime desc
 	            offset @skip ROWS
-	FETCH NEXT @top ROWS ONLY;)";
+	FETCH NEXT @top ROWS ONLY)";
 
         public const string GetCommentRepliesInMobile = @" SELECT  a.[AnswerId] as id
 	  ,u.[UserName] as UserName
