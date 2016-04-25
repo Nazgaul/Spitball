@@ -21,7 +21,6 @@ namespace Zbang.Zbox.WorkerRole.Mail
             {
                 throw new NullReferenceException("parameters");
             }
-
             await m_MailComponent.GenerateAndSendEmailAsync(parameters.EmailAddress,
                  new ReplyToCommentMailParams(new CultureInfo(parameters.Culture),parameters.UserName,parameters.UserWhoMadeAction,parameters.BoxOrItemName,parameters.BoxOrItemUrl));
 
