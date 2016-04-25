@@ -230,7 +230,7 @@ Page content
   clear: both;
 }
 .page-title {
-  padding: 0;
+  padding: 10px;
 }
 .page-title > h1 {
   font-size: 25px;

@@ -104,6 +104,15 @@
     width: 50%;
   }
 }
+.feed-wrapper,
+.members,
+.quizzes-list,
+library-list {
+  margin-top: 10px;
+}
+.page-title.box-title {
+  padding: 0;
+}
 .page-title.box-title h1 {
   line-height: 29px;
   max-height: 58px;
