@@ -80,13 +80,14 @@
   display: inline-block;
 }
 .search-box input {
-  border-top-width: 15px;
+  border: 5px solid;
+  background: #f5f5f5;
   margin-top: -5px;
   border-radius: 0 0 5px 5px;
   width: 200px;
   float: left;
   padding: 0 8px;
-  height: 50px;
+  height: 36px;
   -webkit-transition: width 0.5s;
   -moz-transition: width 0.5s;
   -o-transition: width 0.5s;
@@ -102,6 +103,15 @@
   .search-box input:focus {
     width: 50%;
   }
+}
+.feed-wrapper,
+.members,
+.quizzes-list,
+library-list {
+  margin-top: 10px;
+}
+.page-title.box-title {
+  padding: 0;
 }
 .page-title.box-title h1 {
   line-height: 29px;
@@ -375,6 +385,7 @@
 .quiz .bottom {
   position: relative;
   height: calc(100% - 45%);
+  background: #eeeeee;
 }
 .quiz .bottom .name {
   display: inline-block;
@@ -385,13 +396,6 @@
   font-size: 14px;
   line-height: 16px;
   width: 100%;
-}
-.quiz .bottom .corner {
-  position: absolute;
-  bottom: 0;
-  right: 0 ;
-  height: 40%;
-  width: 31%;
 }
 .quiz .stats {
   padding-top: 5px;
@@ -504,7 +508,7 @@
 }
 .i-q-wrapper .delete {
   top: 3px;
-  margin: 0;
+  margin: 0 6px;
   width: inherit;
   padding: 0;
   height: inherit;

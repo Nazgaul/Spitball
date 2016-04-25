@@ -70,5 +70,9 @@
   {
     "outputFile": "Content/Site/Share.css",
     "inputFile": "Content/Site/Share.less"
+  },
+  {
+    "outputFile": "Content/Site/library.css",
+    "inputFile": "Content/Site/library.less"
   }
 ]

@@ -28,13 +28,13 @@
     </div>
     <div class="wrapper">
         <div ng-if="q.state === 4" class="solveActions">
-            <div layout="row" class="margin-bottom-15">
+            <div layout="row">
                 <div class="retake-wrapper" flex-gt-xs="33" flex-xs="100">
                     <button class="retake" type="button" ng-click="q.retakeQuiz()" ga-track-event="['quiz', 'retake quiz']">@QuizResources.Retake</button>
                 </div>
             </div>
 
-            <div layout-wrap layout="row" layout-align="space-between stretch" layoutclass="margin-bottom-15">
+            <div layout-wrap layout="row" layout-align="space-between stretch">
                 <div flex-xs="100" class="black-bullet score">
                     <h5 class="text-capitalize">@QuizResources.Score</h5>
                     {{q.sheet.score}}

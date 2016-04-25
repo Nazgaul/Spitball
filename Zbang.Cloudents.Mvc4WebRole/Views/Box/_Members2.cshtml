@@ -1,5 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
-<div layout="row" layout-padding class="margin-top-10">
+<div layout="row" layout-padding class="members">
     <div flex-gt-md="25" flex-md="33" flex-sm="50" hide-xs ng-if="b.canInvite">
         <button type="button" ng-click="b.inviteToBox()" class="member-invite color-override textColor3 " ga-track-event="['box-members', 'inviteFriends']">
             @Html.Svg("~/images/site/icons.svg", "invite", new { @class = "color-override svgColor3" })

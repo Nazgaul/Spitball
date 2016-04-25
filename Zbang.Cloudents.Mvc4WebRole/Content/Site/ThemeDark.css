@@ -38,11 +38,6 @@
   color: #282828;
   opacity: 1;
 }
-.search-box input {
-  border: 10px solid #323538;
-  background: #c3c3c3;
-  color: #282828;
-}
 .folders md-toast.md-default-theme .md-toast-content,
 .folders md-toast .md-toast-content {
   background: #db4437;
@@ -213,15 +208,8 @@
 .quiz .top .first-letter {
   border: 1px solid #f5f5f5;
 }
-.quiz .bottom {
-  background: #f5f5f5;
-}
 .quiz .bottom .name {
   color: #282828;
-}
-.quiz .bottom .corner {
-  fill: #181c1d;
-  background: #181c1d;
 }
 .quiz .details {
   background: #323538;
@@ -1256,6 +1244,9 @@ md-chips .md-chips.md-focused {
 }
 .svgTC22 {
   fill: #777777 !important;
+}
+.backgroundTC23 {
+  background: #eee !important;
 }
 /*input[type="search"], textarea {
     .placeHolder(@borderColorGrey) !important;

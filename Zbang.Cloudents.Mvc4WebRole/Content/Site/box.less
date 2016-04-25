@@ -100,15 +100,16 @@
     display: inline-block;
     //.placeHolder(@textColorBlack);
     input {
+        border: 5px solid;
         //border: 10px solid @backgroundColorMenu;
-        border-top-width: 15px;
+        background: #f5f5f5;
         margin-top: -5px;
         border-radius: 0 0 5px 5px;
         width: 200px;
         float: right;
         padding: 0 8px;
         //background: @textColorLightGrey;
-        height: 50px;
+        height: 36px;
         -webkit-transition: width 0.5s;
         -moz-transition: width 0.5s;
         -o-transition: width 0.5s;
@@ -127,12 +128,20 @@
     }
 }
 
-.page-title.box-title h1 {
-    line-height: 29px;
-    max-height: 58px;
-    -ms-word-break: break-word;
-    word-break: break-word;
-    font-weight: bold;
+.feed-wrapper, .members, .quizzes-list, library-list {
+    margin-top: 10px;
+}
+
+.page-title.box-title {
+    padding: 0;
+
+    h1 {
+        line-height: 29px;
+        max-height: 58px;
+        -ms-word-break: break-word;
+        word-break: break-word;
+        font-weight: bold;
+    }
 }
 
 .folders {
@@ -450,6 +459,7 @@
         //padding: 10px;
         //padding-bottom: 80.5%;
         height: ~"calc(100% - @{heightOfTop})";
+        background: #eeeeee;
 
         .name {
             display: inline-block;
@@ -459,14 +469,6 @@
             font-size: 14px;
             line-height: 16px;
             width: 100%;
-        }
-
-        .corner {
-            position: absolute;
-            bottom: 0;
-            right: 0 /*rtl:ignore*/;
-            height: 40%;
-            width: 31%;
         }
     }
 
@@ -589,7 +591,7 @@
 
     .delete {
         top: 3px;
-        margin: 0;
+        margin: 0 6px;
         width: inherit;
         padding: 0;
         height: inherit;
