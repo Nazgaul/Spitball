@@ -95,7 +95,7 @@
                             </div>
                             <form name="newReply" class="add-comment-reply add-reply" novalidate ng-if="comment.showFrom" ng-submit="c.addCommentReply(comment, newReply)">
                                 <md-input-container md-no-float>
-                                    <input name="reply" user-not-register-popup="click" required autofocus ng-model="c.newCommentReplyText" placeholder="@ItemsResources.NewComment" ng-change="newReply.reply.$setValidity('server',true)">
+                                    <input autocomplete="off" name="reply" user-not-register-popup="click" required autofocus ng-model="c.newCommentReplyText" placeholder="@ItemsResources.NewComment" ng-change="newReply.reply.$setValidity('server',true)">
                                     <div ng-messages="newReply.reply.$error" ng-show="newReply.reply.$dirty">
                                         <div ng-message="required">@GeneralResources.RequiredField</div>
                                         <div ng-message="server">{{c.error}}</div>
