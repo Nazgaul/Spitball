@@ -15,6 +15,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
     [ProtoInclude(18, typeof(MessageMailData2))]
     [ProtoInclude(19, typeof(RequestAccessData))]
     [ProtoInclude(20, typeof(AccessApprovedData))]
+    [ProtoInclude(21, typeof(ReplyToCommentData))]
     public abstract class BaseMailData
     {
         public const string WelcomeResolver = "welcome";

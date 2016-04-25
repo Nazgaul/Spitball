@@ -60,10 +60,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 mail.AddSubject(sendGridMail);
                 mail.GenerateMail(sendGridMail, parameters);
 
-                
+
                 sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
                 sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
-                
+
                 sendGridMail.EnableClickTracking();
                 sendGridMail.EnableOpenTracking();
                 await SendAsync(sendGridMail);
@@ -87,16 +87,16 @@ namespace Zbang.Zbox.Infrastructure.Mail
             return GetEmailListFromApiCallAsync("v3/suppression/invalid_emails", startTime, page, cancellationToken);
 
         }
-
+        const string ApiKey = "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";
         private async Task<IEnumerable<string>> GetEmailListFromApiCallAsync(string requestUrl, DateTime startTime, int page,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            const string apiKey = "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";
+
 
             var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
             var unixDateTime = (long)(startTime.ToUniversalTime() - epoch).TotalSeconds;
 
-            var client = new Client(apiKey);
+            var client = new Client(ApiKey);
             var result = await client.Get($"{requestUrl}?limit={500}&offset={500 * page}&start_time={unixDateTime}");
             var data = await result.Content.ReadAsStringAsync();
             var emailArray = JArray.Parse(data);
@@ -105,20 +105,23 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public async Task DeleteUnsubscribeAsync(string email)
         {
+
             try
             {
-                // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
-                using (var client = new HttpClient())
-                {
+                var client = new Client(ApiKey);
+                await client.GlobalSuppressions.Delete(email);
+                //    // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+                //    using (var client = new HttpClient())
+                //    {
 
 
-                    var content =
-                        new StringContent(string.Empty);
-                    await
-                        client.PostAsync(
-                            $"https://sendgrid.com/api/unsubscribes.delete.json?api_user={SendGridUserName}&api_key={SendGridPassword}&email={email}"
-                            , content);
-                }
+                //        var content =
+                //            new StringContent(string.Empty);
+                //        await
+                //            client.PostAsync(
+                //                $"https://sendgrid.com/api/unsubscribes.delete.json?api_user={SendGridUserName}&api_key={SendGridPassword}&email={email}"
+                //                , content);
+                //    }
             }
             catch (Exception ex)
             {

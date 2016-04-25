@@ -19,13 +19,13 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
         public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data)
         {
             var parameters4 = data as StatisticsData4;
-            if (parameters4 == null) return Task.FromResult(true);
+            if (parameters4 == null) return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
             var command = new UpdateStatisticsCommand(parameters4.ItemsIds.Select(
                 s => new StatisticItemData { ItemId = s.Id, Action = (StatisticsAction)s.Action }),
                 parameters4.UserId, parameters4.StatTime);
             m_ZboxWriteService.Statistics(command);
 
-            return Task.FromResult(true);
+            return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
         }
     }
 }

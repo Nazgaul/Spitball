@@ -4,7 +4,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class ReplyToCommentMailParams : MailParameters
     {
-        public ReplyToCommentMailParams(CultureInfo culture, string userName, string userWhoMadeActionName, string boxName, string boxUrl)
+        public ReplyToCommentMailParams(CultureInfo culture, string userName, string userWhoMadeActionName,
+            string boxName, string boxUrl)
             : base(culture)
         {
             UserName = userName;

@@ -66,7 +66,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                 try
                 {
-                    await BuildUserReport(user.UserId, user.Email, user.Culture, user.UserName);
+                    await BuildUserReportAsync(user.UserId, user.Email, user.Culture, user.UserName);
                 }
                 catch (Exception ex)
                 {
@@ -76,7 +76,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             await Task.Delay(m_TimeToSleepAfterExecuting);
         }
 
-        private async Task BuildUserReport(long userid, string email, string culture, string userName)
+        private async Task BuildUserReportAsync(long userid, string email, string culture, string userName)
         {
             var updates = new List<UpdateMailParams.BoxUpdate>();
             var boxes = await m_ZboxReadService.GetBoxesLastUpdatesAsync(new GetBoxesLastUpdateQuery(m_DigestEmailHourBack, userid));

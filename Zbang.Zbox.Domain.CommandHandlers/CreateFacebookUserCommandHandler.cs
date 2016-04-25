@@ -56,7 +56,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             await UpdateUserAsync(user, command);
 
             user.FacebookId = facebookCommand.FacebookUserId;
-
+            if (command.Email.Contains("@facebook.com"))
+            {
+                user.EmailSendSettings = Infrastructure.Enums.EmailSend.NoSend;
+            }
             var retVal = new CreateFacebookUserCommandResult(user);
             UpdateUniversityByBox(command.BoxId, retVal, user);
             if (facebookCommand.UniversityId.HasValue)

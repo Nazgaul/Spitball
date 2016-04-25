@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -18,7 +17,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
-        private readonly IUserBoxRelRepository m_UserBoxRelRepository;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<CommentReplies> m_ReplyRepository;
         private readonly IRepository<Comment> m_CommentRepository;
@@ -28,7 +26,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<ItemCommentReply> m_ItemCommentReplyRepository;
         private readonly IRepository<QuizDiscussion> m_QuizDiscussionRepository;
         private readonly ISendPush m_SendPush;
-        private readonly IMailComponent m_MailComponent;
+        private readonly IQueueProvider m_QueueProvider;
+
+        //private readonly IMailComponent m_MailComponent;
 
         public AddNewUpdatesCommandHandler(
             IBoxRepository boxRepository,
@@ -36,7 +36,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<CommentReplies> replyRepository,
             IRepository<Comment> commentRepository,
             IRepository<Updates> updatesRepository,
-            IRepository<Domain.Quiz> quizRepository, ISendPush sendPush, IUserRepository userRepository, IRepository<ItemComment> itemCommentRepository, IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<QuizDiscussion> quizDiscussionRepository, IUserBoxRelRepository userBoxRelRepository, IMailComponent mailComponent)
+            IRepository<Domain.Quiz> quizRepository, ISendPush sendPush,
+            IUserRepository userRepository, IRepository<ItemComment> itemCommentRepository,
+            IRepository<ItemCommentReply> itemCommentReplyRepository, IRepository<QuizDiscussion> quizDiscussionRepository, IQueueProvider queueProvider)
         {
             m_BoxRepository = boxRepository;
             m_ItemRepository = itemRepository;
@@ -49,13 +51,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemCommentRepository = itemCommentRepository;
             m_ItemCommentReplyRepository = itemCommentReplyRepository;
             m_QuizDiscussionRepository = quizDiscussionRepository;
-            m_UserBoxRelRepository = userBoxRelRepository;
-            m_MailComponent = mailComponent;
+            m_QueueProvider = queueProvider;
         }
         public Task HandleAsync(AddNewUpdatesCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var box = m_BoxRepository.Load(message.BoxId);
+            //there was an issue with commit with detach elements
             //var usersToUpdate = m_UserBoxRelRepository.GetUserIdsConnectedToBox(message.BoxId).Where(w => w != message.UserId).ToList();
             var usersToUpdate = box.UserBoxRelationship.Where(w => w.User.Id != message.UserId).Select(s => s.UserId).ToList();
 
@@ -113,11 +115,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var reply = m_ReplyRepository.Load(replyId.Value);
             DoUpdateLoop(userIds, u => new Updates(u, box, reply));
 
-            var t1 =  Infrastructure.Extensions.TaskExtensions.CompletedTask;
-            if (reply.Question.User.Id != reply.User.Id)
+            var t1 = Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            var commentUser = reply.Question.User;
+            if (commentUser.Id != reply.User.Id && commentUser.EmailSendSettings == Infrastructure.Enums.EmailSend.CanSend)
             {
-                t1 = m_MailComponent.GenerateAndSendEmailAsync(reply.Question.User.Email,
-                new ReplyToCommentMailParams(new CultureInfo(reply.Question.User.Culture), reply.Question.User.Name, reply.User.Name, box.Name, box.Url));
+                t1 = m_QueueProvider.InsertMessageToMailNewAsync(new ReplyToCommentData(commentUser.Email,
+                     commentUser.Culture,
+                     commentUser.Name,
+                     reply.User.Name,
+                     reply.Box.Name,
+                     reply.Box.Url));
+                //t1 = m_MailComponent.GenerateAndSendEmailAsync(reply.Question.User.Email,
+                //new ReplyToCommentMailParams(new CultureInfo(reply.Question.User.Culture), reply.Question.User.Name, reply.User.Name, box.Name, box.Url));
             }
             var t2 = m_SendPush.SendAddReplyNotificationAsync(reply.User.Name, reply.Text, box.Name, box.Id, reply.Question.Id, userIds);
             return Task.WhenAll(t1, t2);
@@ -171,12 +180,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var itemReplyDiscussion = m_ItemCommentReplyRepository.Load(itemReplyDiscussionId.Value);
             DoUpdateLoop(userIds, u => Updates.UpdateItemDiscussionReply(u, box, itemReplyDiscussion));
-            if (itemReplyDiscussion.Parent.Author.Id == itemReplyDiscussion.Author.Id)
+            var userDiscussion = itemReplyDiscussion.Parent.Author;
+            if (userDiscussion.Id == itemReplyDiscussion.Author.Id || userDiscussion.EmailSendSettings != Infrastructure.Enums.EmailSend.CanSend)
             {
                 return Infrastructure.Extensions.TaskExtensions.CompletedTask;
             }
-            return m_MailComponent.GenerateAndSendEmailAsync(itemReplyDiscussion.Parent.Author.Email,
-                 new ReplyToCommentMailParams(new CultureInfo(itemReplyDiscussion.Parent.Author.Culture), itemReplyDiscussion.Parent.Author.Name, itemReplyDiscussion.Author.Name, itemReplyDiscussion.Item.Name, itemReplyDiscussion.Item.Url));
+            return m_QueueProvider.InsertMessageToMailNewAsync(new ReplyToCommentData(userDiscussion.Email,
+                    userDiscussion.Culture,
+                    userDiscussion.Name,
+                    itemReplyDiscussion.Author.Name,
+                    itemReplyDiscussion.Item.Name,
+                    itemReplyDiscussion.Item.Url));
         }
         private Task UpdateQuizDiscussionAsync(Guid? quizDiscussionId, IEnumerable<long> userIds, Box box)
         {
