@@ -30,16 +30,16 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
                 var parameters2 = data as BadPostData;
                 if (parameters2 == null)
                 {
-                    throw new ArgumentNullException("data");
+                    throw new ArgumentNullException(nameof(data));
 
                 }
-                return FlagPost(parameters2);
+                return FlagPostAsync(parameters2);
             }
-            return FlagItem(parameters);
+            return FlagItemAsync(parameters);
 
         }
 
-        private async Task<bool> FlagItem(BadItemData parameters)
+        private async Task<bool> FlagItemAsync(BadItemData parameters)
         {
             await m_TableProvider.InsertUserRequestAsync(
                 new FlagItem(parameters.ItemId, parameters.UserId, parameters.Other, parameters.Reason));
@@ -48,7 +48,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
 
             await m_MailComponent.GenerateAndSendEmailAsync("eidan@cloudents.com",
                    new FlagItemMailParams(flagItemDetail.ItemName,
-                       string.Format("{0} {1}", parameters.Reason, parameters.Other),
+                       $"{parameters.Reason} {parameters.Other}",
                        flagItemDetail.Name,
                        flagItemDetail.Email,
                        string.Empty
@@ -56,7 +56,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             return true;
         }
 
-        private async Task<bool> FlagPost(BadPostData parameters)
+        private async Task<bool> FlagPostAsync(BadPostData parameters)
         {
             await m_TableProvider.InsertUserRequestAsync(
                  new FlagCommentOrReply(parameters.PostId, parameters.UserId));

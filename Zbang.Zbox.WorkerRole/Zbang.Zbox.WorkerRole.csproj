@@ -125,6 +125,8 @@
     <Compile Include="Mail\InviteToCloudents.cs" />
     <Compile Include="Mail\Message2.cs" />
     <Compile Include="Mail\LibraryAccessApproved.cs" />
+    <Compile Include="Mail\PushNotification.cs" />
+    <Compile Include="Mail\ReplyToComment.cs" />
     <Compile Include="Mail\RequestAccess.cs" />
     <Compile Include="Mail\Welcome.cs" />
     <Compile Include="Jobs\UpdateDataBase.cs" />

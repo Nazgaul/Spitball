@@ -19,7 +19,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
         public Task<bool> ExecuteAsync(Infrastructure.Transport.DomainProcess data)
         {
             var parameters = data as ReputationData;
-            if (parameters == null) return Task.FromResult(true);
+            if (parameters == null) return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue; 
             try
             {
                 m_ZboxWriteService.UpdateReputation(new UpdateReputationCommand(parameters.UserIds));
@@ -28,7 +28,7 @@ namespace Zbang.Zbox.WorkerRole.DomainProcess
             {
                 TraceLog.WriteError("On new update model:" + parameters, ex);
             }
-            return Task.FromResult(true);
+            return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 {
                     try
                     {
-                        Execute().Wait();
+                        ExecuteAsync().Wait();
                     }
                     catch (Exception ex)
                     {
@@ -52,7 +52,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
             }
         }
 
-        private async Task Execute()
+        private async Task ExecuteAsync()
         {
             await m_QueueProcess.RunQueue(new DownloadQueueName(), msg =>
              {
@@ -72,7 +72,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
                      var command = new AddFileToBoxCommand(msgData.UserId, msgData.BoxId, msgData.BlobUrl,
                         msgData.FileName,
-                       msgData.Size.HasValue ? msgData.Size.Value : 0, msgData.TablId, false);
+                       msgData.Size ?? 0, msgData.TablId, false);
                      m_ZboxWriteService.AddItemToBoxAsync(command);
                      return Task.FromResult(true);
                  }

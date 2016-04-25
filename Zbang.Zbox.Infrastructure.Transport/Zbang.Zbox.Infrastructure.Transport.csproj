@@ -61,6 +61,7 @@
     <Compile Include="InviteToCloudentsData.cs" />
     <Compile Include="MessageMailData.cs" />
     <Compile Include="ProtobufSerializer.cs" />
+    <Compile Include="ReplyToCommentData.cs" />
     <Compile Include="ReputationData.cs" />
     <Compile Include="RequestAccessData.cs" />
     <Compile Include="StatisticsData.cs" />

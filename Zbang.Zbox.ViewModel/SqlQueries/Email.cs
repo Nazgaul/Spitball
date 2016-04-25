@@ -10,6 +10,7 @@
       join zbox.box b on ub.boxid = b.boxid
       where notificationSettings = @Notification
 	  and ub.UserType in (2,3)
+      and u.emailsendsettings = 0
       and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@NotificationTime,b.updateTime)) > 0;";
 
         public const string GetBoxPossibleUpdateByUser =
