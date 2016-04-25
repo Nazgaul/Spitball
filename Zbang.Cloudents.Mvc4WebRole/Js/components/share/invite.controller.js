@@ -20,8 +20,6 @@
         }
 
         self.switchTab = switchTab;
-        self.tab = self.state.spitball;
-        getSystemUsers();
 
         self.importGoogleContract = importGoogleContacts;
         self.fbShare = fbShare;
@@ -32,27 +30,23 @@
 
         self.closeInvite = function () {
             self.contacts = [];
-            changeTab(true);
             $scope.$emit('close_invite');
         }
         self.inBox = $stateParams.boxId ? true : false;
         if (self.inBox) {
             self.title = $scope.b.data.name;
+            getSystemUsers();
+            self.tab = self.state.spitball;
         } else {
             self.title = resManager.get('siteName');
+            self.tab = self.state.email;
         }
-        self.inMail = true;
-
-        self.mail = function () { changeTab(true); }
-        self.system = function () { changeTab(false); }
-
 
 
         $scope.$on("open_invite", function () {
-            console.log('woop');
             $anchorScroll.yOffset = 100;
             if (self.tab === self.state.spitball) {
-                getSystemUsers('');
+                getSystemUsers();
             }
             $timeout(function () {
                 $anchorScroll('invite');
@@ -66,16 +60,6 @@
         });
 
 
-        function changeTab(isMail) {
-            if (isMail) {
-                self.allContacts = googleContact;
-                self.inMail = true;
-            } else {
-                self.inMail = false;
-                getSystemUsers('');
-            }
-        }
-
         function fbShare() {
             window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location), "pop", "width=600, height=400, scrollbars=no");
         }
@@ -85,7 +69,7 @@
             self.allContacts = [];
             switch (self.tab) {
                 case self.state.spitball:
-                    getSystemUsers('');
+                    getSystemUsers();
                     break;
                 case self.state.email:
                     self.allContacts = googleContact;
