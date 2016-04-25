@@ -2,7 +2,7 @@
     angular.module('app').config(config);
     config.$inject = ['DoubleClickProvider'];
     function config(doubleClickProvider) {
-        var topDashboard = 'div-gpt-ad-1461243129238-0', boxMenu = 'div-gpt-ad-1461243129238-1', menu = 'div-gpt-ad-1461243129238-2', topBox = 'div-gpt-ad-1461243129238-3', itemSide = 'div-gpt-ad-1461244713254-0', itemBetween = 'div-gpt-ad-1459950737650-5', topItem = 'div-gpt-ad-1461243129238-5', searchTop = 'div-gpt-ad-1461243129238-6';
+        var topDashboard = 'div-gpt-ad-1461243129238-0', boxMenu = 'div-gpt-ad-1461243129238-1', menu = 'div-gpt-ad-1461243129238-2', topBox = 'div-gpt-ad-1461243129238-3', itemSide = 'div-gpt-ad-1461244713254-0', itemBetween = 'div-gpt-ad-1459950737650-5', topItem = 'div-gpt-ad-1461568291501-0', searchTop = 'div-gpt-ad-1461243129238-6';
         doubleClickProvider.defineSlot('/107474526/Dash_Top_Banner', [[300, 75], [964, 100], [468, 60]], topDashboard)
             .defineSlot('/107474526/Box_Square_Banner', [[234, 60], [220, 200]], boxMenu)
             .defineSlot('/107474526/Box_Top_Banner', [[300, 75], [964, 100], [468, 60]], topBox)
