@@ -222,6 +222,34 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click here.
+        /// </summary>
+        internal static string ReplyToCommentLink {
+            get {
+                return ResourceManager.GetString("ReplyToCommentLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Someone commented on your post.
+        /// </summary>
+        internal static string ReplyToCommentSubject {
+            get {
+                return ResourceManager.GetString("ReplyToCommentSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} commented on a post you made on {1}.
+        ///{2} to read what your classmate wrote and respond to their post. Spitball is all about being social, after all..
+        /// </summary>
+        internal static string ReplyToCommentText {
+            get {
+                return ResourceManager.GetString("ReplyToCommentText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Finding Friends, Uploading Notes.
         /// </summary>
         internal static string UniversityLowActivitySubject {

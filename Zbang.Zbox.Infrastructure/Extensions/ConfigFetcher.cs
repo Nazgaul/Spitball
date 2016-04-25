@@ -10,6 +10,7 @@ namespace Zbang.Zbox.Infrastructure.Extensions
     public static class ConfigFetcher
     {
         private static readonly bool IsRunningOnCloud;
+        public static readonly bool IsEmulated;
         private static readonly Dictionary<string, string> ConfigurationValues = new Dictionary<string, string>();
 
         static ConfigFetcher()
@@ -17,6 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Extensions
             try
             {
                 IsRunningOnCloud = RoleEnvironment.IsAvailable;
+                IsEmulated = RoleEnvironment.IsEmulated;
             }
             catch (TypeInitializationException)
             {
@@ -27,6 +29,7 @@ namespace Zbang.Zbox.Infrastructure.Extensions
                 TraceLog.WriteError(ex);
                 IsRunningOnCloud = false;
             }
+            
         }
 
         public static string Fetch(string name)

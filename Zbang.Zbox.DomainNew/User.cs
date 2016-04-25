@@ -25,11 +25,7 @@ namespace Zbang.Zbox.Domain
 
 
 
-        //public User(long id)
-        //{
-        //    Id = id;
-        //}
-
+       
         public User(string email, string image,
             string firstName, string lastName, string culture, Sex sex
             )

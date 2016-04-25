@@ -30,7 +30,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             var list = new List<Task>();
             TraceLog.WriteInfo($"{ServiceName} running  mail ");
             var result = await m_ZboxReadService.GetLikesDataAsync(token);
-
             foreach (var user in result.GroupBy(g => g.Email))
             {
                 var email = user.Key;
@@ -52,8 +51,8 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     markertingMail, token));
             }
             await Task.WhenAll(list);
-            await m_MailComponent.GenerateSystemEmailAsync($"{ServiceName} finish to run");
-            TraceLog.WriteInfo($"{ServiceName} finish running  mail page {index}");
+            await m_MailComponent.GenerateSystemEmailAsync($"{ServiceName} finish to run to people {list.Count}");
+            TraceLog.WriteInfo($"{ServiceName} finish running  mail");
             return true;
         }
     }

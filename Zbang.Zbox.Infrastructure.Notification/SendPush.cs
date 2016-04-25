@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ServiceBus.Notifications;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.Notifications
@@ -37,6 +38,10 @@ namespace Zbang.Zbox.Infrastructure.Notifications
                 return Task.FromResult(false);
             }
 
+            if (ConfigFetcher.IsEmulated)
+            {
+                return Task.FromResult(false);
+            }
             return m_Hub.SendNotificationAsync(message, tags.Select(s => s.ToString(CultureInfo.InvariantCulture)));
         }
 

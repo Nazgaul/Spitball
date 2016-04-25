@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
     public class LikesMailParams : MailParameters
     {
         public LikesMailParams(CultureInfo info, string name, IEnumerable<LikeData> likeData)
-            :base(info)
+            : base(info)
         {
             Name = name;
             LikeData = likeData;
@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public IEnumerable<LikeData> LikeData { get; private set; }
 
-        public override string MailResover => nameof(LikesMailParams );
+        public override string MailResover => nameof(LikesMailParams);
     }
 
     public class LikeData

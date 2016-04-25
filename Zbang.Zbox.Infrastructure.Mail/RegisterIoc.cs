@@ -24,6 +24,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             ioc.RegisterType<IMailBuilder, UniversityLowActivityMail>(nameof(UniversityLowActivityMailParams), LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, LowCoursesActivityMail>(nameof(LowCoursesActivityMailParams), LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, LikesMail>(nameof(LikesMailParams), LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IMailBuilder, ReplyToCommentMail>(nameof(ReplyToCommentMailParams), LifeTimeManager.PerHttpRequest);
+            
         }
     }
 }

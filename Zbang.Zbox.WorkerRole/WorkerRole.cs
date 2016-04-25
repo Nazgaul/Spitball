@@ -63,8 +63,7 @@ namespace Zbang.Zbox.WorkerRole
                            // m_Unity.Resolve<IJob>(UnityFactory.AddFiles),
                           m_Unity.Resolve<IJob>(UnityFactory.Transaction)
                          //  m_Unity.Resolve<IJob>(UnityFactory.Dbi)
-                         //  m_Unity.Unity.Resolve<IJob>(UnityFactory.MailProcess2),
-                //          // m_Unity.Unity.Resolve<IJob>(UnityFactory.EmailPartners)
+                          // m_Unity.Unity.Resolve<IJob>(UnityFactory.MailProcess2),
                        };
             }
             //DO NOT CHANGE ANYTHING IN HERE
@@ -77,7 +76,6 @@ namespace Zbang.Zbox.WorkerRole
                 m_Unity.Resolve<IJob>(UnityFactory.Transaction),
                 m_Unity.Resolve<IJob>(UnityFactory.Dbi),
                 m_Unity.Resolve<IJob>(UnityFactory.MailProcess2) 
-                //m_Unity.Resolve<IJob>(UnityFactory.EmailPartners), // no need that for now
             };
         }
 
@@ -164,7 +162,7 @@ namespace Zbang.Zbox.WorkerRole
             catch (AggregateException ex)
             {
                 // Observe any unhandled exceptions.
-                TraceLog.WriteError(string.Format("Finalizing exception thrown: {0} exceptions", ex.InnerExceptions.Count));
+                TraceLog.WriteError($"Finalizing exception thrown: {ex.InnerExceptions.Count} exceptions");
             }
 
             base.OnStop();
