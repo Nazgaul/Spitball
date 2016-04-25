@@ -138,7 +138,7 @@ namespace Zbang.Cloudents.OneTimeWorkerRole
                     var tokenSource = new CancellationTokenSource();
                     tokenSource.CancelAfter(timeToWaite);
                     //some long running method requiring synchronization
-                    var retVal = await processor.PreProcessFile(blobUri, tokenSource.Token);
+                    var retVal = await processor.PreProcessFileAsync(blobUri, tokenSource.Token);
                     if (retVal == null)
                     {
                         return;

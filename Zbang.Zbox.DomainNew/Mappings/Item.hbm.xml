@@ -41,8 +41,8 @@
       <column name="Rate" sql-type="float"/>
     </property>-->
     <property name="LikeCount"/>
-    <property name="ThumbnailBlobName"/>
-    <property name="ThumbnailUrl"/>
+    <!--<property name="ThumbnailBlobName"/>
+    <property name="ThumbnailUrl"/>-->
     <property name="Url" length="4000"/>
 
     <bag name="ItemRates"  cascade="all-delete-orphan" inverse="true" lazy="true">

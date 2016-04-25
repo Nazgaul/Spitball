@@ -1,14 +1,11 @@
 ﻿using System.Threading;
 using Aspose.Slides;
 using Aspose.Slides.Util;
-using ImageResizer;
 using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -30,7 +27,7 @@ namespace Zbang.Zbox.Infrastructure.File
             license.SetLicense("Aspose.Total.lic");
         }
 
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
 
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
@@ -85,7 +82,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
@@ -104,38 +101,13 @@ namespace Zbang.Zbox.Infrastructure.File
                         }
 
                     }, () => ExtractStringFromPpt(pptx)
-                    , () => pptx.Slides.Count, CacheVersion, () =>
-                    {
-
-                        using (var img = pptx.Slides[0].GetThumbnail(1, 1))
-                        {
-                            var output = new MemoryStream();
-                            var settings = new ResizeSettings
-                            {
-                                Scale = ScaleMode.UpscaleCanvas,
-                                Anchor = ContentAlignment.MiddleCenter,
-                                BackgroundColor = Color.White,
-                                Mode = FitMode.Crop,
-                                Width = ThumbnailWidth,
-                                Height = ThumbnailHeight,
-                                Quality = 80,
-                                Format = "jpg"
-                            };
-                            ImageBuilder.Current.Build(img, output, settings);
-                            return output;
-                        }
-                       
-                       
-
-                       
-                       
-                    });
+                    , () => pptx.Slides.Count, CacheVersion);
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile powerpoint2007", ex);
-                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
+                return null;
             }
         }
         private string ExtractStringFromPpt(Presentation ppt)
@@ -166,12 +138,12 @@ namespace Zbang.Zbox.Infrastructure.File
             }
         }
 
-        public override string GetDefaultThumbnailPicture()
-        {
-            return DefaultPicture.PowerPointFileTypePicture;
-        }
+        //public override string GetDefaultThumbnailPicture()
+        //{
+        //    return DefaultPicture.PowerPointFileTypePicture;
+        //}
 
-        public override async Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
                 var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);

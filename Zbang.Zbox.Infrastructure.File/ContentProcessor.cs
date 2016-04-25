@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public abstract class ContentProcessor
     {
-        public abstract Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken));
+        public abstract Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken));
         public abstract bool CanProcessFile(Uri blobName);
     }
 }

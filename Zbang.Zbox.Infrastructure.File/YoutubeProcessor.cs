@@ -5,7 +5,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.File
@@ -39,15 +38,14 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private const string ContentFormat = "<iframe class=\"youtubeframe\" width=\"{0}\" height=\"{1}\" src=\"https://www.youtube.com/embed/{2}\" frameborder=\"0\" allowfullscreen></iframe>";
 
-        public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobName, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobName, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var match = YoutubeRegex.Match(blobName.AbsoluteUri);
-            if (match.Groups.Count < 2 || String.IsNullOrEmpty(match.Groups[1].Value))
+            if (match.Groups.Count < 2 || string.IsNullOrEmpty(match.Groups[1].Value))
             {
                 var blobsNamesInCache = new List<string>
             {
-                "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode( blobName.AbsoluteUri) +
-                string.Format(".jpg?width={0}&height={1}", 1024, 768)
+                "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode( blobName.AbsoluteUri) + ".jpg?width=1024&height=768"
             };
                 return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
             }

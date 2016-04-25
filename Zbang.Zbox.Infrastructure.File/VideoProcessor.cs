@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.File
             m_MediaServiceProvider = mediaServiceProvider;
         }
 
-        public override async Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var metaData = await BlobProvider.FetechBlobMetaDataAsync(blobName);
@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
              var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var currentMetaData = await BlobProvider.FetechBlobMetaDataAsync(blobName);
@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var newBlobName = await m_MediaServiceProvider.Value.EncodeVideo(blobUri, cancelToken);
             var metaData = new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "done" } };
             await BlobProvider.SaveMetaDataToBlobAsync(newBlobName, metaData);
-            return new PreProcessFileResult { BlobName = newBlobName, ThumbnailName = GetDefaultThumbnailPicture() };
+            return new PreProcessFileResult { BlobName = newBlobName };
 
 
         }
@@ -62,12 +62,12 @@ namespace Zbang.Zbox.Infrastructure.File
             return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && VideoExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
-        public override string GetDefaultThumbnailPicture()
-        {
-            return DefaultPicture.VideoFileTypePicture;
-        }
+        //public override string GetDefaultThumbnailPicture()
+        //{
+        //    return DefaultPicture.VideoFileTypePicture;
+        //}
 
-        public override Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<string>(null);
         }

@@ -6,17 +6,17 @@ namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface IContentProcessor
     {
-        Task<PreviewResult> ConvertFileToWebSitePreview(Uri contentUrl, int indexNum, CancellationToken cancelToken = default(CancellationToken));
+        Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri contentUrl, int indexNum, CancellationToken cancelToken = default(CancellationToken));
 
 
         bool CanProcessFile(Uri contentUrl);
 
         //TODO: split to a different interface
-        Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken));
+        Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken));
 
-        Task<string> ExtractContent(Uri blobUri,CancellationToken cancelToken = default(CancellationToken));
+        Task<string> ExtractContentAsync(Uri blobUri,CancellationToken cancelToken = default(CancellationToken));
 
-        string GetDefaultThumbnailPicture();
+       // string GetDefaultThumbnailPicture();
      
     }
 

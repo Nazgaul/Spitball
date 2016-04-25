@@ -22,7 +22,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IQueueProvider m_QueueProvider;
         private readonly IItemRepository m_ItemRepository;
         private readonly IItemTabRepository m_ItemTabRepository;
-        private readonly IBlobProvider m_BlobProvider;
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
 
@@ -30,14 +29,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public AddLinkToBoxCommandHandler(IRepository<Box> boxRepository, IUserRepository userRepository, IQueueProvider queueProvider,
             IItemRepository itemRepository,
              IItemTabRepository itemTabRepository,
-            IBlobProvider blobProvider, IGuidIdGenerator idGenerator, IRepository<Comment> commentRepository)
+            IGuidIdGenerator idGenerator, IRepository<Comment> commentRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_QueueProvider = queueProvider;
             m_ItemRepository = itemRepository;
             m_ItemTabRepository = itemTabRepository;
-            m_BlobProvider = blobProvider;
             m_IdGenerator = idGenerator;
             m_CommentRepository = commentRepository;
         }
@@ -55,8 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var user = m_UserRepository.Load(command.UserId);
 
             //Add link to Box 
-            var link = box.AddLink(u.AbsoluteUri, user, LinkStorageSize, command.UrlTitle, DefaultPicture.LinkTypePicture,
-               m_BlobProvider.GetThumbnailLinkUrl());
+            var link = box.AddLink(u.AbsoluteUri, user, LinkStorageSize, command.UrlTitle);
 
             m_ItemRepository.Save(link, true);
             link.GenerateUrl();

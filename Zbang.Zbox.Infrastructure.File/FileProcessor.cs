@@ -5,9 +5,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
-using System.Text;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
@@ -37,18 +35,18 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public abstract Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken));
+        public abstract Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken));
 
-        public abstract Task<string> ExtractContent(Uri blobUri,
+        public abstract Task<string> ExtractContentAsync(Uri blobUri,
             CancellationToken cancelToken = default(CancellationToken));
 
 
      
 
-        public virtual string GetDefaultThumbnailPicture()
-        {
-            return DefaultPicture.DefaultFileTypePicture;
-        }
+        //public virtual string GetDefaultThumbnailPicture()
+        //{
+        //    return DefaultPicture.DefaultFileTypePicture;
+        //}
 
         protected string StripUnwantedChars(string input)
         {
@@ -56,13 +54,13 @@ namespace Zbang.Zbox.Infrastructure.File
             var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
             input = spaceReg.Replace(input, " ");
             input = eightOrNineDigitsId.Replace(input, string.Empty);
-            input = input.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
+            //input = input.Replace("‏אזהרה‏ הנך רשאי להשתמש ' שימוש הוגן ' ביצירה מוגנת למטרות שונות, לרבות ' לימוד עצמי ' ואין לעשות שימוש בעל אופי מסחרי או מעין-מסחרי בסיכומי הרצאות תוך פגיעה בזכות היוצר של המרצה, שעמל על הכנת ההרצאות והחומר לציבור התלמידים.", string.Empty);
             input = input.Replace("\0", string.Empty);
             input = input.Replace("בס\"ד", string.Empty);
             return input;
         }
 
-        protected async Task UploadMetaData(
+        protected async Task UploadMetaDataAsync(
             string blobName,
             int pageCount,
             string getCacheVersionPrefix

@@ -7,8 +7,8 @@
             ShouldMakeDirty = () => false;
         }
         public Link(string itemName, User uploaderUser, long sized, Box box,
-            string linkTitle, string thumbnailBlobName, string thumbnailUrl)
-            : base(linkTitle, uploaderUser, sized, box, itemName, thumbnailBlobName, thumbnailUrl)
+            string linkTitle)
+            : base(linkTitle, uploaderUser, sized, box, itemName)
         { }
 
 

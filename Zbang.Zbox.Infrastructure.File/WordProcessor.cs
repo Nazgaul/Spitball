@@ -1,12 +1,10 @@
 ﻿using System.Threading;
 using Aspose.Words;
 using Aspose.Words.Saving;
-using ImageResizer;
 using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -30,7 +28,7 @@ namespace Zbang.Zbox.Infrastructure.File
             license.SetLicense("Aspose.Total.lic");
         }
 
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
             //var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
@@ -70,7 +68,7 @@ namespace Zbang.Zbox.Infrastructure.File
             return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri,
+        public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri,
             CancellationToken cancelToken = default(CancellationToken))
         {
             try
@@ -94,35 +92,13 @@ namespace Zbang.Zbox.Infrastructure.File
                     ms.Seek(0, SeekOrigin.Begin);
                     return ms;
 
-                }, () => ExtractDocumentText(word), () => word.PageCount, CacheVersion, () =>
-                {
-                    var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
-                    {
-                        JpegQuality = 80,
-                    };
-
-                    using (var ms = new MemoryStream())
-                    {
-                        word.Save(ms, imgOptions);
-                        ms.Seek(0, SeekOrigin.Begin);
-                        var settings = new ResizeSettings
-                        {
-                            Width = ThumbnailWidth,
-                            Height = ThumbnailHeight,
-                            Quality = 80,
-                            Format = "jpg"
-                        };
-                        var output = new MemoryStream();
-                        ImageBuilder.Current.Build(ms, output, settings);
-                        return output;
-                    }
-                });
+                }, () => ExtractDocumentText(word), () => word.PageCount, CacheVersion);
 
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile word", ex);
-                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
+                return null;
             }
         }
 
@@ -141,14 +117,14 @@ namespace Zbang.Zbox.Infrastructure.File
             }
         }
 
-        public override string GetDefaultThumbnailPicture()
-        {
-            return DefaultPicture.WordFileTypePicture;
-        }
+        //public override string GetDefaultThumbnailPicture()
+        //{
+        //    return DefaultPicture.WordFileTypePicture;
+        //}
 
 
 
-        public override async Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
             var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);

@@ -326,7 +326,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             if (processor != null)
             {
-                var result = await processor.ConvertFileToWebSitePreview(uri, 0);
+                var result = await processor.ConvertFileToWebSitePreviewAsync(uri, 0);
                 retVal = result.Content;
             }
             return View(retVal);
@@ -405,7 +405,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             try
             {
-                var retVal = await processor.ConvertFileToWebSitePreview(uri, index * 3, cancellationToken);
+                var retVal = await processor.ConvertFileToWebSitePreviewAsync(uri, index * 3, cancellationToken);
                 if (retVal.Content == null)
                 {
                     return JsonOk(new
