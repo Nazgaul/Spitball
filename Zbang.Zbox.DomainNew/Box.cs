@@ -120,22 +120,21 @@ namespace Zbang.Zbox.Domain
         public virtual File AddFile(string fileName,
             User user,
             long length,
-            string blobAddressName,
-            string thumbnailBlobAddressName,
-            string thumbnailUrl)
+            string blobAddressName
+           )
         {
-            var file = new File(fileName, user, length, blobAddressName, thumbnailBlobAddressName, this, thumbnailUrl);
+            var file = new File(fileName, user, length, blobAddressName, this);
             return AddItem(file) as File;
         }
 
-        public virtual Item AddLink(string url, User user, int linkStorageSize, string linkTitle, string thumbnail, string thumbnailUrl)
+        public virtual Item AddLink(string url, User user, int linkStorageSize, string linkTitle)
         {
             var linkExist = Items.Any(s => s.ItemContentUrl == url && !s.IsDeleted);
             if (linkExist)
             {
                 throw new DuplicateNameException("This link already exists in the box");
             }
-            var link = new Link(url, user, linkStorageSize, this, linkTitle, thumbnail, thumbnailUrl);
+            var link = new Link(url, user, linkStorageSize, this, linkTitle);
             return AddItem(link);
         }
 
@@ -192,7 +191,7 @@ namespace Zbang.Zbox.Domain
         #region membersCount
         public virtual void CalculateMembers()
         {
-            MembersCount = UserBoxRelationship.Count();
+            MembersCount = UserBoxRelationship.Count;
         }
 
         #endregion
@@ -209,7 +208,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual void UpdateCommentsCount()
         {
-            CommentCount = Comments.Count();
+            CommentCount = Comments.Count;
         }
 
         #endregion

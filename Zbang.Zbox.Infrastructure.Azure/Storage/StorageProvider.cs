@@ -1,6 +1,4 @@
-﻿using System.Configuration;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -65,28 +63,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 
         private static void CreateStorage()
         {
-            CreateBlobStorages(_cloudStorageAccount.CreateCloudBlobClient());
+            CreateBlobStorage(_cloudStorageAccount.CreateCloudBlobClient());
             CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
             CreateTables(_cloudStorageAccount.CreateCloudTableClient());
         }
 
-        internal static LocalResource LocalResource
-        {
-            get
-            {
-                return _localStorage;
-            }
-        }
-        internal static CloudStorageAccount ZboxCloudStorage
-        {
-            get
-            {
-                return _cloudStorageAccount;
-            }
-        }
+        internal static LocalResource LocalResource => _localStorage;
+
+        internal static CloudStorageAccount ZboxCloudStorage => _cloudStorageAccount;
 
         #region CreateStorage
-        private static void CreateBlobStorages(CloudBlobClient blobClient)
+        private static void CreateBlobStorage(CloudBlobClient blobClient)
         {
             var container = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
@@ -129,14 +116,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                     PublicAccess = BlobContainerPublicAccessType.Blob
                 });
             }
-            container = blobClient.GetContainerReference(BlobProvider.AzureThumbnailContainer.ToLower());
-            if (container.CreateIfNotExists())
-            {
-                container.SetPermissions(new BlobContainerPermissions
-                {
-                    PublicAccess = BlobContainerPublicAccessType.Blob
-                });
-            }
+            //container = blobClient.GetContainerReference(BlobProvider.AzureThumbnailContainer.ToLower());
+            //if (container.CreateIfNotExists())
+            //{
+            //    container.SetPermissions(new BlobContainerPermissions
+            //    {
+            //        PublicAccess = BlobContainerPublicAccessType.Blob
+            //    });
+            //}
             container = blobClient.GetContainerReference(BlobProvider.AzureFaqContainer.ToLower());
             if (container.CreateIfNotExists())
             {
@@ -173,17 +160,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             });
 
 
-            var blob = blobClient.GetRootContainerReference().GetBlockBlobReference("crossdomain.xml");
-            blob.Properties.ContentType = "text/xml";
-            var bytes = Encoding.ASCII.GetBytes(@"<?xml version=""1.0"" encoding=""utf-8""?>  
-                    <cross-domain-policy>  
-                        <allow-access-from domain=""http://*.multimicloud.com"" />                           
-                        <allow-access-from domain=""http://*.cloudapp.net"" />  
-                    </cross-domain-policy>");
-            using (var ms = new MemoryStream(bytes, false))
-            {
-                blob.UploadFromStream(ms);
-            }
+            //var blob = blobClient.GetRootContainerReference().GetBlockBlobReference("crossdomain.xml");
+            //blob.Properties.ContentType = "text/xml";
+            //var bytes = Encoding.ASCII.GetBytes(@"<?xml version=""1.0"" encoding=""utf-8""?>  
+            //        <cross-domain-policy>  
+            //            <allow-access-from domain=""http://*.multimicloud.com"" />                           
+            //            <allow-access-from domain=""http://*.cloudapp.net"" />  
+            //        </cross-domain-policy>");
+            //using (var ms = new MemoryStream(bytes, false))
+            //{
+            //    blob.UploadFromStream(ms);
+            //}
         }
 
         private static void CreateQueues(CloudQueueClient queueClient)

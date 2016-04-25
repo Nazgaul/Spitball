@@ -15,8 +15,7 @@ namespace Zbang.Zbox.Domain
             IsDeleted = false;
         }
         protected Item(string itemName, User uploader,
-            long iSized, Box box, string itemContentUrl,
-            string thumbnailBlobName, string thumbmailUrl)
+            long iSized, Box box, string itemContentUrl)
             : this()
         {
             if (uploader == null) throw new ArgumentNullException(nameof(uploader));
@@ -28,8 +27,8 @@ namespace Zbang.Zbox.Domain
             Size = iSized;
             Box = box;
             ItemContentUrl = itemContentUrl;
-            ThumbnailBlobName = thumbnailBlobName;
-            ThumbnailUrl = thumbmailUrl;
+            //ThumbnailBlobName = thumbnailBlobName;
+            //ThumbnailUrl = thumbmailUrl;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
         }
@@ -65,16 +64,16 @@ namespace Zbang.Zbox.Domain
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string ItemContentUrl { get; set; }
-        public virtual string ThumbnailBlobName { get; private set; }
+        //public virtual string ThumbnailBlobName { get; private set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
-        public virtual string ThumbnailUrl { get; private set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
+        //public virtual string ThumbnailUrl { get; private set; }
 
-        public virtual void UpdateThumbnail(string blobName, string url)
-        {
-            ThumbnailBlobName = blobName;
-            ThumbnailUrl = url;
-        }
+        //public virtual void UpdateThumbnail(string blobName, string url)
+        //{
+        //    ThumbnailBlobName = blobName;
+        //    ThumbnailUrl = url;
+        //}
 
         public virtual void GenerateUrl()
         {

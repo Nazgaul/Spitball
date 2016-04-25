@@ -32,23 +32,23 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<Uri> UploadProfilePictureAsync(string blobName, Stream fileContent);
 
 
-        void UploadFileThumbnail(string fileName, Stream ms, string mimeType);
-        Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType);
-        Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType, CancellationToken token);
+        //void UploadFileThumbnail(string fileName, Stream ms, string mimeType);
+        //Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType);
+        //Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType, CancellationToken token);
         Task UploadFilePreviewAsync(string blobName, Stream content, string mimeType, CancellationToken token = default(CancellationToken));
 
-        bool CheckIfFileThumbnailExists(string blobName);
+       // bool CheckIfFileThumbnailExists(string blobName);
 
 
         Stream DownloadFile(string fileName);
 
-        Task<Stream> DownloadFileAsync(string fileName);
+        //Task<Stream> DownloadFileAsync(string fileName);
         Task<Stream> DownloadFileAsync(string fileName, CancellationToken cancelToken);
-        Task<Stream> DownloadFileAsync2(string fileName, CancellationToken cancelToken);
+        //Task<Stream> DownloadFileAsync2(string fileName, CancellationToken cancelToken);
         Task<string> DownloadToFileAsync(string fileName, CancellationToken cancelToken);
 
-        Task<Stream> DownloadFileAsync(string fileName, string containerName,
-            CancellationToken cancelToken = default(CancellationToken));
+        //Task<Stream> DownloadFileAsync(string fileName, string containerName,
+        //    CancellationToken cancelToken = default(CancellationToken));
 
         Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
         Task CommitBlockListAsync(string blobName, int currentIndex, string contentType);
@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task<Stream> GetFaqQuestionAsync();
         Task<Stream> GetJobsXmlAsync();
-        Task<string> GetAdHtmlAsync();
+        //Task<string> GetAdHtmlAsync();
 
         string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double expirationTimeInMinutes);
 
@@ -72,11 +72,11 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         string BlobContainerUrl { get; }
 
-        string GetThumbnailUrl(string blobName);
-        string GetThumbnailLinkUrl();
+        //string GetThumbnailUrl(string blobName);
+        //string GetThumbnailLinkUrl();
         string GetBlobUrl(string blobName);
 
-        void RenameBlob(string blobName, string newName, string newMimeType = null);
+        //void RenameBlob(string blobName, string newName, string newMimeType = null);
 
         /// <summary>
         /// Upload image to quiz in create quiz page
@@ -86,7 +86,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         /// <param name="boxId">box id</param>
         /// <param name="fileName">the image name received from client</param>
         /// <returns>url to return to client</returns>
-        Task<string> UploadQuizImage(Stream content, string mimeType, long boxId, string fileName);
+        Task<string> UploadQuizImageAsync(Stream content, string mimeType, long boxId, string fileName);
 
         bool CacheBlobExists(string blobName);
     }

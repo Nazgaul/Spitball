@@ -20,29 +20,28 @@ namespace Zbang.Zbox.Infrastructure.File
 
         protected async Task<PreProcessFileResult> ProcessFile(string blobName,
             Func<Stream> previewStream,
-            Func<String> extractTextFromDocument,
+            Func<string> extractTextFromDocument,
             Func<int> getPageCount,
-            string getCacheVersionPrefix,
-            Func<Stream> thumbnailStream
+            string getCacheVersionPrefix
+            // Func<Stream> thumbnailStream
 
             )
         {
-            var thumbnailUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
+            //var thumbnailUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
             var text = extractTextFromDocument();
-           
+
             using (var msPreview = previewStream())
             {
-                using (var ms = thumbnailStream())
-                {
-                    var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailUri, ms, "image/jpeg");
-                    var t2 = UploadMetaData(blobName, getPageCount(), getCacheVersionPrefix);
-                    var t3 = BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", msPreview, "image/jpeg");
-                    await Task.WhenAll(t1, t2, t3);
-                }
+
+                // var t1 = BlobProvider.UploadFileThumbnailAsync(thumbnailUri, ms, "image/jpeg");
+                var t2 = UploadMetaDataAsync(blobName, getPageCount(), getCacheVersionPrefix);
+                var t3 = BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", msPreview, "image/jpeg");
+                await Task.WhenAll(t2, t3);
+
             }
             return new PreProcessFileResult
             {
-                ThumbnailName = thumbnailUri,
+                // ThumbnailName = thumbnailUri,
                 FileTextContent = text
             };
         }
@@ -51,7 +50,7 @@ namespace Zbang.Zbox.Infrastructure.File
             int startPage,
             Func<int, string> pageCacheBlobName,
             Func<int, Task<Stream>> convertPageToPreview, string cacheVersion,
-            String mimeType
+            string mimeType
             )
         {
             var blobsNamesInCache = new List<string>();

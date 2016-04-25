@@ -505,7 +505,7 @@ namespace Testing
         {
             IFileProcessorFactory service = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IFileProcessorFactory>();
             var processor = service.GetProcessor(new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxfiles/7c8aaf28-e398-49f3-85ef-b9e9b04848a3.jpg"));
-            var x = await processor.PreProcessFile(new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxfiles/7c8aaf28-e398-49f3-85ef-b9e9b04848a3.jpg"));
+            var x = await processor.PreProcessFileAsync(new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxfiles/7c8aaf28-e398-49f3-85ef-b9e9b04848a3.jpg"));
             // var id = await service.EncodeVideo(new Uri("https://zboxstorage.blob.core.windows.net/zboxfiles/f6a1b2b6-7c1c-44fc-961c-b90492c8552a.wmv"));
             //var id = await service.EncodeVideo(new Uri("https://zboxstorage.blob.core.windows.net/zboxfiles/test.wmv"));
 

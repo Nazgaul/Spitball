@@ -2,13 +2,10 @@
 using System.Threading;
 using Aspose.Cells;
 using Aspose.Cells.Rendering;
-using ImageResizer;
 using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -43,7 +40,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
 
@@ -95,7 +92,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
@@ -119,80 +116,23 @@ namespace Zbang.Zbox.Infrastructure.File
                         img.Save(ms, ImageFormat.Jpeg);
                         return ms;
                     }
-                }, () => string.Empty, () => excel.Worksheets.Count, CacheVersion  , () =>
-                {
-                    var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-                    var sr = new SheetRender(wb, imgOptions);
-                    using (var img = sr.ToImage(0))
-                    {
-                        var settings = new ResizeSettings
-                        {
-                            Scale = ScaleMode.UpscaleCanvas,
-                            Anchor = ContentAlignment.MiddleCenter,
-                            BackgroundColor = Color.White,
-                            Mode = FitMode.Crop,
-                            Width = ThumbnailWidth,
-                            Height = ThumbnailHeight,
-                            Quality = 80,
-                            Format = "jpg"
-                        };
-                        var output = new MemoryStream();
-                        ImageBuilder.Current.Build(img, output, settings);
-                        return output;
-                        
-                    }
-                   
-                    //sr.Seek(0, SeekOrigin.Begin);
-                    //var output = new MemoryStream();
-                    //    ImageBuilder.Current.Build(sr, output, settings);
-                    //    return output;
-                });
-                //ScalePageSetupToFitPage(wb);
-
-                //var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-
-                //var sr = new SheetRender(wb, imgOptions);
-                //var img = sr.ToImage(0);
-                //if (img == null)
-                //{
-                //    return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
-                //}
-                //var settings = new ResizeSettings
-                //{
-                //    Scale = ScaleMode.UpscaleCanvas,
-                //    Anchor = ContentAlignment.MiddleCenter,
-                //    BackgroundColor = Color.White,
-                //    Mode = FitMode.Crop,
-                //    Width = ThumbnailWidth,
-                //    Height = ThumbnailHeight,
-                //    Quality = 80,
-                //    Format = "jpg"
-                //};
-
-                //using (var output = new MemoryStream())
-                //{
-                //    ImageBuilder.Current.Build(img, output, settings);
-                //    var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                //    await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, output, "image/jpeg", cancelToken);
-                //    return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
-                //}
-
+                }, () => string.Empty, () => excel.Worksheets.Count, CacheVersion);
 
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile excel", ex);
-                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
+                return null;
             }
 
         }
 
-        public override string GetDefaultThumbnailPicture()
-        {
-            return DefaultPicture.ExcelFileTypePicture;
-        }
+        //public override string GetDefaultThumbnailPicture()
+        //{
+        //    return DefaultPicture.ExcelFileTypePicture;
+        //}
 
-        public override Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<string>(null);
         }

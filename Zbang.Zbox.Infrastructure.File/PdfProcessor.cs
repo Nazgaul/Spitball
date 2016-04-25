@@ -7,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Aspose.Pdf.Text.TextOptions;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -34,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
 
@@ -88,7 +87,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
@@ -108,14 +107,7 @@ namespace Zbang.Zbox.Infrastructure.File
                          return ms;
 
                      }, () => ExtractPdfText(pdfDocument),
-                     () => pdfDocument.Pages.Count, CacheVersion,
-                        () =>
-                        {
-                            var jpegDevice = new JpegDevice(ThumbnailWidth, ThumbnailHeight, new Resolution(150), 80);
-                            var ms = new MemoryStream();
-                            jpegDevice.Process(pdfDocument.Pages[1], ms);
-                            return ms;
-                        });
+                     () => pdfDocument.Pages.Count, CacheVersion);
 
                 }
 
@@ -123,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.File
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile pdf", ex);
-                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
+                return null;
             }
         }
 
@@ -179,14 +171,14 @@ namespace Zbang.Zbox.Infrastructure.File
                 return string.Empty;
             }
         }
-        public override string GetDefaultThumbnailPicture()
-        {
-            return DefaultPicture.PdfFileTypePicture;
-        }
+        //public override string GetDefaultThumbnailPicture()
+        //{
+        //    return DefaultPicture.PdfFileTypePicture;
+        //}
 
 
 
-        public override async Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
             SetLicense();

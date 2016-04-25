@@ -15,19 +15,19 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
     public class RateItemCommandHandlerTests
     {
 
-        private IItemRateRepository m_StubItemRateRepositoy;
+        private IItemRateRepository m_StubItemRateRepository;
         private IRepository<Item> m_StubItemRepository;
         private IUserRepository m_StubUserRepository;
-        private IRepository<Reputation> m_StubReputationRepository;
+        //private IRepository<Reputation> m_StubReputationRepository;
         private IQueueProvider m_QueueProvider;
 
         [TestInitialize]
         public void Setup()
         {
-            m_StubItemRateRepositoy = MockRepository.GenerateStub<IItemRateRepository>();
+            m_StubItemRateRepository = MockRepository.GenerateStub<IItemRateRepository>();
             m_StubItemRepository = MockRepository.GenerateStub<IRepository<Item>>();
             m_StubUserRepository = MockRepository.GenerateStub<IUserRepository>();
-            m_StubReputationRepository = MockRepository.GenerateStub<IRepository<Reputation>>();
+           // m_StubReputationRepository = MockRepository.GenerateStub<IRepository<Reputation>>();
             m_QueueProvider = MockRepository.GenerateStub<IQueueProvider>();
 
 
@@ -41,16 +41,16 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var command = new RateItemCommand(itemid, userid, Guid.NewGuid(), boxid);
 
 
-            m_StubItemRateRepositoy.Stub(x => x.GetRateOfUser(userid, itemid)).Return(null);
+            m_StubItemRateRepository.Stub(x => x.GetRateOfUser(userid, itemid)).Return(null);
 
             var user = new User("some email", "some largeImage", "some first name", "some last name", "en-US", Sex.NotApplicable);
             user.GetType().GetProperty("Id").SetValue(user, userid);
-            var item = new Link("some name", user, 1, new PrivateBox("some box", user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid()), "some url", "some thumbnail", "some img url");
+            var item = new Link("some name", user, 1, new PrivateBox("some box", user, BoxPrivacySettings.MembersOnly, Guid.NewGuid()), "some url");
 
             m_StubItemRepository.Stub(x => x.Load(itemid)).Return(item);
             m_StubUserRepository.Stub(x => x.Load(userid)).Return(user);
 
-            var commandHandler = new RateItemCommandHandler(m_StubItemRateRepositoy,
+            var commandHandler = new RateItemCommandHandler(m_StubItemRateRepository,
                 m_StubItemRepository, m_StubUserRepository, m_QueueProvider);
 
 
@@ -72,12 +72,12 @@ namespace Zbang.Zbox.Domain.CommandHandlersTests
             var user = new User("some email", "some largeImage", "some first name", "some last name", "en-US", Sex.NotApplicable);
             user.GetType().GetProperty("Id").SetValue(user, userid);
             user.Reputation = 5;
-            var item = new Link("some name", user, 1, new PrivateBox("some box", user, Infrastructure.Enums.BoxPrivacySettings.MembersOnly, Guid.NewGuid()), "some url", "some thumbnail", "some img url");
+            var item = new Link("some name", user, 1, new PrivateBox("some box", user, BoxPrivacySettings.MembersOnly, Guid.NewGuid()), "some url");
 
             m_StubItemRepository.Stub(x => x.Load(itemid)).Return(item);
             m_StubUserRepository.Stub(x => x.Load(userid)).Return(user);
-            m_StubItemRateRepositoy.Stub(x => x.GetRateOfUser(userid, itemid)).Return(new ItemRate(user, item, Guid.NewGuid()));
-            var commandHandler = new RateItemCommandHandler(m_StubItemRateRepositoy, m_StubItemRepository,
+            m_StubItemRateRepository.Stub(x => x.GetRateOfUser(userid, itemid)).Return(new ItemRate(user, item, Guid.NewGuid()));
+            var commandHandler = new RateItemCommandHandler(m_StubItemRateRepository, m_StubItemRepository,
                 m_StubUserRepository, m_QueueProvider);
 
 

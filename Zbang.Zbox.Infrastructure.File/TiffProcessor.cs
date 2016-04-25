@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Threading;
+﻿using System.Threading;
 using Aspose.Imaging;
 using Aspose.Imaging.FileFormats.Jpeg;
 using Aspose.Imaging.FileFormats.Tiff;
@@ -11,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Image = Aspose.Imaging.Image;
@@ -30,7 +28,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
-        public async override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             // var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
@@ -117,22 +115,11 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
                 var blobName = GetBlobNameFromUri(blobUri);
-                var settings = new ResizeSettings
-                {
-                    Scale = ScaleMode.UpscaleCanvas,
-                    Anchor = ContentAlignment.MiddleCenter,
-                    BackgroundColor = System.Drawing.Color.White,
-                    Mode = FitMode.Crop,
-                    Width = ThumbnailWidth,
-                    Height = ThumbnailHeight,
-                    Quality = 80,
-                    Format = "jpg"
-                };
 
                 using (var stream = BlobProvider.DownloadFile(blobName))
                 {
@@ -145,29 +132,21 @@ namespace Zbang.Zbox.Infrastructure.File
                         ImageBuilder.Current.Build(stream, ms, settings2, false);
                         await BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
                     }
-                    using (var output = new MemoryStream())
-                    {
-                        stream.Seek(0, System.IO.SeekOrigin.Begin);
-                        ImageBuilder.Current.Build(stream, output, settings);
-                        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV3.jpg";
-                        BlobProvider.UploadFileThumbnail(thumbnailBlobAddressUri, output, "image/jpeg");
-                        return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
-                    }
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile tiff", ex);
-                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
             }
+            return null;
         }
 
-        public override string GetDefaultThumbnailPicture()
-        {
-            return DefaultPicture.ImageFileTypePicture;
-        }
+        //public override string GetDefaultThumbnailPicture()
+        //{
+        //    return DefaultPicture.ImageFileTypePicture;
+        //}
 
-        public override Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<string>(null);
         }

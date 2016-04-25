@@ -225,7 +225,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError("No files");
             }
-            var url = await m_BlobProvider.UploadQuizImage(file.InputStream, file.ContentType, boxId, file.FileName);
+            var url = await m_BlobProvider.UploadQuizImageAsync(file.InputStream, file.ContentType, boxId, file.FileName);
             return JsonOk(url);
         }
 

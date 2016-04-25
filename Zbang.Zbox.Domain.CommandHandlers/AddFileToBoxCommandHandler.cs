@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
@@ -22,8 +21,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IQueueProvider m_QueueProvider;
         private readonly IItemRepository m_ItemRepository;
         private readonly IItemTabRepository m_ItemTabRepository;
-        private readonly IFileProcessorFactory m_FileProcessorFactory;
-        private readonly IBlobProvider m_BlobProvider;
         private readonly IGuidIdGenerator m_IdGenerator;
         private readonly IRepository<Comment> m_CommentRepository;
 
@@ -33,16 +30,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IBoxRepository boxRepository, IUserRepository userRepository,
             IItemRepository itemRepository,
             IItemTabRepository itemTabRepository,
-            IFileProcessorFactory fileProcessorFactory,
-            IBlobProvider blobProvider, IGuidIdGenerator idGenerator, IRepository<Comment> commentRepository)
+            IGuidIdGenerator idGenerator, IRepository<Comment> commentRepository)
         {
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_QueueProvider = queueProvider;
             m_ItemRepository = itemRepository;
             m_ItemTabRepository = itemTabRepository;
-            m_FileProcessorFactory = fileProcessorFactory;
-            m_BlobProvider = blobProvider;
             m_IdGenerator = idGenerator;
             m_CommentRepository = commentRepository;
         }
@@ -63,20 +57,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new FileQuotaExceedException();
             }
 
-            var processor = m_FileProcessorFactory.GetProcessor(new Uri(m_BlobProvider.GetBlobUrl(command.BlobAddressName)));
-            string thumbnailImgLink = DefaultPicture.DefaultFileTypePicture;
-            if (processor != null)
-            {
-                thumbnailImgLink = processor.GetDefaultThumbnailPicture();
-            }
+            
             var fileName = GetUniqueFileNameToBox(command.FileName, box.Id);
 
             var item = box.AddFile(fileName,
                 user,
                 command.Length,
-                command.BlobAddressName,
-                thumbnailImgLink,
-                m_BlobProvider.GetThumbnailUrl(thumbnailImgLink));
+                command.BlobAddressName);
 
             m_ItemRepository.Save(item, true);
             item.GenerateUrl();

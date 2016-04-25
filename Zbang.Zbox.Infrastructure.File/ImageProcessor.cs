@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -20,7 +19,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
 
         }
-        public override Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
             if (indexNum > 0)
@@ -29,8 +28,7 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             var blobsNamesInCache = new List<string>
             {
-                "https://az779114.vo.msecnd.net/preview/" + blobName +
-                string.Format(".jpg?width={0}&height={1}", 1024, 768)
+                $"https://az779114.vo.msecnd.net/preview/{blobName}.jpg?width={1024}&height={768}"
             };
             return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
         }
@@ -65,7 +63,7 @@ namespace Zbang.Zbox.Infrastructure.File
             return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && ImageExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
@@ -75,7 +73,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     if (stream.Length == 0)
                     {
                         TraceLog.WriteError("image is empty" + blobName);
-                        return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
+                        return null;
                     }
                    
 
@@ -88,30 +86,30 @@ namespace Zbang.Zbox.Infrastructure.File
                         ImageBuilder.Current.Build(stream, ms, settings2, false);
                         await BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
                     }
-
-                    using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight))
-                    {
-                        var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV4.jpg";
-                        await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, outPutStream, "image/jpeg", cancelToken);
-                        return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
-                    }
+                    //using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight))
+                    //{
+                    //    //var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV4.jpg";
+                    //    //await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, outPutStream, "image/jpeg", cancelToken);
+                    //    //return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
+                    //}
 
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile image blobUri: " + blobUri, ex);
-                return new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() };
+                
             }
+            return null;
 
         }
 
-        public override string GetDefaultThumbnailPicture()
-        {
-            return DefaultPicture.ImageFileTypePicture;
-        }
+        //public override string GetDefaultThumbnailPicture()
+        //{
+        //    return DefaultPicture.ImageFileTypePicture;
+        //}
 
-        public override Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<string>(null);
         }

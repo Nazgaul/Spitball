@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -22,14 +21,14 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
         private const string ContentFormat = "<a target=\"_Blank\" href=\"{0}\"><img src=\"{1}\"/></a>";
-        public virtual Task<PreviewResult> ConvertFileToWebSitePreview(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public virtual Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             if (indexNum > 0)
             {
                 return Task.FromResult(new PreviewResult { Content = new List<string>() });
             }
             var previewLink = "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode(blobUri.AbsoluteUri) +
-                              string.Format(".jpg?width={0}&height={1}", 800, 768);
+                              $".jpg?width={800}&height={768}";
             return Task.FromResult(new PreviewResult { Content = new List<string>
             {
                 string.Format(ContentFormat, blobUri.AbsoluteUri,previewLink)
@@ -37,10 +36,7 @@ namespace Zbang.Zbox.Infrastructure.File
             //return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
         }
 
-        public string TypeOfView
-        {
-            get { return string.Empty; }
-        }
+       // public string TypeOfView => string.Empty;
 
 
         public virtual bool CanProcessFile(Uri blobName)
@@ -49,7 +45,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public virtual async Task<PreProcessFileResult> PreProcessFile(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public virtual async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             const string url2PngApiKey = "PE733F61DA16EFE";
             const string url2PngPrivateKey = "S_B085D82FEC756";
@@ -105,13 +101,13 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        public string GetDefaultThumbnailPicture()
-        {
-            return DefaultPicture.LinkTypePicture;
-        }
+        //public string GetDefaultThumbnailPicture()
+        //{
+        //    return DefaultPicture.LinkTypePicture;
+        //}
 
 
-        public Task<string> ExtractContent(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<string>(null);
         }
