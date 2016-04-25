@@ -121,7 +121,7 @@
     <value>הפעילות שלי</value>
   </data>
   <data name="AddMail" xml:space="preserve">
-    <value>הזמן חברים באמצעות מייל</value>
+    <value>הקלד את כתובת המייל של חברך</value>
   </data>
   <data name="Best" xml:space="preserve">
     <value>המצטיין הכיתתי</value>
@@ -218,5 +218,8 @@
   </data>
   <data name="FacebookContact" xml:space="preserve">
     <value>שתף קורס זה עם חבריך בפייסבוק</value>
+  </data>
+  <data name="AddSpitball" xml:space="preserve">
+    <value>הקלד את שם חברך</value>
   </data>
 </root>

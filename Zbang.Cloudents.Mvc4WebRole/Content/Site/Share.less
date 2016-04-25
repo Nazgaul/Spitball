@@ -56,7 +56,7 @@
         background: none;
 
         .content {
-            border: 1px solid #323538;
+            border: 1px solid;
             border-radius: 5px;
 
 
@@ -98,7 +98,7 @@
                     }
 
                     &.active {
-                        background: @textColorWhite;
+                        background: @textColorWhite !important;
                         border-bottom: 3px solid @buttonColorBlue;
                     }
 
@@ -266,6 +266,7 @@
 
     .portlet-title {
         padding-right: 25px;
+        font-weight: bold;
     }
 
     &.light {
@@ -350,8 +351,8 @@
         left: 15px;
         z-index: 999;
 
-        &.hidden-elemnt{
-            display:none;
+        &.hidden-elemnt {
+            display: none;
         }
 
         .portlet.light.invite {
@@ -365,7 +366,8 @@
                     width: 30px;
                     height: 30px;
                 }
-                span{
+
+                span {
                     display: none;
                 }
             }

@@ -3,23 +3,33 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 
 <a id="invite"></a>
-<div class="portlet invite invite-dialog color-override backgroundColor2" ng-cloak ng-controller="inviteController as i">
+<div class="portlet invite invite-dialog" ng-cloak ng-controller="inviteController as i">
     <div class="portlet-title">
         <div class="caption text-capitalize">
             @IndexResources.Invite {{i.title}}
         </div>
     </div>
-    <div class="content">
+    <div class="content borderTC19">
         <div class="tabs" layout="row">
-            <button class="spitball" ng-class="{active: i.tab === i.state.spitball}" ng-click="i.switchTab(i.state.spitball)" flex="33" layout="row" layout-align="center center"><span>@Html.Svg("~/images/site/icons.svg", "smallLogo")</span></button>
-            <button class="email" ng-class="{active: i.tab === i.state.email}" ng-click="i.switchTab(i.state.email)" flex="33" layout="row" layout-align="center center"><span>@Html.Svg("~/images/site/icons.svg", "gmail")</span></button>
-            <button class="facebook" ng-class="{active: i.tab === i.state.facebook}" ng-click="i.switchTab(i.state.facebook)" flex="33" layout="row" layout-align="center center"><span>@Html.Svg("~/images/site/social-icons.svg", "facebook-colored")</span></button>
+            <button class="spitball backgroundTC21" ng-class="{active: i.tab === i.state.spitball}" ng-click="i.switchTab(i.state.spitball)" flex="33" layout="row" layout-align="center center">
+                <span ng-if="i.tab === i.state.spitball">@Html.Svg("~/images/site/icons.svg", "smallLogo")</span>
+                <span ng-if="i.tab !== i.state.spitball">@Html.Svg("~/images/site/icons.svg", "smallLogo", new { @class = "svgTC22" })</span>
+            </button>
+            <button class="email backgroundTC21" ng-class="{active: i.tab === i.state.email}" ng-click="i.switchTab(i.state.email)" flex="33" layout="row" layout-align="center center">
+                <span ng-if="i.tab === i.state.email">@Html.Svg("~/images/site/icons.svg", "gmail")</span>
+                <span ng-if="i.tab !== i.state.email">@Html.Svg("~/images/site/icons.svg", "gmailgrey", new { @class = "svgTC22" })</span>
+            </button>
+            <button class="facebook backgroundTC21" ng-class="{active: i.tab === i.state.facebook}" ng-click="i.switchTab(i.state.facebook)" flex="33" layout="row" layout-align="center center">
+                <span ng-if="i.tab === i.state.facebook">@Html.Svg("~/images/site/social-icons.svg", "facebook-colored")</span>
+                <span ng-if="i.tab !== i.state.facebook">@Html.Svg("~/images/site/social-icons.svg", "fbgrey", new {@class = "svgTC22"})</span>
+            </button>
         </div>
         <div class="center">
             <div ng-if="i.allContacts.length">
                 <div class="search-user">
                     <md-input-container class="md-block">
-                        <label>@IndexResources.AddMail</label>
+                        <label ng-if="i.tab === i.state.email">@IndexResources.AddMail</label>
+                        <label ng-if="i.tab === i.state.spitball">@IndexResources.AddSpitball</label>
                         <input ng-model="i.filterQuery" ng-change="i.querySearch(i.filterQuery)">
                     </md-input-container>
                 </div>

@@ -15,14 +15,14 @@
 
 
 
-         doubleClickProvider.defineSlot('/107474526/Dash(N)_728x90_ATF', [[300, 75], [964, 100], [468, 60]], topDashboard)
-             .defineSlot('/107474526/Box_250x250_ATF', [[234, 60], [220, 200]], boxMenu)
-             .defineSlot('/107474526/Box_728x90_ATF', [[300, 75], [964, 100], [468, 60]], topBox)
-            .defineSlot('/107474526/Dash_250x250_ATF', [[234, 60], [220, 200]], menu)
-            .defineSlot('/107474526/Item_160x300_Side', [160, 600], itemSide)
+        doubleClickProvider.defineSlot('/107474526/Dash_Top_Banner', [[300, 75], [964, 100], [468, 60]], topDashboard)
+             .defineSlot('/107474526/Box_Square_Banner', [[234, 60], [220, 200]], boxMenu)
+             .defineSlot('/107474526/Box_Top_Banner', [[300, 75], [964, 100], [468, 60]], topBox)
+             .defineSlot('/107474526/Dash_Square_Banner', [[234, 60], [220, 200]], menu)
+             .defineSlot('/107474526/Item_Side_Banner', [160, 600], itemSide)
             .defineSlot('/107474526/Item_300x250_UTF', [[728, 90], [234, 60], [300, 600]], itemBetween)
-            .defineSlot('/107474526/Item_728x90_ATF', [[300, 75], [468, 60], [970, 300]], topItem)
-             .defineSlot('/107474526/search_728x90_ATF', [[300, 75], [964, 100], [468, 60]], searchTop);
+             .defineSlot('/107474526/Item_Top_Banner', [[300, 75], [468, 60], [970, 300]], topItem)
+             .defineSlot('/107474526/Search_Top_Banner', [[300, 75], [964, 100], [468, 60]], searchTop);
 
 
         doubleClickProvider.defineSizeMapping(topDashboard)

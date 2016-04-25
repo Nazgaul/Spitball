@@ -1342,6 +1342,9 @@ Page Loading
 .theme-light .portlet.light.invite svg {
   fill: #f9f9f9;
 }
+.theme-light .invite .portlet-title > .caption {
+  color: #212325;
+}
 .theme-light .invite button.btn-default:active:hover svg {
   fill: #9E9E9E;
 }
@@ -2081,6 +2084,12 @@ Page Loading
 }
 .theme-light .textTC20 {
   color: #b2daef !important;
+}
+.theme-light .backgroundTC21 {
+  background: #777777 !important;
+}
+.theme-light .svgTC22 {
+  fill: #323538 !important;
 }
 .theme-light input[type="search"]::-webkit-input-placeholder,
 .theme-light textarea::-webkit-input-placeholder {

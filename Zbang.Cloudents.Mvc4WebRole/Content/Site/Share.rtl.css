@@ -51,7 +51,7 @@
   background: none;
 }
 .invite.invite-dialog .content {
-  border: 1px solid #323538;
+  border: 1px solid;
   border-radius: 5px;
 }
 .invite.invite-dialog .content .tabs {
@@ -82,7 +82,7 @@
   width: 35px;
 }
 .invite.invite-dialog .content .tabs button.active {
-  background: #f5f5f5;
+  background: #f5f5f5 !important;
   border-bottom: 3px solid #4190b9;
 }
 .invite.invite-dialog .content .tabs button:not(.active) svg {
@@ -230,6 +230,7 @@
 }
 .invite .portlet-title {
   padding-left: 25px;
+  font-weight: bold;
 }
 .invite.light {
   margin: 0;

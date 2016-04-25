@@ -121,7 +121,7 @@
     <value>My activities</value>
   </data>
   <data name="AddMail" xml:space="preserve">
-    <value>Invite friends via email</value>
+    <value>Type your friend's email</value>
   </data>
   <data name="Best" xml:space="preserve">
     <value>Best in the class</value>
@@ -219,5 +219,8 @@
   </data>
   <data name="FacebookContact" xml:space="preserve">
     <value>Share this class with your facebook friends</value>
+  </data>
+  <data name="AddSpitball" xml:space="preserve">
+    <value>Type your friend's name</value>
   </data>
 </root>

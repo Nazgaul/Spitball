@@ -1008,6 +1008,9 @@ body {
 .portlet.light.invite svg {
   fill: #f9f9f9;
 }
+.invite .portlet-title > .caption {
+  color: #f5f5f5;
+}
 .invite button.btn-default:active:hover svg {
   fill: #9E9E9E;
 }
@@ -1247,6 +1250,12 @@ md-chips .md-chips.md-focused {
 }
 .textTC20 {
   color: #888b8e !important;
+}
+.backgroundTC21 {
+  background: #323538 !important;
+}
+.svgTC22 {
+  fill: #777777 !important;
 }
 /*input[type="search"], textarea {
     .placeHolder(@borderColorGrey) !important;
