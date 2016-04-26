@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using System;
+using Dapper;
 using NHibernate;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,18 +18,57 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadServiceWorkerRole : IZboxReadServiceWorkerRole
     {
-        public async Task<IEnumerable<UserDigestDto>> GetUsersByNotificationSettingsAsync(GetUserByNotificationQuery query)
+        public async Task<IEnumerable<UserDigestDto>> GetUsersByNotificationSettingsAsync(GetUserByNotificationQuery query, CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync(token))
             {
                 return await conn.QueryAsync<UserDigestDto>(Email.GetUserListByNotificationSettings,
                     new
                     {
                         Notification = query.NotificationSettings,
-                        NotificationTime = query.MinutesPerNotificationSettings
+                        NotificationTime = query.MinutesPerNotificationSettings,
+                        currentDate = DateTime.UtcNow,
+                        query.PageNumber,
+                        query.RowsPerPage
                     });
             }
 
+        }
+
+        public async Task<IEnumerable<UserUpdatesDigestDto>> GetUserUpdatesAsync(GetBoxesLastUpdateQuery query, CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            {
+                return await conn.QueryAsync<UserUpdatesDigestDto>(Email.GetUserUpdates,
+                    new
+                    {
+                        NotificationTime = query.MinutesPerNotificationSettings,
+                        currentDate = DateTime.UtcNow,
+                        query.UserId
+                    });
+            }
+
+        }
+
+        public async Task<BoxUpdatesDigestDto> GetUpdatesAsync(GetUpdatesQuery query, CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            {
+                using (var grid = await conn.QueryMultipleAsync($"{Email.GetBoxUpdates} {Email.GetItemUpdates} {Email.GetQuizUpdates} {Email.GetCommentUpdates} {Email.GetRepliesUpdates} {Email.GetQuizDiscussionUpdates}",
+                    new { query.BoxIds, query.CommentsIds, query.DiscussionIds, query.ItemIds, query.QuizIds, query.RepliesIds }))
+                {
+                    var retVal = new BoxUpdatesDigestDto
+                    {
+                        Boxes = await grid.ReadAsync<BoxDigestDto>(),
+                        Items = await grid.ReadAsync<ItemDigestDto>(),
+                        Quizzes = await grid.ReadAsync<QuizDigestDto>(),
+                        Comments = await grid.ReadAsync<QnADigestDto>(),
+                        Replies = await grid.ReadAsync<QnADigestDto>(),
+                        QuizDiscussions = await grid.ReadAsync<QuizDiscussionDigestDto>()
+                    };
+                    return retVal;
+                }
+            }
         }
 
         public async Task<IEnumerable<BoxDigestDto>> GetBoxesLastUpdatesAsync(GetBoxesLastUpdateQuery query)
@@ -63,8 +103,8 @@ namespace Zbang.Zbox.ReadServices
                         Items = await grid.ReadAsync<ItemDigestDto>(),
                         Quizzes = await grid.ReadAsync<QuizDigestDto>(),
                         QuizDiscussions = await grid.ReadAsync<QuizDiscussionDigestDto>(),
-                        BoxComments = await grid.ReadAsync<QnADigestDto>(),
-                        BoxReplies = await grid.ReadAsync<QnADigestDto>()
+                        Comments = await grid.ReadAsync<QnADigestDto>(),
+                        Replies = await grid.ReadAsync<QnADigestDto>()
                     };
                     return retVal;
                 }

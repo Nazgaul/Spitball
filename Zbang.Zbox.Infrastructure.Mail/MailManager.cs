@@ -129,13 +129,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
             }
         }
 
-        public async Task GenerateSystemEmailAsync(string text)
+        public async Task GenerateSystemEmailAsync(string subject, string text)
         {
             var sendGridMail = new SendGridMessage
             {
                 From = new MailAddress("no-reply@spitball.co", "spitball system"),
                 Text = text,
-                Subject = "system notification"
+                Subject = subject
             };
 
             //var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);

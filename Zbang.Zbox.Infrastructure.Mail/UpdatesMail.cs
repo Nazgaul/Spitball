@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             message.Html = message.Html.Replace("{UPDATES}", sb.ToString());
             message.Html = message.Html.Replace("{USERNAME}", updateParams.UserName);
-            message.Html = message.Html.Replace("{NUM-UPDATES}", updateParams.Updates.Sum(s=>s.Updates.Count()).ToString(CultureInfo.InvariantCulture));
+            message.Html = message.Html.Replace("{NUM-UPDATES}", updateParams.NoOfUpdates.ToString(CultureInfo.InvariantCulture));
             message.Html = message.Html.Replace("{X-ANSWERS}", AggregateAnswers(updateParams.NoOfAnswers));
             message.Html = message.Html.Replace("{X-QUESTIONS}", AggregateQuestion(updateParams.NoOfQuestions));
             message.Html = message.Html.Replace("{X-NEW-ITEMS}", AggregateItems(updateParams.NoOfItems));

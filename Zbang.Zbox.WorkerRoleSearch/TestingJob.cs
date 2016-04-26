@@ -15,13 +15,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var x = new List<Task<bool>>();
-            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("likesReport");
+            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("digestOnceADay");
             if (process != null)
             {
-                x.Add( process.ExecuteAsync(0, p =>
+                x.Add(process.ExecuteAsync(0, p =>
                 {
                 }, cancellationToken));
             }
+
+            //process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("likesReport");
+            //if (process != null)
+            //{
+            //    x.Add( process.ExecuteAsync(0, p =>
+            //    {
+            //    }, cancellationToken));
+            //}
             //process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("universityLowActivity");
             //if (process != null)
             //{

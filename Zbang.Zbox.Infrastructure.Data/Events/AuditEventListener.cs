@@ -13,17 +13,15 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
         public bool OnPreInsert(PreInsertEvent @event)
         {
             var dirty = @event.Entity as IDirty;
-            if (dirty != null)
+            if (dirty == null) return false;
+            if (dirty.ShouldMakeDirty == null)
             {
-                if (dirty.ShouldMakeDirty == null)
-                {
-                    MakeDirty(@event, @event.State, dirty);
-                    return false;
-                }
-                if (dirty.ShouldMakeDirty())
-                {
-                    MakeDirty(@event, @event.State, dirty);
-                }
+                MakeDirty(@event, @event.State, dirty);
+                return false;
+            }
+            if (dirty.ShouldMakeDirty())
+            {
+                MakeDirty(@event, @event.State, dirty);
             }
             return false;
         }
@@ -52,6 +50,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
         private void MakeDirty(IPreDatabaseOperationEventArgs @event, object[] state, IDirty dirty)
         {
             dirty.IsDirty = true;
+            TraceLog.WriteInfo($"making dirty {Environment.StackTrace}");
             Set(@event.Persister, state, "IsDirty", true);
         }
 

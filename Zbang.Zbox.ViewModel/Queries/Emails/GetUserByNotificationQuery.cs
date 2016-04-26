@@ -2,13 +2,19 @@
 
 namespace Zbang.Zbox.ViewModel.Queries.Emails
 {
-    public class GetUserByNotificationQuery : BaseDigestLastUpdateQuery
+    public class GetUserByNotificationQuery : BaseDigestLastUpdateQuery, IPagedQuery
     {
-        public GetUserByNotificationQuery(NotificationSettings notificationSettings)
-            :base(notificationSettings)
+        public GetUserByNotificationQuery(NotificationSettings notificationSettings, int pageNumber = 0, int rowsPerPage = int.MaxValue)
+            : base(notificationSettings)
         {
             NotificationSettings = notificationSettings;
+            PageNumber = pageNumber;
+            RowsPerPage = rowsPerPage;
         }
-        public NotificationSettings NotificationSettings { get; private set; }
+
+        public NotificationSettings NotificationSettings { get; }
+
+        public int PageNumber { get; }
+        public int RowsPerPage { get; }
     }
 }

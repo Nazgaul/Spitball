@@ -6,11 +6,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public static class RoleIndexProcessor
     {
         // ReSharper disable once InconsistentNaming
-        private static readonly bool m_IsEmulated;
-        static RoleIndexProcessor()
-        {
-            m_IsEmulated = RoleEnvironment.IsEmulated;
-        }
+        //private static readonly bool m_IsEmulated;
+        //static RoleIndexProcessor()
+        //{
+        //    m_IsEmulated = ;
+        //}
         public  static int GetIndex()
         {
             int currentIndex;
@@ -24,6 +24,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return currentIndex;
         }
 
-        public static bool IsEmulated { get; } = m_IsEmulated;
+        public static bool IsEmulated { get; } = RoleEnvironment.IsEmulated;
     }
 }
