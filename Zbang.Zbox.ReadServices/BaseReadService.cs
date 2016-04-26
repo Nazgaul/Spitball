@@ -100,12 +100,12 @@ namespace Zbang.Zbox.ReadServices
             {
                 return securityDto.UserType;
             }
-            if (securityDto.PrivacySetting == BoxPrivacySettings.AnyoneWithUrl)
+            if (securityDto.PrivacySetting == BoxPrivacySetting.AnyoneWithUrl)
             {
                 return securityDto.UserType;
             }
 
-            if (securityDto.PrivacySetting == BoxPrivacySettings.MembersOnly)
+            if (securityDto.PrivacySetting == BoxPrivacySetting.MembersOnly)
             {
                 if (securityDto.UserType == UserRelationshipType.Subscribe || securityDto.UserType == UserRelationshipType.Invite)
                 {

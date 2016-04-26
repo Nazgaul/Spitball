@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Repositories
 
         void Delete(TEntity item, bool flush = false);
 
-        IQueryable<TEntity> GetQuerable();
+        IQueryable<TEntity> GetQueryable();
         
     }
 }

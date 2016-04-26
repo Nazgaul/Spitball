@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private Box CreateNewBox(CreateBoxCommand command, User user)
         {
-            var box = new PrivateBox(command.BoxName, user, Infrastructure.Enums.BoxPrivacySettings.AnyoneWithUrl, m_GuidGenerator.GetId());
+            var box = new PrivateBox(command.BoxName, user, Infrastructure.Enums.BoxPrivacySetting.AnyoneWithUrl, m_GuidGenerator.GetId());
 
             SaveRepositories(user, box);
             box.GenerateUrl();

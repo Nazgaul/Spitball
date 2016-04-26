@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Domain
                 return;
             }
             var universityName = Box.GetUniversityName() ?? "my";
-            Url = UrlConsts.BuildQuizUrl(Box.Id, Box.Name, Id, Name, universityName);
+            Url = UrlConst.BuildQuizUrl(Box.Id, Box.Name, Id, Name, universityName);
         }
 
         // ReSharper restore UnusedAutoPropertyAccessor.Local

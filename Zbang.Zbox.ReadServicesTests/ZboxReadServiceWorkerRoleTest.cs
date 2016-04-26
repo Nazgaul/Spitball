@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
@@ -29,7 +30,7 @@ namespace Zbang.Zbox.ReadServicesTests
             var query = new GetUserByNotificationQuery(NotificationSettings.OnceADay);
             try
             {
-                m_ZboxReadService.GetUsersByNotificationSettingsAsync(query);
+                m_ZboxReadService.GetUsersByNotificationSettingsAsync(query, default(CancellationToken));
             }
             catch (Exception ex)
             {
@@ -55,7 +56,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetBoxesLastUpdates_Query_ReturnResult()
         {
-            var query = new GetBoxesLastUpdateQuery(NotificationSettings.OnceADay,1);
+            var query = new GetBoxesLastUpdateQuery(NotificationSettings.OnceADay, 1);
             try
             {
                 m_ZboxReadService.GetBoxesLastUpdatesAsync(query);

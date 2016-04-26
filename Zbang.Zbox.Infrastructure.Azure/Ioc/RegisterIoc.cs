@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
         public static void Register()
         {
             var ioc = IocFactory.IocWrapper;
-            ioc.RegisterType<IMediaSevicesProvider, MediaSevicesProvider>(LifeTimeManager.Singleton);
+            ioc.RegisterType<IMediaServicesProvider, MediaSevicesProvider>(LifeTimeManager.Singleton);
 
             ioc.RegisterType<IBlobProvider, BlobProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IBlobUpload, BlobProvider>(LifeTimeManager.PerHttpRequest);

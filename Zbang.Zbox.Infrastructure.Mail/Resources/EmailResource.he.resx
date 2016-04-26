@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="answer" xml:space="preserve">
-    <value>תשובה</value>
+    <value>תגובה</value>
   </data>
   <data name="answers" xml:space="preserve">
-    <value>תשובות</value>
+    <value>תגובות</value>
   </data>
   <data name="InviteSubject" xml:space="preserve">
     <value>הזמנה ל{0}</value>
   </data>
   <data name="item" xml:space="preserve">
-    <value>פריט</value>
+    <value>מסמך</value>
   </data>
   <data name="items" xml:space="preserve">
-    <value>פריטים</value>
+    <value>מסמכים</value>
   </data>
   <data name="question" xml:space="preserve">
-    <value>שאלה</value>
+    <value>הודעה</value>
   </data>
   <data name="questions" xml:space="preserve">
-    <value>שאלות</value>
+    <value>הודעות</value>
   </data>
   <data name="WelcomeSubject" xml:space="preserve">
     <value>ברכת שלום מנשיאת הלמות</value>

@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
@@ -66,7 +68,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             //Unity.RegisterType<IJob, DeleteCacheBlobContainer>(DeleteCahceBlobContainer);
             //Unity.RegisterType<IJob, ProcessFile>(PreProcessFiles);
-            //Unity.RegisterType<IJob, DigestEmail2>(DigestEmail2);
+            
             //Unity.RegisterType<IJob, UpdateDataBase>(Dbi);
             //Unity.RegisterType<IJob, UpdateDomainProcess>(Transaction);
             //Unity.RegisterType<IJob, MailProcess2>(MailProcess2);
@@ -86,6 +88,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Unity.RegisterType<IMailProcess, UniversityWithLowActivation>("universityLowActivity");
             Unity.RegisterType<IMailProcess, FollowLowActivityCourses>("followLowActivity");
             Unity.RegisterType<IMailProcess, LikesMailProcess>("likesReport");
+
+
+            Unity.ContainerBuilder.RegisterType<DigestEmail>()
+                .Named<IMailProcess>("digestOnceADay")
+                .WithParameter("hourForEmailDigest", NotificationSettings.OnceADay);
+
+            Unity.ContainerBuilder.RegisterType<DigestEmail>()
+                .Named<IMailProcess>("digestOnceAWeek")
+                .WithParameter("hourForEmailDigest", NotificationSettings.OnceAWeek);
+
+            Unity.ContainerBuilder.RegisterType<DigestEmail>()
+                .Named<IMailProcess>("digestEveryChange")
+                .WithParameter("hourForEmailDigest", NotificationSettings.OnEveryChange);
+
 
 
             //Unity.RegisterType<IMail2, Welcome>(BaseMailData.WelcomeResolver);

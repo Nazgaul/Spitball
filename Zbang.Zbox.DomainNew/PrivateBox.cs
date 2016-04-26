@@ -9,8 +9,8 @@ namespace Zbang.Zbox.Domain
        {
            
        }
-       public PrivateBox(string boxName, User user, BoxPrivacySettings privacySettings, Guid newCommentId)
-            : base(boxName,user,privacySettings,newCommentId)
+       public PrivateBox(string boxName, User user, BoxPrivacySetting privacySetting, Guid newCommentId)
+            : base(boxName,user,privacySetting,newCommentId)
         {
         }
 

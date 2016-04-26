@@ -9,16 +9,21 @@ namespace Zbang.Zbox.Infrastructure.Cache
     {
         public static T Get<T>(this IDatabase cache, string key) where T : class
         {
+            if (cache == null)
+            {
+                return default(T);
+            }
             return Deserialize<T>(cache.StringGet(key));
         }
 
-        public async static Task<T> GetAsync<T>(this IDatabase cache, string key) where T : class
+        public static async Task<T> GetAsync<T>(this IDatabase cache, string key) where T : class
         {
             return Deserialize<T>(await cache.StringGetAsync(key));
         }
 
         public static bool Set<T>(this IDatabase cache, string key, T value, TimeSpan? expiry = null) where T : class
         {
+            if (cache == null) throw new ArgumentNullException(nameof(cache));
 
             return cache.StringSet(key, Serialize(value), expiry);
         }

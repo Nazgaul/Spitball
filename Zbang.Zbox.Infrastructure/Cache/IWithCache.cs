@@ -10,14 +10,14 @@ namespace Zbang.Zbox.Infrastructure.Cache
         /// <summary>
         /// perform dto to query with cache
         /// </summary>
-        /// <typeparam name="TQ">The Query</typeparam>
-        /// <typeparam name="TD">Dto Result</typeparam>
+        /// <typeparam name="TQueryCache">The Query</typeparam>
+        /// <typeparam name="TDtoResult">Dto Result</typeparam>
         /// <param name="getItemCallback">The func to excecute dto</param>
         /// <param name="queryParam">The query param</param>
         /// <returns>query result</returns>
-        TD Query<TQ, TD>(Func<TQ, TD> getItemCallback, TQ queryParam)
-            where TD : class
-            where TQ : IQueryCache;
+        TDtoResult Query<TQueryCache, TDtoResult>(Func<TQueryCache, TDtoResult> getItemCallback, TQueryCache queryParam)
+            where TDtoResult : class
+            where TQueryCache : IQueryCache;
 
 
         Task<TD> QueryAsync<TQ, TD>(Func<TQ, Task<TD>> getItemCallbackAsync, TQ queryParam)

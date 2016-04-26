@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual void GenerateUrl()
         {
-            Url = UrlConsts.BuildLibraryUrl(Id, Name);
+            Url = UrlConst.BuildLibraryUrl(Id, Name);
         }
         public Library CreateSubLibrary(Guid id, string nodeName, User user)
         {

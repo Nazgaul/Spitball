@@ -22,22 +22,25 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public string Locale { get; set; }
 
-        public Sex GetGender()
+        public Sex SpitballGender
         {
-            if (string.IsNullOrEmpty(Gender))
+            get
             {
+                if (string.IsNullOrEmpty(Gender))
+                {
+                    return Sex.NotKnown;
+                }
+                if (Gender.ToLower() == "male")
+                {
+                    return Sex.Male;
+                }
+                if (Gender.ToLower() == "female")
+                {
+                    return Sex.Female;
+                }
+                TraceLog.WriteError("read reading gender from facebook " + Gender.ToLower());
                 return Sex.NotKnown;
             }
-            if (Gender.ToLower() == "male")
-            {
-                return Sex.Male;
-            }
-            if (Gender.ToLower() == "female")
-            {
-                return Sex.Female;
-            }
-            TraceLog.WriteError("read reading gender from facebook " + Gender.ToLower());
-            return Sex.NotKnown;
         }
         public override string ToString()
         {
@@ -74,53 +77,53 @@ namespace Zbang.Zbox.Infrastructure.Security
           */
 
     // ReSharper disable InconsistentNaming
-    public class FacebookUserData2
-    {
-        public long id { get; set; }
+    //public class FacebookUserData2
+    //{
+    //    public long id { get; set; }
 
-        public Education[] education { get; set; }
+    //    public Education[] education { get; set; }
 
-        public string email { get; set; }
-        public string first_name { get; set; }
+    //    public string email { get; set; }
+    //    public string first_name { get; set; }
 
-        public string middle_name { get; set; }
-        public string gender { get; set; }
-        public string last_name { get; set; }
-        public string link { get; set; }
-        public string locale { get; set; }
-        public string name { get; set; }
-        public float timezone { get; set; }
-        public bool verified { get; set; }
+    //    public string middle_name { get; set; }
+    //    public string gender { get; set; }
+    //    public string last_name { get; set; }
+    //    public string link { get; set; }
+    //    public string locale { get; set; }
+    //    public string name { get; set; }
+    //    public float timezone { get; set; }
+    //    public bool verified { get; set; }
 
-        public string Image { get; set; }
-        public string LargeImage { get; set; }
+    //    public string Image { get; set; }
+    //    public string LargeImage { get; set; }
 
-        public bool GetGender()
-        {
-            if (string.IsNullOrEmpty(gender))
-            {
-                return true;
-            }
-            return gender.ToLower() == "male";
-        }
-    }
+    //    public bool GetGender()
+    //    {
+    //        if (string.IsNullOrEmpty(gender))
+    //        {
+    //            return true;
+    //        }
+    //        return gender.ToLower() == "male";
+    //    }
+    //}
 
-    public class Education
-    {
-        public School school { get; set; }
-        public string type { get; set; }
-    }
+    //public class Education
+    //{
+    //    public School school { get; set; }
+    //    public string type { get; set; }
+    //}
 
-    public class School
-    {
-        public string id { get; set; }
-        public string name { get; set; }
+    //public class School
+    //{
+    //    public string id { get; set; }
+    //    public string name { get; set; }
 
-        public override string ToString()
-        {
-            return string.Format("id: {0} name: {1}", id, name);
-        }
-    }
+    //    public override string ToString()
+    //    {
+    //        return string.Format("id: {0} name: {1}", id, name);
+    //    }
+    //}
     // ReSharper restore InconsistentNaming
 
 }

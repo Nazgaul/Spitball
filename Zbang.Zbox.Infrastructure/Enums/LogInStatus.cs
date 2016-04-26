@@ -5,11 +5,11 @@ namespace Zbang.Zbox.Infrastructure.Enums
 {
     public enum LogInStatus
     {
-        [EnumDescription(typeof(EnumResources), "UserNotExists")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "UserNotExists")]
         UserNotExists = 1,
-        [EnumDescription(typeof(EnumResources), "WrongPassword")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "WrongPassword")]
         WrongPassword,
-        [EnumDescription(typeof(EnumResources), "LockedOut")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "LockedOut")]
         LockedOut,
         Success
     }

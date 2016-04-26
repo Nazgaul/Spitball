@@ -32,7 +32,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         public async Task<bool> ExecuteAsync(int index, Action<int> progress, CancellationToken token)
         {
-            await  m_MailComponent.GenerateSystemEmailAsync($"{ServiceName} starting to run ");
+            await  m_MailComponent.GenerateSystemEmailAsync(ServiceName,"starting to run ");
             var page = index;
             var needToContinueRun = true;
             var list = new List<Task>();
@@ -76,7 +76,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 progress(page);
 
             }
-            await m_MailComponent.GenerateSystemEmailAsync($"{ServiceName} finish to run  with page {page}");
+            await m_MailComponent.GenerateSystemEmailAsync(ServiceName,$"finish to run  with page {page}");
             TraceLog.WriteInfo($"{ServiceName} finish running  mail page {index}");
             return true;
 

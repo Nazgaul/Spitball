@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return false;
         }
 
-        private bool IsChangeEmailNeeded(string newUserEmail, string currentEmail)
+        private static bool IsChangeEmailNeeded(string newUserEmail, string currentEmail)
         {
             return !string.Equals(currentEmail, newUserEmail, StringComparison.CurrentCultureIgnoreCase);
         }

@@ -124,7 +124,7 @@
     <value>האם ברצונך למחוק פריט זה?</value>
   </data>
   <data name="deletePost" xml:space="preserve">
-    <value>האם ברצונך למחוק פוסט זה?</value>
+    <value>האם ברצונך למחוק הודעה זו?</value>
   </data>
   <data name="deleteQuiz" xml:space="preserve">
     <value>האם ברצונך למחוק מבחן זה?</value>

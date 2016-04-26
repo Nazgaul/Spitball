@@ -103,7 +103,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             string culture, string boxUrl, long? recipientId)
         {
             var invId = GuidEncoder.Encode(id);
-            var url = UrlConsts.BuildInviteUrl(boxUrl, invId);
+            var url = UrlConst.BuildInviteUrl(boxUrl, invId);
             return m_QueueProvider.InsertMessageToMailNewAsync(new InviteMailData(senderName, boxName,
                    url,
                    recipientEmail, culture, senderImage, senderEmail, recipientId, boxId));

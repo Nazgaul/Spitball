@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -60,7 +61,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 await Task.Delay(TimeSpan.FromMinutes(5));
                 return;
             }
-            var users = await m_ZboxReadService.GetUsersByNotificationSettingsAsync(new GetUserByNotificationQuery(m_DigestEmailHourBack));
+            var users = await m_ZboxReadService.GetUsersByNotificationSettingsAsync(new GetUserByNotificationQuery(m_DigestEmailHourBack),default(CancellationToken));
             foreach (var user in users)
             {
 
@@ -85,7 +86,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
             foreach (var box in boxes.Select(s =>
             {
-                s.Url = UrlConsts.AppendCloudentsUrl(s.Url);
+                s.Url = UrlConst.AppendCloudentsUrl(s.Url);
                 return s;
             }))
             {
@@ -112,7 +113,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                   new CultureInfo(culture), userName,
                   numOfQuestion,
                   numOfAnswers,
-                  numOfItems));
+                  numOfItems,
+                  updates.Sum(s=>s.Updates.Count())));
 
         }
 
@@ -129,17 +131,17 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode(s.Picture) +
                     ".jpg?width=64&height=90&mode=crop"
                 , s.UserName,
-                UrlConsts.AppendCloudentsUrl(s.Url)
+                UrlConst.AppendCloudentsUrl(s.Url)
                 , s.UserId));
 
             var quizUpdate = boxUpdates.Quizzes.Select(s => new UpdateMailParams.ItemUpdate(s.Name,
                 s.Picture
                 , s.UserName,
-                UrlConsts.AppendCloudentsUrl(s.Url)
+                UrlConst.AppendCloudentsUrl(s.Url)
                 , s.UserId));
 
             const string somePicture = "http://az32006.vo.msecnd.net/mailcontainer/user-email-default.jpg";
-            var questionUpdate = boxUpdates.BoxComments.Select(s =>
+            var questionUpdate = boxUpdates.Comments.Select(s =>
             {
                 if (string.IsNullOrEmpty(s.UserImage))
                 {
@@ -149,7 +151,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     s.UserName, s.Text, s.UserImage, box.Url, s.UserId);
             });
 
-            var answersUpdate = boxUpdates.BoxReplies.Select(s =>
+            var answersUpdate = boxUpdates.Replies.Select(s =>
             {
                 if (string.IsNullOrEmpty(s.UserImage))
                 {
@@ -168,7 +170,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 }
                 return new UpdateMailParams.DiscussionUpdate(
                     s.UserName, s.Text, s.UserImage,
-                    UrlConsts.AppendCloudentsUrl(s.Url),
+                    UrlConst.AppendCloudentsUrl(s.Url),
                     s.UserId);
             });
 

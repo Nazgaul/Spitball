@@ -17,7 +17,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         public string Professor { get; set; }
 
-        public Zbox.Infrastructure.Enums.BoxPrivacySettings? BoxPrivacy { get; set; }
+        public Zbox.Infrastructure.Enums.BoxPrivacySetting? BoxPrivacy { get; set; }
 
         public Zbox.Infrastructure.Enums.NotificationSettings Notification { get; set; }
 

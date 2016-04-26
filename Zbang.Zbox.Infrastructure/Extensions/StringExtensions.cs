@@ -4,12 +4,12 @@
 // ReSharper disable once CheckNamespace -- this is extension
 public static class StringExtensions
 {
-    public static string RemoveEndOfString(this String word, int length)
+    public static string RemoveEndOfString(this string word, int length)
     {
         return word?.Substring(0, Math.Min(word.Length, length));
     }
 
-    public static string UppercaseFirst(this String s)
+    public static string UppercaseFirst(this string s)
     {
         // Check for empty string.
         if (string.IsNullOrEmpty(s))

@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="answer" xml:space="preserve">
-    <value>Answer</value>
+    <value>Comment</value>
   </data>
   <data name="answers" xml:space="preserve">
-    <value>Answers</value>
+    <value>Comments</value>
   </data>
   <data name="InviteSubject" xml:space="preserve">
     <value>Invite to {0}</value>
   </data>
   <data name="item" xml:space="preserve">
-    <value>Item</value>
+    <value>Docuemnt</value>
   </data>
   <data name="items" xml:space="preserve">
-    <value>Items</value>
+    <value>Documents</value>
   </data>
   <data name="question" xml:space="preserve">
-    <value>Question</value>
+    <value>Post</value>
   </data>
   <data name="questions" xml:space="preserve">
-    <value>Questions</value>
+    <value>Posts</value>
   </data>
   <data name="WelcomeSubject" xml:space="preserve">
     <value>Welcome to Spitball</value>

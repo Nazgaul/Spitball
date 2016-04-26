@@ -39,41 +39,41 @@ namespace Zbang.Zbox.Domain
                 case ReputationAction.None:
                     return 0;
                 case ReputationAction.AddItem:
-                    return ReputationConsts.UploadItemScore;
+                    return ReputationConst.UploadItemScore;
                 case ReputationAction.AddAnswer:
-                    return ReputationConsts.AddAnswerScore;
+                    return ReputationConst.AddAnswerScore;
                 case ReputationAction.AddQuestion:
-                    return ReputationConsts.AddQuestionScore;
+                    return ReputationConst.AddQuestionScore;
                 case ReputationAction.DeleteItem:
-                    return ReputationConsts.DeleteItemScore;
+                    return ReputationConst.DeleteItemScore;
                 case ReputationAction.DeleteQuestion:
-                    return ReputationConsts.DeleteQuestionScore;
+                    return ReputationConst.DeleteQuestionScore;
                 case ReputationAction.DeleteAnswer:
-                    return ReputationConsts.DeleteAnswerScore;
+                    return ReputationConst.DeleteAnswerScore;
                 case ReputationAction.ShareFacebook:
-                    return ReputationConsts.ShareFabookScore;
+                    return ReputationConst.ShareFacebookScore;
                 case ReputationAction.Invite:
-                    return ReputationConsts.InviteToCloudentsScore;
+                    return ReputationConst.InviteToCloudentsScore;
                 case ReputationAction.InviteToBox:
-                    return ReputationConsts.InviteToBoxScore;
+                    return ReputationConst.InviteToBoxScore;
                 case ReputationAction.Rate3Stars:
-                    return ReputationConsts.Rate3StareScore;
+                    return ReputationConst.Rate3StarScore;
                 case ReputationAction.Rate4Stars:
-                    return ReputationConsts.Rate4StareScore;
+                    return ReputationConst.Rate4StarScore;
                 case ReputationAction.Rate5Stars:
-                    return ReputationConsts.Rate5StareScore;
+                    return ReputationConst.Rate5StarScore;
                 case ReputationAction.UnRate3Stars:
-                    return ReputationConsts.UnRate3StareScore;
+                    return ReputationConst.Unrate3StarScore;
                 case ReputationAction.UnRate4Stars:
-                    return ReputationConsts.UnRate4StareScore;
+                    return ReputationConst.Unrate4StarScore;
                 case ReputationAction.UnRate5Stars:
-                    return ReputationConsts.UnRate5StareScore;
+                    return ReputationConst.Unrate5StarScore;
                 case ReputationAction.AddQuiz:
-                    return ReputationConsts.AddQuizScore;
+                    return ReputationConst.AddQuizScore;
                 case ReputationAction.DeleteQuiz:
-                    return ReputationConsts.DeleteQuizScore;
+                    return ReputationConst.DeleteQuizScore;
                 case ReputationAction.Register:
-                    return ReputationConsts.Register;
+                    return ReputationConst.Register;
                 //case ReputationAction.AddItemComment:
                 //    return ReputationConsts.AddItemCommentScore;
                 //case ReputationAction.AddItemReply:

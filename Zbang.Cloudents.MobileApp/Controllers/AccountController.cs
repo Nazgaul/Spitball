@@ -77,13 +77,13 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
 
             var identity = new ClaimsIdentity();
-            identity.AddClaim(new Claim(ClaimConsts.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
 
 
-            identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+            identity.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
                     systemData.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
 
-            identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+            identity.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
                     systemData.UniversityData.HasValue ?
                     systemData.UniversityData.Value.ToString(CultureInfo.InvariantCulture)
                     : systemData.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
@@ -122,11 +122,11 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_ZboxWriteService.CreateUniversity(command);
 
             var identity = new ClaimsIdentity();
-            identity.AddClaim(new Claim(ClaimConsts.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
-            identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+            identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            identity.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
                     command.Id.ToString(CultureInfo.InvariantCulture)));
 
-            identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+            identity.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
                     command.Id.ToString(CultureInfo.InvariantCulture)));
 
             var claims = identity.Claims.ToList();
@@ -185,11 +185,11 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
             var identity = new ClaimsIdentity();
-            identity.AddClaim(new Claim(ClaimConsts.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
-            identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+            identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            identity.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
                     command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
-            identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+            identity.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
                     command.UniversityDataId.HasValue ?
                     command.UniversityDataId.Value.ToString(CultureInfo.InvariantCulture)
                     : command.UniversityId.ToString(CultureInfo.InvariantCulture)));

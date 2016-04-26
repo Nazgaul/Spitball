@@ -86,7 +86,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             return new User(email, largeImage,
                    firstName,
-
                    lastName, culture, sex);
         }
 
@@ -124,7 +123,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             UpdateUniversity(university, result, user);
         }
 
-        private void UpdateUniversity(University university, CreateUserCommandResult result, User user)
+        private static void UpdateUniversity(University university, CreateUserCommandResult result, User user)
         {
             result.UniversityId = university.Id;
             result.UniversityData = university.UniversityData.Id;

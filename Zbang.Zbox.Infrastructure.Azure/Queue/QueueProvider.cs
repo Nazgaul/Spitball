@@ -18,16 +18,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 
         const int MaxQueuePopLimit = 32;
 
-        private CloudQueueClient QueueClient
-        {
-            get { return m_QueueClient ?? (m_QueueClient = StorageProvider.ZboxCloudStorage.CreateCloudQueueClient()); }
-        }
+        private CloudQueueClient QueueClient => m_QueueClient ?? (m_QueueClient = StorageProvider.ZboxCloudStorage.CreateCloudQueueClient());
 
-
-        private CloudQueue GetCacheQueue()
-        {
-            return GetQueue(QueueName.QueueName2.ToLower());
-        }
 
         private CloudQueue GetMailQueueNew()
         {

@@ -1038,7 +1038,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         }
         #endregion
 
-        public async Task<IEnumerable<long>> GetUniversityWithCode()
+        public async Task<IEnumerable<long>> GetUniversityWithCodeAsync()
         {
             using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
             {

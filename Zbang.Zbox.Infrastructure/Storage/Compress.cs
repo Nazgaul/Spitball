@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
     {
         public byte[] CompressToGzip(byte[] stream)
         {
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             using (var ms = new MemoryStream())
             {
                 using (var gz = new GZipStream(ms, CompressionMode.Compress))
@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         public byte[] CompressToGzip(Stream stream)
         {
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
             stream.Seek(0, SeekOrigin.Begin);
             using (var ms = new MemoryStream())
             {

@@ -20,7 +20,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
             await m_MailComponent.DeleteUnsubscribeAsync(parameters2.EmailAddress);
             await m_MailComponent.GenerateAndSendEmailAsync(parameters2.EmailAddress,
                 new ForgotPasswordMailParams2(parameters2.Code,
-                    string.Format(UrlConsts.PasswordUpdate, parameters2.Link), parameters2.Name,
+                    string.Format(UrlConst.PasswordUpdate, parameters2.Link), parameters2.Name,
                     new CultureInfo(parameters2.Culture)));
            return true;
         }

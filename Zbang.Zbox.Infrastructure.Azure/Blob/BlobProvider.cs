@@ -105,7 +105,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = directory.GetBlockBlobReference(index.ToString(CultureInfo.InvariantCulture) + Path.GetExtension(fileName));
             await blob.UploadFromByteArrayAsync(data, 0, data.Length);
             blob.Properties.ContentType = "image/jpeg";
-            blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
+            blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
             await blob.SetPropertiesAsync();
 
             var uriBuilder = new UriBuilder(blob.Uri);
@@ -179,7 +179,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return BlobClient.GetContainerReference(containerName.ToLower()).GetBlockBlobReference(blobName);
         }
 
-        public async Task<IDictionary<string, string>> FetechBlobMetaDataAsync(string blobName)
+        public async Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobName)
         {
             var blob = GetFile(blobName);
             await blob.FetchAttributesAsync();
@@ -226,7 +226,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
 
 
-        public string GenerateSharedAccressReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes)
+        public string GenerateSharedAccessReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes)
         {
             if (blobUri == null) throw new ArgumentNullException(nameof(blobUri));
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
@@ -269,7 +269,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 cacheblob.Properties.ContentEncoding = "gzip";
             }
 
-            cacheblob.Properties.CacheControl = "private, max-age=" + TimeConsts.Minute * CacheContainerItemAvailableInMinutes;
+            cacheblob.Properties.CacheControl = "private, max-age=" + TimeConst.Minute * CacheContainerItemAvailableInMinutes;
             cacheblob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
             await cacheblob.UploadFromStreamAsync(fileContent);
             return GenerateSharedAccressReadPermissionInCache(blobName, CacheContainerItemAvailableInMinutes);
@@ -332,7 +332,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             await blob.PutBlockListAsync(blockList);
             //blob.PutBlockList(fileUploadedDetails.BlockIds);
             blob.Properties.ContentType = contentType;
-            blob.Properties.CacheControl = "private max-age=" + TimeConsts.Week;
+            blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
 
             await blob.SetPropertiesAsync();
 
@@ -362,7 +362,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
                     }
                     blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
-                    blob.Properties.CacheControl = "private max-age=" + TimeConsts.Week;
+                    blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
                     await blob.SetPropertiesAsync();
                     return blob.Properties.Length;
                 }
@@ -390,7 +390,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             //{
             fileContent.Seek(0, SeekOrigin.Begin);
             blob.Properties.ContentType = "image/jpeg";
-            blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
+            blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
             await blob.UploadFromStreamAsync(fileContent);
             //}
             return blob.Uri;
@@ -415,7 +415,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = directory.GetBlockBlobReference(name + Path.GetExtension(fileName));
 
             blob.Properties.ContentType = mimeType;
-            blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
+            blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
 
             await blob.UploadFromStreamAsync(content);
 
@@ -474,7 +474,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             content.Seek(0, SeekOrigin.Begin);
             var blob = BlobClient.GetContainerReference(AzurePreviewContainer).GetBlockBlobReference(blobName);
             blob.Properties.ContentType = mimeType;
-            blob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
+            blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
             return blob.UploadFromStreamAsync(content, token);
         }
 

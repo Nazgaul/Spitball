@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 
@@ -8,24 +9,13 @@ namespace Zbang.Zbox.Infrastructure.Culture
     public static class Languages
     {
         public const string EnglishUsName = "English";
-        //public const string EnglishGbName = "English \u200E(UK)\u200E";
         public const string HebrewName = "עברית";
-        //public const string ArabicName = "العربية";
-        //public const string RussianName = "Pусский";
-        // public const string ChineseName = "中文";
 
-        //public static readonly List<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
-        //    new LanguagesDetail(EnglishUsName,"en-US"),
-        //    //new LanguagesDetail(EnglishGbName,"en-GB"),
-        //    new LanguagesDetail(HebrewName,"he-IL"),
-        //    //new LanguagesDetail(ArabicName,"ar-AE"),
-        //    //new LanguagesDetail(RussianName,"ru-RU")
-        //};
 
-        public static readonly List<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
+        public static readonly ReadOnlyCollection<LanguagesDetail> SupportedCultures = new List<LanguagesDetail> {
             new LanguagesDetail(EnglishUsName,new [] {"en" ,"en-US"}),
             new LanguagesDetail(HebrewName, new [] {"he","he-IL" }),
-        };
+        }.AsReadOnly();
 
         /// <summary>
         /// used by razor to generate the languages

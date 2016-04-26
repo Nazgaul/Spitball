@@ -7,11 +7,68 @@
             @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
       from zbox.userboxrel ub 
       join zbox.users u on ub.userid = u.userid
-      join zbox.box b on ub.boxid = b.boxid
+	  join zbox.NewUpdates nu on nu.BoxId = ub.BoxId and nu.UserId = ub.UserId
       where notificationSettings = @Notification
-	  and ub.UserType in (2,3)
       and u.emailsendsettings = 0
-      and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@NotificationTime,b.updateTime)) > 0;";
+	 and DATEADD(minute,-(@NotificationTime), @currentDate) < nu.CreationTime
+      order by userid
+	  offset @pageNumber*@rowsperpage ROWS
+	  FETCH NEXT @rowsperpage ROWS ONLY";
+	
+   //         @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
+   //   from zbox.userboxrel ub 
+   //   join zbox.users u on ub.userid = u.userid
+   //   join zbox.box b on ub.boxid = b.boxid
+   //   where notificationSettings = @Notification
+	  //and ub.UserType in (2,3)
+   //   and u.emailsendsettings = 0
+   //   and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@NotificationTime,b.updateTime)) > 0;";
+
+
+        public const string GetUserUpdates = @"select boxid,QuestionId,AnswerId,ItemId,QuizId,QuizDiscussionId
+	from zbox.NewUpdates nu
+	where nu.UserId = @UserId 
+	and DATEADD(minute,-(@NotificationTime), @currentDate) < nu.CreationTime";
+
+        public const string GetBoxUpdates = @"select boxid as BoxId, boxname as BoxName, Url
+            from zbox.Box
+            where boxid in @BoxIds;";
+
+        public const string GetItemUpdates = @"select u.username as UserName,u.userid as UserId, i.name as Name,
+    i.blobname as Picture , i.Url ,i.BoxId
+    from zbox.item i inner join zbox.users u on u.userid = i.userid
+	where itemid in @ItemIds;";
+
+        public const string GetQuizUpdates = @"select u.username as UserName,u.userid as UserId, q.name as Name, 
+    'http://az32006.vo.msecnd.net/mailcontainer/Quiz.jpg' as Picture, q.url, q.BoxId
+	 from zbox.quiz q inner join zbox.users u on u.userid = q.userid
+	 where id in @QuizIds;";
+
+
+        public const string GetCommentUpdates = @"select
+    u.userName as UserName,
+    u.userid as UserId,
+    u.UserImageLarge as UserImage,
+    q.Text as Text,q.BoxId
+    from zbox.question q 
+    join Zbox.Users u on q.UserId = u.userid
+    where q.QuestionId in @CommentsIds;";
+
+        public const string GetRepliesUpdates = @"	select u.userName as UserName,
+    u.userid as UserId,
+    u.UserImageLarge as UserImage,
+    a.Text as Text,a.BoxId
+    from zbox.answer a 
+    join Zbox.Users u on a.UserId = u.userid
+    where a.AnswerId in @RepliesIds;";
+
+        public const string GetQuizDiscussionUpdates = @"	select u.userName as UserName, u.userid as UserId,
+    u.UserImageLarge as UserImage,
+    d.Text as Text, q.id as QuizId, q.Name as QuizName, q.Url,q.BoxId
+    from zbox.quizdiscussion d 
+    join Zbox.Users u on d.UserId = u.userid
+	  join zbox.Quiz q on q.Id = d.QuizId
+	  where d.Id in @DiscussionIds;";
 
         public const string GetBoxPossibleUpdateByUser =
             @" select distinct b.boxid as BoxId, b.boxname as BoxName, 

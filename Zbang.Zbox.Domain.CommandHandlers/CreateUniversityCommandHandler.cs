@@ -4,11 +4,8 @@ using System.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -16,14 +13,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<University> m_UniversityRepository;
         private readonly IRepository<User> m_UserRepository;
-        private readonly IQueueProvider m_QueueProvider;
         private readonly IIdGenerator m_IdGenerator;
 
-        public CreateUniversityCommandHandler(IRepository<University> universityRepository, IRepository<User> userRepository, IQueueProvider queueProvider, IIdGenerator idGenerator)
+        public CreateUniversityCommandHandler(IRepository<University> universityRepository, 
+            IRepository<User> userRepository, IIdGenerator idGenerator)
         {
             m_UniversityRepository = universityRepository;
             m_UserRepository = userRepository;
-            m_QueueProvider = queueProvider;
             m_IdGenerator = idGenerator;
         }
 
@@ -33,7 +29,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
             var user = m_UserRepository.Load(message.UserId);
-            var university = m_UniversityRepository.GetQuerable()
+            var university = m_UniversityRepository.GetQueryable()
                  .Where(w => w.UniversityName == message.Name)
                  .FirstOrDefault();
             if (university == null)

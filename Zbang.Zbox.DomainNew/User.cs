@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Domain
             {
                 return;
             }
-            Url = UrlConsts.BuildUserUrl(Id, Name);
+            Url = UrlConst.BuildUserUrl(Id, Name);
         }
 
         public virtual long Id { get; protected set; }

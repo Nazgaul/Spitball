@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Domain
         public AcademicBox(string boxName, Library department,
             string courseCode, string professor,  User creator, Guid newCommentId)
             :
-            base(boxName, creator, BoxPrivacySettings.AnyoneWithUrl)
+            base(boxName, creator, BoxPrivacySetting.AnyoneWithUrl)
         {
             University = department.University;
             if (creator == null) throw new ArgumentNullException(nameof(creator));
@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Domain
             {
                 return;
             }
-            Url = UrlConsts.BuildBoxUrl(Id, Name, University.UniversityName);
+            Url = UrlConst.BuildBoxUrl(Id, Name, University.UniversityName);
         }
 
         public override  string GetUniversityName()

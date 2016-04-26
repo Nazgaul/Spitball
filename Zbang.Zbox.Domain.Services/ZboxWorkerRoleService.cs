@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain.Services
            // UpdateHierarchyInLibrary();
         }
 
-        private void UpdateUsersReputation()
+        /*private void UpdateUsersReputation()
         {
             int i = 827;
             IList<long> users;
@@ -76,9 +76,9 @@ namespace Zbang.Zbox.Domain.Services
             } while (users.Count > 0);
 
 
-        }
+        }*/
 
-        private void UpdateNumberOfBoxesInDepartmentNode()
+       /* private void UpdateNumberOfBoxesInDepartmentNode()
         {
             var i = 0;
             using (var unitOfWork = UnitOfWork.Start())
@@ -105,7 +105,7 @@ offset @pageNumber*50 ROWS
                     i++;
                 }
             }
-        }
+        }*/
 
 
 //        private void UpdateHierarchyInLibrary()

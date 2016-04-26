@@ -125,6 +125,7 @@
   <ItemGroup>
     <Compile Include="IJob.cs" />
     <Compile Include="Mail\BaseMarketingMailProcess.cs" />
+    <Compile Include="Mail\DigestEmail.cs" />
     <Compile Include="Mail\FollowLowActivityCourses.cs" />
     <Compile Include="Mail\IMailProcess.cs" />
     <Compile Include="Mail\LikesMailProcess.cs" />

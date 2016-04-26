@@ -57,7 +57,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.UserType,
                 s.Professor,
                 s.CourseCode,
-                shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(s.Id).ToString())
+                shortUrl = UrlConst.BuildShortBoxUrl(new Base62(s.Id).ToString())
             }));
         }
 
@@ -84,7 +84,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.Name,
                 s.MembersCount,
                 s.ItemCount,
-                shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(s.BoxId).ToString())
+                shortUrl = UrlConst.BuildShortBoxUrl(new Base62(s.BoxId).ToString())
                 //this is always a course
             }));
         }

@@ -13,9 +13,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Dialect
         }
 
         //get from MsSqlAzure2008Dialect
-        public override string PrimaryKeyString
-        {
-            get { return "primary key CLUSTERED"; }
-        }
+        public override string PrimaryKeyString => "primary key CLUSTERED";
     }
 }

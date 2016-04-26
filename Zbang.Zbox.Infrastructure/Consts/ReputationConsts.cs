@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.Infrastructure.Consts
 {
-    public static class ReputationConsts
+    public static class ReputationConst
     {
         public const int AddQuizScore = 300;
         public const int UploadItemScore = 100;
@@ -12,18 +12,18 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const int DeleteQuestionScore = -AddQuestionScore;
         public const int DeleteAnswerScore = -AddAnswerScore;
         public const int DeleteQuizScore = -AddQuizScore;
-        public const int ShareFabookScore = 50;
+        public const int ShareFacebookScore = 50;
         public const int InviteToCloudentsScore = 150;
         public const int InviteToBoxScore = 50;
         public const int Register = 500;
 
-        public const int Rate3StareScore = 50;
-        public const int Rate4StareScore = 100;
-        public const int Rate5StareScore = 150;
+        public const int Rate3StarScore = 50;
+        public const int Rate4StarScore = 100;
+        public const int Rate5StarScore = 150;
 
-        public const int UnRate3StareScore = -Rate3StareScore;
-        public const int UnRate4StareScore = -Rate4StareScore;
-        public const int UnRate5StareScore = -Rate5StareScore;
+        public const int Unrate3StarScore = -Rate3StarScore;
+        public const int Unrate4StarScore = -Rate4StarScore;
+        public const int Unrate5StarScore = -Rate5StarScore;
 
         //public const int AddItemCommentScore = 30;
         //public const int AddItemReplyScore = 15;

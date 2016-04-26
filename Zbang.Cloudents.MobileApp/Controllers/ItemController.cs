@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
             await Task.WhenAll(tItem, tTransAction);
             var retVal = tItem.Result;
-            retVal.ShortUrl = UrlConsts.BuildShortItemUrl(new Base62(id).ToString());
+            retVal.ShortUrl = UrlConst.BuildShortItemUrl(new Base62(id).ToString());
 
             return Request.CreateResponse(new
             {

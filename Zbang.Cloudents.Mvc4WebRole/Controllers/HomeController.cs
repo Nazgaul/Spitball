@@ -377,10 +377,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [DonutOutputCache(Duration = TimeConsts.Day,
+        [DonutOutputCache(Duration = TimeConst.Day,
             VaryByParam = "none", Location = OutputCacheLocation.Server,
             VaryByCustom = CustomCacheKeys.Lang, Order = 2)]
-        [CacheFilter(Duration = TimeConsts.Day)]
+        [CacheFilter(Duration = TimeConst.Day)]
         public ActionResult JsResources()
         {
             //Js.Resources.JsResources.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentUICulture, true, true);
@@ -411,7 +411,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [AllowAnonymous]
         [HttpGet]
         [NoAsyncTimeout]
-        [OutputCache(Duration = 2 * TimeConsts.Day, VaryByParam = "index", Location = OutputCacheLocation.Any)]
+        [OutputCache(Duration = 2 * TimeConst.Day, VaryByParam = "index", Location = OutputCacheLocation.Any)]
         public async Task<ActionResult> SiteMap(int? index)
         {
             if (!index.HasValue)

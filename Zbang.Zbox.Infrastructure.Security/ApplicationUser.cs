@@ -25,11 +25,11 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         private static ClaimsIdentity AddClaims(long userId, long? universityId, long? universityDataId, ClaimsIdentity userIdentity)
         {
-            userIdentity.AddClaim(new Claim(ClaimConsts.UserIdClaim, userId.ToString(CultureInfo.InvariantCulture)));
+            userIdentity.AddClaim(new Claim(ClaimConst.UserIdClaim, userId.ToString(CultureInfo.InvariantCulture)));
             if (universityId.HasValue && universityDataId.HasValue)
             {
-                userIdentity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim, universityId.Value.ToString(CultureInfo.InvariantCulture)));
-                userIdentity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim, universityDataId.Value.ToString(CultureInfo.InvariantCulture)));
+                userIdentity.AddClaim(new Claim(ClaimConst.UniversityIdClaim, universityId.Value.ToString(CultureInfo.InvariantCulture)));
+                userIdentity.AddClaim(new Claim(ClaimConst.UniversityDataClaim, universityDataId.Value.ToString(CultureInfo.InvariantCulture)));
             }
             return userIdentity;
         }
@@ -38,7 +38,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         {
             var userIdentity =  new ClaimsIdentity(new List<Claim>
                 {
-                    new Claim(ClaimConsts.UserIdClaim, userId.ToString(CultureInfo.InvariantCulture)),
+                    new Claim(ClaimConst.UserIdClaim, userId.ToString(CultureInfo.InvariantCulture)),
                    
                 },
                    DefaultAuthenticationTypes.ApplicationCookie);

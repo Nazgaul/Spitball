@@ -60,7 +60,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     result.UserType,
                     Professor = result.ProfessorName,
                     CourseCode = result.CourseId,
-                    ShortUrl = UrlConsts.BuildShortBoxUrl(new Base62(id).ToString()),
+                    ShortUrl = UrlConst.BuildShortBoxUrl(new Base62(id).ToString()),
                     result.Members,
                     result.Items,
                     result.People
@@ -101,7 +101,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 {
                     result.Url,
                     result.Id,
-                    shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(result.Id).ToString())
+                    shortUrl = UrlConst.BuildShortBoxUrl(new Base62(result.Id).ToString())
                 });
 
             }
@@ -142,7 +142,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 {
                     result.Url,
                     result.Id,
-                    shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(result.Id).ToString())
+                    shortUrl = UrlConst.BuildShortBoxUrl(new Base62(result.Id).ToString())
                 });
             }
             catch (BoxNameAlreadyExistsException)

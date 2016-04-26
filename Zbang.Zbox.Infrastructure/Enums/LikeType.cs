@@ -5,11 +5,11 @@ namespace Zbang.Zbox.Infrastructure.Enums
 {
     public enum LikeType
     {
-        [EnumDescription(typeof(EnumResources), "LikeTypeComment")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "LikeTypeComment")]
         Comment,
-        [EnumDescription(typeof(EnumResources), "LikeTypeReply")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "LikeTypeReply")]
         Reply,
-        [EnumDescription(typeof(EnumResources), "LikeTypeItem")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "LikeTypeItem")]
         Item
     }
 }

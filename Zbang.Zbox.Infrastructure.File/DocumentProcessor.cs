@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task<string>>();
 
-            var meta = await BlobProvider.FetechBlobMetaDataAsync(blobName);
+            var meta = await BlobProvider.FetchBlobMetaDataAsync(blobName);
             meta = RemoveOldMetaTags(meta, cacheVersion);
             string sPageCount;
             var pageCount = int.MaxValue;

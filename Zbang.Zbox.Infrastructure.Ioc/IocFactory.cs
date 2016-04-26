@@ -61,6 +61,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
 
         public void RegisterType<TFrom, TTo>(string name) where TTo : TFrom
         {
+            
             ContainerBuilder.RegisterType<TTo>().Named<TFrom>(name);
         }
 
@@ -129,23 +130,17 @@ namespace Zbang.Zbox.Infrastructure.Ioc
 
         public T Resolve<T>(string name, IocParameterOverride parameters)
         {
+            
             return m_Container.ResolveNamed<T>(name, new NamedParameter(parameters.Name, parameters.Value));
         }
 
 
-        public static IocFactory IocWrapper
-        {
-            get
-            {
-                return Instance.Value;
-            }
-        }
+        public static IocFactory IocWrapper => Instance.Value;
+
         public void Dispose()
         {
-            if (m_Container != null)
-            {
-                m_Container.Dispose();
-            }
+            m_Container?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

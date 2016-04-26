@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Security
 {
     public class GoogleAuthenticationService : IGoogleService
     {
-       public async Task<GoogleUserData> GoogleLogInAsync(string token)
+       public async Task<GoogleUserData> GoogleLogOnAsync(string token)
        {
            using (var client = new HttpClient())
            {

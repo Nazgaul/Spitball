@@ -19,7 +19,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         }
         public static string NameToQueryString(string name)
         {
-            return UrlConsts.NameToQueryString(name);
+            return UrlConst.NameToQueryString(name);
         }
 
 
