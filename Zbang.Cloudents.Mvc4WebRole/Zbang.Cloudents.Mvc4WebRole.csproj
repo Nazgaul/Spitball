@@ -3195,6 +3195,9 @@
     <Content Include="Content\Site\feed.min.css">
       <DependentUpon>feed.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\feed.rtl.css">
+      <DependentUpon>feed.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
