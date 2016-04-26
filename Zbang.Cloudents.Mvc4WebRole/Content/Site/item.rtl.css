@@ -790,8 +790,27 @@ Page Loading
   margin-bottom: 0;
   background: #5d6063;
 }
+md-menu-item .fb-like svg {
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
+}
+md-menu-item.blue {
+  background: #4190b9;
+}
+.itemPage {
+  margin-top: -5px;
+}
+@media (min-width: 960px) {
+  .itemPage {
+    margin-right: -270px;
+    width: calc(100% + 290px);
+  }
+}
 .itemPage header {
-  position: fixed;
+  width: 100%;
+  position: relative;
+  height: 60px;
 }
 .itemPage header .page-logo svg {
   width: 180px;
@@ -808,22 +827,25 @@ Page Loading
 .itemPage header .item-actions a,
 .itemPage header .close-btn a {
   margin: 0 15px;
-  height: 17px;
-  width: 17px;
   display: -webkit-flex;
   display: -ms-flex;
   display: inline-flex;
 }
 .itemPage header .item-actions svg,
 .itemPage header .close-btn svg {
-  width: 17px;
-  height: 17px;
-  fill: #c2c2c2;
+  fill: #888b8e;
+}
+.itemPage header .item-actions svg,
+.itemPage header .close-btn svg,
+.itemPage header .item-actions a,
+.itemPage header .close-btn a {
+  width: 16px;
+  height: 16px;
 }
 .itemPage header button.fb-like {
   white-space: nowrap;
   display: inline-table;
-  border: 1px solid #c2c2c2;
+  border: 1px solid #888b8e;
   border-radius: 5px;
   padding: 0 6px;
   line-height: 24px;
@@ -831,7 +853,7 @@ Page Loading
   justify-content: space-around;
   align-items: center;
   font-size: 14px;
-  color: #c2c2c2;
+  color: #888b8e;
   margin: 0 8px;
 }
 .itemPage header button.fb-like svg {
@@ -848,25 +870,39 @@ Page Loading
 .itemPage header button.fb-like.blue svg {
   fill: #f5f5f5;
 }
-.itemPage header .item-actions {
+.itemPage header button.fb-like.blue span {
+  color: #f5f5f5;
+}
+.itemPage header .top-wrapper {
+  max-width: 800px;
+  width: calc(100% - 100px);
+  margin: 0 auto;
+  padding-right: 16px;
+}
+.itemPage header .top-wrapper .name-actions .item-actions {
   white-space: nowrap;
-  height: 70px;
-  padding-left: 40px;
+  margin-right: auto;
 }
-.itemPage header .item-actions .md-icon-button {
+.itemPage header .top-wrapper .name-actions .item-actions .md-menu {
+  padding: 0;
+}
+.itemPage header .top-wrapper .name-actions .item-actions .md-menu .md-icon-button {
   margin: 0;
+  min-height: 0;
+  height: 16px;
+  padding: 0;
 }
-.itemPage header .item-actions a svg {
+.itemPage header .top-wrapper .name-actions .item-actions a svg {
   display: inherit;
 }
-.itemPage header .close-btn {
-  padding: 15px;
-  line-height: normal;
+.itemPage header .top-wrapper .name-actions md-menu button {
+  line-height: 0;
 }
-@media (min-width: 600px) {
-  .itemPage header .item-actions {
-    padding-left: 170px;
-  }
+.itemPage header .close-btn {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  padding: 0 6px;
 }
 .itemPage md-select:not([disabled]):focus .md-select-value {
   color: #282828;
@@ -884,7 +920,6 @@ Page Loading
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   overflow: hidden;
-  padding: 20px 0;
   letter-spacing: 0.5px;
 }
 .itemPage .fileName .name-info {
@@ -897,7 +932,6 @@ Page Loading
 .itemPage .fileName .name-info,
 .itemPage .fileName .flag-form {
   width: 100%;
-  padding: 3px 55px;
   margin-right: 0 auto;
 }
 .itemPage .fileName .flag-form {
@@ -947,12 +981,21 @@ Page Loading
   left: 5px;
 }
 .itemPage .fileName svg {
-  fill: #c2c2c2;
+  fill: #888b8e;
   width: 20px;
   height: 20px;
 }
 .itemPage .second-line {
   font-size: 13px;
+  margin-top: 2px;
+}
+.itemPage .second-line .item-meta {
+  white-space: initial;
+  text-align: right;
+}
+.itemPage .second-line .item-meta a,
+.itemPage .second-line .item-meta span {
+  display: inline-block;
 }
 .itemPage .second-line span {
   color: #888b8e;
@@ -1166,7 +1209,7 @@ Page Loading
 .itemPage .side-ad {
   position: fixed;
   left: calc(50% - 650px);
-  top: 75px;
+  top: 135px;
 }
 @media (max-width: 1279px) {
   .itemPage .side-ad {

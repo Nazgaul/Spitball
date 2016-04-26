@@ -2,7 +2,7 @@
     angular.module('app').controller('AppController', appController);
     appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state',
         'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager', 'CacheFactory'
-        ];
+    ];
 
     function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast,
         $document, $mdMenu, resManager, cacheFactory) {
@@ -46,6 +46,7 @@
         self.showToaster = showToaster;
 
         self.showMenu = false;
+        self.showSearch = false;
 
         self.toggleMenu = toggleMenu;
         function logOut() {
@@ -92,12 +93,12 @@
             myform.$setUntouched();
         }
 
-        $rootScope.$on('$mdMenuClose', function() {
+        $rootScope.$on('$mdMenuClose', function () {
             self.menuOpened = false;
         });
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             self.showMenu = true; // if user comes from university choose need to remove this.
-            
+            self.showSearch = true;
         });
 
 

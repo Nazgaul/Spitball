@@ -40,6 +40,8 @@
         q.index = 0;
         q.sheet = quizData.sheet || {};
         q.topUsers = quizData.quiz.topUsers || [];
+        $scope.app.showMenu = false;
+        $scope.app.showSearch = true;
 
         for (var j = q.topUsers.length; j < 4; j++) {
             q.topUsers.push({
@@ -75,7 +77,7 @@
             q.classmatesCount = response.solversCount;
         });
 
-        
+
 
 
         function start() {
@@ -233,7 +235,7 @@
                 }
             }
         }
-        
+
         function back() {
             if (q.state === q.states.complete) {
                 q.state = q.states.solving;
@@ -313,7 +315,7 @@
                 isDelete: true
             };
 
-           
+
 
             quizService.createDiscussion({ questionId: comment.questionId, text: comment.content }).then(function (id) {
                 if (!question.comments) {

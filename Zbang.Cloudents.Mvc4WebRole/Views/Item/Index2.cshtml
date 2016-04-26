@@ -4,88 +4,96 @@
     const string svgUrl = "~/images/site/itemIcons.svg";
     const string logoUrl = "~/images/site/icons.svg";
 }
-<div class="full-screen" srph-infinite-scroll="i.loadMore()" container="true" unregister-scroll="true">
-    <header class="color-override backgroundColor2 borderColor2">
-        <div layout="row" layout-align="space-between center">
-            <div class="page-logo">
-                <a href="@Url.Action("Index", "dashboard")" target="_self" ga-track-event="['header', 'logo']">
-                    @Html.Svg(logoUrl, "logo", new { @class = "logo-default", hide_xs = "" })
-                    @Html.Svg(logoUrl, "smallLogo", new { @class = "logo-small", hide = "", show_xs = "" })
-                </a>
-            </div>
-            <div class="item-actions" layout="row" layout-align="space-between center">
-                <button class="fb-like content-wrapper" ng-class="{blue : i.details.like}" layout="row" layout-align="space-between center" user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
-                    <span>@Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "color-override svgColor8" })</span>
-                    <span>{{i.details.likes}}</span>
-                </button>
-                <a hide-xs target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download", new { @class = "color-override svgColor3" })</a>
-                <a hide-xs target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print", new { @class = "color-override svgColor3" })</a>
-                <div>
-                    <md-menu flex>
-                        <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
-                            @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor3" })
-                        </md-button>
-                        <md-menu-content width="1">
-                            <md-menu-item hide-gt-xs>
-                                <md-button target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">
-                                    @ItemsResources.Download
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item hide-gt-xs>
-                                <md-button target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">
-                                    @ItemsResources.Print
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button class="text-capitalize" ng-click="i.showRename()" ga-track-event="['itemPage', 'rename']">
-                                    @GeneralResources.Rename
-                                </md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="i.selectedState = i.state.flag" ga-track-event="['itemPage', 'flag']">
-                                    @ItemsResources.Flag
-                                </md-button>
-                            </md-menu-item>
-                        </md-menu-content>
-                    </md-menu>
-                </div>
-            </div>
-            <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close", new { @class = "color-override svgColor3" })</button>
-        </div>
-        <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
-    </header>
-    <div class="full-screen-body" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
-        <div class="fileName">
-            <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
-                <h1 class="ellipsis">{{i.details.name}}</h1>
-                <div class="info">
-                    @Html.Svg(svgUrl, "info")
-                    <md-tooltip>
-                        @ItemsResources.CopyRight
-                    </md-tooltip>
-                </div>
-            </div>
-            <div class="second-line" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
-                <a href="{{::i.details.ownerUrl}}">{{::i.details.owner}}</a>&nbsp;-&nbsp;<span>{{::i.details.date | date : 'mediumDate'}}</span>
-            </div>
-            <form name="renameItem" class="rename-form" novalidate ng-submit="i.renameItem(renameItem)" ng-if="i.selectedState === i.state.rename">
-                <md-content>
-                    <md-input-container flex>
-                        <label class="text-capitalize">@ItemsResources.Name</label>
-                        <input focus-me="i.selectedState === i.state.rename" autocomplete="off" required ng-model="i.renameText" name="name" />
-                        <div ng-messages="renameItem.name.$error" ng-show="renameItem.name.$dirty">
-                            <div ng-message="required">@GeneralResources.RequiredField</div>
+<div srph-infinite-scroll="i.loadMore()" container="true" unregister-scroll="true">
+    <header layout="row" layout-align="space-between center">
+        <div class="top-wrapper">
+            <div class="name-actions" layout="row" layout-align="space-between center">
+                <div class="fileName">
+                    <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
+                        <h1 class="ellipsis">{{i.details.name}}</h1>
+                        <div class="info">
+                            @Html.Svg(svgUrl, "info")
+                            <md-tooltip>
+                                @ItemsResources.CopyRight
+                            </md-tooltip>
                         </div>
-                    </md-input-container>
-                </md-content>
-                <span layout="row" layout-align="end center  text-capitalize">
-                    <button type="button" class="btn grey btn-default" ng-click="i.selectedState = i.state.regular" ga-track-event="['itemPage', 'cancel rename']">@GeneralResources.Cancel</button>
-                    <button type="submit" class="btn blue" ng-disabled="!renameItem.$valid || i.submitDisabled" ga-track-event="['itemPage', 'save rename']">@ItemsResources.Save</button>
-                </span>
-            </form>
+                    </div>
+                    <form name="renameItem" class="rename-form" novalidate ng-submit="i.renameItem(renameItem)" ng-if="i.selectedState === i.state.rename">
+                        <md-content>
+                            <md-input-container flex>
+                                <label class="text-capitalize">@ItemsResources.Name</label>
+                                <input focus-me="i.selectedState === i.state.rename" autocomplete="off" required ng-model="i.renameText" name="name" />
+                                <div ng-messages="renameItem.name.$error" ng-show="renameItem.name.$dirty">
+                                    <div ng-message="required">@GeneralResources.RequiredField</div>
+                                </div>
+                            </md-input-container>
+                        </md-content>
+                        <span layout="row" layout-align="end center  text-capitalize">
+                            <button type="button" class="btn grey btn-default" ng-click="i.selectedState = i.state.regular" ga-track-event="['itemPage', 'cancel rename']">@GeneralResources.Cancel</button>
+                            <button type="submit" class="btn blue" ng-disabled="!renameItem.$valid || i.submitDisabled" ga-track-event="['itemPage', 'save rename']">@ItemsResources.Save</button>
+                        </span>
+                    </form>
 
-            @{ Html.RenderPartial("_FlagItem");}
+                    @{ Html.RenderPartial("_FlagItem");}
+                </div>
+                <div class="item-actions" layout="row" layout-align="space-between center">
+                    <button class="fb-like content-wrapper" hide show-gt-xs ng-class="{blue : i.details.like}" layout="row" layout-align="space-between center" user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
+                        <span>@Html.Svg("~/images/site/box-icons.svg", "like")</span>
+                        <span>{{i.details.likes}}</span>
+                    </button>
+                    <a hide-xs target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
+                    <a hide-xs target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
+                    <div>
+                        <md-menu flex>
+                            <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
+                                @Html.Svg("~/images/site/icons.svg", "ThreeDots")
+                            </md-button>
+                            <md-menu-content width="1">
+                                <md-menu-item hide-gt-xs>
+                                    <md-button target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">
+                                        @ItemsResources.Download
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item hide-gt-xs>
+                                    <md-button target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">
+                                        @ItemsResources.Print
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button class="text-capitalize" ng-click="i.showRename()" ga-track-event="['itemPage', 'rename']">
+                                        @GeneralResources.Rename
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="i.selectedState = i.state.flag" ga-track-event="['itemPage', 'flag']">
+                                        @ItemsResources.Flag
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item hide-gt-xs ng-class="{blue : i.details.like}">
+                                    <md-button user-not-register-popup="click" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
+                                        <div class="fb-like content-wrapper" layout="row" layout-align="start center" user-not-register-popup="click">
+                                            @Html.Svg("~/images/site/box-icons.svg", "like")
+                                            <span>{{i.details.likes}}</span>
+                                        </div>
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                </div>
+            </div>
+            <div class="second-line" layout="row" layout-align="space-between center" ng-if="i.selectedState === i.state.regular">
+                <div class="item-meta">
+                    <a href="{{::i.details.ownerUrl}}">{{::i.details.owner}}</a>
+                    <span>&nbsp-&nbsp</span>
+                    <span>{{::i.details.date | date : 'mediumDate'}}</span>
+                </div>
+            </div>
+            <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
         </div>
+    </header>
+    <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
+    <div md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
         <div class="ad" data-ng-dfp-ad-container>
             <div data-ng-dfp-ad="div-gpt-ad-1461568291501-0" @*data-ng-dfp-ad-hide-when-empty*@></div>
         </div>
