@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -47,22 +46,17 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     pageSize = 10;
                 }
                 var users = await m_ZboxReadService.GetUsersByNotificationSettingsAsync(new GetUserByNotificationQuery(m_DigestEmailHourBack, index, pageSize), token);
-                users = users.Where(w => w.UserId == 920);
                 foreach (var user in users)
-
                 {
                     needToContinueRun = true;
-
                     var email = user.Email;
                     if (RoleIndexProcessor.IsEmulated)
                     {
                         email = "ram@cloudents.com";
                     }
-
                     var culture = string.IsNullOrEmpty(user.Culture)
                         ? new CultureInfo("en-US")
                         : new CultureInfo(user.Culture);
-
                     var updates =
                         await
                             m_ZboxReadService.GetUserUpdatesAsync(

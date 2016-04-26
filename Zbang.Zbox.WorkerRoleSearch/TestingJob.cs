@@ -15,7 +15,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             var x = new List<Task<bool>>();
-            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("digestOnceADay");
+            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("digestEveryChange");
             if (process != null)
             {
                 x.Add(process.ExecuteAsync(0, p =>
