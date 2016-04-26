@@ -37,7 +37,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.ItemCount,
                 s.CommentCount,
                 s.BoxType,
-                shortUrl = UrlConsts.BuildShortBoxUrl(new Base62(s.Id).ToString())
+                shortUrl = UrlConst.BuildShortBoxUrl(new Base62(s.Id).ToString())
             }));
         }
 

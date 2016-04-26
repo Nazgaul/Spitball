@@ -75,7 +75,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new ItemNotFoundException();
                 }
-                if (UrlConsts.NameToQueryString(model.Name) != itemName)
+                if (UrlConst.NameToQueryString(model.Name) != itemName)
                 {
                     throw new ItemNotFoundException();
                 }
@@ -110,7 +110,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [Route(UrlConsts.ShortItem, Name = "shortItem")]
+        [Route(UrlConst.ShortItem, Name = "shortItem")]
         public async Task<ActionResult> ShortUrl(string item62Id)
         {
             var base62 = new Base62(item62Id);
@@ -382,7 +382,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("boxId")]
-        [AsyncTimeout(TimeConsts.Minute * 3 * 1000)]
+        [AsyncTimeout(TimeConst.Minute * 3 * 1000)]
         [JsonHandleError(HttpStatus = HttpStatusCode.BadRequest, ExceptionType = typeof(ArgumentException))]
         public async Task<JsonResult> Preview(string blobName, int index, long id,
             long boxId, CancellationToken cancellationToken, int width = 0, int height = 0)

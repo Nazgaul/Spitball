@@ -10,7 +10,7 @@ namespace Zbang.Cloudents.MobileApp.Extensions
         {
             long userId = -1;
             
-            var userIdClaim = ExtractValueFromClaim(user, ClaimConsts.UserIdClaim);
+            var userIdClaim = ExtractValueFromClaim(user, ClaimConst.UserIdClaim);
             if (string.IsNullOrEmpty(userIdClaim))
             {
                 return userId;
@@ -34,7 +34,7 @@ namespace Zbang.Cloudents.MobileApp.Extensions
         public static long? GetUniversityId(this IPrincipal user)
         {
             long value;
-            var claim = ExtractValueFromClaim(user, ClaimConsts.UniversityIdClaim);
+            var claim = ExtractValueFromClaim(user, ClaimConst.UniversityIdClaim);
             if (claim == null)
             {
                 return null;
@@ -51,7 +51,7 @@ namespace Zbang.Cloudents.MobileApp.Extensions
         public static long? GetUniversityDataId(this IPrincipal user)
         {
             long value;
-            var claim = ExtractValueFromClaim(user, ClaimConsts.UniversityDataClaim);
+            var claim = ExtractValueFromClaim(user, ClaimConst.UniversityDataClaim);
             if (claim == null)
             {
                 return null;

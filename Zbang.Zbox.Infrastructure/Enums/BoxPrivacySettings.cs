@@ -3,11 +3,11 @@ using Zbang.Zbox.Infrastructure.Extensions;
 namespace Zbang.Zbox.Infrastructure.Enums
 {
     //if you add another value you should update views
-    public enum BoxPrivacySettings
+    public enum BoxPrivacySetting
     {
-        [EnumDescription(typeof(EnumResources), "BoxPrivacySettingsMembersOnly")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "BoxPrivacySettingsMembersOnly")]
         MembersOnly = 2,
-        [EnumDescription(typeof(EnumResources), "BoxPrivacySettingsAnyoneWithUrl")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "BoxPrivacySettingsAnyoneWithUrl")]
         AnyoneWithUrl = 3,
         PrivateUniversity = 4
 

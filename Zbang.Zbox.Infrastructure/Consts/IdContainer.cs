@@ -1,6 +1,6 @@
 ﻿namespace Zbang.Zbox.Infrastructure.Consts
 {
-    public class IdContainer
+    public static class IdContainer
     {
         public const string ItemLikeScope = "ItemLike";
         public const string ItemAnnotationScope = "ItemAnnotation";

@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (m_UniversityWithcode == null)
             {
-                var retVal = await m_UniversityWithCodeProvider.GetUniversityWithCode();
+                var retVal = await m_UniversityWithCodeProvider.GetUniversityWithCodeAsync();
                 m_UniversityWithcode = retVal.ToList();
             }
             var uniToEnterFilter =

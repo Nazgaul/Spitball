@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Events
                     dirty.IsDirty = true;
                 }
             }
-            var deletable = entity as ISoftDeletable;
+            var deletable = entity as ISoftDelete;
             if (deletable != null)
             {
               

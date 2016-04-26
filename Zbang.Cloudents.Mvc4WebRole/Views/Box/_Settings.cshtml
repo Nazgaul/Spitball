@@ -26,8 +26,8 @@
         <md-input-container flex="100">
             <label>@BoxResources.Privacy</label>
             <md-select name="notification" ng-model="b.settings.privacy" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
-                <md-option value="@BoxPrivacySettings.AnyoneWithUrl.GetStringValueLowerCase()">@BoxPrivacySettings.AnyoneWithUrl.GetEnumDescription()</md-option>
-                <md-option value="@BoxPrivacySettings.MembersOnly.GetStringValueLowerCase()">@BoxPrivacySettings.MembersOnly.GetEnumDescription()</md-option>
+                <md-option value="@BoxPrivacySetting.AnyoneWithUrl.GetStringValueLowerCase()">@BoxPrivacySetting.AnyoneWithUrl.GetEnumDescription()</md-option>
+                <md-option value="@BoxPrivacySetting.MembersOnly.GetStringValueLowerCase()">@BoxPrivacySetting.MembersOnly.GetEnumDescription()</md-option>
             </md-select>
         </md-input-container>
     </div>

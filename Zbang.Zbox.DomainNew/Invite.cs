@@ -4,7 +4,7 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public abstract class Invite : ISoftDeletable
+    public abstract class Invite : ISoftDelete
     {
         protected Invite()
         {

@@ -123,7 +123,6 @@
     <Compile Include="Enums\UserLibraryRelationType.cs" />
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="Exceptions\BoxAccessDeniedException.cs" />
-    <Compile Include="Exceptions\BoxAccessTokenExpiredException.cs" />
     <Compile Include="Exceptions\BoxDoesntExistException.cs" />
     <Compile Include="Exceptions\BoxNameAlreadyExistsException.cs" />
     <Compile Include="Exceptions\FileQuotaExceedException.cs" />
@@ -132,13 +131,14 @@
     <Compile Include="Extensions\ConfigFetcher.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Extensions\EnumDescription.cs" />
+    <Compile Include="Extensions\EnumDescriptionAttribute.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IdGenerator\GuidIdGenerator.cs" />
     <Compile Include="IdGenerator\IIdGenerator.cs" />
-    <Compile Include="MediaServices\IMediaSevicesProvider.cs" />
+    <Compile Include="MediaServices\IMediaServicesProvider.cs" />
     <Compile Include="Profile\IProfilePictureProvider.cs" />
     <Compile Include="Profile\IProfileProcessor.cs" />
     <Compile Include="Profile\ProfileImages.cs" />
@@ -148,7 +148,7 @@
     <Compile Include="Query\IUniversityWithCode.cs" />
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="Repositories\IDirty.cs" />
-    <Compile Include="Repositories\ISoftDeletable.cs" />
+    <Compile Include="Repositories\ISoftDelete.cs" />
     <Compile Include="Security\FacebookAuthenticationService.cs" />
     <Compile Include="Security\FacebookUserData.cs" />
     <Compile Include="Security\GoogleAuthenticationService.cs" />

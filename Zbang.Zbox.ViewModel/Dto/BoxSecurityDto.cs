@@ -4,7 +4,7 @@ namespace Zbang.Zbox.ViewModel.Dto
 {
     public class BoxSecurityDto
     {
-        public BoxPrivacySettings PrivacySetting { get; set; }
+        public BoxPrivacySetting PrivacySetting { get; set; }
 
         public UserRelationshipType UserType { get; set; }
 

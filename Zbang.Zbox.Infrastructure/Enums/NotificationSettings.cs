@@ -6,13 +6,13 @@ namespace Zbang.Zbox.Infrastructure.Enums
     //if you add another value you should update views
     public enum NotificationSettings
     {
-        [EnumDescription(typeof(EnumResources), "NotificationSettingsOff")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "NotificationSettingsOff")]
         Off = 1,
-        [EnumDescription(typeof(EnumResources), "NotificationSettingsOnEveryChange")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "NotificationSettingsOnEveryChange")]
         OnEveryChange = 2,
-        [EnumDescription(typeof(EnumResources), "NotificationSettingsOnceADay")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "NotificationSettingsOnceADay")]
         OnceADay = 24, // hour in a day
-        [EnumDescription(typeof(EnumResources), "NotificationSettingsOnceAWeek")]
+        [EnumDescriptionAttribute(typeof(EnumResources), "NotificationSettingsOnceAWeek")]
         OnceAWeek = 168 // hour in a week
     }
 }

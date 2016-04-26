@@ -85,7 +85,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
 
             foreach (var box in boxes.Select(s =>
             {
-                s.Url = UrlConsts.AppendCloudentsUrl(s.Url);
+                s.Url = UrlConst.AppendCloudentsUrl(s.Url);
                 return s;
             }))
             {
@@ -129,13 +129,13 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                     "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode(s.Picture) +
                     ".jpg?width=64&height=90&mode=crop"
                 , s.UserName,
-                UrlConsts.AppendCloudentsUrl(s.Url)
+                UrlConst.AppendCloudentsUrl(s.Url)
                 , s.UserId));
 
             var quizUpdate = boxUpdates.Quizzes.Select(s => new UpdateMailParams.ItemUpdate(s.Name,
                 s.Picture
                 , s.UserName,
-                UrlConsts.AppendCloudentsUrl(s.Url)
+                UrlConst.AppendCloudentsUrl(s.Url)
                 , s.UserId));
 
             const string somePicture = "http://az32006.vo.msecnd.net/mailcontainer/user-email-default.jpg";
@@ -168,7 +168,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 }
                 return new UpdateMailParams.DiscussionUpdate(
                     s.UserName, s.Text, s.UserImage,
-                    UrlConsts.AppendCloudentsUrl(s.Url),
+                    UrlConst.AppendCloudentsUrl(s.Url),
                     s.UserId);
             });
 

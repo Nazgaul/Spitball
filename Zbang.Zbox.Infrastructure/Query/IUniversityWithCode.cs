@@ -5,6 +5,6 @@ namespace Zbang.Zbox.Infrastructure.Query
 {
     public interface IUniversityWithCode
     {
-        Task<IEnumerable<long>> GetUniversityWithCode();
+        Task<IEnumerable<long>> GetUniversityWithCodeAsync();
     }
 }

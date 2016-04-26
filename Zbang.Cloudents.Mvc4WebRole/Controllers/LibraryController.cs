@@ -340,8 +340,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
             var user = (ClaimsIdentity)User.Identity;
-            var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityIdClaim);
-            var claimUniversityData = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityDataClaim);
+            var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConst.UniversityIdClaim);
+            var claimUniversityData = user.Claims.SingleOrDefault(w => w.Type == ClaimConst.UniversityDataClaim);
 
             if (claimUniversity != null)
             {
@@ -352,10 +352,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 user.RemoveClaim(claimUniversityData);
             }
 
-            user.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+            user.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
                     command.Id.ToString(CultureInfo.InvariantCulture)));
 
-            user.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+            user.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
                     command.Id.ToString(CultureInfo.InvariantCulture)));
 
 

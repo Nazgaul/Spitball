@@ -1,7 +1,7 @@
 ﻿
 namespace Zbang.Zbox.Infrastructure.Consts
 {
-    public class TimeConsts
+    public static class TimeConst
     {
         public const int Second = 1;
         public const int Minute = Second * 60;
@@ -12,12 +12,8 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const int Year = Day * 365;
     }
 
-    public class StorageConsts
-    {
-        public const string ContentMetaDataKey = "content";
-    }
 
-    public class ClaimConsts
+    public static class ClaimConst
     {
         public const string UserIdClaim = "userId";
         public const string UniversityIdClaim = "universityId";

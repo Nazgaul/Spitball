@@ -72,7 +72,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<JsonResult> GoogleLogin(ExternalLogIn model, string returnUrl, CancellationToken cancellationToken)
         {
 
-            var googleUserData = await m_GoogleService.Value.GoogleLogInAsync(model.Token);
+            var googleUserData = await m_GoogleService.Value.GoogleLogOnAsync(model.Token);
             if (googleUserData == null)
             {
                 return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
@@ -115,18 +115,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 m_LanguageCookie.InjectCookie(user.Culture);
                 var identity = new ClaimsIdentity(new List<Claim>
                 {
-                    new Claim(ClaimConsts.UserIdClaim, user.Id.ToString(CultureInfo.InvariantCulture)),
+                    new Claim(ClaimConst.UserIdClaim, user.Id.ToString(CultureInfo.InvariantCulture)),
 
                 },
                     "ApplicationCookie");
                 if (user.UniversityId.HasValue)
                 {
-                    identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                    identity.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
                         user.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
                 }
                 if (user.UniversityData.HasValue)
                 {
-                    identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                    identity.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
                         user.UniversityData.Value.ToString(CultureInfo.InvariantCulture)));
                 }
 
@@ -146,7 +146,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var facebookUserData = await m_FacebookService.Value.FacebookLogIn(model.Token);
+                var facebookUserData = await m_FacebookService.Value.FacebookLogOnAsync(model.Token);
                 if (facebookUserData == null)
                 {
                     return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
@@ -168,7 +168,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         facebookUserData.First_name,
 
                         facebookUserData.Last_name,
-                        facebookUserData.Locale, facebookUserData.GetGender(), invId, model.BoxId);
+                        facebookUserData.Locale, facebookUserData.SpitballGender, invId, model.BoxId);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -184,18 +184,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 m_LanguageCookie.InjectCookie(user.Culture);
                 var identity = new ClaimsIdentity(new List<Claim>
                 {
-                    new Claim(ClaimConsts.UserIdClaim, user.Id.ToString(CultureInfo.InvariantCulture)),
+                    new Claim(ClaimConst.UserIdClaim, user.Id.ToString(CultureInfo.InvariantCulture)),
                    
                 },
                     "ApplicationCookie");
                 if (user.UniversityId.HasValue)
                 {
-                    identity.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                    identity.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
                         user.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
                 }
                 if (user.UniversityData.HasValue)
                 {
-                    identity.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                    identity.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
                         user.UniversityData.Value.ToString(CultureInfo.InvariantCulture)));
                 }
 
@@ -251,7 +251,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 if (user == null)
                 {
-                    ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidEmail));
+                    ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountError.InvalidEmail));
                     return JsonError(GetErrorFromModelState());
                 }
 
@@ -276,7 +276,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonOk(url);
 
                 }
-                ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountErrors.InvalidPassword));
+                ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountError.InvalidPassword));
             }
             catch (Exception ex)
             {
@@ -498,8 +498,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ZboxWriteService.UpdateUserUniversity(command);
 
                 var user = (ClaimsIdentity)User.Identity;
-                var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityIdClaim);
-                var claimUniversityData = user.Claims.SingleOrDefault(w => w.Type == ClaimConsts.UniversityDataClaim);
+                var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConst.UniversityIdClaim);
+                var claimUniversityData = user.Claims.SingleOrDefault(w => w.Type == ClaimConst.UniversityDataClaim);
 
                 if (claimUniversity != null)
                 {
@@ -511,10 +511,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
 
-                user.AddClaim(new Claim(ClaimConsts.UniversityIdClaim,
+                user.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
                         command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
-                user.AddClaim(new Claim(ClaimConsts.UniversityDataClaim,
+                user.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
                         command.UniversityDataId?.ToString(CultureInfo.InvariantCulture) ?? command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
 

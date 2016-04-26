@@ -14,7 +14,7 @@ using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 {
-    public class MediaSevicesProvider : IMediaSevicesProvider
+    public class MediaSevicesProvider : IMediaServicesProvider
     {
         private readonly CloudMediaContext m_Context;
         private readonly BlobProvider m_BlobProvider;
@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
         }
 
-        public async Task<string> EncodeVideo(Uri blobUrl, CancellationToken cancelToken)
+        public async Task<string> EncodeVideoAsync(Uri blobUrl, CancellationToken cancelToken)
         {
             var id = await CreateAssetAndUploadSingleFile(blobUrl, cancelToken);
             var streamid = await EncodeToHtml5(id, cancelToken);
@@ -140,7 +140,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.MediaServices
 
             var newBlobName = Path.GetFileNameWithoutExtension(blobName) + ".mp4";
             await m_BlobProvider.UploadFileAsync(newBlobName, locationToSave, "video/mp4");
-            await m_BlobProvider.SaveMetaDataToBlobAsync(newBlobName, new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "x" } });
+            await m_BlobProvider.SaveMetaDataToBlobAsync(newBlobName, new Dictionary<string, string> { { MetadataConst.VideoStatus, "x" } });
             return newBlobName;
 
         }

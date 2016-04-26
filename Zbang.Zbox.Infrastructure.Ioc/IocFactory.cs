@@ -133,19 +133,12 @@ namespace Zbang.Zbox.Infrastructure.Ioc
         }
 
 
-        public static IocFactory IocWrapper
-        {
-            get
-            {
-                return Instance.Value;
-            }
-        }
+        public static IocFactory IocWrapper => Instance.Value;
+
         public void Dispose()
         {
-            if (m_Container != null)
-            {
-                m_Container.Dispose();
-            }
+            m_Container?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

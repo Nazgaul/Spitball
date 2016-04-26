@@ -7,14 +7,14 @@ namespace Zbang.Zbox.Infrastructure.Security
 
     public static class AccountValidation
     {
-        public enum AccountErrors
+        public enum AccountError
         {
             InvalidPassword,
             InvalidEmail
         }
 
 
-        public static string ErrorCodeToString(AccountErrors createStatus)
+        public static string ErrorCodeToString(AccountError createStatus)
         {
             // See http://go.microsoft.com/fwlink/?LinkID=177550 for
             // a full list of status codes.
@@ -26,10 +26,10 @@ namespace Zbang.Zbox.Infrastructure.Security
                 //case MembershipCreateStatus.DuplicateEmail:
                 //    return Validation.DuplicateEmail;
 
-                case AccountErrors.InvalidPassword:
+                case AccountError.InvalidPassword:
                     return Validation.InvalidPassword;
 
-                case AccountErrors.InvalidEmail:
+                case AccountError.InvalidEmail:
                     return Validation.InvalidEmail;
 
                 //case MembershipCreateStatus.InvalidAnswer: //no need

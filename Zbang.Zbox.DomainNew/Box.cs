@@ -23,15 +23,15 @@ namespace Zbang.Zbox.Domain
             ShouldMakeDirty = () => true;
         }
 
-        protected Box(string boxName, User user, BoxPrivacySettings privacySettings, Guid newCommentId)
-            : this(boxName, user, privacySettings)
+        protected Box(string boxName, User user, BoxPrivacySetting privacySetting, Guid newCommentId)
+            : this(boxName, user, privacySetting)
         {
             Comments.Add(new Comment(user, null,
                this, newCommentId, null, FeedType.CreatedBox));
             CommentCount = 1;
         }
 
-        protected Box(string boxName, User user, BoxPrivacySettings privacySettings)
+        protected Box(string boxName, User user, BoxPrivacySetting privacySetting)
             : this()
         {
             if (boxName == null)
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Domain
                 throw new ArgumentNullException(nameof(user));
             }
             Name = boxName.Trim();
-            PrivacySettings.PrivacySetting = privacySettings;
+            PrivacySettings.PrivacySetting = privacySetting;
             UserTime = new UserTimeDetails(user.Id);
             Owner = user;
             UserBoxRelationship.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
@@ -109,7 +109,7 @@ namespace Zbang.Zbox.Domain
             {
                 return;
             }
-            Url = UrlConsts.BuildBoxUrl(Id, Name, string.Empty);
+            Url = UrlConst.BuildBoxUrl(Id, Name, string.Empty);
         }
 
         public virtual string GetUniversityName()
@@ -246,9 +246,9 @@ namespace Zbang.Zbox.Domain
 
 
 
-        public void ChangePrivacySettings(BoxPrivacySettings boxPrivacySettings, User user)
+        public void ChangePrivacySettings(BoxPrivacySetting boxPrivacySetting, User user)
         {
-            if (PrivacySettings.PrivacySetting == boxPrivacySettings)
+            if (PrivacySettings.PrivacySetting == boxPrivacySetting)
             {
                 return;
             }
@@ -261,7 +261,7 @@ namespace Zbang.Zbox.Domain
                 throw new UnauthorizedAccessException("only owner can change privacy settings");
             }
 
-            PrivacySettings.PrivacySetting = boxPrivacySettings;
+            PrivacySettings.PrivacySetting = boxPrivacySetting;
 
         }
 

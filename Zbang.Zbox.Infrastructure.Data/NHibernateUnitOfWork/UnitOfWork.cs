@@ -39,10 +39,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             }
         }
 
-        public static bool IsStarted
-        {
-            get { return CurrentUnitOfWork != null; }
-        }
+        public static bool IsStarted => CurrentUnitOfWork != null;
 
         public static ISession CurrentSession
         {

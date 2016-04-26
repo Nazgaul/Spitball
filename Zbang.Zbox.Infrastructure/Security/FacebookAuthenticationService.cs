@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         const string FacebookPicture = "https://graph.facebook.com/{0}/picture?width={1}&height={1}";
 
 
-        public async Task<FacebookUserData> FacebookLogIn(string token)
+        public async Task<FacebookUserData> FacebookLogOnAsync(string token)
         {
             using (var client = new HttpClient())
             {

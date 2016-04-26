@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             var html = LoadMailTempate.LoadMailFromContentWithDot(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
             html.Replace("{name}", mailParams.UserName);
 
-            var link = $"<a href=\"{UrlConsts.AppendCloudentsUrl(mailParams.BoxUrl)}\">{EmailResource.ReplyToCommentLink}</a>";
+            var link = $"<a href=\"{UrlConst.AppendCloudentsUrl(mailParams.BoxUrl)}\">{EmailResource.ReplyToCommentLink}</a>";
             var sb = new StringBuilder();
             sb.AppendLine();
             sb.AppendLine(string.Format(EmailResource.ReplyToCommentText, mailParams.UserWhoMadeActionName,mailParams.BoxName, link));

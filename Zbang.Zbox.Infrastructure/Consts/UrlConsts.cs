@@ -5,7 +5,7 @@ using Zbang.Zbox.Infrastructure.Url;
 
 namespace Zbang.Zbox.Infrastructure.Consts
 {
-    public static class UrlConsts
+    public static class UrlConst
     {
         public const string CloudentsUrl = "https://www.spitball.co";
         private const string ItemUrl = "/item/{0}/{1}/{2}/{3}/{4}/";
@@ -14,7 +14,6 @@ namespace Zbang.Zbox.Infrastructure.Consts
         private const string CourseUrl = "/course/{2}/{0}/{1}/";
         private const string UserUrl = "/user/{0}/{1}/";
         private const string LibraryUrl = "/library/{0}/{1}/";
-        private const string StoreProductUrl = "/store/product/{0}/{1}/";
         private const string LogInUrl = "/?invId={0}";
 
         public const string ShortBox = "b/{box62Id}";
@@ -33,9 +32,9 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const string PasswordUpdate = CloudentsUrl + "/account/passwordupdate?key={0}";
         private const string BoxUrlInvite = "?invId={0}";
 
-        public static string BuildInviteUrl(string boxUrl, string invId)
+        public static string BuildInviteUrl(string boxUrl, string inviteId)
         {
-            return CloudentsUrl + boxUrl + string.Format(BoxUrlInvite, invId);
+            return CloudentsUrl + boxUrl + string.Format(BoxUrlInvite, inviteId);
         }
 
         public static string AppendCloudentsUrl(string relativeUrl)
@@ -49,9 +48,9 @@ namespace Zbang.Zbox.Infrastructure.Consts
         }
 
 
-        public static string BuildInviteCloudentsUrl(string invId)
+        public static string BuildInviteCloudentsUrl(string inviteId)
         {
-            return CloudentsUrl + string.Format(LogInUrl, invId);
+            return CloudentsUrl + string.Format(LogInUrl, inviteId);
         }
 
         public static string BuildUserUrl(long id, string name, bool fullUrl = false)
@@ -73,7 +72,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new ArgumentException("name");
+                throw new ArgumentException(nameof(name));
             }
             string relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.IsNullOrEmpty(universityName) ? string.Format(BoxUrl, id, NameToQueryString(name)) : string.Format(CourseUrl, id, NameToQueryString(name), NameToQueryString(universityName)));
             if (fullUrl)
@@ -111,11 +110,11 @@ namespace Zbang.Zbox.Infrastructure.Consts
         {
             if (string.IsNullOrEmpty(quizName))
             {
-                throw new ArgumentException("quizName");
+                throw new ArgumentException(nameof(quizName));
             }
             if (string.IsNullOrEmpty(boxName))
             {
-                throw new ArgumentException("boxName");
+                throw new ArgumentException(nameof(boxName));
             }
 
 
@@ -129,17 +128,13 @@ namespace Zbang.Zbox.Infrastructure.Consts
 
 
 
-        public static string BuildStoreProductUrl(long productId, string productName)
-        {
-            if (productName == null) throw new ArgumentNullException("productName");
-            return VirtualPathUtility.AppendTrailingSlash(string.Format(StoreProductUrl, productId, NameToQueryString(productName)));
-        }
+       
 
         public static string BuildLibraryUrl(Guid id, string name)
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new ArgumentException("name");
+                throw new ArgumentNullException(nameof(name));
             }
             return VirtualPathUtility.AppendTrailingSlash(string.Format(LibraryUrl, GuidEncoder.Encode(id), NameToQueryString(name)));
         }
@@ -216,7 +211,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         }
     }
 
-    public static class MetaDataConsts
+    public static class MetadataConst
     {
         public const string VideoStatus = "VideoStatus";
     }

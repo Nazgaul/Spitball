@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [NoCache]
         [BoxPermission("boxId", Order = 2)]
         [DonutOutputCache(VaryByCustom = CustomCacheKeys.Lang,
-         Duration = TimeConsts.Hour * 1, VaryByParam = "quizId",
+         Duration = TimeConst.Hour * 1, VaryByParam = "quizId",
          Location = OutputCacheLocation.Server, Order = 4)]
         [Route("quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long}/{quizName}", Name = "Quiz")]
         public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName,

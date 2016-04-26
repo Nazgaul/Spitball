@@ -11,18 +11,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<University> m_UniversityRepository;
-        private readonly IRepository<RussianDepartment> m_DepartmentRepository;
         private readonly IRepository<Student> m_StudentRepository;
 
         public UpdateUserUniversityCommandHandler(IUserRepository userRepository,
             IRepository<University> universityRepository,
-            IRepository<RussianDepartment> departmentRepository,
             IRepository<Student> studentRepository
             )
         {
             m_UserRepository = userRepository;
             m_UniversityRepository = universityRepository;
-            m_DepartmentRepository = departmentRepository;
             m_StudentRepository = studentRepository;
         }
         public void Handle(UpdateUserUniversityCommand message)
@@ -41,7 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
             // ReSharper disable once PossibleUnintendedReferenceComparison NHibernate doesn't support equals
-            var studentsIdsInUniversity = m_StudentRepository.GetQuerable().Where(w => w.University == university);
+            var studentsIdsInUniversity = m_StudentRepository.GetQueryable().Where(w => w.University == university);
             bool needId = studentsIdsInUniversity.Any();
             if (needId && string.IsNullOrEmpty(studentId))
             {

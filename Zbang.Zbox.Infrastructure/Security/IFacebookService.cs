@@ -3,14 +3,12 @@ namespace Zbang.Zbox.Infrastructure.Security
 {
     public interface IFacebookService
     {
-        Task<FacebookUserData> FacebookLogIn(string token);
+        Task<FacebookUserData> FacebookLogOnAsync(string token);
         string GetFacebookUserImage(long facebookId, FacebookPictureType type);
-       // Task<FacebookUserData> FacebookLogIn(string token);
-        //Task<IEnumerable<FacebookFriendData>> GetFacebookUserFriends(string authToken);
     }
 
     public interface IGoogleService
     {
-        Task<GoogleUserData> GoogleLogInAsync(string token);
+        Task<GoogleUserData> GoogleLogOnAsync(string token);
     }
 }

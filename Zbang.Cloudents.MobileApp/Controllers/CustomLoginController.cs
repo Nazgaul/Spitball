@@ -113,7 +113,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var facebookUserData = await m_FacebookService.FacebookLogIn(model.AuthToken);
+            var facebookUserData = await m_FacebookService.FacebookLogOnAsync(model.AuthToken);
             if (facebookUserData == null)
             {
                 return Request.CreateBadRequestResponse("auth token is invalid");
@@ -128,7 +128,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                          facebookUserData.LargeImage, null,
                         facebookUserData.First_name,
                         facebookUserData.Last_name,
-                        facebookUserData.Locale, facebookUserData.GetGender());
+                        facebookUserData.Locale, facebookUserData.SpitballGender);
                     var commandResult = await m_ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -180,7 +180,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var googleUserData = await m_GoogleService.GoogleLogInAsync(model.AuthToken);
+            var googleUserData = await m_GoogleService.GoogleLogOnAsync(model.AuthToken);
             if (googleUserData == null)
             {
                 return Request.CreateBadRequestResponse("auth token is invalid");

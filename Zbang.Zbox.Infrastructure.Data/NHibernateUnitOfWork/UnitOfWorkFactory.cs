@@ -96,7 +96,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         }
 
        
-        private string GetConfigurationFileName()
+        private static string GetConfigurationFileName()
         {
             var domain = Assembly.Load("Zbang.Zbox.Domain");
             var viewModel = Assembly.Load("Zbang.Zbox.ViewModel");
@@ -108,7 +108,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             return fileInfo;
         }
 
-        private Configuration LoadConfigurationFromFile()
+        private static Configuration LoadConfigurationFromFile()
         {
             //if (!IsConfigurationFileValid()) return null;
             try

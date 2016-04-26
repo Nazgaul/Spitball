@@ -14,13 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         private static readonly Lazy<ConnectionMultiplexer> LazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect("zboxcache.redis.cache.windows.net,abortConnect=false,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI="));
 
-        public static ConnectionMultiplexer Connection
-        {
-            get
-            {
-                return LazyConnection.Value;
-            }
-        }
+        public static ConnectionMultiplexer Connection => LazyConnection.Value;
         private const string AppKey = "DataCache";
         private readonly string m_CachePrefix;
         private readonly System.Web.Caching.Cache m_Cache;
@@ -67,7 +61,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             catch (Exception ex)
             {
-                Trace.TraceLog.WriteError(string.Format("AddToCacheAsync key {0} region {1}", key, region), ex);
+                Trace.TraceLog.WriteError($"AddToCacheAsync key {key} region {region}", ex);
                 return Task.FromResult(false);
             }
         }
@@ -98,7 +92,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             catch (Exception ex)
             {
-                Trace.TraceLog.WriteError(string.Format("AddToCache key {0} region {1}", key, region), ex);
+                Trace.TraceLog.WriteError($"AddToCache key {key} region {region}", ex);
                 return false;
             }
         }
@@ -148,7 +142,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             catch (Exception ex)
             {
-                Trace.TraceLog.WriteError(string.Format("GetFromCacheAsync key {0} region {1}", key, region), ex);
+                Trace.TraceLog.WriteError($"GetFromCacheAsync key {key} region {region}", ex);
                 return null;
             }
 
@@ -173,13 +167,13 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             catch (Exception ex)
             {
-                Trace.TraceLog.WriteError(string.Format("GetFromCacheAsync key {0} region {1}", key, region), ex);
+                Trace.TraceLog.WriteError($"GetFromCacheAsync key {key} region {region}", ex);
                 return default(T);
             }
 
         }
 
-        private bool IsAppFabricCache()
+        private static bool IsAppFabricCache()
         {
             bool shouldUseCacheFromConfig;
 
@@ -191,6 +185,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         public void Dispose()
         {
+            Connection.Dispose();
             //if (m_DataCacheFactory != null)
             //{
             //    m_DataCacheFactory.Dispose();

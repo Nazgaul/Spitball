@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class ErrorController : Controller
     {
-         [DonutOutputCache(Duration = TimeConsts.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
+         [DonutOutputCache(Duration = TimeConst.Day, VaryByParam = "None", VaryByCustom = CustomCacheKeys.Auth + ";"
             + CustomCacheKeys.Lang)]
         public ActionResult Index()
         {

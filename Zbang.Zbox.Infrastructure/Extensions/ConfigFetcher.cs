@@ -11,10 +11,11 @@ namespace Zbang.Zbox.Infrastructure.Extensions
     {
         private static readonly bool IsRunningOnCloud;
         public static readonly bool IsEmulated;
-        private static readonly Dictionary<string, string> ConfigurationValues = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> ConfigurationValues;
 
         static ConfigFetcher()
         {
+            ConfigurationValues = new Dictionary<string, string>();
             try
             {
                 IsRunningOnCloud = RoleEnvironment.IsAvailable;

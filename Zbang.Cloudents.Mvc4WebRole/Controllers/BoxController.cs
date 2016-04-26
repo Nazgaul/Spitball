@@ -58,7 +58,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     throw new BoxDoesntExistException("model is null");
                 }
                 //var urlBoxName = Server.UrlDecode(Request.Url.Segments[4]);
-                if (UrlConsts.NameToQueryString(model.Name) != boxName)
+                if (UrlConst.NameToQueryString(model.Name) != boxName)
                 {
                     throw new BoxDoesntExistException(Request.Url?.AbsoluteUri);
                 }
@@ -107,7 +107,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [Route(UrlConsts.ShortBox, Name = "shortBox")]
+        [Route(UrlConst.ShortBox, Name = "shortBox")]
         public async Task<ActionResult> ShortUrl(string box62Id)
         {
             var base62 = new Base62(box62Id);
@@ -119,7 +119,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (BoxDoesntExistException ex)
             {
-                TraceLog.WriteError("base 62: " + box62Id + " id:" + base62.Value, ex);
+                TraceLog.WriteError($"base 62: {box62Id} id: {base62.Value}", ex);
                 return RedirectToAction("Index", "Dashboard");
             }
 
@@ -171,7 +171,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetBoxQuery(id);
                 var result = await ZboxReadService.GetBox2Async(query);
                 result.UserType = ViewBag.UserType;
-                result.ShortUrl = UrlConsts.BuildShortBoxUrl(new Base62(id).ToString());
+                result.ShortUrl = UrlConst.BuildShortBoxUrl(new Base62(id).ToString());
 
                 if (IsCrawler())
                 {

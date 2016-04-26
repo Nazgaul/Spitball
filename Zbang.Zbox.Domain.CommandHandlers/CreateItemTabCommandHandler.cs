@@ -10,14 +10,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IItemTabRepository m_ItemTabRepository;
         private readonly IBoxRepository m_BoxRepository;
-        private readonly IUserRepository m_UserRepository;
 
-        public CreateItemTabCommandHandler(IItemTabRepository itemTabRepository, IBoxRepository boxRepository,
-            IUserRepository userRepository)
+        public CreateItemTabCommandHandler(IItemTabRepository itemTabRepository, IBoxRepository boxRepository)
         {
             m_ItemTabRepository = itemTabRepository;
             m_BoxRepository = boxRepository;
-            m_UserRepository = userRepository;
         }
         public void Handle(CreateItemTabCommand message)
         {

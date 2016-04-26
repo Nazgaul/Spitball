@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Domain
 
         public override string UrlToRedirect()
         {
-            return UrlConsts.CloudentsUrl;
+            return UrlConst.CloudentsUrl;
         }
     }
 }

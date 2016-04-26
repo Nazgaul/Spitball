@@ -27,7 +27,7 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
             set { m_Date = value; } }
 
   
-        public BoxPrivacySettings PrivacySetting { get; set; } // todo: this should be hidden
+        public BoxPrivacySetting PrivacySetting { get; set; } // todo: this should be hidden
 
         public UserRelationshipType UserType { get; set; }
 

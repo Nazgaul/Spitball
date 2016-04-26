@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var box = m_BoxRepository.Load(command.BoxId);
             if (type == UserRelationshipType.Invite ||
-                type == UserRelationshipType.None && box.PrivacySettings.PrivacySetting == BoxPrivacySettings.AnyoneWithUrl)
+                type == UserRelationshipType.None && box.PrivacySettings.PrivacySetting == BoxPrivacySetting.AnyoneWithUrl)
             {
                 var user = m_UserRepository.Load(command.UserId);
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);

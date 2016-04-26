@@ -14,9 +14,9 @@ namespace Zbang.Zbox.Infrastructure.File
     {
         private const string ContentFormat = "<video class=\"videoframe\" width=\"800\" controls src=\"{0}\"></video>";
 
-        private readonly Lazy<IMediaSevicesProvider> m_MediaServiceProvider;
+        private readonly Lazy<IMediaServicesProvider> m_MediaServiceProvider;
 
-        public VideoProcessor(IBlobProvider blobProvider, Lazy<IMediaSevicesProvider> mediaServiceProvider)
+        public VideoProcessor(IBlobProvider blobProvider, Lazy<IMediaServicesProvider> mediaServiceProvider)
             : base(blobProvider)
         {
             m_MediaServiceProvider = mediaServiceProvider;
@@ -25,14 +25,14 @@ namespace Zbang.Zbox.Infrastructure.File
         public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            var metaData = await BlobProvider.FetechBlobMetaDataAsync(blobName);
+            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobName);
             string value;
-            if (!metaData.TryGetValue(MetaDataConsts.VideoStatus, out value))
+            if (!metaData.TryGetValue(MetadataConst.VideoStatus, out value))
             {
                 return new PreviewResult { ViewName = "MediaLoading"  };
                 //return new PreviewResult(ContentNotReady);
             }
-            var url = BlobProvider.GenerateSharedAccressReadPermissionInStorage(blobUri, 600);
+            var url = BlobProvider.GenerateSharedAccessReadPermissionInStorage(blobUri, 600);
             return new PreviewResult(string.Format(ContentFormat, url));
 
         }
@@ -40,14 +40,14 @@ namespace Zbang.Zbox.Infrastructure.File
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
              var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            var currentMetaData = await BlobProvider.FetechBlobMetaDataAsync(blobName);
+            var currentMetaData = await BlobProvider.FetchBlobMetaDataAsync(blobName);
             string value;
-            if (currentMetaData.TryGetValue(MetaDataConsts.VideoStatus, out value))
+            if (currentMetaData.TryGetValue(MetadataConst.VideoStatus, out value))
             {
                 return null;
             }
-            var newBlobName = await m_MediaServiceProvider.Value.EncodeVideo(blobUri, cancelToken);
-            var metaData = new Dictionary<string, string> { { MetaDataConsts.VideoStatus, "done" } };
+            var newBlobName = await m_MediaServiceProvider.Value.EncodeVideoAsync(blobUri, cancelToken);
+            var metaData = new Dictionary<string, string> { { MetadataConst.VideoStatus, "done" } };
             await BlobProvider.SaveMetaDataToBlobAsync(newBlobName, metaData);
             return new PreProcessFileResult { BlobName = newBlobName };
 

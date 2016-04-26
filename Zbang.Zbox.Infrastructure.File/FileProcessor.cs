@@ -68,7 +68,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
 
 
-            var metaData = await BlobProvider.FetechBlobMetaDataAsync(blobName) ?? new Dictionary<string, string>();
+            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobName) ?? new Dictionary<string, string>();
             metaData = RemoveOldMetaTags(metaData, getCacheVersionPrefix);
             metaData[PagesInDocsMetaKey] = pageCount.ToString(CultureInfo.InvariantCulture);
             await BlobProvider.SaveMetaDataToBlobAsync(blobName, metaData);
