@@ -113,7 +113,8 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                   new CultureInfo(culture), userName,
                   numOfQuestion,
                   numOfAnswers,
-                  numOfItems));
+                  numOfItems,
+                  updates.Sum(s=>s.Updates.Count())));
 
         }
 
