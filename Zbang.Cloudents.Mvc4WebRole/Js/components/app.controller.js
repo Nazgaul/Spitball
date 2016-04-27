@@ -15,7 +15,7 @@
             dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl }); // google tag manger
             Intercom('update'); //intercom
             __insp.push(["virtualPage"]); //inspectlet
-            svg4everybody();
+           // svg4everybody();
             // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
         });

@@ -2299,6 +2299,8 @@
     <Content Include="bower_components\jquery\src\var\support.js" />
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
+    <Content Include="bower_components\svgxuse\svgxuse.js" />
+    <Content Include="bower_components\svgxuse\svgxuse.min.js" />
     <Content Include="bower_components\ui-router\release\angular-ui-router.js" />
     <Content Include="bower_components\ui-router\release\angular-ui-router.min.js" />
     <Content Include="bower_components\ui-router\src\common.js" />
@@ -3058,6 +3060,11 @@
     <Content Include="bower_components\ui-router\CONTRIBUTING.md" />
     <Content Include="bower_components\ui-router\LICENSE" />
     <Content Include="bower_components\ui-router\README.md" />
+    <Content Include="bower_components\svgxuse\.bower.json" />
+    <Content Include="bower_components\svgxuse\bower.json" />
+    <Content Include="bower_components\svgxuse\license" />
+    <Content Include="bower_components\svgxuse\package.json" />
+    <Content Include="bower_components\svgxuse\readme.md" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

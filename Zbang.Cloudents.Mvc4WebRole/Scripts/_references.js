@@ -15,6 +15,7 @@
 /// <reference path="../bower_components/rangy/rangy-selectionsaverestore.js" />
 /// <reference path="../bower_components/rangy/rangy-serializer.js" />
 /// <reference path="../bower_components/rangy/rangy-textrange.js" />
+/// <reference path="../bower_components/svgxuse/svgxuse.js" />
 /// <reference path="../bower_components/textangular/dist/textangular.js" />
 /// <reference path="../bower_components/textangular/dist/textangular-sanitize.js" />
 /// <reference path="../bower_components/textangular/dist/textangularsetup.js" />
