@@ -7,7 +7,7 @@
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
         $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window) {
-        var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0, top = ($window.innerHeight <= 600) ? 10 : 20;
+        var self = this, boxId = parseInt($stateParams.boxId, 10), top = ($window.innerHeight <= 600) ? 5 : 10;
 
         self.add = {
             files: [],
@@ -22,12 +22,7 @@
         self.add.createComment = createComment;
 
 
-        externalUploadProvider.googleDriveInit().then(function () {
-            self.add.googleDisabled = false;
-        });
-        externalUploadProvider.dropboxInit().then(function () {
-            self.add.dropboxDisabled = false;
-        });
+
 
         self.add.google = google;
         self.add.dropbox = dropbox;
@@ -45,11 +40,17 @@
         var feedUpdates = {};
 
         boxService.getFeed(boxId, top, 0).then(function (response) {
-            self.data = response;
+           // self.data = response;
             userUpdatesService.boxUpdates(boxId, function (updates) {
                 feedUpdates = updates;
             });
-            assignData();
+            self.data = assignData(response);
+            externalUploadProvider.googleDriveInit().then(function () {
+                self.add.googleDisabled = false;
+            });
+            externalUploadProvider.dropboxInit().then(function () {
+                self.add.dropboxDisabled = false;
+            });
         });
         function likeCommentDialog(comment, ev) {
             if (!comment.likesCount) {
@@ -126,14 +127,15 @@
                 if (!response.length) {
                     return;
                 }
-                self.data = self.data.concat(response);
-                assignData();
+                var x = self.data;
+                // self.data = self.data.concat(response);
+                self.data = assignData(x.concat(response));
             });
         }
 
-        function assignData() {
-            for (var i = 0; i < self.data.length; i++) {
-                var currentPost = self.data[i];
+        function assignData(data) {
+            for (var i = 0; i < data.length; i++) {
+                var currentPost = data[i];
                 if (feedUpdates && feedUpdates[currentPost.id]) {
                     currentPost.isNew = true;
                 }
@@ -162,6 +164,7 @@
                     //self.data[i].replies[k].files = itemThumbnailService.assignValues(self.data[i].replies[k].files, 100, 141);
                 }
             }
+            return data;
 
             function buildItem(elem) {
                 var retVal2 = itemThumbnailService.assignValue(elem.source, 100, 141);
@@ -236,7 +239,7 @@
                     files: self.add.files.map(pushItem)
                 };
                 comment.replies.push(newComment);
-                assignData();
+                self.data = assignData(self.data);
                 self.add.newReplyText = '';
                 self.add.files = [];
                 comment.focusReply = false;
@@ -285,7 +288,7 @@
                     replies: []
                 };
                 self.data.unshift(newComment);
-                assignData();
+                self.data = assignData(self.data);
                 self.add.newText = '';
                 self.add.files = [];
                 self.add.anonymous = false;
@@ -370,7 +373,7 @@ userName: "ram y"*/
 
                     response.reverse().pop();
                     post.replies = response.concat(post.replies);
-                    assignData();
+                    self.data = assignData(self.data);
                     expandReply();
                 });
             } else {
