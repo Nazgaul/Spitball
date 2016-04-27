@@ -51,7 +51,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                      if (msgData == null)
                      {
                          TraceLog.WriteInfo("New MailProcess - message is not in the correct format " + msg.Id);
-                         return Task.FromResult(true);
+                         return Task.FromResult(false);
                      }
 
                      var mail = IocFactory.IocWrapper.Resolve<IMail2>(msgData.MailResover);

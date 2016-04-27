@@ -377,6 +377,7 @@ from zbox.Users u2 where u2.UniversityId in (
 select Id from zbox.University u where u.NoOfBoxes < 5 and isdeleted = 0)
 and EmailSendSettings = 0
 and (creationtime>'2015' or [LastAccessTime] >'2015')
+and exists (select userid from zbox.userboxrel ub where ub.userid = u2.userid)
 and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
 and creationtime < dateadd(HOUR,-2,GETUTCDATE())
 order by userid
