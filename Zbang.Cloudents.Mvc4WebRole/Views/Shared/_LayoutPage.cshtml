@@ -66,7 +66,7 @@
 
             <form ng-controller="SearchTriggerController as st" ng-show="st.show"
                   ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
-                  novalidate class="search-form search-form-expanded" ng-if="app.showMenu">
+                  novalidate class="search-form search-form-expanded" ng-if="app.showSearch">
                 <div class="search-area color-override backgroundColor4">
                     <input required ng-change="st.change(searchTrigger.$valid)"
                            ng-focus="app.expandSearch = true"

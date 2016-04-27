@@ -3390,6 +3390,9 @@
     <Content Include="Content\Site\staticPage.css">
       <DependentUpon>staticPage.less</DependentUpon>
     </Content>
+    <Content Include="Content\Site\staticPage.min.css">
+      <DependentUpon>staticPage.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\staticPage.rtl.css">
       <DependentUpon>staticPage.css</DependentUpon>
     </Content>

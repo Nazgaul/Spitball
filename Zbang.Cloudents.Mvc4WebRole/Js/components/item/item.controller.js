@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData'];
+        'itemData', '$scope'];
 
     function item($stateParams, itemService, $sce, $location, $q,
-        user, itemData) {
+        user, itemData, $scope) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
@@ -15,19 +15,19 @@
         };
 
         i.preview = '';
-        
+
 
         i.details = itemData;
-       
+
 
         i.details.downloadUrl = $location.path() + 'download/';
         i.details.printUrl = $location.path() + 'print/';
         i.details.boxUrl = i.details.boxUrl + 'items/';
         getPreview();
-       // i.firstPage = history2.firstState();
+        // i.firstPage = history2.firstState();
         i.showRawText = false;
-        
-
+        $scope.app.showMenu = false;
+        $scope.app.showSearch = true;
 
         //i.renameOn = true;
         i.loadMore = loadMore;
@@ -55,7 +55,7 @@
             return itemService.getPreview(i.details.blob, index, itemId, boxid).then(function (data) {
                 data = data || {};
                 i.loader = false;
-                
+
                 if (data.preview) {
                     if (data.preview.indexOf('iframe') > 0
                         || data.preview.indexOf('audio') > 0
@@ -68,7 +68,7 @@
                         if (element.find('img,svg').length === 3) {
                             needLoadMore = true;
                         }
-                        
+
                     }
 
                 }
@@ -98,7 +98,7 @@
                 ++index;
                 return getPreview();
             }
-            return $q.when(); 
+            return $q.when();
         };
         function renameItem() {
             if (i.renameText === i.details.name) {
@@ -134,7 +134,6 @@
                 i.details.likes++;
             }
             i.details.like = !i.details.like;
-
         }
     }
 

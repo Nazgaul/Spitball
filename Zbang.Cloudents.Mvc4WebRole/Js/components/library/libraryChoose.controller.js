@@ -23,6 +23,7 @@
         }
 
         $scope.app.showMenu = false;
+        $scope.app.showSearch = false;
 
         countryService.getCountries(function (iso, country) {
             self.countries.push({ iso: iso, name: country });

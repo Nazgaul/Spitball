@@ -74,5 +74,9 @@
   {
     "outputFile": "Content/Site/library.css",
     "inputFile": "Content/Site/library.less"
+  },
+  {
+    "outputFile": "Content/Site/quiz.css",
+    "inputFile": "Content/Site/quiz.less"
   }
 ]
