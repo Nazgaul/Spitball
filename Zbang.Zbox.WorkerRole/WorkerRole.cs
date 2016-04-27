@@ -69,7 +69,7 @@ namespace Zbang.Zbox.WorkerRole
             //DO NOT CHANGE ANYTHING IN HERE
             return new[]
             {
-               // m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceADay)),
+                m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceADay)),
                 //m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnEveryChange)),
                 //m_Unity.Unity.Resolve<IJob>(UnityFactory.DigestEmail2,new IocParameterOverride("hourForEmailDigest",NotificationSettings.OnceAWeek)),
                 m_Unity.Resolve<IJob>(UnityFactory.AddFiles),

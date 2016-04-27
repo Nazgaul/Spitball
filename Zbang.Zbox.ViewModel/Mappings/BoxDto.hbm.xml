@@ -16,7 +16,7 @@
     <return-scalar type="long" column="Members"/>
     <return-scalar type="long" column="Items"/>
     <return-scalar type="long" column="Comments"/>
-    <return-scalar type="Zbang.Zbox.Infrastructure.Enums.BoxPrivacySettings,Zbang.Zbox.Infrastructure" column="PrivacySetting"/>
+    <return-scalar type="Zbang.Zbox.Infrastructure.Enums.BoxPrivacySetting,Zbang.Zbox.Infrastructure" column="PrivacySetting"/>
   </resultset>
 
   <!--<resultset name="BoxMembers">
