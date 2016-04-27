@@ -5,10 +5,10 @@ namespace Zbang.Zbox.Infrastructure.Transport
     [ProtoContract]
     public class ReplyToCommentData : BaseMailData
     {
-        //protected ReplyToCommentData()
-        //{
+        protected ReplyToCommentData()
+        {
 
-        //}
+        }
         public ReplyToCommentData(string emailAddress, string culture, string userName, string userWhoMadeAction, string boxOrItemName, string boxOrItemUrl)
             : base(emailAddress, culture)
         {
