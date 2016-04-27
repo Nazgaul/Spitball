@@ -167,7 +167,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         
                         //new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         //new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"), //changed to bower components
-                        new JsFileWithCdn("~/bower_components/angular/angular.min.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"),
+                        new JsFileWithCdn("~/bower_components/angular/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"),
 
                         //new JsFileWithCdn("~/scripts/angular-ui-router.js"), //changed to bower components
                         new JsFileWithCdn("~/bower_components/ui-router/release/angular-ui-router.js"),
@@ -198,7 +198,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
-                        new JsFileWithCdn("~/scripts/angular-google-adsense.js"),
+                       // new JsFileWithCdn("~/scripts/angular-google-adsense.js"),
                         new JsFileWithCdn("~/scripts/angular-dfp.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),

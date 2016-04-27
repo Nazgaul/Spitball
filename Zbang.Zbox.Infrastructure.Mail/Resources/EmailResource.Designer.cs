@@ -162,6 +162,25 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Become a Spitball Expert (It’s Easier Than You Think).
+        /// </summary>
+        internal static string LowContributionSubject {
+            get {
+                return ResourceManager.GetString("LowContributionSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We have helped thousands of students make studying online easier and faster, but we are only as good as our user uploads! 
+        ///Login into your Spitball account and invite friends or post your notes to push our service to the next level..
+        /// </summary>
+        internal static string LowContributionText {
+            get {
+                return ResourceManager.GetString("LowContributionText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find your courses.
         /// </summary>
         internal static string NoFollowBoxSubject {

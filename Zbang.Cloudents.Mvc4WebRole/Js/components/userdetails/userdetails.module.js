@@ -5,7 +5,7 @@
 //    angular.module('app.userdetails', ['app.ajaxservice']);
 //})();
 (function () {
-    angular.module('app.dashboard', ['app.ajaxservice', 'angular-google-adsense']);
+    angular.module('app.dashboard', ['app.ajaxservice']);
 })();
 (function () {
     angular.module('app.box.feed', ['app.ajaxservice']);

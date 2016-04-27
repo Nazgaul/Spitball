@@ -77,7 +77,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
             }
             await m_MailComponent.GenerateSystemEmailAsync(ServiceName,$"finish to run  with page {page}");
-            TraceLog.WriteInfo($"{ServiceName} finish running  mail page {index}");
+            TraceLog.WriteInfo($"{ServiceName} finish running  mail page {page}");
             return true;
 
         }

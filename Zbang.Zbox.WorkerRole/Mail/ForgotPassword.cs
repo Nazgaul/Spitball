@@ -17,7 +17,7 @@ namespace Zbang.Zbox.WorkerRole.Mail
         {
             var parameters2 = data as ForgotPasswordData2;
             if (parameters2 == null) return false;
-            await m_MailComponent.DeleteUnsubscribeAsync(parameters2.EmailAddress);
+           // await m_MailComponent.DeleteUnsubscribeAsync(parameters2.EmailAddress);
             await m_MailComponent.GenerateAndSendEmailAsync(parameters2.EmailAddress,
                 new ForgotPasswordMailParams2(parameters2.Code,
                     string.Format(UrlConst.PasswordUpdate, parameters2.Link), parameters2.Name,

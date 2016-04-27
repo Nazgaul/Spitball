@@ -29,10 +29,20 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             m_DigestEmailHourBack = hourForEmailDigest;
         }
 
+        private async Task SendEmailStatusAsync(string message)
+        {
+            if (NotificationSettings.OnEveryChange == m_DigestEmailHourBack)
+            {
+                return;
+            }
+            await m_MailComponent.GenerateSystemEmailAsync(ServiceName, message);
+
+        }
+
         //private const string ServiceName = "LikesMailProcess";
         public async Task<bool> ExecuteAsync(int index, Action<int> progress, CancellationToken token)
         {
-            await m_MailComponent.GenerateSystemEmailAsync(ServiceName, $"starting to run notification {m_DigestEmailHourBack}");
+            await SendEmailStatusAsync($"starting to run notification {m_DigestEmailHourBack}");
             var page = index;
             var needToContinueRun = true;
             var list = new List<Task>();
@@ -153,7 +163,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 }
                 progress(page);
             }
-            await m_MailComponent.GenerateSystemEmailAsync(ServiceName, $"finish to run  with page {page}");
+            await SendEmailStatusAsync($"finish to run  with page {page}");
             TraceLog.WriteInfo($"{ServiceName} finish running  mail page {index}");
             return true;
         }

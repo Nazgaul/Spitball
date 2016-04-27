@@ -105,7 +105,7 @@
 }
 .feed .comment,
 .feed .add-comment {
-  background: #eeeeee;
+  background: #eee;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   margin-bottom: 15px;
   border-radius: 5px;
@@ -340,7 +340,8 @@
   height: 24px;
   overflow: inherit;
 }
-.feed .actions span {
+.feed .actions span,
+.feed .actions input {
   font-size: 14px;
 }
 .feed .actions .anonymous-wrapper .text {
@@ -377,6 +378,9 @@
 .feed .actions .reply-count,
 .feed .actions .like-count {
   margin-right: 8px;
+  border: 0;
+  background: transparent;
+  padding: 0;
 }
 .feed .replies {
   padding: 15px 15px 0 15px;
@@ -403,7 +407,6 @@
 }
 .feed .content-text {
   line-height: 22px;
-  -ms-word-break: break-word;
   word-break: break-word;
   white-space: pre-wrap;
   color: #181c1d;

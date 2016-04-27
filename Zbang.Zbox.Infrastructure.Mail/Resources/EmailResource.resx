@@ -195,4 +195,11 @@ Check them out:</value>
   <data name="ReplyToCommentSubject" xml:space="preserve">
     <value>Someone commented on your post</value>
   </data>
+  <data name="LowContributionSubject" xml:space="preserve">
+    <value>Become a Spitball Expert (It’s Easier Than You Think)</value>
+  </data>
+  <data name="LowContributionText" xml:space="preserve">
+    <value>We have helped thousands of students make studying online easier and faster, but we are only as good as our user uploads! 
+Login into your Spitball account and invite friends or post your notes to push our service to the next level.</value>
+  </data>
 </root>
