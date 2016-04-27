@@ -9,38 +9,24 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;*/
-    header + div {
-        margin-top: 80px;
-    }
-
-
-
     header {
         align-items: center;
         white-space: nowrap;
+        position: relative;
 
-        .fb-like button {
-            font-size: 14px;
-            color: #c2c2c2;
-            padding-left: 25px;
-            text-transform: capitalize;
-
-            svg {
-                width: 30px;
-                height: 30px;
-                margin-right: 10px;
-                vertical-align: middle;
-                margin-bottom: 14px;
-                fill: #c2c2c2;
-            }
+        .text-center {
+            margin: 0 auto;
+            padding: 0 30px;
+            font-size: 20px;
+            margin-bottom: 10px;
         }
 
         .close {
-            padding: 15px;
-            margin-left: 70px;
-            margin-top: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
 
-            svg{
+            svg {
                 fill: @textColorGrey;
             }
         }

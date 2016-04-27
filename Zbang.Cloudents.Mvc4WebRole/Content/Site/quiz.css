@@ -14,31 +14,21 @@
     width: calc(100% + 290px);
   }
 }
-.quizPage header + div {
-  margin-top: 80px;
-}
 .quizPage header {
   align-items: center;
   white-space: nowrap;
+  position: relative;
 }
-.quizPage header .fb-like button {
-  font-size: 14px;
-  color: #c2c2c2;
-  padding-left: 25px;
-  text-transform: capitalize;
-}
-.quizPage header .fb-like button svg {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
-  vertical-align: middle;
-  margin-bottom: 14px;
-  fill: #c2c2c2;
+.quizPage header .text-center {
+  margin: 0 auto;
+  padding: 0 30px;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 .quizPage header .close {
-  padding: 15px;
-  margin-left: 70px;
-  margin-top: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 .quizPage header .close svg {
   fill: #888b8e;

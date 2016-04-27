@@ -47,6 +47,7 @@
 
         self.showMenu = false;
         self.showSearch = false;
+        self.fixedBgColor = false;
 
         self.toggleMenu = toggleMenu;
         function logOut() {

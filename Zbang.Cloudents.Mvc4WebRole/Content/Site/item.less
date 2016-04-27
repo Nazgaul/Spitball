@@ -7,10 +7,19 @@ md-menu-item {
         width: 18px;
         height: 18px;
         margin-right: 6px;
+        margin-bottom: 4px;
     }
 
     &.blue {
         background: @buttonColorBlue;
+
+        span {
+            color: @textColorWhite;
+        }
+
+        svg {
+            fill: @textColorWhite;
+        }
     }
 }
 
@@ -106,14 +115,18 @@ md-menu-item {
                     white-space: nowrap;
                     margin-left: auto;
 
-                    .md-menu {
-                        padding: 0;
+                    item-menu {
+                        height: 16px;
 
-                        .md-icon-button {
-                            margin: 0;
-                            min-height: 0;
-                            height: 16px;
+                        .md-menu {
                             padding: 0;
+
+                            .md-icon-button {
+                                margin: 0;
+                                min-height: 0;
+                                height: 16px;
+                                padding: 0;
+                            }
                         }
                     }
 
@@ -470,7 +483,10 @@ md-menu-item {
     .arrows {
         position: fixed;
         top: 50vh;
-        width: 900px;
+        max-width: 900px;
+        width: 100%;
+        left: 0;
+        padding: 0 10px;
 
         @media (min-width: 890px) {
             margin-left: ~"calc(50% - 450px)";
@@ -552,7 +568,7 @@ md-menu-item {
 .preview {
     text-align: center;
     margin: 0 auto;
-    padding: 0 12px;
+    padding: 0 24px;
 
     .preview-page {
         max-width: 800px;

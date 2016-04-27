@@ -1466,7 +1466,7 @@ Page Loading
 .theme-light .color-1 {
   color: #4190b9;
 }
-.theme-light.color-override.backgroundColor1 {
+.theme-light.color-override.backgroundColor1:not(.fixedBgColor) {
   background: #e9eaed !important;
   color: #212325;
 }

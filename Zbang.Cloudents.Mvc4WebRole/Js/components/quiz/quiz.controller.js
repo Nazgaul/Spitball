@@ -42,6 +42,7 @@
         q.topUsers = quizData.quiz.topUsers || [];
         $scope.app.showMenu = false;
         $scope.app.showSearch = true;
+        $scope.app.fixedBgColor = true;
 
         for (var j = q.topUsers.length; j < 4; j++) {
             q.topUsers.push({

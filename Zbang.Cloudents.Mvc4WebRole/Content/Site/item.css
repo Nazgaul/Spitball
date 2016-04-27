@@ -794,9 +794,16 @@ md-menu-item .fb-like svg {
   width: 18px;
   height: 18px;
   margin-right: 6px;
+  margin-bottom: 4px;
 }
 md-menu-item.blue {
   background: #4190b9;
+}
+md-menu-item.blue span {
+  color: #f5f5f5;
+}
+md-menu-item.blue svg {
+  fill: #f5f5f5;
 }
 .itemPage {
   margin-top: -5px;
@@ -883,10 +890,13 @@ md-menu-item.blue {
   white-space: nowrap;
   margin-left: auto;
 }
-.itemPage header .top-wrapper .name-actions .item-actions .md-menu {
+.itemPage header .top-wrapper .name-actions .item-actions item-menu {
+  height: 16px;
+}
+.itemPage header .top-wrapper .name-actions .item-actions item-menu .md-menu {
   padding: 0;
 }
-.itemPage header .top-wrapper .name-actions .item-actions .md-menu .md-icon-button {
+.itemPage header .top-wrapper .name-actions .item-actions item-menu .md-menu .md-icon-button {
   margin: 0;
   min-height: 0;
   height: 16px;
@@ -1175,7 +1185,10 @@ md-menu-item.blue {
 .itemPage .arrows {
   position: fixed;
   top: 50vh;
-  width: 900px;
+  max-width: 900px;
+  width: 100%;
+  left: 0;
+  padding: 0 10px;
 }
 @media (min-width: 890px) {
   .itemPage .arrows {
@@ -1246,7 +1259,7 @@ md-menu-item.blue {
 .preview {
   text-align: center;
   margin: 0 auto;
-  padding: 0 12px;
+  padding: 0 24px;
 }
 .preview .preview-page {
   max-width: 800px;

@@ -28,6 +28,7 @@
         i.showRawText = false;
         $scope.app.showMenu = false;
         $scope.app.showSearch = true;
+        $scope.app.fixedBgColor = true;
 
         //i.renameOn = true;
         i.loadMore = loadMore;
