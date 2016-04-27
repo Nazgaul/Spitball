@@ -9,6 +9,7 @@
         self.querySearch = querySearch;
         self.allContacts = [];// loadContacts();
         self.contacts = [];
+        self.nonFilteredContacts = [];
         self.filterSelected = true;
         var googleContact = [];
         self.filterQuery = '';
@@ -67,6 +68,7 @@
         function switchTab(tab) {
             self.tab = tab;
             self.allContacts = [];
+            i.filterQuery = '';
             switch (self.tab) {
                 case self.state.spitball:
                     getSystemUsers();
@@ -88,10 +90,7 @@
                 return getSystemUsers(query);
             } else {
                 var results = query ?
-                    self.allContacts.filter(createFilterFor(query)) : [];
-                if (!results.length) {
-                    results.push({ name: query, email: query, image: '/images/user.svg' });
-                }
+                    self.allContacts = self.nonFilteredContacts.filter(createFilterFor(query)) : [];
                 return results;
             }
         }
@@ -147,7 +146,7 @@
                     }
                 });
 
-
+                self.nonFilteredContacts = self.allContacts;
             });
         }
 
@@ -163,6 +162,8 @@
                         _lowername: c.name.toLowerCase()
                     }
                 });
+
+                self.nonFilteredContacts = self.allContacts;
             });
         }
 

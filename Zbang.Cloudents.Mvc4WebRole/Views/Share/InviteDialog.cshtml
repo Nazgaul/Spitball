@@ -25,7 +25,7 @@
             </button>
         </div>
         <div class="center">
-            <div ng-if="i.allContacts.length">
+            <div ng-if="i.allContacts.length || i.filterQuery !== ''">
                 <div class="search-user">
                     <md-input-container class="md-block">
                         <label ng-if="i.tab === i.state.email">@IndexResources.AddMail</label>
@@ -51,7 +51,7 @@
 
                 </md-list>
             </div>
-            <div class="email" ng-if="!(i.allContacts.length) && i.tab === i.state.email">
+            <div class="email" ng-if="!(i.allContacts.length) && i.tab === i.state.email && i.filterQuery == ''">
                 <div><span class="text">@IndexResources.GmailContact</span></div>
                 <button class="btn button-Blue btn-primary gmail" ng-click="i.importGoogleContract()" type="button" ga-track-event="['invite', 'import gmail']">
                     <span>
