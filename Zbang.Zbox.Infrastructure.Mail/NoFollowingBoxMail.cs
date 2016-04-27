@@ -13,4 +13,16 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.Subject = EmailResource.NoFollowBoxSubject;
         }
     }
+
+
+    public class LowContributionMail : MarketingMail
+    {
+        protected override string Text => EmailResource.LowContributionText;
+        protected override string CategoryName => "Low Contribution";
+
+        public override void AddSubject(ISendGrid message)
+        {
+            message.Subject = EmailResource.LowContributionSubject;
+        }
+    }
 }

@@ -129,6 +129,7 @@
     <Compile Include="Mail\FollowLowActivityCourses.cs" />
     <Compile Include="Mail\IMailProcess.cs" />
     <Compile Include="Mail\LikesMailProcess.cs" />
+    <Compile Include="Mail\LowContribution.cs" />
     <Compile Include="Mail\NoFollowClassMailProcess.cs" />
     <Compile Include="Mail\NoUniversityMailProcess.cs" />
     <Compile Include="Mail\UniversityWithLowActivation.cs" />
