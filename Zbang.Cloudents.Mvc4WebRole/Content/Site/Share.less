@@ -71,7 +71,7 @@
 
 
                     span {
-                        //display: inline-flex;
+                        margin: 0 auto;
                     }
 
                     &.spitball {
@@ -138,6 +138,12 @@
                     margin-bottom: 0;
                 }
 
+                md-list {
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    -webkit-user-select: none;
+                    user-select: none;
+                }
 
                 .user {
                     font-size: 14px;
@@ -170,6 +176,9 @@
                     /*****************/
                     /* entire container, keeps perspective */
                     .flip-container {
+                        -moz-perspective: 1000;
+                        -ms-perspective: 1000;
+                        -webkit-perspective: 1000;
                         perspective: 1000;
                     }
                     /* flip the pane when hovered */
@@ -178,6 +187,10 @@
                     }*/
                     &.selected {
                         .flip-container .flipper {
+                            -moz-transform: rotateY(180deg);
+                            -ms-transform: rotateY(180deg);
+                            -o-transform: rotateY(180deg);
+                            -webkit-transform: rotateY(180deg);
                             transform: rotateY(180deg);
                         }
                     }
@@ -188,13 +201,19 @@
                     }
                     /* flip speed goes here */
                     .flipper {
+                        -moz-transition: 0.6s;
+                        -o-transition: 0.6s;
+                        -webkit-transition: 0.6s;
                         transition: 0.6s;
+                        -webkit-transform-style: preserve-3d;
                         transform-style: preserve-3d;
                         position: relative;
                         width: 40px;
                     }
                     /* hide back of pane during swap */
                     .avatar, .checkbox {
+                        -moz-backface-visibility: hidden;
+                        -webkit-backface-visibility: hidden;
                         backface-visibility: hidden;
                         position: absolute;
                         top: 0;
@@ -204,10 +223,18 @@
                     .avatar {
                         z-index: 2;
                         /* for firefox 31 */
-                        transform: rotateY(0deg);
+                        -moz-transform: rotateY(0);
+                        -ms-transform: rotateY(0);
+                        -o-transform: rotateY(0);
+                        -webkit-transform: rotateY(0);
+                        transform: rotateY(0);
                     }
                     /* back, initially hidden pane */
                     .checkbox {
+                        -moz-transform: rotateY(180deg);
+                        -ms-transform: rotateY(180deg);
+                        -o-transform: rotateY(180deg);
+                        -webkit-transform: rotateY(180deg);
                         transform: rotateY(180deg);
                     }
                     /****************/
