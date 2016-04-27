@@ -49,7 +49,7 @@
                                 @*<button class="like-count" user-not-register-popup="click" type="button" ng-click="f.likeCommentDialog(post,$event)">
                                     <span ng-bind="post.likesCount"></span>
                                 </button>*@
-                                <button class="like-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
+                                <button class="like-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-disabled="f.likeDisabled" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
                                     @Html.Svg("~/images/site/box-icons.svg", "like" ,new { @class="like-icon", ng_if= "!post.isLiked" })
                                     @Html.Svg("~/images/site/box-icons.svg", "activeLike", new { @class = "like-icon", ng_if = "post.isLiked" }) @GeneralResources.Like
                                 </button>
