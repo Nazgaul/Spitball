@@ -69,13 +69,13 @@
   height: 25px;
   fill: #3293F6;
 }
-.invite.invite-dialog .content .tabs button.email {
-  margin: 0 4px;
-}
 .invite.invite-dialog .content .tabs button.email span,
 .invite.invite-dialog .content .tabs button.email svg {
   width: 35px;
   height: 25px;
+}
+.invite.invite-dialog .content .tabs button:not(:last-child) {
+  margin-left: 4px;
 }
 .invite.invite-dialog .content .tabs button.facebook span,
 .invite.invite-dialog .content .tabs button.facebook svg {
