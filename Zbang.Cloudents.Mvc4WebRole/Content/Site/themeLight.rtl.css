@@ -502,10 +502,6 @@ Page Loading
 .theme-light .add-comment :-ms-input-placeholder {
   color: #5d6063;
 }
-.theme-light .add-comment .md-input:active,
-.theme-light .add-comment .md-input:focus {
-  color: #fff;
-}
 @media (min-width: 600px) {
   .theme-light .add-comment input[type=checkbox]:checked + label .text {
     color: #d39f10;
@@ -571,9 +567,6 @@ Page Loading
 }
 .theme-light .quiz .top .first-letter {
   border: 1px solid #212325;
-}
-.theme-light .quiz .bottom .name {
-  color: #ffffff;
 }
 .theme-light .quiz .details {
   background: #ffffff;

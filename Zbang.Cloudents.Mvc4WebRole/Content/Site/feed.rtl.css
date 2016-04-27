@@ -137,6 +137,9 @@
   width: 100%;
   border: none;
   padding: 14px 10px 10px 0;
+}
+.feed .comment .user-comment .new-comment-border textarea.ng-not-empty,
+.feed .add-comment .user-comment .new-comment-border textarea.ng-not-empty {
   color: #212325;
 }
 .feed .comment .user-comment .new-comment-border textarea:focus,
@@ -282,7 +285,12 @@
 .feed .reply .c-img {
   top: -7px;
 }
-.feed .reply .user-name {
+.feed .reply .userblock {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: inline-flex;
+}
+.feed .reply .userblock .user-name {
   color: #2698D4;
   font-weight: normal;
 }
@@ -311,6 +319,7 @@
   margin-top: -40px;
   line-height: normal;
   margin-left: 8px;
+  z-index: 1;
 }
 .feed .actions .post-comment svg,
 .feed .reply-actions .post-comment svg {

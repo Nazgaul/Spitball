@@ -8,13 +8,14 @@
         itemThumbnailService, user, userUpdatesService,
         $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), page = 0, top = ($window.innerHeight <= 600) ? 10 : 20;
-        
+
         self.add = {
             files: [],
             disabled: false,
             googleDisabled: true,
             dropboxDisabled: true
         };
+        self.likeDisabled = false;
 
         self.add.createReply = createReply;
 
@@ -41,15 +42,14 @@
         self.likeReply = likeReply;
         self.likeReplyDialog = likeReplyDialog;
         self.likeCommentDialog = likeCommentDialog;
-        self.feedUpdates = {};
+        var feedUpdates = {};
 
         boxService.getFeed(boxId, top, 0).then(function (response) {
             self.data = response;
             userUpdatesService.boxUpdates(boxId, function (updates) {
-                self.feedUpdates = updates;
-                assignData();
+                feedUpdates = updates;
             });
-
+            assignData();
         });
         function likeCommentDialog(comment, ev) {
             if (!comment.likesCount) {
@@ -84,6 +84,7 @@
         }
 
         function likeComment(comment) {
+            self.likeDisabled = true;
             if (!user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
@@ -97,9 +98,11 @@
                     comment.likesCount--;
                     comment.isLiked = false;
                 }
+                self.likeDisabled = false;
             });
         }
         function likeReply(reply2) {
+            self.likeDisabled = true;
             if (!user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
@@ -113,6 +116,7 @@
                     reply2.likesCount--;
                     reply2.isLiked = false;
                 }
+                self.likeDisabled = false;
             });
         }
 
@@ -130,7 +134,7 @@
         function assignData() {
             for (var i = 0; i < self.data.length; i++) {
                 var currentPost = self.data[i];
-                if (self.feedUpdates && self.feedUpdates[currentPost.id]) {
+                if (feedUpdates && feedUpdates[currentPost.id]) {
                     currentPost.isNew = true;
                 }
                 var files = currentPost.files;
@@ -152,7 +156,7 @@
                 for (var k = 0; currentPost.replies && k < currentPost.replies.length; k++) {
                     var currentReply = currentPost.replies[k];
                     angular.forEach(currentReply.files, buildItem);
-                    if (self.feedUpdates && self.feedUpdates[currentReply.id]) {
+                    if (feedUpdates && feedUpdates[currentReply.id]) {
                         currentReply.isNew = true;
                     }
                     //self.data[i].replies[k].files = itemThumbnailService.assignValues(self.data[i].replies[k].files, 100, 141);

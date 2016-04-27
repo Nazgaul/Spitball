@@ -138,10 +138,6 @@ md-input-container:not(.md-input-invalid) label {
 .add-comment :-ms-input-placeholder {
   color: #5d6063;
 }
-.add-comment .md-input:active,
-.add-comment .md-input:focus {
-  color: #fff;
-}
 @media (min-width: 600px) {
   .add-comment input[type=checkbox]:checked + label .text {
     color: #d39f10;
@@ -207,9 +203,6 @@ md-input-container:not(.md-input-invalid) label {
 }
 .quiz .top .first-letter {
   border: 1px solid #f5f5f5;
-}
-.quiz .bottom .name {
-  color: #282828;
 }
 .quiz .details {
   background: #323538;

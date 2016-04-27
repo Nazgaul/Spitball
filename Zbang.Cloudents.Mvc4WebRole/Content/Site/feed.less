@@ -154,7 +154,10 @@
                     width: 100%;
                     border: none;
                     padding: 14px 0 10px 10px;
-                    color: @backgroundColorMouseOver;
+
+                    &.ng-not-empty {
+                        color: @backgroundColorMouseOver;
+                    }
 
                     &:focus {
                         color: @backgroundColorMouseOver;
@@ -320,9 +323,13 @@
             top: -7px;
         }
 
-        .user-name {
-            color: @textColorBlue;
-            font-weight: normal;
+        .userblock {
+            .displayInlineFlex;
+
+            .user-name {
+                color: @textColorBlue;
+                font-weight: normal;
+            }
         }
 
         > .content-text {
@@ -353,6 +360,7 @@
             margin-top: -40px;
             line-height: normal;
             margin-right: 8px;
+            z-index: 1;
 
             svg {
                 width: 22px;

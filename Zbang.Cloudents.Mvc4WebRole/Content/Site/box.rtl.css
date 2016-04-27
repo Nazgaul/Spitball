@@ -397,6 +397,7 @@ library-list {
   font-size: 14px;
   line-height: 16px;
   width: 100%;
+  color: #282828;
 }
 .quiz .stats {
   padding-top: 5px;
