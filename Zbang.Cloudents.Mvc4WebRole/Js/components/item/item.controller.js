@@ -136,6 +136,10 @@
             }
             i.details.like = !i.details.like;
         }
+
+        $scope.$on("$destroy", function () {
+            $scope.app.fixedBgColor = false;
+        });
     }
 
 

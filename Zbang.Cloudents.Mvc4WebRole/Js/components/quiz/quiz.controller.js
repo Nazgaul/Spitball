@@ -337,6 +337,9 @@
 
         }
 
+        $scope.$on("$destroy", function () {
+            $scope.app.fixedBgColor = false;
+        });
     }
 
 

@@ -817,7 +817,7 @@ md-menu-item.blue svg {
 .itemPage header {
   width: 100%;
   position: relative;
-  height: 60px;
+  min-height: 60px;
 }
 .itemPage header .page-logo svg {
   width: 180px;
@@ -888,15 +888,14 @@ md-menu-item.blue svg {
 }
 .itemPage header .top-wrapper .name-actions .item-actions {
   white-space: nowrap;
-  margin-left: auto;
 }
-.itemPage header .top-wrapper .name-actions .item-actions item-menu {
+.itemPage header .top-wrapper .name-actions .item-actions .item-menu {
   height: 16px;
 }
-.itemPage header .top-wrapper .name-actions .item-actions item-menu .md-menu {
+.itemPage header .top-wrapper .name-actions .item-actions .item-menu .md-menu {
   padding: 0;
 }
-.itemPage header .top-wrapper .name-actions .item-actions item-menu .md-menu .md-icon-button {
+.itemPage header .top-wrapper .name-actions .item-actions .item-menu .md-menu .md-icon-button {
   margin: 0;
   min-height: 0;
   height: 16px;
@@ -912,7 +911,7 @@ md-menu-item.blue svg {
   position: absolute;
   right: 0;
   top: 10px;
-  padding: 0 6px;
+  padding: 0 10px 0 6px;
 }
 .itemPage md-select:not([disabled]):focus .md-select-value {
   color: #282828;
@@ -938,6 +937,7 @@ md-menu-item.blue svg {
 .itemPage .fileName .name-info h1 {
   font-size: 20px;
   margin: 0;
+  line-height: normal;
 }
 .itemPage .fileName .name-info,
 .itemPage .fileName .flag-form {
@@ -950,7 +950,10 @@ md-menu-item.blue svg {
 .itemPage .fileName .rename-form {
   max-width: 746px;
   width: 100%;
-  padding: 3px 55px;
+  padding: 3px 0;
+}
+.itemPage .fileName .rename-form md-input-container {
+  margin-bottom: 0;
 }
 .itemPage .fileName form {
   margin: 0 auto;
@@ -1084,7 +1087,7 @@ md-menu-item.blue svg {
 }
 .itemPage .comments-wrapper {
   position: fixed !important;
-  top: 85px;
+  top: 76px;
   width: 300px;
   z-index: 2;
   padding-right: 53px;
@@ -1233,6 +1236,27 @@ md-menu-item.blue svg {
   text-align: center;
   display: inline;
 }
+.itemPage .hideActions .top-wrapper {
+  padding: 10px 0 24px 0;
+  width: calc(100% - 70px);
+}
+.itemPage .hideActions .top-wrapper .fileName {
+  width: 100%;
+}
+.itemPage .hideActions .item-actions {
+  display: none;
+}
+.itemPage .hideActions .flag-form .rounded-input {
+  width: 100%;
+}
+.itemPage .hideActions .name-actions .fileName {
+  margin: 0 auto;
+}
+@media (max-width: 600px) {
+  .itemPage .hideActions .comments-wrapper {
+    display: none;
+  }
+}
 .raw-text {
   color: #282828;
 }
@@ -1259,7 +1283,11 @@ md-menu-item.blue svg {
 .preview {
   text-align: center;
   margin: 0 auto;
-  padding: 0 24px;
+}
+@media (min-width: 600px) {
+  .preview {
+    padding: 0 24px;
+  }
 }
 .preview .preview-page {
   max-width: 800px;

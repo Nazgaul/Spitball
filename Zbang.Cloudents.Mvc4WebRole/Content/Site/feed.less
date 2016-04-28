@@ -42,11 +42,15 @@
             position: absolute;
             top: 50%;
             margin-top: -@svgSize/2;
+            background: @buttonColorBlue;
+            border-radius: 100%;
+            padding: 8px 6px 8px 10px;
+            z-index: 2;
 
             svg {
-                width: @svgSize;
-                height: @svgSize;
-                fill: @textColorGrey;
+                width: 20px;
+                height: 20px;
+                fill: @textColorWhite;
             }
 
             &.disabled {
@@ -74,7 +78,7 @@
     }
 
     .items-container {
-        margin: 0 0 10px @userImageIndent+5;
+        margin: 15px 5px;
         direction: ltr /*rtl:ignore*/;
 
         .feed-item {
@@ -386,7 +390,7 @@
             }
         }
 
-        span ,input {
+        span, input {
             font-size: 14px;
         }
 

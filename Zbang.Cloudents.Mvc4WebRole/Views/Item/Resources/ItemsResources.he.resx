@@ -174,4 +174,7 @@
   <data name="ShowRawText" xml:space="preserve">
     <value>צפה בטקסט המסמך</value>
   </data>
+  <data name="NewReply" xml:space="preserve">
+    <value>השב</value>
+  </data>
 </root>

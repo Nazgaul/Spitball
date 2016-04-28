@@ -36,12 +36,16 @@
   position: absolute;
   top: 50%;
   margin-top: -12.5px;
+  background: #4190b9;
+  border-radius: 100%;
+  padding: 8px 10px 8px 6px;
+  z-index: 2;
 }
 .feed .items-slider .items-next svg,
 .feed .items-slider .items-prev svg {
-  width: 25px;
-  height: 25px;
-  fill: #888b8e;
+  width: 20px;
+  height: 20px;
+  fill: #f5f5f5;
 }
 .feed .items-slider .items-next.disabled,
 .feed .items-slider .items-prev.disabled {
@@ -64,7 +68,7 @@
   right: 0;
 }
 .feed .items-container {
-  margin: 0 67px 10px 0;
+  margin: 15px 5px;
   direction: ltr ;
 }
 .feed .items-container .feed-item {

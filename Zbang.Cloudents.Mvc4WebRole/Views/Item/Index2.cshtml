@@ -4,7 +4,7 @@
     const string svgUrl = "~/images/site/itemIcons.svg";
     const string logoUrl = "~/images/site/icons.svg";
 }
-<div srph-infinite-scroll="i.loadMore()" container="true" unregister-scroll="true">
+<div srph-infinite-scroll="i.loadMore()" container="true" unregister-scroll="true" ng-class="{hideActions: i.selectedState === i.state.flag || i.selectedState === i.state.rename}">
     <header layout="row" layout-align="space-between center">
         <div class="top-wrapper">
             <div class="name-actions" layout="row" layout-align="space-between center">
@@ -89,7 +89,7 @@
                     <span>{{::i.details.date | date : 'mediumDate'}}</span>
                 </div>
             </div>
-            <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+            <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl); " ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
         </div>
     </header>
     <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>

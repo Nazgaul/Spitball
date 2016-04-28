@@ -174,4 +174,7 @@
   <data name="ShowRawText" xml:space="preserve">
     <value>See the raw text of the file</value>
   </data>
+  <data name="NewReply" xml:space="preserve">
+    <value>Reply</value>
+  </data>
 </root>

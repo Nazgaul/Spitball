@@ -29,7 +29,7 @@ md-menu-item {
     header {
         width: 100%;
         position: relative;
-        height: @actionsNavHeight;
+        min-height: @actionsNavHeight;
 
         .page-logo {
             svg {
@@ -113,9 +113,8 @@ md-menu-item {
             .name-actions {
                 .item-actions {
                     white-space: nowrap;
-                    margin-left: auto;
 
-                    item-menu {
+                    .item-menu {
                         height: 16px;
 
                         .md-menu {
@@ -145,7 +144,7 @@ md-menu-item {
             position: absolute;
             right: 0;
             top: 10px;
-            padding: 0 6px;
+            padding: 0 10px 0 6px;
         }
     }
 
@@ -178,6 +177,7 @@ md-menu-item {
             h1 {
                 font-size: 20px;
                 margin: 0;
+                line-height: normal;
             }
         }
 
@@ -193,7 +193,11 @@ md-menu-item {
         .rename-form {
             max-width: 746px;
             width: 100%;
-            padding: 3px 55px;
+            padding: 3px 0;
+
+            md-input-container {
+                margin-bottom: 0;
+            }
         }
 
         form {
@@ -356,7 +360,7 @@ md-menu-item {
 
     .comments-wrapper {
         position: fixed !important;
-        top: 85px;
+        top: 76px;
         width: 300px;
         z-index: 2;
         padding-right: 53px;
@@ -535,6 +539,37 @@ md-menu-item {
         text-align: center;
         display: inline;
     }
+
+    .hideActions {
+        .top-wrapper {
+            padding: 10px 0 24px 0;
+            width: ~"calc(100% - 70px)";
+
+            .fileName {
+                width: 100%;
+            }
+        }
+
+        .item-actions {
+            display: none;
+        }
+
+        .flag-form .rounded-input {
+            width: 100%;
+        }
+
+        .name-actions {
+            .fileName {
+                margin: 0 auto;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .comments-wrapper {
+                display: none;
+            }
+        }
+    }
 }
 
 
@@ -568,7 +603,10 @@ md-menu-item {
 .preview {
     text-align: center;
     margin: 0 auto;
-    padding: 0 24px;
+
+    @media (min-width: 600px) {
+        padding: 0 24px;
+    }
 
     .preview-page {
         max-width: 800px;

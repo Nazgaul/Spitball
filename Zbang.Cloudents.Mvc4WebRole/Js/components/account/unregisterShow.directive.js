@@ -40,7 +40,7 @@
                     return;
                 }
                 var windowHeight = $(window).height();
-                var $container = attrs.unregisterScroll ? element : angular.element($window);
+                var $container = angular.element($window);
 
                 $container.on('scroll', $handle);
                 scope.$on('$destroy', function () {
