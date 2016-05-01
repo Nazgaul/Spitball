@@ -68,7 +68,7 @@
         function switchTab(tab) {
             self.tab = tab;
             self.allContacts = [];
-            i.filterQuery = '';
+            self.filterQuery = '';
             switch (self.tab) {
                 case self.state.spitball:
                     getSystemUsers();

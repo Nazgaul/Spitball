@@ -1,10 +1,10 @@
 ﻿(function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope'];
+        'itemData', '$scope','resManager'];
 
     function item($stateParams, itemService, $sce, $location, $q,
-        user, itemData, $scope) {
+        user, itemData, $scope, resManager) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
@@ -131,7 +131,7 @@
                 i.details.likes--;
             } else {
                 //TODO: bring back the toaster when item page is no longer pop up
-                //$scope.app.showToaster(resManager.get('toasterLikeItem'));
+                $scope.app.showToaster(resManager.get('toasterLikeItem'));
                 i.details.likes++;
             }
             i.details.like = !i.details.like;

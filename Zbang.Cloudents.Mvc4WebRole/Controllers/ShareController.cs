@@ -161,5 +161,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return PartialView();
         }
+
+        [ZboxAuthorize,HttpPost]
+        public ActionResult Index()
+        {
+            return JsonOk();
+        }
     }
 }
