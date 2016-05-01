@@ -16,6 +16,5 @@
 
         public string DepartmentName { get; set; }
 
-        public string UniversityName { get; set; }
     }
 }

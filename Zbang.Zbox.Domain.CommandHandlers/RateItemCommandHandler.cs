@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_UserRepository = userRepository;
             m_QueueProvider = queueProvider;
         }
-        public async Task HandleAsync(RateItemCommand message)
+        public Task HandleAsync(RateItemCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var userRate = m_ItemRateRepository.GetRateOfUser(message.UserId, message.ItemId);
@@ -35,33 +35,27 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var item = m_ItemRepository.Load(message.ItemId);
             item.ShouldMakeDirty = () => false;
 
-            await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(item.UploaderId));
+
             if (userRate != null)
             {
                 m_ItemRateRepository.Delete(userRate);
-                //userRate.Rate = message.Rate;
-                //m_ItemRateRepository.Save(userRate, true);
-
-                //var avg = CalculateAverage(message.ItemId);
                 item.LikeCount--;
                 m_ItemRepository.Save(item);
-                return;
-
-
+                return ReturnValueAsync(item.UploaderId);
             }
             var user = m_UserRepository.Load(message.UserId);
             userRate = new ItemRate(user, item, message.Id);
             m_ItemRateRepository.Save(userRate);
             item.LikeCount++;
-            //var average = CalculateAverage(message.ItemId);
-            //item.CalculateRate((int)average);
             m_ItemRepository.Save(item);
+            return ReturnValueAsync(item.UploaderId);
         }
 
-        //private double CalculateAverage(long itemId)
-        //{
-        //    return m_ItemRateRepository.CalculateItemAverage(itemId);
-        //}
+        private Task ReturnValueAsync(long userId)
+        {
+            return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(userId));
+        }
+
 
 
 

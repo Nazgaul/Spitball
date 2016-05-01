@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var user = m_UserRepository.Load(message.UserId);
-            var reputation = user.AddReputation(Infrastructure.Enums.ReputationAction.ShareFacebook);
+            var reputation = user.AddReputation(message.ReputationAction);
 
             m_ReputationRepository.Save(reputation);
             m_UserRepository.Save(user);

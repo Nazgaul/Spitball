@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
             }
             var answer = new CommentReplies(user, text, box, message.Id, question, files);
-            var reputation = user.AddReputation(ReputationAction.AddAnswer);
+            var reputation = user.AddReputation(ReputationAction.AddReply);
             question.ReplyCount++;
             question.LastReplyId = answer.Id;
             question.DateTimeUser.UpdateUserTime(user.Id);

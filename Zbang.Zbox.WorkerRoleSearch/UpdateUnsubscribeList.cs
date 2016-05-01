@@ -23,7 +23,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private string m_LeaseId = string.Empty;
         private readonly TimeSpan m_SleepTime = TimeSpan.FromMinutes(30);
         private const string Prefix = "SendGridApi";
-        private readonly IMailComponent m_MailComponent;
+        //private readonly IMailComponent m_MailComponent;
 
 
         private readonly IEnumerable<JobPerApi> m_Jobs;
@@ -39,7 +39,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 new JobPerApi {Func = mailComponent.GetUnsubscribesAsync, Type = EmailSend.Unsubscribe},
                 new JobPerApi {Func = mailComponent.GetInvalidEmailsAsync, Type = EmailSend.Invalid},
             };
-            m_MailComponent = mailComponent;
+            //m_MailComponent = mailComponent;
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
@@ -74,7 +74,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                     //var needToContinueRun = true;
                     TraceLog.WriteInfo($"{Prefix} update unsubscribe list data {m_DateTime}");
-                    await m_MailComponent.GenerateSystemEmailAsync("sendgrid api", $"{Prefix} starting to run ");
+                    //await m_MailComponent.GenerateSystemEmailAsync("sendgrid api", $"{Prefix} starting to run ");
                     foreach (var job in m_Jobs)
                     {
                         var page = 0;
@@ -98,7 +98,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     m_DateTime = DateTime.UtcNow.AddDays(-1);
                     await blob.UploadTextAsync(m_DateTime.ToFileTimeUtc().ToString(), Encoding.Default, new AccessCondition { LeaseId = m_LeaseId }, new BlobRequestOptions(), new OperationContext(), cancellationToken);
                     await ReleaseLeaseAsync(blob, cancellationToken);
-                    await m_MailComponent.GenerateSystemEmailAsync("sendgrid api", $"{Prefix} done");
+                    //await m_MailComponent.GenerateSystemEmailAsync("sendgrid api", $"{Prefix} done");
                     await Task.Delay(m_SleepTime, cancellationToken);
                 }
                 catch (TaskCanceledException)

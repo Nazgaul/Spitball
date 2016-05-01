@@ -163,8 +163,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize,HttpPost]
-        public ActionResult Index()
+        public async Task<JsonResult> Index()
         {
+            var command = new AddReputationCommand(User.GetUserId(),
+                Zbox.Infrastructure.Enums.ReputationAction.ShareFacebook);
+            await ZboxWriteService.AddReputationAsync(command);
             return JsonOk();
         }
     }
