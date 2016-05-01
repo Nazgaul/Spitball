@@ -166,6 +166,7 @@ namespace Zbang.Zbox.Domain
         {
             var usersAffectedByDeleteComment = comment.RepliesReadOnly.Select(s => s.User.Id).Union(new[] { comment.User.Id });
             Comments.Remove(comment);
+            ShouldMakeDirty = () => false;
             UpdateCommentsCount();
             return usersAffectedByDeleteComment;
         }

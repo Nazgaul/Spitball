@@ -63,6 +63,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             question.LastReplyId = answer.Id;
             question.DateTimeUser.UpdateUserTime(user.Id);
             box.UserTime.UpdateUserTime(user.Id);
+            box.ShouldMakeDirty = () => false;
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, answerId: answer.Id));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
 
