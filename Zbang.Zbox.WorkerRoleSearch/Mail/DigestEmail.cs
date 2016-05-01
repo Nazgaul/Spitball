@@ -55,7 +55,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 {
                     pageSize = 10;
                 }
-                var users = await m_ZboxReadService.GetUsersByNotificationSettingsAsync(new GetUserByNotificationQuery(m_DigestEmailHourBack, index, pageSize), token);
+                var users = await m_ZboxReadService.GetUsersByNotificationSettingsAsync(new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize), token);
                 foreach (var user in users)
                 {
                     needToContinueRun = true;
