@@ -27,9 +27,6 @@
   height: 75px;
   background: url('themeSelector.png') -1px -77px;
 }
-.accountPage-wrapper md-tabs-wrapper {
-  background: #323538;
-}
 .accountPage-wrapper .theme-section {
   text-align: right;
   margin-bottom: 30px;

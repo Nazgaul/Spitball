@@ -1,6 +1,9 @@
 ﻿md-input-container:not(.md-input-invalid) label {
   color: #888b8e;
 }
+.accountPage-wrapper md-tabs-wrapper {
+  background: #323538;
+}
 /*#region general.less*/
 /*#region box.less*/
 .folder-selected .folder-name .folder-name-inner,

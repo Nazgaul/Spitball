@@ -187,10 +187,6 @@ Page Loading
 .theme-light md-tabs .md-tab.md-active {
   color: #212325;
 }
-.theme-light md-tabs md-ink-bar {
-  color: #3598dc;
-  background: #fff;
-}
 .theme-light .close:hover {
   color: #212325;
 }
@@ -357,6 +353,9 @@ Page Loading
 }
 .theme-light .accountPage-wrapper .notification-list li .owner {
   color: #888b8e;
+}
+.theme-light .accountPage-wrapper md-tabs-wrapper {
+  background: #ffffff;
 }
 .theme-light .change-email-dialog svg {
   fill: #ffffff;
@@ -1988,6 +1987,9 @@ Page Loading
 .theme-light .box-nav-bar md-next-button svg,
 .theme-light .box-nav-bar md-prev-button svg {
   fill: #ffffff;
+}
+.theme-light .box-nav-bar md-ink-bar {
+  background: #ffffff;
 }
 @media (min-width: 600px) {
   .theme-light .library-choose .add-univeristy {

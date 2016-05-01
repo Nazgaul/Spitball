@@ -3,7 +3,20 @@
 
 .library {
     margin-bottom: 50px;
-    
+
+    .corner {
+        &:after {
+            content: "";
+            display: inline-block;
+            border-left: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+            border-right: 50px solid;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+
     .department-wrap {
         position: relative;
     }

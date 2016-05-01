@@ -131,7 +131,7 @@
                 i.details.likes--;
             } else {
                 //TODO: bring back the toaster when item page is no longer pop up
-                $scope.app.showToaster(resManager.get('toasterLikeItem'));
+                $scope.app.showToaster(resManager.get('toasterLikeItem'), 'main-nav');
                 i.details.likes++;
             }
             i.details.like = !i.details.like;
