@@ -71,7 +71,6 @@ and i.publish = 1 ) t";
 ,i.Discriminator
 ,i.blobname as ImageUrl
 ,l.name as departmentName
-
 from zbox.item i 
 join zbox.box b on i.BoxId = b.BoxId
 left join zbox.University u on b.University = u.Id

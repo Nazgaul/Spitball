@@ -72,7 +72,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var comment = box.AddComment(user, text, command.Id, files, FeedType.None);
             m_CommentRepository.Save(comment);
 
-            var reputation = user.AddReputation(ReputationAction.AddQuestion);
+            var reputation = user.AddReputation(ReputationAction.AddComment);
             m_ReputationRepository.Save(reputation);
             m_BoxRepository.Save(box);
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, questionId: comment.Id));

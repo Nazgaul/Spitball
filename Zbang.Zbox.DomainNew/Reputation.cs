@@ -40,15 +40,15 @@ namespace Zbang.Zbox.Domain
                     return 0;
                 case ReputationAction.AddItem:
                     return ReputationConst.UploadItemScore;
-                case ReputationAction.AddAnswer:
+                case ReputationAction.AddReply:
                     return ReputationConst.AddAnswerScore;
-                case ReputationAction.AddQuestion:
+                case ReputationAction.AddComment:
                     return ReputationConst.AddQuestionScore;
                 case ReputationAction.DeleteItem:
                     return ReputationConst.DeleteItemScore;
-                case ReputationAction.DeleteQuestion:
+                case ReputationAction.DeleteComment:
                     return ReputationConst.DeleteQuestionScore;
-                case ReputationAction.DeleteAnswer:
+                case ReputationAction.DeleteReply:
                     return ReputationConst.DeleteAnswerScore;
                 case ReputationAction.ShareFacebook:
                     return ReputationConst.ShareFacebookScore;
@@ -56,18 +56,18 @@ namespace Zbang.Zbox.Domain
                     return ReputationConst.InviteToCloudentsScore;
                 case ReputationAction.InviteToBox:
                     return ReputationConst.InviteToBoxScore;
-                case ReputationAction.Rate3Stars:
-                    return ReputationConst.Rate3StarScore;
-                case ReputationAction.Rate4Stars:
-                    return ReputationConst.Rate4StarScore;
-                case ReputationAction.Rate5Stars:
-                    return ReputationConst.Rate5StarScore;
-                case ReputationAction.UnRate3Stars:
-                    return ReputationConst.Unrate3StarScore;
-                case ReputationAction.UnRate4Stars:
-                    return ReputationConst.Unrate4StarScore;
-                case ReputationAction.UnRate5Stars:
-                    return ReputationConst.Unrate5StarScore;
+                case ReputationAction.LikeDocument:
+                    return ReputationConst.LikeItem;
+                case ReputationAction.UnLikeDocument:
+                    return ReputationConst.DisLikeItem;
+                //case ReputationAction.LikeDocument:
+                //    return ReputationConst.LikeItem;
+                //case ReputationAction.UnRate3Stars:
+                //    return ReputationConst.Unrate3StarScore;
+                //case ReputationAction.UnRate4Stars:
+                //    return ReputationConst.Unrate4StarScore;
+                //case ReputationAction.UnLikeDocument:
+                //    return ReputationConst.DisLikeItem;
                 case ReputationAction.AddQuiz:
                     return ReputationConst.AddQuizScore;
                 case ReputationAction.DeleteQuiz:

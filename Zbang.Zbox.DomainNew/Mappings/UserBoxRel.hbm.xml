@@ -9,11 +9,11 @@
       <generator class="native"></generator>
     </id>
 
-    <property not-null="true" name="UserRelationshipType" column="UserType" index="iUserBoxRelBoxIdUserType"/>
+    <property not-null="true" name="UserRelationshipType" column="UserType"/>
     <property not-null="true" name="NotificationSettings"/>
 
     <property name="UserId" column="UserId" insert="false" update="false"  />
-    <property name="BoxId" column="BoxId" insert="false" update="false" index="iUserBoxRelBoxIdUserType"  />
+    <property name="BoxId" column="BoxId" insert="false" update="false" />
 
     <many-to-one name="User" class="User" column="UserId" not-null="true" unique-key="userboxrelUserIdBoxId"/>
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true"  unique-key="userboxrelUserIdBoxId"/>
