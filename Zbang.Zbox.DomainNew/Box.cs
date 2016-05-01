@@ -270,10 +270,10 @@ namespace Zbang.Zbox.Domain
         public virtual void DeleteAssociation()
         {
             //We need this because nhibernate try to delete userboxrel without remove it from invites tables
-            foreach (var inviteToBox in Invites)
-            {
-                inviteToBox.RemoveAssociationWithUserBoxRel();
-            }
+            //foreach (var inviteToBox in Invites)
+            //{
+            //    inviteToBox.RemoveAssociationWithUserBoxRel();
+            //}
             Invites.Clear();
             UserBoxRelationship.Clear();
             Comments.Clear();
@@ -289,12 +289,12 @@ namespace Zbang.Zbox.Domain
                 throw new InvalidOperationException("User does not have an active invite");
             }
             UserBoxRelationship.Remove(userBoxRel);
-            var invite = Invites.FirstOrDefault(w => w.UserBoxRel != null && w.UserBoxRel.Id == userBoxRel.Id);
-            if (invite != null)
-            {
-                invite.RemoveAssociationWithUserBoxRel();
-                Invites.Remove(invite);
-            }
+            //var invite = Invites.FirstOrDefault(w => w.UserBoxRel != null && w.UserBoxRel.Id == userBoxRel.Id);
+            //if (invite != null)
+            //{
+            //    invite.RemoveAssociationWithUserBoxRel();
+            //    Invites.Remove(invite);
+            //}
             CalculateMembers();
         }
 

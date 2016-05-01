@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public async Task HandleAsync(SubscribeToSharedBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-           // var user = m_UserRepository.Load(command.UserId);
+            // var user = m_UserRepository.Load(command.UserId);
             //var box = m_BoxRepository.Load(command.BoxId);
 
             var userBoxRel = m_UserRepository.GetUserBoxRelationship(command.UserId, command.BoxId);
@@ -54,25 +54,28 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var user = m_UserRepository.Load(command.UserId);
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
                 m_UserRepository.Save(user);
-                if (userBoxRel != null) await GiveReputationAsync(userBoxRel.Id);
+                if (userBoxRel != null) await GiveReputationAsync(user.Email, box.Id);
                 box.CalculateMembers();
                 m_BoxRepository.Save(box);
             }
         }
 
-        
 
-        private async Task GiveReputationAsync(long userBoxRelId)
+
+        private async Task GiveReputationAsync(string email, long boxId)
         {
-            var invite = m_InviteRepository.GetUserInvite(userBoxRelId);
-            if (invite == null)
-                return;
-            if (invite.IsUsed)
-                return;
-            m_ReputationRepository.Save(invite.Sender.AddReputation(invite.GiveAction()));
-            invite.UsedInvite();
-            m_UserRepository.Save(invite.Sender);
-            await m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(invite.Sender.Id));
+            var invites = m_InviteRepository.GetUserInvitesToBox(email, boxId);
+            foreach (var invite in invites)
+            {
+                if (invite == null)
+                    return;
+                if (invite.IsUsed)
+                    return;
+                m_ReputationRepository.Save(invite.Sender.AddReputation(invite.GiveAction()));
+                invite.UsedInvite();
+                m_UserRepository.Save(invite.Sender);
+                await m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(invite.Sender.Id));
+            }
         }
     }
 }

@@ -70,7 +70,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                         continue;
                     }
 
-                    var inviteToBox = new InviteToBox(id, sender, box, null, null, recipientEmail, recipientEmail);
+                    var inviteToBox = new InviteToBox(id, sender, box, recipientEmail, recipientEmail);
                     m_InviteRepository.Save(inviteToBox);
                     tasks.Add(SendInviteAsync(sender.Name, box.Name,
                         id, box.Id,
