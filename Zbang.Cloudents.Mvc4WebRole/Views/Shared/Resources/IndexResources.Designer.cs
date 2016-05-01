@@ -142,7 +142,27 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Share this class with your facebook friends.
+        ///   Looks up a localized string similar to We cannot find your friend on Gmail.
+        ///Have you tried searching through Spitball or messaging them on Facebook?.
+        /// </summary>
+        public static string EmptyStateGmailInvite {
+            get {
+                return ResourceManager.GetString("EmptyStateGmailInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We cannot find your friend on Spitball.
+        ///Have you tried searching through Gmail or messaging them on Facebook?.
+        /// </summary>
+        public static string EmptyStateSpitballInvite {
+            get {
+                return ResourceManager.GetString("EmptyStateSpitballInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share this class with your Facebook friends.
         /// </summary>
         public static string FacebookContact {
             get {

@@ -117,6 +117,22 @@
 .invite.invite-dialog .content .center md-input-container {
   margin-bottom: 0;
 }
+.invite.invite-dialog .content .center .empty-state {
+  height: 290px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  color: #888b8e;
+  max-width: 420px;
+  font-size: 22px;
+  margin: 0 auto;
+  text-align: center;
+  white-space: pre-wrap;
+}
 .invite.invite-dialog .content .center md-list {
   -moz-user-select: none;
   -ms-user-select: none;

@@ -218,9 +218,17 @@
     <value>Something went wrong</value>
   </data>
   <data name="FacebookContact" xml:space="preserve">
-    <value>Share this class with your facebook friends</value>
+    <value>Share this class with your Facebook friends</value>
   </data>
   <data name="AddSpitball" xml:space="preserve">
     <value>Type your friend's name</value>
+  </data>
+  <data name="EmptyStateSpitballInvite" xml:space="preserve">
+    <value>We cannot find your friend on Spitball.
+Have you tried searching through Gmail or messaging them on Facebook?</value>
+  </data>
+  <data name="EmptyStateGmailInvite" xml:space="preserve">
+    <value>We cannot find your friend on Gmail.
+Have you tried searching through Spitball or messaging them on Facebook?</value>
   </data>
 </root>

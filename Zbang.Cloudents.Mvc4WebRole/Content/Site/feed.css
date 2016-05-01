@@ -85,7 +85,7 @@
 }
 @media (min-width: 600px) {
   .feed .posts-list .actions {
-    padding: 0 0 0 62px;
+    padding: 0;
   }
 }
 .feed .posts-list .actions .comment-btn,
@@ -300,10 +300,6 @@
 }
 .feed .reply > .content-text {
   margin-bottom: 0;
-  margin-top: -6px;
-}
-.feed .reply .actions-wrapper {
-  margin-left: 62px;
 }
 .feed .actions svg,
 .feed .reply-actions svg {
@@ -398,7 +394,6 @@
   position: relative;
 }
 .feed .post > .content-text {
-  padding-left: 62px;
   overflow: hidden;
   color: #282828;
 }
@@ -411,10 +406,11 @@
 }
 .feed .content-text {
   line-height: 22px;
+  -ms-word-break: break-word;
   word-break: break-word;
   white-space: pre-wrap;
   color: #181c1d;
-  margin: 0 10px 10px 62px;
+  margin: 6px 10px 10px 0;
 }
 .feed .content-text img {
   max-width: 100%;
@@ -455,7 +451,8 @@
 }
 .feed .show-more {
   margin-bottom: 15px;
-  padding: 0 0 10px 64px;
+  padding: 0 10px 10px 0;
+  text-align: right;
   border-bottom: 1px solid #c3c3c3;
   color: #181c1d;
 }

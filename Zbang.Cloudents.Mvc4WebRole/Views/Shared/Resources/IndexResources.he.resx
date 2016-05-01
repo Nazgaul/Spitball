@@ -222,4 +222,12 @@
   <data name="AddSpitball" xml:space="preserve">
     <value>הקלד את שם חברך</value>
   </data>
+  <data name="EmptyStateSpitballInvite" xml:space="preserve">
+    <value>לא מצאנו את חברך בספיטבול.
+האם ניסית לחפש דרך Gmail או לשתף את הקורס בפייסבוק?</value>
+  </data>
+  <data name="EmptyStateGmailInvite" xml:space="preserve">
+    <value>לא מצאנו את חברך ב-Gmail.
+האם ניסית לחפש דרך ספיטבול או לשתף את הקורס בפייסבוק?</value>
+  </data>
 </root>
