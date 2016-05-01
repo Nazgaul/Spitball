@@ -12,10 +12,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public CreateFacebookUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
             IRepository<University> universityRepository,
-            IRepository<Invite> inviteToCloudentsRepository,
+            IInviteRepository inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository,
-            IRepository<AcademicBox> academicBoxRepository)
-            : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository, academicBoxRepository)
+            IRepository<Box> boxRepository)
+            : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository,
+                  reputationRepository, boxRepository)
         {
 
         }
@@ -66,7 +67,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 UpdateUniversity(facebookCommand.UniversityId.Value, retVal, user);
             }
-            GiveReputationAndAssignToBox(command.InviteId, user);
+            await GiveReputationAndAssignToBoxAsync(command.InviteId, user);
             UserRepository.Save(user);
             return retVal;
         }

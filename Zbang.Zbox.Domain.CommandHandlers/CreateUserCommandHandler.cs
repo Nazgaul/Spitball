@@ -1,6 +1,5 @@
-﻿
-using System;
-using System.Threading;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -18,22 +17,22 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         protected readonly IUserRepository UserRepository;
         private readonly IQueueProvider m_QueueRepository;
         private readonly IRepository<University> m_UniversityRepository;
-        private readonly IRepository<Invite> m_InviteToCloudentsRepository;
+        private readonly IInviteRepository m_InviteToCloudentsRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
-        private readonly IRepository<AcademicBox> m_AcademicBoxRepository;
+        private readonly IRepository<Box> m_BoxRepository;
 
         protected CreateUserCommandHandler(IUserRepository userRepository,
             IQueueProvider queueRepository,
             IRepository<University> universityRepository,
-            IRepository<Invite> inviteToCloudentsRepository,
-            IRepository<Reputation> reputationRepository, IRepository<AcademicBox> academicBoxRepository)
+            IInviteRepository inviteToCloudentsRepository,
+            IRepository<Reputation> reputationRepository, IRepository<Box> boxRepository)
         {
             UserRepository = userRepository;
             m_QueueRepository = queueRepository;
             m_UniversityRepository = universityRepository;
             m_InviteToCloudentsRepository = inviteToCloudentsRepository;
             m_ReputationRepository = reputationRepository;
-            m_AcademicBoxRepository = academicBoxRepository;
+            m_BoxRepository = boxRepository;
         }
 
         public abstract Task<CreateUserCommandResult> ExecuteAsync(CreateUserCommand command);
@@ -44,34 +43,33 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return m_QueueRepository.InsertMessageToMailNewAsync(new WelcomeMailData(user.Email, user.Name, user.Culture));
         }
 
-        protected void GiveReputationAndAssignToBox(Guid? invId, User user)
+        protected async Task GiveReputationAndAssignToBoxAsync(Guid? invId, User user)
         {
-            if (!invId.HasValue)
-            {
-                return;
-            }
-            var invite = m_InviteToCloudentsRepository.Get(invId.Value); // Load won't give null
-            if (invite == null)
-            {
-                return;
-            }
-            if (invite.IsUsed)
-            {
-                return;
-            }
-            var reputation = invite.Sender.AddReputation(invite.GiveAction());
-            m_ReputationRepository.Save(reputation);
-            invite.UsedInvite();
+            var inviteId = invId ?? Guid.Empty;
+            var invites = m_InviteToCloudentsRepository.GetUserInvites(user.Email, inviteId); // Load won't give null
 
-            UserRepository.Save(invite.Sender);
-            m_InviteToCloudentsRepository.Save(invite);
-            m_QueueRepository.InsertMessageToTranaction(new ReputationData(invite.Sender.Id));
-
-            var inviteToBox = invite as InviteToBox;
-            if (inviteToBox != null)
+            var list = new List<Task>();
+            foreach (var invite in invites)
             {
-                user.ChangeUserRelationShipToBoxType(inviteToBox.Box, UserRelationshipType.Subscribe);
+                if (invite.IsUsed)
+                {
+                    continue;
+                }
+                var reputation = invite.Sender.AddReputation(invite.GiveAction());
+                m_ReputationRepository.Save(reputation);
+                invite.UsedInvite();
+
+                UserRepository.Save(invite.Sender);
+                m_InviteToCloudentsRepository.Save(invite);
+                list.Add(m_QueueRepository.InsertMessageToTranactionAsync(new ReputationData(invite.Sender.Id)));
+
+                var inviteToBox = invite as InviteToBox;
+                if (inviteToBox != null)
+                {
+                    user.ChangeUserRelationShipToBoxType(inviteToBox.Box, UserRelationshipType.Subscribe);
+                }
             }
+            await Task.WhenAll(list);
         }
 
 
@@ -136,13 +134,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 return;
             }
-            var box = m_AcademicBoxRepository.Get(boxId.Value);
+
+            var box = m_BoxRepository.Get(boxId.Value);
             if (box == null)
             {
                 return;
             }
-
-            UpdateUniversity(box.University, result, user);
+            user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
+            var academicBox = box as AcademicBox;
+            if (academicBox != null)
+            {
+                UpdateUniversity(academicBox.University, result, user);
+            }
         }
 
 

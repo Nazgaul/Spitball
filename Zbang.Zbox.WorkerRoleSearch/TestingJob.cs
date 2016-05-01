@@ -18,9 +18,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("digestEveryChange");
             if (process != null)
             {
-                x.Add(process.ExecuteAsync(0, p =>
-                {
-                }, cancellationToken));
+                x.Add(process.ExecuteAsync(0, p => Task.FromResult(true), cancellationToken));
             }
 
             //process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("likesReport");

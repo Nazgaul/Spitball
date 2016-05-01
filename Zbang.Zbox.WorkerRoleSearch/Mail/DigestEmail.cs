@@ -40,7 +40,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         }
 
         //private const string ServiceName = "LikesMailProcess";
-        public async Task<bool> ExecuteAsync(int index, Action<int> progress, CancellationToken token)
+        public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
         {
             await SendEmailStatusAsync($"starting to run notification {m_DigestEmailHourBack}");
             var page = index;
@@ -55,7 +55,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 {
                     pageSize = 10;
                 }
-                var users = await m_ZboxReadService.GetUsersByNotificationSettingsAsync(new GetUserByNotificationQuery(m_DigestEmailHourBack, index, pageSize), token);
+                var users = await m_ZboxReadService.GetUsersByNotificationSettingsAsync(new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize), token);
                 foreach (var user in users)
                 {
                     needToContinueRun = true;
@@ -161,7 +161,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 {
                     needToContinueRun = false;
                 }
-                progress(page);
+                await progressAsync(page);
             }
             await SendEmailStatusAsync($"finish to run  with page {page}");
             TraceLog.WriteInfo($"{ServiceName} finish running  mail page {index}");

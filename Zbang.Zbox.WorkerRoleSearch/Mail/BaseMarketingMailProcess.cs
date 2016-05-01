@@ -14,7 +14,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
     public abstract class BaseMarketingMailProcess : IMailProcess
     {
         private readonly IMailComponent m_MailComponent;
-       
+
 
         protected BaseMarketingMailProcess(IMailComponent mailComponent)
         {
@@ -30,9 +30,9 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             get;
         }
 
-        public async Task<bool> ExecuteAsync(int index, Action<int> progress, CancellationToken token)
+        public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
         {
-            await  m_MailComponent.GenerateSystemEmailAsync(ServiceName,"starting to run ");
+            await m_MailComponent.GenerateSystemEmailAsync(ServiceName, "starting to run ");
             var page = index;
             var needToContinueRun = true;
             var list = new List<Task>();
@@ -48,7 +48,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
                 var query = new MarketingQuery(page, pageSize);
                 var result = await GetDataAsync(query, token);
-                
+
                 foreach (var user in result)
                 {
                     needToContinueRun = true;
@@ -73,10 +73,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 {
                     needToContinueRun = false;
                 }
-                progress(page);
+                await progressAsync(page);
 
             }
-            await m_MailComponent.GenerateSystemEmailAsync(ServiceName,$"finish to run  with page {page}");
+            await m_MailComponent.GenerateSystemEmailAsync(ServiceName, $"finish to run  with page {page}");
             TraceLog.WriteInfo($"{ServiceName} finish running  mail page {page}");
             return true;
 

@@ -23,9 +23,9 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         }
 
 
-        public async Task<bool> ExecuteAsync(int index, Action<int> progress, CancellationToken token)
+        public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
         {
-            await m_MailComponent.GenerateSystemEmailAsync(ServiceName," starting to run ");
+            await m_MailComponent.GenerateSystemEmailAsync(ServiceName, " starting to run ");
             var list = new List<Task>();
             TraceLog.WriteInfo($"{ServiceName} running  mail ");
             var result = await m_ZboxReadService.GetLikesDataAsync(token);
@@ -50,7 +50,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     markertingMail, token));
             }
             await Task.WhenAll(list);
-            await m_MailComponent.GenerateSystemEmailAsync(ServiceName,$"finish to run to people {list.Count}");
+            await m_MailComponent.GenerateSystemEmailAsync(ServiceName, $"finish to run to people {list.Count}");
             TraceLog.WriteInfo($"{ServiceName} finish running  mail");
             return true;
         }

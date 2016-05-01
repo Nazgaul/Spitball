@@ -60,7 +60,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                     message.Message = JsonConvert.SerializeObject(messageContent);
                                     using (var memoryStream = new MemoryStream())
                                     {
-                                        SemaphoreSlim criticalCode = new SemaphoreSlim(0, 1);
+                                        SemaphoreSlim criticalCode = new SemaphoreSlim(1);
                                         await criticalCode.WaitAsync(cancellationToken);
                                         try
                                         {

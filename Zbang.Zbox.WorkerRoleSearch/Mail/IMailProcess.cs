@@ -9,6 +9,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
     public interface IMailProcess
     {
-        Task<bool> ExecuteAsync(int index, Action<int> progress, CancellationToken token);
+        Task<bool> ExecuteAsync(int index, Func<int,Task> progressAsync, CancellationToken token);
     }
 }

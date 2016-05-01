@@ -13,10 +13,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public CreateMembershipUserCommandHandler(IUserRepository userRepository,
             IRepository<University> universityRepository,
             IQueueProvider queueRepository,
-            IRepository<Invite> inviteToCloudentsRepository,
+            IInviteRepository inviteToCloudentsRepository,
             IRepository<Reputation> reputationRepository,
-            IRepository<AcademicBox> academicBoxRepository)
-            : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository, academicBoxRepository)
+            IRepository<Box> boxRepository)
+            : base(userRepository, queueRepository, universityRepository, inviteToCloudentsRepository, reputationRepository,
+                  boxRepository)
         {
         }
         public override async Task<CreateUserCommandResult> ExecuteAsync(CreateUserCommand command)
@@ -60,28 +61,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 UpdateUniversity(membershipCommand.UniversityId.Value, retVal, user);
 
             }
-            GiveReputationAndAssignToBox(command.InviteId, user);
+            await GiveReputationAndAssignToBoxAsync(command.InviteId, user);
             UserRepository.Save(user);
             return retVal;
         }
 
-
-
-        //private University GetUniversity(string universityName)
-        //{
-        //    if (string.IsNullOrEmpty(universityName))
-        //    {
-        //        return null;
-        //    }
-        //    var university = m_UniversityRepository.GetUniversity(universityName);
-        //    //if (university == null)
-        //    //{
-        //    //    var images = m_ProfileProvider.GetDefaultProfileImage();
-        //    //    university = new University(universityName, images.Image.AbsoluteUri, images.LargeImage.AbsoluteUri);
-
-        //    //    m_UniversityRepository.Save(university, true);
-        //    //}
-        //    return university;
-        //}
     }
 }
