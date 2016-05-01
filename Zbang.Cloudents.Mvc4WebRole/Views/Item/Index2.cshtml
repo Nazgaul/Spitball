@@ -2,9 +2,8 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @{
     const string svgUrl = "~/images/site/itemIcons.svg";
-    const string logoUrl = "~/images/site/icons.svg";
 }
-<div srph-infinite-scroll="i.loadMore()" container="true" unregister-scroll="true" ng-class="{hideActions: i.selectedState === i.state.flag || i.selectedState === i.state.rename}">
+<div srph-infinite-scroll="i.loadMore()" unregister-scroll="true" ng-class="{hideActions: i.selectedState === i.state.flag || i.selectedState === i.state.rename}">
     <header layout="row" layout-align="space-between center">
         <div class="top-wrapper">
             <div class="name-actions" layout="row" layout-align="space-between center">
@@ -85,7 +84,7 @@
             <div class="second-line" layout="row" layout-align="space-between center" ng-if="i.selectedState === i.state.regular">
                 <div class="item-meta">
                     <a href="{{::i.details.ownerUrl}}">{{::i.details.owner}}</a>
-                    <span>&nbsp-&nbsp</span>
+                    <span>&nbsp;-&nbsp;</span>
                     <span>{{::i.details.date | date : 'mediumDate'}}</span>
                 </div>
             </div>
