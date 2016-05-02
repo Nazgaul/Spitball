@@ -10,7 +10,6 @@
     font-size: 18px;
     width: 100%;
     .justifyContet(center);
-    padding: 0;
     .displayFlex();
     -ms-flex-direction: row;
     -webkit-flex-direction: row;
@@ -105,9 +104,9 @@
                         border-bottom: 3px solid @buttonColorBlue;
                     }
 
-                    &:not(.active) svg {
+                    /*&:not(.active) svg {
                         fill: #585F66;
-                    }
+                    }*/
                 }
             }
 
@@ -277,7 +276,7 @@
                     }*/
                 }
 
-                md-checkbox {
+                /*md-checkbox {
                     margin: 0;
                 }
 
@@ -292,7 +291,7 @@
 
                 md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
                     background-color: rgba(50, 147, 246,0.87);
-                }
+                }*/
             }
 
             .bottom {
@@ -316,13 +315,13 @@
         margin: 0;
     }
 
-    .nav-tabs {
+    /*.nav-tabs {
         list-style: none;
         margin-top: 15px;
         .displayFlex;
-    }
+    }*/
 
-    .tab-from-r {
+    /*.tab-from-r {
         background: none;
         padding-top: 0;
         padding-right: 0;
@@ -330,9 +329,9 @@
         .mail {
             margin-right: 0;
         }
-    }
+    }*/
 
-    &.upload button.btn-default.close {
+    /*&.upload button.btn-default.close {
         background: transparent;
         top: 0;
         position: absolute;
@@ -348,42 +347,20 @@
             width: 15px;
             height: 15px;
         }
-    }
+    }*/
 
 
-    md-content {
+    /*md-content {
         position: relative;
-    }
+    }*/
 
-    md-list md-list-item button.md-button:not([disabled]):hover {
+    /*md-list md-list-item button.md-button:not([disabled]):hover {
         background-color: transparent;
-    }
+    }*/
 
-    md-chips .md-chips {
+    /*md-chips .md-chips {
         box-shadow: 0 1px #888b8e;
-    }
-
-    .tab-content {
-        .buttons {
-            margin-top: 15px;
-            .displayFlex;
-
-            > * {
-                min-height: 0;
-                line-height: 25px;
-                margin-top: 0;
-                text-transform: capitalize;
-            }
-        }
-
-        .uploadLink .buttons {
-            justify-content: flex-end;
-        }
-
-        .uploadFile .buttons {
-            justify-content: center;
-        }
-    }
+    }*/
 }
 
 
@@ -394,9 +371,9 @@
         left: 15px;
         z-index: 999;
 
-        &.hidden-elemnt {
+        /*&.hidden-elemnt {
             display: none;
-        }
+        }*/
 
         .portlet.light.invite {
             border-radius: 100%;
@@ -418,7 +395,7 @@
     }
 }
 
-.chipsdemoContactChips md-content.autocomplete {
+/*.chipsdemoContactChips md-content.autocomplete {
     min-height: 300px;
 }
 
@@ -457,9 +434,9 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-}
+}*/
 
-@media (min-width: 900px) {
+/*@media (min-width: 900px) {
     .chipsdemoContactChips .contact-item {
         float: left;
         width: 33%;
@@ -472,14 +449,14 @@
 
 .chipsdemoContactChips .md-chips {
     padding: 5px 0 8px;
-}
+}*/
 
 
 //override bootstrap
-.md-contact-suggestion img {
+/*.md-contact-suggestion img {
     vertical-align: baseline;
 }
 
 .md-contact-chips .md-chips .md-chip .md-contact-avatar img {
     vertical-align: baseline;
-}
+}*/

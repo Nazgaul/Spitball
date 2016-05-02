@@ -46,6 +46,46 @@
   margin-top: 10px;
   margin-bottom: 10px;
   background: #323538;
+  /*.nav-tabs {
+        list-style: none;
+        margin-top: 15px;
+        .displayFlex;
+    }*/
+  /*.tab-from-r {
+        background: none;
+        padding-top: 0;
+        padding-right: 0;
+
+        .mail {
+            margin-right: 0;
+        }
+    }*/
+  /*&.upload button.btn-default.close {
+        background: transparent;
+        top: 0;
+        position: absolute;
+        right: 0;
+        padding: 7px 15px;
+        margin: 6px auto;
+
+        &:active:hover {
+            background: transparent;
+        }
+
+        svg {
+            width: 15px;
+            height: 15px;
+        }
+    }*/
+  /*md-content {
+        position: relative;
+    }*/
+  /*md-list md-list-item button.md-button:not([disabled]):hover {
+        background-color: transparent;
+    }*/
+  /*md-chips .md-chips {
+        box-shadow: 0 1px #888b8e;
+    }*/
 }
 .invite.invite-dialog {
   max-width: 900px;
@@ -62,6 +102,9 @@
 .invite.invite-dialog .content .tabs button {
   height: 55px;
   background: #323538;
+  /*&:not(.active) svg {
+                        fill: #585F66;
+                    }*/
 }
 .invite.invite-dialog .content .tabs button span {
   margin: 0 auto;
@@ -89,12 +132,25 @@
   background: #f5f5f5 !important;
   border-bottom: 3px solid #4190b9;
 }
-.invite.invite-dialog .content .tabs button:not(.active) svg {
-  fill: #585F66;
-}
 .invite.invite-dialog .content .center {
   min-height: 350px;
   position: relative;
+  /*md-checkbox {
+                    margin: 0;
+                }
+
+                md-checkbox.md-default-theme .md-icon,
+                md-checkbox .md-icon {
+                    border-color: rgba(255, 255, 255, 0.54);
+                }
+
+                md-checkbox .md-ink-ripple {
+                    color: rgba(50, 147, 246,0.87);
+                }
+
+                md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon {
+                    background-color: rgba(50, 147, 246,0.87);
+                }*/
 }
 .invite.invite-dialog .content .center .search-user {
   padding: 10px 15px;
@@ -253,20 +309,6 @@
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
-.invite.invite-dialog .content .center md-checkbox {
-  margin: 0;
-}
-.invite.invite-dialog .content .center md-checkbox.md-default-theme .md-icon,
-.invite.invite-dialog .content .center md-checkbox .md-icon {
-  border-color: rgba(255, 255, 255, 0.54);
-}
-.invite.invite-dialog .content .center md-checkbox .md-ink-ripple {
-  color: rgba(50, 147, 246, 0.87);
-}
-.invite.invite-dialog .content .center md-checkbox.md-default-theme.md-checked .md-icon,
-.invite.invite-dialog .content .center md-checkbox.md-checked .md-icon {
-  background-color: rgba(50, 147, 246, 0.87);
-}
 .invite.invite-dialog .content .bottom {
   text-align: left;
   margin: 5px;
@@ -282,72 +324,15 @@
 .invite.light {
   margin: 0;
 }
-.invite .nav-tabs {
-  list-style: none;
-  margin-top: 15px;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-}
-.invite .tab-from-r {
-  background: none;
-  padding-top: 0;
-  padding-left: 0;
-}
-.invite .tab-from-r .mail {
-  margin-left: 0;
-}
-.invite.upload button.btn-default.close {
-  background: transparent;
-  top: 0;
-  position: absolute;
-  left: 0;
-  padding: 7px 15px;
-  margin: 6px auto;
-}
-.invite.upload button.btn-default.close:active:hover {
-  background: transparent;
-}
-.invite.upload button.btn-default.close svg {
-  width: 15px;
-  height: 15px;
-}
-.invite md-content {
-  position: relative;
-}
-.invite md-list md-list-item button.md-button:not([disabled]):hover {
-  background-color: transparent;
-}
-.invite md-chips .md-chips {
-  box-shadow: 0 1px #888b8e;
-}
-.invite .tab-content .buttons {
-  margin-top: 15px;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-}
-.invite .tab-content .buttons > * {
-  min-height: 0;
-  line-height: 25px;
-  margin-top: 0;
-  text-transform: capitalize;
-}
-.invite .tab-content .uploadLink .buttons {
-  justify-content: flex-end;
-}
-.invite .tab-content .uploadFile .buttons {
-  justify-content: center;
-}
 @media (max-width: 600px) {
   .invite-container {
     position: fixed;
     bottom: 0;
     right: 15px;
     z-index: 999;
-  }
-  .invite-container.hidden-elemnt {
-    display: none;
+    /*&.hidden-elemnt {
+            display: none;
+        }*/
   }
   .invite-container .portlet.light.invite {
     border-radius: 100%;
@@ -364,55 +349,64 @@
     display: none;
   }
 }
-.chipsdemoContactChips md-content.autocomplete {
-  min-height: 300px;
+/*.chipsdemoContactChips md-content.autocomplete {
+    min-height: 300px;
 }
+
 .chipsdemoContactChips .md-item-text.compact {
-  padding-top: 8px;
-  padding-bottom: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
+
 .chipsdemoContactChips .contact-item {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 .chipsdemoContactChips .contact-item.selected {
-  opacity: 0.5;
+    opacity: 0.5;
 }
+
 .chipsdemoContactChips .contact-item.selected h3 {
-  opacity: 0.5;
+    opacity: 0.5;
 }
+
 .chipsdemoContactChips .contact-item .md-list-item-text {
-  padding: 14px 0;
+    padding: 14px 0;
 }
+
 .chipsdemoContactChips .contact-item .md-list-item-text h3 {
-  margin: 0 !important;
-  padding: 0;
-  line-height: 1.2em !important;
+    margin: 0 !important;
+    padding: 0;
+    line-height: 1.2em !important;
 }
-.chipsdemoContactChips .contact-item .md-list-item-text h3,
-.chipsdemoContactChips .contact-item .md-list-item-text p {
-  -ms-text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+
+.chipsdemoContactChips .contact-item .md-list-item-text h3, .chipsdemoContactChips .contact-item .md-list-item-text p {
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}*/
+/*@media (min-width: 900px) {
+    .chipsdemoContactChips .contact-item {
+        float: left;
+        width: 33%;
+    }
 }
-@media (min-width: 900px) {
-  .chipsdemoContactChips .contact-item {
-    float: right;
-    width: 33%;
-  }
-}
+
 .chipsdemoContactChips md-contact-chips {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
+
 .chipsdemoContactChips .md-chips {
-  padding: 5px 0 8px;
+    padding: 5px 0 8px;
+}*/
+/*.md-contact-suggestion img {
+    vertical-align: baseline;
 }
-.md-contact-suggestion img {
-  vertical-align: baseline;
-}
+
 .md-contact-chips .md-chips .md-chip .md-contact-avatar img {
-  vertical-align: baseline;
-}
+    vertical-align: baseline;
+}*/
