@@ -99,7 +99,7 @@
 
         .actions {
             @media(min-width: 600px) {
-                padding: 0 0 0 @userImageIndent;
+                padding: 0;
             }
 
             .comment-btn, .like-btn {
@@ -338,11 +338,6 @@
 
         > .content-text {
             margin-bottom: 0;
-            margin-top: -6px;
-        }
-
-        .actions-wrapper {
-            margin-left: @userImageIndent;
         }
     }
 
@@ -460,7 +455,6 @@
         }
 
         > .content-text {
-            padding-left: @userImageIndent;
             overflow: hidden;
             color: @textColorBlack;
         }
@@ -479,10 +473,11 @@
     .content-text {
         line-height: 22px;
         //-ms-word-break: break-word;
+        -ms-word-break: break-word;
         word-break: break-word;
         white-space: pre-wrap;
         color: @backgroundColor;
-        margin: 0 10px 10px @userImageIndent;
+        margin: 6px 10px 10px 0;
 
         img {
             max-width: 100%;
@@ -536,7 +531,8 @@
 
     .show-more {
         margin-bottom: 15px;
-        padding: 0 0 10px 64px;
+        padding: 0 10px 10px 0;
+        text-align: right;
         border-bottom: 1px solid @textColorLightGrey;
         color: @backgroundColor;
     }

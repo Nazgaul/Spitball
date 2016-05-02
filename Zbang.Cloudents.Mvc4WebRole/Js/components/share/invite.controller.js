@@ -67,7 +67,6 @@
 
         function switchTab(tab) {
             self.tab = tab;
-            self.allContacts = [];
             self.filterQuery = '';
             switch (self.tab) {
                 case self.state.spitball:
@@ -75,6 +74,7 @@
                     break;
                 case self.state.email:
                     self.allContacts = googleContact;
+                    self.nonFilteredContacts = self.allContacts;
                     break;
                 case self.state.facebook:
                     break;
@@ -89,9 +89,12 @@
             if (self.tab === self.state.spitball) {
                 return getSystemUsers(query);
             } else {
-                var results = query ?
-                    self.allContacts = self.nonFilteredContacts.filter(createFilterFor(query)) : [];
-                return results;
+                if (query) {
+                    self.allContacts = self.nonFilteredContacts.filter(createFilterFor(query));
+                } else {
+                    self.allContacts = self.nonFilteredContacts;
+                }
+                return self.allContacts;
             }
         }
         /**
