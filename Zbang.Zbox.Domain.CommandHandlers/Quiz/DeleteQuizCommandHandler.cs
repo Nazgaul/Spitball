@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -10,7 +11,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 {
-    class DeleteQuizCommandHandler : ICommandHandler<DeleteQuizCommand>
+    class DeleteQuizCommandHandler : ICommandHandlerAsync<DeleteQuizCommand>
     {
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IRepository<Box> m_BoxRepository;
@@ -29,7 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_QueueProvider = queueProvider;
             m_CommentRepository = commentRepository;
         }
-        public void Handle(DeleteQuizCommand message)
+        public async Task HandleAsync(DeleteQuizCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
@@ -57,7 +58,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                     m_CommentRepository.Save(quiz.Comment);
                 }
             }
-            m_QueueProvider.InsertMessageToTranaction(new ReputationData(quiz.Owner.Id));
+            await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.Owner.Id));
             m_QuizRepository.Delete(quiz, true);
             quiz.Box.UpdateItemCount();
             m_BoxRepository.Save(quiz.Box);

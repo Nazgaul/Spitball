@@ -456,7 +456,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        public JsonResult FlagRequest(FlagBadItem model)
+        public async Task<JsonResult> FlagRequest(FlagBadItem model)
         {
 
             if (!ModelState.IsValid)
@@ -464,7 +464,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError(GetErrorFromModelState());
             }
 
-            m_QueueProvider.InsertMessageToTranaction(new BadItemData(model.BadItem.GetEnumDescription(), model.Other, User.GetUserId(), model.ItemId));
+            await m_QueueProvider.InsertMessageToTranactionAsync(new BadItemData(model.BadItem.GetEnumDescription(), model.Other, User.GetUserId(), model.ItemId));
             return JsonOk();
         }
 

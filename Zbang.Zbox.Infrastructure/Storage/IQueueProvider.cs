@@ -10,7 +10,6 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task InsertMessageToMailNewAsync(BaseMailData message);
 
-        void InsertMessageToTranaction(DomainProcess message);
         Task InsertMessageToTranactionAsync(DomainProcess message);
         Task InsertMessageToDownloadAsync(UrlToDownloadData message);
     }

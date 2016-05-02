@@ -60,13 +60,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                     message.Message = JsonConvert.SerializeObject(messageContent);
                                     using (var memoryStream = new MemoryStream())
                                     {
-                                        SemaphoreSlim criticalCode = new SemaphoreSlim(1);
+                                        var criticalCode = new SemaphoreSlim(1);
                                         await criticalCode.WaitAsync(cancellationToken);
                                         try
                                         {
                                             m_Dcs.Serialize(memoryStream, message);
                                             msg.SetMessageContent(memoryStream.ToArray());
-                                            await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg);
+                                            await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg, cancellationToken);
                                             TraceLog.WriteInfo($"SchedulerListener - updating queue {message}");
                                         }
                                         catch (Exception ex)

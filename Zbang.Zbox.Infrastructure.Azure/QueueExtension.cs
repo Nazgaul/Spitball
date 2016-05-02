@@ -1,11 +1,8 @@
-﻿//using Microsoft.WindowsAzure.StorageClient;
-
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Queue;
+using Newtonsoft.Json;
 
 namespace Zbang.Zbox.Infrastructure.Azure
 {
@@ -32,33 +29,48 @@ namespace Zbang.Zbox.Infrastructure.Azure
         //    }
         //}
 
-        public static void InsertToQueueProto<T>(this CloudQueue cloudQueue, T data) where T : class
+        //public static void InsertToQueueProto<T>(this CloudQueue cloudQueue, T data) where T : class
+        //{
+        //    if (cloudQueue == null) throw new ArgumentNullException(nameof(cloudQueue));
+        //    using (var m = new MemoryStream())
+        //    {
+        //        ProtoBuf.Serializer.Serialize(m, data);
+        //        m.Seek(0, SeekOrigin.Begin);
+        //        cloudQueue.AddMessage(new CloudQueueMessage(m.ToArray()));
+
+        //    }
+        //}
+
+
+
+        //public static Task DeleteMessagesAsync(this CloudQueue cloudQueue, IEnumerable<CloudQueueMessage> messages)
+        //{
+        //    if (messages == null)
+        //    {
+        //        return Task.FromResult(false);
+        //    }
+        //    var cloudQueueMessages = messages as CloudQueueMessage[] ?? messages.ToArray();
+        //    if (!cloudQueueMessages.Any())
+        //    {
+        //        return Task.FromResult(false);
+        //    }
+        //    var list = cloudQueueMessages.Select(cloudQueue.DeleteMessageAsync).ToList();
+        //    return Task.WhenAll(list);
+        //}
+
+        private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
-            if (cloudQueue == null) throw new ArgumentNullException("cloudQueue");
-            using (var m = new MemoryStream())
-            {
-                ProtoBuf.Serializer.Serialize(m, data);
-                m.Seek(0, SeekOrigin.Begin);
-                cloudQueue.AddMessage(new CloudQueueMessage(m.ToArray()));
-
-            }
-        }
-
-        public static Task DeleteMessagesAsync(this CloudQueue cloudQueue, IEnumerable<CloudQueueMessage> messages)
+            TypeNameHandling = TypeNameHandling.All,
+            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+            NullValueHandling = NullValueHandling.Ignore,
+            TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
+            MissingMemberHandling = MissingMemberHandling.Ignore
+        };
+    public static Task InsertToQueueJsonAsync<T>(this CloudQueue cloudQueue, T data) where T : class
         {
-            if (messages == null)
-            {
-                return Task.FromResult(false);
-            }
-            var cloudQueueMessages = messages as CloudQueueMessage[] ?? messages.ToArray();
-            if (!cloudQueueMessages.Any())
-            {
-                return Task.FromResult(false);
-            }
-            var list = cloudQueueMessages.Select(cloudQueue.DeleteMessageAsync).ToList();
-            return Task.WhenAll(list);
+            var serializedObject = JsonConvert.SerializeObject(data, Settings);
+            return cloudQueue.AddMessageAsync(new CloudQueueMessage(serializedObject));
         }
-
         public static Task InsertToQueueProtoAsync<T>(this CloudQueue cloudQueue, T data) where T : class
         {
             using (var m = new MemoryStream())
@@ -66,12 +78,17 @@ namespace Zbang.Zbox.Infrastructure.Azure
                 ProtoBuf.Serializer.Serialize(m, data);
                 m.Seek(0, SeekOrigin.Begin);
                 return cloudQueue.AddMessageAsync(new CloudQueueMessage(m.ToArray()));
-                
+
             }
+        }
+
+        public static T FromMessageJson<T>(this CloudQueueMessage cloudQueueMessage) where T : class
+        {
+            return JsonConvert.DeserializeObject<T>(cloudQueueMessage.AsString, Settings);
         }
         public static T FromMessageProto<T>(this CloudQueueMessage cloudQueueMessage) where T : class
         {
-            if (cloudQueueMessage == null) throw new ArgumentNullException("cloudQueueMessage");
+            if (cloudQueueMessage == null) throw new ArgumentNullException(nameof(cloudQueueMessage));
             using (var ms = new MemoryStream(cloudQueueMessage.AsBytes))
             {
                 try
@@ -83,10 +100,6 @@ namespace Zbang.Zbox.Infrastructure.Azure
                     return default(T);
 
                 }
-
-                //var dcs = new DataContractSerializer(typeof(T));
-                //T data = dcs.ReadObject(ms) as T;
-                //return data;
             }
         }
     }

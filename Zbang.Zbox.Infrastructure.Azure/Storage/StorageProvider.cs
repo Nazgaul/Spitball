@@ -22,7 +22,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         {
 
             ConfigureStorageAccount();
-            try {
+            try
+            {
                 ConfigureLocalStorage();
             }
             catch { }
@@ -52,7 +53,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                     return;
                 }
                 _cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
-               // CreateStorage();
+                // CreateStorage();
             }
             catch (ArgumentNullException ex)
             {
@@ -175,13 +176,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 
         private static void CreateQueues(CloudQueueClient queueClient)
         {
-            var queue = queueClient.GetQueueReference(QueueName.QueueName2.ToLower());
+            //  var queue = queueClient.GetQueueReference(QueueName.QueueName2.ToLower());
             var downloadContentFromUrlQueue = queueClient.GetQueueReference(QueueName.DownloadContentFromUrl.ToLower());
             var downloadContentFromUrlQueuePahse2 = queueClient.GetQueueReference(QueueName.DownloadContentFromUrlPhase2.ToLower());
             var mailQueue2 = queueClient.GetQueueReference(QueueName.NewMailQueueName.ToLower());
             var transactionQueue = queueClient.GetQueueReference(QueueName.UpdateDomainQueueName.ToLower());
 
-            queue.CreateIfNotExists();
+            //            queue.CreateIfNotExists();
             mailQueue2.CreateIfNotExists();
             transactionQueue.CreateIfNotExists();
             downloadContentFromUrlQueue.CreateIfNotExists();
