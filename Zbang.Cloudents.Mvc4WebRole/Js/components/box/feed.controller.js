@@ -7,7 +7,7 @@
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
         $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window) {
-        var self = this, boxId = parseInt($stateParams.boxId, 10), top = ($window.innerHeight <= 600) ? 5 : 10;
+        var self = this, boxId = parseInt($stateParams.boxId, 10), top = ($window.innerHeight <= 600) ? 10 : 15;
 
         self.add = {
             files: [],
@@ -85,12 +85,12 @@
         }
 
         function likeComment(comment) {
-            self.likeDisabled = true;
             if (!user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
             $scope.$emit('follow-box');
+            self.likeDisabled = true;
             boxService.likeComment(comment.id, boxId).then(function (response) {
                 if (response) {
                     comment.likesCount++;
@@ -99,15 +99,17 @@
                     comment.likesCount--;
                     comment.isLiked = false;
                 }
+                
+            }).finally(function() {
                 self.likeDisabled = false;
             });
         }
         function likeReply(reply2) {
-            self.likeDisabled = true;
             if (!user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
+            self.likeDisabled = true;
             $scope.$emit('follow-box');
             boxService.likeReply(reply2.id, boxId).then(function (response) {
                 if (response) {
@@ -117,6 +119,8 @@
                     reply2.likesCount--;
                     reply2.isLiked = false;
                 }
+               
+            }).finally(function() {
                 self.likeDisabled = false;
             });
         }
@@ -201,7 +205,6 @@
             //boxType //userType
             var confirm = $mdDialog.confirm()
                   .title(resManager.get('deleteReply'))
-                  //.textContent('All of the banks have agreed to forgive you your debts.')
                   .targetEvent(ev)
                   .ok(resManager.get('dialogOk'))
                   .cancel(resManager.get('dialogCancel'));

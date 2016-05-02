@@ -7,7 +7,7 @@
 <div layout="row" layout-padding layout-wrap class="feed-wrapper">
     <div class="feed" flex="100" flex-md="66" flex-lg="60" flex-gt-lg="60">
         @{ Html.RenderPartial("_FeedAddComment");}
-        <ol class="list-unstyled posts-list" srph-infinite-scroll="f.myPagingFunction()">
+        <ol class="list-unstyled posts-list" srph-infinite-scroll="f.myPagingFunction()" threshold="600">
             <li ng-repeat="post in f.data track by post.id" class="post comment">
                 <div class="comments-wrapper">
                     <div class="info" layout="row" align-items="start-center">
