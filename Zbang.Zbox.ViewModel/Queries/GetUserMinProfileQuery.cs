@@ -10,7 +10,7 @@ namespace Zbang.Zbox.ViewModel.Queries
         {
             UserId = userId;
         }
-        public long UserId { get; private set; }
+        public long UserId { get; }
 
         public string CacheKey
         {

@@ -20,14 +20,10 @@
 
         public int PageNumber
         {
-            get;
-            private set;
-        }
+            get; }
 
         public int RowsPerPage
         {
-            get;
-            private set;
-        }
+            get; }
     }
 }

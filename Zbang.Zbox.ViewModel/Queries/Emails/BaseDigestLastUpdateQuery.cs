@@ -11,7 +11,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
             NotificationSettings = notificationSettings;
         }
 
-        private NotificationSettings NotificationSettings { get; set; }
+        private NotificationSettings NotificationSettings { get; }
 
         public int MinutesPerNotificationSettings
         {

@@ -11,7 +11,7 @@ namespace Zbang.Zbox.ViewModel.Queries
             IpAddress = ipAddress;
         }
 
-        public long IpAddress { get; private set; }
+        public long IpAddress { get; }
         public string CacheKey
         {
             get { return IpAddress.ToString(CultureInfo.InvariantCulture); }
