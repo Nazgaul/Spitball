@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.Domain.Commands
 {
-  public  class DeleteItemCommentReplyCommand : ICommand
+  public  class DeleteItemCommentReplyCommand : ICommandAsync
     {
       public DeleteItemCommentReplyCommand(long userId, long replyId)
       {

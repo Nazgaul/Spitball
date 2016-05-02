@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -9,7 +10,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class DeleteItemCommentCommandHandler : ICommandHandler<DeleteItemCommentCommand>
+    public class DeleteItemCommentCommandHandler : ICommandHandlerAsync<DeleteItemCommentCommand>
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<ItemComment> m_ItemCommentRepository;
@@ -25,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_ItemRepository = itemRepository;
             m_QueueProvider = queueProvider;
         }
-        public void Handle(DeleteItemCommentCommand message)
+        public Task HandleAsync(DeleteItemCommentCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
@@ -39,9 +40,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             itemComment.Item.DecreaseNumberOfComments();
             itemComment.Item.ShouldMakeDirty = () => false;
             m_ItemRepository.Save(itemComment.Item);
-            m_QueueProvider.InsertMessageToTranaction(
-                new ReputationData(itemComment.GetUserIdReplies().Union(new[] {user.Id})));
             m_ItemCommentRepository.Delete(itemComment);
+            return m_QueueProvider.InsertMessageToTranactionAsync(
+                new ReputationData(itemComment.GetUserIdReplies().Union(new[] {user.Id})));
+           
         }
     }
 }

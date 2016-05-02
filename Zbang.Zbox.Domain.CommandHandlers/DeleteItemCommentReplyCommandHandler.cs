@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
@@ -7,7 +8,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class DeleteItemCommentReplyCommandHandler : ICommandHandler<DeleteItemCommentReplyCommand>
+    public class DeleteItemCommentReplyCommandHandler : ICommandHandlerAsync<DeleteItemCommentReplyCommand>
     {
         private readonly IRepository<ItemCommentReply> m_ItemCommentReplyRepository;
         private readonly IQueueProvider m_QueueProvider;
@@ -19,7 +20,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_QueueProvider = queueProvider;
         }
 
-        public void Handle(DeleteItemCommentReplyCommand message)
+        public Task HandleAsync(DeleteItemCommentReplyCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
@@ -31,8 +32,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException("User is unauthorized to delete annotation");
             }
             //itemComment.Item.DecreaseNumberOfComments();
-            m_QueueProvider.InsertMessageToTranaction(new ReputationData(itemReply.Author.Id));
+            
             m_ItemCommentReplyRepository.Delete(itemReply);
+            return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(itemReply.Author.Id));
         }
     }
 }
