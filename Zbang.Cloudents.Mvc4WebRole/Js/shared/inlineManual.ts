@@ -25,7 +25,7 @@ declare var inlineManualTracking: any;
                 //group: "Doe & Partners",
                 //plan: "Standard"
             }
-            !function () { var e = document.createElement("script"), t = document.getElementsByTagName("script")[0]; e.async = true, e.src = "https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js", e.charset = "UTF-8", t.parentNode.insertBefore(e, t); } ();
+            $timeout(injectInlineManual, 0, false);
         });
 
         $rootScope.$on("$stateChangeSuccess", () => {
@@ -40,6 +40,14 @@ declare var inlineManualTracking: any;
             }, 1000);
 
         });
+
+        function injectInlineManual() {
+            var e = document.createElement("script"),
+                t = document.getElementsByTagName("script")[0];
+            e.async = true, e.src = "https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js",
+                e.charset = "UTF-8", t.parentNode.insertBefore(e, t);
+
+        }
     }
 
 
