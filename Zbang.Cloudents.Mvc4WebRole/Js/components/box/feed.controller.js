@@ -39,12 +39,28 @@
         self.likeCommentDialog = likeCommentDialog;
         var feedUpdates = {};
 
+        function appendUpdates(postsList) {
+            if (feedUpdates) {
+                for (currentPost in postsList) {
+                    if (feedUpdates[postsList[currentPost].id]) {
+                        postsList[currentPost].isNew = true;
+                    }
+                    for (currentreply in postsList[currentPost].replies) {
+                        if (feedUpdates[postsList[currentPost].replies[currentreply].id]) {
+                            postsList[currentPost].replies[currentreply].isNew = true;
+                        }
+                    }
+                }
+            }
+        }
+
         boxService.getFeed(boxId, top, 0).then(function (response) {
-           // self.data = response;
+            // self.data = response;
+            self.data = assignData(response);
             userUpdatesService.boxUpdates(boxId, function (updates) {
                 feedUpdates = updates;
+                appendUpdates(self.data);
             });
-            self.data = assignData(response);
             externalUploadProvider.googleDriveInit().then(function () {
                 self.add.googleDisabled = false;
             });
@@ -99,8 +115,8 @@
                     comment.likesCount--;
                     comment.isLiked = false;
                 }
-                
-            }).finally(function() {
+
+            }).finally(function () {
                 self.likeDisabled = false;
             });
         }
@@ -119,8 +135,8 @@
                     reply2.likesCount--;
                     reply2.isLiked = false;
                 }
-               
-            }).finally(function() {
+
+            }).finally(function () {
                 self.likeDisabled = false;
             });
         }
@@ -133,16 +149,13 @@
                 }
                 var x = self.data;
                 // self.data = self.data.concat(response);
-                self.data = assignData(x.concat(response));
+                self.data = x.concat(assignData(response));
             });
         }
 
         function assignData(data) {
             for (var i = 0; i < data.length; i++) {
                 var currentPost = data[i];
-                if (feedUpdates && feedUpdates[currentPost.id]) {
-                    currentPost.isNew = true;
-                }
                 var files = currentPost.files;
                 for (var j = 0; j < files.length; j++) {
                     var item = files[j];
@@ -162,12 +175,9 @@
                 for (var k = 0; currentPost.replies && k < currentPost.replies.length; k++) {
                     var currentReply = currentPost.replies[k];
                     angular.forEach(currentReply.files, buildItem);
-                    if (feedUpdates && feedUpdates[currentReply.id]) {
-                        currentReply.isNew = true;
-                    }
-                    //self.data[i].replies[k].files = itemThumbnailService.assignValues(self.data[i].replies[k].files, 100, 141);
                 }
             }
+            appendUpdates(data);
             return data;
 
             function buildItem(elem) {
@@ -376,7 +386,7 @@ userName: "ram y"*/
 
                     response.reverse().pop();
                     post.replies = response.concat(post.replies);
-                    self.data = assignData(self.data);
+                    assignData([post]);
                     expandReply();
                 });
             } else {
