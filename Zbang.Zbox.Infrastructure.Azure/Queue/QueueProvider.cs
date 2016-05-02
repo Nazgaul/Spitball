@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -67,13 +68,19 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return queue;
         }
 
+        public Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
+            TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
+        {
+            return RunQueueAsync(queueName, func, invisibleTimeinQueue, deQueueCount, default(CancellationToken));
+        }
+
         public async Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
-           TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
+           TimeSpan invisibleTimeinQueue, int deQueueCount, CancellationToken token)
         {
             if (queueName == null) throw new ArgumentNullException(nameof(queueName));
             if (func == null) throw new ArgumentNullException(nameof(func));
             var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
-            var messages = await queue.GetMessagesAsync(MaxQueuePopLimit, invisibleTimeinQueue, new QueueRequestOptions(), new OperationContext());
+            var messages = await queue.GetMessagesAsync(MaxQueuePopLimit, invisibleTimeinQueue, new QueueRequestOptions(), new OperationContext(), token);
             if (messages == null)
             {
                 return false;
@@ -88,12 +95,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
                     {
                         if (await func.Invoke(msg))
                         {
-                            listToWait.Add(queue.DeleteMessageAsync(msg));
+                            listToWait.Add(queue.DeleteMessageAsync(msg, token));
                         }
                     }
                     else
                     {
-                        listToWait.Add(queue.DeleteMessageAsync(msg));
+                        listToWait.Add(queue.DeleteMessageAsync(msg, token));
                     }
                 }
                 catch (StorageException ex)
@@ -110,11 +117,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         }
 
 
-        public Task UpdateMessageAsync(QueueName queueName, CloudQueueMessage msg)
+        public Task UpdateMessageAsync(QueueName queueName, CloudQueueMessage msg, CancellationToken token)
         {
             var queue = QueueClient.GetQueueReference(queueName.Name.ToLower());
             return queue.UpdateMessageAsync(msg, TimeSpan.FromMinutes(15),
-                MessageUpdateFields.Content | MessageUpdateFields.Visibility);
+                MessageUpdateFields.Content | MessageUpdateFields.Visibility, token);
         }
 
         //public async Task<bool> RunQueueMultiple(QueueName queueName,
@@ -143,7 +150,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 
 
 
-       
+
     }
 
 
