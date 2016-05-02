@@ -171,9 +171,6 @@
         }
 
         function sendInvite() {
-            if (self.contacts.length) {
-
-            }
             self.submitDisabled = true;
             var contacts = self.contacts.map(function (c) {
                 return c.email;

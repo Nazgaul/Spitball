@@ -11,7 +11,7 @@
 
             });
         }
-        self.users = function(term, boxId, page) {
+        self.users = function (term, boxId, page) {
             return ajaxService.get('/search/members', {
                 term: term,
                 boxId: boxId,
@@ -20,12 +20,18 @@
         }
 
         self.inviteToSystem = function (recipients) {
-            return ajaxService.post('/share/invite/', { recipients: recipients });
+            return ajaxService.post('/share/invite/', {
+                recipients: recipients
+            }).then(function (response) {
+                ajaxService.post('/share/');
+            });;
         }
         self.inviteToBox = function (recipients, boxId) {
             return ajaxService.post('/share/invitebox/', {
                 recipients: recipients,
                 boxId: boxId
+            }).then(function (response) {
+                ajaxService.post('/share/');
             });
         }
     }

@@ -15,7 +15,7 @@
             dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl }); // google tag manger
             Intercom('update'); //intercom
             __insp.push(["virtualPage"]); //inspectlet
-           // svg4everybody();
+            // svg4everybody();
             // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
         });
@@ -44,11 +44,7 @@
         self.expandSearch = false;
         self.resetForm = resetForm;
         self.showToaster = showToaster;
-
-        self.showMenu = false;
-        self.showSearch = false;
-        self.fixedBgColor = false;
-
+        
         self.toggleMenu = toggleMenu;
         function logOut() {
             cacheFactory.clearAll();
@@ -97,16 +93,26 @@
         $rootScope.$on('$mdMenuClose', function () {
             self.menuOpened = false;
         });
-        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            self.showMenu = true; // if user comes from university choose need to remove this.
-            self.showSearch = true;
-        });
-
-
-
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             self.showBoxAd = toState.parent === 'box';
+
+            if (toState.name === 'item' || toState.name === 'quiz') {
+                self.fixedBgColor = true;
+                self.showMenu = false;
+                self.showSearch = true;
+            }
+            else {
+                self.fixedBgColor = false;
+                if (toState.name === 'universityChoose') {
+                    self.showMenu = false;
+                    self.showSearch = false;
+                }
+                else {
+                    self.showMenu = true; // if user comes from university choose need to remove this.
+                    self.showSearch = true;
+                }
+            }
 
             if (!fromState.name) {
                 return;

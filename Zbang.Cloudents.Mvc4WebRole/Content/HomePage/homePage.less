@@ -37,12 +37,10 @@
             -webkit-box-sizing: border-box;
             box-sizing: border-box;
         }
-
         /*.hide-section {
             height: 0 !important;
             padding: 0 !important;
         }*/
-
         section {
             position: relative;
 
@@ -160,7 +158,6 @@
                             width: inherit;
                             padding: 0;
                         }
-
                         /*&.signup {
                             width: 100%;
                             display: inline-block;
@@ -174,16 +171,12 @@
                                 margin-bottom: 100px;
                             }
                         }*/
-
-
-
                         svg {
                             width: 30px;
                             height: 30px;
                             fill: @textColorWhite;
                             z-index: 1;
                         }
-
                         /*span {
                             align-self: center;
                             padding-top: 2px;
@@ -196,6 +189,24 @@
                         .login-option {
                             width: 100%;
                         }
+                    }
+                }
+
+                .has-error {
+                    .help-block {
+                        margin-top: 5px;
+                        margin-bottom: 5px;
+                        font-size: 13px;
+                    }
+
+                    .help-block,
+                    .help-inline,
+                    .control-label,
+                    .radio,
+                    .checkbox,
+                    .radio-inline,
+                    .checkbox-inline {
+                        color: #f3565d;
                     }
                 }
 
@@ -232,25 +243,6 @@
                     }
                 }
 
-                /*.social-links {
-                    width: 35px;
-                    position: absolute;
-                    top: 215px;
-                    left: 30px;
-
-                    a {
-                        margin: 5px 0;
-                        display: inline-block;
-
-                        svg {
-                            width: 35px;
-                            height: 35px;
-                            fill: @backgroundColorWhite;
-                        }
-                    }
-                }*/
-
-
                 .login-wrapper {
                     display: none;
                     margin-top: 80px;
@@ -279,6 +271,10 @@
                                 fill: @textColorGrey;
                             }
                         }
+                    }
+
+                    form label {
+                        font-size: 14px;
                     }
 
                     #resendRequest {
@@ -349,12 +345,10 @@
                             color: @textColorLightGrey;
                         }
                     }
-
                     /*&.expand {
                         height: 100%;
                         min-height: ~"calc(100vh - 100px)";
                     }*/
-
                     &.login {
                         //background-color: #666 !important;
                         //margin: 50px 0;
@@ -369,7 +363,6 @@
                                 height: 43px;
                             }
                         }*/
-
                         .content {
                             max-width: 400px;
                             margin: 0 auto;
@@ -385,6 +378,7 @@
                                 font-size: 18px;
                                 white-space: nowrap;
                                 margin: 10px 10px 10px 0;
+                                font-weight: normal;
                             }
 
                             h3 {
@@ -392,6 +386,8 @@
                                 margin-top: 0;
                                 margin-bottom: 28px;
                                 text-align: center;
+                                font-weight: 300;
+                                font-size: 23px;
                             }
 
                             .create-account p,
@@ -400,6 +396,7 @@
                                 text-align: center;
                                 margin: 0 auto;
                                 align-self: center;
+                                font-size: 13px;
                             }
 
                             .forget-password {
@@ -425,12 +422,10 @@
                                 font-size: 11px;
                             }
                         }
-
                         /*.checker {
                             margin-left: -2px;
                         }*/
-
-                        .content .login-form/*,
+                        .content .login-form /*,
                         .content .forget-form*/ {
                             padding: 0;
                             margin: 0;
@@ -454,11 +449,9 @@
                         .content .form-control:focus {
                             border-color: #c3ccda;
                         }
-
                         /*.content .forget-form {
                             display: none;
                         }*/
-
                         .content .register-form {
                             display: none;
 
@@ -553,7 +546,6 @@
                         }
 
                         .content .form-title {
-                            font-weight: 300;
                             margin-bottom: 25px;
                         }
 
@@ -575,7 +567,6 @@
                                 margin-bottom: 55px;
                                 margin-top: 20px;
                                 float: right;
-
                                 /*.btn.blue {
                                     margin-left: 10px;
                                 }*/
@@ -698,7 +689,6 @@
                             cursor: pointer;
                             text-decoration: underline;
                         }
-
                         /*.content .forget-form .form-actions {
                             border: 0;
                             margin-bottom: 0;
@@ -785,7 +775,6 @@
                         .content .select2-container a span img {
                             margin-left: 4px;
                         }*/
-
                         /*#ssIFrame_google {
                             left: -9999px !important;
                         }*/
@@ -797,7 +786,6 @@
                             color: #eee;
                             font-size: 13px;
                         }*/
-
                         /*.login-options {
                             clear: both;
                         }
@@ -817,7 +805,6 @@
                             height: 30px;
                             margin-right: 0;
                         }*/
-
                         @media (max-width: 480px) {
                             .content {
                                 padding: 30px;
@@ -828,7 +815,6 @@
                             .content h3 {
                                 font-size: 22px;
                             }
-
                             /*.checkbox {
                                 font-size: 13px;
                             }*/
@@ -1154,7 +1140,6 @@
                         margin-top: 20px;
                         padding-bottom: 10px;
                     }
-
                     /*.social-links {
                         display: none;
                     }*/
@@ -1168,7 +1153,6 @@
                         p {
                             font-size: 5vw;
                         }
-
                         /*.features li {
                             font-size: 5vw;
                         }*/
@@ -1179,7 +1163,6 @@
                     /*img {
                         width: 80px;
                     }*/
-
                     .comment {
                         font-size: 3.5vw;
                         line-height: 6vw;

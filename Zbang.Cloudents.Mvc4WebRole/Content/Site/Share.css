@@ -66,6 +66,9 @@
 .invite.invite-dialog .content .tabs button span {
   margin: 0 auto;
 }
+.invite.invite-dialog .content .tabs button span svg {
+  margin: 0;
+}
 .invite.invite-dialog .content .tabs button.spitball span,
 .invite.invite-dialog .content .tabs button.spitball svg {
   width: 50px;
