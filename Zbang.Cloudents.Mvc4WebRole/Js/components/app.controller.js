@@ -97,22 +97,29 @@
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             self.showBoxAd = toState.parent === 'box';
 
+            self.showMenu = true;
+            self.showSearch = true;
+            self.fixedBgColor = false;
+
             if (toState.name === 'item' || toState.name === 'quiz') {
                 self.fixedBgColor = true;
                 self.showMenu = false;
-                self.showSearch = true;
             }
-            else {
-                self.fixedBgColor = false;
-                if (toState.name === 'universityChoose') {
-                    self.showMenu = false;
-                    self.showSearch = false;
-                }
-                else {
-                    self.showMenu = true; // if user comes from university choose need to remove this.
-                    self.showSearch = true;
-                }
+            if (toState.name === 'universityChoose') {
+                self.showMenu = false;
+                self.showSearch = false;
             }
+            //else {
+            //    self.fixedBgColor = false;
+            //    if (toState.name === 'universityChoose') {
+            //        self.showMenu = false;
+            //        self.showSearch = false;
+            //    }
+            //    else {
+            //        self.showMenu = true; // if user comes from university choose need to remove this.
+            //        self.showSearch = true;
+            //    }
+            //}
 
             if (!fromState.name) {
                 return;

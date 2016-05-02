@@ -82,5 +82,9 @@
   {
     "outputFile": "Content/Site/accountSettings.css",
     "inputFile": "Content/Site/accountSettings.less"
+  },
+  {
+    "outputFile": "Content/Site/search.css",
+    "inputFile": "Content/Site/search.less"
   }
 ]

@@ -9,7 +9,7 @@
         self.state = {
             box: 'box',
             item: 'item',
-            quiz: 'quiz',
+            quiz: 'quiz'
         }
         self.boxes = [];
         self.items = [];

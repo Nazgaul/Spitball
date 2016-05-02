@@ -124,13 +124,3 @@
         padding-left: 5%;
     }
 }*/
-.search-form {
-  -moz-transition: all linear .5s;
-  -o-transition: all linear .5s;
-  -webkit-transition: all linear .5s;
-  transition: all linear .5s;
-  opacity: 1;
-}
-.search-form.ng-hide {
-  opacity: 0;
-}
