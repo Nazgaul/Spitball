@@ -19,7 +19,11 @@ namespace Zbang.Zbox.Infrastructure.Extensions
             try
             {
                 IsRunningOnCloud = RoleEnvironment.IsAvailable;
-                IsEmulated = RoleEnvironment.IsEmulated;
+                if (IsRunningOnCloud)
+                {
+                    IsEmulated = RoleEnvironment.IsEmulated;
+                }
+
             }
             catch (TypeInitializationException)
             {
