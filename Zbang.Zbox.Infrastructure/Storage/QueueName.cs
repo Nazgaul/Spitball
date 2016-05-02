@@ -5,8 +5,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
     public abstract class QueueName
     {
        // public const string QueueName2 = "zboxCacheQueue";
-        public const string NewMailQueueName = "zboxMailQueue3";
-        public const string UpdateDomainQueueName = "transactionQueueName2";
+        public const string NewMailQueueName = "zboxMailQueue2";
+        public const string UpdateDomainQueueName = "transactionQueueName";
         public const string DownloadContentFromUrl = "downloadcontentfromurl";
         public const string DownloadContentFromUrlPhase2 = "downloadcontentfromurlphase2";
         public const string Scheduler = "zbox-scheduler";

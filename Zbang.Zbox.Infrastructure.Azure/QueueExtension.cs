@@ -58,19 +58,19 @@ namespace Zbang.Zbox.Infrastructure.Azure
         //    return Task.WhenAll(list);
         //}
 
-        private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            TypeNameHandling = TypeNameHandling.All,
-            ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
-            NullValueHandling = NullValueHandling.Ignore,
-            TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
-            MissingMemberHandling = MissingMemberHandling.Ignore
-        };
-    public static Task InsertToQueueJsonAsync<T>(this CloudQueue cloudQueue, T data) where T : class
-        {
-            var serializedObject = JsonConvert.SerializeObject(data, Settings);
-            return cloudQueue.AddMessageAsync(new CloudQueueMessage(serializedObject));
-        }
+    //    private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+    //    {
+    //        TypeNameHandling = TypeNameHandling.All,
+    //        ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor,
+    //        NullValueHandling = NullValueHandling.Ignore,
+    //        TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
+    //        MissingMemberHandling = MissingMemberHandling.Ignore
+    //    };
+    //public static Task InsertToQueueJsonAsync<T>(this CloudQueue cloudQueue, T data) where T : class
+    //    {
+    //        var serializedObject = JsonConvert.SerializeObject(data, Settings);
+    //        return cloudQueue.AddMessageAsync(new CloudQueueMessage(serializedObject));
+    //    }
         public static Task InsertToQueueProtoAsync<T>(this CloudQueue cloudQueue, T data) where T : class
         {
             using (var m = new MemoryStream())
@@ -82,10 +82,10 @@ namespace Zbang.Zbox.Infrastructure.Azure
             }
         }
 
-        public static T FromMessageJson<T>(this CloudQueueMessage cloudQueueMessage) where T : class
-        {
-            return JsonConvert.DeserializeObject<T>(cloudQueueMessage.AsString, Settings);
-        }
+        //public static T FromMessageJson<T>(this CloudQueueMessage cloudQueueMessage) where T : class
+        //{
+        //    return JsonConvert.DeserializeObject<T>(cloudQueueMessage.AsString, Settings);
+        //}
         public static T FromMessageProto<T>(this CloudQueueMessage cloudQueueMessage) where T : class
         {
             if (cloudQueueMessage == null) throw new ArgumentNullException(nameof(cloudQueueMessage));

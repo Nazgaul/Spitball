@@ -27,7 +27,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var queueName = new UpdateDomainQueueName();
                     var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
-                        var msgData = msg.FromMessageJson<Infrastructure.Transport.DomainProcess>();
+                        var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
                         if (msgData == null)
                         {
                             TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess");

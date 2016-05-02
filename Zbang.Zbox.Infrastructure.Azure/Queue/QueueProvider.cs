@@ -46,18 +46,18 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 
         public Task InsertMessageToMailNewAsync(BaseMailData message)
         {
-            return GetMailQueueNew().InsertToQueueJsonAsync(message);
+            return GetMailQueueNew().InsertToQueueProtoAsync(message);
         }
 
 
         public Task InsertMessageToTranactionAsync(DomainProcess message)
         {
-            return GetTransactionQueue().InsertToQueueJsonAsync(message);
+            return GetTransactionQueue().InsertToQueueProtoAsync(message);
         }
 
         public async Task InsertMessageToDownloadAsync(UrlToDownloadData message)
         {
-            await GetDownloadContentFromUrlQueue().InsertToQueueJsonAsync(message);
+            await GetDownloadContentFromUrlQueue().InsertToQueueProtoAsync(message);
         }
 
 
