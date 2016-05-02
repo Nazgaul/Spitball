@@ -165,7 +165,6 @@ namespace Zbang.Zbox.Infrastructure.Notifications
              new Dictionary<string, string>
                 {
                     {"boxName", boxName },
-                   
                     {"userName", userNameOfAction},
                     {"action",((int)PushAction.Invite).ToString(CultureInfo.InvariantCulture)},
                     {"boxId", boxId.ToString(CultureInfo.InvariantCulture)}
@@ -183,24 +182,6 @@ namespace Zbang.Zbox.Infrastructure.Notifications
         }
 
 
-        //private static Notification CreateGcmNotification(IPushMessage message)
-        //{
-        //    if (message == null)
-        //    {
-        //        throw new ArgumentNullException("message");
-        //    }
-        //    return new GcmNotification(message.ToString());
-
-        //}
-
-        //private static Notification CreateAppleNotification(IPushMessage message)
-        //{
-        //    if (message == null)
-        //    {
-        //        throw new ArgumentNullException("message");
-        //    }
-        //    return new AppleNotification(message.ToString());
-
-        //}
+       
     }
 }

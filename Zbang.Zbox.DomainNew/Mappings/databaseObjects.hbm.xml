@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+  <database-object>
+    <create>
+      CREATE NONCLUSTERED INDEX [iUserIsDeleted] ON [Zbox].[Item] ([IsDeleted],[UserId]);
+    </create>
+    <drop></drop>
+  </database-object>
+</hibernate-mapping>

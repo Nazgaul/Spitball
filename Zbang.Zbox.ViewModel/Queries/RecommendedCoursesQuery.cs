@@ -11,6 +11,6 @@ namespace Zbang.Zbox.ViewModel.Queries
 
         public long UniversityId { get; private set; }
 
-        public long UserId { get; private set; }
+        public long UserId { get; }
     }
 }

@@ -12,9 +12,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Library
 
         public long UserId
         {
-            get;
-            private set;
-        }
+            get; }
 
         public Guid LibraryId { get; private set; }
     }

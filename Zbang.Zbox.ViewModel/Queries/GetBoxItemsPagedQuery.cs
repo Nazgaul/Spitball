@@ -15,9 +15,9 @@ namespace Zbang.Zbox.ViewModel.Queries
 
         public long BoxId { get; private set; }
 
-        public int PageNumber { get; private set; }
+        public int PageNumber { get; }
 
-        public int RowsPerPage { get; private set; }
+        public int RowsPerPage { get; }
 
         public Guid? TabId { get; private set; }
     }

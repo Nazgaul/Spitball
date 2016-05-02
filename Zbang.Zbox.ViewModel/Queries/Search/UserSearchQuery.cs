@@ -11,9 +11,9 @@
             Term = term;
         }
 
-        public int PageNumber { get; private set; }
+        public int PageNumber { get; }
 
-        public int RowsPerPage { get; private set; }
+        public int RowsPerPage { get; }
 
 
         public string Term { get; private set; }

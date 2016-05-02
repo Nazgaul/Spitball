@@ -13,7 +13,7 @@ namespace Zbang.Zbox.ViewModel.Queries
         }
 
         public long BoxId { get; private set; }
-        public long ItemId { get; private set; }
+        public long ItemId { get; }
 
 
         string IQueryCache.CacheKey

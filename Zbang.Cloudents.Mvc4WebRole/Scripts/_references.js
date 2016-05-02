@@ -143,5 +143,6 @@
 /// <reference path="plupload2/plupload.full.min.js" />
 /// <reference path="Site/gmaps.js" />
 /// <reference path="svg4everybody.js" />
+/// <reference path="textangularsetup.js" />
 /// <reference path="ui-bootstrap-custom-tpls-1.2.1.js" />
 /// <reference path="waypoints.min.js" />

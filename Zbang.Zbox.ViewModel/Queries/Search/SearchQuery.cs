@@ -53,16 +53,16 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
             UserId = userId;
         }
 
-        public long UserId { get; private set; }
+        public long UserId { get; }
 
-        public long UniversityId { get; private set; }
+        public long UniversityId { get; }
 
-        public int PageNumber { get; private set; }
+        public int PageNumber { get; }
 
 
-        public int RowsPerPage { get; private set; }
+        public int RowsPerPage { get; }
 
-        public string Term { get; private set; }
+        public string Term { get; }
 
         public override string ToString()
         {

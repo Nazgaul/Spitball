@@ -13,13 +13,13 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
             Country = country;
         }
 
-        public int PageNumber { get; private set; }
+        public int PageNumber { get; }
 
-        public int RowsPerPage { get; private set; }
+        public int RowsPerPage { get; }
 
-        public string Term { get; private set; }
+        public string Term { get; }
 
-        public string Country { get; private set; }
+        public string Country { get; }
 
 
         public override string ToString()
@@ -40,9 +40,9 @@ namespace Zbang.Zbox.ViewModel.Queries.Search
             IpAddress = ipAddress;
         }
 
-        public int PageNumber { get; private set; }
+        public int PageNumber { get; }
 
-        public int RowsPerPage { get; private set; }
+        public int RowsPerPage { get; }
 
         public long IpAddress { get; private set; }
     }

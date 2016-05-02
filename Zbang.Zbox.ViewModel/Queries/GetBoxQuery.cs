@@ -13,9 +13,9 @@
         }
         public long BoxId { get; set; }
 
-        public int PageNumber { get; private set; }
+        public int PageNumber { get; }
 
-        public int RowsPerPage { get; private set; }
+        public int RowsPerPage { get; }
     }
 
 }

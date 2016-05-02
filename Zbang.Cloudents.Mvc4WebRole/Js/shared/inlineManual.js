@@ -1,5 +1,3 @@
-/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="userDetails.ts" />
 (function () {
     angular.module('app').run(inlineManual);
     inlineManual.$inject = ['$rootScope', '$timeout', '$document', 'userDetailsFactory'];
@@ -16,10 +14,9 @@
                 username: userData.name,
                 created: Math.round(userData.createTime.getTime() / 1000),
             };
-            !function () { var e = document.createElement("script"), t = document.getElementsByTagName("script")[0]; e.async = true, e.src = "https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js", e.charset = "UTF-8", t.parentNode.insertBefore(e, t); }();
+            $timeout(injectInlineManual, 0, false);
         });
         $rootScope.$on("$stateChangeSuccess", function () {
-            // Inline manual fix for angular
             var element = $document.find('[ui-view][animation-class]');
             $timeout(function () {
                 if (registeredUser && angular.isDefined(inline_manual_player)) {
@@ -28,6 +25,10 @@
                 }
             }, 1000);
         });
+        function injectInlineManual() {
+            var e = document.createElement("script"), t = document.getElementsByTagName("script")[0];
+            e.async = true, e.src = "https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js",
+                e.charset = "UTF-8", t.parentNode.insertBefore(e, t);
+        }
     }
 })();
-//# sourceMappingURL=inlineManual.js.map

@@ -11,7 +11,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Dashboard
             UniversityId = universityId;
         }
 
-        public long UniversityId { get; private set; }
+        public long UniversityId { get; }
 
 
         public string CacheKey

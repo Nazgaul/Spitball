@@ -14,10 +14,10 @@ namespace Zbang.Zbox.ViewModel.Queries
             UserId = userId;
         }
 
-        public long UserId { get; private set; }
+        public long UserId { get; }
 
-        public int PageNumber { get; private set; }
+        public int PageNumber { get; }
 
-        public int RowsPerPage { get; private set; }
+        public int RowsPerPage { get; }
     }
 }
