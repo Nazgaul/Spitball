@@ -6,6 +6,7 @@ using Zbang.Zbox.Infrastructure.Azure.Queue;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
+using Zbang.Zbox.WorkerRoleSearch.Mail;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -27,16 +28,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var queueName = new MailQueueNameNew();
                     var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {
-                        var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
+                        var msgData = msg.FromMessageProto<Infrastructure.Transport.BaseMailData>();
                         if (msgData == null)
                         {
                             TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess");
                             return true;
                         }
-                        var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IDomainProcess>(msgData.ProcessResolver);
+                        var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IMail2>(msgData.MailResover);
                         if (process == null)
                         {
-                            TraceLog.WriteError("UpdateDomainProcess run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
+                            TraceLog.WriteError("UpdateDomainProcess run - process is null msgData.ProcessResolver:" + msgData.MailResover);
                             return true;
                         }
                         return await process.ExecuteAsync(msgData, cancellationToken);
