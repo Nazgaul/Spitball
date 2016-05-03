@@ -1572,14 +1572,16 @@ md-menu-item {
   min-height: 36px;
   height: 36px;
 }
-.scroll-to-top svg {
-  width: 32px;
-  height: 32px;
+.scroll-to-top {
   -moz-transform: rotate(270deg) ;
   -ms-transform: rotate(270deg) ;
   -o-transform: rotate(270deg) ;
   -webkit-transform: rotate(270deg) ;
   transform: rotate(270deg) ;
+}
+.scroll-to-top svg {
+  width: 32px;
+  height: 32px;
   fill: #3598dc;
 }
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
