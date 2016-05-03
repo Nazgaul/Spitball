@@ -68,14 +68,14 @@
         //});
 
         boxService.getFeed(boxId, top, 0).then(function (response) {
-             self.data = response;
-             //self.data = assignData(response);
-             //appendUpdates(self.data);
+             //self.data = response;
+             self.data = assignData(response);
+             appendUpdates(self.data);
             
         });
         userUpdatesService.boxUpdates(boxId, function (updates) {
             feedUpdates = updates;
-            //appendUpdates(self.data);
+            appendUpdates(self.data);
         });
         function likeCommentDialog(comment, ev) {
             if (!comment.likesCount) {
