@@ -192,4 +192,7 @@
   <data name="UniversitySearchTitleNoResultSub" xml:space="preserve">
     <value>נסו שם אחר או הוסיפו מוסד לימודים חדש</value>
   </data>
+  <data name="NoMoreSchools" xml:space="preserve">
+    <value>לא נמצאו עוד מוסדות לימוד</value>
+  </data>
 </root>

@@ -4,6 +4,7 @@
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
 <div srph-infinite-scroll="i.loadMore()" unregister-scroll="true" ng-class="{hideActions: i.selectedState === i.state.flag || i.selectedState === i.state.rename}">
+    <div class="progress-bar"><md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear></div>
     <header layout="row" layout-align="space-between center">
         <div class="top-wrapper">
             <div class="name-actions" layout="row" layout-align="space-between center">
@@ -91,7 +92,6 @@
             <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl); " ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
         </div>
     </header>
-    <md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear>
     <div md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">
         <div class="ad" data-ng-dfp-ad-container>
             <div data-ng-dfp-ad="div-gpt-ad-1461568291501-0" data-ng-dfp-ad-hide-when-empty></div>

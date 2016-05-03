@@ -60,23 +60,6 @@
             margin-right: 0;
         }
     }*/
-  /*&.upload button.btn-default.close {
-        background: transparent;
-        top: 0;
-        position: absolute;
-        right: 0;
-        padding: 7px 15px;
-        margin: 6px auto;
-
-        &:active:hover {
-            background: transparent;
-        }
-
-        svg {
-            width: 15px;
-            height: 15px;
-        }
-    }*/
   /*md-content {
         position: relative;
     }*/
@@ -326,6 +309,21 @@
 }
 .invite.light {
   margin: 0;
+}
+.invite.upload button.close {
+  background: transparent;
+  top: 0;
+  position: absolute;
+  right: 0;
+  padding: 7px 15px;
+  margin: 6px auto;
+}
+.invite.upload button.close:active:hover {
+  background: transparent;
+}
+.invite.upload button.close svg {
+  width: 15px;
+  height: 15px;
 }
 @media (max-width: 600px) {
   .invite-container {
