@@ -94,6 +94,10 @@
             self.menuOpened = false;
         });
 
+        self.showMenu = true;
+        self.showSearch = true;
+        self.fixedBgColor = false;
+
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             self.showBoxAd = toState.parent === 'box';
 
@@ -109,17 +113,6 @@
                 self.showMenu = false;
                 self.showSearch = false;
             }
-            //else {
-            //    self.fixedBgColor = false;
-            //    if (toState.name === 'universityChoose') {
-            //        self.showMenu = false;
-            //        self.showSearch = false;
-            //    }
-            //    else {
-            //        self.showMenu = true; // if user comes from university choose need to remove this.
-            //        self.showSearch = true;
-            //    }
-            //}
 
             if (!fromState.name) {
                 return;
@@ -156,8 +149,6 @@
                 $rootScope.$broadcast('state-change-start-prevent');
                 event.preventDefault();
             }
-
-
         });
 
         //$rootScope.$on('$stateNotFound',

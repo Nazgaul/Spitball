@@ -3,9 +3,8 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <div class="portlet light unibox color-override backgroundColor5" ng-controller="UniversityController as u">
-    <md-progress-circular ng-if="u.loading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>
+    @*<md-progress-circular ng-if="u.loading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>*@
     <div class="content clearfix" ng-if="!u.loading">
-
         <div class="universityTitle color-override textColor1" layout="row" layout-align="center center">
             <img class="universityimg img-circle" ng-src="{{::u.info.img}}" alt="univerisy picture" width="70" height="70" />
             <span class="multi-line-ellipsis limit-three">{{::u.info.name}}</span>
