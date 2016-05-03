@@ -43,7 +43,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }, TimeSpan.FromMinutes(1), 5, cancellationToken);
                     if (!result)
                     {
-                        TraceLog.WriteInfo($"{Prefix} going to sleep");
                         await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
                     }
                 }

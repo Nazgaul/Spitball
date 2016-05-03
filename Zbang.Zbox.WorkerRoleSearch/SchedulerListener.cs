@@ -20,6 +20,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
         private readonly XmlSerializer m_Dcs = new XmlSerializer(typeof(StorageQueueMessage));
+        private readonly SemaphoreSlim m_CriticalCode = new SemaphoreSlim(1);
 
         public SchedulerListener(IQueueProviderExtract queueProviderExtract)
         {
@@ -60,8 +61,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                     message.Message = JsonConvert.SerializeObject(messageContent);
                                     using (var memoryStream = new MemoryStream())
                                     {
-                                        var criticalCode = new SemaphoreSlim(1);
-                                        await criticalCode.WaitAsync(cancellationToken);
+                                       
+                                        await m_CriticalCode.WaitAsync(cancellationToken);
                                         try
                                         {
                                             m_Dcs.Serialize(memoryStream, message);
@@ -75,7 +76,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                         }
                                         finally
                                         {
-                                            criticalCode.Release();
+                                            m_CriticalCode.Release();
                                         }
                                     }
 
