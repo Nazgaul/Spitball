@@ -78,6 +78,7 @@
                     self.nonFilteredContacts = self.allContacts;
                     break;
                 case self.state.facebook:
+                    self.allContacts = [];
                     break;
             }
         }
