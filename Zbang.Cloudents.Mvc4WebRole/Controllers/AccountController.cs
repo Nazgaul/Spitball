@@ -131,7 +131,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
 
-                m_AuthenticationManager.SignIn(identity);
+                m_AuthenticationManager.SignIn(new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                }, identity);
                 m_CookieHelper.RemoveCookie(Invite.CookieName);
                 var url = user.UniversityId.HasValue
                     ? Url.Action("Index", "Dashboard")
@@ -200,7 +203,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
 
 
-                m_AuthenticationManager.SignIn(identity);
+                m_AuthenticationManager.SignIn(new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                }, identity);
                 m_CookieHelper.RemoveCookie(Invite.CookieName);
                 var url = user.UniversityId.HasValue
                       ? Url.Action("Index", "Dashboard")
@@ -354,7 +360,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     var identity = await user.GenerateUserIdentityAsync(m_UserManager, result.User.Id, result.UniversityId,
                          result.UniversityData);
 
-                    m_AuthenticationManager.SignIn(identity);
+                    m_AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true,
+                    }, identity);
 
                     var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
@@ -516,7 +525,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 user.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
                         command.UniversityDataId?.ToString(CultureInfo.InvariantCulture) ?? command.UniversityId.ToString(CultureInfo.InvariantCulture)));
-
 
                 m_AuthenticationManager.SignIn(user);
 
