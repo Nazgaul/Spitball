@@ -27,7 +27,7 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 try
                 {
                     sw.Restart();
-                    if (!m_ZboxService.Dbi(index))
+                    if (!m_ZboxService.Dbi())
                     {
                         sw.Stop();
                         TraceLog.WriteInfo("Running update database took(milliseconds): " + sw.ElapsedMilliseconds);

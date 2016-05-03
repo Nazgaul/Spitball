@@ -232,11 +232,11 @@ order by 1";
 //            }
 //        }
 
-        public bool Dbi(int index)
+        public bool Dbi()
         {
             DeleteOldUpdates();
             UpdateUniversityStats();
-            UpdateMismatchUrl();
+            //UpdateMismatchUrl();
             //UpdateHierarchyInLibrary();
             //UpdateFeedDbi();
             return false;
@@ -251,7 +251,7 @@ order by 1";
                 TraceLog.WriteInfo("delete old updates " + result);
                 query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteNotConnectedUpdates");
                 result = query.ExecuteUpdate();
-                TraceLog.WriteInfo("delete Delete Not Connected Updates " + result);
+                TraceLog.WriteInfo("delete old updates Delete Not Connected Updates " + result);
             }
         }
 

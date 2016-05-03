@@ -2,6 +2,7 @@
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Notifications;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -58,7 +59,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Domain.CommandHandlers.Ioc.RegisterIoc.Register();
 
             //Store.RegisterIoc.Register();
-
+            Unity.ContainerBuilder.RegisterType<SendPush>()
+            .As<ISendPush>()
+            .WithParameter("connectionString", ConfigFetcher.Fetch("ServiceBusConnectionString"))
+            .WithParameter("hubName", ConfigFetcher.Fetch("ServiceBusHubName"))
+            .InstancePerLifetimeScope();
 
             //Unity = new UnityContainer();
             RegisterTypes();

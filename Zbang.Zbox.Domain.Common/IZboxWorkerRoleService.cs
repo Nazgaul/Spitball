@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain.Common
 
         //void AddBanners(AddBannersCommand command);
 
-        bool Dbi(int index);
+        bool Dbi();
         void OneTimeDbi();
 
         void UpdateThumbnailPicture(UpdateThumbnailCommand command);

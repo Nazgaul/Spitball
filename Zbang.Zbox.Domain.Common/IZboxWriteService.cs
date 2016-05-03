@@ -66,8 +66,8 @@ namespace Zbang.Zbox.Domain.Common
         #region annotation
         Task AddAnnotationAsync(AddItemCommentCommand command);
         Task AddReplyAnnotationAsync(AddItemReplyToCommentCommand command);
-        void DeleteAnnotation(DeleteItemCommentCommand command);
-        void DeleteItemCommentReply(DeleteItemCommentReplyCommand command);
+        Task DeleteAnnotationAsync(DeleteItemCommentCommand command);
+        Task DeleteItemCommentReplyAsync(DeleteItemCommentReplyCommand command);
         #endregion
 
         #region QnA
@@ -88,7 +88,7 @@ namespace Zbang.Zbox.Domain.Common
         #region Quiz
         Task CreateQuizAsync(CreateQuizCommand command);
         void UpdateQuiz(UpdateQuizCommand command);
-        void DeleteQuiz(DeleteQuizCommand command);
+        Task DeleteQuizAsync(DeleteQuizCommand command);
         void CreateQuestion(CreateQuestionCommand command);
         void UpdateQuestion(UpdateQuestionCommand command);
         void DeleteQuestion(DeleteQuestionCommand command);

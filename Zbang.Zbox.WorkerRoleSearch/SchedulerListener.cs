@@ -67,7 +67,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                             m_Dcs.Serialize(memoryStream, message);
                                             msg.SetMessageContent(memoryStream.ToArray());
                                             await m_QueueProviderExtract.UpdateMessageAsync(queueName, msg, cancellationToken);
-                                            TraceLog.WriteInfo($"SchedulerListener - updating queue {message}");
+                                            //TraceLog.WriteInfo($"SchedulerListener - updating queue {message}");
                                         }
                                         catch (Exception ex)
                                         {

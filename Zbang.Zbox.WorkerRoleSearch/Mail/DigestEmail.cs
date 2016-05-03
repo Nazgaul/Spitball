@@ -164,7 +164,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 await progressAsync(page);
             }
             await SendEmailStatusAsync($"finish to run  with page {page}");
-            TraceLog.WriteInfo($"{ServiceName} finish running  mail page {index}");
+            TraceLog.WriteInfo($"{ServiceName} finish running  mail page {page}");
             return true;
         }
     }

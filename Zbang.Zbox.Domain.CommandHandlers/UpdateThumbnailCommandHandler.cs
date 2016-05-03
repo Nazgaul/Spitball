@@ -23,6 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             //{
             //    throw new ArgumentException("file id does not match blob id");
             //}
+            file.ShouldMakeDirty = () => false;
             if (!string.IsNullOrWhiteSpace(command.BlobName))
             {
                 file.ItemContentUrl = command.BlobName;
