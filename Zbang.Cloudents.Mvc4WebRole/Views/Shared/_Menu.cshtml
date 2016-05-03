@@ -80,14 +80,6 @@
                     @SharedResources.Help
                 </md-button>
             </li>
-            @*<li class="blog nav-item">
-                    <md-button ng-class="{active:d.isSectionSelected('@Url.RouteUrl("Blog2")')}" @shouldPostBack href="@Url.RouteUrl("Blog2")">
-                        <span class="icon">
-                            @Html.Svg(svgUrl, "blog")
-                        </span>
-                        @GeneralResources.Blog
-                    </md-button>
-                </li>*@
             <li class="logout nav-item" hide-gt-xs>
                 <md-button user-not-register-popup="click" target="_self" ng-click="app.logOut()" href="@Url.Action("logoff","account")">
                     <span class="icon">
@@ -105,8 +97,8 @@
     </md-content>
 </md-sidenav>
 <script type="text/ng-template" id="partials/menu-link.tmpl.html">
-    <md-button ng-class="{ active: isSectionSelected(section.url)}" href="{{::section.url}}">
-        {{::section.name}}
+    <a class="md-button" ng-class="{active: isSectionSelected(section.url)}" href="{{::section.url}}">
+        <span>{{::section.name}}</span>
         <span class="badge badge-danger" ng-if="section.updates !== 0">{{section.updates > 99 ? "99+" : section.updates}}</span>
-    </md-button>
+    </a>
 </script>

@@ -2,8 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 
-<div uib-collapse="!b.inviteOpen" compile-html="b.html" expanding="b.inviteExpand()">
-</div>
+<div uib-collapse="!b.inviteOpen" compile-html="b.html" expanding="b.inviteExpand()"></div>
 <div class="ad" data-ng-dfp-ad-container>
     <div data-ng-dfp-ad="div-gpt-ad-1461243129238-3" data-ng-dfp-ad-hide-when-empty></div>
 </div>
@@ -20,21 +19,21 @@
 </div>
 <md-tabs class="box-nav-bar backgroundTC19 borderTC19">
     <md-tab ui-sref="box.feed" md-active="b.isActiveState('box.feed')">
-        <md-tab-label class="textTC20"><span class="textTC20">@BoxResources.Feed</span></md-tab-label>
+        <md-tab-label><span class="textTC20">@BoxResources.Feed</span></md-tab-label>
     </md-tab>
     <md-tab ui-sref="box.items" md-active="b.isActiveState('box.items')">
-        <md-tab-label class="textTC20"><span class="textTC20">@BoxResources.Items</span></md-tab-label>
+        <md-tab-label><span class="textTC20">@BoxResources.Items</span></md-tab-label>
     </md-tab>
     <md-tab ui-sref="box.quiz" md-active="b.isActiveState('box.quiz')">
-        <md-tab-label class="textTC20"><span class="textTC20">@GeneralResources.Quizzes</span></md-tab-label>
+        <md-tab-label><span class="textTC20">@GeneralResources.Quizzes</span></md-tab-label>
     </md-tab>
     <md-tab ui-sref="box.members" md-active="b.isActiveState('box.members')">
         <md-tab-label><span class="textTC20">@GeneralResources.Members</span></md-tab-label>
     </md-tab>
 </md-tabs>
-<div class="page-animation" ui-view></div>
+<div @*class="page-animation"*@ ui-view></div>
 
-<script type="text/ng-template" id="addToAnyTemplate.html">
+@*<script type="text/ng-template" id="addToAnyTemplate.html">
     <div class="share-social a2a_kit a2a_kit_size_32 a2a_default_style">
         <a class="facebook a2a_button_facebook" data-a2a-url="{{url}}">
             @Html.Svg("/Images/Site/social-icons.svg", "facebook-colored")
@@ -43,25 +42,25 @@
             @Html.Svg("/Images/Site/social-icons.svg", "whatsapp")
         </a>
     </div>
-</script>
+</script>*@
 
 
 <script type="text/ng-template" id="shareBoxTemplate.html">
     <md-menu class="share-section">
-        <md-button aria-label="open menu" class="md-icon-button share" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'sharePost']">
+        <button type="button" aria-label="open menu" class="md-button md-icon-button share" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'sharePost']">
             <span>@Html.Svg("~/images/site/icons.svg", "share")</span>
             <span class="text">@UserResources.Share</span>
-        </md-button>
+        </button>
         <md-menu-content class="share-menu" width="1" layout-align="start-center" layout="row">
             <md-menu-item class="share-fb">
-                <md-button aria-label="share" ga-track-event="['box-feed', 'share']">
+                <button type="button" class="md-button" aria-label="share" ga-track-event="['box-feed', 'share']">
                     @Html.Svg("~/images/site/social-icons.svg", "facebook-colored")
-                </md-button>
+                </button>
             </md-menu-item>
             <md-menu-item hide show-xs class="share-whatsapp">
-                <md-button aria-label="share" target="_blank" href="" ga-track-event="['box-feed', 'share']">
+                <a class="md-button" aria-label="share" target="_blank" href="" ga-track-event="['box-feed', 'share']">
                     @Html.Svg("~/images/site/social-icons.svg", "whatsapp")
-                </md-button>
+                </a>
             </md-menu-item>
         </md-menu-content>
     </md-menu>

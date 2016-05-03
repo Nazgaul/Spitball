@@ -26,11 +26,11 @@
                ga-track-event="['box-new-commnet', 'addFile']">
                 @Html.Svg(url, "file", new { @class = "file color-override hoverSvgTC2" })
             </a>
-            <button user-not-register-popup="click" type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google()" ga-track-event="['box-new-commnet', 'googleDrive']">
+            <button user-not-register-popup="click" type="button" class="google" ng-mouseover="f.add.init()" @*ng-disabled="f.add.googleDisabled"*@ ng-click="f.add.google()" ga-track-event="['box-new-commnet', 'googleDrive']">
                 @Html.Svg(url, "googleDrive")
                 @Html.Svg(url, "googleDriveClean")
             </button>
-            <button user-not-register-popup="click" type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox()" ga-track-event="['box-new-commnet', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
+            <button user-not-register-popup="click" type="button" ng-mouseover="f.add.init()" @*ng-disabled="f.add.dropboxDisabled"*@ ng-click="f.add.dropbox()" ga-track-event="['box-new-commnet', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
         </div>
         <div layout="row" layout-align="space-between center">
             <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />

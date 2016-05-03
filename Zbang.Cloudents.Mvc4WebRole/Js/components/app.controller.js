@@ -94,25 +94,25 @@
             self.menuOpened = false;
         });
 
-        self.showMenu = true;
-        self.showSearch = true;
-        self.fixedBgColor = false;
+        self.showMenu= self.showSearch = true;
+        self.fixedBgColor = self.showBoxAd = false;
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             self.showBoxAd = toState.parent === 'box';
+            self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
+            self.fixedBgColor = toState.name === 'item' || toState.name === 'quiz';
+            //self.showMenu = true;
+            //self.showSearch = true;
+            //self.fixedBgColor = false;
 
-            self.showMenu = true;
-            self.showSearch = true;
-            self.fixedBgColor = false;
-
-            if (toState.name === 'item' || toState.name === 'quiz') {
-                self.fixedBgColor = true;
-                self.showMenu = false;
-            }
-            if (toState.name === 'universityChoose') {
-                self.showMenu = false;
-                self.showSearch = false;
-            }
+            //if (toState.name === 'item' || toState.name === 'quiz') {
+            //    self.fixedBgColor = true;
+            //    self.showMenu = false;
+            //}
+            //if (toState.name === 'universityChoose') {
+            //    self.showMenu = false;
+            //    self.showSearch = false;
+            //}
 
             if (!fromState.name) {
                 return;
