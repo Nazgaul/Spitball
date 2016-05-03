@@ -29,7 +29,7 @@
             </div>
         </div>
         <div ng-if="lc.term.length && lc.universities.length" class="add-uni-btn textTC2">
-            <div>No more sudent</div>
+            <div>@LibraryResources.NoMoreSchools</div>
             <md-button class="btn button-Blue btn-primary text-capitalize" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">@LibraryResources.AddSchool</md-button>
         </div>
         <div ng-if="lc.term.length > 1 && lc.showNoResult" class="no-result">

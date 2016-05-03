@@ -814,10 +814,15 @@ md-menu-item.blue svg {
     width: calc(100% + 290px);
   }
 }
+.itemPage .progress-bar {
+  min-height: 5px;
+  margin-bottom: 5px;
+}
 .itemPage header {
   width: 100%;
   position: relative;
   min-height: 60px;
+  display: block;
 }
 .itemPage header .page-logo svg {
   width: 180px;

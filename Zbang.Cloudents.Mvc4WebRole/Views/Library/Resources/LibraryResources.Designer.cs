@@ -196,6 +196,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No more schools found.
+        /// </summary>
+        public static string NoMoreSchools {
+            get {
+                return ResourceManager.GetString("NoMoreSchools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to School name.
         /// </summary>
         public static string SchoolName {

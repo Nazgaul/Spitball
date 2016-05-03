@@ -192,4 +192,7 @@ Make Spitball better by adding it</value>
   <data name="UniversitySearchTitleNoResultSub" xml:space="preserve">
     <value>Try different keywords or add your own</value>
   </data>
+  <data name="NoMoreSchools" xml:space="preserve">
+    <value>No more schools found</value>
+  </data>
 </root>
