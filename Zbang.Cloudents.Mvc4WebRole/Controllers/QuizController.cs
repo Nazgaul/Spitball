@@ -255,12 +255,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult Delete(long id)
+        public async Task<JsonResult> Delete(long id)
         {
             try
             {
                 var command = new DeleteQuizCommand(id, User.GetUserId());
-                ZboxWriteService.DeleteQuiz(command);
+                await ZboxWriteService.DeleteQuizAsync(command);
                 return JsonOk();
             }
             catch (Exception ex)

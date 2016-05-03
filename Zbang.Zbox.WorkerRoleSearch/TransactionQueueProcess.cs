@@ -12,7 +12,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class TransactionQueueProcess : IJob
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
-
+        private const string Prefix = "UpdateDomainProcess";
         public TransactionQueueProcess(IQueueProviderExtract queueProviderExtract)
         {
             m_QueueProviderExtract = queueProviderExtract;
@@ -30,19 +30,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
                         if (msgData == null)
                         {
-                            TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess");
+                            TraceLog.WriteError($"{Prefix} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
                         var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IDomainProcess>(msgData.ProcessResolver);
                         if (process == null)
                         {
-                            TraceLog.WriteError("UpdateDomainProcess run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
+                            TraceLog.WriteError($"{Prefix} run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
                             return true;
                         }
                         return await process.ExecuteAsync(msgData, cancellationToken);
                     }, TimeSpan.FromMinutes(1), 5, cancellationToken);
                     if (!result)
                     {
+                        TraceLog.WriteInfo($"{Prefix} going to sleep");
                         await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
                     }
                 }

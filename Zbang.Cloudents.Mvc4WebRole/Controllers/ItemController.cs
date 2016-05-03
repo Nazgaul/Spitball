@@ -489,14 +489,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         [HttpPost]
         [ZboxAuthorize]
-        public JsonResult DeleteComment(DeleteItemComment model)
+        public async Task<JsonResult> DeleteComment(DeleteItemComment model)
         {
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
             }
             var command = new DeleteItemCommentCommand(model.CommentId, User.GetUserId());
-            ZboxWriteService.DeleteAnnotation(command);
+            await ZboxWriteService.DeleteAnnotationAsync(command);
             return JsonOk();
         }
         [HttpPost]
@@ -514,14 +514,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize]
-        public JsonResult DeleteCommentReply(DeleteItemCommentReply model)
+        public async Task<JsonResult> DeleteCommentReply(DeleteItemCommentReply model)
         {
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
             }
             var command = new DeleteItemCommentReplyCommand(User.GetUserId(), model.ReplyId);
-            ZboxWriteService.DeleteItemCommentReply(command);
+            await ZboxWriteService.DeleteItemCommentReplyAsync(command);
             return JsonOk();
         }
 

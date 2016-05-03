@@ -13,7 +13,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class MailQueueProcess : IJob
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
-
+        private const string Prefix = "MailProcess";
         public MailQueueProcess(IQueueProviderExtract queueProviderExtract)
         {
             m_QueueProviderExtract = queueProviderExtract;
@@ -31,19 +31,20 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var msgData = msg.FromMessageProto<Infrastructure.Transport.BaseMailData>();
                         if (msgData == null)
                         {
-                            TraceLog.WriteError("UpdateDomainProcess run - msg cannot transfer to DomainProcess");
+                            TraceLog.WriteError($" {Prefix} run - msg cannot transfer to DomainProcess");
                             return true;
                         }
                         var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IMail2>(msgData.MailResover);
                         if (process == null)
                         {
-                            TraceLog.WriteError("UpdateDomainProcess run - process is null msgData.ProcessResolver:" + msgData.MailResover);
+                            TraceLog.WriteError($"{Prefix} run - process is null msgData.ProcessResolver:" + msgData.MailResover);
                             return true;
                         }
                         return await process.ExecuteAsync(msgData, cancellationToken);
                     }, TimeSpan.FromMinutes(1), 5, cancellationToken);
                     if (!result)
                     {
+                        TraceLog.WriteInfo($"{Prefix} going to sleep");
                         await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
                     }
                 }
@@ -56,7 +57,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
-                    TraceLog.WriteError("Update UpdateDomainProcess", ex);
+                    TraceLog.WriteError($" {Prefix}", ex);
                 }
             }
         }
