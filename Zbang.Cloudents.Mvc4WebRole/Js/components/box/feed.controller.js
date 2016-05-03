@@ -11,22 +11,16 @@
 
         self.add = {
             files: [],
-            disabled: false,
-            googleDisabled: true,
-            dropboxDisabled: true
+            disabled: false
         };
-        self.likeDisabled = false;
-
         self.add.createReply = createReply;
-
         self.add.createComment = createComment;
-
-
-
 
         self.add.google = google;
         self.add.dropbox = dropbox;
+        self.add.init =  initThirdParties;
 
+        
 
         self.deleteComment = deleteComment;
 
@@ -40,33 +34,48 @@
         var feedUpdates = {};
 
         function appendUpdates(postsList) {
-            if (feedUpdates) {
-                for (currentPost in postsList) {
-                    if (feedUpdates[postsList[currentPost].id]) {
-                        postsList[currentPost].isNew = true;
-                    }
-                    for (currentreply in postsList[currentPost].replies) {
-                        if (feedUpdates[postsList[currentPost].replies[currentreply].id]) {
-                            postsList[currentPost].replies[currentreply].isNew = true;
-                        }
+            if (!feedUpdates) {
+                return;
+            }
+            for (var i = 0; i < postsList.length; i++) {
+                var currentPost = postsList[i];
+                if (feedUpdates[postsList[currentPost].id]) {
+                    postsList[currentPost].isNew = true;
+                }
+                for (var j = 0; j < postsList[currentPost].replies.length; j++) {
+                    var currentreply = postsList[currentPost].replies[j];
+                    if (feedUpdates[postsList[currentPost].replies[currentreply].id]) {
+                        postsList[currentPost].replies[currentreply].isNew = true;
                     }
                 }
             }
+            //for (currentPost in postsList) {
+            //    if (feedUpdates[postsList[currentPost].id]) {
+            //        postsList[currentPost].isNew = true;
+            //    }
+            //    for (currentreply in postsList[currentPost].replies) {
+            //        if (feedUpdates[postsList[currentPost].replies[currentreply].id]) {
+            //            postsList[currentPost].replies[currentreply].isNew = true;
+            //        }
+            //    }
+            //}
         }
+        //externalUploadProvider.googleDriveInit().then(function () {
+        //    self.add.googleDisabled = false;
+        //});
+        //externalUploadProvider.dropboxInit().then(function () {
+        //    self.add.dropboxDisabled = false;
+        //});
 
         boxService.getFeed(boxId, top, 0).then(function (response) {
-            // self.data = response;
-            self.data = assignData(response);
-            userUpdatesService.boxUpdates(boxId, function (updates) {
-                feedUpdates = updates;
-                appendUpdates(self.data);
-            });
-            externalUploadProvider.googleDriveInit().then(function () {
-                self.add.googleDisabled = false;
-            });
-            externalUploadProvider.dropboxInit().then(function () {
-                self.add.dropboxDisabled = false;
-            });
+             self.data = response;
+             //self.data = assignData(response);
+             //appendUpdates(self.data);
+            
+        });
+        userUpdatesService.boxUpdates(boxId, function (updates) {
+            feedUpdates = updates;
+            //appendUpdates(self.data);
         });
         function likeCommentDialog(comment, ev) {
             if (!comment.likesCount) {
@@ -106,7 +115,7 @@
                 return;
             }
             $scope.$emit('follow-box');
-            self.likeDisabled = true;
+            self.add.disabled = true;
             boxService.likeComment(comment.id, boxId).then(function (response) {
                 if (response) {
                     comment.likesCount++;
@@ -117,7 +126,7 @@
                 }
 
             }).finally(function () {
-                self.likeDisabled = false;
+                self.add.disabled = false;
             });
         }
         function likeReply(reply2) {
@@ -125,7 +134,7 @@
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
-            self.likeDisabled = true;
+            self.add.disabled = true;
             $scope.$emit('follow-box');
             boxService.likeReply(reply2.id, boxId).then(function (response) {
                 if (response) {
@@ -137,7 +146,7 @@
                 }
 
             }).finally(function () {
-                self.likeDisabled = false;
+                self.add.disabled = false;
             });
         }
 
@@ -150,6 +159,15 @@
                 var x = self.data;
                 // self.data = self.data.concat(response);
                 self.data = x.concat(assignData(response));
+            });
+        }
+
+        function initThirdParties() {
+            externalUploadProvider.googleDriveInit().then(function () {
+                self.add.googleDisabled = false;
+            });
+            externalUploadProvider.dropboxInit().then(function () {
+                self.add.dropboxDisabled = false;
             });
         }
 
@@ -307,14 +325,14 @@
                 self.add.anonymous = false;
                 $scope.$emit('follow-box');
                 /*answers: []
-content: "asdasdasd"
-creationTime: "2015-11-04T13:11:32.6519547Z"
-files: []
-id: "b05758b9-7e1d-4b3b-af7f-a54600fa5c9c"
-url: "/user/1/ram-y/"
-userId: 1
-userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"
-userName: "ram y"*/
+    content: "asdasdasd"
+    creationTime: "2015-11-04T13:11:32.6519547Z"
+    files: []
+    id: "b05758b9-7e1d-4b3b-af7f-a54600fa5c9c"
+    url: "/user/1/ram-y/"
+    userId: 1
+    userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"
+    userName: "ram y"*/
 
             }).finally(function () {
                 self.add.disabled = false;

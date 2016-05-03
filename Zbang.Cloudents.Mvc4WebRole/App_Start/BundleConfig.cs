@@ -42,13 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
 
-        public static string CdnEndpointUrl
-        {
-            get
-            {
-                return CdnLocation;
-            }
-        }
+        public static string CdnEndpointUrl => CdnLocation;
 
         public static void RegisterBundle(
             IEnumerable<KeyValuePair<string, IEnumerable<string>>> registeredCssBundles,
@@ -63,8 +57,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value);
                     RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Where(w =>
                     {
-                        var relativeLocation = string.Format("{0}.rtl.css",
-                            w.Replace(Path.GetExtension(w), string.Empty));
+                        var relativeLocation = $"{w.Replace(Path.GetExtension(w), string.Empty)}.rtl.css";
                         var physicalLocation = HttpContext.Current.Server.MapPath(relativeLocation);
                         if (File.Exists(physicalLocation))
                         {
@@ -72,8 +65,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         }
                         return false;
 
-                    }).Select(s => string.Format("{0}.rtl.css", s.Replace(Path.GetExtension(s), string.Empty))
-                    ));
+                    }).Select(s => $"{s.Replace(Path.GetExtension(s), string.Empty)}.rtl.css"
+                        ));
                 }
             }
             if (registeredJsBundles != null)
@@ -88,8 +81,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 foreach (var culture in language.Culture)
                 {
                     Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
-                    var angularResource = string.Format("{0}_{1}.js", HttpContext.Current.Server.MapPath("/bower_components/angular-i18n/angular-locale"),
-                                            Thread.CurrentThread.CurrentUICulture.Name);
+                    var angularResource =
+                        $"{HttpContext.Current.Server.MapPath("/bower_components/angular-i18n/angular-locale")}_{Thread.CurrentThread.CurrentUICulture.Name}.js";
 
                     RegisterLocaleJs(File.ReadAllText(angularResource),
                         JsResourceHelper.BuildResourceObject(), culture);
@@ -134,7 +127,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 CssBundles.Add(key, cssBundle.Render("~/cdn/gzip/c#.css"));
             }
-
+            cssBundle.ForceRelease();
 
         }
 
@@ -155,6 +148,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 return;
             }
             JsBundles.Add("langText." + culture, bundler.Render("~/cdn/gzip/j#.js"));
+            bundler.ForceRelease();
         }
 
         private static string RegisterJs(IEnumerable<JsFileWithCdn> jsFiles, JavaScriptBundle javaScriptBundleImp)
@@ -245,7 +239,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 }
                 catch (Exception ex)
                 {
-                    Zbox.Infrastructure.Trace.TraceLog.WriteError(string.Format("On Copy Files to cdn filePath: {0} cdnFilePath: {1}", filePath, cdnFilePath), ex);
+                    Zbox.Infrastructure.Trace.TraceLog.WriteError(
+                        $"On Copy Files to cdn filePath: {filePath} cdnFilePath: {cdnFilePath}", ex);
                 }
             }
         }
@@ -265,7 +260,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             LocalFile = localFile;
             CdnFile = cdnFile;
         }
-        public string LocalFile { get; private set; }
-        public string CdnFile { get; private set; }
+        public string LocalFile { get; }
+        public string CdnFile { get; }
     }
 }

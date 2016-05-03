@@ -46,10 +46,7 @@
                             </button>
                             <div layout="row" layout-align="start center">
                                 <input type="button" value="{{post.likesCount}}" class="like-count" user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)"/>
-                                @*<button class="like-count" user-not-register-popup="click" type="button" ng-click="f.likeCommentDialog(post,$event)">
-                                    <span ng-bind="post.likesCount"></span>
-                                </button>*@
-                                <button class="like-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-disabled="f.likeDisabled" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
+                                <button class="like-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-disabled="f.add.disabled" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
                                     @Html.Svg("~/images/site/box-icons.svg", "like" ,new { @class="like-icon", ng_if= "!post.isLiked" })
                                     @Html.Svg("~/images/site/box-icons.svg", "activeLike", new { @class = "like-icon", ng_if = "post.isLiked" }) @GeneralResources.Like
                                 </button>
@@ -98,7 +95,7 @@
                                 <button type="button" ng-if="reply.likesCount" ng-click="f.likeReplyDialog(reply,$event)">
                                     <span class="like-count">{{reply.likesCount}}</span>
                                 </button>
-                                <button type="button" ng-disabled="f.likeDisabled" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']" layout="row" layout-align="start center">
+                                <button type="button" ng-disabled="f.add.disabled" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']" layout="row" layout-align="start center">
                                     <span class="like-icon" ng-if="!reply.isLiked">@Html.Svg("~/images/site/box-icons.svg", "like")</span>
                                     <span class="like-icon" ng-if="reply.isLiked">@Html.Svg("~/images/site/box-icons.svg", "activeLike")</span>
                                     <span>@GeneralResources.Like</span>

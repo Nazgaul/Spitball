@@ -45,7 +45,7 @@
                     i += 1;
                 }
             }
-            requestAnimationFrame(oninterval, 17);
+            requestAnimationFrame(oninterval, 1517);
         }
         opts = opts || {};
         var uses = document.getElementsByTagName("use"), polyfill = "polyfill" in opts ? opts.polyfill : /\bEdge\/12\b|\bTrident\/[567]\b|\bVersion\/7.0 Safari\b/.test(navigator.userAgent) || (navigator.userAgent.match(/AppleWebKit\/(\d+)/) || [])[1] < 537, validate = opts.validate, requestAnimationFrame = window.requestAnimationFrame || setTimeout, svgCache = {};
@@ -53,4 +53,4 @@
     }
     return svg4everybody;
 });
-//svg4everybody();
+svg4everybody();

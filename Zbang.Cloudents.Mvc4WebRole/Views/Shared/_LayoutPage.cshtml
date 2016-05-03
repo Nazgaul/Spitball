@@ -30,21 +30,7 @@
     <base href="/" />
 </head>
 <body ng-controller="AppController as app" class="{{app.theme}} color-override backgroundColor1 clearfix" ng-class="{menuOpened: app.menuOpened, fixedBgColor: app.fixedBgColor}" @*class="theme-light"*@>
-    <!-- Google Tag Manager -->
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
-    <!-- End Google Tag Manager -->
+    
     <div ng-spinner-bar class="sb-loader">
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
     </div>
@@ -145,6 +131,21 @@
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>
     @Html.Script2("site4")
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
+    <!-- End Google Tag Manager -->
     <script>
         jQuery(document).ready(function () {
             Metronic.init(); // init metronic core componets

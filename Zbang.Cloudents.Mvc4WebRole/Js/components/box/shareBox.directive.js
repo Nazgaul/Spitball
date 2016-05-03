@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('app').directive('shareBox', shareBox);
-    shareBox.$inject = ['$window', '$rootScope'];
+    //shareBox.$inject = ['$window', '$rootScope'];
 
-    function shareBox($window, $rootScope) {
+    function shareBox() {
         return {
             restrict: 'E',
             replace: true,
