@@ -60,6 +60,6 @@
         doubleClickProvider.defineSizeMapping(itemSide)
             .addSize([0, 0], [160, 600]);
 
-        doubleClickProvider.setRefreshInterval(60000);
+        //doubleClickProvider.setRefreshInterval(60000);
     }
 })();

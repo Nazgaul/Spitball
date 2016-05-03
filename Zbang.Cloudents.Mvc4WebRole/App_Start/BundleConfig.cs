@@ -127,28 +127,27 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 CssBundles.Add(key, cssBundle.Render("~/cdn/gzip/c#.css"));
             }
-            cssBundle.ForceRelease();
 
         }
 
         private static void RegisterLocaleJs(string angularPath, string jsResourceString, string culture)
         {
-            var bundler = SquishIt.Framework.Bundle.JavaScript();
-            bundler.WithReleaseFileRenderer(new SquishItRenderer());
-            bundler.AddString(angularPath);
-            bundler.AddString(jsResourceString);
+            var jsBundle = SquishIt.Framework.Bundle.JavaScript();
+            jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
+            jsBundle.AddString(angularPath);
+            jsBundle.AddString(jsResourceString);
             var cdnUrl = CdnLocation;
 
             if (!string.IsNullOrWhiteSpace(cdnUrl))
             {
-                bundler.WithOutputBaseHref(cdnUrl);
+                jsBundle.WithOutputBaseHref(cdnUrl);
                 CopyFilesToCdn("~/gzip/", "*.js", SearchOption.TopDirectoryOnly);
 
-                JsBundles.Add("langText." + culture, bundler.Render("~/gzip/j1#.js"));
+                JsBundles.Add("langText." + culture, jsBundle.Render("~/gzip/j1#.js"));
                 return;
             }
-            JsBundles.Add("langText." + culture, bundler.Render("~/cdn/gzip/j#.js"));
-            bundler.ForceRelease();
+            JsBundles.Add("langText." + culture, jsBundle.Render("~/cdn/gzip/j#.js"));
+           
         }
 
         private static string RegisterJs(IEnumerable<JsFileWithCdn> jsFiles, JavaScriptBundle javaScriptBundleImp)
