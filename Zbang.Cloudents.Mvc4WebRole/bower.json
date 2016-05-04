@@ -12,7 +12,7 @@
     "ngSlimscroll": "*",
     "angular-cache": "~4.5.0",
     "font-awesome": "~4.5.0",
-    "jquery": "2.1.4",
+    "jquery": "2.2.0",
     "jquery.validate": "~1.13.0",
     "angular-locale": "~0.1.10",
     "angular-i18n": "1.4.6",

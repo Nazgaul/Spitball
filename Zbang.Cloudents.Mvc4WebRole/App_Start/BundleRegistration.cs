@@ -69,6 +69,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                  {
                     "site4", new[]
                     {
+                        //"~/bower_components/angular-material/modules/css/angular-material-layout.css",
                         "~/content/site/angularWithChanges.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         
@@ -161,12 +162,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "site4", new[]
                     {
 
-                        //new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"), //changed to bower components
-                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
+                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
                         
-                        //new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
-                        //new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"), //changed to bower components
                         new JsFileWithCdn("~/bower_components/angular/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"),
 
                         //new JsFileWithCdn("~/scripts/angular-ui-router.js"), //changed to bower components
@@ -316,7 +314,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/userDetails.js"),
                         new JsFileWithCdn("~/js/shared/fileReader.js"),
                         new JsFileWithCdn("~/js/shared/animationClass.js"),
-                        new JsFileWithCdn("~/js/shared/animationLocation.js"),
+                        //new JsFileWithCdn("~/js/shared/animationLocation.js"),
                         new JsFileWithCdn("~/js/shared/removeKeyboard.js"),
                         new JsFileWithCdn("~/js/shared/firstLetter.js"),
                         new JsFileWithCdn("~/js/shared/history.js"),
