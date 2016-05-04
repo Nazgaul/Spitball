@@ -45,7 +45,7 @@
 
 
         $scope.$on("open_invite", function () {
-            $anchorScroll.yOffset = 100;
+            $anchorScroll.yOffset = 250;
             if (self.tab === self.state.spitball) {
                 getSystemUsers();
             }

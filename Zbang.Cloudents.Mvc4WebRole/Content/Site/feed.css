@@ -38,7 +38,7 @@
   margin-top: -12.5px;
   background: #4190b9;
   border-radius: 100%;
-  padding: 8px 6px 8px 10px;
+  padding: 8px 6px 8px 10px /*rtl:ignore*/;
   z-index: 2;
 }
 .feed .items-slider .items-next svg,
@@ -251,6 +251,10 @@
   border-radius: 50px;
   margin-right: 10px;
 }
+.feed .comment .user-name,
+.feed .comment .reply .user-name {
+  color: #282828;
+}
 .feed .comment .user-name {
   color: #282828;
   font-weight: 400;
@@ -295,7 +299,6 @@
   display: inline-flex;
 }
 .feed .reply .userblock .user-name {
-  color: #2698D4;
   font-weight: normal;
 }
 .feed .reply > .content-text {
@@ -331,6 +334,13 @@
 }
 .feed .actions .post-comment {
   margin-right: 14px;
+  -moz-transform: scaleX(0) /*rtl:scaleX(-1)*/;
+  -o-transform: scaleX(0) /*rtl:scaleX(-1)*/;
+  -webkit-transform: scaleX(0) /*rtl:scaleX(-1)*/;
+  -ms-transform: scaleX(0) /*rtl:scaleX(-1)*/;
+  transform: scaleX(0) /*rtl:scaleX(-1)*/;
+  -ms-filter: none /*rtl:FlipH*/;
+  filter: none /*rtl:FlipH*/;
 }
 .feed .actions .share-section {
   padding: 0;
