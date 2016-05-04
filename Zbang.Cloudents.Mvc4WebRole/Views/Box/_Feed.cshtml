@@ -64,7 +64,7 @@
                         <div class="indent info">
                             <a href="{{::reply.url}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
                                 <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="52" height="52"></user-image>
-                                <span class="user-name">{{::reply.userName}}</span>
+                                <span class="user-name" ng-bind="::reply.userName"></span>
                             </a>
                             <span class="comment-date" ng-bind="::reply.creationTime"></span>
                         </div>
@@ -93,7 +93,7 @@
                         <div class="actions-wrapper">
                             <div class="like-btn actions" layout="row" layout-align="start center">
                                 <button type="button" ng-if="reply.likesCount" ng-click="f.likeReplyDialog(reply,$event)">
-                                    <span class="like-count">{{reply.likesCount}}</span>
+                                    <span class="like-count" ng-bind="reply.likesCount"></span>
                                 </button>
                                 <button type="button" ng-disabled="f.add.disabled" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']" layout="row" layout-align="start center">
                                     <span class="like-icon" ng-if="!reply.isLiked">@Html.Svg("~/images/site/box-icons.svg", "like")</span>
