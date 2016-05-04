@@ -2,7 +2,6 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 
-<div uib-collapse="!b.inviteOpen" compile-html="b.html" expanding="b.inviteExpand()"></div>
 <div class="ad" data-ng-dfp-ad-container>
     <div data-ng-dfp-ad="div-gpt-ad-1461243129238-3" data-ng-dfp-ad-hide-when-empty></div>
 </div>
@@ -14,6 +13,7 @@
         <button class="box-settings" flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/icons.svg", "ThreeDots")</button>
     </div>
 </div>
+<div uib-collapse="!b.inviteOpen" compile-html="b.html" expanding="b.inviteExpand()"></div>
 <div uib-collapse="!b.settingsOpen" class="settings" ng-cloak>
     @{Html.RenderPartial("_Settings");}
 </div>
