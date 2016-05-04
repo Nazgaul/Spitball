@@ -109,7 +109,7 @@
                     <form class="add-comment add-reply" ng-submit="f.add.createReply(post)">
                         <div class="reply-wrapper">
                             <md-input-container md-no-float>
-                                <textarea focus-me="post.focusReply" ng-model="f.add.newReplyText" placeholder="@BoxResources.replyPostPlaceholder" class="color-override inputColor12 textColor7"></textarea>
+                                <textarea user-not-register-popup="focus" focus-me="post.focusReply" ng-model="f.add.newReplyText" placeholder="@BoxResources.replyPostPlaceholder" class="color-override inputColor12 textColor7"></textarea>
                             </md-input-container>
                             <ul class="list-inline file-upload-area" ng-if="f.add.files.length">
                                 <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: post.id}" ng-include="'file-upload.html'">
@@ -117,15 +117,15 @@
                         </div>
                         <div class="reply-actions" layout="row" layout-align="space-between center">
                             <div class="upload-options feed-upload" layout="row" layout-wrap layout-align="space-between start">
-                                <a plupload="f.add.fileUpload.url" ng-click="f.add.upload(post.id)"
+                                <a user-not-register-popup="click" plupload="f.add.fileUpload.url" ng-click="f.add.upload(post.id)"
                                    plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks" ga-track-event="['box-feed', 'addFile']">
                                     @Html.Svg(url, "file", new { @class = "file color-override hoverSvgColor2" })
                                 </a>
-                                <button type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)" ga-track-event="['box-feed', 'googleDrive']">
+                                <button user-not-register-popup="click" type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)" ga-track-event="['box-feed', 'googleDrive']">
                                     @Html.Svg(url, "googleDrive")
                                     @Html.Svg(url, "googleDriveClean")
                                 </button>
-                                <button type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)" ga-track-event="['box-feed', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
+                                <button user-not-register-popup="click" type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)" ga-track-event="['box-feed', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
                             </div>
                             <button type="submit" class="btn button-Blue btn-primary text-uppercase post-comment" ng-disabled="f.add.disabled" ga-track-event="['box-feed', 'postReply']">
                                 @Html.Svg(url, "post")

@@ -71,6 +71,8 @@
 
                     span {
                         margin: 0;
+                        width: 100%;
+                        text-align: center;
 
                         svg {
                             margin: 0;
@@ -78,7 +80,7 @@
                     }
 
                     &.spitball {
-                        span, svg {
+                        svg {
                             width: 50px;
                             height: 25px;
                             fill: @textColorSpitballBlue;
@@ -86,7 +88,7 @@
                     }
 
                     &.email {
-                        span, svg {
+                        svg {
                             width: 35px;
                             height: 25px;
                         }
@@ -97,7 +99,7 @@
                     }
 
                     &.facebook {
-                        span, svg {
+                        svg {
                             height: 35px;
                             width: 35px;
                         }
@@ -195,6 +197,8 @@
                         -ms-perspective: 1000;
                         -webkit-perspective: 1000;
                         perspective: 1000;
+                        -webkit-transform-style: preserve-3d;
+                        transform-style: preserve-3d;
                     }
                     /* flip the pane when hovered */
                     /*.flip-container:hover .flipper, .flip-container.hover .flipper {
@@ -203,10 +207,18 @@
                     &.selected {
                         .flip-container .flipper {
                             -moz-transform: rotateY(180deg);
-                            -ms-transform: rotateY(180deg);
                             -o-transform: rotateY(180deg);
                             -webkit-transform: rotateY(180deg);
                             transform: rotateY(180deg);
+                            -ms-transform: none;
+                        }
+
+                        .flip-container .checkbox {
+                            -ms-transform: rotateY(0deg);
+                        }
+
+                        .flip-container .avatar {
+                            -ms-transform: rotateY(180deg);
                         }
                     }
 
@@ -230,6 +242,12 @@
                         -moz-backface-visibility: hidden;
                         -webkit-backface-visibility: hidden;
                         backface-visibility: hidden;
+                        -moz-transition: 0.6s;
+                        -o-transition: 0.6s;
+                        -webkit-transition: 0.6s;
+                        transition: 0.6s;
+                        -webkit-transform-style: preserve-3d;
+                        transform-style: preserve-3d;
                         position: absolute;
                         top: 0;
                         left: 0;
@@ -237,20 +255,19 @@
                     /* front pane, placed above back */
                     .avatar {
                         z-index: 2;
-                        /* for firefox 31 */
-                        -moz-transform: rotateY(0);
-                        -ms-transform: rotateY(0);
-                        -o-transform: rotateY(0);
-                        -webkit-transform: rotateY(0);
-                        transform: rotateY(0);
+                        -moz-transform: rotateY(0deg);
+                        -ms-transform: rotateY(0deg);
+                        -o-transform: rotateY(0deg);
+                        -webkit-transform: rotateY(0deg);
+                        transform: rotateY(0deg);
                     }
                     /* back, initially hidden pane */
                     .checkbox {
-                        -moz-transform: rotateY(180deg);
-                        -ms-transform: rotateY(180deg);
-                        -o-transform: rotateY(180deg);
-                        -webkit-transform: rotateY(180deg);
-                        transform: rotateY(180deg);
+                        -moz-transform: rotateY(-180deg);
+                        -ms-transform: rotateY(-180deg);
+                        -o-transform: rotateY(-180deg);
+                        -webkit-transform: rotateY(-180deg);
+                        transform: rotateY(-180deg);
                     }
                     /****************/
                     /*.checkbox:before {
@@ -390,7 +407,6 @@
         bottom: 0;
         left: 15px;
         z-index: 999;
-        
         -o-transition: opacity 0.3s ease-in-out;
         -moz-transition: opacity 0.3s ease-in-out;
         -webkit-transition: opacity 0.3s ease-in-out;

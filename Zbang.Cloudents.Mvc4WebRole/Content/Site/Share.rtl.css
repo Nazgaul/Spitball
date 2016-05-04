@@ -91,17 +91,17 @@
 }
 .invite.invite-dialog .content .tabs button span {
   margin: 0;
+  width: 100%;
+  text-align: center;
 }
 .invite.invite-dialog .content .tabs button span svg {
   margin: 0;
 }
-.invite.invite-dialog .content .tabs button.spitball span,
 .invite.invite-dialog .content .tabs button.spitball svg {
   width: 50px;
   height: 25px;
   fill: #3293F6;
 }
-.invite.invite-dialog .content .tabs button.email span,
 .invite.invite-dialog .content .tabs button.email svg {
   width: 35px;
   height: 25px;
@@ -109,7 +109,6 @@
 .invite.invite-dialog .content .tabs button:not(:last-child) {
   margin-left: 4px;
 }
-.invite.invite-dialog .content .tabs button.facebook span,
 .invite.invite-dialog .content .tabs button.facebook svg {
   height: 35px;
   width: 35px;
@@ -246,13 +245,21 @@
   -ms-perspective: 1000;
   -webkit-perspective: 1000;
   perspective: 1000;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }
 .invite.invite-dialog .content .center .user.selected .flip-container .flipper {
   -moz-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
   -o-transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
+  -ms-transform: none;
+}
+.invite.invite-dialog .content .center .user.selected .flip-container .checkbox {
+  -ms-transform: rotateY(0deg);
+}
+.invite.invite-dialog .content .center .user.selected .flip-container .avatar {
+  -ms-transform: rotateY(180deg);
 }
 .invite.invite-dialog .content .center .user .flip-container,
 .invite.invite-dialog .content .center .user .avatar,
@@ -275,25 +282,30 @@
   -moz-backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  -moz-transition: 0.6s;
+  -o-transition: 0.6s;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
   position: absolute;
   top: 0;
   right: 0;
 }
 .invite.invite-dialog .content .center .user .avatar {
   z-index: 2;
-  /* for firefox 31 */
-  -moz-transform: rotateY(0);
-  -ms-transform: rotateY(0);
-  -o-transform: rotateY(0);
-  -webkit-transform: rotateY(0);
-  transform: rotateY(0);
+  -moz-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
 }
 .invite.invite-dialog .content .center .user .checkbox {
-  -moz-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
-  -o-transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
-  transform: rotateY(180deg);
+  -moz-transform: rotateY(-180deg);
+  -ms-transform: rotateY(-180deg);
+  -o-transform: rotateY(-180deg);
+  -webkit-transform: rotateY(-180deg);
+  transform: rotateY(-180deg);
 }
 .invite.invite-dialog .content .bottom {
   text-align: left;
