@@ -84,22 +84,21 @@
                     </md-input-container>
 
                 </form>
-                <ol class="list-unstyled feed">
-                    <li class="comment reply color-override backgroundTransparent" ng-repeat="post in q.questions[q.index].comments">
-                        <div>
-                            <div class="top">
-                                <a href="{{::post.userUrl}}" layout="row" layout-align="start center" class="indent username" ga-track-event="['quiz', 'go to user page']">
-                                    <user-image class="img-circle c-img" name="::post.userName" image="::post.userImage" width="48" height="48"></user-image>
-                                    <span class="user-name">{{::post.userName}}</span>
-                                </a>
-                                <div ng-bind-html="::post.content" class="indent content-text"></div>
-                            </div>
-                            <span class="indent comment-date">{{::post.creationTime | date : 'mediumDate'}} &nbsp; {{::post.creationTime | date : 'shortTime'}}</span>
+                <ol class="list-unstyled replies feed" ng-if="q.questions[q.index].comments.length">
+                    @*<li class="show-more" ng-if="q.questions[q.index].comments.length > 1 && !post.showReplies">
+                        <span ng-click="f.openReply(post)"> @BoxResources.ViewComments {{post.repliesCount-1}} @BoxResources.Comments</span>
+                    </li>*@
+                    <li ng-repeat="post in q.questions[q.index].comments" class="comment reply post">
+                        <div class="indent info">
+                            <a href="{{::post.userUrl}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['quiz', 'go to user page']">
+                                <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
+                                <span class="user-name">{{::post.userName}}</span>
+                            </a>
+                            <span class="comment-date">{{::post.creationTime | date : 'medium'}}</span>
                         </div>
-
-                        <md-menu ng-if="post.userId === q.user.id">
-                            <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['quiz', 'deletePost']">
-                                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                        <md-menu  ng-if="post.userId === q.user.id">
+                            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['quiz', 'deletePost']">
+                                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
                             </md-button>
                             <md-menu-content width="1">
                                 <md-menu-item>
@@ -109,6 +108,7 @@
                                 </md-menu-item>
                             </md-menu-content>
                         </md-menu>
+                        <div ng-bind-html="::post.content" class="indent content-text"></div>
                     </li>
                 </ol>
             </div>

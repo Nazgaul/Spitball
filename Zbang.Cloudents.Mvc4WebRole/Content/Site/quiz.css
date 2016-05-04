@@ -283,30 +283,15 @@
   margin-bottom: 10px;
   color: #282828;
 }
+.quizPage .feed {
+  background: #eee;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  border-radius: 5px;
+  padding: 15px 15px 0 15px !important;
+}
 .quizPage .feed .comment {
-  background: transparent;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-}
-.quizPage .feed .comment > div {
-  flex-grow: 1;
-}
-.quizPage .feed .comment .top {
-  position: inherit;
-  color: #282828;
-}
-.quizPage .feed .comment .text {
-  margin-left: 47px;
-}
-.quizPage .feed .comment .text .content-text,
-.quizPage .feed .comment .text .comment-date {
-  margin-left: 0;
-  margin-bottom: 0;
-}
-.quizPage .feed .reply .user-name {
-  color: #282828;
-  font-weight: 700;
+  background: none;
+  box-shadow: none;
 }
 .quiz-question p {
   margin: 0 0 0 10px;

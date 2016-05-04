@@ -178,6 +178,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email notification.
+        /// </summary>
+        public static string EmailNotification {
+            get {
+                return ResourceManager.GetString("EmailNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Subscribe.
+        /// </summary>
+        public static string EmailSettingsSubscribe {
+            get {
+                return ResourceManager.GetString("EmailSettingsSubscribe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsubscribe.
+        /// </summary>
+        public static string EmailSettingsUnsubscribe {
+            get {
+                return ResourceManager.GetString("EmailSettingsUnsubscribe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter the email address associated with your Spitball account. You will receive a link to reset your password to this email account shortly.
         /// </summary>
         public static string EmailToReset {

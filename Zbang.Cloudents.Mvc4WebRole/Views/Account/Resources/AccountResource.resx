@@ -198,4 +198,13 @@
   <data name="Department" xml:space="preserve">
     <value>Department</value>
   </data>
+  <data name="EmailNotification" xml:space="preserve">
+    <value>Email notification</value>
+  </data>
+  <data name="EmailSettingsSubscribe" xml:space="preserve">
+    <value>Subscribe</value>
+  </data>
+  <data name="EmailSettingsUnsubscribe" xml:space="preserve">
+    <value>Unsubscribe</value>
+  </data>
 </root>

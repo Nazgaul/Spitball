@@ -198,4 +198,13 @@
   <data name="Department" xml:space="preserve">
     <value>מחלקה</value>
   </data>
+  <data name="EmailNotification" xml:space="preserve">
+    <value>קבלת עדכונים למייל</value>
+  </data>
+  <data name="EmailSettingsSubscribe" xml:space="preserve">
+    <value>מאשר</value>
+  </data>
+  <data name="EmailSettingsUnsubscribe" xml:space="preserve">
+    <value>לא מאשר</value>
+  </data>
 </root>
