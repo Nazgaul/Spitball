@@ -335,12 +335,14 @@
 .feed .actions .post-comment {
   margin-left: 14px;
   -moz-transform: scaleX(-1);
-  -o-transform: scaleX(-1);
   -webkit-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
   -ms-transform: scaleX(-1);
   transform: scaleX(-1);
-  -ms-filter: FlipH;
-  filter: FlipH;
+  -ms-filter: fliph;
+  /*IE*/
+  filter: fliph;
+  /*IE*/
 }
 .feed .actions .share-section {
   padding: 0;
@@ -394,6 +396,7 @@
 }
 .feed .replies {
   padding: 15px 15px 0 15px;
+  background: #eeeeee;
 }
 .feed .comments-wrapper,
 .feed .add-comment .user-comment {

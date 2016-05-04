@@ -334,13 +334,15 @@
 }
 .feed .actions .post-comment {
   margin-right: 14px;
-  -moz-transform: scaleX(0) /*rtl:scaleX(-1)*/;
-  -o-transform: scaleX(0) /*rtl:scaleX(-1)*/;
-  -webkit-transform: scaleX(0) /*rtl:scaleX(-1)*/;
-  -ms-transform: scaleX(0) /*rtl:scaleX(-1)*/;
-  transform: scaleX(0) /*rtl:scaleX(-1)*/;
-  -ms-filter: none /*rtl:FlipH*/;
-  filter: none /*rtl:FlipH*/;
+  -moz-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+  -webkit-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+  -o-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+  -ms-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+  transform: scaleX(1) /*rtl:scaleX(-1)*/;
+  -ms-filter: none /*rtl:fliph*/;
+  /*IE*/
+  filter: none /*rtl:fliph*/;
+  /*IE*/
 }
 .feed .actions .share-section {
   padding: 0;
@@ -394,6 +396,7 @@
 }
 .feed .replies {
   padding: 15px 15px 0 15px;
+  background: #eeeeee;
 }
 .feed .comments-wrapper,
 .feed .add-comment .user-comment {

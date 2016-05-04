@@ -317,32 +317,16 @@
         }
     }
     //comment section
-    .feed .comment {
-        background: transparent;
-        .displayFlex;
+    .feed {
+        background: #eee;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+        border-radius: 5px;
+        padding: 15px 15px 0 15px !important;
 
-        > div {
-            flex-grow: 1;
+        .comment {
+            background: none;
+            box-shadow: none;
         }
-
-        .top {
-            position: inherit;
-            color: @textColorBlack;
-        }
-
-        .text {
-            margin-left: 47px;
-
-            .content-text, .comment-date {
-                margin-left: 0;
-                margin-bottom: 0;
-            }
-        }
-    }
-
-    .feed .reply .user-name {
-        color: @textColorBlack;
-        font-weight: 700;
     }
 }
 
