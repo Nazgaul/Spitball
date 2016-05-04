@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app').controller('inviteController', invite);
 
     invite.$inject = ['googleService', 'shareService', '$scope', '$stateParams',

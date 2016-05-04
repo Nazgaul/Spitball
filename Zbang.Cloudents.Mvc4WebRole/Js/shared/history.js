@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app').service('history', h);
     h.$inject = ['$rootScope', '$location'];
     function h($rootScope, $location) {

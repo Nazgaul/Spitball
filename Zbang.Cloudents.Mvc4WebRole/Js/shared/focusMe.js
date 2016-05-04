@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
 
     angular.module('app').directive('focusMe', focusMe);
     focusMe.$inject = ['$timeout', '$parse'];

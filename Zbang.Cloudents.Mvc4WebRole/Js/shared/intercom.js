@@ -1,9 +1,13 @@
+/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="../shared/userDetails.ts" />
+'use strict';
 (function () {
     angular.module('app').run(intercom);
     intercom.$inject = ['userDetailsFactory', '$rootScope'];
     function intercom(userDetailsFactory, $rootScope) {
         function start() {
             var data = userDetailsFactory.get();
+            // var dateCreate = new Date(data.createTime);
             if (data.id) {
                 Intercom('boot', {
                     app_id: "njmpgayv",
@@ -38,3 +42,4 @@
         });
     }
 })();
+//# sourceMappingURL=intercom.js.map

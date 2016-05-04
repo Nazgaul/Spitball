@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app').factory('resManager', resManager);
     resManager.$inject = ['$location'];
     function resManager($location) {

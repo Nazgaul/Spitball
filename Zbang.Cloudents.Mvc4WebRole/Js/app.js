@@ -1,4 +1,4 @@
-﻿/// <reference path="../Scripts/angular.js" />
+﻿'use strict';
 var app;
 (function () {
     "use strict";

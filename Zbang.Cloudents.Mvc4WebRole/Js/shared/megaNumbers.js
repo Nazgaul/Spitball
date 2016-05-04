@@ -1,4 +1,5 @@
-﻿(function() {
+﻿'use strict';
+(function() {
     angular.module('app').filter("megaNumber", function() {
         return function(number, fractionSize) {
 

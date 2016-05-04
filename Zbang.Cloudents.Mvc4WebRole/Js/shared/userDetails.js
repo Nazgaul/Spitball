@@ -1,4 +1,5 @@
 /// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+'use strict';
 (function () {
     angular.module('app').factory('userDetailsFactory', userDetails);
     userDetails.$inject = ['$rootScope', '$filter', '$timeout', '$q', '$http', 'ajaxService', 'Analytics'];

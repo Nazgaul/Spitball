@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.search').controller('SearchTriggerController', searchTriggerController);
     searchTriggerController.$inject = ['$state', '$rootScope', '$stateParams', '$location', 'userDetailsFactory'];
 

@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     "use strict";
 
     angular.module('app').config(config);
@@ -17,8 +18,6 @@
         });
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
         //deep-purple
-        //$mdThemingProvider.setDefaultTheme('deep-purple');
-        //$mdBiDirectionalProvider.rtlMode(true);
         $provide.factory('requestinterceptor', [function () {
 
             return {

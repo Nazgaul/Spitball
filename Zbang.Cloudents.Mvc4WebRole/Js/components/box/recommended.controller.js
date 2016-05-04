@@ -1,4 +1,4 @@
-﻿
+﻿'use strict';
 (function () {
     angular.module('app.box').controller('RecommendedController', recommended);
     recommended.$inject = ['boxService', '$stateParams'];

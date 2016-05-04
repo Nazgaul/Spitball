@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.ajaxservice', ['angular-cache']);
 })();
 //(function () {

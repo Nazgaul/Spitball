@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.search').service('searchService', search);
 
     search.$inject = ['ajaxService'];

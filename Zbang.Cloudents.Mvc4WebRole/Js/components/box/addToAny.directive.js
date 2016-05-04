@@ -1,3 +1,4 @@
+'use strict';
 (function () {
     angular.module('app.box').directive('addToAny', addToAny);
     addToAny.$inject = ['$templateCache', '$timeout', '$compile', '$location'];

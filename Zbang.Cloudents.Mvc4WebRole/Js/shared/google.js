@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app').factory('googleService', service);
 
     service.$inject = ['$document', '$q', '$timeout', '$filter', 'shareService'];

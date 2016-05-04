@@ -1,3 +1,6 @@
+/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="userDetails.ts" />
+'use strict';
 (function () {
     angular.module('app').run(inlineManual);
     inlineManual.$inject = ['$rootScope', '$timeout', '$document', 'userDetailsFactory'];
@@ -12,11 +15,12 @@
                 uid: userData.id,
                 email: userData.email,
                 username: userData.name,
-                created: Math.round(userData.createTime.getTime() / 1000),
+                created: Math.round(userData.createTime.getTime() / 1000)
             };
             $timeout(injectInlineManual, 0, false);
         });
         $rootScope.$on("$stateChangeSuccess", function () {
+            // Inline manual fix for angular
             var element = $document.find('[ui-view][animation-class]');
             $timeout(function () {
                 if (registeredUser && angular.isDefined(inline_manual_player)) {
@@ -32,3 +36,4 @@
         }
     }
 })();
+//# sourceMappingURL=inlineManual.js.map

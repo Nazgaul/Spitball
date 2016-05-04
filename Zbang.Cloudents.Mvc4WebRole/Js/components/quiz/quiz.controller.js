@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.quiz').controller('QuizController', quiz);
 
     quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'userDetailsFactory', '$rootScope', '$scope'];

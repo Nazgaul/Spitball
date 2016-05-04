@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.upload').service('externalUploadProvider', upload);
 
     upload.$inject = ['dropboxService', 'googleService', '$q', 'itemService'];

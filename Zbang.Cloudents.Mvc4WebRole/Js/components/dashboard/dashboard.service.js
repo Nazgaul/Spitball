@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.dashboard').service('dashboardService', dashboard);
     dashboard.$inject = ['$q', 'ajaxService', 'userUpdatesService', '$rootScope'];
 

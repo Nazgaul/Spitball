@@ -36,6 +36,7 @@
 //        }
 //    }
 //})();
+'use strict';
 (function() {
     angular.module('app.box.feed').directive('bxSliderItem', bxSliderItem);
 

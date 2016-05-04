@@ -1,5 +1,6 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="../shared/userDetails.ts" />
+'use strict';
 declare var Intercom: any;
 
 (() => {

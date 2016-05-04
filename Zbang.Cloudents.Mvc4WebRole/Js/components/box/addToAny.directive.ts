@@ -1,4 +1,5 @@
-﻿declare var a2a: any;
+﻿'use strict';
+declare var a2a: any;
 
 interface IAddToAnyScope extends ng.IScope {
     url: string

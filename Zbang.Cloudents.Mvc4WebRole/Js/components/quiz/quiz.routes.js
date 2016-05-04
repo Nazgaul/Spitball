@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.quiz').run(appRun);
 
     appRun.$inject = ['routerHelper'];

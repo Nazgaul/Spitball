@@ -3673,7 +3673,6 @@
     <Content Include="Js\components\library\library.routes.js" />
     <Content Include="Js\components\library\library.service.js" />
     <Content Include="Js\components\library\libraryChoose.controller.js" />
-    <Content Include="Js\components\quiz\nextQuestion.js" />
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\components\quiz\quizCreate.controller.js" />

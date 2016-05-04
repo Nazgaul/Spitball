@@ -1,4 +1,5 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+'use strict';
 declare var __insp: any;
 declare var googletag: any;
 

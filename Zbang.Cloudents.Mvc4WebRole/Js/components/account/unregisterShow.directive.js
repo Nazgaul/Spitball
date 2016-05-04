@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app').directive('unregisterShow', unregShow);
     unregShow.$inject = ['$window', '$rootScope'];
 

@@ -3,11 +3,11 @@
     cdnCdPath = '.vo.msecnd.net',
     cdnGooglePath = 'ajax.googleapis.com';
 
-    window.addEventListener("load", function load() {
-    //window.onload = function () {
+    //window.addEventListener("load", function load() {
+    window.onload = function () {
         cssFailCallback();
         javascriptFailCallback();
-    });
+    };
 
     function cssFailCallback() {
         var cssLoaded = document.getElementById('cssCheck').offsetTop < 0, files;

@@ -1,5 +1,6 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="userDetails.ts" />
+'use strict';
 declare var inline_manual_player: any;
 declare var inlineManualTracking: any;
 (() => {
@@ -19,7 +20,7 @@ declare var inlineManualTracking: any;
                 uid: userData.id,
                 email: userData.email,
                 username: userData.name,
-                created: Math.round(userData.createTime.getTime() / 1000),
+                created: Math.round(userData.createTime.getTime() / 1000)
                 //updated: 1433168312,
                 //roles: ["administrator", "editor"],
                 //group: "Doe & Partners",

@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.upload').controller('Upload', upload);
     upload.$inject = ['$scope', 'itemService', '$timeout', '$stateParams', '$rootScope',
         'externalUploadProvider', '$anchorScroll',

@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.item').controller('CommentsController', comments);
     comments.$inject = ['$stateParams', 'itemService', '$scope',
         'userDetailsFactory', '$mdDialog', 'resManager', '$mdSidenav', '$rootScope', '$timeout'];
