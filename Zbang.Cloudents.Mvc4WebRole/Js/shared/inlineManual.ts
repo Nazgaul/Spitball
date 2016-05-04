@@ -16,11 +16,11 @@ declare var inlineManualTracking: any;
                 return;
             }
             registeredUser = true;
-            window.inlineManualTracking = {
+            inlineManualTracking = {
                 uid: userData.id,
                 email: userData.email,
                 username: userData.name,
-                created: Math.round(userData.createTime.getTime() / 1000),
+                created: Math.round(userData.createTime.getTime() / 1000)
                 //updated: 1433168312,
                 //roles: ["administrator", "editor"],
                 //group: "Doe & Partners",

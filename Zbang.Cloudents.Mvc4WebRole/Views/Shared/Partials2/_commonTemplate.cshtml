@@ -3,14 +3,14 @@
 @{
     const string svgUrl = "~/images/site/box-icons.svg";
 }
-<script type="text/ng-template" id="box-template.html">
-    <a ng-href="::e.url" class="dashboard-stat2">
+<script defer type="text/ng-template" id="box-template.html">
+    <a ng-href="{{::e.url}}" class="dashboard-stat2">
         <span ng-if="e.recommended" class="ribbon background text-capitalize" d-color="{{::e.name.length}}">@IndexResources.Suggested</span>
         <div class="display">
             <div class="number">
-                <h5 d-color="{{::e.name.length}}">{{::e.name}}</h5>
-                <small class="ellipsis">{{::e.professor}}</small><br />
-                <small class="ellipsis">{{::e.courseCode}}</small>
+                <h5 d-color="{{::e.name.length}}" ng-bind="::e.name"></h5>
+                <small class="ellipsis" ng-bind="::e.professor"></small><br />
+                <small class="ellipsis" ng-bind="::e.courseCode"></small>
             </div>
         </div>
         <div class="progress-info">
@@ -27,12 +27,12 @@
     </a>
 </script>
 
-<script type="text/ng-template" id="item-template.html">
-    <a class="clearfix item" ng-href="::e.url">
+<script defer type="text/ng-template" id="item-template.html">
+    <a class="clearfix item" ng-href="{{::e.url}}">
         <div class="base borderTC5">
             <div class="item-ratio">
                 <div class="content">
-                    <img class="img-responsive" ng-src="::e.thumbnail" width="368" height="520" alt="::e.nameExtension" />
+                    <img class="img-responsive" ng-src="{{::e.thumbnail}}" width="368" height="520" alt="{{::e.nameExtension}}" />
                     <div class="extra" id="drag{{::$index}}">
                         <h2 class="multi-line-ellipsis color-override textColor3" ng-bind-html="::e.nameExtension"></h2>
                     </div>
@@ -53,8 +53,8 @@
         </div>
     </a>
 </script>
-<script type="text/ng-template" id="quiz-template.html">
-    <a class="quiz" ng-href="::e.url">
+<script defer type="text/ng-template" id="quiz-template.html">
+    <a class="quiz" ng-href="{{::e.url}}">
         <div class="base borderTC5">
             <div class="quiz-ratio">
                 <div class="content">
@@ -83,9 +83,9 @@
         </div>
     </a>
 </script>
-<script type="text/ng-template" id="user-template.html">
-    <a href="{{::e.url}}" class="member">
+<script defer type="text/ng-template" id="user-template.html">
+    <a ng-href="{{::e.url}}" class="member">
         <user-image class="img-circle" name="::e.name" image="::e.image" width="35" height="35"></user-image>
-        <span class="member-name ellipsis">{{::e.name}}</span>
+        <span class="member-name ellipsis" ng-bind="::e.name"></span>
     </a>
 </script>

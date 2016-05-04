@@ -13,7 +13,7 @@
                 uid: userData.id,
                 email: userData.email,
                 username: userData.name,
-                created: Math.round(userData.createTime.getTime() / 1000),
+                created: Math.round(userData.createTime.getTime() / 1000)
             };
             $timeout(injectInlineManual, 0, false);
         });

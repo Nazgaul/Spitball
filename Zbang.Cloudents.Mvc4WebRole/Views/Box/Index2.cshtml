@@ -17,7 +17,7 @@
 <div uib-collapse="!b.settingsOpen" class="settings" ng-cloak>
     @{Html.RenderPartial("_Settings");}
 </div>
-<md-tabs class="box-nav-bar backgroundTC19 borderTC19">
+<md-tabs class="box-nav-bar backgroundTC19 borderTC19" md-enable-disconnect="true">
     <md-tab ui-sref="box.feed" md-active="b.isActiveState('box.feed')">
         <md-tab-label><span class="textTC20">@BoxResources.Feed</span></md-tab-label>
     </md-tab>
@@ -45,7 +45,7 @@
 </script>*@
 
 
-<script type="text/ng-template" id="shareBoxTemplate.html">
+<script defer type="text/ng-template" id="shareBoxTemplate.html">
     <md-menu class="share-section">
         <button type="button" aria-label="open menu" class="md-button md-icon-button share" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'sharePost']">
             <span>@Html.Svg("~/images/site/icons.svg", "share")</span>
