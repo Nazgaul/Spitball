@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app').service('itemThumbnailService', itemThumbnailService);
 
     function itemThumbnailService() {

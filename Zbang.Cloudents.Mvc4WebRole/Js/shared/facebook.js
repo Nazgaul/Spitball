@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app').factory('facebookService', facebook);
 
     facebook.$inject = [ '$q',  '$timeout'];

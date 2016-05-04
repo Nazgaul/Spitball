@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app').factory('versionCheckerFactory', verionChecker);
     verionChecker.$inject = ['$http', 'CacheFactory', '$mdToast', 'resManager'];
 

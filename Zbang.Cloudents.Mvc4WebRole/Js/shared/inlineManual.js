@@ -1,3 +1,4 @@
+'use strict';
 (function () {
     angular.module('app').run(inlineManual);
     inlineManual.$inject = ['$rootScope', '$timeout', '$document', 'userDetailsFactory'];

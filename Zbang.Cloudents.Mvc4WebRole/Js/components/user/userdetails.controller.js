@@ -1,4 +1,4 @@
-﻿/// <reference path="~/Scripts/angular.js" />
+﻿'use strict';
 (function () {
     angular.module('app.user.details').controller('UserDetailsController', userDetailsController);
     userDetailsController.$inject = ['accountService', '$scope', 'userDetailsFactory'];

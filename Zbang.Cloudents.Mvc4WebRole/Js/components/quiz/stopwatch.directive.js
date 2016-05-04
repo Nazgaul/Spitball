@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     'use strict';
 
     angular.module('app.quiz.stopwatch').directive('stopwatch', stopwatch);

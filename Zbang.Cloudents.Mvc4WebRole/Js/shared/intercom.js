@@ -1,3 +1,4 @@
+'use strict';
 (function () {
     angular.module('app').run(intercom);
     intercom.$inject = ['userDetailsFactory', '$rootScope'];

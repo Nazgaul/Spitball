@@ -1,11 +1,11 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.ajaxservice').factory('ajaxService', ajaxService);
     ajaxService.$inject = ['$http', '$q', 'Analytics', 'CacheFactory', 'routerHelper'];
 
 
 
     function ajaxService($http, $q, analytics, cacheFactory, routerHelper) {
-        "use strict";
         var cancelObjs = {};
 
         function post(url, data, disableClearCache) {

@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.account').run(appRun);
 
     appRun.$inject = ['routerHelper'];

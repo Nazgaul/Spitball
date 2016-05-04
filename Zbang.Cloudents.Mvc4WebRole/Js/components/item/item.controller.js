@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
         'itemData', '$scope','resManager'];

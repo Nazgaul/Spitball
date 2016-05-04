@@ -53,4 +53,4 @@
     }
     return svg4everybody;
 });
-svg4everybody();
+//svg4everybody();

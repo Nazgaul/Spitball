@@ -1,4 +1,5 @@
-﻿(function() {
+﻿'use strict';
+(function() {
     angular.module('app').filter('nospace', nospace);
 
     function nospace() {

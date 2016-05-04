@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.dashboard').controller('SideMenu', dashboard);
     dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav', '$location', '$timeout', '$scope'];
 

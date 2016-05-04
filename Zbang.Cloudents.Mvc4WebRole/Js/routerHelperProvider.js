@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular
         .module('app')
         .provider('routerHelper', routerHelperProvider);

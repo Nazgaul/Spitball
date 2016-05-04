@@ -1,5 +1,5 @@
 ﻿/// <reference path="../scripts/typings/angularjs/angular.d.ts" />
-
+'use strict';
 (() => {
     angular.module('app').config(config);
     config.$inject = ['DoubleClickProvider'];

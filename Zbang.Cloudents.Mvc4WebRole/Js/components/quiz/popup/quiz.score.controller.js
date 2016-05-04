@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.quiz.score',[]).controller('QuizScoreController', popup);
 
     popup.$inject = ['$modalInstance', 'topUsers','sheet'];

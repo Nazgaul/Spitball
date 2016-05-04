@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app').controller('LeaderboardController', leaderboard);
 
     leaderboard.$inject = ['dashboardService', '$stateParams', 'boxService', '$scope'];

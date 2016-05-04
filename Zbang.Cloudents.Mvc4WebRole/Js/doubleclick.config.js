@@ -1,3 +1,4 @@
+'use strict';
 (function () {
     angular.module('app').config(config);
     config.$inject = ['DoubleClickProvider'];

@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.search').controller('SearchController', search);
 
     search.$inject = ['searchService', 'itemThumbnailService', '$q', '$rootScope', '$scope', 'Analytics',

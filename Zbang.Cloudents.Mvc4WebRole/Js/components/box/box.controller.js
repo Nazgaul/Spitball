@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.box').controller('BoxController', box);
     box.$inject = ['boxService', 'boxData', '$stateParams', '$scope',
         '$state', 'user', '$rootScope', 'userDetailsFactory',

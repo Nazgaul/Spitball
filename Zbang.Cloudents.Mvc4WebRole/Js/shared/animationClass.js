@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app').directive('animationClass', animClass);
     animClass.$inject = ['$state'];
 
@@ -7,18 +8,19 @@
             link: function(scope, elem) {
 
                 if (scope.app.clickLocation) {
-                    var x = scope.app.clickLocation.x, y = scope.app.clickLocation.y;
-                    elem.css({
-                        '-moz-transform-origin': x + ' ' + y,
-                        '-ms-transform-origin': x + ' ' + y,
-                        '-webkit-transform-origin': x + ' ' + y,
-                        'transform-origin': x + ' ' + y,
-
-                    });
+                    //var x = scope.app.clickLocation.x, y = scope.app.clickLocation.y;
+                    //elem.css({
+                    //    '-moz-transform-origin': x + ' ' + y,
+                    //    '-ms-transform-origin': x + ' ' + y,
+                    //    '-webkit-transform-origin': x + ' ' + y,
+                    //    'transform-origin': x + ' ' + y
+                    //
+                    //});
                     scope.app.clickLocation = null;
                 }
+                var enterClass;
                 if ($state.current.data) {
-                    var enterClass = $state.current.data.animateClass;
+                    enterClass = $state.current.data.animateClass;
                     elem.addClass(enterClass);
                 }
                 scope.$on('$destroy', function() {

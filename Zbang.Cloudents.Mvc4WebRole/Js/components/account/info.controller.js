@@ -1,4 +1,5 @@
-﻿(function () {
+﻿'use strict';
+(function () {
     angular.module('app.account').controller('AccountSettingsInfoController', info);
     info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory', '$mdDialog', '$mdMedia', '$scope', 'CacheFactory', 'resManager'];
     function info(accountService, $timeout, userData, userDetailsFactory, $mdDialog, $mdMedia, $scope, cacheFactory, resManager) {
