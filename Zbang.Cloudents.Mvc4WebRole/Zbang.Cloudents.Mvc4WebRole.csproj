@@ -2215,7 +2215,6 @@
     <Content Include="bower_components\jquery.validate\src\localization\methods_pt.js" />
     <Content Include="bower_components\jquery\dist\jquery.js" />
     <Content Include="bower_components\jquery\dist\jquery.min.js" />
-    <Content Include="bower_components\jquery\MIT-LICENSE.txt" />
     <Content Include="bower_components\jquery\src\ajax.js" />
     <Content Include="bower_components\jquery\src\ajax\jsonp.js" />
     <Content Include="bower_components\jquery\src\ajax\load.js" />
@@ -2244,7 +2243,6 @@
     <Content Include="bower_components\jquery\src\css\defaultDisplay.js" />
     <Content Include="bower_components\jquery\src\css\hiddenVisibleSelectors.js" />
     <Content Include="bower_components\jquery\src\css\support.js" />
-    <Content Include="bower_components\jquery\src\css\swap.js" />
     <Content Include="bower_components\jquery\src\css\var\cssExpand.js" />
     <Content Include="bower_components\jquery\src\css\var\getStyles.js" />
     <Content Include="bower_components\jquery\src\css\var\isHidden.js" />
@@ -2253,8 +2251,6 @@
     <Content Include="bower_components\jquery\src\data.js" />
     <Content Include="bower_components\jquery\src\data\accepts.js" />
     <Content Include="bower_components\jquery\src\data\Data.js" />
-    <Content Include="bower_components\jquery\src\data\var\data_priv.js" />
-    <Content Include="bower_components\jquery\src\data\var\data_user.js" />
     <Content Include="bower_components\jquery\src\deferred.js" />
     <Content Include="bower_components\jquery\src\deprecated.js" />
     <Content Include="bower_components\jquery\src\dimensions.js" />
@@ -2281,8 +2277,6 @@
     <Content Include="bower_components\jquery\src\selector-sizzle.js" />
     <Content Include="bower_components\jquery\src\selector.js" />
     <Content Include="bower_components\jquery\src\serialize.js" />
-    <Content Include="bower_components\jquery\src\sizzle\dist\sizzle.js" />
-    <Content Include="bower_components\jquery\src\sizzle\dist\sizzle.min.js" />
     <Content Include="bower_components\jquery\src\traversing.js" />
     <Content Include="bower_components\jquery\src\traversing\findFilter.js" />
     <Content Include="bower_components\jquery\src\traversing\var\rneedsContext.js" />
@@ -2295,7 +2289,6 @@
     <Content Include="bower_components\jquery\src\var\push.js" />
     <Content Include="bower_components\jquery\src\var\rnotwhite.js" />
     <Content Include="bower_components\jquery\src\var\slice.js" />
-    <Content Include="bower_components\jquery\src\var\strundefined.js" />
     <Content Include="bower_components\jquery\src\var\support.js" />
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
@@ -3037,7 +3030,6 @@
     <Content Include="bower_components\jquery\.bower.json" />
     <Content Include="bower_components\jquery\bower.json" />
     <Content Include="bower_components\jquery\dist\jquery.min.map" />
-    <Content Include="bower_components\jquery\src\sizzle\dist\sizzle.min.map" />
     <Content Include="bower_components\angular-messages\.bower.json" />
     <Content Include="bower_components\angular-messages\angular-messages.min.js.map" />
     <Content Include="bower_components\angular-messages\bower.json" />
@@ -3989,6 +3981,8 @@
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bower_components\jquery\src\data\var\" />
+    <Folder Include="bower_components\jquery\src\sizzle\dist\" />
     <Folder Include="Js\homePage\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
