@@ -14,6 +14,9 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2017-03-16T23:59:59.0000000+02:00" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
+      <Setting name="ServiceBusConnectionString" value="Endpoint=sb://cloudentshub-ns.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=uHDvPiccRsCMde/zUJCiskd21qKxoiS1WlruAe4TMJU=" />
+      <Setting name="ServiceBusHubName" value="cloudentshub" />
+      <Setting name="platform" value="workerRole" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="D504F00C3E35AB536CD6EC83FF8EBA9FD8E3BA4D" thumbprintAlgorithm="sha1" />

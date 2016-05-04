@@ -16,8 +16,10 @@ namespace Zbang.Zbox.Domain.Common
 
         //void AddBanners(AddBannersCommand command);
 
-        bool Dbi();
+        //bool Dbi();
+        void DeleteOldUpdates();
         void OneTimeDbi();
+        void UpdateUniversityStats();
 
         void UpdateThumbnailPicture(UpdateThumbnailCommand command);
 

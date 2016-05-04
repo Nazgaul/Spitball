@@ -41,7 +41,7 @@
   </query>
   <query name="DeleteOldUpdates">
     <![CDATA[
-    delete from Updates c where c.CreationTime < getutcdate() - 182
+    delete from Updates c where c.id in ( select d.id from Updates d where d.CreationTime < getutcdate() - 182 take 100)
     ]]>
   </query>
   <sql-query name="DeleteNotConnectedUpdates">
