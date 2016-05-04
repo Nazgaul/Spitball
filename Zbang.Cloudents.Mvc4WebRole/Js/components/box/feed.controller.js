@@ -40,13 +40,15 @@
             }
             for (var i = 0; i < postsList.length; i++) {
                 var currentPost = postsList[i];
-                if (feedUpdates[postsList[currentPost].id]) {
+                if (feedUpdates.length && feedUpdates[postsList[currentPost].id]) {
                     postsList[currentPost].isNew = true;
                 }
-                for (var j = 0; j < postsList[currentPost].replies.length; j++) {
-                    var currentreply = postsList[currentPost].replies[j];
-                    if (feedUpdates[postsList[currentPost].replies[currentreply].id]) {
-                        postsList[currentPost].replies[currentreply].isNew = true;
+                if (typeof (postsList[currentPost]) !== 'undefined') {
+                    for (var j = 0; j < postsList[currentPost].replies.length; j++) {
+                        var currentreply = postsList[currentPost].replies[j];
+                        if (feedUpdates[postsList[currentPost].replies[currentreply].id]) {
+                            postsList[currentPost].replies[currentreply].isNew = true;
+                        }
                     }
                 }
             }
