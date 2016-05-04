@@ -3,11 +3,11 @@
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
-        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window'];
+        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window','$filter'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window) {
+        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window , $filter) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), top = ($window.innerHeight <= 600) ? 10 : 15;
 
         self.add = {
@@ -175,6 +175,7 @@
         function assignData(data) {
             for (var i = 0; i < data.length; i++) {
                 var currentPost = data[i];
+                currentPost.creationTime = $filter('date')(currentPost.creationTime, 'medium');
                 var files = currentPost.files;
                 for (var j = 0; j < files.length; j++) {
                     var item = files[j];
@@ -193,6 +194,7 @@
                 }
                 for (var k = 0; currentPost.replies && k < currentPost.replies.length; k++) {
                     var currentReply = currentPost.replies[k];
+                    currentReply.creationTime = $filter('date')(currentReply.creationTime, 'medium');
                     angular.forEach(currentReply.files, buildItem);
                 }
             }

@@ -13,9 +13,9 @@
                     <div class="info" layout="row" align-items="start-center">
                         <a href="{{::post.url}}" class="userblock" layout="row" layout-align="start center" ga-track-event="['box-feed', 'userNameImage']">
                             <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
-                            <span class="user-name">{{::post.userName}}</span>
+                            <span class="user-name" ng-bind="::post.userName"></span>
                         </a>
-                        <span class="comment-date">{{::post.creationTime | date : 'medium'}}</span>
+                        <span class="comment-date" ng-bind="::post.creationTime"></span>
                     </div>
                     <md-menu ng-if="::b.canDelete(post.userId)">
                         <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
@@ -34,7 +34,7 @@
                         <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                         <div class="items-container">
                             <div bx-slider>
-                                <div bx-slider-item class="feed-item" ng-repeat="e in ::post.files" ng-include="f.postItemTemplate(e)"></div>
+                                <div bx-slider-item class="feed-item" ng-repeat="e in ::post.files track by e.id" ng-include="f.postItemTemplate(e)"></div>
                             </div>
                         </div>
                         <button type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
@@ -66,7 +66,7 @@
                                 <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="52" height="52"></user-image>
                                 <span class="user-name">{{::reply.userName}}</span>
                             </a>
-                            <span class="comment-date">{{::reply.creationTime | date : 'medium'}}</span>
+                            <span class="comment-date" ng-bind="::reply.creationTime"></span>
                         </div>
                         <md-menu ng-if="::b.canDelete(reply.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">

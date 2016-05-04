@@ -5,6 +5,7 @@
     function addToAny($templateCache, $timeout, $compile, $location) {
         return {
             restrict: 'A',
+            //template: ''
             link: function (scope, element) {
                 var template = $templateCache.get('addToAnyTemplate.html');
                 scope.url = $location.absUrl();
@@ -20,3 +21,4 @@
         };
     }
 })();
+//# sourceMappingURL=addToAny.directive.js.map
