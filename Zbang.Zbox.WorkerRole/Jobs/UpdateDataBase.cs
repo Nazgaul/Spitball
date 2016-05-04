@@ -27,13 +27,13 @@ namespace Zbang.Zbox.WorkerRole.Jobs
                 try
                 {
                     sw.Restart();
-                    if (!m_ZboxService.Dbi())
-                    {
-                        sw.Stop();
-                        TraceLog.WriteInfo("Running update database took(milliseconds): " + sw.ElapsedMilliseconds);
-                        index = 0;
-                        Thread.Sleep(TimeSpan.FromHours(3));
-                    }
+                    //if (!m_ZboxService.Dbi())
+                    //{
+                    //    sw.Stop();
+                    //    TraceLog.WriteInfo("Running update database took(milliseconds): " + sw.ElapsedMilliseconds);
+                    //    index = 0;
+                    //    Thread.Sleep(TimeSpan.FromHours(3));
+                    //}
                     index++;
                 }
                 catch (Exception ex)

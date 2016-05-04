@@ -94,7 +94,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             await blob.RenewLeaseAsync(acc, cancellationToken);
                         }
                     }
-                    m_ZboxWorkerRoleService.Dbi();
+                    m_ZboxWorkerRoleService.DeleteOldUpdates();
+                    await blob.RenewLeaseAsync(new AccessCondition { LeaseId = m_LeaseId }, cancellationToken);
+                    m_ZboxWorkerRoleService.UpdateUniversityStats();
+                    await blob.RenewLeaseAsync(new AccessCondition { LeaseId = m_LeaseId }, cancellationToken);
+                    //m_ZboxWorkerRoleService.Dbi();
                     TraceLog.WriteInfo($"{Prefix} update unsubscribe list complete");
                     m_DateTime = DateTime.UtcNow.AddDays(-1);
                     await blob.UploadTextAsync(m_DateTime.ToFileTimeUtc().ToString(), Encoding.Default, new AccessCondition { LeaseId = m_LeaseId }, new BlobRequestOptions(), new OperationContext(), cancellationToken);

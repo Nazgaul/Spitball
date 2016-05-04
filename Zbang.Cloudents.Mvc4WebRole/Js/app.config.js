@@ -73,7 +73,7 @@
 
         $compileProvider.debugInfoEnabled(false);
 
-
+        $provide.constant('$MD_THEME_CSS', '');
     }
 
 })();
