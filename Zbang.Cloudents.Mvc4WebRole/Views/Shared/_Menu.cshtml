@@ -4,7 +4,7 @@
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 
-<md-sidenav ng-if="app.showMenu" ng-cloak class="main-md-sidenav color-override backgroundColor1 svgColor9"
+<md-sidenav ng-show="app.showMenu" ng-cloak class="main-md-sidenav color-override backgroundColor1 svgColor9"
             md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" close-menu="left">
     <md-content role="navigation" ng-controller="SideMenu as d">
         <ul class="side-menu" ng-slimscroll height="calc(100vh - 90px)" color="#BBB">
@@ -25,7 +25,7 @@
                         </span>
                     </div>
                 </md-button>
-                <ul ng-show="d.coursesOpen" id="side-menu-courses" class="menu-toggle-list">
+                <ul ng-if="d.coursesOpen" id="side-menu-courses" class="menu-toggle-list">
                     <li ng-repeat="box in d.courses track by box.id">
                         <menu-link class="ellipsis" section="box"></menu-link>
                     </li>
@@ -42,7 +42,7 @@
                         </span>
                     </div>
                 </md-button>
-                <ul ng-show="d.boxesOpen" id="side-menu-boxes" class="menu-toggle-list">
+                <ul ng-if="d.boxesOpen" id="side-menu-boxes" class="menu-toggle-list">
                     <li ng-repeat="box in d.privateBoxes track by box.id">
                         <menu-link class="ellipsis" section="box"></menu-link>
                     </li>

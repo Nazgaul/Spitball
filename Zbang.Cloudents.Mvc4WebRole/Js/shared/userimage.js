@@ -7,7 +7,7 @@
     function generateImage($compile) {
         "use strict";
         var imageTemplate = '<img alt="" />',
-            letterTemplate = '<span class="userLetter uppercase background color-override textColor1"></span>',
+            letterTemplate = '<span class="userLetter background color-override textColor1"></span>',
             emptyTemplate = '<img class="userImg" src="/images/user.svg" />';
 
 
@@ -80,19 +80,23 @@
                         innerEl.addClass(className);
                     }
                     innerEl.attr('d-color', scope.name.length);
-                    var borderWidthValue = elem.css('border-width'), borderWidth = 0;
-                    if (borderWidthValue) {
-                        borderWidth = parseInt(borderWidthValue, 10) * 2;
-                    }
+                    //var borderWidthValue = elem.css('border-width');
+                    var borderWidth = 0;
+                    //if (borderWidthValue) {
+                        //borderWidth = parseInt(borderWidthValue, 10) * 2;
+                    //}
                     var elementHeight = elem[0].getAttribute('height');
 
-
-                    $(innerEl).css({
-                        width: elem[0].getAttribute('width') + 'px',
-                        height: elementHeight + 'px',
-                        lineHeight: (elementHeight - borderWidth) + 'px'
-                    });
-                    innerEl.text(scope.name.trim()[0]);
+                    innerEl[0].style.width = elem[0].getAttribute('width') + 'px';
+                    innerEl[0].style.height = elementHeight + 'px';
+                    innerEl[0].style.lineHeight = (elementHeight - borderWidth) + 'px';
+                    
+                    //$(innerEl).css({
+                    //    width: elem[0].getAttribute('width') + 'px',
+                    //    height: elementHeight + 'px',
+                    //    lineHeight: (elementHeight - borderWidth) + 'px'
+                    //});
+                    innerEl.text(scope.name.trim()[0].toUpperCase());
                 }
 
                 function emptyState() {

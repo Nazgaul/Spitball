@@ -82,9 +82,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
                     var angularResource =
-                        $"{HttpContext.Current.Server.MapPath("/bower_components/angular-i18n/angular-locale")}_{Thread.CurrentThread.CurrentUICulture.Name}.js";
+                        $"{"~/bower_components/angular-i18n/angular-locale"}_{Thread.CurrentThread.CurrentUICulture.Name}.js";
 
-                    RegisterLocaleJs(File.ReadAllText(angularResource),
+                    
+                    RegisterLocaleJs(angularResource,
                         JsResourceHelper.BuildResourceObject(), culture);
                 }
                 
@@ -134,8 +135,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var jsBundle = SquishIt.Framework.Bundle.JavaScript();
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
-            jsBundle.AddString(angularPath);
+            jsBundle.Add(angularPath);
             jsBundle.AddString(jsResourceString);
+            jsBundle.WithDeferredLoad();
             var cdnUrl = CdnLocation;
 
             if (!string.IsNullOrWhiteSpace(cdnUrl))
@@ -154,6 +156,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var jsBundle = javaScriptBundleImp;
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
+            //jsBundle.WithDeferredLoad();
             foreach (var jsFile in jsFiles)
             {
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))

@@ -4,9 +4,10 @@
 
     angular.module('app').config(config);
 
-    config.$inject = ['$controllerProvider', '$locationProvider', '$provide', '$httpProvider', 'CacheFactoryProvider', '$compileProvider'];
+    config.$inject = ['$controllerProvider', '$locationProvider', '$provide',
+        '$httpProvider', 'CacheFactoryProvider', '$compileProvider','$animateProvider'];
 
-    function config($controllerProvider, $locationProvider, $provide, $httpProvider, cacheFactoryProvider, $compileProvider) {
+    function config($controllerProvider, $locationProvider, $provide, $httpProvider, cacheFactoryProvider, $compileProvider, $animateProvider) {
         //$locationProvider.html5Mode(true).hashPrefix('!');
         $controllerProvider.allowGlobals();
         angular.extend(cacheFactoryProvider.defaults, {
@@ -71,7 +72,7 @@
         $httpProvider.interceptors.push('requestinterceptor');
 
         $compileProvider.debugInfoEnabled(false);
-
+        $animateProvider.classNameFilter(/angular-animate/);
         $provide.constant('$MD_THEME_CSS', '');
     }
 
@@ -165,6 +166,7 @@
         });
         analyticsProvider.trackUrlParams(true);
         analyticsProvider.setPageEvent('$stateChangeSuccess');
+        analyticsProvider.delayScriptTag(true);
         //AnalyticsProvider.setDomainName('XXX');
 
 

@@ -8,9 +8,15 @@
         var clientVersion = window.version,
             timeInterval = 300000; //five minutes
 
-        setInterval(checkVersion, timeInterval);
+        document.addEventListener("DOMContentLoaded", function (event) {
+            setInterval(checkVersion, timeInterval);
+        });
+
+        //window.setTimeout(function() {
+        //    setInterval(checkVersion, timeInterval);
+        //}, 10000);
         return {
-            checkVersion: checkVersion,
+            checkVersion: checkVersion
             //currentVersion: clientVersion
         };
 

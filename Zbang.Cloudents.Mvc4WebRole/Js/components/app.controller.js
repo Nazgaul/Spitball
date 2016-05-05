@@ -14,11 +14,10 @@
                 virtualUrl = absUrl.substring(absUrl.indexOf(path));
             // ReSharper disable UseOfImplicitGlobalInFunctionScope
             dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl }); // google tag manger
-            Intercom('update'); //intercom
             __insp.push(["virtualPage"]); //inspectlet
             // svg4everybody();
             // ReSharper restore UseOfImplicitGlobalInFunctionScope
-
+       
         });
         userDetails.init().then(function () {
             setTheme();
@@ -52,7 +51,7 @@
             Intercom('shutdown');
         }
         function setTheme() {
-            self.theme = 'theme-' + userDetails.get().theme;
+           self.theme = 'theme-' + userDetails.get().theme;
         }
         function toggleMenu() {
             $rootScope.$broadcast('open-menu');
@@ -99,25 +98,13 @@
         self.fixedBgColor = self.showBoxAd = false;
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            self.showBoxAd = toState.parent === 'box';
-            self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
-            self.fixedBgColor = toState.name === 'item' || toState.name === 'quiz';
-            //self.showMenu = true;
-            //self.showSearch = true;
-            //self.fixedBgColor = false;
-
-            //if (toState.name === 'item' || toState.name === 'quiz') {
-            //    self.fixedBgColor = true;
-            //    self.showMenu = false;
-            //}
-            //if (toState.name === 'universityChoose') {
-            //    self.showMenu = false;
-            //    self.showSearch = false;
-            //}
-
             if (!fromState.name) {
                 return;
             }
+            self.showBoxAd = toState.parent === 'box';
+            self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
+            self.fixedBgColor = toState.name === 'item' || toState.name === 'quiz';
+
             $mdMenu.hide(); //closes menu
             $mdToast.hide(); // hide toasters
             $rootScope.$broadcast('close-menu');
@@ -151,17 +138,5 @@
                 event.preventDefault();
             }
         });
-
-        //$rootScope.$on('$stateNotFound',
-        //    function (event, unfoundState, fromState, fromParams) {
-        //        console.log(unfoundState.to); // "lazy.state"
-        //        console.log(unfoundState.toParams); // {a:1, b:2}
-        //        console.log(unfoundState.options); // {inherit:false} + default options
-        //    });
-
-        //$rootScope.$on('$stateChangeError',
-        //   function (event, toState, toParams, fromState, fromParams, error) {
-        //       console.log(event, toState, toParams, fromState, fromParams, error);
-        //   });
     }
 })();
