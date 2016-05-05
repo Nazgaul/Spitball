@@ -3097,6 +3097,7 @@
     <Content Include="Content\Site\accountSettings.rtl.min.css">
       <DependentUpon>accountSettings.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\angularWithChanges2.css" />
     <Content Include="Content\Site\box.css">
       <DependentUpon>box.less</DependentUpon>
     </Content>
