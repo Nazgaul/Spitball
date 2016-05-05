@@ -78,7 +78,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         
                         //"~/content/site/angularWithChanges.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
-                        
+                        "~/content/site/inline-material.css",
                        "~/content/bootstrap/bootstrap.css",
                         "~/content/site/profile.css",//
                         "~/content/site/components-rounded.css",//
@@ -107,6 +107,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/accordion.css",
                         "~/content/site/themedark.css", 
                         "~/content/site/themelight.css"
+                        
                     }
                 },
             };
@@ -186,7 +187,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         
                         new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
-                        new JsFileWithCdn(/*"~/bower_components/angular-material/angular-material.js",*/ "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"), 
+                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"), 
                         //new JsFileWithCdn("https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"), 
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),

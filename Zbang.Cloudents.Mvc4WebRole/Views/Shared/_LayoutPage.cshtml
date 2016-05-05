@@ -24,35 +24,6 @@
         }
     </style>
     <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.css" />
-          @*<link rel="stylesheet" type="text/css" href="/content/site/angularWithChanges.css" />
-    <link rel="stylesheet" type="text/css" href="/bower_components/textAngular/dist/textAngular.css" />
-    <link rel="stylesheet" type="text/css" href="/content/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/profile.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/components-rounded.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/layout.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/light.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/menu.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/header.css" />
-    <link rel="stylesheet" type="text/css" href="/content/jquery.bxslider.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/general.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/dashboard.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/box.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/feed.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/user.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/accountSettings.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/library.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/item.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/quiz.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/quizCreate.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/share.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/leaderboard.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/search.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/libraryChoose.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/error.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/accordion.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/themedark.css" />
-    <link rel="stylesheet" type="text/css" href="/content/site/themelight.css" />*@
-    <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.css" />
     @Html.Css2("site4")
     @{Html.RenderPartial("_Head");}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,7 +31,7 @@
     <base href="/" />
 </head>
 <body @*md-layout-css*@ ng-controller="AppController as app"
-      class="{{app.theme}} color-override backgroundColor1 clearfix" @*ng-class="{menuOpened: app.menuOpened, fixedBgColor: app.fixedBgColor}"*@>
+      class="{{app.theme}} color-override backgroundColor1 clearfix" ng-class="{menuOpened: app.menuOpened, fixedBgColor: app.fixedBgColor}">
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({

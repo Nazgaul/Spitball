@@ -3212,6 +3212,8 @@
     <Content Include="Content\Site\General.rtl.rtl.css">
       <DependentUpon>General.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\inline-material.css" />
+    <Content Include="Content\Site\inline-material.rtl.css" />
     <Content Include="Content\Site\item.css">
       <DependentUpon>item.less</DependentUpon>
     </Content>
@@ -3395,9 +3397,6 @@
     <Content Include="Content\Site\ThemeDark.css">
       <DependentUpon>ThemeDark.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\ThemeDark.min.css">
-      <DependentUpon>ThemeDark.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\ThemeDark.rtl.css">
       <DependentUpon>ThemeDark.css</DependentUpon>
     </Content>
@@ -3406,9 +3405,6 @@
     </Content>
     <Content Include="Content\Site\themeLight.css">
       <DependentUpon>themeLight.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\themeLight.min.css">
-      <DependentUpon>themeLight.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\themeLight.rtl.css">
       <DependentUpon>themeLight.css</DependentUpon>

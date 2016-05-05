@@ -97,13 +97,19 @@
         self.showMenu= self.showSearch = true;
         self.fixedBgColor = self.showBoxAd = false;
 
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            self.showBoxAd = toState.parent === 'box';
+            self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
+            self.fixedBgColor = toState.name === 'item' || toState.name === 'quiz';
+        });
+
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (!fromState.name) {
                 return;
             }
-            self.showBoxAd = toState.parent === 'box';
-            self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
-            self.fixedBgColor = toState.name === 'item' || toState.name === 'quiz';
+            //self.showBoxAd = toState.parent === 'box';
+            //self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
+            //self.fixedBgColor = toState.name === 'item' || toState.name === 'quiz';
 
             $mdMenu.hide(); //closes menu
             $mdToast.hide(); // hide toasters
