@@ -25,7 +25,7 @@
                         </div>
                         <form name="newComment" class="new-comment-form" novalidate ng-submit="c.addComment(newComment)">
                             <md-input-container md-no-float>
-                                <input autocomplete="off" required ng-model="c.newCommentText" name="comment" user-not-register-popup=" click" ng-focus="c.commentFocused()" placeholder="@ItemsResources.NewComment" ng-change="newComment.comment.$setValidity('server',true)">
+                                <input autocomplete="off" required ng-model="c.newCommentText" name="comment" user-not-register-popup="focus" ng-focus="c.commentFocused()" placeholder="@ItemsResources.NewComment" ng-change="newComment.comment.$setValidity('server',true)">
                                 <div ng-messages="newComment.comment.$error" ng-show="newComment.comment.$dirty">
                                     <div ng-message="required">@GeneralResources.RequiredField</div>
                                     <div ng-message="server">{{c.error}}</div>
