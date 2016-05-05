@@ -59,7 +59,7 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no," name="viewport" />
     <base href="/" />
 </head>
-<body @*md-layout-css*@ ng-controller="AppController as app" 
+<body @*md-layout-css*@ ng-controller="AppController as app"
       class="{{app.theme}} color-override backgroundColor1 clearfix" @*ng-class="{menuOpened: app.menuOpened, fixedBgColor: app.fixedBgColor}"*@>
     <script>
         (function (w, d, s, l, i) {
@@ -71,7 +71,7 @@
                 '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
     <!-- End Google Tag Manager -->
-    
+
     <div ng-spinner-bar class="sb-loader">
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
     </div>
@@ -166,8 +166,8 @@
     </div>
     @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{
-        Html.RenderPartial("_commonTemplate");
         Html.RenderPartial("_UnregView");
+        Html.RenderPartial("_commonTemplate");
     }
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>

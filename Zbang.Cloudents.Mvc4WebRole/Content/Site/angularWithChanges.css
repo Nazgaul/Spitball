@@ -4550,7 +4550,7 @@ md-tabs-wrapper {
       cursor: default; }
     md-tabs-wrapper md-prev-button.ng-leave, md-tabs-wrapper md-next-button.ng-leave {
       transition: none; }
-    /*rtl:ignore*/
+    
     md-tabs-wrapper md-prev-button md-icon, md-tabs-wrapper md-next-button md-icon {
       position: absolute;
       top: 50%;

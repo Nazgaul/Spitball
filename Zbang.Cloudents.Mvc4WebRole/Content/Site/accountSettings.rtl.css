@@ -166,7 +166,7 @@
   margin-bottom: 20px;
 }
 .accountPage-wrapper .private-departments .panel-group .panel .panel-body {
-  padding: 5px 15px;
+  padding: 5px 0;
 }
 .accountPage-wrapper .private-departments .panel-group .panel .panel-body .requests-wrapper {
   max-height: 300px;
@@ -178,6 +178,7 @@
   margin-bottom: 15px;
   margin-top: 15px;
   width: 48%;
+  padding: 0 15px;
 }
 @media (max-width: 600px) {
   .accountPage-wrapper .private-departments .panel-group .panel .panel-body .requests-wrapper ul li {

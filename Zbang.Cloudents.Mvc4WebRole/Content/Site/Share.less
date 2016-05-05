@@ -209,16 +209,16 @@
                             -moz-transform: rotateY(180deg);
                             -o-transform: rotateY(180deg);
                             -webkit-transform: rotateY(180deg);
-                            transform: rotateY(180deg);
+                            transform: rotateY(180deg); // Not all corresponding rules implemented since it should work differently on IE
                             -ms-transform: none;
                         }
 
                         .flip-container .checkbox {
-                            -ms-transform: rotateY(0deg);
+                            -ms-transform: rotateY(0deg); // Not all corresponding rules implemented since it should work differently on IE
                         }
 
                         .flip-container .avatar {
-                            -ms-transform: rotateY(180deg);
+                            -ms-transform: rotateY(180deg); // Not all corresponding rules implemented since it should work differently on IE
                         }
                     }
 
@@ -406,7 +406,7 @@
         position: fixed;
         bottom: 0;
         left: 15px;
-        z-index: 999;
+        z-index: 110;
         -o-transition: opacity 0.3s ease-in-out;
         -moz-transition: opacity 0.3s ease-in-out;
         -webkit-transition: opacity 0.3s ease-in-out;
