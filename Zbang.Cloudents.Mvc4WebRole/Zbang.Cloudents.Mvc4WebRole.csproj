@@ -3660,7 +3660,6 @@
     <Content Include="Js\components\account\password.controller.js" />
     <Content Include="Js\components\account\unregister.controller.js" />
     <Content Include="Js\components\account\unregisterShow.directive.js" />
-    <Content Include="Js\components\box\addToAny.directive.js" />
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\box\feed.likes.controller.js" />
     <Content Include="Js\components\box\slideit.directive.js" />
@@ -3684,7 +3683,6 @@
     <Content Include="Js\shared\intercom.js" />
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\staticPages.js" />
-    <TypeScriptCompile Include="Js\components\box\addToAny.directive.ts" />
     <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
