@@ -46,6 +46,9 @@ var app;
     angular.module('app').run(appRun);
     appRun.$inject = ['versionCheckerFactory'];
     function appRun(versionCheckerFactory) {
-        versionCheckerFactory.checkVersion();
+        $(document).ready(function () {
+            //Metronic.init(); // init metronic core componets
+            Layout.initFooter();
+        });
     }
 })()

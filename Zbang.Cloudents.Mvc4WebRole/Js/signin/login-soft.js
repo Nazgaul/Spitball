@@ -567,3 +567,6 @@ window.fbAsyncInit = function () {
     js.src = "//connect.facebook.net/en_US/sdk.js";
     d.getElementsByTagName('head')[0].appendChild(js);
 }(document));
+
+
+Login.initExternalLogin();

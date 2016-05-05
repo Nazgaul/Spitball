@@ -132,8 +132,8 @@ window.addEventListener("load", function load() {
 
     //#endregion
 
-    Metronic.init(); // init metronic core components
-    Layout.init(); // init current layout
+    //Metronic.init(); // init metronic core components
+    //Layout.init(); // init current layout
     Login.init();
 
 

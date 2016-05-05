@@ -1,4 +1,19 @@
 .dashboard {
+  /*.leaderBoardTitle {
+        float: left;
+        -ms-word-break: break-word;
+        word-break: break-word;
+        font-size: 38px;
+        // width: 28%;
+        margin-bottom: 15px;
+        line-height: 35px;
+        //color: @textColorDarkGrey;
+        text-transform: uppercase;
+    }
+
+    .leaderBoardBody {
+        font-size: 20px;
+    }*/
   /*.leaderbordPosition {
         color: #ff7a04 !important;
     }*/
@@ -10,18 +25,6 @@
 .dashboard .leaderboardbox {
   height: 179px;
   padding: 10px;
-}
-.dashboard .leaderBoardTitle {
-  float: right;
-  -ms-word-break: break-word;
-  word-break: break-word;
-  font-size: 38px;
-  margin-bottom: 15px;
-  line-height: 35px;
-  text-transform: uppercase;
-}
-.dashboard .leaderBoardBody {
-  font-size: 20px;
 }
 .dashboard .box-cube {
   position: relative;

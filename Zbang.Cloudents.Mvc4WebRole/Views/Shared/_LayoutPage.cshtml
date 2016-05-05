@@ -15,7 +15,7 @@
        }
    </script>
    <![endif]-->
-<html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName" ng-app="app" @*ng-strict-di*@>
+<html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName" ng-app="app" ng-strict-di>
 
 <head>
     <style>
@@ -23,15 +23,53 @@
             display: none !important;
         }
     </style>
-    @Html.Css2("site4")
+    <link rel="stylesheet" type="text/css" href="/content/site/angularWithChanges.css" />
+    <link rel="stylesheet" type="text/css" href="/bower_components/textAngular/dist/textAngular.css" />
+    <link rel="stylesheet" type="text/css" href="/content/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/profile.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/components-rounded.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/light.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/menu.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/header.css" />
+    <link rel="stylesheet" type="text/css" href="/content/jquery.bxslider.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/general.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/dashboard.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/box.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/feed.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/user.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/accountSettings.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/library.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/item.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/quiz.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/quizCreate.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/share.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/leaderboard.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/search.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/libraryChoose.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/error.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/accordion.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/themedark.css" />
+    <link rel="stylesheet" type="text/css" href="/content/site/themelight.css" />
+
+    @*@Html.Css2("site4")*@
     @{Html.RenderPartial("_Head");}
-    @*<link href="/content/site/angularWithChanges.css" rel="stylesheet" type="text/css">*@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no," name="viewport" />
     <base href="/" />
 </head>
 <body @*md-layout-css*@ ng-controller="AppController as app"
-      class="{{app.theme}} color-override backgroundColor1 clearfix" ng-class="{menuOpened: app.menuOpened, fixedBgColor: app.fixedBgColor}" @*class="theme-light"*@>
+      class="{{app.theme}} color-override backgroundColor1 clearfix" @*ng-class="{menuOpened: app.menuOpened, fixedBgColor: app.fixedBgColor}"*@>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
+    <!-- End Google Tag Manager -->
 
     <div ng-spinner-bar class="sb-loader">
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
@@ -131,28 +169,127 @@
         Html.RenderPartial("_commonTemplate");
     }
     @*DO NOT REMOVE THIS AT ALL TIME*@
-    <div id="cssCheck"></div>
-    @Html.Script2("site4")
-    <!-- Google Tag Manager -->
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-NDZLW7"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
+    <div id="cssCheck" style="position: fixed;"></div>
+@*@Html.Script2("site4")*@
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js" ></script>
+    <script type="text/javascript" src="/scripts/Modernizr.js" ></script>
+    <script type="text/javascript" src="/bower_components/angular/angular.js" ></script>
+    <script type="text/javascript" src="/bower_components/ui-router/release/angular-ui-router.js" ></script>
+    <script type="text/javascript" src="/bower_components/angular-messages/angular-messages.js" ></script>
+    <script type="text/javascript" src="/bower_components/textAngular/dist/textAngular-rangy.min.js" ></script>
+    <script type="text/javascript" src="/bower_components/angular-cache/dist/angular-cache.js" ></script>
+    <script type="text/javascript" src="/bower_components/textAngular/dist/textAngular-sanitize.min.js" ></script>
+    <script type="text/javascript" src="/bower_components/ngSlimscroll/src/js/ngSlimscroll.js" ></script>
+    <script type="text/javascript" src="/bower_components/angular-google-analytics/dist/angular-google-analytics.js" ></script>
+    <script type="text/javascript" src="/scripts/textAngularSetup.js" ></script>
+    <script type="text/javascript" src="/bower_components/textAngular/dist/textAngular.js" ></script>
+    <script type="text/javascript" src="/bower_components/angular-animate/angular-animate.js" ></script>
+    <script type="text/javascript" src="/bower_components/angular-aria/angular-aria.js" ></script>
+    <script type="text/javascript" src="/bower_components/angular-material/angular-material.js" ></script>
+    <script type="text/javascript" src="/scripts/angular-srph-infinite-scroll.js" ></script>
+    <script type="text/javascript" src="/scripts/plupload2/moxie.min.js" ></script>
+    <script type="text/javascript" src="/scripts/plupload2/plupload.dev.js" ></script>
+    <script type="text/javascript" src="/scripts/plupload2/angular-plupload2.js" ></script>
+    <script type="text/javascript" src="/scripts/ui-bootstrap-custom-tpls-1.2.1.min.js" ></script>
+    <script type="text/javascript" src="/scripts/svg4everybody.js" ></script>
+    <script type="text/javascript" src="/scripts/angular-countUp.js" ></script>
+    <script type="text/javascript" src="/scripts/draganddrop.js" ></script>
+    <script type="text/javascript" src="/scripts/angular-dfp.js" ></script>
+    <script type="text/javascript" src="/scripts/jquery.bxslider.js" ></script>
+    <script type="text/javascript" src="/js/polyfills.js" ></script>
+    <script type="text/javascript" src="/js/signin/layout.js" ></script>
+    <script type="text/javascript" src="/js/app.js" ></script>
+    <script type="text/javascript" src="/js/app.config.js" ></script>
+    <script type="text/javascript" src="/js/doubleclick.config.js" ></script>
+    <script type="text/javascript" src="/js/routerHelperProvider.js" ></script>
+    <script type="text/javascript" src="/js/app.route.js" ></script>
+    <script type="text/javascript" src="/js/components/quiz/stopwatch.module.js" ></script>
+    <script type="text/javascript" src="/js/components/quiz/stopwatch.filter.js" ></script>
+    <script type="text/javascript" src="/js/components/quiz/stopwatch.directive.js" ></script>
+    <script type="text/javascript" src="/js/components/quiz/popup/quiz.challenge.module.js" ></script>
+    <script type="text/javascript" src="/js/components/quiz/popup/quiz.score.module.js" ></script>
+    <script type="text/javascript" src="/js/components/userdetails/userdetails.module.js" ></script>
+    <script type="text/javascript" src="/js/components/user/userdetails.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/user/user.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/user/user.routes.js" ></script>
+    <script type="text/javascript" src="/js/components/user/user.service.js" ></script>
+    <script type="text/javascript" src="/js/components/user/updates.service.js" ></script>
+    <script type="text/javascript" src="/js/components/dashboard/dashboard.service.js" ></script>
+    <script type="text/javascript" src="/js/components/dashboard/dashboard.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/dashboard/dashboard.routes.js" ></script>
+    <script type="text/javascript" src="/js/components/dashboard/university.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/dashboard/createBox.controller.js" ></script>
+    <script type="text/javascript" src="/js/menu/menulink.directive.js" ></script>
+    <script type="text/javascript" src="/js/menu/sidemenu.controller.js" ></script>
+    <script type="text/javascript" src="/js/menu/nospace.filter.js" ></script>
+    <script type="text/javascript" src="/js/components/box/box.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/box/addToAny.directive.js" ></script>
+    <script type="text/javascript" src="/js/components/box/tab.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/box/box.routes.js" ></script>
+    <script type="text/javascript" src="/js/components/box/shareBox.directive.js" ></script>
+    <script type="text/javascript" src="/js/components/box/feed.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/box/feed.likes.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/box/item.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/box/quizzes.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/box/members.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/box/box.service.js" ></script>
+    <script type="text/javascript" src="/js/components/box/recommended.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/box/slideit.directive.js" ></script>
+    <script type="text/javascript" src="/js/components/account/account.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/account/notification.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/account/password.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/account/info.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/account/account.service.js" ></script>
+    <script type="text/javascript" src="/js/components/account/account.routes.js" ></script>
+    <script type="text/javascript" src="/js/components/account/unregister.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/account/unregisterShow.directive.js" ></script>
+    <script type="text/javascript" src="/js/components/account/department.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/search/search.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/search/searchTrigger.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/search/search.service.js" ></script>
+    <script type="text/javascript" src="/js/components/leaderboard.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/library/library.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/library/libraryChoose.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/library/library.routes.js" ></script>
+    <script type="text/javascript" src="/js/components/library/library.service.js" ></script>
+    <script type="text/javascript" src="/js/components/library/countryService.service.js" ></script>
+    <script type="text/javascript" src="/js/components/share/invite.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/share/share.service.js" ></script>
+    <script type="text/javascript" src="/js/components/item/item.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/item/comments.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/item/item.service.js" ></script>
+    <script type="text/javascript" src="/js/components/quiz/quiz.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/quiz/popup/quiz.challenge.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/quiz/popup/quiz.score.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/quiz/quiz.service.js" ></script>
+    <script type="text/javascript" src="/js/components/quiz/quiz.routes.js" ></script>
+    <script type="text/javascript" src="/js/components/quiz/quizCreate.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/app.controller.js" ></script>
+    <script type="text/javascript" src="/js/shared/ajaxService.js" ></script>
+    <script type="text/javascript" src="/js/shared/colorOnLength.js" ></script>
+    <script type="text/javascript" src="/js/shared/loader.js" ></script>
+    <script type="text/javascript" src="/js/shared/userimage.js" ></script>
+    <script type="text/javascript" src="/js/shared/megaNumbers.js" ></script>
+    <script type="text/javascript" src="/js/shared/focusMe.js" ></script>
+    <script type="text/javascript" src="/js/shared/userDetails.js" ></script>
+    <script type="text/javascript" src="/js/shared/fileReader.js" ></script>
+    <script type="text/javascript" src="/js/shared/animationClass.js" ></script>
+    <script type="text/javascript" src="/js/shared/removeKeyboard.js" ></script>
+    <script type="text/javascript" src="/js/shared/firstLetter.js" ></script>
+    <script type="text/javascript" src="/js/shared/history.js" ></script>
+    <script type="text/javascript" src="/js/shared/itemThumbnail.js" ></script>
+    <script type="text/javascript" src="/js/components/item/upload.controller.js" ></script>
+    <script type="text/javascript" src="/js/components/item/externalProviderUpload.service.js" ></script>
+    <script type="text/javascript" src="/js/shared/dropbox.js" ></script>
+    <script type="text/javascript" src="/js/shared/google.js" ></script>
+    <script type="text/javascript" src="/js/shared/facebook.js" ></script>
+    <script type="text/javascript" src="/js/shared/resourceManager.js" ></script>
+    <script type="text/javascript" src="/js/shared/versionChecker.js" ></script>
+    <script type="text/javascript" src="/js/shared/intercom.js" ></script>
+
+
+
     <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NDZLW7');</script>
-    <!-- End Google Tag Manager -->
-    <script>
-        jQuery(document).ready(function () {
-            Metronic.init(); // init metronic core componets
-            Layout.initFooter();
-        });
         window.version = '@VersionHelper.CurrentVersion(true)';
         @if (User != null)
         {
@@ -160,16 +297,10 @@
         window.id = @User.GetUserId(false);
         </text>
         }
-
     </script>
     @RenderSection("scripts", false)
-    @*add to any*@
-    <script type="text/javascript" src="//static.addtoany.com/menu/page.js"></script>
-    @*inline manual*@
-
     <script>
         inlineManualOptions = { language: '@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName' };
-
     </script>
 </body>
 </html>

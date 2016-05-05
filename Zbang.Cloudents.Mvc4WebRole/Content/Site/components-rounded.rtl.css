@@ -425,7 +425,7 @@ select.input-sm {
   color: #999;
 }
 /* Input spinner */
-input[type="text"].spinner,
+/*input[type="text"].spinner,
 input[type="password"].spinner,
 input[type="datetime"].spinner,
 input[type="datetime-local"].spinner,
@@ -439,10 +439,10 @@ input[type="url"].spinner,
 input[type="search"].spinner,
 input[type="tel"].spinner,
 input[type="color"].spinner {
-  background-image: url("../img/input-spinner.gif") !important;
-  background-repeat: no-repeat;
-  background-position: left 8px;
-}
+    background-image: url("../img/input-spinner.gif") !important;
+    background-repeat: no-repeat;
+    background-position: right 8px;
+}*/
 /* Form labels */
 /*label {
     font-weight: 400;
@@ -804,10 +804,9 @@ Iconic labels
   font-size: 12px;
   text-align: center !important;
 }
-.ie8 .label.label-icon,
-.ie9 .label.label-icon {
-  padding: 3px 3px 3px 0;
-}
+/*.ie8 .label.label-icon, .ie9 .label.label-icon {
+    padding: 3px 0 3px 3px;
+}*/
 /***
 Text states
 ***/
@@ -3586,38 +3585,42 @@ fieldset[disabled] .blue.btn.active {
 .portlet.solid.blue > .portlet-title > .tools > a.collapse {
     background-image: url(../img/portlet-collapse-icon-white.png);
 }*/
-.portlet.solid.blue > .portlet-title > .tools > a.fullscreen {
-  color: #fdfdfd;
+/*.portlet.solid.blue > .portlet-title > .tools > a.fullscreen {
+    color: #fdfdfd;
 }
+
 .portlet.box.blue {
-  border: 1px solid #60aee4;
-  border-top: 0;
+    border: 1px solid #60aee4;
+    border-top: 0;
 }
+
 .portlet.box.blue > .portlet-title {
-  background-color: #3598dc;
+    background-color: #3598dc;
 }
+
 .portlet.box.blue > .portlet-title > .caption {
-  color: #FFFFFF;
+    color: #FFFFFF;
 }
+
 .portlet.box.blue > .portlet-title > .caption > i {
-  color: #FFFFFF;
+    color: #FFFFFF;
 }
+
 .portlet.box.blue > .portlet-title > .actions .btn-default {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: 1px solid #95c9ed;
-  color: #aad4f0;
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 1px solid #95c9ed;
+    color: #aad4f0;
 }
+
 .portlet.box.blue > .portlet-title > .actions .btn-default > i {
-  color: #b7daf3;
+    color: #b7daf3;
 }
-.portlet.box.blue > .portlet-title > .actions .btn-default:hover,
-.portlet.box.blue > .portlet-title > .actions .btn-default:focus,
-.portlet.box.blue > .portlet-title > .actions .btn-default:active,
-.portlet.box.blue > .portlet-title > .actions .btn-default.active {
-  border: 1px solid #c0dff4;
-  color: #d6eaf8;
-}
+
+.portlet.box.blue > .portlet-title > .actions .btn-default:hover, .portlet.box.blue > .portlet-title > .actions .btn-default:focus, .portlet.box.blue > .portlet-title > .actions .btn-default:active, .portlet.box.blue > .portlet-title > .actions .btn-default.active {
+    border: 1px solid #c0dff4;
+    color: #d6eaf8;
+}*/
 /* Statistic Block */
 /*.dashboard-stat.blue {
     background-color: #3598dc;

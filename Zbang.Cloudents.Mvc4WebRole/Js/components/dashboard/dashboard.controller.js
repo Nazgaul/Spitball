@@ -2,32 +2,31 @@
 (function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
     dashboard.$inject = ['dashboardService', 'boxes', '$scope', '$mdDialog', 'boxService',
-        '$rootScope', 'resManager', 'ajaxService'];
+        '$rootScope', 'resManager', 'ajaxService', '$timeout'];
 
     function dashboard(dashboardService, boxes, $scope, $mdDialog, boxService, $rootScope,
-        resManager, ajaxService) {
+        resManager, ajaxService, $timeout) {
         var d = this;
-        d.boxes = [];
         d.inviteOpen = false;
         d.showLeaderboard = true;
 
         d.inviteExpand = inviteExpand;
-        d.inviteToSpitabll = inviteToSpitabll; 
+        d.inviteToSpitabll = inviteToSpitabll;
 
 
         d.boxes = boxes;
         dashboardService.recommended().then(function (response2) {
-            d.suggested = response2;
             for (var i = 0; i < response2.length; i++) {
                 var retVal = response2[i];
                 retVal.recommended = true;
                 retVal.updates = 0;
             }
+            d.suggested = response2;
         });
 
         d.deleteBox = deleteBox;
         d.openCreate = openCreate;
-        $scope.math = Math;
+        //$scope.math = Math;
 
         function inviteExpand() {
             if (d.html) {
@@ -69,7 +68,7 @@
         });
 
         $scope.$on('hide-leader-board', function () {
-           d.showLeaderboard = false;
+            d.showLeaderboard = false;
         });
 
     }
