@@ -348,9 +348,6 @@ Page Loading
 .theme-light .accountPage-wrapper .tab-from-r > li > a {
   color: #888b8e;
 }
-.theme-light .accountPage-wrapper .notification-list li {
-  border-bottom: 1px solid #5d6063;
-}
 .theme-light .accountPage-wrapper .notification-list li .owner {
   color: #888b8e;
 }
@@ -2083,4 +2080,7 @@ Page Loading
 }
 .theme-light .backgroundTC23 {
   background: #ffffff !important;
+}
+.theme-light .borderTC24 {
+  border-color: #e9eaed !important;
 }

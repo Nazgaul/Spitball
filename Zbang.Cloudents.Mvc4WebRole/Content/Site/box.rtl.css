@@ -271,6 +271,21 @@ library-list {
   margin-right: 10px;
   width: calc(100% - 45px);
 }
+.invite-members {
+  background: #4190b9;
+  display: block;
+  padding: 10px;
+  border-radius: 100%;
+  height: 50px;
+  width: 50px;
+  margin: 8px;
+}
+.invite-members svg {
+  margin: 0 auto;
+  fill: #f9f9f9;
+  width: 30px;
+  height: 30px;
+}
 .item .base,
 .quiz .base {
   padding: 5px;

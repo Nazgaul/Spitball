@@ -75,8 +75,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //"~/bower_components/angular-material/modules/js/menu/menu.css",
 
                         //"~/bower_components/angular-material/modules/css/angular-material-layout.css",
-                        
+
                         //"~/content/site/angularWithChanges.css",
+                        "~/content/site/angularWithChanges2.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         "~/content/site/inline-material.css",
                        "~/content/bootstrap/bootstrap.css",
@@ -252,7 +253,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                        
                         new JsFileWithCdn("~/js/components/box/box.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/addToAny.directive.js"),
+                        //new JsFileWithCdn("~/js/components/box/addToAny.directive.js"),
                         new JsFileWithCdn("~/js/components/box/tab.controller.js"),
                         new JsFileWithCdn("~/js/components/box/box.routes.js"),
                         new JsFileWithCdn("~/js/components/box/shareBox.directive.js"),
