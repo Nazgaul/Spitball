@@ -133,7 +133,7 @@
 .accountPage-wrapper .notification-list li {
   display: flex;
   padding: 10px 0 10px 5px;
-  border-bottom: 1px solid #5d6063;
+  border-bottom: 1px solid;
 }
 .accountPage-wrapper .notification-list li select {
   background: #353A3F;

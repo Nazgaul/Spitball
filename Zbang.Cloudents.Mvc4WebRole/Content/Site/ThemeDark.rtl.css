@@ -1249,6 +1249,9 @@ md-chips .md-chips.md-focused {
 .backgroundTC23 {
   background: #eee !important;
 }
+.borderTC24 {
+  border-color: #484F56 !important;
+}
 /*input[type="search"], textarea {
     .placeHolder(@borderColorGrey) !important;
 }*/

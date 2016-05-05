@@ -34,7 +34,7 @@
 }
 .invite-container {
   display: flex;
-  padding: 12px;
+  padding: 8px;
   -webkit-align-items: stretch;
   align-items: stretch;
 }
