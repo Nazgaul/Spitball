@@ -21,7 +21,7 @@
                 retVal.recommended = true;
                 retVal.updates = 0;
             }
-            // d.suggested = response2;
+            d.suggested = response2;
         });
 
         d.deleteBox = deleteBox;
