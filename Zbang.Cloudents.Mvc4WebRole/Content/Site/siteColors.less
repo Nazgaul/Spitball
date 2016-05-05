@@ -202,31 +202,31 @@
             }
         }
 
+        .new-comment-border, .reply-wrapper {
+            ::-webkit-input-placeholder {
+                color: @textColorGrey;
+            }
+
+            :-moz-placeholder {
+                color: @textColorGrey;
+            }
+
+            ::-moz-placeholder {
+                color: @textColorGrey;
+            }
+
+            :-ms-input-placeholder {
+                color: @textColorGrey;
+            }
+
+            :placeholder-shown {
+                color: @textColorGrey;
+            }
+        }
+
         &.new-post {
             .top img {
                 background: @borderColorDarkGrey;
-            }
-
-            .new-comment-border {
-                ::-webkit-input-placeholder {
-                    color: @textColorGrey;
-                }
-
-                :-moz-placeholder {
-                    color: @textColorGrey;
-                }
-
-                ::-moz-placeholder {
-                    color: @textColorGrey;
-                }
-
-                :-ms-input-placeholder {
-                    color: @textColorGrey;
-                }
-
-                :placeholder-shown {
-                    color: @textColorGrey;
-                }
             }
         }
     }
@@ -273,7 +273,7 @@
                 border: 1px solid @textColorWhite;
             }
         }
-        
+
         .details {
             background: @backgroundColorMenu;
             color: @textColorWhite;
@@ -845,7 +845,6 @@ Page Loading
             //background: #fff;
             background: #DD4B39;
         }
-
         //button:hover {
         //    background-color: @textColorSpitballBlue;
         //    color: #ffffff;
@@ -898,7 +897,6 @@ Page Loading
                 background: @backgroundColorWhite;
             }
         }
-       
         //.add-uni-btn {
         //
         //    span {
@@ -922,7 +920,6 @@ Page Loading
         //        }
         //    }
         //}
-
         .code {
             h4 {
                 color: @textColorWhite;
@@ -951,7 +948,6 @@ Page Loading
     }
     /*#endregion*/
     /*#region light.less*/
-
     body {
         background: @backgroundColor; //#212427;
     }
@@ -1301,9 +1297,10 @@ Page Loading
     }
 
     .invite {
-        .portlet-title > .caption{
+        .portlet-title > .caption {
             color: @textColorWhite;
         }
+
         button.btn-default {
             &:active:hover {
                 svg {
@@ -1342,8 +1339,6 @@ Page Loading
         color: @textColorLightGrey;
     }
     /*#endregion*/
- 
-
     /*#region staticPages.less*/
     .help-page {
         .accordion-toggle {
@@ -1357,8 +1352,6 @@ Page Loading
             }
         }
     }
-
-
     /*.contactUs-page {
         #map {
             color: @textColorBlack;
@@ -1395,7 +1388,6 @@ Page Loading
             }
         }
     }*/
-
     .aboutUs-page {
         .advantages {
             margin-bottom: 20px;
@@ -1426,9 +1418,11 @@ Page Loading
             margin-bottom: 40px;
             margin-top: 40px;
         }
-        .about-header{
+
+        .about-header {
             margin-bottom: 40px;
         }
+
         .about-text {
             color: @textColorWhite;
             background: none;
@@ -1437,8 +1431,8 @@ Page Loading
         .team-header {
             margin-bottom: 40px;
 
-            > div{
-                 margin-top: 20px;
+            > div {
+                margin-top: 20px;
             }
         }
 

@@ -1068,10 +1068,6 @@ md-input-container .md-input,
 .form-group.form-md-line-input .form-control {
   border-color: #4190b9;
 }
-.md-select-value .md-select-icon:focus,
-md-select .md-select-value:focus,
-md-input-container .md-input:focus,
-.form-group.form-md-line-input .form-control:focus,
 .md-select-value .md-select-icon:active,
 md-select .md-select-value:active,
 md-input-container .md-input:active,

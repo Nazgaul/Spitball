@@ -518,23 +518,28 @@ Page Loading
 .theme-light .add-comment .link:hover {
   fill: #64D0FF;
 }
+.theme-light .add-comment .new-comment-border ::-webkit-input-placeholder,
+.theme-light .add-comment .reply-wrapper ::-webkit-input-placeholder {
+  color: #888b8e;
+}
+.theme-light .add-comment .new-comment-border :-moz-placeholder,
+.theme-light .add-comment .reply-wrapper :-moz-placeholder {
+  color: #888b8e;
+}
+.theme-light .add-comment .new-comment-border ::-moz-placeholder,
+.theme-light .add-comment .reply-wrapper ::-moz-placeholder {
+  color: #888b8e;
+}
+.theme-light .add-comment .new-comment-border :-ms-input-placeholder,
+.theme-light .add-comment .reply-wrapper :-ms-input-placeholder {
+  color: #888b8e;
+}
+.theme-light .add-comment .new-comment-border :placeholder-shown,
+.theme-light .add-comment .reply-wrapper :placeholder-shown {
+  color: #888b8e;
+}
 .theme-light .add-comment.new-post .top img {
   background: #ffffff;
-}
-.theme-light .add-comment.new-post .new-comment-border ::-webkit-input-placeholder {
-  color: #888b8e;
-}
-.theme-light .add-comment.new-post .new-comment-border :-moz-placeholder {
-  color: #888b8e;
-}
-.theme-light .add-comment.new-post .new-comment-border ::-moz-placeholder {
-  color: #888b8e;
-}
-.theme-light .add-comment.new-post .new-comment-border :-ms-input-placeholder {
-  color: #888b8e;
-}
-.theme-light .add-comment.new-post .new-comment-border :placeholder-shown {
-  color: #888b8e;
 }
 .theme-light .member-invite {
   background: #4190b9;

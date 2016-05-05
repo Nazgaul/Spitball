@@ -158,23 +158,28 @@ md-input-container:not(.md-input-invalid) label {
 .add-comment .link:hover {
   fill: #64D0FF;
 }
+.add-comment .new-comment-border ::-webkit-input-placeholder,
+.add-comment .reply-wrapper ::-webkit-input-placeholder {
+  color: #888b8e;
+}
+.add-comment .new-comment-border :-moz-placeholder,
+.add-comment .reply-wrapper :-moz-placeholder {
+  color: #888b8e;
+}
+.add-comment .new-comment-border ::-moz-placeholder,
+.add-comment .reply-wrapper ::-moz-placeholder {
+  color: #888b8e;
+}
+.add-comment .new-comment-border :-ms-input-placeholder,
+.add-comment .reply-wrapper :-ms-input-placeholder {
+  color: #888b8e;
+}
+.add-comment .new-comment-border :placeholder-shown,
+.add-comment .reply-wrapper :placeholder-shown {
+  color: #888b8e;
+}
 .add-comment.new-post .top img {
   background: #323538;
-}
-.add-comment.new-post .new-comment-border ::-webkit-input-placeholder {
-  color: #888b8e;
-}
-.add-comment.new-post .new-comment-border :-moz-placeholder {
-  color: #888b8e;
-}
-.add-comment.new-post .new-comment-border ::-moz-placeholder {
-  color: #888b8e;
-}
-.add-comment.new-post .new-comment-border :-ms-input-placeholder {
-  color: #888b8e;
-}
-.add-comment.new-post .new-comment-border :placeholder-shown {
-  color: #888b8e;
 }
 .member-invite {
   background: #4190b9;

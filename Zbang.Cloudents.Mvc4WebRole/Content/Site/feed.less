@@ -145,28 +145,10 @@
                 color: @textColorWhite;
             }
 
-
-
             .new-comment-border {
                 max-height: 250px;
                 overflow: auto;
                 min-height: 80px;
-
-                textarea {
-                    min-height: 50px;
-                    background: none;
-                    width: 100%;
-                    border: none;
-                    padding: 14px 0 10px 10px;
-
-                    &.ng-not-empty {
-                        color: @backgroundColorMouseOver;
-                    }
-
-                    &:focus {
-                        color: @backgroundColorMouseOver;
-                    }
-                }
 
                 .file-upload-area {
                     padding: 0;
@@ -344,6 +326,25 @@
         }
     }
 
+
+    .new-comment-border, .reply-wrapper {
+        textarea {
+            min-height: 50px;
+            background: none;
+            width: 100%;
+            border: none;
+            padding: 14px 0 10px 10px;
+
+            &.ng-not-empty {
+                color: @backgroundColorMouseOver;
+            }
+
+            &:focus {
+                color: @backgroundColorMouseOver;
+            }
+        }
+    }
+
     .actions, .reply-actions {
         svg {
             width: 22px;
@@ -363,7 +364,14 @@
             line-height: normal;
             margin-right: 8px;
             z-index: 1;
-
+            margin-right: 14px;
+            -moz-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+            -webkit-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+            -o-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+            -ms-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+            transform: scaleX(1) /*rtl:scaleX(-1)*/;
+            -ms-filter: none /*rtl:fliph*/; /*IE*/
+            filter: none /*rtl:fliph*/; /*IE*/
             svg {
                 width: 22px;
                 height: 22px;
@@ -373,17 +381,6 @@
 
     .actions {
         color: @buttonColorBlue;
-
-        .post-comment {
-            margin-right: 14px;
-            -moz-transform: scaleX(1) /*rtl:scaleX(-1)*/;
-            -webkit-transform: scaleX(1) /*rtl:scaleX(-1)*/;
-            -o-transform: scaleX(1) /*rtl:scaleX(-1)*/;
-            -ms-transform: scaleX(1) /*rtl:scaleX(-1)*/;
-            transform: scaleX(1) /*rtl:scaleX(-1)*/;
-            -ms-filter: none /*rtl:fliph*/; /*IE*/
-            filter: none /*rtl:fliph*/; /*IE*/
-        }
 
         .share-section {
             padding: 0;
@@ -510,7 +507,6 @@
                     padding: 20px 10px 20px 20px;
                     border: none;
                     min-height: 120px;
-                    color: @backgroundColorMouseOver;
                 }
             }
 
