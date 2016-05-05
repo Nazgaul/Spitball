@@ -470,7 +470,7 @@ var Login = function () {
         },
         initExternalLogin: function () {
             handleExtenalLogin();
-            svg4everybody();
+          //  svg4everybody();
 
         }
     };

@@ -76,7 +76,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         //"~/bower_components/angular-material/modules/css/angular-material-layout.css",
                         
-                        "~/content/site/angularWithChanges.css",
+                        //"~/content/site/angularWithChanges.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         
                        "~/content/bootstrap/bootstrap.css",
@@ -169,9 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
-                        
                         new JsFileWithCdn("~/bower_components/angular/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"),
-
                         //new JsFileWithCdn("~/scripts/angular-ui-router.js"), //changed to bower components
                         new JsFileWithCdn("~/bower_components/ui-router/release/angular-ui-router.js"),
                         //new JsFileWithCdn("~/scripts/angular-messages.js"), //changed to bower components
@@ -188,7 +186,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         
                         new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
-                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.js"), 
+                        new JsFileWithCdn(/*"~/bower_components/angular-material/angular-material.js",*/ "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"), 
                         //new JsFileWithCdn("https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"), 
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),

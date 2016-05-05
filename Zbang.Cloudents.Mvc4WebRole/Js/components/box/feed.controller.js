@@ -3,11 +3,11 @@
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
-        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window','$filter'];
+        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window', '$filter'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window , $filter) {
+        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window, $filter) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), top = ($window.innerHeight <= 600) ? 10 : 15;
 
         self.add = {
@@ -19,9 +19,9 @@
 
         self.add.google = google;
         self.add.dropbox = dropbox;
-        self.add.init =  initThirdParties;
+        self.add.init = initThirdParties;
 
-        
+
 
         self.deleteComment = deleteComment;
 
@@ -36,7 +36,7 @@
 
         function appendUpdates(postsList) {
             if (!feedUpdates) {
-                return;
+                return postsList;
             }
             for (var i = 0; i < postsList.length; i++) {
                 var currentPost = postsList[i];
@@ -52,6 +52,7 @@
                     }
                 }
             }
+            return postsList;
             //for (currentPost in postsList) {
             //    if (feedUpdates[postsList[currentPost].id]) {
             //        postsList[currentPost].isNew = true;
@@ -71,15 +72,19 @@
         //});
 
         boxService.getFeed(boxId, top, 0).then(function (response) {
-             //self.data = response;
-             self.data = assignData(response);
-             appendUpdates(self.data);
-            
+            //self.data = response;
+            var x = assignData(response);
+            //appendUpdates(self.data);
+            userUpdatesService.boxUpdates(boxId, function (updates) {
+                self.data = appendUpdates(x);
+
+            });
+
         });
-        userUpdatesService.boxUpdates(boxId, function (updates) {
-            feedUpdates = updates;
-            appendUpdates(self.data);
-        });
+        //userUpdatesService.boxUpdates(boxId, function (updates) {
+        //    feedUpdates = updates;
+        //    appendUpdates(self.data);
+        //});
         function likeCommentDialog(comment, ev) {
             if (!comment.likesCount) {
                 return;
