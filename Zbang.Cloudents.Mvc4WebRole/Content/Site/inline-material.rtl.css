@@ -239,17 +239,14 @@ md-progress-circular.md-default-theme .md-inner .md-gap, md-progress-circular .m
     border-top-color: rgb(63,81,181);
     border-bottom-color: rgb(63,81,181);
 }
-
-md-progress-circular.md-default-theme .md-inner .md-right .md-half-circle, md-progress-circular .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme .md-inner .md-left .md-half-circle, md-progress-circular .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme .md-inner .md-left .md-half-circle, md-progress-circular .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme .md-inner .md-right .md-half-circle, md-progress-circular .md-inner .md-right .md-half-circle {
     border-top-color: rgb(63,81,181);
 }
-
 md-progress-circular.md-default-theme .md-inner .md-right .md-half-circle, md-progress-circular .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(63,81,181);
-}
-
-md-progress-circular.md-default-theme .md-inner .md-left .md-half-circle, md-progress-circular .md-inner .md-left .md-half-circle {
     border-right-color: rgb(63,81,181);
+}
+md-progress-circular.md-default-theme .md-inner .md-left .md-half-circle, md-progress-circular .md-inner .md-left .md-half-circle {
+    border-left-color: rgb(63,81,181);
 }
 
 md-progress-linear.md-default-theme .md-container, md-progress-linear .md-container {
