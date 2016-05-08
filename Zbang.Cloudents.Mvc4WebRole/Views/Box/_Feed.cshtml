@@ -82,13 +82,13 @@
                         </md-menu>
                         <div ng-bind-html="::reply.content" class="indent content-text"></div>
                         <div class="items-slider" ng-if="::reply.files.length">
-                            <button type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
+                            <button type="button" ng-if="::reply.files.length > 2" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                             <div class="items-container">
                                 <div bx-slider>
                                     <div bx-slider-item class="feed-item" ng-repeat="e in ::reply.files track by e.id" ng-include="f.postItemTemplate(e)"></div>
                                 </div>
                             </div>
-                            <button type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
+                            <button type="button" ng-if="::reply.files.length > 2" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                         </div>
                         <div class="actions-wrapper">
                             <div class="like-btn actions" layout="row" layout-align="start center">
