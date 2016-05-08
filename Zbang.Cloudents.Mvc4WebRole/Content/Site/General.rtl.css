@@ -1090,8 +1090,8 @@ md-input-container .md-input {
 md-dialog {
   color: #282828;
 }
-md-menu-item > button,
-md-menu-item > .md-button span {
+md-menu-content md-menu-item > button.md-button,
+md-menu-content md-menu-item > .md-button span {
   color: #282828;
 }
 md-toast.md-default-theme .md-toast-content,

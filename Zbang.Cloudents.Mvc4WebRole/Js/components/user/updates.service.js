@@ -74,14 +74,7 @@
                     return;
                 }
                 deleteFromServer(boxId);
-                var tempArr = [];
-                for (var i = 0; i < data.length; i++) {
-                    var temp = data[i];
-                    if (temp.boxId !== boxId) {
-                        tempArr.push(temp);
-                    }
-                }
-                data = tempArr;
+                delete allUpdates[boxId];
             });
         }
 
