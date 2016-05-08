@@ -163,6 +163,7 @@ namespace Zbang.Zbox.Domain
         {
             University = university;
             StudentId = studentId;
+            University.UserTime.UpdateUserTime(Id);
             UserTime.UpdateUserTime(Id);
         }
 

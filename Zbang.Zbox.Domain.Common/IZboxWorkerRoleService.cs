@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 
 namespace Zbang.Zbox.Domain.Common
@@ -19,7 +20,7 @@ namespace Zbang.Zbox.Domain.Common
         //bool Dbi();
         void DeleteOldUpdates();
         void OneTimeDbi();
-        void UpdateUniversityStats();
+        void UpdateUniversityStats(DateTime dateTime);
 
         void UpdateThumbnailPicture(UpdateThumbnailCommand command);
 

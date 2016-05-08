@@ -96,7 +96,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     m_ZboxWorkerRoleService.DeleteOldUpdates();
                     await blob.RenewLeaseAsync(new AccessCondition { LeaseId = m_LeaseId }, cancellationToken);
-                    m_ZboxWorkerRoleService.UpdateUniversityStats();
+                    m_ZboxWorkerRoleService.UpdateUniversityStats(m_DateTime);
                     await blob.RenewLeaseAsync(new AccessCondition { LeaseId = m_LeaseId }, cancellationToken);
                     //m_ZboxWorkerRoleService.Dbi();
                     TraceLog.WriteInfo($"{Prefix} update unsubscribe list complete");
