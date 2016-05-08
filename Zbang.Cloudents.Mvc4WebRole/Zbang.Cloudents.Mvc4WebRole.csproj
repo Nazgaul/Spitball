@@ -3401,7 +3401,6 @@
     <Content Include="Content\Site\staticPage.rtl.css">
       <DependentUpon>staticPage.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\textAngular.css" />
     <Content Include="Content\Site\ThemeDark.css">
       <DependentUpon>ThemeDark.less</DependentUpon>
     </Content>
