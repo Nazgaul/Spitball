@@ -133,6 +133,7 @@
   max-height: 250px;
   overflow: auto;
   min-height: 80px;
+  width: 100%;
 }
 .feed .comment .user-comment .new-comment-border .file-upload-area,
 .feed .add-comment .user-comment .new-comment-border .file-upload-area {

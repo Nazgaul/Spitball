@@ -102,6 +102,9 @@
 }
 .add-comment {
   background: #181c1d;
+  /*textarea {
+            background: @backgroundColor;
+        }*/
 }
 .add-comment::-webkit-input-placeholder {
   color: #323538;
@@ -123,9 +126,6 @@
 }
 .add-comment .list-inline > li {
   border: 1px solid #3D4348;
-}
-.add-comment textarea {
-  background: #181c1d;
 }
 .add-comment ::-webkit-input-placeholder {
   color: #5d6063;

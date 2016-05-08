@@ -2294,6 +2294,9 @@
     <Content Include="bower_components\jquery\src\wrap.js" />
     <Content Include="bower_components\svgxuse\svgxuse.js" />
     <Content Include="bower_components\svgxuse\svgxuse.min.js" />
+    <Content Include="bower_components\textAngular\dist\textAngular.rtl.css">
+      <DependentUpon>textAngular.css</DependentUpon>
+    </Content>
     <Content Include="bower_components\ui-router\release\angular-ui-router.js" />
     <Content Include="bower_components\ui-router\release\angular-ui-router.min.js" />
     <Content Include="bower_components\ui-router\src\common.js" />
@@ -3384,6 +3387,9 @@
     <Content Include="Content\Site\siteColors.css">
       <DependentUpon>siteColors.less</DependentUpon>
     </Content>
+    <Content Include="Content\Site\siteColors.min.css">
+      <DependentUpon>siteColors.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\siteColors.rtl.css">
       <DependentUpon>siteColors.css</DependentUpon>
     </Content>
@@ -3393,6 +3399,7 @@
     <Content Include="Content\Site\staticPage.rtl.css">
       <DependentUpon>staticPage.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\textAngular.css" />
     <Content Include="Content\Site\ThemeDark.css">
       <DependentUpon>ThemeDark.less</DependentUpon>
     </Content>
