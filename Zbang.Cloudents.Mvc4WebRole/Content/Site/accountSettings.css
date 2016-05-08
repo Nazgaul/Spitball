@@ -150,6 +150,7 @@
 }
 .accountPage-wrapper .notification-list li .name {
   font-size: 18px;
+  width: 500px;
 }
 .accountPage-wrapper .uni-image {
   border-radius: 50%;

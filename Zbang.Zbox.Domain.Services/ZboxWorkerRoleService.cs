@@ -274,7 +274,7 @@ order by 1";
         }
 
 
-        public void UpdateUniversityStats()
+        public void UpdateUniversityStats(DateTime dateTime)
         {
             var sw = new Stopwatch();
             sw.Start();
@@ -299,7 +299,7 @@ order by 1";
 
             }
             sw.Stop();
-            TraceLog.WriteInfo($"UpdateUniversityStats took {sw.ElapsedMilliseconds}");
+            TraceLog.WriteInfo($"milis took {sw.ElapsedMilliseconds}");
         }
 
 
