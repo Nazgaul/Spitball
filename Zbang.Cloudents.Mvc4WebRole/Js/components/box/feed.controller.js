@@ -40,14 +40,14 @@
             }
             for (var i = 0; i < postsList.length; i++) {
                 var currentPost = postsList[i];
-                if (feedUpdates.length && feedUpdates[postsList[currentPost].id]) {
-                    postsList[currentPost].isNew = true;
+                if (feedUpdates && feedUpdates[currentPost.id]) {
+                    currentPost.isNew = true;
                 }
-                if (typeof (postsList[currentPost]) !== 'undefined') {
-                    for (var j = 0; j < postsList[currentPost].replies.length; j++) {
-                        var currentreply = postsList[currentPost].replies[j];
-                        if (feedUpdates[postsList[currentPost].replies[currentreply].id]) {
-                            postsList[currentPost].replies[currentreply].isNew = true;
+                if (typeof (currentPost) !== 'undefined') {
+                    for (var j = 0; j < currentPost.replies.length; j++) {
+                        var currentreply = currentPost.replies[j];
+                        if (feedUpdates[currentreply.id]) {
+                            currentreply.isNew = true;
                         }
                     }
                 }
@@ -75,10 +75,17 @@
             //self.data = response;
             var x = assignData(response);
             //appendUpdates(self.data);
-            userUpdatesService.boxUpdates(boxId, function (updates) {
-                self.data = appendUpdates(x);
 
-            });
+            if (!user.id) {
+                self.data = x;
+            }
+            else {
+                userUpdatesService.boxUpdates(boxId, function (updates) {
+                    feedUpdates = updates;
+                    self.data = appendUpdates(x);
+
+                });
+            }
 
         });
         //userUpdatesService.boxUpdates(boxId, function (updates) {

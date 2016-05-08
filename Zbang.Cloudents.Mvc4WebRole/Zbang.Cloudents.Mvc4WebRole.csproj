@@ -3218,7 +3218,9 @@
       <DependentUpon>General.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\inline-material.css" />
-    <Content Include="Content\Site\inline-material.rtl.css" />
+    <Content Include="Content\Site\inline-material.rtl.css">
+      <DependentUpon>inline-material.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\item.css">
       <DependentUpon>item.less</DependentUpon>
     </Content>
