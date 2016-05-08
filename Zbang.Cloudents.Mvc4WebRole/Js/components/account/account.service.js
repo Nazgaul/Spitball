@@ -59,6 +59,11 @@
                 notification: notification
             });
         }
+        self.setPersonalNotification = function(value) {
+            return ajaxservice.post('/account/changenotification/', {
+                subscribe: value
+            });
+        }
 
         self.changeLocale = function(lang) {
             return ajaxservice.post('/account/changelocale/', {

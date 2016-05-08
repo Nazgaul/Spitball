@@ -107,7 +107,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserAccountDetailsAsync(query);
         }
 
-        public Task<IEnumerable<BoxNotificationDto>> GetUserBoxesNotificationAsync(GetUserDetailsQuery query)
+        public Task<UserNotification> GetUserBoxesNotificationAsync(GetUserDetailsQuery query)
         {
             return m_ReadService.GetUserBoxesNotificationAsync(query);
         }

@@ -104,7 +104,7 @@ namespace Zbang.Zbox.Domain
         public virtual string RegisterNumber { get; set; }
 
 
-        public EmailSend EmailSendSettings { get; set; }
+        public virtual EmailSend EmailSendSettings { get; set; }
         
 
         public virtual MobileOperatingSystem MobileDevice { get; set; }
@@ -154,7 +154,7 @@ namespace Zbang.Zbox.Domain
             CreateName();
         }
 
-        public void UpdateLanguage(string culture)
+        public virtual void UpdateLanguage(string culture)
         {
             Culture = Languages.GetCultureBaseOnCulture(culture);
         }

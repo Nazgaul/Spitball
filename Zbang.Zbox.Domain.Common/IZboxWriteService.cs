@@ -15,6 +15,7 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateUserLanguage(UpdateUserLanguageCommand command);
         void UpdateUserTheme(UpdateUserThemeCommand command);
         void UpdateUserUniversity(UpdateUserUniversityCommand command);
+        void UpdateUserEmailSettings(UpdateUserEmailSubscribeCommand command);
         CreateBoxCommandResult CreateBox(CreateBoxCommand command);
         void ChangeBoxInfo(ChangeBoxInfoCommand command);
         //void DeleteBox(DeleteBoxCommand command);
