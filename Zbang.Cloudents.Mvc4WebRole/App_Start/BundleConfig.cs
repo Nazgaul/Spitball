@@ -82,10 +82,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
                     var angularResource =
-                        $"{"~/bower_components/angular-i18n/angular-locale"}_{Thread.CurrentThread.CurrentUICulture.Name}.js";
-
-                    
-                    RegisterLocaleJs(angularResource,
+                        $"{HttpContext.Current.Server.MapPath("/bower_components/angular-i18n/angular-locale")}_{Thread.CurrentThread.CurrentUICulture.Name}.js";
+                    RegisterLocaleJs(File.ReadAllText(angularResource),
                         JsResourceHelper.BuildResourceObject(), culture);
                 }
                 
@@ -134,10 +132,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
         private static void RegisterLocaleJs(string angularPath, string jsResourceString, string culture)
         {
             var jsBundle = SquishIt.Framework.Bundle.JavaScript();
+            
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
-            jsBundle.Add(angularPath);
+            jsBundle.AddString(angularPath);
             jsBundle.AddString(jsResourceString);
-            jsBundle.WithDeferredLoad();
+            //jsBundle.WithDeferredLoad();
             var cdnUrl = CdnLocation;
 
             if (!string.IsNullOrWhiteSpace(cdnUrl))
