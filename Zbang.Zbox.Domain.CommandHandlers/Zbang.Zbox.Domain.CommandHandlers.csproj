@@ -125,6 +125,7 @@
     <Compile Include="UpdateStatisticsCommandHandler.cs" />
     <Compile Include="UpdateThumbnailCommandHandler.cs" />
     <Compile Include="UpdateUniversityStatsCommandHandler.cs" />
+    <Compile Include="UpdateUserEmailSubscribeCommandHandler.cs" />
     <Compile Include="UpdateUserMobileSettings.cs" />
     <Compile Include="UpdateUserProfileImageCommandHandler.cs" />
     <Compile Include="UpdateUserThemeCommandHandler.cs" />

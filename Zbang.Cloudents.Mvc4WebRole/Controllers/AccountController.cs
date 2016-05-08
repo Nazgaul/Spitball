@@ -778,6 +778,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
+        public ActionResult ChangeNotification(EmailSend subscribe)
+        {
+            var command = new UpdateUserEmailSubscribeCommand(User.GetUserId(), subscribe);
+            ZboxWriteService.UpdateUserEmailSettings(command);
+            return JsonOk();
+        }
+
         [HttpGet, ZboxAuthorize]
         public PartialViewResult Info()
         {

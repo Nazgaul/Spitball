@@ -79,6 +79,7 @@
   -ms-user-select: none;
   user-select: none;
   display: inline-block;
+  margin-right: 10px /*rtl:ignore*/;
 }
 .feed .posts-list .actions-wrapper {
   position: relative;

@@ -7,11 +7,17 @@
         var self = this;
 
         accountService.getNotification().then(function (response) {
-            self.notifications = response;
-            //self.emailNotification = response.emailNotifiactions;
+            self.notifications = response.boxNotifications;
+
+            self.emailNotification = response.emailNotification;
             //self.notifications = response.boxNotifiactions;
 
         });
+
+        self.updateSubsription = function() {
+            accountService.setPersonalNotification(self.emailNotification);
+            showToast(resManager.get('settingsDone'));
+        }
 
         self.updateNotification = function (box) {
             accountService.setNotification(box.id, box.notifications).then(function () {

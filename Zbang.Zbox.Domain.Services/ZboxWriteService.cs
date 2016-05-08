@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Domain.Services
 
         public async Task<CreateUserCommandResult> CreateUserAsync(CreateUserCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
 
             using (UnitOfWork.Start())
             {
@@ -96,7 +96,7 @@ namespace Zbang.Zbox.Domain.Services
 
         public CreateBoxCommandResult CreateBox(CreateBoxCommand command)
         {
-            if (command == null) throw new ArgumentNullException("command");
+            if (command == null) throw new ArgumentNullException(nameof(command));
             using (UnitOfWork.Start())
             {
                 CreateBoxCommandResult result = m_CommandBus.Dispatch<CreateBoxCommand, CreateBoxCommandResult>(command, command.GetType().Name);
@@ -251,7 +251,14 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
+        public void UpdateUserEmailSettings(UpdateUserEmailSubscribeCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
 
         //public void AddNodeToLibrary(AddNodeToLibraryCommand command)
         //{

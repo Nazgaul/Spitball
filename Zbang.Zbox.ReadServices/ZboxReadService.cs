@@ -715,15 +715,33 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Box.BoxNotificationDto>> GetUserBoxesNotificationAsync(GetUserDetailsQuery query)
+        public async Task<User.UserNotification> GetUserBoxesNotificationAsync(GetUserDetailsQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<Box.BoxNotificationDto>(@"select b.BoxId as Id, b.BoxName as Name,  ub.NotificationSettings as Notifications, b.Url as url, u.UserName
+                const string boxNotificationSql =
+                    @"select b.BoxId as Id, b.BoxName as Name,  ub.NotificationSettings as Notifications, b.Url as url, u.UserName
                     from zbox.Box b 
 	                inner join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
 					inner join zbox.Users u on b.OwnerId = u.UserId
-                    and ub.UserId = @UserId", new { query.UserId });
+                    where ub.UserId = @UserId";
+
+                const string userEmailSettings = @"select EmailSendSettings from zbox.Users where userid = 1";
+                using (var grid = await conn.QueryMultipleAsync($"{boxNotificationSql} {userEmailSettings}", new { query.UserId }))
+                {
+                    var retVal = new User.UserNotification
+                    {
+                        BoxNotifications = await grid.ReadAsync<Box.BoxNotificationDto>(),
+                        EmailNotification = grid.Read<EmailSend>().FirstOrDefault()
+                    };
+                    return retVal;
+
+                }
+     //           await conn.QueryAsync<Box.BoxNotificationDto>(@"select b.BoxId as Id, b.BoxName as Name,  ub.NotificationSettings as Notifications, b.Url as url, u.UserName
+     //               from zbox.Box b 
+	    //            inner join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
+					//inner join zbox.Users u on b.OwnerId = u.UserId
+     //               where ub.UserId = @UserId", new { query.UserId });
             }
 
         }
