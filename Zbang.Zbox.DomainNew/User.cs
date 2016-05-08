@@ -163,6 +163,7 @@ namespace Zbang.Zbox.Domain
         {
             University = university;
             StudentId = studentId;
+            UserTime.UpdateUserTime(Id);
         }
 
         public virtual bool IsAdmin()
