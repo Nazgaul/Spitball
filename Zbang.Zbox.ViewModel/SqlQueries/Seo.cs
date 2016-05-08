@@ -21,9 +21,6 @@ union all
 select b.boxid, b.Url +'quizzes/' as url 
 from boxseo b
 union all
-select  b.boxid, b.Url +'members/' as url 
-from boxseo b
-union all
 select b.boxid,i.url as url
 from zbox.item i join boxSeo b on i.BoxId = b.BoxId
 where i.IsDeleted = 0
@@ -39,7 +36,7 @@ offset (@pageNumber-1)*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY;";
 
         public const string GetSeoItemsCount = @"select sum(c)  from (
-select count(*)*4 as c
+select count(*)*3 as c
 from zbox.box b 
 where University in (select id from zbox.University where  needcode = 0)
 and Discriminator = 2
