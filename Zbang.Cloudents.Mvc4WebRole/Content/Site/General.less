@@ -292,8 +292,10 @@ md-dialog {
     color: @textColorBlack;
 }
 
-md-menu-item > .md-button span {
-    color: @textColorBlack;
+md-menu-item {
+    > button, > .md-button span {
+        color: @textColorBlack;
+    }
 }
 
 md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {

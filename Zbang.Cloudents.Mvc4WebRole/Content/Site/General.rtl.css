@@ -1090,6 +1090,7 @@ md-input-container .md-input {
 md-dialog {
   color: #282828;
 }
+md-menu-item > button,
 md-menu-item > .md-button span {
   color: #282828;
 }

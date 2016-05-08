@@ -34,7 +34,7 @@
 }
 .invite-container {
   display: flex;
-  padding: 8px;
+  padding: 12px;
   -webkit-align-items: stretch;
   align-items: stretch;
 }
@@ -310,6 +310,7 @@
 .invite.invite-dialog .content .bottom {
   text-align: left;
   margin: 5px;
+  min-height: 35px;
 }
 .invite.invite-dialog .content .bottom .send,
 .invite.invite-dialog .content .bottom .close {

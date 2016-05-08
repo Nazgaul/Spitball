@@ -121,11 +121,11 @@
                                    plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks" ga-track-event="['box-feed', 'addFile']">
                                     @Html.Svg(url, "file", new { @class = "file color-override hoverSvgColor2" })
                                 </a>
-                                <button user-not-register-popup="click" type="button" class="google" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)" ga-track-event="['box-feed', 'googleDrive']">
+                                <button user-not-register-popup="click" type="button" class="google" ng-mouseover="f.add.init()" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)" ga-track-event="['box-feed', 'googleDrive']">
                                     @Html.Svg(url, "googleDrive")
                                     @Html.Svg(url, "googleDriveClean")
                                 </button>
-                                <button user-not-register-popup="click" type="button" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)" ga-track-event="['box-feed', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
+                                <button user-not-register-popup="click" type="button" ng-mouseover="f.add.init()" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)" ga-track-event="['box-feed', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
                             </div>
                             <button type="submit" class="btn button-Blue btn-primary text-uppercase post-comment" ng-disabled="f.add.disabled" ga-track-event="['box-feed', 'postReply']">
                                 @Html.Svg(url, "post")
