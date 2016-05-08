@@ -459,6 +459,9 @@ Page Loading
 }
 .theme-light .add-comment {
   background: #e9eaed;
+  /*textarea {
+            background: @backgroundColor;
+        }*/
 }
 .theme-light .add-comment::-webkit-input-placeholder {
   color: #ffffff;
@@ -480,9 +483,6 @@ Page Loading
 }
 .theme-light .add-comment .list-inline > li {
   border: 1px solid #3D4348;
-}
-.theme-light .add-comment textarea {
-  background: #e9eaed;
 }
 .theme-light .add-comment ::-webkit-input-placeholder {
   color: #5d6063;
