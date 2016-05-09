@@ -726,7 +726,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
 					inner join zbox.Users u on b.OwnerId = u.UserId
                     where ub.UserId = @UserId";
 
-                const string userEmailSettings = @"select EmailSendSettings from zbox.Users where userid = 1";
+                const string userEmailSettings = @"select EmailSendSettings from zbox.Users where userid = @UserId";
                 using (var grid = await conn.QueryMultipleAsync($"{boxNotificationSql} {userEmailSettings}", new { query.UserId }))
                 {
                     var retVal = new User.UserNotification

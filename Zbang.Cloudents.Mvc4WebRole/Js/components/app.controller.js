@@ -15,7 +15,7 @@
             // ReSharper disable UseOfImplicitGlobalInFunctionScope
             dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl }); // google tag manger
             __insp.push(["virtualPage"]); //inspectlet
-            // svg4everybody();
+            //svg4everybody();
             // ReSharper restore UseOfImplicitGlobalInFunctionScope
        
         });
