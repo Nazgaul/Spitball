@@ -34,9 +34,12 @@ namespace Zbang.Cloudents.MobileApp.Filters
             var exists = jsonFormatter.SerializerSettings.Converters.OfType<IsoDateTimeConverter>().Any();
             if (!exists)
             {
-                var iso = new IsoDateTimeConverter { DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal };
+                var iso = new IsoDateTimeConverter
+                {
+                    DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal,
+                    DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+                };
                 //var isoSettings = jsonFormatter.SerializerSettings.Converters.OfType<IsoDateTimeConverter>().Single();
-                iso.DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
                 jsonFormatter.SerializerSettings.Converters.Add(iso);
             }
             
