@@ -1,25 +1,26 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Zbang.Cloudents.MobileApp.Filters;
 using Zbang.Zbox.Domain.Common;
 
 namespace Zbang.Cloudents.MobileApp.DataObjects
 {
     public class Register
     {
-        [Required]//(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
+        [Required]
         public string FirstName { get; set; }
 
-        [Required]//(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
+        [Required]
         public string LastName { get; set; }
 
-        [Required]//(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotValid")]
-        [RegularExpression(Validation.EmailRegexWithTrailingEndingSpaces)]//, ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "EmailNotCorrect")]
+        [Required]
+        [EmailVerify]
+        //[RegularExpression(Validation.EmailRegexWithTrailingEndingSpaces)]
         public string NewEmail { get; set; }
 
 
-        [Required]//(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "PwdRequired")]
-        //[ValidatePasswordLength(ErrorMessageResourceName = "MustBeAtLeast", ErrorMessageResourceType = typeof(ValidatePasswordResources))]
+        [Required]
         public string Password { get; set; }
 
         [Required]

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources;
-using Zbang.Zbox.Domain.Common;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 {
@@ -11,7 +11,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
     public class ChangeMail
     {
         [Required(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "EmailEmpty")]
-        [RegularExpression(Validation.EmailRegex, ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "EmailNotCorrect")]
+        //[RegularExpression(Validation.EmailRegex, ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "EmailNotCorrect")]
+        [EmailVerify(ErrorMessageResourceType = typeof(AccountSettingsResources), ErrorMessageResourceName = "EmailNotCorrect")]
         public string Email { get; set; }
 
         public int? Code { get; set; }
@@ -21,7 +22,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Settings
 
         public override string ToString()
         {
-            return string.Format("email: {0} code: {1}", Email, Code);
+            return $"email: {Email} code: {Code}";
         }
 
     }

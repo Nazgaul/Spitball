@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -23,19 +24,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IGuidIdGenerator m_IdGenerator;
+        private readonly IEmailVerification m_EmailVerification;
         private readonly IRepository<InviteToBox> m_InviteRepository;
 
 
         public ShareBoxCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
             IRepository<Box> boxRepository,
             IGuidIdGenerator idGenerator,
-            IRepository<InviteToBox> inviteRepository)
+            IRepository<InviteToBox> inviteRepository, IEmailVerification emailVerification)
         {
             m_BoxRepository = boxRepository;
             m_QueueProvider = queueProvider;
             m_UserRepository = userRepository;
             m_IdGenerator = idGenerator;
             m_InviteRepository = inviteRepository;
+            m_EmailVerification = emailVerification;
         }
 
         public Task HandleAsync(ShareBoxCommand command)
@@ -56,7 +59,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             throw new UnauthorizedAccessException();
         }
 
-        private Task SendInvitesAsync(ShareBoxCommand command, User sender, Box box)
+        private async Task SendInvitesAsync(ShareBoxCommand command, User sender, Box box)
         {
             var tasks = new List<Task>();
             foreach (var recipientEmail in command.Recipients.Where(w => !string.IsNullOrWhiteSpace(w)).Distinct())
@@ -65,7 +68,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 Guid id = m_IdGenerator.GetId();
                 if (recipientUser == null)
                 {
-                    if (!Validation.IsEmailValid2(recipientEmail))
+                    var verified = await m_EmailVerification.VerifyEmailAsync(recipientEmail);
+                    if (!verified)
                     {
                         continue;
                     }
@@ -94,7 +98,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     id, box.Id,
                     recipientUser.Email, sender.ImageLarge, sender.Email, recipientUser.Culture, box.Url, recipientUser.Id));
             }
-            return Task.WhenAll(tasks);
+            await Task.WhenAll(tasks);
         }
 
         private Task SendInviteAsync(string senderName,

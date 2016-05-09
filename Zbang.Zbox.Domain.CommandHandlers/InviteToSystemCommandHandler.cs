@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -20,20 +20,21 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<InviteToSystem> m_InviteToCloudents;
-
+        private readonly IEmailVerification m_EmailVerification;
         private readonly IGuidIdGenerator m_IdGenerator;
 
         public InviteToSystemCommandHandler(IQueueProvider queueProvider, IUserRepository userRepository,
             IRepository<InviteToSystem> inviteToCloudentsRepository,
-            IGuidIdGenerator idGenerator)
+            IGuidIdGenerator idGenerator, IEmailVerification emailVerification)
         {
             m_QueueProvider = queueProvider;
             m_UserRepository = userRepository;
             m_InviteToCloudents = inviteToCloudentsRepository;
             m_IdGenerator = idGenerator;
+            m_EmailVerification = emailVerification;
         }
 
-        public Task HandleAsync(InviteToSystemCommand command)
+        public async Task HandleAsync(InviteToSystemCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
             User sender = m_UserRepository.Load(command.SenderId);
@@ -47,8 +48,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 {
                     continue;
                 }
-
-                if (!Validation.IsEmailValid2(recipientEmail))
+                var verifyEmail = await m_EmailVerification.VerifyEmailAsync(recipientEmail);
+                if (!verifyEmail)
                 {
                     continue;
                 }
@@ -63,7 +64,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     m_QueueProvider.InsertMessageToMailNewAsync(new InviteToCloudentsData(sender.Name, sender.ImageLarge,
                         recipientEmail, sender.Culture, sender.Email, url)));
             }
-            return Task.WhenAll(tasks);
+            await Task.WhenAll(tasks);
         }
     }
 }

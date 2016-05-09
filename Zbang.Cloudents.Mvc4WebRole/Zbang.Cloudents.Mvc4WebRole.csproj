@@ -323,6 +323,7 @@
     <Compile Include="Extensions\VersionHelper.cs" />
     <Compile Include="Filters\BoxPermissionAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
+    <Compile Include="Filters\EmailVerifyAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
     <Compile Include="Filters\JsonHandleErrorAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />

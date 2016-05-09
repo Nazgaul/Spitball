@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
@@ -19,7 +18,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
     /// </summary>
     public static class UnityConfig
     {
-        private static readonly Object ThisLock = new Object();
+        private static readonly object ThisLock = new object();
         public static void RegisterTypes(IAppBuilder app)
         {
             lock (ThisLock)
