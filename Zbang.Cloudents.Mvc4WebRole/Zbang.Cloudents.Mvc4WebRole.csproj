@@ -3392,26 +3392,17 @@
     <Content Include="Content\Site\siteColors.css">
       <DependentUpon>siteColors.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\siteColors.min.css">
-      <DependentUpon>siteColors.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\siteColors.rtl.css">
       <DependentUpon>siteColors.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\staticPage.css">
       <DependentUpon>staticPage.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\staticPage.min.css">
-      <DependentUpon>staticPage.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\staticPage.rtl.css">
       <DependentUpon>staticPage.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\ThemeDark.css">
       <DependentUpon>ThemeDark.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\ThemeDark.min.css">
-      <DependentUpon>ThemeDark.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\ThemeDark.rtl.css">
       <DependentUpon>ThemeDark.css</DependentUpon>
@@ -3421,9 +3412,6 @@
     </Content>
     <Content Include="Content\Site\themeLight.css">
       <DependentUpon>themeLight.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\themeLight.min.css">
-      <DependentUpon>themeLight.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\themeLight.rtl.css">
       <DependentUpon>themeLight.css</DependentUpon>
