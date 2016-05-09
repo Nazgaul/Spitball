@@ -960,6 +960,34 @@ html {
 .multi-line-ellipsis.limit-two {
   -webkit-line-clamp: 2;
 }
+.blue-button {
+  background: #4190b9;
+  color: #f5f5f5;
+  padding: 0 16px;
+  line-height: 25px;
+  height: 25px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.blue-button:hover {
+  background: #26566e;
+  color: #f5f5f5;
+}
+.grey-button {
+  background: #c3c3c3;
+  color: #282828;
+  padding: 0 16px;
+  line-height: 25px;
+  height: 25px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.grey-button:hover {
+  background: #9E9E9E;
+  color: #282828;
+}
 /*.create {
     background: @color4;
     //height: 475px;
@@ -1227,16 +1255,6 @@ md-pagination-wrapper {
   height: 100%;
 }
 .create-box .create-btn div {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  align-items: center;
-  -ms-flex-direction: column;
-  -webkit-flex-direction: column;
-  flex-direction: column;
   font-size: 14px;
   line-height: 16px;
 }

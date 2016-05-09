@@ -192,6 +192,24 @@
     }
 }
 
+
+
+.colored-button(@bgColor, @bgHover, @textColor, @textHover) {
+    background: @bgColor;
+    color: @textColor;
+    padding: 0 16px;
+    line-height: 25px;
+    height: 25px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+
+    &:hover {
+        background: @bgHover;
+        color: @textHover;
+    }
+}
+
 .fullScreen() {
     position: fixed;
     right: 0;
@@ -211,7 +229,7 @@
 }
 
 
-.fullPageElelment(){
+.fullPageElelment() {
     @media(min-width: 960px) {
         margin-left: -270px;
         width: ~"calc(100% + 290px)";
@@ -226,6 +244,7 @@
         & {
             .loop(@i: 1) when (@i =< length(@array)) {
                 @currentItem: extract(@array, @i);
+
                 .background@{name} when (@currentItem = background) {
                     background: @Color !important;
                 }

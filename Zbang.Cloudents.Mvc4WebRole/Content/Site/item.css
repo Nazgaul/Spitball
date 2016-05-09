@@ -972,6 +972,7 @@ md-menu-item.blue svg {
   font-size: 20px;
   margin: 0;
   line-height: normal;
+  width: 100%;
   max-width: calc(100% - 30px);
 }
 .itemPage .fileName .name-info,

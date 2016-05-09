@@ -130,6 +130,16 @@ body {
         -webkit-line-clamp: 2;
     }
 }
+
+
+.blue-button {
+    .colored-button(@textColorLike, @buttonColorHover, @textColorWhite, @textColorWhite)
+}
+
+.grey-button {
+    .colored-button(@textColorLightGrey, @backgroundColor2, @textColorBlack, @textColorBlack)
+}
+
 //create
 /*.create {
     background: @color4;
@@ -470,12 +480,6 @@ md-pagination-wrapper {
         height: 100%;
 
         div {
-            .displayFlex();
-            .justifyContet(center);
-            .align-items(center);
-            -ms-flex-direction: column;
-            -webkit-flex-direction: column;
-            flex-direction: column;
             font-size: 14px;
             line-height: 16px;
 

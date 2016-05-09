@@ -617,6 +617,9 @@
   margin-right: -25px;
   margin-left: -25px;
 }
+.homePage .home-page-body section.main .login-wrapper.login .content .form-actions .grey-button {
+  margin-left: 10px;
+}
 .homePage .home-page-body section.main .login-wrapper.login .content .form-actions .checkbox-design {
   display: inline-block;
   width: inherit;
