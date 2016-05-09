@@ -964,6 +964,7 @@ md-menu-item.blue svg {
   text-overflow: ellipsis;
   overflow: hidden;
   letter-spacing: 0.5px;
+  width: 100%;
 }
 .itemPage .fileName .name-info {
   margin: 0 auto;
@@ -974,6 +975,7 @@ md-menu-item.blue svg {
   line-height: normal;
   width: 100%;
   max-width: calc(100% - 30px);
+  text-align: left;
 }
 .itemPage .fileName .name-info,
 .itemPage .fileName .flag-form {
