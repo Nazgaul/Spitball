@@ -103,7 +103,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     m_DateTime = DateTime.UtcNow.AddDays(-1);
                     await blob.UploadTextAsync(m_DateTime.ToFileTimeUtc().ToString(), Encoding.Default, new AccessCondition { LeaseId = m_LeaseId }, new BlobRequestOptions(), new OperationContext(), cancellationToken);
                     await ReleaseLeaseAsync(blob, cancellationToken);
-                    //await m_MailComponent.GenerateSystemEmailAsync("sendgrid api", $"{Prefix} done");
+                    await m_MailComponent.GenerateSystemEmailAsync("sendgrid api", $"{Prefix} done");
                     await Task.Delay(m_SleepTime, cancellationToken);
                 }
                 catch (TaskCanceledException)
@@ -116,6 +116,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 catch (Exception ex)
                 {
+                    await m_MailComponent.GenerateSystemEmailAsync("sendgrid api", $"{Prefix} with errors {ex}");
                     TraceLog.WriteError("unsubscribe list ", ex);
                 }
 

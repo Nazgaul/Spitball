@@ -846,6 +846,10 @@ md-menu-item.blue svg {
 .itemPage .progress-bar {
   min-height: 5px;
   margin-bottom: 5px;
+  position: fixed;
+  top: 70px;
+  right: 0;
+  left: 0;
 }
 .itemPage header {
   width: 100%;
@@ -1149,6 +1153,7 @@ md-menu-item.blue svg {
 .itemPage .comments-wrapper > div {
   width: 100%;
   position: relative;
+  margin: 0 auto;
 }
 .itemPage .comments-wrapper md-content {
   background-color: #f5f5f5;
@@ -1171,9 +1176,6 @@ md-menu-item.blue svg {
   color: #2698D4;
   padding-top: 10px;
   margin-top: 10px;
-}
-.itemPage .comments-wrapper > div {
-  margin: 0 auto;
 }
 .itemPage .comments-wrapper .comments {
   width: 300px;
