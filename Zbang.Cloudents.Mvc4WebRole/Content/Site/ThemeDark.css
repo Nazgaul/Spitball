@@ -1,7 +1,8 @@
 ﻿md-input-container:not(.md-input-invalid) label {
   color: #888b8e;
 }
-.accountPage-wrapper md-tabs-wrapper {
+.accountPage-wrapper md-tabs-wrapper,
+.search md-tabs-wrapper {
   background: #323538;
 }
 /*#region general.less*/

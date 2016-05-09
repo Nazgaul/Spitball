@@ -351,7 +351,8 @@ Page Loading
 .theme-light .accountPage-wrapper .notification-list li .owner {
   color: #888b8e;
 }
-.theme-light .accountPage-wrapper md-tabs-wrapper {
+.theme-light .accountPage-wrapper md-tabs-wrapper,
+.theme-light .search md-tabs-wrapper {
   background: #ffffff;
 }
 .theme-light .change-email-dialog svg {
