@@ -45,7 +45,7 @@ window.addEventListener("load", function load() {
         controls: false,
         pause: 15000,
         pager: false,
-        touchEnabled:false
+        touchEnabled: false
 
     });
 
@@ -68,6 +68,32 @@ window.addEventListener("load", function load() {
     new CountUp("quizzes", 0, quizzesCount, 0, 2.5, options).start();;
     //#endregion
 
+    //#region scroll to top
+    var offset = 300;
+    var duration = 500;
+
+    if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
+        $(window).bind("touchend touchcancel touchleave", function () {
+            if ($(this).scrollTop() > offset) {
+                $('.scroll-to-top').fadeIn(duration);
+            } else {
+                $('.scroll-to-top').fadeOut(duration);
+            }
+        });
+    } else {  // general 
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > offset) {
+                $('.scroll-to-top').fadeIn(duration);
+            } else {
+                $('.scroll-to-top').fadeOut(duration);
+            }
+        });
+    }
+
+    $('.scroll-to-top').on('click', function () {
+        $('html, body').animate({ scrollTop: 0 }, duration);
+    });
+    //#endregion
 
     //#region animations
     $('body').waypoint({
@@ -112,7 +138,7 @@ window.addEventListener("load", function load() {
     initialisePageScrollAnimations();
     //#endregion
 
-    $('#showVideo').change(function() {
+    $('#showVideo').change(function () {
         if (this.checked) {
             var videoHtml = '<iframe id="spitball-video" src="https://www.youtube.com/embed/69daYsNqNUA" frameborder="0" allowfullscreen></iframe>';
             $(document.getElementById('video')).html(videoHtml);
