@@ -190,7 +190,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/bower_components/angular-timeago/dist/angular-timeago.min.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
-                        new JsFileWithCdn("~/js/signin/layout.js"), // responsible for footer behavior (scroll to top arrow) and full size pages (quiz, item)
+                        //new JsFileWithCdn("~/js/signin/layout.js"), // responsible for footer behavior (scroll to top arrow) and full size pages (quiz, item)
 
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),
@@ -317,7 +317,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/resourceManager.js"),
                         new JsFileWithCdn("~/js/shared/versionChecker.js"),
                         new JsFileWithCdn("~/js/shared/intercom.js"),
-                        //new JsFileWithCdn("~/js/shared/inlineManual.js")
+                        //new JsFileWithCdn("~/js/shared/inlineManual.js"),
+                        new JsFileWithCdn("~/js/shared/scrollToTop.directive.js")
                     }
 
                 }

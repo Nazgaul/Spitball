@@ -41,15 +41,3 @@ var app;
 
 
 })();
-
-(function() {
-    angular.module('app').run(appRun);
-
-    //appRun.$inject = ['versionCheckerFactory'];
-    function appRun() {
-        $(document).ready(function() {
-            //Metronic.init(); // init metronic core componets
-            Layout.initFooter();
-        });
-    }
-})();

@@ -3696,6 +3696,7 @@
     <Content Include="Js\doubleclick.config.js" />
     <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\intercom.js" />
+    <Content Include="Js\shared\scrollToTop.directive.js" />
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
@@ -3763,7 +3764,6 @@
     <Content Include="Js\shared\userimage.js" />
     <Content Include="Js\shared\versionChecker.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
-    <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\login-soft.js" />
     <Content Include="Js\signin\metronic.js" />
     <Content Include="Js\staticCDNFallback.js" />
