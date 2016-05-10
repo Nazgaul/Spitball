@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var answer = new CommentReplies(user, text, box, message.Id, question, files);
             var reputation = user.AddReputation(ReputationAction.AddReply);
             question.ReplyCount++;
-            question.LastReplyId = answer.Id;
+            //question.LastReplyId = answer.Id;
             question.DateTimeUser.UpdateUserTime(user.Id);
             box.UserTime.UpdateUserTime(user.Id);
             box.ShouldMakeDirty = () => false;

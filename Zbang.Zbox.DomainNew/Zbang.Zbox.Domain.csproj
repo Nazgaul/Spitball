@@ -152,7 +152,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mappings\QnA.hbm.xml">
+    <EmbeddedResource Include="Mappings\Feed.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

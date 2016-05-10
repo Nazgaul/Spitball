@@ -58,10 +58,10 @@
                     </div>
                 </div>
                 <ol class="list-unstyled replies" ng-if="post.replies.length">
-                    <li class="show-more" ng-if="post.repliesCount > 1 && !post.showReplies">
-                        <span ng-click="f.openReply(post)"> @BoxResources.ViewComments {{post.repliesCount-1}} @BoxResources.Comments</span>
+                    <li class="show-more" ng-if="post.repliesCount > 4 && !post.showReplies">
+                        <span ng-click="f.openReply(post)"> @BoxResources.ViewComments {{post.repliesCount-4}} @BoxResources.Comments</span>
                     </li>
-                    <li ng-repeat="reply in post.replies track by reply.id" class="reply" ng-if="$last || post.showReplies">
+                    <li ng-repeat="reply in post.replies track by reply.id" class="reply" @*ng-if="$last || post.showReplies"*@>
                         <div class="indent info">
                             <a href="{{::reply.url}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
                                 <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="52" height="52"></user-image>

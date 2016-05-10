@@ -398,18 +398,14 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
 
 
 
-        /// <summary>
-        /// Used in mobile service to retrieve the comment and the last reply
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<Qna.CommentDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query)
+       
+        public async Task<IEnumerable<Qna.CommentDto>> GetCommentsAsync(GetBoxQuestionsQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await con.QueryMultipleAsync(
-                    $"{Sql.Box.GetBoxComments} {Sql.Box.GetLastReplyOfComment} {Sql.Box.GetItemsForCommentsAndLastReply} {Sql.Box.GetQuizzesForCommentsAndLastReply}",
-                    new { query.BoxId, query.Top, query.Skip}))
+                    $"{Sql.Feed.Comments} {Sql.Feed.RepliesInComments} {Sql.Feed.GetItemsInCommentsAndReplies} {Sql.Feed.GetQuizzesForComments}",
+                    new { query.BoxId, query.Top, query.Skip, rtop = GetBoxQuestionsQuery.TopOfReplies}))
                 {
                     var comments = grid.Read<Qna.CommentDto>();//.ToList();
                     var replies = grid.Read<Qna.ReplyDto>();//.ToDictionary(x => x.QuestionId);
@@ -427,42 +423,12 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                         s.Replies = replies.Where(w => w.QuestionId == s.Id);
                         return s;
                     });
-
-
-                    // var comments = grid.Read<Qna.CommentDto>().ToList();
-                    // var replies = grid.Read<Qna.ReplyDto>().ToDictionary(x => x.QuestionId);
-                    // sw.Stop();
-                    // Infrastructure.Trace.TraceLog.WriteInfo(sw.ElapsedMilliseconds.ToString());
-                    // sw.Restart();
-                    // var items = grid.Read<Qna.ItemDto>().Union(grid.Read<Qna.ItemDto>()).ToLookup(c => c.QuestionId ?? c.AnswerId);
-                    // sw.Stop();
-                    // Infrastructure.Trace.TraceLog.WriteInfo(sw.ElapsedMilliseconds.ToString());
-                    // sw.Restart();
-                    // foreach (var reply in replies)
-                    // {
-                    //     reply.Value.Files = items[reply.Value.Id];
-                    // }
-                    // sw.Stop();
-                    // Infrastructure.Trace.TraceLog.WriteInfo(sw.ElapsedMilliseconds.ToString());
-                    // sw.Restart();
-                    // foreach (var comment in comments)
-                    // {
-                    //     comment.Files = items[comment.Id];
-                    //     Qna.ReplyDto reply;
-                    //     if (replies.TryGetValue(comment.Id, out reply))
-                    //     {
-                    //         comment.Replies.Add(reply);
-                    //     }
-                    // }
-                    // sw.Stop();
-                    // Infrastructure.Trace.TraceLog.WriteInfo(sw.ElapsedMilliseconds.ToString());
-
                     return comments;
                 }
             }
         }
 
-        public async Task<Qna.CommentDto> GetQuestionAsync(GetQuestionQuery query)
+        public async Task<Qna.CommentDto> GetCommentAsync(GetQuestionQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
@@ -500,8 +466,8 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await con.QueryMultipleAsync(
-                    $"{Sql.Box.GetCommentRepliesInMobile} {Sql.Box.GetCommentRepliesItemsInMobile}",
-                    new { query.BoxId, query.PageNumber, query.RowsPerPage, query.CommentId }))
+                    $"{Sql.Feed.GetReplies} {Sql.Feed.GetItemsInReply}",
+                    new { query.BoxId, query.PageNumber, query.RowsPerPage, query.CommentId, AnswerId = query.BelowReplyId }))
                 {
                     var replies = grid.Read<Qna.ReplyDto>();
                     var items = grid.Read<Qna.ItemDto>().ToLookup(c => c.AnswerId);

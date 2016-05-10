@@ -63,7 +63,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual int LikeCount { get; set; }
 
-        public virtual Guid? LastReplyId { get; set; }
+        //public virtual Guid? LastReplyId { get; set; }
 
         public virtual UserTimeDetails DateTimeUser { get; set; }
 

@@ -11,8 +11,8 @@
         d.getFeed = function (boxid, top, skip) {
             return ajaxservice.get('/qna/', { id: boxid, top: top, skip: skip }, null, true);
         };
-        d.getReplies = function(boxid, commentId) {
-            return ajaxservice.get('/qna/replies/', { boxid: boxid, id: commentId});
+        d.getReplies = function(boxid, commentId, replyId) {
+            return ajaxservice.get('/qna/replies/', { boxid: boxid, id: commentId, replyId: replyId});
         }
         d.leaderBoard = function (boxid) {
             return ajaxservice.get('/box/leaderboard/', { id: boxid });

@@ -52,7 +52,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                var query =  GetBoxQuestionsQuery.GetBoxQueryOldVersion(boxId, page, sizePerPage);
                 var retVal =
-                  await m_ZboxReadService.GetQuestionsWithLastAnswerAsync(query);
+                  await m_ZboxReadService.GetCommentsAsync(query);
                 return Request.CreateResponse(retVal.Select(s => new
                 {
                     s.Id,
@@ -74,7 +74,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                         x.UserId,
                         x.UserImage,
                         x.UserName
-                    }),
+                    }).LastOrDefault()
+                    ,
                     s.Content,
                     s.CreationTime,
                     Files = s.Files.Select(v => new
@@ -107,7 +108,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public async Task<HttpResponseMessage> Post(long boxId, Guid feedId)
         {
             var retVal =
-                await m_ZboxReadService.GetQuestionAsync(new GetQuestionQuery(feedId, boxId));
+                await m_ZboxReadService.GetCommentAsync(new GetQuestionQuery(feedId, boxId));
 
             return Request.CreateResponse(new
             {
@@ -123,10 +124,11 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
         [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]
-        public async Task<HttpResponseMessage> GetReplies(long boxId, Guid feedId, int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> GetReplies(long boxId, Guid feedId, Guid? belowReplyId, int page, int sizePerPage = 20)
         {
+            var replyId = belowReplyId ?? Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
             var retVal =
-                 await m_ZboxReadService.GetRepliesAsync(new GetCommentRepliesQuery(boxId, feedId, page, sizePerPage));
+                 await m_ZboxReadService.GetRepliesAsync(new GetCommentRepliesQuery(boxId, feedId, replyId, page, sizePerPage));
             return Request.CreateResponse(retVal.Select(s => new
             {
                 s.Id,

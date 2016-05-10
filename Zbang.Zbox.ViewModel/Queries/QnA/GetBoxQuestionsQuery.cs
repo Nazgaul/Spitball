@@ -23,5 +23,7 @@ namespace Zbang.Zbox.ViewModel.Queries.QnA
         public int Top { get; }
 
         public int Skip { get; }
+
+        public const int TopOfReplies = 4;
     }
 }

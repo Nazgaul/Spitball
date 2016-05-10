@@ -41,18 +41,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException();
             }
             answer.Question.ReplyCount--;
-            if (answer.Question.LastReplyId == answer.Id)
-            {
-                var lastReplyId = answer.Question.RepliesReadOnly.LastOrDefault(w => w.Id != answer.Id);
-                if (lastReplyId == null)
-                {
-                    answer.Question.LastReplyId = null;
-                }
-                else
-                {
-                    answer.Question.LastReplyId = lastReplyId.Id;
-                }
-            }
+            //if (answer.Question.LastReplyId == answer.Id)
+            //{
+            //    var lastReplyId = answer.Question.RepliesReadOnly.LastOrDefault(w => w.Id != answer.Id);
+            //    if (lastReplyId == null)
+            //    {
+            //        answer.Question.LastReplyId = null;
+            //    }
+            //    else
+            //    {
+            //        answer.Question.LastReplyId = lastReplyId.Id;
+            //    }
+            //}
             m_ReplyRepository.Delete(answer);
             return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(answer.User.Id));
 

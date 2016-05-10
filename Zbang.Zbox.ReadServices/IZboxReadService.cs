@@ -75,12 +75,12 @@ namespace Zbang.Zbox.ReadServices
         Task<UserMinProfile> GetUserMinProfileAsync(GetUserMinProfileQuery query);
 
         Task<string> GetLocationByIpAsync(GetCountryByIpQuery query);
-        Task<IEnumerable<CommentDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query);
+        Task<IEnumerable<CommentDto>> GetCommentsAsync(GetBoxQuestionsQuery query);
         Task<IEnumerable<ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query);
 
         Task<IEnumerable<LikeDto>> GetCommentLikesAsync(GetFeedLikesQuery query);
         Task<IEnumerable<LikeDto>> GetReplyLikesAsync(GetFeedLikesQuery query);
-        Task<CommentDto> GetQuestionAsync(GetQuestionQuery query);
+        Task<CommentDto> GetCommentAsync(GetQuestionQuery query);
         Task<bool> GetInviteAsync(GetInviteDetailQuery query);
 
 

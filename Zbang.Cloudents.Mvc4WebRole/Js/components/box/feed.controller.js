@@ -206,6 +206,7 @@
                     }
                     item.done = true;
                 }
+                currentPost.replies = currentPost.replies.reverse();
                 for (var k = 0; currentPost.replies && k < currentPost.replies.length; k++) {
                     var currentReply = currentPost.replies[k];
                     //currentReply.creationTime = $filter('date')(currentReply.creationTime, 'medium');
@@ -416,10 +417,12 @@
                 expandReply();
                 return;
             }
-            if (post.repliesCount > 1 && post.repliesCount !== post.replies.length) {
-                boxService.getReplies(boxId, post.id).then(function (response) {
-
-                    response.reverse().pop();
+            if (post.repliesCount > 4 && post.repliesCount !== post.replies.length) {
+                boxService.getReplies(boxId, post.id, post.replies[0].id).then(function (response) {
+                    response.reverse();//.pop();
+                    //response.pop();
+                    //response.pop();
+                    //response.pop();
                     post.replies = response.concat(post.replies);
                     assignData([post]);
                     expandReply();

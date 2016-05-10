@@ -146,9 +146,9 @@ namespace Zbang.Zbox.ReadServices
         //    return m_ReadService.GetQuestionsWithAnswersAsync(query);
         //}
 
-        public Task<IEnumerable<CommentDto>> GetQuestionsWithLastAnswerAsync(GetBoxQuestionsQuery query)
+        public Task<IEnumerable<CommentDto>> GetCommentsAsync(GetBoxQuestionsQuery query)
         {
-            return m_ReadService.GetQuestionsWithLastAnswerAsync(query);
+            return m_ReadService.GetCommentsAsync(query);
         }
         public Task<IEnumerable<ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query)
         {
@@ -165,9 +165,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetReplyLikesAsync(query);
         }
 
-        public Task<CommentDto> GetQuestionAsync(GetQuestionQuery query)
+        public Task<CommentDto> GetCommentAsync(GetQuestionQuery query)
         {
-            return m_ReadService.GetQuestionAsync(query);
+            return m_ReadService.GetCommentAsync(query);
         }
 
         public Task<bool> GetInviteAsync(GetInviteDetailQuery query)
