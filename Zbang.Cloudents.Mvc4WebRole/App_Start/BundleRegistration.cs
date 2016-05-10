@@ -149,22 +149,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/signin/itemGallery.js")
                     }
                 },
-                //{
-                //    //TODO: maybe we can remove this??? // passwordUpdate uses it - this page will be modified in v4.
-                //    "signin", new[]
-                //    {
-
-
-                //        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
-                //        //new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
-                //        new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
-                //        //new JsFileWithCdn("~/js/signin/demo.js"),
-                //        new JsFileWithCdn("~/js/signin/metronic.js"),
-                //        new JsFileWithCdn("~/js/signin/layout.js"),
-                //        new JsFileWithCdn("~/js/signin/login-soft.js"),
-                //        new JsFileWithCdn("~/scripts/svg4everybody.js")
-                //    }
-                //},
                 {
                     "site4", new[]
                     {
@@ -200,17 +184,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-1.2.1.min.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
-                        //new JsFileWithCdn("~/bower_components/svgxuse/svgxuse.js"),
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
-                       // new JsFileWithCdn("~/scripts/angular-google-adsense.js"),
                         new JsFileWithCdn("~/scripts/angular-dfp.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
+                        new JsFileWithCdn("~/bower_components/angular-timeago/dist/angular-timeago.min.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
-
-                        //new JsFileWithCdn("~/js/signin/metronic.js"), // takes care of the invite + upload file boxes
                         new JsFileWithCdn("~/js/signin/layout.js"), // responsible for footer behavior (scroll to top arrow) and full size pages (quiz, item)
-                        // new JsFileWithCdn("~/js/signin/demo.js"), 
 
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),
@@ -227,6 +207,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.challenge.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.module.js"),
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
+                        new JsFileWithCdn("~/js/components/box/box.module.js"),
 
                         new JsFileWithCdn("~/js/components/user/userdetails.controller.js"),
                         //new JsFileWithCdn("~/js/components/user/userNotification.controller.js"),
@@ -265,6 +246,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/box/box.service.js"),
                         new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
                         new JsFileWithCdn("~/js/components/box/slideit.directive.js"),
+                        
 
                         new JsFileWithCdn("~/js/components/account/account.controller.js"),
                         

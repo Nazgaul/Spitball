@@ -1,24 +1,26 @@
 ﻿'use strict';
 (function () {
-    angular.module('app').factory('versionCheckerFactory', verionChecker);
-    verionChecker.$inject = ['$http', 'CacheFactory', '$mdToast', 'resManager'];
+    angular.module('app').run(verionChecker);
+    verionChecker.$inject = ['$http', 'CacheFactory', '$mdToast', 'resManager', '$document'];
 
-    function verionChecker($http, cacheFactory, $mdToast, resManager) {
+    function verionChecker($http, cacheFactory, $mdToast, resManager, $document) {
         "use strict";
         var clientVersion = window.version,
             timeInterval = 300000; //five minutes
 
-        document.addEventListener("DOMContentLoaded", function (event) {
+        //document.addEventListener("DOMContentLoaded", function (event) {
+            setInterval(checkVersion, timeInterval);
+        //});
+        $document.ready(function() {
             setInterval(checkVersion, timeInterval);
         });
-
         //window.setTimeout(function() {
         //    setInterval(checkVersion, timeInterval);
         //}, 10000);
-        return {
-            checkVersion: checkVersion
-            //currentVersion: clientVersion
-        };
+        //return {
+        //    checkVersion: checkVersion
+        //    //currentVersion: clientVersion
+        //};
 
         function checkVersion() {
             $http.get('/home/version/').then(function (response) {

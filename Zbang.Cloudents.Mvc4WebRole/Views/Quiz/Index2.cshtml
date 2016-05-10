@@ -94,7 +94,8 @@
                                 <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
                                 <span class="user-name">{{::post.userName}}</span>
                             </a>
-                            <span class="comment-date">{{::post.creationTime | date : 'medium'}}</span>
+                            <time-ago class="comment-date" from-time="{{::post.creationTime }}" format="mediumDate"></time-ago>
+                            @*<span class="comment-date">{{::post.creationTime | date : 'medium'}}</span>*@
                         </div>
                         <md-menu  ng-if="post.userId === q.user.id">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['quiz', 'deletePost']">

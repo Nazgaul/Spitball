@@ -38,6 +38,7 @@
 /// <reference path="../js/components/account/unregistershow.directive.js" />
 /// <reference path="../Js/components/app.controller.js" />
 /// <reference path="../Js/components/box/box.controller.js" />
+/// <reference path="../js/components/box/box.module.js" />
 /// <reference path="../js/components/box/box.routes.js" />
 /// <reference path="../js/components/box/box.service.js" />
 /// <reference path="../Js/components/box/feed.controller.js" />
