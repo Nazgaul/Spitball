@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Domain.Common
         //void AddBanners(AddBannersCommand command);
 
         //bool Dbi();
-        void DeleteOldUpdates();
+        int DeleteOldUpdates();
         void OneTimeDbi();
         void UpdateUniversityStats(DateTime dateTime);
 

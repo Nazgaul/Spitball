@@ -131,6 +131,7 @@
     <Compile Include="DomainProcess\UpdateReputation.cs" />
     <Compile Include="DomainProcess\UpdatesProcess.cs" />
     <Compile Include="IJob.cs" />
+    <Compile Include="IntercomApiManager.cs" />
     <Compile Include="Mail\BaseMarketingMailProcess.cs" />
     <Compile Include="Mail\ChangeEmail.cs" />
     <Compile Include="Mail\DigestEmail.cs" />

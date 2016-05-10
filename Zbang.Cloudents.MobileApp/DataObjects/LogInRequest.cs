@@ -14,7 +14,7 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
 
         public override string ToString()
         {
-            return String.Format("Email: {0} password: {1}", Email, Password);
+            return $"Email: {Email} password: {Password}";
         }
     }
 

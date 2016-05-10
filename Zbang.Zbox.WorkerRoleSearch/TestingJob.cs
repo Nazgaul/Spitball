@@ -14,12 +14,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
     {
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-            var x = new List<Task<bool>>();
-            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("digestEveryChange");
-            if (process != null)
-            {
-                x.Add(process.ExecuteAsync(0, p => Task.FromResult(true), cancellationToken));
-            }
+            var y = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IIntercomApiManager>();
+            await y.GetUnsubscribersAsync(1, cancellationToken);
+
+            //var x = new List<Task<bool>>();
+            //var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("digestEveryChange");
+            //if (process != null)
+            //{
+            //    x.Add(process.ExecuteAsync(0, p => Task.FromResult(true), cancellationToken));
+            //}
 
             //process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("likesReport");
             //if (process != null)
@@ -44,8 +47,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //    }, cancellationToken));
             //}
 
-            await Task.WhenAll(x);
-            var result  =  x.All(a => a.Result);
+            //await Task.WhenAll(x);
+            //var result = x.All(a => a.Result);
 
         }
 

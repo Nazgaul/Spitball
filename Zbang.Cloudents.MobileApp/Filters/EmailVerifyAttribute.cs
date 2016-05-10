@@ -5,6 +5,7 @@ using Zbang.Zbox.Infrastructure;
 
 namespace Zbang.Cloudents.MobileApp.Filters
 {
+    //Wont work since we not in the domain of spitball
     public class EmailVerifyAttribute : ValidationAttribute
     {
         

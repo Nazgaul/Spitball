@@ -31,8 +31,8 @@ namespace Zbang.Cloudents.MobileApp.Filters
            
             //jsonFormatter.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = false });
 
-            var exists = jsonFormatter.SerializerSettings.Converters.OfType<IsoDateTimeConverter>().Any();
-            if (!exists)
+            var formatter = jsonFormatter.SerializerSettings.Converters.OfType<IsoDateTimeConverter>().FirstOrDefault();
+            if (formatter == null)
             {
                 var iso = new IsoDateTimeConverter
                 {
@@ -41,6 +41,10 @@ namespace Zbang.Cloudents.MobileApp.Filters
                 };
                 //var isoSettings = jsonFormatter.SerializerSettings.Converters.OfType<IsoDateTimeConverter>().Single();
                 jsonFormatter.SerializerSettings.Converters.Add(iso);
+            }
+            else
+            {
+                formatter.DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
             }
             
 
