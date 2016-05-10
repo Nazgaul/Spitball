@@ -55,6 +55,7 @@ namespace Zbang.Cloudents.MobileApp
 
             config.Filters.Add(new JsonSerializeAttribute());
             config.Services.Replace(typeof(IExceptionLogger), new TraceExceptionLogger());
+            
             app.UseWebApi(config);
             //var json = config.Formatters.JsonFormatter;
             //json.SerializerSettings.ContractResolver =
@@ -113,6 +114,10 @@ namespace Zbang.Cloudents.MobileApp
             var container = IocFactory.IocWrapper.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
+            
+
+
+            builder.RegisterWebApiFilterProvider(config);
             app.UseAutofacMiddleware(container);
             app.UseAutofacWebApi(config);
             app.UseWebApi(config);

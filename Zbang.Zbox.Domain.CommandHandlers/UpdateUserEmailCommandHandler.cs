@@ -5,6 +5,7 @@ using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -12,13 +13,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IAccountService m_AccountService;
+        private readonly IEmailVerification m_EmailVerification;
 
         public UpdateUserEmailCommandHandler(IUserRepository userRepository,
-            IAccountService accountService
-            )
+            IAccountService accountService, IEmailVerification emailVerification)
         {
             m_UserRepository = userRepository;
             m_AccountService = accountService;
+            m_EmailVerification = emailVerification;
         }
 
         public async Task HandleAsync(UpdateUserEmailCommand command)
@@ -54,7 +56,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private async Task ChangeUserEmailAsync(string email, User user)
         {
-            if (!Validation.IsEmailValid(email))
+            if (await m_EmailVerification.VerifyEmailAsync(email))
+            //if (!Validation.IsEmailValid(email))
             {
                 throw new ArgumentException(Resources.CommandHandlerResources.EmailNotCorrect);
             }

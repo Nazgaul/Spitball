@@ -142,9 +142,10 @@
 })();
 
 
-(function () {
+(function() {
     angular.module('app').config(config);
     config.$inject = ['AnalyticsProvider'];
+
     function config(analyticsProvider) {
 
         var analyticsObj = {
@@ -170,15 +171,30 @@
         //AnalyticsProvider.setDomainName('XXX');
 
 
-
-
     }
 
     angular.module('app').run(anylticsRun);
     anylticsRun.$inject = ['Analytics'];
+
     function anylticsRun(analytics) {
         analytics.createAnalyticsScriptTag();
         //for run the app
     };
 
-})()
+})();
+
+(function() {
+    angular.module('app').run(config);
+    config.$inject = ['timeAgo'];
+
+    function config(timeAgo) {
+        if (document.documentElement.lang === 'he') {
+            timeAgo.settings.overrideLang = 'he_IL';
+        }
+        var threeDays = 60 * 60 * 24 * 3;
+        timeAgo.settings.fullDateAfterSeconds = threeDays;
+        timeAgo.settings.refreshMillis = 15000;
+    }
+})();
+
+

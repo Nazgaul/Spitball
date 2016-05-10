@@ -57,7 +57,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                     {
                         {"action", "MembersOnly"},
                         {"controller", "Error"},
-                        {"returnUrl", filterContext.HttpContext.Request.Url != null ? filterContext.HttpContext.Request.Url.AbsolutePath : null},
+                        {"returnUrl", filterContext.HttpContext.Request.Url?.AbsolutePath},
                         {"invId", filterContext.HttpContext.Request.QueryString["invId"]}
                     });
                     return;

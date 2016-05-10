@@ -323,6 +323,7 @@
     <Compile Include="Extensions\VersionHelper.cs" />
     <Compile Include="Filters\BoxPermissionAttribute.cs" />
     <Compile Include="Filters\CacheFilterAttribute.cs" />
+    <Compile Include="Filters\EmailVerifyAttribute.cs" />
     <Compile Include="Filters\ETagAttribute.cs" />
     <Compile Include="Filters\JsonHandleErrorAttribute.cs" />
     <Compile Include="Filters\NoCacheAjaxFilterAttribute.cs" />
@@ -2107,6 +2108,13 @@
     <Content Include="bower_components\angular-messages\angular-messages.js" />
     <Content Include="bower_components\angular-messages\angular-messages.min.js" />
     <Content Include="bower_components\angular-messages\index.js" />
+    <Content Include="bower_components\angular-timeago\dist\angular-timeago.css" />
+    <Content Include="bower_components\angular-timeago\dist\angular-timeago.js" />
+    <Content Include="bower_components\angular-timeago\dist\angular-timeago.min.js" />
+    <Content Include="bower_components\angular-timeago\Gruntfile.js" />
+    <Content Include="bower_components\angular-timeago\karma-unit.conf.js" />
+    <Content Include="bower_components\angular-timeago\protractor-e2e.conf.js" />
+    <Content Include="bower_components\angular-timeago\src\timeAgo.js" />
     <Content Include="bower_components\jquery.validate\build\release.js" />
     <Content Include="bower_components\jquery.validate\dist\additional-methods.js" />
     <Content Include="bower_components\jquery.validate\dist\additional-methods.min.js" />
@@ -2292,8 +2300,6 @@
     <Content Include="bower_components\jquery\src\var\support.js" />
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
-    <Content Include="bower_components\svgxuse\svgxuse.js" />
-    <Content Include="bower_components\svgxuse\svgxuse.min.js" />
     <Content Include="bower_components\textAngular\dist\textAngular.rtl.css">
       <DependentUpon>textAngular.css</DependentUpon>
     </Content>
@@ -3055,11 +3061,16 @@
     <Content Include="bower_components\ui-router\CONTRIBUTING.md" />
     <Content Include="bower_components\ui-router\LICENSE" />
     <Content Include="bower_components\ui-router\README.md" />
-    <Content Include="bower_components\svgxuse\.bower.json" />
-    <Content Include="bower_components\svgxuse\bower.json" />
-    <Content Include="bower_components\svgxuse\license" />
-    <Content Include="bower_components\svgxuse\package.json" />
-    <Content Include="bower_components\svgxuse\readme.md" />
+    <Content Include="bower_components\angular-timeago\.bower.json" />
+    <Content Include="bower_components\angular-timeago\.editorconfig" />
+    <Content Include="bower_components\angular-timeago\.gitattributes" />
+    <Content Include="bower_components\angular-timeago\.gitignore" />
+    <Content Include="bower_components\angular-timeago\.gittrack" />
+    <Content Include="bower_components\angular-timeago\.jshintrc" />
+    <Content Include="bower_components\angular-timeago\bower.json" />
+    <Content Include="bower_components\angular-timeago\LICENSE" />
+    <Content Include="bower_components\angular-timeago\package.json" />
+    <Content Include="bower_components\angular-timeago\README.md" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -3663,6 +3674,7 @@
     <Content Include="Js\components\account\password.controller.js" />
     <Content Include="Js\components\account\unregister.controller.js" />
     <Content Include="Js\components\account\unregisterShow.directive.js" />
+    <Content Include="Js\components\box\box.module.js" />
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\box\feed.likes.controller.js" />
     <Content Include="Js\components\box\slideit.directive.js" />

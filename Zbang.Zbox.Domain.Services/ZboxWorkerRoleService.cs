@@ -245,10 +245,9 @@ order by 1";
         //    return false;
         //}
 
-        public void DeleteOldUpdates()
+        public int DeleteOldUpdates()
         {
-            var sw = new Stopwatch();
-            sw.Start();
+           
             var needToLoop = true;
             var counter = 0;
             while (needToLoop)
@@ -265,19 +264,16 @@ order by 1";
             {
                 var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteNotConnectedUpdates");
                 var result = query.ExecuteUpdate();
-                TraceLog.WriteInfo("delete old updates Delete Not Connected Updates " + result);
+                counter += result;
+                //TraceLog.WriteInfo("delete old updates Delete Not Connected Updates " + result);
             }
-            sw.Stop();
-            TraceLog.WriteInfo("delete old updates amout of " + counter);
-
-            TraceLog.WriteInfo($"delete old updates took {sw.ElapsedMilliseconds}");
+            return counter;
         }
 
 
         public void UpdateUniversityStats(DateTime dateTime)
         {
-            var sw = new Stopwatch();
-            sw.Start();
+           
             using (var unitOfWork = UnitOfWork.Start())
             {
                 var i = 0;
@@ -298,8 +294,6 @@ order by 1";
 
 
             }
-            sw.Stop();
-            TraceLog.WriteInfo($"milis took {sw.ElapsedMilliseconds}");
         }
 
 

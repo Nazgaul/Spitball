@@ -2,7 +2,6 @@
 var app;
 (function () {
     "use strict";
-    //TODO: download ui bootstap only what needed
     app = angular.module('app', [
          'ui.router',
          'ngSanitize',
@@ -19,6 +18,7 @@ var app;
          //'infinite-scroll',
          'srph.infinite-scroll',
          'jkuri.slimscroll',
+         'yaru22.angular-timeago',
         // 'displayTime',
          'app.dashboard',
          'app.library',
@@ -42,13 +42,14 @@ var app;
 
 })();
 
-(function () {
+(function() {
     angular.module('app').run(appRun);
-    appRun.$inject = ['versionCheckerFactory'];
-    function appRun(versionCheckerFactory) {
-        $(document).ready(function () {
+
+    //appRun.$inject = ['versionCheckerFactory'];
+    function appRun() {
+        $(document).ready(function() {
             //Metronic.init(); // init metronic core componets
             Layout.initFooter();
         });
     }
-})()
+})();

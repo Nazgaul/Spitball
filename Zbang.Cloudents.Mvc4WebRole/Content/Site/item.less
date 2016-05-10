@@ -29,6 +29,10 @@ md-menu-item {
     .progress-bar {
         min-height: 5px;
         margin-bottom: 5px;
+        position: fixed;
+        top: @heightOfHeader;
+        left: 0;
+        right: 0;
     }
 
     header {
@@ -396,6 +400,7 @@ md-menu-item {
         > div {
             width: 100%;
             position: relative;
+            margin: 0 auto;
         }
 
         md-content {
@@ -425,10 +430,6 @@ md-menu-item {
             color: @textColorBlue;
             padding-top: 10px;
             margin-top: 10px;
-        }
-
-        > div {
-            margin: 0 auto;
         }
 
         .comments {

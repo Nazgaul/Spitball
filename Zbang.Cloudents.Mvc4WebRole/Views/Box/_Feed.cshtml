@@ -15,7 +15,8 @@
                             <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
                             <span class="user-name" ng-bind="::post.userName"></span>
                         </a>
-                        <span class="comment-date" ng-bind="::post.creationTime"></span>
+                        <time-ago class="comment-date" from-time="{{::post.creationTime }}" format="mediumDate"></time-ago>
+                        @*<span class="comment-date" ng-bind="::post.creationTime"></span>*@
                     </div>
                     <md-menu ng-if="::b.canDelete(post.userId)">
                         <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
@@ -66,7 +67,8 @@
                                 <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="52" height="52"></user-image>
                                 <span class="user-name" ng-bind="::reply.userName"></span>
                             </a>
-                            <span class="comment-date" ng-bind="::reply.creationTime"></span>
+                            <time-ago class="comment-date" from-time="{{::reply.creationTime }}" format="mediumDate"></time-ago>
+                            @*<span class="comment-date" ng-bind="::reply.creationTime"></span>*@
                         </div>
                         <md-menu ng-if="::b.canDelete(reply.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">

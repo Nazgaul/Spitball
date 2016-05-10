@@ -47,7 +47,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         // GET api/CustomLogin
         public async Task<HttpResponseMessage> Post(LogInRequest loginRequest)
         {
-            TraceLog.WriteInfo("in here " + loginRequest);
             if (loginRequest == null)
             {
                 return Request.CreateBadRequestResponse();
@@ -76,7 +75,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     var claims = identity.Claims.ToList();
                     claims.Add(new Claim(JwtRegisteredClaimNames.Sub, systemUser.Id.ToString(CultureInfo.InvariantCulture)));
                     var token = AppServiceLoginHandler.CreateToken(claims,
-                 Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY"),
+                 GetEnvironmentVariableAuth(),
                 ConfigurationManager.AppSettings["ValidAudience"],
                  ConfigurationManager.AppSettings["ValidIssuer"],
                 TimeSpan.FromDays(30));
@@ -102,6 +101,16 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             return Request.CreateBadRequestResponse();
 
+        }
+
+        private static string GetEnvironmentVariableAuth()
+        {
+
+            return Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY") ??
+                   Convert.ToBase64String(
+                       System.Text.Encoding.UTF8.GetBytes(
+                           "947726dd6318753268f3bfbe5e87ae2afe220db399c26e119c181a59227b0c60"));
+            //Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes("dev"));
         }
 
 

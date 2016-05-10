@@ -17,7 +17,7 @@
     "angular-locale": "~0.1.10",
     "angular-i18n": "1.4.6",
     "ui-router": "~0.2.18",
-    "svgxuse": "1.1.16"
+    "angular-timeago": "~0.2.9"
   },
   "resolutions": {
     "angular": ">=1"
