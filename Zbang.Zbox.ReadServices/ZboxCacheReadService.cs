@@ -148,11 +148,12 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<IEnumerable<CommentDto>> GetCommentsAsync(GetBoxQuestionsQuery query)
         {
-            return m_ReadService.GetCommentsAsync(query);
+            return m_Cache.QueryAsync(m_ReadService.GetCommentsAsync, query);
         }
         public Task<IEnumerable<ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query)
         {
-            return m_ReadService.GetRepliesAsync(query);
+            return m_Cache.QueryAsync(m_ReadService.GetRepliesAsync, query);
+            //return m_ReadService.GetRepliesAsync(query);
         }
 
         public Task<IEnumerable<LikeDto>> GetCommentLikesAsync(GetFeedLikesQuery query)

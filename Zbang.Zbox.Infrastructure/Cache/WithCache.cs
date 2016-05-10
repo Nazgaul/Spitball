@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Query;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -15,20 +16,20 @@ namespace Zbang.Zbox.Infrastructure.Cache
         }
 
 
-        public TD Query<TQ, TD>(Func<TQ, TD> getItemCallback, TQ queryParam)
-            where TD : class
-            where TQ : IQueryCache
-        {
-            if (getItemCallback == null) throw new ArgumentNullException("getItemCallback");
-            string cacheKey = queryParam.CacheKey;
+        //public TD Query<TQ, TD>(Func<TQ, TD> getItemCallback, TQ queryParam)
+        //    where TD : class
+        //    where TQ : IQueryCache
+        //{
+        //    if (getItemCallback == null) throw new ArgumentNullException("getItemCallback");
+        //    string cacheKey = queryParam.CacheKey;
 
-            var item = m_Cache.GetFromCache<TD>(cacheKey, queryParam.CacheRegion);
+        //    var item = m_Cache.GetFromCache<TD>(cacheKey);
 
-            if (item != null) return item;
-            item = getItemCallback(queryParam);
-            m_Cache.AddToCache(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
-            return item;
-        }
+        //    if (item != null) return item;
+        //    item = getItemCallback(queryParam);
+        //    m_Cache.AddToCache(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
+        //    return item;
+        //}
 
         public async Task<TD> QueryAsync<TQ, TD>(Func<TQ, Task<TD>> getItemCallbackAsync, TQ queryParam)
             where TD : class
@@ -36,14 +37,14 @@ namespace Zbang.Zbox.Infrastructure.Cache
         {
             string cacheKey = queryParam.CacheKey;
 
-            var item = await m_Cache.GetFromCacheAsync<TD>(cacheKey, queryParam.CacheRegion);
+            var item = await m_Cache.GetFromCacheAsync<TD>(queryParam.CacheRegion,cacheKey);
 
             if (item != default(TD)) return item;
 
             item = await getItemCallbackAsync(queryParam);
             try
             {
-                await m_Cache.AddToCacheAsync(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
+                await m_Cache.AddToCacheAsync(queryParam.CacheRegion,cacheKey, item, queryParam.Expiration);
             }
             catch (Exception ex)
             {
@@ -52,45 +53,43 @@ namespace Zbang.Zbox.Infrastructure.Cache
             return item;
         }
 
-        public async Task<TD> QueryAsync<TQ, TD>(Func<TQ, CancellationToken, Task<TD>> getItemCallbackAsync, TQ queryParam, CancellationToken token)
-            where TD : class
-            where TQ : IQueryCache
-        {
-            string cacheKey = queryParam.CacheKey;
+        //public async Task<TD> QueryAsync<TQ, TD>(Func<TQ, CancellationToken, Task<TD>> getItemCallbackAsync, TQ queryParam, CancellationToken token)
+        //    where TD : class
+        //    where TQ : IQueryCache
+        //{
+        //    string cacheKey = queryParam.CacheKey;
 
-            var item = await m_Cache.GetFromCacheAsync<TD>(cacheKey, queryParam.CacheRegion);
+        //    var item = await m_Cache.GetFromCacheAsync<TD>(queryParam.CacheRegion,cacheKey);
 
-            if (item != default(TD)) return item;
+        //    if (item != default(TD)) return item;
 
-            item = await getItemCallbackAsync(queryParam, token);
-            try
-            {
-                await m_Cache.AddToCacheAsync(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError(ex);
-            }
-            return item;
-        }
+        //    item = await getItemCallbackAsync(queryParam, token);
+        //    try
+        //    {
+        //        await m_Cache.AddToCacheAsync(queryParam.CacheRegion,cacheKey, item, queryParam.Expiration);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError(ex);
+        //    }
+        //    return item;
+        //}
 
         //public TCr Command<TC, TCr>(Func<TC, TCr> invokeFunction, TC command)
         //    where TCr : ICommandResult
         //    where TC : ICommandCache
         //{
-        //    if (invokeFunction == null) throw new ArgumentNullException("invokeFunction");
+        //    if (invokeFunction == null) throw new ArgumentNullException(nameof(invokeFunction));
 
         //    TCr retVal = invokeFunction(command);
         //    m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
         //    return retVal;
         //}
 
-        //public void Command<TC>(Action<TC> invokeFunction, TC command)
-        //    where TC : ICommandCache
-        //{
-        //    if (invokeFunction == null) throw new ArgumentNullException("invokeFunction");
-        //    invokeFunction(command);
-        //    m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
-        //}
+        public async Task CommandAsync<TC>(TC command)
+            where TC : ICommandCache
+        {
+            await m_Cache.RemoveFromCacheAsync(command.CacheRegion);
+        }
     }
 }

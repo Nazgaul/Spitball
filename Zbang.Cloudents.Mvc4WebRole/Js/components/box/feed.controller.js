@@ -243,7 +243,7 @@
             $mdDialog.show(confirm).then(function () {
                 var index = self.data.indexOf(post);
                 self.data.splice(index, 1);
-                boxService.deleteComment(post.id);
+                boxService.deleteComment(post.id,boxId);
             });
         }
         function deleteReply(ev, post, reply2) {
@@ -258,7 +258,7 @@
             $mdDialog.show(confirm).then(function () {
                 var index = post.replies.indexOf(reply2);
                 post.replies.splice(index, 1);
-                boxService.deleteReply(reply2.id);
+                boxService.deleteReply(reply2.id,boxId);
             });
         }
         function createReply(comment) {
@@ -419,7 +419,7 @@
             }
             if (post.repliesCount > 4 && post.repliesCount !== post.replies.length) {
                 boxService.getReplies(boxId, post.id, post.replies[0].id).then(function (response) {
-                    response.reverse();//.pop();
+                    //response.reverse();//.pop();
                     //response.pop();
                     //response.pop();
                     //response.pop();

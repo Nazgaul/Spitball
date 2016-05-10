@@ -187,11 +187,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
-        public async Task<JsonResult> DeleteComment(Guid questionId)
+        public async Task<JsonResult> DeleteComment(long boxId,Guid questionId)
         {
             try
             {
-                var command = new DeleteCommentCommand(questionId, User.GetUserId());
+                var command = new DeleteCommentCommand(questionId, User.GetUserId(), boxId);
                 await ZboxWriteService.DeleteCommentAsync(command);
                 return JsonOk();
             }
@@ -203,11 +203,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         [ZboxAuthorize]
         [HttpPost]
-        public async Task<JsonResult> DeleteReply(Guid answerId)
+        public async Task<JsonResult> DeleteReply(long boxId, Guid answerId)
         {
             try
             {
-                var command = new DeleteReplyCommand(answerId, User.GetUserId());
+                var command = new DeleteReplyCommand(answerId, User.GetUserId(), boxId);
                 await ZboxWriteService.DeleteReplyAsync(command);
                 return JsonOk();
             }
