@@ -158,7 +158,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                                     }).OrderBy(s => s.Order).ToList()
 
                             };
-                return View("Help2", model.Where(w => String.Equals(w.Language,
+                return View("Help2", model.Where(w => string.Equals(w.Language,
                      Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)));
             }
         }
@@ -262,6 +262,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!string.IsNullOrEmpty(lang))
             {
+                if (lang.ToLower() == "en")
+                {
+                    return RedirectToRoutePermanent("Features");
+                }
                 LanguageMiddleware.ChangeThreadLanguage(lang);
             }
             ViewBag.title = SeoResources.FeaturesTitle;
@@ -314,6 +318,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (!string.IsNullOrEmpty(lang))
             {
+                if (lang.ToLower() == "en")
+                {
+                    return RedirectToRoutePermanent("classnotes");
+                }
                 LanguageMiddleware.ChangeThreadLanguage(lang);
             }
             ViewBag.title = SeoResources.ClassNotesTitle;
@@ -329,6 +337,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (!string.IsNullOrEmpty(lang))
             {
+                if (lang.ToLower() == "en")
+                {
+                    return RedirectToRoutePermanent("courses");
+                }
                 LanguageMiddleware.ChangeThreadLanguage(lang);
             }
             ViewBag.title = SeoResources.CoursesTitle;
@@ -597,19 +609,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     new SitemapNodeLangHelper("Product", null, "en"),
                     new SitemapNodeLangHelper("Product2", new { lang = "he" }, "he")
                     ));
+                nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
+                   new SitemapNodeLangHelper("Features", null, "en"),
+                   new SitemapNodeLangHelper("Features2", new { lang = "he" }, "he")
+                   ));
+                nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
+                   new SitemapNodeLangHelper("classnotes", null, "en"),
+                   new SitemapNodeLangHelper("classnotes2", new { lang = "he" }, "he")
+                   ));
+                nodes.AddRange(SitemapNode.SiteMapNodesWithLang(requestContext,
+                   new SitemapNodeLangHelper("courses", null, "en"),
+                   new SitemapNodeLangHelper("courses2", new { lang = "he" }, "he")
+                   ));
 
-                nodes.Add(
-                  new SitemapNode(requestContext, "Features2", new { lang = "en" })
-                  {
-                      Priority = 0.8,
-                      Frequency = SitemapFrequency.Daily
-                  });
-                //nodes.Add(
-                //  new SitemapNode(requestContext, "Features2", new { lang = "he" })
-                //  {
-                //      Priority = 0.8,
-                //      Frequency = SitemapFrequency.Daily
-                //  });
+
                 nodes.Add(
                    new SitemapNode(requestContext, "apps", null)
                    {
