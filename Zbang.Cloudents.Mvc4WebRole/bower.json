@@ -17,7 +17,8 @@
     "angular-locale": "~0.1.10",
     "angular-i18n": "1.4.6",
     "ui-router": "~0.2.18",
-    "angular-timeago": "~0.2.9"
+    "angular-timeago": "~0.2.9",
+    "signalr": "~2.2.0"
   },
   "resolutions": {
     "angular": ">=1"
