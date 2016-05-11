@@ -26,7 +26,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 client.DefaultRequestHeaders.Accept.Add(
                     new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                 using (
-                    var response = await client.GetAsync("https://api.intercom.io/users?segment_id=573177a948717f93ab00017a&page=1", token))
+                    var response = await client.GetAsync($"https://api.intercom.io/users?segment_id=573177a948717f93ab00017a&page={page}", token))
                 {
                     if (!response.IsSuccessStatusCode) return null;
                     using (var s = await response.Content.ReadAsStreamAsync())
