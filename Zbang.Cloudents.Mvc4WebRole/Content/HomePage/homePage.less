@@ -30,6 +30,53 @@
             bottom: -58vh;
         }
 
+        .loader {
+            display: none;
+            position: fixed;
+            top: ~"calc(36% - 50px)";
+            left: ~"calc(50% - 50px)";
+            color: transparent;
+            text-align: center;
+            z-index: 2;
+
+            @media(max-width: 600px) {
+                top: ~"calc(50% - 50px)";
+            }
+
+            &.active {
+                display: block;
+            }
+
+            .backdrop {
+                background: rgba(0, 0, 0, 0.7);
+                position: fixed;
+                top: 70px;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 2;
+            }
+
+            .sk-fading-circle {
+                height: 100px;
+                width: 100px;
+            }
+
+            .loader-text {
+                color: @buttonColorBlue;
+                position: absolute;
+                top: ~"calc(50% - 60px)";
+                left: ~"calc(50% - 60px)";
+                text-align: center;
+                margin-top: 120px;
+                font-size: 16px;
+                letter-spacing: 1px;
+                z-index: 3;
+                width: 120px;
+            }
+        }
+
+
         > section, footer {
             overflow: auto;
             padding: 50px 5%;
@@ -302,34 +349,6 @@
                         -moz-box-sizing: border-box;
                         -webkit-box-sizing: border-box;
                         box-sizing: border-box;
-                    }
-
-                    .loader {
-                        display: none;
-                        position: absolute;
-                        top: 35%;
-                        left: ~"calc(50% - 25px)";
-                        color: transparent;
-                        height: 50px;
-                        width: 50px;
-                        text-align: center;
-
-                        .loader-text {
-                            color: #f76446;
-                            position: absolute;
-                            top: ~"calc(50% - 25px)";
-                            left: ~"calc(50% - 50px)";
-                            width: 100px;
-                            text-align: center;
-                            margin-top: 55px;
-                            font-size: 12px;
-                            letter-spacing: 1px;
-                        }
-                    }
-
-
-                    .form-actions.loading ~ .loader {
-                        display: block;
                     }
 
                     .form-actions {
@@ -622,7 +641,7 @@
                             margin-left: -25px;
                             margin-right: -25px;
 
-                            .grey-button{
+                            .grey-button {
                                 margin-right: 10px;
                             }
 
@@ -1325,6 +1344,7 @@
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 3;
 }
 
 .sk-fading-circle .sk-circle:before {
@@ -1333,7 +1353,7 @@
     margin: 0 auto;
     width: 15%;
     height: 15%;
-    background-color: #f76446;
+    background-color: @buttonColorBlue;
     border-radius: 100%;
     -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
     -moz-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;

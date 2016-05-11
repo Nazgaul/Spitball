@@ -32,6 +32,48 @@
     bottom: -58vh;
   }
 }
+.homePage .home-page-body .loader {
+  display: none;
+  position: fixed;
+  top: calc(36% - 50px);
+  left: calc(50% - 50px);
+  color: transparent;
+  text-align: center;
+  z-index: 2;
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body .loader {
+    top: calc(50% - 50px);
+  }
+}
+.homePage .home-page-body .loader.active {
+  display: block;
+}
+.homePage .home-page-body .loader .backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.homePage .home-page-body .loader .sk-fading-circle {
+  height: 100px;
+  width: 100px;
+}
+.homePage .home-page-body .loader .loader-text {
+  color: #4190b9;
+  position: absolute;
+  top: calc(50% - 60px);
+  left: calc(50% - 60px);
+  text-align: center;
+  margin-top: 120px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  z-index: 3;
+  width: 120px;
+}
 .homePage .home-page-body > section,
 .homePage .home-page-body footer {
   overflow: auto;
@@ -282,30 +324,6 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
-.homePage .home-page-body section.main .login-wrapper .loader {
-  display: none;
-  position: absolute;
-  top: 35%;
-  left: calc(50% - 25px);
-  color: transparent;
-  height: 50px;
-  width: 50px;
-  text-align: center;
-}
-.homePage .home-page-body section.main .login-wrapper .loader .loader-text {
-  color: #f76446;
-  position: absolute;
-  top: calc(50% - 25px);
-  left: calc(50% - 50px);
-  width: 100px;
-  text-align: center;
-  margin-top: 55px;
-  font-size: 12px;
-  letter-spacing: 1px;
-}
-.homePage .home-page-body section.main .login-wrapper .form-actions.loading ~ .loader {
-  display: block;
 }
 .homePage .home-page-body section.main .login-wrapper .form-actions {
   display: -webkit-flex;
@@ -1166,6 +1184,7 @@
   position: absolute;
   left: 0;
   top: 0;
+  z-index: 3;
 }
 .sk-fading-circle .sk-circle:before {
   content: '';
@@ -1173,7 +1192,7 @@
   margin: 0 auto;
   width: 15%;
   height: 15%;
-  background-color: #f76446;
+  background-color: #4190b9;
   border-radius: 100%;
   -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
   -moz-animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;

@@ -3972,7 +3972,6 @@
     <Content Include="Views\Home\ClassNotes.cshtml" />
     <Content Include="Views\Home\Courses.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageHeader.cshtml" />
-    <Content Include="Views\Shared\Partials2\_skLoader.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

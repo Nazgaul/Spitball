@@ -243,7 +243,7 @@ var Login = function () {
         var submitBtn = $(form).find('.btn-primary');
         disableState(submitBtn);
         var t = setTimeout(function () {
-            $(form).find('.form-actions').addClass('loading');
+            $('.home-page-body .loader').addClass('active');
         }, 200);
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
@@ -283,7 +283,7 @@ var Login = function () {
             window.location.href = data.payload;
         }).always(function () {
             clearTimeout(t);
-            $(form).find('.form-actions').removeClass('loading');
+            $('.home-page-body .loader').removeClass('active');
         });
     }
 
@@ -291,7 +291,7 @@ var Login = function () {
         var submitBtn = $(form).find('.btn-primary');
         disableState(submitBtn);
         var t = setTimeout(function () {
-            $(form).find('.form-actions').addClass('loading');
+            $('.home-page-body .loader').addClass('active');
         }, 200);
         var values = $(form).serialize();
         var returnUrl = getUrlVars()['returnUrl'];
@@ -324,7 +324,7 @@ var Login = function () {
 
         }).always(function () {
             clearTimeout(t);
-            $(form).find('.form-actions').removeClass('loading');
+            $('.home-page-body .loader').removeClass('active');
         });
     }
 
