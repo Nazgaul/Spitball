@@ -98,6 +98,7 @@
 /// <reference path="../js/shared/ajaxservice.js" />
 /// <reference path="../js/shared/animationclass.js" />
 /// <reference path="../js/shared/animationlocation.js" />
+/// <reference path="../js/shared/changelanguage.js" />
 /// <reference path="../Js/shared/colorOnLength.js" />
 /// <reference path="../js/shared/dropbox.js" />
 /// <reference path="../js/shared/facebook.js" />

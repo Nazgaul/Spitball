@@ -135,6 +135,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/waypoints.min.js"),
                         new JsFileWithCdn("~/Scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/Scripts/CountUp.js"),
+                        new JsFileWithCdn("~/js/shared/changeLanguage.js"),
                         new JsFileWithCdn("~/Js/HomePage.js")
                     }
                 },
@@ -145,8 +146,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
+                        new JsFileWithCdn("~/js/shared/changeLanguage.js"),
                         new JsFileWithCdn("~/js/signin/staticPages.js"),
                         new JsFileWithCdn("~/js/signin/itemGallery.js")
+
                     }
                 },
                 {

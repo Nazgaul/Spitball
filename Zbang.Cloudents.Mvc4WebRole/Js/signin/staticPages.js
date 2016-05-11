@@ -27,11 +27,9 @@
         $name.html($name.html().replace(/\.[^/.]+$/, ""));
     });
 
-    $('.language button').click(function () {
-        document.cookie = "l3 =" + $(this).data('cookie') + "; path=/; domain=spitball.co";
-        location.reload();
-    });
 
+    changeLanguage($('.language button'));
+    
     $(function () {
         var slider = $('.items-container').bxSlider({
             infiniteLoop: false,

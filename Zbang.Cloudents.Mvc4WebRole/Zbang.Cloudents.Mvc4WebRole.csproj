@@ -3696,6 +3696,7 @@
     <Content Include="Js\doubleclick.config.js" />
     <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\intercom.js" />
+    <Content Include="Js\shared\changeLanguage.js" />
     <Content Include="Js\shared\scrollToTop.directive.js" />
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\staticPages.js" />
