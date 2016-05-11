@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddReplyToCommentCommand : ICommandAsync
+    public class AddReplyToCommentCommand : ICommandAsync, ICommandCache
     {
         public AddReplyToCommentCommand(long userId, long boxId, string text, Guid answerId, Guid questionId, IEnumerable<long> filesIds)
         {
@@ -17,7 +18,7 @@ namespace Zbang.Zbox.Domain.Commands
         }
         public long UserId { get; private set; }
 
-        public long BoxId { get; private set; }
+        public long BoxId { get; }
 
         public string Text { get; private set; }
 
@@ -25,5 +26,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public Guid QuestionId { get; private set; }
         public IEnumerable<long> FilesIds { get; private set; }
+        public string CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
     }
 }

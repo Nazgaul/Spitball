@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         {
             try
             {
-               var query =  GetBoxQuestionsQuery.GetBoxQueryOldVersion(boxId, page, sizePerPage);
+                var query = GetBoxQuestionsQuery.GetBoxQueryOldVersion(boxId, page, sizePerPage);
                 var retVal =
                   await m_ZboxReadService.GetCommentsAsync(query);
                 return Request.CreateResponse(retVal.Select(s => new
@@ -206,7 +206,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/box/{boxId:long}/feed/{feedId:guid}")]
         public async Task<HttpResponseMessage> DeleteComment(long boxId, Guid feedId)
         {
-            var command = new DeleteCommentCommand(feedId, User.GetCloudentsUserId());
+            var command = new DeleteCommentCommand(feedId, User.GetCloudentsUserId(), boxId);
             await m_ZboxWriteService.DeleteCommentAsync(command);
             return Request.CreateResponse();
         }
@@ -215,7 +215,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/box/{boxId:long}/reply/{replyId:guid}")]
         public async Task<HttpResponseMessage> DeleteReply(long boxId, Guid replyId)
         {
-            var command = new DeleteReplyCommand(replyId, User.GetCloudentsUserId());
+            var command = new DeleteReplyCommand(replyId, User.GetCloudentsUserId(), boxId);
             await m_ZboxWriteService.DeleteReplyAsync(command);
             return Request.CreateResponse();
         }

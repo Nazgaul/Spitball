@@ -3,7 +3,7 @@ using System.Globalization;
 using Zbang.Zbox.Infrastructure.Query;
 namespace Zbang.Zbox.ViewModel.Queries
 {
-    public class GetItemQuery : QueryBase, IQueryCache
+    public class GetItemQuery : QueryBase
     {
         public GetItemQuery(long userId, long itemId, long boxId)
             : base(userId)
@@ -15,21 +15,5 @@ namespace Zbang.Zbox.ViewModel.Queries
         public long BoxId { get; private set; }
         public long ItemId { get; }
 
-
-        string IQueryCache.CacheKey
-        {
-            get { return ItemId.ToString(CultureInfo.InvariantCulture); }
-        }
-
-        string IQueryCache.CacheRegion
-        {
-            get { return "Item"; }
-        }
-
-
-        public TimeSpan Expiration
-        {
-            get { return TimeSpan.FromHours(2); }
-        }
     }
 }

@@ -75,9 +75,10 @@
         d.postComment = function (content, boxId, files, anonymously) {
             return ajaxservice.post('/qna/addcomment/', { content: content, boxId: boxId, files: files, anonymously: anonymously });
         }
-        d.deleteComment = function (commentId) {
+        d.deleteComment = function (commentId,boxId) {
             return ajaxservice.post('/qna/deletecomment/', {
-                questionId: commentId
+                questionId: commentId,
+                boxId: boxId
             });
         }
         d.postReply = function (content, boxId, commentId, files) {
@@ -88,9 +89,10 @@
                 files: files
             });
         }
-        d.deleteReply = function (postId) {
+        d.deleteReply = function (postId,boxId) {
             return ajaxservice.post('/qna/deletereply/', {
-                answerId: postId
+                answerId: postId,
+                boxId: boxId
             });
         }
         d.likeComment = function (postId, boxId) {

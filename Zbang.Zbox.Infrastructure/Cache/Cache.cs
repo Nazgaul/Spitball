@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
@@ -41,7 +42,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         }
 
-        public Task<bool> AddToCacheAsync<T>(string key, T value, TimeSpan expiration, string region) where T : class
+        public Task<bool> AddToCacheAsync<T>(string region, string key, T value, TimeSpan expiration) where T : class
         {
             try
             {
@@ -49,59 +50,60 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 {
                     return Task.FromResult(false);
                 }
+                var cacheKey = BuildCacheKey(region, key);
                 if (!IsAppFabricCache())
                 {
-                    m_Cache.Insert(region + "_" + key, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
+                    m_Cache.Insert(cacheKey, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
                         expiration);
                     return Task.FromResult(true);
                 }
-                var newKey = BuildCacheKey(key, region);
                 var db = Connection.GetDatabase( /*region.GetHashCode()*/);
-                return db.SetAsync(newKey, value, expiration);
+                return db.SetAsync(cacheKey, value, expiration);
             }
             catch (Exception ex)
             {
-                Trace.TraceLog.WriteError($"AddToCacheAsync key {key} region {region}", ex);
+                Trace.TraceLog.WriteError($"AddToCacheAsync key {key}", ex);
                 return Task.FromResult(false);
             }
         }
 
-        private string BuildCacheKey(string key, string region)
+        private string BuildCacheKey(string region, string key)
         {
-            var newKey = String.Format("{2}_{0}_{1}", m_CachePrefix, key, region);
+            var newKey = $"{region}_{m_CachePrefix}_{key}";
             return newKey;
         }
-        public bool AddToCache<T>(string key, T value, TimeSpan expiration, string region) where T : class
-        {
-            try
-            {
-                if (!m_IsCacheAvailable)
-                {
-                    return false;
-                }
-                if (!IsAppFabricCache())
-                {
-                    m_Cache.Insert(region + "_" + key, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
-                        expiration);
-                    return true;
-                }
-                var newKey = BuildCacheKey(key, region);
-                var db = Connection.GetDatabase( /*region.GetHashCode()*/);
-                db.Set(newKey, value, expiration);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceLog.WriteError($"AddToCache key {key} region {region}", ex);
-                return false;
-            }
-        }
+        //public bool AddToCache<T>(string key, T value, TimeSpan expiration, string region) where T : class
+        //{
+        //    try
+        //    {
+        //        if (!m_IsCacheAvailable)
+        //        {
+        //            return false;
+        //        }
+        //        if (!IsAppFabricCache())
+        //        {
+        //            m_Cache.Insert(region + "_" + key, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
+        //                expiration);
+        //            return true;
+        //        }
+        //        var newKey = BuildCacheKey(key, region);
+        //        var db = Connection.GetDatabase( /*region.GetHashCode()*/);
+        //        db.Set(newKey, value, expiration);
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Trace.TraceLog.WriteError($"AddToCache key {key} region {region}", ex);
+        //        return false;
+        //    }
+        //}
 
-        public bool RemoveFromCache(string region)
+
+        public async Task RemoveFromCacheAsync(string region)
         {
             if (!m_IsCacheAvailable)
             {
-                return false;
+                return;
             }
             if (!IsAppFabricCache())
             {
@@ -109,20 +111,28 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
                 while (enumerator.MoveNext())
                 {
+
                     m_Cache.Remove(enumerator.Key.ToString());
                 }
-                return true;
+                //var cacheKey = BuildCacheKey(key);
+                //m_Cache.Remove(cacheKey);
+                return;
             }
             var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
             var db = Connection.GetDatabase();
+            var taskList = new List<Task>();
             foreach (var key in server.Keys(pattern: region + "*"))
             {
-                db.KeyDelete(key);
+                taskList.Add(db.KeyDeleteAsync(key));
             }
-            return true;
+            await Task.WhenAll(taskList);
+            //var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
+            //var db = Connection.GetDatabase();
+            //await db.KeyDeleteAsync(key);
+
         }
 
-        public async Task<T> GetFromCacheAsync<T>(string key, string region) where T : class
+        public async Task<T> GetFromCacheAsync<T>(string region, string key) where T : class
         {
             if (!m_IsCacheAvailable)
             {
@@ -130,48 +140,48 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
             try
             {
+                var cacheKey = BuildCacheKey(region, key);
                 if (!IsAppFabricCache())
-                    return m_Cache[region + "_" + key] as T;
+                    return m_Cache[cacheKey] as T;
 
 
                 IDatabase cache = Connection.GetDatabase( /*region.GetHashCode()*/);
-                var cacheKey = BuildCacheKey(key, region);
 
                 var t = await cache.GetAsync<T>(cacheKey);
                 return t;
             }
             catch (Exception ex)
             {
-                Trace.TraceLog.WriteError($"GetFromCacheAsync key {key} region {region}", ex);
+                Trace.TraceLog.WriteError($"GetFromCacheAsync key {key}", ex);
                 return null;
             }
 
         }
 
-        public T GetFromCache<T>(string key, string region) where T : class
-        {
-            if (!m_IsCacheAvailable)
-            {
-                return default(T);
-            }
-            try
-            {
-                if (!IsAppFabricCache())
-                    return m_Cache[region + "_" + key] as T;
+        //public T GetFromCache<T>(string key, string region) where T : class
+        //{
+        //    if (!m_IsCacheAvailable)
+        //    {
+        //        return default(T);
+        //    }
+        //    try
+        //    {
+        //        if (!IsAppFabricCache())
+        //            return m_Cache[region + "_" + key] as T;
 
 
-                IDatabase cache = Connection.GetDatabase(/*region.GetHashCode()*/);
-                var cacheKey = BuildCacheKey(key, region);
+        //        IDatabase cache = Connection.GetDatabase(/*region.GetHashCode()*/);
+        //        var cacheKey = BuildCacheKey(key, region);
 
-                return cache.Get<T>(cacheKey);
-            }
-            catch (Exception ex)
-            {
-                Trace.TraceLog.WriteError($"GetFromCacheAsync key {key} region {region}", ex);
-                return default(T);
-            }
+        //        return cache.Get<T>(cacheKey);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Trace.TraceLog.WriteError($"GetFromCacheAsync key {key} region {region}", ex);
+        //        return default(T);
+        //    }
 
-        }
+        //}
 
         private static bool IsAppFabricCache()
         {

@@ -91,6 +91,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheRegions.cs" />
     <Compile Include="Cache\RedisCacheExtensions.cs" />
     <Compile Include="Commands\ICommandResolver.cs" />
     <Compile Include="Consts\IdContainer.cs" />

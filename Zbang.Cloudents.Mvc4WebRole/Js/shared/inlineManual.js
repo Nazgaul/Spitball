@@ -1,5 +1,3 @@
-/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="userDetails.ts" />
 'use strict';
 (function () {
     angular.module('app').run(inlineManual);
@@ -20,8 +18,6 @@
             $timeout(injectInlineManual, 0, false);
         });
         $rootScope.$on("$stateChangeSuccess", function () {
-            // Inline manual fix for angular
-            //var element = $document.find('[ui-view][animation-class]');
             $timeout(function () {
                 if (registeredUser && angular.isDefined(inline_manual_player)) {
                     inline_manual_player.manualReinit();
@@ -36,4 +32,3 @@
         }
     }
 })();
-//# sourceMappingURL=inlineManual.js.map
