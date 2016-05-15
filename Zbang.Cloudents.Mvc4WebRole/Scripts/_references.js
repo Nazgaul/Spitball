@@ -95,6 +95,7 @@
 /// <reference path="../js/menu/nospace.filter.js" />
 /// <reference path="../js/menu/sidemenu.controller.js" />
 /// <reference path="../js/polyfills.js" />
+/// <reference path="../js/realtime/hubfactory.js" />
 /// <reference path="../Js/routerHelperProvider.js" />
 /// <reference path="../js/shared/ajaxservice.js" />
 /// <reference path="../js/shared/animationclass.js" />

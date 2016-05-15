@@ -30,6 +30,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             return MvcHtmlString.Create(jsLinks);
         }
 
+        public static MvcHtmlString ScriptSignalR(this HtmlHelper html)
+        {
+            var jsBundle = SquishIt.Framework.Bundle.JavaScript();
+
+            jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
+
+            jsBundle.Add("https://develop-connect.spitball.co/scripts/jquery.signalR-2.2.0.min.js");
+            jsBundle.AddDynamic("https://develop-connect.spitball.co/s/signalr/hubs");
+            jsBundle.Add("~/js/realTime/hubFactory.js");
+
+            var jsLinks = BundleConfig.JsLink("signalR");
+            return MvcHtmlString.Create(jsBundle.Render("~/cdn/gzip/j#.js"));
+        }
+
         public static MvcHtmlString AngularLocale(this HtmlHelper html)
         {
             var jsLinks = BundleConfig.JsLink("langText." + Thread.CurrentThread.CurrentUICulture.Name);

@@ -158,8 +158,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //jsBundle.WithDeferredLoad();
             foreach (var jsFile in jsFiles)
             {
+                
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
                 {
+                    //if (jsFile.LocalFile.StartsWith("http"))
+                    //{
+                    //    jsBundle.AddRemote(jsFile.LocalFile);
+                    //    continue;
+                    //}
                     if (jsFile.LocalFile.Contains("min"))
                     {
                         jsBundle.AddMinified(jsFile.LocalFile);

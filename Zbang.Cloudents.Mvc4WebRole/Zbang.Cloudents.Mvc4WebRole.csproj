@@ -2300,6 +2300,8 @@
     <Content Include="bower_components\jquery\src\var\support.js" />
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
+    <Content Include="bower_components\signalr\jquery.signalR.js" />
+    <Content Include="bower_components\signalr\jquery.signalR.min.js" />
     <Content Include="bower_components\textAngular\dist\textAngular.rtl.css">
       <DependentUpon>textAngular.css</DependentUpon>
     </Content>
@@ -3071,6 +3073,10 @@
     <Content Include="bower_components\angular-timeago\LICENSE" />
     <Content Include="bower_components\angular-timeago\package.json" />
     <Content Include="bower_components\angular-timeago\README.md" />
+    <Content Include="bower_components\signalr\.bower.json" />
+    <Content Include="bower_components\signalr\bower.json" />
+    <Content Include="bower_components\signalr\LICENSE.md" />
+    <Content Include="bower_components\signalr\README.md" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -3694,6 +3700,7 @@
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\doubleclick.config.js" />
+    <Content Include="Js\realTime\hubFactory.js" />
     <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\intercom.js" />
     <Content Include="Js\shared\scrollToTop.directive.js" />
