@@ -22,6 +22,11 @@ namespace Zbang.Cloudents.Connect
             Clients.All.hello();
         }
 
+        public void Send(string userId, string message)
+        {
+            Clients.User(userId).send(message);
+        }
+
         public override Task OnConnected()
         {
 

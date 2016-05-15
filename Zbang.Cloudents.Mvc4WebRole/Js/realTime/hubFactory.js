@@ -40,24 +40,25 @@
 
 
 $.getScript('https://develop-connect.spitball.co/s/signalr/hubs', function () {
+    window.si = function () {
+        var chat = $.connection.spitballHub;
+        // Create a function that the hub can call to broadcast messages.
+        chat.client.send = function (message) {
+            // Html encode display name and message. 
+            console.log(message);
+        };
+        $.connection.hub.url = 'https://develop-connect.spitball.co/s';
+        //var myHub = $.connection.crossDomainHub;
+        //
+        //myHub.client.showTime = function (dateTimeFromServer) {
+        //    $('#dateTime').html(dateTimeFromServer);
+        //}
 
-    var chat = $.connection.spitballHub;
-    // Create a function that the hub can call to broadcast messages.
-    chat.client.hello = function () {
-        // Html encode display name and message. 
-        console.log('x');
-    };
-    $.connection.hub.url = 'https://develop-connect.spitball.co/s';
-    //var myHub = $.connection.crossDomainHub;
-    //
-    //myHub.client.showTime = function (dateTimeFromServer) {
-    //    $('#dateTime').html(dateTimeFromServer);
-    //}
-
-    $.connection.hub.start().done(function () {
-        window.setInterval(function () {
-          //  chat.server.hello();
-        }, 2000);
-    });
+        $.connection.hub.start().done(function () {
+            window.setInterval(function () {
+                chat.server.send(1, 'hello ram');
+            }, 10000);
+        });
+    }
 });
 

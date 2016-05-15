@@ -33,43 +33,9 @@ namespace Zbang.Cloudents.Connect
         {
             var principal = (ClaimsPrincipal)user;
             var claim = principal.FindFirst(claimType);
-            if (claim == null)
-            {
-                return null;
-            }
-            return claim.Value;
+            return claim?.Value;
         }
 
-        public static long? GetUniversityId(this IPrincipal user)
-        {
-            long value ;
-            var claim = ExtractValueFromClaim(user, ClaimConst.UniversityIdClaim);
-            if (claim == null)
-            {
-                return null;
-            }
-            if (long.TryParse(claim, out value))
-            {
-                return value;
-            }
-            return null;
-
-
-        }
-
-        public static long? GetUniversityData(this IPrincipal user)
-        {
-            long value;
-            var claim = ExtractValueFromClaim(user, ClaimConst.UniversityDataClaim);
-            if (claim == null)
-            {
-                return null;
-            }
-            if (long.TryParse(claim, out value))
-            {
-                return value;
-            }
-            return null;
-        }
+       
     }
 }

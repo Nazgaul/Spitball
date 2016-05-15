@@ -24,7 +24,10 @@ namespace Zbang.Cloudents.Connect
 
             // Get your HubConfiguration. In OWIN, you'll create one
             // rather than using GlobalHost.
-            //var config = new HubConfiguration();
+            var config = new HubConfiguration
+            {
+                EnableDetailedErrors = true
+            };
 
             // Register your SignalR hubs.
 
@@ -34,22 +37,16 @@ namespace Zbang.Cloudents.Connect
             Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
             // Set the dependency resolver to be Autofac.
             var container = IocFactory.IocWrapper.Build();
-            //config.Resolver = new AutofacDependencyResolver(container);
+            config.Resolver = new AutofacDependencyResolver(container);
 
-            // OWIN SIGNALR SETUP:
+            
 
-            // Register the Autofac middleware FIRST, then the standard SignalR middleware.
-            //app.UseAutofacMiddleware(container);
-            //app.MapSignalR("/signalr", config);
 
-            // To add custom HubPipeline modules, you have to get the HubPipeline
-            // from the dependency resolver, for example:
-            //var hubPipeline = config.Resolver.Resolve<IHubPipeline>();
-            //hubPipeline.AddModule(new MyPipelineModule());
-
-            app.UseCors(CorsOptions.AllowAll);
-
+            //builder.Register(c => new MimifyProxy()).As<IJavaScriptMinifier>();
+            //builder.RegisterType<CookieHelper>().As<IJavaScriptMinifier>();
+            GlobalHost.DependencyResolver = config.Resolver;
             GlobalHost.DependencyResolver.Register(typeof(IJavaScriptMinifier), () => new MimifyProxy());
+            GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new UserIdProvider());
             //GlobalHost.DependencyResolver.Register(typeof(IJavaScriptProxyGenerator), () => new x());
             //GlobalHost.DependencyResolver.UseServiceBus("Endpoint=sb://cloudentsmsg-ns.servicebus.windows.net/;SharedAccessKeyName=signalr;SharedAccessKey=lyODoV4e3aapUw9tm8i6jvxSF5GT4w+Raj8ENlBHyUE=;EntityPath=signal-r", "signalr");
             //app.Map("", map =>
@@ -62,13 +59,12 @@ namespace Zbang.Cloudents.Connect
 
             //    });
             //});
+            app.UseCors(CorsOptions.AllowAll);
             app.UseAutofacMiddleware(container);
             Zbox.Infrastructure.Security.Startup.ConfigureAuth(app, true);
-            app.MapSignalR("/s", new HubConfiguration
-            {
-                EnableDetailedErrors = true,
-                Resolver = new AutofacDependencyResolver(container)
-            });
+            
+            app.MapSignalR("/s", config);
+
             GlobalHost.HubPipeline.RequireAuthentication();
             // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
         }

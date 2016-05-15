@@ -1,4 +1,5 @@
 ﻿using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
 namespace Zbang.Cloudents.Connect
@@ -12,5 +13,16 @@ namespace Zbang.Cloudents.Connect
         }
     }
 
-    
+    public class UserIdProvider : IUserIdProvider
+    {
+        public string GetUserId(IRequest request)
+        {
+            if (request.User.Identity.IsAuthenticated)
+            {
+                return request.User.GetUserId().ToString();
+            }
+            return null;
+
+        }
+    }
 }
