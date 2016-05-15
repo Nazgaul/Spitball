@@ -3702,6 +3702,7 @@
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\doubleclick.config.js" />
     <Content Include="Js\realTime\hubFactory.js" />
+    <Content Include="Js\realTime\signalRproxy.js" />
     <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\intercom.js" />
     <Content Include="Js\shared\changeLanguage.js" />

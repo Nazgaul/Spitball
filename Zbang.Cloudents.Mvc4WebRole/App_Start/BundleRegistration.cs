@@ -335,6 +335,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/scrollToTop.directive.js"),
 
 
+                        new JsFileWithCdn("~/bower_components/signalr/jquery.signalR.js"),
+                        //new JsFileWithCdn("~/js/realTime/signalRproxy.js"),
+                        new JsFileWithCdn("~/js/realTime/hubFactory.js")
+
+
                     }
 
                 },

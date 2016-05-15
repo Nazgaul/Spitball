@@ -15,4 +15,12 @@ namespace Zbang.Cloudents.Connect
             return minifier.MinifyJavaScript(source);
         }
     }
+
+    public class x : IJavaScriptProxyGenerator
+    {
+        public string GenerateProxy(string serviceUrl)
+        {
+            return serviceUrl;
+        }
+    }
 }
