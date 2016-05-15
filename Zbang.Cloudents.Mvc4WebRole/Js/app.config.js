@@ -174,10 +174,12 @@
     }
 
     angular.module('app').run(anylticsRun);
-    anylticsRun.$inject = ['Analytics'];
+    anylticsRun.$inject = ['Analytics','$document'];
 
-    function anylticsRun(analytics) {
-        analytics.createAnalyticsScriptTag();
+    function anylticsRun(analytics,$document) {
+        $document.ready(function() {
+            analytics.createAnalyticsScriptTag();
+        });
         //for run the app
     };
 

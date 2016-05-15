@@ -43,10 +43,12 @@ declare var inlineManualTracking: any;
         });
 
         function injectInlineManual() {
-            var e = document.createElement("script"),
-                t = document.getElementsByTagName("script")[0];
-            e.async = true, e.src = "https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js",
-                e.charset = "UTF-8", t.parentNode.insertBefore(e, t);
+            $document.ready(function () {
+                var e = document.createElement("script"),
+                    t = document.getElementsByTagName("script")[0];
+                e.async = true, e.src = "https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js",
+                    e.charset = "UTF-8", t.parentNode.insertBefore(e, t);
+            });
 
         }
     }

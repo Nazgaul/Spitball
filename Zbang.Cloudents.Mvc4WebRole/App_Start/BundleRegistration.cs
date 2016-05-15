@@ -42,18 +42,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //"~/content/signin/custom.css",
                     }
                 },
-                //  {
-                //    "signin", new[] // passwordUpdate uses it - this page will be modified in v4.
-                //    {
-                //        "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
-                //        "~/Content/signin/login-soft.css",
-                //        "~/Content/signin/components-md.css",
-                //        "~/Content/signin/plugins-md.css",
-                //        "~/Content/site/layout.css",
-                //        "~/Content/signin/default.css",
-                //        "~/Content/signin/custom.css"
-                //    }
-                //},
+                  {
+                    "signin", new[] // passwordUpdate uses it - this page will be modified in v4.
+                    {
+                        "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
+                        "~/Content/signin/login-soft.css",
+                        "~/Content/signin/components-md.css",
+                        "~/Content/signin/plugins-md.css",
+                        "~/Content/site/layout.css",
+                        "~/Content/signin/default.css",
+                        "~/Content/signin/custom.css"
+                    }
+                },
                 {
                     "themeDark", new []
                     {
@@ -124,12 +124,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "homePage", new[]
                     {
-                        //new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"), //changed to bower components
-                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
-                        //new JsFileWithCdn("~/scripts/jquery.validate.min.js"), //changed to bower components
+                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/bower_components/jquery.validate/dist/jquery.validate.min.js"),
-                        //new JsFileWithCdn("~/js/signin/metronic.js"), //TODO : do we need this
-                        //new JsFileWithCdn("~/js/signin/layout.js"),//TODO : do we need this
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/scripts/waypoints.min.js"),
@@ -141,12 +137,27 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "staticPage", new[]
                     {
-                        //new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"), //changed to bower components
-                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
+                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/js/signin/staticPages.js"),
                         new JsFileWithCdn("~/js/signin/itemGallery.js")
+                    }
+                },
+                 {
+                    //TODO: maybe we can remove this??? // passwordUpdate uses it - this page will be modified in v4.
+                    "signin", new[]
+                    {
+
+
+                        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
+                        //new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
+                        //new JsFileWithCdn("~/js/signin/demo.js"),
+                        new JsFileWithCdn("~/js/signin/metronic.js"),
+                        new JsFileWithCdn("~/js/signin/layout.js"),
+                        new JsFileWithCdn("~/js/signin/login-soft.js"),
+                        new JsFileWithCdn("~/scripts/svg4everybody.js")
                     }
                 },
                 {
