@@ -3672,6 +3672,7 @@
     <Content Include="Js\app.js" />
     <Content Include="Js\app.route.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
+    <Content Include="Js\chat\chat.controller.js" />
     <Content Include="Js\components\account\account.routes.js" />
     <Content Include="Js\components\account\account.service.js" />
     <Content Include="Js\components\account\department.controller.js" />
@@ -3703,6 +3704,7 @@
     <Content Include="Js\realTime\hubFactory.js" />
     <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\intercom.js" />
+    <Content Include="Js\shared\changeLanguage.js" />
     <Content Include="Js\shared\scrollToTop.directive.js" />
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\staticPages.js" />
@@ -3978,7 +3980,8 @@
     <Content Include="Views\Home\ClassNotes.cshtml" />
     <Content Include="Views\Home\Courses.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageHeader.cshtml" />
-    <Content Include="Views\Shared\Partials2\_skLoader.cshtml" />
+    <Content Include="Views\Shared\Partials2\_PasswordUpdate.cshtml" />
+    <Content Include="Views\Shared\_Chat.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

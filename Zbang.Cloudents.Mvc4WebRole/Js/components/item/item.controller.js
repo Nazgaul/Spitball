@@ -2,7 +2,7 @@
 (function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope','resManager'];
+        'itemData', '$scope', 'resManager'];
 
     function item($stateParams, itemService, $sce, $location, $q,
         user, itemData, $scope, resManager) {
@@ -44,6 +44,7 @@
         i.swipeRight = swipeRight;
 
         i.document = itemData.fileContent;
+        initKeyboardNavigation();
         //if (i.firstPage && i.details.type === "File") {
         //    itemService.content(boxid, itemId).then(function (response) {
         //        i.document = response;
@@ -133,6 +134,21 @@
                 i.details.likes++;
             }
             i.details.like = !i.details.like;
+        }
+
+        function initKeyboardNavigation() {
+            $("body").keydown(function (e) {
+                if (e.which == 37) { // left
+                    $scope.$apply(function () {
+                        user.culture == "he" ? swipeLeft() : swipeRight();
+                    });
+                }
+                else if (e.which == 39) { // right
+                    $scope.$apply(function () {
+                        user.culture == "he" ? swipeRight() : swipeLeft();
+                    });
+                }
+            });
         }
     }
 

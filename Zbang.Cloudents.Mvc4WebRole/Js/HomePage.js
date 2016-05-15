@@ -9,10 +9,7 @@
     return "";
 }
 
-$('.language button').click(function () {
-    document.cookie = "l3 =" + $(this).data('cookie') + "; path=/;domain=spitball.co";
-    location.reload();
-});
+changeLanguage($('.language button'));
 
 window.addEventListener("load", function load() {
     window.removeEventListener("load", load, false); //remove listener, no longer needed
