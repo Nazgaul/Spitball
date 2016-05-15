@@ -41,11 +41,11 @@
 
 $.getScript('https://develop-connect.spitball.co/s/signalr/hubs', function () {
 
-    var chat = $.connection.chatHub;
+    var chat = $.connection.spitballHub;
     // Create a function that the hub can call to broadcast messages.
-    chat.client.broadcastMessage = function (name, message) {
+    chat.client.hello = function () {
         // Html encode display name and message. 
-        console.log(name, message);
+        console.log('x');
     };
     $.connection.hub.url = 'https://develop-connect.spitball.co/s';
     //var myHub = $.connection.crossDomainHub;
@@ -56,7 +56,7 @@ $.getScript('https://develop-connect.spitball.co/s/signalr/hubs', function () {
 
     $.connection.hub.start().done(function () {
         window.setInterval(function () {
-            chat.server.send('ram', 'yaari');
+            chat.server.hello();
         }, 2000);
     });
 });

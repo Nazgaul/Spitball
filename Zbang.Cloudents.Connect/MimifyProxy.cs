@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.Ajax.Utilities;
+﻿using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.SignalR.Hubs;
 
 namespace Zbang.Cloudents.Connect
@@ -16,11 +12,5 @@ namespace Zbang.Cloudents.Connect
         }
     }
 
-    public class x : IJavaScriptProxyGenerator
-    {
-        public string GenerateProxy(string serviceUrl)
-        {
-            return serviceUrl;
-        }
-    }
+    
 }
