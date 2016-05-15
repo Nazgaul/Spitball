@@ -27,6 +27,7 @@
 /// <reference path="../Js/app.route.js" />
 /// <reference path="../Js/CDNFallback.js" />
 /// <reference path="../Js/CDNFallbackWithoutAngular.js" />
+/// <reference path="../js/chat/chat.controller.js" />
 /// <reference path="../Js/components/account/account.controller.js" />
 /// <reference path="../Js/components/account/account.routes.js" />
 /// <reference path="../Js/components/account/account.service.js" />
