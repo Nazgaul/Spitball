@@ -86,6 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/layout.css",//
                         "~/content/site/light.css",//
                         "~/content/site/menu.css",
+                        "~/content/site/chat.css",
                         "~/content/site/header.css",
                         "~/content/jquery.bxslider.css",
 
@@ -233,6 +234,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //new JsFileWithCdn("~/js/menu/menu_toggle.directive.js"),
                         new JsFileWithCdn("~/js/menu/menulink.directive.js"),
                         new JsFileWithCdn("~/js/menu/sidemenu.controller.js"),
+                        new JsFileWithCdn("~/js/chat/chat.controller.js"),
                         new JsFileWithCdn("~/js/menu/nospace.filter.js"),
 
                        

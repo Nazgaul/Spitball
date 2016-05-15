@@ -90,5 +90,9 @@
   {
     "outputFile": "Content/Site/siteColors.css",
     "inputFile": "Content/Site/siteColors.less"
+  },
+  {
+    "outputFile": "Content/Site/chat.css",
+    "inputFile": "Content/Site/chat.less"
   }
 ]

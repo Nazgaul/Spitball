@@ -1,0 +1,174 @@
+﻿@import "variables.less";
+
+.chat-counter {
+    background: @textColorRed;
+    color: @textColorWhite;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    padding: 0;
+    text-align: center;
+}
+
+.chat-icon {
+    position: relative;
+    height: @fullScreenHeaderHeight - 5px;
+    .displayFlex;
+    .align-items(center);
+    .justifyContet(flex-end);
+    padding-right: 22px;
+
+    svg {
+        width: 30px;
+        height: 30px;
+        fill: @textColorWhite;
+    }
+
+    .chat-counter {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+    }
+}
+
+.chat {
+    position: fixed;
+    z-index: 130;
+    top: 0;
+    bottom: 0;
+
+    md-content {
+        background: #eee;
+
+        .header {
+            background: #111111;
+
+            .tabs {
+                background: @textColorDarkGrey;
+                color: @textColorWhite;
+
+                .tab {
+                    display: inline-block;
+                    width: 30%;
+                    font-size: 16px;
+                    line-height: 36px;
+                    text-align: center;
+                    margin: 0 10px;
+                    color: @textColorGrey;
+                }
+            }
+        }
+
+        .tab-content {
+            height: ~"calc(100vh - 113px)";
+
+            &.noChats {
+                .displayFlex;
+                .align-items(center);
+
+                .empty-state {
+                    text-align: center;
+
+                    .text {
+                        font-size: 16px;
+                        width: 200px;
+                        margin: 0 auto;
+
+                        span {
+                            color: @buttonColorBlue;
+                            display: block;
+                            margin-bottom: 10px;
+                        }
+                    }
+
+                    svg {
+                        fill: #c5c5c5;
+                        opacity: 0.5;
+                    }
+                }
+
+                .search-friend, .users-list {
+                    display: none;
+                }
+            }
+
+            &:not(.noChats) {
+                .empty-state {
+                    display: none;
+                }
+            }
+
+            .search-friend {
+                margin: 12px 6px;
+                .displayFlex;
+                .align-items(stretch);
+                padding: 0;
+                overflow: hidden;
+                background: white;
+                box-shadow: 0 0 2px rgba(93, 96, 99, 0.7);
+                border-radius: 3px;
+
+                input {
+                    border: none;
+                    flex-grow: 1;
+                    padding: 0 12px;
+                }
+
+                button {
+                    padding: 5px 8px;
+
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                        display: block;
+                        fill: @buttonColorBlue;
+                    }
+                }
+            }
+
+            .users-list {
+                padding: 0;
+                color: @textColorBlack;
+
+                li {
+                    .displayFlex;
+                    .align-items(center);
+                    position: relative;
+
+                    &.online:before {
+                        content: "";
+                        display: inline-block;
+                        width: 7px;
+                        height: 7px;
+                        border-radius: 100%;
+                        background: #0CFF00;
+                        position: absolute;
+                        left: 35px;
+                        bottom: 10px;
+                    }
+
+                    .img-circle {
+                        margin: 10px;
+                    }
+
+                    .chat-counter {
+                        padding: 0;
+                        margin: 0 25px 0 10px;
+                        flex-shrink: 0;
+                    }
+
+                    &:not(:last-child) {
+                        .member-name {
+                            width: 100%;
+                            line-height: 55px;
+                            font-size: 16px;
+                            border-bottom: 1px solid @progressbarBackgroundColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

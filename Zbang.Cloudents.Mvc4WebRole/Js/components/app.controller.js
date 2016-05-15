@@ -17,7 +17,7 @@
             __insp.push(["virtualPage"]); //inspectlet
             //svg4everybody();
             // ReSharper restore UseOfImplicitGlobalInFunctionScope
-       
+
         });
         userDetails.init().then(function () {
             setTheme();
@@ -41,20 +41,26 @@
         self.logOut = logOut;
         self.openMenu = openMenu;
         self.menuOpened = false;
+        self.chatOpened = false;
         self.expandSearch = false;
         self.resetForm = resetForm;
         self.showToaster = showToaster;
-        
+
         self.toggleMenu = toggleMenu;
+        self.toggleChat = toggleChat;
         function logOut() {
             cacheFactory.clearAll();
             Intercom('shutdown');
         }
         function setTheme() {
-           self.theme = 'theme-' + userDetails.get().theme;
+            self.theme = 'theme-' + userDetails.get().theme;
         }
         function toggleMenu() {
             $rootScope.$broadcast('open-menu');
+        }
+
+        function toggleChat() {
+            $rootScope.$broadcast('open-chat');
         }
 
         function showToaster(text, parentId, theme) {
@@ -84,7 +90,6 @@
             $mdOpenMenu(ev);
         };
 
-
         function resetForm(myform) {
             myform.$setPristine();
             myform.$setUntouched();
@@ -94,7 +99,7 @@
             self.menuOpened = false;
         });
 
-        self.showMenu= self.showSearch = true;
+        self.showMenu = self.showSearch = true;
         self.fixedBgColor = self.showBoxAd = false;
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {

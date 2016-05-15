@@ -3174,6 +3174,12 @@
     <Content Include="Content\Site\box.rtl.min.css">
       <DependentUpon>box.rtl.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\chat.css">
+      <DependentUpon>chat.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\chat.min.css">
+      <DependentUpon>chat.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\components-rounded.css">
       <DependentUpon>components-rounded.less</DependentUpon>
     </Content>
@@ -3858,6 +3864,7 @@
     <Content Include="Content\Site\itemGallery.less" />
     <Content Include="Images\Web.config" />
     <Content Include="Js\components\box\shareBox.directive.js" />
+    <Content Include="Content\Site\chat.less" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
