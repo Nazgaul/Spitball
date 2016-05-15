@@ -56,7 +56,7 @@ $.getScript('https://develop-connect.spitball.co/s/signalr/hubs', function () {
 
     $.connection.hub.start().done(function () {
         window.setInterval(function () {
-            chat.server.hello();
+          //  chat.server.hello();
         }, 2000);
     });
 });
