@@ -12,7 +12,8 @@
         };
         c.state = c.states.messages;
         c.friendsState = friendsState;
-        c.search = friendsState;
+        c.search = search;
+        c.chat = conversation;
         $scope.$on('open-chat', function () {
             $mdSidenav('chat').toggle();
             $scope.app.chatOpened = !$scope.app.chatOpened;
@@ -21,9 +22,6 @@
             }
             //TODO: add ajax
             c.users = [];
-            
-
-           
             $timeout(function () {
                 $scope.$broadcast('updateScroll');
 
@@ -33,9 +31,16 @@
         function friendsState() {
             c.state = c.states.friends;
             c.term = '';
+            search();
+        }
+        function search() {
             searchService.searchUsers(c.term, 0).then(function (response) {
                 c.users = response;
             });
+        }
+
+        function conversation(user) {
+            c.state = c.states.chat;
         }
         
 
