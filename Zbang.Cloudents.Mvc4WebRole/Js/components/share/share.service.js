@@ -13,7 +13,7 @@
             });
         }
         self.users = function (term, boxId, page) {
-            return ajaxService.get('/search/members', {
+            return ajaxService.get('/search/membersinbox/', {
                 term: term,
                 boxId: boxId,
                 page: page

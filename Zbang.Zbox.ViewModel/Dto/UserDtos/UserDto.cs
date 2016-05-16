@@ -37,4 +37,15 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public string Name { get; set; }
     }
+
+
+    public class UserWithStatusDto
+    {
+        public long Id { get; set; }
+        public string Image { get; set; }
+
+        public string Name { get; set; }
+
+        public bool Online { get; set; }
+    }
 }

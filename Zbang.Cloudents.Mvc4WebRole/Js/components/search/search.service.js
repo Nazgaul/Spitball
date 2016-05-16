@@ -18,5 +18,9 @@
         self.searchQuizzes = function (term, page) {
             return ajaxService.get('/search/quizzes/', { q: term, page: page }, 30000);
         }
+        self.searchUsers = function(term, page) {
+            return ajaxService.get('/search/members/', { q: term, page: page });
+
+        }
     }
 })()

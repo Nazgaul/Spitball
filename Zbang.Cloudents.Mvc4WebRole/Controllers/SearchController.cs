@@ -21,8 +21,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         private const int ResultSizeRegularState = 25;
 
-        public SearchController(IBoxReadSearchProvider2 boxSearchService, 
-            IItemReadSearchProvider2 itemSearchService, 
+        public SearchController(IBoxReadSearchProvider2 boxSearchService,
+            IItemReadSearchProvider2 itemSearchService,
             IQuizReadSearchProvider2 quizSearchService)
         {
             m_BoxSearchService = boxSearchService;
@@ -72,18 +72,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!universityDataId.HasValue) return JsonError();
             var query = new SearchQuizesQuery(q, User.GetUserId(), universityDataId.Value, page,
                 ResultSizeRegularState);
-            return await SearchQueryAsync(q, cancellationToken, query,  m_QuizSearchService.SearchQuizAsync);
+            return await SearchQueryAsync(q, cancellationToken, query, m_QuizSearchService.SearchQuizAsync);
         }
 
-        private async Task<JsonResult> SearchQueryAsync<TD>(string q, CancellationToken cancellationToken, 
+        private async Task<JsonResult> SearchQueryAsync<TD>(string q, CancellationToken cancellationToken,
             SearchQuery query,
             Func<SearchQuery, CancellationToken, Task<TD>> func)
             where TD : class
         {
-           
+
             try
             {
-                
+
                 if (string.IsNullOrEmpty(q))
                 {
                     return JsonError("need term");
@@ -104,7 +104,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> Members(string term, long boxId, int page, int sizePerPage = 20)
+        public async Task<JsonResult> MembersInBox(string term, long boxId, int page, int sizePerPage = 20)
         {
             if (string.IsNullOrEmpty(term))
             {
@@ -113,8 +113,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             long? universityId = User.GetUniversityData();
             if (!universityId.HasValue)
                 return JsonError("need university");
-            var query = new UserSearchQuery(term, universityId.Value, boxId, page, sizePerPage);
-            var retVal = await ZboxReadService.GetUsersByTermAsync(query);
+            var query = new UserInBoxSearchQuery(term, universityId.Value, boxId, page, sizePerPage);
+            var retVal = await ZboxReadService.GetUsersInBoxByTermAsync(query);
 
             return JsonOk(retVal);
 
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<JsonResult> ItemInBox(string term, long boxId, int page, CancellationToken cancellationToken, int sizePerPage = 20)
         {
-            
+
             if (string.IsNullOrEmpty(term))
             {
                 return JsonError();
@@ -143,6 +143,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteInfo("items in box - abort");
                 return JsonOk();
             }
+        }
+
+
+        [HttpGet]
+        public async Task<JsonResult> Members(string q, int page)
+        {
+            long? universityId = User.GetUniversityData();
+            if (!universityId.HasValue)
+                return JsonError("need university");
+            var query = new UserSearchQuery(q, universityId.Value, page, 50);
+            var retVal = await ZboxReadService.GetUsersByTermAsync(query);
+
+            return JsonOk(retVal);
         }
 
 
