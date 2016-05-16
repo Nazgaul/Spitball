@@ -55,10 +55,15 @@ md-sidenav.chat.md-sidenav-right {
                     display: inline-block;
                     width: 30%;
                     font-size: 16px;
-                    line-height: 36px;
+                    padding-top: 3px;
+                    line-height: 28px;
                     text-align: center;
                     margin: 0 10px;
                     color: @textColorGrey;
+
+                    &.active {
+                        border-bottom: 3px solid @buttonColorBlue;
+                    }
                 }
             }
         }
@@ -167,6 +172,7 @@ md-sidenav.chat.md-sidenav-right {
                 svg {
                     width: 25px;
                     height: 25px;
+                    margin: 0 auto;
 
                     &.attach {
                         fill: @textColorWhite;

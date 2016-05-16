@@ -11,8 +11,8 @@
                     <div class="chat-counter">16</div>
                 </div>
                 <div class="tabs">
-                    <button type="button" ng-click="c.state = c.states.messages" class="messages tab">Messages</button>
-                    <button type="button" ng-click="c.friendsState()" class="friends tab">Friends</button>
+                    <button type="button" ng-click="c.state = c.states.messages" ng-class="{active: c.state === c.states.messages}" class="messages tab">Messages</button>
+                    <button type="button" ng-click="c.friendsState()" class="friends tab" ng-class="{active: c.state === c.states.friends}">Friends</button>
                 </div>
             </div>
             <div class="tab-content" ng-class="{noChats: c.state === c.states.messages && !c.users.length}">
