@@ -149,6 +149,8 @@ case when u.UniversityId = @UniversityId then 0 else 1 end asc, UserReputation d
 offset @pageNumber*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY; ";
 
+        
+
 
         public const string GetUniversityToUploadToSearch = @"select top (@top) id as Id,UniversityName as Name,LargeImage as Image,
 extra as Extra, Country, NoOfUsers

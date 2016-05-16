@@ -669,13 +669,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        public async Task<JsonResult> Version()
+        public JsonResult Version()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                await m_QueueProvider.Value.InsertMessageToTranactionAsync(
-                      new StatisticsData4(null, User.GetUserId(), DateTime.UtcNow));
-            }
             return JsonOk(VersionHelper.CurrentVersion(true));
         }
 

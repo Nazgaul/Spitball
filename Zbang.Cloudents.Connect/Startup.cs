@@ -34,7 +34,11 @@ namespace Zbang.Cloudents.Connect
             var builder = IocFactory.IocWrapper.ContainerBuilder;
 
             builder.RegisterHubs(Assembly.GetExecutingAssembly());
+            Zbox.Infrastructure.RegisterIoc.Register();
+            Zbox.Infrastructure.Data.RegisterIoc.Register();
             Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            Zbox.Domain.Services.RegisterIoc.Register();
+            Zbox.Domain.CommandHandlers.Ioc.RegisterIoc.Register();
             // Set the dependency resolver to be Autofac.
             var container = IocFactory.IocWrapper.Build();
             config.Resolver = new AutofacDependencyResolver(container);

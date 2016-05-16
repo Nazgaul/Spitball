@@ -29,7 +29,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             //    return next.Invoke();
             //});
             Zbox.Infrastructure.Security.Startup.ConfigureAuth(app, true);
-            UnityConfig.RegisterTypes(app);
+            IocConfig.RegisterTypes(app);
             //app.CreatePerOwinContext(ApplicationDbContext.Create);
 
             //app.CreatePerOwinContext(() => DependencyResolver.Current.GetService<ApplicationUserManager>());

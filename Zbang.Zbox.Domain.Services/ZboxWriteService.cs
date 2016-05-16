@@ -699,6 +699,15 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+        public void ChangeOnlineStatus(ChangeUserOnlineStatusCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
 
 
     }

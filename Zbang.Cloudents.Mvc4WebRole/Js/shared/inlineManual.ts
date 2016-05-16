@@ -26,19 +26,19 @@ declare var inlineManualTracking: any;
                 //group: "Doe & Partners",
                 //plan: "Standard"
             }
-            $timeout(injectInlineManual, 0, false);
+           // $timeout(injectInlineManual, 0, false);
         });
 
         $rootScope.$on("$stateChangeSuccess", () => {
             // Inline manual fix for angular
             //var element = $document.find('[ui-view][animation-class]');
 
-            $timeout(() => {
-                if (registeredUser && angular.isDefined(inline_manual_player)) {
-                    inline_manual_player.manualReinit();
-                    inline_manual_player.setMetadata(inlineManualTracking);
-                }
-            }, 1000);
+            //$timeout(() => {
+            //    if (registeredUser && angular.isDefined(inline_manual_player)) {
+            //        inline_manual_player.manualReinit();
+            //        inline_manual_player.setMetadata(inlineManualTracking);
+            //    }
+            //}, 1000);
 
         });
 

@@ -37,28 +37,39 @@
 //    //});
 //}).fail(function (e) { console.log('Could not Connect!', e); });
 
+'use strict';
+(function() {
+    angular.module('app').controller('chatController', chat);
+    //account.$inject = ['$stateParams', '$state', 'userData'];
 
+    function chat() {
+
+    }
+})();
 
 $.getScript('https://develop-connect.spitball.co/s/signalr/hubs', function () {
-    window.si = function () {
-        var chat = $.connection.spitballHub;
-        // Create a function that the hub can call to broadcast messages.
-        chat.client.send = function (message) {
-            // Html encode display name and message. 
-            console.log(message);
-        };
-        $.connection.hub.url = 'https://develop-connect.spitball.co/s';
-        //var myHub = $.connection.crossDomainHub;
-        //
-        //myHub.client.showTime = function (dateTimeFromServer) {
-        //    $('#dateTime').html(dateTimeFromServer);
-        //}
 
-        $.connection.hub.start().done(function () {
-            window.setInterval(function () {
-                chat.server.send(1, 'hello ram');
-            }, 10000);
-        });
+    var chat = $.connection.spitballHub;
+    // Create a function that the hub can call to broadcast messages.
+    chat.client.send = function (message) {
+        // Html encode display name and message. 
+        console.log(message);
+    };
+    $.connection.hub.url = 'https://develop-connect.spitball.co/s';
+    //var myHub = $.connection.crossDomainHub;
+    //
+    //myHub.client.showTime = function (dateTimeFromServer) {
+    //    $('#dateTime').html(dateTimeFromServer);
+    //}
+
+    $.connection.hub.start().done(function () {
+        console.log('done')
+
+    });
+    window.si = function (userid) {
+        window.setInterval(function () {
+            chat.server.send(userid, 'hello ram');
+        }, 10000);
     }
 });
 

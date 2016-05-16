@@ -24,9 +24,12 @@ namespace Zbang.Zbox.Infrastructure.Cache
         {
             try
             {
-                m_CachePrefix = Assembly.GetExecutingAssembly().GetName().Version +
+                var domain = Assembly.Load("Zbang.Zbox.Domain");
+                var viewModel = Assembly.Load("Zbang.Zbox.ViewModel");
+                var domainBuildVersion = domain.GetName().Version.Revision;
+                var viewModelBuildVersion = viewModel.GetName().Version.Revision;
 
-                    ConfigurationManager.AppSettings[AppKey];
+                m_CachePrefix = $"{domainBuildVersion}_{viewModelBuildVersion}_{ConfigurationManager.AppSettings[AppKey]}";
                 if (HttpContext.Current == null)
                 {
                     m_IsCacheAvailable = false;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -8,15 +7,15 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class UpdateStatisticsCommand: ICommand
     {
-        public UpdateStatisticsCommand(IEnumerable<StatisticItemData> itemId,long userId,DateTime statTime)
+        public UpdateStatisticsCommand(IEnumerable<StatisticItemData> itemId/*,long userId,DateTime statTime*/)
         {
             ItemId = itemId;
-            UserId = userId;
-            StatTime = statTime;
+            //UserId = userId;
+           // StatTime = statTime;
         }
         public IEnumerable<StatisticItemData> ItemId { get; private set; }
-        public long UserId { get; private set; }
-        public DateTime StatTime { get; private set; }
+       // public long UserId { get; private set; }
+       // public DateTime StatTime { get; private set; }
 
 
        

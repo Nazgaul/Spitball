@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -9,8 +8,6 @@ using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
@@ -24,12 +21,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
     {
         private readonly IZboxWriteService m_ZboxWriteService;
         private readonly IZboxCacheReadService m_ZboxReadService;
-        private readonly IQueueProvider m_QueueProvider;
-        public BoxesController(IZboxWriteService zboxWriteService, IZboxCacheReadService zboxReadService, IQueueProvider queueProvider)
+        public BoxesController(IZboxWriteService zboxWriteService, IZboxCacheReadService zboxReadService)
         {
             m_ZboxWriteService = zboxWriteService;
             m_ZboxReadService = zboxReadService;
-            m_QueueProvider = queueProvider;
         }
 
 
@@ -40,14 +35,14 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         {
             var userid = User.GetCloudentsUserId();
             var query = new GetBoxesQuery(userid, page, sizePerPage);
-            var tData = m_ZboxReadService.GetUserBoxesAsync(query);
+            var data = await m_ZboxReadService.GetUserBoxesAsync(query);
 
-            var tTransaction =  m_QueueProvider.InsertMessageToTranactionAsync(
-                     new StatisticsData4(null, userid, DateTime.UtcNow));
+           // var tTransaction =  m_QueueProvider.InsertMessageToTranactionAsync(
+                    // new StatisticsData4(null, userid, DateTime.UtcNow));
 
-            await Task.WhenAll(tData, tTransaction);
+           // await Task.WhenAll(tData, tTransaction);
 
-            return Request.CreateResponse(tData.Result.Select(s => new
+            return Request.CreateResponse(data.Select(s => new
             {
                 s.Name,
                 s.Id,

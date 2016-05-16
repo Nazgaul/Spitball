@@ -66,6 +66,7 @@ interface IUserData {
             var interval = window.setInterval(() => {
                 if (googletag.pubads !== undefined && googletag.pubads) {
                     googletag.pubads().setTargeting('gender', data.sex);
+                    googletag.pubads().setTargeting('university', data.universityId);
                     window.clearInterval(interval);
                 }
             }, 20);

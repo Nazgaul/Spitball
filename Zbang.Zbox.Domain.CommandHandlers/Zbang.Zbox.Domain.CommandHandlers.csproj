@@ -69,6 +69,7 @@
     <Compile Include="ChangeFileNameCommandHandler.cs" />
     <Compile Include="ChangeItemTabNameCommandHandler.cs" />
     <Compile Include="ChangeNotificationSettingsCommandHandler.cs" />
+    <Compile Include="ChangeUserOnlineStatusCommandHandler.cs" />
     <Compile Include="CreateAcademicBoxCommandHandler.cs" />
     <Compile Include="CreateFacebookUserCommandHandler.cs" />
     <Compile Include="CreateGoogleUserCommandHandler.cs" />

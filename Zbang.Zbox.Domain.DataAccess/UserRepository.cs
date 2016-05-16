@@ -83,13 +83,13 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .ExecuteUpdate();
         }
 
-        public void RegisterUserNotification(long userid, MobileOperatingSystem os)
-        {
-            UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserMobileDevice")
-                .SetInt64("userid", userid)
-                .SetEnum("mobileDevice", os)
-                .ExecuteUpdate();
-        }
+        //public void RegisterUserNotification(long userid, MobileOperatingSystem os)
+        //{
+        //    UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserMobileDevice")
+        //        .SetInt64("userid", userid)
+        //        .SetEnum("mobileDevice", os)
+        //        .ExecuteUpdate();
+        //}
 
         public void UnsubscribeUserFromMail(IEnumerable<string> emails, EmailSend type)
         {
