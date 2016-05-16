@@ -113,10 +113,10 @@
         <div class="conversasion" ng-if="c.state === c.states.chat">
             <div class="header">
                 <div class="user-side">
-                    <div class="back"></div>
+                    <div class="back" ng-click="c.state = c.states.messages"></div>
                     <div class="online user">
-                        <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                        <span class="member-name ellipsis"> אגודת</span>
+                        <user-image class="img-circle" name="::c.userChat.name" image="::c.userChat.image" width="35" height="35"></user-image>
+                        <span class="member-name ellipsis" ng-bind="::c.userChat.name"></span>
                     </div>
                 </div>
                 <md-fab-speed-dial md-direction="down" class="md-fab-top-right">
@@ -137,8 +137,8 @@
                 </md-fab-speed-dial>
             </div>
             <div class="chat-content">
-                <ul class="messages" ng-slimscroll height="calc(100vh - 70px)" color="#BBB">
-                    <li class="partner message">
+                <ul class="messages" ng-slimscroll height="calc(100vh - 70px)" watchContent="true" color="#BBB">
+                    @*<li class="partner message">
                         <div class="content text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
                         <div class="time">22 min ago</div>
                     </li>
@@ -167,19 +167,24 @@
                         <div class="time">22 min ago</div>
                     </li>
                     <li class="self message">
-                        <div class="text">Aldus PageMaker including versions of Lorem Ipsum. <a href="https://www.spitball.co/">https://www.spitball.co/</a></div>
+                        <div class="text">Aldus PageMaker including versions of Lorem Ipsum. <a href="https://www.spitball.co/">https://www.spitball.co/</a>
+                        </div>
                         <div class="time">22 min ago</div>
+                    </li>*@
+                    <li class="message" ng-repeat="e in c.messages" ng-class="{partner: e.partner}">
+                        <div class="text" ng-bind="e.text"></div>
+                        <time-ago class="time" from-time="{{::e.time}}" format="mediumDate"></time-ago>
                     </li>
                 </ul>
                 <div class="new-message">
-                    <form>
+                    <form novalidate ng-submit="c.send()">
                         @*<div class="textarea" contenteditable="true"></div>*@
                         <div class="message-wrapper">
                             <md-input-container>
-                                <textarea class="textarea"></textarea>
+                                <textarea required class="textarea" ng-model="c.newText"></textarea>
                             </md-input-container>
                         </div>
-                        <button type="submit" class="btn button-Blue" ng-disabled="f.add.disabled" ga-track-event="['box-new-commnet', 'postComment']">
+                        <button type="submit" class="btn button-Blue" ng-disabled="c.disabled" @*ga-track-event="['box-new-commnet', 'postComment']"*@>
                             @Html.Svg("~/images/site/uploadIcons.svg", "post")
                         </button>
                     </form>

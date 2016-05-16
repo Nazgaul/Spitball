@@ -41,13 +41,14 @@
 (function() {
     angular.module('app.chat').factory('realtimeFactotry', realtimeFactotry);
     //account.$inject = ['$stateParams', '$state', 'userData'];
-    realtimeFactotry.$inject = ['Hub'];
-    function realtimeFactotry(Hub) {
+    realtimeFactotry.$inject = ['Hub','$rootScope'];
+    function realtimeFactotry(Hub, $rootScope) {
         var hub = new Hub('spitballHub', {
             rootPath: 'https://develop-connect.spitball.co/s',
             listeners: {
                 send : function(message) {
-                    console.log(message);
+                   // console.log(message);
+                    $rootScope.$broadcast('hub-send', message);
                 }
             },
             errorHandler: function (error) {

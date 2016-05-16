@@ -14,6 +14,8 @@
         c.friendsState = friendsState;
         c.search = search;
         c.chat = conversation;
+        c.send = send;
+        c.messages = [];
         $scope.$on('open-chat', function () {
             $mdSidenav('chat').toggle();
             $scope.app.chatOpened = !$scope.app.chatOpened;
@@ -40,9 +42,27 @@
         }
 
         function conversation(user) {
+            c.userChat = user;
             c.state = c.states.chat;
         }
-        
 
+
+        function send() {
+            c.messages.push({
+                text: c.newText,
+                time: new Date()
+            });
+            realtimeFactotry.sendMsg(c.userChat.id, c.newText);
+        }
+
+        $scope.$on('hub-send', function(e, args) {
+            c.messages.push({
+                text: args,
+                time: new Date(),
+                partner: true
+            });
+            $scope.$apply();
+            console.log(args);
+        });
     }
 })();
