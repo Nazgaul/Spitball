@@ -14,7 +14,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var cssDictionary = new Dictionary<string, IEnumerable<string>>
             {
-               
+
                 {
                     "homePage", new[]
                     {
@@ -42,18 +42,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //"~/content/signin/custom.css",
                     }
                 },
-                //  {
-                //    "signin", new[] // passwordUpdate uses it - this page will be modified in v4.
-                //    {
-                //        "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
-                //        "~/Content/signin/login-soft.css",
-                //        "~/Content/signin/components-md.css",
-                //        "~/Content/signin/plugins-md.css",
-                //        "~/Content/site/layout.css",
-                //        "~/Content/signin/default.css",
-                //        "~/Content/signin/custom.css"
-                //    }
-                //},
+                  {
+                    "signin", new[] // passwordUpdate uses it - this page will be modified in v4.
+                    {
+                        "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
+                        "~/Content/signin/login-soft.css",
+                        "~/Content/signin/components-md.css",
+                        "~/Content/signin/plugins-md.css",
+                        "~/Content/site/layout.css",
+                        "~/Content/signin/default.css",
+                        "~/Content/signin/custom.css"
+                    }
+                },
                 {
                     "themeDark", new []
                     {
@@ -107,9 +107,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/error.css",
                         //"~/content/site/staticPages.css",
                         "~/content/site/accordion.css",
-                        "~/content/site/themedark.css", 
+                        "~/content/site/themedark.css",
                         "~/content/site/themelight.css"
-                        
+
                     }
                 },
             };
@@ -120,17 +120,13 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var jsDictionary = new Dictionary<string, IEnumerable<JsFileWithCdn>>
             {
-                
-               
+
+
                 {
                     "homePage", new[]
                     {
-                        //new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"), //changed to bower components
-                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
-                        //new JsFileWithCdn("~/scripts/jquery.validate.min.js"), //changed to bower components
+                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/bower_components/jquery.validate/dist/jquery.validate.min.js"),
-                        //new JsFileWithCdn("~/js/signin/metronic.js"), //TODO : do we need this
-                        //new JsFileWithCdn("~/js/signin/layout.js"),//TODO : do we need this
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/scripts/waypoints.min.js"),
@@ -143,14 +139,29 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "staticPage", new[]
                     {
-                        //new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"), //changed to bower components
-                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"),
+                        new JsFileWithCdn("~/bower_components/jquery/dist/jquery.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/js/shared/changeLanguage.js"),
                         new JsFileWithCdn("~/js/signin/staticPages.js"),
                         new JsFileWithCdn("~/js/signin/itemGallery.js")
 
+                    }
+                },
+                 {
+                    //TODO: maybe we can remove this??? // passwordUpdate uses it - this page will be modified in v4.
+                    "signin", new[]
+                    {
+
+
+                        new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
+                        //new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
+                        new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
+                        //new JsFileWithCdn("~/js/signin/demo.js"),
+                        new JsFileWithCdn("~/js/signin/metronic.js"),
+                        new JsFileWithCdn("~/js/signin/layout.js"),
+                        new JsFileWithCdn("~/js/signin/login-soft.js"),
+                        new JsFileWithCdn("~/scripts/svg4everybody.js")
                     }
                 },
                 {
@@ -169,18 +180,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-sanitize.min.js"),
                         new JsFileWithCdn("~/bower_components/ngSlimscroll/src/js/ngSlimscroll.js"),
                         new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
-                        
+
 
                         new JsFileWithCdn("~/scripts/textAngularSetup.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
-                        
+
                         new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
                         new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"), 
                         //new JsFileWithCdn("https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"), 
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
-                        
+
 
                         new JsFileWithCdn("~/scripts/plupload2/moxie.min.js"),
                         new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
@@ -201,7 +212,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/doubleclick.config.js"),
                         new JsFileWithCdn("~/js/routerHelperProvider.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
-                       
+
 
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.filter.js"),
@@ -217,15 +228,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //new JsFileWithCdn("~/js/components/user/userNotification.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.routes.js"),
-                        
+
                         new JsFileWithCdn("~/js/components/user/user.service.js"),
                         new JsFileWithCdn("~/js/components/user/updates.service.js"),
 
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.service.js"),
-                        
+
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.routes.js"),
-                       
+
                         new JsFileWithCdn("~/js/components/dashboard/university.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/createBox.controller.js"),
 
@@ -237,7 +248,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/chat/chat.controller.js"),
                         new JsFileWithCdn("~/js/menu/nospace.filter.js"),
 
-                       
+
                         new JsFileWithCdn("~/js/components/box/box.controller.js"),
                         //new JsFileWithCdn("~/js/components/box/addToAny.directive.js"),
                         new JsFileWithCdn("~/js/components/box/tab.controller.js"),
@@ -251,10 +262,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/box/box.service.js"),
                         new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
                         new JsFileWithCdn("~/js/components/box/slideit.directive.js"),
-                        
+
 
                         new JsFileWithCdn("~/js/components/account/account.controller.js"),
-                        
+
                         new JsFileWithCdn("~/js/components/account/notification.controller.js"),
                         new JsFileWithCdn("~/js/components/account/password.controller.js"),
                         new JsFileWithCdn("~/js/components/account/info.controller.js"),
@@ -263,11 +274,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/account/unregister.controller.js"),
                         new JsFileWithCdn("~/js/components/account/unregisterShow.directive.js"),
                         new JsFileWithCdn("~/js/components/account/department.controller.js"),
-                        
+
                         new JsFileWithCdn("~/js/components/search/search.controller.js"),
                         new JsFileWithCdn("~/js/components/search/searchTrigger.controller.js"),
                         new JsFileWithCdn("~/js/components/search/search.service.js"),
-                        
+
 
                         new JsFileWithCdn("~/js/components/leaderboard.controller.js"),
                         //new JsFileWithCdn("~/js/components/ads.controller.js"),
@@ -281,7 +292,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/js/components/share/invite.controller.js"),
                         new JsFileWithCdn("~/js/components/share/share.service.js"),
-                        
+
 
                         new JsFileWithCdn("~/js/components/item/item.controller.js"),
                         new JsFileWithCdn("~/js/components/item/comments.controller.js"),
@@ -323,9 +334,24 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/versionChecker.js"),
                         new JsFileWithCdn("~/js/shared/intercom.js"),
                         //new JsFileWithCdn("~/js/shared/inlineManual.js"),
-                        new JsFileWithCdn("~/js/shared/scrollToTop.directive.js")
+                        new JsFileWithCdn("~/js/shared/scrollToTop.directive.js"),
+
+
+                        new JsFileWithCdn("~/bower_components/signalr/jquery.signalR.js"),
+                        //new JsFileWithCdn("~/js/realTime/signalRproxy.js"),
+                        new JsFileWithCdn("~/js/realTime/hubFactory.js")
+
+
                     }
 
+                },
+                {
+                    "signalR", new []
+                    {
+                         //new JsFileWithCdn("https://develop-connect.spitball.co/scripts/jquery.signalR-2.2.0.min.js"),
+                        //new JsFileWithCdn("https://develop-connect.spitball.co/s/signalr/hubs"),
+                        new JsFileWithCdn("~/js/realTime/hubFactory.js")
+                    }
                 }
                 //{
                 //    "contactUs", new[]

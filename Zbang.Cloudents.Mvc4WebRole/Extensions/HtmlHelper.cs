@@ -11,8 +11,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             var helper = new UrlHelper(html.ViewContext.RequestContext);
             var svgTag = new TagBuilder("svg");
             var useTag = new TagBuilder("use");
-            useTag.MergeAttribute("xlink:href", string.Format("{0}?{2}#{1}", helper.Content(name.ToLower()), 
-                hash, 
+            useTag.MergeAttribute("xlink:href", string.Format("{0}?{2}#{1}", helper.Content(name.ToLower()),
+                hash,
                 VersionHelper.CurrentVersion(false)));
             svgTag.InnerHtml = useTag.ToString(TagRenderMode.SelfClosing);
             if (htmlAttributes != null)
@@ -29,6 +29,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             var jsLinks = BundleConfig.JsLink(key);
             return MvcHtmlString.Create(jsLinks);
         }
+
+        //public static MvcHtmlString ScriptSignalR(this HtmlHelper html)
+        //{
+        //    var jsBundle = SquishIt.Framework.Bundle.JavaScript();
+
+        //    jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
+
+        //    jsBundle.Add("https://develop-connect.spitball.co/scripts/jquery.signalR-2.2.0.min.js");
+        //    jsBundle.AddRemote(string.Empty, "https://develop-connect.spitball.co/s/signalr/hubs");
+        //    jsBundle.Add("~/js/realTime/hubFactory.js");
+
+        //    var jsLinks = BundleConfig.JsLink("signalR");
+        //    return MvcHtmlString.Create(jsBundle.Render("~/cdn/gzip/j#.js"));
+        //}
 
         public static MvcHtmlString AngularLocale(this HtmlHelper html)
         {
@@ -54,7 +68,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         //    var cssLinks = BundleConfig.CssLink(key);
         //    return MvcHtmlString.Create(cssLinks);
         //}
-       
+
 
         public static MvcHtmlString JqueryValidateLocale(this HtmlHelper html)
         {
@@ -63,8 +77,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             {
                 return MvcHtmlString.Empty;
             }
-            
-            return MvcHtmlString.Create("<script type='text/javascript' src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_"+ isoLang + ".js'></script>");
+
+            return MvcHtmlString.Create("<script type='text/javascript' src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_" + isoLang + ".js'></script>");
         }
 
 
@@ -77,7 +91,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             }
             return MvcHtmlString.Empty;
         }
-        
+
 
     }
 }
