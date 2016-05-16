@@ -213,7 +213,7 @@ md-sidenav.chat.md-sidenav-left md-content .conversasion .chat-content .messages
   max-width: 80%;
   overflow: hidden;
 }
-md-sidenav.chat.md-sidenav-right md-content .conversasion .chat-content .messages .message.self {
+md-sidenav.chat.md-sidenav-right md-content .conversasion .chat-content .messages .message:not(.partner) {
   margin-right: auto;
   background: #CBDBE3;
 }
@@ -301,4 +301,5 @@ md-sidenav.chat.md-sidenav-right md-content .user.online:before {
 }
 md-sidenav.chat.md-sidenav-left md-content .user .img-circle {
   margin: 10px;
+  flex-shrink: 0;
 }
