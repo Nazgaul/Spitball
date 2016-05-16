@@ -19,9 +19,9 @@
         $scope.$on('open-chat', function () {
             $mdSidenav('chat').toggle();
             $scope.app.chatOpened = !$scope.app.chatOpened;
-            if (!$scope.app.chatOpened) {
-                return;
-            }
+            //if (!$scope.app.chatOpened) {
+            //    return;
+            //}
             //TODO: add ajax
             c.users = [];
             $timeout(function () {
@@ -50,19 +50,19 @@
         function send() {
             c.messages.push({
                 text: c.newText,
-                time: new Date()
+                time: new Date().toISOString()
             });
             realtimeFactotry.sendMsg(c.userChat.id, c.newText);
+            c.newText = '';
         }
 
         $scope.$on('hub-send', function(e, args) {
             c.messages.push({
                 text: args,
-                time: new Date(),
+                time: new Date().toISOString(),
                 partner: true
             });
             $scope.$apply();
-            console.log(args);
         });
     }
 })();

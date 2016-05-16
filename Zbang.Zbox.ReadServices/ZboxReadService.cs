@@ -614,7 +614,8 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                          query.Term,
                          query.PageNumber,
                          query.RowsPerPage,
-                         query.UniversityId
+                         query.UniversityId,
+                         query.UserId
 
                      });
             }

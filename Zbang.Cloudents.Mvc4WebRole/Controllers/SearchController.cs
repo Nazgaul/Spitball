@@ -152,7 +152,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             long? universityId = User.GetUniversityData();
             if (!universityId.HasValue)
                 return JsonError("need university");
-            var query = new UserSearchQuery(q, universityId.Value, page, 50);
+            var query = new UserSearchQuery(q, universityId.Value, page, 50, User.GetUserId());
             var retVal = await ZboxReadService.GetUsersByTermAsync(query);
 
             return JsonOk(retVal);
