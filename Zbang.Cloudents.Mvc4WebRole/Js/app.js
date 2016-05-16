@@ -28,7 +28,8 @@ var app;
          'app.item',
          'app.quiz',
          'app.upload',
-         'app.search'
+         'app.search',
+         'app.chat'
     ]);
     //]).config(config);
 

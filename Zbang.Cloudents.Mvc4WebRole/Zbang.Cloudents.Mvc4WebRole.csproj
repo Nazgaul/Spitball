@@ -2108,6 +2108,8 @@
     <Content Include="bower_components\angular-messages\angular-messages.js" />
     <Content Include="bower_components\angular-messages\angular-messages.min.js" />
     <Content Include="bower_components\angular-messages\index.js" />
+    <Content Include="bower_components\angular-signalr-hub\signalr-hub.js" />
+    <Content Include="bower_components\angular-signalr-hub\signalr-hub.min.js" />
     <Content Include="bower_components\angular-timeago\dist\angular-timeago.css" />
     <Content Include="bower_components\angular-timeago\dist\angular-timeago.js" />
     <Content Include="bower_components\angular-timeago\dist\angular-timeago.min.js" />
@@ -3077,6 +3079,13 @@
     <Content Include="bower_components\signalr\bower.json" />
     <Content Include="bower_components\signalr\LICENSE.md" />
     <Content Include="bower_components\signalr\README.md" />
+    <Content Include="bower_components\angular-signalr-hub\.bower.json" />
+    <Content Include="bower_components\angular-signalr-hub\.gitignore" />
+    <Content Include="bower_components\angular-signalr-hub\bower.json" />
+    <Content Include="bower_components\angular-signalr-hub\CHANGELOG.md" />
+    <Content Include="bower_components\angular-signalr-hub\LICENSE" />
+    <Content Include="bower_components\angular-signalr-hub\package.json" />
+    <Content Include="bower_components\angular-signalr-hub\README.md" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -3707,7 +3716,7 @@
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\doubleclick.config.js" />
-    <Content Include="Js\realTime\hubFactory.js" />
+    <Content Include="Js\chat\hubFactory.js" />
     <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\intercom.js" />
     <Content Include="Js\shared\changeLanguage.js" />

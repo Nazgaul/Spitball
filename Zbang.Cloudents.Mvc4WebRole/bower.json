@@ -18,7 +18,8 @@
     "angular-i18n": "1.4.6",
     "ui-router": "~0.2.18",
     "angular-timeago": "~0.2.9",
-    "signalr": "~2.2.0"
+    "signalr": "~2.2.0",
+    "angular-signalr-hub": "~1.6.2"
   },
   "resolutions": {
     "angular": ">=1"

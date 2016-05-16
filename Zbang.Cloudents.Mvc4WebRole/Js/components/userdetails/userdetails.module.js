@@ -48,4 +48,8 @@
     angular.module('app.account', ['app.ajaxservice']);
 })();
 
+(function () {
+    angular.module('app.chat', ['SignalR']);
+})();
+
 
