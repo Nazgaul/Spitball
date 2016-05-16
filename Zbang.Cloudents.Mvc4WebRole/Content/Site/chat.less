@@ -33,12 +33,12 @@
     }
 }
 
-md-sidenav.chat.md-sidenav-right {
+md-sidenav.chat {
     position: fixed;
     z-index: 130;
     top: 0;
     bottom: 0;
-    background: #eee;
+    background: #eee !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
     md-content {
@@ -306,10 +306,17 @@ md-sidenav.chat.md-sidenav-right {
                         md-input-container {
                             margin: 0;
 
-                            textarea {
-                                min-height: 45px;
+                            &.md-input-invalid.md-input-focused label {
+                                color: @buttonColorBlue;
+                            }
+
+                            label, textarea {
                                 padding: 5px;
                                 font-size: 14px;
+                            }
+
+                            textarea {
+                                min-height: 45px;
                                 line-height: 20px;
                                 color: @textColorBlack;
                                 border: none !important;
@@ -327,7 +334,13 @@ md-sidenav.chat.md-sidenav-right {
                         position: absolute;
                         top: -15px;
                         right: 15px;
-
+                        -moz-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+                        -webkit-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+                        -o-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+                        -ms-transform: scaleX(1) /*rtl:scaleX(-1)*/;
+                        transform: scaleX(1) /*rtl:scaleX(-1)*/;
+                        -ms-filter: none /*rtl:fliph*/; /*IE*/
+                        filter: none /*rtl:fliph*/; /*IE*/
                         svg {
                             width: 25px;
                             height: 25px;

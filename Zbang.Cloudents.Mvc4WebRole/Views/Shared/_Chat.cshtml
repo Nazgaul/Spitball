@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@{
     const string url = "~/images/site/uploadIcons.svg";
 }
 <md-sidenav ng-show="app.chatOpened" ng-cloak class="chat md-sidenav-right"
@@ -11,20 +12,20 @@
                     <div class="chat-counter">16</div>
                 </div>
                 <div class="tabs">
-                    <button type="button" ng-click="c.state = c.states.messages" ng-class="{active: c.state === c.states.messages}" class="messages tab">Messages</button>
-                    <button type="button" ng-click="c.friendsState()" class="friends tab" ng-class="{active: c.state === c.states.friends}">Friends</button>
+                    <button type="button" ng-click="c.state = c.states.messages" ng-class="{active: c.state === c.states.messages}" class="messages tab">@ChatResources.MessagesHeader</button>
+                    <button type="button" ng-click="c.friendsState()" class="friends tab" ng-class="{active: c.state === c.states.friends}">@ChatResources.FriendsHeader</button>
                 </div>
             </div>
             <div class="tab-content" ng-class="{noChats: c.state === c.states.messages && !c.users.length}">
                 <div class="empty-state">
                     @Html.Svg("~/images/site/icons.svg", "empty-chat")
                     <div class="text">
-                        <span>No Messages, yet.</span>
-                        Start chatting with your friends in Spitball
+                        <span>@ChatResources.EmptyStateLine1</span>
+                        @ChatResources.EmptyStateLine2
                     </div>
                 </div>
                 <form novalidate class="search-friend" ng-if="c.state === c.states.friends" ng-submit="c.search()">
-                    <input type="search" placeholder="Search for students" ng-model="c.term" ng-change="c.search()" ng-model-options="{debounce : 1000}" />
+                    <input type="search" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search()" ng-model-options="{debounce : 1000}" />
                     <button type="submit" class="search-btn">
                         @Html.Svg("~/images/site/icons.svg", "searchIcon", new { @class = "searchIcon" })
                     </button>
@@ -181,7 +182,7 @@
                         @*<div class="textarea" contenteditable="true"></div>*@
                         <div class="message-wrapper">
                             <md-input-container>
-                                <textarea required class="textarea" ng-model="c.newText"></textarea>
+                                <textarea required class="textarea" ng-model="c.newText" placeholder="@ChatResources.NewMessagePlaceholder"></textarea>
                             </md-input-container>
                         </div>
                         <button type="submit" class="btn button-Blue" ng-disabled="c.disabled" @*ga-track-event="['box-new-commnet', 'postComment']"*@>

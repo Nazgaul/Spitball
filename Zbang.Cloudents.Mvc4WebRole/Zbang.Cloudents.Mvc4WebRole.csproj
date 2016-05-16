@@ -539,6 +539,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SearchResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Shared\Resources\ChatResources.Designer.cs">
+      <DependentUpon>ChatResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Views\Shared\Resources\FooterResources.Designer.cs">
       <DependentUpon>FooterResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -4279,6 +4284,11 @@
     <EmbeddedResource Include="Views\Search\Resources\SearchResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SearchResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Resources\ChatResources.he.resx" />
+    <EmbeddedResource Include="Views\Shared\Resources\ChatResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ChatResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.he.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\FooterResources.resx">
