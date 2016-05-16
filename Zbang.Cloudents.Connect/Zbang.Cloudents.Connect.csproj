@@ -193,9 +193,33 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.CommandHandlers\Zbang.Zbox.Domain.CommandHandlers.csproj">
+      <Project>{9ed04567-b2d0-4040-88a6-1ad752a3d83f}</Project>
+      <Name>Zbang.Zbox.Domain.CommandHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Commands\Zbang.Zbox.Domain.Commands.csproj">
+      <Project>{0caee4f2-421b-4fa3-9a13-1402ea6fcda8}</Project>
+      <Name>Zbang.Zbox.Domain.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Common\Zbang.Zbox.Domain.Common.csproj">
+      <Project>{b4b7f91c-9412-4d6b-93e2-f3b7c4bd9b90}</Project>
+      <Name>Zbang.Zbox.Domain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Domain.Services\Zbang.Zbox.Domain.Services.csproj">
+      <Project>{f1ac4d4d-0633-4343-a657-da275d33466d}</Project>
+      <Name>Zbang.Zbox.Domain.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
+      <Project>{35dc2a36-5e24-4e09-8967-838c6edca465}</Project>
+      <Name>Zbang.Zbox.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Azure\Zbang.Zbox.Infrastructure.Azure.csproj">
       <Project>{9a210d03-f7a2-4cf6-b311-742a2a1949d4}</Project>
       <Name>Zbang.Zbox.Infrastructure.Azure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Data\Zbang.Zbox.Infrastructure.Data.csproj">
+      <Project>{a29aaa7a-e472-4661-a503-eb00fd43d2c3}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj">
       <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
@@ -212,6 +236,10 @@
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure\Zbang.Zbox.Infrastructure.csproj">
       <Project>{3e0f1fbf-60d1-40b2-b649-933142c27cb7}</Project>
       <Name>Zbang.Zbox.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.ViewModel\Zbang.Zbox.ViewModel.csproj">
+      <Project>{bc85a7bd-262d-43e0-8d9d-ee76c602bfaf}</Project>
+      <Name>Zbang.Zbox.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

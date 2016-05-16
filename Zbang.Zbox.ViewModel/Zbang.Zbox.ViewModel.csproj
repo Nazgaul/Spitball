@@ -176,8 +176,9 @@
     <Compile Include="Queries\Search\SearchQuery.cs" />
     <Compile Include="Queries\Search\SearchQueryMobile.cs" />
     <Compile Include="Queries\Search\UniversitySearchQuery.cs" />
-    <Compile Include="Queries\Search\UserSearchQuery.cs" />
+    <Compile Include="Queries\Search\UserInBoxSearchQuery.cs" />
     <Compile Include="Queries\Dashboard\UniversityQuery.cs" />
+    <Compile Include="Queries\Search\UserSearchQuery.cs" />
     <Compile Include="SqlQueries\Box.cs" />
     <Compile Include="SqlQueries\Dashboard.cs" />
     <Compile Include="SqlQueries\Email.cs" />

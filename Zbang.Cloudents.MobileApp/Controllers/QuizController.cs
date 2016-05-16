@@ -68,7 +68,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                             Id = quizId,
                             Action = (int)Zbox.Infrastructure.Enums.StatisticsAction.Quiz
                         }
-                    }, userId, DateTime.UtcNow));
+                    }));
 
             await Task.WhenAll(tModel, tTransaction);
             return Request.CreateResponse(new

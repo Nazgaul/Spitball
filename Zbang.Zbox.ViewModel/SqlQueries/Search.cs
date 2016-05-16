@@ -140,7 +140,7 @@ order by QuestionId,Id;";
         where isdirty = 1 and isdeleted = 1 and id % @count  = @index;";
 
 
-        public const string GetUsersByTerm = @"select u.userid as Id, username as Name,UserImageLarge as Image 
+        public const string GetUsersInBoxByTerm = @"select u.userid as Id, username as Name,UserImageLarge as Image 
 from zbox.users u 
 where username like  @Term + '%'
 and u.userid not in ( select userid from zbox.UserBoxRel where boxid = @BoxId)
@@ -148,6 +148,18 @@ order by
 case when u.UniversityId = @UniversityId then 0 else 1 end asc, UserReputation desc
 offset @pageNumber*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY; ";
+
+        public const string GetUsersByTerm =
+            @"select userid as id,username as name, UserImageLarge as image, online from zbox.users u
+where
+ u.UserName like  @term + '%'
+order by 
+case when u.UniversityId = @UniversityId then 0 else 1 end asc, userid
+offset @pageNumber*@rowsperpage ROWS
+FETCH NEXT @rowsperpage ROWS ONLY;";
+
+
+
 
 
         public const string GetUniversityToUploadToSearch = @"select top (@top) id as Id,UniversityName as Name,LargeImage as Image,

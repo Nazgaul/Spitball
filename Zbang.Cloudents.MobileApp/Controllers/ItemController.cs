@@ -66,7 +66,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                             Id = id,
                             Action = (int)StatisticsAction.View
                         }
-                    }, userId, DateTime.UtcNow));
+                    }));
 
             await Task.WhenAll(tItem, tTransAction);
             var retVal = tItem.Result;
@@ -114,7 +114,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                             Id = id,
                             Action = (int)StatisticsAction.Download
                         }
-                    }, userId, DateTime.UtcNow));
+                    }));
 
             await Task.WhenAll(t1, t2, t3);
             var item = t2.Result;

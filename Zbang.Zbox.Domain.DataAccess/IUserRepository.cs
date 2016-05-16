@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         bool IsNotUsedCode(string code, long userId);
         void UpdateUserReputation(int reputation, long userid);
-        void RegisterUserNotification(long userid, MobileOperatingSystem os);
+        //void RegisterUserNotification(long userid, MobileOperatingSystem os);
         void UnsubscribeUserFromMail(IEnumerable<string> emails, EmailSend type);
     }
 }

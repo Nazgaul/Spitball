@@ -15,15 +15,8 @@
                 username: userData.name,
                 created: Math.round(userData.createTime.getTime() / 1000)
             };
-            $timeout(injectInlineManual, 0, false);
         });
         $rootScope.$on("$stateChangeSuccess", function () {
-            $timeout(function () {
-                if (registeredUser && angular.isDefined(inline_manual_player)) {
-                    inline_manual_player.manualReinit();
-                    inline_manual_player.setMetadata(inlineManualTracking);
-                }
-            }, 1000);
         });
         function injectInlineManual() {
             $document.ready(function () {

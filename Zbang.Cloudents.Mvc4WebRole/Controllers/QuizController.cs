@@ -115,10 +115,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Id = quizId,
                             Action = (int)Zbox.Infrastructure.Enums.StatisticsAction.Quiz
                         }
-                    }, userId, DateTime.UtcNow));
+                    }));
 
             await Task.WhenAll(tModel, tTransaction);
-            return Json(new JsonResponse(true, tModel.Result));
+            return JsonOk(tModel.Result);
         }
 
         [ZboxAuthorize]

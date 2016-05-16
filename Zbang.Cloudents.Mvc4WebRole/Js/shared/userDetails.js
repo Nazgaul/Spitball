@@ -17,6 +17,7 @@
             var interval = window.setInterval(function () {
                 if (googletag.pubads !== undefined && googletag.pubads) {
                     googletag.pubads().setTargeting('gender', data.sex);
+                    googletag.pubads().setTargeting('university', data.universityId);
                     window.clearInterval(interval);
                 }
             }, 20);

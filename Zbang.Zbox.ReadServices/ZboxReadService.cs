@@ -587,11 +587,11 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<User.UserWithImageNameDto>> GetUsersByTermAsync(UserSearchQuery query)
+        public async Task<IEnumerable<User.UserWithImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<User.UserWithImageNameDto>(Sql.Search.GetUsersByTerm,
+                return await conn.QueryAsync<User.UserWithImageNameDto>(Sql.Search.GetUsersInBoxByTerm,
                      new
                      {
                          query.Term,
@@ -603,6 +603,44 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                      });
             }
         }
+
+        public async Task<IEnumerable<User.UserWithStatusDto>> GetUsersByTermAsync(UserSearchQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<User.UserWithStatusDto>(Sql.Search.GetUsersByTerm,
+                     new
+                     {
+                         query.Term,
+                         query.PageNumber,
+                         query.RowsPerPage,
+                         query.UniversityId
+
+                     });
+            }
+        }
+
+        /// <summary>
+        /// Used in api to private to box
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        //public async Task<IEnumerable<User.UserWithImageNameDto>> GetUsersByTermAsync(UserSearchQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<User.UserWithImageNameDto>(Sql.Search.GetUsersByTerm,
+        //             new
+        //             {
+        //                 query.Term,
+        //                 query.PageNumber,
+        //                 query.RowsPerPage,
+        //                 query.UniversityId,
+        //                 query.BoxId
+
+        //             });
+        //    }
+        //}
 
         //public async Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
         //{

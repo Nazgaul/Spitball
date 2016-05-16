@@ -31,8 +31,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
                     s => new StatisticItemData {ItemId = s.Id, Action = (StatisticsAction) s.Action});
             }
 
-            var command = new UpdateStatisticsCommand(itemsIdData,
-                parameters.UserId, parameters.StatTime);
+            var command = new UpdateStatisticsCommand(itemsIdData);
             m_ZboxWriteService.Statistics(command);
 
             return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;

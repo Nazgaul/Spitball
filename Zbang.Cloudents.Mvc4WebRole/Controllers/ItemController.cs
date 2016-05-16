@@ -147,7 +147,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Id = itemId,
                             Action = (int)StatisticsAction.View
                         }
-                    }, userId, DateTime.UtcNow));
+                    }));
 
                 var tContent = Task.FromResult<string>(null);
                 if (firstTime.HasValue && firstTime.Value)
@@ -232,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Id = itemId,
                             Action = (int)StatisticsAction.Download
                         }
-                    }, userId, DateTime.UtcNow));
+                    }));
             var t2 = ZboxReadService.GetItemDetailApiAsync(query);
             var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
             var t3 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);

@@ -24,12 +24,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             
-            if (message.UserId > 0)
-            {
-                var user = m_UserRepository.Load(message.UserId);
-                user.LastAccessTime = message.StatTime;
-                m_UserRepository.Save(user);
-            }
+            //if (message.UserId > 0)
+            //{
+            //    var user = m_UserRepository.Load(message.UserId);
+            //    user.LastAccessTime = message.StatTime;
+            //    m_UserRepository.Save(user);
+            //}
 
 
             if (message.ItemId == null) return;

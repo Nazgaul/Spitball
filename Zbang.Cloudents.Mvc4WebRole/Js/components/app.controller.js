@@ -15,7 +15,7 @@
             // ReSharper disable UseOfImplicitGlobalInFunctionScope
             dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl }); // google tag manger
             __insp.push(["virtualPage"]); //inspectlet
-            //svg4everybody();
+            svg4everybody();
             // ReSharper restore UseOfImplicitGlobalInFunctionScope
 
         });
@@ -112,10 +112,6 @@
             if (!fromState.name) {
                 return;
             }
-            //self.showBoxAd = toState.parent === 'box';
-            //self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
-            //self.fixedBgColor = toState.name === 'item' || toState.name === 'quiz';
-
             $mdMenu.hide(); //closes menu
             $mdToast.hide(); // hide toasters
             $rootScope.$broadcast('close-menu');

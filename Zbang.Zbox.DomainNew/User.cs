@@ -103,6 +103,8 @@ namespace Zbang.Zbox.Domain
         public virtual string GroupNumber { get; set; }
         public virtual string RegisterNumber { get; set; }
 
+        public virtual bool Online { get; set; }
+
 
         public virtual EmailSend EmailSendSettings { get; set; }
         

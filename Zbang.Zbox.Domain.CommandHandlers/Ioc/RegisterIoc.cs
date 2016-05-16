@@ -142,6 +142,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandlerAsync<LibraryNodeApproveAccessCommand>),
                typeof(LibraryNodeApproveAccessCommandHandler));
 
+            //online
+            ioc.RegisterType(typeof(ICommandHandler<ChangeUserOnlineStatusCommand>),
+                typeof(ChangeUserOnlineStatusCommandHandler));
+
         }
     }
 }

@@ -15,6 +15,7 @@ using Zbang.Zbox.ViewModel.Queries.Boxes;
 using Zbang.Zbox.ViewModel.Queries.Dashboard;
 using Zbang.Zbox.ViewModel.Queries.Library;
 using Zbang.Zbox.ViewModel.Queries.QnA;
+using Zbang.Zbox.ViewModel.Queries.Search;
 using UserDto = Zbang.Zbox.ViewModel.Dto.UserDtos.UserDto;
 
 namespace Zbang.Zbox.ReadServices
@@ -386,7 +387,12 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<UserWithImageNameDto>> GetUsersByTermAsync(ViewModel.Queries.Search.UserSearchQuery query)
+        public Task<IEnumerable<UserWithImageNameDto>> GetUsersInBoxByTermAsync(ViewModel.Queries.Search.UserInBoxSearchQuery query)
+        {
+            return m_ReadService.GetUsersInBoxByTermAsync(query);
+        }
+
+        public Task<IEnumerable<UserWithStatusDto>> GetUsersByTermAsync(UserSearchQuery query)
         {
             return m_ReadService.GetUsersByTermAsync(query);
         }

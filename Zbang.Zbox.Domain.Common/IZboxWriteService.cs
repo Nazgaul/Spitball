@@ -115,7 +115,7 @@ namespace Zbang.Zbox.Domain.Common
 
         void CreateUniversity(CreateUniversityCommand command);
 
-
+        void ChangeOnlineStatus(ChangeUserOnlineStatusCommand command);
         //mobile
         void RegisterMobileDevice(RegisterMobileDeviceCommand command);
 

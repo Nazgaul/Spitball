@@ -123,7 +123,8 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<RecommendBoxDto>> GetRecommendedCoursesAsync(RecommendedCoursesQuery query);
 
         Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query);
-        Task<IEnumerable<UserWithImageNameDto>> GetUsersByTermAsync(UserSearchQuery query);
+        Task<IEnumerable<UserWithImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query);
+        Task<IEnumerable<UserWithStatusDto>> GetUsersByTermAsync(UserSearchQuery query);
 
     }
 }
