@@ -1,7 +1,10 @@
-﻿<md-sidenav ng-show="app.chatOpened" ng-cloak class="chat md-sidenav-right"
+﻿@{
+    const string url = "~/images/site/uploadIcons.svg";
+}
+<md-sidenav ng-show="app.chatOpened" ng-cloak class="chat md-sidenav-right"
             md-component-id="chat" close-menu="right">
     <md-content ng-controller="ChatController as c">
-        <div class="menu-content">
+        <div class="menu-content" style="display:none">
             <div class="header">
                 <div class="chat-icon" ng-click="app.toggleChat()">
                     @Html.Svg("~/images/site/icons.svg", "chat")
@@ -27,99 +30,158 @@
                     </button>
                 </form>
                 <ul class="users-list" ng-slimscroll height="calc(100vh - 155px)" color="#BBB">
-                    <li class="online">
+                    <li class="user online">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת</span>
                         <span class="chat-counter">21</span>
                     </li>
-                    <li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
                     </li>
-                    <li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת הסטודנטים </span>
                     </li>
-                    <li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> 013 תמיר פרץ יו"ר האגודה</span>
                     </li>
-                    <li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
                     </li>
-                    <li>
-                        <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                        <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-
-                    </li>
-                    <li>
-                        <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                        <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                    </li>
-                    <li>
-                        <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                        <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                    </li>
-                    <li>
-                        <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                        <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                    </li>
-                    <li>
-                        <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                        <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                    </li>
-                    <li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
 
                     </li>
-                    <li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
                     </li>
-                    <li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
                     </li>
-                    <li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
                     </li>
-                    <li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
                     </li>
-                    <li>
+                    <li class="user">
+                        <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
+                        <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
+
+                    </li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
                     </li>
-                    <li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
                     </li>
-                    <li>
+                    <li class="user">
+                        <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
+                        <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
+                    </li>
+                    <li class="user">
+                        <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
+                        <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
+                    </li>
+                    <li class="user">
+                        <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
+                        <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
+                    </li>
+                    <li class="user">
+                        <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
+                        <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
+                    </li>
+                    <li class="user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="conversasion" style="display:none">
+        <div class="conversasion">
             <div class="header">
                 <div class="user-side">
                     <div class="back"></div>
-                    <div class="online">
+                    <div class="online user">
                         <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
                         <span class="member-name ellipsis"> אגודת</span>
                     </div>
                 </div>
-                <div class="attach">
-                    
-                </div>
+                <md-fab-speed-dial md-direction="down" class="md-fab-top-right">
+                    <md-fab-trigger>
+                        @Html.Svg(url, "file", new { @class = "attach" })
+                    </md-fab-trigger>
+                    <md-fab-actions>
+                        <button>
+                            @Html.Svg(url, "dropbox", new { @class = "dropbox" })
+                        </button>
+                        <button>
+                            @Html.Svg(url, "googleDrive", new { @class = "googleDrive" })
+                        </button>
+                        <button>
+                            @Html.Svg(url, "file", new { @class = "attach" })
+                        </button>
+                    </md-fab-actions>
+                </md-fab-speed-dial>
             </div>
             <div class="chat-content">
-
+                <ul class="messages" ng-slimscroll height="calc(100vh - 70px)" color="#BBB">
+                    <li class="partner message">
+                        <div class="content text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
+                        <div class="time">22 min ago</div>
+                    </li>
+                    <li class="self message">
+                        <div class="text">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it</div>
+                        <div class="time">22 min ago</div>
+                    </li>
+                    <li class="partner message">
+                        <div class="content text">to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like</div>
+                        <div class="time">22 min ago</div>
+                    </li>
+                    <li class="self message">
+                        <div class="text">Aldus PageMaker including versions of Lorem Ipsum. <a href="https://www.spitball.co/">https://www.spitball.co/</a></div>
+                        <div class="time">22 min ago</div>
+                    </li>
+                    <li class="partner message">
+                        <div class="image"><img src="http://imgsv.imaging.nikon.com/lineup/lens/zoom/normalzoom/af-s_dx_18-300mmf_35-56g_ed_vr/img/sample/sample4_l.jpg" /></div>
+                        <div class="time">22 min ago</div>
+                    </li>
+                    <li class="self message">
+                        <div class="text">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it</div>
+                        <div class="time">22 min ago</div>
+                    </li>
+                    <li class="partner message">
+                        <div class="text">to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like</div>
+                        <div class="time">22 min ago</div>
+                    </li>
+                    <li class="self message">
+                        <div class="text">Aldus PageMaker including versions of Lorem Ipsum. <a href="https://www.spitball.co/">https://www.spitball.co/</a></div>
+                        <div class="time">22 min ago</div>
+                    </li>
+                </ul>
+                <div class="new-message">
+                    <form>
+                        @*<div class="textarea" contenteditable="true"></div>*@
+                        <div class="message-wrapper">
+                            <md-input-container>
+                                <textarea class="textarea"></textarea>
+                            </md-input-container>
+                        </div>
+                        <button type="submit" class="btn button-Blue" ng-disabled="f.add.disabled" ga-track-event="['box-new-commnet', 'postComment']">
+                            @Html.Svg("~/images/site/uploadIcons.svg", "post")
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </md-content>
