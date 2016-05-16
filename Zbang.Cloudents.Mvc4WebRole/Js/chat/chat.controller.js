@@ -61,6 +61,7 @@
                 time: new Date(),
                 partner: true
             });
+            $scope.$apply();
             console.log(args);
         });
     }
