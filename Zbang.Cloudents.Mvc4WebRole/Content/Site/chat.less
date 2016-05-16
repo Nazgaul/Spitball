@@ -245,7 +245,7 @@ md-sidenav.chat.md-sidenav-right {
                         max-width: 80%;
                         overflow: hidden;
 
-                        &.self {
+                        &:not(.partner) {
                             margin-left: auto;
                             background: #CBDBE3;
                         }
@@ -349,6 +349,7 @@ md-sidenav.chat.md-sidenav-right {
 
             .img-circle {
                 margin: 10px;
+                flex-shrink: 0;
             }
         }
     }
