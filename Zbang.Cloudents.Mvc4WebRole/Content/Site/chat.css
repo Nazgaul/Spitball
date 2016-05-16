@@ -128,10 +128,12 @@ md-sidenav.chat.md-sidenav-right md-content .tab-content .users-list .user .chat
   margin: 0 25px 0 10px;
   flex-shrink: 0;
 }
-md-sidenav.chat.md-sidenav-right md-content .tab-content .users-list .user:not(:last-child) .member-name {
+md-sidenav.chat.md-sidenav-right md-content .tab-content .users-list .user .name-counter {
   width: 100%;
   line-height: 55px;
   font-size: 16px;
+}
+md-sidenav.chat.md-sidenav-right md-content .tab-content .users-list .user:not(:last-child) .name-counter {
   border-bottom: 1px solid #dfe2e9;
 }
 md-sidenav.chat.md-sidenav-right md-content .conversasion .header {
@@ -167,13 +169,21 @@ md-sidenav.chat.md-sidenav-right md-content .conversasion .header md-fab-actions
   padding: 0;
   width: 40px;
   height: 40px;
+  display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
 md-sidenav.chat.md-sidenav-right md-content .conversasion .header .user-side {
+  display: -webkit-flex;
+  display: -ms-flex;
   display: flex;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
 md-sidenav.chat.md-sidenav-right md-content .conversasion .header .user-side .back {
@@ -280,12 +290,19 @@ md-sidenav.chat.md-sidenav-right md-content .conversasion .chat-content .new-mes
   height: 25px;
   display: block;
 }
-md-sidenav.chat.md-sidenav-right md-content .user {
+md-sidenav.chat.md-sidenav-right md-content .user,
+md-sidenav.chat.md-sidenav-right md-content .name-counter {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
+}
+md-sidenav.chat.md-sidenav-right md-content .name-counter {
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+md-sidenav.chat.md-sidenav-right md-content .user {
   position: relative;
 }
 md-sidenav.chat.md-sidenav-right md-content .user.online:before {
