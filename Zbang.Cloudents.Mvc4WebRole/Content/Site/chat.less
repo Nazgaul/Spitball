@@ -141,11 +141,14 @@ md-sidenav.chat.md-sidenav-right {
                         flex-shrink: 0;
                     }
 
+                    .name-counter {
+                        width: 100%;
+                        line-height: 55px;
+                        font-size: 16px;
+                    }
+
                     &:not(:last-child) {
-                        .member-name {
-                            width: 100%;
-                            line-height: 55px;
-                            font-size: 16px;
+                        .name-counter {
                             border-bottom: 1px solid @progressbarBackgroundColor;
                         }
                     }
@@ -188,9 +191,9 @@ md-sidenav.chat.md-sidenav-right {
                             padding: 0;
                             width: 40px;
                             height: 40px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
+                            .displayFlex;
+                            .align-items(center);
+                            .justifyContet(center);
                         }
                     }
                 }
@@ -198,9 +201,9 @@ md-sidenav.chat.md-sidenav-right {
 
 
                 .user-side {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(flex-start);
 
                     .back {
                         position: relative;
@@ -330,9 +333,16 @@ md-sidenav.chat.md-sidenav-right {
         }
 
 
-        .user {
+        .user, .name-counter {
             .displayFlex;
             .align-items(center);
+        }
+
+        .name-counter {
+            .justifyContet(space-between);
+        }
+
+        .user {
             position: relative;
 
             &.online:before {
