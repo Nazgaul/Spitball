@@ -119,5 +119,10 @@ namespace Zbang.Zbox.Domain.Common
         //mobile
         void RegisterMobileDevice(RegisterMobileDeviceCommand command);
 
+
+        //chat
+        Task AddChatRoomAsync(ChatCreateRoomCommand command);
+        Task AddChatMessageAsync(ChatAddMessageCommand command);
+
     }
 }
