@@ -425,7 +425,7 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                var t1 =  m_CommandBus.SendAsync(command);
+                var t1 = m_CommandBus.SendAsync(command);
                 var t2 = m_Cache.CommandAsync(command);
                 await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
@@ -446,7 +446,7 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                var t1 =  m_CommandBus.SendAsync(autoFollowCommand);
+                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
                 var t2 = m_Cache.CommandAsync(command);
                 await Task.WhenAll(t1, t2);
                 var result = m_CommandBus.Dispatch<LikeCommentCommand, LikeCommentCommandResult>(command);
@@ -460,7 +460,7 @@ namespace Zbang.Zbox.Domain.Services
             using (UnitOfWork.Start())
             {
                 var autoFollowCommand = new SubscribeToSharedBoxCommand(command.UserId, command.BoxId);
-                var t1 =  m_CommandBus.SendAsync(autoFollowCommand);
+                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
                 var t2 = m_Cache.CommandAsync(command);
                 await Task.WhenAll(t1, t2);
                 var result = m_CommandBus.Dispatch<LikeReplyCommand, LikeReplyCommandResult>(command);
@@ -709,6 +709,13 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-
+        public async Task AddChatRoomAsync(ChatCreateRoomCommand command)
+        {
+            await m_CommandBus.SendAsync(command);
+        }
+        public async Task AddChatMessageAsync(ChatAddMessageCommand command)
+        {
+            await m_CommandBus.SendAsync(command);
+        }
     }
 }

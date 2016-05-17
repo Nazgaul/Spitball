@@ -17,8 +17,10 @@ using Zbang.Zbox.Infrastructure.Storage;
 using System.Web.Security;
 using System.Globalization;
 using System.Net.Http;
+using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Zbang.Zbox.Domain.Commands;
 
 namespace Testing
 {
@@ -95,8 +97,8 @@ namespace Testing
 
         static void Main(string[] args)
         {
-            var he = new CultureInfo("he");
-            var en = new CultureInfo("en");
+           // var he = new CultureInfo("he");
+           // var en = new CultureInfo("en");
 
             //GetXml();
             //HatavotWrite();
@@ -176,7 +178,7 @@ namespace Testing
             //var x = TestMediaServices();
             //Task.WaitAll(x);
             // return;
-            Emails();
+            //Emails();
 
             //var y =  GetCountries();
 
@@ -201,9 +203,11 @@ namespace Testing
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
             //var t = IndexItemSearch(iocFactory);
             //t.Wait();
-            //var lucenewire = iocFactory.Resolve<IUniversityWriteSearchProvider>();
+            var m_WriteService = iocFactory.Resolve<IZboxWriteService>();
             //lucenewire.BuildUniversityData();
-
+            var roomCommand = new ChatCreateRoomCommand(new[] { 1L, 7L }, Guid.NewGuid());
+            var t1 = m_WriteService.AddChatRoomAsync(roomCommand);
+            t1.Wait();
             //var luceneRead = iocFactory.Resolve<IUniversityReadSearchProvider>();
             //var x = luceneRead.SearchUniversity("פתוחה");
             //m_TableProvider = iocFactory.Resolve<ITableProvider>();

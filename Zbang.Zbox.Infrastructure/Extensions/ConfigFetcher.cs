@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Infrastructure.Extensions
 
     public static class ConfigFetcher
     {
-        private static readonly bool IsRunningOnCloud;
+        public static readonly bool IsRunningOnCloud;
         public static readonly bool IsEmulated;
         private static readonly Dictionary<string, string> ConfigurationValues;
 

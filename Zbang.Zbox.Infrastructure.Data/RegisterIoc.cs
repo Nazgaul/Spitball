@@ -11,6 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Data
             var ioc = IocFactory.IocWrapper;
 
             ioc.RegisterGeneric(typeof(IRepository<>), typeof(NHibernateRepository<>));
+            ioc.RegisterGeneric(typeof(IDocumentDbRepository<>), typeof(DocumentDbRepository<>));
       
 
         }

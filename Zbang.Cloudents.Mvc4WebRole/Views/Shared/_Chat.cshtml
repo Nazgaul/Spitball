@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <form novalidate class="search-friend" ng-if="c.state === c.states.friends" ng-submit="c.search()">
-                    <input type="search" placeholder="Search for students" ng-model="c.term" ng-change="c.search()" ng-model-options="{debounce : 1000}" />
+                    <input type="search" placeholder="Search for students" ng-model="c.term" ng-change="c.search()" ng-model-options="{debounce : 300}" />
                     <button type="submit" class="search-btn">
                         @Html.Svg("~/images/site/icons.svg", "searchIcon", new { @class = "searchIcon" })
                     </button>

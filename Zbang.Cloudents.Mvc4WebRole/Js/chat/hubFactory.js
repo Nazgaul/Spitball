@@ -38,16 +38,16 @@
 //}).fail(function (e) { console.log('Could not Connect!', e); });
 
 'use strict';
-(function() {
+(function () {
     angular.module('app.chat').factory('realtimeFactotry', realtimeFactotry);
     //account.$inject = ['$stateParams', '$state', 'userData'];
-    realtimeFactotry.$inject = ['Hub','$rootScope'];
+    realtimeFactotry.$inject = ['Hub', '$rootScope'];
     function realtimeFactotry(Hub, $rootScope) {
         var hub = new Hub('spitballHub', {
             rootPath: 'https://develop-connect.spitball.co/s',
             listeners: {
-                send : function(message) {
-                   // console.log(message);
+                send: function (message) {
+                    // console.log(message);
                     $rootScope.$broadcast('hub-send', message);
                 }
             },
@@ -60,28 +60,28 @@
             methods: ['send'],
             stateChanged: function (state) {
                 console.log(state);
-                //switch (state.newState) {
-                //    case $.signalR.connectionState.connecting:
-                //        //your code here
-                //        break;
-                //    case $.signalR.connectionState.connected:
-                //        //your code here
-                //        break;
-                //    case $.signalR.connectionState.reconnecting:
-                //        //your code here
-                //        break;
-                //    case $.signalR.connectionState.disconnected:
-                //        //your code here
-                //        break;
-                //}
+                switch (state.newState) {
+                    case $.signalR.connectionState.connecting:
+                        console.log('connecting');
+                        break;
+                    case $.signalR.connectionState.connected:
+                        console.log('connected');
+                        break;
+                    case $.signalR.connectionState.reconnecting:
+                        console.log('reconnecting');
+                        break;
+                    case $.signalR.connectionState.disconnected:
+                        console.log('disconnected');
+                        break;
+                }
             }
         });
-        var send = function(userId, message) {
-            hub.send(userId, message);
+        var send = function (userId, message) {
+            hub.send(userId, message, '037d0919-0786-430c-be28-c0b1a6163104');
         }
 
         return {
-            sendMsg:send
+            sendMsg: send
         }
 
     }
