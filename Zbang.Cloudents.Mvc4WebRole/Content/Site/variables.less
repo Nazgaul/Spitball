@@ -238,6 +238,27 @@
     margin-top: -5px;
 }
 
+.transition(@property, @duration, @effect) {
+    -moz-transition: @property @duration @effect !important;
+    -o-transition: @property @duration @effect !important;
+    -webkit-transition: @property @duration @effect !important;
+    transition: @property @duration @effect !important;
+}
+
+.translate3d(@x, @y, @z) {
+    -moz-transform: translate3d(@x, @y, @z);
+    -ms-transform: translate3d(@x, @y, @z);
+    -o-transform: translate3d(@x, @y, @z);
+    -webkit-transform: translate3d(@x, @y, @z);
+    transform: translate3d(@x, @y, @z);
+}
+
+.animation(@type, @duration) {
+    -moz-animation: @type @duration; /* Firefox */
+    -webkit-animation: @type @duration; /* Safari and Chrome */
+    -o-animation: @type @duration;
+    animation: @type @duration; /* Opera */
+}
 
 .themeClasses(@name, @Color, @attributes) {
     .generateAttributes(@array) {
