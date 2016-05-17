@@ -12,11 +12,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         private static IEnumerable<KeyValuePair<string, IEnumerable<string>>> RegisterCss()
         {
+            var x = new Dictionary<string, IEnumerable<string>>
+            {
+                ["x"] = new[] {"z", "x"}
+            };
             var cssDictionary = new Dictionary<string, IEnumerable<string>>
             {
 
-                {
-                    "homePage", new[]
+                
+                    ["homePage"] = new[]
                     {
                         "~/content/site/general.css",
                         "~/content/homepage/homePage.css",
@@ -28,10 +32,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //"~/content/signin/default.css",
                         "~/content/signin/custom.css",
                         "~/content/jquery.bxslider.css"
-                    }
-                },
-                {
-                    "staticPage", new[]
+                    },
+                
+                
+                    ["staticPage"] = new[]
                     {
                         "~/content/site/general.css",
                         "~/content/site/staticPage.css",
@@ -40,10 +44,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/itemGallery.css"
                         //"~/content/signin/default.css",
                         //"~/content/signin/custom.css",
-                    }
-                },
-                  {
-                    "signin", new[] // passwordUpdate uses it - this page will be modified in v4.
+                    },
+               
+                    ["signin"] = new[] // passwordUpdate uses it - this page will be modified in v4.
                     {
                         "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
                         "~/Content/signin/login-soft.css",
@@ -52,22 +55,19 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/site/layout.css",
                         "~/Content/signin/default.css",
                         "~/Content/signin/custom.css"
-                    }
-                },
-                {
-                    "themeDark", new []
+                    },
+                
+                    ["themeDark"] = new []
                     {
                         "~/content/site/themedark.css"
-                    }
-                },
-                {
-                    "themeLight", new []
+                    },
+                
+                    ["themeLight"] = new []
                     {
                               "~/content/site/themelight.css"
-                    }
-                },
-                 {
-                    "site4", new[]
+                    },
+                
+                    ["site4"] = new[]
                     {
                         //"~/bower_components/angular-material/modules/js/core/core.css",
                         //"~/bower_components/angular-material/modules/js/sidenav/sidenav.css",
@@ -111,7 +111,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/themelight.css"
 
                     }
-                },
+                
             };
             return cssDictionary;
         }

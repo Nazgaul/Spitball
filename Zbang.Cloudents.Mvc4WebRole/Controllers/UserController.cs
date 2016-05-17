@@ -7,16 +7,24 @@ using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
-    
+
     [NoUniversity]
     public class UserController : BaseController
     {
+        private readonly IZboxChatReadService m_ZboxChatService;
+
+        public UserController(IZboxChatReadService zboxChatService)
+        {
+            m_ZboxChatService = zboxChatService;
+        }
+
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
         {
@@ -152,12 +160,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> Updates()
         {
             var model = await ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetUserId()));
-            return JsonOk(model.Select(s=> new
+            return JsonOk(model.Select(s => new
             {
                 s.AnswerId,
                 s.BoxId,
                 s.QuestionId
             }));
         }
+
+        [HttpGet, ZboxAuthorize, ActionName("messages")]
+        public async Task<ActionResult> MessagesAsync()
+        {
+            var model = await m_ZboxChatService.GetUserWithConversationAsync(new QueryBase(User.GetUserId()));
+            return JsonOk(model);
+        }
+
     }
 }

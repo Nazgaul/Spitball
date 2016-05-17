@@ -180,6 +180,7 @@
     <Compile Include="Queries\Dashboard\UniversityQuery.cs" />
     <Compile Include="Queries\Search\UserSearchQuery.cs" />
     <Compile Include="SqlQueries\Box.cs" />
+    <Compile Include="SqlQueries\Chat.cs" />
     <Compile Include="SqlQueries\Dashboard.cs" />
     <Compile Include="SqlQueries\Email.cs" />
     <Compile Include="SqlQueries\Feed.cs" />

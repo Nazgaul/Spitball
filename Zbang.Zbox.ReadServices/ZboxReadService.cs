@@ -9,6 +9,7 @@ using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Query;
+using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.Library;
@@ -29,6 +30,7 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadService : BaseReadService, IZboxReadService, IUniversityWithCode
     {
+        
         public async Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -620,6 +622,8 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                      });
             }
         }
+
+       
 
         /// <summary>
         /// Used in api to private to box

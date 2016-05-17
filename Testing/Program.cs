@@ -20,7 +20,10 @@ using System.Net.Http;
 using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Zbang.Zbox.Domain;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Repositories;
+using File = System.IO.File;
 
 namespace Testing
 {
@@ -97,8 +100,8 @@ namespace Testing
 
         static void Main(string[] args)
         {
-           // var he = new CultureInfo("he");
-           // var en = new CultureInfo("en");
+            // var he = new CultureInfo("he");
+            // var en = new CultureInfo("en");
 
             //GetXml();
             //HatavotWrite();
@@ -203,11 +206,17 @@ namespace Testing
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
             //var t = IndexItemSearch(iocFactory);
             //t.Wait();
-            var m_WriteService = iocFactory.Resolve<IZboxWriteService>();
+            var document_db = iocFactory.Resolve<IDocumentDbRepository<ChatRoom>>();
+            var t = document_db.GetItemsAsync("SELECT c.users FROM c join user in c.users where user.id = 1");
+            t.Wait();
+            var z = t.Result.Select(s=>s.Users).SelectMany(zz => zz).Where(w=>w.Id != 1).Select(s=>s.Id);
+            // var x = t.Result.Select(s => s.Id).ToList();
+
+            //var m_WriteService = iocFactory.Resolve<IZboxWriteService>();
             //lucenewire.BuildUniversityData();
-            var roomCommand = new ChatCreateRoomCommand(new[] { 1L, 7L }, Guid.NewGuid());
-            var t1 = m_WriteService.AddChatRoomAsync(roomCommand);
-            t1.Wait();
+            //var roomCommand = new ChatCreateRoomCommand(new[] { 1L, 7L }, Guid.NewGuid());
+            //var t1 = m_WriteService.AddChatRoomAsync(roomCommand);
+            //t1.Wait();
             //var luceneRead = iocFactory.Resolve<IUniversityReadSearchProvider>();
             //var x = luceneRead.SearchUniversity("פתוחה");
             //m_TableProvider = iocFactory.Resolve<ITableProvider>();
@@ -262,180 +271,7 @@ namespace Testing
 
             //}
 
-            //            //var command = new UpdateUserProfileCommand(1, "ramy", null, null, "המרכז האקדמי פרס");
-
-            //            //writeService.Dbi();
-            //            //writeService.Dbi();
-            //            IZboxReadService readService = iocFactory.Resolve<IZboxReadService>();
-
-            //            var tsuggestedUniversity = readService.GetUniversityListByFriendsIds(
-            //                new List<long> {2415255, 
-            //16410395, 
-            //501556913, 
-            //509546426, 
-            //520131059, 
-            //524093707, 
-            //534377306, 
-            //537311877, 
-            //538061010, 
-            //541778766, 
-            //546252369, 
-            //549554365, 
-            //551208183, 
-            //557197682, 
-            //563025986, 
-            //565339255, 
-            //565579341, 
-            //576042155, 
-            //576136125, 
-            //583308223, 
-            //583605239, 
-            //586077872, 
-            //590640338, 
-            //594610797, 
-            //596713753, 
-            //598935601, 
-            //599847695, 
-            //600242347, 
-            //600427140, 
-            //600538163, 
-            //601726304, 
-            //610363610, 
-            //611024791, 
-            //612147479, 
-            //612709648, 
-            //615190037, 
-            //620825197, 
-            //628237102, 
-            //630468616, 
-            //635359323, 
-            //637528694, 
-            //639580092, 
-            //639861298, 
-            //641043430, 
-            //643866333, 
-            //648792165, 
-            //653359450, 
-            //655606648, 
-            //657031701, 
-            //659152438, 
-            //663424219, 
-            //666088257, 
-            //668221049, 
-            //669981298, 
-            //670858348, 
-            //674916742, 
-            //678716639, 
-            //678727945, 
-            //680907431, 
-            //681382691, 
-            //685626868, 
-            //686575955, 
-            //686708291, 
-            //688865804, 
-            //691436746, 
-            //694788983, 
-            //696380817, 
-            //697562155, 
-            //698973465, 
-            //701038958, 
-            //706243368, 
-            //706448601, 
-            //707844491, 
-            //709058547, 
-            //710755349, 
-            //710983377, 
-            //714895874, 
-            //715805689, 
-            //717571181, 
-            //718387772, 
-            //721588302, 
-            //723218491, 
-            //724339916, 
-            //725508722, 
-            //732516184, 
-            //733617357, 
-            //733643021, 
-            //734794495, 
-            //739787545, 
-            //739833876, 
-            //743574813, 
-            //749459250, 
-            //755817868, 
-            //760718831, 
-            //773152847, 
-            //780158712, 
-            //782180617, 
-            //783230175, 
-            //789739899, 
-            //790414909, 
-            //793169763, 
-            //795829868, 
-            //801288965, 
-            //802773840, 
-            //818367309, 
-            //824939419, 
-            //826602732, 
-            //831953087, 
-            //832312312, 
-            //839612359, 
-            //849274572, 
-            //854584311, 
-            //869790480, 
-            //872095356, 
-            //880320234, 
-            //1004814080,
-            //1007152252,
-            //1014750275,
-            //1024254015,
-            //1039731016,
-            //1041220808,
-            //1049146080,
-            //1066332232,
-            //1068019067,
-            //1068825252,
-            //1087266539,
-            //1121138404,
-            //1149818070,
-            //1176055037,
-            //1223550129,
-            //1228141127,
-            //1271008083,
-            //1297039630,
-            //1320758730,
-            //1349704417,
-            //1427130900,
-            //1447592555,
-            //1470826181,
-            //1490108754,
-            //1529379320,
-            //1579031784,
-            //1593034569,
-            //1634232277,
-            //100000224363960,
-            //100000236080092,
-            //100000273987985,
-            //100000274814266,
-            //100000296529344,
-            //100000343394828,
-            //100000392745843,
-            //100000494453685,
-            //100000504883470,
-            //100000542740567,
-            //100000563240719,
-            //100000658780812,
-            //100000801106267,
-            //100000892986329,
-            //100000913998579,
-            //100001042491048,
-            //100001134337878,
-            //100001231668431,
-            //100001482960771,
-            //100001489932429,
-            //100001859106744,
-            //100004013425764,
-            //100004121160990});
-            //            tsuggestedUniversity.Wait();
+            
 
             //            var suggestedUniversity = tsuggestedUniversity.Result;
             // readService.GetUserDetailsByMembershipId(new GetUserByMembershipQuery(Guid.Parse("29D55B10-7840-48F6-945E-A57080D03229")));
@@ -607,11 +443,11 @@ namespace Testing
 
 
             var mail = new MailManager2();
-           var x =  mail.GetUnsubscribesAsync(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc),0);
+            var x = mail.GetUnsubscribesAsync(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), 0);
             x.Wait();
 
 
-            var t  = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
+            var t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
                 new WelcomeMailParams("אירנה", new CultureInfo("he")));
             t.Wait();
 

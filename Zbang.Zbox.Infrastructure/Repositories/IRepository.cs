@@ -28,5 +28,6 @@ namespace Zbang.Zbox.Infrastructure.Repositories
         Task<T> GetItemAsync(string id);
         Task UpdateItemAsync(string id, T item);
         Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate);
+        Task<IEnumerable<T>> GetItemsAsync(string sql);
     }
 }

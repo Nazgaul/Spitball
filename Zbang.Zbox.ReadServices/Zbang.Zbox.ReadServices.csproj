@@ -55,16 +55,22 @@
     <Compile Include="BaseReadService.cs" />
     <Compile Include="IBaseReadService.cs" />
     <Compile Include="IZboxCacheReadService.cs" />
+    <Compile Include="IZboxChatReadService.cs" />
     <Compile Include="IZboxReadSecurityReadService.cs" />
     <Compile Include="IZboxReadService.cs" />
     <Compile Include="IZboxReadServiceWorkerRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisterIoc.cs" />
     <Compile Include="ZboxCacheReadService.cs" />
+    <Compile Include="ZboxChatReadService.cs" />
     <Compile Include="ZboxReadService.cs" />
     <Compile Include="ZboxReadServiceWorkerRole.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Zbang.Zbox.DomainNew\Zbang.Zbox.Domain.csproj">
+      <Project>{35DC2A36-5E24-4E09-8967-838C6EDCA465}</Project>
+      <Name>Zbang.Zbox.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Data\Zbang.Zbox.Infrastructure.Data.csproj">
       <Project>{A29AAA7A-E472-4661-A503-EB00FD43D2C3}</Project>
       <Name>Zbang.Zbox.Infrastructure.Data</Name>

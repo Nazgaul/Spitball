@@ -18,18 +18,37 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
     {
         public async Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate)
         {
-            
             IDocumentQuery<T> query = DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
                 DocumentDbUnitOfWork.BuildCollectionUri(typeof(T).Name))
                 .Where(predicate)
                 .AsDocumentQuery();
-
             List<T> results = new List<T>();
             while (query.HasMoreResults)
             {
                 results.AddRange(await query.ExecuteNextAsync<T>());
             }
+            //
+            return results;
+        }
 
+        public async Task<IEnumerable<T>> GetItemsAsync(string sql)
+        {
+
+            var query =
+                DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
+                    DocumentDbUnitOfWork.BuildCollectionUri(typeof (T).Name), sql).AsDocumentQuery();
+
+            //return query.ToList();
+            //IDocumentQuery<T> query = DocumentDbUnitOfWork.Client.CreateDocumentQuery<T>(
+            //    DocumentDbUnitOfWork.BuildCollectionUri(typeof(T).Name))
+            //    .Where(predicate)
+            //    .AsDocumentQuery();
+            List<T> results = new List<T>();
+            while (query.HasMoreResults)
+            {
+                results.AddRange(await query.ExecuteNextAsync<T>());
+            }
+            //
             return results;
         }
 
@@ -77,7 +96,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         private static readonly string DatabaseId = "Chat";
         private static readonly string CollectionIds = "ChatRoom;ChatMessage";//ConfigurationManager.AppSettings["collection"];
         private static readonly DocumentClient _client;
-        private const bool NeedUpdate = true;
+        private const bool NeedUpdate = false;
         private const string DevPrefix = "-dev";
 
         

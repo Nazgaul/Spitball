@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <form novalidate class="search-friend" ng-if="c.state === c.states.friends" ng-submit="c.search()">
-                    <input type="search" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search()" ng-model-options="{debounce : 1000}" />
+                    <input type="search" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search()" ng-model-options="{debounce : 300}" />
                     <button type="submit" class="search-btn">
                         @Html.Svg("~/images/site/icons.svg", "searchIcon", new { @class = "searchIcon" })
                     </button>
@@ -38,76 +38,6 @@
                             <span class="chat-counter" ng-if="e.unread" ng-bind="::e.unread"></span>
                         </div>
                     </li>
-                    @*<li>
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים </span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> 013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>
-                        <li class="user">
-                            <img alt="" class="img-circle" height="35" width="35" src="https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/1e887dc3-4e04-4817-8a75-fc6edf2c8706.jpg">
-                            <span class="member-name ellipsis"> אגודת הסטודנטים הקריה האקדמית אונו - 2013 תמיר פרץ יו"ר האגודה</span>
-                        </li>*@
                 </ul>
             </div>
         </div>

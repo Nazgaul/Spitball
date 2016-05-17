@@ -16,7 +16,7 @@
         u.friends = function (userid, page) {
             return ajaxservice.get('/user/friends/', { id: userid, page: page });
         }
-        u.files = function (userid ,page) {
+        u.files = function (userid, page) {
             return ajaxservice.get('/user/items/', { id: userid, page: page });
         }
         u.feed = function (userid, page) {
@@ -26,8 +26,12 @@
             return ajaxservice.get('/user/quiz/', { id: userid, page: page });
         }
 
-        u.getNotification = function() {
+        u.getNotification = function () {
             return ajaxservice.get('/share/notifications/');
+        }
+
+        u.messages = function () {
+            return ajaxservice.get('/user/messages');
         }
 
     }

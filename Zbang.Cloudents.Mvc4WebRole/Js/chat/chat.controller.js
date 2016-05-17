@@ -1,9 +1,9 @@
 ﻿'use strict';
 (function () {
     angular.module('app.chat').controller('ChatController', chat);
-    chat.$inject = ['$timeout', '$scope', '$mdSidenav', 'realtimeFactotry', 'searchService'];
+    chat.$inject = ['$timeout', '$scope', '$mdSidenav', 'realtimeFactotry', 'searchService','userService'];
 
-    function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService) {
+    function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,userService) {
         var c = this;
         c.states = {
             messages: 1,
@@ -22,6 +22,9 @@
             //if (!$scope.app.chatOpened) {
             //    return;
             //}
+            userService.messages().then(function(response) {
+                c.users = response;
+            });
             //TODO: add ajax
             c.users = [];
             $timeout(function () {
