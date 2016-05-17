@@ -1,5 +1,7 @@
 ﻿@import "variables.less";
 
+@chatHeaderHeight: @fullScreenHeaderHeight - 5px;
+
 .chat-counter {
     background: @textColorRed;
     color: @textColorWhite;
@@ -14,11 +16,12 @@
 
 .chat-icon {
     position: relative;
-    height: @fullScreenHeaderHeight;
+    height: @chatHeaderHeight;
     .displayFlex;
     .align-items(center);
     .justifyContet(flex-end);
     padding-right: 22px;
+    padding-left: 14px;
 
     svg {
         width: 30px;
@@ -43,25 +46,30 @@ md-sidenav.chat {
 
     md-content {
         background: none;
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
 
         .header {
             background: #111111;
 
             .tabs {
-                background: @textColorDarkGrey;
+                background: #eee;
                 color: @textColorWhite;
+                border: 1px solid #D7DDE0;
 
                 .tab {
                     display: inline-block;
                     width: 30%;
                     font-size: 16px;
                     padding-top: 3px;
-                    line-height: 28px;
+                    line-height: 32px;
                     text-align: center;
                     margin: 0 10px;
                     color: @textColorGrey;
 
                     &.active {
+                        color: @buttonColorBlue;
                         border-bottom: 3px solid @buttonColorBlue;
                     }
                 }
@@ -77,6 +85,7 @@ md-sidenav.chat {
 
                 .empty-state {
                     text-align: center;
+                    width: 100%;
 
                     .text {
                         font-size: 16px;
@@ -161,13 +170,58 @@ md-sidenav.chat {
             }
         }
 
+        &.stateChat .menu-content, .conversasion, &:not(.stateChat) .menu-content {
+            .transition(transform, 0.2s, ease-in-out)
+        }
+
+        &.stateChat .conversasion,
+        &.stateChat .menu-content,
+        .conversasion.ng-leave {
+            .translate3d(-100%, 0, 0);
+        }
+
+        .conversasion.ng-leave.ng-leave-active,
+        &:not(.stateChat) .menu-content {
+            .translate3d(0, 0, 0);
+        }
+
+        &.stateChat .menu-content {
+            svg, .chat-counter {
+                .animation(fadeout, 0.2s);
+            }
+        }
+
+
+        &:not(.stateChat) .menu-content {
+            svg, .chat-counter {
+                .animation(fadein, 0.2s);
+            }
+        }
+
+
+        .conversasion {
+            right: -100%;
+        }
+
+        .menu-content {
+            right: 0;
+        }
+
+        .conversasion, .menu-content {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+        }
 
         .conversasion {
             .header {
                 .displayFlex;
                 .align-items(center);
                 .justifyContet(space-between);
-                height: @fullScreenHeaderHeight;
+                height: @chatHeaderHeight;
+
+
 
                 svg {
                     width: 25px;
@@ -213,9 +267,9 @@ md-sidenav.chat {
 
                     .back {
                         position: relative;
-                        width: 14px;
-                        height: 14px;
-                        margin-left: 13px;
+                        display: block;
+                        width: 32px;
+                        height: 32px;
 
                         &:after {
                             content: "";
@@ -225,9 +279,11 @@ md-sidenav.chat {
                             -o-transform: rotate(45deg);
                             -webkit-transform: rotate(45deg);
                             transform: rotate(45deg);
-                            top: 0;
-                            width: 13px;
-                            height: 13px;
+                            top: 3px;
+                            left: 0;
+                            margin: 6px 10px;
+                            width: 14px;
+                            height: 14px;
                             background: transparent;
                             border-left: 3px solid @textColorWhite;
                             border-bottom: 3px solid @textColorWhite;
@@ -381,5 +437,86 @@ md-sidenav.chat {
                 flex-shrink: 0;
             }
         }
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeout { /* Firefox */
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeout { /* Safari and Chrome */
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-o-keyframes fadeout { /* Opera */
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
     }
 }

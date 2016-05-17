@@ -45,6 +45,8 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Image { get; set; }
 
         public string Name { get; set; }
+        
+        public string Url { get; set; }
 
         public bool Online { get; set; }
     }

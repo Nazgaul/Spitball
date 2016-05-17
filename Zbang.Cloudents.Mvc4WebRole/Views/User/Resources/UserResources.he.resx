@@ -162,4 +162,7 @@
   <data name="PointMenu2" xml:space="preserve">
     <value>למידה חברתית</value>
   </data>
+  <data name="MessageButton" xml:space="preserve">
+    <value>הודעה אישית</value>
+  </data>
 </root>

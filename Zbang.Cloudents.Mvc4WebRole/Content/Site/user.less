@@ -14,7 +14,6 @@
     .profile-usertitle-job {
         //color: #5b9bd1;
         margin-bottom: 7px;
-        padding-bottom: 20px;
         font-size: 15px;
     }
 
@@ -26,6 +25,24 @@
 
     .profile-usertitle-name {
         font-size: 20px;
+    }
+
+    .message {
+        .displayInlineFlex;
+        .align-items(center);
+        font-size: 16px;
+        background: @svgQuizRanking;
+        color: @textColorWhite;
+        padding: 3px 18px;
+        border-radius: 8px;
+        margin: 10px 10px 20px 10px;
+
+        svg {
+            width: 26px;
+            height: 26px;
+            margin-right: 10px;
+            fill: @textColorWhite;
+        }
     }
 
     .points-container {
@@ -93,7 +110,6 @@
 
     md-tabs {
         padding: 0;
-
         /*Fixed color box overalying members and items*/
         md-tab-content.md-left:not(.md-active) {
             -webkit-transform: none !important;

@@ -150,7 +150,7 @@ offset @pageNumber*@rowsperpage ROWS
 FETCH NEXT @rowsperpage ROWS ONLY; ";
 
         public const string GetUsersByTerm =
-            @"select userid as id,username as name, UserImageLarge as image, online from zbox.users u
+            @"select userid as id,username as name, UserImageLarge as image, online, Url as url from zbox.users u
 where u.UserName like  @term + '%'
 and u.userid <> @UserId
 order by 

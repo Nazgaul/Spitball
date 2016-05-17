@@ -11,7 +11,7 @@
 }
 .chat-icon {
   position: relative;
-  height: 70px;
+  height: 65px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -20,6 +20,7 @@
   -webkit-justify-content: flex-end;
   justify-content: flex-end;
   padding-left: 22px;
+  padding-right: 14px;
 }
 .chat-icon svg {
   width: 30px;
@@ -41,25 +42,30 @@ md-sidenav.chat {
 }
 md-sidenav.chat md-content {
   background: none;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
 }
 md-sidenav.chat md-content .header {
   background: #111111;
 }
 md-sidenav.chat md-content .header .tabs {
-  background: #323538;
+  background: #eee;
   color: #f5f5f5;
+  border: 1px solid #D7DDE0;
 }
 md-sidenav.chat md-content .header .tabs .tab {
   display: inline-block;
   width: 30%;
   font-size: 16px;
   padding-top: 3px;
-  line-height: 28px;
+  line-height: 32px;
   text-align: center;
   margin: 0 10px;
   color: #888b8e;
 }
 md-sidenav.chat md-content .header .tabs .tab.active {
+  color: #4190b9;
   border-bottom: 3px solid #4190b9;
 }
 md-sidenav.chat md-content .tab-content {
@@ -74,6 +80,7 @@ md-sidenav.chat md-content .tab-content.noChats {
 }
 md-sidenav.chat md-content .tab-content.noChats .empty-state {
   text-align: center;
+  width: 100%;
 }
 md-sidenav.chat md-content .tab-content.noChats .empty-state .text {
   font-size: 16px;
@@ -140,6 +147,64 @@ md-sidenav.chat md-content .tab-content .users-list .user .name-counter {
 md-sidenav.chat md-content .tab-content .users-list .user:not(:last-child) .name-counter {
   border-bottom: 1px solid #dfe2e9;
 }
+md-sidenav.chat md-content.stateChat .menu-content,
+md-sidenav.chat md-content .conversasion,
+md-sidenav.chat md-content:not(.stateChat) .menu-content {
+  -moz-transition: transform 0.2s ease-in-out !important;
+  -o-transition: transform 0.2s ease-in-out !important;
+  -webkit-transition: transform 0.2s ease-in-out !important;
+  transition: transform 0.2s ease-in-out !important;
+}
+md-sidenav.chat md-content.stateChat .conversasion,
+md-sidenav.chat md-content.stateChat .menu-content,
+md-sidenav.chat md-content .conversasion.ng-leave {
+  -moz-transform: translate3d(100%, 0, 0);
+  -ms-transform: translate3d(100%, 0, 0);
+  -o-transform: translate3d(100%, 0, 0);
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+}
+md-sidenav.chat md-content .conversasion.ng-leave.ng-leave-active,
+md-sidenav.chat md-content:not(.stateChat) .menu-content {
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+md-sidenav.chat md-content.stateChat .menu-content svg,
+md-sidenav.chat md-content.stateChat .menu-content .chat-counter {
+  -moz-animation: fadeout 0.2s;
+  /* Firefox */
+  -webkit-animation: fadeout 0.2s;
+  /* Safari and Chrome */
+  -o-animation: fadeout 0.2s;
+  animation: fadeout 0.2s;
+  /* Opera */
+}
+md-sidenav.chat md-content:not(.stateChat) .menu-content svg,
+md-sidenav.chat md-content:not(.stateChat) .menu-content .chat-counter {
+  -moz-animation: fadein 0.2s;
+  /* Firefox */
+  -webkit-animation: fadein 0.2s;
+  /* Safari and Chrome */
+  -o-animation: fadein 0.2s;
+  animation: fadein 0.2s;
+  /* Opera */
+}
+md-sidenav.chat md-content .conversasion {
+  left: -100%;
+}
+md-sidenav.chat md-content .menu-content {
+  left: 0;
+}
+md-sidenav.chat md-content .conversasion,
+md-sidenav.chat md-content .menu-content {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+}
 md-sidenav.chat md-content .conversasion .header {
   display: -webkit-flex;
   display: -ms-flex;
@@ -148,7 +213,7 @@ md-sidenav.chat md-content .conversasion .header {
   align-items: center;
   -webkit-justify-content: space-between;
   justify-content: space-between;
-  height: 70px;
+  height: 65px;
 }
 md-sidenav.chat md-content .conversasion .header svg {
   width: 25px;
@@ -193,9 +258,9 @@ md-sidenav.chat md-content .conversasion .header .user-side {
 }
 md-sidenav.chat md-content .conversasion .header .user-side .back {
   position: relative;
-  width: 14px;
-  height: 14px;
-  margin-right: 13px;
+  display: block;
+  width: 32px;
+  height: 32px;
 }
 md-sidenav.chat md-content .conversasion .header .user-side .back:after {
   content: "";
@@ -205,9 +270,11 @@ md-sidenav.chat md-content .conversasion .header .user-side .back:after {
   -o-transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  top: 0;
-  width: 13px;
-  height: 13px;
+  top: 3px;
+  right: 0;
+  margin: 6px 10px;
+  width: 14px;
+  height: 14px;
   background: transparent;
   border-right: 3px solid #f5f5f5;
   border-bottom: 3px solid #f5f5f5;
@@ -339,4 +406,74 @@ md-sidenav.chat md-content .user.online:before {
 md-sidenav.chat md-content .user .img-circle {
   margin: 10px;
   flex-shrink: 0;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadein {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadein {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fadeout {
+  /* Firefox */
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes fadeout {
+  /* Safari and Chrome */
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-o-keyframes fadeout {
+  /* Opera */
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

@@ -124,6 +124,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personal message.
+        /// </summary>
+        public static string MessageButton {
+            get {
+                return ResourceManager.GetString("MessageButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Study Socially.
         /// </summary>
         public static string PointMenu2 {
