@@ -6,6 +6,7 @@
     function userDetailsController(accountService, $scope, userDetails) {
         var ud = this;
         ud.isLoggedIn = false;
+        ud.sendMessage=sendMessage;
         userDetails.init().then(function () {
             assignValues(userDetails.get());
 
@@ -23,6 +24,10 @@
             ud.score = response.score;
             ud.url = response.url;
         }
+
+        function sendMessage(){
+
+}
     }
 })();
 
