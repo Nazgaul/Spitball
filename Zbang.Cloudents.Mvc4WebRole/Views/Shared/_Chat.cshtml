@@ -3,8 +3,8 @@
     const string url = "~/images/site/uploadIcons.svg";
 }
 <md-sidenav ng-show="app.chatOpened" ng-cloak class="chat md-sidenav-right"
-            md-component-id="chat" close-menu="right">
-    <md-content ng-controller="ChatController as c" ng-class="{stateChat: c.state === c.states.chat}">
+            md-component-id="chat" close-menu="right" >
+    <md-content ng-cloak ng-controller="ChatController as c" ng-class="{stateChat: c.state === c.states.chat}">
         <div class="menu-content" @*ng-if="c.state !== c.states.chat && c.state > 0"*@>
             <div class="header">
                 <div class="chat-icon" ng-click="app.toggleChat()">
@@ -50,12 +50,25 @@
                         <span class="member-name ellipsis" ng-bind="::c.userChat.name"></span>
                     </a>
                 </div>
-                <div class="attach-menu">
-                    <md-fab-speed-dial md-direction="down">
+                <nav class="menu">
+                    <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
+                    <label class="menu-open-button" for="menu-open">
+                        @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" })
+                    </label>
+
+                    <a href="#" class="menu-item"> @Html.Svg("~/images/site/uploadIcons.svg", "dropbox", new { @class = "dropbox" }) </a>
+                    <a href="#" class="menu-item"> @Html.Svg("~/images/site/uploadIcons.svg", "googleDrive", new { @class = "googleDrive" }) </a>
+                    <a href="#" class="menu-item"> @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" }) </a>
+                    
+
+
+                </nav>
+                @*<div class="attach-menu" ng-cloak>
+                    <md-fab-speed-dial md-open="c.open"   md-direction="down" class="md-fling angular-animate">
                         <md-fab-trigger aria-label="menu">
-                            <button>
+                            <md-button aria-label="add">
                                 @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" })
-                            </button>
+                            </md-button>
                         </md-fab-trigger>
                         <md-fab-actions>
                             <button>
@@ -69,7 +82,7 @@
                             </button>
                         </md-fab-actions>
                     </md-fab-speed-dial>
-                </div>
+                </div>*@
             </div>
             <div class="chat-content">
                 <ul class="messages" ng-slimscroll height="calc(100vh - 70px)" watchContent="true" color="#BBB">

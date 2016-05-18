@@ -10,7 +10,7 @@
             friends: 2,
             chat: 3
         };
-
+        c.open = false;
         c.state = c.states.messages;
         c.friendsState = friendsState;
         c.search = search;
