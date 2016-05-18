@@ -61,6 +61,7 @@
     <Compile Include="Dto\ActivityDtos\AnnotationDto.cs" />
     <Compile Include="Dto\ActivityDtos\AnnotationReplyDto.cs" />
     <Compile Include="Dto\BoxSecurityDto.cs" />
+    <Compile Include="Dto\ChatDto.cs" />
     <Compile Include="Dto\Emails\MarketingDto.cs" />
     <Compile Include="Dto\HomePageDataDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxDto2.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Queries\GetBoxQuizesPagedQuery.cs" />
     <Compile Include="Queries\GetBoxSeoQuery.cs" />
     <Compile Include="Queries\GetBoxSideBarQuery.cs" />
+    <Compile Include="Queries\GetChatRoomMessagesQuery.cs" />
     <Compile Include="Queries\GetCountryByIpQuery.cs" />
     <Compile Include="Queries\GetHomePageQuery.cs" />
     <Compile Include="Queries\GetInviteDetailQuery.cs" />

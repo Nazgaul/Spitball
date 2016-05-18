@@ -49,5 +49,9 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Url { get; set; }
 
         public bool Online { get; set; }
+
+        public Guid? Conversation { get; set; }
+
+        public int? Unread { get; set; }
     }
 }

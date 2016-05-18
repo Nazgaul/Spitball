@@ -162,6 +162,7 @@ FETCH NEXT @rowsperpage ROWS ONLY;";
 
 
 
+
         public const string GetUniversityToUploadToSearch = @"select top (@top) id as Id,UniversityName as Name,LargeImage as Image,
 extra as Extra, Country, NoOfUsers
 from zbox.University

@@ -623,7 +623,32 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             }
         }
 
-       
+        public async Task<IEnumerable<User.UserWithStatusDto>> GetUsersWithConversationAsync(QueryBase query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<User.UserWithStatusDto>(Sql.Chat.GetUsersWithConversation,
+                     new
+                     {
+                         query.UserId
+
+                     });
+            }
+        }
+        public async Task<IEnumerable<ChatDto>> GetUserConversationAsync(GetChatRoomMessagesQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<ChatDto>(Sql.Chat.GetChat,
+                     new
+                     {
+                         ChatRoom = query.Id
+
+                     });
+            }
+        }
+
+
 
         /// <summary>
         /// Used in api to private to box

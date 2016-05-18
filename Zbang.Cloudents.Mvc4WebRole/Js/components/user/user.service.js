@@ -33,6 +33,11 @@
         u.messages = function () {
             return ajaxservice.get('/user/messages');
         }
+        u.chat = function (id) {
+            return ajaxservice.get('/user/chat', {
+                chatRoom : id
+            });
+        }
 
     }
 })();

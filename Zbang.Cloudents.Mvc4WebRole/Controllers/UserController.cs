@@ -25,7 +25,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index2");
         }
 
-        [HttpGet,ActionName("ProfileStats")]
+        [HttpGet, ActionName("ProfileStats")]
         public async Task<ActionResult> ProfileStatsAsync(long id)
         {
             var query = new GetUserWithFriendQuery(id);
@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet,ActionName("Friends")]
+        [HttpGet, ActionName("Friends")]
         public async Task<ActionResult> FriendsAsync(long id, int page)
         {
             try
@@ -54,7 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet,ActionName("Boxes")]
+        [HttpGet, ActionName("Boxes")]
         public async Task<ActionResult> BoxesAsync(long id, int page)
         {
             try
@@ -71,7 +71,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet,ActionName("Comment")]
+        [HttpGet, ActionName("Comment")]
         public async Task<ActionResult> CommentAsync(long id, int page)
         {
             var query = new GetUserWithFriendQuery(id, page, 20);
@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }));
         }
 
-        [HttpGet,ActionName("Items")]
+        [HttpGet, ActionName("Items")]
         public async Task<ActionResult> ItemsAsync(long id, int page)
         {
             var query = new GetUserWithFriendQuery(id, page, 50);
@@ -96,7 +96,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(result);
         }
 
-        [HttpGet,ActionName("Quiz")]
+        [HttpGet, ActionName("Quiz")]
         public async Task<ActionResult> QuizAsync(long id, int page)
         {
             var query = new GetUserWithFriendQuery(id, page, 20);
@@ -104,7 +104,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(result);
         }
 
-        [HttpPost,ActionName("GoogleContacts")]
+        [HttpPost, ActionName("GoogleContacts")]
         public async Task<ActionResult> GoogleContactsAsync(string token)
         {
             if (string.IsNullOrEmpty(token))
@@ -140,7 +140,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// Used in account settings notification
         /// </summary>
         /// <returns></returns>
-        [HttpGet, ZboxAuthorize,ActionName("Notification")]
+        [HttpGet, ZboxAuthorize, ActionName("Notification")]
         public async Task<JsonResult> NotificationAsync()
         {
             var userid = User.GetUserId();
@@ -164,12 +164,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, ZboxAuthorize, ActionName("messages")]
-        public ActionResult MessagesAsync()
+        public async Task<JsonResult> MessagesAsync()
         {
-            return JsonOk();
-            //   var model = await m_ZboxChatService.GetUserWithConversationAsync(new QueryBase(User.GetUserId()));
-            //return JsonOk(model);
+            var model = await ZboxReadService.GetUsersWithConversationAsync(new QueryBase(User.GetUserId()));
+            return JsonOk(model);
         }
 
+        [HttpGet, ZboxAuthorize, ActionName("chat")]
+        public async Task<JsonResult> ChatAsync(Guid chatRoom)
+        {
+            var model = await ZboxReadService.GetUserConversationAsync(new GetChatRoomMessagesQuery(chatRoom));
+            return JsonOk(model);
+        }
+
+        
     }
 }

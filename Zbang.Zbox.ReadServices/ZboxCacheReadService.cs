@@ -371,7 +371,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(ViewModel.Queries.Search.UniversityByIpQuery query)
+        public Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query)
         {
             return m_ReadService.GetUniversityByIpAddressAsync(query);
         }
@@ -387,7 +387,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        public Task<IEnumerable<UserWithImageNameDto>> GetUsersInBoxByTermAsync(ViewModel.Queries.Search.UserInBoxSearchQuery query)
+        public Task<IEnumerable<UserWithImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query)
         {
             return m_ReadService.GetUsersInBoxByTermAsync(query);
         }
@@ -395,6 +395,16 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<UserWithStatusDto>> GetUsersByTermAsync(UserSearchQuery query)
         {
             return m_ReadService.GetUsersByTermAsync(query);
+        }
+
+        public Task<IEnumerable<UserWithStatusDto>> GetUsersWithConversationAsync(QueryBase query)
+        {
+            return m_ReadService.GetUsersWithConversationAsync(query);
+        }
+
+        public Task<IEnumerable<ChatDto>> GetUserConversationAsync(GetChatRoomMessagesQuery query)
+        {
+            return m_ReadService.GetUserConversationAsync(query);
         }
 
 

@@ -1,9 +1,9 @@
 ﻿'use strict';
 (function () {
     angular.module('app.chat').controller('ChatController', chat);
-    chat.$inject = ['$timeout', '$scope', '$mdSidenav', 'realtimeFactotry', 'searchService','userService'];
+    chat.$inject = ['$timeout', '$scope', '$mdSidenav', 'realtimeFactotry', 'searchService','userService','userDetailsFactory'];
 
-    function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,userService) {
+    function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,userService,userDetailsFactory) {
         var c = this;
         c.states = {
             messages: 1,
@@ -23,16 +23,20 @@
             //if (!$scope.app.chatOpened) {
             //    return;
             //}
-            userService.messages().then(function(response) {
-                c.users = response;
-            });
+            messageState();
             //TODO: add ajax
-            c.users = [];
+            //c.users = [];
             $timeout(function () {
                 $scope.$broadcast('updateScroll');
 
             });
         });
+
+        function messageState() {
+            userService.messages().then(function (response) {
+                c.users = response;
+            });
+        }
 
         function friendsState() {
             c.state = c.states.friends;
@@ -47,6 +51,14 @@
 
         function conversation(user) {
             c.userChat = user;
+            if (c.userChat.conversation) {
+                userService.chat(c.userChat.conversation).then(function (response) {
+                    for (var i = 0; i < response.length; i++) {
+                        response[i].partner = response[i].userId !== userDetailsFactory.get().id;
+                    }
+                    c.messages = response;
+                });
+            }
             c.state = c.states.chat;
         }
 
