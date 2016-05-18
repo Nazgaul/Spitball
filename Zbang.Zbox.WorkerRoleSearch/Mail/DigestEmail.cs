@@ -42,7 +42,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         //private const string ServiceName = "LikesMailProcess";
         public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
         {
-            await SendEmailStatusAsync($"starting to run notification {m_DigestEmailHourBack}");
+            //await SendEmailStatusAsync($"starting to run notification {m_DigestEmailHourBack}");
             var page = index;
             var needToContinueRun = true;
             var list = new List<Task>();

@@ -76,6 +76,7 @@
     <Compile Include="ChangeItemTabNameCommand.cs" />
     <Compile Include="ChangeNotificationSettingsCommand.cs" />
     <Compile Include="ChangeUserOnlineStatusCommand.cs" />
+    <Compile Include="ChatAddMessageCommand.cs" />
     <Compile Include="ChatCreateRoomCommand.cs" />
     <Compile Include="CreateAcademicBoxCommand.cs" />
     <Compile Include="CreateFacebookUserCommand.cs" />

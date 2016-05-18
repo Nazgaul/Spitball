@@ -22,12 +22,12 @@ namespace Zbang.Zbox.Infrastructure.Repositories
         
     }
 
-    public interface IDocumentDbRepository<T>
-    {
-        Task CreateItemAsync(T item);
-        Task<T> GetItemAsync(string id);
-        Task UpdateItemAsync(string id, T item);
-        Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate);
-        Task<IEnumerable<T>> GetItemsAsync(string sql);
-    }
+    //public interface IDocumentDbRepository<T>
+    //{
+    //    Task CreateItemAsync(T item);
+    //    Task<T> GetItemAsync(string id);
+    //    Task UpdateItemAsync(string id, T item);
+    //    Task<IEnumerable<T>> GetItemsAsync(Expression<Func<T, bool>> predicate);
+    //    Task<IEnumerable<T>> GetItemsAsync(string sql);
+    //}
 }

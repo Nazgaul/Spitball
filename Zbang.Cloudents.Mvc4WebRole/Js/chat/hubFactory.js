@@ -46,20 +46,20 @@
         var hub = new Hub('spitballHub', {
             rootPath: 'https://develop-connect.spitball.co/s',
             listeners: {
-                send: function (message) {
-                    // console.log(message);
-                    $rootScope.$broadcast('hub-send', message);
+                chat: function (message) {
+                    $rootScope.$broadcast('hub-chat', message);
+                },
+                chatRoom: function (message) {
+                    $rootScope.$broadcast('hub-chat-roomid', message);
                 }
             },
             errorHandler: function (error) {
                 console.error(error);
             },
 
-            //specify a non default root
-            //rootPath: '/api
             methods: ['send'],
             stateChanged: function (state) {
-                console.log(state);
+                //console.log(state);
                 switch (state.newState) {
                     case $.signalR.connectionState.connecting:
                         console.log('connecting');
@@ -76,13 +76,13 @@
                 }
             }
         });
-        var send = function (userId, message) {
-            hub.send(userId, message, '037d0919-0786-430c-be28-c0b1a6163104');
-        }
+        var send = function(userId, message, conversationId) {
+            hub.send(userId, message, conversationId);
+        };
 
         return {
             sendMsg: send
-        }
+        };
 
     }
 })();

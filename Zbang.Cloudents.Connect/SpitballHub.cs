@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -18,7 +19,8 @@ namespace Zbang.Cloudents.Connect
             m_WriteService = writeService;
         }
 
-        public async Task Send(long userId, string message, Guid? chatId)
+        [HubMethodName("Send")]
+        public void Send(long userId, string message, Guid? chatId)
         {
             try
             {
@@ -26,18 +28,18 @@ namespace Zbang.Cloudents.Connect
                 {
 
                     chatId = Guid.NewGuid();
-                    var roomCommand = new ChatCreateRoomCommand(new[] {Context.User.GetUserId(), userId}, chatId.Value);
-                    var t1 = m_WriteService.AddChatRoomAsync(roomCommand);
+                    var roomCommand = new ChatCreateRoomCommand(new[] { Context.User.GetUserId(), userId }, chatId.Value);
+                    m_WriteService.AddChatRoom(roomCommand);
                     //var t2 = Groups.Add(Context.ConnectionId, chatId.Value.ToString());
                     //var t3 = Groups.Add(userId.ToString(), chatId.Value.ToString());
-
-                    await Task.WhenAll(t1 /*, t2, t3*/);
+                    Clients.Users(new[] {userId.ToString(), Context.User.GetUserId().ToString()}).chatRoom(chatId.Value);
+                    //await Task.WhenAll(t1 /*, t2, t3*/);
                     //Clients.Group(chatId.Value.ToString()).assignGroup(chatId.Value.ToString());
                 }
                 var messageCommand = new ChatAddMessageCommand(chatId.Value, Context.User.GetUserId(), message);
-                await m_WriteService.AddChatMessageAsync(messageCommand);
+                m_WriteService.AddChatMessage(messageCommand);
                 //Clients.OthersInGroup(chatId.Value.ToString());
-                Clients.User(userId.ToString()).send(message);
+                Clients.User(userId.ToString()).chat(message);
             }
             catch (Exception ex)
             {

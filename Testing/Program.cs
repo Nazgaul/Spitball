@@ -206,10 +206,10 @@ namespace Testing
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
             //var t = IndexItemSearch(iocFactory);
             //t.Wait();
-            var document_db = iocFactory.Resolve<IDocumentDbRepository<ChatRoom>>();
-            var t = document_db.GetItemsAsync("SELECT c.users FROM c join user in c.users where user.id = 1");
-            t.Wait();
-            var z = t.Result.Select(s=>s.Users).SelectMany(zz => zz).Where(w=>w.Id != 1).Select(s=>s.Id);
+            //var document_db = iocFactory.Resolve<IDocumentDbRepository<ChatRoom>>();
+            //var t = document_db.GetItemsAsync("SELECT c.users FROM c join user in c.users where user.id = 1");
+            //t.Wait();
+            //var z = t.Result.Select(s=>s.Users).SelectMany(zz => zz).Where(w=>w.Id != 1).Select(s=>s.Id);
             // var x = t.Result.Select(s => s.Id).ToList();
 
             //var m_WriteService = iocFactory.Resolve<IZboxWriteService>();

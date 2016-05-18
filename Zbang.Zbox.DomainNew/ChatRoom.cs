@@ -1,58 +1,69 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System.Collections.Generic;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 
 namespace Zbang.Zbox.Domain
 {
     public class ChatRoom
     {
-        public ChatRoom(Guid id, IEnumerable<ChatUser> users)
+        protected ChatRoom()
+        {
+            
+        }
+        public ChatRoom(Guid id, IEnumerable<User> users)
         {
             Id = id;
-            Users = users;
+            Users = users.Select(s => new ChatUser(this, s)).ToList();
+            UpdateTime = DateTime.UtcNow;
         }
-        [JsonProperty(PropertyName = "id")]
-        public Guid Id { get; set; }
-        [JsonProperty(PropertyName = "lastUpdate")]
-        public DateTime LastUpdate { get; set; }
-        [JsonProperty(PropertyName = "users")]
-        public IEnumerable<ChatUser> Users { get; private set; }
+        public virtual Guid Id { get; protected set; }
+        public virtual DateTime UpdateTime { get; set; }
+        public virtual ICollection<ChatUser> Users { get; protected set; }
 
     }
 
     public class ChatUser
     {
-        public ChatUser(long id)
+        protected ChatUser()
         {
-            Id = id;
+            
         }
-        [JsonProperty(PropertyName = "id")]
-        public long Id { get;private set; }
-        [JsonProperty(PropertyName = "unreadCount")]
-        public int UnreadCount { get; set; }
+        public ChatUser(ChatRoom chatRoom , User user)
+        {
+            Id = GuidIdGenerator.GetGuid();
+            ChatRoom = chatRoom;
+            User = user;
+        }
+
+        public virtual Guid Id { get; protected set; }
+        public virtual ChatRoom ChatRoom { get; protected set; }
+        public virtual User User { get; protected set; }
+
+        public virtual int Unread { get; set; }
     }
 
     public class ChatMessage
     {
-        public ChatMessage(Guid chatRoomId, long userId, string message)
+        protected ChatMessage()
         {
-            ChatRoomId = chatRoomId;
-            UserId = userId;
+            
+        }
+        public ChatMessage(ChatRoom chatRoom, User user, string message)
+        {
+            Id = GuidIdGenerator.GetGuid();
+            ChatRoom = chatRoom;
+            User = user;
             Message = message;
-            Time = DateTime.UtcNow;
+            CreationTime = DateTime.UtcNow;
         }
 
-        [JsonProperty(PropertyName = "chatRoomId")]
-        public Guid ChatRoomId { get; private set; }
-        [JsonProperty(PropertyName = "userId")]
-        public long UserId { get; private set; }
-        [JsonProperty(PropertyName = "message")]
-        public string Message { get; private set; }
-        [JsonProperty(PropertyName = "time")]
-        public DateTime Time { get; set; }
+        public virtual Guid Id { get; protected set; }
+
+        public virtual ChatRoom ChatRoom { get; protected set; }
+        public virtual User User { get; protected set; }
+        public virtual string Message { get; protected set; }
+        public virtual DateTime CreationTime { get; protected set; }
     }
 
 }

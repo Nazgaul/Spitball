@@ -10,6 +10,7 @@
             friends: 2,
             chat: 3
         };
+
         c.state = c.states.messages;
         c.friendsState = friendsState;
         c.search = search;
@@ -55,17 +56,22 @@
                 text: c.newText,
                 time: new Date().toISOString()
             });
-            realtimeFactotry.sendMsg(c.userChat.id, c.newText);
+            realtimeFactotry.sendMsg(c.userChat.id, c.newText, c.userChat.conversation);
             c.newText = '';
         }
 
-        $scope.$on('hub-send', function(e, args) {
+        $scope.$on('hub-chat', function (e, args) {
             c.messages.push({
                 text: args,
                 time: new Date().toISOString(),
                 partner: true
             });
             $scope.$apply();
+        });
+
+        $scope.$on('hub-chat-roomid', function(e, args) {
+            c.userChat.conversation = args;
+
         });
     }
 })();

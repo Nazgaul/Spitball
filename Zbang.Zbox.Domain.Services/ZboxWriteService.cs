@@ -709,13 +709,21 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        public async Task AddChatRoomAsync(ChatCreateRoomCommand command)
+        public void AddChatRoom(ChatCreateRoomCommand command)
         {
-            await m_CommandBus.SendAsync(command);
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
         }
-        public async Task AddChatMessageAsync(ChatAddMessageCommand command)
+        public void AddChatMessage(ChatAddMessageCommand command)
         {
-            await m_CommandBus.SendAsync(command);
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
         }
     }
 }

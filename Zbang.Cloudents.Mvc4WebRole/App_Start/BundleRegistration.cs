@@ -346,15 +346,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                     }
 
-                },
-                {
-                    "signalR", new []
-                    {
-                         //new JsFileWithCdn("https://develop-connect.spitball.co/scripts/jquery.signalR-2.2.0.min.js"),
-                        //new JsFileWithCdn("https://develop-connect.spitball.co/s/signalr/hubs"),
-                        new JsFileWithCdn("~/js/realTime/hubFactory.js")
-                    }
                 }
+                //{
+                //    "signalR", new []
+                //    {
+                //         //new JsFileWithCdn("https://develop-connect.spitball.co/scripts/jquery.signalR-2.2.0.min.js"),
+                //        //new JsFileWithCdn("https://develop-connect.spitball.co/s/signalr/hubs"),
+                //        new JsFileWithCdn("~/js/realTime/hubFactory.js")
+                //    }
+                //}
                 //{
                 //    "contactUs", new[]
                 //    {

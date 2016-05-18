@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Zbox.Infrastructure.Trace;
-using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 using Zbang.Zbox.ViewModel.Queries.Boxes;
 
@@ -18,12 +17,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class UserController : BaseController
     {
-        private readonly IZboxChatReadService m_ZboxChatService;
 
-        public UserController(IZboxChatReadService zboxChatService)
-        {
-            m_ZboxChatService = zboxChatService;
-        }
 
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()
@@ -31,8 +25,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index2");
         }
 
-        [HttpGet]
-        public async Task<ActionResult> ProfileStats(long id)
+        [HttpGet,ActionName("ProfileStats")]
+        public async Task<ActionResult> ProfileStatsAsync(long id)
         {
             var query = new GetUserWithFriendQuery(id);
             var model = await ZboxReadService.GetUserProfileWithStatsAsync(query);
@@ -41,8 +35,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet]
-        public async Task<ActionResult> Friends(long id, int page)
+        [HttpGet,ActionName("Friends")]
+        public async Task<ActionResult> FriendsAsync(long id, int page)
         {
             try
             {
@@ -60,8 +54,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet]
-        public async Task<ActionResult> Boxes(long id, int page)
+        [HttpGet,ActionName("Boxes")]
+        public async Task<ActionResult> BoxesAsync(long id, int page)
         {
             try
             {
@@ -77,8 +71,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<ActionResult> Comment(long id, int page)
+        [HttpGet,ActionName("Comment")]
+        public async Task<ActionResult> CommentAsync(long id, int page)
         {
             var query = new GetUserWithFriendQuery(id, page, 20);
             var model = await ZboxReadService.GetUserCommentActivityAsync(query);
@@ -94,24 +88,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }));
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Items(long id, int page)
+        [HttpGet,ActionName("Items")]
+        public async Task<ActionResult> ItemsAsync(long id, int page)
         {
             var query = new GetUserWithFriendQuery(id, page, 50);
             var result = await ZboxReadService.GetUserItemsActivityAsync(query);
             return JsonOk(result);
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Quiz(long id, int page)
+        [HttpGet,ActionName("Quiz")]
+        public async Task<ActionResult> QuizAsync(long id, int page)
         {
             var query = new GetUserWithFriendQuery(id, page, 20);
             var result = await ZboxReadService.GetUserQuizActivityAsync(query);
             return JsonOk(result);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> GoogleContacts(string token)
+        [HttpPost,ActionName("GoogleContacts")]
+        public async Task<ActionResult> GoogleContactsAsync(string token)
         {
             if (string.IsNullOrEmpty(token))
             {
@@ -146,8 +140,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// Used in account settings notification
         /// </summary>
         /// <returns></returns>
-        [HttpGet, ZboxAuthorize]
-        public async Task<JsonResult> Notification()
+        [HttpGet, ZboxAuthorize,ActionName("Notification")]
+        public async Task<JsonResult> NotificationAsync()
         {
             var userid = User.GetUserId();
             var query = new GetUserDetailsQuery(userid);
@@ -157,7 +151,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, ZboxAuthorize]
-        public async Task<ActionResult> Updates()
+        [ActionName("Updates")]
+        public async Task<ActionResult> UpdatesAsync()
         {
             var model = await ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetUserId()));
             return JsonOk(model.Select(s => new
@@ -169,10 +164,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, ZboxAuthorize, ActionName("messages")]
-        public async Task<ActionResult> MessagesAsync()
+        public ActionResult MessagesAsync()
         {
-            var model = await m_ZboxChatService.GetUserWithConversationAsync(new QueryBase(User.GetUserId()));
-            return JsonOk(model);
+            return JsonOk();
+            //   var model = await m_ZboxChatService.GetUserWithConversationAsync(new QueryBase(User.GetUserId()));
+            //return JsonOk(model);
         }
 
     }

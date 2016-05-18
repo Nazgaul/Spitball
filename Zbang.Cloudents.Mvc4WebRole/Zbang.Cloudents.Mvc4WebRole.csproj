@@ -3197,9 +3197,7 @@
     <Content Include="Content\Site\chat.css">
       <DependentUpon>chat.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\chat.min.css">
-      <DependentUpon>chat.css</DependentUpon>
-    </Content>
+    <Content Include="Content\Site\chat.rtl.css" />
     <Content Include="Content\Site\components-rounded.css">
       <DependentUpon>components-rounded.less</DependentUpon>
     </Content>
@@ -3727,6 +3725,7 @@
     <Content Include="Js\shared\changeLanguage.js" />
     <Content Include="Js\shared\scrollToTop.directive.js" />
     <Content Include="Js\signin\itemGallery.js" />
+    <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
@@ -4001,7 +4000,6 @@
     <Content Include="Views\Home\ClassNotes.cshtml" />
     <Content Include="Views\Home\Courses.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageHeader.cshtml" />
-    <Content Include="Views\Shared\Partials2\_PasswordUpdate.cshtml" />
     <Content Include="Views\Shared\_Chat.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

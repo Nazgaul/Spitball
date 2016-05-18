@@ -7,7 +7,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class ChatCreateRoomCommand : ICommandAsync
+    public class ChatCreateRoomCommand : ICommand
     {
         public ChatCreateRoomCommand(IEnumerable<long> userIds, Guid id)
         {
@@ -18,19 +18,5 @@ namespace Zbang.Zbox.Domain.Commands
         public IEnumerable<long> UserIds { get; private set; }
 
         public Guid Id { get; private set; }
-    }
-
-    public class ChatAddMessageCommand : ICommandAsync
-    {
-        public ChatAddMessageCommand(Guid chatRoomId, long userId, string message)
-        {
-            ChatRoomId = chatRoomId;
-            UserId = userId;
-            Message = message;
-        }
-
-        public Guid ChatRoomId { get; private set; }
-        public long UserId { get; private set; }
-        public string Message { get; private set; }
     }
 }

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Zbang.Zbox.Domain"
+                   namespace="Zbang.Zbox.Domain">
+
+  <class name="ChatRoom" table="ChatRoom">
+    <id name="Id" column="Id">
+      <generator class="assigned"></generator>
+    </id>
+    <property name="UpdateTime">
+      <column name="UpdateTime" not-null="true" sql-type="datetime2(2)"/>
+    </property>
+    <bag name="Users" cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="ChatRoomId" foreign-key="fChatUserChatRoom"/>
+      <one-to-many class="ChatUser"/>
+    </bag>
+  </class>
+
+  <class name="ChatUser" table="ChatUser">
+    <id name="Id" column="Id">
+      <generator class="assigned"></generator>
+    </id>
+    <property name="Unread"></property>
+    <many-to-one name="ChatRoom" class="ChatRoom" column="ChatRoomId" not-null="true" foreign-key="fChatUserChatRoom"/>
+    <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="fChatUserUser"/>
+  </class>
+  
+  <class name="ChatMessage" table="ChatMessage">
+    <id name="Id" column="Id">
+      <generator class="assigned"></generator>
+    </id>
+    <property name="Message" length="8000"></property>
+    <property name="CreationTime">
+      <column name="CreationTime" not-null="true" sql-type="datetime2(2)"/>
+    </property>
+    <many-to-one name="ChatRoom" class="ChatRoom" column="ChatRoomId" not-null="true" foreign-key="fChatMessageChatRoom"/>
+    <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="fChatMessageUser"/>
+  </class>
+</hibernate-mapping>

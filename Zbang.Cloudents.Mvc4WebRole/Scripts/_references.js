@@ -124,6 +124,7 @@
 /// <reference path="../js/shared/versionchecker.js" />
 /// <reference path="../Js/signin/bootstrap.min.js" />
 /// <reference path="../js/signin/itemgallery.js" />
+/// <reference path="../js/signin/layout.js" />
 /// <reference path="../Js/signin/login-soft.js" />
 /// <reference path="../Js/signin/metronic.js" />
 /// <reference path="../Js/signin/staticPages.js" />
