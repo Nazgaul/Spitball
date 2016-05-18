@@ -431,9 +431,10 @@ md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-con
   background: #ffffff;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
-md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container input {
+md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container textarea {
   color: #282828;
   border: none !important;
+  min-height: 45px;
   line-height: 20px;
 }
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container .md-errors-spacer,

@@ -14,6 +14,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public Guid ChatRoomId { get; private set; }
         public long UserId { get; private set; }
-        public string Message { get; private set; }
+        public string Message { get; set; }
     }
 }

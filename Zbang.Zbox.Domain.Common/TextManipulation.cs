@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Domain.Common
             //remove those because the + sign is gone if we url decode it from 
             //var rawUserComment = HttpUtility.UrlDecode(comment);//We Get the comment from the js as escape chars. this is legacy
             var encodeUserComment = HttpUtility.HtmlEncode(comment);
-            if (encodeUserComment == null) throw new ArgumentNullException("comment");
+            if (encodeUserComment == null) throw new ArgumentNullException(nameof(comment));
             encodeUserComment = DecodeUrls(encodeUserComment);
             return encodeUserComment;
 
@@ -38,11 +38,11 @@ namespace Zbang.Zbox.Domain.Common
             {
                 foreach (var allowElement in allowElements)
                 {
-                    sb.Replace(string.Format("&lt;{0}&gt;", allowElement), string.Format("<{0}>", allowElement));
-                    sb.Replace(string.Format("&lt;/{0}&gt;", allowElement), string.Format("</{0}>", allowElement));
+                    sb.Replace($"&lt;{allowElement}&gt;", $"<{allowElement}>");
+                    sb.Replace($"&lt;/{allowElement}&gt;", $"</{allowElement}>");
 
                     var str = sb.ToString();
-                    var index = str.IndexOf(string.Format("&lt;{0}", allowElement), StringComparison.Ordinal);
+                    var index = str.IndexOf($"&lt;{allowElement}", StringComparison.Ordinal);
                     while (index > -1)
                     {
                         const string gt = "&gt;";
@@ -59,7 +59,7 @@ namespace Zbang.Zbox.Domain.Common
 
                         sb.Replace(oldValue, newValue);
                         str = sb.ToString();
-                        index = str.IndexOf(string.Format("&lt;{0}", allowElement), StringComparison.Ordinal);
+                        index = str.IndexOf($"&lt;{allowElement}", StringComparison.Ordinal);
                     }
                 }
             }
@@ -79,9 +79,9 @@ namespace Zbang.Zbox.Domain.Common
                 var url = match.Value;
                 if (Validation.IsUrlWithoutSceme(match.Value))
                 {
-                    url = string.Format("http://{0}", url);
+                    url = $"http://{url}";
                 }
-                sb.Replace(match.Value, string.Format("<a target=\"_Blank\" href=\"{0}\">{1}</a>", url, match.Value));
+                sb.Replace(match.Value, $"<a target=\"_Blank\" href=\"{url}\">{match.Value}</a>");
                 match = match.NextMatch();
             }
             return sb.ToString();

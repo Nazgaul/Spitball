@@ -24,6 +24,7 @@ namespace Zbang.Cloudents.Connect
         {
             try
             {
+                var usersToSend = new[] {userId.ToString(), Context.User.GetUserId().ToString()};
                 if (!chatId.HasValue)
                 {
 
@@ -32,14 +33,14 @@ namespace Zbang.Cloudents.Connect
                     m_WriteService.AddChatRoom(roomCommand);
                     //var t2 = Groups.Add(Context.ConnectionId, chatId.Value.ToString());
                     //var t3 = Groups.Add(userId.ToString(), chatId.Value.ToString());
-                    Clients.Users(new[] {userId.ToString(), Context.User.GetUserId().ToString()}).chatRoom(chatId.Value);
+                    Clients.Users(usersToSend).chatRoom(chatId.Value);
                     //await Task.WhenAll(t1 /*, t2, t3*/);
                     //Clients.Group(chatId.Value.ToString()).assignGroup(chatId.Value.ToString());
                 }
                 var messageCommand = new ChatAddMessageCommand(chatId.Value, Context.User.GetUserId(), message);
                 m_WriteService.AddChatMessage(messageCommand);
                 //Clients.OthersInGroup(chatId.Value.ToString());
-                Clients.User(userId.ToString()).chat(message);
+                Clients.Users(usersToSend).chat(messageCommand.Message);
             }
             catch (Exception ex)
             {

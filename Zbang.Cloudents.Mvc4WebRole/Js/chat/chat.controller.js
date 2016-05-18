@@ -63,11 +63,14 @@
         }
 
 
-        function send() {
-            c.messages.push({
-                text: c.newText,
-                time: new Date().toISOString()
-            });
+        function send(myform) {
+            if (c.newText === '') {
+                return;
+            }
+            //c.messages.push({
+            //    text: c.newText,
+            //    time: new Date().toISOString()
+            //});
             realtimeFactotry.sendMsg(c.userChat.id, c.newText, c.userChat.conversation);
             c.newText = '';
         }

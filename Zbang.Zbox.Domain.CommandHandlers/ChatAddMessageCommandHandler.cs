@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
@@ -33,6 +34,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             var chatRoom = m_ChatRoomRepository.Load(message.ChatRoomId);
             var userAction = m_UserRepository.Load(message.UserId);
+            message.Message = TextManipulation.EncodeComment(message.Message);
             var chatMessage = new ChatMessage(chatRoom, userAction, message.Message);
 
             foreach (var user in chatRoom.Users.Where(w=>w.User.Id != message.UserId))

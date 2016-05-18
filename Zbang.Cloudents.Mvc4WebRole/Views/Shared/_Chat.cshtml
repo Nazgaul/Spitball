@@ -125,10 +125,10 @@
                     </li>
                 </ul>
                 <div class="new-message">
-                    <form novalidate ng-submit="c.send()">
+                    <form name="chatDialog" novalidate ng-submit="c.send()">
                         @*<div class="textarea" contenteditable="true"></div>*@
                         <md-input-container md-no-float="false">
-                            <input autocomplete="off" type="text" required ng-model="c.newText" placeholder="@ChatResources.NewMessagePlaceholder" />
+                            <textarea enter-submit="c.send()" autocomplete="off" type="text" required ng-model="c.newText" placeholder="@ChatResources.NewMessagePlaceholder"></textarea>
                         </md-input-container>
                         <button type="submit" class="btn button-Blue" ng-disabled="c.disabled" @*ga-track-event="['box-new-commnet', 'postComment']"*@>
                             @Html.Svg("~/images/site/uploadIcons.svg", "post")
