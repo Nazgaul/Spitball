@@ -3,7 +3,10 @@
   <Role name="Zbang.Cloudents.Connect">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Zbox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;Asynchronous Processing=True;" />
     </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="SB" thumbprint="72C19EBE2BD0F21B5DF74C342CFEF862B581397F" thumbprintAlgorithm="sha1" />
+    </Certificates>
   </Role>
 </ServiceConfiguration>

@@ -3,7 +3,10 @@
   <Role name="Zbang.Cloudents.Connect">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Zbox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Max Pool Size=1000;Asynchronous Processing=True;Connection Timeout=30;MultipleActiveResultSets=true;" />
     </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="SB" thumbprint="72C19EBE2BD0F21B5DF74C342CFEF862B581397F" thumbprintAlgorithm="sha1" />
+    </Certificates>
   </Role>
 </ServiceConfiguration>

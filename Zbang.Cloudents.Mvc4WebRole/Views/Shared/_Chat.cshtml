@@ -44,8 +44,8 @@
         <div class="conversasion angular-animate" ng-if="c.state === c.states.chat">
             <div class="header">
                 <div class="user-side">
-                    <div class="back" ng-click="c.state = -1"></div>
-                    <a href="{{::c.userChat.url}}" class="online user">
+                    <div class="back" ng-click="c.state = c.states.messages"></div>
+                    <a href="{{::c.userChat.url}}" ng-class="::{online: c.userChat.online}" class="user">
                         <user-image class="img-circle" name="::c.userChat.name" image="::c.userChat.image" width="35" height="35"></user-image>
                         <span class="member-name ellipsis" ng-bind="::c.userChat.name"></span>
                     </a>

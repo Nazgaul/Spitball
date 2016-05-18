@@ -18,6 +18,7 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
       <Setting name="HomePageBoxIds" value="113546,113537,125092,125567,125175,111795" />
       <Setting name="HomePageBoxIdshe" value="5067,111970,5916,5101,5341,5350" />
+      <Setting name="signalR" value="https://connect.spitball.co/" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="82AF1259FAF65569650641B957B64BCD595BF552" thumbprintAlgorithm="sha1" />

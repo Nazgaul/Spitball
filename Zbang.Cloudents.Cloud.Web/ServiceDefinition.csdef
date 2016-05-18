@@ -30,6 +30,7 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
       <Setting name="HomePageBoxIds" />
       <Setting name="HomePageBoxIdshe" />
+      <Setting name="signalR" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Spitball" storeLocation="LocalMachine" storeName="My" />

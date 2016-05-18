@@ -47,10 +47,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Profiles" />
     <Folder Include="Zbang.Cloudents.ConnectContent\" />
   </ItemGroup>
   <ItemGroup>
     <DiagnosticsConfiguration Include="Zbang.Cloudents.ConnectContent\diagnostics.wadcfgx" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishProfile Include="Profiles\sb-connectProduction.azurePubxml" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
