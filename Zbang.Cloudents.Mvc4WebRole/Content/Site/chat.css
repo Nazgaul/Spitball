@@ -426,35 +426,18 @@ md-sidenav.chat md-content .conversasion .chat-content .new-message {
   padding: 5px;
   background: #EEEEEE;
 }
-md-sidenav.chat md-content .conversasion .chat-content .new-message form,
-md-sidenav.chat md-content .conversasion .chat-content .new-message .textarea {
-  width: inherit;
-}
-md-sidenav.chat md-content .conversasion .chat-content .new-message .message-wrapper {
+md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container {
+  margin: 0;
   background: #ffffff;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
-  overflow: auto;
-  max-height: 100px;
 }
-md-sidenav.chat md-content .conversasion .chat-content .new-message .message-wrapper md-input-container {
-  margin: 0;
-}
-md-sidenav.chat md-content .conversasion .chat-content .new-message .message-wrapper md-input-container.md-input-invalid.md-input-focused label {
-  color: #4190b9;
-}
-md-sidenav.chat md-content .conversasion .chat-content .new-message .message-wrapper md-input-container label,
-md-sidenav.chat md-content .conversasion .chat-content .new-message .message-wrapper md-input-container textarea {
-  padding: 5px;
-  font-size: 14px;
-}
-md-sidenav.chat md-content .conversasion .chat-content .new-message .message-wrapper md-input-container textarea {
-  min-height: 45px;
-  line-height: 20px;
+md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container input {
   color: #282828;
   border: none !important;
+  line-height: 20px;
 }
-md-sidenav.chat md-content .conversasion .chat-content .new-message .message-wrapper md-input-container .md-errors-spacer,
-md-sidenav.chat md-content .conversasion .chat-content .new-message .message-wrapper md-input-container .md-errors-space {
+md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container .md-errors-spacer,
+md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container .md-errors-space {
   display: none;
 }
 md-sidenav.chat md-content .conversasion .chat-content .new-message button {

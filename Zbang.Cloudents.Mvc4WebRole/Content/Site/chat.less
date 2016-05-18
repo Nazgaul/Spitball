@@ -233,7 +233,7 @@ md-sidenav.chat {
                     width: 25px;
                     height: 25px;
                     //margin: 0 auto;
-                    vertical-align:middle;
+                    vertical-align: middle;
 
                     &.attach {
                         fill: @textColorWhite;
@@ -355,42 +355,41 @@ md-sidenav.chat {
                     width: 100%;
                     padding: 5px;
                     background: #EEEEEE;
-
-                    form, .textarea {
-                        width: inherit;
-                    }
-
-                    .message-wrapper {
+                    //form, .textarea {
+                    //    width: inherit;
+                    //}
+                    //.message-wrapper {
+                    //overflow: auto;
+                    //max-height: 100px;
+                    md-input-container {
+                        margin: 0;
                         background: #ffffff;
                         box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
-                        overflow: auto;
-                        max-height: 100px;
 
-                        md-input-container {
-                            margin: 0;
-
-                            &.md-input-invalid.md-input-focused label {
-                                color: @buttonColorBlue;
-                            }
-
-                            label, textarea {
-                                padding: 5px;
-                                font-size: 14px;
-                            }
-
-                            textarea {
-                                min-height: 45px;
-                                line-height: 20px;
-                                color: @textColorBlack;
-                                border: none !important;
-                            }
-
-                            .md-errors-spacer, .md-errors-space {
-                                display: none;
-                            }
+                        input {
+                            color: @textColorBlack;
+                            border: none !important;
+                            line-height:20px;
+                        }
+                        //&.md-input-invalid.md-input-focused label {
+                        //    color: @buttonColorBlue;
+                        //}
+                        //
+                        //label, textarea {
+                        //    padding: 5px;
+                        //    font-size: 14px;
+                        //}
+                        //textarea {
+                        //    min-height: 45px;
+                        //    line-height: 20px;
+                        //    color: @textColorBlack;
+                        //    border: none !important;
+                        //}
+                        .md-errors-spacer, .md-errors-space {
+                            display: none;
                         }
                     }
-
+                    //}
                     button {
                         border-radius: 100%;
                         padding: 8px;
@@ -556,7 +555,6 @@ md-sidenav.chat {
     .menu-open {
         display: none;
     }
-
     //.hamburger {
     //    width: 25px;
     //    height: 3px;
@@ -572,7 +570,6 @@ md-sidenav.chat {
     //    transition: transform 200ms;
     //    transition: transform 200ms, -webkit-transform 200ms;
     //}
-
     //.hamburger-1 {
     //    -webkit-transform: translate3d(0, -8px, 0);
     //    transform: translate3d(0, -8px, 0);
@@ -587,7 +584,6 @@ md-sidenav.chat {
     //    -webkit-transform: translate3d(0, 8px, 0);
     //    transform: translate3d(0, 8px, 0);
     //}
-
     //.menu-open:checked + .menu-open-button .hamburger-1 {
     //    -webkit-transform: translate3d(0, 0, 0) rotate(45deg);
     //    transform: translate3d(0, 0, 0) rotate(45deg);
@@ -602,7 +598,6 @@ md-sidenav.chat {
     //    -webkit-transform: translate3d(0, 0, 0) rotate(-45deg);
     //    transform: translate3d(0, 0, 0) rotate(-45deg);
     //}
-
     .menu {
         position: absolute;
         left: 260px;
@@ -615,14 +610,12 @@ md-sidenav.chat {
         box-sizing: border-box;
         //font-size: 20px;
         //text-align: left;
-        z-index:1;
+        z-index: 1;
     }
-
     /*.menu-item:hover {
         background: white;
         color: #00bcd4;
     }*/
-
     .menu-item:nth-child(3) {
         -webkit-transition-duration: 180ms;
         transition-duration: 180ms;
@@ -637,12 +630,10 @@ md-sidenav.chat {
         -webkit-transition-duration: 180ms;
         transition-duration: 180ms;
     }
-
     //.menu-item:nth-child(6) {
     //    -webkit-transition-duration: 180ms;
     //    transition-duration: 180ms;
     //}
-
     .menu-open-button {
         z-index: 2;
         -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -693,7 +684,6 @@ md-sidenav.chat {
         -webkit-transform: translate3d(0, 165px, 0);
         transform: translate3d(0, 165px, 0);
     }
-
     //.menu-open:checked ~ .menu-item:nth-child(6) {
     //    -webkit-transition-duration: 490ms;
     //    transition-duration: 490ms;
@@ -701,4 +691,3 @@ md-sidenav.chat {
     //    transform: translate3d(440px, 0, 0);
     //}
 }
-
