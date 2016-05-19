@@ -2114,6 +2114,9 @@
     <Content Include="bower_components\angular-messages\angular-messages.js" />
     <Content Include="bower_components\angular-messages\angular-messages.min.js" />
     <Content Include="bower_components\angular-messages\index.js" />
+    <Content Include="bower_components\angular-sanitize\angular-sanitize.js" />
+    <Content Include="bower_components\angular-sanitize\angular-sanitize.min.js" />
+    <Content Include="bower_components\angular-sanitize\index.js" />
     <Content Include="bower_components\angular-signalr-hub\signalr-hub.js" />
     <Content Include="bower_components\angular-signalr-hub\signalr-hub.min.js" />
     <Content Include="bower_components\angular-timeago\dist\angular-timeago.css" />
@@ -2308,6 +2311,19 @@
     <Content Include="bower_components\jquery\src\var\support.js" />
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
+    <Content Include="bower_components\ng-embed\demo\index.html" />
+    <Content Include="bower_components\ng-embed\demo\js\app.js" />
+    <Content Include="bower_components\ng-embed\demo\ngEmbed.jpg" />
+    <Content Include="bower_components\ng-embed\demo\template.html" />
+    <Content Include="bower_components\ng-embed\dist\ng-embed.min.css" />
+    <Content Include="bower_components\ng-embed\dist\ng-embed.min.js" />
+    <Content Include="bower_components\ng-embed\fonts\emoticons.svg" />
+    <Content Include="bower_components\ng-embed\GruntFile.js" />
+    <Content Include="bower_components\ng-embed\images\emojis%402x.png" />
+    <Content Include="bower_components\ng-embed\images\emojis.png" />
+    <Content Include="bower_components\ng-embed\images\loader.svg" />
+    <Content Include="bower_components\ng-embed\src\ng-embed.css" />
+    <Content Include="bower_components\ng-embed\src\ng-embed.js" />
     <Content Include="bower_components\signalr\jquery.signalR.js" />
     <Content Include="bower_components\signalr\jquery.signalR.min.js" />
     <Content Include="bower_components\textAngular\dist\textAngular.rtl.css">
@@ -3092,6 +3108,20 @@
     <Content Include="bower_components\angular-signalr-hub\LICENSE" />
     <Content Include="bower_components\angular-signalr-hub\package.json" />
     <Content Include="bower_components\angular-signalr-hub\README.md" />
+    <Content Include="bower_components\ng-embed\.bower.json" />
+    <Content Include="bower_components\ng-embed\bower.json" />
+    <Content Include="bower_components\ng-embed\fonts\emoticons.eot" />
+    <Content Include="bower_components\ng-embed\fonts\emoticons.ttf" />
+    <Content Include="bower_components\ng-embed\fonts\emoticons.woff" />
+    <Content Include="bower_components\ng-embed\LICENSE" />
+    <Content Include="bower_components\ng-embed\package.json" />
+    <Content Include="bower_components\ng-embed\README.md" />
+    <Content Include="bower_components\ng-embed\RELEASES.md" />
+    <Content Include="bower_components\angular-sanitize\.bower.json" />
+    <Content Include="bower_components\angular-sanitize\angular-sanitize.min.js.map" />
+    <Content Include="bower_components\angular-sanitize\bower.json" />
+    <Content Include="bower_components\angular-sanitize\package.json" />
+    <Content Include="bower_components\angular-sanitize\README.md" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -4006,7 +4036,7 @@
     <Content Include="Views\Home\ClassNotes.cshtml" />
     <Content Include="Views\Home\Courses.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageHeader.cshtml" />
-    <Content Include="Views\Shared\_Chat.cshtml" />
+    <Content Include="Views\Shared\Partials2\_Chat.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

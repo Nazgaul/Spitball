@@ -50,24 +50,7 @@
         function close() {
             $mdSidenav('chat').close();
         }
-        //$scope.$on('toggle-chat', function () {
-        //    $mdSidenav('chat').toggle();
-        //    if (!$mdSidenav('chat').isOpen()) {
-        //        return;
-        //    }
-        //    //$scope.app.chatOpened = !$scope.app.chatOpened;
-        //    //if (!$scope.app.chatOpened) {
-        //    //    return;
-        //    //}
-        //    //chatBus.set (100);
-        //    //messageState();
-        //    //TODO: add ajax
-        //    //c.users = [];
-        //    //$timeout(function () {
-        //    //    $scope.$broadcast('updateScroll');
-        //    //
-        //    //});
-        //});
+        
         function updateUnread() {
             if (c.users) {
                 var x = 0;
@@ -82,18 +65,7 @@
             }
 
         }
-        //function messageState() {
-        //    chatBus.messages().then(function (response) {
-        //        c.users = response;
-        //    });
-
-        //}
-
-        //function friendsState() {
-        //    c.state = c.states.friends;
-        //    c.term = '';
-        //    search();
-        //}
+        
         function search() {
             chatBus.messages(c.term).then(function (response) {
                 c.users = response;
@@ -190,7 +162,59 @@
         });
        
 
+        c.upload = {
+            url: '/upload/file/',
+            options: {
+                chunk_size: '3mb',
+                drop_element: 'dropElement'
+            },
+            callbacks: {
+                filesAdded: function (uploader, files) {
 
+                    //for (var i = 0; i < files.length; i++) {
+                    //    var file = files[i];
+                    //    file.sizeFormated = plupload.formatSize(file.size);
+                    //    file.boxId = boxid;
+                    //    file.tabId = tab;
+                    //    file.complete = false;
+                    //    file.remove = function () { removeFile(file, uploader); }
+                    //    u.files.push(file);
+                    //}
+                    //$timeout(function () {
+                    //    uploader.start();
+                    //}, 1);
+                },
+
+                beforeUpload: function (up, file) {
+                    //up.settings.multipart_params = {
+                    //    fileName: file.name,
+                    //    fileSize: file.size,
+                    //    boxId: file.boxId,
+                    //    tabId: file.tabId,
+                    //    comment: false
+                    //};
+                },
+                fileUploaded: function (uploader, file, response) {
+                   // cacheFactory.clearAll();
+                   // file.complete = true;
+                   // var obj = JSON.parse(response.response);
+                   // if (obj.success) {
+                   //     u.filesCompleteCount++;
+                   //     file.systemId = obj.payload.item.id;
+                   //     $rootScope.$broadcast('item_upload', obj.payload);
+                   // }
+                },
+                uploadComplete: function () {
+                    //toasterUploadComplete
+                    //$scope.app.showToaster(resManager.get('toasterUploadComplete'));
+                    //$timeout(closeUpload, 2000);
+                },
+                error: function (uploader, error) {
+                    //error.file.error = true;
+                    //u.filesErrorCount++;
+                }
+            }
+        }
 
 
     };

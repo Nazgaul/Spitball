@@ -19,7 +19,8 @@
     "ui-router": "~0.2.18",
     "angular-timeago": "~0.2.9",
     "signalr": "~2.2.0",
-    "angular-signalr-hub": "~1.6.2"
+    "angular-signalr-hub": "~1.6.2",
+    "ng-embed": "~2.0.4"
   },
   "resolutions": {
     "angular": ">=1"

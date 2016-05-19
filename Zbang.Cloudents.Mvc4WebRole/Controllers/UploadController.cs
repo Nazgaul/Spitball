@@ -42,7 +42,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [ZboxAuthorize]
         [RemoveBoxCookie]
-        public async Task<ActionResult> File(UploadFile model)
+        [ActionName("File")]
+        public async Task<ActionResult> FileAsync(UploadFile model)
         {
             var userId = User.GetUserId();
             try
@@ -183,8 +184,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpPost, ZboxAuthorize]
-        public async Task<JsonResult> ProfilePicture()
+        [HttpPost, ZboxAuthorize, ActionName("ProfilePicture")]
+        public async Task<JsonResult> ProfilePictureAsync()
         {
             try
             {
@@ -208,8 +209,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpPost, ZboxAuthorize]
-        public async Task<JsonResult> QuizImage(long boxId)
+        [HttpPost, ZboxAuthorize,ActionName("QuizImage")]
+        public async Task<JsonResult> QuizImageAsync(long boxId)
         {
 
             if (HttpContext.Request.Files == null)
@@ -229,8 +230,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(url);
         }
 
-        [HttpPost, ZboxAuthorize, RemoveBoxCookie]
-        public async Task<ActionResult> Link(AddLink model)
+        [HttpPost, ZboxAuthorize, RemoveBoxCookie,ActionName("Link")]
+        public async Task<ActionResult> LinkAsync(AddLink model)
         {
             if (!ModelState.IsValid)
             {
@@ -297,14 +298,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError(string.Format("Link user: {0} BoxId: {1} url: {2}", User.GetUserId(), model.BoxId, model.Url), ex);
+                TraceLog.WriteError($"Link user: {User.GetUserId()} BoxId: {model.BoxId} url: {model.Url}", ex);
                 return JsonError(BoxControllerResources.ProblemUrl);
             }
         }
 
-        [HttpPost, ZboxAuthorize]
+        [HttpPost, ZboxAuthorize,ActionName("Dropbox")]
         [RemoveBoxCookie]
-        public async Task<ActionResult> Dropbox(AddFromDropBox model)
+        public async Task<ActionResult> DropboxAsync(AddFromDropBox model)
         {
 
             var userId = User.GetUserId();

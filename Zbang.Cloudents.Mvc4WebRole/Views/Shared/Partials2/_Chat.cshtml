@@ -53,10 +53,12 @@
                         @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" })
                     </label>
 
+
+                   
                     <a href="#" class="menu-item"> @Html.Svg("~/images/site/uploadIcons.svg", "dropbox", new { @class = "dropbox" }) </a>
                     <a href="#" class="menu-item"> @Html.Svg("~/images/site/uploadIcons.svg", "googleDrive", new { @class = "googleDrive" }) </a>
-                    <a href="#" class="menu-item"> @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" }) </a>
-
+                    <a plupload="c.upload.url" plupload-options="c.upload.options" plupload-callbacks="c.upload.callbacks" href="#" class="menu-item"> @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" }) </a>
+                    
 
 
                 </nav>
