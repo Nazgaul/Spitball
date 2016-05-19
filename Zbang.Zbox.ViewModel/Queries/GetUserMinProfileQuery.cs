@@ -4,7 +4,7 @@ using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries
 {
-    public class GetUserMinProfileQuery : IQueryCache
+    public class GetUserMinProfileQuery 
     {
         public GetUserMinProfileQuery(long userId)
         {
@@ -12,19 +12,6 @@ namespace Zbang.Zbox.ViewModel.Queries
         }
         public long UserId { get; }
 
-        public string CacheKey
-        {
-            get { return UserId.ToString(CultureInfo.InvariantCulture); }
-        }
-
-        public string CacheRegion
-        {
-            get { return "UserMinProfile"; }
-        }
-
-        public TimeSpan Expiration
-        {
-            get { return TimeSpan.FromMinutes(20); }
-        }
+       
     }
 }

@@ -397,9 +397,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUsersByTermAsync(query);
         }
 
-        public Task<IEnumerable<UserWithStatusDto>> GetUsersWithConversationAsync(QueryBase query)
+        public Task<IEnumerable<UserWithStatusDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query)
         {
-            return m_ReadService.GetUsersWithConversationAsync(query);
+            return m_ReadService.GetUsersConversationAndFriendsAsync(query);
         }
 
         public Task<IEnumerable<ChatDto>> GetUserConversationAsync(GetChatRoomMessagesQuery query)

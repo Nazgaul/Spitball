@@ -9,33 +9,42 @@
         var c = this;
         c.states = {
             messages: 1,
-            friends: 2,
+            // friends: 2,
             chat: 3
         };
         // c.open = false;
         c.state = c.states.messages;
-        c.friendsState = friendsState;
+        //c.friendsState = friendsState;
         c.search = search;
         c.chat = conversation;
         c.send = send;
         c.close = close;
         c.messages = [];
+        c.backFromChat = backFromChat;
         c.unread = 0;
 
 
-        chatBus.unread().then(function(response) {
+        chatBus.unread().then(function (response) {
             updateUnread(response);
         });
 
-        $scope.$watch(function() {
+        $scope.$watch(function () {
             return $mdSidenav('chat').isOpen();
         }, function (val) {
             if (!val) {
+                resetChat();
                 return;
             }
-           
+
             messageState();
         });
+        function backFromChat() {
+            c.state = c.states.messages;
+            resetChat();
+        }
+        function resetChat() {
+            c.userChat = null;
+        }
 
         function close() {
             $mdSidenav('chat').close();
@@ -63,24 +72,19 @@
             chatBus.setUnread(count);
         }
         function messageState() {
-            //var count = 0;
             chatBus.messages().then(function (response) {
-                //for (var i = 0; i < response.length; i++) {
-                //    count += response[i].unread;
-                //}
-                //updateUnread(count);
                 c.users = response;
             });
-            
+
         }
 
-        function friendsState() {
-            c.state = c.states.friends;
-            c.term = '';
-            search();
-        }
+        //function friendsState() {
+        //    c.state = c.states.friends;
+        //    c.term = '';
+        //    search();
+        //}
         function search() {
-            searchService.searchUsers(c.term, 0).then(function (response) {
+            chatBus.messages(c.term).then(function (response) {
                 c.users = response;
             });
         }
@@ -112,8 +116,12 @@
         }
 
         $scope.$on('hub-chat', function (e, args) {
+            c.userChat = c.userChat || {};
+            if (args.chatRoom !== c.userChat.conversation) {
+                return;
+            }
             c.messages.push({
-                text: args,
+                text: args.message,
                 time: new Date().toISOString(),
                 partner: true
             });
@@ -121,8 +129,14 @@
         });
 
         $scope.$on('hub-chat-roomid', function (e, args) {
-            c.userChat.conversation = args;
-
+            if (!c.userChat.conversation) {
+                c.userChat.conversation = args.message;
+            }
+        });
+        $scope.$on('hub-chat-room', function (e, args) {
+            //if (!c.userChat.conversation) {
+            //    c.userChat.conversation = args.message;
+            //}
         });
     }
 })();
@@ -136,7 +150,7 @@
         var cc = this;
 
         cc.unread = chatBus.getUnread;
-        cc.openChat = function() {
+        cc.openChat = function () {
             $mdSidenav('chat').open();
         }
         //return {
@@ -152,7 +166,7 @@
         //}
     }
 })();
-(function() {
+(function () {
     angular.module('app.chat').factory('chatBus', chatBus);
     chatBus.$inject = ['ajaxService'];
 
@@ -160,22 +174,22 @@
         var unreadCount = 0;
         var chatService = {};
 
-        chatService.setUnread = function(count) {
+        chatService.setUnread = function (count) {
             unreadCount = count;
         };
-        chatService.getUnread = function() {
+        chatService.getUnread = function () {
             return unreadCount;
         };
 
-        chatService.messages = function() {
-            return ajaxService.get('/chat/conversation');
+        chatService.messages = function (q) {
+            return ajaxService.get('/chat/conversation', { q: q });
         }
-        chatService.chat = function(id) {
+        chatService.chat = function (id) {
             return ajaxService.get('/chat/messages', {
                 chatRoom: id
             });
         }
-        chatService.unread = function() {
+        chatService.unread = function () {
             return ajaxService.get('chat/unreadcount');
         }
 

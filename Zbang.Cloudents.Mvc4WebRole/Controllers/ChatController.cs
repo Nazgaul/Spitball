@@ -24,9 +24,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, ActionName("conversation")]
-        public async Task<JsonResult> ChatRoomAsync()
+        public async Task<JsonResult> ChatRoomAsync(string q)
         {
-            var model = await ZboxReadService.GetUsersWithConversationAsync(new QueryBase(User.GetUserId()));
+            var model = await ZboxReadService.GetUsersConversationAndFriendsAsync(new GetUserConversationAndFriends(User.GetUserId(), User.GetUniversityId().Value, q));
             return JsonOk(model);
         }
 

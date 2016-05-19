@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
@@ -39,7 +40,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
     }
 
 
-    public class UserWithStatusDto
+    public class UserWithStatusDto 
     {
         public long Id { get; set; }
         public string Image { get; set; }
@@ -53,5 +54,18 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public Guid? Conversation { get; set; }
 
         public int? Unread { get; set; }
+    }
+
+    public class UserWithStatusDtoComparer : IEqualityComparer<UserWithStatusDto>
+    {
+        public bool Equals(UserWithStatusDto x, UserWithStatusDto y)
+        {
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(UserWithStatusDto obj)
+        {
+            return obj.Id.GetHashCode();
+        }
     }
 }

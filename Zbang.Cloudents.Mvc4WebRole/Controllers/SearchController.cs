@@ -146,17 +146,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<JsonResult> Members(string q, int page)
-        {
-            long? universityId = User.GetUniversityData();
-            if (!universityId.HasValue)
-                return JsonError("need university");
-            var query = new UserSearchQuery(q, universityId.Value, page, 50, User.GetUserId());
-            var retVal = await ZboxReadService.GetUsersByTermAsync(query);
+        //[HttpGet]
+        //public async Task<JsonResult> Members(string q, int page)
+        //{
+        //    long? universityId = User.GetUniversityData();
+        //    if (!universityId.HasValue)
+        //        return JsonError("need university");
+        //    var query = new UserSearchQuery(q, universityId.Value, page, 50, User.GetUserId());
+        //    var retVal = await ZboxReadService.GetUsersByTermAsync(query);
 
-            return JsonOk(retVal);
-        }
+        //    return JsonOk(retVal);
+        //}
 
 
 

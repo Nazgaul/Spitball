@@ -8,10 +8,10 @@
                     @Html.Svg("~/images/site/icons.svg", "chat")
                     <div class="chat-counter">{{c.unread}}</div>
                 </div>
-                <div class="tabs">
+                @*<div class="tabs">
                     <button type="button" ng-click="c.state = c.states.messages" ng-class="{active: c.state === c.states.messages}" class="messages tab">@ChatResources.MessagesHeader</button>
                     <button type="button" ng-click="c.friendsState()" class="friends tab" ng-class="{active: c.state === c.states.friends}">@ChatResources.FriendsHeader</button>
-                </div>
+                </div>*@
             </div>
             <div class="tab-content" ng-class="{noChats: c.state === c.states.messages && !c.users.length}">
                 <div class="empty-state">
@@ -21,7 +21,7 @@
                         @ChatResources.EmptyStateLine2
                     </div>
                 </div>
-                <form novalidate class="search-friend" ng-if="c.state === c.states.friends" ng-submit="c.search()">
+                <form novalidate class="search-friend" @*ng-if="c.state === c.states.friends"*@ ng-submit="c.search()">
                     <input type="search" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search()" ng-model-options="{debounce : 300}" />
                     <button type="submit" class="search-btn">
                         @Html.Svg("~/images/site/icons.svg", "searchIcon", new { @class = "searchIcon" })
@@ -41,7 +41,7 @@
         <div class="conversasion angular-animate" ng-if="c.state === c.states.chat">
             <div class="header">
                 <div class="user-side">
-                    <div class="back" ng-click="c.state = c.states.messages"></div>
+                    <div class="back" ng-click="c.backFromChat()"></div>
                     <a href="{{::c.userChat.url}}" ng-class="::{online: c.userChat.online}" class="user">
                         <user-image class="img-circle" name="::c.userChat.name" image="::c.userChat.image" width="35" height="35"></user-image>
                         <span class="member-name ellipsis" ng-bind="::c.userChat.name"></span>

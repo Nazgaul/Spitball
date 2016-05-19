@@ -46,11 +46,14 @@
         var hub = new Hub('spitballHub', {
             rootPath: window.dChat + '/s',
             listeners: {
-                chat: function (message) {
-                    $rootScope.$broadcast('hub-chat', message);
+                chat: function (message, chatRoom) {
+                    $rootScope.$broadcast('hub-chat', { message: message, chatRoom: chatRoom });
                 },
-                chatRoom: function (message) {
-                    $rootScope.$broadcast('hub-chat-roomid', message);
+                chatRoomId: function (message) {
+                    $rootScope.$broadcast('hub-chat-roomid', { message: message });
+                },
+                chatRoom: function (id, user) {
+                    $rootScope.$broadcast('hub-chat-room', { id: id, user: user });
                 }
             },
             errorHandler: function (error) {
@@ -76,7 +79,7 @@
                 }
             }
         });
-        var send = function(userId, message, conversationId) {
+        var send = function (userId, message, conversationId) {
             hub.send(userId, message, conversationId);
         };
 
