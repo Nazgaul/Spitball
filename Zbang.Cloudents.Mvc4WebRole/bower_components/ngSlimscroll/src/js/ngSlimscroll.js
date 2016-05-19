@@ -293,7 +293,12 @@ angular.module('jkuri.slimscroll', [])
 			        function() {
 			            return element.html();
 			        },
-			        function() {
+			        function () {
+			            if (scope.start === 'bottom') {
+			                //bar.css({ top: me.outerHeight() - bar.outerHeight() });
+			               // scope.scrollContent(0, true);
+			                scope.scrollContent(el.offsetHeight - bar[0].offsetHeight, true);
+			            }
 			            scope.init();
 			        }
 			    );
