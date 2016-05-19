@@ -123,6 +123,6 @@ namespace Zbang.Zbox.Domain.Common
         //chat
         void AddChatRoom(ChatCreateRoomCommand command);
         void AddChatMessage(ChatAddMessageCommand command);
-
+        void MarkChatAsRead(ChatMarkAsReadCommand command);
     }
 }

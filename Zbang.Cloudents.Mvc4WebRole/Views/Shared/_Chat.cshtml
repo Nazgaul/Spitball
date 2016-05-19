@@ -6,7 +6,7 @@
             <div class="header">
                 <div class="chat-icon" ng-click="c.close()">
                     @Html.Svg("~/images/site/icons.svg", "chat")
-                    <div class="chat-counter">{{c.unread}}</div>
+                    <div class="chat-counter" ng-if="c.unread > 0">{{c.unread}}</div>
                 </div>
                 @*<div class="tabs">
                     <button type="button" ng-click="c.state = c.states.messages" ng-class="{active: c.state === c.states.messages}" class="messages tab">@ChatResources.MessagesHeader</button>

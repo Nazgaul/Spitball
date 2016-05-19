@@ -112,6 +112,11 @@
                     c.messages = response;
                 });
             }
+            if (c.userChat.unread) {
+                chatBus.read(c.userChat.conversation);
+                c.userChat.unread = 0;
+                updateUnread();
+            }
             c.state = c.states.chat;
         }
 
@@ -120,10 +125,6 @@
             if (c.newText === '') {
                 return;
             }
-            //c.messages.push({
-            //    text: c.newText,
-            //    time: new Date().toISOString()
-            //});
             realtimeFactotry.sendMsg(c.userChat.id, c.newText, c.userChat.conversation);
             c.newText = '';
         }
@@ -187,137 +188,13 @@
                 $scope.$apply();
             }
         });
-        //c.userChat = c.userChat || {};
-        //// we are in the conversation
-        //if (c.userChat.conversation === args.chatRoom) {
-        //    c.messages.push({
-        //        text: args.message,
-        //        time: new Date().toISOString(),
-        //        partner: true
-        //    });
-        //need to remove unread
+       
 
 
 
 
-
-
-
-        //c.userChat = c.userChat || {};
-        //if (args.chatRoom !== c.userChat.conversation) {
-        //    if (!c.users) {
-        //        updateUnread();
-        //        $scope.$apply();
-        //        return;
-        //    }
-        //    var user = c.users.find(function(f) {
-        //        return f.conversation === args.chatRoom;
-        //    });
-        //    if (!user) {
-        //        //TODO: not sure how
-        //        return;
-        //    };
-        //    user.unread++;
-        //    updateUnread();
-        //    $scope.$apply();
-        //    //user.conversation = 
-        //    //return;
-        //} else {
-        //    c.messages.push({
-        //        text: args.message,
-        //        time: new Date().toISOString(),
-        //        partner: true
-        //    });
-        //    $scope.$apply();
-        //}
-
-        //});
-
-        // the caller gets
-        //$scope.$on('hub-chat-roomid', function (e, args) {
-        //    if (!c.userChat.conversation) {
-        //        c.userChat.conversation = args.message;
-        //    }
-        //    $scope.$apply();
-        //});
-        // the cally gets
-        //$scope.$on('hub-chat-room', function (e, args) {
-        //    if (!c.users) {
-        //        updateUnread();
-        //        $scope.$apply();
-        //        return;
-        //    }
-        //    var user = c.users.find(function (f) {
-        //        return f.id === args.user;
-        //    });
-        //    if (!user) {
-        //        search();
-        //        return;
-        //    };
-        //    user.unread++;
-        //    user.conversation = args.id;
-        //    updateUnread();
-        //    $scope.$apply();
-        //    //if (!c.userChat.conversation) {
-        //    //    c.userChat.conversation = args.message;
-        //    //}
     };
 
 })();
 
-(function () {
-    angular.module('app.chat').controller('chatIndicatorController', chatIndicator);
 
-    chatIndicator.$inject = ['chatBus', '$mdSidenav'];
-
-    function chatIndicator(chatBus, $mdSidenav) {
-        var cc = this;
-
-        cc.unread = chatBus.getUnread;
-        cc.openChat = function () {
-            $mdSidenav('chat').open();
-        }
-        //return {
-        //    restrict: 'A',
-        //    scope: true,
-        //    link: function (scope, element, attrs) {
-
-        //        scope.x = userService.getUnreadCount();
-        //        //element.text(userService.getUnreadCount());
-
-
-        //    }
-        //}
-    }
-})();
-(function () {
-    angular.module('app.chat').factory('chatBus', chatBus);
-    chatBus.$inject = ['ajaxService'];
-
-    function chatBus(ajaxService) {
-        var unreadCount = 0;
-        var chatService = {};
-
-        chatService.setUnread = function (count) {
-            unreadCount = count;
-        };
-        chatService.getUnread = function () {
-            return unreadCount;
-        };
-
-        chatService.messages = function (q) {
-            return ajaxService.get('/chat/conversation', { q: q }, 0);
-        }
-        chatService.chat = function (id) {
-            return ajaxService.get('/chat/messages', {
-                chatRoom: id
-            });
-        }
-        chatService.unread = function () {
-            return ajaxService.get('chat/unreadcount');
-        }
-
-
-        return chatService;
-    }
-})()

@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -35,6 +36,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var model = await ZboxReadService.GetUserConversationAsync(new GetChatRoomMessagesQuery(chatRoom));
             return JsonOk(model);
+        }
+
+        [HttpPost]
+        public JsonResult MarkRead(Guid chatRoom)
+        {
+            var command = new ChatMarkAsReadCommand(User.GetUserId(), chatRoom);
+            ZboxWriteService.MarkChatAsRead(command);
+            return JsonOk();
         }
         // GET: Chat
 

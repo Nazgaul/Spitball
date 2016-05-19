@@ -26,6 +26,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             ioc.RegisterType<IItemRepository, ItemRepository>();
             ioc.RegisterType<IReputationRepository, ReputationRepository>();
             ioc.RegisterType<ILibraryRepository, LibraryRepository>();
+            ioc.RegisterType<IChatUserRepository, ChatUserRepository>();
         }
     }
 }

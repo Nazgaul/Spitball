@@ -3695,6 +3695,8 @@
     <Content Include="Js\app.route.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
     <Content Include="Js\chat\chat.controller.js" />
+    <Content Include="Js\chat\chat.factory.js" />
+    <Content Include="Js\chat\indicator.controller.js" />
     <Content Include="Js\components\account\account.routes.js" />
     <Content Include="Js\components\account\account.service.js" />
     <Content Include="Js\components\account\department.controller.js" />

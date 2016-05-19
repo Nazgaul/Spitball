@@ -36,4 +36,12 @@
     <many-to-one name="ChatRoom" class="ChatRoom" column="ChatRoomId" not-null="true" foreign-key="fChatMessageChatRoom"/>
     <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="fChatMessageUser"/>
   </class>
+
+  <query name="DeleteUnReadChatMessages">
+    <![CDATA[
+    update ChatUser c
+    set Unread = 0
+    where c.User.Id = :userid and c.ChatRoom.Id = :chatRoom
+    ]]>
+  </query>
 </hibernate-mapping>

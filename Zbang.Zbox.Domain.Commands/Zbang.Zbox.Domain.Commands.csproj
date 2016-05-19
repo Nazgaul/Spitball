@@ -78,6 +78,7 @@
     <Compile Include="ChangeUserOnlineStatusCommand.cs" />
     <Compile Include="ChatAddMessageCommand.cs" />
     <Compile Include="ChatCreateRoomCommand.cs" />
+    <Compile Include="ChatMarkAsReadCommand.cs" />
     <Compile Include="CreateAcademicBoxCommand.cs" />
     <Compile Include="CreateFacebookUserCommand.cs" />
     <Compile Include="CreateFacebookUserCommandResult.cs" />

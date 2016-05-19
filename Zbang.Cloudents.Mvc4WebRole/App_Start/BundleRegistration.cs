@@ -339,8 +339,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/bower_components/signalr/jquery.signalR.js"),
                         new JsFileWithCdn("~/bower_components/angular-signalr-hub/signalr-hub.js"),
+
                         new JsFileWithCdn("~/js/chat/chat.controller.js"),
-                        //new JsFileWithCdn("~/js/realTime/signalRproxy.js"),
+                        new JsFileWithCdn("~/js/chat/chat.factory.js"),
+                        new JsFileWithCdn("~/js/chat/indicator.controller.js"),
                         new JsFileWithCdn("~/js/chat/hubFactory.js")
 
 
