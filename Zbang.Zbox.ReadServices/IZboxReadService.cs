@@ -130,5 +130,8 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<UserWithStatusDto>> GetUsersWithConversationAsync(QueryBase query);
         Task<IEnumerable<ChatDto>> GetUserConversationAsync(GetChatRoomMessagesQuery query);
 
+        Task<int> GetUnreadChatMessagesAsync(QueryBase query);
+        
+
     }
 }

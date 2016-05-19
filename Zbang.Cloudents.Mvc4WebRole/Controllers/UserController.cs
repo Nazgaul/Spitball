@@ -163,19 +163,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }));
         }
 
-        [HttpGet, ZboxAuthorize, ActionName("messages")]
-        public async Task<JsonResult> MessagesAsync()
-        {
-            var model = await ZboxReadService.GetUsersWithConversationAsync(new QueryBase(User.GetUserId()));
-            return JsonOk(model);
-        }
-
-        [HttpGet, ZboxAuthorize, ActionName("chat")]
-        public async Task<JsonResult> ChatAsync(Guid chatRoom)
-        {
-            var model = await ZboxReadService.GetUserConversationAsync(new GetChatRoomMessagesQuery(chatRoom));
-            return JsonOk(model);
-        }
 
         
     }

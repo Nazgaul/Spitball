@@ -407,6 +407,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserConversationAsync(query);
         }
 
+        public Task<int> GetUnreadChatMessagesAsync(QueryBase query)
+        {
+            return m_ReadService.GetUnreadChatMessagesAsync(query);
+        }
+
 
         public Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
         {

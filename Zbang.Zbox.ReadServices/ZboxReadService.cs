@@ -30,7 +30,7 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadService : BaseReadService, IZboxReadService, IUniversityWithCode
     {
-        
+
         public async Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -400,14 +400,14 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
 
 
 
-       
+
         public async Task<IEnumerable<Qna.CommentDto>> GetCommentsAsync(GetBoxQuestionsQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await con.QueryMultipleAsync(
                     $"{Sql.Feed.Comments} {Sql.Feed.RepliesInComments} {Sql.Feed.GetItemsInCommentsAndReplies} {Sql.Feed.GetQuizzesForComments}",
-                    new { query.BoxId, query.Top, query.Skip, rtop = GetBoxQuestionsQuery.TopOfReplies}))
+                    new { query.BoxId, query.Top, query.Skip, rtop = GetBoxQuestionsQuery.TopOfReplies }))
                 {
                     var comments = grid.Read<Qna.CommentDto>();//.ToList();
                     var replies = grid.Read<Qna.ReplyDto>();//.ToDictionary(x => x.QuestionId);
@@ -648,40 +648,20 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             }
         }
 
+        public async Task<int> GetUnreadChatMessagesAsync(QueryBase query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var result = await conn.QueryAsync<int>(Sql.Chat.GetUnreadMessages,
+                     new
+                     {
+                         query.UserId
 
+                     });
+                return result.FirstOrDefault();
+            }
+        }
 
-        /// <summary>
-        /// Used in api to private to box
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        //public async Task<IEnumerable<User.UserWithImageNameDto>> GetUsersByTermAsync(UserSearchQuery query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<User.UserWithImageNameDto>(Sql.Search.GetUsersByTerm,
-        //             new
-        //             {
-        //                 query.Term,
-        //                 query.PageNumber,
-        //                 query.RowsPerPage,
-        //                 query.UniversityId,
-        //                 query.BoxId
-
-        //             });
-        //    }
-        //}
-
-        //public async Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        return await conn.QueryAsync<RussianDepartmentDto>(Sql.LibraryChoose.GetRussianDepartments, new
-        //        {
-        //            universityId
-        //        });
-        //    }
-        //}
 
         public async Task<UniversityWithCodeDto> GetUniversityNeedIdAsync(long universityId)
         {
@@ -771,11 +751,11 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                     return retVal;
 
                 }
-     //           await conn.QueryAsync<Box.BoxNotificationDto>(@"select b.BoxId as Id, b.BoxName as Name,  ub.NotificationSettings as Notifications, b.Url as url, u.UserName
-     //               from zbox.Box b 
-	    //            inner join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
-					//inner join zbox.Users u on b.OwnerId = u.UserId
-     //               where ub.UserId = @UserId", new { query.UserId });
+                //           await conn.QueryAsync<Box.BoxNotificationDto>(@"select b.BoxId as Id, b.BoxName as Name,  ub.NotificationSettings as Notifications, b.Url as url, u.UserName
+                //               from zbox.Box b 
+                //            inner join zbox.UserBoxRel ub on b.BoxId = ub.BoxId
+                //inner join zbox.Users u on b.OwnerId = u.UserId
+                //               where ub.UserId = @UserId", new { query.UserId });
             }
 
         }

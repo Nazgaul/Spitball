@@ -41,13 +41,13 @@
         self.logOut = logOut;
         self.openMenu = openMenu;
         self.menuOpened = false;
-        self.chatOpened = false;
+        //self.chatOpened = false;
         self.expandSearch = false;
         self.resetForm = resetForm;
         self.showToaster = showToaster;
 
         self.toggleMenu = toggleMenu;
-        self.toggleChat = toggleChat;
+        //self.toggleChat = toggleChat;
         function logOut() {
             cacheFactory.clearAll();
             Intercom('shutdown');
@@ -59,9 +59,9 @@
             $rootScope.$broadcast('open-menu');
         }
 
-        function toggleChat() {
-            $rootScope.$broadcast('open-chat');
-        }
+        //function toggleChat() {
+        //    $rootScope.$broadcast('toggle-chat');
+        //}
 
         function showToaster(text, parentId, theme) {
             var element = $document.find('header')[0];

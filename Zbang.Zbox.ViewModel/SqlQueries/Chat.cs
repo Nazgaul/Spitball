@@ -11,5 +11,8 @@ and e1.userid = @UserId";
 
         public const string GetChat = @"select Message as text,CreationTime as Time ,UserId from zbox.ChatMessage
 where ChatRoomId = @ChatRoom";
+
+
+        public const string GetUnreadMessages = "select sum(unread) from zbox.ChatUser where userid = @UserId";
     }
 }
