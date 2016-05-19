@@ -27,7 +27,6 @@
         chatBus.unread().then(function (response) {
             c.unread = response;
             chatBus.setUnread(response);
-            //updateUnread(response);
         });
 
         $scope.$watch(function () {
@@ -38,7 +37,7 @@
                 return;
             }
 
-            messageState();
+            search();
         });
         function backFromChat() {
             c.state = c.states.messages;
@@ -81,14 +80,14 @@
                 c.unread = ++c.unread;
                 chatBus.setUnread(c.unread);
             }
-            $scope.$apply();
-        }
-        function messageState() {
-            chatBus.messages().then(function (response) {
-                c.users = response;
-            });
 
         }
+        //function messageState() {
+        //    chatBus.messages().then(function (response) {
+        //        c.users = response;
+        //    });
+
+        //}
 
         //function friendsState() {
         //    c.state = c.states.friends;
@@ -98,11 +97,13 @@
         function search() {
             chatBus.messages(c.term).then(function (response) {
                 c.users = response;
+                updateUnread();
             });
         }
 
         function conversation(user) {
             c.userChat = user;
+            c.messages = [];
             if (c.userChat.conversation) {
                 chatBus.chat(c.userChat.conversation).then(function (response) {
                     for (var i = 0; i < response.length; i++) {
@@ -128,46 +129,140 @@
         }
 
         $scope.$on('hub-chat', function (e, args) {
-            c.userChat = c.userChat || {};
-            if (args.chatRoom !== c.userChat.conversation) {
-                if (!c.users) {
-                    updateUnread();
-                    return;
+            //if its me
+            if (args.userId !== userDetailsFactory.get().id) {
+                if (!c.userChat.conversation) {
+                    c.userChat.conversation = args.chatRoom;
                 }
-                var user = c.users.find(function(f) {
-                    return f.conversation === args.chatRoom;
+                c.messages.push({
+                    text: args.message,
+                    time: new Date().toISOString(),
+                    partner: false
                 });
-                if (!user) {
-                    //TODO: not sure how
-                    return;
-                };
-                user.unread++;
-                updateUnread();
-                //user.conversation = 
-                //return;
-            } else {
+                updateScope();
+                return;
+            }
+            // im in the same chat
+            if (c.userChat && c.userChat.conversation === args.chatRoom) {
                 c.messages.push({
                     text: args.message,
                     time: new Date().toISOString(),
                     partner: true
                 });
+                updateScope();
+                return;
+            }
+            //im not in chat at all
+            if (!c.users) {
+                updateUnread();
+                updateScope();
+                return;
+            }
+            //got conversation with that user
+            var user = c.users.find(function (f) {
+                return f.conversation === args.chatRoom;
+            });
+            if (user) {
+                user.unread++;
+                updateUnread();
+                updateScope();
+                return;
+            }
+            //got no conversation with that user
+            user = c.users.find(function (f) {
+                return f.id === args.user;
+            });
+            if (!user) {
+                //need to refresh data to find it.
+                search();
+                return;
+            };
+            user.unread++;
+            user.conversation = args.id;
+            updateUnread();
+            updateScope();
+
+
+            function updateScope() {
                 $scope.$apply();
             }
-            
         });
+        //c.userChat = c.userChat || {};
+        //// we are in the conversation
+        //if (c.userChat.conversation === args.chatRoom) {
+        //    c.messages.push({
+        //        text: args.message,
+        //        time: new Date().toISOString(),
+        //        partner: true
+        //    });
+        //need to remove unread
 
-        $scope.$on('hub-chat-roomid', function (e, args) {
-            if (!c.userChat.conversation) {
-                c.userChat.conversation = args.message;
-            }
-            $scope.$apply();
-        });
-        $scope.$on('hub-chat-room', function (e, args) {
-            //if (!c.userChat.conversation) {
-            //    c.userChat.conversation = args.message;
-            //}
-        });
-    }
+
+
+
+
+
+
+        //c.userChat = c.userChat || {};
+        //if (args.chatRoom !== c.userChat.conversation) {
+        //    if (!c.users) {
+        //        updateUnread();
+        //        $scope.$apply();
+        //        return;
+        //    }
+        //    var user = c.users.find(function(f) {
+        //        return f.conversation === args.chatRoom;
+        //    });
+        //    if (!user) {
+        //        //TODO: not sure how
+        //        return;
+        //    };
+        //    user.unread++;
+        //    updateUnread();
+        //    $scope.$apply();
+        //    //user.conversation = 
+        //    //return;
+        //} else {
+        //    c.messages.push({
+        //        text: args.message,
+        //        time: new Date().toISOString(),
+        //        partner: true
+        //    });
+        //    $scope.$apply();
+        //}
+
+        //});
+
+        // the caller gets
+        //$scope.$on('hub-chat-roomid', function (e, args) {
+        //    if (!c.userChat.conversation) {
+        //        c.userChat.conversation = args.message;
+        //    }
+        //    $scope.$apply();
+        //});
+        // the cally gets
+        //$scope.$on('hub-chat-room', function (e, args) {
+        //    if (!c.users) {
+        //        updateUnread();
+        //        $scope.$apply();
+        //        return;
+        //    }
+        //    var user = c.users.find(function (f) {
+        //        return f.id === args.user;
+        //    });
+        //    if (!user) {
+        //        search();
+        //        return;
+        //    };
+        //    user.unread++;
+        //    user.conversation = args.id;
+        //    updateUnread();
+        //    $scope.$apply();
+        //    //if (!c.userChat.conversation) {
+        //    //    c.userChat.conversation = args.message;
+        //    //}
+    };
+
 })();
 
 (function () {
@@ -211,7 +306,7 @@
         };
 
         chatService.messages = function (q) {
-            return ajaxService.get('/chat/conversation', { q: q });
+            return ajaxService.get('/chat/conversation', { q: q }, 0);
         }
         chatService.chat = function (id) {
             return ajaxService.get('/chat/messages', {

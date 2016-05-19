@@ -123,7 +123,7 @@
             </div>
             <div ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" ng-click="cc.openChat()">
                 @Html.Svg("~/images/site/icons.svg", "chat")
-                <div class="chat-counter">{{cc.unread()}}</div>
+                <div class="chat-counter" ng-if="cc.unread() > 0">{{cc.unread()}}</div>
             </div>
         </div>
     </header>
