@@ -51,8 +51,7 @@ namespace Zbang.Cloudents.Connect
             GlobalHost.DependencyResolver = config.Resolver;
             GlobalHost.DependencyResolver.Register(typeof(IJavaScriptMinifier), () => new MimifyProxy());
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new UserIdProvider());
-            //GlobalHost.DependencyResolver.Register(typeof(IJavaScriptProxyGenerator), () => new x());
-            //GlobalHost.DependencyResolver.UseServiceBus("Endpoint=sb://cloudentsmsg-ns.servicebus.windows.net/;SharedAccessKeyName=signalr;SharedAccessKey=lyODoV4e3aapUw9tm8i6jvxSF5GT4w+Raj8ENlBHyUE=;EntityPath=signal-r", "signalr");
+            GlobalHost.DependencyResolver.UseServiceBus("Endpoint=sb://cloudentsmsg-ns.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=oePM1T/GBe2ZlaDhik3MLHNXstsM4lhnCTyRTBi0bmQ=", "signalr");
             //app.Map("", map =>
             //{
             //    map.UseCors(CorsOptions.AllowAll);
