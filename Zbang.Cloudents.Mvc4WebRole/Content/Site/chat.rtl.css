@@ -62,25 +62,6 @@ md-sidenav.chat md-content .header {
         color: #00bcd4;
     }*/
 }
-md-sidenav.chat md-content .header .tabs {
-  background: #eee;
-  color: #f5f5f5;
-  border: 1px solid #D7DDE0;
-}
-md-sidenav.chat md-content .header .tabs .tab {
-  display: inline-block;
-  width: 30%;
-  font-size: 16px;
-  padding-top: 3px;
-  line-height: 32px;
-  text-align: center;
-  margin: 0 10px;
-  color: #888b8e;
-}
-md-sidenav.chat md-content .header .tabs .tab.active {
-  color: #4190b9;
-  border-bottom: 3px solid #4190b9;
-}
 md-sidenav.chat md-content .header .menu-item,
 md-sidenav.chat md-content .header .menu-open-button {
   background: #111;
@@ -387,7 +368,6 @@ md-sidenav.chat md-content .conversasion .chat-content .messages {
   padding: 0;
   font-size: 14px;
   padding-top: 10px;
-  padding-bottom: 70px;
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages .message {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
@@ -434,8 +414,8 @@ md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-con
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container textarea {
   color: #282828;
   border: none !important;
-  min-height: 45px;
   line-height: 20px;
+  min-height: 45px;
 }
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container .md-errors-spacer,
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container .md-errors-space {

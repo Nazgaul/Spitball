@@ -25,7 +25,9 @@
 
 
         chatBus.unread().then(function (response) {
-            updateUnread(response);
+            c.unread = response;
+            chatBus.setUnread(response);
+            //updateUnread(response);
         });
 
         $scope.$watch(function () {
@@ -67,9 +69,19 @@
         //    //
         //    //});
         //});
-        function updateUnread(count) {
-            c.unread = count;
-            chatBus.setUnread(count);
+        function updateUnread() {
+            if (c.users) {
+                var x = 0;
+                for (var i = 0; i < c.users.length; i++) {
+                    x += c.users[i].unread || 0;
+                }
+                c.unread = x;
+                chatBus.setUnread(x);
+            } else {
+                c.unread = ++c.unread;
+                chatBus.setUnread(c.unread);
+            }
+            $scope.$apply();
         }
         function messageState() {
             chatBus.messages().then(function (response) {
@@ -118,20 +130,37 @@
         $scope.$on('hub-chat', function (e, args) {
             c.userChat = c.userChat || {};
             if (args.chatRoom !== c.userChat.conversation) {
-                return;
+                if (!c.users) {
+                    updateUnread();
+                    return;
+                }
+                var user = c.users.find(function(f) {
+                    return f.conversation === args.chatRoom;
+                });
+                if (!user) {
+                    //TODO: not sure how
+                    return;
+                };
+                user.unread++;
+                updateUnread();
+                //user.conversation = 
+                //return;
+            } else {
+                c.messages.push({
+                    text: args.message,
+                    time: new Date().toISOString(),
+                    partner: true
+                });
+                $scope.$apply();
             }
-            c.messages.push({
-                text: args.message,
-                time: new Date().toISOString(),
-                partner: true
-            });
-            $scope.$apply();
+            
         });
 
         $scope.$on('hub-chat-roomid', function (e, args) {
             if (!c.userChat.conversation) {
                 c.userChat.conversation = args.message;
             }
+            $scope.$apply();
         });
         $scope.$on('hub-chat-room', function (e, args) {
             //if (!c.userChat.conversation) {

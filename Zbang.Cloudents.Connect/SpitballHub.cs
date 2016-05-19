@@ -34,7 +34,6 @@ namespace Zbang.Cloudents.Connect
                     //var t2 = Groups.Add(Context.ConnectionId, chatId.Value.ToString());
                     //var t3 = Groups.Add(userId.ToString(), chatId.Value.ToString());
                     Clients.Caller.chatRoomId(chatId.Value);
-
                     Clients.User(userId.ToString()).chatRoom(chatId.Value, Context.User.GetUserId().ToString());
                     //await Task.WhenAll(t1 /*, t2, t3*/);
                     //Clients.Group(chatId.Value.ToString()).assignGroup(chatId.Value.ToString());
