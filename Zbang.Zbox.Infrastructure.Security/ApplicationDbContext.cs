@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             var sw = new Stopwatch();
             sw.Start();
             
-            this.Database.Initialize(false);
+            Database.Initialize(false);
             sw.Stop();
             TraceLog.WriteInfo("time to initialize entity framework " + sw.ElapsedMilliseconds);
         }

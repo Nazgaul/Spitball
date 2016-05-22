@@ -12,10 +12,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<ChatMessage> m_ChatMessageRepository;
         private readonly IRepository<ChatRoom> m_ChatRoomRepository;
-        private readonly IRepository<ChatUser> m_ChatUserRepository;
+        private readonly IChatUserRepository m_ChatUserRepository;
         private readonly IUserRepository m_UserRepository;
 
-        public ChatAddMessageCommandHandler(IRepository<ChatMessage> chatMessageRepository, IRepository<ChatRoom> chatRoomRepository, IUserRepository userRepository, IRepository<ChatUser> chatUserRepository)
+        public ChatAddMessageCommandHandler(IRepository<ChatMessage> chatMessageRepository, IRepository<ChatRoom> chatRoomRepository, IUserRepository userRepository, IChatUserRepository chatUserRepository)
         {
             m_ChatMessageRepository = chatMessageRepository;
             m_ChatRoomRepository = chatRoomRepository;
@@ -25,12 +25,25 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public void Handle(ChatAddMessageCommand message)
         {
-            var chatRoom = m_ChatRoomRepository.Load(message.ChatRoomId);
+            var chatRoom  = GetChatRoom(message);
+            message.ChatRoomId = chatRoom.Id;
+            //if (!message.ChatRoomId.HasValue)
+            //{
+            //    var x = m_ChatUserRepository.GetChatRoom(message.UsersInChat);
+
+            //    chatRoom = new ChatRoom(message.UsersInChat.Select(s => m_UserRepository.Load(s)));
+            //    message.ChatRoomId = chatRoom.Id;
+            //    m_ChatRoomRepository.Save(chatRoom);
+            //}
+            //else
+            //{
+            //    chatRoom = m_ChatRoomRepository.Load(message.ChatRoomId);
+            //}
             var userAction = m_UserRepository.Load(message.UserId);
             message.Message = TextManipulation.EncodeComment(message.Message);
             var chatMessage = new ChatMessage(chatRoom, userAction, message.Message);
 
-            foreach (var user in chatRoom.Users/*.Where(w=>w.User.Id != message.UserId)*/)
+            foreach (var user in chatRoom.Users)
             {
                 if (user.User.Id == message.UserId)
                 {
@@ -48,6 +61,23 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
             m_ChatMessageRepository.Save(chatMessage);
+        }
+
+
+        private ChatRoom GetChatRoom(ChatAddMessageCommand message)
+        {
+            if (message.ChatRoomId.HasValue)
+            {
+                return m_ChatRoomRepository.Load(message.ChatRoomId);
+            }
+            var chatId = m_ChatUserRepository.GetChatRoom(message.UsersInChat);
+            if (chatId.HasValue)
+            {
+                return m_ChatRoomRepository.Load(message.ChatRoomId);
+            }
+            var chatRoom = new ChatRoom(message.UsersInChat.Select(s => m_UserRepository.Load(s)));
+            m_ChatRoomRepository.Save(chatRoom);
+            return chatRoom;
         }
     }
 }

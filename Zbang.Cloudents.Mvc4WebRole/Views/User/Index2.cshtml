@@ -19,7 +19,7 @@
                 <h4 class="profile-usertitle-job color-override textColor9">
                     {{::u.details.universityName}}
                 </h4>
-                <button class="message" ng-click="u.sendMessage()">
+                <button class="message" ng-if="!u.isUserProfile" ng-click="u.sendMessage()">
                     @Html.Svg("~/images/site/icons.svg", "chat")
                     @UserResources.MessageButton
                 </button>
@@ -76,7 +76,7 @@
                                                 @GeneralResources.Download
                                             </md-button>
                                         </md-menu-item>
-                                        <md-menu-item ng-if="u.canDelete">
+                                        <md-menu-item ng-if="u.isUserProfile">
                                             <md-button ng-click="u.deleteItem($event,e)" ga-track-event="['box-items', 'didDelete']">
                                                 @GeneralResources.Delete
                                             </md-button>

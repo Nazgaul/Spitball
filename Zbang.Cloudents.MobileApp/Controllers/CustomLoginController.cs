@@ -182,8 +182,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
         [HttpPost]
-        [Route("api/googleLogin")]
-        public async Task<HttpResponseMessage> GoogleLogin(ExternalLoginRequest model)
+        [Route("api/googleLogin"), ActionName("GoogleLogin")]
+        public async Task<HttpResponseMessage> GoogleLoginAsync(ExternalLoginRequest model)
         {
             if (model == null)
             {
@@ -193,6 +193,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             if (googleUserData == null)
             {
                 return Request.CreateBadRequestResponse("auth token is invalid");
+            }
+            if (string.IsNullOrEmpty(googleUserData.Email))
+            {
+                return Request.CreateBadRequestResponse("email is required");
             }
             try
             {

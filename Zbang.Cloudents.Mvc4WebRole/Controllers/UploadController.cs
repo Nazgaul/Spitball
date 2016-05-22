@@ -98,7 +98,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     OwnerId = result2.File.Uploader.Id,
                     UserUrl = result2.File.Uploader.Url,
                     Source = result2.File.ItemContentUrl,
-                    //Thumbnail = result2.File.ThumbnailUrl,
                     Owner = result2.File.Uploader.Name,
                     Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
                     Url = result2.File.Url,
@@ -228,6 +227,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var url = await m_BlobProvider.UploadQuizImageAsync(file.InputStream, file.ContentType, boxId, file.FileName);
             return JsonOk(url);
+        }
+
+        [HttpPost, ZboxAuthorize, ActionName("ChatFile")]
+        public JsonResult ChatFileAsync()
+        {
+            return JsonOk();
         }
 
         [HttpPost, ZboxAuthorize, RemoveBoxCookie,ActionName("Link")]

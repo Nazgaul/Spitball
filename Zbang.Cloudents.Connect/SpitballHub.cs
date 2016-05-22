@@ -25,23 +25,16 @@ namespace Zbang.Cloudents.Connect
             try
             {
                 var usersToSend = new[] {userId.ToString(), Context.User.GetUserId().ToString()};
-                if (!chatId.HasValue)
-                {
-
-                    chatId = Guid.NewGuid();
-                    var roomCommand = new ChatCreateRoomCommand(new[] { Context.User.GetUserId(), userId }, chatId.Value);
-                    m_WriteService.AddChatRoom(roomCommand);
-                    //var t2 = Groups.Add(Context.ConnectionId, chatId.Value.ToString());
-                    //var t3 = Groups.Add(userId.ToString(), chatId.Value.ToString());
-                    //Clients.Caller.chatRoomId(chatId.Value);
-                    //Clients.User(userId.ToString()).chatRoom(chatId.Value, Context.User.GetUserId().ToString());
-                    //await Task.WhenAll(t1 /*, t2, t3*/);
-                    //Clients.Group(chatId.Value.ToString()).assignGroup(chatId.Value.ToString());
-                }
-                var messageCommand = new ChatAddMessageCommand(chatId.Value, Context.User.GetUserId(), message);
+                //if (!chatId.HasValue)
+                //{
+                    //chatId = Guid.NewGuid();
+                    //var roomCommand = new ChatCreateRoomCommand(new[] { Context.User.GetUserId(), userId }, chatId.Value);
+                    //m_WriteService.AddChatRoom(roomCommand);
+                //}
+                var messageCommand = new ChatAddMessageCommand(chatId, Context.User.GetUserId(), message, new[] { Context.User.GetUserId(), userId });
                 m_WriteService.AddChatMessage(messageCommand);
                 //Clients.OthersInGroup(chatId.Value.ToString());
-                Clients.Users(usersToSend).chat(messageCommand.Message, chatId, userId);
+                Clients.Users(usersToSend).chat(messageCommand.Message, messageCommand.ChatRoomId, userId);
             }
             catch (Exception ex)
             {
@@ -53,6 +46,7 @@ namespace Zbang.Cloudents.Connect
         {
 
             var user = Context.User.GetUserId();
+            Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
             m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, true));
             return base.OnConnected();
         }

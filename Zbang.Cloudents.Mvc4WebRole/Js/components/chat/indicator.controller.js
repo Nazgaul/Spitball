@@ -1,6 +1,5 @@
 ﻿(function () {
     angular.module('app.chat').controller('chatIndicatorController', chatIndicator);
-
     chatIndicator.$inject = ['chatBus', '$mdSidenav'];
 
     function chatIndicator(chatBus, $mdSidenav) {

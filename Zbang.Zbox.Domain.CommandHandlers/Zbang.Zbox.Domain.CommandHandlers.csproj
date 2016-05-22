@@ -71,7 +71,6 @@
     <Compile Include="ChangeNotificationSettingsCommandHandler.cs" />
     <Compile Include="ChangeUserOnlineStatusCommandHandler.cs" />
     <Compile Include="ChatAddMessageCommandHandler.cs" />
-    <Compile Include="ChatCreateRoomCommandHandler.cs" />
     <Compile Include="ChatMarkAsReadCommandHandler.cs" />
     <Compile Include="CreateAcademicBoxCommandHandler.cs" />
     <Compile Include="CreateFacebookUserCommandHandler.cs" />

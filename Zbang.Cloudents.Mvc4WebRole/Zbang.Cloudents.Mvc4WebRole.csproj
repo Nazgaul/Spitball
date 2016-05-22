@@ -394,6 +394,7 @@
     <Compile Include="Models\Account\Settings\University.cs" />
     <Compile Include="Models\AddFromDropBox.cs" />
     <Compile Include="Models\AddLink.cs" />
+    <Compile Include="Models\ChatMessages.cs" />
     <Compile Include="Models\CreateDepartment.cs" />
     <Compile Include="Models\DeleteItemComment.cs" />
     <Compile Include="Models\DeleteItemCommentReply.cs" />
@@ -2346,6 +2347,7 @@
     <Content Include="Content\Bootstrap\bootstrap.rtl.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
+    <Content Include="Content\Fonts\emoticons.svg" />
     <Content Include="Content\HomePage\homePage.css">
       <DependentUpon>homePage.less</DependentUpon>
     </Content>
@@ -2862,9 +2864,6 @@
     <Content Include="bower_components\textAngular\src\textAngular.css" />
     <Content Include="bower_components\textAngular\src\textAngularSetup.js" />
     <Content Include="bower_components\textAngular\src\validators.js" />
-    <Content Include="Content\Fonts\feather-webfont.svg" />
-    <Content Include="Content\Fonts\Simple-Line-Icons.dev.svg" />
-    <Content Include="Content\Fonts\Simple-Line-Icons.svg" />
     <Content Include="Content\HomePage\bootstrap.css">
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
@@ -2917,12 +2916,6 @@
     <Content Include="Content\HomePage\extras.less" />
     <Content Include="Content\HomePage\landing.less" />
     <Content Include="Content\HomePage\theme.less" />
-    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\Fonts\Simple-Line-Icons.eot" />
-    <Content Include="Content\Fonts\Simple-Line-Icons.ttf" />
-    <Content Include="Content\Fonts\Simple-Line-Icons.woff" />
     <Content Include="bower_components\angular-animate\.bower.json" />
     <Content Include="bower_components\angular-animate\angular-animate.min.js.map" />
     <Content Include="bower_components\angular-animate\bower.json" />
@@ -3398,6 +3391,8 @@
     <Content Include="Content\Site\error.rtl.css">
       <DependentUpon>error.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\ng-embed.css" />
+    <Content Include="Content\Site\ng-embed.rtl.css" />
     <Content Include="Content\Site\profile.css">
       <DependentUpon>profile.less</DependentUpon>
     </Content>
@@ -3724,9 +3719,9 @@
     <Content Include="Js\app.js" />
     <Content Include="Js\app.route.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
-    <Content Include="Js\chat\chat.controller.js" />
-    <Content Include="Js\chat\chat.factory.js" />
-    <Content Include="Js\chat\indicator.controller.js" />
+    <Content Include="Js\components\chat\chat.controller.js" />
+    <Content Include="Js\components\chat\chat.factory.js" />
+    <Content Include="Js\components\chat\indicator.controller.js" />
     <Content Include="Js\components\account\account.routes.js" />
     <Content Include="Js\components\account\account.service.js" />
     <Content Include="Js\components\account\department.controller.js" />
@@ -3755,7 +3750,7 @@
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\doubleclick.config.js" />
-    <Content Include="Js\chat\hubFactory.js" />
+    <Content Include="Js\components\chat\hubFactory.js" />
     <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\intercom.js" />
     <Content Include="Js\shared\changeLanguage.js" />
@@ -3921,6 +3916,9 @@
     <Content Include="Images\Web.config" />
     <Content Include="Js\components\box\shareBox.directive.js" />
     <Content Include="Content\Site\chat.less" />
+    <Content Include="Content\Fonts\emoticons.eot" />
+    <Content Include="Content\Fonts\emoticons.ttf" />
+    <Content Include="Content\Fonts\emoticons.woff" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

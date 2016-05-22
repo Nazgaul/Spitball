@@ -47,7 +47,8 @@
                         <span class="member-name ellipsis" ng-bind="::c.userChat.name"></span>
                     </a>
                 </div>
-                <nav class="menu">
+                <a class="menu" plupload="c.upload.url" plupload-options="c.upload.options" plupload-callbacks="c.upload.callbacks" href="#" class="menu-item"> @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" }) </a>
+                @*<nav class="menu">
                     <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
                     <label class="menu-open-button" for="menu-open">
                         @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" })
@@ -61,7 +62,7 @@
                     
 
 
-                </nav>
+                </nav>*@
                 @*<div class="attach-menu" ng-cloak>
                         <md-fab-speed-dial md-open="c.open"   md-direction="down" class="md-fling angular-animate">
                             <md-fab-trigger aria-label="menu">
@@ -85,6 +86,10 @@
             </div>
             <div class="chat-content">
                 <ul class="messages" ng-slimscroll height="calc(100vh - 140px)" start="bottom" watch-content="true" color="#BBB">
+                    <li class="partner message">
+                        <div class="image"><img src="http://imgsv.imaging.nikon.com/lineup/lens/zoom/normalzoom/af-s_dx_18-300mmf_35-56g_ed_vr/img/sample/sample4_l.jpg" /></div>
+                        <div class="time">22 min ago</div>
+                    </li>
                     @*<li class="partner message">
                             <div class="content text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
                             <div class="time">22 min ago</div>

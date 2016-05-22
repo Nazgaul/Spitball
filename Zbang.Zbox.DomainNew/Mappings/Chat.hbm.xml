@@ -44,4 +44,13 @@
     where c.User.Id = :userid and c.ChatRoom.Id = :chatRoom
     ]]>
   </query>
+  <query name="GetChatRoom">
+    <![CDATA[
+    select c.ChatRoom.Id
+    from ChatUser c
+    where c.User.Id in (:userids)
+    group by c.ChatRoom.Id
+    having count(*) = :length
+    ]]>
+  </query>
 </hibernate-mapping>

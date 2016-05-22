@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -32,9 +33,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, ActionName("messages")]
-        public async Task<JsonResult> MessagesAsync(Guid chatRoom)
+        public async Task<JsonResult> MessagesAsync(ChatMessages message)
         {
-            var model = await ZboxReadService.GetUserConversationAsync(new GetChatRoomMessagesQuery(chatRoom));
+            var model = await ZboxReadService.GetUserConversationAsync(new GetChatRoomMessagesQuery(message.ChatRoom, message.UserIds));
             return JsonOk(model);
         }
 

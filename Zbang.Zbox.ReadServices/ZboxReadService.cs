@@ -642,14 +642,26 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<ChatDto>(Sql.Chat.GetChat,
-                     new
-                     {
-                         ChatRoom = query.Id
+                if (query.Id.HasValue)
+                {
+                    return await conn.QueryAsync<ChatDto>(Sql.Chat.GetChat,
+                        new
+                        {
+                            ChatRoom = query.Id
 
-                     });
+                        });
+                }
+                return await conn.QueryAsync<ChatDto>(Sql.Chat.GetChatByUserIds,
+                        new
+                        {
+                            query.UserIds,
+                            length = query.UserIds.Count()
+
+                        });
             }
         }
+
+        
 
         public async Task<int> GetUnreadChatMessagesAsync(QueryBase query)
         {

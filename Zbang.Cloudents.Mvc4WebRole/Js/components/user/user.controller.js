@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.user').controller('UserController', user);
     user.$inject = ['userService', 'userData', 'itemThumbnailService', '$q',
-        'userDetailsFactory', '$mdDialog', 'resManager', 'boxService'];
+        'userDetailsFactory', '$mdDialog', 'resManager', 'boxService', '$rootScope'];
 
     function user(userService, userData, itemThumbnailService, $q, userDetailsFactory,
-        $mdDialog, resManager, boxService) {
+        $mdDialog, resManager, boxService, $rootScope) {
         var self = this;
         var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0, quizzesPage = 0;
         self.friends = [];
@@ -14,7 +14,7 @@
         self.feed = [];
         self.quiz = [];
 
-        self.canDelete = userDetailsFactory.get().id == userData.id;
+        self.isUserProfile = userDetailsFactory.get().id === userData.id;
         self.details = userData;
         self.state = {
             box: 'b',
@@ -62,7 +62,20 @@
         }
         self.changeTab(self.tab);
         self.deleteItem = deleteItem;
+        self.sendMessage = sendMessage;
 
+
+
+        function sendMessage() {
+            $rootScope.$broadcast('open-chat-user', {
+                name: userData.name,
+                id: userData.id,
+                image: userData.image,
+                url: userData.url,
+                online: true
+            });
+            //$mdSidenav('chat').open();
+        }
         function deleteItem(ev, item) {
             var confirm = $mdDialog.confirm()
                  .title(resManager.get('deleteItem'))

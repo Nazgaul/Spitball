@@ -12,9 +12,7 @@
             // friends: 2,
             chat: 3
         };
-        // c.open = false;
         c.state = c.states.messages;
-        //c.friendsState = friendsState;
         c.search = search;
         c.chat = conversation;
         c.send = send;
@@ -50,7 +48,7 @@
         function close() {
             $mdSidenav('chat').close();
         }
-        
+
         function updateUnread() {
             if (c.users) {
                 var x = 0;
@@ -65,7 +63,7 @@
             }
 
         }
-        
+
         function search() {
             chatBus.messages(c.term).then(function (response) {
                 c.users = response;
@@ -76,14 +74,15 @@
         function conversation(user) {
             c.userChat = user;
             c.messages = [];
-            if (c.userChat.conversation) {
-                chatBus.chat(c.userChat.conversation).then(function (response) {
-                    for (var i = 0; i < response.length; i++) {
-                        response[i].partner = response[i].userId !== userDetailsFactory.get().id;
-                    }
-                    c.messages = response;
-                });
-            }
+            //if (c.userChat.conversation) {
+            chatBus.chat(c.userChat.conversation, [c.userChat.id, userDetailsFactory.get().id]).then(function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    response[i].partner = response[i].userId !== userDetailsFactory.get().id;
+                }
+                c.messages = response;
+            });
+            //}
+
             if (c.userChat.unread) {
                 chatBus.read(c.userChat.conversation);
                 c.userChat.unread = 0;
@@ -101,6 +100,10 @@
             c.newText = '';
         }
 
+        $scope.$on('open-chat-user', function (e, args) {
+            $mdSidenav('chat').open();
+            conversation(args);
+        });
         $scope.$on('hub-chat', function (e, args) {
             //if its me
             if (args.userId !== userDetailsFactory.get().id) {
@@ -160,13 +163,13 @@
                 $scope.$apply();
             }
         });
-       
+
 
         c.upload = {
-            url: '/upload/file/',
+            url: '/upload/chatfile/',
             options: {
-                chunk_size: '3mb',
-                drop_element: 'dropElement'
+                chunk_size: '3mb'
+                // drop_element: 'dropElement'
             },
             callbacks: {
                 filesAdded: function (uploader, files) {
@@ -195,14 +198,14 @@
                     //};
                 },
                 fileUploaded: function (uploader, file, response) {
-                   // cacheFactory.clearAll();
-                   // file.complete = true;
-                   // var obj = JSON.parse(response.response);
-                   // if (obj.success) {
-                   //     u.filesCompleteCount++;
-                   //     file.systemId = obj.payload.item.id;
-                   //     $rootScope.$broadcast('item_upload', obj.payload);
-                   // }
+                    // cacheFactory.clearAll();
+                    // file.complete = true;
+                    // var obj = JSON.parse(response.response);
+                    // if (obj.success) {
+                    //     u.filesCompleteCount++;
+                    //     file.systemId = obj.payload.item.id;
+                    //     $rootScope.$broadcast('item_upload', obj.payload);
+                    // }
                 },
                 uploadComplete: function () {
                     //toasterUploadComplete

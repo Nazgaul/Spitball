@@ -17,9 +17,10 @@
         chatService.messages = function (q) {
             return ajaxService.get('/chat/conversation', { q: q }, 0);
         }
-        chatService.chat = function (id) {
+        chatService.chat = function (id, userIds) {
             return ajaxService.get('/chat/messages', {
-                chatRoom: id
+                chatRoom: id,
+                userIds: userIds
             });
         }
         chatService.unread = function () {

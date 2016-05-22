@@ -709,14 +709,14 @@ namespace Zbang.Zbox.Domain.Services
         }
 
 
-        public void AddChatRoom(ChatCreateRoomCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
+        //public void AddChatRoom(ChatCreateRoomCommand command)
+        //{
+        //    using (UnitOfWork.Start())
+        //    {
+        //        m_CommandBus.Send(command);
+        //        UnitOfWork.Current.TransactionalFlush();
+        //    }
+        //}
         public void AddChatMessage(ChatAddMessageCommand command)
         {
             using (UnitOfWork.Start())
