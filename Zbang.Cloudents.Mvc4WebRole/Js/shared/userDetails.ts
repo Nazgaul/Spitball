@@ -31,6 +31,7 @@ interface IUserData {
     isAdmin: boolean;
     theme: string;
     culture: string;
+    unread: number;
     createTime: Date;
     university: IUniversity;
 }
@@ -83,6 +84,7 @@ interface IUserData {
                 theme: data.theme,
                 culture: data.culture,
                 email: data.email,
+                unread: data.unread,
                 university: {
                     country: data.universityCountry, // for google analytics
                     name: data.universityName, // in library page

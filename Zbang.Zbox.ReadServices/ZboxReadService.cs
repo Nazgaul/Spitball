@@ -661,27 +661,27 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             }
         }
 
-        
 
-        public async Task<int> GetUnreadChatMessagesAsync(QueryBase query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                var result = await conn.QueryAsync<int?>(Sql.Chat.GetUnreadMessages,
-                     new
-                     {
-                         query.UserId
 
-                     });
-                var single = result.FirstOrDefault();
-                if (single == null)
-                {
-                    return 0;
-                }
+        //public async Task<int> GetUnreadChatMessagesAsync(QueryBase query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        var result = await conn.QueryAsync<int?>(Sql.Chat.GetUnreadMessages,
+        //             new
+        //             {
+        //                 query.UserId
 
-                return single.Value;
-            }
-        }
+        //             });
+        //        var single = result.FirstOrDefault();
+        //        if (single == null)
+        //        {
+        //            return 0;
+        //        }
+
+        //        return single.Value;
+        //    }
+        //}
 
 
         public async Task<UniversityWithCodeDto> GetUniversityNeedIdAsync(long universityId)
@@ -720,17 +720,36 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         }
         public async Task<User.UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query)
         {
+
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal =
-                       await conn.QueryAsync<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
-                       new { query.UserId });
-                var user = retVal.FirstOrDefault();
-                if (user == null)
+                using (
+                    var grid = await conn.QueryMultipleAsync($"{Sql.Sql.UserAuthenticationDetail} {Sql.Chat.GetUnreadMessages}",
+                        new { query.UserId }))
                 {
-                    throw new UserNotFoundException("user is null");
+                    var retVal = await grid.ReadAsync<User.UserDetailDto>();
+                    var user = retVal.FirstOrDefault();
+                    if (user == null)
+                    {
+                        throw new UserNotFoundException("user is null");
+                    }
+                    var count = grid.Read<int?>().FirstOrDefault();
+                    if (count != null)
+                    {
+                        user.Unread = count.Value;
+                    }
+                    return user;
                 }
-                return user;
+
+                //var retVal =
+                //       await conn.QueryAsync<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
+                //       new { query.UserId });
+                //var user = retVal.FirstOrDefault();
+                //if (user == null)
+                //{
+                //    throw new UserNotFoundException("user is null");
+                //}
+                //return user;
             }
         }
 
@@ -741,6 +760,20 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
+                //var result = await conn.QueryAsync<int?>(Sql.Chat.GetUnreadMessages,
+                //     new
+                //     {
+                //         query.UserId
+
+                //     });
+                //var single = result.FirstOrDefault();
+                //if (single == null)
+                //{
+                //    return 0;
+                //}
+
+                //return single.Value;
+
                 var result = await conn.QueryAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, new { query.UserId });
                 return result.First();
             }

@@ -23,9 +23,10 @@
                 userIds: userIds
             });
         }
-        chatService.unread = function () {
-            return ajaxService.get('chat/unreadcount');
-        }
+        //chatService.unread = function () {
+        //
+        //    //return ajaxService.get('chat/unreadcount');
+        //}
 
         chatService.read = function(id) {
             return ajaxService.post('chat/markread', {

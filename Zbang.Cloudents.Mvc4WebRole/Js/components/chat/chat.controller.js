@@ -22,10 +22,14 @@
         c.unread = 0;
 
 
-        chatBus.unread().then(function (response) {
-            c.unread = response;
-            chatBus.setUnread(response);
+        userDetailsFactory.init().then(function(response) {
+            c.unread = response.unread;
+            chatBus.setUnread(response.unread);
         });
+        //chatBus.unread().then(function (response) {
+        //    //c.unread = response;
+        //    chatBus.setUnread(response);
+        //});
 
         $scope.$watch(function () {
             return $mdSidenav('chat').isOpen();

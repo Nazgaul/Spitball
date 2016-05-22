@@ -16,13 +16,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class ChatController : BaseController
     {
-        [ActionName("UnreadCount")]
-        public async Task<JsonResult> UnreadCountAsync()
-        {
-            var query = new QueryBase(User.GetUserId());
-            var model = await ZboxReadService.GetUnreadChatMessagesAsync(query);
-            return JsonOk(model);
-        }
+        //[ActionName("UnreadCount")]
+        //public async Task<JsonResult> UnreadCountAsync()
+        //{
+        //    var query = new QueryBase(User.GetUserId());
+        //    var model = await ZboxReadService.GetUnreadChatMessagesAsync(query);
+        //    return JsonOk(model);
+        //}
 
 
         [HttpGet, ActionName("conversation")]

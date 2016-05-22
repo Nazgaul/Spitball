@@ -23,5 +23,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public Theme Theme { get; set; }
 
         public bool System { get; set; }
+
+        
     }
 }
