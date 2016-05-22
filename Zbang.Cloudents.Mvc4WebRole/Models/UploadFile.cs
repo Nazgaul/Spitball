@@ -13,4 +13,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         public bool Comment { get; set; }
 
     }
+
+    public class UploadChatFile
+    {
+        public string FileName { get; set; }
+        public long FileSize { get; set; }
+    }
 }

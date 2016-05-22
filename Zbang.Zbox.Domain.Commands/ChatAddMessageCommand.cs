@@ -6,12 +6,13 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class ChatAddMessageCommand : ICommand
     {
-        public ChatAddMessageCommand(Guid? chatRoomId, long userId, string message, IEnumerable<long> usersInChat)
+        public ChatAddMessageCommand(Guid? chatRoomId, long userId, string message, IEnumerable<long> usersInChat, string blobName)
         {
             ChatRoomId = chatRoomId;
             UserId = userId;
             Message = message;
             UsersInChat = usersInChat;
+            BlobName = blobName;
         }
 
         public Guid? ChatRoomId { get; set; }
@@ -19,5 +20,7 @@ namespace Zbang.Zbox.Domain.Commands
         public string Message { get; set; }
 
         public IEnumerable<long> UsersInChat { get; private set; }
+
+        public string BlobName { get; private set; }
     }
 }

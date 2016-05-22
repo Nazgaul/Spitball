@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 return new Document(blobSr);
             });
 
-            var retVal = await UploadPreviewToAzure(blobName,
+            var retVal = await UploadPreviewToAzureAsync(blobName,
                 indexNum,
                 i => CreateCacheFileName(blobName, i),
                 async z =>
@@ -99,7 +99,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 using (var pdfDocument = new Document(path))
                 {
-                    return await ProcessFile(blobName, () =>
+                    return await ProcessFileAsync(blobName, () =>
                      {
                          var jpegDevice = new JpegDevice(new Resolution(150), 80);
                          var ms = new MemoryStream();

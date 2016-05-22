@@ -16,8 +16,11 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task<string> ExtractContentAsync(Uri blobUri,CancellationToken cancelToken = default(CancellationToken));
 
-       // string GetDefaultThumbnailPicture();
-     
+
+       // Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken);
+
+        // string GetDefaultThumbnailPicture();
+
     }
 
    

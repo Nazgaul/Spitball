@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Infrastructure.File
             });
 
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-            var retVal = await UploadPreviewToAzure(blobName, indexNum,
+            var retVal = await UploadPreviewToAzureAsync(blobName, indexNum,
                 i => CreateCacheFileName(blobName, i),
                async z =>
                {
@@ -102,7 +102,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 var excel = new Workbook(path);
                 var wb = excel.Worksheets[0];
 
-                return await ProcessFile(blobName, () =>
+                return await ProcessFileAsync(blobName, () =>
                 {
                     var imgOptions = new ImageOrPrintOptions {ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false};
                     var sr = new SheetRender(wb, imgOptions);

@@ -109,6 +109,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                     PublicAccess = BlobContainerPublicAccessType.Blob
                 });
             }
+            container = blobClient.GetContainerReference(BlobProvider.AzureChatContainer.ToLower());
+            if (container.CreateIfNotExists())
+            {
+                container.SetPermissions(new BlobContainerPermissions
+                {
+                    PublicAccess = BlobContainerPublicAccessType.Off
+                });
+            }
+            
             container = blobClient.GetContainerReference(BlobProvider.AzureProfilePicContainer.ToLower());
             if (container.CreateIfNotExists())
             {
@@ -117,14 +126,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                     PublicAccess = BlobContainerPublicAccessType.Blob
                 });
             }
-            //container = blobClient.GetContainerReference(BlobProvider.AzureThumbnailContainer.ToLower());
-            //if (container.CreateIfNotExists())
-            //{
-            //    container.SetPermissions(new BlobContainerPermissions
-            //    {
-            //        PublicAccess = BlobContainerPublicAccessType.Blob
-            //    });
-            //}
             container = blobClient.GetContainerReference(BlobProvider.AzureFaqContainer.ToLower());
             if (container.CreateIfNotExists())
             {
@@ -161,24 +162,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             });
 
 
-            //var blob = blobClient.GetRootContainerReference().GetBlockBlobReference("crossdomain.xml");
-            //blob.Properties.ContentType = "text/xml";
-            //var bytes = Encoding.ASCII.GetBytes(@"<?xml version=""1.0"" encoding=""utf-8""?>  
-            //        <cross-domain-policy>  
-            //            <allow-access-from domain=""http://*.multimicloud.com"" />                           
-            //            <allow-access-from domain=""http://*.cloudapp.net"" />  
-            //        </cross-domain-policy>");
-            //using (var ms = new MemoryStream(bytes, false))
-            //{
-            //    blob.UploadFromStream(ms);
-            //}
+           
         }
 
         private static void CreateQueues(CloudQueueClient queueClient)
         {
             //  var queue = queueClient.GetQueueReference(QueueName.QueueName2.ToLower());
             var downloadContentFromUrlQueue = queueClient.GetQueueReference(QueueName.DownloadContentFromUrl.ToLower());
-            var downloadContentFromUrlQueuePahse2 = queueClient.GetQueueReference(QueueName.DownloadContentFromUrlPhase2.ToLower());
+           // var downloadContentFromUrlQueuePahse2 = queueClient.GetQueueReference(QueueName.DownloadContentFromUrlPhase2.ToLower());
             var mailQueue2 = queueClient.GetQueueReference(QueueName.NewMailQueueName.ToLower());
             var transactionQueue = queueClient.GetQueueReference(QueueName.UpdateDomainQueueName.ToLower());
 
@@ -186,7 +177,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             mailQueue2.CreateIfNotExists();
             transactionQueue.CreateIfNotExists();
             downloadContentFromUrlQueue.CreateIfNotExists();
-            downloadContentFromUrlQueuePahse2.CreateIfNotExists();
+            //downloadContentFromUrlQueuePahse2.CreateIfNotExists();
 
         }
 

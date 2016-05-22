@@ -49,13 +49,14 @@ namespace Zbang.Zbox.Domain
         {
             
         }
-        public ChatMessage(ChatRoom chatRoom, User user, string message)
+        public ChatMessage(ChatRoom chatRoom, User user, string message, string blob)
         {
             Id = GuidIdGenerator.GetGuid();
             ChatRoom = chatRoom;
             User = user;
             Message = message;
             CreationTime = DateTime.UtcNow;
+            Blob = blob;
         }
 
         public virtual Guid Id { get; protected set; }
@@ -64,6 +65,8 @@ namespace Zbang.Zbox.Domain
         public virtual User User { get; protected set; }
         public virtual string Message { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
+
+        public virtual string Blob { get; protected set; }
     }
 
 }

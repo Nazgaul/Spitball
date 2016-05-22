@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.File
             });
 
             var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
-            var retVal = await UploadPreviewToAzure(blobName, indexNum,
+            var retVal = await UploadPreviewToAzureAsync(blobName, indexNum,
                  i => CreateCacheFileName(blobName, i),
                  async z =>
                  {
@@ -79,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 SetLicense();
                 var word = new Document(path);
 
-                return await ProcessFile(blobName, () =>
+                return await ProcessFileAsync(blobName, () =>
                 {
                     var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
                     {

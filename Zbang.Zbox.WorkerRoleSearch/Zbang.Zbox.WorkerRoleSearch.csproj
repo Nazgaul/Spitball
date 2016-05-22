@@ -157,6 +157,7 @@
     <Compile Include="RoleIndexProcessor.cs" />
     <Compile Include="TestingJob.cs" />
     <Compile Include="MailQueueProcess.cs" />
+    <Compile Include="ThumbnailQueueProcess.cs" />
     <Compile Include="TransactionQueueProcess.cs" />
     <Compile Include="UpdateSearchItem.cs" />
     <Compile Include="UpdateSearchBox.cs" />

@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.chat').controller('ChatController', chat);
     chat.$inject = ['$timeout', '$scope', '$mdSidenav', 'realtimeFactotry',
-        'searchService', 'userDetailsFactory', 'chatBus'];
+        'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService'];
 
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
-        userDetailsFactory, chatBus) {
+        userDetailsFactory, chatBus, itemThumbnailService) {
         var c = this;
         c.states = {
             messages: 1,
@@ -78,6 +78,9 @@
             chatBus.chat(c.userChat.conversation, [c.userChat.id, userDetailsFactory.get().id]).then(function (response) {
                 for (var i = 0; i < response.length; i++) {
                     response[i].partner = response[i].userId !== userDetailsFactory.get().id;
+                    if (response[i].blob) {
+                        response[i].blob = itemThumbnailService.getChat(response[i].blob);
+                    }
                 }
                 c.messages = response;
             });
@@ -110,10 +113,12 @@
                 if (!c.userChat.conversation) {
                     c.userChat.conversation = args.chatRoom;
                 }
+               
                 c.messages.push({
                     text: args.message,
                     time: new Date().toISOString(),
-                    partner: false
+                    partner: false,
+                    blob: itemThumbnailService.getChat(args.blob)
                 });
                 updateScope();
                 return;
@@ -123,7 +128,8 @@
                 c.messages.push({
                     text: args.message,
                     time: new Date().toISOString(),
-                    partner: true
+                    partner: true,
+                    blob: itemThumbnailService.getChat(args.blob)
                 });
                 updateScope();
                 return;
@@ -169,53 +175,40 @@
             url: '/upload/chatfile/',
             options: {
                 chunk_size: '3mb'
-                // drop_element: 'dropElement'
             },
             callbacks: {
-                filesAdded: function (uploader, files) {
-
-                    //for (var i = 0; i < files.length; i++) {
-                    //    var file = files[i];
-                    //    file.sizeFormated = plupload.formatSize(file.size);
-                    //    file.boxId = boxid;
-                    //    file.tabId = tab;
-                    //    file.complete = false;
-                    //    file.remove = function () { removeFile(file, uploader); }
-                    //    u.files.push(file);
-                    //}
-                    //$timeout(function () {
-                    //    uploader.start();
-                    //}, 1);
+                filesAdded: function (uploader) {
+                    $timeout(function () {
+                        uploader.start();
+                    }, 1);
                 },
 
                 beforeUpload: function (up, file) {
-                    //up.settings.multipart_params = {
-                    //    fileName: file.name,
-                    //    fileSize: file.size,
-                    //    boxId: file.boxId,
-                    //    tabId: file.tabId,
-                    //    comment: false
-                    //};
+                    up.settings.multipart_params = {
+                        fileName: file.name,
+                        fileSize: file.size
+                    };
                 },
                 fileUploaded: function (uploader, file, response) {
                     // cacheFactory.clearAll();
                     // file.complete = true;
-                    // var obj = JSON.parse(response.response);
-                    // if (obj.success) {
-                    //     u.filesCompleteCount++;
-                    //     file.systemId = obj.payload.item.id;
-                    //     $rootScope.$broadcast('item_upload', obj.payload);
-                    // }
-                },
-                uploadComplete: function () {
-                    //toasterUploadComplete
-                    //$scope.app.showToaster(resManager.get('toasterUploadComplete'));
-                    //$timeout(closeUpload, 2000);
-                },
-                error: function (uploader, error) {
-                    //error.file.error = true;
-                    //u.filesErrorCount++;
+                    var obj = JSON.parse(response.response);
+                    if (obj.success) {
+                        realtimeFactotry.sendMsg(c.userChat.id, null, c.userChat.conversation, obj.payload);
+                        //     u.filesCompleteCount++;
+                        //     file.systemId = obj.payload.item.id;
+                        //     $rootScope.$broadcast('item_upload', obj.payload);
+                    }
                 }
+                //uploadComplete: function () {
+                //    //toasterUploadComplete
+                //    //$scope.app.showToaster(resManager.get('toasterUploadComplete'));
+                //    //$timeout(closeUpload, 2000);
+                //},
+                //error: function (uploader, error) {
+                //    //error.file.error = true;
+                //    //u.filesErrorCount++;
+                //}
             }
         }
 

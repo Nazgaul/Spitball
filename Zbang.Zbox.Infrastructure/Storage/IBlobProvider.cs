@@ -40,7 +40,11 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
 
         Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
+
+        Task<int> UploadFileBlockAsync(string blobName, string container, Stream fileContent,
+            int currentIndex);
         Task CommitBlockListAsync(string blobName, int currentIndex, string contentType);
+        Task CommitBlockListAsync(string blobName, string container, int currentIndex, string contentType);
 
         Task<long> UploadFromLinkAsync(string url, string fileName);
 

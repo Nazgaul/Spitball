@@ -26,7 +26,7 @@ namespace Zbang.Cloudents.Connect
             // rather than using GlobalHost.
             var config = new HubConfiguration
             {
-                //EnableDetailedErrors = true
+                EnableDetailedErrors = true
             };
 
             // Register your SignalR hubs.

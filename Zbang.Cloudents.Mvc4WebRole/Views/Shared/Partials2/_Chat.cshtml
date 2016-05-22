@@ -86,10 +86,7 @@
             </div>
             <div class="chat-content">
                 <ul class="messages" ng-slimscroll height="calc(100vh - 140px)" start="bottom" watch-content="true" color="#BBB">
-                    <li class="partner message">
-                        <div class="image"><img src="http://imgsv.imaging.nikon.com/lineup/lens/zoom/normalzoom/af-s_dx_18-300mmf_35-56g_ed_vr/img/sample/sample4_l.jpg" /></div>
-                        <div class="time">22 min ago</div>
-                    </li>
+
                     @*<li class="partner message">
                             <div class="content text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div>
                             <div class="time">22 min ago</div>
@@ -124,7 +121,8 @@
                             <div class="time">22 min ago</div>
                         </li>*@
                     <li class="message" ng-repeat="e in c.messages" ng-class="{partner: e.partner}">
-                        <div class="text" ng-bind-html="e.text"></div>
+                        <div ng-if="e.text" class="text" ng-bind-html="e.text"></div>
+                        <div ng-if="e.blob" class="image"><img ng-src="{{::e.blob}}" alt="preview" /></div>
                         <time-ago class="time" from-time="{{::e.time}}" format="mediumDate"></time-ago>
                     </li>
                 </ul>

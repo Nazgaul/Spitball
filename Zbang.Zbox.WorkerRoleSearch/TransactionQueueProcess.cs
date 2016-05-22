@@ -12,7 +12,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class TransactionQueueProcess : IJob
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
-        private const string Prefix = "UpdateDomainProcess";
+        private const string Prefix = "TransactionProcess";
         public TransactionQueueProcess(IQueueProviderExtract queueProviderExtract)
         {
             m_QueueProviderExtract = queueProviderExtract;

@@ -30,6 +30,7 @@
       <generator class="assigned"></generator>
     </id>
     <property name="Message" length="8000"></property>
+    <property name="Blob"></property>
     <property name="CreationTime">
       <column name="CreationTime" not-null="true" sql-type="datetime2(2)"/>
     </property>

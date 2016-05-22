@@ -23,15 +23,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         private const string LastAccessTimeMetaDataKey = "LastTimeAccess";
         private readonly string m_StorageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
 
-        //public const string BlobMetadataUseridKey = "Userid";
         public const string AzureBlobContainer = "zboxfiles";
         public const string AzureCacheContainer = "zboxCahce";
         public const string AzureProductContainer = "zboxProductImages";
         public const string AzureProfilePicContainer = "zboxprofilepic";
-        //public const string AzureThumbnailContainer = "zboxThumbnail";
         public const string AzurePreviewContainer = "preview";
         public const string AzureFaqContainer = "zboxhelp";
         public const string AzureQuizContainer = "zboxquestion";
+        public const string AzureChatContainer = "zboxchat";
 
 
         internal const string AzureIdGeneratorContainer = "zboxIdGenerator";
@@ -57,14 +56,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
             if (string.IsNullOrEmpty(m_StorageCdnEndpoint))
             {
-                //VirtualPathUtility.AppendTrailingSlash(
-                //    BlobClient.GetContainerReference(AzureThumbnailContainer.ToLower()).Uri.AbsoluteUri);
                 ProfileContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureProfilePicContainer).Uri.AbsoluteUri);
             }
             else
             {
-                //VirtualPathUtility.AppendTrailingSlash(VirtualPathUtility.AppendTrailingSlash(m_StorageCdnEndpoint) +
-                //                                       AzureThumbnailContainer.ToLower());
                 ProfileContainerUrl =
                     VirtualPathUtility.AppendTrailingSlash(VirtualPathUtility.AppendTrailingSlash(m_StorageCdnEndpoint) +
                                                            AzureProfilePicContainer.ToLower());
@@ -73,48 +68,43 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
 
-        /// <summary>
-        /// Upload Image of product to product container storage
-        /// </summary>
-        /// <param name="data">image content</param>
-        /// <param name="fileName">image fileName</param>
-        /// <returns>link to that image</returns>
-        public async Task<string> UploadFromLink(byte[] data, string fileName)
-        {
-            var container = BlobClient.GetContainerReference(AzureProductContainer.ToLower());
-            var directory = container.GetDirectoryReference(Path.GetFileNameWithoutExtension(fileName));
-            var storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
-            int index = 0;
-            foreach (var blobInDirectory in directory.ListBlobs(blobListingDetails: BlobListingDetails.Metadata))
-            {
-                var x = blobInDirectory as CloudBlockBlob;
-                if (x == null)
-                {
-                    continue;
-                }
-                if (x.Properties.Length == data.LongLength)
-                {
-                    var uriBuilder2 = new UriBuilder(x.Uri);
-                    if (string.IsNullOrEmpty(storageCdnEndpoint)) return uriBuilder2.Uri.AbsoluteUri;
-                    var storeCdnUri2 = new Uri(storageCdnEndpoint);
-                    uriBuilder2.Host = storeCdnUri2.Host;
-                    return uriBuilder2.Uri.AbsoluteUri;
-                }
-                index++;
-            }
-            var blob = directory.GetBlockBlobReference(index.ToString(CultureInfo.InvariantCulture) + Path.GetExtension(fileName));
-            await blob.UploadFromByteArrayAsync(data, 0, data.Length);
-            blob.Properties.ContentType = "image/jpeg";
-            blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
-            await blob.SetPropertiesAsync();
 
-            var uriBuilder = new UriBuilder(blob.Uri);
-            if (string.IsNullOrEmpty(storageCdnEndpoint)) return uriBuilder.Uri.AbsoluteUri;
-            var storeCdnUri = new Uri(storageCdnEndpoint);
-            uriBuilder.Host = storeCdnUri.Host;
+        //public async Task<string> UploadFromLink(byte[] data, string fileName)
+        //{
+        //    var container = BlobClient.GetContainerReference(AzureProductContainer.ToLower());
+        //    var directory = container.GetDirectoryReference(Path.GetFileNameWithoutExtension(fileName));
+        //    var storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
+        //    int index = 0;
+        //    foreach (var blobInDirectory in directory.ListBlobs(blobListingDetails: BlobListingDetails.Metadata))
+        //    {
+        //        var x = blobInDirectory as CloudBlockBlob;
+        //        if (x == null)
+        //        {
+        //            continue;
+        //        }
+        //        if (x.Properties.Length == data.LongLength)
+        //        {
+        //            var uriBuilder2 = new UriBuilder(x.Uri);
+        //            if (string.IsNullOrEmpty(storageCdnEndpoint)) return uriBuilder2.Uri.AbsoluteUri;
+        //            var storeCdnUri2 = new Uri(storageCdnEndpoint);
+        //            uriBuilder2.Host = storeCdnUri2.Host;
+        //            return uriBuilder2.Uri.AbsoluteUri;
+        //        }
+        //        index++;
+        //    }
+        //    var blob = directory.GetBlockBlobReference(index.ToString(CultureInfo.InvariantCulture) + Path.GetExtension(fileName));
+        //    await blob.UploadFromByteArrayAsync(data, 0, data.Length);
+        //    blob.Properties.ContentType = "image/jpeg";
+        //    blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
+        //    await blob.SetPropertiesAsync();
 
-            return uriBuilder.Uri.AbsoluteUri;
-        }
+        //    var uriBuilder = new UriBuilder(blob.Uri);
+        //    if (string.IsNullOrEmpty(storageCdnEndpoint)) return uriBuilder.Uri.AbsoluteUri;
+        //    var storeCdnUri = new Uri(storageCdnEndpoint);
+        //    uriBuilder.Host = storeCdnUri.Host;
+
+        //    return uriBuilder.Uri.AbsoluteUri;
+        //}
 
 
         public string BlobContainerUrl { get; private set; }
@@ -127,15 +117,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return BlobContainerUrl + blobName;
         }
 
-        //public string GetThumbnailUrl(string blobName)
-        //{
-        //    return ThumbnailContainerUrl + blobName;
-        //}
 
-        //public string GetThumbnailLinkUrl()
-        //{
-        //    return GetThumbnailUrl("linkv2.jpg");
-        //}
 
         private CloudBlobClient m_BlobClient;
 
@@ -163,10 +145,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             return BlobClient.GetContainerReference(AzureProfilePicContainer.ToLower()).GetBlockBlobReference(blobName);
         }
-        //private CloudBlockBlob ThumbnailFile(string blobName)
-        //{
-        //    return BlobClient.GetContainerReference(AzureThumbnailContainer.ToLower()).GetBlockBlobReference(blobName);
-        //}
+
 
         public CloudBlockBlob GetFile(string blobName)
         {
@@ -238,7 +217,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
 
 
-        private string GenerateSharedAccessPermission(CloudBlockBlob blob, double expirationTimeInMinutes, SharedAccessBlobPermissions accessPermission)
+        private static string GenerateSharedAccessPermission(CloudBlockBlob blob, double expirationTimeInMinutes, SharedAccessBlobPermissions accessPermission)
         {
 
             var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
@@ -261,7 +240,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             var cacheblob = CacheFile(blobName);
             fileContent.Seek(0, SeekOrigin.Begin);
-            //fileContent.Position = 0;
 
             cacheblob.Properties.ContentType = mimeType;
             if (fileGziped)
@@ -296,11 +274,22 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         #region UploadFile
         public async Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex)
         {
+
             var blob = GetFile(blobName);
             fileContent.Seek(0, SeekOrigin.Begin);
             await blob.PutBlockAsync(ToBase64(currentIndex), fileContent, null);
             return ++currentIndex;
         }
+
+        public async Task<int> UploadFileBlockAsync(string blobName, string container, Stream fileContent,
+            int currentIndex)
+        {
+            var blob = GetFile(blobName, container);
+            fileContent.Seek(0, SeekOrigin.Begin);
+            await blob.PutBlockAsync(ToBase64(currentIndex), fileContent, null);
+            return ++currentIndex;
+        }
+
         internal async Task UploadFileAsync(string blobName, string filePath, string mimeType)
         {
             var blob = GetFile(blobName);
@@ -310,16 +299,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             await blob.SetPropertiesAsync();
         }
 
-        //public void RenameBlob(string blobName, string newName, string newMimeType = null)
-        //{
-        //    var blob = GetFile(blobName);
-        //    var newBlob = GetFile(newName);
-        //    newBlob.StartCopy(blob);
-        //    //newBlob.StartCopyFromBlob(blob);
-        //    newBlob.Properties.ContentType = newMimeType ?? blob.Properties.ContentType;
-        //    newBlob.SetProperties();
-        //    blob.Delete();
-        //}
+
         private string ToBase64(int blockIndex)
         {
             var blockId = blockIndex.ToString("D10");
@@ -336,6 +316,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
             await blob.SetPropertiesAsync();
 
+        }
+        public async Task CommitBlockListAsync(string blobName, string container, int currentIndex, string contentType)
+        {
+            var blockList = Enumerable.Range(0, currentIndex).Select(ToBase64);
+            var blob = GetFile(blobName, container);
+            blob.Properties.ContentType = contentType;
+            blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
+            await blob.PutBlockListAsync(blockList);
         }
         /// <summary>
         /// Upload file to storage from link
@@ -441,33 +429,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
         #region Thumbnail
-        //public void UploadFileThumbnail(string fileName, Stream ms, string mimeType)
-        //{
-        //    if (ms == null) throw new ArgumentNullException(nameof(ms));
-        //    ms.Seek(0, SeekOrigin.Begin);
-        //    var thumbnailBlob = ThumbnailFile(fileName);
-        //    thumbnailBlob.Properties.ContentType = mimeType;
-        //    thumbnailBlob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
 
-        //    thumbnailBlob.UploadFromStream(ms);//ToDo: due to problem of small images the memory stream can be closed there fore remove back to sync process
-        //    thumbnailBlob.SetProperties();
-        //}
-
-        //public Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType)
-        //{
-        //    return UploadFileThumbnailAsync(fileName, ms, mimeType, new CancellationToken());
-        //}
-
-        //public Task UploadFileThumbnailAsync(string fileName, Stream ms, string mimeType, CancellationToken token)
-        //{
-        //    if (ms == null) throw new ArgumentNullException(nameof(ms));
-        //    ms.Seek(0, SeekOrigin.Begin);
-        //    var thumbnailBlob = ThumbnailFile(fileName);
-        //    thumbnailBlob.Properties.ContentType = mimeType;
-        //    thumbnailBlob.Properties.CacheControl = "public, max-age=" + TimeConsts.Year;
-
-        //    return thumbnailBlob.UploadFromStreamAsync(ms, token);//ToDo: due to problem of small images the memory stream can be closed there fore remove back to sync process
-        //}
 
         public Task UploadFilePreviewAsync(string blobName, Stream content, string mimeType, CancellationToken token = default(CancellationToken))
         {
@@ -478,35 +440,24 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob.UploadFromStreamAsync(content, token);
         }
 
-
-        //public bool CheckIfFileThumbnailExists(string blobName)
-        //{
-        //    var blob = ThumbnailFile(blobName);
-
-        //    return blob.Exists();
-        //}
-
         #endregion
 
         #region files
 
         public Stream DownloadFile(string fileName)
         {
-            CloudBlockBlob blob = GetFile(fileName);
+            var blob = GetFile(fileName);
             var ms = new MemoryStream();
             blob.DownloadToStream(ms);
             ms.Seek(0, SeekOrigin.Begin);
             return ms;
         }
 
-        //public Task<Stream> DownloadFileAsync(string fileName)
-        //{
-        //    return DownloadFileAsync(fileName, CancellationToken.None);
-        //}
+
 
         public async Task<Stream> DownloadFileAsync(string fileName, CancellationToken cancelToken)
         {
-            CloudBlockBlob blob = GetFile(fileName);
+            var blob = GetFile(fileName);
             var ms = new MemoryStream();
             await blob.DownloadToStreamAsync(ms, cancelToken);
             ms.Seek(0, SeekOrigin.Begin);
@@ -514,19 +465,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         }
 
-        //public Task<Stream> DownloadFileAsync2(string fileName, CancellationToken cancelToken)
-        //{
-        //    CloudBlockBlob blob = GetFile(fileName);
-        //    return blob.OpenReadAsync(cancelToken);
-        //}
-
-        //public Task<Stream> DownloadFileAsync(string fileName, string containerName, CancellationToken cancelToken = default(CancellationToken))
-        //{
-            
-        //    var container = BlobClient.GetContainerReference(containerName.ToLower());
-        //    var blob = container.GetBlobReference(fileName);
-        //    return blob.OpenReadAsync(cancelToken);
-        //}
 
         public async Task<string> DownloadToFileAsync(string fileName, CancellationToken cancelToken)
         {
@@ -535,7 +473,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             {
                 return fileSystemLocation;
             }
-            CloudBlockBlob blob = GetFile(fileName);
+            var blob = GetFile(fileName);
             try
             {
                 await blob.DownloadToFileAsync(fileSystemLocation,
@@ -582,18 +520,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             }
         }
 
-        //public async Task<string> GetAdHtmlAsync()
-        //{
-        //    try
-        //    {
-        //        var blob = m_BlobClient.GetContainerReference(AzureFaqContainer).GetBlockBlobReference("iStudentAd.html");
-        //        return await blob.DownloadTextAsync(); 
-        //    }
-        //    catch (StorageException)
-        //    {
-        //        return null;
-        //    }
-        //}
         #endregion
 
 

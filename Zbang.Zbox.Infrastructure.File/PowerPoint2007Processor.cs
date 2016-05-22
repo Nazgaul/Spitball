@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
             });
 
-            var retVal = await UploadPreviewToAzure(blobName, indexNum, 
+            var retVal = await UploadPreviewToAzureAsync(blobName, indexNum, 
                 i => CreateCacheFileName(blobName, i),
                async z =>
                {
@@ -91,7 +91,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 SetLicense();
                 using (var pptx = new Presentation(path))
                 {
-                    return await ProcessFile(blobName, () =>
+                    return await ProcessFileAsync(blobName, () =>
                     {
                         using (var img = pptx.Slides[0].GetThumbnail(1, 1))
                         {
