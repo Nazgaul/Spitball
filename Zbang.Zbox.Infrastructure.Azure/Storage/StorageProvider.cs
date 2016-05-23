@@ -53,7 +53,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                     return;
                 }
                 _cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
-                // CreateStorage();
+                 CreateStorage();
             }
             catch (ArgumentNullException ex)
             {

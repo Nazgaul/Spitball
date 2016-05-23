@@ -11,6 +11,7 @@
     </Sites>
     <ConfigurationSettings>
       <Setting name="Zbox" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
     </ConfigurationSettings>
     <Endpoints>
       <InputEndpoint name="Endpoint1" protocol="http" port="80" />

@@ -4,6 +4,7 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Zbox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;Asynchronous Processing=True;" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="SB" thumbprint="72C19EBE2BD0F21B5DF74C342CFEF862B581397F" thumbprintAlgorithm="sha1" />

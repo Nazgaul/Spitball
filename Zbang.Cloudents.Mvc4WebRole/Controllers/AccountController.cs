@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -68,8 +69,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region Login
 
-        [HttpPost]
-        public async Task<JsonResult> GoogleLogin(ExternalLogIn model, string returnUrl, CancellationToken cancellationToken)
+        [HttpPost,ActionName("GoogleLogin")]
+        public async Task<JsonResult> GoogleLoginAsync(ExternalLogIn model, string returnUrl, CancellationToken cancellationToken)
         {
 
             var googleUserData = await m_GoogleService.Value.GoogleLogOnAsync(model.Token);
@@ -144,8 +145,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        [RequireHttps]
-        public async Task<JsonResult> FacebookLogin(ExternalLogIn model, string returnUrl)
+        [ActionName("FacebookLogin")]
+        public async Task<JsonResult> FacebookLoginAsync(ExternalLogIn model, string returnUrl)
         {
             try
             {
@@ -188,7 +189,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var identity = new ClaimsIdentity(new List<Claim>
                 {
                     new Claim(ClaimConst.UserIdClaim, user.Id.ToString(CultureInfo.InvariantCulture)),
-                   
+
                 },
                     "ApplicationCookie");
                 if (user.UniversityId.HasValue)
@@ -232,8 +233,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<JsonResult> LogIn(
+        [ValidateAntiForgeryToken,ActionName("LogIn")]
+        public async Task<JsonResult> LogInAsync(
             [ModelBinder(typeof(TrimModelBinder))]LogOn model)
         {
             if (!ModelState.IsValid)
@@ -304,7 +305,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        //TODO: do a post on log out
+       
         [RemoveBoxCookie]
         public ActionResult LogOff()
         {
@@ -319,8 +320,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<JsonResult> Register([ModelBinder(typeof(TrimModelBinder))] Register model)
+        [ValidateAntiForgeryToken,ActionName("Register")]
+        public async Task<JsonResult> RegisterAsync([ModelBinder(typeof(TrimModelBinder))] Register model)
         {
             model.BoxId = GetBoxIdRouteDataFromDifferentUrl(model.ReturnUrl);
             if (!ModelState.IsValid)
@@ -357,15 +358,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     m_LanguageCookie.InjectCookie(result.User.Culture);
 
-                    var identity = await user.GenerateUserIdentityAsync(m_UserManager, result.User.Id, result.UniversityId,
-                         result.UniversityData);
+                    var identity =
+                        await user.GenerateUserIdentityAsync(m_UserManager, result.User.Id, result.UniversityId,
+                            result.UniversityData);
 
                     m_AuthenticationManager.SignIn(new AuthenticationProperties
                     {
                         IsPersistent = true,
                     }, identity);
 
-                    var url = result.UniversityId.HasValue ? Url.Action("Index", "Dashboard") : Url.Action("Choose", "Library");
+                    var url = result.UniversityId.HasValue
+                        ? Url.Action("Index", "Dashboard")
+                        : Url.Action("Choose", "Library");
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
                     return JsonOk(url);
 
@@ -380,6 +384,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
             }
+            catch (DbEntityValidationException ex)
+            {
+                ModelState.AddModelError(string.Empty, BaseControllerResources.UnspecifiedError);
+                foreach (var dbEntityValidationResult in ex.EntityValidationErrors)
+                {
+                    TraceLog.WriteError(string.Join(" ", dbEntityValidationResult.ValidationErrors.Select(s => s.ErrorMessage)));
+                }
+                TraceLog.WriteError("Register model:" + model, ex);
+            }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, BaseControllerResources.UnspecifiedError);
@@ -390,8 +403,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
 
-        [ZboxAuthorize, NoUniversity]
-        public async Task<JsonResult> SettingsData()
+        [ZboxAuthorize, NoUniversity, ActionName("SettingsData")]
+        public async Task<JsonResult> SettingsDataAsync()
         {
             var userId = User.GetUserId();
             var query = new GetUserDetailsQuery(userId);
@@ -409,8 +422,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         const string SessionKey = "UserVerificationCode";
         [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> EnterCode(long? code)
+        [ZboxAuthorize,ActionName("EnterCode")]
+        public async Task<JsonResult> EnterCodeAsync(long? code)
         {
             if (!code.HasValue)
             {
@@ -444,8 +457,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> ChangeEmail(ChangeMail model)
+        [ZboxAuthorize,ActionName("ChangeEmail")]
+        public async Task<JsonResult> ChangeEmailAsync(ChangeMail model)
         {
             if (!ModelState.IsValid)
             {
@@ -486,8 +499,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
 
         }
-        [HttpPost, ZboxAuthorize]
-        public async Task<ActionResult> UpdateUniversity(University model)
+        [HttpPost, ZboxAuthorize,ActionName("UpdateUniversity")]
+        public async Task<ActionResult> UpdateUniversityAsync(University model)
         {
             var needId = await ZboxReadService.GetUniversityNeedIdAsync(model.UniversityId);
             if (needId != null && string.IsNullOrEmpty(model.StudentId))
@@ -554,8 +567,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> ChangePassword(Password model)
+        [ZboxAuthorize,ActionName("ChangePassword")]
+        public async Task<JsonResult> ChangePasswordAsync(Password model)
         {
             if (!ModelState.IsValid)
             {
@@ -611,8 +624,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //    return View("Signin");
         //}
 
-        [HttpPost]
-        public async Task<JsonResult> ResetPassword([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model, CancellationToken cancellationToken)
+        [HttpPost,ActionName("ResetPassword")]
+        public async Task<JsonResult> ResetPasswordAsync([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model, CancellationToken cancellationToken)
         {
 
             if (!ModelState.IsValid)
@@ -693,8 +706,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> PasswordUpdate([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
+        [ValidateAntiForgeryToken,ActionName("PasswordUpdate")]
+        public async Task<ActionResult> PasswordUpdateAsync([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
         {
             if (!ModelState.IsValid)
             {
@@ -756,10 +769,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-        
 
-        [HttpGet]
-        public async Task<JsonResult> Details()
+
+        [HttpGet,ActionName("Details")]
+        public async Task<JsonResult> DetailsAsync()
         {
             //string cookieToken, formToken;
             //AntiForgery.GetTokens(null, out cookieToken, out formToken);
