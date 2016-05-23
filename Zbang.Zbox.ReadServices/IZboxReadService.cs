@@ -124,10 +124,10 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query);
         Task<IEnumerable<UserWithImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query);
-        Task<IEnumerable<UserWithStatusDto>> GetUsersByTermAsync(UserSearchQuery query);
+        Task<IEnumerable<ChatUserDto>> GetUsersByTermAsync(UserSearchQuery query);
 
         //chat
-        Task<IEnumerable<UserWithStatusDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query);
+        Task<IEnumerable<ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query);
         Task<IEnumerable<ChatDto>> GetUserConversationAsync(GetChatRoomMessagesQuery query);
 
         //Task<int> GetUnreadChatMessagesAsync(QueryBase query);

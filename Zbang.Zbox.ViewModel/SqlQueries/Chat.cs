@@ -9,18 +9,18 @@
 //and e1.userid = @UserId";
 
         public const string GetUsersConversationAndFriends =
-            @"SELECT e2.chatroomid as Conversation,cr.UpdateTime,  e1.Unread, u.userid as id,username as name, UserImageLarge as image, online, Url as url 
+            @"SELECT e2.chatroomid as Conversation,cr.UpdateTime,  e1.Unread, u.userid as id,username as name, UserImageLarge as image, online, Url as url ,LastAccessTime as lastSeen
 FROM zbox.ChatUser e1, zbox.ChatUser e2 join zbox.Users u on e2.UserId = u.userid join zbox.ChatRoom cr on e2.ChatRoomId = cr.Id
 WHERE e1.ChatRoomId = e2.ChatRoomId 
 AND e1.id != e2.id
 and e1.userid = @UserId
 union 
-select top 25 null as Conversation, null,  null as Unread ,u.userid as id,username as name, UserImageLarge as image, online, Url as url
+select top 25 null as Conversation, null,  null as Unread ,u.userid as id,username as name, UserImageLarge as image, online, Url as url,LastAccessTime as lastSeen
 from zbox.users u
 where u.UniversityId = @Universityid
 and u.UserName like  @term + '%'
 and u.userid <> @UserId
-order by cr.UpdateTime desc , u.userid";
+order by cr.UpdateTime desc , u.UserName";
 
 //        public const string GetChatRoom = @"select chatroomid from zbox.ChatUser where UserId in (@userIds)
 //group by chatroomid

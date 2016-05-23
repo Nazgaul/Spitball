@@ -606,11 +606,11 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             }
         }
 
-        public async Task<IEnumerable<User.UserWithStatusDto>> GetUsersByTermAsync(UserSearchQuery query)
+        public async Task<IEnumerable<User.ChatUserDto>> GetUsersByTermAsync(UserSearchQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<User.UserWithStatusDto>(Sql.Search.GetUsersByTerm,
+                return await conn.QueryAsync<User.ChatUserDto>(Sql.Search.GetUsersByTerm,
                      new
                      {
                          query.Term,
@@ -623,11 +623,11 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             }
         }
 
-        public async Task<IEnumerable<User.UserWithStatusDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query)
+        public async Task<IEnumerable<User.ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var result = await conn.QueryAsync<User.UserWithStatusDto>(Sql.Chat.GetUsersConversationAndFriends,
+                var result = await conn.QueryAsync<User.ChatUserDto>(Sql.Chat.GetUsersConversationAndFriends,
                      new
                      {
                          query.UserId,
@@ -635,7 +635,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                          query.Term
 
                      });
-                return result.Distinct(new User.UserWithStatusDtoComparer());
+                return result.Distinct(new User.ChatUserDtoComparer());
             }
         }
         public async Task<IEnumerable<ChatDto>> GetUserConversationAsync(GetChatRoomMessagesQuery query)

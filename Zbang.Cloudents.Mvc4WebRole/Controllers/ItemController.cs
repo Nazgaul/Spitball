@@ -60,10 +60,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index2");
         }
 
-        [BoxPermission("boxId", Order = 1)]
+        [BoxPermission("boxId", Order = 1), ActionName("Index")]
         [DonutOutputCache(CacheProfile = "ItemPage", Order = 2)]
         [Route("item/{universityName}/{boxId:long}/{boxName}/{itemid:long}/{itemName}", Name = "Item")]
-        public async Task<ActionResult> Index(long boxId, long itemid, string itemName, string universityName, string boxName)
+        public async Task<ActionResult> IndexAsync(long boxId, long itemid, string itemName, string universityName, string boxName)
         {
 
             try
@@ -110,8 +110,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [Route(UrlConst.ShortItem, Name = "shortItem")]
-        public async Task<ActionResult> ShortUrl(string item62Id)
+        [Route(UrlConst.ShortItem, Name = "shortItem"), ActionName("ShortUrl")]
+        public async Task<ActionResult> ShortUrlAsync(string item62Id)
         {
             var base62 = new Base62(item62Id);
             var query = new GetFileSeoQuery(base62.Value);
@@ -128,9 +128,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [HttpGet]
+        [HttpGet, ActionName("Load")]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> Load(long boxId, long itemId, bool? firstTime, CancellationToken cancellationToken)
+        public async Task<ActionResult> LoadAsync(long boxId, long itemId, bool? firstTime, CancellationToken cancellationToken)
         {
             try
             {
@@ -215,10 +215,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize]
         [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
         [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]
-        [NoEtag]
+        [NoEtag, ActionName("Download")]
         [BoxPermission("boxId", Order = 1)]
         [RemoveBoxCookie(Order = 2)]
-        public async Task<ActionResult> Download(long boxId, long itemId)
+        public async Task<ActionResult> DownloadAsync(long boxId, long itemId)
         {
             const string defaultMimeType = "application/octet-stream";
             var userId = User.GetUserId();
@@ -305,8 +305,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         /// <returns>View with no layout and print command in javascript</returns>
         [ZboxAuthorize]
         [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemId:long:min(0)}/{itemName}/print", Name = "ItemPrint")]
-        [BoxPermission("boxId")]
-        public async Task<ActionResult> Print(long boxId, long itemId)
+        [BoxPermission("boxId"), ActionName("Print")]
+        public async Task<ActionResult> PrintAsync(long boxId, long itemId)
         {
             var userId = User.GetUserId();
             var query = new GetItemQuery(User.GetUserId(false), itemId, boxId);
@@ -335,8 +335,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [ZboxAuthorize]
-        [HttpPost]
-        public async Task<JsonResult> Delete(long itemId)
+        [HttpPost, ActionName("Delete")]
+        public async Task<JsonResult> DeleteAsync(long itemId)
         {
             try
             {
@@ -353,8 +353,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [ZboxAuthorize, HttpPost, RemoveBoxCookie]
-        public async Task<JsonResult> Like(RateModel model)
+        [ZboxAuthorize, HttpPost, RemoveBoxCookie, ActionName("Like")]
+        public async Task<JsonResult> LikeAsync(RateModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -379,12 +379,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region Preview
-        [HttpGet]
+        [HttpGet,ActionName("Preview")]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("boxId")]
         [AsyncTimeout(TimeConst.Minute * 3 * 1000)]
         [JsonHandleError(HttpStatus = HttpStatusCode.BadRequest, ExceptionType = typeof(ArgumentException))]
-        public async Task<JsonResult> Preview(string blobName, int index, long id,
+        public async Task<JsonResult> PreviewAsync(string blobName, int index, long id,
             long boxId, CancellationToken cancellationToken, int width = 0, int height = 0)
         {
             Uri uri;
@@ -455,8 +455,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> FlagRequest(FlagBadItem model)
+        [ZboxAuthorize,ActionName("FlagRequest")]
+        public async Task<JsonResult> FlagRequestAsync(FlagBadItem model)
         {
 
             if (!ModelState.IsValid)
@@ -469,8 +469,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpPost, ZboxAuthorize]
-        public async Task<JsonResult> AddComment(NewAnnotation model)
+        [HttpPost, ZboxAuthorize, ActionName("AddComment")]
+        public async Task<JsonResult> AddCommentAsync(NewAnnotation model)
         {
             if (!ModelState.IsValid)
             {
@@ -488,8 +488,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> DeleteComment(DeleteItemComment model)
+        [ZboxAuthorize, ActionName("DeleteComment")]
+        public async Task<JsonResult> DeleteCommentAsync(DeleteItemComment model)
         {
             if (!ModelState.IsValid)
             {
@@ -500,8 +500,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
         [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> ReplyComment(ReplyItemComment model)
+        [ZboxAuthorize, ActionName("ReplyComment")]
+        public async Task<JsonResult> ReplyCommentAsync(ReplyItemComment model)
         {
             if (!ModelState.IsValid)
             {
@@ -513,8 +513,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(command.ReplyId);
         }
 
-        [HttpPost, ZboxAuthorize]
-        public async Task<JsonResult> DeleteCommentReply(DeleteItemCommentReply model)
+        [HttpPost, ZboxAuthorize, ActionName("DeleteCommentReply")]
+        public async Task<JsonResult> DeleteCommentReplyAsync(DeleteItemCommentReply model)
         {
             if (!ModelState.IsValid)
             {

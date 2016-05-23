@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.chat').controller('ChatController', chat);
     chat.$inject = ['$timeout', '$scope', '$mdSidenav', 'realtimeFactotry',
-        'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService'];
+        'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService', '$mdDialog', 'routerHelper'];
 
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
-        userDetailsFactory, chatBus, itemThumbnailService) {
+        userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper) {
         var c = this;
         c.states = {
             messages: 1,
@@ -20,9 +20,10 @@
         c.messages = [];
         c.backFromChat = backFromChat;
         c.unread = 0;
+        c.dialog = dialog;
 
 
-        userDetailsFactory.init().then(function(response) {
+        userDetailsFactory.init().then(function (response) {
             c.unread = response.unread;
             chatBus.setUnread(response.unread);
         });
@@ -83,7 +84,7 @@
                 for (var i = 0; i < response.length; i++) {
                     response[i].partner = response[i].userId !== userDetailsFactory.get().id;
                     if (response[i].blob) {
-                        response[i].blob = itemThumbnailService.getChat(response[i].blob);
+                        response[i].thumb = itemThumbnailService.getChat(response[i].blob);
                     }
                 }
                 c.messages = response;
@@ -117,23 +118,31 @@
                 if (!c.userChat.conversation) {
                     c.userChat.conversation = args.chatRoom;
                 }
-               
+
+                if (args.blob) {
+                    args.thumb = itemThumbnailService.getChat(args.blob);
+                }
                 c.messages.push({
                     text: args.message,
                     time: new Date().toISOString(),
                     partner: false,
-                    blob: itemThumbnailService.getChat(args.blob)
+                    blob: args.blob,
+                    thumb: args.thumb
                 });
                 updateScope();
                 return;
             }
             // im in the same chat
             if (c.userChat && c.userChat.conversation === args.chatRoom) {
+                if (args.blob) {
+                    args.thumb = itemThumbnailService.getChat(args.blob);
+                }
                 c.messages.push({
                     text: args.message,
                     time: new Date().toISOString(),
                     partner: true,
-                    blob: itemThumbnailService.getChat(args.blob)
+                    blob: args.blob,
+                    thumb: args.thumb
                 });
                 updateScope();
                 return;
@@ -217,8 +226,47 @@
         }
 
 
+        //dialog
+        //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && $scope.customFullscreen;
+        function dialog(blob, ev) {
+            console.log(blob);
+            $mdDialog.show({
+                controller: 'previewController',
+                controllerAs: 'lc',
+                templateUrl: routerHelper.buildUrl('/chat/previewdialog/'),
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                //resolve: {
+                //    doc: func
+                //}
+                //fullscreen: useFullScreen
+            });
+        }
+
+
     };
 
+})();
+
+
+//'use strict';
+(function () {
+    angular.module('app.chat').controller('previewController', previewController);
+    previewController.$inject = ['$mdDialog', '$rootScope'];
+    function previewController($mdDialog, $rootScope) {
+        var lc = this;
+        //lc.users = users;
+        lc.close = close;
+
+        function close() {
+            $mdDialog.hide();
+        }
+
+        $rootScope.$on('$stateChangeStart', function () {
+            $mdDialog.hide();
+        });
+    }
 })();
 
 

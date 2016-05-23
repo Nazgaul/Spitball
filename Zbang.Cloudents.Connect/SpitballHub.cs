@@ -48,6 +48,7 @@ namespace Zbang.Cloudents.Connect
 
             var user = Context.User.GetUserId();
             Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
+            Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetUserId());
             m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, true));
             return base.OnConnected();
         }
@@ -56,6 +57,7 @@ namespace Zbang.Cloudents.Connect
         {
             var user = Context.User.GetUserId();
             m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, false));
+            Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).offline(Context.User.GetUserId());
             return base.OnDisconnected(stopCalled);
         }
     }

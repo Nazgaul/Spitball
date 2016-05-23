@@ -25,7 +25,7 @@
 
         self.setTheme = setTheme;
 
-        self.back = function (defaultUrl) {
+        self.back = function(defaultUrl) {
             var element = h.popElement();
             if (!element) {
                 $location.url(defaultUrl);
@@ -36,7 +36,7 @@
             }
             $rootScope.$broadcast('from-back');
             $state.go(element.name, element.params);
-        }
+        };
 
         self.logOut = logOut;
         self.openMenu = openMenu;
@@ -88,7 +88,7 @@
                 return;
             }
             $mdOpenMenu(ev);
-        };
+        }
 
         function resetForm(myform) {
             myform.$setPristine();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -45,6 +46,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var command = new ChatMarkAsReadCommand(User.GetUserId(), chatRoom);
             ZboxWriteService.MarkChatAsRead(command);
             return JsonOk();
+        }
+
+
+        [HttpGet]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult PreviewDialog()
+        {
+            return PartialView();
         }
         // GET: Chat
 

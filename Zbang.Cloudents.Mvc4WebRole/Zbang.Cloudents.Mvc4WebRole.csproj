@@ -4035,6 +4035,7 @@
     <Content Include="Views\Home\Courses.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageHeader.cshtml" />
     <Content Include="Views\Shared\Partials2\_Chat.cshtml" />
+    <Content Include="Views\Chat\PreviewDialog.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4055,7 +4056,6 @@
     <Folder Include="bower_components\jquery\src\sizzle\dist\" />
     <Folder Include="Js\homePage\" />
     <Folder Include="Properties\PublishProfiles\" />
-    <Folder Include="Views\Chat\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

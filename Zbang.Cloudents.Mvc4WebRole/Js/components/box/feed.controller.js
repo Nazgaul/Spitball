@@ -64,12 +64,7 @@
             //    }
             //}
         }
-        //externalUploadProvider.googleDriveInit().then(function () {
-        //    self.add.googleDisabled = false;
-        //});
-        //externalUploadProvider.dropboxInit().then(function () {
-        //    self.add.dropboxDisabled = false;
-        //});
+        
 
         boxService.getFeed(boxId, top, 0).then(function (response) {
             //self.data = response;

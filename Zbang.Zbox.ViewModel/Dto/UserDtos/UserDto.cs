@@ -40,7 +40,7 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
     }
 
 
-    public class UserWithStatusDto 
+    public class ChatUserDto 
     {
         public long Id { get; set; }
         public string Image { get; set; }
@@ -54,16 +54,18 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public Guid? Conversation { get; set; }
 
         public int? Unread { get; set; }
+
+        public DateTime lastSeen { get; set; }
     }
 
-    public class UserWithStatusDtoComparer : IEqualityComparer<UserWithStatusDto>
+    public class ChatUserDtoComparer : IEqualityComparer<ChatUserDto>
     {
-        public bool Equals(UserWithStatusDto x, UserWithStatusDto y)
+        public bool Equals(ChatUserDto x, ChatUserDto y)
         {
             return x.Id == y.Id;
         }
 
-        public int GetHashCode(UserWithStatusDto obj)
+        public int GetHashCode(ChatUserDto obj)
         {
             return obj.Id.GetHashCode();
         }
