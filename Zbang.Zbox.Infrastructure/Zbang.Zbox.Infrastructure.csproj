@@ -176,6 +176,7 @@
     <Compile Include="Storage\PreProcessFileResult.cs" />
     <Compile Include="Storage\PreviewResult.cs" />
     <Compile Include="Storage\QueueName.cs" />
+    <Compile Include="Storage\StorageContainerName.cs" />
     <Compile Include="TextManipulation.cs" />
     <Compile Include="Url\Base62.cs" />
     <Compile Include="Url\EncryptObject.cs" />

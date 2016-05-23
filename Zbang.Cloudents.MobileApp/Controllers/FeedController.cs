@@ -14,6 +14,7 @@ using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.ViewModel.Dto.Qna;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 
 namespace Zbang.Cloudents.MobileApp.Controllers
@@ -56,25 +57,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateResponse(retVal.Select(s => new
                 {
                     s.Id,
-                    Answers = s.Replies.Select(x => new
-                    {
-                        x.Content,
-                        x.CreationTime,
-                        Files = x.Files.Select(z => new
-                        {
-                            z.Id,
-                            z.Name,
-                            z.OwnerId,
-                            z.Type,
-                            z.Source,
-                            Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(z.Source) +
-                                  ".jpg?width=148&height=187&mode=crop"
-                        }),
-                        x.Id,
-                        x.UserId,
-                        x.UserImage,
-                        x.UserName
-                    }).LastOrDefault()
+                    Answers = LastReply(s)
                     ,
                     s.Content,
                     s.CreationTime,
@@ -104,6 +87,34 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
         }
 
+        private static object LastReply(CommentDto s)
+        {
+            var lastReply = s.Replies.Select(x => new
+            {
+                x.Content,
+                x.CreationTime,
+                Files = x.Files.Select(z => new
+                {
+                    z.Id,
+                    z.Name,
+                    z.OwnerId,
+                    z.Type,
+                    z.Source,
+                    Thumbnail = "https://az779114.vo.msecnd.net/preview/" + HttpUtility.UrlPathEncode(z.Source) +
+                                ".jpg?width=148&height=187&mode=crop"
+                }),
+                x.Id,
+                x.UserId,
+                x.UserImage,
+                x.UserName
+            }).LastOrDefault();
+            if (lastReply == null)
+            {
+                return null;
+            }
+            return new[] {lastReply};
+        }
+
         [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}")]
         public async Task<HttpResponseMessage> Post(long boxId, Guid feedId)
         {
@@ -124,9 +135,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
         [HttpGet, Route("api/box/{boxId:long}/feed/{feedId:guid}/reply")]
-        public async Task<HttpResponseMessage> GetReplies(long boxId, Guid feedId, Guid? belowReplyId, int page, int sizePerPage = 20)
+        public async Task<HttpResponseMessage> GetReplies(long boxId, Guid feedId, /*Guid? belowReplyId,*/ int page, int sizePerPage = 20)
         {
-            var replyId = belowReplyId ?? Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
+
+            var replyId = /*belowReplyId ??*/ Guid.Parse("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF");
             var retVal =
                  await m_ZboxReadService.GetRepliesAsync(new GetCommentRepliesQuery(boxId, feedId, replyId, page, sizePerPage));
             return Request.CreateResponse(retVal.Select(s => new

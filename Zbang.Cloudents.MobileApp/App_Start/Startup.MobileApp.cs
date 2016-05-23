@@ -18,6 +18,7 @@ using Autofac.Integration.WebApi;
 using System.Reflection;
 using System.Linq;
 using System.Web.Http.ExceptionHandling;
+using Zbang.Cloudents.MobileApp.Controllers;
 using Zbang.Cloudents.MobileApp.Filters;
 
 namespace Zbang.Cloudents.MobileApp
@@ -45,7 +46,7 @@ namespace Zbang.Cloudents.MobileApp
             {
                 // This middleware is intended to be used locally for debugging. By default, HostName will
                 // only have a value when running in an App Service application.
-                SigningKey = Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY"),
+                SigningKey = CustomLoginController.GetEnvironmentVariableAuth(),// Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY"),
                 ValidAudiences = new[] { ConfigurationManager.AppSettings["ValidAudience"] },
                 ValidIssuers = new[] { ConfigurationManager.AppSettings["ValidIssuer"] },
                 TokenHandler = config.GetAppServiceTokenHandler()

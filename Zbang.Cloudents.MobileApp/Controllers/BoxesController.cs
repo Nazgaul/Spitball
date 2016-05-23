@@ -30,6 +30,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         //[VersionedRoute("api/boxes", 3)]
         [Route("api/boxes")]
+        [Authorize]
         // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         public async Task<HttpResponseMessage> GetBoxes3(int page, int sizePerPage = 15)
         {

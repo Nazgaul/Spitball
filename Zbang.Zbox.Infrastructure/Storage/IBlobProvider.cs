@@ -6,6 +6,11 @@ using System.Collections.Generic;
 
 namespace Zbang.Zbox.Infrastructure.Storage
 {
+    //public interface IBlobProvider<T>
+    //{
+    //    Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
+    //}
+
     public interface IBlobProvider
     {
         string GenerateSharedAccressReadPermissionInCache(string blobName, double expirationTimeInMinutes);

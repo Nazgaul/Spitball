@@ -31,8 +31,8 @@ namespace Zbang.Zbox.Infrastructure.Security
         public static void ConfigureAuth(IAppBuilder app, bool shouldUseCookie)
         {
             DataProtectionProvider = app.GetDataProtectionProvider();
-            
-            
+
+
             //app.CreatePerOwinContext<UserManager>(UserManager.Create);
             //app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
@@ -62,9 +62,9 @@ namespace Zbang.Zbox.Infrastructure.Security
                         }
                         //OnResponseSignIn = ctx =>
                         //{
-                            
+
                         //}
-                       
+
                         //OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<UserManager,User>()
                         //TimeSpan.FromDays(5))
                         // Enables the application to validate the security stamp when the user logs in.
@@ -106,6 +106,7 @@ namespace Zbang.Zbox.Infrastructure.Security
                 //    ClientSecret = ""
                 //});
             }
+          
         }
     }
 }

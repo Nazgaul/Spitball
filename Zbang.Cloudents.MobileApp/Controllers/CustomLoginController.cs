@@ -103,7 +103,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         }
 
-        private static string GetEnvironmentVariableAuth()
+        public static string GetEnvironmentVariableAuth()
         {
 
             return Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY") ??
