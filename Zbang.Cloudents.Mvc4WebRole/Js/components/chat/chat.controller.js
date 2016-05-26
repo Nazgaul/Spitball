@@ -27,10 +27,7 @@
             c.unread = response.unread;
             chatBus.setUnread(response.unread);
         });
-        //chatBus.unread().then(function (response) {
-        //    //c.unread = response;
-        //    chatBus.setUnread(response);
-        //});
+        
 
         $scope.$watch(function () {
             return $mdSidenav('chat').isOpen();
@@ -229,7 +226,6 @@
         //dialog
         //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && $scope.customFullscreen;
         function dialog(blob, ev) {
-            console.log(blob);
             $mdDialog.show({
                 controller: 'previewController',
                 controllerAs: 'lc',
@@ -237,9 +233,9 @@
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
-                //resolve: {
-                //    doc: func
-                //}
+                resolve: {
+                    doc: function() { return chatBus.preview(blob, 0) }
+                }
                 //fullscreen: useFullScreen
             });
         }
@@ -253,15 +249,18 @@
 //'use strict';
 (function () {
     angular.module('app.chat').controller('previewController', previewController);
-    previewController.$inject = ['$mdDialog', '$rootScope'];
-    function previewController($mdDialog, $rootScope) {
+    previewController.$inject = ['$mdDialog','doc', '$rootScope'];
+    function previewController($mdDialog,doc, $rootScope) {
         var lc = this;
         //lc.users = users;
         lc.close = close;
-
+        console.log(doc);
         function close() {
             $mdDialog.hide();
         }
+
+        lc.view = doc.viewName;
+        lc.items = doc.content;
 
         $rootScope.$on('$stateChangeStart', function () {
             $mdDialog.hide();

@@ -14,14 +14,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
     public class PreProcessFile : IFileProcess
     {
         private readonly IFileProcessorFactory m_FileProcessorFactory;
-        private readonly IBlobProvider m_BlobProvider;
 
 
-        public PreProcessFile(IFileProcessorFactory fileProcessorFactory, 
-             IBlobProvider blobProvider)
+        public PreProcessFile(IFileProcessorFactory fileProcessorFactory
+             )
         {
             m_FileProcessorFactory = fileProcessorFactory;
-            m_BlobProvider = blobProvider;
         }
 
         public Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)

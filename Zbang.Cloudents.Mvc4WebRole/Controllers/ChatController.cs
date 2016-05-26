@@ -23,17 +23,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class ChatController : BaseController
     {
         private readonly IBlobProvider2<ChatContainerName> m_BlobProviderChat;
-        private readonly IBlobProvider2<ChatCacheContainerName> m_CacheBlobProvider;
+       // private readonly IBlobProvider2<ChatCacheContainerName> m_CacheBlobProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
 
 
         
 
-        public ChatController(IBlobProvider2<ChatContainerName> blobProviderChat, IFileProcessorFactory fileProcessorFactory, IBlobProvider2<ChatCacheContainerName> cacheBlobProvider)
+        public ChatController(IBlobProvider2<ChatContainerName> blobProviderChat, IFileProcessorFactory fileProcessorFactory 
+            //IBlobProvider2<ChatCacheContainerName> cacheBlobProvider
+            )
         {
             m_BlobProviderChat = blobProviderChat;
             m_FileProcessorFactory = fileProcessorFactory;
-            m_CacheBlobProvider = cacheBlobProvider;
+           // m_CacheBlobProvider = cacheBlobProvider;
         }
 
         [HttpGet, ActionName("conversation")]
@@ -71,8 +73,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ActionName("Preview")]
         [AsyncTimeout(TimeConst.Minute * 3 * 1000)]
         [JsonHandleError(HttpStatus = HttpStatusCode.BadRequest, ExceptionType = typeof(ArgumentException))]
-        public async Task<JsonResult> PreviewAsync(string blobName, int index, long id,
-            long boxId, CancellationToken cancellationToken, int width = 0, int height = 0)
+        public async Task<JsonResult> PreviewAsync(string blobName, int index, CancellationToken cancellationToken)
         {
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
@@ -81,25 +82,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var processor = m_FileProcessorFactory.GetProcessor<PreviewChatContainerName, ChatCacheContainerName>(uri);
             if (processor == null)
-                return
-                    JsonOk(
-                        new
-                        {
-                            preview =
-                                RenderRazorViewToString("_PreviewFailed",
-                                    Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
-                        });
+                 return JsonError();
+            //JsonOk(
+            //            new
+            //            {
+            //                preview =
+            //                    RenderRazorViewToString("_PreviewFailed",
+            //                        Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
+            //            });
 
             try
             {
                 var retVal = await processor.ConvertFileToWebSitePreviewAsync(uri, index * 3, cancellationToken);
                 if (retVal.Content == null)
                 {
-                    return JsonOk(new
-                    {
-                        preview = RenderRazorViewToString("_PreviewFailed",
-                            Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
-                    });
+                    return JsonError();
+                    //return JsonOk(new
+                    //{
+                    //    preview = RenderRazorViewToString("_PreviewFailed",
+                    //        Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
+                    //});
 
                 }
                 if (!retVal.Content.Any())
@@ -111,15 +113,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonOk(new { preview = retVal.Content.First() });
                 }
 
-
-                return JsonOk(new
-                {
-                    preview = RenderRazorViewToString("_Preview" + retVal.ViewName,
-                     new ItemPreview(
-                           retVal.Content.Take(3),
-                           index,
-                           User.Identity.IsAuthenticated))
-                });
+                return JsonOk(retVal);
+                //return JsonOk(new
+                //{
+                    
+                     
+                //    preview = RenderRazorViewToString("_Preview" + retVal.ViewName,
+                //     new ItemPreview(
+                //           retVal.Content.Take(3),
+                //           index,
+                //           User.Identity.IsAuthenticated))
+                //});
 
             }
             catch (Exception ex)
@@ -127,11 +131,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError($"GeneratePreview filename: {blobName}", ex);
                 if (index == 0)
                 {
-                    return JsonOk(new
-                    {
-                        preview = RenderRazorViewToString("_PreviewFailed",
-                            Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
-                    });
+                    return JsonError();
+                    //return JsonOk(new
+                    //{
+                    //    preview = RenderRazorViewToString("_PreviewFailed",
+                    //        Url.RouteUrl("ItemDownload2", new { boxId, itemId = id }))
+                    //});
                 }
                 return JsonOk();
             }

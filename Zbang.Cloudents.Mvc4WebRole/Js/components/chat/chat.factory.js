@@ -23,6 +23,12 @@
                 userIds: userIds
             });
         }
+        chatService.preview = function(blob, i) {
+            return ajaxService.get('/chat/Preview', {
+                blobName: blob,
+                index : i
+            });
+        }
         //chatService.unread = function () {
         //
         //    //return ajaxService.get('chat/unreadcount');

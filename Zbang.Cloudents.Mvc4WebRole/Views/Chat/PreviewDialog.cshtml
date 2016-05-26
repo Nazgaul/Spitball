@@ -3,14 +3,20 @@
         <div class="md-toolbar-tools">
             <h2 class="ellipsis">Mango (Fruit)</h2>
             <span flex></span>
-            <md-button class="close-btn" ng-click="lc.close()">
-                @Html.Svg("~/images/site/icons.svg", "close", new { @class = "svgTC4" })
+            <md-button aria-label="close" class="close-btn" ng-click="lc.close()">
+                @Html.Svg("~/images/site/icons.svg", "close", new {@class = "svgTC4"})
             </md-button>
         </div>
     </md-toolbar>
     <md-dialog-content>
-        @*test*@
-        <img src="https://az779114.vo.msecnd.net/images/Icons_720_image.png"/>
-        @*test - end*@
+        <div ng-repeat="e in lc.items" ng-include="'chat-Image.html'"></div>
     </md-dialog-content>
+
+
 </md-dialog>
+<script type="text/ng-template" id="chat-Image.html">
+    <img ng-src="{{::e}}" />
+</script>
+<script type="text/ng-template" id="chat-Svg.html">
+    <img ng-src="{{::e}}" />
+</script>
