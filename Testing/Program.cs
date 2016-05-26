@@ -205,9 +205,9 @@ namespace Testing
 
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
 
-            var x = iocFactory.Resolve<IFileProcessorFactory>();
-            x.GetProcessor(
-                new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxchat/28d7e877-df93-4fec-9dd7-74c27e630db7.png"));
+           // var x = iocFactory.Resolve<IFileProcessorFactory>();
+           // x.GetProcessor(
+           //     new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxchat/28d7e877-df93-4fec-9dd7-74c27e630db7.png"));
             //var t = IndexItemSearch(iocFactory);
             //t.Wait();
             //var document_db = iocFactory.Resolve<IDocumentDbRepository<ChatRoom>>();
@@ -259,7 +259,8 @@ namespace Testing
             //         "failed connect to remove db ");
             //var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
             //t.Wait();
-            //IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
+            IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
+            writeService.UpdateUniversityStats(DateTime.UtcNow.AddDays(-1));
             //writeService.UpdateReputation(new UpdateReputationCommand(1));
             //writeService.AddNewUpdateAsync(new AddNewUpdatesCommand(
             //    21481,

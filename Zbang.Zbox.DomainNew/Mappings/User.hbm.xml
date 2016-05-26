@@ -124,4 +124,13 @@
     update User c set c.EmailSendSettings = :emailSettings where c.Email in (:userEmail) and c.EmailSendSettings = 0
     ]]>
   </query>
+  <query name="UniversityData">
+    <![CDATA[
+       select u.id from University u 
+       where u.UserTime.UpdateTime > :dateTime and u.IsDeleted = 0
+       or u.id in (
+       select University.id from AcademicBox b where b.UserTime.UpdateTime > :dateTime
+       )
+    ]]>
+  </query>
 </hibernate-mapping>

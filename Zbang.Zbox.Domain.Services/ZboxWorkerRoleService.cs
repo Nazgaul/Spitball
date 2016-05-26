@@ -247,7 +247,7 @@ order by 1";
 
         public int DeleteOldUpdates()
         {
-           
+
             var needToLoop = true;
             var counter = 0;
             while (needToLoop)
@@ -273,22 +273,31 @@ order by 1";
 
         public void UpdateUniversityStats(DateTime dateTime)
         {
-           
+
             using (var unitOfWork = UnitOfWork.Start())
             {
                 var i = 0;
-                var universitiesIds = UnitOfWork.CurrentSession.Query<University>()
-                    .Where(s => s.IsDeleted == false).OrderBy(o => o.Id).Skip(i * 100).Take(100)
-                    .Select(s => s.Id).ToList();
+                var query = UnitOfWork.CurrentSession.GetNamedQuery("UniversityData");
+                query.SetDateTime("dateTime", dateTime);
+                query.SetMaxResults(100);
+                query.SetFirstResult(i * 100);
+                var universitiesIds = query.List<long>();
+                //var universitiesIds = UnitOfWork.CurrentSession.Query<University>()
+                //    .Where(s => s.IsDeleted == false && s.UserTime.UpdateTime > dateTime)
+                //
+                //    .OrderBy(o => o.Id).Skip(i * 100).Take(100)
+                //    .Select(s => s.Id).ToList();
                 do
                 {
                     var command = new UpdateUniversityStatsCommand(universitiesIds);
                     m_CommandBus.Send(command);
                     unitOfWork.TransactionalFlush();
                     i++;
-                    universitiesIds = UnitOfWork.CurrentSession.Query<University>()
-                   .Where(s => s.IsDeleted == false).OrderBy(o => o.Id).Skip(i * 100).Take(100)
-                   .Select(s => s.Id).ToList();
+                    query = UnitOfWork.CurrentSession.GetNamedQuery("UniversityData");
+                    query.SetDateTime("dateTime", dateTime);
+                    query.SetMaxResults(100);
+                    query.SetFirstResult(i * 100);
+                    universitiesIds = query.List<long>();
                 } while (universitiesIds.Any());
 
 
