@@ -58,6 +58,7 @@
   -o-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
+  margin-left: 10px;
 }
 .feed .items-slider .items-prev {
   -moz-transform: rotate(0);
@@ -468,6 +469,11 @@
   text-align: left;
   border-bottom: 1px solid #c3c3c3;
   color: #181c1d;
+}
+@media (min-width: 600px) {
+  .feed .indent {
+    margin-right: 62px;
+  }
 }
 .md-dialog-container {
   background: rgba(0, 0, 0, 0.5);
