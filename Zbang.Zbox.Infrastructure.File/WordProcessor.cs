@@ -15,11 +15,11 @@ namespace Zbang.Zbox.Infrastructure.File
     {
         const string CacheVersion = CacheVersionPrefix + "6";
 
-        public WordProcessor(IBlobProvider blobProvider)
-            : base(blobProvider)
+        public WordProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
+            : base(blobProvider, blobProviderPreview)
         {
             SetLicense();
-          
+
         }
 
         private void SetLicense()
@@ -31,19 +31,18 @@ namespace Zbang.Zbox.Infrastructure.File
         public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
-            //var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
 
             var word = new AsyncLazy<Document>(async () =>
             {
                 SetLicense();
-                using (var sr = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
                 {
                     return new Document(sr);
                 }
             });
 
             var svgOptions = new SvgSaveOptions { ShowPageBorder = false, FitToViewPort = true, JpegQuality = 85, ExportEmbeddedImages = true, PageCount = 1 };
-            var retVal = await UploadPreviewToAzureAsync(blobName, indexNum,
+            var retVal = await UploadPreviewCacheToAzureAsync(blobUri, indexNum,
                  i => CreateCacheFileName(blobName, i),
                  async z =>
                  {
@@ -52,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.File
                      var w = await word;
                      w.Save(ms, svgOptions);
                      return ms;
-                 }, CacheVersion, "image/svg+xml"
+                 }, CacheVersion, "image/svg+xml", cancelToken
              );
 
             return new PreviewResult { Content = retVal, ViewName = "Svg" };
@@ -65,7 +64,7 @@ namespace Zbang.Zbox.Infrastructure.File
         public static readonly string[] WordExtensions = { ".rtf", ".docx", ".doc", ".odt" };
         public override bool CanProcessFile(Uri blobName)
         {
-            return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+            return blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl) && WordExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri,
@@ -74,12 +73,11 @@ namespace Zbang.Zbox.Infrastructure.File
             try
             {
 
-                var blobName = GetBlobNameFromUri(blobUri);
-                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
                 SetLicense();
                 var word = new Document(path);
 
-                return await ProcessFileAsync(blobName, () =>
+                return await ProcessFileAsync(blobUri, () =>
                 {
                     var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
                     {
@@ -92,7 +90,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     ms.Seek(0, SeekOrigin.Begin);
                     return ms;
 
-                }, () => ExtractDocumentText(word), () => word.PageCount, CacheVersion);
+                }, () => word.PageCount, CacheVersion, cancelToken);
 
             }
             catch (Exception ex)
@@ -117,22 +115,45 @@ namespace Zbang.Zbox.Infrastructure.File
             }
         }
 
-        //public override string GetDefaultThumbnailPicture()
-        //{
-        //    return DefaultPicture.WordFileTypePicture;
-        //}
-
 
 
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            var blobName = GetBlobNameFromUri(blobUri);
-            var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+            //var blobName = GetBlobNameFromUri(blobUri);
+            var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
             SetLicense();
             var word = new Document(path);
             return ExtractDocumentText(word);
         }
 
-      
+        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
+        //{
+        //    try
+        //    {
+
+        //        var blobName = GetBlobNameFromUri(blobUri);
+        //        var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
+        //        SetLicense();
+        //        var word = new Document(path);
+
+        //        var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
+        //        {
+        //            JpegQuality = 80,
+        //            Resolution = 150
+        //        };
+
+        //        using (var ms = new MemoryStream())
+        //        {
+        //            word.Save(ms, imgOptions);
+        //            ms.Seek(0, SeekOrigin.Begin);
+        //            await BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("PreProcessFile word", ex);
+        //    }
+        //}
     }
 }

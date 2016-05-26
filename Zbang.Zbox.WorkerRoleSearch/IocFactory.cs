@@ -65,8 +65,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.RegisterType<IJob, SchedulerListener>(nameof(SchedulerListener));
             Ioc.RegisterType<IJob, UpdateUnsubscribeList>(nameof(UpdateUnsubscribeList));
             Ioc.RegisterType<IJob, TransactionQueueProcess>(nameof(TransactionQueueProcess));
+            Ioc.RegisterType<IJob, ThumbnailQueueProcess>(nameof(ThumbnailQueueProcess));
             Ioc.RegisterType<IJob, MailQueueProcess>(nameof(MailQueueProcess));
             Ioc.RegisterType<IJob, TestingJob>(nameof(TestingJob));
+
+
             Ioc.RegisterType<IMailProcess, NoUniversityMailProcess>("universityNotSelected");
             Ioc.RegisterType<IMailProcess, NoFollowClassMailProcess>("notFollowing");
             Ioc.RegisterType<IMailProcess, UniversityWithLowActivation>("universityLowActivity");
@@ -108,7 +111,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Infrastructure.Transport.DomainProcess.QuotaResolver);
             Ioc.RegisterType<IDomainProcess, DeleteBox>(
                 Infrastructure.Transport.DomainProcess.DeleteBoxResolver);
-            
+
+            Ioc.RegisterType<IFileProcess, PreProcessFile>(nameof(ChatFileProcessData));
+
         }
 
         public T Resolve<T>(string name)

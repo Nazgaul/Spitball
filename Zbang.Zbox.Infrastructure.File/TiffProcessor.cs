@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Image = Aspose.Imaging.Image;
@@ -18,8 +19,8 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class TiffProcessor : FileProcessor
     {
-        public TiffProcessor(IBlobProvider blobProvider)
-            : base(blobProvider)
+        public TiffProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
+            : base(blobProvider, blobProviderPreview)
         {
 
         }
@@ -33,16 +34,16 @@ namespace Zbang.Zbox.Infrastructure.File
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             // var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
             Stream blobStr = null;
-            var tiff = new Lazy<TiffImage>(() =>
-            {
-                SetLicense();
-                blobStr = BlobProvider.DownloadFile(blobName);
+            var tiff = new AsyncLazy<TiffImage>(async () =>
+           {
+               SetLicense();
+               blobStr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken);
 
-                var tiffImage = (TiffImage)Image.Load(blobStr);
-                return tiffImage;
+               var tiffImage = (TiffImage)Image.Load(blobStr);
+               return tiffImage;
 
 
-            });
+           });
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task<string>>();
             var jpgCreateOptions = new JpegOptions();
@@ -60,20 +61,20 @@ namespace Zbang.Zbox.Infrastructure.File
                 try
                 {
 
-
-                    tiff.Value.ActiveFrame = tiff.Value.Frames[pageIndex];// tiffFrame;
+                    var activeTiff = await tiff.Value;
+                    activeTiff.ActiveFrame = activeTiff.Frames[pageIndex];// tiffFrame;
                     //Load Pixels of TiffFrame into an array of Colors
-                    var pixels = tiff.Value.LoadPixels(tiff.Value.Bounds);
+                    var pixels = activeTiff.LoadPixels(activeTiff.Bounds);
 
                     //Set the Source of bmpCreateOptions as FileCreateSource by specifying the location where output will be saved
                     using (var ms = new MemoryStream())
                     {
                         jpgCreateOptions.Source = new StreamSource(ms);
                         using (var jpgImage =
-                  (JpegImage)Image.Create(jpgCreateOptions, tiff.Value.Width, tiff.Value.Height))
+                  (JpegImage)Image.Create(jpgCreateOptions, activeTiff.Width, activeTiff.Height))
                         {
                             //Save the bmpImage with pixels from TiffFrame
-                            jpgImage.SavePixels(tiff.Value.Bounds, pixels);
+                            jpgImage.SavePixels(activeTiff.Bounds, pixels);
                             jpgImage.Save();
                         }
                         var compressor = new Compress();
@@ -107,7 +108,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl))
             {
                 return TiffExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
@@ -119,20 +120,29 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-                var blobName = GetBlobNameFromUri(blobUri);
-
-                using (var stream = BlobProvider.DownloadFile(blobName))
+                try
                 {
-                    using (var ms = new MemoryStream())
+                    var blobName = GetBlobNameFromUri(blobUri);
+
+                    using (var stream = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
                     {
-                        var settings2 = new ResizeSettings
+                        using (var ms = new MemoryStream())
                         {
-                            Format = "jpg"
-                        };
-                        ImageBuilder.Current.Build(stream, ms, settings2, false);
-                        await BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+                            var settings2 = new ResizeSettings
+                            {
+                                Format = "jpg"
+                            };
+                            ImageBuilder.Current.Build(stream, ms, settings2, false);
+
+                            await BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError("PreProcessFile tiff", ex);
+                }
+                return null;
             }
             catch (Exception ex)
             {
@@ -150,5 +160,10 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return Task.FromResult<string>(null);
         }
+
+        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
+        //{
+
+        //}
     }
 }

@@ -146,7 +146,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                   // m_Unity.Resolve<IJob>(nameof(SchedulerListener))
                   //m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList))
                   // m_Unity.Resolve<IJob>(nameof(TestingJob))
-                   m_Unity.Resolve<IJob>(nameof(MailQueueProcess)),
+                   m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)),
                   //m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess))
 
                 };
@@ -160,7 +160,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList)),
                 m_Unity.Resolve<IJob>(nameof(SchedulerListener)),
                 m_Unity.Resolve<IJob>(nameof(MailQueueProcess)),
-                m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess))
+                m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess)),
+                m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess))
 
             };
         }

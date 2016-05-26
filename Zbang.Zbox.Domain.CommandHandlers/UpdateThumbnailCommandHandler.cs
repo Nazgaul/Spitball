@@ -38,20 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 file.Content = System.Net.WebUtility.HtmlEncode(command.FileContent).RemoveEndOfString(200);
                
             }
-            //if (string.IsNullOrWhiteSpace(command.ThumbnailUrl))
-            //{
-            //    m_ItemRepository.Save(file);
-            //    return;
-            //}
-            //UpdateThumbail(command, file);
-            //m_ItemRepository.Save(file);
-
         }
-
-        //private void UpdateThumbail(UpdateThumbnailCommand command, File file)
-        //{
-        //    var thumbnailUrl = m_BlobProvider.GetThumbnailUrl(command.ThumbnailUrl);
-        //    file.UpdateThumbnail(command.ThumbnailUrl, thumbnailUrl);
-        //}
+      
     }
 }

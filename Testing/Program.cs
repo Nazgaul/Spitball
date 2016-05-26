@@ -204,6 +204,10 @@ namespace Testing
 
 
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
+
+            var x = iocFactory.Resolve<IFileProcessorFactory>();
+            x.GetProcessor(
+                new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxchat/28d7e877-df93-4fec-9dd7-74c27e630db7.png"));
             //var t = IndexItemSearch(iocFactory);
             //t.Wait();
             //var document_db = iocFactory.Resolve<IDocumentDbRepository<ChatRoom>>();
@@ -271,7 +275,7 @@ namespace Testing
 
             //}
 
-            
+
 
             //            var suggestedUniversity = tsuggestedUniversity.Result;
             // readService.GetUserDetailsByMembershipId(new GetUserByMembershipQuery(Guid.Parse("29D55B10-7840-48F6-945E-A57080D03229")));
@@ -341,18 +345,7 @@ namespace Testing
             }
         }
 
-        private async static Task<string> TestMediaServices()
-        {
-            IFileProcessorFactory service = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IFileProcessorFactory>();
-            var processor = service.GetProcessor(new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxfiles/7c8aaf28-e398-49f3-85ef-b9e9b04848a3.jpg"));
-            var x = await processor.PreProcessFileAsync(new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxfiles/7c8aaf28-e398-49f3-85ef-b9e9b04848a3.jpg"));
-            // var id = await service.EncodeVideo(new Uri("https://zboxstorage.blob.core.windows.net/zboxfiles/f6a1b2b6-7c1c-44fc-961c-b90492c8552a.wmv"));
-            //var id = await service.EncodeVideo(new Uri("https://zboxstorage.blob.core.windows.net/zboxfiles/test.wmv"));
-
-            //Console.WriteLine(id);
-            return await Task.FromResult<string>("s");
-        }
-
+       
         private async static void DownloadFromDropBox()
         {
             //https://dl.dropboxusercontent.com/1/view/2pdvchldh2fn3o0/ccc/%D7%9E%D7%95%D7%A0%D7%99%D7%9D.docx

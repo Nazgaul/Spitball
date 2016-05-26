@@ -10,6 +10,10 @@ using Zbang.Zbox.Infrastructure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Zbang.Zbox.Infrastructure.Azure.Table;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Storage
 {
@@ -41,6 +45,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                 Directory.CreateDirectory(LocalResource.LocalResourcePath);
             }
         }
+
+
         private static void ConfigureStorageAccount()
         {
             try
@@ -53,7 +59,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                     return;
                 }
                 _cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
-                 CreateStorage();
+                CreateStorage();
             }
             catch (ArgumentNullException ex)
             {
@@ -76,6 +82,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         #region CreateStorage
         private static void CreateBlobStorage(CloudBlobClient blobClient)
         {
+            var serviceProperties = blobClient.GetServiceProperties();
+            serviceProperties.DefaultServiceVersion = "2014-02-14";
+            blobClient.SetServiceProperties(serviceProperties);
             var container = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
             if (container.CreateIfNotExists())
@@ -117,7 +126,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                     PublicAccess = BlobContainerPublicAccessType.Off
                 });
             }
-            
+
             container = blobClient.GetContainerReference(BlobProvider.AzureProfilePicContainer.ToLower());
             if (container.CreateIfNotExists())
             {
@@ -162,21 +171,30 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             });
 
 
-           
+
         }
 
         private static void CreateQueues(CloudQueueClient queueClient)
         {
-            //  var queue = queueClient.GetQueueReference(QueueName.QueueName2.ToLower());
-            var downloadContentFromUrlQueue = queueClient.GetQueueReference(QueueName.DownloadContentFromUrl.ToLower());
-           // var downloadContentFromUrlQueuePahse2 = queueClient.GetQueueReference(QueueName.DownloadContentFromUrlPhase2.ToLower());
-            var mailQueue2 = queueClient.GetQueueReference(QueueName.NewMailQueueName.ToLower());
-            var transactionQueue = queueClient.GetQueueReference(QueueName.UpdateDomainQueueName.ToLower());
+            var fieldInfos = typeof(QueueName).GetFields(BindingFlags.Public |
+            BindingFlags.Static | BindingFlags.FlattenHierarchy);
 
-            //            queue.CreateIfNotExists();
-            mailQueue2.CreateIfNotExists();
-            transactionQueue.CreateIfNotExists();
-            downloadContentFromUrlQueue.CreateIfNotExists();
+            foreach (var field in fieldInfos.Where(fi => fi.IsLiteral && !fi.IsInitOnly).ToList())
+            {
+               var queue =  queueClient.GetQueueReference(field.GetValue(null).ToString().ToLower());
+                queue.CreateIfNotExists();
+            }
+            //  var queue = queueClient.GetQueueReference(QueueName.QueueName2.ToLower());
+            //var downloadContentFromUrlQueue = queueClient.GetQueueReference(QueueName.DownloadContentFromUrl.ToLower());
+            //// var downloadContentFromUrlQueuePahse2 = queueClient.GetQueueReference(QueueName.DownloadContentFromUrlPhase2.ToLower());
+            //var mailQueue2 = queueClient.GetQueueReference(QueueName.NewMailQueueName.ToLower());
+            //var transactionQueue = queueClient.GetQueueReference(QueueName.UpdateDomainQueueName.ToLower());
+            //var thumbailQueue = queueClient.GetQueueReference(QueueName.ThumbnailQueueName.ToLower());
+            //
+            ////            queue.CreateIfNotExists();
+            //mailQueue2.CreateIfNotExists();
+            //transactionQueue.CreateIfNotExists();
+            //downloadContentFromUrlQueue.CreateIfNotExists();
             //downloadContentFromUrlQueuePahse2.CreateIfNotExists();
 
         }

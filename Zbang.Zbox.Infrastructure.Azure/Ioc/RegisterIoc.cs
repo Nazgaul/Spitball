@@ -19,13 +19,16 @@ namespace Zbang.Zbox.Infrastructure.Azure.Ioc
             ioc.RegisterType<IBlobProvider, BlobProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IBlobUpload, BlobProvider>(LifeTimeManager.PerHttpRequest);
             //ioc.RegisterType<IBlobProductProvider, BlobProvider>();
-            ioc.RegisterType<ICloudBlockProvider, BlobProvider>();
+            ioc.RegisterType<ICloudBlockProvider, BlobProvider>(LifeTimeManager.Singleton);
 
             ioc.RegisterType<ITableProvider, TableProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IQueueProvider, QueueProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IQueueProviderExtract, QueueProvider>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<ILocalStorageProvider, LocalStorageProvider>();
             ioc.RegisterType<IdGenerator.IIdGenerator, Blob.IdGenerator>(LifeTimeManager.Singleton);
+
+
+            ioc.RegisterGeneric(typeof(IBlobProvider2<>), typeof(BlobProvider2<>));
         }
     }
 }

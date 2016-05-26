@@ -11,7 +11,6 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Profile;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -27,15 +26,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IProfilePictureProvider m_ProfilePicture;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly ICookieHelper m_CookieHelper;
-
+        private readonly IBlobProvider2<ChatContainerName> m_BlobProvider2;
+        private readonly IBlobProvider2<FilesContainerName> m_BlobProviderFiles;
         public UploadController(
-            IBlobProvider blobProvider,
             Lazy<IQueueProvider> queueProvider,
-            IProfilePictureProvider profilePicture, ICookieHelper cookieHelper)
+            IProfilePictureProvider profilePicture, ICookieHelper cookieHelper, IBlobProvider2<ChatContainerName> blobProvider2, IBlobProvider2<FilesContainerName> blobProviderFiles, IBlobProvider blobProvider)
         {
             m_BlobProvider = blobProvider;
             m_ProfilePicture = profilePicture;
             m_CookieHelper = cookieHelper;
+            m_BlobProvider2 = blobProvider2;
+            m_BlobProviderFiles = blobProviderFiles;
+            m_BlobProvider = blobProvider;
             m_QueueProvider = queueProvider;
         }
 
@@ -71,14 +73,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 string blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
 
 
-                fileUploadedDetails.CurrentIndex = await m_BlobProvider.UploadFileBlockAsync(blobAddressUri, uploadedfile.InputStream, fileUploadedDetails.CurrentIndex);
+                fileUploadedDetails.CurrentIndex = await m_BlobProviderFiles.UploadFileBlockAsync(blobAddressUri, uploadedfile.InputStream, fileUploadedDetails.CurrentIndex);
                 m_CookieHelper.InjectCookie(cookieName, fileUploadedDetails);
 
                 if (!FileFinishToUpload(fileUploadedDetails))
                 {
                     return JsonOk();
                 }
-                await m_BlobProvider.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
+                await m_BlobProviderFiles.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
 
                 var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                     fileUploadedDetails.FileName,
@@ -117,7 +119,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(
-                    $"Upload UploadFileAsync BoxId {model.BoxId} fileName {model.FileName} fileSize {model.FileSize} userid {userId} HttpContextRequestCount {HttpContext.Request.Files.Count} HttpContextRequestKeys {string.Join(",", HttpContext.Request.Files.AllKeys)}", ex);
+                    $"Upload UploadFileAsync BoxId {model.BoxId} fileName {model.FileName} fileSize {model.FileSize} userid {userId} " +
+                    $"HttpContextRequestCount {HttpContext.Request.Files.Count} HttpContextRequestKeys {string.Join(",", HttpContext.Request.Files.AllKeys)}", ex);
                 return JsonError(BoxControllerResources.Error);
             }
 
@@ -255,15 +258,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             string blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
 
 
-            fileUploadedDetails.CurrentIndex = await m_BlobProvider.UploadFileBlockAsync(blobAddressUri, BlobProvider.AzureChatContainer, uploadedfile.InputStream, fileUploadedDetails.CurrentIndex);
+            fileUploadedDetails.CurrentIndex = await m_BlobProvider2.UploadFileBlockAsync(blobAddressUri, uploadedfile.InputStream, fileUploadedDetails.CurrentIndex);
             m_CookieHelper.InjectCookie(cookieName, fileUploadedDetails);
 
             if (!FileFinishToUpload(fileUploadedDetails))
             {
                 return JsonOk();
             }
-            await m_BlobProvider.CommitBlockListAsync(blobAddressUri, BlobProvider.AzureChatContainer, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
-
+            await m_BlobProvider2.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
+            var uri = m_BlobProvider2.GetBlobUrl(blobAddressUri);
+            await m_QueueProvider.Value.InsertMessageToThumbnailAsync(new ChatFileProcessData(new Uri(uri)));
 
             return JsonOk(blobAddressUri);
         }

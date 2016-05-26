@@ -30,25 +30,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     var queueName = new ThumbnailQueueName();
-                    var result = await m_QueueProviderExtract.RunQueueAsync(queueName,  msg =>
-                    {
+                    var result = await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
+                     {
 
                         //m_FileProcessorFactory.GetProcessor(msg.AsString)
-                        //var msgData = msg.FromMessageProto<Infrastructure.Transport.DomainProcess>();
-                        //if (msgData == null)
-                        //{
-                        //    TraceLog.WriteError($"{Prefix} run - msg cannot transfer to DomainProcess");
-                        //    return true;
-                        //}
-                        //var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IDomainProcess>(msgData.ProcessResolver);
-                        //if (process == null)
-                        //{
-                        //    TraceLog.WriteError($"{Prefix} run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
-                        //    return true;
-                        //}
-                        //return await process.ExecuteAsync(msgData, cancellationToken);
-                        return Task.FromResult(true);
-                    }, TimeSpan.FromMinutes(1), 5, cancellationToken);
+                        var msgData = msg.FromMessageProto<Infrastructure.Transport.FileProcess>();
+                         if (msgData == null)
+                         {
+                             TraceLog.WriteError($"{Prefix} run - msg cannot transfer to FileProcess");
+                             return true;
+                         }
+                         var process = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IFileProcess>(msgData.ProcessResolver);
+                         if (process != null) return await process.ExecuteAsync(msgData, cancellationToken);
+                         TraceLog.WriteError($"{Prefix} run - process is null msgData.ProcessResolver:" + msgData.ProcessResolver);
+                         return true;
+                     }, TimeSpan.FromMinutes(1), 5, cancellationToken);
                     if (!result)
                     {
                         await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);

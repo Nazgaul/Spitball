@@ -15,8 +15,8 @@ namespace Zbang.Zbox.Infrastructure.File
     public class PowerPoint2007Processor : DocumentProcessor
     {
         const string CacheVersion = CacheVersionPrefix + "4";
-        public PowerPoint2007Processor(IBlobProvider blobProvider)
-            : base(blobProvider)
+        public PowerPoint2007Processor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
+            : base(blobProvider, blobProviderPreview)
         {
 
         }
@@ -35,13 +35,13 @@ namespace Zbang.Zbox.Infrastructure.File
             var ppt = new AsyncLazy<Presentation>(async () =>
             {
                 SetLicense();
-                using (var sr = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
                 {
                     return new Presentation(sr);
                 }
             });
 
-            var retVal = await UploadPreviewToAzureAsync(blobName, indexNum, 
+            var retVal = await UploadPreviewCacheToAzureAsync(blobUri, indexNum,
                 i => CreateCacheFileName(blobName, i),
                async z =>
                {
@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                    thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                    return ms;
-               }, CacheVersion,"image/jpg"
+               }, CacheVersion, "image/jpg", cancelToken
             );
             if (ppt.IsValueCreated)
             {
@@ -69,12 +69,12 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public static readonly string[] PowerPoint2007Extensions =
         {
-          ".ppt",".pot", ".pps", ".pptx", ".potx", ".ppsx", ".odp", ".pptm"   
+          ".ppt",".pot", ".pps", ".pptx", ".potx", ".ppsx", ".odp", ".pptm"
         };
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl))
             {
                 return PowerPoint2007Extensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
@@ -86,12 +86,11 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-                var blobName = GetBlobNameFromUri(blobUri);
-                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
                 SetLicense();
                 using (var pptx = new Presentation(path))
                 {
-                    return await ProcessFileAsync(blobName, () =>
+                    return await ProcessFileAsync(blobUri, () =>
                     {
                         using (var img = pptx.Slides[0].GetThumbnail(1, 1))
                         {
@@ -100,8 +99,8 @@ namespace Zbang.Zbox.Infrastructure.File
                             return ms;
                         }
 
-                    }, () => ExtractStringFromPpt(pptx)
-                    , () => pptx.Slides.Count, CacheVersion);
+                    }
+                    , () => pptx.Slides.Count, CacheVersion, cancelToken);
                 }
             }
             catch (Exception ex)
@@ -146,12 +145,33 @@ namespace Zbang.Zbox.Infrastructure.File
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
-                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
-                SetLicense();
+            var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
+            SetLicense();
             using (var pptx = new Presentation(path))
             {
-               return ExtractStringFromPpt(pptx);
+                return ExtractStringFromPpt(pptx);
             }
         }
+
+        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
+        //{
+            
+        //    var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
+        //    SetLicense();
+        //    using (var pptx = new Presentation(path))
+        //    {
+        //            using (var img = pptx.Slides[0].GetThumbnail(1, 1))
+        //            {
+        //                using (var ms = new MemoryStream())
+        //                {
+        //                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+        //                    var blobName = GetBlobNameFromUri(blobUri);
+        //                    await
+        //                        BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+        //                }
+        //            }
+
+        //    }
+        //}
     }
 }

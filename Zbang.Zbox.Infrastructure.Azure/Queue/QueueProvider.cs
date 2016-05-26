@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 
         private CloudQueue GetThumbnailQueue()
         {
-            return GetQueue(QueueName.DownloadContentFromUrl.ToLower());
+            return GetQueue(QueueName.ThumbnailQueueName.ToLower());
         }
 
 
@@ -58,6 +58,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         public Task InsertMessageToTranactionAsync(DomainProcess message)
         {
             return GetTransactionQueue().InsertToQueueProtoAsync(message);
+        }
+
+        public Task InsertMessageToThumbnailAsync(FileProcess message)
+        {
+            return GetThumbnailQueue().InsertToQueueProtoAsync(message);
         }
 
         public async Task InsertMessageToDownloadAsync(UrlToDownloadData message)

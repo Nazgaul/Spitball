@@ -12,6 +12,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task InsertMessageToTranactionAsync(DomainProcess message);
         Task InsertMessageToDownloadAsync(UrlToDownloadData message);
+
+        Task InsertMessageToThumbnailAsync(FileProcess message);
     }
 
 }

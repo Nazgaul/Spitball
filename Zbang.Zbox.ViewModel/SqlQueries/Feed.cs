@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zbang.Zbox.ViewModel.SqlQueries
+﻿namespace Zbang.Zbox.ViewModel.SqlQueries
 {
     public static class Feed
     {
@@ -64,9 +58,23 @@ select questionid from zbox.question
     from zbox.item i cross apply (select * from questions q
 	             where i.QuestionId = q.QuestionId 
 				) t
+    where i.IsDeleted = 0
+    and i.BoxId = @BoxId
+
+	union all
+	select
+    i.itemid as Id,
+    i.Name as Name,
+    i.UserId as OwnerId,
+    i.QuestionId as QuestionId,
+    i.AnswerId as AnswerId,
+    i.Discriminator as Type,
+    i.BlobName as Source,
+	i.Url as Url
+    from zbox.item i 
 				cross apply (select top (@rtop) * from zbox.Answer a where i.AnswerId = a.AnswerId order by a.AnswerId desc) as z
     where i.IsDeleted = 0
-    and i.BoxId = @BoxId";
+    and i.BoxId = @BoxId;";
 
 
         public const string GetQuizzesForComments = @"select

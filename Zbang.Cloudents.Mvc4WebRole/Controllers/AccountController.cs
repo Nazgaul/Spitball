@@ -233,7 +233,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken,ActionName("LogIn")]
+        [/*ValidateAntiForgeryToken,*/ActionName("LogIn")]
         public async Task<JsonResult> LogInAsync(
             [ModelBinder(typeof(TrimModelBinder))]LogOn model)
         {
@@ -320,7 +320,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken,ActionName("Register")]
+        [/*ValidateAntiForgeryToken,*/ActionName("Register")]
         public async Task<JsonResult> RegisterAsync([ModelBinder(typeof(TrimModelBinder))] Register model)
         {
             model.BoxId = GetBoxIdRouteDataFromDifferentUrl(model.ReturnUrl);
@@ -706,7 +706,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken,ActionName("PasswordUpdate")]
+        [/*ValidateAntiForgeryToken,*/ActionName("PasswordUpdate")]
         public async Task<ActionResult> PasswordUpdateAsync([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
         {
             if (!ModelState.IsValid)

@@ -7,7 +7,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         public string BlobName { get; set; }
        // public string ThumbnailName { get; set; }
 
-        public string FileTextContent { get; set; }
+        //public string FileTextContent { get; set; }
 
         public static Task<PreProcessFileResult> GetEmptyResult = Task.FromResult<PreProcessFileResult>(null);
 

@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
+    
     public abstract class FileProcessor : ContentProcessor, IContentProcessor
     {
 
@@ -20,12 +22,16 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
         protected readonly IBlobProvider BlobProvider;
+        
+        protected readonly IBlobProvider2<IStorageContainerName> BlobProviderPreview;
 
-        protected FileProcessor(IBlobProvider blobProvider)
+        protected FileProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
         {
             BlobProvider = blobProvider;
+            
+            BlobProviderPreview = (IBlobProvider2 < IStorageContainerName >) blobProviderPreview;
+            
         }
-
 
 
         protected string GetBlobNameFromUri(Uri blobUri)
@@ -40,13 +46,10 @@ namespace Zbang.Zbox.Infrastructure.File
         public abstract Task<string> ExtractContentAsync(Uri blobUri,
             CancellationToken cancelToken = default(CancellationToken));
 
+        //public abstract Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken);
 
-     
 
-        //public virtual string GetDefaultThumbnailPicture()
-        //{
-        //    return DefaultPicture.DefaultFileTypePicture;
-        //}
+       
 
         protected string StripUnwantedChars(string input)
         {
@@ -60,17 +63,17 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
         protected async Task UploadMetaDataAsync(
-            string blobName,
+            Uri blobUri,
             int pageCount,
-            string getCacheVersionPrefix
+            string getCacheVersionPrefix, CancellationToken token
             )
         {
 
 
-            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobName) ?? new Dictionary<string, string>();
+            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, token) ?? new Dictionary<string, string>();
             metaData = RemoveOldMetaTags(metaData, getCacheVersionPrefix);
             metaData[PagesInDocsMetaKey] = pageCount.ToString(CultureInfo.InvariantCulture);
-            await BlobProvider.SaveMetaDataToBlobAsync(blobName, metaData);
+            await BlobProvider.SaveMetaDataToBlobAsync(blobUri, metaData, token);
         }
 
         protected IDictionary<string, string> RemoveOldMetaTags(IDictionary<string, string> metaTags, string cacheVersionPrfix)

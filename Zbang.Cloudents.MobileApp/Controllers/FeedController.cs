@@ -57,8 +57,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateResponse(retVal.Select(s => new
                 {
                     s.Id,
-                    Answers = LastReply(s)
-                    ,
+                    Answers = LastReply(s),
+                    
                     s.Content,
                     s.CreationTime,
                     Files = s.Files.Select(v => new

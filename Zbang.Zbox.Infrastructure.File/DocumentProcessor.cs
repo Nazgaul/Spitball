@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Storage;
 
@@ -14,45 +15,42 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        protected DocumentProcessor(IBlobProvider blobProvider)
-            : base(blobProvider)
+        protected DocumentProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
+            : base(blobProvider, blobProviderPreview)
         { }
 
-        protected async Task<PreProcessFileResult> ProcessFileAsync(string blobName,
+        protected async Task<PreProcessFileResult> ProcessFileAsync(Uri blobUri,
             Func<Stream> previewStream,
-            Func<string> extractTextFromDocument,
             Func<int> getPageCount,
-            string getCacheVersionPrefix
+            string getCacheVersionPrefix,
+            CancellationToken token
 
             )
         {
-            var text = extractTextFromDocument();
 
             using (var msPreview = previewStream())
             {
-
-                var t2 = UploadMetaDataAsync(blobName, getPageCount(), getCacheVersionPrefix);
-                var t3 = BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", msPreview, "image/jpeg");
+                var blobName = GetBlobNameFromUri(blobUri);
+                var t2 = UploadMetaDataAsync(blobUri, getPageCount(), getCacheVersionPrefix, token);
+                var t3 = BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", msPreview, "image/jpeg", token);
                 await Task.WhenAll(t2, t3);
 
             }
-            return new PreProcessFileResult
-            {
-                FileTextContent = text
-            };
+            return null;
+           
         }
 
-        protected async Task<IEnumerable<string>> UploadPreviewToAzureAsync(string blobName,
+        protected async Task<IEnumerable<string>> UploadPreviewCacheToAzureAsync(Uri blobName,
             int startPage,
             Func<int, string> pageCacheBlobName,
             Func<int, Task<Stream>> convertPageToPreview, string cacheVersion,
-            string mimeType
+            string mimeType, CancellationToken token
             )
         {
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task<string>>();
 
-            var meta = await BlobProvider.FetchBlobMetaDataAsync(blobName);
+            var meta = await BlobProvider.FetchBlobMetaDataAsync(blobName, token);
             meta = RemoveOldMetaTags(meta, cacheVersion);
             string sPageCount;
             var pageCount = int.MaxValue;
@@ -88,7 +86,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 }
 
             }
-            var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta);
+            var t = BlobProvider.SaveMetaDataToBlobAsync(blobName, meta, token);
             var tasks = new List<Task>();
             tasks.AddRange(parallelTask);
             tasks.Add(t);

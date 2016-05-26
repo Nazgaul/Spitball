@@ -45,26 +45,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         private void InitStorage()
         {
-
             m_BlobClient = StorageProvider.ZboxCloudStorage.CreateCloudBlobClient();
-            var serviceProperties = m_BlobClient.GetServiceProperties();
-            serviceProperties.DefaultServiceVersion = "2014-02-14";
-            m_BlobClient.SetServiceProperties(serviceProperties);
-
-            BlobContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureBlobContainer.ToLower()).Uri.AbsoluteUri);
-
-
-            if (string.IsNullOrEmpty(m_StorageCdnEndpoint))
-            {
-                ProfileContainerUrl = VirtualPathUtility.AppendTrailingSlash(BlobClient.GetContainerReference(AzureProfilePicContainer).Uri.AbsoluteUri);
-            }
-            else
-            {
-                ProfileContainerUrl =
-                    VirtualPathUtility.AppendTrailingSlash(VirtualPathUtility.AppendTrailingSlash(m_StorageCdnEndpoint) +
-                                                           AzureProfilePicContainer.ToLower());
-            }
-
+            StorageContainerUrl = m_BlobClient.BaseUri.AbsoluteUri;
         }
 
 
@@ -107,15 +89,17 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         //}
 
 
-        public string BlobContainerUrl { get; private set; }
+        public string StorageContainerUrl { get; private set; }
 
-        public string ProfileContainerUrl { get; private set; }
+        //public string ProfileContainerUrl { get; private set; }
 
 
-        public string GetBlobUrl(string blobName)
-        {
-            return BlobContainerUrl + blobName;
-        }
+        //public string GetBlobUrl(string blobName)
+        //{
+        //    return BlobContainerUrl + blobName;
+        //}
+
+
 
 
 
@@ -153,28 +137,31 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob;
         }
 
-        public CloudBlockBlob GetFile(string blobName, string containerName)
+        public virtual CloudBlockBlob GetFile(string blobName, string containerName)
         {
-            return BlobClient.GetContainerReference(containerName.ToLower()).GetBlockBlobReference(blobName);
+            var container = BlobClient.GetContainerReference(containerName.ToLower());
+
+            return container.GetBlockBlobReference(blobName);
         }
 
-        public async Task<IDictionary<string, string>> FetchBlobMetaDataAsync(string blobName)
+        public async Task<IDictionary<string, string>> FetchBlobMetaDataAsync(Uri blobUri, CancellationToken token)
         {
-            var blob = GetFile(blobName);
-            await blob.FetchAttributesAsync();
+            var blob = GetBlob(blobUri);// GetFile(blobName);
+            await blob.FetchAttributesAsync(token);
             return blob.Metadata;
 
         }
 
-        public Task SaveMetaDataToBlobAsync(string blobName, IDictionary<string, string> metaData)
+        public Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metaData, CancellationToken token)
         {
             if (metaData == null) throw new ArgumentNullException(nameof(metaData));
-            var blob = GetFile(blobName);
+            var blob = GetBlob(blobUri);
+            //var blob = GetFile(blobName);
             foreach (var item in metaData)
             {
                 blob.Metadata[item.Key] = item.Value;
             }
-            return blob.SetMetadataAsync();
+            return blob.SetMetadataAsync(token);
         }
 
 
@@ -207,12 +194,19 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public string GenerateSharedAccessReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes)
         {
-            if (blobUri == null) throw new ArgumentNullException(nameof(blobUri));
-            var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-
-
-            var blob = GetFile(blobName);
+            //if (blobUri == null) throw new ArgumentNullException(nameof(blobUri));
+            //var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
+            //
+            //
+            //var blob = GetFile(blobName);
+            var blob = GetBlob(blobUri);
             return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
+        }
+
+        public Task<bool> ExistsAsync(Uri blobUri)
+        {
+            var blob = GetBlob(blobUri);
+            return blob.ExistsAsync();
         }
 
 
@@ -269,26 +263,27 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
 
+
         #endregion
 
         #region UploadFile
-        public async Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex)
-        {
+        //public async Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex)
+        //{
+        //
+        //    var blob = GetFile(blobName);
+        //    fileContent.Seek(0, SeekOrigin.Begin);
+        //    await blob.PutBlockAsync(ToBase64(currentIndex), fileContent, null);
+        //    return ++currentIndex;
+        //}
 
-            var blob = GetFile(blobName);
-            fileContent.Seek(0, SeekOrigin.Begin);
-            await blob.PutBlockAsync(ToBase64(currentIndex), fileContent, null);
-            return ++currentIndex;
-        }
-
-        public async Task<int> UploadFileBlockAsync(string blobName, string container, Stream fileContent,
-            int currentIndex)
-        {
-            var blob = GetFile(blobName, container);
-            fileContent.Seek(0, SeekOrigin.Begin);
-            await blob.PutBlockAsync(ToBase64(currentIndex), fileContent, null);
-            return ++currentIndex;
-        }
+        //public async Task<int> UploadFileBlockAsync(string blobName, string container, Stream fileContent,
+        //    int currentIndex)
+        //{
+        //    var blob = GetFile(blobName, container);
+        //    fileContent.Seek(0, SeekOrigin.Begin);
+        //    await blob.PutBlockAsync(ToBase64(currentIndex), fileContent, null);
+        //    return ++currentIndex;
+        //}
 
         internal async Task UploadFileAsync(string blobName, string filePath, string mimeType)
         {
@@ -300,31 +295,31 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
 
-        private string ToBase64(int blockIndex)
+        protected string ToBase64(int blockIndex)
         {
             var blockId = blockIndex.ToString("D10");
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(blockId));
         }
-        public async Task CommitBlockListAsync(string blobName, int currentIndex, string contentType)
-        {
-            var blockList = Enumerable.Range(0, currentIndex).Select(ToBase64);
-            var blob = GetFile(blobName);
-            await blob.PutBlockListAsync(blockList);
-            //blob.PutBlockList(fileUploadedDetails.BlockIds);
-            blob.Properties.ContentType = contentType;
-            blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
-
-            await blob.SetPropertiesAsync();
-
-        }
-        public async Task CommitBlockListAsync(string blobName, string container, int currentIndex, string contentType)
-        {
-            var blockList = Enumerable.Range(0, currentIndex).Select(ToBase64);
-            var blob = GetFile(blobName, container);
-            blob.Properties.ContentType = contentType;
-            blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
-            await blob.PutBlockListAsync(blockList);
-        }
+        //public async Task CommitBlockListAsync(string blobName, int currentIndex, string contentType)
+        //{
+        //    var blockList = Enumerable.Range(0, currentIndex).Select(ToBase64);
+        //    var blob = GetFile(blobName);
+        //    await blob.PutBlockListAsync(blockList);
+        //    //blob.PutBlockList(fileUploadedDetails.BlockIds);
+        //    blob.Properties.ContentType = contentType;
+        //    blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
+        //
+        //    await blob.SetPropertiesAsync();
+        //
+        //}
+        //public async Task CommitBlockListAsync(string blobName, string container, int currentIndex, string contentType)
+        //{
+        //    var blockList = Enumerable.Range(0, currentIndex).Select(ToBase64);
+        //    var blob = GetFile(blobName, container);
+        //    blob.Properties.ContentType = contentType;
+        //    blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
+        //    await blob.PutBlockListAsync(blockList);
+        //}
         /// <summary>
         /// Upload file to storage from link
         /// </summary>
@@ -431,33 +426,47 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         #region Thumbnail
 
 
-        public Task UploadFilePreviewAsync(string blobName, Stream content, string mimeType, CancellationToken token = default(CancellationToken))
-        {
-            content.Seek(0, SeekOrigin.Begin);
-            var blob = BlobClient.GetContainerReference(AzurePreviewContainer).GetBlockBlobReference(blobName);
-            blob.Properties.ContentType = mimeType;
-            blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
-            return blob.UploadFromStreamAsync(content, token);
-        }
+        //public Task UploadFilePreviewAsync(Uri blobUri, Stream content, string mimeType, CancellationToken token = default(CancellationToken))
+        //{
+        //    content.Seek(0, SeekOrigin.Begin);
+        //    var blob = BlobClient.GetContainerReference(AzurePreviewContainer).GetBlockBlobReference(blobName);
+        //    blob.Properties.ContentType = mimeType;
+        //    blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
+        //    return blob.UploadFromStreamAsync(content, token);
+        //}
 
         #endregion
 
         #region files
 
-        public Stream DownloadFile(string fileName)
+        //public Stream DownloadFile(string fileName)
+        //{
+        //    var blob = GetFile(fileName);
+        //    var ms = new MemoryStream();
+        //    blob.DownloadToStream(ms);
+        //    ms.Seek(0, SeekOrigin.Begin);
+        //    return ms;
+        //}
+
+
+
+        //public async Task<Stream> DownloadFileAsync(string fileName, CancellationToken cancelToken)
+        //{
+        //    var blob = GetFile(fileName);
+        //    var ms = new MemoryStream();
+        //    await blob.DownloadToStreamAsync(ms, cancelToken);
+        //    ms.Seek(0, SeekOrigin.Begin);
+        //    return ms;
+        //
+        //}
+
+        private CloudBlockBlob GetBlob(Uri blobUrl)
         {
-            var blob = GetFile(fileName);
-            var ms = new MemoryStream();
-            blob.DownloadToStream(ms);
-            ms.Seek(0, SeekOrigin.Begin);
-            return ms;
+           return new CloudBlockBlob(blobUrl, StorageProvider.ZboxCloudStorage.Credentials);
         }
-
-
-
-        public async Task<Stream> DownloadFileAsync(string fileName, CancellationToken cancelToken)
+        public async Task<Stream> DownloadFileAsync(Uri blobUrl, CancellationToken cancelToken)
         {
-            var blob = GetFile(fileName);
+            var blob = GetBlob(blobUrl);
             var ms = new MemoryStream();
             await blob.DownloadToStreamAsync(ms, cancelToken);
             ms.Seek(0, SeekOrigin.Begin);
@@ -466,14 +475,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         }
 
 
-        public async Task<string> DownloadToFileAsync(string fileName, CancellationToken cancelToken)
+        public async Task<string> DownloadToLocalDiskAsync(Uri blobUri, CancellationToken cancelToken)
         {
-            var fileSystemLocation = Path.Combine(m_LocalStorageProvider.LocalStorageLocation, fileName);
+            var blob = GetBlob(blobUri);
+            var fileSystemLocation = Path.Combine(m_LocalStorageProvider.LocalStorageLocation, blob.Name);
             if (File.Exists(fileSystemLocation))
             {
                 return fileSystemLocation;
             }
-            var blob = GetFile(fileName);
+           
             try
             {
                 await blob.DownloadToFileAsync(fileSystemLocation,
@@ -556,5 +566,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             });
             return blob.Uri + queryString;
         }
+
+
+
+
     }
 }

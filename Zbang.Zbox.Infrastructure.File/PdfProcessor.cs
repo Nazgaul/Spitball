@@ -18,14 +18,14 @@ namespace Zbang.Zbox.Infrastructure.File
 
         const string CacheVersion = CacheVersionPrefix + "4";
 
-        public PdfProcessor(IBlobProvider blobProvider)
-            : base(blobProvider)
+        public PdfProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
+            : base(blobProvider, blobProviderPreview)
         {
-
+            SetLicense();
         }
 
 
-        private void SetLicense()
+        private static void SetLicense()
         {
             var license = new License();
             license.SetLicense("Aspose.Total.lic");
@@ -45,11 +45,11 @@ namespace Zbang.Zbox.Infrastructure.File
             var pdf = new AsyncLazy<Document>(async () =>
             {
                 SetLicense();
-                blobSr = await BlobProvider.DownloadFileAsync(blobName, cancelToken);
+                blobSr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken);
                 return new Document(blobSr);
             });
 
-            var retVal = await UploadPreviewToAzureAsync(blobName,
+            var retVal = await UploadPreviewCacheToAzureAsync(blobUri,
                 indexNum,
                 i => CreateCacheFileName(blobName, i),
                 async z =>
@@ -58,7 +58,7 @@ namespace Zbang.Zbox.Infrastructure.File
                     var p = await pdf;
                     jpegDevice.Process(p.Pages[z + 1], ms);
                     return ms;
-                }, CacheVersion, "image/jpg");
+                }, CacheVersion, "image/jpg", cancelToken);
 
             if (pdf.IsValueCreated && blobSr != null)
             {
@@ -78,7 +78,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl))
             {
                 return PdfExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
@@ -91,23 +91,22 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-                var blobName = GetBlobNameFromUri(blobUri);
                 SetLicense();
-                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
 
 
 
                 using (var pdfDocument = new Document(path))
                 {
-                    return await ProcessFileAsync(blobName, () =>
+                    return await ProcessFileAsync(blobUri, () =>
                      {
                          var jpegDevice = new JpegDevice(new Resolution(150), 80);
                          var ms = new MemoryStream();
                          jpegDevice.Process(pdfDocument.Pages[1], ms);
                          return ms;
 
-                     }, () => ExtractPdfText(pdfDocument),
-                     () => pdfDocument.Pages.Count, CacheVersion);
+                     }, 
+                     () => pdfDocument.Pages.Count, CacheVersion, cancelToken);
 
                 }
 
@@ -182,11 +181,24 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             var blobName = GetBlobNameFromUri(blobUri);
             SetLicense();
-            var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+            var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
             using (var pdfDocument = new Document(path))
             {
                 return ExtractPdfText(pdfDocument);
             }
         }
+
+        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
+        //{
+        //    var path = await BlobProvider.DownloadFileAsync(blobUri, cancelToken);
+        //    using (var pdfDocument = new Document(path))
+        //    {
+        //        var jpegDevice = new JpegDevice(new Resolution(150), 80);
+        //        var ms = new MemoryStream();
+        //        jpegDevice.Process(pdfDocument.Pages[1], ms);
+        //        var blobName = GetBlobNameFromUri(blobUri);
+        //        await BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+        //    }
+        //}
     }
 }

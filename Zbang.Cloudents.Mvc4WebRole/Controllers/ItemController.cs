@@ -31,25 +31,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class ItemController : BaseController
     {
-        private readonly IBlobProvider m_BlobProvider;
         private readonly ICloudBlockProvider m_CloudBlobProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
         private readonly Lazy<IGuidIdGenerator> m_GuidGenerator;
         private readonly Lazy<IItemReadSearchProvider2> m_ItemSearchProvider;
+        private readonly IBlobProvider2<FilesContainerName> m_BlobProviderFiles;
 
 
         public ItemController(
-            IBlobProvider blobProvider,
             IFileProcessorFactory fileProcessorFactory,
-            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator, ICloudBlockProvider cloudBlobProvider, Lazy<IItemReadSearchProvider2> itemSearchProvider)
+            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator, ICloudBlockProvider cloudBlobProvider, Lazy<IItemReadSearchProvider2> itemSearchProvider, IBlobProvider2<FilesContainerName> blobProviderFiles)
         {
-            m_BlobProvider = blobProvider;
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProvider = queueProvider;
             m_GuidGenerator = guidGenerator;
             m_CloudBlobProvider = cloudBlobProvider;
             m_ItemSearchProvider = itemSearchProvider;
+            m_BlobProviderFiles = blobProviderFiles;
         }
 
 
@@ -321,7 +320,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Redirect(item.Source);
             }
 
-            var uri = new Uri(m_BlobProvider.GetBlobUrl(item.Source));
+            var uri = new Uri(m_BlobProviderFiles.GetBlobUrl(item.Source));
             IEnumerable<string> retVal = null;
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             if (processor != null)
@@ -390,7 +389,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
             {
-                uri = new Uri(m_BlobProvider.GetBlobUrl(blobName));
+                uri = new Uri(m_BlobProviderFiles.GetBlobUrl(blobName));
             }
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             if (processor == null)

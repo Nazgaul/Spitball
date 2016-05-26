@@ -257,6 +257,7 @@
     <Compile Include="Extensions\IPrincipalExtensions.cs" />
     <Compile Include="Filters\EmailVerifyAttribute.cs" />
     <Compile Include="Filters\JsonSerializeAttribute.cs" />
+    <Compile Include="Filters\ZboxAuthorizeAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TraceExceptionLogger.cs" />

@@ -5,6 +5,7 @@ using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.MobileApp.DataObjects;
 using Zbang.Cloudents.MobileApp.Extensions;
+using Zbang.Cloudents.MobileApp.Filters;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -16,7 +17,7 @@ using Zbang.Zbox.ViewModel.Queries.Boxes;
 namespace Zbang.Cloudents.MobileApp.Controllers
 {
     [MobileAppController]
-    [Authorize]
+    [ZboxAuthorize]
     public class BoxesController : ApiController
     {
         private readonly IZboxWriteService m_ZboxWriteService;
@@ -27,13 +28,17 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_ZboxReadService = zboxReadService;
         }
 
-
+        
         //[VersionedRoute("api/boxes", 3)]
-        [Route("api/boxes")]
-        [Authorize]
-        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
-        public async Task<HttpResponseMessage> GetBoxes3(int page, int sizePerPage = 15)
+        
+        [ZboxAuthorize]
+        [Route("api/boxes", Order = 3)]
+        public async Task<HttpResponseMessage> GetBoxesAsync(int page, int sizePerPage = 15)
         {
+           // if (!User.Identity.IsAuthenticated)
+           // {
+           //     return Request.CreateUnauthorizedResponse();
+           // }
             var userid = User.GetCloudentsUserId();
             var query = new GetBoxesQuery(userid, page, sizePerPage);
             var data = await m_ZboxReadService.GetUserBoxesAsync(query);
@@ -62,6 +67,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/boxes/recommend")]
         public async Task<HttpResponseMessage> Recommend()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Request.CreateUnauthorizedResponse();
+            }
             var university = User.GetUniversityDataId();
             if (!university.HasValue)
             {
@@ -90,7 +99,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [HttpPost, Route("api/invite")]
         public async Task<HttpResponseMessage> Invite(InviteToSystemRequest model)
         {
-
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Request.CreateUnauthorizedResponse();
+            }
             if (model == null)
             {
                 return Request.CreateBadRequestResponse();

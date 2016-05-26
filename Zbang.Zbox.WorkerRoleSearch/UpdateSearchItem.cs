@@ -113,8 +113,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {
-                PreProcessFile(elem);
                 elem.Content = ExtractContentToUploadToSearch(elem);
+                PreProcessFile(elem);
+                
                 if (elem.Type.ToLower() == "file")
                 {
                     tasks.Add(
@@ -186,7 +187,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
                     //some long running method requiring synchronization
                     var retVal = await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, tokenSource.Token);
-
                     if (retVal == null)
                     {
                         wait.Set();
@@ -194,7 +194,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     //var oldBlobName = msgData.BlobName;
                     var command = new UpdateThumbnailCommand(msgData.Id, retVal.BlobName,
-                        retVal.FileTextContent);
+                        msgData.Content);
                     m_ZboxWriteService.UpdateThumbnailPicture(command);
                     wait.Set();
                 }

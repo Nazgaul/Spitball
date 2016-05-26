@@ -55,6 +55,7 @@
     <Compile Include="BaseMailData.cs" />
     <Compile Include="DeleteBoxData.cs" />
     <Compile Include="DomainProcess.cs" />
+    <Compile Include="FileProcess.cs" />
     <Compile Include="ForgotPasswordData.cs" />
     <Compile Include="InviteLinkData.cs" />
     <Compile Include="InviteMailData.cs" />
@@ -65,7 +66,7 @@
     <Compile Include="ReputationData.cs" />
     <Compile Include="RequestAccessData.cs" />
     <Compile Include="StatisticsData.cs" />
-    <Compile Include="ThumbnailData.cs" />
+    <Compile Include="ChatFileProcessData.cs" />
     <Compile Include="UniversityData.cs" />
     <Compile Include="UpdateData.cs" />
     <Compile Include="UrlToDownloadData.cs" />

@@ -11,26 +11,31 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
-    public class ImageProcessor : FileProcessor , IProfileProcessor
+    public class ImageProcessor : FileProcessor, IProfileProcessor
     {
-
-        public ImageProcessor(IBlobProvider blobProvider)
-            : base(blobProvider)
+        public ImageProcessor() : base (null,null)
+        {
+            
+        }
+        public ImageProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
+            : base(blobProvider, blobProviderPreview)
         {
 
         }
-        public override Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+
+        public override Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum,
+            CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
             if (indexNum > 0)
             {
-                return Task.FromResult(new PreviewResult { Content = new List<string>() });
+                return Task.FromResult(new PreviewResult {Content = new List<string>()});
             }
             var blobsNamesInCache = new List<string>
             {
                 $"https://az779114.vo.msecnd.net/preview/{blobName}.jpg?width={1024}&height={768}"
             };
-            return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
+            return Task.FromResult(new PreviewResult {ViewName = "Image", Content = blobsNamesInCache});
         }
 
         public Stream ProcessFile(Stream stream, int width, int height)
@@ -40,10 +45,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var settings = new ResizeSettings
             {
 
-                //Anchor = ContentAlignment.MiddleCenter,
-                //BackgroundColor = Color.White,
                 Mode = FitMode.Crop,
-                //Scale = ScaleMode.UpscaleCanvas,
                 Width = width,
                 Height = height,
                 Quality = 80,
@@ -56,26 +58,27 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public static readonly string[] ImageExtensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
+        public static readonly string[] ImageExtensions = {".jpg", ".gif", ".png", ".jpeg", ".bmp"};
 
         public override bool CanProcessFile(Uri blobName)
         {
-            return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && ImageExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+            return blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl) &&
+                   ImageExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
-        public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri,
+            CancellationToken cancelToken = default(CancellationToken))
         {
             try
             {
-                var blobName = GetBlobNameFromUri(blobUri);
-                using (var stream = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
+
+                using (var stream = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
                 {
                     if (stream.Length == 0)
                     {
-                        TraceLog.WriteError("image is empty" + blobName);
-                        return null;
+                        TraceLog.WriteError("image is empty" + blobUri);
                     }
-                   
+
 
                     using (var ms = new MemoryStream())
                     {
@@ -84,23 +87,19 @@ namespace Zbang.Zbox.Infrastructure.File
                             Format = "jpg"
                         };
                         ImageBuilder.Current.Build(stream, ms, settings2, false);
-                        await BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+                        var blobName = GetBlobNameFromUri(blobUri);
+                        await BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
                     }
-                    //using (var outPutStream = ProcessFile(stream, ThumbnailWidth, ThumbnailHeight))
-                    //{
-                    //    //var thumbnailBlobAddressUri = Path.GetFileNameWithoutExtension(blobName) + ".thumbnailV4.jpg";
-                    //    //await BlobProvider.UploadFileThumbnailAsync(thumbnailBlobAddressUri, outPutStream, "image/jpeg", cancelToken);
-                    //    //return new PreProcessFileResult { ThumbnailName = thumbnailBlobAddressUri };
-                    //}
 
                 }
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("PreProcessFile image blobUri: " + blobUri, ex);
-                
+
             }
             return null;
+            
 
         }
 
@@ -109,9 +108,15 @@ namespace Zbang.Zbox.Infrastructure.File
         //    return DefaultPicture.ImageFileTypePicture;
         //}
 
-        public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<string> ExtractContentAsync(Uri blobUri,
+            CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<string>(null);
         }
+
+        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
+        //{
+            
+        //}
     }
 }

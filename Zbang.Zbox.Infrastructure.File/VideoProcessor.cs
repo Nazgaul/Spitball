@@ -16,8 +16,8 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private readonly Lazy<IMediaServicesProvider> m_MediaServiceProvider;
 
-        public VideoProcessor(IBlobProvider blobProvider, Lazy<IMediaServicesProvider> mediaServiceProvider)
-            : base(blobProvider)
+        public VideoProcessor(IBlobProvider blobProvider, Lazy<IMediaServicesProvider> mediaServiceProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
+            : base(blobProvider, blobProviderPreview)
         {
             m_MediaServiceProvider = mediaServiceProvider;
         }
@@ -25,11 +25,11 @@ namespace Zbang.Zbox.Infrastructure.File
         public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobName);
+            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, cancelToken);
             string value;
             if (!metaData.TryGetValue(MetadataConst.VideoStatus, out value))
             {
-                return new PreviewResult { ViewName = "MediaLoading"  };
+                return new PreviewResult { ViewName = "MediaLoading" };
                 //return new PreviewResult(ContentNotReady);
             }
             var url = BlobProvider.GenerateSharedAccessReadPermissionInStorage(blobUri, 600);
@@ -39,8 +39,8 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            var currentMetaData = await BlobProvider.FetchBlobMetaDataAsync(blobName);
+            var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
+            var currentMetaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, cancelToken);
             string value;
             if (currentMetaData.TryGetValue(MetadataConst.VideoStatus, out value))
             {
@@ -48,8 +48,8 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             var newBlobName = await m_MediaServiceProvider.Value.EncodeVideoAsync(blobUri, cancelToken);
             var metaData = new Dictionary<string, string> { { MetadataConst.VideoStatus, "done" } };
-            await BlobProvider.SaveMetaDataToBlobAsync(newBlobName, metaData);
-            return new PreProcessFileResult { BlobName = newBlobName };
+            await BlobProvider.SaveMetaDataToBlobAsync(newBlobName, metaData, cancelToken);
+            return new PreProcessFileResult { BlobName = GetBlobNameFromUri(newBlobName) };
 
 
         }
@@ -59,7 +59,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri blobName)
         {
-            return blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl) && VideoExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
+            return blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl) && VideoExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
         }
 
         //public override string GetDefaultThumbnailPicture()
@@ -71,5 +71,10 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return Task.FromResult<string>(null);
         }
+
+        //public override Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
+        //{
+        //    return Extensions.TaskExtensions.CompletedTask;
+        //}
     }
 }

@@ -4,7 +4,7 @@ using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class ChatAddMessageCommand : ICommand
+    public class ChatAddMessageCommand : ICommandAsync
     {
         public ChatAddMessageCommand(Guid? chatRoomId, long userId, string message, IEnumerable<long> usersInChat, string blobName)
         {

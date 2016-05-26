@@ -4,6 +4,10 @@ namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface IFileProcessorFactory
     {
+        //IContentProcessor GetProcessor(Uri contentUrl, Type T);
+
+        IContentProcessor GetProcessor<T>(Uri contentUrl) where T : StorageContainerName;
+
         IContentProcessor GetProcessor(Uri contentUrl);
     }
 }

@@ -14,10 +14,12 @@ namespace Zbang.Zbox.Infrastructure.File
     public class LinkProcessor : IContentProcessor
     {
         protected readonly IBlobProvider BlobProvider;
+        protected readonly IBlobProvider2<IStorageContainerName> BlobProviderPreview;
 
-        public LinkProcessor(IBlobProvider blobProvider)
+        public LinkProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
         {
             BlobProvider = blobProvider;
+            BlobProviderPreview = blobProviderPreview;
         }
 
         private const string ContentFormat = "<a target=\"_Blank\" href=\"{0}\"><img src=\"{1}\"/></a>";
@@ -41,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public virtual bool CanProcessFile(Uri blobName)
         {
-            return !blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl);
+            return !blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl);
         }
 
 
@@ -65,20 +67,16 @@ namespace Zbang.Zbox.Infrastructure.File
                     if (!response.IsSuccessStatusCode)
                     {
                         TraceLog.WriteError("cannot generate link preview " + blobUri.AbsoluteUri);
-                        return null;
                     }
 
                     var bytes = await response.Content.ReadAsByteArrayAsync();
                     using (var stream = new MemoryStream(bytes))
                     {
-                        await BlobProvider.UploadFilePreviewAsync(url + ".jpg", stream, "image/jpeg", cancelToken);
-                        return null;
+                        await BlobProviderPreview.UploadStreamAsync(url + ".jpg", stream, "image/jpeg", cancelToken);
                     }
                 }
             }
-
-            //BlobProvider.UploadFilePreviewAsync(blobName + ".jpg", msPreview, "image/jpeg");
-            //return Task.FromResult<PreProcessFileResult>(null);
+            return null;
         }
 
 
@@ -111,5 +109,36 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return Task.FromResult<string>(null);
         }
+
+        //public async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
+        //{
+        //    const string url2PngApiKey = "PE733F61DA16EFE";
+        //    const string url2PngPrivateKey = "S_B085D82FEC756";
+
+        //    string url = WebUtility.UrlEncode(blobUri.AbsoluteUri);
+
+        //    string getstring = "url=" + url;
+
+        //    string securityHashUrl2Png = Md5HashPhpCompliant(url2PngPrivateKey + "+" + getstring).ToLower();
+
+        //    var url2PngLink = "http://api.url2png.com/v6/" + url2PngApiKey + "/" + securityHashUrl2Png + "/" + "png/?" + getstring;
+
+        //    using (var httpClient = new HttpClient())
+        //    {
+        //        using (var response = await httpClient.GetAsync(url2PngLink, cancelToken))
+        //        {
+        //            if (!response.IsSuccessStatusCode)
+        //            {
+        //                TraceLog.WriteError("cannot generate link preview " + blobUri.AbsoluteUri);
+        //            }
+
+        //            var bytes = await response.Content.ReadAsByteArrayAsync();
+        //            using (var stream = new MemoryStream(bytes))
+        //            {
+        //                await BlobProviderPreview.UploadStreamAsync(url + ".jpg", stream, "image/jpeg", cancelToken);
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

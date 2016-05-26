@@ -16,7 +16,7 @@ namespace Zbang.Zbox.ViewModel.Queries.QnA
 
         public static GetBoxQuestionsQuery GetBoxQueryOldVersion(long boxId, int pageNumber, int rowsPerPage)
         {
-            return new GetBoxQuestionsQuery(boxId, rowsPerPage, pageNumber* rowsPerPage);
+            return new GetBoxQuestionsQuery(boxId, rowsPerPage, pageNumber * rowsPerPage);
         }
 
         public long BoxId { get; private set; }

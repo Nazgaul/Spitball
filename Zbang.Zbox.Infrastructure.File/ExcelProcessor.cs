@@ -16,8 +16,8 @@ namespace Zbang.Zbox.Infrastructure.File
     {
 
         const string CacheVersion = CacheVersionPrefix + "5";
-        public ExcelProcessor(IBlobProvider blobProvider)
-            : base(blobProvider)
+        public ExcelProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
+            : base(blobProvider, blobProviderPreview)
         {
 
         }
@@ -47,14 +47,14 @@ namespace Zbang.Zbox.Infrastructure.File
             var excel = new AsyncLazy<Workbook>(async () =>
             {
                 SetLicense();
-                using (var sr = await BlobProvider.DownloadFileAsync(blobName, cancelToken))
+                using (var sr = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
                 {
                     return new Workbook(sr);
                 }
             });
 
             var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-            var retVal = await UploadPreviewToAzureAsync(blobName, indexNum,
+            var retVal = await UploadPreviewCacheToAzureAsync(blobUri, indexNum,
                 i => CreateCacheFileName(blobName, i),
                async z =>
                {
@@ -68,7 +68,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                    sr.ToImage(0, ms);
                    return ms;
-               }, CacheVersion, "image/jpg"
+               }, CacheVersion, "image/jpg", cancelToken
             );
             return new PreviewResult { Content = retVal, ViewName = "Image" };
 
@@ -84,7 +84,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override bool CanProcessFile(Uri blobName)
         {
-            if (blobName.AbsoluteUri.StartsWith(BlobProvider.BlobContainerUrl))
+            if (blobName.AbsoluteUri.StartsWith(BlobProvider.StorageContainerUrl))
             {
                 return ExcelExtensions.Contains(Path.GetExtension(blobName.AbsoluteUri).ToLower());
             }
@@ -96,15 +96,14 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-                var blobName = GetBlobNameFromUri(blobUri);
-                var path = await BlobProvider.DownloadToFileAsync(blobName, cancelToken);
+                var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
                 SetLicense();
                 var excel = new Workbook(path);
                 var wb = excel.Worksheets[0];
 
-                return await ProcessFileAsync(blobName, () =>
+                return await ProcessFileAsync(blobUri, () =>
                 {
-                    var imgOptions = new ImageOrPrintOptions {ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false};
+                    var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
                     var sr = new SheetRender(wb, imgOptions);
                     using (var img = sr.ToImage(0))
                     {
@@ -116,7 +115,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         img.Save(ms, ImageFormat.Jpeg);
                         return ms;
                     }
-                }, () => string.Empty, () => excel.Worksheets.Count, CacheVersion);
+                },  () => excel.Worksheets.Count, CacheVersion, cancelToken);
 
             }
             catch (Exception ex)
@@ -127,14 +126,43 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        //public override string GetDefaultThumbnailPicture()
-        //{
-        //    return DefaultPicture.ExcelFileTypePicture;
-        //}
-
         public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult<string>(null);
         }
+
+        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
+        //{
+        //    try
+        //    {
+        //        var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
+        //        SetLicense();
+        //        var excel = new Workbook(path);
+        //        var wb = excel.Worksheets[0];
+
+
+        //        var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
+        //        var sr = new SheetRender(wb, imgOptions);
+        //        using (var img = sr.ToImage(0))
+        //        {
+        //            if (img == null)
+        //            {
+        //                return;
+        //            }
+        //            using (var ms = new MemoryStream())
+        //            {
+        //                img.Save(ms, ImageFormat.Jpeg);
+        //                var blobName = GetBlobNameFromUri(blobUri);
+        //                await
+        //                    BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+        //            }
+
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("PreProcessFile excel", ex);
+        //    }
+        //}
     }
 }
