@@ -30,8 +30,8 @@
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
-                    <div ng-bind-html="::post.content" class="content-text"></div>
-                    <div class="items-slider" ng-if="::post.files.length">
+                    <div ng-bind-html="::post.content" class="indent content-text"></div>
+                    <div class="indent items-slider" ng-if="::post.files.length">
                         <button ng-if="::post.files.length > 2" type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                         <div class="items-container">
                             <div bx-slider>
@@ -62,7 +62,7 @@
                         <span ng-click="f.openReply(post)"> @BoxResources.ViewComments {{post.repliesCount-4}} @BoxResources.Comments</span>
                     </li>
                     <li ng-repeat="reply in post.replies track by reply.id" class="reply" @*ng-if="$last || post.showReplies"*@>
-                        <div class="indent info">
+                        <div class="info">
                             <a href="{{::reply.url}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
                                 <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="52" height="52"></user-image>
                                 <span class="user-name" ng-bind="::reply.userName"></span>
@@ -83,7 +83,7 @@
                             </md-menu-content>
                         </md-menu>
                         <div ng-bind-html="::reply.content" class="indent content-text"></div>
-                        <div class="items-slider" ng-if="::reply.files.length">
+                        <div class="indent items-slider" ng-if="::reply.files.length">
                             <button type="button" ng-if="::reply.files.length > 2" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                             <div class="items-container">
                                 <div bx-slider>
@@ -92,7 +92,7 @@
                             </div>
                             <button type="button" ng-if="::reply.files.length > 2" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                         </div>
-                        <div class="actions-wrapper">
+                        <div class="indent actions-wrapper">
                             <div class="like-btn actions" layout="row" layout-align="start center">
                                 <button type="button" ng-if="reply.likesCount" ng-click="f.likeReplyDialog(reply,$event)">
                                     <span class="like-count" ng-bind="reply.likesCount"></span>

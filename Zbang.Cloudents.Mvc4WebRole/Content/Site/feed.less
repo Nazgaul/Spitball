@@ -65,6 +65,7 @@
             -o-transform: rotate(0) /*rtl:rotate(180deg)*/;
             -webkit-transform: rotate(0) /*rtl:rotate(180deg)*/;
             transform: rotate(0) /*rtl:rotate(180deg)*/;
+            margin-right: 10px;
         }
 
         .items-prev {
@@ -150,7 +151,7 @@
                 max-height: 250px;
                 overflow: auto;
                 min-height: 80px;
-                width: 100%; 
+                width: 100%;
 
                 .file-upload-area {
                     padding: 0;
@@ -545,6 +546,12 @@
         text-align: right;
         border-bottom: 1px solid @textColorLightGrey;
         color: @backgroundColor;
+    }
+
+    @media(min-width: 600px) {
+        .indent {
+            margin-left: @userImageIndent;
+        }
     }
 }
 
