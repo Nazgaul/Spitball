@@ -24,19 +24,19 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             m_BlobProvider = blobProvider;
         }
 
-        public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
+        public Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {
             var parameters = data as ChatFileProcessData;
-            if (parameters == null) return true;
+            if (parameters == null) return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
 
             var processor = m_FileProcessorFactory.GetProcessor<PreviewChatContainerName>(parameters.BlobUri);
             
-            if (await m_BlobProvider.ExistsAsync(parameters.BlobUri))
-            {
-                return true;
-            }
+            //if (await m_BlobProvider.ExistsAsync(parameters.BlobUri))
+            //{
+            //    return true;
+            //}
             ProcessBlob(processor, parameters);
-            return true;
+            return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
         }
 
         private void ProcessBlob(IContentProcessor processor, ChatFileProcessData parameters)
