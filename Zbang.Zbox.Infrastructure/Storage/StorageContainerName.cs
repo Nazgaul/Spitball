@@ -8,6 +8,17 @@ namespace Zbang.Zbox.Infrastructure.Storage
         string Name { get; }
         string RelativePath { get; }
     }
+
+    public interface IPreviewContainer : IStorageContainerName
+    {
+        
+    }
+
+    public interface ICacheContainer : IStorageContainerName
+    {
+        
+    }
+
     public abstract  class StorageContainerName : IStorageContainerName
     {
         public const string AzureBlobContainer = "zboxfiles";
@@ -28,6 +39,12 @@ namespace Zbang.Zbox.Infrastructure.Storage
        
     }
 
+    public class CacheContainerName : StorageContainerName, ICacheContainer
+    {
+        public override string Name => AzureCacheContainer;
+        public override string RelativePath => "";
+    }
+
     public class ChatContainerName : StorageContainerName
     {
         public override string Name => AzureChatContainer;
@@ -38,13 +55,13 @@ namespace Zbang.Zbox.Infrastructure.Storage
         public override string Name => AzureBlobContainer;
         public override string RelativePath => "";
     }
-    public class PreviewContainerName : StorageContainerName
+    public class PreviewContainerName : StorageContainerName, IPreviewContainer
     {
         public override string Name => AzurePreviewContainer;
         public override string RelativePath => "";
     }
 
-    public class PreviewChatContainerName : StorageContainerName
+    public class PreviewChatContainerName : StorageContainerName, IPreviewContainer
     {
         public override string Name => AzurePreviewContainer;
         public override string RelativePath => "chat";

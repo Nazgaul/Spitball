@@ -18,19 +18,35 @@ namespace Zbang.Zbox.Infrastructure.File
 
             //m_Processors = container.Resolve<IEnumerable<IContentProcessor>>();
         }
-        public IContentProcessor GetProcessor<T>(Uri contentUrl) where T : StorageContainerName
+        public IContentProcessor GetProcessor<T, U>(Uri contentUrl)
+            where T : IPreviewContainer
+            where U : ICacheContainer
         {
             var blob = m_Container.Resolve<IBlobProvider2<T>>();
-            var m_Processors = m_Container.Resolve<IEnumerable<IContentProcessor>>(new NamedParameter("blobProviderPreview", blob));
-            var processor = m_Processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
+            var blob2 = m_Container.Resolve<IBlobProvider2<U>>();
+            var processors = m_Container.Resolve<IEnumerable<IContentProcessor>>(
+                new NamedParameter("blobProviderPreview", blob), new NamedParameter("blobProviderCache", blob2));
+            var processor = processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
+            return processor;
+        }
+
+        public IContentProcessor GetProcessor<T>(Uri contentUrl) where T : IPreviewContainer
+        {
+            var blob = m_Container.Resolve<IBlobProvider2<T>>();
+            var blob2 = m_Container.Resolve<IBlobProvider2<CacheContainerName>>();
+            var processors = m_Container.Resolve<IEnumerable<IContentProcessor>>(
+                new NamedParameter("blobProviderPreview", blob), new NamedParameter("blobProviderCache", blob2));
+            var processor = processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
             return processor;
         }
 
         public IContentProcessor GetProcessor(Uri contentUrl)
         {
             var blob = m_Container.Resolve<IBlobProvider2<PreviewContainerName>>();
-            var m_Processors = m_Container.Resolve<IEnumerable<IContentProcessor>>(new NamedParameter("blobProviderPreview", blob));
-            var processor = m_Processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
+            var blob2 = m_Container.Resolve<IBlobProvider2<CacheContainerName>>();
+            var processors = m_Container.Resolve<IEnumerable<IContentProcessor>>(
+                new NamedParameter("blobProviderPreview", blob), new NamedParameter("blobProviderCache", blob2));
+            var processor = processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
             return processor;
         }
     }

@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class GoogleDriveProcessor : LinkProcessor
     {
-        public GoogleDriveProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
+        public GoogleDriveProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview)
             : base(blobProvider, blobProviderPreview)
         {  }
         private const string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
@@ -25,10 +25,6 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             return Task.FromResult<PreProcessFileResult>(null);
         }
-        
-
-        
-
-        
+       
     }
 }

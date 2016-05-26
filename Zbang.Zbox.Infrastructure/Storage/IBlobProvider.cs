@@ -13,6 +13,9 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task CommitBlockListAsync(string blobName, int currentIndex, string contentType);
         Task UploadStreamAsync(string blobName, Stream content, string mimeType, CancellationToken token);
         string GetBlobUrl(string blobName);
+
+        Task<bool> ExistsAsync(string blobName);
+        bool Exists(string blobName);
     }
 
     public interface IBlobProvider
@@ -52,7 +55,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         //Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
 
         //Task<int> UploadFileBlockAsync(string blobName, string container, Stream fileContent,
-            //int currentIndex);
+        //int currentIndex);
         //Task CommitBlockListAsync(string blobName, int currentIndex, string contentType);
         //Task CommitBlockListAsync(string blobName, string container, int currentIndex, string contentType);
 
@@ -77,22 +80,22 @@ namespace Zbang.Zbox.Infrastructure.Storage
         //string BlobContainerUrl { get; }
         string StorageContainerUrl { get; }
 
-            //string GetBlobUrl(string blobName);
+        //string GetBlobUrl(string blobName);
 
 
-            /// <summary>
-            /// Upload image to quiz in create quiz page
-            /// </summary>
-            /// <param name="content">the image itself</param>
-            /// <param name="mimeType">mime type of the image</param>
-            /// <param name="boxId">box id</param>
-            /// <param name="fileName">the image name received from client</param>
-            /// <returns>url to return to client</returns>
-            Task<string> UploadQuizImageAsync(Stream content, string mimeType, long boxId, string fileName);
-
-        bool CacheBlobExists(string blobName);
+        /// <summary>
+        /// Upload image to quiz in create quiz page
+        /// </summary>
+        /// <param name="content">the image itself</param>
+        /// <param name="mimeType">mime type of the image</param>
+        /// <param name="boxId">box id</param>
+        /// <param name="fileName">the image name received from client</param>
+        /// <returns>url to return to client</returns>
+        Task<string> UploadQuizImageAsync(Stream content, string mimeType, long boxId, string fileName);
 
 
-       
+
+
+
     }
 }

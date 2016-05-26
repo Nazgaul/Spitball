@@ -18,8 +18,8 @@ namespace Zbang.Zbox.Infrastructure.File
 
         const string CacheVersion = CacheVersionPrefix + "4";
 
-        public PdfProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
-            : base(blobProvider, blobProviderPreview)
+        public PdfProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, IBlobProvider2<ICacheContainer> blobProviderCache)
+            : base(blobProvider, blobProviderPreview, blobProviderCache)
         {
             SetLicense();
         }

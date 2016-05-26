@@ -13,14 +13,16 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class ImageProcessor : FileProcessor, IProfileProcessor
     {
-        public ImageProcessor() : base (null,null)
+        private readonly IBlobProvider2<IPreviewContainer> m_BlobProviderPreview;
+
+        public ImageProcessor() : base (null)
         {
             
         }
-        public ImageProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
-            : base(blobProvider, blobProviderPreview)
+        public ImageProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview)
+            : base(blobProvider)
         {
-
+            m_BlobProviderPreview = blobProviderPreview;
         }
 
         public override Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum,
@@ -88,7 +90,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         };
                         ImageBuilder.Current.Build(stream, ms, settings2, false);
                         var blobName = GetBlobNameFromUri(blobUri);
-                        await BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+                        await m_BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
                     }
 
                 }
@@ -103,10 +105,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        //public override string GetDefaultThumbnailPicture()
-        //{
-        //    return DefaultPicture.ImageFileTypePicture;
-        //}
+      
 
         public override Task<string> ExtractContentAsync(Uri blobUri,
             CancellationToken cancelToken = default(CancellationToken))
@@ -114,9 +113,6 @@ namespace Zbang.Zbox.Infrastructure.File
             return Task.FromResult<string>(null);
         }
 
-        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
-        //{
-            
-        //}
+       
     }
 }

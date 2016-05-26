@@ -15,8 +15,8 @@ namespace Zbang.Zbox.Infrastructure.File
     {
         const string CacheVersion = CacheVersionPrefix + "6";
 
-        public WordProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
-            : base(blobProvider, blobProviderPreview)
+        public WordProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, IBlobProvider2<ICacheContainer> blobProviderCache)
+            : base(blobProvider, blobProviderPreview, blobProviderCache)
         {
             SetLicense();
 

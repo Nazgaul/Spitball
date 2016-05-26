@@ -14,9 +14,9 @@ namespace Zbang.Zbox.Infrastructure.File
     public class LinkProcessor : IContentProcessor
     {
         protected readonly IBlobProvider BlobProvider;
-        protected readonly IBlobProvider2<IStorageContainerName> BlobProviderPreview;
+        protected readonly IBlobProvider2<IPreviewContainer> BlobProviderPreview;
 
-        public LinkProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
+        public LinkProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview)
         {
             BlobProvider = blobProvider;
             BlobProviderPreview = blobProviderPreview;
@@ -35,10 +35,9 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 string.Format(ContentFormat, blobUri.AbsoluteUri,previewLink)
             } });
-            //return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
+           
         }
 
-       // public string TypeOfView => string.Empty;
 
 
         public virtual bool CanProcessFile(Uri blobName)
@@ -99,46 +98,13 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        //public string GetDefaultThumbnailPicture()
-        //{
-        //    return DefaultPicture.LinkTypePicture;
-        //}
+        
 
 
         public Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            return Task.FromResult<string>(null);
+            return Extensions.TaskExtensions.CompletedTaskString;
         }
-
-        //public async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
-        //{
-        //    const string url2PngApiKey = "PE733F61DA16EFE";
-        //    const string url2PngPrivateKey = "S_B085D82FEC756";
-
-        //    string url = WebUtility.UrlEncode(blobUri.AbsoluteUri);
-
-        //    string getstring = "url=" + url;
-
-        //    string securityHashUrl2Png = Md5HashPhpCompliant(url2PngPrivateKey + "+" + getstring).ToLower();
-
-        //    var url2PngLink = "http://api.url2png.com/v6/" + url2PngApiKey + "/" + securityHashUrl2Png + "/" + "png/?" + getstring;
-
-        //    using (var httpClient = new HttpClient())
-        //    {
-        //        using (var response = await httpClient.GetAsync(url2PngLink, cancelToken))
-        //        {
-        //            if (!response.IsSuccessStatusCode)
-        //            {
-        //                TraceLog.WriteError("cannot generate link preview " + blobUri.AbsoluteUri);
-        //            }
-
-        //            var bytes = await response.Content.ReadAsByteArrayAsync();
-        //            using (var stream = new MemoryStream(bytes))
-        //            {
-        //                await BlobProviderPreview.UploadStreamAsync(url + ".jpg", stream, "image/jpeg", cancelToken);
-        //            }
-        //        }
-        //    }
-        //}
+        
     }
 }

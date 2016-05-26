@@ -256,11 +256,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             }
         }
 
-        public bool CacheBlobExists(string blobName)
-        {
-            var cacheblob = CacheFile(blobName);
-            return cacheblob.Exists();
-        }
+        //public bool CacheBlobExists(string blobName)
+        //{
+        //    var cacheblob = CacheFile(blobName);
+        //    return cacheblob.Exists();
+        //}
 
 
 

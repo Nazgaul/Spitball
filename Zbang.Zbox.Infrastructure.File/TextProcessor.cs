@@ -12,8 +12,8 @@ namespace Zbang.Zbox.Infrastructure.File
     public class TextProcessor : FileProcessor
     {
         const string CacheVersion = CacheVersionPrefix + "1";
-        public TextProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
-            : base(blobProvider, blobProviderPreview)
+        public TextProcessor(IBlobProvider blobProvider)
+            : base(blobProvider)
         {
 
         }
@@ -21,25 +21,6 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             await UploadMetaDataAsync(blobUri, 1, CacheVersion, cancelToken);
             return null;
-            //using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobName, cancelToken)))
-            //{
-            //    var sb = new StringBuilder();
-            //    while (stream.Peek() > 0)
-            //    {
-            //        sb.AppendLine(await stream.ReadLineAsync());
-            //        if (sb.Length > 10000)
-            //        {
-            //            break;
-            //        }
-            //    }
-            //    await UploadMetaDataAsync(blobName, 1, CacheVersion, cancelToken);
-            //    return PreProcessFileResult.GetEmptyResult;
-            //    //return new PreProcessFileResult
-            //    //{
-            //    //    FileTextContent = content
-            //    //};
-            //}
-
         }
 
 
@@ -108,17 +89,10 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            var blobName = GetBlobNameFromUri(blobUri);
             using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobUri, cancelToken)))
             {
                 return stream.ReadToEnd();
             }
         }
-
-        //public override Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
-        //{
-        //    return Extensions.TaskExtensions.CompletedTask;
-
-        //}
     }
 }

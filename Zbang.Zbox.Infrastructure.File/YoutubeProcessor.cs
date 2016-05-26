@@ -11,7 +11,8 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class YoutubeProcessor : LinkProcessor
     {
-        public YoutubeProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview) : base(blobProvider, blobProviderPreview)
+        public YoutubeProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview) 
+            : base(blobProvider, blobProviderPreview)
         {  }
 
         private static readonly Regex YoutubeRegex = new Regex(

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Infrastructure.File
@@ -23,14 +22,10 @@ namespace Zbang.Zbox.Infrastructure.File
 
         protected readonly IBlobProvider BlobProvider;
         
-        protected readonly IBlobProvider2<IStorageContainerName> BlobProviderPreview;
 
-        protected FileProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
+        protected FileProcessor(IBlobProvider blobProvider)
         {
             BlobProvider = blobProvider;
-            
-            BlobProviderPreview = (IBlobProvider2 < IStorageContainerName >) blobProviderPreview;
-            
         }
 
 
@@ -45,11 +40,6 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public abstract Task<string> ExtractContentAsync(Uri blobUri,
             CancellationToken cancelToken = default(CancellationToken));
-
-        //public abstract Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken);
-
-
-       
 
         protected string StripUnwantedChars(string input)
         {
@@ -68,8 +58,6 @@ namespace Zbang.Zbox.Infrastructure.File
             string getCacheVersionPrefix, CancellationToken token
             )
         {
-
-
             var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, token) ?? new Dictionary<string, string>();
             metaData = RemoveOldMetaTags(metaData, getCacheVersionPrefix);
             metaData[PagesInDocsMetaKey] = pageCount.ToString(CultureInfo.InvariantCulture);
@@ -78,12 +66,8 @@ namespace Zbang.Zbox.Infrastructure.File
 
         protected IDictionary<string, string> RemoveOldMetaTags(IDictionary<string, string> metaTags, string cacheVersionPrfix)
         {
-
-
             var oldElements = metaTags.Where(w =>
                 Regex.IsMatch(w.Key, @"\d") && !w.Key.StartsWith(cacheVersionPrfix)).Select(s => s.Key).ToList();
-
-
 
             foreach (var oldElement in oldElements)
             {

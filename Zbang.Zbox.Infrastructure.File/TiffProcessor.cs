@@ -19,11 +19,14 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class TiffProcessor : FileProcessor
     {
-        public TiffProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
-            : base(blobProvider, blobProviderPreview)
-        {
+        private readonly IBlobProvider2<IPreviewContainer> m_BlobProviderPreview;
 
+        public TiffProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview)
+            : base(blobProvider)
+        {
+            m_BlobProviderPreview = blobProviderPreview;
         }
+
         private static void SetLicense()
         {
             var license = new License();
@@ -134,7 +137,7 @@ namespace Zbang.Zbox.Infrastructure.File
                             };
                             ImageBuilder.Current.Build(stream, ms, settings2, false);
 
-                            await BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+                            await m_BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
                         }
                     }
                 }

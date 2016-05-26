@@ -194,6 +194,7 @@
                     if (item.type !== 'quiz') {
                         var retVal = itemThumbnailService.assignValue(item.source, 100, 141);
                         item.thumbnail = retVal.thumbnail;
+                        item.name = item.name || '';
                         item.nameExtension = item.name.replace(/\.[^/.]+$/, "");
                         //item.icon = retVal.icon;
                     } else {

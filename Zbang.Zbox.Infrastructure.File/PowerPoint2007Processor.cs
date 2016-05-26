@@ -15,8 +15,8 @@ namespace Zbang.Zbox.Infrastructure.File
     public class PowerPoint2007Processor : DocumentProcessor
     {
         const string CacheVersion = CacheVersionPrefix + "4";
-        public PowerPoint2007Processor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
-            : base(blobProvider, blobProviderPreview)
+        public PowerPoint2007Processor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview,  IBlobProvider2<ICacheContainer> blobProviderCache)
+            : base(blobProvider, blobProviderPreview, blobProviderCache)
         {
 
         }

@@ -42,10 +42,10 @@ namespace Zbang.Zbox.ViewModel.Dto.Qna
             Url = url;
         }
 
-        public long Id { get; private set; }
-        public string Name { get; private set; }
+        public long Id { get; set; }
+        public string Name { get; set; }
         //public string Thumbnail { get; set; }
-        public long OwnerId { get; private set; }
+        public long OwnerId { get; set; }
 
         public Guid? QuestionId { get; set; }
         public Guid? AnswerId { get; set; }

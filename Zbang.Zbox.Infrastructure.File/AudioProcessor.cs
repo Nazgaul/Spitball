@@ -12,21 +12,17 @@ namespace Zbang.Zbox.Infrastructure.File
     {
         private const string ContentFormat = "<audio controls=\"controls\"><source src=\"{0}\" type=\"audio/mp3\" /></audio>";
 
-        public AudioProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
-            : base(blobProvider, blobProviderPreview)
+        public AudioProcessor(IBlobProvider blobProvider /*, IBlobProvider2<IStorageContainerName> blobProviderPreview*/)
+            : base(blobProvider /*, blobProviderPreview*/)
         {
 
         }
         public override Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            //return Task.FromResult(new PreProcessFileResult { ThumbnailName = GetDefaultThumbnailPicture() });
             return PreProcessFileResult.GetEmptyResult;
         }
 
-        //public override string GetDefaultThumbnailPicture()
-        //{
-        //    return DefaultPicture.SoundFileTypePicture;
-        //}
+      
 
         public override Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
@@ -43,12 +39,9 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            return Task.FromResult<string>(null);
+            return Extensions.TaskExtensions.CompletedTaskString;
         }
 
-        //public override Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
-        //{
-        //    return Extensions.TaskExtensions.CompletedTask;
-        //}
+        
     }
 }

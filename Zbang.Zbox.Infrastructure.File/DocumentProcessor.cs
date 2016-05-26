@@ -13,11 +13,19 @@ namespace Zbang.Zbox.Infrastructure.File
         protected const int NumberOfFilesInGroup = 15;
         protected const string DatePattern = "M-d-yy";
 
+        protected readonly IBlobProvider2<IPreviewContainer>  BlobProviderPreview;
+        protected readonly IBlobProvider2<ICacheContainer> BlobProviderCache;
 
 
-        protected DocumentProcessor(IBlobProvider blobProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
-            : base(blobProvider, blobProviderPreview)
-        { }
+        protected DocumentProcessor(
+            IBlobProvider blobProvider,
+            IBlobProvider2<IPreviewContainer> blobProviderPreview, 
+            IBlobProvider2<ICacheContainer> blobProviderCache)
+            : base(blobProvider)
+        {
+            BlobProviderPreview = blobProviderPreview;
+            BlobProviderCache = blobProviderCache;
+        }
 
         protected async Task<PreProcessFileResult> ProcessFileAsync(Uri blobUri,
             Func<Stream> previewStream,
@@ -102,7 +110,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             if (pageIndex > NumberOfFilesInGroup)
             {
-                if (BlobProvider.CacheBlobExists(cacheblobName))
+                if (BlobProviderCache.Exists(cacheblobName))
                 {
                     blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
                     return true;

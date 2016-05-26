@@ -16,15 +16,14 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private readonly Lazy<IMediaServicesProvider> m_MediaServiceProvider;
 
-        public VideoProcessor(IBlobProvider blobProvider, Lazy<IMediaServicesProvider> mediaServiceProvider, IBlobProvider2<IStorageContainerName> blobProviderPreview)
-            : base(blobProvider, blobProviderPreview)
+        public VideoProcessor(IBlobProvider blobProvider, Lazy<IMediaServicesProvider> mediaServiceProvider)
+            : base(blobProvider)
         {
             m_MediaServiceProvider = mediaServiceProvider;
         }
 
         public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
-            var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, cancelToken);
             string value;
             if (!metaData.TryGetValue(MetadataConst.VideoStatus, out value))
@@ -39,7 +38,6 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             var currentMetaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, cancelToken);
             string value;
             if (currentMetaData.TryGetValue(MetadataConst.VideoStatus, out value))

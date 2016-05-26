@@ -65,6 +65,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return GetBlob(blobName).Uri.AbsoluteUri;
         }
 
-
+        public Task<bool> ExistsAsync(string blobName)
+        {
+            var blob = GetBlob(blobName);
+            return blob.ExistsAsync();
+        }
+        public bool Exists(string blobName)
+        {
+            var blob = GetBlob(blobName);
+            return blob.Exists();
+        }
     }
 }
