@@ -53,7 +53,6 @@ md-sidenav.chat {
         .header {
             background: #111111;
             position: relative;
-
             //.tabs {
             //    background: #eee;
             //    color: @textColorWhite;
@@ -75,7 +74,6 @@ md-sidenav.chat {
             //        }
             //    }
             //}
-
             .fab();
         }
 
@@ -164,8 +162,22 @@ md-sidenav.chat {
 
                     .name-counter {
                         width: 100%;
-                        line-height: 55px;
+                        max-width: ~"calc(100% - 64px)";
                         font-size: 16px;
+                        -ms-flex-wrap: wrap;
+                        -webkit-flex-wrap: wrap;
+                        flex-wrap: wrap;
+                        padding: 10px 0;
+                        height: 55px;
+
+                        .member-name, .comment-date {
+                            width: 100%;
+                        }
+
+                        .comment-date {
+                            font-size: 11px;
+                            color: @textColorGrey;
+                        }
                     }
 
                     &:not(:last-child) {
@@ -227,7 +239,9 @@ md-sidenav.chat {
                 .justifyContet(space-between);
                 height: @chatHeaderHeight;
 
-
+                .user {
+                    max-width: ~"calc(100% - 100px)";
+                }
 
                 svg {
                     width: 25px;
@@ -271,6 +285,7 @@ md-sidenav.chat {
                     .displayFlex;
                     .align-items(center);
                     .justifyContet(flex-start);
+                    width: 100%;
 
                     .back {
                         position: relative;
@@ -309,7 +324,6 @@ md-sidenav.chat {
                     font-size: 14px;
                     padding-top: 10px;
                     //padding-bottom: 70px;
-
                     .message {
                         box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
                         border-radius: 8px;
@@ -369,7 +383,7 @@ md-sidenav.chat {
                         textarea {
                             color: @textColorBlack;
                             border: none !important;
-                            line-height:20px;
+                            line-height: 20px;
                             min-height: 45px;
                         }
                         //&.md-input-invalid.md-input-focused label {
@@ -443,6 +457,47 @@ md-sidenav.chat {
                 margin: 10px;
                 flex-shrink: 0;
             }
+        }
+    }
+}
+
+
+.chat-item-preview {
+    margin-left: -320px;
+    max-height: 95vh;
+    position: relative;
+    max-width: ~"calc(100% - 350px)";
+
+    md-toolbar {
+        background: rgba(50,53,56,0.9);
+        min-height: 0;
+        position: absolute;
+
+        .md-toolbar-tools {
+            font-size: 18px;
+            height: 40px !important;
+        }
+
+
+        .close-btn {
+            min-width: 0;
+            line-height: normal;
+            padding: 0;
+            width: 24px;
+            margin-left: 10px;
+
+            svg {
+                width: 16px;
+                height: 16px;
+            }
+        }
+    }
+
+    md-dialog-content {
+        padding-top: 40px;
+
+        img {
+            max-width: 100%;
         }
     }
 }

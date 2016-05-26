@@ -223,8 +223,21 @@ md-sidenav.chat md-content .tab-content .users-list .user .chat-counter {
 }
 md-sidenav.chat md-content .tab-content .users-list .user .name-counter {
   width: 100%;
-  line-height: 55px;
+  max-width: calc(100% - 64px);
   font-size: 16px;
+  -ms-flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 10px 0;
+  height: 55px;
+}
+md-sidenav.chat md-content .tab-content .users-list .user .name-counter .member-name,
+md-sidenav.chat md-content .tab-content .users-list .user .name-counter .comment-date {
+  width: 100%;
+}
+md-sidenav.chat md-content .tab-content .users-list .user .name-counter .comment-date {
+  font-size: 11px;
+  color: #888b8e;
 }
 md-sidenav.chat md-content .tab-content .users-list .user:not(:last-child) .name-counter {
   border-bottom: 1px solid #dfe2e9;
@@ -297,6 +310,9 @@ md-sidenav.chat md-content .conversasion .header {
   justify-content: space-between;
   height: 65px;
 }
+md-sidenav.chat md-content .conversasion .header .user {
+  max-width: calc(100% - 100px);
+}
 md-sidenav.chat md-content .conversasion .header svg {
   width: 25px;
   height: 25px;
@@ -337,6 +353,7 @@ md-sidenav.chat md-content .conversasion .header .user-side {
   align-items: center;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
+  width: 100%;
 }
 md-sidenav.chat md-content .conversasion .header .user-side .back {
   position: relative;
@@ -471,6 +488,38 @@ md-sidenav.chat md-content .user.online:before {
 md-sidenav.chat md-content .user .img-circle {
   margin: 10px;
   flex-shrink: 0;
+}
+.chat-item-preview {
+  margin-right: -320px;
+  max-height: 95vh;
+  position: relative;
+  max-width: calc(100% - 350px);
+}
+.chat-item-preview md-toolbar {
+  background: rgba(50, 53, 56, 0.9);
+  min-height: 0;
+  position: absolute;
+}
+.chat-item-preview md-toolbar .md-toolbar-tools {
+  font-size: 18px;
+  height: 40px !important;
+}
+.chat-item-preview md-toolbar .close-btn {
+  min-width: 0;
+  line-height: normal;
+  padding: 0;
+  width: 24px;
+  margin-right: 10px;
+}
+.chat-item-preview md-toolbar .close-btn svg {
+  width: 16px;
+  height: 16px;
+}
+.chat-item-preview md-dialog-content {
+  padding-top: 40px;
+}
+.chat-item-preview md-dialog-content img {
+  max-width: 100%;
 }
 @keyframes fadein {
   from {
