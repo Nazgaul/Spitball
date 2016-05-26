@@ -13,13 +13,13 @@ namespace Zbang.Zbox.Infrastructure.File
         protected const int NumberOfFilesInGroup = 15;
         protected const string DatePattern = "M-d-yy";
 
-        protected readonly IBlobProvider2<IPreviewContainer>  BlobProviderPreview;
+        protected readonly IBlobProvider2<IPreviewContainer> BlobProviderPreview;
         protected readonly IBlobProvider2<ICacheContainer> BlobProviderCache;
 
 
         protected DocumentProcessor(
             IBlobProvider blobProvider,
-            IBlobProvider2<IPreviewContainer> blobProviderPreview, 
+            IBlobProvider2<IPreviewContainer> blobProviderPreview,
             IBlobProvider2<ICacheContainer> blobProviderCache)
             : base(blobProvider)
         {
@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
             }
             return null;
-           
+
         }
 
         protected async Task<IEnumerable<string>> UploadPreviewCacheToAzureAsync(Uri blobName,
@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Infrastructure.File
             )
         {
             var blobsNamesInCache = new List<string>();
-            var parallelTask = new List<Task<string>>();
+            var parallelTask = new List<Task>();
 
             var meta = await BlobProvider.FetchBlobMetaDataAsync(blobName, token);
             meta = RemoveOldMetaTags(meta, cacheVersion);
@@ -80,7 +80,8 @@ namespace Zbang.Zbox.Infrastructure.File
                     {
                         var compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
-                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, sr, mimeType, true));
+                        parallelTask.Add(BlobProviderCache.UploadByteArrayAsync(cacheblobName, sr, mimeType, true, 30));
+                        blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName, 30));
                         meta[metaDataKey] = DateTime.UtcNow.ToString(DatePattern);
                     }
                 }
@@ -99,7 +100,7 @@ namespace Zbang.Zbox.Infrastructure.File
             tasks.AddRange(parallelTask);
             tasks.Add(t);
             await Task.WhenAll(tasks);
-            blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
+            //blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
             return blobsNamesInCache;
         }
 
@@ -112,7 +113,8 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 if (BlobProviderCache.Exists(cacheblobName))
                 {
-                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+                    blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName, 20));
+                    //blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
                     return true;
                 }
             }
@@ -121,7 +123,8 @@ namespace Zbang.Zbox.Infrastructure.File
                 string value;
                 if (meta.TryGetValue(metaDataKey, out value))
                 {
-                    blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
+                    blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName, 20));
+                    //blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
                     meta[metaDataKey] = DateTime.UtcNow.ToString(DatePattern);
                     return true;
                 }

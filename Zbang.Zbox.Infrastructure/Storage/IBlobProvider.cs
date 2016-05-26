@@ -16,11 +16,14 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task<bool> ExistsAsync(string blobName);
         bool Exists(string blobName);
+
+        Task UploadByteArrayAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped, int cacheControlMinutes);
+        string GenerateSharedAccressReadPermission(string blobName, double expirationTimeInMinutes);
     }
 
     public interface IBlobProvider
     {
-        string GenerateSharedAccressReadPermissionInCache(string blobName, double expirationTimeInMinutes);
+        //string GenerateSharedAccressReadPermissionInCache(string blobName, double expirationTimeInMinutes);
 
         /// <summary>
         /// Upload file to cache container
@@ -30,17 +33,17 @@ namespace Zbang.Zbox.Infrastructure.Storage
         /// <param name="mimeType">mimetype of the file</param>
         /// <param name="fileGziped"></param>
         /// <returns>The url of the file with shared access signature</returns>
-        Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType,
-            bool fileGziped = false);
-
-        Task<string> UploadFileToCacheAsync(string blobName, Stream fileContent, string mimeType,
-            bool fileGziped = false);
+        //Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType,
+        //    bool fileGziped = false);
+        //
+        //Task<string> UploadFileToCacheAsync(string blobName, Stream fileContent, string mimeType,
+        //    bool fileGziped = false);
 
 
         //TODO:maybe we want this to be internal
         Task<Uri> UploadProfilePictureAsync(string blobName, Stream fileContent);
 
-        Task<bool> ExistsAsync(Uri blobUri);
+        //Task<bool> ExistsAsync(Uri blobUri);
         //Task UploadFilePreviewAsync(string blobName, Stream content, string mimeType, CancellationToken token = default(CancellationToken));
         // Task UploadFilePreviewAsync(Uri blobUri, Stream content, string mimeType, CancellationToken token);
 
@@ -72,15 +75,12 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<Stream> GetFaqQuestionAsync();
         Task<Stream> GetJobsXmlAsync();
 
-        string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double expirationTimeInMinutes);
+        //string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double expirationTimeInMinutes);
 
 
-        //string ProfileContainerUrl { get; }
 
-        //string BlobContainerUrl { get; }
         string StorageContainerUrl { get; }
 
-        //string GetBlobUrl(string blobName);
 
 
         /// <summary>

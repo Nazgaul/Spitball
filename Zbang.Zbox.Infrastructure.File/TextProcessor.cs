@@ -12,11 +12,14 @@ namespace Zbang.Zbox.Infrastructure.File
     public class TextProcessor : FileProcessor
     {
         const string CacheVersion = CacheVersionPrefix + "1";
-        public TextProcessor(IBlobProvider blobProvider)
+
+        private readonly IBlobProvider2<ICacheContainer> m_BlobProviderCache;
+        public TextProcessor(IBlobProvider blobProvider, IBlobProvider2<ICacheContainer> blobProviderCache)
             : base(blobProvider)
         {
-
+            m_BlobProviderCache = blobProviderCache;
         }
+
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
             await UploadMetaDataAsync(blobUri, 1, CacheVersion, cancelToken);
@@ -37,13 +40,19 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             var cacheFileName = CreateCacheFileName(blobName);
 
-            var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheFileName, 20);
 
-            if (IsFileExistsInCache(cacheBlobNameWithSharedAccessSignature))
+            //var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheFileName, 20);
+
+            if (await m_BlobProviderCache.ExistsAsync(cacheFileName))
             {
-                blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
+                blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccressReadPermission(cacheFileName, 30));
                 return new PreviewResult { ViewName = "Text", Content = blobsNamesInCache };
             }
+            //if (IsFileExistsInCache(cacheBlobNameWithSharedAccessSignature))
+            //{
+            //    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
+            //    return new PreviewResult { ViewName = "Text", Content = blobsNamesInCache };
+            //}
 
             using (var stream = new StreamReader(await BlobProvider.DownloadFileAsync(blobUri, cancelToken)))
             {
@@ -66,8 +75,10 @@ namespace Zbang.Zbox.Infrastructure.File
             }
             var compressor = new Compress();
             var sr = compressor.CompressToGzip(stream);
-            var cacheName = await BlobProvider.UploadFileToCacheAsync(cacheFileName, sr, "text/plain", true);
-            return cacheName;
+            await m_BlobProviderCache.UploadByteArrayAsync(cacheFileName, sr, "text/plain", true, 30);
+            return m_BlobProviderCache.GenerateSharedAccressReadPermission(cacheFileName, 30);
+            //var cacheName = await BlobProvider.UploadFileToCacheAsync(cacheFileName, sr, "text/plain", true);
+            //return cacheName;
         }
 
         private bool IsFileExistsInCache(string cacheBlobNameWithSharedAccessSignature)

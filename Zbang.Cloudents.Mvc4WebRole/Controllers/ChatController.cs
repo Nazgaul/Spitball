@@ -23,12 +23,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class ChatController : BaseController
     {
         private readonly IBlobProvider2<ChatContainerName> m_BlobProviderChat;
+        private readonly IBlobProvider2<ChatCacheContainerName> m_CacheBlobProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
 
-        public ChatController(IBlobProvider2<ChatContainerName> blobProviderChat, IFileProcessorFactory fileProcessorFactory)
+
+        
+
+        public ChatController(IBlobProvider2<ChatContainerName> blobProviderChat, IFileProcessorFactory fileProcessorFactory, IBlobProvider2<ChatCacheContainerName> cacheBlobProvider)
         {
             m_BlobProviderChat = blobProviderChat;
             m_FileProcessorFactory = fileProcessorFactory;
+            m_CacheBlobProvider = cacheBlobProvider;
         }
 
         [HttpGet, ActionName("conversation")]
@@ -74,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 uri = new Uri(m_BlobProviderChat.GetBlobUrl(blobName));
             }
-            var processor = m_FileProcessorFactory.GetProcessor(uri);
+            var processor = m_FileProcessorFactory.GetProcessor<PreviewChatContainerName, ChatCacheContainerName>(uri);
             if (processor == null)
                 return
                     JsonOk(

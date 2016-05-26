@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         //private CloudBlobClient m_BlobClient;
         // private readonly ILocalStorageProvider m_LocalStorageProvider;
         private readonly T m_Container = new T();
-       
+
         public BlobProvider2(ILocalStorageProvider localStorageProvider)
             : base(localStorageProvider)
         {
@@ -47,7 +48,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             blob.Properties.ContentType = contentType;
             blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
             await blob.PutBlockListAsync(blockList);
-           
+
         }
 
         public Task UploadStreamAsync(string blobName, Stream content, string mimeType, CancellationToken token)
@@ -74,6 +75,40 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         {
             var blob = GetBlob(blobName);
             return blob.Exists();
+        }
+
+        
+
+        public async Task UploadByteArrayAsync(string blobName, byte[] fileContent,
+            string mimeType, bool fileGziped, int cacheControlMinutes)
+        {
+            var blob = GetBlob(blobName);
+            //fileContent.Seek(0, SeekOrigin.Begin);
+
+            blob.Properties.ContentType = mimeType;
+            if (fileGziped)
+            {
+                blob.Properties.ContentEncoding = "gzip";
+            }
+
+            blob.Properties.CacheControl = "private, max-age=" + TimeConst.Minute * cacheControlMinutes;
+            // blob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
+            await blob.UploadFromByteArrayAsync(fileContent, 0, fileContent.Length);
+        }
+
+        public string GenerateSharedAccressReadPermission(string blobName, double expirationTimeInMinutes)
+        {
+            var blob = GetBlob(blobName);
+
+            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
+            });
+
+            var url = new Uri(blob.Uri, signedUrl);
+            return url.AbsoluteUri;
         }
     }
 }

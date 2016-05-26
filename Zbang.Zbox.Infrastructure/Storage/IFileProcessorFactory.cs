@@ -6,7 +6,12 @@ namespace Zbang.Zbox.Infrastructure.Storage
     {
         //IContentProcessor GetProcessor(Uri contentUrl, Type T);
 
-        IContentProcessor GetProcessor<T>(Uri contentUrl) where T : IPreviewContainer;
+        IContentProcessor GetProcessor<T, TU>(Uri contentUrl)
+            where T : IPreviewContainer
+            where TU : ICacheContainer;
+
+
+    IContentProcessor GetProcessor<T>(Uri contentUrl) where T : IPreviewContainer;
 
         IContentProcessor GetProcessor(Uri contentUrl);
     }

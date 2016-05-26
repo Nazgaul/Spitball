@@ -20,11 +20,13 @@ namespace Zbang.Zbox.Infrastructure.File
     public class TiffProcessor : FileProcessor
     {
         private readonly IBlobProvider2<IPreviewContainer> m_BlobProviderPreview;
+        private readonly IBlobProvider2<ICacheContainer> m_BlobProviderCache;
 
-        public TiffProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview)
+        public TiffProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, IBlobProvider2<ICacheContainer> blobProviderCache)
             : base(blobProvider)
         {
             m_BlobProviderPreview = blobProviderPreview;
+            m_BlobProviderCache = blobProviderCache;
         }
 
         private static void SetLicense()
@@ -48,19 +50,25 @@ namespace Zbang.Zbox.Infrastructure.File
 
            });
             var blobsNamesInCache = new List<string>();
-            var parallelTask = new List<Task<string>>();
+            var parallelTask = new List<Task>();
             var jpgCreateOptions = new JpegOptions();
 
 
             for (var pageIndex = indexNum; pageIndex < indexNum + 15; pageIndex++)
             {
                 var cacheblobName = CreateCacheFileName(blobName, pageIndex);
-                var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
-                if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
+
+                if (await m_BlobProviderCache.ExistsAsync(cacheblobName))
                 {
-                    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
+                    blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName,30));
                     continue;
                 }
+                //var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
+                //if (!string.IsNullOrEmpty(cacheBlobNameWithSharedAccessSignature))
+                //{
+                //    blobsNamesInCache.Add(cacheBlobNameWithSharedAccessSignature);
+                //    continue;
+                //}
                 try
                 {
 
@@ -82,7 +90,9 @@ namespace Zbang.Zbox.Infrastructure.File
                         }
                         var compressor = new Compress();
                         var gzipSr = compressor.CompressToGzip(ms);
-                        parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
+                        parallelTask.Add(m_BlobProviderCache.UploadByteArrayAsync(cacheblobName, gzipSr, "image/jpg", true, 30));
+                        blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName, 30));
+                        //parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
                     }
                 }
                 catch (IndexOutOfRangeException)
@@ -92,7 +102,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
             }
             await Task.WhenAll(parallelTask);
-            blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
+            //blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
             if (tiff.IsValueCreated)
             {
                 tiff.Value.Dispose();

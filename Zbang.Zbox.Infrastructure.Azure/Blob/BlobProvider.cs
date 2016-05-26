@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -20,7 +19,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
     public class BlobProvider : IBlobProvider, ICloudBlockProvider, IBlobUpload
     {
         private const int CacheContainerItemAvailableInMinutes = 30;
-        private const string LastAccessTimeMetaDataKey = "LastTimeAccess";
+        protected const string LastAccessTimeMetaDataKey = "LastTimeAccess";
         private readonly string m_StorageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
 
         public const string AzureBlobContainer = "zboxfiles";
@@ -49,59 +48,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             StorageContainerUrl = m_BlobClient.BaseUri.AbsoluteUri;
         }
 
-
-
-        //public async Task<string> UploadFromLink(byte[] data, string fileName)
-        //{
-        //    var container = BlobClient.GetContainerReference(AzureProductContainer.ToLower());
-        //    var directory = container.GetDirectoryReference(Path.GetFileNameWithoutExtension(fileName));
-        //    var storageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
-        //    int index = 0;
-        //    foreach (var blobInDirectory in directory.ListBlobs(blobListingDetails: BlobListingDetails.Metadata))
-        //    {
-        //        var x = blobInDirectory as CloudBlockBlob;
-        //        if (x == null)
-        //        {
-        //            continue;
-        //        }
-        //        if (x.Properties.Length == data.LongLength)
-        //        {
-        //            var uriBuilder2 = new UriBuilder(x.Uri);
-        //            if (string.IsNullOrEmpty(storageCdnEndpoint)) return uriBuilder2.Uri.AbsoluteUri;
-        //            var storeCdnUri2 = new Uri(storageCdnEndpoint);
-        //            uriBuilder2.Host = storeCdnUri2.Host;
-        //            return uriBuilder2.Uri.AbsoluteUri;
-        //        }
-        //        index++;
-        //    }
-        //    var blob = directory.GetBlockBlobReference(index.ToString(CultureInfo.InvariantCulture) + Path.GetExtension(fileName));
-        //    await blob.UploadFromByteArrayAsync(data, 0, data.Length);
-        //    blob.Properties.ContentType = "image/jpeg";
-        //    blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
-        //    await blob.SetPropertiesAsync();
-
-        //    var uriBuilder = new UriBuilder(blob.Uri);
-        //    if (string.IsNullOrEmpty(storageCdnEndpoint)) return uriBuilder.Uri.AbsoluteUri;
-        //    var storeCdnUri = new Uri(storageCdnEndpoint);
-        //    uriBuilder.Host = storeCdnUri.Host;
-
-        //    return uriBuilder.Uri.AbsoluteUri;
-        //}
-
-
         public string StorageContainerUrl { get; private set; }
 
-        //public string ProfileContainerUrl { get; private set; }
-
-
-        //public string GetBlobUrl(string blobName)
-        //{
-        //    return BlobContainerUrl + blobName;
-        //}
-
-
-
-
+        
 
         private CloudBlobClient m_BlobClient;
 
@@ -166,48 +115,43 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
 
 
-        public string GenerateSharedAccressReadPermissionInCache(string blobName, double expirationTimeInMinutes)
-        {
-            var blob = CacheFile(blobName);
-            try
-            {
-                blob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
-                blob.SetMetadata();
-            }
-            catch (StorageException ex)
-            {
-                if (ex.RequestInformation.HttpStatusCode == 404)
-                {
-                    return null;
-                }
-            }
-            return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
-        }
+        //public string GenerateSharedAccressReadPermissionInCache(string blobName, double expirationTimeInMinutes)
+        //{
+        //    var blob = CacheFile(blobName);
+        //    try
+        //    {
+        //        blob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
+        //        blob.SetMetadata();
+        //    }
+        //    catch (StorageException ex)
+        //    {
+        //        if (ex.RequestInformation.HttpStatusCode == 404)
+        //        {
+        //            return null;
+        //        }
+        //    }
+        //    return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
+        //}
 
-        public string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double expirationTimeInMinutes)
-        {
-            var blob = CacheFile(blobName);
-            return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
-        }
+        //public string GenerateSharedAccressReadPermissionInCacheWithoutMeta(string blobName, double expirationTimeInMinutes)
+        //{
+        //    var blob = CacheFile(blobName);
+        //    return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
+        //}
 
 
 
         public string GenerateSharedAccessReadPermissionInStorage(Uri blobUri, double expirationTimeInMinutes)
         {
-            //if (blobUri == null) throw new ArgumentNullException(nameof(blobUri));
-            //var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
-            //
-            //
-            //var blob = GetFile(blobName);
             var blob = GetBlob(blobUri);
             return GenerateSharedAccessPermission(blob, expirationTimeInMinutes, SharedAccessBlobPermissions.Read);
         }
 
-        public Task<bool> ExistsAsync(Uri blobUri)
-        {
-            var blob = GetBlob(blobUri);
-            return blob.ExistsAsync();
-        }
+        //public Task<bool> ExistsAsync(Uri blobUri)
+        //{
+        //    var blob = GetBlob(blobUri);
+        //    return blob.ExistsAsync();
+        //}
 
 
 
@@ -230,31 +174,31 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
 
         #region Cache
-        public async Task<string> UploadFileToCacheAsync(string blobName, Stream fileContent, string mimeType, bool fileGziped = false)
-        {
-            var cacheblob = CacheFile(blobName);
-            fileContent.Seek(0, SeekOrigin.Begin);
+        //public async Task<string> UploadFileToCacheAsync(string blobName, Stream fileContent, string mimeType, bool fileGziped = false)
+        //{
+        //    var cacheblob = CacheFile(blobName);
+        //    fileContent.Seek(0, SeekOrigin.Begin);
 
-            cacheblob.Properties.ContentType = mimeType;
-            if (fileGziped)
-            {
-                cacheblob.Properties.ContentEncoding = "gzip";
-            }
+        //    cacheblob.Properties.ContentType = mimeType;
+        //    if (fileGziped)
+        //    {
+        //        cacheblob.Properties.ContentEncoding = "gzip";
+        //    }
 
-            cacheblob.Properties.CacheControl = "private, max-age=" + TimeConst.Minute * CacheContainerItemAvailableInMinutes;
-            cacheblob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
-            await cacheblob.UploadFromStreamAsync(fileContent);
-            return GenerateSharedAccressReadPermissionInCache(blobName, CacheContainerItemAvailableInMinutes);
+        //    cacheblob.Properties.CacheControl = "private, max-age=" + TimeConst.Minute * CacheContainerItemAvailableInMinutes;
+        //    cacheblob.Metadata.Add(LastAccessTimeMetaDataKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
+        //    await cacheblob.UploadFromStreamAsync(fileContent);
+        //    return GenerateSharedAccressReadPermissionInCache(blobName, CacheContainerItemAvailableInMinutes);
 
-        }
-        public async Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false)
-        {
-            //we don't need to dispose because we dispose it later in the function
-            using (var ms = new MemoryStream(fileContent))
-            {
-                return await UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
-            }
-        }
+        //}
+        //public async Task<string> UploadFileToCacheAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped = false)
+        //{
+        //    //we don't need to dispose because we dispose it later in the function
+        //    using (var ms = new MemoryStream(fileContent))
+        //    {
+        //        return await UploadFileToCacheAsync(blobName, ms, mimeType, fileGziped);
+        //    }
+        //}
 
         //public bool CacheBlobExists(string blobName)
         //{
