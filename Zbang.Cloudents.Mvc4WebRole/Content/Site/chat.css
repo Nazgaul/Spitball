@@ -9,6 +9,15 @@
   padding: 0;
   text-align: center;
 }
+.header {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
 .chat-icon {
   position: relative;
   height: 65px;
@@ -31,6 +40,15 @@
   position: absolute;
   top: 12px;
   right: 12px;
+}
+.exit-icon {
+  padding: 5px;
+  margin-left: 15px;
+}
+.exit-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: #f5f5f5;
 }
 md-sidenav.chat {
   position: fixed;
@@ -214,6 +232,7 @@ md-sidenav.chat md-content .tab-content .search-friend button svg {
 }
 md-sidenav.chat md-content .tab-content .users-list {
   padding: 0;
+  margin: 0;
   color: #282828;
   height: 100%;
 }
@@ -368,11 +387,11 @@ md-sidenav.chat md-content .conversasion .header .user-side .back {
 md-sidenav.chat md-content .conversasion .header .user-side .back:after {
   content: "";
   position: absolute;
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
+  -moz-transform: rotate(225deg);
+  -ms-transform: rotate(225deg);
+  -o-transform: rotate(225deg);
+  -webkit-transform: rotate(225deg);
+  transform: rotate(225deg);
   top: 3px;
   left: 0;
   margin: 6px 10px;
