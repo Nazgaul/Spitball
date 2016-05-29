@@ -215,6 +215,7 @@ md-sidenav.chat md-content .tab-content .search-friend button svg {
 md-sidenav.chat md-content .tab-content .users-list {
   padding: 0;
   color: #282828;
+  height: 100%;
 }
 md-sidenav.chat md-content .tab-content .users-list .user .chat-counter {
   padding: 0;
@@ -521,8 +522,15 @@ md-sidenav.chat md-content .user .img-circle {
 .chat-item-preview md-dialog-content {
   padding-top: 40px;
 }
-.chat-item-preview md-dialog-content img {
-  max-width: 100%;
+.chat-item-preview md-dialog-content img,
+.chat-item-preview md-dialog-content iframe {
+  max-width: 800px;
+  width: 100%;
+}
+.chat-item-preview md-dialog-content iframe {
+  border: none;
+  width: calc(100vw - 360px);
+  height: 80vh;
 }
 @keyframes fadein {
   from {

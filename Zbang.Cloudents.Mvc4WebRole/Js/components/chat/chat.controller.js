@@ -6,7 +6,7 @@
 
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper) {
-        var c = this, chinkSize = 10, top = 0, fromid ;
+        var c = this, chinkSize = 10, top = 0, fromid;
         c.states = {
             messages: 1,
             // friends: 2,
@@ -31,7 +31,7 @@
 
 
         // Required.
-        c.getItemAtIndex = function(index) {
+        c.getItemAtIndex = function (index) {
             if (index > this.numLoaded_) {
                 this.fetchMoreItems_(index);
                 return null;
@@ -41,7 +41,7 @@
         // Required.
         // For infinite scroll behavior, we always return a slightly higher
         // number than the previously loaded items.
-        c.getLength =  function() {
+        c.getLength = function () {
             return this.numLoaded_ + 5;
         }
 
@@ -274,8 +274,8 @@
 //'use strict';
 (function () {
     angular.module('app.chat').controller('previewController', previewController);
-    previewController.$inject = ['$mdDialog', 'doc', '$rootScope'];
-    function previewController($mdDialog, doc, $rootScope) {
+    previewController.$inject = ['$mdDialog', 'doc', '$rootScope', '$sce'];
+    function previewController($mdDialog, doc, $rootScope, $sce) {
         var lc = this;
         //lc.users = users;
         lc.close = close;
@@ -284,9 +284,11 @@
             $mdDialog.hide();
         }
 
-        lc.view = doc.viewName;
+        lc.view = 'chat-' + doc.viewName + '.html';
         lc.items = doc.content;
-
+        if (doc.viewName === 'Text') {
+            lc.items[0] = $sce.trustAsResourceUrl(lc.items[0]);
+        }
         $rootScope.$on('$stateChangeStart', function () {
             $mdDialog.hide();
         });

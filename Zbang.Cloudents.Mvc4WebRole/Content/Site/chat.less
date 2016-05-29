@@ -152,6 +152,7 @@ md-sidenav.chat {
             .users-list {
                 padding: 0;
                 color: @textColorBlack;
+                height: 100%;
 
                 .user {
                     .chat-counter {
@@ -500,8 +501,15 @@ md-sidenav.chat {
     md-dialog-content {
         padding-top: 40px;
 
-        img {
-            max-width: 100%;
+        img, iframe {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        iframe {
+            border: none;
+            width: ~"calc(100vw - 360px)";
+            height: 80vh;
         }
     }
 }

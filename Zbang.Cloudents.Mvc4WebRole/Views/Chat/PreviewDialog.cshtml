@@ -9,7 +9,7 @@
         </div>
     </md-toolbar>
     <md-dialog-content>
-        <div ng-repeat="e in lc.items" ng-include="'chat-{{lc.view}}.html'"></div>
+        <div ng-repeat="e in lc.items" ng-include="lc.view"></div>
     </md-dialog-content>
 
 
@@ -19,4 +19,7 @@
 </script>
 <script type="text/ng-template" id="chat-Svg.html">
     <img ng-src="{{::e}}" />
+</script>
+<script type="text/ng-template" id="chat-Text.html">
+    <iframe sandbox="" ng-src="{{::e}}"></iframe>
 </script>
