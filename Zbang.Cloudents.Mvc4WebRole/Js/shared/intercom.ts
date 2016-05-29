@@ -5,9 +5,14 @@ declare var Intercom: any;
 
 (() => {
     angular.module('app').run(intercom);
-    intercom.$inject = ['userDetailsFactory', '$rootScope'];
-    function intercom(userDetailsFactory: IUserDetailsFactory, $rootScope: ng.IRootScopeService) {
+    intercom.$inject = ['userDetailsFactory', '$rootScope','$mdMenu'];
+    function intercom(userDetailsFactory: IUserDetailsFactory, $rootScope: ng.IRootScopeService, $mdMenu:any) {
+        var started = false;
         function start() {
+            if (started) {
+                return;
+            }
+            started = true;
             var data = userDetailsFactory.get();
            // var dateCreate = new Date(data.createTime);
             if (data.id) {
@@ -22,8 +27,13 @@ declare var Intercom: any;
                     university_name: data.university.name,
                     reputation: data.score,
                     language: data.culture,
-                    university_country: data.university.country
-
+                    university_country: data.university.country,
+                    widget : {
+                        activator : '#Intercom'
+                    }
+                });
+                Intercom('onActivatorClick', () => {
+                    $mdMenu.hide(); //closes menu
                 });
             } else {
                 Intercom('boot', {
@@ -33,15 +43,16 @@ declare var Intercom: any;
 
         }
         function stop() {
+            started = false;
             Intercom('shutdown');
         }
 
         $rootScope.$on('$stateChangeSuccess', (event, toState) => {
-            if (toState.name === 'dashboard') {
+        //    if (toState.name === 'dashboard') {
                 start();
-            } else {
-                stop();
-            }
+        //    } else {
+        //        stop();
+        //    }
         });
         
     }

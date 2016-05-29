@@ -5,7 +5,7 @@
     angular.module('app').config(config);
 
     config.$inject = ['$controllerProvider', '$locationProvider', '$provide',
-        '$httpProvider', 'CacheFactoryProvider', '$compileProvider','$animateProvider'];
+        '$httpProvider', 'CacheFactoryProvider', '$compileProvider', '$animateProvider'];
 
     function config($controllerProvider, $locationProvider, $provide, $httpProvider, cacheFactoryProvider, $compileProvider, $animateProvider) {
         //$locationProvider.html5Mode(true).hashPrefix('!');
@@ -85,14 +85,14 @@
     function config($provide) {
         $provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$q', '$stateParams',
                function (taRegisterTool, taOptions, $q, $stateParams) {
-                   var buttons;
+                   taOptions.forceTextAngularSanitize = false;
 
-                   buttons = [['fontUp', 'fontDown'],
-                       ['bold', 'italics', 'underline'],
-                       ['justifyLeft', 'justifyCenter', 'justifyRight'],
-                       ['ol', 'ul'],
-                       ['insertImage'],
-                       ['redo', 'undo']];
+                   var buttons = [['fontUp', 'fontDown'],
+                      ['bold', 'italics', 'underline'],
+                      ['justifyLeft', 'justifyCenter', 'justifyRight'],
+                      ['ol', 'ul'],
+                      ['insertImage'],
+                      ['redo', 'undo']];
 
                    if (Modernizr.inputtypes.color) {
                        buttons[1].push('color');
@@ -142,7 +142,7 @@
 })();
 
 
-(function() {
+(function () {
     angular.module('app').config(config);
     config.$inject = ['AnalyticsProvider'];
 
@@ -174,10 +174,10 @@
     }
 
     angular.module('app').run(anylticsRun);
-    anylticsRun.$inject = ['Analytics','$document'];
+    anylticsRun.$inject = ['Analytics', '$document'];
 
-    function anylticsRun(analytics,$document) {
-        $document.ready(function() {
+    function anylticsRun(analytics, $document) {
+        $document.ready(function () {
             analytics.createAnalyticsScriptTag();
         });
         //for run the app
@@ -185,7 +185,7 @@
 
 })();
 
-(function() {
+(function () {
     angular.module('app').run(config);
     config.$inject = ['timeAgo'];
 

@@ -15,6 +15,6 @@
     "commit": "aa692d753dd21ec3bfd058abe991ba18e6d30893"
   },
   "_source": "https://github.com/angular/bower-angular-messages.git",
-  "_target": "~1.5.3",
+  "_target": "1.5.3",
   "_originalSource": "angular-messages"
 }

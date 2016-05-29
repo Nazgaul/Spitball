@@ -139,17 +139,10 @@
     <EmbeddedResource Include="MailTemplate\FlaggedItem.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\ChangeEmailRu.html" />
     <EmbeddedResource Include="MailTemplate\FlaggedItemRu.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\ChangeEmailZh.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\ChangeEmailAr.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\InviteCourse.html" />
@@ -163,12 +156,8 @@
     <EmbeddedResource Include="MailTemplate\InviteCloudentsHe.html" />
     <EmbeddedResource Include="MailTemplate\InviteCloudentsRu.html" />
     <EmbeddedResource Include="MailTemplate\InviteCourseRu.html" />
-    <EmbeddedResource Include="MailTemplate\PersonalMsgAr.html" />
-    <EmbeddedResource Include="MailTemplate\PersonalMsgRu.html" />
     <EmbeddedResource Include="MailTemplate\ResetPwd.html" />
-    <EmbeddedResource Include="MailTemplate\ResetPwdAr.html" />
     <EmbeddedResource Include="MailTemplate\ResetPwdHe.html" />
-    <EmbeddedResource Include="MailTemplate\ResetPwdRu.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer1.html" />
     <EmbeddedResource Include="MailTemplate\UpdatesEmail\Answer1He.html" />
     <EmbeddedResource Include="MailTemplate\InviteCourseAr.html" />

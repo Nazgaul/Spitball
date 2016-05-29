@@ -647,7 +647,10 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                     return await conn.QueryAsync<ChatDto>(Sql.Chat.GetChat,
                         new
                         {
-                            ChatRoom = query.Id
+                            ChatRoom = query.Id,
+                            Id = query.FromId,
+                            query.Skip,
+                            query.Top
 
                         });
                 }
@@ -655,7 +658,10 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                         new
                         {
                             query.UserIds,
-                            length = query.UserIds.Count()
+                            length = query.UserIds.Count(),
+                            Id = query.FromId,
+                            query.Skip,
+                            query.Top
 
                         });
             }

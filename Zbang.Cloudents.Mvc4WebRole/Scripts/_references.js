@@ -11,7 +11,6 @@
 /// <reference path="../bower_components/angular-timeago/src/timeAgo.js" />
 /// <reference path="../bower_components/jquery.validate/dist/jquery.validate.js" />
 /// <reference path="../bower_components/jquery/dist/jquery.js" />
-/// <reference path="../bower_components/ng-embed/src/ng-embed.js" />
 /// <reference path="../bower_components/ngslimscroll/src/js/ngSlimscroll.js" />
 /// <reference path="../bower_components/rangy/rangy-classapplier.js" />
 /// <reference path="../bower_components/rangy/rangy-core.js" />

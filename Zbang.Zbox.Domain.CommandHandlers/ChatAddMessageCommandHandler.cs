@@ -1,39 +1,49 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class ChatAddMessageCommandHandler : ICommandHandler<ChatAddMessageCommand>
+    public class ChatAddMessageCommandHandler : ICommandHandlerAsync<ChatAddMessageCommand>
     {
         private readonly IRepository<ChatMessage> m_ChatMessageRepository;
         private readonly IRepository<ChatRoom> m_ChatRoomRepository;
         private readonly IChatUserRepository m_ChatUserRepository;
         private readonly IUserRepository m_UserRepository;
+        private readonly IQueueProvider m_QueueRepository;
 
-        public ChatAddMessageCommandHandler(IRepository<ChatMessage> chatMessageRepository, IRepository<ChatRoom> chatRoomRepository, IUserRepository userRepository, IChatUserRepository chatUserRepository)
+        public ChatAddMessageCommandHandler(IRepository<ChatMessage> chatMessageRepository, IRepository<ChatRoom> chatRoomRepository, IUserRepository userRepository, IChatUserRepository chatUserRepository, IQueueProvider queueRepository)
         {
             m_ChatMessageRepository = chatMessageRepository;
             m_ChatRoomRepository = chatRoomRepository;
             m_UserRepository = userRepository;
             m_ChatUserRepository = chatUserRepository;
+            m_QueueRepository = queueRepository;
         }
 
-        public void Handle(ChatAddMessageCommand message)
+        public Task HandleAsync(ChatAddMessageCommand message)
         {
             var chatRoom = GetChatRoom(message);
             message.ChatRoomId = chatRoom.Id;
 
             var userAction = m_UserRepository.Load(message.UserId);
-            message.Message = TextManipulation.EncodeComment(message.Message);
             var chatMessage = new ChatMessage(chatRoom, userAction, message.Message, message.BlobName);
 
+            Task t = Infrastructure.Extensions.TaskExtensions.CompletedTask;
             foreach (var user in chatRoom.Users)
             {
+                if (!user.User.Online)
+                {
+                    t =  m_QueueRepository.InsertMessageToMailNewAsync(new MessageMailData2(message.Message, user.User.Email,
+                        userAction.Name, userAction.ImageLarge, userAction.Email, user.User.Culture));
+                }
                 if (user.User.Id == message.UserId)
                 {
                     user.Unread = 0;
@@ -50,6 +60,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
             m_ChatMessageRepository.Save(chatMessage);
+            return t;
         }
 
 

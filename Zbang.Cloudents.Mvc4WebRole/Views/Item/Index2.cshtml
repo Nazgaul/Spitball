@@ -101,7 +101,7 @@
         </div>
         <div class="arrows" layout="row" layout-align="space-between center" hide-xs>
             <div>
-                <a ng-if=" i.details.previous" href="{{i.details.previous}}" hide-xs class="arrow left" ga-track-event="['itemPage', 'previous item']">
+                <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs class="arrow left" ga-track-event="['itemPage', 'previous item']">
                     @Html.Svg("~/images/site/icons.svg", "arrow")
                 </a>
             </div>
@@ -116,7 +116,7 @@
                 @ItemsResources.ShowRawText
             </md-switch>
             <div class="text-wrapper" ng-class="{'collapse': !i.showRawText}">
-                <div class="text" @*ng-bind-html="::i.document"*@>
+                <div class="text">
                     {{::i.document}}
                 </div>
             </div>

@@ -12,10 +12,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         private static IEnumerable<KeyValuePair<string, IEnumerable<string>>> RegisterCss()
         {
-            var x = new Dictionary<string, IEnumerable<string>>
-            {
-                ["x"] = new[] {"z", "x"}
-            };
+            //var x = new Dictionary<string, IEnumerable<string>>
+            //{
+            //    ["x"] = new[] {"z", "x"}
+            //};
             var cssDictionary = new Dictionary<string, IEnumerable<string>>
             {
 
@@ -162,7 +162,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/angular-messages/angular-messages.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-cache/dist/angular-cache.js"),
-                        new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-sanitize.min.js"),
+                        new JsFileWithCdn("~/bower_components/angular-sanitize/angular-sanitize.js"),
+                        //new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-sanitize.min.js"),
                         new JsFileWithCdn("~/bower_components/ngSlimscroll/src/js/ngSlimscroll.js"),
                         new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
 

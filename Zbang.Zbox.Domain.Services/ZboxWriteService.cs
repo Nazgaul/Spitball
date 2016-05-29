@@ -717,11 +717,11 @@ namespace Zbang.Zbox.Domain.Services
         //        UnitOfWork.Current.TransactionalFlush();
         //    }
         //}
-        public void AddChatMessage(ChatAddMessageCommand command)
+        public async Task AddChatMessageAsync(ChatAddMessageCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

@@ -35,7 +35,6 @@
     "commit": "26fcbcb67b9a9debac72861cceeec020aacb32d3"
   },
   "_source": "https://github.com/ikajou/jquery-validation.git",
-  "_target": "~1.13.0",
-  "_originalSource": "jquery.validate",
-  "_direct": true
+  "_target": "1.13.0",
+  "_originalSource": "jquery.validate"
 }

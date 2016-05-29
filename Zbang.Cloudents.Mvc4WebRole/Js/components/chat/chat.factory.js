@@ -17,10 +17,14 @@
         chatService.messages = function (q) {
             return ajaxService.get('/chat/conversation', { q: q }, 0);
         }
-        chatService.chat = function (id, userIds) {
+        chatService.chat = function (id, userIds, fromId, top, skip) {
             return ajaxService.get('/chat/messages', {
                 chatRoom: id,
-                userIds: userIds
+                userIds: userIds,
+                fromId: fromId,
+                top: top,
+                skip: skip
+
             });
         }
         chatService.preview = function(blob, i) {
