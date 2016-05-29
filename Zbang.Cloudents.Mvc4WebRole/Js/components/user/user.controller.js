@@ -72,7 +72,7 @@
                 id: userData.id,
                 image: userData.image,
                 url: userData.url,
-                online: true
+                online: userData.online
             });
             //$mdSidenav('chat').open();
         }
