@@ -34,7 +34,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             message.ChatRoomId = chatRoom.Id;
 
             var userAction = m_UserRepository.Load(message.UserId);
-            message.Message = TextManipulation.EncodeComment(message.Message);
             var chatMessage = new ChatMessage(chatRoom, userAction, message.Message, message.BlobName);
 
             Task t = Infrastructure.Extensions.TaskExtensions.CompletedTask;

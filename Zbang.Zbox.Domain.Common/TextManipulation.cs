@@ -20,6 +20,14 @@ namespace Zbang.Zbox.Domain.Common
 
         }
 
+        public static string EncodeCommentWithoutUrl(string comment)
+        {
+            if (string.IsNullOrEmpty(comment))
+                return null;
+            //remove those because the + sign is gone if we url decode it from 
+            //var rawUserComment = HttpUtility.UrlDecode(comment);//We Get the comment from the js as escape chars. this is legacy
+            return HttpUtility.HtmlEncode(comment);
+        }
         public static string EncodeText(string text)
         {
             return EncodeText(text, null);
