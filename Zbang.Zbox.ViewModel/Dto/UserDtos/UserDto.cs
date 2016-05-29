@@ -55,7 +55,9 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public int? Unread { get; set; }
 
-        public DateTime LastSeen { get; set; }
+        private DateTime m_LastSeen;
+
+        public DateTime LastSeen { get { return m_LastSeen; } set { m_LastSeen = DateTime.SpecifyKind(value, DateTimeKind.Utc); } }
     }
 
     public class ChatUserDtoComparer : IEqualityComparer<ChatUserDto>

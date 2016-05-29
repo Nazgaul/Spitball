@@ -113,7 +113,6 @@
                 </ul>
                 <div class="new-message">
                     <form name="chatDialog" novalidate ng-submit="c.send()">
-                        @*<div class="textarea" contenteditable="true"></div>*@
                         <md-input-container md-no-float="false">
                             <textarea enter-submit="c.send()" autocomplete="off" type="text" required ng-model="c.newText" placeholder="@ChatResources.NewMessagePlaceholder"></textarea>
                         </md-input-container>

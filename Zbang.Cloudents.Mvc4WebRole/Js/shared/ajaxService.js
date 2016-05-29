@@ -86,8 +86,10 @@
                 cancelObjs[url] = $q.defer();
                 getObj.timeout = cancelObjs[url].promise;
             }
-            ttl = ttl || 45000;
-            getObj.cache = getCache(ttl);
+            if (ttl) {
+                //ttl = ttl || 45000;
+                getObj.cache = getCache(ttl);
+            }
 
 
             $http.get(buildUrl(url), getObj).then(function (response) {

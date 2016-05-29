@@ -205,6 +205,20 @@
             }
         });
 
+        $scope.$on('hub-status', function(e, args) {
+            if (!c.users) {
+                return;
+            }
+            var user = c.users.find(function (f) {
+                return f.id === args.userId;
+            });
+            if (!user) {
+                return;
+            }
+            user.lastSeen = new Date();
+            user.online = args.online;
+            $scope.$apply();
+        });
 
         c.upload = {
             url: '/upload/chatfile/',

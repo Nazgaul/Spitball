@@ -5,7 +5,7 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
    public static class User
    {
        public const string UserProfileWithStats = @"
-		select u.userid as Id, u.username as name, u.UserImageLarge as image,
+		select u.userid as Id, u.username as name, u.UserImageLarge as image,u.Online,
                             u.userReputation as score, uu.universityname as universityName, u.url as Url
                             from zbox.users u left join zbox.university uu on u.UniversityId = uu.id
                             where u.userid =@Myfriend;
