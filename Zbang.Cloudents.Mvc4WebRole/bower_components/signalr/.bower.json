@@ -26,6 +26,6 @@
     "commit": "26092205231972de4b3db966e5689ddbee971ef9"
   },
   "_source": "https://github.com/SignalR/bower-signalr.git",
-  "_target": "~2.2.0",
+  "_target": "2.2.0",
   "_originalSource": "signalr"
 }

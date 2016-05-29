@@ -38,7 +38,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.Conversation,
                 s.Id,
                 s.Image,
-                s.lastSeen,
+                s.LastSeen,
                 s.Name,
                 s.Online,
                 s.Unread

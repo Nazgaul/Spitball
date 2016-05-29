@@ -1,6 +1,7 @@
 {
   "name": "angular-i18n",
-  "version": "1.4.6",
+  "version": "1.5.3",
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
