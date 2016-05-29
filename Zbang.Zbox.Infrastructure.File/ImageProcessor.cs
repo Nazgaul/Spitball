@@ -15,9 +15,9 @@ namespace Zbang.Zbox.Infrastructure.File
     {
         private readonly IBlobProvider2<IPreviewContainer> m_BlobProviderPreview;
 
-        public ImageProcessor() : base (null)
+        public ImageProcessor() : base(null)
         {
-            
+
         }
         public ImageProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview)
             : base(blobProvider)
@@ -31,13 +31,21 @@ namespace Zbang.Zbox.Infrastructure.File
             var blobName = GetBlobNameFromUri(blobUri);
             if (indexNum > 0)
             {
-                return Task.FromResult(new PreviewResult {Content = new List<string>()});
+                return Task.FromResult(new PreviewResult { Content = new List<string>() });
             }
+
+            var uriBuilder =
+                new UriBuilder($"https://az779114.vo.msecnd.net/preview/{blobName}.jpg?width={1024}&height={768}");
+            if (!string.IsNullOrEmpty(m_BlobProviderPreview.RelativePath()))
+            {
+                uriBuilder.Path = uriBuilder.Path.Insert(0, m_BlobProviderPreview.RelativePath());
+            }
+            var x = m_BlobProviderPreview.GetBlobUrl(blobName);
             var blobsNamesInCache = new List<string>
             {
-                $"https://az779114.vo.msecnd.net/preview/{blobName}.jpg?width={1024}&height={768}"
+                uriBuilder.ToString()
             };
-            return Task.FromResult(new PreviewResult {ViewName = "Image", Content = blobsNamesInCache});
+            return Task.FromResult(new PreviewResult { ViewName = "Image", Content = blobsNamesInCache });
         }
 
         public Stream ProcessFile(Stream stream, int width, int height)
@@ -60,7 +68,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
-        public static readonly string[] ImageExtensions = {".jpg", ".gif", ".png", ".jpeg", ".bmp"};
+        public static readonly string[] ImageExtensions = { ".jpg", ".gif", ".png", ".jpeg", ".bmp" };
 
         public override bool CanProcessFile(Uri blobName)
         {
@@ -101,11 +109,11 @@ namespace Zbang.Zbox.Infrastructure.File
 
             }
             return null;
-            
+
 
         }
 
-      
+
 
         public override Task<string> ExtractContentAsync(Uri blobUri,
             CancellationToken cancelToken = default(CancellationToken))
@@ -113,6 +121,6 @@ namespace Zbang.Zbox.Infrastructure.File
             return Task.FromResult<string>(null);
         }
 
-       
+
     }
 }
