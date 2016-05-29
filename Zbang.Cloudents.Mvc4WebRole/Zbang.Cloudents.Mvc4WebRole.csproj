@@ -2312,19 +2312,6 @@
     <Content Include="bower_components\jquery\src\var\support.js" />
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
-    <Content Include="bower_components\ng-embed\demo\index.html" />
-    <Content Include="bower_components\ng-embed\demo\js\app.js" />
-    <Content Include="bower_components\ng-embed\demo\ngEmbed.jpg" />
-    <Content Include="bower_components\ng-embed\demo\template.html" />
-    <Content Include="bower_components\ng-embed\dist\ng-embed.min.css" />
-    <Content Include="bower_components\ng-embed\dist\ng-embed.min.js" />
-    <Content Include="bower_components\ng-embed\fonts\emoticons.svg" />
-    <Content Include="bower_components\ng-embed\GruntFile.js" />
-    <Content Include="bower_components\ng-embed\images\emojis%402x.png" />
-    <Content Include="bower_components\ng-embed\images\emojis.png" />
-    <Content Include="bower_components\ng-embed\images\loader.svg" />
-    <Content Include="bower_components\ng-embed\src\ng-embed.css" />
-    <Content Include="bower_components\ng-embed\src\ng-embed.js" />
     <Content Include="bower_components\signalr\jquery.signalR.js" />
     <Content Include="bower_components\signalr\jquery.signalR.min.js" />
     <Content Include="bower_components\textAngular\dist\textAngular.rtl.css">
@@ -2347,7 +2334,6 @@
     <Content Include="Content\Bootstrap\bootstrap.rtl.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
-    <Content Include="Content\Fonts\emoticons.svg" />
     <Content Include="Content\HomePage\homePage.css">
       <DependentUpon>homePage.less</DependentUpon>
     </Content>
@@ -3101,15 +3087,6 @@
     <Content Include="bower_components\angular-signalr-hub\LICENSE" />
     <Content Include="bower_components\angular-signalr-hub\package.json" />
     <Content Include="bower_components\angular-signalr-hub\README.md" />
-    <Content Include="bower_components\ng-embed\.bower.json" />
-    <Content Include="bower_components\ng-embed\bower.json" />
-    <Content Include="bower_components\ng-embed\fonts\emoticons.eot" />
-    <Content Include="bower_components\ng-embed\fonts\emoticons.ttf" />
-    <Content Include="bower_components\ng-embed\fonts\emoticons.woff" />
-    <Content Include="bower_components\ng-embed\LICENSE" />
-    <Content Include="bower_components\ng-embed\package.json" />
-    <Content Include="bower_components\ng-embed\README.md" />
-    <Content Include="bower_components\ng-embed\RELEASES.md" />
     <Content Include="bower_components\angular-sanitize\.bower.json" />
     <Content Include="bower_components\angular-sanitize\angular-sanitize.min.js.map" />
     <Content Include="bower_components\angular-sanitize\bower.json" />
@@ -3391,8 +3368,6 @@
     <Content Include="Content\Site\error.rtl.css">
       <DependentUpon>error.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\ng-embed.css" />
-    <Content Include="Content\Site\ng-embed.rtl.css" />
     <Content Include="Content\Site\profile.css">
       <DependentUpon>profile.less</DependentUpon>
     </Content>
@@ -3916,9 +3891,6 @@
     <Content Include="Images\Web.config" />
     <Content Include="Js\components\box\shareBox.directive.js" />
     <Content Include="Content\Site\chat.less" />
-    <Content Include="Content\Fonts\emoticons.eot" />
-    <Content Include="Content\Fonts\emoticons.ttf" />
-    <Content Include="Content\Fonts\emoticons.woff" />
     <None Include="Js\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -4054,6 +4026,7 @@
   <ItemGroup>
     <Folder Include="bower_components\jquery\src\data\var\" />
     <Folder Include="bower_components\jquery\src\sizzle\dist\" />
+    <Folder Include="Content\Fonts\" />
     <Folder Include="Js\homePage\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>

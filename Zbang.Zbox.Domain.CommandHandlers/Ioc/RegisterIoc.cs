@@ -147,7 +147,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
                 typeof(ChangeUserOnlineStatusCommandHandler));
             //ioc.RegisterType(typeof(ICommandHandler<ChatCreateRoomCommand>),
             //    typeof(ChatCreateRoomCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandler<ChatAddMessageCommand>),
+            ioc.RegisterType(typeof(ICommandHandlerAsync<ChatAddMessageCommand>),
                typeof(ChatAddMessageCommandHandler));
 
             ioc.RegisterType(typeof(ICommandHandler<ChatMarkAsReadCommand>),

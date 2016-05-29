@@ -20,21 +20,14 @@ namespace Zbang.Cloudents.Connect
         }
 
         [HubMethodName("Send")]
-        public void Send(long userId, string message, Guid? chatId, string blob)
+        public async Task SendAsync(long userId, string message, Guid? chatId, string blob)
         {
             try
             {
                 var usersToSend = new[] { userId.ToString(), Context.User.GetUserId().ToString() };
-                //if (!chatId.HasValue)
-                //{
-                //chatId = Guid.NewGuid();
-                //var roomCommand = new ChatCreateRoomCommand(new[] { Context.User.GetUserId(), userId }, chatId.Value);
-                //m_WriteService.AddChatRoom(roomCommand);
-                //}
                 var messageCommand = new ChatAddMessageCommand(chatId, Context.User.GetUserId(), message,
                     new[] { Context.User.GetUserId(), userId }, blob);
-                m_WriteService.AddChatMessage(messageCommand);
-                //Clients.OthersInGroup(chatId.Value.ToString());
+                await m_WriteService.AddChatMessageAsync(messageCommand);
                 Clients.Users(usersToSend).chat(messageCommand.Message, messageCommand.ChatRoomId, userId, blob);
             }
             catch (Exception ex)

@@ -5,9 +5,8 @@ namespace Zbang.Zbox.Infrastructure.Transport
     [ProtoContract]
     [ProtoInclude(10, typeof(WelcomeMailData))]
     [ProtoInclude(11, typeof(InviteMailData))]
-    //[ProtoInclude(12, typeof(ForgotPasswordData))]
 
-    [ProtoInclude(13, typeof(MessageMailData))]
+    //[ProtoInclude(13, typeof(MessageMailData))]
     
     [ProtoInclude(15, typeof(ChangeEmailData))]
     [ProtoInclude(16, typeof(ForgotPasswordData2))]

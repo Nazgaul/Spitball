@@ -20,7 +20,7 @@
     "angular-timeago": "~0.2.9",
     "signalr": "~2.2.0",
     "angular-signalr-hub": "~1.6.2",
-    "ng-embed": "~2.0.4"
+    "angular-emoji-filter-hd": "~0.0.9"
   },
   "resolutions": {
     "angular": ">=1"

@@ -6,12 +6,13 @@
 
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper) {
-        var c = this;
+        var c = this, chinkSize = 10, top = 0, fromid ;
         c.states = {
             messages: 1,
             // friends: 2,
             chat: 3
         };
+
         c.state = c.states.messages;
         c.search = search;
         c.chat = conversation;
@@ -21,13 +22,29 @@
         c.backFromChat = backFromChat;
         c.unread = 0;
         c.dialog = dialog;
-
+        //c.loadMore = loadMore;
 
         userDetailsFactory.init().then(function (response) {
             c.unread = response.unread;
             chatBus.setUnread(response.unread);
         });
-        
+
+
+        // Required.
+        c.getItemAtIndex = function(index) {
+            if (index > this.numLoaded_) {
+                this.fetchMoreItems_(index);
+                return null;
+            }
+            return index;
+        }
+        // Required.
+        // For infinite scroll behavior, we always return a slightly higher
+        // number than the previously loaded items.
+        c.getLength =  function() {
+            return this.numLoaded_ + 5;
+        }
+
 
         $scope.$watch(function () {
             return $mdSidenav('chat').isOpen();
@@ -76,17 +93,21 @@
         function conversation(user) {
             c.userChat = user;
             c.messages = [];
-            //if (c.userChat.conversation) {
-            chatBus.chat(c.userChat.conversation, [c.userChat.id, userDetailsFactory.get().id]).then(function (response) {
-                for (var i = 0; i < response.length; i++) {
-                    response[i].partner = response[i].userId !== userDetailsFactory.get().id;
-                    if (response[i].blob) {
-                        response[i].thumb = itemThumbnailService.getChat(response[i].blob);
+            chatBus.chat(c.userChat.conversation,
+                [c.userChat.id, userDetailsFactory.get().id],
+                fromid,
+                chinkSize,
+                top
+                ).then(function (response) {
+                    response.reverse();
+                    for (var i = 0; i < response.length; i++) {
+                        response[i].partner = response[i].userId !== userDetailsFactory.get().id;
+                        if (response[i].blob) {
+                            response[i].thumb = itemThumbnailService.getChat(response[i].blob);
+                        }
                     }
-                }
-                c.messages = response;
-            });
-            //}
+                    c.messages = response;
+                });
 
             if (c.userChat.unread) {
                 chatBus.read(c.userChat.conversation);
@@ -95,6 +116,10 @@
             }
             c.state = c.states.chat;
         }
+
+        //function loadMore() {
+        //    console.log('here');
+        //}
 
 
         function send() {
@@ -234,7 +259,7 @@
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 resolve: {
-                    doc: function() { return chatBus.preview(blob, 0) }
+                    doc: function () { return chatBus.preview(blob, 0) }
                 }
                 //fullscreen: useFullScreen
             });
@@ -249,8 +274,8 @@
 //'use strict';
 (function () {
     angular.module('app.chat').controller('previewController', previewController);
-    previewController.$inject = ['$mdDialog','doc', '$rootScope'];
-    function previewController($mdDialog,doc, $rootScope) {
+    previewController.$inject = ['$mdDialog', 'doc', '$rootScope'];
+    function previewController($mdDialog, doc, $rootScope) {
         var lc = this;
         //lc.users = users;
         lc.close = close;

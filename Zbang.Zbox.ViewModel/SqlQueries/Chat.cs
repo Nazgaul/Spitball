@@ -35,15 +35,23 @@ and u.userid <> @UserId
 order by u.UserName";
 
 
-        public const string GetChat = @"select Message as text,CreationTime as Time ,UserId, blob as blob from zbox.ChatMessage
-where ChatRoomId = @ChatRoom";
+        public const string GetChat = @"select Id, Message as text,CreationTime as Time ,UserId, blob as blob from zbox.ChatMessage
+where ChatRoomId = @ChatRoom
+and (@Id is null or Id< @Id)
+order by id desc
+offset @skip ROWS
+FETCH NEXT @top ROWS ONLY; ";
 
         public const string GetChatByUserIds =
             @"select Message as text,CreationTime as Time ,UserId, blob as blob from zbox.ChatMessage
 where ChatRoomId = ( 
-select chatroomid from zbox.ChatUser where UserId in @UserIds
+select chatroomid from zbox.ChatUser where UserId in  @UserIds
 group by chatroomid
-having count(*) = @length)";
+having count(*) = @length)
+and (@Id is null or Id< @Id)
+order by id desc
+offset @skip ROWS
+FETCH NEXT @top ROWS ONLY;";
 
 
         public const string GetUnreadMessages = "select sum(unread) from zbox.ChatUser where userid = @UserId";
