@@ -164,14 +164,18 @@ md-sidenav.chat {
                         width: 100%;
                         max-width: ~"calc(100% - 64px)";
                         font-size: 16px;
-                        -ms-flex-wrap: wrap;
+                        /*-ms-flex-wrap: wrap;
                         -webkit-flex-wrap: wrap;
-                        flex-wrap: wrap;
+                        flex-wrap: wrap;*/
                         padding: 10px 0;
                         height: 55px;
 
+                        .name-date {
+                            min-width: 0;
+                        }
+
                         .member-name, .comment-date {
-                            width: 100%;
+                            display: block;
                         }
 
                         .comment-date {

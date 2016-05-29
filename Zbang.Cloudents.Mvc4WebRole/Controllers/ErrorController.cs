@@ -17,12 +17,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             ViewBag.postBag = true;
             Response.StatusCode = 500;
+            ViewBag.errorPage = true;
             return View("error");
         }
 
         public ActionResult Unsupported()
         {
             ViewBag.postBag = true;
+            ViewBag.errorPage = true;
             return View();
 
         }
@@ -31,6 +33,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult MembersOnly(string returnUrl)
         {
             ViewBag.postBag = true;
+            ViewBag.errorPage = true;
             if (string.IsNullOrEmpty(returnUrl))
             {
                 return RedirectToAction("Index", "Dashboard");
@@ -42,6 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             ViewBag.postBag = true;
             Response.StatusCode = 404;
+            ViewBag.errorPage = true;
             return View();
         }
 

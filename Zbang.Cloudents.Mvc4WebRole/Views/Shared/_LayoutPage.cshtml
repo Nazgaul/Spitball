@@ -121,10 +121,14 @@
                 <a class="btn btn-default" target="_self" href="@Url.RouteUrl("signup", new { returnUrl, invId })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
                 <a class="btn button-Blue btn-primary" target="_self" href="@Url.RouteUrl("signin", new { returnUrl, invId })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
             </div>
-            <div ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" ng-click="cc.openChat()">
-                @Html.Svg("~/images/site/icons.svg", "chat")
-                <div class="chat-counter" ng-if="cc.unread() > 0">{{cc.unread()}}</div>
-            </div>
+
+            @if (ViewBag.errorPage == null || !ViewBag.errorPage)
+            {
+                <div ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" ng-click="cc.openChat()" ng-if="app.showChat">
+                    @Html.Svg("~/images/site/icons.svg", "chat")
+                    <div class="chat-counter" ng-if="cc.unread() > 0">{{cc.unread()}}</div>
+                </div>
+            }
         </div>
     </header>
 
