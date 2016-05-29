@@ -4,12 +4,12 @@
             <h2 class="ellipsis">Mango (Fruit)</h2>
             <span flex></span>
             <md-button aria-label="close" class="close-btn" ng-click="lc.close()">
-                @Html.Svg("~/images/site/icons.svg", "close", new {@class = "svgTC4"})
+                @Html.Svg("~/images/site/icons.svg", "close", new { @class = "svgTC4" })
             </md-button>
         </div>
     </md-toolbar>
     <md-dialog-content>
-        <div ng-repeat="e in lc.items" ng-include="'chat-Image.html'"></div>
+        <div ng-repeat="e in lc.items" ng-include="'chat-{{lc.view}}.html'"></div>
     </md-dialog-content>
 
 
