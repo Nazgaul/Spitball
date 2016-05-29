@@ -14,6 +14,12 @@
     text-align: center;
 }
 
+.header {
+    .displayFlex;
+    .align-items(center);
+    .justifyContet(space-between);
+}
+
 .chat-icon {
     position: relative;
     height: @chatHeaderHeight;
@@ -33,6 +39,17 @@
         position: absolute;
         top: 12px;
         right: 12px;
+    }
+}
+
+.exit-icon {
+    padding: 5px;
+    margin-left: 15px;
+
+    svg {
+        width: 24px;
+        height: 24px;
+        fill: @textColorWhite;
     }
 }
 
@@ -151,9 +168,9 @@ md-sidenav.chat {
 
             .users-list {
                 padding: 0;
+                margin: 0;
                 color: @textColorBlack;
                 height: 100%;
-
                 .user {
                     .chat-counter {
                         padding: 0;
@@ -301,11 +318,11 @@ md-sidenav.chat {
                         &:after {
                             content: "";
                             position: absolute;
-                            -moz-transform: rotate(45deg);
-                            -ms-transform: rotate(45deg);
-                            -o-transform: rotate(45deg);
-                            -webkit-transform: rotate(45deg);
-                            transform: rotate(45deg);
+                            -moz-transform: rotate(225deg);
+                            -ms-transform: rotate(225deg);
+                            -o-transform: rotate(225deg);
+                            -webkit-transform: rotate(225deg);
+                            transform: rotate(225deg);
                             top: 3px;
                             left: 0;
                             margin: 6px 10px;
