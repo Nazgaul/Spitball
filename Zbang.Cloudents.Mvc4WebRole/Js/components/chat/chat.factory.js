@@ -15,7 +15,7 @@
         };
 
         chatService.messages = function (q) {
-            return ajaxService.get('/chat/conversation', { q: q }, 0);
+            return ajaxService.get('/chat/conversation', { q: q }, false);
         }
         chatService.chat = function (id, userIds, fromId, top, skip) {
             return ajaxService.get('/chat/messages', {
@@ -25,7 +25,7 @@
                 top: top,
                 skip: skip
 
-            });
+            },false);
         }
         chatService.preview = function(blob, i) {
             return ajaxService.get('/chat/Preview', {
