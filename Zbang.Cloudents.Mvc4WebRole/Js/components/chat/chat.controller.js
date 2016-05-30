@@ -40,6 +40,7 @@
                 resetChat();
                 return;
             }
+            //hack which i dont like
             $document.find('.md-sidenav-backdrop').hide();
             search();
         });

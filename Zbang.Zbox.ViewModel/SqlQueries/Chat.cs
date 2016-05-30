@@ -14,6 +14,7 @@ FROM zbox.ChatUser e1, zbox.ChatUser e2 join zbox.Users u on e2.UserId = u.useri
 WHERE e1.ChatRoomId = e2.ChatRoomId 
 AND e1.id != e2.id
 and e1.userid = @UserId
+and u.UserName like  @term + '%'
 union 
 select top 25 null as Conversation, null,  null as Unread ,u.userid as id,username as name, UserImageLarge as image, online, Url as url,LastAccessTime as lastSeen
 from zbox.users u

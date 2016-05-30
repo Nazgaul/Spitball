@@ -1,8 +1,9 @@
-﻿using Zbang.Zbox.Infrastructure.Commands;
+﻿using Zbang.Zbox.Infrastructure.Cache;
+using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class DeleteItemCommand : ICommandAsync
+    public class DeleteItemCommand : ICommandAsync, ICommandCache
     {
 
         public DeleteItemCommand(long itemId, long userId)
@@ -18,8 +19,11 @@ namespace Zbang.Zbox.Domain.Commands
 
         }
 
+        public long BoxId { get;  set; }
+
         public long UserId { get; private set; }
 
-        
+
+        public string CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
     }
 }
