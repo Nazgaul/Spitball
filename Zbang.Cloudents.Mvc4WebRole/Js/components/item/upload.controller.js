@@ -158,12 +158,33 @@
 
                     for (var i = 0; i < files.length; i++) {
                         var file = files[i];
-                        file.sizeFormated = plupload.formatSize(file.size);
-                        file.boxId = boxid;
-                        file.tabId = tab;
-                        file.complete = false;
-                        file.remove = function () { removeFile(file, uploader); }
+                        (function (file) {
+                            file.sizeFormated = plupload.formatSize(file.size);
+                            file.boxId = boxid;
+                            file.tabId = tab;
+                            file.complete = false;
+                            file.remove = function () { removeFile(file, uploader); }
+
+
+                            var img = new mOxie.Image();
+
+                            img.onload = function () {
+                                this.crop(95, 105, false);
+                                file.content = this.getAsDataURL("image/jpeg", 80);
+                            };
+
+                            img.onembedded = function () {
+                                this.destroy();
+                            };
+
+                            img.onerror = function () {
+                                this.destroy();
+                            };
+
+                            img.load(file.getSource());
+                        })(file);
                         u.files.push(file);
+
                     }
                     $timeout(function () {
                         uploader.start();
@@ -206,21 +227,21 @@
 (function () {
     angular.module('app').directive('compileHtml', compileHtml);
     compileHtml.$inject = ['$sce', '$parse', '$compile'];
-    function compileHtml($sce, $parse, $compile) { 
-            return {
-                link: function(scope, element, attr) {
-                    var parsed = $parse(attr.compileHtml);
+    function compileHtml($sce, $parse, $compile) {
+        return {
+            link: function (scope, element, attr) {
+                var parsed = $parse(attr.compileHtml);
 
-                    function getStringValue() {
-                         return (parsed(scope) || '').toString();
-                    }
-
-                    scope.$watch(getStringValue, function(value) {
-                        var el = $compile(parsed(scope) || '')(scope);
-                        element.empty();
-                        element.append(el);
-                    });
+                function getStringValue() {
+                    return (parsed(scope) || '').toString();
                 }
-            };
-        }
+
+                scope.$watch(getStringValue, function () {
+                    var el = $compile(parsed(scope) || '')(scope);
+                    element.empty();
+                    element.append(el);
+                });
+            }
+        };
+    }
 })();
