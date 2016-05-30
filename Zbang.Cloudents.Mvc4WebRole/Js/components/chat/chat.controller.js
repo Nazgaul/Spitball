@@ -30,20 +30,7 @@
         });
 
 
-        // Required.
-        //c.getItemAtIndex = function (index) {
-        //    if (index > this.numLoaded_) {
-        //        this.fetchMoreItems_(index);
-        //        return null;
-        //    }
-        //    return index;
-        //}
-        //// Required.
-        //// For infinite scroll behavior, we always return a slightly higher
-        //// number than the previously loaded items.
-        //c.getLength = function () {
-        //    return this.numLoaded_ + 5;
-        //}
+        
 
 
         $scope.$watch(function () {

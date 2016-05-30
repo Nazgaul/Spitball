@@ -148,8 +148,8 @@ namespace Zbang.Zbox.Domain.Services
                 var t3 = m_CommandBus.SendAsync(autoFollowCommand);
                 var t2 = m_CommandBus.DispatchAsync<AddItemToBoxCommand, AddItemToBoxCommandResult>(command, command.ResolverName);
                 var t1 = m_CommandBus.SendAsync(reputationCommand);
-
-                await Task.WhenAll(t1, t2, t3);
+                var t4 = m_Cache.RemoveAsync(command);
+                await Task.WhenAll(t1, t2, t3, t4);
                 UnitOfWork.Current.TransactionalFlush();
 
                 return t2.Result;

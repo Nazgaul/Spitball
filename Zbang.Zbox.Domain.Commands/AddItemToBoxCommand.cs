@@ -1,8 +1,9 @@
-﻿using Zbang.Zbox.Infrastructure.Commands;
+﻿using Zbang.Zbox.Infrastructure.Cache;
+using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public abstract class AddItemToBoxCommand : ICommandAsync
+    public abstract class AddItemToBoxCommand : ICommandAsync, ICommandCache
     {
         protected AddItemToBoxCommand(long userId, long boxId)
         {
@@ -18,5 +19,6 @@ namespace Zbang.Zbox.Domain.Commands
         public long UserId { get; private set; }
 
         public long BoxId { get; private set; }
+        public string CacheRegion => CacheRegions.BuildFeedRegion(BoxId);
     }
 }
