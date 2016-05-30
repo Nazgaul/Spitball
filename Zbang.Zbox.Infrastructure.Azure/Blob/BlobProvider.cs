@@ -18,7 +18,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
     public class BlobProvider : IBlobProvider, ICloudBlockProvider, IBlobUpload
     {
-        private const int CacheContainerItemAvailableInMinutes = 30;
         protected const string LastAccessTimeMetaDataKey = "LastTimeAccess";
         private readonly string m_StorageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
 
@@ -65,15 +64,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 return m_BlobClient;
             }
         }
-        private CloudBlobContainer CacheContainer()
-        {
-            return BlobClient.GetContainerReference(AzureCacheContainer.ToLower());
-        }
-        private CloudBlockBlob CacheFile(string blobName)
-        {
+        //private CloudBlobContainer CacheContainer()
+        //{
+        //    return BlobClient.GetContainerReference(AzureCacheContainer.ToLower());
+        //}
+        //private CloudBlockBlob CacheFile(string blobName)
+        //{
 
-            return CacheContainer().GetBlockBlobReference(blobName);
-        }
+        //    return CacheContainer().GetBlockBlobReference(blobName);
+        //}
         private CloudBlockBlob ProfilePictureFile(string blobName)
         {
             return BlobClient.GetContainerReference(AzureProfilePicContainer.ToLower()).GetBlockBlobReference(blobName);

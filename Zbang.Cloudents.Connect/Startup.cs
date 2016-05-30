@@ -26,7 +26,7 @@ namespace Zbang.Cloudents.Connect
             // rather than using GlobalHost.
             var config = new HubConfiguration
             {
-                EnableDetailedErrors = true
+                EnableDetailedErrors = false
             };
 
             // Register your SignalR hubs.
@@ -73,7 +73,7 @@ namespace Zbang.Cloudents.Connect
             
             app.MapSignalR("/s", config);
 
-            GlobalHost.HubPipeline.RequireAuthentication();
+           // GlobalHost.HubPipeline.RequireAuthentication();
             // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=316888
         }
     }

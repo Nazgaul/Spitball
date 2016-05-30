@@ -20,6 +20,7 @@ using System.Net.Http;
 using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Microsoft.AspNet.SignalR.Client;
 using Zbang.Zbox.Domain;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Repositories;
@@ -100,6 +101,12 @@ namespace Testing
 
         static void Main(string[] args)
         {
+
+            var hubConnection = new HubConnection("https://develop-connect.spitball.co/s");
+            var proxy = hubConnection.CreateHubProxy("SpitballHub");
+
+            hubConnection.Start().Wait();
+            proxy.Invoke("Hello");
             // var he = new CultureInfo("he");
             // var en = new CultureInfo("en");
 
@@ -260,7 +267,7 @@ namespace Testing
             //var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
             //t.Wait();
             IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
-            writeService.UpdateUniversityStats(DateTime.UtcNow.AddDays(-1));
+           // writeService.UpdateUniversityStats(DateTime.UtcNow.AddDays(-1));
             //writeService.UpdateReputation(new UpdateReputationCommand(1));
             //writeService.AddNewUpdateAsync(new AddNewUpdatesCommand(
             //    21481,
