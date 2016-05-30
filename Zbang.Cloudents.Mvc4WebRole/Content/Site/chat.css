@@ -172,38 +172,41 @@ md-sidenav.chat md-content .attach-menu {
 }
 md-sidenav.chat md-content .tab-content {
   height: calc(100vh - 113px);
-}
-md-sidenav.chat md-content .tab-content.noChats {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-}
-md-sidenav.chat md-content .tab-content.noChats .empty-state {
-  text-align: center;
-  width: 100%;
-}
-md-sidenav.chat md-content .tab-content.noChats .empty-state .text {
-  font-size: 16px;
-  width: 200px;
-  margin: 0 auto;
-}
-md-sidenav.chat md-content .tab-content.noChats .empty-state .text span {
-  color: #4190b9;
-  display: block;
-  margin-bottom: 10px;
-}
-md-sidenav.chat md-content .tab-content.noChats .empty-state svg {
-  fill: #c5c5c5;
-  opacity: 0.5;
-}
-md-sidenav.chat md-content .tab-content.noChats .search-friend,
-md-sidenav.chat md-content .tab-content.noChats .users-list {
-  display: none;
-}
-md-sidenav.chat md-content .tab-content:not(.noChats) .empty-state {
-  display: none;
+  /*&.noChats {
+                .displayFlex;
+                .align-items(center);
+
+                .empty-state {
+                    text-align: center;
+                    width: 100%;
+
+                    .text {
+                        font-size: 16px;
+                        width: 200px;
+                        margin: 0 auto;
+
+                        span {
+                            color: @buttonColorBlue;
+                            display: block;
+                            margin-bottom: 10px;
+                        }
+                    }
+
+                    svg {
+                        fill: #c5c5c5;
+                        opacity: 0.5;
+                    }
+                }
+
+                .search-friend, .users-list {
+                    display: none;
+                }
+            }*/
+  /*&:not(.noChats) {
+                .empty-state {
+                    display: none;
+                }
+            }*/
 }
 md-sidenav.chat md-content .tab-content .search-friend {
   margin: 12px 6px 5px 6px;

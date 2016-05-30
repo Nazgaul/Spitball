@@ -16,14 +16,14 @@
                         <button type="button" ng-click="c.friendsState()" class="friends tab" ng-class="{active: c.state === c.states.friends}">@ChatResources.FriendsHeader</button>
                     </div>*@
             </div>
-            <div class="tab-content" ng-class="{noChats: c.state === c.states.messages && !c.users.length}">
-                <div class="empty-state">
+            <div class="tab-content" @*ng-class="{noChats: c.state === c.states.messages && !c.users.length}"*@>
+                @*<div class="empty-state">
                     @Html.Svg("~/images/site/icons.svg", "empty-chat")
                     <div class="text">
                         <span>@ChatResources.EmptyStateLine1</span>
                         @ChatResources.EmptyStateLine2
                     </div>
-                </div>
+                </div>*@
                 <form novalidate class="search-friend" @*ng-if="c.state === c.states.friends"*@ ng-submit="c.search()">
                     <input type="search" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search()" ng-model-options="{debounce : 300}" />
                     <button type="submit" class="search-btn">
