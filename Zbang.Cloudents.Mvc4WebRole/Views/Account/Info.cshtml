@@ -8,7 +8,7 @@
         <div class="fileinput" flex="50" flex-xs="100">
             <h2>@AccountResource.Profile</h2>
             <div class="thumbnail">
-                <user-image name="i.data.firstName" image="i.data.image" width="150" height="150" noremove="true"></user-image>
+                <user-image name="i.data.firstName" image="i.data.image" width="96" height="96" noremove="true"></user-image>
                 <div class="ov-hidden">
                     <a plupload="i.fileUpload.url" plupload-options="i.fileUpload.options" class="ontop color-override textColor8" plupload-callbacks="i.fileUpload.callbacks" ga-track-event="['settings', 'change user image']">
                         @AccountResource.SelectImg
@@ -32,8 +32,8 @@
         <div flex layout="row" flex-xs="100" layout-align="start center" class="left-flex university">
             <img ng-src="{{::i.data.universityImage}}" class="uni-image" alt="university logo" width="50" height="50" />
             <div layout="column">
+                <a class="change-uni" ui-sref="universityChoose" flex ga-track-event="['settings', 'change university']">@AccountResource.changeUniversityBtn</a>
                 <span class="uni-name">{{::i.data.university}}</span>
-                <a ui-sref="universityChoose" flex ga-track-event="['settings', 'change university']">@AccountResource.changeUniversityBtn</a>
             </div>
         </div>
         <md-input-container flex="50" flex-xs="100">

@@ -293,7 +293,7 @@
 
 
 
-.right-side-area {
+.boxes-side-area {
     @media(min-width: 960px) {
         max-width: 400px !important;
     }
@@ -336,16 +336,35 @@
     }
 }
 
+.member-wrapper {
+    .displayFlex;
+    .align-items(center);
+    margin-bottom: 20px;
+
+    .user-section, .admin {
+        min-width: 0;
+    }
+
+    .admin {
+        padding: 2px 10px;
+        background: #73b435;
+        border-radius: 10px;
+        margin-left: 10px;
+        color: @textColorWhite;
+        flex-shrink: 0;
+    }
+}
+
 .member {
     //TODO: angular flex
     .displayFlex();
-    margin-bottom: 20px;
     .align-items(center);
     //override bootstrap
     a:hover {
         color: transparent;
         text-decoration: none;
     }
+
 
     .member-name {
         font-size: 15px;

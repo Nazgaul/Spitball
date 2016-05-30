@@ -308,7 +308,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Study with spitball.
+        ///   Looks up a localized string similar to Study with Spitball.
         /// </summary>
         public static string UnregHeader {
             get {
@@ -317,7 +317,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign up for free, access to the notes, documents and quizzes posted by your classmates.
+        ///   Looks up a localized string similar to Sign up for free to find and share study materials, chat with your classmates, create online quizzes and get better grades.
         /// </summary>
         public static string UnregSubtitle {
             get {

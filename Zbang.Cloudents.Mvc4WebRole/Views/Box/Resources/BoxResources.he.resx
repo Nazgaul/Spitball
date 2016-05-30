@@ -198,4 +198,7 @@
   <data name="InviteFriendsMember" xml:space="preserve">
     <value>הזמן חברים</value>
   </data>
+  <data name="BoxAdmin" xml:space="preserve">
+    <value>מנהל קבוצה</value>
+  </data>
 </root>

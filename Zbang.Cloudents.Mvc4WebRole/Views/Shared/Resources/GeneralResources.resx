@@ -169,7 +169,7 @@
     <value>Courses</value>
   </data>
   <data name="UnregSubtitle" xml:space="preserve">
-    <value>Sign up for free, access to the notes, documents and quizzes posted by your classmates</value>
+    <value>Sign up for free to find and share study materials, chat with your classmates, create online quizzes and get better grades</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search for documents, classes</value>
@@ -206,6 +206,6 @@ but try checking the documents tab for related material</value>
     <value>No results found</value>
   </data>
   <data name="UnregHeader" xml:space="preserve">
-    <value>Study with spitball</value>
+    <value>Study with Spitball</value>
   </data>
 </root>

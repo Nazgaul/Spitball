@@ -44,6 +44,10 @@
         padding: 20px;
         border-radius: 5px;
         background: @textColorDarkGrey;
+
+        md-input-container {
+            margin-bottom: 0;
+        }
     }
 
     .fileinput {
@@ -53,8 +57,8 @@
             position: relative;
             overflow: hidden;
             padding: 0;
-            width: 150px;
-            height: 150px;
+            width: 96px;
+            height: 96px;
             border: none;
         }
     }
@@ -84,9 +88,9 @@
         //background: @backgroundColorSpitballBlue;
         //color: @textColorWhite;
         font-size: 11px;
-        line-height: 30px;
+        line-height: 20px;
         display: block;
-        margin-top: ~"calc(100% - 30px)";
+        margin-top: ~"calc(100% - 20px)";
         position: initial !important;
         background: @backgroundColorSpitballBlue;
         color: @textColorWhite;
@@ -184,7 +188,7 @@
 
             .name {
                 font-size: 18px;
-                width:500px;
+                width: 500px;
             }
         }
     }
@@ -192,6 +196,14 @@
     .uni-image {
         border-radius: 50%;
         margin-right: 20px;
+    }
+
+    .change-uni {
+        color: @textColorGrey;
+
+        &:hover {
+            color: @buttonColorBlue;
+        }
     }
 
     .uni-name {
