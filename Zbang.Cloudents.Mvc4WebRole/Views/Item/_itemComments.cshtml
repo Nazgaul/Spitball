@@ -46,7 +46,7 @@
                                     </a>
                                 </div>
                                 <div class="comment-text">
-                                    <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::comment.userUrl}}"> {{::comment.userName}}</a></span><span class="date">@ItemsResources.CommentPublishedIn&nbsp;<time-ago class="comment-date" from-time="{{::comment.creationDate }}" format="mediumDate"></time-ago></span></div>
+                                    <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::comment.userUrl}}"> {{::comment.userName}}</a></span><span class="date"><time-ago class="comment-date" from-time="{{::comment.creationDate }}" format="mediumDate"></time-ago></span></div>
                                     <div class="comment-content" ng-bind-html="::comment.comment"></div>
 
                                 </div>
@@ -72,7 +72,7 @@
                                             </a>
                                         </div>
                                         <div class="reply-text">
-                                            <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::reply.userUrl}}"> {{::reply.userName}}</a></span> <span class="date">@ItemsResources.CommentPublishedIn&nbsp;<time-ago class="comment-date" from-time="{{::reply.creationDate }}" format="mediumDate"></time-ago></span></div>
+                                            <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::reply.userUrl}}"> {{::reply.userName}}</a></span> <span class="date"><time-ago class="comment-date" from-time="{{::reply.creationDate }}" format="mediumDate"></time-ago></span></div>
                                             <div class="comment-content">{{::reply.comment}}</div>
                                         </div>
                                         <md-menu ng-if="c.canDelete(reply.userId)">

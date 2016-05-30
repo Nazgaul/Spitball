@@ -923,9 +923,13 @@ md-menu-item.blue svg {
   width: calc(100% - 100px);
   margin: 0 auto;
   padding-right: 16px;
+  padding-top: 5px;
 }
 .itemPage header .top-wrapper .name-actions .item-actions {
   white-space: nowrap;
+}
+.itemPage header .top-wrapper .name-actions .item-actions a {
+  display: block;
 }
 .itemPage header .top-wrapper .name-actions .item-actions .item-menu {
   height: 16px;

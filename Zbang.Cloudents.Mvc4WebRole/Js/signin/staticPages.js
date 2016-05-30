@@ -7,7 +7,7 @@
         $panel.siblings().removeClass('expanded');
     });
 
-    
+
     function getCookie(cname) {
         var name = cname + "=";
         var ca = document.cookie.split(';');
@@ -29,7 +29,7 @@
 
 
     changeLanguage($('.language button'));
-    
+
     $(function () {
         var slider = $('.items-container').bxSlider({
             infiniteLoop: false,
@@ -51,6 +51,10 @@
         var val = getCookie('l3').toLowerCase();
         var text = $('.language').find('button[data-cookie="' + val + '"]').html();
         $('nav li.language span:first').text(text);
+
+        window.Intercom('boot', {
+            app_id: "njmpgayv",
+        });
 
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r;
