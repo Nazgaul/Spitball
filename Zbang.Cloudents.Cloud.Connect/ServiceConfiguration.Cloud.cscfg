@@ -5,6 +5,7 @@
     <ConfigurationSettings>
       <Setting name="Zbox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Max Pool Size=1000;Asynchronous Processing=True;Connection Timeout=30;MultipleActiveResultSets=true;" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
+      <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="SB" thumbprint="72C19EBE2BD0F21B5DF74C342CFEF862B581397F" thumbprintAlgorithm="sha1" />

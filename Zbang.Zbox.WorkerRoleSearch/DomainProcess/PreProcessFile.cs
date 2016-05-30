@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR.Client;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -22,20 +23,30 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             m_FileProcessorFactory = fileProcessorFactory;
         }
 
-        public Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
+        public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {
             var parameters = data as ChatFileProcessData;
-            if (parameters == null) return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
+            if (parameters == null) return true;// Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
 
             var processor = m_FileProcessorFactory.GetProcessor<PreviewChatContainerName>(parameters.BlobUri);
-            
+
             //if (await m_BlobProvider.ExistsAsync(parameters.BlobUri))
             //{
             //    return true;
             //}
             ProcessBlob(processor, parameters);
-            return Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
+
+            var proxy = await SignalrClient.GetProxyAsync();
+            //var hubConnection = new HubConnection("https://develop-connect.spitball.co/");
+            //var proxy = hubConnection.CreateHubProxy("SpitballHub");
+            var blobName = parameters.BlobUri.Segments[parameters.BlobUri.Segments.Length - 1];
+            //await hubConnection.Start();
+            await proxy.Invoke("UpdateImage", blobName);
+
+            return true; // Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
         }
+
+
 
         private void ProcessBlob(IContentProcessor processor, ChatFileProcessData parameters)
         {

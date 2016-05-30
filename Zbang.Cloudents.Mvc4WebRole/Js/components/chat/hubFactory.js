@@ -17,19 +17,19 @@
                         });
                 },
                 online: function (userId) {
-                    console.log('online', userId);
                     $rootScope.$broadcast('hub-status', {
                         userId: userId,
                         online: true
                     });
                 },
                 offline: function (userId) {
-                    console.log('offline', userId);
                     $rootScope.$broadcast('hub-status', {
                         userId: userId,
                         online: false
                     });
-                    
+                },
+                updateImage: function (blob) {
+                    $rootScope.$broadcast('preview-ready', blob);
                 }
                 //chatRoomId: function (message) {
                 //    $rootScope.$broadcast('hub-chat-roomid', { message: message });
