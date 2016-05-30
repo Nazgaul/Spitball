@@ -47,7 +47,7 @@
                         <div class="wrapper">
                             <div class="content" style="display:none;">
                                 <form class="login-form" action="" method="post">
-                                    @{ Html.RenderAction("AntiForgeryToken", "Home", true);}
+                                    @*@{ Html.RenderAction("AntiForgeryToken", "Home", true);}*@
                                     <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
                                     <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
                                     <div class="form-group">
@@ -148,7 +148,7 @@
                                 </div>
 
                                 <form class="register-form" action="" method="post">
-                                    @{ Html.RenderAction("AntiForgeryToken", "Home", true);}
+                                    @*@{ Html.RenderAction("AntiForgeryToken", "Home", true);}*@
                                     <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
                                     <h3>@LogOnResources.CreateAccountFormHeader</h3>
                                     <div class="form-group first">

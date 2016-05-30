@@ -47,7 +47,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                      }, TimeSpan.FromMinutes(1), 5, cancellationToken);
                     if (!result)
                     {
-                        await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+                        await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
                     }
                 }
                 catch (TaskCanceledException)

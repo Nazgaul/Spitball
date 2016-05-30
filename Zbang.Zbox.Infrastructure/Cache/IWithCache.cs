@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
         //    where TD : class
         //    where TQ : IQueryCache;
 
-        Task CommandAsync<TC>(TC command)
+        Task RemoveAsync<TC>(TC command)
             where TC : ICommandCache;
 
     }

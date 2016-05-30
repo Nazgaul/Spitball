@@ -53,43 +53,10 @@ namespace Zbang.Zbox.Infrastructure.Cache
             return item;
         }
 
-        //public async Task<TD> QueryAsync<TQ, TD>(Func<TQ, CancellationToken, Task<TD>> getItemCallbackAsync, TQ queryParam, CancellationToken token)
-        //    where TD : class
-        //    where TQ : IQueryCache
-        //{
-        //    string cacheKey = queryParam.CacheKey;
-
-        //    var item = await m_Cache.GetFromCacheAsync<TD>(queryParam.CacheRegion,cacheKey);
-
-        //    if (item != default(TD)) return item;
-
-        //    item = await getItemCallbackAsync(queryParam, token);
-        //    try
-        //    {
-        //        await m_Cache.AddToCacheAsync(queryParam.CacheRegion,cacheKey, item, queryParam.Expiration);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError(ex);
-        //    }
-        //    return item;
-        //}
-
-        //public TCr Command<TC, TCr>(Func<TC, TCr> invokeFunction, TC command)
-        //    where TCr : ICommandResult
-        //    where TC : ICommandCache
-        //{
-        //    if (invokeFunction == null) throw new ArgumentNullException(nameof(invokeFunction));
-
-        //    TCr retVal = invokeFunction(command);
-        //    m_Cache.RemoveFromCache(command.CacheRegion, command.CacheTags);
-        //    return retVal;
-        //}
-
-        public async Task CommandAsync<TC>(TC command)
+        public Task RemoveAsync<TC>(TC command)
             where TC : ICommandCache
         {
-            await m_Cache.RemoveFromCacheAsync(command.CacheRegion);
+            return m_Cache.RemoveFromCacheAsync(command.CacheRegion);
         }
     }
 }

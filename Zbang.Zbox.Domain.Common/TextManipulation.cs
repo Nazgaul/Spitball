@@ -85,7 +85,7 @@ namespace Zbang.Zbox.Domain.Common
             while (match.Success)
             {
                 var url = match.Value;
-                if (Validation.IsUrlWithoutSceme(match.Value))
+                if (Validation.IsUrlWithoutScheme(match.Value))
                 {
                     url = $"http://{url}";
                 }

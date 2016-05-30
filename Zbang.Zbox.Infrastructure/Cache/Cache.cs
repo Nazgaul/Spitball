@@ -80,11 +80,11 @@ namespace Zbang.Zbox.Infrastructure.Cache
         
 
 
-        public async Task RemoveFromCacheAsync(string region)
+        public Task RemoveFromCacheAsync(string region)
         {
             if (!m_IsCacheAvailable)
             {
-                return;
+                return Extensions.TaskExtensions.CompletedTask;
             }
             if (!IsAppFabricCache())
             {
@@ -92,10 +92,9 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
                 while (enumerator.MoveNext())
                 {
-
                     m_Cache.Remove(enumerator.Key.ToString());
                 }
-                return;
+                return Extensions.TaskExtensions.CompletedTask;
             }
             var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
             var db = Connection.GetDatabase();
@@ -104,7 +103,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             {
                 taskList.Add(db.KeyDeleteAsync(key));
             }
-            await Task.WhenAll(taskList);
+            return Task.WhenAll(taskList);
 
         }
 

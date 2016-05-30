@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Cobisi.EmailVerify;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -9,6 +10,9 @@ namespace Zbang.Zbox.Infrastructure
     public class EmailVerification : IEmailVerification
     {
         private readonly VerificationEngine m_Engine;
+
+        private const string EmailRegex2 = @"^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$";
+
         public EmailVerification()
         {
             try
@@ -31,6 +35,10 @@ namespace Zbang.Zbox.Infrastructure
             {
                 return false;
             }
+            if (m_Engine == null)
+            {
+                return Regex.IsMatch(email, EmailRegex2, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(10));
+            }
             try
             {
                     var verificationEmail = new Verification(email);
@@ -39,6 +47,7 @@ namespace Zbang.Zbox.Infrastructure
             }
             catch (Exception ex)
             {
+
                 TraceLog.WriteError("On check email email : " + email, ex);
                 return true;
             }
@@ -49,6 +58,10 @@ namespace Zbang.Zbox.Infrastructure
             if (string.IsNullOrWhiteSpace(email))
             {
                 return false;
+            }
+            if (m_Engine == null)
+            {
+                return Regex.IsMatch(email, EmailRegex2, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(10));
             }
             try
             {
