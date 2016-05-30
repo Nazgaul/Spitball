@@ -6,7 +6,7 @@
 
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document) {
-        var c = this, chinkSize = 10, top = 0, fromid;
+        var c = this, chunkSize = 2147483647, top = 0, fromid;
         c.states = {
             messages: 1,
             // friends: 2,
@@ -84,7 +84,7 @@
             chatBus.chat(c.userChat.conversation,
                 [c.userChat.id, userDetailsFactory.get().id],
                 fromid,
-                chinkSize,
+                chunkSize,
                 top
                 ).then(function (response) {
                     response.reverse();
@@ -271,8 +271,8 @@
                 clickOutsideToClose: true,
                 resolve: {
                     doc: function () { return chatBus.preview(blob, 0) }
-                }
-                //fullscreen: useFullScreen
+                },
+                fullscreen: true
             });
         }
 
@@ -304,6 +304,42 @@
             $mdDialog.hide();
         });
     }
+})();
+
+(function() {
+    angular.module('app.chat').directive('chatTimeAgo', timeAgo);
+
+    timeAgo.$inject = ['timeAgo', 'nowTime'];
+    function timeAgo(timeAgo, nowTime) {
+        return {
+            scope: {
+                fromTime: '@',
+                format: '@'
+            },
+            restrict: 'EA',
+            link: function(scope, elem) {
+                var fromTime;
+
+                // Track changes to fromTime
+                scope.$watch('fromTime', function(value) {
+                    fromTime = timeAgo.parse(scope.fromTime);
+                    console.log('fromtime',fromTime,value)
+                });
+
+                // Track changes to time difference
+                scope.$watch(function() {
+                    return nowTime() - fromTime;
+                }, function(value) {
+                    var threeDaysInMilliseconds = 2.592e+8;
+                    if (value > threeDaysInMilliseconds) {
+                        angular.element(elem).text('');
+                        return;
+                    }
+                    angular.element(elem).text(timeAgo.inWords(value, fromTime, scope.format));
+                });
+            }
+        };
+    };
 })();
 
 

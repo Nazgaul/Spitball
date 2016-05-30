@@ -25,8 +25,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_IdGenerator = idGenerator;
         }
 
-        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("id")]
-        public async Task<JsonResult> Index(long id, int top, int skip)
+        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("id"),ActionName("Index")]
+        public async Task<JsonResult> IndexAsync(long id, int top, int skip)
         {
             try
             {
@@ -139,8 +139,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
-        [RemoveBoxCookie]
-        public async Task<JsonResult> AddComment(Comment model)
+        [RemoveBoxCookie,ActionName("AddComment")]
+        public async Task<JsonResult> AddCommentAsync(Comment model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
             {
@@ -159,8 +159,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
-        [RemoveBoxCookie]
-        public async Task<JsonResult> AddReply(Reply model)
+        [RemoveBoxCookie,ActionName("AddReply")]
+        public async Task<JsonResult> AddReplyAsync(Reply model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
             {
@@ -186,8 +186,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [ZboxAuthorize]
-        [HttpPost]
-        public async Task<JsonResult> DeleteComment(long boxId,Guid questionId)
+        [HttpPost, ActionName("DeleteComment")]
+        public async Task<JsonResult> DeleteCommentAsync(long boxId, Guid questionId)
         {
             try
             {
@@ -201,9 +201,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonError();
             }
         }
-        [ZboxAuthorize]
+        [ZboxAuthorize, ActionName("DeleteReply")]
         [HttpPost]
-        public async Task<JsonResult> DeleteReply(long boxId, Guid answerId)
+        public async Task<JsonResult> DeleteReplyAsync(long boxId, Guid answerId)
         {
             try
             {
@@ -218,24 +218,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [ZboxAuthorize, HttpPost]
-        public async Task<JsonResult> LikeComment(Guid commentId, long boxId)
+        [ZboxAuthorize, HttpPost, ActionName("LikeComment")]
+        public async Task<JsonResult> LikeCommentAsync(Guid commentId, long boxId)
         {
             var command = new LikeCommentCommand(commentId, User.GetUserId(), boxId);
             var retVal = await ZboxWriteService.LikeCommentAsync(command);
             return JsonOk(retVal.Liked);
         }
 
-        [ZboxAuthorize, HttpPost]
-        public async Task<JsonResult> LikeReply(Guid replyId, long boxId)
+        [ZboxAuthorize, HttpPost, ActionName("LikeReply")]
+        public async Task<JsonResult> LikeReplyAsync(Guid replyId, long boxId)
         {
             var command = new LikeReplyCommand(replyId, User.GetUserId(), boxId);
             var retVal = await ZboxWriteService.LikeReplyAsync(command);
             return JsonOk(retVal.Liked);
         }
 
-        [HttpGet, BoxPermission("boxId")]
-        public async Task<JsonResult> Replies(Guid id, Guid replyId, long boxId)
+        [HttpGet, BoxPermission("boxId"),ActionName("Replies")]
+        public async Task<JsonResult> RepliesAsync(Guid id, Guid replyId, long boxId)
         {
             var query = new GetCommentRepliesQuery(boxId, id, replyId);
             var retVal =
@@ -288,16 +288,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet, BoxPermission("boxId"), ZboxAuthorize]
-        public async Task<JsonResult> CommentLikes(Guid id, long boxId)
+        [HttpGet, BoxPermission("boxId"), ZboxAuthorize,ActionName("CommentLikes")]
+        public async Task<JsonResult> CommentLikesAsync(Guid id, long boxId)
         {
             var query = new GetFeedLikesQuery(id);
             var retVal = await ZboxReadService.GetCommentLikesAsync(query);
             return JsonOk(retVal);
         }
 
-        [HttpGet, BoxPermission("boxId"), ZboxAuthorize]
-        public async Task<JsonResult> ReplyLikes(Guid id, long boxId)
+        [HttpGet, BoxPermission("boxId"), ZboxAuthorize,ActionName("ReplyLikes")]
+        public async Task<JsonResult> ReplyLikesAsync(Guid id, long boxId)
         {
             var query = new GetFeedLikesQuery(id);
             var retVal = await ZboxReadService.GetReplyLikesAsync(query);

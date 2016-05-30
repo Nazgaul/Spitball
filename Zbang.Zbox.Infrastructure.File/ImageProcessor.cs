@@ -35,11 +35,13 @@ namespace Zbang.Zbox.Infrastructure.File
             }
 
             var uriBuilder =
-                new UriBuilder($"https://az779114.vo.msecnd.net/preview/{blobName}.jpg?width={1024}&height={768}");
+                new UriBuilder("https://az779114.vo.msecnd.net/preview/");
             if (!string.IsNullOrEmpty(m_BlobProviderPreview.RelativePath()))
             {
-                uriBuilder.Path += m_BlobProviderPreview.RelativePath();
+                uriBuilder.Path += m_BlobProviderPreview.RelativePath() + "/";
             }
+            uriBuilder.Path += $"{blobName}.jpg";
+            uriBuilder.Query = "width=1024&height=768";
             var blobsNamesInCache = new List<string>
             {
                 uriBuilder.ToString()

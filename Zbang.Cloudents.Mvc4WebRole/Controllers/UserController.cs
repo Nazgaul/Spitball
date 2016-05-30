@@ -17,7 +17,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class UserController : BaseController
     {
-
+        [DonutOutputCache(CacheProfile = "FullPage")]
+        [NoUniversity]
+        [Route("user/{userId:long}/{userName}",Name = "User")]
+        public ActionResult Index(long userId)
+        {
+            if (userId == 22886)
+            {
+                return RedirectToRoute("homePage");
+            }
+            return View("Empty");
+        }
 
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult IndexPartial()

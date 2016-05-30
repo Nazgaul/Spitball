@@ -16,14 +16,14 @@
                         <button type="button" ng-click="c.friendsState()" class="friends tab" ng-class="{active: c.state === c.states.friends}">@ChatResources.FriendsHeader</button>
                     </div>*@
             </div>
-            <div class="tab-content" ng-class="{noChats: c.state === c.states.messages && !c.users.length}">
-                <div class="empty-state">
+            <div class="tab-content" @*ng-class="{noChats: c.state === c.states.messages && !c.users.length}"*@>
+                @*<div class="empty-state">
                     @Html.Svg("~/images/site/icons.svg", "empty-chat")
                     <div class="text">
                         <span>@ChatResources.EmptyStateLine1</span>
                         @ChatResources.EmptyStateLine2
                     </div>
-                </div>
+                </div>*@
                 <form novalidate class="search-friend" @*ng-if="c.state === c.states.friends"*@ ng-submit="c.search()">
                     <input type="search" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search()" ng-model-options="{debounce : 300}" />
                     <button type="submit" class="search-btn">
@@ -36,7 +36,7 @@
                         <div class="name-counter">
                             <div class="name-date">
                                 <span class="member-name ellipsis" ng-bind="::e.name"></span>
-                                <time-ago ng-if="!e.online" class="comment-date" from-time="{{::e.lastSeen }}" format="mediumDate"></time-ago>
+                                <chat-time-ago ng-if="!e.online" class="comment-date" from-time="{{::e.lastSeen }}" format="mediumDate"></chat-time-ago>
                             </div>
                             <span ng-if="e.unread" class="chat-counter" ng-bind="::e.unread"></span>
                         </div>
