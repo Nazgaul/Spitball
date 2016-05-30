@@ -26,38 +26,7 @@
                 templateUrl: '/user/indexpartial/'
 
             }
-              //{
-              //    state: 'user.courses',
-                 
-              //    config: {
-              //        parent: 'user',
-              //        templateUrl: 'courses.html',//function () {
-              //            //return routerHelper.buildUrl('/box/feedpartial/');
-              //        //},
-              //        url: '#courses',
-              //        //controller: 'FeedController as f'
-              //    }
-              //}
-            //TODO: this is ugly
-             //{
-             //    state: 'userhash',
-             //    config: {
-             //        url: '/user/:userId/:userName/#{state}',
-             //        templateUrl: function () {
-             //            return routerHelper.buildUrl('/user/indexpartial/');
-             //        },
-             //        controller: 'UserController as u',
-             //        resolve: {
-             //            userData: [
-             //                'userService', '$stateParams', function (userService, $stateParams) {
-             //                    return userService.getDetails($stateParams.userId);
-
-             //                }
-             //            ]
-             //        }
-             //    },
-
-             //}
+           
             ];
         }
     }

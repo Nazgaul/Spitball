@@ -113,6 +113,11 @@
             if (!fromState.name) {
                 return;
             }
+            //can't access anonymous user
+            if (toState.name === 'user' && toParams.userId === "22886") {
+                event.preventDefault();
+                $rootScope.$broadcast('state-change-start-prevent');
+            }
             $mdMenu.hide(); //closes menu
             $mdToast.hide(); // hide toasters
             $rootScope.$broadcast('close-menu');

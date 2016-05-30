@@ -73,11 +73,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "library/{LibId}/{LibName}",
                 new { controller = "Home", action = "IndexEmpty" }
             );
-            routes.MapRoute("User",
-               "user/{userId}/{userName}",
-               new { controller = "Home", action = "IndexEmpty" },
-               new { userId = new LongRouteConstraint() }
-            );
+            //routes.MapRoute("User",
+            //   "user/{userId}/{userName}",
+            //   new { controller = "Home", action = "IndexEmpty" },
+            //   new { userId = new LongRouteConstraint() }
+            //);
           
 
             routes.MapRoute("AccountSettings",
