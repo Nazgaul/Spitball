@@ -53,7 +53,7 @@
 }
 md-sidenav.chat {
   position: fixed;
-  z-index: 130;
+  z-index: 10;
   top: 0;
   bottom: 0;
   background: #eee !important;
@@ -520,7 +520,6 @@ md-sidenav.chat md-content .user .img-circle {
   flex-shrink: 0;
 }
 .chat-item-preview {
-  margin-right: -320px;
   max-height: 95vh;
   position: relative;
   max-width: calc(100% - 350px);

@@ -30,14 +30,14 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 var viewModelBuildVersion = viewModel.GetName().Version.Revision;
 
                 m_CachePrefix = $"{domainBuildVersion}_{viewModelBuildVersion}_{ConfigurationManager.AppSettings[AppKey]}";
-               
+
                 if (HttpContext.Current == null)
                 {
                     m_IsCacheAvailable = false;
                     return;
                 }
                 m_Cache = HttpContext.Current.Cache;
-               // m_IsCacheAvailable = true;
+                // m_IsCacheAvailable = true;
                 m_IsCacheAvailable = IsAppFabricCache();
             }
             catch
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
                         expiration);
                     return Task.FromResult(true);
                 }
-                var db = Connection.GetDatabase( /*region.GetHashCode()*/);
+                var db = Connection.GetDatabase();
                 return db.SetAsync(cacheKey, value, expiration);
             }
             catch (Exception ex)
@@ -72,12 +72,14 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
         }
 
+       
+
         private string BuildCacheKey(string region, string key)
         {
             var newKey = $"{region}_{m_CachePrefix}_{key}";
             return newKey;
         }
-        
+
 
 
         public Task RemoveFromCacheAsync(string region)
@@ -99,9 +101,10 @@ namespace Zbang.Zbox.Infrastructure.Cache
             var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
             var db = Connection.GetDatabase();
             var taskList = new List<Task>();
-            foreach (var key in server.Keys(pattern: region + "*"))
+            var keys = server.Keys(pattern: region + "*");
+            foreach (var key in keys)
             {
-                taskList.Add(db.KeyDeleteAsync(key));
+                taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));
             }
             return Task.WhenAll(taskList);
 
@@ -120,7 +123,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
                     return m_Cache[cacheKey] as T;
 
 
-                IDatabase cache = Connection.GetDatabase( /*region.GetHashCode()*/);
+                IDatabase cache = Connection.GetDatabase();
 
                 var t = await cache.GetAsync<T>(cacheKey);
                 return t;
@@ -133,7 +136,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         }
 
-       
+
 
         private static bool IsAppFabricCache()
         {

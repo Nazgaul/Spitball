@@ -6,7 +6,7 @@
 
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document) {
-        var c = this, chinkSize = 10, top = 0, fromid;
+        var c = this, chunkSize = 2147483647, top = 0, fromid;
         c.states = {
             messages: 1,
             // friends: 2,
@@ -84,7 +84,7 @@
             chatBus.chat(c.userChat.conversation,
                 [c.userChat.id, userDetailsFactory.get().id],
                 fromid,
-                chinkSize,
+                chunkSize,
                 top
                 ).then(function (response) {
                     response.reverse();
@@ -271,8 +271,8 @@
                 clickOutsideToClose: true,
                 resolve: {
                     doc: function () { return chatBus.preview(blob, 0) }
-                }
-                //fullscreen: useFullScreen
+                },
+                fullscreen: true
             });
         }
 
