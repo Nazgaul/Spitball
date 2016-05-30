@@ -133,13 +133,21 @@ body {
 
 
 .blue-button {
-    .colored-button(@textColorLike, @buttonColorHover, @textColorWhite, @textColorWhite)
+    .colored-button(@textColorLike, @textColorWhite)
 }
+
+.mdno-touchevents .blue-button {
+    .colored-button-hover(@buttonColorHover, @textColorWhite);
+}
+
 
 .grey-button {
-    .colored-button(@textColorLightGrey, @backgroundColor2, @textColorBlack, @textColorBlack)
+    .colored-button(@textColorLightGrey, @textColorBlack);
 }
 
+.mdno-touchevents .grey-button {
+    .colored-button-hover(@backgroundColor2, @textColorBlack);
+}
 //create
 /*.create {
     background: @color4;

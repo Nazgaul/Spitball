@@ -970,7 +970,7 @@ html {
   font-size: 14px;
   cursor: pointer;
 }
-.blue-button:hover {
+.mdno-touchevents .blue-button:hover {
   background: #26566e;
   color: #f5f5f5;
 }
@@ -984,7 +984,7 @@ html {
   font-size: 14px;
   cursor: pointer;
 }
-.grey-button:hover {
+.mdno-touchevents .grey-button:hover {
   background: #9E9E9E;
   color: #282828;
 }

@@ -27,11 +27,12 @@
 .profile-usertitle {
   text-align: center;
   margin-top: 20px;
+  padding-bottom: 15px;
 }
 .profile-usertitle-name {
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 7px;
+  margin-bottom: 0;
 }
 .profile-usertitle-job {
   margin-bottom: 7px;

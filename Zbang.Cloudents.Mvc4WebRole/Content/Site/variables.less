@@ -194,7 +194,7 @@
 
 
 
-.colored-button(@bgColor, @bgHover, @textColor, @textHover) {
+.colored-button(@bgColor, @textColor) {
     background: @bgColor;
     color: @textColor;
     padding: 0 16px;
@@ -203,7 +203,9 @@
     border-radius: 4px;
     font-size: 14px;
     cursor: pointer;
+}
 
+.colored-button-hover(@bgHover, @textHover) {
     &:hover {
         background: @bgHover;
         color: @textHover;

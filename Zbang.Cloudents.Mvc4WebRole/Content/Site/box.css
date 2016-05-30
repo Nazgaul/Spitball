@@ -261,6 +261,8 @@ library-list {
   display: -ms-flex;
   display: flex;
   margin-bottom: 20px;
+  -webkit-align-items: center;
+  align-items: center;
 }
 .member a:hover {
   color: transparent;

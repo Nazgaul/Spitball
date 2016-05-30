@@ -44,6 +44,7 @@
 .exit-icon {
   padding: 5px;
   margin-right: 15px;
+  margin-top: 5px;
 }
 .exit-icon svg {
   width: 24px;
@@ -102,10 +103,11 @@ md-sidenav.chat md-content .header .menu-open {
 }
 md-sidenav.chat md-content .header .menu {
   position: absolute;
-  right: 260px;
+  left: 12px;
   top: 15px;
-  width: 650px;
-  height: 150px;
+  width: 36px;
+  height: 36px;
+  padding: 5px;
   box-sizing: border-box;
   z-index: 1;
 }
@@ -204,7 +206,7 @@ md-sidenav.chat md-content .tab-content:not(.noChats) .empty-state {
   display: none;
 }
 md-sidenav.chat md-content .tab-content .search-friend {
-  margin: 12px 6px;
+  margin: 12px 6px 5px 6px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -214,12 +216,13 @@ md-sidenav.chat md-content .tab-content .search-friend {
   overflow: hidden;
   background: white;
   box-shadow: 0 0 2px rgba(93, 96, 99, 0.7);
-  border-radius: 3px;
+  border-radius: 6px;
 }
 md-sidenav.chat md-content .tab-content .search-friend input {
   border: none;
   flex-grow: 1;
   padding: 0 12px;
+  line-height: 34px;
 }
 md-sidenav.chat md-content .tab-content .search-friend button {
   padding: 5px 8px;
@@ -248,8 +251,8 @@ md-sidenav.chat md-content .tab-content .users-list .user .name-counter {
   /*-ms-flex-wrap: wrap;
                         -webkit-flex-wrap: wrap;
                         flex-wrap: wrap;*/
-  padding: 10px 0;
-  height: 55px;
+  padding: 10px 0 10px 5px;
+  height: 64px;
 }
 md-sidenav.chat md-content .tab-content .users-list .user .name-counter .name-date {
   min-width: 0;
@@ -260,7 +263,7 @@ md-sidenav.chat md-content .tab-content .users-list .user .name-counter .comment
 }
 md-sidenav.chat md-content .tab-content .users-list .user .name-counter .comment-date {
   font-size: 11px;
-  color: #888b8e;
+  color: #9E9E9E;
 }
 md-sidenav.chat md-content .tab-content .users-list .user:not(:last-child) .name-counter {
   border-bottom: 1px solid #dfe2e9;
@@ -406,7 +409,7 @@ md-sidenav.chat md-content .conversasion .header .user-side .user {
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages {
   padding: 0;
-  font-size: 14px;
+  font-size: 15px;
   padding-top: 10px;
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages .message {
@@ -427,7 +430,7 @@ md-sidenav.chat md-content .conversasion .chat-content .messages .message .text 
   padding: 8px 12px 0 12px;
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages .message .time {
-  color: #888b8e;
+  color: #9E9E9E;
   font-size: 11px;
   margin-top: 5px;
   padding: 0 12px 8px 12px;
@@ -450,11 +453,14 @@ md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-con
   margin: 0;
   background: #ffffff;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  font-size: 16px;
+  max-height: 200px;
+  overflow: auto;
 }
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container textarea {
   color: #282828;
   border: none !important;
-  line-height: 20px;
+  line-height: 22px;
   min-height: 45px;
 }
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container .md-errors-spacer,
@@ -465,6 +471,7 @@ md-sidenav.chat md-content .conversasion .chat-content .new-message button {
   border-radius: 100%;
   padding: 8px;
   position: absolute;
+  height: auto;
   top: -15px;
   left: 15px;
   -moz-transform: scaleX(-1);
