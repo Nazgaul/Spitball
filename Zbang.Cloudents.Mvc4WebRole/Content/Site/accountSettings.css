@@ -47,14 +47,17 @@
   border-radius: 5px;
   background: #323538;
 }
+.accountPage-wrapper .section md-input-container {
+  margin-bottom: 0;
+}
 .accountPage-wrapper .fileinput .thumbnail {
   background: none;
   border-radius: 100%;
   position: relative;
   overflow: hidden;
   padding: 0;
-  width: 150px;
-  height: 150px;
+  width: 96px;
+  height: 96px;
   border: none;
 }
 .accountPage-wrapper .ov-hidden {
@@ -71,9 +74,9 @@
 .accountPage-wrapper .ontop {
   text-align: center;
   font-size: 11px;
-  line-height: 30px;
+  line-height: 20px;
   display: block;
-  margin-top: calc(100% - 30px);
+  margin-top: calc(100% - 20px);
   position: initial !important;
   background: #3293F6;
   color: #f5f5f5;
@@ -155,6 +158,12 @@
 .accountPage-wrapper .uni-image {
   border-radius: 50%;
   margin-right: 20px;
+}
+.accountPage-wrapper .change-uni {
+  color: #888b8e;
+}
+.accountPage-wrapper .change-uni:hover {
+  color: #4190b9;
 }
 .accountPage-wrapper .uni-name {
   font-size: 20px;

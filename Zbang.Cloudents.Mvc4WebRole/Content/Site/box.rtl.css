@@ -222,25 +222,25 @@ library-list {
   }
 }
 @media (min-width: 960px) {
-  .left-side-area {
+  .boxes-side-area {
     max-width: 400px !important;
   }
 }
 @media (max-width: 600px) {
-  .left-side-area > div {
+  .boxes-side-area > div {
     margin: -8px;
   }
 }
-.left-side-area.flex {
+.boxes-side-area.flex {
   padding: 0;
 }
-.left-side-area .leaderboard-container {
+.boxes-side-area .leaderboard-container {
   display: flex;
 }
-.left-side-area .leaderboard-container .leaderboard {
+.boxes-side-area .leaderboard-container .leaderboard {
   width: 100%;
 }
-.left-side-area .recomanded {
+.boxes-side-area .recomanded {
   padding: 0 !important;
 }
 .member-invite {

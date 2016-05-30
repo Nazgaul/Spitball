@@ -126,7 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to Spitball’s study platform enables students to find and share study materials,
-        ///interact with their classmates, create online quizzes and get better grades, for FREE..
+        ///interact with their classmates, create online quizzes and get better grades. For FREE..
         /// </summary>
         public static string A6 {
             get {

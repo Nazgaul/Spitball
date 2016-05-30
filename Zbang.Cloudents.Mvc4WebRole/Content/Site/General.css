@@ -775,7 +775,7 @@ Page Loading
 }
 .unreg-user .text {
   width: 100%;
-  max-width: 530px /*rtl:470px*/;
+  max-width: 550px /*rtl:470px*/;
   margin: 0 auto;
   margin-bottom: 44px;
   position: relative;

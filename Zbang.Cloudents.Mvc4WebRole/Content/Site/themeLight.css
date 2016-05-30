@@ -2058,6 +2058,9 @@ Page Loading
 .theme-light .svgTC16 {
   fill: #888b8e !important;
 }
+.theme-light .textTC16 {
+  color: #888b8e !important;
+}
 .theme-light .svgTC17 {
   fill: #dadce2 !important;
 }
@@ -2084,4 +2087,7 @@ Page Loading
 }
 .theme-light .borderTC24 {
   border-color: #e9eaed !important;
+}
+.theme-light .textTC25 {
+  color: #323538 !important;
 }
