@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.chat').controller('ChatController', chat);
     chat.$inject = ['$timeout', '$scope', '$mdSidenav', 'realtimeFactotry',
-        'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService', '$mdDialog', 'routerHelper'];
+        'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService', '$mdDialog', 'routerHelper', '$document'];
 
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
-        userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper) {
+        userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document) {
         var c = this, chinkSize = 10, top = 0, fromid;
         c.states = {
             messages: 1,
@@ -30,20 +30,7 @@
         });
 
 
-        // Required.
-        //c.getItemAtIndex = function (index) {
-        //    if (index > this.numLoaded_) {
-        //        this.fetchMoreItems_(index);
-        //        return null;
-        //    }
-        //    return index;
-        //}
-        //// Required.
-        //// For infinite scroll behavior, we always return a slightly higher
-        //// number than the previously loaded items.
-        //c.getLength = function () {
-        //    return this.numLoaded_ + 5;
-        //}
+        
 
 
         $scope.$watch(function () {
@@ -53,7 +40,8 @@
                 resetChat();
                 return;
             }
-
+            //hack which i dont like
+            $document.find('.md-sidenav-backdrop').hide();
             search();
         });
         function backFromChat() {

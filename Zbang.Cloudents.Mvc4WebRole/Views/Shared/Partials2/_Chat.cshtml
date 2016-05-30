@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<md-sidenav ng-cloak class="chat md-sidenav-right"
-            md-component-id="chat" close-menu="right">
+<md-sidenav ng-cloak class="chat md-sidenav-right" disable-backdrop="true"
+            md-component-id="chat" @*close-menu="right"*@>
     <md-content ng-cloak ng-controller="ChatController as c" ng-class="{stateChat: c.state === c.states.chat}">
         <div class="menu-content" @*ng-if="c.state !== c.states.chat && c.state > 0"*@>
             <div class="header">

@@ -90,7 +90,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private Uri CheckUrl(AddLinkToBoxCommand command)
         {
             string url = command.Url;
-            if (Validation.IsUrlWithoutSceme(url))
+            if (Validation.IsUrlWithoutScheme(url))
             {
                 url = $"http://{url}";
             }

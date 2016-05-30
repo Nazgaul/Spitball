@@ -81,6 +81,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(uploaderFileId));
             m_ItemRepository.Delete(item);
             box.UpdateItemCount();
+            command.BoxId = box.Id;
             m_BoxRepository.Save(box);
 
             return Task.WhenAll(t1, t2);

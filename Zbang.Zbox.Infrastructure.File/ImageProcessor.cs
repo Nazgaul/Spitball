@@ -38,9 +38,8 @@ namespace Zbang.Zbox.Infrastructure.File
                 new UriBuilder($"https://az779114.vo.msecnd.net/preview/{blobName}.jpg?width={1024}&height={768}");
             if (!string.IsNullOrEmpty(m_BlobProviderPreview.RelativePath()))
             {
-                uriBuilder.Path = uriBuilder.Path.Insert(0, m_BlobProviderPreview.RelativePath());
+                uriBuilder.Path += m_BlobProviderPreview.RelativePath();
             }
-            var x = m_BlobProviderPreview.GetBlobUrl(blobName);
             var blobsNamesInCache = new List<string>
             {
                 uriBuilder.ToString()
