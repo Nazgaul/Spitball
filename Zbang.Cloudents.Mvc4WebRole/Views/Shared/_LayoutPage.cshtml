@@ -105,12 +105,6 @@
                         </md-button>
                     </md-menu-item>
                     <md-menu-item class="user-menu-item">
-                        <md-button id="Intercom" href="mailto:njmpgayv@incoming.intercom.io">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "headerHelp", new { @class = "svgTC16" })</md-icon>
-                           Intercom help.....
-                        </md-button>
-                    </md-menu-item>
-                    <md-menu-item class="user-menu-item">
                         <md-button ng-click="app.logOut()" target="_self" href="@Url.Action("logoff","account")" @shouldPostBack ga-track-event="['header', 'logout']">
                             <md-icon md-menu-align-target>@Html.Svg(svgUrl, "logOffMenu", new { @class = "svgTC16" })</md-icon>
                             @IndexResources.Logout

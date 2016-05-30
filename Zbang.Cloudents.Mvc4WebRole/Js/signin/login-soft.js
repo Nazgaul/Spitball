@@ -155,12 +155,12 @@ var Login = function () {
             },
 
             errorPlacement: function (error, element) {
-                if (element.attr("name") == "tnc") { // insert checkbox errors after the container                  
+                if (element.attr("name") === "tnc") { // insert checkbox errors after the container                  
                     error.insertAfter($('#register_tnc_error'));
                     error.insertAfter(element);
                     return;
                 }
-                if (element.attr("name") == "sex") {
+                if (element.attr("name") === "sex") {
                     console.log('here');
                     error.insertAfter($('label[for="female"]'));
                     return;
@@ -175,7 +175,7 @@ var Login = function () {
 
         $('.register-form input').keypress(function (e) {
             var $form = $('.register-form');
-            if (e.which == 13) {
+            if (e.which === 13) {
                 if ($form.validate().form()) {
                     $form.submit();
                 }
@@ -461,7 +461,7 @@ var Login = function () {
             }
 
             $.each($.validator.messages, function (key, value) {
-                if ($.type(value) == 'string') { $.validator.messages[key] = value.replace('.', ''); }
+                if ($.type(value) === 'string') { $.validator.messages[key] = value.replace('.', ''); }
             });
 
 

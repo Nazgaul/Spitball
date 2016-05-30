@@ -3069,7 +3069,6 @@
     <Content Include="bower_components\angular-timeago\.bower.json" />
     <Content Include="bower_components\angular-timeago\.editorconfig" />
     <Content Include="bower_components\angular-timeago\.gitattributes" />
-    <Content Include="bower_components\angular-timeago\.gitignore" />
     <Content Include="bower_components\angular-timeago\.gittrack" />
     <Content Include="bower_components\angular-timeago\.jshintrc" />
     <Content Include="bower_components\angular-timeago\bower.json" />
@@ -3088,7 +3087,6 @@
     <Content Include="bower_components\angular-signalr-hub\package.json" />
     <Content Include="bower_components\angular-signalr-hub\README.md" />
     <Content Include="bower_components\angular-sanitize\.bower.json" />
-    <Content Include="bower_components\angular-sanitize\angular-sanitize.min.js.map" />
     <Content Include="bower_components\angular-sanitize\bower.json" />
     <Content Include="bower_components\angular-sanitize\package.json" />
     <Content Include="bower_components\angular-sanitize\README.md" />
@@ -4356,6 +4354,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="Js\shared\inlineManual.ts" />
     <TypeScriptCompile Include="Js\shared\intercom.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
