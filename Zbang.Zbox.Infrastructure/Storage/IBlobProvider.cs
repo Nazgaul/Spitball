@@ -17,6 +17,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<bool> ExistsAsync(string blobName);
         bool Exists(string blobName);
 
+        string RelativePath();
+
         Task UploadByteArrayAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped, int cacheControlMinutes);
         string GenerateSharedAccressReadPermission(string blobName, double expirationTimeInMinutes);
     }

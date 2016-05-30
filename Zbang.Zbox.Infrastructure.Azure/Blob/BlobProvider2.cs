@@ -77,7 +77,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob.Exists();
         }
 
-        
+        public string RelativePath()
+        {
+            return m_Container.RelativePath;
+        }
+
 
         public async Task UploadByteArrayAsync(string blobName, byte[] fileContent,
             string mimeType, bool fileGziped, int cacheControlMinutes)
