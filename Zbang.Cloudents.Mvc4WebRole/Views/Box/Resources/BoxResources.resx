@@ -198,4 +198,7 @@
   <data name="InviteFriendsMember" xml:space="preserve">
     <value>Invite Students</value>
   </data>
+  <data name="BoxAdmin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
 </root>
