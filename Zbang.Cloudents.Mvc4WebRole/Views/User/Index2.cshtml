@@ -50,70 +50,70 @@
     <div class="profile-content">
         <div class="portlet light">
 
-            <md-tabs md-dynamic-height="true">
+            <md-tabs class="backgroundTC1" md-dynamic-height="true">
                 <md-tab md-on-select="u.changeTab(u.state.box)" md-active="u.tab === u.state.box">
                     <md-tab-label><h3>@GeneralResources.Classes</h3> <div class="number">{{::u.details.numClass | megaNumber}}</div></md-tab-label>
-                    <md-tab-body>
-                        <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
-                            <div flex-xs="100" flex-xl="33" flex="33" flex-sm="100" flex-md="50" ng-repeat="e in u.boxes" ng-include="'box-template.html'"></div>
-                        </div>
-                    </md-tab-body>
                 </md-tab>
                 <md-tab md-on-select="u.changeTab(u.state.item)" md-active="u.tab === u.state.item">
                     <md-tab-label><h3>@UserResources.Uploads</h3> <div class="number">{{u.details.numItem | megaNumber}}</div></md-tab-label>
-
-                    <md-tab-body>
-                        <div layout="row" layout-padding layout-fill layout-wrap srph-infinite-scroll="u.myPagingFunction()">
-                            <div flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="file item-animate i-q-wrapper" ng-repeat="e in u.files">
-                                <div ng-include="'item-template.html'"></div>
-                                <md-menu class="item-menu">
-                                    <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['user-uploads', 'deleteFile']">
-                                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
-                                    </md-button>
-                                    <md-menu-content width="1">
-                                        <md-menu-item>
-                                            <md-button ng-href="{{::e.downloadLink}}" ng-click="u.downloadItem()" target="_blank" ga-track-event="['user-uploads', 'download']">
-                                                @GeneralResources.Download
-                                            </md-button>
-                                        </md-menu-item>
-                                        <md-menu-item ng-if="u.isUserProfile">
-                                            <md-button ng-click="u.deleteItem($event,e)" ga-track-event="['box-items', 'didDelete']">
-                                                @GeneralResources.Delete
-                                            </md-button>
-                                        </md-menu-item>
-                                    </md-menu-content>
-                                </md-menu>
-                            </div>
-                        </div>
-                    </md-tab-body>
                 </md-tab>
                 <md-tab md-on-select="u.changeTab(u.state.post)" md-active="u.tab === u.state.post">
                     <md-tab-label><h3>@UserResources.Posts</h3> <div class="number">{{::u.details.numFeed | megaNumber}}</div></md-tab-label>
-                    <md-tab-body>
-                        <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
-                            <div flex="100" ng-repeat="e in u.feed" ng-include="'user-feed-template.html'"></div>
-                        </div>
-                    </md-tab-body>
                 </md-tab>
                 <md-tab md-on-select="u.changeTab(u.state.quiz)" md-active="u.tab === u.state.quiz">
                     <md-tab-label><h3>@GeneralResources.Quizzes</h3> <div class="number">{{::u.details.numQuiz | megaNumber}}</div></md-tab-label>
-                    <md-tab-body>
-                        <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
-                            <div flex-xs="50" flex-xl="15" flex="20" flex-sm="33" flex-md="33" ng-repeat="e in u.quiz" ng-include="'quiz-template.html'"></div>
-                        </div>
-                    </md-tab-body>
                 </md-tab>
                 <md-tab md-on-select="u.changeTab(u.state.friend)" md-active="u.tab === u.state.friend">
                     <md-tab-label><h3>@UserResources.Friends</h3> <div class="number">{{::u.details.numFriend | megaNumber}}</div></md-tab-label>
-                    <md-tab-body>
-                        <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
-                            <div flex-xs="100" flex-xl="25" flex="50" flex-sm="100" flex-md="50" ng-repeat="e in u.friends" ng-include="'user-template.html'"></div>
-                        </div>
-                    </md-tab-body>
                 </md-tab>
 
             </md-tabs>
-
+            <div class="tab-content" ng-switch on="u.tab">
+                <div ng-switch-when="b">
+                    <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
+                        <div flex-xs="100" flex-xl="33" flex="33" flex-sm="100" flex-md="50" ng-repeat="e in u.boxes" ng-include="'box-template.html'"></div>
+                    </div>
+                </div>
+                <div ng-switch-when="u">
+                    <div layout="row" layout-padding layout-fill layout-wrap srph-infinite-scroll="u.myPagingFunction()">
+                        <div flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="file item-animate i-q-wrapper" ng-repeat="e in u.files">
+                            <div ng-include="'item-template.html'"></div>
+                            <md-menu class="item-menu">
+                                <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['user-uploads', 'deleteFile']">
+                                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
+                                </md-button>
+                                <md-menu-content width="1">
+                                    <md-menu-item>
+                                        <md-button ng-href="{{::e.downloadLink}}" ng-click="u.downloadItem()" target="_blank" ga-track-event="['user-uploads', 'download']">
+                                            @GeneralResources.Download
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item ng-if="u.isUserProfile">
+                                        <md-button ng-click="u.deleteItem($event,e)" ga-track-event="['box-items', 'didDelete']">
+                                            @GeneralResources.Delete
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                        </div>
+                    </div>
+                </div>
+                <div ng-switch-when="p">
+                    <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
+                        <div flex="100" ng-repeat="e in u.feed" ng-include="'user-feed-template.html'"></div>
+                    </div>
+                </div>
+                <div ng-switch-when="q">
+                    <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
+                        <div flex-xs="50" flex-xl="15" flex="20" flex-sm="33" flex-md="33" ng-repeat="e in u.quiz" ng-include="'quiz-template.html'"></div>
+                    </div>
+                </div>
+                <div ng-switch-when="f">
+                    <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
+                        <div flex-xs="100" flex-xl="25" flex="50" flex-sm="100" flex-md="50" ng-repeat="e in u.friends" ng-include="'user-template.html'"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
