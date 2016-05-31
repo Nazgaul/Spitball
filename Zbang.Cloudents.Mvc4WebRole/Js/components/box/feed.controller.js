@@ -387,6 +387,7 @@
         function openReply(post) {
             $scope.b.closeCollapse();
             if (post.expandReplies) {
+                post.replies = post.replies.slice(Math.max(post.replies.length - 4, 1));
                 post.expandReplies = false;
                 return;
             }

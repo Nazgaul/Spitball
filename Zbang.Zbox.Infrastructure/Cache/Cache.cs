@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
     public class Cache : ICache, IDisposable
     {
 
-        private static readonly Lazy<ConnectionMultiplexer> LazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect("zboxcache.redis.cache.windows.net,abortConnect=false,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI="));
+        private static readonly Lazy<ConnectionMultiplexer> LazyConnection = new Lazy<ConnectionMultiplexer>(() => ConnectionMultiplexer.Connect("zboxcache.redis.cache.windows.net,abortConnect=false,allowAdmin=true,ssl=true,password=CxHKyXDx40vIS5EEYT0UfnVIR1OJQSPrNnXFFdi3UGI="));
 
         public static ConnectionMultiplexer Connection => LazyConnection.Value;
         private const string AppKey = "DataCache";
@@ -47,23 +47,25 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         }
 
-        public Task<bool> AddToCacheAsync<T>(string region, string key, T value, TimeSpan expiration) where T : class
+        public Task AddToCacheAsync<T>(string region, string key, T value, TimeSpan expiration) where T : class
         {
             try
             {
                 if (!m_IsCacheAvailable)
                 {
-                    return Task.FromResult(false);
+                    return Extensions.TaskExtensions.CompletedTaskFalse;
                 }
                 var cacheKey = BuildCacheKey(region, key);
                 if (!IsAppFabricCache())
                 {
                     m_Cache.Insert(cacheKey, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
                         expiration);
-                    return Task.FromResult(true);
+                    return Extensions.TaskExtensions.CompletedTaskTrue;
                 }
                 var db = Connection.GetDatabase();
-                return db.SetAsync(cacheKey, value, expiration);
+                var t1 = db.StringAppendAsync(region, cacheKey + ";");
+                var t2 =  db.SetAsync(cacheKey, value, expiration);
+                return Task.WhenAll(t1, t2);
             }
             catch (Exception ex)
             {
@@ -82,11 +84,11 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
 
 
-        public Task RemoveFromCacheAsync(string region)
+        public async Task RemoveFromCacheAsync(string region)
         {
             if (!m_IsCacheAvailable)
             {
-                return Extensions.TaskExtensions.CompletedTask;
+                return;
             }
             if (!IsAppFabricCache())
             {
@@ -96,19 +98,27 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 {
                     m_Cache.Remove(enumerator.Key.ToString());
                 }
-                return Extensions.TaskExtensions.CompletedTask;
+                return;
             }
-            var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
+            //var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
             var db = Connection.GetDatabase();
-            var taskList = new List<Task>();
-            var keys = server.Keys(pattern: region + "*");
-            foreach (var key in keys)
+            string keys = await db.StringGetAsync(region);
+
+            //return server.FlushDatabaseAsync(ToInt(region));
+            var taskList = new List<Task> {db.KeyDeleteAsync(region, CommandFlags.FireAndForget)};
+            //var keys = server.Keys(pattern: region + "*");
+            foreach (var key in keys.Split(new[] {";"}, StringSplitOptions.RemoveEmptyEntries)) 
             {
                 taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));
             }
-            return Task.WhenAll(taskList);
+            await Task.WhenAll(taskList);
 
         }
+
+        //private int ToInt(string s)
+        //{
+        //    return s.Sum(x => (int) x);
+        //}
 
         public async Task<T> GetFromCacheAsync<T>(string region, string key) where T : class
         {
