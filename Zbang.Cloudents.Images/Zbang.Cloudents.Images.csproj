@@ -119,6 +119,7 @@
     <Content Include="images\Icons_720_txt.png" />
     <Content Include="images\Icons_720_video.png" />
     <Content Include="images\link_720.png" />
+    <Content Include="images\zip.png" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
