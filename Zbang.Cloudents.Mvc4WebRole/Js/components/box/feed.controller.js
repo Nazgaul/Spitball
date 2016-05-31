@@ -3,11 +3,11 @@
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
-        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window'];
+        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window', '$filter'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window) {
+        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window, $filter) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), top = ($window.innerHeight <= 600) ? 10 : 15;
 
         self.add = {
@@ -53,19 +53,9 @@
                 }
             }
             return postsList;
-            //for (currentPost in postsList) {
-            //    if (feedUpdates[postsList[currentPost].id]) {
-            //        postsList[currentPost].isNew = true;
-            //    }
-            //    for (currentreply in postsList[currentPost].replies) {
-            //        if (feedUpdates[postsList[currentPost].replies[currentreply].id]) {
-            //            postsList[currentPost].replies[currentreply].isNew = true;
-            //        }
-            //    }
-            //}
         }
 
-
+        //TODO : need to put $q
         boxService.getFeed(boxId, top, 0).then(function (response) {
             //self.data = response;
             var x = assignData(response);
@@ -202,10 +192,9 @@
                     }
                     item.done = true;
                 }
-                currentPost.replies = currentPost.replies.reverse();
+                currentPost.replies = $filter('orderBy')(currentPost.replies, 'creationTime', false);
                 for (var k = 0; currentPost.replies && k < currentPost.replies.length; k++) {
                     var currentReply = currentPost.replies[k];
-                    //currentReply.creationTime = $filter('date')(currentReply.creationTime, 'medium');
                     angular.forEach(currentReply.files, buildItem);
                 }
             }
@@ -288,7 +277,6 @@
                 self.add.newReplyText = '';
                 self.add.files = [];
                 comment.focusReply = false;
-                //comment.showFrom = false;
                 $scope.$emit('follow-box');
             }).finally(function () {
                 self.add.disabled = false;
@@ -398,12 +386,13 @@
 
         function openReply(post) {
             $scope.b.closeCollapse();
-            if (post.showReplies) {
-                post.showReplies = false;
+            if (post.expandReplies) {
+                post.expandReplies = false;
                 return;
             }
             angular.forEach(self.data, function (elem) {
-                elem.showReplies = false;
+                elem.replies = elem.replies.slice(Math.max(elem.replies.length - 4, 1));
+                elem.expandReplies = false;
             });
 
             self.add.newReplyText = '';
@@ -415,20 +404,17 @@
             }
             if (post.repliesCount > 4 && post.repliesCount !== post.replies.length) {
                 boxService.getReplies(boxId, post.id, post.replies[0].id).then(function (response) {
-                    //response.reverse();//.pop();
-                    //response.pop();
-                    //response.pop();
-                    //response.pop();
                     post.replies = response.concat(post.replies);
                     assignData([post]);
                     expandReply();
                 });
-            } else {
+            }
+            else {
                 expandReply();
             }
 
             function expandReply() {
-                post.showReplies = true;
+                post.expandReplies = true;
             }
 
         }

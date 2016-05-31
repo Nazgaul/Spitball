@@ -81,7 +81,7 @@
 
 
         function updatesNum(boxid, callBack) {
-            boxUpdates(boxid, function (x) {
+            boxUpdates(boxid, function () {
                 var v = allUpdates[boxid] ? Object.keys(allUpdates[boxid]).length : 0;
                 callBack(v);
             });

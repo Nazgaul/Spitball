@@ -18,7 +18,12 @@ using Autofac.Integration.WebApi;
 using System.Reflection;
 using System.Linq;
 using System.Web.Http.ExceptionHandling;
+using Autofac.Integration.SignalR;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.Azure.Mobile.Server.Tables.Config;
 using Zbang.Cloudents.MobileApp.Controllers;
+using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Cloudents.MobileApp.Filters;
 
 namespace Zbang.Cloudents.MobileApp
@@ -27,21 +32,10 @@ namespace Zbang.Cloudents.MobileApp
     {
         public static void ConfigureMobileApp(IAppBuilder app)
         {
+
+            // Register your SignalR hubs.
+            IocFactory.IocWrapper.ContainerBuilder.RegisterHubs(Assembly.GetExecutingAssembly());
             var config = new HttpConfiguration();
-            config.MapHttpAttributeRoutes();
-
-            
-
-
-             new MobileAppConfiguration()
-                 .UseDefaultConfiguration()
-            .ApplyTo(config);
-
-
-           // MobileAppSettingsDictionary settings = config.GetMobileAppSettingsProvider().GetMobileAppSettings();
-
-            //if (string.IsNullOrEmpty(settings.HostName))
-            //{
             app.UseAppServiceAuthentication(new AppServiceAuthenticationOptions
             {
                 // This middleware is intended to be used locally for debugging. By default, HostName will
@@ -51,26 +45,58 @@ namespace Zbang.Cloudents.MobileApp
                 ValidIssuers = new[] { ConfigurationManager.AppSettings["ValidIssuer"] },
                 TokenHandler = config.GetAppServiceTokenHandler()
             });
-            //}
-            ConfigureDependencies(app, config);
+
+            IocFactory.IocWrapper.ContainerBuilder.RegisterWebApiFilterProvider(config);
+            //var builder = IocFactory.IocWrapper.ContainerBuilder;
+            var container = ConfigureDependencies();
+
+            ConfigureSignalR(app, container);
+            config.MapHttpAttributeRoutes();
+
+            new MobileAppConfiguration()
+                .AddMobileAppHomeController()             // from the Home package
+                .MapApiControllers()
+                .AddTables(                               // from the Tables package
+                new MobileAppTableConfiguration()
+                    .MapTableControllers()
+                    //.AddEntityFramework()             // from the Entity package
+                )
+            //.AddPushNotifications()                   // from the Notifications package
+            .MapLegacyCrossDomainController()         // from the CrossDomain package
+            .ApplyTo(config);
+
+
+            
+
 
             config.Filters.Add(new JsonSerializeAttribute());
-            config.Services.Replace(typeof(IExceptionLogger), new TraceExceptionLogger());
             
+            //config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            app.UseAutofacWebApi(config);
             app.UseWebApi(config);
-            //var json = config.Formatters.JsonFormatter;
-            //json.SerializerSettings.ContractResolver =
-            //    new CamelCasePropertyNamesContractResolver();
-            //json.SerializerSettings.NullValueHandling =
-            //    Newtonsoft.Json.NullValueHandling.Ignore;
-            //json.SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-            //json.SerializerSettings.Converters.Add(new IsoDateTimeConverter { DateTimeStyles = System.Globalization.DateTimeStyles.AssumeUniversal });
-            //var isoSettings = config.Formatters.JsonFormatter.SerializerSettings.Converters.OfType<IsoDateTimeConverter>().Single();
-            //isoSettings.DateTimeFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'";
-            //config.Routes.MapHttpRoute("CustomAuth", ".auth/login/CustomAuth", new { controller = "CustomAuth" });
         }
 
-        private static void ConfigureDependencies(IAppBuilder app, HttpConfiguration config)
+        private static void ConfigureSignalR(IAppBuilder app, IContainer container)
+        {
+            var config = new HubConfiguration
+            {
+                EnableDetailedErrors = true
+            };
+
+          
+            config.Resolver = new AutofacDependencyResolver(container);
+
+            GlobalHost.DependencyResolver = config.Resolver;
+            GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new UserIdProvider());
+
+            GlobalHost.DependencyResolver.UseServiceBus(
+                "Endpoint=sb://cloudentsmsg-ns.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=oePM1T/GBe2ZlaDhik3MLHNXstsM4lhnCTyRTBi0bmQ=",
+                "signalr");
+            app.UseAutofacMiddleware(container);
+            app.MapSignalR(config);
+        }
+
+        private static IContainer ConfigureDependencies(/*IAppBuilder app, HttpConfiguration config*/)
         {
             var builder = IocFactory.IocWrapper.ContainerBuilder;
             //IocFactory.IocWrapper.ContainerBuilder = builder;
@@ -84,15 +110,9 @@ namespace Zbang.Cloudents.MobileApp
                 .WithParameter("isDevelop", false)
                 .InstancePerLifetimeScope();
 
-            //builder.RegisterType<SendPush>()
-            //.As<ISendPush>()
-            //.WithParameter("connectionString", ConfigFetcher.Fetch("MS_NotificationHubConnectionString"))
-            //.WithParameter("hubName", ConfigFetcher.Fetch("MS_NotificationHubName"))
-            //.InstancePerLifetimeScope();
             RegisterIoc.Register();
 
             var x = new ApplicationDbContext("Zbox");
-
             builder.Register(c => x).AsSelf().InstancePerLifetimeScope();
             builder.RegisterType<ApplicationUserManager>().AsSelf().As<IAccountService>().InstancePerLifetimeScope();
 
@@ -112,16 +132,9 @@ namespace Zbang.Cloudents.MobileApp
             Zbox.ReadServices.RegisterIoc.Register();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            var container = IocFactory.IocWrapper.Build();
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+           
+            return IocFactory.IocWrapper.Build();
 
-            
-
-
-            builder.RegisterWebApiFilterProvider(config);
-            app.UseAutofacMiddleware(container);
-            app.UseAutofacWebApi(config);
-            app.UseWebApi(config);
 
         }
     }

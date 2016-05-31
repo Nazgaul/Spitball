@@ -16,14 +16,7 @@ namespace Zbang.Zbox.Infrastructure.Ioc
 
         public ContainerBuilder ContainerBuilder
         {
-            get
-            {
-                if (m_BuilderContainer == null)
-                {
-                    m_BuilderContainer = new ContainerBuilder();
-                }
-                return m_BuilderContainer;
-            }
+            get { return m_BuilderContainer ?? (m_BuilderContainer = new ContainerBuilder()); }
             set { m_BuilderContainer = value; }
         }
 
