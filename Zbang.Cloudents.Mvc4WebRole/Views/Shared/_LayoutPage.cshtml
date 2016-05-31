@@ -100,7 +100,7 @@
                     </md-menu-item>
                     <md-menu-item class="user-menu-item">
                         <md-button href="@Url.RouteUrl("Help")" target="_self" ga-track-event="['header', 'help']">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "headerHelp", new {@class = "svgTC16"})</md-icon>
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "headerHelp", new { @class = "svgTC16" })</md-icon>
                             @SharedResources.Help
                         </md-button>
                     </md-menu-item>
@@ -167,10 +167,10 @@
     @RenderSection("scripts", false)
 
     @*<script>
-        inlineManualOptions = { language: '@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName' };
-    </script>*@
+            inlineManualOptions = { language: '@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName' };
+        </script>*@
 
-    <script>!function(){var e=document.createElement("script"),t=document.getElementsByTagName("script")[0];e.async=1,e.src="https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js",e.charset="UTF-8",t.parentNode.insertBefore(e,t)}();</script>
+    @*<script>!function(){var e=document.createElement("script"),t=document.getElementsByTagName("script")[0];e.async=1,e.src="https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js",e.charset="UTF-8",t.parentNode.insertBefore(e,t)}();</script>*@
 
 </body>
 </html>
