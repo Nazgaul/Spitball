@@ -103,6 +103,11 @@ namespace Zbang.Cloudents.Images
                         args.QueryString["404"] = "~/images/Icons_720_sound.png";
                         return;
                     }
+                    if (path == ".zip")
+                    {
+                        args.QueryString["404"] = "~/images/zip.png";
+                        return;
+                    }
 
                     args.QueryString["404"] = "~/images/Icons_720_generic.png";
                 };
