@@ -29,6 +29,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             sb.AppendLine();
             sb.AppendLine(string.Format(EmailResource.ReplyToCommentText, mailParams.UserWhoMadeActionName,mailParams.BoxName, link));
             html.Replace("{body}", sb.ToString().Replace("\n", "<br>"));
+            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "replyToComment");
             message.Html = html.ToString();
             
         }

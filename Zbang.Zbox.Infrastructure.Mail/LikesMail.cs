@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             sb.AppendLine();
             sb.AppendLine(EmailResource.LikesMailFooter);
             html.Replace("{body}", sb.ToString().Replace("\n", "<br>"));
-
+            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "like");
             message.Html = html.ToString();
         }
 

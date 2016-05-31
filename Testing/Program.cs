@@ -102,11 +102,7 @@ namespace Testing
         static void Main(string[] args)
         {
 
-            var hubConnection = new HubConnection("https://develop-connect.spitball.co/s");
-            var proxy = hubConnection.CreateHubProxy("SpitballHub");
-
-            hubConnection.Start().Wait();
-            proxy.Invoke("Hello");
+            
             // var he = new CultureInfo("he");
             // var en = new CultureInfo("en");
 
@@ -277,7 +273,7 @@ namespace Testing
             //    null,
             //   null
             //    )).Wait();
-            //writeService.OneTimeDbi();
+            writeService.OneTimeDbi();
             //while (writeService.Dbi(0))
             //{
 

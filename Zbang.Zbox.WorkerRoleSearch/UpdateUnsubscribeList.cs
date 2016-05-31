@@ -118,7 +118,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
 
                     TraceLog.WriteInfo($"{Prefix} update unsubscribe list complete");
-                    m_DateTime = DateTime.UtcNow.AddDays(-10);
+                    m_DateTime = DateTime.UtcNow.AddDays(-1);
                     await m_Blob.UploadTextAsync(m_DateTime.ToFileTimeUtc().ToString(), Encoding.Default, new AccessCondition { LeaseId = m_LeaseId }, new BlobRequestOptions(), new OperationContext(), cancellationToken);
                     await ReleaseLeaseAsync(cancellationToken);
                     await m_MailComponent.GenerateSystemEmailAsync("sendgrid api", mailContent.ToString());

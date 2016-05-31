@@ -224,6 +224,7 @@
             },
             callbacks: {
                 filesAdded: function (uploader) {
+                    
                     $timeout(function () {
                         uploader.start();
                     }, 1);
@@ -238,6 +239,7 @@
                 fileUploaded: function (uploader, file, response) {
                     // cacheFactory.clearAll();
                     // file.complete = true;
+                   
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         realtimeFactotry.sendMsg(c.userChat.id, null, c.userChat.conversation, obj.payload);
@@ -323,7 +325,6 @@
                 // Track changes to fromTime
                 scope.$watch('fromTime', function(value) {
                     fromTime = timeAgo.parse(scope.fromTime);
-                    console.log('fromtime',fromTime,value)
                 });
 
                 // Track changes to time difference

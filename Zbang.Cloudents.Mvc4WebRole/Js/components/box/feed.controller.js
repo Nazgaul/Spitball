@@ -64,7 +64,7 @@
             //    }
             //}
         }
-        
+
 
         boxService.getFeed(boxId, top, 0).then(function (response) {
             //self.data = response;
@@ -184,7 +184,7 @@
         function assignData(data) {
             for (var i = 0; i < data.length; i++) {
                 var currentPost = data[i];
-               // currentPost.creationTime = $filter('date')(currentPost.creationTime, 'medium');
+                // currentPost.creationTime = $filter('date')(currentPost.creationTime, 'medium');
                 var files = currentPost.files;
                 for (var j = 0; j < files.length; j++) {
                     var item = files[j];
@@ -239,7 +239,7 @@
             $mdDialog.show(confirm).then(function () {
                 var index = self.data.indexOf(post);
                 self.data.splice(index, 1);
-                boxService.deleteComment(post.id,boxId);
+                boxService.deleteComment(post.id, boxId);
             });
         }
         function deleteReply(ev, post, reply2) {
@@ -254,7 +254,7 @@
             $mdDialog.show(confirm).then(function () {
                 var index = post.replies.indexOf(reply2);
                 post.replies.splice(index, 1);
-                boxService.deleteReply(reply2.id,boxId);
+                boxService.deleteReply(reply2.id, boxId);
             });
         }
         function createReply(comment) {
@@ -470,14 +470,35 @@
                     $scope.$emit('follow-box');
                     for (var i = 0; i < files.length; i++) {
                         var file = files[i];
-                        file.sizeFormated = plupload.formatSize(file.size);
-                        file.complete = false;
-                        file.postId = postId;
-                        file.remove = function () {
-                            removeFile(file, uploader);
-                            self.add.disabled = false;
-                        }
-                        self.add.files.push(file);
+                        (function (file) {
+                            file.sizeFormated = plupload.formatSize(file.size);
+                            file.complete = false;
+                            file.postId = postId;
+                            file.remove = function () {
+                                removeFile(file, uploader);
+                                self.add.disabled = false;
+                            }
+
+                            self.add.files.push(file);
+
+
+                            var img = new mOxie.Image();
+
+                            img.onload = function () {
+                                this.crop(95, 105, false);
+                                file.content = this.getAsDataURL("image/jpeg", 80);
+                            };
+
+                            img.onembedded = function () {
+                                this.destroy();
+                            };
+
+                            img.onerror = function () {
+                                this.destroy();
+                            };
+
+                            img.load(file.getSource());
+                        })(file);
                     }
                     $timeout(function () {
                         uploader.start();

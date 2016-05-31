@@ -38,7 +38,7 @@
                                 <span class="member-name ellipsis" ng-bind="::e.name"></span>
                                 <chat-time-ago ng-if="!e.online" class="comment-date" from-time="{{::e.lastSeen }}" format="mediumDate"></chat-time-ago>
                             </div>
-                            <span ng-if="e.unread" class="chat-counter" ng-bind="::e.unread"></span>
+                            <span ng-if="e.unread" class="chat-counter" ng-bind="e.unread"></span>
                         </div>
                     </li>
                 </ul>

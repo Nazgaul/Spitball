@@ -11,6 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             var helper = new UrlHelper(html.ViewContext.RequestContext);
             var svgTag = new TagBuilder("svg");
             var useTag = new TagBuilder("use");
+            useTag.MergeAttribute("load-svg", string.Empty);
             useTag.MergeAttribute("xlink:href", string.Format("{0}?{2}#{1}", helper.Content(name.ToLower()),
                 hash,
                 VersionHelper.CurrentVersion(false)));

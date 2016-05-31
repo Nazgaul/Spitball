@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             var html = LoadMailTempate.LoadMailFromContentWithDot(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
             html.Replace("{name}", marketingMailParams.Name);
             html.Replace("{body}", Text.Replace("\n", "<br><br>"));
-
+            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: CategoryName);
             message.Html = html.ToString();
         }
         protected abstract string Text { get; }
