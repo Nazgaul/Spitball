@@ -115,6 +115,7 @@
 /// <reference path="../js/shared/google.js" />
 /// <reference path="../js/shared/history.js" />
 /// <reference path="../js/shared/inlinemanual.js" />
+/// <reference path="../js/shared/inlinemanualnew.js" />
 /// <reference path="../js/shared/intercom.js" />
 /// <reference path="../js/shared/itemthumbnail.js" />
 /// <reference path="../js/shared/loader.js" />
