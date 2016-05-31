@@ -113,6 +113,15 @@
         height: 75px;
     }
 
+    .tab-content {
+        margin: 0 -12px;
+        //bottom: 0;
+        //TODO: need to fix that
+        .layout-padding > * {
+            padding: 12px;
+        }
+    }
+
     md-tabs {
         padding: 0;
         /*Fixed color box overalying members and items*/
@@ -123,14 +132,7 @@
             animation: none !important;
         }
 
-        md-tab-content {
-            margin: 0 -12px;
-            //bottom: 0;
-            //TODO: need to fix that
-            .layout-padding > * {
-                padding: 12px;
-            }
-        }
+
 
         .md-tab.md-active {
             font-weight: bold;
@@ -161,6 +163,7 @@
 
     .portlet.light {
         padding: 0; //override
+        background: none;
     }
 
     .posts {
@@ -196,6 +199,7 @@
 
         .portlet.light {
             margin: 0 12px;
+            background: none;
         }
     }
 

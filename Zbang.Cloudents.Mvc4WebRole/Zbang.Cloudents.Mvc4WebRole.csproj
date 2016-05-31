@@ -3725,6 +3725,7 @@
     <Content Include="Js\doubleclick.config.js" />
     <Content Include="Js\components\chat\hubFactory.js" />
     <Content Include="Js\shared\inlineManual.js" />
+    <Content Include="Js\shared\inlineManualNew.js" />
     <Content Include="Js\shared\intercom.js" />
     <Content Include="Js\shared\changeLanguage.js" />
     <Content Include="Js\shared\scrollToTop.directive.js" />

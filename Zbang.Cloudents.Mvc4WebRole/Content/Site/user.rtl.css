@@ -84,6 +84,12 @@
 .userPage md-pagination-wrapper {
   height: 75px;
 }
+.userPage .tab-content {
+  margin: 0 -12px;
+}
+.userPage .tab-content .layout-padding > * {
+  padding: 12px;
+}
 .userPage md-tabs {
   padding: 0;
   /*Fixed color box overalying members and items*/
@@ -93,12 +99,6 @@
   transform: none !important;
   -webkit-animation: none !important;
   animation: none !important;
-}
-.userPage md-tabs md-tab-content {
-  margin: 0 -12px;
-}
-.userPage md-tabs md-tab-content .layout-padding > * {
-  padding: 12px;
 }
 .userPage md-tabs .md-tab.md-active {
   font-weight: bold;
@@ -123,6 +123,7 @@
 }
 .userPage .portlet.light {
   padding: 0;
+  background: none;
 }
 .userPage .posts {
   margin-bottom: 20px;
@@ -153,6 +154,7 @@
 }
 .userPage .profile-content .portlet.light {
   margin: 0 12px;
+  background: none;
 }
 @media (max-width: 599px) {
   .userPage .quiz .top .first-letter {
