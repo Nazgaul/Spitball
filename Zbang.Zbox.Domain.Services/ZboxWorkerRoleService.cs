@@ -38,6 +38,16 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
+            using (UnitOfWork.Start())
+            {
+                var items = UnitOfWork.CurrentSession.QueryOver<Item>().Where(w => !w.IsDeleted && w.Url == null).List();
+                foreach (var item in items)
+                {
+                    item.GenerateUrl();
+                    UnitOfWork.CurrentSession.Save(item);
+                }
+                UnitOfWork.Current.TransactionalFlush();
+            }
             //UpdateUsersReputation();
             //UpdateMismatchUrl();
             // UpdateHierarchyInLibrary();
@@ -170,55 +180,55 @@ namespace Zbang.Zbox.Domain.Services
         /// <summary>
         /// this function is greated due to merge tool
         /// </summary>
-        private void UpdateMismatchUrl()
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                const string sql1 = @"select top 10 itemid from zbox.item 
-where CHARINDEX(CAST(boxid as varchar),url) <= 0
-order by 1";
-                const string sql2 = @"select id from zbox.quiz where CHARINDEX(CAST(boxid as varchar),url) <= 0
-order by 1";
+//        private void UpdateMismatchUrl()
+//        {
+//            using (var unitOfWork = UnitOfWork.Start())
+//            {
+//                const string sql1 = @"select top 10 itemid from zbox.item 
+//where CHARINDEX(CAST(boxid as varchar),url) <= 0
+//order by 1";
+//                const string sql2 = @"select id from zbox.quiz where CHARINDEX(CAST(boxid as varchar),url) <= 0
+//order by 1";
 
-                var breakLoop = true;
-                while (breakLoop)
-                {
-                    var quizzes = UnitOfWork.CurrentSession.Connection.Query<long>(sql2);
+//                var breakLoop = true;
+//                while (breakLoop)
+//                {
+//                    var quizzes = UnitOfWork.CurrentSession.Connection.Query<long>(sql2);
 
-                    breakLoop = false;
-                    //var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
-                    foreach (var dQuiz in quizzes)
-                    {
-                        breakLoop = true;
-                        var quiz = UnitOfWork.CurrentSession.Load<Quiz>(dQuiz);
-                        quiz.GenerateUrl();
-                        quiz.IsDirty = true;
-                        UnitOfWork.CurrentSession.Save(quiz);
-                    }
+//                    breakLoop = false;
+//                    //var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
+//                    foreach (var dQuiz in quizzes)
+//                    {
+//                        breakLoop = true;
+//                        var quiz = UnitOfWork.CurrentSession.Load<Quiz>(dQuiz);
+//                        quiz.GenerateUrl();
+//                        quiz.IsDirty = true;
+//                        UnitOfWork.CurrentSession.Save(quiz);
+//                    }
 
-                    unitOfWork.TransactionalFlush();
-                }
-                breakLoop = true;
-                while (breakLoop)
-                {
-                    var items = UnitOfWork.CurrentSession.Connection.Query<long>(sql1);
+//                    unitOfWork.TransactionalFlush();
+//                }
+//                breakLoop = true;
+//                while (breakLoop)
+//                {
+//                    var items = UnitOfWork.CurrentSession.Connection.Query<long>(sql1);
 
-                    breakLoop = false;
-                    //var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
-                    foreach (var dItem in items)
-                    {
-                        breakLoop = true;
-                        var item = UnitOfWork.CurrentSession.Load<Item>(dItem);
-                        item.GenerateUrl();
-                        item.IsDirty = true;
-                        UnitOfWork.CurrentSession.Save(item);
-                    }
+//                    breakLoop = false;
+//                    //var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
+//                    foreach (var dItem in items)
+//                    {
+//                        breakLoop = true;
+//                        var item = UnitOfWork.CurrentSession.Load<Item>(dItem);
+//                        item.GenerateUrl();
+//                        item.IsDirty = true;
+//                        UnitOfWork.CurrentSession.Save(item);
+//                    }
 
-                    unitOfWork.TransactionalFlush();
-                }
+//                    unitOfWork.TransactionalFlush();
+//                }
 
-            }
-        }
+//            }
+//        }
 
 
         //        private void UpdateFeedDbi()
@@ -282,11 +292,6 @@ order by 1";
                 query.SetMaxResults(100);
                 query.SetFirstResult(i * 100);
                 var universitiesIds = query.List<long>();
-                //var universitiesIds = UnitOfWork.CurrentSession.Query<University>()
-                //    .Where(s => s.IsDeleted == false && s.UserTime.UpdateTime > dateTime)
-                //
-                //    .OrderBy(o => o.Id).Skip(i * 100).Take(100)
-                //    .Select(s => s.Id).ToList();
                 do
                 {
                     var command = new UpdateUniversityStatsCommand(universitiesIds);
@@ -299,9 +304,6 @@ order by 1";
                     query.SetFirstResult(i * 100);
                     universitiesIds = query.List<long>();
                 } while (universitiesIds.Any());
-
-
-
             }
         }
 
