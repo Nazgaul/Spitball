@@ -1,16 +1,22 @@
 ﻿'use strict';
 (function () {
-    angular.module('app.dashboard').controller('SideMenu', dashboard);
-    dashboard.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav', '$location', '$timeout', '$scope'];
+    angular.module('app.dashboard').controller('SideMenu', sideMenu);
+    sideMenu.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav', '$location', '$timeout', '$scope'];
 
-    function dashboard(dashboardService, userDetails, $rootScope, $mdSidenav, $location, $timeout, $scope) {
+    function sideMenu(dashboardService, userDetails, $rootScope, $mdSidenav, $location, $timeout, $scope) {
         var d = this, notloaded = true;
         d.courses = [];
         d.privateBoxes = [];
 
-        userDetails.init().then(function () {
-            d.userUrl = userDetails.get().url;
+        userDetails.init().then(function (userDetails) {
+            d.userUrl = userDetails.url;
+            if (userDetails.theme === 'dark') {
+
+                d.updateScrollbar = { theme: 'light-thin' };
+            }
         });
+
+
 
         d.coursesOpen = false;
         d.boxesOpen = false;
@@ -73,7 +79,7 @@
 
             });
         }
-        
+
         $scope.$on('close-menu', function () {
             $mdSidenav('left').close();
             $scope.app.menuOpened = false;

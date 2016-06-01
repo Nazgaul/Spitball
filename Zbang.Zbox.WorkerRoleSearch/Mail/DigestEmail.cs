@@ -87,6 +87,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     var updatesEmail = new List<UpdateMailParams.BoxUpdate>();
                     foreach (var box in updatesData.Boxes)
                     {
+                        box.Url = UrlConst.AppendCloudentsUrl(box.Url);
                         var itemsUpdates = updatesData.Items.Where(w => w.BoxId == box.BoxId).Take(4).Select(s => new UpdateMailParams.ItemUpdate(s.Name,
                               s.Picture =
                                   "https://az779114.vo.msecnd.net/preview/" + WebUtility.UrlEncode(s.Picture) +
