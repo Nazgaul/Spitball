@@ -414,6 +414,7 @@ md-sidenav.chat md-content .conversasion .chat-content .messages {
   padding: 0;
   font-size: 15px;
   padding-top: 10px;
+  padding-bottom: 6px;
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages .message {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
@@ -455,7 +456,7 @@ md-sidenav.chat md-content .conversasion .chat-content .new-message {
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container {
   margin: 0;
   background: #ffffff;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  border: 1px solid #cbdbe3;
   font-size: 16px;
   max-height: 200px;
   overflow: auto;

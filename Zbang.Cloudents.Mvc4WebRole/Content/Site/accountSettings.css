@@ -50,6 +50,13 @@
 .accountPage-wrapper .section md-input-container {
   margin-bottom: 0;
 }
+.accountPage-wrapper .section md-input-container label {
+  font-size: 18px;
+}
+.accountPage-wrapper .change-uni,
+.accountPage-wrapper h2 {
+  font-size: 14px;
+}
 .accountPage-wrapper .fileinput .thumbnail {
   background: none;
   border-radius: 100%;

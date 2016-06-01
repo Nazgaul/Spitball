@@ -169,7 +169,8 @@
     <value>קצר מידי</value>
   </data>
   <data name="UnregSubtitle" xml:space="preserve">
-    <value>אל תפספסו את ההזדמנות, הצטרפו לחבריכם לכיתה ותהנו ממאות אלפי סיכומים ומבחנים בחינם!</value>
+    <value>אל תפספסו את ההזדמנות, הצטרפו לחבריכם לכיתה
+ותהנו ממאות אלפי סיכומים ומבחנים בחינם!</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>חפש מסמכים, קורסים</value>
@@ -202,6 +203,6 @@
     <value>לא נמצאו מבחנים מקוונים התואמים את החיפוש שלך</value>
   </data>
   <data name="UnregHeader" xml:space="preserve">
-    <value>יש לנו עוד הרבה מה לשתף איתכם.</value>
+    <value>יש לנו עוד הרבה לשתף איתכם.</value>
   </data>
 </root>

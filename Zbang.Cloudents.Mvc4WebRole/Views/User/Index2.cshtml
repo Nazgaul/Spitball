@@ -20,8 +20,10 @@
                     {{::u.details.universityName}}
                 </h4>
                 <button class="message" ng-if="!u.isUserProfile" ng-click="u.sendMessage()" user-not-register-popup="click">
-                    @Html.Svg("~/images/site/icons.svg", "chat")
-                    @UserResources.MessageButton
+                    <div class="content">
+                        @Html.Svg("~/images/site/icons.svg", "chat")
+                        <span>@UserResources.MessageButton</span>
+                    </div>
                 </button>
             </div>
         </div>
