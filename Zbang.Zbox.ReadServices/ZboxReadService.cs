@@ -1003,7 +1003,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
             {
                 var retVal = await conn.QueryAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, new { query.BoxId });
                 var box = retVal.FirstOrDefault();
-                if (retVal == null)
+                if (box == null)
                 {
                     throw new BoxDoesntExistException();
                 }

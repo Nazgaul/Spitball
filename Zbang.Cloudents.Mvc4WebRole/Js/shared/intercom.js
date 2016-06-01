@@ -1,5 +1,3 @@
-/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="../shared/userDetails.ts" />
 'use strict';
 (function () {
     angular.module('app').run(intercom);
@@ -12,7 +10,6 @@
             }
             started = true;
             var data = userDetailsFactory.get();
-            // var dateCreate = new Date(data.createTime);
             if (data.id) {
                 Intercom('boot', {
                     app_id: "njmpgayv",
@@ -31,7 +28,7 @@
                     }
                 });
                 Intercom('onActivatorClick', function () {
-                    $mdMenu.hide(); //closes menu
+                    $mdMenu.hide();
                 });
             }
             else {
@@ -45,12 +42,7 @@
             Intercom('shutdown');
         }
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            //    if (toState.name === 'dashboard') {
             start();
-            //    } else {
-            //        stop();
-            //    }
         });
     }
 })();
-//# sourceMappingURL=intercom.js.map

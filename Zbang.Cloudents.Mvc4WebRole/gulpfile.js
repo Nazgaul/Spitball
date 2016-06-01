@@ -5,7 +5,12 @@ Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 */
 
 var config = {
-    src: ['bower_components/**/*.css','content/**/*.css', '!content/**/*.rtl.css', '!content/**/*.min.css']
+    src: ['bower_components/**/*.css',
+    'content/**/*.css', 
+    '!content/**/*.rtl.css', 
+    '!content/**/*.min.css',
+    '!bower_components/**/*.rtl.css',
+    '!bower_components/**/*.min.css']
 }
 
 var gulp = require('gulp');
