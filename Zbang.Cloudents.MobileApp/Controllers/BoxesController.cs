@@ -35,19 +35,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/boxes", Order = 3)]
         public async Task<HttpResponseMessage> GetBoxesAsync(int page, int sizePerPage = 15)
         {
-           // if (!User.Identity.IsAuthenticated)
-           // {
-           //     return Request.CreateUnauthorizedResponse();
-           // }
             var userid = User.GetCloudentsUserId();
             var query = new GetBoxesQuery(userid, page, sizePerPage);
             var data = await m_ZboxReadService.GetUserBoxesAsync(query);
-
-           // var tTransaction =  m_QueueProvider.InsertMessageToTranactionAsync(
-                    // new StatisticsData4(null, userid, DateTime.UtcNow));
-
-           // await Task.WhenAll(tData, tTransaction);
-
             return Request.CreateResponse(data.Select(s => new
             {
                 s.Name,
@@ -62,7 +52,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }));
         }
 
-        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpGet]
         [Route("api/boxes/recommend")]
         public async Task<HttpResponseMessage> Recommend()

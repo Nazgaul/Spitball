@@ -2,11 +2,12 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Trace;
 
-namespace Zbang.Cloudents.Connect
+namespace Zbang.Cloudents.MobileApp.Controllers
 {
    // [Authorize]
     public class SpitballHub : Hub
@@ -24,9 +25,9 @@ namespace Zbang.Cloudents.Connect
         {
             try
             {
-                var usersToSend = new[] { userId.ToString(), Context.User.GetUserId().ToString() };
-                var messageCommand = new ChatAddMessageCommand(chatId, Context.User.GetUserId(), message,
-                    new[] { Context.User.GetUserId(), userId }, blob);
+                var usersToSend = new[] { userId.ToString(), Context.User.GetCloudentsUserId().ToString() };
+                var messageCommand = new ChatAddMessageCommand(chatId, Context.User.GetCloudentsUserId(), message,
+                    new[] { Context.User.GetCloudentsUserId(), userId }, blob);
                 await m_WriteService.AddChatMessageAsync(messageCommand);
                 Clients.Users(usersToSend).chat(messageCommand.Message, messageCommand.ChatRoomId, userId, blob);
             }
@@ -35,6 +36,8 @@ namespace Zbang.Cloudents.Connect
                 TraceLog.WriteError(ex);
             }
         }
+
+       
 
         public void UpdateImage(string blobName)
         {
@@ -45,9 +48,9 @@ namespace Zbang.Cloudents.Connect
         {
             if (Context.User.Identity.IsAuthenticated)
             {
-                var user = Context.User.GetUserId();
+                var user = Context.User.GetCloudentsUserId();
                 Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
-                Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetUserId());
+                Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetCloudentsUserId());
                 m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, true));
             }
             return base.OnConnected();
@@ -57,9 +60,9 @@ namespace Zbang.Cloudents.Connect
         {
             if (Context.User.Identity.IsAuthenticated)
             {
-                var user = Context.User.GetUserId();
+                var user = Context.User.GetCloudentsUserId();
                 m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, false));
-                Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).offline(Context.User.GetUserId());
+                Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).offline(Context.User.GetCloudentsUserId());
             }
             return base.OnDisconnected(stopCalled);
         }
