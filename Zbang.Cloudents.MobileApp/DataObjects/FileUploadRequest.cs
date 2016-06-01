@@ -17,4 +17,11 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
 
         public bool Question { get; set; }
     }
+
+    public class ChatFileUploadRequest
+    {
+        [Required]
+        public string BlobName { get; set; }
+
+    }
 }

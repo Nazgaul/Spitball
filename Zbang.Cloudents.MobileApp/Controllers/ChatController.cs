@@ -10,6 +10,8 @@ using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Cloudents.MobileApp.Filters;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -21,11 +23,15 @@ namespace Zbang.Cloudents.MobileApp.Controllers
     {
         private readonly IZboxCacheReadService m_ZboxReadService;
         private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly IBlobProvider2<ChatContainerName> m_ChatBlobProvider;
+        private readonly Lazy<IQueueProvider> m_QueueProvider;
 
-        public ChatController(IZboxCacheReadService zboxReadService, IZboxWriteService zboxWriteService)
+        public ChatController(IZboxCacheReadService zboxReadService, IZboxWriteService zboxWriteService, IBlobProvider2<ChatContainerName> chatBlobProvider, Lazy<IQueueProvider> queueProvider)
         {
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
+            m_ChatBlobProvider = chatBlobProvider;
+            m_QueueProvider = queueProvider;
         }
 
         [Route("api/chat")]
@@ -62,5 +68,42 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_ZboxWriteService.MarkChatAsRead(command);
             return Request.CreateResponse();
         }
+
+
+        [HttpGet]
+        [Route("api/chat/upload")]
+        public string UploadLink(string blob, string mimeType)
+        {
+            return m_ChatBlobProvider.GenerateSharedAccressWritePermission(blob, mimeType);
+        }
+
+        [Route("api/chat/upload/commit")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> CommitFileAsync(ChatFileUploadRequest model)
+        {
+            if (model == null)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateBadRequestResponse();
+            }
+
+            var uri = m_ChatBlobProvider.GetBlobUrl(model.BlobName);
+            await m_QueueProvider.Value.InsertMessageToThumbnailAsync(new ChatFileProcessData(new Uri(uri)));
+            return Request.CreateResponse();
+        }
+
+        [Route("api/chat/file")]
+        [HttpGet]
+        public HttpResponseMessage Download(string blobName)
+        {
+            var uri = m_ChatBlobProvider.GenerateSharedAccressReadPermission(blobName, 30);
+            return Request.CreateResponse(uri);
+        }
+
+
+
     }
 }

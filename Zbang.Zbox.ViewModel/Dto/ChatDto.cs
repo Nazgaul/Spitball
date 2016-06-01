@@ -18,5 +18,7 @@ namespace Zbang.Zbox.ViewModel.Dto
         public long UserId { get; set; }
 
         public string Blob { get; set; }
+
+        public Guid Id { get; set; }
     }
 }

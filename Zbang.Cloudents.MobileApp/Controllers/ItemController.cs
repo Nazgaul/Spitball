@@ -48,11 +48,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
 
-        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         //[VersionedRoute("api/item", 2),
         [HttpGet]
-        [Route("api/item")]
-        public async Task<HttpResponseMessage> Get2(long id)
+        [Route("api/item"),ActionName("Get")]
+        public async Task<HttpResponseMessage> GetAsync(long id)
         {
             var userId = User.GetCloudentsUserId();
             var query = new GetItemQuery(userId, id, 0);
@@ -89,7 +88,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
             });
         }
-        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpGet]
         [Route("api/item/{id:long}/download")]
         public async Task<string> Download(long boxId, long id)
@@ -127,9 +125,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         }
 
-        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
-        [HttpDelete, Route("api/item")]
-        public async Task<HttpResponseMessage> Delete(long id/*, long boxId*/)
+        [HttpDelete, Route("api/item"),ActionName("Delete")]
+        public async Task<HttpResponseMessage> DeleteAsync(long id/*, long boxId*/)
         {
             if (!ModelState.IsValid)
             {
@@ -146,7 +143,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/item/upload")]
         public string UploadLink(string blob, string mimeType)
         {
-
             return m_BlobUpload.GenerateWriteAccessPermissionToBlob(blob, mimeType);
         }
         // ReSharper disable once ConsiderUsingAsyncSuffix - api call
@@ -211,10 +207,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
         }
-        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpPost]
-        [Route("api/item/upload/dropbox")]
-        public async Task<HttpResponseMessage> DropBox(DropboxUploadRequest model)
+        [Route("api/item/upload/dropbox"), ActionName("DropBox")]
+        public async Task<HttpResponseMessage> DropBoxAsync(DropboxUploadRequest model)
         {
             if (model == null)
             {
@@ -266,7 +261,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
         }
-        // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [Route("api/item/upload/commit")]
         [HttpPost]
         public async Task<HttpResponseMessage> CommitFile(FileUploadRequest model)

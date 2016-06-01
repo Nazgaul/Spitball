@@ -33,15 +33,15 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             m_ZboxReadSecurityService = zboxReadSecurityService;
             m_ZboxWriteService = zboxWriteService;
 
-            
+
 
         }
 
 
         //[VersionedRoute("api/box", 2)]
         [HttpGet]
-        [Route("api/box")]
-        public async Task<HttpResponseMessage> GetBox2(long id, int numberOfPeople = 6)
+        [Route("api/box"), ActionName("GetBox")]
+        public async Task<HttpResponseMessage> GetBoxAsync(long id, int numberOfPeople = 6)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             catch (BoxAccessDeniedException)
             {
 
-                TraceLog.WriteInfo(string.Format("userid: {0} request box {1}", User.GetCloudentsUserId(), id));
+                TraceLog.WriteInfo($"userid: {User.GetCloudentsUserId()} request box {id}");
                 return Request.CreateUnauthorizedResponse();
             }
             catch (BoxDoesntExistException)
@@ -155,10 +155,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
         [HttpGet]
-        [Route("api/box/{id:long}/items")]
-        public async Task<HttpResponseMessage> Items(long id, Guid? tabId, int page, int sizePerPage = 20)
+        [Route("api/box/{id:long}/items"), ActionName("Items")]
+        public async Task<HttpResponseMessage> ItemsAsync(long id, Guid? tabId, int page, int sizePerPage = 20)
         {
-            //TODO: Claim to check box permission
             var query = new GetBoxItemsPagedQuery(id, tabId, page, sizePerPage);
             var result = await m_ZboxReadService.GetWebServiceBoxItemsPagedAsync(query) ?? new List<Zbox.ViewModel.Dto.ItemDtos.ItemDto>();
             return Request.CreateResponse(result.Select(s => new
@@ -175,8 +174,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
         [HttpGet]
-        [Route("api/box/{id:long}/quizzes")]
-        public async Task<HttpResponseMessage> Quizzes(long id, int page, int sizePerPage = 20)
+        [Route("api/box/{id:long}/quizzes"), ActionName("Quizzes")]
+        public async Task<HttpResponseMessage> QuizzesAsync(long id, int page, int sizePerPage = 20)
         {
             var query = new GetBoxQuizesPagedQuery(id, page, sizePerPage);
             var result = await m_ZboxReadService.GetBoxQuizesAsync(query);
@@ -188,8 +187,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         }
 
-        [HttpGet, Route("api/box/{id:long}/members")]
-        public async Task<HttpResponseMessage> Members(long id, int page, int sizePerPage = 20)
+        [HttpGet, Route("api/box/{id:long}/members"), ActionName("Members")]
+        public async Task<HttpResponseMessage> MembersAsync(long id, int page, int sizePerPage = 20)
         {
             var result = await m_ZboxReadService.GetBoxMembersAsync(new GetBoxQuery(id, page, sizePerPage));
             return Request.CreateResponse(result.Select(s => new
@@ -229,9 +228,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         }
 
-        [Route("api/box/follow")]
+        [Route("api/box/follow"), ActionName("Follow")]
         [HttpPost]
-        public async Task<HttpResponseMessage> Follow(FollowRequest model)
+        public async Task<HttpResponseMessage> FollowAsync(FollowRequest model)
         {
             if (model == null)
             {
@@ -247,8 +246,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
         [HttpDelete]
-        [Route("api/box")]
-        public async Task<HttpResponseMessage> Delete(long id)
+        [Route("api/box"), ActionName("Delete")]
+        public async Task<HttpResponseMessage> DeleteAsync(long id)
         {
             var userId = User.GetCloudentsUserId();
             var command = new UnFollowBoxCommand(id, userId, false);
@@ -256,9 +255,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             return Request.CreateResponse();
         }
 
-        [Route("api/box/invite")]
+        [Route("api/box/invite"), ActionName("Invite")]
         [HttpPost]
-        public async Task<HttpResponseMessage> Invite(InviteToBoxRequest model)
+        public async Task<HttpResponseMessage> InviteAsync(InviteToBoxRequest model)
         {
             if (model == null)
             {
