@@ -71,6 +71,7 @@ md-sidenav.chat md-content {
 md-sidenav.chat md-content .header {
   background: #111111;
   position: relative;
+  height: 65px;
   /*.menu {
   -webkit-filter: url("#shadowed-goo");
           filter: url("#shadowed-goo");

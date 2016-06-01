@@ -7,10 +7,6 @@
                 <div class="exit-icon" ng-click="c.close()">
                     @Html.Svg("~/images/site/icons.svg", "exit")
                 </div>
-                <div class="chat-icon">
-                    @Html.Svg("~/images/site/icons.svg", "chat")
-                    <div class="chat-counter" ng-if="c.unread > 0">{{c.unread}}</div>
-                </div>
                 @*<div class="tabs">
                         <button type="button" ng-click="c.state = c.states.messages" ng-class="{active: c.state === c.states.messages}" class="messages tab">@ChatResources.MessagesHeader</button>
                         <button type="button" ng-click="c.friendsState()" class="friends tab" ng-class="{active: c.state === c.states.friends}">@ChatResources.FriendsHeader</button>
