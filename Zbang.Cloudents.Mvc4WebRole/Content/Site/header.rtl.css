@@ -239,7 +239,7 @@ Page content
 ***/
 /* Page header */
 .page-head {
-  margin: 10px 0;
+  padding: 10px 0;
 }
 .page-head:before,
 .page-head:after {
