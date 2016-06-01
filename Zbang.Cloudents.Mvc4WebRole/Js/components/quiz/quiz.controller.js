@@ -2,9 +2,9 @@
 (function () {
     angular.module('app.quiz').controller('QuizController', quiz);
 
-    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'userDetailsFactory', '$rootScope', '$scope'];
+    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'userDetailsFactory', '$rootScope', '$scope', 'CacheFactory'];
 
-    function quiz(quizData, $timeout, $stateParams, quizService, $filter, userDetailsFactory, $rootScope, $scope) {
+    function quiz(quizData, $timeout, $stateParams, quizService, $filter, userDetailsFactory, $rootScope, $scope, cacheFactory) {
 
         var q = this;
         q.states = {
@@ -56,13 +56,9 @@
             getDiscussion();
             q.isSolved = true;
             q.state = q.states.solved;
-            //$timeout(function() {
-            //q.timerControl.setTime(q.sheet.timeTaken);
             if (q.sheet.timeTaken.indexOf('.') > -1) { //00:00:00.12345
                 q.sheet.timeTaken = q.sheet.timeTaken.split('.')[0];
             }
-            //}, 5000);
-            //
 
             q.sheet.correct = Math.round(q.sheet.score / 100 * q.questions.length);
             q.sheet.wrong = q.questions.length - q.sheet.correct;
@@ -247,6 +243,7 @@
         }
 
         function sendData() {
+            cacheFactory.clearAll(); //autofollow issue
             var data = {
                 boxId: $stateParams.boxId,
                 quizId: $stateParams.quizId,

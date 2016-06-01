@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope', 'resManager'];
+        'itemData', '$scope', 'resManager','CacheFactory'];
 
     function item($stateParams, itemService, $sce, $location, $q,
-        user, itemData, $scope, resManager) {
+        user, itemData, $scope, resManager, cacheFactory) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
@@ -42,7 +42,7 @@
 
         i.swipeLeft = swipeLeft;
         i.swipeRight = swipeRight;
-
+        i.followBox = followBox;
         i.document = itemData.fileContent;
         //initKeyboardNavigation();
         //if (i.firstPage && i.details.type === "File") {
@@ -50,6 +50,9 @@
         //        i.document = response;
         //    });
         //}
+        function followBox() {
+             cacheFactory.clearAll();//autofollow issue
+        }
         function getPreview() {
             i.loader = true;
             return itemService.getPreview(i.details.blob, index, itemId, boxid).then(function (data) {
