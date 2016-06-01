@@ -290,7 +290,7 @@
   background: none;
   box-shadow: none;
 }
-.quizPage .feed .indent {
+.quizPage .feed .info.indent {
   margin: 0;
 }
 .quiz-question p {
