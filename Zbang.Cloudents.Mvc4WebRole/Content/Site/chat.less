@@ -56,7 +56,7 @@
 
 md-sidenav.chat {
     position: fixed;
-    z-index: 10;
+    z-index: 101;
     top: 0;
     bottom: 0;
     background: #eee !important;
@@ -391,7 +391,7 @@ md-sidenav.chat {
                     position: absolute;
                     bottom: 0;
                     width: 100%;
-                    padding: 5px;
+                    padding: 10px 5px 5px 5px;
                     background: #EEEEEE;
                     //form, .textarea {
                     //    width: inherit;
@@ -403,7 +403,7 @@ md-sidenav.chat {
                         margin: 0;
                         background: #ffffff;
                         border: 1px solid #cbdbe3;
-                        font-size: 16px;
+                        font-size: 15px;
                         max-height: 200px;
                         overflow: auto;
 
@@ -437,7 +437,7 @@ md-sidenav.chat {
                         padding: 8px;
                         position: absolute;
                         height: auto;
-                        top: -15px;
+                        top: -10px;
                         right: 15px;
                         -moz-transform: scaleX(1) /*rtl:scaleX(-1)*/;
                         -webkit-transform: scaleX(1) /*rtl:scaleX(-1)*/;
@@ -494,7 +494,7 @@ md-sidenav.chat {
     //margin-left: -320px;
     max-height: 95vh;
     position: relative;
-    max-width: ~"calc(100% - 350px)";
+    max-width: ~"calc(100% - 700px)";
 
     md-toolbar {
         background: rgba(50,53,56,0.9);
@@ -529,9 +529,14 @@ md-sidenav.chat {
             width: 100%;
         }
 
+        img.svg-item {
+            width: 800px;
+            max-width: 100%;
+        }
+
         iframe {
             border: none;
-            width: ~"calc(100vw - 360px)";
+            width: ~"calc(100vw - 700px)";
             height: 80vh;
         }
     }

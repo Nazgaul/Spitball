@@ -53,7 +53,7 @@
 }
 md-sidenav.chat {
   position: fixed;
-  z-index: 10;
+  z-index: 101;
   top: 0;
   bottom: 0;
   background: #eee !important;
@@ -451,14 +451,14 @@ md-sidenav.chat md-content .conversasion .chat-content .new-message {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 5px;
+  padding: 10px 5px 5px 5px;
   background: #EEEEEE;
 }
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container {
   margin: 0;
   background: #ffffff;
   border: 1px solid #cbdbe3;
-  font-size: 16px;
+  font-size: 15px;
   max-height: 200px;
   overflow: auto;
 }
@@ -477,7 +477,7 @@ md-sidenav.chat md-content .conversasion .chat-content .new-message button {
   padding: 8px;
   position: absolute;
   height: auto;
-  top: -15px;
+  top: -10px;
   right: 15px;
   -moz-transform: scaleX(1) /*rtl:scaleX(-1)*/;
   -webkit-transform: scaleX(1) /*rtl:scaleX(-1)*/;
@@ -527,7 +527,7 @@ md-sidenav.chat md-content .user .img-circle {
 .chat-item-preview {
   max-height: 95vh;
   position: relative;
-  max-width: calc(100% - 350px);
+  max-width: calc(100% - 700px);
 }
 .chat-item-preview md-toolbar {
   background: rgba(50, 53, 56, 0.9);
@@ -557,9 +557,13 @@ md-sidenav.chat md-content .user .img-circle {
   max-width: 800px;
   width: 100%;
 }
+.chat-item-preview md-dialog-content img.svg-item {
+  width: 800px;
+  max-width: 100%;
+}
 .chat-item-preview md-dialog-content iframe {
   border: none;
-  width: calc(100vw - 360px);
+  width: calc(100vw - 700px);
   height: 80vh;
 }
 @keyframes fadein {
