@@ -14,6 +14,7 @@
 .accountPage-wrapper h2 {
   font-size: 12px;
   margin-top: 6px;
+  color: #888b8e;
 }
 .accountPage-wrapper .themeDark {
   /* You may have to set 'display: block' */
@@ -56,6 +57,9 @@
 .accountPage-wrapper .change-uni,
 .accountPage-wrapper h2 {
   font-size: 14px;
+}
+.accountPage-wrapper .fileinput {
+  margin-bottom: 20px;
 }
 .accountPage-wrapper .fileinput .thumbnail {
   background: none;
