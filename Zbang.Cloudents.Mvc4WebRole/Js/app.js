@@ -18,6 +18,7 @@ var app;
          //'infinite-scroll',
          'srph.infinite-scroll',
          'jkuri.slimscroll',
+         'ngScrollbars',
          'yaru22.angular-timeago',
         // 'displayTime',
          'app.dashboard',
