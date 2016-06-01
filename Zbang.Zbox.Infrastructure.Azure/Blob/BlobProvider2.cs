@@ -110,9 +110,23 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 Permissions = SharedAccessBlobPermissions.Read,
                 SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
             });
-
             var url = new Uri(blob.Uri, signedUrl);
             return url.AbsoluteUri;
+        }
+
+        public string GenerateSharedAccressWritePermission(string blobName, string mimeType)
+        {
+            var blob = GetBlob(blobName);
+            var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                Permissions = SharedAccessBlobPermissions.Write,
+                SharedAccessExpiryTime = DateTime.Now.AddHours(2)
+            }, new SharedAccessBlobHeaders
+            {
+                ContentType = mimeType,
+                CacheControl = "private max-age=604800"
+            });
+            return blob.Uri + queryString;
         }
     }
 }

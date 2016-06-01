@@ -21,6 +21,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task UploadByteArrayAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped, int cacheControlMinutes);
         string GenerateSharedAccressReadPermission(string blobName, double expirationTimeInMinutes);
+        string GenerateSharedAccressWritePermission(string blobName, string mimeType);
     }
 
     public interface IBlobProvider
