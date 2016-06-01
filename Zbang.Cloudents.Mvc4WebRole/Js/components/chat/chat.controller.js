@@ -30,7 +30,7 @@
         });
 
 
-        
+
 
 
         $scope.$watch(function () {
@@ -95,6 +95,9 @@
                         }
                     }
                     c.messages = response;
+                    $timeout(function () {
+                        c.updateScrollbar('scrollTo', 'bottom', { scrollInertia: 0, timeout:100 });
+                    });
                 });
 
             if (c.userChat.unread) {
@@ -202,7 +205,7 @@
             }
         });
 
-        $scope.$on('hub-status', function(e, args) {
+        $scope.$on('hub-status', function (e, args) {
             if (!c.users) {
                 return;
             }
@@ -224,7 +227,7 @@
             },
             callbacks: {
                 filesAdded: function (uploader) {
-                    
+
                     $timeout(function () {
                         uploader.start();
                     }, 1);
@@ -239,7 +242,7 @@
                 fileUploaded: function (uploader, file, response) {
                     // cacheFactory.clearAll();
                     // file.complete = true;
-                   
+
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         realtimeFactotry.sendMsg(c.userChat.id, null, c.userChat.conversation, obj.payload);
@@ -308,7 +311,7 @@
     }
 })();
 
-(function() {
+(function () {
     angular.module('app.chat').directive('chatTimeAgo', timeAgo);
 
     timeAgo.$inject = ['timeAgo', 'nowTime'];
@@ -319,18 +322,18 @@
                 format: '@'
             },
             restrict: 'EA',
-            link: function(scope, elem) {
+            link: function (scope, elem) {
                 var fromTime;
 
                 // Track changes to fromTime
-                scope.$watch('fromTime', function(value) {
+                scope.$watch('fromTime', function (value) {
                     fromTime = timeAgo.parse(scope.fromTime);
                 });
 
                 // Track changes to time difference
-                scope.$watch(function() {
+                scope.$watch(function () {
                     return nowTime() - fromTime;
-                }, function(value) {
+                }, function (value) {
                     var threeDaysInMilliseconds = 2.592e+8;
                     if (value > threeDaysInMilliseconds) {
                         angular.element(elem).text('');

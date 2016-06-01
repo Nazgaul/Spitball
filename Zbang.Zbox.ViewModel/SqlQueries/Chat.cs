@@ -44,7 +44,7 @@ offset @skip ROWS
 FETCH NEXT @top ROWS ONLY; ";
 
         public const string GetChatByUserIds =
-            @"select Message as text,CreationTime as Time ,UserId, blob as blob from zbox.ChatMessage
+            @"select Id, Message as text,CreationTime as Time ,UserId, blob as blob from zbox.ChatMessage
 where ChatRoomId = ( 
 select chatroomid from zbox.ChatUser where UserId in  @UserIds
 group by chatroomid

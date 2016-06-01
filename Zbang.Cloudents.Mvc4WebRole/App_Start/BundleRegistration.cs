@@ -65,6 +65,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         "~/content/site/angularWithChanges2.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
+                        "~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
                         "~/content/site/inline-material.css",
                         "~/content/bootstrap/bootstrap.css",
                         "~/content/site/profile.css",//
@@ -163,8 +164,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-cache/dist/angular-cache.js"),
                         new JsFileWithCdn("~/bower_components/angular-sanitize/angular-sanitize.js"),
-                        //new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-sanitize.min.js"),
                         new JsFileWithCdn("~/bower_components/ngSlimscroll/src/js/ngSlimscroll.js"),
+
+                        new JsFileWithCdn("~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"),
+                        new JsFileWithCdn("~/bower_components/ng-scrollbars/dist/scrollbars.min.js"),
+
                         new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
 
 
