@@ -37,13 +37,15 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             ProcessBlob(processor, parameters);
 
             var proxy = await SignalrClient.GetProxyAsync();
-            //var hubConnection = new HubConnection("https://develop-connect.spitball.co/");
-            //var proxy = hubConnection.CreateHubProxy("SpitballHub");
             var blobName = parameters.BlobUri.Segments[parameters.BlobUri.Segments.Length - 1];
             //await hubConnection.Start();
-            await proxy.Invoke("UpdateImage", blobName);
 
-            return true; // Infrastructure.Extensions.TaskExtensions.CompletedTaskTrue;
+            if (parameters.Users != null)
+            {
+                await proxy.Invoke("UpdateImage", blobName, parameters.Users);
+            }
+
+            return true; 
         }
 
 

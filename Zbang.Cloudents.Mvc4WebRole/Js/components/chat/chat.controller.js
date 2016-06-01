@@ -96,7 +96,7 @@
                     }
                     c.messages = response;
                     $timeout(function () {
-                        c.updateScrollbar('scrollTo', 'bottom', { scrollInertia: 0, timeout:100 });
+                        c.updateScrollbar('scrollTo', 'bottom', { scrollInertia: 0, timeout: 100 });
                     });
                 });
 
@@ -151,6 +151,9 @@
                     blob: args.blob,
                     thumb: args.thumb
                 });
+                $timeout(function () {
+                    c.updateScrollbar('scrollTo', 'bottom', { scrollInertia: 0, timeout: 100 });
+                });
                 updateScope();
                 return;
             }
@@ -165,6 +168,9 @@
                     partner: true,
                     blob: args.blob,
                     thumb: args.thumb
+                });
+                $timeout(function () {
+                    c.updateScrollbar('scrollTo', 'bottom', { scrollInertia: 0, timeout: 100 });
                 });
                 updateScope();
                 return;
@@ -236,7 +242,8 @@
                 beforeUpload: function (up, file) {
                     up.settings.multipart_params = {
                         fileName: file.name,
-                        fileSize: file.size
+                        fileSize: file.size,
+                        users : [c.userChat.id]
                     };
                 },
                 fileUploaded: function (uploader, file, response) {

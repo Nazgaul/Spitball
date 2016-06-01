@@ -911,6 +911,9 @@ Page Loading
   padding: 0;
   margin-top: 0;
 }
+.side-menu {
+  height: calc(100vh - 90px);
+}
 .side-menu li > .md-button,
 .side-menu li > button {
   display: -webkit-flex;

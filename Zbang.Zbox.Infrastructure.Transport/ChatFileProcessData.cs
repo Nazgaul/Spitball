@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ProtoBuf;
 
 namespace Zbang.Zbox.Infrastructure.Transport
@@ -11,12 +12,16 @@ namespace Zbang.Zbox.Infrastructure.Transport
             
         }
 
-        public ChatFileProcessData(Uri blobUri)
+        public ChatFileProcessData(Uri blobUri, IList<long> users)
         {
             BlobUri = blobUri;
+            Users = users;
         }
         [ProtoMember(1)]
         public Uri BlobUri { get; private set; }
+
+        [ProtoMember(2)]
+        public IList<long> Users { get; private set; }
         public override string ProcessResolver => nameof(ChatFileProcessData);
     }
 }

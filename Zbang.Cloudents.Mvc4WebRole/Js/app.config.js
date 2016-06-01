@@ -158,7 +158,7 @@
         }
         analyticsProvider.setAccount({
             tracker: 'UA-9850006-3',
-            fields: analyticsObj,
+            fields: analyticsObj
             //set: {
             //    'dimension1': data.universityName || null,
             //    'dimension2': data.universityCountry || null,
@@ -212,10 +212,10 @@
             //    scrollAmount: 'auto', // scroll amount when button pressed
             //    enable: true // enable scrolling buttons by default
             //},
-            //scrollInertia: 400, // adjust however you want
+            scrollInertia: 400, // adjust however you want
             //axis: 'yx', // enable 2 axis scrollbars by default,
             scrollButtons:false,
-            theme: 'dark',
+            theme: 'dark-thin',
             autoHideScrollbar: true
         };
     };

@@ -17,7 +17,7 @@ var app;
          'countUpModule',
          //'infinite-scroll',
          'srph.infinite-scroll',
-         'jkuri.slimscroll',
+         //'jkuri.slimscroll',
          'ngScrollbars',
          'yaru22.angular-timeago',
         // 'displayTime',

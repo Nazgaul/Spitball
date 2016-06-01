@@ -7,7 +7,7 @@
 <md-sidenav ng-show="app.showMenu" ng-cloak class="main-md-sidenav color-override backgroundColor1 svgColor9"
             md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" close-menu="left">
     <md-content role="navigation" ng-controller="SideMenu as d">
-        <ul class="side-menu" ng-slimscroll height="calc(100vh - 90px)" color="#BBB">
+        <ul class="side-menu" ng-scrollbars @*ng-slimscroll height="calc(100vh - 90px)" color="#BBB"*@>
             <li class="dashboard nav-item">
                 <md-button user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.Action("Index","Dashboard")')}" @shouldPostBack href="@Url.Action("Index","Dashboard")">
                     <span class="icon">@Html.Svg(svgUrl, "houseMenu", new { @class = "svgTC16" })</span>

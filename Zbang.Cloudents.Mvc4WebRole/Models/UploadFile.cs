@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models
 {
@@ -18,5 +19,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
     {
         public string FileName { get; set; }
         public long FileSize { get; set; }
+
+        public IList<long> Users  { get; set; }
     }
 }

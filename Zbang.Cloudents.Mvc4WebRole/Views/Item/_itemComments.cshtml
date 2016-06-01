@@ -13,8 +13,8 @@
                 @*<button type="button" class="menu-icon" ng-if="!c.showCommentMenu" ng-click="c.showCommentMenu = true">
                     @Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "commentsMenu" })
                 </button>*@
-                <div class="comments" ng-slimscroll watch-content="true"
-                     height="calc(100vh - 85px)" color="#BBB">
+                <div class="comments" ng-scrollbars @*ng-slimscroll watch-content="true"
+                     height="calc(100vh - 85px)" color="#BBB"*@>
                     <div class="title">@ItemsResources.CreateComment</div>
 
                     <div class="new-comment" layout="row">

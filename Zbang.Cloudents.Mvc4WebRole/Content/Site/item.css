@@ -1185,7 +1185,7 @@ md-menu-item.blue svg {
   width: 300px;
   padding: 15px 15px 65px 15px;
   display: inline-block;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 85px);
 }
 .itemPage .comments-wrapper .comments .user-image {
   padding-right: 10px;

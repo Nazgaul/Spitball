@@ -164,7 +164,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-cache/dist/angular-cache.js"),
                         new JsFileWithCdn("~/bower_components/angular-sanitize/angular-sanitize.js"),
-                        new JsFileWithCdn("~/bower_components/ngSlimscroll/src/js/ngSlimscroll.js"),
+                        //new JsFileWithCdn("~/bower_components/ngSlimscroll/src/js/ngSlimscroll.js"),
 
                         new JsFileWithCdn("~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"),
                         new JsFileWithCdn("~/bower_components/ng-scrollbars/dist/scrollbars.min.js"),

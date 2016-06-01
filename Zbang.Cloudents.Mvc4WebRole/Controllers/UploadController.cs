@@ -267,7 +267,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             await m_BlobProvider2.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
             var uri = m_BlobProvider2.GetBlobUrl(blobAddressUri);
-            await m_QueueProvider.Value.InsertMessageToThumbnailAsync(new ChatFileProcessData(new Uri(uri)));
+            model.Users.Add(User.GetUserId());
+            await m_QueueProvider.Value.InsertMessageToThumbnailAsync(new ChatFileProcessData(new Uri(uri), model.Users));
 
             return JsonOk(blobAddressUri);
         }

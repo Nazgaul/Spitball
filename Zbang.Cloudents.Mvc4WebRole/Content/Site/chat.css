@@ -240,7 +240,7 @@ md-sidenav.chat md-content .tab-content .users-list {
   padding: 0;
   margin: 0;
   color: #282828;
-  height: 100%;
+  height: calc(100vh - 119px);
 }
 md-sidenav.chat md-content .tab-content .users-list .user .chat-counter {
   padding: 0;

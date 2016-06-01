@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 
@@ -22,6 +23,8 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
     {
         [Required]
         public string BlobName { get; set; }
+        [Required]
+        public IList<long> Users { get; set; }
 
     }
 }

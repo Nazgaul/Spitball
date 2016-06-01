@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
@@ -8,7 +9,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Connect
 {
-   // [Authorize]
+    // [Authorize]
     public class SpitballHub : Hub
     {
         private readonly IZboxWriteService m_WriteService;
@@ -36,9 +37,9 @@ namespace Zbang.Cloudents.Connect
             }
         }
 
-        public void UpdateImage(string blobName)
+        public void UpdateImage(string blobName, IList<string> users)
         {
-            Clients.Others.updateImage(blobName);
+            Clients.Users(users).updateImage(blobName);
         }
 
         public override Task OnConnected()

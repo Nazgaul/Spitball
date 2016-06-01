@@ -508,6 +508,7 @@
 }
 .like-dialog md-dialog-content ul {
   margin-bottom: 0;
+  height: 400px;
 }
 .like-dialog md-dialog-content ul li {
   padding: 15px 0;
