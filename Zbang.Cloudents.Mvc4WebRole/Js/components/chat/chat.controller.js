@@ -95,9 +95,7 @@
                         }
                     }
                     c.messages = response;
-                    $timeout(function () {
-                        c.updateScrollbar('scrollTo', 'bottom', { scrollInertia: 0, timeout: 100 });
-                    });
+                    scrollToBotton();
                 });
 
             if (c.userChat.unread) {
@@ -151,9 +149,7 @@
                     blob: args.blob,
                     thumb: args.thumb
                 });
-                $timeout(function () {
-                    c.updateScrollbar('scrollTo', 'bottom', { scrollInertia: 0, timeout: 100 });
-                });
+                scrollToBotton();
                 updateScope();
                 return;
             }
@@ -169,9 +165,7 @@
                     blob: args.blob,
                     thumb: args.thumb
                 });
-                $timeout(function () {
-                    c.updateScrollbar('scrollTo', 'bottom', { scrollInertia: 0, timeout: 100 });
-                });
+                scrollToBotton();
                 updateScope();
                 return;
             }
@@ -270,6 +264,12 @@
             }
         }
 
+        function scrollToBotton() {
+            $timeout(function () {
+                c.updateScrollbar('scrollTo', 'bottom', { scrollInertia: 0, timeout: 100 });
+            });
+        }
+
 
         //dialog
         //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && $scope.customFullscreen;
@@ -333,7 +333,7 @@
                 var fromTime;
 
                 // Track changes to fromTime
-                scope.$watch('fromTime', function (value) {
+                scope.$watch('fromTime', function () {
                     fromTime = timeAgo.parse(scope.fromTime);
                 });
 

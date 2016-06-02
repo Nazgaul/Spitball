@@ -15,7 +15,7 @@
             if (!name) {
                 return;
             }
-            return 'https://az779114.vo.msecnd.net/preview/chat/' + encodeURIComponent(name) + '.jpg?width=256&height=170&scale=both';
+            return 'https://az779114.vo.msecnd.net/preview/chat/' + encodeURIComponent(name) + '.jpg?width=256&height=170&scale=both&mode=crop';
         }
         //self.getIcon = getIcon;
         function get(name, width, height) {

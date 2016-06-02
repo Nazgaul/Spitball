@@ -94,7 +94,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var uri = m_ChatBlobProvider.GetBlobUrl(model.BlobName);
-            model.Users.Add(User.GetCloudentsUserId());
+            if (!model.Users.Contains(User.GetCloudentsUserId()))
+            {
+                model.Users.Add(User.GetCloudentsUserId());
+            }
             await m_QueueProvider.Value.InsertMessageToThumbnailAsync(new ChatFileProcessData(new Uri(uri), model.Users));
             return Request.CreateResponse();
         }

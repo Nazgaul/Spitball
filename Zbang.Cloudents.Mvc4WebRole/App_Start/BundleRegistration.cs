@@ -167,7 +167,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //new JsFileWithCdn("~/bower_components/ngSlimscroll/src/js/ngSlimscroll.js"),
 
                         new JsFileWithCdn("~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"),
-                        new JsFileWithCdn("~/bower_components/ng-scrollbars/dist/scrollbars.min.js"),
+                        new JsFileWithCdn("~/bower_components/ng-scrollbars/src/scrollbars.js"),
 
                         new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
 
@@ -177,7 +177,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
-                        //new JsFileWithCdn("~/bower_components/ng-embed/dist/ng-embed.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"), 
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),

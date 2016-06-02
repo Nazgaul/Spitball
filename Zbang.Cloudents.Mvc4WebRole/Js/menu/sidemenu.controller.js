@@ -12,7 +12,10 @@
             d.userUrl = userDetails.url;
             if (userDetails.theme === 'dark') {
 
-                d.updateScrollbar = { theme: 'light-thin' };
+                d.updateScrollbar = {
+                     theme: 'light-thin'
+                    
+                };
             }
         });
 

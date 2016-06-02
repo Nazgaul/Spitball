@@ -241,6 +241,7 @@ md-sidenav.chat md-content .tab-content .users-list {
   margin: 0;
   color: #282828;
   height: calc(100vh - 119px);
+  overflow: auto;
 }
 md-sidenav.chat md-content .tab-content .users-list .user .chat-counter {
   padding: 0;
@@ -416,6 +417,7 @@ md-sidenav.chat md-content .conversasion .chat-content .messages {
   font-size: 15px;
   padding-top: 10px;
   padding-bottom: 6px;
+  overflow: auto;
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages .message {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
