@@ -8,24 +8,29 @@
 //    }();
 
 //    inlineManualTracking = {
-//        //uid: window.id,
+//        uid: window.id,
 //        username: "inlinemanual inlinemanual"
 //    }
-//    console.log('here');
-
 //}, 1000);
 
-
-//'use strict';
 //(function () {
 //    angular.module('app').run(inlineManual);
-//    inlineManual.$inject = ['$rootScope'];
-//    function inlineManual($rootScope) {
-//        $rootScope.$on("$stateChangeSuccess", function () {
+//    inlineManual.$inject = ['$rootScope','$timeout'];
+//    function inlineManual($rootScope, $timeout) {
+//        $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
 //            if (angular.isDefined(window.inline_manual_player)) {
-//                setTimeout(function () {
+//                $timeout(function () {
 //                    console.log('reiniting');
-//                    inline_manual_player.manualReinit();
+//                    inline_manual_player.getProfile();
+//                    inline_manual_player.setCallbacks({
+//                        onProfileLoad: function (player, topic_id, step_id) {
+//                            console.log('onProfileLoad');
+//                            inlineManualTracking = {
+//                                uid: window.id,
+//                                username: "inlinemanual inlinemanual"
+//                            }
+//                        }
+//                    });
 //                }, 1500);
 //            }
 //        });
