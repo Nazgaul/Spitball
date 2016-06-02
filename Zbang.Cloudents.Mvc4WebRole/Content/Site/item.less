@@ -368,7 +368,7 @@ md-menu-item {
         }
 
         .comments-list {
-            width: 270px;
+            margin-left: 20px;
         }
     }
 
@@ -410,6 +410,8 @@ md-menu-item {
         md-content {
             background-color: @textColorWhite;
             box-shadow: -10px 10px 34px @backgroundColorMenu;
+            width: 300px;
+            overflow: hidden;
         }
 
         .title {
@@ -437,10 +439,12 @@ md-menu-item {
         }
 
         .comments {
-            width: 300px;
-            padding: 15px 15px 65px 15px;
+            width: ~"calc(100% - 20px)";
+            //margin-left: 10px;
+            //margin-right: 20px;
             display: inline-block;
             height: ~"calc(100vh - 85px)";
+            overflow: auto;
 
             .user-image {
                 padding-right: 10px;
