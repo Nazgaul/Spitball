@@ -26,7 +26,7 @@
                         @Html.Svg("~/images/site/icons.svg", "searchIcon", new { @class = "searchIcon" })
                     </button>
                 </form>
-                <ul class="users-list" ng-scrollbars @*ng-slimscroll height="calc(100vh - 119px)" color="#BBB" watch-content="true"*@>
+                <ul class="users-list" disable-thouch ng-scrollbars @*ng-slimscroll height="calc(100vh - 119px)" color="#BBB" watch-content="true"*@>
                     <li ng-click="c.chat(e)" class="user" ng-repeat="e in c.users track by e.id" ng-class="::{online: e.online}">
                         <user-image class="img-circle" name="::e.name" image="::e.image" width="35" height="35"></user-image>
                         <div class="name-counter">
@@ -101,7 +101,7 @@
                         </li>
                     </ul>
                 </md-virtual-repeat-container>*@
-                <ul class="messages" ng-scrollbars ng-scrollbars-update="c.updateScrollbar" @*ng-scrollbars-config="config"*@ @*ng-slimscroll height="calc(100vh - 120px)" start="bottom" watch-content="true" color="#BBB"*@>
+                <ul class="messages" disable-thouch ng-scrollbars ng-scrollbars-update="c.updateScrollbar" @*ng-scrollbars-config="config"*@ @*ng-slimscroll height="calc(100vh - 120px)" start="bottom" watch-content="true" color="#BBB"*@>
                     <li class="message" ng-repeat="e in c.messages" ng-class="{partner: e.partner}">
                         <div ng-if="e.text" class="text" ng-bind-html="::e.text | linky:'_blank'"></div>
                         <div ng-if="e.blob" class="image" ng-click="c.dialog(e.blob, $event)">

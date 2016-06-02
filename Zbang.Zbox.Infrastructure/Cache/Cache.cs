@@ -106,7 +106,11 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
             //return server.FlushDatabaseAsync(ToInt(region));
             var taskList = new List<Task> {db.KeyDeleteAsync(region, CommandFlags.FireAndForget)};
-            //var keys = server.Keys(pattern: region + "*");
+            if (keys == null)
+            {
+                await Task.WhenAll(taskList);
+                return;
+            }
             foreach (var key in keys.Split(new[] {";"}, StringSplitOptions.RemoveEmptyEntries)) 
             {
                 taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));

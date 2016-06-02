@@ -460,7 +460,7 @@ Page footer
   padding: 2px;
   text-align: center;
   position: fixed;
-  z-index: 100;
+  z-index: 2;
   bottom: 70px;
   display: none;
   left: 29px;

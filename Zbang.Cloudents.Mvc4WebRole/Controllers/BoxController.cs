@@ -43,10 +43,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "BoxPage")]
-        [BoxPermission("boxId", Order = 3)]
+        [BoxPermission("boxId", Order = 3), ActionName("Index")]
         [Route("box/my/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members))}", Name = "PrivateBoxWithSub")]
         [Route("course/{universityName}/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members))}", Name = "CourseBoxWithSub")]
-        public async Task<ActionResult> Index(long boxId, string boxName, string invId, string part)
+        public async Task<ActionResult> IndexAsync(long boxId, string boxName, string invId, string part)
         {
 
             try
@@ -107,8 +107,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [Route(UrlConst.ShortBox, Name = "shortBox")]
-        public async Task<ActionResult> ShortUrl(string box62Id)
+        [Route(UrlConst.ShortBox, Name = "shortBox"), ActionName("ShortUrl")]
+        public async Task<ActionResult> ShortUrlAsync(string box62Id)
         {
             var base62 = new Base62(box62Id);
             var query = new GetBoxSeoQuery(base62.Value);
@@ -163,8 +163,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [BoxPermission("id")]
-        public async Task<ActionResult> Data(long id)
+        [BoxPermission("id"), ActionName("Data")]
+        public async Task<ActionResult> DataAsync(long id)
         {
             try
             {
@@ -212,8 +212,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [BoxPermission("id")]
-        public async Task<JsonResult> Recommended(long id)
+        [BoxPermission("id"), ActionName("Recommended")]
+        public async Task<JsonResult> RecommendedAsync(long id)
         {
             var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
             var result = await ZboxReadService.GetBoxRecommendedCoursesAsync(query);
@@ -221,8 +221,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [BoxPermission("id")]
-        public async Task<JsonResult> LeaderBoard(long id)
+        [BoxPermission("id"), ActionName("LeaderBoard")]
+        public async Task<JsonResult> LeaderBoardAsync(long id)
         {
             var query = new GetLeaderBoardQuery(id);
             var result = await ZboxReadService.GetBoxLeaderBoardAsync(query);
@@ -241,8 +241,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [BoxPermission("id")]
-        public async Task<JsonResult> Tabs(long id)
+        [BoxPermission("id"), ActionName("Tabs")]
+        public async Task<JsonResult> TabsAsync(long id)
         {
             try
             {
@@ -260,8 +260,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [BoxPermission("id")]
-        public async Task<JsonResult> Items(long id, int page, Guid? tabId = null)
+        [BoxPermission("id"), ActionName("Items")]
+        public async Task<JsonResult> ItemsAsync(long id, int page, Guid? tabId = null)
         {
             try
             {
@@ -303,8 +303,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false)]
-        [BoxPermission("id")]
-        public async Task<JsonResult> Quizes(long id)
+        [BoxPermission("id"), ActionName("Quizes")]
+        public async Task<JsonResult> QuizzesAsync(long id)
         {
             try
             {
@@ -332,9 +332,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet]
-        [BoxPermission("boxId")]
+        [BoxPermission("boxId"), ActionName("Members")]
 
-        public async Task<JsonResult> Members(long boxId)
+        public async Task<JsonResult> MembersAsync(long boxId)
         {
             var result = await ZboxReadService.GetBoxMembersAsync(new GetBoxQuery(boxId));
             return JsonOk(result);
@@ -376,8 +376,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize]
-        [HttpGet]
-        public async Task<JsonResult> GetNotification(long boxId)
+        [HttpGet, ActionName("GetNotification")]
+        public async Task<JsonResult> GetNotificationAsync(long boxId)
         {
             var userId = User.GetUserId();
 
@@ -404,8 +404,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        [RemoveBoxCookie]
-        public async Task<JsonResult> Delete(long id)
+        [RemoveBoxCookie, ActionName("Delete")]
+        public async Task<JsonResult> DeleteAsync(long id)
         {
             var userId = User.GetUserId();
             var command = new UnFollowBoxCommand(id, userId, false);
@@ -423,8 +423,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Tab
 
 
-        [HttpPost, ZboxAuthorize]
-        public async Task<JsonResult> CreateTab(CreateBoxItemTab model)
+        [HttpPost, ZboxAuthorize, ActionName("CreateTab")]
+        public async Task<JsonResult> CreateTabAsync(CreateBoxItemTab model)
         {
             if (!ModelState.IsValid)
             {
@@ -446,8 +446,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        [HttpPost, ZboxAuthorize]
-        public async Task<JsonResult> AddItemToTab(AssignItemToTab model)
+        [HttpPost, ZboxAuthorize, ActionName("AddItemToTab")]
+        public async Task<JsonResult> AddItemToTabAsync(AssignItemToTab model)
         {
             if (!ModelState.IsValid)
             {

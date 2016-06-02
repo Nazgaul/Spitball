@@ -54,7 +54,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
 
             item.DateTimeUser.UpdateUserTime(user.Id);
-            // Box box = m_BoxRepository.Load(command.BoxId);
             var box = item.Box;
             box.ShouldMakeDirty = () => false;
             var uploaderFileId = item.UploaderId;

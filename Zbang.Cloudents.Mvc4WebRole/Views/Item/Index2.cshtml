@@ -41,8 +41,8 @@
                         <span>@Html.Svg("~/images/site/box-icons.svg", "like")</span>
                         <span>{{i.details.likes}}</span>
                     </button>
-                    <a hide-xs target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
-                    <a hide-xs target="_blank" user-not-register-popup="click" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
+                    <a hide-xs target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" ng-click="i.followBox()" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
+                    <a hide-xs target="_blank" user-not-register-popup="click" ng-click="i.followBox()" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
                     <div class="item-menu">
                         <md-menu flex>
                             <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">

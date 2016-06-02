@@ -31,7 +31,7 @@
         }
 
         s.draft = function(quizId) {
-            return ajaxservice.get('/quiz/Draft/', { quizId: quizId });
+            return ajaxservice.get('/quiz/draft/', { quizId: quizId });
         }
         s.createQuiz = function(boxId,name) {
             return ajaxservice.post('/quiz/create/', {
