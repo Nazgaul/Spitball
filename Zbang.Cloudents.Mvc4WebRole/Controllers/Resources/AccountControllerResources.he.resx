@@ -138,4 +138,13 @@
   <data name="AccountController_PasswordUpdate_Error" xml:space="preserve">
     <value>אירעה תקלה, נסה מאוחר יותר</value>
   </data>
+  <data name="RegisterEmailDuplicate" xml:space="preserve">
+    <value>חשבון אימייל זה כבר קיים במערכת. יש להתחבר באמצעות פרטי החשבון + סיסמה.</value>
+  </data>
+  <data name="RegisterEmailFacebookAccountError" xml:space="preserve">
+    <value>חשבון אימייל זה כבר קיים במערכת. יש להתחבר באמצעות פייסבוק.</value>
+  </data>
+  <data name="RegisterEmailGoogleAccountError" xml:space="preserve">
+    <value>חשבון אימייל זה כבר קיים במערכת. יש להתחבר באמצעות ג'ימייל.</value>
+  </data>
 </root>

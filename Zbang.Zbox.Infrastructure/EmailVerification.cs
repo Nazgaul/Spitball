@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Infrastructure
             try
             {
                     var verificationEmail = new Verification(email);
-                    await m_Engine.RunAsync(verificationEmail, VerificationLevel.Smtp);
+                    await m_Engine.RunAsync(verificationEmail, VerificationLevel.Syntax);
                     return verificationEmail.State.Result.LastStatus == VerificationStatus.Success;
             }
             catch (Exception ex)
@@ -66,7 +66,7 @@ namespace Zbang.Zbox.Infrastructure
             try
             {
                 var verificationEmail = new Verification(email);
-                m_Engine.Run(verificationEmail, VerificationLevel.Smtp);
+                m_Engine.Run(verificationEmail, VerificationLevel.Syntax);
                 return verificationEmail.State.Result.LastStatus == VerificationStatus.Success;
             }
             catch (Exception ex)

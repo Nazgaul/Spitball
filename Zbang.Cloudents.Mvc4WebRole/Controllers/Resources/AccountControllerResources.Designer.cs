@@ -122,5 +122,32 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
                 return ResourceManager.GetString("LogonError", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Email has already registered to Spitball via Email.
+        /// </summary>
+        internal static string RegisterEmailDuplicate {
+            get {
+                return ResourceManager.GetString("RegisterEmailDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Email has already registered to Spitball via Facebook.
+        /// </summary>
+        internal static string RegisterEmailFacebookAccountError {
+            get {
+                return ResourceManager.GetString("RegisterEmailFacebookAccountError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Email has already registered to Spitball via Gmail.
+        /// </summary>
+        internal static string RegisterEmailGoogleAccountError {
+            get {
+                return ResourceManager.GetString("RegisterEmailGoogleAccountError", resourceCulture);
+            }
+        }
     }
 }
