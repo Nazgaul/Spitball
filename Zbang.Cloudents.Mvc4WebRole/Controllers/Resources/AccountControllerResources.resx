@@ -138,4 +138,13 @@
   <data name="AccountController_PasswordUpdate_Error" xml:space="preserve">
     <value>something went wrong, try again later</value>
   </data>
+  <data name="RegisterEmailDuplicate" xml:space="preserve">
+    <value>This Email has already registered to Spitball via Email</value>
+  </data>
+  <data name="RegisterEmailFacebookAccountError" xml:space="preserve">
+    <value>This Email has already registered to Spitball via Facebook</value>
+  </data>
+  <data name="RegisterEmailGoogleAccountError" xml:space="preserve">
+    <value>This Email has already registered to Spitball via Gmail</value>
+  </data>
 </root>

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
@@ -38,7 +39,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (user != null && IsUserRegistered(user))
             {
-                throw new ArgumentException("user is already registered");
+                if (user.FacebookId.HasValue)
+                {
+                    throw new UserRegisterFacebookException();
+                }
+                if (!string.IsNullOrEmpty(user.GoogleId))
+                {
+                    throw new UserRegisterGoogleException();
+                }
+                throw new UserRegisterEmailException();
             }
             //var newUser = false;
             if (user == null)//email was invited to a box new user

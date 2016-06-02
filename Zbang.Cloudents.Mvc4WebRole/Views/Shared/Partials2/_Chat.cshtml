@@ -12,7 +12,7 @@
                         <button type="button" ng-click="c.friendsState()" class="friends tab" ng-class="{active: c.state === c.states.friends}">@ChatResources.FriendsHeader</button>
                     </div>*@
             </div>
-            <div class="tab-content" ng-if="c.state === c.states.messages" @*ng-class="{noChats: c.state === c.states.messages && !c.users.length}"*@>
+            <div class="tab-content" ng-if="c.state === c.states.messages">
                 @*<div class="empty-state">
                     @Html.Svg("~/images/site/icons.svg", "empty-chat")
                     <div class="text">

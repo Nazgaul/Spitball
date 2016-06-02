@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -19,6 +20,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -69,7 +71,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region Login
 
-        [HttpPost,ActionName("GoogleLogin")]
+        [HttpPost, ActionName("GoogleLogin")]
         public async Task<JsonResult> GoogleLoginAsync(ExternalLogIn model, string returnUrl, CancellationToken cancellationToken)
         {
 
@@ -101,17 +103,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         googleUserData.Locale, Sex.NotKnown,
                         invId,
                         model.BoxId);
-                    var commandResult = await ZboxWriteService.CreateUserAsync(command);
-                    user = new LogInUserDto
+                    try
                     {
-                        Id = commandResult.User.Id,
-                        Culture = commandResult.User.Culture,
-                        Image = googleUserData.Picture,
-                        Name = googleUserData.Name,
-                        UniversityId = commandResult.UniversityId,
-                        UniversityData = commandResult.UniversityData,
-                        Score = commandResult.User.Reputation
-                    };
+                        var commandResult = await ZboxWriteService.CreateUserAsync(command);
+
+                        user = new LogInUserDto
+                        {
+                            Id = commandResult.User.Id,
+                            Culture = commandResult.User.Culture,
+                            Image = googleUserData.Picture,
+                            Name = googleUserData.Name,
+                            UniversityId = commandResult.UniversityId,
+                            UniversityData = commandResult.UniversityData,
+                            Score = commandResult.User.Reputation
+                        };
+                    }
+                    catch (UserRegisterFacebookException)
+                    {
+                        return JsonError(new { error = AccountControllerResources.RegisterEmailFacebookAccountError });
+                    }
+                    catch (UserRegisterGoogleException)
+                    {
+                        return JsonError(new { error = AccountControllerResources.RegisterEmailGoogleAccountError });
+                    }
+                    catch (UserRegisterEmailException)
+                    {
+                        return JsonError(new { error = AccountControllerResources.RegisterEmailDuplicate });
+                    }
                 }
                 m_LanguageCookie.InjectCookie(user.Culture);
                 var identity = new ClaimsIdentity(new List<Claim>
@@ -214,6 +232,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                       : Url.Action("Choose", "Library");
                 return JsonOk(url);
             }
+            catch (UserRegisterFacebookException)
+            {
+                return JsonError(new { error = AccountControllerResources.RegisterEmailFacebookAccountError });
+            }
+            catch (UserRegisterGoogleException)
+            {
+                return JsonError(new { error = AccountControllerResources.RegisterEmailGoogleAccountError });
+            }
+            catch (UserRegisterEmailException)
+            {
+                return JsonError(new { error = AccountControllerResources.RegisterEmailDuplicate });
+            }
             catch (ArgumentException)
             {
                 return JsonError(new { error = AccountControllerResources.FacebookGetDataError });
@@ -305,7 +335,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-       
+
         [RemoveBoxCookie]
         public ActionResult LogOff()
         {
@@ -328,6 +358,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(GetErrorFromModelState());
             }
+            IdentityResult createStatus = null;
             try
             {
                 var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
@@ -338,7 +369,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     UserName = model.NewEmail,
                     Email = model.NewEmail
                 };
-                var createStatus = await m_UserManager.CreateAsync(user, model.Password);
+                createStatus = await m_UserManager.CreateAsync(user, model.Password);
                 if (createStatus.Succeeded)
                 {
                     Guid? invId = null;
@@ -380,16 +411,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     ModelState.AddModelError(string.Empty, AccountValidation.Localize(error, model.NewEmail));
                 }
             }
-            catch (ArgumentException ex)
+            catch (UserRegisterFacebookException)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ModelState.AddModelError(string.Empty, AccountControllerResources.RegisterEmailFacebookAccountError);
+            }
+            catch (UserRegisterGoogleException)
+            {
+                ModelState.AddModelError(string.Empty, AccountControllerResources.RegisterEmailGoogleAccountError);
+            }
+            catch (UserRegisterEmailException)
+            {
+                ModelState.AddModelError(string.Empty, AccountControllerResources.RegisterEmailDuplicate);
             }
             catch (DbEntityValidationException ex)
             {
                 ModelState.AddModelError(string.Empty, BaseControllerResources.UnspecifiedError);
                 foreach (var dbEntityValidationResult in ex.EntityValidationErrors)
                 {
-                    TraceLog.WriteError(string.Join(" ", dbEntityValidationResult.ValidationErrors.Select(s => s.ErrorMessage)));
+                    TraceLog.WriteError(string.Join(" ",
+                        dbEntityValidationResult.ValidationErrors.Select(s => s.ErrorMessage)));
                 }
                 TraceLog.WriteError("Register model:" + model, ex);
             }
@@ -397,6 +437,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 ModelState.AddModelError(string.Empty, BaseControllerResources.UnspecifiedError);
                 TraceLog.WriteError("Register model:" + model, ex);
+            }
+            finally
+            {
+                if (createStatus != null && createStatus.Succeeded)
+                {
+                    var user = await m_UserManager.FindByEmailAsync(model.NewEmail);
+
+                    await m_UserManager.DeleteAsync(user);
+                }
             }
             return JsonError(GetErrorFromModelState());
         }
@@ -422,7 +471,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         const string SessionKey = "UserVerificationCode";
         [HttpPost]
-        [ZboxAuthorize,ActionName("EnterCode")]
+        [ZboxAuthorize, ActionName("EnterCode")]
         public async Task<JsonResult> EnterCodeAsync(long? code)
         {
             if (!code.HasValue)
@@ -457,7 +506,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        [ZboxAuthorize,ActionName("ChangeEmail")]
+        [ZboxAuthorize, ActionName("ChangeEmail")]
         public async Task<JsonResult> ChangeEmailAsync(ChangeMail model)
         {
             if (!ModelState.IsValid)
@@ -499,7 +548,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
 
         }
-        [HttpPost, ZboxAuthorize,ActionName("UpdateUniversity")]
+        [HttpPost, ZboxAuthorize, ActionName("UpdateUniversity")]
         public async Task<ActionResult> UpdateUniversityAsync(University model)
         {
             var needId = await ZboxReadService.GetUniversityNeedIdAsync(model.UniversityId);
@@ -567,7 +616,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        [ZboxAuthorize,ActionName("ChangePassword")]
+        [ZboxAuthorize, ActionName("ChangePassword")]
         public async Task<JsonResult> ChangePasswordAsync(Password model)
         {
             if (!ModelState.IsValid)
@@ -624,7 +673,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //    return View("Signin");
         //}
 
-        [HttpPost,ActionName("ResetPassword")]
+        [HttpPost, ActionName("ResetPassword")]
         public async Task<JsonResult> ResetPasswordAsync([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model, CancellationToken cancellationToken)
         {
 
@@ -771,7 +820,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet,ActionName("Details")]
+        [HttpGet, ActionName("Details")]
         public async Task<JsonResult> DetailsAsync()
         {
             //string cookieToken, formToken;

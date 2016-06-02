@@ -318,7 +318,7 @@
         }
         //console.log('doc.viewName', doc.viewName);
 
-        if (!doc || (doc && !doc.viewName)) {
+        if (!doc || (!doc.viewName)) {
             lc.view = 'preview-faild.html';
         }
         else {
