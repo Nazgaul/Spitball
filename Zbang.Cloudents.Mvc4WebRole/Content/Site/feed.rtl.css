@@ -95,10 +95,13 @@
   margin: 0 0 0 20px;
   padding: 0;
   display: block;
+  font-size: 14px;
 }
-.feed .posts-list .actions .comment-btn svg,
 .feed .posts-list .actions .like-btn svg {
   margin-bottom: 4px;
+}
+.feed .posts-list .actions .comment-btn svg {
+  margin-bottom: 2px;
 }
 .feed .posts-list .actions svg {
   fill: #4190b9;

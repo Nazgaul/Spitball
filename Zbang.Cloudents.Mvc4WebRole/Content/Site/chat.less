@@ -71,6 +71,7 @@ md-sidenav.chat {
         .header {
             background: #111111;
             position: relative;
+            height: @chatHeaderHeight;
             //.tabs {
             //    background: #eee;
             //    color: @textColorWhite;
@@ -342,7 +343,7 @@ md-sidenav.chat {
 
             .chat-content {
                 .messages {
-                    height:~"calc(100vh - 120px)";
+                    height: ~"calc(100vh - 120px)";
                     padding: 0;
                     font-size: 15px;
                     padding-top: 10px;
@@ -527,7 +528,6 @@ md-sidenav.chat {
 
         img, iframe {
             max-width: 800px;
-            width: 100%;
         }
 
         img.svg-item {
@@ -539,6 +539,15 @@ md-sidenav.chat {
             border: none;
             width: ~"calc(100vw - 700px)";
             height: 80vh;
+        }
+
+        .preview-faild {
+            text-align: center;
+            padding: 30px;
+
+            img{
+                margin-bottom: 15px;
+            }
         }
     }
 }

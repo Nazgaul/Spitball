@@ -71,6 +71,7 @@ md-sidenav.chat md-content {
 md-sidenav.chat md-content .header {
   background: #111111;
   position: relative;
+  height: 65px;
   /*.menu {
   -webkit-filter: url("#shadowed-goo");
           filter: url("#shadowed-goo");
@@ -557,7 +558,6 @@ md-sidenav.chat md-content .user .img-circle {
 .chat-item-preview md-dialog-content img,
 .chat-item-preview md-dialog-content iframe {
   max-width: 800px;
-  width: 100%;
 }
 .chat-item-preview md-dialog-content img.svg-item {
   width: 800px;
@@ -567,6 +567,13 @@ md-sidenav.chat md-content .user .img-circle {
   border: none;
   width: calc(100vw - 700px);
   height: 80vh;
+}
+.chat-item-preview md-dialog-content .preview-faild {
+  text-align: center;
+  padding: 30px;
+}
+.chat-item-preview md-dialog-content .preview-faild img {
+  margin-bottom: 15px;
 }
 @keyframes fadein {
   from {

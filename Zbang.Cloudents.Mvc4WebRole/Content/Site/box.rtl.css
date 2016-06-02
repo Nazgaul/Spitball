@@ -523,9 +523,9 @@ library-list {
   right: 0;
   left: 0;
   bottom: 0;
-  opacity: .95;
   overflow: hidden;
   height: 70px;
+  background: rgba(24, 28, 29, 0.75);
 }
 .item svg {
   vertical-align: top;
