@@ -126,14 +126,8 @@
   <data name="BoxPrivacySettingsMembersOnly" xml:space="preserve">
     <value>באמצעות הזמנה בלבד</value>
   </data>
-  <data name="College" xml:space="preserve">
-    <value>מכללה</value>
-  </data>
   <data name="Hateful" xml:space="preserve">
     <value>מכיל תוכן פוגעני</value>
-  </data>
-  <data name="HighSchool" xml:space="preserve">
-    <value>תיכון</value>
   </data>
   <data name="Infringe" xml:space="preserve">
     <value>מפר את הזכויות שלי</value>
@@ -161,9 +155,6 @@
   </data>
   <data name="Spam" xml:space="preserve">
     <value>ספאם או תוכן מטעה</value>
-  </data>
-  <data name="University" xml:space="preserve">
-    <value>אוניברסיטה</value>
   </data>
   <data name="UserNotExists" xml:space="preserve">
     <value>כתובת המייל או הסיסמה שהקלדת לא קיימים במערכת או שאינם נכונים. אנא נסה שנית.</value>

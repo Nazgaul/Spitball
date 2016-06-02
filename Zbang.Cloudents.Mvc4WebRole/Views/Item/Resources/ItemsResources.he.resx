@@ -165,9 +165,6 @@
   <data name="CommentAuthor" xml:space="preserve">
     <value>נכתב על ידי</value>
   </data>
-  <data name="CommentPublishedIn" xml:space="preserve">
-    <value>ב</value>
-  </data>
   <data name="Print" xml:space="preserve">
     <value>הדפסה</value>
   </data>

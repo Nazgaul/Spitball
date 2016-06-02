@@ -166,15 +166,8 @@
     <value>Select your school to start 
 Spitballing with your classmates</value>
   </data>
-  <data name="UniveristySearchNoUniversityTitle" xml:space="preserve">
-    <value>Um, this is awkward...</value>
-  </data>
   <data name="UniversityAddSchoolTitle" xml:space="preserve">
     <value>Get ready to do something big for you and your classmates</value>
-  </data>
-  <data name="UniversitySearchNoUniversityText" xml:space="preserve">
-    <value>We can't find your school in our records
-Make Spitball better by adding it</value>
   </data>
   <data name="UniversitySearchTitleTyping" xml:space="preserve">
     <value>Let’s Spitball!</value>

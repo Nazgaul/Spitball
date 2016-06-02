@@ -239,4 +239,7 @@
     <value>Save this quiz as a draft for future editing
 (Only you are able to see and edit the draft)</value>
   </data>
+  <data name="toasterChatMessage" xml:space="preserve">
+    <value>You have a new private message!</value>
+  </data>
 </root>

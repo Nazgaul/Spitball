@@ -192,9 +192,6 @@
   <data name="PrivacySwitchText" xml:space="preserve">
     <value>הגדר כפרטית</value>
   </data>
-  <data name="membersInvite" xml:space="preserve">
-    <value>הזמן חברים</value>
-  </data>
   <data name="InviteFriendsMember" xml:space="preserve">
     <value>הזמן חברים</value>
   </data>

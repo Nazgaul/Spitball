@@ -169,15 +169,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get to know Spitball - the social study platform! Get class notes, chat with your friends, create study groups and share your knowledge! Open a free account today!.
-        /// </summary>
-        internal static string FeaturesMeta {
-            get {
-                return ResourceManager.GetString("FeaturesMeta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Features | Spitball.
         /// </summary>
         internal static string FeaturesTitle {

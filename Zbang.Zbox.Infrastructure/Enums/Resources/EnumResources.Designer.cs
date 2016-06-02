@@ -88,15 +88,6 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to College.
-        /// </summary>
-        internal static string College {
-            get {
-                return ResourceManager.GetString("College", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Female.
         /// </summary>
         internal static string Female {
@@ -111,15 +102,6 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         internal static string Hateful {
             get {
                 return ResourceManager.GetString("Hateful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to High school.
-        /// </summary>
-        internal static string HighSchool {
-            get {
-                return ResourceManager.GetString("HighSchool", resourceCulture);
             }
         }
         
@@ -237,15 +219,6 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         internal static string Spam {
             get {
                 return ResourceManager.GetString("Spam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to University.
-        /// </summary>
-        internal static string University {
-            get {
-                return ResourceManager.GetString("University", resourceCulture);
             }
         }
         
