@@ -17,12 +17,26 @@
 .feed .dots-3 {
   fill: #888b8e;
 }
+@media (max-width: 600px) {
+  .feed .comments-wrapper .ribbon {
+    position: static;
+    margin-bottom: 5px;
+  }
+  .feed .actions-wrapper {
+    left: 0;
+    bottom: 0.6em;
+  }
+}
+.feed .ribbon-wrapper {
+  text-align: left;
+}
 .feed .ribbon {
   bottom: 1em;
   text-transform: uppercase;
   font-size: 14px;
   padding: 5px 13px;
   font-weight: bold;
+  display: inline-block;
 }
 .feed .stats {
   color: #888b8e;
@@ -81,9 +95,6 @@
   user-select: none;
   display: inline-block;
   margin-right: 10px ;
-}
-.feed .posts-list .actions-wrapper {
-  position: relative;
 }
 @media (min-width: 600px) {
   .feed .posts-list .actions {
@@ -416,6 +427,9 @@
 .feed .add-comment .user-comment {
   background: #fff;
   padding: 10px 15px 10px 10px;
+}
+.feed .comments-wrapper {
+  position: relative;
 }
 .feed .post .info {
   position: relative;

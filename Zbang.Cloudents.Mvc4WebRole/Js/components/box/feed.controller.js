@@ -270,6 +270,7 @@
                     userId: user.id,
                     userImage: user.image,
                     userName: user.name,
+                    likesCount: 0,
                     files: self.add.files.map(pushItem)
                 };
                 comment.replies.push(newComment);
@@ -318,6 +319,7 @@
                     userImage: response.userImage,
                     userName: response.userName,
                     files: files.map(pushItem),
+                    likesCount: 0,
                     replies: []
                 };
                 self.data.unshift(newComment);

@@ -20,12 +20,29 @@
         fill: @textColorGrey;
     }
 
+    @media(max-width: 600px) {
+        .comments-wrapper .ribbon {
+            position: static;
+            margin-bottom: 5px;
+        }
+
+        .actions-wrapper {
+            right: 0;
+            bottom: 0.6em;
+        }
+    }
+
+    .ribbon-wrapper {
+        text-align: right;
+    }
+
     .ribbon {
         bottom: 1em;
         text-transform: uppercase;
         font-size: 14px;
         padding: 5px 13px;
         font-weight: bold;
+        display: inline-block;
     }
 
     .stats {
@@ -95,10 +112,6 @@
     }
 
     .posts-list {
-        .actions-wrapper {
-            position: relative;
-        }
-
         .actions {
             @media(min-width: 600px) {
                 padding: 0;
@@ -475,6 +488,10 @@
     .comments-wrapper, .add-comment .user-comment {
         background: #fff;
         padding: 10px 10px 10px 15px;
+    }
+
+    .comments-wrapper {
+        position: relative;
     }
 
     .post {

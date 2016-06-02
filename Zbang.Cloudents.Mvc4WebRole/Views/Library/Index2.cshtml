@@ -42,7 +42,12 @@
                         {{::dep.noBoxes}} @GeneralResources.Courses
                     </div>
                     <div ng-if="::dep.state === 'closed'">
-                        @Html.Svg("~/images/site/icons.svg", "lock", new { @class = "lock" })
+                        <div ng-if="::dep.userType !== 'subscribe' && dep.userType !== 'owner'">
+                            @Html.Svg("~/images/site/icons.svg", "closed-lock", new { @class = "lock" })
+                        </div>
+                        <div ng-if="::dep.userType === 'subscribe' || dep.userType === 'owner'">
+                            @Html.Svg("~/images/site/icons.svg", "opened-lock", new { @class = "lock" })
+                        </div>
                     </div>
                 </div>
             </div>
