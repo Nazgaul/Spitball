@@ -70,7 +70,7 @@
                 element: '=?'
             },
             link: function (scope, elem, attrs) {
-                if (needCustomScroll()) {
+                if (!notNeedSlimScroll()) {
                     scope.elem = elem;
 
                     var defaults = ScrollBars.defaults;
@@ -96,8 +96,8 @@
                     }
                 };
 
-                function needCustomScroll() {
-                    return !Modernizr.touchevents && attrs.disableThouch !== undefined;
+                function notNeedSlimScroll() {
+                    return Modernizr.touchevents && attrs.disableThouch !== undefined;
                 }
             }
         };
