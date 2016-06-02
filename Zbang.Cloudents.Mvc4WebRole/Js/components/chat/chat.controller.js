@@ -32,7 +32,9 @@
         });
 
 
-
+        c.scrollSetting = {
+            scrollbarPosition: 'outside'
+        }
 
 
         $scope.$watch(function () {

@@ -92,6 +92,7 @@
 }
 .side-menu {
   height: calc(100vh - 90px);
+  width: calc(100% - 20px);
 }
 .side-menu li > .md-button,
 .side-menu li > button {

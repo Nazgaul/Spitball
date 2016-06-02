@@ -13,8 +13,9 @@
             if (userDetails.theme === 'dark') {
 
                 d.updateScrollbar = {
-                     theme: 'light-thin'
-                    
+                    theme: 'light-thin',
+                    scrollbarPosition: 'outside'
+
                 };
             }
         });
