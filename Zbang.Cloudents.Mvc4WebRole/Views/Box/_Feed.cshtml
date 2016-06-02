@@ -39,7 +39,7 @@
                         </div>
                         <button ng-if="::post.files.length > 2" type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                     </div>
-                    <div class="ribbon-wrapper" ng-if="::!post.isNew">
+                    <div class="ribbon-wrapper" ng-if="::post.isNew">
                         <span class="ribbon">@BoxResources.RibbonNew</span>
                     </div>
                     <div class="actions-wrapper">
@@ -103,7 +103,7 @@
                                     <span>@GeneralResources.Like</span>
                                 </button>
                             </div>
-                            <span class="ribbon" ng-if="!reply.isNew">@BoxResources.RibbonNew</span>
+                            <span class="ribbon" ng-if="reply.isNew">@BoxResources.RibbonNew</span>
                         </div>
                     </li>
                 </ol>
