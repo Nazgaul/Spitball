@@ -263,7 +263,7 @@
             boxService.postReply(self.add.newReplyText, boxId, comment.id, filesId).then(function (response) {
                 var newComment = {
                     content: extractUrls(self.add.newReplyText.replace(/[&<>]/g, replaceTag)),
-                    creationTime: new Date(),
+                    creationTime: new Date().toISOString(),
                     id: response,
                     url: user.url,
 
@@ -274,7 +274,8 @@
                     files: self.add.files.map(pushItem)
                 };
                 comment.replies.push(newComment);
-                self.data = assignData(self.data);
+                comment.repliesCount++;
+                comment = assignData([comment]);
                 self.add.newReplyText = '';
                 self.add.files = [];
                 comment.focusReply = false;
@@ -312,7 +313,7 @@
                 self.add.newText = self.add.newText || '';
                 var newComment = {
                     content: extractUrls(self.add.newText.replace(/[&<>]/g, replaceTag)),
-                    creationTime: new Date(),
+                    creationTime: new Date().toISOString(),
                     id: response.commentId,
                     url: response.userUrl,
                     userId: response.userId,
@@ -328,15 +329,7 @@
                 self.add.files = [];
                 self.add.anonymous = false;
                 $scope.$emit('follow-box');
-                /*answers: []
-    content: "asdasdasd"
-    creationTime: "2015-11-04T13:11:32.6519547Z"
-    files: []
-    id: "b05758b9-7e1d-4b3b-af7f-a54600fa5c9c"
-    url: "/user/1/ram-y/"
-    userId: 1
-    userImage: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"
-    userName: "ram y"*/
+           
 
             }).finally(function () {
                 self.add.disabled = false;
@@ -388,15 +381,17 @@
 
         function openReply(post) {
             $scope.b.closeCollapse();
+            function collapse(elem) {
+                if (elem.replies.length > 4) {
+                    elem.replies = elem.replies.slice(Math.max(elem.replies.length - 4, 1));
+                }
+                elem.expandReplies = false;
+            }
             if (post.expandReplies) {
-                post.replies = post.replies.slice(Math.max(post.replies.length - 4, 1));
-                post.expandReplies = false;
+                collapse(post);
                 return;
             }
-            angular.forEach(self.data, function (elem) {
-                elem.replies = elem.replies.slice(Math.max(elem.replies.length - 4, 1));
-                elem.expandReplies = false;
-            });
+            angular.forEach(self.data, collapse);
 
             self.add.newReplyText = '';
             self.add.files = [];
@@ -470,14 +465,11 @@
 
                             self.add.files.push(file);
 
-
                             var img = new mOxie.Image();
-
                             img.onload = function () {
                                 this.crop(95, 105, false);
                                 file.content = this.getAsDataURL("image/jpeg", 80);
                             };
-
                             img.onembedded = function () {
                                 this.destroy();
                             };
@@ -485,7 +477,6 @@
                             img.onerror = function () {
                                 this.destroy();
                             };
-
                             img.load(file.getSource());
                         })(file);
                     }
