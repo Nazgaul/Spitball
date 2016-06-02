@@ -68,7 +68,7 @@
                 userUpdatesService.boxUpdates(boxId, function (updates) {
                     feedUpdates = updates;
                     self.data = appendUpdates(x);
-
+                    userUpdatesService.deleteUpdates(boxId);
                 });
             }
 
