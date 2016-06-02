@@ -2,10 +2,12 @@
 (function () {
     angular.module('app.chat').controller('ChatController', chat);
     chat.$inject = ['$timeout', '$scope', '$mdSidenav', 'realtimeFactotry',
-        'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService', '$mdDialog', 'routerHelper', '$document'];
+        'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService',
+        '$mdDialog', 'routerHelper', '$document', 'notification', 'resManager'];
 
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
-        userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document) {
+        userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
+        notification,resManager) {
         var c = this, chunkSize = 2147483647, top = 0, fromid;
         c.states = {
             messages: 1,
@@ -170,16 +172,20 @@
                 return;
             }
             //im not in chat at all
+            
             if (!c.users) {
+                notification.send(resManager.get('toasterChatMessage'), args.message);
                 updateUnread();
                 updateScope();
                 return;
             }
+            
             //got conversation with that user
             var user = c.users.find(function (f) {
                 return f.conversation === args.chatRoom;
             });
             if (user) {
+                notification.send(user.name, args.message, user.image);
                 user.unread++;
                 updateUnread();
                 updateScope();
@@ -190,10 +196,12 @@
                 return f.id === args.user;
             });
             if (!user) {
+                notification.send(resManager.get('toasterChatMessage'), args.message);
                 //need to refresh data to find it.
                 search();
                 return;
             };
+            notification.send(user.name, args.message, user.image);
             user.unread++;
             user.conversation = args.id;
             updateUnread();

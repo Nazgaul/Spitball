@@ -133,9 +133,6 @@ your friends in private settings</value>
   <data name="Browse" xml:space="preserve">
     <value>Browse Classes</value>
   </data>
-  <data name="Files" xml:space="preserve">
-    <value>Items</value>
-  </data>
   <data name="EnterGroupName" xml:space="preserve">
     <value>Enter study group name</value>
   </data>

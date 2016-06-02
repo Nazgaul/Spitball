@@ -61,15 +61,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My activities.
-        /// </summary>
-        public static string Activities {
-            get {
-                return ResourceManager.GetString("Activities", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Type your friend&apos;s email.
         /// </summary>
         public static string AddMail {
@@ -221,15 +212,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string Logout {
             get {
                 return ResourceManager.GetString("Logout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Email address.
-        /// </summary>
-        public static string Mail {
-            get {
-                return ResourceManager.GetString("Mail", resourceCulture);
             }
         }
         

@@ -314,6 +314,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have a new private message!.
+        /// </summary>
+        public static string toasterChatMessage {
+            get {
+                return ResourceManager.GetString("toasterChatMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have created a study group.
         /// </summary>
         public static string toasterCreateBox {

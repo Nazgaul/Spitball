@@ -59,23 +59,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Help.
-        /// </summary>
-        internal static string HelpTitle {
-            get {
-                return ResourceManager.GetString("HelpTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Jobs.
-        /// </summary>
-        internal static string JobTitle {
-            get {
-                return ResourceManager.GetString("JobTitle", resourceCulture);
-            }
-        }
     }
 }

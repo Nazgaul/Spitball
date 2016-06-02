@@ -159,9 +159,6 @@
   <data name="Courses" xml:space="preserve">
     <value>קורסים</value>
   </data>
-  <data name="Blog" xml:space="preserve">
-    <value>בלוג</value>
-  </data>
   <data name="RequiredField" xml:space="preserve">
     <value>שדה חובה</value>
   </data>
@@ -180,9 +177,6 @@
   </data>
   <data name="Download" xml:space="preserve">
     <value>הורד</value>
-  </data>
-  <data name="Likes" xml:space="preserve">
-    <value>אהבתי</value>
   </data>
   <data name="NoResultsTitle" xml:space="preserve">
     <value>לא נמצאו תוצאות</value>

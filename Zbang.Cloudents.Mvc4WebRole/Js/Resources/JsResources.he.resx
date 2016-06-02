@@ -238,4 +238,7 @@
   <data name="quizDelete" xml:space="preserve">
     <value>מחק</value>
   </data>
+  <data name="toasterChatMessage" xml:space="preserve">
+    <value>יש לך הודעה חדשה</value>
+  </data>
 </root>

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activities" xml:space="preserve">
-    <value>הפעילות שלי</value>
-  </data>
   <data name="AddMail" xml:space="preserve">
     <value>הקלד את כתובת המייל של חברך</value>
   </data>
@@ -158,9 +155,6 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>התנתק</value>
-  </data>
-  <data name="Mail" xml:space="preserve">
-    <value>כתובת מייל</value>
   </data>
   <data name="Members" xml:space="preserve">
     <value>סטודנטים</value>

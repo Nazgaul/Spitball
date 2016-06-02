@@ -121,6 +121,7 @@
 /// <reference path="../js/shared/itemthumbnail.js" />
 /// <reference path="../js/shared/loader.js" />
 /// <reference path="../js/shared/meganumbers.js" />
+/// <reference path="../js/shared/notification.js" />
 /// <reference path="../js/shared/removekeyboard.js" />
 /// <reference path="../js/shared/resourcemanager.js" />
 /// <reference path="../js/shared/scrolltotop.directive.js" />

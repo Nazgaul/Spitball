@@ -150,9 +150,6 @@
   <data name="Quizzes" xml:space="preserve">
     <value>Quizzes</value>
   </data>
-  <data name="Blog" xml:space="preserve">
-    <value>Blog</value>
-  </data>
   <data name="RequiredField" xml:space="preserve">
     <value>This is Required!</value>
   </data>
@@ -180,9 +177,6 @@
   </data>
   <data name="Download" xml:space="preserve">
     <value>Download</value>
-  </data>
-  <data name="Likes" xml:space="preserve">
-    <value>Likes</value>
   </data>
   <data name="SearchEmptyStateClassesText" xml:space="preserve">
     <value>There are no courses in your school that match your search,

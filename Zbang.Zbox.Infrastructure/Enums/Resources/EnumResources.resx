@@ -135,15 +135,6 @@
   <data name="BoxPrivacySettingsMembersOnly" xml:space="preserve">
     <value>By invitation only</value>
   </data>
-  <data name="College" xml:space="preserve">
-    <value>College</value>
-  </data>
-  <data name="HighSchool" xml:space="preserve">
-    <value>High school</value>
-  </data>
-  <data name="University" xml:space="preserve">
-    <value>University</value>
-  </data>
   <data name="UserNotExists" xml:space="preserve">
     <value>The email or password you entered is either incorrect or not registered to Spitball. Please try again</value>
   </data>

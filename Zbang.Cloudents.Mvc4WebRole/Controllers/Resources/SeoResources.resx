@@ -195,9 +195,6 @@
   <data name="CoursesMeta" xml:space="preserve">
     <value>Join Spitball's growing community! Find your course and start chatting with your friends, create study groups and share your knowledge! Open a free account today!</value>
   </data>
-  <data name="FeaturesMeta" xml:space="preserve">
-    <value>Get to know Spitball - the social study platform! Get class notes, chat with your friends, create study groups and share your knowledge! Open a free account today!</value>
-  </data>
   <data name="FeaturesTitle" xml:space="preserve">
     <value>Features | Spitball</value>
   </data>
