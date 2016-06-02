@@ -1,4 +1,6 @@
-﻿<md-dialog ng-cloak class="chat-item-preview">
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
+
+<md-dialog ng-cloak class="chat-item-preview">
     <md-toolbar>
         <div class="md-toolbar-tools">
             @*<h2 class="ellipsis"></h2>*@
@@ -9,7 +11,10 @@
         </div>
     </md-toolbar>
     <md-dialog-content>
-        <div ng-repeat="e in lc.items" ng-include="lc.view"></div>
+        <div>
+            <div ng-repeat="e in lc.items" ng-include="lc.view"></div>
+            <div ng-if="!lc.items" ng-include="lc.view" class="preview-faild"></div>
+        </div>
     </md-dialog-content>
 
 
@@ -22,4 +27,11 @@
 </script>
 <script type="text/ng-template" id="chat-Text.html">
     <iframe sandbox="" ng-src="{{::e}}"></iframe>
+</script>
+<script type="text/ng-template" id="preview-faild.html">
+    <img src="@Url.CdnContent("~/Images/Site/preview_failed_icon.png")" alt="Preview failed">
+    <p>
+        @ItemsResources.PreviewNotAvailable<br />
+        @ItemsResources.PleaseUseThe@Html.Raw("&nbsp")<a class="actionText" target="_Blank">@ItemsResources.Download</a>@Html.Raw("&nbsp")@ItemsResources.PreviewFailed2
+    </p>
 </script>

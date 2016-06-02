@@ -243,7 +243,7 @@
                     up.settings.multipart_params = {
                         fileName: file.name,
                         fileSize: file.size,
-                        users : [c.userChat.id]
+                        users: [c.userChat.id]
                     };
                 },
                 fileUploaded: function (uploader, file, response) {
@@ -306,11 +306,17 @@
         function close() {
             $mdDialog.hide();
         }
+        //console.log('doc.viewName', doc.viewName);
 
-        lc.view = 'chat-' + doc.viewName + '.html';
-        lc.items = doc.content;
-        if (doc.viewName === 'Text') {
-            lc.items[0] = $sce.trustAsResourceUrl(lc.items[0]);
+        if (!doc || (doc && !doc.viewName)) {
+            lc.view = 'preview-faild.html';
+        }
+        else {
+            if (doc.viewName === 'Text') {
+                lc.items[0] = $sce.trustAsResourceUrl(lc.items[0]);
+            }
+            lc.view = 'chat-' + doc.viewName + '.html';
+            lc.items = doc.content;
         }
         $rootScope.$on('$stateChangeStart', function () {
             $mdDialog.hide();
