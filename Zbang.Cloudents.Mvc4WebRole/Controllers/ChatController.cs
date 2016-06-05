@@ -84,13 +84,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var processor = m_FileProcessorFactory.GetProcessor<PreviewChatContainerName, ChatCacheContainerName>(uri);
             if (processor == null)
-                return JsonError();
+                return JsonOk();
             try
             {
                 var retVal = await processor.ConvertFileToWebSitePreviewAsync(uri, index * 3, cancellationToken);
                 if (retVal.Content == null)
                 {
-                    return JsonError();
+                    return JsonOk();
                 }
                 if (!retVal.Content.Any())
                 {
@@ -109,7 +109,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 TraceLog.WriteError($"GeneratePreview filename: {blobName}", ex);
                 if (index == 0)
                 {
-                    return JsonError();
+                    return JsonOk();
                 }
                 return JsonOk();
             }

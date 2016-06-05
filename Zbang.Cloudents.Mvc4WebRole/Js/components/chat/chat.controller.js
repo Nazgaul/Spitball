@@ -7,7 +7,7 @@
 
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
-        notification,resManager) {
+        notification, resManager) {
         var c = this, chunkSize = 2147483647, top = 0, fromid;
         c.states = {
             messages: 1,
@@ -178,14 +178,14 @@
                 return;
             }
             //im not in chat at all
-            
+
             if (!c.users) {
                 notification.send(resManager.get('toasterChatMessage'), args.message);
                 updateUnread();
                 updateScope();
                 return;
             }
-            
+
             //got conversation with that user
             var user = c.users.find(function (f) {
                 return f.conversation === args.chatRoom;
@@ -296,7 +296,8 @@
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 resolve: {
-                    doc: function () { return chatBus.preview(blob, 0) }
+                    doc: function () { return chatBus.preview(blob, 0) },
+                    blob: function () { return blob}
                 },
                 fullscreen: true
             });
@@ -311,8 +312,8 @@
 //'use strict';
 (function () {
     angular.module('app.chat').controller('previewController', previewController);
-    previewController.$inject = ['$mdDialog', 'doc', '$rootScope', '$sce'];
-    function previewController($mdDialog, doc, $rootScope, $sce) {
+    previewController.$inject = ['$mdDialog', 'doc', 'blob', '$rootScope', '$sce'];
+    function previewController($mdDialog, doc, blob, $rootScope, $sce) {
         var lc = this;
         //lc.users = users;
         lc.close = close;
@@ -324,13 +325,14 @@
 
         if (!doc || (!doc.viewName)) {
             lc.view = 'preview-faild.html';
+            lc.downloadLink = '/chat/download/?blobName=' + blob;
         }
         else {
+            lc.items = doc.content;
             if (doc.viewName === 'Text') {
                 lc.items[0] = $sce.trustAsResourceUrl(lc.items[0]);
             }
             lc.view = 'chat-' + doc.viewName + '.html';
-            lc.items = doc.content;
         }
         $rootScope.$on('$stateChangeStart', function () {
             $mdDialog.hide();
