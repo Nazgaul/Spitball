@@ -147,7 +147,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var page = 1;
             while (true)
             {
-                var list = (await m_IntercomManager.GetUnsubscribersAsync(page++, token)).ToList();
+                var result = await m_IntercomManager.GetUnsubscribersAsync(page++, token);
+                if (result == null)
+                {
+                    break;
+                }
+                var list = result.ToList();
                 if (!list.Any())
                 {
                     break;
@@ -156,7 +161,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                new Domain.Commands.UnsubscribeUsersFromEmailCommand(list.Select(s=>s.Email),
                                    EmailSend.Unsubscribe));
                 await RenewLeaseAsync(token);
-
             }
         }
 

@@ -23,15 +23,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class ChatController : BaseController
     {
         private readonly IBlobProvider2<ChatContainerName> m_BlobProviderChat;
-        // private readonly IBlobProvider2<ChatCacheContainerName> m_CacheBlobProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
 
 
 
 
-        public ChatController(IBlobProvider2<ChatContainerName> blobProviderChat, IFileProcessorFactory fileProcessorFactory
-            //IBlobProvider2<ChatCacheContainerName> cacheBlobProvider
-            )
+        public ChatController(IBlobProvider2<ChatContainerName> blobProviderChat, IFileProcessorFactory fileProcessorFactory)
         {
             m_BlobProviderChat = blobProviderChat;
             m_FileProcessorFactory = fileProcessorFactory;
@@ -69,7 +66,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView();
         }
 
-
+        public ActionResult Download(string blobName)
+        {
+            var str = m_BlobProviderChat.GenerateSharedAccressReadPermission(blobName, 30);
+            return Redirect(str);
+        }
 
         [HttpGet, ActionName("Preview")]
         [AsyncTimeout(TimeConst.Minute * 3 * 1000)]
