@@ -559,7 +559,7 @@ md-sidenav.chat md-content .user .img-circle {
 }
 .chat-item-preview md-dialog-content img,
 .chat-item-preview md-dialog-content iframe {
-  max-width: 800px;
+  max-width: 100%;
 }
 .chat-item-preview md-dialog-content img.svg-item {
   width: 800px;

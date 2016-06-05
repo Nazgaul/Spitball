@@ -32,6 +32,6 @@
     <img src="@Url.CdnContent("~/Images/Site/preview_failed_icon.png")" alt="Preview failed">
     <p>
         @ItemsResources.PreviewNotAvailable<br />
-        @ItemsResources.PleaseUseThe@Html.Raw("&nbsp")<a class="actionText" target="_Blank">@ItemsResources.Download</a>@Html.Raw("&nbsp")@ItemsResources.PreviewFailed2
+        @ItemsResources.PleaseUseThe@Html.Raw("&nbsp")<a class="actionText" target="_Blank" href="{{lc.downloadLink}}">@ItemsResources.Download</a>@Html.Raw("&nbsp")@ItemsResources.PreviewFailed2
     </p>
 </script>
