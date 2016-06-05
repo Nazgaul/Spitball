@@ -25,6 +25,10 @@ namespace Zbang.Cloudents.Connect
         {
             try
             {
+                if (userId == Context.User.GetUserId())
+                {
+                    return;
+                }
                 var usersToSend = new[] { userId.ToString(), Context.User.GetUserId().ToString() };
                 var messageCommand = new ChatAddMessageCommand(chatId, Context.User.GetUserId(), message,
                     new[] { Context.User.GetUserId(), userId }, blob);

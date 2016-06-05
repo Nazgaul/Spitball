@@ -25,6 +25,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         {
             try
             {
+                if (userId == Context.User.GetCloudentsUserId())
+                {
+                    return;
+                }
                 var usersToSend = new[] { userId.ToString(), Context.User.GetCloudentsUserId().ToString() };
                 var messageCommand = new ChatAddMessageCommand(chatId, Context.User.GetCloudentsUserId(), message,
                     new[] { Context.User.GetCloudentsUserId(), userId }, blob);
@@ -37,7 +41,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
         }
 
-       
+        //public void Echo(string name)
+        //{
+        //    Clients.Caller.echo(name, Context.User.GetCloudentsUserId());
+        //}
 
         public void UpdateImage(string blobName)
         {

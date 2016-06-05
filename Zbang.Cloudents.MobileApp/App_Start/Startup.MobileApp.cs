@@ -80,11 +80,11 @@ namespace Zbang.Cloudents.MobileApp
         {
             var config = new HubConfiguration
             {
-                EnableDetailedErrors = true
+                EnableDetailedErrors = false,
+                Resolver = new AutofacDependencyResolver(container)
             };
 
-          
-            config.Resolver = new AutofacDependencyResolver(container);
+
 
             GlobalHost.DependencyResolver = config.Resolver;
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new UserIdProvider());

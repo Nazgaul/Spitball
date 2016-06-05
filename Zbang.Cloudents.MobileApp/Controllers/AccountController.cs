@@ -46,7 +46,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         // GET api/Account
         [HttpGet]
         [Route("api/account/details")]
-        public async Task<HttpResponseMessage> Details()
+        [ActionName("Details")]
+        public async Task<HttpResponseMessage> DetailsAsync()
         {
             var retVal = await m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetCloudentsUserId()));
             return Request.CreateResponse(new
@@ -56,11 +57,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 retVal.Name,
                 retVal.Image,
                 retVal.IsAdmin,
-                //retVal.FirstTimeDashboard,
-                //retVal.Score,
                 retVal.UniversityCountry,
                 retVal.UniversityName,
-                tokenValid = retVal.UniversityId == User.GetUniversityId()
+                tokenValid = retVal.UniversityId == User.GetUniversityId(),
+                retVal.Unread
             });
         }
 
