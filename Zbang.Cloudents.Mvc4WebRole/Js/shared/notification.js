@@ -23,7 +23,7 @@
             }
             image = image || '/Images/3rdParty/logo_120_4_google.png';
             if (Notification.permission === "granted") {
-                var notification = new Notification(title, { body: message, icon: image });
+                var notification = new Notification(title, { body: message || '', icon: image });
             } else {
                 showToaster();
             }

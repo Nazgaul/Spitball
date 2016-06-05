@@ -139,6 +139,10 @@
         $scope.$on('hub-chat', function (e, args) {
             //if its me
             if (args.userId !== userDetailsFactory.get().id) {
+                //can be from different platform
+                if (!c.userChat) {
+                    return;
+                }
                 if (!c.userChat.conversation) {
                     c.userChat.conversation = args.chatRoom;
                 }

@@ -36,7 +36,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 #if DEBUG
             System.Web.Helpers.AntiForgeryConfig.RequireSsl = false;
 #endif
-            System.Web.Helpers.AntiForgeryConfig.CookieName = "cdVrfctn";
+            System.Web.Helpers.AntiForgeryConfig.CookieName = "sbVrfctn";
             System.Web.Helpers.AntiForgeryConfig.SuppressXFrameOptionsHeader = true;
 
             //this disable identity check
