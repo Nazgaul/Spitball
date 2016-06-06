@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http.ExceptionHandling;
+using System.Web.Http.Filters;
 
 namespace Zbang.Cloudents.MobileApp
 {
@@ -17,6 +18,21 @@ namespace Zbang.Cloudents.MobileApp
         {
             Log(context);
             return Task.FromResult(0);
+        }
+    }
+
+    public class UnhandledExceptionFilter : ExceptionFilterAttribute
+    {
+        public override void OnException(HttpActionExecutedContext actionExecutedContext)
+        {
+            Trace.TraceError(actionExecutedContext.Exception.ToString());
+            base.OnException(actionExecutedContext);
+        }
+
+        public override Task OnExceptionAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)
+        {
+            Trace.TraceError(actionExecutedContext.Exception.ToString());
+            return base.OnExceptionAsync(actionExecutedContext, cancellationToken);
         }
     }
 }

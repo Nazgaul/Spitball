@@ -70,7 +70,8 @@ namespace Zbang.Cloudents.MobileApp
 
 
             config.Filters.Add(new JsonSerializeAttribute());
-            
+            config.Filters.Add(new UnhandledExceptionFilter());
+
             //config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
             app.UseAutofacWebApi(config);
             app.UseWebApi(config);

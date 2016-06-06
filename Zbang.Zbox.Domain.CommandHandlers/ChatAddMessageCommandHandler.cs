@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
