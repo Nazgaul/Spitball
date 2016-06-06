@@ -48,6 +48,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var lib = university.CreateNewLibraryRoot(id, message.Name, user);
 
                 m_LibraryRepository.Save(lib);
+                university.ShouldMakeDirty = () => false;
                 m_UniversityRepository.Save(university);
                 message.Url = lib.Url;
             }
