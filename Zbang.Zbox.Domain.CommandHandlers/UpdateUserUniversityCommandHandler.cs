@@ -26,16 +26,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var university = m_UniversityRepository.Load(message.UniversityId);
-
-            //RussianDepartment department = null;
-            //if (message.DepartmentId.HasValue)
-            //{
-            //    department = m_DepartmentRepository.Get(message.DepartmentId); // load cause error if its empty
-            //}
             var user = m_UserRepository.Load(message.UserId);
-
             var studentId = message.StudentId ?? user.StudentId;
-
 
             // ReSharper disable once PossibleUnintendedReferenceComparison NHibernate doesn't support equals
             var studentsIdsInUniversity = m_StudentRepository.GetQueryable().Where(w => w.University == university);

@@ -31,14 +31,9 @@
                 updateImage: function (blob) {
                     $rootScope.$broadcast('preview-ready', blob);
                 }
-                //chatRoomId: function (message) {
-                //    $rootScope.$broadcast('hub-chat-roomid', { message: message });
-                //},
-                //chatRoom: function (id, user) {
-                //    $rootScope.$broadcast('hub-chat-room', { id: id, user: user });
-                //}
             },
             errorHandler: function (error) {
+                logError('signalr', 'errorHandler', error);
                 console.error(error);
             },
 
@@ -52,10 +47,10 @@
                         console.log('connected');
                         break;
                     case $.signalR.connectionState.reconnecting:
-                        console.log('reconnecting');
+                        logError('signalr', 'reconnecting');
                         break;
                     case $.signalR.connectionState.disconnected:
-                        console.log('disconnected');
+                        logError('signalr', 'disconnected');
                         break;
                 }
             }
@@ -67,6 +62,26 @@
         return {
             sendMsg: send
         };
+
+
+        function logError(url, data, payload) {
+            var log = {
+                data: data,
+                payload: payload
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/error/jslog/',
+                contentType: 'application/json',
+                data: angular.toJson({
+                    errorUrl: url,
+                    errorMessage: JSON.stringify(log),
+                    cause: 'ajaxRequest',
+                    stackTrace: ''
+                })
+            });
+        }
 
     }
 })();
