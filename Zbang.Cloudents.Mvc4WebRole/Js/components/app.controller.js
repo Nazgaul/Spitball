@@ -12,10 +12,10 @@
             var path = $location.path(),
                 absUrl = $location.absUrl(),
                 virtualUrl = absUrl.substring(absUrl.indexOf(path));
-            // ReSharper disable UseOfImplicitGlobalInFunctionScope
+            // ReSharper disable UndeclaredGlobalVariableUsing
             dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl }); // google tag manger
             __insp.push(["virtualPage"]); //inspectlet
-            // ReSharper restore UseOfImplicitGlobalInFunctionScope
+            // ReSharper restore UndeclaredGlobalVariableUsing
 
         });
         userDetails.init().then(function () {

@@ -87,7 +87,7 @@
                     render(defaults, configuredDefaults, elem, scope);
                 }
                 scope.ngScrollbarsUpdate = function () {
-                    if (needCustomScroll()) {
+                    if (!notNeedSlimScroll()) {
                         elem.mCustomScrollbar.apply(elem, arguments);
                         return;
                     }
