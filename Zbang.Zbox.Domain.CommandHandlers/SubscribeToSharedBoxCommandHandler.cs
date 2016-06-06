@@ -51,11 +51,17 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (type == UserRelationshipType.Invite ||
                 type == UserRelationshipType.None && box.PrivacySettings.PrivacySetting == BoxPrivacySetting.AnyoneWithUrl)
             {
+                
                 var user = m_UserRepository.Load(command.UserId);
                 user.ChangeUserRelationShipToBoxType(box, UserRelationshipType.Subscribe);
                 m_UserRepository.Save(user);
                 if (userBoxRel != null) await GiveReputationAsync(user.Email, box.Id);
                 box.CalculateMembers();
+                var academicBox = box.Actual as AcademicBox;
+                if (academicBox != null)
+                {
+                    box.ShouldMakeDirty = () => false;
+                }
                 m_BoxRepository.Save(box);
             }
         }
