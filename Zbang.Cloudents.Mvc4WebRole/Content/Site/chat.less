@@ -46,6 +46,13 @@
     padding: 5px;
     margin-left: 15px;
     margin-top: 5px;
+    -moz-transform: scaleX(1) /*rtl: scaleX(-1)*/;
+    -o-transform: scaleX(1) /*rtl: scaleX(-1)*/;
+    -webkit-transform: scaleX(1) /*rtl: scaleX(-1)*/;
+    -ms-transform: scaleX(1) /*rtl: scaleX(-1)*/;
+    transform: scaleX(1) /*rtl: scaleX(-1)*/;
+    -ms-filter: none /*rtl: "FlipH"*/;
+    filter: none /*rtl: FlipH*/;
 
     svg {
         width: 24px;
@@ -172,11 +179,16 @@ md-sidenav.chat {
                 color: @textColorBlack;
                 height: ~"calc(100vh - 119px)";
                 width: ~"calc(100% - 20px)";
-                overflow:auto;
+                overflow: auto;
+
+                .mCSB_container {
+                    width: auto !important; //scroller fix
+                }
+
                 .user {
                     .chat-counter {
                         padding: 0;
-                        margin: 0 25px 0 10px;
+                        margin: 0;
                         flex-shrink: 0;
                     }
 
@@ -187,7 +199,7 @@ md-sidenav.chat {
                         /*-ms-flex-wrap: wrap;
                         -webkit-flex-wrap: wrap;
                         flex-wrap: wrap;*/
-                        padding: 10px 5px 10px 0;
+                        padding: 10px 0;
                         height: 64px;
 
                         .name-date {
@@ -350,7 +362,7 @@ md-sidenav.chat {
                     font-size: 15px;
                     padding-top: 10px;
                     padding-bottom: 6px;
-                    overflow:auto;
+                    overflow: auto;
                     //padding-bottom: 70px;
                     .message {
                         box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
@@ -547,7 +559,7 @@ md-sidenav.chat {
             text-align: center;
             padding: 30px;
 
-            img{
+            img {
                 margin-bottom: 15px;
             }
         }

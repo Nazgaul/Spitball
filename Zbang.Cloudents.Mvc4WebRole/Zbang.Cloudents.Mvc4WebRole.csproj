@@ -2315,7 +2315,6 @@
     <Content Include="bower_components\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.concat.min.js" />
     <Content Include="bower_components\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.css" />
     <Content Include="bower_components\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.js" />
-    <Content Include="bower_components\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.min.css" />
     <Content Include="bower_components\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.rtl.css" />
     <Content Include="bower_components\malihu-custom-scrollbar-plugin\mCSB_buttons.png" />
     <Content Include="bower_components\ng-scrollbars\dist\scrollbars.min.js" />
