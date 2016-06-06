@@ -3740,6 +3740,7 @@
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\doubleclick.config.js" />
     <Content Include="Js\components\chat\hubFactory.js" />
+    <Content Include="Js\shared\collapseHeader.directive.js" />
     <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\inlineManualNew.js" />
     <Content Include="Js\shared\intercom.js" />

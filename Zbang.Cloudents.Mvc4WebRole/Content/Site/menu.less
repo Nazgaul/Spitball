@@ -59,9 +59,12 @@
         border-radius: 5px;
         width: 250px;
         margin-left: 0;
-        margin-top: 10px;
         z-index: 10;
         height: ~"calc(100vh - @{heightOfHeader} + 5px)";
+
+        @media(min-width: 960px) {
+            margin-top: 10px;
+        }
 
         md-content, .side-menu ul {
             background: transparent;
@@ -128,13 +131,12 @@
 .side-menu {
     height: ~"calc(100vh - 90px)";
     //width: ~"calc(100% - 20px)";
-
-   .mCSB_container_wrapper {
+    .mCSB_container_wrapper {
         margin: 0 !important;
 
         .mCSB_container {
             padding: 0 !important;
-           // right: 0 !important;
+            // right: 0 !important;
         }
     }
 

@@ -198,4 +198,7 @@
   <data name="BoxAdmin" xml:space="preserve">
     <value>Admin</value>
   </data>
+  <data name="likeUsersDialogHeader" xml:space="preserve">
+    <value>Spitballers who like this</value>
+  </data>
 </root>
