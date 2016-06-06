@@ -169,6 +169,7 @@
   padding: 5px 5px 0;
   width: calc(50% - 20px);
   max-width: 115px;
+  float: right;
 }
 .feed .comment md-input-container,
 .feed .add-comment md-input-container {

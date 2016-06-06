@@ -45,6 +45,13 @@
   padding: 5px;
   margin-left: 15px;
   margin-top: 5px;
+  -moz-transform: scaleX(1) /*rtl: scaleX(-1)*/;
+  -o-transform: scaleX(1) /*rtl: scaleX(-1)*/;
+  -webkit-transform: scaleX(1) /*rtl: scaleX(-1)*/;
+  -ms-transform: scaleX(1) /*rtl: scaleX(-1)*/;
+  transform: scaleX(1) /*rtl: scaleX(-1)*/;
+  -ms-filter: none /*rtl: "FlipH"*/;
+  filter: none /*rtl: FlipH*/;
 }
 .exit-icon svg {
   width: 24px;
@@ -245,9 +252,12 @@ md-sidenav.chat md-content .tab-content .users-list {
   width: calc(100% - 20px);
   overflow: auto;
 }
+md-sidenav.chat md-content .tab-content .users-list .mCSB_container {
+  width: auto !important;
+}
 md-sidenav.chat md-content .tab-content .users-list .user .chat-counter {
   padding: 0;
-  margin: 0 25px 0 10px;
+  margin: 0;
   flex-shrink: 0;
 }
 md-sidenav.chat md-content .tab-content .users-list .user .name-counter {
@@ -257,7 +267,7 @@ md-sidenav.chat md-content .tab-content .users-list .user .name-counter {
   /*-ms-flex-wrap: wrap;
                         -webkit-flex-wrap: wrap;
                         flex-wrap: wrap;*/
-  padding: 10px 5px 10px 0;
+  padding: 10px 0;
   height: 64px;
 }
 md-sidenav.chat md-content .tab-content .users-list .user .name-counter .name-date {

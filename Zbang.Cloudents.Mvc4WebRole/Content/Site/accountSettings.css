@@ -164,6 +164,8 @@
 }
 .accountPage-wrapper .notification-list li .name {
   font-size: 18px;
+}
+.accountPage-wrapper .notification-list li:not(.subscription) .name {
   max-width: 500px;
 }
 .accountPage-wrapper .uni-image {

@@ -89,6 +89,7 @@
 
         li.nav-item {
             width: 100%;
+            padding-right: 10px;
         }
 
         .dashboard, .help, .logout {
@@ -126,7 +127,16 @@
 
 .side-menu {
     height: ~"calc(100vh - 90px)";
-    width: ~"calc(100% - 20px)";
+    //width: ~"calc(100% - 20px)";
+
+   .mCSB_container_wrapper {
+        margin: 0 !important;
+
+        .mCSB_container {
+            padding: 0 !important;
+           // right: 0 !important;
+        }
+    }
 
     li {
         > .md-button, > button {

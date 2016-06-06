@@ -64,6 +64,7 @@
 }
 .page-body .main-md-sidenav li.nav-item {
   width: 100%;
+  padding-right: 10px;
 }
 .page-body .main-md-sidenav .dashboard svg,
 .page-body .main-md-sidenav .help svg,
@@ -92,7 +93,12 @@
 }
 .side-menu {
   height: calc(100vh - 90px);
-  width: calc(100% - 20px);
+}
+.side-menu .mCSB_container_wrapper {
+  margin: 0 !important;
+}
+.side-menu .mCSB_container_wrapper .mCSB_container {
+  padding: 0 !important;
 }
 .side-menu li > .md-button,
 .side-menu li > button {
