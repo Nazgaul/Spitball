@@ -47,7 +47,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             m_Blob.DownloadToStream(response.OutputStream);
         }
 
-        private static class ContentDispositionUtil
+        public static class ContentDispositionUtil
         {
             private const string HexDigits = "0123456789ABCDEF";
 

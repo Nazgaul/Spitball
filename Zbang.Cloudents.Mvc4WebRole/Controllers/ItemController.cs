@@ -241,9 +241,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Redirect(item.Source);
             }
+           // var url = m_BlobProviderFiles.GenerateSharedAccressReadPermission(item.Source, 30,
+           //      BlobFileStream.ContentDispositionUtil.GetHeaderValue(item.Name));
+           // return Redirect(url);
+
             var blob = m_CloudBlobProvider.GetFile(item.Source);
             var contentType = defaultMimeType;
-
+            
             if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
             {
                 contentType = blob.Properties.ContentType;
@@ -378,7 +382,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region Preview
-        [HttpGet,ActionName("Preview")]
+        [HttpGet, ActionName("Preview")]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("boxId")]
         [AsyncTimeout(TimeConst.Minute * 3 * 1000)]
@@ -454,7 +458,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost]
-        [ZboxAuthorize,ActionName("FlagRequest")]
+        [ZboxAuthorize, ActionName("FlagRequest")]
         public async Task<JsonResult> FlagRequestAsync(FlagBadItem model)
         {
 
