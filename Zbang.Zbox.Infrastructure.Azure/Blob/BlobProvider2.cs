@@ -114,6 +114,25 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return url.AbsoluteUri;
         }
 
+        public string GenerateSharedAccressReadPermission(string blobName, double expirationTimeInMinutes, string contentDisposition)
+        {
+            var blob = GetBlob(blobName);
+
+            var signedUrl = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+            {
+                SharedAccessStartTime = DateTime.UtcNow.AddMinutes(-1),
+                Permissions = SharedAccessBlobPermissions.Read,
+                SharedAccessExpiryTime = DateTime.UtcNow.AddMinutes(expirationTimeInMinutes)
+
+
+            }, new SharedAccessBlobHeaders
+            {
+                ContentDisposition = contentDisposition
+            });
+            var url = new Uri(blob.Uri, signedUrl);
+            return url.AbsoluteUri;
+        }
+
         public string GenerateSharedAccressWritePermission(string blobName, string mimeType)
         {
             var blob = GetBlob(blobName);
