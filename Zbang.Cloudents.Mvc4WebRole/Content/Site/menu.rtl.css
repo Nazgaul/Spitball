@@ -44,9 +44,13 @@
   border-radius: 5px;
   width: 250px;
   margin-right: 0;
-  margin-top: 10px;
   z-index: 10;
   height: calc(100vh - 70px + 5px);
+}
+@media (min-width: 960px) {
+  .page-body .main-md-sidenav {
+    margin-top: 10px;
+  }
 }
 .page-body .main-md-sidenav md-content,
 .page-body .main-md-sidenav .side-menu ul {

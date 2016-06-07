@@ -359,6 +359,7 @@ md-sidenav.chat md-content .conversasion .header svg {
   width: 25px;
   height: 25px;
   vertical-align: middle;
+  display: block;
 }
 md-sidenav.chat md-content .conversasion .header svg.attach {
   fill: #f5f5f5;

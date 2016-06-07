@@ -1,6 +1,7 @@
-﻿<md-dialog class="like-dialog">
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+<md-dialog class="like-dialog">
     <md-toolbar layout="row" layout-align="space-between center" class="backgroundTC3">
-        <h2>Spitballers who like this</h2>
+        <h2>@BoxResources.likeUsersDialogHeader</h2>
         <md-button ng-click="lc.close()">
             @Html.Svg("~/images/site/icons.svg", "close", new { @class = "svgTC4" })
         </md-button>

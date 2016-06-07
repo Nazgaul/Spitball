@@ -198,4 +198,7 @@
   <data name="BoxAdmin" xml:space="preserve">
     <value>מנהל קבוצה</value>
   </data>
+  <data name="likeUsersDialogHeader" xml:space="preserve">
+    <value>סטודנטים שאהבו את זה</value>
+  </data>
 </root>

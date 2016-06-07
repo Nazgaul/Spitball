@@ -81,6 +81,16 @@ body {
     //this cause the md dialog not to show on scroll page
     //max-width: 100vw;
     //overflow-x: hidden; //this cause the md dialog not to show on scroll page
+    &.collapse-header {
+        #main-nav, .page-body {
+            height: 0;
+            overflow: hidden;
+            -webkit-transition: height 0.3s;
+            -moz-transition: height 0.3s;
+            -o-transition: height 0.3s;
+            transition: height 0.3s;
+        }
+    }
 }
 
 .fixedBgColor {
