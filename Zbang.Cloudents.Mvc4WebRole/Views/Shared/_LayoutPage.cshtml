@@ -30,7 +30,7 @@
     <base href="/" />
 </head>
 <body @*md-layout-css*@ ng-controller="AppController as app"
-      class="{{app.theme}} color-override backgroundColor1 clearfix" ng-class="{menuOpened: app.menuOpened, fixedBgColor: app.fixedBgColor}">
+      class="{{app.theme}} color-override backgroundColor1 clearfix" ng-class="{menuOpened: app.menuOpened, fixedBgColor: app.fixedBgColor, collapseHeader: app.collapsedHeader}">
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({

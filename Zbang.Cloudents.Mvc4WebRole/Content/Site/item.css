@@ -35,6 +35,7 @@ md-menu-item.blue svg {
   position: relative;
   min-height: 60px;
   display: block;
+  padding: 10px 0;
 }
 .itemPage header .page-logo svg {
   width: 180px;
@@ -133,6 +134,9 @@ md-menu-item.blue svg {
   right: 0;
   top: 10px;
   padding: 0 10px 0 6px;
+}
+.itemPage .item-content {
+  padding-top: 90px;
 }
 .itemPage md-select:not([disabled]):focus .md-select-value {
   color: #282828;

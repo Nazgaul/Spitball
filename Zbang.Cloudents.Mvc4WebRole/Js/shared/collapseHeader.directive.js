@@ -1,27 +1,35 @@
 ﻿'use strict';
 (function () {
     angular.module('app').directive('collapseHeader', collapseHeader);
-    collapseHeader.$inject = ['$window'];
+    collapseHeader.$inject = ['$window', '$rootScope'];
 
-    function collapseHeader($window) {
+    function collapseHeader($window, $rootScope) {
         return {
-            restrict: 'a',
-            link: function ($window) {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                scope.app.collapsedHeader = false;
                 var $container = angular.element($window);
 
-                $container.on('scroll', $handle);
-                scope.$on('$destroy', function () {
-                    $container.unbind('scroll', $handle);
-                });
+                //$container.on('scroll', onScroll);
 
-                function $handle() {
-                    var scrollPos = $container.scrollTop();
-                    //var unregContainer = $(".unreg-user .content-wrapper");
-                    if (scrollPos > 0) {
-                        $('body').addClass('collapse-header');
-                    } else {
-                        $('body').removeClass('collapse-header');
+                $container.on('mousewheel', onScroll);
+
+                function onScroll(event) {
+                    //var scrollPos = $container.scrollTop();
+                    //if (scrollPos > 0) {
+                    //    scope.app.collapsedHeader = true;
+                    //} else {
+                    //    scope.app.collapsedHeader = false;
+                    //}
+
+
+                    if (event.originalEvent.wheelDelta >= 0) {
+                        scope.app.collapsedHeader = false;
                     }
+                    else {
+                        scope.app.collapsedHeader = true;
+                    }
+
                 }
 
             }

@@ -100,21 +100,38 @@ input[type="search"] {
 html {
   background: transparent;
 }
-body.collapse-header #main-nav {
-  height: 0;
-  overflow: hidden;
-  -webkit-transition: height 0.3s;
-  -moz-transition: height 0.3s;
-  -o-transition: height 0.3s;
-  transition: height 0.3s;
+body {
+  margin-top: 0;
+  -moz-transition: margin-top 0.2s ease !important;
+  -o-transition: margin-top 0.2s ease !important;
+  -webkit-transition: margin-top 0.2s ease !important;
+  transition: margin-top 0.2s ease !important;
 }
-
-body.collapse-header .page-body {
-  margin: 0;
-  -webkit-transition: margin 0.3s;
-  -moz-transition: margin 0.3s;
-  -o-transition: margin 0.3s;
-  transition: margin 0.3s;
+body.collapseHeader {
+  margin-top: -70px;
+}
+body.collapseHeader #main-nav {
+  margin-top: -70px;
+}
+body.collapseHeader .itemPage header {
+  top: 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+}
+body #main-nav {
+  margin-top: 0;
+  -moz-transition: margin-top 0.2s ease !important;
+  -o-transition: margin-top 0.2s ease !important;
+  -webkit-transition: margin-top 0.2s ease !important;
+  transition: margin-top 0.2s ease !important;
+}
+body .itemPage header {
+  position: fixed;
+  top: 70px;
+  background: #f5f5f5;
+  -moz-transition: top 0.2s ease !important;
+  -o-transition: top 0.2s ease !important;
+  -webkit-transition: top 0.2s ease !important;
+  transition: top 0.2s ease !important;
 }
 .fixedBgColor {
   background: #f5f5f5;
