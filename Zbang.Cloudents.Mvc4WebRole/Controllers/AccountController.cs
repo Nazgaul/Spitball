@@ -438,14 +438,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ModelState.AddModelError(string.Empty, BaseControllerResources.UnspecifiedError);
                 TraceLog.WriteError("Register model:" + model, ex);
             }
-            finally
+            if (createStatus != null && createStatus.Succeeded)
             {
-                if (createStatus != null && createStatus.Succeeded)
-                {
-                    var user = await m_UserManager.FindByEmailAsync(model.NewEmail);
+                var user = await m_UserManager.FindByEmailAsync(model.NewEmail);
 
-                    await m_UserManager.DeleteAsync(user);
-                }
+                await m_UserManager.DeleteAsync(user);
             }
             return JsonError(GetErrorFromModelState());
         }
