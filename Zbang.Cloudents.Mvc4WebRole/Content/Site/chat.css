@@ -424,6 +424,9 @@ md-sidenav.chat md-content .conversasion .header .user-side .back:after {
 md-sidenav.chat md-content .conversasion .header .user-side .user {
   color: #f5f5f5;
 }
+md-sidenav.chat md-content .conversasion .header .user-side .user user-image {
+  display: none;
+}
 md-sidenav.chat md-content .conversasion .chat-content .messages {
   height: calc(100vh - 120px);
   width: 100%;

@@ -180,8 +180,7 @@
     <value>קליק אחד ואתם בספיטבול</value>
   </data>
   <data name="UniversitySearchTitleNoResult" xml:space="preserve">
-    <value>!קצת מביך... לא מצאנו את מוסד הלימודים שלכם
-</value>
+    <value>קצת מביך... לא מצאנו את מוסד הלימודים שלכם!</value>
   </data>
   <data name="UniversitySearchTitleNoResultSub" xml:space="preserve">
     <value>נסו שם אחר או הוסיפו מוסד לימודים חדש</value>

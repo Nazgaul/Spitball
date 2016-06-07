@@ -231,11 +231,6 @@
   line-height: 32px;
   font-weight: bold;
 }
-@media (min-width: 600px) {
-  .library-choose .search-form-wrapper .intro-text-wrapper {
-    white-space: pre-wrap;
-  }
-}
 .library-choose .search-form-wrapper .intro-text-wrapper .sub-text {
   color: #888b8e;
   font-size: 26px;
