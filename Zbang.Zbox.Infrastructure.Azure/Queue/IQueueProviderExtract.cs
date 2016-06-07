@@ -9,8 +9,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
 {
     public interface IQueueProviderExtract
     {
-        Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
-           TimeSpan invisibleTimeinQueue, int deQueueCount = 100);
+        //Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
+        //   TimeSpan invisibleTimeinQueue, int deQueueCount = 100);
 
         Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
             TimeSpan invisibleTimeinQueue, int deQueueCount, CancellationToken token);

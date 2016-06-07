@@ -78,11 +78,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return queue;
         }
 
-        public Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
-            TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
-        {
-            return RunQueueAsync(queueName, func, invisibleTimeinQueue, deQueueCount, default(CancellationToken));
-        }
+        //public Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
+        //    TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
+        //{
+        //    return RunQueueAsync(queueName, func, invisibleTimeinQueue, deQueueCount, default(CancellationToken));
+        //}
 
         public async Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
            TimeSpan invisibleTimeinQueue, int deQueueCount, CancellationToken token)

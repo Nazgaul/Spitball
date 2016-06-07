@@ -61,13 +61,13 @@
             itemService.addComment(c.newCommentText, boxid, itemId).then(function (response) {
                 var newComment = {
                     comment: c.newCommentText,
-                    creationDate: new Date(),
+                    creationDate: new Date().toISOString(),
                     id: response,
                     url: c.currUser.url,
                     replies:[],
                     userId: c.currUser.id,
                     userImage: c.currUser.image,
-                    userName: c.currUser.name,
+                    userName: c.currUser.name
                 };
 
                 c.comments.unshift(newComment);
