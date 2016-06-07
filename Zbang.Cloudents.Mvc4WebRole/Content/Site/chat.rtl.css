@@ -487,6 +487,11 @@ md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-con
   line-height: 22px;
   min-height: 45px;
 }
+@media (max-width: 600px) {
+  md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container textarea {
+    min-height: 90px;
+  }
+}
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container .md-errors-spacer,
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container .md-errors-space {
   display: none;
