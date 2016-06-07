@@ -358,13 +358,17 @@ md-sidenav.chat {
             .chat-content {
                 .messages {
                     height: ~"calc(100vh - 120px)";
-                    width: ~"calc(100% - 20px)";
+                    width: 100%;
                     padding: 0;
                     font-size: 15px;
                     padding-top: 10px;
                     padding-bottom: 6px;
                     overflow: auto;
                     //padding-bottom: 70px;
+                    .mCSB_outside + .mCSB_scrollTools {
+                        right: -5px;
+                    }
+
                     .message {
                         box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
                         border-radius: 8px;
@@ -429,6 +433,10 @@ md-sidenav.chat {
                             border: none !important;
                             line-height: 22px;
                             min-height: 45px;
+
+                            @media(max-width: 600px) {
+                                min-height: 90px;
+                            }
                         }
                         //&.md-input-invalid.md-input-focused label {
                         //    color: @buttonColorBlue;

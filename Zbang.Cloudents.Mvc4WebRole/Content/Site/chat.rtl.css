@@ -426,12 +426,15 @@ md-sidenav.chat md-content .conversasion .header .user-side .user {
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages {
   height: calc(100vh - 120px);
-  width: calc(100% - 20px);
+  width: 100%;
   padding: 0;
   font-size: 15px;
   padding-top: 10px;
   padding-bottom: 6px;
   overflow: auto;
+}
+md-sidenav.chat md-content .conversasion .chat-content .messages .mCSB_outside + .mCSB_scrollTools {
+  left: -5px;
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages .message {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
@@ -483,6 +486,11 @@ md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-con
   border: none !important;
   line-height: 22px;
   min-height: 45px;
+}
+@media (max-width: 600px) {
+  md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container textarea {
+    min-height: 90px;
+  }
 }
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container .md-errors-spacer,
 md-sidenav.chat md-content .conversasion .chat-content .new-message md-input-container .md-errors-space {
