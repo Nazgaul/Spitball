@@ -20,10 +20,13 @@
                         @ChatResources.EmptyStateLine2
                     </div>
                 </div>*@
-                <form novalidate class="search-friend" @*ng-if="c.state === c.states.friends"*@ ng-submit="c.search()">
-                    <input type="search" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search()" ng-model-options="{debounce : 300}" />
+                <form novalidate class="search-friend" @*ng-if="c.state === c.states.friends"*@ ng-submit="c.search(c.term)">
                     <button type="submit" class="search-btn">
                         @Html.Svg("~/images/site/icons.svg", "searchIcon", new { @class = "searchIcon" })
+                    </button>                    
+                    <input type="search" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search(c.term)" ng-model-options="{debounce : 300}" />
+                    <button type="reset" ng-if="c.term.length" class="reset-btn" ng-click="c.term=''; c.search('')">
+                        @Html.Svg("~/images/site/icons.svg", "close", new { @class = "resetIcon" })
                     </button>
                 </form>
                 <ul class="users-list" disable-thouch ng-scrollbars ng-scrollbars-config="c.scrollSetting" @*ng-slimscroll height="calc(100vh - 119px)" color="#BBB" watch-content="true"*@>

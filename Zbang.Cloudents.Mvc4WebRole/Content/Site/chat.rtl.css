@@ -235,12 +235,21 @@ md-sidenav.chat md-content .tab-content .search-friend input {
   padding: 0 12px;
   line-height: 34px;
 }
-md-sidenav.chat md-content .tab-content .search-friend button {
-  padding: 5px 8px;
+md-sidenav.chat md-content .tab-content .search-friend .reset-btn {
+  padding: 0 10px;
 }
-md-sidenav.chat md-content .tab-content .search-friend button svg {
-  width: 20px;
-  height: 20px;
+md-sidenav.chat md-content .tab-content .search-friend .reset-btn svg {
+  width: 10px;
+  height: 10px;
+  display: block;
+  fill: #323538;
+}
+md-sidenav.chat md-content .tab-content .search-friend .search-btn {
+  padding: 5px 10px 5px 8px;
+}
+md-sidenav.chat md-content .tab-content .search-friend .search-btn svg {
+  width: 18px;
+  height: 18px;
   display: block;
   fill: #4190b9;
 }

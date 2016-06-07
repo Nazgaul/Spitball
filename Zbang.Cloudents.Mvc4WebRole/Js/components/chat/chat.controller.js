@@ -75,8 +75,8 @@
 
         }
 
-        function search() {
-            chatBus.messages(c.term).then(function (response) {
+        function search(term) {
+            chatBus.messages(term).then(function (response) {
                 c.users = response;
                 updateUnread();
             });
