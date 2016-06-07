@@ -100,14 +100,21 @@ input[type="search"] {
 html {
   background: transparent;
 }
-body.collapse-header #main-nav,
-body.collapse-header .page-body {
+body.collapse-header #main-nav {
   height: 0;
   overflow: hidden;
   -webkit-transition: height 0.3s;
   -moz-transition: height 0.3s;
   -o-transition: height 0.3s;
   transition: height 0.3s;
+}
+
+body.collapse-header .page-body {
+  margin: 0;
+  -webkit-transition: margin 0.3s;
+  -moz-transition: margin 0.3s;
+  -o-transition: margin 0.3s;
+  transition: margin 0.3s;
 }
 .fixedBgColor {
   background: #f5f5f5;
