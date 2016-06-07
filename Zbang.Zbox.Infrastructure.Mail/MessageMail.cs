@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             sb.Replace("{USER_MSG}", messageParams.Message);
             sb.Replace("{MSG_AUTHOR}", messageParams.SenderName);
             sb.Replace("{ImgUrl}", messageParams.SenderImage);
-            sb.Replace("{REPLY_URL}", messageParams.SenderEmail);
+            //sb.Replace("{REPLY_URL}", messageParams.SenderEmail);
 
             message.Html = sb.ToString();
             
