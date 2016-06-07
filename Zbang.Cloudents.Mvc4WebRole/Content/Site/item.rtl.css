@@ -102,10 +102,10 @@ md-menu-item.blue svg {
   width: calc(100% - 100px);
   margin: 0 auto;
   padding-right: 16px;
-  padding-top: 5px;
 }
 .itemPage header .top-wrapper .name-actions .item-actions {
   white-space: nowrap;
+  padding: 5px 5px 5px 0;
 }
 .itemPage header .top-wrapper .name-actions .item-actions a {
   display: block;
