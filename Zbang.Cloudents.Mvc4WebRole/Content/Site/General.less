@@ -81,15 +81,35 @@ body {
     //this cause the md dialog not to show on scroll page
     //max-width: 100vw;
     //overflow-x: hidden; //this cause the md dialog not to show on scroll page
-    &.collapse-header {
-        #main-nav, .page-body {
-            height: 0;
-            overflow: hidden;
-            -webkit-transition: height 0.3s;
-            -moz-transition: height 0.3s;
-            -o-transition: height 0.3s;
-            transition: height 0.3s;
+    
+    margin-top: 0;
+    .transition(margin-top, 0.2s, ease);
+
+
+    &.collapseHeader {
+        margin-top: -70px;
+
+        #main-nav {
+            margin-top: -70px;
         }
+
+        .itemPage header {
+            top: 0;
+            box-shadow: 0 0 5px rgba(0,0,0,0.4);
+        }
+    }
+
+    #main-nav {
+        margin-top: 0;
+        .transition(margin-top, 0.2s, ease);
+        // display: none;
+    }
+
+    .itemPage header {
+        position: fixed;
+        top: 70px;
+        background: @backgroundColorWhite;
+        .transition(top, 0.2s, ease);
     }
 }
 
