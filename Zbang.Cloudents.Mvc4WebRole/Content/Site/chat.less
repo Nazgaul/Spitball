@@ -290,12 +290,17 @@ md-sidenav.chat {
 
                 .user {
                     max-width: ~"calc(100% - 40px)";
+
+
+                    &.online:before {
+                        bottom: 10px;
+                    }
                 }
 
                 svg {
                     width: 46px;
                     height: 46px;
-                    padding:10px;
+                    padding: 10px;
                     display: block;
 
                     &.attach {
@@ -492,7 +497,6 @@ md-sidenav.chat {
                         transform: scaleX(1) /*rtl:scaleX(-1)*/;
                         -ms-filter: none /*rtl:fliph*/; /*IE*/
                         filter: none /*rtl:fliph*/; /*IE*/
-
                         svg {
                             width: 25px;
                             height: 25px;
@@ -519,13 +523,14 @@ md-sidenav.chat {
             &.online:before {
                 content: "";
                 display: inline-block;
-                width: 7px;
-                height: 7px;
+                width: 10px;
+                height: 10px;
                 border-radius: 100%;
-                background: #0CFF00;
+                background: #0CFB00;
                 position: absolute;
                 left: 35px;
-                bottom: 10px;
+                bottom: 14px;
+                border: 1px solid @textColorLightGrey;
             }
 
             .img-circle {

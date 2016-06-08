@@ -356,6 +356,9 @@ md-sidenav.chat md-content .conversasion .header {
 md-sidenav.chat md-content .conversasion .header .user {
   max-width: calc(100% - 40px);
 }
+md-sidenav.chat md-content .conversasion .header .user.online:before {
+  bottom: 10px;
+}
 md-sidenav.chat md-content .conversasion .header svg {
   width: 46px;
   height: 46px;
@@ -546,13 +549,14 @@ md-sidenav.chat md-content .user {
 md-sidenav.chat md-content .user.online:before {
   content: "";
   display: inline-block;
-  width: 7px;
-  height: 7px;
+  width: 10px;
+  height: 10px;
   border-radius: 100%;
-  background: #0CFF00;
+  background: #0CFB00;
   position: absolute;
   left: 35px;
-  bottom: 10px;
+  bottom: 14px;
+  border: 1px solid #c3c3c3;
 }
 md-sidenav.chat md-content .user .img-circle {
   margin: 10px;
