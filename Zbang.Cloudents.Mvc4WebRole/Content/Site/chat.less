@@ -290,6 +290,10 @@ md-sidenav.chat {
 
                 .user {
                     max-width: ~"calc(100% - 40px)";
+
+                    &.online:before {
+                        bottom: 10px;
+                    }
                 }
 
                 svg {
@@ -523,7 +527,7 @@ md-sidenav.chat {
                 border-radius: 100%;
                 background: #0CFB00;
                 position: absolute;
-                right: 35px;
+                left: 35px;
                 bottom: 14px;
                 border: 1px solid @textColorLightGrey;
             }

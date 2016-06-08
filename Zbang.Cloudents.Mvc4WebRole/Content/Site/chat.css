@@ -356,6 +356,9 @@ md-sidenav.chat md-content .conversasion .header {
 md-sidenav.chat md-content .conversasion .header .user {
   max-width: calc(100% - 40px);
 }
+md-sidenav.chat md-content .conversasion .header .user.online:before {
+  bottom: 10px;
+}
 md-sidenav.chat md-content .conversasion .header svg {
   width: 46px;
   height: 46px;
@@ -551,7 +554,7 @@ md-sidenav.chat md-content .user.online:before {
   border-radius: 100%;
   background: #0CFB00;
   position: absolute;
-  right: 35px;
+  left: 35px;
   bottom: 14px;
   border: 1px solid #c3c3c3;
 }
