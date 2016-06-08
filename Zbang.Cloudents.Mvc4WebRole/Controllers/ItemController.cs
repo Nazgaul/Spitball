@@ -12,7 +12,6 @@ using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -31,7 +30,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     [NoUniversity]
     public class ItemController : BaseController
     {
-        private readonly ICloudBlockProvider m_CloudBlobProvider;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IQueueProvider m_QueueProvider;
         private readonly Lazy<IGuidIdGenerator> m_GuidGenerator;
@@ -41,12 +39,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ItemController(
             IFileProcessorFactory fileProcessorFactory,
-            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator, ICloudBlockProvider cloudBlobProvider, Lazy<IItemReadSearchProvider2> itemSearchProvider, IBlobProvider2<FilesContainerName> blobProviderFiles)
+            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator,  Lazy<IItemReadSearchProvider2> itemSearchProvider, IBlobProvider2<FilesContainerName> blobProviderFiles)
         {
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProvider = queueProvider;
             m_GuidGenerator = guidGenerator;
-            m_CloudBlobProvider = cloudBlobProvider;
             m_ItemSearchProvider = itemSearchProvider;
             m_BlobProviderFiles = blobProviderFiles;
         }
@@ -219,7 +216,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [RemoveBoxCookie(Order = 2)]
         public async Task<ActionResult> DownloadAsync(long boxId, long itemId)
         {
-            const string defaultMimeType = "application/octet-stream";
+            //const string defaultMimeType = "application/octet-stream";
             var userId = User.GetUserId();
 
             var query = new GetItemQuery(userId, itemId, boxId);
@@ -241,18 +238,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return Redirect(item.Source);
             }
-           // var url = m_BlobProviderFiles.GenerateSharedAccressReadPermission(item.Source, 30,
-           //      BlobFileStream.ContentDispositionUtil.GetHeaderValue(item.Name));
-           // return Redirect(url);
+            var url = m_BlobProviderFiles.GenerateSharedAccressReadPermission(item.Source, 30,
+                 ContentDispositionUtil.GetHeaderValue(item.Name));
+            return Redirect(url);
 
-            var blob = m_CloudBlobProvider.GetFile(item.Source);
-            var contentType = defaultMimeType;
+            //var blob = m_CloudBlobProvider.GetFile(item.Source);
+            //var contentType = defaultMimeType;
             
-            if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
-            {
-                contentType = blob.Properties.ContentType;
-            }
-            return new BlobFileStream(blob, contentType, item.Name, true);
+            //if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
+            //{
+            //    contentType = blob.Properties.ContentType;
+            //}
+            //return new BlobFileStream(blob, contentType, item.Name, true);
         }
 
 

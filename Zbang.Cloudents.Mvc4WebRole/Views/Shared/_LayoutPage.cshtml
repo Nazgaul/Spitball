@@ -94,8 +94,14 @@
                     </md-menu-item>
                     <md-menu-item class="user-menu-item">
                         <md-button href="@Url.RouteUrl("AccountSettings")" @shouldPostBack ga-track-event="['header', 'settings']">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "settingMenu", new { @class = "svgTC16" })</md-icon>
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "settingMenu", new {@class = "svgTC16"})</md-icon>
                             @IndexResources.Settings
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item class="user-menu-item">
+                        <md-button id="Intercom" href="mailto:njmpgayv@incoming.intercom.io">
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "intercom", new { @class = "svgTC16" })</md-icon>
+                            @IndexResources.Intercom
                         </md-button>
                     </md-menu-item>
                     <md-menu-item class="user-menu-item">
