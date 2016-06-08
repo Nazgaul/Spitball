@@ -3,7 +3,7 @@
 @{
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
-<div srph-infinite-scroll="i.loadMore()" unregister-scroll="true" @*collapse-header*@ ng-class="{hideActions: i.selectedState === i.state.flag || i.selectedState === i.state.rename}">
+<div srph-infinite-scroll="i.loadMore()" unregister-scroll="true" collapse-header ng-class="{hideActions: i.selectedState === i.state.flag || i.selectedState === i.state.rename}">
     <div class="progress-bar"><md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear></div>
     <header layout="row" layout-align="space-between center">
         <div class="top-wrapper">
