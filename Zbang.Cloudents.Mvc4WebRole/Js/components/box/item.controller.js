@@ -24,7 +24,7 @@
         i.openUpload = openUpload;
         i.deleteItem = deleteItem;
         i.addItemToTab = addItemToTab;
-        i.dropToTabSuccess = dropToTabSuccess;
+        //i.dropToTabSuccess = dropToTabSuccess;
         i.downloadItem = followBox;
         i.removeItemFromTab = removeItemFromTab;
         $scope.setTab = setTab;
@@ -46,18 +46,28 @@
             i.items.splice(index, 1);
         }
         function addItemToTab($data, tab) {
+            
+           // i.items.splice(i.items.indexOf($data), 1);
+            //console.log($data);
             if (!user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
+            }
+            var item = i.items.find(function (x) {
+                return x.id === $data.id;
+            });
+            if (item) {
+                var index = i.items.indexOf(item);
+                i.items.splice(index, 1);
             }
             tab.count++;
             followBox();
             boxService.addItemToTab(boxId, tab.id, $data.id);
 
         }
-        function dropToTabSuccess(index) {
-            i.items.splice(index, 1);
-        }
+        //function dropToTabSuccess(index) {
+        //    i.items.splice(index, 1);
+        //}
 
         $scope.$on('resetParams', function () {
             resetParams();
@@ -153,6 +163,7 @@
                 if (!response) {
                     return;
                 }
+                // ReSharper disable once CoercedEqualsUsing
                 if (response.boxId != $stateParams.boxId) { // string an int comarison
                     return;
                 }
@@ -169,6 +180,7 @@
             i.uploadShow = true;
         });
         $rootScope.$on('item_delete', function (e, itemId) {
+            //TODO: use https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
             var item = i.items.find(function (x) {
                 return x.id === itemId;
             });

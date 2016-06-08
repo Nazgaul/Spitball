@@ -227,7 +227,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 LanguageMiddleware.ChangeThreadLanguage(lang);
             }
             var iFrameSrc = "https://spitballblog.wordpress.com/";
-            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
+            if (Thread.CurrentThread.CurrentUICulture.Name.ToLower().StartsWith("he"))
             {
                 iFrameSrc = "https://spitballcoh.wordpress.com/";
             }

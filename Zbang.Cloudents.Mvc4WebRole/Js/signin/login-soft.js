@@ -373,7 +373,7 @@ var Login = function () {
 
     function externalLogIn(data, type) { //Type google or facebook
         if (!data.success) {
-            alert('there is a problem signing you in');
+            alert(data.payload.error);
             return;
         }
 

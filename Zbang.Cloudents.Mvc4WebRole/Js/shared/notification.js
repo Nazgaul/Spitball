@@ -1,7 +1,7 @@
 ﻿(function () {
 
 
-    angular.module('app').service('notification', desktopNotification);
+    angular.module('app').service('notificationService', desktopNotification);
     desktopNotification.$inject = ['$document', '$mdToast', 'resManager'];
 
     function desktopNotification($document, $mdToast, resManager) {
