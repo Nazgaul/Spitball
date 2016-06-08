@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         private async Task ChangeUserEmailAsync(string email, User user)
         {
-            if (await m_EmailVerification.VerifyEmailAsync(email))
+            if (!await m_EmailVerification.VerifyEmailAsync(email))
             //if (!Validation.IsEmailValid(email))
             {
                 throw new ArgumentException(Resources.CommandHandlerResources.EmailNotCorrect);
