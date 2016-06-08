@@ -12,7 +12,8 @@
 
                 //$container.on('scroll', onScroll);
 
-                $container.on('mousewheel', onScroll);
+                var lastScrollTop = 0;
+                $container.on('scroll', onScroll);
 
                 function onScroll(event) {
                     //var scrollPos = $container.scrollTop();
@@ -23,12 +24,24 @@
                     //}
 
 
-                    if (event.originalEvent.wheelDelta >= 0) {
+
+                    var st = $container.scrollTop();
+                    if (st > lastScrollTop) {
+                        //alert('scroll down');
+                        scope.app.collapsedHeader = true;
+                    } else {
+                        //alert('scroll up');
                         scope.app.collapsedHeader = false;
                     }
-                    else {
-                        scope.app.collapsedHeader = true;
-                    }
+                    lastScrollTop = st;
+
+
+                    //if (event.originalEvent.wheelDelta >= 0) {
+                    //    scope.app.collapsedHeader = false;
+                    //}
+                    //else {
+                    //    scope.app.collapsedHeader = true;
+                    //}
 
                 }
 
