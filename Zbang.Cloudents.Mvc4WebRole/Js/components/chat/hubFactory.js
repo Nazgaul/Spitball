@@ -5,7 +5,8 @@
     realtimeFactotry.$inject = ['Hub', '$rootScope'];
     function realtimeFactotry(Hub, $rootScope) {
         var hub = new Hub('spitballHub', {
-            rootPath: window.dChat + '/s',
+            //rootPath: window.dChat + '/s',
+            rootPath: 'https://connect.spitball.co/s',
             listeners: {
                 chat: function (message, chatRoom, userId, blob) {
                     $rootScope.$broadcast('hub-chat',
@@ -47,13 +48,23 @@
                         console.log('connected');
                         break;
                     case $.signalR.connectionState.reconnecting:
+                        console.log('reconnecting');
                         logError('signalr', 'reconnecting');
                         break;
                     case $.signalR.connectionState.disconnected:
+                        console.log('disconnected');
+                        //hub.connection.start();
                         logError('signalr', 'disconnected');
                         break;
                 }
             }
+        });
+
+        hub.connection.disconnected(function () {
+            setTimeout(function () {
+                hub.connection.start();
+                //$.connection.hub.start();
+            }, 500); // Restart connection after 5 seconds.
         });
         var send = function (userId, message, conversationId, blob) {
             hub.send(userId, message, conversationId, blob);

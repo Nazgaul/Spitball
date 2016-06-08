@@ -91,7 +91,6 @@
                 getObj.cache = getCache(ttl);
             }
 
-
             $http.get(buildUrl(url), getObj).then(function (response) {
                 //var data = response.data;
                 var retVal = response.data;
