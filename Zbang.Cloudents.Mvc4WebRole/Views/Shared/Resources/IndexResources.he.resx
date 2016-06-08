@@ -224,4 +224,7 @@
     <value>לא מצאנו את חברך ב-Gmail.
 האם ניסית לחפש דרך ספיטבול או לשתף את הקורס בפייסבוק?</value>
   </data>
+  <data name="Intercom" xml:space="preserve">
+    <value>צור קשר</value>
+  </data>
 </root>

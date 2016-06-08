@@ -225,4 +225,7 @@ Have you tried searching through Gmail or messaging them on Facebook?</value>
     <value>We cannot find your friend on Gmail.
 Have you tried searching through Spitball or messaging them on Facebook?</value>
   </data>
+  <data name="Intercom" xml:space="preserve">
+    <value>Contact us</value>
+  </data>
 </root>

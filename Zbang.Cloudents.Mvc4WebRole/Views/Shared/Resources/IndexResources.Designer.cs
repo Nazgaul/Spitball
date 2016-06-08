@@ -180,6 +180,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contact us.
+        /// </summary>
+        public static string Intercom {
+            get {
+                return ResourceManager.GetString("Intercom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invite your friends to .
         /// </summary>
         public static string Invite {
