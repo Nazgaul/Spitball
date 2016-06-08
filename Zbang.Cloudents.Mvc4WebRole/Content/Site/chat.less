@@ -1,6 +1,8 @@
 ﻿@import "variables.less";
 
 @chatHeaderHeight: @fullScreenHeaderHeight - 5px;
+@newChatMessageHeight: 45px;
+@newChatMessageHeightMobile: 90px;
 
 .chat-counter {
     background: @textColorRed;
@@ -372,7 +374,7 @@ md-sidenav.chat {
 
             .chat-content {
                 .messages {
-                    height: ~"calc(100vh - 120px)";
+                    height: ~"calc(100vh - 10px - @{chatHeaderHeight} - @{newChatMessageHeight})";
                     width: 100%;
                     padding: 0;
                     font-size: 15px;
@@ -380,6 +382,10 @@ md-sidenav.chat {
                     padding-bottom: 6px;
                     overflow: auto;
                     //padding-bottom: 70px;
+                    @media(max-width: 600px) {
+                        height: ~"calc(100vh - 10px - @{chatHeaderHeight} - @{newChatMessageHeightMobile})";
+                    }
+
                     .mCSB_outside + .mCSB_scrollTools {
                         right: -5px;
                     }
@@ -447,10 +453,10 @@ md-sidenav.chat {
                             color: @textColorBlack;
                             border: none !important;
                             line-height: 22px;
-                            min-height: 45px;
+                            min-height: @newChatMessageHeight;
 
                             @media(max-width: 600px) {
-                                min-height: 90px;
+                                min-height: @newChatMessageHeightMobile;
                             }
                         }
                         //&.md-input-invalid.md-input-focused label {
