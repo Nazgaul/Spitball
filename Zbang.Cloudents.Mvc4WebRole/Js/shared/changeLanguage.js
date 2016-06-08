@@ -11,6 +11,10 @@ function getCookie(cname) {
     return "";
 }
 
+function getLangCookie() {
+    getCookie(langCookie)
+}
+
 function changeLanguage($langElem) {
     $langElem.click(function () {
         document.cookie = langCookie + " =" + $(this).data('cookie') + "; path=/;domain=spitball.co";
