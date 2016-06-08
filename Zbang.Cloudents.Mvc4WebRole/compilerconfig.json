@@ -92,11 +92,11 @@
     "inputFile": "Content/Site/siteColors.less"
   },
   {
-    "outputFile": "Content/Site/chat.css",
-    "inputFile": "Content/Site/chat.less"
-  },
-  {
     "outputFile": "Content/Site/libraryChoose.css",
     "inputFile": "Content/Site/libraryChoose.less"
+  },
+  {
+    "outputFile": "Content/Site/chat.css",
+    "inputFile": "Content/Site/chat.less"
   }
 ]

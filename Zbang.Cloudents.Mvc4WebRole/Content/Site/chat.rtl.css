@@ -89,7 +89,6 @@ md-sidenav.chat md-content .header {
         color: #00bcd4;
     }*/
 }
-md-sidenav.chat md-content .header .menu-item,
 md-sidenav.chat md-content .header .menu-open-button {
   background: #111;
   border-radius: 100%;
@@ -110,14 +109,7 @@ md-sidenav.chat md-content .header .menu-open {
   display: none;
 }
 md-sidenav.chat md-content .header .menu {
-  position: absolute;
-  left: 12px;
-  top: 15px;
-  width: 36px;
-  height: 36px;
-  padding: 5px;
-  box-sizing: border-box;
-  z-index: 1;
+  margin-left: 10px;
 }
 md-sidenav.chat md-content .header .menu-item:nth-child(3) {
   -webkit-transition-duration: 180ms;
@@ -365,9 +357,9 @@ md-sidenav.chat md-content .conversasion .header .user {
   max-width: calc(100% - 100px);
 }
 md-sidenav.chat md-content .conversasion .header svg {
-  width: 25px;
-  height: 25px;
-  vertical-align: middle;
+  width: 46px;
+  height: 46px;
+  padding: 10px;
   display: block;
 }
 md-sidenav.chat md-content .conversasion .header svg.attach {

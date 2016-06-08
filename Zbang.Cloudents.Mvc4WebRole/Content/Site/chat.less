@@ -293,10 +293,9 @@ md-sidenav.chat {
                 }
 
                 svg {
-                    width: 25px;
-                    height: 25px;
-                    //margin: 0 auto;
-                    vertical-align: middle;
+                    width: 46px;
+                    height: 46px;
+                    padding:10px;
                     display: block;
 
                     &.attach {
@@ -492,6 +491,7 @@ md-sidenav.chat {
                         transform: scaleX(1) /*rtl:scaleX(-1)*/;
                         -ms-filter: none /*rtl:fliph*/; /*IE*/
                         filter: none /*rtl:fliph*/; /*IE*/
+
                         svg {
                             width: 25px;
                             height: 25px;
@@ -683,7 +683,7 @@ md-sidenav.chat {
           filter: url("#shadowed-goo");
         }
     */
-    .menu-item, .menu-open-button {
+    .menu-open-button {
         background: #111;
         border-radius: 100%;
         width: 35px;
@@ -749,19 +749,7 @@ md-sidenav.chat {
     //    transform: translate3d(0, 0, 0) rotate(-45deg);
     //}
     .menu {
-        position: absolute;
-        right: 12px;
-        top: 15px;
-        //margin-left: -80px;
-        //padding-top: 20px;
-        //padding-left: 80px;
-        width: 36px;
-        height: 36px;
-        padding: 5px;
-        box-sizing: border-box;
-        //font-size: 20px;
-        //text-align: left;
-        z-index: 1;
+        margin-right: 10px;
     }
     /*.menu-item:hover {
         background: white;

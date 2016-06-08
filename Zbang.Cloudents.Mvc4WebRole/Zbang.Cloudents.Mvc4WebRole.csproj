@@ -3206,7 +3206,9 @@
     <Content Include="Content\Site\chat.min.css">
       <DependentUpon>chat.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\chat.rtl.css" />
+    <Content Include="Content\Site\chat.rtl.css">
+      <DependentUpon>chat.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\components-rounded.css">
       <DependentUpon>components-rounded.less</DependentUpon>
     </Content>
