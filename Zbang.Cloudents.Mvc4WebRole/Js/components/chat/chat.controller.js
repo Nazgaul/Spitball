@@ -116,7 +116,7 @@
 
 
         function send() {
-            if (c.newText === '') {
+            if (!c.newText) {
                 return;
             }
             realtimeFactotry.sendMsg(c.userChat.id, c.newText, c.userChat.conversation);
