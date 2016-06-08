@@ -48,9 +48,7 @@
             slider.goToSlide($('.items-container a').index(active));
         }
 
-        var val = getCookie('l3').toLowerCase();
-        var text = $('.language').find('button[data-cookie="' + val + '"]').html();
-        $('nav li.language span:first').text(text);
+        updateLangOnDropDown();
 
         window.Intercom('boot', {
             app_id: "njmpgayv",

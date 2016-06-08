@@ -198,6 +198,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),
                         new JsFileWithCdn("~/js/doubleclick.config.js"),
+                        new JsFileWithCdn("~/js/shared/changeLanguage.js"),
                         new JsFileWithCdn("~/js/routerHelperProvider.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
 
