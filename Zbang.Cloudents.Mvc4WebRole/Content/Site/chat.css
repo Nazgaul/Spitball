@@ -437,13 +437,18 @@ md-sidenav.chat md-content .conversasion .header .user-side .user user-image {
   display: none;
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages {
-  height: calc(100vh - 120px);
+  height: calc(100vh - 10px - 65px - 45px);
   width: 100%;
   padding: 0;
   font-size: 15px;
   padding-top: 10px;
   padding-bottom: 6px;
   overflow: auto;
+}
+@media (max-width: 600px) {
+  md-sidenav.chat md-content .conversasion .chat-content .messages {
+    height: calc(100vh - 10px - 65px - 90px);
+  }
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages .mCSB_outside + .mCSB_scrollTools {
   right: -5px;

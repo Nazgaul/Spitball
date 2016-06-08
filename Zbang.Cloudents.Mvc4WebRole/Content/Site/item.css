@@ -106,7 +106,7 @@ md-menu-item.blue svg {
 }
 .itemPage header .top-wrapper .name-actions .item-actions {
   white-space: nowrap;
-  padding: 5px 0 5px 5px;
+  height: 36px;
 }
 .itemPage header .top-wrapper .name-actions .item-actions a {
   display: block;
@@ -132,8 +132,8 @@ md-menu-item.blue svg {
 .itemPage header .close-btn {
   position: absolute;
   right: 0;
-  top: 10px;
-  padding: 0 10px 0 6px;
+  top: 20px;
+  padding: 0 24px 0 6px ;
 }
 .itemPage .item-content {
   padding-top: 90px;
@@ -515,7 +515,7 @@ md-menu-item.blue svg {
 }
 @media (min-width: 600px) {
   .preview {
-    padding: 0 24px;
+    padding: 0 20px;
   }
 }
 .preview .preview-page {
