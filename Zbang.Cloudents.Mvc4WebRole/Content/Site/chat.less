@@ -289,13 +289,13 @@ md-sidenav.chat {
                 height: @chatHeaderHeight;
 
                 .user {
-                    max-width: ~"calc(100% - 100px)";
+                    max-width: ~"calc(100% - 40px)";
                 }
 
                 svg {
                     width: 46px;
                     height: 46px;
-                    padding:10px;
+                    padding: 10px;
                     display: block;
 
                     &.attach {
@@ -335,6 +335,7 @@ md-sidenav.chat {
                     .align-items(center);
                     .justifyContet(flex-start);
                     width: 100%;
+                    min-width: 0;
 
                     .back {
                         position: relative;
@@ -491,7 +492,6 @@ md-sidenav.chat {
                         transform: scaleX(1) /*rtl:scaleX(-1)*/;
                         -ms-filter: none /*rtl:fliph*/; /*IE*/
                         filter: none /*rtl:fliph*/; /*IE*/
-
                         svg {
                             width: 25px;
                             height: 25px;
