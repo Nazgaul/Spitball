@@ -6,6 +6,7 @@ using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using System.Text;
+using Zbang.Zbox.Infrastructure;
 
 namespace Zbang.Zbox.Domain
 {
@@ -47,10 +48,21 @@ namespace Zbang.Zbox.Domain
         public void CreateName()
         {
             var sb = new StringBuilder();
-            sb.Append(FirstName);
+
+            if (!string.IsNullOrEmpty(FirstName))
+            {
+                FirstName = TextManipulation.SpaceReg.Replace(FirstName, " ");
+                sb.Append(FirstName.Trim());
+            }
             sb.Append(" ");
-            sb.Append(LastName);
-            Name = sb.ToString();
+            if (!string.IsNullOrEmpty(LastName))
+            {
+                LastName = TextManipulation.SpaceReg.Replace(LastName, " ");
+                sb.Append(LastName.Trim());
+            }
+           
+            Name = sb.ToString().Trim();
+            Name = TextManipulation.SpaceReg.Replace(Name, " ");
             GenerateUrl();
         }
 

@@ -43,9 +43,9 @@ namespace Zbang.Zbox.Infrastructure.File
 
         protected string StripUnwantedChars(string input)
         {
-            var spaceReg = new Regex(@"\s+", RegexOptions.Compiled);
+           // var spaceReg = new Regex(@"\s+", RegexOptions.Compiled);
             var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
-            input = spaceReg.Replace(input, " ");
+            input = TextManipulation.SpaceReg.Replace(input, " ");
             input = eightOrNineDigitsId.Replace(input, string.Empty);
             input = input.Replace("\0", string.Empty);
             input = input.Replace("בס\"ד", string.Empty);

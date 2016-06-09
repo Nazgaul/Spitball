@@ -189,18 +189,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
         }
-
-
-
-        //[BoxPermission("boxId"), HttpGet, ZboxAuthorize(IsAuthenticationRequired = false)]
-        //public async Task<ActionResult> Content(long boxId, long itemId, CancellationToken cancellationToken)
-        //{
-        //    using (var token = CreateCancellationToken(cancellationToken))
-        //    {
-        //        var content = await m_ItemSearchProvider.Value.ItemContentAsync(itemId, token.Token);
-        //        return JsonOk(content);
-        //    }
-        //}
+       
 
         /// <summary>
         /// Download Item

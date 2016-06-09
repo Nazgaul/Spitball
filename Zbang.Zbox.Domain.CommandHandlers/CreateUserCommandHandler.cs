@@ -96,6 +96,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             user.IsRegisterUser = true;
 
+
+
             user.FirstName = command.FirstName;
             user.LastName = command.LastName;
             user.Sex = command.Sex;
