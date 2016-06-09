@@ -47,10 +47,17 @@ namespace Zbang.Zbox.Domain
         public void CreateName()
         {
             var sb = new StringBuilder();
-            sb.Append(FirstName);
+
+            if (!string.IsNullOrEmpty(FirstName))
+            {
+                sb.Append(FirstName.Trim());
+            }
             sb.Append(" ");
-            sb.Append(LastName);
-            Name = sb.ToString();
+            if (!string.IsNullOrEmpty(LastName))
+            {
+                sb.Append(LastName.Trim());
+            }
+            Name = sb.ToString().Trim();
             GenerateUrl();
         }
 
