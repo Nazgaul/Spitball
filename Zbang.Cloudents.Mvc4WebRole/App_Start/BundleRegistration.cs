@@ -198,6 +198,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/app.js"),
                         new JsFileWithCdn("~/js/app.config.js"),
                         new JsFileWithCdn("~/js/doubleclick.config.js"),
+                        new JsFileWithCdn("~/js/shared/changeLanguage.js"),
                         new JsFileWithCdn("~/js/routerHelperProvider.js"),
                         new JsFileWithCdn("~/js/app.route.js"),
 
@@ -317,6 +318,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/inlineManualNew.js"),
                         new JsFileWithCdn("~/js/shared/scrollToTop.directive.js"),
                         new JsFileWithCdn("~/js/shared/collapseHeader.directive.js"),
+                        new JsFileWithCdn("~/js/shared/keyboardAction.directive.js"),
 
 
                         new JsFileWithCdn("~/bower_components/signalr/jquery.signalR.js"),

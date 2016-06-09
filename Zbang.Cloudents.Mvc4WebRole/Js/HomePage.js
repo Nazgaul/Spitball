@@ -1,21 +1,8 @@
-﻿function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-    }
-    return "";
-}
-
-changeLanguage($('.language button'));
+﻿changeLanguage($('.language button'));
 
 window.addEventListener("load", function load() {
     window.removeEventListener("load", load, false); //remove listener, no longer needed
-    var val = getCookie('l3').toLowerCase();
-    var text = $('.language').find('button[data-cookie="' + val + '"]').html();
-    $('nav li.language span:first').text(text);
+    updateLangOnDropDown();
 
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

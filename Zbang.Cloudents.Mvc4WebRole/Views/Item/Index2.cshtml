@@ -101,12 +101,12 @@
         </div>
         <div class="arrows" layout="row" layout-align="space-between center" hide-xs>
             <div>
-                <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs class="arrow left" ga-track-event="['itemPage', 'previous item']">
+                <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs keyboard-action="37" class="arrow left" ga-track-event="['itemPage', 'previous item']">
                     @Html.Svg("~/images/site/icons.svg", "arrow")
                 </a>
             </div>
             <div>
-                <a ng-if="i.details.next" href="{{i.details.next}}" hide-xs class="arrow right" ga-track-event="['itemPage', 'next item']">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
+                <a ng-if="i.details.next" href="{{i.details.next}}" hide-xs class="arrow right" keyboard-action="39" ga-track-event="['itemPage', 'next item']">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
             </div>
         </div>
         @{ Html.RenderPartial("_ItemComments");}
