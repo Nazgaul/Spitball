@@ -95,15 +95,7 @@ namespace Zbang.Zbox.Domain.Common
             return sb.ToString();
         }
 
-        public static string RemoveExtraSpaces(string str)
-        {
-            if (string.IsNullOrEmpty(str))
-            {
-                return str;
-            }
-            var spaceReg = new Regex(@"\s+", RegexOptions.Compiled);
-            return spaceReg.Replace(str, " ");
-        }
+        
     }
 
 }
