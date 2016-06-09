@@ -78,12 +78,20 @@
             </form>
         </div>
         <div layout="row" layout-align="center center" flex="none" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
-            <md-menu class="user-md-menu color-override textColor1 hoverBackgroundColor4" ng-if="ud.isLoggedIn" md-offset="-115 80">
+
+            @if (ViewBag.errorPage == null || !ViewBag.errorPage)
+            {
+                <div ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" ng-click="cc.openChat()" ng-if="app.showChat">
+                    @Html.Svg("~/images/site/icons.svg", "chat")
+                    <div class="chat-counter" ng-if="cc.unread() > 0">{{cc.unread()}}</div>
+                </div>
+            }
+            <md-menu class="user-md-menu color-override textColor1 hoverBackgroundColor4" ng-if="ud.isLoggedIn" md-offset="10 80">
                 <md-button ng-click="$mdOpenMenu($event)" class="md-icon-button" aria-label="Open menu">
-                    {{ud.name}}
                     <md-icon md-menu-origin>
                         <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
                     </md-icon>
+                    {{ud.name}}
                 </md-button>
                 <md-menu-content md-menu-align-target class="md-user-menu">
                     <md-menu-item class="user-menu-item">
@@ -94,7 +102,7 @@
                     </md-menu-item>
                     <md-menu-item class="user-menu-item">
                         <md-button href="@Url.RouteUrl("AccountSettings")" @shouldPostBack ga-track-event="['header', 'settings']">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "settingMenu", new {@class = "svgTC16"})</md-icon>
+                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "settingMenu", new { @class = "svgTC16" })</md-icon>
                             @IndexResources.Settings
                         </md-button>
                     </md-menu-item>
@@ -127,14 +135,6 @@
                 <a ng-click="ud.signup($event)" class="btn btn-default" target="_self" href="@Url.RouteUrl("signup", new { returnUrl, invId })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
                 <a ng-click="ud.signup($event)" class="btn button-Blue btn-primary" target="_self" href="@Url.RouteUrl("signin", new { returnUrl, invId })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
             </div>
-
-            @if (ViewBag.errorPage == null || !ViewBag.errorPage)
-            {
-                <div ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" ng-click="cc.openChat()" ng-if="app.showChat">
-                    @Html.Svg("~/images/site/icons.svg", "chat")
-                    <div class="chat-counter" ng-if="cc.unread() > 0">{{cc.unread()}}</div>
-                </div>
-            }
         </div>
     </header>
 
