@@ -253,6 +253,11 @@
     .user-md-menu {
         display: inline-block;
         padding: 0;
+        height: @heightOfHeader - 5;
+
+        @media (max-width: 600px) {
+            display: none;
+        }
 
         &:hover {
             background: @backgroundColorMouseOver;
@@ -262,14 +267,21 @@
             display: none;
         }
 
+        > .md-button {
+            margin-bottom: 0;
+            margin-top: 0;
+
+            &:hover {
+                background: none;
+            }
+        }
 
         .md-icon-button {
             width: inherit;
             height: @heightOfHeader - 5;
+            .displayFlex;
+            .align-items(center);
 
-            @media (max-width: 600px) {
-                display: none;
-            }
 
             &:after {
                 content: '';
@@ -292,7 +304,7 @@
                 -o-text-overflow: ellipsis;
                 text-overflow: ellipsis;
                 max-width: 130px;
-                padding-left: 5px;
+                padding-left: 10px;
                 position: relative;
                 color: rgba(255, 255, 255, 0.6);
 
