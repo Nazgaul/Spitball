@@ -34,7 +34,7 @@
                 <div class="content">
                     <img class="img-responsive" ng-src="{{::e.thumbnail}}" width="368" height="520" alt="{{::e.nameExtension}}" />
                     <div class="extra" id="drag{{::$index}}">
-                        <h2 class="multi-line-ellipsis color-override textColor3" ng-bind-html="::e.nameExtension"></h2>
+                        <h2 class="multi-line-ellipsis textTC26" ng-bind-html="::e.nameExtension"></h2>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
             <div class="quiz-ratio">
                 <div class="content">
                     <div ng-if="::e.publish" class="top background" d-color="{{::e.name.length}}">
-                        <span class="first-letter color-override textColor3 borderColor3" first-letter="{{::e.name}}"></span>
+                        <span class="first-letter textTC4 borderTC4" first-letter="{{::e.name}}"></span>
                     </div>
                     <div ng-if="::!e.publish" class="top draft-wpr">
                         <span class="draft">@IndexResources.Draft</span>

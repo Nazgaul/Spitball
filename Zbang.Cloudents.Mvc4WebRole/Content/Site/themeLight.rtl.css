@@ -2027,6 +2027,9 @@ Page Loading
 .theme-light .textTC4 {
   color: #ffffff !important;
 }
+.theme-light .borderTC4 {
+  border-color: #ffffff !important;
+}
 .theme-light .borderTC5 {
   border-color: #888b8e !important;
 }
@@ -2089,4 +2092,13 @@ Page Loading
 }
 .theme-light .textTC25 {
   color: #323538 !important;
+}
+.theme-light .textTC26 {
+  color: #ffffff !important;
+}
+.theme-light .textTC27 {
+  color: #e9eaed !important;
+}
+.theme-light .hoverBackgroundTC28:hover {
+  background: #29769e !important;
 }

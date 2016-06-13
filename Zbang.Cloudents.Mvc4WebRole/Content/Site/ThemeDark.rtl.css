@@ -1195,6 +1195,9 @@ md-chips .md-chips.md-focused {
 .textTC4 {
   color: #f5f5f5 !important;
 }
+.borderTC4 {
+  border-color: #f5f5f5 !important;
+}
 .borderTC5 {
   border-color: #3D4348 !important;
 }
@@ -1225,6 +1228,9 @@ md-chips .md-chips.md-focused {
 .svgTC16 {
   fill: #f5f5f5 !important;
 }
+.textTC16 {
+  color: #f5f5f5 !important;
+}
 .svgTC17 {
   fill: #888b8e !important;
 }
@@ -1254,6 +1260,15 @@ md-chips .md-chips.md-focused {
 }
 .textTC25 {
   color: #f5f5f5 !important;
+}
+.textTC26 {
+  color: #f5f5f5 !important;
+}
+.textTC27 {
+  color: #f5f5f5 !important;
+}
+.hoverBackgroundTC28:hover {
+  background: #212325 !important;
 }
 /*input[type="search"], textarea {
     .placeHolder(@borderColorGrey) !important;
