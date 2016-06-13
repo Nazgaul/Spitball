@@ -13,11 +13,12 @@
                         element.click();
                     }
                 }
-                document.addEventListener('keydown', keyDownHandler);
-                //scope.$on('$destroy', function () {
-                //    document.removeEventListener('keydown', keyDownHandler);
 
-                //});
+                document.addEventListener('keydown', keyDownHandler);
+
+                scope.$on('$destroy', function () {
+                    document.removeEventListener('keydown', keyDownHandler);
+                });
             }
         };
     }
