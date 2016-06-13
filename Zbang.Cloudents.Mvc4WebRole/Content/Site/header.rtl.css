@@ -238,9 +238,6 @@
 .nav-bar .user-md-menu .md-icon-button {
   width: inherit;
   height: 65px;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
 }
 @media (max-width: 600px) {
   .nav-bar .user-md-menu .md-icon-button {
@@ -257,6 +254,9 @@
   left: 0;
   margin-top: 2px;
   margin-right: 8px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: inline-flex;
 }
 .nav-bar .user-md-menu .md-icon-button span {
   text-transform: none;
