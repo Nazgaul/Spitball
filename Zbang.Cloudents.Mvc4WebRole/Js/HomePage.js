@@ -1,8 +1,8 @@
-﻿changeLanguage($('.language button'));
+﻿handleLanguage.changeLanguage($('.language button'));
 
 window.addEventListener("load", function load() {
     window.removeEventListener("load", load, false); //remove listener, no longer needed
-    updateLangOnDropDown();
+    handleLanguage.updateLangOnDropDown();
 
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

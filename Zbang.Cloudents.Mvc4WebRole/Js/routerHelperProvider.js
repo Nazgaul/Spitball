@@ -61,7 +61,7 @@
 
             //cookie in here
             function buildUrl(path) {
-                return path + '?lang=' + getLangCookie() + '&version=' + window.version;
+                return path + '?lang=' + handleLanguage.getLangCookie() + '&version=' + window.version;
 
             }
 

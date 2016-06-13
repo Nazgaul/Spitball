@@ -12,56 +12,57 @@
     </div>
 </div>
 <div srph-infinite-scroll="s.myPagingFunction()">
-    <md-tabs md-dynamic-height="true" md-selected="s.tabIndex" md-enable-disconnect="true">
+    <md-tabs md-selected="s.tabIndex" md-enable-disconnect="true">
         <md-tab md-on-select="s.changeTab(s.state.item)" md-active="s.tab === s.state.item" ga-track-event="['search', 'search items']">
             <md-tab-label>@BoxResources.Items</md-tab-label>
-            <md-tab-body>
-                <div layout="row" layout-padding layout-wrap>
-                    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'item-template.html'"></div>
-                </div>
-                <div class="no-results" ng-show="s.noResults">
-                    <div class="text-wrapper">
-                        <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
-                        <div>@GeneralResources.SearchEmptyStateDocumentsText</div>
-                    </div>
-                </div>
-            </md-tab-body>
         </md-tab>
         <md-tab md-on-select="s.changeTab(s.state.box)" md-active="s.tab === s.state.box" ga-track-event="['search', 'search classes']">
             <md-tab-label>@GeneralResources.Classes</md-tab-label>
-            <md-tab-body>
-                <div layout="row" layout-padding layout-wrap>
-                    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in s.result" ng-include="'box-template.html'"></div>
-                </div>
-                <div class="no-results" ng-show="s.noResults">
-                    <div class="text-wrapper">
-                        <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
-                        <div>@GeneralResources.SearchEmptyStateClassesText</div>
-                        <p class="create-class">
-                            @GeneralResources.SearchEmptyStateCreateCourse
-                            &nbsp<a href="@Url.RouteUrl("LibraryDesktop")">@GeneralResources.SearchEmptyStateCreateCourseLinkText</a>
-                        </p>
-                    </div>
-                </div>
-            </md-tab-body>
-
         </md-tab>
         <md-tab md-on-select="s.changeTab(s.state.quiz)" md-active="s.tab === s.state.quiz" ga-track-event="['search', 'search quizzes']">
             <md-tab-label>@GeneralResources.Quizzes</md-tab-label>
-            <md-tab-body>
-                <div layout="row" layout-padding layout-wrap>
-                    <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'quiz-template.html'"></div>
-                </div>
-                <div class="no-results" ng-show="s.noResults">
-                    <div class="text-wrapper">
-
-                        <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
-                        <div>@GeneralResources.SearchEmptyStateQuizzesText</div>
-                    </div>
-                </div>
-            </md-tab-body>
         </md-tab>
     </md-tabs>
+
+    <div class="tab-content" ng-switch on="s.tab">
+        <div ng-switch-when="item">
+            <div layout="row" layout-padding layout-wrap>
+                <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'item-template.html'"></div>
+            </div>
+            <div class="no-results" ng-show="s.noResults">
+                <div class="text-wrapper">
+                    <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
+                    <div>@GeneralResources.SearchEmptyStateDocumentsText</div>
+                </div>
+            </div>
+        </div>
+        <div ng-switch-when="box">
+            <div layout="row" layout-padding layout-wrap>
+                <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in s.result" ng-include="'box-template.html'"></div>
+            </div>
+            <div class="no-results" ng-show="s.noResults">
+                <div class="text-wrapper">
+                    <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
+                    <div>@GeneralResources.SearchEmptyStateClassesText</div>
+                    <p class="create-class">
+                        @GeneralResources.SearchEmptyStateCreateCourse
+                        &nbsp<a href="@Url.RouteUrl("LibraryDesktop")">@GeneralResources.SearchEmptyStateCreateCourseLinkText</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div ng-switch-when="quiz">
+            <div layout="row" layout-padding layout-wrap>
+                <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'quiz-template.html'"></div>
+            </div>
+            <div class="no-results" ng-show="s.noResults">
+                <div class="text-wrapper">
+                    <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
+                    <div>@GeneralResources.SearchEmptyStateQuizzesText</div>
+                </div>
+            </div>
+        </div>
+    </div>
     @*<div class="no-results" ng-show="s.noResults">
             <div class="wrapper">
                 <img src="@Url.CdnContent("~/Images/Site/noResults.png")" alt="No results were found">

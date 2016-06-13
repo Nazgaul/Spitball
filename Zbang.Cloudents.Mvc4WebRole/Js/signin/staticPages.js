@@ -8,17 +8,6 @@
     });
 
 
-    function getCookie(cname) {
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1);
-            if (c.indexOf(name) === 0) return c.substring(name.length, c.length);
-        }
-        return "";
-    }
-
     $('.item').each(function () {
         var $this = $(this);
         var image = $this.find('img');
@@ -28,7 +17,7 @@
     });
 
 
-    changeLanguage($('.language button'));
+    handleLanguage.changeLanguage($('.language button'));
 
     $(function () {
         var slider = $('.items-container').bxSlider({
@@ -48,7 +37,7 @@
             slider.goToSlide($('.items-container a').index(active));
         }
 
-        updateLangOnDropDown();
+        handleLanguage.updateLangOnDropDown();
 
         window.Intercom('boot', {
             app_id: "njmpgayv",
