@@ -24,7 +24,7 @@
                         created: Math.round(userData.createTime.getTime() / 1000)
                     };
                     inlineManualOptions = {
-                        language: userData.culture
+                        language: userData.culture.substring(0, 2) === 'he' ? 'he' : 'en'
                     };
                     createInlineManualPlayer(inlineManualPlayerData);
                     inline_manual_player.setCallbacks({
