@@ -36,13 +36,24 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             //}
             ProcessBlob(processor, parameters);
 
-            var proxy = await SignalrClient.GetProxyAsync();
-            var blobName = parameters.BlobUri.Segments[parameters.BlobUri.Segments.Length - 1];
-            //await hubConnection.Start();
 
-            if (parameters.Users != null)
+            try
             {
-                await proxy.Invoke("UpdateImage", blobName, parameters.Users);
+                var proxy = await SignalrClient.GetProxyAsync();
+                
+                var blobName = parameters.BlobUri.Segments[parameters.BlobUri.Segments.Length - 1];
+                if (parameters.Users != null)
+                {
+                    await proxy.Invoke("UpdateImage", blobName, parameters.Users);
+                }
+                else
+                {
+                    TraceLog.WriteError($"users is null on {blobName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("on signalr update image", ex);
             }
 
             return true; 

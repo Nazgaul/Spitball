@@ -624,6 +624,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
 
         public async Task<IEnumerable<User.ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query)
         {
+
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 var result = await conn.QueryAsync<User.ChatUserDto>(Sql.Chat.GetUsersConversationAndFriends,
@@ -631,7 +632,9 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                      {
                          query.UserId,
                          query.UniversityId,
-                         query.Term
+                         query.Term,
+                         query.PageNumber,
+                         query.RowsPerPage
 
                      });
                 return result.Distinct(new User.ChatUserDtoComparer());
@@ -639,6 +642,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
         }
         public async Task<IEnumerable<ChatDto>> GetUserConversationAsync(GetChatRoomMessagesQuery query)
         {
+            if (query == null) throw new ArgumentNullException(nameof(query));
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 if (query.Id.HasValue)
@@ -665,7 +669,6 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                         });
             }
         }
-
 
 
         //public async Task<int> GetUnreadChatMessagesAsync(QueryBase query)

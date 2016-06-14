@@ -14,8 +14,8 @@
             return unreadCount;
         };
 
-        chatService.messages = function (q) {
-            return ajaxService.get('/chat/conversation', { q: q }, false);
+        chatService.messages = function (q,page) {
+            return ajaxService.get('/chat/conversation', { q: q ,page: page}, false);
         }
         chatService.chat = function (id, userIds, fromId, top, skip) {
             return ajaxService.get('/chat/messages', {

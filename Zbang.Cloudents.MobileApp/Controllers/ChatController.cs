@@ -36,9 +36,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [Route("api/chat")]
         [HttpGet]
-        public async Task<HttpResponseMessage> ChatRoomAsync(string q)
+        public async Task<HttpResponseMessage> ChatRoomAsync(string q, int page = 0, int sizePerPage = 30)
         {
-            var model = await m_ZboxReadService.GetUsersConversationAndFriendsAsync(new GetUserConversationAndFriends(User.GetCloudentsUserId(), User.GetUniversityId().Value, q));
+            var model = await m_ZboxReadService.GetUsersConversationAndFriendsAsync(new GetUserConversationAndFriends(User.GetCloudentsUserId(), User.GetUniversityId().Value, q, page, sizePerPage));
             return Request.CreateResponse(model.Select(s => new
             {
                 s.Conversation,
