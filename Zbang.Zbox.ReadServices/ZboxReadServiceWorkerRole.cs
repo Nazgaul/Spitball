@@ -344,7 +344,7 @@ namespace Zbang.Zbox.ReadServices
 where UniversityId is null
 and EmailSendSettings = 0
 and (creationtime>'2015' or [LastAccessTime] >'2015')
-and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
+and (membershipUserid is not null or facebookUserid is not null or googleUserid is not null)
 and creationtime < dateadd(HOUR,-2,GETUTCDATE())
 order by userid
 offset @PageNumber*@RowsPerPage ROWS

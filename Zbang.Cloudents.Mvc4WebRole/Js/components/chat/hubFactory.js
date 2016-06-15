@@ -5,7 +5,7 @@
     realtimeFactotry.$inject = ['Hub', '$rootScope'];
     function realtimeFactotry(Hub, $rootScope) {
         var hub = new Hub('spitballHub', {
-            rootPath: window.dChat + '/s',
+            rootPath: (window.dChat || 'https://connect.spitball.co/') + '/s',
             listeners: {
                 chat: function (message, chatRoom, userId, blob) {
                     $rootScope.$broadcast('hub-chat',
