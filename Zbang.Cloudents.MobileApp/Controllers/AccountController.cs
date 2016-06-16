@@ -60,6 +60,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 retVal.UniversityCountry,
                 retVal.UniversityName,
                 tokenValid = retVal.UniversityId == User.GetUniversityId(),
+                retVal.Culture,
+                retVal.Email,
+                retVal.DateTime,
                 retVal.Unread
             });
         }
