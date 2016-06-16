@@ -9,9 +9,8 @@
 <div class="page-head">
     <div layout="row" layout-align="space-between center" ng-hide="b.settingsOpen" class="page-title box-title" ng-class="{'need-follow' : b.needFollow}">
         <h1 flex class="multi-line-ellipsis limit-two">{{b.data.name}}</h1>
-        <share-box></share-box>
         <button flex="none" ng-if="b.needFollow" type="button" ng-click="b.follow()" class="invite-btn text-capitalize color-override backgroundColor8" ga-track-event="['box', 'follow']">@BoxResources.Follow</button>
-        <button class="box-settings" flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/icons.svg", "ThreeDots")</button>
+        @*<button class="box-settings" flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/icons.svg", "ThreeDots")</button>*@
     </div>
 </div>
 <div uib-collapse="!b.settingsOpen" class="settings" ng-cloak>
@@ -34,34 +33,26 @@
 <div @*class="page-animation"*@ ui-view></div>
 
 @*<script type="text/ng-template" id="addToAnyTemplate.html">
-    <div class="share-social a2a_kit a2a_kit_size_32 a2a_default_style">
-        <a class="facebook a2a_button_facebook" data-a2a-url="{{url}}">
-            @Html.Svg("/Images/Site/social-icons.svg", "facebook-colored")
-        </a>
-        <a hide show-xs class="whatsapp a2a_button_whatsapp" data-a2a-url="{{url}}">
-            @Html.Svg("/Images/Site/social-icons.svg", "whatsapp")
-        </a>
-    </div>
-</script>*@
+        <div class="share-social a2a_kit a2a_kit_size_32 a2a_default_style">
+            <a class="facebook a2a_button_facebook" data-a2a-url="{{url}}">
+                @Html.Svg("/Images/Site/social-icons.svg", "facebook-colored")
+            </a>
+            <a hide show-xs class="whatsapp a2a_button_whatsapp" data-a2a-url="{{url}}">
+                @Html.Svg("/Images/Site/social-icons.svg", "whatsapp")
+            </a>
+        </div>
+    </script>*@
 
 
 <script defer type="text/ng-template" id="shareBoxTemplate.html">
-    <md-menu class="share-section">
-        <button type="button" aria-label="open menu" class="md-button md-icon-button share" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'sharePost']">
-            <span>@Html.Svg("~/images/site/icons.svg", "share")</span>
-            <span class="text">@UserResources.Share</span>
-        </button>
-        <md-menu-content class="share-menu" width="1" layout-align="start-center" layout="row">
-            <md-menu-item class="share-fb">
-                <button type="button" class="md-button" aria-label="share" ga-track-event="['box-feed', 'share']">
-                    @Html.Svg("~/images/site/social-icons.svg", "facebook-colored")
-                </button>
-            </md-menu-item>
-            <md-menu-item hide show-xs class="share-whatsapp">
-                <a class="md-button" aria-label="share" target="_blank" href="" ga-track-event="['box-feed', 'share']">
-                    @Html.Svg("~/images/site/social-icons.svg", "whatsapp")
-                </a>
-            </md-menu-item>
-        </md-menu-content>
-    </md-menu>
+    <div class="share-section">
+        <div class="share-options">
+            <button type="button" class="share-btn share-fb" aria-label="share" ga-track-event="['box-feed', 'share']">
+                @Html.Svg("~/images/site/social-icons.svg", "facebook-colored", new { @class = "fb" })
+            </button>
+            <a class="share-btn share-whatsapp" aria-label="share" target="_blank" href="" ga-track-event="['box-feed', 'share']">
+                @Html.Svg("~/images/site/social-icons.svg", "whatsapp", new { @class = "whatsapp" })
+            </a>
+        </div>
+    </div>
 </script>
