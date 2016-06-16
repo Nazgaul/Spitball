@@ -104,6 +104,7 @@
 /// <reference path="../js/polyfills.js" />
 /// <reference path="../Js/routerHelperProvider.js" />
 /// <reference path="../js/shared/ajaxservice.js" />
+/// <reference path="../js/shared/ajaxservice2.js" />
 /// <reference path="../js/shared/animationclass.js" />
 /// <reference path="../js/shared/animationlocation.js" />
 /// <reference path="../js/shared/collapseheader.directive.js" />

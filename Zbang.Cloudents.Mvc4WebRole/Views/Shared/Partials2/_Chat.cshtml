@@ -47,7 +47,7 @@
             <div class="header">
                 <div class="user-side">
                     <div class="back" ng-click="c.backFromChat()"></div>
-                    <a href="{{c.userChat.url}}" ng-class="{online: c.userChat.online}" class="user" ga-track-event="['chat', 'opened-partners-profile']">
+                    <a ng-href="{{c.userChat.url}}" ng-class="{online: c.userChat.online}" class="user" ga-track-event="['chat', 'opened-partners-profile']">
                         <user-image class="img-circle" name="c.userChat.name" image="c.userChat.image" width="35" height="35" noremove="true"></user-image>
 
                         <span class="member-name ellipsis" ng-bind="c.userChat.name"></span>
