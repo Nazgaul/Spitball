@@ -1,11 +1,41 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 
 @{
     const string url = "~/images/site/uploadIcons.svg";
 }
 <div layout="row" layout-padding layout-wrap class="feed-wrapper">
     <div class="feed" flex="100" flex-md="66" flex-lg="60" flex-gt-lg="60">
+        <div class="box-options">
+            <div class="option-wrapper">
+                <button type="button" ng-click="b.inviteToBox()" class="option invite" ga-track-event="['box-feed', 'inviteFriends']">
+                    <div>
+                        @Html.Svg("~/images/site/icons.svg", "invite", new { @class = "option-icon" })
+                        <span class="text">@BoxResources.InviteFriendsMember</span>
+                    </div>
+                </button>
+            </div>
+            <div class="option-wrapper">
+                <input id="open-share" type="checkbox" />
+                <label class="title" for="open-share">
+                    <span class="wrapper">
+                        @Html.Svg("~/images/site/icons.svg", "share", new { @class = "option-icon" })
+                        <span class="text">@UserResources.Share</span>
+                    </span>
+                </label>
+                <share-box class="option share"></share-box>
+                <label class="backdrop" for="open-share"></label>
+            </div>
+            <div class="option-wrapper">
+                <button class="option box-settings" flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">
+                    <div>
+                        @Html.Svg("/images/site/icons.svg", "settingMenu", new { @class = "option-icon" })
+                        <span class="text">@IndexResources.Settings</span>
+                    </div>
+                </button>
+            </div>
+        </div>
         @{ Html.RenderPartial("_FeedAddComment");}
         <ol class="list-unstyled posts-list" srph-infinite-scroll="f.myPagingFunction()" threshold="600">
             <li ng-repeat="post in f.data track by post.id" class="post comment">
@@ -42,26 +72,31 @@
                     <div class="ribbon-wrapper" ng-if="::post.isNew">
                         <span class="ribbon">@BoxResources.RibbonNew</span>
                     </div>
-                    <div class="actions-wrapper">
-                        <div class="indent actions text-capitalize" layout="row" layout-align="start center">
-                            <button class="comment-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-click="f.reply(post)" ga-track-event="['box-feed', 'comment-icons']">
-                                <span ng-if="post.repliesCount" class="reply-count" ng-bind="post.repliesCount"></span><span class="comment-icon">@Html.Svg("~/images/site/box-icons.svg", "comment")</span><span>@BoxResources.Comment</span>
+                </div>
+                <div class="counters">
+                    <div class="like-btn indent">
+                        @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "like-icon" })
+                        <input type="button" value="{{post.likesCount}}" class="like-count" user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)" />
+                    </div>
+                    <div class="show-more" ng-if="post.repliesCount > 4 && !post.expandReplies">
+                        <span ng-click="f.openReply(post)"> @BoxResources.ViewComments {{post.repliesCount-4}} @BoxResources.Comments</span>
+                    </div>
+                </div>
+                <div class="actions-wrapper">
+                    <div class="indent actions text-capitalize" layout="row" layout-align="start center">
+                        <button class="comment-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-click="f.reply(post)" ga-track-event="['box-feed', 'comment-icons']">
+                            <span class="comment-icon">@Html.Svg("~/images/site/box-icons.svg", "comment")</span><span>@BoxResources.Comment</span>
+                        </button>
+                        <div layout="row" layout-align="start center">
+                            <button class="like-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-disabled="f.add.disabled" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
+                                @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "like-icon", ng_if = "!post.isLiked" })
+                                @Html.Svg("~/images/site/box-icons.svg", "activeLike", new { @class = "like-icon", ng_if = "post.isLiked" }) @GeneralResources.Like
                             </button>
-                            <div layout="row" layout-align="start center">
-                                <input type="button" value="{{post.likesCount}}" class="like-count" user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)" />
-                                <button class="like-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-disabled="f.add.disabled" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
-                                    @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "like-icon", ng_if = "!post.isLiked" })
-                                    @Html.Svg("~/images/site/box-icons.svg", "activeLike", new { @class = "like-icon", ng_if = "post.isLiked" }) @GeneralResources.Like
-                                </button>
-                            </div>
-                            <share-box></share-box>
                         </div>
+                        @*<share-box></share-box>*@
                     </div>
                 </div>
                 <ol class="list-unstyled replies" ng-if="post.replies.length">
-                    <li class="show-more" ng-if="post.repliesCount > 4 && !post.expandReplies">
-                        <span ng-click="f.openReply(post)"> @BoxResources.ViewComments {{post.repliesCount-4}} @BoxResources.Comments</span>
-                    </li>
                     <li ng-repeat="reply in post.replies track by reply.id" class="reply" ng-if="post.expandReplies || $index < 4" @*ng-if="$last || post.showReplies"*@>
                         <div class="info">
                             <a href="{{::reply.url}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
@@ -144,14 +179,14 @@
                 @* ReSharper disable once Mvc.PartialViewNotResolved *@
                 @{ Html.RenderPartial("_LeaderBoard", IndexResources.Best);}
             </div>
-            <div class="invite-container flex" flex ng-if="b.canInvite" ng-class="{hideMobile: b.inviteOpen}">
-                <div class="flex portlet light invite button-Blue">
-                    <button type="button" ng-click="b.inviteToBox()" class="portlet-body color-override textColor3" ga-track-event="['box-feed', 'inviteFriends']">
-                        @Html.Svg("~/images/site/icons.svg", "invite")
-                        <span class="text">@BoxResources.InviteFriends</span>
-                    </button>
-                </div>
-            </div>
+            @*<div class="invite-container flex" flex ng-if="b.canInvite" ng-class="{hideMobile: b.inviteOpen}">
+                    <div class="flex portlet light invite button-Blue">
+                        <button type="button" ng-click="b.inviteToBox()" class="portlet-body color-override textColor3" ga-track-event="['box-feed', 'inviteFriends']">
+                            @Html.Svg("~/images/site/icons.svg", "invite")
+                            <span class="text">@BoxResources.InviteFriends</span>
+                        </button>
+                    </div>
+                </div>*@
             <div class="recomanded" layout="row" layout-padding layout-wrap layout-align="space-between center" flex="100" ng-controller="RecommendedController as r" ng-hide="r.isPrivate">
                 <div flex="100" flex-gt-md="100" flex-sm="50" class="flex" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>
             </div>

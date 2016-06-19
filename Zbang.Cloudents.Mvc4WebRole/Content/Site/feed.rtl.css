@@ -11,6 +11,130 @@
     padding: 0 0 8px 0 !important;
   }
 }
+.feed .box-options {
+  width: 100%;
+  margin-bottom: 14px;
+  display: flex;
+  min-height: 40px;
+}
+.feed .box-options .option-wrapper {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 33.33%;
+  display: inline-flex;
+  padding: 2px 0;
+  background: #fff;
+}
+.feed .box-options .option-wrapper .text {
+  color: #484F56;
+  margin-right: 10px;
+  text-transform: capitalize;
+  font-size: 16px;
+}
+.feed .box-options .option-wrapper:hover {
+  background: #f5f5f5;
+}
+.feed .box-options .option-wrapper:first-child .option {
+  border-left: 1px solid #c3c3c3;
+}
+.feed .box-options .option-wrapper:first-child {
+  border-radius: 0 5px 5px 0;
+}
+.feed .box-options .option-wrapper:last-child {
+  border-radius: 5px 0 0 5px;
+}
+.feed .box-options .option-wrapper:nth-child(2) {
+  position: relative;
+}
+.feed .box-options .option-wrapper:nth-child(2) label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-left: 1px solid #c3c3c3;
+  cursor: pointer;
+}
+.feed .box-options .option-wrapper:nth-child(2) label .wrapper {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+.feed .box-options .option-wrapper:nth-child(2) label svg {
+  width: 20px;
+  height: 20px;
+  fill: #6a737d;
+}
+.feed .box-options .option-wrapper:nth-child(2) #open-share {
+  display: none;
+}
+.feed .box-options .option-wrapper:nth-child(2) #open-share:not(:checked) ~ .option.share {
+  opacity: 0;
+  transition: opacity 1s;
+}
+.feed .box-options .option-wrapper:nth-child(2) #open-share:not(:checked) ~ label .wrapper {
+  opacity: 1;
+  transition: opacity 1s;
+}
+.feed .box-options .option-wrapper:nth-child(2) #open-share:checked ~ .option.share {
+  opacity: 1;
+  transition: opacity 1s;
+}
+.feed .box-options .option-wrapper:nth-child(2) #open-share:checked ~ label .wrapper {
+  opacity: 0;
+  transition: opacity 1s;
+}
+.feed .box-options .option-wrapper:nth-child(2) .option.share {
+  position: absolute;
+  right: 0;
+  height: 40px;
+  top: 0;
+  background: #f5f5f5;
+  width: calc(100% - 1px);
+}
+.feed .box-options .option-wrapper:nth-child(2) .option.share .title {
+  display: flex;
+  align-items: center;
+}
+.feed .box-options .option-wrapper:nth-child(2) .option.share .title svg {
+  width: 16px;
+  height: 16px;
+}
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn {
+  display: block;
+  padding: 0 5px;
+}
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg {
+  width: 26px;
+  height: 26px;
+}
+.feed .box-options .option {
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  cursor: pointer;
+  position: static;
+}
+.feed .box-options .option svg {
+  fill: #6a737d;
+  display: block;
+}
+.feed .box-options .option.invite svg {
+  width: 20px;
+  height: 20px;
+}
+.feed .box-options .option.box-settings svg {
+  width: 18px;
+  height: 18px;
+}
 .feed .userblock img {
   border: 1px solid #d7dde0;
 }
