@@ -53,6 +53,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 result.UniversityName,
                 result.Image,
                 result.Score
+                
             });
 
         }
