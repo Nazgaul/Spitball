@@ -20,11 +20,12 @@
         });
         userDetails.init().then(function () {
             setTheme();
+            initChat();
         });
 
         self.setTheme = setTheme;
 
-        self.back = function(defaultUrl) {
+        self.back = function (defaultUrl) {
             var element = h.popElement();
             if (!element) {
                 $location.url(defaultUrl);
@@ -44,13 +45,19 @@
         self.expandSearch = false;
         self.resetForm = resetForm;
         self.showToaster = showToaster;
-
+        self.loadChat = false;
         self.toggleMenu = toggleMenu;
+
         //self.toggleChat = toggleChat;
         function logOut() {
             cacheFactory.clearAll();
             Intercom('shutdown');
         }
+        function initChat() {
+            var details = userDetails.get();
+            self.loadChat = details.university.id;
+        }
+
         function setTheme() {
             self.theme = 'theme-' + userDetails.get().theme;
         }
@@ -142,6 +149,7 @@
             var details = userDetails.get();
             if (details.university.id) {
                 document.title = resManager.get('siteName');
+                initChat();
                 return;
             }
             var userWithNoUniversityState = 'universityChoose';
