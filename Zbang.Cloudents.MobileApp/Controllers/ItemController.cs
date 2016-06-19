@@ -88,6 +88,14 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
             });
         }
+
+        [HttpGet]
+        [Route("api/item/downloadLink")]
+        public string Download(string blob)
+        {
+            return m_BlobUpload.GenerateReadAccessPermissionToBlob(blob);
+        }
+
         [HttpGet]
         [Route("api/item/{id:long}/download")]
         public async Task<string> Download(long boxId, long id)
@@ -124,6 +132,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             return m_BlobUpload.GenerateReadAccessPermissionToBlob(item.Source);
 
         }
+
+
 
         [HttpDelete, Route("api/item"),ActionName("Delete")]
         public async Task<HttpResponseMessage> DeleteAsync(long id/*, long boxId*/)
