@@ -12,9 +12,11 @@
     angular.module('app').run(inlineManual);
     inlineManual.$inject = ['$rootScope', 'userDetailsFactory'];
     function inlineManual($rootScope, userDetailsFactory) {
-
-
         userDetailsFactory.init().then(function (userData) {;
+
+            if (window.id < 0) {
+                return;
+            }
             var interval = window.setInterval(function () {
                 if (window.createInlineManualPlayer !== undefined) {
                     inlineManualTracking = {

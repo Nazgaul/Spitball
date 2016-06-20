@@ -1,12 +1,16 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{ Html.RenderPartial("_Menu");}
+
 <div flex>
     @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{ Html.RenderPartial("_Upload");}
     <div ui-view animation-location></div>
 </div>
-@{ Html.RenderPartial("_Chat");}
+@if (User != null)
+{
+    Html.RenderPartial("_Chat");
+}
 @section scripts
 {
     @Html.AngularLocale()

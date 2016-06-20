@@ -3751,6 +3751,7 @@
     <Content Include="Js\shared\keyboardAction.directive.js" />
     <Content Include="Js\shared\notification.js" />
     <Content Include="Js\shared\scrollToTop.directive.js" />
+    <Content Include="Js\shared\sideAd.directive.js" />
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\staticPages.js" />

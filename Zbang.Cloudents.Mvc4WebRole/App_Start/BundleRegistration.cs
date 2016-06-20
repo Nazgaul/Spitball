@@ -314,12 +314,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/resourceManager.js"),
                         new JsFileWithCdn("~/js/shared/versionChecker.js"),
                         new JsFileWithCdn("~/js/shared/intercom.js"),
-                        //new JsFileWithCdn("~/js/shared/inlineManual.js"),
                         new JsFileWithCdn("~/js/shared/inlineManualNew.js"),
                         new JsFileWithCdn("~/js/shared/scrollToTop.directive.js"),
                         new JsFileWithCdn("~/js/shared/collapseHeader.directive.js"),
                         new JsFileWithCdn("~/js/shared/keyboardAction.directive.js"),
-
+                        new JsFileWithCdn("~/js/shared/menuAd.directive.js"),
 
                         new JsFileWithCdn("~/bower_components/signalr/jquery.signalR.js"),
                         new JsFileWithCdn("~/bower_components/angular-signalr-hub/signalr-hub.js"),
