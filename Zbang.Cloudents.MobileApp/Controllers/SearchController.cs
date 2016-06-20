@@ -86,7 +86,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 s.BoxId,
                 s.Id,
                 s.Extension,
-                s.Content
+                s.Content,
+                s.Source
             }));
         }
         [HttpGet]

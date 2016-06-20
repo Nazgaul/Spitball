@@ -206,7 +206,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = ScoringProfileName,
                 ScoringParameters = new[] { new ScoringParameter("university" , query.UniversityId.ToString()) },
-                Select = new[] { SmallContentField, IdField, NameField, BoxIdField, ExtensionField },
+                Select = new[] { SmallContentField, IdField, NameField, BoxIdField, ExtensionField, BlobNameField },
                 HighlightFields = new[] { ContentField, NameField },
             },  cancellationToken: cancelToken);
 
@@ -216,7 +216,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Id = long.Parse(s.Document.Id),
                 Name = HighLightInField(s, NameField, s.Document.Name),
                 BoxId = s.Document.BoxId.Value,
-                Extension = s.Document.Extension
+                Extension = s.Document.Extension,
+                Source = s.Document.BlobName
             }).ToList();
         }
 
