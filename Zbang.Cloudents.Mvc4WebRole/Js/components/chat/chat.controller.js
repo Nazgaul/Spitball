@@ -8,7 +8,7 @@
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
         notificationService, resManager) {
-        var c = this, chunkSize = 2147483647, top = 0, fromid;
+        var c = this, chunkSize = 2147483647, top = 0, fromid, page = 0;
         c.states = {
             messages: 1,
             // friends: 2,
@@ -24,6 +24,9 @@
         c.backFromChat = backFromChat;
         c.unread = 0;
         c.dialog = dialog;
+        c.users = [];
+        c.usersPaging = usersPaging;
+        c.lastSearch = '';
         //c.loadMore = loadMore;
 
         userDetailsFactory.init().then(function (response) {
@@ -33,7 +36,7 @@
 
 
         c.scrollSetting = {
-            scrollbarPosition: 'outside'
+            scrollbarPosition: 'outside',
         }
 
 
@@ -76,8 +79,14 @@
         }
 
         function search(term) {
-            chatBus.messages(term, 0).then(function (response) {
-                c.users = response;
+            chatBus.messages(term, page).then(function (response) {
+                if (c.term !== c.lastSearch) {
+                    c.lastSearch = c.term;
+                    page = 0;
+                    c.users = response;
+                } else {
+                    c.users = c.users.concat(response);
+                }
                 updateUnread();
             });
         }
@@ -297,13 +306,17 @@
                 clickOutsideToClose: true,
                 resolve: {
                     doc: function () { return chatBus.preview(blob, 0) },
-                    blob: function () { return blob}
+                    blob: function () { return blob }
                 },
                 fullscreen: true
             });
         }
 
-
+        function usersPaging() {
+            console.log('in usersPaging()');
+            page++;
+            search(c.lastSearch);
+        }
     };
 
 })();
