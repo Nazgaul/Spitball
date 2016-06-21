@@ -74,6 +74,9 @@
                 userData.image = image;
                 $rootScope.$broadcast('userDetailsChange');
             },
+            getUniversity: function () {
+                return userData ? userData.university.id : null;
+            },
             setUniversity: function (name, id) {
                 userData.university.name = name;
                 userData.university.id = id;
