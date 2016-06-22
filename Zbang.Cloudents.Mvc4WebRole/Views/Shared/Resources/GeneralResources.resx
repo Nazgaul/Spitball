@@ -202,4 +202,7 @@ but try checking the documents tab for related material</value>
   <data name="UnregHeader" xml:space="preserve">
     <value>Study with Spitball</value>
   </data>
+  <data name="Classmates" xml:space="preserve">
+    <value>Classmates</value>
+  </data>
 </root>

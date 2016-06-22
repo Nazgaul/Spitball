@@ -199,4 +199,7 @@
   <data name="UnregHeader" xml:space="preserve">
     <value>יש לנו עוד הרבה לשתף איתכם.</value>
   </data>
+  <data name="Classmates" xml:space="preserve">
+    <value>סטודנטים</value>
+  </data>
 </root>

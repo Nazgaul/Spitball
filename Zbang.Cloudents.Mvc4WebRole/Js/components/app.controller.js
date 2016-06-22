@@ -109,7 +109,7 @@
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             self.showBoxAd = toState.parent === 'box';
-            self.showChat = !(toState.name === 'universityChoose');
+            self.showChat = self.showSearch = !(toState.name === 'universityChoose');
             self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
             self.fixedBgColor = toState.name === 'item' || toState.name === 'quiz';
         });
