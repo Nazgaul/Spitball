@@ -81,10 +81,10 @@
 
             @if (ViewBag.errorPage == null || !ViewBag.errorPage)
             {
-                <div ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" ng-click="cc.openChat()" ng-if="app.showChat">
+                <button type="button" ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" ng-click="cc.openChat()" ng-if="app.showChat">
                     @Html.Svg("~/images/site/icons.svg", "chat")
                     <div class="chat-counter" ng-if="cc.unread() > 0">{{cc.unread()}}</div>
-                </div>
+                </button>
             }
             <md-menu class="user-md-menu hoverBackgroundTC28" ng-if="ud.isLoggedIn" md-offset="10 80">
                 <md-button ng-click="$mdOpenMenu($event)" aria-label="Open menu">

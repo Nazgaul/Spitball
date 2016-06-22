@@ -19,12 +19,17 @@
         min-height: 40px;
 
         .option-wrapper {
-            flex-grow: 0;
-            flex-shrink: 0;
-            flex-basis: 33.33%;
+            width: 100%;
             .displayInlineFlex;
             padding: 2px 0;
             background: #fff;
+
+            &.disabled {
+                .option {
+                    opacity: 0.5;
+                    cursor: default;
+                }
+            }
 
             .text {
                 color: @svgColorGrey;
@@ -44,7 +49,7 @@
                 }
             }
 
-            &:hover {
+            &:not(.disabled):hover {
                 background: @textColorWhite;
             }
 
@@ -190,9 +195,12 @@
             text-align: center;
             margin: 0;
             .justifyContet(center);
-            cursor: pointer;
             position: static;
             padding: 0 4px;
+        }
+
+        .option.share, .option-wrapper:not(.disabled) button.option > div {
+            cursor: pointer;
         }
 
         .option {

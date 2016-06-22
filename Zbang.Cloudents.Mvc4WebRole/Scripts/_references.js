@@ -116,6 +116,7 @@
 /// <reference path="../js/shared/focusme.js" />
 /// <reference path="../js/shared/google.js" />
 /// <reference path="../js/shared/history.js" />
+/// <reference path="../js/shared/infinitescrollbars.directive.js" />
 /// <reference path="../js/shared/inlinemanual.js" />
 /// <reference path="../js/shared/inlinemanualnew.js" />
 /// <reference path="../js/shared/intercom.js" />

@@ -20,14 +20,16 @@
   min-height: 40px;
 }
 .feed .box-options .option-wrapper {
-  flex-grow: 0;
-  flex-shrink: 0;
-  flex-basis: 33.33%;
+  width: 100%;
   display: -webkit-flex;
   display: -ms-flex;
   display: inline-flex;
   padding: 2px 0;
   background: #fff;
+}
+.feed .box-options .option-wrapper.disabled .option {
+  opacity: 0.5;
+  cursor: default;
 }
 .feed .box-options .option-wrapper .text {
   color: #484F56;
@@ -44,7 +46,7 @@
     display: none;
   }
 }
-.feed .box-options .option-wrapper:hover {
+.feed .box-options .option-wrapper:not(.disabled):hover {
   background: #f5f5f5;
 }
 .feed .box-options .option-wrapper:first-child .option {
@@ -175,9 +177,12 @@
   margin: 0;
   -webkit-justify-content: center;
   justify-content: center;
-  cursor: pointer;
   position: static;
   padding: 0 4px;
+}
+.feed .box-options .option.share,
+.feed .box-options .option-wrapper:not(.disabled) button.option > div {
+  cursor: pointer;
 }
 .feed .box-options .option {
   width: 100%;

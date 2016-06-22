@@ -2,11 +2,11 @@
 (function () {
     angular.module('app').controller('AppController', appController);
     appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state',
-        'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager', 'CacheFactory'
+        'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager', 'CacheFactory', '$scope'
     ];
 
     function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast,
-        $document, $mdMenu, resManager, cacheFactory) {
+        $document, $mdMenu, resManager, cacheFactory, $scope) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
             var path = $location.path(),
@@ -20,7 +20,6 @@
         });
         userDetails.init().then(function () {
             setTheme();
-            initChat();
         });
 
         self.setTheme = setTheme;
@@ -110,7 +109,7 @@
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             self.showBoxAd = toState.parent === 'box';
-            self.showChat = !(toState.name === 'universityChoose');
+            self.showChat = self.showSearch = !(toState.name === 'universityChoose');
             self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
             self.fixedBgColor = toState.name === 'item' || toState.name === 'quiz';
         });
@@ -149,7 +148,6 @@
             var details = userDetails.get();
             if (details.university.id) {
                 document.title = resManager.get('siteName');
-                initChat();
                 return;
             }
             var userWithNoUniversityState = 'universityChoose';
@@ -158,5 +156,15 @@
                 event.preventDefault();
             }
         });
+
+        $scope.$watch(
+        userDetails.getUniversity,
+        function (val) {
+            if (val) {
+                initChat();
+                return;
+            }
+        });
+
     }
 })();

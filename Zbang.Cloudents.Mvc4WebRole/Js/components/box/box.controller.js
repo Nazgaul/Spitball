@@ -54,6 +54,9 @@
 
         }
         function toggleSettings() {
+            if (b.needFollow) {
+                return;
+            }
             $rootScope.$broadcast('close-collapse');
             b.settingsOpen = true;
 

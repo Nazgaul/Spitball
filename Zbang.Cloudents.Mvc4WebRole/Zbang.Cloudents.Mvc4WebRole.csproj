@@ -3750,6 +3750,7 @@
     <Content Include="Js\shared\languageHandler.js" />
     <Content Include="Js\shared\keyboardAction.directive.js" />
     <Content Include="Js\shared\notification.js" />
+    <Content Include="Js\shared\infiniteScrollbars.directive.js" />
     <Content Include="Js\shared\scrollToTop.directive.js" />
     <Content Include="Js\shared\sideAd.directive.js" />
     <Content Include="Js\signin\itemGallery.js" />
