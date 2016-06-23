@@ -2,9 +2,9 @@
 
 
     angular.module('app').service('notificationService', desktopNotification);
-    desktopNotification.$inject = ['$document', '$mdToast', 'resManager'];
+    desktopNotification.$inject = ['$document', '$mdToast', 'resManager', '$mdSidenav'];
 
-    function desktopNotification($document, $mdToast, resManager) {
+    function desktopNotification($document, $mdToast, resManager, $mdSidenav) {
 
         requestPermission();
         function requestPermission() {
@@ -18,15 +18,23 @@
                 //}, 3000);
             });
         }
-        this.send = function(title, message, image)
-        {
+        this.send = function (title, message, image, callback) {
             if (!('Notification' in window)) {
                 showToaster();
                 return;
             }
             image = image || '/Images/3rdParty/logo_120_4_google.png';
             if (Notification.permission === "granted") {
-                var notification = new Notification(title, { body: message || '', icon: image });
+                var notification = new Notification(title, {
+                    body: message || '', icon: image
+                });
+                notification.onclick = function () {
+                    window.focus();
+                    if (callback) {
+                        callback();
+                    }
+                    notification.close();
+                };
             } else {
                 showToaster();
             }
