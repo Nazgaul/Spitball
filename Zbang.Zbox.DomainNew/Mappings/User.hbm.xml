@@ -121,7 +121,7 @@
   </query>
   <query name="UpdateUserUnsubscribe">
     <![CDATA[
-    update User c set c.EmailSendSettings = :emailSettings where c.Email in (:userEmail) and c.EmailSendSettings = 0
+    update User c set c.EmailSendSettings = :emailSettings, c.UserTime.UpdateTime = :dateTime where c.Email in (:userEmail) and c.EmailSendSettings = 0
     ]]>
   </query>
   <query name="UniversityData">

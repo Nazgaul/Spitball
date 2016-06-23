@@ -23,6 +23,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new ArgumentException("email settings is not valid");
             };
+            user.UserTime.UpdateUserTime(user.Id);
             user.EmailSendSettings = message.SendSettings;
             m_UserRepository.Save(user);
         }

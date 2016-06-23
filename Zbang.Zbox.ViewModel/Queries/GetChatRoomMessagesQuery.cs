@@ -5,13 +5,12 @@ namespace Zbang.Zbox.ViewModel.Queries
 {
    public  class GetChatRoomMessagesQuery: IPagedQuery2
     {
-       public GetChatRoomMessagesQuery(Guid? id, IEnumerable<long> userIds, Guid? fromId, int top, int skip)
+       public GetChatRoomMessagesQuery(Guid? id, IEnumerable<long> userIds, DateTime? fromTime, int top)
        {
            Id = id;
            UserIds = userIds;
-           FromId = fromId;
+           FromTime = fromTime;
            Top = top;
-           Skip = skip;
        }
 
        public Guid? Id { get; private set; }
@@ -19,7 +18,7 @@ namespace Zbang.Zbox.ViewModel.Queries
 
        public IEnumerable<long> UserIds { get; private set; }
 
-       public Guid? FromId { get; private set; }
+       public DateTime? FromTime { get; private set; }
 
 
        public int Top { get; }

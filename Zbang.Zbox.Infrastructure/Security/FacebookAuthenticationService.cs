@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Security
 {
     public class FacebookAuthenticationService : IFacebookService
     {
-        const string FacebookPicture = "https://graph.facebook.com/{0}/picture?width={1}&height={1}";
+        private const string FacebookPicture = "https://graph.facebook.com/v2.6/{0}/picture?width={1}&height={1}";
 
 
         public async Task<FacebookUserData> FacebookLogOnAsync(string token)

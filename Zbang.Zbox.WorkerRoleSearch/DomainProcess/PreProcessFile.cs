@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Client;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -15,12 +16,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
     public class PreProcessFile : IFileProcess
     {
         private readonly IFileProcessorFactory m_FileProcessorFactory;
+        private readonly IMailComponent m_MailComponent;
 
 
-        public PreProcessFile(IFileProcessorFactory fileProcessorFactory
-             )
+        public PreProcessFile(IFileProcessorFactory fileProcessorFactory, IMailComponent mailComponent)
         {
             m_FileProcessorFactory = fileProcessorFactory;
+            m_MailComponent = mailComponent;
         }
 
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
@@ -53,6 +55,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
             }
             catch (Exception ex)
             {
+                await m_MailComponent.GenerateSystemEmailAsync("signalR error", ex.Message);
                 TraceLog.WriteError("on signalr update image", ex);
             }
 

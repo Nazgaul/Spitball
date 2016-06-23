@@ -44,7 +44,7 @@ namespace Zbang.Zbox.Infrastructure.Security
         }
         public override string ToString()
         {
-            return string.Format("id {0} name {1} email {2}", Id, Name, Email);
+            return $"id {Id} name {Name} email {Email}";
         }
     }
 

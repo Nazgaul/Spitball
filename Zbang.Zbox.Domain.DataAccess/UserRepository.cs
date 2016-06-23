@@ -96,6 +96,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             var x = UnitOfWork.CurrentSession.GetNamedQuery("UpdateUserUnsubscribe")
                 .SetEnum("emailSettings",type)
                 .SetParameterList("userEmail", emails)
+                .SetDateTime("dateTime", DateTime.UtcNow)
                 .ExecuteUpdate();
             TraceLog.WriteInfo($"updating {x} users in type {type}");
 

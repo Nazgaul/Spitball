@@ -53,13 +53,13 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [Route("api/chat/message")]
         [HttpGet]
-        public async Task<HttpResponseMessage> MessagesAsync(Guid? chatRoom, [FromUri] IEnumerable<long> userIds, Guid? fromId, int top, int skip)
+        public async Task<HttpResponseMessage> MessagesAsync(Guid? chatRoom, [FromUri] IEnumerable<long> userIds, DateTime? fromId, int top)
         {
             if (!chatRoom.HasValue && userIds == null)
             {
                 return Request.CreateBadRequestResponse();
             }
-            var query = new GetChatRoomMessagesQuery(chatRoom, userIds, fromId, top, skip);
+            var query = new GetChatRoomMessagesQuery(chatRoom, userIds, fromId, top);
             var model = await m_ZboxReadService.GetUserConversationAsync(query);
             return Request.CreateResponse(model);
         }
