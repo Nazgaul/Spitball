@@ -654,7 +654,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                         new
                         {
                             ChatRoom = query.Id,
-                            Id = query.FromId,
+                            creationTime = query.FromTime,
                             query.Skip,
                             query.Top
 
@@ -665,7 +665,7 @@ select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as Docum
                         {
                             query.UserIds,
                             length = query.UserIds.Count(),
-                            Id = query.FromId,
+                            creationTime = query.FromTime,
                             query.Skip,
                             query.Top
 

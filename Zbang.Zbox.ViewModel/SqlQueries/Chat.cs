@@ -48,9 +48,9 @@ order by u.UserName";
 
         public const string GetChat = @"select Id, Message as text,CreationTime as Time ,UserId, blob as blob from zbox.ChatMessage
 where ChatRoomId = @ChatRoom
-and (@Id is null or Id< @Id)
+and (@creationTime is null or CreationTime< @creationTime)
 order by id desc
-offset @skip ROWS
+offset 0 ROWS
 FETCH NEXT @top ROWS ONLY; ";
 
         public const string GetChatByUserIds =
@@ -59,9 +59,9 @@ where ChatRoomId = (
 select chatroomid from zbox.ChatUser where UserId in  @UserIds
 group by chatroomid
 having count(*) = @length)
-and (@Id is null or Id< @Id)
+and (@creationTime is null or CreationTime< @creationTime)
 order by id desc
-offset @skip ROWS
+offset 0 ROWS
 FETCH NEXT @top ROWS ONLY;";
 
 
