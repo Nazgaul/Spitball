@@ -16,7 +16,7 @@ from zbox.users u
 where u.UniversityId = @Universityid
 and u.UserName like  @term + '%'
 and u.userid <> @UserId
-order by cr.UpdateTime desc , u.online, u.LastAccessTime desc
+order by cr.UpdateTime desc , u.online desc, u.LastAccessTime desc
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY;";
 
@@ -31,7 +31,7 @@ select null as Conversation, null,  null as Unread ,u.userid as id,username as n
 from zbox.users u
 where u.UniversityId = @Universityid
 and u.userid <> @UserId
-order by cr.UpdateTime desc , u.online, u.LastAccessTime desc
+order by cr.UpdateTime desc , u.online desc, u.LastAccessTime desc
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY;";
 
