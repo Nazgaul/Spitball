@@ -3,11 +3,11 @@
     angular.module('app.chat').controller('ChatController', chat);
     chat.$inject = ['$timeout', '$scope', '$mdSidenav', 'realtimeFactotry',
         'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService',
-        '$mdDialog', 'routerHelper', '$document', 'notificationService', 'resManager'];
+        '$mdDialog', 'routerHelper', '$document', 'notificationService', 'resManager', 'userService'];
 
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
-        notificationService, resManager) {
+        notificationService, resManager, userService) {
         var c = this, chunkSize = 2147483647, top = 0, fromid, page = 0;
         c.states = {
             messages: 1,
@@ -57,6 +57,7 @@
         }
         function resetChat() {
             c.userChat = null;
+            page = 0;
         }
 
         function close() {
@@ -78,14 +79,13 @@
 
         }
 
-        function search(term) {
+        function search(term,loadNextPage) {
             chatBus.messages(term, page).then(function (response) {
-                if (c.term !== c.lastSearch) {
-                    c.lastSearch = c.term;
+                if (loadNextPage) {
+                    c.users = c.users.concat(response);
+                } else {
                     page = 0;
                     c.users = response;
-                } else {
-                    c.users = c.users.concat(response);
                 }
                 updateUnread();
             });
@@ -188,19 +188,19 @@
             }
             //im not in chat at all
 
-            if (!c.users) {
-                notificationService.send(resManager.get('toasterChatMessage'), args.message);
+            if (!c.users.length) {
+                search();
+                notificationService.send(resManager.get('toasterChatMessage'), args.message, null, onNotificationClick);
                 updateUnread();
                 updateScope();
                 return;
             }
 
             //got conversation with that user
-            var user = c.users.find(function (f) {
-                return f.conversation === args.chatRoom;
-            });
+            var user = getConversationPartner(args.chatRoom);
+
             if (user) {
-                notificationService.send(user.name, args.message, user.image);
+                notificationService.send(user.name, args.message, user.image, onNotificationClick);
                 user.unread++;
                 updateUnread();
                 updateScope();
@@ -211,7 +211,8 @@
                 return f.id === args.user;
             });
             if (!user) {
-                notificationService.send(resManager.get('toasterChatMessage'), args.message);
+                notificationService.send(resManager.get('toasterChatMessage'), args.message, null, onNotificationClick);
+
                 //need to refresh data to find it.
                 search();
                 return;
@@ -222,7 +223,16 @@
             updateUnread();
             updateScope();
 
-
+            function getConversationPartner(chatRoomId) {
+                return c.users.find(function (f) {
+                    return f.conversation === chatRoomId;
+                });
+            }
+            function onNotificationClick() {
+                $mdSidenav('chat').open();
+                var partner = getConversationPartner(args.chatRoom);
+                conversation(partner);
+            }
             function updateScope() {
                 $scope.$apply();
             }
@@ -313,9 +323,8 @@
         }
 
         function usersPaging() {
-            console.log('in usersPaging()');
             page++;
-            search(c.lastSearch);
+            search(c.term, true);
         }
     };
 

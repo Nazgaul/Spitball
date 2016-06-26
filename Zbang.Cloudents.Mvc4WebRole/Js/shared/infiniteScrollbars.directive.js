@@ -27,12 +27,11 @@
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                var callbacks;
+                var callbacks, destroyed = false;
                 switch (attrs['infiniteScrollbarsDirection']) {
                     case 'up':
                         callbacks = {
                             onTotalScrollBack: function () {
-                                console.log('scrolled up');
                                 runAction();
                             }
                         };
@@ -40,7 +39,6 @@
                     default://down
                         callbacks = {
                             onTotalScroll: function () {
-                                console.log('scrolled down');
                                 runAction();
                             }
                         };
@@ -49,8 +47,17 @@
                 deepVal(attrs['ngScrollbarsConfig'], scope)['callbacks'] = callbacks;
 
                 function runAction() {
+                    if (destroyed) {
+                        return
+                    }
                     deepVal(attrs['infiniteScrollbarsFunction'], scope)();
                 }
+
+                
+                scope.$on('$destroy', function () {
+                    callbacks = null;
+                    destroyed = true;
+                });
             }
         };
     }
