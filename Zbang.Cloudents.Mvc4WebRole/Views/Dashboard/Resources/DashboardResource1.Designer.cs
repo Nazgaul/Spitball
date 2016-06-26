@@ -79,8 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite your friends 
-        ///to get the most out of Spitball.
+        ///   Looks up a localized string similar to Invite friends.
         /// </summary>
         public static string InviteToSpitball {
             get {
@@ -108,7 +107,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create Study Group.
+        ///   Looks up a localized string similar to Create a Study Group.
         /// </summary>
         public static string StudyGroupHeader {
             get {

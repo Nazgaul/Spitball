@@ -2,11 +2,11 @@
 (function () {
     angular.module('app').controller('AppController', appController);
     appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state',
-        'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager', 'CacheFactory', '$scope'
+        'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager', 'CacheFactory', '$scope', '$mdSidenav'
     ];
 
     function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast,
-        $document, $mdMenu, resManager, cacheFactory, $scope) {
+        $document, $mdMenu, resManager, cacheFactory, $scope, $mdSidenav) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
             var path = $location.path(),
@@ -112,6 +112,9 @@
             self.showChat = self.showSearch = !(toState.name === 'universityChoose');
             self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
             self.fixedBgColor = toState.name === 'item' || toState.name === 'quiz';
+            if (toState.name === 'universityChoose') {
+                $mdSidenav('chat').close();
+            }
         });
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {

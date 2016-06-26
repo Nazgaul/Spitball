@@ -13,6 +13,48 @@
         padding: 10px;
     }
 
+    .dashboard-actions .container {
+        .displayFlex();
+        .align-items(center);
+        .justifyContet(center);
+
+        .create-btn, .inviteBtn {
+            //  width: 100%;
+            background: @borderColorDarkGrey;
+            padding: 10px 0;
+            border-radius: 5px;
+
+            .wrapper {
+                .displayFlex();
+                .align-items(center);
+                .justifyContet(center);
+
+                svg {
+                    margin-right: 10px;
+                    fill: @textColorWhite;
+                }
+            }
+        }
+
+        .create-btn {
+            flex-basis: 60%;
+
+            svg {
+                width: 14px;
+                height: 14px;
+            }
+        }
+
+        .inviteBtn {
+            flex-basis: 40%;
+            margin-right: 8px;
+
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
     /*.leaderBoardTitle {
         float: left;
         -ms-word-break: break-word;
@@ -120,10 +162,11 @@
         //.buttonBlue();
     }
 
-    .ad{
+    .ad {
         text-align: center;
         padding: 8px;
-        > div{
+
+        > div {
             margin: 0 auto;
         }
     }

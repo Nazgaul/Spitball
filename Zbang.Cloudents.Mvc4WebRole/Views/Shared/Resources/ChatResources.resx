@@ -135,4 +135,10 @@
   <data name="NewMessagePlaceholder" xml:space="preserve">
     <value>Type a message</value>
   </data>
+  <data name="EmptyStateTitle" xml:space="preserve">
+    <value>We cannot find your friend on Spitball messages</value>
+  </data>
+  <data name="EmptyStateSubtitle" xml:space="preserve">
+    <value>Check if you typed the name correctly</value>
+  </data>
 </root>

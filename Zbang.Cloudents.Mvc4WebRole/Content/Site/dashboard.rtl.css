@@ -26,6 +26,51 @@
   height: 179px;
   padding: 10px;
 }
+.dashboard .dashboard-actions .container {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.dashboard .dashboard-actions .container .create-btn,
+.dashboard .dashboard-actions .container .inviteBtn {
+  background: #323538;
+  padding: 10px 0;
+  border-radius: 5px;
+}
+.dashboard .dashboard-actions .container .create-btn .wrapper,
+.dashboard .dashboard-actions .container .inviteBtn .wrapper {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.dashboard .dashboard-actions .container .create-btn .wrapper svg,
+.dashboard .dashboard-actions .container .inviteBtn .wrapper svg {
+  margin-left: 10px;
+  fill: #f5f5f5;
+}
+.dashboard .dashboard-actions .container .create-btn {
+  flex-basis: 60%;
+}
+.dashboard .dashboard-actions .container .create-btn svg {
+  width: 14px;
+  height: 14px;
+}
+.dashboard .dashboard-actions .container .inviteBtn {
+  flex-basis: 40%;
+  margin-left: 8px;
+}
+.dashboard .dashboard-actions .container .inviteBtn svg {
+  width: 20px;
+  height: 20px;
+}
 .dashboard .box-cube {
   position: relative;
 }

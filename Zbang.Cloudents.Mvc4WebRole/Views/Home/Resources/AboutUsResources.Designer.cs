@@ -163,7 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to CEO
-        ///Co-Founder.
+        ///Founder.
         /// </summary>
         public static string TeamCEO {
             get {

@@ -53,6 +53,7 @@
         });
         function backFromChat() {
             c.state = c.states.messages;
+            c.newText = '';
             resetChat();
         }
         function resetChat() {
@@ -62,6 +63,7 @@
 
         function close() {
             $mdSidenav('chat').close();
+            c.term='';
         }
 
         function updateUnread() {
@@ -79,7 +81,7 @@
 
         }
 
-        function search(term,loadNextPage) {
+        function search(term, loadNextPage) {
             chatBus.messages(term, page).then(function (response) {
                 if (loadNextPage) {
                     c.users = c.users.concat(response);

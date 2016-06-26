@@ -135,4 +135,10 @@
   <data name="EmptyStateLine1" xml:space="preserve">
     <value>לא נעשו שיחות</value>
   </data>
+  <data name="EmptyStateTitle" xml:space="preserve">
+    <value>מצטערים, לא מצאנו חברים שמתאימים לחיפוש זה</value>
+  </data>
+  <data name="EmptyStateSubtitle" xml:space="preserve">
+    <value>בידקו אם הקלדתם את השם נכון</value>
+  </data>
 </root>

@@ -604,10 +604,6 @@
   padding: 0;
   margin-bottom: 2px;
 }
-.feed .actions .reply-count,
-.feed .actions .like-count {
-  margin-bottom: 2px;
-}
 .feed .reply .like-count {
   display: block;
 }
@@ -705,7 +701,7 @@
   font-size: 14px;
 }
 .feed .counters .like-btn .like-count {
-  margin-right: 8px;
+  margin-left: 8px;
   border: 0;
   background: transparent;
   padding: 0;

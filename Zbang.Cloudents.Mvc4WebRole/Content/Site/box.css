@@ -240,9 +240,6 @@ library-list {
 .boxes-side-area .leaderboard-container .leaderboard {
   width: 100%;
 }
-.boxes-side-area .recomanded {
-  padding: 0 !important;
-}
 .member-invite {
   border-radius: 10px;
   margin-bottom: 20px;

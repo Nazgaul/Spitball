@@ -79,6 +79,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check if you typed the name correctly.
+        /// </summary>
+        public static string EmptyStateSubtitle {
+            get {
+                return ResourceManager.GetString("EmptyStateSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We cannot find your friend on Spitball messages.
+        /// </summary>
+        public static string EmptyStateTitle {
+            get {
+                return ResourceManager.GetString("EmptyStateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search for a friend.
         /// </summary>
         public static string FriendSearchPlaceholder {

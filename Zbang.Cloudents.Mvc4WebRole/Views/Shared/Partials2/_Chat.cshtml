@@ -29,7 +29,7 @@
                         @Html.Svg("~/images/site/icons.svg", "close", new { @class = "resetIcon" })
                     </button>
                 </form>
-                <ul class="users-list" disable-thouch ng-scrollbars infinite-scrollbars-direction="down" infinite-scrollbars-function="c.usersPaging" ng-scrollbars-config="c.scrollSetting" @*ng-slimscroll height="calc(100vh - 119px)" color="#BBB" watch-content="true"*@>
+                <ul class="users-list" ng-if="c.users.length" disable-thouch ng-scrollbars infinite-scrollbars-direction="down" infinite-scrollbars-function="c.usersPaging" ng-scrollbars-config="c.scrollSetting" @*ng-slimscroll height="calc(100vh - 119px)" color="#BBB" watch-content="true"*@>
                     <li ng-click="c.chat(e)" class="user" ng-repeat="e in c.users track by e.id" ng-class="::{online: e.online}" ga-track-event="['chat', 'started-conversasion']">
                         <user-image class="img-circle" name="::e.name" image="::e.image" width="35" height="35"></user-image>
                         <div class="name-counter">
@@ -41,6 +41,13 @@
                         </div>
                     </li>
                 </ul>
+                <div class="empty-state" ng-if="!c.users.length && c.term">
+                    <div>
+                        @Html.Svg("~/images/site/icons.svg", "empty-chat")
+                    </div>
+                    <span class="title">@ChatResources.EmptyStateTitle</span>
+                    <span class="subtitle">@ChatResources.EmptyStateSubtitle</span>
+                </div>
             </div>
         </div>
         <div class="conversasion angular-animate" ng-if="c.state === c.states.chat">

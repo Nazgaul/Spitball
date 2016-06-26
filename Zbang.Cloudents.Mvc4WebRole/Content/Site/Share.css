@@ -1,38 +1,4 @@
-﻿.inviteBtn {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-}
-.portlet.light.invite {
-  text-align: center;
-  font-size: 18px;
-  width: 100%;
-  -webkit-justify-content: center;
-  justify-content: center;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -ms-flex-direction: row;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  align-items: stretch;
-  padding: 0;
-}
-.portlet.light.invite button {
-  padding: 12px 20px 15px 20px;
-}
-.portlet.light.invite svg {
-  width: 75px;
-  height: 75px;
-  display: block;
-  margin: 0 auto;
-}
-.portlet.light.invite span {
-  max-width: 250px;
-  display: inline-block;
-  line-height: 22px;
-}
-.invite-container {
+﻿.invite-container {
   display: flex;
   padding: 12px;
   -webkit-align-items: stretch;

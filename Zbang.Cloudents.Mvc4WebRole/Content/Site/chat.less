@@ -236,6 +236,34 @@ md-sidenav.chat {
                     }
                 }
             }
+
+            .empty-state {
+                text-align: center;
+
+                svg {
+                    width: 300px;
+                    height: 200px;
+                    display: block;
+                    margin: 0 auto;
+                    fill: @textColorGrey;
+                    animation: none !important;
+                }
+
+                span {
+                    display: block;
+
+                    &.title {
+                        color: @textColorGrey;
+                        font-size: 18px;
+                        padding: 12px 16px;
+                    }
+
+                    &.subtitle {
+                        color: @buttonColorBlue;
+                        font-size: 16px;
+                    }
+                }
+            }
         }
 
         &.stateChat .menu-content, .conversasion, &:not(.stateChat) .menu-content {
