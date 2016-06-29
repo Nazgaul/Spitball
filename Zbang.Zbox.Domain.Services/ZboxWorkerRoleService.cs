@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using NHibernate.Linq;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
-using Zbang.Zbox.Infrastructure.Trace;
 
 
 namespace Zbang.Zbox.Domain.Services
@@ -231,17 +226,7 @@ namespace Zbang.Zbox.Domain.Services
 //        }
 
 
-        //        private void UpdateFeedDbi()
-        //        {
-        //            const string sql = @"update zbox.Question 
-        //set ReplyCount = (select count(*) from zbox.Answer a where a.QuestionId = zbox.Question.QuestionId),
-        //lastreplyid = (select max(a.AnswerId) from zbox.Answer a where a.QuestionId = zbox.Question.QuestionId)
-        //";
-        //            using (var con = DapperConnection.OpenConnection())
-        //            {
-        //                con.Execute(sql);
-        //            }
-        //        }
+       
 
 
 

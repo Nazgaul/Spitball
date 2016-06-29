@@ -107,7 +107,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 x.UserId,
                 x.UserImage,
                 x.UserName
-            }).LastOrDefault();
+            }).FirstOrDefault();
             if (lastReply == null)
             {
                 return null;

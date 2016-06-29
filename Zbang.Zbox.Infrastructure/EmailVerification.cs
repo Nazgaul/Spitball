@@ -17,6 +17,7 @@ namespace Zbang.Zbox.Infrastructure
         {
             try
             {
+                //FHbrz2C/8XTEPkmsVzPzPuYvZ2XNoMDfMEdJKJdvGlwPpkAgNwQMVT+Ae1ZSY8QbQpm+7g==
                 LicensingManager.SetLicenseKey("FHbrz2C/8XTEPkmsVzPzPuYvZ2XNoMDfMEdJKJdvGlwPpkAgNwQMVT+Ae1ZSY8QbQpm+7g==");
                 m_Engine = new VerificationEngine();
                 m_Engine.DefaultSettings.DnsServers.Clear();
@@ -29,28 +30,28 @@ namespace Zbang.Zbox.Infrastructure
             }
         }
 
-        public Task<bool> VerifyEmailAsync(string email)
+        public async Task<bool> VerifyEmailAsync(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                return Infrastructure.Extensions.TaskExtensions.CompletedTaskFalse;
+                return false;
             }
-            //if (m_Engine == null)
-            //{
-            return Task.FromResult(Regex.IsMatch(email, EmailRegex2, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(10)));
-            //}
-            //try
-            //{
-            //        var verificationEmail = new Verification(email);
-            //        await m_Engine.RunAsync(verificationEmail, VerificationLevel.Syntax);
-            //        return verificationEmail.State.Result.LastStatus == VerificationStatus.Success;
-            //}
-            //catch (Exception ex)
-            //{
+            if (m_Engine == null)
+            {
+                return Regex.IsMatch(email, EmailRegex2, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(10));
+            }
+            try
+            {
+                var verificationEmail = new Verification(email);
+                await m_Engine.RunAsync(verificationEmail, VerificationLevel.Syntax);
+                return verificationEmail.State.Result.LastStatus == VerificationStatus.Success;
+            }
+            catch (Exception ex)
+            {
 
-            //    TraceLog.WriteError("On check email email : " + email, ex);
-            //    return true;
-            //}
+                TraceLog.WriteError("On check email email : " + email, ex);
+                return true;
+            }
         }
 
         public bool VerifyEmail(string email)
@@ -59,21 +60,21 @@ namespace Zbang.Zbox.Infrastructure
             {
                 return false;
             }
-           // if (m_Engine == null)
-            //{
+            if (m_Engine == null)
+            {
                 return Regex.IsMatch(email, EmailRegex2, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(10));
-           // }
-            //try
-            //{
-            //    var verificationEmail = new Verification(email);
-            //    m_Engine.Run(verificationEmail, VerificationLevel.Syntax);
-            //    return verificationEmail.State.Result.LastStatus == VerificationStatus.Success;
-            //}
-            //catch (Exception ex)
-            //{
-            //    TraceLog.WriteError("On check email email : " + email, ex);
-            //    return true;
-            //}
+            }
+            try
+            {
+                var verificationEmail = new Verification(email);
+                m_Engine.Run(verificationEmail, VerificationLevel.Syntax);
+                return verificationEmail.State.Result.LastStatus == VerificationStatus.Success;
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("On check email email : " + email, ex);
+                return true;
+            }
         }
     }
 }
