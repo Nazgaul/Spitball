@@ -684,7 +684,9 @@ Page Loading
   color: #212325;
 }
 .theme-light .dashboard-stat2,
-.theme-light .box-cube {
+.theme-light .box-cube,
+.theme-light .unibox,
+.theme-light .leaderboard {
   border: 1px solid transparent;
   background: #ffffff;
 }
@@ -2102,6 +2104,15 @@ Page Loading
 .theme-light .hoverBackgroundTC28:hover {
   background: #29769e !important;
 }
-.theme-light .textTC29 {
-  color: #e9eaed !important;
+.theme-light .backgroundTC29 {
+  background: #ffffff !important;
+}
+.theme-light .textTC30 {
+  color: #212325 !important;
+}
+.theme-light .svgTC31 {
+  fill: #5f6871 !important;
+}
+.theme-light .borderTC32 {
+  border-color: #c3c3c3 !important;
 }

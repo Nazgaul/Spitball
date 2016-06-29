@@ -329,7 +329,9 @@ body {
   color: #f5f5f5;
 }
 .dashboard-stat2,
-.box-cube {
+.box-cube,
+.unibox,
+.leaderboard {
   border: 1px solid transparent;
   background: #323538;
 }
@@ -1270,8 +1272,20 @@ md-chips .md-chips.md-focused {
 .hoverBackgroundTC28:hover {
   background: #212325 !important;
 }
-.textTC29 {
-  color: #888b8e !important;
+.backgroundTC29 {
+  background: #323538 !important;
+}
+.textTC30 {
+  color: #f5f5f5 !important;
+}
+.backgroundTC30 {
+  background: #f5f5f5 !important;
+}
+.svgTC31 {
+  fill: #f5f5f5 !important;
+}
+.borderTC32 {
+  border-color: transparent !important;
 }
 /*input[type="search"], textarea {
     .placeHolder(@borderColorGrey) !important;

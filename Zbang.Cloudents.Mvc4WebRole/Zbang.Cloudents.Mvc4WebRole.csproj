@@ -3626,7 +3626,6 @@
     <Content Include="Images\Site\create_uni_text.png" />
     <Content Include="Images\Site\create_uni_text_white.png" />
     <Content Include="Images\Site\create_uni_w.png" />
-    <Content Include="Images\Site\No Results icon.svg" />
     <Content Include="Images\Site\no_search_results.png" />
     <Content Include="Images\Site\no_uni.png" />
     <Content Include="Images\Site\search_uni.png" />

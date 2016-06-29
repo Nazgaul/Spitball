@@ -17,14 +17,27 @@
 
     .dashboard-actions .container {
         .displayFlex();
-        .align-items(center);
+        .align-items(streach);
         .justifyContet(center);
 
         .create-btn, .inviteBtn {
             //  width: 100%;
             background: @borderColorDarkGrey;
-            padding: 10px 0;
+            padding: 8px 0;
             border-radius: 5px;
+            border: 1px solid;
+
+            &:hover {
+                .wrapper {
+                    svg {
+                        fill: @buttonColorBlue !important;
+                    }
+
+                    span {
+                        color: @buttonColorBlue !important;
+                    }
+                }
+            }
 
             .wrapper {
                 .displayFlex();
@@ -34,6 +47,11 @@
                 svg {
                     margin-right: 10px;
                     fill: @textColorWhite;
+                }
+
+                span {
+                    line-height: normal;
+                    padding-right: 6px;
                 }
             }
         }
@@ -101,6 +119,7 @@
         background: #f5f5f5;
         height: 60px;
         width: 60px;
+        border: 1px solid @textColorLightGrey;
     }
 
     .portlet {
@@ -131,6 +150,7 @@
                 text-align: center;
                 width: 50%;
                 max-height: 60px;
+                color: @textColorWhite;
             }
         }
 
