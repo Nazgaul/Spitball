@@ -74,7 +74,7 @@
             <md-button class="btn button-Blue btn-primary send" ga-track-event="['invite', 'send']" ng-if="i.allContacts.length" ng-click="i.sendInvite()" ng-disabled="i.submitDisabled">
                 @IndexResources.Send
             </md-button>
-            <md-button class="close btn btn-default" ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">
+            <md-button class="close btn btn-default" scroll-to-top ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">
                 @GeneralResources.Cancel
             </md-button>
             @*<button type="button" class="close btn btn-default send" ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">@GeneralResources.Cancel</button>*@

@@ -98,5 +98,9 @@
   {
     "outputFile": "Content/Site/chat.css",
     "inputFile": "Content/Site/chat.less"
+  },
+  {
+    "outputFile": "Content/signin/layout.css",
+    "inputFile": "Content/signin/layout.less"
   }
 ]

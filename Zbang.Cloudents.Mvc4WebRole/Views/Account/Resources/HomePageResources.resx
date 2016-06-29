@@ -237,7 +237,7 @@
   </data>
   <data name="A6" xml:space="preserve">
     <value>Spitball’s study platform enables students to find and share study materials,
-interact with their classmates, create online quizzes and get better grades. For FREE.</value>
+interact with their classmates, create online quizzes and get better grades.</value>
   </data>
   <data name="A7" xml:space="preserve">
     <value>Spitball even faster through</value>
@@ -252,7 +252,7 @@ interact with their classmates, create online quizzes and get better grades. For
     <value>Key Features</value>
   </data>
   <data name="Free" xml:space="preserve">
-    <value />
+    <value>For free.</value>
   </data>
   <data name="resetPassEmailSent" xml:space="preserve">
     <value>Another request was sent</value>

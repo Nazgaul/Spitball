@@ -81,9 +81,7 @@ body {
     //this cause the md dialog not to show on scroll page
     //max-width: 100vw;
     //overflow-x: hidden; //this cause the md dialog not to show on scroll page
-    
-    
-    //For header collapse in itemPage    
+    //For header collapse in itemPage
     margin-top: 0;
     .transition(margin-top, 0.2s, ease);
 
@@ -924,17 +922,20 @@ md-menu-item {
 }
 
 //footer arrow up
-.scroll-to-top {
-    -moz-transform: rotate(270deg) /*rtl:ignore*/;
-    -ms-transform: rotate(270deg) /*rtl:ignore*/;
-    -o-transform: rotate(270deg) /*rtl:ignore*/;
-    -webkit-transform: rotate(270deg) /*rtl:ignore*/;
-    transform: rotate(270deg) /*rtl:ignore*/;
 
-    svg {
-        width: 32px;
-        height: 32px;
-        fill: @borderColorBlue;
+.page-footer {
+    .scroll-to-top {
+        -moz-transform: rotate(270deg) /*rtl:ignore*/;
+        -ms-transform: rotate(270deg) /*rtl:ignore*/;
+        -o-transform: rotate(270deg) /*rtl:ignore*/;
+        -webkit-transform: rotate(270deg) /*rtl:ignore*/;
+        transform: rotate(270deg) /*rtl:ignore*/;
+
+        svg {
+            width: 32px;
+            height: 32px;
+            fill: @borderColorBlue;
+        }
     }
 }
 
@@ -1053,4 +1054,8 @@ md-tooltip .md-content {
     font-size: 12px;
     line-height: 20px;
     padding: 10px;
+}
+
+.collapsible.collapsing {
+  transition-duration: 0.30s;
 }

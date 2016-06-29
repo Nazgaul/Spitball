@@ -456,7 +456,7 @@ Page footer
   }
 }
 /* Scroll Top Top */
-.scroll-to-top {
+.page-footer .scroll-to-top {
   padding: 2px;
   text-align: center;
   position: fixed;
@@ -467,7 +467,7 @@ Page footer
   cursor: pointer;
 }
 @media (max-width: 768px) {
-  .scroll-to-top {
+  .page-footer .scroll-to-top {
     display: none !important;
   }
 }

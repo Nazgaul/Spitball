@@ -385,7 +385,6 @@ Page content
     .page-title > h1 {
         font-size: 5vw;
     }
-    
 }
 
 /***
@@ -531,23 +530,25 @@ Page footer
     }
 }
 /* Scroll Top Top */
-.scroll-to-top {
-    //display: inline-block;
-    padding: 2px;
-    text-align: center;
-    position: fixed;
-    z-index: 2;
-    bottom: 70px;
-    display: none;
-    right: 29px;
-    cursor: pointer;
 
-    @media (max-width: 768px) {
-        //override inline styling
-        display: none !important;
+.page-footer {
+    .scroll-to-top {
+        //display: inline-block;
+        padding: 2px;
+        text-align: center;
+        position: fixed;
+        z-index: 2;
+        bottom: 70px;
+        display: none;
+        right: 29px;
+        cursor: pointer;
+
+        @media (max-width: 768px) {
+            //override inline styling
+            display: none !important;
+        }
     }
 }
-
 
 
 
@@ -886,7 +887,7 @@ Page Loading
     .mediumHeight {
         height: 50vh;
     }
-    
+
     h1 {
         font-weight: normal;
         font-size: 24px;

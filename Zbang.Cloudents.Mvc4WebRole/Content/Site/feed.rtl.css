@@ -18,6 +18,7 @@
   display: -ms-flex;
   display: flex;
   min-height: 40px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 .feed .box-options .option-wrapper {
   width: 100%;
@@ -32,10 +33,11 @@
   cursor: default;
 }
 .feed .box-options .option-wrapper .text {
-  color: #484F56;
+  color: #4190b9;
   text-transform: capitalize;
   margin-right: 10px;
   font-size: 16px;
+  margin-top: 2px;
 }
 @media (max-width: 600px) {
   .feed .box-options .option-wrapper .text {
@@ -82,7 +84,7 @@
 .feed .box-options .option-wrapper:nth-child(2) label.title svg {
   width: 16px;
   height: 16px;
-  fill: #6a737d;
+  fill: #4190b9;
 }
 .feed .box-options .option-wrapper:nth-child(2) #open-share {
   display: none;
@@ -169,7 +171,7 @@
   background: none;
   display: -webkit-flex;
   display: -ms-flex;
-  display: inline-flex;
+  display: flex;
   -webkit-align-items: center;
   align-items: center;
   width: 100%;
@@ -189,7 +191,7 @@
   margin: 0;
 }
 .feed .box-options .option svg {
-  fill: #6a737d;
+  fill: #4190b9;
   display: block;
 }
 .feed .box-options .option.invite {

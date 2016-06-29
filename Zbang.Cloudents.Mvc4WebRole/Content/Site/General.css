@@ -823,14 +823,14 @@ md-menu-item {
   min-height: 36px;
   height: 36px;
 }
-.scroll-to-top {
+.page-footer .scroll-to-top {
   -moz-transform: rotate(270deg) /*rtl:ignore*/;
   -ms-transform: rotate(270deg) /*rtl:ignore*/;
   -o-transform: rotate(270deg) /*rtl:ignore*/;
   -webkit-transform: rotate(270deg) /*rtl:ignore*/;
   transform: rotate(270deg) /*rtl:ignore*/;
 }
-.scroll-to-top svg {
+.page-footer .scroll-to-top svg {
   width: 32px;
   height: 32px;
   fill: #3598dc;
@@ -924,4 +924,7 @@ md-tooltip .md-content {
   font-size: 12px;
   line-height: 20px;
   padding: 10px;
+}
+.collapsible.collapsing {
+  transition-duration: 0.30s;
 }

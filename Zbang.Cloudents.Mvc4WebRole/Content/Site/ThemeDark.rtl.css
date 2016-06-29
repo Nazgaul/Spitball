@@ -1270,6 +1270,9 @@ md-chips .md-chips.md-focused {
 .hoverBackgroundTC28:hover {
   background: #212325 !important;
 }
+.textTC29 {
+  color: #888b8e !important;
+}
 /*input[type="search"], textarea {
     .placeHolder(@borderColorGrey) !important;
 }*/

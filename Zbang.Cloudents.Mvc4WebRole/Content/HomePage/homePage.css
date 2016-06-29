@@ -148,6 +148,7 @@
 }
 .homePage .home-page-body section.main .welcome-text h2 span {
   font-weight: bold;
+  font-size: 20px;
 }
 .homePage .home-page-body section.main .signin-options {
   display: -webkit-flex;
@@ -1020,6 +1021,9 @@
   }
   .homePage .home-page-body section.main .welcome-text h2 {
     font-size: 5vw;
+  }
+  .homePage .home-page-body section.main .welcome-text h2 span {
+    font-size: 5.5vw;
   }
   .homePage .home-page-body section.main .statistics {
     font-size: 5vw;

@@ -17,6 +17,7 @@
         margin-bottom: 14px;
         .displayFlex;
         min-height: 40px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 
         .option-wrapper {
             width: 100%;
@@ -32,10 +33,11 @@
             }
 
             .text {
-                color: @svgColorGrey;
+                color: @buttonColorBlue;
                 text-transform: capitalize;
                 margin-left: 10px;
                 font-size: 16px;
+                margin-top: 2px;
             }
 
             @media(max-width:600px) {
@@ -87,7 +89,7 @@
                 svg {
                     width: 16px;
                     height: 16px;
-                    fill: @backgroundColorItem;
+                    fill: @buttonColorBlue;
                 }
             }
 
@@ -189,7 +191,7 @@
 
         .option.share, button.option > div {
             background: none;
-            .displayInlineFlex;
+            .displayFlex;
             .align-items(center);
             width: 100%;
             text-align: center;
@@ -208,7 +210,7 @@
             margin: 0;
 
             svg {
-                fill: @backgroundColorItem;
+                fill: @buttonColorBlue;
                 display: block;
             }
 

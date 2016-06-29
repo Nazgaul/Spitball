@@ -22,6 +22,9 @@
   height: 179px;
   padding: 12px;
 }
+.dashboard .create-box:not(.create-box-show) {
+  display: none;
+}
 .dashboard .leaderboardbox {
   height: 179px;
   padding: 10px;

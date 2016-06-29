@@ -289,10 +289,10 @@ md-sidenav.chat md-content .tab-content .empty-state {
   text-align: center;
 }
 md-sidenav.chat md-content .tab-content .empty-state svg {
-  width: 300px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   display: block;
-  margin: 0 auto;
+  margin: 5vh auto 0 auto;
   fill: #888b8e;
   animation: none !important;
 }

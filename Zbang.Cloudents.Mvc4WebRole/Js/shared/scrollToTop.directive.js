@@ -40,3 +40,21 @@
         };
     }
 })();
+
+(function () {
+    'use strict';
+
+    angular.module('app').directive('scrollToTop', scrollToTop);
+
+    function scrollToTop() {
+        return {
+            restrict: 'A',
+            link: function ($scope, $element) {
+                $element.on('click', function () {
+                    $('html, body').animate({ scrollTop: 0 }, 0);
+                    return false;
+                });
+            }
+        };
+    }
+})();

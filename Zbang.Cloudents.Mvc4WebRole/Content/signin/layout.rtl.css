@@ -2536,7 +2536,7 @@ Theme Panel
   left: 0;
 }
 .page-container-bg-solid .theme-panel > .toggler {
-  background: #bfcad1 url(../img/icon-color.png) center no-repeat;
+  background: #BFCAD1 url(../img/icon-color.png) center no-repeat;
 }
 .page-container-bg-solid.page-sidebar-reversed .theme-panel {
   margin-left: 255px;

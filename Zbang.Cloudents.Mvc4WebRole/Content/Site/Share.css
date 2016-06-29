@@ -110,6 +110,9 @@
 .invite.invite-dialog .content .center .search-user {
   padding: 10px 15px;
 }
+.invite.invite-dialog .content .center .search-user md-input-container .md-errors-spacer {
+  display: none;
+}
 .invite.invite-dialog .content .center .email,
 .invite.invite-dialog .content .center .facebook {
   position: absolute;
