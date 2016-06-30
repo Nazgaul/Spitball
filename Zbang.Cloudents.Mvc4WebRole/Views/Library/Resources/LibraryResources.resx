@@ -188,4 +188,7 @@ Spitballing with your classmates</value>
   <data name="NoMoreSchools" xml:space="preserve">
     <value>No more schools found</value>
   </data>
+  <data name="IdLengthError" xml:space="preserve">
+    <value>Id must be 9 characters long</value>
+  </data>
 </root>

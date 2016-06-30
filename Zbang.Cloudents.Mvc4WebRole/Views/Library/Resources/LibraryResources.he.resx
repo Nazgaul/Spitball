@@ -188,4 +188,7 @@
   <data name="NoMoreSchools" xml:space="preserve">
     <value>לא נמצאו עוד מוסדות לימוד</value>
   </data>
+  <data name="IdLengthError" xml:space="preserve">
+    <value>עליך להזין תעודת זהות בת 9 ספרות</value>
+  </data>
 </root>

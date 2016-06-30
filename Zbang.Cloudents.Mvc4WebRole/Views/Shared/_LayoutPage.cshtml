@@ -173,21 +173,6 @@
 
 
     @RenderSection("scripts", false)
-    <div id='cptup-ready'></div>
-    <script data-cfasync='false' type='text/javascript'>
-	window.captain = {up: function(fn) { captain.topics.push(fn) }, topics: []};
-	// Add your settings here:
-	captain.up({
-		api_key: '577261fd7af90635a100001e'
-	});
-    </script>
-    <script data-cfasync='false' type='text/javascript'>
-	(function() {
-		var cpt = document.createElement('script'); cpt.type = 'text/javascript'; cpt.async = true;
-		cpt.src = 'https://captainup.com/assets/embed.js';
-		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(cpt);
-	})();
-    </script>
     @*<script>
             inlineManualOptions = { language: '@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName' };
         </script>*@

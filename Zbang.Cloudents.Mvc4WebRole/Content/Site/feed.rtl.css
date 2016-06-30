@@ -17,7 +17,9 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  min-height: 40px;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+  height: 40px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 .feed .box-options .option-wrapper {
@@ -25,6 +27,10 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: inline-flex;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+  -webkit-justify-content: center;
+  justify-content: center;
   padding: 2px 0;
   background: #fff;
 }
@@ -95,7 +101,7 @@
   transition: opacity 0.3s;
 }
 .feed .box-options .option-wrapper:nth-child(2) #open-share:checked ~ .option.share {
-  z-index: 11;
+  z-index: 9;
   opacity: 1;
   transition: opacity 0.3s;
 }
@@ -109,7 +115,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  z-index: 10;
+  z-index: 8;
 }
 .feed .box-options .option-wrapper:nth-child(2) .option.share {
   position: absolute;

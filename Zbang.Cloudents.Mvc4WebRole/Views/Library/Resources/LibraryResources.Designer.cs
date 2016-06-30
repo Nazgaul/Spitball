@@ -178,6 +178,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Id must be 9 characters long.
+        /// </summary>
+        public static string IdLengthError {
+            get {
+                return ResourceManager.GetString("IdLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instructor (optional).
         /// </summary>
         public static string Instructor {

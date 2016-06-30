@@ -1,31 +1,31 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div ng-if="lc.needCode" class="code">
-    <div class="top-contant">
-        @Html.Svg("~/images/site/libChooseIcons.svg", "closedUni", new { @class = "closed-uni-i" })
-        <div class="contant">
-            <h4 class="text-capitalize">@LibraryResources.Hi {{::lc.code.userName}}</h4>
-            <span class="uni-details" ng-bind-html="::lc.code.closedUniText1"></span>
-        </div>
-    </div>
-    <form name="enterId" novalidate ng-submit="lc.selectUniversity(lc.code.university,enterId)">
-        <div>
-            <div class="info-tooltip">
+
+    @Html.Svg("~/images/site/libChooseIcons.svg", "closedUni", new { @class = "closed-uni-i" })
+    <div class="content">
+        <h4 class="text-capitalize">@LibraryResources.Hi {{::lc.code.userName}}</h4>
+        <span class="uni-details" ng-bind-html="::lc.code.closedUniText1"></span>
+
+        <form name="enterId" novalidate ng-submit="lc.selectUniversity(lc.code.university,enterId)">
+            <input id="info" type="checkbox"/>
+            <label for="info">
                 @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
-                <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
-            </div>
+            </label>
             <md-input-container>
                 <label class="text-capitalize">@LibraryResources.EnterID</label>
-                <input name="studentId" type="text" ng-model="lc.code.studentId" required ng-change="enterId.studentId.$setValidity('server',true)" />
+                <input name="studentId" type="text" ng-model="lc.code.studentId"  ng-pattern="/^[0-9]{9}$/" required ng-change="enterId.studentId.$setValidity('server',true)" />
                 <div ng-messages="enterId.studentId.$error" ng-show="enterId.studentId.$dirty">
                     <div ng-message="required">@GeneralResources.RequiredField</div>
                     <div ng-message="server">{{lc.error}}</div>
+                    <div ng-message="pattern">@LibraryResources.IdLengthError</div>
                 </div>
             </md-input-container>
-        </div>
-        <div class="buttons" layout="row" layout-align="end center">
-            <button type="reset" ng-click="lc.needCode = false" class="btn btn-default">@GeneralResources.Cancel</button>
-            <button type="submit" class="btn button-Blue btn-primary" ng-disabled="!enterId.$valid || || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">@LibraryResources.Continue</button>
-        </div>
-    </form>
+            <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
+            <div class="buttons" layout="row" layout-align="end center">
+                <button type="reset" ng-click="lc.needCode = false" class="btn btn-default">@GeneralResources.Cancel</button>
+                <button type="submit" class="btn button-Blue btn-primary" ng-disabled="!enterId.$valid || || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">@LibraryResources.Continue</button>
+            </div>
+        </form>
+    </div>
 </div>

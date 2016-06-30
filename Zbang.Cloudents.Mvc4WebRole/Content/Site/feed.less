@@ -13,15 +13,18 @@
     }
 
     .box-options {
-        width: 100%;
+        width: 100%; 
         margin-bottom: 14px;
         .displayFlex;
-        min-height: 40px;
+        .align-items(stretch);
+        height: 40px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 
         .option-wrapper {
             width: 100%;
             .displayInlineFlex;
+            .align-items(stretch);
+            .justifyContet(center);
             padding: 2px 0;
             background: #fff;
 
@@ -112,7 +115,7 @@
 
                 &:checked {
                     ~ .option.share {
-                        z-index: 11;
+                        z-index: 9;
                         opacity: 1;
                         transition: opacity 0.3s;
                     }
@@ -129,7 +132,7 @@
                         position: fixed;
                         left: 0;
                         top: 0;
-                        z-index: 10;
+                        z-index: 8;
                     }
                 }
             }

@@ -188,42 +188,47 @@
     }
 
     .code {
-        max-width: 430px;
-        margin: 0 auto;
-        position: relative;
+        .displayFlex;
+        .align-items(flex-start);
+        .justifyContet(center);
+        margin-top: 20vh;
 
-        .top-contant {
-            padding-top: 50px;
-            max-width: 420px;
+        form {
+            margin-top: 10px;
+            position: relative;
+
+            .info-i {
+                position: absolute;
+                left: -45px;
+                top: 20px;
+                fill: @textColorLightGrey;
+                cursor: pointer;
+            }
+
+
+            > div {
+                .displayFlex();
+                .align-items(center);
+            }
         }
 
-
-        > div, > form > div {
-            .displayFlex();
-            .align-items(center);
+        .content {
+            max-width: 340px;
         }
 
         .btn {
             padding: 0 16px;
         }
-        //.btn-primary {
-        //    .buttonBlue();
-        //}
+
         .closed-uni-i {
-            width: 150px;
-            height: 150px;
+            width: 65px;
+            height: 65px;
             margin-right: 15px;
-            padding-top: 30px;
         }
 
         .uni-details {
             line-height: 20px;
             font-size: 17px;
-        }
-
-        form {
-            padding-left: 30px;
-            min-height: 400px;
         }
 
         .info-i {
@@ -233,37 +238,22 @@
 
         .arrow-up {
             display: none;
-            position: absolute;
-            top: 55px;
-            left: -25px;
-            border-radius: 5px;
-            padding: 15px;
-            width: 300px;
-
-            &:before {
-                content: '';
-                width: 0;
-                height: 0;
-                border-left: 10px solid transparent;
-                border-right: 10px solid transparent;
-                position: absolute;
-                top: -20px;
-                left: 30px;
-            }
         }
 
-        .info-tooltip {
-            padding-bottom: 25px;
-            position: relative;
+        #info {
+            display: none;
+        }
 
-            &:hover .arrow-up {
-                display: block;
-            }
+        #info:checked ~ .arrow-up, .ng-invalid.ng-dirty.ng-invalid-server .arrow-up {
+            display: block;
+            padding: 10px;
+            border: 2px solid #dd2c00;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
 
         md-input-container {
             width: 100%;
-            margin-left: 15px;
         }
     }
 

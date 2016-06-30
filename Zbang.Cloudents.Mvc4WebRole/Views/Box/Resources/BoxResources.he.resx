@@ -201,4 +201,7 @@
   <data name="likeUsersDialogHeader" xml:space="preserve">
     <value>סטודנטים שאהבו את זה</value>
   </data>
+  <data name="SingleComment" xml:space="preserve">
+    <value>הצג תגובה נוספת</value>
+  </data>
 </root>

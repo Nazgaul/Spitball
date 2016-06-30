@@ -1019,15 +1019,6 @@ Page Loading
 .theme-light .library-choose .code .uni-details {
   color: #212325;
 }
-.theme-light .library-choose .code .info-i {
-  fill: #5f6871;
-}
-.theme-light .library-choose .code .arrow-up {
-  background: #ffffff;
-}
-.theme-light .library-choose .code .arrow-up:before {
-  border-bottom: 20px solid #ffffff;
-}
 .theme-light body {
   background: #e9eaed;
 }

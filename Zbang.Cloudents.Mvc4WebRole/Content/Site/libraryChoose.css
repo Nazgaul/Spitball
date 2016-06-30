@@ -144,38 +144,47 @@
   padding-bottom: 0;
 }
 .library-choose .code {
-  max-width: 430px;
-  margin: 0 auto;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: center;
+  justify-content: center;
+  margin-top: 20vh;
+}
+.library-choose .code form {
+  margin-top: 10px;
   position: relative;
 }
-.library-choose .code .top-contant {
-  padding-top: 50px;
-  max-width: 420px;
+.library-choose .code form .info-i {
+  position: absolute;
+  left: -45px;
+  top: 20px;
+  fill: #c3c3c3;
+  cursor: pointer;
 }
-.library-choose .code > div,
-.library-choose .code > form > div {
+.library-choose .code form > div {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
+.library-choose .code .content {
+  max-width: 340px;
+}
 .library-choose .code .btn {
   padding: 0 16px;
 }
 .library-choose .code .closed-uni-i {
-  width: 150px;
-  height: 150px;
+  width: 65px;
+  height: 65px;
   margin-right: 15px;
-  padding-top: 30px;
 }
 .library-choose .code .uni-details {
   line-height: 20px;
   font-size: 17px;
-}
-.library-choose .code form {
-  padding-left: 30px;
-  min-height: 400px;
 }
 .library-choose .code .info-i {
   width: 30px;
@@ -183,33 +192,20 @@
 }
 .library-choose .code .arrow-up {
   display: none;
-  position: absolute;
-  top: 55px;
-  left: -25px;
-  border-radius: 5px;
-  padding: 15px;
-  width: 300px;
 }
-.library-choose .code .arrow-up:before {
-  content: '';
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  position: absolute;
-  top: -20px;
-  left: 30px;
+.library-choose .code #info {
+  display: none;
 }
-.library-choose .code .info-tooltip {
-  padding-bottom: 25px;
-  position: relative;
-}
-.library-choose .code .info-tooltip:hover .arrow-up {
+.library-choose .code #info:checked ~ .arrow-up,
+.library-choose .code .ng-invalid.ng-dirty.ng-invalid-server .arrow-up {
   display: block;
+  padding: 10px;
+  border: 2px solid #dd2c00;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 .library-choose .code md-input-container {
   width: 100%;
-  margin-left: 15px;
 }
 .library-choose .search-form-wrapper {
   text-align: center;

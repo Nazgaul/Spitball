@@ -133,7 +133,7 @@ md-menu-item.blue svg {
   position: absolute;
   right: 0;
   top: 20px;
-  padding: 0 10px 0 6px ;
+  padding: 0 10px 0 6px;
 }
 @media (max-width: 600px) {
   .itemPage header .close-btn {
@@ -315,6 +315,11 @@ md-menu-item.blue svg {
 }
 .itemPage .comments-section .comments-list {
   margin-left: 20px;
+}
+@media (max-width: 600px) {
+  .itemPage .comments-section .comments-list {
+    margin-bottom: 65px;
+  }
 }
 .itemPage .menu-toggler {
   display: none;

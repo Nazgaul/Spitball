@@ -148,7 +148,8 @@
 }
 .homePage .home-page-body section.main .welcome-text h2 span {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 22px;
+  text-transform: uppercase;
 }
 .homePage .home-page-body section.main .signin-options {
   display: -webkit-flex;

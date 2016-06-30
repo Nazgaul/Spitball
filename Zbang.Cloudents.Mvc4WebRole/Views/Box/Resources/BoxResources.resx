@@ -201,4 +201,7 @@
   <data name="likeUsersDialogHeader" xml:space="preserve">
     <value>Spitballers who like this</value>
   </data>
+  <data name="SingleComment" xml:space="preserve">
+    <value>View one more comment</value>
+  </data>
 </root>

@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var friendQuery = new GetUserFriendsQuery(id, page, 40);
+                var friendQuery = new GetUserFriendsQuery(id, page, 60);
                 var friendData = await ZboxReadService.GetUserFriendsAsync(friendQuery);
 
                 return JsonOk(friendData);

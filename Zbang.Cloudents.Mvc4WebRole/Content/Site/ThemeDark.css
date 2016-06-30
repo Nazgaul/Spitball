@@ -679,15 +679,6 @@ Page Loading
 .library-choose .code .uni-details {
   color: #f5f5f5;
 }
-.library-choose .code .info-i {
-  fill: #5f6871;
-}
-.library-choose .code .arrow-up {
-  background: #323538;
-}
-.library-choose .code .arrow-up:before {
-  border-bottom: 20px solid #323538;
-}
 /*#endregion*/
 /*#region light.less*/
 body {
