@@ -818,7 +818,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, ActionName("Details")]
-        public async Task<JsonResult> DetailsAsync()
+        public async Task<ActionResult> DetailsAsync()
         {
             //string cookieToken, formToken;
             //AntiForgery.GetTokens(null, out cookieToken, out formToken);
@@ -831,9 +831,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonOk(new { /*token,*/ Culture = CultureInfo.CurrentCulture.Name });
             }
-            var retVal = await ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
-            //retVal.Token = token;
-            return JsonOk(retVal);
+            try
+            {
+                var retVal = await ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
+                //retVal.Token = token;
+                return JsonOk(retVal);
+            }
+            catch (UserNotFoundException)
+            {
+                m_AuthenticationManager.SignOut();
+                return new HttpUnauthorizedResult();
+            }
 
         }
 
