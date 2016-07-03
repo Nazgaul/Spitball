@@ -1,3 +1,4 @@
+/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 'use strict';
 (function () {
     angular.module('app').factory('userDetailsFactory', userDetails);
@@ -6,14 +7,19 @@
         "use strict";
         var isAuthenticated = false, userData, serverCall = false, deferDetails = $q.defer();
         function setDetails(data) {
+            // data = data || {};
             if (data.id) {
                 isAuthenticated = true;
+                // ReSharper disable UseOfImplicitGlobalInFunctionScope
                 __insp.push(['identify', data.id]);
             }
             analytics.set('dimension1', data.universityName || null);
             analytics.set('dimension2', data.universityCountry || null);
             analytics.set('dimension3', data.id || null);
             analytics.set('dimension4', data.theme || 'dark');
+            //$timeout(() => {
+            //    googletag.pubads().setTargeting('gender', data.sex);
+            //}, 1000);
             var interval = window.setInterval(function () {
                 if (googletag.pubads !== undefined && googletag.pubads) {
                     googletag.pubads().setTargeting('gender', data.sex);
@@ -64,6 +70,8 @@
             get: function () { return userData; },
             isAuthenticated: function () { return isAuthenticated; },
             setName: function (first, last) {
+                //userData.firstName = first;
+                //userData.lastName = last;
                 userData.name = first + " " + last;
                 $rootScope.$broadcast('userDetailsChange');
             },
@@ -74,9 +82,6 @@
                 userData.image = image;
                 $rootScope.$broadcast('userDetailsChange');
             },
-            getUniversity: function () {
-                return userData ? userData.university.id : null;
-            },
             setUniversity: function (name, id) {
                 userData.university.name = name;
                 userData.university.id = id;
@@ -84,7 +89,9 @@
             },
             setTheme: function (theme) {
                 userData.theme = theme;
+                //$rootScope.$broadcast('themeChange', userData);
             }
         };
     }
 })();
+//# sourceMappingURL=userDetails.js.map
