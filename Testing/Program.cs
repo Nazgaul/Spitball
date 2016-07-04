@@ -23,6 +23,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNet.SignalR.Client;
 using Zbang.Zbox.Domain;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Repositories;
 using File = System.IO.File;
 
@@ -102,7 +103,7 @@ namespace Testing
         static void Main(string[] args)
         {
 
-            
+
             // var he = new CultureInfo("he");
             // var en = new CultureInfo("en");
 
@@ -207,10 +208,11 @@ namespace Testing
 
 
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
-
-           // var x = iocFactory.Resolve<IFileProcessorFactory>();
-           // x.GetProcessor(
-           //     new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxchat/28d7e877-df93-4fec-9dd7-74c27e630db7.png"));
+            var emailVerify = iocFactory.Resolve<IEmailVerification>();
+            var t = emailVerify.VerifyEmail("asdf@gmai.lcom");
+            // var x = iocFactory.Resolve<IFileProcessorFactory>();
+            // x.GetProcessor(
+            //     new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxchat/28d7e877-df93-4fec-9dd7-74c27e630db7.png"));
             //var t = IndexItemSearch(iocFactory);
             //t.Wait();
             //var document_db = iocFactory.Resolve<IDocumentDbRepository<ChatRoom>>();
@@ -263,7 +265,7 @@ namespace Testing
             //var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
             //t.Wait();
             IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
-           // writeService.UpdateUniversityStats(DateTime.UtcNow.AddDays(-1));
+            // writeService.UpdateUniversityStats(DateTime.UtcNow.AddDays(-1));
             //writeService.UpdateReputation(new UpdateReputationCommand(1));
             //writeService.AddNewUpdateAsync(new AddNewUpdatesCommand(
             //    21481,
@@ -349,7 +351,7 @@ namespace Testing
             }
         }
 
-       
+
         private async static void DownloadFromDropBox()
         {
             //https://dl.dropboxusercontent.com/1/view/2pdvchldh2fn3o0/ccc/%D7%9E%D7%95%D7%A0%D7%99%D7%9D.docx

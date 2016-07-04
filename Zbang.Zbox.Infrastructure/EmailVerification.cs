@@ -10,7 +10,7 @@ namespace Zbang.Zbox.Infrastructure
     public class EmailVerification : IEmailVerification
     {
         private readonly VerificationEngine m_Engine;
-
+        private readonly VerificationLevel m_VerificationLevel = VerificationLevel.Dns;
         private const string EmailRegex2 = @"^([\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+\.)*[\w\!\#$\%\&\'\*\+\-\/\=\?\^\`{\|\}\~]+@((((([a-z0-9]{1}[a-z0-9\-]{0,62}[a-z0-9]{1})|[a-z])\.)+[a-z]{2,6})|(\d{1,3}\.){3}\d{1,3}(\:\d{1,5})?)$";
 
         public EmailVerification()
@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure
             try
             {
                 var verificationEmail = new Verification(email);
-                await m_Engine.RunAsync(verificationEmail, VerificationLevel.Syntax);
+                await m_Engine.RunAsync(verificationEmail, m_VerificationLevel);
                 return verificationEmail.State.Result.LastStatus == VerificationStatus.Success;
             }
             catch (Exception ex)
@@ -67,7 +67,7 @@ namespace Zbang.Zbox.Infrastructure
             try
             {
                 var verificationEmail = new Verification(email);
-                m_Engine.Run(verificationEmail, VerificationLevel.Syntax);
+                m_Engine.Run(verificationEmail, m_VerificationLevel);
                 return verificationEmail.State.Result.LastStatus == VerificationStatus.Success;
             }
             catch (Exception ex)

@@ -49,6 +49,7 @@ namespace Zbang.Cloudents.Connect
         public void ChangeUniversity()
         {
             Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
+            Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetUserId());
         }
 
         public override Task OnConnected()

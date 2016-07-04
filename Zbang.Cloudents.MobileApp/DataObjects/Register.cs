@@ -15,8 +15,8 @@ namespace Zbang.Cloudents.MobileApp.DataObjects
         public string LastName { get; set; }
 
         [Required]
-        //[EmailVerify]
-        [EmailAddress]
+        [EmailVerify]
+        //[EmailAddress]
         //[RegularExpression(Validation.EmailRegexWithTrailingEndingSpaces)]
         public string NewEmail { get; set; }
 

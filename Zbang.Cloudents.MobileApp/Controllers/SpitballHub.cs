@@ -46,6 +46,12 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         //    Clients.Caller.echo(name, Context.User.GetCloudentsUserId());
         //}
 
+        public void ChangeUniversity()
+        {
+            Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
+            Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetCloudentsUserId());
+        }
+
         public void UpdateImage(string blobName)
         {
             Clients.Others.updateImage(blobName);
@@ -53,24 +59,23 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         public override Task OnConnected()
         {
-            if (Context.User.Identity.IsAuthenticated)
+            if (!Context.User.Identity.IsAuthenticated) return base.OnConnected();
+            var user = Context.User.GetCloudentsUserId();
+            if (Context.User.GetUniversityId().HasValue)
             {
-                var user = Context.User.GetCloudentsUserId();
                 Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
                 Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetCloudentsUserId());
-                m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, true));
             }
+            m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, true));
             return base.OnConnected();
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            if (Context.User.Identity.IsAuthenticated)
-            {
-                var user = Context.User.GetCloudentsUserId();
-                m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, false));
-                Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).offline(Context.User.GetCloudentsUserId());
-            }
+            if (!Context.User.Identity.IsAuthenticated) return base.OnDisconnected(stopCalled);
+            var user = Context.User.GetCloudentsUserId();
+            m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, false));
+            Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).offline(Context.User.GetCloudentsUserId());
             return base.OnDisconnected(stopCalled);
         }
     }
