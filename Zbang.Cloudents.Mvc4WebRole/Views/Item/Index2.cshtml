@@ -70,7 +70,7 @@
                                     </md-button>
                                 </md-menu-item>
                                 <md-menu-item hide-gt-xs ng-class="{blue : i.details.like}">
-                                    <md-button user-not-register-popup="click" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
+                                    <md-button md-prevent-menu-close user-not-register-popup="click" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
                                         <div class="fb-like content-wrapper" layout="row" layout-align="start center" user-not-register-popup="click">
                                             @Html.Svg("~/images/site/box-icons.svg", "like")
                                             <span>{{i.details.likes}}</span>

@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope', 'resManager','CacheFactory'];
+        'itemData', '$scope', 'resManager', 'CacheFactory', '$timeout', '$mdMenu'];
 
     function item($stateParams, itemService, $sce, $location, $q,
-        user, itemData, $scope, resManager, cacheFactory) {
+        user, itemData, $scope, resManager, cacheFactory, $timeout, $mdMenu) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
@@ -137,6 +137,10 @@
                 i.details.likes++;
             }
             i.details.like = !i.details.like;
+
+            $timeout(function () {
+                $mdMenu.hide()
+            }, 2000);
         }
 
         //function initKeyboardNavigation() {
