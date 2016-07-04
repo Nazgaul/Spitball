@@ -4,12 +4,14 @@
     intercom.$inject = ['userDetailsFactory', '$rootScope', '$mdMenu'];
     function intercom(userDetailsFactory, $rootScope, $mdMenu) {
         var started = false;
-        function start() {
+        userDetailsFactory.init().then(function (data) {
+            start(data);
+        });
+        function start(data) {
             if (started) {
                 return;
             }
             started = true;
-            var data = userDetailsFactory.get();
             if (data.id) {
                 Intercom('boot', {
                     app_id: "njmpgayv",
@@ -31,18 +33,10 @@
                     $mdMenu.hide();
                 });
             }
-            else {
-                Intercom('boot', {
-                    app_id: "njmpgayv"
-                });
-            }
         }
         function stop() {
             started = false;
             Intercom('shutdown');
         }
-        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            start();
-        });
     }
 })();

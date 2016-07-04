@@ -13,7 +13,7 @@
     }
 
     .box-options {
-        width: 100%; 
+        width: 100%;
         margin-bottom: 14px;
         .displayFlex;
         .align-items(stretch);
@@ -360,6 +360,18 @@
             svg {
                 fill: @buttonColorBlue;
             }
+
+            .like-icon svg {
+                fill: @textColorGrey;
+            }
+
+            .liked {
+                color: @buttonColorBlue;
+
+                svg {
+                    fill: @buttonColorBlue;
+                }
+            }
         }
     }
 
@@ -418,6 +430,10 @@
             width: ~"calc(50% - 20px)";
             max-width: 115px;
             float: left;
+        }
+
+        .reply-wrapper .list-inline {
+            padding-top: 0;
         }
 
 
@@ -729,10 +745,6 @@
             background: @feedActionsBackground;
             padding: 8px 15px;
 
-            button {
-                color: #777471;
-            }
-
             svg {
                 fill: #777471;
             }
@@ -777,7 +789,7 @@
                     background: none;
                     padding: 20px 10px 20px 20px;
                     border: none;
-                    min-height: 120px;
+                    min-height: 60px;
                 }
             }
 
@@ -801,9 +813,20 @@
     }
 
     .like-btn, .comment-btn {
+        color: @textColorGrey;
+
         svg {
+            fill: @textColorGrey;
             width: 16px;
             height: 16px;
+        }
+
+        .liked {
+            color: @buttonColorBlue;
+
+            svg {
+                fill: @buttonColorBlue;
+            }
         }
     }
 

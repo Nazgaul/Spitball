@@ -654,8 +654,9 @@ md-pagination-wrapper {
     }
 }
 
-.md-dialog-container {
-    z-index: 80;
+// md-scroll-mask also got z-index of 99 for fixing the floating menu issue on scroll.
+.md-dialog-container, .md-scroll-mask { 
+    z-index: 99 !important;
 }
 
 

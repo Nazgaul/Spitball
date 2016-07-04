@@ -4,7 +4,7 @@
     sideMenu.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav', '$location', '$timeout', '$scope'];
 
     function sideMenu(dashboardService, userDetails, $rootScope, $mdSidenav, $location, $timeout, $scope) {
-        var d = this, notloaded = true;
+        var d = this, loaded = false;
         d.courses = [];
         d.privateBoxes = [];
 
@@ -59,9 +59,9 @@
                 $rootScope.$broadcast('show-unregisterd-box');
                 return false;
             }
-            if (notloaded) {
+            if (!loaded) {
                 getBoxes();
-                notloaded = false;
+                loaded = true;
             }
             return true;
         }
