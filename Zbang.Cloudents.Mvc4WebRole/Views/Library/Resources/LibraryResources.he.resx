@@ -189,6 +189,6 @@
     <value>לא נמצאו עוד מוסדות לימוד</value>
   </data>
   <data name="IdLengthError" xml:space="preserve">
-    <value>עליך להזין תעודת זהות בת 9 ספרות</value>
+    <value>עליך להזין ת.ז בעל 9 ספרות</value>
   </data>
 </root>

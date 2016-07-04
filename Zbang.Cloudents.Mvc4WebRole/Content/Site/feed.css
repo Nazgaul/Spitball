@@ -316,6 +316,15 @@
 .feed .posts-list .actions svg {
   fill: #4190b9;
 }
+.feed .posts-list .actions .like-icon svg {
+  fill: #888b8e;
+}
+.feed .posts-list .actions .liked {
+  color: #4190b9;
+}
+.feed .posts-list .actions .liked svg {
+  fill: #4190b9;
+}
 .feed .quiz .top .first-letter {
   font-size: 38px;
   width: 38px;
@@ -369,6 +378,10 @@
   width: calc(50% - 20px);
   max-width: 115px;
   float: left;
+}
+.feed .comment .reply-wrapper .list-inline,
+.feed .add-comment .reply-wrapper .list-inline {
+  padding-top: 0;
 }
 .feed .comment md-input-container,
 .feed .add-comment md-input-container {
@@ -639,9 +652,6 @@
   background: #d7dde0;
   padding: 8px 15px;
 }
-.feed .post > .actions-wrapper button {
-  color: #777471;
-}
 .feed .post > .actions-wrapper svg {
   fill: #777471;
 }
@@ -677,7 +687,7 @@
   background: none;
   padding: 20px 10px 20px 20px;
   border: none;
-  min-height: 120px;
+  min-height: 60px;
 }
 .feed .add-reply-wrapper .add-reply .reply-actions {
   padding: 8px 5px;
@@ -691,10 +701,23 @@
   height: 22px;
   padding-bottom: 2px;
 }
+.feed .like-btn,
+.feed .comment-btn {
+  color: #888b8e;
+}
 .feed .like-btn svg,
 .feed .comment-btn svg {
+  fill: #888b8e;
   width: 16px;
   height: 16px;
+}
+.feed .like-btn .liked,
+.feed .comment-btn .liked {
+  color: #4190b9;
+}
+.feed .like-btn .liked svg,
+.feed .comment-btn .liked svg {
+  fill: #4190b9;
 }
 .feed .counters {
   display: -webkit-flex;

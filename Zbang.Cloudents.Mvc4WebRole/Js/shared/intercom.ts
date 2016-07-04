@@ -5,16 +5,18 @@ declare var Intercom: any;
 
 (() => {
     angular.module('app').run(intercom);
-    intercom.$inject = ['userDetailsFactory', '$rootScope','$mdMenu'];
-    function intercom(userDetailsFactory: IUserDetailsFactory, $rootScope: ng.IRootScopeService, $mdMenu:any) {
+    intercom.$inject = ['userDetailsFactory', '$rootScope', '$mdMenu'];
+    function intercom(userDetailsFactory: IUserDetailsFactory, $rootScope: ng.IRootScopeService, $mdMenu: any) {
         var started = false;
-        function start() {
+        userDetailsFactory.init().then(function (data) {
+            start(data);
+        });
+        function start(data) {
             if (started) {
                 return;
             }
             started = true;
-            var data = userDetailsFactory.get();
-           // var dateCreate = new Date(data.createTime);
+            // var dateCreate = new Date(data.createTime);
             if (data.id) {
                 Intercom('boot', {
                     app_id: "njmpgayv",
@@ -28,33 +30,21 @@ declare var Intercom: any;
                     reputation: data.score,
                     language: data.culture,
                     university_country: data.university.country,
-                    widget : {
-                        activator : '#Intercom'
+                    widget: {
+                        activator: '#Intercom'
                     }
                 });
                 Intercom('onActivatorClick', () => {
                     $mdMenu.hide(); //closes menu
                 });
-            } else {
-                Intercom('boot', {
-                    app_id: "njmpgayv"
-                });
             }
-
         }
         function stop() {
             started = false;
             Intercom('shutdown');
         }
 
-        $rootScope.$on('$stateChangeSuccess', (event, toState) => {
-        //    if (toState.name === 'dashboard') {
-                start();
-        //    } else {
-        //        stop();
-        //    }
-        });
-        
+
     }
 })();
 
