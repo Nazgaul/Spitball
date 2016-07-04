@@ -7,6 +7,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Connection;
 using NHibernate.Event;
+using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Data.Dialect;
 using Zbang.Zbox.Infrastructure.Data.Driver;
 using Zbang.Zbox.Infrastructure.Data.Events;
@@ -32,7 +33,6 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         {
             ConfigureNHibernate();
 
-            //  Ioc.IocFactory.Unity.Resolve<Zbang.Zbox.Infrastructure.Storage.ILocalStorageProvider>();
         }
 
         private void ConfigureNHibernate()
@@ -46,7 +46,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                 m_Configuration.DataBaseIntegration(dbi =>
                 {
                     dbi.ConnectionProvider<DriverConnectionProvider>();
-                    
+
                     dbi.Dialect<ZboxDialect>();
                     dbi.Driver<ZboxDriver>();
                     dbi.ConnectionString = ConfigFetcher.Fetch("Zbox");
@@ -83,19 +83,25 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
         {
             try
             {
-                var storage = IocFactory.IocWrapper.Resolve<ILocalStorageProvider>();
+                var storage = IocFactory.IocWrapper.Resolve<ICache>();
+                //storage.AddToCacheAsync("nhibernate", GetConfigurationFileName(), m_Configuration,
+                //    TimeSpan.FromDays(90)).Wait();
+
+                //var storage = IocFactory.IocWrapper.Resolve<ILocalStorageProvider>();
 
                 using (var ms = new MemoryStream())
                 {
                     IFormatter bf = new BinaryFormatter();
                     bf.Serialize(ms, m_Configuration);
-                    storage.SaveFileToStorage(ms, GetConfigurationFileName());
+                    storage.AddToCacheAsync("nhibernate", GetConfigurationFileName(), ms.ToArray(),
+                   TimeSpan.FromDays(90)).Wait();
+                    //    storage.SaveFileToStorage(ms, GetConfigurationFileName());
                 }
             }
             catch { }
         }
 
-       
+
         private static string GetConfigurationFileName()
         {
             var domain = Assembly.Load("Zbang.Zbox.Domain");
@@ -110,20 +116,24 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         private static Configuration LoadConfigurationFromFile()
         {
-            //if (!IsConfigurationFileValid()) return null;
+
             try
             {
-                var storage = IocFactory.IocWrapper.Resolve<ILocalStorageProvider>();
-                var file = storage.ReadFileFromStorage(GetConfigurationFileName());
+                var storage = IocFactory.IocWrapper.Resolve<ICache>();
+                var file = storage.GetFromCacheAsync<byte[]>("nhibernate", GetConfigurationFileName()).Result;
                 if (file == null)
                 {
                     return null;
                 }
+
+                //var file = storage.ReadFileFromStorage(GetConfigurationFileName());
+                //if (file == null)
+                //{
+                //    return null;
+                //}
                 using (var ms = new MemoryStream(file))
                 {
                     var bf = new BinaryFormatter();
-
-
                     return (Configuration)bf.Deserialize(ms);
                 }
 

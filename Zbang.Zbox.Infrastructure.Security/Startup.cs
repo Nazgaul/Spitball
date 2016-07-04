@@ -9,6 +9,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
 using Owin;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Security
 {
@@ -42,9 +43,15 @@ namespace Zbang.Zbox.Infrastructure.Security
             // Configure the sign in cookie
             if (shouldUseCookie)
             {
+                var cookieDomain = "spitball.co";
+
+                if (ConfigFetcher.IsRunningOnCloud) 
+                {
+                    cookieDomain = "spitball.co"; //DO NOT CHANGE THIS AT ALL TIME
+                }
                 app.UseCookieAuthentication(new CookieAuthenticationOptions
                 {
-                    CookieDomain = "spitball.co",
+                    CookieDomain = cookieDomain,
                     CookieName = "a4",
                     CookieSecure = CookieSecureOption.Always,
                     LogoutPath = new PathString("/account/logoff/"),

@@ -62,15 +62,11 @@
         hub.connection.disconnected(function () {
             setTimeout(function () {
                 hub.connection.start();
-                //$.connection.hub.start();
-            }, 500
-
-            ); // Restart connection after 5 seconds.
+            }, 500); // Restart connection after 5 seconds.
         });
         var send = function (userId, message, conversationId, blob) {
             hub.send(userId, message, conversationId, blob);
         };
-
         return {
             sendMsg: send
         };

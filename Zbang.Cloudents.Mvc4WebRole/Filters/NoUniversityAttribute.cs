@@ -16,12 +16,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             {
                 return;
             }
-            //var userData = m_FormsAuthenticationService.GetUserData();
-            //if (userData == null)
-            //{
-            //    base.OnActionExecuting(filterContext);
-            //    return;
-            //}
             if (universityId.HasValue)
             {
                 base.OnActionExecuting(filterContext);
@@ -38,7 +32,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                new RouteValueDictionary
                {
                    { "controller", "Library" }, { "action", "Choose" }, 
-                   //{ "returnUrl",filterContext.HttpContext.Request.QueryString["returnUrl"]},
                    { "new", filterContext.HttpContext.Request.QueryString["new"]}
 
                });

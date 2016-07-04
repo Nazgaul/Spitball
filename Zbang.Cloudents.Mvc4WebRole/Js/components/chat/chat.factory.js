@@ -21,9 +21,9 @@
             return ajaxService.get('/chat/messages', {
                 chatRoom: id,
                 userIds: userIds,
-                fromId: fromId,
-                top: top,
-                skip: skip
+                fromId: fromId, // instead dateTime
+                top: top, 
+                skip: skip // remove
 
             },false);
         }

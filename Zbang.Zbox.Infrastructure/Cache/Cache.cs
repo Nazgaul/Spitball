@@ -63,8 +63,8 @@ namespace Zbang.Zbox.Infrastructure.Cache
                     return Extensions.TaskExtensions.CompletedTaskTrue;
                 }
                 var db = Connection.GetDatabase();
-                var t1 = db.StringAppendAsync(region, cacheKey + ";");
-                var t2 =  db.SetAsync(cacheKey, value, expiration);
+                var t1 = db.StringAppendAsync(region, cacheKey + ";", CommandFlags.FireAndForget);
+                var t2 = db.SetAsync(cacheKey, value, expiration);
                 return Task.WhenAll(t1, t2);
             }
             catch (Exception ex)
@@ -74,7 +74,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             }
         }
 
-       
+
 
         private string BuildCacheKey(string region, string key)
         {
@@ -105,24 +105,19 @@ namespace Zbang.Zbox.Infrastructure.Cache
             string keys = await db.StringGetAsync(region);
 
             //return server.FlushDatabaseAsync(ToInt(region));
-            var taskList = new List<Task> {db.KeyDeleteAsync(region, CommandFlags.FireAndForget)};
+            var taskList = new List<Task> { db.KeyDeleteAsync(region, CommandFlags.FireAndForget) };
             if (keys == null)
             {
                 await Task.WhenAll(taskList);
                 return;
             }
-            foreach (var key in keys.Split(new[] {";"}, StringSplitOptions.RemoveEmptyEntries)) 
+            foreach (var key in keys.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
             {
                 taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));
             }
             await Task.WhenAll(taskList);
 
         }
-
-        //private int ToInt(string s)
-        //{
-        //    return s.Sum(x => (int) x);
-        //}
 
         public async Task<T> GetFromCacheAsync<T>(string region, string key) where T : class
         {
@@ -138,7 +133,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
 
                 IDatabase cache = Connection.GetDatabase();
-
+               
                 var t = await cache.GetAsync<T>(cacheKey);
                 return t;
             }

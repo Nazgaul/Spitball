@@ -39,8 +39,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index");
         }
 
-        [HttpGet]
-        public async Task<JsonResult> BoxList()
+        [HttpGet, ActionName("BoxList")]
+        public async Task<JsonResult> BoxListAsync()
         {
             var userid = User.GetUserId();
             try
@@ -56,9 +56,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet, ActionName("University")]
         //TODO: add output cache
-        public async Task<JsonResult> University()
+        public async Task<JsonResult> UniversityAsync()
         {
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
             var universityWrapper = User.GetUniversityId().Value;
@@ -69,9 +69,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet, ActionName("Leaderboard")]
         //TODO: add output cache
-        public async Task<JsonResult> Leaderboard()
+        public async Task<JsonResult> LeaderboardAsync()
         {
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
             var universityWrapper = User.GetUniversityId().Value;
@@ -115,8 +115,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
 
-        [HttpGet]
-        public async Task<JsonResult> RecommendedCourses()
+        [HttpGet, ActionName("RecommendedCourses")]
+        public async Task<JsonResult> RecommendedCoursesAsync()
         {
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
             var universityWrapper = User.GetUniversityId().Value;
