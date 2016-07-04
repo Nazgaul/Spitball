@@ -10,6 +10,7 @@ interface IUserDetailsFactory {
     isAuthenticated(): boolean;
     setName(first, last): void;
     setImage(image): void;
+    getUniversity(): number;
     setUniversity(name, id): void;
     setTheme(theme): void;
 }
@@ -132,6 +133,9 @@ interface IUserData {
                 }
                 userData.image = image;
                 $rootScope.$broadcast('userDetailsChange');
+            },
+            getUniversity: () => {
+                return userData ? userData.university.id : null;
             },
             setUniversity: (name, id) => {
                 userData.university.name = name;

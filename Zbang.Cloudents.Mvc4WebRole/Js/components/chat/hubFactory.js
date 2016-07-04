@@ -21,6 +21,7 @@
                         userId: userId,
                         online: true
                     });
+                    console.log(userId);
                 },
                 offline: function (userId) {
                     $rootScope.$broadcast('hub-status', {
@@ -37,7 +38,7 @@
                 console.error(error);
             },
 
-            methods: ['send'],
+            methods: ['send', 'changeUniversity'],
             stateChanged: function (state) {
                 switch (state.newState) {
                     case $.signalR.connectionState.connecting:
@@ -67,8 +68,12 @@
         var send = function (userId, message, conversationId, blob) {
             hub.send(userId, message, conversationId, blob);
         };
+        var changeUniversity = function (userId, message, conversationId, blob) {
+            hub.changeUniversity();
+        };
         return {
-            sendMsg: send
+            sendMsg: send,
+            changeUniversity: changeUniversity
         };
 
 

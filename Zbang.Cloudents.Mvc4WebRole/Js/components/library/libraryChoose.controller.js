@@ -3,9 +3,9 @@
     angular.module('app.library').controller('LibraryChoose', libraryChoose);
 
     libraryChoose.$inject = ['libraryService', '$state', 'countryService',
-        'userDetailsFactory', '$scope', 'resManager'];
+        'userDetailsFactory', '$scope', 'resManager','realtimeFactotry'];
 
-    function libraryChoose(libraryService, $state, countryService, userDetailsFactory, $scope, resManager) {
+    function libraryChoose(libraryService, $state, countryService, userDetailsFactory, $scope, resManager, realtimeFactotry) {
         var self = this, page = 0;
         self.term = '';
         self.universities = [];
@@ -72,6 +72,7 @@
                 }
                 userDetailsFactory.init(true).then(function () {
                     goToLibrary(university.name, university.id);
+                    realtimeFactotry.changeUniversity();
                 });
             }, function (response) {
                 myform.studentId.$setValidity('server', false);

@@ -3,12 +3,12 @@
     angular.module('app.chat').controller('ChatController', chat);
     chat.$inject = ['$timeout', '$scope', '$mdSidenav', 'realtimeFactotry',
         'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService',
-        '$mdDialog', 'routerHelper', '$document', 'notificationService', 'resManager', 'userService'];
+        '$mdDialog', 'routerHelper', '$document', 'notificationService', 'resManager', 'userService', '$window'];
 
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
-        notificationService, resManager, userService) {
-        var c = this, chunkSize = 2147483647, top = 0, fromid, page = 0;
+        notificationService, resManager, userService, $window) {
+        var c = this, chunkSize = ($window.innerHeight <= 600) ? 10 : 20, top = 0, fromid, page = 0;
         c.states = {
             messages: 1,
             chat: 3
@@ -26,6 +26,7 @@
         c.users = [];
         c.usersPaging = usersPaging;
         c.lastSearch = '';
+        c.loadMoreMessages = loadMoreMessages;
 
         userDetailsFactory.init().then(function (response) {
             c.unread = response.unread;
@@ -61,7 +62,7 @@
 
         function close() {
             $mdSidenav('chat').close();
-            c.term='';
+            c.term = '';
         }
 
         function updateUnread() {
@@ -91,23 +92,26 @@
             });
         }
 
+        function handleChatMessages(response) {
+            response.reverse();
+            for (var i = 0; i < response.length; i++) {
+                response[i].partner = response[i].userId !== userDetailsFactory.get().id;
+                if (response[i].blob) {
+                    response[i].thumb = itemThumbnailService.getChat(response[i].blob);
+                }
+            }
+            return response;
+        }
+
         function conversation(user) {
             c.userChat = user;
             c.messages = [];
             chatBus.chat(c.userChat.conversation,
                 [c.userChat.id, userDetailsFactory.get().id],
-                fromid,
-                chunkSize,
-                top
+                "2016-07-04T11:32:24Z",
+                chunkSize
                 ).then(function (response) {
-                    response.reverse();
-                    for (var i = 0; i < response.length; i++) {
-                        response[i].partner = response[i].userId !== userDetailsFactory.get().id;
-                        if (response[i].blob) {
-                            response[i].thumb = itemThumbnailService.getChat(response[i].blob);
-                        }
-                    }
-                    c.messages = response;
+                    c.messages = handleChatMessages(response);
                     scrollToBotton();
                 });
 
@@ -119,9 +123,15 @@
             c.state = c.states.chat;
         }
 
-        //function loadMore() {
-        //    console.log('here');
-        //}
+        function loadMoreMessages() {
+            chatBus.chat(c.userChat.conversation,
+                [c.userChat.id, userDetailsFactory.get().id],
+                "2016-07-04T11:32:24Z",
+                chunkSize
+                ).then(function (response) {
+                    c.messages = handleChatMessages(response).concat(c.messages);
+                });
+        }
 
 
         function send() {
