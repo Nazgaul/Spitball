@@ -32,8 +32,16 @@
                     case 'up':
                         callbacks = {
                             onTotalScrollBack: function () {
+                                var oldContentHeight = element.find('.mCSB_container').innerHeight();
                                 runAction();
-                            }
+                                setTimeout(function () {
+                                    var heightDiff = element.find('.mCSB_container').innerHeight() - oldContentHeight;
+                                    element.find('.content').mCustomScrollbar("scrollTo", "-=" + heightDiff, { scrollInertia: 0 });
+                                }, 30);
+                            },
+
+                            onTotalScrollOffset: 100
+
                         };
                         break;
                     default://down
@@ -53,7 +61,7 @@
                     deepVal(attrs['infiniteScrollbarsFunction'], scope)();
                 }
 
-                
+
                 scope.$on('$destroy', function () {
                     callbacks = null;
                     destroyed = true;

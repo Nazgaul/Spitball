@@ -18,10 +18,11 @@
             return ajaxService.get('/chat/conversation', { q: q ,page: page}, false);
         }
         chatService.chat = function (id, userIds, dateTime, top) {
+            console.log('loading from time: ' + dateTime);
             return ajaxService.get('/chat/messages', {
                 chatRoom: id,
                 userIds: userIds,
-                dateTime: dateTime,
+                startTime: dateTime,
                 //fromId: fromId, // instead dateTime
                 top: top, 
                 //skip: skip // remove
