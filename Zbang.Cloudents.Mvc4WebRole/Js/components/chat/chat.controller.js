@@ -11,7 +11,6 @@
         var c = this, chunkSize = 2147483647, top = 0, fromid, page = 0;
         c.states = {
             messages: 1,
-            // friends: 2,
             chat: 3
         };
 
@@ -27,7 +26,6 @@
         c.users = [];
         c.usersPaging = usersPaging;
         c.lastSearch = '';
-        //c.loadMore = loadMore;
 
         userDetailsFactory.init().then(function (response) {
             c.unread = response.unread;

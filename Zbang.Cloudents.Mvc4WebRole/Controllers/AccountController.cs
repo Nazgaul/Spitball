@@ -656,19 +656,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region passwordReset
-        //[HttpGet]
-        //issue with ie
-        //[DonutOutputCache(VaryByParam = "none", VaryByCustom = CustomCacheKeys.Auth + ";"
-        //   + CustomCacheKeys.Lang + ";"
-        //   + CustomCacheKeys.Mobile, Duration = TimeConsts.Minute * 15)]
-        //public ActionResult ResetPassword()
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        return RedirectToAction("Index", "Dashboard");
-        //    }
-        //    return View("Signin");
-        //}
+       
 
         [HttpPost, ActionName("ResetPassword")]
         public async Task<JsonResult> ResetPasswordAsync([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model, CancellationToken cancellationToken)
@@ -834,6 +822,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var retVal = await ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
+                if (retVal.UniversityId != User.GetUniversityId())
+                {
+                    var user = (ClaimsIdentity)User.Identity;
+                    var claimUniversity = user.Claims.SingleOrDefault(w => w.Type == ClaimConst.UniversityIdClaim);
+                    var claimUniversityData = user.Claims.SingleOrDefault(w => w.Type == ClaimConst.UniversityDataClaim);
+
+                    if (claimUniversity != null)
+                    {
+                        user.RemoveClaim(claimUniversity);
+                    }
+                    if (claimUniversityData != null)
+                    {
+                        user.RemoveClaim(claimUniversityData);
+                    }
+
+
+                    user.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
+                            retVal.UniversityId?.ToString(CultureInfo.InvariantCulture)));
+
+                    user.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
+                            retVal.UniversityId?.ToString(CultureInfo.InvariantCulture) /*?? retVal.UniversityId.ToString(CultureInfo.InvariantCulture)*/));
+
+                }
                 //retVal.Token = token;
                 return JsonOk(retVal);
             }
