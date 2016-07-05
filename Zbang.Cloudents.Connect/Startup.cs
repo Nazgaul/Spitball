@@ -5,10 +5,13 @@ using Autofac;
 using Autofac.Integration.SignalR;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR.Transports;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Owin;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Storage;
 
 [assembly: OwinStartup(typeof(Zbang.Cloudents.Connect.Startup))]
 
@@ -51,12 +54,12 @@ namespace Zbang.Cloudents.Connect
             GlobalHost.DependencyResolver = config.Resolver;
             GlobalHost.DependencyResolver.Register(typeof(IJavaScriptMinifier), () => new MimifyProxy());
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new UserIdProvider());
-            if (Microsoft.WindowsAzure.ServiceRuntime.RoleEnvironment.IsAvailable)
-            {
+            //if (Microsoft.WindowsAzure.ServiceRuntime.RoleEnvironment.IsAvailable)
+            //{
                 GlobalHost.DependencyResolver.UseServiceBus(
                     "Endpoint=sb://cloudentsmsg-ns.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=oePM1T/GBe2ZlaDhik3MLHNXstsM4lhnCTyRTBi0bmQ=",
                     "signalr");
-            }
+            //}
             //app.Map("", map =>
             //{
             //    map.UseCors(CorsOptions.AllowAll);
@@ -70,7 +73,11 @@ namespace Zbang.Cloudents.Connect
             app.UseCors(CorsOptions.AllowAll);
             app.UseAutofacMiddleware(container);
             Zbox.Infrastructure.Security.Startup.ConfigureAuth(app, true);
-            
+            var heartBeat = GlobalHost.DependencyResolver.Resolve<ITransportHeartbeat>();
+            var queueService = GlobalHost.DependencyResolver.Resolve<IQueueProvider>();
+
+            var monitor = new PresenceMonitor(heartBeat, queueService);
+            monitor.StartMonitoring();
             app.MapSignalR("/s", config);
 
            // GlobalHost.HubPipeline.RequireAuthentication();

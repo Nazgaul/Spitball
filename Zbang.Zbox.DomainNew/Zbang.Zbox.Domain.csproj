@@ -70,6 +70,7 @@
     <Compile Include="Comment.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Connection.cs" />
     <Compile Include="EqualityAndHashCodeProvider.cs" />
     <Compile Include="File.cs" />
     <Compile Include="InviteToBox.cs" />

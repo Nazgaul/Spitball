@@ -124,5 +124,7 @@ namespace Zbang.Zbox.Domain.Common
         //void AddChatRoom(ChatCreateRoomCommand command);
         Task AddChatMessageAsync(ChatAddMessageCommand command);
         void MarkChatAsRead(ChatMarkAsReadCommand command);
+
+        ManageConnectionsCommandResult ManageConnections(ManageConnectionsCommand command);
     }
 }

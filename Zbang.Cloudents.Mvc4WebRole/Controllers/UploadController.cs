@@ -119,8 +119,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError(
-                    $"Upload UploadFileAsync BoxId {model.BoxId} fileName {model.FileName} fileSize {model.FileSize} userid {userId} " +
-                    $"HttpContextRequestCount {HttpContext.Request.Files.Count} HttpContextRequestKeys {string.Join(",", HttpContext.Request.Files.AllKeys)}", ex);
+                    $"Upload UploadFileAsync BoxId {model.BoxId} fileName {model.FileName} fileSize {model.FileSize} userid {userId} ", ex);
                 return JsonError(BoxControllerResources.Error);
             }
 

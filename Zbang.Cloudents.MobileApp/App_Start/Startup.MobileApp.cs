@@ -1,11 +1,7 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Web.Http;
-using Microsoft.Azure.Mobile.Server;
 using Microsoft.Azure.Mobile.Server.Authentication;
 using Microsoft.Azure.Mobile.Server.Config;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 using Owin;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -16,15 +12,15 @@ using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Autofac.Integration.WebApi;
 using System.Reflection;
-using System.Linq;
-using System.Web.Http.ExceptionHandling;
 using Autofac.Integration.SignalR;
 using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR.Transports;
 using Microsoft.Azure.Mobile.Server.Tables.Config;
+using Zbang.Cloudents.Connect;
 using Zbang.Cloudents.MobileApp.Controllers;
 using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Cloudents.MobileApp.Filters;
+using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Cloudents.MobileApp
 {
@@ -94,6 +90,11 @@ namespace Zbang.Cloudents.MobileApp
                 "Endpoint=sb://cloudentsmsg-ns.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=oePM1T/GBe2ZlaDhik3MLHNXstsM4lhnCTyRTBi0bmQ=",
                 "signalr");
             app.UseAutofacMiddleware(container);
+            var heartBeat = GlobalHost.DependencyResolver.Resolve<ITransportHeartbeat>();
+            var queueService = GlobalHost.DependencyResolver.Resolve<IQueueProvider>();
+
+            var monitor = new PresenceMonitor(heartBeat, queueService);
+            monitor.StartMonitoring();
             app.MapSignalR(config);
         }
 

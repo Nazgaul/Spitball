@@ -49,6 +49,11 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [ActionName("Details")]
         public async Task<HttpResponseMessage> DetailsAsync()
         {
+            var userId = User.GetCloudentsUserId();
+            if (userId < 0)
+            {
+                return Request.CreateUnauthorizedResponse();
+            }
             var retVal = await m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetCloudentsUserId()));
             return Request.CreateResponse(new
             {
@@ -87,9 +92,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     systemData.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
 
             identity.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
-                    systemData.UniversityData.HasValue ?
-                    systemData.UniversityData.Value.ToString(CultureInfo.InvariantCulture)
-                    : systemData.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
+                    systemData.UniversityData?.ToString(CultureInfo.InvariantCulture) ?? systemData.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
 
             var claims = identity.Claims.ToList();
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
@@ -193,9 +196,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
             identity.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
-                    command.UniversityDataId.HasValue ?
-                    command.UniversityDataId.Value.ToString(CultureInfo.InvariantCulture)
-                    : command.UniversityId.ToString(CultureInfo.InvariantCulture)));
+                    command.UniversityDataId?.ToString(CultureInfo.InvariantCulture) ?? command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
             var claims = identity.Claims.ToList();
             claims.Add(new Claim(JwtRegisteredClaimNames.Sub, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
@@ -222,7 +223,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [HttpPost]
         [Route("api/account/resetPassword")]
         [AllowAnonymous]
-        public async Task<HttpResponseMessage> ResetPassword(ResetPasswordRequest model)
+        public async Task<HttpResponseMessage> ResetPasswordAsync(ResetPasswordRequest model)
         {
             if (model == null)
             {
@@ -257,11 +258,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             return Request.CreateResponse(new { code, resetToken = identitylinkData, user.Id });
         }
 
-        //TODO: something is not right in here
         [HttpPost]
         [Route("api/account/passwordUpdate")]
         [AllowAnonymous]
-        public async Task<HttpResponseMessage> PasswordUpdate(PasswordUpdateRequest model)
+        public async Task<HttpResponseMessage> PasswordUpdateAsync(PasswordUpdateRequest model)
         {
             if (model == null)
             {

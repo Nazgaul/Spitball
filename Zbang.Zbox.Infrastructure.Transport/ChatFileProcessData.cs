@@ -24,4 +24,21 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public IList<long> Users { get; private set; }
         public override string ProcessResolver => nameof(ChatFileProcessData);
     }
+
+    [ProtoContract]
+    public class SignalrConnectionsData : FileProcess
+    {
+        protected SignalrConnectionsData()
+        {
+        }
+
+        public SignalrConnectionsData(IEnumerable<string> connectionIds)
+        {
+            ConnectionIds = connectionIds;
+        }
+
+        [ProtoMember(1)]
+        public IEnumerable<string> ConnectionIds { get; private set; }
+        public override string ProcessResolver => nameof(SignalrConnectionsData);
+    }
 }

@@ -229,6 +229,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Zbang.Cloudents.Connect\PresenceMonitor.cs">
+      <Link>PresenceMonitor.cs</Link>
+    </Compile>
     <Compile Include="..\Zbang.Cloudents.Mvc4WebRole\Helpers\UrlTitleBringer.cs">
       <Link>Models\UrlTitleBringer.cs</Link>
     </Compile>

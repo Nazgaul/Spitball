@@ -68,11 +68,17 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpPut]
         [Route("api/push/apple")]
-        public async Task<HttpResponseMessage> Apple([FromBody]RegisterDeviceRequest model)
+        public async Task<HttpResponseMessage> AppleAsync([FromBody]RegisterDeviceRequest model)
         {
+
             if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
+            }
+            var userId = User.GetCloudentsUserId();
+            if (userId < 0)
+            {
+                return Request.CreateUnauthorizedResponse();
             }
             NotificationHubClient hub = NotificationHubClient.CreateClientFromConnectionString(ConfigFetcher.Fetch("MS_NotificationHubConnectionString"), ConfigFetcher.Fetch("MS_NotificationHubName"));
 
@@ -83,7 +89,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 tasks.Add(hub.DeleteRegistrationAsync(registration));
             }
             await Task.WhenAll(tasks);
-            var val = await hub.CreateAppleNativeRegistrationAsync(model.DeviceToken, new[] { User.GetCloudentsUserId().ToString() });
+            await hub.CreateAppleNativeRegistrationAsync(model.DeviceToken, new[] { User.GetCloudentsUserId().ToString() });
             var command = new RegisterMobileDeviceCommand(User.GetCloudentsUserId(), MobileOperatingSystem.iOS);
             m_ZboxWriteService.RegisterMobileDevice(command);
             return Request.CreateResponse(HttpStatusCode.OK);
@@ -91,11 +97,16 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpPut]
         [Route("api/push/google")]
-        public async Task<HttpResponseMessage> Google([FromBody] RegisterDeviceRequest model)
+        public async Task<HttpResponseMessage> GoogleAsync([FromBody] RegisterDeviceRequest model)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
+            }
+            var userId = User.GetCloudentsUserId();
+            if (userId < 0)
+            {
+                return Request.CreateUnauthorizedResponse();
             }
             NotificationHubClient hub = NotificationHubClient.CreateClientFromConnectionString(ConfigFetcher.Fetch("MS_NotificationHubConnectionString"), ConfigFetcher.Fetch("MS_NotificationHubName"));
 
@@ -106,7 +117,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 tasks.Add(hub.DeleteRegistrationAsync(registration));
             }
             await Task.WhenAll(tasks);
-            var val = await hub.CreateGcmNativeRegistrationAsync(model.DeviceToken, new[] { User.GetCloudentsUserId().ToString() });
+            await hub.CreateGcmNativeRegistrationAsync(model.DeviceToken, new[] { User.GetCloudentsUserId().ToString() });
             var command = new RegisterMobileDeviceCommand(User.GetCloudentsUserId(), MobileOperatingSystem.Android);
             m_ZboxWriteService.RegisterMobileDevice(command);
             return Request.CreateResponse(HttpStatusCode.OK);
