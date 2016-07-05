@@ -113,7 +113,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 Infrastructure.Transport.DomainProcess.DeleteBoxResolver);
 
             Ioc.RegisterType<IFileProcess, PreProcessFile>(nameof(ChatFileProcessData));
-            Ioc.RegisterType<IFileProcess, ProcessConnections>(nameof(SignalrConnectionsData));
+            Ioc.RegisterType<IFileProcess, ProcessConnections>(nameof(SignalrConnectionsData2));
 
         }
 

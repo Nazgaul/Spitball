@@ -25,20 +25,26 @@ namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
 
         public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {
-            var parameters = data as SignalrConnectionsData;
+            var parameters = data as SignalrConnectionsData2;
             if (parameters == null) return true;
-            var command = new ManageConnectionsCommand(parameters.ConnectionIds);
-            var result = m_ZboxWriteService.ManageConnections(command);
 
-            try
+
+            //var command = new ManageConnectionsCommand(parameters.ConnectionIds);
+            //var result = m_ZboxWriteService.ManageConnections(command);
+
+            if (parameters.ConnectionIds.Any())
             {
-                var proxy = await SignalrClient.GetProxyAsync();
-                await proxy.Invoke("Disconnect", result.UserIds);
-            }
-            catch (Exception ex)
-            {
-                await m_MailComponent.GenerateSystemEmailAsync("signalR error", ex.Message);
-                TraceLog.WriteError("on signalr update image", ex);
+                TraceLog.WriteInfo($"sending disconnect to {string.Join(" ", parameters.ConnectionIds)}");
+                try
+                {
+                    var proxy = await SignalrClient.GetProxyAsync();
+                    await proxy.Invoke("Disconnect", parameters.ConnectionIds);
+                }
+                catch (Exception ex)
+                {
+                    await m_MailComponent.GenerateSystemEmailAsync("signalR error", ex.Message);
+                    TraceLog.WriteError("on signalr update image", ex);
+                }
             }
             //var connection = m_Heartbeat.GetConnections().FirstOrDefault(w => w.ConnectionId == connectionId);
             //if (connection != null)

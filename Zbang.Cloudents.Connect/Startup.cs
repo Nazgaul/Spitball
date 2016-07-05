@@ -73,10 +73,12 @@ namespace Zbang.Cloudents.Connect
             app.UseCors(CorsOptions.AllowAll);
             app.UseAutofacMiddleware(container);
             Zbox.Infrastructure.Security.Startup.ConfigureAuth(app, true);
+
             var heartBeat = GlobalHost.DependencyResolver.Resolve<ITransportHeartbeat>();
             var queueService = GlobalHost.DependencyResolver.Resolve<IQueueProvider>();
+            var writeService = GlobalHost.DependencyResolver.Resolve<IZboxWriteService>();
 
-            var monitor = new PresenceMonitor(heartBeat, queueService);
+            var monitor = new PresenceMonitor(heartBeat, queueService, writeService);
             monitor.StartMonitoring();
             app.MapSignalR("/s", config);
 

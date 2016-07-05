@@ -20,6 +20,7 @@ using Zbang.Cloudents.Connect;
 using Zbang.Cloudents.MobileApp.Controllers;
 using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Cloudents.MobileApp.Filters;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Storage;
 
 namespace Zbang.Cloudents.MobileApp
@@ -92,9 +93,10 @@ namespace Zbang.Cloudents.MobileApp
             app.UseAutofacMiddleware(container);
             var heartBeat = GlobalHost.DependencyResolver.Resolve<ITransportHeartbeat>();
             var queueService = GlobalHost.DependencyResolver.Resolve<IQueueProvider>();
+            var writeService = GlobalHost.DependencyResolver.Resolve<IZboxWriteService>();
 
-            var monitor = new PresenceMonitor(heartBeat, queueService);
-            monitor.StartMonitoring();
+            //var monitor = new PresenceMonitor(heartBeat, queueService, writeService);
+            //monitor.StartMonitoring();
             app.MapSignalR(config);
         }
 

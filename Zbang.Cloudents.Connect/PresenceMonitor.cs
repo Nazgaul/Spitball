@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR.Transports;
+using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 
@@ -19,10 +21,11 @@ namespace Zbang.Cloudents.Connect
     {
         private readonly ITransportHeartbeat m_Heartbeat;
         private readonly IQueueProvider m_QueueProvider;
+        private readonly IZboxWriteService m_ZboxWriteService;
         private Timer m_Timer;
 
         // How often we plan to check if the connections in our store are valid
-        private readonly TimeSpan m_PresenceCheckInterval = TimeSpan.FromSeconds(10);
+        private readonly TimeSpan m_PresenceCheckInterval = TimeSpan.FromSeconds(15);
 
         // How many periods need pass without an update to consider a connection invalid
        // private const int PeriodsBeforeConsideringZombie = 3;
@@ -30,11 +33,12 @@ namespace Zbang.Cloudents.Connect
         // The number of seconds that have to pass to consider a connection invalid.
         //private readonly int m_ZombieThreshold;
 
-        public PresenceMonitor(ITransportHeartbeat heartbeat, IQueueProvider queueProvider)
+        public PresenceMonitor(ITransportHeartbeat heartbeat, IQueueProvider queueProvider, IZboxWriteService zboxWriteService)
         {
             m_Heartbeat = heartbeat;
             m_QueueProvider = queueProvider;
-          //  m_ZombieThreshold = (int)m_PresenceCheckInterval.TotalSeconds * PeriodsBeforeConsideringZombie;
+            m_ZboxWriteService = zboxWriteService;
+            //  m_ZombieThreshold = (int)m_PresenceCheckInterval.TotalSeconds * PeriodsBeforeConsideringZombie;
         }
 
         public void StartMonitoring()
@@ -66,12 +70,19 @@ namespace Zbang.Cloudents.Connect
             //{
             // Get all connections on this node and update the activity
             var connectionIds = m_Heartbeat.GetConnections().Where(w => w.IsAlive).Select(s => s.ConnectionId).ToList();
+            //if (connectionIds.Any())
+            //{
+            //    await m_QueueProvider.InsertMessageToThumbnailAsync(new SignalrConnectionsData(connectionIds));
+            //}
             if (connectionIds.Any())
             {
-                await m_QueueProvider.InsertMessageToThumbnailAsync(new SignalrConnectionsData(connectionIds));
+                var command = new ManageConnectionsCommand(connectionIds);
+                var result = m_ZboxWriteService.ManageConnections(command);
+                if (result.UserIds.Any())
+                {
+                    await m_QueueProvider.InsertMessageToThumbnailAsync(new SignalrConnectionsData2(result.UserIds));
+                }
             }
-            //var command = new ManageConnectionsCommand(connectionIds);
-            //var result = m_ZboxWriteService.ManageConnections(command);
             //var tasks = new List<Task>();
             //foreach (var connectionId in result.ConnectionIds)
             //{

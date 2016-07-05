@@ -26,19 +26,19 @@ namespace Zbang.Zbox.Infrastructure.Transport
     }
 
     [ProtoContract]
-    public class SignalrConnectionsData : FileProcess
+    public class SignalrConnectionsData2 : FileProcess
     {
-        protected SignalrConnectionsData()
+        protected SignalrConnectionsData2()
         {
         }
 
-        public SignalrConnectionsData(IEnumerable<string> connectionIds)
+        public SignalrConnectionsData2(IEnumerable<long> connectionIds)
         {
             ConnectionIds = connectionIds;
         }
 
         [ProtoMember(1)]
-        public IEnumerable<string> ConnectionIds { get; private set; }
-        public override string ProcessResolver => nameof(SignalrConnectionsData);
+        public IEnumerable<long> ConnectionIds { get; private set; }
+        public override string ProcessResolver => nameof(SignalrConnectionsData2);
     }
 }

@@ -8,7 +8,7 @@
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
     <Certificates>
-      <Certificate name="SB" thumbprint="72C19EBE2BD0F21B5DF74C342CFEF862B581397F" thumbprintAlgorithm="sha1" />
+      <Certificate name="SB" thumbprint="3B84ACD05F4A202290DFAEF6EF823EA3BCA16D5C" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
 </ServiceConfiguration>

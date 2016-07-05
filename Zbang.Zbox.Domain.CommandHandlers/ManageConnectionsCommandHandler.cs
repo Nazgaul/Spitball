@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
@@ -22,31 +23,35 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (message == null) throw new ArgumentNullException(nameof(message));
             foreach (var connectionId in message.ConnectionIds)
             {
-                var connection = m_ConnectionRepository.Load(connectionId);
-                connection.LastActivity = DateTimeOffset.UtcNow;
-                m_ConnectionRepository.Save(connection);
+                var connection = m_ConnectionRepository.Get(connectionId);
+                if (connection != null)
+                {
+                    connection.LastActivity = DateTimeOffset.UtcNow;
+                    m_ConnectionRepository.Save(connection);
+                }
             }
             var zombies = m_ConnectionRepository.GetZombies();
+            TraceLog.WriteInfo($"zombies count {zombies.Count}");
             var userIds = new List<long>();
-            foreach (var zombie in zombies)
-            {
-                var user = zombie.User;
-                
-                if (user.Connections.Count == 1)
-                {
-                    user.Online = false;
-                    user.LastAccessTime = DateTime.UtcNow;
-                    userIds.Add(user.Id);
-                    user.Connections.Clear();
-                    
-                }
-                else
-                {
-                    user.Connections.Remove(zombie);
-                }
+            //foreach (var zombie in zombies)
+            //{
+            //    var user = zombie.User;
 
-                m_UserRepository.Save(zombie.User);
-            }
+            //    if (user.Connections.Count == 1)
+            //    {
+            //        user.Online = false;
+            //        user.LastAccessTime = DateTime.UtcNow;
+            //        userIds.Add(user.Id);
+            //        user.Connections.Clear();
+
+            //    }
+            //    else
+            //    {
+            //        user.Connections.Remove(zombie);
+            //    }
+
+            //    m_UserRepository.Save(zombie.User);
+            //}
             return new ManageConnectionsCommandResult(userIds);
         }
     }

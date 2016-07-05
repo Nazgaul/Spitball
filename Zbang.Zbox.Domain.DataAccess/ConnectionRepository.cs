@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         public IList<Connection> GetZombies()
         {
             DateTimeOffset someTime = DateTimeOffset.UtcNow;
-            var sqlString = " DATEDIFF( ss, [LastActivity], ? ) >= 30 ";
+            var sqlString = " DATEDIFF( ss, [LastActivity], ? ) >= 90 ";
             var sql = NHibernate.Criterion.Expression.Sql(sqlString
                           , someTime
                           , NHibernate.NHibernateUtil.DateTimeOffset);
