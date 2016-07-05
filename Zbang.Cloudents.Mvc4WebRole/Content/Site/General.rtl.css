@@ -584,9 +584,8 @@ md-pagination-wrapper {
   min-height: calc( 100% - 80px);
   margin-bottom: 80px;
 }
-.md-dialog-container,
-.md-scroll-mask {
-  z-index: 99 !important;
+.md-dialog-container {
+  z-index: 80;
 }
 .r-table {
   display: table;

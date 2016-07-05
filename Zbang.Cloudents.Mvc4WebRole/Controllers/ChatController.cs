@@ -45,7 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ActionName("messages")]
         public async Task<JsonResult> MessagesAsync(ChatMessages message)
         {
-            var query = new GetChatRoomMessagesQuery(message.ChatRoom, message.UserIds, message.DateTime, message.Top);
+            var query = new GetChatRoomMessagesQuery(message.ChatRoom, message.UserIds, message.StartTime, message.Top);
             var model = await ZboxReadService.GetUserConversationAsync(query);
             return JsonOk(model);
         }

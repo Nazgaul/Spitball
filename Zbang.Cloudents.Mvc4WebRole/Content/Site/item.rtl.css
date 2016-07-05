@@ -7,7 +7,7 @@ md-menu-item .fb-like svg {
 md-menu-item.blue {
   background: #4190b9;
 }
-md-menu-item.blue span {
+md-menu-item.blue .md-button span {
   color: #f5f5f5;
 }
 md-menu-item.blue svg {

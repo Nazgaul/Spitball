@@ -36,6 +36,7 @@
 
         c.scrollSetting = {
             scrollbarPosition: 'outside',
+            scrollInertia: 50
         }
 
 
@@ -108,7 +109,7 @@
             c.messages = [];
             chatBus.chat(c.userChat.conversation,
                 [c.userChat.id, userDetailsFactory.get().id],
-                "2016-07-04T11:32:24Z",
+                '',
                 chunkSize
                 ).then(function (response) {
                     c.messages = handleChatMessages(response);
@@ -126,7 +127,7 @@
         function loadMoreMessages() {
             chatBus.chat(c.userChat.conversation,
                 [c.userChat.id, userDetailsFactory.get().id],
-                "2016-07-04T11:32:24Z",
+                c.messages[0].time,
                 chunkSize
                 ).then(function (response) {
                     c.messages = handleChatMessages(response).concat(c.messages);
