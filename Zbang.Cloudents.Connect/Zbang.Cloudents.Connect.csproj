@@ -191,6 +191,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpitballHub.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="UserIdProvider.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
