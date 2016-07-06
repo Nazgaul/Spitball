@@ -103,20 +103,32 @@ namespace Zbang.Zbox.Infrastructure.Cache
             //var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
             var db = Connection.GetDatabase();
             string keys = await db.StringGetAsync(region);
-
-            //return server.FlushDatabaseAsync(ToInt(region));
-            var taskList = new List<Task> { db.KeyDeleteAsync(region, CommandFlags.FireAndForget) };
             if (keys == null)
             {
-                await Task.WhenAll(taskList);
+                await db.KeyDeleteAsync(region, CommandFlags.FireAndForget);
                 return;
             }
+            var taskList = new List<Task>();
             foreach (var key in keys.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
             {
                 taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));
             }
+            taskList.Add(db.KeyDeleteAsync(region, CommandFlags.FireAndForget));
             await Task.WhenAll(taskList);
 
+        }
+
+        public async Task RemoveFromCacheAsyncSlowAsync(string region)
+        {
+            var server = Connection.GetServer(Connection.GetEndPoints().FirstOrDefault());
+            var keys = server.Keys(0, region + "*");
+            var db = Connection.GetDatabase();
+            var taskList = new List<Task>();
+            foreach (var key in keys)
+            {
+                taskList.Add(db.KeyDeleteAsync(key, CommandFlags.FireAndForget));
+            }
+            await Task.WhenAll(taskList);
         }
 
         public async Task<T> GetFromCacheAsync<T>(string region, string key) where T : class
@@ -135,6 +147,10 @@ namespace Zbang.Zbox.Infrastructure.Cache
                 IDatabase cache = Connection.GetDatabase();
                
                 var t = await cache.GetAsync<T>(cacheKey);
+                if (t != default(T))
+                {
+                    await cache.StringAppendAsync(region, cacheKey + ";", CommandFlags.FireAndForget);
+                }
                 return t;
             }
             catch (Exception ex)

@@ -9,6 +9,8 @@ namespace Zbang.Zbox.Infrastructure.Cache
         //bool AddToCache<T>(string key, T value, TimeSpan expiration, string region) where T : class;
         Task RemoveFromCacheAsync(string region);
         Task<T> GetFromCacheAsync<T>(string region, string key) where T : class;
+
+        Task RemoveFromCacheAsyncSlowAsync(string region);
         //T GetFromCache<T>(string key, string region) where T : class;
     }
 
