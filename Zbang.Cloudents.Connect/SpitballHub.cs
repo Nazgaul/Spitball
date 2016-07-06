@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Connect
@@ -54,7 +54,7 @@ namespace Zbang.Cloudents.Connect
 
         public void Echo()
         {
-            Clients.Caller.echo(Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            Clients.Caller.echo(Context.User.GetUserId());
         }
 
         public void ChangeUniversity()

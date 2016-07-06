@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.SignalR;
+using Zbang.Zbox.Infrastructure.Extensions;
 
-namespace Zbang.Cloudents.MobileApp.Extensions
+namespace Zbang.Cloudents.Connect
 {
     public class UserIdProvider : IUserIdProvider
     {
@@ -8,7 +9,7 @@ namespace Zbang.Cloudents.MobileApp.Extensions
         {
             if (request.User.Identity.IsAuthenticated)
             {
-                return request.User.GetCloudentsUserId().ToString();
+                return request.User.GetUserId().ToString();
             }
             return null;
 

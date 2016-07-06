@@ -319,7 +319,6 @@
     <Compile Include="Extensions\ContentDispositionUtil.cs" />
     <Compile Include="Extensions\JilJsonResult.cs" />
     <Compile Include="Extensions\JsonNetResult.cs" />
-    <Compile Include="Extensions\PrincipalExtension.cs" />
     <Compile Include="Extensions\UrlHelperExtension.cs" />
     <Compile Include="Extensions\HtmlHelper.cs" />
     <Compile Include="Extensions\VersionHelper.cs" />

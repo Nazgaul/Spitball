@@ -139,6 +139,7 @@
     </Compile>
     <Compile Include="Extensions\EnumDescriptionAttribute.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\PrincipalExtension.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\TaskExtensions.cs" />
     <Compile Include="GlobalSuppressions.cs" />

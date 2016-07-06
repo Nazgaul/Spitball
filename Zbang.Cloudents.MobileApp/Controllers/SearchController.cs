@@ -9,6 +9,7 @@ using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
@@ -51,7 +52,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse("need university");
 
 
-            var query = new SearchQueryMobile(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
+            var query = new SearchQueryMobile(term, User.GetUserId(), universityId.Value, page, sizePerPage);
             // Services.Log.Info(String.Format("search boxes query: {0}", query));
             var retVal = await m_BoxSearchService2.SearchBoxAsync(query, default(CancellationToken)) ?? new List<SearchBoxes>();
 
@@ -77,7 +78,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             if (!universityId.HasValue)
                 return Request.CreateBadRequestResponse("need university");
 
-            var query = new SearchQueryMobile(term, User.GetCloudentsUserId(), universityId.Value, page, sizePerPage);
+            var query = new SearchQueryMobile(term, User.GetUserId(), universityId.Value, page, sizePerPage);
             // Services.Log.Info(String.Format("search items query: {0}", query));
             var retVal = await m_ItemSearchService2.SearchItemAsync(query, default(CancellationToken)) ?? new List<SearchItems>();
             return Request.CreateResponse(retVal.Select(s => new

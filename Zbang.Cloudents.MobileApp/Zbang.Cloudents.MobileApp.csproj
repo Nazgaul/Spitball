@@ -232,6 +232,12 @@
     <Compile Include="..\Zbang.Cloudents.Connect\PresenceMonitor.cs">
       <Link>PresenceMonitor.cs</Link>
     </Compile>
+    <Compile Include="..\Zbang.Cloudents.Connect\SpitballHub.cs">
+      <Link>Controllers\SpitballHub.cs</Link>
+    </Compile>
+    <Compile Include="..\Zbang.Cloudents.Connect\UserIdProvider.cs">
+      <Link>Extensions\UserIdProvider.cs</Link>
+    </Compile>
     <Compile Include="..\Zbang.Cloudents.Mvc4WebRole\Helpers\UrlTitleBringer.cs">
       <Link>Models\UrlTitleBringer.cs</Link>
     </Compile>
@@ -248,7 +254,6 @@
     <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
-    <Compile Include="Controllers\SpitballHub.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DataObjects\AddCommentRequest.cs" />
     <Compile Include="DataObjects\AddLinkRequest.cs" />
@@ -276,8 +281,6 @@
     <Compile Include="DataObjects\SaveUserAnswersRequests.cs" />
     <Compile Include="DataObjects\UpdateUniversityRequest.cs" />
     <Compile Include="Extensions\HttpRequestMessageExtensions.cs" />
-    <Compile Include="Extensions\IPrincipalExtensions.cs" />
-    <Compile Include="Extensions\UserIdProvider.cs" />
     <Compile Include="Filters\EmailVerifyAttribute.cs" />
     <Compile Include="Filters\JsonSerializeAttribute.cs" />
     <Compile Include="Filters\ZboxAuthorizeAttribute.cs" />

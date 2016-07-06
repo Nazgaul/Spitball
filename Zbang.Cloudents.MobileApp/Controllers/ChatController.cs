@@ -10,6 +10,7 @@ using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Cloudents.MobileApp.Filters;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
@@ -38,7 +39,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [HttpGet]
         public async Task<HttpResponseMessage> ChatRoomAsync(string q, int page = 0, int sizePerPage = 30)
         {
-            var model = await m_ZboxReadService.GetUsersConversationAndFriendsAsync(new GetUserConversationAndFriends(User.GetCloudentsUserId(), User.GetUniversityId().Value, q, page, sizePerPage));
+            var model = await m_ZboxReadService.GetUsersConversationAndFriendsAsync(new GetUserConversationAndFriends(User.GetUserId(), User.GetUniversityId().Value, q, page, sizePerPage));
             return Request.CreateResponse(model.Select(s => new
             {
                 s.Conversation,
@@ -68,7 +69,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/chat/markread")]
         public HttpResponseMessage MarkRead(MarkReadRequest request)
         {
-            var command = new ChatMarkAsReadCommand(User.GetCloudentsUserId(), request.ChatRoom);
+            var command = new ChatMarkAsReadCommand(User.GetUserId(), request.ChatRoom);
             m_ZboxWriteService.MarkChatAsRead(command);
             return Request.CreateResponse();
         }
@@ -98,9 +99,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var uri = m_ChatBlobProvider.GetBlobUrl(model.BlobName);
-            if (!model.Users.Contains(User.GetCloudentsUserId()))
+            if (!model.Users.Contains(User.GetUserId()))
             {
-                model.Users.Add(User.GetCloudentsUserId());
+                model.Users.Add(User.GetUserId());
             }
             await m_QueueProvider.Value.InsertMessageToThumbnailAsync(new ChatFileProcessData(new Uri(uri), model.Users));
             return Request.CreateResponse();

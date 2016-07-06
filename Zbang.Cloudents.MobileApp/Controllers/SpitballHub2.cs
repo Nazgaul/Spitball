@@ -44,18 +44,22 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         public void Offline(long userId)
         {
-            Clients.Others().offline(userId);
+            Clients.Others.offline(userId);
         }
 
         public void ChangeUniversity()
         {
+            if (Context.User.GetUniversityId() == null)
+            {
+                return;
+            }
             Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
             Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetCloudentsUserId());
         }
 
-        public void UpdateImage(string blobName)
+        public void UpdateImage(string blobName, IList<string> users)
         {
-            Clients.Others.updateImage(blobName);
+            Clients.Users(users).updateImage(blobName);
         }
 
         public override Task OnConnected()

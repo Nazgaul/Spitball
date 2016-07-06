@@ -15,6 +15,7 @@ using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -49,12 +50,12 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [ActionName("Details")]
         public async Task<HttpResponseMessage> DetailsAsync()
         {
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
             if (userId < 0)
             {
                 return Request.CreateUnauthorizedResponse();
             }
-            var retVal = await m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetCloudentsUserId()));
+            var retVal = await m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
             return Request.CreateResponse(new
             {
                 retVal.Id,
@@ -77,7 +78,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public async Task<HttpResponseMessage> Refresh()
         {
 
-            var systemData = await m_ZboxReadService.GetUserDetailsById(new GetUserByIdQuery(User.GetCloudentsUserId()));
+            var systemData = await m_ZboxReadService.GetUserDetailsById(new GetUserByIdQuery(User.GetUserId()));
 
             if (!systemData.UniversityId.HasValue)
             {
@@ -85,7 +86,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
 
             var identity = new ClaimsIdentity();
-            identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetUserId().ToString(CultureInfo.InvariantCulture)));
 
 
             identity.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
@@ -95,7 +96,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     systemData.UniversityData?.ToString(CultureInfo.InvariantCulture) ?? systemData.UniversityId.Value.ToString(CultureInfo.InvariantCulture)));
 
             var claims = identity.Claims.ToList();
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, User.GetUserId().ToString(CultureInfo.InvariantCulture)));
             var token = AppServiceLoginHandler.CreateToken(claims,
          Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY"),
         ConfigurationManager.AppSettings["ValidAudience"],
@@ -106,7 +107,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 User = new
                 {
-                    UserId = User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)
+                    UserId = User.GetUserId().ToString(CultureInfo.InvariantCulture)
                 },
                 AuthenticationToken = token.RawData
             });
@@ -124,11 +125,11 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var command = new CreateUniversityCommand(model.Name, model.Country, User.GetCloudentsUserId());
+            var command = new CreateUniversityCommand(model.Name, model.Country, User.GetUserId());
             m_ZboxWriteService.CreateUniversity(command);
 
             var identity = new ClaimsIdentity();
-            identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetUserId().ToString(CultureInfo.InvariantCulture)));
             identity.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
                     command.Id.ToString(CultureInfo.InvariantCulture)));
 
@@ -136,7 +137,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     command.Id.ToString(CultureInfo.InvariantCulture)));
 
             var claims = identity.Claims.ToList();
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, User.GetUserId().ToString(CultureInfo.InvariantCulture)));
             var token = AppServiceLoginHandler.CreateToken(claims,
          Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY"),
         ConfigurationManager.AppSettings["ValidAudience"],
@@ -147,7 +148,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 User = new
                 {
-                    UserId = User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)
+                    UserId = User.GetUserId().ToString(CultureInfo.InvariantCulture)
                 },
                 AuthenticationToken = token.RawData
             });
@@ -178,7 +179,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateResponse(new { code = 1, email = needId.Email });
             }
-            var id = User.GetCloudentsUserId();
+            var id = User.GetUserId();
             var command = new UpdateUserUniversityCommand(model.UniversityId, id, model.StudentId);
             try
             {
@@ -191,7 +192,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
             var identity = new ClaimsIdentity();
-            identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetUserId().ToString(CultureInfo.InvariantCulture)));
             identity.AddClaim(new Claim(ClaimConst.UniversityIdClaim,
                     command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
@@ -199,7 +200,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     command.UniversityDataId?.ToString(CultureInfo.InvariantCulture) ?? command.UniversityId.ToString(CultureInfo.InvariantCulture)));
 
             var claims = identity.Claims.ToList();
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, User.GetUserId().ToString(CultureInfo.InvariantCulture)));
             var token = AppServiceLoginHandler.CreateToken(claims,
          Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY"),
         ConfigurationManager.AppSettings["ValidAudience"],
@@ -210,7 +211,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 User = new
                 {
-                    UserId = User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)
+                    UserId = User.GetUserId().ToString(CultureInfo.InvariantCulture)
                 },
                 AuthenticationToken = token.RawData
             });
@@ -287,7 +288,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 tSystemUser.Result.UniversityId, tSystemUser.Result.UniversityData);
 
             var claims = identity.Claims.ToList();
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, User.GetUserId().ToString(CultureInfo.InvariantCulture)));
             var token = AppServiceLoginHandler.CreateToken(claims,
          Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY"),
         ConfigurationManager.AppSettings["ValidAudience"],
@@ -298,7 +299,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 User = new
                 {
-                    UserId = User.GetCloudentsUserId().ToString(CultureInfo.InvariantCulture)
+                    UserId = User.GetUserId().ToString(CultureInfo.InvariantCulture)
                 },
                 AuthenticationToken = token.RawData
             });

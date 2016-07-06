@@ -12,6 +12,7 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
@@ -48,7 +49,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
                 var query = new GetBoxQuery(id);
                 var tResult = m_ZboxReadService.GetBoxMetaWithMembersAsync(query, numberOfPeople);
-                var tUserType = m_ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetCloudentsUserId());
+                var tUserType = m_ZboxReadSecurityService.GetUserStatusToBoxAsync(id, User.GetUserId());
                 await Task.WhenAll(tResult, tUserType);
                 var result = tResult.Result;
                 result.UserType = tUserType.Result;
@@ -70,7 +71,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             catch (BoxAccessDeniedException)
             {
 
-                TraceLog.WriteInfo($"userid: {User.GetCloudentsUserId()} request box {id}");
+                TraceLog.WriteInfo($"userid: {User.GetUserId()} request box {id}");
                 return Request.CreateUnauthorizedResponse();
             }
             catch (BoxDoesntExistException)
@@ -94,7 +95,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             try
             {
-                var userId = User.GetCloudentsUserId();
+                var userId = User.GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName);
                 var result = m_ZboxWriteService.CreateBox(command);
                 return Request.CreateResponse(new
@@ -133,7 +134,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             try
             {
 
-                var userId = User.GetCloudentsUserId();
+                var userId = User.GetUserId();
 
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
                                                            model.CourseId, model.Professor, guid.Value);
@@ -212,7 +213,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
             try
             {
                 var commandBoxName = new ChangeBoxInfoCommand(model.Id, userId, model.Name,
@@ -240,7 +241,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var command = new SubscribeToSharedBoxCommand(User.GetCloudentsUserId(), model.BoxId);
+            var command = new SubscribeToSharedBoxCommand(User.GetUserId(), model.BoxId);
             await m_ZboxWriteService.SubscribeToSharedBoxAsync(command);
             return Request.CreateResponse();
         }
@@ -249,7 +250,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/box"), ActionName("Delete")]
         public async Task<HttpResponseMessage> DeleteAsync(long id)
         {
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
             var command = new UnFollowBoxCommand(id, userId, false);
             await m_ZboxWriteService.UnFollowBoxAsync(command);
             return Request.CreateResponse();
@@ -269,7 +270,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
             try
             {
-                var userId = User.GetCloudentsUserId();
+                var userId = User.GetUserId();
                 var shareCommand = new ShareBoxCommand(model.BoxId, userId, model.Recipients);
 
                 await m_ZboxWriteService.ShareBoxAsync(shareCommand);
