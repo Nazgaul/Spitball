@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
-using Microsoft.WindowsAzure.Storage.Table;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure.Azure;
-using Zbang.Zbox.Infrastructure.Azure.Entities;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Connect
 {
-    // [Authorize]
     public class SpitballHub : Hub
     {
         private readonly IZboxWriteService m_WriteService;
@@ -50,16 +47,22 @@ namespace Zbang.Cloudents.Connect
         }
 
 
-        public void Disconnect(IList<long> userIds)
+        public void Offline(long userId)
         {
-            foreach (var userId in userIds)
-            {
-                Clients.Others().offline(userId);
-            }
+            Clients.Others.offline(userId);
+        }
+
+        public void Echo()
+        {
+            Clients.Caller.echo(Assembly.GetExecutingAssembly().GetName().Version.ToString());
         }
 
         public void ChangeUniversity()
         {
+            if (Context.User.GetUniversityId() == null)
+            {
+                return;
+            }
             Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
             Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetUserId());
         }

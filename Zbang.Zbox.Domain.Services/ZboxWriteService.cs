@@ -740,13 +740,21 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public ManageConnectionsCommandResult ManageConnections(ManageConnectionsCommand command)
+        public void ManageConnections(ManageConnectionsCommand command)
         {
             using (UnitOfWork.Start())
             {
-                var result = m_CommandBus.Dispatch<ManageConnectionsCommand, ManageConnectionsCommandResult>(command);
+                m_CommandBus.Send(command);
                 UnitOfWork.Current.TransactionalFlush();
-                return result;
+            }
+        }
+
+        public void RemoveOldConnections(RemoveOldConnectionCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
             }
         }
 

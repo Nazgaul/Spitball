@@ -1,24 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
-using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {
-    public class ManageConnectionsCommandHandler : ICommandHandler<ManageConnectionsCommand, ManageConnectionsCommandResult>
+    public class ManageConnectionsCommandHandler : ICommandHandler<ManageConnectionsCommand>
     {
         private readonly IConnectionRepository m_ConnectionRepository;
-        private readonly IUserRepository m_UserRepository;
+       // private readonly IUserRepository m_UserRepository;
 
-        public ManageConnectionsCommandHandler(IConnectionRepository connectionRepository, IUserRepository userRepository)
+        public ManageConnectionsCommandHandler(IConnectionRepository connectionRepository 
+           // IUserRepository userRepository
+            )
         {
             m_ConnectionRepository = connectionRepository;
-            m_UserRepository = userRepository;
+           // m_UserRepository = userRepository;
         }
 
-        public ManageConnectionsCommandResult Execute(ManageConnectionsCommand message)
+        public void Handle(ManageConnectionsCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             foreach (var connectionId in message.ConnectionIds)
@@ -30,9 +30,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     m_ConnectionRepository.Save(connection);
                 }
             }
-            var zombies = m_ConnectionRepository.GetZombies();
-            TraceLog.WriteInfo($"zombies count {zombies.Count}");
-            var userIds = new List<long>();
+            //var zombies = m_ConnectionRepository.GetZombies();
+            //TraceLog.WriteInfo($"zombies count {zombies.Count}");
+            //var userIds = new List<long>();
             //foreach (var zombie in zombies)
             //{
             //    var user = zombie.User;
@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             //    m_UserRepository.Save(zombie.User);
             //}
-            return new ManageConnectionsCommandResult(userIds);
+            //return new ManageConnectionsCommandResult(userIds);
         }
     }
 }

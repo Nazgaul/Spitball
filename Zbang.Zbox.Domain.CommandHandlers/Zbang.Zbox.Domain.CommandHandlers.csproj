@@ -108,6 +108,7 @@
     <Compile Include="Quiz\UpdateQuestionCommandHandler.cs" />
     <Compile Include="Quiz\UpdateQuizCommandHandler.cs" />
     <Compile Include="RateItemCommandHandler.cs" />
+    <Compile Include="RemoveOldConnectionCommandHandler.cs" />
     <Compile Include="RequestAccessLibraryNodeCommandHandler.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommandHandler.cs" />
     <Compile Include="UpdateNodeSettingsCommandHandler.cs" />

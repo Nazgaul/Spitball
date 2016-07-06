@@ -6,9 +6,15 @@
       <Setting name="Zbox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;Asynchronous Processing=True;" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="ramy" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBlQYJKoZIhvcNAQcDoIIBhjCCAYICAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCED8qTcLjySqlQodThuJ0RskwDQYJKoZIhvcNAQEBBQAEggEAbB/Vmem/CSmPHdkFKizIBOXejTKRJoYkvh4uqtqRDr/crlFs0GKHGa6fN8Uc+3JqOxLZY71RuGQEu1/ZkBqE1OWolRaH3FYimP/Au9VvWzXXvVIugWyzNSsv6keO7Bw38Iu/xy5Odc4Ax/naGw8KQYt9EQFgC4YULobHEZukdHv69nf5ph7xUVAaV/cGRf35NZIixHSZ9M75Dr0ThNAm3v9UvbgrO8mqEnI/4GWn0Y0IXsG47EAUh0+NXnY/3ihrhWnpAxlsO7fGPckXoXpAczaOroQCV2Sfi0WVipvi0Vrqm6/KYpmVWGme532YrDH3ghyTC7kjVwwWj7XNpW/jjTArBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECNtIvKLMStG3gAgLqRGz57V8VQ==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2017-07-05T23:59:59.0000000+03:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="SB" thumbprint="3B84ACD05F4A202290DFAEF6EF823EA3BCA16D5C" thumbprintAlgorithm="sha1" />
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="3A669DBBAB8584EB39DC6414BBA7D068AA4918AC" thumbprintAlgorithm="sha1" />
     </Certificates>
   </Role>
 </ServiceConfiguration>

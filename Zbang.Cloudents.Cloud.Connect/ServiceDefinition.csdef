@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceDefinition name="Zbang.Cloudents.Cloud.Connect" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition" schemaVersion="2015-04.2.6">
-  <WebRole name="Zbang.Cloudents.Connect" vmsize="Small">
+  <WebRole name="Zbang.Cloudents.Connect" vmsize="Medium">
     <Sites>
       <Site name="Web">
         <Bindings>
@@ -21,5 +21,9 @@
     <Certificates>
       <Certificate name="SB" storeLocation="LocalMachine" storeName="My" />
     </Certificates>
+    <Imports>
+      <Import moduleName="RemoteAccess" />
+      <Import moduleName="RemoteForwarder" />
+    </Imports>
   </WebRole>
 </ServiceDefinition>

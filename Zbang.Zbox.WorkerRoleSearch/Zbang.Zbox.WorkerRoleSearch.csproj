@@ -127,11 +127,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeleteOldConnections.cs" />
     <Compile Include="DomainProcess\DeleteBox.cs" />
     <Compile Include="DomainProcess\FlagBadItem.cs" />
     <Compile Include="DomainProcess\IDomainProcess.cs" />
     <Compile Include="DomainProcess\PreProcessFile.cs" />
-    <Compile Include="DomainProcess\ProcessConnections.cs" />
     <Compile Include="DomainProcess\Statistics.cs" />
     <Compile Include="DomainProcess\UpdateQuota.cs" />
     <Compile Include="DomainProcess\UpdateReputation.cs" />

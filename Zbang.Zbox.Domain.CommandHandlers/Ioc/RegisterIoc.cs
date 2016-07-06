@@ -150,8 +150,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandlerAsync<ChatAddMessageCommand>),
                typeof(ChatAddMessageCommandHandler));
 
-            ioc.RegisterType(typeof(ICommandHandler<ManageConnectionsCommand, ManageConnectionsCommandResult>),
+            ioc.RegisterType(typeof(ICommandHandler<ManageConnectionsCommand>),
               typeof(ManageConnectionsCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<RemoveOldConnectionCommand>),
+                typeof(RemoveOldConnectionCommandHandler));
+            
 
             ioc.RegisterType(typeof(ICommandHandler<ChatMarkAsReadCommand>),
                typeof(ChatMarkAsReadCommandHandler));

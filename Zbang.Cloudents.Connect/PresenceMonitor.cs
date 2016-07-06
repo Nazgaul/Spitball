@@ -20,7 +20,6 @@ namespace Zbang.Cloudents.Connect
     public class PresenceMonitor
     {
         private readonly ITransportHeartbeat m_Heartbeat;
-        private readonly IQueueProvider m_QueueProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
         private Timer m_Timer;
 
@@ -33,10 +32,9 @@ namespace Zbang.Cloudents.Connect
         // The number of seconds that have to pass to consider a connection invalid.
         //private readonly int m_ZombieThreshold;
 
-        public PresenceMonitor(ITransportHeartbeat heartbeat, IQueueProvider queueProvider, IZboxWriteService zboxWriteService)
+        public PresenceMonitor(ITransportHeartbeat heartbeat, IZboxWriteService zboxWriteService)
         {
             m_Heartbeat = heartbeat;
-            m_QueueProvider = queueProvider;
             m_ZboxWriteService = zboxWriteService;
             //  m_ZombieThreshold = (int)m_PresenceCheckInterval.TotalSeconds * PeriodsBeforeConsideringZombie;
         }
@@ -46,11 +44,11 @@ namespace Zbang.Cloudents.Connect
            
             if (m_Timer == null)
             {
-                m_Timer = new Timer(async _ =>
+                m_Timer = new Timer(_ =>
                 {
                     try
                     {
-                       await CheckAsync();
+                       Check();
                     }
                     catch (Exception ex)
                     {
@@ -64,7 +62,7 @@ namespace Zbang.Cloudents.Connect
             }
         }
 
-        private async Task CheckAsync()
+        private void Check()
         {
             //using (var db = new UserContext())
             //{
@@ -77,11 +75,11 @@ namespace Zbang.Cloudents.Connect
             if (connectionIds.Any())
             {
                 var command = new ManageConnectionsCommand(connectionIds);
-                var result = m_ZboxWriteService.ManageConnections(command);
-                if (result.UserIds.Any())
-                {
-                    await m_QueueProvider.InsertMessageToThumbnailAsync(new SignalrConnectionsData2(result.UserIds));
-                }
+                m_ZboxWriteService.ManageConnections(command);
+                //if (result.UserIds.Any())
+                //{
+                //    await m_QueueProvider.InsertMessageToThumbnailAsync(new SignalrConnectionsData2(result.UserIds));
+                //}
             }
             //var tasks = new List<Task>();
             //foreach (var connectionId in result.ConnectionIds)

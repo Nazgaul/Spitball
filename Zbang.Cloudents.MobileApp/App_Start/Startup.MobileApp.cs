@@ -92,11 +92,10 @@ namespace Zbang.Cloudents.MobileApp
                 "signalr");
             app.UseAutofacMiddleware(container);
             var heartBeat = GlobalHost.DependencyResolver.Resolve<ITransportHeartbeat>();
-            var queueService = GlobalHost.DependencyResolver.Resolve<IQueueProvider>();
             var writeService = GlobalHost.DependencyResolver.Resolve<IZboxWriteService>();
 
-            //var monitor = new PresenceMonitor(heartBeat, queueService, writeService);
-            //monitor.StartMonitoring();
+            var monitor = new PresenceMonitor(heartBeat, writeService);
+            monitor.StartMonitoring();
             app.MapSignalR(config);
         }
 

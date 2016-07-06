@@ -42,12 +42,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
         }
 
-        public void Disconnect(IList<long> userIds)
+        public void Offline(long userId)
         {
-            foreach (var userId in userIds)
-            {
-                Clients.Others().offline(userId);
-            }
+            Clients.Others().offline(userId);
         }
 
         public void ChangeUniversity()

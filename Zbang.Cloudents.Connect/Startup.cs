@@ -29,7 +29,7 @@ namespace Zbang.Cloudents.Connect
             // rather than using GlobalHost.
             var config = new HubConfiguration
             {
-                EnableDetailedErrors = false
+                EnableDetailedErrors = true
             };
 
             // Register your SignalR hubs.
@@ -54,12 +54,12 @@ namespace Zbang.Cloudents.Connect
             GlobalHost.DependencyResolver = config.Resolver;
             GlobalHost.DependencyResolver.Register(typeof(IJavaScriptMinifier), () => new MimifyProxy());
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new UserIdProvider());
-            //if (Microsoft.WindowsAzure.ServiceRuntime.RoleEnvironment.IsAvailable)
-            //{
+            if (Microsoft.WindowsAzure.ServiceRuntime.RoleEnvironment.IsAvailable)
+            {
                 GlobalHost.DependencyResolver.UseServiceBus(
                     "Endpoint=sb://cloudentsmsg-ns.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=oePM1T/GBe2ZlaDhik3MLHNXstsM4lhnCTyRTBi0bmQ=",
                     "signalr");
-            //}
+            }
             //app.Map("", map =>
             //{
             //    map.UseCors(CorsOptions.AllowAll);
@@ -75,10 +75,9 @@ namespace Zbang.Cloudents.Connect
             Zbox.Infrastructure.Security.Startup.ConfigureAuth(app, true);
 
             var heartBeat = GlobalHost.DependencyResolver.Resolve<ITransportHeartbeat>();
-            var queueService = GlobalHost.DependencyResolver.Resolve<IQueueProvider>();
             var writeService = GlobalHost.DependencyResolver.Resolve<IZboxWriteService>();
 
-            var monitor = new PresenceMonitor(heartBeat, queueService, writeService);
+            var monitor = new PresenceMonitor(heartBeat, writeService);
             monitor.StartMonitoring();
             app.MapSignalR("/s", config);
 
