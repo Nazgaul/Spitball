@@ -262,7 +262,7 @@
             self.add.disabled = true;
             boxService.postReply(self.add.newReplyText, boxId, comment.id, filesId).then(function (response) {
                 var newComment = {
-                    content: extractUrls(self.add.newReplyText.replace(/[&<>]/g, replaceTag)),
+                    content: self.add.newReplyText, //extractUrls(self.add.newReplyText.replace(/[&<>]/g, replaceTag)),
                     creationTime: new Date().toISOString(),
                     id: response,
                     url: user.url,
@@ -312,7 +312,7 @@
             boxService.postComment(self.add.newText, boxId, filesId, self.add.anonymous).then(function (response) {
                 self.add.newText = self.add.newText || '';
                 var newComment = {
-                    content: extractUrls(self.add.newText.replace(/[&<>]/g, replaceTag)),
+                    content: self.add.newText, //extractUrls(self.add.newText.replace(/[&<>]/g, replaceTag)),
                     creationTime: new Date().toISOString(),
                     id: response.commentId,
                     url: response.userUrl,
@@ -329,7 +329,7 @@
                 self.add.files = [];
                 self.add.anonymous = false;
                 $scope.$emit('follow-box');
-           
+
 
             }).finally(function () {
                 self.add.disabled = false;
@@ -510,15 +510,15 @@
             }
         }
 
-        var tagsToReplace = {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;'
-        };
+        //var tagsToReplace = {
+        //    '&': '&amp;',
+        //    '<': '&lt;',
+        //    '>': '&gt;'
+        //};
 
-        function replaceTag(tag) {
-            return tagsToReplace[tag] || tag;
-        }
+        //function replaceTag(tag) {
+        //    return tagsToReplace[tag] || tag;
+        //}
 
         function extractUrls(d) {
             if (!d) {

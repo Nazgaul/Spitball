@@ -8,13 +8,19 @@
     function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
         notificationService, resManager, userService, $window) {
-        var c = this, chunkSize = ($window.innerHeight <= 600) ? 10 : 20, top = 0, fromid, page = 0;
+        var c = this, chunkSize = 2147483647/*($window.innerHeight <= 600) ? 10 : 20*/, top = 0, fromid, page = 0,
+            connectionStatuses = {
+                connected: 1,
+                disconnected: 0
+            };
         c.states = {
             messages: 1,
             chat: 3
         };
 
+        var lastConnectionStatus = 0;
         c.state = c.states.messages;
+        c.connected = true;
         c.search = search;
         c.chat = conversation;
         c.send = send;
@@ -51,6 +57,33 @@
             $document.find('.md-sidenav-backdrop').hide();
             search();
         });
+
+
+        $scope.$watch(function () {
+            return $mdSidenav('chat').isOpen();
+        }, function (val) {
+            if (!val) {
+                resetChat();
+                return;
+            }
+            //hack which i dont like
+            $document.find('.md-sidenav-backdrop').hide();
+            search();
+        });
+
+        $scope.$on('connection-state', function (e, args) {
+            if (args.status === connectionStatuses.disconnected) {
+                if (args.status !== lastConnectionStatus) {
+                    c.connected = false;
+                }
+            }
+            else {
+                c.connected = true;
+            }
+            lastConnectionStatus = args.status;
+
+        });
+
         function backFromChat() {
             c.state = c.states.messages;
             c.newText = '';

@@ -71,6 +71,31 @@ md-sidenav.chat {
     background: #eee !important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
+    .error {
+        z-index: 1;
+        color: @textColorWhite;
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 65px;
+        box-shadow: 0 0 3px black;
+        text-align: center;
+        background: @textColorRed;
+        overflow: hidden;
+        .displayFlex;
+        height: 0;
+        .justifyContet(center);
+        flex-direction: column;
+        -webkit-transition: height 0.3s;
+        -moz-transition: height 0.3s;
+        transition: height 0.3s;
+
+        &.disconnected {
+            padding: 5px 10px;
+            height: 60px;
+        }
+    }
+
     md-content {
         background: none;
         position: relative;
@@ -442,6 +467,7 @@ md-sidenav.chat {
 
                         .text {
                             padding: 8px 12px 0 12px;
+                            word-wrap: break-word;
                         }
 
                         .time {
