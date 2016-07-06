@@ -9,8 +9,8 @@
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>True</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
-    <AzureHostedServiceLabel>zboxtest2</AzureHostedServiceLabel>
-    <AzureHostedServiceName>zboxtest2</AzureHostedServiceName>
+    <AzureHostedServiceLabel>zboxtest</AzureHostedServiceLabel>
+    <AzureHostedServiceName>zboxtest</AzureHostedServiceName>
     <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
@@ -19,6 +19,6 @@
     <AzureStorageAccountName>zboxstorage</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
     <EnableRemoteDebugger>True</EnableRemoteDebugger>
-    <RemoteDebuggerConnectorCertificateThumbprint>63251ED7C172D698B5B9F4BCA5405C0D09D53E56</RemoteDebuggerConnectorCertificateThumbprint>
+    <RemoteDebuggerConnectorCertificateThumbprint>ED68703DD8F04E2E6E4A07208EF861CED26307C7</RemoteDebuggerConnectorCertificateThumbprint>
   </PropertyGroup>
 </Project>

@@ -108,7 +108,7 @@ md-menu-item.blue svg {
   white-space: nowrap;
   height: 36px;
 }
-.itemPage header .top-wrapper .name-actions .item-actions a {
+.itemPage header .top-wrapper .name-actions .item-actions a:not(.hide-xs) {
   display: block;
 }
 .itemPage header .top-wrapper .name-actions .item-actions .item-menu {

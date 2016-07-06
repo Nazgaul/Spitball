@@ -75,6 +75,7 @@
 }
 .dashboard .dashboard-actions .container .create-btn {
   flex-basis: 60%;
+  flex-grow: 1;
 }
 .dashboard .dashboard-actions .container .create-btn svg {
   width: 14px;
@@ -82,6 +83,7 @@
 }
 .dashboard .dashboard-actions .container .inviteBtn {
   flex-basis: 40%;
+  flex-grow: 1;
   margin-left: 8px;
 }
 .dashboard .dashboard-actions .container .inviteBtn svg {

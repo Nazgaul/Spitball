@@ -43,18 +43,30 @@
                 switch (state.newState) {
                     case $.signalR.connectionState.connecting:
                         console.log('connecting');
+                        $rootScope.$broadcast('connection-state', {
+                            status: 0
+                        });
                         break;
                     case $.signalR.connectionState.connected:
                         console.log('connected');
+                        $rootScope.$broadcast('connection-state', {
+                            status: 1
+                        });
                         break;
                     case $.signalR.connectionState.reconnecting:
                         console.log('reconnecting');
                         logError('signalr', 'reconnecting');
+                        $rootScope.$broadcast('connection-state', {
+                            status: 0
+                        });
                         break;
                     case $.signalR.connectionState.disconnected:
                         console.log('disconnected');
                         //hub.connection.start();
                         logError('signalr', 'disconnected');
+                        $rootScope.$broadcast('connection-state', {
+                            status: 0
+                        });
                         break;
                 }
             }

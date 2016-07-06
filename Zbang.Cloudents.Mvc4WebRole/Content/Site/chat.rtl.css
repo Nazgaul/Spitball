@@ -66,6 +66,31 @@ md-sidenav.chat {
   background: #eee !important;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+md-sidenav.chat .error {
+  z-index: 1;
+  color: #f5f5f5;
+  position: absolute;
+  width: 100%;
+  top: 65px;
+  box-shadow: 0 0 3px black;
+  text-align: center;
+  background: #db4437;
+  overflow: hidden;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  height: 0;
+  -webkit-justify-content: center;
+  justify-content: center;
+  flex-direction: column;
+  -webkit-transition: height 0.3s;
+  -moz-transition: height 0.3s;
+  transition: height 0.3s;
+}
+md-sidenav.chat .error.disconnected {
+  padding: 5px 10px;
+  height: 60px;
+}
 md-sidenav.chat md-content {
   background: none;
   position: relative;
@@ -488,6 +513,7 @@ md-sidenav.chat md-content .conversasion .chat-content .messages .message.partne
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages .message .text {
   padding: 8px 12px 0 12px;
+  word-wrap: break-word;
 }
 md-sidenav.chat md-content .conversasion .chat-content .messages .message .time {
   color: #9E9E9E;
