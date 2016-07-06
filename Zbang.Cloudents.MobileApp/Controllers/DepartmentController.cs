@@ -9,6 +9,7 @@ using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.Library;
@@ -40,7 +41,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var query = new GetLibraryNodeQuery(universityId.Value, guid, User.GetCloudentsUserId());
+            var query = new GetLibraryNodeQuery(universityId.Value, guid, User.GetUserId());
             var result = await m_ZboxReadService.GetLibraryNodeAsync(query);
 
             return Request.CreateResponse(new
@@ -82,7 +83,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             try
             {
                 var parentId = GuidEncoder.TryParseNullableGuid(model.ParentId);
-                var command = new AddNodeToLibraryCommand(model.Name, universityId.Value, parentId, User.GetCloudentsUserId());
+                var command = new AddNodeToLibraryCommand(model.Name, universityId.Value, parentId, User.GetUserId());
                 m_ZboxWriteService.CreateDepartment(command);
                 var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
                 return Request.CreateResponse(result);

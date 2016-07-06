@@ -15,6 +15,7 @@ using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
@@ -133,7 +134,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var guid = GuidEncoder.TryParseNullableGuid(section);
-                var universityId = User.GetUniversityData();
+                var universityId = User.GetUniversityDataId();
 
                 if (!universityId.HasValue)
                 {
@@ -157,7 +158,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             var guid = GuidEncoder.TryParseNullableGuid(id);
 
-            var universityId = User.GetUniversityData();
+            var universityId = User.GetUniversityDataId();
 
             if (!universityId.HasValue)
             {
@@ -216,7 +217,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(GetErrorFromModelState());
             }
-            var universityId = User.GetUniversityData();
+            var universityId = User.GetUniversityDataId();
 
             if (!universityId.HasValue)
             {

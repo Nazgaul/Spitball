@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -83,7 +82,12 @@ namespace Zbang.Zbox.Infrastructure.Security
 
                     }
                 });
-                //app.UseOAuthBearerAuthentication(new Microsoft.Owin.Security.OAuth.OAuthBearerAuthenticationOptions());
+                
+                //app.UseOAuthBearerAuthentication(
+                //    new Microsoft.Owin.Security.OAuth.OAuthBearerAuthenticationOptions
+                //    {
+                //        Provider = new HeaderOAuthBearerProvider("x-zumo-auth")
+                //    });
                 //app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
                 // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.

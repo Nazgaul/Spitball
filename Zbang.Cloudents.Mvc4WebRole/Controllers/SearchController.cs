@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Queries.Search;
@@ -50,7 +51,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<JsonResult> Boxes(string q, int page, CancellationToken cancellationToken)
         {
-            var universityDataId = User.GetUniversityData();
+            var universityDataId = User.GetUniversityDataId();
             if (!universityDataId.HasValue) return JsonError();
             var query = new SearchBoxesQuery(q, User.GetUserId(), universityDataId.Value, page,
                 ResultSizeRegularState);
@@ -59,7 +60,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<JsonResult> Items(string q, int page, CancellationToken cancellationToken)
         {
-            var universityDataId = User.GetUniversityData();
+            var universityDataId = User.GetUniversityDataId();
             if (!universityDataId.HasValue) return JsonError();
             var query = new SearchItemsQuery(q, User.GetUserId(), universityDataId.Value, page,
                 ResultSizeRegularState);
@@ -68,7 +69,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         public async Task<JsonResult> Quizzes(string q, int page, CancellationToken cancellationToken)
         {
-            var universityDataId = User.GetUniversityData();
+            var universityDataId = User.GetUniversityDataId();
             if (!universityDataId.HasValue) return JsonError();
             var query = new SearchQuizesQuery(q, User.GetUserId(), universityDataId.Value, page,
                 ResultSizeRegularState);
@@ -110,7 +111,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 term = "";
             }
-            long? universityId = User.GetUniversityData();
+            long? universityId = User.GetUniversityDataId();
             if (!universityId.HasValue)
                 return JsonError("need university");
             var query = new UserInBoxSearchQuery(term, universityId.Value, boxId, page, sizePerPage);

@@ -96,6 +96,7 @@ namespace Zbang.Zbox.Domain
         public virtual UserTimeDetails UserTime { get; set; }
         public virtual ICollection<UserBoxRel> UserBoxRel { get; protected set; }
         public virtual ICollection<UserLibraryRel> UserLibraryRel { get; protected set; }
+        public virtual ICollection<Connection> Connections { get; protected set; }
         public virtual Guid? MembershipId { get; set; }
         public virtual long? FacebookId { get; set; }
         public virtual string GoogleId { get; set; }
@@ -132,6 +133,11 @@ namespace Zbang.Zbox.Domain
 
             Reputation += reputation.Score;
             return reputation;
+        }
+
+        public virtual void AddConnection(string connectionId)
+        {
+            Connections.Add(new Connection(connectionId, this));
         }
 
         public void ChangeUserRelationShipToBoxType(Box box, UserRelationshipType newUserType)

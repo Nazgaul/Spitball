@@ -55,7 +55,18 @@
       <one-to-many class="UserBoxRel"/>
     </set>
     <property name="LastAccessTime" type="DateTime2"  />
+    <bag name="Connections"  cascade="all-delete-orphan" inverse="true" lazy="true">
+      <key column="UserId"/>
+      <one-to-many class="Connection"/>
+    </bag>
+  </class>
 
+  <class name="Connection" table="SignalRConnection">
+    <id name="Id">
+      <generator class="assigned"></generator>
+    </id>
+    <many-to-one column="UserId" class="User" name="User" foreign-key="SignalRConnectionUser" />
+    <property name="LastActivity" />
   </class>
 
   <class name="University" table="University">

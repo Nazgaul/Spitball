@@ -1,18 +1,27 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Security.Principal;
 using Zbang.Zbox.Infrastructure.Consts;
 
-namespace Zbang.Cloudents.MobileApp.Extensions
+namespace Zbang.Zbox.Infrastructure.Extensions
 {
-    public static class PrincipalExtensions
+    public static class PrincipalExtension
     {
-        public static long GetCloudentsUserId(this IPrincipal user)
+        public static long GetUserId(this IPrincipal user, bool isAuthorize = true)
         {
             long userId = -1;
-            
+
+            if (isAuthorize && !user.Identity.IsAuthenticated)
+            {
+                throw new UnauthorizedAccessException();
+            }
             var userIdClaim = ExtractValueFromClaim(user, ClaimConst.UserIdClaim);
             if (string.IsNullOrEmpty(userIdClaim))
             {
+                if (isAuthorize)
+                {
+                    throw new UnauthorizedAccessException();
+                }
                 return userId;
             }
             long.TryParse(userIdClaim, out userId);
@@ -43,7 +52,6 @@ namespace Zbang.Cloudents.MobileApp.Extensions
 
 
         }
-
         public static long? GetUniversityDataId(this IPrincipal user)
         {
             long value;
@@ -58,11 +66,6 @@ namespace Zbang.Cloudents.MobileApp.Extensions
             }
             return null;
         }
-       
-
-       
-
-        
 
 
     }

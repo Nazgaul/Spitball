@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using Zbang.Cloudents.MobileApp.Extensions;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.MobileApp.Filters
 {
@@ -19,7 +20,7 @@ namespace Zbang.Cloudents.MobileApp.Filters
         }
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
-            var userId = actionContext.RequestContext.Principal.GetCloudentsUserId();
+            var userId = actionContext.RequestContext.Principal.GetUserId();
             return userId != -1;
         }
         protected override void HandleUnauthorizedRequest(HttpActionContext actionContext)

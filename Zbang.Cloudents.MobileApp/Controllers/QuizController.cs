@@ -9,6 +9,7 @@ using Zbang.Cloudents.MobileApp.DataObjects;
 using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -48,7 +49,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             var command =
                 new SaveUserQuizCommand(
                   model.Answers.Select(s => new UserAnswers { AnswerId = s.AnswerId, QuestionId = s.QuestionId }),
-                    User.GetCloudentsUserId(), model.QuizId, TimeSpan.FromSeconds(model.NumberOfSeconds), model.BoxId);
+                    User.GetUserId(), model.QuizId, TimeSpan.FromSeconds(model.NumberOfSeconds), model.BoxId);
             await m_ZboxWriteService.SaveUserAnswersAsync(command);
 
             return Request.CreateResponse();
@@ -56,7 +57,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         public async Task<HttpResponseMessage> Get(long boxId, long quizId)
         {
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
             var query = new GetQuizQuery(quizId, userId, boxId);
             var tModel = m_ZboxReadService.GetQuizQuestionWithAnswersAsync(query);
 
@@ -132,7 +133,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var id = m_GuidGenerator.GetId();
-            var command = new CreateDiscussionCommand(User.GetCloudentsUserId(), model.Text, model.QuestionId, id);
+            var command = new CreateDiscussionCommand(User.GetUserId(), model.Text, model.QuestionId, id);
             await m_ZboxWriteService.CreateItemInDiscussionAsync(command);
             return Request.CreateResponse(id);
         }
@@ -141,7 +142,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/quiz/{id:long}/discussion"), HttpDelete]
         public HttpResponseMessage DeleteDiscussion(Guid id)
         {
-            var command = new DeleteDiscussionCommand(id, User.GetCloudentsUserId());
+            var command = new DeleteDiscussionCommand(id, User.GetUserId());
             m_ZboxWriteService.DeleteItemInDiscussion(command);
             return Request.CreateResponse();
         }

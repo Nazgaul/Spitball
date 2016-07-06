@@ -9,6 +9,7 @@ using Microsoft.Owin;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Infrastructure.Culture;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers

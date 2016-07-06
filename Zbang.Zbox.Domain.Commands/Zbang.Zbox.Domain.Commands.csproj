@@ -102,6 +102,7 @@
     <Compile Include="LibraryNodeApproveAccessCommand.cs" />
     <Compile Include="LikeCommentCommand.cs" />
     <Compile Include="LikeReplyCommand.cs" />
+    <Compile Include="ManageConnectionsCommand.cs" />
     <Compile Include="Quiz\CreateAnswerCommand.cs" />
     <Compile Include="Quiz\CreateDiscussionCommand.cs" />
     <Compile Include="Quiz\CreateQuestionCommand.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="Quiz\UpdateQuestionCommand.cs" />
     <Compile Include="Quiz\UpdateQuizCommand.cs" />
     <Compile Include="RateItemCommand.cs" />
+    <Compile Include="RemoveOldConnectionCommand.cs" />
     <Compile Include="RequestAccessLibraryNodeCommand.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommand.cs" />
     <Compile Include="UpdateNodeSettingsCommand.cs" />

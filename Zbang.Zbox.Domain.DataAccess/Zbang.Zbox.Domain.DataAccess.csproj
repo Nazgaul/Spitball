@@ -74,6 +74,7 @@
     <Compile Include="BoxRepository.cs" />
     <Compile Include="ChatUserRepository.cs" />
     <Compile Include="CommentLikeRepository.cs" />
+    <Compile Include="ConnectionRepository.cs" />
     <Compile Include="IAcademicBoxRepository.cs" />
     <Compile Include="IBoxRepository.cs" />
     <Compile Include="ICommentLikeRepository.cs" />

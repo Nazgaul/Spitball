@@ -9,6 +9,7 @@ using Zbang.Cloudents.MobileApp.Filters;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Queries;
@@ -35,7 +36,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/boxes", Order = 3)]
         public async Task<HttpResponseMessage> GetBoxesAsync(int page, int sizePerPage = 15)
         {
-            var userid = User.GetCloudentsUserId();
+            var userid = User.GetUserId();
             var query = new GetBoxesQuery(userid, page, sizePerPage);
             var data = await m_ZboxReadService.GetUserBoxesAsync(query);
             return Request.CreateResponse(data.Select(s => new
@@ -68,7 +69,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
             //var universityWrapper = userDetail.UniversityDataId.Value;
 
-            var query = new RecommendedCoursesQuery(university.Value, User.GetCloudentsUserId());
+            var query = new RecommendedCoursesQuery(university.Value, User.GetUserId());
             var result = await m_ZboxReadService.GetRecommendedCoursesAsync(query);
             return Request.CreateResponse(result.Select(s => new
             {
@@ -100,7 +101,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
 
             var inviteCommand = new InviteToSystemCommand(userId, model.Recipients);
             await m_ZboxWriteService.InviteSystemAsync(inviteCommand);

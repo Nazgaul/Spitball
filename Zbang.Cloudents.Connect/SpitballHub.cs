@@ -5,11 +5,11 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Connect
 {
-    // [Authorize]
     public class SpitballHub : Hub
     {
         private readonly IZboxWriteService m_WriteService;
@@ -46,31 +46,59 @@ namespace Zbang.Cloudents.Connect
             Clients.Users(users).updateImage(blobName);
         }
 
+
+        public void Offline(long userId)
+        {
+            Clients.Others.offline(userId);
+        }
+
+        public void Echo()
+        {
+            Clients.Caller.echo(Context.User.GetUserId());
+        }
+
         public void ChangeUniversity()
         {
+            if (Context.User.GetUniversityId() == null)
+            {
+                return;
+            }
             Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
             Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetUserId());
         }
 
         public override Task OnConnected()
         {
-            if (!Context.User.Identity.IsAuthenticated) return base.OnConnected();
+            if (!Context.User.Identity.IsAuthenticated)
+            {
+                return base.OnConnected();
+            }
             var user = Context.User.GetUserId();
             if (Context.User.GetUniversityId().HasValue)
             {
                 Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
                 Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetUserId());
             }
-            m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, true));
+            m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, true, Context.ConnectionId));
+
             return base.OnConnected();
+
+
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            if (!Context.User.Identity.IsAuthenticated) return base.OnDisconnected(stopCalled);
+            if (!Context.User.Identity.IsAuthenticated)
+            {
+                return base.OnDisconnected(stopCalled);
+
+            }
             var user = Context.User.GetUserId();
-            m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, false));
-            Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).offline(Context.User.GetUserId());
+            m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, false, Context.ConnectionId));
+            if (Context.User.GetUniversityId().HasValue)
+            {
+                Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).offline(Context.User.GetUserId());
+            }
             return base.OnDisconnected(stopCalled);
         }
     }

@@ -19,6 +19,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Culture;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using System.Web.UI;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {

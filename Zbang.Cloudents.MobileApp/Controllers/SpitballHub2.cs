@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
@@ -41,20 +42,24 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
         }
 
-        //public void Echo(string name)
-        //{
-        //    Clients.Caller.echo(name, Context.User.GetCloudentsUserId());
-        //}
+        public void Offline(long userId)
+        {
+            Clients.Others.offline(userId);
+        }
 
         public void ChangeUniversity()
         {
+            if (Context.User.GetUniversityId() == null)
+            {
+                return;
+            }
             Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
             Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetCloudentsUserId());
         }
 
-        public void UpdateImage(string blobName)
+        public void UpdateImage(string blobName, IList<string> users)
         {
-            Clients.Others.updateImage(blobName);
+            Clients.Users(users).updateImage(blobName);
         }
 
         public override Task OnConnected()
@@ -66,16 +71,23 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
                 Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetCloudentsUserId());
             }
-            m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, true));
+            TraceLog.WriteInfo($"{user} is online");
+            m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, true, Context.ConnectionId));
             return base.OnConnected();
         }
+
+        
 
         public override Task OnDisconnected(bool stopCalled)
         {
             if (!Context.User.Identity.IsAuthenticated) return base.OnDisconnected(stopCalled);
             var user = Context.User.GetCloudentsUserId();
-            m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, false));
-            Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).offline(Context.User.GetCloudentsUserId());
+            m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, false, Context.ConnectionId));
+            if (Context.User.GetUniversityId().HasValue)
+            {
+                Clients.OthersInGroup(Context.User.GetUniversityId().ToString())
+                    .offline(Context.User.GetCloudentsUserId());
+            }
             return base.OnDisconnected(stopCalled);
         }
     }

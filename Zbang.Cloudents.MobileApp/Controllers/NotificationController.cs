@@ -34,13 +34,13 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         // GET api/Notification
         public async Task<HttpResponseMessage> Get()
         {
-            var model = await m_ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetCloudentsUserId()));
+            var model = await m_ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetUserId()));
             return Request.CreateResponse(model.Where(w => w.QuizId == null));
         }
 
         public HttpResponseMessage Delete(long boxId)
         {
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
             var command = new DeleteUpdatesCommand(userId, boxId);
             m_ZboxWriteService.DeleteUpdates(command);
             return Request.CreateResponse();
@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/Notification/{boxId:long}/items")]
         public HttpResponseMessage DeleteItems(long boxId)
         {
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
             var command = new DeleteUpdatesItemCommand(userId, boxId);
             m_ZboxWriteService.DeleteUpdates(command);
             return Request.CreateResponse();
@@ -60,7 +60,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/Notification/{boxId:long}/feed/{feedId:guid}")]
         public HttpResponseMessage DeleteFeed(long boxId, Guid feedId)
         {
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
             var command = new DeleteUpdatesFeedCommand(userId, boxId, feedId);
             m_ZboxWriteService.DeleteUpdates(command);
             return Request.CreateResponse();
@@ -68,46 +68,57 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpPut]
         [Route("api/push/apple")]
-        public async Task<HttpResponseMessage> Apple([FromBody]RegisterDeviceRequest model)
+        public async Task<HttpResponseMessage> AppleAsync([FromBody]RegisterDeviceRequest model)
         {
+
             if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
             }
+            var userId = User.GetUserId();
+            if (userId < 0)
+            {
+                return Request.CreateUnauthorizedResponse();
+            }
             NotificationHubClient hub = NotificationHubClient.CreateClientFromConnectionString(ConfigFetcher.Fetch("MS_NotificationHubConnectionString"), ConfigFetcher.Fetch("MS_NotificationHubName"));
 
-            var registrations = await hub.GetRegistrationsByTagAsync(User.GetCloudentsUserId().ToString(), 10);
+            var registrations = await hub.GetRegistrationsByTagAsync(User.GetUserId().ToString(), 10);
             var tasks = new List<Task>();
             foreach (var registration in registrations)
             {
                 tasks.Add(hub.DeleteRegistrationAsync(registration));
             }
             await Task.WhenAll(tasks);
-            var val = await hub.CreateAppleNativeRegistrationAsync(model.DeviceToken, new[] { User.GetCloudentsUserId().ToString() });
-            var command = new RegisterMobileDeviceCommand(User.GetCloudentsUserId(), MobileOperatingSystem.iOS);
+            await hub.CreateAppleNativeRegistrationAsync(model.DeviceToken, new[] { User.GetUserId().ToString() });
+            var command = new RegisterMobileDeviceCommand(User.GetUserId(), MobileOperatingSystem.iOS);
             m_ZboxWriteService.RegisterMobileDevice(command);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         [HttpPut]
         [Route("api/push/google")]
-        public async Task<HttpResponseMessage> Google([FromBody] RegisterDeviceRequest model)
+        public async Task<HttpResponseMessage> GoogleAsync([FromBody] RegisterDeviceRequest model)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateBadRequestResponse();
             }
+            var userId = User.GetUserId();
+            if (userId < 0)
+            {
+                return Request.CreateUnauthorizedResponse();
+            }
             NotificationHubClient hub = NotificationHubClient.CreateClientFromConnectionString(ConfigFetcher.Fetch("MS_NotificationHubConnectionString"), ConfigFetcher.Fetch("MS_NotificationHubName"));
 
-            var registrations = await hub.GetRegistrationsByTagAsync(User.GetCloudentsUserId().ToString(), 10);
+            var registrations = await hub.GetRegistrationsByTagAsync(User.GetUserId().ToString(), 10);
             var tasks = new List<Task>();
             foreach (var registration in registrations)
             {
                 tasks.Add(hub.DeleteRegistrationAsync(registration));
             }
             await Task.WhenAll(tasks);
-            var val = await hub.CreateGcmNativeRegistrationAsync(model.DeviceToken, new[] { User.GetCloudentsUserId().ToString() });
-            var command = new RegisterMobileDeviceCommand(User.GetCloudentsUserId(), MobileOperatingSystem.Android);
+            await hub.CreateGcmNativeRegistrationAsync(model.DeviceToken, new[] { User.GetUserId().ToString() });
+            var command = new RegisterMobileDeviceCommand(User.GetUserId(), MobileOperatingSystem.Android);
             m_ZboxWriteService.RegisterMobileDevice(command);
             return Request.CreateResponse(HttpStatusCode.OK);
         }

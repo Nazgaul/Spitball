@@ -5,10 +5,13 @@ using Autofac;
 using Autofac.Integration.SignalR;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR.Transports;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Owin;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Storage;
 
 [assembly: OwinStartup(typeof(Zbang.Cloudents.Connect.Startup))]
 
@@ -26,7 +29,7 @@ namespace Zbang.Cloudents.Connect
             // rather than using GlobalHost.
             var config = new HubConfiguration
             {
-                EnableDetailedErrors = false
+                EnableDetailedErrors = true
             };
 
             // Register your SignalR hubs.
@@ -70,7 +73,12 @@ namespace Zbang.Cloudents.Connect
             app.UseCors(CorsOptions.AllowAll);
             app.UseAutofacMiddleware(container);
             Zbox.Infrastructure.Security.Startup.ConfigureAuth(app, true);
-            
+
+            var heartBeat = GlobalHost.DependencyResolver.Resolve<ITransportHeartbeat>();
+            var writeService = GlobalHost.DependencyResolver.Resolve<IZboxWriteService>();
+
+            var monitor = new PresenceMonitor(heartBeat, writeService);
+            monitor.StartMonitoring();
             app.MapSignalR("/s", config);
 
            // GlobalHost.HubPipeline.RequireAuthentication();

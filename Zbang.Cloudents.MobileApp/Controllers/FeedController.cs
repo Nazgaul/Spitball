@@ -14,6 +14,7 @@ using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.ViewModel.Dto.Qna;
 using Zbang.Zbox.ViewModel.Queries.QnA;
 
@@ -182,7 +183,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             }
 
             var questionId = m_GuidGenerator.GetId();
-            var command = new AddCommentCommand(User.GetCloudentsUserId(),
+            var command = new AddCommentCommand(User.GetUserId(),
                 boxId, model.Content, questionId, model.FileIds, model.Anonymously);
             var result = await m_ZboxWriteService.AddCommentAsync(command);
             return Request.CreateResponse(new
@@ -207,7 +208,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var answerId = m_GuidGenerator.GetId();
-            var command = new AddReplyToCommentCommand(User.GetCloudentsUserId(), boxId,
+            var command = new AddReplyToCommentCommand(User.GetUserId(), boxId,
                 model.Content, answerId, feedId, model.FileIds);
             await m_ZboxWriteService.AddReplyAsync(command);
             return Request.CreateResponse(answerId);
@@ -218,7 +219,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/box/{boxId:long}/feed/{feedId:guid}")]
         public async Task<HttpResponseMessage> DeleteComment(long boxId, Guid feedId)
         {
-            var command = new DeleteCommentCommand(feedId, User.GetCloudentsUserId(), boxId);
+            var command = new DeleteCommentCommand(feedId, User.GetUserId(), boxId);
             await m_ZboxWriteService.DeleteCommentAsync(command);
             return Request.CreateResponse();
         }
@@ -227,7 +228,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/box/{boxId:long}/reply/{replyId:guid}")]
         public async Task<HttpResponseMessage> DeleteReply(long boxId, Guid replyId)
         {
-            var command = new DeleteReplyCommand(replyId, User.GetCloudentsUserId(), boxId);
+            var command = new DeleteReplyCommand(replyId, User.GetUserId(), boxId);
             await m_ZboxWriteService.DeleteReplyAsync(command);
             return Request.CreateResponse();
         }
@@ -245,7 +246,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            await m_QueueProvider.InsertMessageToTranactionAsync(new BadPostData(User.GetCloudentsUserId(), model.PostId));
+            await m_QueueProvider.InsertMessageToTranactionAsync(new BadPostData(User.GetUserId(), model.PostId));
             return Request.CreateResponse();
         }
 

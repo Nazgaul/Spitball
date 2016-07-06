@@ -14,6 +14,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -53,7 +54,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/item"),ActionName("Get")]
         public async Task<HttpResponseMessage> GetAsync(long id)
         {
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
             var query = new GetItemQuery(userId, id, 0);
             var tItem = m_ZboxReadService.GetItemDetailApiAsync(query);
 
@@ -101,7 +102,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         public async Task<string> Download(long boxId, long id)
         {
             //const string defaultMimeType = "application/octet-stream";
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
 
             var query = new GetItemQuery(userId, id, boxId);
 
@@ -142,7 +143,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var command = new DeleteItemCommand(id, User.GetCloudentsUserId());
+            var command = new DeleteItemCommand(id, User.GetUserId());
             await m_ZboxWriteService.DeleteItemAsync(command);
             return Request.CreateResponse();
         }
@@ -191,7 +192,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     title = model.FileUrl;
                 }
 
-                var command = new AddLinkToBoxCommand(User.GetCloudentsUserId(), model.BoxId, model.FileUrl, null, title,
+                var command = new AddLinkToBoxCommand(User.GetUserId(), model.BoxId, model.FileUrl, null, title,
                     model.Question);
                 var result = await m_ZboxWriteService.AddItemToBoxAsync(command);
                 var result2 = result as AddLinkToBoxCommandResult;
@@ -231,7 +232,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
                 return Request.CreateBadRequestResponse();
             }
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
             var extension = Path.GetExtension(model.Name);
             if (extension == null)
             {
@@ -292,7 +293,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            var command = new AddFileToBoxCommand(User.GetCloudentsUserId(),
+            var command = new AddFileToBoxCommand(User.GetUserId(),
                 boxId, model.BlobName,
                    model.FileName,
                     size, null, model.Question);
@@ -326,7 +327,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse();
             }
 
-            var userId = User.GetCloudentsUserId();
+            var userId = User.GetUserId();
             try
             {
                 var command = new ChangeFileNameCommand(model.Id, model.Name, userId);
@@ -358,7 +359,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var id = m_GuidGenerator.GetId();
-            var command = new RateItemCommand(model.Id, User.GetCloudentsUserId(), id, model.BoxId);
+            var command = new RateItemCommand(model.Id, User.GetUserId(), id, model.BoxId);
             await m_ZboxWriteService.RateItemAsync(command);
 
             return Request.CreateResponse();
@@ -378,7 +379,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
-            await m_QueueProvider.InsertMessageToTranactionAsync(new BadItemData("From iOS app", string.Empty, User.GetCloudentsUserId(), model.ItemId));
+            await m_QueueProvider.InsertMessageToTranactionAsync(new BadItemData("From iOS app", string.Empty, User.GetUserId(), model.ItemId));
             return Request.CreateResponse();
         }
     }
