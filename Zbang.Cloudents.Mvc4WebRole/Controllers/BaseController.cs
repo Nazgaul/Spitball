@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -33,17 +34,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return null;
                 }
-                var routeFromUrl =
+                var routeData =
                     RouteTable.Routes.GetRouteData(
                         new HttpContextWrapper(
-                            new HttpContext(new HttpRequest(null, new UriBuilder(url).ToString(), string.Empty),
+                            new HttpContext(new HttpRequest(null, url, string.Empty),
                                 new HttpResponse(new StringWriter()))));
-                if (routeFromUrl?.Values["boxId"] == null)
+
+
+               // var routeData = RouteData;
+                if (routeData == null)
+                {
+                    return null;
+                }
+                if (routeData.Values.ContainsKey("MS_DirectRouteMatches"))
+                {
+                    routeData = ((IEnumerable<RouteData>)routeData.Values["MS_DirectRouteMatches"]).First();
+                }
+                if (routeData?.Values["boxId"] == null)
                 {
                     return null;
                 }
                 long retVal;
-                if (long.TryParse(routeFromUrl.Values["boxId"].ToString(), out retVal))
+                if (long.TryParse(routeData.Values["boxId"].ToString(), out retVal))
                 {
                     return retVal;
                 }
@@ -74,7 +86,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         protected bool IsCrawler()
         {
-            return Regex.IsMatch(HttpContext.Request.UserAgent, @"bot|crawler|baiduspider|80legs|ia_archiver|voyager|curl|wget|yahoo! slurp|mediapartners-google", RegexOptions.IgnoreCase);
+            var userAgent = HttpContext?.Request?.UserAgent;
+            return userAgent != null && Regex.IsMatch(userAgent, @"bot|crawler|baiduspider|80legs|ia_archiver|voyager|curl|wget|yahoo! slurp|mediapartners-google", RegexOptions.IgnoreCase);
         }
         protected override void OnException(ExceptionContext filterContext)
         {
