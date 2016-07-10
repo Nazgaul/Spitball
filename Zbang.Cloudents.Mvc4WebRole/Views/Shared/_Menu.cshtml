@@ -14,8 +14,8 @@
                     @IndexResources.Dashboard
                 </md-button>
             </li>
-            <li class="expendable nav-item">
-                <md-button user-not-register-popup="click" class="md-button-toggle" ng-click="d.toggleCourses()">
+            <li class="expendable nav-item" ng-if="d.showBoxesNodes">
+                <md-button  user-not-register-popup="click" class="md-button-toggle" ng-click="d.toggleCourses()">
                     <div flex layout="row" layout-align="start center">
                         <span class="arrow icon" ng-class="{toggled:d.coursesOpen}">
                             @Html.Svg("~/images/site/icons.svg", "sideMenuArrow", new { @class = "svgTC16" })
@@ -31,7 +31,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="expendable nav-item">
+            <li class="expendable nav-item" ng-if="d.showBoxesNodes">
                 <md-button user-not-register-popup="click" class="md-button-toggle" ng-click="d.toggleBoxes()">
                     <div flex layout="row" layout-align="start center">
                         <span class="arrow icon" ng-class="{toggled:d.boxesOpen}">

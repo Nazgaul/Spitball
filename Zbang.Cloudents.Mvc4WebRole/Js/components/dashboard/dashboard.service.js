@@ -7,7 +7,7 @@
         var d = this;
         var serverCall = false;
         var defer = $q.defer();
-
+        d.boxes = null;
         d.getBoxes = function () {
             if (d.boxes) {
                 defer.resolve(d.boxes);

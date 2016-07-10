@@ -2,7 +2,7 @@
 <md-sidenav ng-if="app.loadChat" ng-cloak class="chat md-sidenav-right" disable-backdrop="true"
             md-component-id="chat" @*close-menu="right"*@>
     <md-content ng-cloak ng-controller="ChatController as c" ng-class="{stateChat: c.state === c.states.chat}">
-        <div class="error" ng-class="{!c.connected: disconnected}">
+        <div class="error" ng-class="{disconnected : !c.connected}">
             <div>@ChatResources.DisconnectedHeader</div>
             <div>
                 <span>@ChatResources.DisconnectedText</span>
