@@ -281,39 +281,54 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var user = tUserIdentity.Result;
                 var systemUser = tSystemData.Result;
+
+
                 if (systemUser == null)
                 {
                     ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
                     return JsonError(GetErrorFromModelState());
                 }
-                if (user == null)
+               
+                if (systemUser.MembershipId.HasValue)
                 {
-                    ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountError.InvalidEmail));
+                    if (user == null)
+                    {
+                        ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountError.InvalidEmail));
+                        return JsonError(GetErrorFromModelState());
+                    }
+                    var loginStatus = await m_UserManager.CheckPasswordAsync(user, model.Password);
+
+                    if (loginStatus)
+                    {
+                        var identity = await user.GenerateUserIdentityAsync(m_UserManager, systemUser.Id,
+                            systemUser.UniversityId, systemUser.UniversityData);
+                        m_AuthenticationManager.SignIn(new AuthenticationProperties
+                        {
+                            IsPersistent = model.RememberMe,
+                        }, identity);
+
+                        m_CookieHelper.RemoveCookie(Invite.CookieName);
+                        m_LanguageCookie.InjectCookie(systemUser.Culture);
+
+                        var url = systemUser.UniversityId.HasValue
+                            ? Url.Action("Index", "Dashboard")
+                            : Url.Action("Choose", "Library");
+                        return JsonOk(url);
+
+                    }
+                    ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountError.InvalidPassword));
                     return JsonError(GetErrorFromModelState());
                 }
-
-
-                var loginStatus = await m_UserManager.CheckPasswordAsync(user, model.Password);
-
-                if (loginStatus)
+                if (systemUser.FacebookId.HasValue)
                 {
-                    var identity = await user.GenerateUserIdentityAsync(m_UserManager, systemUser.Id,
-                        systemUser.UniversityId, systemUser.UniversityData);
-                    m_AuthenticationManager.SignIn(new AuthenticationProperties
-                    {
-                        IsPersistent = model.RememberMe,
-                    }, identity);
-
-                    m_CookieHelper.RemoveCookie(Invite.CookieName);
-                    m_LanguageCookie.InjectCookie(systemUser.Culture);
-
-                    var url = systemUser.UniversityId.HasValue
-                        ? Url.Action("Index", "Dashboard")
-                        : Url.Action("Choose", "Library");
-                    return JsonOk(url);
-
+                    ModelState.AddModelError(string.Empty, AccountControllerResources.RegisterEmailFacebookAccountError);
+                    return JsonError(GetErrorFromModelState());
                 }
-                ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountError.InvalidPassword));
+                if (!string.IsNullOrEmpty(systemUser.GoogleId))
+                {
+                    ModelState.AddModelError(string.Empty, AccountControllerResources.RegisterEmailGoogleAccountError);
+                    return JsonError(GetErrorFromModelState());
+                }
             }
             catch (Exception ex)
             {
@@ -656,7 +671,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region passwordReset
-       
+
 
         [HttpPost, ActionName("ResetPassword")]
         public async Task<JsonResult> ResetPasswordAsync([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model, CancellationToken cancellationToken)

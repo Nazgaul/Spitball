@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Infrastructure.Security
 
         public static string Localize(string error, string userName)
         {
-            if (string.Format("Name {0} is already taken.", userName) == error)
+            if ($"Name {userName} is already taken." == error)
             {
                 return Validation.DuplicateEmail;
             }

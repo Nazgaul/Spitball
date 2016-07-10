@@ -156,7 +156,10 @@ where u.userid = @UserId";
 select 
 u.UserId as Id, 
 u.UserName as Name,
-u.Culture as Culture, 
+u.Culture as Culture,
+u.googleuserid as GoogleId, 
+u.facebookuserid as FacebookId,
+u.MembershipUserId as membershipId,
     u.UserImageLarge as Image,
     u.Email as Email,
     u.UserReputation as Score,

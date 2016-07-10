@@ -122,6 +122,7 @@
     <Compile Include="Dto\BoxDto.cs" />
     <Compile Include="Dto\UpdatesDto.cs" />
     <Compile Include="Dto\UserDtos\ActivityDto.cs" />
+    <Compile Include="Dto\UserDtos\ForgotPasswordDto.cs" />
     <Compile Include="Dto\UserDtos\LogInUserDto.cs" />
     <Compile Include="Dto\UserDtos\UserDetailDto.cs" />
     <Compile Include="Dto\UserDtos\UserDto.cs" />
