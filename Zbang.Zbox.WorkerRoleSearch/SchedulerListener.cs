@@ -94,7 +94,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         TraceLog.WriteInfo($"schduler lister delete message: {result}");
                         return result;
 
-                    }, TimeSpan.FromMinutes(15), int.MaxValue, cancellationToken);
+                    }, TimeSpan.FromMinutes(15), 10, cancellationToken);
                 }
                 catch (TaskCanceledException)
                 {
