@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Enums;
 
@@ -6,20 +7,25 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public abstract class CreateUserCommand : ICommandAsync
     {
-        protected CreateUserCommand(string emailId, long? universityId, string firstName, string lastName,
-             string culture, Guid? inviteId, long? boxId, Sex sex)
+        protected CreateUserCommand(string emailId, 
+            //long? universityId, 
+            string firstName, 
+            string lastName,
+             string culture, Guid? inviteId, 
+             long? boxId, Sex sex, NameValueCollection parameters)
         {
             Sex = sex;
+            Parameters = parameters;
             BoxId = boxId;
             InviteId = inviteId;
             Culture = culture;
             Email = emailId;
-            if (universityId.HasValue && universityId.Value == 19878)
-            {
-                universityId = null;
+            //if (universityId.HasValue && universityId.Value == 19878)
+            //{
+            //    universityId = null;
 
-            }
-            UniversityId = universityId;
+            //}
+           // UniversityId = universityId;
             FirstName = firstName;
             LastName = lastName;
            
@@ -33,9 +39,11 @@ namespace Zbang.Zbox.Domain.Commands
 
         
 
-        public long? UniversityId { get; private set; }
+        //public long? UniversityId { get; private set; }
 
         public long? BoxId { get; private set; }
+
+        public NameValueCollection Parameters { get; private set; }
 
         public string Culture { get; private set; }
 

@@ -32,9 +32,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new NullReferenceException("command.Email");
             }
-
-
-
             var user = GetUserByEmail(command.Email);
 
             if (user != null && IsUserRegistered(user))
@@ -65,11 +62,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var retVal = new CreateMembershipUserCommandResult(user);
             UpdateUniversityByBox(membershipCommand.BoxId, retVal, user);
-            if (membershipCommand.UniversityId.HasValue)
-            {
-                UpdateUniversity(membershipCommand.UniversityId.Value, retVal, user);
+            UpdateUniversity(membershipCommand, retVal, user);
 
-            }
             await GiveReputationAndAssignToBoxAsync(command.InviteId, user);
             UserRepository.Save(user);
             return retVal;

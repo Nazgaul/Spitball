@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -26,49 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
         }
 
-        protected long? GetBoxIdRouteDataFromDifferentUrl(string url)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(url))
-                {
-                    return null;
-                }
-                var routeData =
-                    RouteTable.Routes.GetRouteData(
-                        new HttpContextWrapper(
-                            new HttpContext(new HttpRequest(null, url, string.Empty),
-                                new HttpResponse(new StringWriter()))));
-
-
-               // var routeData = RouteData;
-                if (routeData == null)
-                {
-                    return null;
-                }
-                if (routeData.Values.ContainsKey("MS_DirectRouteMatches"))
-                {
-                    routeData = ((IEnumerable<RouteData>)routeData.Values["MS_DirectRouteMatches"]).First();
-                }
-                if (routeData?.Values["boxId"] == null)
-                {
-                    return null;
-                }
-                long retVal;
-                if (long.TryParse(routeData.Values["boxId"].ToString(), out retVal))
-                {
-                    return retVal;
-                }
-                return null;
-
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("GetBoxIdRouteDataFromDifferentUrl url: " + url, ex);
-                return null;
-            }
-
-        }
+       
 
         protected string RenderRazorViewToString(string viewName, object model)
         {
@@ -167,7 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(false, data));
         }
 
-        
+
 
 
 

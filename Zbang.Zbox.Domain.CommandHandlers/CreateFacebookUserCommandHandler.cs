@@ -72,10 +72,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             var retVal = new CreateFacebookUserCommandResult(user);
             UpdateUniversityByBox(command.BoxId, retVal, user);
-            if (facebookCommand.UniversityId.HasValue)
-            {
-                UpdateUniversity(facebookCommand.UniversityId.Value, retVal, user);
-            }
+            UpdateUniversity(facebookCommand, retVal, user);
+
             await GiveReputationAndAssignToBoxAsync(command.InviteId, user);
             UserRepository.Save(user);
             return retVal;

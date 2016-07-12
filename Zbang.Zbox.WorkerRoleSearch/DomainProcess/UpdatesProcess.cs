@@ -8,7 +8,7 @@ using Zbang.Zbox.Infrastructure.Transport;
 
 namespace Zbang.Zbox.WorkerRoleSearch.DomainProcess
 {
-    class UpdatesProcess : IDomainProcess
+    internal class UpdatesProcess : IDomainProcess
     {
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
 

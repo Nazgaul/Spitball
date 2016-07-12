@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
@@ -19,12 +21,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             using (var client = new HttpClient())
             {
-
-                client.DefaultRequestHeaders.Authorization =
-                    new System.Net.Http.Headers.AuthenticationHeaderValue("Basic",
-                        "bmptcGdheXY6cm8tOTkyYzFiZTA4NzEwYTZjMWJkZGMyOGFmMWM0ZWQ3NTEzODQxMWY1YQ==");
-                client.DefaultRequestHeaders.Accept.Add(
-                    new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                AddHeaders(client);
                 using (
                     var response = await client.GetAsync($"https://api.intercom.io/users?segment_id=573177a948717f93ab00017a&page={page}", token))
                 {
@@ -44,52 +41,39 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             }
         }
-    }
 
-    public class IntercomUsers
-    {
-        [JsonProperty(PropertyName = "user_id", ItemConverterType = typeof(StringToLongConverter))]
-        public long UserId { get; set; }
-        public string Email { get; set; }
-
-        private class StringToLongConverter : JsonConverter
+        public async Task UpdateUserRefAsync(long userId, string email, string reference, CancellationToken token)
         {
-            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            using (var client = new HttpClient())
             {
-                throw new NotImplementedException();
-            }
-
-            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-            {
-
-                if (reader.TokenType == JsonToken.Null)
-                    throw new JsonReaderException($"Expected integer, got {reader.Value}");
-                if (reader.TokenType == JsonToken.Integer)
-                    return reader.Value;
-                if (reader.TokenType == JsonToken.String)
+                AddHeaders(client);
+                var jsonString = JsonConvert.SerializeObject(new { user_id = userId, email, custom_attributes = new { reference } });
+                using (var content = new StringContent(jsonString,Encoding.UTF8,"application/json"))
                 {
-                    if (string.IsNullOrEmpty((string)reader.Value))
-                        throw new JsonReaderException($"Expected integer, got {reader.Value}");
-                    long num;
-                    if (long.TryParse((string)reader.Value, out num))
-                        return num;
-
-                    throw new JsonReaderException($"Expected integer, got {reader.Value}");
+                    var response = await client.PostAsync("https://api.intercom.io/users", content, token);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        var text = await response.Content.ReadAsStringAsync();
+                        TraceLog.WriteError($"on update ref user intercom {text}");
+                    }
                 }
-                throw new JsonReaderException($"Unexcepted token {reader.TokenType}");
-            }
-
-            public override bool CanConvert(Type objectType)
-            {
-                return objectType == typeof(long);
             }
         }
-    }
 
+        private static void AddHeaders(HttpClient client)
+        {
+            client.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Basic",
+                    "bmptcGdheXY6ZWJmMWEyNWQyNjQ0YzUyZDM0NjA4OGJiODhhY2YzYjJjYTEzMjA0Mg==");
+            client.DefaultRequestHeaders.Accept.Add(
+                new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+        }
+    }
 
 
     public interface IIntercomApiManager
     {
         Task<IEnumerable<IntercomUsers>> GetUnsubscribersAsync(int page, CancellationToken token);
+        Task UpdateUserRefAsync(long userId, string email, string reference, CancellationToken token);
     }
 }

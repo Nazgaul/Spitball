@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.Domain.Commands
@@ -6,9 +7,9 @@ namespace Zbang.Zbox.Domain.Commands
     public class CreateMembershipUserCommand : CreateUserCommand
     {
         public const string ResolveName = "Membership";
-        public CreateMembershipUserCommand(Guid membershipId, string email, long? universityId, string firstName,
-            string lastName, string culture, Sex sex, Guid? inviteId = null, long? boxId = null)
-            : base(email, universityId, firstName, lastName, culture, inviteId, boxId, sex)
+        public CreateMembershipUserCommand(Guid membershipId, string email, string firstName,
+            string lastName, string culture, Sex sex, NameValueCollection parameters, Guid? inviteId = null, long? boxId = null)
+            : base(email, firstName, lastName, culture, inviteId, boxId, sex, parameters)
         {
             //UniversityName = universityName;
             MembershipUserId = membershipId;
