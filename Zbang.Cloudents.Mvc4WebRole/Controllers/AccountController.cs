@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data.Entity.Validation;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using DevTrends.MvcDonutCaching;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -72,7 +76,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Login
 
         [HttpPost, ActionName("GoogleLogin")]
-        public async Task<JsonResult> GoogleLoginAsync(ExternalLogIn model, string returnUrl, CancellationToken cancellationToken)
+        public async Task<JsonResult> GoogleLoginAsync(ExternalLogIn model, CancellationToken cancellationToken)
         {
 
             var googleUserData = await m_GoogleService.Value.GoogleLogOnAsync(model.Token);
@@ -93,16 +97,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         invId = inv.InviteId;
                     }
-                    model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl(returnUrl);
+
+                    model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl();
                     var command = new CreateGoogleUserCommand(googleUserData.Email,
                         googleUserData.Id,
                         googleUserData.Picture,
-                        model.UniversityId,
+                        //ExtractUniversityId(),
                         googleUserData.FirstName,
                         googleUserData.LastName,
                         googleUserData.Locale, Sex.NotKnown,
+                        ExtractQueryStringFromUrlReferrer(),
                         invId,
-                        model.BoxId);
+                        model.BoxId
+                        );
                     try
                     {
                         var commandResult = await ZboxWriteService.CreateUserAsync(command);
@@ -162,9 +169,80 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+
+        private NameValueCollection ExtractQueryStringFromUrlReferrer()
+        {
+            var query = HttpContext.Request.UrlReferrer?.Query;
+            if (string.IsNullOrEmpty(query))
+            {
+                return null;
+            }
+            return HttpUtility.ParseQueryString(query);
+        }
+
+        private long? GetBoxIdRouteDataFromDifferentUrl()
+        {
+            //var url = HttpContext.Request.UrlReferrer;
+            try
+            {
+                var queryParsed = ExtractQueryStringFromUrlReferrer();
+                var url = queryParsed?["returnUrl"];
+
+                if (string.IsNullOrEmpty(url))
+                {
+                    return null;
+                }
+                var routeData =
+                    RouteTable.Routes.GetRouteData(
+                        new HttpContextWrapper(
+                            new HttpContext(new HttpRequest(null, url, string.Empty),
+                                new HttpResponse(new StringWriter()))));
+
+
+                // var routeData = RouteData;
+                if (routeData == null)
+                {
+                    return null;
+                }
+                if (routeData.Values.ContainsKey("MS_DirectRouteMatches"))
+                {
+                    routeData = ((IEnumerable<RouteData>)routeData.Values["MS_DirectRouteMatches"]).First();
+                }
+                if (routeData?.Values["boxId"] == null)
+                {
+                    return null;
+                }
+                long retVal;
+                if (long.TryParse(routeData.Values["boxId"].ToString(), out retVal))
+                {
+                    return retVal;
+                }
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError($"GetBoxIdRouteDataFromDifferentUrl url: {HttpContext.Request.UrlReferrer}", ex);
+                return null;
+            }
+
+        }
+
+        //private long? ExtractUniversityId()
+        //{
+        //    var values = ExtractQueryStringFromUrlReferrer();
+        //    long temp;
+        //    long? universityId = null;
+        //    if (long.TryParse(values["universityid"], out temp))
+        //    {
+        //        universityId = temp;
+        //    }
+        //    return universityId;
+        //}
+
         [HttpPost]
         [ActionName("FacebookLogin")]
-        public async Task<JsonResult> FacebookLoginAsync(ExternalLogIn model, string returnUrl)
+        public async Task<JsonResult> FacebookLoginAsync(ExternalLogIn model)
         {
             try
             {
@@ -184,13 +262,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     {
                         invId = inv.InviteId;
                     }
-                    model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl(returnUrl);
-                    var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
-                         facebookUserData.LargeImage, model.UniversityId,
-                        facebookUserData.First_name,
+                    model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl();
 
+                    var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
+                        facebookUserData.LargeImage,
+                        facebookUserData.First_name,
                         facebookUserData.Last_name,
-                        facebookUserData.Locale, facebookUserData.SpitballGender, invId, model.BoxId);
+                        facebookUserData.Locale, facebookUserData.SpitballGender, ExtractQueryStringFromUrlReferrer(), invId, model.BoxId);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -281,39 +359,54 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 var user = tUserIdentity.Result;
                 var systemUser = tSystemData.Result;
+
+
                 if (systemUser == null)
                 {
                     ModelState.AddModelError(string.Empty, AccountControllerResources.LogonError);
                     return JsonError(GetErrorFromModelState());
                 }
-                if (user == null)
+
+                if (systemUser.MembershipId.HasValue)
                 {
-                    ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountError.InvalidEmail));
+                    if (user == null)
+                    {
+                        ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountError.InvalidEmail));
+                        return JsonError(GetErrorFromModelState());
+                    }
+                    var loginStatus = await m_UserManager.CheckPasswordAsync(user, model.Password);
+
+                    if (loginStatus)
+                    {
+                        var identity = await user.GenerateUserIdentityAsync(m_UserManager, systemUser.Id,
+                            systemUser.UniversityId, systemUser.UniversityData);
+                        m_AuthenticationManager.SignIn(new AuthenticationProperties
+                        {
+                            IsPersistent = model.RememberMe,
+                        }, identity);
+
+                        m_CookieHelper.RemoveCookie(Invite.CookieName);
+                        m_LanguageCookie.InjectCookie(systemUser.Culture);
+
+                        var url = systemUser.UniversityId.HasValue
+                            ? Url.Action("Index", "Dashboard")
+                            : Url.Action("Choose", "Library");
+                        return JsonOk(url);
+
+                    }
+                    ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountError.InvalidPassword));
                     return JsonError(GetErrorFromModelState());
                 }
-
-
-                var loginStatus = await m_UserManager.CheckPasswordAsync(user, model.Password);
-
-                if (loginStatus)
+                if (systemUser.FacebookId.HasValue)
                 {
-                    var identity = await user.GenerateUserIdentityAsync(m_UserManager, systemUser.Id,
-                        systemUser.UniversityId, systemUser.UniversityData);
-                    m_AuthenticationManager.SignIn(new AuthenticationProperties
-                    {
-                        IsPersistent = model.RememberMe,
-                    }, identity);
-
-                    m_CookieHelper.RemoveCookie(Invite.CookieName);
-                    m_LanguageCookie.InjectCookie(systemUser.Culture);
-
-                    var url = systemUser.UniversityId.HasValue
-                        ? Url.Action("Index", "Dashboard")
-                        : Url.Action("Choose", "Library");
-                    return JsonOk(url);
-
+                    ModelState.AddModelError(string.Empty, AccountControllerResources.RegisterEmailFacebookAccountError);
+                    return JsonError(GetErrorFromModelState());
                 }
-                ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountError.InvalidPassword));
+                if (!string.IsNullOrEmpty(systemUser.GoogleId))
+                {
+                    ModelState.AddModelError(string.Empty, AccountControllerResources.RegisterEmailGoogleAccountError);
+                    return JsonError(GetErrorFromModelState());
+                }
             }
             catch (Exception ex)
             {
@@ -353,7 +446,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [/*ValidateAntiForgeryToken,*/ActionName("Register")]
         public async Task<JsonResult> RegisterAsync([ModelBinder(typeof(TrimModelBinder))] Register model)
         {
-            model.BoxId = GetBoxIdRouteDataFromDifferentUrl(model.ReturnUrl);
+            //var values = ExtractQueryStringFromUrlReferrer();
+            //long temp;
+            //if (long.TryParse(values["universityId"], out temp))
+            //{
+            //    model.UniversityId = temp;
+            //}
+            model.BoxId = GetBoxIdRouteDataFromDifferentUrl();
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
@@ -383,9 +482,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         lang = Thread.CurrentThread.CurrentCulture.Name;
                     }
                     CreateUserCommand command = new CreateMembershipUserCommand(Guid.Parse(user.Id),
-                        model.NewEmail, model.UniversityId,
+                        model.NewEmail,
                         model.FirstName, model.LastName,
-                        lang, model.Sex, invId, model.BoxId);
+                        lang, model.Sex, ExtractQueryStringFromUrlReferrer(), invId, model.BoxId);
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     m_LanguageCookie.InjectCookie(result.User.Culture);
 
@@ -656,7 +755,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region passwordReset
-       
+
 
         [HttpPost, ActionName("ResetPassword")]
         public async Task<JsonResult> ResetPasswordAsync([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model, CancellationToken cancellationToken)

@@ -18,7 +18,10 @@ namespace Zbang.Zbox.Infrastructure.File
 
         const string CacheVersion = CacheVersionPrefix + "4";
 
-        public PdfProcessor(IBlobProvider blobProvider, IBlobProvider2<IPreviewContainer> blobProviderPreview, IBlobProvider2<ICacheContainer> blobProviderCache)
+        public PdfProcessor(
+            IBlobProvider blobProvider,
+            IBlobProvider2<IPreviewContainer> blobProviderPreview,
+            IBlobProvider2<ICacheContainer> blobProviderCache)
             : base(blobProvider, blobProviderPreview, blobProviderCache)
         {
             SetLicense();
@@ -155,12 +158,6 @@ namespace Zbang.Zbox.Infrastructure.File
                     }
                     builder.Append(extractedText);
                 }
-                //var textAbsorber = new TextAbsorber();
-                //for (var i = 1; i < Math.Min(doc.Pages.Count, 10); i++)
-                //{
-                //    doc.Pages[i].Accept(textAbsorber);
-                //}
-                //var str = textAbsorber.Text;
                 var str = StripUnwantedChars(builder.ToString());
                 return str;
             }
@@ -170,10 +167,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 return string.Empty;
             }
         }
-        //public override string GetDefaultThumbnailPicture()
-        //{
-        //    return DefaultPicture.PdfFileTypePicture;
-        //}
+
 
 
 
@@ -188,17 +182,5 @@ namespace Zbang.Zbox.Infrastructure.File
             }
         }
 
-        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
-        //{
-        //    var path = await BlobProvider.DownloadFileAsync(blobUri, cancelToken);
-        //    using (var pdfDocument = new Document(path))
-        //    {
-        //        var jpegDevice = new JpegDevice(new Resolution(150), 80);
-        //        var ms = new MemoryStream();
-        //        jpegDevice.Process(pdfDocument.Pages[1], ms);
-        //        var blobName = GetBlobNameFromUri(blobUri);
-        //        await BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
-        //    }
-        //}
     }
 }

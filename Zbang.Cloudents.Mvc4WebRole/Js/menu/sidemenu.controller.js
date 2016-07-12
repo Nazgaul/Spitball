@@ -19,16 +19,31 @@
                 };
             }
         });
-
-
+        d.showBoxesNodes = true;
+        $scope.$watch(function () {
+            if (dashboardService.boxes) {
+                return dashboardService.boxes.length;
+            }
+            return dashboardService.boxes;
+        }, function (val) {
+            if (angular.isNumber(val)) {
+                if (val > 0) {
+                    d.showBoxesNodes = true;
+                } else {
+                    d.showBoxesNodes = false;
+                }
+                return;
+            }
+            if (!val) {
+                //we don't know what is the status
+                d.showBoxesNodes = true;
+            }
+        });
 
         d.coursesOpen = false;
         d.boxesOpen = false;
 
-        //d.isOpen = isOpen;
-        //d.toggleOpen = toggleOpen;
         d.isSectionSelected = isSectionSelected;
-        //var openedSection;
 
         d.toggleCourses = toggleCourses;
         d.toggleBoxes = toggleBoxes;

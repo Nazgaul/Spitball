@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (user == null)//email was invited to a box new user
             {
-                user = UserRepository.GetUserByGoogleId(googleCommand.GoogleId); 
+                user = UserRepository.GetUserByGoogleId(googleCommand.GoogleId);
                 if (user != null && IsUserRegistered(user))
                 {
                     throw new ArgumentException("user is already registered");
@@ -81,10 +81,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var result = new CreateGoogleUserCommandResult(user);
             UpdateUniversityByBox(command.BoxId, result, user);
-            if (googleCommand.UniversityId.HasValue)
-            {
-                UpdateUniversity(googleCommand.UniversityId.Value, result, user);
-            }
+            UpdateUniversity(googleCommand, result, user);
+
             await GiveReputationAndAssignToBoxAsync(command.InviteId, user);
             UserRepository.Save(user);
             return result;

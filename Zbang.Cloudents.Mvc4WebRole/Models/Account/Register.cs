@@ -30,9 +30,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "FieldRequired")]
         public Sex Sex { get; set; }
 
-        public long? UniversityId { get; set; }
+        //public long? UniversityId { get; set; }
 
-        public string ReturnUrl { get; set; }
+        //public string ReturnUrl { get; set; }
 
         public long? BoxId { get; set; }
 

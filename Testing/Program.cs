@@ -24,6 +24,7 @@ using Microsoft.AspNet.SignalR.Client;
 using Zbang.Zbox.Domain;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Repositories;
 using File = System.IO.File;
 
@@ -208,8 +209,9 @@ namespace Testing
 
 
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
-            var emailVerify = iocFactory.Resolve<IEmailVerification>();
-            var t = emailVerify.VerifyEmail("asdf@gmai.lcom");
+            var cache = iocFactory.Resolve<ICache>();
+            cache.RemoveFromCacheAsyncSlowAsync("feed_111492").Wait();
+            //var t = emailVerify.VerifyEmail("asdf@gmai.lcom");
             // var x = iocFactory.Resolve<IFileProcessorFactory>();
             // x.GetProcessor(
             //     new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxchat/28d7e877-df93-4fec-9dd7-74c27e630db7.png"));

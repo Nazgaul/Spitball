@@ -116,7 +116,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpPost]
         [Route("api/facebookLogin")]
-        public async Task<HttpResponseMessage> FacebookLogin(ExternalLoginRequest model)
+        public async Task<HttpResponseMessage> FacebookLoginAsync(ExternalLoginRequest model)
         {
             if (model == null)
             {
@@ -134,10 +134,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 if (user == null)
                 {
                     var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
-                         facebookUserData.LargeImage, null,
+                         facebookUserData.LargeImage,
                         facebookUserData.First_name,
                         facebookUserData.Last_name,
-                        facebookUserData.Locale, facebookUserData.SpitballGender);
+                        facebookUserData.Locale, facebookUserData.SpitballGender, null);
                     var commandResult = await m_ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -207,10 +207,10 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                     var command = new CreateGoogleUserCommand(googleUserData.Email,
                         googleUserData.Id,
                         googleUserData.Picture,
-                        null,
+
                         googleUserData.FirstName,
                         googleUserData.LastName,
-                        googleUserData.Locale, Sex.NotKnown);
+                        googleUserData.Locale, Sex.NotKnown, null);
                     var commandResult = await m_ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {

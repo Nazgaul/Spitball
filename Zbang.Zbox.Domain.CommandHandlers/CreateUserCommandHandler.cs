@@ -37,10 +37,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public abstract Task<CreateUserCommandResult> ExecuteAsync(CreateUserCommand command);
 
-        private Task TriggerWelcomeMailAsync(User user)
+        private Task TriggerWelcomeMailAsync(User user, CreateUserCommand command)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
-            return m_QueueRepository.InsertMessageToMailNewAsync(new WelcomeMailData(user.Email, user.Name, user.Culture));
+
+            return m_QueueRepository.InsertMessageToTranactionAsync(new NewUserData(user.Id, user.Name, user.Culture, user.Email, command.Parameters?["ref"]));
         }
 
         protected async Task GiveReputationAndAssignToBoxAsync(Guid? invId, User user)
@@ -94,27 +95,29 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         protected Task UpdateUserAsync(User user, CreateUserCommand command)
         {
+            if (user == null) throw new ArgumentNullException(nameof(user));
+            if (command == null) throw new ArgumentNullException(nameof(command));
             user.IsRegisterUser = true;
-
-
-
             user.FirstName = command.FirstName;
             user.LastName = command.LastName;
             user.Sex = command.Sex;
             user.CreateName();
-
-
             user.Quota.AllocateStorage();
-            return TriggerWelcomeMailAsync(user);
+            return TriggerWelcomeMailAsync(user, command);
         }
 
 
 
 
-        protected void UpdateUniversity(long universityId, CreateUserCommandResult result, User user)
+        protected void UpdateUniversity(CreateUserCommand command, CreateUserCommandResult result, User user)
         {
+
             if (result == null) throw new ArgumentNullException(nameof(result));
             if (user == null) throw new ArgumentNullException(nameof(user));
+
+            long universityId;
+
+            if (!long.TryParse(command.Parameters?["universityId"], out universityId)) return;
             var university = m_UniversityRepository.Get(universityId);
             if (university == null)
             {

@@ -1,4 +1,5 @@
 var Login = function () {
+    var queryString = getUrlVars();
     var forgotPasswordState = 0,
         loginState = 1,
         signupState = 2;
@@ -187,14 +188,13 @@ var Login = function () {
         $('#register-btn, .login-option.signup').click(function (e) {
             e.preventDefault();
             pushState(signupState);
-            ga('send', 'pageview', '/account/signup');
+           
         });
 
-        $('#register-btn').click(function (e) {
+        $('#register-btn').click(function () {
             document.body.scrollTop = 0;
             $('.login-form, .forgot-password-form').hide();
             $('.register-form').removeClass('hidden').fadeIn();
-            //trackConversion();
         });
 
         //for forgot password
@@ -204,7 +204,7 @@ var Login = function () {
             $('.register-form, .forgot-password-form').hide();
             $('.login-form').removeClass('hidden').fadeIn();
             pushState(loginState);
-            ga('send', 'pageview', '/account/signin');
+           
 
         });
 
@@ -215,7 +215,7 @@ var Login = function () {
             $('.login-form, .register-form').hide();
             $('.forgot-password-form').removeClass('hidden').fadeIn();
             pushState(forgotPasswordState);
-            ga('send', 'pageview', '/account/resetpassword');
+            
             //trackConversion();
         });
 
@@ -230,7 +230,7 @@ var Login = function () {
             googleLogIn();
         });
         window.Intercom('boot', {
-            app_id: "njmpgayv",
+            app_id: "njmpgayv"
         });
     }
 
@@ -246,14 +246,14 @@ var Login = function () {
             $('.home-page-body .loader').addClass('active');
         }, 200);
         var values = $(form).serialize();
-        var returnUrl = getUrlVars()['returnUrl'];
-        var universityId = getUrlVars()['universityid'];
-        if (returnUrl) {
-            values += "&returnUrl=" + returnUrl;
-        }
-        if (universityId) {
-            values += "&universityId=" + universityId;
-        }
+        //var returnUrl = queryString['returnUrl'];
+        //var universityId = queryString['universityid'];
+        //if (returnUrl) {
+            //values += "&returnUrl=" + returnUrl;
+        //}
+        //if (universityId) {
+        //    values += "&universityId=" + universityId;
+        //}
 
 
         $.post('/account/register', values).done(function (data) {
@@ -272,14 +272,11 @@ var Login = function () {
             }
 
             ga('send', 'event', 'Signup', 'Email');
-
             clearStorage();
-            //setNewUser();
-            if (returnUrl) {
-                window.location.href = decodeURIComponent(returnUrl);
+            if (queryString['returnUrl']) {
+                window.location.href = decodeURIComponent(queryString['returnUrl']);
                 return;
             }
-
             window.location.href = data.payload;
         }).always(function () {
             clearTimeout(t);
@@ -294,7 +291,7 @@ var Login = function () {
             $('.home-page-body .loader').addClass('active');
         }, 200);
         var values = $(form).serialize();
-        var returnUrl = getUrlVars()['returnUrl'];
+       
 
 
         $.post('/account/login', values).done(function (data) {
@@ -315,7 +312,7 @@ var Login = function () {
 
             ga('send', 'event', 'Signin', 'Email');
 
-
+            var returnUrl = queryString['returnUrl'];
             if (returnUrl) {
                 window.location.href = decodeURIComponent(returnUrl);
                 return;
@@ -334,9 +331,9 @@ var Login = function () {
         authInstance.signIn().then(function (googleUser) {
             var idToken = googleUser.getAuthResponse().id_token;
             $.post('/account/GoogleLogin', {
-                token: idToken,
-                universityId: getUrlVars()['universityid'],
-                returnUrl: getUrlVars()['returnUrl']
+                token: idToken
+                //universityId: queryString['universityid'],
+                //returnUrl: queryString['returnUrl']
             }).done(function (data) {
                 externalLogIn(data, 'Google');
             });
@@ -355,9 +352,9 @@ var Login = function () {
         function processLogin(accessToken) {
             //trackConversion();
             $.post('/account/facebookLogin', {
-                token: accessToken,
-                universityId: getUrlVars()['universityid'],
-                returnUrl: getUrlVars()['returnUrl']
+                token: accessToken
+                //universityId: queryString['universityid'],
+                //returnUrl: queryString['returnUrl']
             }).done(function (data) {
                 externalLogIn(data, 'Facebook');
             });
@@ -388,7 +385,7 @@ var Login = function () {
             return;
         }
         ga('send', 'event', 'Signin', type);
-        var returnUrl = getUrlVars()['returnUrl'];
+        var returnUrl = queryString['returnUrl'];
         if (returnUrl) {
             window.location.href = decodeURIComponent(returnUrl);
             return;
@@ -405,23 +402,27 @@ var Login = function () {
         if (!window.history) {
             return;
         }
-        var universityId = getUrlVars()['universityid'];
-        var ext = '';
-        if (universityId) {
-            ext = '?universityid=' + universityId;
-        }
+        //var universityId = queryString['universityid'];
+        //var ref = queryString['ref'];
+        //var ext = '';
+        //if (universityId && ref) {
+        //    ext = '?universityid=' + universityId;
+        //}
         if (state === loginState) {
-
-            window.history.replaceState(null, "Signin", "/account/signin/" + ext);
+            window.history.replaceState(null, "Signin", "/account/signin/" + location.search);
+            ga('send', 'pageview', '/account/signin');
             return;
         }
         if (state === signupState) {
-            window.history.replaceState(null, "Sign up", "/account/signup/" + ext);
+            window.history.replaceState(null, "Sign up", "/account/signup/" + location.search);
+            ga('send', 'pageview', '/account/signup');
             return;
         }
-        window.history.replaceState(null, "Forgot password", "/account/resetpassword/");
-        $(window).scrollTop(0);
+        window.history.replaceState(null, "Forgot password", "/account/resetpassword/" + location.search);
+        ga('send', 'pageview', '/account/resetpassword');
+        $(window).scrollTop(0); //TODO: why this is only happen in forgot password
     }
+
 
     function getUrlVars() {
         var vars = [], hash;
@@ -527,17 +528,6 @@ function handleLoginElements(formClass, fromUrl) {
     $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
 
 }
-
-//function trackConversion() {
-//    window.google_trackConversion({
-//        conversion_id: 939226062,
-//        conversion_language: "en",
-//        conversion_format: "3",
-//        conversion_color: "ffffff",
-//        conversion_label: "KiNvCODoqWAQzuftvwM",
-//        remarketing_only: false
-//    });
-//}
 
 function googleLoad() {
     gapi.load('auth2', function () {

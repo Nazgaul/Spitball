@@ -115,6 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
+        //TODO: remove this
         [HttpGet]
         public async Task<ActionResult> FromEmail(string key, string email)
         {

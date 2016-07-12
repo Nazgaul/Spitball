@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -25,38 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
         }
 
-        protected long? GetBoxIdRouteDataFromDifferentUrl(string url)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(url))
-                {
-                    return null;
-                }
-                var routeFromUrl =
-                    RouteTable.Routes.GetRouteData(
-                        new HttpContextWrapper(
-                            new HttpContext(new HttpRequest(null, new UriBuilder(url).ToString(), string.Empty),
-                                new HttpResponse(new StringWriter()))));
-                if (routeFromUrl?.Values["boxId"] == null)
-                {
-                    return null;
-                }
-                long retVal;
-                if (long.TryParse(routeFromUrl.Values["boxId"].ToString(), out retVal))
-                {
-                    return retVal;
-                }
-                return null;
-
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("GetBoxIdRouteDataFromDifferentUrl url: " + url, ex);
-                return null;
-            }
-
-        }
+       
 
         protected string RenderRazorViewToString(string viewName, object model)
         {
@@ -74,7 +45,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         protected bool IsCrawler()
         {
-            return Regex.IsMatch(HttpContext.Request.UserAgent, @"bot|crawler|baiduspider|80legs|ia_archiver|voyager|curl|wget|yahoo! slurp|mediapartners-google", RegexOptions.IgnoreCase);
+            var userAgent = HttpContext?.Request?.UserAgent;
+            return userAgent != null && Regex.IsMatch(userAgent, @"bot|crawler|baiduspider|80legs|ia_archiver|voyager|curl|wget|yahoo! slurp|mediapartners-google", RegexOptions.IgnoreCase);
         }
         protected override void OnException(ExceptionContext filterContext)
         {
@@ -154,7 +126,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(false, data));
         }
 
-        
+
 
 
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Autofac;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.File
 {
@@ -40,7 +41,15 @@ namespace Zbang.Zbox.Infrastructure.File
         public IContentProcessor GetProcessor(Uri contentUrl)
         {
             var blob = m_Container.Resolve<IBlobProvider2<PreviewContainerName>>();
+            if (blob == null)
+            {
+                TraceLog.WriteError("GetProcessor blob is null");
+            }
             var blob2 = m_Container.Resolve<IBlobProvider2<CacheContainerName>>();
+            if (blob2 == null)
+            {
+                TraceLog.WriteError("GetProcessor blob is null");
+            }
             var processors = m_Container.Resolve<IEnumerable<IContentProcessor>>(
                 new NamedParameter("blobProviderPreview", blob), new NamedParameter("blobProviderCache", blob2));
             var processor = processors.FirstOrDefault(w => w.CanProcessFile(contentUrl));
