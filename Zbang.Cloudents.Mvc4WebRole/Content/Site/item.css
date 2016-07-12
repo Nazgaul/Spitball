@@ -25,8 +25,8 @@ md-menu-item.blue svg {
 .itemPage .progress-bar {
   min-height: 5px;
   margin-bottom: 5px;
-  position: fixed;
-  top: 70px;
+  position: absolute;
+  top: 0;
   left: 0;
   right: 0;
 }

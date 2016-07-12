@@ -6,7 +6,7 @@
     function verionChecker($http, cacheFactory, $mdToast, resManager, $document) {
         "use strict";
         var clientVersion = window.version,
-            timeInterval = 300000; //five minutes
+            timeInterval = 900000; //fifteen minutes
 
         $document.ready(function() {
             setInterval(checkVersion, timeInterval);
