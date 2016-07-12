@@ -288,7 +288,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 tSystemUser.Result.UniversityId, tSystemUser.Result.UniversityData);
 
             var claims = identity.Claims.ToList();
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, User.GetUserId().ToString(CultureInfo.InvariantCulture)));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, tSystemUser.Result.Id.ToString(CultureInfo.InvariantCulture)));
             var token = AppServiceLoginHandler.CreateToken(claims,
          Environment.GetEnvironmentVariable("WEBSITE_AUTH_SIGNING_KEY"),
         ConfigurationManager.AppSettings["ValidAudience"],
@@ -299,7 +299,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 User = new
                 {
-                    UserId = User.GetUserId().ToString(CultureInfo.InvariantCulture)
+                    UserId = tSystemUser.Result.Id.ToString(CultureInfo.InvariantCulture)
                 },
                 AuthenticationToken = token.RawData
             });
