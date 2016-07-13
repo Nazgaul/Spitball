@@ -7,27 +7,27 @@ namespace Zbang.Zbox.Domain.Common
 {
     public static class TextManipulation
     {
-        public static string EncodeComment(string comment)
-        {
-            if (string.IsNullOrEmpty(comment))
-                return null;
-            //remove those because the + sign is gone if we url decode it from 
-            //var rawUserComment = HttpUtility.UrlDecode(comment);//We Get the comment from the js as escape chars. this is legacy
-            var encodeUserComment = HttpUtility.HtmlEncode(comment);
-            if (encodeUserComment == null) throw new ArgumentNullException(nameof(comment));
-            encodeUserComment = DecodeUrls(encodeUserComment);
-            return encodeUserComment;
+        //public static string EncodeComment(string comment)
+        //{
+        //    if (string.IsNullOrEmpty(comment))
+        //        return null;
+        //    //remove those because the + sign is gone if we url decode it from 
+        //    //var rawUserComment = HttpUtility.UrlDecode(comment);//We Get the comment from the js as escape chars. this is legacy
+        //    var encodeUserComment = HttpUtility.HtmlEncode(comment);
+        //    if (encodeUserComment == null) throw new ArgumentNullException(nameof(comment));
+        //    encodeUserComment = DecodeUrls(encodeUserComment);
+        //    return encodeUserComment;
 
-        }
+        //}
 
-        public static string EncodeCommentWithoutUrl(string comment)
-        {
-            if (string.IsNullOrEmpty(comment))
-                return null;
-            //remove those because the + sign is gone if we url decode it from 
-            //var rawUserComment = HttpUtility.UrlDecode(comment);//We Get the comment from the js as escape chars. this is legacy
-            return HttpUtility.HtmlEncode(comment);
-        }
+        //public static string EncodeCommentWithoutUrl(string comment)
+        //{
+        //    if (string.IsNullOrEmpty(comment))
+        //        return null;
+        //    //remove those because the + sign is gone if we url decode it from 
+        //    //var rawUserComment = HttpUtility.UrlDecode(comment);//We Get the comment from the js as escape chars. this is legacy
+        //    return HttpUtility.HtmlEncode(comment);
+        //}
         public static string EncodeText(string text)
         {
             return EncodeText(text, null);
@@ -74,26 +74,23 @@ namespace Zbang.Zbox.Domain.Common
             return sb.ToString();
         }
 
-        public static readonly Regex UrlDetector = new Regex(@"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))", RegexOptions.IgnoreCase);
 
-
-
-        public static string DecodeUrls(string commentText)
-        {
-            var sb = new StringBuilder(commentText);
-            var match = UrlDetector.Match(commentText);
-            while (match.Success)
-            {
-                var url = match.Value;
-                if (Validation.IsUrlWithoutScheme(match.Value))
-                {
-                    url = $"http://{url}";
-                }
-                sb.Replace(match.Value, $"<a target=\"_Blank\" href=\"{url}\">{match.Value}</a>");
-                match = match.NextMatch();
-            }
-            return sb.ToString();
-        }
+        //public static string DecodeUrls(string commentText)
+        //{
+        //    var sb = new StringBuilder(commentText);
+        //    var match = UrlDetector.Match(commentText);
+        //    while (match.Success)
+        //    {
+        //        var url = match.Value;
+        //        if (Validation.IsUrlWithoutScheme(match.Value))
+        //        {
+        //            url = $"http://{url}";
+        //        }
+        //        sb.Replace(match.Value, $"<a target=\"_Blank\" href=\"{url}\">{match.Value}</a>");
+        //        match = match.NextMatch();
+        //    }
+        //    return sb.ToString();
+        //}
 
         
     }

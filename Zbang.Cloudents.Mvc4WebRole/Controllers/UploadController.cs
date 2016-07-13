@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonOk();
                 }
                 await m_BlobProviderFiles.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
-
+                
                 var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                     fileUploadedDetails.FileName,
                      fileUploadedDetails.TotalUploadBytes, model.TabId, model.Comment);

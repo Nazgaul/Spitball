@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
@@ -7,13 +8,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 {
     public static class Local
     {
-        static readonly ILocalData DataObject = new LocalData();
-
-        public static ILocalData Data
-        {
-            get
-            { return DataObject; }
-        }
+        public static ILocalData Data { get; } = new LocalData();
 
         private class LocalData : ILocalData
         {
@@ -29,10 +24,14 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     if (!RunningInWeb)
                     {
                         //throw new NullReferenceException("You don't suppose to use this method in here since");
-                        if (_localData == null)
+                        if (_localData != null)
                         {
-                            _localData = new Hashtable();
+                            CallContext.LogicalSetData("LocalData_hash", _localData);
+                            return _localData;
                         }
+                        var hashTable =  CallContext.LogicalGetData("LocalData_hash") as Hashtable;
+                        _localData = hashTable ?? new Hashtable();
+                        CallContext.LogicalSetData("LocalData_hash", _localData);
                         return _localData;
                     }
                     var webHashtable = HttpContext.Current.Items[LocalDataHashtableKey] as Hashtable;
@@ -49,29 +48,20 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             {
                 get
                 {
-                    if (key == null) throw new ArgumentNullException("key");
+                    if (key == null) throw new ArgumentNullException(nameof(key));
                     return LocalHashtable[key];
                 }
                 set
                 {
-                    if (key == null) throw new ArgumentNullException("key");
+                    if (key == null) throw new ArgumentNullException(nameof(key));
                     LocalHashtable[key] = value;
+                   
                 }
             }
 
-            public int Count
-            {
-                get
-                { return LocalHashtable.Count; }
-            }
+            public int Count => LocalHashtable.Count;
 
-            private static bool RunningInWeb
-            {
-                get
-                {
-                    return HttpContext.Current != null;
-                }
-            }
+            private static bool RunningInWeb => HttpContext.Current != null;
 
             public void Clear()
             {

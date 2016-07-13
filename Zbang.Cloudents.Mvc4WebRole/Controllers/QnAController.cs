@@ -3,10 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.QnA;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -41,7 +41,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     return JsonOk(retVal.Select(s => new
                     {
-                        s.Content,
+                        content = TextManipulation.RemoveHtmlTags.Replace(s.Content, string.Empty),
+                        //s.Content,
                         s.CreationTime,
                         s.Id,
                         s.RepliesCount,
@@ -60,7 +61,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Replies = s.Replies.Select(v =>
                             new
                             {
-                                v.Content,
+                                content = TextManipulation.RemoveHtmlTags.Replace(v.Content, string.Empty),
+                                //v.Content,
                                 v.CreationTime,
                                 v.Id,
                                 v.Url,
@@ -84,7 +86,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 return JsonOk(retVal.Select(s => new
                 {
-                    s.Content,
+                    content = TextManipulation.RemoveHtmlTags.Replace(s.Content, string.Empty),
+                    //s.Content,
                     s.CreationTime,
                     s.Id,
                     s.RepliesCount,
@@ -102,10 +105,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         x.Name
                     }),
                     Replies = s.Replies.Select(v =>
-
-                        new
+                    new
                         {
-                            v.Content,
+                            content = TextManipulation.RemoveHtmlTags.Replace( v.Content,string.Empty),
                             v.CreationTime,
                             v.Id,
                             v.Url,

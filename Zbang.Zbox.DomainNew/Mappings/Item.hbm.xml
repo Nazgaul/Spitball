@@ -80,6 +80,13 @@
       <property name="Content" type="string" length="500" />
     </subclass>
   </class>
+  <query name="ItemWithNoSize">
+    <![CDATA[
+       select f.id from File f 
+       where f.Size < 1 
+       and f.IsDeleted = 0
+    ]]>
+  </query>
   <database-object>
     <create>
       CREATE NONCLUSTERED INDEX [iUserIsDeleted] ON [Zbox].[Item] ([IsDeleted],[UserId])

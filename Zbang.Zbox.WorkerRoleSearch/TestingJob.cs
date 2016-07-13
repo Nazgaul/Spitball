@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
@@ -14,12 +15,24 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     public class TestingJob : IJob
     {
+        private readonly IZboxWorkerRoleService m_ZboxWorkerRoleService;
+
+        public TestingJob(IZboxWorkerRoleService zboxWorkerRoleService)
+        {
+            m_ZboxWorkerRoleService = zboxWorkerRoleService;
+        }
+
         public async Task RunAsync(CancellationToken cancellationToken)
         {
 
-            
-            var y = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IDomainProcess>(Infrastructure.Transport.DomainProcess.UpdateResolver);
-            await y.ExecuteAsync(new UpdateData(878781, 136460, questionId: Guid.Parse("32978dbe-d31c-4ac3-92d0-a5cb00e8549a")), cancellationToken);
+
+            var amount = await m_ZboxWorkerRoleService.UpdateFileSizesAsync(() =>
+            {
+                
+            });
+
+            //var y = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IDomainProcess>(Infrastructure.Transport.DomainProcess.UpdateResolver);
+            //await y.ExecuteAsync(new UpdateData(878781, 136460, questionId: Guid.Parse("32978dbe-d31c-4ac3-92d0-a5cb00e8549a")), cancellationToken);
 
             //await y.GetUnsubscribersAsync(1, cancellationToken);
 

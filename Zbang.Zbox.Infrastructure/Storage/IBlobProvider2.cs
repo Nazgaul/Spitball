@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task<bool> ExistsAsync(string blobName);
         bool Exists(string blobName);
+        Task<long> SizeAsync(string blobName);
 
         string RelativePath();
 

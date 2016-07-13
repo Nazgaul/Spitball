@@ -43,202 +43,8 @@ namespace Zbang.Zbox.Domain.Services
                 }
                 UnitOfWork.Current.TransactionalFlush();
             }
-            //UpdateUsersReputation();
-            //UpdateMismatchUrl();
-            // UpdateHierarchyInLibrary();
         }
 
-        /*private void UpdateUsersReputation()
-        {
-            int i = 827;
-            IList<long> users;
-
-
-            using (UnitOfWork.Start())
-            {
-                users = UnitOfWork.CurrentSession.QueryOver<User>()
-                    .Where(w => w.Id == 496060)
-                    //.OrderBy(o => o.Id).Asc
-                    .Select(s => s.Id)
-                    //.Skip(i * 100).Take(100)
-                    .List<long>();
-            }
-            do
-            {
-                TraceLog.WriteInfo("index: " + i);
-                var command = new UpdateReputationCommand(users);
-                UpdateReputation(command);
-                i++;
-
-                using (UnitOfWork.Start())
-                {
-                    users = UnitOfWork.CurrentSession.QueryOver<User>()
-                        .Where(w => w.IsRegisterUser)
-                        .OrderBy(o => o.Id).Asc
-                        .Select(s => s.Id)
-                        .Skip(i * 100).Take(100)
-                        .List<long>();
-                }
-            } while (users.Count > 0);
-
-
-        }*/
-
-        /* private void UpdateNumberOfBoxesInDepartmentNode()
-         {
-             var i = 0;
-             using (var unitOfWork = UnitOfWork.Start())
-             {
-                 while (true)
-                 {
-                     var libs = UnitOfWork.CurrentSession.Connection.Query<Guid>(
-                         @"select LibraryId from zbox.Library l where l.LibraryId not in ( select l.ParentId from zbox.Library)
- order by LibraryId
- offset @pageNumber*50 ROWS
-     FETCH NEXT 50 ROWS ONLY", new { pageNumber = i });
-                     var libraryIds = libs as IList<Guid> ?? libs.ToList();
-                     if (libraryIds.Count == 0)
-                     {
-                         break;
-                     }
-                     foreach (var libraryId in libraryIds)
-                     {
-                         var library = UnitOfWork.CurrentSession.Load<Library>(libraryId);
-                         library.UpdateNumberOfBoxes();
-                         UnitOfWork.CurrentSession.Save(library);
-                     }
-                     unitOfWork.TransactionalFlush();
-                     i++;
-                 }
-             }
-         }*/
-
-
-        //        private void UpdateHierarchyInLibrary()
-        //        {
-        //            //const long universityId = 920;
-
-
-        //            //first round
-        //            using (var unitOfWork = UnitOfWork.Start())
-        //            {
-        //                var universitiesId = UnitOfWork.CurrentSession.Connection.Query<long?>(@"select distinct id from zbox.Library");
-        //                foreach (var universityId in universitiesId)
-        //                {
-        //                    IList libraryIds =
-        //                        UnitOfWork.CurrentSession.Connection.Query<Guid>(
-        //                            @"select LibraryId from zbox.library where id =@universityId and ParentId is null and level is null;", new { universityId }).ToList();
-
-
-        //                    var updateMade = false;
-        //                    //var libraries = UnitOfWork.CurrentSession.Query<Library>()
-        //                    //    .Where(w => w.University.Id == universityId && w.Parent == null)
-        //                    //    .ToList();
-        //                    foreach (var libraryId in libraryIds)
-        //                    {
-        //                        var lib = UnitOfWork.CurrentSession.Load<Library>(libraryId);
-        //                        updateMade = lib.UpdateLevel();
-        //                        if (updateMade)
-        //                            UnitOfWork.CurrentSession.Save(lib);
-
-        //                    }
-        //                    if (updateMade)
-        //                        unitOfWork.TransactionalFlush();
-
-        //                    updateMade = false;
-        //                    libraryIds =
-        //                        UnitOfWork.CurrentSession.Connection.Query<Guid>(@"select LibraryId from zbox.Library where ParentId in (
-        //select LibraryId from zbox.Library where id = @universityId and level is not null) and level is null;",
-        //                            new { universityId }).ToList();
-        //                    do
-        //                    {
-        //                        foreach (var libraryId in libraryIds)
-        //                        {
-        //                            var lib = UnitOfWork.CurrentSession.Load<Library>(libraryId);
-        //                            updateMade = lib.UpdateLevel();
-        //                            if (updateMade)
-        //                                UnitOfWork.CurrentSession.Save(lib);
-        //                        }
-        //                        if (updateMade)
-        //                            unitOfWork.TransactionalFlush();
-        //                        updateMade = false;
-        //                        libraryIds =
-        //                            UnitOfWork.CurrentSession.Connection.Query<Guid>(@"select LibraryId from zbox.Library where ParentId in (
-        //select LibraryId from zbox.Library where id = @universityId and level is not null) and level is null;",
-        //                                new { universityId }).ToList();
-        //                    } while (libraryIds.Count > 0);
-
-        //                }
-        //            }
-
-        //        }
-        /// <summary>
-        /// this function is greated due to merge tool
-        /// </summary>
-//        private void UpdateMismatchUrl()
-//        {
-//            using (var unitOfWork = UnitOfWork.Start())
-//            {
-//                const string sql1 = @"select top 10 itemid from zbox.item 
-//where CHARINDEX(CAST(boxid as varchar),url) <= 0
-//order by 1";
-//                const string sql2 = @"select id from zbox.quiz where CHARINDEX(CAST(boxid as varchar),url) <= 0
-//order by 1";
-
-//                var breakLoop = true;
-//                while (breakLoop)
-//                {
-//                    var quizzes = UnitOfWork.CurrentSession.Connection.Query<long>(sql2);
-
-//                    breakLoop = false;
-//                    //var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
-//                    foreach (var dQuiz in quizzes)
-//                    {
-//                        breakLoop = true;
-//                        var quiz = UnitOfWork.CurrentSession.Load<Quiz>(dQuiz);
-//                        quiz.GenerateUrl();
-//                        quiz.IsDirty = true;
-//                        UnitOfWork.CurrentSession.Save(quiz);
-//                    }
-
-//                    unitOfWork.TransactionalFlush();
-//                }
-//                breakLoop = true;
-//                while (breakLoop)
-//                {
-//                    var items = UnitOfWork.CurrentSession.Connection.Query<long>(sql1);
-
-//                    breakLoop = false;
-//                    //var items = UnitOfWork.CurrentSession.Query<Item>().Where(w => !w.IsDeleted && w.Url == null).ToList();
-//                    foreach (var dItem in items)
-//                    {
-//                        breakLoop = true;
-//                        var item = UnitOfWork.CurrentSession.Load<Item>(dItem);
-//                        item.GenerateUrl();
-//                        item.IsDirty = true;
-//                        UnitOfWork.CurrentSession.Save(item);
-//                    }
-
-//                    unitOfWork.TransactionalFlush();
-//                }
-
-//            }
-//        }
-
-
-       
-
-
-
-        //public bool Dbi()
-        //{
-        //    //DeleteOldUpdates();
-        //    UpdateUniversityStats();
-        //    //UpdateMismatchUrl();
-        //    //UpdateHierarchyInLibrary();
-        //    //UpdateFeedDbi();
-        //    return false;
-        //}
 
         public int DeleteOldUpdates()
         {
@@ -260,7 +66,6 @@ namespace Zbang.Zbox.Domain.Services
                 var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteNotConnectedUpdates");
                 var result = query.ExecuteUpdate();
                 counter += result;
-                //TraceLog.WriteInfo("delete old updates Delete Not Connected Updates " + result);
             }
             return counter;
         }
@@ -290,6 +95,31 @@ namespace Zbang.Zbox.Domain.Services
                     universitiesIds = query.List<long>();
                 } while (universitiesIds.Any());
             }
+        }
+
+        public async Task<long> UpdateFileSizesAsync(Action callback)
+        {
+            var count = 0;
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                var query = UnitOfWork.CurrentSession.GetNamedQuery("ItemWithNoSize");
+                query.SetMaxResults(100);
+                var itemIds = query.List<long>();
+                
+                do
+                {
+                    count += itemIds.Count;
+                    var command = new UpdateItemWithNoSizeCommand(itemIds);
+                    await m_CommandBus.SendAsync(command);
+                    unitOfWork.TransactionalFlush();
+                    callback();
+                    query = UnitOfWork.CurrentSession.GetNamedQuery("ItemWithNoSize");
+                    query.SetMaxResults(100);
+                    itemIds = query.List<long>();
+                } while (itemIds.Any());
+
+            }
+            return count;
         }
 
 

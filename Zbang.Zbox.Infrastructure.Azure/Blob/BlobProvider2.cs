@@ -77,6 +77,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob.Exists();
         }
 
+        public async Task<long> SizeAsync(string blobName)
+        {
+            var blob = GetBlob(blobName);
+            await blob.FetchAttributesAsync();
+            return blob.Properties.Length;
+        }
+
         public string RelativePath()
         {
             return m_Container.RelativePath;
