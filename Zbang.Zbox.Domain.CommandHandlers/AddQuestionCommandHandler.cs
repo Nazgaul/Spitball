@@ -51,11 +51,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var user = m_UserRepository.Load(userId);
             var box = m_BoxRepository.Load(command.BoxId);
             //Decode the comment to html friendly
-            var text = command.Text;
-            if (command.ShouldEncode)
-            {
-                text = TextManipulation.EncodeComment(command.Text);
-            }
+            //var text = command.Text;
+            //if (command.ShouldEncode)
+            //{
+            //    text = TextManipulation.EncodeComment(command.Text);
+            //}
 
 
             var files = new List<Item>();
@@ -69,7 +69,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 file.Uploader = user;
                 m_ItemRepository.Save(file);
             }
-            var comment = box.AddComment(user, text, command.Id, files, FeedType.None);
+            var comment = box.AddComment(user, command.Text, command.Id, files, FeedType.None);
             m_CommentRepository.Save(comment);
 
             var reputation = user.AddReputation(ReputationAction.AddComment);

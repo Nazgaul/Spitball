@@ -49,7 +49,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var question = m_QuestionRepository.Load(message.QuestionId);
             //Decode the comment to html friendly
-            var text = TextManipulation.EncodeComment(message.Text);
+            //var text = TextManipulation.EncodeComment(message.Text);
 
 
             var files = new List<Item>();
@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
             }
-            var answer = new CommentReplies(user, text, box, message.Id, question, files);
+            var answer = new CommentReplies(user, message.Text, box, message.Id, question, files);
             var reputation = user.AddReputation(ReputationAction.AddReply);
             question.ReplyCount++;
             //question.LastReplyId = answer.Id;
