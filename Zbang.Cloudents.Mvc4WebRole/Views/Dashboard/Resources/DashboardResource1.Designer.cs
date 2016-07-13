@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite friends.
+        ///   Looks up a localized string similar to Invite classmates.
         /// </summary>
         public static string InviteToSpitball {
             get {
@@ -93,16 +93,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         public static string LeaderboardTitle {
             get {
                 return ResourceManager.GetString("LeaderboardTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toss around notes and ideas with
-        ///your friends in private settings.
-        /// </summary>
-        public static string StudyGroup {
-            get {
-                return ResourceManager.GetString("StudyGroup", resourceCulture);
             }
         }
         

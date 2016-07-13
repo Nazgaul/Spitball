@@ -97,7 +97,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find the class you&apos;ve missed or the article you&apos;ve been looking for in the library in the palm of your hand! Chat with your friends, ask questions and start studying for your next exam from any device..
+        ///   Looks up a localized string similar to Find the class you&apos;ve missed or the article you&apos;ve been looking for in the library in the palm of your hand! Chat with your classmates, ask questions and start studying for your next exam from any device..
         /// </summary>
         public static string AppsSectionText3 {
             get {
@@ -268,7 +268,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to , find your school and your courses and start Spitballing with your friends!.
+        ///   Looks up a localized string similar to , find your school and your courses and start Spitballing with your classmates!.
         /// </summary>
         public static string FeaturesDescriptionE {
             get {
@@ -295,7 +295,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  to find the class you&apos;ve missed. Access all of your class material within a few clicks and upload your own class notes to help your friends excel in their upcoming papers &amp; exams. You can download the document you need to any device, print it, or check it out later, it’s not going anywhere..
+        ///   Looks up a localized string similar to  to find the class you&apos;ve missed. Access all of your class material within a few clicks and upload your own class notes to help your classmates excel in their upcoming papers &amp; exams. You can download the document you need to any device, print it, or check it out later, it’s not going anywhere..
         /// </summary>
         public static string FeaturesSectionText1C {
             get {
@@ -304,7 +304,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to See how well you are doing and quiz yourself with one of the hundreds of quizzes that your friends have built. Build and upload your own quiz to help your fellow classmates and check your own progress. Coming up with a quiz is a great way to prepare for an exam, so gain extra Spitball points and start building quizzes..
+        ///   Looks up a localized string similar to See how well you are doing and quiz yourself with one of the hundreds of quizzes that your classmates have built. Build and upload your own quiz to help your fellow classmates and check your own progress. Coming up with a quiz is a great way to prepare for an exam, so gain extra Spitball points and start building quizzes..
         /// </summary>
         public static string FeaturesSectionText2 {
             get {
@@ -313,7 +313,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find your course and start studying with your friends - There are more than .
+        ///   Looks up a localized string similar to Find your course and start studying with your classmates - There are more than .
         /// </summary>
         public static string FeaturesSectionText3A {
             get {
@@ -331,7 +331,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  available. Couldn’t find your course? It only takes a few seconds to open a new one. Now you can invite your friends to join the course &amp; upload their material, and you will both be able to gain some sweet Spitball points..
+        ///   Looks up a localized string similar to  available. Couldn’t find your course? It only takes a few seconds to open a new one. Now you can invite your classmates to join the course &amp; upload their material, and you will both be able to gain some sweet Spitball points..
         /// </summary>
         public static string FeaturesSectionText3C {
             get {
@@ -340,7 +340,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Get to know your classmates, share notes and ideas, ask questions and chat with your friends about anything class related. Study together and be on your way to acing your finals! Get answers directly from your classmates to quickly solve problems when your TAs and professors are too busy..
+        ///   Looks up a localized string similar to Get to know your classmates, share notes and ideas, ask questions and chat with your classmates about anything class related. Study together and be on your way to acing your finals! Get answers directly from your classmates to quickly solve problems when your TAs and professors are too busy..
         /// </summary>
         public static string FeaturesSectionText4 {
             get {
@@ -412,7 +412,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to . Access all of your class materials directly from your phone. Chat with your friends, ask questions and start studying for your next exam from any device..
+        ///   Looks up a localized string similar to . Access all of your class materials directly from your phone. Chat with your classmates, ask questions and start studying for your next exam from any device..
         /// </summary>
         public static string FeaturesSectionText6C {
             get {
@@ -475,7 +475,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Spitball to study with your friends and get better grades!.
+        ///   Looks up a localized string similar to Use Spitball to study with your classmates and get better grades!.
         /// </summary>
         public static string FeaturesSubTitle {
             get {
@@ -556,7 +556,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  and start studying with your classmates. Ask questions, share ideas and notes with you friends, they can help answer questions when your TAs and professors are too busy. Quiz yourself with one of the thousands of quizzes your classmates have created, or upload your own quiz - coming up with a quiz is a great way to prepare for an exam, and can help your friends in their preparations. Every added friend, question asked, class note uploaded or quiz created can help you become a .
+        ///   Looks up a localized string similar to  and start studying with your classmates. Ask questions, share ideas and notes with you classmates, they can help answer questions when your TAs and professors are too busy. Quiz yourself with one of the thousands of quizzes your classmates have created, or upload your own quiz - coming up with a quiz is a great way to prepare for an exam, and can help your classmates in their preparations. Every added classmate, question asked, class note uploaded or quiz created can help you become a .
         /// </summary>
         public static string ProductTextG {
             get {

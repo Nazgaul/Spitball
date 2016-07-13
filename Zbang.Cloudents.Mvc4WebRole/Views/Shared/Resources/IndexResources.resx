@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddMail" xml:space="preserve">
-    <value>Type your friend's email</value>
+    <value>Type your classmate's email</value>
   </data>
   <data name="Best" xml:space="preserve">
     <value>Best in the class</value>
@@ -140,13 +140,13 @@
     <value>Drag and drop your files here</value>
   </data>
   <data name="GmailContact" xml:space="preserve">
-    <value>Invite your friends from your Gmail account</value>
+    <value>Invite your classmates from your Gmail account</value>
   </data>
   <data name="Group" xml:space="preserve">
     <value>My Study Groups</value>
   </data>
   <data name="Invite" xml:space="preserve">
-    <value>Invite your friends to </value>
+    <value>Invite your classmates to </value>
   </data>
   <data name="Items" xml:space="preserve">
     <value>Documents</value>
@@ -215,14 +215,14 @@
     <value>Share this class with your Facebook friends</value>
   </data>
   <data name="AddSpitball" xml:space="preserve">
-    <value>Type your friend's name</value>
+    <value>Type your classmate's name</value>
   </data>
   <data name="EmptyStateSpitballInvite" xml:space="preserve">
-    <value>We cannot find your friend on Spitball.
+    <value>We cannot find your classmate on Spitball.
 Have you tried searching through Gmail or messaging them on Facebook?</value>
   </data>
   <data name="EmptyStateGmailInvite" xml:space="preserve">
-    <value>We cannot find your friend on Gmail.
+    <value>We cannot find your classmate on Gmail.
 Have you tried searching through Spitball or messaging them on Facebook?</value>
   </data>
   <data name="Intercom" xml:space="preserve">

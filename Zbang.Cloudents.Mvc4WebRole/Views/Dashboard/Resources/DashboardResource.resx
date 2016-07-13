@@ -121,12 +121,7 @@
     <value>Home</value>
   </data>
   <data name="InviteToSpitball" xml:space="preserve">
-    <value>Invite friends</value>
-    
-  </data>
-  <data name="StudyGroup" xml:space="preserve">
-    <value>Toss around notes and ideas with
-your friends in private settings</value>
+    <value>Invite classmates</value>
     
   </data>
   <data name="Browse" xml:space="preserve">

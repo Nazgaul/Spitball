@@ -88,7 +88,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start chatting with your friends in Spitball.
+        ///   Looks up a localized string similar to Start chatting with your classmates in Spitball.
         /// </summary>
         public static string EmptyStateLine2 {
             get {
@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We cannot find your friend on Spitball messages.
+        ///   Looks up a localized string similar to We cannot find your classmate on Spitball messages.
         /// </summary>
         public static string EmptyStateTitle {
             get {
@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search for a friend.
+        ///   Looks up a localized string similar to Search for a classmate.
         /// </summary>
         public static string FriendSearchPlaceholder {
             get {
@@ -124,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Friends.
+        ///   Looks up a localized string similar to classmates.
         /// </summary>
         public static string FriendsHeader {
             get {

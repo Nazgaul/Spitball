@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Join Spitball&apos;s growing community! Find your course and start chatting with your friends, create study groups and share your knowledge! Open a free account today!.
+        ///   Looks up a localized string similar to Join Spitball&apos;s growing community! Find your course and start chatting with your classmates, create study groups and share your knowledge! Open a free account today!.
         /// </summary>
         internal static string CoursesMeta {
             get {
@@ -178,7 +178,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find out all you need to know about Spitball&apos;s system. Get class notes, chat with your friends, create study groups and share your knowledge!.
+        ///   Looks up a localized string similar to Find out all you need to know about Spitball&apos;s system. Get class notes, chat with your classmates, create study groups and share your knowledge!.
         /// </summary>
         internal static string HelpMeta {
             get {
@@ -196,7 +196,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Join Spitball&apos;s growing community of students! Get class notes, chat with your friends, create study groups and share your knowledge! Open a free account today!.
+        ///   Looks up a localized string similar to Join Spitball&apos;s growing community of students! Get class notes, chat with your classmates, create study groups and share your knowledge! Open a free account today!.
         /// </summary>
         internal static string HomePageMeta {
             get {
@@ -250,7 +250,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start using Spitball like a real pro! Get class notes, chat with your friends, create study groups and share your knowledge! Study anytime, anywhere with Spitball!.
+        ///   Looks up a localized string similar to Start using Spitball like a real pro! Get class notes, chat with your classmates, create study groups and share your knowledge! Study anytime, anywhere with Spitball!.
         /// </summary>
         internal static string ProductMeta {
             get {
@@ -268,7 +268,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login to Spitball and join the social studying revolution! Get class notes, chat with your friends, create study groups and share your knowledge!.
+        ///   Looks up a localized string similar to Login to Spitball and join the social studying revolution! Get class notes, chat with your classmates, create study groups and share your knowledge!.
         /// </summary>
         internal static string SignInMeta {
             get {
@@ -286,7 +286,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign up to Spitball and join the social studying revolution! Get class notes, chat with your friends, create study groups and share your knowledge!.
+        ///   Looks up a localized string similar to Sign up to Spitball and join the social studying revolution! Get class notes, chat with your classmates, create study groups and share your knowledge!.
         /// </summary>
         internal static string SignUpMeta {
             get {
@@ -304,7 +304,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Find out all you need to know about Spitball&apos;s terms of service. Get class notes, chat with your friends, create study groups and share your knowledge!.
+        ///   Looks up a localized string similar to Find out all you need to know about Spitball&apos;s terms of service. Get class notes, chat with your classmates, create study groups and share your knowledge!.
         /// </summary>
         internal static string TermsMeta {
             get {

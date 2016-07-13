@@ -181,25 +181,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to COO
-        ///Co-Founder.
-        /// </summary>
-        public static string TeamCOO {
-            get {
-                return ResourceManager.GetString("TeamCOO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Matan Libis.
-        /// </summary>
-        public static string TeamCOOName {
-            get {
-                return ResourceManager.GetString("TeamCOOName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to CTO.
         /// </summary>
         public static string TeamCTO {

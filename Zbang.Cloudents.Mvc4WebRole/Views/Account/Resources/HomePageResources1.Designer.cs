@@ -279,7 +279,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interact with your friends.
+        ///   Looks up a localized string similar to Interact with your classmates.
         /// </summary>
         public static string D3H {
             get {
@@ -450,7 +450,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There have been many times when I would try to share files or a document with friends and classmates over the school’s portal or other online studying tools, but it was a huge hassle! Then I started using Spitball and everything changed - I was easily able to upload all of my files, even video and audio files!.
+        ///   Looks up a localized string similar to There have been many times when I would try to share files or a document with classmates over the school’s portal or other online studying tools, but it was a huge hassle! Then I started using Spitball and everything changed - I was easily able to upload all of my files, even video and audio files!.
         /// </summary>
         public static string Testimonial2 {
             get {

@@ -134,9 +134,9 @@
 }
 .accountPage-wrapper .page-head .page-title {
   padding: 10px 0;
-}
-.accountPage-wrapper .page-head .page-title > h1 {
-  font-size: 18px;
+  /*> h1 {
+            font-size: 18px;
+        }*/
 }
 .accountPage-wrapper .nav-tabs {
   padding: 0;

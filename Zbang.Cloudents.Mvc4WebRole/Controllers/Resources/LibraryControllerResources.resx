@@ -134,5 +134,5 @@
   </data>
   <data name="LibraryController_Create_Cannot_add_library_to_box_node" xml:space="preserve">
     <value>Departments cannot be placed inside classes</value>
-  <comment>NewShlomi</comment></data>
+  </data>
 </root>

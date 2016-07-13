@@ -22,15 +22,25 @@ FETCH NEXT @RowsPerPage ROWS ONLY;";
 
         public const string GetUsersConversationAndFriendsWithoutTerm =
     @"SELECT e2.chatroomid as Conversation,cr.UpdateTime,  e1.Unread, u.userid as id,username as name, UserImageLarge as image, online, Url as url ,LastAccessTime as lastSeen
-FROM zbox.ChatUser e1, zbox.ChatUser e2 join zbox.Users u on e2.UserId = u.userid join zbox.ChatRoom cr on e2.ChatRoomId = cr.Id
+FROM zbox.ChatUser e1, 
+zbox.ChatUser e2 join zbox.Users u on e2.UserId = u.userid 
+join zbox.ChatRoom cr on e2.ChatRoomId = cr.Id
 WHERE e1.ChatRoomId = e2.ChatRoomId 
 AND e1.id != e2.id
 and e1.userid = @UserId
-union 
+union all
 select null as Conversation, null,  null as Unread ,u.userid as id,username as name, UserImageLarge as image, online, Url as url,LastAccessTime as lastSeen
 from zbox.users u
 where u.UniversityId = @Universityid
 and u.userid <> @UserId
+and u.userid not in 
+    (SELECT  u.userid 
+    FROM zbox.ChatUser e1, 
+    zbox.ChatUser e2 join zbox.Users u on e2.UserId = u.userid 
+    join zbox.ChatRoom cr on e2.ChatRoomId = cr.Id
+    WHERE e1.ChatRoomId = e2.ChatRoomId 
+    AND e1.id != e2.id
+    and e1.userid = @UserId)
 order by cr.UpdateTime desc , u.online desc, u.LastAccessTime desc
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY;";

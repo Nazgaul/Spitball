@@ -191,7 +191,7 @@
     <value>Sophomore at UC Davis</value>
   </data>
   <data name="Testimonial2" xml:space="preserve">
-    <value>There have been many times when I would try to share files or a document with friends and classmates over the school’s portal or other online studying tools, but it was a huge hassle! Then I started using Spitball and everything changed - I was easily able to upload all of my files, even video and audio files!</value>
+    <value>There have been many times when I would try to share files or a document with classmates over the school’s portal or other online studying tools, but it was a huge hassle! Then I started using Spitball and everything changed - I was easily able to upload all of my files, even video and audio files!</value>
   </data>
   <data name="Testimonial2Person" xml:space="preserve">
     <value>Jack Harris</value>
@@ -264,7 +264,7 @@ interact with their classmates, create online quizzes and get better grades.</va
     <value>download to your phone, laptop and tablet</value>
   </data>
   <data name="D3H" xml:space="preserve">
-    <value>Interact with your friends</value>
+    <value>Interact with your classmates</value>
   </data>
   <data name="D4H" xml:space="preserve">
     <value>Study Smarter</value>

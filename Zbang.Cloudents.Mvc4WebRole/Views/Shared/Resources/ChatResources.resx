@@ -121,13 +121,13 @@
     <value>No Messages, yet.</value>
   </data>
   <data name="EmptyStateLine2" xml:space="preserve">
-    <value>Start chatting with your friends in Spitball</value>
+    <value>Start chatting with your classmates in Spitball</value>
   </data>
   <data name="FriendSearchPlaceholder" xml:space="preserve">
-    <value>Search for a friend</value>
+    <value>Search for a classmate</value>
   </data>
   <data name="FriendsHeader" xml:space="preserve">
-    <value>Friends</value>
+    <value>classmates</value>
   </data>
   <data name="MessagesHeader" xml:space="preserve">
     <value>Messages</value>
@@ -136,7 +136,7 @@
     <value>Type a message</value>
   </data>
   <data name="EmptyStateTitle" xml:space="preserve">
-    <value>We cannot find your friend on Spitball messages</value>
+    <value>We cannot find your classmate on Spitball messages</value>
   </data>
   <data name="EmptyStateSubtitle" xml:space="preserve">
     <value>Check if you typed the name correctly</value>

@@ -61,7 +61,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type your friend&apos;s email.
+        ///   Looks up a localized string similar to Type your classmate&apos;s email.
         /// </summary>
         public static string AddMail {
             get {
@@ -70,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type your friend&apos;s name.
+        ///   Looks up a localized string similar to Type your classmate&apos;s name.
         /// </summary>
         public static string AddSpitball {
             get {
@@ -133,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We cannot find your friend on Gmail.
+        ///   Looks up a localized string similar to We cannot find your classmate on Gmail.
         ///Have you tried searching through Spitball or messaging them on Facebook?.
         /// </summary>
         public static string EmptyStateGmailInvite {
@@ -143,7 +143,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We cannot find your friend on Spitball.
+        ///   Looks up a localized string similar to We cannot find your classmate on Spitball.
         ///Have you tried searching through Gmail or messaging them on Facebook?.
         /// </summary>
         public static string EmptyStateSpitballInvite {
@@ -162,7 +162,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite your friends from your Gmail account.
+        ///   Looks up a localized string similar to Invite your classmates from your Gmail account.
         /// </summary>
         public static string GmailContact {
             get {
@@ -189,7 +189,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite your friends to .
+        ///   Looks up a localized string similar to Invite your classmates to .
         /// </summary>
         public static string Invite {
             get {

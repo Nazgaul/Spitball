@@ -172,7 +172,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to We have helped thousands of students make studying online easier and faster, but we are only as good as our user uploads! 
-        ///Login into your Spitball account and invite friends or post your notes to push our service to the next level..
+        ///Login into your Spitball account and invite classmates or post your notes to push our service to the next level..
         /// </summary>
         internal static string LowContributionText {
             get {
@@ -269,7 +269,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finding Friends, Uploading Notes.
+        ///   Looks up a localized string similar to Finding classmates, Uploading Notes.
         /// </summary>
         internal static string UniversityLowActivitySubject {
             get {
@@ -278,7 +278,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your university’s Spitball page needs a little work… Be the study pioneer your classmates need and start uploading notes and inviting friends to join you via email..
+        ///   Looks up a localized string similar to Your university’s Spitball page needs a little work… Be the study pioneer your classmates need and start uploading notes and inviting classmates to join you via email..
         /// </summary>
         internal static string UniversityLowActivityText {
             get {

@@ -130,13 +130,6 @@ Founder</value>
   <data name="TeamCEOName" xml:space="preserve">
     <value>Eidan Apelbaum Ph.D.</value>
   </data>
-  <data name="TeamCOO" xml:space="preserve">
-    <value>COO
-Co-Founder</value>
-  </data>
-  <data name="TeamCOOName" xml:space="preserve">
-    <value>Matan Libis</value>
-  </data>
   <data name="TeamCTO" xml:space="preserve">
     <value>CTO</value>
   </data>
@@ -160,13 +153,13 @@ Co-Founder</value>
   </data>
   <data name="DescriptionQ2" xml:space="preserve">
     <value>Our Vision</value>
-    <comment>New</comment>
+    
   </data>
   <data name="DescriptionA2" xml:space="preserve">
     <value>As university students, we found ourselves struggling to find a fast and efficient way to share notes and study together online. Although some schools had official services for doing just that, they were often clunky and inflexible, making it difficult for us to share ideas with students outside of our class. Social sites made it easier to meet and communicate with one another, but they were not designed for academic life (and distractions were always close at hand). To fill this gap we set out to create a social studying tool that combines flexibility and a social community with an academic learning environment.
 
 Our aim is to help our users improve academically, who in turn will improve the academic world. We want to facilitate the cross-pollination of ideas, the sharing of materials and collaboration across schools and subjects. We want our users to become better students by linking them to the global learning community. The Spitball platform is developed by a young bunch of specialists in online platforms. Our combined background includes various online platforms such as AVG MultiMi and Yahoo’s client facing applications such as Mail, Messenger, Groups and My Yahoo!</value>
-    <comment>New</comment>
+    
   </data>
   <data name="DescriptionA1a" xml:space="preserve">
     <value>Spitball is a free online and mobile social studying application. We are a community built around academic activity so you can focus on studying. It is a place for students of any academic level to work together on assignments, find the study material they need, test their knowledge and discuss ideas.

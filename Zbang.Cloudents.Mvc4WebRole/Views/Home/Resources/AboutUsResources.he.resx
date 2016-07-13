@@ -129,9 +129,6 @@
   <data name="TeamWebDevName" xml:space="preserve">
     <value>אירנה דורפמן</value>
   </data>
-  <data name="TeamCOOName" xml:space="preserve">
-    <value>מתן ליביס</value>
-  </data>
   <data name="TeamCEOName" xml:space="preserve">
     <value>עידן אפלבוים</value>
   </data>
@@ -140,10 +137,6 @@
   </data>
   <data name="TeamCTO" xml:space="preserve">
     <value>סמנכ"ל טכנולוגיות</value>
-  </data>
-  <data name="TeamCOO" xml:space="preserve">
-    <value>סמנכ"ל תפעול
-מייסד שותף</value>
   </data>
   <data name="TeamCEO" xml:space="preserve">
     <value>מנכ"ל
