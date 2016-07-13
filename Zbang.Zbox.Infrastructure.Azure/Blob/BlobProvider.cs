@@ -16,7 +16,7 @@ using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Blob
 {
-    public class BlobProvider : IBlobProvider, ICloudBlockProvider, IBlobUpload
+    public class BlobProvider : IBlobProvider, ICloudBlockProvider
     {
         protected const string LastAccessTimeMetaDataKey = "LastTimeAccess";
         private readonly string m_StorageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
@@ -146,37 +146,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(blockId));
         }
         
-        /// <summary>
-        /// Upload file to storage from link
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="fileName"></param>
-        /// <returns>The size of the file</returns>
-        public async Task<long> UploadFromLinkAsync(string url, string fileName)
-        {
-            using (var client = new HttpClient())
-            {
-
-                using (var sr = await client.GetAsync(url))
-                {
-                    if (!sr.IsSuccessStatusCode)
-                    {
-                        throw new UnauthorizedAccessException("Cannot access dropbox");
-                    }
-                    ////sr.Content.Headers.ContentType.
-                    var blob = GetFile(fileName);
-                    using (var stream = await blob.OpenWriteAsync())
-                    {
-                        await sr.Content.CopyToAsync(stream);
-
-                    }
-                    blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
-                    blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
-                    await blob.SetPropertiesAsync();
-                    return blob.Properties.Length;
-                }
-            }
-        }
+        
 
 
         #endregion
@@ -333,32 +303,32 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
 
 
-        public string GenerateWriteAccessPermissionToBlob(string blobName, string mimeType)
-        {
-            var blob = GetFile(blobName);
-            var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
-            {
-                Permissions = SharedAccessBlobPermissions.Write,
-                SharedAccessExpiryTime = DateTime.Now.AddHours(2)
-            }, new SharedAccessBlobHeaders
-            {
-                ContentType = mimeType,
-                CacheControl = "private max-age=604800"
-            });
-            return blob.Uri + queryString;
-        }
+        //public string GenerateWriteAccessPermissionToBlob(string blobName, string mimeType)
+        //{
+        //    var blob = GetFile(blobName);
+        //    var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+        //    {
+        //        Permissions = SharedAccessBlobPermissions.Write,
+        //        SharedAccessExpiryTime = DateTime.Now.AddHours(2)
+        //    }, new SharedAccessBlobHeaders
+        //    {
+        //        ContentType = mimeType,
+        //        CacheControl = "private max-age=604800"
+        //    });
+        //    return blob.Uri + queryString;
+        //}
 
-        public string GenerateReadAccessPermissionToBlob(string blobName)
-        {
-            var blob = GetFile(blobName);
-            var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
-            {
-                Permissions = SharedAccessBlobPermissions.Read,
-                SharedAccessStartTime = DateTime.Now.AddMinutes(-2),
-                SharedAccessExpiryTime = DateTime.Now.AddHours(2)
-            });
-            return blob.Uri + queryString;
-        }
+        //public string GenerateReadAccessPermissionToBlob(string blobName)
+        //{
+        //    var blob = GetFile(blobName);
+        //    var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy
+        //    {
+        //        Permissions = SharedAccessBlobPermissions.Read,
+        //        SharedAccessStartTime = DateTime.Now.AddMinutes(-2),
+        //        SharedAccessExpiryTime = DateTime.Now.AddHours(2)
+        //    });
+        //    return blob.Uri + queryString;
+        //}
 
 
 

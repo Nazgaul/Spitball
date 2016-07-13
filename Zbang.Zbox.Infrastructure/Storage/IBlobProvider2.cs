@@ -24,5 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         string GenerateSharedAccressReadPermission(string blobName, double expirationTimeInMinutes,
             string contentDisposition);
+
+        Task UploadFromLinkAsync(string url, string fileName);
     }
 }

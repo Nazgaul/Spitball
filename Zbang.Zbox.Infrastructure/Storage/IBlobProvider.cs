@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<Stream> DownloadFileAsync(Uri blobUrl, CancellationToken cancelToken);
         Task<string> DownloadToLocalDiskAsync(Uri blobUrl, CancellationToken cancelToken);
 
-        Task<long> UploadFromLinkAsync(string url, string fileName);
+       
         Task<IDictionary<string, string>> FetchBlobMetaDataAsync(Uri blobUri, CancellationToken token);
         Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metaData, CancellationToken token);
 

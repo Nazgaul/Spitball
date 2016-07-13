@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.MobileApp.DataObjects;
-using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
@@ -32,26 +31,24 @@ namespace Zbang.Cloudents.MobileApp.Controllers
     {
         private readonly IZboxCacheReadService m_ZboxReadService;
         private readonly IQueueProvider m_QueueProvider;
-        private readonly IBlobProvider m_BlobProvider;
         private readonly IZboxWriteService m_ZboxWriteService;
-        private readonly IBlobUpload m_BlobUpload;
         private readonly IGuidIdGenerator m_GuidGenerator;
+        private readonly IBlobProvider2<FilesContainerName> m_BlobProviderFiles;
 
-        public ItemController(IZboxCacheReadService zboxReadService, IQueueProvider queueProvider, IBlobProvider blobProvider, IZboxWriteService zboxWriteService, IGuidIdGenerator guidGenerator, IBlobUpload blobUpload)
+        public ItemController(IZboxCacheReadService zboxReadService, IQueueProvider queueProvider, IZboxWriteService zboxWriteService, IGuidIdGenerator guidGenerator, IBlobProvider2<FilesContainerName> blobProviderFiles)
         {
             m_ZboxReadService = zboxReadService;
             m_QueueProvider = queueProvider;
-            m_BlobProvider = blobProvider;
             m_ZboxWriteService = zboxWriteService;
             m_GuidGenerator = guidGenerator;
-            m_BlobUpload = blobUpload;
+            m_BlobProviderFiles = blobProviderFiles;
         }
 
 
 
         //[VersionedRoute("api/item", 2),
         [HttpGet]
-        [Route("api/item"),ActionName("Get")]
+        [Route("api/item"), ActionName("Get")]
         public async Task<HttpResponseMessage> GetAsync(long id)
         {
             var userId = User.GetUserId();
@@ -94,12 +91,12 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/item/downloadLink")]
         public string Download(string blob)
         {
-            return m_BlobUpload.GenerateReadAccessPermissionToBlob(blob);
+            return m_BlobProviderFiles.GenerateSharedAccressReadPermission(blob, 20);
         }
 
         [HttpGet]
         [Route("api/item/{id:long}/download")]
-        public async Task<string> Download(long boxId, long id)
+        public async Task<string> DownloadAsync(long boxId, long id)
         {
             //const string defaultMimeType = "application/octet-stream";
             var userId = User.GetUserId();
@@ -129,14 +126,15 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return item.Source;
             }
+            return m_BlobProviderFiles.GenerateSharedAccressReadPermission(item.Source, 120);
             //return BlobProvider.GenerateSharedAccressReadPermissionInStorage(new Uri(item.Source), 240);
-            return m_BlobUpload.GenerateReadAccessPermissionToBlob(item.Source);
+            //return m_BlobUpload.GenerateReadAccessPermissionToBlob(item.Source);
 
         }
 
 
 
-        [HttpDelete, Route("api/item"),ActionName("Delete")]
+        [HttpDelete, Route("api/item"), ActionName("Delete")]
         public async Task<HttpResponseMessage> DeleteAsync(long id/*, long boxId*/)
         {
             if (!ModelState.IsValid)
@@ -154,7 +152,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/item/upload")]
         public string UploadLink(string blob, string mimeType)
         {
-            return m_BlobUpload.GenerateWriteAccessPermissionToBlob(blob, mimeType);
+           return m_BlobProviderFiles.GenerateSharedAccressWritePermission(blob, mimeType);
+            //return m_BlobUpload.GenerateWriteAccessPermissionToBlob(blob, mimeType);
         }
         // ReSharper disable once ConsiderUsingAsyncSuffix - api call
         [HttpPost]
@@ -244,7 +243,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
             try
             {
-                size = await m_BlobProvider.UploadFromLinkAsync(model.FileUrl, blobAddressUri);
+                await m_BlobProviderFiles.UploadFromLinkAsync(model.FileUrl, blobAddressUri);
+                size = await m_BlobProviderFiles.SizeAsync(blobAddressUri);
             }
             catch (UnauthorizedAccessException)
             {
