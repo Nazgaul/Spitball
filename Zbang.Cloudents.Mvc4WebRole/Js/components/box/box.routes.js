@@ -24,13 +24,36 @@
                 },
                 templateUrl: '/box/indexpartial/'
             },
-              
+
             {
                 state: 'box.feed',
                 config: {
                     url: 'feed/',
                     controller: 'FeedController as f',
                     parent: 'box',
+                    resolve: {
+                        feedData: ['boxService', '$stateParams', function (boxService, $stateParams) {
+                            // var feedPromises = [boxService.getFeed(boxId, top, 0)];
+                            return boxService.getFeed($stateParams.boxId, 15, 0);
+                            //if (user.id) {
+                            //    feedPromises.push(userUpdatesService.boxUpdates(boxId));
+                            //}
+
+                            //$q.all(feedPromises).then(function (data) {
+                            //    var x = assignData(data[0]);
+
+                            //    if (!user.id) {
+                            //        self.data = x;
+                            //    }
+                            //    else {
+                            //        feedUpdates = data[1];
+                            //        self.data = appendUpdates(x);
+                            //        userUpdatesService.deleteUpdates(boxId);
+                            //    }
+                            //});
+                        }],
+
+                    }
                     //resolve: {
                     //    feedData: ['boxService', '$stateParams', function (boxService, $stateParams) {
                     //        boxService.getFeed(boxId, page).then(function (response) {

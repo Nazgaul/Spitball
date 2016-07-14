@@ -3,12 +3,12 @@
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
-        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window', '$filter'];
+        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window', '$filter','feedData'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window, $filter) {
-        var self = this, boxId = parseInt($stateParams.boxId, 10), top = ($window.innerHeight <= 600) ? 10 : 15;
+        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window, $filter, feedData) {
+        var self = this, boxId = parseInt($stateParams.boxId, 10), top = 15;
 
         self.add = {
             files: [],
@@ -20,7 +20,7 @@
         self.add.google = google;
         self.add.dropbox = dropbox;
         self.add.init = initThirdParties;
-
+        self.data = assignData(feedData);
 
 
         self.deleteComment = deleteComment;
@@ -54,25 +54,30 @@
             }
             return postsList;
         }
+        
 
-        //TODO : need to put $q
-        boxService.getFeed(boxId, top, 0).then(function (response) {
-            //self.data = response;
-            var x = assignData(response);
-            //appendUpdates(self.data);
+        //var feedPromises = [boxService.getFeed(boxId, top, 0)];
+        //if (user.id) {
+        //    feedPromises.push(userUpdatesService.boxUpdates(boxId));
+        //}
 
-            if (!user.id) {
-                self.data = x;
-            }
-            else {
-                userUpdatesService.boxUpdates(boxId, function (updates) {
-                    feedUpdates = updates;
-                    self.data = appendUpdates(x);
-                    userUpdatesService.deleteUpdates(boxId);
-                });
-            }
+        //$q.all(feedPromises).then(function (data) {
+        //    var x = assignData(data[0]);
 
-        });
+        //    if (!user.id) {
+        //        self.data = x;
+        //    }
+        //    else {
+        //        feedUpdates = data[1];
+        //        self.data = appendUpdates(x);
+        //        userUpdatesService.deleteUpdates(boxId);
+        //    }
+        //});
+
+
+
+
+
         //userUpdatesService.boxUpdates(boxId, function (updates) {
         //    feedUpdates = updates;
         //    appendUpdates(self.data);

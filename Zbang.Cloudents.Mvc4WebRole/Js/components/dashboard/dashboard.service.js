@@ -21,7 +21,8 @@
                     d.boxes = response;
                     for (var i = 0; i < d.boxes.length; i++) {
                         (function (box) {
-                            userUpdatesService.updatesNum(box.id, function (val) {
+                            //userUpdatesService.updatesNum(box.id, function (val) {
+                            userUpdatesService.updatesNum(box.id).then(function (val) {
                                 box.updates = val;
                             });
                         })(d.boxes[i]);

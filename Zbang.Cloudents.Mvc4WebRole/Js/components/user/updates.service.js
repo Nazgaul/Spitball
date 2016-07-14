@@ -69,7 +69,7 @@
 
         function deleteUpdates(boxId) {
             boxId = parseInt(boxId, 10);
-            updatesNum(boxId, function (length) {
+            updatesNum(boxId).then(function (length) {
                 if (!length) {
                     return;
                 }
@@ -80,20 +80,43 @@
 
 
 
+        //function updatesNum(boxid, callBack) {
+        //    boxUpdates(boxid, function () {
+        //        var v = allUpdates[boxid] ? Object.keys(allUpdates[boxid]).length : 0;
+        //        callBack(v);
+        //    });
+        //}
+
+        //function boxUpdates(boxid, callBack) {
+        //    var promise = deferred.promise;
+
+        //    promise.then(function () {
+        //        var v = allUpdates[boxid];
+        //        callBack(v);
+        //    });
+        //}
+
         function updatesNum(boxid, callBack) {
-            boxUpdates(boxid, function () {
-                var v = allUpdates[boxid] ? Object.keys(allUpdates[boxid]).length : 0;
-                callBack(v);
+            var q = $q.defer();
+
+            boxUpdates(boxid).then(function () {
+                q.resolve(allUpdates[boxid] ? Object.keys(allUpdates[boxid]).length : 0);
             });
+
+            return q.promise;
         }
 
         function boxUpdates(boxid, callBack) {
             var promise = deferred.promise;
 
+            var q = $q.defer();
+
             promise.then(function () {
-                var v = allUpdates[boxid];
-                callBack(v);
+                q.resolve(allUpdates[boxid]);
             });
+
+            return q.promise;
+
         }
     }
 
