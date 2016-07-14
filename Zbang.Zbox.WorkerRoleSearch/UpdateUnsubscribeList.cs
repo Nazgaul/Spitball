@@ -117,6 +117,17 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     await RenewLeaseAsync(cancellationToken);
 
 
+                    sw.Restart();
+                    var amount = await m_ZboxWorkerRoleService.UpdateFileSizesAsync(async () =>
+                    {
+                        await RenewLeaseAsync(cancellationToken);
+                    });
+                    
+                    sw.Stop();
+                    mailContent.AppendLine($"UpdateFileSizesAsync took {sw.ElapsedMilliseconds} the amount {amount}");
+                    await RenewLeaseAsync(cancellationToken);
+
+
                     TraceLog.WriteInfo($"{Prefix} update unsubscribe list complete");
                     m_DateTime = DateTime.UtcNow.AddDays(-1);
                     await m_Blob.UploadTextAsync(m_DateTime.ToFileTimeUtc().ToString(), Encoding.Default, new AccessCondition { LeaseId = m_LeaseId }, new BlobRequestOptions(), new OperationContext(), cancellationToken);

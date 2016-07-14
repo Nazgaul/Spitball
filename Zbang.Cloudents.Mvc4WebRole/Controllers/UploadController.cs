@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -68,7 +67,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
 
                 const string cookieName = "upload";
-                FileUploadDetails fileUploadedDetails = GetCookieUpload(cookieName, model.FileSize, model.FileName, uploadedfile);
+                var fileUploadedDetails = GetCookieUpload(cookieName, model.FileSize, model.FileName, uploadedfile);
 
 
                 string blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
@@ -82,10 +81,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonOk();
                 }
                 await m_BlobProviderFiles.CommitBlockListAsync(blobAddressUri, fileUploadedDetails.CurrentIndex, fileUploadedDetails.MimeType);
-
+                var size = await m_BlobProviderFiles.SizeAsync(blobAddressUri);
                 var command = new AddFileToBoxCommand(userId, model.BoxId, blobAddressUri,
                     fileUploadedDetails.FileName,
-                     fileUploadedDetails.TotalUploadBytes, model.TabId, model.Comment);
+                     size, model.TabId, model.Comment);
                 var result = await ZboxWriteService.AddItemToBoxAsync(command);
 
                 var result2 = result as AddFileToBoxCommandResult;
@@ -360,7 +359,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             bool notUploaded;
             try
             {
-                size = await m_BlobProvider.UploadFromLinkAsync(model.Url, blobAddressUri);
+                await m_BlobProviderFiles.UploadFromLinkAsync(model.Url, blobAddressUri);
+                size = await m_BlobProviderFiles.SizeAsync(blobAddressUri);
                 notUploaded = false;
             }
             catch (UnauthorizedAccessException)

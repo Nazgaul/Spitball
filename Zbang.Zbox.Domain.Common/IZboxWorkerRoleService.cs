@@ -30,5 +30,7 @@ namespace Zbang.Zbox.Domain.Common
         Task UpdateSearchQuizDirtyToRegularAsync(UpdateDirtyToRegularCommand command);
 
         void UpdateUserFromUnsubscribe(UnsubscribeUsersFromEmailCommand command);
+
+        Task<long> UpdateFileSizesAsync(Action callback);
     }
 }

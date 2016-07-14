@@ -14,6 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         Task<bool> ExistsAsync(string blobName);
         bool Exists(string blobName);
+        Task<long> SizeAsync(string blobName);
 
         string RelativePath();
 
@@ -23,5 +24,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         string GenerateSharedAccressReadPermission(string blobName, double expirationTimeInMinutes,
             string contentDisposition);
+
+        Task UploadFromLinkAsync(string url, string fileName);
     }
 }

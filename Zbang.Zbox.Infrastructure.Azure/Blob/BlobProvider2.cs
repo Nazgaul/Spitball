@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -77,9 +78,47 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob.Exists();
         }
 
+        public async Task<long> SizeAsync(string blobName)
+        {
+            var blob = GetBlob(blobName);
+            await blob.FetchAttributesAsync();
+            return blob.Properties.Length;
+        }
+
         public string RelativePath()
         {
             return m_Container.RelativePath;
+        }
+
+        /// <summary>
+        /// Upload file to storage from link
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="fileName"></param>
+        /// <returns>The size of the file</returns>
+        public async Task UploadFromLinkAsync(string url, string fileName)
+        {
+            using (var client = new HttpClient())
+            {
+
+                using (var sr = await client.GetAsync(url))
+                {
+                    if (!sr.IsSuccessStatusCode)
+                    {
+                        throw new UnauthorizedAccessException("Cannot access dropbox");
+                    }
+                    ////sr.Content.Headers.ContentType.
+                    var blob = GetFile(fileName);
+                    using (var stream = await blob.OpenWriteAsync())
+                    {
+                        await sr.Content.CopyToAsync(stream);
+
+                    }
+                    blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
+                    blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
+                    await blob.SetPropertiesAsync();
+                }
+            }
         }
 
 

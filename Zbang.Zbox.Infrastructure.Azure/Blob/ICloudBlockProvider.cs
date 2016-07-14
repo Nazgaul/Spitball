@@ -8,11 +8,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         CloudBlockBlob GetFile(string blobName, string containerName);
     }
 
-    public interface IBlobUpload
-    {
-        string GenerateWriteAccessPermissionToBlob(string blobName, string mimeType);
-        string GenerateReadAccessPermissionToBlob(string blobName);
-    }
+    //public interface IBlobUpload
+    //{
+    //    string GenerateWriteAccessPermissionToBlob(string blobName, string mimeType);
+    //    string GenerateReadAccessPermissionToBlob(string blobName);
+    //}
 
     
 

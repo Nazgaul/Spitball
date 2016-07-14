@@ -9,26 +9,14 @@
                     <span>@ChatResources.DisconnectedText</span>
                 </div>
             </div>
-            <div class="menu-content" @*ng-if="c.state !== c.states.chat && c.state > 0"*@>
+            <div class="menu-content">
                 <div class="header">
                     <div class="exit-icon" ng-click="c.close()">
                         @Html.Svg("~/images/site/icons.svg", "exit")
                     </div>
-
-                    @*<div class="tabs">
-                            <button type="button" ng-click="c.state = c.states.messages" ng-class="{active: c.state === c.states.messages}" class="messages tab">@ChatResources.MessagesHeader</button>
-                            <button type="button" ng-click="c.friendsState()" class="friends tab" ng-class="{active: c.state === c.states.friends}">@ChatResources.FriendsHeader</button>
-                        </div>*@
                 </div>
                 <div class="tab-content" ng-if="c.state === c.states.messages">
-                    @*<div class="empty-state">
-                            @Html.Svg("~/images/site/icons.svg", "empty-chat")
-                            <div class="text">
-                                <span>@ChatResources.EmptyStateLine1</span>
-                                @ChatResources.EmptyStateLine2
-                            </div>
-                        </div>*@
-                    <form novalidate class="search-friend" @*ng-if="c.state === c.states.friends"*@ ng-submit="c.search(c.term)">
+                    <form novalidate class="search-friend" ng-submit="c.search(c.term)">
                         <button type="submit" class="search-btn">
                             @Html.Svg("~/images/site/icons.svg", "searchIcon", new { @class = "searchIcon" })
                         </button>
@@ -70,55 +58,8 @@
                         </a>
                     </div>
                     <a class="menu menu-item" plupload="c.upload.url" plupload-options="c.upload.options" plupload-callbacks="c.upload.callbacks" href="#" ga-track-event="['chat', 'upload-file']"> @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" }) </a>
-                    @*<nav class="menu">
-                            <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open" />
-                            <label class="menu-open-button" for="menu-open">
-                                @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" })
-                            </label>
-
-
-
-                            <a href="#" class="menu-item"> @Html.Svg("~/images/site/uploadIcons.svg", "dropbox", new { @class = "dropbox" }) </a>
-                            <a href="#" class="menu-item"> @Html.Svg("~/images/site/uploadIcons.svg", "googleDrive", new { @class = "googleDrive" }) </a>
-                            <a plupload="c.upload.url" plupload-options="c.upload.options" plupload-callbacks="c.upload.callbacks" href="#" class="menu-item"> @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" }) </a>
-
-
-
-                        </nav>*@
-                    @*<div class="attach-menu" ng-cloak>
-                            <md-fab-speed-dial md-open="c.open"   md-direction="down" class="md-fling angular-animate">
-                                <md-fab-trigger aria-label="menu">
-                                    <md-button aria-label="add">
-                                        @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" })
-                                    </md-button>
-                                </md-fab-trigger>
-                                <md-fab-actions>
-                                    <button>
-                                        @Html.Svg("~/images/site/uploadIcons.svg", "dropbox", new { @class = "dropbox" })
-                                    </button>
-                                    <button>
-                                        @Html.Svg("~/images/site/uploadIcons.svg", "googleDrive", new { @class = "googleDrive" })
-                                    </button>
-                                    <button>
-                                        @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" })
-                                    </button>
-                                </md-fab-actions>
-                            </md-fab-speed-dial>
-                        </div>*@
                 </div>
                 <div class="chat-content">
-                    @*<md-virtual-repeat-container id="vertical-container">
-                            <ul md-virtual-repeat="e in c.messages" @*md-on-demand
-                                 class="messages">
-                                <li class="message" ng-repeat="e in c.messages" ng-class="{partner: e.partner}">
-                                    <div ng-if="e.text" class="text" ng-bind-html="e.text"></div>
-                                    <div ng-if="e.blob" class="image" ng-click="c.dialog(e.blob, $event)">
-                                        <img ng-src="{{::e.thumb}}" alt="preview" />
-                                    </div>
-                                    <time-ago class="time" from-time="{{::e.time}}" format="mediumDate"></time-ago>
-                                </li>
-                            </ul>
-                        </md-virtual-repeat-container>*@
                     <ul class="messages" disable-thouch ng-scrollbars ng-scrollbars-update="c.updateScrollbar" ng-scrollbars-config="c.scrollSetting" @*infinite-scrollbars-direction="up" infinite-scrollbars-function="c.loadMoreMessages"*@ @*ng-slimscroll height="calc(100vh - 120px)" start="bottom" watch-content="true" color="#BBB"*@>
                         <li class="message" ng-repeat="e in c.messages" ng-class="{partner: e.partner}">
                             <div ng-if="e.text" class="text" ng-bind-html="::e.text | linky:'_blank'"></div>
