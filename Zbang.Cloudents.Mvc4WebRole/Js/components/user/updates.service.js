@@ -106,7 +106,7 @@
             return q.promise;
         }
 
-        function boxUpdates(boxid, callBack) {
+        function boxUpdates(boxid) {
             var promise = deferred.promise;
 
             var q = $q.defer();

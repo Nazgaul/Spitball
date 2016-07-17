@@ -33,25 +33,13 @@
                     parent: 'box',
                     resolve: {
                         feedData: ['boxService', '$stateParams', function (boxService, $stateParams) {
-                            // var feedPromises = [boxService.getFeed(boxId, top, 0)];
                             return boxService.getFeed($stateParams.boxId, 15, 0);
-                            //if (user.id) {
-                            //    feedPromises.push(userUpdatesService.boxUpdates(boxId));
-                            //}
-
-                            //$q.all(feedPromises).then(function (data) {
-                            //    var x = assignData(data[0]);
-
-                            //    if (!user.id) {
-                            //        self.data = x;
-                            //    }
-                            //    else {
-                            //        feedUpdates = data[1];
-                            //        self.data = appendUpdates(x);
-                            //        userUpdatesService.deleteUpdates(boxId);
-                            //    }
-                            //});
                         }],
+                        updates: ['user', 'userUpdatesService', '$stateParams', function (user, userUpdatesService, stateParams) {
+                            if (user.id) {
+                                return userUpdatesService.boxUpdates(stateParams.boxId);
+                            }
+                        }]
 
                     }
                     //resolve: {
