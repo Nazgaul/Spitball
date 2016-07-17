@@ -32,12 +32,12 @@
         self.likeReplyDialog = likeReplyDialog;
         self.likeCommentDialog = likeCommentDialog;
         var feedUpdates = {};
-        self.data = assignData(feedData);
 
         if(user.id) {
             feedUpdates = updates;
             userUpdatesService.deleteUpdates(boxId);
         }
+        self.data = assignData(feedData);
 
 
         function appendUpdates(postsList) {
