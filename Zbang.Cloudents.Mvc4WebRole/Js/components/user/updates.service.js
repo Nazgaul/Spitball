@@ -75,6 +75,7 @@
                 }
                 deleteFromServer(boxId);
                 delete allUpdates[boxId];
+                $rootScope.$broadcast('refresh-boxes');
             });
         }
 
