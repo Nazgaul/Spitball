@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 using Zbang.Zbox.WorkerRoleSearch.Mail;
@@ -16,19 +17,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class TestingJob : IJob
     {
         private readonly IZboxWorkerRoleService m_ZboxWorkerRoleService;
+        private readonly IMailComponent m_MailComponent;
 
-        public TestingJob(IZboxWorkerRoleService zboxWorkerRoleService)
+        public TestingJob(IZboxWorkerRoleService zboxWorkerRoleService, IMailComponent mailComponent)
         {
             m_ZboxWorkerRoleService = zboxWorkerRoleService;
+            m_MailComponent = mailComponent;
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-
+            //await m_MailComponent.GenerateSystemEmailAsync("this is atest", "test");
 
             var amount = await m_ZboxWorkerRoleService.UpdateFileSizesAsync(() =>
             {
-                
+
             });
 
             //var y = Infrastructure.Ioc.IocFactory.IocWrapper.Resolve<IDomainProcess>(Infrastructure.Transport.DomainProcess.UpdateResolver);

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,21 +16,19 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public class MailManager2 : IMailComponent
     {
-        private const string SendGridUserName = "cloudents";
-        private const string SendGridPassword = "zbangitnow";
+        //private const string SendGridUserName = "cloudents";
+        //private const string SendGridPassword = "zbangitnow";
+        //
+        //private const string SendGridUserNameUs = "SpitballUS";
+        //private const string SendGridPasswordUs = "9cloudents";
+
+
         private readonly IocFactory m_Container = IocFactory.IocWrapper;
 
-        private Task SendAsync(ISendGrid message)
+        private static Task SendAsync(ISendGrid message, ICredentials credentials)
         {
-            //try
-            //{
-            var transport = new Web(new NetworkCredential(SendGridUserName, SendGridPassword));
+            var transport = new Web(new NetworkCredential(credentials.UserName, credentials.Password));
             return transport.DeliverAsync(message);
-            //}
-            //catch (Exception ex)
-            //{
-            //    TraceLog.WriteError("Problem with sending an email", ex);
-            //}
         }
 
 
@@ -47,14 +44,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                     From = new MailAddress(parameters.SenderEmail, parameters.SenderName)
                 };
 
-                if (ConfigFetcher.IsEmulated)
-                {
-                    sendGridMail.AddTo("ram@cloudents.com");
-                }
-                else
-                {
-                    sendGridMail.AddTo(recipient);
-                }
+                sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
 
                 var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
                 mail.AddSubject(sendGridMail);
@@ -66,7 +56,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
                 sendGridMail.EnableClickTracking();
                 sendGridMail.EnableOpenTracking();
-                await SendAsync(sendGridMail);
+                await SendAsync(sendGridMail, new Credentials());
             }
             catch (FormatException ex)
             {
@@ -110,18 +100,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
             {
                 var client = new Client(ApiKey);
                 await client.GlobalSuppressions.Delete(email);
-                //    // ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
-                //    using (var client = new HttpClient())
-                //    {
-
-
-                //        var content =
-                //            new StringContent(string.Empty);
-                //        await
-                //            client.PostAsync(
-                //                $"https://sendgrid.com/api/unsubscribes.delete.json?api_user={SendGridUserName}&api_key={SendGridPassword}&email={email}"
-                //                , content);
-                //    }
             }
             catch (Exception ex)
             {
@@ -137,29 +115,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 Text = text,
                 Subject = subject
             };
-
-            //var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
-            //mail.AddSubject(sendGridMail);
-            //mail.GenerateMail(sendGridMail, parameters);
-
-
-
-            //sendGridMail.AddTo("yaari.ram@gmail.com");
             sendGridMail.AddTo("ram@cloudents.com");
-            await SendAsync(sendGridMail);
+            await SendAsync(sendGridMail, new UsCredentials());
         }
 
-
-
-        //public async Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, MailParameters parameters)
-        //{
-        //    foreach (var recipient in recipients)
-        //    {
-        //        await GenerateAndSendEmailAsync(recipient, parameters);
-        //    }
-        //}
-
-
-
+        
     }
 }

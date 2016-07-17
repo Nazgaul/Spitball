@@ -8,6 +8,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
+using Zbang.Zbox.Infrastructure.Trace;
 
 
 namespace Zbang.Zbox.Domain.Services
@@ -109,9 +110,16 @@ namespace Zbang.Zbox.Domain.Services
                 do
                 {
                     count += itemIds.Count;
-                    var command = new UpdateItemWithNoSizeCommand(itemIds);
-                    await m_CommandBus.SendAsync(command);
-                    unitOfWork.TransactionalFlush();
+                    try
+                    {
+                        var command = new UpdateItemWithNoSizeCommand(itemIds);
+                        await m_CommandBus.SendAsync(command);
+                        unitOfWork.TransactionalFlush();
+                    }
+                    catch(Exception ex)
+                    {
+                        TraceLog.WriteError(ex);
+                    }
                     callback();
                     query = UnitOfWork.CurrentSession.GetNamedQuery("ItemWithNoSize");
                     query.SetMaxResults(100);
