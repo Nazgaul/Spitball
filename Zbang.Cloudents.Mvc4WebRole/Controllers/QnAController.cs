@@ -26,7 +26,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_IdGenerator = idGenerator;
         }
 
-        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("id"),ActionName("Index")]
+        private string RemoveHtmlTags(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                return s;
+            }
+            return TextManipulation.RemoveHtmlTags.Replace(s, string.Empty);
+        }
+
+        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("id"), ActionName("Index")]
         public async Task<JsonResult> IndexAsync(long id, int top, int skip)
         {
             try
@@ -41,7 +50,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     return JsonOk(retVal.Select(s => new
                     {
-                        content = TextManipulation.RemoveHtmlTags.Replace(s.Content, string.Empty),
+                        content = RemoveHtmlTags(s.Content),
                         //s.Content,
                         s.CreationTime,
                         s.Id,
@@ -61,7 +70,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Replies = s.Replies.Select(v =>
                             new
                             {
-                                content = TextManipulation.RemoveHtmlTags.Replace(v.Content, string.Empty),
+                                content = RemoveHtmlTags(v.Content),
                                 //v.Content,
                                 v.CreationTime,
                                 v.Id,
@@ -86,7 +95,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 return JsonOk(retVal.Select(s => new
                 {
-                    content = TextManipulation.RemoveHtmlTags.Replace(s.Content, string.Empty),
+                    content = RemoveHtmlTags(s.Content),
                     //s.Content,
                     s.CreationTime,
                     s.Id,
@@ -106,24 +115,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     }),
                     Replies = s.Replies.Select(v =>
                     new
+                    {
+                        content = RemoveHtmlTags(v.Content),
+                        v.CreationTime,
+                        v.Id,
+                        v.Url,
+                        v.UserId,
+                        v.UserImage,
+                        v.UserName,
+                        v.LikesCount,
+                        Files = v.Files.Select(b => new
                         {
-                            content = TextManipulation.RemoveHtmlTags.Replace( v.Content,string.Empty),
-                            v.CreationTime,
-                            v.Id,
-                            v.Url,
-                            v.UserId,
-                            v.UserImage,
-                            v.UserName,
-                            v.LikesCount,
-                            Files = v.Files.Select(b => new
-                            {
-                                b.Source,
-                                b.Type,
-                                b.Id,
-                                b.Url,
-                                b.Name
-                            })
-                        }
+                            b.Source,
+                            b.Type,
+                            b.Id,
+                            b.Url,
+                            b.Name
+                        })
+                    }
 
 
                     )
@@ -142,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
-        [RemoveBoxCookie,ActionName("AddComment")]
+        [RemoveBoxCookie, ActionName("AddComment")]
         public async Task<JsonResult> AddCommentAsync(Comment model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
@@ -162,7 +171,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [ZboxAuthorize]
         [HttpPost]
-        [RemoveBoxCookie,ActionName("AddReply")]
+        [RemoveBoxCookie, ActionName("AddReply")]
         public async Task<JsonResult> AddReplyAsync(Reply model)
         {
             if (string.IsNullOrEmpty(model.Content) && (model.Files == null || model.Files.Length == 0))
@@ -237,7 +246,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(retVal.Liked);
         }
 
-        [HttpGet, BoxPermission("boxId"),ActionName("Replies")]
+        [HttpGet, BoxPermission("boxId"), ActionName("Replies")]
         public async Task<JsonResult> RepliesAsync(Guid id, Guid replyId, long boxId)
         {
             var query = new GetCommentRepliesQuery(boxId, id, replyId);
@@ -291,7 +300,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpGet, BoxPermission("boxId"), ZboxAuthorize,ActionName("CommentLikes")]
+        [HttpGet, BoxPermission("boxId"), ZboxAuthorize, ActionName("CommentLikes")]
         public async Task<JsonResult> CommentLikesAsync(Guid id, long boxId)
         {
             var query = new GetFeedLikesQuery(id);
@@ -299,7 +308,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(retVal);
         }
 
-        [HttpGet, BoxPermission("boxId"), ZboxAuthorize,ActionName("ReplyLikes")]
+        [HttpGet, BoxPermission("boxId"), ZboxAuthorize, ActionName("ReplyLikes")]
         public async Task<JsonResult> ReplyLikesAsync(Guid id, long boxId)
         {
             var query = new GetFeedLikesQuery(id);
