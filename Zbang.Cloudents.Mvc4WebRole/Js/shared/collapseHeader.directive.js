@@ -45,6 +45,10 @@
 
                 }
 
+                scope.$on('$destroy', function () {
+                    $container.unbind('scroll', onScroll);
+                });
+
             }
         };
     }

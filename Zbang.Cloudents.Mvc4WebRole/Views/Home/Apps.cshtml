@@ -14,16 +14,9 @@
                     <h2>@StaticPagesResources.AppsSubtitle</h2>
                 </div>
                 <div class="app-links">
-                    @{
-                        var queryString = string.Empty;
-                        if (!string.IsNullOrEmpty(Request.QueryString["utm_medium"]))
-                        {
-                            queryString = string.Format("?af_prt=peachmedia&af_siteid={0}&pid={1}&c={2}", Request.QueryString["utm_medium"], Request.QueryString["utm_source"], Request.QueryString["utm_campaign"]);
-                        }
-                    }
-                    <a target="_blank" href="@string.Format("https://app.appsflyer.com/id990911114{0}", queryString)" class="appSotre os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                    <a target="_blank" href="https://itunes.apple.com/US/app/id990911114?mt=8" class="appSotre os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                     </a>
-                    <a target="_blank" href="@string.Format("http://app.appsflyer.com/com.cloudents.zbox2{0}", queryString)" class="googlePlay os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.4s">
+                    <a target="_blank" href="https://play.google.com/store/apps/details?id=com.cloudents.zbox2&referrer=af_tranid%3Dlf0KV1Ozg3bC81GfeVe0YQ" class="googlePlay os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.4s">
                     </a>
                 </div>
 
