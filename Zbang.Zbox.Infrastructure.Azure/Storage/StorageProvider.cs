@@ -82,9 +82,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         #region CreateStorage
         private static void CreateBlobStorage(CloudBlobClient blobClient)
         {
-            var serviceProperties = blobClient.GetServiceProperties();
-            serviceProperties.DefaultServiceVersion = "2014-02-14";
-            blobClient.SetServiceProperties(serviceProperties);
+           // var serviceProperties = blobClient.GetServiceProperties();
+            //serviceProperties.DefaultServiceVersion = "2014-02-14";
+            //blobClient.SetServiceProperties(serviceProperties);
             var container = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
 
             if (container.CreateIfNotExists())
@@ -184,19 +184,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                var queue =  queueClient.GetQueueReference(field.GetValue(null).ToString().ToLower());
                 queue.CreateIfNotExists();
             }
-            //  var queue = queueClient.GetQueueReference(QueueName.QueueName2.ToLower());
-            //var downloadContentFromUrlQueue = queueClient.GetQueueReference(QueueName.DownloadContentFromUrl.ToLower());
-            //// var downloadContentFromUrlQueuePahse2 = queueClient.GetQueueReference(QueueName.DownloadContentFromUrlPhase2.ToLower());
-            //var mailQueue2 = queueClient.GetQueueReference(QueueName.NewMailQueueName.ToLower());
-            //var transactionQueue = queueClient.GetQueueReference(QueueName.UpdateDomainQueueName.ToLower());
-            //var thumbailQueue = queueClient.GetQueueReference(QueueName.ThumbnailQueueName.ToLower());
-            //
-            ////            queue.CreateIfNotExists();
-            //mailQueue2.CreateIfNotExists();
-            //transactionQueue.CreateIfNotExists();
-            //downloadContentFromUrlQueue.CreateIfNotExists();
-            //downloadContentFromUrlQueuePahse2.CreateIfNotExists();
-
         }
 
         private static void CreateTables(CloudTableClient tableClient)

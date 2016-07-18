@@ -190,6 +190,13 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<IEnumerable<string>> GetEmailsAsync(int page)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<string>(Sql.MarketingEmailQuery, new { pageNumber = page });
+            }
+        }
 
 
         //public async Task<IEnumerable<UniversitySearchDto>> GetUniversityDetailAsync()
@@ -452,7 +459,7 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
                     IEnumerable<LikesDto> items = await grid.ReadAsync<ItemLikesDto>();
                     IEnumerable<LikesDto> replies = await grid.ReadAsync<ReplyLikesDto>();
                     IEnumerable<LikesDto> comments = await grid.ReadAsync<CommentLikesDto>();
-                    
+
                     return items.Union(replies).Union(comments);
                 }
             }

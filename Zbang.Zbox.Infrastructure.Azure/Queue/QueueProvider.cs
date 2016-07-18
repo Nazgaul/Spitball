@@ -43,12 +43,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             return GetQueue(QueueName.UpdateDomainQueueName.ToLower());
         }
 
-        //public Task InsertMessageToCacheAsync(FileProcessData message)
-        //{
-        //    var queue = GetCacheQueue();
-        //    return queue.InsertToQueueProtoAsync(message);
-        //}
-
         public Task InsertMessageToMailNewAsync(BaseMailData message)
         {
             return GetMailQueueNew().InsertToQueueProtoAsync(message);
@@ -70,19 +64,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
             await GetDownloadContentFromUrlQueue().InsertToQueueProtoAsync(message);
         }
 
-
-
-        private CloudQueue GetQueue(string queueName)
+        public CloudQueue GetQueue(string queueName)
         {
             var queue = QueueClient.GetQueueReference(queueName.ToLower());
             return queue;
         }
-
-        //public Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
-        //    TimeSpan invisibleTimeinQueue, int deQueueCount = 100)
-        //{
-        //    return RunQueueAsync(queueName, func, invisibleTimeinQueue, deQueueCount, default(CancellationToken));
-        //}
 
         public async Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
            TimeSpan invisibleTimeinQueue, int deQueueCount, CancellationToken token)

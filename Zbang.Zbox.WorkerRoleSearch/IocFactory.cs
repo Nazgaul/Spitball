@@ -68,6 +68,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.RegisterType<IJob, ThumbnailQueueProcess>(nameof(ThumbnailQueueProcess));
             Ioc.RegisterType<IJob, MailQueueProcess>(nameof(MailQueueProcess));
             Ioc.RegisterType<IJob, TestingJob>(nameof(TestingJob));
+            Ioc.RegisterType<IJob, SpamGun>(nameof(SpamGun));
             Ioc.RegisterType<IJob, DeleteOldConnections>(nameof(DeleteOldConnections));
 
 

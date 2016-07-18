@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Queue;
@@ -15,6 +14,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Queue
         Task<bool> RunQueueAsync(QueueName queueName, Func<CloudQueueMessage, Task<bool>> func,
             TimeSpan invisibleTimeinQueue, int deQueueCount, CancellationToken token);
         Task UpdateMessageAsync(QueueName queueName, CloudQueueMessage msg, CancellationToken token);
-        
+
+
+        CloudQueue GetQueue(string queueName);
     }
 }

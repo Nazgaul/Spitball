@@ -52,5 +52,7 @@ namespace Zbang.Zbox.ReadServices
             CancellationToken token);
 
         Task<IEnumerable<LikesDto>> GetLikesDataAsync(CancellationToken token);
+
+        Task<IEnumerable<string>> GetEmailsAsync(int page);
     }
 }

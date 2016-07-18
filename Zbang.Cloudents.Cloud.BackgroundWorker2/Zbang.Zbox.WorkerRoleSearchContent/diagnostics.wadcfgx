@@ -8,7 +8,7 @@
           <CrashDumpConfiguration processName="WaWorkerHost.exe" />
           <CrashDumpConfiguration processName="w3wp.exe" />
         </CrashDumps>
-        <Logs scheduledTransferPeriod="PT1M" scheduledTransferLogLevelFilter="Information" />
+        <Logs scheduledTransferPeriod="PT1M" />
       </DiagnosticMonitorConfiguration>
     </WadCfg>
     <StorageAccount>zboxdiagnostic</StorageAccount>

@@ -24,16 +24,25 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     if (!RunningInWeb)
                     {
                         //throw new NullReferenceException("You don't suppose to use this method in here since");
-                        if (_localData != null)
+                        if (_localData == null)
                         {
-                            CallContext.LogicalSetData("LocalData_hash", _localData);
-                            return _localData;
+                            _localData = new Hashtable();
                         }
-                        var hashTable =  CallContext.LogicalGetData("LocalData_hash") as Hashtable;
-                        _localData = hashTable ?? new Hashtable();
-                        CallContext.LogicalSetData("LocalData_hash", _localData);
                         return _localData;
                     }
+                    //if (!RunningInWeb)
+                    //{
+                    //    //throw new NullReferenceException("You don't suppose to use this method in here since");
+                    //    if (_localData != null)
+                    //    {
+                    //        CallContext.LogicalSetData("LocalData_hash", _localData);
+                    //        return _localData;
+                    //    }
+                    //    var hashTable =  CallContext.LogicalGetData("LocalData_hash") as Hashtable;
+                    //    _localData = hashTable ?? new Hashtable();
+                    //    CallContext.LogicalSetData("LocalData_hash", _localData);
+                    //    return _localData;
+                    //}
                     var webHashtable = HttpContext.Current.Items[LocalDataHashtableKey] as Hashtable;
                     if (webHashtable == null)
                     {

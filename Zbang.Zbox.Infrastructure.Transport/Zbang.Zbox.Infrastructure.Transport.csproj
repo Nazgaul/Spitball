@@ -65,6 +65,7 @@
     <Compile Include="ReplyToCommentData.cs" />
     <Compile Include="ReputationData.cs" />
     <Compile Include="RequestAccessData.cs" />
+    <Compile Include="SpamGunData.cs" />
     <Compile Include="StatisticsData.cs" />
     <Compile Include="ChatFileProcessData.cs" />
     <Compile Include="UniversityData.cs" />

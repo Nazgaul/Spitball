@@ -20,6 +20,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         Task GenerateSystemEmailAsync(string subject, string text);
 
+        Task SendSpanGunEmailAsync(string recipient, string ipPool);
+
 
 
     }

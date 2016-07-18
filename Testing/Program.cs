@@ -209,8 +209,8 @@ namespace Testing
 
 
             var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
-            var cache = iocFactory.Resolve<ICache>();
-            cache.RemoveFromCacheAsyncSlowAsync("feed_111492").Wait();
+            //var cache = iocFactory.Resolve<ICache>();
+            //cache.RemoveFromCacheAsyncSlowAsync("feed_111492").Wait();
             //var t = emailVerify.VerifyEmail("asdf@gmai.lcom");
             // var x = iocFactory.Resolve<IFileProcessorFactory>();
             // x.GetProcessor(
@@ -261,7 +261,8 @@ namespace Testing
             //            //TestImage();
             //            //var ShortCode = iocFactory.Resolve<IShortCodesCache>();
             //            //var boxid = ShortCode.LongToShortCode(10691, ShortCodesType.User);
-            //var x = iocFactory.Resolve<IMailComponent>();
+            var x = iocFactory.Resolve<IMailComponent>();
+            x.SendSpanGunEmailAsync("ram@cloudents.com", "ip3").Wait();
             //x.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
             //         "failed connect to remove db ");
             //var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");

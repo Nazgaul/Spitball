@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
@@ -36,7 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     TraceLog.WriteError(ex);
                 }
-                if (command.UserIds.Any())
+                if (command.UserIds != null && command.UserIds.Any())
                 {
                     TraceLog.WriteInfo($"sending disconnect to {string.Join(" ", command.UserIds)}");
                     try

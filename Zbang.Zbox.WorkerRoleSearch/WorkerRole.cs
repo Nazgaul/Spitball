@@ -92,6 +92,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task RunAsync(CancellationToken cancellationToken)
         {
+            //var job = m_Unity.Resolve<IJob>(nameof(TestingJob));
+            //await job.RunAsync(cancellationToken);
             foreach (var job in m_Jobs)
             {
                 var t = Task.Factory.StartNew(async () => await job.RunAsync(cancellationToken), cancellationToken);
@@ -119,12 +121,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         m_Tasks[i] = Task.Factory.StartNew(async () => await jobToRestart.RunAsync(cancellationToken), cancellationToken);
                     }
                     await Task.Delay(TimeSpan.FromSeconds(30), cancellationToken);
-                    //Thread.Sleep(TimeSpan.FromSeconds(30));
-
-
-                    //var list = jobs.Select(job => job.RunAsync(cancellationToken)).ToList();
-                    //await Task.WhenAll(list);
-                    //await Task.Delay(1000, cancellationToken);
                 }
                 catch (Exception ex)
                 {
@@ -141,15 +137,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchItem),
                     //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchBox),
-                   //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz),
-                   // m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity),
-                  // m_Unity.Resolve<IJob>(nameof(SchedulerListener))
-                  //m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList))
-                   m_Unity.Resolve<IJob>(nameof(TestingJob))
-                   
-                  // m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)),
-                  // m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)),
-                  //m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess))
+                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchQuiz),
+                    //m_Unity.Resolve<IJob>(IocFactory.UpdateSearchUniversity),
+                    //m_Unity.Resolve<IJob>(nameof(SchedulerListener))
+                    //m_Unity.Resolve<IJob>(nameof(UpdateUnsubscribeList))
+                    m_Unity.Resolve<IJob>(nameof(TestingJob)),
+                    //m_Unity.Resolve<IJob>(nameof(SpamGun))
+                    // m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)),
+                    // m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)),
+                    //m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess))
 
                 };
             }
@@ -164,7 +160,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_Unity.Resolve<IJob>(nameof(MailQueueProcess)),
                 m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess)),
                 m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)),
-                m_Unity.Resolve<IJob>(nameof(DeleteOldConnections))
+                m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)),
+                m_Unity.Resolve<IJob>(nameof(SpamGun))
 
             };
         }

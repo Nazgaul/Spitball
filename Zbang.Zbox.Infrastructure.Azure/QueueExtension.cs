@@ -15,7 +15,6 @@ namespace Zbang.Zbox.Infrastructure.Azure
                 ProtoBuf.Serializer.Serialize(m, data);
                 m.Seek(0, SeekOrigin.Begin);
                 return cloudQueue.AddMessageAsync(new CloudQueueMessage(m.ToArray()));
-
             }
         }
 

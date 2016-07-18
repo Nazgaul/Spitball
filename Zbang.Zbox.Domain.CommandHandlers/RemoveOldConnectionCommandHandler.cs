@@ -21,7 +21,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(RemoveOldConnectionCommand message)
         {
             var zombies = m_ConnectionRepository.GetZombies();
-            TraceLog.WriteInfo($"zombies count {zombies.Count}");
+            if (zombies.Count == 0)
+            {
+                return;
+            }
             var userIds = new List<long>();
             foreach (var zombie in zombies)
             {

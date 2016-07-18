@@ -10,6 +10,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
         public const string DownloadContentFromUrl = "downloadcontentfromurl";
         public const string Scheduler = "zbox-scheduler";
 
+
+
         public abstract string Name
         {
             get;
