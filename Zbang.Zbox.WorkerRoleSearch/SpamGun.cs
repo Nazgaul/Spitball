@@ -32,6 +32,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
+            TraceLog.WriteInfo($"{ServiceName} starting");
             var tasks = new List<Task>();
             for (int i = 0; i < SpanGunNumberOfQueues; i++)
             {
@@ -55,11 +56,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         {
                             if (i * 50 + k >= LimitPerIp)
                             {
-                                TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
+                                TraceLog.WriteWarning($"{ServiceName} ip {j} reach hour peak");
                                 reachHourLimit = true;
                                 break;
                             }
                             var message = await queue.GetMessageAsync(TimeSpan.FromMinutes(30), new QueueRequestOptions(), new Microsoft.WindowsAzure.Storage.OperationContext(), cancellationToken);
+                            if (message == null)
+                            {
+                                TraceLog.WriteWarning($"message is null {i}");
+                                break;
+                            }
                             var emailMessage = message.FromMessageProto<SpamGunData>();
                             var t1 = m_MailComponent.SendSpanGunEmailAsync(emailMessage.Emails, BuildIpPool(j));
                             var t2 = queue.DeleteMessageAsync(message, cancellationToken);
