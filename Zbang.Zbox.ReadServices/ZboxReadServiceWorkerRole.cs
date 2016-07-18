@@ -362,7 +362,6 @@ order by userid
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY";
             return GetMarketingDataAsync(query, sql, token);
-
         }
 
         public Task<IEnumerable<MarketingDto>> GetUsersWithUniversityWithoutSubscribedBoxesAsync(MarketingQuery query,
