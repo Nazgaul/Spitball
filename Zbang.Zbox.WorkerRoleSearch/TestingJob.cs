@@ -64,6 +64,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 mails = (await m_ZboxReadService.GetEmailsAsync(page)).ToList();
             } while (mails.Any());
             await m_MailComponent.GenerateSystemEmailAsync("stop populating", "stop " + page);
+            await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
             //var amount = await m_ZboxWorkerRoleService.UpdateFileSizesAsync(() =>
             //{
 
@@ -111,7 +112,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public void Stop()
         {
-            throw new NotImplementedException();
+           // throw new NotImplementedException();
         }
     }
 }
