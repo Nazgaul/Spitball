@@ -198,25 +198,10 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-
-        //public async Task<IEnumerable<UniversitySearchDto>> GetUniversityDetailAsync()
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var retVal = conn.Query<UniversitySearchDto>(LibraryChoose.GetUniversityDetail);
-        //        return retVal;
-        //    }
-        //}
-
-
-
-
         public async Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdatesAsync(int index, int total, int top)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-
-
                 using (var grid = await conn.QueryMultipleAsync(Search.GetUniversityToUploadToSearch +
                                                                 Search.GetUniversityPeopleToUploadToSearch +
                                                                 Search.GetUniversitiesToDeleteFromSearch
