@@ -75,6 +75,7 @@
                 }
                 deleteFromServer(boxId);
                 delete allUpdates[boxId];
+                $rootScope.$broadcast('refresh-boxes');
             });
         }
 
@@ -106,7 +107,7 @@
             return q.promise;
         }
 
-        function boxUpdates(boxid, callBack) {
+        function boxUpdates(boxid) {
             var promise = deferred.promise;
 
             var q = $q.defer();

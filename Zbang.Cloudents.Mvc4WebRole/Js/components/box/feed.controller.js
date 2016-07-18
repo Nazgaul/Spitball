@@ -3,11 +3,11 @@
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
-        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window', '$filter','feedData'];
+        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window', '$filter', 'feedData', 'updates'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window, $filter, feedData) {
+        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window, $filter, feedData, updates) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), top = 15;
 
         self.add = {
@@ -20,7 +20,6 @@
         self.add.google = google;
         self.add.dropbox = dropbox;
         self.add.init = initThirdParties;
-        self.data = assignData(feedData);
 
 
         self.deleteComment = deleteComment;
@@ -33,6 +32,13 @@
         self.likeReplyDialog = likeReplyDialog;
         self.likeCommentDialog = likeCommentDialog;
         var feedUpdates = {};
+
+        if(user.id) {
+            feedUpdates = updates;
+            userUpdatesService.deleteUpdates(boxId);
+        }
+        self.data = assignData(feedData);
+
 
         function appendUpdates(postsList) {
             if (!feedUpdates) {
@@ -54,34 +60,8 @@
             }
             return postsList;
         }
-        
-
-        //var feedPromises = [boxService.getFeed(boxId, top, 0)];
-        //if (user.id) {
-        //    feedPromises.push(userUpdatesService.boxUpdates(boxId));
-        //}
-
-        //$q.all(feedPromises).then(function (data) {
-        //    var x = assignData(data[0]);
-
-        //    if (!user.id) {
-        //        self.data = x;
-        //    }
-        //    else {
-        //        feedUpdates = data[1];
-        //        self.data = appendUpdates(x);
-        //        userUpdatesService.deleteUpdates(boxId);
-        //    }
-        //});
 
 
-
-
-
-        //userUpdatesService.boxUpdates(boxId, function (updates) {
-        //    feedUpdates = updates;
-        //    appendUpdates(self.data);
-        //});
         function likeCommentDialog(comment, ev) {
             if (!comment.likesCount) {
                 return;

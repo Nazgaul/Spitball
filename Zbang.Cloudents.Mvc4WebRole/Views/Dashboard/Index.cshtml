@@ -14,7 +14,7 @@
         <button ng-if="d.boxes.length > 2" type="button" ng-click="d.inviteToSpitabll(); d.createBoxOn = false" class="inviteBtn backgroundTC29 borderTC32" ga-track-event="['dashboard', 'invite open']">
             <div class="wrapper">
                 @Html.Svg("~/images/site/icons.svg", "invite", new { @class = "svgTC31"})
-                <span class="textTC30">@DashboardResource.InviteToSpitball</span>
+                <span class="textTC30 text">@DashboardResource.InviteToSpitball&nbsp;<span>@ChatResources.FriendsHeader</span></span>
             </div>
         </button>
         <button type="button" ng-click="d.createBoxOn = true; d.inviteOpen = false" class="create-btn backgroundTC29 borderTC32" ga-track-event="['dashboard', 'createbox']">

@@ -52,9 +52,7 @@ md-menu-item.blue svg {
 .itemPage header .item-actions a,
 .itemPage header .close-btn a {
   margin: 0 15px;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: inline-flex;
+  display: inline-block;
 }
 .itemPage header .item-actions svg,
 .itemPage header .close-btn svg {

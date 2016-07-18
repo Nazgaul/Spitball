@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite classmates.
+        ///   Looks up a localized string similar to Invite.
         /// </summary>
         public static string InviteToSpitball {
             get {

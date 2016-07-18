@@ -86,6 +86,11 @@
   flex-grow: 1;
   margin-right: 8px;
 }
+@media (max-width: 960px) {
+  .dashboard .dashboard-actions .container .inviteBtn .text span {
+    display: none;
+  }
+}
 .dashboard .dashboard-actions .container .inviteBtn svg {
   width: 20px;
   height: 20px;
