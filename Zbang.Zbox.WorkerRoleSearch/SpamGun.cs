@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Zbang.Zbox.Infrastructure.Azure;
 using Zbang.Zbox.Infrastructure.Azure.Queue;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -20,7 +21,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public const string SpanGunQueuePrefix = "spangun-";
         private readonly CloudQueue[] m_CloudQueues = new CloudQueue[SpanGunNumberOfQueues];
         //28,39,55,77,108,151,211,295,413,579,810,1000,1587,2222,3111,4356,6098,8583,11953,16734,23427,32798,45917,64284,89998,125997,176395,246953,345735,484029,677640,948696,1328175,1859444,2603222,3644511,5102316,7143242,10000539,14000754,19601056
-        private const int LimitPerIp = 20;
+        private readonly int m_LimitPerIp = int.Parse(ConfigFetcher.Fetch("NumberOfEmailsPerHour"));
         private const string ServiceName = "SpamGunService";
 
 
@@ -32,7 +33,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-            TraceLog.WriteInfo($"{ServiceName} starting");
+            TraceLog.WriteWarning($"{ServiceName} starting with number of emails {m_LimitPerIp}");
             var tasks = new List<Task>();
             for (int i = 0; i < SpanGunNumberOfQueues; i++)
             {
@@ -54,9 +55,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         var emailsTask = new List<Task>();
                         for (int k = 0; k < 50; k++)
                         {
-                            if (i * 50 + k >= LimitPerIp)
+                            if (i * 50 + k >= m_LimitPerIp)
                             {
-                                TraceLog.WriteWarning($"{ServiceName} ip {j} reach hour peak");
+                                TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
                                 reachHourLimit = true;
                                 break;
                             }
@@ -90,7 +91,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private static string BuildIpPool(int i)
         {
-            return $"ip{i+1}";
+            return $"ip{i + 1}";
         }
 
         public static string BuidQueueName(int i)

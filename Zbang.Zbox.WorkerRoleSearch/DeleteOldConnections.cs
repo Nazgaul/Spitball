@@ -36,7 +36,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 if (command.UserIds != null && command.UserIds.Any())
                 {
-                    TraceLog.WriteInfo($"sending disconnect to {string.Join(" ", command.UserIds)}");
                     try
                     {
                         var proxy = await SignalrClient.GetProxyAsync();
@@ -44,7 +43,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         {
                             await proxy.Invoke("Offline", userId);
                         }
-                        
                     }
                     catch (Exception ex)
                     {

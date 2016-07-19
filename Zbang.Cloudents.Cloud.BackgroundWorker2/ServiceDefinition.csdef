@@ -16,6 +16,7 @@
       <Setting name="ServiceBusHubName" />
       <Setting name="platform" />
       <Setting name="signalR" />
+      <Setting name="NumberOfEmailsPerHour" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />
