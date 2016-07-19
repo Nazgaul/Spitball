@@ -105,63 +105,7 @@ namespace Testing
         {
 
 
-            // var he = new CultureInfo("he");
-            // var en = new CultureInfo("en");
-
-            //GetXml();
-            //HatavotWrite();
-            //UniversitySearchProvider x = new UniversitySearchProvider();
-            //x.BuildUniversityData();
-            //            var x2 = @". עיקרי תוכנית בוורידג*. 
-            //תכנית השמה לה ליעד להביא לחיסול המחסור בתקופה שלאחר המלחמה. המטרה האסטרטגית של התוכנית הייתה ליצור מערכת מקיפה של ביטחון סוציאלי, שתבטיח לכל אדם רמת מינימום של הכנסה. רמת המינימום נועדה להיות מספיקה לקיום, אך לשמש בתור רצפה בלבד, שאף אחד לא ייפול מתחתיה. על הרצפה הזו, יוכל כל אחד להוסיף לעצמו הכנסה מעבודה, או חסכון. היעד השני של התוכנית היה, שבנוסף לחופש ממחסור, אנגליה תבנה מדיניות חברתית מקיפה לקידום חברתי, שתכלול גם מאבק ב ענקיםהבאים: חולי, בערות, עוני, ואבטלה. התוכנית נועדה ליצור מערכת ביטחון סוציאלי, שתלווה כל אדם מהעריסה עד הקבר ותבטיח לו הכנסת מינימום.
-            //האם תוכנית בוורידג' רלוונטית לימינו? – התבססות על מאמריהם של לאה אחדות ואברהם דורון:";
-
-            //            x2 = x2.Substring(0, Math.Min(x2.Length, 400));
-            //var s = "https://www.cloudents.com/d/lzodJqaBYHu/pD0nrbAtHSq";
-            //var xzx = GetTitle("http://www.vivt.ru/").Result;
-            //var xzx2 = GetTitle("http://www.ynet.co.il/").Result;
-            //var xzx3 = GetTitle("https://www.google.com/").Result;
-            //var xzx4 = GetTitle("https://www.cloudents.com/").Result;
-            //System.Net.WebClient wb = new WebClient();
-            //var x = wb.DownloadData(s);
-
-            //using (HttpClient client = new HttpClient())
-            //{
-
-            //    using (var sr = client.GetAsync(s).Result)
-            //    {
-            //        Console.WriteLine(sr.Headers);
-            //    }
-
-            //}
-            //var y = WebUtility.UrlDecode(s);
-            //WebRequest request = WebRequest.Create(u);
-            //var v = request.GetResponse();
-
-            //ProtobufSerializer<Country> x = new ProtobufSerializer<Country>();
-            //var z = x.SerializeData(new Country { CountryId = "1", Title = "2" });
-
-            //ProtobufSerializer<FileProcessData> y = new ProtobufSerializer<FileProcessData>();
-            //var zz = y.SerializeData(new FileProcessData { BlobName = new Uri("http://www.google.com"), ItemId = 1 });
-
-            //            using (var conn = DapperConnection.OpenConnection().Result)
-            //            {
-            //                var sql = @" select u.userid as Uid , 
-            //    coalesce(AliasName,userName) as Name,
-            //    u.userimage as Image,u.NeedCode as NeedCode,
-            //    (select count(*) from zbox.users where universityid2 = u.userid) as MemberCount
-            //    from zbox.users u 
-            //    where u.usertype = 1 
-            //    and u.Country = @country
-            //    and (@prefix IS NULL OR (coalesce(u.AliasName,u.userName) 
-            //      like '%' + @prefix + '%' or coalesce(u.AliasName,u.userName) like '%' + @prefixHeb + '%'))
-            //    order by MemberCount desc";
-            //                var retVal = conn.Query(sql, new { country = "IL" , prefix = "ר", prefixHeb="ר" });
-
-            //            }
-
-            //DownloadFromDropBox();
-            //TestVerifyAccountKey();
+           
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();

@@ -27,14 +27,6 @@ namespace Zbang.Zbox.Domain.DataAccess
 
         }
 
-        //public AcademicBox GetByNameAndProfessor(string boxName, Professor professor, User universityUser)
-        //{
-        //    var query = UnitOfWork.CurrentSession.QueryOver<AcademicBox>();
-        //    query.Where(b => b.Owner == universityUser);
-        //    query.Where(b => b.IsDeleted == false);
-        //    query.Where(b => b.Name == boxName.Trim().Lower());
-        //    query.Where(b => b.Professor == professor);
-        //    return query.SingleOrDefault<AcademicBox>();
-        //}
+       
     }
 }

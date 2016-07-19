@@ -88,7 +88,6 @@
     <Compile Include="ItemComment.cs" />
     <Compile Include="ItemTab.cs" />
     <Compile Include="Library.cs" />
-    <Compile Include="RussianDepartment.cs" />
     <Compile Include="QuizDiscussion.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemRate.cs" />

@@ -42,9 +42,9 @@
       <property name="UsedSpace"/>
     </component>
     <many-to-one column="UniversityId" class="University" name="University" foreign-key="UniversityUser2"/>
-    <many-to-one column="Department" class="RussianDepartment" name="RussianDepartment" foreign-key="DeparetmentUser" not-null="false"/>
-    <property name="GroupNumber"/>
-    <property name="RegisterNumber"/>
+    <!--<many-to-one column="Department" class="RussianDepartment" name="RussianDepartment" foreign-key="DeparetmentUser" not-null="false"/>-->
+    <!--<property name="GroupNumber"/>
+    <property name="RegisterNumber"/>-->
     <property name="MobileDevice" />
     <property name="PushNotificationSetting" />
     <property name="Theme" />

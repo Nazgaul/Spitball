@@ -96,9 +96,6 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<SeoDto>> GetSeoItemsAsync(int page);
         Task<int> GetSeoItemCountAsync();
 
-        //Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query);
-
-        //Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId);
 
 
 

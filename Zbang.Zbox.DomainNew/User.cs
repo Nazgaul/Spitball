@@ -110,11 +110,11 @@ namespace Zbang.Zbox.Domain
 
         public virtual int Reputation { get; set; }
 
-        public virtual RussianDepartment RussianDepartment { get; set; }
+        //public virtual RussianDepartment RussianDepartment { get; set; }
 
 
-        public virtual string GroupNumber { get; set; }
-        public virtual string RegisterNumber { get; set; }
+        //public virtual string GroupNumber { get; set; }
+        //public virtual string RegisterNumber { get; set; }
 
         public virtual bool Online { get; set; }
 

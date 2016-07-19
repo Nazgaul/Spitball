@@ -2,7 +2,7 @@
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
                    assembly="Zbang.Zbox.Domain"
                    namespace="Zbang.Zbox.Domain">
-  <class name="RussianDepartment" table="Department" >
+  <!--<class name="RussianDepartment" table="Department" >
     <id name="Id" column="Id" type="long">
       <generator class="native"></generator>
     </id>
@@ -10,7 +10,7 @@
 
     <property name="Name" />
     <property name="Year" />
-  </class>
+  </class>-->
 
   <class name="Student" table="Student" >
     <id name="StudentId" column="StudentId" type="long">
@@ -19,17 +19,4 @@
     <many-to-one column="UniversityId2" class="University" name="University" foreign-key="UniversityStudent2"/>
     <property name="ID" />
   </class>
-
-  <!--<class name="Department" table="MainDepartment">
-    <id name="Id" column="Id" type="long">
-      <generator class="assigned"></generator>
-    </id>
-    <many-to-one column="UniversityId" class="University" name="University" not-null="true" foreign-key="DepartmentUniversity"/>
-    <many-to-one column="UniversityId2" class="University" name="University2" not-null="false" foreign-key="DepartmentUniversity2"/>
-
-    <property name="Name"  not-null="true" length ="100"/>
-    <property name="Url" not-null="true"/>
-    <property name="NoOfBoxes" not-null="true"/>
-  </class>-->
-
 </hibernate-mapping>

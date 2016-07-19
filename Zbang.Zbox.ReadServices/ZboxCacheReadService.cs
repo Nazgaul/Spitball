@@ -209,46 +209,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserBoxesActivityAsync(query);
         }
 
-      
-
-
-        //public Task<IEnumerable<QuestionToFriendDto>> GetUserWithFriendQuestion(GetUserWithFriendQuery query)
-        //{
-        //    return m_ReadService.GetUserWithFriendQuestion(query);
-        //}
-        //public Task<IEnumerable<AnswerToFriendDto>> GetUserWithFriendAnswer(GetUserWithFriendQuery query)
-        //{
-        //    return m_ReadService.GetUserWithFriendAnswer(query);
-        //}
-        //public Task<IEnumerable<UserInviteDto>> GetUserPersonalInvites(GetInvitesQuery query)
-        //{
-        //    return m_ReadService.GetUserPersonalInvites(query);
-        //}
-        //public Task<UserToFriendActivity> GetUserWithFriendActivity(GetUserWithFriendQuery query)
-        //{
-        //    return m_ReadService.GetUserWithFriendActivity(query);
-        //}
-
-
-
-
-        //public Task<IEnumerable<AdminUserDto>> GetUniversityUsers(GetAdminUsersQuery query)
-        //{
-        //    return m_ReadService.GetUniversityUsers(query);
-        //}
-
-
-        //public Task<IEnumerable<RussianDepartmentDto>> GetRussianDepartmentList(long universityId)
-        //{
-        //    return m_ReadService.GetRussianDepartmentList(universityId);
-        //}
-
-
-       
-
-       
-
-
         public Task<IEnumerable<UpdatesDto>> GetUpdatesAsync(QueryBase query)
         {
             return m_ReadService.GetUpdatesAsync(query);

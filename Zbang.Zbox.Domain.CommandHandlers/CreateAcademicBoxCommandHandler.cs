@@ -43,7 +43,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             User user = UserRepository.Load(command.UserId);
             var department = m_DepartmentRepository.Load(academicCommand.DepartmentId);
-            //var universityUser = user.University;
 
             if (department.University != user.University && department.University != user.University.UniversityData)
             {
