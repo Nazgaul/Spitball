@@ -85,16 +85,15 @@
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>
 
-    <!--<property name="NeedCode" />-->
 
-    <property name="WebSiteUrl" />
+    <!--<property name="WebSiteUrl" />
     <property name="MailAddress" />
     <property name="FacebookUrl" />
     <property name="TwitterUrl" />
     <property name="TwitterWidgetId" />
     <property name="YouTubeUrl" />
     <property name="LetterUrl" />
-    <property name="AdvertisementUrl" />
+    <property name="AdvertisementUrl" />-->
     <property name="Country" length="2" type="string" column="Country" not-null="false"/>
     <property name="NoOfBoxes"  />
     <property name="NoOfItems" not-null="false"/>

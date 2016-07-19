@@ -30,15 +30,14 @@ namespace Zbang.Zbox.Domain
         public string Url { get; set; }
         public string LargeImage { get; set; }
         public virtual string UniversityName { get; set; }
-        //public bool NeedCode { get; set; }
-        public string WebSiteUrl { get; set; }
-        public string MailAddress { get; set; }
-        public string FacebookUrl { get; set; }
-        public string TwitterUrl { get; set; }
-        public long? TwitterWidgetId { get; set; }
-        public string YouTubeUrl { get; set; }
-        public string LetterUrl { get; set; }
-        public string AdvertisementUrl { get; set; }
+        //public string WebSiteUrl { get; set; }
+        //public string MailAddress { get; set; }
+        //public string FacebookUrl { get; set; }
+        //public string TwitterUrl { get; set; }
+        //public long? TwitterWidgetId { get; set; }
+        //public string YouTubeUrl { get; set; }
+        //public string LetterUrl { get; set; }
+        //public string AdvertisementUrl { get; set; }
         public virtual string Country { get; set; }
 
         public virtual UserTimeDetails UserTime { get; set; }

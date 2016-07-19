@@ -133,11 +133,9 @@ union
     i.ItemTabId as TabId,
     i.NumberOfViews as NumOfViews,
     i.LikeCount as Likes,
-    i.sponsored as Sponsored,
     i.content as Description,
     i.NumberOfDownloads as NumOfDownloads,
     i.creationTime as Date,
-	i.numberofcomments as commentsCount,
     i.Url as Url,
     i.Discriminator as type,
     i.BlobName as source
@@ -159,11 +157,9 @@ union
     i.Discriminator as Discriminator,
     i.NumberOfViews as NumOfViews,
     i.LikeCount as Likes,
-    i.sponsored as Sponsored,
     i.BlobName as BlobName,
     i.NumberOfDownloads as NumOfDownloads,
     i.creationTime as Date,
-	i.numberofcomments as commentsCount,
     i.Url as Url,
     i.Discriminator as type,
     i.BlobName as source

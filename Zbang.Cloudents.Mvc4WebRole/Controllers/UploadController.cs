@@ -389,7 +389,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 OwnerId = result2.File.Uploader.Id,
                 UserUrl = result2.File.Uploader.Url,
                 Source = result2.File.ItemContentUrl,
-                // Thumbnail = result2.File.ThumbnailUrl,
                 Owner = result2.File.Uploader.Name,
                 Date = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc),
                 Url = result2.File.Url,

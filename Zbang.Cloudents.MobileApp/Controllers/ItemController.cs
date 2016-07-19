@@ -204,7 +204,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 {
                     Id = result2.Link.Id,
                     Name = result2.Link.Name,
-                    // Thumbnail = result2.Link.ThumbnailUrl,
 
                 };
                 return Request.CreateResponse(item);
@@ -263,7 +262,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 Id = result2.File.Id,
                 Name = result2.File.Name,
-                // Thumbnail = result2.File.ThumbnailUrl,
 
             };
 
@@ -309,7 +307,6 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 Id = result2.File.Id,
                 Name = result2.File.Name,
-                // Thumbnail = result2.File.ThumbnailUrl,
 
             };
 

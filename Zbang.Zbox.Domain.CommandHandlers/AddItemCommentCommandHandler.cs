@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
            
            // var text = TextManipulation.EncodeText(message.Comment);
             var comment = new ItemComment(user, item, message.Comment, m_IdGenerator.GetId(IdContainer.ItemAnnotationScope));
-            item.IncreaseNumberOfComments();
+            //item.IncreaseNumberOfComments();
             item.ShouldMakeDirty = () => false;
             m_ItemCommentRepository.Save(comment);
             m_ItemRepository.Save(item);

@@ -142,24 +142,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                //                return await conn.QueryAsync<string>(@"select blobname from zbox.item
-                // where content is null and isdeleted = 0 and discriminator = 'FILE' 
-                //
-                // and SUBSTRING(blobname, 
-                //        LEN(blobname)-(CHARINDEX('.', reverse(blobname))-2), 8000) in 
-                //		('rtf', 'docx', 'doc', 'txt','pptx', 'potx', 'ppxs', 'ppsx', 'ppt', 'pot', 'pps','pdf','xls', 'xlsx', 'xlsm', 'xltx', 'ods', 'csv')
-                //
-                //
-                //");
-                // --thumbnailblobname in 
-                //--(
-                //--'filev4.jpg',
-                //--'imagev4.jpg',
-                //--'pdfv4.jpg',
-                //--'powerv4.jpg',
-                //--'wordv4.jpg',
-                //--'excelv4.jpg'
-                //--)
+                
 
                 return await conn.QueryAsync(@"select itemid, blobname, Discriminator from zbox.item 
                 where  Discriminator = 'Link'
@@ -168,25 +151,7 @@ namespace Zbang.Zbox.ReadServices
                 order by itemid
                 OFFSET @Offset ROWS
                 FETCH NEXT @RowSize ROWS ONLY", new { Offset = index * 100, RowSize = 100, start });
-
-                //                return await conn.QueryAsync<string>(@"select blobname from zbox.item where 
-                //(blobname like '%.jpg'
-                //or blobname like '%.gif'
-                //or blobname like '%.png'
-                //or blobname like '%.jpeg'
-                //or blobname like '%.bmp')
-                //and isdeleted = 0 
-                //");
-
-                //                return await conn.QueryAsync<string>(@"select blobname from zbox.item
-                // where isdeleted = 0 and discriminator = 'FILE' 
-                //
-                // and SUBSTRING(blobname, 
-                //        LEN(blobname)-(CHARINDEX('.', reverse(blobname))-2), 8000) in 
-                //		('3gp', '3g2', '3gp2', 'asf', 'mts', 'm2ts', 'mod', 'dv', 'ts', 'vob', 'xesc', 'mp4', 'mpeg', 'mpg', 'm2v', 'ismv', 'wmv')");
-
-                //return await conn.QueryAsync<string>("select blobname from zbox.item where thumbnailUrl like '%v3.jpg' and name like '%.jpg' and isdeleted = 0");
-
+                
             }
         }
 

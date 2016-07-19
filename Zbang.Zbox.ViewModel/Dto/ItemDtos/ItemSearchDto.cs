@@ -26,7 +26,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
 
         public override string ToString()
         {
-            return string.Format("id : {0} blobName: {1}", Id, BlobName);
+            return $"id : {Id} blobName: {BlobName}";
         }
     }
 }

@@ -50,7 +50,6 @@ select Name,boxid from c";
             @" select top (@top)
   i.ItemId as id,
   i.Name as name,
-  i.ThumbnailUrl as image,
   i.Content as content,
   i.blobName as blobName,
   i.Url as url,

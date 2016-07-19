@@ -78,7 +78,6 @@ where quizid = @QuizId";
     rate as Rate,
     NumberOfViews as NumOfViews,
     Content as Description,
-    NumberOfComments as commentsCount,
     q.CreationTime as Date,
     q.Url as Url
     from zbox.quiz q

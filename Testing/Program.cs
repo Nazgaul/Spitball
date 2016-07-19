@@ -257,10 +257,6 @@ namespace Testing
             //var t = m_BlobProvider.UploadQuizImage(new MemoryStream(file), "image/png", 1, "bug1.png");
             //t.Wait();
             //var z = t.Result;
-            //            var x = m_BlobProvider.GetThumbnailUrl("sometest");
-            //            //TestImage();
-            //            //var ShortCode = iocFactory.Resolve<IShortCodesCache>();
-            //            //var boxid = ShortCode.LongToShortCode(10691, ShortCodesType.User);
             var x = iocFactory.Resolve<IMailComponent>();
             x.SendSpanGunEmailAsync("ram@cloudents.com", "ip3").Wait();
             //x.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
@@ -415,13 +411,6 @@ namespace Testing
             //}
             //sw.Flush();
             //sw.Dispose();
-            //var thumbnailUrl = m_ThumbnailProvider.GenerateThumbnail("9bfc91b0-269f-4afb-86e9-c5ff329b0b07.pdf");
-            //using (StreamReader sr = new StreamReader(@"C:\Users\ram.ZBANG-LOCAL\Downloads\asset(1).PNG"))
-            //{
-            //sr.Position = 50;
-            //var v = x.ResizeImageAndSave(sr2, 150, 150, true);
-            //File.WriteAllBytes(@"C:\Users\ram.ZBANG-LOCAL\Downloads\1081833(1).jpg", v.ToArray());
-            //}
         }
         public static void ShowChars(char[] charArray)
         {

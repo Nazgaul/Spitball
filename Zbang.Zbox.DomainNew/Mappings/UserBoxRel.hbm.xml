@@ -18,10 +18,10 @@
     <many-to-one name="User" class="User" column="UserId" not-null="true" unique-key="userboxrelUserIdBoxId"/>
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true"  unique-key="userboxrelUserIdBoxId"/>
 
-    <bag name="Invites"  cascade="all-delete-orphan" inverse="true" lazy="true">
+    <!--<bag name="Invites"  cascade="all-delete-orphan" inverse="true" lazy="true">
       <key column="UserBoxRelId" foreign-key="InviteUserBoxRelId"/>
       <one-to-many class="InviteToBox"/>
-    </bag>
+    </bag>-->
 
     <component name="UserTime" class="UserTimeDetails">
       <property name="CreationTime" insert="true" update="false">

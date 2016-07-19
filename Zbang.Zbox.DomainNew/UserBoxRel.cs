@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Domain
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             UserTime = new UserTimeDetails(0);
-            Invites = new List<InviteToBox>();
+            //Invites = new List<InviteToBox>();
         }
         public UserBoxRel(User user, Box box, UserRelationshipType userType)
             : this()
@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain
         public virtual User User { get; set; }
         public virtual Box Box { get; set; }
 
-        public virtual ICollection<InviteToBox> Invites { get; protected set; }
+        //public virtual ICollection<InviteToBox> Invites { get; protected set; }
 
 
         //used for hashcode & equals

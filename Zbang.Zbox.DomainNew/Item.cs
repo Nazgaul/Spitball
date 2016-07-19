@@ -27,8 +27,6 @@ namespace Zbang.Zbox.Domain
             Size = iSized;
             Box = box;
             ItemContentUrl = itemContentUrl;
-            //ThumbnailBlobName = thumbnailBlobName;
-            //ThumbnailUrl = thumbmailUrl;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
         }
@@ -56,24 +54,9 @@ namespace Zbang.Zbox.Domain
         protected virtual ICollection<ItemCommentReply> ItemReplies { get; set; }
         public virtual ItemTab Tab { get; protected set; }
 
-        //public virtual IEnumerable<long> GetItemCommentsUserIds()
-        //{
-        //    return ItemComments.Select(s => s.Author.Id).Union(ItemReplies.Select(s => s.Author.Id));
-        //}
-
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string ItemContentUrl { get; set; }
-        //public virtual string ThumbnailBlobName { get; private set; }
-
-        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
-        //public virtual string ThumbnailUrl { get; private set; }
-
-        //public virtual void UpdateThumbnail(string blobName, string url)
-        //{
-        //    ThumbnailBlobName = blobName;
-        //    ThumbnailUrl = url;
-        //}
 
         public virtual void GenerateUrl()
         {
@@ -86,22 +69,22 @@ namespace Zbang.Zbox.Domain
         }
 
         public virtual int LikeCount { get; set; }
-        public virtual bool Sponsored { get; set; }
-        public virtual int NumberOfComments { get; private set; }
+        //public virtual bool Sponsored { get; set; }
+        //public virtual int NumberOfComments { get; private set; }
 
         public void IncreaseNumberOfViews()
         {
             NumberOfViews++;
         }
 
-        public virtual void IncreaseNumberOfComments()
-        {
-            NumberOfComments++;
-        }
-        public virtual void DecreaseNumberOfComments()
-        {
-            NumberOfComments--;
-        }
+        //public virtual void IncreaseNumberOfComments()
+        //{
+        //    NumberOfComments++;
+        //}
+        //public virtual void DecreaseNumberOfComments()
+        //{
+        //    NumberOfComments--;
+        //}
 
         public abstract string ChangeName(string newName);
 

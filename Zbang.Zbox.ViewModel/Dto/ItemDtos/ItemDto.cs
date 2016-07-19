@@ -19,22 +19,17 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string DownloadUrl { get; set; }
         public string UserUrl { get; set; }
 
-
-
-        //public bool Sponsored { get; set; }
-
         public DateTime Date { get; set; }
 
 
         public int NumOfDownloads { get;  set; }
         public string Description { get;  set; }
-        //public int CommentsCount { get;  set; }
 
         public long? BoxId { get; set; }
 
-        public String Type { get; set; }
+        public string Type { get; set; }
 
-        public String Source { get; set; }
+        public string Source { get; set; }
 
 
     }

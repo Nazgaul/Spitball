@@ -273,24 +273,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     item.DownloadUrl = Url.RouteUrl("ItemDownload2", new { boxId = id, itemId = item.Id });
                 }
-                //return JsonOk(result);
                 return JsonOk(itemDtos.Select(s => new
                 {
-                    //s.CommentsCount,
-                    //s.Date,
-                    //s.Description,
-                    //s.DownloadUrl,
                     s.Id,
                     s.Name,
                     NumOfViews = s.NumOfViews + s.NumOfDownloads,
-                    //s.Owner,
                     s.OwnerId,
                     s.Likes,
-                    //s.Sponsored,
-                    //s.TabId,
-                    //s.Thumbnail,
                     s.Url,
-                    //s.UserUrl,
                     s.Type,
                     s.Source
 
