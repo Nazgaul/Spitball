@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using NHibernate.Criterion;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
@@ -34,16 +35,8 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            using (UnitOfWork.Start())
-            {
-                var items = UnitOfWork.CurrentSession.QueryOver<Item>().Where(w => !w.IsDeleted && w.Url == null).List();
-                foreach (var item in items)
-                {
-                    item.GenerateUrl();
-                    UnitOfWork.CurrentSession.Save(item);
-                }
-                UnitOfWork.Current.TransactionalFlush();
-            }
+            RemoveHtmlTags();
+            
         }
 
 
@@ -97,6 +90,30 @@ namespace Zbang.Zbox.Domain.Services
                 } while (universitiesIds.Any());
             }
         }
+        public void RemoveHtmlTags()
+        {
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                var query =
+                    UnitOfWork.CurrentSession.QueryOver<CommentReplies>()
+                        .Where(Restrictions.On<CommentReplies>(x => x.Text).IsLike("%<%")).Take(100);
+
+                var comments = query.List();
+                do
+                {
+                    foreach (var comment in comments)
+                    {
+                        comment.Text = Infrastructure.TextManipulation.RemoveHtmlTags.Replace(comment.Text, string.Empty);
+
+                        UnitOfWork.CurrentSession.Save(comment);
+
+                    }
+                    unitOfWork.TransactionalFlush();
+                    comments = query.List();
+                } while (comments.Count > 0);
+
+            }
+        }
 
         public async Task<long> UpdateFileSizesAsync(Action callback)
         {
@@ -106,7 +123,7 @@ namespace Zbang.Zbox.Domain.Services
                 var query = UnitOfWork.CurrentSession.GetNamedQuery("ItemWithNoSize");
                 query.SetMaxResults(100);
                 var itemIds = query.List<long>();
-                
+
                 do
                 {
                     count += itemIds.Count;
@@ -116,7 +133,7 @@ namespace Zbang.Zbox.Domain.Services
                         await m_CommandBus.SendAsync(command);
                         unitOfWork.TransactionalFlush();
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         TraceLog.WriteError(ex);
                     }

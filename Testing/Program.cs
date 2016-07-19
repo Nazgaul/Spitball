@@ -152,72 +152,9 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
 
-            var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.IocWrapper;
-            //var cache = iocFactory.Resolve<ICache>();
-            //cache.RemoveFromCacheAsyncSlowAsync("feed_111492").Wait();
-            //var t = emailVerify.VerifyEmail("asdf@gmai.lcom");
-            // var x = iocFactory.Resolve<IFileProcessorFactory>();
-            // x.GetProcessor(
-            //     new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxchat/28d7e877-df93-4fec-9dd7-74c27e630db7.png"));
-            //var t = IndexItemSearch(iocFactory);
-            //t.Wait();
-            //var document_db = iocFactory.Resolve<IDocumentDbRepository<ChatRoom>>();
-            //var t = document_db.GetItemsAsync("SELECT c.users FROM c join user in c.users where user.id = 1");
-            //t.Wait();
-            //var z = t.Result.Select(s=>s.Users).SelectMany(zz => zz).Where(w=>w.Id != 1).Select(s=>s.Id);
-            // var x = t.Result.Select(s => s.Id).ToList();
+            var iocFactory = IocFactory.IocWrapper;
 
-            //var m_WriteService = iocFactory.Resolve<IZboxWriteService>();
-            //lucenewire.BuildUniversityData();
-            //var roomCommand = new ChatCreateRoomCommand(new[] { 1L, 7L }, Guid.NewGuid());
-            //var t1 = m_WriteService.AddChatRoomAsync(roomCommand);
-            //t1.Wait();
-            //var luceneRead = iocFactory.Resolve<IUniversityReadSearchProvider>();
-            //var x = luceneRead.SearchUniversity("פתוחה");
-            //m_TableProvider = iocFactory.Resolve<ITableProvider>();
-            //var words = m_TableProvider.GetFileterWored();
-
-            //var m_FileProcessorFactory = iocFactory.Resolve<IFileProcessorFactory>();
-
-            //var processor = m_FileProcessorFactory.GetProcessor(new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxfiles/test.gif"));
-            //var retVal2 = processor.PreProcessFile(new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxfiles/test1.jpg")).Result;
-            //var retVal = processor.PreProcessFile(new Uri("http://127.0.0.1:10000/devstoreaccount1/zboxfiles/test.gif")).Result;
-
-            //m_ThumbnailProvider = iocFactory.Resolve<IThumbnailProvider>();
-
-            //var m_BlobProvider = iocFactory.Resolve<IBlobProvider>();
-            //var metaData = m_BlobProvider.FetechBlobMetaDataAsync("5c4b8f5a-87c0-40d8-8ab8-ffac3d676910.pdf").Result;
-            //string content;
-            //if (metaData.TryGetValue(StorageConsts.ContentMetaDataKey, out content))
-            //{
-            //    content = System.Net.WebUtility.UrlDecode(content);
-            //}
-
-
-
-
-
-            //var file = File.ReadAllBytes(@"C:\Users\Ram\Pictures\bug1.png");
-            //var t = m_BlobProvider.UploadQuizImage(new MemoryStream(file), "image/png", 1, "bug1.png");
-            //t.Wait();
-            //var z = t.Result;
-            var x = iocFactory.Resolve<IMailComponent>();
-            x.SendSpanGunEmailAsync("ram@cloudents.com", "ip3").Wait();
-            //x.GenerateAndSendEmail(new[] { "ram@cloudents.com", "eidan@cloudents.com" },
-            //         "failed connect to remove db ");
-            //var t = x.DeleteUnsubscribe("yaari.ram@gmail.com");
-            //t.Wait();
             IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
-            // writeService.UpdateUniversityStats(DateTime.UtcNow.AddDays(-1));
-            //writeService.UpdateReputation(new UpdateReputationCommand(1));
-            //writeService.AddNewUpdateAsync(new AddNewUpdatesCommand(
-            //    21481,
-            //   423791,
-            //    Guid.Parse("645f4777-3583-4894-a9e7-a4c800a41ae9"),
-            //   null,
-            //    null,
-            //   null
-            //    )).Wait();
             writeService.OneTimeDbi();
             //while (writeService.Dbi(0))
             //{
