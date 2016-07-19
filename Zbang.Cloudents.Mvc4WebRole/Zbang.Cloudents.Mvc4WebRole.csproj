@@ -3760,6 +3760,15 @@
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
     <Content Include="Js\shared\userDetails.js" />
     <Content Include="Scripts\angular-dfp.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.0.js" />
+    <Content Include="Scripts\jquery-3.1.0.min.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.js" />
     <Content Include="Scripts\svg4everybodyAngular.js" />
     <Content Include="Scripts\textAngularSetup.js" />
     <Content Include="Scripts\ui-bootstrap-custom-tpls-1.2.1.js" />
@@ -3943,6 +3952,8 @@
     <Content Include="Scripts\plupload2\plupload.full.min.js" />
     <Content Include="Scripts\Modernizr.js" />
     <Content Include="Scripts\svg4everybody.js" />
+    <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.0.min.map" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Account\PasswordUpdate.cshtml" />
     <Content Include="Views\Item\Print.cshtml" />
