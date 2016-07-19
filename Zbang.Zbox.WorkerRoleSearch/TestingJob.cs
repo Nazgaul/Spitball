@@ -36,35 +36,41 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-           await m_MailComponent.GenerateSystemEmailAsync("start populating","start");
-            var tasks = new List<Task>();
-            for (int i = 0; i < SpamGun.SpanGunNumberOfQueues; i++)
+            //await m_MailComponent.GenerateSystemEmailAsync("start populating","start");
+            //var tasks = new List<Task>();
+            //for (int i = 0; i < SpamGun.SpanGunNumberOfQueues; i++)
+            //{
+            //    var queueName = SpamGun.BuidQueueName(i);
+            //    var queue = m_QueueProvider.GetQueue(queueName);
+            //    tasks.Add(queue.CreateIfNotExistsAsync(cancellationToken));
+            //}
+            //await Task.WhenAll(tasks);
+            //tasks.Clear();
+            //int page = 0;
+            //var mails = (await m_ZboxReadService.GetEmailsAsync(page)).ToList();
+            //do
+            //{
+            //    TraceLog.WriteInfo($"page: {page}");
+            //    var queue = m_QueueProvider.GetQueue(SpamGun.BuidQueueName(page % SpamGun.SpanGunNumberOfQueues));
+            //    tasks.AddRange(mails.Select(mail => queue.InsertToQueueProtoAsync(new SpamGunData {Emails = mail})));
+            //    page++;
+
+            //    if (page % 20 == 0)
+            //    {
+            //        TraceLog.WriteInfo("waiting task to complete");
+            //        await Task.WhenAll(tasks);
+            //        tasks.Clear();
+            //    }
+            //    mails = (await m_ZboxReadService.GetEmailsAsync(page)).ToList();
+            //} while (mails.Any());
+            //await m_MailComponent.GenerateSystemEmailAsync("stop populating", "stop " + page);
+            //await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
+
+            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("digestOnceADay");
+            await process.ExecuteAsync(0, p =>
             {
-                var queueName = SpamGun.BuidQueueName(i);
-                var queue = m_QueueProvider.GetQueue(queueName);
-                tasks.Add(queue.CreateIfNotExistsAsync(cancellationToken));
-            }
-            await Task.WhenAll(tasks);
-            tasks.Clear();
-            int page = 0;
-            var mails = (await m_ZboxReadService.GetEmailsAsync(page)).ToList();
-            do
-            {
-                TraceLog.WriteInfo($"page: {page}");
-                var queue = m_QueueProvider.GetQueue(SpamGun.BuidQueueName(page % SpamGun.SpanGunNumberOfQueues));
-                tasks.AddRange(mails.Select(mail => queue.InsertToQueueProtoAsync(new SpamGunData {Emails = mail})));
-                page++;
-                
-                if (page % 20 == 0)
-                {
-                    TraceLog.WriteInfo("waiting task to complete");
-                    await Task.WhenAll(tasks);
-                    tasks.Clear();
-                }
-                mails = (await m_ZboxReadService.GetEmailsAsync(page)).ToList();
-            } while (mails.Any());
-            await m_MailComponent.GenerateSystemEmailAsync("stop populating", "stop " + page);
-            await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
+                return Task.FromResult(true);
+            }, cancellationToken);
             //var amount = await m_ZboxWorkerRoleService.UpdateFileSizesAsync(() =>
             //{
 
@@ -112,7 +118,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public void Stop()
         {
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
     }
 }

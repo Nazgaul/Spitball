@@ -87,14 +87,15 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                             var updatesList = updates.ToList();
                             var query = new GetUpdatesQuery(
                                 updatesList.GroupBy(g => g.BoxId).Select(s => s.Key),
-                                updatesList.GroupBy(g => g.ItemId).Select(s => s.Key),
-                                updatesList.GroupBy(g => g.QuizId).Select(s => s.Key),
+                                updatesList.GroupBy(g => g.ItemId).Where(s => s.Key != null).Select(s => s.Key),
+                                updatesList.GroupBy(g => g.QuizId).Where(s => s.Key != null).Select(s => s.Key),
                                 updatesList.Where(
                                     w =>
                                         !w.ItemId.HasValue && !w.QuizId.HasValue && !w.AnswerId.HasValue &&
-                                        !w.QuizDiscussionId.HasValue).GroupBy(g => g.QuestionId).Select(s => s.Key),
-                                updatesList.GroupBy(g => g.AnswerId).Select(s => s.Key),
-                                updatesList.GroupBy(g => g.QuizDiscussionId).Select(s => s.Key));
+                                        !w.QuizDiscussionId.HasValue)
+                                        .GroupBy(g => g.QuestionId).Where(s => s.Key != null).Select(s => s.Key),
+                                updatesList.GroupBy(g => g.AnswerId).Where(s => s.Key != null).Select(s => s.Key),
+                                updatesList.GroupBy(g => g.QuizDiscussionId).Where(s => s.Key != null).Select(s => s.Key));
 
                             var updatesData = await m_ZboxReadService.GetUpdatesAsync(query, token);
 

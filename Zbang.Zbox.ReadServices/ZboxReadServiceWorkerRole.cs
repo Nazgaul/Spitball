@@ -55,7 +55,15 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync(token))
             {
                 using (var grid = await conn.QueryMultipleAsync($"{Email.GetBoxUpdates} {Email.GetItemUpdates} {Email.GetQuizUpdates} {Email.GetCommentUpdates} {Email.GetRepliesUpdates} {Email.GetQuizDiscussionUpdates}",
-                    new { query.BoxIds, query.CommentsIds, query.DiscussionIds, query.ItemIds, query.QuizIds, query.RepliesIds }))
+                    new
+                    {
+                        query.BoxIds,
+                        query.CommentsIds,
+                        query.DiscussionIds,
+                        query.ItemIds,
+                        query.QuizIds,
+                        query.RepliesIds
+                    }))
                 {
                     var retVal = new BoxUpdatesDigestDto
                     {
