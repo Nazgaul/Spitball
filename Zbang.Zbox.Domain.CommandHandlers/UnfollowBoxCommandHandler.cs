@@ -36,29 +36,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var academicBox = box.Actual as AcademicBox;
             if (academicBox != null)
             {
-                //if (message.ShouldDelete && user.IsAdmin() && user.University.Id == academicBox.University.Id)
-                //{
-                //    await DeleteBox(box, user);
-                //}
-                //else
-                //{
-                    UnFollowBox(box, message.UserId);
-                //}
+                UnFollowBox(box, message.UserId);
                 return;
             }
-
-            //if (message.ShouldDelete && user.IsAdmin())
-            //{
-            //    var academicBox = box as AcademicBox;
-            //    if (academicBox != null)
-            //    {
-            //        if (user.University.Id == academicBox.University.Id)
-            //        {
-            //            await DeleteBox(box, user);
-            //        }
-            //    }
-            //}
-
 
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, message.BoxId);
             if (userType == UserRelationshipType.Owner)

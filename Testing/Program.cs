@@ -154,8 +154,9 @@ namespace Testing
 
             var iocFactory = IocFactory.IocWrapper;
 
-            IZboxWorkerRoleService writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
-            writeService.OneTimeDbi();
+            var writeService = iocFactory.Resolve<IZboxWriteService>();
+            
+            writeService.DeleteNodeLibrary(new DeleteNodeFromLibraryCommand(Guid.Parse("6FB8A861-F1FC-4D14-B838-A56D011BFCAA"), 166100));
             //while (writeService.Dbi(0))
             //{
 
@@ -232,67 +233,10 @@ namespace Testing
         }
 
 
-        private async static void DownloadFromDropBox()
-        {
-            //https://dl.dropboxusercontent.com/1/view/2pdvchldh2fn3o0/ccc/%D7%9E%D7%95%D7%A0%D7%99%D7%9D.docx
-            using (HttpClient client = new HttpClient())
-            {
-                var sr = await client.GetAsync("https://dl.dropboxusercontent.com/1/view/2pdvchldh2fn3o0/ccc/%D7%9E%D7%95%D7%A0%D7%99%D7%9D.docx");
-                Console.Write("here");
-                // File.WriteAllBytes(@"d:\test.doc", sr);
-            }
-        }
+        
 
-        private static void TestVerifyAccountKey()
-        {
-
-            var plaintextBytes = Encoding.UTF8.GetBytes("TsKl7pMWvW43552543535423453245");
-            var hashId = MachineKey.Protect(plaintextBytes, "test");
-            var g = Convert.ToBase64String(hashId, Base64FormattingOptions.None);
-            Console.WriteLine(g);
-            Console.WriteLine(g.Length);
-
-            StringBuilder sBuilder = new StringBuilder();
-            for (int i = 0; i < hashId.Length; i++)
-            {
-                sBuilder.Append(hashId[i].ToString("x2"));
-            }
-            Console.WriteLine(sBuilder.ToString());
-            Console.WriteLine(sBuilder.Length);
-            //RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-            //rng.
-        }
-
-
-
-        private static void TestImage()
-        {
-
-            //ImageResizer x = new ImageResizer();
-            //var sr = File.Open(@"C:\Users\ram.ZBANG-LOCAL\Downloads\1081833.gif", FileMode.Open);
-            //var sr2 = m_BlobProvider.DownloadFile("a1a148cd-d0af-43b6-894a-4f5468eb1eb8.jpg");
-
-            //var sr3 = m_BlobProvider.DownloadFileToBytes("bf72a097-9141-4aae-95c3-1f61ceeaaeb3.gif");
-            //var bytes = new byte[sr2.Length];
-            //sr2.Read(bytes, 0, (int)sr2.Length);
-            //var ms = new MemoryStream(bytes, true);
-            //File.WriteAllBytes(@"C:\Users\ram.ZBANG-LOCAL\Downloads\1081833(3).gif", bytes);
-
-            //const int BYTES_TO_READ = sizeof(Int64);
-            //byte[] one = new byte[BYTES_TO_READ];
-            //byte[] two = new byte[BYTES_TO_READ];
-            //int iterations = (int)Math.Ceiling((double)sr.Length / BYTES_TO_READ);
-            //for (int i = 0; i < iterations; i++)
-            //{
-            //    //sr.Read(one, 0, BYTES_TO_READ);
-            //    sr2.Read(two, 0, BYTES_TO_READ);
-            //    sw.Write(two);
-            //    //if (BitConverter.ToInt64(one, 0) != BitConverter.ToInt64(two, 0))
-            //        //Console.WriteLine("not equal");
-            //}
-            //sw.Flush();
-            //sw.Dispose();
-        }
+       
+        
         public static void ShowChars(char[] charArray)
         {
             Console.WriteLine("Char\tHex Value");
