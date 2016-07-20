@@ -113,8 +113,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "homePage", new[]
                     {
-                        new JsFileWithCdn("~/Scripts/jquery-3.1.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"),
-                        new JsFileWithCdn("~/bower_components/jquery.validate/dist/jquery.validate.min.js"),
+                        new JsFileWithCdn("~/Scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
+                        new JsFileWithCdn("~/Scripts/jquery.validate.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
                         new JsFileWithCdn("~/scripts/svg4everybody.js"),
                         new JsFileWithCdn("~/scripts/waypoints.min.js"),
@@ -127,7 +127,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     "staticPage", new[]
                     {
-                        new JsFileWithCdn("~/Scripts/jquery-3.1.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"),
+                        new JsFileWithCdn("~/Scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/js/signin/bootstrap.min.js"),
                         new JsFileWithCdn("~/js/shared/languageHandler.js"),
@@ -142,8 +142,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
 
 
-                        new JsFileWithCdn("~/Scripts/jquery-3.1.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"),
-                        new JsFileWithCdn("~/scripts/jquery.validate.min.js"),
+                        new JsFileWithCdn("~/Scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
+                        new JsFileWithCdn("~/Scripts/jquery.validate.js"),
                         new JsFileWithCdn("~/js/signin/metronic.js"),
                         new JsFileWithCdn("~/js/signin/layout.js"),
                         new JsFileWithCdn("~/js/signin/login-soft.js"),
@@ -154,14 +154,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     "site4", new[]
                     {
 
-                        new JsFileWithCdn("~/Scripts/jquery-3.1.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"),
+                        new JsFileWithCdn("~/Scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
                         new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"),
-                        new JsFileWithCdn("~/bower_components/ui-router/release/angular-ui-router.js"),
-                        new JsFileWithCdn("~/bower_components/angular-messages/angular-messages.js"),
+                        new JsFileWithCdn("~/Scripts/angular-ui-router.js"),
+                        new JsFileWithCdn("~/Scripts/angular-messages.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-cache/dist/angular-cache.js"),
-                        new JsFileWithCdn("~/bower_components/angular-sanitize/angular-sanitize.js"),
+                        new JsFileWithCdn("~/Scripts/angular-sanitize.js"),
                         //new JsFileWithCdn("~/bower_components/ngSlimscroll/src/js/ngSlimscroll.js"),
 
                         new JsFileWithCdn("~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"),
@@ -173,9 +173,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/textAngularSetup.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
 
-                        new JsFileWithCdn("~/bower_components/angular-animate/angular-animate.js", "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"),
-                        new JsFileWithCdn("~/bower_components/angular-aria/angular-aria.js"),
-                        new JsFileWithCdn("~/bower_components/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"), 
+                        new JsFileWithCdn("~/Scripts/angular-animate.js"),
+                        new JsFileWithCdn("~/Scripts/angular-aria.js"),
+                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"), 
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
 
@@ -319,8 +319,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/keyboardAction.directive.js"),
                         new JsFileWithCdn("~/js/shared/menuAd.directive.js"),
 
-                        new JsFileWithCdn("~/bower_components/signalr/jquery.signalR.js"),
-                        new JsFileWithCdn("~/bower_components/angular-signalr-hub/signalr-hub.js"),
+                        new JsFileWithCdn("~/Scripts/jquery.signalR-2.2.0.js"),
+                        new JsFileWithCdn("~/Scripts/angular-signalr-hub.js"),
 
                         new JsFileWithCdn("~/js/components/chat/chat.controller.js"),
                         new JsFileWithCdn("~/js/components/chat/chat.factory.js"),
