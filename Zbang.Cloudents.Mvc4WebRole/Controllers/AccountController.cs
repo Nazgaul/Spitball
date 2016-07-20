@@ -46,8 +46,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IAuthenticationManager m_AuthenticationManager;
         private readonly ICookieHelper m_CookieHelper;
         private readonly ILanguageCookieHelper m_LanguageCookie;
-        //private readonly IThemeCookieHelper m_ThemeCookieHelper;
-
 
         public AccountController(
            Lazy<IFacebookService> facebookService,

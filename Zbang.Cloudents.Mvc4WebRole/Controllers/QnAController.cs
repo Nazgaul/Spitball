@@ -6,7 +6,6 @@ using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.QnA;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
@@ -26,14 +25,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_IdGenerator = idGenerator;
         }
 
-        private string RemoveHtmlTags(string s)
-        {
-            if (string.IsNullOrEmpty(s))
-            {
-                return s;
-            }
-            return TextManipulation.RemoveHtmlTags.Replace(s, string.Empty);
-        }
+       
 
         [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("id"), ActionName("Index")]
         public async Task<JsonResult> IndexAsync(long id, int top, int skip)
@@ -50,8 +42,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     return JsonOk(retVal.Select(s => new
                     {
-                        content = RemoveHtmlTags(s.Content),
-                        //s.Content,
+                       
+                        s.Content,
                         s.CreationTime,
                         s.Id,
                         s.RepliesCount,
@@ -70,8 +62,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         Replies = s.Replies.Select(v =>
                             new
                             {
-                                content = RemoveHtmlTags(v.Content),
-                                //v.Content,
+                                v.Content,
                                 v.CreationTime,
                                 v.Id,
                                 v.Url,
@@ -95,8 +86,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 return JsonOk(retVal.Select(s => new
                 {
-                    content = RemoveHtmlTags(s.Content),
-                    //s.Content,
+                    s.Content,
                     s.CreationTime,
                     s.Id,
                     s.RepliesCount,
@@ -116,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Replies = s.Replies.Select(v =>
                     new
                     {
-                        content = RemoveHtmlTags(v.Content),
+                        v.Content,
                         v.CreationTime,
                         v.Id,
                         v.Url,
