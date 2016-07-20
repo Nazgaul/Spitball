@@ -35,7 +35,7 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            RemoveHtmlTags();
+           // RemoveHtmlTags();
             
         }
 
@@ -90,30 +90,30 @@ namespace Zbang.Zbox.Domain.Services
                 } while (universitiesIds.Any());
             }
         }
-        public void RemoveHtmlTags()
-        {
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                var query =
-                    UnitOfWork.CurrentSession.QueryOver<CommentReplies>()
-                        .Where(Restrictions.On<CommentReplies>(x => x.Text).IsLike("%<%")).Take(100);
+        //public void RemoveHtmlTags()
+        //{
+        //    using (var unitOfWork = UnitOfWork.Start())
+        //    {
+        //        var query =
+        //            UnitOfWork.CurrentSession.QueryOver<CommentReplies>()
+        //                .Where(Restrictions.On<CommentReplies>(x => x.Text).IsLike("%<%")).Take(100);
 
-                var comments = query.List();
-                do
-                {
-                    foreach (var comment in comments)
-                    {
-                        comment.Text = Infrastructure.TextManipulation.RemoveHtmlTags.Replace(comment.Text, string.Empty);
+        //        var comments = query.List();
+        //        do
+        //        {
+        //            foreach (var comment in comments)
+        //            {
+        //                comment.Text = Infrastructure.TextManipulation.RemoveHtmlTags.Replace(comment.Text, string.Empty);
 
-                        UnitOfWork.CurrentSession.Save(comment);
+        //                UnitOfWork.CurrentSession.Save(comment);
 
-                    }
-                    unitOfWork.TransactionalFlush();
-                    comments = query.List();
-                } while (comments.Count > 0);
+        //            }
+        //            unitOfWork.TransactionalFlush();
+        //            comments = query.List();
+        //        } while (comments.Count > 0);
 
-            }
-        }
+        //    }
+        //}
 
         public async Task<long> UpdateFileSizesAsync(Action callback)
         {
