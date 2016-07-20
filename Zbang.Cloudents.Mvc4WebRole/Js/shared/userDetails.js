@@ -1,3 +1,4 @@
+/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 'use strict';
 (function () {
     angular.module('app').factory('userDetailsFactory', userDetails);

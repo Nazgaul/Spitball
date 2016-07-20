@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
                     var angularResource =
-                        $"{HttpContext.Current.Server.MapPath("/bower_components/angular-i18n/angular-locale")}_{Thread.CurrentThread.CurrentUICulture.Name}.js";
+                        $"{HttpContext.Current.Server.MapPath("/Scripts/i18n/angular-locale")}_{Thread.CurrentThread.CurrentUICulture.Name}.js";
                     RegisterLocaleJs(File.ReadAllText(angularResource),
                         JsResourceHelper.BuildResourceObject(), culture);
                 }
