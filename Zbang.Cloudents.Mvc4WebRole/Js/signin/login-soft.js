@@ -466,18 +466,18 @@ var Login = function () {
             handleRegister();
             //handleLanguage();
             //handleExtenalLogin();
-            if (window.location.pathname.indexOf('action=signup') > -1) {
+            if (window.location.search.indexOf('action=signin') > -1) {
                 handleLoginElements('login-form');
                 $('.signin-btn').addClass('hidden', true);
 
             }
 
-            if (window.location.pathname.indexOf('action=signup') > -1) {
+            if (window.location.search.indexOf('action=signup') > -1) {
                 handleLoginElements('register-form');
                 $('.signin-btn').addClass('hidden', true);
             }
 
-            if (window.location.pathname.indexOf('action=resetpassword') > -1) {
+            if (window.location.search.indexOf('action=resetpassword') > -1) {
                 handleLoginElements('forgot-password-form', true);
                 $('.signin-btn').addClass('hidden');
             }
@@ -532,7 +532,7 @@ function handleLoginElements(formClass, fromUrl) {
         $.each($mainSection, function () {
             $(this).hide();
         });
-        $('.toggle, #main-wrapper .welcome-text, .login-wrapper .content > :not(.' + formClass + ')').toggleClass('hidden');
+        $('.toggle, #main-wrapper .welcome-text, .sb-logo, .login-wrapper .content > :not(.' + formClass + ')').toggleClass('hidden');
         $('.login-wrapper, .login-wrapper .content > .' + formClass).fadeIn();
     } else {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -540,13 +540,13 @@ function handleLoginElements(formClass, fromUrl) {
             $(this).slideToggle(animatonSpeed);
         });
         $('.login-wrapper, #main-wrapper .welcome-text').slideToggle(animatonSpeed);
-        $('.login-wrapper .content > form:not(.' + formClass + ')').each(function () {
+        $('.login-wrapper .content > div:not(.' + formClass + ')').each(function () {
             $(this).addClass('hidden');
         });
-        $('.login-wrapper .content > form.' + formClass).removeClass('hidden').show();
+        $('.login-wrapper .content > div.' + formClass).removeClass('hidden').show();
         $('.toggle').toggleClass('hidden');
     }
-    $('#main-wrapper').css('min-height', 'calc(100vh - 150px)');
+    //$('#main-wrapper').css({'min-height': 'calc(100vh - 150px)'});
 
 }
 
