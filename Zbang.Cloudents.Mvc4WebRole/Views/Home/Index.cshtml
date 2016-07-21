@@ -4,6 +4,18 @@
 @{
     Layout = null;
     const string socialIconsSvg = "~/images/site/social-icons.svg";
+
+    Model.HomePageUniversityData = Model.HomePageUniversityData ?? new Zbang.Zbox.ViewModel.Dto.HomePageUniversityData
+    {
+        H1Text = "YO yo yo",
+        SignupColor = "#DDD",
+        BackgroundImage = "/Images/HomePage2/HP_image.jpg",
+        HeaderBackgroundColor = "#FFF",
+        VideoBackgroundColor = "#FFF",
+        VideoFontColor = "#DDD"
+    };
+    ViewBag.headerbackground = Model.HomePageUniversityData.HeaderBackgroundColor;
+    ViewBag.signupColor = Model.HomePageUniversityData.SignupColor;
 }
 <!doctype html>
 <html>
@@ -213,13 +225,13 @@
                     <div class="statistics os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
                         @*<h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>*@
                         <h3 class="statistic">
-                            <span id="students" class="value" data-value="@Model.StudentsCount"></span><span>@HomePageResources.statsStudents</span>
+                            <span id="students" class="value" data-value="@Model.HomePageStats.StudentsCount"></span><span>@HomePageResources.statsStudents</span>
                         </h3>
                         <h3 class="statistic">
-                            <a href="@Url.RouteUrl("ClassNotes")"><span id="documents" class="value" data-value="@Model.DocumentCount"></span><span>@HomePageResources.statsDocuments</span></a>
+                            <a href="@Url.RouteUrl("ClassNotes")"><span id="documents" class="value" data-value="@Model.HomePageStats.DocumentCount"></span><span>@HomePageResources.statsDocuments</span></a>
                         </h3>
                         <h3 class="statistic">
-                            <span id="quizzes" class="value" data-value="@Model.QuizzesCount"></span><span>@HomePageResources.statsQuizzes</span>
+                            <span id="quizzes" class="value" data-value="@Model.HomePageStats.BoxesCount"></span><span>@GeneralResources.Classes</span>
                         </h3>
                     </div>
                 </div>
@@ -251,7 +263,7 @@
                 <div id="check-us-section" class="section-start"></div>
                 <h2 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.C1</h2>
                 <div class="boxes">
-                    @foreach (var box in Model.Boxes)
+                    @*@foreach (var box in Model.Boxes)
                     {
                         var boxClass = "color" + (box.Name.Length) % 11;
                         <a href="@box.Url" class="box os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
@@ -263,12 +275,12 @@
                             </div>
                             <hr class="background @boxClass" />
                             <div class="box-info">
-                                @*resources*@<div>@box.MembersCount&nbsp;@IndexResources.Members</div>
-                                @*resources*@<div>@box.ItemCount&nbsp;@IndexResources.Items</div>
+                                <div>@box.MembersCount&nbsp;@IndexResources.Members</div>
+                                <div>@box.ItemCount&nbsp;@IndexResources.Items</div>
                             </div>
 
                         </a>
-                    }
+                    }*@
                 </div>
             </section>
             <section class="about">

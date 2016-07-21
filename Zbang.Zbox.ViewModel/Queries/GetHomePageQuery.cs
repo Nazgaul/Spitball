@@ -2,11 +2,19 @@
 {
     public class GetHomePageQuery
     {
-        public GetHomePageQuery(long[] boxIds)
+        public GetHomePageQuery(long? universityId)
         {
-            BoxIds = boxIds;
+            UniversityId = universityId;
         }
 
-        public long[] BoxIds { get; private set; }
+        //public GetHomePageQuery(long[] boxIds)
+        //{
+        //    BoxIds = boxIds;
+        //}
+
+        //public long[] BoxIds { get; private set; }
+
+
+        public long? UniversityId { get; private set; }
     }
 }

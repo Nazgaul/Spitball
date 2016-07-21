@@ -31,15 +31,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class HomeController : BaseController
     {
         private readonly Lazy<IBlobProvider> m_BlobProvider;
-        private readonly ILanguageCookieHelper m_LanguageCookie;
         private readonly ICookieHelper m_CookieHelper;
 
         public HomeController(
             Lazy<IBlobProvider> blobProvider,
-            ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper)
+            ICookieHelper cookieHelper)
         {
             m_BlobProvider = blobProvider;
-            m_LanguageCookie = languageCookie;
             m_CookieHelper = cookieHelper;
         }
 
@@ -72,22 +70,23 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
                 }
             }
-            var prefix = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
-            var boxIdsStr = ConfigFetcher.Fetch("HomePageBoxIds" + prefix);
-            if (string.IsNullOrEmpty(boxIdsStr))
-            {
-                boxIdsStr = ConfigFetcher.Fetch("HomePageBoxIds");
+            //var prefix = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+            //var boxIdsStr = ConfigFetcher.Fetch("HomePageBoxIds" + prefix);
+            //if (string.IsNullOrEmpty(boxIdsStr))
+            //{
+            //    boxIdsStr = ConfigFetcher.Fetch("HomePageBoxIds");
 
-            }
-            var arr = boxIdsStr.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            var boxIds = Array.ConvertAll(arr, s =>
-            {
-                long l;
-                long.TryParse(s, out l);
-                return l;
-            });
-            var query = new GetHomePageQuery(boxIds);
+            //}
+            //var arr = boxIdsStr.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            //var boxIds = Array.ConvertAll(arr, s =>
+            //{
+            //    long l;
+            //    long.TryParse(s, out l);
+            //    return l;
+            //});
+            var query = new GetHomePageQuery(universityId);
             var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
+
             return View("Index", homeStats);
         }
 
@@ -355,13 +354,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return RedirectToRoutePermanent("Help");
         }
-
-        //[OutputCache(Duration = TimeConsts.Minute * 15)]
-        //public async Task<JsonResult> StudentAd()
-        //{
-        //    var str = await m_BlobProvider.Value.GetAdHtmlAsync();
-        //    return JsonOk(str);
-        //}
 
 
 
