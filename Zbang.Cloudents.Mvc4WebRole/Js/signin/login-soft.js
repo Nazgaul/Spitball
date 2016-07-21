@@ -188,7 +188,7 @@ var Login = function () {
         $('#register-btn, .login-option.signup').click(function (e) {
             e.preventDefault();
             pushState(signupState);
-           
+
         });
 
         $('#register-btn').click(function () {
@@ -204,7 +204,7 @@ var Login = function () {
             $('.register-form, .forgot-password-form').hide();
             $('.login-form').removeClass('hidden').fadeIn();
             pushState(loginState);
-           
+
 
         });
 
@@ -215,7 +215,7 @@ var Login = function () {
             $('.login-form, .register-form').hide();
             $('.forgot-password-form').removeClass('hidden').fadeIn();
             pushState(forgotPasswordState);
-            
+
             //trackConversion();
         });
 
@@ -249,7 +249,7 @@ var Login = function () {
         //var returnUrl = queryString['returnUrl'];
         //var universityId = queryString['universityid'];
         //if (returnUrl) {
-            //values += "&returnUrl=" + returnUrl;
+        //values += "&returnUrl=" + returnUrl;
         //}
         //if (universityId) {
         //    values += "&universityId=" + universityId;
@@ -291,7 +291,7 @@ var Login = function () {
             $('.home-page-body .loader').addClass('active');
         }, 200);
         var values = $(form).serialize();
-       
+
 
 
         $.post('/account/login', values).done(function (data) {
@@ -409,20 +409,41 @@ var Login = function () {
         //    ext = '?universityid=' + universityId;
         //}
         if (state === loginState) {
-            window.history.replaceState(null, "Signin", "/account/signin/" + location.search);
+            updateQueryStringParam('action', 'signin');
             ga('send', 'pageview', '/account/signin');
+            $(window).scrollTop(0);
             return;
         }
         if (state === signupState) {
-            window.history.replaceState(null, "Sign up", "/account/signup/" + location.search);
+            updateQueryStringParam('action', 'signup');
             ga('send', 'pageview', '/account/signup');
+            $(window).scrollTop(0);
             return;
         }
-        window.history.replaceState(null, "Forgot password", "/account/resetpassword/" + location.search);
+        updateQueryStringParam('action', 'resetpassword');
         ga('send', 'pageview', '/account/resetpassword');
-        $(window).scrollTop(0); //TODO: why this is only happen in forgot password
+        $(window).scrollTop(0);
     }
 
+    function updateQueryStringParam(key, value) {
+        var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+            urlQueryString = document.location.search,
+            newParam = key + '=' + value,
+            params = '?' + newParam;
+
+        // If the "search" string exists, then build params from it
+        if (urlQueryString) {
+            keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+
+            // If param exists already, update it
+            if (urlQueryString.match(keyRegex) !== null) {
+                params = urlQueryString.replace(keyRegex, "$1" + newParam);
+            } else { // Otherwise, add it to end of query string
+                params = urlQueryString + '&' + newParam;
+            }
+        }
+        window.history.replaceState({}, "", baseUrl + params);
+    };
 
     function getUrlVars() {
         var vars = [], hash;
@@ -445,18 +466,18 @@ var Login = function () {
             handleRegister();
             //handleLanguage();
             //handleExtenalLogin();
-            if (window.location.pathname.indexOf('/signin') > -1) {
+            if (window.location.pathname.indexOf('action=signup') > -1) {
                 handleLoginElements('login-form');
                 $('.signin-btn').addClass('hidden', true);
 
             }
 
-            if (window.location.pathname.indexOf('/signup') > -1) {
+            if (window.location.pathname.indexOf('action=signup') > -1) {
                 handleLoginElements('register-form');
                 $('.signin-btn').addClass('hidden', true);
             }
 
-            if (window.location.pathname.indexOf('/resetpassword') > -1) {
+            if (window.location.pathname.indexOf('action=resetpassword') > -1) {
                 handleLoginElements('forgot-password-form', true);
                 $('.signin-btn').addClass('hidden');
             }

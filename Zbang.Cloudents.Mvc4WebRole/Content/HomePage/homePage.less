@@ -103,6 +103,30 @@
                 margin-top: 0;
             }
 
+            .login-option {
+                border: none;
+                padding: 8px;
+                border-radius: 16px;
+                width: 200px;
+                color: @textColorWhite;
+                text-decoration: none;
+                margin-bottom: 20px;
+                font-size: 18px;
+                line-height: 25px;
+                cursor: pointer;
+
+                &.signup {
+                    font-size: 30px;
+                    padding: 20px 50px;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    margin: 0 auto;
+                    display: block;
+                    background: orange;
+                    width: auto;
+                }
+            }
+
             &.main {
                 position: relative;
                 text-align: center;
@@ -110,10 +134,11 @@
                 margin-top: 70px;
                 background: linear-gradient(to top, #000 -50px, transparent 400px, transparent 100%);
                 padding: 0;
+                overflow: visible;
 
                 #main-wrapper {
-                    padding: 0 5% 80px 5%;
-                    overflow: hidden;
+                    padding: 0 5% 40px 5%;
+                    overflow: visible;
                     position: relative;
                     /*&.collapse {
                         padding: 0;
@@ -122,14 +147,27 @@
                 }
 
                 .welcome-text {
-                    width: 100%;
+                    position: relative;
                     text-align: center;
-                    margin: 100px auto 80px auto;
+                    margin: 400px auto 0 auto;
                     padding: 0 35px;
                     -moz-box-sizing: border-box;
                     -webkit-box-sizing: border-box;
                     box-sizing: border-box;
                     color: @textColorWhite;
+                    display: inline-block;
+
+                    .sb-logo {
+                        width: 200px;
+                        height: 200px;
+                        position: absolute;
+                        background: #383838;
+                        left: -200px;
+                        bottom: -80px;
+                        z-index: 1;
+                        border: 5px solid white;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+                    }
 
                     > h1, h2 {
                         text-shadow: 2px 2px 4px @textColorBlack;
@@ -137,10 +175,11 @@
 
                     h1 {
                         font-weight: bold;
-                        font-size: 50px;
+                        font-size: 60px;
                         max-width: 100%; //rtl:520px
-                        margin: 0 auto;
+                        margin: 16px auto;
                         text-transform: capitalize;
+                        display: inline-block;
 
 
                         @media(max-width: 960px) {
@@ -188,17 +227,6 @@
                     }
 
                     .login-option {
-                        border: none;
-                        padding: 8px;
-                        border-radius: 16px;
-                        width: 200px;
-                        color: @textColorWhite;
-                        text-decoration: none;
-                        margin-bottom: 20px;
-                        font-size: 18px;
-                        line-height: 25px;
-                        cursor: pointer;
-
                         > div {
                             .displayFlex;
                         }
@@ -208,19 +236,7 @@
                             width: inherit;
                             padding: 0;
                         }
-                        /*&.signup {
-                            width: 100%;
-                            display: inline-block;
-                            background: rgba(24,28,29,0.85);
-                            text-align: center;
-                            line-height: 25px;
-                            margin-bottom: 200px;
 
-
-                            @media(max-width: 600px) {
-                                margin-bottom: 100px;
-                            }
-                        }*/
                         svg {
                             width: 30px;
                             height: 30px;
@@ -264,7 +280,7 @@
                     .displayFlex;
                     justify-content: space-between;
                     max-width: 700px;
-                    margin: 110px auto 25px auto;
+                    margin: 110px auto 0px auto;
                     color: @textColorWhite;
                     font-size: 18px;
                     position: absolute;
@@ -277,6 +293,8 @@
                         text-align: center;
                         padding: 0 10px;
                         font-size: 18px;
+                        margin: 10px 0;
+                        font-weight: normal;
 
                         .value {
                             margin: 0 10px;
@@ -870,80 +888,13 @@
                 }
             }
 
-            &.about {
-                background: #4190B9;
+
+            &.intro {
+                background: white;
                 color: @textColorWhite;
                 overflow: visible;
                 position: relative;
                 padding-bottom: 0;
-
-                .description {
-                    font-size: 28px;
-                    line-height: 40px;
-                    max-width: 1150px;
-                    margin: 0 auto;
-                    overflow: hidden;
-
-                    p {
-                        text-align: center;
-                        max-width: 950px;
-                        margin: 0 auto 50px auto;
-                        font-size: 24px;
-                        line-height: normal;
-                    }
-
-                    .features {
-                        .displayFlex;
-                        justify-content: space-around;
-                        -ms-flex-wrap: wrap;
-                        -webkit-flex-wrap: wrap;
-                        flex-wrap: wrap;
-                        width: 90%;
-                        margin: 0 auto;
-                        margin-bottom: 20px;
-                        font-size: 18px;
-                        // > div {
-                        //    width:50%;
-                        // }
-                        //> div {
-                        // width: ~"calc(40% - 70px)";
-                        // margin: 0 auto;
-                        //@media(max-width: 800px) {
-                        //    max-width: 550px;
-                        //    width: 100%;
-                        //}
-                        section {
-                            width: 400px;
-                            margin-bottom: 44px;
-                            margin-left: 20px;
-                        }
-
-                        line-height: normal;
-
-                        h4 {
-                            font-size: 24px;
-                            margin: 0 0 10px;
-                        }
-                        //li {
-                        a {
-                            color: rgba(245,245,245,0.7);
-                            text-decoration: none;
-
-
-                            &:hover {
-                                color: #20495F;
-                            }
-
-                            &:before {
-                                content: '\2022';
-                                position: absolute;
-                                left: -20px;
-                            }
-                        }
-                        //}
-                        // }
-                    }
-                }
 
                 .video-image {
                     margin: 0 auto;
@@ -1053,6 +1004,82 @@
                 }
             }
 
+            &.about {
+                background: #4190B9;
+                color: @textColorWhite;
+                overflow: visible;
+                position: relative;
+                padding-bottom: 0;
+
+                .description {
+                    font-size: 28px;
+                    line-height: 40px;
+                    max-width: 1150px;
+                    margin: 0 auto;
+                    overflow: hidden;
+
+                    p {
+                        text-align: center;
+                        max-width: 950px;
+                        margin: 50px auto;
+                        font-size: 24px;
+                        line-height: normal;
+                    }
+
+                    .features {
+                        .displayFlex;
+                        justify-content: space-around;
+                        -ms-flex-wrap: wrap;
+                        -webkit-flex-wrap: wrap;
+                        flex-wrap: wrap;
+                        width: 90%;
+                        margin: 0 auto;
+                        margin-bottom: 20px;
+                        font-size: 18px;
+                        // > div {
+                        //    width:50%;
+                        // }
+                        //> div {
+                        // width: ~"calc(40% - 70px)";
+                        // margin: 0 auto;
+                        //@media(max-width: 800px) {
+                        //    max-width: 550px;
+                        //    width: 100%;
+                        //}
+                        section {
+                            width: 400px;
+                            margin-bottom: 44px;
+                            margin-left: 20px;
+                        }
+
+                        line-height: normal;
+
+                        h4 {
+                            font-size: 24px;
+                            margin: 0 0 10px;
+                        }
+                        //li {
+                        a {
+                            color: rgba(245,245,245,0.7);
+                            text-decoration: none;
+
+
+                            &:hover {
+                                color: #20495F;
+                            }
+
+                            &:before {
+                                content: '\2022';
+                                position: absolute;
+                                left: -20px;
+                            }
+                        }
+                        //}
+                        // }
+                    }
+                }
+            }
+
             &.check-us {
                 background: @backgroundColor;
                 color: @textColorWhite;
@@ -1150,6 +1177,7 @@
                     .welcome-text {
                         padding: 0;
                         margin: 50px auto 50px auto;
+                        max-width: ~"calc(100% - 400px)";
 
                         h1 {
                             font-size: 10vw;
