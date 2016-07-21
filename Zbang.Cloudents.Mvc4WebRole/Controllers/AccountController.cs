@@ -68,7 +68,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult Index(string lang, string invId)
         {
-            return RedirectToRoutePermanent("homePage", new { lang, invId });
+            return RedirectToRoutePermanent("homePage", new  { lang, invId });
         }
 
         #region Login
@@ -162,7 +162,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 m_CookieHelper.RemoveCookie(Invite.CookieName);
                 var url = user.UniversityId.HasValue
                     ? Url.Action("Index", "Dashboard")
-                    : Url.Action("Choose", "Library");
+                    : Url.Action("Choose", "University");
                 return JsonOk(url);
             }
         }
@@ -305,7 +305,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 m_CookieHelper.RemoveCookie(Invite.CookieName);
                 var url = user.UniversityId.HasValue
                       ? Url.Action("Index", "Dashboard")
-                      : Url.Action("Choose", "Library");
+                      : Url.Action("Choose", "University");
                 return JsonOk(url);
             }
             catch (UserRegisterFacebookException)
@@ -388,7 +388,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                         var url = systemUser.UniversityId.HasValue
                             ? Url.Action("Index", "Dashboard")
-                            : Url.Action("Choose", "Library");
+                            : Url.Action("Choose", "University");
                         return JsonOk(url);
 
                     }
@@ -497,7 +497,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     var url = result.UniversityId.HasValue
                         ? Url.Action("Index", "Dashboard")
-                        : Url.Action("Choose", "Library");
+                        : Url.Action("Choose", "University");
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
                     return JsonOk(url);
 

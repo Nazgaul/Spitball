@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -24,11 +25,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
 
         public static string ActionHash(this UrlHelper urlHelper, string action, object routeValues, string hash)
         {
-            return string.Format("{0}#{1}", urlHelper.Action(action, routeValues), hash);
+            return $"{urlHelper.Action(action, routeValues)}#{hash}";
         }
         public static string ActionHash(this UrlHelper urlHelper, string action, string controller, string hash)
         {
-            return string.Format("{0}#{1}", urlHelper.Action(action, controller), hash);
+            return $"{urlHelper.Action(action, controller)}#{hash}";
         }
 
         public static string GenerateUrl(this UrlHelper urlHelper, string actionName, string controllerName)
@@ -37,6 +38,32 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             var urlHelperWithNewContext = new UrlHelper(new RequestContext(urlHelper.RequestContext.HttpContext, new RouteData()), urlHelper.RouteCollection);
             return urlHelperWithNewContext.Action(actionName, controllerName);
         }
+
+        public static string RouteUrlCache(this UrlHelper urlHelper, string routeName,
+            RouteValueDictionary routeValues)
+        {
+            var cache = urlHelper.RequestContext.HttpContext.Cache;
+            var key = routeName + string.Join("!", routeValues.Values.Select(x => x.ToString()));
+            var retVal = cache[key] as string;
+            if (retVal == null)
+            {
+                retVal = urlHelper.RouteUrl(routeName, routeValues);
+                //foreach (var item in routeValues)
+                //{
+                //    if (item.Value == null)
+                //    {
+                //        continue;
+                //    }
+                //    retVal = retVal.Replace(item.Value.ToString().ToLower(), item.Value.ToString());
+                //}
+                cache.Add(key, retVal, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromDays(30),
+                    System.Web.Caching.CacheItemPriority.Default, null);
+                cache[key] = retVal;
+            }
+            return retVal;
+        }
+        
+
 
         public static string ActionLinkWithParam(this UrlHelper urlHelper, string action, object routeValue)
         {
@@ -56,6 +83,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             }
             return url;
         }
+        
 
         public static string ActionLinkWithParam(this UrlHelper urlHelper, string action, string controller, object routeValue)
         {

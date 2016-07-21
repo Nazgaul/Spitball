@@ -1,25 +1,26 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+﻿
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 <div class="dashboard-stat2 color-override backgroundTransparent" id="createCourse">
     <button ng-hide="l.createBoxOn" type="button" ng-click="l.openCreateBox()" class="create-btn" ga-track-event="['university', 'add new class']">
         <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-        <div class="title">@LibraryResources.AddClass</div>
+        <div class="title">@UniversityResources.AddClass</div>
     </button>
     <form name="createBox" novalidate ng-submit="l.createBox(createBox)" ng-show="l.createBoxOn">
         <md-content flex>
             <md-input-container flex ng-if="!l.secondStep">
-                <label>@LibraryResources.EnterClassName</label>
+                <label>@UniversityResources.EnterClassName</label>
                 <input focus-me="l.focusCreateClass" autocomplete="off" name="name" required ng-model="l.boxName" ng-change="createBox.professor.$setValidity('server',true)" />
                 <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
                     <div ng-message="required">@GeneralResources.RequiredField</div>
                 </div>
             </md-input-container>
             <md-input-container flex ng-if="l.secondStep">
-                <label>@LibraryResources.EnterCode</label>
+                <label>@UniversityResources.EnterCode</label>
                 <input autocomplete="off" ng-model="l.code" ng-change="createBox.professor.$setValidity('server',true)" />
             </md-input-container>
             <md-input-container flex ng-if="l.secondStep">
-                <label>@LibraryResources.Instructor</label>
+                <label>@UniversityResources.Instructor</label>
                 <input autocomplete="off" ng-model="l.professor" name="professor" ng-change="createBox.professor.$setValidity('server',true)" />
                 <div ng-messages="createBox.professor.$error">
                     <div ng-message="server">{{l.error}}</div>
@@ -29,7 +30,7 @@
         </md-content>
         <span layout="row" layout-align="end stretch" class="text-capitalize">
             <button type="button" class="btn btn-default" ng-click="l.boxCancel()" ga-track-event="['university', 'cancel new class']">@GeneralResources.Cancel</button>
-            <button type="button" class="btn button-Blue btn-primary" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()" ga-track-event="['university', 'next step new class']">@LibraryResources.Next</button>
+            <button type="button" class="btn button-Blue btn-primary" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()" ga-track-event="['university', 'next step new class']">@UniversityResources.Next</button>
             <button type="submit" class="btn button-Blue btn-primary" ng-if="l.secondStep" ng-disabled="!createBox.$valid || l.submitDisabled" ga-track-event="['university', 'create new class']">@GeneralResources.Create</button>
         </span>
     </form>

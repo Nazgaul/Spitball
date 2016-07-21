@@ -269,7 +269,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
-    <Compile Include="Controllers\LibraryController.cs" />
+    <Compile Include="Controllers\UniversityController.cs" />
     <Compile Include="Controllers\QnAController.cs" />
     <Compile Include="Controllers\QuizController.cs" />
     <Compile Include="Controllers\Resources\AccountControllerResources.Designer.cs">
@@ -331,7 +331,6 @@
     <Compile Include="Filters\NoCacheAttribute.cs" />
     <Compile Include="Filters\NoEtagAttribute.cs" />
     <Compile Include="Filters\NoUniversityAttribute.cs" />
-    <Compile Include="Filters\PreserveQueryStringAttribute.cs" />
     <Compile Include="Filters\RemoveBoxCookieAttribute.cs" />
     <Compile Include="Filters\ValidatePasswordLengthAttribute.cs" />
     <Compile Include="Filters\ZboxAuthorizeAttribute.cs" />
@@ -339,6 +338,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AuthorizationConstraint.cs" />
     <Compile Include="Helpers\CloudentsOutsputCacheProvider.cs" />
     <Compile Include="Helpers\CloudentsViewLocationCache.cs" />
     <Compile Include="Helpers\CookieHelper.cs" />
@@ -525,10 +525,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Views\Library\Resources\LibraryResources.Designer.cs">
+    <Compile Include="Views\University\Resources\UniversityResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LibraryResources.resx</DependentUpon>
+      <DependentUpon>UniversityResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\Quiz\Resources\QuizResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2485,7 +2485,7 @@
     <Content Include="Views\Box\_Items.cshtml" />
     <Content Include="Views\User\Index2.cshtml" />
     <Content Include="Views\Account\Settings2.cshtml" />
-    <Content Include="Views\Library\Index2.cshtml" />
+    <Content Include="Views\University\Index2.cshtml" />
     <Content Include="Views\Item\Index2.cshtml" />
     <Content Include="Views\Dashboard\_University.cshtml" />
     <Content Include="Views\Shared\Partials2\_LeaderBoard.cshtml" />
@@ -2500,18 +2500,18 @@
     <Content Include="Views\Account\Notification.cshtml" />
     <Content Include="Views\Home\Blog.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
-    <Content Include="Views\Library\Choose.cshtml" />
+    <Content Include="Views\University\Choose.cshtml" />
     <Content Include="Views\Box\_Settings.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
-    <Content Include="Views\Library\_Settings.cshtml" />
+    <Content Include="Views\University\_Settings.cshtml" />
     <Content Include="Views\Shared\_UnregView.cshtml" />
     <Content Include="Views\Box\_Tabs.cshtml" />
     <Content Include="Views\Dashboard\_Create.cshtml" />
-    <Content Include="Views\Library\_CreateDepartment.cshtml" />
-    <Content Include="Views\Library\_CreateCourse.cshtml" />
-    <Content Include="Views\Library\_ChooseEnterCode.cshtml" />
-    <Content Include="Views\Library\_ChooseCreateUniversity.cshtml" />
+    <Content Include="Views\University\_CreateDepartment.cshtml" />
+    <Content Include="Views\University\_CreateCourse.cshtml" />
+    <Content Include="Views\University\_ChooseEnterCode.cshtml" />
+    <Content Include="Views\University\_ChooseCreateUniversity.cshtml" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Item\_itemComments.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -2519,7 +2519,7 @@
     <Content Include="Views\Box\LikesDialog.cshtml" />
     <Content Include="Views\Item\UploadDialog.cshtml" />
     <Content Include="Views\Share\InviteDialog.cshtml" />
-    <Content Include="Views\Library\_EmptyStateTopTree.cshtml" />
+    <Content Include="Views\University\_EmptyStateTopTree.cshtml" />
     <Content Include="Views\Home\Product.cshtml" />
     <Content Include="Views\Account\Department.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageFooter.cshtml" />
@@ -2800,10 +2800,10 @@
       <LastGenOutput>ItemsResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Library\Resources\LibraryResources.he.resx" />
-    <EmbeddedResource Include="Views\Library\Resources\LibraryResources.resx">
+    <EmbeddedResource Include="Views\University\Resources\UniversityResources.he.resx" />
+    <EmbeddedResource Include="Views\University\Resources\UniversityResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>LibraryResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>UniversityResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.he.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.resx">

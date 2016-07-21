@@ -1,10 +1,11 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+﻿
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 <div ng-if="lc.needCode" class="code">
 
     @Html.Svg("~/images/site/libChooseIcons.svg", "closedUni", new { @class = "closed-uni-i" })
     <div class="content">
-        <h4 class="text-capitalize">@LibraryResources.Hi {{::lc.code.userName}}</h4>
+        <h4 class="text-capitalize">@UniversityResources.Hi {{::lc.code.userName}}</h4>
         <span class="uni-details" ng-bind-html="::lc.code.closedUniText1"></span>
 
         <form name="enterId" novalidate ng-submit="lc.selectUniversity(lc.code.university,enterId)">
@@ -13,18 +14,18 @@
                 @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
             </label>
             <md-input-container>
-                <label class="text-capitalize">@LibraryResources.EnterID</label>
+                <label class="text-capitalize">@UniversityResources.EnterID</label>
                 <input name="studentId" type="text" autocomplete="off" ng-model="lc.code.studentId" ng-pattern="/^[0-9]{9}$/" required ng-change="enterId.studentId.$setValidity('server',true)" />
                 <div ng-messages="enterId.studentId.$error" ng-show="enterId.studentId.$dirty">
                     <div ng-message="required">@GeneralResources.RequiredField</div>
                     <div ng-message="server">{{lc.error}}</div>
-                    <div ng-message="pattern">@LibraryResources.IdLengthError</div>
+                    <div ng-message="pattern">@UniversityResources.IdLengthError</div>
                 </div>
             </md-input-container>
             <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
             <div class="buttons" layout="row" layout-align="end center">
                 <button type="reset" ng-click="lc.needCode = false" class="btn btn-default">@GeneralResources.Cancel</button>
-                <button type="submit" class="btn button-Blue btn-primary" ng-disabled="!enterId.$valid || || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">@LibraryResources.Continue</button>
+                <button type="submit" class="btn button-Blue btn-primary" ng-disabled="!enterId.$valid || || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">@UniversityResources.Continue</button>
             </div>
         </form>
     </div>

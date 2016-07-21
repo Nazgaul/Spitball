@@ -31,7 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             filterContext.Result = new RedirectToRouteResult(
                new RouteValueDictionary
                {
-                   { "controller", "Library" }, { "action", "Choose" }, 
+                   { "controller", "University" }, { "action", "Choose" }, 
                    { "new", filterContext.HttpContext.Request.QueryString["new"]}
 
                });

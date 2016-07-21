@@ -47,16 +47,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetLibraryNodeAsync(query);
         }
 
-        //public Task<UniversityInfoDto> GetUniversityDetailAsync(GetUniversityDetailQuery query)
-        //{
-        //    return m_Cache.QueryAsync
-        //        (m_ReadService.GetUniversityDetailAsync, query);
-        //}
-
-        //public Task<IEnumerable<InviteDto>> GetInvitesAsync(GetInvitesQuery query)
-        //{
-        //    return m_ReadService.GetInvitesAsync(query);
-        //}
+      
 
         public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query)
         {

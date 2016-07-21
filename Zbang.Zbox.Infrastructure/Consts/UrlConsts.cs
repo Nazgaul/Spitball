@@ -13,6 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         private const string BoxUrl = "/box/my/{0}/{1}/";
         private const string CourseUrl = "/course/{2}/{0}/{1}/";
         private const string UserUrl = "/user/{0}/{1}/";
+        //TODO: change that
         private const string LibraryUrl = "/library/{0}/{1}/";
         private const string LogInUrl = "/?invId={0}";
 
@@ -136,7 +137,11 @@ namespace Zbang.Zbox.Infrastructure.Consts
             {
                 throw new ArgumentNullException(nameof(name));
             }
-            return VirtualPathUtility.AppendTrailingSlash(string.Format(LibraryUrl, GuidEncoder.Encode(id), NameToQueryString(name)));
+            return VirtualPathUtility.AppendTrailingSlash(
+                string.Format(
+                    LibraryUrl, 
+                    GuidEncoder.Encode(id), 
+                    NameToQueryString(name)));
         }
 
         public static string NameToQueryString(string name)
@@ -150,16 +155,18 @@ namespace Zbang.Zbox.Infrastructure.Consts
             }
             char previousChar = '\0';
             var sb = new StringBuilder();
-            name = name.Replace(Convert.ToChar(160), ' ');
-            name = name.Replace("\n", string.Empty);
+           // name = name.Replace(Convert.ToChar(160), ' ');
+            //name = name.Replace("\n", string.Empty);
 
             foreach (var character in name)
             {
+
                 if (!char.IsLetterOrDigit(character) && !char.IsWhiteSpace(character) && !char.IsPunctuation(character))
                     continue;
                 switch (character)
                 {
-
+                    case (char)160:
+                    case '\n':
                     case '<':
                     case '>':
                     case '*':

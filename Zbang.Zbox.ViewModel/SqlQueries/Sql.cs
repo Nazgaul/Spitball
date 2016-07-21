@@ -26,6 +26,7 @@
 
 
         public const string DashboardInfo = @"select 
+uWrap.id as id,
 uWrap.universityName as Name,
 uWrap.LargeImage as Img,
 uWrap.NoOfBoxes as NumOfBoxes,

@@ -2,12 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Routing;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
+using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -66,6 +68,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var query = new UniversityQuery(universityWrapper);
             var model = await ZboxReadService.GetUniversityInfoAsync(query);
+
+            model.Url = Url.RouteUrlCache("universityLibrary", new RouteValueDictionary
+            {
+                ["universityId"] = model.Id,
+                ["universityName"] = UrlConst.NameToQueryString(model.Name)
+            });
             return JsonOk(model);
 
         }

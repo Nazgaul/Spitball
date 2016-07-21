@@ -8,47 +8,47 @@
 
 
         function getStates() {
-            var partial = '/library/indexpartial/';
+            var partial = '/university/indexpartial/';
             return [
             {
                 state: 'department',
                 config: {
-                    url: '/library/',
+                    url: '/university/:universityId/:universityName/',
                     controller: 'Library as l',
                     resolve: {
                         nodeData: [
-                           'libraryService', function (libraryService) {
-                               return libraryService.getDepartments();
+                           'libraryService','$stateParams', function (libraryService,$stateParams) {
+                               return libraryService.getDepartments(null, $stateParams.universityId);
                            }
                         ]
                     },
-                    data: { animateClass: 'library' },
+                    data: { animateClass: 'library' }
                 },
 
                 templateUrl: partial
             },
             {
                 state: 'departmentWithNode', config: {
-                    url: '/library/:nodeId/:nodeName/',
+                    url: '/university/:universityId/:universityName/:nodeName/?id',
                     controller: 'Library as l',
                     resolve: {
                         nodeData: [
                            'libraryService', '$stateParams', function (libraryService, $stateParams) {
-                               return libraryService.getDepartments($stateParams.nodeId);
+                               return libraryService.getDepartments($stateParams.id, $stateParams.universityId);
                            }
                         ]
                     },
-                    data: { animateClass: 'library' },
+                    data: { animateClass: 'library' }
                 },
                 templateUrl: partial
             },
             {
                 state: 'universityChoose', config: {
-                    url: '/library/choose/',
+                    url: '/university/choose/',
                     controller: 'LibraryChoose as lc',
                     data: { animateClass: 'library-choose' }
                 },
-                templateUrl: '/library/choosepartial/'
+                templateUrl: '/university/choosepartial/'
             }
 
 

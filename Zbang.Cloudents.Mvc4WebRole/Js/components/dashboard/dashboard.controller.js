@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
     dashboard.$inject = ['dashboardService', 'boxes', '$scope', '$mdDialog', 'boxService',
-        '$rootScope', 'resManager', 'ajaxService', '$timeout'];
+        '$rootScope', 'resManager', 'ajaxService'];
 
     function dashboard(dashboardService, boxes, $scope, $mdDialog, boxService, $rootScope,
-        resManager, ajaxService, $timeout) {
+        resManager, ajaxService) {
         var d = this;
         d.inviteOpen = false;
         d.showLeaderboard = true;

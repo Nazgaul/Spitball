@@ -1,14 +1,15 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+﻿
+@using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 <div ng-if="!lc.needCode && !lc.createUniversity" id="lib-choose">
     <div class="search-form-wrapper" ng-class="{'no-results': lc.term.length > 1 && lc.showNoResult}">
         <div class="intro-text-wrapper">
-            <div ng-if="!lc.term">@LibraryResources.UniversitySearchTitle</div>
-            <div ng-if="lc.term.length && lc.universities.length">@LibraryResources.UniversitySearchTitleTyping</div>
-            <div ng-if="lc.term.length > 1 && lc.showNoResult">@LibraryResources.UniversitySearchTitleNoResult</div>
-            <div ng-if="lc.term.length > 1 && lc.showNoResult" class="sub-text">@LibraryResources.UniversitySearchTitleNoResultSub</div>
+            <div ng-if="!lc.term">@UniversityResources.UniversitySearchTitle</div>
+            <div ng-if="lc.term.length && lc.universities.length">@UniversityResources.UniversitySearchTitleTyping</div>
+            <div ng-if="lc.term.length > 1 && lc.showNoResult">@UniversityResources.UniversitySearchTitleNoResult</div>
+            <div ng-if="lc.term.length > 1 && lc.showNoResult" class="sub-text">@UniversityResources.UniversitySearchTitleNoResultSub</div>
         </div>
         <form name="libraryChooseForm" novalidate ng-submit="lc.universitySearch(libraryChooseForm)" layout="row" layout-wrap>
-            <input spellcheck="false" autofocus required ng-disabled="lc.createUniversity" type="search" class="search-text color-override inputColor6" placeholder="@LibraryResources.UniversitySearchPlaceholder"
+            <input spellcheck="false" autofocus required ng-disabled="lc.createUniversity" type="search" class="search-text color-override inputColor6" placeholder="@UniversityResources.UniversitySearchPlaceholder"
                    ng-model="lc.term" ng-model-options="{debounce : 350}" ng-change="lc.universitySearch(libraryChooseForm)" ng-minlength="2" />
             <button type="submit" class="search-button" ng-disabled="!lc.term.length">
                 @Html.Svg("~/images/site/icons.svg", "searchIcon")
@@ -29,12 +30,12 @@
             </div>
         </div>
         <div ng-if="lc.term.length && lc.universities.length" class="add-uni-btn textTC2">
-            <div>@LibraryResources.NoMoreSchools</div>
-            <md-button class="btn button-Blue btn-primary text-capitalize" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">@LibraryResources.AddSchool</md-button>
+            <div>@UniversityResources.NoMoreSchools</div>
+            <md-button class="btn button-Blue btn-primary text-capitalize" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">@UniversityResources.AddSchool</md-button>
         </div>
         <div ng-if="lc.term.length > 1 && lc.showNoResult" class="no-result">
             <img src="@Url.CdnContent("/Images/Site/no_uni.png?v=3")" alt="lama no university" />
-            <md-button class="btn button-Blue btn-primary text-capitalize" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">@LibraryResources.AddSchool</md-button>
+            <md-button class="btn button-Blue btn-primary text-capitalize" ng-click="lc.createUniversity = true" ga-track-event="['universityChoose', 'add new university']">@UniversityResources.AddSchool</md-button>
         </div>
        
         <img ng-if="!lc.term" src="@Url.CdnContent("/Images/Site/search_uni.png?v=3")" alt="lama search" />

@@ -6,12 +6,12 @@
     function library(ajaxservice) {
         var d = this;
 
-        d.getDepartments = function (departmentId) {
-            return ajaxservice.get('/library/nodes/', { section: departmentId });
+        d.getDepartments = function (departmentId, universityId) {
+            return ajaxservice.get('/university/nodes/', { section: departmentId, universityId: universityId });
         }
 
         d.getUniversity = function (term, page) {
-            return ajaxservice.get('/library/searchuniversity/', { term: term, page: page });
+            return ajaxservice.get('/university/searchuniversity/', { term: term, page: page });
         }
 
         d.chooseUniversity = function (universityId, studentId) {
@@ -21,7 +21,7 @@
             });
         }
         d.createUniversity = function (name, country) {
-            return ajaxservice.post('/library/createuniversity/', {
+            return ajaxservice.post('/university/createuniversity/', {
                 name: name,
                 country: country
             });
@@ -29,19 +29,19 @@
 
 
         d.createDepartment = function (name, nodeId) {
-            return ajaxservice.post('/library/create/', {
+            return ajaxservice.post('/university/create/', {
                 name: name,
                 parentId: nodeId
             });
         }
         d.deleteDepartment = function (id) {
-            return ajaxservice.post('/library/deletenode/', {
+            return ajaxservice.post('/university/deletenode/', {
                 id: id
             });
         }
 
         d.createClass = function (name, code, professor, nodeId) {
-            return ajaxservice.post('/library/createbox/', {
+            return ajaxservice.post('/university/createbox/', {
                 courseName: name,
                 courseId: code,
                 professor: professor,
@@ -50,15 +50,15 @@
         };
 
         d.updateSettings = function (name, nodeId, settings) {
-            return ajaxservice.post('/library/changesettings/', {
+            return ajaxservice.post('/university/changesettings/', {
                 id: nodeId,
                 name: name,
                 settings: settings
             });
         }
         d.requestAccess = function(nodeId) {
-            return ajaxservice.post('/library/requestaccess/', {
-                id: nodeId,
+            return ajaxservice.post('/university/requestaccess/', {
+                id: nodeId
             });
         }
     }

@@ -1,12 +1,12 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div ng-if="l.state.emptyTopTree" layout="column" layout-align="center center" class="empty-top">
-    <h2>@LibraryResources.EmptyStateTopNodeTitle</h2>
-    <div>@LibraryResources.EmptyStateTopNodeText</div>
+    <h2>@UniversityResources.EmptyStateTopNodeTitle</h2>
+    <div>@UniversityResources.EmptyStateTopNodeText</div>
     <form ng-submit="l.createFirstBox(createFirstBox)" class="text-capitalize" novalidate name="createFirstBox">
         <div class="borderTC13" layout="row" layout-wrap>
             <md-input-container flex="100">
-                <label>@LibraryResources.EnterClassName</label>
+                <label>@UniversityResources.EnterClassName</label>
                 <input autofocus autocomplete="off" name="name" required ng-model="l.boxName"
                        ng-change="createFirstBox.depName.$setValidity('server',true)" />
                 <div ng-messages="createFirstBox.name.$error">
@@ -14,17 +14,17 @@
                 </div>
             </md-input-container>
             <md-input-container flex="45">
-                <label>@LibraryResources.EnterCode</label>
+                <label>@UniversityResources.EnterCode</label>
                 <input autocomplete="off" ng-model="l.code" ng-change="createFirstBox.depName.$setValidity('server',true)" />
             </md-input-container>
             <div flex="10"></div>
             <md-input-container flex="45">
-                <label>@LibraryResources.Instructor</label>
+                <label>@UniversityResources.Instructor</label>
                 <input autocomplete="off" name="professor" ng-model="l.professor"
                        ng-change="createFirstBox.depName.$setValidity('server',true)" />
             </md-input-container>
             <md-input-container flex="100">
-                <label>@LibraryResources.EnterDepName</label>
+                <label>@UniversityResources.EnterDepName</label>
                 <input autocomplete="off" name="depName" required ng-model="l.departmentName"
                        ng-change="createFirstBox.depName.$setValidity('server',true)" />
                 <div ng-messages="createFirstBox.depName.$error">

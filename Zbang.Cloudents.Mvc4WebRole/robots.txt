@@ -1,7 +1,6 @@
 User-agent: *
 disallow: /error/
 disallow: /dashboard/
-disallow: /library/
 disallow: /user/
 disallow: /invite/
 disallow: /account/changelanguage/

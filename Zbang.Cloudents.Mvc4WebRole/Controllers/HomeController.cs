@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
@@ -21,7 +22,6 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Storage;
-using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.Infrastructure.Url;
 using Zbang.Zbox.ViewModel.Queries;
 
@@ -31,59 +31,39 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
     public class HomeController : BaseController
     {
         private readonly Lazy<IBlobProvider> m_BlobProvider;
-        private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly ILanguageCookieHelper m_LanguageCookie;
         private readonly ICookieHelper m_CookieHelper;
 
         public HomeController(
             Lazy<IBlobProvider> blobProvider,
-            Lazy<IQueueProvider> queueProvider,
             ILanguageCookieHelper languageCookie, ICookieHelper cookieHelper)
         {
             m_BlobProvider = blobProvider;
-            m_QueueProvider = queueProvider;
             m_LanguageCookie = languageCookie;
             m_CookieHelper = cookieHelper;
         }
 
         [DonutOutputCache(CacheProfile = "HomePage")]
-        public async Task<ActionResult> Index(string lang, string invId)
+        public async Task<ActionResult> Index(string invId, long? universityId, string step)
         {
-            ViewBag.title = SeoResources.HomePageTitle;
-            ViewBag.metaDescription = SeoResources.HomePageMeta;
-            return await HomePageAsync(lang, invId);
-        }
-
-        [DonutOutputCache(CacheProfile = "HomePage")]
-        [Route("account/signin", Name = "signin")]
-        public async Task<ActionResult> SignIn(string lang, string invId)
-        {
-            ViewBag.title = SeoResources.SignInTitle;
-            ViewBag.metaDescription = SeoResources.SignInMeta;
-            return await HomePageAsync(lang, invId);
-        }
-        [DonutOutputCache(CacheProfile = "HomePage")]
-        [Route("account/signup", Name = "signup")]
-        public async Task<ActionResult> SignUp(string lang, string invId)
-        {
-            ViewBag.title = SeoResources.SignUpTitle;
-            ViewBag.metaDescription = SeoResources.SignUpMeta;
-            return await HomePageAsync(lang, invId);
-        }
-
-        [NonAction]
-        private async Task<ActionResult> HomePageAsync(string lang, string invId)
-        {
+           
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
             }
-            if (!string.IsNullOrEmpty(lang))
+            ViewBag.title = SeoResources.HomePageTitle;
+            ViewBag.metaDescription = SeoResources.HomePageMeta;
+            if (step == "signin")
             {
-                m_LanguageCookie.InjectCookie(lang);
-                RouteData.Values.Remove("lang");
-                return RedirectToRoute("Default", new { invId });
+                ViewBag.title = SeoResources.SignInTitle;
+                ViewBag.metaDescription = SeoResources.SignInMeta;
             }
+            if (step == "signup")
+            {
+                ViewBag.title = SeoResources.SignUpTitle;
+                ViewBag.metaDescription = SeoResources.SignUpMeta;
+            }
+           
             if (!string.IsNullOrEmpty(invId))
             {
                 var guid = GuidEncoder.TryParseNullableGuid(invId);
@@ -110,6 +90,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
             return View("Index", homeStats);
         }
+
+        [Route("account/signin", Name = "signin")]
+        public ActionResult SignIn(string lang, string invId)
+        {
+            return RedirectToRoutePermanent("homePage", new { step = "signin", lang, invId });
+        }
+        [Route("account/signup", Name = "signup")]
+        public ActionResult SignUp(string lang, string invId)
+        {
+            return RedirectToRoutePermanent("homePage", new { step = "signup", lang, invId });
+        }
+
+      
 
 
         //don't put in here route attribute
@@ -218,7 +211,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         //remove output cache due to language issues
 
-      //  [DonutOutputCache(CacheProfile = "FullPage")]
+        //  [DonutOutputCache(CacheProfile = "FullPage")]
         public ViewResult Blog(string lang)
         {
 
@@ -249,7 +242,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 LanguageMiddleware.ChangeThreadLanguage(lang);
             }
-            
+
             ViewBag.title = SeoResources.ProductTitle;
             ViewBag.metaDescription = SeoResources.ProductMeta;
             return View();
@@ -536,19 +529,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     Priority = 1.0,
                     Frequency = SitemapFrequency.Daily
                 });
-                //nodes.Add(
-                //    new SitemapNode(requestContext, "AccountLanguage", new { lang = "he-il" })
-                //    {
-                //        Priority = 1.0,
-                //        Frequency = SitemapFrequency.Daily
-                //    });
-
                 nodes.Add(
-                    new SitemapNode(requestContext, "Blog", new { lang = "en-us" })
-                    {
-                        Priority = 0.95,
-                        Frequency = SitemapFrequency.Daily
-                    });
+                     new SitemapNode(requestContext, "Blog", new { lang = "en-us" })
+                     {
+                         Priority = 0.95,
+                         Frequency = SitemapFrequency.Daily
+                     });
                 //Something is wrong with this url
                 //nodes.Add(
                 //    new SitemapNode(requestContext, "Blog", new { lang = "he-il" })

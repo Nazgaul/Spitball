@@ -1,14 +1,15 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources
+﻿
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 <div class="dashboard-stat2 color-override backgroundTransparent" id="department">
     <button type="button" ng-hide="l.createDepartmentOn" ng-click="l.openCreateDepartment()" class="create-btn" ga-track-event="['university', 'add new department']">
         <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-        <div class="title">@LibraryResources.AddDepartment</div>
+        <div class="title">@UniversityResources.AddDepartment</div>
     </button>
     <form name="createDepartment" class="create-department" novalidate ng-submit="l.createDepartment(createDepartment)" ng-show="l.createDepartmentOn">
         <md-content>
             <md-input-container flex>
-                <label>@LibraryResources.EnterDepName</label>
+                <label>@UniversityResources.EnterDepName</label>
                 <input focus-me="l.focusCreateDepartment" autocomplete="off" name="name" required ng-model="l.departmentName" ng-change="createDepartment.name.$setValidity('server',true)" />
                 <div ng-messages="createDepartment.name.$error" ng-show="createDepartment.name.$dirty">
                     <div ng-message="required">@GeneralResources.RequiredField</div>

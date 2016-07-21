@@ -7,7 +7,7 @@
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
         $location, $scope, resManager) {
 
-        var l = this, nodeId = $stateParams.nodeId;
+        var l = this, nodeId = $stateParams.id;
         l.departments = nodeData.nodes;
         l.boxes = nodeData.boxes || [];
         l.nodeDetail = nodeData.details;

@@ -1,5 +1,3 @@
-/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="userDetails.ts" />
 'use strict';
 (function () {
     angular.module('app').run(inlineManual);
@@ -19,8 +17,6 @@
             };
         });
         $rootScope.$on("$stateChangeSuccess", function () {
-            // Inline manual fix for angular
-            //var element = $document.find('[ui-view][animation-class]');
         });
         function injectInlineManual() {
             $document.ready(function () {
