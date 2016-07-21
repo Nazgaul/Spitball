@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
+namespace Zbang.Cloudents.Mvc4WebRole.Views.University.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class LibraryResources {
+    public class UniversityResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal LibraryResources() {
+        internal UniversityResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.Library.Resources.LibraryResources", typeof(LibraryResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Zbang.Cloudents.Mvc4WebRole.Views.University.Resources.UniversityResources", typeof(UniversityResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

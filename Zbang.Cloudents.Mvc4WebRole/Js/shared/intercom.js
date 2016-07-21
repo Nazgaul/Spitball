@@ -1,5 +1,3 @@
-/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="../shared/userDetails.ts" />
 'use strict';
 (function () {
     angular.module('app').run(intercom);

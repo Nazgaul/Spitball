@@ -1,0 +1,81 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+
+<div class="page-head">
+    <div class="page-title">
+        <h1>{{::l.universityName}}</h1>
+        <div class="course-nav" ng-if="l.nodeDetail && !l.settingsOpen" layout="row" layout-align="space-between center">
+
+            <a href="{{::l.nodeDetail.parentUrl}}" ga-track-event="['university', 'back arrow']">
+                <h2 layout="row">
+                    <span class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow", new { @class = "svgTC11" })</span>
+                    <span class="name ellipsis color-override backgroundColor10 textTC4">
+                        {{::l.nodeDetail.name}}
+                    </span>
+                </h2>
+            </a>
+
+            <button type="button" ng-click="l.toggleSettings()" ga-track-event="['university', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "svgTC15" })</button>
+        </div>
+    </div>
+</div>
+@{
+    Html.RenderPartial("_Settings");
+    Html.RenderPartial("_EmptyStateTopTree");
+}
+
+<div ng-if="!l.state.emptyTopTree" layout="row" layout-padding layout-wrap class="library-list">
+
+    <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat="dep in l.departments track by dep.id">
+        <a ng-click="l.goToSubLib(dep,$event)" href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}" ga-track-event="['university', 'select department']">
+            <div class="corner" d-color="{{::dep.name.length}}">
+            </div>
+            <div class="display">
+                <div class="number">
+                    <h3 class="multi-line-ellipsis limit-two">{{::dep.name}}</h3>
+                </div>
+            </div>
+            <div class="progress-info">
+                <div class="progress background" d-color="{{::dep.name.length}}">
+                </div>
+                <div class="status" layout="row" layout-align="space-between center">
+                    <div class="status-title">
+                        {{::dep.noBoxes}} @GeneralResources.Courses
+                    </div>
+                    <div ng-if="::dep.state === 'closed'">
+                        <div ng-if="::dep.userType !== 'subscribe' && dep.userType !== 'owner'">
+                            @Html.Svg("~/images/site/icons.svg", "closed-lock", new { @class = "lock" })
+                        </div>
+                        <div ng-if="::dep.userType === 'subscribe' || dep.userType === 'owner'">
+                            @Html.Svg("~/images/site/icons.svg", "opened-lock", new { @class = "lock" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <md-menu ng-if="l.canDelete(dep)">
+            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['university', 'delete department']">
+                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
+            </md-button>
+            <md-menu-content width="1">
+                <md-menu-item>
+                    <md-button aria-label="remove department" ng-click="l.deleteDepartment($event,dep)" ga-track-event="['university', 'didDelete']">
+                        @GeneralResources.Delete
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+    <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
+    <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" flex-order="10" hide-xs 
+         ng-class="{'create-deparment-show' : l.createDepartmentOn, 'create-init' : l.createDepartmentShow && l.createClassShow}" 
+         class="create-box flex" ng-if="l.createDepartmentShow">
+        @{ Html.RenderPartial("_CreateDepartment");}
+    </div>
+    <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" flex-order="10" hide-xs
+          ng-class="{'create-box-show' : l.createBoxOn, 'create-init' : l.createDepartmentShow && l.createClassShow}" class="create-box flex" ng-if="l.createClassShow">
+        @{ Html.RenderPartial("_CreateCourse");}
+    </div>
+</div>
+<button type="button" class="add" hide show-xs ng-click="l.createShow()" ng-if="l.state.withDepartmentAdmin || l.state.withBoxes" ng-hide="l.createOn || l.createDepartmentShow && l.createClassShow" ga-track-event="['dashboard', 'createbox', 'plus']">
+    @Html.Svg("~/images/site/icons.svg", "add", new { @class = "color-override svgColor8" })
+</button>

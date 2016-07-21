@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Routing;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -37,9 +38,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             if (string.IsNullOrEmpty(universityName))
             {
-                return RedirectToRoutePermanent("PrivateBoxWithSub", new { boxId, boxName, invId, part = "feed" });
+                return RedirectToRoutePermanent("PrivateBoxWithSub", new RouteValueDictionary
+                {
+                    ["boxId"] = boxId,
+                    ["boxName"] = boxName,
+                    ["invId"] = invId,
+                    ["part"] = "feed"
+                });
             }
-            return RedirectToRoutePermanent("CourseBoxWithSub", new { universityName, boxId, boxName, invId, part = "feed" });
+            return RedirectToRoutePermanent("CourseBoxWithSub", new RouteValueDictionary
+            {
+                ["universityName"] = universityName,
+                ["boxId"] = boxId,
+                ["boxName"] = boxName,
+                ["invId"] = invId,
+                ["part"] = "feed"
+            });
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]

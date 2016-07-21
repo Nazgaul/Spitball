@@ -36,7 +36,7 @@
         }
 
         self.searchUniversity = function (term) {
-            return ajaxservice.get('/library/searchuniversity/', {
+            return ajaxservice.get('/university/searchuniversity/', {
                 term: term
             });
         }
@@ -91,16 +91,16 @@
         }
 
         self.closeddepartment = function() {
-            return ajaxservice.get('/library/closeddepartment/');
+            return ajaxservice.get('/university/closeddepartment/');
         }
         self.closedMembers = function(id) {
-            return ajaxservice.get('/library/closeddepartmentmembers/',
+            return ajaxservice.get('/university/closeddepartmentmembers/',
             {
                 id: id
             });
         }
         self.approveRequest = function (id, userId) {
-            return ajaxservice.post('/library/approverequest/', {
+            return ajaxservice.post('/university/approverequest/', {
                 id: id,
                 userId: userId
             });

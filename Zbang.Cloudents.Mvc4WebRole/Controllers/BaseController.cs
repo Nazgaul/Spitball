@@ -126,46 +126,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return Json(new JsonResponse(false, data));
         }
 
+        protected override RedirectToRouteResult RedirectToRoutePermanent(string routeName, RouteValueDictionary routeValues)
+        {
+            if (Request.IsLocal)
+            {
+                return RedirectToRoute(routeName, routeValues);
+            }
+            return base.RedirectToRoutePermanent(routeName, routeValues);
+        }
 
-
-
-
-        #region Language
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
             TempDataProvider = new CookieTempDataProvider(HttpContext);
-            //try
-            //{
-            //    if (!ControllerContext.IsChildAction)
-            //    {
-            //        UserLanguage.ChangeLanguage(requestContext.HttpContext, Server, requestContext.RouteData);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    TraceLog.WriteError("initialize", ex);
-            //}
+           
         }
-        //protected void ChangeThreadLanguage(string language)
-        //{
-        //    if (!Languages.CheckIfLanguageIsSupported(language))
-        //    {
-        //        return;
-        //    }
-        //    if (Thread.CurrentThread.CurrentUICulture.Name == language) return;
-        //    try
-        //    {
-        //        var cultureInfo = new CultureInfo(language);
-        //        Thread.CurrentThread.CurrentUICulture = cultureInfo;
-        //        Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureInfo.Name);
-        //    }
-        //    catch (CultureNotFoundException)
-        //    {
-        //    }
-        //}
-
-        #endregion
     }
 }

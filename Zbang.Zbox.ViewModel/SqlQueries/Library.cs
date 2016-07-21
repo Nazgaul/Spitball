@@ -21,7 +21,7 @@
 
        public const string GetLibraryNode = @" select l.libraryid as Id, l.Name as Name, l.NoOfBoxes as NoBoxes,
      l.AmountOfChildren as NoDepartment,
-     l.Url as Url,
+     --l.Url as Url,
      l.settings as state,
 	 case l.settings
 	    when 1 then (select usertype from zbox.userlibraryrel where libraryid = l.LibraryId and userid = @Userid) 
@@ -42,9 +42,10 @@
    from zbox.library c
      join name_tree p on p.parentId = c.libraryid  -- this is the recursion
 ) 
-	  select l.name as Name
-	 ,coalesce( p.Url ,'/library/')  as ParentUrl,
-     l.settings as state,
+	  select l.name as Name,
+      p.libraryid as ParentId,
+       p.name as ParentName,
+	l.settings as state,
 	 case l.settings
 	    when 1 then (
 		select usertype from zbox.userlibraryrel where userid = @userid and libraryid = (select libraryid
@@ -68,7 +69,7 @@ where parentId is null)
 
 select l.libraryid as Id, l.Name as Name, l.NoOfBoxes as NoBoxes,
     l.AmountOfChildren as NoDepartment,
-     l.Url as Url,
+    -- l.Url as Url,
      l.settings as state,
      case l.settings
 	    when 1 then (
@@ -89,7 +90,8 @@ where l.Settings = 1
 and ParentId is null
 and userid = @UserId";
 
-       public const string GetClosedLibraryUsers = @"select ul.UserType,Url,
+       public const string GetClosedLibraryUsers = @"select ul.UserType,
+--Url,
 UserImageLarge as image, UserName as name, u.UserId as id
  from zbox.UserLibraryRel ul join zbox.Users u on ul.UserId = u.UserId
 where ul.LibraryId = @LibraryId

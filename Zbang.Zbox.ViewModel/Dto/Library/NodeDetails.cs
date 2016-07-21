@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Infrastructure.Enums;
+﻿using System;
+using Zbang.Zbox.Infrastructure.Enums;
 
 namespace Zbang.Zbox.ViewModel.Dto.Library
 {
@@ -6,6 +7,9 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
     {
         public string Name { get; set; }
         public string ParentUrl { get; set; }
+
+        public Guid? ParentId { get; set; }
+        public string ParentName { get; set; }
 
         public LibraryNodeSettings State { get; set; }
 

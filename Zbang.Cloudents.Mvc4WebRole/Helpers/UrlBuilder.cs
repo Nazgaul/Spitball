@@ -12,7 +12,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             if (httpContext == null)
             {
-                throw new ArgumentNullException("httpContext");
+                throw new ArgumentNullException(nameof(httpContext));
             }
             m_UrlHelper = new UrlHelper(httpContext.Request.RequestContext);
 
@@ -21,14 +21,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             return UrlConst.NameToQueryString(name);
         }
-
-
-        //public string BuildDownloadUrl(long boxId, long itemId)
-        //{
-        //    return m_UrlHelper.RouteUrl("ItemDownload", new
-        //    {
-        //        BoxUid = boxId, itemId
-        //    });
-        //}
     }
 }
