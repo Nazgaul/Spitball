@@ -64,11 +64,6 @@ iframe {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
-@media (min-width: 750px) {
-  .static-page-header {
-    background: rgba(10, 10, 10, 0.9);
-  }
-}
 .static-page-header nav {
   height: inherit;
 }
@@ -332,7 +327,6 @@ iframe {
     display: flex;
     justify-content: flex-start;
     width: 100%;
-    background: #181c1d;
     align-items: stretch;
   }
   .static-page-header nav .navbar-header .navbar-toggle {

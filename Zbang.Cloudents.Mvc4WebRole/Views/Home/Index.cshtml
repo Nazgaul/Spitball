@@ -2,15 +2,15 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources;
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources;
 @{
-    Layout = null;
-    const string socialIconsSvg = "~/images/site/social-icons.svg";
+        Layout = null;
+        const string socialIconsSvg = "~/images/site/social-icons.svg";
 
-    Model.HomePageUniversityData = Model.HomePageUniversityData ?? new Zbang.Zbox.ViewModel.Dto.HomePageUniversityData
-    {
-        H1Text = "YO yo yo",
-        SignupColor = "#DDD",
-        BackgroundImage = "/Images/HomePage2/HP_image.jpg",
-        HeaderBackgroundColor = "#FFF",
+        Model.HomePageUniversityData = Model.HomePageUniversityData ?? new Zbang.Zbox.ViewModel.Dto.HomePageUniversityData
+        {
+            H1Text = "YO yo yo",
+            SignupColor = "#DDD",
+            BackgroundImage = "../../Images/HomePage2/HP_image.jpg",
+            HeaderBackgroundColor = "#181c1d",
         VideoBackgroundColor = "#FFF",
         VideoFontColor = "#DDD"
     };
@@ -30,7 +30,7 @@
     <div class="page-content">
         @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{Html.RenderPartial("_StaticPageHeader");}
-        <div class="home-page-body">
+        <div class="home-page-body" style='background-image: url("@Model.HomePageUniversityData.BackgroundImage")'>
             @*<section class="main">
                 <div class="login-wrapper login">
                     <div class="wrapper">
@@ -232,9 +232,23 @@
             <section class="main">
                 <div class="forms">
                     <div class="login">
-                        <form action="" method="post">
-                            <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
-                            <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
+                        <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
+                        <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
+
+                        <div class="signin-options">
+                            <div class="social-text">@HomePageResources.A7</div>
+                            <button type="button" class="login-option facebook">
+                                <div>
+                                    @Html.Svg(socialIconsSvg, "facebook-colored")
+                                </div>
+                            </button>
+                            <button type="button" class="login-option google">
+                                <div>
+                                    @Html.Svg(socialIconsSvg, "google-colored")
+                                </div>
+                            </button>
+                        </div>
+                        <form action="" method="post">                            
                             <input class="form-control" required type="email" placeholder="@LogOnResources.Email" name="email" />
                             <input class="form-control" required type="password" placeholder="@LogOnResources.Password" name="password" />
                             <div id="login_alert_text" class="alert alert-danger display-hide">
@@ -251,30 +265,14 @@
                                     @LogOnResources.LogIn
                                 </button>
                             </div>
-
-                            <div class="forget-password">
-                                <h4>@LogOnResources.ForgotYourPassword</h4>
-                                <p>
-                                    @LogOnResources.NoWorries <span id="forget-password">@LogOnResources.Here</span>
-                                    @LogOnResources.ToResetPassword.
-                                </p>
-                            </div>
-                            <div class="signin-options">
-                                <div class="social-text">@HomePageResources.A7</div>
-                                <button type="button" class="login-option facebook">
-                                    <div>
-                                        @Html.Svg(socialIconsSvg, "facebook-colored")
-                                    </div>
-                                </button>
-                                <button type="button" class="login-option google">
-                                    <div>
-                                        @Html.Svg(socialIconsSvg, "google-colored")
-                                    </div>
-                                </button>
-                            </div>
-
-
                         </form>
+                        <div class="forgot-password">
+                            <h4>@LogOnResources.ForgotYourPassword</h4>
+                            <p>
+                                @LogOnResources.NoWorries <span id="forget-password">@LogOnResources.Here</span>
+                                @LogOnResources.ToResetPassword.
+                            </p>
+                        </div>
                         <p class="create-account">
                             @LogOnResources.DontHaveAnAccount&nbsp; <a href="javascript:;" id="register-btn">@LogOnResources.CreateAccount</a>
                         </p>
@@ -415,7 +413,7 @@
 
             </section>
 
-            <section class="intro">
+            <section class="intro" style="background: @Model.HomePageUniversityData.VideoBackgroundColor">
                 <button type="button" class="login-option signup os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
                     @HomePageResources.A5
                 </button>
@@ -433,7 +431,6 @@
                         <label id="close-video" for="showVideo"></label>
                     </div>
                 </div>
-
             </section>
             <section class="check-us">
                 <div id="check-us-section" class="section-start"></div>
