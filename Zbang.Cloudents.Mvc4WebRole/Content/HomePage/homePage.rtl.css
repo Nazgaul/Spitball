@@ -95,6 +95,28 @@
   text-align: center;
   margin-top: 0;
 }
+.homePage .home-page-body section .login-option {
+  border: none;
+  padding: 8px;
+  border-radius: 16px;
+  width: 200px;
+  color: #f5f5f5;
+  text-decoration: none;
+  margin-bottom: 20px;
+  font-size: 18px;
+  line-height: 25px;
+  cursor: pointer;
+}
+.homePage .home-page-body section .login-option.signup {
+  font-size: 30px;
+  padding: 20px 50px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 0 auto;
+  display: block;
+  background: orange;
+  width: auto;
+}
 .homePage .home-page-body section.main {
   position: relative;
   text-align: center;
@@ -102,10 +124,11 @@
   margin-top: 70px;
   background: linear-gradient(to top, #000 -50px, transparent 400px, transparent 100%);
   padding: 0;
+  overflow: visible;
 }
 .homePage .home-page-body section.main #main-wrapper {
-  padding: 0 5% 80px 5%;
-  overflow: hidden;
+  padding: 0 5% 40px 5%;
+  overflow: visible;
   position: relative;
   /*&.collapse {
                         padding: 0;
@@ -113,14 +136,26 @@
                     }*/
 }
 .homePage .home-page-body section.main .welcome-text {
-  width: 100%;
+  position: relative;
   text-align: center;
-  margin: 100px auto 80px auto;
+  margin: 400px auto 0 auto;
   padding: 0 35px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   color: #f5f5f5;
+  display: inline-block;
+}
+.homePage .home-page-body section.main .welcome-text .sb-logo {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  background: #383838;
+  right: -200px;
+  bottom: -80px;
+  z-index: 1;
+  border: 5px solid white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 .homePage .home-page-body section.main .welcome-text > h1,
 .homePage .home-page-body section.main .welcome-text h2 {
@@ -128,10 +163,11 @@
 }
 .homePage .home-page-body section.main .welcome-text h1 {
   font-weight: bold;
-  font-size: 50px;
+  font-size: 60px;
   max-width: 100%;
-  margin: 0 auto;
+  margin: 16px auto;
   text-transform: capitalize;
+  display: inline-block;
 }
 @media (max-width: 960px) {
   .homePage .home-page-body section.main .welcome-text h1 {
@@ -172,29 +208,6 @@
   width: calc(20%);
 }
 .homePage .home-page-body section.main .signin-options .login-option {
-  border: none;
-  padding: 8px;
-  border-radius: 16px;
-  width: 200px;
-  color: #f5f5f5;
-  text-decoration: none;
-  margin-bottom: 20px;
-  font-size: 18px;
-  line-height: 25px;
-  cursor: pointer;
-  /*&.signup {
-                            width: 100%;
-                            display: inline-block;
-                            background: rgba(24,28,29,0.85);
-                            text-align: center;
-                            line-height: 25px;
-                            margin-bottom: 200px;
-
-
-                            @media(max-width: 600px) {
-                                margin-bottom: 100px;
-                            }
-                        }*/
   /*span {
                             align-self: center;
                             padding-top: 2px;
@@ -243,7 +256,7 @@
   display: flex;
   justify-content: space-between;
   max-width: 700px;
-  margin: 110px auto 25px auto;
+  margin: 110px auto 0px auto;
   color: #f5f5f5;
   font-size: 18px;
   position: absolute;
@@ -256,6 +269,8 @@
   text-align: center;
   padding: 0 10px;
   font-size: 18px;
+  margin: 10px 0;
+  font-weight: normal;
 }
 .homePage .home-page-body section.main .statistics .statistic .value {
   margin: 0 10px;
@@ -770,6 +785,113 @@
                             filter: alpha(opacity=20);
                         }*/
 }
+.homePage .home-page-body section.intro {
+  background: white;
+  color: #f5f5f5;
+  overflow: visible;
+  position: relative;
+  padding-bottom: 0;
+}
+.homePage .home-page-body section.intro .video-image {
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  display: none;
+}
+.homePage .home-page-body section.intro .video-image.desktop {
+  width: 660px;
+}
+@media (min-width: 600px) {
+  .homePage .home-page-body section.intro .video-image.desktop {
+    display: block;
+  }
+}
+.homePage .home-page-body section.intro .video-image.mobile {
+  max-width: 700px;
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.intro .video-image.mobile {
+    display: block;
+  }
+}
+.homePage .home-page-body section.intro .shadowbox {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+}
+.homePage .home-page-body section.intro #close-video {
+  left: 0;
+  top: 100px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.homePage .home-page-body section.intro .video-wrapper {
+  text-align: center;
+  z-index: 1;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  height: 400px;
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.intro .video-wrapper {
+    height: initial;
+    padding-bottom: 25px;
+  }
+}
+@media (min-width: 600px) {
+  .homePage .home-page-body section.intro #open-video {
+    position: absolute;
+    bottom: -123px;
+    right: 0;
+    left: 0;
+    width: 650px;
+    display: block;
+    margin: 0 auto;
+  }
+}
+.homePage .home-page-body section.intro #showVideo {
+  display: none;
+}
+.homePage .home-page-body section.intro #showVideo:not(:checked) ~ .shadowbox {
+  display: none;
+}
+.homePage .home-page-body section.intro .video-section {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: calc(50vh - 240px);
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.intro .video-section {
+    margin-top: calc(50vh - 25vw);
+  }
+}
+.homePage .home-page-body section.intro .video-section #video {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+.homePage .home-page-body section.intro .video-section #video iframe,
+.homePage .home-page-body section.intro .video-section #video object,
+.homePage .home-page-body section.intro .video-section #video embed {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
 .homePage .home-page-body section.about {
   background: #4190B9;
   color: #f5f5f5;
@@ -787,7 +909,7 @@
 .homePage .home-page-body section.about .description p {
   text-align: center;
   max-width: 950px;
-  margin: 0 auto 50px auto;
+  margin: 50px auto;
   font-size: 24px;
   line-height: normal;
 }
@@ -825,106 +947,6 @@
   content: '\2022';
   position: absolute;
   right: -20px;
-}
-.homePage .home-page-body section.about .video-image {
-  margin: 0 auto;
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-  width: 100%;
-  display: none;
-}
-.homePage .home-page-body section.about .video-image.desktop {
-  width: 660px;
-}
-@media (min-width: 600px) {
-  .homePage .home-page-body section.about .video-image.desktop {
-    display: block;
-  }
-}
-.homePage .home-page-body section.about .video-image.mobile {
-  max-width: 700px;
-}
-@media (max-width: 600px) {
-  .homePage .home-page-body section.about .video-image.mobile {
-    display: block;
-  }
-}
-.homePage .home-page-body section.about .shadowbox {
-  position: fixed;
-  background: rgba(0, 0, 0, 0.7);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 9;
-}
-.homePage .home-page-body section.about #close-video {
-  left: 0;
-  top: 100px;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-}
-.homePage .home-page-body section.about .video-wrapper {
-  text-align: center;
-  z-index: 1;
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-  height: 400px;
-}
-@media (max-width: 600px) {
-  .homePage .home-page-body section.about .video-wrapper {
-    height: initial;
-    padding-bottom: 25px;
-  }
-}
-@media (min-width: 600px) {
-  .homePage .home-page-body section.about #open-video {
-    position: absolute;
-    bottom: -123px;
-    right: 0;
-    left: 0;
-    width: 650px;
-    display: block;
-    margin: 0 auto;
-  }
-}
-.homePage .home-page-body section.about #showVideo {
-  display: none;
-}
-.homePage .home-page-body section.about #showVideo:not(:checked) ~ .shadowbox {
-  display: none;
-}
-.homePage .home-page-body section.about .video-section {
-  max-width: 800px;
-  margin: 0 auto;
-  margin-top: calc(50vh - 240px);
-}
-@media (max-width: 600px) {
-  .homePage .home-page-body section.about .video-section {
-    margin-top: calc(50vh - 25vw);
-  }
-}
-.homePage .home-page-body section.about .video-section #video {
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 30px;
-  height: 0;
-  overflow: hidden;
-  z-index: 1;
-}
-.homePage .home-page-body section.about .video-section #video iframe,
-.homePage .home-page-body section.about .video-section #video object,
-.homePage .home-page-body section.about .video-section #video embed {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
 }
 .homePage .home-page-body section.check-us {
   background: #181c1d;
@@ -1015,6 +1037,7 @@
   .homePage .home-page-body section.main .welcome-text {
     padding: 0;
     margin: 50px auto 50px auto;
+    max-width: calc(100% - 400px);
   }
   .homePage .home-page-body section.main .welcome-text h1 {
     font-size: 10vw;
