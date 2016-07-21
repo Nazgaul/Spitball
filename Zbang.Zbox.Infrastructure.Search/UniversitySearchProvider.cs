@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
+using Microsoft.Spatial;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Library;
 using Zbang.Zbox.ViewModel.Queries.Search;
@@ -116,13 +117,13 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (string.IsNullOrEmpty(term))//obsolete
             {
                 searchParametes.ScoringProfile = CountryScoringProfile;
-                searchParametes.ScoringParameters = new[] { new ScoringParameter("country", query.Country) };
+                searchParametes.ScoringParameters = new[] { new ScoringParameter("country", new[] { query.Country }) };
             }
             else
             {
                 term = query.Term.Replace("\"", string.Empty);
             }
-            
+
             var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(term + "*", searchParametes, cancellationToken: cancelToken);
 
             var tSuggest = Task.FromResult<DocumentSuggestResult<UniversitySearch>>(null);
@@ -136,7 +137,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             }
             await Task.WhenAll(tResult, tSuggest);
 
-            
+
             var result = tResult.Result.Results.Select(
                     s => new UniversityByPrefixDto
                     {
@@ -168,7 +169,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-               // await BuildIndex();
+                // await BuildIndex();
             }
 
             //var listOfCommands = new List<IndexAction<UniversitySearch>>();
@@ -194,6 +195,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                             Image = string.IsNullOrEmpty(s.Image) ? null : s.Image.Trim(),
                             Country = s.Country,
                             MembersCount = s.NoOfUsers,
+
                             MembersImages = s.UsersImages.Where(w => w != null).ToArray()
                         }
                             );

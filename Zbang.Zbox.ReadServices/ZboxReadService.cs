@@ -34,25 +34,30 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                const string boxesSql = @"select 
-                                b.BoxName as Name,
-                                b.quizcount + b.itemcount as ItemCount,
-                                b.MembersCount as MembersCount,
-                                b.CourseCode as CourseCode,
-                                b.ProfessorName,
-								b.Url as Url
-                                from Zbox.box b 
-                                where b.BoxId in @BoxIds;";
-                const string sql = @"with 
-usersCount(users) as (SELECT count(*) as users from [Zbox].[Users]),
-itemsCount(items) as (SELECT count(*) as items from [Zbox].[Item] where IsDeleted = 0),
-quizzesCount(quizzes) as (SELECT count(*) as quizzes from [Zbox].[Quiz] where IsDeleted = 0 and Publish = 1)
-select ROUND (users * 1.22,0) as StudentsCount, ROUND (items * 1.22 ,0 )as DocumentCount, ROUND (quizzes * 1.22,0) as QuizzesCount from usersCount as StudentsCount, itemsCount as DocumentCount, quizzesCount as QuizzesCount;";
+                //        const string boxesSql = @"select 
+                //                        b.BoxName as Name,
+                //                        b.quizcount + b.itemcount as ItemCount,
+                //                        b.MembersCount as MembersCount,
+                //                        b.CourseCode as CourseCode,
+                //                        b.ProfessorName,
+                //b.Url as Url
+                //                        from Zbox.box b 
+                //                        where b.BoxId in @BoxIds;";
 
-                using (var grid = await conn.QueryMultipleAsync(sql + boxesSql, new { query.BoxIds }))
+                var sql = Sql.HomePage.Stats;
+                if (query.UniversityId.HasValue)
                 {
-                    var retVal = grid.Read<HomePageDataDto>().First();
-                    retVal.Boxes = await grid.ReadAsync<Box.RecommendBoxDto>();
+                    sql += Sql.HomePage.UniversityColors;
+                }
+                using (var grid = await conn.QueryMultipleAsync(sql
+                    , new { query.UniversityId }))
+                {
+                    var retVal = new HomePageDataDto
+                    {
+                        HomePageStats = grid.Read<HomePageStats>().First()
+                    };
+                    if (grid.IsConsumed) return retVal;
+                    retVal.HomePageUniversityData = grid.Read<HomePageUniversityData>().First();
                     return retVal;
 
                 }
