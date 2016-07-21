@@ -18,6 +18,8 @@ using System.Net;
 using SendGrid;
 using System.IO;
 using Microsoft.Win32;
+using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Ioc;
 
 namespace Management_Application
 {
@@ -301,7 +303,7 @@ namespace Management_Application
             command.CommandText = "SELECT top 1 * FROM Zbox.University WHERE UniversityName like @name";
             //string select = command.CommandText;
             //SqlDataAdapter dataAdapter = new SqlDataAdapter(select, "Data Source=LENOVO-PC;Initial Catalog=Zbox;Integrated Security=True");
-            SqlDataAdapter dataAdapter = new SqlDataAdapter {SelectCommand = command};
+            SqlDataAdapter dataAdapter = new SqlDataAdapter { SelectCommand = command };
             SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
             var ds = new DataSet();
             var dataTable = new DataTable();
@@ -1140,7 +1142,7 @@ namespace Management_Application
                     command.Parameters.AddWithValue("@toid", boxIdTo);
                     command.CommandText = sql1;
                     var ds = new DataSet();
-                    using (var dataAdapter = new SqlDataAdapter {SelectCommand = command})
+                    using (var dataAdapter = new SqlDataAdapter { SelectCommand = command })
                     {
                         dataAdapter.Fill(ds);
                     }
@@ -1204,27 +1206,33 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            var boxId = Int64.Parse(textBoxDeleteBox.Text);
+            var boxId = long.Parse(textBoxDeleteBox.Text);
+            var iocFactory = IocFactory.IocWrapper;
 
-            using (var conn = new SqlConnection(m_ConnectionString))
-            {
-                await conn.OpenAsync();
-                await conn.ExecuteScalarAsync(@"update zbox.box set IsDeleted=1, IsDirty=1, LibraryId = null, UpdatedUser = 'deleteTool' where boxid=@deleteid;
-update zbox.item set IsDeleted=1, IsDirty=1, UpdatedUser = 'deleteTool', QuestionId = null where boxid=@deleteid;
-update zbox.Quiz set [IsDeleted]=1 , isdirty=1, UpdatedUser = 'deleteTool' where BoxId=@deleteid;
+            var writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
+            await writeService.DeleteBoxAsync(new Zbang.Zbox.Domain.Commands.DeleteBoxCommand(boxId));
 
-delete from zbox.NewUpdates where BoxId = @deleteid;
-delete from zbox.Invite where BoxId = @deleteid;
-delete from zbox.Answer where boxid = @deleteid
-delete from zbox.Question where boxid = @deleteid;
-delete zbox.CommentReplies where ParentId in ( select CommentId from zbox.Comment where boxid = @deleteid);
-delete [Zbox].[Comment] where BoxId=@deleteid;
-delete zbox.Invite where BoxId=@deleteid;
-delete from zbox.UserBoxRel where boxid=@deleteid;
-delete from zbox.Message where boxid = @deleteid;", new { deleteid = boxId });
 
-                MessageBox.Show("Done");
-            }
+            //            using (var conn = new SqlConnection(m_ConnectionString))
+            //            {
+            //                await conn.OpenAsync();
+            //                await conn.ExecuteScalarAsync(@"update zbox.box set IsDeleted=1, IsDirty=1, LibraryId = null, UpdatedUser = 'deleteTool' where boxid=@deleteid;
+            //    update zbox.item set IsDeleted=1, IsDirty=1, UpdatedUser = 'deleteTool', QuestionId = null where boxid=@deleteid;
+            //    update zbox.Quiz set [IsDeleted]=1 , isdirty=1, UpdatedUser = 'deleteTool' where BoxId=@deleteid;
+
+            //    delete from zbox.NewUpdates where BoxId = @deleteid;
+            //    delete from zbox.Invite where BoxId = @deleteid;
+            //    delete from zbox.Answer where boxid = @deleteid
+            //    delete from zbox.Question where boxid = @deleteid;
+            //    delete zbox.CommentReplies where ParentId in ( select CommentId from zbox.Comment where boxid = @deleteid);
+            //    delete [Zbox].[Comment] where BoxId=@deleteid;
+            //    delete zbox.Invite where BoxId=@deleteid;
+            //    delete from zbox.UserBoxRel where boxid=@deleteid;
+            //    delete from zbox.Message where boxid = @deleteid;", 
+            //new { deleteid = boxId });
+
+            MessageBox.Show("Done");
+            //            }
         }
 
         private void dataGridViewMergeBoxes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
