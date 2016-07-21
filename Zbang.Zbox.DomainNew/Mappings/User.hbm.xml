@@ -42,9 +42,6 @@
       <property name="UsedSpace"/>
     </component>
     <many-to-one column="UniversityId" class="University" name="University" foreign-key="UniversityUser2"/>
-    <!--<many-to-one column="Department" class="RussianDepartment" name="RussianDepartment" foreign-key="DeparetmentUser" not-null="false"/>-->
-    <!--<property name="GroupNumber"/>
-    <property name="RegisterNumber"/>-->
     <property name="MobileDevice" />
     <property name="PushNotificationSetting" />
     <property name="Theme" />
@@ -84,16 +81,7 @@
       <property name="CreatedUser"  not-null="true" insert="true" update="false"/>
       <property name="UpdatedUser"  not-null="true" insert="true" />
     </component>
-
-
-    <!--<property name="WebSiteUrl" />
-    <property name="MailAddress" />
-    <property name="FacebookUrl" />
-    <property name="TwitterUrl" />
-    <property name="TwitterWidgetId" />
-    <property name="YouTubeUrl" />
-    <property name="LetterUrl" />
-    <property name="AdvertisementUrl" />-->
+   
     <property name="Country" length="2" type="string" column="Country" not-null="false"/>
     <property name="NoOfBoxes"  />
     <property name="NoOfItems" not-null="false"/>
@@ -108,6 +96,12 @@
     <property name="IsDirty" />
     <property name="Extra" />
 
+    <property name="HeaderBackgroundColor" length="30"/>
+    <property name="BackgroundImage"/>
+    <property name="H1Text"/>
+    <property name="VideoBackgroundColor" length="30"/>
+    <property name="VideoFontColor" length="30"/>
+    <property name="SignupColor" length="30"/>
 
     <property name="AdminScore" />
     <property name="AdminNoOfPeople" />

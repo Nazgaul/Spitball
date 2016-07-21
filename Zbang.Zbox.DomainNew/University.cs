@@ -60,7 +60,17 @@ namespace Zbang.Zbox.Domain
         public string TextPopupLower { get; set; }
 
 
+        public string HeaderBackgroundColor { get; set; }
 
+        public string BackgroundImage { get; set; }
+
+        public string H1Text { get; set; }
+
+        public string VideoBackgroundColor { get; set; }
+
+        public string VideoFontColor { get; set; }
+
+        public string SignupColor { get; set; }
 
         public virtual void UpdateNumberOfBoxes(int boxesCount)
         {

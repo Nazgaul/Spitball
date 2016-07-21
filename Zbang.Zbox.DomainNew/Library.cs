@@ -80,7 +80,7 @@ namespace Zbang.Zbox.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string Url { get; protected set; }
 
-
+       
 
 
         public virtual void GenerateUrl()
