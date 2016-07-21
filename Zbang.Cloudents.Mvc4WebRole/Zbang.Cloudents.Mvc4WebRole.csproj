@@ -639,6 +639,12 @@
     <Content Include="Content\HomePage\homePage.rtl.css">
       <DependentUpon>homePage.css</DependentUpon>
     </Content>
+    <Content Include="Content\HomePage\homePage2.css">
+      <DependentUpon>homePage2.less</DependentUpon>
+    </Content>
+    <Content Include="Content\HomePage\homePage2.min.css">
+      <DependentUpon>homePage2.css</DependentUpon>
+    </Content>
     <Content Include="Content\jquery.bxslider.css" />
     <Content Include="Content\jquery.bxslider.rtl.css">
       <DependentUpon>jquery.bxslider.css</DependentUpon>
@@ -2255,6 +2261,7 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
+    <Content Include="Content\HomePage\homePage2.less" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />

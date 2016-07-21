@@ -23,7 +23,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     ["homePage"] = new[]
                     {
                         "~/content/site/general.css",
-                        "~/content/homepage/homePage.css",
+                        "~/content/homepage/homePage2.css",
                         "~/content/site/staticPage.css",
                         "~/content/site/layout.css",
                         "~/content/signin/custom.css",
