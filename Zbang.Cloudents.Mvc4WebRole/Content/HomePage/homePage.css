@@ -127,9 +127,13 @@
   overflow: visible;
 }
 .homePage .home-page-body section.main #main-wrapper {
-  padding: 0 5% 40px 5%;
+  padding: 400px 5% 40px 5%;
   overflow: visible;
   position: relative;
+  /*-moz-transition: min-height 1s;
+                    -o-transition: min-height 1s;
+                    -webkit-transition: min-height 1s;
+                    transition: min-height 1s;*/
   /*&.collapse {
                         padding: 0;
                         height: 0;
@@ -138,13 +142,17 @@
 .homePage .home-page-body section.main .welcome-text {
   position: relative;
   text-align: center;
-  margin: 400px auto 0 auto;
   padding: 0 35px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   color: #f5f5f5;
   display: inline-block;
+  max-width: calc(100% - 300px);
+}
+.homePage .home-page-body section.main .welcome-text.vertical-slide {
+  transition: 1s;
+  margin-left: -10000px;
 }
 .homePage .home-page-body section.main .welcome-text .sb-logo {
   width: 200px;
@@ -205,7 +213,7 @@
   text-align: left;
   align-self: center;
   font-size: 14px;
-  width: calc(20%);
+  width: calc(100% - 80px);
 }
 .homePage .home-page-body section.main .signin-options .login-option {
   /*span {
@@ -264,6 +272,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  width: calc(100% - 430px);
 }
 .homePage .home-page-body section.main .statistics .statistic {
   text-align: center;
@@ -284,7 +293,8 @@
 }
 .homePage .home-page-body section.main .login-wrapper {
   display: none;
-  margin-top: 80px;
+  margin-top: 70px;
+  padding-top: 100px;
   /*&.expand {
                         height: 100%;
                         min-height: ~"calc(100vh - 100px)";
@@ -303,8 +313,8 @@
 .homePage .home-page-body section.main .login-wrapper form .close-form,
 .homePage .home-page-body section.main .login-wrapper .check-email-message .close-form {
   position: absolute;
-  right: -25px;
-  top: -10px;
+  right: 10px;
+  top: 10px;
   padding: 5px;
   background: none;
   border: none;
@@ -327,8 +337,6 @@
   text-decoration: underline;
 }
 .homePage .home-page-body section.main .login-wrapper .signin-options {
-  padding: 0 20px;
-  margin: 0 -20px 35px -20px;
   width: inherit;
   padding-bottom: 10px;
 }
@@ -366,12 +374,6 @@
                                 width: 180px;
                                 height: 43px;
                             }
-                        }*/
-  /*.checker {
-                            margin-left: -2px;
-                        }*/
-  /*.content .forget-form {
-                            display: none;
                         }*/
   /*.content .forget-form .form-actions {
                             border: 0;
@@ -435,13 +437,13 @@
                         }*/
 }
 .homePage .home-page-body section.main .login-wrapper.login .content {
-  max-width: 400px;
+  max-width: 460px;
   margin: 0 auto;
   margin-bottom: 0;
-  padding: 30px;
-  padding-top: 20px;
-  padding-bottom: 15px;
   background: rgba(24, 26, 22, 0.93);
+  /*.content .forget-form {
+                            display: none;
+                        }*/
 }
 .homePage .home-page-body section.main .login-wrapper.login .content h4 {
   color: #888b8e;
@@ -493,7 +495,10 @@
   padding: 0;
   margin: 0;
 }
-.homePage .home-page-body section.main .login-wrapper.login .content .login-form .form-actions {
+.homePage .home-page-body section.main .login-wrapper.login .content .login-form form {
+  padding: 20px 30px 5px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .login-form form .form-actions {
   margin-top: 20px;
 }
 .homePage .home-page-body section.main .login-wrapper.login .content .form-control {
@@ -511,15 +516,18 @@
 .homePage .home-page-body section.main .login-wrapper.login .content .register-form {
   display: none;
 }
-.homePage .home-page-body section.main .login-wrapper.login .content .register-form h3 {
+.homePage .home-page-body section.main .login-wrapper.login .content .register-form form {
+  padding: 20px 30px 5px;
+}
+.homePage .home-page-body section.main .login-wrapper.login .content .register-form form h3 {
   white-space: pre-wrap;
 }
-.homePage .home-page-body section.main .login-wrapper.login .content .register-form .form-actions-container {
+.homePage .home-page-body section.main .login-wrapper.login .content .register-form form .form-actions-container {
   margin-bottom: 15px;
   border-bottom: 1px solid #888b8e;
   padding-bottom: 15px;
 }
-.homePage .home-page-body section.main .login-wrapper.login .content .register-form .form-actions {
+.homePage .home-page-body section.main .login-wrapper.login .content .register-form form .form-actions {
   border: 0;
   margin-top: 0;
   margin-bottom: 20px;
@@ -728,16 +736,11 @@
   background-color: #c3c3c3;
   margin-right: 5px;
 }
-.homePage .home-page-body section.main .login-wrapper.login .content .create-account {
-  padding-top: 10px;
-  margin-top: 15px;
-}
 .homePage .home-page-body section.main .login-wrapper.login .content .login-account,
 .homePage .home-page-body section.main .login-wrapper.login .content .create-account {
   padding-top: 0;
   clear: both;
   background: #4190b9;
-  margin: -30px;
   text-align: center;
   border: none;
   height: 50px;
@@ -786,11 +789,17 @@
                         }*/
 }
 .homePage .home-page-body section.intro {
-  background: white;
-  color: #f5f5f5;
+  background: #f5f5f5;
   overflow: visible;
   position: relative;
   padding-bottom: 0;
+}
+.homePage .home-page-body section.intro .text {
+  text-align: center;
+  padding: 0 150px;
+  font-size: 24px;
+  margin: 40px auto;
+  max-width: 930px;
 }
 .homePage .home-page-body section.intro .video-image {
   margin: 0 auto;
@@ -1037,7 +1046,6 @@
   .homePage .home-page-body section.main .welcome-text {
     padding: 0;
     margin: 50px auto 50px auto;
-    max-width: calc(100% - 400px);
   }
   .homePage .home-page-body section.main .welcome-text h1 {
     font-size: 10vw;
