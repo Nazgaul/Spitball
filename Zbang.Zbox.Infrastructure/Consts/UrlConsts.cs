@@ -146,6 +146,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
 
         public static string NameToQueryString(string name)
         {
+            //var outString =  sourceString.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
             // - < > " ' % ; ) ( & + - 
 
             //<,>,*,%,&,:,\\

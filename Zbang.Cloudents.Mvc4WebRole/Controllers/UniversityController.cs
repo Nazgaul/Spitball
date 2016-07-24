@@ -181,6 +181,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
+                var route = BuildRouteDataFromUrl(Request.UrlReferrer.AbsoluteUri);
+
+                var universityName = route.Values["universityName"];
+
                 var guid = GuidEncoder.TryParseNullableGuid(section);
                 var query = new GetLibraryNodeQuery(universityId, guid, User.GetUserId());
                 var result = await ZboxReadService.GetLibraryNodeAsync(query);
@@ -190,7 +194,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     node.Url = Url.RouteUrlCache("universityLibraryNodes", new RouteValueDictionary
                     {
                         ["universityId"] = universityId,
-                        ["universityName"] = "todo",
+                        ["universityName"] = universityName,
                         ["id"] = GuidEncoder.Encode(node.Id),
                         ["libraryname"] = UrlConst.NameToQueryString(node.Name)
                     });
@@ -201,7 +205,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     result.Details.ParentUrl = Url.RouteUrlCache("universityLibraryNodes", new RouteValueDictionary
                     {
                         ["universityId"] = universityId,
-                        ["universityName"] = "todo",
+                        ["universityName"] = universityName,
                         ["id"] = GuidEncoder.Encode(result.Details.ParentId.Value),
                         ["libraryname"] = UrlConst.NameToQueryString(result.Details.ParentName)
                     });
@@ -211,7 +215,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     result.Details.ParentUrl = Url.RouteUrlCache("universityLibrary", new RouteValueDictionary
                     {
                         ["universityId"] = universityId,
-                        ["universityName"] = "todo"
+                        ["universityName"] = universityName
                     });
                 }
                 return JsonOk(result);

@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
@@ -72,10 +71,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     throw new BoxDoesntExistException("model is null");
                 }
-                //var urlBoxName = Server.UrlDecode(Request.Url.Segments[4]);
                 if (UrlConst.NameToQueryString(model.Name) != boxName)
                 {
-                    throw new BoxDoesntExistException(Request.Url?.AbsoluteUri);
+                    return Redirect(model.Url);
                 }
                 SeoBaseUniversityResources.Culture = Languages.GetCultureBaseOnCountry(model.Country);
                 if (model.BoxType == BoxType.Box)

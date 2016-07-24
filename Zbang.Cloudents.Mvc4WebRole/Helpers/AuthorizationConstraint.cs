@@ -8,6 +8,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values,
             RouteDirection routeDirection)
         {
+            if (httpContext.User == null)
+            {
+                return false;
+            }
             return httpContext.User.Identity.IsAuthenticated;
         }
     }

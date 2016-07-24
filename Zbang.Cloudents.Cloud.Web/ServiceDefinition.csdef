@@ -28,8 +28,6 @@
       <Setting name="AzureSeachServiceName" />
       <Setting name="AzureSearchKey" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
-      <Setting name="HomePageBoxIds" />
-      <Setting name="HomePageBoxIdshe" />
       <Setting name="signalR" />
     </ConfigurationSettings>
     <Certificates>
