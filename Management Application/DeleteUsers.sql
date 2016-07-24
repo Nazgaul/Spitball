@@ -92,6 +92,5 @@ delete from Zbox.CommentLike where [OwnerId]=@userid
  
 delete from Zbox.ReplyLike where [OwnerId]=@userid
 -- user table
-update zbox.users set UniversityId2=null where UniversityId2=@Userid
 delete from zbox.users where userid=@userid 
 COMMIT TRANSACTION

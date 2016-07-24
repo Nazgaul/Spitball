@@ -77,6 +77,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage)).FirstOrDefault();
         }
 
+        protected static RouteData BuildRouteDataFromUrl(string url)
+        {
+            var routeData = RouteTable.Routes.GetRouteData(
+                new HttpContextWrapper(
+                    new HttpContext(new HttpRequest(null, url, string.Empty),
+                        new HttpResponse(new StringWriter()))));
+
+
+            // var routeData = RouteData;
+            if (routeData == null)
+            {
+                return null;
+            }
+            if (routeData.Values.ContainsKey("MS_DirectRouteMatches"))
+            {
+                routeData = ((IEnumerable<RouteData>)routeData.Values["MS_DirectRouteMatches"]).First();
+            }
+            return routeData;
+        }
+
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding)
         {
             return Json(data, contentType, contentEncoding, JsonRequestBehavior.AllowGet);

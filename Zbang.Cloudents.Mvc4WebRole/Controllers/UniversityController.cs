@@ -195,27 +195,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         ["libraryname"] = UrlConst.NameToQueryString(node.Name)
                     });
                 }
-                if (result.Details != null)
+                if (result.Details == null) return JsonOk(result);
+                if (result.Details.ParentId.HasValue)
                 {
-                    if (result.Details.ParentId.HasValue)
+                    result.Details.ParentUrl = Url.RouteUrlCache("universityLibraryNodes", new RouteValueDictionary
                     {
-                        result.Details.ParentUrl = Url.RouteUrlCache("universityLibraryNodes", new RouteValueDictionary
-                        {
-                            ["universityId"] = universityId,
-                            ["universityName"] = "todo",
-                            ["id"] = GuidEncoder.Encode(result.Details.ParentId.Value),
-                            ["libraryname"] = UrlConst.NameToQueryString(result.Details.ParentName)
-                        });
-                    }
-                    else
+                        ["universityId"] = universityId,
+                        ["universityName"] = "todo",
+                        ["id"] = GuidEncoder.Encode(result.Details.ParentId.Value),
+                        ["libraryname"] = UrlConst.NameToQueryString(result.Details.ParentName)
+                    });
+                }
+                else
+                {
+                    result.Details.ParentUrl = Url.RouteUrlCache("universityLibrary", new RouteValueDictionary
                     {
-                        result.Details.ParentUrl = Url.RouteUrlCache("universityLibrary", new RouteValueDictionary
-                        {
-                            ["universityId"] = universityId,
-                            ["universityName"] = "todo"
-                        });
-                    }
-
+                        ["universityId"] = universityId,
+                        ["universityName"] = "todo"
+                    });
                 }
                 return JsonOk(result);
             }

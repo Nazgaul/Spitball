@@ -17,6 +17,7 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using System.Net;
 using SendGrid;
 using System.IO;
+using System.Threading.Tasks;
 using Microsoft.Win32;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Ioc;
@@ -29,10 +30,10 @@ namespace Management_Application
     {
         DataTable m_GlobalUserTable;
         DataTable m_GlobalTable;
-        String m_Id;
-        String m_NoOfStudents;
-        readonly String m_ConnectionString;
-        String m_UserId;
+        string m_Id;
+        string m_NoOfStudents;
+        readonly string m_ConnectionString;
+        string m_UserId;
         UserrequestEntity m_GlobalFlaggedItem;
         UserrequestEntity m_GlobalFlaggedPost;
 
@@ -127,7 +128,7 @@ namespace Management_Application
         //Those that are not active are marked as false or NULL
         private void showNotActive_Click(object sender, EventArgs e)
         {
-            const string @select = "SELECT id, UniversityName FROM Zbox.University WHERE (Active != 1 or Active IS NULL) and isdeleted=0";
+            const string select = "SELECT id, UniversityName FROM Zbox.University WHERE (Active != 1 or Active IS NULL) and isdeleted=0";
             using (var dataAdapter = new SqlDataAdapter(select, m_ConnectionString))
             {
 
@@ -389,7 +390,7 @@ namespace Management_Application
                                 pictureBoxUser.Load(dataTable.Rows[0]["UserImageLarge"].ToString());
                                 pictureBoxUser.SizeMode = PictureBoxSizeMode.Zoom;
                             }
-                            String uniName = "-None-";
+                            string uniName = "-None-";
                             if (dataTable.Rows[0]["UniversityId"].ToString() != "NULL" &&
                                 dataTable.Rows[0]["UniversityId"].ToString() != "")
                             {
@@ -403,12 +404,8 @@ namespace Management_Application
                                     uniName = dataTable2.Rows[0]["UniversityName"].ToString();
                                 }
                             }
-                            String gender;
-                            if (dataTable.Rows[0]["Sex"].ToString() == "True")
-                                gender = "Female";
-                            else
-                                gender = "Male";
-                            String mobile = "No";
+                            var gender = dataTable.Rows[0]["Sex"].ToString() == "True" ? "Female" : "Male";
+                            string mobile = "No";
                             if (dataTable.Rows[0]["MobileDevice"].ToString() == "1")
                                 mobile = "Yes";
                             command.Parameters.AddWithValue("@userId", dataTable.Rows[0]["UserId"].ToString());
@@ -423,7 +420,7 @@ namespace Management_Application
                             richTextBoxUser.Text = "Stats\n\nCreated on:" + dataTable.Rows[0]["CreationTime"] +
                                                    "\n\nLast Activity: " + dataTable.Rows[0]["UpdateTime"] +
                                                    "\n\nUniversity Name: " + uniName +
-                                                   "\n\nUrl: https://www.cloudents.com/"
+                                                   "\n\nUrl: https://www.spitball.co/"
                                                    + dataTable.Rows[0]["Url"] +
                                                    "\n\nFacebook: https://www.facebook.com" + "/" +
                                                    dataTable.Rows[0]["FacebookUserId"] + "\n\nReputation: " +
@@ -532,9 +529,9 @@ namespace Management_Application
             foreach (UserrequestEntity entity in table.ExecuteQuery(query))
             {
                 flaggedItemsListBox.Items.Add(entity.ItemId);
-                Console.WriteLine(entity.UserId);
+                //Console.WriteLine(entity.UserId);
 
-                Console.WriteLine(entity.ItemId);
+                //Console.WriteLine(entity.ItemId);
             }
         }
         public class UserrequestEntity : TableEntity
@@ -551,8 +548,8 @@ namespace Management_Application
             // public string Timestamp { get; set; }
 
             public string BadItem { get; set; }
-            public Int64 ItemId { get; set; }
-            public Int64 UserId { get; set; }
+            public long ItemId { get; set; }
+            public long UserId { get; set; }
             public Guid PostId { get; set; }
 
         }
@@ -583,56 +580,54 @@ namespace Management_Application
                         break;
                     }
 
-                    Console.WriteLine(flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem));
-                    Console.WriteLine(entity.ItemId);
-                    Console.WriteLine(entity.UserId);
+                    //Console.WriteLine(flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem));
+                    //Console.WriteLine(entity.ItemId);
+                    //Console.WriteLine(entity.UserId);
 
                 }
                 //flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem) //--Item ID not users
                 SqlCommand command = connection.CreateCommand();
-                command.Parameters.AddWithValue("@id", m_GlobalFlaggedItem.UserId);
+                command.Parameters.AddWithValue("@id", m_GlobalFlaggedItem?.UserId);
                 command.CommandText = "SELECT * FROM Zbox.Users WHERE UserId=@id";
                 SqlDataAdapter dataAdapter = new SqlDataAdapter();
                 dataAdapter.SelectCommand = command;
                 connection.Open();
                 SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
-                DataTable dataTable = new DataTable();
                 DataSet ds = new DataSet();
                 dataAdapter.Fill(ds);
-                dataTable = ds.Tables[0];
+                var dataTable = ds.Tables[0];
                 connection.Close();
                 try
                 {
-                    String uniName = "";
+                    var uniName = "";
                     if (dataTable.Rows[0]["UniversityId"].ToString() != "NULL" && dataTable.Rows[0]["UniversityId"].ToString() != "")
                     {
                         command.Parameters.AddWithValue("@uniId", dataTable.Rows[0]["UniversityId"].ToString());
                         command.CommandText = "SELECT UniversityName FROM Zbox.University WHERE Id=@uniId";
-                        SqlDataAdapter dataAdapter2 = new SqlDataAdapter();
-                        dataAdapter2.SelectCommand = command;
+                        SqlDataAdapter dataAdapter2 = new SqlDataAdapter {SelectCommand = command};
                         DataTable dataTable2 = new DataTable();
                         dataAdapter2.Fill(dataTable2);
                         uniName = dataTable2.Rows[0]["UniversityName"].ToString();
                     }
-                    String Gender = "";
+                    string gender = "";
                     if (dataTable.Rows[0]["Sex"].ToString() == "True")
-                        Gender = "Female";
+                        gender = "Female";
                     else
-                        Gender = "Male";
-                    String Mobile = "No";
+                        gender = "Male";
+                    string mobile = "No";
                     if (dataTable.Rows[0]["MobileDevice"].ToString() == "1")
-                        Mobile = "Yes";
+                        mobile = "Yes";
                     int Boxes = 0;
                     command.Parameters.AddWithValue("@userId", dataTable.Rows[0]["UserId"].ToString());
                     command.CommandText = "SELECT COUNT(*) FROM Zbox.UserBoxRel WHERE UserId=@userId";
                     connection.Open();
                     Boxes = (int)command.ExecuteScalar();
-                    int Quizzes = 0;
+                    int quizzes = 0;
                     command.CommandText = "SELECT COUNT(*) FROM Zbox.Quiz WHERE UserId=@userId";
-                    Quizzes = (int)command.ExecuteScalar();
-                    int Items = 0;
+                    quizzes = (int)command.ExecuteScalar();
+                    int items = 0;
                     command.CommandText = "SELECT COUNT(*) FROM Zbox.Item WHERE UserId=@userId";
-                    Items = (int)command.ExecuteScalar();
+                    items = (int)command.ExecuteScalar();
 
 
                     var urls = connection.Query<string>("SELECT url FROM Zbox.Item WHERE Itemid=@itemId", new { itemId = m_GlobalFlaggedItem.ItemId });
@@ -640,9 +635,9 @@ namespace Management_Application
 
 
                     connection.Close();
-                    richTextBoxUserThatFlagged.Text = "Created on:" + dataTable.Rows[0]["CreationTime"].ToString() + "\nLast Activity: " + dataTable.Rows[0]["UpdateTime"].ToString() + "\nUniversity Name: " + uniName + "\nUrl: https://www.cloudents.com/"
-                        + dataTable.Rows[0]["Url"].ToString() + "\nFacebook: https://www.facebook.com" + "/" + dataTable.Rows[0]["FacebookUserId"].ToString() + "\nReputation: " + dataTable.Rows[0]["UserReputation"].ToString() + "\nCulture: "
-                        + dataTable.Rows[0]["Culture"].ToString() + "\nGender: " + Gender + "\nMobile: " + Mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + Boxes + "\nQuizzes: " + Quizzes + "\nItems: " + Items + "\nitemUrl: https://www.cloudents.com/" + itemUrl;
+                    richTextBoxUserThatFlagged.Text = "Created on:" + dataTable.Rows[0]["CreationTime"] + "\nLast Activity: " + dataTable.Rows[0]["UpdateTime"] + "\nUniversity Name: " + uniName + "\nUrl: https://www.spitball.co/"
+                        + dataTable.Rows[0]["Url"] + "\nFacebook: https://www.facebook.com" + "/" + dataTable.Rows[0]["FacebookUserId"] + "\nReputation: " + dataTable.Rows[0]["UserReputation"] + "\nCulture: "
+                        + dataTable.Rows[0]["Culture"] + "\nGender: " + gender + "\nMobile: " + mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + Boxes + "\nQuizzes: " + quizzes + "\nItems: " + items + "\nitemUrl: https://www.spitball.co/" + itemUrl;
 
                     //richTextBoxUserThatFlagged.Text = ("Name: "+dataTable.Rows[0]["UserName"].ToString())+"\n\nEmail: "+dataTable.Rows[0]["Email"].ToString()+"\n\n"+dataTable.Rows[0][];
                     try
@@ -670,17 +665,17 @@ namespace Management_Application
                 connection.Close();
                 try
                 {
-                    richTextBoxFlaggedItem.Text = "Item Name: " + dataTable.Rows[0]["name"] + "\n\nCreated User: " + dataTable.Rows[0]["CreatedUser"].ToString() + "\n\nUploaded On: " + dataTable.Rows[0]["CreationTime"].ToString() + "\n\nDownloads: " + dataTable.Rows[0]["NumberOfDownloads"].ToString() + "\n\nUrl: https://www.cloudents.com/" + dataTable.Rows[0]["Url"].ToString();
-                    String boxId = dataTable.Rows[0]["BoxId"].ToString();
+                    richTextBoxFlaggedItem.Text = "Item Name: " + dataTable.Rows[0]["name"] + "\n\nCreated User: " + dataTable.Rows[0]["CreatedUser"] + "\n\nUploaded On: " + dataTable.Rows[0]["CreationTime"] + "\n\nDownloads: " + dataTable.Rows[0]["NumberOfDownloads"] + "\n\nUrl: https://www.spitball.co/" + dataTable.Rows[0]["Url"];
+                    string boxId = dataTable.Rows[0]["BoxId"].ToString();
                     try
                     {
-                        Console.WriteLine("https://www.cloudents.com/" + dataTable.Rows[0]["ThumbnailUrl"].ToString());
+                        //Console.WriteLine("https://www.cloudents.com/" + dataTable.Rows[0]["ThumbnailUrl"]);
                         pictureBoxFlaggedItem.Load(dataTable.Rows[0]["ThumbnailUrl"].ToString());
                         pictureBoxUserThatFlagged.SizeMode = PictureBoxSizeMode.StretchImage;
                     }
                     catch (Exception)
                     {
-                        Console.WriteLine("Image Exception");
+                        //Console.WriteLine("Image Exception");
                     }
                     command.Parameters.AddWithValue("@boxId", boxId);
                     command.CommandText = "SELECT * FROM Zbox.Box WHERE BoxId=@boxId";
@@ -691,9 +686,9 @@ namespace Management_Application
 
                     dataTable = ds.Tables[0];
                     connection.Close();
-                    Console.WriteLine("There");
+                    //Console.WriteLine("There");
 
-                    richTextBoxFlaggedItem.Text += "\n\nBox Name: " + dataTable.Rows[0]["BoxName"].ToString();
+                    richTextBoxFlaggedItem.Text += "\n\nBox Name: " + dataTable.Rows[0]["BoxName"];
                     richTextBoxItemToReplace.Text = richTextBoxFlaggedItem.Text;
 
 
@@ -717,9 +712,9 @@ namespace Management_Application
             foreach (UserrequestEntity entity in table.ExecuteQuery(Query))
             {
                 listBoxFlaggedPosts.Items.Add(entity.PostId.ToString());
-                Console.WriteLine(entity.UserId);
+                //Console.WriteLine(entity.UserId);
 
-                Console.WriteLine(entity.PostId);
+                //Console.WriteLine(entity.PostId);
             }
         }
 
@@ -741,7 +736,7 @@ namespace Management_Application
                 {
                     if (entity.PostId.ToString() == listBoxFlaggedPosts.GetItemText(listBoxFlaggedPosts.SelectedItem))
                     {
-                        Console.WriteLine(entity.PostId);
+                       // Console.WriteLine(entity.PostId);
 
                         m_GlobalFlaggedPost = entity;
                         break;
@@ -804,14 +799,14 @@ namespace Management_Application
 
 
                     connection.Close();
-                    richTextBoxUserFlaggedPost.Text = "Created on:" + dataTable.Rows[0]["CreationTime"].ToString() + "\nLast Activity: " + dataTable.Rows[0]["UpdateTime"].ToString() + "\nUniversity Name: " + uniName + "\nUrl: https://www.cloudents.com/"
-                        + dataTable.Rows[0]["Url"].ToString() + "\nFacebook: https://www.facebook.com" + "/" + dataTable.Rows[0]["FacebookUserId"].ToString() + "\nReputation: " + dataTable.Rows[0]["UserReputation"].ToString() + "\nCulture: "
-                        + dataTable.Rows[0]["Culture"].ToString() + "\nGender: " + Gender + "\nMobile: " + Mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + Boxes + "\nQuizzes: " + Quizzes + "\nItems: " + Items + "\nURL: https://www.cloudents.com/" + url;
+                    richTextBoxUserFlaggedPost.Text = "Created on:" + dataTable.Rows[0]["CreationTime"] + "\nLast Activity: " + dataTable.Rows[0]["UpdateTime"] + "\nUniversity Name: " + uniName + "\nUrl: https://www.spitball.co/"
+                        + dataTable.Rows[0]["Url"] + "\nFacebook: https://www.facebook.com" + "/" + dataTable.Rows[0]["FacebookUserId"] + "\nReputation: " + dataTable.Rows[0]["UserReputation"] + "\nCulture: "
+                        + dataTable.Rows[0]["Culture"] + "\nGender: " + Gender + "\nMobile: " + Mobile + "\nMobile Joined: " + "--" + "\nBoxes: " + Boxes + "\nQuizzes: " + Quizzes + "\nItems: " + Items + "\nURL: https://www.spitball.co/" + url;
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("User doesn't exist", "User Problem", MessageBoxButtons.OK);
+                    MessageBox.Show("User doesn't exist" + ex, "User Problem", MessageBoxButtons.OK);
                 }
                 try
                 {
@@ -819,9 +814,9 @@ namespace Management_Application
                     pictureBoxUserFlaggedPost.Load(dataTable.Rows[0]["UserImageLarge"].ToString());
                     pictureBoxUserFlaggedPost.SizeMode = PictureBoxSizeMode.Zoom;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
+                    MessageBox.Show(ex.ToString());
                 }
 
 
@@ -836,7 +831,7 @@ namespace Management_Application
                     ds.Clear();
                     dataAdapter.Fill(ds);
                     dataTable = ds.Tables[0];
-                    Console.WriteLine(ds.Tables[0].Rows.Count);
+                   // Console.WriteLine(ds.Tables[0].Rows.Count);
                     if (ds.Tables[0].Rows.Count == 0)
                         throw new Exception();
                 }
@@ -847,7 +842,6 @@ namespace Management_Application
                     ds.Clear();
                     dataAdapter.Fill(ds);
                     dataTable = ds.Tables[0];
-                    Console.WriteLine("Answer");
                 }
                 connection.Close();
                 try
@@ -868,9 +862,9 @@ namespace Management_Application
             CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
             CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
             CloudTable table = tableClient.GetTableReference("userrequests");
-            TableQuery<UserrequestEntity> Query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagItem"));
+            TableQuery<UserrequestEntity> query = new TableQuery<UserrequestEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "FlagItem"));
             m_GlobalFlaggedItem = null;
-            foreach (UserrequestEntity entity in table.ExecuteQuery(Query))
+            foreach (UserrequestEntity entity in table.ExecuteQuery(query))
             {
                 if (entity.ItemId.ToString() == flaggedItemsListBox.GetItemText(flaggedItemsListBox.SelectedItem))
                 {
@@ -952,13 +946,13 @@ namespace Management_Application
             InitializeFlaggedPosts();
         }
 
-        private void buttonReportUserPost_Click(object sender, EventArgs e)
+        private async void buttonReportUserPost_Click(object sender, EventArgs e)
         {
             const string sendGridUserName = "cloudents";
             const string sendGridPassword = "zbangitnow";
             var credentials = new NetworkCredential(sendGridUserName, sendGridPassword);
-            var FlagPostMessage = new SendGridMessage();
-            String mailTo;
+            var flagPostMessage = new SendGridMessage();
+            string mailTo;
             using (var connection = new SqlConnection(m_ConnectionString))
             {
                 SqlCommand command = connection.CreateCommand();
@@ -967,31 +961,30 @@ namespace Management_Application
                 var dataAdapter = new SqlDataAdapter();
                 dataAdapter.SelectCommand = command;
                 connection.Open();
-                var dataTable = new DataTable();
                 var ds = new DataSet();
                 dataAdapter.Fill(ds);
-                dataTable = ds.Tables[0];
+                var dataTable = ds.Tables[0];
                 connection.Close();
                 mailTo = dataTable.Rows[0]["Email"].ToString();
             }
 
-            FlagPostMessage.AddTo(mailTo);
-            FlagPostMessage.From = new MailAddress("cloudents@gmail.com");
-            FlagPostMessage.Subject = "Flag Report";
-            FlagPostMessage.Text = "We have received the flag and dealt with it accordingly.\n Thank you for contributing to the Cloudents community.";
+            flagPostMessage.AddTo(mailTo);
+            flagPostMessage.From = new MailAddress("cloudents@gmail.com");
+            flagPostMessage.Subject = "Flag Report";
+            flagPostMessage.Text = "We have received the flag and dealt with it accordingly.\n Thank you for contributing to the Cloudents community.";
 
             var transportWeb = new Web(credentials);
-            transportWeb.DeliverAsync(FlagPostMessage);
+            await transportWeb.DeliverAsync(flagPostMessage);
 
         }
 
-        private void buttonReportBackUser_Click(object sender, EventArgs e)
+        private async void buttonReportBackUser_Click(object sender, EventArgs e)
         {
             const string sendGridUserName = "cloudents";
             const string sendGridPassword = "zbangitnow";
             var credentials = new NetworkCredential(sendGridUserName, sendGridPassword);
-            var FlagPostMessage = new SendGridMessage();
-            String mailTo;
+            var flagPostMessage = new SendGridMessage();
+            string mailTo;
             using (var connection = new SqlConnection(m_ConnectionString))
             {
                 SqlCommand command = connection.CreateCommand();
@@ -999,21 +992,20 @@ namespace Management_Application
                 command.CommandText = "SELECT * FROM Zbox.Users WHERE UserId=@id";
                 var dataAdapter = new SqlDataAdapter { SelectCommand = command };
                 connection.Open();
-                var dataTable = new DataTable();
                 var ds = new DataSet();
                 dataAdapter.Fill(ds);
-                dataTable = ds.Tables[0];
+                var dataTable = ds.Tables[0];
                 connection.Close();
                 mailTo = dataTable.Rows[0]["Email"].ToString();
             }
 
-            FlagPostMessage.AddTo(mailTo);
-            FlagPostMessage.From = new MailAddress("cloudents@gmail.com");
-            FlagPostMessage.Subject = "Flag Report";
-            FlagPostMessage.Text = "We have received the flag and dealt with it accordingly.\n Thank you for contributing to the Cloudents community.";
+            flagPostMessage.AddTo(mailTo);
+            flagPostMessage.From = new MailAddress("cloudents@gmail.com");
+            flagPostMessage.Subject = "Flag Report";
+            flagPostMessage.Text = "We have received the flag and dealt with it accordingly.\n Thank you for contributing to the Cloudents community.";
             MessageBox.Show("Mail sent to " + mailTo, "Sent", MessageBoxButtons.OK);
             var transportWeb = new Web(credentials);
-            transportWeb.DeliverAsync(FlagPostMessage);
+            await transportWeb.DeliverAsync(flagPostMessage);
         }
 
         private void buttonBrowseAttachments_Click(object sender, EventArgs e)
@@ -1051,50 +1043,30 @@ namespace Management_Application
             }
             return ret;
         }
-        private void buttonReplaceItem_Click(object sender, EventArgs e)
+        private async void buttonReplaceItem_Click(object sender, EventArgs e)
         {
             //string ItemId = textBox1.Text;
             string itemId = m_GlobalFlaggedItem.ItemId.ToString(CultureInfo.InvariantCulture);
-            //Console.WriteLine(getBlobName(ItemName));
-            //string blobName = textBox1.Text;
             string blobName = GetBlobName(itemId);
             blobName = Path.GetFileNameWithoutExtension(blobName);
-            // blobName = blobName.Remove(blobName.IndexOf('.'));
-            String fileLocation = textBoxAttachment.Text;
-            //CloudStorageAccount.DevelopmentStorageAccount;
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
-            //CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            string fileLocation = textBoxAttachment.Text;
+            var storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
+            var blobClient = storageAccount.CreateCloudBlobClient();
 
-            CloudBlobContainer container = blobClient.GetContainerReference("zboxcahce");
-            foreach (IListBlobItem item in container.ListBlobs(blobName, false))
+            var container = blobClient.GetContainerReference("zboxcahce");
+            foreach (IListBlobItem item in container.ListBlobs(blobName))
             {
                 var blob = (CloudBlockBlob)item;
-
                 blob.Delete();
             }
 
-            string fileName = "";
-            int i = fileLocation.Length;
-            while (fileLocation[i - 1] != '\\')
-            {
-                fileName += fileLocation[i - 1];
-                i--;
-            }
-            string fileName2 = "";
-            i = fileName.Length;
-            while (i > 0)
-            {
-                fileName2 += fileName[i - 1];
-                i--;
-            }
-            Console.WriteLine(fileName2);
-            UploadBlob(blobName, fileLocation);
+
+            await UploadBlob(blobName, fileLocation);
             MessageBox.Show("File has been replaced, press OK to continue.", "File Replaced", MessageBoxButtons.OK);
             textBoxAttachment.Text = "";
         }
 
-        private void UploadBlob(String blobName, String fileLocation)
+        private async Task UploadBlob(string blobName, string fileLocation)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageConnectionString"));
             //CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("zboxstorage", "HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw=="), false);
@@ -1115,7 +1087,7 @@ namespace Management_Application
                 var registryKey = Registry.ClassesRoot.OpenSubKey(extension);
                 var value = registryKey.GetValue("Content Type") as string;
                 blockBlob.Properties.ContentType = value;
-                blockBlob.UploadFromStream(fileStream);
+                await blockBlob.UploadFromStreamAsync(fileStream);
             }
 
         }

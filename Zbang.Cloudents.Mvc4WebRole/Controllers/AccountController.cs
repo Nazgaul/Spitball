@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data.Entity.Validation;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using DevTrends.MvcDonutCaching;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -180,7 +178,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         private long? GetBoxIdRouteDataFromDifferentUrl()
         {
-            //var url = HttpContext.Request.UrlReferrer;
             try
             {
                 var queryParsed = ExtractQueryStringFromUrlReferrer();
@@ -190,22 +187,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return null;
                 }
-                var routeData =
-                    RouteTable.Routes.GetRouteData(
-                        new HttpContextWrapper(
-                            new HttpContext(new HttpRequest(null, url, string.Empty),
-                                new HttpResponse(new StringWriter()))));
-
-
-                // var routeData = RouteData;
-                if (routeData == null)
-                {
-                    return null;
-                }
-                if (routeData.Values.ContainsKey("MS_DirectRouteMatches"))
-                {
-                    routeData = ((IEnumerable<RouteData>)routeData.Values["MS_DirectRouteMatches"]).First();
-                }
+                var routeData = BuildRouteDataFromUrl(url);
+                //if (BuildRouteDataFromUrl(url, out routeData)) return null;
                 if (routeData?.Values["boxId"] == null)
                 {
                     return null;
@@ -226,17 +209,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        //private long? ExtractUniversityId()
-        //{
-        //    var values = ExtractQueryStringFromUrlReferrer();
-        //    long temp;
-        //    long? universityId = null;
-        //    if (long.TryParse(values["universityid"], out temp))
-        //    {
-        //        universityId = temp;
-        //    }
-        //    return universityId;
-        //}
+       
+
 
         [HttpPost]
         [ActionName("FacebookLogin")]
@@ -414,19 +388,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonError(GetErrorFromModelState());
         }
 
-
-        //private string CheckIfToLocal(string returnUrl)
-        //{
-        //    if (Url.IsLocalUrl(returnUrl))
-        //    {
-        //        return returnUrl;
-        //    }
-        //    return string.Empty;
-        //}
-
-
-
-
         [RemoveBoxCookie]
         public ActionResult LogOff()
         {
@@ -444,12 +405,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [/*ValidateAntiForgeryToken,*/ActionName("Register")]
         public async Task<JsonResult> RegisterAsync([ModelBinder(typeof(TrimModelBinder))] Register model)
         {
-            //var values = ExtractQueryStringFromUrlReferrer();
-            //long temp;
-            //if (long.TryParse(values["universityId"], out temp))
-            //{
-            //    model.UniversityId = temp;
-            //}
             model.BoxId = GetBoxIdRouteDataFromDifferentUrl();
             if (!ModelState.IsValid)
             {

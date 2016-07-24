@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-//using Hyak.Common;
 using Microsoft.Azure.Search;
 using Microsoft.Azure.Search.Models;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -100,7 +99,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         }
 
         public async Task UpdateDataAsync(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
-       {
+        {
             if (!m_CheckIndexExists)
             {
                 //  await BuildIndex();
@@ -133,14 +132,14 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 var deleteBatch = itemToDelete.Select(s =>
                      new ItemSearch
-                    {
-                        Id = s.ToString(CultureInfo.InvariantCulture)
-                    });
+                     {
+                         Id = s.ToString(CultureInfo.InvariantCulture)
+                     });
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
                     await m_IndexClient.Documents.IndexAsync(batch);
             }
-           
+
             //var commands = listOfCommands.ToArray();
             //if (commands.Length == 0) return;
 
@@ -179,7 +178,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = ScoringProfileName,
-                ScoringParameters = new[] { new ScoringParameter( "university" , query.UniversityId.ToString()) },
+                ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
                 Select = new[] { IdField, NameField, UrlField },
             }, cancellationToken: cancelToken);
 
@@ -205,10 +204,10 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = ScoringProfileName,
-                ScoringParameters = new[] { new ScoringParameter("university" , query.UniversityId.ToString()) },
+                ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
                 Select = new[] { SmallContentField, IdField, NameField, BoxIdField, ExtensionField, BlobNameField },
                 HighlightFields = new[] { ContentField, NameField },
-            },  cancellationToken: cancelToken);
+            }, cancellationToken: cancelToken);
 
             return result.Results.Select(s => new SearchItems
             {
@@ -238,10 +237,10 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = ScoringProfileName,
-                ScoringParameters = new[] { new ScoringParameter("university" , query.UniversityId.ToString()) },
+                ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
                 Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
                 HighlightFields = new[] { ContentField, NameField }
-            },  cancellationToken: cancelToken);
+            }, cancellationToken: cancelToken);
 
             return result.Results.Select(s => new SearchItems
             {
@@ -260,7 +259,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<IEnumerable<SearchItems>> SearchItemAsync(ViewModel.Queries.Search.SearchItemInBox query, CancellationToken cancelToken)
         {
-            if (query == null) throw new ArgumentNullException("query");
+            if (query == null) throw new ArgumentNullException(nameof(query));
             var term = query.Term;
             if (string.IsNullOrEmpty(term))
             {
@@ -273,7 +272,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 Select = new[] { BoxNameField, SmallContentField, IdField, ImageField, NameField, UniversityNameField, UrlField, BlobNameField },
-            },  cancellationToken: cancelToken);
+            }, cancellationToken: cancelToken);
 
             return result.Results.Select(s => new SearchItems
             {
@@ -294,7 +293,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var item =
                     await
                         m_IndexClient.Documents.GetAsync<ItemSearch>(itemId.ToString(CultureInfo.InvariantCulture),
-                            new[] {ContentField},  cancellationToken: cancelToken);
+                            new[] { ContentField }, cancellationToken: cancelToken);
                 return item.Content;
             }
             //item may not exists in the search....

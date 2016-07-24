@@ -306,7 +306,7 @@
                         </form>
                     </div>
                     <div class="check-email-message toggle" style="display:none;">
-                        <h3 class=" form-title">
+                        <h3 class="form-title">
                             @LogOnResources.CheckEmailTitle
                         </h3>
                         <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
@@ -546,7 +546,8 @@
                     </li>
                 </ul>
             </section>
-            @{Html.RenderPartial("_StaticPageFooter");}
+                @{ // ReSharper disable once Mvc.PartialViewNotResolved
+                Html.RenderPartial("_StaticPageFooter");}
         </div>
 
     </div>

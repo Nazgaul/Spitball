@@ -6,15 +6,20 @@
         {
             UniversityId = universityId;
         }
+        public long? UniversityId { get; private set; }
+    }
 
-        //public GetHomePageQuery(long[] boxIds)
-        //{
-        //    BoxIds = boxIds;
-        //}
 
-        //public long[] BoxIds { get; private set; }
-
+    public class GetHomeBoxesUniversityQuery
+    {
+        public GetHomeBoxesUniversityQuery(long? universityId, string country)
+        {
+            UniversityId = universityId;
+            Country = country;
+        }
 
         public long? UniversityId { get; private set; }
+
+        public string Country { get; private set; }
     }
 }
