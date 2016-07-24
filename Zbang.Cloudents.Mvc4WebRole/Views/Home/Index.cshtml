@@ -234,9 +234,7 @@
                     <div class="login-wrapper form-wrapper">
                         <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
                         <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
-
                         <div class="signin-options">
-                            <div class="social-text">@HomePageResources.A7</div>
                             <button type="button" class="login-option facebook">
                                 <div class="icon">
                                     @Html.Svg(socialIconsSvg, "facebook")
@@ -245,7 +243,7 @@
                             </button>
                             <button type="button" class="login-option google">
                                 <div class="icon">
-                                    @Html.Svg(socialIconsSvg, "google-colored")
+                                    @Html.Svg(socialIconsSvg, "google")
                                 </div>
                                 <div class="text">@LogOnResources.ExternalProvider</div>
                             </button>
@@ -272,22 +270,21 @@
                                 </button>
                             </div>
                         </form>
-                        <div class="forgot-password">
+                        <div class="forgot-password-text">
                             <h4>@LogOnResources.ForgotYourPassword</h4>
                             <p>
-                                @LogOnResources.NoWorries <span id="forget-password">@LogOnResources.Here</span>
+                                @LogOnResources.NoWorries <span id="forgot-password-link">@LogOnResources.Here</span>
                                 @LogOnResources.ToResetPassword.
                             </p>
                         </div>
-                        <p class="create-account">
+                        <p class="bottom-strip">
                             @LogOnResources.DontHaveAnAccount&nbsp; <a href="javascript:;" id="register-btn">@LogOnResources.CreateAccount</a>
                         </p>
                     </div>
-                    <div class="forgot-password-form">
-                        <form id="f-forgot-password" class="forgot-password-form" action="" method="post" style="display:none;">
-                            <h3 class="form-title">
-                                @LogOnResources.ForgotYourPassword
-                            </h3>
+                    <div class="forgot-password-wrapper form-wrapper" style="display:none;">
+                        <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
+                        <h3 class="form-title">@LogOnResources.ForgotYourPassword</h3>
+                        <form class="forgot-password" action="" method="post">
                             <div class="text">
                                 <p>@AccountResource.EmailToReset</p>
                             </div>
@@ -302,14 +299,13 @@
                                 <button type="reset" class="grey-button cancel">@GeneralResources.Cancel</button>
                                 <button type="submit" class="blue-button">@LogOnResources.Submit</button>
                             </div>
-                            <div class="create-account"></div>
                         </form>
                     </div>
-                    <div class="check-email-message toggle" style="display:none;">
+                    <div class="check-email-message-wrapper form-wrapper">
+                        <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
                         <h3 class="form-title">
                             @LogOnResources.CheckEmailTitle
                         </h3>
-                        <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
 
                         <div class="text">
                             <p>@AccountResource.EmailedPassword<br />@AccountResource.ResetInstructions</p>
@@ -323,10 +319,26 @@
                         </div>
                         <div class="create-account"></div>
                     </div>
-                    <div class="register-form">
-                        <form action="" method="post">
-                            <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
-                            <h3>@LogOnResources.CreateAccountFormHeader</h3>
+                    <div class="register-wrapper form-wrapper">
+                        <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
+                        <h3 class="form-title">@LogOnResources.CreateAccountFormHeader</h3>
+                        <div class="signin-options">
+                            <button type="button" class="login-option facebook">
+                                <div class="icon">
+                                    @Html.Svg(socialIconsSvg, "facebook")
+                                </div>
+                                <div class="text">@LogOnResources.ExternalProvider</div>
+                            </button>
+                            <button type="button" class="login-option google">
+                                <div class="icon">
+                                    @Html.Svg(socialIconsSvg, "google")
+                                </div>
+                                <div class="text">@LogOnResources.ExternalProvider</div>
+                            </button>
+                        </div>
+                        <input type="checkbox" id="show-fields"/>
+                        <label for="show-fields">Or sign up with email</label>
+                        <form class="register" action="" method="post">
                             <div class="form-group first">
                                 <input class="form-control" type="text" required placeholder="@AccountResource.First" name="firstName" />
                             </div>
@@ -347,36 +359,19 @@
                                 <span></span>
                             </div>
 
-                            <div class="form-actions-container" layout="row" layout-align="center center">
-                                <div class="form-group">
-                                    <label>
-                                        @RegisterResources.IAgree&nbsp;
-                                        <a class="tos" target="_blank" href="@Url.RouteUrl("TOS")">&nbsp;@RegisterResources.TermsOfServices</a>&nbsp;@RegisterResources.And&nbsp;<a target="_blank" href="@Url.RouteUrl("Privacy")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
-                                    </label>
+                            <div class="form-actions" layout="row" layout-align="center center">
+                                <div class="terms">
+                                    @RegisterResources.IAgree&nbsp;
+                                    <a class="tos" target="_blank" href="@Url.RouteUrl("TOS")">&nbsp;@RegisterResources.TermsOfServices</a>&nbsp;@RegisterResources.And&nbsp;<a target="_blank" href="@Url.RouteUrl("Privacy")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
                                 </div>
 
-                                <div class="form-actions">
-                                    <button type="submit" id="register-submit-btn" class="blue-button">
-                                        @LogOnResources.SignUp
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="signin-options">
-                                <div class="social-text">@HomePageResources.A7</div>
-                                <button type="button" class="login-option facebook">
-                                    <div>
-                                        @Html.Svg(socialIconsSvg, "facebook-colored")
-                                    </div>
-                                </button>
-                                <button type="button" class="login-option google">
-                                    <div>
-                                        @Html.Svg(socialIconsSvg, "google-colored")
-                                    </div>
+                                <button type="submit" id="register-submit-btn" class="blue-button">
+                                    @LogOnResources.SignUp
                                 </button>
                             </div>
 
                         </form>
-                        <p class="login-account">
+                        <p class="bottom-strip">
                             @LogOnResources.AlreadyHave&nbsp;<a href="javascript:;" id="login-btn">@SharedResources.SignIn</a>
                         </p>
                     </div>
@@ -546,7 +541,7 @@
                     </li>
                 </ul>
             </section>
-                @{ // ReSharper disable once Mvc.PartialViewNotResolved
+            @{ // ReSharper disable once Mvc.PartialViewNotResolved
                 Html.RenderPartial("_StaticPageFooter");}
         </div>
 
