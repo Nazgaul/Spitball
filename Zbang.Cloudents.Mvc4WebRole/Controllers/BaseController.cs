@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -23,7 +21,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         protected CancellationTokenSource CreateCancellationToken(CancellationToken cancellationToken)
         {
-            CancellationToken disconnectedToken = Response.ClientDisconnectedToken;
+            var disconnectedToken = Response.ClientDisconnectedToken;
             return CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, disconnectedToken);
         }
 

@@ -25,10 +25,11 @@
 
 
 
-        public const string DashboardInfo = @"select 
+        public const string UniversityInfo = @"select 
 uWrap.id as id,
 uWrap.universityName as Name,
-uWrap.LargeImage as Img,
+uWrap.LargeImage as Logo,
+uWrap.BackgroundImage as Cover,
 uWrap.NoOfBoxes as NumOfBoxes,
 uWrap.NoOfUsers as NumOfUsers,
 uWrap.NoOfItems + uWrap.NoOfQuizzes as NumOfItems

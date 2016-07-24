@@ -39,7 +39,8 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query)
         {
-            return m_ReadService.GetUniversityInfoAsync(query);
+            return m_Cache.QueryAsync(m_ReadService.GetUniversityInfoAsync, query);
+            //return m_ReadService.GetUniversityInfoAsync(query);
         }
 
         public Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query)

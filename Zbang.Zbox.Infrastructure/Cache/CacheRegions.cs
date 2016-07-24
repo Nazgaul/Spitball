@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zbang.Zbox.Infrastructure.Cache
+﻿namespace Zbang.Zbox.Infrastructure.Cache
 {
     public static class CacheRegions
     {
@@ -12,5 +6,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
         {
             return $"feed_{boxId}";
         }
+
+        public const string UniversityRegion = "university";
     }
 }

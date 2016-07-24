@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+﻿using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries.Dashboard
@@ -11,19 +11,10 @@ namespace Zbang.Zbox.ViewModel.Queries.Dashboard
         }
         public long UniversityId { get; }
 
-        public string CacheKey
-        {
-            get { return UniversityId.ToString(CultureInfo.InvariantCulture); }
-        }
+        public string CacheKey => UniversityId.ToString();
 
-        public string CacheRegion
-        {
-            get { return "GetDashboardQuery"; }
-        }
+        public string CacheRegion => CacheRegions.UniversityRegion;
 
-        public System.TimeSpan Expiration
-        {
-            get { return System.TimeSpan.FromHours(2); }
-        }
+        public System.TimeSpan Expiration => System.TimeSpan.FromHours(2);
     }
 }

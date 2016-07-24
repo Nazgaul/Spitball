@@ -22,8 +22,7 @@
                                  md-search-text="lc.universityName"
                                  md-items="item in lc.searchAutoComplete(lc.universityName,createUniversity)"
                                  md-item-text="item.name"
-                                 md-floating-label="@UniversityResources.SchoolName"
-                                 md-theme="aaaa">
+                                 md-floating-label="@UniversityResources.SchoolName">
                     <md-item-template>
                         <span md-highlight-text="lc.universityName">{{item.name}}</span>
                     </md-item-template>

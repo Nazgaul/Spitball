@@ -134,7 +134,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<UniversityDashboardInfoDto>(Sql.Sql.DashboardInfo,
+                var retVal = await conn.QueryAsync<UniversityDashboardInfoDto>(Sql.Sql.UniversityInfo,
                     new { query.UniversityId });
                 return retVal.First();
             }

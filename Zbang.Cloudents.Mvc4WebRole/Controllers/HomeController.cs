@@ -9,7 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Xml.Linq;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -68,20 +67,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
                 }
             }
-            //var prefix = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
-            //var boxIdsStr = ConfigFetcher.Fetch("HomePageBoxIds" + prefix);
-            //if (string.IsNullOrEmpty(boxIdsStr))
-            //{
-            //    boxIdsStr = ConfigFetcher.Fetch("HomePageBoxIds");
-
-            //}
-            //var arr = boxIdsStr.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            //var boxIds = Array.ConvertAll(arr, s =>
-            //{
-            //    long l;
-            //    long.TryParse(s, out l);
-            //    return l;
-            //});
             var query = new GetHomePageQuery(universityId);
             var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
 
@@ -113,7 +98,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 await ZboxReadService.GetUniversityBoxesAsync(new GetHomeBoxesUniversityQuery(universityId, country));
             //result = result.Select(s => s.Url = Url.RouteUrlCache("CourseBox", new RouteValueDictionary
             //{
-            //    ["universityName"] = "todo",
+            //    ["universityName"] = "xxxx",
             //    ["boxId"] = GuidEncoder.Encode(s.Id),
             //    ["boxName"] = UrlConst.NameToQueryString(s.Name)
             //}));

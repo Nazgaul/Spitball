@@ -5,15 +5,15 @@
     Layout = null;
     const string socialIconsSvg = "~/images/site/social-icons.svg";
 
-    Model.HomePageUniversityData = Model.HomePageUniversityData ?? new Zbang.Zbox.ViewModel.Dto.HomePageUniversityData
-    {
-        H1Text = "#f5f5f5",
-        SignupColor = "#EC610D",
-        BackgroundImage = "../../Images/HomePage2/HP_image.jpg",
-        HeaderBackgroundColor = "#181c1d",
-        VideoBackgroundColor = "#FFF",
-        VideoFontColor = "#181c1d"
-    };
+    //Model.HomePageUniversityData = Model.HomePageUniversityData ?? new Zbang.Zbox.ViewModel.Dto.HomePageUniversityData
+    //{
+    //    H1Text = "#f5f5f5",
+    //    SignupColor = "#EC610D",
+    //    BackgroundImage = "../../Images/HomePage2/HP_image.jpg",
+    //    HeaderBackgroundColor = "#181c1d",
+    //    VideoBackgroundColor = "#FFF",
+    //    VideoFontColor = "#181c1d"
+    //};
     ViewBag.headerbackground = Model.HomePageUniversityData.HeaderBackgroundColor;
     ViewBag.signupColor = Model.HomePageUniversityData.SignupColor;
 }
@@ -24,7 +24,28 @@
     @{Html.RenderPartial("_Head");}
 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-    <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
+    <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com"/>
+    <style>
+       .home-page-body{
+            background-image: url("@Model.HomePageUniversityData.BackgroundImage") !important;
+        }
+
+        /*.welcome-text h1{
+            color: @Model.HomePageUniversityData.H1Text !important;
+        }*/
+
+        .intro{
+            background: @Model.HomePageUniversityData.VideoBackgroundColor !important;
+        }
+
+        .login-option.signup{
+            background-color: @ViewBag.signupColor !important;
+        }
+
+        .intro .text{
+            color:@Model.HomePageUniversityData.VideoFontColor !important;
+        }
+    </style>
 </head>
 <body class="homePage">
     <div class="page-content">
@@ -378,7 +399,7 @@
                 </div>
                 <div id="main-wrapper">
                     <div class="welcome-text">
-                        <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.A4</h1>
+                        <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@Model.HomePageUniversityData.H1Text</h1>
                         <div class="sb-logo"></div>
                     </div>
                     <div class="loader">
@@ -573,26 +594,6 @@
             'alwaysSendReferrer': true
         });
     </script>
-    <style>
-       .home-page-body{
-            background-image: url("@Model.HomePageUniversityData.BackgroundImage") !important;
-        }
-
-        .welcome-text h1{
-            color: @Model.HomePageUniversityData.H1Text !important;
-        }
-
-        .intro{
-            background: @Model.HomePageUniversityData.VideoBackgroundColor !important;
-        }
-
-        .login-option.signup{
-            background-color: @ViewBag.signupColor !important;
-        }
-
-        .intro .text{
-            color:@Model.HomePageUniversityData.VideoFontColor !important;
-        }
-    </style>
+   
 </body>
 </html>

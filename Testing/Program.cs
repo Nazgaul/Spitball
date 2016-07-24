@@ -16,15 +16,21 @@ using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Infrastructure.Storage;
 using System.Web.Security;
 using System.Globalization;
+using System.Net;
 using System.Net.Http;
 using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Dapper;
 using Microsoft.AspNet.SignalR.Client;
+using Microsoft.WindowsAzure.Storage.Blob;
 using Zbang.Zbox.Domain;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Cache;
+using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Repositories;
 using File = System.IO.File;
 
@@ -99,13 +105,18 @@ namespace Testing
             }
         }
 
+        public async Task CheckUrl()
+        {
+
+        }
+
 
 
         static void Main(string[] args)
         {
 
 
-           
+
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
@@ -152,91 +163,72 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
 
-            var iocFactory = IocFactory.IocWrapper;
+            GetValue().Wait();
+            //var writeService = iocFactory.Resolve<IZboxWriteService>();
 
-            var writeService = iocFactory.Resolve<IZboxWriteService>();
-            
-            writeService.DeleteNodeLibrary(new DeleteNodeFromLibraryCommand(Guid.Parse("6FB8A861-F1FC-4D14-B838-A56D011BFCAA"), 166100));
-            //while (writeService.Dbi(0))
-            //{
+            //writeService.DeleteNodeLibrary(new DeleteNodeFromLibraryCommand(Guid.Parse("6FB8A861-F1FC-4D14-B838-A56D011BFCAA"), 166100));
 
-            //}
-
-
-
-            //            var suggestedUniversity = tsuggestedUniversity.Result;
-            // readService.GetUserDetailsByMembershipId(new GetUserByMembershipQuery(Guid.Parse("29D55B10-7840-48F6-945E-A57080D03229")));
-            //var result = readService.GetUserDetailsByMembershipId(new GetUserByMembershipQuery(Guid.Parse("29D55B10-7840-48F6-945E-A57080D03229")));
-
-            //var result = readService.GetLibraryNode(new Zbang.Zbox.ViewModel.Queries.Library.GetLibraryNodeQuery(322, Guid.Parse("d96e364f-0c0e-45a6-8dc9-8dc784beab95"), 1, 0, OrderBy.LastModified));
-            //var result = readService.GetBox2(new GetBoxQuery(39, 1));
-
-            // writeService.UpdateUserUniversity(new UpdateUserUniversityCommand("עזריאלי - מכללה אקדמית להנדסה", 1));
-
-            //var command = new DeleteNodeFromLibraryCommand(Guid.Parse("40f213a7-4fc7-45af-a461-10389ca19596"), 14);
-
-            //writeService.DeleteNodeLibrary(command);
-
-            //Guid id = Guid.NewGuid();
-            //var command = new AddNodeToLibraryCommand("t222", id, userId, Guid.Parse("48bb9ce3-7b31-47b8-aa19-0c56f552529a"));
-            //writeService.AddNodeToLibrary(command);
-
-            //var command = new UpdateUserProfileCommand(1, "ramvv", null, null, "מכללת רם");
-            //writeService.UpdateUserProfile(command);
-            //var x = readService.GetLibraryChildren(new Zbang.Zbox.ViewModel.Queries.Library.GetLibraryNodeQuery(1, null));
-
-            //var x = readService.GetLibraryChildren(new Zbang.Zbox.ViewModel.Queries.Library.GetLibraryNodeQuery(1, null));
-
-            // var x = readService.GetAcademicBoxNameByPrefix(new GetBoxByNameQuery("b",1));
-
-
-            //var query = new GetBoxQuery(24,3);
-            //var result = readService.GetBox(query);
-            //readService.GetDashBoard(new GetDashBoardQuery(3));
-
-            //var x = APIreadService.GetBoxItems(new GetBoxItemsPagedQuery(boxid, 6));
-            //writeService.AddBoxComment(new Zbang.Zbox.Domain.Commands.AddBoxCommentCommand(3, 10, "this is a nice test"));
-            //var x = writeService.AddFileToBox(new Zbang.Zbox.Domain.Commands.AddFileToBoxCommand(1, 781, "xxx4", "xxx4", 0, "test"));
-            //writeService.AddTagToBox(new Zbang.Zbox.Domain.Commands.AddTagToBoxCommand(Guid.NewGuid(), 12, "test2", 3));
-            //writeService.DeleteTagFromBox(new Zbang.Zbox.Domain.Commands.DeleteTagFromBoxCommand("test2", 185, 3));
-            // var v = readService.GetBoxItem(new GetItemQuery(3, 1879, 12));
-            //var v = readService.GetTags(new GetTagsQuery(3, ""));
-
-            //var x = readService.GetBoxDateForInvite(new GetBoxInviteDataQuery(10));
-            //var x = readService.GetUserDetailsByMembershipId(new GetUserByMembershipQuery(Guid.NewGuid()));
-            //writeService.CreateUser(new Zbang.Zbox.Domain.Commands.CreateMembershipUserCommand(Guid.NewGuid(),"ram.y@outlook.com","ramyoutlook"));
-            //IZboxService zboxService = unityFactory.Resolve<IZboxService>();
-            //var x = zboxService.ChangeBoxFavorite(new Zbang.Zbox.Domain.Commands.ChangeBoxFavoriteCommand(false, 116, 3));
-            //zboxService.AddBoxComment(new Zbang.Zbox.Domain.Commands.AddBoxCommentCommand(3, 116, "this is a test"));
-            //Emails();
-            //IThumbnailProvider provider = unityFactory.Resolve<IThumbnailProvider>();
-            //var bytes = File.ReadAllBytes(@"C:\Users\ram.ZBANG-LOCAL\Desktop\nopreview_image.jpg");
-
-            //var ImageResizer = new ImageResizer();
-            //var ms = ImageResizer.ResizeImage(new MemoryStream(bytes), 1331, 1331);
-            //File.WriteAllBytes(@"C:\Users\ram.ZBANG-LOCAL\Desktop\nopreview_image2.jpg", ms.ToArray());
-
-            //zboxService.GetBoxUpdate(new GetBoxUpdatesQuery(156, 3, DateTime.Now.AddDays(-1)));
-            //var result = zboxService.GetBox(new GetBoxQuery(156,3));
-            //var x = zboxService.GetBoxComments(new GetBoxCommentsQuery(156,3));
         }
 
-        private static async Task IndexItemSearch(Zbang.Zbox.Infrastructure.Ioc.IocFactory iocFactory)
+        private static async Task GetValue()
         {
-            IZboxReadServiceWorkerRole m_ZboxReadService = iocFactory.Resolve<IZboxReadServiceWorkerRole>();
-            IItemWriteSearchProvider m_ItemSearchProvider = iocFactory.Resolve<IItemWriteSearchProvider>();
-            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(1, 1, 1);
-            if (updates.ItemsToUpdate.Any() || updates.ItemsToDelete.Any())
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            var httpClient = new HttpClient();
+            var iocFactory = IocFactory.IocWrapper;
+            var blobProvider = iocFactory.Resolve<ICloudBlockProvider>();
+            using (var conn = DapperConnection.OpenConnection())
             {
-                await m_ItemSearchProvider.UpdateDataAsync(updates.ItemsToUpdate, updates.ItemsToDelete);
+                var data = conn.Query("select Id, LargeImage from zbox.University where LargeImage not like 'https://az%' ");
+                foreach (var singleRow in data)
+                {
+                    string extension = Path.GetExtension(singleRow.LargeImage);
+                    try
+                    {
+                        using (var sr = await httpClient.GetAsync(singleRow.LargeImage))
+                        {
+
+                            if (!sr.IsSuccessStatusCode)
+                            {
+                                conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
+                                {
+                                    //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+                                    id = singleRow.Id
+                                });
+                                continue;
+                                //throw new UnauthorizedAccessException("Cannot access dropbox");
+                            }
+                            ////sr.Content.Headers.ContentType.
+                            CloudBlockBlob blob = blobProvider.GetFile(singleRow.Id.ToString() + extension,
+                                "universities");
+                            using (var stream = await blob.OpenWriteAsync())
+                            {
+                                await sr.Content.CopyToAsync(stream);
+
+                            }
+                            blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
+                            blob.Properties.CacheControl = "public  max-age=" + TimeConst.Week;
+                            await blob.SetPropertiesAsync();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
+                        {
+                            //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+                            id = singleRow.Id
+                        });
+                        continue;
+                    }
+                    conn.Execute("update zbox.university set isdirty = 1, largeImage=@image where id=@id", new
+                    {
+                        image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+                        id = singleRow.Id
+                    });
+                }
             }
         }
 
 
-        
-
-       
-        
         public static void ShowChars(char[] charArray)
         {
             Console.WriteLine("Char\tHex Value");
@@ -305,116 +297,7 @@ namespace Testing
                 "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg",
                 new CultureInfo("en-Us"), "yaari.ram@gmail.com"
                 , "https://develop.cloudents.com/account/")).Wait();
-            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InvitationToCloudentsMailParams("Eidan", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/401fe59e-1005-42a9-a97b-dc72f20abed4.jpg", new CultureInfo("he-IL"), "yaari.ram@gmail.com", null));
 
-            //mail.GenerateAndSendEmail("noatseitlin@facebook.com", new WelcomeMailParams("ram", new CultureInfo("ru-RU")));
-            // mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new WelcomeMailParams("ram2", new CultureInfo("en-Us"))).Wait();
-            //
-            // mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new ForgotPasswordMailParams2("hfgkjsdhf##askjd", "https://www.spitball.co", "ram", new CultureInfo("en-Us"))).Wait();
-            // ////mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ForgotPasswordMailParams2("h$$$sdhf##askjd", new CultureInfo("en-Us")));
-            //
-            // mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("he-IL"))).Wait();
-            // //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new InviteMailParams("some user name", "some box name", "some box url", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", new CultureInfo("en-Us")));
-            //
-            // mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new MessageMailParams("some message", "some user name", new CultureInfo("he-IL"), "ram.y@outlook.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg")).Wait();
-            ////mail.GenerateAndSendEmail("itsik.bitran@facebook.com", new MessageMailParams("some message", "some user name", new CultureInfo("en-Us"), "ram.y@outlook.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"));
-
-
-            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new MessageMailParams("some message", "some user name", new CultureInfo("he-IL"), "yaari_r@yahoo.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"));
-            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new MessageMailParams("some message", "some user name", new CultureInfo("en-Us"), "yaari_r@yahoo.com", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S50X50/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg"));
-
-            //var updates = new List<Zbang.Zbox.Infrastructure.Mail.UpdateMailParams.BoxUpdate> 
-            //{
-            //    new UpdateMailParams.BoxUpdate("some box",
-            //        new List<UpdateMailParams.BoxUpdateDetails> {
-
-            //            new UpdateMailParams.BoxUpdateDetails(20,"some user", "some nice item name",EmailAction.AddedItem,"fakeUrl"),
-            //            new UpdateMailParams.BoxUpdateDetails(21,"some user", string.Empty,EmailAction.AskedQuestion,"fakeUrl"),
-            //            new UpdateMailParams.BoxUpdateDetails(22,"some user", "some nice item name",EmailAction.AskedQuestion,"fakeUrl"),
-            //            new UpdateMailParams.BoxUpdateDetails(23,"some user", "some box name",EmailAction.Join,"fakeUrl")
-            //        }),
-
-            //    new UpdateMailParams.BoxUpdate("some box2",
-            //        new List<UpdateMailParams.BoxUpdateDetails> {
-            //            new UpdateMailParams.BoxUpdateDetails(24,"some user", "some nice item name",EmailAction.AddedItem,"fakeUrl"),
-            //            new UpdateMailParams.BoxUpdateDetails(25,"some user", string.Empty,EmailAction.AskedQuestion,"fakeUrl"),
-            //            new UpdateMailParams.BoxUpdateDetails(26,"some user", "some nice item name",EmailAction.AskedQuestion,"fakeUrl"),
-            //            new UpdateMailParams.BoxUpdateDetails(27,"some user", "some box name",EmailAction.Join,"fakeUrl")
-            //        })
-
-            //};
-            //var t = mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com", new UpdateMailParams(updates, new CultureInfo("ru-RU")));
-            //t.Wait();
-            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ChangeEmailMailParams("7656", new CultureInfo("ru-RU")));
-            //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new ChangeEmailMailParams("7656", new CultureInfo("en-Us")));
-
-            //left new msg, update
-
-            //var iocFactory = Zbang.Zbox.Infrastructure.Ioc.IocFactory.Unity;
-
-            //IQueueProvider m_QueueProvider = iocFactory.Resolve<IQueueProvider>();
-            //m_QueueProvider.InsertMessageToMailNew(new Zbang.Zbox.Infrastructure.Transport.WelcomeMailData("yaari.ram@gmail.com", "Ram Yaari", "en-Us"));
-
-            //IMailManager mail = iocFactory.Resolve<IMailManager>();
-            //IZboxReadService zboxService = iocFactory.Resolve<IZboxReadService>();
-            //const string recipient = "yaari.ram@gmail.com";
-
-            //var query1 = new GetBoxInviteDataQuery(11);
-            //var boxData = zboxService.GetBoxDateForInvite(query1);
-
-            //var parameters = new ForgotPassword("123qwe");
-            //mail.SendEmail(parameters, recipient);
-            //var parameters2 = new EmailVerification("VERY LONG HASSSSSSSSH", "Ram Yaaer");
-            //mail.SendEmail(parameters2, recipient);
-            //var parameters3 = new ChangeEmail(5000);
-            //mail.SendEmail(parameters3, recipient);
-            //var parameters4 = new ItemDeleted("This is the box", "This is an item name", "this is the user");
-            //mail.SendEmail(parameters4, recipient);
-            //var parameters5 = new Subscription("this is box", "lovely user");
-            //mail.SendEmail(parameters5, recipient);
-            //var parameters6 = new InviteToBox("Ram", "JOIN NOW!!!", boxData.Name,
-            //                                 new Uri("https://ram.multimicloud.com/Box?BoxUid=lzodJqaBLkm"),
-            //                                 boxData.UpdateTime, boxData.NumOfItems,
-            //                                 boxData.Image);
-            //mail.SendEmail(parameters6, recipient);
-
-            //var parameters10 = new Updates("Ken", "ram", new Uri("https://ram.multimicloud.com/Box?BoxUid=lzodJqaBLkm"),
-            //    new List<CommentDetails> { new CommentDetails("ram", TimeSpan.FromHours(5), "This is a cool image",
-            //        "https://zboxstorage.blob.core.windows.net/zboxprofilepic/fd1de52d-859d-4815-a063-211fba152998")},
-            //        new List<FileDetails> { new FileDetails("ram",TimeSpan.FromHours(5),
-            //            "https://zboxstorage.blob.core.windows.net/zboxprofilepic/fd1de52d-859d-4815-a063-211fba152998",
-            //            "test.png",
-            //            "https://zboxstorage.blob.core.windows.net/zboxthumbnail/863fa055-1e48-4c0d-b99d-9879b8d61e7d.thumbnail.jpg")});
-            //mail.SendEmail(parameters10, recipient);
-            ////var d = zboxService.GetBoxDataForItemAdd(new GetBoxDataForImmediateEmailQuery(12, 1808));
-
-            //var userid = 3;
-            //var query = new GetBoxesDigestQuery(NotificationSettings.OnceAWeek, userid);
-            //var result = zboxService.GetBoxIdList(query);
-            //List<Updates> boxesUpdates = new List<Updates>();
-            //foreach (var boxid in result)
-            //{
-
-            //    var boxQuery = new GetBoxDataForDigestEmailQuery(NotificationSettings.OnceAWeek, boxid.Id);
-            //    var boxdata = zboxService.GetBoxDataForDigestEmail(boxQuery);
-            //    var update = new Updates(boxdata.Name, boxdata.Owner,
-            //                             new Uri("https://ram.multimicloud.com/Box?BoxUid=lzodJqaBLkm"),
-            //                             boxdata.Comments.Select(s => new CommentDetails(s.AuthorName, DateTime.UtcNow - s.UpdateTime,
-            //                                 s.CommentText, s.UserImage)).ToList(),
-            //                             boxdata.Files.Select(
-            //                                 s => new FileDetails(s.UploaderName, DateTime.UtcNow - s.CreationTime,
-            //                                                      s.UploaderImage, s.Name, s.ThumbnailBlobUrl)).ToList());
-            //    boxesUpdates.Add(update);
-
-            //    //List<FileDetails> FileDataForEmail = boxdata.Files.Select(c => new FileDetails(c.Uid, c.Name, c.ThumbnailBlobUrl, c.BoxUid)).ToList();
-            //    //List<CommentDetails> CommentDataForEmail = boxdata.Comments.Select(s => new CommentDetails { Comment = s.CommentText, Time = (DateTime.UtcNow - s.CreationTime), UserName = s.AuthorName }).ToList();
-
-
-            //    //boxesUpdates.Add(new Updates(m_ShortToLongCode.LongToShortCode(boxdata.Id), boxdata.Name, FileDataForEmail, CommentDataForEmail, boxdata.Owner));
-
-            //}
-            //var parameters7 = new Digest(boxesUpdates);
-            //mail.SendEmail(parameters7, recipient);
         }
 
         private static void CastingPerformance()
