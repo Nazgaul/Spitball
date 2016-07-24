@@ -226,17 +226,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        //private long? ExtractUniversityId()
-        //{
-        //    var values = ExtractQueryStringFromUrlReferrer();
-        //    long temp;
-        //    long? universityId = null;
-        //    if (long.TryParse(values["universityid"], out temp))
-        //    {
-        //        universityId = temp;
-        //    }
-        //    return universityId;
-        //}
+       
 
         [HttpPost]
         [ActionName("FacebookLogin")]
