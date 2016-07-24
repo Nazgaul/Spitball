@@ -29,10 +29,10 @@ namespace Management_Application
     {
         DataTable m_GlobalUserTable;
         DataTable m_GlobalTable;
-        String m_Id;
-        String m_NoOfStudents;
-        readonly String m_ConnectionString;
-        String m_UserId;
+        string m_Id;
+        string m_NoOfStudents;
+        readonly string m_ConnectionString;
+        string m_UserId;
         UserrequestEntity m_GlobalFlaggedItem;
         UserrequestEntity m_GlobalFlaggedPost;
 
