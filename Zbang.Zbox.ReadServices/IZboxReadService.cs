@@ -22,10 +22,13 @@ namespace Zbang.Zbox.ReadServices
     {
         // home page
         Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query);
+        Task<IEnumerable<RecommendBoxDto>> GetUniversityBoxesAsync(GetHomeBoxesUniversityQuery query);
+
+
+
         Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync();
         Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query);
 
-        //Task<DashboardDto> GetDashboardSideBarAsync(GetDashboardQuery query);
         Task<IEnumerable<LeaderBoardDto>> GetDashboardLeaderBoardAsync(LeaderBoardQuery query);
 
         Task<UniversityDashboardInfoDto> GetUniversityInfoAsync(UniversityQuery query);

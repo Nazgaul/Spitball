@@ -34,16 +34,6 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                //        const string boxesSql = @"select 
-                //                        b.BoxName as Name,
-                //                        b.quizcount + b.itemcount as ItemCount,
-                //                        b.MembersCount as MembersCount,
-                //                        b.CourseCode as CourseCode,
-                //                        b.ProfessorName,
-                //b.Url as Url
-                //                        from Zbox.box b 
-                //                        where b.BoxId in @BoxIds;";
-
                 var sql = Sql.HomePage.Stats;
                 if (query.UniversityId.HasValue)
                 {
@@ -61,7 +51,17 @@ namespace Zbang.Zbox.ReadServices
                     return retVal;
 
                 }
+            }
+        }
 
+        public async Task<IEnumerable<Box.RecommendBoxDto>> GetUniversityBoxesAsync(GetHomeBoxesUniversityQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return
+                    await
+                        conn.QueryAsync<Box.RecommendBoxDto>(Sql.HomePage.UniversityBoxes,
+                            new {query.UniversityId, query.Country});
             }
         }
 

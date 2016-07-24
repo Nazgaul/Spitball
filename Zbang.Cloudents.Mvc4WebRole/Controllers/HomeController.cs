@@ -8,8 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Xml.Linq;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -33,9 +33,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IBlobProvider> m_BlobProvider;
         private readonly ICookieHelper m_CookieHelper;
 
-        public HomeController(
-            Lazy<IBlobProvider> blobProvider,
-            ICookieHelper cookieHelper)
+        public HomeController(Lazy<IBlobProvider> blobProvider, ICookieHelper cookieHelper)
         {
             m_BlobProvider = blobProvider;
             m_CookieHelper = cookieHelper;
@@ -44,7 +42,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "HomePage")]
         public async Task<ActionResult> Index(string invId, long? universityId, string step)
         {
-           
+
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
@@ -61,7 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ViewBag.title = SeoResources.SignUpTitle;
                 ViewBag.metaDescription = SeoResources.SignUpMeta;
             }
-           
+
             if (!string.IsNullOrEmpty(invId))
             {
                 var guid = GuidEncoder.TryParseNullableGuid(invId);
@@ -90,6 +88,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Index", homeStats);
         }
 
+        public async Task<JsonResult> Boxes()
+        {
+
+            long? universityId = null;
+            if (HttpContext.Request.UrlReferrer != null)
+            {
+                var route = BuildRouteDataFromUrl(HttpContext.Request.UrlReferrer.AbsoluteUri);
+                var universityIdObj = route?.Values["universityId"];
+                long uniId;
+
+                if (long.TryParse(universityIdObj?.ToString(), out uniId))
+                {
+                    universityId = uniId;
+                }
+            }
+            var country = "US";
+            var prefix = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
+            if (prefix.ToLower() == "he")
+            {
+                country = "IL";
+            }
+            var result =
+                await ZboxReadService.GetUniversityBoxesAsync(new GetHomeBoxesUniversityQuery(universityId, country));
+            //result = result.Select(s => s.Url = Url.RouteUrlCache("CourseBox", new RouteValueDictionary
+            //{
+            //    ["universityName"] = "todo",
+            //    ["boxId"] = GuidEncoder.Encode(s.Id),
+            //    ["boxName"] = UrlConst.NameToQueryString(s.Name)
+            //}));
+            return JsonOk(result);
+
+        }
+
+
         [Route("account/signin", Name = "signin")]
         public ActionResult SignIn(string lang, string invId)
         {
@@ -101,7 +133,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return RedirectToRoutePermanent("homePage", new { step = "signup", lang, invId });
         }
 
-      
+
 
 
         //don't put in here route attribute
@@ -283,14 +315,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             ViewBag.title = SeoResources.AdvertiseWithUsTitle;
             ViewBag.metaDescription = SeoResources.AdvertiseWithUsMeta;
-            //var stream = await m_BlobProvider.Value.DownloadFileAsync("SB.pdf", "zboxhelp");
             return View();
-            //return View( new FileStreamResult(stream, "application/pdf");
-            //using (var source = CreateCancellationToken(cancellationToken))
-            //{
-            //    var str = await m_PdfProcessor.Value.ConvertToHtmlAsync("SB.pdf", "zboxhelp", source.Token);
-            //    return View("AdvertiseWithUs",str);
-            //}
 
         }
 
@@ -337,15 +362,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             ViewBag.title = SeoResources.CoursesTitle;
             ViewBag.metaDescription = SeoResources.CoursesMeta;
-
-            //var language = "en";
-
-            //if (!string.IsNullOrEmpty(lang) && lang.ToLower() == "he-IL" ||
-            //    Thread.CurrentThread.CurrentUICulture.Name.ToLower() == "he-il")
-            //{
-            //    language = "he";
-
-            //}
             var courses = await ZboxReadService.GetCoursesPageDataAsync();
             return View("Courses", courses);
         }

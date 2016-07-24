@@ -396,6 +396,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetHomePageDataAsync(query);
         }
 
+        public Task<IEnumerable<RecommendBoxDto>> GetUniversityBoxesAsync(GetHomeBoxesUniversityQuery query)
+        {
+            return m_ReadService.GetUniversityBoxesAsync(query);
+        }
+
         public Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync()
         {
             return m_ReadService.GetCoursesPageDataAsync();

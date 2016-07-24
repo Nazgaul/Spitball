@@ -68,7 +68,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             });
             var scoringFunction = new TagScoringFunction(UniversityidField, 2, ScoringProfileName);
-               //UniversityidField, 2);
+            //UniversityidField, 2);
             var scoringProfile = new ScoringProfile("universityTag")
             {
                 FunctionAggregation = ScoringFunctionAggregation.Sum,
@@ -104,7 +104,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             if (quizToUpload != null)
             {
 
-               var uploadBatch =  quizToUpload.Select(s => new QuizSearch
+                var uploadBatch = quizToUpload.Select(s => new QuizSearch
                 {
                     Answers = s.Answers.ToArray(),
                     BoxId = s.BoxId,
@@ -128,15 +128,15 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 var deleteBatch = quizToDelete.Select(s =>
                      new QuizSearch
-                    {
-                        Id = s.ToString(CultureInfo.InvariantCulture)
-                    });
+                     {
+                         Id = s.ToString(CultureInfo.InvariantCulture)
+                     });
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
                     await m_IndexClient.Documents.IndexAsync(batch);
             }
             return true;
-            
+
         }
 
         public async Task<IEnumerable<SearchQuizzes>> SearchQuizAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
@@ -152,7 +152,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
                 ScoringProfile = "universityTag",
-                ScoringParameters = new[] { new ScoringParameter( "university" , query.UniversityId.ToString() )},
+                ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
                 HighlightFields = new[] { QuestionsField, AnswersField, NameField },
                 Select = new[] { NameField, IdField, BoxNameField, UniversityNameField, UrlField, ContentField }
             }, cancellationToken: cancelToken);
@@ -187,7 +187,7 @@ namespace Zbang.Zbox.Infrastructure.Search
     }
 
 
-    public interface IQuizWriteSearchProvider2 
+    public interface IQuizWriteSearchProvider2
     {
         Task<bool> UpdateDataAsync(IEnumerable<QuizSearchDto> quizToUpload, IEnumerable<long> itemToDelete);
     }
