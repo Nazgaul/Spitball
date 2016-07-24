@@ -2,10 +2,10 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Culture
 @{
-    ViewBag.headerbackground = ViewBag.headerbackground ?? "#222222";
+    ViewBag.headerbackground = ViewBag.headerbackground ?? "#181c1d";
     ViewBag.signupColor = ViewBag.signupColor ?? "#DDDDDD";
 }
-<header class="static-page-header">
+<header class="static-page-header" style="background: @ViewBag.headerbackground;">
     <nav>
         <div class="nav-content">
             <input type="checkbox" id="menu-toggle" />
