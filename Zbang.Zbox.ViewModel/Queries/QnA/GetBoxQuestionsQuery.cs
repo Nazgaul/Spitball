@@ -19,7 +19,7 @@ namespace Zbang.Zbox.ViewModel.Queries.QnA
             return new GetBoxQuestionsQuery(boxId, rowsPerPage, pageNumber * rowsPerPage);
         }
 
-        public long BoxId { get; private set; }
+        public long BoxId { get; }
 
 
         public int Top { get; }

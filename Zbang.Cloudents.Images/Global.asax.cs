@@ -17,7 +17,11 @@ namespace Zbang.Cloudents.Images
 
                 delegate(IHttpModule m, HttpContext c, ImageResizer.Configuration.IUrlEventArgs args)
                 {
-
+                    if (args.VirtualPath.ToLower().StartsWith("/universities"))
+                    {
+                        args.QueryString["404"] = "~/images/ZanzibarRedColobus_ROW11951407987_1920x1080.jpg";
+                        return;
+                    }
                     //var splitUrl = args.VirtualPath.Split(new[] {"/"}, StringSplitOptions.RemoveEmptyEntries);
                     var blobName = args.VirtualPath.Replace("/preview/", string.Empty);
                     
