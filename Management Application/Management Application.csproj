@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <HockeyAppResourceId>3f219c16cf144a59b426540a637a8100</HockeyAppResourceId>
     <PublishUrl>C:\Users\Ram\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
