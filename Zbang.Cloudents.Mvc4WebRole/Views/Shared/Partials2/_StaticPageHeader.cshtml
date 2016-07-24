@@ -3,9 +3,9 @@
 @using Zbang.Zbox.Infrastructure.Culture
 @{
     ViewBag.headerbackground = ViewBag.headerbackground ?? "#181c1d";
-    ViewBag.signupColor = ViewBag.signupColor ?? "#DDDDDD";
+    ViewBag.signupColor = ViewBag.signupColor ?? "#EC610D";
 }
-<header class="static-page-header" style="background: @ViewBag.headerbackground;">
+<header class="static-page-header">
     <nav>
         <div class="nav-content">
             <input type="checkbox" id="menu-toggle" />
@@ -43,13 +43,13 @@
                 <li class="language">
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <input type="checkbox" id="language-menu" />
-                        <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
-                        <label class="language-close" for="language-menu"></label>
-                        <ul class="dropdown-menu dropdown-menu-left ">
-                            <li class="menu-item"> <button data-cookie="en-US">@Languages.EnglishUsName</button> </li>
-                            <li class="menu-item"> <button data-cookie="he-il">@Languages.HebrewName</button> </li>
-                        </ul>
+                    <input type="checkbox" id="language-menu" />
+                    <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
+                    <label class="language-close" for="language-menu"></label>
+                    <ul class="dropdown-menu dropdown-menu-left ">
+                        <li class="menu-item"> <button data-cookie="en-US">@Languages.EnglishUsName</button> </li>
+                        <li class="menu-item"> <button data-cookie="he-il">@Languages.HebrewName</button> </li>
+                    </ul>
                     }
                 </li>
 
@@ -64,3 +64,11 @@
         }
     </nav>
 </header>
+<style>
+    .static-page-header{
+        background: @ViewBag.headerbackground !important;
+    }
+    .signup-btn{
+        background: @ViewBag.signupColor !important;
+    }
+</style>

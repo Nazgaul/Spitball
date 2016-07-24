@@ -5,7 +5,7 @@ var Login = function () {
         signupState = 2;
 
     var handleLogin = function () {
-        $('.login-form').validate({
+        $('.forms .login').validate({
             errorElement: 'span', //default input error message container
             errorClass: 'help-block', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
@@ -44,10 +44,10 @@ var Login = function () {
             }
         });
 
-        $('.login-form input').keypress(function (e) {
+        $('.forms .login input').keypress(function (e) {
             if (e.which === 13) {
-                if ($('.login-form').validate().form()) {
-                    $('.login-form').submit();
+                if ($('.forms .login').validate().form()) {
+                    $('.forms .login').submit();
                 }
                 return false;
             }
@@ -510,7 +510,7 @@ $('.login-option.signup').click(function (e) {
 });
 $('.signin-btn').click(function (e) {
     e.preventDefault();
-    handleLoginElements('login-form', false);
+    handleLoginElements('login', false);
 });
 
 $('.close-form').click(function () {
@@ -533,7 +533,7 @@ function handleLoginElements(formClass, fromUrl) {
             $(this).hide();
         });
         $('.toggle, #main-wrapper .welcome-text, .sb-logo, .login-wrapper .content > :not(.' + formClass + ')').toggleClass('hidden');
-        $('.login-wrapper, .login-wrapper .content > .' + formClass).fadeIn();
+        $('.forms .' + formClass).fadeIn();
     } else {
         document.body.scrollTop = document.documentElement.scrollTop = 0;
         $.each($mainSection, function () {

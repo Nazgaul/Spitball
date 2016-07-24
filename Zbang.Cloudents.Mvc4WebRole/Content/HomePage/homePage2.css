@@ -83,6 +83,29 @@
 }
 .homePage .home-page-body section {
   position: relative;
+  /*.login-option {
+                border: none;
+                padding: 8px;
+                border-radius: 16px;
+                width: 200px;
+                color: @textColorWhite;
+                text-decoration: none;
+                margin-bottom: 20px;
+                font-size: 18px;
+                line-height: 25px;
+                cursor: pointer;
+
+                &.signup {
+                    font-size: 30px;
+                    padding: 20px 50px;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    margin: 0 auto;
+                    display: block;
+                    background: orange;
+                    width: auto;
+                }
+            }*/
 }
 .homePage .home-page-body section .section-start {
   position: absolute;
@@ -93,28 +116,6 @@
   font-weight: bold;
   text-align: center;
   margin-top: 0;
-}
-.homePage .home-page-body section .login-option {
-  border: none;
-  padding: 8px;
-  border-radius: 16px;
-  width: 200px;
-  color: #f5f5f5;
-  text-decoration: none;
-  margin-bottom: 20px;
-  font-size: 18px;
-  line-height: 25px;
-  cursor: pointer;
-}
-.homePage .home-page-body section .login-option.signup {
-  font-size: 30px;
-  padding: 20px 50px;
-  text-transform: uppercase;
-  font-weight: bold;
-  margin: 0 auto;
-  display: block;
-  background: orange;
-  width: auto;
 }
 .homePage .home-page-body section.main {
   position: relative;
@@ -195,6 +196,53 @@
   font-weight: bold;
   font-size: 22px;
   text-transform: uppercase;
+}
+.homePage .home-page-body section.main .form-wrapper {
+  background: rgba(24, 26, 22, 0.93);
+  max-width: 400px;
+  margin: 0 auto;
+  position: relative;
+}
+.homePage .home-page-body section.main .form-wrapper .close-form {
+  padding: 0;
+  position: absolute;
+  right: 0;
+}
+.homePage .home-page-body section.main .form-wrapper .close-form svg {
+  width: 15px;
+  height: 15px;
+  fill: #888b8e;
+  padding: 10px;
+}
+.homePage .home-page-body section.main .form-wrapper .form-title {
+  color: #f5f5f5;
+  padding: 0 25px;
+  text-align: center;
+  font-weight: 300;
+  font-size: 23px;
+}
+.homePage .home-page-body section.main .form-wrapper .signin-options button {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: inline-flex;
+  -webkit-align-items: center;
+  align-items: center;
+  border-radius: 15px;
+  padding: 5px 10px;
+}
+.homePage .home-page-body section.main .form-wrapper .signin-options button .icon {
+  padding: 0 5px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.homePage .home-page-body section.main .form-wrapper .signin-options button .icon svg {
+  width: 25px;
+  height: 25px;
+  fill: #f5f5f5;
+}
+.homePage .home-page-body section.main .form-wrapper .signin-options button .text {
+  flex-grow: 1;
 }
 .homePage .home-page-body section.main .custom-checkbox {
   display: inline-block;
