@@ -65,7 +65,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             try
             {
-
                 var query = new GetFileSeoQuery(itemid);
                 var model = await ZboxReadService.GetItemSeoAsync(query);
                 if (model == null)
@@ -146,7 +145,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         }
                     }));
 
-                var tContent = Task.FromResult<string>(null);
+                var tContent = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTaskString;
                 if (firstTime.HasValue && firstTime.Value)
                 {
                     using (var token = CreateCancellationToken(cancellationToken))
@@ -231,15 +230,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var url = m_BlobProviderFiles.GenerateSharedAccressReadPermission(item.Source, 30,
                  ContentDispositionUtil.GetHeaderValue(item.Name));
             return Redirect(url);
-
-            //var blob = m_CloudBlobProvider.GetFile(item.Source);
-            //var contentType = defaultMimeType;
-            
-            //if (!string.IsNullOrWhiteSpace(blob.Properties.ContentType))
-            //{
-            //    contentType = blob.Properties.ContentType;
-            //}
-            //return new BlobFileStream(blob, contentType, item.Name, true);
         }
 
 
@@ -266,7 +256,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     name = result.Name,
                     url = result.Url
-                    //queryString = UrlBuilder.NameToQueryString(result.Name)
                 });
             }
 

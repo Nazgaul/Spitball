@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         private static string ExtractTitle(string html)
         {
-            string title = Regex.Match(html, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+            var title = Regex.Match(html, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
             return title;
         }
     }

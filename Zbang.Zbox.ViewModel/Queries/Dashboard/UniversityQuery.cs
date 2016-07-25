@@ -15,6 +15,6 @@ namespace Zbang.Zbox.ViewModel.Queries.Dashboard
 
         public string CacheRegion => CacheRegions.UniversityRegion;
 
-        public System.TimeSpan Expiration => System.TimeSpan.FromHours(2);
+        public System.TimeSpan Expiration => System.TimeSpan.FromHours(6);
     }
 }

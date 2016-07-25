@@ -13,5 +13,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public long BoxId { get; private set; }
 
+
     }
 }

@@ -3,7 +3,7 @@
     angular.module('app.upload').controller('Upload', upload);
     upload.$inject = ['$scope', 'itemService', '$timeout', '$stateParams', '$rootScope',
         'externalUploadProvider', '$anchorScroll',
-        'boxService', 'CacheFactory', 'resManager', 'ajaxService'];
+        'boxService', 'CacheFactory', 'resManager', 'ajaxService2'];
 
     function upload($scope, itemService, $timeout, $stateParams, $rootScope, externalUploadProvider,
         $anchorScroll, boxService, cacheFactory, resManager, ajaxService) {
