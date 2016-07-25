@@ -5,11 +5,34 @@
 
 
     function ajaxService($http, $q, analytics, cacheFactory, routerHelper) {
+
         var cancelObjs = {};
         var cacheCategories = {
-            'dashboard': { 'ttl': 1800000 },
-            'settings': { 'ttl': 1800000 }
+            university: {
+                maxAge: 20
+            }
         };
+
+        for (var cacheKey in cacheCategories) {
+            buildFactoryObject(cacheKey);
+        }
+
+        function buildFactoryObject(cacheKey) {
+            if (!cacheCategories[cacheKey]) {
+                return;
+            }
+            angular.extend(cacheCategories[cacheKey],
+            {
+                deleteOnExpire: 'aggressive',
+                maxAge: 60 * 60 * 1000,
+                recycleFreq: 15000, // 15 seconds
+                storageMode: 'localStorage',
+                storagePrefix: 'sb.c.'
+            });
+
+            return cacheFactory(cacheKey, cacheCategories[cacheKey]);
+        }
+
         function post(url, data, disableClearCache) {
             var dfd = $q.defer(),
                 startTime = new Date().getTime();
@@ -71,22 +94,18 @@
             });
             return dfd.promise;
         }
-        function get(url, data, category, disableCancel) {
+        function get(url, data, category) {
             var deferred = $q.defer();
             if (category) {
-                var categoryFactory = cacheFactory.get(category);
-
-                if (categoryFactory) {    // if there is factory fot the current cateegory - bring the cache
-                    deferred.resolve(categoryFactory);
+                var dataCache = cacheFactory.get(category);
+                if (dataCache && dataCache.get(url)) {    // if there is factory fot the current cateegory - bring the cache
+                    deferred.resolve(dataCache.get(url));
+                    return deferred.promise;
                 }
-                else {            // first time call with cacheInfo to be saved
-                    getFromServer(category);
-                }
-            }
-            else { // no need in cache
-                getFromServer();
-            }
+                //return deferred.promise;
 
+            }
+            getFromServer(category);
             return deferred.promise;
 
 
@@ -103,23 +122,18 @@
                     }
                     cancelObjs[url] = null;
                     if (retVal.success) {
-                        if (cacheCategory) {
-                            var categoryFactory = cacheFactory(cacheCategory, {
-                                deleteOnExpire: 'aggressive',
-                                maxAge: cacheCategories[cacheCategory].ttl,
-                                recycleFreq: 15000, // 15 seconds
-                                storageMode: 'localStorage',
-                                storagePrefix: 'sb.c.'
-                            });
 
-                            categoryFactory.put("payload", retVal.payload);
+                        if (cacheCategory) {
+                            var categoryFactory = cacheFactory.get(cacheCategory);
+                            //var categoryFactory =  buildFactoryObject(cacheCategory);
+                            categoryFactory.put(url, retVal.payload);
                         }
                         deferred.resolve(retVal.payload);
                         return;
                     }
                     deferred.reject(retVal.payload);
                 }, function (response) {
-                    dfd.reject(response);
+                    deferred.reject(response);
                     logError(url, data, response);
                 });
             }
@@ -161,7 +175,6 @@
 
             analytics.trackTimings(url.toLowerCase() !== '/item/preview/' ? 'ajax ' + type
                     : 'ajaxPreview', url, timeSpent, JSON.stringify(data));
-            //$analytics.timingTrack(properties);
         }
 
         return {

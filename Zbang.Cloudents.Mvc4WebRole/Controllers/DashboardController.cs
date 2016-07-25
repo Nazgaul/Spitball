@@ -61,10 +61,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet, ActionName("University")]
         //TODO: add output cache
-        public async Task<JsonResult> UniversityAsync()
+        public async Task<JsonResult> UniversityAsync(long? universityId)
         {
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
-            var universityWrapper = User.GetUniversityId().Value;
+            var universityWrapper = universityId ?? User.GetUniversityId().Value;
+            
 
             var query = new UniversityQuery(universityWrapper);
             var model = await ZboxReadService.GetUniversityInfoAsync(query);

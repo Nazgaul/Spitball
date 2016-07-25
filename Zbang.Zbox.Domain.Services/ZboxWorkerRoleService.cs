@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,8 +36,9 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-           // RemoveHtmlTags();
-            
+            UpdateNumberOfBoxesInDepartmentNode();
+            // RemoveHtmlTags();
+
         }
 
 
@@ -244,6 +246,51 @@ namespace Zbang.Zbox.Domain.Services
                 unitOfWork.TransactionalFlush();
             }
         }
+
+
+
+        private void UpdateNumberOfBoxesInDepartmentNode()
+        {
+            var i = 0;
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                while (true)
+                {
+                    var libs = UnitOfWork.CurrentSession.Connection.Query<Guid>(
+                        @"select LibraryId from zbox.Library l 
+where l.LibraryId not in ( select l.ParentId from zbox.Library)
+and id = 166100
+order by LibraryId
+offset @pageNumber*50 ROWS
+    FETCH NEXT 50 ROWS ONLY", new { pageNumber = i });
+                    var libraryIds = libs as IList<Guid> ?? libs.ToList();
+                    if (libraryIds.Count == 0)
+                    {
+                        break;
+                    }
+                    foreach (var libraryId in libraryIds)
+                    {
+                        var library = UnitOfWork.CurrentSession.Load<Library>(libraryId);
+                        var libBoxes = library.UpdateNumberOfBoxes();
+                        var libNodes = library.UpdateNumberOfNodes();
+                        UnitOfWork.CurrentSession.Save(library);
+                        foreach (var libBox in libBoxes)
+                        {
+                            UnitOfWork.CurrentSession.Save(libBox);
+                        }
+                        foreach (var libBox in libNodes)
+                        {
+                            UnitOfWork.CurrentSession.Save(libBox);
+                        }
+                    }
+                    unitOfWork.TransactionalFlush();
+                    i++;
+                }
+            }
+        }
+
+
+      
 
 
     }

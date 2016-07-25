@@ -32,27 +32,12 @@ namespace Zbang.Zbox.Domain
         public Library(Guid id, string name, University university, User user)
             : this(id, name, university, null, user)
         {
-            //var rootSiblings = university.Libraries.LastOrDefault(w => w.Parent == null);
-            //var rootSiblingsHierarchyId = SqlHierarchyId.Null;
-            //if (rootSiblings != null)
-            //{
-                //rootSiblingsHierarchyId = rootSiblings.HierarchyId;
-            //}
-            //HierarchyId = SqlHierarchyId.GetRoot().GetDescendant(rootSiblingsHierarchyId, SqlHierarchyId.Null);
         }
 
         public Library(Guid id, string name, Library parent, University university, User user)
             : this(id, name, university, parent, user)
         {
-            //var sibling = parent.Children.LastOrDefault();
-           // var siblingHierarchyId = SqlHierarchyId.Null;
-            //if (sibling != null)
-            //{
-                //siblingHierarchyId = sibling.HierarchyId;
-            //}
-            //HierarchyId = parent.HierarchyId.GetDescendant(siblingHierarchyId, SqlHierarchyId.Null);
             Settings = parent.Settings;
-
         }
 
 
@@ -179,42 +164,19 @@ namespace Zbang.Zbox.Domain
             }
             return listOfDepartments;
         }
-        //Temp dbi 
-        //public bool UpdateLevel()
-        //{
-        //    if (Parent == null)
-        //    {
-        //        if (!HierarchyId.IsNull)
-        //        {
-        //            return false;
-        //        }
-        //        //HierarchyId = ; // HierarchyId.GetRoot();    
-        //        var rootSiblings = University.Libraries.LastOrDefault(w => w.Parent == null && !w.HierarchyId.IsNull);
-        //        var rootSiblingsHierarchyId = SqlHierarchyId.Null;
-        //        if (rootSiblings != null)
-        //        {
-        //            rootSiblingsHierarchyId = rootSiblings.HierarchyId;
-        //        }
-        //        HierarchyId = SqlHierarchyId.GetRoot().GetDescendant(rootSiblingsHierarchyId, SqlHierarchyId.Null);
-        //    }
-        //    else
-        //    {
-        //        if (!HierarchyId.IsNull)
-        //        {
-        //            return false;
-        //        }
-        //        var sibling = Parent.Children.LastOrDefault(w => !w.HierarchyId.IsNull);
-        //        var siblingHierarchyId = SqlHierarchyId.Null;
-        //        if (sibling != null)
-        //        {
-        //            siblingHierarchyId = sibling.HierarchyId;
-        //        }
-        //        HierarchyId = Parent.HierarchyId.GetDescendant(siblingHierarchyId, SqlHierarchyId.Null);
-        //    }
-        //    return true;
-        //}
 
+        public IEnumerable<Library> UpdateNumberOfNodes()
+        {
+            var listOfDepartments = new List<Library>();
 
-
+            var currentNode = this;
+            while (currentNode != null)
+            {
+                currentNode.AmountOfNodes = currentNode.Children.Sum(s => s.AmountOfNodes);//  currentNode.Children.Sum(s => s.NoOfBoxes);
+                listOfDepartments.Add(currentNode);
+                currentNode = currentNode.Parent;
+            }
+            return listOfDepartments;
+        }
     }
 }

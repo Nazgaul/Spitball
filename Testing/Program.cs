@@ -162,10 +162,9 @@ namespace Testing
             //CastingPerformance();
             //log4net.Config.XmlConfigurator.Configure();
 
-
-            GetValue().Wait();
-            //var writeService = iocFactory.Resolve<IZboxWriteService>();
-
+            var iocFactory = IocFactory.IocWrapper;
+            var writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
+            writeService.OneTimeDbi();
             //writeService.DeleteNodeLibrary(new DeleteNodeFromLibraryCommand(Guid.Parse("6FB8A861-F1FC-4D14-B838-A56D011BFCAA"), 166100));
 
         }

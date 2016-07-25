@@ -10,7 +10,15 @@
 
         self.assignValue = assignValue;
         self.getChat = getChat;
+        self.getUniversityPic = getUniversityPic;
 
+
+        function getUniversityPic(name) {
+            if (!name) {
+                name = "defaultUniversity.png";
+            }
+            return 'https://az779114.vo.msecnd.net/universities/' + encodeURIComponent(name) + '?width=500&height=100';
+        }
         function getChat(name) {
             if (!name) {
                 return;

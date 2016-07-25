@@ -20,6 +20,11 @@
                            'libraryService','$stateParams', function (libraryService,$stateParams) {
                                return libraryService.getDepartments(null, $stateParams.universityId);
                            }
+                        ],
+                        universityData: [
+                            'dashboardService', '$stateParams', function(dashboardService, $stateParams) {
+                                return dashboardService.getUniversityMeta($stateParams.universityId);
+                            }
                         ]
                     },
                     data: { animateClass: 'library' }
@@ -36,6 +41,11 @@
                            'libraryService', '$stateParams', function (libraryService, $stateParams) {
                                return libraryService.getDepartments($stateParams.id, $stateParams.universityId);
                            }
+                        ],
+                        universityData: [
+                            'dashboardService', '$stateParams', function (dashboardService, $stateParams) {
+                                return dashboardService.getUniversityMeta($stateParams.universityId);
+                            }
                         ]
                     },
                     data: { animateClass: 'library' }
