@@ -3,7 +3,7 @@
     angular.module('app.box').controller('BoxController', box);
     box.$inject = ['boxService', 'boxData', '$stateParams', '$scope',
         '$state', 'user', '$rootScope', 'userDetailsFactory',
-        'ajaxService', 'resManager', '$timeout'];
+        'ajaxService2', 'resManager', '$timeout'];
 
     function box(boxService, boxData, $stateParams, $scope, $state, user,
         $rootScope, userDetailsFactory, ajaxService, resManager, $timeout) {

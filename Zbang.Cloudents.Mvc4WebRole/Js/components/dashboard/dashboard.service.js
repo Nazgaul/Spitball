@@ -1,9 +1,9 @@
 ﻿'use strict';
 (function () {
     angular.module('app.dashboard').service('dashboardService', dashboard);
-    dashboard.$inject = ['$q', 'ajaxService', 'userUpdatesService', '$rootScope'];
+    dashboard.$inject = ['$q', 'ajaxService', 'userUpdatesService', '$rootScope', 'ajaxService2'];
 
-    function dashboard($q, ajaxservice, userUpdatesService, $rootScope) {
+    function dashboard($q, ajaxservice, userUpdatesService, $rootScope, ajaxService2) {
         var d = this;
         var serverCall = false;
         var defer = $q.defer();
@@ -47,8 +47,8 @@
             defer = $q.defer();
         });
 
-        d.getUniversityMeta = function () {
-            return ajaxservice.get('dashboard/university', null, 1800000);
+        d.getUniversityMeta = function (universityId) {
+            return ajaxService2.get('dashboard/university', { universityId: universityId }, 'university');
         }
 
 

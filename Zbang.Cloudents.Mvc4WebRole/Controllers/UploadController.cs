@@ -316,7 +316,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     OwnerId = result2.Link.Uploader.Id,
                     UserUrl = result2.Link.Uploader.Url,
                     Source = result2.Link.ItemContentUrl,
-                    //Thumbnail = m_BlobProvider.GetThumbnailLinkUrl(),
                     Owner = result2.Link.Uploader.Name,
                     Date = DateTime.UtcNow,
                     Url = result2.Link.Url,

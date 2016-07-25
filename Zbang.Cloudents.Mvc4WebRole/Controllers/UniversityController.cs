@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.SessionState;
+using DevTrends.MvcDonutCaching;
 using Microsoft.Owin.Security;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -40,10 +41,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_UniversitySearch = universitySearch;
         }
 
-        //public ActionResult DepartmentRedirect()
-        //{
-        //    return RedirectToRoute("LibraryDesktop");
-        //}
+
+
+        [DonutOutputCache(CacheProfile = "FullPage")]
+        [NoUniversity]
+        public async Task<ActionResult> Index(long universityId, string universityName)
+        {
+            var query = new UniversityQuery(universityId);
+            var model = await ZboxReadService.GetUniversityInfoAsync(query);
+            if (UrlConst.NameToQueryString(model.Name) != universityName)
+            {
+                return RedirectToRoutePermanent("universityLibraryAuth", new RouteValueDictionary
+                {
+                    ["universityId"] = model.Id,
+                    ["universityName"] = UrlConst.NameToQueryString(model.Name)
+                });
+            }
+
+            return View("Empty");
+        }
+       
 
         [NoUniversity, HttpGet]
         [Route("library",Name = "LibraryDesktop")]

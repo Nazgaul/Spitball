@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.library').controller('Library', library);
     library.$inject = ['libraryService', '$stateParams', 'userDetailsFactory', 'nodeData', '$mdDialog',
-        '$location', '$scope', 'resManager'];
+        '$location', '$scope', 'resManager', 'universityData'];
 
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
-        $location, $scope, resManager) {
+        $location, $scope, resManager, universityData) {
 
         var l = this, nodeId = $stateParams.id;
         l.departments = nodeData.nodes;
@@ -14,10 +14,15 @@
         if (l.nodeDetail) {
             l.nodeDetail.isPrivate = false;
         }
+
         buildState();
-
-
-        l.universityName = userDetailsFactory.get().university.name;
+        l.university = {
+            name: universityData.name,
+            image: universityData.cover,
+            logo: universityData.logo
+        };
+        //l.universityName = userDetailsFactory.get().university.name;
+        
         //l.topTree = nodeId == null;
         l.createDepartmentShow = l.state.withDepartmentAdmin || l.state.emptyNodeAdmin; //userDetailsFactory.get().isAdmin && (l.topTree || l.boxes.length === 0);
         l.createClassShow = l.state.withBoxes || l.state.emptyNode || l.state.emptyNodeAdmin;// l.departments.length === 0 && !l.topTree;

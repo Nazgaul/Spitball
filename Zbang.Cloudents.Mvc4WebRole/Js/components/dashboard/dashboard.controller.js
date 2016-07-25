@@ -2,7 +2,7 @@
 (function () {
     angular.module('app.dashboard').controller('Dashboard', dashboard);
     dashboard.$inject = ['dashboardService', 'boxes', '$scope', '$mdDialog', 'boxService',
-        '$rootScope', 'resManager', 'ajaxService'];
+        '$rootScope', 'resManager', 'ajaxService2'];
 
     function dashboard(dashboardService, boxes, $scope, $mdDialog, boxService, $rootScope,
         resManager, ajaxService) {

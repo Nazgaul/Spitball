@@ -1,11 +1,11 @@
 ﻿'use strict';
 (function () {
     angular.module('app.ajaxservice').factory('ajaxService', ajaxService);
-    ajaxService.$inject = ['$http', '$q', 'Analytics', 'CacheFactory', 'routerHelper'];
+    ajaxService.$inject = ['$http', '$q', 'Analytics', 'CacheFactory'];
 
 
 
-    function ajaxService($http, $q, analytics, cacheFactory, routerHelper) {
+    function ajaxService($http, $q, analytics, cacheFactory) {
         var cancelObjs = {};
 
         function post(url, data, disableClearCache) {
@@ -40,35 +40,35 @@
             return dfd.promise;
         }
 
-        function getHtml(url) {
-            var dfd = $q.defer(),
-                startTime = new Date().getTime();
-            if (cancelObjs[url]) {
-                cancelObjs[url].resolve();
-            }
+        //function getHtml(url) {
+        //    var dfd = $q.defer(),
+        //        startTime = new Date().getTime();
+        //    if (cancelObjs[url]) {
+        //        cancelObjs[url].resolve();
+        //    }
 
-            cancelObjs[url] = $q.defer();
-            var getObj = {};
-            getObj.timeout = cancelObjs[url].promise;
-            url = buildUrl(url);
-            url = routerHelper.buildUrl(url);
-            $http.get(url, getObj).then(function (response) {
-                trackTime(startTime, url, 'get html');
-                var data = response.data;
-                if (!data) {
-                    dfd.reject();
-                    return;
-                }
-                cancelObjs[url] = null;
-                dfd.resolve(data);
-                return;
+        //    cancelObjs[url] = $q.defer();
+        //    var getObj = {};
+        //    getObj.timeout = cancelObjs[url].promise;
+        //    url = buildUrl(url);
+        //    url = routerHelper.buildUrl(url);
+        //    $http.get(url, getObj).then(function (response) {
+        //        trackTime(startTime, url, 'get html');
+        //        var data = response.data;
+        //        if (!data) {
+        //            dfd.reject();
+        //            return;
+        //        }
+        //        cancelObjs[url] = null;
+        //        dfd.resolve(data);
+        //        return;
 
-            }, function (response) {
-                dfd.reject(response);
-                logError(url, response);
-            });
-            return dfd.promise;
-        }
+        //    }, function (response) {
+        //        dfd.reject(response);
+        //        logError(url, response);
+        //    });
+        //    return dfd.promise;
+        //}
         function get(url, data, ttl, disableCancel) {
             var dfd = $q.defer(),
                 startTime = new Date().getTime();
@@ -170,8 +170,8 @@
 
         return {
             get: get,
-            post: post,
-            getHtml: getHtml
+            post: post
+     //       getHtml: getHtml
         };
 
     }

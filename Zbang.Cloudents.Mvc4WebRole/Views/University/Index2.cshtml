@@ -1,21 +1,22 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<div class="page-head">
-    <div class="page-title">
-        <h1>{{::l.universityName}}</h1>
-        <div class="course-nav" ng-if="l.nodeDetail && !l.settingsOpen" layout="row" layout-align="space-between center">
-
-            <a href="{{::l.nodeDetail.parentUrl}}" ga-track-event="['university', 'back arrow']">
-                <h2 layout="row">
-                    <span class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow", new { @class = "svgTC11" })</span>
-                    <span class="name ellipsis color-override backgroundColor10 textTC4">
-                        {{::l.nodeDetail.name}}
-                    </span>
-                </h2>
-            </a>
-
-            <button type="button" ng-click="l.toggleSettings()" ga-track-event="['university', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "svgTC15" })</button>
-        </div>
+<div class="page-title">
+    <div class="university"  layout="row" layout-align="start center" univeristy-cover="{{::l.university.image}}">
+        <h1 layout="row" layout-align="start center" style="">
+            <img ng-src="{{::l.university.logo}}" height="60" width="60" alt="university-logo"/>
+            <span>{{::l.university.name}}</span>
+        </h1>
+    </div>
+    <div class="course-nav" ng-if="l.nodeDetail && !l.settingsOpen" layout="row" layout-align="space-between center">
+        <a href="{{::l.nodeDetail.parentUrl}}" ga-track-event="['university', 'back arrow']">
+            <h2 layout="row">
+                <span class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow", new { @class = "svgTC11" })</span>
+                <span class="name ellipsis color-override backgroundColor10 textTC4">
+                    {{::l.nodeDetail.name}}
+                </span>
+            </h2>
+        </a>
+        <button type="button" ng-click="l.toggleSettings()" ga-track-event="['university', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "svgTC15" })</button>
     </div>
 </div>
 @{
@@ -66,13 +67,13 @@
         </md-menu>
     </div>
     <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
-    <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" flex-order="10" hide-xs 
-         ng-class="{'create-deparment-show' : l.createDepartmentOn, 'create-init' : l.createDepartmentShow && l.createClassShow}" 
+    <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" flex-order="10" hide-xs
+         ng-class="{'create-deparment-show' : l.createDepartmentOn, 'create-init' : l.createDepartmentShow && l.createClassShow}"
          class="create-box flex" ng-if="l.createDepartmentShow">
         @{ Html.RenderPartial("_CreateDepartment");}
     </div>
     <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" flex-order="10" hide-xs
-          ng-class="{'create-box-show' : l.createBoxOn, 'create-init' : l.createDepartmentShow && l.createClassShow}" class="create-box flex" ng-if="l.createClassShow">
+         ng-class="{'create-box-show' : l.createBoxOn, 'create-init' : l.createDepartmentShow && l.createClassShow}" class="create-box flex" ng-if="l.createClassShow">
         @{ Html.RenderPartial("_CreateCourse");}
     </div>
 </div>

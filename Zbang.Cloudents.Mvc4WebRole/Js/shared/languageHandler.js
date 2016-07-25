@@ -30,8 +30,8 @@
     }
 
     return {
-        "getLangCookie": getLangCookie,
-        "changeLanguage": changeLanguage,
-        "updateLangOnDropDown": updateLangOnDropDown
+        getLangCookie: getLangCookie,
+        changeLanguage: changeLanguage,
+        updateLangOnDropDown: updateLangOnDropDown
     }
 })();

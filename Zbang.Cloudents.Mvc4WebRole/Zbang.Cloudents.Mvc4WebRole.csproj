@@ -624,8 +624,6 @@
     </Content>
     <Content Include="Content\angular-material.css" />
     <Content Include="Content\angular-material.layouts.css" />
-    <Content Include="Content\angular-material.layouts.min.css" />
-    <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\Bootstrap\bootstrap.css" />
     <Content Include="Content\Bootstrap\bootstrap.rtl.css">
       <DependentUpon>bootstrap.css</DependentUpon>
@@ -1461,6 +1459,7 @@
     <Content Include="Js\components\library\library.routes.js" />
     <Content Include="Js\components\library\library.service.js" />
     <Content Include="Js\components\library\libraryChoose.controller.js" />
+    <Content Include="Js\components\library\universityCover.directive.js" />
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
