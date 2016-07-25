@@ -5,6 +5,33 @@
 .homePage {
     font-family: sans-serif;
 
+    .static-page-header .toggle {
+        opacity: 1 !important;
+        -o-transition: opacity .3s ease-in-out;
+        -moz-transition: opacity .3s ease-in-out;
+        -webkit-transition: opacity .3s ease-in-out;
+        transition: opacity .3s ease-in-out;
+    }
+
+    &.show-forms {
+        .static-page-header .toggle {
+            opacity: 0 !important;
+        }
+
+        .home-page-body {
+            section.main {
+                height: ~"calc(100vh - 69px)";
+
+                .forms {
+                    max-height: 100vh;
+                }
+
+                section, .static-page-footer, #main-wrapper {
+                    display: none;
+                }
+            }
+        }
+    }
 
     .hidden {
         display: none !important;
@@ -212,6 +239,23 @@
                     }
                 }
                 /*#region forms*/
+                .forms {
+                    -webkit-transition: max-height 0.5s;
+                    -moz-transition: max-height 0.5s;
+                    transition: max-height 0.5s;
+                    overflow: hidden;
+                    max-height: 0;
+
+                    .form-wrapper {
+                        display: none;
+                    }
+                }
+
+                section {
+                    max-height: 100vh;
+                }
+
+
                 .form-wrapper {
                     background: rgba(24,26,22,.93);
                     max-width: 460px;
@@ -345,6 +389,7 @@
 
                         a {
                             color: @textColorWhite;
+                            text-decoration: underline;
                         }
                     }
 
@@ -375,9 +420,9 @@
 
                             #forgot-password-link {
                                 color: @textColorLightGrey;
+                                text-decoration: underline;
 
                                 &:hover {
-                                    text-decoration: underline;
                                     cursor: pointer;
                                 }
                             }
@@ -398,12 +443,13 @@
                             text-decoration: underline;
                             display: block;
                             cursor: pointer;
+                            display: inline-block;
                         }
 
                         form.register {
-                            -webkit-transition: max-height 0.8s;
-                            -moz-transition: max-height 0.8s;
-                            transition: max-height 0.8s;
+                            -webkit-transition: max-height 0.5s;
+                            -moz-transition: max-height 0.5s;
+                            transition: max-height 0.5s;
                             overflow: hidden;
                             max-height: 100vh;
                         }
@@ -486,7 +532,8 @@
                             }
 
                             button {
-                                color: #3293f6;
+                                color: @textColorWhite;
+                                text-decoration: underline;
                                 background: none;
                                 border: none;
                                 margin-top: 10px;
