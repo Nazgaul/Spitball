@@ -148,43 +148,23 @@
   /*#endregion*/
 }
 .homePage .home-page-body section.main #main-wrapper {
-  padding: 400px 5% 40px 5%;
+  padding: 400px 0 40px 0;
   overflow: visible;
   position: relative;
-  /*-moz-transition: min-height 1s;
-                    -o-transition: min-height 1s;
-                    -webkit-transition: min-height 1s;
-                    transition: min-height 1s;*/
-  /*&.collapse {
-                        padding: 0;
-                        height: 0;
-                    }*/
 }
 .homePage .home-page-body section.main .welcome-text {
   position: relative;
   text-align: center;
-  padding: 0 35px;
+  padding: 0 10px;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   color: #f5f5f5;
   display: inline-block;
-  max-width: calc(100% - 300px);
 }
 .homePage .home-page-body section.main .welcome-text.vertical-slide {
   transition: 1s;
   margin-left: -10000px;
-}
-.homePage .home-page-body section.main .welcome-text .sb-logo {
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  background: #383838;
-  left: -200px;
-  bottom: -80px;
-  z-index: 1;
-  border: 5px solid white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 .homePage .home-page-body section.main .welcome-text > h1,
 .homePage .home-page-body section.main .welcome-text h2 {
@@ -193,7 +173,7 @@
 .homePage .home-page-body section.main .welcome-text h1 {
   font-weight: bold;
   font-size: 60px;
-  max-width: 100%;
+  width: 100%;
   margin: 16px auto;
   text-transform: capitalize;
   display: inline-block;
@@ -241,6 +221,7 @@
   padding: 0;
   position: absolute;
   right: 0;
+  cursor: pointer;
 }
 .homePage .home-page-body section.main .form-wrapper .close-form svg {
   width: 15px;
@@ -567,7 +548,17 @@
   bottom: 0;
   left: 0;
   right: 0;
-  width: calc(100% - 430px);
+  z-index: 1;
+}
+.homePage .home-page-body section.main .statistics .sb-logo {
+  left: -210px;
+  bottom: -40px;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  background: #383838;
+  border: 5px solid #f5f5f5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 .homePage .home-page-body section.main .statistics .statistic {
   text-align: center;
@@ -585,6 +576,11 @@
 }
 .homePage .home-page-body section.main .statistics .statistic a:hover span {
   color: #4190B9;
+}
+.homePage .home-page-body section.main .statistics,
+.homePage .home-page-body section.main .welcome-text {
+  width: calc(100% - 430px);
+  max-width: 800px;
 }
 .homePage .home-page-body section.intro {
   overflow: visible;

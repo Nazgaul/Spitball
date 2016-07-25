@@ -24,7 +24,7 @@
     @{Html.RenderPartial("_Head");}
 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-    <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com"/>
+    <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
     <style>
        .home-page-body{
             background-image: url("@Model.HomePageUniversityData.BackgroundImage") !important;
@@ -52,204 +52,6 @@
         @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{Html.RenderPartial("_StaticPageHeader");}
         <div class="home-page-body">
-            @*<section class="main">
-                    <div class="login-wrapper login">
-                        <div class="wrapper">
-                            <div class="content" style="display:none;">
-                                <div class="login-form">
-                                    <form action="" method="post">
-                                        <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
-                                        <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
-                                        <div class="form-group">
-                                            <input class="form-control" required type="email" placeholder="@LogOnResources.Email" name="email" />
-                                        </div>
-                                        <div class="form-group last">
-                                            <input class="form-control" required type="password" placeholder="@LogOnResources.Password" name="password" />
-                                        </div>
-                                        <div id="login_alert_text" class="alert alert-danger display-hide">
-                                            <span></span>
-                                        </div>
-                                        <div class="form-actions">
-                                            <div class="checkbox-design">
-                                                @Html.CheckBox("RememberMe", true, new { id = "rememberMe" })
-                                                <label class="remember-me" for="rememberMe"></label>
-                                                <label for="rememberMe">@LogOnResources.RememberMe</label>
-                                            </div>
-
-                                            <button type="submit" class="blue-button">
-                                                @LogOnResources.LogIn
-                                            </button>
-                                        </div>
-
-                                        <div class="forget-password">
-                                            <h4>@LogOnResources.ForgotYourPassword</h4>
-                                            <p>
-                                                @LogOnResources.NoWorries <span id="forget-password">
-                                                    @LogOnResources.Here
-                                                </span>
-                                                @LogOnResources.ToResetPassword.
-                                            </p>
-                                        </div>
-                                        <div class="signin-options">
-                                            <div class="social-text">@HomePageResources.A7</div>
-                                            <button type="button" class="login-option facebook">
-                                                <div>
-                                                    @Html.Svg(socialIconsSvg, "facebook-colored")
-                                                </div>
-                                            </button>
-                                            <button type="button" class="login-option google">
-                                                <div>
-                                                    @Html.Svg(socialIconsSvg, "google-colored")
-                                                </div>
-                                            </button>
-                                        </div>
-
-
-                                    </form>
-                                    <p class="create-account">
-                                        @LogOnResources.DontHaveAnAccount&nbsp; <a href="javascript:;" id="register-btn">@LogOnResources.CreateAccount</a>
-                                    </p>
-                                </div>
-                                <div class="forgot-password-form">
-                                    <form id="f-forgot-password" class="forgot-password-form" action="" method="post" style="display:none;">
-                                        <h3 class="form-title">
-                                            @LogOnResources.ForgotYourPassword
-                                        </h3>
-                                        <div class="text">
-                                            <p>@AccountResource.EmailToReset</p>
-                                        </div>
-                                        <div class="form-group last">
-                                            <input class="form-control" required type="email" placeholder="@LogOnResources.Email" name="email" />
-                                        </div>
-
-                                        <div id="resetPassword_alert_text" class="alert alert-danger display-hide">
-                                            <span></span>
-                                        </div>
-                                        <div class="form-actions">
-                                            <button type="reset" class="grey-button cancel">@GeneralResources.Cancel</button>
-                                            <button type="submit" class="blue-button">@LogOnResources.Submit</button>
-                                        </div>
-                                        <div class="create-account"></div>
-                                    </form>
-                                </div>
-                                <div class="check-email-message toggle" style="display:none;">
-                                    <h3 class=" form-title">
-                                        @LogOnResources.CheckEmailTitle
-                                    </h3>
-                                    <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
-
-                                    <div class="text">
-                                        <p>@AccountResource.EmailedPassword<br />@AccountResource.ResetInstructions</p>
-                                        @Html.Svg("/images/Site/icons.svg", "info")
-                                        <p>
-                                            <span class="bold">@AccountResource.DidntReceivedEmail</span><br />
-                                            <span>@AccountResource.CheckEmailSpam</span><br />
-
-                                            <button id="resendRequest" data-response="@HomePageResources.resetPassEmailSent">@AccountResource.AnotherRequest</button>
-                                        </p>
-                                    </div>
-                                    <div class="create-account"></div>
-                                </div>
-                                <div class="register-form">
-                                    <form action="" method="post">
-                                        <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
-                                        <h3>@LogOnResources.CreateAccountFormHeader</h3>
-                                        <div class="form-group first">
-                                            <input class="form-control" type="text" required placeholder="@AccountResource.First" name="firstName" />
-                                        </div>
-                                        <div class="form-group second">
-                                            <input class="form-control" type="text" required placeholder="@SharedResources.LastName" name="lastName" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="email" required placeholder="@SharedResources.Email" name="NewEmail" id="register_email" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input class="form-control" type="password" required autocomplete="off" placeholder="@LogOnResources.Password" name="Password" />
-                                        </div>
-                                        <div class="form-group sex last">
-                                            <input type="radio" required name="sex" value="@Zbang.Zbox.Infrastructure.Enums.Sex.Male.GetStringValueLowerCase()" id="male" /><label for="male">@Zbang.Zbox.Infrastructure.Enums.Sex.Male.GetEnumDescription()</label>
-                                            <input type="radio" required name="sex" value="@Zbang.Zbox.Infrastructure.Enums.Sex.Female.GetStringValueLowerCase()" id="female" /><label for="female">@Zbang.Zbox.Infrastructure.Enums.Sex.Female.GetEnumDescription()</label>
-                                        </div>
-                                        <div id="register_alert_text" class="alert alert-danger display-hide">
-                                            <span></span>
-                                        </div>
-
-                                        <div class="form-actions-container" layout="row" layout-align="center center">
-                                            <div class="form-group">
-                                                <label>
-                                                    @RegisterResources.IAgree&nbsp;
-                                                    <a class="tos" target="_blank" href="@Url.RouteUrl("TOS")">&nbsp;@RegisterResources.TermsOfServices</a>&nbsp;@RegisterResources.And&nbsp;<a target="_blank" href="@Url.RouteUrl("Privacy")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
-                                                </label>
-                                            </div>
-
-                                            <div class="form-actions">
-                                                <button type="submit" id="register-submit-btn" class="blue-button">
-                                                    @LogOnResources.SignUp
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="signin-options">
-                                            <div class="social-text">@HomePageResources.A7</div>
-                                            <button type="button" class="login-option facebook">
-                                                <div>
-                                                    @Html.Svg(socialIconsSvg, "facebook-colored")
-                                                </div>
-                                            </button>
-                                            <button type="button" class="login-option google">
-                                                <div>
-                                                    @Html.Svg(socialIconsSvg, "google-colored")
-                                                </div>
-                                            </button>
-                                        </div>
-
-                                    </form>
-                                    <div class="login-account">
-                                        <p>
-                                            @LogOnResources.AlreadyHave&nbsp;<a href="javascript:;" id="login-btn">@SharedResources.SignIn</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="main-wrapper">
-                        <div class="welcome-text">
-                            <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@HomePageResources.A4</h1>
-                            <div class="sb-logo"></div>
-                        </div>
-                        <div class="loader">
-                            <div class="backdrop"></div>
-                            <div class="sk-fading-circle selected">
-                                <div class="sk-circle1 sk-circle"></div>
-                                <div class="sk-circle2 sk-circle"></div>
-                                <div class="sk-circle3 sk-circle"></div>
-                                <div class="sk-circle4 sk-circle"></div>
-                                <div class="sk-circle5 sk-circle"></div>
-                                <div class="sk-circle6 sk-circle"></div>
-                                <div class="sk-circle7 sk-circle"></div>
-                                <div class="sk-circle8 sk-circle"></div>
-                                <div class="sk-circle9 sk-circle"></div>
-                                <div class="sk-circle10 sk-circle"></div>
-                                <div class="sk-circle11 sk-circle"></div>
-                                <div class="sk-circle12 sk-circle"></div>
-                            </div>
-                            <div class="loader-text">@SharedResources.LoaderText</div>
-                        </div>
-                        <div class="statistics os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
-                            <h3 class="statistic">
-                                <span id="students" class="value" data-value="@Model.StudentsCount"></span><span>@HomePageResources.statsStudents</span>
-                            </h3>
-                            <h3 class="statistic">
-                                <a href="@Url.RouteUrl("ClassNotes")"><span id="documents" class="value" data-value="@Model.DocumentCount"></span><span>@HomePageResources.statsDocuments</span></a>
-                            </h3>
-                            <h3 class="statistic">
-                                <span id="quizzes" class="value" data-value="@Model.QuizzesCount"></span><span>@HomePageResources.statsQuizzes</span>
-                            </h3>
-                        </div>
-                    </div>
-
-                </section>*@
-
             <section class="main">
                 <div class="forms">
                     <div class="login-wrapper form-wrapper" style="display:none;">
@@ -356,7 +158,7 @@
                                 <div class="text">@LogOnResources.ExternalProvider</div>
                             </button>
                         </div>
-                        <input type="checkbox" id="show-fields"/>
+                        <input type="checkbox" id="show-fields" />
                         <label for="show-fields">Or sign up with email</label>
                         <form class="register" action="" method="post">
                             <div class="form-group first">
@@ -399,7 +201,6 @@
                 <div id="main-wrapper">
                     <div class="welcome-text">
                         <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@Model.HomePageUniversityData.H1Text</h1>
-                        <div class="sb-logo"></div>
                     </div>
                     <div class="loader">
                         <div class="backdrop"></div>
@@ -420,6 +221,7 @@
                         <div class="loader-text">@SharedResources.LoaderText</div>
                     </div>
                     <div class="statistics os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
+                        <div class="sb-logo"></div>
                         <h3 class="statistic">
                             <span id="students" class="value" data-value="@Model.HomePageStats.StudentsCount"></span><span>@HomePageResources.statsStudents</span>
                         </h3>
@@ -593,6 +395,6 @@
             'alwaysSendReferrer': true
         });
     </script>
-   
+
 </body>
 </html>
