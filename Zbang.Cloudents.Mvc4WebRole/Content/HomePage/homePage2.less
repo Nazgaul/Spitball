@@ -101,7 +101,8 @@
                 text-align: center;
                 margin-top: 0;
             }
-            /*.login-option {
+
+            &.intro .login-option {
                 border: none;
                 padding: 8px;
                 border-radius: 16px;
@@ -120,10 +121,10 @@
                     font-weight: bold;
                     margin: 0 auto;
                     display: block;
-                    background: orange;
                     width: auto;
                 }
-            }*/
+            }
+
             &.main {
                 position: relative;
                 text-align: center;
@@ -213,9 +214,11 @@
                 /*#region forms*/
                 .form-wrapper {
                     background: rgba(24,26,22,.93);
-                    max-width: 400px;
+                    max-width: 460px;
+                    width: ~"calc(100% - 20px)";
                     margin: 0 auto;
                     position: relative;
+                    margin-top: 140px;
 
                     .close-form {
                         padding: 0;
@@ -232,18 +235,39 @@
 
                     .form-title {
                         color: @textColorWhite;
-                        padding: 0 25px;
+                        padding: 35px 25px 0 25px;
                         text-align: center;
                         font-weight: 300;
                         font-size: 23px;
+                        margin: 0 auto;
+                    }
+
+                    .signin-options, form, .forgot-password-text {
+                        padding-right: 30px;
+                        padding-left: 30px;
+                        margin: 0 auto;
+
+                        @media(max-width: 600px) {
+                            padding-right: 15px;
+                            padding-left: 15px;
+                        }
                     }
 
                     .signin-options {
+                        .displayFlex;
+                        .justifyContet(space-between);
+                        margin: 30px auto;
+
                         button {
                             .displayInlineFlex;
                             .align-items(center);
                             border-radius: 15px;
-                            padding: 5px 10px;
+                            padding: 7px 10px;
+                            width: ~"calc(50% - 10px)";
+
+                            @media(max-width:600px) {
+                                width: ~"calc(50% - 5px)";
+                            }
 
                             .icon {
                                 padding: 0 5px;
@@ -258,6 +282,219 @@
 
                             .text {
                                 flex-grow: 1;
+                                font-size: 18px;
+                                padding-right: 10px;
+                            }
+                        }
+                    }
+
+                    form {
+                        .form-group:not(:last-child) {
+                            margin-bottom: 20px;
+
+                            .form-control {
+                                background-color: #dde3ec;
+                                color: #282828;
+                                border-radius: 0;
+                                padding-left: 15px;
+                                border: 1px solid #c3c3c3;
+                                box-shadow: 0 0 0 1000px #e9eaed inset;
+                                height: 50px;
+                                width: 100%;
+                                box-sizing: border-box;
+                            }
+                        }
+
+                        .form-actions {
+                            .displayFlex;
+                            .align-items(center);
+                            .justifyContet(space-between);
+                            margin-bottom: 20px;
+
+                            .terms {
+                                color: @textColorGrey;
+                                font-size: 11px;
+                                padding-right: 0;
+                                white-space: pre-line;
+                                text-align: left;
+                                width: 100%;
+                            }
+                        }
+
+                        .alert {
+                            padding: 0;
+                            color: #f3565d;
+                            display: block;
+                            margin-bottom: 0;
+                            margin-top: 0;
+                            background: none;
+                            border: none;
+                            box-shadow: none;
+                        }
+                    }
+
+                    .bottom-strip {
+                        margin: 0;
+                        height: 50px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: @textColorWhite;
+                        background: @textColorGrey;
+                        font-size: 12px;
+
+                        a {
+                            color: @textColorWhite;
+                        }
+                    }
+
+                    .blue-button {
+                        flex-shrink: 0;
+                    }
+
+                    &.login-wrapper {
+                        .forgot-password-text {
+                            .displayFlex;
+                            .align-items(center);
+                            .justifyContet(flex-start);
+
+                            h4 {
+                                color: @textColorGrey;
+                                flex-shrink: 0;
+                                font-size: 18px;
+                                white-space: nowrap;
+                                font-weight: normal;
+                            }
+
+                            p {
+                                color: @textColorGrey;
+                                font-size: 11px;
+                                margin: 0 0 0 10px;
+                                text-align: left;
+                            }
+
+                            #forgot-password-link {
+                                color: @textColorLightGrey;
+
+                                &:hover {
+                                    text-decoration: underline;
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+                    }
+
+
+                    &.register-wrapper {
+
+                        .form-title {
+                            max-width: 250px;
+                        }
+
+                        label[for="show-fields"] {
+                            color: @textColorWhite;
+                            margin: 45px auto;
+                            font-size: 20px;
+                            text-decoration: underline;
+                            display: block;
+                            cursor: pointer;
+                        }
+
+                        form.register {
+                            -webkit-transition: max-height 0.8s;
+                            -moz-transition: max-height 0.8s;
+                            transition: max-height 0.8s;
+                            overflow: hidden;
+                            max-height: 100vh;
+                        }
+
+
+                        #show-fields {
+                            display: none;
+
+                            &:not(:checked) ~ form.register {
+                                max-height: 0;
+                            }
+                        }
+
+
+                        .form-group {
+                            &.first, &.second {
+                                width: ~"calc(50% - 10px)";
+                            }
+
+                            &.first {
+                                float: left;
+                            }
+
+                            &.second {
+                                float: right;
+                            }
+
+                            &.sex {
+                                display: flex;
+                                align-items: center;
+                                justify-content: flex-start;
+                                color: @textColorLightGrey;
+                                font-size: 14px;
+
+                                input[type="radio"] {
+                                    margin: 0 5px 0 0;
+                                }
+
+                                label[for="male"] {
+                                    margin-right: 30px;
+                                }
+                            }
+                        }
+                    }
+
+                    &.forgot-password-wrapper {
+                        padding-bottom: 30px;
+
+                        .text {
+                            margin-bottom: 30px;
+                            font-size: 16px;
+                            font-weight: normal;
+                            color: @textColorGrey;
+                        }
+
+                        .form-actions {
+                            .justifyContet(flex-end);
+
+                            .blue-button {
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+
+                    &.check-email-message-wrapper {
+                        .text {
+                            color: @textColorGrey;
+                            padding-bottom: 135px;
+
+                            svg {
+                                fill: @textColorWhite;
+                                width: 45px;
+                                height: 45px;
+                                margin-top: 25px;
+                            }
+
+                            p {
+                                font-size: 18px;
+                                line-height: 22px;
+                            }
+
+                            button {
+                                color: #3293f6;
+                                background: none;
+                                border: none;
+                                margin-top: 10px;
+                                cursor: pointer;
+
+                                &:hover {
+                                    text-decoration: underline;
+                                }
                             }
                         }
                     }
@@ -267,6 +504,10 @@
                     display: inline-block;
                     width: inherit;
                     color: @textColorGrey;
+
+                    label {
+                        font-size: 14px;
+                    }
 
                     .remember-me {
                         display: inline-flex;
