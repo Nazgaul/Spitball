@@ -44,8 +44,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [DonutOutputCache(CacheProfile = "FullPage")]
-        [NoUniversity]
-        public async Task<ActionResult> Index(long universityId, string universityName)
+        [NoUniversity, ActionName("Index")]
+        public async Task<ActionResult> IndexAsync(long universityId, string universityName)
         {
             var query = new UniversityQuery(universityId);
             var model = await ZboxReadService.GetUniversityInfoAsync(query);
@@ -60,11 +60,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return View("Empty");
         }
-       
+
 
         [NoUniversity, HttpGet]
-        [Route("library",Name = "LibraryDesktop")]
-        public async Task<RedirectToRouteResult> LibraryRedirect()
+        [Route("library", Name = "LibraryDesktop")]
+        public async Task<RedirectToRouteResult> LibraryRedirectAsync()
         {
 
             // ReSharper disable once PossibleInvalidOperationException
@@ -90,7 +90,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [NoUniversity, HttpGet]
         [Route("library/{LibId}/{LibName}", Name = "LibraryDesktop2")]
-        public async Task<RedirectToRouteResult> LibraryRedirectWithNode(string libId,string libName)
+        public async Task<RedirectToRouteResult> LibraryRedirectWithNodeAsync(string libId, string libName)
         {
 
             // ReSharper disable once PossibleInvalidOperationException
@@ -115,26 +115,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index2");
         }
 
-        //TODO: put output cache
         [HttpGet]
-        [NoCache]
+        [DonutOutputCache(CacheProfile = "FullPage")]
         public ActionResult Choose()
         {
             return View("Empty");
         }
 
 
-        [HttpGet]
-        public async Task<PartialViewResult> ChoosePartial()
+        [HttpGet, ActionName("ChoosePartial")]
+        public async Task<PartialViewResult> ChoosePartialAsync()
         {
-
+            //TODO: remove that
             ViewBag.country = await GetCountryByIpAsync(HttpContext);
             return PartialView("Choose");
         }
 
 
-        [HttpGet]
-        public async Task<JsonResult> SearchUniversity(string term, int page, CancellationToken cancellationToken)
+        [HttpGet, ActionName("Search")]
+        public async Task<JsonResult> SearchAsync(string term, int page, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(term))
             {
@@ -193,11 +192,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<ActionResult> Nodes(string section, long universityId)
+        [HttpGet, ActionName("Nodes")]
+        public async Task<ActionResult> NodesAsync(string section, long universityId)
         {
             try
             {
+                if (Request.UrlReferrer == null)
+                {
+                    TraceLog.WriteError("need url Referrer");
+                    return JsonError();
+
+                }
                 var route = BuildRouteDataFromUrl(Request.UrlReferrer.AbsoluteUri);
 
                 var universityName = route.Values["universityName"];
@@ -384,8 +389,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #endregion
 
 
-        [HttpPost]
-        public async Task<JsonResult> RequestAccess(Guid id)
+        [HttpPost, ActionName("RequestAccess")]
+        public async Task<JsonResult> RequestAccessAsync(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -396,8 +401,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-        [HttpPost]
-        public async Task<JsonResult> ApproveRequest(Guid id, long userId)
+        [HttpPost, ActionName("ApproveRequest")]
+        public async Task<JsonResult> ApproveRequestAsync(Guid id, long userId)
         {
             var command = new LibraryNodeApproveAccessCommand(User.GetUserId(), id, userId);
             await ZboxWriteService.RequestAccessToDepartmentApprovedAsync(command);
@@ -406,14 +411,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<JsonResult> ClosedDepartment()
+        [HttpGet, ActionName("ClosedDepartment")]
+        public async Task<JsonResult> ClosedDepartmentAsync()
         {
             var retVal = await ZboxReadService.GetUserClosedDepartmentAsync(new QueryBase(User.GetUserId()));
             return JsonOk(retVal);
         }
-        [HttpGet]
-        public async Task<JsonResult> ClosedDepartmentMembers(Guid id)
+        [HttpGet, ActionName("ClosedDepartmentMembers")]
+        public async Task<JsonResult> ClosedDepartmentMembersAsync(Guid id)
         {
             var query = new GetClosedNodeMembersQuery(User.GetUserId(), id);
             var retVal = await ZboxReadService.GetMembersClosedDepartmendAsync(query);

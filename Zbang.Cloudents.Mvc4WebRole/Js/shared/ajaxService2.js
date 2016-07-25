@@ -137,13 +137,13 @@
                         cancelObjs[cancelCategory].resolve();
                     }
                     cancelObjs[cancelCategory] = $q.defer();
-                    getObj.timeout = cancelObjs[cancelCategory];
+                    getObj.timeout = cancelObjs[cancelCategory].promise;
                 }
 
                 $http.get(buildUrl(url), getObj).then(function (response) {
                     var retVal = response.data;
                     trackTime(startTime, url, data, 'get');
-                    delete cancelObjs[cancelCategory];
+                    //delete cancelObjs[cancelCategory];
                     if (!retVal) {
                         deferred.reject();
                         return;
