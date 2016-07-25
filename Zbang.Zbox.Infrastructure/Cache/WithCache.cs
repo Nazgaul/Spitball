@@ -15,22 +15,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
             m_Cache = cache;
         }
 
-
-        //public TD Query<TQ, TD>(Func<TQ, TD> getItemCallback, TQ queryParam)
-        //    where TD : class
-        //    where TQ : IQueryCache
-        //{
-        //    if (getItemCallback == null) throw new ArgumentNullException("getItemCallback");
-        //    string cacheKey = queryParam.CacheKey;
-
-        //    var item = m_Cache.GetFromCache<TD>(cacheKey);
-
-        //    if (item != null) return item;
-        //    item = getItemCallback(queryParam);
-        //    m_Cache.AddToCache(cacheKey, item, queryParam.Expiration, queryParam.CacheRegion);
-        //    return item;
-        //}
-
         public async Task<TD> QueryAsync<TQ, TD>(Func<TQ, Task<TD>> getItemCallbackAsync, TQ queryParam)
             where TD : class
             where TQ : IQueryCache

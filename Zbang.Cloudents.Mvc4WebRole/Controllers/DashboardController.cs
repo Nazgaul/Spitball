@@ -65,7 +65,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
             var universityWrapper = universityId ?? User.GetUniversityId().Value;
-            
+
 
             var query = new UniversityQuery(universityWrapper);
             var model = await ZboxReadService.GetUniversityInfoAsync(query);
@@ -94,9 +94,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region CreateBox
 
-        [HttpPost]
+        [HttpPost, ActionName("Create")]
         // [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateBox model)
+        public async Task<JsonResult> CreateAsync(CreateBox model)
         {
             if (!ModelState.IsValid)
             {
@@ -106,8 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var userId = User.GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName);
-                var result = ZboxWriteService.CreateBox(command);
-                //return JsonOk(new { result.Url, result.Id });
+                var result = await ZboxWriteService.CreateBoxAsync(command);
                 return JsonOk(new { result.Url });
 
             }
@@ -144,7 +143,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }));
         }
 
-        
+
 
     }
 }

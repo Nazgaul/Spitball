@@ -63,7 +63,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             });
         }
 
-        public HttpResponseMessage Post(CreateLibraryRequest model)
+        public async Task<HttpResponseMessage> Post(CreateLibraryRequest model)
         {
             if (model == null)
             {
@@ -84,7 +84,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 var parentId = GuidEncoder.TryParseNullableGuid(model.ParentId);
                 var command = new AddNodeToLibraryCommand(model.Name, universityId.Value, parentId, User.GetUserId());
-                m_ZboxWriteService.CreateDepartment(command);
+                await m_ZboxWriteService.CreateDepartmentAsync(command);
                 var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
                 return Request.CreateResponse(result);
             }

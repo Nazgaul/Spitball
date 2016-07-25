@@ -37,7 +37,6 @@ namespace Zbang.Zbox.Infrastructure.Cache
                     return;
                 }
                 m_Cache = HttpContext.Current.Cache;
-                // m_IsCacheAvailable = true;
                 m_IsCacheAvailable = IsAppFabricCache();
             }
             catch

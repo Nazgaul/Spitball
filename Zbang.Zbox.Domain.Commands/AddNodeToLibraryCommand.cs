@@ -1,9 +1,10 @@
 ﻿using System;
+using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddNodeToLibraryCommand : ICommand
+    public class AddNodeToLibraryCommand : ICommand, ICommandCache
     {
         public AddNodeToLibraryCommand(string name, long universityId , Guid? parentId, long userId)
         {
@@ -15,12 +16,13 @@ namespace Zbang.Zbox.Domain.Commands
             ParentId = parentId;
         }
         public string Name { get; private set; }
-        public long UniversityId { get; private set; }
+        public long UniversityId { get; }
         public Guid? ParentId { get; private set; }
         public long UserId { get; private set; }
 
 
         public Guid Id { get; set; }
         public string Url { get; set; }
+        public string CacheRegion => CacheRegions.BuildNodesRegion(UniversityId);
     }
 }

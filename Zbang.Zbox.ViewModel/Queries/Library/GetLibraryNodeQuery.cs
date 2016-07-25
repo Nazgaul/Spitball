@@ -1,8 +1,10 @@
 ﻿using System;
+using Zbang.Zbox.Infrastructure.Cache;
+using Zbang.Zbox.Infrastructure.Query;
 
 namespace Zbang.Zbox.ViewModel.Queries.Library
 {
-    public class GetLibraryNodeQuery : QueryBase
+    public class GetLibraryNodeQuery : QueryBase , IQueryCache
     {
         public GetLibraryNodeQuery(long universityId, Guid? parentNode, long userId)
             : base(userId)
@@ -10,10 +12,12 @@ namespace Zbang.Zbox.ViewModel.Queries.Library
             UniversityId = universityId;
             ParentNode = parentNode;
         }
-        public long UniversityId { get; private set; }
-        public Guid? ParentNode { get; private set; }
+        public long UniversityId { get; }
+        public Guid? ParentNode { get; }
 
-      
 
+        public string CacheKey => $"{ParentNode}";
+        public string CacheRegion => CacheRegions.BuildNodesRegion(UniversityId);
+        public TimeSpan Expiration  => TimeSpan.FromDays(28);
     }
 }

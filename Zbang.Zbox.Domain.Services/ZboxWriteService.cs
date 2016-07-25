@@ -5,6 +5,7 @@ using Zbang.Zbox.Domain.Commands.Quiz;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
+using Zbang.Zbox.Infrastructure.Commands;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
 
 namespace Zbang.Zbox.Domain.Services
@@ -97,11 +98,16 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public CreateBoxCommandResult CreateBox(CreateBoxCommand command)
+        public async Task<CreateBoxCommandResult> CreateBoxAsync(CreateBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
             using (UnitOfWork.Start())
             {
+                var commandCache = command as ICommandCache;
+                if (commandCache != null)
+                {
+                    await m_Cache.RemoveAsync(commandCache);
+                }
                 CreateBoxCommandResult result = m_CommandBus.Dispatch<CreateBoxCommand, CreateBoxCommandResult>(command, command.GetType().Name);
                 UnitOfWork.Current.TransactionalFlush();
                 return result;
@@ -264,15 +270,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
-        //public void AddNodeToLibrary(AddNodeToLibraryCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
+       
 
         public void UpdateNodeSettings(UpdateNodeSettingsCommand command)
         {
@@ -283,11 +281,12 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void DeleteNodeLibrary(DeleteNodeFromLibraryCommand command)
+        public async Task DeleteNodeLibraryAsync(DeleteNodeFromLibraryCommand command)
         {
             using (UnitOfWork.Start())
             {
                 m_CommandBus.Send(command);
+                await m_Cache.RemoveAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
@@ -651,11 +650,12 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        public void CreateDepartment(AddNodeToLibraryCommand command)
+        public async Task CreateDepartmentAsync(AddNodeToLibraryCommand command)
         {
             using (UnitOfWork.Start())
             {
                 m_CommandBus.Send(command);
+               await m_Cache.RemoveAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

@@ -18,36 +18,31 @@
         /* @ngInject */
         function routerHelper($state) {
             var hasOtherwise = false;
-            //var universityRedirect = [
-            //   'userDetails', '$state', function (userDetails, $state2) {
-            //       if (!userDetails.get().university.id) {
-            //           $state2.go('universityChoose');
-            //           return;
-            //       }
-            //   }
-            //];
+
 
             var service = {
                 configureStates: configureStates,
                 getStates: getStates,
-                //universityRedirect: universityRedirect
                 buildUrl: buildUrl
             };
 
             return service;
 
-            ///////////////
 
             function configureStates(states, otherwisePath) {
                 states.forEach(function (state) {
                     if (!state.config.parent) {
                         state.config.parent = 'root';
                     }
-
                     if (state.templateUrl) {
-                        state.config.templateUrl = function() {
-                            return buildUrl(state.templateUrl);
-                        };
+                        //state.config.templateUrl = function() {
+                        //    return buildUrl(state.templateUrl);
+                        //};
+                        state.config.templateProvider = [
+                            'ajaxService2', function (ajaxService2) {
+                                return ajaxService2.getHtml(state.templateUrl);
+                            }
+                        ];
                     }
                     $stateProvider.state(state.state, state.config);
                 });
@@ -62,11 +57,7 @@
             //cookie in here
             function buildUrl(path) {
                 return path + '?lang=' + handleLanguage.getLangCookie() + '&version=' + window.version;
-
             }
-
-           
-
         }
     }
 })();
