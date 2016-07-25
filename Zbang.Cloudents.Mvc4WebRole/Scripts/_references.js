@@ -63,6 +63,7 @@
 /// <reference path="../js/components/library/library.routes.js" />
 /// <reference path="../js/components/library/library.service.js" />
 /// <reference path="../js/components/library/librarychoose.controller.js" />
+/// <reference path="../js/components/library/universitycover.directive.js" />
 /// <reference path="../js/components/quiz/popup/quiz.challenge.controller.js" />
 /// <reference path="../js/components/quiz/popup/quiz.challenge.module.js" />
 /// <reference path="../js/components/quiz/popup/quiz.score.controller.js" />

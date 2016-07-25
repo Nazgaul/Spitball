@@ -18,13 +18,13 @@
             return ajaxservice.post('/account/updateuniversity/', {
                 universityId: universityId,
                 studentId: studentId
-            }, 'univeristy');
+            }, 'university');
         }
         d.createUniversity = function (name, country) {
             return ajaxservice.post('/university/createuniversity/', {
                 name: name,
                 country: country
-            }, 'univeristy');
+            }, 'university');
         }
 
 

@@ -1,24 +1,4 @@
-﻿.dashboard {
-  /*.leaderBoardTitle {
-        float: left;
-        -ms-word-break: break-word;
-        word-break: break-word;
-        font-size: 38px;
-        // width: 28%;
-        margin-bottom: 15px;
-        line-height: 35px;
-        //color: @textColorDarkGrey;
-        text-transform: uppercase;
-    }
-
-    .leaderBoardBody {
-        font-size: 20px;
-    }*/
-  /*.leaderbordPosition {
-        color: #ff7a04 !important;
-    }*/
-}
-.dashboard .unibox {
+﻿.dashboard .unibox {
   height: 179px;
   padding: 12px;
 }
@@ -111,11 +91,38 @@
   padding: 4px 9px;
   height: 24px;
 }
+.dashboard .university {
+  display: block;
+  height: 100%;
+  position: relative;
+  height: 179px;
+}
+.dashboard .university .universityStats {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 14px;
+  background: rgba(4, 4, 4, 0.6);
+  color: #fff;
+  padding: 0 20px 6px;
+  /*div {
+                height: 10px;
+                line-height: 10px;
+                display: inline-block;
+            }
+
+            div:nth-child(2) {
+                padding: 0 6px;
+                margin: 0 6px;
+            }*/
+}
+.dashboard .university .universityStats .uni-name {
+  font-size: 24px;
+}
 .dashboard .universityimg {
-  border-radius: 50%;
   background: #f5f5f5;
-  height: 60px;
-  width: 60px;
+  margin: 20px 0 0 20px;
   border: 1px solid #c3c3c3;
 }
 .dashboard .portlet {
@@ -152,20 +159,6 @@
   width: 50%;
   max-height: 60px;
   color: #f5f5f5;
-}
-.dashboard .content .universityStats {
-  font-size: 11px;
-  text-align: center;
-  align-self: auto;
-}
-.dashboard .content .universityStats div {
-  height: 10px;
-  line-height: 10px;
-  display: inline-block;
-}
-.dashboard .content .universityStats div:nth-child(2) {
-  padding: 0 6px;
-  margin: 0 6px;
 }
 .dashboard .universityLink {
   width: 100%;
