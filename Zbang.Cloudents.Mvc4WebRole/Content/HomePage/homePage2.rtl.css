@@ -7,6 +7,27 @@
 .homePage {
   font-family: sans-serif;
 }
+.homePage .static-page-header .toggle {
+  opacity: 1 !important;
+  -o-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
+.homePage.show-forms .static-page-header .toggle {
+  opacity: 0 !important;
+}
+.homePage.show-forms .home-page-body section.main {
+  height: calc(100vh - 69px);
+}
+.homePage.show-forms .home-page-body section.main .forms {
+  max-height: 100vh;
+}
+.homePage.show-forms .home-page-body section.main section,
+.homePage.show-forms .home-page-body section.main .static-page-footer,
+.homePage.show-forms .home-page-body section.main #main-wrapper {
+  display: none;
+}
 .homePage .hidden {
   display: none !important;
 }
@@ -195,6 +216,19 @@
   font-size: 22px;
   text-transform: uppercase;
 }
+.homePage .home-page-body section.main .forms {
+  -webkit-transition: max-height 0.5s;
+  -moz-transition: max-height 0.5s;
+  transition: max-height 0.5s;
+  overflow: hidden;
+  max-height: 0;
+}
+.homePage .home-page-body section.main .forms .form-wrapper {
+  display: none;
+}
+.homePage .home-page-body section.main section {
+  max-height: 100vh;
+}
 .homePage .home-page-body section.main .form-wrapper {
   background: rgba(24, 26, 22, 0.93);
   max-width: 460px;
@@ -330,6 +364,7 @@
 }
 .homePage .home-page-body section.main .form-wrapper .bottom-strip a {
   color: #f5f5f5;
+  text-decoration: underline;
 }
 .homePage .home-page-body section.main .form-wrapper .blue-button {
   flex-shrink: 0;
@@ -358,9 +393,9 @@
 }
 .homePage .home-page-body section.main .form-wrapper.login-wrapper .forgot-password-text #forgot-password-link {
   color: #c3c3c3;
+  text-decoration: underline;
 }
 .homePage .home-page-body section.main .form-wrapper.login-wrapper .forgot-password-text #forgot-password-link:hover {
-  text-decoration: underline;
   cursor: pointer;
 }
 .homePage .home-page-body section.main .form-wrapper.register-wrapper .form-title {
@@ -373,11 +408,12 @@
   text-decoration: underline;
   display: block;
   cursor: pointer;
+  display: inline-block;
 }
 .homePage .home-page-body section.main .form-wrapper.register-wrapper form.register {
-  -webkit-transition: max-height 0.8s;
-  -moz-transition: max-height 0.8s;
-  transition: max-height 0.8s;
+  -webkit-transition: max-height 0.5s;
+  -moz-transition: max-height 0.5s;
+  transition: max-height 0.5s;
   overflow: hidden;
   max-height: 100vh;
 }
@@ -441,7 +477,8 @@
   line-height: 22px;
 }
 .homePage .home-page-body section.main .form-wrapper.check-email-message-wrapper .text button {
-  color: #3293f6;
+  color: #f5f5f5;
+  text-decoration: underline;
   background: none;
   border: none;
   margin-top: 10px;
