@@ -151,14 +151,6 @@
   padding: 400px 0 40px 0;
   overflow: visible;
   position: relative;
-  /*-moz-transition: min-height 1s;
-                    -o-transition: min-height 1s;
-                    -webkit-transition: min-height 1s;
-                    transition: min-height 1s;*/
-  /*&.collapse {
-                        padding: 0;
-                        height: 0;
-                    }*/
 }
 .homePage .home-page-body section.main .welcome-text {
   position: relative;

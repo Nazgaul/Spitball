@@ -161,7 +161,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     retVal.Blob,
                     retVal.BoxUrl,
-                    retVal.Comments,
+                    //retVal.Comments,
                     retVal.Name,
                     retVal.Navigation.Next,
                     retVal.Navigation.Previous,
@@ -189,7 +189,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
         }
-       
+
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [HttpGet, ActionName("Load")]
+        [BoxPermission("boxId")]
+        public async Task<ActionResult> CommentsAsync(long boxId, long itemId,CancellationToken cancellationToken)
+        {
+            var userId = User.GetUserId(false);
+            var result = await ZboxReadService.GetItemCommentsAsync(new GetItemQuery(userId, itemId, boxId));
+            return JsonOk(result);
+        }
 
         /// <summary>
         /// Download Item
