@@ -13,11 +13,11 @@
         self.getUniversityPic = getUniversityPic;
 
 
-        function getUniversityPic(name) {
+        function getUniversityPic(name, width, height) {
             if (!name) {
                 name = "defaultUniversity.png";
             }
-            return 'https://az779114.vo.msecnd.net/universities/' + encodeURIComponent(name) + '?width=500&height=100';
+            return 'https://az779114.vo.msecnd.net/universities/' + encodeURIComponent(name) + '?mode=crop&width=' + width + '&height=' + height;
         }
         function getChat(name) {
             if (!name) {
@@ -48,7 +48,7 @@
                 thumbnail: thumbnail
             };
         }
-       
+
     }
 
 })();

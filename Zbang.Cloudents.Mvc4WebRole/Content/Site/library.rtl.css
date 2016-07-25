@@ -2,6 +2,18 @@
 .library {
   margin-bottom: 50px;
 }
+.library .university {
+  height: 136px;
+}
+.library .university h1 {
+  height: 80px;
+  background: rgba(4, 4, 4, 0.6);
+  color: #fff;
+  padding: 0 3%;
+}
+.library .university span {
+  padding-right: 20px;
+}
 .library .corner:after {
   content: "";
   display: inline-block;

@@ -624,8 +624,6 @@
     </Content>
     <Content Include="Content\angular-material.css" />
     <Content Include="Content\angular-material.layouts.css" />
-    <Content Include="Content\angular-material.layouts.min.css" />
-    <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\Bootstrap\bootstrap.css" />
     <Content Include="Content\Bootstrap\bootstrap.rtl.css">
       <DependentUpon>bootstrap.css</DependentUpon>

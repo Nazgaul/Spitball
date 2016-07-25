@@ -1,7 +1,7 @@
 ﻿'use strict';
 (function () {
     angular.module('app.library').service('libraryService', library);
-    library.$inject = ['ajaxService'];
+    library.$inject = ['ajaxService2'];
 
     function library(ajaxservice) {
         var d = this;
@@ -11,20 +11,20 @@
         }
 
         d.getUniversity = function (term, page) {
-            return ajaxservice.get('/university/searchuniversity/', { term: term, page: page });
+            return ajaxservice.get('/university/searchuniversity/', { term: term, page: page }, null, 'uniSearch');
         }
 
         d.chooseUniversity = function (universityId, studentId) {
             return ajaxservice.post('/account/updateuniversity/', {
                 universityId: universityId,
                 studentId: studentId
-            });
+            }, 'univeristy');
         }
         d.createUniversity = function (name, country) {
             return ajaxservice.post('/university/createuniversity/', {
                 name: name,
                 country: country
-            });
+            }, 'univeristy');
         }
 
 
@@ -56,7 +56,7 @@
                 settings: settings
             });
         }
-        d.requestAccess = function(nodeId) {
+        d.requestAccess = function (nodeId) {
             return ajaxservice.post('/university/requestaccess/', {
                 id: nodeId
             });

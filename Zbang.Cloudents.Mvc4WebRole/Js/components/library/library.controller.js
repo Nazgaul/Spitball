@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.library').controller('Library', library);
     library.$inject = ['libraryService', '$stateParams', 'userDetailsFactory', 'nodeData', '$mdDialog',
-        '$location', '$scope', 'resManager', 'universityData', 'itemThumbnailService'];
+        '$location', '$scope', 'resManager', 'universityData'];
 
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
-        $location, $scope, resManager, universityData, itemThumbnailService) {
+        $location, $scope, resManager, universityData) {
 
         var l = this, nodeId = $stateParams.id;
         l.departments = nodeData.nodes;
@@ -14,12 +14,13 @@
         if (l.nodeDetail) {
             l.nodeDetail.isPrivate = false;
         }
+
         buildState();
         l.university = {
             name: universityData.name,
-            image: 'url(' + itemThumbnailService.getUniversityPic(universityData.cover) + ')'
+            image: universityData.cover,
+            logo: universityData.logo
         };
-        console.log(universityData);
         //l.universityName = userDetailsFactory.get().university.name;
         
         //l.topTree = nodeId == null;

@@ -6,16 +6,7 @@
     function animClass($state) {
         return {
             link: function(scope, elem) {
-
                 if (scope.app.clickLocation) {
-                    //var x = scope.app.clickLocation.x, y = scope.app.clickLocation.y;
-                    //elem.css({
-                    //    '-moz-transform-origin': x + ' ' + y,
-                    //    '-ms-transform-origin': x + ' ' + y,
-                    //    '-webkit-transform-origin': x + ' ' + y,
-                    //    'transform-origin': x + ' ' + y
-                    //
-                    //});
                     scope.app.clickLocation = null;
                 }
                 var enterClass;

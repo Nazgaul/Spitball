@@ -15,6 +15,10 @@
             },
             html: {
                 maxAge: 30 * day
+            },
+            department : {
+                maxAge: 15 * minute,
+                storageMode: 'sessionStorage'
             }
         };
 
@@ -38,6 +42,11 @@
             return cacheFactory(cacheKey, cacheCategories[cacheKey]);
         }
 
+        function deleteCategory(category) {
+            var dataCache = cacheFactory.get(category);
+            dataCache.removeAll();
+        }
+
         function post(url, data, category) {
             var dfd = $q.defer(),
                 startTime = new Date().getTime();
@@ -45,8 +54,14 @@
             $http.post(buildUrl(url), data).then(function (response) {
                 var retVal = response.data;
                 trackTime(startTime, url, data, 'post');
-                var dataCache = cacheFactory.get(category);
-                dataCache.removeAll();
+                if (angular.isArray(category)) {
+                    for (var cat in category) {
+                        deleteCategory(cat);
+                    }
+                }
+                else if (category) {
+                    deleteCategory(category);
+                }
                 if (!retVal) {
                     logError(url, data, retVal);
                     dfd.reject();
@@ -93,12 +108,14 @@
             }
             return dfd.promise;
         }
-        function get(url, data, category) {
+        function get(url, data, category, cancelCategory) {
             var deferred = $q.defer();
+            var cacheKey = url + JSON.stringify(data);
+
             if (category) {
                 var dataCache = cacheFactory.get(category);
-                if (dataCache && dataCache.get(url)) {    // if there is factory fot the current cateegory - bring the cache
-                    deferred.resolve(dataCache.get(url));
+                if (dataCache && dataCache.get(cacheKey)) {    // if there is factory fot the current cateegory - bring the cache
+                    deferred.resolve(dataCache.get(cacheKey));
                     return deferred.promise;
                 }
                 //return deferred.promise;
@@ -110,22 +127,31 @@
 
             function getFromServer(cacheCategory) {
                 var startTime = new Date().getTime();
-                $http.get(buildUrl(url)).then(function (response) {
-                    //var data = response.data;
+
+                var getObj = {
+                    params: data
+                    //timeout: cancelObjs[cancelCategory]
+                };
+                if (cancelCategory) {
+                    if (cancelObjs[cancelCategory]) {
+                        cancelObjs[cancelCategory].resolve();
+                    }
+                    cancelObjs[cancelCategory] = $q.defer();
+                    getObj.timeout = cancelObjs[cancelCategory];
+                }
+
+                $http.get(buildUrl(url), getObj).then(function (response) {
                     var retVal = response.data;
                     trackTime(startTime, url, data, 'get');
-
+                    delete cancelObjs[cancelCategory];
                     if (!retVal) {
                         deferred.reject();
                         return;
                     }
-                    cancelObjs[url] = null;
                     if (retVal.success) {
-
                         if (cacheCategory) {
                             var categoryFactory = cacheFactory.get(cacheCategory);
-                            //var categoryFactory =  buildFactoryObject(cacheCategory);
-                            categoryFactory.put(url, retVal.payload);
+                            categoryFactory.put(cacheKey, retVal.payload);
                         }
                         deferred.resolve(retVal.payload);
                         return;
