@@ -11,7 +11,7 @@
         }
 
         d.getUniversity = function (term, page) {
-            return ajaxservice.get('/university/searchuniversity/', { term: term, page: page }, null, 'uniSearch');
+            return ajaxservice.get('/university/search/', { term: term, page: page }, null, 'uniSearch');
         }
 
         d.chooseUniversity = function (universityId, studentId) {
