@@ -235,6 +235,7 @@ u.GoogleUserId as GoogleId
 and uu.country = 'IL'
 and u.emailsendsettings = 0
 and (u.creationtime>'2015' or u.[LastAccessTime] >'2015')
+and right(userid,1)<>1
 order by u.userid
 offset @pageNumber*50 ROWS
 FETCH NEXT 50 ROWS ONLY;";

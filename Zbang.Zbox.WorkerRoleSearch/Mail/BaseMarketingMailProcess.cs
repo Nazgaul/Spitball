@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.ServiceRuntime;
 using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.Emails;
