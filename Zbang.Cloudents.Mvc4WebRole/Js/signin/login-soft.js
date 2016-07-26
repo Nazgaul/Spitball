@@ -493,6 +493,7 @@ var Login = function () {
 }();
 
 
+$.post()
 var animatonSpeed = 500;
 
 $('.login-wrapper input').focus(function () {

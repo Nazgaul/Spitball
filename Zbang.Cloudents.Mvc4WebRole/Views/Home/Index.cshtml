@@ -395,6 +395,20 @@
             'alwaysSendReferrer': true
         });
     </script>
+    <script defer type="text/ng-template" id="box-template">
+        <a href="{boxUrl}" class="box">
+            <h2 class="{boxClass}">{boxName}</h2>
+            <div class="course-info">
+                <div class="lecturer">{boxProfessor}</div>
+                <div class="course-num">{boxCourseCode}</div>
+            </div>
+            <hr class="background {boxClass}" />
+            <div class="box-info">
+                <div>{boxMembersCount} @IndexResources.Members</div>
+                <div>{boxItemCount} @IndexResources.Items</div>
+            </div>
+        </a>
 
+    </script>
 </body>
 </html>

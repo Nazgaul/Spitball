@@ -147,4 +147,22 @@ window.addEventListener("load", function load() {
     Login.init();
 
 
+    $.get("/home/boxes", function (data) {
+        var boxes = data.payload;
+
+        for (box in boxes) {
+            var currBox = boxes[box];
+            var boxClass = "color"+currBox.name.length%11;
+            var boxElement = $('#box-template').html();
+            boxElement = boxElement.replace(new RegExp('{boxUrl}', 'g'), currBox.url ? currBox.url :'');
+            boxElement = boxElement.replace(new RegExp('{boxName}', 'g'), currBox.name ? currBox.name :'');
+            boxElement = boxElement.replace(new RegExp('{boxProfessor}', 'g'), currBox.professor ? currBox.professor :'');
+            boxElement = boxElement.replace(new RegExp('{boxCourseCode}', 'g'), currBox.courseCode ? currBox.courseCode :'');
+            boxElement = boxElement.replace(new RegExp('{boxClass}', 'g'), boxClass ? boxClass :'');
+            boxElement = boxElement.replace(new RegExp('{boxMembersCount}', 'g'), currBox.membersCount ? currBox.membersCount :'');
+            boxElement = boxElement.replace(new RegExp('{boxItemCount}', 'g'), currBox.itemCount ? currBox.itemCount : '');
+            $('.boxes').append(boxElement);
+        }
+    });
+
 })(window.document);
