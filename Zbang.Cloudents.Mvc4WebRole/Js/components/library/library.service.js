@@ -37,7 +37,7 @@
         d.deleteDepartment = function (id) {
             return ajaxservice.post('/university/deletenode/', {
                 id: id
-            });
+            }, 'department');
         }
 
         d.createClass = function (name, code, professor, nodeId) {

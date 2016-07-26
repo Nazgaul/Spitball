@@ -33,7 +33,6 @@ select
 	from zbox.box b join zbox.university u on b.university=u.id
 	where Discriminator = 2
 	and b.isdeleted = 0
-	and b.Discriminator = 2
 	AND (@Universityid IS null OR b.University = @Universityid)
 	AND (@country IS null OR country = @country)
  )   t1

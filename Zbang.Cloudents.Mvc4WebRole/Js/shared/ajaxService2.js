@@ -39,7 +39,7 @@
                 storagePrefix: 'sb.c.'
             });
 
-            return cacheFactory(cacheKey, cacheCategories[cacheKey]);
+            cacheFactory(cacheKey, cacheCategories[cacheKey]);
         }
 
         function deleteCategory(category) {

@@ -6,6 +6,6 @@ namespace Zbang.Zbox.Infrastructure.Transport
     public class SpamGunData
     {
         [ProtoMember(1)]
-        public string Emails { get; set; }
+        public string Email { get; set; }
     }
 }

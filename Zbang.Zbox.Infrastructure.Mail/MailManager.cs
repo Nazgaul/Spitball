@@ -118,7 +118,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             var sendGridMail = new SendGridMessage
             {
-                From = new MailAddress("no-reply@Spitball.co")
+                From = new MailAddress("support@spitball.co")
             };
 
             sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "yaari_r@yahoo.com" : recipient);
@@ -132,7 +132,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
             sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
             sendGridMail.SetCategory("pokimonMarket");
-            sendGridMail.Subject = "רוצים למצוא את פיקאצ'ו?";
+            sendGridMail.Subject = "מחפשים את הפוקימון הבא?";
             sendGridMail.SetIpPool(ipPool);
             sendGridMail.EnableClickTracking();
             sendGridMail.EnableOpenTracking();

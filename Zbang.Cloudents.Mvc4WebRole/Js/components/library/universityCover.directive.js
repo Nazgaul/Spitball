@@ -12,9 +12,6 @@
                         .getUniversityPic(attrs.univeristyCover, element.outerWidth(), element.outerHeight());
                     element.css('background', 'url(' + url + ')');
                 });
-                //if (attrs.firstLetter) {
-                //    element.text(attrs.firstLetter[0]);
-                //}
             }
         };
     }

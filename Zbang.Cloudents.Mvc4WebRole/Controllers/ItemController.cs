@@ -161,7 +161,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     retVal.Blob,
                     retVal.BoxUrl,
-                    //retVal.Comments,
                     retVal.Name,
                     retVal.Navigation.Next,
                     retVal.Navigation.Previous,
@@ -191,7 +190,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [HttpGet, ActionName("Load")]
+        [HttpGet, ActionName("Comment")]
         [BoxPermission("boxId")]
         public async Task<ActionResult> CommentsAsync(long boxId, long itemId,CancellationToken cancellationToken)
         {
