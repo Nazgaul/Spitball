@@ -15,6 +15,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public long UserId { get; private set; }
         public string BoxName { get; private set; }
-        
+
     }
 }

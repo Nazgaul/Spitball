@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateUserTheme(UpdateUserThemeCommand command);
         void UpdateUserUniversity(UpdateUserUniversityCommand command);
         void UpdateUserEmailSettings(UpdateUserEmailSubscribeCommand command);
-        CreateBoxCommandResult CreateBox(CreateBoxCommand command);
+        Task<CreateBoxCommandResult> CreateBoxAsync(CreateBoxCommand command);
         void ChangeBoxInfo(ChangeBoxInfoCommand command);
         //void DeleteBox(DeleteBoxCommand command);
         Task UnFollowBoxAsync(UnFollowBoxCommand command);
@@ -44,7 +44,7 @@ namespace Zbang.Zbox.Domain.Common
 
         //void AddNodeToLibrary(AddNodeToLibraryCommand command);
         void UpdateNodeSettings(UpdateNodeSettingsCommand command);
-        void DeleteNodeLibrary(DeleteNodeFromLibraryCommand command);
+        Task DeleteNodeLibraryAsync(DeleteNodeFromLibraryCommand command);
         Task RequestAccessToDepartmentAsync(RequestAccessLibraryNodeCommand command);
         Task RequestAccessToDepartmentApprovedAsync(LibraryNodeApproveAccessCommand command);
 
@@ -106,11 +106,11 @@ namespace Zbang.Zbox.Domain.Common
 
         #endregion
 
-       
 
 
 
-        void CreateDepartment(AddNodeToLibraryCommand command);
+
+        Task CreateDepartmentAsync(AddNodeToLibraryCommand command);
 
 
         void CreateUniversity(CreateUniversityCommand command);

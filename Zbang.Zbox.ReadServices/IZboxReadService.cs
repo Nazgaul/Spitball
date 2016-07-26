@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.ViewModel.Dto;
+using Zbang.Zbox.ViewModel.Dto.ActivityDtos;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
@@ -43,9 +44,9 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query);
         Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query);
-        //ItemWithDetailDto GetItem(GetItemQuery query);
 
         Task<ItemDetailDto> GetItem2Async(GetItemQuery query);
+        Task<IEnumerable<AnnotationDto>> GetItemCommentsAsync(GetItemQuery query);
         Task<ItemMobileDto> GetItemDetailApiAsync(GetItemQuery query);
         Task<FileSeo> GetItemSeoAsync(GetFileSeoQuery query);
         Task<BoxSeoDto> GetBoxSeoAsync(GetBoxSeoQuery query);

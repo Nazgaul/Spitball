@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.ViewModel.Dto;
+using Zbang.Zbox.ViewModel.Dto.ActivityDtos;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Dashboard;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
@@ -45,7 +46,8 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query)
         {
-            return m_ReadService.GetLibraryNodeAsync(query);
+            return m_Cache.QueryAsync(m_ReadService.GetLibraryNodeAsync, query);
+            //return m_ReadService.GetLibraryNodeAsync(query);
         }
 
       
@@ -67,6 +69,11 @@ namespace Zbang.Zbox.ReadServices
         public Task<ItemDetailDto> GetItem2Async(GetItemQuery query)
         {
             return m_ReadService.GetItem2Async(query);
+        }
+
+        public Task<IEnumerable<AnnotationDto>> GetItemCommentsAsync(GetItemQuery query)
+        {
+            return m_ReadService.GetItemCommentsAsync(query);
         }
 
         public Task<BoxDto2> GetBox2Async(GetBoxQuery query)

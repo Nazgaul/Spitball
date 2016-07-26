@@ -349,6 +349,28 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<IEnumerable<Activity.AnnotationDto>> GetItemCommentsAsync(GetItemQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (var grid = await conn.QueryMultipleAsync($"{Sql.Item.ItemComments} {Sql.Item.ItemCommentReply}",
+                    new {query.ItemId}))
+                {
+                    var retVal = await grid.ReadAsync<Activity.AnnotationDto>();
+
+                    IEnumerable<Activity.AnnotationReplyDto> replies =
+                        grid.Read<Activity.AnnotationReplyDto>().ToList();
+
+                    foreach (var comment in retVal)
+                    {
+                        comment.Replies.AddRange(replies.Where(w => w.ParentId == comment.Id));
+
+                    }
+                    return retVal;
+                }
+            }
+        }
+
         public async Task<Item.ItemDetailDto> GetItem2Async(GetItemQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
@@ -357,7 +379,7 @@ namespace Zbang.Zbox.ReadServices
                     var grid =
                         await
                             conn.QueryMultipleAsync(
-                                $"{Sql.Item.ItemDetail} {Sql.Item.Navigation} {Sql.Item.ItemComments} {Sql.Item.ItemCommentReply} {Sql.Item.UserItemRate}",
+                                $"{Sql.Item.ItemDetail} {Sql.Item.Navigation}  {Sql.Item.UserItemRate}",
                                 new { query.ItemId, query.BoxId, query.UserId }))
                 {
                     var retVal = grid.Read<Item.ItemDetailDto>().FirstOrDefault();
@@ -366,17 +388,7 @@ namespace Zbang.Zbox.ReadServices
                         throw new ItemNotFoundException();
                     }
                     retVal.Navigation = grid.Read<Item.ItemNavigationDto>().FirstOrDefault();
-                    retVal.Comments = await grid.ReadAsync<Activity.AnnotationDto>();
-
-
-                    IEnumerable<Activity.AnnotationReplyDto> replies =
-                        grid.Read<Activity.AnnotationReplyDto>().ToList();
-
-                    foreach (var comment in retVal.Comments)
-                    {
-                        comment.Replies.AddRange(replies.Where(w => w.ParentId == comment.Id));
-
-                    }
+                   
                     retVal.Like = grid.Read<int>().FirstOrDefault();
                     return retVal;
                 }

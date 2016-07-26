@@ -4,9 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using NHibernate.Criterion;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
@@ -19,10 +19,12 @@ namespace Zbang.Zbox.Domain.Services
     public class ZboxWorkerRoleService : IZboxWorkerRoleService
     {
         private readonly ICommandBus m_CommandBus;
+        private readonly IWithCache m_Cache;
 
-        public ZboxWorkerRoleService(ICommandBus commandBus)
+        public ZboxWorkerRoleService(ICommandBus commandBus, IWithCache cache)
         {
             m_CommandBus = commandBus;
+            m_Cache = cache;
         }
 
         public void UpdateThumbnailPicture(UpdateThumbnailCommand command)
@@ -211,6 +213,10 @@ namespace Zbang.Zbox.Domain.Services
             using (var unitOfWork = UnitOfWork.Start())
             {
                 await m_CommandBus.SendAsync(command);
+                if (command.UniversityId > 0)
+                {
+                    await m_Cache.RemoveAsync(command);
+                }
                 unitOfWork.TransactionalFlush();
             }
         }

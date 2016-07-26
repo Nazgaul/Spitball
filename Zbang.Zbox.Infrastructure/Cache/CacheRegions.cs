@@ -8,5 +8,10 @@
         }
 
         public const string UniversityRegion = "university";
+
+        public static string BuildNodesRegion(long universityId)
+        {
+            return $"university_{universityId}";
+        }
     }
 }

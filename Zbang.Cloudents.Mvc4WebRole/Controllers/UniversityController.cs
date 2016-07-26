@@ -250,8 +250,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         #region DeleteNode
-        [HttpPost]
-        public JsonResult DeleteNode(string id)
+        [HttpPost, ActionName("DeleteNode")]
+        public async Task<JsonResult> DeleteNodeAsync(string id)
         {
             var guid = GuidEncoder.TryParseNullableGuid(id);
 
@@ -267,7 +267,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
 
             var command = new DeleteNodeFromLibraryCommand(guid.Value, universityId.Value);
-            ZboxWriteService.DeleteNodeLibrary(command);
+            await ZboxWriteService.DeleteNodeLibraryAsync(command);
             return JsonOk();
 
         }
@@ -307,8 +307,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Create
 
 
-        [HttpPost]
-        public JsonResult Create(CreateLibraryItem model)
+        [HttpPost, ActionName("Create")]
+        public async Task<JsonResult> CreateAsync(CreateLibraryItem model)
         {
             if (!ModelState.IsValid)
             {
@@ -325,7 +325,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var parentId = GuidEncoder.TryParseNullableGuid(model.ParentId);
                 var command = new AddNodeToLibraryCommand(model.Name, universityId.Value, parentId, User.GetUserId());
-                ZboxWriteService.CreateDepartment(command);
+                await ZboxWriteService.CreateDepartmentAsync(command);
                 var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
                 return JsonOk(result);
             }
@@ -343,9 +343,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
 
-        [HttpPost]
+        [HttpPost, ActionName("CreateBox")]
         //[ValidateAntiForgeryToken]
-        public JsonResult CreateBox(CreateAcademicBox model)
+        public async Task<JsonResult> CreateBoxAsync(CreateAcademicBox model)
         {
             if (!ModelState.IsValid)
             {
@@ -368,8 +368,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var userId = User.GetUserId();
 
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
-                                                           model.CourseId, model.Professor, guid.Value);
-                var result = ZboxWriteService.CreateBox(command);
+                                                           model.CourseId, model.Professor, guid.Value, universityId.Value);
+                var result = await ZboxWriteService.CreateBoxAsync(command);
                 return JsonOk(new { result.Url });
             }
             catch (BoxNameAlreadyExistsException)

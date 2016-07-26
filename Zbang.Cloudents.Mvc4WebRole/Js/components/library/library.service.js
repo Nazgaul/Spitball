@@ -7,7 +7,7 @@
         var d = this;
 
         d.getDepartments = function (departmentId, universityId) {
-            return ajaxservice.get('/university/nodes/', { section: departmentId, universityId: universityId });
+            return ajaxservice.get('/university/nodes/', { section: departmentId, universityId: universityId }, 'department');
         }
 
         d.getUniversity = function (term, page) {
@@ -32,7 +32,7 @@
             return ajaxservice.post('/university/create/', {
                 name: name,
                 parentId: nodeId
-            });
+            },'department');
         }
         d.deleteDepartment = function (id) {
             return ajaxservice.post('/university/deletenode/', {
@@ -46,7 +46,7 @@
                 courseId: code,
                 professor: professor,
                 departmentId: nodeId
-            });
+            }, 'department');
         };
 
         d.updateSettings = function (name, nodeId, settings) {

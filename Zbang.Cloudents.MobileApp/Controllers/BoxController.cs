@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Mobile.Server.Config;
 using Zbang.Cloudents.MobileApp.DataObjects;
-using Zbang.Cloudents.MobileApp.Extensions;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -83,7 +82,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpPost]
         [Route("api/box")]
-        public HttpResponseMessage Post(CreateBoxRequest model)
+        public async Task<HttpResponseMessage> PostAsync(CreateBoxRequest model)
         {
             if (model == null)
             {
@@ -97,7 +96,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 var userId = User.GetUserId();
                 var command = new CreateBoxCommand(userId, model.BoxName);
-                var result = m_ZboxWriteService.CreateBox(command);
+                var result = await m_ZboxWriteService.CreateBoxAsync(command);
                 return Request.CreateResponse(new
                 {
                     result.Url,
@@ -114,7 +113,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [Route("api/box/academic")]
         [HttpPost]
-        public HttpResponseMessage CreateAcademicBox(CreateAcademicBoxRequest model)
+        public async Task<HttpResponseMessage> CreateAcademicBoxAsync(CreateAcademicBoxRequest model)
         {
             if (!ModelState.IsValid)
             {
@@ -137,8 +136,8 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 var userId = User.GetUserId();
 
                 var command = new CreateAcademicBoxCommand(userId, model.CourseName,
-                                                           model.CourseId, model.Professor, guid.Value);
-                var result = m_ZboxWriteService.CreateBox(command);
+                                                           model.CourseId, model.Professor, guid.Value, universityId.Value);
+                var result = await m_ZboxWriteService.CreateBoxAsync(command);
                 return Request.CreateResponse(new
                 {
                     result.Url,

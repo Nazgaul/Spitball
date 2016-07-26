@@ -37,6 +37,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (academicBox != null)
             {
+                message.UniversityId = academicBox.University.Id;
                 var university = academicBox.University;
                 var department = academicBox.Department;
                 var noOfBoxes = m_UniversityRepository.GetNumberOfBoxes(university);
