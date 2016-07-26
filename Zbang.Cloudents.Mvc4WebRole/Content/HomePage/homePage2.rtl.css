@@ -16,6 +16,8 @@
 }
 .homePage.show-forms .static-page-header .toggle {
   opacity: 0 !important;
+  z-index: -1;
+  cursor: default;
 }
 .homePage.show-forms .home-page-body section.main {
   height: calc(100vh - 69px);
@@ -161,6 +163,12 @@
   box-sizing: border-box;
   color: #f5f5f5;
   display: inline-block;
+}
+@media (max-width: 960px) {
+  .homePage .home-page-body section.main .welcome-text {
+    width: 100% !important;
+    padding: 0 10px;
+  }
 }
 .homePage .home-page-body section.main .welcome-text.vertical-slide {
   transition: 1s;
@@ -559,6 +567,11 @@
   background: #383838;
   border: 5px solid #f5f5f5;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+@media (max-width: 960px) {
+  .homePage .home-page-body section.main .statistics .sb-logo {
+    display: none;
+  }
 }
 .homePage .home-page-body section.main .statistics .statistic {
   text-align: center;

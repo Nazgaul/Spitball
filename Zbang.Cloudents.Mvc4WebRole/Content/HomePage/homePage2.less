@@ -16,6 +16,8 @@
     &.show-forms {
         .static-page-header .toggle {
             opacity: 0 !important;
+            z-index: -1;
+            cursor: default;
         }
 
         .home-page-body {
@@ -177,6 +179,12 @@
                     box-sizing: border-box;
                     color: @textColorWhite;
                     display: inline-block;
+
+
+                    @media(max-width: 960px) {
+                        width: 100% !important;
+                        padding: 0 10px;
+                    }
 
                     &.vertical-slide {
                         transition: 1s;
@@ -626,6 +634,10 @@
                         background: #383838;
                         border: 5px solid @textColorWhite;
                         box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+
+                        @media(max-width: 960px) {
+                            display: none;
+                        }
                     }
 
                     .statistic {

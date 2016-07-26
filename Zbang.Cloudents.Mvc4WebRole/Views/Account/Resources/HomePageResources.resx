@@ -275,4 +275,7 @@ interact with their classmates, create online quizzes and get better grades.</va
   <data name="D6H" xml:space="preserve">
     <value>Get Better grades</value>
   </data>
+  <data name="SignUpForFree" xml:space="preserve">
+    <value>sign up for free</value>
+  </data>
 </root>

@@ -52,6 +52,8 @@ window.addEventListener("load", function load() {
     new CountUp("quizzes", 0, quizzesCount, 0, 2.5, options).start();;
     //#endregion
 
+    var hasBoxes = false;
+
     //#region scroll to top
     var offset = 300;
     var duration = 500;
@@ -146,5 +148,44 @@ window.addEventListener("load", function load() {
     //Layout.init(); // init current layout
     Login.init();
 
+
+    $(window).scroll(function () {
+        if (!hasBoxes) {
+            var scrollTo = $('section.check-us');
+            var hT = scrollTo.offset().top,
+                hH = scrollTo.outerHeight(),
+                wH = $(window).height(),
+                wS = $(this).scrollTop();
+            if (wS > hT - wH) {
+                hasBoxes = true;
+                $.get("/home/boxes", function (data) {
+                    var boxes = data.payload;
+                    var boxElement = $('#box-template').html();
+
+                    for (box in boxes) {
+                        var currBox = boxes[box];
+                        var boxClass = "color" + currBox.name.length % 11;
+                        var mapObj = {
+                            '{boxUrl}'          : currBox.url ? currBox.url : '',
+                            '{boxName}'         : currBox.name ? currBox.name : '',
+                            '{boxProfessor}'    : currBox.professor ? currBox.professor : '',
+                            '{boxCourseCode}'   : currBox.courseCode ? currBox.courseCode : '',
+                            '{boxClass}'        : boxClass ? boxClass : '',
+                            '{boxMembersCount}'     : currBox.membersCount ? currBox.membersCount : '',
+                            '{boxItemCount}'    : currBox.itemCount ? currBox.itemCount : ''
+                        };
+
+                        box = boxElement.replace(new RegExp(Object.keys(mapObj).join("|"), 'g'), function (matched) {
+                            return mapObj[matched];
+                        });
+
+                        $('.boxes').append(box);
+                    }
+
+                      
+                });
+            }
+        }
+    });
 
 })(window.document);

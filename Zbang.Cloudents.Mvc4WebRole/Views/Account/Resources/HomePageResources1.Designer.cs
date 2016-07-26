@@ -396,6 +396,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to sign up for free.
+        /// </summary>
+        public static string SignUpForFree {
+            get {
+                return ResourceManager.GetString("SignUpForFree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documents.
         /// </summary>
         public static string statsDocuments {
