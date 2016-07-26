@@ -52,6 +52,8 @@ window.addEventListener("load", function load() {
     new CountUp("quizzes", 0, quizzesCount, 0, 2.5, options).start();;
     //#endregion
 
+    var hasBoxes = false;
+
     //#region scroll to top
     var offset = 300;
     var duration = 500;
@@ -147,21 +149,42 @@ window.addEventListener("load", function load() {
     Login.init();
 
 
-    $.get("/home/boxes", function (data) {
-        var boxes = data.payload;
+    $(window).scroll(function () {
+        if (!hasBoxes) {
+            var scrollTo = $('section.check-us');
+            var hT = scrollTo.offset().top,
+                hH = scrollTo.outerHeight(),
+                wH = $(window).height(),
+                wS = $(this).scrollTop();
+            if (wS > hT - wH) {
+                hasBoxes = true;
+                $.get("/home/boxes", function (data) {
+                    var boxes = data.payload;
+                    var boxElement = $('#box-template').html();
 
-        for (box in boxes) {
-            var currBox = boxes[box];
-            var boxClass = "color"+currBox.name.length%11;
-            var boxElement = $('#box-template').html();
-            boxElement = boxElement.replace(new RegExp('{boxUrl}', 'g'), currBox.url ? currBox.url :'');
-            boxElement = boxElement.replace(new RegExp('{boxName}', 'g'), currBox.name ? currBox.name :'');
-            boxElement = boxElement.replace(new RegExp('{boxProfessor}', 'g'), currBox.professor ? currBox.professor :'');
-            boxElement = boxElement.replace(new RegExp('{boxCourseCode}', 'g'), currBox.courseCode ? currBox.courseCode :'');
-            boxElement = boxElement.replace(new RegExp('{boxClass}', 'g'), boxClass ? boxClass :'');
-            boxElement = boxElement.replace(new RegExp('{boxMembersCount}', 'g'), currBox.membersCount ? currBox.membersCount :'');
-            boxElement = boxElement.replace(new RegExp('{boxItemCount}', 'g'), currBox.itemCount ? currBox.itemCount : '');
-            $('.boxes').append(boxElement);
+                    for (box in boxes) {
+                        var currBox = boxes[box];
+                        var boxClass = "color" + currBox.name.length % 11;
+                        var mapObj = {
+                            '{boxUrl}'          : currBox.url ? currBox.url : '',
+                            '{boxName}'         : currBox.name ? currBox.name : '',
+                            '{boxProfessor}'    : currBox.professor ? currBox.professor : '',
+                            '{boxCourseCode}'   : currBox.courseCode ? currBox.courseCode : '',
+                            '{boxClass}'        : boxClass ? boxClass : '',
+                            '{boxMembersCount}'     : currBox.membersCount ? currBox.membersCount : '',
+                            '{boxItemCount}'    : currBox.itemCount ? currBox.itemCount : ''
+                        };
+
+                        box = boxElement.replace(new RegExp(Object.keys(mapObj).join("|"), 'g'), function (matched) {
+                            return mapObj[matched];
+                        });
+
+                        $('.boxes').append(box);
+                    }
+
+                      
+                });
+            }
         }
     });
 

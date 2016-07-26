@@ -238,7 +238,7 @@
 
             <section class="intro">
                 <button type="button" class="login-option signup os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
-                    @HomePageResources.A5
+                    @HomePageResources.SignUpForFree
                 </button>
                 <div class="text os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@HomePageResources.A6</div>
                 <div class="video-wrapper">
@@ -257,27 +257,8 @@
             </section>
             <section class="check-us">
                 <div id="check-us-section" class="section-start"></div>
-                <h2 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.C1</h2>
-                <div class="boxes">
-                    @*@foreach (var box in Model.Boxes)
-                        {
-                            var boxClass = "color" + (box.Name.Length) % 11;
-                            <a href="@box.Url" class="box os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
-
-                                <h2 class="@boxClass">@box.Name</h2>
-                                <div class="course-info">
-                                    <div class="lecturer">@box.Professor</div>
-                                    <div class="course-num">@box.CourseCode</div>
-                                </div>
-                                <hr class="background @boxClass" />
-                                <div class="box-info">
-                                    <div>@box.MembersCount&nbsp;@IndexResources.Members</div>
-                                    <div>@box.ItemCount&nbsp;@IndexResources.Items</div>
-                                </div>
-
-                            </a>
-                        }*@
-                </div>
+                <h2 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@HomePageResources.C1</h2>
+                <div class="boxes os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s"></div>
             </section>
             <section class="about">
                 <h2 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0s">@HomePageResources.D1</h2>
@@ -395,7 +376,7 @@
             'alwaysSendReferrer': true
         });
     </script>
-    <script defer type="text/ng-template" id="box-template">
+    <script defer type="text/template" id="box-template">
         <a href="{boxUrl}" class="box">
             <h2 class="{boxClass}">{boxName}</h2>
             <div class="course-info">

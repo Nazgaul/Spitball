@@ -279,4 +279,7 @@
   <data name="D6H" xml:space="preserve">
     <value>קבלו ציונים טובים יותר</value>
   </data>
+  <data name="SignUpForFree" xml:space="preserve">
+    <value>הירשמו בחינם</value>
+  </data>
 </root>
