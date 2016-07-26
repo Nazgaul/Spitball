@@ -10,7 +10,8 @@
         //$scope.$on('itemData', function (e, arg) {
         //    c.comments = arg.comments;
         //});
-        c.comments = $scope.i.details.comments;
+
+        c.comments = [];
         c.currUser = userDetailsFactory.get();
 
         c.addComment = addComment;
@@ -32,6 +33,9 @@
         //    $rootScope.$broadcast('updateScroll');
         //},151);
         function toggleComments() {
+            itemService.getComments(boxid, itemId).then(function (response) {
+                c.comments=response;
+            })
             $mdSidenav('commentsMenu').toggle();
             $timeout(function() {
                 $rootScope.$broadcast('updateScroll');

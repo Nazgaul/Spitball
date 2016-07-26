@@ -50,6 +50,13 @@
             });
         }
 
+        d.getComments = function (boxId, itemId) {
+            return ajaxservice.get('/item/comment', {
+                boxId: boxId,
+                itemId: itemId
+            })
+        }
+
         d.addComment = function (comment, boxId, id) {
             return ajaxservice.post('/item/addcomment', {
                 itemId: id,
@@ -67,7 +74,7 @@
             });
         }
 
-        d.deleteReply = function(replyId) {
+        d.deleteReply = function (replyId) {
             return ajaxservice.post('/item/deletecommentreply', {
                 ReplyId: replyId
             });
