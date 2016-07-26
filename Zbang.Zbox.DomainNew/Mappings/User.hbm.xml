@@ -98,7 +98,6 @@
 
     <property name="HeaderBackgroundColor" length="30"/>
     <property name="BackgroundImage"/>
-    <property name="H1Text"/>
     <property name="VideoBackgroundColor" length="30"/>
     <property name="VideoFontColor" length="30"/>
     <property name="SignupColor" length="30"/>

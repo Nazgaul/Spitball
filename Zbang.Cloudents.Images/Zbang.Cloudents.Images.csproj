@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="images\DefaultUni.png" />
     <Content Include="images\Icons_720_doc.png" />
     <Content Include="images\Icons_720_drive.png" />
     <Content Include="images\Icons_720_excel.png" />
@@ -119,7 +120,6 @@
     <Content Include="images\Icons_720_txt.png" />
     <Content Include="images\Icons_720_video.png" />
     <Content Include="images\link_720.png" />
-    <Content Include="images\ZanzibarRedColobus_ROW11951407987_1920x1080.jpg" />
     <Content Include="images\zip.png" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">

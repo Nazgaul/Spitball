@@ -64,7 +64,6 @@ namespace Zbang.Zbox.Domain
 
         public string BackgroundImage { get; set; }
 
-        public string H1Text { get; set; }
 
         public string VideoBackgroundColor { get; set; }
 

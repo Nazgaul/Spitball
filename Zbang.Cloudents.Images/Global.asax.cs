@@ -19,7 +19,7 @@ namespace Zbang.Cloudents.Images
                 {
                     if (args.VirtualPath.ToLower().StartsWith("/universities"))
                     {
-                        args.QueryString["404"] = "~/images/ZanzibarRedColobus_ROW11951407987_1920x1080.jpg";
+                        args.QueryString["404"] = "~/images/DefaultUni.png";
                         return;
                     }
                     //var splitUrl = args.VirtualPath.Split(new[] {"/"}, StringSplitOptions.RemoveEmptyEntries);

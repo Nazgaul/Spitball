@@ -57,7 +57,15 @@ window.addEventListener("load", function load() {
     //#region scroll to top
     var offset = 300;
     var duration = 500;
-
+    var background = $('.home-page-body');
+    var backgroundUrl = 'https://az779114.vo.msecnd.net/universities/cover/' +
+            encodeURIComponent(background.data('image')) +
+            '?mode=crop&width=' +
+             background.outerWidth() +
+            '&height=' +
+            background.outerHeight();
+    background
+        .css('background-image', 'url(' + backgroundUrl +')');
     if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
         $(window).bind("touchend touchcancel touchleave", function () {
             if ($(this).scrollTop() > offset) {

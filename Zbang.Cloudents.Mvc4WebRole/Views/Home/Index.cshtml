@@ -4,16 +4,6 @@
 @{
     Layout = null;
     const string socialIconsSvg = "~/images/site/social-icons.svg";
-
-    //Model.HomePageUniversityData = Model.HomePageUniversityData ?? new Zbang.Zbox.ViewModel.Dto.HomePageUniversityData
-    //{
-    //    H1Text = "#f5f5f5",
-    //    SignupColor = "#EC610D",
-    //    BackgroundImage = "../../Images/HomePage2/HP_image.jpg",
-    //    HeaderBackgroundColor = "#181c1d",
-    //    VideoBackgroundColor = "#FFF",
-    //    VideoFontColor = "#181c1d"
-    //};
     ViewBag.headerbackground = Model.HomePageUniversityData.HeaderBackgroundColor;
     ViewBag.signupColor = Model.HomePageUniversityData.SignupColor;
 }
@@ -26,14 +16,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
     <meta name="google-signin-client_id" content="997823384046-ddhrphigu0hsgkk1dglajaifcg2rggbm.apps.googleusercontent.com" />
     <style>
-       .home-page-body{
-            background-image: url("@Model.HomePageUniversityData.BackgroundImage") !important;
-        }
-
-        /*.welcome-text h1{
-            color: @Model.HomePageUniversityData.H1Text !important;
-        }*/
-
         .intro{
             background: @Model.HomePageUniversityData.VideoBackgroundColor !important;
         }
@@ -48,10 +30,10 @@
     </style>
 </head>
 <body class="homePage">
-    <div class="page-content">
+    <div class="page-content" >
         @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{Html.RenderPartial("_StaticPageHeader");}
-        <div class="home-page-body">
+        <div class="home-page-body" data-image="@Model.HomePageUniversityData.BackgroundImage">
             <section class="main">
                 <div class="forms">
                     <div class="login-wrapper form-wrapper" style="display:none;">
@@ -200,7 +182,7 @@
                 </div>
                 <div id="main-wrapper">
                     <div class="welcome-text">
-                        <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@Model.HomePageUniversityData.H1Text</h1>
+                        <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@Model.HomePageUniversityData.UniversityName <br /> @HomePageResources.A4</h1>
                     </div>
                     <div class="loader">
                         <div class="backdrop"></div>

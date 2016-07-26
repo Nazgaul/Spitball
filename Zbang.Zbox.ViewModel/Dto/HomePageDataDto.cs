@@ -22,16 +22,16 @@
     {
         public HomePageUniversityData()
         {
-            H1Text = "#f5f5f5";
+            //H1Text = "#f5f5f5";
             SignupColor = "#EC610D";
-            BackgroundImage = "/Images/HomePage2/HP_image.jpg";
+            BackgroundImage = "DefaultUni.png";
             HeaderBackgroundColor = "#181c1d";
             VideoBackgroundColor = "#FFF";
             VideoFontColor = "#181c1d";
         }
         public string HeaderBackgroundColor { get; set; }
         public string BackgroundImage { get; set; }
-        public string H1Text { get; set; }
+        public string UniversityName { get; set; }
         public string VideoBackgroundColor { get; set; }
         public string VideoFontColor { get; set; }
         public string SignupColor { get; set; }
