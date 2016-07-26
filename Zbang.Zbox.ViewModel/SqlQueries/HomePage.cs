@@ -6,7 +6,7 @@
         LargeImage as logo,
         HeaderBackgroundColor,
         BackgroundImage,
-        H1Text,
+        UniversityName,
         VideoBackgroundColor,
         VideoFontColor,
         SignupColor 

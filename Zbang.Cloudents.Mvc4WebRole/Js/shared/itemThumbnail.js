@@ -17,7 +17,7 @@
             if (!name) {
                 name = "defaultUniversity.png";
             }
-            return 'https://az779114.vo.msecnd.net/universities/' + encodeURIComponent(name) + '?mode=crop&width=' + width + '&height=' + height;
+            return 'https://az779114.vo.msecnd.net/universities/cover/' + encodeURIComponent(name) + '?mode=crop&width=' + width + '&height=' + height;
         }
         function getChat(name) {
             if (!name) {

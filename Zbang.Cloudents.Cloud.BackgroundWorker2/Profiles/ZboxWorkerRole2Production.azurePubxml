@@ -9,8 +9,8 @@
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>False</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
-    <AzureHostedServiceLabel>ZboxOneTimeUpadte</AzureHostedServiceLabel>
-    <AzureHostedServiceName>zboxonetimeupadte</AzureHostedServiceName>
+    <AzureHostedServiceLabel>ZboxWorkerRole2</AzureHostedServiceLabel>
+    <AzureHostedServiceName>zboxworkerrole2</AzureHostedServiceName>
     <AzureEnableIntelliTrace>True</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
