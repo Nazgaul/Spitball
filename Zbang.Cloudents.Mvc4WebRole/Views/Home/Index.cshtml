@@ -237,7 +237,7 @@
             </section>
 
             <section class="intro">
-                <button type="button" class="login-option signup os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.3s">
+                <button type="button" class="login-option signup os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.3s" ga-track-event="['home-page', 'signin']">
                     @HomePageResources.SignUpForFree
                 </button>
                 <div class="text os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@HomePageResources.A6&nbsp;<b>@HomePageResources.Free</b></div>
@@ -377,7 +377,7 @@
         });
     </script>
     <script defer type="text/template" id="box-template">
-        <a href="{boxUrl}" class="box">
+        <a href="{boxUrl}" class="box" ga-track-event="['home-page', 'box']">
             <h2 class="{boxClass}">{boxName}</h2>
             <div class="course-info">
                 <div class="lecturer">{boxProfessor}</div>

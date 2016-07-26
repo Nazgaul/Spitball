@@ -1301,6 +1301,7 @@ iframe {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  height: 179px;
 }
 @media (max-width: 900px) {
   .boxes .box {
@@ -1338,7 +1339,7 @@ iframe {
   justify-content: space-between;
 }
 .boxes .box hr {
-  height: 4px;
+  height: 1px;
   border: none;
   border-radius: 10px;
   width: 100%;
