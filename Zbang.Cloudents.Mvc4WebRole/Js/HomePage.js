@@ -161,7 +161,7 @@ window.addEventListener("load", function load() {
         if (!hasBoxes) {
             var scrollTo = $('section.check-us');
             var hT = scrollTo.offset().top,
-                hH = scrollTo.outerHeight(),
+                //hH = scrollTo.outerHeight(),
                 wH = $(window).height(),
                 wS = $(this).scrollTop();
             if (wS > hT - wH) {
@@ -170,7 +170,7 @@ window.addEventListener("load", function load() {
                     var boxes = data.payload;
                     var boxElement = $('#box-template').html();
 
-                    for (box in boxes) {
+                    for (var box in boxes) {
                         var currBox = boxes[box];
                         var boxClass = "color" + currBox.name.length % 11;
                         var mapObj = {
@@ -178,8 +178,8 @@ window.addEventListener("load", function load() {
                             '{boxName}'         : currBox.name ? currBox.name : '',
                             '{boxProfessor}'    : currBox.professor ? currBox.professor : '',
                             '{boxCourseCode}'   : currBox.courseCode ? currBox.courseCode : '',
-                            '{boxClass}'        : boxClass ? boxClass : '',
-                            '{boxMembersCount}'     : currBox.membersCount ? currBox.membersCount : '',
+                            '{boxClass}'        : boxClass ,
+                            '{boxMembersCount}'    : currBox.membersCount ? currBox.membersCount : '',
                             '{boxItemCount}'    : currBox.itemCount ? currBox.itemCount : ''
                         };
 

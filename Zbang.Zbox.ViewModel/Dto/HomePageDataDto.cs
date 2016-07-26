@@ -22,12 +22,12 @@
     {
         public HomePageUniversityData()
         {
-            //H1Text = "#f5f5f5";
             SignupColor = "#EC610D";
             BackgroundImage = "DefaultUni.png";
-            HeaderBackgroundColor = "#181c1d";
+            HeaderBackgroundColor = "rgba(0,0,0,.9)";
             VideoBackgroundColor = "#FFF";
-            VideoFontColor = "#181c1d";
+            VideoFontColor = "#383838";
+            Logo = "/images/site/logo_spitball.png";
         }
         public string HeaderBackgroundColor { get; set; }
         public string BackgroundImage { get; set; }
@@ -35,6 +35,8 @@
         public string VideoBackgroundColor { get; set; }
         public string VideoFontColor { get; set; }
         public string SignupColor { get; set; }
+
+        public string Logo { get; set; }
     }
 
 }

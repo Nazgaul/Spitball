@@ -30,7 +30,7 @@
     </style>
 </head>
 <body class="homePage">
-    <div class="page-content" >
+    <div class="page-content">
         @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{Html.RenderPartial("_StaticPageHeader");}
         <div class="home-page-body" data-image="@Model.HomePageUniversityData.BackgroundImage">
@@ -203,7 +203,7 @@
                         <div class="loader-text">@SharedResources.LoaderText</div>
                     </div>
                     <div class="statistics os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
-                        <div class="sb-logo"></div>
+                        <img class="sb-logo" src="@Model.HomePageUniversityData.Logo" alt="" />
                         <h3 class="statistic">
                             <span id="students" class="value" data-value="@Model.HomePageStats.StudentsCount"></span><span>@HomePageResources.statsStudents</span>
                         </h3>
@@ -342,22 +342,6 @@
     @Html.JqueryValidateLocale()
     <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" async defer></script>
 
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-        ga('require', 'displayfeatures');
-
-        ga('create', 'UA-9850006-3', {
-            'siteSpeedSampleRate': 70,
-            'cookieDomain': 'spitball.co',
-            'alwaysSendReferrer': true
-        });
-    </script>
     <script defer type="text/template" id="box-template">
         <a href="{boxUrl}" class="box">
             <h2 class="{boxClass}">{boxName}</h2>
