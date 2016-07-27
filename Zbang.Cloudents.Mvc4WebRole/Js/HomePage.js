@@ -76,7 +76,6 @@ window.addEventListener("load", function load() {
 
     setBackground();
     var timeout;
-    clearTimeout(timeout)
     $(window).resize(function () {
         clearTimeout(timeout);
         timeout = setTimeout(setBackground, 1000);
@@ -189,7 +188,7 @@ window.addEventListener("load", function load() {
                 wS = $(this).scrollTop();
             if (wS > hT - wH) {
                 hasBoxes = true;
-                $.get("/home/boxes", function (data) {
+                $.get("/home/boxes/", function (data) {
                     var boxes = data.payload;
                     var boxElement = $('#box-template').html();
 
