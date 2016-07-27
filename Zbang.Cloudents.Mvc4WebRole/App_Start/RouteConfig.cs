@@ -30,7 +30,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.MapRoute("universityLibraryAuth",
                 "university/{universityId}/{universityName}",
                 new {controller = "University", action = "Index" },
-                new { auth= new AuthorizationConstraint() , universityId = new LongRouteConstraint() }
+                new { /*auth = new AuthorizationConstraint() ,*/ universityId = new LongRouteConstraint() }
              );
 
             routes.MapRoute("universityLibraryNodes",
@@ -38,11 +38,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { controller = "Home", action = "IndexEmpty" },
                 new { universityId = new LongRouteConstraint() }
              );
-            routes.MapRoute("universityLibrary",
-                "university/{universityId}/{universityName}",
-                new { controller = "Home", action = "Index" },
-                new { universityId = new LongRouteConstraint() }
-             );
+            //routes.MapRoute("universityLibrary",
+            //    "university/{universityId}/{universityName}",
+            //    new { controller = "Home", action = "Index" },
+            //    new { universityId = new LongRouteConstraint() }
+            // );
 
 
             routes.MapRoute("resetpassword",
@@ -113,9 +113,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" }
             );
 
-            routes.MapRoute("UniversityLink", "{uni}",
-                new {controller = "Home", action = "UniversityUrl"},
-                new { uni  = new UniversityConstraint() });
+            routes.MapRoute("UniversityLink", "{universityName}",
+                new {controller = "Home", action = "Index"},
+                new { universityName = new UniversityConstraint() });
 
             routes.MapRoute("Default", "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }

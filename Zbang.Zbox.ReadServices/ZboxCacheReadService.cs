@@ -366,12 +366,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserConversationAsync(query);
         }
 
-        //public Task<int> GetUnreadChatMessagesAsync(QueryBase query)
-        //{
-        //    return m_ReadService.GetUnreadChatMessagesAsync(query);
-        //}
-
-
         public Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
         {
             return m_ReadService.GetQuizSolversAsync(query);
@@ -407,6 +401,11 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<RecommendBoxDto>> GetUniversityBoxesAsync(GetHomeBoxesUniversityQuery query)
         {
             return m_ReadService.GetUniversityBoxesAsync(query);
+        }
+
+        public Task<long?> GetUniversityIdByUrlAsync(string url)
+        {
+            return m_ReadService.GetUniversityIdByUrlAsync(url);
         }
 
         public Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync()

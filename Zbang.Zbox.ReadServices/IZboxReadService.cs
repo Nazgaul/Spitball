@@ -24,6 +24,7 @@ namespace Zbang.Zbox.ReadServices
         // home page
         Task<HomePageDataDto> GetHomePageDataAsync(GetHomePageQuery query);
         Task<IEnumerable<RecommendBoxDto>> GetUniversityBoxesAsync(GetHomeBoxesUniversityQuery query);
+        Task<long?> GetUniversityIdByUrlAsync(string url);
 
 
 

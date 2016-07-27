@@ -54,6 +54,16 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<long?> GetUniversityIdByUrlAsync(string url)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return
+                    await
+                        conn.QuerySingleOrDefaultAsync<long?>("select id from zbox.university where url=@url",new { url });
+            }
+        }
+
         public async Task<IEnumerable<Box.RecommendBoxDto>> GetUniversityBoxesAsync(GetHomeBoxesUniversityQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())

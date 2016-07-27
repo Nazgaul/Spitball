@@ -39,7 +39,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [DonutOutputCache(CacheProfile = "HomePage"), ActionName("Index"), HttpGet]
-        public async Task<ActionResult> IndexAsync(string invId, long? universityId, string step)
+        public async Task<ActionResult> IndexAsync(string invId, string universityName, string step)
         {
 
             if (User.Identity.IsAuthenticated)
@@ -48,16 +48,25 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             ViewBag.title = SeoResources.HomePageTitle;
             ViewBag.metaDescription = SeoResources.HomePageMeta;
-            if (step == "signin")
+            long? universityId = null;
+            if (!string.IsNullOrEmpty(universityName))
             {
-                ViewBag.title = SeoResources.SignInTitle;
-                ViewBag.metaDescription = SeoResources.SignInMeta;
+                universityId = await ZboxReadService.GetUniversityIdByUrlAsync(universityName);
+                if (!universityId.HasValue)
+                {
+                    return new HttpNotFoundResult();
+                }
             }
-            if (step == "signup")
-            {
-                ViewBag.title = SeoResources.SignUpTitle;
-                ViewBag.metaDescription = SeoResources.SignUpMeta;
-            }
+            //if (step == "signin")
+            //{
+            //    ViewBag.title = SeoResources.SignInTitle;
+            //    ViewBag.metaDescription = SeoResources.SignInMeta;
+            //}
+            //if (step == "signup")
+            //{
+            //    ViewBag.title = SeoResources.SignUpTitle;
+            //    ViewBag.metaDescription = SeoResources.SignUpMeta;
+            //}
 
             if (!string.IsNullOrEmpty(invId))
             {
@@ -73,14 +82,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Index", homeStats);
         }
 
-        public ActionResult UniversityUrl(string uni)
-        {
-            return new ContentResult()
-            {
-                Content = $"hi this is uni {uni}",
-                ContentType = "text/html"
-            };
-        }
+        //[ActionName("UniversityUrl"), HttpGet]
+        
+        //public async Task<ActionResult> UniversityUrlAsync(string invId, string universityName, string step)
+        //{
+        //    //return IndexAsync()
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        return RedirectToAction("Index", "Dashboard");
+        //    }
+        //    var universityId = await ZboxReadService.GetUniversityIdByUrlAsync(universityName);
+        //    if (!universityId.HasValue)
+        //    {
+        //        return new HttpNotFoundResult();
+        //    }
+        //    return await IndexAsync(invId, universityId.Value, step);
+        //}
 
         [ActionName("Boxes"), HttpGet]
         public async Task<JsonResult> BoxesAsync()
@@ -559,18 +576,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                        Priority = 0.95,
                        Frequency = SitemapFrequency.Daily
                    });
-                nodes.Add(
-                  new SitemapNode(requestContext, "homePage", new { step = "signin" })
-                  {
-                      Priority = 0.95,
-                      Frequency = SitemapFrequency.Daily
-                  });
-                nodes.Add(
-                  new SitemapNode(requestContext, "homePage", new { step = "signup" })
-                  {
-                      Priority = 0.95,
-                      Frequency = SitemapFrequency.Daily
-                  });
+                //nodes.Add(
+                //  new SitemapNode(requestContext, "homePage", new { step = "signin" })
+                //  {
+                //      Priority = 0.95,
+                //      Frequency = SitemapFrequency.Daily
+                //  });
+                //nodes.Add(
+                //  new SitemapNode(requestContext, "homePage", new { step = "signup" })
+                //  {
+                //      Priority = 0.95,
+                //      Frequency = SitemapFrequency.Daily
+                //  });
                 nodes.Add(
                    new SitemapNode(requestContext, "Jobs", null)
                    {
