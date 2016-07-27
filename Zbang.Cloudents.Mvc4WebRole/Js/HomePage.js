@@ -58,12 +58,14 @@ window.addEventListener("load", function load() {
     var offset = 300;
     var duration = 500;
     var background = $('.home-page-body');
+    var main = $('.main');
+    var header = $('.static-page-header');
     var backgroundUrl = 'https://az779114.vo.msecnd.net/universities/cover/' +
-            encodeURIComponent(background.data('image')) +
+            encodeURIComponent(main.data('image')) +
             '?mode=crop&width=' +
-             background.outerWidth() +
+             main.outerWidth() +
             '&height=' +
-            background.outerHeight();
+            (main.outerHeight() + header.outerHeight());
     background
         .css('background-image', 'url(' + backgroundUrl + ')');
 

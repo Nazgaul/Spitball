@@ -34,8 +34,8 @@
     <div class="page-content">
         @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{Html.RenderPartial("_StaticPageHeader");}
-        <div class="home-page-body" data-image="@Model.HomePageUniversityData.BackgroundImage">
-            <section class="main">
+        <div class="home-page-body">
+            <section class="main" data-image="@Model.HomePageUniversityData.BackgroundImage">
                 <div class="forms">
                     <div class="login-wrapper form-wrapper" style="display:none;">
                         <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>

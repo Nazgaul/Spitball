@@ -35,8 +35,6 @@
 }
 .homePage .home-page-body {
   background-attachment: scroll;
-  background-size: cover;
-  background-position: 50% 0;
   background-repeat: no-repeat;
   z-index: 1;
   position: absolute;
@@ -143,7 +141,7 @@
   text-align: center;
   padding-bottom: 200px;
   margin-top: 70px;
-  background: linear-gradient(to top, #000 -50px, transparent 400px, transparent 100%);
+  background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
   padding: 0;
   overflow: visible;
   /*#region forms*/
