@@ -142,8 +142,8 @@
                 cursor: pointer;
 
                 &.signup {
-                    font-size: 30px;
-                    padding: 20px 50px;
+                    font-size: 26px;
+                    padding: 14px 42px;
                     text-transform: uppercase;
                     font-weight: bold;
                     margin: 0 auto;
@@ -156,15 +156,19 @@
                 position: relative;
                 text-align: center;
                 padding-bottom: 200px;
-                margin-top: 70px;
+                margin-top: @heightOfstaticPageHeader;
                 background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
                 padding: 0;
                 overflow: visible;
 
                 #main-wrapper {
-                    padding: 400px 0 40px 0;
+                    padding: 296px 0 40px 0;
                     overflow: visible;
                     position: relative;
+
+                    @media(max-width: 600px) {
+                        padding: 50px 0 40px 0;
+                    }
                 }
 
                 .welcome-text {
@@ -177,6 +181,25 @@
                     box-sizing: border-box;
                     color: @textColorWhite;
                     display: inline-block;
+                    max-width: 800px;
+                    position: relative;
+
+                    .sb-logo {
+                        left: -210px;
+                        bottom: -40px;
+                        bottom: -80px;
+                        z-index: 1;
+                        width: 200px;
+                        height: 200px;
+                        position: absolute;
+                        background: #383838;
+                        border: 5px solid @textColorWhite;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+
+                        @media(max-width: 960px) {
+                            display: none;
+                        }
+                    }
 
 
                     @media(max-width: 960px) {
@@ -195,16 +218,11 @@
 
                     h1 {
                         font-weight: bold;
-                        font-size: 60px;
+                        font-size: 54px;
                         width: 100%; //rtl:520px
-                        margin: 16px auto;
+                        margin: 14px auto;
                         text-transform: capitalize;
                         display: inline-block;
-
-
-                        @media(max-width: 960px) {
-                            white-space: pre-wrap;
-                        }
                     }
 
 
@@ -612,7 +630,6 @@
                 .statistics {
                     .displayFlex;
                     justify-content: space-between;
-                    max-width: 700px;
                     margin: 110px auto 0px auto;
                     color: @textColorWhite;
                     font-size: 18px;
@@ -622,20 +639,10 @@
                     left: 0;
                     right: 0;
                     z-index: 1;
+                    max-width: 600px;
 
-                    .sb-logo {
-                        left: -210px;
-                        bottom: -40px;
-                        width: 200px;
-                        height: 200px;
-                        position: absolute;
-                        background: #383838;
-                        border: 5px solid @textColorWhite;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-
-                        @media(max-width: 960px) {
-                            display: none;
-                        }
+                    @media(min-width: 960px) {
+                        padding: 0 100px;
                     }
 
                     .statistic {
@@ -660,9 +667,10 @@
                     }
                 }
 
-                .statistics, .welcome-text {
-                    width: ~"calc(100% - 430px)";
-                    max-width: 800px;
+                @media(min-width: 960px) {
+                    .statistics, .welcome-text {
+                        width: ~"calc(100% - 430px)";
+                    }
                 }
             }
 
@@ -674,10 +682,13 @@
 
                 .text {
                     text-align: center;
-                    padding: 0 150px;
                     font-size: 24px;
                     margin: 40px auto;
                     max-width: 930px;
+
+                    @media(min-width: 960px) {
+                        padding: 0 150px;
+                    }
                 }
 
                 .video-image {
@@ -954,17 +965,19 @@
             section {
                 &:not(.main) h2 {
                     margin-top: 0;
-                    font-size: 8vw;
+                    font-size: 7vw;
                 }
 
                 &.main {
                     .welcome-text {
                         padding: 0;
-                        margin: 50px auto 50px auto;
+                        margin: 90px auto 10px auto;
 
                         h1 {
-                            font-size: 10vw;
+                            font-size: 5.2vh;
                             margin: 25px 0;
+                            padding: 0 10px;
+                            box-sizing: border-box;
                         }
 
                         h2 {
@@ -980,6 +993,8 @@
                         font-size: 5vw;
                         margin-top: 20px;
                         padding-bottom: 10px;
+                        padding: 0;
+                        width: 100%;
                     }
                     /*.social-links {
                         display: none;

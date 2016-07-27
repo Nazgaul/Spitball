@@ -184,6 +184,7 @@
                 <div id="main-wrapper">
                     <div class="welcome-text">
                         <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@Model.HomePageUniversityData.UniversityName <br /> @HomePageResources.A4</h1>
+                        <img class="sb-logo" src="@Model.HomePageUniversityData.Logo" alt="" />
                     </div>
                     <div class="loader">
                         <div class="backdrop"></div>
@@ -204,7 +205,6 @@
                         <div class="loader-text">@SharedResources.LoaderText</div>
                     </div>
                     <div class="statistics os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
-                        <img class="sb-logo" src="@Model.HomePageUniversityData.Logo" alt="" />
                         <h3 class="statistic">
                             <span id="students" class="value" data-value="@Model.HomePageStats.StudentsCount"></span><span>@HomePageResources.statsStudents</span>
                         </h3>
@@ -220,10 +220,10 @@
             </section>
 
             <section class="intro">
-                <button type="button" class="login-option signup os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.3s" ga-track-event="['home-page', 'signin']">
+                <button type="button" class="login-option signup toggle" ga-track-event="['home-page', 'signin']">
                     @HomePageResources.SignUpForFree
                 </button>
-                <div class="text os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.3s">@HomePageResources.A6&nbsp;<b>@HomePageResources.Free</b></div>
+                <div class="text">@HomePageResources.A6&nbsp;<b>@HomePageResources.Free</b></div>
                 <div class="video-wrapper">
                     <input type="checkbox" id="showVideo" />
                     <label id="open-video" for="showVideo">

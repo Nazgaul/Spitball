@@ -128,8 +128,8 @@
   cursor: pointer;
 }
 .homePage .home-page-body section.intro .login-option.signup {
-  font-size: 30px;
-  padding: 20px 50px;
+  font-size: 26px;
+  padding: 14px 42px;
   text-transform: uppercase;
   font-weight: bold;
   margin: 0 auto;
@@ -140,7 +140,7 @@
   position: relative;
   text-align: center;
   padding-bottom: 200px;
-  margin-top: 70px;
+  margin-top: 60px;
   background: linear-gradient(to top, #000 -20px, transparent 200px, transparent 100%);
   padding: 0;
   overflow: visible;
@@ -148,12 +148,16 @@
   /*#endregion*/
 }
 .homePage .home-page-body section.main #main-wrapper {
-  padding: 400px 0 40px 0;
+  padding: 296px 0 40px 0;
   overflow: visible;
   position: relative;
 }
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main #main-wrapper {
+    padding: 50px 0 40px 0;
+  }
+}
 .homePage .home-page-body section.main .welcome-text {
-  position: relative;
   text-align: center;
   padding: 0 10px;
   -moz-box-sizing: border-box;
@@ -161,6 +165,25 @@
   box-sizing: border-box;
   color: #f5f5f5;
   display: inline-block;
+  max-width: 800px;
+  position: relative;
+}
+.homePage .home-page-body section.main .welcome-text .sb-logo {
+  left: -210px;
+  bottom: -40px;
+  bottom: -80px;
+  z-index: 1;
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  background: #383838;
+  border: 5px solid #f5f5f5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+@media (max-width: 960px) {
+  .homePage .home-page-body section.main .welcome-text .sb-logo {
+    display: none;
+  }
 }
 @media (max-width: 960px) {
   .homePage .home-page-body section.main .welcome-text {
@@ -178,16 +201,11 @@
 }
 .homePage .home-page-body section.main .welcome-text h1 {
   font-weight: bold;
-  font-size: 60px;
+  font-size: 54px;
   width: 100%;
-  margin: 16px auto;
+  margin: 14px auto;
   text-transform: capitalize;
   display: inline-block;
-}
-@media (max-width: 960px) {
-  .homePage .home-page-body section.main .welcome-text h1 {
-    white-space: pre-wrap;
-  }
 }
 .homePage .home-page-body section.main .welcome-text h2 {
   font-size: 18px;
@@ -545,7 +563,6 @@
   display: -ms-flex;
   display: flex;
   justify-content: space-between;
-  max-width: 700px;
   margin: 110px auto 0px auto;
   color: #f5f5f5;
   font-size: 18px;
@@ -555,20 +572,11 @@
   left: 0;
   right: 0;
   z-index: 1;
+  max-width: 600px;
 }
-.homePage .home-page-body section.main .statistics .sb-logo {
-  left: -210px;
-  bottom: -40px;
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  background: #383838;
-  border: 5px solid #f5f5f5;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-}
-@media (max-width: 960px) {
-  .homePage .home-page-body section.main .statistics .sb-logo {
-    display: none;
+@media (min-width: 960px) {
+  .homePage .home-page-body section.main .statistics {
+    padding: 0 100px;
   }
 }
 .homePage .home-page-body section.main .statistics .statistic {
@@ -588,10 +596,11 @@
 .homePage .home-page-body section.main .statistics .statistic a:hover span {
   color: #4190B9;
 }
-.homePage .home-page-body section.main .statistics,
-.homePage .home-page-body section.main .welcome-text {
-  width: calc(100% - 430px);
-  max-width: 800px;
+@media (min-width: 960px) {
+  .homePage .home-page-body section.main .statistics,
+  .homePage .home-page-body section.main .welcome-text {
+    width: calc(100% - 430px);
+  }
 }
 .homePage .home-page-body section.intro {
   overflow: visible;
@@ -600,10 +609,14 @@
 }
 .homePage .home-page-body section.intro .text {
   text-align: center;
-  padding: 0 150px;
   font-size: 24px;
   margin: 40px auto;
   max-width: 930px;
+}
+@media (min-width: 960px) {
+  .homePage .home-page-body section.intro .text {
+    padding: 0 150px;
+  }
 }
 .homePage .home-page-body section.intro .video-image {
   margin: 0 auto;
@@ -840,7 +853,7 @@
 @media (max-width: 600px) {
   .homePage .home-page-body section:not(.main) h2 {
     margin-top: 0;
-    font-size: 8vw;
+    font-size: 7vw;
   }
   .homePage .home-page-body section.main {
     /*.social-links {
@@ -849,11 +862,13 @@
   }
   .homePage .home-page-body section.main .welcome-text {
     padding: 0;
-    margin: 50px auto 50px auto;
+    margin: 90px auto 10px auto;
   }
   .homePage .home-page-body section.main .welcome-text h1 {
-    font-size: 10vw;
+    font-size: 5.2vh;
     margin: 25px 0;
+    padding: 0 10px;
+    box-sizing: border-box;
   }
   .homePage .home-page-body section.main .welcome-text h2 {
     font-size: 5vw;
@@ -865,6 +880,8 @@
     font-size: 5vw;
     margin-top: 20px;
     padding-bottom: 10px;
+    padding: 0;
+    width: 100%;
   }
   .homePage .home-page-body section.about .description {
     font-size: 6vw;
