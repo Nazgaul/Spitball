@@ -57,23 +57,36 @@ window.addEventListener("load", function load() {
     //#region scroll to top
     var offset = 300;
     var duration = 500;
-    var background = $('.home-page-body');
-    var main = $('.main');
-    var header = $('.static-page-header');
-    var backgroundUrl = 'https://az779114.vo.msecnd.net/universities/cover/' +
-            encodeURIComponent(main.data('image')) +
-            '?mode=crop&width=' +
-             main.outerWidth() +
-            '&height=' +
-            (main.outerHeight() + header.outerHeight());
-    background
-        .css('background-image', 'url(' + backgroundUrl + ')');
 
+    var padding = $(window).height() + $('.welcome-text').offset().top - $('.video-wrapper').offset().top - $('.static-page-header').height();
+    $('#main-wrapper').css('padding-top', padding);
+    function setBackground() {
+        var background = $('.home-page-body');
+        var main = $('.main');
+        var header = $('.static-page-header');
+        var backgroundUrl = 'https://az779114.vo.msecnd.net/universities/cover/' +
+                encodeURIComponent(main.data('image')) +
+                '?mode=crop&width=' +
+                 main.outerWidth() +
+                '&height=' +
+                (main.outerHeight() + header.outerHeight());
+        background
+            .css('background-image', 'url(' + backgroundUrl + ')');
+    }
 
-    if ($('.intro').css('background-color') === $('button.signup').css('background-color')) {
-        var backgroundColor = $('.static-page-header').css('background-color');
+    setBackground();
+    var timeout;
+    clearTimeout(timeout)
+    $(window).resize(function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(setBackground, 1000);
+    });
+
+    var bgColor = 'background-color';
+    if ($('.intro').css(bgColor) === $('button.signup').css(bgColor)) {
+        var backgroundColor = $('.static-page-header').css(bgColor);
         $('button.signup')
-        .css('background-color', backgroundColor);
+        .css(bgColor, backgroundColor);
     }
 
     if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
@@ -184,13 +197,13 @@ window.addEventListener("load", function load() {
                         var currBox = boxes[box];
                         var boxClass = "color" + currBox.name.length % 11;
                         var mapObj = {
-                            '{boxUrl}'          : currBox.url ? currBox.url : '',
-                            '{boxName}'         : currBox.name ? currBox.name : '',
-                            '{boxProfessor}'    : currBox.professor ? currBox.professor : '',
-                            '{boxCourseCode}'   : currBox.courseCode ? currBox.courseCode : '',
-                            '{boxClass}'        : boxClass ,
-                            '{boxMembersCount}'    : currBox.membersCount ? currBox.membersCount : '',
-                            '{boxItemCount}'    : currBox.itemCount ? currBox.itemCount : ''
+                            '{boxUrl}': currBox.url ? currBox.url : '',
+                            '{boxName}': currBox.name ? currBox.name : '',
+                            '{boxProfessor}': currBox.professor ? currBox.professor : '',
+                            '{boxCourseCode}': currBox.courseCode ? currBox.courseCode : '',
+                            '{boxClass}': boxClass,
+                            '{boxMembersCount}': currBox.membersCount ? currBox.membersCount : '',
+                            '{boxItemCount}': currBox.itemCount ? currBox.itemCount : ''
                         };
 
                         box = boxElement.replace(new RegExp(Object.keys(mapObj).join("|"), 'g'), function (matched) {
@@ -200,7 +213,7 @@ window.addEventListener("load", function load() {
                         $('.boxes').append(box);
                     }
 
-                      
+
                 });
             }
         }
