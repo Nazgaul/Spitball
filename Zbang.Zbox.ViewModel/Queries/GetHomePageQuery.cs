@@ -15,7 +15,10 @@
         public GetHomeBoxesUniversityQuery(long? universityId, string country)
         {
             UniversityId = universityId;
-            Country = country;
+            if (!string.IsNullOrEmpty(country))
+            {
+                Country = country;
+            }
         }
 
         public long? UniversityId { get; private set; }

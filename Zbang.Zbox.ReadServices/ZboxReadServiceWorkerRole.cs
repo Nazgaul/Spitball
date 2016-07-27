@@ -340,13 +340,14 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
         public Task<IEnumerable<MarketingDto>> GetUsersWithUniversityWithoutSubscribedBoxesAsync(MarketingQuery query,
             CancellationToken token)
         {
-            const string sql = @"select email,Culture,UserName as Name from zbox.users u
-where universityid is not null
+            const string sql = @"select email,Culture,UserName as Name 
+from zbox.users u join zbox.University uu on u.UniversityId = uu.Id
+and uu.Country != 'us'
 and not exists (select userid from zbox.userboxrel ub where ub.userid = u.userid)
 and EmailSendSettings = 0
 and (membershipuserid is not null or facebookuserid is not null or googleuserid is not null)
-and (creationtime>'2015' or [LastAccessTime] >'2015') 
-and creationtime < dateadd(HOUR,-2,GETUTCDATE())
+and (u.creationtime>'2015' or [LastAccessTime] >'2015') 
+and u.creationtime < dateadd(HOUR,-2,GETUTCDATE())
 order by userid
 offset @PageNumber*@RowsPerPage ROWS
 FETCH NEXT @RowsPerPage ROWS ONLY";
@@ -358,7 +359,7 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
         {
             const string sql = @"select email,Culture,UserName as Name 
 from zbox.Users u2 where u2.UniversityId in (
-select Id from zbox.University u where u.NoOfBoxes < 5 and isdeleted = 0)
+select Id from zbox.University u where u.NoOfBoxes < 5 and isdeleted = 0 and u.Country != 'us')
 and EmailSendSettings = 0
 and (creationtime>'2015' or [LastAccessTime] >'2015')
 and exists (select userid from zbox.userboxrel ub where ub.userid = u2.userid)
@@ -375,7 +376,7 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
         {
             const string sql = @"with boxWithLowUpdate as (
 select b.boxid from zbox.Box b
-join zbox.University u on b.University = u.Id and u.NoOfBoxes < 5
+join zbox.University u on b.University = u.Id and u.NoOfBoxes < 5 and u.Country != 'us'
 where b.UpdateTime < dateadd(DAY,-3,GETUTCDATE())
 and b.IsDeleted = 0
 and Discriminator in (2,3))
