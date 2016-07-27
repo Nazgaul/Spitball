@@ -83,7 +83,7 @@ iframe {
   height: inherit;
 }
 .static-page-header nav .navbar-header .logo-wrapper {
-  height: 70px;
+  height: 60px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;

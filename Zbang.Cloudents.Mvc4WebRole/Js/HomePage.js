@@ -76,7 +76,6 @@ window.addEventListener("load", function load() {
 
     setBackground();
     var timeout;
-    clearTimeout(timeout)
     $(window).resize(function () {
         clearTimeout(timeout);
         timeout = setTimeout(setBackground, 1000);
