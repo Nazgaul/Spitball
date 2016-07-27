@@ -38,8 +38,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_CookieHelper = cookieHelper;
         }
 
-        [DonutOutputCache(CacheProfile = "HomePage")]
-        public async Task<ActionResult> Index(string invId, long? universityId, string step)
+        [DonutOutputCache(CacheProfile = "HomePage"), ActionName("Index"), HttpGet]
+        public async Task<ActionResult> IndexAsync(string invId, long? universityId, string step)
         {
 
             if (User.Identity.IsAuthenticated)
@@ -73,7 +73,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Index", homeStats);
         }
 
-        public async Task<JsonResult> Boxes()
+        [ActionName("Boxes"), HttpGet]
+        public async Task<JsonResult> BoxesAsync()
         {
 
             long? universityId = null;
@@ -107,12 +108,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [Route("account/signin", Name = "signin")]
+        [Route("account/signin")]
         public ActionResult SignIn(string lang, string invId)
         {
             return RedirectToRoutePermanent("homePage", new { step = "signin", lang, invId });
         }
-        [Route("account/signup", Name = "signup")]
+        [Route("account/signup")]
         public ActionResult SignUp(string lang, string invId)
         {
             return RedirectToRoutePermanent("homePage", new { step = "signup", lang, invId });
@@ -141,7 +142,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [DonutOutputCache(CacheProfile = "FullPage")]
         [Route("help", Name = "Help")]
-        public async Task<ViewResult> Help()
+        public async Task<ViewResult> HelpAsync()
         {
             ViewBag.title = SeoResources.HelpTitle;
             ViewBag.metaDescription = SeoResources.HelpMeta;
@@ -173,7 +174,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         [DonutOutputCache(CacheProfile = "FullPage")]
         [Route("jobs", Name = "Jobs")]
-        public async Task<ActionResult> Jobs()
+        public async Task<ActionResult> JobsAsync()
         {
             ViewBag.title = SeoResources.JobsTitle;
             ViewBag.metaDescription = SeoResources.JobsMeta;
@@ -335,7 +336,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [Route("courses", Name = "courses")]
         [Route("courses/{lang:regex(^(en|he))}", Name = "courses2")]
-        public async Task<ActionResult> Courses(string lang)
+        public async Task<ActionResult> CoursesAsync(string lang)
         {
             if (!string.IsNullOrEmpty(lang))
             {
@@ -408,25 +409,26 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [NoAsyncTimeout]
+        [NoAsyncTimeout, ActionName("SiteMap")]
         [OutputCache(Duration = 2 * TimeConst.Day, VaryByParam = "index", Location = OutputCacheLocation.Any)]
-        public async Task<ActionResult> SiteMap(int? index)
+        public async Task<ActionResult> SiteMapAsync(int? index)
         {
             if (!index.HasValue)
             {
-                var contentIndex = await GetSitemapIndex();
+                var contentIndex = await GetSitemapIndexAsync();
                 return Content(contentIndex, "application/xml", Encoding.UTF8);
             }
-            var content = await GetSitemapXml(index.Value);
+            var content = await GetSitemapXmlAsync(index.Value);
             return Content(content, "application/xml", Encoding.UTF8);
         }
 
-        private async Task<string> GetSitemapIndex()
+        private async Task<string> GetSitemapIndexAsync()
         {
             const string sitemapsNamespace = "http://www.sitemaps.org/schemas/sitemap/0.9";
             XNamespace xmlns = sitemapsNamespace;
             var noOfSiteMaps = await ZboxReadService.GetSeoItemCountAsync();
 
+            // ReSharper disable once StringLiteralTypo
             var root = new XElement(xmlns + "sitemapindex");
             for (int i = 1; i <= noOfSiteMaps; i++)
             {
@@ -451,11 +453,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [NonAction]
-        private async Task<string> GetSitemapXml(int index)
+        private async Task<string> GetSitemapXmlAsync(int index)
         {
             XNamespace xmlns = "http://www.sitemaps.org/schemas/sitemap/0.9";
             XNamespace xhtml = "http://www.w3.org/1999/xhtml";
-            var nodes = await GetSitemapNodes(index);
+            var nodes = await GetSitemapNodesAsync(index);
 
             var root = new XElement(xmlns + "urlset",
                 //new XAttribute("xmlns", xmlns.NamespaceName),
@@ -473,6 +475,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var lastmodContent = node.LastModified == null
                     ? null
                     : new XElement(xmlns + "lastmod",
+                        // ReSharper disable once StringLiteralTypo
                         node.LastModified.Value.ToLocalTime().ToString("yyyy-MM-ddTHH:mm:sszzz"));
                 var frequencyContent = node.Frequency == null
                     ? null
@@ -510,7 +513,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         [NonAction]
-        private async Task<IEnumerable<SitemapNode>> GetSitemapNodes(int index)
+        private async Task<IEnumerable<SitemapNode>> GetSitemapNodesAsync(int index)
         {
             var requestContext = ControllerContext.RequestContext;
             var nodes = new List<SitemapNode>();
@@ -548,13 +551,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                        Frequency = SitemapFrequency.Daily
                    });
                 nodes.Add(
-                  new SitemapNode(requestContext, "signin", null)
+                  new SitemapNode(requestContext, "homePage", new { step = "signin" })
                   {
                       Priority = 0.95,
                       Frequency = SitemapFrequency.Daily
                   });
                 nodes.Add(
-                  new SitemapNode(requestContext, "signup", null)
+                  new SitemapNode(requestContext, "homePage", new { step = "signup" })
                   {
                       Priority = 0.95,
                       Frequency = SitemapFrequency.Daily
