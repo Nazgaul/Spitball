@@ -408,18 +408,18 @@ var Login = function () {
         //    ext = '?universityid=' + universityId;
         //}
         if (state === loginState) {
-            updateQueryStringParam('action', 'signin');
+            updateQueryStringParam('step', 'signin');
             ga('send', 'pageview', '/account/signin');
             $(window).scrollTop(0);
             return;
         }
         if (state === signupState) {
-            updateQueryStringParam('action', 'signup');
+            updateQueryStringParam('step', 'signup');
             ga('send', 'pageview', '/account/signup');
             $(window).scrollTop(0);
             return;
         }
-        updateQueryStringParam('action', 'resetpassword');
+        updateQueryStringParam('step', 'resetpassword');
         ga('send', 'pageview', '/account/resetpassword');
         $(window).scrollTop(0);
     }
@@ -465,15 +465,15 @@ var Login = function () {
             handleRegister();
             //handleLanguage();
             //handleExtenalLogin();
-            if (window.location.search.indexOf('action=signin') > -1) {
+            if (window.location.search.indexOf('step=signin') > -1) {
                 showForm($loginWrapper);
             }
 
-            if (window.location.search.indexOf('action=signup') > -1) {
+            if (window.location.search.indexOf('step=signup') > -1) {
                 showForm($registerWrapper);
             }
 
-            if (window.location.search.indexOf('action=resetpassword') > -1) {
+            if (window.location.search.indexOf('step=resetpassword') > -1) {
                 showForm($forgotPWWrapper);
             }
 
