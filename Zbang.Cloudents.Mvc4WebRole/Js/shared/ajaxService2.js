@@ -19,6 +19,10 @@
             department : {
                 maxAge: 15 * minute,
                 storageMode: 'sessionStorage'
+            },
+            itemComment: {
+                maxAge: 15 * minute,
+                storageMode: 'sessionStorage'
             }
         };
 

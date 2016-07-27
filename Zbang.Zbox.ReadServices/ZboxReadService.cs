@@ -349,7 +349,7 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<Activity.AnnotationDto>> GetItemCommentsAsync(GetItemQuery query)
+        public async Task<IEnumerable<Activity.AnnotationDto>> GetItemCommentsAsync(ItemCommentQuery query)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {

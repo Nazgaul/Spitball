@@ -43,13 +43,13 @@
                 <li class="language">
                     @if (!User.Identity.IsAuthenticated)
                     {
-                    <input type="checkbox" id="language-menu" />
-                    <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
-                    <label class="language-close" for="language-menu"></label>
-                    <ul class="dropdown-menu dropdown-menu-left ">
-                        <li class="menu-item"> <button data-cookie="en-US">@Languages.EnglishUsName</button> </li>
-                        <li class="menu-item"> <button data-cookie="he-il">@Languages.HebrewName</button> </li>
-                    </ul>
+                        <input type="checkbox" id="language-menu" />
+                        <label class="language-toggle" for="language-menu"><span>@Languages.EnglishUsName</span><span class="arrow"></span></label>
+                        <label class="language-close" for="language-menu"></label>
+                        <ul class="dropdown-menu dropdown-menu-left ">
+                            <li class="menu-item"> <button data-cookie="en-US">@Languages.EnglishUsName</button> </li>
+                            <li class="menu-item"> <button data-cookie="he-il">@Languages.HebrewName</button> </li>
+                        </ul>
                     }
                 </li>
 
@@ -58,8 +58,8 @@
         @if (!User.Identity.IsAuthenticated)
         {
             <div class="login-buttons">
-                <a class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("signup")" ga-track-event="['header', 'signup']">@IndexResources.Signup</a>
-                <a class="signin-btn toggle login-option os-animation" href="@Url.RouteUrl("signin")" ga-track-event="['header', 'signin']">@HomePageResources.A1</a>
+                <a class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("homePage", new { step = "signup" })" ga-track-event="['header', 'signup']">@IndexResources.Signup</a>
+                <a class="signin-btn toggle login-option os-animation" href="@Url.RouteUrl("homePage", new { step = "signin" })" ga-track-event="['header', 'signin']">@HomePageResources.A1</a>
             </div>
         }
     </nav>

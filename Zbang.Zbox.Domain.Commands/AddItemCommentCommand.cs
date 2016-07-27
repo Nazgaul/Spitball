@@ -1,8 +1,9 @@
-﻿using Zbang.Zbox.Infrastructure.Commands;
+﻿using Zbang.Zbox.Infrastructure.Cache;
+using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class AddItemCommentCommand : ICommandAsync
+    public class AddItemCommentCommand : ICommandAsync, ICommandCache
     {
         public AddItemCommentCommand(string comment,  long itemId,  long userId, long boxId)
         {
@@ -22,5 +23,6 @@ namespace Zbang.Zbox.Domain.Commands
         public long CommentId { get; set; }
 
         public long BoxId { get; private set; }
+        public string CacheRegion => CacheRegions.BuildItemCommentRegion(ItemId);
     }
 }

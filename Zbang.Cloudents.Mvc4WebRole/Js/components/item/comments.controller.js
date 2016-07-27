@@ -33,13 +33,14 @@
         //    $rootScope.$broadcast('updateScroll');
         //},151);
         function toggleComments() {
-            itemService.getComments(boxid, itemId).then(function (response) {
-                c.comments=response;
-            })
+            itemService.getComments(boxid, itemId)
+                .then(function (response) {
+                    c.comments = response;
+                });
             $mdSidenav('commentsMenu').toggle();
-            $timeout(function() {
+            $timeout(function () {
                 $rootScope.$broadcast('updateScroll');
-            },50);
+            }, 50);
         }
 
         function displayUnregBox() {
@@ -68,7 +69,7 @@
                     creationDate: new Date().toISOString(),
                     id: response,
                     url: c.currUser.url,
-                    replies:[],
+                    replies: [],
                     userId: c.currUser.id,
                     userImage: c.currUser.image,
                     userName: c.currUser.name
@@ -105,7 +106,7 @@
 
                     userId: c.currUser.id,
                     userImage: c.currUser.image,
-                    userName: c.currUser.name,
+                    userName: c.currUser.name
                 };
 
                 comment.replies.push(newResponse);
@@ -133,7 +134,7 @@
         }
 
         function canDelete(userId) {
-            return userId == c.currUser.id;
+            return userId === c.currUser.id;
         }
 
         function deleteComment(ev, comment) {
@@ -148,7 +149,7 @@
             $mdDialog.show(confirm).then(function () {
                 var index = c.comments.indexOf(comment);
                 c.comments.splice(index, 1);
-                itemService.deleteComment(comment.id);
+                itemService.deleteComment(comment.id, itemId);
             });
 
 
@@ -165,7 +166,7 @@
             $mdDialog.show(confirm).then(function () {
                 var index = comment.replies.indexOf(reply);
                 comment.replies.splice(index, 1);
-                itemService.deleteReply(reply.id);
+                itemService.deleteReply(reply.id, itemId);
             });
         }
     }

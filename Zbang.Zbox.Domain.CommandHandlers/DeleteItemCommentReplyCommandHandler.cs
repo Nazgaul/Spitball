@@ -24,14 +24,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
 
-            //var user = m_UserRepository.Load(message.UserId);
-
             var itemReply = m_ItemCommentReplyRepository.Load(message.ReplyId);
+            if (itemReply.Item.Id != message.ItemId)
+            {
+                throw new UnauthorizedAccessException("User is unauthorized to delete annotation");
+            }
             if (itemReply.Author.Id != message.UserId)
             {
                 throw new UnauthorizedAccessException("User is unauthorized to delete annotation");
             }
-            //itemComment.Item.DecreaseNumberOfComments();
             
             m_ItemCommentReplyRepository.Delete(itemReply);
             return m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(itemReply.Author.Id));

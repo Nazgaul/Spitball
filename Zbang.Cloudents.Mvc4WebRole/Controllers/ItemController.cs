@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ItemController(
             IFileProcessorFactory fileProcessorFactory,
-            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator,  Lazy<IItemReadSearchProvider2> itemSearchProvider, IBlobProvider2<FilesContainerName> blobProviderFiles)
+            IQueueProvider queueProvider, Lazy<IGuidIdGenerator> guidGenerator, Lazy<IItemReadSearchProvider2> itemSearchProvider, IBlobProvider2<FilesContainerName> blobProviderFiles)
         {
             m_FileProcessorFactory = fileProcessorFactory;
             m_QueueProvider = queueProvider;
@@ -192,10 +192,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet, ActionName("Comment")]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> CommentsAsync(long boxId, long itemId,CancellationToken cancellationToken)
+        public async Task<ActionResult> CommentsAsync(long itemId, CancellationToken cancellationToken)
         {
-            var userId = User.GetUserId(false);
-            var result = await ZboxReadService.GetItemCommentsAsync(new GetItemQuery(userId, itemId, boxId));
+            //var userId = User.GetUserId(false);
+            var result = await ZboxReadService.GetItemCommentsAsync(new ItemCommentQuery(itemId));
             return JsonOk(result);
         }
 
@@ -482,7 +482,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(GetErrorFromModelState());
             }
-            var command = new DeleteItemCommentCommand(model.CommentId, User.GetUserId());
+            var command = new DeleteItemCommentCommand(model.CommentId, User.GetUserId(), model.ItemId);
             await ZboxWriteService.DeleteAnnotationAsync(command);
             return JsonOk();
         }
@@ -507,7 +507,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(GetErrorFromModelState());
             }
-            var command = new DeleteItemCommentReplyCommand(User.GetUserId(), model.ReplyId);
+            var command = new DeleteItemCommentReplyCommand(User.GetUserId(), model.ReplyId, model.ItemId);
             await ZboxWriteService.DeleteItemCommentReplyAsync(command);
             return JsonOk();
         }

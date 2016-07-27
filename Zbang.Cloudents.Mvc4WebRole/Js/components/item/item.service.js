@@ -1,7 +1,7 @@
 ﻿'use strict';
 (function () {
     angular.module('app.item').service('itemService', library);
-    library.$inject = ['ajaxService'];
+    library.$inject = ['ajaxService2'];
 
     function library(ajaxservice) {
         var d = this;
@@ -9,9 +9,7 @@
         d.getDetails = function (boxId, itemId, firstTime) {
             return ajaxservice.get('/item/load/', { boxId: boxId, itemId: itemId, firstTime: firstTime });
         };
-        //d.content = function(boxId, itemId) {
-        //    return ajaxservice.get('/item/content/', { boxId: boxId, itemId: itemId })
-        //}
+       
         d.getPreview = function (blobName, index, itemId, boxId) {
             return ajaxservice.get('/item/preview/', {
                 blobName: blobName,
@@ -51,10 +49,11 @@
         }
 
         d.getComments = function (boxId, itemId) {
-            return ajaxservice.get('/item/comment', {
+            return ajaxservice.get('/item/comment',
+            {
                 boxId: boxId,
                 itemId: itemId
-            })
+            }, 'itemComment');
         }
 
         d.addComment = function (comment, boxId, id) {
@@ -62,7 +61,7 @@
                 itemId: id,
                 boxId: boxId,
                 comment: comment
-            });
+            }, 'itemComment');
         }
 
         d.replycomment = function (reply, itemId, boxid, commentId) {
@@ -71,19 +70,21 @@
                 itemid: itemId,
                 commentid: commentId,
                 boxid: boxid
-            });
+            }, 'itemComment');
         }
 
-        d.deleteReply = function (replyId) {
+        d.deleteReply = function (replyId, itemId) {
             return ajaxservice.post('/item/deletecommentreply', {
-                ReplyId: replyId
-            });
+                ReplyId: replyId,
+                itemid: itemId
+            }, 'itemComment');
         }
 
-        d.deleteComment = function (commentId) {
+        d.deleteComment = function (commentId, itemId) {
             return ajaxservice.post('/item/deletecomment', {
-                CommentId: commentId
-            });
+                CommentId: commentId,
+                itemid: itemId
+            }, 'itemComment');
         }
 
         //no need to wipe cache

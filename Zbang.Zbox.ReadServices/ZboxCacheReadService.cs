@@ -71,9 +71,9 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetItem2Async(query);
         }
 
-        public Task<IEnumerable<AnnotationDto>> GetItemCommentsAsync(GetItemQuery query)
+        public Task<IEnumerable<AnnotationDto>> GetItemCommentsAsync(ItemCommentQuery query)
         {
-            return m_ReadService.GetItemCommentsAsync(query);
+            return m_Cache.QueryAsync(m_ReadService.GetItemCommentsAsync, query);
         }
 
         public Task<BoxDto2> GetBox2Async(GetBoxQuery query)
