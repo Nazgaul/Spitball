@@ -1,17 +1,21 @@
-﻿using Zbang.Zbox.Infrastructure.Commands;
+﻿using Zbang.Zbox.Infrastructure.Cache;
+using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
-  public  class DeleteItemCommentReplyCommand : ICommandAsync
+    public class DeleteItemCommentReplyCommand : ICommandAsync, ICommandCache
     {
-      public DeleteItemCommentReplyCommand(long userId, long replyId)
-      {
-          ReplyId = replyId;
-          UserId = userId;
-      }
+        public DeleteItemCommentReplyCommand(long userId, long replyId, long itemId)
+        {
+            ReplyId = replyId;
+            ItemId = itemId;
+            UserId = userId;
+        }
 
-      public long ReplyId { get;private set; }
+        public long ReplyId { get; private set; }
 
         public long UserId { get; private set; }
+        public long ItemId { get; }
+        public string CacheRegion => CacheRegions.BuildItemCommentRegion(ItemId);
     }
 }

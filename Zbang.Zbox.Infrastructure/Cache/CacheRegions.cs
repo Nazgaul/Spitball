@@ -13,5 +13,10 @@
         {
             return $"university_{universityId}";
         }
+
+        public static string BuildItemCommentRegion(long itemId)
+        {
+            return $"itemComment_{itemId}";
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var user = m_UserRepository.Load(message.UserId);
 
-            var itemComment = m_ItemCommentRepository.Load(message.AnnotationId);
+            var itemComment = m_ItemCommentRepository.Load(message.ItemCommentId);
             if (!Equals(itemComment.Author, user))
             {
                 throw new UnauthorizedAccessException("User is unauthorized to delete annotation");
