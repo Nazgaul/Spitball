@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             routes.MapRoute("UniversityLink", "{uni}",
                 new {controller = "Home", action = "UniversityUrl"},
-                new { uni  = new DataConstraint() });
+                new { uni  = new UniversityConstraint() });
 
             routes.MapRoute("Default", "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }

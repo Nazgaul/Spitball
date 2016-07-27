@@ -84,8 +84,7 @@ window.addEventListener("load", function load() {
     var bgColor = 'background-color';
     if ($('.intro').css(bgColor) === $('button.signup').css(bgColor)) {
         var backgroundColor = $('.static-page-header').css(bgColor);
-        $('button.signup')
-        .css(bgColor, backgroundColor);
+        $('button.signup').css(bgColor, backgroundColor);
     }
 
     if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
@@ -188,7 +187,7 @@ window.addEventListener("load", function load() {
                 wS = $(this).scrollTop();
             if (wS > hT - wH) {
                 hasBoxes = true;
-                $.get("/home/boxes/", function (data) {
+                $.get("/home/boxes", function (data) {
                     var boxes = data.payload;
                     var boxElement = $('#box-template').html();
 
