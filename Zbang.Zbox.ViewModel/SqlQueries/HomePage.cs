@@ -21,11 +21,10 @@
  from zbox.University where IsDeleted = 0";
 
 
-        public const string UniversityBoxes = @"select top 6 Name,ItemCount,MembersCount,CourseCode,ProfessorName,Url from (
+        public const string UniversityBoxes = @"select top 6 Name,ItemCount,CourseCode,ProfessorName,Url from (
 select 
     b.BoxName as Name,
 	b.quizcount + b.itemcount as ItemCount,
-	b.MembersCount as MembersCount,
 	b.CourseCode as CourseCode,
 	b.ProfessorName,
 	b.Url as Url,
