@@ -84,8 +84,7 @@ window.addEventListener("load", function load() {
     var bgColor = 'background-color';
     if ($('.intro').css(bgColor) === $('button.signup').css(bgColor)) {
         var backgroundColor = $('.static-page-header').css(bgColor);
-        $('button.signup')
-        .css(bgColor, backgroundColor);
+        $('button.signup').css(bgColor, backgroundColor);
     }
 
     if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported

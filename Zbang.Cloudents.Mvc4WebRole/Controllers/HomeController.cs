@@ -73,6 +73,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Index", homeStats);
         }
 
+        public ActionResult UniversityUrl(string uni)
+        {
+            return new ContentResult()
+            {
+                Content = $"hi this is uni {uni}",
+                ContentType = "text/html"
+            };
+        }
+
         [ActionName("Boxes"), HttpGet]
         public async Task<JsonResult> BoxesAsync()
         {

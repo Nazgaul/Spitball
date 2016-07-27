@@ -71,7 +71,7 @@
       <generator class="assigned"></generator>
     </id>
     <property name="OrgName" not-null="false"/>
-    <property name="Url" not-null="false"/>
+    <property name="Url" not-null="false" unique="true"/>
     <property name="LargeImage"  not-null="false"/>
     <property name="UniversityName"/>
 

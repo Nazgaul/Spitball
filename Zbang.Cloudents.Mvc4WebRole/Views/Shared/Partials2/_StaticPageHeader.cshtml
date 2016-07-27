@@ -14,7 +14,7 @@
                     <label for="menu-toggle">@Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "headerMenu" })</label>
                     <label for="menu-toggle" class="menu-close"></label>
                 </div>
-                <a class="logo-wrapper" href="@Url.RouteUrl("homePage")" ga-track-event="['header', 'logo']">
+                <a class="logo-wrapper" href="@Url.RouteUrl("HomePage")" ga-track-event="['header', 'logo']">
                     <div class="logo"></div>
                     @Html.Svg("~/images/site/icons.svg", "smallLogo", new { @class = "logo-small" })
                 </a>
@@ -58,8 +58,8 @@
         @if (!User.Identity.IsAuthenticated)
         {
             <div class="login-buttons">
-                <a class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("homePage", new { step = "signup" })" ga-track-event="['header', 'signup']">@IndexResources.Signup</a>
-                <a class="signin-btn toggle login-option os-animation" href="@Url.RouteUrl("homePage", new { step = "signin" })" ga-track-event="['header', 'signin']">@HomePageResources.A1</a>
+                <a class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("HomePage", new { step = "signup" })" ga-track-event="['header', 'signup']">@IndexResources.Signup</a>
+                <a class="signin-btn toggle login-option os-animation" href="@Url.RouteUrl("HomePage", new { step = "signin" })" ga-track-event="['header', 'signin']">@HomePageResources.A1</a>
             </div>
         }
     </nav>

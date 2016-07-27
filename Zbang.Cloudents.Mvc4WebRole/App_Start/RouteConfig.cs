@@ -19,14 +19,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.MapMvcAttributeRoutes(constraintsResolver);
 
 
-           
+
 
 
             routes.MapRoute("homePage",
              "",
              new { controller = "Home", action = "Index" }
              );
-            
+
             routes.MapRoute("universityLibraryAuth",
                 "university/{universityId}/{universityName}",
                 new {controller = "University", action = "Index" },
@@ -106,12 +106,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
             routes.MapRoute("Blog2",
              "blog",
              new { controller = "Home", action = "Blog" }
-         );
+            );
             routes.MapRoute("Blog",
               "blog/{lang}",
               new { controller = "Home", action = "IndexEmpty", lang = UrlParameter.Optional },
               new { lang = "^[A-Za-z]{2}-[A-Za-z]{2}$" }
-          );
+            );
+
+            routes.MapRoute("UniversityLink", "{uni}",
+                new {controller = "Home", action = "UniversityUrl"},
+                new { uni  = new UniversityConstraint() });
 
             routes.MapRoute("Default", "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }
