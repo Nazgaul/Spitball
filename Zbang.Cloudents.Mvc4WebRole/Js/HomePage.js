@@ -69,7 +69,7 @@ window.addEventListener("load", function load() {
                 '?mode=crop&width=' +
                  main.outerWidth() +
                 '&height=' +
-                (main.outerHeight() + header.outerHeight());
+                ($(window).outerHeight());
         background
             .css('background-image', 'url(' + backgroundUrl + ')');
     }

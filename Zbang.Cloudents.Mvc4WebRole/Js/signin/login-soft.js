@@ -188,10 +188,6 @@ var Login = function () {
         $('#register-btn, .login-option.signup').click(function (e) {
             e.preventDefault();
             pushState(signupState);
-
-        });
-
-        $('#register-btn').click(function () {
             document.body.scrollTop = 0;
             //$('.login-wrapper, .forgot-password-form').hide();
             $('.form-wrapper:not(.register-wrapper)').hide();
@@ -516,7 +512,7 @@ function showForm($form) {
 }
 
 
-$('.signup-btn').click(function () {
+$('.signup-btn, .intro .signup').click(function () {
     showForm($registerWrapper);
 });
 
