@@ -151,7 +151,6 @@
     <Compile Include="Mail\InviteToCloudents.cs" />
     <Compile Include="Mail\LibraryAccessApproved.cs" />
     <Compile Include="Mail\LikesMailProcess.cs" />
-    <Compile Include="Mail\LowContribution.cs" />
     <Compile Include="Mail\Message2.cs" />
     <Compile Include="Mail\NoFollowClassMailProcess.cs" />
     <Compile Include="Mail\NoUniversityMailProcess.cs" />
