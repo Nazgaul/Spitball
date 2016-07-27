@@ -643,6 +643,7 @@
     <Content Include="Content\HomePage\homePage2.min.css">
       <DependentUpon>homePage2.css</DependentUpon>
     </Content>
+    <Content Include="Content\HomePage\homePage2.rtl.css" />
     <Content Include="Content\jquery.bxslider.css" />
     <Content Include="Content\jquery.bxslider.rtl.css">
       <DependentUpon>jquery.bxslider.css</DependentUpon>
