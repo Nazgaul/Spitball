@@ -14,7 +14,7 @@
     <div class="page-content">
         <h2>
             @StaticPagesResources.CoursesSubtitleA
-            <a href="@Url.RouteUrl("signup")">@StaticPagesResources.SignUpForFree</a>
+            <a href="@Url.RouteUrl("homePage",new {step="signup"})">@StaticPagesResources.SignUpForFree</a>
             @StaticPagesResources.CoursesSubtitleB
         </h2>
         <div class="boxes">
@@ -37,9 +37,9 @@
                 </a>
             }
             
-            <div href="@Url.RouteUrl("signup")" class="box os-animation signup-container" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
+            <div href="@Url.RouteUrl("homePage",new {step="signup"})" class="box os-animation signup-container" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                 <div>
-                    <div>@StaticPagesResources.CoursesExtra</div>&nbsp;<a class="sign-up" href="@Url.RouteUrl("signup")">@StaticPagesResources.CoursesSigningUp</a>
+                    <div>@StaticPagesResources.CoursesExtra</div>&nbsp;<a class="sign-up" href="@Url.RouteUrl("homePage",new {step="signup"})">@StaticPagesResources.CoursesSigningUp</a>
                 </div>
             </div>
            

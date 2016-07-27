@@ -15,7 +15,7 @@
     <div class="page-content">
         <h2>
             @StaticPagesResources.ClassNotesSubtitleA
-            <a href="@Url.RouteUrl("signup")">@StaticPagesResources.SignUpForFree</a>
+            <a href="@Url.RouteUrl("homePage",new {step="signup"})">@StaticPagesResources.SignUpForFree</a>
             @StaticPagesResources.ClassNotesSubtitleB
         </h2>
         <div class="gallery-images">
@@ -30,7 +30,7 @@
                     <li class="signup-container">
                         <div>
                             <span>@StaticPagesResources.ClassNotesFindDocText</span>
-                            <a class="sign-up" href="@Url.RouteUrl("signup")">@StaticPagesResources.CoursesSigningUp</a>
+                            <a class="sign-up" href="@Url.RouteUrl("homePage",new {step="signup"})">@StaticPagesResources.CoursesSigningUp</a>
                         </div>
                     </li>
                     <li></li>

@@ -781,12 +781,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             if (string.IsNullOrWhiteSpace(key))
             {
-                return RedirectToRoute("Default");
+                return RedirectToRoute("HomePage");
             }
             var data = UnEncryptElement(key);
             if (data == null)
             {
-                return RedirectToRoute("Default");
+                return RedirectToRoute("HomePage");
             }
             return View();
         }
