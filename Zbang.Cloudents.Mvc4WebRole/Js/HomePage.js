@@ -65,7 +65,15 @@ window.addEventListener("load", function load() {
             '&height=' +
             background.outerHeight();
     background
-        .css('background-image', 'url(' + backgroundUrl +')');
+        .css('background-image', 'url(' + backgroundUrl + ')');
+
+
+    if ($('.intro').css('background-color') === $('button.signup').css('background-color')) {
+        var backgroundColor = $('.static-page-header').css('background-color');
+        $('button.signup')
+        .css('background-color', backgroundColor);
+    }
+
     if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
         $(window).bind("touchend touchcancel touchleave", function () {
             if ($(this).scrollTop() > offset) {

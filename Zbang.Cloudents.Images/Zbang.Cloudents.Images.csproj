@@ -108,7 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="images\DefaultUni.png" />
+    <Content Include="images\DefaultUni.jpg" />
     <Content Include="images\Icons_720_doc.png" />
     <Content Include="images\Icons_720_drive.png" />
     <Content Include="images\Icons_720_excel.png" />
