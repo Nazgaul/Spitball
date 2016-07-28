@@ -65,6 +65,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
             return GetEmailListFromApiCallAsync("v3/suppression/unsubscribes", startTime, page, cancellationToken);
         }
 
+        public Task<IEnumerable<string>> GetBouncesAsync(DateTime startTime, int page, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return GetEmailListFromApiCallAsync("v3/suppression/bounces", startTime, page, cancellationToken);
+        }
+
         public Task<IEnumerable<string>> GetInvalidEmailsAsync(DateTime startTime, int page,
             CancellationToken cancellationToken = default(CancellationToken))
         {

@@ -42,6 +42,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 new JobPerApi {Func = mailComponent.GetUnsubscribesAsync, Type = EmailSend.Unsubscribe},
                 new JobPerApi {Func = mailComponent.GetInvalidEmailsAsync, Type = EmailSend.Invalid},
+                new JobPerApi {Func = mailComponent.GetBouncesAsync, Type = EmailSend.Bounce},
             };
             m_MailComponent = mailComponent;
         }
@@ -79,7 +80,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     //var needToContinueRun = true;
                     TraceLog.WriteInfo($"{Prefix} update unsubscribe list data {m_DateTime}");
                     var mailContent = new StringBuilder();
-                    //await m_MailComponent.GenerateSystemEmailAsync("update satellite", $"{Prefix} starting to run ");
                     foreach (var job in m_Jobs)
                     {
                         var page = 0;
@@ -115,18 +115,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     sw.Stop();
                     mailContent.AppendLine($"update university took {sw.ElapsedMilliseconds}");
                     await RenewLeaseAsync(cancellationToken);
-
-
-                    //sw.Restart();
-                    //var amount = await m_ZboxWorkerRoleService.UpdateFileSizesAsync(async () =>
-                    //{
-                    //    await RenewLeaseAsync(cancellationToken);
-                    //});
-                    
-                    //sw.Stop();
-                    //mailContent.AppendLine($"UpdateFileSizesAsync took {sw.ElapsedMilliseconds} the amount {amount}");
-                    //await RenewLeaseAsync(cancellationToken);
-
 
                     TraceLog.WriteInfo($"{Prefix} update unsubscribe list complete");
                     m_DateTime = DateTime.UtcNow.AddDays(-1);
