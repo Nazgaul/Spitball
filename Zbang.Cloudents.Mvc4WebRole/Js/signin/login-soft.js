@@ -4,6 +4,17 @@ var Login = function () {
         loginState = 1,
         signupState = 2;
 
+
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-9850006-3', 'auto');
+    ga('send', 'pageview');
+
     var handleLogin = function () {
         $('.forms .login').validate({
             errorElement: 'span', //default input error message container
@@ -183,38 +194,33 @@ var Login = function () {
                 return false;
             }
         });
-
-
-        $('#register-btn, .login-option.signup').click(function (e) {
-            e.preventDefault();
-            pushState(signupState);
-            document.body.scrollTop = 0;
-            //$('.login-wrapper, .forgot-password-form').hide();
-            $('.form-wrapper:not(.register-wrapper)').hide();
-            $('.register-wrapper').removeClass('hidden').fadeIn();
-        });
-
-        //for forgot password
-        $('.signin-btn, #login-btn, .forgot-password-wrapper .cancel').click(function (e) {
-            e.preventDefault();
-            document.body.scrollTop = 0;
-            $('.register-wrapper, .forgot-password-wrapper').hide();
-            $('.login-wrapper').removeClass('hidden').fadeIn();
-            pushState(loginState);
-        });
-
-
-        $('#forgot-password-link').click(function () {
-
-            document.body.scrollTop = 0;
-            $('.login-wrapper, .register-wrapper').hide();
-            $('.forgot-password-wrapper').removeClass('hidden').fadeIn();
-            pushState(forgotPasswordState);
-
-            //trackConversion();
-        });
-
     }
+
+    var $main = $('.homePage');
+    var animatonSpeed = 500;
+
+    function initOpenForm(clickElements, formClass, formState) {
+        $(clickElements).click(function (e) {
+            e.preventDefault();
+            $main.addClass('show-forms');
+            pushState(formState);
+            $('.form-wrapper:not(.' + formClass + ')').hide();
+            $('.' + formClass).fadeIn();
+        });
+    }
+
+    initOpenForm('#register-btn, .login-option.signup', 'register-wrapper', signupState);
+    initOpenForm('.signin-btn, #login-btn, .forgot-password-wrapper .cancel', 'login-wrapper', loginState);
+    initOpenForm('#forgot-password-link', 'forgot-password-wrapper', forgotPasswordState);
+
+    $('.close-form').click(function () {
+        $main.removeClass('show-forms');
+        setTimeout(function () {
+            $('.form-wrapper').hide();
+        }, animatonSpeed);
+        window.history.replaceState(null, "Home", window.location.href.replace(/[?&]+(step)=([^&]*)/gi, ''));
+    });
+
 
     var handleExtenalLogin = function () {
         $('.facebook').click(function () {
@@ -394,50 +400,42 @@ var Login = function () {
         }
     }
     function pushState(state) {
-        if (!window.history) {
-            return;
-        }
-        //var universityId = queryString['universityid'];
-        //var ref = queryString['ref'];
-        //var ext = '';
-        //if (universityId && ref) {
-        //    ext = '?universityid=' + universityId;
-        //}
+        $(window).scrollTop(0);
         if (state === loginState) {
-            updateQueryStringParam('step', 'signin');
-            ga('send', 'pageview', '/account/signin');
-            $(window).scrollTop(0);
+            path = updateQueryStringParam('step', 'signin');
+            ga('send', 'pageview', path);
             return;
         }
         if (state === signupState) {
-            updateQueryStringParam('step', 'signup');
-            ga('send', 'pageview', '/account/signup');
-            $(window).scrollTop(0);
+            path = updateQueryStringParam('step', 'signup');
+            ga('send', 'pageview', path);
             return;
         }
-        updateQueryStringParam('step', 'resetpassword');
-        ga('send', 'pageview', '/account/resetpassword');
-        $(window).scrollTop(0);
+        path = updateQueryStringParam('step', 'resetpassword');
+        ga('send', 'pageview', path);
     }
 
     function updateQueryStringParam(key, value) {
-        var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
-            urlQueryString = document.location.search,
-            newParam = key + '=' + value,
-            params = '?' + newParam;
+        if (window.history) {
+            var baseUrl = [location.protocol, '//', location.host, location.pathname].join(''),
+                urlQueryString = document.location.search,
+                newParam = key + '=' + value,
+                params = '?' + newParam;
 
-        // If the "search" string exists, then build params from it
-        if (urlQueryString) {
-            keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+            // If the "search" string exists, then build params from it
+            if (urlQueryString) {
+                keyRegex = new RegExp('([\?&])' + key + '[^&]*');
 
-            // If param exists already, update it
-            if (urlQueryString.match(keyRegex) !== null) {
-                params = urlQueryString.replace(keyRegex, "$1" + newParam);
-            } else { // Otherwise, add it to end of query string
-                params = urlQueryString + '&' + newParam;
+                // If param exists already, update it
+                if (urlQueryString.match(keyRegex) !== null) {
+                    params = urlQueryString.replace(keyRegex, "$1" + newParam);
+                } else { // Otherwise, add it to end of query string
+                    params = urlQueryString + '&' + newParam;
+                }
             }
+            window.history.replaceState({}, "", baseUrl + params);
         }
-        window.history.replaceState({}, "", baseUrl + params);
+        return window.location.pathname + window.location.search;
     };
 
     function getUrlVars() {
@@ -462,15 +460,15 @@ var Login = function () {
             //handleLanguage();
             //handleExtenalLogin();
             if (window.location.search.indexOf('step=signin') > -1) {
-                showForm($loginWrapper);
+                $('.signin-btn').click();
             }
 
             if (window.location.search.indexOf('step=signup') > -1) {
-                showForm($registerWrapper);
+                $('.signup-btn').click();
             }
 
             if (window.location.search.indexOf('step=resetpassword') > -1) {
-                showForm($forgotPWWrapper);
+                $('#forgot-password-link').click();
             }
 
             $.each($.validator.messages, function (key, value) {
@@ -489,44 +487,6 @@ var Login = function () {
 }();
 
 
-$.post()
-var animatonSpeed = 500;
-
-$('.login-wrapper input').focus(function () {
-    $('.alert-danger').slideUp(animatonSpeed);
-});
-
-
-var $main = $('.homePage');
-var $loginWrapper = $('.login-wrapper');
-var $registerWrapper = $('.register-wrapper');
-var $forgotPWWrapper = $('.forgot-password-wrapper');
-var $formWrapper = $('.form-wrapper');
-var $checkEmailWrapper = $('.check-email-message-wrapper');
-var $navBar = $('.static-page-header .toggle');
-
-function showForm($form) {
-    $formWrapper.hide();
-    $form.show();
-    $main.addClass('show-forms');
-}
-
-
-$('.signup-btn, .intro .signup').click(function () {
-    showForm($registerWrapper);
-});
-
-$('.signin-btn').click(function () {
-    showForm($loginWrapper);
-});
-
-$('.close-form').click(function () {
-    $main.removeClass('show-forms');
-    setTimeout(function () {
-        $formWrapper.hide();
-    }, animatonSpeed);
-    window.history.replaceState(null, "Home", "/");
-});
 
 function googleLoad() {
     gapi.load('auth2', function () {

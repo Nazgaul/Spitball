@@ -22,15 +22,15 @@
 
         .home-page-body {
             section.main {
-                height: 100vh;
+                height: ~"calc(100vh - @{heightOfstaticPageHeader} + 1px)";
 
                 .forms {
                     max-height: 100vh;
                 }
+            }
 
-                section, .static-page-footer, #main-wrapper {
-                    display: none;
-                }
+            section:not(.main), .static-page-footer, #main-wrapper {
+                display: none !important;
             }
         }
     }

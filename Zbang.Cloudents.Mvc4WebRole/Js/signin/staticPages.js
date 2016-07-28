@@ -58,11 +58,6 @@
         ga('create', 'UA-9850006-3', 'auto');
         ga('send', 'pageview');
 
-
-        $('.mobileLink').click(function (e) {
-            ga('send', 'event', 'Mobile Link', e.target.id);
-        });
-
         createGallery('.gallery-images');
     });
 })()
