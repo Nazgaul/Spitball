@@ -2,15 +2,10 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-<a class="university" ga-track-event="['dashboard', 'to university']" ng-href="{{::u.info.url}}" univeristy-cover="{{::um.info.cover}}" ng-controller="UniversityController as u">
-
+<a class="university" ga-track-event="['dashboard', 'to university']" ng-href="{{::u.info.url}}" univeristy-cover="{{::u.info.cover}}" ng-controller="UniversityController as u">
     <img class="universityimg" ng-src="{{::u.info.logo}}" alt="univerisy picture" width="70" height="70" />
-    @*<div class="universityTitle color-override textColor1" layout="row" layout-align="center center">
-
-            <span class="multi-line-ellipsis limit-three textTC30" ng-bind="::u.info.name"></span>
-        </div>*@
     <div class="universityStats">
-        <div class="uni-name" @*class="multi-line-ellipsis limit-three"*@ ng-bind="::u.info.name"></div>
+        <div class="uni-name" ng-bind="::u.info.name"></div>
         <div layout="row" layout-align="space-between center">
             <div>{{::u.info.numOfBoxes | megaNumber}} @GeneralResources.Classes</div>
             <div>{{::u.info.numOfUsers | megaNumber}} @GeneralResources.Members</div>
