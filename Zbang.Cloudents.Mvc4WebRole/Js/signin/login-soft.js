@@ -1,9 +1,11 @@
 var Login = function () {
     var queryString = getUrlVars();
-    var forgotPasswordState = 0,
-        loginState = 1,
-        signupState = 2;
-
+    // in case we change class names in form triggers change here too:
+    var states = { 
+        'forgot-password': 0,
+        'login': 1,
+        'register': 2
+    };
 
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -196,22 +198,23 @@ var Login = function () {
         });
     }
 
+    // #region forms handling
+
     var $main = $('.homePage');
     var animatonSpeed = 500;
 
-    function initOpenForm(clickElements, formClass, formState) {
-        $(clickElements).click(function (e) {
-            e.preventDefault();
-            $main.addClass('show-forms');
-            pushState(formState);
-            $('.form-wrapper:not(.' + formClass + ')').hide();
-            $('.' + formClass).fadeIn();
-        });
-    }
 
-    initOpenForm('#register-btn, .login-option.signup', 'register-wrapper', signupState);
-    initOpenForm('.signin-btn, #login-btn, .forgot-password-wrapper .cancel', 'login-wrapper', loginState);
-    initOpenForm('#forgot-password-link', 'forgot-password-wrapper', forgotPasswordState);
+    $(document).on('click', '[data-form-action]', function (e) {
+        e.preventDefault();
+        $main.addClass('show-forms');
+
+        var action = $(this).data('form-action');
+        pushState(states[action]);
+
+        var formClass = action + '-wrapper';
+        $('.form-wrapper:not(.' + formClass + ')').hide();
+        $('.' + formClass).fadeIn();
+    })
 
     $('.close-form').click(function () {
         $main.removeClass('show-forms');
@@ -220,7 +223,7 @@ var Login = function () {
         }, animatonSpeed);
         window.history.replaceState(null, "Home", window.location.href.replace(/[?&]+(step)=([^&]*)/gi, ''));
     });
-
+    // #endregion
 
     var handleExtenalLogin = function () {
         $('.facebook').click(function () {
@@ -401,12 +404,12 @@ var Login = function () {
     }
     function pushState(state) {
         $(window).scrollTop(0);
-        if (state === loginState) {
+        if (state === states['login']) {
             path = updateQueryStringParam('step', 'signin');
             ga('send', 'pageview', path);
             return;
         }
-        if (state === signupState) {
+        if (state === states['register']) {
             path = updateQueryStringParam('step', 'signup');
             ga('send', 'pageview', path);
             return;

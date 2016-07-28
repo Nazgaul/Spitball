@@ -58,8 +58,8 @@
         @if (!User.Identity.IsAuthenticated)
         {
             <div class="login-buttons">
-                <a class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("HomePage", new { step = "signup" })" ga-track-event="['header', 'signup']">@IndexResources.Signup</a>
-                <a class="signin-btn toggle login-option os-animation" href="@Url.RouteUrl("HomePage", new { step = "signin" })" ga-track-event="['header', 'signin']">@HomePageResources.A1</a>
+                <a class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("HomePage", new { step = "signup" })" data-form-action="register" ga-track-event="['header', 'signup']">@IndexResources.Signup</a>
+                <a class="signin-btn toggle login-option os-animation" href="@Url.RouteUrl("HomePage", new { step = "signin" })" data-form-action="login" ga-track-event="['header', 'signin']">@HomePageResources.A1</a>
             </div>
         }
     </nav>
