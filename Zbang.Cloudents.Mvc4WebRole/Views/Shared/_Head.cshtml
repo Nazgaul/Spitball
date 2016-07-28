@@ -3,14 +3,15 @@
     ViewBag.metaDescription = ViewBag.metaDescription ?? "Join the social studying revolution at Spitball";
     ViewBag.fbImage = ViewBag.fbImage ?? @Url.CdnContent("/images/3rdParty/fbShare.png");
     ViewBag.imageSrc = ViewBag.imageSrc ?? @Url.CdnContent("/images/3rdParty/fbShare.png");
+    ViewBag.browserBackground = ViewBag.headerbackground ?? "#4190b9";
 }
 <meta charset="utf-8">
 <!-- Chrome, Firefox OS, Opera and Vivaldi -->
-<meta name="theme-color" content="#4190b9">
+<meta name="theme-color" content="@ViewBag.browserBackground">
 <!-- Windows Phone -->
-<meta name="msapplication-navbutton-color" content="#4190b9">
+<meta name="msapplication-navbutton-color" content="@ViewBag.browserBackground">
 <!-- iOS Safari -->
-<meta name="apple-mobile-web-app-status-bar-style" content="#4190b9">
+<meta name="apple-mobile-web-app-status-bar-style" content="@ViewBag.browserBackground">
 <title>@ViewBag.title</title>
 <meta name="title" content="@ViewBag.title" />
 <meta name="description" content="@ViewBag.metaDescription" />

@@ -28,6 +28,10 @@
         .intro .text{
             color:@Model.HomePageUniversityData.VideoFontColor !important;
         }
+
+        .sb-logo{
+            background-image: url("@Model.HomePageUniversityData.Logo");
+        }
     </style>
 </head>
 <body class="homePage">
@@ -184,7 +188,10 @@
                 <div id="main-wrapper">
                     <div class="welcome-text">
                         <h1 class="os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">@Model.HomePageUniversityData.UniversityName <br /> @HomePageResources.A4</h1>
-                        <img class="sb-logo" src="@Model.HomePageUniversityData.Logo" alt="" />
+                        <div class="uni-logo-wrapper">
+                            <div class="sb-logo">
+                            </div>
+                        </div>
                     </div>
                     <div class="loader">
                         <div class="backdrop"></div>
@@ -220,15 +227,16 @@
             </section>
 
             <section class="intro">
-                <button type="button" class="login-option signup toggle" ga-track-event="['home-page', 'signin']">
+                <button type="button" class="login-option signup toggle">
                     @HomePageResources.SignUpForFree
                 </button>
                 <div class="text">@HomePageResources.A6&nbsp;<b>@HomePageResources.Free</b></div>
                 <div class="video-wrapper">
                     <input type="checkbox" id="showVideo" />
                     <label id="open-video" for="showVideo">
-                        <img class="video-image desktop os-animation" src="@Url.CdnContent("~/Images/HomePage2/homepage-desktop.png")" alt="Spitball video" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
-                        <img class="video-image mobile os-animation" src="@Url.CdnContent("~/Images/HomePage2/homepage-mobile.png")" alt="Spitball video" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
+                        <span class="desktop-wrapper"><span class="video-image desktop os-animation" alt="Spitball video" data-os-animation="fadeIn" data-os-animation-delay="0.5s"></span></span>
+                        <span class="mobile-wrapper"><span class="video-image mobile os-animation" alt="Spitball video" data-os-animation="fadeIn" data-os-animation-delay="0.5s"></span></span>
+                        @*<div class="video-image mobile os-animation" background='url(@Url.CdnContent("~/Images/HomePage2/homepage-mobile.png"))' alt="Spitball video" data-os-animation="fadeIn" data-os-animation-delay="0.5s"></div>*@
                     </label>
                     <div class="shadowbox os-animation" data-os-animation="fadeIn" data-os-animation-delay="0.1s">
                         <div class="video-section">

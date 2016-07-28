@@ -184,6 +184,12 @@
                     max-width: 800px;
                     position: relative;
 
+                    .uni-logo-wrapper {
+                        @media(max-width: 960px) {
+                            display: none;
+                        }
+                    }
+
                     .sb-logo {
                         left: -210px;
                         bottom: -40px;
@@ -192,13 +198,10 @@
                         width: 200px;
                         height: 200px;
                         position: absolute;
-                        background: #383838;
+                        background-color: #383838;
+                        background-size: cover;
                         border: 5px solid @textColorWhite;
                         box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-
-                        @media(max-width: 960px) {
-                            display: none;
-                        }
                     }
 
 
@@ -697,23 +700,37 @@
                     border: none;
                     background: none;
                     cursor: pointer;
-                    width: 100%;
-                    display: none;
 
                     &.desktop {
-                        width: 660px;
-
-                        @media(min-width: 600px) {
-                            display: block;
-                        }
+                        height: 520px;
+                        width: 100%;
+                        background-image: url("/Images/HomePage2/homepage-desktop.png");
+                        background-repeat: no-repeat;
+                        display: block;
                     }
 
                     &.mobile {
-                        max-width: 700px;
+                        background-image: url("/Images/HomePage2/homepage-mobile.png");
+                        width: 88vw;
+                        height: 86vw;
+                        margin-bottom: -4.5vw;
+                        background-size: contain;
+                        max-width: 496px;
+                        max-height: 508px;
+                        background-repeat: no-repeat;
+                        display: block;
+                    }
+                }
 
-                        @media(max-width: 600px) {
-                            display: block;
-                        }
+                .desktop-wrapper {
+                    @media(max-width: 600px) {
+                        display: none;
+                    }
+                }
+
+                .mobile-wrapper {
+                    @media(min-width: 600px) {
+                        display: none;
                     }
                 }
 
@@ -746,11 +763,13 @@
 
                     @media(max-width: 600px) {
                         height: initial;
-                        padding-bottom: 25px;
                     }
                 }
 
                 #open-video {
+                    overflow: hidden;
+                    display: block;
+
                     @media(min-width: 600px) {
                         position: absolute;
                         bottom: -123px;
@@ -758,7 +777,6 @@
                         right: 0;
                         width: 650px;
                         //max-width: 500px;
-                        display: block;
                         margin: 0 auto;
                     }
                 }
@@ -879,6 +897,31 @@
                 background: @backgroundColor;
                 color: @textColorWhite;
                 padding-bottom: 100px;
+
+                &.no-boxes {
+                    display: none;
+
+
+                    & ~ .about {
+                        background: @backgroundColor;
+                        color: @textColorWhite;
+
+                        .description {
+                            color: @textColorWhite;
+
+                            .features a {
+                                color: @textColorLightGrey;
+
+                                &:hover {
+                                    color: @buttonColorBlue;
+                                }
+                            }
+                            /*.features li {
+                            font-size: 5vw;
+                        }*/
+                        }
+                    }
+                }
             }
 
             &.reviews {
