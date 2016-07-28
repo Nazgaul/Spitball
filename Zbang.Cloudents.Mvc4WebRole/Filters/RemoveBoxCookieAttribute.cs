@@ -30,7 +30,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             var request = filterContext.HttpContext.Request;
             if (request.Url != null)
             {
-                var path = request.Url.AbsolutePath;
+                var path = System.Web.HttpUtility.UrlDecode(request.Url.AbsolutePath);
                 var containsUpperCase = path.Any(char.IsUpper);
 
                 if (!containsUpperCase || request.HttpMethod.ToUpper() != "GET")
