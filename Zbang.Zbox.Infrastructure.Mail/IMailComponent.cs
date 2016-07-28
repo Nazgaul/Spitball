@@ -18,6 +18,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
         Task<IEnumerable<string>> GetInvalidEmailsAsync(DateTime startTime, int page,
             CancellationToken cancellationToken = default(CancellationToken));
 
+        Task<IEnumerable<string>> GetBouncesAsync(DateTime startTime, int page,
+            CancellationToken cancellationToken = default(CancellationToken));
+
         Task GenerateSystemEmailAsync(string subject, string text);
 
         Task SendSpanGunEmailAsync(string recipient, string ipPool);
