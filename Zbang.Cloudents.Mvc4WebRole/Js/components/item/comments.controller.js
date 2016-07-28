@@ -29,18 +29,15 @@
         c.toggleComments = toggleComments;
         c.displayUnregBox = displayUnregBox;
 
-        //$timeout(function () {
-        //    $rootScope.$broadcast('updateScroll');
-        //},151);
         function toggleComments() {
             itemService.getComments(boxid, itemId)
                 .then(function (response) {
                     c.comments = response;
                 });
             $mdSidenav('commentsMenu').toggle();
-            $timeout(function () {
-                $rootScope.$broadcast('updateScroll');
-            }, 50);
+            //$timeout(function () {
+            //    $rootScope.$broadcast('updateScroll');
+            //}, 50);
         }
 
         function displayUnregBox() {

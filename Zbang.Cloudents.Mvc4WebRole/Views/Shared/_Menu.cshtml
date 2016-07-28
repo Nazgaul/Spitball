@@ -49,7 +49,7 @@
                 </ul>
             </li>
             <li class="uni nav-item">
-                <md-button user-not-register-popup="click" class="ellipsis" ng-class="{active: d.isSectionSelected('@Url.RouteUrl("LibraryDesktop")')}" @shouldPostBack href="@Url.RouteUrl("LibraryDesktop")">
+                <md-button ng-click="d.univeristyClick()" user-not-register-popup="click" class="ellipsis" ng-class="{active: d.isSectionSelected('/university')}" @shouldPostBack @*href="@Url.RouteUrl("LibraryDesktop")"*@>
                     <span class="icon">
                         @Html.Svg(svgUrl, "universityMenu", new { @class = "svgTC16" })
                     </span>
@@ -94,7 +94,7 @@
 </md-sidenav>
 <script type="text/ng-template" id="partials/menu-link.tmpl.html">
     <a class="md-button" ng-class="{active: isSectionSelected(section.url)}" ng-href="{{::section.url}}">
-        <span>{{::section.name}}</span>
+        <span ng-bind="::section.name"></span>
         <span class="badge badge-danger" ng-if="section.updates !== 0">{{section.updates > 99 ? "99+" : section.updates}}</span>
     </a>
 </script>

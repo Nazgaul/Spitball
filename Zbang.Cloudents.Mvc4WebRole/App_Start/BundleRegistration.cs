@@ -35,7 +35,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         "~/content/site/general.css",
                         "~/content/site/staticPage.css",
-                            "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
+                        "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
                         "~/content/site/layout.css",
                         "~/content/site/itemGallery.css"
                     },
@@ -230,7 +230,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/menu/menulink.directive.js"),
                         new JsFileWithCdn("~/js/menu/sidemenu.controller.js"),
                        
-                        new JsFileWithCdn("~/js/menu/nospace.filter.js"),
+                        //new JsFileWithCdn("~/js/menu/nospace.filter.js"),
 
 
                         new JsFileWithCdn("~/js/components/box/box.controller.js"),
