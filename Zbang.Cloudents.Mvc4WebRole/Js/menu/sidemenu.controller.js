@@ -1,14 +1,16 @@
 ﻿'use strict';
 (function () {
     angular.module('app.dashboard').controller('SideMenu', sideMenu);
-    sideMenu.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope', '$mdSidenav', '$location', '$timeout', '$scope'];
+    sideMenu.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope',
+        '$mdSidenav', '$location', '$scope'];
 
-    function sideMenu(dashboardService, userDetails, $rootScope, $mdSidenav, $location, $timeout, $scope) {
+    function sideMenu(dashboardService, userDetailsFactory, $rootScope,
+        $mdSidenav, $location, $scope) {
         var d = this, loaded = false;
         d.courses = [];
         d.privateBoxes = [];
 
-        userDetails.init().then(function (userDetails) {
+        userDetailsFactory.init().then(function (userDetails) {
             d.userUrl = userDetails.url;
             if (userDetails.theme === 'dark') {
 
@@ -20,25 +22,8 @@
             }
         });
         d.showBoxesNodes = true;
-        $scope.$watch(function () {
-            if (dashboardService.boxes) {
-                return dashboardService.boxes.length;
-            }
-            return dashboardService.boxes;
-        }, function (val) {
-            if (angular.isNumber(val)) {
-                if (val > 0) {
-                    d.showBoxesNodes = true;
-                } else {
-                    d.showBoxesNodes = false;
-                }
-                return;
-            }
-            if (!val) {
-                //we don't know what is the status
-                d.showBoxesNodes = true;
-            }
-        });
+
+
 
         d.coursesOpen = false;
         d.boxesOpen = false;
@@ -47,7 +32,14 @@
 
         d.toggleCourses = toggleCourses;
         d.toggleBoxes = toggleBoxes;
+        d.univeristyClick = univeristyClick;
 
+        function univeristyClick() {
+            dashboardService.getUniversityMeta()
+                .then(function (response) {
+                    $location.path(response.url);
+                });
+        }
 
         function toggleCourses() {
             if (!initOpen()) {
@@ -55,9 +47,9 @@
             }
             d.coursesOpen = !d.coursesOpen;
             d.boxesOpen = false;
-            $timeout(function () {
-                $rootScope.$broadcast('updateScroll');
-            }, 800);
+            //$timeout(function () {
+            //    $rootScope.$broadcast('updateScroll');
+            //}, 800);
         }
         function toggleBoxes() {
             if (!initOpen()) {
@@ -65,12 +57,12 @@
             }
             d.coursesOpen = false;
             d.boxesOpen = !d.boxesOpen;
-            $timeout(function () {
-                $rootScope.$broadcast('updateScroll');
-            }, 800);
+            //$timeout(function () {
+            //    $rootScope.$broadcast('updateScroll');
+            //}, 800);
         }
         function initOpen() {
-            if (!userDetails.isAuthenticated()) {
+            if (!userDetailsFactory.isAuthenticated()) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return false;
             }
@@ -107,9 +99,9 @@
         $scope.$on('open-menu', function () {
             $mdSidenav('left').toggle();
             $scope.app.menuOpened = !$scope.app.menuOpened;
-            $timeout(function () {
-                $rootScope.$broadcast('updateScroll');
-            });
+            //$timeout(function () {
+            //    $rootScope.$broadcast('updateScroll');
+            //});
         });
         $scope.$on('remove-box', function (e, arg) {
             arg = parseInt(arg, 10);
@@ -131,16 +123,37 @@
             if (fromState.parent === 'box') {
                 if (fromParams.boxtype === 'box') {
                     var box = d.privateBoxes.find(function (i) {
+                        // ReSharper disable once CoercedEqualsUsing
                         return i.id == fromParams.boxId;
                     }) || {};
                     box.updates = 0;
                 } else {
                     var abox = d.courses.find(function (i) {
+                        // ReSharper disable once CoercedEqualsUsing
                         return i.id == fromParams.boxId;
                     }) || {};
                     abox.updates = 0;
                 }
 
+            }
+        });
+        $scope.$watch(function () {
+            if (dashboardService.boxes) {
+                return dashboardService.boxes.length;
+            }
+            return dashboardService.boxes;
+        }, function (val) {
+            if (angular.isNumber(val)) {
+                if (val > 0) {
+                    d.showBoxesNodes = true;
+                } else {
+                    d.showBoxesNodes = false;
+                }
+                return;
+            }
+            if (!val) {
+                //we don't know what is the status
+                d.showBoxesNodes = true;
             }
         });
     }

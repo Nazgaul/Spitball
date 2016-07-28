@@ -352,6 +352,7 @@
     <Compile Include="Helpers\Mimify\MinifyHtmlCodeGenerator.cs" />
     <Compile Include="Helpers\Mimify\MinifyHtmlWebRazorHostFactory.cs" />
     <Compile Include="Helpers\NullGuidConstrait.cs" />
+    <Compile Include="Helpers\UniversityConstraint.cs" />
     <Compile Include="Helpers\UrlBuilder.cs" />
     <Compile Include="Helpers\TrimModelBinder.cs" />
     <Compile Include="Helpers\UrlTitleBringer.cs" />
@@ -2272,7 +2273,6 @@
     <Content Include="Scripts\ui-bootstrap-custom-tpls-1.2.1.min.js" />
     <Content Include="Scripts\waypoints.min.js" />
     <Content Include="Js\menu\menulink.directive.js" />
-    <Content Include="Js\menu\nospace.filter.js" />
     <Content Include="Js\polyfills.js" />
     <Content Include="Js\shared\animationClass.js" />
     <Content Include="Js\shared\animationLocation.js" />

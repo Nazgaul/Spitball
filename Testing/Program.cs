@@ -105,10 +105,7 @@ namespace Testing
             }
         }
 
-        public async Task CheckUrl()
-        {
-
-        }
+        
 
 
 

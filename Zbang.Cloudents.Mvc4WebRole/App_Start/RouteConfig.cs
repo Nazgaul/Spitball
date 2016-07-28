@@ -18,10 +18,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             var constraintsResolver = new DefaultInlineConstraintResolver();
             routes.MapMvcAttributeRoutes(constraintsResolver);
 
-
-
-
-
             routes.MapRoute("homePage",
              "",
              new { controller = "Home", action = "Index" }

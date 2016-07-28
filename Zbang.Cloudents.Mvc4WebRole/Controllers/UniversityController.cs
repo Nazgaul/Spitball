@@ -63,7 +63,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [NoUniversity, HttpGet]
-        [Route("library", Name = "LibraryDesktop")]
+        [Route("library")]
         public async Task<RedirectToRouteResult> LibraryRedirectAsync()
         {
 
@@ -89,7 +89,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [NoUniversity, HttpGet]
-        [Route("library/{LibId}/{LibName}", Name = "LibraryDesktop2")]
+        [Route("library/{LibId}/{LibName}")]
         public async Task<RedirectToRouteResult> LibraryRedirectWithNodeAsync(string libId, string libName)
         {
 

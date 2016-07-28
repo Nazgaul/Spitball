@@ -3,9 +3,9 @@
     angular.module('app.search').controller('SearchController', search);
 
     search.$inject = ['searchService', 'itemThumbnailService', '$q', '$rootScope', '$scope', 'Analytics',
-        '$stateParams', '$location', '$state', '$timeout'];
+        '$stateParams', '$location', '$state', '$timeout', 'dashboardService'];
     function search(searchService, itemThumbnailService, $q, $rootScope,
-        $scope, analytics, $stateParams, $location, $state, $timeout) {
+        $scope, analytics, $stateParams, $location, $state, $timeout, dashboardService) {
         var self = this, page = 0, needToBringMore = true, term;
         self.state = {
             box: 'box',
@@ -16,7 +16,7 @@
         self.items = [];
         self.quizzes = [];
         assignTab();
-
+        self.univeristyClick = univeristyClick;
       
 
         $rootScope.$on('search-query', searchElements);
@@ -70,7 +70,6 @@
             self.result = [];
             //bug 5411
             $timeout(searchElements);
-            //searchElements();
         }
 
         function createEmptyPromise() {
@@ -146,6 +145,13 @@
                 }
                 page++;
             });
+        }
+
+        function univeristyClick() {
+            dashboardService.getUniversityMeta()
+                .then(function (response) {
+                    $location.path(response.url);
+                });
         }
 
 

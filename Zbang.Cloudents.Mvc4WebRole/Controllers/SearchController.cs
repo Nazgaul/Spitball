@@ -31,6 +31,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_QuizSearchService = quizSearchService;
         }
 
+        [Route("Search")]
         public ActionResult Index(string q)
         {
             if (string.IsNullOrEmpty(q))

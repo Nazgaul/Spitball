@@ -20,7 +20,7 @@
   cursor: default;
 }
 .homePage.show-forms .home-page-body section.main {
-  height: calc(100vh - @heightOfstaticPageHeader - 1);
+  height: calc(100vh - 60px + 1px);
 }
 .homePage.show-forms .home-page-body section.main .forms {
   max-height: 100vh;

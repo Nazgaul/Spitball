@@ -89,7 +89,6 @@
 /// <reference path="../js/doubleclick.config.js" />
 /// <reference path="../Js/HomePage.js" />
 /// <reference path="../js/menu/menulink.directive.js" />
-/// <reference path="../js/menu/nospace.filter.js" />
 /// <reference path="../js/menu/sidemenu.controller.js" />
 /// <reference path="../js/polyfills.js" />
 /// <reference path="../Js/routerHelperProvider.js" />
