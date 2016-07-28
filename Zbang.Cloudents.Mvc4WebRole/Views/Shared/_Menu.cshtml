@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
     const string svgUrl = "~/images/site/icons.svg";
-    var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
+    var shouldPostBack = ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 
 <md-sidenav ng-show="app.showMenu" ng-cloak class="main-md-sidenav"
