@@ -27,7 +27,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
              new { controller = "Home", action = "Index" }
              );
 
-            routes.MapRoute("universityLibraryAuth",
+            routes.MapRoute("universityLibrary",
                 "university/{universityId}/{universityName}",
                 new {controller = "University", action = "Index" },
                 new { /*auth = new AuthorizationConstraint() ,*/ universityId = new LongRouteConstraint() }
