@@ -62,7 +62,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     tasks.Clear();
                 }
                 mails = (await m_ZboxReadService.GetEmailsAsync(page)).ToList();
-            } while (mails.Any() && page < 1000);
+            } while (mails.Any() && page < 3000);
             await m_MailComponent.GenerateSystemEmailAsync("stop populating", "stop " + page);
             await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
 

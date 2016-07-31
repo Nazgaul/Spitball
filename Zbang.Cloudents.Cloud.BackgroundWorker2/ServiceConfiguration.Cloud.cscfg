@@ -4,7 +4,7 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxstorage;AccountKey=HQQ2v9EJ0E+7WpkraKJwGyQ7pZ/yXK6YclCeA3e4bki1GnQoTJSNVXDtBZa/5tuEMgzczqgrH9VztfFaNxyiiw==" />
-      <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;" />
+      <Setting name="ZBox" value="Server=tcp:on0rodxe8f.database.windows.net;Database=ZBoxNew;User ID=ZBoxAdmin@on0rodxe8f;Password=Pa$$W0rd;Trusted_Connection=False;Encrypt=True;Connection Timeout=90;" />
       <Setting name="StorageCdnEndpoint" value="https://az32006.vo.msecnd.net" />
       <Setting name="AzureSearchKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />
       <Setting name="AzureSeachServiceName" value="cloudents" />
@@ -18,7 +18,7 @@
       <Setting name="ServiceBusHubName" value="cloudentshub" />
       <Setting name="platform" value="workerRole" />
       <Setting name="signalR" value="https://connect.spitball.co/" />
-      <Setting name="NumberOfEmailsPerHour" value="211" />
+      <Setting name="NumberOfEmailsPerHour" value="295" />
     </ConfigurationSettings>
     <Certificates>
       <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="D504F00C3E35AB536CD6EC83FF8EBA9FD8E3BA4D" thumbprintAlgorithm="sha1" />
