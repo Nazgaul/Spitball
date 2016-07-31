@@ -30,9 +30,6 @@
 .homePage.show-forms .home-page-body #main-wrapper {
   display: none !important;
 }
-.homePage .hidden {
-  display: none !important;
-}
 .homePage .home-page-body {
   background-attachment: scroll;
   background-repeat: no-repeat;
@@ -129,7 +126,7 @@
 }
 .homePage .home-page-body section.intro .login-option.signup {
   font-size: 26px;
-  padding: 14px 42px;
+  padding: 16px 42px 12px 42px;
   text-transform: uppercase;
   font-weight: bold;
   margin: 0 auto;
@@ -192,15 +189,8 @@
     padding: 0 10px;
   }
 }
-.homePage .home-page-body section.main .welcome-text.vertical-slide {
-  transition: 1s;
-  margin-right: -10000px;
-}
-.homePage .home-page-body section.main .welcome-text > h1,
-.homePage .home-page-body section.main .welcome-text h2 {
+.homePage .home-page-body section.main .welcome-text > h1 {
   text-shadow: -2px 2px 4px #282828;
-}
-.homePage .home-page-body section.main .welcome-text h1 {
   font-weight: bold;
   font-size: 54px;
   width: 100%;
@@ -208,18 +198,20 @@
   text-transform: capitalize;
   display: inline-block;
 }
-.homePage .home-page-body section.main .welcome-text h2 {
-  font-size: 18px;
-  line-height: 24px;
-  white-space: pre-wrap;
-  margin: 0 auto;
-  margin-top: 16px;
-  width: 100%;
+@media (max-width: 1200px) {
+  .homePage .home-page-body section.main .welcome-text > h1 {
+    font-size: 4vw;
+  }
 }
-.homePage .home-page-body section.main .welcome-text h2 span {
-  font-weight: bold;
-  font-size: 22px;
-  text-transform: uppercase;
+@media (max-width: 960px) {
+  .homePage .home-page-body section.main .welcome-text > h1 {
+    font-size: 6vw;
+  }
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .welcome-text > h1 {
+    font-size: 7vw;
+  }
 }
 .homePage .home-page-body section.main .forms {
   -webkit-transition: max-height 0.5s;
@@ -231,16 +223,13 @@
 .homePage .home-page-body section.main .forms .form-wrapper {
   display: none;
 }
-.homePage .home-page-body section.main section {
-  max-height: 100vh;
-}
 .homePage .home-page-body section.main .form-wrapper {
   background: rgba(24, 26, 22, 0.93);
   max-width: 460px;
   width: calc(100% - 20px);
   margin: 0 auto;
   position: relative;
-  margin-top: 140px;
+  margin-top: 40px;
 }
 @media (max-width: 600px) {
   .homePage .home-page-body section.main .form-wrapper {
@@ -261,10 +250,10 @@
 }
 .homePage .home-page-body section.main .form-wrapper .form-title {
   color: #f5f5f5;
-  padding: 35px 25px 0 25px;
+  padding: 27px 25px 0 25px;
   text-align: center;
   font-weight: 300;
-  font-size: 23px;
+  font-size: 21px;
   margin: 0 auto;
 }
 @media (max-width: 600px) {
@@ -308,7 +297,7 @@
   -webkit-align-items: center;
   align-items: center;
   border-radius: 15px;
-  padding: 7px 10px;
+  padding: 5px 10px;
   width: calc(50% - 10px);
 }
 @media (max-width: 600px) {
@@ -352,7 +341,7 @@
   padding-right: 15px;
   border: 1px solid #c3c3c3;
   box-shadow: 0 0 0 1000px #e9eaed inset;
-  height: 50px;
+  height: 46px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -396,7 +385,7 @@
 }
 .homePage .home-page-body section.main .form-wrapper .bottom-strip {
   margin: 0;
-  height: 50px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -445,12 +434,9 @@
 .homePage .home-page-body section.main .form-wrapper.login-wrapper .forgot-password-text #forgot-password-link:hover {
   cursor: pointer;
 }
-.homePage .home-page-body section.main .form-wrapper.register-wrapper .form-title {
-  max-width: 250px;
-}
 .homePage .home-page-body section.main .form-wrapper.register-wrapper label[for="show-fields"] {
   color: #f5f5f5;
-  margin: 45px auto;
+  margin: 0 auto 30px auto;
   font-size: 20px;
   text-decoration: underline;
   display: block;
@@ -956,16 +942,9 @@
     margin: 90px auto 10px auto;
   }
   .homePage .home-page-body section.main .welcome-text h1 {
-    font-size: 5.2vh;
     margin: 25px 0;
     padding: 0 10px;
     box-sizing: border-box;
-  }
-  .homePage .home-page-body section.main .welcome-text h2 {
-    font-size: 5vw;
-  }
-  .homePage .home-page-body section.main .welcome-text h2 span {
-    font-size: 5.5vw;
   }
   .homePage .home-page-body section.main .statistics {
     font-size: 5vw;
