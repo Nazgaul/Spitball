@@ -107,7 +107,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     TraceLog.WriteError("on SchedulerListener", ex);
                 }
-                TraceLog.WriteInfo("Scheduler Listener going to sleep");
+                //TraceLog.WriteInfo("Scheduler Listener going to sleep");
                 await Task.Delay(TimeSpan.FromMinutes(5), cancellationToken);
 
             }

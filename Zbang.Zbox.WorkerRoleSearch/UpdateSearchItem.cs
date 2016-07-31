@@ -66,6 +66,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     }
                     else
                     {
+                        //TraceLog.WriteInfo($"{PrefixLog} min interval");
                         m_Interval = MinInterval;
                     }
                 }
@@ -75,7 +76,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     {
                         break;
                     }
-                  
+
                 }
                 catch (Exception ex)
                 {
@@ -94,6 +95,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private int m_MaxInterval = MinInterval;
         private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
         {
+            TraceLog.WriteInfo($"{PrefixLog} going to sllep { m_Interval}");
+
             await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
             m_Interval = m_Interval * 2;
             if (m_MaxInterval < m_Interval)
@@ -104,7 +107,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         }
 
-       
+
 
 
 
@@ -120,12 +123,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 elem.Content = ExtractContentToUploadToSearch(elem);
                 PreProcessFile(elem);
-                
+
                 if (elem.Type.ToLower() == "file")
                 {
                     tasks.Add(
                         m_ItemSearchProvider3.UpdateDataAsync(
-                            new[] {elem}, null));
+                            new[] { elem }, null));
                 }
             }
             await Task.WhenAll(tasks);

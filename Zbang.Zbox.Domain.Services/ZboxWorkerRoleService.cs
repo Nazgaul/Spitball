@@ -48,14 +48,14 @@ namespace Zbang.Zbox.Domain.Services
         {
             return
                 DeleteFromDbAsync(
-                    "delete top (5) from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0", token);
+                    "delete top (3) from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0", token);
             
         }
         public Task<int> DeleteOldBoxAsync(CancellationToken token)
         {
             return
                 DeleteFromDbAsync(
-                    "delete top (5) from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0", token);
+                    "delete top (3) from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0", token);
 
         }
 

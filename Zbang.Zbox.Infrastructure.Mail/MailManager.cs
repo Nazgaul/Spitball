@@ -116,7 +116,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 Subject = subject
             };
             sendGridMail.AddTo("ram@cloudents.com");
-            await SendAsync(sendGridMail, new UsCredentials());
+            await SendAsync(sendGridMail, new Credentials());
         }
 
         public async Task SendSpanGunEmailAsync(string recipient, string ipPool)

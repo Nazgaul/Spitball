@@ -78,7 +78,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch is stopping");
 
             m_CancellationTokenSource.Cancel();
-            var jobs = GetJob();
+            //var jobs = GetJob();
             //foreach (var job in jobs)
             //{
             //    job.Stop();
