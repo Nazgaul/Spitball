@@ -63,11 +63,12 @@ select Name,boxid from c";
   b.BoxName as boxname,
   u.UniversityName as universityName,
   b.BoxId as boxid
-   from zbox.item i 
-   join zbox.box b on i.BoxId = b.BoxId
-   left join zbox.University u on b.University = u.id
-   where i.isdirty = 1 
-   and i.IsDeleted = 0
+    from zbox.item i 
+    join zbox.box b on i.BoxId = b.BoxId
+    left join zbox.University u on b.University = u.id
+    where i.isdirty = 1 
+    and i.IsDeleted = 0
+    and b.isdeleted = 0 -- performance
     and i.itemid % @count  = @index
     order by i.ItemId desc";
 

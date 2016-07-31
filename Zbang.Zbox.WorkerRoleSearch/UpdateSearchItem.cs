@@ -90,11 +90,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
         private int m_Interval = MinInterval;
-        private const int MinInterval = 5;
-        private const int MaxInterval = 240;
+        private const int MinInterval = 10;
+        private int m_MaxInterval = MinInterval;
         private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
         {
-            m_Interval = Math.Min(MaxInterval, m_Interval * 2);
+            m_Interval = m_Interval * 2;
+            if (m_MaxInterval < m_Interval)
+            {
+                m_MaxInterval = m_Interval;
+                TraceLog.WriteInfo($"{PrefixLog} max interval {m_MaxInterval}");
+            }
             await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
 
         }
