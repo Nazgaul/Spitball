@@ -39,7 +39,7 @@
     delete from Updates c where c.User.Id = :userid and c.Box.Id = :boxId and c.Item is not null
     ]]>
   </query>
-  <query name="DeleteOldUpdates">
+  <!--<query name="DeleteOldUpdates">
     <![CDATA[
     delete from Updates c where c.id in ( select d.id from Updates d where d.CreationTime < getutcdate() - 182 take 100)
     ]]>
@@ -51,5 +51,5 @@
     left join zbox.userboxrel ub on ub.userid = n.userid and n.boxid = ub.boxid
     where userboxrelid is null
     )]]>
-  </sql-query>
+  </sql-query>-->
 </hibernate-mapping>

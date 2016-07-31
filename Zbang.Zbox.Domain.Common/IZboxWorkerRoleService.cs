@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 
@@ -11,14 +12,13 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateQuota(UpdateQuotaCommand updateQuotaCommand);
         void UpdateReputation(UpdateReputationCommand command);
         Task AddNewUpdateAsync(AddNewUpdatesCommand command);
-       
-        //void AddCategories(AddCategoriesCommand command);
-        //void AddProducts(AddProductsToStoreCommand command);
 
-        //void AddBanners(AddBannersCommand command);
+        Task<int> DeleteOldUpdatesAsync(CancellationToken token);
+        Task<int> DeleteOldItemAsync(CancellationToken token);
+        Task<int> DeleteOldBoxAsync(CancellationToken token);
 
-        //bool Dbi();
-        int DeleteOldUpdates();
+
+
         void OneTimeDbi();
         void UpdateUniversityStats(DateTime dateTime);
 

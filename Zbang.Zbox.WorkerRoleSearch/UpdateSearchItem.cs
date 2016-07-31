@@ -94,13 +94,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private int m_MaxInterval = MinInterval;
         private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
         {
+            await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
             m_Interval = m_Interval * 2;
             if (m_MaxInterval < m_Interval)
             {
                 m_MaxInterval = m_Interval;
                 TraceLog.WriteInfo($"{PrefixLog} max interval {m_MaxInterval}");
             }
-            await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
 
         }
 
@@ -112,8 +112,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<bool> UpdateItemAsync(int instanceId, int instanceCount)
         {
-            
-            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount, 10);
+            const int top = 10;
+            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount, top);
             if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return false;
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
@@ -133,7 +133,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(
                     updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
-            return true;
+            return updates.ItemsToUpdate.Count() == top;
         }
 
         private Processor GetProcessor(ItemSearchDto msgData)

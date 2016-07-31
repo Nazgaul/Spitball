@@ -79,10 +79,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             m_CancellationTokenSource.Cancel();
             var jobs = GetJob();
-            foreach (var job in jobs)
-            {
-                job.Stop();
-            }
+            //foreach (var job in jobs)
+            //{
+            //    job.Stop();
+            //}
             m_RunCompleteEvent.WaitOne();
 
             base.OnStop();
@@ -161,7 +161,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess)),
                 m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)),
                 m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)),
-                m_Unity.Resolve<IJob>(nameof(SpamGun))
+                m_Unity.Resolve<IJob>(nameof(SpamGun)),
+                m_Unity.Resolve<IJob>(nameof(DeleteOldStuff))
 
             };
         }
