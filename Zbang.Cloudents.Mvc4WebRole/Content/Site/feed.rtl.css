@@ -664,8 +664,7 @@
 }
 .feed .content-text {
   line-height: 22px;
-  -ms-word-break: break-word;
-  word-break: break-word;
+  word-wrap: break-word;
   white-space: pre-wrap;
   color: #181c1d;
   margin: 6px 0 10px 10px;
