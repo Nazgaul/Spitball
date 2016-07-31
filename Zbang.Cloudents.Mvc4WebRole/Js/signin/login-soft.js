@@ -121,7 +121,7 @@ var Login = function () {
                     alert(text);
                     return;
                 }
-                $('.check-email-message-wrapper').removeClass('hidden').show();
+                $('.check-email-message-wrapper').show();
                 $('.forgot-password-wrapper').hide();
             });
             return true;
@@ -219,6 +219,7 @@ var Login = function () {
 
     $('.close-form').click(function () {
         $main.removeClass('show-forms');
+        $('#show-fields').attr('checked', false);
         setTimeout(function () {
             $('.form-wrapper').hide();
         }, animatonSpeed);

@@ -35,13 +35,6 @@
         }
     }
 
-    .hidden {
-        display: none !important;
-    }
-
-    .page-content {
-    }
-
     .home-page-body {
         background-attachment: scroll;
         background-repeat: no-repeat;
@@ -143,7 +136,7 @@
 
                 &.signup {
                     font-size: 26px;
-                    padding: 14px 42px;
+                    padding: 16px 42px 12px 42px;
                     text-transform: uppercase;
                     font-weight: bold;
                     margin: 0 auto;
@@ -210,37 +203,25 @@
                         padding: 0 10px;
                     }
 
-                    &.vertical-slide {
-                        transition: 1s;
-                        margin-left: -10000px;
-                    }
-
-                    > h1, h2 {
+                    > h1 {
                         text-shadow: 2px 2px 4px @textColorBlack;
-                    }
-
-                    h1 {
                         font-weight: bold;
                         font-size: 54px;
                         width: 100%; //rtl:520px
                         margin: 14px auto;
                         text-transform: capitalize;
                         display: inline-block;
-                    }
 
+                        @media(max-width: 1200px) {
+                            font-size: 4vw;
+                        }
 
-                    h2 {
-                        font-size: 18px;
-                        line-height: 24px;
-                        white-space: pre-wrap;
-                        margin: 0 auto;
-                        margin-top: 16px;
-                        width: 100%;
+                        @media(max-width: 960px) {
+                            font-size: 6vw;
+                        }
 
-                        span {
-                            font-weight: bold;
-                            font-size: 22px;
-                            text-transform: uppercase;
+                        @media(max-width: 600px) {
+                            font-size: 7vw;
                         }
                     }
                 }
@@ -257,18 +238,17 @@
                     }
                 }
 
-                section {
-                    max-height: 100vh;
-                }
-
-
                 .form-wrapper {
                     background: rgba(24,26,22,.93);
                     max-width: 460px;
                     width: ~"calc(100% - 20px)";
                     margin: 0 auto;
                     position: relative;
-                    margin-top: 140px;
+                    margin-top: 40px;
+
+                    @media(max-width: 600px) {
+                        margin-top: 10px;
+                    }
 
                     .close-form {
                         padding: 0;
@@ -286,11 +266,16 @@
 
                     .form-title {
                         color: @textColorWhite;
-                        padding: 35px 25px 0 25px;
+                        padding: 27px 25px 0 25px;
                         text-align: center;
                         font-weight: 300;
-                        font-size: 23px;
+                        font-size: 21px;
                         margin: 0 auto;
+
+                        @media(max-width: 600px) {
+                            font-size: 18px;
+                            padding-top: 24px;
+                        }
                     }
 
                     .signin-options, form, .forgot-password-text {
@@ -309,11 +294,16 @@
                         .justifyContet(space-between);
                         margin: 30px auto;
 
+                        @media(max-width:600px) {
+                            margin: 22px auto;
+                        }
+
+
                         button {
                             .displayInlineFlex;
                             .align-items(center);
                             border-radius: 15px;
-                            padding: 7px 10px;
+                            padding: 5px 10px;
                             width: ~"calc(50% - 10px)";
 
                             @media(max-width:600px) {
@@ -335,6 +325,10 @@
                                 flex-grow: 1;
                                 font-size: 18px;
                                 padding-right: 10px;
+
+                                @media(max-width:600px) {
+                                    font-size: 16px;
+                                }
                             }
                         }
                     }
@@ -343,6 +337,10 @@
                         .form-group:not(:last-child) {
                             margin-bottom: 20px;
 
+                            @media(max-width:600px) {
+                                margin-bottom: 12px;
+                            }
+
                             .form-control {
                                 background-color: #dde3ec;
                                 color: #282828;
@@ -350,9 +348,13 @@
                                 padding-left: 15px;
                                 border: 1px solid #c3c3c3;
                                 box-shadow: 0 0 0 1000px #e9eaed inset;
-                                height: 50px;
+                                height: 46px;
                                 width: 100%;
                                 box-sizing: border-box;
+
+                                @media(max-width:600px) {
+                                    height: 40px;
+                                }
                             }
                         }
 
@@ -361,6 +363,11 @@
                             .align-items(center);
                             .justifyContet(space-between);
                             margin-bottom: 20px;
+
+                            @media(max-width:600px) {
+                                margin-bottom: 10px;
+                            }
+
 
                             .terms {
                                 color: @textColorGrey;
@@ -386,13 +393,17 @@
 
                     .bottom-strip {
                         margin: 0;
-                        height: 50px;
+                        height: 46px;
                         display: flex;
                         align-items: center;
                         justify-content: center;
                         color: @textColorWhite;
                         background: @textColorGrey;
                         font-size: 12px;
+
+                        @media(max-width: 600px) {
+                            height: 40px;
+                        }
 
                         a {
                             color: @textColorWhite;
@@ -438,19 +449,19 @@
 
 
                     &.register-wrapper {
-
-                        .form-title {
-                            max-width: 250px;
-                        }
-
                         label[for="show-fields"] {
                             color: @textColorWhite;
-                            margin: 45px auto;
+                            margin: 0 auto 30px auto;
                             font-size: 20px;
                             text-decoration: underline;
                             display: block;
                             cursor: pointer;
                             display: inline-block;
+
+                            @media(max-width: 600px) {
+                                margin: 0 auto 30px auto;
+                                font-size: 16px;
+                            }
                         }
 
                         form.register {
@@ -474,6 +485,10 @@
                         .form-group {
                             &.first, &.second {
                                 width: ~"calc(50% - 10px)";
+
+                                @media(max-width:600px) {
+                                    width: ~"calc(50% - 5px)";
+                                }
                             }
 
                             &.first {
@@ -929,6 +944,10 @@
                 padding-top: 10px;
                 overflow-x: hidden;
 
+                .bxslider {
+                    display: none;
+                }
+
                 blockquote {
                     text-align: center;
                     max-width: 800px;
@@ -996,6 +1015,10 @@
                 }
             }
         }
+
+        .static-page-footer .app-links {
+            display: none;
+        }
         //@media(max-width: 768px) {
         //@media(max-width: 768px) {
         //    section.main .welcome-text {
@@ -1017,18 +1040,9 @@
                         margin: 90px auto 10px auto;
 
                         h1 {
-                            font-size: 5.2vh;
                             margin: 25px 0;
                             padding: 0 10px;
                             box-sizing: border-box;
-                        }
-
-                        h2 {
-                            font-size: 5vw;
-
-                            span {
-                                font-size: 5.5vw;
-                            }
                         }
                     }
 
