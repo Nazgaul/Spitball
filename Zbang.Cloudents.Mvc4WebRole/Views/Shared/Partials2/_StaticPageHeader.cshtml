@@ -14,7 +14,7 @@
                     <label for="menu-toggle">@Html.Svg("~/images/site/icons.svg", "headerMenu", new { @class = "headerMenu" })</label>
                     <label for="menu-toggle" class="menu-close"></label>
                 </div>
-                <a class="logo-wrapper" href="@Url.RouteUrl("HomePage")" ga-track-event="['header', 'logo']">
+                <a class="logo-wrapper" href="@Url.RouteUrl("HomePage")">
                     <div class="logo"></div>
                     @Html.Svg("~/images/site/icons.svg", "smallLogo", new { @class = "logo-small" })
                 </a>
@@ -28,11 +28,11 @@
                     <a href="@Url.RouteUrl("Features")">@HomePageResources.A9</a>
                 </li>
                 <li class="pipe"></li>
-                <li id="meet">
+                <li id="notes">
                     <a href="@Url.RouteUrl("ClassNotes")">@HomePageResources.A10</a>
                 </li>
                 <li class="pipe"></li>
-                <li id="meet">
+                <li id="courses">
                     <a href="@Url.RouteUrl("Courses")">@HomePageResources.A12</a>
                 </li>
                 <li class="pipe"></li>
@@ -58,8 +58,8 @@
         @if (!User.Identity.IsAuthenticated)
         {
             <div class="login-buttons">
-                <a class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("HomePage", new { step = "signup" })" data-form-action="register" ga-track-event="['header', 'signup']">@IndexResources.Signup</a>
-                <a class="signin-btn toggle login-option os-animation" href="@Url.RouteUrl("HomePage", new { step = "signin" })" data-form-action="login" ga-track-event="['header', 'signin']">@HomePageResources.A1</a>
+                <a class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("HomePage", new { step = "signup" })" data-form-action="register">@IndexResources.Signup</a>
+                <a class="signin-btn toggle login-option os-animation" href="@Url.RouteUrl("HomePage", new { step = "signin" })" data-form-action="login">@HomePageResources.A1</a>
             </div>
         }
     </nav>

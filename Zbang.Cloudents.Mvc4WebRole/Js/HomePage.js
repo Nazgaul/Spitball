@@ -71,21 +71,20 @@ window.addEventListener("load", function load() {
         $('button.signup').css(bgColor, backgroundColor);
     }
 
+    function handleScrollToTop(){
+        if ($(this).scrollTop() > offset) {
+            $('.scroll-to-top').fadeIn(duration);
+        } else {
+            $('.scroll-to-top').fadeOut(duration);
+        }
+    }
     if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
         $(window).bind("touchend touchcancel touchleave", function () {
-            if ($(this).scrollTop() > offset) {
-                $('.scroll-to-top').fadeIn(duration);
-            } else {
-                $('.scroll-to-top').fadeOut(duration);
-            }
+            handleScrollToTop();
         });
     } else {  // general 
         $(window).scroll(function () {
-            if ($(this).scrollTop() > offset) {
-                $('.scroll-to-top').fadeIn(duration);
-            } else {
-                $('.scroll-to-top').fadeOut(duration);
-            }
+            handleScrollToTop();
         });
     }
 
@@ -173,23 +172,27 @@ window.addEventListener("load", function load() {
                 hasBoxes = true;
                 $.get("/home/boxes", function (data) {
                     var boxes = data.payload;
+                    if (!boxes || !boxes.length) {
+                        scrollTo.addClass('no-boxes');
+                        return;
+                    }
                     var boxElement = $('#box-template').html();
 
                     for (var box in boxes) {
                         var currBox = boxes[box];
                         var boxClass = "color" + currBox.name.length % 11;
                         var mapObj = {
-                            '{boxUrl}': currBox.url ? currBox.url : '',
-                            '{boxName}': currBox.name ? currBox.name : '',
-                            '{boxProfessor}': currBox.professor ? currBox.professor : '',
-                            '{boxCourseCode}': currBox.courseCode ? currBox.courseCode : '',
+                            '{boxUrl}': currBox.url,
+                            '{boxName}': currBox.name,
+                            '{boxProfessor}': currBox.professor,
+                            '{boxCourseCode}': currBox.courseCode,
                             '{boxClass}': boxClass,
-                            '{boxMembersCount}': currBox.membersCount ? currBox.membersCount : '',
-                            '{boxItemCount}': currBox.itemCount ? currBox.itemCount : ''
+                            '{boxMembersCount}': currBox.membersCount,
+                            '{boxItemCount}': currBox.itemCount
                         };
 
                         box = boxElement.replace(new RegExp(Object.keys(mapObj).join("|"), 'g'), function (matched) {
-                            return mapObj[matched];
+                            return mapObj[matched] || '';
                         });
 
                         $('.boxes').append(box);

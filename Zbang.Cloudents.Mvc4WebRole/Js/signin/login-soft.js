@@ -210,6 +210,7 @@ var Login = function () {
 
         var action = $(this).data('form-action');
         pushState(states[action]);
+        ga('send', 'home-page', action);
 
         var formClass = action + '-wrapper';
         $('.form-wrapper:not(.' + formClass + ')').hide();
@@ -353,7 +354,7 @@ var Login = function () {
 
         }, { scope: 'email,user_friends' });
 
-        function processLogin(accessToken) {
+        function processLogin(accessToken){ 
             //trackConversion();
             $.post('/account/facebookLogin', {
                 token: accessToken
