@@ -78,11 +78,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Trace.TraceInformation("Zbang.Zbox.WorkerRoleSearch is stopping");
 
             m_CancellationTokenSource.Cancel();
-            var jobs = GetJob();
-            foreach (var job in jobs)
-            {
-                job.Stop();
-            }
+            //var jobs = GetJob();
+            //foreach (var job in jobs)
+            //{
+            //    job.Stop();
+            //}
             m_RunCompleteEvent.WaitOne();
 
             base.OnStop();
@@ -161,7 +161,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 m_Unity.Resolve<IJob>(nameof(TransactionQueueProcess)),
                 m_Unity.Resolve<IJob>(nameof(ThumbnailQueueProcess)),
                 m_Unity.Resolve<IJob>(nameof(DeleteOldConnections)),
-                m_Unity.Resolve<IJob>(nameof(SpamGun))
+                m_Unity.Resolve<IJob>(nameof(SpamGun)),
+                m_Unity.Resolve<IJob>(nameof(DeleteOldStuff))
 
             };
         }

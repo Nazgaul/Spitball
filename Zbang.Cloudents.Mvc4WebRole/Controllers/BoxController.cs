@@ -228,9 +228,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [BoxPermission("id"), ActionName("Recommended")]
         public async Task<JsonResult> RecommendedAsync(long id)
         {
-            var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
-            var result = await ZboxReadService.GetBoxRecommendedCoursesAsync(query);
-            return JsonOk(result);
+            try
+            {
+                var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
+                var result = await ZboxReadService.GetBoxRecommendedCoursesAsync(query);
+                return JsonOk(result);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError($"Recommended {id}", ex);
+                return JsonOk();
+            }
         }
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]

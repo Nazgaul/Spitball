@@ -76,8 +76,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var updates = await m_ZboxReadService.GetBoxDirtyUpdatesAsync(instanceId, instanceCount, 100);
             if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return false;
-            TraceLog.WriteInfo(PrefixLog,
-                $"box updating {updates.BoxesToUpdate.Count()} deleting {updates.BoxesToDelete.Count()}");
+            //TraceLog.WriteInfo(PrefixLog,
+            //    $"box updating {updates.BoxesToUpdate.Count()} deleting {updates.BoxesToDelete.Count()}");
             var isSuccess =
                 await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete);
             if (isSuccess)
