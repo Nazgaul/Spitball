@@ -78,7 +78,7 @@ namespace Zbang.Zbox.Domain.Services
 
         public Task<int> DeleteOldUpdatesAsync(CancellationToken token)
         {
-            return DeleteFromDbAsync("delete top (100)  from zbox.newUpdates where CreationTime < getutcdate() - 182 ", token);
+            return DeleteFromDbAsync("delete top (100)  from zbox.newUpdates where CreationTime < getutcdate() - 90 ", token);
         }
 
 
