@@ -270,6 +270,10 @@
                     position: relative;
                     margin-top: 140px;
 
+                    @media(max-width: 600px) {
+                        margin-top: 10px;
+                    }
+
                     .close-form {
                         padding: 0;
                         position: absolute;
@@ -291,6 +295,11 @@
                         font-weight: 300;
                         font-size: 23px;
                         margin: 0 auto;
+
+                        @media(max-width: 600px) {
+                            font-size: 18px;
+                            padding-top: 24px;
+                        }
                     }
 
                     .signin-options, form, .forgot-password-text {
@@ -308,6 +317,11 @@
                         .displayFlex;
                         .justifyContet(space-between);
                         margin: 30px auto;
+
+                        @media(max-width:600px) {
+                            margin: 22px auto;
+                        }
+
 
                         button {
                             .displayInlineFlex;
@@ -335,6 +349,10 @@
                                 flex-grow: 1;
                                 font-size: 18px;
                                 padding-right: 10px;
+
+                                @media(max-width:600px) {
+                                    font-size: 16px;
+                                }
                             }
                         }
                     }
@@ -342,6 +360,10 @@
                     form {
                         .form-group:not(:last-child) {
                             margin-bottom: 20px;
+
+                            @media(max-width:600px) {
+                                margin-bottom: 12px;
+                            }
 
                             .form-control {
                                 background-color: #dde3ec;
@@ -353,6 +375,10 @@
                                 height: 50px;
                                 width: 100%;
                                 box-sizing: border-box;
+
+                                @media(max-width:600px) {
+                                    height: 40px;
+                                }
                             }
                         }
 
@@ -361,6 +387,11 @@
                             .align-items(center);
                             .justifyContet(space-between);
                             margin-bottom: 20px;
+
+                            @media(max-width:600px) {
+                                margin-bottom: 10px;
+                            }
+
 
                             .terms {
                                 color: @textColorGrey;
@@ -393,6 +424,10 @@
                         color: @textColorWhite;
                         background: @textColorGrey;
                         font-size: 12px;
+
+                        @media(max-width: 600px) {
+                            height: 40px;
+                        }
 
                         a {
                             color: @textColorWhite;
@@ -451,6 +486,11 @@
                             display: block;
                             cursor: pointer;
                             display: inline-block;
+
+                            @media(max-width: 600px) {
+                                margin: 0 auto 30px auto;
+                                font-size: 16px;
+                            }
                         }
 
                         form.register {
@@ -474,6 +514,10 @@
                         .form-group {
                             &.first, &.second {
                                 width: ~"calc(50% - 10px)";
+
+                                @media(max-width:600px) {
+                                    width: ~"calc(50% - 5px)";
+                                }
                             }
 
                             &.first {
@@ -929,6 +973,10 @@
                 padding-top: 10px;
                 overflow-x: hidden;
 
+                .bxslider {
+                    display: none;
+                }
+
                 blockquote {
                     text-align: center;
                     max-width: 800px;
@@ -995,6 +1043,10 @@
                     }
                 }
             }
+        }
+
+        .static-page-footer .app-links {
+            display: none;
         }
         //@media(max-width: 768px) {
         //@media(max-width: 768px) {

@@ -242,6 +242,11 @@
   position: relative;
   margin-top: 140px;
 }
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .form-wrapper {
+    margin-top: 10px;
+  }
+}
 .homePage .home-page-body section.main .form-wrapper .close-form {
   padding: 0;
   position: absolute;
@@ -261,6 +266,12 @@
   font-weight: 300;
   font-size: 23px;
   margin: 0 auto;
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .form-wrapper .form-title {
+    font-size: 18px;
+    padding-top: 24px;
+  }
 }
 .homePage .home-page-body section.main .form-wrapper .signin-options,
 .homePage .home-page-body section.main .form-wrapper form,
@@ -284,6 +295,11 @@
   -webkit-justify-content: space-between;
   justify-content: space-between;
   margin: 30px auto;
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .form-wrapper .signin-options {
+    margin: 22px auto;
+  }
 }
 .homePage .home-page-body section.main .form-wrapper .signin-options button {
   display: -webkit-flex;
@@ -316,8 +332,18 @@
   font-size: 18px;
   padding-left: 10px;
 }
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .form-wrapper .signin-options button .text {
+    font-size: 16px;
+  }
+}
 .homePage .home-page-body section.main .form-wrapper form .form-group:not(:last-child) {
   margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .form-wrapper form .form-group:not(:last-child) {
+    margin-bottom: 12px;
+  }
 }
 .homePage .home-page-body section.main .form-wrapper form .form-group:not(:last-child) .form-control {
   background-color: #dde3ec;
@@ -330,6 +356,11 @@
   width: 100%;
   box-sizing: border-box;
 }
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .form-wrapper form .form-group:not(:last-child) .form-control {
+    height: 40px;
+  }
+}
 .homePage .home-page-body section.main .form-wrapper form .form-actions {
   display: -webkit-flex;
   display: -ms-flex;
@@ -339,6 +370,11 @@
   -webkit-justify-content: space-between;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .form-wrapper form .form-actions {
+    margin-bottom: 10px;
+  }
 }
 .homePage .home-page-body section.main .form-wrapper form .form-actions .terms {
   color: #888b8e;
@@ -367,6 +403,11 @@
   color: #f5f5f5;
   background: #888b8e;
   font-size: 12px;
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .form-wrapper .bottom-strip {
+    height: 40px;
+  }
 }
 .homePage .home-page-body section.main .form-wrapper .bottom-strip a {
   color: #f5f5f5;
@@ -416,6 +457,12 @@
   cursor: pointer;
   display: inline-block;
 }
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .form-wrapper.register-wrapper label[for="show-fields"] {
+    margin: 0 auto 30px auto;
+    font-size: 16px;
+  }
+}
 .homePage .home-page-body section.main .form-wrapper.register-wrapper form.register {
   -webkit-transition: max-height 0.5s;
   -moz-transition: max-height 0.5s;
@@ -432,6 +479,12 @@
 .homePage .home-page-body section.main .form-wrapper.register-wrapper .form-group.first,
 .homePage .home-page-body section.main .form-wrapper.register-wrapper .form-group.second {
   width: calc(50% - 10px);
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.main .form-wrapper.register-wrapper .form-group.first,
+  .homePage .home-page-body section.main .form-wrapper.register-wrapper .form-group.second {
+    width: calc(50% - 5px);
+  }
 }
 .homePage .home-page-body section.main .form-wrapper.register-wrapper .form-group.first {
   float: right;
@@ -816,6 +869,9 @@
   padding-top: 10px;
   overflow-x: hidden;
 }
+.homePage .home-page-body section.reviews .bxslider {
+  display: none;
+}
 .homePage .home-page-body section.reviews blockquote {
   text-align: center;
   max-width: 800px;
@@ -881,6 +937,9 @@
   height: 110px;
   background: url('../../Images/HomePage2/testimonials_en.jpg') -1px -223px;
   background-image:  url('../../Images/HomePage2/testimonials_he.jpg?v=1');
+}
+.homePage .home-page-body .static-page-footer .app-links {
+  display: none;
 }
 @media (max-width: 600px) {
   .homePage .home-page-body section:not(.main) h2 {
