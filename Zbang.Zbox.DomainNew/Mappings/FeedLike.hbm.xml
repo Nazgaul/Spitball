@@ -17,7 +17,7 @@
     <id name="Id">
       <generator class="assigned"></generator>
     </id>
-    <many-to-one name="Reply" class="CommentReplies" column="ReplyId" not-null="true" foreign-key="replyIdReplyLike" unique-key="replyLikeReplyIdOwnerId"/>
+    <many-to-one name="Reply" class="CommentReply" column="ReplyId" not-null="true" foreign-key="replyIdReplyLike" unique-key="replyLikeReplyIdOwnerId"/>
     <many-to-one name="User" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdReplyLike" unique-key="replyLikeReplyIdOwnerId"/>
     <property name="CreationTime" insert="true" update="false">
       <column name="CreationTime" not-null="true" sql-type="datetime2(2)"/>

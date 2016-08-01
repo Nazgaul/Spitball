@@ -281,7 +281,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             if (!model.BoxId.HasValue)
             {
-                return JsonError("invalid query");
+                return JsonError("box id required");
             }
             try
             {

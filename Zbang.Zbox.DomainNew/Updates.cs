@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain
             Item = item;
         }
 
-        public Updates(User user, Box box, CommentReplies reply) : this(user, box,reply.Question)
+        public Updates(User user, Box box, CommentReply reply) : this(user, box,reply.Question)
         {
             Reply = reply;
         }
@@ -73,7 +73,7 @@ namespace Zbang.Zbox.Domain
         public virtual User User { get; protected set; }
         public virtual Box Box { get; protected set; }
         public virtual Comment Comment { get; protected set; }
-        public virtual CommentReplies Reply { get; protected set; }
+        public virtual CommentReply Reply { get; protected set; }
         public virtual Item Item { get; protected set; }
         public virtual Quiz Quiz { get; protected set; }
         public virtual ItemComment ItemComment { get; protected set; }

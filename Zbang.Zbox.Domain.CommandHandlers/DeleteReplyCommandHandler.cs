@@ -12,13 +12,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteReplyCommandHandler : ICommandHandlerAsync<DeleteReplyCommand>
     {
-        private readonly IRepository<CommentReplies> m_ReplyRepository;
+        private readonly IRepository<CommentReply> m_ReplyRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IUserRepository m_UserRepository;
 
 
         public DeleteReplyCommandHandler(
-            IRepository<CommentReplies> answerRepository,
+            IRepository<CommentReply> answerRepository,
             IQueueProvider queueProvider, IUserRepository userRepository)
         {
             m_ReplyRepository = answerRepository;

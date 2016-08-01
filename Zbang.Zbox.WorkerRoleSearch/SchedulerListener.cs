@@ -35,7 +35,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    TraceLog.WriteInfo("Scheduler Listener run");
                     var queueName = new SchedulerQueueName();
                     await m_QueueProviderExtract.RunQueueAsync(queueName, async msg =>
                     {

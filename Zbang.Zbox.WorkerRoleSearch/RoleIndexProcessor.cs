@@ -26,4 +26,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public static bool IsEmulated { get; } = RoleEnvironment.IsEmulated;
     }
+
+    public enum TimeToSleep
+    {
+        Min,
+        Same,
+        Increase
+    }
 }

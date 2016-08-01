@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
-        private readonly IRepository<CommentReplies> m_AnswerRepository;
+        private readonly IRepository<CommentReply> m_AnswerRepository;
         private readonly IRepository<Comment> m_QuestionRepository;
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<Reputation> m_ReputationRepository;
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
         public AddReplyToCommentCommandHandler(IUserRepository userRepository, IBoxRepository boxRepository,
-            IRepository<CommentReplies> answerRepository,
+            IRepository<CommentReply> answerRepository,
             IRepository<Comment> questionRepository,
             IRepository<Item> itemRepository,
             IRepository<Reputation> reputationRepository,
@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 files = message.FilesIds.Select(s => m_ItemRepository.Load(s)).ToList();
             }
-            var answer = new CommentReplies(user, message.Text, box, message.Id, question, files);
+            var answer = new CommentReply(user, message.Text, box, message.Id, question, files);
             var reputation = user.AddReputation(ReputationAction.AddReply);
             question.ReplyCount++;
             //question.LastReplyId = answer.Id;

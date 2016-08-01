@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Dapper;
 using System.Data;
 using System.Data.SqlClient;
 using Zbang.Zbox.Infrastructure.Extensions;
@@ -11,43 +8,29 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
 {
     public static class DapperConnection
     {
+        internal const string ConnectionStringKey = "Zbox";
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
-        public static async Task<IDbConnection> OpenConnectionAsync(string connectionStringName = "Zbox")
+        public static async Task<IDbConnection> OpenConnectionAsync()
         {
-            var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
+            var connection = new SqlConnection(ConfigFetcher.Fetch(ConnectionStringKey));
             await connection.OpenAsync();
             return connection;
         }
 
-        public static async Task<IDbConnection> OpenConnectionAsync(CancellationToken cancellationToken, string connectionStringName = "Zbox")
+        public static async Task<IDbConnection> OpenConnectionAsync(CancellationToken cancellationToken)
         {
-            var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
+            var connection = new SqlConnection(ConfigFetcher.Fetch(ConnectionStringKey));
             await connection.OpenAsync(cancellationToken);
             return connection;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
-        public static IDbConnection OpenConnection(string connectionStringName = "Zbox")
+        public static IDbConnection OpenConnection()
         {
-            var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
+            var connection = new SqlConnection(ConfigFetcher.Fetch(ConnectionStringKey));
             connection.Open();
             return connection;
 
         }
-
-
-        public static async Task<IEnumerable<T>> QueryAsync<T>(string sql, object param = null)
-        {
-            using (var con = await OpenConnectionAsync())
-            {
-
-                var retVal = await con.QueryAsync<T>(sql, param);
-                con.Close();
-                return retVal;
-
-            }
-        }
-
-
     }
 }

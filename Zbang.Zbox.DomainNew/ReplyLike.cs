@@ -9,7 +9,7 @@ namespace Zbang.Zbox.Domain
 
         }
 
-        public ReplyLike(CommentReplies reply, User user, Guid id)
+        public ReplyLike(CommentReply reply, User user, Guid id)
         {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual User User { get; protected set; }
 
-        public virtual CommentReplies Reply { get; protected set; }
+        public virtual CommentReply Reply { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
     }
 }

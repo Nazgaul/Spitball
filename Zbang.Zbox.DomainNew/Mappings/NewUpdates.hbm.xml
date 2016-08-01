@@ -11,7 +11,7 @@
     <many-to-one name="User" class="User" column="UserId" not-null="true" foreign-key="NewUpdatesUser"/>
     <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="NewUpdatesBox"/>
     <many-to-one name="Comment" class="Comment" column="QuestionId" not-null="false" foreign-key="NewUpdatesQuestion"/>
-    <many-to-one name="Reply" class="CommentReplies" column="AnswerId" not-null="false" foreign-key="NewUpdatesAnswer"/>
+    <many-to-one name="Reply" class="CommentReply" column="AnswerId" not-null="false" foreign-key="NewUpdatesAnswer"/>
     <many-to-one name="Item" class="Item" column="ItemId" not-null="false" foreign-key="NewUpdatesItem"/>
     
     <many-to-one name="Quiz" class="Quiz" column="QuizId" not-null="false" foreign-key="NewUpdatesQuiz"/>

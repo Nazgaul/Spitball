@@ -24,8 +24,7 @@ update Zbox.Answer   set userid=@SysUserid, isdeleted=1 where userid=@userid
 update Zbox.Question set userid=@SysUserid, isdeleted=1 where userid=@userid
 
 
---Comment and Replies 
-update [Zbox].[CommentReplies] set [AuthorId]=@SysUserid where [AuthorId]= @userid
+
 
 
 -- libraray 

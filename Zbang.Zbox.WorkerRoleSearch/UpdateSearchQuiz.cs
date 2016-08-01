@@ -11,7 +11,7 @@ using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class UpdateSearchQuiz : IJob
+    public class UpdateSearchQuiz : UpdateSearch, IJob
     {
         private readonly IQuizWriteSearchProvider2 m_QuizSearchProvider;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
@@ -35,15 +35,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 try
                 {
-                    var retVal = await UpdateQuizAsync(index, count);
-                    if (!retVal)
-                    {
-                        await SleepAndIncreaseIntervalAsync(cancellationToken);
-                    }
-                    else
-                    {
-                        m_Interval = MinInterval;
-                    }
+                    await DoProcessAsync(cancellationToken, index, count);
+                    //var retVal = await UpdateQuizAsync(index, count);
+                    //if (!retVal)
+                    //{
+                    //    await SleepAndIncreaseIntervalAsync(cancellationToken);
+                    //}
+                    //else
+                    //{
+                    //    m_Interval = MinInterval;
+                    //}
                 }
                 catch (Exception ex)
                 {
@@ -53,24 +54,22 @@ namespace Zbang.Zbox.WorkerRoleSearch
             TraceLog.WriteError("On finish run");
         }
 
-        public void Stop()
-        {
-           
-        }
+      
 
-        private int m_Interval = MinInterval;
-        private const int MinInterval = 30;
-        private const int MaxInterval = 240;
-        private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
-        {
-            m_Interval = Math.Min(MaxInterval, m_Interval * 2);
-            await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
+        //private int m_Interval = MinInterval;
+        //private const int MinInterval = 30;
+        //private const int MaxInterval = 240;
+        //private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
+        //{
+        //    m_Interval = Math.Min(MaxInterval, m_Interval * 2);
+        //    await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
 
-        }
+        //}
 
-        private async Task<bool> UpdateQuizAsync(int instanceId, int instanceCount)
+        protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount)
         {
-            var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, 100);
+            const int top = 100;
+            var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top);
             //var updates = new QuizToUpdateSearchDto()
             //{
             //    QuizzesToUpdate = new List<QuizSearchDto>(),
@@ -89,9 +88,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         new UpdateDirtyToRegularCommand(
                             updates.QuizzesToDelete.Union(updates.QuizzesToUpdate.Select(s => s.Id))));
                 }
-                return true;
+                if (updates.QuizzesToUpdate.Count() == top)
+                {
+                    return TimeToSleep.Min;
+                }
+                return TimeToSleep.Same;
             }
-            return false;
+            return TimeToSleep.Increase;
         }
     }
 }

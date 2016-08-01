@@ -5,6 +5,6 @@ namespace Zbang.Zbox.Domain.DataAccess
 {
     public interface IQuestionRepository : IRepository<Comment>
     {
-        IQueryable<CommentReplies> GetAnswers(Comment question);
+        IQueryable<CommentReply> GetAnswers(Comment question);
     }
 }

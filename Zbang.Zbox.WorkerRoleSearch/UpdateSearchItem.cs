@@ -18,7 +18,7 @@ using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class UpdateSearchItem : IJob
+    public class UpdateSearchItem : UpdateSearch, IJob
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
@@ -59,16 +59,31 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 try
                 {
-                    var itemUpdate = await UpdateItemAsync(index, count);
-                    if (!itemUpdate)
-                    {
-                        await SleepAndIncreaseIntervalAsync(cancellationToken);
-                    }
-                    else
-                    {
-                        //TraceLog.WriteInfo($"{PrefixLog} min interval");
-                        m_Interval = MinInterval;
-                    }
+                    await DoProcessAsync(cancellationToken, index, count);
+                    //var itemUpdate = await UpdateItemAsync(index, count);
+                    //switch (itemUpdate)
+                    //{
+                    //    case TimeToSleep.Increase:
+                    //        await SleepAndIncreaseIntervalAsync(cancellationToken);
+                    //        break;
+                    //    case TimeToSleep.Min:
+                    //        m_Interval = MinInterval;
+                    //        break;
+                    //    case TimeToSleep.Same:
+                    //        await SleepAsync(cancellationToken);
+                    //        break;
+                    //    default:
+                    //        throw new ArgumentOutOfRangeException();
+                    //}
+                    //if (!itemUpdate)
+                    //{
+                    //    await SleepAndIncreaseIntervalAsync(cancellationToken);
+                    //}
+                    //else
+                    //{
+                    //    //TraceLog.WriteInfo($"{PrefixLog} min interval");
+                    //    m_Interval = MinInterval;
+                    //}
                 }
                 catch (TaskCanceledException)
                 {
@@ -86,38 +101,29 @@ namespace Zbang.Zbox.WorkerRoleSearch
             TraceLog.WriteError("On finish run");
         }
 
-        public void Stop()
-        {
-        }
+        //private int m_Interval = MinInterval;
+        //private const int MinInterval = 10;
+        ////private int m_MaxInterval = MinInterval;
+        //private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
+        //{
+        //    TraceLog.WriteInfo($"{PrefixLog} going to sleep { m_Interval}");
 
-        private int m_Interval = MinInterval;
-        private const int MinInterval = 10;
-        private int m_MaxInterval = MinInterval;
-        private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
-        {
-            TraceLog.WriteInfo($"{PrefixLog} going to sllep { m_Interval}");
+        //    await SleepAsync(cancellationToken);
+        //    m_Interval = m_Interval * 2;
 
-            await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
-            m_Interval = m_Interval * 2;
-            if (m_MaxInterval < m_Interval)
-            {
-                m_MaxInterval = m_Interval;
-                TraceLog.WriteInfo($"{PrefixLog} max interval {m_MaxInterval}");
-            }
+        //}
 
-        }
+        //private async Task SleepAsync(CancellationToken cancellationToken)
+        //{
+        //    await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
+        //}
 
 
-
-
-
-
-
-        private async Task<bool> UpdateItemAsync(int instanceId, int instanceCount)
+        protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount)
         {
             const int top = 10;
             var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount, top);
-            if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return false;
+            if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return TimeToSleep.Increase;
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {
@@ -136,7 +142,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(
                     updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
-            return updates.ItemsToUpdate.Count() == top;
+
+            if (updates.ItemsToUpdate.Count() == top)
+            {
+                return TimeToSleep.Min;
+            }
+            return TimeToSleep.Same;
         }
 
         private Processor GetProcessor(ItemSearchDto msgData)
