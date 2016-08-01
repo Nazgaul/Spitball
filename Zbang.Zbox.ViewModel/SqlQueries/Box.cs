@@ -62,29 +62,44 @@ order by name;";
 	and i.QuestionId = @QuestionId  
 ";
 
-      
 
-        
 
-       
 
-        
-      
 
-        public const string RecommendedCourses = @"
+
+
+
+
+
+        public const string RecommendedCourses = @"with boxes as (
+select distinct boxid,count(*) over(partition by boxid) as c 
+from zbox.UserBoxRel ub2 where userid in (
+select userid from zbox.UserBoxRel ub 
+where boxid = @BoxId
+))
 select top 3 b.boxid, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
-b.MembersCount,b.ItemCount , b.url,count(*)  as x
-from zbox.userboxrel ub join zbox.box b on ub.boxid = b.boxid and b.isdeleted = 0 and b.discriminator = 2
-where userid in (
-select userid from zbox.userboxrel where boxid = @BoxId)
-and b.boxid <> @BoxId
-and b.discriminator = 2
-and b.university = (select university from zbox.box where boxid = @BoxId)
-and @UserId not in (select ub2.userid from zbox.UserBoxRel ub2 where ub2.BoxId = b.BoxId)
-group by b.boxid, b.BoxName ,b.CourseCode,b.ProfessorName ,
-b.MembersCount,b.ItemCount , b.url
-order by x desc;
-";
+b.MembersCount,b.ItemCount , b.url from zbox.box b join boxes on b.BoxId = boxes.BoxId 
+and b.Discriminator = 2
+and b.BoxId <> @BoxId
+order by boxes.c desc;";
+            
+            
+            
+            
+//            @"
+//select top 3 b.boxid, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
+//b.MembersCount,b.ItemCount , b.url,count(*)  as x
+//from zbox.userboxrel ub join zbox.box b on ub.boxid = b.boxid and b.isdeleted = 0 and b.discriminator = 2
+//where userid in (
+//select userid from zbox.userboxrel where boxid = @BoxId)
+//and b.boxid <> @BoxId
+//and b.discriminator = 2
+//and b.university = (select university from zbox.box where boxid = @BoxId)
+//and @UserId not in (select ub2.userid from zbox.UserBoxRel ub2 where ub2.BoxId = b.BoxId)
+//group by b.boxid, b.BoxName ,b.CourseCode,b.ProfessorName ,
+//b.MembersCount,b.ItemCount , b.url
+//order by x desc;
+//";
 
         public const string LeaderBoard = @"
 select top(3) u.userid as id, u.UserImageLarge as image, coalesce(u.FirstName,u.username) as name, u.UserReputation as score, u.Url as Url
