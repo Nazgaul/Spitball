@@ -13,7 +13,6 @@ using Zbang.Zbox.Infrastructure.Data.Driver;
 using Zbang.Zbox.Infrastructure.Data.Events;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
-using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 using Environment = NHibernate.Cfg.Environment;
 
@@ -50,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     dbi.Dialect<ZboxDialect>();
                     dbi.Driver<ZboxDriver>();
                     dbi.ConnectionString = ConfigFetcher.Fetch("Zbox");
-                    dbi.SchemaAction = SchemaAutoAction.Update;
+                    dbi.SchemaAction = SchemaAutoAction.Validate;
                     dbi.BatchSize = 250;
 #if DEBUG
                     dbi.LogSqlInConsole = true;

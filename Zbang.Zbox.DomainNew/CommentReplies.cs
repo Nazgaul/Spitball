@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual Guid Id { get; set; }
         public virtual User User { get; set; }
-        public virtual string Text { get; protected set; }
+        public virtual string Text { get;  set; }
         public virtual Box Box { get; set; }
         protected virtual ICollection<Item> Items { get; set; }
         protected virtual UserTimeDetails DateTimeUser { get; set; }
