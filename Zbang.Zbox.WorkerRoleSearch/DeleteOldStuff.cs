@@ -36,7 +36,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         await
                             DoDeleteAsync(cancellationToken, "deleteOldItems",
                                 m_ZboxWorkerRoleService.DeleteOldItemAsync);
-                    //TraceLog.WriteInfo("delete stuff -finish delete items");
+                    TraceLog.WriteInfo("delete stuff -finish delete items");
                     //var result3 =
                     //    await
                     //        DoDeleteAsync(cancellationToken, "deleteOldBoxes",
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var needLoop = true;
             var mailContent = new StringBuilder();
-            while (needLoop)
+            while (needLoop && !cancellationToken.IsCancellationRequested)
             {
 
                 try

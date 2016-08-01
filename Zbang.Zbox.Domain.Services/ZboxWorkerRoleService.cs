@@ -56,6 +56,12 @@ namespace Zbang.Zbox.Domain.Services
             counter += await DeleteFromDbAsync(@"delete from zbox.itemcomment where itemid in (
 	select itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)", token);
+            counter += await DeleteFromDbAsync(@"delete from Zbox.NewUpdates where itemid in (
+	select itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) option (maxdop 1)", token);
+            counter += await DeleteFromDbAsync(@"delete from Zbox.itemrate where itemid in (
+	select itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) option (maxdop 1)", token);
             counter +=
                 await DeleteFromDbAsync(
                     "delete top (100) from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)", token);
@@ -74,11 +80,11 @@ namespace Zbang.Zbox.Domain.Services
         {
             var needToLoop = true;
             var counter = 0;
-            while (needToLoop)
+            while (needToLoop && !token.IsCancellationRequested)
             {
                 using (var conn = await DapperConnection.OpenConnectionAsync(token))
                 {
-                    var i = await conn.ExecuteAsync(sql);
+                    var i = await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token));
                     await Task.Delay(TimeSpan.FromSeconds(1), token);
                     needToLoop = i > 0;
                     counter += i;
