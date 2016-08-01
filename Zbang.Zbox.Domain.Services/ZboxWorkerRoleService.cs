@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
@@ -45,26 +44,49 @@ namespace Zbang.Zbox.Domain.Services
             RemoveHtmlTags();
 
         }
-        //delete top (5) from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+        public async Task<int> DeleteOldQuizAsync(CancellationToken token)
+        {
+            var counter = 0;
+            counter +=
+                await DeleteFromDbAsync(
+                    new[] {
+                        @"delete from Zbox.SolvedQuestion where quizid in (
+	select top(10) id from zbox.quiz where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 
+)option (maxdop 1)",
+                        @"delete from Zbox.QuizQuestion where quizid in (
+	select top(10) id from zbox.quiz where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 
+)option (maxdop 1)",
+                        @"delete from Zbox.QuizAnswer where quizid in (
+	select top(10) id from zbox.quiz where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 
+)option (maxdop 1)",
+                        @"delete from Zbox.SolvedQuiz where quizid in (
+	select top(10) id from zbox.quiz where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 
+)option (maxdop 1)",
+                        "delete top (10) from zbox.quiz where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)"
+                    }, token);
+            return counter;
+        }
         public async Task<int> DeleteOldItemAsync(CancellationToken token)
         {
             var counter = 0;
-            counter += await DeleteFromDbAsync(@"delete from zbox.ItemCommentReply where itemid in (
-
-    select itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
-) option(maxdop 1)", token);
-            counter += await DeleteFromDbAsync(@"delete from zbox.itemcomment where itemid in (
-	select itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
-) option (maxdop 1)", token);
-            counter += await DeleteFromDbAsync(@"delete from Zbox.NewUpdates where itemid in (
-	select itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
-) option (maxdop 1)", token);
-            counter += await DeleteFromDbAsync(@"delete from Zbox.itemrate where itemid in (
-	select itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
-) option (maxdop 1)", token);
             counter +=
                 await DeleteFromDbAsync(
-                    "delete top (100) from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)", token);
+                    new [] {
+                        @"delete from zbox.ItemCommentReply where itemid in (
+
+    select top (100) itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) option(maxdop 1)",
+                        @"delete from zbox.itemcomment where itemid in (
+	select  top (100) itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) option (maxdop 1)",
+                        @"delete from Zbox.NewUpdates where itemid in (
+	select top (100) itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) option (maxdop 1)",
+                        @"delete from Zbox.itemrate where itemid in (
+	select top (100) itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) option (maxdop 1)",
+                        "delete top (100) from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)"
+                    }, token);
             return counter;
 
         }
@@ -72,11 +94,20 @@ namespace Zbang.Zbox.Domain.Services
         {
             return
                 DeleteFromDbAsync(
-                    "delete top (3) from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)", token);
+                    new []
+                    {
+                        @"delete from Zbox.Question where boxid in (
+                        select top (3) boxid from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+                        ) option(maxdop 1)",
+                        @"delete from Zbox.Invite where boxid in (
+	select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) option (maxdop 1)",
+                        "delete top (3) from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)"
+                    }, token);
 
         }
 
-        private async Task<int> DeleteFromDbAsync(string sql, CancellationToken token)
+        private async Task<int> DeleteFromDbAsync(string[] sqls, CancellationToken token)
         {
             var needToLoop = true;
             var counter = 0;
@@ -84,7 +115,13 @@ namespace Zbang.Zbox.Domain.Services
             {
                 using (var conn = await DapperConnection.OpenConnectionAsync(token))
                 {
-                    var i = await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token));
+                    var i = 0;
+                    foreach (var sql in sqls)
+                    {
+                        i += await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token));
+                        await Task.Delay(TimeSpan.FromSeconds(1), token);
+                    }
+                    //var i = await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token));
                     await Task.Delay(TimeSpan.FromSeconds(1), token);
                     needToLoop = i > 0;
                     counter += i;
@@ -95,7 +132,7 @@ namespace Zbang.Zbox.Domain.Services
 
         public Task<int> DeleteOldUpdatesAsync(CancellationToken token)
         {
-            return DeleteFromDbAsync("delete top (100)  from zbox.newUpdates where CreationTime < getutcdate() - 90 option (maxdop 1)", token);
+            return DeleteFromDbAsync(new [] { "delete top (100)  from zbox.newUpdates where CreationTime < getutcdate() - 90 option (maxdop 1)"}, token);
         }
 
 

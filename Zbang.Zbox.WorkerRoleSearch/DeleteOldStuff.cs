@@ -37,16 +37,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             DoDeleteAsync(cancellationToken, "deleteOldItems",
                                 m_ZboxWorkerRoleService.DeleteOldItemAsync);
                     TraceLog.WriteInfo("delete stuff -finish delete items");
-                    //var result3 =
-                    //    await
-                    //        DoDeleteAsync(cancellationToken, "deleteOldBoxes",
-                    //            m_ZboxWorkerRoleService.DeleteOldBoxAsync);
-                    //TraceLog.WriteInfo("delete stuff -finish delete boxes");
-                    await m_MailComponent.GenerateSystemEmailAsync("delete stuff", result + result2 /*+ result3*/);
+                    var result4 =
+                       await
+                           DoDeleteAsync(cancellationToken, "deleteOldQuiz",
+                               m_ZboxWorkerRoleService.DeleteOldQuizAsync);
+                    TraceLog.WriteInfo("delete stuff -finish delete quizzes");
+                    var result3 =
+                        await
+                            DoDeleteAsync(cancellationToken, "deleteOldBoxes",
+                                m_ZboxWorkerRoleService.DeleteOldBoxAsync);
+                    TraceLog.WriteInfo("delete stuff -finish delete boxes");
+                    await m_MailComponent.GenerateSystemEmailAsync("delete old stuff", result + result2 + result4 + result3);
 
                     TraceLog.WriteInfo("delete stuff going to sleep");
 
-                    await Task.Delay(TimeSpan.FromHours(6), cancellationToken);
+                    await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
                 }
                 catch (Exception ex)
                 {

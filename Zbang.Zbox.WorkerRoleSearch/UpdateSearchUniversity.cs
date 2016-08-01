@@ -11,7 +11,7 @@ using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class UpdateSearchUniversity : IJob
+    public class UpdateSearchUniversity : UpdateSearch, IJob
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
@@ -37,15 +37,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 try
                 {
-                    var retVal = await UpdateUniversityAsync(index, count);
-                    if (!retVal)
-                    {
-                        await SleepAndIncreaseIntervalAsync(cancellationToken);
-                    }
-                    else
-                    {
-                        m_Interval = MinInterval;
-                    }
+                    await DoProcessAsync(cancellationToken, index, count);
+                    //var retVal = await UpdateUniversityAsync(index, count);
+                    //if (!retVal)
+                    //{
+                    //    await SleepAndIncreaseIntervalAsync(cancellationToken);
+                    //}
+                    //else
+                    //{
+                    //    m_Interval = MinInterval;
+                    //}
                 }
                 catch (Exception ex)
                 {
@@ -56,28 +57,26 @@ namespace Zbang.Zbox.WorkerRoleSearch
             TraceLog.WriteError("On finish run");
         }
 
-        public void Stop()
-        {
-        }
+       
 
-        private int m_Interval = MinInterval;
-        private const int MinInterval = 5;
-        private const int MaxInterval = 60;
-        private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
-        {
-            m_Interval = Math.Min(MaxInterval, m_Interval * 2);
-            await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
-        }
+        //private int m_Interval = MinInterval;
+        //private const int MinInterval = 5;
+        //private const int MaxInterval = 60;
+        //private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
+        //{
+        //    m_Interval = Math.Min(MaxInterval, m_Interval * 2);
+        //    await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
+        //}
 
 
-        private async Task<bool> UpdateUniversityAsync(int instanceId, int instanceCount)
+        protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount)
         {
             const int updatesPerCycle = 10;
             var updates = await m_ZboxReadService.GetUniversityDirtyUpdatesAsync(instanceId, instanceCount, updatesPerCycle);
-            if (!updates.UniversitiesToDelete.Any() && !updates.UniversitiesToUpdate.Any()) return false;
+            if (!updates.UniversitiesToDelete.Any() && !updates.UniversitiesToUpdate.Any()) return TimeToSleep.Increase;
             
-            TraceLog.WriteInfo(PrefixLog,
-                $"university updating {updates.UniversitiesToUpdate.Count()} deleting {updates.UniversitiesToDelete.Count()}");
+            //TraceLog.WriteInfo(PrefixLog,
+            //    $"university updating {updates.UniversitiesToUpdate.Count()} deleting {updates.UniversitiesToDelete.Count()}");
             var isSuccess =
                 await m_UniversitySearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
             if (isSuccess)
@@ -86,7 +85,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     new UpdateDirtyToRegularCommand(
                         updates.UniversitiesToDelete.Union(updates.UniversitiesToUpdate.Select(s => s.Id))));
             }
-            return updates.UniversitiesToUpdate.Count() == updatesPerCycle;
+            if (updates.UniversitiesToUpdate.Count() == updatesPerCycle)
+            {
+                return TimeToSleep.Min;
+            }
+            return TimeToSleep.Same;
         }
     }
 }
