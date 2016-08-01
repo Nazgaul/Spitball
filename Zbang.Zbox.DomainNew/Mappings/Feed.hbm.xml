@@ -30,7 +30,7 @@
     </bag>
     <bag name="Replies" inverse="true" lazy="true" cascade="delete-orphan" >
       <key column="QuestionId" foreign-key="questionIdAnswer"/>
-      <one-to-many class="CommentReplies"/>
+      <one-to-many class="CommentReply"/>
     </bag>
     <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
       <key column="QuestionId" foreign-key="NewUpdatesQuestion"/>
@@ -42,7 +42,7 @@
     </bag>
   </class>
 
-  <class table="Answer" name="CommentReplies">
+  <class table="Answer" name="CommentReply">
     <id name="Id" column="AnswerId">
       <generator class="assigned"/>
     </id>

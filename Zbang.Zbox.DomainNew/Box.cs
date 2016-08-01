@@ -4,6 +4,8 @@ using System.Data;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Enums;
 using System.Collections.Generic;
+using Zbang.Zbox.Domain.Resources;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
@@ -17,9 +19,9 @@ namespace Zbang.Zbox.Domain
             UserBoxRelationship = new HashSet<UserBoxRel>();
             Items = new List<Item>();
             Quizzes = new List<Quiz>();
-            //Comments = new List<Comment>();
             Comments = new List<Comment>();
             PrivacySettings = new PrivacySettings();
+            ItemTabs = new List<ItemTab>();
             ShouldMakeDirty = () => true;
         }
 
@@ -47,6 +49,13 @@ namespace Zbang.Zbox.Domain
             UserTime = new UserTimeDetails(user.Id);
             Owner = user;
             UserBoxRelationship.Add(new UserBoxRel(user, this, UserRelationshipType.Owner));
+
+            ItemTabs.Add(new ItemTab(GuidIdGenerator.GetGuid(), DomainResource.TabName1, this));
+            ItemTabs.Add(new ItemTab(GuidIdGenerator.GetGuid(), DomainResource.TabName2, this));
+            ItemTabs.Add(new ItemTab(GuidIdGenerator.GetGuid(), DomainResource.TabName3, this));
+            ItemTabs.Add(new ItemTab(GuidIdGenerator.GetGuid(), DomainResource.TabName4, this));
+            ItemTabs.Add(new ItemTab(GuidIdGenerator.GetGuid(), DomainResource.TabName5, this));
+
             CalculateMembers();
         }
         // ReSharper restore DoNotCallOverridableMethodsInConstructor
@@ -56,31 +65,26 @@ namespace Zbang.Zbox.Domain
         public virtual UserTimeDetails UserTime { get; set; }
         public virtual PrivacySettings PrivacySettings { get; set; }
         public virtual bool IsDeleted { get; set; }
-        public virtual User Owner { get; private set; }
+        public virtual User Owner { get; protected set; }
 
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
         public virtual string Url { get; protected set; }
 
         public virtual ICollection<UserBoxRel> UserBoxRelationship { get; protected set; }
-        public virtual ICollection<Item> Items { get; private set; }
+        public virtual ICollection<Item> Items { get; protected set; }
         public virtual ICollection<Quiz> Quizzes { get; protected set; }
 
-        // public IQueryable<Item> Items2 { get; set; }
-
-
-        //protected virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
-
         protected virtual ICollection<ItemTab> ItemTabs { get; set; }
 
         protected virtual ICollection<Updates> Updates { get; set; }
         public virtual ICollection<InviteToBox> Invites { get; set; }
 
 
-        public virtual int MembersCount { get; private set; }
-        public virtual int ItemCount { get; private set; }
-        public virtual int QuizCount { get; private set; }
+        public virtual int MembersCount { get; protected set; }
+        public virtual int ItemCount { get; protected set; }
+        public virtual int QuizCount { get; protected set; }
 
         public virtual int CommentCount { get; protected set; }
 
@@ -269,11 +273,6 @@ namespace Zbang.Zbox.Domain
 
         public virtual void DeleteAssociation()
         {
-            //We need this because nhibernate try to delete userboxrel without remove it from invites tables
-            //foreach (var inviteToBox in Invites)
-            //{
-            //    inviteToBox.RemoveAssociationWithUserBoxRel();
-            //}
             Invites.Clear();
             UserBoxRelationship.Clear();
             Comments.Clear();
@@ -284,17 +283,11 @@ namespace Zbang.Zbox.Domain
         public virtual void UnFollowBox(long userId)
         {
             var userBoxRel = UserBoxRelationship.FirstOrDefault(w => w.User.Id == userId);
-            if (userBoxRel == null) //TODO: this happen when user decline invite of a box that is public
+            if (userBoxRel == null) //this happen when user decline invite of a box that is public
             {
                 throw new InvalidOperationException("User does not have an active invite");
             }
             UserBoxRelationship.Remove(userBoxRel);
-            //var invite = Invites.FirstOrDefault(w => w.UserBoxRel != null && w.UserBoxRel.Id == userBoxRel.Id);
-            //if (invite != null)
-            //{
-            //    invite.RemoveAssociationWithUserBoxRel();
-            //    Invites.Remove(invite);
-            //}
             CalculateMembers();
         }
 

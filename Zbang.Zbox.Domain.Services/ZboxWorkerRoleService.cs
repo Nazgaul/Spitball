@@ -166,8 +166,8 @@ namespace Zbang.Zbox.Domain.Services
             using (var unitOfWork = UnitOfWork.Start())
             {
                 var query =
-                    UnitOfWork.CurrentSession.QueryOver<CommentReplies>()
-                        .Where(Restrictions.On<CommentReplies>(x => x.Text).IsLike("%quot;%")).Take(100);
+                    UnitOfWork.CurrentSession.QueryOver<CommentReply>()
+                        .Where(Restrictions.On<CommentReply>(x => x.Text).IsLike("%quot;%")).Take(100);
 
                 var comments = query.List();
                 do

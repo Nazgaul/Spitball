@@ -7,11 +7,11 @@ namespace Zbang.Zbox.Domain.DataAccess
 {
     public class QuestionRepository : NHibernateRepository<Comment>, IQuestionRepository
     {
-        public IQueryable<CommentReplies> GetAnswers(Comment question)
+        public IQueryable<CommentReply> GetAnswers(Comment question)
         {
 
             //this cant be done with query over
-            return UnitOfWork.CurrentSession.Query<CommentReplies>().Where(c => c.Question == question);
+            return UnitOfWork.CurrentSession.Query<CommentReply>().Where(c => c.Question == question);
         }
 
 

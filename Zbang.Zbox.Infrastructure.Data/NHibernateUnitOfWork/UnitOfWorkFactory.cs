@@ -8,6 +8,7 @@ using NHibernate.Cfg;
 using NHibernate.Connection;
 using NHibernate.Event;
 using Zbang.Zbox.Infrastructure.Cache;
+using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.Dialect;
 using Zbang.Zbox.Infrastructure.Data.Driver;
 using Zbang.Zbox.Infrastructure.Data.Events;
@@ -48,7 +49,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
                     dbi.Dialect<ZboxDialect>();
                     dbi.Driver<ZboxDriver>();
-                    dbi.ConnectionString = ConfigFetcher.Fetch("Zbox");
+                    dbi.ConnectionString = ConfigFetcher.Fetch(DapperConnection.ConnectionStringKey);
                     dbi.SchemaAction = SchemaAutoAction.Validate;
                     dbi.BatchSize = 250;
 #if DEBUG

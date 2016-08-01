@@ -40,7 +40,7 @@
     <property  name="UploaderId" column="UserId" insert="false" update="false" />
 
     <many-to-one column="QuestionId" class="Comment" name="Comment" />
-    <many-to-one column="AnswerId" class="CommentReplies" name="Answer"/>
+    <many-to-one column="AnswerId" class="CommentReply" name="Answer"/>
     <many-to-one column="ItemTabId" class="ItemTab" name="Tab"/>
 
     <property name="ItemContentUrl" column="BlobName"/>

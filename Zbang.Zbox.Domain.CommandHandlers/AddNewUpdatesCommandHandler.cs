@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
         private readonly IRepository<Item> m_ItemRepository;
-        private readonly IRepository<CommentReplies> m_ReplyRepository;
+        private readonly IRepository<CommentReply> m_ReplyRepository;
         private readonly IRepository<Comment> m_CommentRepository;
         private readonly IRepository<Updates> m_UpdatesRepository;
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
@@ -33,7 +33,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public AddNewUpdatesCommandHandler(
             IBoxRepository boxRepository,
             IRepository<Item> itemRepository,
-            IRepository<CommentReplies> replyRepository,
+            IRepository<CommentReply> replyRepository,
             IRepository<Comment> commentRepository,
             IRepository<Updates> updatesRepository,
             IRepository<Domain.Quiz> quizRepository, ISendPush sendPush,

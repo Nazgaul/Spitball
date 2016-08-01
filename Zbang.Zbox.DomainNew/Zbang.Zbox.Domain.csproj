@@ -71,6 +71,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Connection.cs" />
+    <Compile Include="Resources\DomainResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DomainResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="EqualityAndHashCodeProvider.cs" />
     <Compile Include="File.cs" />
     <Compile Include="InviteToBox.cs" />
@@ -81,7 +86,7 @@
     <Compile Include="PrivateBox.cs" />
     <Compile Include="ReplyLike.cs" />
     <Compile Include="CommentLike.cs" />
-    <Compile Include="CommentReplies.cs">
+    <Compile Include="CommentReply.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Invite.cs" />
@@ -109,6 +114,11 @@
     <Compile Include="UserTimeDetails.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\DomainResource.he.resx" />
+    <EmbeddedResource Include="Resources\DomainResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DomainResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Mappings\Box.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

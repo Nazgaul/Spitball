@@ -73,8 +73,6 @@
             this.showNotActive = new System.Windows.Forms.Button();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.UsersTabPage = new System.Windows.Forms.TabPage();
-            this.textBoxUserSysId = new System.Windows.Forms.TextBox();
-            this.labelSysUser = new System.Windows.Forms.Label();
             this.buttonUserSave = new System.Windows.Forms.Button();
             this.buttonUserDelete = new System.Windows.Forms.Button();
             this.richTextBoxUser = new System.Windows.Forms.RichTextBox();
@@ -641,8 +639,6 @@
             // UsersTabPage
             // 
             this.UsersTabPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.UsersTabPage.Controls.Add(this.textBoxUserSysId);
-            this.UsersTabPage.Controls.Add(this.labelSysUser);
             this.UsersTabPage.Controls.Add(this.buttonUserSave);
             this.UsersTabPage.Controls.Add(this.buttonUserDelete);
             this.UsersTabPage.Controls.Add(this.richTextBoxUser);
@@ -665,24 +661,6 @@
             this.UsersTabPage.TabIndex = 1;
             this.UsersTabPage.Text = "Users";
             this.UsersTabPage.UseVisualStyleBackColor = true;
-            // 
-            // textBoxUserSysId
-            // 
-            this.textBoxUserSysId.Location = new System.Drawing.Point(951, 191);
-            this.textBoxUserSysId.Name = "textBoxUserSysId";
-            this.textBoxUserSysId.ReadOnly = true;
-            this.textBoxUserSysId.Size = new System.Drawing.Size(111, 22);
-            this.textBoxUserSysId.TabIndex = 16;
-            this.textBoxUserSysId.Text = "22886";
-            // 
-            // labelSysUser
-            // 
-            this.labelSysUser.AutoSize = true;
-            this.labelSysUser.Location = new System.Drawing.Point(948, 172);
-            this.labelSysUser.Name = "labelSysUser";
-            this.labelSysUser.Size = new System.Drawing.Size(54, 16);
-            this.labelSysUser.TabIndex = 15;
-            this.labelSysUser.Text = "User Id:";
             // 
             // buttonUserSave
             // 
@@ -1386,8 +1364,6 @@
         private System.Windows.Forms.RichTextBox richTextBoxUser;
         private System.Windows.Forms.Label Version;
         private System.Windows.Forms.Splitter splitter2;
-        private System.Windows.Forms.TextBox textBoxUserSysId;
-        private System.Windows.Forms.Label labelSysUser;
         private System.Windows.Forms.TabPage tabPageFlaggedItems;
         private System.Windows.Forms.Label labelFlaggedItems;
         private System.Windows.Forms.ListBox flaggedItemsListBox;

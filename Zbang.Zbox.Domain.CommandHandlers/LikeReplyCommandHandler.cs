@@ -11,12 +11,12 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IReplyLikeRepository m_ReplyLikeRepository;
         private readonly IUserRepository m_UserRepository;
-        private readonly IRepository<CommentReplies> m_ReplyRepository;
+        private readonly IRepository<CommentReply> m_ReplyRepository;
         private readonly IGuidIdGenerator m_GuidGenerator;
 
         public LikeReplyCommandHandler(IReplyLikeRepository replyLikeRepository,
             IUserRepository userRepository,
-            IRepository<CommentReplies> replyRepository, IGuidIdGenerator guidGenerator)
+            IRepository<CommentReply> replyRepository, IGuidIdGenerator guidGenerator)
         {
             m_ReplyLikeRepository = replyLikeRepository;
             m_UserRepository = userRepository;

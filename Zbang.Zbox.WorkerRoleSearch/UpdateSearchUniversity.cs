@@ -38,15 +38,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     await DoProcessAsync(cancellationToken, index, count);
-                    //var retVal = await UpdateUniversityAsync(index, count);
-                    //if (!retVal)
-                    //{
-                    //    await SleepAndIncreaseIntervalAsync(cancellationToken);
-                    //}
-                    //else
-                    //{
-                    //    m_Interval = MinInterval;
-                    //}
+                    
                 }
                 catch (Exception ex)
                 {

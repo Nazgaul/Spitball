@@ -50,10 +50,10 @@ namespace Zbang.Zbox.Domain
 
         protected virtual ICollection<Quiz> Quizes { get; set; }
 
-        protected virtual ICollection<CommentReplies> Replies { get; set; }
+        protected virtual ICollection<CommentReply> Replies { get; set; }
         protected virtual ICollection<Updates> Updates { get; set; }
         protected virtual ICollection<CommentLike> Likes { get; set; }
-        public ICollection<CommentReplies> RepliesReadOnly => Replies.ToList().AsReadOnly();
+        public ICollection<CommentReply> RepliesReadOnly => Replies.ToList().AsReadOnly();
         public ICollection<Item> ItemsReadOnly => Items.ToList().AsReadOnly();
 
 

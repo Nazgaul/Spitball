@@ -17,7 +17,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<Box> m_BoxRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IRepository<Item> m_ItemRepository;
-        private readonly IRepository<CommentReplies> m_CommentRepliesRepository;
+        private readonly IRepository<CommentReply> m_CommentReplyRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IItemTabRepository m_ItemTabRepository;
 
@@ -26,13 +26,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             IRepository<Box> boxRepository,
             IUserRepository userRepository,
             IRepository<Item> itemRepository,
-            IRepository<CommentReplies> commentRepliesRepository, IQueueProvider queueProvider, IItemTabRepository itemTabRepository)
+            IRepository<CommentReply> commentReplyRepository, IQueueProvider queueProvider, IItemTabRepository itemTabRepository)
         {
 
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_ItemRepository = itemRepository;
-            m_CommentRepliesRepository = commentRepliesRepository;
+            m_CommentReplyRepository = commentReplyRepository;
             m_QueueProvider = queueProvider;
             m_ItemTabRepository = itemTabRepository;
         }
@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (item.Answer != null && string.IsNullOrEmpty(item.Answer.Text))
             {
-                m_CommentRepliesRepository.Delete(item.Answer);
+                m_CommentReplyRepository.Delete(item.Answer);
             }
             if (item.Comment != null)
             {
