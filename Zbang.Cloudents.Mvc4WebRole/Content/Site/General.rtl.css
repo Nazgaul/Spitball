@@ -139,6 +139,7 @@ body .itemPage header {
 .page-body {
   margin-top: 75px;
   padding: 0 10px;
+  transition: margin-left 0.1s;
 }
 @media (max-width: 600px) {
   .page-body {
@@ -150,6 +151,12 @@ body .itemPage header {
     margin-right: 250px;
     padding: 0 20px;
   }
+}
+.page-body.collapsed-chat {
+  margin-left: 110px;
+}
+.page-body.expanded-chat {
+  margin-left: 355px;
 }
 .userLetter {
   border-radius: 50%;

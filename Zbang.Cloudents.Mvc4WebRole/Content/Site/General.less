@@ -120,6 +120,7 @@ body {
 .page-body {
     margin-top: @heightOfHeader + 5;
     padding: 0 10px;
+    transition: margin-right 0.1s;
 
     @media (max-width: 600px) {
         padding: 0 5px;
@@ -128,6 +129,15 @@ body {
     @media (min-width: 960px) {
         margin-left: 250px;
         padding: 0 20px;
+    }
+
+
+    &.collapsed-chat {
+        margin-right: 110px;
+    }
+
+    &.expanded-chat {
+        margin-right: 355px;
     }
 }
 
@@ -655,7 +665,7 @@ md-pagination-wrapper {
 }
 
 // md-scroll-mask also got z-index of 99 for fixing the floating menu issue on scroll.
-.md-dialog-container { 
+.md-dialog-container {
     z-index: 80;
 }
 
@@ -1057,5 +1067,5 @@ md-tooltip .md-content {
 }
 
 .collapsible.collapsing {
-  transition-duration: 0.30s;
+    transition-duration: 0.30s;
 }

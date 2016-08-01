@@ -1,11 +1,11 @@
 ﻿'use strict';
 (function () {
     angular.module('app.chat').controller('ChatController', chat);
-    chat.$inject = ['$timeout', '$scope', '$mdSidenav', 'realtimeFactotry',
+    chat.$inject = ['$timeout', '$scope', 'realtimeFactotry',
         'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService',
         '$mdDialog', 'routerHelper', '$document', 'notificationService', 'resManager', 'userService', '$window'];
 
-    function chat($timeout, $scope, $mdSidenav, realtimeFactotry, searchService,
+    function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
         notificationService, resManager, userService, $window) {
         var c = this, chunkSize = 2147483647/*($window.innerHeight <= 600) ? 10 : 20*/, top = 0, fromid, page = 0,
@@ -18,6 +18,12 @@
             chat: 3
         };
 
+        var chatDisplay = {
+            hidden: 0,
+            collapsed: 1,
+            expanded: 2
+        }
+
         var lastConnectionStatus = 0;
         c.state = c.states.messages;
         c.connected = true;
@@ -25,6 +31,8 @@
         c.chat = conversation;
         c.send = send;
         c.close = close;
+        c.toggleChat = toggle;
+        c.expandChat = expandChat;
         c.messages = [];
         c.backFromChat = backFromChat;
         c.unread = 0;
@@ -47,27 +55,13 @@
 
 
         $scope.$watch(function () {
-            return $mdSidenav('chat').isOpen();
+            return $scope.app.chatDisplayState !== chatDisplay.hidden;
         }, function (val) {
             if (!val) {
                 resetChat();
                 return;
             }
             //hack which i dont like
-            $document.find('.md-sidenav-backdrop').hide();
-            search();
-        });
-
-
-        $scope.$watch(function () {
-            return $mdSidenav('chat').isOpen();
-        }, function (val) {
-            if (!val) {
-                resetChat();
-                return;
-            }
-            //hack which i dont like
-            $document.find('.md-sidenav-backdrop').hide();
             search();
         });
 
@@ -95,8 +89,22 @@
         }
 
         function close() {
-            $mdSidenav('chat').close();
+            $scope.app.chatDisplayState = chatDisplay.collapsed;
             c.term = '';
+        }
+
+        function expandChat() {
+            $scope.app.chatDisplayState = chatDisplay.expanded;
+        }
+        function toggle() {
+            if ($scope.app.chatDisplayState === chatDisplay.collapsed) {
+                $scope.app.chatDisplayState = chatDisplay.expanded
+            }
+            else {
+                backFromChat();
+                $scope.app.chatDisplayState = chatDisplay.collapsed
+            }
+            //$scope.app.chatDisplayState = $scope.app.chatDisplayState === chatDisplay.collapsed ? chatDisplay.expanded : chatDisplay.collapsed;
         }
 
         function updateUnread() {
@@ -138,6 +146,7 @@
         }
 
         function conversation(user) {
+            $scope.app.chatDisplayState = chatDisplay.expanded;
             c.userChat = user;
             c.messages = [];
             chatBus.chat(c.userChat.conversation,
