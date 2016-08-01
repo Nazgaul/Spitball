@@ -21,7 +21,7 @@
             });
         }
         self.getAccountDetails = function () {
-            return ajaxservice.get('/account/settingsdata/', null, 1800000);
+            return ajaxservice.get('/account/settingsdata/');
         }
 
         
