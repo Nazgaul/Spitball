@@ -172,6 +172,11 @@
             if (!c.newText) {
                 return;
             }
+            c.messages.push({
+                text: c.newText,
+                time: new Date().toISOString(),
+                partner: false
+            });
             realtimeFactotry.sendMsg(c.userChat.id, c.newText, c.userChat.conversation);
             c.newText = '';
         }
@@ -200,16 +205,32 @@
                     c.userChat.conversation = args.chatRoom;
                 }
 
-                if (args.blob) {
-                    args.thumb = itemThumbnailService.getChat(args.blob);
-                }
-                c.messages.push({
-                    text: args.message,
-                    time: new Date().toISOString(),
-                    partner: false,
-                    blob: args.blob,
-                    thumb: args.thumb
+                var messages = c.messages.filter(function (message) {
+                    return (message.text === args.message);
                 });
+
+
+                var attachments = c.messages.filter(function (message) {
+                    return (message.blob === args.blob);
+                });
+                // if there's no message with same text or there's one - but older than a minute ago
+                //(meaning we are connected to the chatroom in other place and sent new message there): 
+                if (!args.blob && (!messages.length || messages[messages.length - 1].time < new Date(new Date() - 60000).toISOString())) {
+                    c.messages.push({
+                        text: args.message,
+                        time: new Date().toISOString(),
+                        partner: false,
+                    });
+                }
+                if (args.blob && !attachments.length) {
+                    c.messages.push({
+                        blob: args.blob,
+                        time: new Date().toISOString(),
+                        thumb: itemThumbnailService.getChat(args.blob),
+                        partner: false
+                    });
+                }
+
                 scrollToBotton();
                 updateScope();
                 return;
@@ -323,7 +344,14 @@
 
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
+                        c.messages.push({
+                            time: new Date().toISOString(),
+                            partner: false,
+                            blob: obj.payload,
+                            thumb: itemThumbnailService.getChat(obj.payload)
+                        });
                         realtimeFactotry.sendMsg(c.userChat.id, null, c.userChat.conversation, obj.payload);
+
                         //     u.filesCompleteCount++;
                         //     file.systemId = obj.payload.item.id;
                         //     $rootScope.$broadcast('item_upload', obj.payload);
