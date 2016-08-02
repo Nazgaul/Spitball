@@ -615,6 +615,20 @@
     <Content Include="bower_components\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.js" />
     <Content Include="bower_components\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.rtl.css" />
     <Content Include="bower_components\malihu-custom-scrollbar-plugin\mCSB_buttons.png" />
+    <Content Include="bower_components\ng-embed\demo\index.html" />
+    <Content Include="bower_components\ng-embed\demo\js\app.js" />
+    <Content Include="bower_components\ng-embed\demo\ngEmbed.jpg" />
+    <Content Include="bower_components\ng-embed\demo\template.html" />
+    <Content Include="bower_components\ng-embed\dist\ng-embed.min.css" />
+    <Content Include="bower_components\ng-embed\dist\ng-embed.min.js" />
+    <Content Include="bower_components\ng-embed\fonts\emoticons.svg" />
+    <Content Include="bower_components\ng-embed\GruntFile.js" />
+    <Content Include="bower_components\ng-embed\images\emojis%402x.png" />
+    <Content Include="bower_components\ng-embed\images\emojis.png" />
+    <Content Include="bower_components\ng-embed\images\loader.svg" />
+    <Content Include="bower_components\ng-embed\src\ng-embed.css" />
+    <Content Include="bower_components\ng-embed\src\ng-embed.js" />
+    <Content Include="bower_components\ng-embed\src\ng-embed.rtl.css" />
     <Content Include="bower_components\ng-scrollbars\dist\scrollbars.min.js" />
     <Content Include="bower_components\ng-scrollbars\gulpfile.js" />
     <Content Include="bower_components\ng-scrollbars\LICENSE.txt" />
@@ -823,6 +837,15 @@
     <Content Include="bower_components\ng-scrollbars\bower.json" />
     <Content Include="bower_components\ng-scrollbars\package.json" />
     <Content Include="bower_components\ng-scrollbars\readme.md" />
+    <Content Include="bower_components\ng-embed\.bower.json" />
+    <Content Include="bower_components\ng-embed\bower.json" />
+    <Content Include="bower_components\ng-embed\fonts\emoticons.eot" />
+    <Content Include="bower_components\ng-embed\fonts\emoticons.ttf" />
+    <Content Include="bower_components\ng-embed\fonts\emoticons.woff" />
+    <Content Include="bower_components\ng-embed\LICENSE" />
+    <Content Include="bower_components\ng-embed\package.json" />
+    <Content Include="bower_components\ng-embed\README.md" />
+    <Content Include="bower_components\ng-embed\RELEASES.md" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

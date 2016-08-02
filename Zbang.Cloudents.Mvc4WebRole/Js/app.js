@@ -11,6 +11,7 @@ var app;
          'ngAnimate',
          'ngMessages',
          'ngMaterial',
+         'ngEmbed',
          'textAngular',
          'ang-drag-drop',
          'angular-plupload',

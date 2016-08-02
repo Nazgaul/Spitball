@@ -47,7 +47,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             DoDeleteAsync(cancellationToken, "deleteOldBoxes",
                                 m_ZboxWorkerRoleService.DeleteOldBoxAsync);
                     TraceLog.WriteInfo("delete stuff -finish delete boxes");
-                    await m_MailComponent.GenerateSystemEmailAsync("delete old stuff", result + result2 + result4 + result3);
+                    var result5 =
+                       await
+                           DoDeleteAsync(cancellationToken, "deleteOldUniversity",
+                               m_ZboxWorkerRoleService.DeleteOldUniversityAsync);
+                    TraceLog.WriteInfo("delete stuff -finish delete university");
+                    await m_MailComponent.GenerateSystemEmailAsync("delete old stuff", result + result2 + result4 + result3 + result5);
 
                     TraceLog.WriteInfo("delete stuff going to sleep");
 
@@ -69,7 +74,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var mailContent = new StringBuilder();
             while (needLoop && !cancellationToken.IsCancellationRequested)
             {
-
                 try
                 {
                     var counter = await func(cancellationToken);
@@ -79,8 +83,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("delete old updates", ex);
-                    //await m_MailComponent.GenerateSystemEmailAsync("delete stuff", ex.ToString());
+                    await m_MailComponent.GenerateSystemEmailAsync("delete old stuff", ex.ToString());
                     mailContent.AppendLine($"{prefix} exception: {ex}");
+                    break;
                 }
             }
             return mailContent.ToString();

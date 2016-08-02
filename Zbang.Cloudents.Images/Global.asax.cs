@@ -19,7 +19,7 @@ namespace Zbang.Cloudents.Images
                 {
                     if (args.VirtualPath.ToLower().StartsWith("/universities"))
                     {
-                        args.QueryString["404"] = "~/images/DefaultUni.jpg";
+                        args.QueryString["404"] = "~/images/HP_image1920.jpg";
                         return;
                     }
                     //var splitUrl = args.VirtualPath.Split(new[] {"/"}, StringSplitOptions.RemoveEmptyEntries);
