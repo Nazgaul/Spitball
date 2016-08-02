@@ -46,6 +46,7 @@
         self.showToaster = showToaster;
         self.loadChat = false;
         self.toggleMenu = toggleMenu;
+        self.chatDisplayState = 1;//collapsed
 
         //self.toggleChat = toggleChat;
         function logOut() {

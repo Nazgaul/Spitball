@@ -63,13 +63,73 @@
     }
 }
 
-md-sidenav.chat {
+.collapsed-chat {
+    .chat {
+        @media(min-width: 600px) {
+            right: -265px;
+        }
+
+        @media(max-width: 600px) {
+            right: -320px;
+            //display: none;
+        }
+
+        .content .tab-content .search-friend .search-btn {
+            .justifyContet(center);
+        }
+    }
+}
+
+.expanded-chat {
+    .chat {
+        .tab:after {
+            border-width: 7px 0 7px 10px;
+            border-color: transparent transparent transparent @textColorWhite;
+            left: 6px;
+        }
+    }
+}
+
+.chat {
     position: fixed;
     z-index: 10;
-    top: 0;
+    top: @heightOfHeader;
     bottom: 0;
-    background: #eee !important;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background: @textColorWhite !important;
+    width: 320px;
+    right: 0;
+    transition: right 0.1s;
+
+    @media(max-width: 600px) {
+        width: 100vw;
+    }
+
+    .tab {
+        position: absolute;
+        top: 15px;
+        left: -20px;
+        height: 35px;
+        width: 20px;
+        border-radius: 5px 0 0 5px;
+        background: @buttonColorBlue;
+
+        &:after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 7px 10px 7px 0;
+            border-color: transparent @textColorWhite transparent transparent;
+            position: absolute;
+            top: ~"calc(50% - 7px)";
+            left: 4px;
+        }
+
+        @media(max-width: 600px) {
+            display: none;
+        }
+    }
 
     .error {
         z-index: 1;
@@ -96,7 +156,7 @@ md-sidenav.chat {
         }
     }
 
-    md-content {
+    .content {
         background: none;
         position: relative;
         height: 100vh;
@@ -172,24 +232,25 @@ md-sidenav.chat {
                 }
             }*/
             .search-friend {
-                margin: 12px 6px 5px 6px;
+                margin-top: 10px;
                 .displayFlex;
                 .align-items(stretch);
                 padding: 0;
                 overflow: hidden;
-                background: white;
-                box-shadow: 0 0 2px rgba(93, 96, 99, 0.7);
-                border-radius: 6px;
 
                 input {
+                    background: none;
                     border: none;
                     flex-grow: 1;
-                    padding: 0 12px;
-                    line-height: 34px;
+                    border-bottom: 1px solid @buttonColorBlue;
+                    max-width: ~"calc(100% - 85px)";
+                    color: @textColorBlack;
+                    font-size: 16px;
+                    padding-top: 10px;
                 }
 
                 .reset-btn {
-                    padding: 0 10px;
+                    padding: 10px 10px 0 10px;
 
                     svg {
                         width: 10px;
@@ -200,11 +261,15 @@ md-sidenav.chat {
                 }
 
                 .search-btn {
-                    padding: 5px 8px 5px 10px;
+                    .displayFlex;
+                    .justifyContet(flex-start);
+                    width: 35px;
+                    margin: 0 10px;
+                    padding: 10px 0;
 
                     svg {
-                        width: 18px;
-                        height: 18px;
+                        width: 20px;
+                        height: 20px;
                         display: block;
                         fill: @buttonColorBlue;
                     }
@@ -225,37 +290,38 @@ md-sidenav.chat {
 
                 .user {
                     .chat-counter {
-                        padding: 0;
-                        margin: 0;
-                        flex-shrink: 0;
+                        position: absolute;
+                        left: 4px;
+                        top: 4px;
+                        box-shadow: 0 0 0px 2px #eeeeee;
                     }
 
-                    .name-counter {
+                    .name-date {
+                        width: 100%;
+                        display: flex;
+                        .displayFlex;
+                        .align-items(center);
+                        flex-direction: row;
+                        align-self: stretch;
                         width: 100%;
                         max-width: ~"calc(100% - 64px)";
                         font-size: 16px;
-                        /*-ms-flex-wrap: wrap;
-                        -webkit-flex-wrap: wrap;
-                        flex-wrap: wrap;*/
                         padding: 10px 0;
                         height: 64px;
-
-                        .name-date {
-                            min-width: 0;
-                        }
-
-                        .member-name, .comment-date {
-                            display: block;
-                        }
-
-                        .comment-date {
-                            font-size: 11px;
-                            color: @backgroundColor2;
-                        }
                     }
 
+                    .member-name, .comment-date {
+                        display: block;
+                    }
+
+                    .comment-date {
+                        font-size: 11px;
+                        color: @backgroundColor2;
+                    }
+
+
                     &:not(:last-child) {
-                        .name-counter {
+                        .name-date {
                             border-bottom: 1px solid @progressbarBackgroundColor;
                         }
                     }
@@ -329,7 +395,7 @@ md-sidenav.chat {
             position: absolute;
             top: 0;
             width: 100%;
-            height: 100vh;
+            height: ~"calc(100vh - @{heightOfHeader})";
         }
 
         .conversasion {
@@ -439,6 +505,7 @@ md-sidenav.chat {
                     padding-top: 10px;
                     padding-bottom: 6px;
                     overflow: auto;
+                    color: @textColorBlack;
                     //padding-bottom: 70px;
                     @media(max-width: 600px) {
                         height: ~"calc(100vh - 10px - @{chatHeaderHeight} - @{newChatMessageHeightMobile})";
@@ -580,11 +647,11 @@ md-sidenav.chat {
                 width: 10px;
                 height: 10px;
                 border-radius: 100%;
-                background: #0CFB00;
+                background: #3293f6;
                 position: absolute;
                 left: 35px;
-                bottom: 14px;
-                border: 1px solid @textColorLightGrey;
+                bottom: 9px;
+                box-shadow: 0 0 1px 2px #eeeeee;
             }
 
             .img-circle {

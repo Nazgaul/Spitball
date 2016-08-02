@@ -133,7 +133,7 @@
     </header>
 
 
-    <div class="page-body">
+    <div class="page-body" ng-class="{'hidden-chat' : app.chatDisplayState === 0, 'collapsed-chat' : app.chatDisplayState === 1, 'expanded-chat' : app.chatDisplayState === 2}">
         @RenderBody()
     </div>
     <div class="clearfix"></div>
