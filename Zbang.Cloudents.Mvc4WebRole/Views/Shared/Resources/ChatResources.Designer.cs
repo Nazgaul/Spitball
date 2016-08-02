@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Classmates.
+        /// </summary>
+        public static string ClassmatesHeader {
+            get {
+                return ResourceManager.GetString("ClassmatesHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was a problem connecting to chat.
         /// </summary>
         public static string DisconnectedHeader {
@@ -115,6 +124,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Favorites.
+        /// </summary>
+        public static string FavoritsHeader {
+            get {
+                return ResourceManager.GetString("FavoritsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search for a classmate.
         /// </summary>
         public static string FriendSearchPlaceholder {
@@ -147,6 +165,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string NewMessagePlaceholder {
             get {
                 return ResourceManager.GetString("NewMessagePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schoolmates.
+        /// </summary>
+        public static string SchoolmatesHeader {
+            get {
+                return ResourceManager.GetString("SchoolmatesHeader", resourceCulture);
             }
         }
     }
