@@ -66,6 +66,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/angularWithChanges2.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         "~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
+                        "~/bower_components/ng-embed/src/ng-embed.css",
                         "~/content/site/inline-material.css",
                         "~/content/bootstrap/bootstrap.css",
                         "~/content/site/profile.css",//
@@ -191,6 +192,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angular-dfp.js"),
                         new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/bower_components/angular-timeago/dist/angular-timeago.min.js"),
+                        new JsFileWithCdn("~/bower_components/ng-embed/dist/ng-embed.min.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 
                         new JsFileWithCdn("~/js/app.js"),

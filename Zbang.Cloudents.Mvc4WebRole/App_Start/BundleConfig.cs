@@ -98,8 +98,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             //CopyFilesToCdn("/bower_components/ng-embed/fonts", "*.*");
             CopyFilesToCdn("/Content/Fonts", "*.*");
+            CopyFilesToCdn("/bower_components/ng-embed/images", "*.*", "images");
+            CopyFilesToCdn("/bower_components/ng-embed/fonts", "*.*", "fonts");
             CopyFilesToCdn("/Images", "*.*");
-            CopyFilesToCdn("/gzip/", "*.*", SearchOption.TopDirectoryOnly);
+            CopyFilesToCdn("/gzip/", "*.*", options: SearchOption.TopDirectoryOnly);
 
         }
 
@@ -122,7 +124,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 cssBundle.WithOutputBaseHref(cdnUrl);
                 CssBundles.Add(key, cssBundle.Render("~/gzip/c#.css"));
-                CopyFilesToCdn("~/gzip/", "*.css", SearchOption.TopDirectoryOnly);
+                CopyFilesToCdn("~/gzip/", "*.css", options: SearchOption.TopDirectoryOnly);
             }
             else
             {
@@ -144,7 +146,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             if (!string.IsNullOrWhiteSpace(cdnUrl))
             {
                 jsBundle.WithOutputBaseHref(cdnUrl);
-                CopyFilesToCdn("~/gzip/", "*.js", SearchOption.TopDirectoryOnly);
+                CopyFilesToCdn("~/gzip/", "*.js", options: SearchOption.TopDirectoryOnly);
 
                 JsBundles.Add("langText." + culture, jsBundle.Render("~/gzip/j1#.js"));
                 return;
@@ -187,7 +189,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             if (!string.IsNullOrWhiteSpace(cdnUrl))
             {
                 jsBundle.WithOutputBaseHref(cdnUrl);
-                CopyFilesToCdn("~/gzip/", "*.js", SearchOption.TopDirectoryOnly);
+                CopyFilesToCdn("~/gzip/", "*.js", options: SearchOption.TopDirectoryOnly);
                 return jsBundle.Render("~/gzip/j#.js");
             }
             return jsBundle.Render("~/cdn/gzip/j#.js");
@@ -217,7 +219,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         }
 
 
-        private static void CopyFilesToCdn(string directoryRelativePath, string fileSearchOption, SearchOption options = SearchOption.AllDirectories)
+        private static void CopyFilesToCdn(string directoryRelativePath, string fileSearchOption, string cdnRelativePath = null, SearchOption options = SearchOption.AllDirectories)
         {
             var server = HttpContext.Current.Server;
             var appRoot = server.MapPath("~/");
@@ -237,6 +239,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 try
                 {
                     var relativePath = filePath.Replace(appRoot, string.Empty);
+                    if (!string.IsNullOrEmpty(cdnRelativePath))
+                    {
+                        relativePath = Path.Combine(cdnRelativePath, Path.GetFileName(filePath));
+                    }
+                    
                     cdnFilePath = Path.Combine(cdnRoot, relativePath);
                     //if (File.Exists(Path.Combine(cdnRoot, relativePath)))
                     //{
