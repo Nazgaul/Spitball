@@ -102,6 +102,9 @@ namespace Zbang.Zbox.Domain.Services
                         @"delete from Zbox.Invite where boxid in (
 	select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",
+                        @"delete from Zbox.UserBoxRel where boxid in (
+	select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) option (maxdop 1)",
                         "delete top (3) from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)"
                     }, token);
 

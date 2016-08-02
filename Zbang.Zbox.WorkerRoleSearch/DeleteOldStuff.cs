@@ -69,7 +69,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var mailContent = new StringBuilder();
             while (needLoop && !cancellationToken.IsCancellationRequested)
             {
-
                 try
                 {
                     var counter = await func(cancellationToken);
@@ -79,8 +78,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("delete old updates", ex);
-                    //await m_MailComponent.GenerateSystemEmailAsync("delete stuff", ex.ToString());
+                    await m_MailComponent.GenerateSystemEmailAsync("delete old stuff", ex.ToString());
                     mailContent.AppendLine($"{prefix} exception: {ex}");
+                    break;
                 }
             }
             return mailContent.ToString();
