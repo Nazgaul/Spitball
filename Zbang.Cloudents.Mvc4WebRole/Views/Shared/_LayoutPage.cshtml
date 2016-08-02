@@ -73,7 +73,7 @@
 
             @if (ViewBag.errorPage == null || !ViewBag.errorPage)
             {
-                <button type="button" ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" ng-click="cc.openChat()" ng-if="app.showChat">
+                <button type="button" ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" hide-gt-xs ng-click="cc.openChat()" ng-if="app.showChat">
                     @Html.Svg("~/images/site/icons.svg", "chat")
                     <div class="chat-counter" ng-if="cc.unread() > 0">{{cc.unread()}}</div>
                 </button>

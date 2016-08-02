@@ -41,6 +41,7 @@
         c.usersPaging = usersPaging;
         c.lastSearch = '';
         c.loadMoreMessages = loadMoreMessages;
+        c.focusSearch = false;
 
         userDetailsFactory.init().then(function (response) {
             c.unread = response.unread;
