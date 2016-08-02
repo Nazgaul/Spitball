@@ -109,7 +109,7 @@
                                 </md-menu-item>
                             </md-menu-content>
                         </md-menu>
-                        <div  ng-bind-html="::post.content | embed : {linkTarget:'_blank'}" class="indent content-text"></div>
+                        <div  ng-bind-html="::post.content | linky:'_blank'" class="indent content-text"></div>
                     </li>
                 </ol>
             </div>

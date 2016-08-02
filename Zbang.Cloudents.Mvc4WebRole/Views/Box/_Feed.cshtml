@@ -59,7 +59,7 @@
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
-                    <div ng-bind-html="::post.content | embed : {linkTarget:'_blank'}" class="indent content-text"></div>
+                    <div ng-bind-html="::post.content | linky:'_blank'}" class="indent content-text"></div>
                     <div class="indent items-slider" ng-if="::post.files.length">
                         <button ng-if="::post.files.length > 2" type="button" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                         <div class="items-container">
@@ -117,7 +117,7 @@
                                 </md-menu-item>
                             </md-menu-content>
                         </md-menu>
-                        <div ng-bind-html="::reply.content | embed : {linkTarget:'_blank'}" class="indent content-text"></div>
+                        <div ng-bind-html="::reply.content | linky:'_blank'" class="indent content-text"></div>
                         <div class="indent items-slider" ng-if="::reply.files.length">
                             <button type="button" ng-if="::reply.files.length > 2" class="items-prev">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
                             <div class="items-container">

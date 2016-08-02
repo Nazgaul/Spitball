@@ -142,7 +142,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         public async Task<IEnumerable<SearchQuizzes>> SearchQuizAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
-            var filter = await m_FilterProvider.BuildFilterExpression(
+            var filter = await m_FilterProvider.BuildFilterExpressionAsync(
               query.UniversityId, UniversityidField, UseridsField, query.UserId);
 
             var term = query.Term + "*";

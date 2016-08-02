@@ -14,6 +14,7 @@
 /// <reference path="../bower_components/textangular/dist/textangular.js" />
 /// <reference path="../bower_components/textangular/dist/textangular-sanitize.js" />
 /// <reference path="../bower_components/textangular/dist/textangularsetup.js" />
+/// <reference path="../bower_components/ui-router-extras/release/ct-ui-router-extras.js" />
 /// <reference path="../gruntfile.js" />
 /// <reference path="../gulpfile.js" />
 /// <reference path="../Js/app.config.js" />

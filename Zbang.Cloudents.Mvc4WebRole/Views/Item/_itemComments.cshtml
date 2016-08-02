@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="comment-text">
                                     <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::comment.userUrl}}"> {{::comment.userName}}</a></span><span class="date"><time-ago class="comment-date" from-time="{{::comment.creationDate }}" format="mediumDate"></time-ago></span></div>
-                                    <div class="comment-content" ng-bind-html="::comment.comment | embed : {linkTarget:'_blank'}"></div>
+                                    <div class="comment-content" ng-bind-html="::comment.comment | linky:'_blank'"></div>
 
                                 </div>
                                 <md-menu ng-if="c.canDelete(comment.userId)">
@@ -69,7 +69,7 @@
                                         </div>
                                         <div class="reply-text">
                                             <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::reply.userUrl}}"> {{::reply.userName}}</a></span> <span class="date"><time-ago class="comment-date" from-time="{{::reply.creationDate }}" format="mediumDate"></time-ago></span></div>
-                                            <div class="comment-content" ng-bind-html="::reply.comment | embed : {linkTarget:'_blank'}"></div>
+                                            <div class="comment-content" ng-bind-html="::reply.comment | linky:'_blank'"></div>
                                         </div>
                                         <md-menu ng-if="c.canDelete(reply.userId)">
                                             <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">

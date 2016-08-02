@@ -98,8 +98,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             //CopyFilesToCdn("/bower_components/ng-embed/fonts", "*.*");
             CopyFilesToCdn("/Content/Fonts", "*.*");
-            CopyFilesToCdn("/bower_components/ng-embed/images", "*.*", "images");
-            CopyFilesToCdn("/bower_components/ng-embed/fonts", "*.*", "fonts");
+            //CopyFilesToCdn("/bower_components/ng-embed/images", "*.*", "images");
+            //CopyFilesToCdn("/bower_components/ng-embed/fonts", "*.*", "fonts");
             CopyFilesToCdn("/Images", "*.*");
             CopyFilesToCdn("/gzip/", "*.*", options: SearchOption.TopDirectoryOnly);
 

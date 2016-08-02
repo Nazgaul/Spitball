@@ -114,6 +114,16 @@ namespace Zbang.Zbox.Domain.Services
                         @"delete from Zbox.ItemTab where boxid in (
 	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",
+                        @"delete  from Zbox.QuizQuestion where quizid in (
+	select id  from Zbox.quiz where publish = 0
+and boxid in (
+	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) 
+) option (maxdop 1)",
+                        @"delete  from Zbox.quiz where publish = 0
+and boxid in (
+	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) option (maxdop 1)",
                         "delete top (3) from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)"
                     }, token);
 

@@ -123,6 +123,13 @@ namespace Testing
             Zbang.Zbox.Infrastructure.Mail.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.File.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Azure.Ioc.RegisterIoc.Register();
+            Zbang.Zbox.ReadServices.RegisterIoc.Register();
+            unity.ContainerBuilder.RegisterType<SeachConnection>()
+                    .As<ISearchConnection>()
+                    .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
+                    .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
+                    .WithParameter("isDevelop", false) // this do nothing its only read only
+                    .InstancePerLifetimeScope();
             Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
 
             unity.ContainerBuilder.RegisterType<SendPush>()
@@ -160,9 +167,66 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
-            var writeService = iocFactory.Resolve<IZboxWorkerRoleService>();
-            writeService.OneTimeDbi();
-            //writeService.DeleteNodeLibrary(new DeleteNodeFromLibraryCommand(Guid.Parse("6FB8A861-F1FC-4D14-B838-A56D011BFCAA"), 166100));
+            var writeService = iocFactory.Resolve<IItemWriteSearchProvider3>();
+            writeService.UpdateDataAsync(null, new long[]
+            {
+                71616,
+                71617,
+                71618,
+                71619,
+                71620,
+                71621,
+                71622,
+                71623,
+                71624,
+                71625,
+                71626,
+                71627,
+                71628,
+                71629,
+                71630,
+                71631,
+                71632,
+                71633,
+                71634,
+                71635,
+                71636,
+                71637,
+                71638,
+                71639,
+                71640,
+                71641,
+                71642,
+                71643,
+                71644,
+                71645,
+                71646,
+                71647,
+                71648,
+                71649,
+                71650,
+                71651,
+                71652,
+                71653,
+                71654,
+                71655,
+                71656,
+                214483,
+                215341,
+                215342,
+                225765,
+                378172,
+                378173,
+                378174,
+                378175,
+                378176,
+                378182,
+                378184,
+                378189,
+                378190,
+                378191,
+                378281
+            }).Wait();
 
         }
 
