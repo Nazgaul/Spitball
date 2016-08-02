@@ -1,4 +1,4 @@
-DECLARE @Userid bigint,@ASPid uniqueidentifier, @SysUserid bigint
+DECLARE @Userid bigint,@ASPid uniqueidentifier, @SysUserid bigint, @chatRoom uniqueidentifier;
 
 Set @Userid = (select userid from zbox.users where email=@Email)
 Set @ASPid = (SELECT [MembershipUserId] FROM zbox.users where email=@Email)
@@ -37,13 +37,6 @@ delete from [dbo].[AspNetUserLogins] where userId=@ASPid
 delete from [dbo].[AspNetUserRoles]  where userid=@ASPid
 delete from [dbo].[AspNetUsers]	   where Id=@ASPid
 
--- Item Comments and Replies 
- 
- delete from [Zbox].[ItemCommentReply] where itemid in (select itemid from zbox.ItemComment where userid=@userid) 
- delete from [Zbox].[ItemComment] where userid=@userid 
- delete from [Zbox].[ItemCommentReply] where userid=@userid 
- 
-
 
 --updates
  delete from [Zbox].[NewUpdates] where [UserId]=@userid
@@ -52,6 +45,18 @@ delete from [dbo].[AspNetUsers]	   where Id=@ASPid
  delete from [Zbox].[NewUpdates] where [Answerid]	in (select answerid from Zbox.Answer where userid=@userid)
  delete from [Zbox].[NewUpdates] where [ItemId] in (select itemid from Zbox.item where userid=@userid)
  delete from [Zbox].[NewUpdates] where [QuizId] in ( select  quizid from Zbox.Quiz where userid=@userid) 
+ delete from [Zbox].[NewUpdates] where [ItemCommentId] in ( select  ItemCommentId from  [Zbox].[ItemComment] where userid=@userid) 
+
+
+-- Item Comments and Replies 
+ 
+ delete from [Zbox].[ItemCommentReply] where itemid in (select itemid from zbox.ItemComment where userid=@userid) 
+ delete from [Zbox].[ItemComment] where userid=@userid 
+ delete from [Zbox].[ItemCommentReply] where userid=@userid 
+ 
+
+
+
 
 
 
@@ -90,6 +95,27 @@ delete from Zbox.CommentLike where [OwnerId]=@userid
 -- Zbox.ReplyLike
  
 delete from Zbox.ReplyLike where [OwnerId]=@userid
+
+
+-- chat
+DECLARE vend_cursor CURSOR  
+    FOR select ChatRoomId from zbox.chatuser where userid = @userid  
+OPEN vend_cursor  
+FETCH NEXT FROM vend_cursor into @chatRoom;  
+
+  
+WHILE @@FETCH_STATUS = 0  
+BEGIN  
+	 PRINT @chatRoom 
+	 delete from zbox.ChatMessage where ChatRoomId = @chatRoom;
+	 delete from zbox.ChatUser where ChatRoomId = @chatRoom;
+	 delete from zbox.ChatRoom where Id = @chatRoom;
+	 FETCH NEXT FROM vend_cursor into @chatRoom;  
+END
+CLOSE vend_cursor;  
+DEALLOCATE vend_cursor;
+
 -- user table
-delete from zbox.users where userid=@userid 
+delete from zbox.users where userid=@userid ;
+
 COMMIT TRANSACTION
