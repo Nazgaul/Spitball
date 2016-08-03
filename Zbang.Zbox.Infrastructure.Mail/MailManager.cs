@@ -79,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         private const string ApiKey = "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";
         //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
-        private async Task<IEnumerable<string>> GetEmailListFromApiCallAsync(string requestUrl, DateTime startTime, int page,
+        private static async Task<IEnumerable<string>> GetEmailListFromApiCallAsync(string requestUrl, DateTime startTime, int page,
             CancellationToken cancellationToken = default(CancellationToken))
         {
 
@@ -127,13 +127,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             };
 
             sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "yaari_r@yahoo.com" : recipient);
-
-            // var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
-            // mail.AddSubject(sendGridMail);
-            //mail.GenerateMail(sendGridMail, parameters);
             sendGridMail.Html = LoadMailTempate.LoadMailFromContent(CultureInfo.CurrentCulture,
                 "Zbang.Zbox.Infrastructure.Mail.MailTemplate.Market");
-
             sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
             sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
             sendGridMail.SetCategory("pokimonMarket");

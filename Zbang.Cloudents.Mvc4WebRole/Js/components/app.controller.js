@@ -1,11 +1,11 @@
 ﻿'use strict';
 (function () {
     angular.module('app').controller('AppController', appController);
-    appController.$inject = ['$rootScope', '$window', '$location', 'history', '$state',
+    appController.$inject = ['$rootScope', '$window', '$location',  '$state',
         'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager', 'CacheFactory', '$scope', '$mdSidenav'
     ];
 
-    function appController($rootScope, $window, $location, h, $state, userDetails, $mdToast,
+    function appController($rootScope, $window, $location, $state, userDetails, $mdToast,
         $document, $mdMenu, resManager, cacheFactory, $scope, $mdSidenav) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
@@ -24,18 +24,18 @@
 
         self.setTheme = setTheme;
 
-        self.back = function (defaultUrl) {
-            var element = h.popElement();
-            if (!element) {
-                $location.url(defaultUrl);
-                return;
-            }
-            if (typeof element === 'string') {
-                $location.url(element);
-            }
-            $rootScope.$broadcast('from-back');
-            $state.go(element.name, element.params);
-        };
+        //self.back = function (defaultUrl) {
+        //    var element = h.popElement();
+        //    if (!element) {
+        //        $location.url(defaultUrl);
+        //        return;
+        //    }
+        //    if (typeof element === 'string') {
+        //        $location.url(element);
+        //    }
+        //    $rootScope.$broadcast('from-back');
+        //    $state.go(element.name, element.params);
+        //};
 
         self.logOut = logOut;
         self.openMenu = openMenu;

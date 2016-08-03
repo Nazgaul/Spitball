@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope', 'resManager', 'CacheFactory', '$timeout', '$mdMenu'];
+        'itemData', '$scope', 'resManager',  '$timeout', '$mdMenu','$previousState'];
 
     function item($stateParams, itemService, $sce, $location, $q,
-        user, itemData, $scope, resManager, cacheFactory, $timeout, $mdMenu) {
+        user, itemData, $scope, resManager, $timeout, $mdMenu, $previousState) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
@@ -17,7 +17,10 @@
 
         i.preview = '';
 
-
+        //$('[ui-view].class').hide();
+        //$scope.$on('$destroy', function () {
+        //    $('[ui-view].class').show()
+        //})
         i.details = itemData;
 
 
@@ -44,14 +47,19 @@
         i.swipeRight = swipeRight;
         i.followBox = followBox;
         i.document = itemData.fileContent;
-        //initKeyboardNavigation();
-        //if (i.firstPage && i.details.type === "File") {
-        //    itemService.content(boxid, itemId).then(function (response) {
-        //        i.document = response;
-        //    });
-        //}
+       
+        i.back = back;
+
+        function back() {
+            if ($previousState.get()) {
+                $previousState.go();
+                return;
+            }
+            $location.url(i.details.boxUrl);
+        }
+
         function followBox() {
-             cacheFactory.clearAll();//autofollow issue
+             //cacheFactory.clearAll();//autofollow issue
         }
         function getPreview() {
             i.loader = true;
@@ -139,24 +147,10 @@
             i.details.like = !i.details.like;
 
             $timeout(function () {
-                $mdMenu.hide()
+                $mdMenu.hide();
             }, 2000);
         }
-
-        //function initKeyboardNavigation() {
-        //    $("body").keydown(function (e) {
-        //        if (e.which === 37) { // left
-        //            $scope.$apply(function () {
-        //                user.culture === "he" ? swipeLeft() : swipeRight();
-        //            });
-        //        }
-        //        else if (e.which == 39) { // right
-        //            $scope.$apply(function () {
-        //                user.culture === "he" ? swipeRight() : swipeLeft();
-        //            });
-        //        }
-        //    });
-        //}
+       
     }
 
 

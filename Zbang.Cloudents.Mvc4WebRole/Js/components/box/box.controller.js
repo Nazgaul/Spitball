@@ -2,10 +2,9 @@
 (function () {
     angular.module('app.box').controller('BoxController', box);
     box.$inject = ['boxService', 'boxData', '$stateParams', '$scope',
-        '$state', 'user', '$rootScope', 'userDetailsFactory',
+        '$state',  '$rootScope', 'userDetailsFactory',
         'ajaxService2', 'resManager', '$timeout'];
-
-    function box(boxService, boxData, $stateParams, $scope, $state, user,
+    function box(boxService, boxData, $stateParams, $scope, $state, 
         $rootScope, userDetailsFactory, ajaxService, resManager, $timeout) {
 
         if ($state.current.name === 'box') {
@@ -32,12 +31,6 @@
         //stuff for child elements
         b.canDelete = canDelete;
 
-
-        //$scope.$on('$viewContentLoaded', function () {
-        //    $timeout(function () {
-        //        a2a.init('page');
-        //    });
-        //});
         $scope.$on("close_invite", function () {
             b.inviteOpen = false;
 
@@ -47,7 +40,7 @@
             return state === $state.current.name;
         }
         function canDelete(userId) {
-            if (user.isAdmin || user.id === userId) {
+            if (b.user.isAdmin || b.user.id === userId) {
                 return true;
             }
             return false;
@@ -92,7 +85,7 @@
             }
             var needToSave = false;
             angular.forEach(updateBoxForm, function (value, key) {
-                if (key[0] == '$') return;
+                if (key[0] === '$') return;
                 if (!needToSave) {
                     needToSave = !value.$pristine;
                 }
@@ -120,7 +113,7 @@
         }
 
         function inviteToBox() {
-            if (!user.id) {
+            if (!b.user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
@@ -153,7 +146,7 @@
             b.showLeaderboard = false;
         });
         function follow() {
-            if (!user.id) {
+            if (!b.user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
                 return;
             }

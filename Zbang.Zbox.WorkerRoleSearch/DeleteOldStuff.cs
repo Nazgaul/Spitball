@@ -27,7 +27,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     TraceLog.WriteInfo("delete stuff starting to work");
                     await m_MailComponent.GenerateSystemEmailAsync("delete stuff", "starting to work");
-                    var result =
+
+                    await m_ZboxWorkerRoleService.DoDirtyUpdateAsync(cancellationToken);
+
+                   var result =
                         await
                             DoDeleteAsync(cancellationToken, "deleteOldUpdates",
                                 m_ZboxWorkerRoleService.DeleteOldUpdatesAsync);

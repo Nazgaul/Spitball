@@ -34,7 +34,7 @@
                         @GeneralResources.Download
                     </md-button>
                 </md-menu-item>
-                <md-menu-item ng-if="i.tabSelected.id">
+                <md-menu-item ng-if="stateParams.tabId">
                     <md-button ng-click="i.removeItemFromTab(e)" ga-track-event="['box-tabs', 'didDelete']">
                         @BoxResources.ItemRemoveFolder
                     </md-button>

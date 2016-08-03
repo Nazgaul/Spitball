@@ -286,7 +286,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var query = new GetBoxItemsPagedQuery(id, tabId, page, 25);
+                var query = new GetBoxItemsPagedQuery(id, tabId, page, 30);
                 var result = await ZboxReadService.GetBoxItemsPagedAsync(query);
                 var itemDtos = result as IList<ItemDto> ?? result.ToList();
                 foreach (var item in itemDtos)

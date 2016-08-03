@@ -14,7 +14,7 @@
                             //$q https://github.com/angular-ui/ui-router/issues/105
                             return userDetails.init();
                         }
-                    ],
+                    ]
                 },
                 template: '<div class="page-animation" ui-view animation-class></div>'
             });
@@ -38,10 +38,11 @@
                            url: '/item/{universityName}/{boxId}/{boxName}/{itemId}/{itemName}/',
                            controller: 'ItemController as i',
                            resolve: {
-                               itemData: ['itemService', '$stateParams', 'history', function (itemService, $stateParams, history2) {
-                                   return itemService.getDetails($stateParams.boxId, $stateParams.itemId, history2.firstState());
+                               itemData: ['itemService', '$stateParams', function (itemService, $stateParams) {
+                                   return itemService.getDetails($stateParams.boxId, $stateParams.itemId);
                                }]
                            },
+                           reloadOnSearch: false,
                            data: { animateClass: 'itemPage' }
                        },
                        templateUrl: '/item/indexpartial/'
@@ -52,7 +53,7 @@
                             url: '/search/?q&t',
                             controller: 'SearchController as s',
                             data: { animateClass: 'search' },
-                            reloadOnSearch: false,
+                            reloadOnSearch: false
                             //onEnter: routerHelper.universityRedirect
                         },
                         templateUrl: '/search/indexpartial/'
