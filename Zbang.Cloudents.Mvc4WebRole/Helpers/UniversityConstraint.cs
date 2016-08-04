@@ -19,19 +19,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             {
                 return false;
             }
-            var str = obj.ToString().ToLower();
-            
-
-            //if (str == "dashboard")
-            //{
-            //    return false;
-            //}
             return true;
-            //if (httpContext.User == null)
-            //{
-            //    return false;
-            //}
-            //return httpContext.User.Identity.IsAuthenticated;
         }
     }
 }

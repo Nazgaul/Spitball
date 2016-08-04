@@ -31,27 +31,16 @@
         }
 
         self.myPagingFunction = function () {
-            //no paging in initial state
-            //if (!self.term) {
-            //    return createEmptyPromise();
-            //}
             return doQuery(true);
         }
 
-        //searchElements();
         function searchElements() {
-            //    $location.search({
-            //        'q': self.term,
-            //        't': self.tab
-            //    });
             term = $state.params.q;// $location.search().q;
-            //assignTab();
             page = 0;
             needToBringMore = true;
             doQuery();
-
-
         }
+
         function assignTab() {
             self.tab = self.state.item;
             self.tabIndex = 0;
@@ -74,11 +63,9 @@
             //bug 5411
             $timeout(searchElements);
         }
-
         function createEmptyPromise() {
             return $q.when();
         }
-
         function doQuery(needToAppend) {
             if (!needToBringMore) {
                 return createEmptyPromise();

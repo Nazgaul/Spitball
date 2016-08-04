@@ -1,7 +1,7 @@
 ﻿'use strict';
 (function () {
     angular.module('app.chat').factory('chatBus', chatBus);
-    chatBus.$inject = ['ajaxService'];
+    chatBus.$inject = ['ajaxService2'];
 
     function chatBus(ajaxService) {
         var unreadCount = 0;
@@ -15,19 +15,18 @@
         };
 
         chatService.messages = function (q,page) {
-            return ajaxService.get('/chat/conversation', { q: q ,page: page}, false);
+            return ajaxService.get('/chat/conversation', { q: q ,page: page});
         }
         chatService.chat = function (id, userIds, dateTime, top) {
-            console.log('loading from time: ' + dateTime);
             return ajaxService.get('/chat/messages', {
                 chatRoom: id,
                 userIds: userIds,
                 startTime: dateTime,
                 //fromId: fromId, // instead dateTime
-                top: top, 
+                top: top
                 //skip: skip // remove
 
-            },false);
+            });
         }
         chatService.preview = function(blob, i) {
             return ajaxService.get('/chat/Preview', {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -122,6 +123,10 @@ set isdirty = 1, isdeleted = 1
                         @"delete from Zbox.Message where boxid in (
 	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",
+                        @"delete from zbox.replylike where replyid in (
+select answerid from zbox.answer where boxid in (
+	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+)) option (maxdop 1)",
                         @"delete from zbox.answer where boxid in (
 	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",
@@ -170,16 +175,30 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
             {
                 using (var conn = await DapperConnection.OpenConnectionAsync(token))
                 {
-                    var i = 0;
-                    foreach (var sql in sqls)
+                    try
                     {
-                        i += await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token));
+                        var i = 0;
+                        foreach (var sql in sqls)
+                        {
+                            i += await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token));
+                            await Task.Delay(TimeSpan.FromSeconds(1), token);
+                        }
+                        //var i = await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token));
                         await Task.Delay(TimeSpan.FromSeconds(1), token);
+                        needToLoop = i > 0;
+                        counter += i;
                     }
-                    //var i = await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token));
-                    await Task.Delay(TimeSpan.FromSeconds(1), token);
-                    needToLoop = i > 0;
-                    counter += i;
+                    catch (SqlException ex)
+                    {
+                        if (ex.Number == -2) //timeout
+                        {
+                            TraceLog.WriteError("ExecuteSqlLoop number -2 timout", ex);
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
                 }
             }
             return counter;
