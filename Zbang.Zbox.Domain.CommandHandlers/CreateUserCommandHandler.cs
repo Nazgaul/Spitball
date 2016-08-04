@@ -115,10 +115,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (result == null) throw new ArgumentNullException(nameof(result));
             if (user == null) throw new ArgumentNullException(nameof(user));
 
-            long universityId;
+            //long universityId;
 
-            if (!long.TryParse(command.Parameters?["universityId"], out universityId)) return;
-            var university = m_UniversityRepository.Get(universityId);
+            if (!command.UniversityId.HasValue) return;
+            var university = m_UniversityRepository.Get(command.UniversityId.Value);
             if (university == null)
             {
                 return;

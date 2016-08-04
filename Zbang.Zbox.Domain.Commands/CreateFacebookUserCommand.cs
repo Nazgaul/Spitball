@@ -10,8 +10,8 @@ namespace Zbang.Zbox.Domain.Commands
 
         public CreateFacebookUserCommand(long facebookId, string email,
             string largeUserImage,  string firstName, string lastName, string culture, Sex sex, NameValueCollection parameters,
-            Guid? inviteId = null, long? boxId = null)
-            : base(email,  firstName, lastName, culture, inviteId, boxId, sex, parameters)
+            Guid? inviteId = null, long? boxId = null, long? universityId = null)
+            : base(email, universityId,  firstName, lastName, culture, inviteId, boxId, sex, parameters)
         {
             FacebookUserId = facebookId;
             LargeUserImage = largeUserImage;
