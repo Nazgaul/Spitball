@@ -1453,7 +1453,7 @@ Page Loading
 .theme-light .color-1 {
   color: #4190b9;
 }
-.theme-light.color-override.backgroundColor1:not(.fixedBgColor) {
+.theme-light.color-override.backgroundColor1 {
   background: #e9eaed !important;
   color: #212325;
 }
@@ -2106,4 +2106,19 @@ Page Loading
 }
 .theme-light .borderTC32 {
   border-color: #c3c3c3 !important;
+}
+.theme-light .backgroundTC33 {
+  background: #f9f9f9 !important;
+}
+.theme-light .textTC34 {
+  color: #212325 !important;
+}
+.theme-light .textTC35 {
+  color: #4190b9 !important;
+}
+.theme-light .backgroundTC36 {
+  background: #e9eaed !important;
+}
+.theme-light .backgroundTC37 {
+  background: #042E5E !important;
 }

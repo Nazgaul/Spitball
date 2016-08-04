@@ -7,7 +7,7 @@
                 <span>@ChatResources.DisconnectedText</span>
             </div>
         </div>
-        <div class="menu-content">
+        <div class="menu-content angular-animate backgroundTC33">
             <div class="tab-content" ng-if="c.state === c.states.messages">
                 <form novalidate class="search-friend" ng-submit="c.search(c.term)">
                     <button type="button" class="search-btn" ng-click="c.expandChat(); c.focusSearch=true">
@@ -27,8 +27,8 @@
                         <ul class="users-sub-list" ng-if="c.users.length">
                             <li ng-click="c.chat(e)" class="user" ng-repeat="e in c.users track by e.id" ng-if="$index<5" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversasion']">
                                 <span ng-if="e.unread" class="chat-counter" ng-bind="e.unread"></span>
-                                <user-image class="img-circle" name="::e.name" image="::e.image" width="35" height="35"></user-image>
-                                <div class="name-date">
+                                <user-image class="img-circle" name="::e.name" image="::e.image" width="40" height="40"></user-image>
+                                <div class="name-date textTC34">
                                     <span class="member-name ellipsis" ng-bind="::e.name"></span>
                                     <chat-time-ago ng-if="!e.online" class="comment-date" from-time="{{e.lastSeen }}" format="mediumDate"></chat-time-ago>
                                 </div>
@@ -40,32 +40,32 @@
                             @Html.Svg("~/images/site/icons.svg", "group")
                             <h1>@ChatResources.ClassmatesHeader</h1>
                         </div>
-                        <ul class="users-sub-list" ng-if="c.users.length">
+                        @*<ul class="users-sub-list" ng-if="c.users.length">
                             <li ng-click="c.chat(e)" class="user" ng-repeat="e in c.users track by e.id" ng-if="$index<5" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversasion']">
                                 <span ng-if="e.unread" class="chat-counter" ng-bind="e.unread"></span>
-                                <user-image class="img-circle" name="::e.name" image="::e.image" width="35" height="35"></user-image>
+                                <user-image class="img-circle" name="::e.name" image="::e.image" width="40" height="40"></user-image>
                                 <div class="name-date">
                                     <span class="member-name ellipsis" ng-bind="::e.name"></span>
                                     <chat-time-ago ng-if="!e.online" class="comment-date" from-time="{{e.lastSeen }}" format="mediumDate"></chat-time-ago>
                                 </div>
                             </li>
-                        </ul>
+                        </ul>*@
                     </section>
                     <section class="schoolmates">
                         <div class="header">
                             @Html.Svg("~/images/site/icons.svg", "crowd")
                             <h1>@ChatResources.SchoolmatesHeader</h1>
                         </div>
-                        <ul class="users-sub-list" ng-if="c.users.length">
+                        @*<ul class="users-sub-list" ng-if="c.users.length">
                             <li ng-click="c.chat(e)" class="user" ng-repeat="e in c.users track by e.id" ng-if="$index<5" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversasion']">
                                 <span ng-if="e.unread" class="chat-counter" ng-bind="e.unread"></span>
-                                <user-image class="img-circle" name="::e.name" image="::e.image" width="35" height="35"></user-image>
+                                <user-image class="img-circle" name="::e.name" image="::e.image" width="40" height="40"></user-image>
                                 <div class="name-date">
                                     <span class="member-name ellipsis" ng-bind="::e.name"></span>
                                     <chat-time-ago ng-if="!e.online" class="comment-date" from-time="{{e.lastSeen }}" format="mediumDate"></chat-time-ago>
                                 </div>
                             </li>
-                        </ul>
+                        </ul>*@
                     </section>
                 </div>
                 <div class="empty-state" ng-if="!c.users.length && c.term">
@@ -78,7 +78,7 @@
             </div>
         </div>
         <div class="conversasion angular-animate" ng-if="c.state === c.states.chat">
-            <div class="header">
+            <div class="header backgroundTC37">
                 <a ng-href="{{c.userChat.url}}" ng-class="{online: c.userChat.online}" class="user" ga-track-event="['chat', 'opened-partners-profile']">
                     <user-image class="img-circle" name="c.userChat.name" image="c.userChat.image" width="35" height="35" noremove="true"></user-image>
 

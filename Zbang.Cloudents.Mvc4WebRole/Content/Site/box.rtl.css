@@ -220,10 +220,10 @@ library-list {
     padding-left: 30px;
   }
 }
-@media (min-width: 960px) {
-  .boxes-side-area {
-    max-width: 400px !important;
-  }
+.boxes-side-area {
+  /*@media(min-width: 960px) {
+        max-width: 400px !important;
+    }*/
 }
 @media (max-width: 600px) {
   .boxes-side-area > div {
@@ -238,6 +238,11 @@ library-list {
 }
 .boxes-side-area .leaderboard-container .leaderboard {
   width: 100%;
+}
+@media (min-width: 960px) and (max-width: 1280px) {
+  .boxes-side-area .dashboard-stat2 .progress-info .status-title {
+    display: none;
+  }
 }
 .member-invite {
   border-radius: 10px;

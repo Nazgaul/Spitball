@@ -4,13 +4,13 @@
     const string svgUrl = "~/images/site/itemIcons.svg";
 }
 <div srph-infinite-scroll="i.loadMore()" unregister-scroll="true" collapse-header ng-class="{hideActions: i.selectedState === i.state.flag || i.selectedState === i.state.rename}">
-    <header layout="row" layout-align="space-between center">
+    <header layout="row" layout-align="space-between center" class="backgroundTC36">
         <div class="progress-bar"><md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear></div>
         <div class="top-wrapper">
             <div class="name-actions" layout="row" layout-align="space-between center">
                 <div class="fileName">
                     <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
-                        <h1 class="ellipsis">{{i.details.name}}</h1>
+                        <h1 class="ellipsis textTC30">{{i.details.name}}</h1>
                         <div class="info">
                             @Html.Svg(svgUrl, "info")
                             <md-tooltip>
@@ -80,6 +80,10 @@
                             </md-menu-content>
                         </md-menu>
                     </div>
+                    <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl); " ga-track-event="['itemPage', 'close']">
+                        @Html.Svg("~/images/site/icons.svg", "close")
+                    </button>
+
                 </div>
             </div>
             <div class="second-line" layout="row" layout-align="space-between center" ng-if="i.selectedState === i.state.regular">
@@ -89,7 +93,6 @@
                     <span>{{::i.details.date | date : 'mediumDate'}}</span>
                 </div>
             </div>
-            <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl); " ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
         </div>
     </header>
     <div class="item-content" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">

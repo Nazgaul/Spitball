@@ -463,7 +463,7 @@ Page footer
   z-index: 2;
   bottom: 70px;
   display: none;
-  left: 29px;
+  left: 60px;
   cursor: pointer;
 }
 @media (max-width: 768px) {

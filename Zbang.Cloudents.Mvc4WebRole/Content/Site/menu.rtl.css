@@ -42,7 +42,7 @@
   position: fixed !important;
   top: 65px;
   border-radius: 5px;
-  width: 250px;
+  width: 235px;
   margin-right: 0;
   z-index: 10;
   height: calc(100vh - 70px + 5px);

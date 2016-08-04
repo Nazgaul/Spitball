@@ -95,6 +95,8 @@ body {
 
         .itemPage header {
             top: 0;
+            right: 0;
+            left: 0;
             box-shadow: 0 0 5px rgba(0,0,0,0.4);
         }
     }
@@ -108,13 +110,10 @@ body {
     .itemPage header {
         position: fixed;
         top: 70px;
-        background: @backgroundColorWhite;
+        right: 0;
+        left: 0;
         .transition(top, 0.2s, ease);
     }
-}
-
-.fixedBgColor {
-    background: @textColorWhite;
 }
 
 .page-body {
@@ -127,17 +126,8 @@ body {
     }
 
     @media (min-width: 960px) {
-        margin-left: 250px;
-        padding: 0 20px;
-    }
-
-
-    &.collapsed-chat {
-        margin-right: 110px;
-    }
-
-    &.expanded-chat {
-        margin-right: 355px;
+        margin-left: 235px;
+        padding: 0;
     }
 }
 
@@ -992,9 +982,6 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
     z-index: 90;
 }
 
-.feed-wrapper {
-    //margin: -16px; /* This is a patch - to be fixed in future*/
-}
 
 #intercom-container, #intercom-launcher {
     z-index: 120;

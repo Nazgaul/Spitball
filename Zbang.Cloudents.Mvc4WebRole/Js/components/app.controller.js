@@ -106,13 +106,12 @@
         });
 
         self.showMenu = self.showSearch = self.showChat = true;
-        self.fixedBgColor = self.showBoxAd = false;
+        self.showBoxAd = false;
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             self.showBoxAd = toState.parent === 'box';
             self.showChat = self.showSearch = !(toState.name === 'universityChoose');
             self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
-            self.fixedBgColor = toState.name === 'item' || toState.name === 'quiz';
             if (toState.name === 'universityChoose') {
                 $mdSidenav('chat').close();
             }

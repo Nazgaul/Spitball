@@ -13,6 +13,16 @@ md-menu-item.blue .md-button span {
 md-menu-item.blue svg {
   fill: #f5f5f5;
 }
+.mdno-touchevents .itemPage .name-actions button:hover,
+.mdno-touchevents .itemPage .name-actions a:hover,
+.mdno-touchevents .itemPage .name-actions .info:hover {
+  color: #4190b9;
+}
+.mdno-touchevents .itemPage .name-actions button:hover svg,
+.mdno-touchevents .itemPage .name-actions a:hover svg,
+.mdno-touchevents .itemPage .name-actions .info:hover svg {
+  fill: #4190b9;
+}
 .itemPage {
   margin-top: -5px;
 }
@@ -36,6 +46,12 @@ md-menu-item.blue svg {
   min-height: 60px;
   display: block;
   padding: 10px 0;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
 }
 .itemPage header .page-logo svg {
   width: 180px;
@@ -99,8 +115,15 @@ md-menu-item.blue svg {
 .itemPage header .top-wrapper {
   max-width: 800px;
   width: calc(100% - 100px);
+  padding: 0 16px;
   margin: 0 auto;
-  padding-right: 16px;
+}
+@media (max-width: 900px) {
+  .itemPage header .top-wrapper {
+    padding-right: 60px;
+    padding-left: 0;
+    width: 100%;
+  }
 }
 .itemPage header .top-wrapper .name-actions .item-actions {
   white-space: nowrap;
@@ -124,22 +147,27 @@ md-menu-item.blue svg {
 .itemPage header .top-wrapper .name-actions .item-actions a svg {
   display: inherit;
 }
+.itemPage header .top-wrapper .name-actions button.fb-like:hover {
+  border-color: #4190b9;
+}
 .itemPage header .top-wrapper .name-actions md-menu button {
   line-height: 0;
 }
 .itemPage header .close-btn {
-  position: absolute;
-  left: 0;
-  top: 20px;
-  padding: 0 6px 0 10px;
+  padding: 5px 20px;
+  border-right: 2px solid #888b8e;
+  margin-right: 5px;
 }
-@media (max-width: 600px) {
-  .itemPage header .close-btn {
-    padding-left: 20px;
-  }
+.itemPage header .close-btn svg {
+  display: block;
 }
 .itemPage .item-content {
   padding-top: 90px;
+}
+@media (min-width: 960px) {
+  .itemPage .item-content {
+    padding-right: 95px;
+  }
 }
 .itemPage md-select:not([disabled]):focus .md-select-value {
   color: #282828;
@@ -213,6 +241,7 @@ md-menu-item.blue svg {
   line-height: 0;
   margin-right: 10px;
   position: relative;
+  cursor: pointer;
 }
 .itemPage .fileName .info:hover:after {
   content: '';
@@ -432,7 +461,7 @@ md-menu-item.blue svg {
 }
 @media (min-width: 890px) {
   .itemPage .arrows {
-    margin-right: calc(50% - 450px);
+    margin-right: calc(50% - 457px);
   }
 }
 .itemPage .arrows svg {
@@ -495,7 +524,7 @@ md-menu-item.blue svg {
   }
 }
 .raw-text {
-  color: #282828;
+  color: #888b8e;
 }
 .raw-text md-switch {
   margin: 20px auto;
@@ -513,7 +542,7 @@ md-menu-item.blue svg {
   margin: 0 auto;
   background: #fff;
   min-height: 300px;
-  box-shadow: 0 3px 8px #dfe2e9;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
   border-radius: 15px;
   padding: 12px;
 }
@@ -559,7 +588,7 @@ md-menu-item.blue svg {
 .preview .preview-image .imageContent {
   background: #fff;
   border-radius: 15px;
-  box-shadow: 0 3px 8px #dfe2e9;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 .preview .preview-svg .svgContent {
   height: 100%;

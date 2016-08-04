@@ -1278,6 +1278,21 @@ md-chips .md-chips.md-focused {
 .borderTC32 {
   border-color: transparent !important;
 }
+.backgroundTC33 {
+  background: #282828 !important;
+}
+.textTC34 {
+  color: #888b8e !important;
+}
+.textTC35 {
+  color: #f5f5f5 !important;
+}
+.backgroundTC36 {
+  background: #181c1d !important;
+}
+.backgroundTC37 {
+  background: #375068 !important;
+}
 /*input[type="search"], textarea {
     .placeHolder(@borderColorGrey) !important;
 }*/

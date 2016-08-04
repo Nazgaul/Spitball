@@ -31,7 +31,7 @@
     <base href="/" />
 </head>
 <body @*md-layout-css*@ ng-controller="AppController as app"
-      class="{{app.theme}} color-override backgroundColor1 clearfix" ng-class="{menuOpened: app.menuOpened, fixedBgColor: app.fixedBgColor, collapseHeader: app.collapsedHeader}">
+      class="{{app.theme}} color-override backgroundColor1 clearfix" ng-class="{menuOpened: app.menuOpened, collapseHeader: app.collapsedHeader}">
     @{ Html.RenderPartial("_Body");}
 
     <div ng-spinner-bar class="sb-loader">
@@ -73,7 +73,7 @@
 
             @if (ViewBag.errorPage == null || !ViewBag.errorPage)
             {
-                <button type="button" ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" hide-gt-xs ng-click="cc.openChat()" ng-if="app.showChat">
+                <button type="button" ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" hide-gt-sm ng-click="cc.openChat()" ng-if="app.showChat">
                     @Html.Svg("~/images/site/icons.svg", "chat")
                     <div class="chat-counter" ng-if="cc.unread() > 0">{{cc.unread()}}</div>
                 </button>

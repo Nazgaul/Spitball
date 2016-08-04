@@ -61,12 +61,12 @@
 
 .collapsed-chat {
     .chat {
-        @media(min-width: 600px) {
+        @media(min-width: 960px) {
             right: -265px;
         }
 
-        @media(max-width: 600px) {
-            right: 100vw;
+        @media(max-width: 960px) {
+            right: -100vw;
             //display: none;
         }
 
@@ -86,15 +86,26 @@
     }
 }
 
+
+
+.page-body {
+    @media (min-width: 960px) {
+        margin-right: 95px;
+    }
+}
+
+
+
 .chat {
     position: fixed;
     z-index: 10;
     top: @heightOfHeader;
     bottom: 0;
-    background: @textColorWhite !important;
+    background: #f9f9f9 !important;
     width: 320px;
     right: 0;
     transition: right 0.1s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
 
     @media(max-width: 600px) {
         width: 100vw;
@@ -112,6 +123,7 @@
         width: 20px;
         border-radius: 5px 0 0 5px;
         background: @buttonColorBlue;
+        box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.69);
 
         &:after {
             content: '';
@@ -204,7 +216,7 @@
                 }
             }*/
             .search-friend {
-                margin-top: 10px;
+                margin-top: 6px;
                 .displayFlex;
                 .align-items(stretch);
                 padding: 0;
@@ -218,7 +230,8 @@
                     max-width: ~"calc(100% - 85px)";
                     color: @textColorBlack;
                     font-size: 16px;
-                    padding-top: 10px;
+                    padding-top: 16px;
+                    margin-bottom: 4px;
                 }
 
                 .reset-btn {
@@ -235,9 +248,9 @@
                 .search-btn {
                     .displayFlex;
                     .justifyContet(flex-start);
-                    width: 35px;
-                    margin: 0 10px;
-                    padding: 10px 0;
+                    width: 24px;
+                    margin: 0 16px;
+                    padding: 16px 0 6px 0;
 
                     svg {
                         width: 20px;
@@ -262,9 +275,8 @@
 
                         svg {
                             fill: @textColorGrey;
-                            width: 35px;
-                            height: 20px;
-                            margin: 0 10px;
+                            width: 38px;
+                            margin: 0 9px;
                         }
 
                         h1 {
@@ -275,9 +287,21 @@
                         }
                     }
 
+                    &.favorits {
+                        svg {
+                            height: 20px;
+                        }
+                    }
+
+                    &.classmates {
+                        svg {
+                            height: 28px;
+                        }
+                    }
+
                     &.schoolmates {
                         .header svg {
-                            height: 30px;
+                            height: 38px;
                         }
                     }
                 }
@@ -313,8 +337,7 @@
                             width: 100%;
                             max-width: ~"calc(100% - 64px)";
                             font-size: 16px;
-                            padding: 10px 0;
-                            height: 64px;
+                            height: 54px;
                         }
 
                         .member-name, .comment-date {
@@ -357,12 +380,10 @@
                 }
             }
         }
-
-        &.stateChat .menu-content, .conversasion, &:not(.stateChat) .menu-content {
+        /*&.stateChat .menu-content, .conversasion, &:not(.stateChat) .menu-content {
             .transition(transform, 0.2s, ease-in-out)
-        }
-
-        &.stateChat .conversasion,
+        }*/
+        /*&.stateChat .conversasion,
         &.stateChat .menu-content,
         .conversasion.ng-leave {
             .translate3d(-100%, 0, 0);
@@ -371,8 +392,7 @@
         .conversasion.ng-leave.ng-leave-active,
         &:not(.stateChat) .menu-content {
             .translate3d(0, 0, 0);
-        }
-
+        }*/
         &.stateChat .menu-content {
             svg, .chat-counter {
                 .animation(fadeout, 0.2s);
@@ -388,11 +408,28 @@
         /*.conversasion {
            
         }*/
-        .menu-content {
-            right: 0;
+        &.stateChat {
+            .menu-content {
+                right: 100%;
+            }
+
+            .conversasion {
+                right: 0;
+            }
+        }
+
+        &:not(.stateChat) {
+            .menu-content {
+                right: 0;
+            }
+
+            .conversasion {
+                right: -100%;
+            }
         }
 
         .conversasion, .menu-content {
+            transition: right 0.3s;
             position: absolute;
             top: 0;
             width: 100%;
@@ -400,8 +437,6 @@
         }
 
         .conversasion {
-            right: -100%;
-
             .header {
                 .displayFlex;
                 .align-items(center);
@@ -693,19 +728,24 @@
                 border-radius: 100%;
                 background: #3293f6;
                 position: absolute;
-                left: 35px;
-                bottom: 13px;
-                box-shadow: 0 0 1px 2px #eeeeee;
+                left: 37px;
+                bottom: 7px;
             }
 
             .img-circle {
-                margin: 0 10px;
+                margin: 0 8px;
                 flex-shrink: 0;
             }
         }
     }
 }
 
+.theme-dark .chat .content .user.online:before {
+    box-shadow: 0 0 1px 2px @textColorBlack;
+}
+.theme-light .chat .content .user.online:before {
+    box-shadow: 0 0 1px 2px @fileColor;
+}
 
 .chat-item-preview {
     //margin-left: -320px;

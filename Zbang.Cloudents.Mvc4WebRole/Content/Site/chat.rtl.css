@@ -49,14 +49,14 @@
   height: 24px;
   fill: #f5f5f5;
 }
-@media (min-width: 600px) {
+@media (min-width: 960px) {
   .collapsed-chat .chat {
     left: -265px;
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 960px) {
   .collapsed-chat .chat {
-    left: 100vw;
+    left: -100vw;
   }
 }
 .collapsed-chat .chat .content .tab-content .search-friend .search-btn {
@@ -68,15 +68,21 @@
   border-color: transparent #f5f5f5 transparent transparent;
   right: 6px;
 }
+@media (min-width: 960px) {
+  .page-body {
+    margin-left: 95px;
+  }
+}
 .chat {
   position: fixed;
   z-index: 10;
   top: 70px;
   bottom: 0;
-  background: #f5f5f5 !important;
+  background: #f9f9f9 !important;
   width: 320px;
   left: 0;
   transition: left 0.1s;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
 }
 @media (max-width: 600px) {
   .chat {
@@ -94,6 +100,7 @@
   width: 20px;
   border-radius: 0 5px 5px 0;
   background: #4190b9;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.69);
 }
 .chat .tab:after {
   content: '';
@@ -142,6 +149,19 @@
   position: relative;
   height: 100vh;
   overflow: hidden;
+  /*&.stateChat .menu-content, .conversasion, &:not(.stateChat) .menu-content {
+            .transition(transform, 0.2s, ease-in-out)
+        }*/
+  /*&.stateChat .conversasion,
+        &.stateChat .menu-content,
+        .conversasion.ng-leave {
+            .translate3d(-100%, 0, 0);
+        }
+
+        .conversasion.ng-leave.ng-leave-active,
+        &:not(.stateChat) .menu-content {
+            .translate3d(0, 0, 0);
+        }*/
   /*.conversasion {
            
         }*/
@@ -188,7 +208,7 @@
             }*/
 }
 .chat .content .tab-content .search-friend {
-  margin-top: 10px;
+  margin-top: 6px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -205,7 +225,8 @@
   max-width: calc(100% - 85px);
   color: #282828;
   font-size: 16px;
-  padding-top: 10px;
+  padding-top: 16px;
+  margin-bottom: 4px;
 }
 .chat .content .tab-content .search-friend .reset-btn {
   padding: 10px 10px 0 10px;
@@ -222,9 +243,9 @@
   display: flex;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
-  width: 35px;
-  margin: 0 10px;
-  padding: 10px 0;
+  width: 24px;
+  margin: 0 16px;
+  padding: 16px 0 6px 0;
 }
 .chat .content .tab-content .search-friend .search-btn svg {
   width: 20px;
@@ -250,9 +271,8 @@
 }
 .chat .content .tab-content .users-list section .header svg {
   fill: #888b8e;
-  width: 35px;
-  height: 20px;
-  margin: 0 10px;
+  width: 38px;
+  margin: 0 9px;
 }
 .chat .content .tab-content .users-list section .header h1 {
   font-size: 16px;
@@ -260,8 +280,14 @@
   color: #888b8e;
   line-height: 25px;
 }
+.chat .content .tab-content .users-list section.favorits svg {
+  height: 20px;
+}
+.chat .content .tab-content .users-list section.classmates svg {
+  height: 28px;
+}
 .chat .content .tab-content .users-list section.schoolmates .header svg {
-  height: 30px;
+  height: 38px;
 }
 .chat .content .tab-content .users-list .users-sub-list {
   padding: 0;
@@ -292,8 +318,7 @@
   width: 100%;
   max-width: calc(100% - 64px);
   font-size: 16px;
-  padding: 10px 0;
-  height: 64px;
+  height: 54px;
 }
 .chat .content .tab-content .users-list .users-sub-list .user .member-name,
 .chat .content .tab-content .users-list .users-sub-list .user .comment-date {
@@ -326,31 +351,6 @@
   color: #212325;
   font-size: 16px;
 }
-.chat .content.stateChat .menu-content,
-.chat .content .conversasion,
-.chat .content:not(.stateChat) .menu-content {
-  -moz-transition: transform 0.2s ease-in-out !important;
-  -o-transition: transform 0.2s ease-in-out !important;
-  -webkit-transition: transform 0.2s ease-in-out !important;
-  transition: transform 0.2s ease-in-out !important;
-}
-.chat .content.stateChat .conversasion,
-.chat .content.stateChat .menu-content,
-.chat .content .conversasion.ng-leave {
-  -moz-transform: translate3d(100%, 0, 0);
-  -ms-transform: translate3d(100%, 0, 0);
-  -o-transform: translate3d(100%, 0, 0);
-  -webkit-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0);
-}
-.chat .content .conversasion.ng-leave.ng-leave-active,
-.chat .content:not(.stateChat) .menu-content {
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
 .chat .content.stateChat .menu-content svg,
 .chat .content.stateChat .menu-content .chat-counter {
   -moz-animation: fadeout 0.2s;
@@ -371,18 +371,25 @@
   animation: fadein 0.2s;
   /* Opera */
 }
-.chat .content .menu-content {
+.chat .content.stateChat .menu-content {
+  left: 100%;
+}
+.chat .content.stateChat .conversasion {
   left: 0;
+}
+.chat .content:not(.stateChat) .menu-content {
+  left: 0;
+}
+.chat .content:not(.stateChat) .conversasion {
+  left: -100%;
 }
 .chat .content .conversasion,
 .chat .content .menu-content {
+  transition: left 0.3s;
   position: absolute;
   top: 0;
   width: 100%;
   height: calc(100vh - 70px);
-}
-.chat .content .conversasion {
-  left: -100%;
 }
 .chat .content .conversasion .header {
   display: -webkit-flex;
@@ -649,13 +656,18 @@
   border-radius: 100%;
   background: #3293f6;
   position: absolute;
-  right: 35px;
-  bottom: 13px;
-  box-shadow: 0 0 1px 2px #eeeeee;
+  right: 37px;
+  bottom: 7px;
 }
 .chat .content .user .img-circle {
-  margin: 0 10px;
+  margin: 0 8px;
   flex-shrink: 0;
+}
+.theme-dark .chat .content .user.online:before {
+  box-shadow: 0 0 1px 2px #282828;
+}
+.theme-light .chat .content .user.online:before {
+  box-shadow: 0 0 1px 2px #f9f9f9;
 }
 .chat-item-preview {
   max-height: 95vh;

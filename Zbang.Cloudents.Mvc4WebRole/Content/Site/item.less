@@ -22,6 +22,20 @@ md-menu-item {
     }
 }
 
+
+
+.mdno-touchevents .itemPage .name-actions{
+    button, a, .info {
+        &:hover {
+            color: @buttonColorBlue;
+
+            svg {
+                fill: @buttonColorBlue;
+            }
+        }
+    }
+}
+
 .itemPage {
     .fullPageElelment();
 
@@ -40,6 +54,10 @@ md-menu-item {
         min-height: @actionsNavHeight;
         display: block;
         padding: 10px 0;
+        .displayFlex;
+        flex-direction: column;
+        .align-items(center);
+
 
         .page-logo {
             svg {
@@ -117,8 +135,14 @@ md-menu-item {
         .top-wrapper {
             max-width: 800px;
             width: ~"calc(100% - 100px)";
+            padding: 0 16px;
             margin: 0 auto;
-            padding-left: 16px;
+
+            @media(max-width: 900px) {
+                padding-left: 60px;
+                padding-right: 0;
+                width: 100%;
+            }
 
             .name-actions {
                 .item-actions {
@@ -149,6 +173,10 @@ md-menu-item {
                     }
                 }
 
+                button.fb-like:hover {
+                    border-color: @buttonColorBlue;
+                }
+
                 md-menu button {
                     line-height: 0;
                 }
@@ -156,19 +184,22 @@ md-menu-item {
         }
 
         .close-btn {
-            position: absolute;
-            right: 0;
-            top: 20px;
-            padding: 0 10px 0 6px;
+            padding: 5px 20px;
+            border-left: 2px solid #888b8e;
+            margin-left: 5px;
 
-            @media(max-width: 600px) {
-                padding-right: 20px;
+            svg {
+                display: block;
             }
         }
     }
 
     .item-content {
         padding-top: 90px;
+
+        @media(min-width: 960px) {
+            padding-left: 95px;
+        }
     }
 
     md-select:not([disabled]):focus .md-select-value {
@@ -258,6 +289,7 @@ md-menu-item {
             line-height: 0;
             margin-left: 10px;
             position: relative;
+            cursor: pointer;
 
             &:hover:after {
                 content: '';
@@ -525,7 +557,7 @@ md-menu-item {
         padding: 0 10px;
 
         @media (min-width: 890px) {
-            margin-left: ~"calc(50% - 450px)";
+            margin-left: ~"calc(50% - 457px)";
         }
 
         svg {
@@ -606,7 +638,7 @@ md-menu-item {
 
 
 .raw-text {
-    color: @textColorBlack;
+    color: @textColorGrey;
 
     md-switch {
         margin: 20px auto;
@@ -625,7 +657,7 @@ md-menu-item {
             margin: 0 auto;
             background: #fff;
             min-height: 300px;
-            box-shadow: 0 3px 8px #dfe2e9;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
             border-radius: 15px;
             padding: 12px;
         }
@@ -700,7 +732,7 @@ md-menu-item {
     .preview-svg .svgContent, .preview-image .imageContent {
         background: #fff;
         border-radius: 15px;
-        box-shadow: 0 3px 8px @progressbarBackgroundColor;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
     }
 
     .preview-svg .svgContent {

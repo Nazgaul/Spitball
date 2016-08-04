@@ -39,7 +39,7 @@
         c.dialog = dialog;
         c.users = [];
         c.usersPaging = usersPaging;
-        c.lastSearch = '';
+        c.lastSearch = c.term = '';
         c.loadMoreMessages = loadMoreMessages;
         c.focusSearch = false;
 
