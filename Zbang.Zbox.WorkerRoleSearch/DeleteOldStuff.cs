@@ -83,6 +83,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     needLoop = false;
                     mailContent.AppendLine($"{prefix} number: {counter}");
                 }
+                
                 catch (Exception ex)
                 {
                     TraceLog.WriteError("delete old updates", ex);

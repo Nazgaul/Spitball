@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
@@ -39,7 +36,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet, ActionName("conversation")]
         public async Task<JsonResult> ChatRoomAsync(string q, int page)
         {
-            var model = await ZboxReadService.GetUsersConversationAndFriendsAsync(new GetUserConversationAndFriends(User.GetUserId(), User.GetUniversityId().Value, q, page, 30));
+            var model = await ZboxReadService.GetUsersConversationAndFriendsAsync(
+                new GetUserConversationAndFriends(User.GetUserId(), User.GetUniversityId().Value, q, page, 30));
             return JsonOk(model);
         }
 
