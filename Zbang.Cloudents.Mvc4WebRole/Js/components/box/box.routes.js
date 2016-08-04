@@ -11,7 +11,8 @@
                 config: {
                     url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/?{invId}',
                     controller: 'BoxController as b',
-                    //containerClass: 'boxState',
+                    //sticky: true,
+                    //dsr: true,
                     resolve: {
                         boxData: [
                             'boxService', '$stateParams', function (boxService, $stateParams) {
@@ -20,7 +21,7 @@
                             }
                         ]
                     },
-                    data: { animateClass: 'class' },
+                    data: { animateClass: 'class' }
                 },
                 templateUrl: '/box/indexpartial/'
             },
@@ -42,23 +43,16 @@
                         }]
 
                     }
-                    //resolve: {
-                    //    feedData: ['boxService', '$stateParams', function (boxService, $stateParams) {
-                    //        boxService.getFeed(boxId, page).then(function (response) {
-                    //            self.data = response;
-                    //            assignData();
-
-                    //        });
-                    //    }]
-                    //}
                 },
                 templateUrl: '/box/feedpartial/'
             }, {
                 state: 'box.items',
                 config: {
-                    url: 'items/',
+                    url: 'items/?tabId&q',
                     controller: 'ItemsController as i',
-                    parent: 'box'
+                    parent: 'box',
+                    reloadOnSearch: false
+                    //deepStateRedirect: { default: "box.items" }
                 },
                 templateUrl: '/box/itemspartial/'
             }, {

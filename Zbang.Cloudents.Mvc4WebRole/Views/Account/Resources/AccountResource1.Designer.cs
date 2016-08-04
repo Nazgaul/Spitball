@@ -214,6 +214,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In order to receive the password reset mail, you have been re-added to the spitball mailing list. You can unsubscribe after the password reset has been complete through the &quot;User Settings&quot; screen of your Spitball account.
+        /// </summary>
+        public static string EmailUnsubscribeWarning {
+            get {
+                return ResourceManager.GetString("EmailUnsubscribeWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter verification code.
         /// </summary>
         public static string EnterVerification {

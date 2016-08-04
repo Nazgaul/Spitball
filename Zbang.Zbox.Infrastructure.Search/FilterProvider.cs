@@ -14,7 +14,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_UniversityWithCodeProvider = universityWithCode;
         }
 
-        public async Task<string> BuildFilterExpression(long universityId, string uniIdField, string userField, long userId)
+        public async Task<string> BuildFilterExpressionAsync(long universityId, string uniIdField, string userField, long userId)
         {
             if (m_UniversityWithcode == null)
             {
@@ -34,6 +34,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
     public interface ISearchFilterProvider
     {
-        Task<string> BuildFilterExpression(long universityId, string uniIdField, string userField, long userId);
+        Task<string> BuildFilterExpressionAsync(long universityId, string uniIdField, string userField, long userId);
     }
 }

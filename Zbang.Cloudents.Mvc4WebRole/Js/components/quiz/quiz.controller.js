@@ -2,9 +2,11 @@
 (function () {
     angular.module('app.quiz').controller('QuizController', quiz);
 
-    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter', 'userDetailsFactory', '$rootScope', '$scope', 'CacheFactory'];
+    quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter',
+        'userDetailsFactory', '$rootScope', '$scope', 'CacheFactory', '$previousState', '$location'];
 
-    function quiz(quizData, $timeout, $stateParams, quizService, $filter, userDetailsFactory, $rootScope, $scope, cacheFactory) {
+    function quiz(quizData, $timeout, $stateParams, quizService, $filter,
+        userDetailsFactory, $rootScope, $scope, cacheFactory, $previousState, $location) {
 
         var q = this;
         q.states = {
@@ -72,7 +74,14 @@
             q.classmatesCount = response.solversCount;
         });
 
+        q.backToBox = backToBox;
 
+        function backToBox() {
+            if ($previousState.get()) {
+                $previousState.go();
+            }
+            $location.url(q.boxUrl);
+        }
 
 
         function start() {
@@ -128,7 +137,7 @@
                 var answer;
                 for (var i = 0; i < question.answers.length /*&& !found*/; i++) {
                     answer = question.answers[i];
-                    if (question.correctAnswer == answer.id) {
+                    if (question.correctAnswer === answer.id) {
                         question.selectedAnswer = answer;
                         question.isCorrect = true;
                     }
@@ -144,13 +153,13 @@
             var question, answer;
             angular.forEach(q.sheet.questions, function (map) {
                 for (var i = 0 ; i < q.questions.length; i++) {
-                    if (q.questions[i].id != map.questionId) {
+                    if (q.questions[i].id !== map.questionId) {
                         continue;
                     }
                     question = q.questions[i];
 
                     for (var jj = 0; jj < question.answers.length; jj++) {
-                        if (question.answers[jj].id != map.answerId) {
+                        if (question.answers[jj].id !== map.answerId) {
                             continue;
                         }
 
@@ -197,7 +206,7 @@
                 return false;
             }
 
-            return question.correctAnswer == answer.id ? true : false;
+            return question.correctAnswer === answer.id ? true : false;
         }
 
         function selectAnswer(question, answer) {
@@ -214,7 +223,7 @@
 
         function assignAnswerToQuestion(question, answer) {
             question.selectedAnswer = answer;
-            question.isCorrect = question.correctAnswer == answer.id;
+            question.isCorrect = question.correctAnswer === answer.id;
             q.answersCount++;
         }
 
@@ -261,7 +270,7 @@
             var timeTaken = $filter('stopwatch')(q.timerControl.getTime()),
                     correct = 0;
             angular.forEach(q.questions, function (c) {
-                if (c.isCorrect == true) {
+                if (c.isCorrect === true) {
                     correct++;
                 }
             });

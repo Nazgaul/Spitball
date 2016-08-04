@@ -7,7 +7,7 @@
 
 <header layout="row" layout-align="space-between center">
     <div class="ellipsis text-center" id="quiz-top" ng-bind-html="::q.name"></div>
-    <button type="button" ng-click="app.back(q.boxUrl)" class="close" ga-track-event="['quiz', 'close quiz']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+    <button type="button" ng-click="q.backToBox()" class="close" ga-track-event="['quiz', 'close quiz']">@Html.Svg("~/images/site/icons.svg", "close")</button>
 </header>
 
 <div md-swipe-left="q.swipeLeft()" md-swipe-right="q.swipeRight()">
@@ -109,7 +109,7 @@
                                 </md-menu-item>
                             </md-menu-content>
                         </md-menu>
-                        <div  ng-bind-html="::post.content | embed : {linkTarget:'_blank'}" class="indent content-text"></div>
+                        <div  ng-bind-html="::post.content | linky:'_blank'" class="indent content-text"></div>
                     </li>
                 </ol>
             </div>

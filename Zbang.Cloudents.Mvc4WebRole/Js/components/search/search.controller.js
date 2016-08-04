@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.search').controller('SearchController', search);
 
-    search.$inject = ['searchService', 'itemThumbnailService', '$q', '$rootScope', '$scope', 'Analytics',
-        '$stateParams', '$location', '$state', '$timeout', 'dashboardService'];
+    search.$inject = ['searchService', 'itemThumbnailService', '$q', '$rootScope', 'Analytics',
+        '$stateParams', '$location', '$state', '$timeout', 'dashboardService', '$previousState'];
     function search(searchService, itemThumbnailService, $q, $rootScope,
-        $scope, analytics, $stateParams, $location, $state, $timeout, dashboardService) {
+        analytics, $stateParams, $location, $state, $timeout, dashboardService, $previousState) {
         var self = this, page = 0, needToBringMore = true, term;
         self.state = {
             box: 'box',
@@ -24,7 +24,10 @@
 
         self.back = function () {
             $rootScope.$broadcast('search-close');
-            $scope.app.back('/dashboard/');
+            if ($previousState.get()) {
+                $previousState.go();
+            }
+            $state.go('dashboard');
         }
 
         self.myPagingFunction = function () {

@@ -4,6 +4,8 @@ var app;
     "use strict";
     app = angular.module('app', [
          'ui.router',
+         'ct.ui.router.extras',
+         //'ct.ui.router.extras.previous',
          'ngSanitize',
          'ui.bootstrap',
          'angular-google-analytics',
@@ -11,7 +13,7 @@ var app;
          'ngAnimate',
          'ngMessages',
          'ngMaterial',
-         'ngEmbed',
+         //'ngEmbed',
          'textAngular',
          'ang-drag-drop',
          'angular-plupload',

@@ -207,4 +207,7 @@
   <data name="EmailSettingsUnsubscribe" xml:space="preserve">
     <value>לא מאשר</value>
   </data>
+  <data name="EmailUnsubscribeWarning" xml:space="preserve">
+    <value>על מנת שמייל איפוס סיסמה יישלח אלייך, הוספת מחדש לרשימת התפוצה של ספיטבול. ביכולתך להסיר את עצמך מהרשימה דרך עמוד "הגדרות" של החשבון שלך במערכת ספיטבול</value>
+  </data>
 </root>

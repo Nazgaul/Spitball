@@ -636,6 +636,24 @@
     <Content Include="bower_components\textAngular\dist\textAngular.rtl.css">
       <DependentUpon>textAngular.css</DependentUpon>
     </Content>
+    <Content Include="bower_components\ui-router-extras\gulpfile.js" />
+    <Content Include="bower_components\ui-router-extras\release\ct-ui-router-extras.js" />
+    <Content Include="bower_components\ui-router-extras\release\ct-ui-router-extras.min.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.core.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.core.min.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.dsr.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.dsr.min.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.future.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.future.min.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.previous.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.previous.min.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.statevis.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.statevis.min.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.sticky.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.sticky.min.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.transition.js" />
+    <Content Include="bower_components\ui-router-extras\release\modular\ct-ui-router-extras.transition.min.js" />
+    <Content Include="bower_components\ui-router-extras\umd.js" />
     <Content Include="Content\angular-material.css" />
     <Content Include="Content\angular-material.layouts.css" />
     <Content Include="Content\Bootstrap\bootstrap.css" />
@@ -846,6 +864,12 @@
     <Content Include="bower_components\ng-embed\package.json" />
     <Content Include="bower_components\ng-embed\README.md" />
     <Content Include="bower_components\ng-embed\RELEASES.md" />
+    <Content Include="bower_components\ui-router-extras\.bower.json" />
+    <Content Include="bower_components\ui-router-extras\banners.json" />
+    <Content Include="bower_components\ui-router-extras\bower.json" />
+    <Content Include="bower_components\ui-router-extras\CHANGELOG.md" />
+    <Content Include="bower_components\ui-router-extras\LICENSE" />
+    <Content Include="bower_components\ui-router-extras\README.md" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

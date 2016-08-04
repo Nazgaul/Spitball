@@ -2,12 +2,14 @@
 (function () {
     angular.module('app.box.items').controller('TabsController', tabs);
     tabs.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog',
-        '$scope', '$q', 'resManager'];
+        '$scope', '$q', 'resManager', '$state'];
 
-    function tabs(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, $q, resManager) {
+    function tabs(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, $q, resManager, $state) {
         var t = this,
-        boxId = $stateParams.boxId,
-        item = $scope.i;
+            boxId = $stateParams.boxId;//, tabId = $stateParams.tabId;
+        $scope.stateParams = $stateParams;
+        //t.tabId = $stateParams.tabId,
+        //item = $scope.i;
         t.uploadShow = true;
         t.tabChange = tabChange;
         t.upDir = upDir;
@@ -18,11 +20,25 @@
 
         boxService.getTabs(boxId).then(function (data) {
             t.tabs = data;
+            findSelectedItemFromUrl();
         });
+
+        function findSelectedItemFromUrl() {
+            if (!$stateParams.tabId) {
+                return;
+            }
+            var item = t.tabs.find(function (x) {
+                return x.id === $stateParams.tabId;
+            });
+            if (!item) {
+                $state.go('box.items', { tabId: null });
+            }
+            t.tabSelected = item;
+        }
 
         function renameTabOpen() {
             t.openRenameTab = true;
-            t.tabNewName = item.tabSelected.name;
+            t.tabNewName = t.tabSelected.name;
         }
 
         var submitDisabled = false;
@@ -48,20 +64,23 @@
         }
 
         function tabChange(tab) {
-            $rootScope.$broadcast('close-collapse');
-            $scope.setTab(tab);
-            $scope.$emit('resetParams');
-            $scope.$emit('getItems');
+            $state.go('box.items', { tabId: tab.id });
+            //$rootScope.$broadcast('close-collapse');
+            //$scope.setTab(tab);
+            //$scope.$emit('resetParams');
+            //$scope.$emit('getItems');
         }
 
         function upDir() {
             t.openRenameTab = false;
-            tabChange({});
+            //tabChange({});
+            $state.go('box.items', { tabId: null });
+            //$stateParams.tabId = null;
         }
 
         function renameTab() {
-            boxService.renameTab(item.tabSelected.id, t.tabNewName, boxId).then(function () {
-                item.tabSelected.name = t.tabNewName;
+            boxService.renameTab($stateParams.tabId, t.tabNewName, boxId).then(function () {
+                t.tabSelected.name = t.tabNewName;
                 t.openRenameTab = false;
             }, function (response) {
                 $scope.app.showToaster(response, 'tabSection');
@@ -76,12 +95,28 @@
                  .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
-                var index = t.tabs.indexOf(item.tabSelected);
+                var index = t.tabs.indexOf(t.tabSelected);
                 t.tabs.splice(index, 1);
-                boxService.deleteTab(item.tabSelected.id, boxId).then(function () {
+                boxService.deleteTab($stateParams.tabId, boxId).then(function () {
                     upDir();
                 });
             });
         }
+
+        $scope.$watch(function () {
+            return $state.params.tabId;
+        }, function (newParams, oldParams) {
+            if (newParams !== oldParams) {
+                if (newParams) {
+                    findSelectedItemFromUrl();
+                } else {
+                    t.tabSelected = null;
+                }
+            }
+        });
+        $scope.$on('tab-item-remove',
+            function() {
+                t.tabSelected.count--;
+            });
     }
 })();

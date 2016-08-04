@@ -169,7 +169,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
 
-            var filter = await m_FilterProvider.BuildFilterExpression(
+            var filter = await m_FilterProvider.BuildFilterExpressionAsync(
                query.UniversityId, UniversityidField, UserIdsField, query.UserId);
 
             var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(query.Term, new SearchParameters
@@ -195,7 +195,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
 
-            var filter = await m_FilterProvider.BuildFilterExpression(
+            var filter = await m_FilterProvider.BuildFilterExpressionAsync(
                query.UniversityId, UniversityidField, UserIdsField, query.UserId);
 
             var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(query.Term, new SearchParameters
@@ -228,7 +228,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             {
                 term += "*";
             }
-            var filter = await m_FilterProvider.BuildFilterExpression(
+            var filter = await m_FilterProvider.BuildFilterExpressionAsync(
                query.UniversityId, UniversityidField, UserIdsField, query.UserId);
 
             var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(term, new SearchParameters

@@ -207,4 +207,7 @@
   <data name="EmailSettingsUnsubscribe" xml:space="preserve">
     <value>Unsubscribe</value>
   </data>
+  <data name="EmailUnsubscribeWarning" xml:space="preserve">
+    <value>In order to receive the password reset mail, you have been re-added to the spitball mailing list. You can unsubscribe after the password reset has been complete through the "User Settings" screen of your Spitball account</value>
+  </data>
 </root>
