@@ -2,6 +2,7 @@
 {
     public static class Email
     {
+        //TODO: need to check if we can remove recompile option
         public const string GetUserListByNotificationSettings =
             @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
       from zbox.userboxrel ub 
@@ -12,7 +13,7 @@
 	 and DATEADD(minute,-(@NotificationTime), @currentDate) < nu.CreationTime
       order by userid
 	  offset @pageNumber*@rowsperpage ROWS
-	  FETCH NEXT @rowsperpage ROWS ONLY;";
+	  FETCH NEXT @rowsperpage ROWS ONLY option(Recompile);";
 	
    //         @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
    //   from zbox.userboxrel ub 
