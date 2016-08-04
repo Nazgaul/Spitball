@@ -80,9 +80,7 @@
                             </md-menu-content>
                         </md-menu>
                     </div>
-                    <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl); " ga-track-event="['itemPage', 'close']">
-                        @Html.Svg("~/images/site/icons.svg", "close")
-                    </button>
+                    <button class="close-btn" type="button" ng-click="i.back()" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
 
                 </div>
             </div>
@@ -93,7 +91,6 @@
                     <span>{{::i.details.date | date : 'mediumDate'}}</span>
                 </div>
             </div>
-            <button class="close-btn" type="button" ng-click="i.back()" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
         </div>
     </header>
     <div class="item-content" md-swipe-left="i.swipeLeft()" md-swipe-right="i.swipeRight()">

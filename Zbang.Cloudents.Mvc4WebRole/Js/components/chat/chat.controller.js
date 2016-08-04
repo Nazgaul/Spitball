@@ -54,7 +54,6 @@
             scrollInertia: 50
         }
 
-
         $scope.$watch(function () {
             return $scope.app.chatDisplayState !== chatDisplay.hidden;
         }, function (val) {
@@ -62,7 +61,6 @@
                 resetChat();
                 return;
             }
-            //hack which i dont like
             search();
         });
 
