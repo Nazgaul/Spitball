@@ -4,21 +4,30 @@
     {
         
         public const string GetUsersConversationAndFriends =
-            @"SELECT e2.chatroomid as Conversation,cr.UpdateTime,  e1.Unread, u.userid as id,username as name, UserImageLarge as image, online, Url as url ,LastAccessTime as lastSeen
-FROM zbox.ChatUser e1, zbox.ChatUser e2 join zbox.Users u on e2.UserId = u.userid join zbox.ChatRoom cr on e2.ChatRoomId = cr.Id
+            @"SELECT 1 as section, e2.chatroomid as Conversation,cr.UpdateTime,  e1.Unread, u.userid as id,username as name, UserImageLarge as image, online, Url as url ,LastAccessTime as lastSeen
+FROM zbox.ChatUser e1, 
+zbox.ChatUser e2 join zbox.Users u on e2.UserId = u.userid 
+join zbox.ChatRoom cr on e2.ChatRoomId = cr.Id
 WHERE e1.ChatRoomId = e2.ChatRoomId 
 AND e1.id != e2.id
 and e1.userid = @UserId
 and u.UserName like  @term + '%'
-union 
-select null as Conversation, null,  null as Unread ,u.userid as id,username as name, UserImageLarge as image, online, Url as url,LastAccessTime as lastSeen
+union all
+select distinct 2 as section, null as Conversation, null,  null as Unread ,u.userid as id,username as name, UserImageLarge as image, online, Url as url,LastAccessTime as lastSeen
+from zbox.users u
+join zbox.userboxrel ub1 on ub1.userid = u.userid
+join zbox.userboxrel ub2 on ub1.boxid = ub2.boxid
+and ub2.userid = @UserId
+and u.UserName like  @term + '%'
+union all
+select 3 as section, null as Conversation, null,  null as Unread ,u.userid as id,username as name, UserImageLarge as image, online, Url as url,LastAccessTime as lastSeen
 from zbox.users u
 where u.UniversityId = @Universityid
-and u.UserName like  @term + '%'
 and u.userid <> @UserId
-order by cr.UpdateTime desc , u.online desc, u.LastAccessTime desc
+and u.UserName like  @term + '%'
+order by section, cr.UpdateTime desc , u.online desc, u.LastAccessTime desc
 offset @PageNumber*@RowsPerPage ROWS
-FETCH NEXT @RowsPerPage ROWS ONLY;";
+FETCH NEXT @RowsPerPage ROWS ONLY  option(Recompile);";
 
         //TODO: need to check if we can remove recompile option
         //http://blogs.solidq.com/en/sqlserver/identifying-solving-sort-warnings-problems-sql-server/
