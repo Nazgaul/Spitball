@@ -76,7 +76,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/menu.css",
                         "~/content/site/chat.css",
                         "~/content/site/header.css",
-                        "~/content/jquery.bxslider.css",
+                        //"~/content/jquery.bxslider.css",
                         //"~/content/site/ng-embed.css",
 
                         "~/content/site/general.css", // this should be on top
@@ -193,7 +193,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
                         new JsFileWithCdn("~/scripts/angular-dfp.js"),
-                        new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
+                        //new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/bower_components/angular-timeago/dist/angular-timeago.min.js"),
                         //new JsFileWithCdn("~/bower_components/ng-embed/dist/ng-embed.min.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),

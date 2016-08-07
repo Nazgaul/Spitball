@@ -3,11 +3,11 @@
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
-        'resManager', 'CacheFactory', '$q', 'routerHelper', '$window', '$filter', 'feedData', 'updates'];
+        'resManager',  'routerHelper',  '$filter', 'feedData', 'updates'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager, cacheFactory, $q, routerHelper, $window, $filter, feedData, updates) {
+        $mdDialog, $scope, $rootScope, resManager,  routerHelper,  $filter, feedData, updates) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), top = 15;
 
         self.add = {
@@ -156,11 +156,14 @@
             });
         }
 
+        //self.limitFiles = 100;
         function assignData(data) {
             for (var i = 0; i < data.length; i++) {
                 var currentPost = data[i];
+                currentPost.limitFiles = 2;
                 // currentPost.creationTime = $filter('date')(currentPost.creationTime, 'medium');
                 var files = currentPost.files;
+                currentPost.fileCount = files.length;
                 for (var j = 0; j < files.length; j++) {
                     var item = files[j];
                     if (item.done) {
@@ -483,7 +486,7 @@
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         file.system = obj.payload.item;
-                        cacheFactory.clearAll();
+                        //cacheFactory.clearAll();
                     }
                 },
                 uploadComplete: function () {
@@ -505,34 +508,34 @@
         //    return tagsToReplace[tag] || tag;
         //}
 
-        function extractUrls(d) {
-            if (!d) {
-                return;
-            }
-            var urlex = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))/i;
+        //function extractUrls(d) {
+        //    if (!d) {
+        //        return;
+        //    }
+        //    var urlex = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))/i;
 
-            var array = d.match(urlex) || [];
-            var matches = [];
-            for (var k = 0; k < array.length; k++) {
-                if (matches.indexOf(array[k]) < 0)
-                    matches.push(array[k]);
-            }
-            if (!matches.length) {
-                return d;
-            }
-            for (var i = 0; i < matches.length; i++) {
-                var url = matches[i];
-                if (!url) {
-                    continue;
-                }
-                if (url.indexOf('http') !== 0) {
-                    url = 'http://' + url;
-                }
-                d = d.replace(matches[i], "<a target=\"_blank\" href=\"" + url + "\">" + matches[i] + "</a>");
-            }
+        //    var array = d.match(urlex) || [];
+        //    var matches = [];
+        //    for (var k = 0; k < array.length; k++) {
+        //        if (matches.indexOf(array[k]) < 0)
+        //            matches.push(array[k]);
+        //    }
+        //    if (!matches.length) {
+        //        return d;
+        //    }
+        //    for (var i = 0; i < matches.length; i++) {
+        //        var url = matches[i];
+        //        if (!url) {
+        //            continue;
+        //        }
+        //        if (url.indexOf('http') !== 0) {
+        //            url = 'http://' + url;
+        //        }
+        //        d = d.replace(matches[i], "<a target=\"_blank\" href=\"" + url + "\">" + matches[i] + "</a>");
+        //    }
 
-            return d;
-        }
+        //    return d;
+        //}
     }
 })();
 
