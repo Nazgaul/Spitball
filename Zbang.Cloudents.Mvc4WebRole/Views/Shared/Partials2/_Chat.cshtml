@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="chat-content">
-                <ul class="messages" disable-thouch ng-scrollbars ng-scrollbars-update="c.updateScrollbar" ng-scrollbars-config="c.scrollSetting" @*infinite-scrollbars-direction="up" infinite-scrollbars-function="c.loadMoreMessages"*@ @*ng-slimscroll height="calc(100vh - 120px)" start="bottom" watch-content="true" color="#BBB"*@>
+                <ul class="messages" disable-thouch ng-scrollbars ng-scrollbars-update="c.updateScrollbar" ng-scrollbars-config="c.scrollSetting">
                     <li class="message" ng-repeat="e in c.messages" ng-class="{partner: e.partner}">
                         <div ng-if="e.text" class="text" ng-bind-html="::e.text | linky:'_blank'"></div>
                         <div ng-if="e.blob" class="image" ng-click="c.dialog(e.blob, $event)" ga-track-event="['chat', 'opened-attachment']">

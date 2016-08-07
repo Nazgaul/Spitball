@@ -3,11 +3,11 @@
     angular.module('app.chat').controller('ChatController', chat);
     chat.$inject = ['$timeout', '$scope', 'realtimeFactotry',
         'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService',
-        '$mdDialog', 'routerHelper', '$document', 'notificationService', 'resManager', 'userService', '$window'];
+        '$mdDialog', 'routerHelper', '$document', 'notificationService', 'resManager'];
 
     function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
-        notificationService, resManager, userService, $window) {
+        notificationService, resManager) {
         var c = this, chunkSize = 2147483647/*($window.innerHeight <= 600) ? 10 : 20*/, top = 0, fromid, page = 0,
             connectionStatuses = {
                 connected: 1,
@@ -97,11 +97,11 @@
         }
         function toggle() {
             if ($scope.app.chatDisplayState === chatDisplay.collapsed) {
-                $scope.app.chatDisplayState = chatDisplay.expanded
+                $scope.app.chatDisplayState = chatDisplay.expanded;
             }
             else {
                 backFromChat();
-                $scope.app.chatDisplayState = chatDisplay.collapsed
+                $scope.app.chatDisplayState = chatDisplay.collapsed;
             }
             //$scope.app.chatDisplayState = $scope.app.chatDisplayState === chatDisplay.collapsed ? chatDisplay.expanded : chatDisplay.collapsed;
         }
@@ -124,7 +124,18 @@
         function search(term, loadNextPage) {
             chatBus.messages(term, page).then(function (response) {
                 if (loadNextPage) {
-                    c.users = c.users.concat(response);
+                    c.users = makeUnique(c.users.concat(response));
+
+
+                    function makeUnique(array) {
+                        var flags = [], output = [], l = array.length, i;
+                        for (i = 0; i < l; i++) {
+                            if (flags[array[i].id]) continue;
+                            flags[array[i].id] = true;
+                            output.push(array[i]);
+                        }
+                        return output;
+                    }
                 } else {
                     page = 0;
                     c.users = response;
@@ -190,7 +201,7 @@
         }
 
         $scope.$on('open-chat-user', function (e, args) {
-            $mdSidenav('chat').open();
+            //$mdSidenav('chat').open();
             conversation(args);
         });
         $scope.$on('preview-ready', function (e, args) {
@@ -227,7 +238,7 @@
                     c.messages.push({
                         text: args.message,
                         time: new Date().toISOString(),
-                        partner: false,
+                        partner: false
                     });
                 }
                 if (args.blob && !attachments.length) {
@@ -302,7 +313,7 @@
                 });
             }
             function onNotificationClick() {
-                $mdSidenav('chat').open();
+                //$mdSidenav('chat').open();
                 var partner = getConversationPartner(args.chatRoom);
                 conversation(partner);
             }

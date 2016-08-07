@@ -1,12 +1,13 @@
 ﻿'use strict';
 (function () {
     angular.module('app').controller('AppController', appController);
-    appController.$inject = ['$rootScope', '$window', '$location',  '$state',
-        'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager', 'CacheFactory', '$scope', '$mdSidenav'
+    appController.$inject = ['$rootScope',  '$location',  
+        'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager',
+        'CacheFactory', '$scope', 'realtimeFactotry'
     ];
 
-    function appController($rootScope, $window, $location, $state, userDetails, $mdToast,
-        $document, $mdMenu, resManager, cacheFactory, $scope, $mdSidenav) {
+    function appController($rootScope,  $location,  userDetails, $mdToast,
+        $document, $mdMenu, resManager, cacheFactory, $scope, realtimeFactotry) {
         var self = this;
         $rootScope.$on('$viewContentLoaded', function () {
             var path = $location.path(),
@@ -24,18 +25,6 @@
 
         self.setTheme = setTheme;
 
-        //self.back = function (defaultUrl) {
-        //    var element = h.popElement();
-        //    if (!element) {
-        //        $location.url(defaultUrl);
-        //        return;
-        //    }
-        //    if (typeof element === 'string') {
-        //        $location.url(element);
-        //    }
-        //    $rootScope.$broadcast('from-back');
-        //    $state.go(element.name, element.params);
-        //};
 
         self.logOut = logOut;
         self.openMenu = openMenu;
@@ -65,9 +54,6 @@
             $rootScope.$broadcast('open-menu');
         }
 
-        //function toggleChat() {
-        //    $rootScope.$broadcast('toggle-chat');
-        //}
 
         function showToaster(text, parentId, theme) {
             var element = $document.find('header')[0];
@@ -108,13 +94,26 @@
         self.showMenu = self.showSearch = self.showChat = true;
         self.showBoxAd = false;
 
-        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             self.showBoxAd = toState.parent === 'box';
             self.showChat = self.showSearch = !(toState.name === 'universityChoose');
             self.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
-            if (toState.name === 'universityChoose') {
-                $mdSidenav('chat').close();
+
+            //hub
+            if (toState.name.startsWith('box')) {
+                console.log('enter', toParams.boxId);
+                realtimeFactotry.enterBox(toParams.boxId);
+                if (toParams.boxId !== fromParams.boxId) {
+                    console.log('leave', fromParams.boxId);
+                    realtimeFactotry.leaveBox(fromParams.boxId);
+                }
+            } else {
+                console.log('leave', fromParams.boxId);
+                realtimeFactotry.leaveBox(fromParams.boxId);
             }
+            //if (toState.name === 'universityChoose') {
+            //    $mdSidenav('chat').close();
+            //}
         });
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -129,7 +128,7 @@
             $mdMenu.hide(); //closes menu
             $mdToast.hide(); // hide toasters
             $rootScope.$broadcast('close-menu');
-
+            $rootScope.$broadcast('close-collapse');
             var toStateName = toState.name;
             if (toStateName !== 'searchinfo') {
                 $rootScope.$broadcast('search-close');
@@ -140,11 +139,11 @@
                     $rootScope.$broadcast('state-change-start-prevent');
                 }
             }
+            
             if (toStateName === 'settings' && fromState.name.startsWith('settings')) {
                 event.preventDefault();
                 $rootScope.$broadcast('state-change-start-prevent');
             }
-            $rootScope.$broadcast('close-collapse');
             if (!userDetails.isAuthenticated()) {
                 return;
             }
@@ -161,7 +160,7 @@
         });
 
         $scope.$watch(
-        userDetails.getUniversity,
+            userDetails.getUniversity,
         function (val) {
             if (val) {
                 initChat();

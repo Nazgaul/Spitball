@@ -7,8 +7,8 @@ namespace Zbang.Zbox.Domain.Commands
     public class CreateGoogleUserCommand : CreateUserCommand
     {
         public const string ResolveName = "Google";
-        public CreateGoogleUserCommand(string email, string googleId, string image, string firstName, string lastName, string culture, Sex sex, NameValueCollection parameters, Guid? inviteId = null, long? boxId = null)
-            : base(email, firstName, lastName, culture, inviteId, boxId, sex, parameters)
+        public CreateGoogleUserCommand(string email, string googleId, string image, string firstName, string lastName, string culture, Sex sex, NameValueCollection parameters, Guid? inviteId = null, long? boxId = null, long? universityId = null)
+            : base(email, universityId, firstName, lastName, culture, inviteId, boxId, sex, parameters)
         {
             GoogleId = googleId;
             Image = image;

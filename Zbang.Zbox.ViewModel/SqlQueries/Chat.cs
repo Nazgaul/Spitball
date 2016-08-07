@@ -2,7 +2,8 @@
 {
     public static class Chat
     {
-        
+        //TODO: need to check if we can remove recompile option
+        //http://blogs.solidq.com/en/sqlserver/identifying-solving-sort-warnings-problems-sql-server/
         public const string GetUsersConversationAndFriends =
             @"SELECT 1 as section, e2.chatroomid as Conversation,cr.UpdateTime,  e1.Unread, u.userid as id,username as name, UserImageLarge as image, online, Url as url ,LastAccessTime as lastSeen
 FROM zbox.ChatUser e1, 

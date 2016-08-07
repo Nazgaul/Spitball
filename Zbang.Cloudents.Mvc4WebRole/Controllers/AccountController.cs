@@ -88,11 +88,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
 
                     var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
-                    Guid? invId = null;
-                    if (inv != null)
-                    {
-                        invId = inv.InviteId;
-                    }
+                    var university = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
+                    //Guid? invId = null;
+                    //if (inv != null)
+                    //{
+                    //    invId = inv.InviteId;
+                    //}
 
                     model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl();
                     var command = new CreateGoogleUserCommand(googleUserData.Email,
@@ -103,8 +104,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         googleUserData.LastName,
                         googleUserData.Locale, Sex.NotKnown,
                         ExtractQueryStringFromUrlReferrer(),
-                        invId,
-                        model.BoxId
+                        inv?.InviteId,
+                        model.BoxId,
+                        university?.UniversityId
                         );
                     try
                     {
@@ -158,6 +160,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     IsPersistent = true,
                 }, identity);
                 m_CookieHelper.RemoveCookie(Invite.CookieName);
+                m_CookieHelper.RemoveCookie(UniversityCookie.CookieName);
                 var url = user.UniversityId.HasValue
                     ? Url.Action("Index", "Dashboard")
                     : Url.Action("Choose", "University");
@@ -229,18 +232,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
 
                     var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
-                    Guid? invId = null;
-                    if (inv != null)
-                    {
-                        invId = inv.InviteId;
-                    }
+                    var university = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
+                    
                     model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl();
 
                     var command = new CreateFacebookUserCommand(facebookUserData.Id, facebookUserData.Email,
                         facebookUserData.LargeImage,
                         facebookUserData.First_name,
                         facebookUserData.Last_name,
-                        facebookUserData.Locale, facebookUserData.SpitballGender, ExtractQueryStringFromUrlReferrer(), invId, model.BoxId);
+                        facebookUserData.Locale, facebookUserData.SpitballGender, ExtractQueryStringFromUrlReferrer(),
+                        inv?.InviteId,
+                        model.BoxId,
+                        university?.UniversityId);
                     var commandResult = await ZboxWriteService.CreateUserAsync(command);
                     user = new LogInUserDto
                     {
@@ -277,6 +280,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     IsPersistent = true,
                 }, identity);
                 m_CookieHelper.RemoveCookie(Invite.CookieName);
+                m_CookieHelper.RemoveCookie(UniversityCookie.CookieName);
                 var url = user.UniversityId.HasValue
                       ? Url.Action("Index", "Dashboard")
                       : Url.Action("Choose", "University");
@@ -414,6 +418,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             try
             {
                 var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
+                var universityId = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
                 // Guid userProviderKey;
 
                 var user = new ApplicationUser
@@ -424,11 +429,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 createStatus = await m_UserManager.CreateAsync(user, model.Password);
                 if (createStatus.Succeeded)
                 {
-                    Guid? invId = null;
-                    if (inv != null)
-                    {
-                        invId = inv.InviteId;
-                    }
                     var lang = m_LanguageCookie.ReadCookie();
                     if (!Languages.CheckIfLanguageIsSupported(lang))
                     {
@@ -437,7 +437,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     CreateUserCommand command = new CreateMembershipUserCommand(Guid.Parse(user.Id),
                         model.NewEmail,
                         model.FirstName, model.LastName,
-                        lang, model.Sex, ExtractQueryStringFromUrlReferrer(), invId, model.BoxId);
+                        lang, model.Sex, ExtractQueryStringFromUrlReferrer(), inv?.InviteId, model.BoxId, universityId?.UniversityId);
                     var result = await ZboxWriteService.CreateUserAsync(command);
                     m_LanguageCookie.InjectCookie(result.User.Culture);
 
@@ -454,6 +454,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         ? Url.Action("Index", "Dashboard")
                         : Url.Action("Choose", "University");
                     m_CookieHelper.RemoveCookie(Invite.CookieName);
+                    m_CookieHelper.RemoveCookie(UniversityCookie.CookieName);
                     return JsonOk(url);
 
 

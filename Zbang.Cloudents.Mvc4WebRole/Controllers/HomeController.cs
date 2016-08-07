@@ -56,6 +56,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     return new HttpNotFoundResult();
                 }
+                m_CookieHelper.InjectCookie(UniversityCookie.CookieName, new UniversityCookie { UniversityId = universityId.Value});
             }
             //if (step == "signin")
             //{
@@ -81,40 +82,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return View("Index", homeStats);
         }
-
-        //[ActionName("UniversityUrl"), HttpGet]
-        
-        //public async Task<ActionResult> UniversityUrlAsync(string invId, string universityName, string step)
-        //{
-        //    //return IndexAsync()
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        return RedirectToAction("Index", "Dashboard");
-        //    }
-        //    var universityId = await ZboxReadService.GetUniversityIdByUrlAsync(universityName);
-        //    if (!universityId.HasValue)
-        //    {
-        //        return new HttpNotFoundResult();
-        //    }
-        //    return await IndexAsync(invId, universityId.Value, step);
-        //}
+       
 
         [ActionName("Boxes"), HttpGet]
         public async Task<JsonResult> BoxesAsync()
         {
-
+            var value = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
             long? universityId = null;
-            if (HttpContext.Request.UrlReferrer != null)
+            if (value != null)
             {
-                var route = BuildRouteDataFromUrl(HttpContext.Request.UrlReferrer.AbsoluteUri);
-                var universityIdObj = route?.Values["universityId"];
-                long uniId;
-
-                if (long.TryParse(universityIdObj?.ToString(), out uniId))
-                {
-                    universityId = uniId;
-                }
+                universityId = value.UniversityId;
             }
+
+            
+            //if (HttpContext.Request.UrlReferrer != null)
+            //{
+                //var route = BuildRouteDataFromUrl(HttpContext.Request.UrlReferrer.AbsoluteUri);
+                //var universityIdObj = route?.Values["universityId"];
+                //long uniId;
+
+                //if (long.TryParse(universityIdObj?.ToString(), out uniId))
+                //{
+                //    universityId = uniId;
+                //}
+            //}
             var country = "US";
             var prefix = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
             if (prefix.ToLower() == "he")

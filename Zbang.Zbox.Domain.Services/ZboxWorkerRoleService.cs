@@ -50,6 +50,12 @@ namespace Zbang.Zbox.Domain.Services
         {
             return ExecuteSqlLoopAsync(new[]
             {
+                @"update zbox.box
+set isdirty = 1, isdeleted = 1 from zbox.box 
+where libraryid in (
+select libraryid from Zbox.Library where id in (
+select id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+))",
                 @"update Zbox.item
 set isdirty = 1, isdeleted = 1
  where  boxid in (

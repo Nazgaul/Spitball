@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain.Commands
     public abstract class CreateUserCommand : ICommandAsync
     {
         protected CreateUserCommand(string emailId, 
-            //long? universityId, 
+            long? universityId, 
             string firstName, 
             string lastName,
              string culture, Guid? inviteId, 
@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Domain.Commands
             //    universityId = null;
 
             //}
-           // UniversityId = universityId;
+            UniversityId = universityId;
             FirstName = firstName;
             LastName = lastName;
            
@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Domain.Commands
 
         
 
-        //public long? UniversityId { get; private set; }
+        public long? UniversityId { get; private set; }
 
         public long? BoxId { get; private set; }
 
