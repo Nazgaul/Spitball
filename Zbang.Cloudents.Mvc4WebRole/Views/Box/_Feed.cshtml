@@ -65,6 +65,10 @@
                         <div class="items-container">
                             <div bx-slider>
                                 <div bx-slider-item class="feed-item" ng-repeat="e in ::post.files track by e.id" ng-include="f.postItemTemplate(e)"></div>
+                                <div bx-slider-item class="feed-item more-items">
+                                    @Html.Svg("~/images/site/icons.svg", "documents")
+                                    <div class="counter">+15</div>
+                                </div>
                             </div>
                         </div>
                         <button ng-if="::post.files.length > 2" type="button" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>
@@ -123,6 +127,10 @@
                             <div class="items-container">
                                 <div bx-slider>
                                     <div bx-slider-item class="feed-item" ng-repeat="e in ::reply.files track by e.id" ng-include="f.postItemTemplate(e)"></div>
+                                    <div bx-slider-item class="feed-item more-items">
+                                        @Html.Svg("~/images/site/icons.svg", "documents")
+                                        <div class="counter">+15</div>
+                                    </div>
                                 </div>
                             </div>
                             <button type="button" ng-if="::reply.files.length > 2" class="items-next">@Html.Svg("~/images/site/box-icons.svg", "arrow")</button>

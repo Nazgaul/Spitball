@@ -337,6 +337,35 @@
             user-select: none;
             display: inline-block;
             margin-right: 10px /*rtl:ignore*/;
+
+            &.more-items {
+                border: 1px solid @textColorGrey;
+                padding: 5px;
+                position: relative;
+
+                svg {
+                    width: 100%;
+                    height: 100%;
+                    fill: #eeeeee;
+                    display: block;
+                }
+
+                .counter {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding: 0 10px 0 0;
+                    height: 100%;
+                    width: 100%;
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(center);
+                    text-align: center;
+                    color: @borderColorBottomGrey;
+                    font-size: 40px;
+                    font-weight: 600;
+                }
+            }
         }
     }
 
