@@ -4,6 +4,9 @@
     //account.$inject = ['$stateParams', '$state', 'userData'];
     realtimeFactotry.$inject = ['Hub', '$rootScope'];
     function realtimeFactotry(Hub, $rootScope) {
+        var self = this;
+        var commands = [];
+        var canSend = false;
         var hub = new Hub('spitballHub', {
             rootPath: (window.dChat || 'https://connect.spitball.co') + '/s',
             listeners: {
@@ -35,34 +38,41 @@
             },
             errorHandler: function (error) {
                 logError('signalr', 'errorHandler', error);
-                console.error(error);
+                //console.error(error);
             },
 
-            methods: ['send', 'changeUniversity'],
+            methods: ['send', 'changeUniversity', 'enterBox', 'leaveBox'],
             stateChanged: function (state) {
                 switch (state.newState) {
                     case $.signalR.connectionState.connecting:
-                        console.log('connecting');
+                        canSend = false;
+                        //console.log('connecting');
                         $rootScope.$broadcast('connection-state', {
                             status: 0
                         });
                         break;
                     case $.signalR.connectionState.connected:
-                        console.log('connected');
+                        canSend = true;
+                        for (var i = 0; i < commands.length; i++) {
+                            commands[i]();
+                        }
+                        commands = [];
+                        //console.log('connected');
                         $rootScope.$broadcast('connection-state', {
                             status: 1
                         });
                         break;
                     case $.signalR.connectionState.reconnecting:
-                        console.log('reconnecting');
+                        canSend = false;
+                        //console.log('reconnecting');
                         logError('signalr', 'reconnecting');
                         $rootScope.$broadcast('connection-state', {
                             status: 0
                         });
                         break;
                     case $.signalR.connectionState.disconnected:
-                        console.log('disconnected');
-                        //hub.connection.start();
+                        canSend = false;
+                        //console.log('disconnected');
                         logError('signalr', 'disconnected');
                         $rootScope.$broadcast('connection-state', {
                             status: 0
@@ -75,17 +85,43 @@
         hub.connection.disconnected(function () {
             setTimeout(function () {
                 hub.connection.start();
-            }, 500); // Restart connection after 5 seconds.
+            }, 5000); // Restart connection after 5 seconds.
         });
         var send = function (userId, message, conversationId, blob) {
             hub.send(userId, message, conversationId, blob);
         };
-        var changeUniversity = function (userId, message, conversationId, blob) {
+        var changeUniversity = function () {
             hub.changeUniversity();
         };
+
+        var enterBox = function (boxId) {
+            //if (!boxId) {
+            //    return;
+            //}
+            //if (canSend) {
+            //   // hub.invoke('enterBox', [boxId]);
+            //    hub.enterBox(boxId);
+            //} else {
+            //    commands.push(function() {
+            //        enterBox.apply(this, [boxId]);
+            //    });
+            //}
+        }
+        //function test(boxId) {
+        //    commands.push(enterBox.apply(this, [boxId]));
+        //}
+        var leaveBox = function (boxId) {
+            if (!boxId) {
+                return;
+            }
+            hub.leaveBox(boxId);
+        }
+
         return {
             sendMsg: send,
-            changeUniversity: changeUniversity
+            changeUniversity: changeUniversity,
+            enterBox: enterBox,
+            leaveBox: leaveBox
         };
 
 

@@ -46,6 +46,11 @@ namespace Zbang.Cloudents.Connect
             Clients.Users(users).updateImage(blobName);
         }
 
+        public void UpdateThumbnail(string blobName, long boxId)
+        {
+            Clients.Group($"box:{boxId}").updateThumbnail(blobName);
+        }
+
 
         public void Offline(long userId)
         {
@@ -65,6 +70,15 @@ namespace Zbang.Cloudents.Connect
             }
             Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
             Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetUserId());
+        }
+
+        public void EnterBox(long boxId)
+        {
+            Groups.Add(Context.ConnectionId, $"box:{boxId}");
+        }
+        public void LeaveBox(long boxId)
+        {
+            Groups.Remove(Context.ConnectionId, $"box:{boxId}");
         }
 
         public override Task OnConnected()
