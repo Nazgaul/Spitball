@@ -192,7 +192,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet, ActionName("Comment")]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> CommentsAsync(long itemId, CancellationToken cancellationToken)
+        public async Task<ActionResult> CommentsAsync(long itemId,long boxId, CancellationToken cancellationToken)
         {
             //var userId = User.GetUserId(false);
             var result = await ZboxReadService.GetItemCommentsAsync(new ItemCommentQuery(itemId));
