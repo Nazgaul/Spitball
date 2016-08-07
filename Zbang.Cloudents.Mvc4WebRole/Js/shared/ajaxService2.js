@@ -16,12 +16,16 @@
             html: {
                 maxAge: 30 * day
             },
-            department : {
+            department: {
                 maxAge: 15 * minute,
                 storageMode: 'sessionStorage'
             },
             itemComment: {
                 maxAge: 15 * minute,
+                storageMode: 'sessionStorage'
+            },
+            chat: {
+                maxAge: 30 * minute,
                 storageMode: 'sessionStorage'
             }
         };
@@ -209,7 +213,8 @@
         return {
             get: get,
             post: post,
-            getHtml: getHtml
+            getHtml: getHtml,
+            deleteCacheCategory: deleteCategory
         };
 
     }

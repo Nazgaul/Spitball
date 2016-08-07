@@ -301,7 +301,7 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query)
         {
-            return m_ReadService.GetBoxRecommendedCoursesAsync(query);
+            return m_Cache.QueryAsync(m_ReadService.GetBoxRecommendedCoursesAsync, query);
         }
 
 

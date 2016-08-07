@@ -2,11 +2,11 @@
 (function () {
     angular.module('app.chat').factory('realtimeFactotry', realtimeFactotry);
     //account.$inject = ['$stateParams', '$state', 'userData'];
-    realtimeFactotry.$inject = ['Hub', '$rootScope'];
-    function realtimeFactotry(Hub, $rootScope) {
-        var self = this;
+    realtimeFactotry.$inject = ['Hub', '$rootScope', 'ajaxService2'];
+    function realtimeFactotry(Hub, $rootScope, ajaxService2) {
+       // var self = this;
         var commands = [];
-        var canSend = false;
+        //var canSend = false;
         var hub = new Hub('spitballHub', {
             rootPath: (window.dChat || 'https://connect.spitball.co') + '/s',
             listeners: {
@@ -88,6 +88,7 @@
             }, 5000); // Restart connection after 5 seconds.
         });
         var send = function (userId, message, conversationId, blob) {
+            ajaxService2.deleteCacheCategory('cache');
             hub.send(userId, message, conversationId, blob);
         };
         var changeUniversity = function () {

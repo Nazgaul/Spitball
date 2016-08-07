@@ -8,6 +8,7 @@
         }
 
         public const string UniversityRegion = "university";
+        public const string BoxRegion = "box";
 
         public static string BuildNodesRegion(long universityId)
         {
@@ -18,5 +19,7 @@
         {
             return $"itemComment_{itemId}";
         }
+
+
     }
 }

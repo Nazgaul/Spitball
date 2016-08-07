@@ -411,7 +411,7 @@ namespace Zbang.Zbox.ReadServices
             using (var con = await DapperConnection.OpenConnectionAsync())
             {
                 return await con.QueryAsync<Box.RecommendBoxDto>(Sql.Box.RecommendedCourses,
-                    new { query.BoxId, query.UserId });
+                    new { query.BoxId });
             }
         }
         public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query)

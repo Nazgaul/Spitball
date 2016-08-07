@@ -227,18 +227,21 @@ var Login = function () {
     });
     // #endregion
 
-    var handleExtenalLogin = function () {
-        $('.facebook').click(function () {
-            facebookLogin();
-        });
+    var handleExtenalLogin = function() {
+        $('.facebook')
+            .click(function() {
+                facebookLogin();
+            });
 
-        $('.google').click(function () {
-            googleLogIn();
-        });
-        window.Intercom('boot', {
+        $('.google')
+            .click(function() {
+                googleLogIn();
+            });
+        window.Intercom('boot',
+        {
             app_id: "njmpgayv"
         });
-    }
+    };
 
     function disableState(elem) {
         $(elem).attr('disabled', 'disabed').addClass('disabled');
@@ -441,7 +444,7 @@ var Login = function () {
             window.history.replaceState({}, "", baseUrl + params);
         }
         return window.location.pathname + window.location.search;
-    };
+    }
 
     function getUrlVars() {
         var vars = [], hash;

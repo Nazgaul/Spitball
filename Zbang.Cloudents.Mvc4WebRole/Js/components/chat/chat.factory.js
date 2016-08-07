@@ -15,18 +15,15 @@
         };
 
         chatService.messages = function (q,page) {
-            return ajaxService.get('/chat/conversation', { q: q ,page: page});
+            return ajaxService.get('/chat/conversation', { q: q, page: page }, 'chat');
         }
         chatService.chat = function (id, userIds, dateTime, top) {
             return ajaxService.get('/chat/messages', {
                 chatRoom: id,
                 userIds: userIds,
                 startTime: dateTime,
-                //fromId: fromId, // instead dateTime
                 top: top
-                //skip: skip // remove
-
-            });
+            },'chat');
         }
         chatService.preview = function(blob, i) {
             return ajaxService.get('/chat/Preview', {
