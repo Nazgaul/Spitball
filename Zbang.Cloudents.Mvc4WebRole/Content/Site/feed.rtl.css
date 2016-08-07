@@ -268,7 +268,7 @@
 .feed .items-container .feed-item.more-items svg {
   width: 100%;
   height: 100%;
-  fill: #eeeeee;
+  fill: rgba(93, 96, 99, 0.15);
   display: block;
 }
 .feed .items-container .feed-item.more-items .counter {
@@ -288,7 +288,8 @@
   text-align: center;
   color: #5d6063;
   font-size: 40px;
-  font-weight: 600;
+  text-shadow: -1px 1px 0px #5d6063;
+  padding-top: 5px;
 }
 .feed .posts-list .actions .comment-btn,
 .feed .posts-list .actions .like-btn {
@@ -620,7 +621,7 @@
 }
 .feed .replies {
   padding: 15px 15px 0 15px;
-  background: #eeeeee;
+  background: #e9eaed;
 }
 .feed .comments-wrapper,
 .feed .add-comment .user-comment {
