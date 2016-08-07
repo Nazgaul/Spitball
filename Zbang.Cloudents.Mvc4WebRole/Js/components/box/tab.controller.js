@@ -116,7 +116,9 @@
         });
         $scope.$on('tab-item-remove',
             function() {
-                t.tabSelected.count--;
+                if (t.tabSelected) {
+                    t.tabSelected.count--;
+                }
             });
     }
 })();
