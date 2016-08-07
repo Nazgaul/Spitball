@@ -98,7 +98,7 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .SetParameterList("userEmail", emails)
                 .SetDateTime("dateTime", DateTime.UtcNow)
                 .ExecuteUpdate();
-            TraceLog.WriteInfo($"updating {x} users in type {type}");
+            //TraceLog.WriteInfo($"updating {x} users in type {type}");
 
         }
 

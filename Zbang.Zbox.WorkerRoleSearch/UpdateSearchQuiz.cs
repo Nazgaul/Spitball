@@ -96,5 +96,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             return TimeToSleep.Increase;
         }
+
+        protected override string GetPrefix()
+        {
+            return PrefixLog;
+        }
     }
 }

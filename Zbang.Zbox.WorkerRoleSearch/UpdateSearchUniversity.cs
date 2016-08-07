@@ -83,5 +83,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             return TimeToSleep.Same;
         }
+
+        protected override string GetPrefix()
+        {
+            return PrefixLog;
+        }
     }
 }

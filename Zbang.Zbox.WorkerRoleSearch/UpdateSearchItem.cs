@@ -60,30 +60,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     await DoProcessAsync(cancellationToken, index, count);
-                    //var itemUpdate = await UpdateItemAsync(index, count);
-                    //switch (itemUpdate)
-                    //{
-                    //    case TimeToSleep.Increase:
-                    //        await SleepAndIncreaseIntervalAsync(cancellationToken);
-                    //        break;
-                    //    case TimeToSleep.Min:
-                    //        m_Interval = MinInterval;
-                    //        break;
-                    //    case TimeToSleep.Same:
-                    //        await SleepAsync(cancellationToken);
-                    //        break;
-                    //    default:
-                    //        throw new ArgumentOutOfRangeException();
-                    //}
-                    //if (!itemUpdate)
-                    //{
-                    //    await SleepAndIncreaseIntervalAsync(cancellationToken);
-                    //}
-                    //else
-                    //{
-                    //    //TraceLog.WriteInfo($"{PrefixLog} min interval");
-                    //    m_Interval = MinInterval;
-                    //}
+                  
                 }
                 catch (TaskCanceledException)
                 {
@@ -101,22 +78,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             TraceLog.WriteError("On finish run");
         }
 
-        //private int m_Interval = MinInterval;
-        //private const int MinInterval = 10;
-        ////private int m_MaxInterval = MinInterval;
-        //private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
-        //{
-        //    TraceLog.WriteInfo($"{PrefixLog} going to sleep { m_Interval}");
-
-        //    await SleepAsync(cancellationToken);
-        //    m_Interval = m_Interval * 2;
-
-        //}
-
-        //private async Task SleepAsync(CancellationToken cancellationToken)
-        //{
-        //    await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
-        //}
 
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount)
@@ -148,6 +109,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 return TimeToSleep.Min;
             }
             return TimeToSleep.Same;
+        }
+
+        protected override string GetPrefix()
+        {
+            return PrefixLog;
         }
 
         private Processor GetProcessor(ItemSearchDto msgData)

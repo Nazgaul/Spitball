@@ -230,7 +230,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var query = new GetBoxSideBarQuery(id, User.GetUserId(false));
+                var query = new GetBoxSideBarQuery(id);
                 var result = await ZboxReadService.GetBoxRecommendedCoursesAsync(query);
                 return JsonOk(result);
             }
