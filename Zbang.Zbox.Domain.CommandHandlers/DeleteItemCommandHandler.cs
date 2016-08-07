@@ -59,7 +59,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var uploaderFileId = item.UploaderId;
             var usersAffectReputation = new List<long> { uploaderFileId };
 
-            if (item.Answer != null && string.IsNullOrEmpty(item.Answer.Text))
+            if (item.Answer != null && string.IsNullOrEmpty(item.Answer.Text) && item.Answer.Items.Count == 1) // only one answer
             {
                 m_CommentReplyRepository.Delete(item.Answer);
             }
