@@ -22,19 +22,25 @@
     <property name="CreationTime" type="DateTime2" not-null="true" insert="true" update="false" />
   </class>
 
-  <query name="DeleteUpdatesByBoxId">
+  <query name="DeleteUserUpdatesByBoxId">
     <![CDATA[
     delete from Updates c where c.User = :userid and c.Box = :boxId
     ]]>
   </query>
 
-  <query name="DeleteUpdatesByFeedId">
+  <!--<query name="DeleteUserUpdatesByFeedId">
     <![CDATA[
     delete from Updates c where c.User.Id = :userid and c.Box.Id = :boxId and c.Comment.Id = :CommentId
     ]]>
+  </query>-->
+
+  <query name="DeleteUpdatesByAnswerId">
+    <![CDATA[
+    delete from Updates c where c.Box.Id = :boxId and c.Reply.Id = :ReplyId
+    ]]>
   </query>
 
-  <query name="DeleteItemUpdatesByBoxId">
+  <query name="DeleteItemUpdatesByBoxIdUserId">
     <![CDATA[
     delete from Updates c where c.User.Id = :userid and c.Box.Id = :boxId and c.Item is not null
     ]]>

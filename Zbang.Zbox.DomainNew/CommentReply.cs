@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Domain
         public virtual User User { get; set; }
         public virtual string Text { get;  set; }
         public virtual Box Box { get; set; }
-        protected virtual ICollection<Item> Items { get; set; }
+        public virtual ICollection<Item> Items { get; protected set; }
         protected virtual UserTimeDetails DateTimeUser { get; set; }
 
         public virtual Comment Question { get; set; }
@@ -59,15 +59,6 @@ namespace Zbang.Zbox.Domain
         public virtual int LikeCount { get; set; }
 
 
-        //public bool IsDeleted
-        //{
-        //    get;
-        //    set;
-        //}
-
-        //public void DeleteAssociation()
-        //{
-        //    Updates.Clear();
-        //}
+       
     }
 }

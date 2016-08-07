@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Domain.DataAccess
     {
         public void DeleteUserUpdateByBoxId(long userId, long boxId)
         {
-            var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteUpdatesByBoxId");
+            var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteUserUpdatesByBoxId");
             query.SetInt64("userid", userId);
             query.SetInt64("boxId", boxId);
             query.ExecuteUpdate();
@@ -22,16 +22,22 @@ namespace Zbang.Zbox.Domain.DataAccess
             query.SetInt64("boxId", boxId);
             query.SetGuid("CommentId", commentId);
             query.ExecuteUpdate();
+        }
 
+        public void DeleteReplyUpdatesByBoxId(long boxId, Guid answerId)
+        {
+            var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteUpdatesByAnswerId");
+            query.SetInt64("boxId", boxId);
+            query.SetGuid("ReplyId", answerId);
+            query.ExecuteUpdate();
         }
 
         public void DeleteUserItemUpdateByBoxId(long userId, long boxId)
         {
-            var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteItemUpdatesByBoxId");
+            var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteItemUpdatesByBoxIdUserId");
             query.SetInt64("userid", userId);
             query.SetInt64("boxId", boxId);
             query.ExecuteUpdate();
-
         }
 
 
