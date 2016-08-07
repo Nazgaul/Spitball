@@ -166,9 +166,15 @@ and boxid in (
             return ExecuteSqlLoopAsync(
                 new[]
                 {
+                    
                     @"delete from Zbox.Library where id in (
 select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",
+                    @"update zbox.users set universityid = null
+where universityid in (
+select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+)
+",
                     @"delete top(3) from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)"
                 }, token);
         }
