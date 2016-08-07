@@ -247,12 +247,11 @@
   font-size: 13px;
 }
 .feed .items-container {
-  margin: 15px 5px;
-  direction: rtl ;
+  margin: 15px 0;
 }
 .feed .items-container .feed-item {
   width: 119px;
-  height: 168px;
+  height: 163px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

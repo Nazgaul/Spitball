@@ -1287,6 +1287,9 @@ md-chips .md-chips.md-focused {
 .textTC35 {
   color: #f5f5f5 !important;
 }
+.svgTC35 {
+  fill: #f5f5f5 !important;
+}
 .backgroundTC36 {
   background: #181c1d !important;
 }
@@ -1295,6 +1298,9 @@ md-chips .md-chips.md-focused {
 }
 .textTC38 {
   color: #f5f5f5 !important;
+}
+.hoverBackgroundTC39:hover {
+  background: #212325 !important;
 }
 /*input[type="search"], textarea {
     .placeHolder(@borderColorGrey) !important;

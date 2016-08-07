@@ -49,7 +49,7 @@
   height: 179px;
   padding: 10px;
 }
-.dashboard .dashboard-actions .container {
+.dashboard .dashboard-actions .actions-container {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -58,23 +58,29 @@
   -webkit-justify-content: center;
   justify-content: center;
 }
-.dashboard .dashboard-actions .container .create-btn,
-.dashboard .dashboard-actions .container .inviteBtn {
+@media (max-width: 450px) {
+  .dashboard .dashboard-actions .actions-container {
+    flex-wrap: wrap;
+  }
+}
+.dashboard .dashboard-actions .actions-container .create-btn,
+.dashboard .dashboard-actions .actions-container .inviteBtn {
   background: #323538;
   padding: 8px 0;
   border-radius: 5px;
   border: 1px solid;
+  margin: 8px;
 }
-.dashboard .dashboard-actions .container .create-btn:hover .wrapper svg,
-.dashboard .dashboard-actions .container .inviteBtn:hover .wrapper svg {
+.dashboard .dashboard-actions .actions-container .create-btn:hover .wrapper svg,
+.dashboard .dashboard-actions .actions-container .inviteBtn:hover .wrapper svg {
   fill: #4190b9 !important;
 }
-.dashboard .dashboard-actions .container .create-btn:hover .wrapper span,
-.dashboard .dashboard-actions .container .inviteBtn:hover .wrapper span {
+.dashboard .dashboard-actions .actions-container .create-btn:hover .wrapper span,
+.dashboard .dashboard-actions .actions-container .inviteBtn:hover .wrapper span {
   color: #4190b9 !important;
 }
-.dashboard .dashboard-actions .container .create-btn .wrapper,
-.dashboard .dashboard-actions .container .inviteBtn .wrapper {
+.dashboard .dashboard-actions .actions-container .create-btn .wrapper,
+.dashboard .dashboard-actions .actions-container .inviteBtn .wrapper {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -83,35 +89,26 @@
   -webkit-justify-content: center;
   justify-content: center;
 }
-.dashboard .dashboard-actions .container .create-btn .wrapper svg,
-.dashboard .dashboard-actions .container .inviteBtn .wrapper svg {
+.dashboard .dashboard-actions .actions-container .create-btn .wrapper svg,
+.dashboard .dashboard-actions .actions-container .inviteBtn .wrapper svg {
   margin-right: 10px;
   fill: #f5f5f5;
 }
-.dashboard .dashboard-actions .container .create-btn .wrapper span,
-.dashboard .dashboard-actions .container .inviteBtn .wrapper span {
+.dashboard .dashboard-actions .actions-container .create-btn .wrapper span,
+.dashboard .dashboard-actions .actions-container .inviteBtn .wrapper span {
   line-height: normal;
   padding-right: 6px;
 }
-.dashboard .dashboard-actions .container .create-btn {
-  flex-basis: 60%;
-  flex-grow: 1;
-}
-.dashboard .dashboard-actions .container .create-btn svg {
+.dashboard .dashboard-actions .actions-container .create-btn svg {
   width: 14px;
   height: 14px;
 }
-.dashboard .dashboard-actions .container .inviteBtn {
-  flex-basis: 40%;
-  flex-grow: 1;
-  margin-right: 8px;
-}
 @media (max-width: 960px) {
-  .dashboard .dashboard-actions .container .inviteBtn .text span {
+  .dashboard .dashboard-actions .actions-container .inviteBtn .text span {
     display: none;
   }
 }
-.dashboard .dashboard-actions .container .inviteBtn svg {
+.dashboard .dashboard-actions .actions-container .inviteBtn svg {
   width: 20px;
   height: 20px;
 }

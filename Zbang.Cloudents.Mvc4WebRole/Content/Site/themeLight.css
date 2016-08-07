@@ -2116,6 +2116,9 @@ Page Loading
 .theme-light .textTC35 {
   color: #4190b9 !important;
 }
+.theme-light .svgTC35 {
+  fill: #4190b9 !important;
+}
 .theme-light .backgroundTC36 {
   background: #eee !important;
 }
@@ -2124,4 +2127,7 @@ Page Loading
 }
 .theme-light .textTC38 {
   color: #212325 !important;
+}
+.theme-light .hoverBackgroundTC39:hover {
+  background: #f5f5f5 !important;
 }

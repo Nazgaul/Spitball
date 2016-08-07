@@ -68,6 +68,15 @@
   border-color: transparent #f5f5f5 transparent transparent;
   right: 6px;
 }
+.expanded-chat .chat .expanded-chat .chat .content .tab-content .users-list section:after {
+  border-bottom-color: #323538;
+}
+.theme-dark .expanded-chat .chat .content .tab-content .users-list section:after {
+  border-bottom-color: #323538;
+}
+.theme-light .expanded-chat .chat .content .tab-content .users-list section:after {
+  border-bottom-color: #e9eaed;
+}
 @media (min-width: 960px) {
   .page-body {
     margin-left: 95px;
@@ -259,6 +268,13 @@
 }
 .chat .content .tab-content .users-list section {
   margin-top: 16px;
+}
+.chat .content .tab-content .users-list section:after {
+  content: '';
+  display: block;
+  border-bottom: 2px solid transparent;
+  margin-right: 10px;
+  margin-top: 8px;
 }
 .chat .content .tab-content .users-list section .header {
   display: -webkit-flex;
