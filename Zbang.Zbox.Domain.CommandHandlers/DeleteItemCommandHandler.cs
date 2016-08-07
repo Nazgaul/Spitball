@@ -20,13 +20,16 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IRepository<CommentReply> m_CommentReplyRepository;
         private readonly IQueueProvider m_QueueProvider;
         private readonly IItemTabRepository m_ItemTabRepository;
+        private readonly IUpdatesRepository m_UpdatesRepository;
 
         public DeleteItemCommandHandler(
 
             IRepository<Box> boxRepository,
             IUserRepository userRepository,
             IRepository<Item> itemRepository,
-            IRepository<CommentReply> commentReplyRepository, IQueueProvider queueProvider, IItemTabRepository itemTabRepository)
+            IRepository<CommentReply> commentReplyRepository,
+            IQueueProvider queueProvider,
+            IItemTabRepository itemTabRepository, IUpdatesRepository updatesRepository)
         {
 
             m_BoxRepository = boxRepository;
@@ -35,6 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             m_CommentReplyRepository = commentReplyRepository;
             m_QueueProvider = queueProvider;
             m_ItemTabRepository = itemTabRepository;
+            m_UpdatesRepository = updatesRepository;
         }
 
         public Task HandleAsync(DeleteItemCommand command)
@@ -59,8 +63,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var uploaderFileId = item.UploaderId;
             var usersAffectReputation = new List<long> { uploaderFileId };
 
-            if (item.Answer != null && string.IsNullOrEmpty(item.Answer.Text) && item.Answer.Items.Count == 1) // only one answer
+            if (item.Answer != null && string.IsNullOrEmpty(item.Answer.Text) /*&& item.Answer.Items.Count == 1*/) // only one answer
             {
+                m_UpdatesRepository.DeleteReplyUpdatesByBoxId(box.Id, item.Answer.Id);
                 m_CommentReplyRepository.Delete(item.Answer);
             }
             if (item.Comment != null)
