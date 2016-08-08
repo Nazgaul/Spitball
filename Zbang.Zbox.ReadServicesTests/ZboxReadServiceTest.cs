@@ -552,7 +552,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetBoxRecommendedCourses_Query_ReturnResult()
         {
-            var query = new GetBoxSideBarQuery(60130, 1);
+            var query = new GetBoxSideBarQuery(60130);
             try
             {
                 var x = await m_ZboxReadService.GetBoxRecommendedCoursesAsync(query);

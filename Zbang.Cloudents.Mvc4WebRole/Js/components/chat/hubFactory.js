@@ -6,7 +6,7 @@
     function realtimeFactotry(Hub, $rootScope, ajaxService2) {
        // var self = this;
         var commands = [];
-        //var canSend = false;
+        var canSend;
         var hub = new Hub('spitballHub', {
             rootPath: (window.dChat || 'https://connect.spitball.co') + '/s',
             listeners: {

@@ -52,7 +52,9 @@
 
         function deleteCategory(category) {
             var dataCache = cacheFactory.get(category);
-            dataCache.removeAll();
+            if (dataCache) {
+                dataCache.removeAll();
+            }
         }
 
         function post(url, data, category) {
@@ -64,7 +66,7 @@
                 trackTime(startTime, url, data, 'post');
                 if (angular.isArray(category)) {
                     for (var cat in category) {
-                        deleteCategory(cat);
+                        deleteCategory(category[cat]);
                     }
                 }
                 else if (category) {

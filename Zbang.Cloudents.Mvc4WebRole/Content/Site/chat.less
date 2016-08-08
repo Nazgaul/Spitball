@@ -282,7 +282,7 @@
                 section {
                     margin-top: 16px;
 
-                    &:after {
+                    &:not(:last-child):after {
                         content: '';
                         display: block;
                         border-bottom: 2px solid transparent;
@@ -340,6 +340,9 @@
                     }
 
                     .user {
+                        margin-top: 4px;
+                        margin-bottom: 4px;
+
                         .chat-counter {
                             position: absolute;
                             left: 4px;
@@ -570,7 +573,7 @@
             .chat-content {
                 .messages {
                     height: ~"calc(100vh - 10px - @{chatHeaderHeight} - @{heightOfHeader} - @{newChatMessageHeight})";
-                    width: 100%;
+                    width: ~"calc(100% - 5px)";
                     padding: 0;
                     font-size: 15px;
                     padding-bottom: 6px;
@@ -762,12 +765,24 @@
     }
 }
 
-.theme-dark .chat .content .user.online:before {
-    box-shadow: 0 0 1px 2px @textColorBlack;
+.theme-dark .chat .content {
+    .conversasion .user.online:before {
+        box-shadow: 0 0 1px 2px #375068;
+    }
+
+    .user.online:before {
+        box-shadow: 0 0 1px 2px @textColorBlack;
+    }
 }
 
-.theme-light .chat .content .user.online:before {
-    box-shadow: 0 0 1px 2px @fileColor;
+.theme-light .chat .content {
+    .user.online:before {
+        box-shadow: 0 0 1px 2px @fileColor;
+    }
+
+    .conversasion .user.online:before {
+        box-shadow: 0 0 1px 2px #042E5E;
+    }
 }
 
 .chat-item-preview {

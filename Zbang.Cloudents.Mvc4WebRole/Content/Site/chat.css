@@ -269,7 +269,7 @@
 .chat .content .tab-content .users-list section {
   margin-top: 16px;
 }
-.chat .content .tab-content .users-list section:after {
+.chat .content .tab-content .users-list section:not(:last-child):after {
   content: '';
   display: block;
   border-bottom: 2px solid transparent;
@@ -313,6 +313,10 @@
 }
 .chat .content .tab-content .users-list .users-sub-list .mCSB_container {
   width: auto !important;
+}
+.chat .content .tab-content .users-list .users-sub-list .user {
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 .chat .content .tab-content .users-list .users-sub-list .user .chat-counter {
   position: absolute;
@@ -511,7 +515,7 @@
 }
 .chat .content .conversasion .chat-content .messages {
   height: calc(100vh - 10px - 50px - 70px - 50px);
-  width: 100%;
+  width: calc(100% - 5px);
   padding: 0;
   font-size: 15px;
   padding-bottom: 6px;
@@ -679,11 +683,17 @@
   margin: 0 8px;
   flex-shrink: 0;
 }
+.theme-dark .chat .content .conversasion .user.online:before {
+  box-shadow: 0 0 1px 2px #375068;
+}
 .theme-dark .chat .content .user.online:before {
   box-shadow: 0 0 1px 2px #282828;
 }
 .theme-light .chat .content .user.online:before {
   box-shadow: 0 0 1px 2px #f9f9f9;
+}
+.theme-light .chat .content .conversasion .user.online:before {
+  box-shadow: 0 0 1px 2px #042E5E;
 }
 .chat-item-preview {
   max-height: 95vh;
