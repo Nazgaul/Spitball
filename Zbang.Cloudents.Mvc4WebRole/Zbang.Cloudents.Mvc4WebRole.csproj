@@ -619,7 +619,6 @@
     <Content Include="bower_components\ng-embed\demo\js\app.js" />
     <Content Include="bower_components\ng-embed\demo\ngEmbed.jpg" />
     <Content Include="bower_components\ng-embed\demo\template.html" />
-    <Content Include="bower_components\ng-embed\dist\ng-embed.min.css" />
     <Content Include="bower_components\ng-embed\dist\ng-embed.min.js" />
     <Content Include="bower_components\ng-embed\fonts\emoticons.svg" />
     <Content Include="bower_components\ng-embed\GruntFile.js" />
@@ -1558,7 +1557,6 @@
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-et.js" />

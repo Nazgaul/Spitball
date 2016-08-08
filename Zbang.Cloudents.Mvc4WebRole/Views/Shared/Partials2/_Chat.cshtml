@@ -15,7 +15,7 @@
                     </button>
                     <input type="search" class="textTC38" focus-me="c.focusSearch" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search(c.term)" ng-model-options="{debounce : 300}" />
                     <button type="reset" ng-if="c.term.length" class="reset-btn" ng-click="c.term=''; c.search('')">
-                        @Html.Svg("~/images/site/icons.svg", "close", new { @class = "resetIcon" })
+                        @Html.Svg("~/images/site/icons.svg", "close", new { @class = "resetIcon svgTC22" })
                     </button>
                 </form>
                 <div class="users-list" disable-thouch ng-scrollbars infinite-scrollbars-direction="down" infinite-scrollbars-function="c.usersPaging" ng-scrollbars-config="c.scrollSetting">
