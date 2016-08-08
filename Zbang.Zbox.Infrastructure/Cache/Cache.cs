@@ -167,7 +167,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             bool shouldUseCacheFromConfig;
 
             bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out shouldUseCacheFromConfig);
-            return shouldUseCacheFromConfig;
+            return shouldUseCacheFromConfig && ConfigFetcher.IsRunningOnCloud;
         }
 
 

@@ -65,7 +65,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             if (item.Answer != null && string.IsNullOrEmpty(item.Answer.Text) && item.Answer.Items.Count == 1) // only one answer
             {
-                m_UpdatesRepository.DeleteReplyUpdatesByBoxId(box.Id, item.Answer.Id);
+                m_UpdatesRepository.DeleteReplyUpdates(item.Answer.Id);
                 m_CommentReplyRepository.Delete(item.Answer);
             }
             if (item.Comment != null)
@@ -73,6 +73,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var shouldRemove = item.Comment.RemoveItem(item);
                 if (shouldRemove)
                 {
+                    m_UpdatesRepository.DeleteCommentUpdates(item.Comment.Id);
                     usersAffectReputation.AddRange(box.DeleteComment(item.Comment));
                 }
             }

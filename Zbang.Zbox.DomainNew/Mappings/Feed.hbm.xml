@@ -32,7 +32,8 @@
       <key column="QuestionId" foreign-key="questionIdAnswer"/>
       <one-to-many class="CommentReply"/>
     </bag>
-    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+    <!--Need to delete on ourself-->
+    <bag name="Updates" inverse="true" lazy="true" cascade="none" >
       <key column="QuestionId" foreign-key="NewUpdatesQuestion"/>
       <one-to-many class="Updates"/>
     </bag>
@@ -62,7 +63,8 @@
       <key column="AnswerId" foreign-key="answerIdAnswer" />
       <one-to-many class="Item"/>
     </bag>
-    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+    <!--Need to delete on ourself-->
+    <bag name="Updates" inverse="true" lazy="true" cascade="none" >
       <key column="AnswerId" foreign-key="NewUpdatesAnswer"/>
       <one-to-many class="Updates"/>
     </bag>
