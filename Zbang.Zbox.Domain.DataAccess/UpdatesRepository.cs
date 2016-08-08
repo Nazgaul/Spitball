@@ -24,11 +24,16 @@ namespace Zbang.Zbox.Domain.DataAccess
             query.ExecuteUpdate();
         }
 
-        public void DeleteReplyUpdatesByBoxId(long boxId, Guid answerId)
+        public void DeleteReplyUpdates(Guid answerId)
         {
             var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteUpdatesByAnswerId");
-            query.SetInt64("boxId", boxId);
             query.SetGuid("ReplyId", answerId);
+            query.ExecuteUpdate();
+        }
+        public void DeleteCommentUpdates(Guid commentId)
+        {
+            var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteUpdatesByCommentId");
+            query.SetGuid("CommentId", commentId);
             query.ExecuteUpdate();
         }
 

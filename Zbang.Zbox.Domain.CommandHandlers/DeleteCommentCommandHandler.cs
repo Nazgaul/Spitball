@@ -16,16 +16,18 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
         private readonly IQueueProvider m_QueueProvider;
+        private readonly IUpdatesRepository m_UpdatesRepository;
 
         public DeleteCommentCommandHandler(
             IRepository<Comment> boxCommentRepository,
             IBoxRepository boxRepository,
-            IUserRepository userRepository, IQueueProvider queueProvider)
+            IUserRepository userRepository, IQueueProvider queueProvider, IUpdatesRepository updatesRepository)
         {
             m_BoxCommentRepository = boxCommentRepository;
             m_BoxRepository = boxRepository;
             m_UserRepository = userRepository;
             m_QueueProvider = queueProvider;
+            m_UpdatesRepository = updatesRepository;
         }
         public Task HandleAsync(DeleteCommentCommand message)
         {
@@ -43,6 +45,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException();
             }
+            m_UpdatesRepository.DeleteCommentUpdates(comment.Id);
             var userIds = box.DeleteComment(comment);
 
             m_BoxCommentRepository.Delete(comment);

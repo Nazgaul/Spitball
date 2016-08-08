@@ -36,7 +36,12 @@
 
   <query name="DeleteUpdatesByAnswerId">
     <![CDATA[
-    delete from Updates c where c.Box.Id = :boxId and c.Reply.Id = :ReplyId
+    delete from Updates c where c.Reply.Id = :ReplyId
+    ]]>
+  </query>
+  <query name="DeleteUpdatesByCommentId">
+    <![CDATA[
+    delete from Updates c where c.Comment.Id = :CommentId
     ]]>
   </query>
 

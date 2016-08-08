@@ -52,9 +52,9 @@
 
         function deleteCategory(category) {
             var dataCache = cacheFactory.get(category);
-            if (dataCache) {
-                dataCache.removeAll();
-            }
+            //if (dataCache) {
+            dataCache.removeAll();
+            //}
         }
 
         function post(url, data, category) {
