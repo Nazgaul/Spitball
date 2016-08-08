@@ -51,6 +51,12 @@ namespace Zbang.Zbox.Domain.Services
             return ExecuteSqlLoopAsync(new[]
             {
                 @"update zbox.box
+set updatetime = getutcdate()-121
+where university in (
+select  id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+)
+and updatetime > getutcdate() - 120",
+                @"update zbox.box
 set isdirty = 1, isdeleted = 1 from zbox.box 
 where libraryid in (
 select libraryid from Zbox.Library where id in (
@@ -156,6 +162,10 @@ and boxid in (
 and boxid in (
 	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",
+                        @"delete  from Zbox.item where isdeleted = 1 and isdirty = 0
+and boxid in (
+	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) option (maxdop 1)",
                         "delete top (3) from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)"
                     }, token);
 
@@ -166,7 +176,15 @@ and boxid in (
             return ExecuteSqlLoopAsync(
                 new[]
                 {
-                    
+//                    @"delete from zbox.userboxrel where boxid in (
+//select boxid from zbox.box where isdeleted = 1 and isdirty = 0 and libraryid in (
+//select libraryid from Zbox.Library where id in (
+//select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+//))) option (maxdop 1)",
+//                    @"delete from zbox.box where isdeleted = 1 and isdirty = 0 and libraryid in (
+//select libraryid from Zbox.Library where id in (
+//select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+//)) option (maxdop 1)",
                     @"delete from Zbox.Library where id in (
 select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",

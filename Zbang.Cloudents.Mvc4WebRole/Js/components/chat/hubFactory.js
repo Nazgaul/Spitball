@@ -88,7 +88,7 @@
             }, 5000); // Restart connection after 5 seconds.
         });
         var send = function (userId, message, conversationId, blob) {
-            ajaxService2.deleteCacheCategory('cache');
+            ajaxService2.deleteCacheCategory('chat');
             hub.send(userId, message, conversationId, blob);
         };
         var changeUniversity = function () {
