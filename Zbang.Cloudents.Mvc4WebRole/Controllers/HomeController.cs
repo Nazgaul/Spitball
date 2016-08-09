@@ -41,7 +41,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "HomePage"), ActionName("Index"), HttpGet]
         public async Task<ActionResult> IndexAsync(string invId, string universityName, string step)
         {
-
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Dashboard");
@@ -58,17 +57,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 }
                 m_CookieHelper.InjectCookie(UniversityCookie.CookieName, new UniversityCookie { UniversityId = universityId.Value});
             }
-            //if (step == "signin")
-            //{
-            //    ViewBag.title = SeoResources.SignInTitle;
-            //    ViewBag.metaDescription = SeoResources.SignInMeta;
-            //}
-            //if (step == "signup")
-            //{
-            //    ViewBag.title = SeoResources.SignUpTitle;
-            //    ViewBag.metaDescription = SeoResources.SignUpMeta;
-            //}
-
             if (!string.IsNullOrEmpty(invId))
             {
                 var guid = GuidEncoder.TryParseNullableGuid(invId);
