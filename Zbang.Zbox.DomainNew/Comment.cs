@@ -23,8 +23,17 @@ namespace Zbang.Zbox.Domain
             }
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             Id = id;
+            if (items != null)
+            {
+                foreach (var item in items)
+                {
+                    item.CommentReply = null;
+                }
+                Items = items;
+            }
 
-            Items = items ?? new List<Item>();
+            
+            
             User = user;
             Box = box;
             Text = ExtractCommentText(feedType, text, user);

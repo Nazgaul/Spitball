@@ -57,7 +57,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 {
                     TraceLog.WriteInfo($"{GetServiceName()} running  mail page {page}");
                     needToContinueRun = false;
-                    var pageSize = 100;
+                    var pageSize = 500;
                     if (RoleIndexProcessor.IsEmulated)
                     {
                         pageSize = 10;
@@ -70,6 +70,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     {
                         try
                         {
+                            if (!m_EmailHash.Add(user.Email))
+                            {
+                                TraceLog.WriteError($"{user.Email} is already sent");
+                                await SendEmailStatusAsync($"{user.Email} error digest email already sent");
+                                continue;
+                            }
                             needToContinueRun = true;
                             var email = user.Email;
                             if (RoleIndexProcessor.IsEmulated)
@@ -180,12 +186,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                             }
 
 
-                            if (!m_EmailHash.Add(email))
-                            {
-                                TraceLog.WriteError($"{email} is already sent");
-                                await SendEmailStatusAsync($"{email} error digest email already sent");
-                                continue;
-                            }
+                            
                             list.Add(m_MailComponent.GenerateAndSendEmailAsync(
                                 email, new UpdateMailParams(updatesEmail,
                                     culture, user.UserName,
@@ -217,7 +218,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 {
                     await SendEmailStatusAsync($"error digest email {ex}");
                     TraceLog.WriteError($"{GetServiceName()} error digest email {ex}");
-                    
+                    return false;
                 }
             }
             await SendEmailStatusAsync($"finish to run  with page {page}");

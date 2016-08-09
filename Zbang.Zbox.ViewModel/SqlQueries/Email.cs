@@ -4,16 +4,28 @@
     {
         //TODO: need to check if we can remove recompile option
         public const string GetUserListByNotificationSettings =
-            @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
-      from zbox.userboxrel ub 
-      join zbox.users u on ub.userid = u.userid
-	  join zbox.NewUpdates nu on nu.BoxId = ub.BoxId and nu.UserId = ub.UserId
-      where notificationSettings = @Notification
-      and u.emailsendsettings = 0
-	 and DATEADD(minute,-(@NotificationTime), @currentDate) < nu.CreationTime
-      order by userid
+            @"	 select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
+    
+     from zbox.users u 
+	 inner join  zbox.userboxrel ub  on u.userid = u.userid and notificationSettings = @Notification
+     where u.emailsendsettings = 0
+	 and exists ( select top 1 * 
+	 from zbox.newupdates nu 
+	 where nu.boxid = ub.boxid and nu.userid = u.userid
+	 and DATEADD(minute,-(@NotificationTime), getutcdate()) < nu.CreationTime)
+	 order by userid
 	  offset @pageNumber*@rowsperpage ROWS
-	  FETCH NEXT @rowsperpage ROWS ONLY option(Recompile);";
+	  FETCH NEXT @rowsperpage ROWS ONLY option(MAXDOP  1 ,Recompile);";
+  //          @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
+  //    from zbox.userboxrel ub 
+  //    join zbox.users u on ub.userid = u.userid
+	 // join zbox.NewUpdates nu on nu.BoxId = ub.BoxId and nu.UserId = ub.UserId
+  //    where notificationSettings = @Notification
+  //    and u.emailsendsettings = 0
+	 //and DATEADD(minute,-(@NotificationTime), @currentDate) < nu.CreationTime
+  //    order by userid
+	 // offset @pageNumber*@rowsperpage ROWS
+	 // FETCH NEXT @rowsperpage ROWS ONLY option(Recompile);";
 	
    //         @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
    //   from zbox.userboxrel ub 

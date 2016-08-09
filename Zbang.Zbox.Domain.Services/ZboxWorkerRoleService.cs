@@ -63,12 +63,12 @@ select libraryid from Zbox.Library where id in (
 select id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 
 )) and isdeleted = 0",
                 @"update Zbox.item
-set isdirty = 1, isdeleted = 1
+set isdirty = 1, isdeleted = 1, updatetime = getutcdate()-121
  where  boxid in (
 	select  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) and isdeleted = 0",
                 @"update Zbox.quiz
-set isdirty = 1, isdeleted = 1
+set isdirty = 1, isdeleted = 1, updatetime = getutcdate()-121
  where  boxid in (
 	select  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) and isdeleted = 0 and publish = 1"
