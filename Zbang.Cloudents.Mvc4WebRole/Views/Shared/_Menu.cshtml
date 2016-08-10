@@ -15,7 +15,7 @@
                 </md-button>
             </li>
             <li class="expendable nav-item" ng-if="d.showBoxesNodes">
-                <md-button  user-not-register-popup="click" class="md-button-toggle" ng-click="d.toggleCourses()">
+                <md-button user-not-register-popup="click" class="md-button-toggle" ng-click="d.toggleCourses()">
                     <div flex layout="row" layout-align="start center">
                         <span class="arrow icon" ng-class="{toggled:d.coursesOpen}">
                             @Html.Svg("~/images/site/icons.svg", "sideMenuArrow", new { @class = "svgTC16" })
@@ -49,12 +49,18 @@
                 </ul>
             </li>
             <li class="uni nav-item">
+
                 <md-button ng-click="d.univeristyClick()" user-not-register-popup="click" class="ellipsis" ng-class="{active: d.isSectionSelected('/university')}" @shouldPostBack @*href="@Url.RouteUrl("LibraryDesktop")"*@>
-                    <span class="icon">
-                        @Html.Svg(svgUrl, "universityMenu", new { @class = "svgTC16" })
-                    </span>
-                    @IndexResources.Uni
+                    <div flex layout="row" layout-align="start center">
+                        <span class="icon">
+                            @Html.Svg(svgUrl, "universityMenu", new { @class = "svgTC16" })
+                        </span>
+                        <span class="title">
+                            @IndexResources.Uni
+                        </span>
+                    </div>
                 </md-button>
+
             </li>
             <li class="user nav-item">
                 <md-button user-not-register-popup="click" ng-class="{active:d.isSectionSelected(d.userUrl)}" @shouldPostBack href="{{::d.userUrl}}">
