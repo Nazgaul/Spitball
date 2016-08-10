@@ -125,21 +125,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Spitball’s study platform enables students to find and share study materials,
-        ///interact with their classmates, create online quizzes and get better grades..
+        ///   Looks up a localized string similar to Spitball&apos;s study platform enables students to find and share study materials, 
+        ///chat with their classmates, create online quizzes and get better grades. .
         /// </summary>
         public static string A6 {
             get {
                 return ResourceManager.GetString("A6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spitball even faster through.
-        /// </summary>
-        public static string A7 {
-            get {
-                return ResourceManager.GetString("A7", resourceCulture);
             }
         }
         
@@ -360,7 +351,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For free..
+        ///   Looks up a localized string similar to All for free!.
         /// </summary>
         public static string Free {
             get {
@@ -396,7 +387,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to sign up for free.
+        ///   Looks up a localized string similar to Sign Up, It&apos;s Free!.
         /// </summary>
         public static string SignUpForFree {
             get {
@@ -410,15 +401,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         public static string statsDocuments {
             get {
                 return ResourceManager.GetString("statsDocuments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Quizzes.
-        /// </summary>
-        public static string statsQuizzes {
-            get {
-                return ResourceManager.GetString("statsQuizzes", resourceCulture);
             }
         }
         

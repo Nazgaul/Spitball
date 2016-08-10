@@ -88,24 +88,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Messages, yet..
-        /// </summary>
-        public static string EmptyStateLine1 {
-            get {
-                return ResourceManager.GetString("EmptyStateLine1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start chatting with your classmates in Spitball.
-        /// </summary>
-        public static string EmptyStateLine2 {
-            get {
-                return ResourceManager.GetString("EmptyStateLine2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Check if you typed the name correctly.
         /// </summary>
         public static string EmptyStateSubtitle {
@@ -147,15 +129,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string FriendsHeader {
             get {
                 return ResourceManager.GetString("FriendsHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Messages.
-        /// </summary>
-        public static string MessagesHeader {
-            get {
-                return ResourceManager.GetString("MessagesHeader", resourceCulture);
             }
         }
         

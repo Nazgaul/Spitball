@@ -124,9 +124,6 @@
     <value>Invite</value>
     
   </data>
-  <data name="Browse" xml:space="preserve">
-    <value>Browse Classes</value>
-  </data>
   <data name="EnterGroupName" xml:space="preserve">
     <value>Enter study group name</value>
   </data>

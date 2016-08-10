@@ -223,9 +223,6 @@
   <data name="statsDocuments" xml:space="preserve">
     <value>Documents</value>
   </data>
-  <data name="statsQuizzes" xml:space="preserve">
-    <value>Quizzes</value>
-  </data>
   <data name="infoSection1" xml:space="preserve">
     <value>Company</value>
   </data>
@@ -236,11 +233,8 @@
     <value>Spitball Guide</value>
   </data>
   <data name="A6" xml:space="preserve">
-    <value>Spitball’s study platform enables students to find and share study materials,
-interact with their classmates, create online quizzes and get better grades.</value>
-  </data>
-  <data name="A7" xml:space="preserve">
-    <value>Spitball even faster through</value>
+    <value>Spitball's study platform enables students to find and share study materials, 
+chat with their classmates, create online quizzes and get better grades. </value>
   </data>
   <data name="A10" xml:space="preserve">
     <value>Shared Documents</value>
@@ -252,7 +246,7 @@ interact with their classmates, create online quizzes and get better grades.</va
     <value>Key Features</value>
   </data>
   <data name="Free" xml:space="preserve">
-    <value>For free.</value>
+    <value>All for free!</value>
   </data>
   <data name="resetPassEmailSent" xml:space="preserve">
     <value>Another request was sent</value>
@@ -276,6 +270,6 @@ interact with their classmates, create online quizzes and get better grades.</va
     <value>Get Better grades</value>
   </data>
   <data name="SignUpForFree" xml:space="preserve">
-    <value>sign up for free</value>
+    <value>Sign Up, It's Free!</value>
   </data>
 </root>

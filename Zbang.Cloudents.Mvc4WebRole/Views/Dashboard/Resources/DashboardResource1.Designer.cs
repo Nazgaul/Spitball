@@ -61,15 +61,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Browse Classes.
-        /// </summary>
-        public static string Browse {
-            get {
-                return ResourceManager.GetString("Browse", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enter study group name.
         /// </summary>
         public static string EnterGroupName {

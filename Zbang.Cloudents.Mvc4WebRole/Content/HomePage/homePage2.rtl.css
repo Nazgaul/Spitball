@@ -291,38 +291,41 @@
   }
 }
 .homePage .home-page-body section.main .form-wrapper .signin-options button {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: inline-flex;
-  -webkit-align-items: center;
-  align-items: center;
   border-radius: 15px;
-  padding: 5px 10px;
   width: calc(50% - 10px);
+  padding: 5px 10px;
 }
 @media (max-width: 600px) {
   .homePage .home-page-body section.main .form-wrapper .signin-options button {
     width: calc(50% - 5px);
   }
 }
-.homePage .home-page-body section.main .form-wrapper .signin-options button .icon {
+.homePage .home-page-body section.main .form-wrapper .signin-options .login-option {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: inline-flex;
+  -webkit-align-items: center;
+  align-items: center;
+  width: 100%;
+}
+.homePage .home-page-body section.main .form-wrapper .signin-options .login-option .icon {
   padding: 0 5px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
 }
-.homePage .home-page-body section.main .form-wrapper .signin-options button .icon svg {
+.homePage .home-page-body section.main .form-wrapper .signin-options .login-option .icon svg {
   width: 25px;
   height: 25px;
   fill: #f5f5f5;
 }
-.homePage .home-page-body section.main .form-wrapper .signin-options button .text {
+.homePage .home-page-body section.main .form-wrapper .signin-options .login-option .text {
   flex-grow: 1;
   font-size: 18px;
   padding-left: 10px;
 }
 @media (max-width: 600px) {
-  .homePage .home-page-body section.main .form-wrapper .signin-options button .text {
+  .homePage .home-page-body section.main .form-wrapper .signin-options .login-option .text {
     font-size: 16px;
   }
 }
