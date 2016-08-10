@@ -11,7 +11,7 @@
         if (!userData.universityImage) {
             userData.universityImage = 'https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/universityEmptyState.png';
         }
-        self.original = userData.get();
+        self.original = userData;
         self.data = angular.copy(userData);
 
         self.submit = submitChangeName;
