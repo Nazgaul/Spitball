@@ -3,7 +3,7 @@
     angular.module('app.library').controller('LibraryChoose', libraryChoose);
 
     libraryChoose.$inject = ['libraryService', '$state', 'countryService',
-        'userDetailsFactory', '$scope', 'resManager','realtimeFactotry'];
+        'userDetailsFactory', '$scope', 'resManager', 'realtimeFactotry'];
 
     function libraryChoose(libraryService, $state, countryService, userDetailsFactory, $scope, resManager, realtimeFactotry) {
         var self = this, page = 0;
@@ -60,7 +60,7 @@
 
         function selectUniversity(university, myform) {
             self.submitDisabled = true;
-            
+
             libraryService.chooseUniversity(university.id, self.code.studentId).then(function (response) {
                 if (response) {
 
@@ -70,10 +70,10 @@
                     self.code.closedUniText2 = response.textPopupLower;
                     return;
                 }
-                userDetailsFactory.init(true).then(function () {
-                    goToLibrary(university.name, university.id);
-                    realtimeFactotry.changeUniversity();
-                });
+                //userDetailsFactory.init(true).then(function () {
+                    goToLibrary();
+                   
+                //});
             }, function (response) {
                 myform.studentId.$setValidity('server', false);
                 self.error = response;
@@ -103,7 +103,7 @@
                 return;
             }
             if (!data.length) {
-                
+
             }
             self.showNoResult = !data.length;
             self.universities = data;
@@ -117,9 +117,10 @@
             self.submitDisabled = true;
             libraryService.createUniversity(self.universityName, self.countryCode).then(function (response) {
                 $scope.app.showToaster(resManager.get('toasterOpenSchool'));
-                userDetailsFactory.init(true).then(function () {
-                    goToLibrary(self.universityName, response.id);
-                });
+                //userDetailsFactory.init(true).then(function () {
+                
+                goToLibrary();
+                //});
             }).finally(function () {
                 self.submitDisabled = false;
             });
@@ -127,10 +128,12 @@
 
 
 
-        function goToLibrary(universityName, id) {
-            userDetailsFactory.setUniversity(universityName, id);
-            //bug 5120/
-            $state.go('dashboard');
+        function goToLibrary() {
+            userDetailsFactory.setUniversity().then(function () {
+                //bug 5120/
+                realtimeFactotry.changeUniversity();
+                $state.go('dashboard');
+            });
         }
 
         function checkInArray(arr, id) {

@@ -20,11 +20,21 @@
 
         var allUpdates = {};
 
-        $rootScope.$on('universityChange', function () {
-            if (!Object.keys(allUpdates).length) {
-                getUpdates();
-            }
-        });
+        //$scope.$watch(
+        //    userDetails.getUniversity,
+        //function (val) {
+        //    console.log(val);
+        //    //if (val) {
+        //    //    initChat();
+        //    //    return;
+        //    //}
+        //});
+
+        //$rootScope.$on('universityChange', function () {
+        //    if (!Object.keys(allUpdates).length) {
+        //        getUpdates();
+        //    }
+        //});
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (fromState.parent === 'box') {
                 deleteUpdates(fromParams.boxId);

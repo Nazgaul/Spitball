@@ -39,7 +39,7 @@ interface IUserData {
 
 (() => {
     angular.module('app').factory('userDetailsFactory', userDetails);
-    userDetails.$inject = ['$rootScope', '$filter', '$timeout', '$q', '$http', 'ajaxService', 'Analytics'];
+    userDetails.$inject = ['$rootScope', '$filter', '$timeout', '$q', '$http', 'ajaxService2', 'Analytics'];
     function userDetails($rootScope, $filter, $timeout, $q, $http, ajaxService, analytics): IUserDetailsFactory {
         "use strict";
         var
@@ -60,7 +60,7 @@ interface IUserData {
             analytics.set('dimension2', data.universityCountry || null);
             analytics.set('dimension3', data.id || null);
             analytics.set('dimension4', data.theme || 'dark');
-            
+
             //$timeout(() => {
             //    googletag.pubads().setTargeting('gender', data.sex);
             //}, 1000);
@@ -96,19 +96,18 @@ interface IUserData {
         }
 
         return {
-            init: refresh => {
-                if (refresh) {
-                    deferDetails = $q.defer();
-                    userData = null;
-                }
+            init: () => {
+                //if (refresh) { // in change uni
+                //    deferDetails = $q.defer();
+                //    userData = null;
+                //}
                 if (userData) {
                     deferDetails.resolve(userData);
                     return deferDetails.promise;
                 }
                 if (!serverCall) {
                     serverCall = true;
-
-                    ajaxService.get('/account/details/').then(response => {
+                    ajaxService.get('/account/details/', null, 'accountDetail').then(response => {
                         setDetails(response);
                         deferDetails.resolve(userData);
                         serverCall = false;
@@ -117,13 +116,8 @@ interface IUserData {
                 return deferDetails.promise;
             },
             get: () => userData,
-
-
-
             isAuthenticated: () => isAuthenticated,
             setName: (first, last) => {
-                //userData.firstName = first;
-                //userData.lastName = last;
                 userData.name = first + " " + last;
                 $rootScope.$broadcast('userDetailsChange');
             },
@@ -137,43 +131,17 @@ interface IUserData {
             getUniversity: () => {
                 return userData ? userData.university.id : null;
             },
-            setUniversity: (name, id) => {
-                userData.university.name = name;
-                userData.university.id = id;
-                $rootScope.$broadcast('universityChange', userData);
+            setUniversity: () => {
+                userData = null;
+                return this.init();
+                //userData.university.name = name;
+                //userData.university.id = id;
+                //$rootScope.$broadcast('universityChange', userData);
             },
             setTheme: theme => {
                 userData.theme = theme;
                 //$rootScope.$broadcast('themeChange', userData);
             }
-            //updateChange: function () {
-            //    $rootScope.$broadcast('userDetailsChange');
-            //},
-
-            //getUniversity: function () {
-            //    if (_.isEmpty(userData.university)) {
-            //        return false;
-            //    }
-            //    return userData.university;
-
-            //},
-            //initDetails: function () {
-            //    if (this.isAuthenticated()) {
-            //        var defer = $q.defer();
-            //        $timeout(function () {
-            //            defer.resolve();
-            //        });
-            //        return defer.promise;
-            //    }
-
-            //    var promise = sAccount.details();
-
-            //    promise.then(function (response) {
-            //        setDetails(response);
-            //    });
-
-            //    return promise;
-            //}
         };
     }
 

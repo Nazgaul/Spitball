@@ -11,22 +11,25 @@
         var cancelObjs = {};
         var cacheCategories = {
             university: {
-                maxAge: 6 * 60 * minute
+                maxAge: 6 * hour,
+                storageMode: 'localStorage'
+            },
+            accountDetail :{
+                maxAge: day
+
             },
             html: {
-                maxAge: 30 * day
+                maxAge: 30 * day,
+                storageMode: 'localStorage'
             },
             department: {
-                maxAge: 15 * minute,
-                storageMode: 'sessionStorage'
+                maxAge: 15 * minute
             },
             itemComment: {
-                maxAge: 15 * minute,
-                storageMode: 'sessionStorage'
+                maxAge: 15 * minute
             },
             chat: {
-                maxAge: 30 * minute,
-                storageMode: 'sessionStorage'
+                maxAge: 30 * minute
             }
         };
 
@@ -43,7 +46,7 @@
                 deleteOnExpire: 'aggressive',
                 maxAge: minute,
                 recycleFreq: 15000, // 15 seconds
-                storageMode: 'localStorage',
+                storageMode: 'sessionStorage',
                 storagePrefix: 'sb.c.'
             });
 

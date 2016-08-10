@@ -1,15 +1,17 @@
 ﻿'use strict';
 (function () {
     angular.module('app.account').controller('AccountSettingsInfoController', info);
-    info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory', '$mdDialog', '$mdMedia', '$scope', 'CacheFactory', 'resManager'];
-    function info(accountService, $timeout, userData, userDetailsFactory, $mdDialog, $mdMedia, $scope, cacheFactory, resManager) {
+    info.$inject = ['accountService', '$timeout', 'userData', 'userDetailsFactory',
+        '$mdDialog', '$mdMedia', '$scope', 'resManager', 'ajaxService2'];
+    function info(accountService, $timeout, userData, userDetailsFactory,
+        $mdDialog, $mdMedia, $scope, resManager, ajaxService2) {
         var self = this;
 
 
         if (!userData.universityImage) {
             userData.universityImage = 'https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/universityEmptyState.png';
         }
-        self.original = userData;
+        self.original = userData.get();
         self.data = angular.copy(userData);
 
         self.submit = submitChangeName;
@@ -82,7 +84,8 @@
                     if (obj.success) {
                         showToast(resManager.get('toasterUploadPic'),'section-1');
                         self.data.image = obj.payload;
-                        cacheFactory.clearAll();
+                        ajaxService2.deleteCacheCategory('accountDetail');
+                        //cacheFactory.clearAll();
                         userDetailsFactory.setImage(obj.payload);
 
                     }
@@ -94,7 +97,7 @@
         }
 
         function changeLanguage() {
-            if (self.data.language == userData.language) {
+            if (self.data.language === userData.language) {
                 return;
             }
 
@@ -104,7 +107,7 @@
         }
 
         function changeTheme(theme) {
-            if (theme == self.data.theme) {
+            if (theme === self.data.theme) {
                 return;
             }
             accountService.changeTheme(theme).then(function () {
