@@ -53,7 +53,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 universityId = await ZboxReadService.GetUniversityIdByUrlAsync(universityName);
                 if (!universityId.HasValue)
                 {
-                    return new HttpNotFoundResult();
+                    return RedirectToRoute("homePage", new { invId});
                 }
                 m_CookieHelper.InjectCookie(UniversityCookie.CookieName, new UniversityCookie { UniversityId = universityId.Value});
             }
