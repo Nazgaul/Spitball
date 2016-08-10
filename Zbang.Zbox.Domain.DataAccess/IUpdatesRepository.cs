@@ -11,5 +11,7 @@ namespace Zbang.Zbox.Domain.DataAccess
         void DeleteUserItemUpdateByBoxId(long userId, long boxId);
         void DeleteReplyUpdates( Guid answerId);
         void DeleteCommentUpdates(Guid commentId);
+
+        void DeleteQuizUpdates(long quizId);
     }
 }

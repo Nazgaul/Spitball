@@ -70,6 +70,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quiz id cannot be 0.
+        /// </summary>
+        internal static string QuizController_CreateQuestion_Quiz_id_cannot_be_0 {
+            get {
+                return ResourceManager.GetString("QuizController_CreateQuestion_Quiz_id_cannot_be_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Answers is requeried.
+        /// </summary>
+        internal static string QuizController_SaveAnswers_Answers_is_requeried {
+            get {
+                return ResourceManager.GetString("QuizController_SaveAnswers_Answers_is_requeried", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Whoops... we seem to be experiencing a technical error. Please try again.
         /// </summary>
         internal static string UnspecifiedError {

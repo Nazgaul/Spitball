@@ -10,7 +10,7 @@
             link: function (scope, elm) {
                 var elementWidth = 129;//elm.children().first().outerWidth(true);
                 var numberOfElements = parseInt(elm.width() / elementWidth, 10);
-                console.log(numberOfElements, elementWidth, elm.width());
+                //console.log(numberOfElements, elementWidth, elm.width());
                 if (numberOfElements >= scope.maxElement.files.length) {
                     return;
                 }

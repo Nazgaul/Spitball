@@ -19,9 +19,8 @@ namespace Zbang.Zbox.Domain
             {
                 name = null;
             }
-            name = name?.Trim();
             if (owner == null) throw new ArgumentNullException(nameof(owner));
-            Name = name;
+            Name = name?.Trim();
             Owner = owner;
             Box = box;
 
@@ -93,7 +92,7 @@ namespace Zbang.Zbox.Domain
         {
             Questions.Clear();
             SolvedQuizes.Clear();
-            Updates.Clear();
+            //Updates.Clear();
         }
     }
 }

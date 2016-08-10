@@ -19,9 +19,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
        
         private readonly IUserRepository m_UserRepository;
         private readonly IQueueProvider m_QueueProvider;
+        private readonly IUpdatesRepository m_UpdatesRepository;
 
         public DeleteQuizCommandHandler(IRepository<Domain.Quiz> quizRepository,
-            IUserRepository userRepository, IRepository<Box> boxRepository, IQueueProvider queueProvider, IRepository<Comment> commentRepository)
+            IUserRepository userRepository, IRepository<Box> boxRepository, IQueueProvider queueProvider, IRepository<Comment> commentRepository, IUpdatesRepository updatesRepository)
         {
             m_QuizRepository = quizRepository;
           
@@ -29,6 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             m_BoxRepository = boxRepository;
             m_QueueProvider = queueProvider;
             m_CommentRepository = commentRepository;
+            m_UpdatesRepository = updatesRepository;
         }
         public async Task HandleAsync(DeleteQuizCommand message)
         {
@@ -51,6 +53,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 var needRemove = quiz.Comment.RemoveQuiz(quiz);
                 if (needRemove)
                 {
+                    m_UpdatesRepository.DeleteCommentUpdates(quiz.Comment.Id);
                     m_CommentRepository.Delete(quiz.Comment);
                 }
                 else
@@ -59,6 +62,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
                 }
             }
             await m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(quiz.Owner.Id));
+            m_UpdatesRepository.DeleteQuizUpdates(quiz.Id);
             m_QuizRepository.Delete(quiz, true);
             quiz.Box.UpdateItemCount();
             m_BoxRepository.Save(quiz.Box);
