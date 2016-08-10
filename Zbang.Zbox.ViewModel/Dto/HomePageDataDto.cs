@@ -22,7 +22,7 @@
     {
         public HomePageUniversityData()
         {
-            SignupColor = "#EC610D";
+            MainSignupColor = SignupColor = "#EC610D";
             BackgroundImage = "HP_image1920.jpg";
             HeaderBackgroundColor = "rgba(0,0,0,.9)";
             VideoBackgroundColor = "#FFF";
@@ -37,6 +37,8 @@
         public string SignupColor { get; set; }
 
         public string Logo { get; set; }
+
+        public string MainSignupColor { get; set; }
     }
 
 }

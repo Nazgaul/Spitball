@@ -101,6 +101,7 @@
     <property name="VideoBackgroundColor" length="30"/>
     <property name="VideoFontColor" length="30"/>
     <property name="SignupColor" length="30"/>
+    <property name="MainSignupColor" length="30"/>
 
     <property name="AdminScore" />
     <property name="AdminNoOfPeople" />

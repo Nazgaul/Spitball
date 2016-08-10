@@ -47,7 +47,7 @@ namespace Zbang.Zbox.ReadServices
                         HomePageStats = grid.Read<HomePageStats>().First()
                     };
                     if (grid.IsConsumed) return retVal;
-                    retVal.HomePageUniversityData = grid.Read<HomePageUniversityData>().First();
+                    retVal.HomePageUniversityData = await grid.ReadFirstAsync<HomePageUniversityData>();
                     return retVal;
 
                 }

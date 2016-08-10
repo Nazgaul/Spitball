@@ -55,11 +55,11 @@ window.addEventListener("load", function load() {
         timeout = setTimeout(setBackground, 1000);
     });
 
-    var bgColor = 'background-color';
-    if ($('.intro').css(bgColor) === $('button.signup').css(bgColor)) {
-        var backgroundColor = $('.static-page-header').css(bgColor);
-        $('button.signup').css(bgColor, backgroundColor);
-    }
+    //var bgColor = 'background-color';
+    //if ($('.intro').css(bgColor) === $('button.signup').css(bgColor)) {
+    //    var backgroundColor = $('.static-page-header').css(bgColor);
+    //    $('button.signup').css(bgColor, backgroundColor);
+    //}
 
     function handleScrollToTop() {
         if ($(this).scrollTop() > offset) {

@@ -25,6 +25,9 @@
         .login-option.signup{
             background-color: @ViewBag.signupColor;
         }
+        .main-signup {
+            background-color: @Model.HomePageUniversityData.MainSignupColor !important;
+        }
 
         .intro .text{
             color:@Model.HomePageUniversityData.VideoFontColor !important;
@@ -237,7 +240,7 @@
             </section>
 
             <section class="intro">
-                <button type="button" class="login-option signup toggle" data-form-action="register">
+                <button type="button" class="login-option signup toggle main-signup" data-form-action="register">
                     @HomePageResources.SignUpForFree
                 </button>
                 <div class="text">@HomePageResources.A6&nbsp;<b>@HomePageResources.Free</b></div>
