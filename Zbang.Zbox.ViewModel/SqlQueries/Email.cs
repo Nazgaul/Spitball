@@ -4,8 +4,7 @@
     {
         //TODO: need to check if we can remove recompile option
         public const string GetUserListByNotificationSettings =
-            @"	 select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
-    
+            @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
      from zbox.users u 
 	 inner join  zbox.userboxrel ub  on u.userid = u.userid and notificationSettings = @Notification
      where u.emailsendsettings = 0

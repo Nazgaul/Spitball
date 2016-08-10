@@ -7,7 +7,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public interface IMailComponent
     {
-        Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters, CancellationToken cancellationToken = default(CancellationToken));
+        Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters,
+            CancellationToken cancellationToken = default(CancellationToken), string category = null);
         //Task GenerateAndSendEmailAsync(IEnumerable<string> recipients, MailParameters parameters);
 
 

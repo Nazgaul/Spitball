@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
 
 
-        public async Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task GenerateAndSendEmailAsync(string recipient, MailParameters parameters, CancellationToken cancellationToken = default(CancellationToken), string category = null)
         {
             try
             {
@@ -47,7 +47,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
                 sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
                 sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
-
+                if (!string.IsNullOrEmpty(category))
+                {
+                    
+                    sendGridMail.SetCategory(category);
+                }
                 sendGridMail.EnableClickTracking();
                 sendGridMail.EnableOpenTracking();
                 await SendAsync(sendGridMail, new Credentials());
@@ -113,7 +117,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             {
                 From = new MailAddress("no-reply@spitball.co", "spitball system"),
                 Text = text,
-                Subject = subject
+                Subject = subject + DateTime.UtcNow.ToShortDateString()
             };
             sendGridMail.AddTo("ram@cloudents.com");
             await SendAsync(sendGridMail, new Credentials());

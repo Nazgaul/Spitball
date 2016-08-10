@@ -76,7 +76,12 @@ set updatetime = getutcdate()-121
 set isdirty = 1, isdeleted = 1, updatetime = getutcdate()-121
  where  boxid in (
 	select  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
-) and isdeleted = 0 and publish = 1"
+) and isdeleted = 0 and publish = 1",
+                @"update Zbox.quiz
+set updatetime = getutcdate()-121
+ where  boxid in (
+	select  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) and isdeleted = 1 and updatetime > getutcdate() - 120"
             }, token);
         }
         public async Task<int> DeleteOldQuizAsync(CancellationToken token)

@@ -70,17 +70,18 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     {
                         try
                         {
-                            if (!m_EmailHash.Add(user.Email))
-                            {
-                                TraceLog.WriteError($"{user.Email} is already sent");
-                                await SendEmailStatusAsync($"{user.Email} error digest email already sent");
-                                continue;
-                            }
+                            
                             needToContinueRun = true;
                             var email = user.Email;
                             if (RoleIndexProcessor.IsEmulated)
                             {
                                 email = "ram@cloudents.com";
+                            }
+                            if (!m_EmailHash.Add(email))
+                            {
+                                TraceLog.WriteError($"{email} is already sent");
+                                await SendEmailStatusAsync($"{email} error digest email already sent");
+                                continue;
                             }
                             var culture = string.IsNullOrEmpty(user.Culture)
                                 ? new CultureInfo("en-US")
@@ -196,7 +197,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                                             !c.AnswerId.HasValue && !c.QuizDiscussionId.HasValue),
                                     updatesList.Count(c => c.AnswerId.HasValue),
                                     updatesList.Count(c => c.ItemId.HasValue),
-                                    updatesList.Count), token));
+                                    updatesList.Count), token,$"update {m_DigestEmailHourBack.GetStringValue()} "));
                         }
                         catch (Exception ex)
                         {
@@ -216,13 +217,15 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 }
                 catch (Exception ex)
                 {
+                    page++;
+                    await progressAsync(page);
                     await SendEmailStatusAsync($"error digest email {ex}");
                     TraceLog.WriteError($"{GetServiceName()} error digest email {ex}");
                     return false;
                 }
             }
-            await SendEmailStatusAsync($"finish to run  with page {page}");
-            TraceLog.WriteInfo($"{GetServiceName()} finish running  mail page {page}");
+            await SendEmailStatusAsync($"finish to run  with page {page} send to users {string.Join("\n",m_EmailHash)}");
+            TraceLog.WriteInfo($"{GetServiceName()} finish running  mail page {page} send to users {string.Join("\n", m_EmailHash)}");
             return true;
         }
     }
