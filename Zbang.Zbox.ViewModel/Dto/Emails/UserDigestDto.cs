@@ -6,5 +6,10 @@
         public string Email { get; set; }
         public string Culture { get; set; }
         public string UserName { get; set; }
+
+        public override string ToString()
+        {
+            return $"UserId: {UserId} email: {Email}";
+        }
     }
 }

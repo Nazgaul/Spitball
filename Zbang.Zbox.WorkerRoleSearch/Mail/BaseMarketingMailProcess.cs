@@ -38,7 +38,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             {
                 TraceLog.WriteInfo($"{ServiceName} running  mail page {page}");
                 needToContinueRun = false;
-                int pageSize = 100;
+                int pageSize = 500;
                 if (RoleIndexProcessor.IsEmulated)
                 {
                     pageSize = 10;

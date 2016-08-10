@@ -62,10 +62,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     {
                         pageSize = 10;
                     }
+                    var usersquery = new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize);
                     var users =
-                        await
+                        (await
                             m_ZboxReadService.GetUsersByNotificationSettingsAsync(
-                                new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize), token);
+                                usersquery, token)).ToList();
+
+                    TraceLog.WriteInfo($"{GetServiceName()} query: {usersquery} going to send emails to {string.Join("\n", users)}");
                     foreach (var user in users)
                     {
                         try

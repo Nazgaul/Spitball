@@ -117,7 +117,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             {
                 From = new MailAddress("no-reply@spitball.co", "spitball system"),
                 Text = text,
-                Subject = subject + DateTime.UtcNow.ToShortDateString()
+                Subject = $"{subject} {DateTime.UtcNow.ToShortDateString()}"
             };
             sendGridMail.AddTo("ram@cloudents.com");
             await SendAsync(sendGridMail, new Credentials());

@@ -6,7 +6,7 @@
         public const string GetUserListByNotificationSettings =
             @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
      from zbox.users u 
-	 inner join  zbox.userboxrel ub  on u.userid = u.userid and notificationSettings = @Notification
+	 inner join  zbox.userboxrel ub  on u.userid = ub.userid and notificationSettings = @Notification
      where u.emailsendsettings = 0
 	 and exists ( select top 1 * 
 	 from zbox.newupdates nu 

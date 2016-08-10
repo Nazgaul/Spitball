@@ -27,7 +27,7 @@
             HeaderBackgroundColor = "rgba(0,0,0,.9)";
             VideoBackgroundColor = "#FFF";
             VideoFontColor = "#383838";
-            Logo = "/images/site/logo_spitball.png";
+            //Logo = "/images/site/logo_spitball.png";
         }
         public string HeaderBackgroundColor { get; set; }
         public string BackgroundImage { get; set; }

@@ -6,6 +6,7 @@
     const string socialIconsSvg = "~/images/site/social-icons.svg";
     ViewBag.headerbackground = Model.HomePageUniversityData.HeaderBackgroundColor;
     ViewBag.signupColor = Model.HomePageUniversityData.SignupColor;
+    Model.HomePageUniversityData.Logo = Model.HomePageUniversityData.Logo ?? Url.CdnContent("/images/site/logo_spitball.png");
 }
 <!doctype html>
 <html>
@@ -30,7 +31,7 @@
         }
 
         .sb-logo{
-            background-image: url(@Url.CdnContent(Model.HomePageUniversityData.Logo));
+            background-image: url("@Model.HomePageUniversityData.Logo");
         }
     </style>
 </head>

@@ -200,6 +200,10 @@ select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcd
 //select libraryid from Zbox.Library where id in (
 //select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 //)) option (maxdop 1)",
+    @"delete from zbox.userlibraryrel where libraryid in (
+select libraryid from Zbox.Library where id in (
+select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+)) option (maxdop 1)",
                     @"delete from Zbox.Library where id in (
 select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",
