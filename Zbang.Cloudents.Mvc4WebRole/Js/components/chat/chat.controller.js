@@ -8,7 +8,7 @@
     function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
         notificationService, resManager) {
-        var c = this, chunkSize = 2147483647/*($window.innerHeight <= 600) ? 10 : 20*/, top = 0, fromid, page = 0,
+        var c = this, chunkSize = 100, top = 0, fromid, page = 0,
             connectionStatuses = {
                 connected: 1,
                 disconnected: 0
@@ -177,7 +177,7 @@
         }
 
         function loadMoreMessages() {
-            chatBus.chat(c.userChat.conversation,
+            return chatBus.chat(c.userChat.conversation,
                 [c.userChat.id, userDetailsFactory.get().id],
                 c.messages[0].time,
                 chunkSize
