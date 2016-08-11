@@ -36,8 +36,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-           // await m_MailComponent.GenerateSystemEmailAsync("start populating", "start");
-            var tasks = new List<Task>();
+            // await m_MailComponent.GenerateSystemEmailAsync("start populating", "start");
+            //var tasks = new List<Task>();
             //for (int i = 0; i < SpamGun.SpanGunNumberOfQueues; i++)
             //{
             //    var queueName = SpamGun.BuidQueueName(i);
@@ -65,12 +65,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //} while (mails.Any() && page < 3000);
             //await m_MailComponent.GenerateSystemEmailAsync("stop populating", "stop " + page);
             //await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
-
-            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("digestEveryChange");
-            await process.ExecuteAsync(0, p =>
+            while (!cancellationToken.IsCancellationRequested)
             {
-                return Task.FromResult(true);
-            }, cancellationToken);
+                var proxy = await SignalrClient.GetProxyAsync();
+                await proxy.Invoke("UpdateThumbnail", 1, 111239);
+                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+            }
             //var amount = await m_ZboxWorkerRoleService.UpdateFileSizesAsync(() =>
             //{
 

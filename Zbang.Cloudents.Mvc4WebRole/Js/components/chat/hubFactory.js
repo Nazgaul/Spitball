@@ -4,7 +4,7 @@
     //account.$inject = ['$stateParams', '$state', 'userData'];
     realtimeFactotry.$inject = ['Hub', '$rootScope', 'ajaxService2'];
     function realtimeFactotry(Hub, $rootScope, ajaxService2) {
-       // var self = this;
+        // var self = this;
         var commands = [];
         var canSend;
         var hub = new Hub('spitballHub', {
@@ -35,8 +35,11 @@
                 updateImage: function (blob) {
                     $rootScope.$broadcast('preview-ready', blob);
                 },
-                updateThumbnail: function(itemId) {
+                updateThumbnail: function (itemId) {
                     $rootScope.$broadcast('update-thumbnail', itemId);
+                },
+                echo: function (i) {
+                    console.log('echo', i);
                 }
             },
             errorHandler: function (error) {
@@ -102,14 +105,14 @@
             if (!boxIds) {
                 return;
             }
-            if (angular.isNumber(boxIds)) {
+            if (!angular.isArray(boxIds)) {
                 boxIds = [boxIds];
             }
             if (canSend) {
-               // hub.invoke('enterBox', [boxId]);
+                // hub.invoke('enterBox', [boxId]);
                 hub.enterBoxes(boxIds);
             } else {
-                commands.push(function() {
+                commands.push(function () {
                     assingBoxes.apply(this, [boxIds]);
                 });
             }
@@ -128,7 +131,7 @@
             sendMsg: send,
             changeUniversity: changeUniversity,
             assingBoxes: assingBoxes
-           // leaveBox: leaveBox
+            // leaveBox: leaveBox
         };
 
 

@@ -88,7 +88,8 @@ namespace Zbang.Cloudents.Connect
             foreach (var boxId in boxIds)
             {
                 Groups.Add(Context.ConnectionId, $"box:{boxId}");
-                Clients.Group($"box:{boxId}").echo(Context.User.GetUserId());
+                //Clients.Caller.echo(Context.User.GetUserId());
+                //Clients.Group($"box:{boxId}").echo($"box:{boxId}");
             }
            
         }

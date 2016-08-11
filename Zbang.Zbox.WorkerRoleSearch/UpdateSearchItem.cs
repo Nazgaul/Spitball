@@ -176,6 +176,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     try
                     {
                         var proxy = await SignalrClient.GetProxyAsync();
+                        //await proxy.Invoke("UpdateThumbnail", 1, 111239);
                         await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.BoxId);
                     }
                     catch (Exception ex)
