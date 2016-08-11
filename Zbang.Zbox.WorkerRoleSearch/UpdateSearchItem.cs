@@ -172,12 +172,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
                     //some long running method requiring synchronization
                     var retVal = await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, tokenSource.Token);
+                    var proxy = await SignalrClient.GetProxyAsync();
+                    await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.BoxId);
                     if (retVal == null)
                     {
                         wait.Set();
                         return;
                     }
-                    //var oldBlobName = msgData.BlobName;
                     var command = new UpdateThumbnailCommand(msgData.Id, retVal.BlobName,
                         msgData.Content);
                     m_ZboxWriteService.UpdateThumbnailPicture(command);

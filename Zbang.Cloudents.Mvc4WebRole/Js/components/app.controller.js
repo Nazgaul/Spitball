@@ -101,15 +101,8 @@
 
             //hub
             if (toState.name.startsWith('box')) {
-                console.log('enter', toParams.boxId);
-                realtimeFactotry.enterBox(toParams.boxId);
-                if (toParams.boxId !== fromParams.boxId) {
-                    console.log('leave', fromParams.boxId);
-                    realtimeFactotry.leaveBox(fromParams.boxId);
-                }
-            } else {
-                console.log('leave', fromParams.boxId);
-                realtimeFactotry.leaveBox(fromParams.boxId);
+                realtimeFactotry.assingBoxes(toParams.boxId);
+                
             }
             //if (toState.name === 'universityChoose') {
             //    $mdSidenav('chat').close();

@@ -36,6 +36,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
                 if (command.UserIds != null && command.UserIds.Any())
                 {
+                    
                     try
                     {
                         var proxy = await SignalrClient.GetProxyAsync();
