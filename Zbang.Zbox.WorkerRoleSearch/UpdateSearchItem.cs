@@ -60,7 +60,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 try
                 {
                     await DoProcessAsync(cancellationToken, index, count);
-                  
+
                 }
                 catch (TaskCanceledException)
                 {
@@ -98,8 +98,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             new[] { elem }, null));
                 }
             }
+
+            tasks.Add(m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete));
             await Task.WhenAll(tasks);
-            await m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(
                     updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
@@ -172,8 +173,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
                     //some long running method requiring synchronization
                     var retVal = await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, tokenSource.Token);
-                    var proxy = await SignalrClient.GetProxyAsync();
-                    await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.BoxId);
+                    try
+                    {
+                        var proxy = await SignalrClient.GetProxyAsync();
+                        await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.BoxId);
+                    }
+                    catch (Exception ex)
+                    {
+                        TraceLog.WriteError("on signalr UpdateThumbnail", ex);
+                    }
                     if (retVal == null)
                     {
                         wait.Set();

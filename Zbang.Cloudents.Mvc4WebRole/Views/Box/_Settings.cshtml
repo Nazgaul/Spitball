@@ -36,7 +36,7 @@
             <label>@BoxResources.Notify</label>
             <md-select name="notification" ng-model="b.settings.notificationSettings" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
                 <md-option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</md-option>
-                <md-option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</md-option>
+                @*<md-option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</md-option>*@
                 <md-option value="@NotificationSettings.OnceADay.GetStringValueLowerCase()">@NotificationSettings.OnceADay.GetEnumDescription()</md-option>
                 <md-option value="@NotificationSettings.OnceAWeek.GetStringValueLowerCase()">@NotificationSettings.OnceAWeek.GetEnumDescription()</md-option>
             </md-select>

@@ -38,10 +38,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         private async Task SendEmailStatusAsync(string message)
         {
-            if (NotificationSettings.OnEveryChange == m_DigestEmailHourBack)
-            {
-                return;
-            }
+            //if (NotificationSettings.OnEveryChange == m_DigestEmailHourBack)
+            //{
+            //    return;
+            //}
             await m_MailComponent.GenerateSystemEmailAsync(GetServiceName(), message);
 
         }
