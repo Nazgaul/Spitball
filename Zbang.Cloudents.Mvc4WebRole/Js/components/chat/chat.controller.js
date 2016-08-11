@@ -8,7 +8,7 @@
     function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
         notificationService, resManager) {
-        var c = this, chunkSize = 100, top = 0, fromid, page = 0,
+        var c = this, chunkSize = 100, top = 0, page = 0,
             connectionStatuses = {
                 connected: 1,
                 disconnected: 0
