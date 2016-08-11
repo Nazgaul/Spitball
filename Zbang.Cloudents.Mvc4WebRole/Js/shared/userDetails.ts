@@ -1,19 +1,21 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="ajaxservice2.ts" />
 'use strict';
+// ReSharper disable once InconsistentNaming
 declare var __insp: any;
 declare var googletag: any;
 
-
 interface IUserDetailsFactory {
-    init(refresh?): ng.IPromise<IUserData>;
+    init(): angular.IPromise<IUserData>;
     get(): IUserData;
     isAuthenticated(): boolean;
     setName(first, last): void;
     setImage(image): void;
     getUniversity(): number;
-    setUniversity(name, id): void;
+    setUniversity(name, id): angular.IPromise<IUserData>;
     setTheme(theme): void;
 }
+
 
 interface IUniversity {
     country: string;
@@ -39,8 +41,8 @@ interface IUserData {
 
 (() => {
     angular.module('app').factory('userDetailsFactory', userDetails);
-    userDetails.$inject = ['$rootScope', '$filter', '$timeout', '$q', '$http', 'ajaxService2', 'Analytics'];
-    function userDetails($rootScope, $filter, $timeout, $q, $http, ajaxService, analytics): IUserDetailsFactory {
+    userDetails.$inject = ['$rootScope', '$q', 'ajaxService2', 'Analytics'];
+    function userDetails($rootScope: angular.IRootScopeService, $q: angular.IQService, ajaxService: IAjaxService2, analytics): IUserDetailsFactory {
         "use strict";
         var
             isAuthenticated = false,
@@ -95,26 +97,25 @@ interface IUserData {
 
         }
 
-        return {
-            init: () => {
-                //if (refresh) { // in change uni
-                //    deferDetails = $q.defer();
-                //    userData = null;
-                //}
-                if (userData) {
-                    deferDetails.resolve(userData);
-                    return deferDetails.promise;
-                }
-                if (!serverCall) {
-                    serverCall = true;
-                    ajaxService.get('/account/details/', null, 'accountDetail').then(response => {
-                        setDetails(response);
-                        deferDetails.resolve(userData);
-                        serverCall = false;
-                    });
-                }
+
+        function init() {
+            if (userData) {
+                deferDetails.resolve(userData);
                 return deferDetails.promise;
-            },
+            }
+            if (!serverCall) {
+                serverCall = true;
+
+                ajaxService.get('/account/details/', null, 'accountDetail').then(response => {
+                    setDetails(response);
+                    deferDetails.resolve(userData);
+                    serverCall = false;
+                });
+            }
+            return deferDetails.promise;
+        }
+        return {
+            init: init,
             get: () => userData,
             isAuthenticated: () => isAuthenticated,
             setName: (first, last) => {
@@ -132,17 +133,20 @@ interface IUserData {
                 return userData ? userData.university.id : null;
             },
             setUniversity: () => {
+
+                ajaxService.deleteCacheCategory('accountDetail');
                 userData = null;
-                return this.init();
+
+                return init();
                 //userData.university.name = name;
                 //userData.university.id = id;
                 //$rootScope.$broadcast('universityChange', userData);
             },
             setTheme: theme => {
                 userData.theme = theme;
-                //$rootScope.$broadcast('themeChange', userData);
             }
         };
     }
 
 })();
+

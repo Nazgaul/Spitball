@@ -1,10 +1,9 @@
 'use strict';
 (function () {
     angular.module('app').factory('userDetailsFactory', userDetails);
-    userDetails.$inject = ['$rootScope', '$filter', '$timeout', '$q', '$http', 'ajaxService2', 'Analytics'];
-    function userDetails($rootScope, $filter, $timeout, $q, $http, ajaxService, analytics) {
+    userDetails.$inject = ['$rootScope', '$q', 'ajaxService2', 'Analytics'];
+    function userDetails($rootScope, $q, ajaxService, analytics) {
         "use strict";
-        var _this = this;
         var isAuthenticated = false, userData, serverCall = false, deferDetails = $q.defer();
         function setDetails(data) {
             if (data.id) {
@@ -42,22 +41,23 @@
                 }
             };
         }
-        return {
-            init: function () {
-                if (userData) {
-                    deferDetails.resolve(userData);
-                    return deferDetails.promise;
-                }
-                if (!serverCall) {
-                    serverCall = true;
-                    ajaxService.get('/account/details/', null, 'accountDetail').then(function (response) {
-                        setDetails(response);
-                        deferDetails.resolve(userData);
-                        serverCall = false;
-                    });
-                }
+        function init() {
+            if (userData) {
+                deferDetails.resolve(userData);
                 return deferDetails.promise;
-            },
+            }
+            if (!serverCall) {
+                serverCall = true;
+                ajaxService.get('/account/details/', null, 'accountDetail').then(function (response) {
+                    setDetails(response);
+                    deferDetails.resolve(userData);
+                    serverCall = false;
+                });
+            }
+            return deferDetails.promise;
+        }
+        return {
+            init: init,
             get: function () { return userData; },
             isAuthenticated: function () { return isAuthenticated; },
             setName: function (first, last) {
@@ -75,8 +75,9 @@
                 return userData ? userData.university.id : null;
             },
             setUniversity: function () {
+                ajaxService.deleteCacheCategory('accountDetail');
                 userData = null;
-                return _this.init();
+                return init();
             },
             setTheme: function (theme) {
                 userData.theme = theme;

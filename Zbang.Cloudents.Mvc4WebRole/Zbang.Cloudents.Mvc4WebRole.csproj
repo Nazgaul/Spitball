@@ -1516,11 +1516,8 @@
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\doubleclick.config.js" />
     <Content Include="Js\components\chat\hubFactory.js" />
-    <Content Include="Js\shared\ajaxService2.js" />
     <Content Include="Js\shared\collapseHeader.directive.js" />
-    <Content Include="Js\shared\inlineManual.js" />
     <Content Include="Js\shared\inlineManualNew.js" />
-    <Content Include="Js\shared\intercom.js" />
     <Content Include="Js\shared\languageHandler.js" />
     <Content Include="Js\shared\keyboardAction.directive.js" />
     <Content Include="Js\shared\menuAd.directive.js" />
@@ -1532,8 +1529,8 @@
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
+    <TypeScriptCompile Include="Js\shared\ajaxService2.ts" />
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
-    <Content Include="Js\shared\userDetails.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-animate\angular-animate.js" />
@@ -2593,6 +2590,7 @@
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-route.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\cachefactory.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <ItemGroup>
