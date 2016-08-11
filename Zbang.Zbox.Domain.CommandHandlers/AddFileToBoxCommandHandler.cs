@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new FileQuotaExceedException();
             }
 
-            
+
             var fileName = GetUniqueFileNameToBox(command.FileName, box.Id);
 
             var item = box.AddFile(fileName,
@@ -81,12 +81,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             m_BoxRepository.Save(box);
 
-            //user.Quota.UsedSpace = m_UserRepository.GetItemsByUser(user.Id);
             AddItemToTab(command.TabId, item);
-           // var t1 = TriggerCacheDocumentAsync(command.BlobAddressName, item.Id);
-            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id,itemId: item.Id));
+            var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, itemId: item.Id));
             var t3 = m_QueueProvider.InsertMessageToTranactionAsync(new QuotaData(user.Id));
-            await Task.WhenAll(t2, t3);
+            var t1 = m_QueueProvider.InsertMessageToThumbnailAsync(new BoxFileProcessData(item.Id));
+            await Task.WhenAll(t1, t2, t3);
 
             var result = new AddFileToBoxCommandResult(item);
 
@@ -114,7 +113,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
 
-        
+
 
         //private Task TriggerCacheDocumentAsync(string blobAddress, long itemId)
         //{

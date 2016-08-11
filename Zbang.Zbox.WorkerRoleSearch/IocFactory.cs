@@ -118,6 +118,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                  Infrastructure.Transport.DomainProcess.UserResolver);
 
             Ioc.RegisterType<IFileProcess, PreProcessFile>(nameof(ChatFileProcessData));
+            Ioc.RegisterType<IFileProcess, UpdateSearchItem>(nameof(BoxFileProcessData));
 
         }
 
