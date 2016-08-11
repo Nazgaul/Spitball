@@ -15,8 +15,8 @@
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
-    <AzureStorageAccountLabel>gradeback</AzureStorageAccountLabel>
-    <AzureStorageAccountName>gradeback</AzureStorageAccountName>
+    <AzureStorageAccountLabel>zboxstorage</AzureStorageAccountLabel>
+    <AzureStorageAccountName>zboxstorage</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
   </PropertyGroup>
 </Project>
