@@ -3,10 +3,10 @@
     angular.module('app.quiz').controller('QuizController', quiz);
 
     quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter',
-        'userDetailsFactory', '$rootScope', '$scope', 'CacheFactory', '$previousState', '$location'];
+        'userDetailsFactory', '$rootScope', '$scope',  '$previousState', '$location'];
 
     function quiz(quizData, $timeout, $stateParams, quizService, $filter,
-        userDetailsFactory, $rootScope, $scope, cacheFactory, $previousState, $location) {
+        userDetailsFactory, $rootScope, $scope,  $previousState, $location) {
 
         var q = this;
         q.states = {
@@ -252,7 +252,7 @@
         }
 
         function sendData() {
-            cacheFactory.clearAll(); //autofollow issue
+           // cacheFactory.clearAll(); //autofollow issue
             var data = {
                 boxId: $stateParams.boxId,
                 quizId: $stateParams.quizId,

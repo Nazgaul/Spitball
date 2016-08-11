@@ -13,12 +13,14 @@ using Zbang.Zbox.Infrastructure.Azure.Blob;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
+using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class UpdateSearchItem : UpdateSearch, IJob
+    public class UpdateSearchItem : UpdateSearch, IJob , IFileProcess
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
@@ -56,11 +58,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             while (!cancellationToken.IsCancellationRequested)
             {
-
                 try
                 {
                     await DoProcessAsync(cancellationToken, index, count);
-                  
+
                 }
                 catch (TaskCanceledException)
                 {
@@ -83,23 +84,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount)
         {
             const int top = 10;
-            var updates = await m_ZboxReadService.GetItemDirtyUpdatesAsync(instanceId, instanceCount, top);
+            var updates = await m_ZboxReadService.GetItemsDirtyUpdatesAsync(instanceId, instanceCount, top);
             if (!updates.ItemsToUpdate.Any() && !updates.ItemsToDelete.Any()) return TimeToSleep.Increase;
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {
-                elem.Content = ExtractContentToUploadToSearch(elem);
-                PreProcessFile(elem);
-
-                if (elem.Type.ToLower() == "file")
-                {
-                    tasks.Add(
-                        m_ItemSearchProvider3.UpdateDataAsync(
-                            new[] { elem }, null));
-                }
+                tasks.Add(ProcessFileAsync(elem));
             }
+
+            tasks.Add(m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete));
             await Task.WhenAll(tasks);
-            await m_ItemSearchProvider3.UpdateDataAsync(null, updates.ItemsToDelete);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
                 new UpdateDirtyToRegularCommand(
                     updates.ItemsToDelete.Union(updates.ItemsToUpdate.Select(s => s.Id))));
@@ -109,6 +103,18 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 return TimeToSleep.Min;
             }
             return TimeToSleep.Same;
+        }
+
+        private Task ProcessFileAsync(ItemSearchDto elem)
+        {
+            elem.Content = ExtractContentToUploadToSearch(elem);
+            PreProcessFile(elem);
+
+            if (elem.Type.ToLower() == "file")
+            {
+                return m_ItemSearchProvider3.UpdateDataAsync(new[] { elem }, null);
+            }
+            return Infrastructure.Extensions.TaskExtensions.CompletedTask;
         }
 
         protected override string GetPrefix()
@@ -148,7 +154,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private void PreProcessFile(ItemSearchDto msgData)
         {
             var processor = GetProcessor(msgData);
-            //var processor = m_FileProcessorFactory.GetProcessor(blob.Uri);
             if (processor.ContentProcessor == null) return;
             var previewContainer = m_BlobClient.GetContainerReference(BlobProvider.AzurePreviewContainer.ToLower());
             var previewBlobName = WebUtility.UrlEncode(msgData.BlobName + ".jpg");
@@ -172,12 +177,21 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     tokenSource.CancelAfter(TimeSpan.FromMinutes(10));
                     //some long running method requiring synchronization
                     var retVal = await processor.ContentProcessor.PreProcessFileAsync(processor.Uri, tokenSource.Token);
+                    try
+                    {
+                        var proxy = await SignalrClient.GetProxyAsync();
+                        //await proxy.Invoke("UpdateThumbnail", 1, 111239);
+                        await proxy.Invoke("UpdateThumbnail", msgData.Id, msgData.BoxId);
+                    }
+                    catch (Exception ex)
+                    {
+                        TraceLog.WriteError("on signalr UpdateThumbnail", ex);
+                    }
                     if (retVal == null)
                     {
                         wait.Set();
                         return;
                     }
-                    //var oldBlobName = msgData.BlobName;
                     var command = new UpdateThumbnailCommand(msgData.Id, retVal.BlobName,
                         msgData.Content);
                     m_ZboxWriteService.UpdateThumbnailPicture(command);
@@ -273,11 +287,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
         }
 
 
+        public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
+        {
+            var parameters = data as BoxFileProcessData;
+            if (parameters == null) return true;
 
-
-
-
-
-
+            var elem = await m_ZboxReadService.GetItemDirtyUpdatesAsync(parameters.ItemId);
+            await ProcessFileAsync(elem);
+            await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
+                new UpdateDirtyToRegularCommand(new[] {elem.Id}));
+            return true;
+        }
     }
 }

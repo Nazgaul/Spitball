@@ -17,10 +17,10 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
         {
             get
             {
-                if (NotificationSettings == NotificationSettings.OnEveryChange)
-                {
-                    return (int)TimeSpan.FromMinutes(OnEveryChangeTimeToQueryInMinutes).TotalMinutes;
-                }
+                //if (NotificationSettings == NotificationSettings.OnEveryChange)
+                //{
+                //    return (int)TimeSpan.FromMinutes(OnEveryChangeTimeToQueryInMinutes).TotalMinutes;
+                //}
                 return (int)NotificationSettings * (int)TimeSpan.FromHours(1).TotalMinutes;
             }
         }

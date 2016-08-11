@@ -63,15 +63,25 @@ select libraryid from Zbox.Library where id in (
 select id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 
 )) and isdeleted = 0",
                 @"update Zbox.item
-set isdirty = 1, isdeleted = 1
+set isdirty = 1, isdeleted = 1, updatetime = getutcdate()-121
  where  boxid in (
 	select  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) and isdeleted = 0",
-                @"update Zbox.quiz
-set isdirty = 1, isdeleted = 1
+                 @"update Zbox.item
+set updatetime = getutcdate()-121
  where  boxid in (
 	select  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
-) and isdeleted = 0 and publish = 1"
+) and isdeleted = 1 and updatetime > getutcdate() - 120",
+                @"update Zbox.quiz
+set isdirty = 1, isdeleted = 1, updatetime = getutcdate()-121
+ where  boxid in (
+	select  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) and isdeleted = 0 and publish = 1",
+                @"update Zbox.quiz
+set updatetime = getutcdate()-121
+ where  boxid in (
+	select  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) and isdeleted = 1 and updatetime > getutcdate() - 120"
             }, token);
         }
         public async Task<int> DeleteOldQuizAsync(CancellationToken token)
@@ -126,6 +136,9 @@ set isdirty = 1, isdeleted = 1
                 ExecuteSqlLoopAsync(
                     new []
                     {
+                        @"delete from Zbox.NewUpdates where boxid in (
+	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) option (maxdop 1)",
                         @"delete from Zbox.Invite where boxid in (
 	select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",
@@ -166,7 +179,9 @@ and boxid in (
 and boxid in (
 	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",
-                        "delete top (3) from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 option (maxdop 1)"
+                        @"delete from zbox.box where boxid in (
+select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0 order by boxid
+) option(maxdop 1)"
                     }, token);
 
         }
@@ -185,6 +200,10 @@ and boxid in (
 //select libraryid from Zbox.Library where id in (
 //select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 //)) option (maxdop 1)",
+    @"delete from zbox.userlibraryrel where libraryid in (
+select libraryid from Zbox.Library where id in (
+select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+)) option (maxdop 1)",
                     @"delete from Zbox.Library where id in (
 select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",

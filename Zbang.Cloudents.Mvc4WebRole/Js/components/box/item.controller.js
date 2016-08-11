@@ -44,9 +44,7 @@
             getItems();
         }
 
-        //function setTab(tab) {
-        //    $state.go('box.items', { tabId: tab.id });
-        //}
+       
 
         function followBox() {
             $scope.$emit('follow-box');
@@ -78,9 +76,14 @@
 
 
         //$scope.$on('resetParams', resetParams);
-        //$scope.$on('getItems', function () {
-        //    getItems();
-        //});
+        $scope.$on('update-thumbnail', function (e, args) {
+            var item = i.items.find(function (x) {
+                return x.id === args;
+            });
+            if (item) {
+                item.thumbnail += '&1=1';
+            }
+        });
         function resetParams() {
             page = 0;
             needToBringMore = true;

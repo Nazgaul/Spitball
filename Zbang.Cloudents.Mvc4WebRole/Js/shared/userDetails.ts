@@ -1,19 +1,21 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="ajaxservice2.ts" />
 'use strict';
+// ReSharper disable once InconsistentNaming
 declare var __insp: any;
 declare var googletag: any;
 
-
 interface IUserDetailsFactory {
-    init(refresh?): ng.IPromise<IUserData>;
+    init(): angular.IPromise<IUserData>;
     get(): IUserData;
     isAuthenticated(): boolean;
     setName(first, last): void;
     setImage(image): void;
     getUniversity(): number;
-    setUniversity(name, id): void;
+    setUniversity(name, id): angular.IPromise<IUserData>;
     setTheme(theme): void;
 }
+
 
 interface IUniversity {
     country: string;
@@ -39,8 +41,8 @@ interface IUserData {
 
 (() => {
     angular.module('app').factory('userDetailsFactory', userDetails);
-    userDetails.$inject = ['$rootScope', '$filter', '$timeout', '$q', '$http', 'ajaxService', 'Analytics'];
-    function userDetails($rootScope, $filter, $timeout, $q, $http, ajaxService, analytics): IUserDetailsFactory {
+    userDetails.$inject = ['$rootScope', '$q', 'ajaxService2', 'Analytics'];
+    function userDetails($rootScope: angular.IRootScopeService, $q: angular.IQService, ajaxService: IAjaxService2, analytics): IUserDetailsFactory {
         "use strict";
         var
             isAuthenticated = false,
@@ -60,7 +62,7 @@ interface IUserData {
             analytics.set('dimension2', data.universityCountry || null);
             analytics.set('dimension3', data.id || null);
             analytics.set('dimension4', data.theme || 'dark');
-            
+
             //$timeout(() => {
             //    googletag.pubads().setTargeting('gender', data.sex);
             //}, 1000);
@@ -95,35 +97,28 @@ interface IUserData {
 
         }
 
-        return {
-            init: refresh => {
-                if (refresh) {
-                    deferDetails = $q.defer();
-                    userData = null;
-                }
-                if (userData) {
-                    deferDetails.resolve(userData);
-                    return deferDetails.promise;
-                }
-                if (!serverCall) {
-                    serverCall = true;
 
-                    ajaxService.get('/account/details/').then(response => {
-                        setDetails(response);
-                        deferDetails.resolve(userData);
-                        serverCall = false;
-                    });
-                }
+        function init() {
+            if (userData) {
+                deferDetails.resolve(userData);
                 return deferDetails.promise;
-            },
+            }
+            if (!serverCall) {
+                serverCall = true;
+
+                ajaxService.get('/account/details/', null, 'accountDetail').then(response => {
+                    setDetails(response);
+                    deferDetails.resolve(userData);
+                    serverCall = false;
+                });
+            }
+            return deferDetails.promise;
+        }
+        return {
+            init: init,
             get: () => userData,
-
-
-
             isAuthenticated: () => isAuthenticated,
             setName: (first, last) => {
-                //userData.firstName = first;
-                //userData.lastName = last;
                 userData.name = first + " " + last;
                 $rootScope.$broadcast('userDetailsChange');
             },
@@ -137,44 +132,21 @@ interface IUserData {
             getUniversity: () => {
                 return userData ? userData.university.id : null;
             },
-            setUniversity: (name, id) => {
-                userData.university.name = name;
-                userData.university.id = id;
-                $rootScope.$broadcast('universityChange', userData);
+            setUniversity: () => {
+
+                ajaxService.deleteCacheCategory('accountDetail');
+                userData = null;
+
+                return init();
+                //userData.university.name = name;
+                //userData.university.id = id;
+                //$rootScope.$broadcast('universityChange', userData);
             },
             setTheme: theme => {
                 userData.theme = theme;
-                //$rootScope.$broadcast('themeChange', userData);
             }
-            //updateChange: function () {
-            //    $rootScope.$broadcast('userDetailsChange');
-            //},
-
-            //getUniversity: function () {
-            //    if (_.isEmpty(userData.university)) {
-            //        return false;
-            //    }
-            //    return userData.university;
-
-            //},
-            //initDetails: function () {
-            //    if (this.isAuthenticated()) {
-            //        var defer = $q.defer();
-            //        $timeout(function () {
-            //            defer.resolve();
-            //        });
-            //        return defer.promise;
-            //    }
-
-            //    var promise = sAccount.details();
-
-            //    promise.then(function (response) {
-            //        setDetails(response);
-            //    });
-
-            //    return promise;
-            //}
         };
     }
 
 })();
+

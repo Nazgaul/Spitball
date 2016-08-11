@@ -26,7 +26,7 @@ window.addEventListener("load", function load() {
     new CountUp("quizzes", 0, quizzesCount, 0, 2.5, options).start();;
     //#endregion
 
-    var hasBoxes = hasReviews = false;
+    var hasBoxes = false, hasReviews = false;
 
     //#region scroll to top
     var offset = 300;
@@ -37,10 +37,10 @@ window.addEventListener("load", function load() {
     function setBackground() {
         var background = $('.home-page-body');
         var main = $('.main');
-        var header = $('.static-page-header');
+        //var header = $('.static-page-header');
         var backgroundUrl = 'https://az779114.vo.msecnd.net/universities/cover/' +
                 encodeURIComponent(main.data('image')) +
-                '?mode=crop&width=' +
+                '?mode=crop&quality=80&scale=both&width=' +
                  main.outerWidth() +
                 '&height=' +
                 ($(window).outerHeight());
@@ -55,11 +55,11 @@ window.addEventListener("load", function load() {
         timeout = setTimeout(setBackground, 1000);
     });
 
-    var bgColor = 'background-color';
-    if ($('.intro').css(bgColor) === $('button.signup').css(bgColor)) {
-        var backgroundColor = $('.static-page-header').css(bgColor);
-        $('button.signup').css(bgColor, backgroundColor);
-    }
+    //var bgColor = 'background-color';
+    //if ($('.intro').css(bgColor) === $('button.signup').css(bgColor)) {
+    //    var backgroundColor = $('.static-page-header').css(bgColor);
+    //    $('button.signup').css(bgColor, backgroundColor);
+    //}
 
     function handleScrollToTop() {
         if ($(this).scrollTop() > offset) {

@@ -37,7 +37,14 @@ namespace Zbang.Zbox.Domain
             Text = text?.Trim();
             DateTimeUser = new UserTimeDetails(user.Id);
             Question = question;
-            Items = items;
+            if (items != null)
+            {
+                foreach (var item in items)
+                {
+                    item.Comment = null;
+                }
+                Items = items;
+            }
             Box.UserTime.UpdateUserTime(user.Id);
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 

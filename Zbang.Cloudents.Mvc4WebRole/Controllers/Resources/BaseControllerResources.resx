@@ -123,4 +123,10 @@
   <data name="UnspecifiedError" xml:space="preserve">
     <value>Whoops... we seem to be experiencing a technical error. Please try again</value>
   </data>
+  <data name="QuizController_CreateQuestion_Quiz_id_cannot_be_0" xml:space="preserve">
+    <value>Quiz id cannot be 0</value>
+  </data>
+  <data name="QuizController_SaveAnswers_Answers_is_requeried" xml:space="preserve">
+    <value>Answers is requeried</value>
+  </data>
 </root>

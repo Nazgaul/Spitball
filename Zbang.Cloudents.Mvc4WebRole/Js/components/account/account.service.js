@@ -1,19 +1,15 @@
 ﻿'use strict';
 (function () {
     angular.module('app.account').service('accountService', accountService);
-    accountService.$inject = ['ajaxService'];
+    accountService.$inject = ['ajaxService2'];
 
     function accountService(ajaxservice) {
         var self = this;
 
-        //self.changeImage = function (src) {
-        //    //$rootScope.$broadcast('userDetailsChange');
-        //}
-
         self.changeEmail = function(email) {
             return ajaxservice.post('/account/changeemail/', {
                 email: email
-            });
+            }, 'accountDetail');
         }
         self.submitCode = function(code) {
             return ajaxservice.post('/account/entercode/' , {
@@ -27,11 +23,7 @@
         
 
         self.setAccountDetails = function (firstName, lastName) {
-            //self.details.name = firstName + " " + lastName;
-            //self.details.universityName = universityName;
-            //self.details.universityId = universityId;
-            //$rootScope.$broadcast('userDetailsChange');
-            return ajaxservice.post('/account/changeprofile/', { firstName: firstName, lastName: lastName });
+            return ajaxservice.post('/account/changeprofile/', { firstName: firstName, lastName: lastName }, 'accountDetail');
 
         }
 
@@ -68,13 +60,13 @@
         self.changeLocale = function(lang) {
             return ajaxservice.post('/account/changelocale/', {
                 language: lang
-            });
+            }, 'accountDetail');
         }
 
         self.changeTheme = function (theme) {
             return ajaxservice.post('/account/ChangeTheme/', {
                 theme: theme
-            });
+            }, 'accountDetail');
         }
 
         self.facebookLogIn = function (token, boxId) {

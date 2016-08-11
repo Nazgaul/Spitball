@@ -33,7 +33,7 @@
       <key column="QuizId" foreign-key="QuizIdSolvedQuiz"/>
       <one-to-many class="SolvedQuiz"/>
     </bag>
-    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+    <bag name="Updates" inverse="true" lazy="true" cascade="none" >
       <key column="QuizId" foreign-key="NewUpdatesQuiz"/>
       <one-to-many class="Updates"/>
     </bag>

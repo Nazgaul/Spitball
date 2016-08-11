@@ -497,45 +497,18 @@
                 //}
             }
         }
-
-        //var tagsToReplace = {
-        //    '&': '&amp;',
-        //    '<': '&lt;',
-        //    '>': '&gt;'
-        //};
-
-        //function replaceTag(tag) {
-        //    return tagsToReplace[tag] || tag;
-        //}
-
-        //function extractUrls(d) {
-        //    if (!d) {
-        //        return;
-        //    }
-        //    var urlex = /\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))/i;
-
-        //    var array = d.match(urlex) || [];
-        //    var matches = [];
-        //    for (var k = 0; k < array.length; k++) {
-        //        if (matches.indexOf(array[k]) < 0)
-        //            matches.push(array[k]);
-        //    }
-        //    if (!matches.length) {
-        //        return d;
-        //    }
-        //    for (var i = 0; i < matches.length; i++) {
-        //        var url = matches[i];
-        //        if (!url) {
-        //            continue;
-        //        }
-        //        if (url.indexOf('http') !== 0) {
-        //            url = 'http://' + url;
-        //        }
-        //        d = d.replace(matches[i], "<a target=\"_blank\" href=\"" + url + "\">" + matches[i] + "</a>");
-        //    }
-
-        //    return d;
-        //}
+        $scope.$on('update-thumbnail', function (e, args) {
+            for (var i = 0; i < self.data.length; i++) {
+                var element = self.data[i];
+                var item = element.files.find(function (x) {
+                    return x.id === args;
+                });
+                if (item) {
+                    item.thumbnail += '&1=1';
+                    break;
+                }
+            }
+        });
     }
 })();
 

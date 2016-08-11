@@ -1,26 +1,26 @@
 ﻿'use strict';
 (function () {
     angular.module('app.ajaxservice').factory('ajaxService', ajaxService);
-    ajaxService.$inject = ['$http', '$q', 'Analytics', 'CacheFactory'];
+    ajaxService.$inject = ['$http', '$q', 'Analytics' ];
 
 
 
-    function ajaxService($http, $q, analytics, cacheFactory) {
+    function ajaxService($http, $q, analytics) {
         var cancelObjs = {};
 
-        function post(url, data, disableClearCache) {
+        function post(url, data) {
             var dfd = $q.defer(),
                 startTime = new Date().getTime();
 
             $http.post(buildUrl(url), data).then(function (response) {
                 var retVal = response.data;
                 trackTime(startTime, url, data, 'post');
-                if (!disableClearCache) {
-                    cacheFactory.clearAll();
-                    //angular.forEach(ttls, function (ttl) {
-                    //    ttl.removeAll();
-                    //});
-                }
+                //if (!disableClearCache) {
+                //    cacheFactory.clearAll();
+                //    //angular.forEach(ttls, function (ttl) {
+                //    //    ttl.removeAll();
+                //    //});
+                //}
                 if (!retVal) {
                     logError(url, data, retVal);
                     dfd.reject();
@@ -86,10 +86,10 @@
                 cancelObjs[url] = $q.defer();
                 getObj.timeout = cancelObjs[url].promise;
             }
-            if (ttl) {
-                //ttl = ttl || 45000;
-                getObj.cache = getCache(ttl);
-            }
+            //if (ttl) {
+            //    //ttl = ttl || 45000;
+            //    getObj.cache = getCache(ttl);
+            //}
 
             $http.get(buildUrl(url), getObj).then(function (response) {
                 //var data = response.data;
@@ -156,17 +156,17 @@
         }
 
 
-        function getCache(ttl) {
-            var ttlString = ttl.toString();
+        //function getCache(ttl) {
+        //    var ttlString = ttl.toString();
 
-            var dataCache = cacheFactory.get(ttlString);
-            if (!dataCache) {
-                dataCache = cacheFactory(ttlString, {
-                    maxAge: ttl
-                });
-            }
-            return dataCache;
-        }
+        //    var dataCache = cacheFactory.get(ttlString);
+        //    if (!dataCache) {
+        //        dataCache = cacheFactory(ttlString, {
+        //            maxAge: ttl
+        //        });
+        //    }
+        //    return dataCache;
+        //}
 
         return {
             get: get,

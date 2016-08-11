@@ -47,7 +47,7 @@ namespace Zbang.Zbox.Domain
         public virtual string Url { get; set; }
 
         public virtual Comment Comment { get; set; }
-        public virtual CommentReply Answer { get; set; }
+        public virtual CommentReply CommentReply { get; set; }
 
         protected virtual ICollection<Updates> Updates { get; set; }
         protected virtual ICollection<ItemComment> ItemComments { get; set; }

@@ -36,8 +36,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-            await m_MailComponent.GenerateSystemEmailAsync("start populating", "start");
-            var tasks = new List<Task>();
+            // await m_MailComponent.GenerateSystemEmailAsync("start populating", "start");
+            //var tasks = new List<Task>();
             //for (int i = 0; i < SpamGun.SpanGunNumberOfQueues; i++)
             //{
             //    var queueName = SpamGun.BuidQueueName(i);
@@ -46,31 +46,31 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //}
             //await Task.WhenAll(tasks);
             //tasks.Clear();
-            int page = 0;
-            var mails = (await m_ZboxReadService.GetEmailsAsync(page)).ToList();
-            do
-            {
-                TraceLog.WriteInfo($"page: {page}");
-                var queue = m_QueueProvider.GetQueue(SpamGun.BuidQueueName(page % SpamGun.SpanGunNumberOfQueues));
-                tasks.AddRange(mails.Select(mail => queue.InsertToQueueProtoAsync(new SpamGunData { Email = mail })));
-                page++;
-
-                if (page % 20 == 0)
-                {
-                    TraceLog.WriteInfo("waiting task to complete");
-                    await Task.WhenAll(tasks);
-                    tasks.Clear();
-                }
-                mails = (await m_ZboxReadService.GetEmailsAsync(page)).ToList();
-            } while (mails.Any() && page < 3000);
-            await m_MailComponent.GenerateSystemEmailAsync("stop populating", "stop " + page);
-            await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
-
-            //var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("digestOnceADay");
-            //await process.ExecuteAsync(0, p =>
+            //int page = 0;
+            //var mails = (await m_ZboxReadService.GetEmailsAsync(page)).ToList();
+            //do
             //{
-            //    return Task.FromResult(true);
-            //}, cancellationToken);
+            //    TraceLog.WriteInfo($"page: {page}");
+            //    var queue = m_QueueProvider.GetQueue(SpamGun.BuidQueueName(page % SpamGun.SpanGunNumberOfQueues));
+            //    tasks.AddRange(mails.Select(mail => queue.InsertToQueueProtoAsync(new SpamGunData { Email = mail })));
+            //    page++;
+
+            //    if (page % 20 == 0)
+            //    {
+            //        TraceLog.WriteInfo("waiting task to complete");
+            //        await Task.WhenAll(tasks);
+            //        tasks.Clear();
+            //    }
+            //    mails = (await m_ZboxReadService.GetEmailsAsync(page)).ToList();
+            //} while (mails.Any() && page < 3000);
+            //await m_MailComponent.GenerateSystemEmailAsync("stop populating", "stop " + page);
+            //await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                var proxy = await SignalrClient.GetProxyAsync();
+                await proxy.Invoke("UpdateThumbnail", 1, 111239);
+                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+            }
             //var amount = await m_ZboxWorkerRoleService.UpdateFileSizesAsync(() =>
             //{
 

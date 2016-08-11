@@ -88,9 +88,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 .Named<IMailProcess>("digestOnceAWeek")
                 .WithParameter("hourForEmailDigest", NotificationSettings.OnceAWeek);
 
-            Ioc.ContainerBuilder.RegisterType<DigestEmail>()
-                .Named<IMailProcess>("digestEveryChange")
-                .WithParameter("hourForEmailDigest", NotificationSettings.OnEveryChange);
+            //Ioc.ContainerBuilder.RegisterType<DigestEmail>()
+            //    .Named<IMailProcess>("digestEveryChange")
+            //    .WithParameter("hourForEmailDigest", NotificationSettings.OnEveryChange);
 
             Ioc.RegisterType<IIntercomApiManager, IntercomApiManager>();
 
@@ -118,6 +118,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                  Infrastructure.Transport.DomainProcess.UserResolver);
 
             Ioc.RegisterType<IFileProcess, PreProcessFile>(nameof(ChatFileProcessData));
+            Ioc.RegisterType<IFileProcess, UpdateSearchItem>(nameof(BoxFileProcessData));
 
         }
 

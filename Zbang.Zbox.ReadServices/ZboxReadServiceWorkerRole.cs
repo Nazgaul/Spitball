@@ -238,13 +238,13 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<ItemToUpdateSearchDto> GetItemDirtyUpdatesAsync(int index, int total, int top)
+        public async Task<ItemToUpdateSearchDto> GetItemsDirtyUpdatesAsync(int index, int total, int top)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync
                     (Search.GetItemsToUploadToSearch +
-                     Search.GetItemUsersToUploadToSearch +
+                     Search.GetItemsUsersToUploadToSearch +
                      Search.GetItemToDeleteToSearch, new { index, count = total, top }
                     ))
                 {
@@ -261,6 +261,22 @@ namespace Zbang.Zbox.ReadServices
                         item.UserIds = usersInItems.Where(w => w.BoxId == boxid).Select(s => s.UserId);
                     }
                     retVal.ItemsToDelete = await grid.ReadAsync<long>();
+                    return retVal;
+                }
+            }
+        }
+
+        public async Task<ItemSearchDto> GetItemDirtyUpdatesAsync(long itemId)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (var grid = await conn.QueryMultipleAsync
+                    (Search.GetItemToUploadToSearch +
+                     Search.GetItemUsersToUploadToSearch , new { itemId }
+                    ))
+                {
+                    var retVal = await grid.ReadFirstAsync<ItemSearchDto>();
+                    retVal.UserIds = await grid.ReadAsync<long>();
                     return retVal;
                 }
             }

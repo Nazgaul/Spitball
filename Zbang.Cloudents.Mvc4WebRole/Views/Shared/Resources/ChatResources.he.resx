@@ -117,23 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmptyStateLine2" xml:space="preserve">
-    <value>התחילו לשוחח עם חבריכם בספיטבול</value>
-  </data>
   <data name="FriendSearchPlaceholder" xml:space="preserve">
     <value>חפשו את חברכם</value>
   </data>
   <data name="FriendsHeader" xml:space="preserve">
     <value>חברים</value>
   </data>
-  <data name="MessagesHeader" xml:space="preserve">
-    <value>הודעות</value>
-  </data>
   <data name="NewMessagePlaceholder" xml:space="preserve">
     <value>הקלידו הודעה</value>
-  </data>
-  <data name="EmptyStateLine1" xml:space="preserve">
-    <value>לא נעשו שיחות</value>
   </data>
   <data name="EmptyStateTitle" xml:space="preserve">
     <value>מצטערים, לא מצאנו חברים שמתאימים לחיפוש זה</value>

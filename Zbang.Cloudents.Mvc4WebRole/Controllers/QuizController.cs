@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Quiz;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
@@ -44,7 +43,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
          Duration = TimeConst.Hour * 1, VaryByParam = "quizId",
          Location = OutputCacheLocation.Server, Order = 4)]
         [Route("quiz/{universityName}/{boxId:long}/{boxName}/{quizId:long}/{quizName}", Name = "Quiz")]
-        public async Task<ActionResult> Index(long boxId, long quizId, string quizName, string universityName,
+        public async Task<ActionResult> IndexAsync(long boxId, long quizId, string quizName, string universityName,
             string boxName)
         {
             try
@@ -101,8 +100,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
-        [BoxPermission("boxId")]
-        public async Task<ActionResult> Data(long boxId, long quizId)
+        [BoxPermission("boxId"), ActionName("Data")]
+        public async Task<ActionResult> DataAsync(long boxId, long quizId)
         {
             var userId = User.GetUserId(false);
             var query = new GetQuizQuery(quizId, userId, boxId);
@@ -123,9 +122,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [ZboxAuthorize]
-        [HttpGet]
+        [HttpGet, ActionName("Discussion")]
         //TODO: add validation in here
-        public async Task<JsonResult> Discussion(long quizId)
+        public async Task<JsonResult> DiscussionAsync(long quizId)
         {
             var query = new GetDisscussionQuery(quizId);
             var model = await ZboxReadService.GetDiscussionAsync(query);
@@ -143,8 +142,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<ActionResult> NumberOfSolvers(long quizId)
+        [HttpGet, ActionName("NumberOfSolvers")]
+        public async Task<ActionResult> NumberOfSolversAsync(long quizId)
         {
             try
             {
@@ -174,8 +173,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        [RemoveBoxCookie]
-        public async Task<JsonResult> SaveAnswers(SaveUserAnswers model)
+        [RemoveBoxCookie, ActionName("SaveAnswers")]
+        public async Task<JsonResult> SaveAnswersAsync(SaveUserAnswers model)
         {
             if (!ModelState.IsValid)
             {
@@ -183,7 +182,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             if (model.Answers == null)
             {
-                ModelState.AddModelError(string.Empty, "Answers is requeried");
+                ModelState.AddModelError(string.Empty, BaseControllerResources.QuizController_SaveAnswers_Answers_is_requeried);
                 return JsonError(GetErrorFromModelState());
             }
             try
@@ -204,8 +203,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpGet]
-        [ZboxAuthorize]
-        public async Task<ActionResult> Draft(long quizId)
+        [ZboxAuthorize, ActionName("Draft")]
+        public async Task<ActionResult> DraftAsync(long quizId)
         {
             var query = new GetQuizDraftQuery(quizId);
             var values = await ZboxReadService.GetDraftQuizAsync(query);
@@ -228,8 +227,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region Quiz
         [HttpPost]
         [ZboxAuthorize]
-        [RemoveBoxCookie]
-        public async Task<ActionResult> Create(Quiz model)
+        [RemoveBoxCookie, ActionName("Create")]
+        public async Task<ActionResult> CreateAsync(Quiz model)
         {
             if (!ModelState.IsValid)
             {
@@ -255,8 +254,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
         [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> Delete(long id)
+        [ZboxAuthorize, ActionName("Delete")]
+        public async Task<JsonResult> DeleteAsync(long id)
         {
             try
             {
@@ -272,8 +271,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> Save(SaveQuiz model)
+        [ZboxAuthorize, ActionName("Save")]
+        public async Task<JsonResult> SaveAsync(SaveQuiz model)
         {
             try
             {
@@ -297,7 +296,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (model.QuizId == 0)
             {
-                ModelState.AddModelError(string.Empty, "Quiz id cannot be 0");
+                ModelState.AddModelError(string.Empty, BaseControllerResources.QuizController_CreateQuestion_Quiz_id_cannot_be_0);
 
             }
             if (!ModelState.IsValid)

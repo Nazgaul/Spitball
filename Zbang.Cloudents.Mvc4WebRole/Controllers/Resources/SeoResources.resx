@@ -147,18 +147,6 @@
   <data name="PrivacyTitle" xml:space="preserve">
     <value>Privacy Policy | Spitball</value>
   </data>
-  <data name="SignInMeta" xml:space="preserve">
-    <value>Login to Spitball and join the social studying revolution! Get class notes, chat with your classmates, create study groups and share your knowledge!</value>
-  </data>
-  <data name="SignInTitle" xml:space="preserve">
-    <value>Login | Spitball</value>
-  </data>
-  <data name="SignUpMeta" xml:space="preserve">
-    <value>Sign up to Spitball and join the social studying revolution! Get class notes, chat with your classmates, create study groups and share your knowledge!</value>
-  </data>
-  <data name="SignUpTitle" xml:space="preserve">
-    <value>Sign Up | Spitball</value>
-  </data>
   <data name="TermsMeta" xml:space="preserve">
     <value>Find out all you need to know about Spitball's terms of service. Get class notes, chat with your classmates, create study groups and share your knowledge!</value>
   </data>

@@ -28,12 +28,6 @@
     ]]>
   </query>
 
-  <!--<query name="DeleteUserUpdatesByFeedId">
-    <![CDATA[
-    delete from Updates c where c.User.Id = :userid and c.Box.Id = :boxId and c.Comment.Id = :CommentId
-    ]]>
-  </query>-->
-
   <query name="DeleteUpdatesByAnswerId">
     <![CDATA[
     delete from Updates c where c.Reply.Id = :ReplyId
@@ -44,23 +38,16 @@
     delete from Updates c where c.Comment.Id = :CommentId
     ]]>
   </query>
+  <query name="DeleteUpdatesByQuizId">
+    <![CDATA[
+    delete from Updates c where c.Quiz.Id = :QuizId
+    ]]>
+  </query>
 
   <query name="DeleteItemUpdatesByBoxIdUserId">
     <![CDATA[
     delete from Updates c where c.User.Id = :userid and c.Box.Id = :boxId and c.Item is not null
     ]]>
   </query>
-  <!--<query name="DeleteOldUpdates">
-    <![CDATA[
-    delete from Updates c where c.id in ( select d.id from Updates d where d.CreationTime < getutcdate() - 182 take 100)
-    ]]>
-  </query>
-  <sql-query name="DeleteNotConnectedUpdates">
-    <![CDATA[
-    delete from zbox.newupdates where id in (
-    select n.id from zbox.newupdates n  
-    left join zbox.userboxrel ub on ub.userid = n.userid and n.boxid = ub.boxid
-    where userboxrelid is null
-    )]]>
-  </sql-query>-->
+  
 </hibernate-mapping>

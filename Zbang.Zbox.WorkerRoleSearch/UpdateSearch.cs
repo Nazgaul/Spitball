@@ -34,9 +34,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             
         
         
-        switch (
-
-        retVal)
+        switch (retVal)
             {
                 case TimeToSleep.Increase:
                     TraceLog.WriteInfo($"{GetPrefix()} going to sleep and increase {Interval}");

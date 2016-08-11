@@ -2,7 +2,7 @@
 (function() {
     angular.module('app').filter("megaNumber", function() {
         return function(number, fractionSize) {
-
+            if (number === undefined) return null;
             if (number === null) return null;
             if (number === 0) return "0";
 

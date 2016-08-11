@@ -37,6 +37,13 @@ namespace Zbang.Zbox.Domain.DataAccess
             query.ExecuteUpdate();
         }
 
+        public void DeleteQuizUpdates(long quizId)
+        {
+            var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteUpdatesByQuizId");
+            query.SetInt64("QuizId", quizId);
+            query.ExecuteUpdate();
+        }
+
         public void DeleteUserItemUpdateByBoxId(long userId, long boxId)
         {
             var query = UnitOfWork.CurrentSession.GetNamedQuery("DeleteItemUpdatesByBoxIdUserId");

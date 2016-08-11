@@ -4,7 +4,7 @@
     //account.$inject = ['$stateParams', '$state', 'userData'];
     realtimeFactotry.$inject = ['Hub', '$rootScope', 'ajaxService2'];
     function realtimeFactotry(Hub, $rootScope, ajaxService2) {
-       // var self = this;
+        // var self = this;
         var commands = [];
         var canSend;
         var hub = new Hub('spitballHub', {
@@ -34,6 +34,12 @@
                 },
                 updateImage: function (blob) {
                     $rootScope.$broadcast('preview-ready', blob);
+                },
+                updateThumbnail: function (itemId) {
+                    $rootScope.$broadcast('update-thumbnail', itemId);
+                },
+                echo: function (i) {
+                    console.log('echo', i);
                 }
             },
             errorHandler: function (error) {
@@ -41,7 +47,7 @@
                 //console.error(error);
             },
 
-            methods: ['send', 'changeUniversity', 'enterBox', 'leaveBox'],
+            methods: ['send', 'changeUniversity', 'enterBoxes'],
             stateChanged: function (state) {
                 switch (state.newState) {
                     case $.signalR.connectionState.connecting:
@@ -95,34 +101,37 @@
             hub.changeUniversity();
         };
 
-        var enterBox = function (boxId) {
-            //if (!boxId) {
-            //    return;
-            //}
-            //if (canSend) {
-            //   // hub.invoke('enterBox', [boxId]);
-            //    hub.enterBox(boxId);
-            //} else {
-            //    commands.push(function() {
-            //        enterBox.apply(this, [boxId]);
-            //    });
-            //}
+        var assingBoxes = function (boxIds) {
+            if (!boxIds) {
+                return;
+            }
+            if (!angular.isArray(boxIds)) {
+                boxIds = [boxIds];
+            }
+            if (canSend) {
+                // hub.invoke('enterBox', [boxId]);
+                hub.enterBoxes(boxIds);
+            } else {
+                commands.push(function () {
+                    assingBoxes.apply(this, [boxIds]);
+                });
+            }
         }
         //function test(boxId) {
         //    commands.push(enterBox.apply(this, [boxId]));
         //}
-        var leaveBox = function (boxId) {
-            if (!boxId) {
-                return;
-            }
-            hub.leaveBox(boxId);
-        }
+        //var leaveBox = function (boxId) {
+        //    if (!boxId) {
+        //        return;
+        //    }
+        //    hub.leaveBox(boxId);
+        //}
 
         return {
             sendMsg: send,
             changeUniversity: changeUniversity,
-            enterBox: enterBox,
-            leaveBox: leaveBox
+            assingBoxes: assingBoxes
+            // leaveBox: leaveBox
         };
 
 

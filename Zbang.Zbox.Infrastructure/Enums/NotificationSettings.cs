@@ -8,8 +8,8 @@ namespace Zbang.Zbox.Infrastructure.Enums
     {
         [EnumDescription(typeof(EnumResources), "NotificationSettingsOff")]
         Off = 1,
-        [EnumDescription(typeof(EnumResources), "NotificationSettingsOnEveryChange")]
-        OnEveryChange = 2,
+        //[EnumDescription(typeof(EnumResources), "NotificationSettingsOnEveryChange")]
+        //OnEveryChange = 2,
         [EnumDescription(typeof(EnumResources), "NotificationSettingsOnceADay")]
         OnceADay = 24, // hour in a day
         [EnumDescription(typeof(EnumResources), "NotificationSettingsOnceAWeek")]

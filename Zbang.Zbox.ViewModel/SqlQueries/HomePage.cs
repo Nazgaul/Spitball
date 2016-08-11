@@ -9,7 +9,8 @@
         UniversityName,
         VideoBackgroundColor,
         VideoFontColor,
-        SignupColor 
+        SignupColor,
+        MainSignupColor
         from zbox.University
         where id = @UniversityId and IsDeleted = 0";
 

@@ -6,6 +6,7 @@
     const string socialIconsSvg = "~/images/site/social-icons.svg";
     ViewBag.headerbackground = Model.HomePageUniversityData.HeaderBackgroundColor;
     ViewBag.signupColor = Model.HomePageUniversityData.SignupColor;
+    Model.HomePageUniversityData.Logo = Model.HomePageUniversityData.Logo ?? Url.CdnContent("/images/site/logo_spitball.png");
 }
 <!doctype html>
 <html>
@@ -24,13 +25,16 @@
         .login-option.signup{
             background-color: @ViewBag.signupColor;
         }
+        .main-signup {
+            background-color: @Model.HomePageUniversityData.MainSignupColor !important;
+        }
 
         .intro .text{
             color:@Model.HomePageUniversityData.VideoFontColor !important;
         }
 
         .sb-logo{
-            background-image: url(@Url.CdnContent(Model.HomePageUniversityData.Logo));
+            background-image: url("@Model.HomePageUniversityData.Logo");
         }
     </style>
 </head>
@@ -45,17 +49,21 @@
                         <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
                         <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
                         <div class="signin-options">
-                            <button type="button" class="login-option facebook">
-                                <div class="icon">
-                                    @Html.Svg(socialIconsSvg, "facebook")
+                            <button type="button" class="facebook">
+                                <div class="login-option">
+                                    <div class="icon">
+                                        @Html.Svg(socialIconsSvg, "facebook")
+                                    </div>
+                                    <div class="text">@LogOnResources.ExternalProvider</div>
                                 </div>
-                                <div class="text">@LogOnResources.ExternalProvider</div>
                             </button>
-                            <button type="button" class="login-option google">
-                                <div class="icon">
-                                    @Html.Svg(socialIconsSvg, "google")
+                            <button type="button" class="google">
+                                <div class="login-option">
+                                    <div class="icon">
+                                        @Html.Svg(socialIconsSvg, "google")
+                                    </div>
+                                    <div class="text">@LogOnResources.ExternalProvider</div>
                                 </div>
-                                <div class="text">@LogOnResources.ExternalProvider</div>
                             </button>
                         </div>
                         <form class="login" action="" method="post">
@@ -133,17 +141,21 @@
                         <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
                         <h3 class="form-title">@LogOnResources.CreateAccountFormHeader</h3>
                         <div class="signin-options">
-                            <button type="button" class="login-option facebook">
-                                <div class="icon">
-                                    @Html.Svg(socialIconsSvg, "facebook")
+                            <button type="button" class="facebook">
+                                <div class="login-option">
+                                    <div class="icon">
+                                        @Html.Svg(socialIconsSvg, "facebook")
+                                    </div>
+                                    <div class="text">@LogOnResources.ExternalProvider</div>
                                 </div>
-                                <div class="text">@LogOnResources.ExternalProvider</div>
                             </button>
-                            <button type="button" class="login-option google">
-                                <div class="icon">
-                                    @Html.Svg(socialIconsSvg, "google")
+                            <button type="button" class="google">
+                                <div class="login-option">
+                                    <div class="icon">
+                                        @Html.Svg(socialIconsSvg, "google")
+                                    </div>
+                                    <div class="text">@LogOnResources.ExternalProvider</div>
                                 </div>
-                                <div class="text">@LogOnResources.ExternalProvider</div>
                             </button>
                         </div>
                         <input type="checkbox" id="show-fields" />
@@ -228,7 +240,7 @@
             </section>
 
             <section class="intro">
-                <button type="button" class="login-option signup toggle" data-form-action="register">
+                <button type="button" class="login-option signup toggle main-signup" data-form-action="register">
                     @HomePageResources.SignUpForFree
                 </button>
                 <div class="text">@HomePageResources.A6&nbsp;<b>@HomePageResources.Free</b></div>

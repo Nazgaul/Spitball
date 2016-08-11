@@ -14,6 +14,7 @@ using Zbang.Zbox.Infrastructure.Data.Driver;
 using Zbang.Zbox.Infrastructure.Data.Events;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 using Environment = NHibernate.Cfg.Environment;
 
@@ -94,11 +95,14 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     IFormatter bf = new BinaryFormatter();
                     bf.Serialize(ms, m_Configuration);
                     storage.AddToCacheAsync("nhibernate", GetConfigurationFileName(), ms.ToArray(),
-                   TimeSpan.FromDays(90)).Wait();
+                        TimeSpan.FromDays(90)).Wait();
                     //    storage.SaveFileToStorage(ms, GetConfigurationFileName());
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("nhibernate SaveConfiguration", ex);
+            }
         }
 
 

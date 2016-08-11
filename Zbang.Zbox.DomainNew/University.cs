@@ -71,6 +71,8 @@ namespace Zbang.Zbox.Domain
 
         public string SignupColor { get; set; }
 
+        public string MainSignupColor { get; set; }
+
         public virtual void UpdateNumberOfBoxes(int boxesCount)
         {
             if (boxesCount < 0)

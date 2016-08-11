@@ -72,7 +72,35 @@ select Name,boxid from c";
     and i.itemid % @count  = @index
     order by i.ItemId desc";
 
-        public const string GetItemUsersToUploadToSearch =
+        public const string GetItemToUploadToSearch =
+            @"select
+  i.ItemId as id,
+  i.Name as name,
+  i.Content as content,
+  i.blobName as blobName,
+  i.Url as url,
+  i.discriminator as type,
+  case b.Discriminator
+   when 2 then
+       b.University
+	   else null
+	   end
+   as universityid,
+  b.BoxName as boxname,
+  u.UniversityName as universityName,
+  b.BoxId as boxid
+    from zbox.item i 
+    join zbox.box b on i.BoxId = b.BoxId
+    left join zbox.University u on b.University = u.id
+    where i.itemid = @itemId";
+
+        public const string GetItemUsersToUploadToSearch = @"
+ select UserId from zbox.UserBoxRel where boxId in (
+select boxid  from zbox.item i  
+  where   i.itemid = @itemId
+ )";
+
+        public const string GetItemsUsersToUploadToSearch =
             @"  select UserId,BoxId from zbox.UserBoxRel where boxId in (
 select top (@top) i.boxid  from zbox.item i  
   where  i.isdirty = 1 

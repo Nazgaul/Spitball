@@ -22,12 +22,12 @@
     {
         public HomePageUniversityData()
         {
-            SignupColor = "#EC610D";
+            MainSignupColor = SignupColor = "#EC610D";
             BackgroundImage = "HP_image1920.jpg";
             HeaderBackgroundColor = "rgba(0,0,0,.9)";
             VideoBackgroundColor = "#FFF";
             VideoFontColor = "#383838";
-            Logo = "/images/site/logo_spitball.png";
+            //Logo = "/images/site/logo_spitball.png";
         }
         public string HeaderBackgroundColor { get; set; }
         public string BackgroundImage { get; set; }
@@ -37,6 +37,8 @@
         public string SignupColor { get; set; }
 
         public string Logo { get; set; }
+
+        public string MainSignupColor { get; set; }
     }
 
 }

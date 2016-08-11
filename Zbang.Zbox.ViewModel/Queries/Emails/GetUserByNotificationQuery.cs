@@ -16,5 +16,11 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
 
         public int PageNumber { get; }
         public int RowsPerPage { get; }
+
+
+        public override string ToString()
+        {
+            return $"Notification {NotificationSettings.GetStringValue()} PageNumber {PageNumber} rows {RowsPerPage}";
+        }
     }
 }

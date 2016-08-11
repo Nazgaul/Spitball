@@ -185,14 +185,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
                 return ResourceManager.GetString("Uploads", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User Page.
-        /// </summary>
-        public static string UserPage {
-            get {
-                return ResourceManager.GetString("UserPage", resourceCulture);
-            }
-        }
     }
 }

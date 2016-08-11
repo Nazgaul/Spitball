@@ -117,20 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmptyStateLine1" xml:space="preserve">
-    <value>No Messages, yet.</value>
-  </data>
-  <data name="EmptyStateLine2" xml:space="preserve">
-    <value>Start chatting with your classmates in Spitball</value>
-  </data>
   <data name="FriendSearchPlaceholder" xml:space="preserve">
     <value>Search for a classmate</value>
   </data>
   <data name="FriendsHeader" xml:space="preserve">
     <value>classmates</value>
-  </data>
-  <data name="MessagesHeader" xml:space="preserve">
-    <value>Messages</value>
   </data>
   <data name="NewMessagePlaceholder" xml:space="preserve">
     <value>Type a message</value>

@@ -51,6 +51,7 @@
     <Compile Include="AccessApprovedData.cs" />
     <Compile Include="BadItemData.cs" />
     <Compile Include="BadPostData.cs" />
+    <Compile Include="BoxFileProcessData.cs" />
     <Compile Include="ChangeEmailData.cs" />
     <Compile Include="BaseMailData.cs" />
     <Compile Include="DeleteBoxData.cs" />

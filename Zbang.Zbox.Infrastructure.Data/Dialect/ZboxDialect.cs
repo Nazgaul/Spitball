@@ -1,10 +1,9 @@
-﻿using NHibernate.Dialect;
-using NHibernate.Dialect.Function;
+﻿using NHibernate.Dialect.Function;
 
 
 namespace Zbang.Zbox.Infrastructure.Data.Dialect
 {
-    public class ZboxDialect : MsSqlAzure2008Dialect
+    public class ZboxDialect : NHibernate.Dialect.MsSql2012Dialect // MsSqlAzure2008Dialect
     {
         protected override void RegisterFunctions()
         {

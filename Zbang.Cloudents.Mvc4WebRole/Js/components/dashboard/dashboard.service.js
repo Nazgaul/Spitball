@@ -1,27 +1,29 @@
 ﻿'use strict';
 (function () {
     angular.module('app.dashboard').service('dashboardService', dashboard);
-    dashboard.$inject = ['$q', 'ajaxService', 'userUpdatesService', '$rootScope', 'ajaxService2'];
+    dashboard.$inject = ['$q', 'ajaxService', 'userUpdatesService', '$rootScope', 'ajaxService2', 'realtimeFactotry'];
 
-    function dashboard($q, ajaxservice, userUpdatesService, $rootScope, ajaxService2) {
-        var d = this;
-        var serverCall = false;
-        var defer = $q.defer();
+    function dashboard($q, ajaxservice, userUpdatesService, $rootScope, ajaxService2, realtimeFactotry) {
+        var d = this,
+            serverCall = false,
+            defer = $q.defer();
         d.boxes = null;
         d.getBoxes = function () {
             if (d.boxes) {
                 defer.resolve(d.boxes);
                 return defer.promise;
             }
-
             if (!serverCall) {
                 serverCall = true;
                 ajaxservice.get('dashboard/boxlist').then(function (response) {
                     serverCall = false;
+                   
+                    realtimeFactotry.assingBoxes(response.map(function(val) {
+                        return val.id;
+                    }));
                     d.boxes = response;
                     for (var i = 0; i < d.boxes.length; i++) {
                         (function (box) {
-                            //userUpdatesService.updatesNum(box.id, function (val) {
                             userUpdatesService.updatesNum(box.id).then(function (val) {
                                 box.updates = val;
                             });

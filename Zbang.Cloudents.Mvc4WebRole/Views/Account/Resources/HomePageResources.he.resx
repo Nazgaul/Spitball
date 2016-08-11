@@ -233,18 +233,12 @@
   <data name="statsDocuments" xml:space="preserve">
     <value>מסמכי לימוד</value>
   </data>
-  <data name="statsQuizzes" xml:space="preserve">
-    <value>מבחנים אונליין</value>
-  </data>
   <data name="statsStudents" xml:space="preserve">
     <value>סטודנטים</value>
   </data>
   <data name="A6" xml:space="preserve">
     <value>שיתוף חומרי לימוד בין חברים. 
 שיחות קבוצתיות. תירגול מבחנים אונליין.</value>
-  </data>
-  <data name="A7" xml:space="preserve">
-    <value>הצטרף מהר יותר באמצעות</value>
   </data>
   <data name="A9" xml:space="preserve">
     <value>מה זה ספיטבול?</value>

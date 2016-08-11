@@ -43,12 +43,23 @@ namespace Zbang.Cloudents.Connect
 
         public void UpdateImage(string blobName, IList<string> users)
         {
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                return;
+            }
             Clients.Users(users).updateImage(blobName);
         }
 
-        public void UpdateThumbnail(string blobName, long boxId)
+
+        public void UpdateThumbnail(long itemId, long boxId)
         {
-            Clients.Group($"box:{boxId}").updateThumbnail(blobName);
+            TraceLog.WriteInfo($"update thumbnail {itemId} {boxId}");
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                return;
+            }
+            TraceLog.WriteInfo("going to send");
+            Clients.Group($"box:{boxId}").updateThumbnail(itemId);
         }
 
 
@@ -72,13 +83,15 @@ namespace Zbang.Cloudents.Connect
             Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetUserId());
         }
 
-        public void EnterBox(long boxId)
+        public void EnterBoxes(long[] boxIds)
         {
-            Groups.Add(Context.ConnectionId, $"box:{boxId}");
-        }
-        public void LeaveBox(long boxId)
-        {
-            Groups.Remove(Context.ConnectionId, $"box:{boxId}");
+            foreach (var boxId in boxIds)
+            {
+                Groups.Add(Context.ConnectionId, $"box:{boxId}");
+                //Clients.Caller.echo(Context.User.GetUserId());
+                //Clients.Group($"box:{boxId}").echo($"box:{boxId}");
+            }
+           
         }
 
         public override Task OnConnected()

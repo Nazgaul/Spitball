@@ -4,6 +4,7 @@ using System.Threading;
 using Microsoft.AspNet.SignalR.Transports;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Connect
 {
@@ -46,10 +47,10 @@ namespace Zbang.Cloudents.Connect
                     {
                        Check();
                     }
-                    catch
+                    catch(Exception ex)
                     {
                         // Don't throw on background threads, it'll kill the entire process
-                        //Trace.TraceError(ex.Message);
+                        TraceLog.WriteError(ex.Message);
                     }
                 },
                 null,
