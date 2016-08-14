@@ -510,11 +510,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\Resources\HomeResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HomeResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Views\Home\Resources\StaticPagesResources1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2834,11 +2829,6 @@
     <EmbeddedResource Include="Views\Home\Resources\StaticPagesResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StaticPagesResources1.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Home\Resources\HomeResources.he.resx" />
-    <EmbeddedResource Include="Views\Home\Resources\HomeResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Item\Resources\ItemsResources.he.resx">
       <SubType>Designer</SubType>
