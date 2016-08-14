@@ -126,8 +126,8 @@
 
             }
             <div class="login-buttons" ng-if="!ud.isLoggedIn">
-                <a ng-click="ud.signup($event)" class="btn btn-default" target="_self" href="@Url.RouteUrl("HomePage", new { returnUrl, invId, step="signin" })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
-                <a ng-click="ud.signup($event)" class="btn button-Blue btn-primary" target="_self" href="@Url.RouteUrl("HomePage", new { returnUrl, invId, step="signup" })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
+                <a ng-click="ud.signup($event)" class="btn btn-default" target="_self" href="@Url.RouteUrl("HomePage", new { returnUrl, invId, step="signup" })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
+                <a ng-click="ud.signup($event)" class="btn button-Blue btn-primary" target="_self" href="@Url.RouteUrl("HomePage", new { returnUrl, invId, step="signin" })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
             </div>
         </div>
     </header>
