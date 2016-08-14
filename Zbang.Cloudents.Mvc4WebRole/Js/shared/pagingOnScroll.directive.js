@@ -36,7 +36,19 @@
                 if (mobileScroll()) {
                     element.bind('scroll', function () {
                         if (doneScrolling(element[0], attrs.ngScrollbarsPaging)) {
-                            deepVal(attrs.ngScrollbarsPagingFunction, scope)();
+                            switch (attrs.ngScrollbarsPaging) {
+                                case 'up':
+                                    var oldContentHeight = element[0].scrollHeight;
+                                    runAction().then(function () {
+                                        $timeout(function () {
+                                            var heightDiff = element[0].scrollHeight - oldContentHeight;
+                                            element.scrollTop(heightDiff);
+                                        })
+                                    });
+                                    break;
+                                default: //down
+                                    runAction();
+                            }
                         }
                     });
                 }
