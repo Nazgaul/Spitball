@@ -44,7 +44,7 @@ var app;
                 maxAge: minute,
                 recycleFreq: 15000,
                 storageMode: 'sessionStorage',
-                storagePrefix: 'sb.c.'
+                storagePrefix: version
             }, this.cacheCategories[cacheKey]);
             this.cacheFactory(cacheKey, dst);
         };

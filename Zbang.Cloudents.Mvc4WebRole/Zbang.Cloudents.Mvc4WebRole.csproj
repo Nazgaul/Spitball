@@ -1527,6 +1527,7 @@
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
     <TypeScriptCompile Include="Js\shared\ajaxService2.ts" />
     <TypeScriptCompile Include="Js\shared\history.ts" />
+    <TypeScriptCompile Include="Js\shared\resourceManager.ts" />
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />

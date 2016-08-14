@@ -25,8 +25,7 @@ module app {
             private $mdToast: angular.material.IToastService,
             private $document: angular.IDocumentService,
             private $mdMenu: angular.material.IMenuService,
-            //TODO: continue
-            private resManager: any,
+            private resManager: IResManager,
             private cacheFactory: CacheFactory.ICacheFactory,
             private $scope: angular.IScope,
             //TODO: continue

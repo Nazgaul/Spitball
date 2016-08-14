@@ -9,6 +9,7 @@ interface IAnalytics extends angular.google.analytics.AnalyticsService
 {
     trackTimings(timingCategory: string, timingVar: string, timingValue: number, timingLabel:string)
 }
+declare var version: any;
 
 
 interface IAjaxService2 {
@@ -88,7 +89,7 @@ module app {
                     maxAge: minute,
                     recycleFreq: 15000, // 15 seconds
                     storageMode: 'sessionStorage',
-                    storagePrefix: 'sb.c.'
+                    storagePrefix: version
                 }, this.cacheCategories[cacheKey]);
             this.cacheFactory(cacheKey, dst);
         }
