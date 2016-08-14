@@ -10,7 +10,7 @@ module app {
         static $inject = ['$location'];
         private jsResources = JsResources;
         constructor(private $location: angular.ILocationService) {
-
+            return this;
         }
 
         get(value:string):string {
