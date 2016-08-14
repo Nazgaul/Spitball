@@ -17,7 +17,7 @@ type cacheKeys = 'university' | 'accountDetail' | 'html' | 'department' | 'itemC
     ajaxService.$inject = ['$http', '$q', 'Analytics', 'CacheFactory', 'routerHelper'];
 
 
-    function ajaxService($http: angular.IHttpService, $q: angular.IQService, analytics: any, cacheFactory: any, routerHelper: any): IAjaxService2 {
+    function ajaxService($http: angular.IHttpService, $q: angular.IQService, analytics: any, cacheFactory: any, routerHelper: IRouterHelper): IAjaxService2 {
         const minute = 60 * 1000,
               hour = 60 * minute,
               day = 24 * hour,
@@ -207,7 +207,7 @@ type cacheKeys = 'university' | 'accountDetail' | 'html' | 'department' | 'itemC
         }
 
 
-        function logError(url, data, payload) {
+        function logError(url:string, data, payload) {
             var log = {
                 data: data,
                 payload: payload

@@ -1,27 +1,53 @@
+﻿/// <reference path="../scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="shared/ajaxservice2.ts" />
 'use strict';
-(function () {
+
+declare var handleLanguage: any;
+declare var version: any;
+interface IRouterHelper {
+    configureStates(states: Array<any>, otherwisePath: string) : void;
+    getStates(): any;
+    buildUrl(path: string):string;
+}
+(() => {
     angular.module('app').provider('routerHelper', routerHelperProvider);
+
     routerHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
-    function routerHelperProvider($locationProvider, $stateProvider, $urlRouterProvider) {
+
+    /* @ngInject */
+    function routerHelperProvider($locationProvider: angular.ILocationProvider, $stateProvider : any, $urlRouterProvider: any): angular.IServiceProvider {
+        /* jshint validthis:true */
         this.$get = routerHelper;
+
         $locationProvider.html5Mode(true);
+
         routerHelper.$inject = ['$state'];
+
+        /* @ngInject */
         function routerHelper($state) {
             var hasOtherwise = false;
+
+
             var service = {
                 configureStates: configureStates,
                 getStates: getStates,
                 buildUrl: buildUrl
             };
+
             return service;
-            function configureStates(states, otherwisePath) {
-                states.forEach(function (state) {
+
+
+            function configureStates(states:Array<any>, otherwisePath:string) {
+                states.forEach(state => {
                     if (!state.config.parent) {
                         state.config.parent = 'root';
                     }
                     if (state.templateUrl) {
+                        //state.config.templateUrl = function() {
+                        //    return buildUrl(state.templateUrl);
+                        //};
                         state.config.templateProvider = [
-                            'ajaxService2', function (ajaxService2) { return ajaxService2.getHtml(state.templateUrl); }
+                            'ajaxService2', (ajaxService2: IAjaxService2) => ajaxService2.getHtml(state.templateUrl)
                         ];
                     }
                     $stateProvider.state(state.state, state.config);
@@ -31,11 +57,15 @@
                     $urlRouterProvider.otherwise(otherwisePath);
                 }
             }
+
             function getStates() { return $state.get(); }
-            function buildUrl(path) {
+
+            //cookie in here
+            function buildUrl(path:string) {
                 return path + '?lang=' + handleLanguage.getLangCookie() + '&version=' + version;
             }
         }
+
         return this;
     }
 })();
