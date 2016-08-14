@@ -1,4 +1,5 @@
 ﻿/// <reference path="../scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="../scripts/typings/angular-ui-router/angular-ui-router.d.ts" />
 /// <reference path="shared/ajaxservice2.ts" />
 'use strict';
 
@@ -15,7 +16,7 @@ interface IRouterHelper {
     routerHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
 
     /* @ngInject */
-    function routerHelperProvider($locationProvider: angular.ILocationProvider, $stateProvider : any, $urlRouterProvider: any): angular.IServiceProvider {
+    function routerHelperProvider($locationProvider: angular.ILocationProvider, $stateProvider: angular.ui.IStateProvider, $urlRouterProvider: angular.ui.IUrlRouterProvider): angular.IServiceProvider {
         /* jshint validthis:true */
         this.$get = routerHelper;
 
@@ -28,7 +29,7 @@ interface IRouterHelper {
             var hasOtherwise = false;
 
 
-            var service = {
+            const service = {
                 configureStates: configureStates,
                 getStates: getStates,
                 buildUrl: buildUrl

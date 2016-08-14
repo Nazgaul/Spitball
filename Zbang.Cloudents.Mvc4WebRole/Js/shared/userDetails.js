@@ -1,19 +1,26 @@
 'use strict';
-(function () {
-    angular.module('app').factory('userDetailsFactory', userDetails);
-    userDetails.$inject = ['$rootScope', '$q', 'ajaxService2', 'Analytics'];
-    function userDetails($rootScope, $q, ajaxService, analytics) {
-        "use strict";
-        var isAuthenticated = false, userData, serverCall = false, deferDetails = $q.defer();
-        function setDetails(data) {
+var app;
+(function (app) {
+    "use strict";
+    var UserDetails = (function () {
+        function UserDetails($rootScope, $q, ajaxService, analytics) {
+            this.$rootScope = $rootScope;
+            this.$q = $q;
+            this.ajaxService = ajaxService;
+            this.analytics = analytics;
+            this.isLogedIn = false;
+            this.serverCall = false;
+            this.deferDetails = this.$q.defer();
+        }
+        UserDetails.prototype.setDetails = function (data) {
             if (data.id) {
-                isAuthenticated = true;
+                this.isLogedIn = true;
                 __insp.push(['identify', data.id]);
             }
-            analytics.set('dimension1', data.universityName || null);
-            analytics.set('dimension2', data.universityCountry || null);
-            analytics.set('dimension3', data.id || null);
-            analytics.set('dimension4', data.theme || 'dark');
+            this.analytics.set('dimension1', data.universityName || null);
+            this.analytics.set('dimension2', data.universityCountry || null);
+            this.analytics.set('dimension3', data.id || null);
+            this.analytics.set('dimension4', data.theme || 'dark');
             var interval = window.setInterval(function () {
                 if (googletag.pubads !== undefined && googletag.pubads) {
                     googletag.pubads().setTargeting('gender', data.sex);
@@ -21,7 +28,7 @@
                     window.clearInterval(interval);
                 }
             }, 20);
-            userData = {
+            this.userData = {
                 id: data.id,
                 name: data.name,
                 image: data.image,
@@ -40,48 +47,53 @@
                     id: data.universityId
                 }
             };
-        }
-        function init() {
-            if (userData) {
-                deferDetails.resolve(userData);
-                return deferDetails.promise;
+        };
+        UserDetails.prototype.init = function () {
+            var _this = this;
+            if (this.userData) {
+                this.deferDetails.resolve(this.userData);
+                return this.deferDetails.promise;
             }
-            if (!serverCall) {
-                serverCall = true;
-                ajaxService.get('/account/details/', null, 'accountDetail').then(function (response) {
-                    setDetails(response);
-                    deferDetails.resolve(userData);
-                    serverCall = false;
+            if (!this.serverCall) {
+                this.serverCall = true;
+                this.ajaxService.get('/account/details/', null, 'accountDetail').then(function (response) {
+                    _this.setDetails(response);
+                    _this.deferDetails.resolve(_this.userData);
+                    _this.serverCall = false;
                 });
             }
-            return deferDetails.promise;
-        }
-        return {
-            init: init,
-            get: function () { return userData; },
-            isAuthenticated: function () { return isAuthenticated; },
-            setName: function (first, last) {
-                userData.name = first + " " + last;
-                $rootScope.$broadcast('userDetailsChange');
-            },
-            setImage: function (image) {
-                if (!image) {
-                    return;
-                }
-                userData.image = image;
-                $rootScope.$broadcast('userDetailsChange');
-            },
-            getUniversity: function () {
-                return userData ? userData.university.id : null;
-            },
-            setUniversity: function () {
-                ajaxService.deleteCacheCategory('accountDetail');
-                userData = null;
-                return init();
-            },
-            setTheme: function (theme) {
-                userData.theme = theme;
-            }
+            return this.deferDetails.promise;
         };
-    }
-})();
+        UserDetails.prototype.get = function () {
+            return this.userData;
+        };
+        UserDetails.prototype.isAuthenticated = function () {
+            return this.isLogedIn;
+        };
+        UserDetails.prototype.setName = function (first, last) {
+            this.userData.name = first + " " + last;
+            this.$rootScope.$broadcast('userDetailsChange');
+        };
+        UserDetails.prototype.setImage = function (image) {
+            if (!image) {
+                return;
+            }
+            this.userData.image = image;
+            this.$rootScope.$broadcast('userDetailsChange');
+        };
+        UserDetails.prototype.getUniversity = function () {
+            return this.userData ? this.userData.university.id : null;
+        };
+        UserDetails.prototype.setUniversity = function () {
+            this.ajaxService.deleteCacheCategory('accountDetail');
+            this.userData = null;
+            return this.init();
+        };
+        UserDetails.prototype.setTheme = function (theme) {
+            this.userData.theme = theme;
+        };
+        UserDetails.$inject = ['$rootScope', '$q', 'ajaxService2', 'Analytics'];
+        return UserDetails;
+    }());
+    angular.module('app').service('userDetailsFactory', UserDetails);
+})(app || (app = {}));

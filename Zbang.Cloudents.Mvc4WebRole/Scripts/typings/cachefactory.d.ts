@@ -1,5 +1,4 @@
-﻿/// <reference path="angularjs/angular.d.ts" />
-declare module 'cachefactory' {
+﻿declare module 'cachefactory' {
     type DeleteOnExpire = 'none' | 'passive' | 'aggressive'
     type StorageMode = 'memory' | 'localStorage' | 'sessionStorage'
     interface StorageImpl {
@@ -23,7 +22,7 @@ declare module 'cachefactory' {
         isNumber(value: any): boolean
         isObject(value: any): boolean
         isString(value: any): boolean
-        Promise?: angular.IPromise<void>
+        Promise?: PromiseConstructor
     }
     interface CacheOptions {
         cacheFlushInterval?: number
