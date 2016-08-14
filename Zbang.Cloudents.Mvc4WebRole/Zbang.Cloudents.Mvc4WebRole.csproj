@@ -1529,6 +1529,7 @@
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
+    <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
     <TypeScriptCompile Include="Js\shared\ajaxService2.ts" />
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
     <Content Include="Scripts\angular-animate.js" />
