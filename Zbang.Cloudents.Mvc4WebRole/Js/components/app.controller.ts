@@ -1,12 +1,12 @@
 ﻿declare var dataLayer: any;
 
 module app {
-    'use strict';
+    "use strict";
 
     class AppController {
-        static $inject = ['$rootScope', '$location',
-            'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager',
-            'CacheFactory', '$scope', 'realtimeFactotry', 'sbHistory','$state'];
+        static $inject = ["$rootScope", "$location",
+            "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
+            "CacheFactory", "$scope", "realtimeFactotry", "sbHistory", "$state"];
 
         private menuOpened: boolean;
         private showMenu: boolean;
@@ -16,8 +16,8 @@ module app {
         private loadChat: boolean;
         private theme: string;
 
-        private expandSearch = false;
-        private chatDisplayState = 1;//collapsed
+        // private expandSearch = false;
+        private chatDisplayState = 1;// collapsed
 
         constructor(private $rootScope: angular.IRootScopeService,
             private $location: angular.ILocationService,
@@ -28,20 +28,20 @@ module app {
             private resManager: IResManager,
             private cacheFactory: CacheFactory.ICacheFactory,
             private $scope: angular.IScope,
-            //TODO: continue
+            // TODO: continue
             private realtimeFactotry: any,
             private sbHistory: ISbHistory,
             private $state: angular.ui.IStateService
 
         ) {
 
-            $rootScope.$on('$viewContentLoaded', () => {
+            $rootScope.$on("$viewContentLoaded", () => {
                 var path = $location.path(),
                     absUrl = $location.absUrl(),
                     virtualUrl = absUrl.substring(absUrl.indexOf(path));
                 // ReSharper disable UndeclaredGlobalVariableUsing
-                dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl }); // google tag manger
-                __insp.push(["virtualPage"]); //inspectlet
+                dataLayer.push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
+                __insp.push(["virtualPage"]); // inspectlet
                 // ReSharper restore UndeclaredGlobalVariableUsing
 
             });
@@ -49,47 +49,46 @@ module app {
                 this.setTheme();
             });
 
-            $rootScope.$on('$mdMenuClose', () => {
+            $rootScope.$on("$mdMenuClose", () => {
                 this.menuOpened = false;
             });
 
             this.showMenu = this.showSearch = this.showChat = true;
             this.showBoxAd = false;
 
-            $rootScope.$on('$stateChangeSuccess', (event, toState, toParams) => {
-                this.showBoxAd = toState.parent === 'box';
-                this.showChat = this.showSearch = !(toState.name === 'universityChoose');
-                this.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
+            $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState, toParams: any) => {
+                this.showBoxAd = toState.parent === "box";
+                this.showChat = this.showSearch = !(toState.name === "universityChoose");
+                this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
 
                 //hub
-                if (toState.name.startsWith('box')) {
+                if (toState.name.startsWith("box")) {
                     realtimeFactotry.assingBoxes(toParams.boxId);
 
                 }
-                //if (toState.name === 'universityChoose') {
-                //    $mdSidenav('chat').close();
-                //}
             });
 
-            $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams) => {
+            $rootScope.$on("$stateChangeStart",
+                (event: angular.IAngularEvent, toState: angular.ui.IState,
+                    toParams: any, fromState: angular.ui.IState, fromParams: any) => {
                 if (!fromState.name) {
                     return;
                 }
-                //can't access anonymous user
-                if (toState.name === 'user' && toParams.userId === "22886") {
+                // can't access anonymous user
+                if (toState.name === "user" && toParams.userId === "22886") {
                     event.preventDefault();
-                    $rootScope.$broadcast('state-change-start-prevent');
+                    $rootScope.$broadcast("state-change-start-prevent");
                 }
-                $mdMenu.hide(); //closes menu
+                $mdMenu.hide(); // closes menu
                 $mdToast.hide(); // hide toasters
-                $rootScope.$broadcast('close-menu');
-                $rootScope.$broadcast('close-collapse');
+                $rootScope.$broadcast("close-menu");
+                $rootScope.$broadcast("close-collapse");
                 var toStateName = toState.name;
-                if (toStateName !== 'searchinfo') {
-                    $rootScope.$broadcast('search-close');
+                if (toStateName !== "searchinfo") {
+                    $rootScope.$broadcast("search-close");
                 }
                 if (fromParams.boxId && toParams.boxId) {
-                    if (fromParams.boxId === toParams.boxId && toStateName === 'box' && fromState.name.startsWith('box')) {
+                    if (fromParams.boxId === toParams.boxId && toStateName === "box" && fromState.name.startsWith("box")) {
                         event.preventDefault();
                         $rootScope.$broadcast('state-change-start-prevent');
                     }

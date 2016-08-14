@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    <ul id="tabSection" ng-if="!t.tabSelected" layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start stretch" ng-if="!i.tabSelected.id">
+    <ul id="tabSection" ng-if="!t.tabSelected" layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start stretch">
         <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" ui-on-drop="i.addItemToTab($data,e)" class="folder-name i-q-wrapper" ng-repeat="e in t.tabs" ng-click="t.tabChange(e)">
             <div class="name-and-icon content color-override textColor8">
                 <div class="text ellipsis background-blue" ng-bind="::e.name"></div>

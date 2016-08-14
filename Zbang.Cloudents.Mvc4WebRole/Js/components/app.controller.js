@@ -1,6 +1,6 @@
 var app;
 (function (app) {
-    'use strict';
+    "use strict";
     var AppController = (function () {
         function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, $scope, realtimeFactotry, sbHistory, $state) {
             var _this = this;
@@ -16,7 +16,6 @@ var app;
             this.realtimeFactotry = realtimeFactotry;
             this.sbHistory = sbHistory;
             this.$state = $state;
-            this.expandSearch = false;
             this.chatDisplayState = 1;
             this.back = function (defaultUrl) {
                 var element = _this.sbHistory.popElement();
@@ -62,45 +61,45 @@ var app;
                 }
                 $mdOpenMenu(ev);
             };
-            $rootScope.$on('$viewContentLoaded', function () {
+            $rootScope.$on("$viewContentLoaded", function () {
                 var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
-                dataLayer.push({ event: 'virtualPageView', virtualUrl: virtualUrl });
+                dataLayer.push({ event: "virtualPageView", virtualUrl: virtualUrl });
                 __insp.push(["virtualPage"]);
             });
             userDetails.init().then(function () {
                 _this.setTheme();
             });
-            $rootScope.$on('$mdMenuClose', function () {
+            $rootScope.$on("$mdMenuClose", function () {
                 _this.menuOpened = false;
             });
             this.showMenu = this.showSearch = this.showChat = true;
             this.showBoxAd = false;
-            $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
-                _this.showBoxAd = toState.parent === 'box';
-                _this.showChat = _this.showSearch = !(toState.name === 'universityChoose');
-                _this.showMenu = !(toState.name === 'item' || toState.name === 'quiz' || toState.name === 'universityChoose');
-                if (toState.name.startsWith('box')) {
+            $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams) {
+                _this.showBoxAd = toState.parent === "box";
+                _this.showChat = _this.showSearch = !(toState.name === "universityChoose");
+                _this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
+                if (toState.name.startsWith("box")) {
                     realtimeFactotry.assingBoxes(toParams.boxId);
                 }
             });
-            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
                 if (!fromState.name) {
                     return;
                 }
-                if (toState.name === 'user' && toParams.userId === "22886") {
+                if (toState.name === "user" && toParams.userId === "22886") {
                     event.preventDefault();
-                    $rootScope.$broadcast('state-change-start-prevent');
+                    $rootScope.$broadcast("state-change-start-prevent");
                 }
                 $mdMenu.hide();
                 $mdToast.hide();
-                $rootScope.$broadcast('close-menu');
-                $rootScope.$broadcast('close-collapse');
+                $rootScope.$broadcast("close-menu");
+                $rootScope.$broadcast("close-collapse");
                 var toStateName = toState.name;
-                if (toStateName !== 'searchinfo') {
-                    $rootScope.$broadcast('search-close');
+                if (toStateName !== "searchinfo") {
+                    $rootScope.$broadcast("search-close");
                 }
                 if (fromParams.boxId && toParams.boxId) {
-                    if (fromParams.boxId === toParams.boxId && toStateName === 'box' && fromState.name.startsWith('box')) {
+                    if (fromParams.boxId === toParams.boxId && toStateName === "box" && fromState.name.startsWith("box")) {
                         event.preventDefault();
                         $rootScope.$broadcast('state-change-start-prevent');
                     }
@@ -133,9 +132,9 @@ var app;
             myform.$setPristine();
             myform.$setUntouched();
         };
-        AppController.$inject = ['$rootScope', '$location',
-            'userDetailsFactory', '$mdToast', '$document', '$mdMenu', 'resManager',
-            'CacheFactory', '$scope', 'realtimeFactotry', 'sbHistory', '$state'];
+        AppController.$inject = ["$rootScope", "$location",
+            "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
+            "CacheFactory", "$scope", "realtimeFactotry", "sbHistory", "$state"];
         return AppController;
     }());
     angular.module('app').controller('AppController', AppController);

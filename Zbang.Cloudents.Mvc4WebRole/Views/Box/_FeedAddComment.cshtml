@@ -14,7 +14,7 @@
             <md-input-container md-no-float>
                 <textarea user-not-register-popup="focus" ng-model="f.add.newText" ng-focus="b.closeCollapse()" placeholder="@BoxResources.Whats" class="color-override inputColor12 textColor7"></textarea>
             </md-input-container>
-            <ul class="list-inline file-upload-area" ng-if=" f.add.files.length">
+            <ul class="list-inline file-upload-area" ng-if="f.add.files.length">
                 <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: '!'}" ng-include="'file-upload.html'">
             </ul>
         </div>

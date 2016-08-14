@@ -127,21 +127,22 @@
                     c.users = makeUnique(c.users.concat(response));
 
 
-                    function makeUnique(array) {
-                        var flags = [], output = [], l = array.length, i;
-                        for (i = 0; i < l; i++) {
-                            if (flags[array[i].id]) continue;
-                            flags[array[i].id] = true;
-                            output.push(array[i]);
-                        }
-                        return output;
-                    }
+                    
                 } else {
                     page = 0;
                     c.users = response;
                 }
                 updateUnread();
             });
+        }
+        function makeUnique(array) {
+            var flags = [], output = [], l = array.length, i;
+            for (i = 0; i < l; i++) {
+                if (flags[array[i].id]) continue;
+                flags[array[i].id] = true;
+                output.push(array[i]);
+            }
+            return output;
         }
 
         function handleChatMessages(response) {

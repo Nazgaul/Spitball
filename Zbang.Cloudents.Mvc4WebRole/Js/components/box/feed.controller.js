@@ -148,6 +148,9 @@
         }
 
         function initThirdParties() {
+            if (!user.id) {
+                return;
+            }
             externalUploadProvider.googleDriveInit().then(function () {
                 self.add.googleDisabled = false;
             });
