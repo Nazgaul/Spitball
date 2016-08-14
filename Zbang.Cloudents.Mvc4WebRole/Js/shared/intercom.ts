@@ -6,7 +6,7 @@ declare var Intercom: any;
 (() => {
     angular.module('app').run(intercom);
     intercom.$inject = ['userDetailsFactory', '$rootScope', '$mdMenu'];
-    function intercom(userDetailsFactory: IUserDetailsFactory, $rootScope: ng.IRootScopeService, $mdMenu: any) {
+    function intercom(userDetailsFactory: app.IUserDetailsFactory, $rootScope: ng.IRootScopeService, $mdMenu: any) {
         var started = false;
         userDetailsFactory.init().then(function (data) {
             start(data);

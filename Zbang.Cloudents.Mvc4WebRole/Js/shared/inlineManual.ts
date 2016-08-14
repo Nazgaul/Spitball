@@ -9,7 +9,7 @@ declare var inlineManualTracking: any;
     function inlineManual($rootScope: ng.IRootScopeService,
         $timeout: ng.ITimeoutService,
         $document: ng.IDocumentService,
-        userDetailsFactory: IUserDetailsFactory) {
+        userDetailsFactory: app.IUserDetailsFactory) {
         var registeredUser: boolean;
         userDetailsFactory.init().then((userData) => {
             if (!userData.id) {

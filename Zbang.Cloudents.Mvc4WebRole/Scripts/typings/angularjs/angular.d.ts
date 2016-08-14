@@ -118,14 +118,14 @@ declare namespace angular {
         fromJson(json: string): any;
         identity<T>(arg?: T): T;
         injector(modules?: any[], strictDi?: boolean): auto.IInjectorService;
-        isArray(value: any): boolean;
-        isDate(value: any): boolean;
+        isArray(value: any): value is Array<any>;
+        isDate(value: any): value is Date;
         isDefined(value: any): boolean;
         isElement(value: any): boolean;
-        isFunction(value: any): boolean;
-        isNumber(value: any): boolean;
-        isObject(value: any): boolean;
-        isString(value: any): boolean;
+        isFunction(value: any): value is Function;
+        isNumber(value: any): value is number;
+        isObject(value: any): value is Object;
+        isString(value: any): value is string;
         isUndefined(value: any): boolean;
         lowercase(str: string): string;
 
@@ -387,6 +387,7 @@ declare namespace angular {
         $invalid: boolean;
         $submitted: boolean;
         $error: any;
+        $name: string;
         $pending: any;
         $addControl(control: INgModelController | IFormController): void;
         $removeControl(control: INgModelController | IFormController): void;
@@ -873,7 +874,7 @@ declare namespace angular {
     // see http://docs.angularjs.org/api/ng.$parseProvider
     ///////////////////////////////////////////////////////////////////////////
     interface IParseService {
-        (expression: string): ICompiledExpression;
+        (expression: string, interceptorFn?: (value: any, scope: IScope, locals: any) => any, expensiveChecks?: boolean): ICompiledExpression;
     }
 
     interface IParseProvider {
@@ -985,7 +986,10 @@ declare namespace angular {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends JQuery {}
+    interface IDocumentService extends JQuery {
+        // Must return intersection type for index signature compatibility with JQuery
+        [index: number]: HTMLElement & Document;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // ExceptionHandlerService
@@ -1715,6 +1719,12 @@ declare namespace angular {
          * Whether transclusion is enabled. Enabled by default.
          */
         transclude?: boolean | string | {[slot: string]: string};
+        /**
+         * Requires the controllers of other directives and binds them to this component's controller.
+         * The object keys specify the property names under which the required controllers (object values) will be bound.
+         * Note that the required controllers will not be available during the instantiation of the controller,
+         * but they are guaranteed to be available just before the $onInit method is executed!
+         */
         require?: {[controller: string]: string};
     }
 
