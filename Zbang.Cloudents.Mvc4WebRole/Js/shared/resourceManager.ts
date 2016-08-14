@@ -2,8 +2,8 @@
 module app {
     'use strict';
     declare var JsResources: any;
-    
-    export interface IResManager {
+
+    export interface IResManager  {
         get(value: string): string;
     }
     class ResManager implements IResManager {
@@ -44,7 +44,7 @@ module app {
             });
         }
     }
-    angular.module('app').factory('resManager', ResManager);
+    angular.module('app').service('resManager', ResManager);
 }
 
 //(function () {

@@ -35,5 +35,5 @@ var app;
         ResManager.$inject = ['$location'];
         return ResManager;
     }());
-    angular.module('app').factory('resManager', ResManager);
+    angular.module('app').service('resManager', ResManager);
 })(app || (app = {}));

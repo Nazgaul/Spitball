@@ -80,7 +80,8 @@
                             </md-menu-content>
                         </md-menu>
                     </div>
-                    <button class="close-btn" type="button" ng-click="app.back(i.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+                    {{i.boxUrl}}
+                    <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
 
                 </div>
             </div>
