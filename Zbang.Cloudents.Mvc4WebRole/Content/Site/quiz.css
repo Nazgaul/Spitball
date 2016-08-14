@@ -70,7 +70,7 @@
   -o-transform: rotate(0) /*rtl:rotate(180deg)*/;
   -webkit-transform: rotate(0) /*rtl:rotate(180deg)*/;
   transform: rotate(0) /*rtl:rotate(180deg)*/;
-  right: 5px;
+  right: 65px;
   left: auto;
 }
 .quizPage .wrapper {

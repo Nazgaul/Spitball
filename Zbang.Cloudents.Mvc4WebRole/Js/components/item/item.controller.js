@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope', 'resManager',  '$timeout', '$mdMenu','$previousState'];
+        'itemData', '$scope', 'resManager',  '$timeout', '$mdMenu'];
 
     function item($stateParams, itemService, $sce, $location, $q,
-        user, itemData, $scope, resManager, $timeout, $mdMenu, $previousState) {
+        user, itemData, $scope, resManager, $timeout, $mdMenu) {
         var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         var index = 0, needLoadMore = false;
 
@@ -48,15 +48,15 @@
         i.followBox = followBox;
         i.document = itemData.fileContent;
        
-        i.back = back;
+        //i.back = back;
 
-        function back() {
-            if ($previousState.get()) {
-                $previousState.go();
-                return;
-            }
-            $location.url(i.details.boxUrl);
-        }
+        //function back() {
+        //    if ($previousState.get()) {
+        //        $previousState.go();
+        //        return;
+        //    }
+        //    $location.url(i.details.boxUrl);
+        //}
 
         function followBox() {
              //cacheFactory.clearAll();//autofollow issue

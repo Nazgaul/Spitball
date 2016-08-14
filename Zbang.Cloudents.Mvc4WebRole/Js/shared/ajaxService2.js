@@ -38,14 +38,15 @@ var app;
             }
         }
         AjaxService2.prototype.buildFactoryObject = function (cacheKey) {
-            angular.extend(this.cacheCategories[cacheKey], {
+            var dst = {};
+            angular.extend(dst, {
                 deleteOnExpire: 'aggressive',
                 maxAge: minute,
                 recycleFreq: 15000,
                 storageMode: 'sessionStorage',
                 storagePrefix: 'sb.c.'
-            });
-            this.cacheFactory(cacheKey, this.cacheCategories[cacheKey]);
+            }, this.cacheCategories[cacheKey]);
+            this.cacheFactory(cacheKey, dst);
         };
         AjaxService2.prototype.deleteCacheCategory = function (category) {
             var dataCache = this.cacheFactory.get(category);

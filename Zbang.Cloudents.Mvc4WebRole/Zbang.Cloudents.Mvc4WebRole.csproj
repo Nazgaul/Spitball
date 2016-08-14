@@ -1521,6 +1521,7 @@
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\staticPages.js" />
+    <TypeScriptCompile Include="Js\components\app.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
@@ -2316,11 +2317,9 @@
     <Content Include="Js\shared\facebook.js" />
     <Content Include="Js\shared\fileReader.js" />
     <Content Include="Js\shared\firstLetter.js" />
-    <Content Include="Js\shared\history.js" />
     <Content Include="Js\shared\itemThumbnail.js" />
     <Content Include="Js\shared\removeKeyboard.js" />
     <Content Include="Js\shared\resourceManager.js" />
-    <Content Include="Js\components\app.controller.js" />
     <Content Include="Js\components\box\box.service.js" />
     <Content Include="Js\components\box\quizzes.controller.js" />
     <Content Include="Js\components\box\members.controller.js" />

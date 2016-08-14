@@ -38,8 +38,8 @@
                            url: '/item/{universityName}/{boxId}/{boxName}/{itemId}/{itemName}/',
                            controller: 'ItemController as i',
                            resolve: {
-                               itemData: ['itemService', '$stateParams', function (itemService, $stateParams) {
-                                   return itemService.getDetails($stateParams.boxId, $stateParams.itemId);
+                               itemData: ['itemService', '$stateParams', 'sbHistory', function (itemService, $stateParams, sbHistory) {
+                                   return itemService.getDetails($stateParams.boxId, $stateParams.itemId, sbHistory.firstState());
                                }]
                            },
                            reloadOnSearch: false,
@@ -54,7 +54,6 @@
                             controller: 'SearchController as s',
                             data: { animateClass: 'search' },
                             reloadOnSearch: false
-                            //onEnter: routerHelper.universityRedirect
                         },
                         templateUrl: '/search/indexpartial/'
                     }

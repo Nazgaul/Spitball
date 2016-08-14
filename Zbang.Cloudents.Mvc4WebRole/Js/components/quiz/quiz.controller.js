@@ -3,10 +3,10 @@
     angular.module('app.quiz').controller('QuizController', quiz);
 
     quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter',
-        'userDetailsFactory', '$rootScope', '$scope',  '$previousState', '$location'];
+        'userDetailsFactory', '$rootScope', '$scope',  '$location'];
 
     function quiz(quizData, $timeout, $stateParams, quizService, $filter,
-        userDetailsFactory, $rootScope, $scope,  $previousState, $location) {
+        userDetailsFactory, $rootScope, $scope,   $location) {
 
         var q = this;
         q.states = {
@@ -74,14 +74,14 @@
             q.classmatesCount = response.solversCount;
         });
 
-        q.backToBox = backToBox;
+        //q.backToBox = backToBox;
 
-        function backToBox() {
-            if ($previousState.get()) {
-                $previousState.go();
-            }
-            $location.url(q.boxUrl);
-        }
+        //function backToBox() {
+        //    if ($previousState.get()) {
+        //        $previousState.go();
+        //    }
+        //    $location.url(q.boxUrl);
+        //}
 
 
         function start() {

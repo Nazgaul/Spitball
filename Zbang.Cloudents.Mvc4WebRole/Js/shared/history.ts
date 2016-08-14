@@ -50,21 +50,18 @@ module app {
             });
         }
 
-        popElement() {
+        popElement = () => {
             if (this.arr.length === 1) {
                 return;
             }
             return this.arr.pop();
         }
-        firstState() {
+        firstState = () => {
             return this.arr.length === 0;
         }
-
-
-
-
-
+        
     }
+    angular.module('app').service('sbHistory', SbHistory);
 }
 
 

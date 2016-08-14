@@ -81,16 +81,16 @@ module app {
 
 
         buildFactoryObject(cacheKey: string) {
-            angular.extend(this.cacheCategories[cacheKey],
+            var dst = {};
+            angular.extend(dst,
                 {
                     deleteOnExpire: 'aggressive',
                     maxAge: minute,
                     recycleFreq: 15000, // 15 seconds
                     storageMode: 'sessionStorage',
                     storagePrefix: 'sb.c.'
-                });
-
-            this.cacheFactory(cacheKey, this.cacheCategories[cacheKey]);
+                }, this.cacheCategories[cacheKey]);
+            this.cacheFactory(cacheKey, dst);
         }
 
         deleteCacheCategory(category: cacheKeys) {

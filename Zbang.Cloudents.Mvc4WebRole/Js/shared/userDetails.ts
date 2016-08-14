@@ -52,6 +52,7 @@ module app {
         setUniversity(name, id): angular.IPromise<IUserData>;
         setTheme(theme): void;
     }
+
     class UserDetails implements IUserDetailsFactory {
         static $inject = ['$rootScope', '$q', 'ajaxService2', 'Analytics'];
 
@@ -59,14 +60,15 @@ module app {
         private userData: IUserData;
         private serverCall = false;
         private deferDetails = this.$q.defer();
+
         constructor(private $rootScope: angular.IRootScopeService, private $q: angular.IQService,
             private ajaxService: IAjaxService2, private analytics: angular.google.analytics.AnalyticsService) {
-
         }
 
 
 
         setDetails(data) {
+
             // data = data || {};
             if (data.id) {
                 this.isLogedIn = true;
@@ -115,7 +117,7 @@ module app {
 
 
         init(): angular.IPromise<IUserData> {
-            
+
             if (this.userData) {
                 this.deferDetails.resolve(this.userData);
                 return this.deferDetails.promise;
@@ -131,32 +133,32 @@ module app {
             }
             return this.deferDetails.promise;
         }
-        get() {
+        get = () => {
             return this.userData;
         }
-        isAuthenticated() {
+        isAuthenticated = () => {
             return this.isLogedIn;
         }
-        setName(first: string, last: string) {
+        setName = (first: string, last: string) => {
             this.userData.name = first + " " + last;
             this.$rootScope.$broadcast('userDetailsChange');
         }
-        setImage(image?: string) {
+        setImage = (image?: string) => {
             if (!image) {
                 return;
             }
             this.userData.image = image;
             this.$rootScope.$broadcast('userDetailsChange');
         }
-        getUniversity() {
+        getUniversity = (): number => {
             return this.userData ? this.userData.university.id : null;
         }
-        setUniversity(): angular.IPromise<IUserData> {
+        setUniversity = (): angular.IPromise<IUserData> => {
             this.ajaxService.deleteCacheCategory('accountDetail');
             this.userData = null;
             return this.init();
         }
-        setTheme(theme: string) {
+        setTheme = (theme: string) => {
             this.userData.theme = theme;
         }
 

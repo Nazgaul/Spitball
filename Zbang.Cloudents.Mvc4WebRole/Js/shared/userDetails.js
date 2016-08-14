@@ -4,6 +4,7 @@ var app;
     "use strict";
     var UserDetails = (function () {
         function UserDetails($rootScope, $q, ajaxService, analytics) {
+            var _this = this;
             this.$rootScope = $rootScope;
             this.$q = $q;
             this.ajaxService = ajaxService;
@@ -11,6 +12,34 @@ var app;
             this.isLogedIn = false;
             this.serverCall = false;
             this.deferDetails = this.$q.defer();
+            this.get = function () {
+                return _this.userData;
+            };
+            this.isAuthenticated = function () {
+                return _this.isLogedIn;
+            };
+            this.setName = function (first, last) {
+                _this.userData.name = first + " " + last;
+                _this.$rootScope.$broadcast('userDetailsChange');
+            };
+            this.setImage = function (image) {
+                if (!image) {
+                    return;
+                }
+                _this.userData.image = image;
+                _this.$rootScope.$broadcast('userDetailsChange');
+            };
+            this.getUniversity = function () {
+                return _this.userData ? _this.userData.university.id : null;
+            };
+            this.setUniversity = function () {
+                _this.ajaxService.deleteCacheCategory('accountDetail');
+                _this.userData = null;
+                return _this.init();
+            };
+            this.setTheme = function (theme) {
+                _this.userData.theme = theme;
+            };
         }
         UserDetails.prototype.setDetails = function (data) {
             if (data.id) {
@@ -63,34 +92,6 @@ var app;
                 });
             }
             return this.deferDetails.promise;
-        };
-        UserDetails.prototype.get = function () {
-            return this.userData;
-        };
-        UserDetails.prototype.isAuthenticated = function () {
-            return this.isLogedIn;
-        };
-        UserDetails.prototype.setName = function (first, last) {
-            this.userData.name = first + " " + last;
-            this.$rootScope.$broadcast('userDetailsChange');
-        };
-        UserDetails.prototype.setImage = function (image) {
-            if (!image) {
-                return;
-            }
-            this.userData.image = image;
-            this.$rootScope.$broadcast('userDetailsChange');
-        };
-        UserDetails.prototype.getUniversity = function () {
-            return this.userData ? this.userData.university.id : null;
-        };
-        UserDetails.prototype.setUniversity = function () {
-            this.ajaxService.deleteCacheCategory('accountDetail');
-            this.userData = null;
-            return this.init();
-        };
-        UserDetails.prototype.setTheme = function (theme) {
-            this.userData.theme = theme;
         };
         UserDetails.$inject = ['$rootScope', '$q', 'ajaxService2', 'Analytics'];
         return UserDetails;

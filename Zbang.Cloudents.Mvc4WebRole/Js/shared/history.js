@@ -8,6 +8,15 @@ var app;
             this.$location = $location;
             this.skipState = false;
             this.arr = [];
+            this.popElement = function () {
+                if (_this.arr.length === 1) {
+                    return;
+                }
+                return _this.arr.pop();
+            };
+            this.firstState = function () {
+                return _this.arr.length === 0;
+            };
             this.$rootScope.$on('$stateChangeStart', function () {
                 _this.url = _this.$location.url();
             });
@@ -31,16 +40,8 @@ var app;
                 _this.skipState = true;
             });
         }
-        SbHistory.prototype.popElement = function () {
-            if (this.arr.length === 1) {
-                return;
-            }
-            return this.arr.pop();
-        };
-        SbHistory.prototype.firstState = function () {
-            return this.arr.length === 0;
-        };
         SbHistory.$inject = ['$rootScope', '$location'];
         return SbHistory;
     }());
+    angular.module('app').service('sbHistory', SbHistory);
 })(app || (app = {}));
