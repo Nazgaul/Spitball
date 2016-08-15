@@ -138,4 +138,13 @@
   <data name="DisconnectedText" xml:space="preserve">
     <value>מתחבר...</value>
   </data>
+  <data name="FavoritsHeader" xml:space="preserve">
+    <value>שיחות אחרונות</value>
+  </data>
+  <data name="SchoolmatesHeader" xml:space="preserve">
+    <value>חברים</value>
+  </data>
+  <data name="ClassmatesHeader" xml:space="preserve">
+    <value>סטודנטים</value>
+  </data>
 </root>

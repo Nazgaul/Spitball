@@ -8,7 +8,7 @@
     function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
         notificationService, resManager) {
-        var c = this, chunkSize = 100, top = 0, page = 0,
+        var c = this, chunkSize = 100, page = 0,
             connectionStatuses = {
                 connected: 1,
                 disconnected: 0
@@ -124,20 +124,22 @@
         function search(term, loadNextPage) {
             chatBus.messages(term, page).then(function (response) {
                 if (loadNextPage) {
-                    c.users = makeUnique(c.users.concat(response));
+                    c.users = makeUniqueAndRemoveMySelf(c.users.concat(response));
 
 
                     
                 } else {
                     page = 0;
-                    c.users = response;
+                    c.users = makeUniqueAndRemoveMySelf(response);
                 }
                 updateUnread();
             });
         }
-        function makeUnique(array) {
+        function makeUniqueAndRemoveMySelf(array) {
+
             var flags = [], output = [], l = array.length, i;
             for (i = 0; i < l; i++) {
+                if (array[i].id === userDetailsFactory.get().id) continue;
                 if (flags[array[i].id]) continue;
                 flags[array[i].id] = true;
                 output.push(array[i]);
