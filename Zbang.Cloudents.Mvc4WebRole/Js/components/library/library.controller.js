@@ -11,7 +11,7 @@
         l.departments = nodeData.nodes;
         l.boxes = nodeData.boxes || [];
         l.nodeDetail = nodeData.details;
-        console.log(l.nodeDetail)
+       
         if (l.nodeDetail) {
             l.nodeDetail.isPrivate = false;
         }
@@ -75,7 +75,6 @@
                 emptyNode: nodeId != null && l.boxes.length === 0 && l.departments.length === 0,
                 emptyNodeAdmin: nodeId != null && l.boxes.length === 0 && l.departments.length === 0 && userDetailsFactory.get().isAdmin
             };
-            console.log(l.state)
         }
 
         function createFirstBox(myform) {

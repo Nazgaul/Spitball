@@ -54,7 +54,7 @@
                 id: nodeId,
                 name: name,
                 settings: settings
-            });
+            }, 'department');
         }
         d.requestAccess = function (nodeId) {
             return ajaxservice.post('/university/requestaccess/', {
