@@ -125,9 +125,6 @@
             chatBus.messages(term, page).then(function (response) {
                 if (loadNextPage) {
                     c.users = makeUniqueAndRemoveMySelf(c.users.concat(response));
-
-
-                    
                 } else {
                     page = 0;
                     c.users = makeUniqueAndRemoveMySelf(response);

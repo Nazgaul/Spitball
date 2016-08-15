@@ -29,7 +29,7 @@ module app {
             private cacheFactory: CacheFactory.ICacheFactory,
             private $scope: angular.IScope,
             // TODO: continue
-            private realtimeFactotry: any,
+            private realtimeFactotry: IRealtimeFactotry,
             private sbHistory: ISbHistory,
             private $state: angular.ui.IStateService
 
