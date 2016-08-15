@@ -11,12 +11,13 @@ interface IAnalytics extends angular.google.analytics.AnalyticsService {
 declare var version: any;
 
 
-interface IAjaxService2 {
-    get(url: string, data?: Object, category?: cacheKeys, cancelCategory?: string): angular.IPromise<any>;
-    post(url: string, data: Object, category?: cacheKeys | Array<cacheKeys>): angular.IPromise<any>;
-    getHtml(url: string): angular.IPromise<any>;
-    deleteCacheCategory(category: cacheKeys): void;
-}
+//interface IAjaxService2 {
+//    get(url: string, data?: Object, category?: cacheKeys, cancelCategory?: string): angular.IPromise<any>;
+//    post(url: string, data: Object, category?: cacheKeys | Array<cacheKeys>): angular.IPromise<any>;
+//    getHtml(url: string): angular.IPromise<any>;
+//    deleteCacheCategory(category: cacheKeys): void;
+   
+//}
 type cacheKeys = 'university' | 'accountDetail' | 'html' | 'department' | 'itemComment' | 'chat'
 module app {
     'use strict';
@@ -27,6 +28,7 @@ module app {
         post(url: string, data: Object, category?: cacheKeys | Array<cacheKeys>): angular.IPromise<any>;
         getHtml(url: string): angular.IPromise<any>;
         deleteCacheCategory(category: cacheKeys): void;
+        logError(url: string, data?, payload?): void;
     }
     //declare module 'cacheKeys' {
     export type cacheKeys = 'university' | 'accountDetail' | 'html' | 'department' | 'itemComment' | 'chat'
@@ -237,7 +239,7 @@ module app {
         }
 
 
-        private logError(url: string, data, payload) {
+        logError(url: string, data, payload) {
             const log = {
                 data: data,
                 payload: payload
@@ -257,9 +259,9 @@ module app {
         }
 
         trackTime(startTime, url, data, type) {
-            var timeSpent = new Date().getTime() - startTime;
+            const timeSpent = new Date().getTime() - startTime;
 
-            this.analytics.trackTimings(url.toLowerCase() !== '/item/preview/' ? 'ajax ' + type
+            this.analytics.trackTimings(url.toLowerCase() !== '/item/preview/' ? `ajax ${type}`
                 : 'ajaxPreview', url, timeSpent, JSON.stringify(data));
         }
     }

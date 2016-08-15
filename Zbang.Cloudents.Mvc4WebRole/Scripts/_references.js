@@ -112,7 +112,6 @@
 /// <reference path="../js/shared/notification.js" />
 /// <reference path="../js/shared/pagingonscroll.directive.js" />
 /// <reference path="../js/shared/removekeyboard.js" />
-/// <reference path="../js/shared/resourcemanager.js" />
 /// <reference path="../js/shared/scrolltotop.directive.js" />
 /// <reference path="../js/shared/userimage.js" />
 /// <reference path="../js/shared/versionchecker.js" />

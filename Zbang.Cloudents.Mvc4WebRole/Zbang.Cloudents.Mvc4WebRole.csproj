@@ -2320,7 +2320,6 @@
     <Content Include="Js\shared\firstLetter.js" />
     <Content Include="Js\shared\itemThumbnail.js" />
     <Content Include="Js\shared\removeKeyboard.js" />
-    <Content Include="Js\shared\resourceManager.js" />
     <Content Include="Js\components\box\box.service.js" />
     <Content Include="Js\components\box\quizzes.controller.js" />
     <Content Include="Js\components\box\members.controller.js" />

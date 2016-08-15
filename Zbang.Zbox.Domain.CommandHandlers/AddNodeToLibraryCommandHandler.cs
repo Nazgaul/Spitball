@@ -40,7 +40,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 var libraryNode = m_LibraryRepository.Load(message.ParentId);
                 var childNode = libraryNode.CreateSubLibrary(id, message.Name, user);
                 m_LibraryRepository.Save(childNode);
-                message.Url = childNode.Url;
             }
             //need to be in the root
             else
@@ -50,7 +49,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_LibraryRepository.Save(lib);
                 university.ShouldMakeDirty = () => false;
                 m_UniversityRepository.Save(university);
-                message.Url = lib.Url;
             }
 
             message.Id = id;

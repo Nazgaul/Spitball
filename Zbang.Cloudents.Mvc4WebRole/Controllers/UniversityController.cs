@@ -216,7 +216,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     node.Url = Url.RouteUrlCache("universityLibraryNodes", new RouteValueDictionary
                     {
                         ["universityId"] = universityId,
-                        ["universityName"] = universityName,
+                        ["universityName"] = HttpUtility.UrlDecode(universityName.ToString()),
                         ["id"] = GuidEncoder.Encode(node.Id),
                         ["libraryname"] = UrlConst.NameToQueryString(node.Name)
                     });
@@ -227,7 +227,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     result.Details.ParentUrl = Url.RouteUrlCache("universityLibraryNodes", new RouteValueDictionary
                     {
                         ["universityId"] = universityId,
-                        ["universityName"] = universityName,
+                        ["universityName"] = HttpUtility.UrlDecode(universityName.ToString()),
                         ["id"] = GuidEncoder.Encode(result.Details.ParentId.Value),
                         ["libraryname"] = UrlConst.NameToQueryString(result.Details.ParentName)
                     });
@@ -237,7 +237,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     result.Details.ParentUrl = Url.RouteUrlCache("universityLibrary", new RouteValueDictionary
                     {
                         ["universityId"] = universityId,
-                        ["universityName"] = universityName
+                        ["universityName"] = HttpUtility.UrlDecode(universityName.ToString())
                     });
                 }
                 return JsonOk(result);
@@ -320,13 +320,29 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
             }
+            if (Request.UrlReferrer == null)
+            {
+                TraceLog.WriteError("need url Referrer");
+                return JsonError();
+
+            }
 
             try
             {
                 var parentId = GuidEncoder.TryParseNullableGuid(model.ParentId);
                 var command = new AddNodeToLibraryCommand(model.Name, universityId.Value, parentId, User.GetUserId());
                 await ZboxWriteService.CreateDepartmentAsync(command);
-                var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
+                var route = BuildRouteDataFromUrl(Request.UrlReferrer.AbsoluteUri);
+
+                var universityName = route.Values["universityName"];
+                var url = Url.RouteUrlCache("universityLibraryNodes", new RouteValueDictionary
+                {
+                    ["universityId"] = universityId,
+                    ["universityName"] = HttpUtility.UrlDecode(universityName.ToString()),
+                    ["id"] = GuidEncoder.Encode(command.Id),
+                    ["libraryname"] = UrlConst.NameToQueryString(model.Name)
+                });
+                var result = new NodeDto { Id = command.Id, Name = model.Name, Url = url };
                 return JsonOk(result);
             }
             catch (DuplicateDepartmentNameException)

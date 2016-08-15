@@ -187,7 +187,7 @@ var app;
         };
         AjaxService2.prototype.trackTime = function (startTime, url, data, type) {
             var timeSpent = new Date().getTime() - startTime;
-            this.analytics.trackTimings(url.toLowerCase() !== '/item/preview/' ? 'ajax ' + type
+            this.analytics.trackTimings(url.toLowerCase() !== '/item/preview/' ? "ajax " + type
                 : 'ajaxPreview', url, timeSpent, JSON.stringify(data));
         };
         AjaxService2.$inject = ['$http', '$q', 'Analytics', 'CacheFactory', 'routerHelper'];

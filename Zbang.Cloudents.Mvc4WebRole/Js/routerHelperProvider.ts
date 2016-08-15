@@ -48,7 +48,7 @@ interface IRouterHelper {
                         //    return buildUrl(state.templateUrl);
                         //};
                         state.config.templateProvider = [
-                            'ajaxService2', (ajaxService2: IAjaxService2) => ajaxService2.getHtml(state.templateUrl)
+                            'ajaxService2', (ajaxService2: app.IAjaxService2) => ajaxService2.getHtml(state.templateUrl)
                         ];
                     }
                     $stateProvider.state(state.state, state.config);

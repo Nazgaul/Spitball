@@ -85,7 +85,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 var parentId = GuidEncoder.TryParseNullableGuid(model.ParentId);
                 var command = new AddNodeToLibraryCommand(model.Name, universityId.Value, parentId, User.GetUserId());
                 await m_ZboxWriteService.CreateDepartmentAsync(command);
-                var result = new NodeDto { Id = command.Id, Name = model.Name, Url = command.Url };
+                var result = new NodeDto { Id = command.Id, Name = model.Name };
                 return Request.CreateResponse(result);
             }
             catch (DuplicateDepartmentNameException ex)

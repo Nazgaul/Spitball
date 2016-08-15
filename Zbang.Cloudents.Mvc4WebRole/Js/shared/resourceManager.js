@@ -2,8 +2,9 @@ var app;
 (function (app) {
     'use strict';
     var ResManager = (function () {
-        function ResManager($location) {
+        function ResManager($location, ajaxService) {
             this.$location = $location;
+            this.ajaxService = ajaxService;
             this.jsResources = JsResources;
             return this;
         }
@@ -14,25 +15,12 @@ var app;
             }
             var resource = this.jsResources[value];
             if (!resource) {
-                this.logError('missing resource', value);
+                this.ajaxService.logError('missing resource', value);
                 return result;
             }
             return resource;
         };
-        ResManager.prototype.logError = function (cause, value) {
-            $.ajax({
-                type: 'POST',
-                url: '/Error/JsLog',
-                contentType: 'application/json',
-                data: angular.toJson({
-                    errorUrl: this.$location.absUrl(),
-                    errorMessage: value,
-                    cause: "jsResources " + cause,
-                    stackTrace: ''
-                })
-            });
-        };
-        ResManager.$inject = ['$location'];
+        ResManager.$inject = ['$location', 'ajaxService2'];
         return ResManager;
     }());
     angular.module('app').service('resManager', ResManager);

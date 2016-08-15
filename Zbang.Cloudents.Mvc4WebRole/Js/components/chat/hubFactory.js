@@ -24,7 +24,7 @@
                         userId: userId,
                         online: true
                     });
-                    console.log(userId);
+                    console.log(userId);//
                 },
                 offline: function (userId) {
                     $rootScope.$broadcast('hub-status', {
@@ -39,7 +39,7 @@
                     $rootScope.$broadcast('update-thumbnail', itemId);
                 },
                 echo: function (i) {
-                    console.log('echo', i);
+                    //console.log('echo', i);
                 }
             },
             errorHandler: function (error) {
@@ -134,6 +134,7 @@
             // leaveBox: leaveBox
         };
 
+        // todo: duplicate
 
         function logError(url, data, payload) {
             var log = {
