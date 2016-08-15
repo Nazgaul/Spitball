@@ -23,32 +23,32 @@ var app;
                     _this.$location.url(defaultUrl);
                     return;
                 }
-                _this.$rootScope.$broadcast('from-back');
+                _this.$rootScope.$broadcast("from-back");
                 _this.$state.go(element.name, element.params);
             };
             this.logOut = function () {
                 _this.cacheFactory.clearAll();
-                Intercom('shutdown');
+                Intercom("shutdown");
             };
             this.initChat = function () {
                 var details = _this.userDetails.get();
                 _this.loadChat = details.university.id > 0;
             };
             this.setTheme = function () {
-                _this.theme = 'theme-' + _this.userDetails.get().theme;
+                _this.theme = "theme-" + _this.userDetails.get().theme;
             };
             this.toggleMenu = function () {
-                _this.$rootScope.$broadcast('open-menu');
+                _this.$rootScope.$broadcast("open-menu");
             };
             this.showToaster = function (text, parentId, theme) {
-                var element = _this.$document.find('header')[0];
+                var element = _this.$document.find("header")[0];
                 if (parentId) {
-                    element = _this.$document[0].querySelector('#' + parentId);
+                    element = _this.$document[0].querySelector("#" + parentId);
                 }
                 _this.$mdToast.show(_this.$mdToast.simple()
                     .textContent(text)
                     .capsule(true)
-                    .position('top right')
+                    .position("top right")
                     .parent(element)
                     .theme(theme)
                     .hideDelay(2000));
@@ -56,7 +56,7 @@ var app;
             this.openMenu = function ($mdOpenMenu, ev) {
                 _this.menuOpened = true;
                 if (!_this.userDetails.isAuthenticated()) {
-                    _this.$rootScope.$broadcast('show-unregisterd-box');
+                    _this.$rootScope.$broadcast("show-unregisterd-box");
                     return;
                 }
                 $mdOpenMenu(ev);
@@ -101,24 +101,24 @@ var app;
                 if (fromParams.boxId && toParams.boxId) {
                     if (fromParams.boxId === toParams.boxId && toStateName === "box" && fromState.name.startsWith("box")) {
                         event.preventDefault();
-                        $rootScope.$broadcast('state-change-start-prevent');
+                        $rootScope.$broadcast("state-change-start-prevent");
                     }
                 }
-                if (toStateName === 'settings' && fromState.name.startsWith('settings')) {
+                if (toStateName === "settings" && fromState.name.startsWith("settings")) {
                     event.preventDefault();
-                    $rootScope.$broadcast('state-change-start-prevent');
+                    $rootScope.$broadcast("state-change-start-prevent");
                 }
                 if (!userDetails.isAuthenticated()) {
                     return;
                 }
                 var details = userDetails.get();
                 if (details.university.id) {
-                    document.title = resManager.get('siteName');
+                    document.title = resManager.get("siteName");
                     return;
                 }
-                var userWithNoUniversityState = 'universityChoose';
+                var userWithNoUniversityState = "universityChoose";
                 if (toStateName !== userWithNoUniversityState) {
-                    $rootScope.$broadcast('state-change-start-prevent');
+                    $rootScope.$broadcast("state-change-start-prevent");
                     event.preventDefault();
                 }
             });
@@ -132,10 +132,11 @@ var app;
             myform.$setPristine();
             myform.$setUntouched();
         };
+        ;
         AppController.$inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory", "$scope", "realtimeFactotry", "sbHistory", "$state"];
         return AppController;
     }());
-    angular.module('app').controller('AppController', AppController);
+    angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));

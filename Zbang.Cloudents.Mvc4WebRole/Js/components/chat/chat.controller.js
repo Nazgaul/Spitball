@@ -22,7 +22,7 @@
             hidden: 0,
             collapsed: 1,
             expanded: 2
-        }
+        };
 
         var lastConnectionStatus = 0;
         c.state = c.states.messages;
@@ -52,7 +52,7 @@
         c.scrollSetting = {
             scrollbarPosition: 'outside',
             scrollInertia: 50
-        }
+        };
 
         $scope.$watch(function () {
             return $scope.app.chatDisplayState !== chatDisplay.hidden;
@@ -226,12 +226,12 @@
                 }
 
                 var messages = c.messages.filter(function (message) {
-                    return (message.text === args.message);
+                    return message.text === args.message;
                 });
 
 
                 var attachments = c.messages.filter(function (message) {
-                    return (message.blob === args.blob);
+                    return message.blob === args.blob;
                 });
                 // if there's no message with same text or there's one - but older than a minute ago
                 //(meaning we are connected to the chatroom in other place and sent new message there): 
@@ -301,7 +301,7 @@
                 //need to refresh data to find it.
                 search();
                 return;
-            };
+            }
             notificationService.send(user.name, args.message, user.image);
             user.unread++;
             user.conversation = args.id;
@@ -344,21 +344,22 @@
                 chunk_size: '3mb'
             },
             callbacks: {
-                filesAdded: function (uploader) {
+                filesAdded: function(uploader) {
 
-                    $timeout(function () {
-                        uploader.start();
-                    }, 1);
+                    $timeout(function() {
+                            uploader.start();
+                        },
+                        1);
                 },
 
-                beforeUpload: function (up, file) {
+                beforeUpload: function(up, file) {
                     up.settings.multipart_params = {
                         fileName: file.name,
                         fileSize: file.size,
                         users: [c.userChat.id]
                     };
                 },
-                fileUploaded: function (uploader, file, response) {
+                fileUploaded: function(uploader, file, response) {
                     // cacheFactory.clearAll();
                     // file.complete = true;
 
@@ -387,7 +388,7 @@
                 //    //u.filesErrorCount++;
                 //}
             }
-        }
+        };
 
         function scrollToBotton() {
             $timeout(function () {
@@ -407,8 +408,8 @@
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 resolve: {
-                    doc: function () { return chatBus.preview(blob, 0) },
-                    blob: function () { return blob }
+                    doc: function () { return chatBus.preview(blob, 0); },
+                    blob: function () { return blob; }
                 },
                 fullscreen: true
             });
@@ -418,7 +419,7 @@
             page++;
             search(c.term, true);
         }
-    };
+    }
 
 })();
 
@@ -437,7 +438,7 @@
         }
         //console.log('doc.viewName', doc.viewName);
 
-        if (!doc || (!doc.viewName)) {
+        if (!doc || !doc.viewName) {
             lc.view = 'preview-faild.html';
             lc.downloadLink = '/chat/download/?blobName=' + blob;
         }
@@ -486,7 +487,7 @@
                 });
             }
         };
-    };
+    }
 })();
 
 

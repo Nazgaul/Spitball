@@ -49,7 +49,7 @@
                 if (feedUpdates && feedUpdates[currentPost.id]) {
                     currentPost.isNew = true;
                 }
-                if (typeof (currentPost) !== 'undefined') {
+                if (typeof currentPost !== 'undefined') {
                     for (var j = 0; j < currentPost.replies.length; j++) {
                         var currentreply = currentPost.replies[j];
                         if (feedUpdates[currentreply.id]) {
@@ -441,41 +441,42 @@
                 chunk_size: '3mb'
             },
             callbacks: {
-                filesAdded: function (uploader, files) {
+                filesAdded: function(uploader, files) {
                     $scope.$emit('follow-box');
                     for (var i = 0; i < files.length; i++) {
                         var file = files[i];
-                        (function (file) {
+                        (function(file) {
                             file.sizeFormated = plupload.formatSize(file.size);
                             file.complete = false;
                             file.postId = postId;
-                            file.remove = function () {
+                            file.remove = function() {
                                 removeFile(file, uploader);
                                 self.add.disabled = false;
-                            }
+                            };
 
                             self.add.files.push(file);
 
                             var img = new mOxie.Image();
-                            img.onload = function () {
+                            img.onload = function() {
                                 this.crop(95, 105, false);
                                 file.content = this.getAsDataURL("image/jpeg", 80);
                             };
-                            img.onembedded = function () {
+                            img.onembedded = function() {
                                 this.destroy();
                             };
 
-                            img.onerror = function () {
+                            img.onerror = function() {
                                 this.destroy();
                             };
                             img.load(file.getSource());
                         })(file);
                     }
-                    $timeout(function () {
-                        uploader.start();
-                    }, 1);
+                    $timeout(function() {
+                            uploader.start();
+                        },
+                        1);
                 },
-                beforeUpload: function (up, file) {
+                beforeUpload: function(up, file) {
                     self.add.disabled = true;
                     up.settings.multipart_params = {
                         fileName: file.name,
@@ -484,7 +485,7 @@
                         comment: true
                     };
                 },
-                fileUploaded: function (uploader, file, response) {
+                fileUploaded: function(uploader, file, response) {
                     file.complete = true;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
@@ -492,14 +493,14 @@
                         //cacheFactory.clearAll();
                     }
                 },
-                uploadComplete: function () {
+                uploadComplete: function() {
                     self.add.disabled = false;
                 }
                 //error: function (uploader, error) {
                 //    u.alert = error.message;
                 //}
             }
-        }
+        };
         $scope.$on('update-thumbnail', function (e, args) {
             for (var i = 0; i < self.data.length; i++) {
                 var element = self.data[i];

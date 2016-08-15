@@ -1,13 +1,12 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-'use strict';
+"use strict";
 
 interface String {
     startsWith(str: string): boolean;
     endsWith(str: string): boolean;
 }
-interface IAnalytics extends angular.google.analytics.AnalyticsService
-{
-    trackTimings(timingCategory: string, timingVar: string, timingValue: number, timingLabel:string)
+interface IAnalytics extends angular.google.analytics.AnalyticsService {
+    trackTimings(timingCategory: string, timingVar: string, timingValue: number, timingLabel:string);
 }
 declare var version: any;
 
@@ -18,9 +17,7 @@ interface IAjaxService2 {
     getHtml(url: string): angular.IPromise<any>;
     deleteCacheCategory(category: cacheKeys): void;
 }
-//declare module 'cacheKeys' {
 type cacheKeys = 'university' | 'accountDetail' | 'html' | 'department' | 'itemComment' | 'chat'
-//}
 module app {
     'use strict';
     import Factory = CacheFactory.ICacheFactory;

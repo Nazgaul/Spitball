@@ -110,7 +110,7 @@
                 return getPreview();
             }
             return $q.when();
-        };
+        }
         function renameItem() {
             if (i.renameText === i.details.name) {
                 i.selectedState = i.state.regular;
