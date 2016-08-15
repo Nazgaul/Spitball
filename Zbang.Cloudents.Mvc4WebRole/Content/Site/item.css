@@ -363,6 +363,9 @@ md-menu-item.blue svg {
   min-width: 0;
   overflow: hidden;
 }
+.itemPage .comments-wrapper .userLetter {
+  font-size: 18px;
+}
 .itemPage .comments-wrapper.md-sidenav {
   background: none;
 }
@@ -388,7 +391,7 @@ md-menu-item.blue svg {
 .itemPage .comments-wrapper .title {
   color: #2698D4;
   font-size: 16px;
-  padding: 10px 0;
+  padding: 10px 0 0 10px;
   line-height: 30px;
 }
 .itemPage .comments-wrapper .comments-list > li {

@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.item').controller('CommentsController', comments);
     comments.$inject = ['$stateParams', 'itemService', '$scope',
-        'userDetailsFactory', '$mdDialog', 'resManager', '$mdSidenav', '$rootScope', '$timeout'];
+        'userDetailsFactory', '$mdDialog', 'resManager', '$mdSidenav', '$rootScope'];
 
     function comments($stateParams, itemService, $scope, userDetailsFactory,
-        $mdDialog, resManager, $mdSidenav, $rootScope, $timeout) {
+        $mdDialog, resManager, $mdSidenav, $rootScope) {
         var c = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
         //$scope.$on('itemData', function (e, arg) {
         //    c.comments = arg.comments;
@@ -97,7 +97,7 @@
             itemService.replycomment(c.newCommentReplyText, itemId, boxid, comment.id).then(function (response) {
                 var newResponse = {
                     comment: c.newCommentReplyText,
-                    creationDate: new Date(),
+                    creationDate: new Date().toISOString(),
                     id: response,
                     url: c.currUser.url,
 
