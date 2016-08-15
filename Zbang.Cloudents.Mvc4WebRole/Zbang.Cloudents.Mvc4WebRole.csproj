@@ -1509,7 +1509,6 @@
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
-    <Content Include="Js\components\chat\hubFactory.js" />
     <Content Include="Js\shared\collapseHeader.directive.js" />
     <Content Include="Js\shared\inlineManualNew.js" />
     <Content Include="Js\shared\languageHandler.js" />

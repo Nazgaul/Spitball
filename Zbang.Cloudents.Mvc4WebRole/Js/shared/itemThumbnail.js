@@ -11,7 +11,7 @@
         self.assignValue = assignValue;
         self.getChat = getChat;
         self.getUniversityPic = getUniversityPic;
-
+        self.logo = 'https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/universityEmptyState.png';
 
         function getUniversityPic(name, width, height) {
             if (!name) {

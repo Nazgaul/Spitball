@@ -124,6 +124,7 @@
             if (!boxIds) {
                 return;
             }
+            
             if (!angular.isArray(boxIds)) {
                 boxIds = [boxIds];
             }

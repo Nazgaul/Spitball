@@ -29,7 +29,6 @@ module app {
             private resManager: IResManager,
             private cacheFactory: CacheFactory.ICacheFactory,
             private $scope: angular.IScope,
-            // TODO: continue
             private realtimeFactotry: IRealtimeFactotry,
             private sbHistory: ISbHistory,
             private $state: angular.ui.IStateService,
@@ -37,6 +36,7 @@ module app {
 
         ) {
 
+            
             $rootScope.$on("$viewContentLoaded", () => {
                 var path = $location.path(),
                     absUrl = $location.absUrl(),
@@ -128,13 +128,13 @@ module app {
             //        }
             //    });
 
-            $scope.$watch(
-                function () {
-                    return $mdMedia('xs');
-                },
-                (val: boolean) => {
-                    this.isMobile = val;
-                });
+            //$scope.$watch(
+            //    function () {
+            //        return $mdMedia('xs');
+            //    },
+            //    (val: boolean) => {
+            //        this.isMobile = val;
+            //    });
         }
         back = (defaultUrl: string) => {
             var element = this.sbHistory.popElement();
@@ -163,7 +163,7 @@ module app {
         };
 
         hideMobileChat = () => {
-            if (this.isMobile) {
+            if (this.$mdMedia('xs')) {
                 this.chatDisplayState = 1;
             }
         }
@@ -189,7 +189,7 @@ module app {
                     .hideDelay(2000));
         };
 
-
+        
         openMenu = ($mdOpenMenu: any, ev: Event) => {
             this.menuOpened = true;
             // originatorEv = ev;

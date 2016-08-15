@@ -89,11 +89,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                     var inv = m_CookieHelper.ReadCookie<Invite>(Invite.CookieName);
                     var university = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
-                    //Guid? invId = null;
-                    //if (inv != null)
-                    //{
-                    //    invId = inv.InviteId;
-                    //}
+                   
 
                     model.BoxId = model.BoxId ?? GetBoxIdRouteDataFromDifferentUrl();
                     var command = new CreateGoogleUserCommand(googleUserData.Email,

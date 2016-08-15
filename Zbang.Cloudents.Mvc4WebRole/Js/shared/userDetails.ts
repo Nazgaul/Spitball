@@ -67,7 +67,7 @@ module app {
 
 
 
-        setDetails(data) {
+        private setDetails(data) {
 
             // data = data || {};
             if (data.id) {
@@ -136,7 +136,7 @@ module app {
         get = () => {
             return this.userData;
         }
-        isAuthenticated = () => {
+        isAuthenticated = (): boolean => {
             return this.isLogedIn;
         }
         setName = (first: string, last: string) => {

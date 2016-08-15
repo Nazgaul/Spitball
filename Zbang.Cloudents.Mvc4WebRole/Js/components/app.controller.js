@@ -39,7 +39,7 @@ var app;
                 _this.theme = "theme-" + _this.userDetails.get().theme;
             };
             this.hideMobileChat = function () {
-                if (_this.isMobile) {
+                if (_this.$mdMedia('xs')) {
                     _this.chatDisplayState = 1;
                 }
             };
@@ -130,11 +130,6 @@ var app;
                     $rootScope.$broadcast("state-change-start-prevent");
                     event.preventDefault();
                 }
-            });
-            $scope.$watch(function () {
-                return $mdMedia('xs');
-            }, function (val) {
-                _this.isMobile = val;
             });
         }
         AppController.prototype.resetForm = function (myform) {
