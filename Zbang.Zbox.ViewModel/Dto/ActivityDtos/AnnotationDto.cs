@@ -27,7 +27,7 @@ namespace Zbang.Zbox.ViewModel.Dto.ActivityDtos
         public string UserName { get; set; }
         public string UserImage { get; set; }
         public string UserUrl { get; set; }
-        public string UserId { get; set; }
+        public long UserId { get; set; }
 
         public List<AnnotationReplyDto> Replies { get; set; }
     }
