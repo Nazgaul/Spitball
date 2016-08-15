@@ -22,19 +22,19 @@
  from zbox.University where IsDeleted = 0";
 
 
-        public const string UniversityBoxes = @"select top 6 Name,ItemCount,CourseCode,ProfessorName,Url from (
+        public const string UniversityBoxes = @"select top 16 Name,ItemCount,MembersCount,CourseCode,ProfessorName,Url from (
 select 
     b.BoxName as Name,
 	b.quizcount + b.itemcount as ItemCount,
 	b.CourseCode as CourseCode,
+	b.MembersCount as MembersCount,
 	b.ProfessorName,
 	b.Url as Url,
-	Rank() over (partition BY libraryid order by b.ItemCount + b.QuizCount + b.CommentCount desc,b.updatetime desc) as x
+	Rank() over (partition BY libraryid order by  b.MembersCount + (b.ItemCount + b.QuizCount + b.CommentCount) / 3 desc,b.updatetime desc) as x
 	from zbox.box b join zbox.university u on b.university=u.id
 	where Discriminator = 2
 	and b.isdeleted = 0
-	AND (@Universityid IS null OR b.University = @Universityid)
-	AND (@country IS null OR country = @country)
+	AND country='US' 
  )   t1
 where x = 1
 order by ItemCount desc";
