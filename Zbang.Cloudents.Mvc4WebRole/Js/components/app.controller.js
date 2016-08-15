@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
-        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, $scope, realtimeFactotry, sbHistory, $state) {
+        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, $scope, realtimeFactotry, sbHistory, $state, $mdMedia) {
             var _this = this;
             this.$rootScope = $rootScope;
             this.$location = $location;
@@ -16,6 +16,7 @@ var app;
             this.realtimeFactotry = realtimeFactotry;
             this.sbHistory = sbHistory;
             this.$state = $state;
+            this.$mdMedia = $mdMedia;
             this.chatDisplayState = 1;
             this.back = function (defaultUrl) {
                 var element = _this.sbHistory.popElement();
@@ -37,7 +38,13 @@ var app;
             this.setTheme = function () {
                 _this.theme = "theme-" + _this.userDetails.get().theme;
             };
+            this.hideMobileChat = function () {
+                if (_this.isMobile) {
+                    _this.chatDisplayState = 1;
+                }
+            };
             this.toggleMenu = function () {
+                _this.hideMobileChat();
                 _this.$rootScope.$broadcast("open-menu");
             };
             this.showToaster = function (text, parentId, theme) {
@@ -74,6 +81,7 @@ var app;
             });
             this.showMenu = this.showSearch = this.showChat = true;
             this.showBoxAd = false;
+            this.isMobile = false;
             $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams) {
                 _this.showBoxAd = toState.parent === "box";
                 _this.showChat = _this.showSearch = !(toState.name === "universityChoose");
@@ -127,6 +135,11 @@ var app;
                     _this.initChat();
                 }
             });
+            $scope.$watch(function () {
+                return $mdMedia('xs');
+            }, function (val) {
+                _this.isMobile = val;
+            });
         }
         AppController.prototype.resetForm = function (myform) {
             myform.$setPristine();
@@ -135,7 +148,7 @@ var app;
         ;
         AppController.$inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
-            "CacheFactory", "$scope", "realtimeFactotry", "sbHistory", "$state"];
+            "CacheFactory", "$scope", "realtimeFactotry", "sbHistory", "$state", "$mdMedia"];
         return AppController;
     }());
     angular.module("app").controller("AppController", AppController);

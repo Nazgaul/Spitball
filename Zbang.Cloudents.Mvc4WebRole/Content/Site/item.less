@@ -24,7 +24,7 @@ md-menu-item {
 
 
 
-.mdno-touchevents .itemPage .name-actions{
+.mdno-touchevents .itemPage .name-actions {
     button, a, .info {
         &:hover {
             color: @buttonColorBlue;
@@ -57,8 +57,6 @@ md-menu-item {
         .displayFlex;
         flex-direction: column;
         .align-items(center);
-
-
         /*.page-logo {
             svg {
                 width: 180px;
@@ -74,7 +72,6 @@ md-menu-item {
                 }
             }
         }*/
-
         .item-actions, .close-btn {
 
 
@@ -184,12 +181,22 @@ md-menu-item {
         }
 
         .close-btn {
-            padding: 5px 20px;
-            border-left: 2px solid #888b8e;
-            margin-left: 5px;
+            padding: 5px;
+            margin-left: 20px;
+            position: relative;
 
             svg {
                 display: block;
+            }
+
+            &:after {
+                content: '';
+                display: block;
+                height: 100%;
+                position: absolute;
+                left: -16px;
+                top: 0;
+                border-left: 2px solid @textColorGrey;
             }
         }
     }
@@ -272,11 +279,9 @@ md-menu-item {
             md-content {
                 background: none;
             }
-
             //md-input-container .md-input {
             //    color: @textColorDarkGrey;
             //}
-
             .rounded-input {
                 border-radius: 5px;
                 padding: 5px 10px;
@@ -433,9 +438,10 @@ md-menu-item {
         min-width: 0;
         overflow: hidden;
 
-        .userLetter  {
-            font-size:18px;
+        .userLetter {
+            font-size: 18px;
         }
+
         &.md-sidenav {
             background: none;
         }

@@ -6,8 +6,8 @@
         var cc = this;
 
         cc.unread = chatBus.getUnread;
-        cc.openChat = function () {
-            $scope.app.chatDisplayState = 2;
+        cc.toggleChat = function () {
+            $scope.app.chatDisplayState = $scope.app.chatDisplayState !== 2 ? 2 : 1;
         }
        
     }
