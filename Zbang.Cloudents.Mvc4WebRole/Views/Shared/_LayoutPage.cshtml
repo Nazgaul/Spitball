@@ -45,7 +45,7 @@
             </button>
             <div class="logo">
                 <div class="page-logo">
-                    <a href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']">
+                    <a href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']" ng-click="app.hideMobileChat()">
                         @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
                         @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-small", hide = "", show_xs = "" })
                     </a>
@@ -56,7 +56,7 @@
                   novalidate class="search-form search-form-expanded" ng-if="app.showSearch">
                 <div class="search-area color-override backgroundColor4">
                     <input required ng-change="st.change(searchTrigger.$valid)"
-                           ng-focus="app.expandSearch = true"
+                           ng-focus="app.expandSearch = true;"
                            ng-blur="app.expandSearch = false"
                            ng-model="st.term"
                            ng-minlength="2"
@@ -73,7 +73,7 @@
 
             @if (ViewBag.errorPage == null || !ViewBag.errorPage)
             {
-                <button type="button" ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" hide-gt-sm ng-click="cc.openChat()" ng-if="app.showChat">
+                <button type="button" ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" hide-gt-sm ng-click="cc.toggleChat()" ng-if="app.showChat">
                     @Html.Svg("~/images/site/icons.svg", "chat")
                     <div class="chat-counter" ng-if="cc.unread() > 0">{{cc.unread()}}</div>
                 </button>

@@ -17,7 +17,7 @@
     .dashboard-actions .actions-container {
         .displayFlex();
         .align-items(stretch);
-        .justifyContet(center);
+        .justifyContet(start);
 
         @media(max-width: 450px) {
             flex-wrap: wrap;
@@ -30,6 +30,10 @@
             border-radius: 5px;
             border: 1px solid;
             margin: 8px;
+
+            @media(min-width: 600px) {
+                max-width: ~"calc(50% - 16px)";
+            }
 
             &:hover {
                 .wrapper {

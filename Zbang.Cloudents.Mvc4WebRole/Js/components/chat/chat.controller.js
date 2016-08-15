@@ -27,6 +27,8 @@
         var lastConnectionStatus = 0;
         c.state = c.states.messages;
         c.connected = true;
+        c.handleSearch = handleSearch;
+        c.resetSearch = resetSearch;
         c.search = search;
         c.chat = conversation;
         c.send = send;
@@ -121,10 +123,20 @@
 
         }
 
+        function resetSearch() {
+            c.term = '';
+            c.search('');
+        }
+        function handleSearch() {
+            c.expandChat();
+            c.focusSearch = true
+        }
+
         function search(term, loadNextPage) {
             chatBus.messages(term, page).then(function (response) {
                 if (loadNextPage) {
                     c.users = makeUniqueAndRemoveMySelf(c.users.concat(response));
+
                 } else {
                     page = 0;
                     c.users = makeUniqueAndRemoveMySelf(response);
@@ -340,22 +352,22 @@
                 chunk_size: '3mb'
             },
             callbacks: {
-                filesAdded: function(uploader) {
+                filesAdded: function (uploader) {
 
-                    $timeout(function() {
-                            uploader.start();
-                        },
+                    $timeout(function () {
+                        uploader.start();
+                    },
                         1);
                 },
 
-                beforeUpload: function(up, file) {
+                beforeUpload: function (up, file) {
                     up.settings.multipart_params = {
                         fileName: file.name,
                         fileSize: file.size,
                         users: [c.userChat.id]
                     };
                 },
-                fileUploaded: function(uploader, file, response) {
+                fileUploaded: function (uploader, file, response) {
                     // cacheFactory.clearAll();
                     // file.complete = true;
 

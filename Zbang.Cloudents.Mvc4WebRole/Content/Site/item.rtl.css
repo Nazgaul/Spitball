@@ -157,12 +157,21 @@ md-menu-item.blue svg {
   line-height: 0;
 }
 .itemPage header .close-btn {
-  padding: 5px 20px;
-  border-right: 2px solid #888b8e;
-  margin-right: 5px;
+  padding: 5px;
+  margin-right: 20px;
+  position: relative;
 }
 .itemPage header .close-btn svg {
   display: block;
+}
+.itemPage header .close-btn:after {
+  content: '';
+  display: block;
+  height: 100%;
+  position: absolute;
+  right: -16px;
+  top: 0;
+  border-right: 2px solid #888b8e;
 }
 .itemPage .item-content {
   padding-top: 90px;

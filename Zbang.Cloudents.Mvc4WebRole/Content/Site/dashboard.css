@@ -55,8 +55,8 @@
   display: flex;
   -webkit-align-items: stretch;
   align-items: stretch;
-  -webkit-justify-content: center;
-  justify-content: center;
+  -webkit-justify-content: start;
+  justify-content: start;
 }
 @media (max-width: 450px) {
   .dashboard .dashboard-actions .actions-container {
@@ -70,6 +70,12 @@
   border-radius: 5px;
   border: 1px solid;
   margin: 8px;
+}
+@media (min-width: 600px) {
+  .dashboard .dashboard-actions .actions-container .create-btn,
+  .dashboard .dashboard-actions .actions-container .inviteBtn {
+    max-width: calc(50% - 16px);
+  }
 }
 .dashboard .dashboard-actions .actions-container .create-btn:hover .wrapper svg,
 .dashboard .dashboard-actions .actions-container .inviteBtn:hover .wrapper svg {

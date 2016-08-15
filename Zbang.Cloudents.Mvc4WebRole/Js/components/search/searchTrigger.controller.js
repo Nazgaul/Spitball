@@ -1,9 +1,9 @@
 ﻿'use strict';
 (function () {
     angular.module('app.search').controller('SearchTriggerController', searchTriggerController);
-    searchTriggerController.$inject = ['$state', '$rootScope', '$stateParams', '$location', 'userDetailsFactory'];
+    searchTriggerController.$inject = ['$state', '$rootScope', '$stateParams', '$location', 'userDetailsFactory', '$scope'];
 
-    function searchTriggerController($state, $rootScope, $stateParams, $location, userDetailsFactory) {
+    function searchTriggerController($state, $rootScope, $stateParams, $location, userDetailsFactory, $scope) {
         var st = this;
 
         st.search = search;
@@ -17,6 +17,7 @@
 
         function search(isValid) {
             if (isValid) {
+                $scope.app.hideMobileChat();
                 $state.go('searchinfo', { q: st.term, t: $stateParams.t });
                 if ($state.current.name === 'searchinfo') {
                     $rootScope.$broadcast('search-query');
