@@ -15,7 +15,7 @@
         };
 
         chatService.messages = function (q,page) {
-            return ajaxService.get('/chat/conversation', { q: q, page: page }, 'chat');
+            return ajaxService.get('/chat/conversation', { q: q, page: page });
         }
         chatService.chat = function (id, userIds, dateTime, top) {
             return ajaxService.get('/chat/messages', {
@@ -23,7 +23,7 @@
                 userIds: userIds,
                 startTime: dateTime,
                 top: top
-            },'chat');
+            });
         }
         chatService.preview = function(blob, i) {
             return ajaxService.get('/chat/Preview', {

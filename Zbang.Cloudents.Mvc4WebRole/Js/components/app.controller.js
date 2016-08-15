@@ -68,6 +68,7 @@ var app;
             });
             userDetails.init().then(function () {
                 _this.setTheme();
+                _this.initChat();
             });
             $rootScope.$on("$mdMenuClose", function () {
                 _this.menuOpened = false;
@@ -120,11 +121,6 @@ var app;
                 if (toStateName !== userWithNoUniversityState) {
                     $rootScope.$broadcast("state-change-start-prevent");
                     event.preventDefault();
-                }
-            });
-            $scope.$watch(userDetails.getUniversity, function (val) {
-                if (val) {
-                    _this.initChat();
                 }
             });
         }

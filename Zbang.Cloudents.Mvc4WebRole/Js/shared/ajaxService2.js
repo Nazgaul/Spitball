@@ -28,9 +28,6 @@ var app;
                 },
                 itemComment: {
                     maxAge: 15 * minute
-                },
-                chat: {
-                    maxAge: 30 * minute
                 }
             };
             for (var cacheKey in this.cacheCategories) {

@@ -45,8 +45,11 @@ module app {
                 // ReSharper restore UndeclaredGlobalVariableUsing
 
             });
-            userDetails.init().then(() => {
+            userDetails.init().then( () => {
                 this.setTheme();
+                //if (data.university) {
+                this.initChat();
+                //}
             });
 
             $rootScope.$on("$mdMenuClose", () => {
@@ -113,13 +116,14 @@ module app {
                 }
             });
 
-            $scope.$watch(
-                userDetails.getUniversity,
-                (val:number) => {
-                    if (val) {
-                        this.initChat();
-                    }
-                });
+            //$scope.$watch(
+            //    userDetails.getUniversity,
+            //    (val: number) => {
+            //        console.log(val);
+            //        if (val) {
+            //            this.initChat();
+            //        }
+            //    });
 
         }
         back = (defaultUrl: string) => {
