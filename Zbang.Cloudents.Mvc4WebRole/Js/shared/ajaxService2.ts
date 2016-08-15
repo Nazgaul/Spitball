@@ -18,7 +18,6 @@ declare var version: any;
 //    deleteCacheCategory(category: cacheKeys): void;
    
 //}
-type cacheKeys = 'university' | 'accountDetail' | 'html' | 'department' | 'itemComment' | 'chat'
 module app {
     'use strict';
     import Factory = CacheFactory.ICacheFactory;
@@ -31,7 +30,7 @@ module app {
         logError(url: string, data?, payload?): void;
     }
     //declare module 'cacheKeys' {
-    export type cacheKeys = 'university' | 'accountDetail' | 'html' | 'department' | 'itemComment' | 'chat'
+    export type cacheKeys = 'university' | 'accountDetail' | 'html' | 'department' | 'itemComment' 
 
     const minute = 60 * 1000,
         hour = 60 * minute,
@@ -72,10 +71,10 @@ module app {
             },
             itemComment: {
                 maxAge: 15 * minute
-            },
-            chat: {
-                maxAge: 30 * minute
             }
+            //chat: {
+            //    maxAge: 30 * minute
+            //}
         };
 
 

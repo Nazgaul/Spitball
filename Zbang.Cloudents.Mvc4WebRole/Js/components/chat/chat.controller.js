@@ -8,7 +8,7 @@
     function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
         notificationService, resManager) {
-        var c = this, chunkSize = 100, top = 0, page = 0,
+        var c = this, chunkSize = 100, page = 0,
             connectionStatuses = {
                 connected: 1,
                 disconnected: 0
@@ -135,20 +135,22 @@
         function search(term, loadNextPage) {
             chatBus.messages(term, page).then(function (response) {
                 if (loadNextPage) {
-                    c.users = makeUnique(c.users.concat(response));
+                    c.users = makeUniqueAndRemoveMySelf(c.users.concat(response));
 
 
 
                 } else {
                     page = 0;
-                    c.users = response;
+                    c.users = makeUniqueAndRemoveMySelf(response);
                 }
                 updateUnread();
             });
         }
-        function makeUnique(array) {
+        function makeUniqueAndRemoveMySelf(array) {
+
             var flags = [], output = [], l = array.length, i;
             for (i = 0; i < l; i++) {
+                if (array[i].id === userDetailsFactory.get().id) continue;
                 if (flags[array[i].id]) continue;
                 flags[array[i].id] = true;
                 output.push(array[i]);
@@ -213,7 +215,6 @@
         }
 
         $scope.$on('open-chat-user', function (e, args) {
-            //$mdSidenav('chat').open();
             conversation(args);
         });
         $scope.$on('preview-ready', function (e, args) {
@@ -223,7 +224,6 @@
             if (message) {
                 message.thumb += '&1=1';
             }
-            //c.messages
         });
         $scope.$on('hub-chat', function (e, args) {
             //if its me
@@ -325,7 +325,6 @@
                 });
             }
             function onNotificationClick() {
-                //$mdSidenav('chat').open();
                 var partner = getConversationPartner(args.chatRoom);
                 conversation(partner);
             }
@@ -344,7 +343,7 @@
             if (!user) {
                 return;
             }
-            user.lastSeen = new Date();
+            user.lastSeen = new Date().toISOString();
             user.online = args.online;
             $scope.$apply();
         });
@@ -465,40 +464,3 @@
         });
     }
 })();
-
-(function () {
-    angular.module('app.chat').directive('chatTimeAgo', timeAgo);
-
-    timeAgo.$inject = ['timeAgo', 'nowTime'];
-    function timeAgo(timeAgo, nowTime) {
-        return {
-            scope: {
-                fromTime: '@',
-                format: '@'
-            },
-            restrict: 'EA',
-            link: function (scope, elem) {
-                var fromTime;
-
-                // Track changes to fromTime
-                scope.$watch('fromTime', function () {
-                    fromTime = timeAgo.parse(scope.fromTime);
-                });
-
-                // Track changes to time difference
-                scope.$watch(function () {
-                    return nowTime() - fromTime;
-                }, function (value) {
-                    var threeDaysInMilliseconds = 2.592e+8;
-                    if (value > threeDaysInMilliseconds) {
-                        angular.element(elem).text('');
-                        return;
-                    }
-                    angular.element(elem).text(timeAgo.inWords(value, fromTime, scope.format));
-                });
-            }
-        };
-    }
-})();
-
-

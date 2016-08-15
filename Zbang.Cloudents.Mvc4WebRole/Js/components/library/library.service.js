@@ -18,7 +18,7 @@
             return ajaxservice.post('/account/updateuniversity/', {
                 universityId: universityId,
                 studentId: studentId
-            }, ['university','chat']);
+            }, ['university']);
         }
         d.createUniversity = function (name, country) {
             return ajaxservice.post('/university/createuniversity/', {
