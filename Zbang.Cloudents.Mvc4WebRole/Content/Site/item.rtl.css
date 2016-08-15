@@ -52,18 +52,21 @@ md-menu-item.blue svg {
   flex-direction: column;
   -webkit-align-items: center;
   align-items: center;
-}
-.itemPage header .page-logo svg {
-  width: 180px;
-  fill: #fff;
-  margin: 0 16px;
-  line-height: 80px;
-  height: 35px;
-  display: block;
-}
-.itemPage header .page-logo svg.logo-small {
-  height: 30px;
-  width: 60px;
+  /*.page-logo {
+            svg {
+                width: 180px;
+                fill: #fff;
+                margin: 0 16px;
+                line-height: 80px;
+                height: 35px;
+                display: block;
+
+                &.logo-small {
+                    height: 30px;
+                    width: 60px;
+                }
+            }
+        }*/
 }
 .itemPage header .item-actions a,
 .itemPage header .close-btn a {
@@ -227,9 +230,6 @@ md-menu-item.blue svg {
 }
 .itemPage .fileName form md-content {
   background: none;
-}
-.itemPage .fileName form md-input-container .md-input {
-  color: #323538;
 }
 .itemPage .fileName form .rounded-input {
   border-radius: 5px;

@@ -6,9 +6,9 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
         public string Previous { get; set; }
         public string Next { get; set; }
 
-        public long PreviousId { get; set; }
+        //public long PreviousId { get; set; }
 
-        public long NextId { get; set; }
+        //public long NextId { get; set; }
 
     }
 }

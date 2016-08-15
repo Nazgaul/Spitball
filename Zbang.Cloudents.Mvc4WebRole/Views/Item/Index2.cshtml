@@ -20,9 +20,9 @@
                     </div>
                     <form name="renameItem" class="rename-form" novalidate ng-submit="i.renameItem(renameItem)" ng-if="i.selectedState === i.state.rename">
                         <md-content>
-                            <md-input-container flex>
+                            <md-input-container flex >
                                 <label class="text-capitalize">@ItemsResources.Name</label>
-                                <input focus-me="i.selectedState === i.state.rename" autocomplete="off" required ng-model="i.renameText" name="name" />
+                                <input class="textTC30" focus-me="i.selectedState === i.state.rename" autocomplete="off" required ng-model="i.renameText" name="name" />
                                 <div ng-messages="renameItem.name.$error" ng-show="renameItem.name.$dirty">
                                     <div ng-message="required">@GeneralResources.RequiredField</div>
                                 </div>

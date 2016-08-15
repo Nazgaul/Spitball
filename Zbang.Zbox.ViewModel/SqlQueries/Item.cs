@@ -3,23 +3,14 @@ namespace Zbang.Zbox.ViewModel.SqlQueries
 {
     public static class Item
     {
-        public const string Navigation = @"WITH CTE AS (
-SELECT
-rownum = ROW_NUMBER() OVER (ORDER BY p.itemid),
-p.url, p.itemid
-FROM zbox.item p
-where p.boxid = @BoxId
-and IsDeleted = 0
-)
-SELECT
-prev.url Previous,
-nex.url Next,
-prev.itemid PreviousId,
-nex.itemid NextId
-FROM CTE
-LEFT JOIN CTE prev ON prev.rownum = CTE.rownum - 1
-LEFT JOIN CTE nex ON nex.rownum = CTE.rownum + 1
-where cte.itemid = @itemid;
+        public const string Navigation = @"with cte as ( select 
+itemid,
+LAG(Url) OVER (ORDER BY itemid) Prev,
+LEAD(Url) OVER (ORDER BY itemid) Next
+from zbox.item 
+where boxid = @BoxId
+and IsDeleted = 0)
+select Prev as Previous,Next from  cte where itemid = @ItemId
 ";
 
         public const string ItemDetail = @"select 
