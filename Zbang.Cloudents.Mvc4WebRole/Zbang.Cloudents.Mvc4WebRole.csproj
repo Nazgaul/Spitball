@@ -1524,6 +1524,7 @@
     <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\chatTimeAgo.ts" />
     <TypeScriptCompile Include="Js\components\chat\hubFactory.ts" />
+    <TypeScriptCompile Include="Js\components\user\updates.service.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
     <TypeScriptCompile Include="Js\shared\ajaxService2.ts" />

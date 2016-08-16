@@ -12,7 +12,7 @@
             {
                 state: 'quiz',
                 config: {
-                    url: '/quiz/{universityName}/{boxId}/{boxName}/{quizId}/{quizName}/',
+                    url: '/quiz/{universityName}/{boxId:int}/{boxName}/{quizId:int}/{quizName}/',
                     controller: 'QuizController as q',
                     data: { animateClass: 'quizPage' },
                     resolve: {
@@ -29,7 +29,7 @@
             }, {
                 state: 'quizCreate',
                 config: {
-                    url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/quizcreate/?quizid&name',
+                    url: '/{boxtype:box|course}/{universityType}/{boxId:int}/{boxName}/quizcreate/?quizid&name',
                     controller: 'QuizCreateController as q',
                     resolve: {
                         draft: [

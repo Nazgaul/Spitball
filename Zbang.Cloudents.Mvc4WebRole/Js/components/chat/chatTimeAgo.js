@@ -11,16 +11,17 @@ var app;
             };
             this.restrict = 'EA';
             this.link = function (scope, element) {
+                var threeDaysInMilliseconds = 2.592e+8;
                 var fromTime;
                 scope.$watch('fromTime', function () {
                     fromTime = _this.timeAgo.parse(scope.fromTime);
                 });
-                scope.$watch(function () {
+                var unregister = scope.$watch(function () {
                     return _this.nowTime() - fromTime;
                 }, function (value) {
-                    var threeDaysInMilliseconds = 2.592e+8;
                     if (value > threeDaysInMilliseconds) {
                         angular.element(element).text('');
+                        unregister();
                         return;
                     }
                     angular.element(element).text(_this.timeAgo.inWords(value, fromTime, scope.format));

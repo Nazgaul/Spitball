@@ -12,7 +12,7 @@
             {
                 state: 'user',
                 config: {
-                    url: '/user/:userId/:userName/',
+                    url: '/user/:userId:int/:userName/',
                     controller: 'UserController as u',
                     resolve: {
                         userData: [

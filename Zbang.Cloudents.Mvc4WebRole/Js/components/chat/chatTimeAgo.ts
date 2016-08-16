@@ -14,7 +14,7 @@
         }
         link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery) => {
             /*handle all your linking requirements here*/
-
+            const threeDaysInMilliseconds = 2.592e+8;
             var fromTime;
 
             // Track changes to fromTime
@@ -23,12 +23,13 @@
             });
 
             // Track changes to time difference
-            scope.$watch(() => {
+            var unregister = scope.$watch(() => {
                 return this.nowTime() - fromTime;
             }, (value) => {
-                const threeDaysInMilliseconds = 2.592e+8;
+                
                 if (value > threeDaysInMilliseconds) {
                     angular.element(element).text('');
+                    unregister();
                     return;
                 }
                 angular.element(element).text(this.timeAgo.inWords(value, fromTime, scope.format));
