@@ -81,19 +81,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 universityId = value.UniversityId;
             }
-
-            
-            //if (HttpContext.Request.UrlReferrer != null)
-            //{
-                //var route = BuildRouteDataFromUrl(HttpContext.Request.UrlReferrer.AbsoluteUri);
-                //var universityIdObj = route?.Values["universityId"];
-                //long uniId;
-
-                //if (long.TryParse(universityIdObj?.ToString(), out uniId))
-                //{
-                //    universityId = uniId;
-                //}
-            //}
             var country = "US";
             var prefix = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
             if (prefix.ToLower() == "he")

@@ -198,18 +198,30 @@ u.GoogleUserId as GoogleId
 
         public const string GetCoursesPageBoxes_en = @"select top 16 b.boxid as id,
                                 b.BoxName as Name,
-                                b.quizcount + b.itemcount as ItemCount,
+                                b.ItemCount,
                                 b.MembersCount as MembersCount,
                                 b.CourseCode,
                                 b.ProfessorName,
                                 b.Url as Url
-                                from zbox.box b join zbox.university u on b.university=u.id
-                                where  MembersCount > 5
-                                and b.[IsDeleted] = 0 
-                                and b.Discriminator = 2
-                                and country='US' 
-                                and id!=170400
-                                order by  b.[UpdateTime] desc;";
+                                from (
+								select 
+								b.boxid,
+    b.BoxName,
+	b.quizcount + b.itemcount as ItemCount,
+	b.CourseCode as CourseCode,
+	b.MembersCount as MembersCount,
+	b.ProfessorName,
+	b.Url as Url,
+	Rank() over (partition BY libraryid order by  b.MembersCount + (b.ItemCount + b.QuizCount + b.CommentCount) / 3 desc,b.updatetime desc) as x
+	from zbox.box b join zbox.university u on b.university=u.id
+	where Discriminator = 2
+	and MembersCount > 5
+	and b.isdeleted = 0
+	AND country='US' 
+	 and id!=170400
+								) b
+								where x = 1
+order by ItemCount desc ;";
 
 
         public const string GetCoursesPageBoxes_he = @"select top 16 b.boxid as id,
