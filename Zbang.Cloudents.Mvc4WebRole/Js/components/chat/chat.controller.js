@@ -3,11 +3,11 @@
     angular.module('app.chat').controller('ChatController', chat);
     chat.$inject = ['$timeout', '$scope', 'realtimeFactotry',
         'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService',
-        '$mdDialog', 'routerHelper', '$document', 'notificationService', 'resManager'];
+        '$mdDialog', 'routerHelper', '$document', 'notificationService', 'resManager', '$rootScope'];
 
     function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
-        notificationService, resManager) {
+        notificationService, resManager, $rootScope) {
         var c = this, chunkSize = 100, page = 0,
             connectionStatuses = {
                 connected: 1,
@@ -17,24 +17,15 @@
             messages: 1,
             chat: 3
         };
-
-        var chatDisplay = {
-            hidden: 0,
-            collapsed: 1,
-            expanded: 2
-        };
-
+        
         var lastConnectionStatus = 0;
         c.state = c.states.messages;
         c.connected = true;
-        c.handleSearch = handleSearch;
         c.resetSearch = resetSearch;
+        c.expandSearch = expandSearch;
         c.search = search;
         c.chat = conversation;
         c.send = send;
-        c.close = close;
-        c.toggleChat = toggle;
-        c.expandChat = expandChat;
         c.messages = [];
         c.backFromChat = backFromChat;
         c.unread = 0;
@@ -48,6 +39,7 @@
         userDetailsFactory.init().then(function (response) {
             c.unread = response.unread;
             chatBus.setUnread(response.unread);
+            search();
         });
 
 
@@ -56,15 +48,6 @@
             scrollInertia: 50
         };
 
-        $scope.$watch(function () {
-            return $scope.app.chatDisplayState !== chatDisplay.hidden;
-        }, function (val) {
-            if (!val) {
-                resetChat();
-                return;
-            }
-            search();
-        });
 
         $scope.$on('connection-state', function (e, args) {
             if (args.status === connectionStatuses.disconnected) {
@@ -89,25 +72,6 @@
             page = 0;
         }
 
-        function close() {
-            $scope.app.chatDisplayState = chatDisplay.collapsed;
-            c.term = '';
-        }
-
-        function expandChat() {
-            $scope.app.chatDisplayState = chatDisplay.expanded;
-        }
-        function toggle() {
-            if ($scope.app.chatDisplayState === chatDisplay.collapsed) {
-                $scope.app.chatDisplayState = chatDisplay.expanded;
-            }
-            else {
-                backFromChat();
-                $scope.app.chatDisplayState = chatDisplay.collapsed;
-            }
-            //$scope.app.chatDisplayState = $scope.app.chatDisplayState === chatDisplay.collapsed ? chatDisplay.expanded : chatDisplay.collapsed;
-        }
-
         function updateUnread() {
             if (c.users) {
                 var x = 0;
@@ -126,10 +90,6 @@
         function resetSearch() {
             c.term = '';
             c.search('');
-        }
-        function handleSearch() {
-            c.expandChat();
-            c.focusSearch = true
         }
 
         function search(term, loadNextPage) {
@@ -170,7 +130,6 @@
         }
 
         function conversation(user) {
-            $scope.app.chatDisplayState = chatDisplay.expanded;
             c.userChat = user;
             c.messages = [];
             chatBus.chat(c.userChat.conversation,
@@ -187,7 +146,14 @@
                 c.userChat.unread = 0;
                 updateUnread();
             }
+
+            $rootScope.$broadcast('expandChat');
             c.state = c.states.chat;
+        }
+
+        function expandSearch() {
+            $rootScope.$broadcast('expandChat');
+            c.focusSearch = true
         }
 
         function loadMoreMessages() {

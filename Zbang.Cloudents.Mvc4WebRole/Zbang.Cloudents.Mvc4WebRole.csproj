@@ -1480,7 +1480,6 @@
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
     <Content Include="Js\components\chat\chat.controller.js" />
     <Content Include="Js\components\chat\chat.factory.js" />
-    <Content Include="Js\components\chat\indicator.controller.js" />
     <Content Include="Js\components\account\account.routes.js" />
     <Content Include="Js\components\account\account.service.js" />
     <Content Include="Js\components\account\department.controller.js" />
@@ -1524,6 +1523,8 @@
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\chatTimeAgo.ts" />
+    <TypeScriptCompile Include="Js\components\chat\hideChatOnMobile.directive.ts" />
+    <TypeScriptCompile Include="Js\components\chat\toggleChat.directive.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
     <TypeScriptCompile Include="Js\shared\ajaxService2.ts" />

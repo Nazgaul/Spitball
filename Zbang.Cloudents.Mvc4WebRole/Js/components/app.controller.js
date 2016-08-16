@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
-        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, $scope, realtimeFactotry, sbHistory, $state, $mdMedia) {
+        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, $scope, realtimeFactotry, sbHistory, $state) {
             var _this = this;
             this.$rootScope = $rootScope;
             this.$location = $location;
@@ -16,8 +16,6 @@ var app;
             this.realtimeFactotry = realtimeFactotry;
             this.sbHistory = sbHistory;
             this.$state = $state;
-            this.$mdMedia = $mdMedia;
-            this.chatDisplayState = 1;
             this.back = function (defaultUrl) {
                 var element = _this.sbHistory.popElement();
                 if (!element) {
@@ -38,13 +36,7 @@ var app;
             this.setTheme = function () {
                 _this.theme = "theme-" + _this.userDetails.get().theme;
             };
-            this.hideMobileChat = function () {
-                if (_this.isMobile) {
-                    _this.chatDisplayState = 1;
-                }
-            };
             this.toggleMenu = function () {
-                _this.hideMobileChat();
                 _this.$rootScope.$broadcast("open-menu");
             };
             this.showToaster = function (text, parentId, theme) {
@@ -131,11 +123,6 @@ var app;
                     event.preventDefault();
                 }
             });
-            $scope.$watch(function () {
-                return $mdMedia('xs');
-            }, function (val) {
-                _this.isMobile = val;
-            });
         }
         AppController.prototype.resetForm = function (myform) {
             myform.$setPristine();
@@ -144,7 +131,7 @@ var app;
         ;
         AppController.$inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
-            "CacheFactory", "$scope", "realtimeFactotry", "sbHistory", "$state", "$mdMedia"];
+            "CacheFactory", "$scope", "realtimeFactotry", "sbHistory", "$state"];
         return AppController;
     }());
     angular.module("app").controller("AppController", AppController);
