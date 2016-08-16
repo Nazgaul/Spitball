@@ -40,12 +40,12 @@
 
     <header id="main-nav" class="nav-bar color-override backgroundColor2" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
         <div class="logo-search" layout="row" layout-align="start center" flex="100">
-            <button type="button" ng-if="app.showMenu" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" ga-track-event="['header', 'open menu']">
+            <button type="button" ng-if="app.showMenu" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" hide-chat-on-mobile="click" ga-track-event="['header', 'open menu']">
                 @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu svgTC17 hoverSvgTC18" })
             </button>
             <div class="logo">
                 <div class="page-logo">
-                    <a href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']" ng-click="app.hideMobileChat()">
+                    <a href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']" hide-chat-on-mobile="click">
                         @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
                         @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-small", hide = "", show_xs = "" })
                     </a>
@@ -61,6 +61,7 @@
                            ng-model="st.term"
                            ng-minlength="2"
                            ng-model-options="{debounce : 1000}"
+                           hide-chat-on-mobile="focus"
                            type="search" class="text"
                            user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
                     <button type="submit" class="search-btn color-override backgroundColor11" ng-disabled="!st.term.length">
@@ -73,9 +74,9 @@
 
             @if (ViewBag.errorPage == null || !ViewBag.errorPage)
             {
-                <button type="button" ng-controller="chatIndicatorController as cc" user-not-register-popup="click" class="chat-icon" hide-gt-sm ng-click="cc.toggleChat()" ng-if="app.showChat">
+                <button type="button" toggle-chat user-not-register-popup="click" class="chat-icon" hide-gt-sm ng-if="app.showChat">
                     @Html.Svg("~/images/site/icons.svg", "chat")
-                    <div class="chat-counter" ng-if="cc.unread() > 0">{{cc.unread()}}</div>
+                    <div class="chat-counter"></div>
                 </button>
             }
             <md-menu class="user-md-menu hoverBackgroundTC28" ng-if="ud.isLoggedIn" md-offset="10 80">
@@ -133,7 +134,7 @@
     </header>
 
     @*'hidden-chat' : app.chatDisplayState === 0,*@
-    <div class="page-body" ng-class="{ 'collapsed-chat' : app.chatDisplayState === 1, 'expanded-chat' : app.chatDisplayState === 2}">
+    <div class="page-body">
         @RenderBody()
     </div>
     <div class="clearfix"></div>

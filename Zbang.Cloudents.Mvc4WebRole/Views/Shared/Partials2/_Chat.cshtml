@@ -10,7 +10,7 @@
         <div class="menu-content angular-animate backgroundTC33">
             <div class="tab-content" ng-if="c.state === c.states.messages">
                 <form novalidate class="search-friend" ng-submit="c.search(c.term)">
-                    <button type="button" class="search-btn" ng-click="c.handleSearch()">
+                    <button type="button" class="search-btn" ng-click="c.expandSearch()">
                         @Html.Svg("~/images/site/icons.svg", "searchIcon", new { @class = "searchIcon" })
                     </button>
                     <input type="search" class="textTC38" focus-me="c.focusSearch" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search(c.term)" ng-model-options="{debounce : 300}" />
@@ -99,7 +99,7 @@
                 </div>
         </div>
     </div>
-    <button type="button" class="tab" ng-click="c.toggleChat()"></button>
+    <button type="button" class="tab" toggle-chat></button>
     <script type="text/ng-template" id="chat-user-template.html">
         <span ng-if="e.unread" class="chat-counter" ng-bind="e.unread"></span>
         <user-image class="img-circle" name="::e.name" image="::e.image" width="40" height="40"></user-image>

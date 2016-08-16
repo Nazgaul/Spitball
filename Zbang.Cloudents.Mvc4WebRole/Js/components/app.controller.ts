@@ -14,7 +14,7 @@ module app {
     class AppController {
         static $inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
-            "CacheFactory", "$scope", "realtimeFactotry", "sbHistory", "$state", "$mdMedia"];
+            "CacheFactory", "$scope", "realtimeFactotry", "sbHistory", "$state"];
 
         private menuOpened: boolean;
         private showMenu: boolean;
@@ -26,7 +26,6 @@ module app {
         private isMobile: boolean;
 
         // private expandSearch = false;
-        private chatDisplayState = 1;// collapsed
 
         constructor(private $rootScope: angular.IRootScopeService,
             private $location: angular.ILocationService,
@@ -39,9 +38,7 @@ module app {
             private $scope: angular.IScope,
             private realtimeFactotry: IRealtimeFactotry,
             private sbHistory: ISbHistory,
-            private $state: angular.ui.IStateService,
-            private $mdMedia: angular.material.IMedia
-
+            private $state: angular.ui.IStateService
         ) {
 
             $rootScope.$on("$viewContentLoaded", () => {
@@ -126,6 +123,7 @@ module app {
                         event.preventDefault();
                     }
                 });
+
         }
         back = (defaultUrl: string) => {
             var element = this.sbHistory.popElement();
@@ -149,15 +147,8 @@ module app {
         setTheme = () => {
             this.theme = `theme-${this.userDetails.get().theme}`;
         };
-
-        hideMobileChat = () => {
-            if (this.$mdMedia('xs')) {
-                this.chatDisplayState = 1;
-            }
-        }
-
+        
         toggleMenu = () => {
-            this.hideMobileChat();
             this.$rootScope.$broadcast("open-menu");
         };
 
