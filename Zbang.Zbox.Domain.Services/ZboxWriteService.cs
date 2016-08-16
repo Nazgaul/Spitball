@@ -683,24 +683,6 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
-        //public void MarkMessageAsRead(MarkMessagesAsReadCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-
-        //public void DeleteNotification(DeleteNotificationCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
-
         public void RegisterMobileDevice(RegisterMobileDeviceCommand command)
         {
             using (UnitOfWork.Start())

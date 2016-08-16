@@ -82,14 +82,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {
-            var parameters = data as BoxFileProcessData;
-            if (parameters == null) return true;
-
-            var elem = await m_ZboxReadService.GetItemDirtyUpdatesAsync(parameters.ItemId);
-            await ProcessFileAsync(elem);
-            await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
-                new UpdateDirtyToRegularCommand(new[] { elem.Id }));
-            return true;
             throw new NotImplementedException();
         }
     }

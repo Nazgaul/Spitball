@@ -477,7 +477,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             return JsonOk(new
             {
-                command.Id,
+                url = Url.RouteUrlCache("universityLibrary", new RouteValueDictionary
+                {
+                    ["universityId"] = command.Id,
+                    ["universityName"] = HttpUtility.UrlDecode(model.Name)
+                })//,
+                //command.Id,
             });
         }
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
