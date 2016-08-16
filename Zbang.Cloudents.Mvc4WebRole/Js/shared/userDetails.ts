@@ -1,21 +1,9 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="../../scripts/typings/angular-google-analytics/angular-google-analytics.d.ts" />
 /// <reference path="ajaxservice2.ts" />
-'use strict';
 // ReSharper disable once InconsistentNaming
 declare var __insp: any;
 declare var googletag: any;
-
-//export interface IUserDetailsFactory {
-//    init(): angular.IPromise<IUserData>;
-//    get(): IUserData;
-//    isAuthenticated(): boolean;
-//    setName(first, last): void;
-//    setImage(image): void;
-//    getUniversity(): number;
-//    setUniversity(name, id): angular.IPromise<IUserData>;
-//    setTheme(theme): void;
-//}
 
 
 interface IUniversity {
@@ -46,15 +34,15 @@ module app {
         init(): angular.IPromise<IUserData>;
         get(): IUserData;
         isAuthenticated(): boolean;
-        setName(first, last): void;
-        setImage(image): void;
+        setName(first: string, last: string): void;
+        setImage(image: string): void;
         getUniversity(): number;
-        setUniversity(name, id): angular.IPromise<IUserData>;
-        setTheme(theme): void;
+        setUniversity(name: string, id: number): angular.IPromise<IUserData>;
+        setTheme(theme: string): void;
     }
 
     class UserDetails implements IUserDetailsFactory {
-        static $inject = ['$rootScope', '$q', 'ajaxService2', 'Analytics'];
+        static $inject = ["$rootScope", "$q", "ajaxService2", "Analytics"];
 
         private isLogedIn = false;
         private userData: IUserData;
@@ -67,28 +55,23 @@ module app {
 
 
 
-        private setDetails(data) {
-
-            // data = data || {};
+        private setDetails(data: any) {
             if (data.id) {
                 this.isLogedIn = true;
                 // ReSharper disable UseOfImplicitGlobalInFunctionScope
-                __insp.push(['identify', data.id]);
+                __insp.push(["identify", data.id]);
                 // ReSharper restore UseOfImplicitGlobalInFunctionScope
             }
-            this.analytics.set('dimension1', data.universityName || null);
-            this.analytics.set('dimension2', data.universityCountry || null);
-            this.analytics.set('dimension3', data.id || null);
-            this.analytics.set('dimension4', data.theme || 'dark');
+            this.analytics.set("dimension1", data.universityName || null);
+            this.analytics.set("dimension2", data.universityCountry || null);
+            this.analytics.set("dimension3", data.id || null);
+            this.analytics.set("dimension4", data.theme || "dark");
 
-            //$timeout(() => {
-            //    googletag.pubads().setTargeting('gender', data.sex);
-            //}, 1000);
 
             var interval = window.setInterval(() => {
                 if (googletag.pubads !== undefined && googletag.pubads) {
-                    googletag.pubads().setTargeting('gender', data.sex);
-                    googletag.pubads().setTargeting('university', data.universityId);
+                    googletag.pubads().setTargeting("gender", data.sex);
+                    googletag.pubads().setTargeting("university", data.universityId);
                     window.clearInterval(interval);
                 }
             }, 20);
@@ -125,7 +108,7 @@ module app {
             if (!this.serverCall) {
                 this.serverCall = true;
 
-                this.ajaxService.get('/account/details/', null, 'accountDetail').then(response => {
+                this.ajaxService.get("/account/details/", null, "accountDetail").then((response:Object) => {
                     this.setDetails(response);
                     this.deferDetails.resolve(this.userData);
                     this.serverCall = false;
@@ -135,314 +118,33 @@ module app {
         }
         get = () => {
             return this.userData;
-        }
+        };
         isAuthenticated = (): boolean => {
             return this.isLogedIn;
-        }
+        };
         setName = (first: string, last: string) => {
             this.userData.name = first + " " + last;
-            this.$rootScope.$broadcast('userDetailsChange');
-        }
+            this.$rootScope.$broadcast("userDetailsChange");
+        };
         setImage = (image?: string) => {
             if (!image) {
                 return;
             }
             this.userData.image = image;
-            this.$rootScope.$broadcast('userDetailsChange');
-        }
+            this.$rootScope.$broadcast("userDetailsChange");
+        };
         getUniversity = (): number => {
             return this.userData ? this.userData.university.id : null;
-        }
+        };
         setUniversity = (): angular.IPromise<IUserData> => {
-            this.ajaxService.deleteCacheCategory('accountDetail');
+            this.ajaxService.deleteCacheCategory("accountDetail");
             this.userData = null;
+            this.deferDetails = this.$q.defer();
             return this.init();
-        }
+        };
         setTheme = (theme: string) => {
             this.userData.theme = theme;
-        }
-
-        //    setUniversity: () => {
-
-        //        ajaxService.deleteCacheCategory('accountDetail');
-        //        userData = null;
-
-        //        return init();
-        //        //userData.university.name = name;
-        //        //userData.university.id = id;
-        //        //$rootScope.$broadcast('universityChange', userData);
-        //    },
-        //    setTheme: theme => {
-        //        userData.theme = theme;
-        //    }
-        //return {
-        //   // init: initialize,
-        //    get: () => userData,
-        //    isAuthenticated: () => isAuthenticated,
-        //    setName: (first, last) => {
-        //        userData.name = first + " " + last;
-        //        $rootScope.$broadcast('userDetailsChange');
-        //    },
-        //    setImage: image => {
-        //        if (!image) {
-        //            return;
-        //        }
-        //        userData.image = image;
-        //        $rootScope.$broadcast('userDetailsChange');
-        //    },
-        //    getUniversity: () => {
-        //        return userData ? userData.university.id : null;
-        //    },
-        //    setUniversity: () => {
-
-        //        ajaxService.deleteCacheCategory('accountDetail');
-        //        userData = null;
-
-        //        return init();
-        //        //userData.university.name = name;
-        //        //userData.university.id = id;
-        //        //$rootScope.$broadcast('universityChange', userData);
-        //    },
-        //    setTheme: theme => {
-        //        userData.theme = theme;
-        //    }
-        //};
-
+        };
     }
-    angular.module('app').service('userDetailsFactory', UserDetails);
+    angular.module("app").service("userDetailsFactory", UserDetails);
 }
-
-//(() => {
-//    angular.module('app').factory('userDetailsFactory', userDetails);
-//    userDetails.$inject = ['$rootScope', '$q', 'ajaxService2', 'Analytics'];
-
-//    function userDetails($rootScope: angular.IRootScopeService,
-//        $q: angular.IQService,
-//        ajaxService: IAjaxService2,
-//        analytics: angular.google.analytics.AnalyticsService): IUserDetailsFactory {
-//        "use strict";
-//        var
-//            isAuthenticated = false,
-//            userData: IUserData,
-//            serverCall = false,
-//            deferDetails = $q.defer();
-
-//        function setDetails(data) {
-//            // data = data || {};
-//            if (data.id) {
-//                isAuthenticated = true;
-//                // ReSharper disable UseOfImplicitGlobalInFunctionScope
-//                __insp.push(['identify', data.id]);
-//                // ReSharper restore UseOfImplicitGlobalInFunctionScope
-//            }
-//            analytics.set('dimension1', data.universityName || null);
-//            analytics.set('dimension2', data.universityCountry || null);
-//            analytics.set('dimension3', data.id || null);
-//            analytics.set('dimension4', data.theme || 'dark');
-
-//            //$timeout(() => {
-//            //    googletag.pubads().setTargeting('gender', data.sex);
-//            //}, 1000);
-
-//            var interval = window.setInterval(() => {
-//                    if (googletag.pubads !== undefined && googletag.pubads) {
-//                        googletag.pubads().setTargeting('gender', data.sex);
-//                        googletag.pubads().setTargeting('university', data.universityId);
-//                        window.clearInterval(interval);
-//                    }
-//                },
-//                20);
-
-//            userData = {
-//                id: data.id,
-//                name: data.name,
-//                image: data.image,
-//                sex: data.sex,
-//                score: data.score,
-//                url: data.url,
-//                createTime: new Date(data.dateTime),
-//                isAdmin: data.isAdmin,
-//                theme: data.theme,
-//                culture: data.culture,
-//                email: data.email,
-//                unread: data.unread,
-//                university: {
-//                    country: data.universityCountry, // for google analytics
-//                    name: data.universityName, // in library page
-//                    id: data.universityId
-//                }
-//            };
-
-//        }
-
-
-//        function init() {
-//            if (userData) {
-//                deferDetails.resolve(userData);
-//                return deferDetails.promise;
-//            }
-//            if (!serverCall) {
-//                serverCall = true;
-
-//                ajaxService.get('/account/details/', null, 'accountDetail')
-//                    .then(response => {
-//                        setDetails(response);
-//                        deferDetails.resolve(userData);
-//                        serverCall = false;
-//                    });
-//            }
-//            return deferDetails.promise;
-//        }
-
-//        return {
-//            init: init,
-//            get: () => userData,
-//            isAuthenticated: () => isAuthenticated,
-//            setName: (first, last) => {
-//                userData.name = first + " " + last;
-//                $rootScope.$broadcast('userDetailsChange');
-//            },
-//            setImage: image => {
-//                if (!image) {
-//                    return;
-//                }
-//                userData.image = image;
-//                $rootScope.$broadcast('userDetailsChange');
-//            },
-//            getUniversity: () => {
-//                return userData ? userData.university.id : null;
-//            },
-//            setUniversity: () => {
-
-//                ajaxService.deleteCacheCategory('accountDetail');
-//                userData = null;
-
-//                return init();
-//                //userData.university.name = name;
-//                //userData.university.id = id;
-//                //$rootScope.$broadcast('universityChange', userData);
-//            },
-//            setTheme: theme => {
-//                userData.theme = theme;
-//            }
-//        };
-//    }
-
-//})();//(() => {
-//    angular.module('app').factory('userDetailsFactory', userDetails);
-//    userDetails.$inject = ['$rootScope', '$q', 'ajaxService2', 'Analytics'];
-
-//    function userDetails($rootScope: angular.IRootScopeService,
-//        $q: angular.IQService,
-//        ajaxService: IAjaxService2,
-//        analytics: angular.google.analytics.AnalyticsService): IUserDetailsFactory {
-//        "use strict";
-//        var
-//            isAuthenticated = false,
-//            userData: IUserData,
-//            serverCall = false,
-//            deferDetails = $q.defer();
-
-//        function setDetails(data) {
-//            // data = data || {};
-//            if (data.id) {
-//                isAuthenticated = true;
-//                // ReSharper disable UseOfImplicitGlobalInFunctionScope
-//                __insp.push(['identify', data.id]);
-//                // ReSharper restore UseOfImplicitGlobalInFunctionScope
-//            }
-//            analytics.set('dimension1', data.universityName || null);
-//            analytics.set('dimension2', data.universityCountry || null);
-//            analytics.set('dimension3', data.id || null);
-//            analytics.set('dimension4', data.theme || 'dark');
-
-//            //$timeout(() => {
-//            //    googletag.pubads().setTargeting('gender', data.sex);
-//            //}, 1000);
-
-//            var interval = window.setInterval(() => {
-//                    if (googletag.pubads !== undefined && googletag.pubads) {
-//                        googletag.pubads().setTargeting('gender', data.sex);
-//                        googletag.pubads().setTargeting('university', data.universityId);
-//                        window.clearInterval(interval);
-//                    }
-//                },
-//                20);
-
-//            userData = {
-//                id: data.id,
-//                name: data.name,
-//                image: data.image,
-//                sex: data.sex,
-//                score: data.score,
-//                url: data.url,
-//                createTime: new Date(data.dateTime),
-//                isAdmin: data.isAdmin,
-//                theme: data.theme,
-//                culture: data.culture,
-//                email: data.email,
-//                unread: data.unread,
-//                university: {
-//                    country: data.universityCountry, // for google analytics
-//                    name: data.universityName, // in library page
-//                    id: data.universityId
-//                }
-//            };
-
-//        }
-
-
-//        function init() {
-//            if (userData) {
-//                deferDetails.resolve(userData);
-//                return deferDetails.promise;
-//            }
-//            if (!serverCall) {
-//                serverCall = true;
-
-//                ajaxService.get('/account/details/', null, 'accountDetail')
-//                    .then(response => {
-//                        setDetails(response);
-//                        deferDetails.resolve(userData);
-//                        serverCall = false;
-//                    });
-//            }
-//            return deferDetails.promise;
-//        }
-
-//        return {
-//            init: init,
-//            get: () => userData,
-//            isAuthenticated: () => isAuthenticated,
-//            setName: (first, last) => {
-//                userData.name = first + " " + last;
-//                $rootScope.$broadcast('userDetailsChange');
-//            },
-//            setImage: image => {
-//                if (!image) {
-//                    return;
-//                }
-//                userData.image = image;
-//                $rootScope.$broadcast('userDetailsChange');
-//            },
-//            getUniversity: () => {
-//                return userData ? userData.university.id : null;
-//            },
-//            setUniversity: () => {
-
-//                ajaxService.deleteCacheCategory('accountDetail');
-//                userData = null;
-
-//                return init();
-//                //userData.university.name = name;
-//                //userData.university.id = id;
-//                //$rootScope.$broadcast('universityChange', userData);
-//            },
-//            setTheme: theme => {
-//                userData.theme = theme;
-//            }
-//        };
-//    }
-
-//})();
-

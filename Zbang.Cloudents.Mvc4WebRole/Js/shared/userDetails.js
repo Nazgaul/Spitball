@@ -1,4 +1,3 @@
-'use strict';
 var app;
 (function (app) {
     "use strict";
@@ -20,21 +19,22 @@ var app;
             };
             this.setName = function (first, last) {
                 _this.userData.name = first + " " + last;
-                _this.$rootScope.$broadcast('userDetailsChange');
+                _this.$rootScope.$broadcast("userDetailsChange");
             };
             this.setImage = function (image) {
                 if (!image) {
                     return;
                 }
                 _this.userData.image = image;
-                _this.$rootScope.$broadcast('userDetailsChange');
+                _this.$rootScope.$broadcast("userDetailsChange");
             };
             this.getUniversity = function () {
                 return _this.userData ? _this.userData.university.id : null;
             };
             this.setUniversity = function () {
-                _this.ajaxService.deleteCacheCategory('accountDetail');
+                _this.ajaxService.deleteCacheCategory("accountDetail");
                 _this.userData = null;
+                _this.deferDetails = _this.$q.defer();
                 return _this.init();
             };
             this.setTheme = function (theme) {
@@ -44,16 +44,16 @@ var app;
         UserDetails.prototype.setDetails = function (data) {
             if (data.id) {
                 this.isLogedIn = true;
-                __insp.push(['identify', data.id]);
+                __insp.push(["identify", data.id]);
             }
-            this.analytics.set('dimension1', data.universityName || null);
-            this.analytics.set('dimension2', data.universityCountry || null);
-            this.analytics.set('dimension3', data.id || null);
-            this.analytics.set('dimension4', data.theme || 'dark');
+            this.analytics.set("dimension1", data.universityName || null);
+            this.analytics.set("dimension2", data.universityCountry || null);
+            this.analytics.set("dimension3", data.id || null);
+            this.analytics.set("dimension4", data.theme || "dark");
             var interval = window.setInterval(function () {
                 if (googletag.pubads !== undefined && googletag.pubads) {
-                    googletag.pubads().setTargeting('gender', data.sex);
-                    googletag.pubads().setTargeting('university', data.universityId);
+                    googletag.pubads().setTargeting("gender", data.sex);
+                    googletag.pubads().setTargeting("university", data.universityId);
                     window.clearInterval(interval);
                 }
             }, 20);
@@ -85,7 +85,7 @@ var app;
             }
             if (!this.serverCall) {
                 this.serverCall = true;
-                this.ajaxService.get('/account/details/', null, 'accountDetail').then(function (response) {
+                this.ajaxService.get("/account/details/", null, "accountDetail").then(function (response) {
                     _this.setDetails(response);
                     _this.deferDetails.resolve(_this.userData);
                     _this.serverCall = false;
@@ -93,8 +93,8 @@ var app;
             }
             return this.deferDetails.promise;
         };
-        UserDetails.$inject = ['$rootScope', '$q', 'ajaxService2', 'Analytics'];
+        UserDetails.$inject = ["$rootScope", "$q", "ajaxService2", "Analytics"];
         return UserDetails;
     }());
-    angular.module('app').service('userDetailsFactory', UserDetails);
+    angular.module("app").service("userDetailsFactory", UserDetails);
 })(app || (app = {}));

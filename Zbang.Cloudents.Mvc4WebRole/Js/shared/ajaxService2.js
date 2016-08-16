@@ -1,7 +1,7 @@
 "use strict";
 var app;
 (function (app) {
-    'use strict';
+    "use strict";
     var minute = 60 * 1000, hour = 60 * minute, day = 24 * hour;
     var cancelObjs = {};
     var AjaxService2 = (function () {
@@ -13,15 +13,14 @@ var app;
             this.routerHelper = routerHelper;
             this.cacheCategories = {
                 university: {
-                    maxAge: 6 * hour,
-                    storageMode: 'localStorage'
+                    maxAge: 6 * hour
                 },
                 accountDetail: {
                     maxAge: day
                 },
                 html: {
                     maxAge: 30 * day,
-                    storageMode: 'localStorage'
+                    storageMode: "localStorage"
                 },
                 department: {
                     maxAge: 15 * minute
@@ -37,10 +36,10 @@ var app;
         AjaxService2.prototype.buildFactoryObject = function (cacheKey) {
             var dst = {};
             angular.extend(dst, {
-                deleteOnExpire: 'aggressive',
+                deleteOnExpire: "aggressive",
                 maxAge: minute,
                 recycleFreq: 15000,
-                storageMode: 'sessionStorage',
+                storageMode: "sessionStorage",
                 storagePrefix: version
             }, this.cacheCategories[cacheKey]);
             this.cacheFactory(cacheKey, dst);
@@ -54,7 +53,7 @@ var app;
             var dfd = this.$q.defer(), startTime = new Date().getTime();
             this.$http.post(this.buildUrl(url), data).then(function (response) {
                 var retVal = response.data;
-                _this.trackTime(startTime, url, data, 'post');
+                _this.trackTime(startTime, url, data, "post");
                 if (angular.isArray(category)) {
                     category.forEach(function (e) {
                         _this.deleteCacheCategory(e);
@@ -84,14 +83,14 @@ var app;
             var dfd = this.$q.defer();
             url = this.buildUrl(url);
             url = this.routerHelper.buildUrl(url);
-            var dataCache = this.cacheFactory.get('html');
+            var dataCache = this.cacheFactory.get("html");
             if (dataCache.get(url)) {
                 dfd.resolve(dataCache.get(url));
             }
             else {
                 var startTime = new Date().getTime();
                 this.$http.get(url).then(function (response) {
-                    _this.trackTime(startTime, url, 'get html', 'html');
+                    _this.trackTime(startTime, url, "get html", "html");
                     var data = response.data;
                     if (!data) {
                         dfd.reject();
@@ -134,7 +133,7 @@ var app;
                 }
                 self.$http.get(self.buildUrl(url), getObj).then(function (response) {
                     var retVal = response.data;
-                    self.trackTime(startTime, url, data, 'get');
+                    self.trackTime(startTime, url, data, "get");
                     if (!retVal) {
                         deferred.reject();
                         return;
@@ -156,11 +155,11 @@ var app;
         };
         AjaxService2.prototype.buildUrl = function (url) {
             url = url.toLowerCase();
-            if (!url.startsWith('/')) {
+            if (!url.startsWith("/")) {
                 url = "/" + url;
             }
-            if (!url.endsWith('/')) {
-                url = url + '/';
+            if (!url.endsWith("/")) {
+                url = url + "/";
             }
             ;
             return url;
@@ -171,24 +170,23 @@ var app;
                 payload: payload
             };
             $.ajax({
-                type: 'POST',
-                url: '/error/jslog/',
-                contentType: 'application/json',
+                type: "POST",
+                url: "/error/jslog/",
+                contentType: "application/json",
                 data: angular.toJson({
                     errorUrl: url,
                     errorMessage: JSON.stringify(log),
-                    cause: 'ajaxRequest',
-                    stackTrace: ''
+                    cause: "ajaxRequest"
                 })
             });
         };
         AjaxService2.prototype.trackTime = function (startTime, url, data, type) {
             var timeSpent = new Date().getTime() - startTime;
-            this.analytics.trackTimings(url.toLowerCase() !== '/item/preview/' ? "ajax " + type
-                : 'ajaxPreview', url, timeSpent, JSON.stringify(data));
+            this.analytics.trackTimings(url.toLowerCase() !== "/item/preview/" ? "ajax " + type
+                : "ajaxPreview", url, timeSpent, JSON.stringify(data));
         };
-        AjaxService2.$inject = ['$http', '$q', 'Analytics', 'CacheFactory', 'routerHelper'];
+        AjaxService2.$inject = ["$http", "$q", "Analytics", "CacheFactory", "routerHelper"];
         return AjaxService2;
     }());
-    angular.module('app').service('ajaxService2', AjaxService2);
+    angular.module("app").service("ajaxService2", AjaxService2);
 })(app || (app = {}));
