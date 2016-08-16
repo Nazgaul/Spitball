@@ -53,12 +53,10 @@ namespace Zbang.Cloudents.Connect
 
         public void UpdateThumbnail(long itemId, long boxId)
         {
-            TraceLog.WriteInfo($"update thumbnail {itemId} {boxId}");
             if (Context.User.Identity.IsAuthenticated)
             {
                 return;
             }
-            TraceLog.WriteInfo("going to send");
             Clients.Group($"box:{boxId}").updateThumbnail(itemId);
         }
 

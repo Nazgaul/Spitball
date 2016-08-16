@@ -7,11 +7,13 @@ using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Trace;
+using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
+using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class UpdateSearchUniversity : UpdateSearch, IJob
+    public class UpdateSearchUniversity : UpdateSearch, IJob, IFileProcess
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IUniversityWriteSearchProvider2 m_UniversitySearchProvider;
@@ -76,6 +78,19 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override string GetPrefix()
         {
             return PrefixLog;
+        }
+
+        public Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
+        {
+            var parameters = data as BoxFileProcessData;
+            if (parameters == null) return true;
+
+            var elem = await m_ZboxReadService.GetItemDirtyUpdatesAsync(parameters.ItemId);
+            await ProcessFileAsync(elem);
+            await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
+                new UpdateDirtyToRegularCommand(new[] { elem.Id }));
+            return true;
+            throw new NotImplementedException();
         }
     }
 }
