@@ -41,7 +41,7 @@
                         <span>@Html.Svg("~/images/site/box-icons.svg", "like")</span>
                         <span>{{i.details.likes}}</span>
                     </button>
-                    <a hide-xs target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" ng-click="i.followBox()" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
+                    <a hide-xs target="_blank" ng-click="i.followBox()" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
                     <a hide-xs target="_blank" user-not-register-popup="click" ng-click="i.followBox()" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
                     <div class="item-menu">
                         <md-menu flex>
@@ -50,7 +50,7 @@
                             </md-button>
                             <md-menu-content width="1">
                                 <md-menu-item hide-gt-xs>
-                                    <md-button target="{{::i.details.type == 'File' ? '_self' : '_blank'}}" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">
+                                    <md-button target="_blank" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">
                                         @ItemsResources.Download
                                     </md-button>
                                 </md-menu-item>

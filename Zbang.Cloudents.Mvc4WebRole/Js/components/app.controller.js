@@ -87,7 +87,7 @@ var app;
                 if (!fromState.name) {
                     return;
                 }
-                if (toState.name === "user" && toParams.userId === "22886") {
+                if (toState.name === "user" && toParams.userId === 22886) {
                     event.preventDefault();
                     $rootScope.$broadcast("state-change-start-prevent");
                 }

@@ -9,10 +9,8 @@
             {
                 state: 'box',
                 config: {
-                    url: '/{boxtype:box|course}/{universityType}/{boxId}/{boxName}/?{invId}',
+                    url: '/{boxtype:box|course}/{universityType}/{boxId:int}/{boxName}/?{invId}',
                     controller: 'BoxController as b',
-                    //sticky: true,
-                    //dsr: true,
                     resolve: {
                         boxData: [
                             'boxService', '$stateParams', function (boxService, $stateParams) {

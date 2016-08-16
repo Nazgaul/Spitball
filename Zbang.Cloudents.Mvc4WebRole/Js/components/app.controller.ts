@@ -1,7 +1,15 @@
 ﻿declare var dataLayer: any;
 
+interface ISpitballStateParamsService extends angular.ui.IStateParamsService {
+    boxId: number;
+    itemId: number;
+    userId: number;
+}
 module app {
     "use strict";
+
+    
+
 
     class AppController {
         static $inject = ["$rootScope", "$location",
@@ -28,8 +36,7 @@ module app {
             private resManager: IResManager,
             private cacheFactory: CacheFactory.ICacheFactory,
             private $scope: angular.IScope,
-            // TODO: continue
-            private realtimeFactotry: any,
+            private realtimeFactotry: IRealtimeFactotry,
             private sbHistory: ISbHistory,
             private $state: angular.ui.IStateService
         ) {
@@ -59,7 +66,8 @@ module app {
             this.showBoxAd = false;
             this.isMobile = false;
 
-            $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState, toParams: any) => {
+            $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState,
+                toParams: ISpitballStateParamsService) => {
                 this.showBoxAd = toState.parent === "box";
                 this.showChat = this.showSearch = !(toState.name === "universityChoose");
                 this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
@@ -73,12 +81,12 @@ module app {
 
             $rootScope.$on("$stateChangeStart",
                 (event: angular.IAngularEvent, toState: angular.ui.IState,
-                    toParams: any, fromState: angular.ui.IState, fromParams: any) => {
+                    toParams: ISpitballStateParamsService, fromState: angular.ui.IState, fromParams: ISpitballStateParamsService) => {
                     if (!fromState.name) {
                         return;
                     }
                     // can't access anonymous user
-                    if (toState.name === "user" && toParams.userId === "22886") {
+                    if (toState.name === "user" && toParams.userId === 22886) {
                         event.preventDefault();
                         $rootScope.$broadcast("state-change-start-prevent");
                     }
@@ -116,15 +124,6 @@ module app {
                     }
                 });
 
-            //$scope.$watch(
-            //    userDetails.getUniversity,
-            //    (val: number) => {
-            //        console.log(val);
-            //        if (val) {
-            //            this.initChat();
-            //        }
-            //    });
-            
         }
         back = (defaultUrl: string) => {
             var element = this.sbHistory.popElement();
@@ -132,9 +131,6 @@ module app {
                 this.$location.url(defaultUrl);
                 return;
             }
-            // if (typeof element === 'string') {
-            //    $location.url(element);
-            // }
             this.$rootScope.$broadcast("from-back");
             this.$state.go(element.name, element.params);
         };
@@ -172,10 +168,9 @@ module app {
                     .hideDelay(2000));
         };
 
-
+        
         openMenu = ($mdOpenMenu: any, ev: Event) => {
             this.menuOpened = true;
-            // originatorEv = ev;
             if (!this.userDetails.isAuthenticated()) {
                 this.$rootScope.$broadcast("show-unregisterd-box");
                 return;

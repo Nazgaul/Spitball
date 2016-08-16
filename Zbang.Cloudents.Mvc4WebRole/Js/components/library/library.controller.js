@@ -2,10 +2,10 @@
 (function () {
     angular.module('app.library').controller('Library', library);
     library.$inject = ['libraryService', '$stateParams', 'userDetailsFactory', 'nodeData', '$mdDialog',
-        '$location', '$scope', 'resManager', 'universityData'];
+        '$location', '$scope', 'resManager', 'universityData','itemThumbnailService'];
 
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
-        $location, $scope, resManager, universityData) {
+        $location, $scope, resManager, universityData,itemThumbnailService) {
 
         var l = this, nodeId = $stateParams.id;
         l.departments = nodeData.nodes;
@@ -20,7 +20,7 @@
         l.university = {
             name: universityData.name,
             image: universityData.cover,
-            logo: universityData.logo
+            logo: universityData.logo || itemThumbnailService.logo
         };
         //l.universityName = userDetailsFactory.get().university.name;
         

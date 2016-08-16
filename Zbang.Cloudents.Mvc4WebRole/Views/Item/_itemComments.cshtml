@@ -12,7 +12,6 @@
             <md-content role="navigation">
                 <div class="comments" ng-scrollbars ng-scrollbars-config="{scrollbarPosition: 'outside'}">
                     <div class="title">@ItemsResources.CreateComment</div>
-
                     <div class="new-comment" layout="row">
                         <div class="user-image">
                             <a href="{{::c.currUser.url}}" user-not-register-popup="click" class="username">
@@ -46,7 +45,7 @@
                                     <div class="comment-content" ng-bind-html="::comment.comment | linky:'_blank'"></div>
 
                                 </div>
-                                <md-menu ng-if="c.canDelete(comment.userId)">
+                                <md-menu ng-if="::c.canDelete(comment.userId)">
                                     <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
                                         @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                                     </md-button>
@@ -71,7 +70,7 @@
                                             <div class="comment-info"><span class="author">@ItemsResources.CommentAuthor <a href="{{::reply.userUrl}}"> {{::reply.userName}}</a></span> <span class="date"><time-ago class="comment-date" from-time="{{::reply.creationDate }}" format="mediumDate"></time-ago></span></div>
                                             <div class="comment-content" ng-bind-html="::reply.comment | linky:'_blank'"></div>
                                         </div>
-                                        <md-menu ng-if="c.canDelete(reply.userId)">
+                                        <md-menu ng-if="::c.canDelete(reply.userId)">
                                             <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
                                                 @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
                                             </md-button>

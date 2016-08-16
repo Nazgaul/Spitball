@@ -1,16 +1,16 @@
 ﻿'use strict';
 (function () {
     angular.module('app.dashboard').controller('UniversityController', universityMeta);
-    universityMeta.$inject = ['dashboardService'];
+    universityMeta.$inject = ['dashboardService', 'itemThumbnailService'];
 
 
 
-    function universityMeta(dashboardService) {
+    function universityMeta(dashboardService, itemThumbnailService) {
         var um = this;
         um.loaded = false;
         dashboardService.getUniversityMeta().then(function (response) {
             if (!response.logo) {
-                response.logo = 'https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/universityEmptyState.png';
+                response.logo = itemThumbnailService.logo;
             }
             um.loaded = true;
             um.info = response;

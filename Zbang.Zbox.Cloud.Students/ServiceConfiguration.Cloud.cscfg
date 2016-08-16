@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ServiceConfiguration serviceName="Zbang.Zbox.Cloud.Students" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2014-01.2.3">
-  <Role name="Zbang.Zbox.Mvc4Students">
-    <Instances count="2" />
-    <ConfigurationSettings>
-      <Setting name="multimiCloudUrl" value="https://www.cloudents.com/Account?language=he-IL&amp;source=BankBB" />
-    </ConfigurationSettings>
-  </Role>
-</ServiceConfiguration>

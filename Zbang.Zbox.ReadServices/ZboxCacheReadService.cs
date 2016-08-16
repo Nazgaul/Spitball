@@ -400,7 +400,7 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<IEnumerable<RecommendBoxDto>> GetUniversityBoxesAsync(GetHomeBoxesUniversityQuery query)
         {
-            return m_ReadService.GetUniversityBoxesAsync(query);
+            return m_Cache.QueryAsync(m_ReadService.GetUniversityBoxesAsync, query);
         }
 
         public Task<long?> GetUniversityIdByUrlAsync(string url)

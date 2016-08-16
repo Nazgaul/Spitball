@@ -13,7 +13,7 @@
             {
                 state: 'department',
                 config: {
-                    url: '/university/:universityId/:universityName/',
+                    url: '/university/:universityId:int/:universityName/',
                     controller: 'Library as l',
                     resolve: {
                         nodeData: [
@@ -34,7 +34,7 @@
             },
             {
                 state: 'departmentWithNode', config: {
-                    url: '/university/:universityId/:universityName/:nodeName/?id',
+                    url: '/university/:universityId:int/:universityName/:nodeName/?id',
                     controller: 'Library as l',
                     resolve: {
                         nodeData: [

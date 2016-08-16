@@ -59,8 +59,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Domain.CommandHa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.InfrastructureTests", "Zbang.Zbox.InfrastructureTests\Zbang.Zbox.InfrastructureTests.csproj", "{EC932B4A-77CB-4292-A43D-D67E0D03DEA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Mvc3WebRoleTests", "Zbang.Zbox.Mvc3WebRoleTests\Zbang.Zbox.Mvc3WebRoleTests.csproj", "{A89DC973-7696-4E03-AD45-416B6163ABB5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Infrastructure.DataTests", "Zbang.Zbox.Infrastructure.DataTests\Zbang.Zbox.Infrastructure.DataTests.csproj", "{E1DF0F49-15CB-4895-9E0A-3B0F4C37843B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbang.Zbox.Infrastructure.Ioc", "Zbang.Zbox.Infrastructure.Ioc\Zbang.Zbox.Infrastructure.Ioc.csproj", "{872878FA-A84A-4CD3-856A-4EE9018819C5}"
@@ -477,31 +475,6 @@ Global
 		{EC932B4A-77CB-4292-A43D-D67E0D03DEA9}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EC932B4A-77CB-4292-A43D-D67E0D03DEA9}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
 		{EC932B4A-77CB-4292-A43D-D67E0D03DEA9}.SingleImage|x86.ActiveCfg = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.CD_ROM|Mixed Platforms.Build.0 = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.CD_ROM|x86.ActiveCfg = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.DVD-5|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.DVD-5|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.DVD-5|x86.ActiveCfg = Debug|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.Release|x86.ActiveCfg = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.SingleImage|Any CPU.Build.0 = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.SingleImage|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.SingleImage|Mixed Platforms.Build.0 = Release|Any CPU
-		{A89DC973-7696-4E03-AD45-416B6163ABB5}.SingleImage|x86.ActiveCfg = Release|Any CPU
 		{E1DF0F49-15CB-4895-9E0A-3B0F4C37843B}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
 		{E1DF0F49-15CB-4895-9E0A-3B0F4C37843B}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{E1DF0F49-15CB-4895-9E0A-3B0F4C37843B}.CD_ROM|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -1115,7 +1088,6 @@ Global
 		{A09FB96C-5029-4DDB-95CA-6A452EB81D0B} = {EE1FE540-1FCA-4D00-BB0D-590837973724}
 		{7CB4EFF4-FB2B-4EF4-9A51-B6CAA95CB0A4} = {EE1FE540-1FCA-4D00-BB0D-590837973724}
 		{EC932B4A-77CB-4292-A43D-D67E0D03DEA9} = {3D684359-03F1-485A-9811-D9830D4E6771}
-		{A89DC973-7696-4E03-AD45-416B6163ABB5} = {BB7A281A-6674-4136-BF60-23048EA796FA}
 		{E1DF0F49-15CB-4895-9E0A-3B0F4C37843B} = {3D684359-03F1-485A-9811-D9830D4E6771}
 		{872878FA-A84A-4CD3-856A-4EE9018819C5} = {F7B23167-AD4A-4FF4-ABDE-ACB6E2746F4E}
 		{E181CB46-F04F-4A7F-B751-E334A5665D3E} = {66FA00CE-F8BC-478D-842F-B30B55C41180}
@@ -1141,8 +1113,8 @@ Global
 		{8E505C7F-EF4B-43D1-9906-34823932AAED} = {BF3B9217-EC8F-41EF-ABFE-79DBD13CB37C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35;packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 	EndGlobalSection
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

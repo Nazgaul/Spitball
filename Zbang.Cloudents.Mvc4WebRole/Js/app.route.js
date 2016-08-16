@@ -35,7 +35,7 @@
                    {
                        state: 'item',
                        config: {
-                           url: '/item/{universityName}/{boxId}/{boxName}/{itemId}/{itemName}/',
+                           url: '/item/{universityName}/{boxId:int}/{boxName}/{itemId:int}/{itemName}/',
                            controller: 'ItemController as i',
                            resolve: {
                                itemData: ['itemService', '$stateParams', 'sbHistory', function (itemService, $stateParams, sbHistory) {
