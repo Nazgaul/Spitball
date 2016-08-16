@@ -1,11 +1,17 @@
+/// <reference path="../scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="../scripts/typings/angular-ui-router/angular-ui-router.d.ts" />
+/// <reference path="shared/ajaxservice2.ts" />
 'use strict';
 (function () {
     angular.module('app').provider('routerHelper', routerHelperProvider);
     routerHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
+    /* @ngInject */
     function routerHelperProvider($locationProvider, $stateProvider, $urlRouterProvider) {
+        /* jshint validthis:true */
         this.$get = routerHelper;
         $locationProvider.html5Mode(true);
         routerHelper.$inject = ['$state'];
+        /* @ngInject */
         function routerHelper($state) {
             var hasOtherwise = false;
             var service = {
@@ -20,6 +26,9 @@
                         state.config.parent = 'root';
                     }
                     if (state.templateUrl) {
+                        //state.config.templateUrl = function() {
+                        //    return buildUrl(state.templateUrl);
+                        //};
                         state.config.templateProvider = [
                             'ajaxService2', function (ajaxService2) { return ajaxService2.getHtml(state.templateUrl); }
                         ];
@@ -32,6 +41,7 @@
                 }
             }
             function getStates() { return $state.get(); }
+            //cookie in here
             function buildUrl(path) {
                 return path + '?lang=' + handleLanguage.getLangCookie() + '&version=' + version;
             }
@@ -39,3 +49,4 @@
         return this;
     }
 })();
+//# sourceMappingURL=routerHelperProvider.js.map
