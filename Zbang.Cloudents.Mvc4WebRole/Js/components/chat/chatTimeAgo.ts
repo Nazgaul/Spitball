@@ -1,16 +1,17 @@
 ﻿module app {
+    "use strict";
     export interface IChatTimeAgo extends ng.IScope {
         fromTime: any;
         format: any;
     }
     class ChatTimeAgo implements angular.IDirective {
         scope = {
-            fromTime: '@',
-            format: '@'
+            fromTime: "@",
+            format: "@"
         };
-        restrict = 'EA';
+        restrict = "EA";
 
-        constructor(private timeAgo, private nowTime) {
+        constructor(private timeAgo: any, private nowTime: any) {
         }
         link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery) => {
             /*handle all your linking requirements here*/
@@ -26,7 +27,7 @@
             var unregister = scope.$watch(() => {
                 return this.nowTime() - fromTime;
             }, (value) => {
-                
+
                 if (value > threeDaysInMilliseconds) {
                     angular.element(element).text('');
                     unregister();
@@ -35,13 +36,11 @@
                 angular.element(element).text(this.timeAgo.inWords(value, fromTime, scope.format));
             });
         };
-        public static factory(): angular.IDirectiveFactory {
-            var directive = (timeAgo, nowTime) => {
+        static factory(): angular.IDirectiveFactory {
+            const directive = (timeAgo, nowTime) => {
                 return new ChatTimeAgo(timeAgo, nowTime);
             };
-
-            directive['$inject'] = ['timeAgo', 'nowTime'];
-
+            directive["$inject"] = ["timeAgo", "nowTime"];
             return directive;
         }
     }

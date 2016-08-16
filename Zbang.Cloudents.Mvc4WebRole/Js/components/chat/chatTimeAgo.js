@@ -1,15 +1,16 @@
 var app;
 (function (app) {
+    "use strict";
     var ChatTimeAgo = (function () {
         function ChatTimeAgo(timeAgo, nowTime) {
             var _this = this;
             this.timeAgo = timeAgo;
             this.nowTime = nowTime;
             this.scope = {
-                fromTime: '@',
-                format: '@'
+                fromTime: "@",
+                format: "@"
             };
-            this.restrict = 'EA';
+            this.restrict = "EA";
             this.link = function (scope, element) {
                 var threeDaysInMilliseconds = 2.592e+8;
                 var fromTime;
@@ -32,7 +33,7 @@ var app;
             var directive = function (timeAgo, nowTime) {
                 return new ChatTimeAgo(timeAgo, nowTime);
             };
-            directive['$inject'] = ['timeAgo', 'nowTime'];
+            directive["$inject"] = ["timeAgo", "nowTime"];
             return directive;
         };
         return ChatTimeAgo;
