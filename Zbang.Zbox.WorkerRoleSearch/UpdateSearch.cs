@@ -17,24 +17,25 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected abstract Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount);
 
-        protected const int MinInterval = 10;
+        protected const int MinInterval = 5;
         protected int Interval = MinInterval;
+        protected int MaxInterval = int.MaxValue; // Remove once university is on queue
         protected abstract string GetPrefix();
 
         protected async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
         {
-            
+
             await SleepAsync(cancellationToken);
-            Interval = Interval * 2;
+            Interval = Math.Min(Interval * 2, MaxInterval);
         }
 
         protected async Task DoProcessAsync(CancellationToken cancellationToken, int index, int count)
         {
             var retVal = await UpdateAsync(index, count);
-            
-        
-        
-        switch (retVal)
+
+
+
+            switch (retVal)
             {
                 case TimeToSleep.Increase:
                     TraceLog.WriteInfo($"{GetPrefix()} going to sleep and increase {Interval}");

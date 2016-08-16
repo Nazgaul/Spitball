@@ -25,6 +25,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ZboxReadService = zboxReadService;
             m_UniversitySearchProvider = universitySearchProvider;
             m_ZboxWriteService = zboxWriteService;
+            MaxInterval = 60;
         }
         
 
@@ -48,18 +49,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             TraceLog.WriteError("On finish run");
         }
-
-       
-
-        //private int m_Interval = MinInterval;
-        //private const int MinInterval = 5;
-        //private const int MaxInterval = 60;
-        //private async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)
-        //{
-        //    m_Interval = Math.Min(MaxInterval, m_Interval * 2);
-        //    await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
-        //}
-
 
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount)
         {
