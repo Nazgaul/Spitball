@@ -79,7 +79,6 @@
 /// <reference path="../js/components/search/searchtrigger.controller.js" />
 /// <reference path="../js/components/share/invite.controller.js" />
 /// <reference path="../js/components/share/share.service.js" />
-/// <reference path="../js/components/user/updates.service.js" />
 /// <reference path="../Js/components/user/user.controller.js" />
 /// <reference path="../js/components/user/user.routes.js" />
 /// <reference path="../js/components/user/user.service.js" />

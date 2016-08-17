@@ -17,6 +17,7 @@
       <Setting name="platform" />
       <Setting name="signalR" />
       <Setting name="NumberOfEmailsPerHour" />
+      <Setting name="SpamGunRun" />
     </ConfigurationSettings>
     <LocalResources>
       <LocalStorage name="ItemPreviewStorage" cleanOnRoleRecycle="false" sizeInMB="222000" />

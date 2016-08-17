@@ -924,5 +924,19 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return PartialView();
         }
+
+
+        [HttpGet, ZboxAuthorize]
+        [ActionName("Updates")]
+        public async Task<ActionResult> UpdatesAsync()
+        {
+            var model = await ZboxReadService.GetUpdatesAsync(new QueryBase(User.GetUserId()));
+            return JsonOk(model.Select(s => new
+            {
+                s.AnswerId,
+                s.BoxId,
+                s.QuestionId
+            }));
+        }
     }
 }

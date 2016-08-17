@@ -43,19 +43,19 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 tasks.Add(queue.CreateIfNotExistsAsync(cancellationToken));
             }
             await Task.WhenAll(tasks);
-            while (!cancellationToken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested && string.Equals(ConfigFetcher.Fetch("SpamGunRun"), bool.TrueString, StringComparison.InvariantCultureIgnoreCase))
             {
 
                 var reachHourLimit = false;
                 var totalCount = 0;
-                for (int j = 0; j < NumberOfIps; j++)
+                for (var j = 0; j < NumberOfIps; j++)
                 {
                     var counter = 0;
-                    for (int i = 0; i < SpanGunNumberOfQueues; i++)
+                    for (var i = 0; i < SpanGunNumberOfQueues; i++)
                     {
                         var queue = m_QueueProvider.GetQueue(BuidQueueName(i));
                         var emailsTask = new List<Task>();
-                        for (int k = 0; k < 50; k++)
+                        for (var k = 0; k < 50; k++)
                         {
                             if (counter >= m_LimitPerIp)
                             {
@@ -94,6 +94,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     await Task.Delay(TimeSpan.FromSeconds(2500), cancellationToken);
                 }
             }
+            TraceLog.WriteInfo($"{ServiceName} going not running.");
         }
 
         private static string BuildIpPool(int i)
