@@ -6,10 +6,10 @@ var app;
             this.chatBus = chatBus;
             this.$mdMedia = $mdMedia;
             this.restrict = 'A';
-            this.link = function (scope, element, attrs) {
+            this.link = function (scope, element) {
                 var $html = $('html');
                 var className = 'expanded-chat';
-                angular.element(element).on('click', function () {
+                element.on('click', function () {
                     $html.toggleClass(className);
                 });
                 scope.$on('expandChat', function () {
