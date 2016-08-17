@@ -54,7 +54,7 @@ module app {
             userDetails.init().then( () => {
                 this.setTheme();
                 //if (data.university) {
-                this.initChat();
+                //this.initChat();
                 //}
             });
 
@@ -62,14 +62,14 @@ module app {
                 this.menuOpened = false;
             });
 
-            this.showMenu = this.showSearch = this.showChat = true;
+            this.showMenu = this.showSearch = true;
             this.showBoxAd = false;
             this.isMobile = false;
 
             $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState,
                 toParams: ISpitballStateParamsService) => {
                 this.showBoxAd = toState.parent === "box";
-                this.showChat = this.showSearch = !(toState.name === "universityChoose");
+                this.showSearch = !(toState.name === "universityChoose");
                 this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
 
                 // hub
@@ -139,10 +139,10 @@ module app {
             this.cacheFactory.clearAll();
             Intercom("shutdown");
         };
-        initChat = () => {
-            var details = this.userDetails.get();
-            this.loadChat = details.university.id > 0;
-        };
+        //initChat = () => {
+        //    var details = this.userDetails.get();
+        //    this.loadChat = details.university.id > 0;
+        //};
 
         setTheme = () => {
             this.theme = `theme-${this.userDetails.get().theme}`;

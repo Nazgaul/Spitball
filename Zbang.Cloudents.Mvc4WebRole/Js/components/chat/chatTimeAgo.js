@@ -21,11 +21,11 @@ var app;
                     return _this.nowTime() - fromTime;
                 }, function (value) {
                     if (value > threeDaysInMilliseconds) {
-                        angular.element(element).text('');
+                        element.text('');
                         unregister();
                         return;
                     }
-                    angular.element(element).text(_this.timeAgo.inWords(value, fromTime, scope.format));
+                    element.text(_this.timeAgo.inWords(value, fromTime, scope.format));
                 });
             };
         }

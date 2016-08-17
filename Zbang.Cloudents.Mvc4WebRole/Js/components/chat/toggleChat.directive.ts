@@ -2,36 +2,39 @@
     class ToggleChat implements angular.IDirective {
         restrict = 'A';
 
-        constructor(private chatBus) {
+        constructor(private chatBus, private $mdMedia: angular.material.IMedia) {
         }
-        link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
-            angular.element(element).on('click', () => {
-                $('.page-body').toggleClass('expanded-chat');
-
+        link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery) => {
+            var $pageBody = $('.page-body');
+            const className = 'expanded-chat';
+            element.click(() => {
+                $pageBody.toggleClass(className);
             });
-            scope.$on('expandChat', function () {
-                $('.page-body').addClass('expanded-chat');
+            scope.$on('expandChat', () => {
+                $pageBody.addClass(className);
             });
-
+            if (!this.$mdMedia('xs')) {
+                return;
+            }
             var counterElem = $('.chat-counter');
-            scope.$watch(this.chatBus.getUnread
-                , (value) => {
+            scope.$watch(this.chatBus.getUnread,
+                (value) => {
                     if (value > 0) {
                         counterElem.text(value.toString()).show();
-                    }
-                    else {
+                    } else {
                         counterElem.hide();
                     }
                 });
+
         };
 
 
         public static factory(): angular.IDirectiveFactory {
-            var directive = (chatBus) => {
-                return new ToggleChat(chatBus);
+            const directive = (chatBus, $mdMedia) => {
+                return new ToggleChat(chatBus, $mdMedia);
             };
 
-            directive['$inject'] = ['chatBus'];
+            directive['$inject'] = ['chatBus', '$mdMedia'];
 
             return directive;
         }

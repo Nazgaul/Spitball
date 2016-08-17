@@ -29,10 +29,6 @@ var app;
                 _this.cacheFactory.clearAll();
                 Intercom("shutdown");
             };
-            this.initChat = function () {
-                var details = _this.userDetails.get();
-                _this.loadChat = details.university.id > 0;
-            };
             this.setTheme = function () {
                 _this.theme = "theme-" + _this.userDetails.get().theme;
             };
@@ -67,17 +63,16 @@ var app;
             });
             userDetails.init().then(function () {
                 _this.setTheme();
-                _this.initChat();
             });
             $rootScope.$on("$mdMenuClose", function () {
                 _this.menuOpened = false;
             });
-            this.showMenu = this.showSearch = this.showChat = true;
+            this.showMenu = this.showSearch = true;
             this.showBoxAd = false;
             this.isMobile = false;
             $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams) {
                 _this.showBoxAd = toState.parent === "box";
-                _this.showChat = _this.showSearch = !(toState.name === "universityChoose");
+                _this.showSearch = !(toState.name === "universityChoose");
                 _this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
                 if (toState.name.startsWith("box")) {
                     realtimeFactotry.assingBoxes(toParams.boxId);
