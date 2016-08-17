@@ -6,11 +6,11 @@
         }
         link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
             angular.element(element).on('click', () => {
-                $('.page-body').toggleClass('expanded-chat');
+                $('html').toggleClass('expanded-chat');
 
             });
             scope.$on('expandChat', function () {
-                $('.page-body').addClass('expanded-chat');
+                $('html').addClass('expanded-chat');
             });
 
             var counterElem = $('.chat-counter');

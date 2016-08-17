@@ -50,18 +50,26 @@
   fill: #f5f5f5;
 }
 @media (min-width: 960px) {
-  .page-body:not(.expanded-chat) .chat {
+  html:not(.expanded-chat) .chat {
     right: -265px;
   }
 }
 @media (max-width: 960px) {
-  .page-body:not(.expanded-chat) .chat {
+  html:not(.expanded-chat) .chat {
     right: -100vw;
   }
 }
-.page-body:not(.expanded-chat) .chat .content .tab-content .search-friend .search-btn {
+html:not(.expanded-chat) .chat .content .tab-content .search-friend .search-btn {
   -webkit-justify-content: center;
   justify-content: center;
+}
+@media (max-width: 600px) {
+  .expanded-chat,
+  .expanded-chat body {
+    -webkit-overflow-scrolling: touch !important;
+    overflow: auto !important;
+    height: 100% !important;
+  }
 }
 .expanded-chat .chat .tab:after {
   border-width: 7px 0 7px 10px;
@@ -575,7 +583,7 @@
   -webkit-justify-content: space-between;
   justify-content: space-between;
   min-height: 50px;
-  padding: 6px 6px 6px 10px;
+  padding: 6px 6px 20px 10px;
 }
 .chat .content .conversasion .chat-content .new-message form {
   width: 100%;
@@ -621,7 +629,7 @@
   color: #282828;
   border: none !important;
   line-height: 22px;
-  padding: 0 0 0 10px;
+  padding: 0 0 50px 10px;
 }
 @media (max-width: 600px) {
   .chat .content .conversasion .chat-content .new-message md-input-container textarea {

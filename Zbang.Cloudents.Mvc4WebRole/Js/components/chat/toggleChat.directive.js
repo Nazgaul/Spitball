@@ -7,10 +7,10 @@ var app;
             this.restrict = 'A';
             this.link = function (scope, element, attrs) {
                 angular.element(element).on('click', function () {
-                    $('.page-body').toggleClass('expanded-chat');
+                    $('html').toggleClass('expanded-chat');
                 });
                 scope.$on('expandChat', function () {
-                    $('.page-body').addClass('expanded-chat');
+                    $('html').addClass('expanded-chat');
                 });
                 var counterElem = $('.chat-counter');
                 scope.$watch(_this.chatBus.getUnread, function (value) {
