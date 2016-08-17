@@ -90,6 +90,9 @@ html:not(.expanded-chat) .chat .content .tab-content .search-friend .search-btn 
     margin-right: 95px;
   }
 }
+html:not(.expanded-chat) .chat .error {
+  display: none;
+}
 .chat {
   position: fixed;
   z-index: 10;
