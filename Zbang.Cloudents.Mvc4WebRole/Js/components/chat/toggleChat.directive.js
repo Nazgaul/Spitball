@@ -6,14 +6,14 @@ var app;
             this.chatBus = chatBus;
             this.$mdMedia = $mdMedia;
             this.restrict = 'A';
-            this.link = function (scope, element) {
-                var $pageBody = $('.page-body');
+            this.link = function (scope, element, attrs) {
+                var $html = $('html');
                 var className = 'expanded-chat';
-                element.click(function () {
-                    $pageBody.toggleClass(className);
+                angular.element(element).on('click', function () {
+                    $html.toggleClass(className);
                 });
                 scope.$on('expandChat', function () {
-                    $pageBody.addClass(className);
+                    $html.addClass(className);
                 });
                 if (!_this.$mdMedia('xs')) {
                     return;

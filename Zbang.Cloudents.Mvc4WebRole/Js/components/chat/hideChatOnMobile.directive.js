@@ -8,7 +8,7 @@ var app;
             this.link = function (scope, element, attrs) {
                 if (_this.$mdMedia('xs')) {
                     element.on(attrs['hideChatOnMobile'], function () {
-                        $('.page-body').removeClass('expanded-chat');
+                        $('html').removeClass('expanded-chat');
                     });
                 }
             };

@@ -7,7 +7,7 @@
         link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
             if (this.$mdMedia('xs')) {
                 element.on(attrs['hideChatOnMobile'], () => {
-                    $('.page-body').removeClass('expanded-chat');
+                    $('html').removeClass('expanded-chat');
                 });
             }
         };

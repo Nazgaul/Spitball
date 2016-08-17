@@ -4,14 +4,15 @@
 
         constructor(private chatBus, private $mdMedia: angular.material.IMedia) {
         }
-        link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery) => {
-            var $pageBody = $('.page-body');
+        link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
+            var $html = $('html');
             const className = 'expanded-chat';
-            element.click(() => {
-                $pageBody.toggleClass(className);
+            angular.element(element).on('click', () => {
+                $html.toggleClass(className);
+
             });
-            scope.$on('expandChat', () => {
-                $pageBody.addClass(className);
+            scope.$on('expandChat', function () {
+                $html.addClass(className);
             });
             if (!this.$mdMedia('xs')) {
                 return;
