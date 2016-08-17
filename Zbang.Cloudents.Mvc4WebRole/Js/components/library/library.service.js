@@ -7,7 +7,7 @@
         var d = this;
 
         d.getDepartments = function (departmentId, universityId) {
-            return ajaxservice.get('/university/nodes/', { section: departmentId, universityId: universityId }, 'department');
+            return ajaxservice.get('/university/nodes/', { section: departmentId, universityId: universityId });
         }
 
         d.getUniversity = function (term, page) {

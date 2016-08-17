@@ -2,6 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
+        // private expandSearch = false;
         function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, $scope, realtimeFactotry, sbHistory, $state) {
             var _this = this;
             this.$rootScope = $rootScope;
@@ -62,12 +63,16 @@ var app;
             };
             $rootScope.$on("$viewContentLoaded", function () {
                 var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
-                dataLayer.push({ event: "virtualPageView", virtualUrl: virtualUrl });
-                __insp.push(["virtualPage"]);
+                // ReSharper disable UndeclaredGlobalVariableUsing
+                dataLayer.push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
+                __insp.push(["virtualPage"]); // inspectlet
+                // ReSharper restore UndeclaredGlobalVariableUsing
             });
             userDetails.init().then(function () {
                 _this.setTheme();
+                //if (data.university) {
                 _this.initChat();
+                //}
             });
             $rootScope.$on("$mdMenuClose", function () {
                 _this.menuOpened = false;
@@ -79,6 +84,7 @@ var app;
                 _this.showBoxAd = toState.parent === "box";
                 _this.showChat = _this.showSearch = !(toState.name === "universityChoose");
                 _this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
+                // hub
                 if (toState.name.startsWith("box")) {
                     realtimeFactotry.assingBoxes(toParams.boxId);
                 }
@@ -87,12 +93,13 @@ var app;
                 if (!fromState.name) {
                     return;
                 }
+                // can't access anonymous user
                 if (toState.name === "user" && toParams.userId === 22886) {
                     event.preventDefault();
                     $rootScope.$broadcast("state-change-start-prevent");
                 }
-                $mdMenu.hide();
-                $mdToast.hide();
+                $mdMenu.hide(); // closes menu
+                $mdToast.hide(); // hide toasters
                 $rootScope.$broadcast("close-menu");
                 $rootScope.$broadcast("close-collapse");
                 var toStateName = toState.name;
@@ -136,3 +143,4 @@ var app;
     }());
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
+//# sourceMappingURL=app.controller.js.map
