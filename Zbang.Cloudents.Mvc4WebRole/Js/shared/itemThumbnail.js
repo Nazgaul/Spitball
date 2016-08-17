@@ -15,7 +15,7 @@
 
         function getUniversityPic(name, width, height) {
             if (!name) {
-                name = "defaultUniversity.png";
+                name = "defaultuni2.jpg";
             }
             return 'https://az779114.vo.msecnd.net/universities/cover/' + encodeURIComponent(name) + '?mode=crop&width=' + width + '&height=' + height;
         }
