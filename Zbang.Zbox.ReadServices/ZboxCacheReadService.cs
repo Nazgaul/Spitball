@@ -46,8 +46,9 @@ namespace Zbang.Zbox.ReadServices
 
         public Task<NodeBoxesDto> GetLibraryNodeAsync(GetLibraryNodeQuery query)
         {
-            return m_Cache.QueryAsync(m_ReadService.GetLibraryNodeAsync, query);
-            //return m_ReadService.GetLibraryNodeAsync(query);
+            //cant do cache due to userid pass.
+            //return m_Cache.QueryAsync(m_ReadService.GetLibraryNodeAsync, query);
+            return m_ReadService.GetLibraryNodeAsync(query);
         }
 
       

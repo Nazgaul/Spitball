@@ -21,9 +21,13 @@
             this.deferred = $q.defer();
             userDetailsFactory.init()
                 .then((userData: IUserData) => {
-                    if (userData.university.id) {
+                    if (userData.id)
+                        //if (userData.university.id) {
                         this.getUpdates();
-                    }
+                    //} else {
+                    //need to resolve this
+                    // this.deferred.resolve();
+                    //}
                 });
 
             $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState:
@@ -43,7 +47,7 @@
 
         }
         private getUpdates() {
-            this.ajaxService.get("/user/updates/").then((response2: Array<any>) => {
+            this.ajaxService.get("/account/updates/").then((response2: Array<any>) => {
                 this.data = response2;
                 for (let i = 0; i < response2.length; i++) {
                     const currBox = this.allUpdates[response2[i].boxId] || {};
@@ -57,11 +61,13 @@
 
                 }
                 this.deferred.resolve();
+            }).catch(() => {
+                this.deferred.reject(); 
             });
         }
 
         deleteUpdates(boxId: number) {
-            this.updatesNum(boxId).then((length:number) => {
+            this.updatesNum(boxId).then((length: number) => {
                 if (!length) {
                     return;
                 }
@@ -70,7 +76,7 @@
                 this.$rootScope.$broadcast("refresh-boxes");
             });
         }
-        deleteFromServer(boxId:number) {
+        deleteFromServer(boxId: number) {
             if (!this.userDetailsFactory.isAuthenticated()) {
                 return;
             }
@@ -91,7 +97,7 @@
             return q.promise;
         }
 
-        boxUpdates(boxid:number) {
+        boxUpdates(boxid: number) {
             const promise = this.deferred.promise;
 
             var q = this.$q.defer();

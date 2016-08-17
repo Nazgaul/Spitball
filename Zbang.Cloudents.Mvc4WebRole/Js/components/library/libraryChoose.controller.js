@@ -3,9 +3,10 @@
     angular.module('app.library').controller('LibraryChoose', libraryChoose);
 
     libraryChoose.$inject = ['libraryService', '$state', 'countryService',
-        'userDetailsFactory', '$scope', 'resManager', 'realtimeFactotry'];
+        'userDetailsFactory', '$scope', 'resManager', 'realtimeFactotry', '$location','$rootScope'];
 
-    function libraryChoose(libraryService, $state, countryService, userDetailsFactory, $scope, resManager, realtimeFactotry) {
+    function libraryChoose(libraryService, $state, countryService, userDetailsFactory,
+        $scope, resManager, realtimeFactotry, $location, $rootScope) {
         var self = this, page = 0;
         self.term = '';
         self.universities = [];
@@ -119,7 +120,7 @@
                 $scope.app.showToaster(resManager.get('toasterOpenSchool'));
                 //userDetailsFactory.init(true).then(function () {
                 
-                goToLibrary();
+                goToLibrary(response.url);
                 //});
             }).finally(function () {
                 self.submitDisabled = false;
@@ -128,11 +129,16 @@
 
 
 
-        function goToLibrary() {
+        function goToLibrary(url) {
             userDetailsFactory.setUniversity().then(function () {
                 //bug 5120/
                 realtimeFactotry.changeUniversity();
-                $state.go('dashboard');
+                $rootScope.$broadcast('change-university');
+                if (!url) {
+                    $state.go('dashboard');
+                    return;
+                }
+                $location.url(url);
             });
         }
 

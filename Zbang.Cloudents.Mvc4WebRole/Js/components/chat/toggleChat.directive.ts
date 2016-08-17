@@ -2,36 +2,40 @@
     class ToggleChat implements angular.IDirective {
         restrict = 'A';
 
-        constructor(private chatBus) {
+        constructor(private chatBus, private $mdMedia: angular.material.IMedia) {
         }
         link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
+            var $html = $('html');
+            const className = 'expanded-chat';
             angular.element(element).on('click', () => {
-                $('html').toggleClass('expanded-chat');
+                $html.toggleClass(className);
 
             });
             scope.$on('expandChat', function () {
-                $('html').addClass('expanded-chat');
+                $html.addClass(className);
             });
-
+            if (!this.$mdMedia('xs')) {
+                return;
+            }
             var counterElem = $('.chat-counter');
-            scope.$watch(this.chatBus.getUnread
-                , (value) => {
+            scope.$watch(this.chatBus.getUnread,
+                (value) => {
                     if (value > 0) {
                         counterElem.text(value.toString()).show();
-                    }
-                    else {
+                    } else {
                         counterElem.hide();
                     }
                 });
+
         };
 
 
         public static factory(): angular.IDirectiveFactory {
-            var directive = (chatBus) => {
-                return new ToggleChat(chatBus);
+            const directive = (chatBus, $mdMedia) => {
+                return new ToggleChat(chatBus, $mdMedia);
             };
 
-            directive['$inject'] = ['chatBus'];
+            directive['$inject'] = ['chatBus', '$mdMedia'];
 
             return directive;
         }

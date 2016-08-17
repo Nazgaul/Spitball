@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
@@ -23,9 +24,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
             }
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
-                filterContext.Result = new EmptyResult();
-                //new JsonResult { Data = new JsonResponse(false),
-                //    JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                filterContext.Result = //new EmptyResult();
+                new JsonResult
+                {
+                    Data = new JsonResponse(false),
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
                 return;
             }
             filterContext.Result = new RedirectToRouteResult(

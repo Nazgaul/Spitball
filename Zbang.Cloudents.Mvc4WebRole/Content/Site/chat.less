@@ -83,8 +83,6 @@ html:not(.expanded-chat) {
         overflow: auto !important;
         height: 100% !important;
     }
-
-
 }
 
 .expanded-chat {
@@ -649,7 +647,11 @@ html:not(.expanded-chat) {
                     .align-items(stretch);
                     .justifyContet(space-between);
                     min-height: @newChatMessageHeight;
-                    padding: 6px 6px 20px 10px;
+                    padding: 6px 6px 6px 10px;
+
+                    @media(max-width: 600px) {
+                        padding: 6px 6px 20px 10px;
+                    }
                     //form, .textarea {
                     //    width: inherit;
                     //}
@@ -670,6 +672,10 @@ html:not(.expanded-chat) {
                     .menu {
                         .displayFlex;
                         .align-items(flex-end);
+
+                        @media(max-width: 600px) {
+                            .align-items(flex-start);
+                        }
 
                         svg.attach {
                             width: 26px;
@@ -695,9 +701,10 @@ html:not(.expanded-chat) {
                             color: @textColorBlack;
                             border: none !important;
                             line-height: 22px;
-                            padding: 0 0 50px 10px;
+                            padding: 0 0 0 10px;
 
                             @media(max-width: 600px) {
+                                padding: 0 0 50px 10px;
                                 min-height: @newChatMessageHeightMobile;
                             }
                         }

@@ -30,6 +30,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException();
             }
+            if (message.UniversityId != user.University.Id)
+            {
+                throw new UnauthorizedAccessException();
+            }
+
 
             var university = m_UniversityRepository.Load(message.UniversityId);
 

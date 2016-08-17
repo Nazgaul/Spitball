@@ -74,7 +74,7 @@
 
             @if (ViewBag.errorPage == null || !ViewBag.errorPage)
             {
-                <button type="button" toggle-chat user-not-register-popup="click" class="chat-icon" hide-gt-sm ng-if="app.showChat">
+                <button type="button" toggle-chat user-not-register-popup="click" class="chat-icon" hide-gt-sm ng-if="app.loadChat">
                     @Html.Svg("~/images/site/icons.svg", "chat")
                     <div class="chat-counter"></div>
                 </button>

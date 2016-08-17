@@ -16,7 +16,6 @@ var app;
             this.realtimeFactotry = realtimeFactotry;
             this.sbHistory = sbHistory;
             this.$state = $state;
-            this.chatDisplayState = 1; // collapsed
             this.back = function (defaultUrl) {
                 var element = _this.sbHistory.popElement();
                 if (!element) {
@@ -29,10 +28,6 @@ var app;
             this.logOut = function () {
                 _this.cacheFactory.clearAll();
                 Intercom("shutdown");
-            };
-            this.initChat = function () {
-                var details = _this.userDetails.get();
-                _this.loadChat = details.university.id > 0;
             };
             this.setTheme = function () {
                 _this.theme = "theme-" + _this.userDetails.get().theme;
@@ -63,28 +58,22 @@ var app;
             };
             $rootScope.$on("$viewContentLoaded", function () {
                 var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
-                // ReSharper disable UndeclaredGlobalVariableUsing
-                dataLayer.push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
-                __insp.push(["virtualPage"]); // inspectlet
-                // ReSharper restore UndeclaredGlobalVariableUsing
+                dataLayer.push({ event: "virtualPageView", virtualUrl: virtualUrl });
+                __insp.push(["virtualPage"]);
             });
             userDetails.init().then(function () {
                 _this.setTheme();
-                //if (data.university) {
-                _this.initChat();
-                //}
             });
             $rootScope.$on("$mdMenuClose", function () {
                 _this.menuOpened = false;
             });
-            this.showMenu = this.showSearch = this.showChat = true;
+            this.showMenu = this.showSearch = true;
             this.showBoxAd = false;
             this.isMobile = false;
             $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams) {
                 _this.showBoxAd = toState.parent === "box";
-                _this.showChat = _this.showSearch = !(toState.name === "universityChoose");
+                _this.showSearch = !(toState.name === "universityChoose");
                 _this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
-                // hub
                 if (toState.name.startsWith("box")) {
                     realtimeFactotry.assingBoxes(toParams.boxId);
                 }
@@ -93,13 +82,12 @@ var app;
                 if (!fromState.name) {
                     return;
                 }
-                // can't access anonymous user
                 if (toState.name === "user" && toParams.userId === 22886) {
                     event.preventDefault();
                     $rootScope.$broadcast("state-change-start-prevent");
                 }
-                $mdMenu.hide(); // closes menu
-                $mdToast.hide(); // hide toasters
+                $mdMenu.hide();
+                $mdToast.hide();
                 $rootScope.$broadcast("close-menu");
                 $rootScope.$broadcast("close-collapse");
                 var toStateName = toState.name;
@@ -143,4 +131,3 @@ var app;
     }());
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
-//# sourceMappingURL=app.controller.js.map

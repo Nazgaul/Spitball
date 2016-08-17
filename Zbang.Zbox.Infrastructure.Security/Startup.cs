@@ -43,15 +43,16 @@ namespace Zbang.Zbox.Infrastructure.Security
             if (shouldUseCookie)
             {
                 var cookieDomain = "spitball.co";
-
+                var cookieName = "dev-a4";
                 if (ConfigFetcher.IsRunningOnCloud) 
                 {
                     cookieDomain = "spitball.co"; //DO NOT CHANGE THIS AT ALL TIME
+                    cookieName = "a4";
                 }
                 app.UseCookieAuthentication(new CookieAuthenticationOptions
                 {
                     CookieDomain = cookieDomain,
-                    CookieName = "a4",
+                    CookieName = cookieName,
                     CookieSecure = CookieSecureOption.Always,
                     LogoutPath = new PathString("/account/logoff/"),
                     SlidingExpiration = true,

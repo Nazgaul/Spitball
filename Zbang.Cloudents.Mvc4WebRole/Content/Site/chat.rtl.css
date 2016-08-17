@@ -583,7 +583,12 @@ html:not(.expanded-chat) .chat .content .tab-content .search-friend .search-btn 
   -webkit-justify-content: space-between;
   justify-content: space-between;
   min-height: 50px;
-  padding: 6px 10px 20px 6px;
+  padding: 6px 10px 6px 6px;
+}
+@media (max-width: 600px) {
+  .chat .content .conversasion .chat-content .new-message {
+    padding: 6px 10px 20px 6px;
+  }
 }
 .chat .content .conversasion .chat-content .new-message form {
   width: 100%;
@@ -604,6 +609,12 @@ html:not(.expanded-chat) .chat .content .tab-content .search-friend .search-btn 
   display: flex;
   -webkit-align-items: flex-end;
   align-items: flex-end;
+}
+@media (max-width: 600px) {
+  .chat .content .conversasion .chat-content .new-message .menu {
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+  }
 }
 .chat .content .conversasion .chat-content .new-message .menu svg.attach {
   width: 26px;
@@ -629,10 +640,11 @@ html:not(.expanded-chat) .chat .content .tab-content .search-friend .search-btn 
   color: #282828;
   border: none !important;
   line-height: 22px;
-  padding: 0 10px 50px 0;
+  padding: 0 10px 0 0;
 }
 @media (max-width: 600px) {
   .chat .content .conversasion .chat-content .new-message md-input-container textarea {
+    padding: 0 10px 50px 0;
     min-height: 90px;
   }
 }

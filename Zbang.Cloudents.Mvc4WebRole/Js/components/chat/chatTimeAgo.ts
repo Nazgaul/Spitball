@@ -29,11 +29,11 @@
             }, (value) => {
 
                 if (value > threeDaysInMilliseconds) {
-                    angular.element(element).text('');
+                    element.text('');
                     unregister();
                     return;
                 }
-                angular.element(element).text(this.timeAgo.inWords(value, fromTime, scope.format));
+                element.text(this.timeAgo.inWords(value, fromTime, scope.format));
             });
         };
         static factory(): angular.IDirectiveFactory {

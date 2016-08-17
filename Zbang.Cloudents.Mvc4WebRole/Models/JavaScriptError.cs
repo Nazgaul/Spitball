@@ -20,7 +20,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
             sb.AppendLine("Cause:" + Cause);
             sb.AppendLine("ErrorMessage:" + ErrorMessage);
             sb.AppendLine("ErrorUrl:" + ErrorUrl);
-            sb.AppendLine("StackTrace:" + String.Join("\n", StackTrace));
+            if (StackTrace != null)
+            {
+                sb.AppendLine("StackTrace:" + string.Join("\n", StackTrace));
+            }
             return sb.ToString();
         }
     }

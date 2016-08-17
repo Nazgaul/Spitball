@@ -7,7 +7,7 @@ var app;
             this.restrict = 'A';
             this.link = function (scope, element, attrs) {
                 if (_this.$mdMedia('xs')) {
-                    angular.element(element).on(attrs['hideChatOnMobile'], function () {
+                    element.on(attrs['hideChatOnMobile'], function () {
                         $('html').removeClass('expanded-chat');
                     });
                 }

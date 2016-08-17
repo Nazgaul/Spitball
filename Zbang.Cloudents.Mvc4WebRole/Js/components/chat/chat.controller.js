@@ -28,7 +28,7 @@
         c.send = send;
         c.messages = [];
         c.backFromChat = backFromChat;
-        c.unread = 0;
+        //c.unread = 0;
         c.dialog = dialog;
         c.users = [];
         c.usersPaging = usersPaging;
@@ -37,10 +37,20 @@
         c.focusSearch = false;
 
         userDetailsFactory.init().then(function (response) {
-            c.unread = response.unread;
-            chatBus.setUnread(response.unread);
-            search();
+            if (response.university.id > 0) {
+                //c.unread = response.unread;
+                chatBus.setUnread(response.unread);
+                c.loadChat = response.university.id > 0;
+                search();
+            }
         });
+
+        
+        $scope.$on('change-university',
+            function() {
+                c.loadChat = userDetailsFactory.getUniversity() > 0;
+                search();
+            });
 
 
         c.scrollSetting = {
@@ -78,11 +88,11 @@
                 for (var i = 0; i < c.users.length; i++) {
                     x += c.users[i].unread || 0;
                 }
-                c.unread = x;
+                //c.unread = x;
                 chatBus.setUnread(x);
             } else {
-                c.unread = ++c.unread;
-                chatBus.setUnread(c.unread);
+                //c.unread = ++c.unread;
+                chatBus.setUnread(++c.unread);
             }
 
         }
@@ -145,13 +155,13 @@
                 updateUnread();
             }
 
-            $rootScope.$broadcast('expandChat');
+            $rootScope.$broadcast("expandChat");
             c.state = c.states.chat;
         }
 
         function expandSearch() {
-            $rootScope.$broadcast('expandChat');
-            c.focusSearch = true
+            $rootScope.$broadcast("expandChat");
+            c.focusSearch = true;
         }
 
         function loadMoreMessages() {
