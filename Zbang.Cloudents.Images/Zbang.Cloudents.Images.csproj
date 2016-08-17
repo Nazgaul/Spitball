@@ -109,6 +109,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="images\DefaultUni.jpg" />
+    <Content Include="images\DefaultUni2.jpg" />
     <Content Include="images\HP_image1920.jpg" />
     <Content Include="images\Icons_720_doc.png" />
     <Content Include="images\Icons_720_drive.png" />
