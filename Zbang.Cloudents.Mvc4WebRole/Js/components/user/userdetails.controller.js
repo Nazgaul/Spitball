@@ -7,11 +7,12 @@
         var ud = this;
         ud.isLoggedIn = false;
         //ud.sendMessage = sendMessage;
-        userDetails.init().then(function () {
-            assignValues(userDetails.get());
+        userDetails.init().then(function (response) {
+            assignValues(response);
 
             ud.isLoggedIn = userDetails.isAuthenticated();
             ud.loaded = true;
+            ud.showChat = response.university.id > 0;
         });
         ud.signup = function (e) {
             var url = getParameterByName('returnUrl', e.target.href);
@@ -20,6 +21,10 @@
         $scope.$on('userDetailsChange', function () {
             assignValues(userDetails.get());
         });
+        $scope.$on('change-university',
+           function () {
+               ud.showChat = userDetails.getUniversity() > 0;
+           });
 
         function assignValues(response) {
             ud.id = response.id;
