@@ -66,8 +66,8 @@ html:not(.expanded-chat) .chat .content .tab-content .search-friend .search-btn 
 @media (max-width: 600px) {
   .expanded-chat,
   .expanded-chat body {
+    overflow: scroll;
     -webkit-overflow-scrolling: touch !important;
-    overflow: auto !important;
     height: 100% !important;
   }
 }
