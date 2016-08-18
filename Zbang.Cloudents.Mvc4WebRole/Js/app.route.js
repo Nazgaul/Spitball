@@ -8,7 +8,6 @@
             .state('root', {
                 abstract: true,
                 resolve: {
-                    
                     user: [
                         '$q', 'userDetailsFactory', function ($q, userDetails) {
                             //$q https://github.com/angular-ui/ui-router/issues/105
@@ -16,7 +15,20 @@
                         }
                     ]
                 },
-                template: '<div class="page-animation" ui-view animation-class></div>'
+                views: {
+                    "": { template: '<div class="page-animation" ui-view animation-class></div>' },
+                    "user-profile": {
+                        controller: "UserDetailsController as ud",
+                        templateProvider: ['user', 'ajaxService2', function (user, ajaxService2) {
+                            if (user.id) {
+                                return ajaxService2.getHtml('account/userdetails');// '<div>hello ram</div>';
+                            } else {
+                                return ajaxService2.getHtml('account/unregisterview');
+                            }
+                        }]
+                    }
+                }
+                //template: '<div class="page-animation" ui-view animation-class></div>'
             });
         //$urlRouterProvider.otherwise('/dashboard/');
     }
@@ -53,7 +65,12 @@
                             url: '/search/?q&t',
                             controller: 'SearchController as s',
                             data: { animateClass: 'search' },
-                            reloadOnSearch: false
+                            reloadOnSearch: false,
+                            //views: {
+                            //    "user-profile@": {
+                            //        template: '<div>hi</div>'
+                            //    }
+                            //}
                         },
                         templateUrl: '/search/indexpartial/'
                     }

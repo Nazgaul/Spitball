@@ -2,7 +2,7 @@
 var app;
 (function (app) {
     "use strict";
-    var minute = 60 * 1000, hour = 60 * minute, day = 24 * hour;
+    var second = 1000, minute = 60 * second, hour = 60 * minute, day = 24 * hour;
     var cancelObjs = {};
     var AjaxService2 = (function () {
         function AjaxService2($http, $q, analytics, cacheFactory, routerHelper) {
@@ -29,6 +29,13 @@ var app;
                     maxAge: 15 * minute
                 }
             };
+            var dChat = window['dChat'];
+            if (dChat.indexOf('develop') > -1) {
+                this.cacheCategories.html = {
+                    maxAge: 1 * second,
+                    storageMode: "localStorage"
+                };
+            }
             for (var cacheKey in this.cacheCategories) {
                 this.buildFactoryObject(cacheKey);
             }

@@ -1,0 +1,11 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@{
+    var returnUrl = Request.QueryString["returnUrl"] ?? Request.Url.ToString();
+    var invId = Request.QueryString["invId"];
+
+}
+<div class="login-buttons">
+    <a ng-click="ud.signup($event)" class="btn btn-default" target="_self" href="@Url.RouteUrl("HomePage", new { returnUrl, invId, step="signup" })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
+    <a ng-click="ud.signup($event)" class="btn button-Blue btn-primary" target="_self" href="@Url.RouteUrl("HomePage", new { returnUrl, invId, step="signin" })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
+</div>
+

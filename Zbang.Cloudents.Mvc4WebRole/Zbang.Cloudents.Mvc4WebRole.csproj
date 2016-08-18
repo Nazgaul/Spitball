@@ -2582,6 +2582,8 @@
     <Content Include="Views\Shared\Partials2\_Chat.cshtml" />
     <Content Include="Views\Chat\PreviewDialog.cshtml" />
     <Content Include="Views\Shared\_Body.cshtml" />
+    <Content Include="Views\Account\UserDetails.cshtml" />
+    <Content Include="Views\Account\UnregisterView.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

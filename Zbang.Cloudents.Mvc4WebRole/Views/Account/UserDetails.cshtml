@@ -1,0 +1,59 @@
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@{
+    const string svgUrl = "~/images/site/icons.svg";
+    var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
+}
+
+<div layout="row" layout-align="center center" flex="none">
+    <button type="button" toggle-chat user-not-register-popup="click" class="chat-icon" hide-gt-sm ng-if="ud.showChat">
+        @Html.Svg("~/images/site/icons.svg", "chat")
+        <div class="chat-counter"></div>
+    </button>
+    @*@if (ViewBag.errorPage == null || !ViewBag.errorPage)
+            {*@
+        
+    @*}*@
+    <md-menu class="user-md-menu hoverBackgroundTC28" hide-xs md-offset="10 80">
+        <md-button ng-click="$mdOpenMenu($event)" aria-label="Open menu">
+            <div class="md-icon-button">
+                <md-icon md-menu-origin>
+                    <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
+                </md-icon>
+                <span>{{ud.name}}</span>
+            </div>
+        </md-button>
+        <md-menu-content md-menu-align-target class="md-user-menu">
+            <md-menu-item class="user-menu-item">
+                <md-button href="{{::ud.url}}" @shouldPostBack ga-track-event="['header', 'user activities']">
+                    <md-icon md-menu-align-target>@Html.Svg(svgUrl, "userMenu", new { @class = "svgTC16" })</md-icon>
+                    @IndexResources.User
+                </md-button>
+            </md-menu-item>
+            <md-menu-item class="user-menu-item">
+                <md-button href="@Url.RouteUrl("AccountSettings")" @shouldPostBack ga-track-event="['header', 'settings']">
+                    <md-icon md-menu-align-target>@Html.Svg(svgUrl, "settingMenu", new { @class = "svgTC16" })</md-icon>
+                    @IndexResources.Settings
+                </md-button>
+            </md-menu-item>
+            <md-menu-item class="user-menu-item">
+                <md-button id="Intercom" href="mailto:njmpgayv@incoming.intercom.io">
+                    <md-icon md-menu-align-target>@Html.Svg(svgUrl, "intercom", new { @class = "svgTC16" })</md-icon>
+                    @IndexResources.Intercom
+                </md-button>
+            </md-menu-item>
+            <md-menu-item class="user-menu-item">
+                <md-button href="@Url.RouteUrl("Help")" target="_self" ga-track-event="['header', 'help']">
+                    <md-icon md-menu-align-target>@Html.Svg(svgUrl, "headerHelp", new { @class = "svgTC16" })</md-icon>
+                    @SharedResources.Help
+                </md-button>
+            </md-menu-item>
+            <md-menu-item class="user-menu-item">
+                <md-button ng-click="app.logOut()" target="_self" href="@Url.Action("logoff","account")" @shouldPostBack ga-track-event="['header', 'logout']">
+                    <md-icon md-menu-align-target>@Html.Svg(svgUrl, "logOffMenu", new { @class = "svgTC16" })</md-icon>
+                    @IndexResources.Logout
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+</div>
+

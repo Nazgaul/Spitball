@@ -14,7 +14,7 @@
             scope.$on('expandChat', () => {
                 $html.addClass(className);
             });
-            if (!this.$mdMedia('xs')) {
+            if (this.$mdMedia('gt-sm')) {
                 return;
             }
             var counterElem = $('.chat-counter');

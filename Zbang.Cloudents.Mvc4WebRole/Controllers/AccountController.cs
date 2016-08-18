@@ -60,7 +60,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_CookieHelper = cookieHelper;
             m_LanguageCookie = languageCookie;
             m_GoogleService = googleService;
-            //m_ThemeCookieHelper = themeCookieHelper;
         }
 
 
@@ -68,6 +67,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             return RedirectToRoutePermanent("homePage", new  { lang, invId });
         }
+
+        
 
         #region Login
 
@@ -506,6 +507,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var user = await ZboxReadService.GetUserAccountDetailsAsync(query);
             return JsonOk(user);
+        }
+
+
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        [ZboxAuthorize]
+        public ActionResult UserDetails()
+        {
+            return PartialView();
+        }
+
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+       
+        public ActionResult UnregisterView()
+        {
+            return PartialView();
         }
 
         [DonutOutputCache(CacheProfile = "PartialPage")]

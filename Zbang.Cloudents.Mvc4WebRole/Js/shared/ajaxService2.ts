@@ -24,7 +24,9 @@ module app {
 
     export type cacheKeys = "university" | "accountDetail" | "html" | "department" | "itemComment";
 
-    const minute = 60 * 1000,
+    const
+        second = 1000,
+        minute = 60 * second,
         hour = 60 * minute,
         day = 24 * hour;
     var cancelObjs = {};
@@ -37,9 +39,18 @@ module app {
             private cacheFactory: Factory,
             private routerHelper: IRouterHelper) {
 
+
+            const dChat: string = window['dChat'];
+            if (dChat.indexOf('develop') > -1) {
+                this.cacheCategories.html = {
+                    maxAge: 1 * second,
+                    storageMode: "localStorage"
+                }
+            }
             for (let cacheKey in this.cacheCategories) {
                 this.buildFactoryObject(cacheKey);
             }
+            
         }
         private cacheCategories = {
             university: {
@@ -59,6 +70,7 @@ module app {
                 maxAge: 15 * minute
             }
         };
+        
 
 
 

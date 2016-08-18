@@ -1,14 +1,13 @@
 ﻿
 module app {
     'use strict';
-    declare var JsResources: any;
-
+    //declare var JsResources: any;
     export interface IResManager  {
         get(value: string): string;
     }
     class ResManager implements IResManager {
         static $inject = ['$location','ajaxService2'];
-        private jsResources = JsResources;
+        private jsResources = window['JsResources'];
         constructor(private $location: angular.ILocationService, private ajaxService: IAjaxService2) {
             return this;
         }
