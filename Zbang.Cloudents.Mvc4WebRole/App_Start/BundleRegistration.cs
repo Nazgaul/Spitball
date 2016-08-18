@@ -157,7 +157,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/Scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
-                        new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"),
+                        new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"),
                         new JsFileWithCdn("~/Scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/Scripts/angular-messages.js"),
                         new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
@@ -175,7 +175,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/Scripts/angular-animate.js"),
                         new JsFileWithCdn("~/Scripts/angular-aria.js"),
-                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"), 
+                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.9/angular-material.min.js"), 
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
 
