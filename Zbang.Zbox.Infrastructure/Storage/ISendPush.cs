@@ -23,5 +23,12 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task SendInviteNotificationAsync(string userNameOfAction,
             string boxName, long boxId,
             long userId);
+
+        Task SendChatFileNotificationAsync(string userNameOfAction, Guid conversationId,
+            IList<long> userIds);
+
+        Task SendChatMessageNotificationAsync(string userNameOfAction,
+            string text, Guid conversationId,
+            IList<long> userIds);
     }
 }

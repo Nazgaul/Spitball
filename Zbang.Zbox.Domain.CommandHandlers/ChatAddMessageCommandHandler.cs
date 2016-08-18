@@ -35,13 +35,20 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var userAction = m_UserRepository.Load(message.UserId);
             var chatMessage = new ChatMessage(chatRoom, userAction, message.Message, message.BlobName);
 
-            Task t = Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            var t = Infrastructure.Extensions.TaskExtensions.CompletedTask;
             foreach (var user in chatRoom.Users)
             {
                 if (!user.User.Online)
                 {
-                    t =  m_QueueRepository.InsertMessageToMailNewAsync(new MessageMailData2(message.Message, user.User.Email,
-                        userAction.Name, userAction.ImageLarge, userAction.Email, user.User.Culture));
+                    t = m_QueueRepository.InsertMessageToMailNewAsync(new MessageMailData(
+                        message.Message,
+                        user.User.Email,
+                        userAction.Name,
+                        userAction.ImageLarge,
+                        userAction.Email,
+                        user.User.Culture,
+                        user.User.Id,
+                        chatRoom.Id));
                 }
                 if (user.User.Id == message.UserId)
                 {

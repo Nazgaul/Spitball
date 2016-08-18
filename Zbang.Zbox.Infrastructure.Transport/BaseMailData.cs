@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Transport
     [ProtoInclude(15, typeof(ChangeEmailData))]
     [ProtoInclude(16, typeof(ForgotPasswordData2))]
     [ProtoInclude(17, typeof(InviteToCloudentsData))]
-    [ProtoInclude(18, typeof(MessageMailData2))]
+    [ProtoInclude(18, typeof(MessageMailData))]
     [ProtoInclude(19, typeof(RequestAccessData))]
     [ProtoInclude(20, typeof(AccessApprovedData))]
     [ProtoInclude(21, typeof(ReplyToCommentData))]

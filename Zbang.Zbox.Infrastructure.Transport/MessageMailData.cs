@@ -1,51 +1,42 @@
-﻿namespace Zbang.Zbox.Infrastructure.Transport
+﻿using System;
+using ProtoBuf;
+
+namespace Zbang.Zbox.Infrastructure.Transport
 {
-    //[ProtoBuf.ProtoContract]
-    //public class MessageMailData : BaseMailData
-    //{
-    //    protected MessageMailData()
-    //    {
 
-    //    }
-    //    public MessageMailData(string message,string emailAddress,string senderUserName, string culture)
-    //        :base(emailAddress,culture)
-    //    {
-    //        SenderUserName = senderUserName;
-    //        Message = message;
-    //    }
-    //    [ProtoBuf.ProtoMember(1)]
-    //    public string Message { get; private set; }
-    //    [ProtoBuf.ProtoMember(2)]
-    //    public string SenderUserName { get; private set; }
-
-
-    //    public override string MailResover => MessageResolver;
-    //}
-
-    [ProtoBuf.ProtoContract]
-    public class MessageMailData2 : BaseMailData
+    [ProtoContract]
+    public class MessageMailData : BaseMailData
     {
-        protected MessageMailData2()
+        protected MessageMailData()
         {
-
         }
-        public MessageMailData2(string message, string emailAddress, string senderUserName, string senderImage,string senderEmail,
-            string culture)
+
+        public MessageMailData(string message, string emailAddress, string senderUserName,
+            string senderImage,string senderEmail,
+            string culture, long userId, Guid conversationId)
             : base(emailAddress, culture)
         {
             SenderUserName = senderUserName;
             Message = message;
             SenderUserImage = senderImage;
             SenderUserEmail = senderEmail;
+            UserId = userId;
+            ConversationId = conversationId;
         }
-        [ProtoBuf.ProtoMember(1)]
+        [ProtoMember(1)]
         public string Message { get; private set; }
-        [ProtoBuf.ProtoMember(2)]
+        [ProtoMember(2)]
         public string SenderUserName { get; private set; }
-        [ProtoBuf.ProtoMember(3)]
+        [ProtoMember(3)]
         public string SenderUserImage { get; private set; }
-        [ProtoBuf.ProtoMember(4)]
+        [ProtoMember(4)]
         public string SenderUserEmail { get; private set; }
+
+        [ProtoMember(5)]
+        public long UserId { get; private set; }
+
+        [ProtoMember(6)]
+        public Guid ConversationId { get; private set; }
 
         public override string MailResover => MessageResolver;
     }
