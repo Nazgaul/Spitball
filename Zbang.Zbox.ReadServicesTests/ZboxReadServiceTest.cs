@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Rhino.Mocks;
 using System;
+using System.Threading;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.ReadServices;
@@ -552,10 +553,10 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetBoxRecommendedCourses_Query_ReturnResult()
         {
-            var query = new GetBoxSideBarQuery(60130);
+            var query = new GetBoxSideBarQuery(60130,1);
             try
             {
-                var x = await m_ZboxReadService.GetBoxRecommendedCoursesAsync(query);
+                var x = await m_ZboxReadService.GetBoxRecommendedCoursesAsync(query,default(CancellationToken));
             }
             catch (Exception ex)
             {

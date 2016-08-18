@@ -1,48 +1,45 @@
-﻿'use strict';
-(function () {
-    angular.module('app.chat').factory('chatBus', chatBus);
-    chatBus.$inject = ['ajaxService2'];
-
-    function chatBus(ajaxService) {
-        var unreadCount = 0;
-        var chatService = {};
-
-        chatService.setUnread = function (count) {
-            unreadCount = count;
-        };
-        chatService.getUnread = function () {
-            return unreadCount;
-        };
-
-        chatService.messages = function (q,page) {
-            return ajaxService.get('/chat/conversation', { q: q, page: page });
+var app;
+(function (app) {
+    "use strict";
+    var ChatBus = (function () {
+        function ChatBus(ajaxService) {
+            this.ajaxService = ajaxService;
+            this.unreadCount = 0;
         }
-        chatService.chat = function (id, userIds, dateTime, top) {
-            return ajaxService.get('/chat/messages', {
+        ChatBus.prototype.setUnread = function (count) {
+            this.unreadCount = count;
+        };
+        ;
+        ChatBus.prototype.getUnread = function () {
+            return this.unreadCount;
+        };
+        ;
+        ChatBus.prototype.messages = function (q, page) {
+            return this.ajaxService.get("/chat/conversation", { q: q, page: page });
+        };
+        ChatBus.prototype.chat = function (id, userIds, dateTime, top) {
+            return this.ajaxService.get("/chat/messages", {
                 chatRoom: id,
                 userIds: userIds,
                 startTime: dateTime,
                 top: top
             });
-        }
-        chatService.preview = function(blob, i) {
-            return ajaxService.get('/chat/Preview', {
+        };
+        ChatBus.prototype.preview = function (blob, i) {
+            return this.ajaxService.get("/chat/Preview", {
                 blobName: blob,
-                index : i
+                index: i
             });
-        }
-        //chatService.unread = function () {
-        //
-        //    //return ajaxService.get('chat/unreadcount');
-        //}
-
-        chatService.read = function(id) {
-            return ajaxService.post('chat/markread', {
+        };
+        ChatBus.prototype.read = function (id) {
+            return this.ajaxService.post("chat/markread", {
                 chatRoom: id
             });
-        }
-
-
-        return chatService;
-    }
-})()
+        };
+        ChatBus.$inject = ["ajaxService2"];
+        return ChatBus;
+    }());
+    angular
+        .module("app.chat")
+        .service("chatBus", ChatBus);
+})(app || (app = {}));

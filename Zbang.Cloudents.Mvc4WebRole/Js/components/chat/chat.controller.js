@@ -409,32 +409,32 @@
 
 
 //'use strict';
-(function () {
-    angular.module('app.chat').controller('previewController', previewController);
-    previewController.$inject = ['$mdDialog', 'doc', 'blob', '$rootScope', '$sce'];
-    function previewController($mdDialog, doc, blob, $rootScope, $sce) {
-        var lc = this;
-        //lc.users = users;
-        lc.close = close;
-        console.log(doc);
-        function close() {
-            $mdDialog.hide();
-        }
-        //console.log('doc.viewName', doc.viewName);
+//(function () {
+//    angular.module('app.chat').controller('previewController', previewController);
+//    previewController.$inject = ['$mdDialog', 'doc', 'blob', '$rootScope', '$sce'];
+//    function previewController($mdDialog, doc, blob, $rootScope, $sce) {
+//        var lc = this;
+//        //lc.users = users;
+//        lc.close = close;
+//        console.log(doc);
+//        function close() {
+//            $mdDialog.hide();
+//        }
+//        //console.log('doc.viewName', doc.viewName);
 
-        if (!doc || !doc.viewName) {
-            lc.view = 'preview-faild.html';
-            lc.downloadLink = '/chat/download/?blobName=' + blob;
-        }
-        else {
-            lc.items = doc.content;
-            if (doc.viewName === 'Text') {
-                lc.items[0] = $sce.trustAsResourceUrl(lc.items[0]);
-            }
-            lc.view = 'chat-' + doc.viewName + '.html';
-        }
-        $rootScope.$on('$stateChangeStart', function () {
-            $mdDialog.hide();
-        });
-    }
-})();
+//        if (!doc || !doc.viewName) {
+//            lc.view = 'preview-faild.html';
+//            lc.downloadLink = '/chat/download/?blobName=' + blob;
+//        }
+//        else {
+//            lc.items = doc.content;
+//            if (doc.viewName === 'Text') {
+//                lc.items[0] = $sce.trustAsResourceUrl(lc.items[0]);
+//            }
+//            lc.view = 'chat-' + doc.viewName + '.html';
+//        }
+//        $rootScope.$on('$stateChangeStart', function () {
+//            $mdDialog.hide();
+//        });
+//    }
+//})();

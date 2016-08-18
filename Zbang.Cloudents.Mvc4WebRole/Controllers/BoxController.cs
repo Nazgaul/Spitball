@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -226,12 +227,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpGet]
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [BoxPermission("id"), ActionName("Recommended")]
-        public async Task<JsonResult> RecommendedAsync(long id)
+        [AsyncTimeout(TimeConst.Second * 3 * 1000)]
+        public async Task<JsonResult> RecommendedAsync(long id, CancellationToken cancellationToken)
         {
             try
             {
-                var query = new GetBoxSideBarQuery(id);
-                var result = await ZboxReadService.GetBoxRecommendedCoursesAsync(query);
+                var token = CreateCancellationToken(cancellationToken);
+                var userId = User.GetUserId(false);
+                var query = new GetBoxSideBarQuery(id, userId);
+                var result = await ZboxReadService.GetBoxRecommendedCoursesAsync(query, token.Token);
                 return JsonOk(result);
             }
             catch (Exception ex)

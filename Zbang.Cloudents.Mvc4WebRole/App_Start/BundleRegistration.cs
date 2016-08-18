@@ -329,6 +329,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/chat/chat.factory.js"),
                         new JsFileWithCdn("~/js/components/chat/hubFactory.js"),
                         new JsFileWithCdn("~/js/components/chat/chatTimeAgo.js"),
+                        new JsFileWithCdn("~/js/components/chat/previewController.js"),
                         new JsFileWithCdn("~/js/components/chat/toggleChat.directive.js"),
                         new JsFileWithCdn("~/js/components/chat/hideChatOnMobile.directive.js"),
                         

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -60,7 +61,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 return
                     await
-                        conn.QuerySingleOrDefaultAsync<long?>("select id from zbox.university where url=@url",new { url });
+                        conn.QuerySingleOrDefaultAsync<long?>("select id from zbox.university where url=@url", new { url });
             }
         }
 
@@ -71,7 +72,7 @@ namespace Zbang.Zbox.ReadServices
                 return
                     await
                         conn.QueryAsync<Box.RecommendBoxDto>(Sql.HomePage.UniversityBoxes,
-                            new {query.UniversityId, query.Country});
+                            new { query.UniversityId, query.Country });
             }
         }
 
@@ -364,7 +365,7 @@ namespace Zbang.Zbox.ReadServices
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 using (var grid = await conn.QueryMultipleAsync($"{Sql.Item.ItemComments} {Sql.Item.ItemCommentReply}",
-                    new {query.ItemId}))
+                    new { query.ItemId }))
                 {
                     var retVal = await grid.ReadAsync<Activity.AnnotationDto>();
 
@@ -398,7 +399,7 @@ namespace Zbang.Zbox.ReadServices
                         throw new ItemNotFoundException();
                     }
                     retVal.Navigation = grid.Read<Item.ItemNavigationDto>().FirstOrDefault();
-                   
+
                     retVal.Like = grid.Read<int>().FirstOrDefault();
                     return retVal;
                 }
@@ -406,12 +407,14 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<Box.RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query)
+        public async Task<IEnumerable<Box.RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query,CancellationToken token)
         {
-            using (var con = await DapperConnection.OpenConnectionAsync())
+            using (var con = await DapperConnection.OpenConnectionAsync(token))
             {
-                return await con.QueryAsync<Box.RecommendBoxDto>(Sql.Box.RecommendedCourses,
-                    new { query.BoxId });
+                return await con.QueryAsync<Box.RecommendBoxDto>(
+                    new CommandDefinition(Sql.Box.RecommendedCourses, new { query.BoxId, query.UserId },commandTimeout:5,cancellationToken: token)
+                );
+                
             }
         }
         public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query)

@@ -8,7 +8,7 @@
     }
 
     class UserUpdatesService implements IUserUpdatesService {
-        static $inject = ["ajaxService", "$q", "userDetailsFactory", "$rootScope", "$window", "$stateParams"];
+        static $inject = ["ajaxService2", "$q", "userDetailsFactory", "$rootScope", "$window", "$stateParams"];
 
         private data: Array<any>;
         private deferred: angular.IDeferred<any>;
