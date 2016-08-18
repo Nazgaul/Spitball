@@ -77,10 +77,9 @@ html:not(.expanded-chat) {
 }
 
 .expanded-chat, .expanded-chat body {
-
     @media(max-width: 600px) {
+        overflow: scroll;
         -webkit-overflow-scrolling: touch !important;
-        overflow: auto !important;
         height: 100% !important;
     }
 }
