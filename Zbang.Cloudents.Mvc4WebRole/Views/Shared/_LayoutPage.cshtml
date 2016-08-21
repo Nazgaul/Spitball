@@ -41,37 +41,39 @@
     <header id="main-nav" class="nav-bar color-override backgroundColor2" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
         <div class="logo-search" layout="row" layout-align="start center" flex="100">
             <button type="button" ng-if="app.showMenu" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" hide-chat-on-mobile="click" ga-track-event="['header', 'open menu']">
-                @Html.Svg(svgUrl, "headerMenu", new {@class = "headerMenu svgTC17 hoverSvgTC18"})
+                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu svgTC17 hoverSvgTC18" })
             </button>
             <div class="logo">
                 <div class="page-logo">
                     <a href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']" hide-chat-on-mobile="click">
-                        @Html.Svg(svgUrl, "logo", new {@class = "logo-default", hide_xs = ""})
-                        @Html.Svg(svgUrl, "smallLogo", new {@class = "logo-small", hide = "", show_xs = ""})
+                        @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
+                        @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-small", hide = "", show_xs = "" })
                     </a>
                 </div>
             </div>
-            <form ng-controller="SearchTriggerController as st" ng-show="st.show"
-                  ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
-                  novalidate class="search-form search-form-expanded" ng-if="app.showSearch">
-                <div class="search-area color-override backgroundColor4">
-                    <input required ng-change="st.change(searchTrigger.$valid)"
-                           ng-focus="app.expandSearch = true;"
-                           ng-blur="app.expandSearch = false"
-                           ng-model="st.term"
-                           ng-minlength="2"
-                           ng-model-options="{debounce : 1000}"
-                           hide-chat-on-mobile="focus"
-                           type="search" class="text"
-                           user-not-register-popup="focus" placeholder="@GeneralResources.Search"/>
-                    <button type="submit" class="search-btn color-override backgroundColor11" ng-disabled="!st.term.length">
-                        <span>@Html.Svg(svgUrl, "searchIcon", new {@class = "searchIcon color-override svgColor3"})</span>
-                    </button>
-                </div>
-            </form>
+            <div ui-view="search-bar"></div>
+            <script type="text/ng-template" id="search-bar.html">
+                <form ng-show="st.show"
+                      ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
+                      novalidate class="search-form search-form-expanded">
+                    <div class="search-area color-override backgroundColor4">
+                        <input required ng-change="st.change(searchTrigger.$valid)"
+                               ng-focus="app.expandSearch = true;"
+                               ng-blur="app.expandSearch = false"
+                               ng-model="st.term"
+                               ng-minlength="2"
+                               ng-model-options="{debounce : 1000}"
+                               hide-chat-on-mobile="focus"
+                               type="search" class="text"
+                               user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
+                        <button type="submit" class="search-btn color-override backgroundColor11" ng-disabled="!st.term.length">
+                            <span>@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })</span>
+                        </button>
+                    </div>
+                </form>
+            </script>
         </div>
         <div ui-view="user-profile"></div>
-        
     </header>
 
     @*'hidden-chat' : app.chatDisplayState === 0,*@

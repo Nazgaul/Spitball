@@ -112,11 +112,6 @@ namespace Testing
         static void Main(string[] args)
         {
 
-            long? uni = 50;
-            var x = uni.ToString();
-
-
-
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
@@ -170,126 +165,72 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
-            var writeService = iocFactory.Resolve<IItemWriteSearchProvider3>();
-            writeService.UpdateDataAsync(null, new long[]
-            {
-                71616,
-                71617,
-                71618,
-                71619,
-                71620,
-                71621,
-                71622,
-                71623,
-                71624,
-                71625,
-                71626,
-                71627,
-                71628,
-                71629,
-                71630,
-                71631,
-                71632,
-                71633,
-                71634,
-                71635,
-                71636,
-                71637,
-                71638,
-                71639,
-                71640,
-                71641,
-                71642,
-                71643,
-                71644,
-                71645,
-                71646,
-                71647,
-                71648,
-                71649,
-                71650,
-                71651,
-                71652,
-                71653,
-                71654,
-                71655,
-                71656,
-                214483,
-                215341,
-                215342,
-                225765,
-                378172,
-                378173,
-                378174,
-                378175,
-                378176,
-                378182,
-                378184,
-                378189,
-                378190,
-                378191,
-                378281
-            }).Wait();
+            var clusterflunkFilesCopy = new ClusterflunkFilesCopy(iocFactory);
+            //var t1 = clusterflunkFilesCopy.BuildBoxesAsync();
+            //t1.Wait();
+            var t = clusterflunkFilesCopy.BuildFilesAsync();
+            t.Wait();
+
 
         }
 
-        private static async Task GetValue()
-        {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            var httpClient = new HttpClient();
-            var iocFactory = IocFactory.IocWrapper;
-            var blobProvider = iocFactory.Resolve<ICloudBlockProvider>();
-            using (var conn = DapperConnection.OpenConnection())
-            {
-                var data = conn.Query("select Id, LargeImage from zbox.University where LargeImage not like 'https://az%' ");
-                foreach (var singleRow in data)
-                {
-                    string extension = Path.GetExtension(singleRow.LargeImage);
-                    try
-                    {
-                        using (var sr = await httpClient.GetAsync(singleRow.LargeImage))
-                        {
+        //private static async Task GetValue()
+        //{
+        //    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+        //    var httpClient = new HttpClient();
+        //    var iocFactory = IocFactory.IocWrapper;
+        //    var blobProvider = iocFactory.Resolve<ICloudBlockProvider>();
+        //    using (var conn = DapperConnection.OpenConnection())
+        //    {
+        //        var data = conn.Query("select Id, LargeImage from zbox.University where LargeImage not like 'https://az%' ");
+        //        foreach (var singleRow in data)
+        //        {
+        //            string extension = Path.GetExtension(singleRow.LargeImage);
+        //            try
+        //            {
+        //                using (var sr = await httpClient.GetAsync(singleRow.LargeImage))
+        //                {
 
-                            if (!sr.IsSuccessStatusCode)
-                            {
-                                conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
-                                {
-                                    //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
-                                    id = singleRow.Id
-                                });
-                                continue;
-                                //throw new UnauthorizedAccessException("Cannot access dropbox");
-                            }
-                            ////sr.Content.Headers.ContentType.
-                            CloudBlockBlob blob = blobProvider.GetFile(singleRow.Id.ToString() + extension,
-                                "universities");
-                            using (var stream = await blob.OpenWriteAsync())
-                            {
-                                await sr.Content.CopyToAsync(stream);
+        //                    if (!sr.IsSuccessStatusCode)
+        //                    {
+        //                        conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
+        //                        {
+        //                            //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+        //                            id = singleRow.Id
+        //                        });
+        //                        continue;
+        //                        //throw new UnauthorizedAccessException("Cannot access dropbox");
+        //                    }
+        //                    ////sr.Content.Headers.ContentType.
+        //                    CloudBlockBlob blob = blobProvider.GetFile(singleRow.Id.ToString() + extension,
+        //                        "universities");
+        //                    using (var stream = await blob.OpenWriteAsync())
+        //                    {
+        //                        await sr.Content.CopyToAsync(stream);
 
-                            }
-                            blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
-                            blob.Properties.CacheControl = "public  max-age=" + TimeConst.Week;
-                            await blob.SetPropertiesAsync();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
-                        {
-                            //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
-                            id = singleRow.Id
-                        });
-                        continue;
-                    }
-                    conn.Execute("update zbox.university set isdirty = 1, largeImage=@image where id=@id", new
-                    {
-                        image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
-                        id = singleRow.Id
-                    });
-                }
-            }
-        }
+        //                    }
+        //                    blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
+        //                    blob.Properties.CacheControl = "public  max-age=" + TimeConst.Week;
+        //                    await blob.SetPropertiesAsync();
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
+        //                {
+        //                    //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+        //                    id = singleRow.Id
+        //                });
+        //                continue;
+        //            }
+        //            conn.Execute("update zbox.university set isdirty = 1, largeImage=@image where id=@id", new
+        //            {
+        //                image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+        //                id = singleRow.Id
+        //            });
+        //        }
+        //    }
+        //}
 
 
         public static void ShowChars(char[] charArray)

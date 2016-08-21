@@ -9,15 +9,11 @@
         var response = userDetails.get();
         if (response.id) {
             assignValues(response);
-            ud.showChat = response.university.id > 0;
             $scope.$on('userDetailsChange',
                 function() {
                     assignValues(userDetails.get());
                 });
-            $scope.$on('change-university',
-                function() {
-                    ud.showChat = userDetails.getUniversity() > 0;
-                });
+            
 
             function assignValues(response) {
                 ud.id = response.id;

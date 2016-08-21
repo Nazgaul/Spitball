@@ -20,9 +20,16 @@
                         state.config.parent = 'root';
                     }
                     if (state.templateUrl) {
-                        state.config.templateProvider = [
-                            'ajaxService2', function (ajaxService2) { return ajaxService2.getHtml(state.templateUrl); }
+                        var template = [
+                            'ajaxService2', function (ajaxService2) { return ajaxService2
+                                .getHtml(state.templateUrl); }
                         ];
+                        if (state.config.views) {
+                            state.config.views[''] = { templateProvider: template };
+                        }
+                        else {
+                            state.config.templateProvider = template;
+                        }
                     }
                     $stateProvider.state(state.state, state.config);
                 });

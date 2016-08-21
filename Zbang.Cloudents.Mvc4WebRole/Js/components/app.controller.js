@@ -67,12 +67,11 @@ var app;
             $rootScope.$on("$mdMenuClose", function () {
                 _this.menuOpened = false;
             });
-            this.showMenu = this.showSearch = true;
+            this.showMenu = true;
             this.showBoxAd = false;
             this.isMobile = false;
             $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams) {
                 _this.showBoxAd = toState.parent === "box";
-                _this.showSearch = !(toState.name === "universityChoose");
                 _this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
                 if (toState.name.startsWith("box")) {
                     realtimeFactotry.assingBoxes(toParams.boxId);

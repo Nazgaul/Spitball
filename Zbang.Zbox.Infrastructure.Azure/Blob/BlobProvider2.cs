@@ -54,7 +54,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public Task UploadStreamAsync(string blobName, Stream content, string mimeType, CancellationToken token)
         {
-            content.Seek(0, SeekOrigin.Begin);
+            if (content.CanSeek)
+            {
+                content.Seek(0, SeekOrigin.Begin);
+            }
             var blob = GetBlob(blobName);
             //var blob = BlobClient.GetContainerReference(AzurePreviewContainer).GetBlockBlobReference(blobName);
             blob.Properties.ContentType = mimeType;

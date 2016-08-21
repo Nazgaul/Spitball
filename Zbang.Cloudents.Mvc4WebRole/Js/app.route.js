@@ -26,6 +26,11 @@
                                 return ajaxService2.getHtml('account/unregisterview');
                             }
                         }]
+                    },
+                    "search-bar" : {
+                        controller: "SearchTriggerController as st",
+                        //template: '<div>hi</div>'
+                        templateUrl: 'search-bar.html'
                     }
                 }
                 //template: '<div class="page-animation" ui-view animation-class></div>'
@@ -65,7 +70,7 @@
                             url: '/search/?q&t',
                             controller: 'SearchController as s',
                             data: { animateClass: 'search' },
-                            reloadOnSearch: false,
+                            reloadOnSearch: false
                             //views: {
                             //    "user-profile@": {
                             //        template: '<div>hi</div>'

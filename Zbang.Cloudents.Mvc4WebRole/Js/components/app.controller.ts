@@ -18,7 +18,7 @@ module app {
 
         private menuOpened: boolean;
         private showMenu: boolean;
-        private showSearch: boolean;
+        //private showSearch: boolean;
         private showChat: boolean;
         private showBoxAd: boolean;
         private loadChat: boolean;
@@ -62,14 +62,14 @@ module app {
                 this.menuOpened = false;
             });
 
-            this.showMenu = this.showSearch = true;
+            this.showMenu = true;
             this.showBoxAd = false;
             this.isMobile = false;
 
             $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState,
                 toParams: ISpitballStateParamsService) => {
                 this.showBoxAd = toState.parent === "box";
-                this.showSearch = !(toState.name === "universityChoose");
+                //this.showSearch = !(toState.name === "universityChoose");
                 this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
 
                 // hub
