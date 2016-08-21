@@ -26,9 +26,10 @@ namespace Testing
             m_BlobProviderFiles = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
         }
 
-        private const int ClusterFlunkUniversityId = 18;
-        private const long SpitballUniversityId = 173437;
-        private const long SpitballUserId = 1067238;
+        private const int ClusterFlunkUniversityId = 1;
+        private const long SpitballUniversityId = 173408;
+        private const long SpitballUserId = 1067240;
+        private const string LibraryId = "090FDA52-7AB6-49CC-96BC-A66900B031B3";
         public async Task BuildBoxesAsync()
         {
 
@@ -46,8 +47,21 @@ where n.id = " + ClusterFlunkUniversityId;
             {
                 try
                 {
+                    using (var spitballConnection = await DapperConnection.OpenConnectionAsync())
+                    {
+                        var boxId =
+                            await spitballConnection.QuerySingleOrDefaultAsync<long>(
+                                "select boxId from zbox.box where boxname = @BoxName and isdeleted = 0 and university=@universityId",
+                                new {BoxName = course, universityId = SpitballUniversityId});
+                        if (boxId > 0)
+                        {
+                            Console.WriteLine($"found box {course}");
+                            continue;
+                        }
+                    }
+
                     var command = new CreateAcademicBoxCommand(SpitballUserId, course, null, null,
-                        Guid.Parse("00F024BD-03B9-4AF0-9AED-A669006953C6"), SpitballUniversityId);
+                        Guid.Parse(LibraryId), SpitballUniversityId);
                     await m_ZboxWriteService.CreateBoxAsync(command);
                     Console.WriteLine(course);
                 }
@@ -76,6 +90,7 @@ where n.id = " + ClusterFlunkUniversityId;
             {
                 using (var spitballConnection = await DapperConnection.OpenConnectionAsync())
                 {
+                    Console.WriteLine($"processing index: {index}");
                     var courseName = file.coursename;
                     var boxId =
                        await spitballConnection.QuerySingleAsync<long>(
