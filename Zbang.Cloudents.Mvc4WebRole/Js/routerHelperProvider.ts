@@ -51,11 +51,15 @@ interface IRouterHelper {
                             .getHtml(state.templateUrl)
                         ];
                         if (state.config.views) {
-                            state.config.views[''] = { templateProvider: template };
+                            state.config.views[''] = {
+                                templateProvider: template,
+                                controller: state.config.controller
+                            };
                         } else {
                             state.config.templateProvider = template;
                         }
                     }
+                    console.log(state.config);
                     $stateProvider.state(state.state, state.config);
                 });
                 if (otherwisePath && !hasOtherwise) {

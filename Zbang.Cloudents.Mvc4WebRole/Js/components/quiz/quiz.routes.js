@@ -21,6 +21,11 @@
                                 return quizService.getQuiz($stateParams.boxId, $stateParams.quizId);
                             }
                         ]
+                    },
+                    views: {
+                        "menu@": {
+                            template: ''
+                        }
                     }
 
 

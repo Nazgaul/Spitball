@@ -52,26 +52,7 @@
                 </div>
             </div>
             <div ui-view="search-bar"></div>
-            <script type="text/ng-template" id="search-bar.html">
-                <form ng-show="st.show"
-                      ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
-                      novalidate class="search-form search-form-expanded">
-                    <div class="search-area color-override backgroundColor4">
-                        <input required ng-change="st.change(searchTrigger.$valid)"
-                               ng-focus="app.expandSearch = true;"
-                               ng-blur="app.expandSearch = false"
-                               ng-model="st.term"
-                               ng-minlength="2"
-                               ng-model-options="{debounce : 1000}"
-                               hide-chat-on-mobile="focus"
-                               type="search" class="text"
-                               user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
-                        <button type="submit" class="search-btn color-override backgroundColor11" ng-disabled="!st.term.length">
-                            <span>@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })</span>
-                        </button>
-                    </div>
-                </form>
-            </script>
+
         </div>
         <div ui-view="user-profile"></div>
     </header>
@@ -84,6 +65,26 @@
     <div class="page-footer">
         <scroll-to-top></scroll-to-top>
     </div>
+    <script type="text/ng-template" id="search-bar.html">
+        <form ng-show="st.show"
+              ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
+              novalidate class="search-form search-form-expanded">
+            <div class="search-area color-override backgroundColor4">
+                <input required ng-change="st.change(searchTrigger.$valid)"
+                       ng-focus="app.expandSearch = true;"
+                       ng-blur="app.expandSearch = false"
+                       ng-model="st.term"
+                       ng-minlength="2"
+                       ng-model-options="{debounce : 1000}"
+                       hide-chat-on-mobile="focus"
+                       type="search" class="text"
+                       user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
+                <button type="submit" class="search-btn color-override backgroundColor11" ng-disabled="!st.term.length">
+                    <span>@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })</span>
+                </button>
+            </div>
+        </form>
+    </script>
     @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{
         Html.RenderPartial("_UnregView");

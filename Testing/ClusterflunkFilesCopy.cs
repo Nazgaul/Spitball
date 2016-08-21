@@ -71,6 +71,7 @@ join files f on f.course_id = c.id
 where n.id = " + ClusterFlunkUniversityId;
                 files = connection.Query(query);
             }
+            var index = 0;
             foreach (var file in files)
             {
                 using (var spitballConnection = await DapperConnection.OpenConnectionAsync())
@@ -82,11 +83,13 @@ where n.id = " + ClusterFlunkUniversityId;
                             new {BoxName = courseName, universityId = SpitballUniversityId});
 
                     var itemId = await spitballConnection.QuerySingleOrDefaultAsync<long>(
-                        "select itemId from zbox.item where name = @ItemName and isdeleted = 0 and boxId = @BoxId",
-                        new {ItemName = file.name, BoxId = boxId});
+                        "select itemId from zbox.item where name = @ItemName and size = @Size and isdeleted = 0 and boxId = @BoxId",
+                        new {ItemName = file.name, BoxId = boxId, Size = file.size });
+                    
                     if (itemId > 0)
                     {
-                        Console.WriteLine("already processed");
+                        Console.WriteLine($"already processed { itemId} index: {index}");
+                        index++;
                         continue;
                     }
                     var blobName = $"{Guid.NewGuid()}.{file.extension}".ToLowerInvariant();
@@ -95,6 +98,7 @@ where n.id = " + ClusterFlunkUniversityId;
                     var command = new AddFileToBoxCommand(SpitballUserId, boxId, blobName, file.name, file.size, null,
                         false);
                     await m_ZboxWriteService.AddItemToBoxAsync(command);
+                    index++;
                 }
             }
         }

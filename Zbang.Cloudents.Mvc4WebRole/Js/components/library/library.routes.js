@@ -60,6 +60,9 @@
                     views: {
                         "search-bar@": {
                             template: ''
+                        },
+                        "menu@" : {
+                            template:''
                         }
                     }
                 },

@@ -1,4 +1,4 @@
-﻿declare var dataLayer: any;
+﻿//declare var dataLayer: any;
 
 interface ISpitballStateParamsService extends angular.ui.IStateParamsService {
     boxId: number;
@@ -7,10 +7,6 @@ interface ISpitballStateParamsService extends angular.ui.IStateParamsService {
 }
 module app {
     "use strict";
-
-    
-
-
     class AppController {
         static $inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
@@ -23,7 +19,6 @@ module app {
         private showBoxAd: boolean;
         private loadChat: boolean;
         private theme: string;
-        private isMobile: boolean;
 
         // private expandSearch = false;
 
@@ -46,7 +41,7 @@ module app {
                     absUrl = $location.absUrl(),
                     virtualUrl = absUrl.substring(absUrl.indexOf(path));
                 // ReSharper disable UndeclaredGlobalVariableUsing
-                dataLayer.push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
+                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
                 __insp.push(["virtualPage"]); // inspectlet
                 // ReSharper restore UndeclaredGlobalVariableUsing
 
@@ -62,15 +57,13 @@ module app {
                 this.menuOpened = false;
             });
 
-            this.showMenu = true;
+            //this.showMenu = true;
             this.showBoxAd = false;
-            this.isMobile = false;
 
             $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState,
                 toParams: ISpitballStateParamsService) => {
                 this.showBoxAd = toState.parent === "box";
-                //this.showSearch = !(toState.name === "universityChoose");
-                this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
+                //this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
 
                 // hub
                 if (toState.name.startsWith("box")) {
@@ -78,6 +71,11 @@ module app {
 
                 }
             });
+
+            $rootScope.$on('$stateChangeError',
+                (event, toState, toParams, fromState, fromParams, error) => {
+                    console.error(error);
+                });
 
             $rootScope.$on("$stateChangeStart",
                 (event: angular.IAngularEvent, toState: angular.ui.IState,

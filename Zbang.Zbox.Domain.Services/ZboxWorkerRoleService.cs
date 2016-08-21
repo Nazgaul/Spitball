@@ -39,6 +39,15 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+        public void ChangeBoxDepartment(ChangeBoxLibraryCommand command)
+        {
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                unitOfWork.TransactionalFlush();
+            }
+        }
+
         public void OneTimeDbi()
         {
 

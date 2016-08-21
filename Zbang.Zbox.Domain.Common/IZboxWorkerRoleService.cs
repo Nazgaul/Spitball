@@ -34,5 +34,7 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateUserFromUnsubscribe(UnsubscribeUsersFromEmailCommand command);
 
         Task<long> UpdateFileSizesAsync(Action callback);
+
+        void ChangeBoxDepartment(ChangeBoxLibraryCommand command);
     }
 }

@@ -176,6 +176,7 @@ var app;
                 data: data,
                 payload: payload
             };
+            console.error('eror ajax', url, data, payload);
             $.ajax({
                 type: "POST",
                 url: "/error/jslog/",

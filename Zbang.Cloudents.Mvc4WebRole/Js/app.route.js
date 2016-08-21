@@ -5,32 +5,36 @@
     function config($stateProvider) {
 
         $stateProvider
-            .state('root', {
+            .state("root", {
                 abstract: true,
                 resolve: {
                     user: [
-                        '$q', 'userDetailsFactory', function ($q, userDetails) {
+                        "$q", "userDetailsFactory", function ($q, userDetails) {
                             //$q https://github.com/angular-ui/ui-router/issues/105
                             return userDetails.init();
                         }
                     ]
                 },
                 views: {
-                    "": { template: '<div class="page-animation" ui-view animation-class></div>' },
+                    "": { template: "<div class=\"page-animation\" ui-view animation-class></div>" },
                     "user-profile": {
                         controller: "UserDetailsController as ud",
                         templateProvider: ['user', 'ajaxService2', function (user, ajaxService2) {
                             if (user.id) {
-                                return ajaxService2.getHtml('account/userdetails');// '<div>hello ram</div>';
+                                return ajaxService2.getHtml("account/userdetails");// '<div>hello ram</div>';
                             } else {
-                                return ajaxService2.getHtml('account/unregisterview');
+                                return ajaxService2.getHtml("account/unregisterview");
                             }
                         }]
                     },
                     "search-bar" : {
                         controller: "SearchTriggerController as st",
                         //template: '<div>hi</div>'
-                        templateUrl: 'search-bar.html'
+                        templateUrl: "search-bar.html"
+                    },
+                    "menu": {
+                        controller: "SideMenu as d",
+                        templateUrl: "menu.html"
                     }
                 }
                 //template: '<div class="page-animation" ui-view animation-class></div>'
@@ -60,7 +64,13 @@
                                }]
                            },
                            reloadOnSearch: false,
-                           data: { animateClass: 'itemPage' }
+                           data: { animateClass: 'itemPage' },
+                           views: {
+                               "menu@": {
+                                   template: ''
+                               }
+                              
+                           }
                        },
                        templateUrl: '/item/indexpartial/'
                    },
@@ -71,11 +81,6 @@
                             controller: 'SearchController as s',
                             data: { animateClass: 'search' },
                             reloadOnSearch: false
-                            //views: {
-                            //    "user-profile@": {
-                            //        template: '<div>hi</div>'
-                            //    }
-                            //}
                         },
                         templateUrl: '/search/indexpartial/'
                     }
