@@ -2484,7 +2484,6 @@
     <Content Include="package.json" />
     <Content Include="Scripts\jquery.bxslider.js" />
     <Content Include="Scripts\plupload2\angular-plupload2.js" />
-    <Content Include="Scripts\Site\gmaps.js" />
     <Content Include="Scripts\plupload2\angular-plupload.js" />
     <Content Include="Scripts\plupload2\moxie.js" />
     <Content Include="Scripts\plupload2\moxie.min.js" />
