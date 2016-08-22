@@ -120,7 +120,7 @@ set updatetime = getutcdate()-121
             var counter = 0;
             counter +=
                 await ExecuteSqlLoopAsync(
-                    new [] {
+                    new[] {
                         @"delete from zbox.ItemCommentReply where itemid in (
 
     select top (100) itemid from zbox.item where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
@@ -143,7 +143,7 @@ set updatetime = getutcdate()-121
         {
             return
                 ExecuteSqlLoopAsync(
-                    new []
+                    new[]
                     {
                         @"delete from Zbox.NewUpdates where boxid in (
 	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
@@ -200,15 +200,6 @@ select top (3) boxid  from zbox.box where isdeleted = 1 and updatetime < getutcd
             return ExecuteSqlLoopAsync(
                 new[]
                 {
-//                    @"delete from zbox.userboxrel where boxid in (
-//select boxid from zbox.box where isdeleted = 1 and isdirty = 0 and libraryid in (
-//select libraryid from Zbox.Library where id in (
-//select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
-//))) option (maxdop 1)",
-//                    @"delete from zbox.box where isdeleted = 1 and isdirty = 0 and libraryid in (
-//select libraryid from Zbox.Library where id in (
-//select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
-//)) option (maxdop 1)",
     @"delete from zbox.userlibraryrel where libraryid in (
 select libraryid from Zbox.Library where id in (
 select top(3) id from zbox.university where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
@@ -264,7 +255,7 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
 
         public Task<int> DeleteOldUpdatesAsync(CancellationToken token)
         {
-            return ExecuteSqlLoopAsync(new [] { "delete top (100)  from zbox.newUpdates where CreationTime < getutcdate() - 90 option (maxdop 1)"}, token);
+            return ExecuteSqlLoopAsync(new[] { "delete top (100)  from zbox.newUpdates where CreationTime < getutcdate() - 90 option (maxdop 1)" }, token);
         }
 
 
@@ -450,6 +441,19 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
             {
                 m_CommandBus.Send(command);
                 unitOfWork.TransactionalFlush();
+            }
+        }
+
+        public async Task UpdateSpamGunSendAsync(int id, CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token, "SpamGun"))
+            {
+                const string sql = @"UPDATE students 
+SET [Sent] = cast ( Coalesce([Sent],'') as nvarchar(max))  + cast (GetUtcDate() as nvarchar(max) ) + ' ',
+shouldSend = 0
+where id = @id";
+
+                await conn.ExecuteAsync(new CommandDefinition(sql, new { id }, cancellationToken: token));
             }
         }
 

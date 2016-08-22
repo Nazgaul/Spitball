@@ -36,7 +36,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
-            await m_MailComponent.SendSpanGunEmailAsync("ram@cloudents.com", "ip1");
+           // await m_MailComponent.SendSpanGunEmailAsync("ram@cloudents.com", "ip1");
             //var tasks = new List<Task>();
             //for (int i = 0; i < SpamGun.SpanGunNumberOfQueues; i++)
             //{

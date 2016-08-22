@@ -63,6 +63,7 @@
     <Compile Include="Dto\BoxSecurityDto.cs" />
     <Compile Include="Dto\ChatDto.cs" />
     <Compile Include="Dto\Emails\MarketingDto.cs" />
+    <Compile Include="Dto\Emails\SpamGunDto.cs" />
     <Compile Include="Dto\HomePageDataDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxDto2.cs" />
     <Compile Include="Dto\BoxDtos\BoxNotificationDto.cs" />

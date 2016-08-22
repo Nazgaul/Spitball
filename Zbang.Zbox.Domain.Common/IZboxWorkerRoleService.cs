@@ -36,5 +36,8 @@ namespace Zbang.Zbox.Domain.Common
         Task<long> UpdateFileSizesAsync(Action callback);
 
         void ChangeBoxDepartment(ChangeBoxLibraryCommand command);
+
+
+        Task UpdateSpamGunSendAsync(int id, CancellationToken token);
     }
 }
