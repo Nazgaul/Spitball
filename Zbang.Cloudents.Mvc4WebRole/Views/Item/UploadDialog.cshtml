@@ -4,7 +4,7 @@
     const string url = "~/images/site/uploadIcons.svg";
 }
 <a id="upload"></a>
-<div class="portlet invite box upload color-override backgroundColor2">
+<div class="portlet invite box upload backgroundTC19">
     <div class="portlet-title">
         <div class="caption">
             @IndexResources.UploadFiles
@@ -19,7 +19,7 @@
                         <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 1">
                             <button type="button">
                                 <span>
-                                    @Html.Svg(url, "file", new { @class = "color-override svgColor2" })
+                                    @Html.Svg(url, "file", new { @class = "svgTC42" })
                                 </span>
                                 @IndexResources.UploadFromComputer
                             </button>
@@ -57,7 +57,7 @@
                                 <md-button class="btn btn-default" ng-click="u.uploadStep = 0">
                                     @GeneralResources.Cancel
                                 </md-button>
-                                <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn button-Blue btn-primary upload-button color-override hoverTextColor8" plupload-callbacks="u.fileUpload.callbacks">
+                                <a plupload="u.fileUpload.url" plupload-options="u.fileUpload.options" class="btn button-Blue btn-primary upload-button" plupload-callbacks="u.fileUpload.callbacks">
                                     @IndexResources.UploadFiles
                                 </a>
                             </div>

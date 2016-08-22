@@ -133,6 +133,8 @@
   border-radius: 12px;
   padding: 4px 9px;
   height: 24px;
+  background-color: #db4437;
+  color: #f5f5f5;
 }
 .dashboard .university {
   display: block;

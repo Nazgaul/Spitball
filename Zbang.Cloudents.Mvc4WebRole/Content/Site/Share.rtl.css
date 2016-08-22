@@ -296,6 +296,9 @@
 .invite.light {
   margin: 0;
 }
+.invite.upload .portlet-title {
+  color: #f5f5f5;
+}
 .invite.upload button.close {
   background: transparent;
   top: 0;
@@ -308,6 +311,7 @@
   background: transparent;
 }
 .invite.upload button.close svg {
+  fill: #f5f5f5;
   width: 15px;
   height: 15px;
 }

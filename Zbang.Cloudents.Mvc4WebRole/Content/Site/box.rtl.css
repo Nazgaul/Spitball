@@ -46,6 +46,7 @@
 }
 .folders .folder-name .content {
   text-align: center;
+  color: #f5f5f5;
 }
 .folders .folder-name .content div:last-child {
   margin-top: 3px;
@@ -111,6 +112,12 @@
 library-list {
   margin-top: 10px;
 }
+.members .member-invite {
+  color: #f5f5f5;
+}
+.members .member-invite svg {
+  fill: #f5f5f5;
+}
 .page-title.box-title {
   padding: 0;
 }
@@ -119,6 +126,9 @@ library-list {
   max-height: 58px;
   -ms-word-break: break-word;
   word-break: break-word;
+}
+.add svg {
+  fill: #f5f5f5;
 }
 .folders .add-folder .content {
   padding: 6px;

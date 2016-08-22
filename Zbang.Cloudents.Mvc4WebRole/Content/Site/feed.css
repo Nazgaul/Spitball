@@ -508,20 +508,20 @@
 .feed .reply > .content-text {
   margin-bottom: 0;
 }
-.feed .new-comment-border textarea,
-.feed .reply-wrapper textarea {
+.feed .new-comment-border md-input-container textarea.md-input,
+.feed .reply-wrapper md-input-container textarea.md-input {
   min-height: 50px;
   background: none;
   width: 100%;
   border: none;
   padding: 14px 0 10px 10px;
 }
-.feed .new-comment-border textarea.ng-not-empty,
-.feed .reply-wrapper textarea.ng-not-empty {
+.feed .new-comment-border md-input-container textarea.md-input.ng-not-empty,
+.feed .reply-wrapper md-input-container textarea.md-input.ng-not-empty {
   color: #212325;
 }
-.feed .new-comment-border textarea:focus,
-.feed .reply-wrapper textarea:focus {
+.feed .new-comment-border md-input-container textarea.md-input:focus,
+.feed .reply-wrapper md-input-container textarea.md-input:focus {
   color: #212325;
 }
 .feed .actions svg,
@@ -532,7 +532,7 @@
 }
 .feed .actions .file:hover,
 .feed .reply-actions .file:hover {
-  fill: #f9f9f9;
+  fill: #4190b9;
 }
 .feed .actions .btn[disabled],
 .feed .reply-actions .btn[disabled] {

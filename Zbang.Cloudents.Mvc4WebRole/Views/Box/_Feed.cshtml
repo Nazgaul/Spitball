@@ -178,14 +178,6 @@
                 @* ReSharper disable once Mvc.PartialViewNotResolved *@
                 @{ Html.RenderPartial("_LeaderBoard", IndexResources.Best);}
             </div>
-            @*<div class="invite-container flex" flex ng-if="b.canInvite" ng-class="{hideMobile: b.inviteOpen}">
-                    <div class="flex portlet light invite button-Blue">
-                        <button type="button" ng-click="b.inviteToBox()" class="portlet-body color-override textColor3" ga-track-event="['box-feed', 'inviteFriends']">
-                            @Html.Svg("~/images/site/icons.svg", "invite")
-                            <span class="text">@BoxResources.InviteFriends</span>
-                        </button>
-                    </div>
-                </div>*@
             <div flex="100" flex-gt-md="100" flex-sm="50" class="flex" ng-repeat="e in ::r.boxes track by e.boxId" ng-include="'box-template.html'"></div>
         </div>
     </div>

@@ -9,7 +9,7 @@
     <img src="@Url.CdnContent("~/Images/Site/membersOnly.png")" alt="Members only">
     <div class="text">
         <h2>@ErrorResources.NeedPermission</h2>
-        <p class="color-override textColor5">@ErrorResources.PrivateContent</p>
+        <p>@ErrorResources.PrivateContent</p>
         @if (User != null && !User.Identity.IsAuthenticated)
         {
             <a target="_self" href="@Url.Action("Index", "Home")" class="text-capitalize">@ErrorResources.BackToHome</a>

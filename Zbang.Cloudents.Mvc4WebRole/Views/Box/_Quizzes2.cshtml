@@ -16,7 +16,7 @@
         <div ng-include="'quiz-template.html'"></div>
         <md-menu ng-if="b.canDelete(e.ownerId)" class="quiz-menu">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-quizzes', 'deleteQuiz']">
-                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 quiz-dots color-override svgColor6" })
+                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 quiz-dots" })
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item>

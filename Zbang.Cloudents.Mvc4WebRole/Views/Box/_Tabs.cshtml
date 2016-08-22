@@ -4,7 +4,7 @@
     <div class="folder-selected" layout="row" layout-align="start center" ng-if="stateParams.tabId" flex="100" flex-gt-xs="50">
         @Html.Svg("~/images/site/icons.svg", "arrow", new {flex = "none", @class = "arrow svgTC11", ng_click = "t.upDir()"})
         <div class="folder-name" flex="100">
-            <div layout="row" layout-align="start center" class="folder-name-inner color-override backgroundColor10">
+            <div layout="row" layout-align="start center" class="folder-name-inner backgroundTC34">
                 <div class="name-and-icon" layout="row" layout-align="start center">
                     <div class="text ellipsis textTC4" ng-if="!t.openRenameTab" ng-bind="t.tabSelected.name">
                     </div>
@@ -14,7 +14,7 @@
                 </div>
                 <md-menu ng-if="!b.needFollow">
                     <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-tabs', 'deleteTab']">
-                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3 color-override svgColor6"})
+                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3 svgTC38" })
                     </md-button>
                     <md-menu-content width="1">
                         <md-menu-item>
@@ -35,13 +35,13 @@
     </div>
     <ul id="tabSection" ng-if="!t.tabSelected" layout-padding layout-wrap class="list-unstyled folders" layout="row" layout-align="start stretch">
         <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" ui-on-drop="i.addItemToTab($data,e)" class="folder-name i-q-wrapper" ng-repeat="e in t.tabs" ng-click="t.tabChange(e)">
-            <div class="name-and-icon content color-override textColor8">
+            <div class="name-and-icon content">
                 <div class="text ellipsis background-blue" ng-bind="::e.name"></div>
                 <div>{{e.count}} @BoxResources.itemsInTab</div>
             </div>
         </li>
         <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="add-folder folder-name item-animate i-q-wrapper">
-            <button type="button" ga-track-event="['box-Tabs', 'addFolder']" class="content color-override backgroundTransparent" ng-if="!t.newFolderTabOpened" user-not-register-popup="click" ng-click="t.newFolderTabOpened = true">
+            <button type="button" ga-track-event="['box-Tabs', 'addFolder']" class="content" ng-if="!t.newFolderTabOpened" user-not-register-popup="click" ng-click="t.newFolderTabOpened = true">
                 @Html.Svg("~/images/site/icons.svg", "add")
                 <span>
                     @BoxResources.AddFolder
