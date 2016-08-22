@@ -1,3 +1,102 @@
+<a name"1.5.6-0"></a>
+### 1.5.6-0 (2016-08-17)
+
+* **textAngular:**
+  * Enhancement(demo, static-demo, textAngular.com) Added version display to demo code 
+           (https://github.com/fraywing/textAngular/commit/3c3ce76c3805d67e49c980c5bf1da15f52a24781)
+  * Enhancement(main, globals, Gruntfile, textAngularManger.spec, textAngular.spec): 
+       Added a new directive text-angular-version and a new function to textAngularManger:getVersion()
+       I have wanted to add this for a long time to make it easier to display the version of textAngular being used.
+           (https://github.com/fraywing/textAngular/commit/1ffa6f7263ce844a4e300226616a9d2282143f56)
+       This also modifies the build process to automatically put the version into globals.js     
+
+<a name"1.5.5"></a>
+### 1.5.5 (2016-08-15)
+
+* **textAnglar:**
+  * Fix(DOM, globals, main, taBind, textAngular.spec): Resoved the issues around the improvements from v1.5.4
+       The bulk of the changes can be seen here: https://github.com/fraywing/textAngular/commit/c39f20d9cf2372f94b579d018b0cb9bb553e33ef
+       
+       
+<a name"1.5.4"></a>
+### 1.5.4 (2016-08-06)
+
+* **textAnglar:**
+  * Fix(DOM, globals, textAngular.spec): Corrected bugs around Firefox weirdness  (https://github.com/fraywing/textAngular/commit/32aad73a258696ae06d2ee6cc901bd571d7793fb)
+         - DOM: major fix to handle Firefox weirdness around <br> insertions
+                We now insert zero width spaces in place of <br> that is
+                a '&#8203' character.
+                This corrects taExecCommand() to function properly on Firefox.
+         - globals: stripHtmlToText() now handles zero width spaces
+         - textAngular.spec: added test for zero width spaces
+  *  Enhancement(added Support for font-style = italic and font-size = [size em/px/%] in sanitize function validStyles,  (https://github.com/fraywing/textAngular/commit/dde3d7f621c7d4403577853374223abe5c9d15db)
+                 Merge pull request #964 from rdkleine/master
+  *  Fix(main, taBind, textAngularSetup, globals, taTools.spec): Immproved the issues 
+          with html and model getting out of sync (https://github.com/fraywing/textAngular/commit/5453c6b8fd2d72c6bdfb1dd83cb9fc0ed6df0a88)
+          Also corrected issue under Firefox where the initial selection was before all the content
+          - globals: improved stripHtmlToText() slightly
+          - main: fixed a mistyped if in switchView()
+          - taBind: small formatting changes for clarity
+                    improved element.on('keyup') code
+                    element.on('focus') now detets an bad selection condition under Firefox and fixes this
+          - textAngularSetup: added a coverage comment in recursiveRemoveClass() that is now needed
+            because of changes to taTools.spec
+          - taTools.spec: Changed the test set 'test clear button' so that now the whole
+                          htmlcontent is now never selected.  This was an issue beacuse when
+                          all the htmlcontent was selected this triggered the element.on('focus') fix
+                          for Firefox and broke the tests here.  All the tests now run properly.
+                          The biggest change was to now wrap the test content in a <div class='test-class'></div>
+                          which caused the expected values to change.
+  *  Fix(main, globals): Corrected issue with clobering the html from the model too easily. (https://github.com/fraywing/textAngular/commit/b1206a892bc104cb63a74633395d00c0d6ee39ed)
+                          Added getDomFromHtml() and corrected when this is used.
+  *  Fix(main): Corrected issues with html and model getting out of synch! (https://github.com/fraywing/textAngular/commit/91fe5bfb7fd17d345f2cdaace9c3f891a6ce2fbc)
+  *  Fix(taBind, textAngular.spec): Major change to _taBlankTest() that now uses the DOM to check the visibility of the html
+                     This removes the MANY headaches of the old code... that that very fragile.
+         - added a new tool to measure performace where needed
+         - added a global stripHtmlToText() function
+         - added a new test to verify the performance tool and new stripHtmlToText() function
+         (https://github.com/fraywing/textAngular/commit/31cf9c4d307a02aa9f078daceea9bd38a7d70c3a)
+                               
+                               
+<a name"1.5.3"></a>
+### 1.5.3 (2016-07-29)
+
+#### Bug Fixes
+
+* **textAngular:**
+  * Fix(textAngularManager): Corrected bug #1231 Leaking memory scopes (https://github.com/fraywing/textAngular/commit/a0024a24a3ca0c40a3cd0ffed0edbc475f2a91ff)
+  * Feat(textAngularManager): Added a function updateStyles() to force all the updateSelectedStyles() to be updated.  
+                              This also now automatically sets up the initialization for tools in most cases. (https://github.com/fraywing/textAngular/commit/d373fe10e770bf521641975cbc6a4f480d0a1f9e)
+  * Fix(main): Very small tweak in setupTriggerUpdateStyles() to accept the default $interval call that invokes a 
+               $apply which will be more robust. (https://github.com/fraywing/textAngular/commit/0d860d0a97c440b868639bfb3ea9f3f943658da6)
+  * Enhancement(main): Show switch HTML button all the time. Originally from ershwetabansal (https://github.com/fraywing/textAngular/commit/db1f5a0bb50019c56ff8863c8a42fdbef2ce53ab)                                           
+  * Fix(textAngularSetup): We now block javascript for 'insertLink', 'insertVideo', and 'insertImage' issue: #1189 (https://github.com/fraywing/textAngular/commit/37e3f7acdb7099d825480b45cb55da7c756a0ae7)
+  * Fix(taBind): corrected issue around Model becomes empty after edit Issue: #1230 (https://github.com/fraywing/textAngular/commit/17b4497ec3bd3939571724e4c9aad145d51e776c)                           
+
+
+<a name"1.5.2"></a>
+### 1.5.2 (2016-07-15)
+
+#### Bug Fixes
+
+* **textAngular:**
+  * Fix(textAngularSetup): Corrected bug #1201 due to an issue with Firefox. (https://github.com/fraywing/textAngular/commit/dab42a371f03a6912de9b6310db5911b52cd8362)
+  * docs(README): fix textAngular-santize.min.js typo (https://github.com/fraywing/textAngular/commit/12580ad5585611257c5a0888186fe24e57c4d862)
+  * docs(README): update links to cdnjs and jsdelivr (https://github.com/fraywing/textAngular/commit/0ef205254360790ed45ab225171cc448d4730515)
+  * Fix(DOM): merged fix from Hike-zzz: fixing issue #616 #1174 (https://github.com/fraywing/textAngular/commit/328cd69c06c5d13c2c7a9c4cfeb9406334295137)
+  * Fix(README): fix typos- pull request #1072 from pra85/patch-2 (https://github.com/fraywing/textAngular/commit/0f7f2e4ce9c4a12a5c20c8f930fc8cee38d9287b)
+  * Fix(taBind): fix for bug under Firefox when delete all content #1217 (https://github.com/fraywing/textAngular/commit/67e7ebe1003f439fa6a93c0f70cbb1818926522b)
+  * Fix(textAngularSetup): bug #1223 InsertImage tool failed on Firefox (https://github.com/fraywing/textAngular/commit/f5e9bd4c5de55979572075cf4934b50201eb7a3e)
+  * Fix(globals, taBind): browser previos fix no more needed (https://github.com/fraywing/textAngular/commit/8cd3e5a64a798adfda17fb1e9a3a91930f96e5e2)
+
+#### Features
+
+* **textAngular** Enhanced (factories): to do Better removal of style junk which Chome inserts. Also one bug fix in the old existing code (a missing /"). (https://github.com/fraywing/textAngular/commit/7d5d37cfa03cc75e012885920ea4939460020658)
+
+<a name"1.5.1"></a>
+### 1.5.1 (2016-04-25)
+
+
 <a name"1.5.0"></a>
 ## 1.5.0 (2016-01-16)
 

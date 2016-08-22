@@ -148,7 +148,6 @@
 /// <reference path="plupload2/moxie.js" />
 /// <reference path="plupload2/plupload.dev.js" />
 /// <reference path="plupload2/plupload.full.min.js" />
-/// <reference path="Site/gmaps.js" />
 /// <reference path="svg4everybody.js" />
 /// <reference path="svg4everybodyangular.js" />
 /// <reference path="textangularsetup.js" />
