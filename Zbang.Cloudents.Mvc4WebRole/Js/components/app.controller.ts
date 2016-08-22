@@ -17,7 +17,7 @@ module app {
         //private showSearch: boolean;
         private showChat: boolean;
         private showBoxAd: boolean;
-        private loadChat: boolean;
+        //private loadChat: boolean;
         private theme: string;
 
         // private expandSearch = false;

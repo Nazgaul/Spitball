@@ -17,12 +17,12 @@
                     controller: 'Library as l',
                     resolve: {
                         nodeData: [
-                           'libraryService','$stateParams', function (libraryService,$stateParams) {
+                           'libraryService', '$stateParams', function (libraryService, $stateParams) {
                                return libraryService.getDepartments(null, $stateParams.universityId);
                            }
                         ],
                         universityData: [
-                            'dashboardService', '$stateParams', function(dashboardService, $stateParams) {
+                            'dashboardService', '$stateParams', function (dashboardService, $stateParams) {
                                 return dashboardService.getUniversityMeta($stateParams.universityId);
                             }
                         ]
@@ -61,7 +61,10 @@
                         "search-bar@": {
                             template: ''
                         },
-                        "menu@" : {
+                        "menu@": {
+                            template: ''
+                        },
+                        "chat@": {
                             template:''
                         }
                     }

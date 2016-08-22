@@ -17,7 +17,7 @@
             messages: 1,
             chat: 3
         };
-        
+
         var lastConnectionStatus = 0;
         c.state = c.states.messages;
         c.connected = true;
@@ -36,21 +36,22 @@
         c.loadMoreMessages = loadMoreMessages;
         c.focusSearch = false;
 
-        userDetailsFactory.init().then(function (response) {
-            if (response.university.id > 0) {
-                //c.unread = response.unread;
-                chatBus.setUnread(response.unread);
-                c.loadChat = response.university.id > 0;
-                search();
-            }
-        });
+        //userDetailsFactory.init().then(function (response) {
+        //    if (response.university.id > 0) {
+        //c.unread = response.unread;
+        var response = userDetailsFactory.get();
+        chatBus.setUnread(response.unread);
+        //c.loadChat = response.university.id > 0;
+        search();
+        //}
+        //});
 
-        
-        $scope.$on('change-university',
-            function() {
-                c.loadChat = userDetailsFactory.getUniversity() > 0;
-                search();
-            });
+
+        //$scope.$on('change-university',
+        //    function () {
+        //        c.loadChat = userDetailsFactory.getUniversity() > 0;
+        //        search();
+        //    });
 
 
         c.scrollSetting = {

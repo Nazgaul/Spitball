@@ -2579,11 +2579,11 @@
     <Content Include="Views\Home\ClassNotes.cshtml" />
     <Content Include="Views\Home\Courses.cshtml" />
     <Content Include="Views\Shared\Partials2\_StaticPageHeader.cshtml" />
-    <Content Include="Views\Shared\Partials2\_Chat.cshtml" />
     <Content Include="Views\Chat\PreviewDialog.cshtml" />
     <Content Include="Views\Shared\_Body.cshtml" />
     <Content Include="Views\Account\UserDetails.cshtml" />
     <Content Include="Views\Account\UnregisterView.cshtml" />
+    <Content Include="Views\Chat\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
