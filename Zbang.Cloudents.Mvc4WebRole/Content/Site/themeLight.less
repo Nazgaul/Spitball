@@ -80,11 +80,12 @@
 /*#endregion*/
 @import "siteColors.less";
 
-.theme-light {
-    .userLetter {
-        color: @textColorWhite;
-    }
+body.theme-light {
+    background: #eee;
+    color: @textColorWhite;
+}
 
+.theme-light {
     ::-webkit-scrollbar-thumb {
         background: @scrollbarColor;
     }
@@ -182,10 +183,6 @@
     .close {
         &:hover {
             color: @textColorWhite;
-        }
-
-        svg {
-            fill: @textColorWhite;
         }
     }
 
@@ -287,10 +284,6 @@
         color: @textColorLike;
     }
     /*#region header.less*/
-    .searchIcon {
-        fill: @textColorWhite;
-    }
-
     .top-menu {
         svg {
             fill: @headerImagesColor;
@@ -460,66 +453,8 @@
     color-override hoverTextColor#
     color-override hoverSvgColor#
     */
-    &.color-override.backgroundColor1 {
-        background: #eee !important;
-        color: @Color7;
-    }
 
-    .color-classes(@name, @Color) {
-        &.background@{name} {
-            background: @Color !important;
-        }
 
-        &.text@{name} {
-            color: @Color !important;
-        }
-
-        &.input@{name} {
-            .placeHolder(@Color) !important;
-        }
-
-        &.svg@{name} {
-            fill: @Color !important;
-        }
-
-        &.border@{name} {
-            border-color: @Color !important;
-        }
-
-        &.hoverBackground@{name} {
-            &:hover {
-                background: @Color !important;
-            }
-        }
-
-        &.hoverText@{name} {
-            &:hover {
-                color: @Color !important;
-            }
-        }
-
-        &.hoverSvg@{name} {
-            &:hover {
-                fill: @Color !important;
-            }
-        }
-    }
-
-    .color-override {
-        .color-classes(Color1, @Color1);
-        .color-classes(Color2, @Color2);
-        .color-classes(Color3, @Color3);
-        .color-classes(Color4, @Color4);
-        .color-classes(Color5, @Color5);
-        .color-classes(Color6, @Color6);
-        .color-classes(Color7, @Color7);
-        .color-classes(Color8, @Color8);
-        .color-classes(Color9, @Color9);
-        .color-classes(Color10, @Color10);
-        .color-classes(Color11, @Color11);
-        .color-classes(Color12, @Color12);
-        .color-classes(Transparent, @Transparent);
-    }
     /*#region TODO*/
     // TODO: find a better way than leaving this css peace
     md-tabs {
@@ -612,6 +547,9 @@
     .themeClasses(TC40, @textColorLightGrey, svg);
     .themeClasses(TC41, #eee, background);
     .themeClasses(TC42, @textColorBlue, svg);
+    .themeClasses(TC43, #26566e, background);
+    .themeClasses(TC44, @textColorLightGrey, svg);
+    .themeClasses(TC45, #f5f5f5, border);
     /*input[type="search"], textarea {
         .placeHolder(@textColorGrey) !important;
     }*/

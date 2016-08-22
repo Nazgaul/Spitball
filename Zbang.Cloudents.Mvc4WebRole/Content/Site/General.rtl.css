@@ -136,6 +136,9 @@ body .itemPage header {
   -webkit-transition: top 0.2s ease !important;
   transition: top 0.2s ease !important;
 }
+body .box-template .number {
+  text-transform: capitalize;
+}
 .page-body {
   margin-top: 75px;
   padding: 0 10px;

@@ -31,14 +31,14 @@
     <base href="/" />
 </head>
 <body @*md-layout-css*@ ng-controller="AppController as app"
-      class="{{app.theme}} color-override backgroundColor1 clearfix" ng-class="{menuOpened: app.menuOpened, collapseHeader: app.collapsedHeader}">
+      class="{{app.theme}} clearfix" ng-class="{menuOpened: app.menuOpened, collapseHeader: app.collapsedHeader}">
     @{ Html.RenderPartial("_Body");}
 
     <div ng-spinner-bar class="sb-loader">
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
     </div>
 
-    <header id="main-nav" class="nav-bar color-override backgroundColor2" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
+    <header id="main-nav" class="nav-bar backgroundTC19" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
         <div class="logo-search" layout="row" layout-align="start center" flex="100">
             <button type="button" ng-if="app.showMenu" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" hide-chat-on-mobile="click" ga-track-event="['header', 'open menu']">
                 @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu svgTC17 hoverSvgTC18" })
@@ -69,7 +69,7 @@
         <form ng-show="st.show"
               ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
               novalidate class="search-form search-form-expanded">
-            <div class="search-area color-override backgroundColor4">
+            <div class="search-area">
                 <input required ng-change="st.change(searchTrigger.$valid)"
                        ng-focus="app.expandSearch = true;"
                        ng-blur="app.expandSearch = false"
@@ -79,8 +79,8 @@
                        hide-chat-on-mobile="focus"
                        type="search" class="text"
                        user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
-                <button type="submit" class="search-btn color-override backgroundColor11" ng-disabled="!st.term.length">
-                    <span>@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })</span>
+                <button type="submit" class="search-btn backgroundTC43" ng-disabled="!st.term.length">
+                    <span>@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })</span>
                 </button>
             </div>
         </form>
