@@ -4,11 +4,6 @@
   /*#region angularmaterial*/
   /*tabs*/
   /*#endregion*/
-  /*.page-title {
-        svg {
-            fill: @backgroundColorMenu;
-        }
-    }*/
   /*#region header.less*/
   /*#endregion*/
   /*#region accountSettings.less*/
@@ -113,9 +108,6 @@ Page Loading
 .theme-light .add {
   background: #db4437;
 }
-.theme-light .add svg {
-  fill: #212325;
-}
 .theme-light .dd-list md-content {
   background: #ffffff;
   color: #212325;
@@ -218,16 +210,6 @@ Page Loading
 .theme-light .create-box md-input-container:not(.md-input-invalid).md-input-focused .md-input {
   border-bottom: 1px solid #888b8e;
   color: #888b8e;
-}
-.theme-light .button-Blue {
-  background: #4190b9 !important;
-  /*&:focus {
-        color: inherit;
-    }*/
-}
-.theme-light .button-Blue:hover {
-  background: #26566e !important;
-  color: #212325 !important;
 }
 .theme-light .tab-from-r > li > a {
   color: #ffffff;
@@ -434,10 +416,6 @@ Page Loading
 .theme-light .need-follow {
   background: #006072;
 }
-.theme-light .invite-btn {
-  background: #212325;
-  color: #006072;
-}
 .theme-light .add-button:hover .content {
   border: 1px solid #4190b9;
 }
@@ -535,12 +513,6 @@ Page Loading
 }
 .theme-light .add-comment.new-post .top img {
   background: #ffffff;
-}
-.theme-light .member-invite {
-  background: #4190b9;
-}
-.theme-light .member-invite svg {
-  fill: #212325;
 }
 .theme-light .member .member-name {
   color: #212325;
@@ -680,18 +652,11 @@ Page Loading
 .theme-light .portlet.light > .portlet-title > .caption {
   color: #212325;
 }
-.theme-light .dashboard-stat2,
 .theme-light .box-cube,
 .theme-light .unibox,
 .theme-light .leaderboard {
   border: 1px solid transparent;
   background: #ffffff;
-}
-.theme-light .dashboard-stat2 .display .number small {
-  color: #212325;
-}
-.theme-light .dashboard-stat2 .progress-info .status {
-  color: #212325;
 }
 .theme-light .table-scrollable > .table {
   background-color: #ffffff;
@@ -731,10 +696,6 @@ Page Loading
 }
 .theme-light .dashboard .leaderBoardTitle {
   color: #ffffff;
-}
-.theme-light .dashboard .updates {
-  background-color: #db4437;
-  color: #212325;
 }
 .theme-light .dashboard .content .universityStats {
   color: #888b8e;
@@ -1277,9 +1238,6 @@ Page Loading
 .theme-light .profile-usertitle-job {
   color: #212325;
 }
-.theme-light .search {
-  background: #e9eaed;
-}
 .theme-light .search::-webkit-input-placeholder {
   color: #888b8e;
   opacity: 1;
@@ -1313,9 +1271,6 @@ Page Loading
 }
 .theme-light .portlet.light.invite svg {
   fill: #f9f9f9;
-}
-.theme-light .invite .portlet-title > .caption {
-  color: #212325;
 }
 .theme-light .invite button.btn-default:active:hover svg {
   fill: #9E9E9E;
@@ -2113,6 +2068,9 @@ Page Loading
 .theme-light .backgroundTC33 {
   background: #f9f9f9 !important;
 }
+.theme-light .backgroundTC34 {
+  background: #8c99a6 !important;
+}
 .theme-light .textTC35 {
   color: #4190b9 !important;
 }
@@ -2125,6 +2083,18 @@ Page Loading
 .theme-light .backgroundTC37 {
   background: #042E5E !important;
 }
+.theme-light .svgTC38 {
+  fill: #c3c3c3 !important;
+}
 .theme-light .hoverBackgroundTC39:hover {
   background: #f5f5f5 !important;
+}
+.theme-light .svgTC40 {
+  fill: #c3c3c3 !important;
+}
+.theme-light .backgroundTC41 {
+  background: #eee !important;
+}
+.theme-light .svgTC42 {
+  fill: #2698D4 !important;
 }

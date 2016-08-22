@@ -12,7 +12,7 @@
         </div>
         <div class="new-comment-border" flex-grow>
             <md-input-container md-no-float>
-                <textarea user-not-register-popup="focus" ng-model="f.add.newText" ng-focus="b.closeCollapse()" placeholder="@BoxResources.Whats" class="color-override inputColor12 textColor7"></textarea>
+                <textarea user-not-register-popup="focus" ng-model="f.add.newText" ng-focus="b.closeCollapse()" placeholder="@BoxResources.Whats" class=""></textarea>
             </md-input-container>
             <ul class="list-inline file-upload-area" ng-if="f.add.files.length">
                 <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: '!'}" ng-include="'file-upload.html'">
@@ -24,7 +24,7 @@
             <a plupload="f.add.fileUpload.url" ng-click="f.add.upload()"
                plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks"
                ga-track-event="['box-new-commnet', 'addFile']">
-                @Html.Svg(url, "file", new { @class = "file color-override hoverSvgTC2" })
+                @Html.Svg(url, "file", new { @class = "file" })
             </a>
             <button type="button" class="google" ng-mouseover="f.add.init()" @*ng-disabled="f.add.googleDisabled"*@ ng-click="f.add.google()" ga-track-event="['box-new-commnet', 'googleDrive']">
                 @Html.Svg(url, "googleDrive")

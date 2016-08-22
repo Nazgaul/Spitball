@@ -614,19 +614,21 @@
 
 
     .new-comment-border, .reply-wrapper {
-        textarea {
-            min-height: 50px;
-            background: none;
-            width: 100%;
-            border: none;
-            padding: 14px 0 10px 10px;
+        md-input-container {
+            textarea.md-input {
+                min-height: 50px;
+                background: none;
+                width: 100%;
+                border: none;
+                padding: 14px 0 10px 10px;
 
-            &.ng-not-empty {
-                color: @backgroundColorMouseOver;
-            }
+                &.ng-not-empty {
+                    color: @backgroundColorMouseOver;
+                }
 
-            &:focus {
-                color: @backgroundColorMouseOver;
+                &:focus {
+                    color: @backgroundColorMouseOver;
+                }
             }
         }
     }
@@ -640,7 +642,7 @@
 
         .file {
             &:hover {
-                fill: @fileColor;
+                fill: @buttonColorBlue;
             }
         }
 

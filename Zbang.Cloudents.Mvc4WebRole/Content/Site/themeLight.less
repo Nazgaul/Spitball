@@ -91,10 +91,6 @@
     //add btn
     .add {
         background: @buttonColorRed;
-
-        svg {
-            fill: @textColorWhite;
-        }
     }
     /*#region angularmaterial*/
     .dd-list {
@@ -233,22 +229,6 @@
             border-bottom: 1px solid @textColorGrey;
             color: @textColorGrey;
         }
-    }
-    /*.page-title {
-        svg {
-            fill: @backgroundColorMenu;
-        }
-    }*/
-    .button-Blue {
-        background: @buttonColorBlue !important;
-
-        &:hover {
-            background: @buttonColorHover !important;
-            color: @textColorWhite !important;
-        }
-        /*&:focus {
-        color: inherit;
-    }*/
     }
 
     .tab-from-r {
@@ -623,11 +603,15 @@
     .themeClasses(TC31, #5f6871, svg);
     .themeClasses(TC32, @textColorLightGrey, border);
     .themeClasses(TC33, #f9f9f9, background);
-
+    .themeClasses(TC34, #8c99a6, background);
     .themeClasses(TC35, @buttonColorBlue, text svg);
     .themeClasses(TC36, #eee, background);
     .themeClasses(TC37, #042E5E, background);
+    .themeClasses(TC38, @textColorLightGrey, svg);
     .themeClasses(TC39, #f5f5f5, hoverBackground);
+    .themeClasses(TC40, @textColorLightGrey, svg);
+    .themeClasses(TC41, #eee, background);
+    .themeClasses(TC42, @textColorBlue, svg);
     /*input[type="search"], textarea {
         .placeHolder(@textColorGrey) !important;
     }*/

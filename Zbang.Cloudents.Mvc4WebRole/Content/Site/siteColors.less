@@ -97,10 +97,6 @@
         background: @backgroundColorFollow;
     }
 
-    .invite-btn {
-        background: @textColorWhite;
-        color: @textColorFollow;
-    }
     //add button
     .add-button {
         &:hover {
@@ -225,13 +221,6 @@
         }
     }
 
-    .member-invite {
-        background: @buttonColorBlue;
-
-        svg {
-            fill: @backgroundColorWhite;
-        }
-    }
 
     .member {
         .member-name {
@@ -426,17 +415,9 @@
         color: @textColorWhite;
     }
 
-    .dashboard-stat2, .box-cube, .unibox, .leaderboard {
+    .box-cube, .unibox, .leaderboard {
         border: 1px solid transparent;
         background: @backgroundColorMenu;
-    }
-
-    .dashboard-stat2 .display .number small {
-        color: @textColorWhite;
-    }
-
-    .dashboard-stat2 .progress-info .status {
-        color: @textColorWhite;
     }
 
     .table-scrollable > .table {
@@ -485,12 +466,7 @@
         .leaderBoardTitle {
             color: @textColorDarkGrey;
         }
-
-        .updates {
-            background-color: @backgroundColorRed;
-            color: @textColorWhite;
-        }
-
+        
         .content {
             .universityStats {
                 color: @textColorGrey;
@@ -1244,7 +1220,6 @@ Page Loading
     /*#endregion*/
     /*#region search.less*/
     .search {
-        background: @backgroundColor;
         .placeHolder(@textColorGrey);
 
         em {
@@ -1278,10 +1253,6 @@ Page Loading
     }
 
     .invite {
-        .portlet-title > .caption {
-            color: @textColorWhite;
-        }
-
         button.btn-default {
             &:active:hover {
                 svg {
