@@ -150,9 +150,6 @@
 .add-comment input[type=checkbox]:checked + label svg {
   fill: #d39f10;
 }
-.add-comment .file:hover {
-  fill: #f9f9f9;
-}
 .add-comment .dropbox:hover {
   fill: #007EE5;
 }
@@ -1179,6 +1176,9 @@ md-chips .md-chips.md-focused {
 .textTC2 {
   color: #888b8e !important;
 }
+.svgTC2 {
+  fill: #888b8e !important;
+}
 .backgroundTC3 {
   background: #4190b9 !important;
 }
@@ -1281,9 +1281,6 @@ md-chips .md-chips.md-focused {
 .backgroundTC33 {
   background: #282828 !important;
 }
-.textTC34 {
-  color: #f5f5f5 !important;
-}
 .textTC35 {
   color: #f5f5f5 !important;
 }
@@ -1295,9 +1292,6 @@ md-chips .md-chips.md-focused {
 }
 .backgroundTC37 {
   background: #375068 !important;
-}
-.textTC38 {
-  color: #f5f5f5 !important;
 }
 .hoverBackgroundTC39:hover {
   background: #212325 !important;

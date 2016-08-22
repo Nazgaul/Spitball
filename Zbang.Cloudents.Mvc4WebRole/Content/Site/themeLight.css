@@ -507,9 +507,6 @@ Page Loading
 .theme-light .add-comment input[type=checkbox]:checked + label svg {
   fill: #d39f10;
 }
-.theme-light .add-comment .file:hover {
-  fill: #f9f9f9;
-}
 .theme-light .add-comment .dropbox:hover {
   fill: #007EE5;
 }
@@ -2011,6 +2008,9 @@ Page Loading
 .theme-light .textTC2 {
   color: #c3c3c3 !important;
 }
+.theme-light .svgTC2 {
+  fill: #c3c3c3 !important;
+}
 .theme-light .backgroundTC3 {
   background: #4190b9 !important;
 }
@@ -2101,6 +2101,9 @@ Page Loading
 .theme-light .textTC30 {
   color: #212325 !important;
 }
+.theme-light .backgroundTC30 {
+  background: #212325 !important;
+}
 .theme-light .svgTC31 {
   fill: #5f6871 !important;
 }
@@ -2109,9 +2112,6 @@ Page Loading
 }
 .theme-light .backgroundTC33 {
   background: #f9f9f9 !important;
-}
-.theme-light .textTC34 {
-  color: #212325 !important;
 }
 .theme-light .textTC35 {
   color: #4190b9 !important;
@@ -2124,9 +2124,6 @@ Page Loading
 }
 .theme-light .backgroundTC37 {
   background: #042E5E !important;
-}
-.theme-light .textTC38 {
-  color: #212325 !important;
 }
 .theme-light .hoverBackgroundTC39:hover {
   background: #f5f5f5 !important;
