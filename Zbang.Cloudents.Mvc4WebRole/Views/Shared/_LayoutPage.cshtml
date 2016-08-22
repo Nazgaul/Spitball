@@ -51,86 +51,10 @@
                     </a>
                 </div>
             </div>
-            <form ng-controller="SearchTriggerController as st" ng-show="st.show"
-                  ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
-                  novalidate class="search-form search-form-expanded" ng-if="app.showSearch">
-                <div class="search-area color-override backgroundColor4">
-                    <input required ng-change="st.change(searchTrigger.$valid)"
-                           ng-focus="app.expandSearch = true;"
-                           ng-blur="app.expandSearch = false"
-                           ng-model="st.term"
-                           ng-minlength="2"
-                           ng-model-options="{debounce : 1000}"
-                           hide-chat-on-mobile="focus"
-                           type="search" class="text"
-                           user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
-                    <button type="submit" class="search-btn color-override backgroundColor11" ng-disabled="!st.term.length">
-                        <span>@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })</span>
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div layout="row" layout-align="center center" flex="none" ng-cloak ng-show="ud.loaded" ng-controller="UserDetailsController as ud">
+            <div ui-view="search-bar"></div>
 
-            @if (ViewBag.errorPage == null || !ViewBag.errorPage)
-            {
-                <button type="button" toggle-chat user-not-register-popup="click" class="chat-icon" hide-gt-sm ng-if="ud.showChat">
-                    @Html.Svg("~/images/site/icons.svg", "chat")
-                    <div class="chat-counter"></div>
-                </button>
-            }
-            <md-menu class="user-md-menu hoverBackgroundTC28" ng-if="ud.isLoggedIn" md-offset="10 80">
-                <md-button ng-click="$mdOpenMenu($event)" aria-label="Open menu">
-                    <div class="md-icon-button">
-                        <md-icon md-menu-origin>
-                            <user-image class="img-circle" name="ud.name" image="ud.image" width="39" height="39" noremove="true"></user-image>
-                        </md-icon>
-                        <span>{{ud.name}}</span>
-                    </div>
-                </md-button>
-                <md-menu-content md-menu-align-target class="md-user-menu">
-                    <md-menu-item class="user-menu-item">
-                        <md-button href="{{::ud.url}}" @shouldPostBack ga-track-event="['header', 'user activities']">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "userMenu", new { @class = "svgTC16" })</md-icon>
-                            @IndexResources.User
-                        </md-button>
-                    </md-menu-item>
-                    <md-menu-item class="user-menu-item">
-                        <md-button href="@Url.RouteUrl("AccountSettings")" @shouldPostBack ga-track-event="['header', 'settings']">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "settingMenu", new { @class = "svgTC16" })</md-icon>
-                            @IndexResources.Settings
-                        </md-button>
-                    </md-menu-item>
-                    <md-menu-item class="user-menu-item">
-                        <md-button id="Intercom" href="mailto:njmpgayv@incoming.intercom.io">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "intercom", new { @class = "svgTC16" })</md-icon>
-                            @IndexResources.Intercom
-                        </md-button>
-                    </md-menu-item>
-                    <md-menu-item class="user-menu-item">
-                        <md-button href="@Url.RouteUrl("Help")" target="_self" ga-track-event="['header', 'help']">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "headerHelp", new { @class = "svgTC16" })</md-icon>
-                            @SharedResources.Help
-                        </md-button>
-                    </md-menu-item>
-                    <md-menu-item class="user-menu-item">
-                        <md-button ng-click="app.logOut()" target="_self" href="@Url.Action("logoff","account")" @shouldPostBack ga-track-event="['header', 'logout']">
-                            <md-icon md-menu-align-target>@Html.Svg(svgUrl, "logOffMenu", new { @class = "svgTC16" })</md-icon>
-                            @IndexResources.Logout
-                        </md-button>
-                    </md-menu-item>
-                </md-menu-content>
-            </md-menu>
-            @{
-                var returnUrl = Request.QueryString["returnUrl"] ?? Request.Url.ToString();
-                var invId = Request.QueryString["invId"];
-
-            }
-            <div class="login-buttons" ng-if="!ud.isLoggedIn">
-                <a ng-click="ud.signup($event)" class="btn btn-default" target="_self" href="@Url.RouteUrl("HomePage", new { returnUrl, invId, step="signup" })" ga-track-event="['header', 'sign up']">@IndexResources.Signup</a>
-                <a ng-click="ud.signup($event)" class="btn button-Blue btn-primary" target="_self" href="@Url.RouteUrl("HomePage", new { returnUrl, invId, step="signin" })" ga-track-event="['header', 'log in']">@IndexResources.Login</a>
-            </div>
         </div>
+        <div ui-view="user-profile"></div>
     </header>
 
     @*'hidden-chat' : app.chatDisplayState === 0,*@
@@ -141,6 +65,26 @@
     <div class="page-footer">
         <scroll-to-top></scroll-to-top>
     </div>
+    <script type="text/ng-template" id="search-bar.html">
+        <form ng-show="st.show"
+              ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
+              novalidate class="search-form search-form-expanded">
+            <div class="search-area color-override backgroundColor4">
+                <input required ng-change="st.change(searchTrigger.$valid)"
+                       ng-focus="app.expandSearch = true;"
+                       ng-blur="app.expandSearch = false"
+                       ng-model="st.term"
+                       ng-minlength="2"
+                       ng-model-options="{debounce : 1000}"
+                       hide-chat-on-mobile="focus"
+                       type="search" class="text"
+                       user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
+                <button type="submit" class="search-btn color-override backgroundColor11" ng-disabled="!st.term.length">
+                    <span>@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon color-override svgColor3" })</span>
+                </button>
+            </div>
+        </form>
+    </script>
     @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{
         Html.RenderPartial("_UnregView");
@@ -158,7 +102,7 @@
         {
             <text>
         window.id = @User.GetUserId(false);
-        window.dChat = '@Zbang.Zbox.Infrastructure.Extensions.ConfigFetcher.Fetch("signalR")';
+        window.dChat = '@ConfigFetcher.Fetch("signalR")';
         </text>
         }
     </script>

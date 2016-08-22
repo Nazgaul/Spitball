@@ -5,7 +5,7 @@ var app;
         function ResManager($location, ajaxService) {
             this.$location = $location;
             this.ajaxService = ajaxService;
-            this.jsResources = JsResources;
+            this.jsResources = window['JsResources'];
             return this;
         }
         ResManager.prototype.get = function (value) {

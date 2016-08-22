@@ -84,7 +84,7 @@ var app;
             });
             return q.promise;
         };
-        UserUpdatesService.$inject = ["ajaxService", "$q", "userDetailsFactory", "$rootScope", "$window", "$stateParams"];
+        UserUpdatesService.$inject = ["ajaxService2", "$q", "userDetailsFactory", "$rootScope", "$window", "$stateParams"];
         return UserUpdatesService;
     }());
     angular.module('app.user').service('userUpdatesService', UserUpdatesService);

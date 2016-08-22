@@ -145,7 +145,7 @@ namespace Zbang.Zbox.Domain.Services
 
         public async Task<AddItemToBoxCommandResult> AddItemToBoxAsync(AddItemToBoxCommand command)
         {
-            using (UnitOfWork.Start())
+            using (var unitOfWork = UnitOfWork.Start())
             {
                 var reputationCommand = new AddReputationCommand(command.UserId,
                      Infrastructure.Enums.ReputationAction.AddItem);
@@ -156,7 +156,7 @@ namespace Zbang.Zbox.Domain.Services
                 var t1 = m_CommandBus.SendAsync(reputationCommand);
 
                 await Task.WhenAll(t1, t2, t3, t4);
-                UnitOfWork.Current.TransactionalFlush();
+                unitOfWork.TransactionalFlush();
 
                 return t2.Result;
             }

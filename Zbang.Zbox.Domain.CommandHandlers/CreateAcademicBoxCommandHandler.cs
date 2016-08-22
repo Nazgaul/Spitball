@@ -40,10 +40,14 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new OverflowException("Box Name exceed" + Box.NameLength);
             }
-
-            User user = UserRepository.Load(command.UserId);
             var department = m_DepartmentRepository.Load(academicCommand.DepartmentId);
-
+            var box = m_AcademicRepository.CheckIfExists(academicCommand.CourseCode, department, academicCommand.Professor
+                , academicCommand.BoxName);
+            if (box != null)
+            {
+                throw new BoxNameAlreadyExistsException();
+            }
+            var user = UserRepository.Load(command.UserId);
             if (department.University != user.University && department.University != user.University.UniversityData)
             {
                 throw new UnauthorizedAccessException("Department is not part of the university");
@@ -51,12 +55,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
 
 
-            var box = m_AcademicRepository.CheckIfExists(academicCommand.CourseCode, department, academicCommand.Professor
-                , academicCommand.BoxName);
-            if (box != null)
-            {
-                throw new BoxNameAlreadyExistsException();
-            }
+            
 
             if (department.Settings == LibraryNodeSettings.Closed)
             {

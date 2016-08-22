@@ -54,17 +54,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AjaxMin.4.97.4951.28483\lib\net40\AjaxMin.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.0.0\lib\net451\Autofac.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Autofac.Integration.Mvc">
-      <HintPath>..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.0\lib\net451\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Autofac.Integration.Mvc.Owin">
-      <HintPath>..\packages\Autofac.Mvc5.Owin.3.1.0\lib\net45\Autofac.Integration.Mvc.Owin.dll</HintPath>
+    <Reference Include="Autofac.Integration.Mvc.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.Owin.4.0.0\lib\net451\Autofac.Integration.Mvc.Owin.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Autofac.Integration.Owin">
-      <HintPath>..\packages\Autofac.Owin.3.1.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
+    <Reference Include="Autofac.Integration.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Owin.4.0.0\lib\net45\Autofac.Integration.Owin.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevTrends.MvcDonutCaching, Version=1.3.0.0, Culture=neutral, PublicKeyToken=73c58d802958a09f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1482,7 +1486,6 @@
     <Content Include="Js\app.route.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
     <Content Include="Js\components\chat\chat.controller.js" />
-    <Content Include="Js\components\chat\chat.factory.js" />
     <Content Include="Js\components\account\account.routes.js" />
     <Content Include="Js\components\account\account.service.js" />
     <Content Include="Js\components\account\department.controller.js" />
@@ -1524,8 +1527,10 @@
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
+    <TypeScriptCompile Include="Js\components\chat\chat.factory.ts" />
     <TypeScriptCompile Include="Js\components\chat\chatTimeAgo.ts" />
     <TypeScriptCompile Include="Js\components\chat\hubFactory.ts" />
+    <TypeScriptCompile Include="Js\components\chat\previewController.ts" />
     <TypeScriptCompile Include="Js\components\user\updates.service.ts" />
     <TypeScriptCompile Include="Js\components\chat\hideChatOnMobile.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\toggleChat.directive.ts" />
@@ -1556,6 +1561,9 @@
     <Content Include="Scripts\angular-signalr-hub.min.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
+    <Content Include="Content\HomePage\homePage2.less" />
+    <Content Include="Scripts\angular-messages.min.js.map" />
+    <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
@@ -2302,8 +2310,6 @@
     <Content Include="Scripts\i18n\angular-locale_zh.js" />
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
-    <Content Include="Content\HomePage\homePage2.less" />
-    <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />
     <Content Include="Scripts\jquery-2.2.0.min.map" />
@@ -2576,6 +2582,8 @@
     <Content Include="Views\Shared\Partials2\_Chat.cshtml" />
     <Content Include="Views\Chat\PreviewDialog.cshtml" />
     <Content Include="Views\Shared\_Body.cshtml" />
+    <Content Include="Views\Account\UserDetails.cshtml" />
+    <Content Include="Views\Account\UnregisterView.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

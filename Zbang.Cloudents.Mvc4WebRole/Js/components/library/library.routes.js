@@ -56,7 +56,15 @@
                 state: 'universityChoose', config: {
                     url: '/university/choose/',
                     controller: 'LibraryChoose as lc',
-                    data: { animateClass: 'library-choose' }
+                    data: { animateClass: 'library-choose' },
+                    views: {
+                        "search-bar@": {
+                            template: ''
+                        },
+                        "menu@" : {
+                            template:''
+                        }
+                    }
                 },
                 templateUrl: '/university/choosepartial/'
             }

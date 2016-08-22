@@ -43,14 +43,23 @@ interface IRouterHelper {
                     if (!state.config.parent) {
                         state.config.parent = 'root';
                     }
+
+                    
                     if (state.templateUrl) {
-                        //state.config.templateUrl = function() {
-                        //    return buildUrl(state.templateUrl);
-                        //};
-                        state.config.templateProvider = [
-                            'ajaxService2', (ajaxService2: app.IAjaxService2) => ajaxService2.getHtml(state.templateUrl)
+                        const template = [
+                            'ajaxService2', (ajaxService2: app.IAjaxService2) => ajaxService2
+                            .getHtml(state.templateUrl)
                         ];
+                        if (state.config.views) {
+                            state.config.views[''] = {
+                                templateProvider: template,
+                                controller: state.config.controller
+                            };
+                        } else {
+                            state.config.templateProvider = template;
+                        }
                     }
+                    console.log(state.config);
                     $stateProvider.state(state.state, state.config);
                 });
                 if (otherwisePath && !hasOtherwise) {

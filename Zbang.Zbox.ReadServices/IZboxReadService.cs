@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.ViewModel.Dto;
@@ -44,7 +45,9 @@ namespace Zbang.Zbox.ReadServices
         Task<IEnumerable<QuizDto>> GetBoxQuizesAsync(GetBoxQuizesPagedQuery query);
 
         Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query);
-        Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query);
+
+        Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query,
+            CancellationToken token);
 
         Task<ItemDetailDto> GetItem2Async(GetItemQuery query);
         Task<IEnumerable<AnnotationDto>> GetItemCommentsAsync(ItemCommentQuery query);

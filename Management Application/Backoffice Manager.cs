@@ -19,8 +19,10 @@ using SendGrid;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Win32;
+using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Ioc;
+using Zbang.Zbox.Infrastructure.Url;
 
 namespace Management_Application
 {
@@ -604,7 +606,7 @@ namespace Management_Application
                     {
                         command.Parameters.AddWithValue("@uniId", dataTable.Rows[0]["UniversityId"].ToString());
                         command.CommandText = "SELECT UniversityName FROM Zbox.University WHERE Id=@uniId";
-                        SqlDataAdapter dataAdapter2 = new SqlDataAdapter {SelectCommand = command};
+                        SqlDataAdapter dataAdapter2 = new SqlDataAdapter { SelectCommand = command };
                         DataTable dataTable2 = new DataTable();
                         dataAdapter2.Fill(dataTable2);
                         uniName = dataTable2.Rows[0]["UniversityName"].ToString();
@@ -736,7 +738,7 @@ namespace Management_Application
                 {
                     if (entity.PostId.ToString() == listBoxFlaggedPosts.GetItemText(listBoxFlaggedPosts.SelectedItem))
                     {
-                       // Console.WriteLine(entity.PostId);
+                        // Console.WriteLine(entity.PostId);
 
                         m_GlobalFlaggedPost = entity;
                         break;
@@ -831,7 +833,7 @@ namespace Management_Application
                     ds.Clear();
                     dataAdapter.Fill(ds);
                     dataTable = ds.Tables[0];
-                   // Console.WriteLine(ds.Tables[0].Rows.Count);
+                    // Console.WriteLine(ds.Tables[0].Rows.Count);
                     if (ds.Tables[0].Rows.Count == 0)
                         throw new Exception();
                 }
@@ -1215,8 +1217,24 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
             //}
         }
 
+        private void buttonChangeDepartment_Click(object sender, EventArgs e)
+        {
+            var boxIdstr = textBoxChangeDepartmentBoxId.Text?.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            if (boxIdstr == null)
+            {
+                return;
+            }
+            var boxIds = boxIdstr.Select(long.Parse);
 
-
-
+            var departmentId = GuidEncoder.TryParseNullableGuid(textBoxChangeDepartmentDepartmentId.Text);
+            if (!departmentId.HasValue)
+            {
+                return;
+            }
+            var command = new ChangeBoxLibraryCommand(boxIds, departmentId.Value);
+            var writeService = IocFactory.IocWrapper.Resolve<IZboxWorkerRoleService>();
+            writeService.ChangeBoxDepartment(command);
+            MessageBox.Show("Done");
+        }
     }
 }

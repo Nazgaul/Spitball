@@ -58,7 +58,7 @@ var app;
             };
             $rootScope.$on("$viewContentLoaded", function () {
                 var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
-                dataLayer.push({ event: "virtualPageView", virtualUrl: virtualUrl });
+                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl });
                 __insp.push(["virtualPage"]);
             });
             userDetails.init().then(function () {
@@ -67,16 +67,15 @@ var app;
             $rootScope.$on("$mdMenuClose", function () {
                 _this.menuOpened = false;
             });
-            this.showMenu = this.showSearch = true;
             this.showBoxAd = false;
-            this.isMobile = false;
             $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams) {
                 _this.showBoxAd = toState.parent === "box";
-                _this.showSearch = !(toState.name === "universityChoose");
-                _this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
                 if (toState.name.startsWith("box")) {
                     realtimeFactotry.assingBoxes(toParams.boxId);
                 }
+            });
+            $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+                console.error(error);
             });
             $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
                 if (!fromState.name) {

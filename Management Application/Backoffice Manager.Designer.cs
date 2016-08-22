@@ -119,6 +119,12 @@
             this.richTextBoxItemToReplace = new System.Windows.Forms.RichTextBox();
             this.labelItemToReplace = new System.Windows.Forms.Label();
             this.tabPageMergeBoxes = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxChangeDepartmentDepartmentId = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.textBoxChangeDepartmentBoxId = new System.Windows.Forms.TextBox();
+            this.buttonChangeDepartment = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxDeleteBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -148,6 +154,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserFlaggedPost)).BeginInit();
             this.tabPageReplaceItem.SuspendLayout();
             this.tabPageMergeBoxes.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMergeBoxes)).BeginInit();
             this.SuspendLayout();
@@ -160,6 +167,7 @@
             label15.Size = new System.Drawing.Size(42, 16);
             label15.TabIndex = 0;
             label15.Text = "From:";
+            label15.Visible = false;
             // 
             // label16
             // 
@@ -169,6 +177,7 @@
             label16.Size = new System.Drawing.Size(28, 16);
             label16.TabIndex = 1;
             label16.Text = "To:";
+            label16.Visible = false;
             // 
             // label18
             // 
@@ -1131,6 +1140,7 @@
             // 
             // tabPageMergeBoxes
             // 
+            this.tabPageMergeBoxes.Controls.Add(this.groupBox2);
             this.tabPageMergeBoxes.Controls.Add(this.groupBox1);
             this.tabPageMergeBoxes.Controls.Add(this.dataGridViewMergeBoxes);
             this.tabPageMergeBoxes.Controls.Add(this.textBoxBoxTo);
@@ -1146,6 +1156,62 @@
             this.tabPageMergeBoxes.Text = "Merge boxes";
             this.tabPageMergeBoxes.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textBoxChangeDepartmentDepartmentId);
+            this.groupBox2.Controls.Add(this.label20);
+            this.groupBox2.Controls.Add(this.textBoxChangeDepartmentBoxId);
+            this.groupBox2.Controls.Add(this.buttonChangeDepartment);
+            this.groupBox2.Controls.Add(this.label19);
+            this.groupBox2.Location = new System.Drawing.Point(542, 305);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(415, 187);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Change Department";
+            // 
+            // textBoxChangeDepartmentDepartmentId
+            // 
+            this.textBoxChangeDepartmentDepartmentId.Location = new System.Drawing.Point(120, 63);
+            this.textBoxChangeDepartmentDepartmentId.Name = "textBoxChangeDepartmentDepartmentId";
+            this.textBoxChangeDepartmentDepartmentId.Size = new System.Drawing.Size(289, 22);
+            this.textBoxChangeDepartmentDepartmentId.TabIndex = 3;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(19, 66);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(95, 16);
+            this.label20.TabIndex = 4;
+            this.label20.Text = "Department id:";
+            // 
+            // textBoxChangeDepartmentBoxId
+            // 
+            this.textBoxChangeDepartmentBoxId.Location = new System.Drawing.Point(72, 24);
+            this.textBoxChangeDepartmentBoxId.Name = "textBoxChangeDepartmentBoxId";
+            this.textBoxChangeDepartmentBoxId.Size = new System.Drawing.Size(337, 22);
+            this.textBoxChangeDepartmentBoxId.TabIndex = 0;
+            // 
+            // buttonChangeDepartment
+            // 
+            this.buttonChangeDepartment.Location = new System.Drawing.Point(334, 148);
+            this.buttonChangeDepartment.Name = "buttonChangeDepartment";
+            this.buttonChangeDepartment.Size = new System.Drawing.Size(75, 23);
+            this.buttonChangeDepartment.TabIndex = 2;
+            this.buttonChangeDepartment.Text = "Submit";
+            this.buttonChangeDepartment.UseVisualStyleBackColor = true;
+            this.buttonChangeDepartment.Click += new System.EventHandler(this.buttonChangeDepartment_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(19, 27);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(54, 16);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "box ids:";
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.textBoxDeleteBox);
@@ -1153,7 +1219,7 @@
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Location = new System.Drawing.Point(23, 305);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1017, 187);
+            this.groupBox1.Size = new System.Drawing.Size(415, 187);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "delete box";
@@ -1236,6 +1302,7 @@
             this.textBoxBoxTo.Name = "textBoxBoxTo";
             this.textBoxBoxTo.Size = new System.Drawing.Size(100, 22);
             this.textBoxBoxTo.TabIndex = 3;
+            this.textBoxBoxTo.Visible = false;
             // 
             // textBoxBoxFrom
             // 
@@ -1243,6 +1310,7 @@
             this.textBoxBoxFrom.Name = "textBoxBoxFrom";
             this.textBoxBoxFrom.Size = new System.Drawing.Size(100, 22);
             this.textBoxBoxFrom.TabIndex = 3;
+            this.textBoxBoxFrom.Visible = false;
             // 
             // buttonMerge
             // 
@@ -1264,6 +1332,7 @@
             this.buttonMergeBoxes.TabIndex = 2;
             this.buttonMergeBoxes.Text = "Submit";
             this.buttonMergeBoxes.UseVisualStyleBackColor = true;
+            this.buttonMergeBoxes.Visible = false;
             this.buttonMergeBoxes.Click += new System.EventHandler(this.buttonMergeBoxes_Click);
             // 
             // openFileDialogReplaceItem
@@ -1298,6 +1367,8 @@
             this.tabPageReplaceItem.PerformLayout();
             this.tabPageMergeBoxes.ResumeLayout(false);
             this.tabPageMergeBoxes.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMergeBoxes)).EndInit();
@@ -1410,6 +1481,12 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox textBoxImage;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox textBoxChangeDepartmentDepartmentId;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox textBoxChangeDepartmentBoxId;
+        private System.Windows.Forms.Button buttonChangeDepartment;
+        private System.Windows.Forms.Label label19;
     }
 }
 

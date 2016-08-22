@@ -157,6 +157,54 @@ namespace Zbang.Zbox.Infrastructure.Notifications
             return SendNotificationAsync(googleMessage, applePushMessage, userIds);
         }
 
+        public Task SendChatMessageNotificationAsync(string userNameOfAction,
+            string text, Guid conversationId,
+            IList<long> userIds)
+        {
+            var googleMessage = new GooglePushMessage(
+             new Dictionary<string, string>
+                {
+                    {"text", text},
+                    {"userName", userNameOfAction},
+                    {"action",((int)PushAction.ChatMessage).ToString()},
+                    {"conversationId", conversationId.ToString()}
+                }, null);
+            var applePushMessage = new ApplePushMessage();
+            applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_CHAT_MESSAGE";
+            applePushMessage.Aps.AlertProperties["loc-args"] = new[]
+                {
+                    userNameOfAction, text
+
+                };
+            applePushMessage.Add("action", PushAction.ChatMessage);
+            applePushMessage.Add("conversationId", conversationId);
+            return SendNotificationAsync(googleMessage, applePushMessage, userIds);
+        }
+
+        public Task SendChatFileNotificationAsync(string userNameOfAction,Guid conversationId,
+           IList<long> userIds)
+        {
+            var googleMessage = new GooglePushMessage(
+             new Dictionary<string, string>
+                {
+                    {"userName", userNameOfAction},
+                    {"action",((int)PushAction.ChatFile).ToString()},
+                    {"conversationId", conversationId.ToString()}
+                }, null);
+            var applePushMessage = new ApplePushMessage();
+            applePushMessage.Aps.AlertProperties.LocKey = "PUSH_NOTIFICATION_CHAT_FILE";
+            applePushMessage.Aps.AlertProperties["loc-args"] = new[]
+                {
+                    userNameOfAction
+
+                };
+            applePushMessage.Add("action", PushAction.ChatFile);
+            applePushMessage.Add("conversationId", conversationId);
+            return SendNotificationAsync(googleMessage, applePushMessage, userIds);
+        }
+
+
+
         public Task SendInviteNotificationAsync(string userNameOfAction,
             string boxName, long boxId,
             long userId)

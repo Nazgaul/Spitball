@@ -31,7 +31,7 @@ namespace Zbang.Zbox.ReadServices
             m_Cache = cache;
         }
 
-       
+
 
         public Task<IEnumerable<BoxDto>> GetUserBoxesAsync(GetBoxesQuery query)
         {
@@ -51,7 +51,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetLibraryNodeAsync(query);
         }
 
-      
+
 
         public Task<IEnumerable<ViewModel.Dto.ItemDtos.ItemDto>> GetBoxItemsPagedAsync(GetBoxItemsPagedQuery query)
         {
@@ -66,7 +66,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBoxQuizesAsync(query);
         }
 
-       
+
         public Task<ItemDetailDto> GetItem2Async(GetItemQuery query)
         {
             return m_ReadService.GetItem2Async(query);
@@ -91,7 +91,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBoxTabsAsync(query);
         }
 
-       
+
 
         public Task<IEnumerable<UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query)
         {
@@ -119,7 +119,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        
+
         public Task<IEnumerable<UserMemberDto>> GetBoxMembersAsync(GetBoxQuery query)
         {
             return m_ReadService.GetBoxMembersAsync(query);
@@ -300,9 +300,9 @@ namespace Zbang.Zbox.ReadServices
             //return m_Cache.QueryAsync(m_ReadService.GetBoxLeaderBoardAsync, query);
         }
 
-        public Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query)
+        public Task<IEnumerable<RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query, CancellationToken token)
         {
-            return m_Cache.QueryAsync(m_ReadService.GetBoxRecommendedCoursesAsync, query);
+            return m_ReadService.GetBoxRecommendedCoursesAsync(query, token);
         }
 
 
@@ -310,7 +310,7 @@ namespace Zbang.Zbox.ReadServices
 
 
 
-      
+
 
 
         public Task<UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query)
