@@ -36,40 +36,47 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
             var list = new List<Task>();
             while (needToContinueRun)
             {
-                TraceLog.WriteInfo($"{ServiceName} running  mail page {page}");
-                needToContinueRun = false;
-                int pageSize = 500;
-                if (RoleIndexProcessor.IsEmulated)
+                try
                 {
-                    pageSize = 10;
-                }
-
-                var query = new MarketingQuery(page, pageSize);
-                var result = await GetDataAsync(query, token);
-
-                foreach (var user in result)
-                {
-                    needToContinueRun = true;
-                    var email = user.Email;
+                    TraceLog.WriteInfo($"{ServiceName} running  mail page {page}");
+                    needToContinueRun = false;
+                    int pageSize = 500;
                     if (RoleIndexProcessor.IsEmulated)
                     {
-                        email = "ram@cloudents.com";
+                        pageSize = 10;
                     }
 
-                    var culture = string.IsNullOrEmpty(user.Culture)
-                        ? new CultureInfo("en-US")
-                        : new CultureInfo(user.Culture);
-                    var markertingMail = BuildMarkertingMail(user.Name, culture);
-                    list.Add(m_MailComponent.GenerateAndSendEmailAsync(email,
-                        markertingMail, token));
+                    var query = new MarketingQuery(page, pageSize);
+                    var result = await GetDataAsync(query, token);
 
+                    foreach (var user in result)
+                    {
+                        needToContinueRun = true;
+                        var email = user.Email;
+                        if (RoleIndexProcessor.IsEmulated)
+                        {
+                            email = "ram@cloudents.com";
+                        }
+
+                        var culture = string.IsNullOrEmpty(user.Culture)
+                            ? new CultureInfo("en-US")
+                            : new CultureInfo(user.Culture);
+                        var markertingMail = BuildMarkertingMail(user.Name, culture);
+                        list.Add(m_MailComponent.GenerateAndSendEmailAsync(email,
+                            markertingMail, token));
+
+                    }
+                    await Task.WhenAll(list);
+                    list.Clear();
+                    page++;
+                    if (RoleIndexProcessor.IsEmulated)
+                    {
+                        needToContinueRun = false;
+                    }
                 }
-                await Task.WhenAll(list);
-                list.Clear();
-                page++;
-                if (RoleIndexProcessor.IsEmulated)
+                catch (Exception ex)
                 {
-                    needToContinueRun = false;
+                    TraceLog.WriteError($"{ServiceName} {ex}");
                 }
                 await progressAsync(page);
 

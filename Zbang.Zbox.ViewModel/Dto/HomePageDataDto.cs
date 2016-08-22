@@ -23,9 +23,9 @@
         public HomePageUniversityData()
         {
             MainSignupColor = SignupColor = "#EC610D";
-            BackgroundImage = "DefaultUni2.jpg";
+            BackgroundImage = "DefaultUni3.jpg";
             HeaderBackgroundColor = "rgba(0,0,0,.9)";
-            VideoBackgroundColor = "#FFF";
+            VideoBackgroundColor = "#DADADA";
             VideoFontColor = "#383838";
             //Logo = "/images/site/logo_spitball.png";
         }

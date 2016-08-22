@@ -27,7 +27,17 @@
                             }
                         }]
                     },
-                    "search-bar" : {
+                    "chat": {
+                        controller: "ChatController as c",
+                        templateProvider: [
+                            'user', 'ajaxService2', function (user, ajaxService2) {
+                                if (user.id && user.university.id > 0) {
+                                    return ajaxService2.getHtml("chat/index");
+                                }
+                            }
+                        ]
+                    },
+                    "search-bar": {
                         controller: "SearchTriggerController as st",
                         //template: '<div>hi</div>'
                         templateUrl: "search-bar.html"
@@ -69,7 +79,7 @@
                                "menu@": {
                                    template: ''
                                }
-                              
+
                            }
                        },
                        templateUrl: '/item/indexpartial/'

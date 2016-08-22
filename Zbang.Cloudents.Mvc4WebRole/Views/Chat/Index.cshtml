@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<div ng-cloak  ng-controller="ChatController as c">
-    <div ng-if="c.loadChat" class="chat">
+<div @*ng-cloak ng-controller="ChatController as c"*@>
+    <div @*ng-if="c.loadChat"*@ class="chat">
         <div class="content" ng-cloak ng-class="{stateChat: c.state === c.states.chat}">
             <div class="error" ng-class="{disconnected : !c.connected}">
                 <div>@ChatResources.DisconnectedHeader</div>
@@ -12,11 +12,11 @@
                 <div class="tab-content" ng-if="c.state === c.states.messages">
                     <form novalidate class="search-friend" ng-submit="c.search(c.term)">
                         <button type="button" class="search-btn" ng-click="c.expandSearch()">
-                            @Html.Svg("~/images/site/icons.svg", "searchIcon", new {@class = "searchIcon"})
+                            @Html.Svg("~/images/site/icons.svg", "searchIcon", new { @class = "searchIcon" })
                         </button>
                         <input type="search" class="textTC30" focus-me="c.focusSearch" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search(c.term)" ng-model-options="{debounce : 300}" />
                         <button type="reset" ng-if="c.term.length" class="reset-btn" ng-click="c.resetSearch()">
-                            @Html.Svg("~/images/site/icons.svg", "close", new {@class = "resetIcon svgTC22"})
+                            @Html.Svg("~/images/site/icons.svg", "close", new { @class = "resetIcon svgTC22" })
                         </button>
                     </form>
                     <div class="users-list" disable-thouch ng-scrollbars ng-scrollbars-paging="down" ng-scrollbars-paging-function="c.usersPaging" ng-scrollbars-config="c.scrollSetting">
@@ -86,7 +86,7 @@
                         </li>
                     </ul>
                     <div class="new-message">
-                        <a class="menu menu-item" plupload="c.upload.url" plupload-options="c.upload.options" plupload-callbacks="c.upload.callbacks" href="#" ga-track-event="['chat', 'upload-file']"> @Html.Svg("~/images/site/uploadIcons.svg", "file", new {@class = "attach"}) </a>
+                        <a class="menu menu-item" plupload="c.upload.url" plupload-options="c.upload.options" plupload-callbacks="c.upload.callbacks" href="#" ga-track-event="['chat', 'upload-file']"> @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" }) </a>
 
                         <form name="chatDialog" novalidate ng-submit="c.send()">
                             <md-input-container md-no-float="false">

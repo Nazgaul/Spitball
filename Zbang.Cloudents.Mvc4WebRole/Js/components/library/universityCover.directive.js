@@ -12,7 +12,7 @@
                 function appenUrl() {
                     var url = itemThumbnailService
                                 .getUniversityPic(attrs.univeristyCover, element.outerWidth(), element.outerHeight());
-                    element.css('background', 'url(' + url + ')');
+                    element.css('background', 'url(' + url + '&cropxunits=100&cropyunits=100&crop=0,0,0,-30)');
                 }
 
 

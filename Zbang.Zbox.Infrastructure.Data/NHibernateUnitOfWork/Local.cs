@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Runtime.Remoting.Messaging;
+using System.Threading;
 using System.Web;
 using Zbang.Zbox.Infrastructure.UnitsOfWork;
 
@@ -12,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         private class LocalData : ILocalData
         {
-           // [ThreadStatic]
+            [ThreadStatic]
             private static Hashtable _localData;
             private static readonly object LocalDataHashtableKey = new object();
 
@@ -21,28 +22,29 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
                 get
                 {
-                    if (!RunningInWeb)
-                    {
-                        //throw new NullReferenceException("You don't suppose to use this method in here since");
-                        if (_localData == null)
-                        {
-                            _localData = new Hashtable();
-                        }
-                        return _localData;
-                    }
                     //if (!RunningInWeb)
                     //{
                     //    //throw new NullReferenceException("You don't suppose to use this method in here since");
-                    //    if (_localData != null)
+                    //    if (_localData == null)
                     //    {
-                    //        CallContext.LogicalSetData("LocalData_hash", _localData);
-                    //        return _localData;
+                    //        _localData = new Hashtable();
                     //    }
-                    //    var hashTable =  CallContext.LogicalGetData("LocalData_hash") as Hashtable;
-                    //    _localData = hashTable ?? new Hashtable();
-                    //    CallContext.LogicalSetData("LocalData_hash", _localData);
                     //    return _localData;
                     //}
+                    if (!RunningInWeb)
+                    {
+                        //throw new NullReferenceException("You don't suppose to use this method in here since");
+                        if (_localData != null)
+                        {
+                            
+                            CallContext.LogicalSetData("LocalData_hash", _localData);
+                            return _localData;
+                        }
+                        var hashTable = CallContext.LogicalGetData("LocalData_hash") as Hashtable;
+                        _localData = hashTable ?? new Hashtable();
+                        CallContext.LogicalSetData("LocalData_hash", _localData);
+                        return _localData;
+                    }
                     var webHashtable = HttpContext.Current.Items[LocalDataHashtableKey] as Hashtable;
                     if (webHashtable == null)
                     {

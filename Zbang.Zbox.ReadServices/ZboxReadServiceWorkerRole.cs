@@ -150,7 +150,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                
+
 
                 return await conn.QueryAsync(@"select itemid, blobname, Discriminator from zbox.item 
                 where  Discriminator = 'Link'
@@ -159,7 +159,7 @@ namespace Zbang.Zbox.ReadServices
                 order by itemid
                 OFFSET @Offset ROWS
                 FETCH NEXT @RowSize ROWS ONLY", new { Offset = index * 100, RowSize = 100, start });
-                
+
             }
         }
 
@@ -272,7 +272,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 using (var grid = await conn.QueryMultipleAsync
                     (Search.GetItemToUploadToSearch +
-                     Search.GetItemUsersToUploadToSearch , new { itemId }
+                     Search.GetItemUsersToUploadToSearch, new { itemId }
                     ))
                 {
                     var retVal = await grid.ReadFirstAsync<ItemSearchDto>();
@@ -436,6 +436,21 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
 
                     return items.Union(replies).Union(comments);
                 }
+            }
+        }
+
+        public async Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, CancellationToken token)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync(token, "SpamGun"))
+            {
+                return
+                    await
+                        conn.QueryAsync<SpamGunDto>(
+                            new CommandDefinition(
+                                @"select top 1000 Id, FirstName, LastName, Email,mailbody as MailBody,mailsubject as MailSubject 
+from students 
+where uniid = @UniId
+and shouldSend = 1",new { UniId = universityId}, cancellationToken: token));
             }
         }
 

@@ -108,11 +108,14 @@ where n.id = " + ClusterFlunkUniversityId;
                         continue;
                     }
                     var blobName = $"{Guid.NewGuid()}.{file.extension}".ToLowerInvariant();
-                    await DownloadSomeFileAsync(file.key, blobName, file.type);
-                    //m_BlobProviderFiles.UploadFromLinkAsync
-                    var command = new AddFileToBoxCommand(SpitballUserId, boxId, blobName, file.name, file.size, null,
-                        false);
-                    await m_ZboxWriteService.AddItemToBoxAsync(command);
+                    if (await DownloadSomeFileAsync(file.key, blobName, file.type))
+                    {
+                        //m_BlobProviderFiles.UploadFromLinkAsync
+                        var command = new AddFileToBoxCommand(SpitballUserId, boxId, blobName, file.name, file.size,
+                            null,
+                            false);
+                        await m_ZboxWriteService.AddItemToBoxAsync(command);
+                    }
                     index++;
                 }
             }
@@ -120,7 +123,7 @@ where n.id = " + ClusterFlunkUniversityId;
 
         private static async Task<OdbcConnection> CreateConnectionAsync()
         {
-            OdbcConnection connection = new OdbcConnection("DSN=PostgreSQL30;UID=postgres;PWD=123qwe");
+            var connection = new OdbcConnection("DSN=PostgreSQL30;UID=postgres;PWD=123qwe");
             await connection.OpenAsync();
             return connection;
         }
@@ -128,7 +131,7 @@ where n.id = " + ClusterFlunkUniversityId;
 
 
 
-        private async Task DownloadSomeFileAsync(string key, string blobName, string mimeType)
+        private async Task<bool> DownloadSomeFileAsync(string key, string blobName, string mimeType)
         {
             var credentials = new Amazon.Runtime.BasicAWSCredentials("AKIAIGYVFLOIXNXB6PRA",
                 "jJkHDUT7XCcIjjMUlT1ZqpwE+aNJMwef1H3CQ/xI");
@@ -139,11 +142,23 @@ where n.id = " + ClusterFlunkUniversityId;
                     BucketName = "clusterflunk",
                     Key = key
                 };
-
-                using (GetObjectResponse response = await client.GetObjectAsync(request))
+                try
                 {
-                    await m_BlobProviderFiles.UploadStreamAsync(blobName, response.ResponseStream, mimeType, default(CancellationToken));
+                    using (GetObjectResponse response = await client.GetObjectAsync(request))
+                    {
+                        await
+                            m_BlobProviderFiles.UploadStreamAsync(blobName, response.ResponseStream, mimeType,
+                                default(CancellationToken));
+                    }
                 }
+                catch (AmazonS3Exception ex)
+                {
+                    if (ex.ErrorCode == "NoSuchKey")
+                    {
+                        return false;
+                    }
+                }
+                return true;
             }
         }
     }

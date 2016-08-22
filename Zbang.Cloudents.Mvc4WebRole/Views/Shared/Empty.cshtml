@@ -7,12 +7,12 @@
     @* ReSharper disable once Mvc.PartialViewNotResolved *@
     @{ Html.RenderPartial("_Upload");}
     <div ui-view animation-location></div>
-    
 </div>
-@if (User != null)
+<div ui-view="chat"></div>
+@*@if (User != null)
 {
     Html.RenderPartial("_Chat");
-}
+}*@
 @section scripts
 {
     @Html.AngularLocale()

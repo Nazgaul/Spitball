@@ -123,20 +123,20 @@ namespace Zbang.Zbox.Infrastructure.Mail
             await SendAsync(sendGridMail, new Credentials());
         }
 
-        public async Task SendSpanGunEmailAsync(string recipient, string ipPool)
+        public async Task SendSpanGunEmailAsync(string recipient, string ipPool, string body, string subject, string name)
         {
             var sendGridMail = new SendGridMessage
             {
-                From = new MailAddress("support@spitball.co")
+                From = new MailAddress("lama@spitball.co")
             };
 
-            sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "yaari_r@yahoo.com" : recipient);
-            sendGridMail.Html = LoadMailTempate.LoadMailFromContent(CultureInfo.CurrentCulture,
-                "Zbang.Zbox.Infrastructure.Mail.MailTemplate.Market");
+            sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
+            sendGridMail.Html = body;
+
             sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
-            sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
-            sendGridMail.SetCategory("pokimonMarket");
-            sendGridMail.Subject = "מחפשים את הפוקימון הבא?";
+            sendGridMail.AddSubstitution("{First_Name}", new List<string> { name });
+            sendGridMail.SetCategory(subject);
+            sendGridMail.Subject = subject;
             sendGridMail.SetIpPool(ipPool);
             sendGridMail.EnableClickTracking();
             sendGridMail.EnableOpenTracking();

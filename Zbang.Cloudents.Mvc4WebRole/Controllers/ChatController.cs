@@ -24,6 +24,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IFileProcessorFactory m_FileProcessorFactory;
 
 
+        
 
 
         public ChatController(IBlobProvider2<ChatContainerName> blobProviderChat, IFileProcessorFactory fileProcessorFactory)
@@ -31,6 +32,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_BlobProviderChat = blobProviderChat;
             m_FileProcessorFactory = fileProcessorFactory;
             // m_CacheBlobProvider = cacheBlobProvider;
+        }
+
+        public ActionResult Index()
+        {
+            return PartialView();
         }
 
         [HttpGet, ActionName("conversation")]
