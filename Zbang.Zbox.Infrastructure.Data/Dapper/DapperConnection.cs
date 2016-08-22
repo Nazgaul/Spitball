@@ -17,9 +17,9 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
             return connection;
         }
 
-        public static async Task<IDbConnection> OpenConnectionAsync(CancellationToken cancellationToken)
+        public static async Task<IDbConnection> OpenConnectionAsync(CancellationToken cancellationToken, string connectionStringName = "Zbox")
         {
-            var connection = new SqlConnection(ConfigFetcher.Fetch(ConnectionStringKey));
+            var connection = new SqlConnection(ConfigFetcher.Fetch(connectionStringName));
             await connection.OpenAsync(cancellationToken);
             return connection;
         }

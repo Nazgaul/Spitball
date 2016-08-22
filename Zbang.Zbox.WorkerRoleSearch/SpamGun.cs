@@ -54,6 +54,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     for (var i = 0; i < SpanGunNumberOfQueues; i++)
                     {
                         var queue = m_QueueProvider.GetQueue(BuidQueueName(i));
+                        await queue.FetchAttributesAsync(cancellationToken);
+                        if (queue.ApproximateMessageCount < 50)
+                        {
+                            BuildQueueDataAsync(queue, i);
+                        }
+
                         var emailsTask = new List<Task>();
                         for (var k = 0; k < 50; k++)
                         {
@@ -95,6 +101,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 }
             }
             TraceLog.WriteInfo($"{ServiceName} going not running.");
+        }
+
+        private Task BuildQueueDataAsync(CloudQueue queue, int queueUniversityId)
+        {
+            
         }
 
         private static string BuildIpPool(int i)
