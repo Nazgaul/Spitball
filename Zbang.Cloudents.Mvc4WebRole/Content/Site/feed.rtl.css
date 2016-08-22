@@ -257,7 +257,7 @@
   -ms-user-select: none;
   user-select: none;
   display: inline-block;
-  margin-left: 10px ;
+  margin-left: 10px;
 }
 .feed .items-container .feed-item.more-items {
   border: 1px solid #888b8e;
@@ -529,6 +529,10 @@
   width: 22px;
   height: 22px;
   fill: #777471;
+}
+.feed .actions .file:hover,
+.feed .reply-actions .file:hover {
+  fill: #f9f9f9;
 }
 .feed .actions .btn[disabled],
 .feed .reply-actions .btn[disabled] {
