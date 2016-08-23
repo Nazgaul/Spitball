@@ -24,7 +24,8 @@
         c.replyClicked = replyClicked;
         c.showButtons = false;
         c.commentDesabled = false;
-        c.cancel = cancel;
+        c.cancelComment = cancelComment;
+        c.cancelReply = cancelReply;
         c.showCommentMenu = false;
         c.toggleComments = toggleComments;
         c.displayUnregBox = displayUnregBox;
@@ -81,15 +82,22 @@
                 .finally(function () {
                     c.commentDesabled = false;
                     if (!c.error) {
-                        cancel(form);
+                        cancelComment(form);
                         c.showButtons = false;
                     }
                 });;
         }
 
-        function cancel(form) {
+        function cancelComment(form) {
             c.newCommentText = '';
             $scope.app.resetForm(form);
+            c.showButtons = false;
+        }
+
+        function cancelReply(form, comment) {
+            c.newCommentReplyText = '';
+            $scope.app.resetForm(form);
+            comment.showFrom = false
         }
 
         function addCommentReply(comment, form) {
@@ -116,7 +124,7 @@
                 .finally(function () {
                     c.commentDesabled = false;
                     if (!c.error) {
-                        cancel(form);
+                        cancelReply(form, comment);
                         comment.showFrom = false;
                     }
                 });;
