@@ -11,7 +11,7 @@
         <a href="{{::l.nodeDetail.parentUrl}}" ga-track-event="['university', 'back arrow']">
             <h2 layout="row">
                 <span class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow", new { @class = "svgTC11" })</span>
-                <span class="name ellipsis color-override backgroundColor10 textTC4">
+                <span class="name ellipsis backgroundTC34 textTC4">
                     {{::l.nodeDetail.name}}
                 </span>
             </h2>
@@ -27,7 +27,7 @@
 <div ng-if="!l.state.emptyTopTree" layout="row" layout-padding layout-wrap class="library-list">
 
     <div flex-lg="25" flex-gt-lg="25" flex-md="33" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat="dep in l.departments track by dep.id">
-        <a ng-click="l.goToSubLib(dep,$event)" href="{{::dep.url}}" class="dashboard-stat2 department" d-color="{{::dep.name.length}}" ga-track-event="['university', 'select department']">
+        <a ng-click="l.goToSubLib(dep,$event)" href="{{::dep.url}}" class="dashboard-stat2 department backgroundTC1" d-color="{{::dep.name.length}}" ga-track-event="['university', 'select department']">
             <div class="corner" d-color="{{::dep.name.length}}">
             </div>
             <div class="display">
@@ -55,7 +55,7 @@
         </a>
         <md-menu ng-if="l.canDelete(dep)">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['university', 'delete department']">
-                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 color-override svgColor6" })
+                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 svgTC44" })
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item>
@@ -78,5 +78,5 @@
     </div>
 </div>
 <button type="button" class="add" hide show-xs ng-click="l.createShow()" ng-if="l.state.withDepartmentAdmin || l.state.withBoxes" ng-hide="l.createOn || l.createDepartmentShow && l.createClassShow" ga-track-event="['dashboard', 'createbox', 'plus']">
-    @Html.Svg("~/images/site/icons.svg", "add", new { @class = "color-override svgColor8" })
+    @Html.Svg("~/images/site/icons.svg", "add")
 </button>

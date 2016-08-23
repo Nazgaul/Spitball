@@ -5,6 +5,9 @@ md-input-container:not(.md-input-invalid) label {
 .search md-tabs-wrapper {
   background: #323538;
 }
+body.theme-dark {
+  background: #181c1d;
+}
 /*#region general.less*/
 /*#region box.less*/
 .folder-selected .folder-name .folder-name-inner,
@@ -1283,6 +1286,15 @@ md-chips .md-chips.md-focused {
 }
 .svgTC42 {
   fill: #f5f5f5 !important;
+}
+.backgroundTC43 {
+  background: #4190b9 !important;
+}
+.svgTC44 {
+  fill: #f5f5f5 !important;
+}
+.borderTC45 {
+  border-color: #282828 !important;
 }
 /*input[type="search"], textarea {
     .placeHolder(@borderColorGrey) !important;

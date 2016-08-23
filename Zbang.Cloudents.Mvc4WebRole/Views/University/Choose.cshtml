@@ -9,7 +9,7 @@
             <div ng-if="lc.term.length > 1 && lc.showNoResult" class="sub-text">@UniversityResources.UniversitySearchTitleNoResultSub</div>
         </div>
         <form name="libraryChooseForm" novalidate ng-submit="lc.universitySearch(libraryChooseForm)" layout="row" layout-wrap>
-            <input spellcheck="false" autofocus required ng-disabled="lc.createUniversity" type="search" class="search-text color-override inputColor6" placeholder="@UniversityResources.UniversitySearchPlaceholder"
+            <input spellcheck="false" autofocus required ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="@UniversityResources.UniversitySearchPlaceholder"
                    ng-model="lc.term" ng-model-options="{debounce : 350}" ng-change="lc.universitySearch(libraryChooseForm)" ng-minlength="2" />
             <button type="submit" class="search-button" ng-disabled="!lc.term.length">
                 @Html.Svg("~/images/site/icons.svg", "searchIcon")
