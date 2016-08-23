@@ -98,10 +98,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserFriendsAsync(query);
         }
 
-        public UserDetailDto GetUserData(GetUserDetailsQuery query)
-        {
-            return m_ReadService.GetUserData(query);
-        }
+       
 
         public Task<UserAccountDto> GetUserAccountDetailsAsync(GetUserDetailsQuery query)
         {

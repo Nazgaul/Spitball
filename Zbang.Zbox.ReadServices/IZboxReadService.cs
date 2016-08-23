@@ -64,7 +64,6 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<UserDto>> GetUserFriendsAsync(GetUserFriendsQuery query);
 
-        UserDetailDto GetUserData(GetUserDetailsQuery query);
         Task<UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query);
         //Theme GetUserTheme(GetUserDetailsQuery query);
 

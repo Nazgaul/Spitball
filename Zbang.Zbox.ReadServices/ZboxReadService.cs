@@ -45,7 +45,7 @@ namespace Zbang.Zbox.ReadServices
                 {
                     var retVal = new HomePageDataDto
                     {
-                        HomePageStats = grid.Read<HomePageStats>().First()
+                        HomePageStats = await grid.ReadFirstAsync<HomePageStats>()
                     };
                     if (grid.IsConsumed) return retVal;
                     retVal.HomePageUniversityData = await grid.ReadFirstAsync<HomePageUniversityData>();
@@ -82,7 +82,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 var fieldInfo = typeof(Sql.Sql).GetFields(BindingFlags.Public | BindingFlags.Static |
                                             BindingFlags.FlattenHierarchy)
-                                            .FirstOrDefault(fi => fi.IsLiteral && !fi.IsInitOnly && fi.Name == "GetCoursesPageBoxes_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower());
+                                            .FirstOrDefault(fi => fi.IsLiteral && !fi.IsInitOnly && fi.Name == "GetCoursesPageBoxes_" + Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName.ToLower());
 
                 var coursesQuery = Sql.Sql.GetCoursesPageBoxes_en;
                 if (fieldInfo != null)
@@ -145,9 +145,9 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<UniversityDashboardInfoDto>(Sql.Sql.UniversityInfo,
+                var retVal = await conn.QueryFirstAsync<UniversityDashboardInfoDto>(Sql.Sql.UniversityInfo,
                     new { query.UniversityId });
-                return retVal.First();
+                return retVal;
             }
         }
 
@@ -179,7 +179,7 @@ namespace Zbang.Zbox.ReadServices
 
                     if (grid.IsConsumed) return retVal;
                     retVal.Boxes = await grid.ReadAsync<BoxDto>();
-                    retVal.Details = grid.Read<NodeDetails>().First();
+                    retVal.Details = await grid.ReadFirstAsync<NodeDetails>();
                     if (retVal.Details.State == LibraryNodeSettings.Closed)
                     {
                         if (retVal.Details.UserType == UserLibraryRelationType.Pending ||
@@ -222,8 +222,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<Box.BoxDto2>(Sql.Box.BoxData, new { query.BoxId });
-                var box = retVal.FirstOrDefault();
+                var retVal = await conn.QueryFirstOrDefaultAsync<Box.BoxDto2>(Sql.Box.BoxData, new { query.BoxId });
+                var box = retVal;
                 if (box == null)
                 {
                     throw new BoxDoesntExistException();
@@ -245,7 +245,7 @@ namespace Zbang.Zbox.ReadServices
                         top = numberOfMembers
                     }))
                 {
-                    var box = grid.Read<Box.BoxDtoWithMembers>().FirstOrDefault();
+                    var box = await grid.ReadFirstOrDefaultAsync<Box.BoxDtoWithMembers>();
                     if (box == null)
                     {
                         throw new BoxDoesntExistException();
@@ -280,12 +280,12 @@ namespace Zbang.Zbox.ReadServices
             {
                 const string getBoxNotification =
                     "select NotificationSettings from zbox.UserBoxRel where userid = @UserId and boxid = @BoxId";
-                var val = await conn.QueryAsync<NotificationSettings>(getBoxNotification, new
+                var val = await conn.QueryFirstOrDefaultAsync<NotificationSettings>(getBoxNotification, new
                 {
                     UserId = userId,
                     query.BoxId
                 });
-                return val.FirstOrDefault();
+                return val;
             }
 
         }
@@ -393,14 +393,14 @@ namespace Zbang.Zbox.ReadServices
                                 $"{Sql.Item.ItemDetail} {Sql.Item.Navigation}  {Sql.Item.UserItemRate}",
                                 new { query.ItemId, query.BoxId, query.UserId }))
                 {
-                    var retVal = grid.Read<Item.ItemDetailDto>().FirstOrDefault();
+                    var retVal = await grid.ReadFirstOrDefaultAsync<Item.ItemDetailDto>();
                     if (retVal == null)
                     {
                         throw new ItemNotFoundException();
                     }
-                    retVal.Navigation = grid.Read<Item.ItemNavigationDto>().FirstOrDefault();
+                    retVal.Navigation = await grid.ReadFirstOrDefaultAsync<Item.ItemNavigationDto>();
 
-                    retVal.Like = grid.Read<int>().FirstOrDefault();
+                    retVal.Like = await grid.ReadFirstOrDefaultAsync<int>();
                     return retVal;
                 }
 
@@ -467,8 +467,8 @@ namespace Zbang.Zbox.ReadServices
                     $"{Sql.Box.GetCommentForMobile} {Sql.Box.GetCommentFileForMobile}",
                     new { query.BoxId, query.QuestionId }))
                 {
-                    var comment = grid.Read<Qna.CommentDto>().First();
-                    comment.Files = grid.Read<Qna.ItemDto>().ToList();
+                    var comment = await grid.ReadFirstAsync<Qna.CommentDto>();
+                    comment.Files = await grid.ReadAsync<Qna.ItemDto>();
                     return comment;
 
                 }
@@ -539,8 +539,8 @@ namespace Zbang.Zbox.ReadServices
                             u.userReputation as score, uu.universityname as universityName, u.url as Url
                             from zbox.users u left join zbox.university uu on u.UniversityId = uu.id
                             where u.userid =@UserId";
-                var retVal = await conn.QueryAsync<User.UserMinProfile>(sql, new { query.UserId });
-                return retVal.First();
+                var retVal = await conn.QueryFirstAsync<User.UserMinProfile>(sql, new { query.UserId });
+                return retVal;
 
             }
         }
@@ -563,14 +563,14 @@ namespace Zbang.Zbox.ReadServices
                     Myfriend = query.FriendId,
                 }))
                 {
-                    var retVal = grid.Read<User.UserWithStats>().FirstOrDefault();
+                    var retVal = await grid.ReadFirstOrDefaultAsync<User.UserWithStats>();
                     if (retVal != null)
                     {
-                        retVal.NumClass = grid.Read<int>().FirstOrDefault();
-                        retVal.NumItem = grid.Read<int>().FirstOrDefault();
-                        retVal.NumFeed = grid.Read<int>().FirstOrDefault() + grid.Read<int>().FirstOrDefault();
-                        retVal.NumQuiz = grid.Read<int>().FirstOrDefault();
-                        retVal.NumFriend = grid.Read<int>().FirstOrDefault();
+                        retVal.NumClass = await grid.ReadFirstOrDefaultAsync<int>();
+                        retVal.NumItem = await grid.ReadFirstOrDefaultAsync<int>();
+                        retVal.NumFeed = await grid.ReadFirstOrDefaultAsync<int>() + await grid.ReadFirstOrDefaultAsync<int>();
+                        retVal.NumQuiz = await grid.ReadFirstOrDefaultAsync<int>();
+                        retVal.NumFriend = await grid.ReadFirstOrDefaultAsync<int>();
 
                     }
                     return retVal;
@@ -592,8 +592,8 @@ namespace Zbang.Zbox.ReadServices
             {
                 const string sql = @" select country_code2  from zbox.ip_range 
     where ip_from <= @IP and @IP <= ip_to";
-                var retVal = await conn.QueryAsync<string>(sql, new { IP = query.IpAddress });
-                return retVal.FirstOrDefault();
+                var retVal = await conn.QueryFirstOrDefaultAsync<string>(sql, new { IP = query.IpAddress });
+                return retVal;
             }
 
         }
@@ -704,61 +704,24 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
-        //public async Task<int> GetUnreadChatMessagesAsync(QueryBase query)
-        //{
-        //    using (var conn = await DapperConnection.OpenConnectionAsync())
-        //    {
-        //        var result = await conn.QueryAsync<int?>(Sql.Chat.GetUnreadMessages,
-        //             new
-        //             {
-        //                 query.UserId
-
-        //             });
-        //        var single = result.FirstOrDefault();
-        //        if (single == null)
-        //        {
-        //            return 0;
-        //        }
-
-        //        return single.Value;
-        //    }
-        //}
+        
 
 
         public async Task<UniversityWithCodeDto> GetUniversityNeedIdAsync(long universityId)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<UniversityWithCodeDto>(Sql.LibraryChoose.GetNeedId, new
+                var retVal = await conn.QueryFirstOrDefaultAsync<UniversityWithCodeDto>(Sql.LibraryChoose.GetNeedId, new
                 {
                     universityId
                 });
-                return retVal.FirstOrDefault();
+                return retVal;
             }
         }
 
 
 
-        /// <summary>
-        /// Get user data for user detail in all the pages.
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public User.UserDetailDto GetUserData(GetUserDetailsQuery query)
-        {
-            using (var conn = DapperConnection.OpenConnection())
-            {
-                var retVal = conn.Query<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
-                            new { query.UserId });
-
-                var user = retVal.FirstOrDefault();
-                if (user == null)
-                {
-                    throw new UserNotFoundException("user is null");
-                }
-                return user;
-            }
-        }
+        
         public async Task<User.UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query)
         {
 
@@ -768,13 +731,12 @@ namespace Zbang.Zbox.ReadServices
                     var grid = await conn.QueryMultipleAsync($"{Sql.Sql.UserAuthenticationDetail} {Sql.Chat.GetUnreadMessages}",
                         new { query.UserId }))
                 {
-                    var retVal = await grid.ReadAsync<User.UserDetailDto>();
-                    var user = retVal.FirstOrDefault();
+                    var user = await grid.ReadFirstOrDefaultAsync<User.UserDetailDto>();
                     if (user == null)
                     {
                         throw new UserNotFoundException("user is null");
                     }
-                    var count = grid.Read<int?>().FirstOrDefault();
+                    var count = await grid.ReadFirstOrDefaultAsync<int?>();
                     if (count != null)
                     {
                         user.Unread = count.Value;
@@ -782,15 +744,6 @@ namespace Zbang.Zbox.ReadServices
                     return user;
                 }
 
-                //var retVal =
-                //       await conn.QueryAsync<User.UserDetailDto>(Sql.Sql.UserAuthenticationDetail,
-                //       new { query.UserId });
-                //var user = retVal.FirstOrDefault();
-                //if (user == null)
-                //{
-                //    throw new UserNotFoundException("user is null");
-                //}
-                //return user;
             }
         }
 
@@ -801,22 +754,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                //var result = await conn.QueryAsync<int?>(Sql.Chat.GetUnreadMessages,
-                //     new
-                //     {
-                //         query.UserId
-
-                //     });
-                //var single = result.FirstOrDefault();
-                //if (single == null)
-                //{
-                //    return 0;
-                //}
-
-                //return single.Value;
-
-                var result = await conn.QueryAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, new { query.UserId });
-                return result.First();
+                var result = await conn.QueryFirstAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, new { query.UserId });
+                return result;
             }
         }
         /// <summary>
@@ -841,7 +780,7 @@ namespace Zbang.Zbox.ReadServices
                     var retVal = new User.UserNotification
                     {
                         BoxNotifications = await grid.ReadAsync<Box.BoxNotificationDto>(),
-                        EmailNotification = grid.Read<EmailSend>().FirstOrDefault()
+                        EmailNotification = await grid.ReadFirstOrDefaultAsync<EmailSend>()
                     };
                     return retVal;
 
@@ -900,9 +839,9 @@ namespace Zbang.Zbox.ReadServices
                                 where TypeOfMsg = 2
                                 and MessageId = @MessageId
                                 and isActive = 1";
-                var count = await conn.QueryAsync<int>(sqlQuery, new { query.MessageId });
+                var count = await conn.QueryFirstOrDefaultAsync<int>(sqlQuery, new { query.MessageId });
 
-                return count.FirstOrDefault() > 0;
+                return count > 0;
             }
         }
 
@@ -1002,8 +941,8 @@ namespace Zbang.Zbox.ReadServices
             const int pageSize = 49950;
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<int>($"{Sql.Seo.GetSeoItemsCount}");
-                return (retVal.FirstOrDefault() / pageSize) + 1;
+                var retVal = await conn.QueryFirstOrDefaultAsync<int>($"{Sql.Seo.GetSeoItemsCount}");
+                return (retVal / pageSize) + 1;
             }
         }
 
@@ -1019,8 +958,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<Item.QuizSeo>(Sql.Quiz.QuizSeoQuery, new { query.QuizId });
-                return retVal.First();
+                var retVal = await conn.QueryFirstAsync<Item.QuizSeo>(Sql.Quiz.QuizSeoQuery, new { query.QuizId });
+                return retVal;
             }
         }
 
@@ -1028,8 +967,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<Item.FileSeo>(Sql.Seo.FileSeo, new { query.ItemId });
-                return retVal.FirstOrDefault();
+                var retVal = await conn.QueryFirstOrDefaultAsync<Item.FileSeo>(Sql.Seo.FileSeo, new { query.ItemId });
+                return retVal;
             }
         }
 
@@ -1037,8 +976,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, new { query.BoxId });
-                var box = retVal.FirstOrDefault();
+                var retVal = await conn.QueryFirstOrDefaultAsync<Box.BoxSeoDto>(Sql.Seo.BoxSeo, new { query.BoxId });
+                var box = retVal;
                 if (box == null)
                 {
                     throw new BoxDoesntExistException();
@@ -1059,7 +998,7 @@ namespace Zbang.Zbox.ReadServices
                     var retVal = new Item.QuizSolversWithCountDto
                     {
                         Users = await grid.ReadAsync<Item.QuizBestUser>(),
-                        SolversCount = grid.Read<int>().FirstOrDefault()
+                        SolversCount = await grid.ReadFirstOrDefaultAsync<int>()
                     };
 
                     return retVal;
@@ -1086,7 +1025,7 @@ namespace Zbang.Zbox.ReadServices
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
                     retVal.UserAnswers = solvedQuestion;
-                    retVal.Sheet = grid.Read<Item.SolveSheet>().FirstOrDefault();
+                    retVal.Sheet = await grid.ReadFirstOrDefaultAsync<Item.SolveSheet>();
                     return retVal;
                 }
             }
@@ -1101,7 +1040,7 @@ namespace Zbang.Zbox.ReadServices
                     $"{Sql.Quiz.QuizQuery} {Sql.Quiz.Question} {Sql.Quiz.Answer} {Sql.Quiz.UserQuiz} {Sql.Quiz.UserAnswer} {Sql.Quiz.TopUsers}";
                 using (var grid = await conn.QueryMultipleAsync(sql, new { query.QuizId, query.BoxId, query.UserId, topusers = 3 }))
                 {
-                    retVal.Quiz = grid.Read<Item.QuizWithDetailDto>().First();
+                    retVal.Quiz = await grid.ReadFirstAsync<Item.QuizWithDetailDto>();
                     retVal.Quiz.Questions = await grid.ReadAsync<Item.QuestionWithDetailDto>();
                     var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
 
@@ -1109,7 +1048,7 @@ namespace Zbang.Zbox.ReadServices
                     {
                         question.Answers.AddRange(answers.Where(w => w.QuestionId == question.Id));
                     }
-                    retVal.Sheet = grid.Read<Item.SolveSheet>().FirstOrDefault();
+                    retVal.Sheet = await grid.ReadFirstOrDefaultAsync<Item.SolveSheet>();
                     var solvedQuestion = await grid.ReadAsync<Item.SolveQuestion>();
                     if (retVal.Sheet != null)
                     {
@@ -1139,7 +1078,7 @@ namespace Zbang.Zbox.ReadServices
                 using (var grid = await conn.QueryMultipleAsync(
                     $"{Sql.Quiz.QuizQuery} {Sql.Quiz.Question} {Sql.Quiz.Answer}", new { query.QuizId }))
                 {
-                    var retVal = grid.Read<Item.QuizWithDetailDto>().First();
+                    var retVal = await grid.ReadFirstAsync<Item.QuizWithDetailDto>();
                     retVal.Questions = grid.Read<Item.QuestionWithDetailDto>();
 
                     var answers = grid.Read<Item.AnswerWithDetailDto>().ToList();
@@ -1159,8 +1098,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var retVal = await conn.QueryAsync<int>(Sql.Quiz.NumberOfQuizSolved, new { QuizId = quizId });
-                return retVal.FirstOrDefault();
+                var retVal = await conn.QueryFirstOrDefaultAsync<int>(Sql.Quiz.NumberOfQuizSolved, new { QuizId = quizId });
+                return retVal;
             }
         }
         #endregion

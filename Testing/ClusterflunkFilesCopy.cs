@@ -26,10 +26,10 @@ namespace Testing
             m_BlobProviderFiles = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
         }
 
-        private const int ClusterFlunkUniversityId = 1;
-        private const long SpitballUniversityId = 173408;
-        private const long SpitballUserId = 1067240;
-        private const string LibraryId = "090FDA52-7AB6-49CC-96BC-A66900B031B3";
+        private const int ClusterFlunkUniversityId = 13;
+        private const long SpitballUniversityId = 171985;
+        private const long SpitballUserId = 1067246;
+        private const string LibraryId = "B4F26761-3318-4245-92F3-A66900B05A95";
         public async Task BuildBoxesAsync()
         {
 
@@ -92,6 +92,12 @@ where n.id = " + ClusterFlunkUniversityId;
                 {
                     Console.WriteLine($"processing index: {index}");
                     var courseName = file.coursename;
+                    if (string.IsNullOrEmpty(file.name))
+                    {
+                        Console.WriteLine($"file name is empty index: {index}");
+                        index++;
+                        continue;
+                    }
                     var boxId =
                        await spitballConnection.QuerySingleAsync<long>(
                             "select boxId from zbox.box where boxname = @BoxName and isdeleted = 0 and university=@universityId",
@@ -108,8 +114,10 @@ where n.id = " + ClusterFlunkUniversityId;
                         continue;
                     }
                     var blobName = $"{Guid.NewGuid()}.{file.extension}".ToLowerInvariant();
+                    
                     if (await DownloadSomeFileAsync(file.key, blobName, file.type))
                     {
+                        
                         //m_BlobProviderFiles.UploadFromLinkAsync
                         var command = new AddFileToBoxCommand(SpitballUserId, boxId, blobName, file.name, file.size,
                             null,
