@@ -183,19 +183,10 @@
     <value>החברים בספיטבול מתלהבים ממך. צעד קטן לך צעד גדול לחברים שלך.</value>
   </data>
   <data name="LikesMailLineDetails" xml:space="preserve">
-    <value>{0} אוהב את  {1} שלך {2}</value>
+    <value>{0} אוהב את  {1} שלך "{2}"</value>
   </data>
   <data name="LikesMailTitle" xml:space="preserve">
-    <value>{0} מהחברים שלך אוהבים את הפעילות שלך בספיטבול
-הנה החברים שאהבו:</value>
-  </data>
-  <data name="ReplyToCommentLink" xml:space="preserve">
-    <value>לחץ כאן</value>
-  </data>
-  <data name="ReplyToCommentText" xml:space="preserve">
-    <value>{0} הגיב על ההודעה שלך בקורס {1}
-
-{2} לצפות בתגובה. צעד קטן לך צעד גדול לחברים שלך.</value>
+    <value>{0} מהחברים שלך אוהבים את הפעילות שלך בספיטבול, הנה החברים שאהבו:</value>
   </data>
   <data name="ReplyToCommentSubject" xml:space="preserve">
     <value>היי, מישהו הגיב על ההודעה שלך</value>

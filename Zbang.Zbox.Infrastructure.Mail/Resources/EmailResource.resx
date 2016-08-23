@@ -176,21 +176,13 @@ Change that by inviting a classmate via Facebook or email and uploading a doc th
     <value>Your esteemed classmates hold your Spitball posts in the highest regard. Keep posting documents, quizzes, and comments to improve Spitball for everyone.</value>
   </data>
   <data name="LikesMailLineDetails" xml:space="preserve">
-    <value>{0} likes your {1} {2}</value>
+    <value>{0} likes your {1} "{2}"</value>
   </data>
   <data name="LikesMailSubject" xml:space="preserve">
     <value>You Have New Likes on Spitball</value>
   </data>
   <data name="LikesMailTitle" xml:space="preserve">
-    <value>You have {0} more likes on your Spitball posts:
-Check them out:</value>
-  </data>
-  <data name="ReplyToCommentLink" xml:space="preserve">
-    <value>Click here</value>
-  </data>
-  <data name="ReplyToCommentText" xml:space="preserve">
-    <value>{0} commented on a post you made on {1}.
-{2} to read what your classmate wrote and respond to their post. Spitball is all about being social, after all.</value>
+    <value>You have {0} more likes on your Spitball posts, check them out:</value>
   </data>
   <data name="ReplyToCommentSubject" xml:space="preserve">
     <value>Someone commented on your post</value>

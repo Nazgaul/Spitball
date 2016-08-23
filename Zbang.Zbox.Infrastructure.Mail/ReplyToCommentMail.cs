@@ -21,17 +21,14 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
 
             message.SetCategory("Reply to comment");
-            var html = LoadMailTempate.LoadMailFromContentWithDot(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
-            html.Replace("{name}", mailParams.UserName);
-
-            var link = $"<a href=\"{UrlConst.AppendCloudentsUrl(mailParams.BoxUrl)}\">{EmailResource.ReplyToCommentLink}</a>";
-            var sb = new StringBuilder();
-            sb.AppendLine();
-            sb.AppendLine(string.Format(EmailResource.ReplyToCommentText, mailParams.UserWhoMadeActionName,mailParams.BoxName, link));
-            html.Replace("{body}", sb.ToString().Replace("\n", "<br>"));
+            var html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ReplyToCommentMailTemplate");
+            message.AddSubstitution("{name}", new List<string> { mailParams.UserName });
+            message.AddSubstitution("{UserWhoMadeActionName}", new List<string> { mailParams.UserWhoMadeActionName });
+            message.AddSubstitution("{BoxName}", new List<string> { mailParams.BoxName });
+            message.AddSubstitution("{BoxUrl}", new List<string> { UrlConst.AppendCloudentsUrl(mailParams.BoxUrl) });
             message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "replyToComment");
             message.Html = html.ToString();
-            
+
         }
 
         public void AddSubject(ISendGrid message)

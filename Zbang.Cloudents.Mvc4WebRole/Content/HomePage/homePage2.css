@@ -292,6 +292,10 @@
 .homePage .home-page-body section.main .form-wrapper .signin-options button {
   border-radius: 15px;
   width: calc(50% - 10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   padding: 5px 10px;
 }
 @media (max-width: 600px) {

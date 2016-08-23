@@ -80,6 +80,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //"~/content/site/ng-embed.css",
 
                         "~/content/site/general.css", // this should be on top
+                        "~/content/site/angularMaterialOverride.css",
                         "~/content/site/dashboard.css",
                         "~/content/site/box.css",
                         "~/content/site/feed.css",
