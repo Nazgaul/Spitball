@@ -447,10 +447,13 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
                     await
                         conn.QueryAsync<SpamGunDto>(
                             new CommandDefinition(
-                                @"select top 1000 Id, FirstName, LastName, Email,mailbody as MailBody,mailsubject as MailSubject 
+                                @"select top 1000 Id, FirstName, LastName, Email,mailbody as MailBody,mailsubject as MailSubject, mailcategory as MailCategory 
 from students 
 where uniid = @UniId
-and shouldSend = 1",new { UniId = universityId}, cancellationToken: token));
+and mailbody is not null
+and mailsubject is not null
+and mailcategory is not null
+and shouldSend = 1", new { UniId = universityId}, cancellationToken: token));
             }
         }
 

@@ -10,5 +10,7 @@
         public string MailBody { get; set; }
 
         public string MailSubject { get; set; }
+
+        public string MailCategory { get; set; }
     }
 }

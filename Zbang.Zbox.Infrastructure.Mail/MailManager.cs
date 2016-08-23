@@ -123,11 +123,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
             await SendAsync(sendGridMail, new Credentials());
         }
 
-        public async Task SendSpanGunEmailAsync(string recipient, string ipPool, string body, string subject, string name)
+        public async Task SendSpanGunEmailAsync(string recipient, string ipPool, string body, string subject, string name, string category)
         {
             var sendGridMail = new SendGridMessage
             {
-                From = new MailAddress("Henry@spitball.co", "Henry Miller")
+                From = new MailAddress("michael@spitball.co", "Michael Baker")
             };
             
 
@@ -140,7 +140,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
             sendGridMail.AddSubstitution("{First_Name}", new List<string> { name });
-            sendGridMail.SetCategory(subject);
+            sendGridMail.SetCategory(category);
             sendGridMail.Subject = subject;
             sendGridMail.SetIpPool(ipPool);
             sendGridMail.EnableClickTracking();
@@ -148,6 +148,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             await SendAsync(sendGridMail, new UsCredentials());
 
         }
+
+        
 
 
     }

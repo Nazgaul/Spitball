@@ -18,6 +18,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
 
+
+        public const int NumberOfEmailPerSession = 30;
+        //public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromSeconds(2500);
+        public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromHours(1);
+
         public const int SpanGunNumberOfQueues = 10;
         private const int NumberOfIps = 3;
         public const string SpanGunQueuePrefix = "spangun-";
@@ -54,53 +59,61 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
                 var reachHourLimit = false;
                 var totalCount = 0;
-                for (var j = 0; j < NumberOfIps; j++)
+                try
                 {
-                    var counter = 0;
-                    for (var i = 0; i < SpanGunNumberOfQueues; i++)
+                    for (var j = 0; j < NumberOfIps; j++)
                     {
-                        //var queue = m_QueueProvider.GetQueue(BuidQueueName(i));
-                        //await queue.FetchAttributesAsync(cancellationToken);
-                        //if (queue.ApproximateMessageCount < 50)
-                        //{
-                        await BuildQueueDataAsync(m_Queues[i], i, cancellationToken);
-                        //}
-
-                        var emailsTask = new List<Task>();
-                        for (var k = 0; k < 50; k++)
+                        var counter = 0;
+                        for (var i = 0; i < SpanGunNumberOfQueues; i++)
                         {
-                            if (counter >= m_LimitPerIp)
-                            {
-                                TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
-                                reachHourLimit = true;
-                                break;
-                            }
-                            if (m_Queues[i].Count == 0)
-                            {
-                                TraceLog.WriteWarning($"{ServiceName} queue {i} is empty");
-                                break;
-                            }
-                            var message = m_Queues[i].Dequeue();
-                            //var message = await queue.GetMessageAsync(TimeSpan.FromMinutes(30), new QueueRequestOptions(), new Microsoft.WindowsAzure.Storage.OperationContext(), cancellationToken);
-                            if (message == null)
-                            {
-                                TraceLog.WriteWarning($"{ServiceName} message is null {i}");
-                                break;
-                            }
-                            //var emailMessage = message.FromMessageProto<SpamGunData>();
+                            //var queue = m_QueueProvider.GetQueue(BuidQueueName(i));
+                            //await queue.FetchAttributesAsync(cancellationToken);
+                            //if (queue.ApproximateMessageCount < 50)
+                            //{
+                            await BuildQueueDataAsync(m_Queues[i], i, cancellationToken);
+                            //}
 
-                            var t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j), message.MailBody, message.MailSubject,message.FirstName);
-                            await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, cancellationToken);
-                            //var t2 = queue.DeleteMessageAsync(message, cancellationToken);
-                            counter++;
-                            emailsTask.Add(t1);
+                            var emailsTask = new List<Task>();
+                            for (var k = 0; k < NumberOfEmailPerSession; k++)
+                            {
+                                if (counter >= m_LimitPerIp)
+                                {
+                                    TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
+                                    reachHourLimit = true;
+                                    break;
+                                }
+                                if (m_Queues[i].Count == 0)
+                                {
+                                    TraceLog.WriteWarning($"{ServiceName} queue {i} is empty");
+                                    break;
+                                }
+                                var message = m_Queues[i].Dequeue();
+                                //var message = await queue.GetMessageAsync(TimeSpan.FromMinutes(30), new QueueRequestOptions(), new Microsoft.WindowsAzure.Storage.OperationContext(), cancellationToken);
+                                if (message == null)
+                                {
+                                    TraceLog.WriteWarning($"{ServiceName} message is null {i}");
+                                    break;
+                                }
+                                //var emailMessage = message.FromMessageProto<SpamGunData>();
+
+                                var t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
+                                    message.MailBody, message.MailSubject, message.FirstName, message.MailCategory);
+                                await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, cancellationToken);
+                                //var t2 = queue.DeleteMessageAsync(message, cancellationToken);
+                                counter++;
+                                emailsTask.Add(t1);
+                            }
+                            //counter += emailsTask.Count;
+                            //TraceLog.WriteInfo($"{ServiceName} send email to {emailsTask.Count}");
+                            await Task.WhenAll(emailsTask);
                         }
-                        //counter += emailsTask.Count;
-                        //TraceLog.WriteInfo($"{ServiceName} send email to {emailsTask.Count}");
-                        await Task.WhenAll(emailsTask);
+                        totalCount += counter;
+                        TraceLog.WriteInfo($"{ServiceName} send via ip {counter}");
                     }
-                    totalCount += counter;
-                    TraceLog.WriteInfo($"{ServiceName} send via ip {counter}");
+                }
+                catch (Exception ex)
+                {
+                    await m_MailComponent.GenerateSystemEmailAsync("spam gun error", $"error {ex}");
                 }
                 await m_MailComponent.GenerateSystemEmailAsync("spam gun", $"send {totalCount} emails");
                 if (reachHourLimit)
@@ -111,7 +124,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 else
                 {
                     TraceLog.WriteInfo($"{ServiceName} going to sleep for 2500 seconds");
-                    await Task.Delay(TimeSpan.FromSeconds(2500), cancellationToken);
+                    await Task.Delay(NumberOfTimeToSleep, cancellationToken);
                 }
             }
             TraceLog.WriteInfo($"{ServiceName} going not running.");

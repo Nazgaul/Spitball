@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
 
         private class LocalData : ILocalData
         {
-            [ThreadStatic]
+            //[ThreadStatic]
             private static Hashtable _localData;
             private static readonly object LocalDataHashtableKey = new object();
             private static readonly SemaphoreSlim SemaphoreSlim = new SemaphoreSlim(1);
