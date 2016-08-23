@@ -387,7 +387,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign UP, It&apos;s Free!.
+        ///   Looks up a localized string similar to Sign Up, It&apos;s Free!.
         /// </summary>
         public static string SignUpForFree {
             get {
