@@ -127,10 +127,15 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
             var sendGridMail = new SendGridMessage
             {
-                From = new MailAddress("lama@spitball.co")
+                From = new MailAddress("Henry@spitball.co", "Henry Miller")
             };
+            
 
             sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
+            //sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "jordan@spitball.co" : recipient);
+            //sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "shlomi@cloudents.com" : recipient);
+            //sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "eidan@cloudents.com" : recipient);
+
             sendGridMail.Html = body;
 
             sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");

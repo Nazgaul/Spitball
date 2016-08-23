@@ -92,6 +92,12 @@ where n.id = " + ClusterFlunkUniversityId;
                 {
                     Console.WriteLine($"processing index: {index}");
                     var courseName = file.coursename;
+                    if (string.IsNullOrEmpty(file.name))
+                    {
+                        Console.WriteLine($"file name is empty index: {index}");
+                        index++;
+                        continue;
+                    }
                     var boxId =
                        await spitballConnection.QuerySingleAsync<long>(
                             "select boxId from zbox.box where boxname = @BoxName and isdeleted = 0 and university=@universityId",
@@ -108,8 +114,10 @@ where n.id = " + ClusterFlunkUniversityId;
                         continue;
                     }
                     var blobName = $"{Guid.NewGuid()}.{file.extension}".ToLowerInvariant();
+                    
                     if (await DownloadSomeFileAsync(file.key, blobName, file.type))
                     {
+                        
                         //m_BlobProviderFiles.UploadFromLinkAsync
                         var command = new AddFileToBoxCommand(SpitballUserId, boxId, blobName, file.name, file.size,
                             null,

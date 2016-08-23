@@ -19,6 +19,7 @@ namespace Zbang.Zbox.Domain
             : this()
         {
             if (uploader == null) throw new ArgumentNullException(nameof(uploader));
+            if (string.IsNullOrEmpty(itemName)) throw new ArgumentNullException(nameof(itemName));
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             DateTimeUser = new UserTimeDetails(uploader.Id);
 
