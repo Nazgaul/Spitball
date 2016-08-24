@@ -97,7 +97,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                 //var emailMessage = message.FromMessageProto<SpamGunData>();
 
                                 var t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
-                                    message.MailBody, message.MailSubject, message.FirstName, message.MailCategory);
+                                    message.MailBody, message.MailSubject,
+                                    message.FirstName, message.MailCategory, message.UniversityUrl);
                                 await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, cancellationToken);
                                 //var t2 = queue.DeleteMessageAsync(message, cancellationToken);
                                 counter++;
@@ -115,7 +116,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 {
                     await m_MailComponent.GenerateSystemEmailAsync("spam gun error", $"error {ex}");
                 }
-                await m_MailComponent.GenerateSystemEmailAsync("spam gun", $"send {totalCount} emails");
+                if (totalCount > 0)
+                {
+                    await m_MailComponent.GenerateSystemEmailAsync("spam gun", $"send {totalCount} emails");
+                }
                 if (reachHourLimit)
                 {
                     TraceLog.WriteInfo($"{ServiceName} going to sleep for an hour");

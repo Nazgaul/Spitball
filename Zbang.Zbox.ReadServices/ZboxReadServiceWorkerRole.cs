@@ -447,8 +447,9 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
                     await
                         conn.QueryAsync<SpamGunDto>(
                             new CommandDefinition(
-                                @"select top 1000 Id, FirstName, LastName, Email,mailbody as MailBody,mailsubject as MailSubject, mailcategory as MailCategory 
-from students 
+                                @"select top 1000 s.Id, FirstName, LastName, Email,mailbody as MailBody,
+mailsubject as MailSubject, mailcategory as MailCategory,u.url as UniversityUrl 
+from students s join universities u on s.uniid = u.id
 where uniid = @UniId
 and mailbody is not null
 and mailsubject is not null

@@ -123,7 +123,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
             await SendAsync(sendGridMail, new Credentials());
         }
 
-        public async Task SendSpanGunEmailAsync(string recipient, string ipPool, string body, string subject, string name, string category)
+        public async Task SendSpanGunEmailAsync(string recipient, string ipPool,
+            string body, string subject,
+            string name, string category, string universityUrl)
         {
             var sendGridMail = new SendGridMessage
             {
@@ -136,10 +138,14 @@ namespace Zbang.Zbox.Infrastructure.Mail
             //sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "shlomi@cloudents.com" : recipient);
             //sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "eidan@cloudents.com" : recipient);
 
-            sendGridMail.Html = body;
+            var html = LoadMailTempate.LoadMailFromContentWithDot(new CultureInfo("en-US"), "Zbang.Zbox.Infrastructure.Mail.MailTemplate.SpamGun");
+            html.Replace("{name}", name);
+            html.Replace("{body}", body.Replace("\n", "<br>"));
+            html.Replace("{email}", recipient);
+            html.Replace("{uni_Url}", universityUrl);
+            sendGridMail.Html = html.ToString();
 
             sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
-            sendGridMail.AddSubstitution("{First_Name}", new List<string> { name });
             sendGridMail.SetCategory(category);
             sendGridMail.Subject = subject;
             sendGridMail.SetIpPool(ipPool);
