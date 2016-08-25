@@ -8,7 +8,7 @@
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
         $mdDialog, $scope, $rootScope, resManager,  routerHelper,  $filter, feedData, updates) {
-        var self = this, boxId = parseInt($stateParams.boxId, 10), top = 15;
+        var self = this, boxId = parseInt($stateParams.boxId, 10), top = 30;
 
         self.add = {
             files: [],

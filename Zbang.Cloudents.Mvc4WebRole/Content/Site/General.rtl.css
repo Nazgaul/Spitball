@@ -144,6 +144,16 @@ body .box-template .number {
   padding: 0 10px;
   transition: margin-left 0.1s;
 }
+.page-body.loading-cursor:after {
+  content: '';
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  cursor: wait;
+  z-index: 1000;
+}
 @media (max-width: 600px) {
   .page-body {
     padding: 0 5px;
