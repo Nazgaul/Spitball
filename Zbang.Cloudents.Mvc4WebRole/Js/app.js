@@ -17,6 +17,7 @@ var app;
          'srph.infinite-scroll',
          'ngScrollbars',
          'yaru22.angular-timeago',
+         "oc.lazyLoad",
          'app.dashboard',
          'app.library',
          'app.user',
@@ -24,19 +25,10 @@ var app;
          'app.box',
          'app.item',
          'app.quiz',
-         'app.quiz.create',
+         //'textAngular'
+         //'app.quiz.create',
          'app.upload',
          'app.search',
          'app.chat'
     ]);
-    //]).config(config);
-
-    //config.$inject = ['$controllerProvider', '$locationProvider'];
-
-    //function config($controllerProvider, $locationProvider) {
-    //    $locationProvider.html5Mode(true).hashPrefix('#');
-    //    //$controllerProvider.allowGlobals();
-    //}
-
-
 })();

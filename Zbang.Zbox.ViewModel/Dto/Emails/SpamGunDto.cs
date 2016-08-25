@@ -12,5 +12,7 @@
         public string MailSubject { get; set; }
 
         public string MailCategory { get; set; }
+
+        public string UniversityUrl { get; set; }
     }
 }

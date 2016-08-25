@@ -24,8 +24,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         Task GenerateSystemEmailAsync(string subject, string text);
 
-        Task SendSpanGunEmailAsync(string recipient, string ipPool, string body, string subject, string name,
-            string category);
+        Task SendSpanGunEmailAsync(string recipient, string ipPool,
+            string body, string subject,
+            string name, string category, string universityUrl);
 
 
 

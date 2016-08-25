@@ -36,9 +36,7 @@
     angular.module('app.quiz', ['app.user','app.quiz.score', 'app.quiz.challenge', 'app.ajaxservice', 'app.quiz.stopwatch']);
 })();
 
-(function() {
-    angular.module('app.quiz.create', ['textAngular', 'app.ajaxservice']);
-})();
+
 
 
 (function () {

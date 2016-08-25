@@ -97,24 +97,13 @@
 
 
     <script>
-        window.version = '@VersionHelper.CurrentVersion(true)';
         @if (User != null)
         {
             <text>
         window.id = @User.GetUserId(false);
-        window.dChat = '@ConfigFetcher.Fetch("signalR")';
         </text>
         }
     </script>
-
-
-
     @RenderSection("scripts", false)
-    @*<script>
-            inlineManualOptions = { language: '@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName' };
-        </script>*@
-
-    @*<script>!function(){var e=document.createElement("script"),t=document.getElementsByTagName("script")[0];e.async=1,e.src="https://inlinemanual.com/embed/player.48877e35a515f4d5093914d5e9e51176.js",e.charset="UTF-8",t.parentNode.insertBefore(e,t)}();</script>*@
-
 </body>
 </html>

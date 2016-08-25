@@ -631,6 +631,19 @@
     <Content Include="bower_components\ng-scrollbars\gulpfile.js" />
     <Content Include="bower_components\ng-scrollbars\LICENSE.txt" />
     <Content Include="bower_components\ng-scrollbars\src\scrollbars.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.core.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.directive.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.common.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.core.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.cssLoader.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.jsLoader.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.requireJSLoader.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.templatesLoader.js" />
+    <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.polyfill.ie8.js" />
+    <Content Include="bower_components\oclazyload\dist\ocLazyLoad.js" />
+    <Content Include="bower_components\oclazyload\dist\ocLazyLoad.min.js" />
+    <Content Include="bower_components\oclazyload\dist\ocLazyLoad.require.js" />
+    <Content Include="bower_components\oclazyload\dist\ocLazyLoad.require.min.js" />
     <Content Include="bower_components\textAngular\dist\textAngular.rtl.css">
       <DependentUpon>textAngular.css</DependentUpon>
     </Content>
@@ -874,6 +887,11 @@
     <Content Include="bower_components\ui-router-extras\CHANGELOG.md" />
     <Content Include="bower_components\ui-router-extras\LICENSE" />
     <Content Include="bower_components\ui-router-extras\README.md" />
+    <Content Include="bower_components\oclazyload\.bower.json" />
+    <Content Include="bower_components\oclazyload\bower.json" />
+    <Content Include="bower_components\oclazyload\CHANGELOG.md" />
+    <Content Include="bower_components\oclazyload\LICENSE.md" />
+    <Content Include="bower_components\oclazyload\README.md" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1487,7 +1505,6 @@
     <Content Include="Images\Site\user_4.png" />
     <Content Include="Images\textEditor.svg" />
     <Content Include="Images\user.svg" />
-    <Content Include="Js\app.config.js" />
     <Content Include="Js\app.js" />
     <Content Include="Js\app.route.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
@@ -1516,7 +1533,9 @@
     <Content Include="Js\components\library\universityCover.directive.js" />
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
+    <Content Include="Js\components\quiz\quizCreate.config.js" />
     <Content Include="Js\components\quiz\quizCreate.controller.js" />
+    <Content Include="Js\components\quiz\quizCreate.module.js" />
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
@@ -1531,6 +1550,7 @@
     <Content Include="Js\signin\itemGallery.js" />
     <Content Include="Js\signin\layout.js" />
     <Content Include="Js\signin\staticPages.js" />
+    <TypeScriptCompile Include="Js\app.config.ts" />
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.factory.ts" />

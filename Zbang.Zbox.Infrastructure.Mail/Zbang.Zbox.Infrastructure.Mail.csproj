@@ -200,10 +200,13 @@
     <EmbeddedResource Include="MailTemplate\Market.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MailTemplate\ReplyToCommentMailTemplate.html" />
+    <EmbeddedResource Include="MailTemplate\SpamGun.html" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MailTemplate\ReplyToCommentMailTemplateHe.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MailTemplate\ReplyToCommentMailTemplate.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

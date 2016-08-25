@@ -58,6 +58,10 @@
                                 return $location.search().name;
                             }
                             return $stateParams.boxName;
+                        }],
+                        loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
+                            // you can lazy load files for an existing module
+                            return $ocLazyLoad.load('quizCreate');
                         }]
                     },
                     data: { animateClass: 'full-screen quiz-create' },
