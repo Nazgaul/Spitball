@@ -12,15 +12,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         private static IEnumerable<KeyValuePair<string, IEnumerable<string>>> RegisterCss()
         {
-            //var x = new Dictionary<string, IEnumerable<string>>
-            //{
-            //    ["x"] = new[] {"z", "x"}
-            //};
             var cssDictionary = new Dictionary<string, IEnumerable<string>>
             {
 
-                
-                    ["homePage"] = new[]
+
+                ["homePage"] = new[]
                     {
                         "~/content/site/general.css",
                         "~/content/homepage/homePage2.css",
@@ -29,9 +25,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/signin/custom.css",
                         "~/content/jquery.bxslider.css"
                     },
-                
-                
-                    ["staticPage"] = new[]
+
+
+                ["staticPage"] = new[]
                     {
                         "~/content/site/general.css",
                         "~/content/site/staticPage.css",
@@ -39,8 +35,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/layout.css",
                         "~/content/site/itemGallery.css"
                     },
-               
-                    ["signin"] = new[] // passwordUpdate uses it - this page will be modified in v4.
+
+                ["signin"] = new[] // passwordUpdate uses it - this page will be modified in v4.
                     {
                         "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
                         "~/Content/signin/login-soft.css",
@@ -50,23 +46,22 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/signin/default.css",
                         "~/Content/signin/custom.css"
                     },
-                
-                    ["themeDark"] = new []
+
+                ["themeDark"] = new[]
                     {
                         "~/content/site/themedark.css"
                     },
-                
-                    ["themeLight"] = new []
+
+                ["themeLight"] = new[]
                     {
                               "~/content/site/themelight.css"
                     },
-                
-                    ["site4"] = new[]
+
+                ["site4"] = new[]
                     {
                         "~/content/site/angularWithChanges2.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         "~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
-                        //"~/bower_components/ng-embed/src/ng-embed.css",
                         "~/content/site/inline-material.css",
                         "~/content/bootstrap/bootstrap.css",
                         "~/content/site/profile.css",//
@@ -76,9 +71,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/menu.css",
                         "~/content/site/chat.css",
                         "~/content/site/header.css",
-                        //"~/content/jquery.bxslider.css",
-                        //"~/content/site/ng-embed.css",
-
                         "~/content/site/general.css", // this should be on top
                         "~/content/site/dashboard.css",
                         "~/content/site/box.css",
@@ -94,13 +86,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/search.css",
                         "~/content/site/libraryChoose.css",
                         "~/content/site/error.css",
-                        //"~/content/site/staticPages.css",
                         "~/content/site/accordion.css",
                         "~/content/site/themedark.css",
                         "~/content/site/themelight.css"
-
                     }
-                
+
             };
             return cssDictionary;
         }
@@ -151,6 +141,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/svg4everybody.js")
                     }
                 },
+                
                 {
                     "site4", new[]
                     {
@@ -160,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"),
                         new JsFileWithCdn("~/Scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/Scripts/angular-messages.js"),
-                        new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
+                        //new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-cache/dist/angular-cache.js"),
                         new JsFileWithCdn("~/Scripts/angular-sanitize.js"),
 
@@ -168,14 +159,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/ng-scrollbars/src/scrollbars.js"),
 
                         new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
+                        new JsFileWithCdn("~/bower_components/oclazyload/dist/oclazyload.min.js"),
 
-
-                        new JsFileWithCdn("~/scripts/textAngularSetup.js"),
-                        new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
+                        //new JsFileWithCdn("~/scripts/textAngularSetup.js"),
+                        //new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
 
                         new JsFileWithCdn("~/Scripts/angular-animate.js"),
                         new JsFileWithCdn("~/Scripts/angular-aria.js"),
-                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.9/angular-material.min.js"), 
+                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.9/angular-material.min.js"),
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
 
@@ -189,9 +180,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
                         new JsFileWithCdn("~/scripts/angular-dfp.js"),
-                        //new JsFileWithCdn("~/scripts/jquery.bxslider.js"),
                         new JsFileWithCdn("~/bower_components/angular-timeago/dist/angular-timeago.min.js"),
-                        //new JsFileWithCdn("~/bower_components/ng-embed/dist/ng-embed.min.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 
                         new JsFileWithCdn("~/js/app.js"),
@@ -205,8 +194,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.filter.js"),
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.directive.js"),
-
-
+                        new JsFileWithCdn("~/js/components/quiz/quizCreate1.config.js"),
+                        
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.challenge.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.module.js"),
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
@@ -286,7 +275,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.controller.js"),
                         new JsFileWithCdn("~/js/components/quiz/quiz.service.js"),
                         new JsFileWithCdn("~/js/components/quiz/quiz.routes.js"),
-                        new JsFileWithCdn("~/js/components/quiz/quizCreate.controller.js"),
+                        //new JsFileWithCdn("~/js/components/quiz/quizCreate.controller.js"),
 
                         new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/shared/ajaxService.js"),
@@ -332,7 +321,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/chat/previewController.js"),
                         new JsFileWithCdn("~/js/components/chat/toggleChat.directive.js"),
                         new JsFileWithCdn("~/js/components/chat/hideChatOnMobile.directive.js"),
-                        
+
 
 
                     }

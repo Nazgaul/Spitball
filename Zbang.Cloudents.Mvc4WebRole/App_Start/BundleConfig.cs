@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using Microsoft.WindowsAzure.ServiceRuntime;
@@ -59,21 +60,48 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         var relativeLocation = $"{w.Replace(Path.GetExtension(w), string.Empty)}.rtl.css";
                         var physicalLocation = HttpContext.Current.Server.MapPath(relativeLocation);
-                        if (File.Exists(physicalLocation))
-                        {
-                            return true;
-                        }
-                        return false;
-
+                        return File.Exists(physicalLocation);
                     }).Select(s => $"{s.Replace(Path.GetExtension(s), string.Empty)}.rtl.css"
                         ));
                 }
             }
             if (registeredJsBundles != null)
             {
+                //{
+                //    "quizCreate", new[] {
+                //        new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
+                //        new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
+                //        new JsFileWithCdn("~/scripts/textAngularSetup.js"),
+                //        new JsFileWithCdn("~/js/components/quiz/quizCreate.module.js"),
+                //        new JsFileWithCdn("~/js/components/quiz/quizCreate.controller.js"),
+                //}
+                //},
+                RegisterJs("quizCreate", new[]
+                {
+                    new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
+                    new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
+                    new JsFileWithCdn("~/scripts/textAngularSetup.js"),
+                    new JsFileWithCdn("~/js/components/quiz/quizCreate.module.js"),
+                    new JsFileWithCdn("~/js/components/quiz/quizCreate.controller.js"),
+                });
+
+
+                var scriptToLoad = new List<string>();
+                var quizCreateScript = RelativePathContent("~/js/components/quiz/quizCreate.config.js");
+                foreach (Match match in Regex.Matches(JsBundles["quizCreate"], "<script.+?src=[\"'](.+?)[\"'].*?>", RegexOptions.IgnoreCase))
+                {
+                    scriptToLoad.Add(match.Groups[1].Value);
+                }
+                //string matchString = Regex.Match(JsBundles["quizCreate"], "<img.+?src=[\"'](.+?)[\"'].*?>", RegexOptions.IgnoreCase).Groups[1].Value;
+
+                quizCreateScript = quizCreateScript.Replace("{0}", string.Join(",", scriptToLoad.Select(
+                    s => $"'{s}'")));
+                File.WriteAllText(HttpContext.Current.Server.MapPath("~/js/components/quiz/quizCreate1.config.js"),
+                    quizCreateScript);
+
                 foreach (var registeredJsBundle in registeredJsBundles)
                 {
-                    RegisterJsRegular(registeredJsBundle.Key, registeredJsBundle.Value);
+                    RegisterJs(registeredJsBundle.Key, registeredJsBundle.Value);
                 }
             }
             foreach (var language in Languages.SupportedCultures)
@@ -86,8 +114,22 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     RegisterLocaleJs(File.ReadAllText(angularResource),
                         JsResourceHelper.BuildResourceObject(), culture);
                 }
-                
+
             }
+            var script = RelativePathContent("~/js/components/quiz/quizCreate.config.js");
+
+
+
+
+            //var jsBundle = CreateJsBundle();
+            ////QuizCreate
+            //jsBundle.AddString(RelativePathContent("~/bower_components/textAngular/dist/textAngular-rangy.min.js"));
+            //jsBundle.AddString(RelativePathContent("~/scripts/textAngularSetup.js"));
+            //jsBundle.AddString(RelativePathContent("~/bower_components/textAngular/dist/textAngular.js"));
+            //jsBundle.AddString(RelativePathContent("~/js/components/quiz/quizCreate.module.js"));
+            //jsBundle.AddString(RelativePathContent("~/js/components/quiz/quizCreate.controller.js"));
+
+            //RenderBundles("quizCreate", jsBundle);
 
 
 
@@ -96,13 +138,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
             CopyFilesToCdn("/Content", "*.jpg");
             CopyFilesToCdn("/Content", "*.gif");
 
-            //CopyFilesToCdn("/bower_components/ng-embed/fonts", "*.*");
             CopyFilesToCdn("/Content/Fonts", "*.*");
-            //CopyFilesToCdn("/bower_components/ng-embed/images", "*.*", "images");
-            //CopyFilesToCdn("/bower_components/ng-embed/fonts", "*.*", "fonts");
             CopyFilesToCdn("/Images", "*.*");
             CopyFilesToCdn("/gzip/", "*.*", options: SearchOption.TopDirectoryOnly);
 
+        }
+
+        private static string RelativePathContent(string relativePath)
+        {
+            var path = HttpContext.Current.Server.MapPath(relativePath);
+            return File.ReadAllText(path);
         }
 
         public static bool IsDebugEnabled()
@@ -133,43 +178,63 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         }
 
+
+
         private static void RegisterLocaleJs(string angularPath, string jsResourceString, string culture)
         {
-            var jsBundle = SquishIt.Framework.Bundle.JavaScript();
-            
-            jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
+            var jsBundle = CreateJsBundle();
             jsBundle.AddString(angularPath);
             jsBundle.AddString(jsResourceString);
+
+            RenderBundles("langText." + culture, jsBundle);
             //jsBundle.WithDeferredLoad();
-            var cdnUrl = CdnLocation;
+            //var cdnUrl = CdnLocation;
 
-            if (!string.IsNullOrWhiteSpace(cdnUrl))
-            {
-                jsBundle.WithOutputBaseHref(cdnUrl);
-                CopyFilesToCdn("~/gzip/", "*.js", options: SearchOption.TopDirectoryOnly);
+            //if (!string.IsNullOrWhiteSpace(cdnUrl))
+            //{
+            //    jsBundle.WithOutputBaseHref(cdnUrl);
+            //    CopyFilesToCdn("~/gzip/", "*.js", options: SearchOption.TopDirectoryOnly);
 
-                JsBundles.Add("langText." + culture, jsBundle.Render("~/gzip/j1#.js"));
-                return;
-            }
-            JsBundles.Add("langText." + culture, jsBundle.Render("~/cdn/gzip/j#.js"));
-           
+            //    JsBundles.Add("langText." + culture, jsBundle.Render("~/gzip/j1#.js"));
+            //    return;
+            //}
+            //JsBundles.Add("langText." + culture, jsBundle.Render("~/cdn/gzip/j#.js"));
+
         }
 
-        private static string RegisterJs(IEnumerable<JsFileWithCdn> jsFiles, JavaScriptBundle javaScriptBundleImp)
+        private static JavaScriptBundle CreateJsBundle()
         {
-            var jsBundle = javaScriptBundleImp;
+            var jsBundle = SquishIt.Framework.Bundle.JavaScript();
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
+#if (!DEBUG)
+            jsBundle.WithDeferredLoad();
+#endif
+            return jsBundle;
+        }
+
+        private static void RenderBundles(string key, JavaScriptBundle bundle)
+        {
+            var cdnUrl = CdnLocation;
+            if (!string.IsNullOrWhiteSpace(cdnUrl))
+            {
+                bundle.WithOutputBaseHref(cdnUrl);
+                CopyFilesToCdn("~/gzip/", "*.js", options: SearchOption.TopDirectoryOnly);
+
+                JsBundles.Add(key, bundle.Render("~/gzip/j#.js"));
+                return;
+            }
+            JsBundles.Add(key, bundle.Render("~/cdn/gzip/j#.js"));
+        }
+
+        private static void RegisterJs(string key, IEnumerable<JsFileWithCdn> jsFiles)
+        {
+            var jsBundle = CreateJsBundle();
             //jsBundle.WithDeferredLoad();
             foreach (var jsFile in jsFiles)
             {
-                
+
                 if (string.IsNullOrWhiteSpace(jsFile.CdnFile))
                 {
-                    //if (jsFile.LocalFile.StartsWith("http"))
-                    //{
-                    //    jsBundle.AddRemote(jsFile.LocalFile);
-                    //    continue;
-                    //}
                     if (jsFile.LocalFile.Contains("min"))
                     {
                         jsBundle.AddMinified(jsFile.LocalFile);
@@ -184,20 +249,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     jsBundle.AddRemote(jsFile.LocalFile, jsFile.CdnFile);
                 }
             }
-            var cdnUrl = CdnLocation;
+            RenderBundles(key, jsBundle);
+            //var cdnUrl = CdnLocation;
 
-            if (!string.IsNullOrWhiteSpace(cdnUrl))
-            {
-                jsBundle.WithOutputBaseHref(cdnUrl);
-                CopyFilesToCdn("~/gzip/", "*.js", options: SearchOption.TopDirectoryOnly);
-                return jsBundle.Render("~/gzip/j#.js");
-            }
-            return jsBundle.Render("~/cdn/gzip/j#.js");
-        }
-
-        private static void RegisterJsRegular(string key, IEnumerable<JsFileWithCdn> jsFiles)
-        {
-            JsBundles.Add(key, RegisterJs(jsFiles, SquishIt.Framework.Bundle.JavaScript()));
+            //if (!string.IsNullOrWhiteSpace(cdnUrl))
+            //{
+            //    jsBundle.WithOutputBaseHref(cdnUrl);
+            //    CopyFilesToCdn("~/gzip/", "*.js", options: SearchOption.TopDirectoryOnly);
+            //    return jsBundle.Render("~/gzip/j#.js");
+            //}
+            //return jsBundle.Render("~/cdn/gzip/j#.js");
         }
 
         private static string GetValueFromCloudConfig()
@@ -243,7 +304,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         relativePath = Path.Combine(cdnRelativePath, Path.GetFileName(filePath));
                     }
-                    
+
                     cdnFilePath = Path.Combine(cdnRoot, relativePath);
                     //if (File.Exists(Path.Combine(cdnRoot, relativePath)))
                     //{

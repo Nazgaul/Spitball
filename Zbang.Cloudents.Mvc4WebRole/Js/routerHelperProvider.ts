@@ -59,7 +59,6 @@ interface IRouterHelper {
                             state.config.templateProvider = template;
                         }
                     }
-                    console.log(state.config);
                     $stateProvider.state(state.state, state.config);
                 });
                 if (otherwisePath && !hasOtherwise) {

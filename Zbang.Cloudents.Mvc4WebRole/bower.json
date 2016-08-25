@@ -7,7 +7,7 @@
     "angular-cache": "~4.5.0",
     "angular-timeago": "0.2.9",
     "ng-scrollbars": "0.0.10",
-    "ui-router-extras": "0.1.2"
+    "oclazyload": "1.0.9"
   },
   "resolutions": {
     "angular": "^1.2.0",
