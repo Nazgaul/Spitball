@@ -12,7 +12,7 @@
 
         d.inviteExpand = inviteExpand;
         d.inviteToSpitabll = inviteToSpitabll;
-
+        d.createNewBox = createNewBox;
 
         d.boxes = boxes;
         dashboardService.recommended().then(function (response2) {
@@ -39,8 +39,13 @@
         function inviteToSpitabll() {
             d.inviteOpen = true;
             $scope.$broadcast('open_invite');
+            d.createBoxOn = false;
         }
 
+        function createNewBox() {
+            d.createBoxOn = true;
+            d.inviteOpen = false;
+        }
         function openCreate() {
             d.createBoxOn = true;
             d.createBoxFocus = true;

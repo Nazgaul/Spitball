@@ -134,7 +134,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} likes your {1} {2}.
+        ///   Looks up a localized string similar to {0} likes your {1} &quot;{2}&quot;.
         /// </summary>
         internal static string LikesMailLineDetails {
             get {
@@ -152,8 +152,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have {0} more likes on your Spitball posts:
-        ///Check them out:.
+        ///   Looks up a localized string similar to You have {0} more likes on your Spitball posts, check them out:.
         /// </summary>
         internal static string LikesMailTitle {
             get {
@@ -241,30 +240,11 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click here.
-        /// </summary>
-        internal static string ReplyToCommentLink {
-            get {
-                return ResourceManager.GetString("ReplyToCommentLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Someone commented on your post.
         /// </summary>
         internal static string ReplyToCommentSubject {
             get {
                 return ResourceManager.GetString("ReplyToCommentSubject", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} commented on a post you made on {1}.
-        ///{2} to read what your classmate wrote and respond to their post. Spitball is all about being social, after all..
-        /// </summary>
-        internal static string ReplyToCommentText {
-            get {
-                return ResourceManager.GetString("ReplyToCommentText", resourceCulture);
             }
         }
         

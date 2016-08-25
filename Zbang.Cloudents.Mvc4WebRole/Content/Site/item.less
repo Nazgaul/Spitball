@@ -208,18 +208,13 @@ md-menu-item {
             padding-left: 95px;
         }
     }
-
     //md-select:not([disabled]):focus .md-select-value {
     //    color: @textColorBlack;
     //    //border-bottom: 1px solid @borderColorDarkBlue;
     //}
-
     /*md-select .md-select-value.md-select-placeholder {
         color: @textColorBlack;
     }*/
-
-
-
     .fileName {
         text-align: center;
         color: @textColorBlack;
@@ -428,7 +423,7 @@ md-menu-item {
 
     .comments-wrapper {
         position: fixed !important;
-        top: 76px;
+        top: @heightOfHeader;
         width: 300px;
         z-index: 2;
         padding-right: 53px;
@@ -471,7 +466,7 @@ md-menu-item {
         .title {
             color: @textColorBlue;
             font-size: 16px;
-            padding: 10px 0 0 10px;
+            padding: 10px 0 0 20px;
             line-height: 30px;
         }
 
@@ -497,7 +492,7 @@ md-menu-item {
             //margin-left: 10px;
             //margin-right: 20px;
             display: inline-block;
-            height: ~"calc(100vh - 85px)";
+            height: ~"calc(100vh - 80px)";
             overflow: auto;
 
             .user-image {
@@ -549,8 +544,10 @@ md-menu-item {
         }
 
         .new-comment {
-            padding: 0 10px;
-
+            padding-left: 20px;
+            .user-image{
+                padding-top: 5px;
+            }
             .new-comment-form {
                 width: 100%;
             }

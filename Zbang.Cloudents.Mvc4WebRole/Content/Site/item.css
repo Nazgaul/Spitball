@@ -358,7 +358,7 @@ md-menu-item.blue svg {
 }
 .itemPage .comments-wrapper {
   position: fixed !important;
-  top: 76px;
+  top: 70px;
   width: 300px;
   z-index: 2;
   padding-right: 53px;
@@ -396,7 +396,7 @@ md-menu-item.blue svg {
 .itemPage .comments-wrapper .title {
   color: #2698D4;
   font-size: 16px;
-  padding: 10px 0 0 10px;
+  padding: 10px 0 0 20px;
   line-height: 30px;
 }
 .itemPage .comments-wrapper .comments-list > li {
@@ -414,7 +414,7 @@ md-menu-item.blue svg {
 .itemPage .comments-wrapper .comments {
   width: calc(100% - 20px);
   display: inline-block;
-  height: calc(100vh - 85px);
+  height: calc(100vh - 80px);
   overflow: auto;
 }
 .itemPage .comments-wrapper .comments .user-image {
@@ -454,7 +454,10 @@ md-menu-item.blue svg {
   width: 100%;
 }
 .itemPage .comments-wrapper .new-comment {
-  padding: 0 10px;
+  padding-left: 20px;
+}
+.itemPage .comments-wrapper .new-comment .user-image {
+  padding-top: 5px;
 }
 .itemPage .comments-wrapper .new-comment .new-comment-form {
   width: 100%;

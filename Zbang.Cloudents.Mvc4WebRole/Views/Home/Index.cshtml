@@ -45,6 +45,24 @@
         <div class="home-page-body">
             <section class="main" data-image="@Model.HomePageUniversityData.BackgroundImage">
                 <div class="forms">
+                    <div class="loader">
+                        <div class="backdrop"></div>
+                        <div class="sk-fading-circle selected">
+                            <div class="sk-circle1 sk-circle"></div>
+                            <div class="sk-circle2 sk-circle"></div>
+                            <div class="sk-circle3 sk-circle"></div>
+                            <div class="sk-circle4 sk-circle"></div>
+                            <div class="sk-circle5 sk-circle"></div>
+                            <div class="sk-circle6 sk-circle"></div>
+                            <div class="sk-circle7 sk-circle"></div>
+                            <div class="sk-circle8 sk-circle"></div>
+                            <div class="sk-circle9 sk-circle"></div>
+                            <div class="sk-circle10 sk-circle"></div>
+                            <div class="sk-circle11 sk-circle"></div>
+                            <div class="sk-circle12 sk-circle"></div>
+                        </div>
+                        <div class="loader-text">@SharedResources.LoaderText</div>
+                    </div>
                     <div class="login-wrapper form-wrapper" style="display:none;">
                         <button type="button" class="close-form">@Html.Svg("~/images/site/icons.svg", "close")</button>
                         <h3 class="form-title">@LogOnResources.LoginToAccount</h3>
@@ -83,7 +101,7 @@
                                     <label for="rememberMe">@LogOnResources.RememberMe</label>
                                 </div>
 
-                                <button type="submit" class="blue-button">
+                                <button type="submit" class="blue-button button-Blue">
                                     @LogOnResources.LogIn
                                 </button>
                             </div>
@@ -115,7 +133,7 @@
                             </div>
                             <div class="form-actions">
                                 <button type="reset" class="grey-button cancel" data-form-action="login">@GeneralResources.Cancel</button>
-                                <button type="submit" class="blue-button">@LogOnResources.Submit</button>
+                                <button type="submit" class="blue-button button-Blue">@LogOnResources.Submit</button>
                             </div>
                         </form>
                     </div>
@@ -187,7 +205,7 @@
                                     <a class="tos" target="_blank" href="@Url.RouteUrl("TOS")">&nbsp;@RegisterResources.TermsOfServices</a>&nbsp;@RegisterResources.And&nbsp;<a target="_blank" href="@Url.RouteUrl("Privacy")">@RegisterResources.PrivacyPolicy</a>&nbsp;@RegisterResources.ofZbang
                                 </div>
 
-                                <button type="submit" id="register-submit-btn" class="blue-button">
+                                <button type="submit" id="register-submit-btn" class="blue-button button-Blue">
                                     @LogOnResources.SignUp
                                 </button>
                             </div>
@@ -205,24 +223,6 @@
                             <div class="sb-logo">
                             </div>
                         </div>
-                    </div>
-                    <div class="loader">
-                        <div class="backdrop"></div>
-                        <div class="sk-fading-circle selected">
-                            <div class="sk-circle1 sk-circle"></div>
-                            <div class="sk-circle2 sk-circle"></div>
-                            <div class="sk-circle3 sk-circle"></div>
-                            <div class="sk-circle4 sk-circle"></div>
-                            <div class="sk-circle5 sk-circle"></div>
-                            <div class="sk-circle6 sk-circle"></div>
-                            <div class="sk-circle7 sk-circle"></div>
-                            <div class="sk-circle8 sk-circle"></div>
-                            <div class="sk-circle9 sk-circle"></div>
-                            <div class="sk-circle10 sk-circle"></div>
-                            <div class="sk-circle11 sk-circle"></div>
-                            <div class="sk-circle12 sk-circle"></div>
-                        </div>
-                        <div class="loader-text">@SharedResources.LoaderText</div>
                     </div>
                     <div class="statistics os-animation toggle" data-os-animation="fadeIn" data-os-animation-delay="0.5s">
                         <h3 class="statistic">

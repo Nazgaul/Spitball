@@ -697,6 +697,12 @@
     <Content Include="Content\Site\accordion.rtl.css">
       <DependentUpon>accordion.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\angularMaterialOverride.css">
+      <DependentUpon>angularMaterialOverride.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\angularMaterialOverride.rtl.css">
+      <DependentUpon>angularMaterialOverride.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\angularWithChanges.css" />
     <Content Include="Content\Site\angularWithChanges.rtl.css">
       <DependentUpon>angularWithChanges.css</DependentUpon>
@@ -1583,6 +1589,7 @@
     <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Content\HomePage\homePage2.less" />
     <Content Include="Scripts\angular-messages.min.js.map" />
+    <Content Include="Content\Site\angularMaterialOverride.less" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
