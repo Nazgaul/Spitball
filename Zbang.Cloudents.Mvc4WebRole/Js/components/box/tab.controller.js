@@ -6,7 +6,8 @@
 
     function tabs(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, $q, resManager, $state) {
         var t = this,
-            boxId = $stateParams.boxId;//, tabId = $stateParams.tabId;
+            boxId = $stateParams.boxId,
+            disablePaging = false;//, tabId = $stateParams.tabId;
         $scope.stateParams = $stateParams;
         //t.tabId = $stateParams.tabId,
         //item = $scope.i;
@@ -88,6 +89,7 @@
         }
 
         function deleteTab(ev) {
+            $scope.$emit('disablePaging');
             var confirm = $mdDialog.confirm()
                  .title(resManager.get('deleteTab'))
                  .targetEvent(ev)
@@ -95,11 +97,14 @@
                  .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
+                $scope.$emit('enablePaging');
                 var index = t.tabs.indexOf(t.tabSelected);
                 t.tabs.splice(index, 1);
                 boxService.deleteTab($stateParams.tabId, boxId).then(function () {
                     upDir();
                 });
+            }).finally(function () {
+                $scope.$emit('enablePaging');
             });
         }
 
@@ -115,7 +120,7 @@
             }
         });
         $scope.$on('tab-item-remove',
-            function() {
+            function () {
                 if (t.tabSelected) {
                     t.tabSelected.count--;
                 }

@@ -385,6 +385,7 @@
         //dialog
         //var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && $scope.customFullscreen;
         function dialog(blob, ev) {
+            $rootScope.$broadcast('disablePaging');
             $mdDialog.show({
                 controller: 'previewController',
                 controllerAs: 'lc',
@@ -397,6 +398,8 @@
                     blob: function () { return blob; }
                 },
                 fullscreen: true
+            }).finally(function () {
+                $rootScope.$broadcast('enablePaging');
             });
         }
 

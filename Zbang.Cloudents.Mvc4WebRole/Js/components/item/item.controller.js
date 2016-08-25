@@ -2,11 +2,11 @@
 (function () {
     angular.module('app.item').controller('ItemController', item);
     item.$inject = ['$stateParams', 'itemService', '$sce', '$location', '$q', 'user',
-        'itemData', '$scope', 'resManager',  '$timeout', '$mdMenu'];
+        'itemData', '$scope', '$rootScope', 'resManager', '$timeout', '$mdMenu'];
 
     function item($stateParams, itemService, $sce, $location, $q,
-        user, itemData, $scope, resManager, $timeout, $mdMenu) {
-        var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
+        user, itemData, $scope, $rootScope, resManager, $timeout, $mdMenu) {
+        var i = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId, disablePaging = false;
         var index = 0, needLoadMore = false;
 
         i.state = {
@@ -47,7 +47,7 @@
         i.swipeRight = swipeRight;
         i.followBox = followBox;
         i.document = itemData.fileContent;
-       
+
         //i.back = back;
 
         //function back() {
@@ -59,7 +59,7 @@
         //}
 
         function followBox() {
-             //cacheFactory.clearAll();//autofollow issue
+            //cacheFactory.clearAll();//autofollow issue
         }
         function getPreview() {
             i.loader = true;
@@ -103,8 +103,14 @@
             i.renameText = i.details.name;
         }
 
+        $rootScope.$on('disablePaging', function () {
+            disablePaging = true;
+        });
+        $rootScope.$on('enablePaging', function () {
+            disablePaging = false;
+        });
         function loadMore() {
-            if (needLoadMore && user.id) {
+            if (!disablePaging && needLoadMore && user.id) {
                 needLoadMore = false;
                 ++index;
                 return getPreview();
@@ -150,7 +156,7 @@
                 $mdMenu.hide();
             }, 2000);
         }
-       
+
     }
 
 
