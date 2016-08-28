@@ -3,11 +3,11 @@
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
-        'resManager',  'routerHelper',  '$filter', 'feedData', 'updates'];
+        'resManager', 'routerHelper', '$filter', 'feedData', 'updates'];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager,  routerHelper,  $filter, feedData, updates) {
+        $mdDialog, $scope, $rootScope, resManager, routerHelper, $filter, feedData, updates) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), top = 30;
 
         self.add = {
@@ -32,8 +32,9 @@
         self.likeReplyDialog = likeReplyDialog;
         self.likeCommentDialog = likeCommentDialog;
         var feedUpdates = {};
+        var disablePaging = false;
 
-        if(user.id) {
+        if (user.id) {
             feedUpdates = updates;
             userUpdatesService.deleteUpdates(boxId);
         }
@@ -79,7 +80,15 @@
             }, ev);
         }
 
+        $scope.$on('disablePaging', function () {
+            disablePaging = true;
+        });
+        $scope.$on('enablePaging', function () {
+            disablePaging = false;
+        });
+
         function showLikes(func, ev) {
+            disablePaging = true;
             $mdDialog.show({
                 controller: 'likesController',
                 controllerAs: 'lc',
@@ -91,6 +100,8 @@
                 targetEvent: ev,
                 clickOutsideToClose: true
                 //fullscreen: true
+            }).finally(function () {
+                disablePaging = false;
             });
         }
 
@@ -137,6 +148,9 @@
 
         function myPagingFunction() {
             //timestamp = currentTimestamp;
+            if (disablePaging) {
+                return;
+            }
             return boxService.getFeed(boxId, top, self.data.length).then(function (response) {
                 if (!response.length) {
                     return;
@@ -145,6 +159,7 @@
                 // self.data = self.data.concat(response);
                 self.data = x.concat(assignData(response));
             });
+
         }
 
         function initThirdParties() {
@@ -208,7 +223,7 @@
         }
 
         function deleteComment(ev, post) {
-
+            disablePaging = true;
             //boxType //userType
             var confirm = $mdDialog.confirm()
                   .title(resManager.get('deletePost'))
@@ -217,12 +232,16 @@
                   .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
+                disablePaging = false;
                 var index = self.data.indexOf(post);
                 self.data.splice(index, 1);
                 boxService.deleteComment(post.id, boxId);
+            }).finally(function () {
+                disablePaging = false;
             });
         }
         function deleteReply(ev, post, reply2) {
+            disablePaging = true;
 
             //boxType //userType
             var confirm = $mdDialog.confirm()
@@ -232,9 +251,12 @@
                   .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
+                disablePaging = false;
                 var index = post.replies.indexOf(reply2);
                 post.replies.splice(index, 1);
                 boxService.deleteReply(reply2.id, boxId);
+            }).finally(function () {
+                disablePaging = false;
             });
         }
         function createReply(comment) {
@@ -441,15 +463,15 @@
                 chunk_size: '3mb'
             },
             callbacks: {
-                filesAdded: function(uploader, files) {
+                filesAdded: function (uploader, files) {
                     $scope.$emit('follow-box');
                     for (var i = 0; i < files.length; i++) {
                         var file = files[i];
-                        (function(file) {
+                        (function (file) {
                             file.sizeFormated = plupload.formatSize(file.size);
                             file.complete = false;
                             file.postId = postId;
-                            file.remove = function() {
+                            file.remove = function () {
                                 removeFile(file, uploader);
                                 self.add.disabled = false;
                             };
@@ -457,26 +479,26 @@
                             self.add.files.push(file);
 
                             var img = new mOxie.Image();
-                            img.onload = function() {
+                            img.onload = function () {
                                 this.crop(95, 105, false);
                                 file.content = this.getAsDataURL("image/jpeg", 80);
                             };
-                            img.onembedded = function() {
+                            img.onembedded = function () {
                                 this.destroy();
                             };
 
-                            img.onerror = function() {
+                            img.onerror = function () {
                                 this.destroy();
                             };
                             img.load(file.getSource());
                         })(file);
                     }
-                    $timeout(function() {
-                            uploader.start();
-                        },
+                    $timeout(function () {
+                        uploader.start();
+                    },
                         1);
                 },
-                beforeUpload: function(up, file) {
+                beforeUpload: function (up, file) {
                     self.add.disabled = true;
                     up.settings.multipart_params = {
                         fileName: file.name,
@@ -485,7 +507,7 @@
                         comment: true
                     };
                 },
-                fileUploaded: function(uploader, file, response) {
+                fileUploaded: function (uploader, file, response) {
                     file.complete = true;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
@@ -493,7 +515,7 @@
                         //cacheFactory.clearAll();
                     }
                 },
-                uploadComplete: function() {
+                uploadComplete: function () {
                     self.add.disabled = false;
                 }
                 //error: function (uploader, error) {

@@ -12,7 +12,7 @@
         i.uploadShow = true;
         $scope.stateParams = $stateParams;
         //i.tabSelected = $stateParams.tabId;
-        var page = 0, needToBringMore = true;
+        var page = 0, needToBringMore = true, disablePaging = false;;
 
 
         //$previousState.memo('toItemPage');
@@ -44,7 +44,7 @@
             getItems();
         }
 
-       
+
 
         function followBox() {
             $scope.$emit('follow-box');
@@ -75,6 +75,13 @@
         }
 
 
+        $rootScope.$on('disablePaging', function () {
+            disablePaging = true;
+        });
+        $rootScope.$on('enablePaging', function () {
+            disablePaging = false;
+        });
+
         //$scope.$on('resetParams', resetParams);
         $scope.$on('update-thumbnail', function (e, args) {
             var item = i.items.find(function (x) {
@@ -99,6 +106,7 @@
         }
 
         function deleteItem(ev, item) {
+            disablePaging = true;
             var confirm = $mdDialog.confirm()
                  .title(resManager.get('deleteItem'))
                  .targetEvent(ev)
@@ -106,11 +114,14 @@
                  .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
+                disablePaging = false;
                 var index = i.items.indexOf(item);
                 boxService.deleteItem(item.id).then(function () {
                     $scope.$broadcast('tab-item-remove');
                     i.items.splice(index, 1);
                 });
+            }).finally(function () {
+                disablePaging = false;
             });
         }
 
@@ -118,6 +129,9 @@
         function getItems() {
             if (!needToBringMore) {
                 return $q.when();
+            }
+            if (disablePaging) {
+                return;
             }
             return boxService.items(boxId, $stateParams.tabId, page).then(function (response) {
                 angular.forEach(response, buildItem);
@@ -132,6 +146,7 @@
                 }
                 page++;
             });
+
         }
         function filter() {
 

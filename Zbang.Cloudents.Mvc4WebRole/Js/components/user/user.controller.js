@@ -7,7 +7,7 @@
     function user(userService, userData, itemThumbnailService, $q, userDetailsFactory,
         $mdDialog, resManager, boxService, $rootScope) {
         var self = this;
-        var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0, quizzesPage = 0;
+        var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0, quizzesPage = 0, disablePaging = false;
         self.friends = [];
         self.boxes = [];
         self.files = [];
@@ -76,7 +76,15 @@
             });
             //$mdSidenav('chat').open();
         }
+
+        $rootScope.$on('disablePaging', function () {
+            disablePaging = true;
+        });
+        $rootScope.$on('enablePaging', function () {
+            disablePaging = false;
+        });
         function deleteItem(ev, item) {
+            disablePaging = true;
             var confirm = $mdDialog.confirm()
                  .title(resManager.get('deleteItem'))
                  .targetEvent(ev)
@@ -84,10 +92,13 @@
                  .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
+                disablePaging = false;
                 var index = self.files.indexOf(item);
                 self.files.splice(index, 1);
                 self.details.numItem--;
                 boxService.deleteItem(item.id);
+            }).finally(function () {
+                disablePaging = false;
             });
         }
         
@@ -98,6 +109,9 @@
             }
             if (self.itemsLoading) {
                 return returnEmptyPromise();
+            }
+            if (disablePaging) {
+                return;
             }
             self.itemsLoading = true;
             return userService.files(userData.id, itemsPage).then(function (response) {
