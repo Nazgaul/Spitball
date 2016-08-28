@@ -131,6 +131,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Choose");
         }
 
+        [Route("library/unisettings")]
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public PartialViewResult UniSettings()
+        {
+            return PartialView("_Settings");
+        }
+
 
         [HttpGet, ActionName("Search")]
         public async Task<JsonResult> SearchAsync(string term, int page, CancellationToken cancellationToken)

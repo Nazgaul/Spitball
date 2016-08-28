@@ -2,16 +2,16 @@
 (function () {
     angular.module('app.library').controller('Library', library);
     library.$inject = ['libraryService', '$stateParams', 'userDetailsFactory', 'nodeData', '$mdDialog',
-        '$location', '$scope', 'resManager', 'universityData','itemThumbnailService'];
+        '$location', '$scope', 'resManager', 'universityData', 'itemThumbnailService', 'ajaxService2', '$timeout'];
 
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
-        $location, $scope, resManager, universityData,itemThumbnailService) {
+        $location, $scope, resManager, universityData, itemThumbnailService, ajaxService, $timeout) {
 
         var l = this, nodeId = $stateParams.id;
         l.departments = nodeData.nodes;
         l.boxes = nodeData.boxes || [];
         l.nodeDetail = nodeData.details;
-       
+
         if (l.nodeDetail) {
             l.nodeDetail.isPrivate = false;
         }
@@ -23,7 +23,7 @@
             logo: universityData.logo || itemThumbnailService.logo
         };
         //l.universityName = userDetailsFactory.get().university.name;
-        
+
         //l.topTree = nodeId == null;
         l.createDepartmentShow = l.state.withDepartmentAdmin || l.state.emptyNodeAdmin; //userDetailsFactory.get().isAdmin && (l.topTree || l.boxes.length === 0);
         l.createClassShow = l.state.withBoxes || l.state.emptyNode || l.state.emptyNodeAdmin;// l.departments.length === 0 && !l.topTree;
@@ -131,12 +131,23 @@
             });
 
         }
+
+
         function toggleSettings() {
-            l.settings = {
-                name: l.nodeDetail.name
-                // privacy: l.nodeDetail.state
-            };
-            l.settingsOpen = true;
+            if (l.settingsHtml) {
+                l.settingsOpen = true;
+                return;
+            }
+            return ajaxService.getHtml('/library/unisettings').then(function (response) {
+                l.settingsHtml = response;
+                $timeout(function () {
+                    l.settings = {
+                        name: l.nodeDetail.name
+                    };
+                    l.settingsOpen = true;
+                });
+            });
+
         }
 
         function openCreateBox() {
