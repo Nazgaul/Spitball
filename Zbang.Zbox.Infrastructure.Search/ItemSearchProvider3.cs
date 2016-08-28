@@ -98,7 +98,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             m_CheckIndexExists = true;
         }
 
-        public async Task UpdateDataAsync(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete)
+        public async Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<long> itemToDelete)
         {
             if (!m_CheckIndexExists)
             {
@@ -107,24 +107,24 @@ namespace Zbang.Zbox.Infrastructure.Search
             //var listOfCommands = new List<IndexAction<ItemSearch>>();
             if (itemToUpload != null)
             {
-                var uploadBatch = itemToUpload.Select(item => new ItemSearch
+                var uploadBatch = new ItemSearch
                 {
-                    BoxId = item.BoxId,
-                    BoxId2 = item.BoxId,
-                    BoxName = item.BoxName,
-                    Content = item.Content,
-                    Extension = Path.GetExtension(item.Name),
-                    Id = item.Id.ToString(CultureInfo.InvariantCulture),
-                    Image = item.Image,
-                    MetaContent = item.Content.RemoveEndOfString(SeachConnection.DescriptionLength),
-                    Name = Path.GetFileNameWithoutExtension(item.Name),
-                    UniversityId = item.UniversityId.HasValue ? item.UniversityId.ToString() : "-1",
-                    UniversityName = item.UniversityName,
-                    Url = item.Url,
-                    UserId = item.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray(),
-                    BlobName = item.BlobName
-                });
-                var batch = IndexBatch.Upload(uploadBatch);
+                    BoxId = itemToUpload.BoxId,
+                    BoxId2 = itemToUpload.BoxId,
+                    BoxName = itemToUpload.BoxName,
+                    Content = itemToUpload.Content,
+                    Extension = Path.GetExtension(itemToUpload.Name),
+                    Id = itemToUpload.Id.ToString(CultureInfo.InvariantCulture),
+                    Image = itemToUpload.Image,
+                    MetaContent = itemToUpload.Content.RemoveEndOfString(SeachConnection.DescriptionLength),
+                    Name = Path.GetFileNameWithoutExtension(itemToUpload.Name),
+                    UniversityId = itemToUpload.UniversityId.HasValue ? itemToUpload.UniversityId.ToString() : "-1",
+                    UniversityName = itemToUpload.UniversityName,
+                    Url = itemToUpload.Url,
+                    UserId = itemToUpload.UserIds.Select(s1 => s1.ToString(CultureInfo.InvariantCulture)).ToArray(),
+                    BlobName = itemToUpload.BlobName
+                };
+                var batch = IndexBatch.Upload(new[] { uploadBatch });
                 if (batch.Actions.Any())
                     await m_IndexClient.Documents.IndexAsync(batch);
             }
@@ -140,54 +140,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     await m_IndexClient.Documents.IndexAsync(batch);
             }
 
-            //var commands = listOfCommands.ToArray();
-            //if (commands.Length == 0) return;
 
-            //try
-            //{
-            //    await m_IndexClient.Documents.IndexAsync(IndexBatch.Create(listOfCommands.ToArray()));
-            //}
-            //catch (IndexBatchException ex)
-            //{
-            //    TraceLog.WriteError("Failed to index some of the documents: " +
-            //                        String.Join(", ",
-            //                            ex.IndexResponse.Results.Where(r => !r.Succeeded).Select(r => r.Key)));
-            //    throw;
-            //}
-            //catch (CloudException ex)
-            //{
-            //    TraceLog.WriteError("Failed to do batch", ex);
-            //    //return false;
-            //    throw;
-            //}
-
-        }
-
-
-
-        public async Task<IEnumerable<SearchItems>> SearchItemOldMobileServiceAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
-        {
-            if (query == null) throw new ArgumentNullException(nameof(query));
-
-            var filter = await m_FilterProvider.BuildFilterExpressionAsync(
-               query.UniversityId, UniversityidField, UserIdsField, query.UserId);
-
-            var result = await m_IndexClient.Documents.SearchAsync<ItemSearch>(query.Term, new SearchParameters
-            {
-                Filter = filter,
-                Top = query.RowsPerPage,
-                Skip = query.RowsPerPage * query.PageNumber,
-                ScoringProfile = ScoringProfileName,
-                ScoringParameters = new[] { new ScoringParameter("university", new[] { query.UniversityId.ToString() }) },
-                Select = new[] { IdField, NameField, UrlField },
-            }, cancellationToken: cancelToken);
-
-            return result.Results.Select(s => new SearchItems
-            {
-                Id = long.Parse(s.Document.Id),
-                Url = s.Document.Url,
-                Name = s.Document.Name
-            }).ToList();
         }
 
         public async Task<IEnumerable<SearchItems>> SearchItemAsync(

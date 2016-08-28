@@ -14,7 +14,7 @@ using Zbang.Zbox.ViewModel.Queries.Emails;
 
 namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
-    public class DigestEmail : IMailProcess
+    public class DigestEmail : ISchedulerProcess
     {
         private readonly IMailComponent m_MailComponent;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;

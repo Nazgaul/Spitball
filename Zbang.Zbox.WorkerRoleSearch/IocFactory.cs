@@ -13,8 +13,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 {
     internal class IocFactory
     {
-        
-
         public const string UpdateSearchItem = "UpdateSearchItem";
         public const string UpdateSearchBox = "UpdateSearchBox";
         public const string UpdateSearchQuiz = "UpdateSearchQuiz";
@@ -68,29 +66,28 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.RegisterType<IJob, ThumbnailQueueProcess>(nameof(ThumbnailQueueProcess));
             Ioc.RegisterType<IJob, MailQueueProcess>(nameof(MailQueueProcess));
             Ioc.RegisterType<IJob, TestingJob>(nameof(TestingJob));
-            Ioc.RegisterType<IJob, SpamGun>(nameof(SpamGun));
+            
             Ioc.RegisterType<IJob, DeleteOldStuff>(nameof(DeleteOldStuff));
             Ioc.RegisterType<IJob, DeleteOldConnections>(nameof(DeleteOldConnections));
 
 
-            Ioc.RegisterType<IMailProcess, NoUniversityMailProcess>("universityNotSelected");
-            Ioc.RegisterType<IMailProcess, NoFollowClassMailProcess>("notFollowing");
-            Ioc.RegisterType<IMailProcess, UniversityWithLowActivation>("universityLowActivity");
-            Ioc.RegisterType<IMailProcess, FollowLowActivityCourses>("followLowActivity");
-            Ioc.RegisterType<IMailProcess, LikesMailProcess>("likesReport");
+            Ioc.RegisterType<ISchedulerProcess, NoUniversityMailProcess>("universityNotSelected");
+            Ioc.RegisterType<ISchedulerProcess, NoFollowClassMailProcess>("notFollowing");
+            Ioc.RegisterType<ISchedulerProcess, UniversityWithLowActivation>("universityLowActivity");
+            Ioc.RegisterType<ISchedulerProcess, FollowLowActivityCourses>("followLowActivity");
+            Ioc.RegisterType<ISchedulerProcess, LikesMailProcess>("likesReport");
 
 
             Ioc.ContainerBuilder.RegisterType<DigestEmail>()
-                .Named<IMailProcess>("digestOnceADay")
+                .Named<ISchedulerProcess>("digestOnceADay")
                 .WithParameter("hourForEmailDigest", NotificationSettings.OnceADay);
 
             Ioc.ContainerBuilder.RegisterType<DigestEmail>()
-                .Named<IMailProcess>("digestOnceAWeek")
+                .Named<ISchedulerProcess>("digestOnceAWeek")
                 .WithParameter("hourForEmailDigest", NotificationSettings.OnceAWeek);
 
-            //Ioc.ContainerBuilder.RegisterType<DigestEmail>()
-            //    .Named<IMailProcess>("digestEveryChange")
-            //    .WithParameter("hourForEmailDigest", NotificationSettings.OnEveryChange);
+
+            Ioc.RegisterType<ISchedulerProcess, SpamGun>("spamGun");
 
             Ioc.RegisterType<IIntercomApiManager, IntercomApiManager>();
 

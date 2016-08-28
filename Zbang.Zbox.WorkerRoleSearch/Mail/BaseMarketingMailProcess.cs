@@ -10,7 +10,7 @@ using Zbang.Zbox.ViewModel.Queries.Emails;
 
 namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
-    public abstract class BaseMarketingMailProcess : IMailProcess
+    public abstract class BaseMarketingMailProcess : ISchedulerProcess
     {
         private readonly IMailComponent m_MailComponent;
 

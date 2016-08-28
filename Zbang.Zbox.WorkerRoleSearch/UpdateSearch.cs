@@ -33,8 +33,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
         {
             var retVal = await UpdateAsync(index, count);
 
-
-
             switch (retVal)
             {
                 case TimeToSleep.Increase:

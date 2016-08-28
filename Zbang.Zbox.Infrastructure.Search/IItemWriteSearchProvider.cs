@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 {
     public interface IItemWriteSearchProvider
     {
-        Task UpdateDataAsync(IEnumerable<ItemSearchDto> itemToUpload, IEnumerable<long> itemToDelete);
+        Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<long> itemToDelete);
     }
 
 

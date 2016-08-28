@@ -148,7 +148,7 @@
     <Compile Include="Mail\FollowLowActivityCourses.cs" />
     <Compile Include="Mail\ForgotPassword.cs" />
     <Compile Include="Mail\Imail2.cs" />
-    <Compile Include="Mail\IMailProcess.cs" />
+    <Compile Include="Mail\ISchedulerProcess.cs" />
     <Compile Include="Mail\Invite2.cs" />
     <Compile Include="Mail\InviteToCloudents.cs" />
     <Compile Include="Mail\LibraryAccessApproved.cs" />

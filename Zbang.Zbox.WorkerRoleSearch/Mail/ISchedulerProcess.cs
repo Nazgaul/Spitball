@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
-    public interface IMailProcess
+    public interface ISchedulerProcess
     {
         Task<bool> ExecuteAsync(int index, Func<int,Task> progressAsync, CancellationToken token);
     }
