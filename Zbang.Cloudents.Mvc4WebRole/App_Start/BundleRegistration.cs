@@ -47,16 +47,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/Content/signin/custom.css"
                     },
 
-                ["themeDark"] = new[]
-                    {
-                        "~/content/site/themedark.css"
-                    },
-
-                ["themeLight"] = new[]
-                    {
-                              "~/content/site/themelight.css"
-                    },
-
                 ["site4"] = new[]
                     {
                         "~/content/site/angularWithChanges2.css",

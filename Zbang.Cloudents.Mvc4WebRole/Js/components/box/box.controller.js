@@ -2,9 +2,9 @@
 (function () {
     angular.module('app.box').controller('BoxController', box);
     box.$inject = ['boxService', 'boxData', '$stateParams', '$scope',
-        '$state',  '$rootScope', 'userDetailsFactory',
+        '$state', '$rootScope', 'userDetailsFactory',
         'ajaxService2', 'resManager', '$timeout'];
-    function box(boxService, boxData, $stateParams, $scope, $state, 
+    function box(boxService, boxData, $stateParams, $scope, $state,
         $rootScope, userDetailsFactory, ajaxService, resManager, $timeout) {
 
         if ($state.current.name === 'box') {
@@ -50,28 +50,39 @@
             if (b.needFollow) {
                 return;
             }
-            $rootScope.$broadcast('close-collapse');
-            b.settingsOpen = true;
 
-            b.settings = b.settings || {};
-            //boxType
-            //privacySetting
-
-            b.settings.name = b.data.name;
-            b.settings.needFollow = b.needFollow;
-            b.settings.submitDisabled = false;
-            if (b.isAcademic) {
-                b.settings.courseId = b.data.courseId;
-                b.settings.professorName = b.data.professorName;
-            } else if (b.owner) {
-                b.settings.privacy = b.data.privacySetting;
+            if (b.settingsHtml) {
+                b.settingsOpen = true;
+                return;
             }
+            return ajaxService.getHtml('/box/boxsettings/').then(function (response) {
+                b.settingsHtml = response;
+                $timeout(function () {
+                    $rootScope.$broadcast('close-collapse');
+                    b.settingsOpen = true;
 
-            if (!b.settings.notificationSettings) {
-                boxService.notification(boxId).then(function (response) {
-                    b.settings.notificationSettings = response;
+                    b.settings = b.settings || {};
+                    //boxType
+                    //privacySetting
+
+                    b.settings.name = b.data.name;
+                    b.settings.needFollow = b.needFollow;
+                    b.settings.submitDisabled = false;
+                    if (b.isAcademic) {
+                        b.settings.courseId = b.data.courseId;
+                        b.settings.professorName = b.data.professorName;
+                    } else if (b.owner) {
+                        b.settings.privacy = b.data.privacySetting;
+                    }
+
+                    if (!b.settings.notificationSettings) {
+                        boxService.notification(boxId).then(function (response) {
+                            b.settings.notificationSettings = response;
+                        });
+                    }
                 });
-            }
+            });
+
         }
 
         function updateBox(updateBoxForm) {

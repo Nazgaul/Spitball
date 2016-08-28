@@ -13,9 +13,8 @@
         @*<button class="box-settings" flex="none" ng-if="!b.needFollow" type="button" ng-click="b.toggleSettings()" ga-track-event="['box', 'settings']">@Html.Svg("/images/site/icons.svg", "ThreeDots")</button>*@
     </div>
 </div>
-<div uib-collapse="!b.settingsOpen" class="settings" ng-cloak>
-    @{Html.RenderPartial("_Settings");}
-</div>
+<div uib-collapse="!b.settingsOpen" compile-html="b.settingsHtml" class="collapsible settings" ng-cloak></div>
+
 <md-tabs class="box-nav-bar backgroundTC19 borderTC19" md-enable-disconnect="true">
     <md-tab ui-sref="box.feed" md-active="b.isActiveState('box.feed')">
         <md-tab-label><span class="textTC20">@BoxResources.Feed</span></md-tab-label>

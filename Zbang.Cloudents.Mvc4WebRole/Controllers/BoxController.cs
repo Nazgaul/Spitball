@@ -173,6 +173,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("_Members2");
         }
 
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public PartialViewResult BoxSettings()
+        {
+            return PartialView("_Settings");
+        }
 
 
         [HttpGet]

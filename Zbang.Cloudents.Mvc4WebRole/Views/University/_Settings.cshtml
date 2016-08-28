@@ -2,26 +2,24 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Enums
 
-<div uib-collapse="!l.settingsOpen" class="settings" ng-if="l.nodeDetail">
-    <form ng-submit="l.renameNode(nodeSettings)" novalidate name="nodeSettings" layout="row" layout-wrap>
-        <md-input-container flex="100">
-            <label class="text-capitalize">@GeneralResources.Rename</label>
-            <input type="text" autocomplete="off" name="name" required ng-model="l.settings.name" ng-change="nodeSettings.name.$setValidity('server',true)" />
-            <div ng-messages="nodeSettings.name.$error">
-                <div ng-message="required">@GeneralResources.RequiredField</div>
-                <div ng-message="server">{{l.error}}</div>
+<form ng-submit="l.renameNode(nodeSettings)" novalidate name="nodeSettings" layout="row" layout-wrap>
+    <md-input-container flex="100">
+        <label class="text-capitalize">@GeneralResources.Rename</label>
+        <input type="text" autocomplete="off" name="name" required ng-model="l.settings.name" ng-change="nodeSettings.name.$setValidity('server',true)" />
+        <div ng-messages="nodeSettings.name.$error">
+            <div ng-message="required">@GeneralResources.RequiredField</div>
+            <div ng-message="server">{{l.error}}</div>
+        </div>
+    </md-input-container>
+    <div class="set-private" ng-if="l.nodeDetail.state === 'open' && l.state.emptyNodeAdmin && l.nodeDetail.parentUrl.indexOf('?id') === -1">
+        <md-input-container flex="100" class="private-switch">
+            <md-switch ng-model="l.settings.privacy" ng-true-value="'@LibraryNodeSettings.Closed.GetStringValueLowerCase()'"
+                       ng-false-value="'@LibraryNodeSettings.Open.GetStringValueLowerCase()'">@BoxResources.PrivacySwitchText</md-switch>
+                </md-input-container>
+                <div class="warning">@BoxResources.PrivacyOneWayClick</div>
             </div>
-        </md-input-container>
-        <div class="set-private" ng-if="l.nodeDetail.state === 'open' && l.state.emptyNodeAdmin && l.nodeDetail.parentUrl.indexOf('?id') === -1">
-            <md-input-container flex="100" class="private-switch">
-                <md-switch ng-model="l.settings.privacy" ng-true-value="'@LibraryNodeSettings.Closed.GetStringValueLowerCase()'"
-                           ng-false-value="'@LibraryNodeSettings.Open.GetStringValueLowerCase()'">@BoxResources.PrivacySwitchText</md-switch>
-            </md-input-container>
-            <div class="warning">@BoxResources.PrivacyOneWayClick</div>
-        </div>
-        <div layout="row" layout-align="end center" class="text-capitalize" flex="100">
-            <button type="button" class="btn btn-default" ng-click="l.settingsOpen = false" ga-track-event="['university', 'cancel settings']">@GeneralResources.Cancel</button>
-            <button type="submit" class="btn button-Blue btn-primary" ng-disabled="l.submitDisabled" ga-track-event="['itemPage', 'save settings']">@GeneralResources.SaveChanges</button>
-        </div>
-    </form>
-</div>
+            <div layout="row" layout-align="end center" class="text-capitalize" flex="100">
+                <button type="button" class="btn btn-default" ng-click="l.settingsOpen = false" ga-track-event="['university', 'cancel settings']">@GeneralResources.Cancel</button>
+                <button type="submit" class="btn button-Blue btn-primary" ng-disabled="l.submitDisabled" ga-track-event="['itemPage', 'save settings']">@GeneralResources.SaveChanges</button>
+            </div>
+        </form>
