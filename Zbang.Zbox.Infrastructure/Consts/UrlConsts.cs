@@ -13,8 +13,6 @@ namespace Zbang.Zbox.Infrastructure.Consts
         private const string BoxUrl = "/box/my/{0}/{1}/";
         private const string CourseUrl = "/course/{2}/{0}/{1}/";
         private const string UserUrl = "/user/{0}/{1}/";
-        //TODO: change that
-        private const string LibraryUrl = "/library/{0}/{1}/";
         private const string LogInUrl = "/?invId={0}";
 
         public const string ShortBox = "b/{box62Id}";
@@ -131,18 +129,18 @@ namespace Zbang.Zbox.Infrastructure.Consts
 
        
 
-        public static string BuildLibraryUrl(Guid id, string name)
-        {
-            if (string.IsNullOrEmpty(name))
-            {
-                throw new ArgumentNullException(nameof(name));
-            }
-            return VirtualPathUtility.AppendTrailingSlash(
-                string.Format(
-                    LibraryUrl, 
-                    GuidEncoder.Encode(id), 
-                    NameToQueryString(name)));
-        }
+        //public static string BuildLibraryUrl(Guid id, string name)
+        //{
+        //    if (string.IsNullOrEmpty(name))
+        //    {
+        //        throw new ArgumentNullException(nameof(name));
+        //    }
+        //    return VirtualPathUtility.AppendTrailingSlash(
+        //        string.Format(
+        //            LibraryUrl, 
+        //            GuidEncoder.Encode(id), 
+        //            NameToQueryString(name)));
+        //}
 
         public static string NameToQueryString(string name)
         {

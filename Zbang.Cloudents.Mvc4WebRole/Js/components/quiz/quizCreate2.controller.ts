@@ -11,7 +11,7 @@
         id;
         name;
         questions = [new Question()];
-        
+
         completeData() {
             if (!this.questions.length) {
                 this.questions.push(new Question());
@@ -39,7 +39,7 @@
             if (this.done) {
                 return 'quiz-question-template.html';
             }
-            return 'create-quiz-question-template.html'; 
+            return 'create-quiz-question-template.html';
         }
         completeQuestion() {
             for (let i = this.answers.length; i < 2; i++) {
@@ -57,7 +57,7 @@
 
     class QuizCreateController {
         static $inject = ["$mdDialog", "$state", "$stateParams", "$scope",
-            "quizService", "quizData","resManager"];
+            "quizService", "quizData", "resManager"];
         private boxName;
         quizNameDisabled = true;
 
@@ -67,7 +67,8 @@
             private $scope: angular.IScope,
             private quizService: IQuizService,
             private quizData: any,
-            private resManager: IResManager) {
+            private resManager: IResManager
+           ) {
 
             this.boxName = $stateParams["name"] || $stateParams["boxName"];
             quizId = $stateParams["quizid"];
@@ -115,14 +116,14 @@
                             } else {
                                 self.quizService.createQuiz(self.$stateParams.boxId, newVal).then((response) => {
                                     self.$state.go('quizCreate',
-                                    {
-                                        boxtype: self.$stateParams["boxtype"],
-                                        universityType: self.$stateParams["universityType"],
-                                        boxId: self.$stateParams.boxId,
-                                        boxName: self.$stateParams["boxName"],
-                                        quizid: response,
-                                        name: self.$stateParams["name"]
-                                    });
+                                        {
+                                            boxtype: self.$stateParams["boxtype"],
+                                            universityType: self.$stateParams["universityType"],
+                                            boxId: self.$stateParams.boxId,
+                                            boxName: self.$stateParams["boxName"],
+                                            quizid: response,
+                                            name: self.$stateParams["name"]
+                                        });
                                 }).finally(finishSaveName);
                             }
                         }
@@ -133,29 +134,32 @@
 
         close(ev) {
             if (!quizId) {
-                this.$state.go("box.quiz",
-                    {
-                        boxtype: this.$stateParams["boxtype"],
-                        universityType: this.$stateParams["universityType"],
-                        boxId: this.$stateParams.boxId,
-                        boxName: this.$stateParams["boxName"]
-                    });
+                this.navigateBackToBox();
                 return;
             }
-            var confirm = this.$mdDialog.confirm()
+            const confirm = this.$mdDialog.confirm()
                 .title(this.resManager.get('quizLeaveTitle'))
                 .textContent(this.resManager.get('quizLeaveContent'))
                 .targetEvent(ev)
                 .ok(this.resManager.get('quizDelete'))
                 .cancel(this.resManager.get('quizSaveAsDraft'));
 
-            this.$mdDialog.show(confirm).then(function () {
-                self.deleteDraft();
-            }, function () {
-                self.saveDraft();
+            this.$mdDialog.show(confirm).then(() => {
+                this.quizService.deleteQuiz(quizId).then(this.navigateBackToBox);
+            }, () => {
+                this.navigateBackToBox();
+                //self.saveDraft();
             });
-            //TODO: need to ask to save draft
-            console.log('here');
+        }
+
+        private navigateBackToBox = () => {
+            this.$state.go("box.quiz",
+                {
+                    boxtype: this.$stateParams["boxtype"],
+                    universityType: this.$stateParams["universityType"],
+                    boxId: this.$stateParams.boxId,
+                    boxName: this.$stateParams["boxName"]
+                });
         }
 
     }

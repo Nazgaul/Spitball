@@ -1,7 +1,9 @@
+//declare var dataLayer: any;
 var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
+        // private expandSearch = false;
         function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, $scope, realtimeFactotry, sbHistory, $state) {
             var _this = this;
             this.$rootScope = $rootScope;
@@ -29,6 +31,10 @@ var app;
                 _this.cacheFactory.clearAll();
                 Intercom("shutdown");
             };
+            //initChat = () => {
+            //    var details = this.userDetails.get();
+            //    this.loadChat = details.university.id > 0;
+            //};
             this.setTheme = function () {
                 _this.theme = "theme-" + _this.userDetails.get().theme;
             };
@@ -58,18 +64,26 @@ var app;
             };
             $rootScope.$on("$viewContentLoaded", function () {
                 var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
-                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl });
-                __insp.push(["virtualPage"]);
+                // ReSharper disable UndeclaredGlobalVariableUsing
+                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
+                __insp.push(["virtualPage"]); // inspectlet
+                // ReSharper restore UndeclaredGlobalVariableUsing
             });
             userDetails.init().then(function () {
                 _this.setTheme();
+                //if (data.university) {
+                //this.initChat();
+                //}
             });
             $rootScope.$on("$mdMenuClose", function () {
                 _this.menuOpened = false;
             });
+            //this.showMenu = true;
             this.showBoxAd = false;
             $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams) {
                 _this.showBoxAd = toState.parent === "box";
+                //this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
+                // hub
                 if (toState.name.startsWith("box")) {
                     realtimeFactotry.assingBoxes(toParams.boxId);
                 }
@@ -81,12 +95,13 @@ var app;
                 if (!fromState.name) {
                     return;
                 }
+                // can't access anonymous user
                 if (toState.name === "user" && toParams.userId === 22886) {
                     event.preventDefault();
                     $rootScope.$broadcast("state-change-start-prevent");
                 }
-                $mdMenu.hide();
-                $mdToast.hide();
+                $mdMenu.hide(); // closes menu
+                $mdToast.hide(); // hide toasters
                 $rootScope.$broadcast("close-menu");
                 $rootScope.$broadcast("close-collapse");
                 var toStateName = toState.name;

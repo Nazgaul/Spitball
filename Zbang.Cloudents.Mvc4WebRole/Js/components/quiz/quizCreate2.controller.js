@@ -1,5 +1,6 @@
 var app;
 (function (app) {
+    //var emptyForm = true;
     var quizId;
     var saveInProgress = false;
     function finishUpdate() {
@@ -104,6 +105,14 @@ var app;
                     }
                 });
             };
+            this.navigateBackToBox = function () {
+                _this.$state.go("box.quiz", {
+                    boxtype: _this.$stateParams["boxtype"],
+                    universityType: _this.$stateParams["universityType"],
+                    boxId: _this.$stateParams.boxId,
+                    boxName: _this.$stateParams["boxName"]
+                });
+            };
             this.boxName = $stateParams["name"] || $stateParams["boxName"];
             quizId = $stateParams["quizid"];
             this.newName();
@@ -116,13 +125,9 @@ var app;
             this.quizData.completeData();
         }
         QuizCreateController.prototype.close = function (ev) {
+            var _this = this;
             if (!quizId) {
-                this.$state.go("box.quiz", {
-                    boxtype: this.$stateParams["boxtype"],
-                    universityType: this.$stateParams["universityType"],
-                    boxId: this.$stateParams.boxId,
-                    boxName: this.$stateParams["boxName"]
-                });
+                this.navigateBackToBox();
                 return;
             }
             var confirm = this.$mdDialog.confirm()
@@ -131,7 +136,12 @@ var app;
                 .targetEvent(ev)
                 .ok(this.resManager.get('quizDelete'))
                 .cancel(this.resManager.get('quizSaveAsDraft'));
-            console.log('here');
+            this.$mdDialog.show(confirm).then(function () {
+                _this.quizService.deleteQuiz(quizId).then(_this.navigateBackToBox);
+            }, function () {
+                _this.navigateBackToBox();
+                //self.saveDraft();
+            });
         };
         QuizCreateController.$inject = ["$mdDialog", "$state", "$stateParams", "$scope",
             "quizService", "quizData", "resManager"];
