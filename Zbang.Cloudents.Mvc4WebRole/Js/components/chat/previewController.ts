@@ -2,7 +2,7 @@
     "use strict";
 
     class PreviewController {
-        static $inject = ['$mdDialog', 'doc', 'blob',  '$sce'];
+        static $inject = ['$mdDialog', 'doc', 'blob', '$sce'];
 
         private view;
         private downloadLink;
@@ -12,12 +12,12 @@
             // TODO
             doc: any,
             blob: any,
-           // $scope: angular.IScope,
+            // $scope: angular.IScope,
             $sce: angular.ISCEService
         ) {
+            this.downloadLink = `/chat/download/?blobName=${blob}`;
             if (!doc || !doc.viewName) {
                 this.view = 'preview-faild.html';
-                this.downloadLink = `/chat/download/?blobName=${blob}`;
             }
             else {
                 this.items = doc.content;
@@ -33,7 +33,7 @@
         close() {
             this.$mdDialog.hide();
         }
-        
+
     }
 
     angular.module('app.chat').controller('previewController', PreviewController);

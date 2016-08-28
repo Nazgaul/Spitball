@@ -4,9 +4,9 @@ var app;
     var PreviewController = (function () {
         function PreviewController($mdDialog, doc, blob, $sce) {
             this.$mdDialog = $mdDialog;
+            this.downloadLink = "/chat/download/?blobName=" + blob;
             if (!doc || !doc.viewName) {
                 this.view = 'preview-faild.html';
-                this.downloadLink = "/chat/download/?blobName=" + blob;
             }
             else {
                 this.items = doc.content;

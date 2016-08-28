@@ -732,13 +732,32 @@ html:not(.expanded-chat) .chat .error {
 .chat-item-preview md-toolbar .md-toolbar-tools {
   font-size: 18px;
   height: 40px !important;
+  padding: 0;
+}
+.chat-item-preview md-toolbar .download-btn {
+  min-width: 0;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 40px;
+  position: absolute;
+  margin: 0;
+  left: 0;
+}
+.chat-item-preview md-toolbar .download-btn svg {
+  width: 18px;
+  height: 18px;
 }
 .chat-item-preview md-toolbar .close-btn {
   min-width: 0;
   line-height: normal;
   padding: 0;
-  width: 24px;
-  margin-left: 10px;
+  width: 36px;
+  margin: 0;
 }
 .chat-item-preview md-toolbar .close-btn svg {
   width: 16px;

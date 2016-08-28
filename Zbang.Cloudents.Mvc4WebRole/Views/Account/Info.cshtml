@@ -52,14 +52,14 @@
             <div layout layout-sm="column">
                 <md-input-container flex class="left-flex">
                     <label>@AccountResource.First</label>
-                    <input required autocomplete="off" type="text" name="firstName" ng-model="i.data.firstName" />
+                    <input required autocomplete="off" type="text" name="firstName" maxlength="35" ng-model="i.data.firstName" />
                     <div ng-messages="changeName.firstName.$error" ng-show="changeName.firstName.$dirty">
                         <div ng-message="required">@GeneralResources.RequiredField</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
                     <label>@AccountResource.Last</label>
-                    <input required autocomplete="off" type="text" name="lastName" ng-model="i.data.lastName" />
+                    <input required autocomplete="off" type="text" name="lastName" maxlength="35" ng-model="i.data.lastName" />
                     <div ng-messages="changeName.lastName.$error" ng-show="changeName.lastName.$dirty">
                         <div ng-message="required">@GeneralResources.RequiredField</div>
                     </div>
