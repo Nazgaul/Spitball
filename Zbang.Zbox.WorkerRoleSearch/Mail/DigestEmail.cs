@@ -38,12 +38,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
 
         private async Task SendEmailStatusAsync(string message)
         {
-            //if (NotificationSettings.OnEveryChange == m_DigestEmailHourBack)
-            //{
-            //    return;
-            //}
             await m_MailComponent.GenerateSystemEmailAsync(GetServiceName(), message);
-
         }
 
         public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
@@ -228,7 +223,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 }
             }
             await SendEmailStatusAsync($"finish to run  with page {page} send to users {string.Join("\n",m_EmailHash)}");
-            TraceLog.WriteInfo($"{GetServiceName()} finish running  mail page {page} send to users {string.Join("\n", m_EmailHash)}");
+            TraceLog.WriteInfo($"{GetServiceName()} finish running  mail page {page}");
             return true;
         }
     }

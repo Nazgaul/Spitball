@@ -17,7 +17,7 @@
                     data: { animateClass: 'quizPage' },
                     resolve: {
                         data: [
-                            'quizService', '$stateParams', function (quizService, $stateParams) {
+                            'quizService', '$stateParams', function(quizService, $stateParams) {
                                 return quizService.getQuiz($stateParams.boxId, $stateParams.quizId);
                             }
                         ]
@@ -34,39 +34,41 @@
             }, {
                 state: 'quizCreate',
                 config: {
-                    url: '/{boxtype:box|course}/{universityType}/{boxId:int}/{boxName}/quizcreate/?quizid&name',
+                    url: '/{boxtype:box|course}/{universityType}/{boxId:int}/{boxName}/quizcreate/?{quizid:int}&name',
                     controller: 'QuizCreateController as q',
                     resolve: {
-                        draft: [
-                            'quizService', '$location', function (quizService, $location) {
-                                if ($location.search().quizid) {
-                                    return quizService.draft($location.search().quizid);
+                        quizData: [
+                            'quizService', '$stateParams', function (quizService, $stateParams) {
+                                if ($stateParams.quizid) {
+                                    return quizService.draft($stateParams.quizid);
                                 }
 
                             }
                         ],
-                        boxUrl: [
-                            '$location', function ($location) {
-                                var path = $location.path().slice(0, -1),
-                                    index = path.lastIndexOf('/');
+                        //boxUrl: [
+                        //    '$location', function ($location) {
+                        //        var path = $location.path().slice(0, -1),
+                        //            index = path.lastIndexOf('/');
 
-                                return path.substring(0, index) + '/' + '#quizzes';
+                        //        return path.substring(0, index) + '/' + 'quizzes';
+                        //    }
+                        //],
+                        //boxName: ['$location', '$stateParams', function ($location, $stateParams) {
+                        //    if ($location.search().name) {
+                        //        return $location.search().name;
+                        //    }
+                        //    return $stateParams.boxName;
+                        //}],
+                        loadMyCtrl: [
+                            '$ocLazyLoad', function($ocLazyLoad) {
+                                return $ocLazyLoad.load('quizCreate');
                             }
-                        ],
-                        boxName: ['$location', '$stateParams', function ($location, $stateParams) {
-                            if ($location.search().name) {
-                                return $location.search().name;
-                            }
-                            return $stateParams.boxName;
-                        }],
-                        loadMyCtrl: ['$ocLazyLoad', function($ocLazyLoad) {
-                            // you can lazy load files for an existing module
-                            return $ocLazyLoad.load('quizCreate');
-                        }]
+                        ]
                     },
                     data: { animateClass: 'full-screen quiz-create' },
-                    params: { boxName: null }
-                },
+                    reloadOnSearch: false
+
+        },
                 templateUrl: '/quiz/createpartial/'
             }
 

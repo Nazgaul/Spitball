@@ -1,3 +1,6 @@
+/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="../../scripts/typings/angular-google-analytics/angular-google-analytics.d.ts" />
+/// <reference path="ajaxservice2.ts" />
 var app;
 (function (app) {
     "use strict";
@@ -44,6 +47,7 @@ var app;
         UserDetails.prototype.setDetails = function (data) {
             if (data.id) {
                 this.isLogedIn = true;
+                // ReSharper disable UseOfImplicitGlobalInFunctionScope
                 __insp.push(["identify", data.id]);
             }
             this.analytics.set("dimension1", data.universityName || null);

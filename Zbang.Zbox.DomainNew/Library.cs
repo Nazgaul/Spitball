@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Domain
             Name = name;
             Parent = parent;
             University = university;
-            GenerateUrl();
+            //GenerateUrl();
             CreatedUser = user;
         }
 
@@ -62,16 +62,16 @@ namespace Zbang.Zbox.Domain
 
         //public virtual SqlHierarchyId HierarchyId { get; protected set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
-        public virtual string Url { get; protected set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
+        //public virtual string Url { get; protected set; }
 
        
 
 
-        public virtual void GenerateUrl()
-        {
-            Url = UrlConst.BuildLibraryUrl(Id, Name);
-        }
+        //public virtual void GenerateUrl()
+        //{
+        //    Url = UrlConst.BuildLibraryUrl(Id, Name);
+        //}
         public Library CreateSubLibrary(Guid id, string nodeName, User user)
         {
             if (nodeName == null)
@@ -116,7 +116,7 @@ namespace Zbang.Zbox.Domain
             }
 
             Name = newName;
-            GenerateUrl();
+            //GenerateUrl();
         }
 
         public void UpdateSettings(LibraryNodeSettings settings, User user, Guid id)

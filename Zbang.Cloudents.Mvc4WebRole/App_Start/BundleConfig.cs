@@ -82,7 +82,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
                     new JsFileWithCdn("~/scripts/textAngularSetup.js"),
                     new JsFileWithCdn("~/js/components/quiz/quizCreate.module.js"),
-                    new JsFileWithCdn("~/js/components/quiz/quizCreate.controller.js"),
+                    new JsFileWithCdn("~/js/components/quiz/quizCreate2.controller.js"),
                 });
 
 
