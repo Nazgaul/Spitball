@@ -4,7 +4,6 @@ using System.Text;
 using System.IO;
 using System.Xml.Linq;
 using Autofac;
-using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Notifications;
@@ -12,26 +11,11 @@ using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Mail;
 
 using System.Diagnostics;
-using Zbang.Zbox.ReadServices;
 using Zbang.Zbox.Infrastructure.Storage;
-using System.Web.Security;
 using System.Globalization;
-using System.Net;
 using System.Net.Http;
-using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
-using Dapper;
-using Microsoft.AspNet.SignalR.Client;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Zbang.Zbox.Domain;
-using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure;
-using Zbang.Zbox.Infrastructure.Azure.Blob;
-using Zbang.Zbox.Infrastructure.Cache;
-using Zbang.Zbox.Infrastructure.Consts;
-using Zbang.Zbox.Infrastructure.Data.Dapper;
-using Zbang.Zbox.Infrastructure.Repositories;
 using File = System.IO.File;
 
 namespace Testing
@@ -166,8 +150,8 @@ namespace Testing
 
             var iocFactory = IocFactory.IocWrapper;
             var clusterflunkFilesCopy = new ClusterflunkFilesCopy(iocFactory);
-            var t1 = clusterflunkFilesCopy.BuildBoxesAsync();
-            t1.Wait();
+            //var t1 = clusterflunkFilesCopy.BuildBoxesAsync();
+            //t1.Wait();
             var t = clusterflunkFilesCopy.BuildFilesAsync();
             t.Wait();
 

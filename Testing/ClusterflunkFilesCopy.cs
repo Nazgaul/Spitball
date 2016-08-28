@@ -2,6 +2,7 @@
 using Dapper;
 using System.Collections.Generic;
 using System.Data.Odbc;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Amazon;
@@ -13,6 +14,7 @@ using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Url;
 
 namespace Testing
 {
@@ -26,10 +28,10 @@ namespace Testing
             m_BlobProviderFiles = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
         }
 
-        private const int ClusterFlunkUniversityId = 11;
-        private const long SpitballUniversityId = 167920;
-        private const long SpitballUserId = 1067262;
-        private const string LibraryId = "3C6DADF8-8EB9-4355-83F8-A66900B1E050";
+        private const int ClusterFlunkUniversityId = 49;
+        private const long SpitballUniversityId = 173499;
+        private const long SpitballUserId = 1067824;
+        private const string LibraryId = "kI593f6a0kOsmKZtAL_6cw";
         public async Task BuildBoxesAsync()
         {
 
@@ -43,6 +45,7 @@ where n.id = " + ClusterFlunkUniversityId;
 
                 courses = await connection.QueryAsync<string>(query);
             }
+            Console.WriteLine($"courses count {courses.Count()}");
             foreach (var course in courses)
             {
                 try
@@ -61,9 +64,9 @@ where n.id = " + ClusterFlunkUniversityId;
                     }
 
                     var command = new CreateAcademicBoxCommand(SpitballUserId, course, null, null,
-                        Guid.Parse(LibraryId), SpitballUniversityId);
+                        GuidEncoder.TryParseNullableGuid(LibraryId).Value, SpitballUniversityId);
                     await m_ZboxWriteService.CreateBoxAsync(command);
-                    Console.WriteLine(course);
+                    Console.WriteLine($"creating box {course}");
                 }
                 catch (BoxNameAlreadyExistsException)
                 {
@@ -85,6 +88,7 @@ join files f on f.course_id = c.id
 where n.id = " + ClusterFlunkUniversityId;
                 files = connection.Query(query);
             }
+            Console.WriteLine($"courses count {files.Count()}");
             var index = 0;
             foreach (var file in files)
             {

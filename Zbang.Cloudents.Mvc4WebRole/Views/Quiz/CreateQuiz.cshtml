@@ -4,7 +4,7 @@
 
 <header class="backgroundTC19 borderTC45" layout="row">
     <div flex class="text-center text-capitalize">@GeneralResources.CreateQuiz</div>
-    <button flex="none" type="button" ng-click="q.openClose($event)" class="close" ga-track-event="['createQuiz', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+    <button flex="none" type="button" ng-click="q.close($event)" class="close" ga-track-event="['createQuiz', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
 </header>
 <div class="not-supported" hide-gt-sm show-xs show-sm>
     <div class="bubble">
@@ -18,14 +18,13 @@
 </div>
 
 <div class="supported" show-gt-sm hide-xs hide-sm id="quizCreate">
-
-    <span class="course-name">{{::q.boxName}}</span>
+    <span class="course-name" ng-bind="::q.boxName"></span>
     <form name="quizName" novalidate>
         <md-input-container class="quiz-name" md-no-float>
-            <input class="form-control" @*focus-me="q.quizNameDisabled === false"*@ name="name" ng-disabled="q.quizNameDisabled" type="text"
-                   placeholder="@QuizResources.EnterQuizName" autofocus required ng-model="q.name"
-                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }"
-                   ng-change="q.saveName()" ng-blur="q.saveNameOnBlur()" />
+            <input class="form-control" name="name" ng-disabled="q.quizNameDisabled && q.quizData.name" type="text"
+                   placeholder="@QuizResources.EnterQuizName" autofocus required ng-model="q.quizData.name"
+                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-blur="q.quizNameDisabled = true"
+                    />
             <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
             <div ng-messages="quizName.name.$error">
                 <div ng-message="required">@GeneralResources.RequiredField</div>
@@ -33,7 +32,7 @@
         </md-input-container>
     </form>
 
-    <div id="create-question" class="quiz-wrapper" ng-repeat="question in q.questions" ng-include="q.template(question)"></div>
+    <div id="create-question" class="quiz-wrapper" ng-repeat="question in q.quizData.questions" ng-include="question.template()"></div>
 
     <button type="button" class="btn button-Blue btn-primary text-capitalize add-question" ng-click="q.addQuestion()" ga-track-event="['createQuiz', 'add question']">
         <div layout="row" layout-align="start center">
@@ -56,7 +55,7 @@
             </div>
         </div>
         <div class="portlet-body">
-            <div placeholder="Write your question:" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text" data-ng-required></div>
+            <div placeholder="Write your question:" ng-blur="q.saveQuestion(question)" text-angular ta-text-editor-class="question-content" ng-model="question.text" ng-required></div>
             <div class="header" layout="row" layout-align="start center">
                 <div class="answers-header text-capitalize">@QuizResources.Answers</div>
                 <span class="correct-answer text-capitalize">@QuizResources.CorrectAnswer</span>
@@ -69,15 +68,12 @@
                             <input type="text" required ng-model="answer.text" ng-blur="q.saveAnswer(question,answer)" placeholder="@QuizResources.Answer {{$index + 1}}" />
                         </div>
                         <md-radio-button required name="question {{$parent.$index}}" ng-disabled="!answer.text.length" ng-click="q.markcorrect(question,answer)" ng-value="answer.id != null && answer.id === question.correctAnswer"></md-radio-button>
-
-
-                        <button type="button" ng-show="q.deleteAnswerShow(question)" ng-click="q.deleteAnswer(question,answer)" ga-track-event="['createQuiz', 'delete answer']">@Html.Svg("~/images/site/icons.svg", "delete")</button>
+                        <button type="button" ng-show="question.answers.length > 2" ng-click="q.deleteAnswer(question,answer)" ga-track-event="['createQuiz', 'delete answer']">@Html.Svg("~/images/site/icons.svg", "delete")</button>
                         <span class="error-answer-msg">@QuizResources.AddAnswer</span>
                     </li>
                     <li class="answer add-answer counter-inc">
-                        <div ng-click="q.addAnswer(question)">
+                        <div ng-click="question.addAnswer()">
                             <span class="counter-view"></span>
-                            @*<input disbaled type="text" placeholder="@QuizResources.AddAnswer" />*@
                             <span class="disabled">@QuizResources.AddAnswer</span>
                         </div>
                         <md-radio-button ng-disabled="true"></md-radio-button>

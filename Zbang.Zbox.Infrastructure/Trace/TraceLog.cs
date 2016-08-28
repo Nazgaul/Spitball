@@ -33,9 +33,9 @@ namespace Zbang.Zbox.Infrastructure.Trace
         public static void WriteError(string info, Exception ex)
         {
             #if DEBUG
-            t.Debug.WriteLine(" {0} \n {1}", info, ex);
+            t.Debug.WriteLine($"{info} \n {ex}");
 #endif
-            t.Trace.TraceError($" {info} \n {ex} ");
+            t.Trace.TraceError($"{info} \n {ex} ");
         }
 
         public static void WriteError(string info, Exception ex, string additionalInfo)
@@ -51,6 +51,9 @@ namespace Zbang.Zbox.Infrastructure.Trace
 
         public static void WriteWarning(string warning)
         {
+#if DEBUG
+            t.Debug.WriteLine(warning);
+#endif
             t.Trace.TraceWarning(warning);
         }
 

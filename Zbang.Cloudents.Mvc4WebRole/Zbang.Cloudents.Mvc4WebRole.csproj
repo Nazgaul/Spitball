@@ -1557,6 +1557,8 @@
     <TypeScriptCompile Include="Js\components\chat\chatTimeAgo.ts" />
     <TypeScriptCompile Include="Js\components\chat\hubFactory.ts" />
     <TypeScriptCompile Include="Js\components\chat\previewController.ts" />
+    <TypeScriptCompile Include="Js\components\quiz\quiz.service.ts" />
+    <TypeScriptCompile Include="Js\components\quiz\quizCreate2.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\updates.service.ts" />
     <TypeScriptCompile Include="Js\components\chat\hideChatOnMobile.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\toggleChat.directive.ts" />
