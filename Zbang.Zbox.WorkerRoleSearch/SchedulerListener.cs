@@ -51,7 +51,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         {
 
                             var t = (int?)property;
-                            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>(property.Name);
+                            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<ISchedulerProcess>(property.Name);
                             if (process != null)
                             {
                                 list.Add(process.ExecuteAsync(t ?? 0, async p =>
@@ -93,7 +93,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         TraceLog.WriteInfo($"schduler lister delete message: {result}");
                         return result;
 
-                    }, TimeSpan.FromMinutes(15), 10, cancellationToken);
+                    }, TimeSpan.FromMinutes(15), 2, cancellationToken);
                 }
                 catch (TaskCanceledException)
                 {
@@ -107,7 +107,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     TraceLog.WriteError("on SchedulerListener", ex);
                 }
                 //TraceLog.WriteInfo("Scheduler Listener going to sleep");
-                await Task.Delay(TimeSpan.FromMinutes(5), cancellationToken);
+                await Task.Delay(TimeSpan.FromMinutes(2), cancellationToken);
 
             }
 

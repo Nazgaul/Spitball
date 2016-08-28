@@ -68,6 +68,7 @@ select Name,boxid from c";
     left join zbox.University u on b.University = u.id
     where i.isdirty = 1 
     and i.IsDeleted = 0
+    and i.creationtime < DATEADD(minute, -1, getutcdate())
     and b.isdeleted = 0 -- performance
     and i.itemid % @count  = @index
     order by i.ItemId desc";
@@ -105,6 +106,7 @@ select boxid  from zbox.item i
 select top (@top) i.boxid  from zbox.item i  
   where  i.isdirty = 1 
   and i.isdeleted = 0 
+  and i.creationtime < DATEADD(minute, -1, getutcdate())
    and i.itemid % @count  = @index
   order by i.ItemId desc)";
 

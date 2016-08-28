@@ -10,6 +10,7 @@ using Microsoft.WindowsAzure.Storage;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Azure.Blob;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Trace;
@@ -20,13 +21,14 @@ using Zbang.Zbox.WorkerRoleSearch.DomainProcess;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    public class UpdateSearchItem : UpdateSearch, IJob , IFileProcess
+    public class UpdateSearchItem : UpdateSearch, IJob, IFileProcess
     {
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
         private readonly IItemWriteSearchProvider3 m_ItemSearchProvider3;
         private readonly ICloudBlockProvider m_BlobProvider;
+        private readonly IMailComponent m_MailComponent;
 
         private readonly Microsoft.WindowsAzure.Storage.Blob.CloudBlobClient m_BlobClient;
         private const string PrefixLog = "Search Item";
@@ -34,13 +36,15 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public UpdateSearchItem(IZboxReadServiceWorkerRole zboxReadService,
             IZboxWorkerRoleService zboxWriteService,
             IFileProcessorFactory fileProcessorFactory,
-            ICloudBlockProvider blobProvider, IItemWriteSearchProvider3 itemSearchProvider3)
+            ICloudBlockProvider blobProvider,
+            IItemWriteSearchProvider3 itemSearchProvider3, IMailComponent mailComponent)
         {
             m_ZboxReadService = zboxReadService;
             m_ZboxWriteService = zboxWriteService;
             m_FileProcessorFactory = fileProcessorFactory;
             m_BlobProvider = blobProvider;
             m_ItemSearchProvider3 = itemSearchProvider3;
+            m_MailComponent = mailComponent;
 
             var cloudStorageAccount = CloudStorageAccount.Parse(
 
@@ -89,6 +93,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var tasks = new List<Task>();
             foreach (var elem in updates.ItemsToUpdate)
             {
+
                 tasks.Add(ProcessFileAsync(elem));
             }
 
@@ -105,16 +110,23 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return TimeToSleep.Same;
         }
 
-        private Task ProcessFileAsync(ItemSearchDto elem)
+        private async Task ProcessFileAsync(ItemSearchDto elem)
         {
             elem.Content = ExtractContentToUploadToSearch(elem);
             PreProcessFile(elem);
 
             if (elem.Type.ToLower() == "file")
             {
-                return m_ItemSearchProvider3.UpdateDataAsync(new[] { elem }, null);
+                try
+                {
+                    await m_ItemSearchProvider3.UpdateDataAsync(elem, null);
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteInfo($"{GetPrefix()} going to sleep inteval {Interval}");
+                    await m_MailComponent.GenerateSystemEmailAsync(GetPrefix(), $"error in update item: {elem.Id}, {ex}");
+                }
             }
-            return Infrastructure.Extensions.TaskExtensions.CompletedTask;
         }
 
         protected override string GetPrefix()
@@ -295,7 +307,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             var elem = await m_ZboxReadService.GetItemDirtyUpdatesAsync(parameters.ItemId);
             await ProcessFileAsync(elem);
             await m_ZboxWriteService.UpdateSearchItemDirtyToRegularAsync(
-                new UpdateDirtyToRegularCommand(new[] {elem.Id}));
+                new UpdateDirtyToRegularCommand(new[] { elem.Id }));
             return true;
         }
     }

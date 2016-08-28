@@ -10,7 +10,7 @@ using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Zbox.WorkerRoleSearch.Mail
 {
-    public class LikesMailProcess : IMailProcess
+    public class LikesMailProcess : ISchedulerProcess
     {
         private readonly IMailComponent m_MailComponent;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
