@@ -8,6 +8,9 @@
             <md-button aria-label="close" class="close-btn" ng-click="lc.close()">
                 @Html.Svg("~/images/site/icons.svg", "close", new { @class = "svgTC4" })
             </md-button>
+            <md-button aria-label="download" download target="_blank" class="download-btn" ng-href="{{::lc.downloadLink}}" title="@ItemsResources.Download">
+                @Html.Svg("~/images/site/itemicons.svg", "download", new { @class = "svgTC4" })
+            </md-button>
         </div>
     </md-toolbar>
     <md-dialog-content>

@@ -17,6 +17,8 @@
 .userPage .profile-usertitle-name {
   font-size: 20px;
   word-wrap: break-word;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .userPage .message {
   font-size: 16px;

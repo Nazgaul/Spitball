@@ -822,15 +822,31 @@ html:not(.expanded-chat) .chat .error {
         .md-toolbar-tools {
             font-size: 18px;
             height: 40px !important;
+            padding: 0;
         }
 
+        .download-btn {
+            min-width: 0;
+            .displayFlex;
+            .align-items(center);
+            .justifyContet(center);
+            width: 40px;
+            position: absolute;
+            margin: 0;
+            left: 0;
+
+            svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
 
         .close-btn {
             min-width: 0;
             line-height: normal;
             padding: 0;
-            width: 24px;
-            margin-left: 10px;
+            width: 36px;
+            margin: 0;
 
             svg {
                 width: 16px;
