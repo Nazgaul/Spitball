@@ -150,11 +150,12 @@ namespace Testing
 
             var iocFactory = IocFactory.IocWrapper;
             var clusterflunkFilesCopy = new ClusterflunkFilesCopy(iocFactory);
-            //var t1 = clusterflunkFilesCopy.BuildBoxesAsync();
-            //t1.Wait();
+            var t1 = clusterflunkFilesCopy.BuildBoxesAsync();
+            t1.Wait();
             var t = clusterflunkFilesCopy.BuildFilesAsync();
             t.Wait();
-
+            Console.WriteLine("Finish");
+            Console.ReadLine();
 
         }
 

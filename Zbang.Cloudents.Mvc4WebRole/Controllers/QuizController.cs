@@ -292,22 +292,40 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         #region question
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult CreateQuestion(Question model)
+        public ActionResult CreateQuestion(long? quizId, Models.Quiz.Question model)
         {
-
-            if (model.QuizId == 0)
+            //return JsonOk(model);
+            if (!quizId.HasValue)
             {
                 ModelState.AddModelError(string.Empty, BaseControllerResources.QuizController_CreateQuestion_Quiz_id_cannot_be_0);
 
+            }
+            if (model.Id.HasValue)
+            {
+                ModelState.AddModelError(string.Empty, "Id is invalid");
+            }
+            if (model.Answers.Any(a => a.Id.HasValue))
+            {
+                ModelState.AddModelError(string.Empty, "Id is invalid");
             }
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
             }
-            var id = m_GuidGenerator.GetId();
-            var command = new CreateQuestionCommand(model.Text, model.QuizId, User.GetUserId(), id);
+            model.Id = m_GuidGenerator.GetId();
+            foreach (var answer in model.Answers)
+            {
+                answer.Id = m_GuidGenerator.GetId();
+            }
+            
+            //var id = m_GuidGenerator.GetId();
+            var command = new CreateQuestionCommand(quizId.Value, User.GetUserId(),
+                new Zbox.Domain.Commands.Quiz.Question(model.Id.Value,
+                model.Text,
+                model.Answers.Select((s,i) =>
+                 new Zbox.Domain.Commands.Quiz.Answer(s.Id.Value, s.Text, i == model.CorrectAnswer))));
             ZboxWriteService.CreateQuestion(command);
-            return JsonOk(id);
+            return JsonOk(model);
         }
         [HttpPost]
         [ZboxAuthorize]
@@ -339,74 +357,74 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-        #region Answer
-        [HttpPost]
-        [ZboxAuthorize]
-        public ActionResult CreateAnswer(Answer model)
-        {
+        //#region Answer
+        //[HttpPost]
+        //[ZboxAuthorize]
+        //public ActionResult CreateAnswer(Answer model)
+        //{
 
-            if (model.QuestionId == Guid.Empty)
-            {
-                ModelState.AddModelError(string.Empty, @"No Question Given");
-            }
-            if (!ModelState.IsValid)
-            {
-                return JsonError(GetErrorFromModelState());
-            }
-            var id = m_GuidGenerator.GetId();
-            var command = new CreateAnswerCommand(User.GetUserId(), id, model.Text, model.QuestionId);
-            ZboxWriteService.CreateAnswer(command);
-            return JsonOk(id);
-        }
-        [HttpPost]
-        [ZboxAuthorize]
-        public ActionResult UpdateAnswer(UpdateAnswer model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return JsonError(GetErrorFromModelState());
-            }
+        //    if (model.QuestionId == Guid.Empty)
+        //    {
+        //        ModelState.AddModelError(string.Empty, @"No Question Given");
+        //    }
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return JsonError(GetErrorFromModelState());
+        //    }
+        //    var id = m_GuidGenerator.GetId();
+        //    var command = new CreateAnswerCommand(User.GetUserId(), id, model.Text, model.QuestionId);
+        //    ZboxWriteService.CreateAnswer(command);
+        //    return JsonOk(id);
+        //}
+        //[HttpPost]
+        //[ZboxAuthorize]
+        //public ActionResult UpdateAnswer(UpdateAnswer model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return JsonError(GetErrorFromModelState());
+        //    }
 
-            var command = new UpdateAnswerCommand(User.GetUserId(), model.Text, model.Id);
-            ZboxWriteService.UpdateAnswer(command);
-            return JsonOk();
-        }
-        [HttpPost, ZboxAuthorize]
-        public ActionResult MarkCorrect(MarkAnswer model)
-        {
+        //    var command = new UpdateAnswerCommand(User.GetUserId(), model.Text, model.Id);
+        //    ZboxWriteService.UpdateAnswer(command);
+        //    return JsonOk();
+        //}
+        //[HttpPost, ZboxAuthorize]
+        //public ActionResult MarkCorrect(MarkAnswer model)
+        //{
 
-            if (!ModelState.IsValid)
-            {
-                return JsonError(GetErrorFromModelState());
-            }
-            if (!model.AnswerId.HasValue)
-            {
-                return JsonError("Guid is empty");
-            }
-            try
-            {
-                var command = new MarkAnswerCorrectCommand(model.AnswerId.Value, User.GetUserId());
-                ZboxWriteService.MarkAnswerAsCorrect(command);
-                return JsonOk();
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("On mark answer", ex);
-                return JsonError();
-            }
-        }
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return JsonError(GetErrorFromModelState());
+        //    }
+        //    if (!model.AnswerId.HasValue)
+        //    {
+        //        return JsonError("Guid is empty");
+        //    }
+        //    try
+        //    {
+        //        var command = new MarkAnswerCorrectCommand(model.AnswerId.Value, User.GetUserId());
+        //        ZboxWriteService.MarkAnswerAsCorrect(command);
+        //        return JsonOk();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("On mark answer", ex);
+        //        return JsonError();
+        //    }
+        //}
 
-        [HttpPost]
-        [ZboxAuthorize]
-        public ActionResult DeleteAnswer(Guid id)
-        {
-            var command = new DeleteAnswerCommand(User.GetUserId(), id);
-            ZboxWriteService.DeleteAnswer(command);
-            return JsonOk();
-        }
+        //[HttpPost]
+        //[ZboxAuthorize]
+        //public ActionResult DeleteAnswer(Guid id)
+        //{
+        //    var command = new DeleteAnswerCommand(User.GetUserId(), id);
+        //    ZboxWriteService.DeleteAnswer(command);
+        //    return JsonOk();
+        //}
 
 
-        #endregion
+        //#endregion
 
         #region Discussion
         [HttpPost, ZboxAuthorize]

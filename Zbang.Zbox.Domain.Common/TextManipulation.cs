@@ -42,33 +42,28 @@ namespace Zbang.Zbox.Domain.Common
             var sb = new StringBuilder(
                             HttpUtility.HtmlEncode(HttpUtility.HtmlDecode(text)));
             //sb.Replace("&#34;", "\"");
-            if (allowElements != null)
+            if (allowElements == null) return sb.ToString();
+            foreach (var allowElement in allowElements)
             {
-                foreach (var allowElement in allowElements)
+                sb.Replace($"&lt;{allowElement}&gt;", $"<{allowElement}>");
+                sb.Replace($"&lt;/{allowElement}&gt;", $"</{allowElement}>");
+
+                var str = sb.ToString();
+                var index = str.IndexOf($"&lt;{allowElement}", StringComparison.Ordinal);
+                while (index > -1)
                 {
-                    sb.Replace($"&lt;{allowElement}&gt;", $"<{allowElement}>");
-                    sb.Replace($"&lt;/{allowElement}&gt;", $"</{allowElement}>");
+                    const string gt = "&gt;";
+                    var indexEnd = str.IndexOf(gt, index, StringComparison.Ordinal);
+                    var oldValue = str.Substring(index, indexEnd + gt.Length - index);
+                    var newValue = oldValue;
 
-                    var str = sb.ToString();
-                    var index = str.IndexOf($"&lt;{allowElement}", StringComparison.Ordinal);
-                    while (index > -1)
-                    {
-                        const string gt = "&gt;";
-                        var indexEnd = str.IndexOf(gt, index, StringComparison.Ordinal);
-                        var oldValue = str.Substring(index, indexEnd + gt.Length - index);
-                        var newValue = oldValue;
+                    newValue = newValue.Replace("&lt;", "<");
+                    newValue = newValue.Replace("&gt;", ">");
+                    newValue = newValue.Replace("&quot;", "\"");
 
-                        newValue = newValue.Replace("&lt;", "<");
-                        newValue = newValue.Replace("&gt;", ">");
-                        newValue = newValue.Replace("&quot;", "\"");
-
-
-
-
-                        sb.Replace(oldValue, newValue);
-                        str = sb.ToString();
-                        index = str.IndexOf($"&lt;{allowElement}", StringComparison.Ordinal);
-                    }
+                    sb.Replace(oldValue, newValue);
+                    str = sb.ToString();
+                    index = str.IndexOf($"&lt;{allowElement}", StringComparison.Ordinal);
                 }
             }
             return sb.ToString();

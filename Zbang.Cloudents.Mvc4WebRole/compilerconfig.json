@@ -106,5 +106,9 @@
   {
     "outputFile": "Content/HomePage/homePage2.css",
     "inputFile": "Content/HomePage/homePage2.less"
+  },
+  {
+    "outputFile": "Content/Site/quizCreate.css",
+    "inputFile": "Content/Site/quizCreate.less"
   }
 ]
