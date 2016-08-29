@@ -62,6 +62,8 @@ var app;
             }
             return ValidQuestion.Ok;
         };
+        Question.prototype.isEmpty = function () {
+        };
         Question.prototype.deserialize = function (input) {
             this.answers = [];
             this.id = input.id;
@@ -226,6 +228,12 @@ var app;
             }
             var index = this.quizData.questions.indexOf(question);
             this.quizData.questions.splice(index, 1);
+        };
+        QuizCreateController.prototype.editQuestion = function (question) {
+            if (question.id) {
+                this.quizService.deleteQuestion(question.id);
+            }
+            question.id = null;
         };
         QuizCreateController.prototype.close = function (ev) {
             var _this = this;

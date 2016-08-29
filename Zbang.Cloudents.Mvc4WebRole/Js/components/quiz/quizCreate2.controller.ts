@@ -76,11 +76,14 @@ module app {
             }
             return ValidQuestion.Ok;
         }
+        isEmpty() {
+            
+        }
         deserialize(input) {
             this.answers = [];
             this.id = input.id;
             this.text = input.text;
-            for (var i = 0; i < input.answers.length; i++) {
+            for (let i = 0; i < input.answers.length; i++) {
                 this.answers.push(new Answer().deserialize(input.answers[i]));
             }
             if (angular.isNumber(input.correctAnswer)) {
@@ -196,7 +199,7 @@ module app {
             var self = this;
             var $qArray = [this.$q.when()];
             for (let i = 0; i < this.quizData.questions.length; i++) {
-                var question = this.quizData.questions[i];
+                const question = this.quizData.questions[i];
                 //if (question.id) {
                 //    continue;
                 //}
@@ -253,6 +256,14 @@ module app {
             this.quizData.questions.splice(index, 1);
         }
 
+        editQuestion(question: Question) {
+
+            if (question.id) {
+                this.quizService.deleteQuestion(question.id);
+            }
+            question.id = null;
+        }
+
         close(ev) {
             if (!quizId) {
                 this.navigateBackToBox();
@@ -295,18 +306,4 @@ module app {
 
     angular.module('app.quiz.create').controller('QuizCreateController', QuizCreateController);
 
-
-
-    //angular.module("app").directive("form", function ($parse) {
-    //    return {
-    //        restrict: "E",
-    //        priority: -1,
-    //        link: function (scope, ele, attrs) {
-    //            var targetScope = $parse(attrs["bindToScope"])(scope);
-    //            if (targetScope) {
-    //                targetScope[attrs["name"]] = scope[attrs["name"]];
-    //            }
-    //        }
-    //    }
-    //})
 }

@@ -28,10 +28,10 @@ namespace Testing
             m_BlobProviderFiles = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
         }
 
-        private const int ClusterFlunkUniversityId = 50;
-        private const long SpitballUniversityId = 175413;
+        private const int ClusterFlunkUniversityId = 59;
+        private const long SpitballUniversityId = 166300;
         private const long SpitballUserId = 1067824;
-        private const string LibraryId = "al9dNLaLs0SISqZtAJM5ng";
+        private const string LibraryId = "FXOSOzOV5UaS2qZtAJQE0A";
 
         private void ChangeUserUniversity()
         {
