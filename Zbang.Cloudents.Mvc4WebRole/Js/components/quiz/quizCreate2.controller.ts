@@ -29,7 +29,7 @@ module app {
         id;
         name;
         questions = [new Question()];
-
+        
         completeData() {
             if (!this.questions.length) {
                 this.questions.push(new Question());
@@ -63,31 +63,31 @@ module app {
             this.answers.push(new Answer());
         }
         validQuestion() {
-            let emptyAnswer = true;
+            let emptyQuestion = true;
             const retVal: Array<ValidQuestion> = [];
             if (!this.text) {
                 retVal.push(ValidQuestion.QuestionNeedText);
             } else {
-                emptyAnswer = false;
+                emptyQuestion = false;
             }
             for (let j = 0; j < this.answers.length; j++) {
                 const valid = this.answers[j].validAnswer();
                 if (valid === ValidQuestion.AnswerNeedText) {
                     retVal.push(valid);
                 } else {
-                    emptyAnswer = false;
+                    emptyQuestion = false;
                 }
             }
             if (this.correctAnswer == null) {
                 retVal.push(ValidQuestion.QuestionCorrectAnswer);
             } else {
-                emptyAnswer = false;
+                emptyQuestion = false;
             }
 
             if (!retVal.length) {
                 return ValidQuestion.Ok;
             }
-            if (emptyAnswer) {
+            if (emptyQuestion) {
                 return ValidQuestion.EmptyQuestion;
             }
             return retVal[0];
@@ -132,7 +132,7 @@ module app {
         private boxName;
         quizNameDisabled = true;
         error: string;
-
+        submitDisabled = false;
         constructor(private $mdDialog: angular.material.IDialogService,
             private $state: angular.ui.IStateService,
             private $stateParams: ISpitballStateParamsService,
@@ -153,8 +153,7 @@ module app {
                 this.quizData = new QuizData();
             }
 
-            this.quizData.completeData();
-            console.log(this.quizData);
+            //this.quizData.completeData();
 
         }
 
@@ -215,7 +214,7 @@ module app {
             for (let i = 0; i < this.quizData.questions.length; i++) {
                 const question = this.quizData.questions[i];
                 const validQuestion = question.validQuestion();
-                if (validQuestion === ValidQuestion.Ok) {
+                if (validQuestion === ValidQuestion.Ok && !question.id) {
                     ((question, index) => {
                         $qArray.push(self.quizService.createQuestion(quizId, question)
                             .then((response) => {
@@ -267,8 +266,8 @@ module app {
         }
 
         editQuestion(question: Question) {
-            var canEdit = true;
-            var i = this.quizData.questions.length;
+            let canEdit = true;
+            let i = this.quizData.questions.length;
             while (i--) {
 
                 //}
@@ -285,10 +284,8 @@ module app {
                 }
                 this.showQuestionErrors(validQuestion, i);
                 canEdit = false;
-
-                //if (validQuestion === ValidQuestion.Ok) {
-                //    continue;
-                //}
+                break;
+               
             }
             if (canEdit) {
                 if (question.id) {
@@ -321,6 +318,7 @@ module app {
             this.$mdDialog.show(confirm).then(() => {
                 this.quizService.deleteQuiz(quizId).then(this.navigateBackToBox);
             }, () => {
+                //TODO: save draft
                 this.navigateBackToBox();
                 //self.saveDraft();
             });
@@ -342,6 +340,30 @@ module app {
                     boxId: this.$stateParams.boxId,
                     boxName: this.$stateParams["boxName"]
                 });
+        }
+
+        publish() {
+            this.submitDisabled = true;
+            for (let i = 0; i < this.quizData.questions.length; i++) {
+                const question = this.quizData.questions[i];
+                const validQuestion = question.validQuestion();
+
+                if (validQuestion !== ValidQuestion.Ok) {
+                    this.showQuestionErrors(validQuestion, i);
+                    this.submitDisabled = false;
+                    return;
+                }
+                this.quizService.publish(quizId)
+                    .then(() => {
+                        this.navigateBackToBox();
+                    })
+                    .finally(() => {
+                        this.submitDisabled = false;
+                    })
+                    .catch(() => {
+
+                    });
+            }
         }
 
     }

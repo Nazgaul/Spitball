@@ -31,7 +31,6 @@
             </div>
         </md-input-container>
     </form>
-    <form novalidate name="x"></form>
     <form novalidate name="createQuestions" id="create-question" class="quiz-wrapper">
         <div ng-repeat="question in q.quizData.questions" ng-include="q.template(question)"></div>
     </form>
@@ -85,7 +84,6 @@
                 </ol>
             </md-radio-group>
             <div ng-messages="createQuestions['valids_' + $index].$error" @*ng-show="createBox.name.$dirty"*@>
-                <div ng-message="required">@GeneralResources.RequiredField</div>
                 <div ng-message="server">{{q.error}}</div>
             </div>
         </div>

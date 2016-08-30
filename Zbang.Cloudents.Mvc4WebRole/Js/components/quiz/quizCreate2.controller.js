@@ -48,13 +48,13 @@ var app;
             this.answers.push(new Answer());
         };
         Question.prototype.validQuestion = function () {
-            var emptyAnswer = true;
+            var emptyQuestion = true;
             var retVal = [];
             if (!this.text) {
                 retVal.push(ValidQuestion.QuestionNeedText);
             }
             else {
-                emptyAnswer = false;
+                emptyQuestion = false;
             }
             for (var j = 0; j < this.answers.length; j++) {
                 var valid = this.answers[j].validAnswer();
@@ -62,19 +62,19 @@ var app;
                     retVal.push(valid);
                 }
                 else {
-                    emptyAnswer = false;
+                    emptyQuestion = false;
                 }
             }
             if (this.correctAnswer == null) {
                 retVal.push(ValidQuestion.QuestionCorrectAnswer);
             }
             else {
-                emptyAnswer = false;
+                emptyQuestion = false;
             }
             if (!retVal.length) {
                 return ValidQuestion.Ok;
             }
-            if (emptyAnswer) {
+            if (emptyQuestion) {
                 return ValidQuestion.EmptyQuestion;
             }
             return retVal[0];
@@ -126,6 +126,7 @@ var app;
             this.resManager = resManager;
             this.$q = $q;
             this.quizNameDisabled = true;
+            this.submitDisabled = false;
             this.newName = function () {
                 var self = _this;
                 _this.$scope.$watch(function () { return _this.quizData.name; }, function (newVal, oldVal) {
@@ -184,8 +185,6 @@ var app;
             else {
                 this.quizData = new QuizData();
             }
-            this.quizData.completeData();
-            console.log(this.quizData);
         }
         QuizCreateController.prototype.addQuestion = function () {
             var _this = this;
@@ -194,7 +193,7 @@ var app;
             for (var i = 0; i < this.quizData.questions.length; i++) {
                 var question = this.quizData.questions[i];
                 var validQuestion = question.validQuestion();
-                if (validQuestion === ValidQuestion.Ok) {
+                if (validQuestion === ValidQuestion.Ok && !question.id) {
                     (function (question, index) {
                         $qArray.push(self.quizService.createQuestion(quizId, question)
                             .then(function (response) {
@@ -256,6 +255,7 @@ var app;
                 }
                 this.showQuestionErrors(validQuestion, i);
                 canEdit = false;
+                break;
             }
             if (canEdit) {
                 if (question.id) {
@@ -290,6 +290,28 @@ var app;
                 return 'quiz-question-template.html';
             }
             return 'create-quiz-question-template.html';
+        };
+        QuizCreateController.prototype.publish = function () {
+            var _this = this;
+            this.submitDisabled = true;
+            for (var i = 0; i < this.quizData.questions.length; i++) {
+                var question = this.quizData.questions[i];
+                var validQuestion = question.validQuestion();
+                if (validQuestion !== ValidQuestion.Ok) {
+                    this.showQuestionErrors(validQuestion, i);
+                    this.submitDisabled = false;
+                    return;
+                }
+                this.quizService.publish(quizId)
+                    .then(function () {
+                    _this.navigateBackToBox();
+                })
+                    .finally(function () {
+                    _this.submitDisabled = false;
+                })
+                    .catch(function () {
+                });
+            }
         };
         QuizCreateController.$inject = ["$mdDialog", "$state", "$stateParams", "$scope",
             "quizService", "quizData", "resManager", "$q"];
