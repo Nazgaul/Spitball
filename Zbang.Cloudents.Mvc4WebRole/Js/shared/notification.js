@@ -5,7 +5,6 @@
     desktopNotification.$inject = ['$document', '$mdToast', 'resManager', '$mdSidenav'];
 
     function desktopNotification($document, $mdToast, resManager, $mdSidenav) {
-
         requestPermission();
         function requestPermission() {
             if (!('Notification' in window)) {
@@ -51,7 +50,6 @@
                  .parent(element)
                  .hideDelay(2000));
         }
-
     }
 
 })()

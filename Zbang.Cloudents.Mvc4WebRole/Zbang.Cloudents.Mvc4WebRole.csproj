@@ -1425,6 +1425,7 @@
     <Content Include="Images\Site\create_uni_text_white.png" />
     <Content Include="Images\Site\create_uni_w.png" />
     <Content Include="Images\Site\logo_spitball.png" />
+    <Content Include="Audio\message.mp3" />
     <Content Include="Images\Site\no_search_results.png" />
     <Content Include="Images\Site\no_uni.png" />
     <Content Include="Images\Site\search_uni.png" />
@@ -1541,6 +1542,8 @@
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\shared\collapseHeader.directive.js" />
     <Content Include="Js\shared\inlineManualNew.js" />
+    <Content Include="Js\shared\sounds.js" />
+    <Content Include="Js\shared\soundAlert.directive.js" />
     <Content Include="Js\shared\languageHandler.js" />
     <Content Include="Js\shared\keyboardAction.directive.js" />
     <Content Include="Js\shared\menuAd.directive.js" />
@@ -2612,6 +2615,7 @@
     <Content Include="Views\Account\UserDetails.cshtml" />
     <Content Include="Views\Account\UnregisterView.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Shared\_AudioNotifications.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
