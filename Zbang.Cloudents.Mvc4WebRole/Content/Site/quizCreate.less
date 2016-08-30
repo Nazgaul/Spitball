@@ -276,15 +276,23 @@
     @heightOfAnswer: 25px;
 
     .counter-view {
+        width: @heightOfAnswer;
+        height: @heightOfAnswer;
+        display: block;
+        background: @backgroundColorSpitballBlue;
+        margin: 0;
+        position: relative;
+        flex-grow: 1;
+        flex-shrink: 0;
+
         &:before {
-            width: @heightOfAnswer;
-            height: @heightOfAnswer;
-            background: @backgroundColorSpitballBlue;
             color: @textColorWhite;
-            vertical-align: middle;
-            display: inline-block;
+            position: absolute;
+            left: 0;
+            top: 0;
             line-height: 25px;
-            padding-left: 8px;
+            text-align: center;
+            width: 100%;
         }
 
         &:after {
@@ -293,6 +301,8 @@
             border-top: @heightOfAnswer solid @backgroundColorSpitballBlue;
             border-right: 10px solid #fff;
             vertical-align: middle;
+            position: absolute;
+            left: 25px;
         }
     }
 
@@ -302,26 +312,30 @@
     }
 
     .answer {
+        .displayFlex();
         margin-bottom: 5px;
 
         > div {
-            display: inline-block;
+            display: flex;
             border: 1px solid @borderColorSpitballBlue;
             width: 70%;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
 
             input, .disabled {
                 border: 0;
                 height: @heightOfAnswer;
                 line-height: @heightOfAnswer - 1px;
-                width: ~"calc(100% - 35px)";
-                margin-left: -4px;
-                padding-left: 15px;
+                width: 100%;
+                padding-left: 20px;
             }
 
             .disabled {
                 color: #9E9E9E;
             }
         }
+
         .ng-dirty.ng-invalid {
             background: @backgroundColorWhite;
         }
@@ -329,6 +343,8 @@
         md-radio-button {
             display: inline-block;
             width: 46px;
+            height: @heightOfAnswer + 2px;
+            margin: 0 0 20px 0;
 
             &:focus {
                 outline: none;
@@ -371,11 +387,12 @@
         &:hover {
             button {
                 display: inline-block;
+                height: @heightOfAnswer + 2px;
             }
         }
     }
 
-    
+
 
     .error {
         [contenteditable="true"] {
