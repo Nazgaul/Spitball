@@ -10,11 +10,9 @@
                     var currentY = e.originalEvent.touches[0].clientY;
                     if (Math.abs(currentY - lastY) > 150) {
                         if (currentY > lastY) {
-                            // moved down
                             element.removeClass('hidden-elemnt');
                         }
                         else if (currentY < lastY) {
-                            // moved up
                             element.addClass('hidden-elemnt');
                         }
                     }

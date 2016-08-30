@@ -20,9 +20,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
 
 
-        public const int NumberOfEmailPerSession = 30;
+        public const int NumberOfEmailPerSession = 50;
         //public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromSeconds(2500);
-        public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromHours(1);
+        //public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromHours(1);
 
         public const int SpanGunNumberOfQueues = 10;
         private const int NumberOfIps = 3;
@@ -80,7 +80,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             }
                             var t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
                                 message.MailBody, message.MailSubject,
-                                message.FirstName, message.MailCategory, message.UniversityUrl);
+                                message.FirstName.UppercaseFirst(), message.MailCategory, message.UniversityUrl);
                             await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
                             counter++;
                             emailsTask.Add(t1);

@@ -13,6 +13,7 @@ module app {
         QuestionNeedText,
         QuestionCorrectAnswer,
         QuestionMoreAnswer,
+        EmptyQuestion,
         Ok
     }
 
@@ -62,23 +63,36 @@ module app {
             this.answers.push(new Answer());
         }
         validQuestion() {
+            let emptyAnswer = true;
+            const retVal: Array<ValidQuestion> = [];
             if (!this.text) {
-                return ValidQuestion.QuestionNeedText;
+                retVal.push(ValidQuestion.QuestionNeedText);
+            } else {
+                emptyAnswer = false;
             }
             for (let j = 0; j < this.answers.length; j++) {
                 const valid = this.answers[j].validAnswer();
-                if (!valid) {
-                    return valid;
+                if (valid === ValidQuestion.AnswerNeedText) {
+                    retVal.push(valid);
+                } else {
+                    emptyAnswer = false;
                 }
             }
             if (this.correctAnswer == null) {
-                return ValidQuestion.QuestionCorrectAnswer;
+                retVal.push(ValidQuestion.QuestionCorrectAnswer);
+            } else {
+                emptyAnswer = false;
             }
-            return ValidQuestion.Ok;
+
+            if (!retVal.length) {
+                return ValidQuestion.Ok;
+            }
+            if (emptyAnswer) {
+                return ValidQuestion.EmptyQuestion;
+            }
+            return retVal[0];
         }
-        isEmpty() {
-            
-        }
+
         deserialize(input) {
             this.answers = [];
             this.id = input.id;
@@ -200,10 +214,8 @@ module app {
             var $qArray = [this.$q.when()];
             for (let i = 0; i < this.quizData.questions.length; i++) {
                 const question = this.quizData.questions[i];
-                //if (question.id) {
-                //    continue;
-                //}
-                if (this.validateAndShowErrorsQuestion(question, i)) {
+                const validQuestion = question.validQuestion();
+                if (validQuestion === ValidQuestion.Ok) {
                     ((question, index) => {
                         $qArray.push(self.quizService.createQuestion(quizId, question)
                             .then((response) => {
@@ -211,8 +223,8 @@ module app {
 
                             }));
                     })(question, i);
-
                 } else {
+                    this.showQuestionErrors(validQuestion, i);
                     return;
                 }
             }
@@ -221,47 +233,77 @@ module app {
                     this.quizData.questions.push(new Question());
                 });
         }
-        private validateAndShowErrorsQuestion(question: Question, i: number): boolean {
-            const valid = question.validQuestion();
-            if (valid !== ValidQuestion.Ok) {
-                const form: angular.IFormController = this.$scope["createQuestions"];
-                form['valids_' + i].$setValidity('server', false);
+        private showQuestionErrors(valid: ValidQuestion, index: number): void {
+            const form: angular.IFormController = this.$scope["createQuestions"];
+            form['valids_' + index].$setValidity('server', false);
 
-                switch (valid) {
-                    case ValidQuestion.AnswerNeedText:
-                        this.error = this.resManager.get("quizCreateNeedAnswerText");
-                        break;
-                    case ValidQuestion.QuestionNeedText:
-                        this.error = this.resManager.get("quizCreateNeedQuestionText");
-                        break;
-                    case ValidQuestion.QuestionCorrectAnswer:
-                        this.error = this.resManager.get("quizCreateCorrectAnswer");
-                        break;
-                    case ValidQuestion.QuestionMoreAnswer:
-                        this.error = this.resManager.get("quizCreateNeedAnswers");
-                        break;
-                    default:
-                }
-                return false;
+            switch (valid) {
+                case ValidQuestion.AnswerNeedText:
+                    this.error = this.resManager.get("quizCreateNeedAnswerText");
+                    break;
+                case ValidQuestion.QuestionNeedText:
+                    this.error = this.resManager.get("quizCreateNeedQuestionText");
+                    break;
+                case ValidQuestion.QuestionCorrectAnswer:
+                    this.error = this.resManager.get("quizCreateCorrectAnswer");
+                    break;
+                case ValidQuestion.QuestionMoreAnswer:
+                    this.error = this.resManager.get("quizCreateNeedAnswers");
+                    break;
+                default:
             }
-            return true;
         }
 
+        private removeQuestionFromArray(question: Question) {
+            const index = this.quizData.questions.indexOf(question);
+            this.quizData.questions.splice(index, 1);
+        }
 
         deleteQuestion(question: Question) {
             if (question.id) {
                 this.quizService.deleteQuestion(question.id);
             }
-            const index = this.quizData.questions.indexOf(question);
-            this.quizData.questions.splice(index, 1);
+            this.removeQuestionFromArray(question);
         }
 
         editQuestion(question: Question) {
+            var canEdit = true;
+            var i = this.quizData.questions.length;
+            while (i--) {
 
-            if (question.id) {
-                this.quizService.deleteQuestion(question.id);
+                //}
+                //for (let i = 0; i < this.quizData.questions.length; i++) {
+                const question = this.quizData.questions[i];
+                const validQuestion = question.validQuestion();
+
+                if (validQuestion === ValidQuestion.Ok) {
+                    continue;
+                }
+                if (validQuestion === ValidQuestion.EmptyQuestion) {
+                    this.removeQuestionFromArray(question);
+                    continue;
+                }
+                this.showQuestionErrors(validQuestion, i);
+                canEdit = false;
+
+                //if (validQuestion === ValidQuestion.Ok) {
+                //    continue;
+                //}
             }
-            question.id = null;
+            if (canEdit) {
+                if (question.id) {
+                    this.quizService.deleteQuestion(question.id);
+                }
+                //const valid = question.validQuestion();
+                //if (valid === ValidQuestion.EmptyQuestion) {
+                //    this.removeQuestionFromArray(question);
+                //}
+                angular.forEach(question.answers,
+                    (a: Answer) => {
+                        a.id = null;
+                });
+                question.id = null;
+            }
         }
 
         close(ev) {

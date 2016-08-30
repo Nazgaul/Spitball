@@ -61,7 +61,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //TraceLog.WriteInfo(PrefixLog,
             //    $"university updating {updates.UniversitiesToUpdate.Count()} deleting {updates.UniversitiesToDelete.Count()}");
             var isSuccess =
-                await m_UniversitySearchProvider.UpdateData(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
+                await m_UniversitySearchProvider.UpdateDataAsync(updates.UniversitiesToUpdate, updates.UniversitiesToDelete);
             if (isSuccess)
             {
                 await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(

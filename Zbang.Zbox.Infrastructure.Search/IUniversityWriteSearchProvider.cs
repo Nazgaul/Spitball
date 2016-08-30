@@ -12,6 +12,6 @@ namespace Zbang.Zbox.Infrastructure.Search
 
     public interface IUniversityWriteSearchProvider2
     {
-        Task<bool> UpdateData(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete);
+        Task<bool> UpdateDataAsync(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete);
     }
 }

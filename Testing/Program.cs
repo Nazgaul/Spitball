@@ -16,6 +16,7 @@ using System.Globalization;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using File = System.IO.File;
 
 namespace Testing
@@ -89,7 +90,7 @@ namespace Testing
             }
         }
 
-        
+
 
 
 
@@ -148,14 +149,15 @@ namespace Testing
             //CastingPerformance();
             //log4net.Config.XmlConfigurator.Configure();
 
-            var iocFactory = IocFactory.IocWrapper;
-            var clusterflunkFilesCopy = new ClusterflunkFilesCopy(iocFactory);
-            var t1 = clusterflunkFilesCopy.BuildBoxesAsync();
-            t1.Wait();
-            var t = clusterflunkFilesCopy.BuildFilesAsync();
-            t.Wait();
-            Console.WriteLine("Finish");
-            Console.ReadLine();
+            //var iocFactory = IocFactory.IocWrapper;
+            //var clusterflunkFilesCopy = new ClusterflunkFilesCopy(iocFactory);
+            //var t1 = clusterflunkFilesCopy.BuildBoxesAsync();
+            //t1.Wait();
+            //var t = clusterflunkFilesCopy.BuildFilesAsync();
+            //t.Wait();
+            Application.Run(new Form1());
+            //Console.WriteLine("Finish");
+            //Console.ReadLine();
 
         }
 

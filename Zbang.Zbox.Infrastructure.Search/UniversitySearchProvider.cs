@@ -165,7 +165,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         }
 
 
-        public async Task<bool> UpdateData(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete)
+        public async Task<bool> UpdateDataAsync(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete)
         {
             if (!m_CheckIndexExists)
             {

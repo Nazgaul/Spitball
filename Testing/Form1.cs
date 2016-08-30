@@ -1,13 +1,18 @@
 ﻿using System;
-using Dapper;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Data.Odbc;
+using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Dapper;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
@@ -18,41 +23,64 @@ using Zbang.Zbox.Infrastructure.Url;
 
 namespace Testing
 {
-    class ClusterflunkFilesCopy
+    public partial class Form1 : Form
     {
-        private readonly IZboxWriteService m_ZboxWriteService;
-        private readonly IBlobProvider2<FilesContainerName> m_BlobProviderFiles;
-        public ClusterflunkFilesCopy(IocFactory iocFactory)
+        public Form1()
         {
-            m_ZboxWriteService = iocFactory.Resolve<IZboxWriteService>();
-            m_BlobProviderFiles = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
+            InitializeComponent();
+            m_ZboxWriteService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
+            m_BlobProviderFiles = IocFactory.IocWrapper.Resolve<IBlobProvider2<FilesContainerName>>();
         }
 
-        private const int ClusterFlunkUniversityId = 60;
-        private const long SpitballUniversityId = 173307;
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            listBox1.Items.Add("starting to work");
+            listBox1.Update();
+            //textBoxLog.Text = string.Empty;
+            m_ClusterFlunkUniversityId = int.Parse(textBoxClusterId.Text);
+            m_SpitballUniversityId = long.Parse(textBoxUniId.Text);
+            m_LibraryId = textBoxLibrary.Text;
+            ChangeUserUniversity();
+            await BuildBoxesAsync();
+            await BuildFilesAsync();
+            listBox1.Items.Add("Done");
+            listBox1.Update();
+            MessageBox.Show("Done");
+        }
+
+
+        private readonly IZboxWriteService m_ZboxWriteService;
+        private readonly IBlobProvider2<FilesContainerName> m_BlobProviderFiles;
+
+
+        private int m_ClusterFlunkUniversityId;
+        private long m_SpitballUniversityId;
         private const long SpitballUserId = 1067824;
-        private const string LibraryId = "bORisSfQ1kaabaZtAJc6Dg";
+        private string m_LibraryId;
 
         private void ChangeUserUniversity()
         {
-            var command = new UpdateUserUniversityCommand(SpitballUniversityId, SpitballUserId, null);
+            var command = new UpdateUserUniversityCommand(long.Parse(textBoxUniId.Text), SpitballUserId, null);
             m_ZboxWriteService.UpdateUserUniversity(command);
         }
         public async Task BuildBoxesAsync()
         {
-            Console.WriteLine($"working on {ClusterFlunkUniversityId}");
-            ChangeUserUniversity();
+            //Console.WriteLine($"working on {ClusterFlunkUniversityId}");
+            //ChangeUserUniversity();
             IEnumerable<string> courses;
             using (var connection = await CreateConnectionAsync())
             {
                 var query = @"select distinct c.name from networks n 
 join courses c on c.network_id = n.id
 join files f on f.course_id = c.id
-where n.id = " + ClusterFlunkUniversityId;
+where n.id = " + m_ClusterFlunkUniversityId;
 
                 courses = await connection.QueryAsync<string>(query);
             }
-            Console.WriteLine($"courses count {courses.Count()}");
+            listBox1.Items.Add($"courses count {courses.Count()}");
+            listBox1.Update();
+            //Console.WriteLine($"courses count {courses.Count()}");
             foreach (var course in courses)
             {
                 try
@@ -62,22 +90,29 @@ where n.id = " + ClusterFlunkUniversityId;
                         var boxId =
                             await spitballConnection.QuerySingleOrDefaultAsync<long>(
                                 "select boxId from zbox.box where boxname = @BoxName and isdeleted = 0 and university=@universityId",
-                                new {BoxName = course, universityId = SpitballUniversityId});
+                                new { BoxName = course, universityId = m_SpitballUniversityId });
                         if (boxId > 0)
                         {
-                            Console.WriteLine($"found box {course}");
+                            listBox1.Items.Add($"found box {course}");
+                            listBox1.Update();
+                            //Console.WriteLine($"found box {course}");
                             continue;
                         }
                     }
 
                     var command = new CreateAcademicBoxCommand(SpitballUserId, course, null, null,
-                        GuidEncoder.TryParseNullableGuid(LibraryId).Value, SpitballUniversityId);
+                        GuidEncoder.TryParseNullableGuid(m_LibraryId).Value, m_SpitballUniversityId);
                     await m_ZboxWriteService.CreateBoxAsync(command);
-                    Console.WriteLine($"creating box {course}");
+                    listBox1.Items.Add($"creating box {course}");
+                    listBox1.Update();
+                    //Console.WriteLine($"creating box {course}");
                 }
                 catch (BoxNameAlreadyExistsException)
                 {
-                    Console.WriteLine(course);
+                    listBox1.Items.Add(course);
+                    listBox1.Update();
+                    //textBoxLog.Text += course + "\n";
+                    //Console.WriteLine(course);
                 }
             }
         }
@@ -92,43 +127,55 @@ where n.id = " + ClusterFlunkUniversityId;
 select distinct c.name as courseName,key,f.type,f.name,f.size,extension from networks n 
 join courses c on c.network_id = n.id
 join files f on f.course_id = c.id
-where n.id = " + ClusterFlunkUniversityId;
+where n.id = " + m_ClusterFlunkUniversityId;
                 files = connection.Query(query);
             }
-            Console.WriteLine($"courses count {files.Count()}");
+            listBox1.Items.Add($"courses count {files.Count()}");
+            listBox1.Update();
+            //textBoxLog.Text += $"courses count {files.Count()}\n";
+            //Console.WriteLine($"courses count {files.Count()}");
             var index = 0;
             foreach (var file in files)
             {
                 using (var spitballConnection = await DapperConnection.OpenConnectionAsync())
                 {
-                    Console.WriteLine($"processing index: {index}");
+                    listBox1.Items.Add($"processing index: {index}");
+                    listBox1.Update();
+                    //textBoxLog.Text += $"processing index: {index}\n";
+                    //Console.WriteLine($"processing index: {index}");
                     var courseName = file.coursename;
                     if (string.IsNullOrEmpty(file.name))
                     {
-                        Console.WriteLine($"file name is empty index: {index}");
+                        listBox1.Items.Add($"file name is empty index: {index}");
+                        listBox1.Update();
+                        //textBoxLog.Text += $"file name is empty index: {index}\n";
+                        //Console.WriteLine($"file name is empty index: {index}");
                         index++;
                         continue;
                     }
                     var boxId =
                        await spitballConnection.QuerySingleAsync<long>(
                             "select boxId from zbox.box where boxname = @BoxName and isdeleted = 0 and university=@universityId",
-                            new {BoxName = courseName, universityId = SpitballUniversityId});
+                            new { BoxName = courseName, universityId = m_SpitballUniversityId });
 
                     var itemId = await spitballConnection.QuerySingleOrDefaultAsync<long>(
                         "select itemId from zbox.item where name = @ItemName and size = @Size and isdeleted = 0 and boxId = @BoxId",
-                        new {ItemName = file.name, BoxId = boxId, Size = file.size });
-                    
+                        new { ItemName = file.name, BoxId = boxId, Size = file.size });
+
                     if (itemId > 0)
                     {
-                        Console.WriteLine($"already processed { itemId} index: {index}");
+                        listBox1.Items.Add($"already processed { itemId} index: {index}");
+                        listBox1.Update();
+                        //textBoxLog.Text += $"already processed { itemId} index: {index}\n";
+                        //Console.WriteLine($"already processed { itemId} index: {index}");
                         index++;
                         continue;
                     }
                     var blobName = $"{Guid.NewGuid()}.{file.extension}".ToLowerInvariant();
-                    
+
                     if (await DownloadSomeFileAsync(file.key, blobName, file.type))
                     {
-                        
+
                         //m_BlobProviderFiles.UploadFromLinkAsync
                         var command = new AddFileToBoxCommand(SpitballUserId, boxId, blobName, file.name, file.size,
                             null,
