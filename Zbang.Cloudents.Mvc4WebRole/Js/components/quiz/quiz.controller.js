@@ -222,9 +222,12 @@
         }
 
         function assignAnswerToQuestion(question, answer) {
+            var reAnswered = typeof question.selectedAnswer !== "undefined" && question.selectedAnswer !== null;
             question.selectedAnswer = answer;
             question.isCorrect = question.correctAnswer === answer.id;
-            q.answersCount++;
+            if (!reAnswered) {
+                q.answersCount++;
+            }
         }
 
 

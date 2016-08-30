@@ -284,6 +284,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/firstLetter.js"),
                         new JsFileWithCdn("~/js/shared/history.js"),
                         new JsFileWithCdn("~/js/shared/itemThumbnail.js"),
+                        //new JsFileWithCdn("~/js/shared/sounds.js"),
+                        //new JsFileWithCdn("~/js/shared/soundAlert.directive.js"),
                         new JsFileWithCdn("~/js/shared/notification.js"),
                         new JsFileWithCdn("~/js/shared/pagingOnScroll.directive.js"),
 

@@ -35,6 +35,7 @@
         c.lastSearch = c.term = '';
         c.loadMoreMessages = loadMoreMessages;
         c.focusSearch = false;
+        //c.soundHandler;
 
         //userDetailsFactory.init().then(function (response) {
         //    if (response.university.id > 0) {
@@ -52,7 +53,6 @@
         //        c.loadChat = userDetailsFactory.getUniversity() > 0;
         //        search();
         //    });
-
 
         c.scrollSetting = {
             scrollbarPosition: 'outside',
@@ -262,6 +262,7 @@
             if (!c.users.length) {
                 search();
                 notificationService.send(resManager.get('toasterChatMessage'), args.message, null, onNotificationClick);
+                //soundsService.handlers.chat();
                 updateUnread();
                 updateScope();
                 return;
@@ -272,6 +273,7 @@
 
             if (user) {
                 notificationService.send(user.name, args.message, user.image, onNotificationClick);
+                //soundsService.handlers.chat();
                 user.unread++;
                 updateUnread();
                 updateScope();
@@ -283,12 +285,14 @@
             });
             if (!user) {
                 notificationService.send(resManager.get('toasterChatMessage'), args.message, null, onNotificationClick);
+                //soundsService.handlers.chat();
 
                 //need to refresh data to find it.
                 search();
                 return;
             }
             notificationService.send(user.name, args.message, user.image);
+            //soundsService.handlers.chat();
             user.unread++;
             user.conversation = args.id;
             updateUnread();

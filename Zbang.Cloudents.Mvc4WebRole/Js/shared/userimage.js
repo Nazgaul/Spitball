@@ -67,6 +67,10 @@
                     if (className) {
                         innerEl.addClass(className);
                     }
+
+                    if (elem[0].getAttribute('name-title') !== null) {
+                        innerEl.attr("title", scope.name);
+                    }
                     innerEl[0].height = elem[0].getAttribute('height');
                     innerEl[0].width = elem[0].getAttribute('width');
 
@@ -79,18 +83,22 @@
                     if (className) {
                         innerEl.addClass(className);
                     }
+
+                    if (elem[0].getAttribute('name-title') !== null) {
+                        innerEl.attr("title", scope.name);
+                    }
                     innerEl.attr('d-color', scope.name.length);
                     //var borderWidthValue = elem.css('border-width');
                     var borderWidth = 0;
                     //if (borderWidthValue) {
-                        //borderWidth = parseInt(borderWidthValue, 10) * 2;
+                    //borderWidth = parseInt(borderWidthValue, 10) * 2;
                     //}
                     var elementHeight = elem[0].getAttribute('height');
 
                     innerEl[0].style.width = elem[0].getAttribute('width') + 'px';
                     innerEl[0].style.height = elementHeight + 'px';
                     innerEl[0].style.lineHeight = (elementHeight - borderWidth) + 'px';
-                    
+
                     //$(innerEl).css({
                     //    width: elem[0].getAttribute('width') + 'px',
                     //    height: elementHeight + 'px',
@@ -104,6 +112,10 @@
                     className = elem[0].getAttribute('class');
                     if (className) {
                         innerEl.addClass(className);
+                    }
+
+                    if (elem[0].getAttribute('name-title') !== null) {
+                        innerEl.attr("title", scope.name);
                     }
 
                     innerEl[0].height = elem[0].getAttribute('height');
