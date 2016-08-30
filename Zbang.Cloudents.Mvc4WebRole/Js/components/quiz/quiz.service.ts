@@ -1,4 +1,5 @@
-﻿module app {
+﻿/// <reference path="quizCreate2.controller.ts" />
+module app {
     'use strict';
     export interface IQuizService {
         getQuiz(boxId: number, quizId: number): angular.IPromise<any>;
@@ -10,12 +11,12 @@
         draft(quizId: number): angular.IPromise<any>;
         createQuiz(boxId: number, name: string): angular.IPromise<any>;
         updateQuiz(id: number, name: string): angular.IPromise<any>;
-        createQuestion(quizId: number, text: string): angular.IPromise<any>;
+        createQuestion(quizId: number, quiz: Question): angular.IPromise<any>;
         updateQuestion(questionId: string, text: string): angular.IPromise<any>;
-        createAnswer(questionId: string, text: string): angular.IPromise<any>;
-        updateAnswer(answerId: string, text: string): angular.IPromise<any>;
-        markCorrect(answerId): angular.IPromise<any>;
-        deleteAnswer(answerId: string): angular.IPromise<any>;
+        //createAnswer(questionId: string, text: string): angular.IPromise<any>;
+        //updateAnswer(answerId: string, text: string): angular.IPromise<any>;
+        //markCorrect(answerId): angular.IPromise<any>;
+        //deleteAnswer(answerId: string): angular.IPromise<any>;
         deleteQuestion(questionId): angular.IPromise<any>;
         publish(quizId: number): angular.IPromise<any>;
         deleteQuiz(quizId: number): angular.IPromise<any>;
@@ -60,10 +61,10 @@
                 name: name
             });
         }
-        createQuestion(quizId: number, text: string) {
+        createQuestion(quizId: number, question: Question) {
             return this.ajaxService.post('/quiz/createquestion/', {
                 quizId: quizId,
-                text: text
+                model: question
             });
         }
         updateQuestion(questionId: string, text: string) {
@@ -72,28 +73,28 @@
                 text: text
             });
         }
-        createAnswer(questionId: string, text: string) {
-            return this.ajaxService.post('/quiz/createanswer/', {
-                questionId: questionId,
-                text: text
-            });
-        }
-        updateAnswer(answerId: string, text: string) {
-            return this.ajaxService.post('/quiz/updateanswer/', {
-                Id: answerId,
-                text: text
-            });
-        }
-        markCorrect(answerId: string) {
-            return this.ajaxService.post('/quiz/markcorrect/', {
-                answerId: answerId
-            });
-        }
-        deleteAnswer(answerId: string) {
-            return this.ajaxService.post('/quiz/deleteanswer/', {
-                id: answerId
-            });
-        }
+        //createAnswer(questionId: string, text: string) {
+        //    return this.ajaxService.post('/quiz/createanswer/', {
+        //        questionId: questionId,
+        //        text: text
+        //    });
+        //}
+        //updateAnswer(answerId: string, text: string) {
+        //    return this.ajaxService.post('/quiz/updateanswer/', {
+        //        Id: answerId,
+        //        text: text
+        //    });
+        //}
+        //markCorrect(answerId: string) {
+        //    return this.ajaxService.post('/quiz/markcorrect/', {
+        //        answerId: answerId
+        //    });
+        //}
+        //deleteAnswer(answerId: string) {
+        //    return this.ajaxService.post('/quiz/deleteanswer/', {
+        //        id: answerId
+        //    });
+        //}
         deleteQuestion(questionId) {
             return this.ajaxService.post('/quiz/deletequestion/', {
                 id: questionId

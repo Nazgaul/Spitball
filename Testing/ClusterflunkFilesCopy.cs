@@ -28,13 +28,19 @@ namespace Testing
             m_BlobProviderFiles = iocFactory.Resolve<IBlobProvider2<FilesContainerName>>();
         }
 
-        private const int ClusterFlunkUniversityId = 49;
-        private const long SpitballUniversityId = 173499;
+        private const int ClusterFlunkUniversityId = 59;
+        private const long SpitballUniversityId = 166300;
         private const long SpitballUserId = 1067824;
-        private const string LibraryId = "kI593f6a0kOsmKZtAL_6cw";
+        private const string LibraryId = "FXOSOzOV5UaS2qZtAJQE0A";
+
+        private void ChangeUserUniversity()
+        {
+            var command = new UpdateUserUniversityCommand(SpitballUniversityId, SpitballUserId, null);
+            m_ZboxWriteService.UpdateUserUniversity(command);
+        }
         public async Task BuildBoxesAsync()
         {
-
+            ChangeUserUniversity();
             IEnumerable<string> courses;
             using (var connection = await CreateConnectionAsync())
             {

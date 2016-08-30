@@ -10,13 +10,15 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
     {
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
         private readonly IRepository<Question> m_QuestionRepository;
+        private readonly IRepository<Answer> m_AnswerRepository;
 
         public CreateQuestionCommandHandler(
             IRepository<Domain.Quiz> quizRepository,
-            IRepository<Question> questionRepository)
+            IRepository<Question> questionRepository, IRepository<Answer> answerRepository)
         {
             m_QuizRepository = quizRepository;
             m_QuestionRepository = questionRepository;
+            m_AnswerRepository = answerRepository;
         }
         public void Handle(CreateQuestionCommand message)
         {
@@ -26,8 +28,19 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 throw new UnauthorizedAccessException("user is not quiz owner");
             }
-            var question = new Question(message.QuestionId, quiz, TextManipulation.EncodeText(message.Text, Question.AllowedHtmlTag));
 
+            var question = new Question(message.Question.Id, quiz, TextManipulation.EncodeText(message.Question.Text, Question.AllowedHtmlTag));
+            m_QuestionRepository.Save(question);
+            foreach (var commandAnswer in message.Question.Answers)
+            {
+                var answer = new Answer(commandAnswer.Id, commandAnswer.Text, question);
+                if (commandAnswer.IsCorrect)
+                {
+                    question.UpdateCorrectAnswer(answer);
+                    //answer.UpdateCorrectAnswer();
+                }
+                m_AnswerRepository.Save(answer);
+            }
             m_QuestionRepository.Save(question);
         }
     }

@@ -1,5 +1,4 @@
-﻿//declare var dataLayer: any;
-
+﻿
 interface ISpitballStateParamsService extends angular.ui.IStateParamsService {
     boxId: number;
     itemId: number;

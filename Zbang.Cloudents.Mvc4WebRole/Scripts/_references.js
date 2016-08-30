@@ -68,7 +68,6 @@
 /// <reference path="../js/components/quiz/popup/quiz.score.module.js" />
 /// <reference path="../js/components/quiz/quiz.controller.js" />
 /// <reference path="../js/components/quiz/quiz.routes.js" />
-/// <reference path="../js/components/quiz/quiz.service.js" />
 /// <reference path="../js/components/quiz/quizcreate.config.js" />
 /// <reference path="../js/components/quiz/quizcreate.controller.js" />
 /// <reference path="../js/components/quiz/quizcreate.module.js" />

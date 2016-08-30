@@ -1,4 +1,3 @@
-//declare var dataLayer: any;
 var app;
 (function (app) {
     "use strict";

@@ -195,4 +195,7 @@
   <data name="WriteComment" xml:space="preserve">
     <value>הוסף תגובה</value>
   </data>
+  <data name="WriteQuestion" xml:space="preserve">
+    <value>Write your question</value>
+  </data>
 </root>

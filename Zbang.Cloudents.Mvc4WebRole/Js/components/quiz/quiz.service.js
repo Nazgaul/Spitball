@@ -1,3 +1,4 @@
+/// <reference path="quizCreate2.controller.ts" />
 var app;
 (function (app) {
     'use strict';
@@ -38,10 +39,10 @@ var app;
                 name: name
             });
         };
-        QuizService.prototype.createQuestion = function (quizId, text) {
+        QuizService.prototype.createQuestion = function (quizId, question) {
             return this.ajaxService.post('/quiz/createquestion/', {
                 quizId: quizId,
-                text: text
+                model: question
             });
         };
         QuizService.prototype.updateQuestion = function (questionId, text) {
@@ -50,28 +51,28 @@ var app;
                 text: text
             });
         };
-        QuizService.prototype.createAnswer = function (questionId, text) {
-            return this.ajaxService.post('/quiz/createanswer/', {
-                questionId: questionId,
-                text: text
-            });
-        };
-        QuizService.prototype.updateAnswer = function (answerId, text) {
-            return this.ajaxService.post('/quiz/updateanswer/', {
-                Id: answerId,
-                text: text
-            });
-        };
-        QuizService.prototype.markCorrect = function (answerId) {
-            return this.ajaxService.post('/quiz/markcorrect/', {
-                answerId: answerId
-            });
-        };
-        QuizService.prototype.deleteAnswer = function (answerId) {
-            return this.ajaxService.post('/quiz/deleteanswer/', {
-                id: answerId
-            });
-        };
+        //createAnswer(questionId: string, text: string) {
+        //    return this.ajaxService.post('/quiz/createanswer/', {
+        //        questionId: questionId,
+        //        text: text
+        //    });
+        //}
+        //updateAnswer(answerId: string, text: string) {
+        //    return this.ajaxService.post('/quiz/updateanswer/', {
+        //        Id: answerId,
+        //        text: text
+        //    });
+        //}
+        //markCorrect(answerId: string) {
+        //    return this.ajaxService.post('/quiz/markcorrect/', {
+        //        answerId: answerId
+        //    });
+        //}
+        //deleteAnswer(answerId: string) {
+        //    return this.ajaxService.post('/quiz/deleteanswer/', {
+        //        id: answerId
+        //    });
+        //}
         QuizService.prototype.deleteQuestion = function (questionId) {
             return this.ajaxService.post('/quiz/deletequestion/', {
                 id: questionId
