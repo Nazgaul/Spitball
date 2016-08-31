@@ -332,7 +332,7 @@
                 $scope.app.resetForm(myform);
                 question.newComment = '';
                 comment.id = id;
-                question.comments.push(comment);
+                question.comments.unshift(comment);
             });;
         }
 

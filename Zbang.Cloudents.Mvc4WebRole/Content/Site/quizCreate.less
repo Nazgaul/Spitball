@@ -131,28 +131,12 @@
         margin-bottom: 15px;
         border-radius: 5px;
         overflow: hidden;
-
-        .portlet-title {
-            .caption {
-                padding: 0 0 0 10px;
-            }
-
-            .tools {
-                height: 20px;
-            }
-        }
-
+        
         .quiz-question {
             padding: 15px;
         }
     }
 
-    .portlet.box > .portlet-body {
-        background-color: #fff;
-        border: 5px solid @borderColorBlue;
-        padding: 10px;
-        border-top-width: 0;
-    }
 
 
     .form-control {
@@ -188,13 +172,41 @@
 }
 
 .create-question {
-    .tools {
-        svg {
-            width: 18px;
-            height: 18px;
-            fill: @fileColor;
+    background-color: @buttonColorBlue;
+    border-radius: 4px;
+
+    .title {
+        padding: 0 10px;
+        margin-bottom: 0;
+        min-height: 41px;
+        border-radius: 4px 4px 0 0;
+        color: #fff;
+
+        .text {
+            float: left;
+            display: inline-block;
+            font-size: 18px;
+            line-height: 18px;
+            padding: 0 0 0 10px;
+            text-transform: capitalize;
+        }
+
+        .tools {
+            svg {
+                width: 18px;
+                height: 18px;
+                fill: @fileColor;
+            }
         }
     }
+
+    .question-body {
+        background-color: #fff;
+        border: 5px solid @buttonColorBlue;
+        padding: 10px;
+        border-top-width: 0;
+    }
+
 
     .question-content {
         border: 1px solid @borderColorLightGrey;
@@ -279,7 +291,7 @@
         width: @heightOfAnswer;
         height: @heightOfAnswer;
         display: block;
-        background: @backgroundColorSpitballBlue;
+        background: @buttonColorBlue;
         margin: 0;
         position: relative;
         flex-grow: 1;
@@ -298,7 +310,7 @@
         &:after {
             content: '';
             display: inline-block;
-            border-top: @heightOfAnswer solid @backgroundColorSpitballBlue;
+            border-top: @heightOfAnswer solid @buttonColorBlue;
             border-right: 10px solid #fff;
             vertical-align: middle;
             position: absolute;
@@ -392,37 +404,10 @@
         }
     }
 
-
-
-    .error {
-        [contenteditable="true"] {
-            border: 1px solid @borderColorRed;
-            background: #FFD0C5;
-        }
-
-        .counter-view {
-            &:before {
-                background: @backgroundColorRed;
-            }
-
-            &:after {
-                border-top-color: @borderColorRed;
-                border-right-color: @borderColorWhite;
-            }
-        }
-
-        &.answer div {
-            border-color: @borderColorRed;
-        }
-
-        .ng-invalid {
-            background: @backgroundColorWhite;
-        }
-
-        .error-answer-msg {
-            display: inline;
-        }
+    .error-message{
+        color: @textColorRed;
     }
+
 
     .correct-answer {
         width: 50px;
@@ -508,7 +493,7 @@
 
     .save {
         color: @textColorWhite;
-        background-color: @backgroundColorSpitballBlue;
+        background-color: @buttonColorBlue;
         border: none;
     }
 }
