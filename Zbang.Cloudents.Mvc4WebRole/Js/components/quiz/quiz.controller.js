@@ -3,10 +3,10 @@
     angular.module('app.quiz').controller('QuizController', quiz);
 
     quiz.$inject = ['data', '$timeout', '$stateParams', 'quizService', '$filter',
-        'userDetailsFactory', '$rootScope', '$scope',  '$location'];
+        'userDetailsFactory', '$rootScope', '$scope'];
 
     function quiz(quizData, $timeout, $stateParams, quizService, $filter,
-        userDetailsFactory, $rootScope, $scope,   $location) {
+        userDetailsFactory, $rootScope, $scope) {
 
         var q = this;
         q.states = {
@@ -333,7 +333,7 @@
                 question.newComment = '';
                 comment.id = id;
                 question.comments.unshift(comment);
-            });;
+            });
         }
 
         function removeComment(question, comment) {

@@ -198,7 +198,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             var jsBundle = SquishIt.Framework.Bundle.JavaScript();
             jsBundle.WithReleaseFileRenderer(new SquishItRenderer());
-            jsBundle.WithDeferredLoad();
 #if (!DEBUG)
             jsBundle.WithDeferredLoad();
 #endif
