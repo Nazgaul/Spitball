@@ -16,7 +16,7 @@
        }
    </script>
    <![endif]-->
-<html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName" ng-app="app" @*ng-strict-di*@>
+<html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName" @*ng-app="app"*@ @*ng-strict-di*@>
 
 <head>
     <style>
@@ -101,8 +101,11 @@
         {
             <text>
         window.id = @User.GetUserId(false);
+        window.version =  '@VersionHelper.CurrentVersion(true)' ;
+        window.dChat = '@ConfigFetcher.Fetch("signalR")';
         </text>
         }
+        
     </script>
     @RenderSection("scripts", false)
 </body>

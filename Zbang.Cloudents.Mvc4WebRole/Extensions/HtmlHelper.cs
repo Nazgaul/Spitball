@@ -29,7 +29,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         public static MvcHtmlString Script2(this HtmlHelper html, string key)
         {
             var jsLinks = BundleConfig.JsLink(key);
-           // Bundle.JavaScript().Re
             return MvcHtmlString.Create(jsLinks);
         }
 

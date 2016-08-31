@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.user').controller('UserController', user);
     user.$inject = ['userService', 'userData', 'itemThumbnailService', '$q',
         'userDetailsFactory', '$mdDialog', 'resManager', 'boxService', '$rootScope'];
