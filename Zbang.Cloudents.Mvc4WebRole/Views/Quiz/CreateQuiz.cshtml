@@ -25,7 +25,7 @@
                    placeholder="@QuizResources.EnterQuizName" autofocus required ng-model="q.quizData.name"
                    ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-blur="q.quizNameDisabled = true" />
             <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
-            <div ng-messages="quizName.name.$error">
+            <div class="error-message" ng-messages="quizName.name.$error">
                 <div ng-message="required">@GeneralResources.RequiredField</div>
             </div>
         </md-input-container>
@@ -47,14 +47,14 @@
 </div>
 
 <script type="text/ng-template" id="create-quiz-question-template.html">
-    <div @*id="{{question.$$hashKey}}"*@ @*form="questionForm-{{$index + 1}}"*@ class="portlet box blue create-question">
-        <div class="portlet-title" layout="row" layout-align="start center">
-            <div class="caption text-capitalize">@QuizResources.QuestionNumber{{$index + 1}}</div>
+    <div @*id="{{question.$$hashKey}}"*@ @*form="questionForm-{{$index + 1}}"*@ class="create-question">
+        <div class="title" layout="row" layout-align="start center">
+            <div class="text">@QuizResources.QuestionNumber{{$index + 1}}</div>
             <div class="tools">
                 <button type="button" ng-show="q.quizData.questions.length > 1" ng-click="q.deleteQuestion(question)" ga-track-event="['createQuiz', 'delete question']">@Html.Svg("~/images/site/icons.svg", "delete")</button>
             </div>
         </div>
-        <div novalidate class="portlet-body" @*name="questionForm{{$index}}"*@ @*ng-blur="q.blur()"*@ @*bind-to-scope="$parent.$parent"*@ @*due to ng repeat ng include*@>
+        <div novalidate class="question-body" @*name="questionForm{{$index}}"*@ @*ng-blur="q.blur()"*@ @*bind-to-scope="$parent.$parent"*@ @*due to ng repeat ng include*@>
             <div placeholder="@QuizResources.WriteQuestion:" @*ng-blur="q.saveQuestion(question)"*@ text-angular ta-text-editor-class="question-content" ng-model="question.text" data-ng-required @*need data*@></div>
             <div class="header" layout="row" layout-align="start center">
                 <div class="answers-header text-capitalize">@QuizResources.Answers</div>
@@ -82,7 +82,7 @@
                     </li>
                 </ol>
             </md-radio-group>
-            <div ng-messages="createQuestions['valids_' + $index].$error" @*ng-show="createBox.name.$dirty"*@>
+            <div class="error-message" ng-messages="createQuestions['valids_' + $index].$error" @*ng-show="createBox.name.$dirty"*@>
                 <div ng-message="server">{{q.error}}</div>
             </div>
         </div>

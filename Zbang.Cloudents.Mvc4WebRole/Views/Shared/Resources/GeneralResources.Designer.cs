@@ -306,5 +306,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
                 return ResourceManager.GetString("UnregSubtitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        public static string View {
+            get {
+                return ResourceManager.GetString("View", resourceCulture);
+            }
+        }
     }
 }

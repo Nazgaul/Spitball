@@ -87,7 +87,8 @@
                                 <md-menu-content width="1">
                                     <md-menu-item>
                                         <md-button ng-href="{{::e.downloadLink}}" ng-click="u.downloadItem()" target="_blank" ga-track-event="['user-uploads', 'download']">
-                                            @GeneralResources.Download
+                                            <span ng-if="e.type!=='Link'">@GeneralResources.Download</span>
+                                            <span ng-if="e.type==='Link'">@GeneralResources.View</span>
                                         </md-button>
                                     </md-menu-item>
                                     <md-menu-item ng-if="u.isUserProfile">
