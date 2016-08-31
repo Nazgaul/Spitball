@@ -123,17 +123,17 @@
 .nav-bar .logo-search {
   height: 100%;
 }
-.nav-bar .logo-search .search-form {
+.nav-bar .logo-search .search-form-wrapper {
   max-width: 350px;
   width: 100%;
   margin: 0 60px;
 }
 @media (max-width: 700px) {
-  .nav-bar .logo-search .search-form {
+  .nav-bar .logo-search .search-form-wrapper {
     margin: 0 15px;
   }
 }
-.nav-bar .logo-search .search-form .search-area {
+.nav-bar .logo-search .search-form-wrapper .search-form .search-area {
   position: relative;
   border-radius: 5px;
   overflow: hidden;
@@ -141,7 +141,7 @@
   display: -ms-flex;
   display: flex;
 }
-.nav-bar .logo-search .search-form .search-area .search-btn {
+.nav-bar .logo-search .search-form-wrapper .search-form .search-area .search-btn {
   line-height: 100%;
   background: #4190b9;
   width: 20%;
@@ -156,15 +156,15 @@
   -webkit-justify-content: center;
   justify-content: center;
 }
-.nav-bar .logo-search .search-form .search-area .search-btn span,
-.nav-bar .logo-search .search-form .search-area .search-btn svg {
+.nav-bar .logo-search .search-form-wrapper .search-form .search-area .search-btn span,
+.nav-bar .logo-search .search-form-wrapper .search-form .search-area .search-btn svg {
   height: 24px;
   width: 24px;
 }
-.nav-bar .logo-search .search-form .search-area .search-btn span {
+.nav-bar .logo-search .search-form-wrapper .search-form .search-area .search-btn span {
   width: 100%;
 }
-.nav-bar .logo-search .search-form .search-area .text {
+.nav-bar .logo-search .search-form-wrapper .search-form .search-area .text {
   background: #f5f5f5;
   color: #181c1d;
   font-size: 13px;
@@ -174,21 +174,21 @@
   border: 0;
   width: 100%;
 }
-.nav-bar .logo-search .search-form .search-area .text::-webkit-input-placeholder {
+.nav-bar .logo-search .search-form-wrapper .search-form .search-area .text::-webkit-input-placeholder {
   color: #181c1d;
   opacity: 1;
 }
-.nav-bar .logo-search .search-form .search-area .text:-moz-placeholder {
+.nav-bar .logo-search .search-form-wrapper .search-form .search-area .text:-moz-placeholder {
   /* Firefox 18- */
   color: #181c1d;
   opacity: 1;
 }
-.nav-bar .logo-search .search-form .search-area .text::-moz-placeholder {
+.nav-bar .logo-search .search-form-wrapper .search-form .search-area .text::-moz-placeholder {
   /* Firefox 19+ */
   color: #181c1d;
   opacity: 1;
 }
-.nav-bar .logo-search .search-form .search-area .text:-ms-input-placeholder {
+.nav-bar .logo-search .search-form-wrapper .search-form .search-area .text:-ms-input-placeholder {
   color: #181c1d;
   opacity: 1;
 }

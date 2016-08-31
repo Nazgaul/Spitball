@@ -3,15 +3,15 @@ var app;
     "use strict";
     var ChatBus = (function () {
         function ChatBus(ajaxService) {
+            var _this = this;
             this.ajaxService = ajaxService;
             this.unreadCount = 0;
+            this.getUnread = function () {
+                return _this.unreadCount;
+            };
         }
         ChatBus.prototype.setUnread = function (count) {
             this.unreadCount = count;
-        };
-        ;
-        ChatBus.prototype.getUnread = function () {
-            return this.unreadCount;
         };
         ;
         ChatBus.prototype.messages = function (q, page) {

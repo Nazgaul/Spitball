@@ -163,7 +163,7 @@
     .logo-search {
         height: 100%;
 
-        .search-form {
+        .search-form-wrapper {
             max-width: 350px;
             width: 100%;
             margin: 0 60px;
@@ -172,43 +172,46 @@
                 margin: 0 15px;
             }
 
-            .search-area {
-                position: relative;
-                border-radius: 5px;
-                overflow: hidden;
-                .displayFlex;
+            .search-form {
 
-                .search-btn {
-                    line-height: 100%;
-                    background: @buttonColorBlue;
-                    width: 20%;
-                    max-width: 60px;
-                    min-width: 30px;
-                    padding: 0;
+                .search-area {
+                    position: relative;
+                    border-radius: 5px;
+                    overflow: hidden;
                     .displayFlex;
-                    .align-items(center);
-                    .justifyContet(center);
 
-                    span, svg {
-                        height: 24px;
-                        width: 24px;
+                    .search-btn {
+                        line-height: 100%;
+                        background: @buttonColorBlue;
+                        width: 20%;
+                        max-width: 60px;
+                        min-width: 30px;
+                        padding: 0;
+                        .displayFlex;
+                        .align-items(center);
+                        .justifyContet(center);
+
+                        span, svg {
+                            height: 24px;
+                            width: 24px;
+                        }
+
+                        span {
+                            width: 100%;
+                        }
                     }
 
-                    span {
+                    .text {
+                        background: @textColorWhite;
+                        color: @backgroundColor;
+                        font-size: 13px;
+                        height: 32px;
+                        line-height: 32px;
+                        padding: 0 15px;
+                        border: 0;
+                        .placeHolder(@backgroundColor);
                         width: 100%;
                     }
-                }
-
-                .text {
-                    background: @textColorWhite;
-                    color: @backgroundColor;
-                    font-size: 13px;
-                    height: 32px;
-                    line-height: 32px;
-                    padding: 0 15px;
-                    border: 0;
-                    .placeHolder(@backgroundColor);
-                    width: 100%;
                 }
             }
         }
@@ -254,11 +257,9 @@
         display: inline-block;
         padding: 0;
         height: @heightOfHeader - 5;
-
         /*@media (max-width: 600px) {
             display: none;
         }*/
-
         &:hover {
             background: @backgroundColorMouseOver;
         }

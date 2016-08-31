@@ -171,6 +171,7 @@
 .accountPage-wrapper .uni-image {
   border-radius: 50%;
   margin-right: 20px;
+  background-color: #f1f1f1;
 }
 .accountPage-wrapper .change-uni {
   color: #888b8e;

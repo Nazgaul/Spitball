@@ -579,7 +579,7 @@ md-menu-item.blue svg {
   }
 }
 .preview .previewFailed p {
-  color: #282828;
+  color: #888b8e;
   font-size: 22px;
 }
 @media (max-width: 600px) {
@@ -589,6 +589,7 @@ md-menu-item.blue svg {
 }
 .preview .previewFailed img {
   margin-bottom: 30px;
+  background: none;
 }
 @media (max-width: 600px) {
   .preview .previewFailed img {

@@ -19,7 +19,7 @@
         setUnread(count: number): void {
             this.unreadCount = count;
         };
-        getUnread(): number {
+        getUnread = (): number => {
             return this.unreadCount;
         };
 
