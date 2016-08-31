@@ -206,11 +206,11 @@
                     > h1 {
                         text-shadow: 2px 2px 4px @textColorBlack;
                         font-weight: bold;
-                        font-size: 50px;
                         width: 100%; //rtl:520px
                         margin: 14px auto;
                         text-transform: capitalize;
                         display: inline-block;
+                        font-size: 50px;
 
                         @media(max-width: 1200px) {
                             font-size: 4vw;
@@ -716,6 +716,20 @@
 
                     @media(min-width: 960px) {
                         padding: 0 150px;
+                    }
+
+
+                    @media(max-width: 1200px) {
+                        font-size: 3vw;
+                    }
+
+                    @media(max-width: 960px) {
+                        font-size: 4vw;
+                        
+                    }
+
+                    @media(max-width: 600px) {
+                        font-size: 4.5vmin;
                     }
                 }
 
