@@ -1535,7 +1535,6 @@
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\components\quiz\quizCreate.config.js" />
-    <Content Include="Js\components\quiz\quizCreate.controller.js" />
     <Content Include="Js\components\quiz\quizCreate.module.js" />
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\search\searchTrigger.controller.js" />

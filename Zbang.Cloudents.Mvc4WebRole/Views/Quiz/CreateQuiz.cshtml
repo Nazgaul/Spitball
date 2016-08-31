@@ -23,8 +23,7 @@
         <md-input-container class="quiz-name" md-no-float>
             <input class="form-control" name="name" ng-disabled="q.quizNameDisabled && q.quizData.name" type="text"
                    placeholder="@QuizResources.EnterQuizName" autofocus required ng-model="q.quizData.name"
-                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-blur="q.quizNameDisabled = true"
-                    />
+                   ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-blur="q.quizNameDisabled = true" />
             <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
             <div ng-messages="quizName.name.$error">
                 <div ng-message="required">@GeneralResources.RequiredField</div>

@@ -183,8 +183,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                                     UrlConst.AppendCloudentsUrl(box.Url),
                                     updatesList.Count(g => g.BoxId == box.BoxId) - 4));
                             }
-
-
                             
                             list.Add(m_MailComponent.GenerateAndSendEmailAsync(
                                 email, new UpdateMailParams(updatesEmail,
@@ -222,7 +220,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     return false;
                 }
             }
-            await SendEmailStatusAsync($"finish to run  with page {page} send to users {string.Join("\n",m_EmailHash)}");
+            await SendEmailStatusAsync($"finish to run  with page {page}");
             TraceLog.WriteInfo($"{GetServiceName()} finish running  mail page {page}");
             return true;
         }

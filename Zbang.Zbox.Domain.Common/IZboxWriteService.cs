@@ -91,17 +91,17 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateQuiz(UpdateQuizCommand command);
         Task DeleteQuizAsync(DeleteQuizCommand command);
         void CreateQuestion(CreateQuestionCommand command);
-        void UpdateQuestion(UpdateQuestionCommand command);
+        //void UpdateQuestion(UpdateQuestionCommand command);
         void DeleteQuestion(DeleteQuestionCommand command);
-        void CreateAnswer(CreateAnswerCommand command);
-        void DeleteAnswer(DeleteAnswerCommand command);
-        void UpdateAnswer(UpdateAnswerCommand command);
+        //void CreateAnswer(CreateAnswerCommand command);
+        //void DeleteAnswer(DeleteAnswerCommand command);
+        //void UpdateAnswer(UpdateAnswerCommand command);
         Task<SaveQuizCommandResult> SaveQuizAsync(SaveQuizCommand command);
         Task SaveUserAnswersAsync(SaveUserQuizCommand command);
         Task CreateItemInDiscussionAsync(CreateDiscussionCommand command);
         void DeleteItemInDiscussion(DeleteDiscussionCommand command);
 
-        void MarkAnswerAsCorrect(MarkAnswerCorrectCommand command);
+        //void MarkAnswerAsCorrect(MarkAnswerCorrectCommand command);
         void AddStudent(AddStudentCommand command);
 
         #endregion
