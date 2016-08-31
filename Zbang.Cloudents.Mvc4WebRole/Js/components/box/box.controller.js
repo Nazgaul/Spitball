@@ -3,9 +3,9 @@
     angular.module('app.box').controller('BoxController', box);
     box.$inject = ['boxService', 'boxData', '$stateParams', '$scope',
         '$state', '$rootScope', 'userDetailsFactory',
-        'ajaxService2', 'resManager', '$timeout'];
+         'resManager', '$timeout', 'userUpdatesService', '$window'];
     function box(boxService, boxData, $stateParams, $scope, $state,
-        $rootScope, userDetailsFactory, ajaxService, resManager, $timeout) {
+        $rootScope, userDetailsFactory,  resManager, $timeout, userUpdatesService, $window) {
 
         if ($state.current.name === 'box') {
             $state.go('box.feed', $stateParams, { location: "replace" });
@@ -156,6 +156,14 @@
         $scope.$on('hide-leader-board', function () {
             b.showLeaderboard = false;
         });
+
+        $window.onbeforeunload = () => {
+            if (!b.user.id) {
+                return;
+            }
+            userUpdatesService.deleteUpdates(boxId);
+            
+        };
         function follow() {
             if (!b.user.id) {
                 $rootScope.$broadcast('show-unregisterd-box');
