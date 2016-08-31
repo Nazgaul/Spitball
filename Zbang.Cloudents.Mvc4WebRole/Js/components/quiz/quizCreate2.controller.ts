@@ -225,17 +225,19 @@ module app {
                             if (quizId) {
                                 self.quizService.updateQuiz(quizId, newVal).finally(finishSaveName);
                             } else {
-                                self.quizService.createQuiz(self.$stateParams.boxId, newVal).then((response) => {
-                                    self.$state.go('quizCreate',
-                                        {
-                                            boxtype: self.$stateParams["boxtype"],
-                                            universityType: self.$stateParams["universityType"],
-                                            boxId: self.$stateParams.boxId,
-                                            boxName: self.$stateParams["boxName"],
-                                            quizid: response,
-                                            name: self.$stateParams["name"]
-                                        });
-                                }).finally(finishSaveName);
+                                self.createQuiz(newVal).finally(finishSaveName);
+                                //self.quizService.createQuiz(self.$stateParams.boxId, newVal).then((response) => {
+                                //    quizId = response;
+                                //    self.$state.go('quizCreate',
+                                //        {
+                                //            boxtype: self.$stateParams["boxtype"],
+                                //            universityType: self.$stateParams["universityType"],
+                                //            boxId: self.$stateParams.boxId,
+                                //            boxName: self.$stateParams["boxName"],
+                                //            quizid: response,
+                                //            name: self.$stateParams["name"]
+                                //        });
+                                //}).finally(finishSaveName);
                             }
                         }
                     }
@@ -244,31 +246,53 @@ module app {
         }
 
 
+        private createQuiz(name: string) {
+            var self = this;
+            return self.quizService.createQuiz(self.$stateParams.boxId, name).then((response) => {
+                quizId = response;
+                this.$state.go('quizCreate',
+                    {
+                        boxtype: self.$stateParams["boxtype"],
+                        universityType: self.$stateParams["universityType"],
+                        boxId: self.$stateParams.boxId,
+                        boxName: self.$stateParams["boxName"],
+                        quizid: response,
+                        name: self.$stateParams["name"]
+                    });
+            });
+        }
 
         addQuestion() {
             var self = this;
             var $qArray = [this.$q.when()];
-            for (let i = 0; i < this.quizData.questions.length; i++) {
-                const question = this.quizData.questions[i];
-                const validQuestion = question.validQuestion();
-                if (validQuestion !== ValidQuestion.Ok) {
-                    this.showQuestionErrors(validQuestion, i);
-                    return;
-                }
-                if (validQuestion === ValidQuestion.Ok && !question.id) {
-                    ((question, index) => {
-                        $qArray.push(self.quizService.createQuestion(quizId, question)
-                            .then((response) => {
-                                self.quizData.questions[index] = new Question().deserialize(response);
-
-                            }));
-                    })(question, i);
-                }
+            var promiseCreateQuiz = this.$q.when();
+            if (!quizId) {
+                promiseCreateQuiz = this.createQuiz(this.quizData.name);
             }
-            this.$q.when($qArray)
-                .then(() => {
-                    this.quizData.questions.push(new Question());
-                });
+            promiseCreateQuiz.then(() => {
+                for (let i = 0; i < this.quizData.questions.length; i++) {
+                    const question = this.quizData.questions[i];
+                    const validQuestion = question.validQuestion();
+                    if (validQuestion !== ValidQuestion.Ok) {
+                        this.showQuestionErrors(validQuestion, i);
+                        return;
+                    }
+
+                    if (validQuestion === ValidQuestion.Ok && !question.id) {
+                        ((question, index) => {
+                            $qArray.push(self.quizService.createQuestion(quizId, question)
+                                .then((response) => {
+                                    self.quizData.questions[index] = new Question().deserialize(response);
+
+                                }));
+                        })(question, i);
+                    }
+                }
+                this.$q.when($qArray)
+                    .then(() => {
+                        this.quizData.questions.push(new Question());
+                    });
+            });
         }
         private showQuestionErrors(valid: ValidQuestion, index: number): void {
             const form: angular.IFormController = this.$scope["createQuestions"];
@@ -343,6 +367,7 @@ module app {
         }
 
         close(ev) {
+            canNavigateBack = true;
             if (!quizId) {
                 this.navigateBackToBox();
                 return;
@@ -370,10 +395,7 @@ module app {
                     }
                 }
                 this.$q.when($qArray)
-                    .then(() => {
-                        canNavigateBack = true;
-                        this.navigateBackToBox();
-                    });
+                    .then(this.navigateBackToBox);
             });
         }
 
@@ -396,28 +418,36 @@ module app {
         }
 
         publish() {
-            this.submitDisabled = true;
+            if (!this.quizData.name) {
+                return;
+            }
+            var $qArray = [this.$q.when()];
             for (let i = 0; i < this.quizData.questions.length; i++) {
                 const question = this.quizData.questions[i];
                 const validQuestion = question.validQuestion();
 
                 if (validQuestion !== ValidQuestion.Ok) {
                     this.showQuestionErrors(validQuestion, i);
-                    this.submitDisabled = false;
                     return;
                 }
-                this.quizService.publish(quizId)
-                    .then(() => {
-                        canNavigateBack = true;
-                        this.navigateBackToBox();
-                    })
-                    .finally(() => {
-                        this.submitDisabled = false;
-                    })
-                    .catch(() => {
+                if (validQuestion === ValidQuestion.Ok && !question.id) {
+                    $qArray.push(this.quizService.createQuestion(quizId, question));
+                }
 
-                    });
             }
+            this.submitDisabled = true;
+            this.$q.when($qArray)
+                .then(() => {
+                    this.quizService.publish(quizId)
+                        .then(() => {
+                            canNavigateBack = true;
+                            this.navigateBackToBox();
+                        })
+                        .finally(() => {
+                            this.submitDisabled = false;
+                        })
+                        .catch(() => {});
+                });
         }
 
     }

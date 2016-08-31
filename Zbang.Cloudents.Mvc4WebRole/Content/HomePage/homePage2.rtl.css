@@ -192,11 +192,11 @@
 .homePage .home-page-body section.main .welcome-text > h1 {
   text-shadow: -2px 2px 4px #282828;
   font-weight: bold;
-  font-size: 50px;
   width: 100%;
   margin: 14px auto;
   text-transform: capitalize;
   display: inline-block;
+  font-size: 50px;
 }
 @media (max-width: 1200px) {
   .homePage .home-page-body section.main .welcome-text > h1 {
@@ -663,6 +663,21 @@
 @media (min-width: 960px) {
   .homePage .home-page-body section.intro .text {
     padding: 0 150px;
+  }
+}
+@media (max-width: 1200px) {
+  .homePage .home-page-body section.intro .text {
+    font-size: 3vw;
+  }
+}
+@media (max-width: 960px) {
+  .homePage .home-page-body section.intro .text {
+    font-size: 4vw;
+  }
+}
+@media (max-width: 600px) {
+  .homePage .home-page-body section.intro .text {
+    font-size: 4.5vmin;
   }
 }
 .homePage .home-page-body section.intro .video-image {

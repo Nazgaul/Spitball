@@ -359,11 +359,10 @@
         </div>
     </div>
     <div id="cssCheck"></div>
-    <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)"></script>
+
     @Html.Script2("homePage")
     @Html.JqueryValidateLocale()
-    <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" async defer></script>
-
+    <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" defer></script>
     <script defer type="text/template" id="box-template">
         <a href="{boxUrl}" class="box" ga-track-event="['home-page', 'box']">
             <h2 class="{boxClass}">{boxName}</h2>
@@ -378,5 +377,6 @@
         </a>
 
     </script>
+    <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)"></script>
 </body>
 </html>

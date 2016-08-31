@@ -128,37 +128,39 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 serverManager.CommitChanges();
             }
 
-            //try
-            //{
-            //    var localUri = new Uri(string.Format("https://{0}/", RoleEnvironment.CurrentRoleInstance.InstanceEndpoints["Endpoint2"].IPEndpoint));
-            //    System.Threading.Tasks.Task.Factory.StartNew(() =>
-            //    {
-            //        ServicePointManager.ServerCertificateValidationCallback += ValidateRemoteCertificate;
-            //        while (true)
-            //        {
-            //            try
-            //            {
-            //                var request = (HttpWebRequest)WebRequest.Create(localUri);
-            //                request.Method = "GET";
-            //                using (request.GetResponse())
-            //                {
-            //                }
-            //                TraceLog.WriteInfo("breaking the on run task");
-            //                break;
-            //            }
-            //            // ReSharper disable once EmptyGeneralCatchClause
-            //            catch
-            //            {
-            //            }
-            //            TraceLog.WriteInfo("sleeping on run task");
-            //            System.Threading.Thread.Sleep(TimeSpan.FromSeconds(10));
-            //        }
-            //    });
-            //}
-            //catch (Exception ex)
-            //{
-            //    TraceLog.WriteError("on Run", ex);
-            //}
+            try
+            {
+
+                var localUri = new Uri(
+                    $"https://{RoleEnvironment.CurrentRoleInstance.InstanceEndpoints["Endpoint2"].IPEndpoint}/");
+                System.Threading.Tasks.Task.Factory.StartNew(() =>
+                {
+                    ServicePointManager.ServerCertificateValidationCallback += ValidateRemoteCertificate;
+                    while (true)
+                    {
+                        try
+                        {
+                            var request = (HttpWebRequest)WebRequest.Create(localUri);
+                            request.Method = "GET";
+                            using (request.GetResponse())
+                            {
+                            }
+                            TraceLog.WriteInfo("breaking the on run task");
+                            break;
+                        }
+                        // ReSharper disable once EmptyGeneralCatchClause
+                        catch
+                        {
+                        }
+                        TraceLog.WriteInfo("sleeping on run task");
+                        System.Threading.Thread.Sleep(TimeSpan.FromSeconds(10));
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("on Run", ex);
+            }
             base.Run();
         }
 

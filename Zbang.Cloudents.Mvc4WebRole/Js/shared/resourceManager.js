@@ -2,10 +2,9 @@ var app;
 (function (app) {
     'use strict';
     var ResManager = (function () {
-        function ResManager($location, ajaxService) {
-            this.$location = $location;
+        //private jsResources = window['JsResources'];
+        function ResManager(ajaxService) {
             this.ajaxService = ajaxService;
-            this.jsResources = window['JsResources'];
             return this;
         }
         ResManager.prototype.get = function (value) {
@@ -13,15 +12,16 @@ var app;
             if (!value) {
                 return result;
             }
-            var resource = this.jsResources[value];
+            var resource = window["JsResources"][value];
             if (!resource) {
                 this.ajaxService.logError('missing resource', value);
                 return result;
             }
             return resource;
         };
-        ResManager.$inject = ['$location', 'ajaxService2'];
+        ResManager.$inject = ['ajaxService2'];
         return ResManager;
     }());
-    angular.module('app').service('resManager', ResManager);
+    angular.module("app").service("resManager", ResManager);
 })(app || (app = {}));
+//# sourceMappingURL=resourceManager.js.map

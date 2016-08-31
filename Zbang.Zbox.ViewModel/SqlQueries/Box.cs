@@ -72,21 +72,6 @@ order by name;";
 
 
         public const string RecommendedCourses =
-            //            @"with boxes as (
-            //select distinct boxid,count(*) over(partition by boxid) as c 
-            //from zbox.UserBoxRel ub2 where userid in (
-            //select userid from zbox.UserBoxRel ub 
-            //where boxid = @BoxId
-            //))
-            //select top 3 b.boxid, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
-            //b.MembersCount,b.ItemCount , b.url from zbox.box b join boxes on b.BoxId = boxes.BoxId 
-            //and b.Discriminator = 2
-            //and b.BoxId <> @BoxId
-            //order by boxes.c desc;";
-
-
-
-
             @"select top 3 b.boxid, b.BoxName as Name,b.CourseCode,b.ProfessorName as professor,
 b.MembersCount,b.ItemCount , b.url,count(*)  as x
 from zbox.userboxrel ub join zbox.box b on ub.boxid = b.boxid and b.isdeleted = 0 and b.discriminator = 2

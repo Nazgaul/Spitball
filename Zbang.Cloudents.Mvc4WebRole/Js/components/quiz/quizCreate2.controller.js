@@ -9,6 +9,7 @@ var app;
         ValidQuestion[ValidQuestion["EmptyQuestion"] = 5] = "EmptyQuestion";
         ValidQuestion[ValidQuestion["Ok"] = 6] = "Ok";
     })(ValidQuestion || (ValidQuestion = {}));
+    //var emptyForm = true;
     var quizId;
     var saveInProgress = false;
     var canNavigateBack = false;
@@ -155,16 +156,7 @@ var app;
                                 self.quizService.updateQuiz(quizId, newVal).finally(finishSaveName);
                             }
                             else {
-                                self.quizService.createQuiz(self.$stateParams.boxId, newVal).then(function (response) {
-                                    self.$state.go('quizCreate', {
-                                        boxtype: self.$stateParams["boxtype"],
-                                        universityType: self.$stateParams["universityType"],
-                                        boxId: self.$stateParams.boxId,
-                                        boxName: self.$stateParams["boxName"],
-                                        quizid: response,
-                                        name: self.$stateParams["name"]
-                                    });
-                                }).finally(finishSaveName);
+                                self.createQuiz(newVal).finally(finishSaveName);
                             }
                         }
                     }
@@ -219,29 +211,50 @@ var app;
                 return true;
             }
         }
+        QuizCreateController.prototype.createQuiz = function (name) {
+            var _this = this;
+            var self = this;
+            return self.quizService.createQuiz(self.$stateParams.boxId, name).then(function (response) {
+                quizId = response;
+                _this.$state.go('quizCreate', {
+                    boxtype: self.$stateParams["boxtype"],
+                    universityType: self.$stateParams["universityType"],
+                    boxId: self.$stateParams.boxId,
+                    boxName: self.$stateParams["boxName"],
+                    quizid: response,
+                    name: self.$stateParams["name"]
+                });
+            });
+        };
         QuizCreateController.prototype.addQuestion = function () {
             var _this = this;
             var self = this;
             var $qArray = [this.$q.when()];
-            for (var i = 0; i < this.quizData.questions.length; i++) {
-                var question = this.quizData.questions[i];
-                var validQuestion = question.validQuestion();
-                if (validQuestion !== ValidQuestion.Ok) {
-                    this.showQuestionErrors(validQuestion, i);
-                    return;
-                }
-                if (validQuestion === ValidQuestion.Ok && !question.id) {
-                    (function (question, index) {
-                        $qArray.push(self.quizService.createQuestion(quizId, question)
-                            .then(function (response) {
-                            self.quizData.questions[index] = new Question().deserialize(response);
-                        }));
-                    })(question, i);
-                }
+            var promiseCreateQuiz = this.$q.when();
+            if (!quizId) {
+                promiseCreateQuiz = this.createQuiz(this.quizData.name);
             }
-            this.$q.when($qArray)
-                .then(function () {
-                _this.quizData.questions.push(new Question());
+            promiseCreateQuiz.then(function () {
+                for (var i = 0; i < _this.quizData.questions.length; i++) {
+                    var question = _this.quizData.questions[i];
+                    var validQuestion = question.validQuestion();
+                    if (validQuestion !== ValidQuestion.Ok) {
+                        _this.showQuestionErrors(validQuestion, i);
+                        return;
+                    }
+                    if (validQuestion === ValidQuestion.Ok && !question.id) {
+                        (function (question, index) {
+                            $qArray.push(self.quizService.createQuestion(quizId, question)
+                                .then(function (response) {
+                                self.quizData.questions[index] = new Question().deserialize(response);
+                            }));
+                        })(question, i);
+                    }
+                }
+                _this.$q.when($qArray)
+                    .then(function () {
+                    _this.quizData.questions.push(new Question());
+                });
             });
         };
         QuizCreateController.prototype.showQuestionErrors = function (valid, index) {
@@ -278,6 +291,8 @@ var app;
             var canEdit = true;
             var i = this.quizData.questions.length;
             while (i--) {
+                //}
+                //for (let i = 0; i < this.quizData.questions.length; i++) {
                 var question_1 = this.quizData.questions[i];
                 var validQuestion = question_1.validQuestion();
                 if (validQuestion === ValidQuestion.Ok) {
@@ -295,6 +310,10 @@ var app;
                 if (question.id) {
                     this.quizService.deleteQuestion(question.id);
                 }
+                //const valid = question.validQuestion();
+                //if (valid === ValidQuestion.EmptyQuestion) {
+                //    this.removeQuestionFromArray(question);
+                //}
                 angular.forEach(question.answers, function (a) {
                     a.id = null;
                 });
@@ -303,6 +322,7 @@ var app;
         };
         QuizCreateController.prototype.close = function (ev) {
             var _this = this;
+            canNavigateBack = true;
             if (!quizId) {
                 this.navigateBackToBox();
                 return;
@@ -329,10 +349,7 @@ var app;
                     }
                 }
                 _this.$q.when($qArray)
-                    .then(function () {
-                    canNavigateBack = true;
-                    _this.navigateBackToBox();
-                });
+                    .then(_this.navigateBackToBox);
             });
         };
         QuizCreateController.prototype.template = function (question) {
@@ -343,16 +360,25 @@ var app;
         };
         QuizCreateController.prototype.publish = function () {
             var _this = this;
-            this.submitDisabled = true;
+            if (!this.quizData.name) {
+                return;
+            }
+            var $qArray = [this.$q.when()];
             for (var i = 0; i < this.quizData.questions.length; i++) {
                 var question = this.quizData.questions[i];
                 var validQuestion = question.validQuestion();
                 if (validQuestion !== ValidQuestion.Ok) {
                     this.showQuestionErrors(validQuestion, i);
-                    this.submitDisabled = false;
                     return;
                 }
-                this.quizService.publish(quizId)
+                if (validQuestion === ValidQuestion.Ok && !question.id) {
+                    $qArray.push(this.quizService.createQuestion(quizId, question));
+                }
+            }
+            this.submitDisabled = true;
+            this.$q.when($qArray)
+                .then(function () {
+                _this.quizService.publish(quizId)
                     .then(function () {
                     canNavigateBack = true;
                     _this.navigateBackToBox();
@@ -360,9 +386,8 @@ var app;
                     .finally(function () {
                     _this.submitDisabled = false;
                 })
-                    .catch(function () {
-                });
-            }
+                    .catch(function () { });
+            });
         };
         QuizCreateController.$inject = ["$mdDialog", "$state", "$stateParams", "$scope",
             "quizService", "quizData", "resManager", "$q", "$window"];
@@ -370,3 +395,4 @@ var app;
     }());
     angular.module('app.quiz.create').controller('QuizCreateController', QuizCreateController);
 })(app || (app = {}));
+//# sourceMappingURL=quizCreate2.controller.js.map

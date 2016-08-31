@@ -87,7 +87,7 @@
                 initAuth: function () {
                     var js = document.createElement('script');
                     js.src = "//apis.google.com/js/platform.js";
-                    js.async = true;
+                    //js.async = true;
                     js.defer = true;
                     document.getElementsByTagName('head')[0].appendChild(js);
                     js.onload = function () { initAuthGapi(); }

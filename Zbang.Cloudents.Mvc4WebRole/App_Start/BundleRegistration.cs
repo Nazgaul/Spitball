@@ -132,7 +132,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/svg4everybody.js")
                     }
                 },
-                
+
                 {
                     "site4", new[]
                     {
@@ -161,6 +161,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
 
+                        new JsFileWithCdn("~/Scripts/jquery.signalR-2.2.0.js"),
+                        new JsFileWithCdn("~/Scripts/angular-signalr-hub.js"),
+
                         //TODO: move to oclazy in box
                         new JsFileWithCdn("~/scripts/plupload2/moxie.min.js"),
                         new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
@@ -173,7 +176,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                          //TODO: move to oclazy in box
                         new JsFileWithCdn("~/scripts/draganddrop.js"),
                         new JsFileWithCdn("~/scripts/angular-dfp.js"),
-                        
+
                         new JsFileWithCdn("~/bower_components/angular-timeago/dist/angular-timeago.min.js"),
                         new JsFileWithCdn("~/js/polyfills.js"),
 
@@ -190,11 +193,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.challenge.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.module.js"),
                         new JsFileWithCdn("~/js/components/box/box.module.js"),
-                        new JsFileWithCdn("~/js/initAngular.js"),
+
 
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.filter.js"),
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.directive.js"),
-                        
+
                         new JsFileWithCdn("~/js/components/quiz/quizCreate1.config.js"),
                        // new JsFileWithCdn("~/js/components/quiz/textAngular.config.js"),
                         
@@ -310,8 +313,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/keyboardAction.directive.js"),
                         new JsFileWithCdn("~/js/shared/menuAd.directive.js"),
 
-                        new JsFileWithCdn("~/Scripts/jquery.signalR-2.2.0.js"),
-                        new JsFileWithCdn("~/Scripts/angular-signalr-hub.js"),
+
 
                         new JsFileWithCdn("~/js/components/chat/chat.controller.js"),
                         new JsFileWithCdn("~/js/components/chat/chat.factory.js"),
@@ -320,7 +322,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/chat/previewController.js"),
                         new JsFileWithCdn("~/js/components/chat/toggleChat.directive.js"),
                         new JsFileWithCdn("~/js/components/chat/hideChatOnMobile.directive.js"),
-                        
+                         new JsFileWithCdn("~/js/initAngular.js")
                     }
 
                 }

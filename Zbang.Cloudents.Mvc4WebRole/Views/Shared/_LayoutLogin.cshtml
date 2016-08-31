@@ -9,17 +9,12 @@
 </head>
 <body class="page-md">
     @{ Html.RenderPartial("_Body");}
-
-
-
     @RenderBody()
-
     @*DO NOT REMOVE THIS AT ALL TIME*@
     <div id="cssCheck"></div>
-    <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)"></script>
     @Html.Script2("signin")
     @Html.JqueryValidateLocale()
-    <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" async defer></script>
+    <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" defer></script>
     <script>
         Login.initExternalLogin();
         (function (i, s, o, g, r, a, m) {
@@ -33,8 +28,6 @@
         ga('send', 'pageview');
     </script>
     @RenderSection("scripts", false)
-
-
-
+    <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)" defer></script>
 </body>
 </html>
