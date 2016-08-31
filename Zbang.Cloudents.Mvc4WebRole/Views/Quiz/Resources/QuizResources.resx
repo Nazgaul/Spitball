@@ -196,6 +196,6 @@
     <value>Good job</value>
   </data>
   <data name="WriteQuestion" xml:space="preserve">
-    <value>Write your question</value>
+    <value>Enter the question here</value>
   </data>
 </root>

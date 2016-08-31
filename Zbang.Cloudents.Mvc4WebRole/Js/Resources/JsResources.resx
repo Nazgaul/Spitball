@@ -242,4 +242,7 @@
   <data name="toasterChatMessage" xml:space="preserve">
     <value>You have a new private message!</value>
   </data>
+  <data name="quizCreateBrowserBack" xml:space="preserve">
+    <value>Are you sure you want to leave this page? The created quiz will NOT be saved</value>
+  </data>
 </root>
