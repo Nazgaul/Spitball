@@ -9,7 +9,7 @@
                 name: 'quizCreate',
                 serie: true,
                 files: [
-                   '/cdn/gzip/jFC71FED19C4367AD8795575E90F6B75E.js'
+                   '/bower_components/textAngular/dist/textAngular-rangy.min.js','/bower_components/textAngular/dist/textAngular.js','/scripts/textAngularSetup.js','/js/components/quiz/quizCreate.module.js','/js/components/quiz/quizCreate2.controller.js'
                 ]
             }]
         });

@@ -21,10 +21,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 #if DEBUG
             log4net.Config.XmlConfigurator.Configure();
 #endif
-            //don't need this
-            //AreaRegistration.RegisterAllAreas();
             TraceLog.WriteInfo("starting app");
-            //IocConfig.RegisterIoc();
             DisplayConfig.RegisterDisplays();
             ViewConfig.RegisterEngineAndViews();
             BundleRegistration.RegisterBundles();

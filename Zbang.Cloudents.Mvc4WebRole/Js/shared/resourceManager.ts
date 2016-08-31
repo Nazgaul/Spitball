@@ -7,7 +7,7 @@ module app {
     }
     class ResManager implements IResManager {
         static $inject = ['$location','ajaxService2'];
-        private jsResources = window['JsResources'];
+        //private jsResources = window['JsResources'];
         constructor(private $location: angular.ILocationService, private ajaxService: IAjaxService2) {
             return this;
         }
@@ -18,7 +18,7 @@ module app {
                 return result;
             }
 
-            const resource = this.jsResources[value];
+            const resource = window['JsResources'];
 
             if (!resource) {
                 this.ajaxService.logError('missing resource', value);
