@@ -30,8 +30,8 @@
             </div>
         </md-input-container>
     </form>
-    <form novalidate name="createQuestions" id="create-question" class="quiz-wrapper">
-        <div ng-repeat="question in q.quizData.questions" ng-include="q.template(question)"></div>
+    <form novalidate name="createQuestions" id="create-question">
+        <div class="quiz-wrapper" ng-repeat="question in q.quizData.questions" ng-include="q.template(question)"></div>
     </form>
 
     <button type="button" class="btn button-Blue btn-primary text-capitalize add-question" ng-click="q.addQuestion()" ga-track-event="['createQuiz', 'add question']">
