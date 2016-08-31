@@ -61,7 +61,8 @@ qd.Text,
 qd.QuestionId
 from zbox.QuizDiscussion qd
 left join zbox.Users u on u.UserId = qd.UserId
-where qd.QuizId = @QuizId";
+where qd.QuizId = @QuizId
+order by qd.id desc";
 
 
         public const string NumberOfQuizSolved = @"select count(*) from zbox.SolvedQuiz

@@ -139,7 +139,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/Scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
-                        new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"),
+                        new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"),
                         new JsFileWithCdn("~/Scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/Scripts/angular-messages.js"),
                         //new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
@@ -186,14 +186,21 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.module.js"),
-                        new JsFileWithCdn("~/js/components/quiz/stopwatch.filter.js"),
-                        new JsFileWithCdn("~/js/components/quiz/stopwatch.directive.js"),
-                        new JsFileWithCdn("~/js/components/quiz/quizCreate1.config.js"),
-                        
+                        new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.challenge.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.module.js"),
-                        new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/box/box.module.js"),
+                        new JsFileWithCdn("~/js/initAngular.js"),
+
+                        new JsFileWithCdn("~/js/components/quiz/stopwatch.filter.js"),
+                        new JsFileWithCdn("~/js/components/quiz/stopwatch.directive.js"),
+                        
+                        new JsFileWithCdn("~/js/components/quiz/quizCreate1.config.js"),
+                       // new JsFileWithCdn("~/js/components/quiz/textAngular.config.js"),
+                        
+                        
+                        
+                        
 
                         new JsFileWithCdn("~/js/components/user/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.controller.js"),
@@ -266,7 +273,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.controller.js"),
                         new JsFileWithCdn("~/js/components/quiz/quiz.service.js"),
                         new JsFileWithCdn("~/js/components/quiz/quiz.routes.js"),
-                        //new JsFileWithCdn("~/js/components/quiz/quizCreate.controller.js"),
 
                         new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/shared/ajaxService.js"),
@@ -314,9 +320,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/chat/previewController.js"),
                         new JsFileWithCdn("~/js/components/chat/toggleChat.directive.js"),
                         new JsFileWithCdn("~/js/components/chat/hideChatOnMobile.directive.js"),
-
-
-
+                        
                     }
 
                 }

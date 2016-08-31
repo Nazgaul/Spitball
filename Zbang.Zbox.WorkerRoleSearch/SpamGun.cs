@@ -20,7 +20,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         private readonly IZboxWorkerRoleService m_ZboxWriteService;
 
 
-        public const int NumberOfEmailPerSession = 50;
+        public readonly int NumberOfEmailPerSession = int.Parse(ConfigFetcher.Fetch("NumberOfSpamGunEmailBatch"));
         //public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromSeconds(2500);
         //public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromHours(1);
 

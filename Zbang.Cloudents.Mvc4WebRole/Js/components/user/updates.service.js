@@ -22,12 +22,6 @@ var app;
                     _this.deleteUpdates(fromParams.boxId);
                 }
             });
-            $window.onbeforeunload = function () {
-                var boxId = $stateParams.boxId;
-                if (boxId) {
-                    _this.deleteFromServer(boxId);
-                }
-            };
         }
         UserUpdatesService.prototype.getUpdates = function () {
             var _this = this;

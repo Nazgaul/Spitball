@@ -23,7 +23,7 @@
         public HomePageUniversityData()
         {
             MainSignupColor = SignupColor = "#EC610D";
-            BackgroundImage = "DefaultUni4.jpg";
+            BackgroundImage = "DefaultUni5.jpg";
             HeaderBackgroundColor = "rgba(0,0,0,.9)";
             VideoBackgroundColor = "#DADADA";
             VideoFontColor = "#383838";

@@ -196,6 +196,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to leave this page? The created quiz will NOT be saved.
+        /// </summary>
+        public static string quizCreateBrowserBack {
+            get {
+                return ResourceManager.GetString("quizCreateBrowserBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select the correct answer.
         /// </summary>
         public static string quizCreateCorrectAnswer {

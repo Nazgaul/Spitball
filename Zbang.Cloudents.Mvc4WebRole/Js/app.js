@@ -31,4 +31,5 @@ var app;
          'app.search',
          'app.chat'
     ]);
+    
 })();

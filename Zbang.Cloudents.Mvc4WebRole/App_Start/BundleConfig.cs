@@ -67,22 +67,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
             }
             if (registeredJsBundles != null)
             {
-                //{
-                //    "quizCreate", new[] {
-                //        new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
-                //        new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
-                //        new JsFileWithCdn("~/scripts/textAngularSetup.js"),
-                //        new JsFileWithCdn("~/js/components/quiz/quizCreate.module.js"),
-                //        new JsFileWithCdn("~/js/components/quiz/quizCreate.controller.js"),
-                //}
-                //},
                 RegisterJs("quizCreate", new[]
                 {
                     new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
                     new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
+                    //new JsFileWithCdn("~/js/components/quiz/quizCreate.module.js"),
                     new JsFileWithCdn("~/scripts/textAngularSetup.js"),
                     new JsFileWithCdn("~/js/components/quiz/quizCreate.module.js"),
-                    new JsFileWithCdn("~/js/components/quiz/quizCreate2.controller.js"),
+                    new JsFileWithCdn("~/js/components/quiz/quizCreate2.controller.js")
                 });
 
 
@@ -116,7 +108,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 }
 
             }
-            var script = RelativePathContent("~/js/components/quiz/quizCreate.config.js");
+            RelativePathContent("~/js/components/quiz/quizCreate.config.js");
 
 
 

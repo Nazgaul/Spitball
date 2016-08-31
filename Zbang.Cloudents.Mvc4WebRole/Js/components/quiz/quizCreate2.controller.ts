@@ -20,6 +20,7 @@ module app {
     //var emptyForm = true;
     var quizId: number;
     var saveInProgress = false;
+    var canNavigateBack = false;
 
     function finishUpdate() {
         saveInProgress = false;
@@ -29,7 +30,7 @@ module app {
         id;
         name;
         questions = [new Question()];
-        
+
         completeData() {
             if (!this.questions.length) {
                 this.questions.push(new Question());
@@ -128,7 +129,7 @@ module app {
 
     class QuizCreateController {
         static $inject = ["$mdDialog", "$state", "$stateParams", "$scope",
-            "quizService", "quizData", "resManager", "$q"];
+            "quizService", "quizData", "resManager", "$q", "$window"];
         private boxName;
         quizNameDisabled = true;
         error: string;
@@ -140,7 +141,8 @@ module app {
             private quizService: IQuizService,
             private quizData: QuizData,
             private resManager: IResManager,
-            private $q: angular.IQService
+            private $q: angular.IQService,
+            private $window: angular.IWindowService
         ) {
 
             this.boxName = $stateParams["name"] || $stateParams["boxName"];
@@ -153,9 +155,44 @@ module app {
                 this.quizData = new QuizData();
             }
 
-            //this.quizData.completeData();
+            $window.onbeforeunload = () => {
+                for (let i = 0; i < this.quizData.questions.length; i++) {
+                    const question = this.quizData.questions[i];
+                    if (!question.id) {
+                        return this.resManager.get('quizLeaveTitle');
+                    }
 
+                }
+            };
+            $scope.$on('$destroy', () => {
+                $window.onbeforeunload = undefined;
+            });
+            $scope.$on("$stateChangeStart",
+                (event: angular.IAngularEvent) => {
+                    if (canNavigateBack) {
+                        return;
+                    }
+                    if (!canNavigate()) {
+                        event.preventDefault();
+                        $scope.$emit('state-change-start-prevent');
+                    }
+                });
+
+
+            function canNavigate(): boolean {
+                for (let i = 0; i < this.quizData.questions.length; i++) {
+                    const question = this.quizData.questions[i];
+                    if (!question.id) {
+                        if (!confirm('Are you sure you want to leave this page?')) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
         }
+
+
 
 
         private newName = () => {
@@ -214,6 +251,10 @@ module app {
             for (let i = 0; i < this.quizData.questions.length; i++) {
                 const question = this.quizData.questions[i];
                 const validQuestion = question.validQuestion();
+                if (validQuestion !== ValidQuestion.Ok) {
+                    this.showQuestionErrors(validQuestion, i);
+                    return;
+                }
                 if (validQuestion === ValidQuestion.Ok && !question.id) {
                     ((question, index) => {
                         $qArray.push(self.quizService.createQuestion(quizId, question)
@@ -222,9 +263,6 @@ module app {
 
                             }));
                     })(question, i);
-                } else {
-                    this.showQuestionErrors(validQuestion, i);
-                    return;
                 }
             }
             this.$q.when($qArray)
@@ -240,7 +278,8 @@ module app {
                 case ValidQuestion.AnswerNeedText:
                     this.error = this.resManager.get("quizCreateNeedAnswerText");
                     break;
-                case ValidQuestion.QuestionNeedText:
+                case ValidQuestion.QuestionNeedText,
+                    ValidQuestion.EmptyQuestion:
                     this.error = this.resManager.get("quizCreateNeedQuestionText");
                     break;
                 case ValidQuestion.QuestionCorrectAnswer:
@@ -285,7 +324,7 @@ module app {
                 this.showQuestionErrors(validQuestion, i);
                 canEdit = false;
                 break;
-               
+
             }
             if (canEdit) {
                 if (question.id) {
@@ -298,7 +337,7 @@ module app {
                 angular.forEach(question.answers,
                     (a: Answer) => {
                         a.id = null;
-                });
+                    });
                 question.id = null;
             }
         }
@@ -318,9 +357,23 @@ module app {
             this.$mdDialog.show(confirm).then(() => {
                 this.quizService.deleteQuiz(quizId).then(this.navigateBackToBox);
             }, () => {
-                //TODO: save draft
-                this.navigateBackToBox();
-                //self.saveDraft();
+                var $qArray = [this.$q.when()], self = this;
+                for (let i = 0; i < this.quizData.questions.length; i++) {
+                    const question = this.quizData.questions[i];
+                    if (question.validQuestion() === ValidQuestion.EmptyQuestion) {
+                        continue;
+                    }
+                    if (!question.id) {
+                        ((question) => {
+                            $qArray.push(self.quizService.createQuestion(quizId, question));
+                        })(question);
+                    }
+                }
+                this.$q.when($qArray)
+                    .then(() => {
+                        canNavigateBack = true;
+                        this.navigateBackToBox();
+                    });
             });
         }
 
@@ -355,6 +408,7 @@ module app {
                 }
                 this.quizService.publish(quizId)
                     .then(() => {
+                        canNavigateBack = true;
                         this.navigateBackToBox();
                     })
                     .finally(() => {

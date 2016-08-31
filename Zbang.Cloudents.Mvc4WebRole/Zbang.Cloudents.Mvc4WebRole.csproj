@@ -892,6 +892,7 @@
     <Content Include="bower_components\oclazyload\CHANGELOG.md" />
     <Content Include="bower_components\oclazyload\LICENSE.md" />
     <Content Include="bower_components\oclazyload\README.md" />
+    <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1535,11 +1536,10 @@
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\components\quiz\quizCreate.config.js" />
-    <Content Include="Js\components\quiz\quizCreate.controller.js" />
-    <Content Include="Js\components\quiz\quizCreate.module.js" />
     <Content Include="Js\components\search\search.service.js" />
     <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
+    <Content Include="Js\initAngular.js" />
     <Content Include="Js\shared\collapseHeader.directive.js" />
     <Content Include="Js\shared\inlineManualNew.js" />
     <Content Include="Js\shared\sounds.js" />
@@ -1561,6 +1561,7 @@
     <TypeScriptCompile Include="Js\components\chat\hubFactory.ts" />
     <TypeScriptCompile Include="Js\components\chat\previewController.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quiz.service.ts" />
+    <TypeScriptCompile Include="Js\components\quiz\quizCreate.module.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quizCreate2.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\updates.service.ts" />
     <TypeScriptCompile Include="Js\components\chat\hideChatOnMobile.directive.ts" />

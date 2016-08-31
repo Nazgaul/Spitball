@@ -1,6 +1,4 @@
 ﻿using System.Text;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
-using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
@@ -10,9 +8,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             var x = typeof(Js.Resources.JsResources);
             var sb = new StringBuilder();
-            sb.Append($" window.version = '{VersionHelper.CurrentVersion(true)}';");
-            sb.Append($" window.dChat = '{ConfigFetcher.Fetch("signalR")}';");
-            sb.Append($" window.dChat = '{ConfigFetcher.Fetch("signalR")}';");
+            
 
             sb.Append("window.JsResources={");
             foreach (var p in x.GetProperties())

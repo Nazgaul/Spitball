@@ -11,6 +11,7 @@ var app;
     })(ValidQuestion || (ValidQuestion = {}));
     var quizId;
     var saveInProgress = false;
+    var canNavigateBack = false;
     function finishUpdate() {
         saveInProgress = false;
     }
@@ -115,7 +116,7 @@ var app;
         return Answer;
     }());
     var QuizCreateController = (function () {
-        function QuizCreateController($mdDialog, $state, $stateParams, $scope, quizService, quizData, resManager, $q) {
+        function QuizCreateController($mdDialog, $state, $stateParams, $scope, quizService, quizData, resManager, $q, $window) {
             var _this = this;
             this.$mdDialog = $mdDialog;
             this.$state = $state;
@@ -125,6 +126,7 @@ var app;
             this.quizData = quizData;
             this.resManager = resManager;
             this.$q = $q;
+            this.$window = $window;
             this.quizNameDisabled = true;
             this.submitDisabled = false;
             this.newName = function () {
@@ -185,6 +187,37 @@ var app;
             else {
                 this.quizData = new QuizData();
             }
+            $window.onbeforeunload = function () {
+                for (var i = 0; i < _this.quizData.questions.length; i++) {
+                    var question = _this.quizData.questions[i];
+                    if (!question.id) {
+                        return _this.resManager.get('quizLeaveTitle');
+                    }
+                }
+            };
+            $scope.$on('$destroy', function () {
+                $window.onbeforeunload = undefined;
+            });
+            $scope.$on("$stateChangeStart", function (event) {
+                if (canNavigateBack) {
+                    return;
+                }
+                if (!canNavigate()) {
+                    event.preventDefault();
+                    $scope.$emit('state-change-start-prevent');
+                }
+            });
+            function canNavigate() {
+                for (var i = 0; i < this.quizData.questions.length; i++) {
+                    var question = this.quizData.questions[i];
+                    if (!question.id) {
+                        if (!confirm('Are you sure you want to leave this page?')) {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
         }
         QuizCreateController.prototype.addQuestion = function () {
             var _this = this;
@@ -193,6 +226,10 @@ var app;
             for (var i = 0; i < this.quizData.questions.length; i++) {
                 var question = this.quizData.questions[i];
                 var validQuestion = question.validQuestion();
+                if (validQuestion !== ValidQuestion.Ok) {
+                    this.showQuestionErrors(validQuestion, i);
+                    return;
+                }
                 if (validQuestion === ValidQuestion.Ok && !question.id) {
                     (function (question, index) {
                         $qArray.push(self.quizService.createQuestion(quizId, question)
@@ -200,10 +237,6 @@ var app;
                             self.quizData.questions[index] = new Question().deserialize(response);
                         }));
                     })(question, i);
-                }
-                else {
-                    this.showQuestionErrors(validQuestion, i);
-                    return;
                 }
             }
             this.$q.when($qArray)
@@ -218,7 +251,8 @@ var app;
                 case ValidQuestion.AnswerNeedText:
                     this.error = this.resManager.get("quizCreateNeedAnswerText");
                     break;
-                case ValidQuestion.QuestionNeedText:
+                case ValidQuestion.QuestionNeedText,
+                    ValidQuestion.EmptyQuestion:
                     this.error = this.resManager.get("quizCreateNeedQuestionText");
                     break;
                 case ValidQuestion.QuestionCorrectAnswer:
@@ -282,7 +316,23 @@ var app;
             this.$mdDialog.show(confirm).then(function () {
                 _this.quizService.deleteQuiz(quizId).then(_this.navigateBackToBox);
             }, function () {
-                _this.navigateBackToBox();
+                var $qArray = [_this.$q.when()], self = _this;
+                for (var i = 0; i < _this.quizData.questions.length; i++) {
+                    var question = _this.quizData.questions[i];
+                    if (question.validQuestion() === ValidQuestion.EmptyQuestion) {
+                        continue;
+                    }
+                    if (!question.id) {
+                        (function (question) {
+                            $qArray.push(self.quizService.createQuestion(quizId, question));
+                        })(question);
+                    }
+                }
+                _this.$q.when($qArray)
+                    .then(function () {
+                    canNavigateBack = true;
+                    _this.navigateBackToBox();
+                });
             });
         };
         QuizCreateController.prototype.template = function (question) {
@@ -304,6 +354,7 @@ var app;
                 }
                 this.quizService.publish(quizId)
                     .then(function () {
+                    canNavigateBack = true;
                     _this.navigateBackToBox();
                 })
                     .finally(function () {
@@ -314,7 +365,7 @@ var app;
             }
         };
         QuizCreateController.$inject = ["$mdDialog", "$state", "$stateParams", "$scope",
-            "quizService", "quizData", "resManager", "$q"];
+            "quizService", "quizData", "resManager", "$q", "$window"];
         return QuizCreateController;
     }());
     angular.module('app.quiz.create').controller('QuizCreateController', QuizCreateController);

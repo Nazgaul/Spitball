@@ -15,9 +15,10 @@
 
         function getUniversityPic(name, width, height) {
             if (!name) {
-                name = "DefaultUni4.jpg";
+                name = "DefaultUni5.jpg";
             }
-            return 'https://az779114.vo.msecnd.net/universities/cover/' + encodeURIComponent(name) + '?mode=crop&cropxunits=100&cropyunits=100&crop=0,0,0,-30&width=' + width + '&height=' + height;
+            //&cropxunits=100&cropyunits=100&crop=0,0,0,-30
+            return 'https://az779114.vo.msecnd.net/universities/cover/' + encodeURIComponent(name) + '?mode=crop&anchor=topcenter&width=' + width + '&height=' + height;
         }
         function getChat(name) {
             if (!name) {
