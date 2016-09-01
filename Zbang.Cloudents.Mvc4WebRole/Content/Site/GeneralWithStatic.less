@@ -1,4 +1,37 @@
 ﻿@import "variables.less";
+@boxColor0: #64A9F8;
+@boxColor1: #ff9853;
+@boxColor2: #e775ce;
+@boxColor3: #ffb933;
+@boxColor4: #848fa6;
+@boxColor5: #f36f6e;
+@boxColor6: #f76446;
+@boxColor7: #73b435;
+@boxColor8: #a55fff;
+@boxColor9: #a27c22;
+@boxColor10: #4faf61;
+
+@iterations: 10;
+
+.define(@var) {
+    @colorSet: 'boxColor@{var}';
+}
+
+
+.mixin-loop (@index) when (@index >= 0) {
+    .color@{index} {
+        .define(@index);
+        color: @@colorSet;
+
+        &.background {
+            background: @@colorSet;
+        }
+    }
+
+    .mixin-loop(@index - 1);
+}
+//.mixin-loop (0) {}
+.mixin-loop(@iterations);
 button {
     border: 0;
     background: transparent;

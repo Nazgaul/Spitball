@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
-    var returnUrl = Request.QueryString["returnUrl"] ?? Request.Url.ToString();
+    var returnUrl = Request.QueryString["returnUrl"] ?? Request.UrlReferrer.ToString();
     var invId = Request.QueryString["invId"];
 
 }

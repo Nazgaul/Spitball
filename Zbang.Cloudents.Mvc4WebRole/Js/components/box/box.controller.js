@@ -3,9 +3,9 @@
     angular.module('app.box').controller('BoxController', box);
     box.$inject = ['boxService', 'boxData', '$stateParams', '$scope',
         '$state', '$rootScope', 'userDetailsFactory',
-         'resManager', '$timeout', 'userUpdatesService', '$window'];
+         'resManager', '$timeout', 'userUpdatesService', '$window', 'ajaxService2'];
     function box(boxService, boxData, $stateParams, $scope, $state,
-        $rootScope, userDetailsFactory,  resManager, $timeout, userUpdatesService, $window) {
+        $rootScope, userDetailsFactory, resManager, $timeout, userUpdatesService, $window, ajaxService) {
 
         if ($state.current.name === 'box') {
             $state.go('box.feed', $stateParams, { location: "replace" });

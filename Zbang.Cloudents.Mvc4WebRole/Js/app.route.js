@@ -28,7 +28,7 @@
                         }]
                     },
                     "chat": {
-                        controller: "ChatController as c",
+                        //controller: "ChatController as c",
                         templateProvider: [
                             'user', 'ajaxService2', function (user, ajaxService2) {
                                 if (user.id && user.university.id > 0) {
