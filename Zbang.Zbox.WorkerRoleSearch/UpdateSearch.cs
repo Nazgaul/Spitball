@@ -19,7 +19,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected const double MinInterval = 5;
         protected double Interval = MinInterval;
-        protected readonly double MaxInterval = TimeSpan.FromHours(1).TotalSeconds;
+        protected double MaxInterval = TimeSpan.FromHours(1).TotalSeconds;
         protected abstract string GetPrefix();
 
         protected async Task SleepAndIncreaseIntervalAsync(CancellationToken cancellationToken)

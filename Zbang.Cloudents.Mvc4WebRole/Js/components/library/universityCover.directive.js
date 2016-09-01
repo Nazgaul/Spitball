@@ -11,7 +11,7 @@
 
                 function appenUrl() {
                     var url = itemThumbnailService
-                                .getUniversityPic(attrs.univeristyCover, element.outerWidth(), element.outerHeight());
+                                .getUniversityDashboardPic(attrs.univeristyCover, element.outerWidth(), element.outerHeight());
                     element.css('background', 'url(' + url + ')');
                 }
                 //need because the css height need to kicks in
