@@ -2,7 +2,7 @@
 
 namespace Zbang.Zbox.Domain.Commands
 {
-    public class CreateUniversityCommand : ICommand
+    public class CreateUniversityCommand : ICommandAsync
     {
         public CreateUniversityCommand(string name, string country, long userId)
         {

@@ -450,15 +450,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpPost]
-        public JsonResult CreateUniversity(CreateUniversity model)
+        [HttpPost, ActionName("CreateUniversity")]
+        public async Task<JsonResult> CreateUniversityAsync(CreateUniversity model)
         {
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
             }
             var command = new CreateUniversityCommand(model.Name, model.Country, User.GetUserId());
-            ZboxWriteService.CreateUniversity(command);
+            await ZboxWriteService.CreateUniversityAsync(command);
 
 
             var user = (ClaimsIdentity)User.Identity;

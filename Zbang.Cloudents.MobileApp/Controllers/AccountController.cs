@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
 
         [HttpPost, Route("api/account/university/create")]
-        public HttpResponseMessage CreateUniversity(CreateUniversityRequest model)
+        public async Task<HttpResponseMessage> CreateUniversityAsync(CreateUniversityRequest model)
         {
             if (model == null)
             {
@@ -126,7 +126,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
                 return Request.CreateBadRequestResponse();
             }
             var command = new CreateUniversityCommand(model.Name, model.Country, User.GetUserId());
-            m_ZboxWriteService.CreateUniversity(command);
+            await m_ZboxWriteService.CreateUniversityAsync(command);
 
             var identity = new ClaimsIdentity();
             identity.AddClaim(new Claim(ClaimConst.UserIdClaim, User.GetUserId().ToString(CultureInfo.InvariantCulture)));

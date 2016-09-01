@@ -193,18 +193,30 @@ FETCH NEXT @rowsperpage ROWS ONLY;";
 
 
 
-        public const string GetUniversityToUploadToSearch = @"select top (@top) id as Id,UniversityName as Name,LargeImage as Image,
+        public const string GetUniversitiesToUploadToSearch = @"select top (@top) id as Id,UniversityName as Name,LargeImage as Image,
 extra as Extra, Country, NoOfUsers
 from zbox.University
 where isdirty = 1 and isdeleted = 0 
 and id % @count  = @index;";
 
+        public const string GetUniversityToUploadToSearch =
+            @"select id as Id,UniversityName as Name,LargeImage as Image,
+extra as Extra, Country, NoOfUsers
+from zbox.University
+where id = @id";
 
-        public const string GetUniversityPeopleToUploadToSearch = @"select universityId, UserImageLarge as Image from (
+
+        public const string GetUniversitiesPeopleToUploadToSearch = @"select universityId, UserImageLarge as Image from (
 select userid, universityid, UserImageLarge, rowid = ROW_NUMBER() over (partition by UniversityId order by UserImageLarge desc) from zbox.Users u where UniversityId in (
 select top (@top) id
 from zbox.University u
 where isdirty = 1 and isdeleted = 0 )) t
+where t.rowid < 6";
+
+        public const string GetUniversityPeopleToUploadToSearch = @"select universityId, UserImageLarge as Image from (
+select userid, universityid, UserImageLarge, rowid = ROW_NUMBER() over (partition by UniversityId order by UserImageLarge desc)
+from zbox.Users u where UniversityId = @id
+) t
 where t.rowid < 6";
 
         public const string GetUniversitiesToDeleteFromSearch = @"select top 500 id from zbox.University

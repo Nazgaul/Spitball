@@ -116,6 +116,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             Ioc.RegisterType<IFileProcess, PreProcessFile>(nameof(ChatFileProcessData));
             Ioc.RegisterType<IFileProcess, UpdateSearchItem>(nameof(BoxFileProcessData));
+            Ioc.RegisterType<IFileProcess, UpdateSearchUniversity>(nameof(UniversityProcessData));
 
         }
 

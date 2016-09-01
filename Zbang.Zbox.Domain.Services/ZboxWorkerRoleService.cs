@@ -300,7 +300,7 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
                     foreach (var question in questions)
                     {
                         var textBefore = question.Text;
-                        question.Text = TextManipulation.EncodeText(question.Text, Question.AllowedHtmlTag);
+                        //question.Text = TextManipulation.EncodeText(question.Text, Question.AllowedHtmlTag);
 
                         if (textBefore != question.Text)
                         {

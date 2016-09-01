@@ -27,7 +27,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ZboxReadService = zboxReadService;
             m_UniversitySearchProvider = universitySearchProvider;
             m_ZboxWriteService = zboxWriteService;
-            MaxInterval = 60;
+            MaxInterval = TimeSpan.FromMinutes(10).TotalSeconds; //Remove once production is up
         }
         
 
@@ -55,7 +55,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount)
         {
             const int updatesPerCycle = 10;
-            var updates = await m_ZboxReadService.GetUniversityDirtyUpdatesAsync(instanceId, instanceCount, updatesPerCycle);
+            var updates = await m_ZboxReadService.GetUniversitiesDirtyUpdatesAsync(instanceId, instanceCount, updatesPerCycle);
             if (!updates.UniversitiesToDelete.Any() && !updates.UniversitiesToUpdate.Any()) return TimeToSleep.Increase;
             
             //TraceLog.WriteInfo(PrefixLog,
@@ -80,9 +80,22 @@ namespace Zbang.Zbox.WorkerRoleSearch
             return PrefixLog;
         }
 
-        public Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
+        public async Task<bool> ExecuteAsync(FileProcess data, CancellationToken token)
         {
-            throw new NotImplementedException();
+            var parameters = data as UniversityProcessData;
+            if (parameters == null) return true;
+
+            var elem = await m_ZboxReadService.GetUniversityDirtyUpdatesAsync(parameters.UniversityId);
+
+            var isSuccess =
+                await m_UniversitySearchProvider.UpdateDataAsync(new[] { elem }, null);
+            if (isSuccess)
+            {
+                await m_ZboxWriteService.UpdateSearchUniversityDirtyToRegularAsync(
+                    new UpdateDirtyToRegularCommand(new[] {parameters.UniversityId}));
+
+            }
+            return true;
         }
     }
 }

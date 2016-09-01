@@ -113,7 +113,7 @@ namespace Zbang.Zbox.Domain.Common
         Task CreateDepartmentAsync(AddNodeToLibraryCommand command);
 
 
-        void CreateUniversity(CreateUniversityCommand command);
+        Task CreateUniversityAsync(CreateUniversityCommand command);
 
         void ChangeOnlineStatus(ChangeUserOnlineStatusCommand command);
         //mobile

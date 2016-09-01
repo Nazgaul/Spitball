@@ -171,12 +171,12 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<UniversityToUpdateSearchDto> GetUniversityDirtyUpdatesAsync(int index, int total, int top)
+        public async Task<UniversityToUpdateSearchDto> GetUniversitiesDirtyUpdatesAsync(int index, int total, int top)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                using (var grid = await conn.QueryMultipleAsync(Search.GetUniversityToUploadToSearch +
-                                                                Search.GetUniversityPeopleToUploadToSearch +
+                using (var grid = await conn.QueryMultipleAsync(Search.GetUniversitiesToUploadToSearch +
+                                                                Search.GetUniversitiesPeopleToUploadToSearch +
                                                                 Search.GetUniversitiesToDeleteFromSearch
                     , new { index, count = total, top }))
                 {
@@ -199,7 +199,35 @@ namespace Zbang.Zbox.ReadServices
                     return retVal;
 
                 }
+            }
+        }
 
+        public async Task<UniversitySearchDto> GetUniversityDirtyUpdatesAsync(long id)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                using (var grid = await conn.QueryMultipleAsync(Search.GetUniversityToUploadToSearch +
+                                                                Search.GetUniversityPeopleToUploadToSearch
+                    , new { id }))
+                {
+                    var retVal = await grid.ReadSingleAsync<UniversitySearchDto>();
+                    //var retVal = new UniversityToUpdateSearchDto
+                    //{
+                    //    UniversitiesToUpdate = await grid.ReadAsync<UniversitySearchDto>()
+                    //};
+                    retVal.UsersImages = (await grid.ReadAsync<UserImagesForUniversitySearchDto>()).Select(s => s.Image);
+                    //var userImagesForUniversitySearchDtos = images as UserImagesForUniversitySearchDto[] ??
+                    //                                        images.ToArray();
+                    //foreach (var university in retVal.UniversitiesToUpdate)
+                    //{
+                    //    UniversitySearchDto university1 = university;
+                    //    university.UsersImages =
+                    //        userImagesForUniversitySearchDtos.Where(w => w.UniversityId == university1.Id)
+                    //            .Select(s => s.Image);
+                    //}
+                    return retVal;
+
+                }
             }
         }
 
@@ -454,7 +482,7 @@ where uniid = @UniId
 and mailbody is not null
 and mailsubject is not null
 and mailcategory is not null
-and shouldSend = 1", new { UniId = universityId}, cancellationToken: token));
+and shouldSend = 1", new { UniId = universityId }, cancellationToken: token));
             }
         }
 

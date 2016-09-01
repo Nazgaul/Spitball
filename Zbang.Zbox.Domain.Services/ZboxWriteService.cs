@@ -372,7 +372,7 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                var t1 =  m_CommandBus.SendAsync(command);
+                var t1 = m_CommandBus.SendAsync(command);
                 var t2 = m_Cache.RemoveAsync(command);
                 await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
@@ -382,7 +382,7 @@ namespace Zbang.Zbox.Domain.Services
         {
             using (UnitOfWork.Start())
             {
-                var t1 =  m_CommandBus.SendAsync(command);
+                var t1 = m_CommandBus.SendAsync(command);
                 var t2 = m_Cache.RemoveAsync(command);
                 await Task.WhenAll(t1, t2);
                 UnitOfWork.Current.TransactionalFlush();
@@ -484,11 +484,11 @@ namespace Zbang.Zbox.Domain.Services
         /// Create new university via windows app
         /// </summary>
         /// <param name="command"></param>
-        public void CreateUniversity(CreateUniversityCommand command)
+        public async Task CreateUniversityAsync(CreateUniversityCommand command)
         {
             using (UnitOfWork.Start())
             {
-                m_CommandBus.Send(command);
+                await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
         }

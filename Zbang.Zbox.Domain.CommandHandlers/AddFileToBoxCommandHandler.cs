@@ -111,18 +111,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             return fileName;
         }
 
-
-
-
-
-        //private Task TriggerCacheDocumentAsync(string blobAddress, long itemId)
-        //{
-        //    var uri = new Uri(m_BlobProvider.GetBlobUrl(blobAddress));
-
-        //    var queueMessage = new FileProcessData { BlobName = uri, ItemId = itemId };
-        //    return m_QueueProvider.InsertMessageToCacheAsync(queueMessage);
-
-        //}
         private void AddItemToTab(Guid? tabid, Item item)
         {
             if (!tabid.HasValue)

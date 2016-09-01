@@ -70,6 +70,7 @@
     <Compile Include="StatisticsData.cs" />
     <Compile Include="ChatFileProcessData.cs" />
     <Compile Include="UniversityData.cs" />
+    <Compile Include="UniversityProcessData.cs" />
     <Compile Include="UpdateData.cs" />
     <Compile Include="UrlToDownloadData.cs" />
     <Compile Include="WelcomeMailData.cs" />
