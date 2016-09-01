@@ -12,11 +12,11 @@ var app;
                 var $html = $('html');
                 var className = 'expanded-chat';
                 if (!_this.userDetailsFactory.getUniversity()) {
-                    element.hide();
+                    element.addClass('hidden');
                 }
                 _this.$rootScope.$on('change-university', function () {
                     if (_this.userDetailsFactory.getUniversity()) {
-                        element.show();
+                        element.removeClass('hidden');
                     }
                 });
                 element.on('click', function () {

@@ -136,6 +136,10 @@ body .itemPage header {
   -webkit-transition: top 0.2s ease !important;
   transition: top 0.2s ease !important;
 }
+body .box-template .status-title,
+body .box-template .status-number {
+  font-size: 12px;
+}
 body .box-template .number {
   text-transform: capitalize;
 }

@@ -100,6 +100,12 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+@media (max-width: 600px) {
+  .homePage .home-page-body > section,
+  .homePage .home-page-body footer {
+    padding: 30px 5%;
+  }
+}
 .homePage .home-page-body section {
   position: relative;
 }
@@ -678,6 +684,7 @@
 @media (max-width: 600px) {
   .homePage .home-page-body section.intro .text {
     font-size: 4.5vmin;
+    margin-top: 30px;
   }
 }
 .homePage .home-page-body section.intro .video-image {

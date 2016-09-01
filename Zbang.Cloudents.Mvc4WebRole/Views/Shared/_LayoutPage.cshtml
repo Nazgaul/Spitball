@@ -40,7 +40,7 @@
 
     <header id="main-nav" class="nav-bar backgroundTC19" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
         <div class="logo-search" layout="row" layout-align="start center" flex="100">
-            <button type="button" ng-if="app.showMenu" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" hide-chat-on-mobile="click" ga-track-event="['header', 'open menu']">
+            <button hide-gt-sm type="button" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" hide-chat-on-mobile="click" ga-track-event="['header', 'open menu']">
                 @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu svgTC17 hoverSvgTC18" })
             </button>
             <div class="logo">
@@ -51,7 +51,7 @@
                     </a>
                 </div>
             </div>
-            <div ui-view="search-bar"></div>
+            <div class="search-form-wrapper" ui-view="search-bar"></div>
 
         </div>
         <div ui-view="user-profile"></div>
