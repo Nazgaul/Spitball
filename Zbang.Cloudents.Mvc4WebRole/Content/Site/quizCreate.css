@@ -1,4 +1,40 @@
-﻿.quiz-create header {
+﻿.full-screen {
+  z-index: 20;
+  background: #f5f5f5;
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+}
+.full-screen header {
+  top: 0;
+  color: #f5f5f5;
+  background-color: #323538;
+  border-bottom: 5px solid #282828;
+  height: 70px;
+  line-height: 65px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  font-size: 20px;
+  z-index: 5;
+}
+.full-screen header .close {
+  opacity: 0.7;
+}
+.full-screen header .close:hover {
+  opacity: 1;
+}
+.full-screen .full-screen-body {
+  margin-top: 70px;
+  min-height: calc( 100% - 80px);
+  margin-bottom: 80px;
+}
+.quiz-create header {
   padding: 0 25px;
 }
 .quiz-create md-toast.md-default-theme .md-toast-content,

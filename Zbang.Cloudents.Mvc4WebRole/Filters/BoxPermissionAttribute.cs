@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Exceptions;
@@ -22,7 +21,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
         //[Dependency]
         public IZboxReadSecurityReadService ZboxReadService { get; set; }
 
-        
+
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {

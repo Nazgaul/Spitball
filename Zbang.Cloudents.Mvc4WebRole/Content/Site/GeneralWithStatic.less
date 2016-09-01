@@ -1,0 +1,95 @@
+﻿@import "variables.less";
+button {
+    border: 0;
+    background: transparent;
+    outline: none;
+}
+
+a {
+    &:hover, &:focus {
+        text-decoration: none;
+    }
+}
+
+input, li, [contenteditable], span, textarea, [role="button"] {
+    outline: 0;
+}
+
+html {
+    background: transparent;
+}
+
+body {
+    //this cause the md dialog not to show on scroll page
+    //max-width: 100vw;
+    //overflow-x: hidden; //this cause the md dialog not to show on scroll page
+    //For header collapse in itemPage
+    margin-top: 0;
+    .transition(margin-top, 0.2s, ease);
+}
+.blue-button {
+    .colored-button(@textColorLike, @textColorWhite)
+}
+
+.mdno-touchevents .blue-button {
+    .colored-button-hover(@buttonColorHover, @textColorWhite);
+}
+
+
+.grey-button {
+    .colored-button(@textColorLightGrey, @textColorBlack);
+}
+
+.mdno-touchevents .grey-button {
+    .colored-button-hover(@backgroundColor2, @textColorBlack);
+}
+
+
+.mdno-touchevents {
+    ::-webkit-scrollbar-track {
+        border: none;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background: @scrollbarColor;
+    }
+}
+//google sign in fix
+#ssIFrame_google {
+    left: -9999px !important;
+}
+.button-Blue {
+    background: @buttonColorBlue !important;
+    text-transform: initial;
+
+    &:hover {
+        background: @buttonColorHover !important;
+        color: @textColorWhite !important;
+    }
+}
+//footer arrow up
+
+.page-footer {
+    .scroll-to-top {
+        -moz-transform: rotate(270deg) /*rtl:ignore*/;
+        -ms-transform: rotate(270deg) /*rtl:ignore*/;
+        -o-transform: rotate(270deg) /*rtl:ignore*/;
+        -webkit-transform: rotate(270deg) /*rtl:ignore*/;
+        transform: rotate(270deg) /*rtl:ignore*/;
+
+        svg {
+            width: 32px;
+            height: 32px;
+            fill: @borderColorBlue;
+        }
+    }
+}
+#intercom-container, #intercom-launcher {
+    z-index: 120;
+}

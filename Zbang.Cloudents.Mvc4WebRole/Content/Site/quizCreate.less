@@ -1,5 +1,45 @@
 ﻿@import "variables.less";
 
+.full-screen {
+    .fullScreen();
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+
+    header {
+        top: 0;
+        color: @textColorWhite;
+        background-color: @backgroundColorMenu;
+        border-bottom: 5px solid @borderColorBlack;
+        height: @fullScreenHeaderHeight;
+        line-height: @fullScreenHeaderHeight - 5;
+        position: fixed;
+        left: 0;
+        right: 0;
+        font-size: 20px;
+        z-index: 5;
+
+        .close {
+            opacity: 0.7;
+
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+
+    .full-screen-body {
+        margin-top: @fullScreenHeaderHeight;
+        min-height: ~"calc( 100% - 80px)";
+        margin-bottom: 80px; //so intercom icon wont clash with page's items
+    }
+}
+
 .quiz-create {
     header {
         padding: 0 25px;

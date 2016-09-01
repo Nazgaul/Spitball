@@ -49,39 +49,3 @@
         .module("app.chat")
         .directive("chatTimeAgo", ChatTimeAgo.factory());
 };
-
-
-//(function () {
-//    angular.module('app.chat').directive('chatTimeAgo2', timeAgo);
-
-//    timeAgo.$inject = ['timeAgo', 'nowTime'];
-//    function timeAgo(timeAgo, nowTime) {
-//        return {
-//            scope: {
-//                fromTime: '@',
-//                format: '@'
-//            },
-//            restrict: 'EA',
-//            link: function (scope, elem) {
-//                var fromTime;
-
-//                // Track changes to fromTime
-//                scope.$watch('fromTime', function () {
-//                    fromTime = timeAgo.parse(scope.fromTime);
-//                });
-
-//                // Track changes to time difference
-//                scope.$watch(function () {
-//                    return nowTime() - fromTime;
-//                }, function (value) {
-//                    var threeDaysInMilliseconds = 2.592e+8;
-//                    if (value > threeDaysInMilliseconds) {
-//                        angular.element(elem).text('');
-//                        return;
-//                    }
-//                    angular.element(elem).text(timeAgo.inWords(value, fromTime, scope.format));
-//                });
-//            }
-//        };
-//    }
-//})();

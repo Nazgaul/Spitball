@@ -36,17 +36,7 @@
 
 
 //override properties
-button {
-    border: 0;
-    background: transparent;
-    outline: none;
-}
 
-a {
-    &:hover, &:focus {
-        text-decoration: none;
-    }
-}
 
 ol {
     padding: 0;
@@ -56,13 +46,9 @@ em {
     font-style: normal;
 }
 
-/*h5 {
-    margin: 0;
-}*/
 
-input, li, [contenteditable], span, textarea, [role="button"] {
-    outline: 0;
-}
+
+
 
 input[type="search"] {
     -moz-box-sizing: border-box;
@@ -73,17 +59,15 @@ input[type="search"] {
     -webkit-appearance: none;
 }
 
-html {
-    background: transparent;
-}
+
 
 body {
     //this cause the md dialog not to show on scroll page
     //max-width: 100vw;
     //overflow-x: hidden; //this cause the md dialog not to show on scroll page
     //For header collapse in itemPage
-    margin-top: 0;
-    .transition(margin-top, 0.2s, ease);
+    //margin-top: 0;
+    //.transition(margin-top, 0.2s, ease);
 
 
     &.collapseHeader {
@@ -183,55 +167,7 @@ body {
 }
 
 
-.blue-button {
-    .colored-button(@textColorLike, @textColorWhite)
-}
 
-.mdno-touchevents .blue-button {
-    .colored-button-hover(@buttonColorHover, @textColorWhite);
-}
-
-
-.grey-button {
-    .colored-button(@textColorLightGrey, @textColorBlack);
-}
-
-.mdno-touchevents .grey-button {
-    .colored-button-hover(@backgroundColor2, @textColorBlack);
-}
-//create
-/*.create {
-    background: @color4;
-    //height: 475px;
-    h5 {
-        display: inline-block;
-        font-size: 18px;
-        margin: 15px 0 0 20px;
-    }
-    .content {
-        width: ~"calc( 100% - 20px)";
-        height: ~"calc( 100% - 60px)";
-        margin: 10px;
-        background: #212427;
-    }
-}*/
-//scroll
-
-.mdno-touchevents {
-    ::-webkit-scrollbar-track {
-        border: none;
-    }
-
-    ::-webkit-scrollbar {
-        width: 10px;
-        height: 6px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-        background: @scrollbarColor;
-    }
-}
 
 //loader
 .circle-loading {
@@ -296,10 +232,7 @@ body {
         fill: @textColorWhite;
     }
 }
-//google sign in fix
-#ssIFrame_google {
-    left: -9999px !important;
-}
+
 
 .create-box {
     &:hover {
@@ -427,59 +360,59 @@ body {
 }
 
 
-.full-screen {
-    .fullScreen();
-    position: fixed;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    overflow-y: auto;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-
-    &.itemPage {
-        top: 0;
-
-        header > div {
-            height: @fullScreenHeaderHeight;
-        }
-    }
-
-    &.quizPage {
-        top: 0;
-        padding-bottom: 80px; //for intercom
-    }
-
-
-    header {
-        top: 0;
-        color: @textColorWhite;
-        background-color: @backgroundColorMenu;
-        border-bottom: 5px solid @borderColorBlack;
-        height: @fullScreenHeaderHeight;
-        line-height: @fullScreenHeaderHeight - 5;
-        position: fixed;
-        left: 0;
-        right: 0;
-        font-size: 20px;
-        z-index: 5;
-
-        .close {
-            opacity: 0.7;
-
-            &:hover {
-                opacity: 1;
-            }
-        }
-    }
-
-    .full-screen-body {
-        margin-top: @fullScreenHeaderHeight;
-        min-height: ~"calc( 100% - 80px)";
-        margin-bottom: 80px; //so intercom icon wont clash with page's items
-    }
-}
+//.full-screen {
+//    .fullScreen();
+//    position: fixed;
+//    right: 0;
+//    left: 0;
+//    bottom: 0;
+//    overflow-y: auto;
+//    height: 100vh;
+//    width: 100vw;
+//    top: 0;
+//
+//    /*&.itemPage {
+//        top: 0;
+//
+//        header > div {
+//            height: @fullScreenHeaderHeight;
+//        }
+//    }
+//
+//    &.quizPage {
+//        top: 0;
+//        padding-bottom: 80px; 
+//    }*/
+//
+//
+//    header {
+//        top: 0;
+//        color: @textColorWhite;
+//        background-color: @backgroundColorMenu;
+//        border-bottom: 5px solid @borderColorBlack;
+//        height: @fullScreenHeaderHeight;
+//        line-height: @fullScreenHeaderHeight - 5;
+//        position: fixed;
+//        left: 0;
+//        right: 0;
+//        font-size: 20px;
+//        z-index: 5;
+//
+//        .close {
+//            opacity: 0.7;
+//
+//            &:hover {
+//                opacity: 1;
+//            }
+//        }
+//    }
+//
+//    .full-screen-body {
+//        margin-top: @fullScreenHeaderHeight;
+//        min-height: ~"calc( 100% - 80px)";
+//        margin-bottom: 80px; //so intercom icon wont clash with page's items
+//    }
+//}
 
 // md-scroll-mask also got z-index of 99 for fixing the floating menu issue on scroll.
 .md-dialog-container {
@@ -603,22 +536,11 @@ body {
     fill: @svgDots;
 }
 
-.button-Blue {
-    background: @buttonColorBlue !important;
-    text-transform: initial;
 
-    &:hover {
-        background: @buttonColorHover !important;
-        color: @textColorWhite !important;
-    }
-    /*&:focus {
-        color: inherit;
-    }*/
-}
 
 
 // moved from components rouned
-.tab-from-r {
+/*.tab-from-r {
     background: none;
     margin: 0;
     float: right;
@@ -672,7 +594,7 @@ body {
             }
         }
     }
-}
+}*/
 
 .nav-tabs, .tabbable {
     background: @backgroundColorMenu;
@@ -748,23 +670,7 @@ md-menu-item {
     height: 36px;
 }
 
-//footer arrow up
 
-.page-footer {
-    .scroll-to-top {
-        -moz-transform: rotate(270deg) /*rtl:ignore*/;
-        -ms-transform: rotate(270deg) /*rtl:ignore*/;
-        -o-transform: rotate(270deg) /*rtl:ignore*/;
-        -webkit-transform: rotate(270deg) /*rtl:ignore*/;
-        transform: rotate(270deg) /*rtl:ignore*/;
-
-        svg {
-            width: 32px;
-            height: 32px;
-            fill: @borderColorBlue;
-        }
-    }
-}
 
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
 md-input-container:not(.md-input-invalid).md-input-focused label {
@@ -810,9 +716,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 
 
-#intercom-container, #intercom-launcher {
-    z-index: 120;
-}
+
 
 
 //add section
@@ -827,18 +731,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
     text-align: center;
 }
 
-/*.i-student-ad {
-    padding: 12px;
 
-    a {
-        display: inline-block;
-        width: 100%;
-    }
-
-    img {
-        max-width: 100%;
-    }
-}*/
 
 
 

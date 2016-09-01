@@ -38,7 +38,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_CookieHelper = cookieHelper;
         }
 
-        [DonutOutputCache(CacheProfile = "HomePage"), ActionName("Index"), HttpGet]
+        [UniversityCookieInject("universityName", Order = 1)]
+        [DonutOutputCache(CacheProfile = "HomePage", Order = 2), ActionName("Index"), HttpGet]
         public async Task<ActionResult> IndexAsync(string invId, string universityName, string step)
         {
             if (User.Identity.IsAuthenticated)
@@ -47,16 +48,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             ViewBag.title = SeoResources.HomePageTitle;
             ViewBag.metaDescription = SeoResources.HomePageMeta;
-            long? universityId = null;
-            if (!string.IsNullOrEmpty(universityName))
+
+            var university = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
+
+            if (!string.IsNullOrEmpty(universityName) && university == null)
             {
-                universityId = await ZboxReadService.GetUniversityIdByUrlAsync(universityName);
-                if (!universityId.HasValue)
-                {
-                    return RedirectToRoute("homePage", new { invId});
-                }
-                m_CookieHelper.InjectCookie(UniversityCookie.CookieName, new UniversityCookie { UniversityId = universityId.Value});
+                return RedirectToRoute("homePage", new { invId });
             }
+            //long? universityId = null;
+
             if (!string.IsNullOrEmpty(invId))
             {
                 var guid = GuidEncoder.TryParseNullableGuid(invId);
@@ -65,12 +65,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     m_CookieHelper.InjectCookie(Invite.CookieName, new Invite { InviteId = guid.Value });
                 }
             }
-            var query = new GetHomePageQuery(universityId);
+            var query = new GetHomePageQuery(university?.UniversityId);
             var homeStats = await ZboxReadService.GetHomePageDataAsync(query);
 
             return View("Index", homeStats);
         }
-       
+
 
         //TODO: add cache on this
         [ActionName("Boxes"), HttpGet]
@@ -399,7 +399,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         //    return Content(sb.ToString(), "application/javascript");
         //}
 
-        
+
 
 
         [AllowAnonymous]

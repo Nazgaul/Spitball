@@ -110,5 +110,9 @@
   {
     "outputFile": "Content/Site/quizCreate.css",
     "inputFile": "Content/Site/quizCreate.less"
+  },
+  {
+    "outputFile": "Content/Site/GeneralWithStatic.css",
+    "inputFile": "Content/Site/GeneralWithStatic.less"
   }
 ]

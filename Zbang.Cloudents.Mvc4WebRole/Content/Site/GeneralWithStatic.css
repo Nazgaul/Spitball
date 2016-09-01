@@ -1,0 +1,93 @@
+﻿button {
+  border: 0;
+  background: transparent;
+  outline: none;
+}
+a:hover,
+a:focus {
+  text-decoration: none;
+}
+input,
+li,
+[contenteditable],
+span,
+textarea,
+[role="button"] {
+  outline: 0;
+}
+html {
+  background: transparent;
+}
+body {
+  margin-top: 0;
+  -moz-transition: margin-top 0.2s ease !important;
+  -o-transition: margin-top 0.2s ease !important;
+  -webkit-transition: margin-top 0.2s ease !important;
+  transition: margin-top 0.2s ease !important;
+}
+.blue-button {
+  background: #4190b9;
+  color: #f5f5f5;
+  padding: 0 16px;
+  line-height: 25px;
+  height: 25px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.mdno-touchevents .blue-button:hover {
+  background: #26566e;
+  color: #f5f5f5;
+}
+.grey-button {
+  background: #c3c3c3;
+  color: #282828;
+  padding: 0 16px;
+  line-height: 25px;
+  height: 25px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.mdno-touchevents .grey-button:hover {
+  background: #9E9E9E;
+  color: #282828;
+}
+.mdno-touchevents ::-webkit-scrollbar-track {
+  border: none;
+}
+.mdno-touchevents ::-webkit-scrollbar {
+  width: 10px;
+  height: 6px;
+}
+.mdno-touchevents ::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(157, 153, 156, 0.5);
+}
+#ssIFrame_google {
+  left: -9999px !important;
+}
+.button-Blue {
+  background: #4190b9 !important;
+  text-transform: initial;
+}
+.button-Blue:hover {
+  background: #26566e !important;
+  color: #f5f5f5 !important;
+}
+.page-footer .scroll-to-top {
+  -moz-transform: rotate(270deg) /*rtl:ignore*/;
+  -ms-transform: rotate(270deg) /*rtl:ignore*/;
+  -o-transform: rotate(270deg) /*rtl:ignore*/;
+  -webkit-transform: rotate(270deg) /*rtl:ignore*/;
+  transform: rotate(270deg) /*rtl:ignore*/;
+}
+.page-footer .scroll-to-top svg {
+  width: 32px;
+  height: 32px;
+  fill: #3598dc;
+}
+#intercom-container,
+#intercom-launcher {
+  z-index: 120;
+}

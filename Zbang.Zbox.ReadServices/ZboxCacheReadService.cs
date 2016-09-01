@@ -401,9 +401,9 @@ namespace Zbang.Zbox.ReadServices
             return m_Cache.QueryAsync(m_ReadService.GetUniversityBoxesAsync, query);
         }
 
-        public Task<long?> GetUniversityIdByUrlAsync(string url)
+        public long? GetUniversityIdByUrl(string url)
         {
-            return m_ReadService.GetUniversityIdByUrlAsync(url);
+            return m_ReadService.GetUniversityIdByUrl(url);
         }
 
         public Task<IEnumerable<RecommendBoxDto>> GetCoursesPageDataAsync()

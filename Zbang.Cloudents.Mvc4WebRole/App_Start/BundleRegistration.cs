@@ -18,7 +18,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 ["homePage"] = new[]
                     {
-                        "~/content/site/general.css",
+
+                        "~/content/site/GeneralWithStatic.css",
+                        //"~/content/site/general.css",
+
                         "~/content/homepage/homePage2.css",
                         "~/content/site/staticPage.css",
                         "~/content/site/layout.css",
@@ -29,7 +32,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 ["staticPage"] = new[]
                     {
-                        "~/content/site/general.css",
+                        "~/content/site/GeneralWithStatic.css",
+                        //"~/content/site/general.css",
                         "~/content/site/staticPage.css",
                         "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
                         "~/content/site/layout.css",
@@ -49,6 +53,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 ["site4"] = new[]
                     {
+                        
                         "~/content/site/angularWithChanges2.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         "~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
@@ -61,6 +66,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         "~/content/site/menu.css",
                         "~/content/site/chat.css",
                         "~/content/site/header.css",
+                        "~/content/site/GeneralWithStatic.css",
                         "~/content/site/general.css", // this should be on top
                         "~/content/site/angularMaterialOverride.css",
                         "~/content/site/dashboard.css",
