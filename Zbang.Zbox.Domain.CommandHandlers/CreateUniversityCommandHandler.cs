@@ -40,6 +40,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_UniversityRepository.Save(university);
 
             }
+            if (university.IsDeleted)
+            {
+                university.IsDeleted = false;
+                m_UniversityRepository.Save(university);
+            }
             user.UpdateUniversity(university, null);
             message.Id = university.Id;
             m_UserRepository.Save(user);
