@@ -38,10 +38,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
 
             var quiz = m_QuizRepository.Load(message.QuizId); // need that because we save box
             var userType = m_UserRepository.GetUserToBoxRelationShipType(message.UserId, quiz.Box.Id);
-
+            var user = m_UserRepository.Load(message.UserId);
             bool isAuthorize = userType == UserRelationshipType.Owner
-               || Equals(quiz.Owner.Id, message.UserId)
-               || quiz.Owner.IsAdmin();
+               || Equals(quiz.Owner, user)
+               || user.IsAdmin();
 
             if (!isAuthorize)
             {

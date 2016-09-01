@@ -302,8 +302,8 @@ module app {
                 case ValidQuestion.AnswerNeedText:
                     this.error = this.resManager.get("quizCreateNeedAnswerText");
                     break;
-                case ValidQuestion.QuestionNeedText,
-                    ValidQuestion.EmptyQuestion:
+                case ValidQuestion.QuestionNeedText:
+                case ValidQuestion.EmptyQuestion:
                     this.error = this.resManager.get("quizCreateNeedQuestionText");
                     break;
                 case ValidQuestion.QuestionCorrectAnswer:
@@ -419,6 +419,8 @@ module app {
 
         publish() {
             if (!this.quizData.name) {
+                var form: angular.IFormController = this.$scope['quizName'];
+                form["name"].$setValidity("required", false);
                 return;
             }
             var $qArray = [this.$q.when()];

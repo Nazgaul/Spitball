@@ -263,8 +263,8 @@ var app;
                 case ValidQuestion.AnswerNeedText:
                     this.error = this.resManager.get("quizCreateNeedAnswerText");
                     break;
-                case ValidQuestion.QuestionNeedText,
-                    ValidQuestion.EmptyQuestion:
+                case ValidQuestion.QuestionNeedText:
+                case ValidQuestion.EmptyQuestion:
                     this.error = this.resManager.get("quizCreateNeedQuestionText");
                     break;
                 case ValidQuestion.QuestionCorrectAnswer:
@@ -354,6 +354,8 @@ var app;
         QuizCreateController.prototype.publish = function () {
             var _this = this;
             if (!this.quizData.name) {
+                var form = this.$scope['quizName'];
+                form["name"].$setValidity("required", false);
                 return;
             }
             var $qArray = [this.$q.when()];

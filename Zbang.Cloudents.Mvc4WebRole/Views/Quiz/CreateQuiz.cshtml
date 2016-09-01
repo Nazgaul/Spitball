@@ -25,7 +25,7 @@
                    placeholder="@QuizResources.EnterQuizName" autofocus required ng-model="q.quizData.name"
                    ng-model-options="{ updateOn: 'default blur', debounce: { default: 500, blur: 0 } }" ng-blur="q.quizNameDisabled = true" />
             <button type="button" ng-click="q.quizNameDisabled = false">@Html.Svg("~/images/site/icons.svg", "edit")</button>
-            <div class="error-message" ng-messages="quizName.name.$error">
+            <div class="error-message show" ng-messages="quizName.name.$error" ng-show="true">
                 <div ng-message="required">@GeneralResources.RequiredField</div>
             </div>
         </md-input-container>
