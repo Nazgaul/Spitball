@@ -9,7 +9,6 @@ var app;
         ValidQuestion[ValidQuestion["EmptyQuestion"] = 5] = "EmptyQuestion";
         ValidQuestion[ValidQuestion["Ok"] = 6] = "Ok";
     })(ValidQuestion || (ValidQuestion = {}));
-    //var emptyForm = true;
     var quizId;
     var saveInProgress = false;
     var canNavigateBack = false;
@@ -291,8 +290,6 @@ var app;
             var canEdit = true;
             var i = this.quizData.questions.length;
             while (i--) {
-                //}
-                //for (let i = 0; i < this.quizData.questions.length; i++) {
                 var question_1 = this.quizData.questions[i];
                 var validQuestion = question_1.validQuestion();
                 if (validQuestion === ValidQuestion.Ok) {
@@ -310,10 +307,6 @@ var app;
                 if (question.id) {
                     this.quizService.deleteQuestion(question.id);
                 }
-                //const valid = question.validQuestion();
-                //if (valid === ValidQuestion.EmptyQuestion) {
-                //    this.removeQuestionFromArray(question);
-                //}
                 angular.forEach(question.answers, function (a) {
                     a.id = null;
                 });
@@ -395,4 +388,3 @@ var app;
     }());
     angular.module('app.quiz.create').controller('QuizCreateController', QuizCreateController);
 })(app || (app = {}));
-//# sourceMappingURL=quizCreate2.controller.js.map

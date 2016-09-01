@@ -671,15 +671,6 @@
     <Content Include="Content\Bootstrap\bootstrap.rtl.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
-    <Content Include="Content\HomePage\homePage.css">
-      <DependentUpon>homePage.less</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\homePage.min.css">
-      <DependentUpon>homePage.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\homePage.rtl.css">
-      <DependentUpon>homePage.css</DependentUpon>
-    </Content>
     <Content Include="Content\HomePage\homePage2.css">
       <DependentUpon>homePage2.less</DependentUpon>
     </Content>
@@ -754,46 +745,7 @@
     <Content Include="Content\HomePage\bootstrap.rtl.min.css">
       <DependentUpon>bootstrap.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\HomePage\extras.css">
-      <DependentUpon>extras.less</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\extras.min.css">
-      <DependentUpon>extras.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\extras.rtl.css">
-      <DependentUpon>extras.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\extras.rtl.min.css">
-      <DependentUpon>extras.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\landing.css">
-      <DependentUpon>landing.less</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\landing.min.css">
-      <DependentUpon>landing.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\landing.rtl.css">
-      <DependentUpon>landing.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\landing.rtl.min.css">
-      <DependentUpon>landing.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\theme.css">
-      <DependentUpon>theme.less</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\theme.min.css">
-      <DependentUpon>theme.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\theme.rtl.css">
-      <DependentUpon>theme.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\theme.rtl.min.css">
-      <DependentUpon>theme.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\HomePage\bootstrap.less" />
-    <Content Include="Content\HomePage\extras.less" />
-    <Content Include="Content\HomePage\landing.less" />
-    <Content Include="Content\HomePage\theme.less" />
     <Content Include="bower.json" />
     <Content Include="bower_components\font-awesome\.bower.json" />
     <Content Include="bower_components\font-awesome\.npmignore" />
@@ -1555,7 +1507,6 @@
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\app.config.ts" />
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
-    <TypeScriptCompile Include="Js\components\box\scrollToggle.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.factory.ts" />
     <TypeScriptCompile Include="Js\components\chat\chatTimeAgo.ts" />
     <TypeScriptCompile Include="Js\components\chat\hubFactory.ts" />
@@ -1570,6 +1521,7 @@
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
     <TypeScriptCompile Include="Js\shared\ajaxService2.ts" />
     <TypeScriptCompile Include="Js\shared\history.ts" />
+    <TypeScriptCompile Include="Js\shared\loader.ts" />
     <TypeScriptCompile Include="Js\shared\resourceManager.ts" />
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
     <Content Include="Scripts\angular-animate.js" />
@@ -2400,7 +2352,6 @@
     <Content Include="Js\shared\dropbox.js" />
     <Content Include="Js\shared\focusMe.js" />
     <Content Include="Js\shared\google.js" />
-    <Content Include="Js\shared\loader.js" />
     <Content Include="Js\shared\megaNumbers.js" />
     <Content Include="Js\shared\userimage.js" />
     <Content Include="Js\shared\versionChecker.js" />
@@ -2459,7 +2410,6 @@
     <Content Include="Content\Site\themeSelector.png.scss">
       <DependentUpon>themeSelector.png</DependentUpon>
     </Content>
-    <Content Include="Content\HomePage\homePage.less" />
     <Content Include="Content\Site\feed.less" />
     <Content Include="Content\Bootstrap\config.json" />
     <Content Include="Content\Site\accordion.less" />

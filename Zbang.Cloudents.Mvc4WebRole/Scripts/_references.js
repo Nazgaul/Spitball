@@ -102,7 +102,6 @@
 /// <reference path="../js/shared/itemthumbnail.js" />
 /// <reference path="../js/shared/keyboardaction.directive.js" />
 /// <reference path="../js/shared/languagehandler.js" />
-/// <reference path="../js/shared/loader.js" />
 /// <reference path="../js/shared/meganumbers.js" />
 /// <reference path="../js/shared/menuad.directive.js" />
 /// <reference path="../js/shared/notification.js" />
