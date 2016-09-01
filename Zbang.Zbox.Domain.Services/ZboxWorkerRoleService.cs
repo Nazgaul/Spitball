@@ -288,24 +288,48 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
         {
             using (var unitOfWork = UnitOfWork.Start())
             {
-                var query =
-                    UnitOfWork.CurrentSession.QueryOver<CommentReply>()
-                        .Where(Restrictions.On<CommentReply>(x => x.Text).IsLike("%quot;%")).Take(100);
+                var i = 0;
+                var query = UnitOfWork.CurrentSession.QueryOver<Question>()
+                    //.Where(w => w.Quiz.Id == 13970)
+                    .Where(w => w.Text.IsLike("%<%"));
+                    
 
-                var comments = query.List();
+                var questions = query.Skip(i * 100).Take(100).List();
                 do
                 {
-                    foreach (var comment in comments)
+                    foreach (var question in questions)
                     {
-                        //comment.Text = Infrastructure.TextManipulation.RemoveHtmlTags.Replace(comment.Text, string.Empty);
-                        comment.Text = WebUtility.HtmlDecode(comment.Text);
+                        var textBefore = question.Text;
+                        question.Text = TextManipulation.EncodeText(question.Text, Question.AllowedHtmlTag);
 
-                        UnitOfWork.CurrentSession.Save(comment);
-
+                        if (textBefore != question.Text)
+                        {
+                            UnitOfWork.CurrentSession.Save(question);
+                        }
                     }
                     unitOfWork.TransactionalFlush();
-                    comments = query.List();
-                } while (comments.Count > 0);
+                    i++;
+                    questions = query.Skip(i * 100).Take(100).List();
+                } while (questions.Count > 0);
+
+                //var query =
+                //    UnitOfWork.CurrentSession.QueryOver<CommentReply>()
+                //        .Where(Restrictions.On<CommentReply>(x => x.Text).IsLike("%quot;%")).Take(100);
+
+                //var comments = query.List();
+                //do
+                //{
+                //    foreach (var comment in comments)
+                //    {
+                //        //comment.Text = Infrastructure.TextManipulation.RemoveHtmlTags.Replace(comment.Text, string.Empty);
+                //        comment.Text = WebUtility.HtmlDecode(comment.Text);
+
+                //        UnitOfWork.CurrentSession.Save(comment);
+
+                //    }
+                //    unitOfWork.TransactionalFlush();
+                //    comments = query.List();
+                //} while (comments.Count > 0);
 
             }
         }

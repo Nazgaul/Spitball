@@ -54,7 +54,7 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
                     dbi.SchemaAction = SchemaAutoAction.Validate;
                     dbi.BatchSize = 250;
 #if DEBUG
-                    //dbi.LogSqlInConsole = true;
+                    dbi.LogSqlInConsole = true;
                     dbi.LogFormattedSql = true;
 #endif
                 });

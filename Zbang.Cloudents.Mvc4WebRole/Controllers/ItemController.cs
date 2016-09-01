@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -192,7 +193,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [HttpGet, ActionName("Comment")]
         [BoxPermission("boxId")]
-        public async Task<ActionResult> CommentsAsync(long itemId,long boxId, CancellationToken cancellationToken)
+        public async Task<ActionResult> CommentsAsync(long itemId, long boxId, CancellationToken cancellationToken)
         {
             //var userId = User.GetUserId(false);
             var result = await ZboxReadService.GetItemCommentsAsync(new ItemCommentQuery(itemId));
@@ -209,8 +210,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("Item/{universityName}/{boxId:long}/{boxName}/{itemid:long:min(0)}/{itemName}/download", Name = "ItemDownload")]
         [Route("D/{boxId:long:min(0)}/{itemId:long:min(0)}", Name = "ItemDownload2")]
         [NoEtag, ActionName("Download")]
-        [BoxPermission("boxId", Order = 1)]
-        [RemoveBoxCookie(Order = 2)]
+        [BoxPermission("boxId")]
+        [RemoveBoxCookie]
         public async Task<ActionResult> DownloadAsync(long boxId, long itemId)
         {
             //const string defaultMimeType = "application/octet-stream";
@@ -228,15 +229,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     }));
             var t2 = ZboxReadService.GetItemDetailApiAsync(query);
             var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
-            var t3 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
+            var userType = ViewBag.UserType as UserRelationshipType?;
+            var t3 = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            if (!userType.HasValue || (int)userType.Value < 2)
+            {
+                t3 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
+            }
+
             await Task.WhenAll(t1, t2, t3);
             var item = t2.Result;
             if (item.Type == "Link")
             {
                 return Redirect(item.Source);
             }
+
+            var nameToDownload = Path.GetFileNameWithoutExtension(item.Name);
+            var extension = Path.GetExtension(item.Source);
             var url = m_BlobProviderFiles.GenerateSharedAccressReadPermission(item.Source, 30,
-                 ContentDispositionUtil.GetHeaderValue(item.Name));
+                 ContentDispositionUtil.GetHeaderValue(nameToDownload + extension));
             return Redirect(url);
         }
 

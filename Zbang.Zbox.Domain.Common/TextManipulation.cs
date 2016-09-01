@@ -66,7 +66,7 @@ namespace Zbang.Zbox.Domain.Common
                     index = str.IndexOf($"&lt;{allowElement}", StringComparison.Ordinal);
                 }
             }
-            return sb.ToString();
+            return Regex.Replace(sb.ToString(), "<(\\w+)\\b(?:\\s+[\\w\\-.:]+(?:\\s*=\\s*(?:\"[^\"]*\"|\"[^\"]*\"|[\\w\\-.:]+))?)*\\s*\\/?>\\s*<\\/\\1\\s*>", string.Empty);
         }
 
 
@@ -87,7 +87,7 @@ namespace Zbang.Zbox.Domain.Common
         //    return sb.ToString();
         //}
 
-        
+
     }
 
 }

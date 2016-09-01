@@ -469,6 +469,7 @@ md-menu-item.blue svg {
   width: 100%;
   left: 0;
   padding: 0 10px;
+  z-index: -1;
 }
 @media (min-width: 890px) {
   .itemPage .arrows {

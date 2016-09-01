@@ -17,6 +17,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Zbang.Zbox.Domain.Common;
 using File = System.IO.File;
 
 namespace Testing
@@ -149,13 +150,15 @@ namespace Testing
             //CastingPerformance();
             //log4net.Config.XmlConfigurator.Configure();
 
-            //var iocFactory = IocFactory.IocWrapper;
+            var iocFactory = IocFactory.IocWrapper;
+            var service = iocFactory.Resolve<IZboxWorkerRoleService>();
+            service.OneTimeDbi();
             //var clusterflunkFilesCopy = new ClusterflunkFilesCopy(iocFactory);
             //var t1 = clusterflunkFilesCopy.BuildBoxesAsync();
             //t1.Wait();
             //var t = clusterflunkFilesCopy.BuildFilesAsync();
             //t.Wait();
-            Application.Run(new Form1());
+            //Application.Run(new Form1());
             //Console.WriteLine("Finish");
             //Console.ReadLine();
 

@@ -18,7 +18,7 @@
                 name = "DefaultUni5.jpg";
             }
             //&cropxunits=100&cropyunits=100&crop=0,0,0,-30
-            return 'https://az779114.vo.msecnd.net/universities/cover/' + encodeURIComponent(name) + '?mode=crop&anchor=topcenter&width=' + width + '&height=' + height;
+            return 'https://az779114.vo.msecnd.net/universities/cover/' + encodeURIComponent(name) + '?mode=crop&width=' + width + '&height=' + height;
         }
         function getChat(name) {
             if (!name) {
