@@ -4,9 +4,9 @@
     var shouldPostBack = ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 <script type="text/ng-template" id="menu.html">
-    <md-sidenav @*ng-show="app.showMenu"*@ ng-cloak class="main-md-sidenav backgroundTC36"
+    <md-sidenav class="main-md-sidenav backgroundTC36"
                 md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" close-menu="left">
-        <md-content role="navigation" @*ng-controller="SideMenu as d"*@>
+        <md-content role="navigation">
             <ul class="side-menu" ng-scrollbars ng-scrollbars-config="d.updateScrollbar" disable-touch>
                 <li class="dashboard nav-item">
                     <md-button user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.Action("Index", "Dashboard")')}" @shouldPostBack href="@Url.Action("Index", "Dashboard")">

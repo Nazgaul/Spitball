@@ -38,13 +38,18 @@
                     },
                     "search-bar": {
                         controller: "SearchTriggerController as st",
-                        //template: '<div>hi</div>'
-                        templateUrl: "search-bar.html"
+                        templateProvider: [
+                       'user', function (user) {
+                           if (user.id) {
+                               return "search-bar.html";
+                           }
+                       }]
                     },
                     "menu": {
                         controller: "SideMenu as d",
                         templateUrl: "menu.html"
                     }
+
                 }
                 //template: '<div class="page-animation" ui-view animation-class></div>'
             });

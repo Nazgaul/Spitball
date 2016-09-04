@@ -31,7 +31,7 @@
     <base href="/" />
 </head>
 <body @*md-layout-css*@ ng-controller="AppController as app"
-      class="{{app.theme}} clearfix" ng-class="{menuOpened: app.menuOpened, collapseHeader: app.collapsedHeader}">
+      class="{{app.theme}} clearfix" ng-class="{menuOpened: app.menuOpened}">
     @{ Html.RenderPartial("_Body");}
 
     <div ng-spinner-bar class="sb-loader hide">
@@ -66,8 +66,7 @@
         <scroll-to-top></scroll-to-top>
     </div>
     <script type="text/ng-template" id="search-bar.html">
-        <form ng-show="st.show"
-              ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
+        <form ng-submit="st.search(searchTrigger.$valid)" name="searchTrigger"
               novalidate class="search-form search-form-expanded">
             <div class="search-area">
                 <input required ng-change="st.change(searchTrigger.$valid)"
