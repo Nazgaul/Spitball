@@ -28,11 +28,10 @@
                         }]
                     },
                     "chat": {
-                        //controller: "ChatController as c",
                         templateProvider: [
                             'user', 'ajaxService2', function (user, ajaxService2) {
                                 if (user.id && user.university.id > 0) {
-                                    return ajaxService2.getHtml("chat/index");
+                                    return ajaxService2.getHtml("chat/indexpartial/");
                                 }
                             }
                         ]
@@ -60,6 +59,30 @@
     appRun.$inject = ['routerHelper'];
     function appRun(routerHelper) {
         routerHelper.configureStates(getStates());
+        routerHelper.configureStates([
+            {
+
+                state: 'chat',
+                config: {
+                    url: '/chat/',
+                    onEnter: ['$mdMedia', '$state', function ($mdMedia, $state) {
+                        if ($mdMedia('gt-xs')) {
+                            $state.go('dashboard');
+                        }
+                    }],
+                    data: { animateClass: 'chatPage' },
+                    views: {
+                        "chat@": {
+                            template: ''
+                        }
+
+                    }
+
+                },
+                templateUrl: '/chat/indexpartial/'
+            }
+
+        ])
 
         function getStates() {
             return [

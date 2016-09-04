@@ -1,12 +1,13 @@
 var app;
 (function (app) {
     var ToggleChat = (function () {
-        function ToggleChat(chatBus, $mdMedia, userDetailsFactory, $rootScope) {
+        function ToggleChat(chatBus, $mdMedia, userDetailsFactory, $rootScope, $state) {
             var _this = this;
             this.chatBus = chatBus;
             this.$mdMedia = $mdMedia;
             this.userDetailsFactory = userDetailsFactory;
             this.$rootScope = $rootScope;
+            this.$state = $state;
             this.restrict = 'A';
             this.link = function (scope, element) {
                 var $html = $('html');
@@ -20,6 +21,10 @@ var app;
                     }
                 });
                 element.on('click', function () {
+                    if (_this.$mdMedia('xs')) {
+                        _this.$state.go("chat");
+                        return;
+                    }
                     $html.toggleClass(className);
                 });
                 scope.$on('expandChat', function () {
@@ -43,10 +48,10 @@ var app;
             };
         }
         ToggleChat.factory = function () {
-            var directive = function (chatBus, $mdMedia, userDetailsFactory, $rootScope) {
-                return new ToggleChat(chatBus, $mdMedia, userDetailsFactory, $rootScope);
+            var directive = function (chatBus, $mdMedia, userDetailsFactory, $rootScope, $state) {
+                return new ToggleChat(chatBus, $mdMedia, userDetailsFactory, $rootScope, $state);
             };
-            directive['$inject'] = ['chatBus', '$mdMedia', 'userDetailsFactory', '$rootScope'];
+            directive['$inject'] = ['chatBus', '$mdMedia', 'userDetailsFactory', '$rootScope', "$state"];
             return directive;
         };
         return ToggleChat;

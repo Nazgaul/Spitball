@@ -4,7 +4,8 @@
 
         constructor(private chatBus, private $mdMedia: angular.material.IMedia,
             private userDetailsFactory: IUserDetailsFactory,
-            private $rootScope: angular.IRootScopeService) {
+            private $rootScope: angular.IRootScopeService,
+            private $state: angular.ui.IStateService) {
         }
         link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery) => {
             var $html = $('html');
@@ -19,10 +20,15 @@
                         element.removeClass('hidden');
                     }
                 });
-            element.on('click', () => {
-                $html.toggleClass(className);
+            element.on('click',
+                () => {
+                    if (this.$mdMedia('xs')) {
+                        this.$state.go("chat");
+                        return;
+                    }
+                    $html.toggleClass(className);
 
-            });
+                });
             scope.$on('expandChat', () => {
                 $html.addClass(className);
             });
@@ -39,19 +45,19 @@
                     }
                 });
             scope.$on("$destroy",
-            () => {
-                cleanUpFunc();
-            });
+                () => {
+                    cleanUpFunc();
+                });
 
         };
 
 
         public static factory(): angular.IDirectiveFactory {
-            const directive = (chatBus, $mdMedia, userDetailsFactory, $rootScope) => {
-                return new ToggleChat(chatBus, $mdMedia, userDetailsFactory, $rootScope);
+            const directive = (chatBus, $mdMedia, userDetailsFactory, $rootScope, $state) => {
+                return new ToggleChat(chatBus, $mdMedia, userDetailsFactory, $rootScope, $state);
             };
 
-            directive['$inject'] = ['chatBus', '$mdMedia', 'userDetailsFactory', '$rootScope'];
+            directive['$inject'] = ['chatBus', '$mdMedia', 'userDetailsFactory', '$rootScope',"$state"];
 
             return directive;
         }

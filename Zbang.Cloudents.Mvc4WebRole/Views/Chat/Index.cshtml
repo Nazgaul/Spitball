@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div ng-controller="ChatController as c">
-    <div @*ng-if="c.loadChat"*@ class="chat">
-        <div class="content" ng-cloak ng-class="{stateChat: c.state === c.states.chat}">
+    <div class="chat">
+        <div class="content" ng-class="{stateChat: c.state === c.states.chat}">
             <div class="error" ng-class="{disconnected : !c.connected}">
                 <div>@ChatResources.DisconnectedHeader</div>
                 <div>

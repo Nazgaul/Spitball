@@ -55,21 +55,18 @@
   }
 }
 @media (max-width: 960px) {
-  html:not(.expanded-chat) .chat {
-    left: -100vw;
-  }
 }
 html:not(.expanded-chat) .chat .content .tab-content .search-friend .search-btn {
   -webkit-justify-content: center;
   justify-content: center;
 }
-@media (max-width: 600px) {
-  .expanded-chat,
-  .expanded-chat body {
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch !important;
-    height: 100% !important;
-  }
+.expanded-chat,
+.expanded-chat body {
+  /*@media(max-width: 600px) {
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch !important;
+        height: 100% !important;
+    }*/
 }
 .expanded-chat .chat .tab:after {
   border-width: 7px 10px 7px 0;
@@ -106,7 +103,8 @@ html:not(.expanded-chat) .chat .error {
 }
 @media (max-width: 600px) {
   .chat {
-    width: 100vw;
+    position: static;
+    width: auto;
   }
 }
 .chat .stateChat ~ .tab {
@@ -191,41 +189,6 @@ html:not(.expanded-chat) .chat .error {
 }
 .chat .content .tab-content {
   height: calc(100vh - 113px);
-  /*&.noChats {
-                .displayFlex;
-                .align-items(center);
-
-                .empty-state {
-                    text-align: center;
-                    width: 100%;
-
-                    .text {
-                        font-size: 16px;
-                        width: 200px;
-                        margin: 0 auto;
-
-                        span {
-                            color: @buttonColorBlue;
-                            display: block;
-                            margin-bottom: 10px;
-                        }
-                    }
-
-                    svg {
-                        fill: #c5c5c5;
-                        opacity: 0.5;
-                    }
-                }
-
-                .search-friend, .users-list {
-                    display: none;
-                }
-            }*/
-  /*&:not(.noChats) {
-                .empty-state {
-                    display: none;
-                }
-            }*/
 }
 .chat .content .tab-content .search-friend {
   margin-top: 6px;
@@ -236,6 +199,7 @@ html:not(.expanded-chat) .chat .error {
   align-items: stretch;
   padding: 0;
   overflow: hidden;
+  margin: 0;
 }
 .chat .content .tab-content .search-friend input {
   background: none;
@@ -437,6 +401,10 @@ html:not(.expanded-chat) .chat .error {
 }
 .chat .content .conversasion .header .user {
   max-width: calc(100% - 40px);
+  color: #f5f5f5;
+}
+.chat .content .conversasion .header .user user-image {
+  display: none;
 }
 .chat .content .conversasion .header .user.online:before {
   bottom: 2px;
@@ -476,23 +444,6 @@ html:not(.expanded-chat) .chat .error {
   height: 14px;
   overflow: hidden;
   margin: 0;
-  /*&:after {
-                        content: "";
-                        position: absolute;
-                        -moz-transform: rotate(225deg);
-                        -ms-transform: rotate(225deg);
-                        -o-transform: rotate(225deg);
-                        -webkit-transform: rotate(225deg);
-                        transform: rotate(225deg);
-                        top: 3px;
-                        left: 0;
-                        margin: 6px 10px;
-                        width: 14px;
-                        height: 14px;
-                        background: transparent;
-                        border-left: 3px solid @textColorWhite;
-                        border-bottom: 3px solid @textColorWhite;
-                    }*/
 }
 .chat .content .conversasion .header .back .close:before,
 .chat .content .conversasion .header .back .close:after {
@@ -519,12 +470,6 @@ html:not(.expanded-chat) .chat .error {
   -o-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.chat .content .conversasion .header .user {
-  color: #f5f5f5;
-}
-.chat .content .conversasion .header .user user-image {
-  display: none;
-}
 .chat .content .conversasion .chat-content .messages {
   height: calc(100vh - 10px - 50px - 70px - 50px);
   width: calc(100% - 5px);
@@ -536,7 +481,7 @@ html:not(.expanded-chat) .chat .error {
 }
 @media (max-width: 600px) {
   .chat .content .conversasion .chat-content .messages {
-    height: calc(100vh - 10px - 50px - 70px - 90px);
+    height: auto;
   }
 }
 .chat .content .conversasion .chat-content .messages .mCSB_outside + .mCSB_scrollTools {
@@ -587,11 +532,9 @@ html:not(.expanded-chat) .chat .error {
   justify-content: space-between;
   min-height: 50px;
   padding: 6px 10px 6px 6px;
-}
-@media (max-width: 600px) {
-  .chat .content .conversasion .chat-content .new-message {
-    padding: 6px 10px 20px 6px;
-  }
+  /*@media(max-width: 600px) {
+                        padding: 6px 6px 20px 10px;
+                    }*/
 }
 .chat .content .conversasion .chat-content .new-message form {
   width: 100%;
@@ -644,12 +587,10 @@ html:not(.expanded-chat) .chat .error {
   border: none !important;
   line-height: 22px;
   padding: 0 10px 0 0;
-}
-@media (max-width: 600px) {
-  .chat .content .conversasion .chat-content .new-message md-input-container textarea {
-    padding: 0 10px 50px 0;
-    min-height: 90px;
-  }
+  /*@media(max-width: 600px) {
+                                padding: 0 0 50px 10px;
+                                min-height: @newChatMessageHeightMobile;
+                            }*/
 }
 .chat .content .conversasion .chat-content .new-message md-input-container .md-errors-spacer,
 .chat .content .conversasion .chat-content .new-message md-input-container .md-errors-space {
@@ -855,4 +796,28 @@ html:not(.expanded-chat) .chat .error {
   to {
     opacity: 0;
   }
+}
+.chatPage .chat .content {
+  background: inherit;
+  position: static;
+  height: auto;
+  overflow: auto;
+}
+.chatPage .chat .content .tab-content {
+  height: auto;
+}
+.chatPage .chat .content .tab-content .users-list {
+  height: auto;
+  width: auto;
+  overflow: auto;
+}
+.chatPage .chat .content .conversasion,
+.chatPage .chat .content .menu-content {
+  position: static;
+  width: auto;
+  height: auto;
+}
+.chatPage .chat .content .conversasion .chat-content .new-message,
+.chatPage .chat .content .menu-content .chat-content .new-message {
+  position: static;
 }

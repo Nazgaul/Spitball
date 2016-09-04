@@ -66,7 +66,7 @@ html:not(.expanded-chat) {
         }
 
         @media(max-width: 960px) {
-            right: -100vw;
+            //right: -100vw;
             //display: none;
         }
 
@@ -77,11 +77,11 @@ html:not(.expanded-chat) {
 }
 
 .expanded-chat, .expanded-chat body {
-    @media(max-width: 600px) {
+    /*@media(max-width: 600px) {
         overflow: scroll;
         -webkit-overflow-scrolling: touch !important;
         height: 100% !important;
-    }
+    }*/
 }
 
 .expanded-chat {
@@ -135,7 +135,9 @@ html:not(.expanded-chat) .chat .error {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
 
     @media(max-width: 600px) {
-        width: 100vw;
+        //width: 100vw;
+        position: static;
+        width: auto;
     }
 
     .stateChat ~ .tab {
@@ -207,47 +209,14 @@ html:not(.expanded-chat) .chat .error {
 
         .tab-content {
             height: ~"calc(100vh - 113px)";
-            /*&.noChats {
-                .displayFlex;
-                .align-items(center);
 
-                .empty-state {
-                    text-align: center;
-                    width: 100%;
-
-                    .text {
-                        font-size: 16px;
-                        width: 200px;
-                        margin: 0 auto;
-
-                        span {
-                            color: @buttonColorBlue;
-                            display: block;
-                            margin-bottom: 10px;
-                        }
-                    }
-
-                    svg {
-                        fill: #c5c5c5;
-                        opacity: 0.5;
-                    }
-                }
-
-                .search-friend, .users-list {
-                    display: none;
-                }
-            }*/
-            /*&:not(.noChats) {
-                .empty-state {
-                    display: none;
-                }
-            }*/
             .search-friend {
                 margin-top: 6px;
                 .displayFlex;
                 .align-items(stretch);
                 padding: 0;
                 overflow: hidden;
+                margin: 0;
 
                 input {
                     background: none;
@@ -486,13 +455,19 @@ html:not(.expanded-chat) .chat .error {
 
                 .user {
                     max-width: ~"calc(100% - 40px)";
+                    color: @textColorWhite;
 
+                    user-image {
+                        display: none;
+                    }
 
                     &.online:before {
                         bottom: 2px;
                         box-shadow: 0 0 1px 2px @conversationHeaderColor;
                     }
                 }
+
+
 
                 md-fab-actions {
                     margin-top: 20px;
@@ -555,31 +530,6 @@ html:not(.expanded-chat) .chat .error {
                             -o-transform: rotate(-45deg);
                             transform: rotate(-45deg);
                         }
-                        /*&:after {
-                        content: "";
-                        position: absolute;
-                        -moz-transform: rotate(225deg);
-                        -ms-transform: rotate(225deg);
-                        -o-transform: rotate(225deg);
-                        -webkit-transform: rotate(225deg);
-                        transform: rotate(225deg);
-                        top: 3px;
-                        left: 0;
-                        margin: 6px 10px;
-                        width: 14px;
-                        height: 14px;
-                        background: transparent;
-                        border-left: 3px solid @textColorWhite;
-                        border-bottom: 3px solid @textColorWhite;
-                    }*/
-                    }
-                }
-
-                .user {
-                    color: @textColorWhite;
-
-                    user-image {
-                        display: none;
                     }
                 }
             }
@@ -595,7 +545,8 @@ html:not(.expanded-chat) .chat .error {
                     color: @textColorBlack;
                     //padding-bottom: 70px;
                     @media(max-width: 600px) {
-                        height: ~"calc(100vh - 10px - @{chatHeaderHeight} - @{heightOfHeader} - @{newChatMessageHeightMobile})";
+                        //height: ~"calc(100vh - 10px - @{chatHeaderHeight} - @{heightOfHeader} - @{newChatMessageHeightMobile})";
+                        height: auto;
                     }
 
                     .mCSB_outside + .mCSB_scrollTools {
@@ -653,9 +604,9 @@ html:not(.expanded-chat) .chat .error {
                     min-height: @newChatMessageHeight;
                     padding: 6px 6px 6px 10px;
 
-                    @media(max-width: 600px) {
+                    /*@media(max-width: 600px) {
                         padding: 6px 6px 20px 10px;
-                    }
+                    }*/
                     //form, .textarea {
                     //    width: inherit;
                     //}
@@ -707,10 +658,10 @@ html:not(.expanded-chat) .chat .error {
                             line-height: 22px;
                             padding: 0 0 0 10px;
 
-                            @media(max-width: 600px) {
+                            /*@media(max-width: 600px) {
                                 padding: 0 0 50px 10px;
                                 min-height: @newChatMessageHeightMobile;
-                            }
+                            }*/
                         }
                         //&.md-input-invalid.md-input-focused label {
                         //    color: @buttonColorBlue;
@@ -988,6 +939,14 @@ html:not(.expanded-chat) .chat .error {
         transition: -webkit-transform ease-out 200ms;
         transition: transform ease-out 200ms;
         transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+        z-index: 2;
+        -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        -webkit-transition-duration: 400ms;
+        transition-duration: 400ms;
+        -webkit-transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+        transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+        cursor: pointer;
     }
 
     .menu-open {
@@ -1061,17 +1020,9 @@ html:not(.expanded-chat) .chat .error {
     //    -webkit-transition-duration: 180ms;
     //    transition-duration: 180ms;
     //}
-    .menu-open-button {
-        z-index: 2;
-        -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        -webkit-transition-duration: 400ms;
-        transition-duration: 400ms;
-        -webkit-transform: scale(1.1, 1.1) translate3d(0, 0, 0);
-        transform: scale(1.1, 1.1) translate3d(0, 0, 0);
-        cursor: pointer;
-    }
-
+    /*.menu-open-button {
+       
+    }*/
     .menu-open-button:hover {
         -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
         transform: scale(1.2, 1.2) translate3d(0, 0, 0);
@@ -1117,4 +1068,34 @@ html:not(.expanded-chat) .chat .error {
     //    -webkit-transform: translate3d(440px, 0, 0);
     //    transform: translate3d(440px, 0, 0);
     //}
+}
+
+.chatPage {
+    .chat .content {
+        background: inherit;
+        position: static;
+        height: auto;
+        overflow: auto;
+
+        .tab-content {
+            height: auto;
+
+            .users-list {
+                height: auto;
+                width: auto;
+                overflow: auto;
+            }
+        }
+
+        .conversasion, .menu-content {
+            position: static;
+            width: auto;
+            height: auto;
+
+            .chat-content .new-message {
+                position: static;
+                position: static;
+            }
+        }
+    }
 }
