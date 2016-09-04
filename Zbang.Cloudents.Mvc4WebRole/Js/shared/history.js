@@ -1,11 +1,11 @@
 var app;
 (function (app) {
-    'use strict';
+    "use strict";
     var SbHistory = (function () {
-        function SbHistory($rootScope, $location) {
+        function SbHistory($rootScope, $window) {
             var _this = this;
             this.$rootScope = $rootScope;
-            this.$location = $location;
+            this.$window = $window;
             this.skipState = false;
             this.arr = [];
             this.popElement = function () {
@@ -17,8 +17,8 @@ var app;
             this.firstState = function () {
                 return _this.arr.length === 0;
             };
-            this.$rootScope.$on('$stateChangeStart', function () {
-                _this.url = _this.$location.url();
+            this.$rootScope.$on('$stateChangeStart', function (event) {
+                _this.pageYOffset = $window.pageYOffset;
             });
             this.$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                 if (fromState.name === toState.name) {
@@ -33,14 +33,15 @@ var app;
                 }
                 _this.arr.push({
                     name: fromState.name,
-                    params: fromParams
+                    params: angular.extend({}, fromParams, { pageYOffset: _this.pageYOffset })
                 });
+                _this.pageYOffset = 0;
             });
             this.$rootScope.$on('from-back', function () {
                 _this.skipState = true;
             });
         }
-        SbHistory.$inject = ['$rootScope', '$location'];
+        SbHistory.$inject = ["$rootScope", "$window"];
         return SbHistory;
     }());
     angular.module('app').service('sbHistory', SbHistory);

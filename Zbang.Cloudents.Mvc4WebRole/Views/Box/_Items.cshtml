@@ -35,7 +35,7 @@
                     </md-button>
                 </md-menu-item>
                 <md-menu-item>
-                    <md-button ng-href="{{::e.downloadLink}}" target="_blank" ga-track-event="['box-items', 'download']">
+                    <md-button aria-label="download" ng-href="{{::e.downloadLink}}" target="_blank" ga-track-event="['box-items', 'download']">
                         <span ng-if="e.type!=='Link'">@GeneralResources.Download</span>
                         <span ng-if="e.type==='Link'">@GeneralResources.View</span>
                     </md-button>

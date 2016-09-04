@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
-        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, $scope, realtimeFactotry, sbHistory, $state) {
+        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, $scope, realtimeFactotry, sbHistory, $state, $window, $timeout) {
             var _this = this;
             this.$rootScope = $rootScope;
             this.$location = $location;
@@ -16,8 +16,11 @@ var app;
             this.realtimeFactotry = realtimeFactotry;
             this.sbHistory = sbHistory;
             this.$state = $state;
+            this.$window = $window;
+            this.$timeout = $timeout;
             this.back = function (defaultUrl) {
                 var element = _this.sbHistory.popElement();
+                console.log(element);
                 if (!element) {
                     _this.$location.url(defaultUrl);
                     return;
@@ -56,11 +59,6 @@ var app;
                 }
                 $mdOpenMenu(ev);
             };
-            $rootScope.$on("$viewContentLoaded", function () {
-                var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
-                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl });
-                __insp.push(["virtualPage"]);
-            });
             userDetails.init().then(function () {
                 _this.setTheme();
             });
@@ -73,6 +71,14 @@ var app;
                 if (toState.name.startsWith("box")) {
                     realtimeFactotry.assingBoxes(toParams.boxId);
                 }
+                if (toParams["pageYOffset"]) {
+                    $timeout(function () {
+                        $window.scrollTo(0, toParams["pageYOffset"]);
+                    });
+                }
+                var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
+                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl });
+                __insp.push(["virtualPage"]);
             });
             $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
                 console.error(error);
@@ -94,7 +100,8 @@ var app;
                     $rootScope.$broadcast("search-close");
                 }
                 if (fromParams.boxId && toParams.boxId) {
-                    if (fromParams.boxId === toParams.boxId && toStateName === "box" && fromState.name.startsWith("box")) {
+                    if (fromParams.boxId === toParams.boxId && toStateName === "box"
+                        && fromState.name.startsWith("box")) {
                         event.preventDefault();
                         $rootScope.$broadcast("state-change-start-prevent");
                     }
@@ -125,7 +132,8 @@ var app;
         ;
         AppController.$inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
-            "CacheFactory", "$scope", "realtimeFactotry", "sbHistory", "$state"];
+            "CacheFactory", "$scope", "realtimeFactotry",
+            "sbHistory", "$state", "$window", "$timeout"];
         return AppController;
     }());
     angular.module("app").controller("AppController", AppController);

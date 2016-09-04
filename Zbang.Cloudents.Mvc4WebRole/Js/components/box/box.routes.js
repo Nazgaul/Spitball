@@ -19,7 +19,9 @@
                             }
                         ]
                     },
-                    data: { animateClass: 'class' }
+                    data: {
+                        animateClass: 'class'
+                    }
                 },
                 templateUrl: '/box/indexpartial/'
             },
@@ -30,6 +32,7 @@
                     url: 'feed/',
                     controller: 'FeedController as f',
                     parent: 'box',
+                    params: { pageYOffset: null },
                     resolve: {
                         feedData: ['boxService', '$stateParams', function (boxService, $stateParams) {
                             return boxService.getFeed($stateParams.boxId, 15, 0);
@@ -49,7 +52,8 @@
                     url: 'items/?tabId&q',
                     controller: 'ItemsController as i',
                     parent: 'box',
-                    reloadOnSearch: false
+                    reloadOnSearch: false,
+                    params: { pageYOffset: null }
                     //deepStateRedirect: { default: "box.items" }
                 },
                 templateUrl: '/box/itemspartial/'

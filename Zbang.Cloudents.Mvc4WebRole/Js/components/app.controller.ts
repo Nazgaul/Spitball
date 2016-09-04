@@ -9,7 +9,8 @@ module app {
     class AppController {
         static $inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
-            "CacheFactory", "$scope", "realtimeFactotry", "sbHistory", "$state"];
+            "CacheFactory", "$scope", "realtimeFactotry",
+            "sbHistory", "$state", "$window","$timeout"];
 
         private menuOpened: boolean;
         private showMenu: boolean;
@@ -32,26 +33,22 @@ module app {
             private $scope: angular.IScope,
             private realtimeFactotry: IRealtimeFactotry,
             private sbHistory: ISbHistory,
-            private $state: angular.ui.IStateService
+            private $state: angular.ui.IStateService,
+            private $window: angular.IWindowService,
+            private $timeout : angular.ITimeoutService
         ) {
 
-            $rootScope.$on("$viewContentLoaded", () => {
-                var path = $location.path(),
-                    absUrl = $location.absUrl(),
-                    virtualUrl = absUrl.substring(absUrl.indexOf(path));
-                // ReSharper disable UndeclaredGlobalVariableUsing
-                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
-                __insp.push(["virtualPage"]); // inspectlet
-                // ReSharper restore UndeclaredGlobalVariableUsing
+            //$rootScope.$on("$viewContentLoaded", () => {
+            //    console.log(this.$state);
+                
+            //    // ReSharper restore UndeclaredGlobalVariableUsing
 
-            });
+            //});
             userDetails.init().then( () => {
                 this.setTheme();
-                //if (data.university) {
-                //this.initChat();
-                //}
             });
 
+            //directive with menu
             $rootScope.$on("$mdMenuClose", () => {
                 this.menuOpened = false;
             });
@@ -62,13 +59,21 @@ module app {
             $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState,
                 toParams: ISpitballStateParamsService) => {
                 this.showBoxAd = toState.parent === "box";
-                //this.showMenu = !(toState.name === "item" || toState.name === "quiz" || toState.name === "universityChoose");
-
+              
                 // hub
                 if (toState.name.startsWith("box")) {
                     realtimeFactotry.assingBoxes(toParams.boxId);
-
                 }
+                if (toParams["pageYOffset"]) {
+                    $timeout(() => {
+                        $window.scrollTo(0, toParams["pageYOffset"]);
+                    });
+                }
+                var path = $location.path(),
+                    absUrl = $location.absUrl(),
+                    virtualUrl = absUrl.substring(absUrl.indexOf(path));
+                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
+                __insp.push(["virtualPage"]); // inspectlet
             });
 
             $rootScope.$on('$stateChangeError',
@@ -96,7 +101,8 @@ module app {
                         $rootScope.$broadcast("search-close");
                     }
                     if (fromParams.boxId && toParams.boxId) {
-                        if (fromParams.boxId === toParams.boxId && toStateName === "box" && fromState.name.startsWith("box")) {
+                        if (fromParams.boxId === toParams.boxId && toStateName === "box"
+                            && fromState.name.startsWith("box")) {
                             event.preventDefault();
                             $rootScope.$broadcast("state-change-start-prevent");
                         }
@@ -124,6 +130,7 @@ module app {
         }
         back = (defaultUrl: string) => {
             var element = this.sbHistory.popElement();
+            console.log(element);
             if (!element) {
                 this.$location.url(defaultUrl);
                 return;
