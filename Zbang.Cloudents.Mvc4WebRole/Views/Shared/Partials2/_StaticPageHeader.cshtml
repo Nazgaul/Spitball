@@ -5,7 +5,15 @@
     ViewBag.headerbackground = ViewBag.headerbackground ?? "#181c1d";
     ViewBag.signupColor = ViewBag.signupColor ?? "#EC610D";
 }
-<header class="static-page-header">
+@*<style>
+        .static-page-header{
+            background: @ViewBag.headerbackground !important;
+        }
+        .signup-btn{
+            background: @ViewBag.signupColor !important;
+        }
+    </style>*@
+<header class="static-page-header" style="background:@ViewBag.headerbackground">
     <nav>
         <div class="nav-content">
             <input type="checkbox" id="menu-toggle" />
@@ -58,17 +66,10 @@
         @if (!User.Identity.IsAuthenticated)
         {
             <div class="login-buttons">
-                <a class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("HomePage", new { step = "signup" })" data-form-action="register">@IndexResources.Signup</a>
+                <a style="background:@ViewBag.signupColor" class="signup-btn toggle login-option signup os-animation" href="@Url.RouteUrl("HomePage", new { step = "signup" })" data-form-action="register">@IndexResources.Signup</a>
                 <a class="signin-btn toggle login-option os-animation" href="@Url.RouteUrl("HomePage", new { step = "signin" })" data-form-action="login">@HomePageResources.A1</a>
             </div>
         }
     </nav>
 </header>
-@*<style>
-    .static-page-header{
-        background: @ViewBag.headerbackground !important;
-    }
-    .signup-btn{
-        background: @ViewBag.signupColor !important;
-    }
-</style>*@
+
