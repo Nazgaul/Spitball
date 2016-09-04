@@ -11,21 +11,15 @@
         self.assignValue = assignValue;
         self.getChat = getChat;
         self.getUniversityPic = getUniversityPic;
-        self.getUniversityDashboardPic = getUniversityDashboardPic;
         self.logo = 'https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/universityEmptyState.png';
 
         function getUniversityPic(name, width, height) {
             if (!name) {
                 name = "DefaultUni5.jpg";
             }
-            return 'https://az779114.vo.msecnd.net/universities/cover/' + encodeURIComponent(name) + '?mode=crop&cropxunits=100&cropyunits=100&crop=0,15,0,0&anchor=topcenter&width=' + width + '&height=' + height;
+            return 'https://az779114.vo.msecnd.net/universities/cover/' + encodeURIComponent(name) + '?mode=crop&cropxunits=100&cropyunits=100&crop=0,12,0,0&anchor=topcenter&width=' + width + '&height=' + height;
         }
-        function getUniversityDashboardPic(name, width, height) {
-            if (!name) {
-                name = "DefaultUni5.jpg";
-            }
-            return 'https://az779114.vo.msecnd.net/universities/cover/' + encodeURIComponent(name) + '?mode=crop&cropxunits=100&anchor=topcenter&width=' + width + '&height=' + height;
-        }
+        
         function getChat(name) {
             if (!name) {
                 return;
