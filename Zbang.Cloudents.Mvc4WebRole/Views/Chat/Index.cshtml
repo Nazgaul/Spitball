@@ -19,7 +19,7 @@
                             @Html.Svg("~/images/site/icons.svg", "close", new { @class = "resetIcon svgTC22" })
                         </button>
                     </form>
-                    <div class="users-list" disable-thouch ng-scrollbars ng-scrollbars-paging="down" ng-scrollbars-paging-function="c.usersPaging" ng-scrollbars-config="c.scrollSetting">
+                    <div class="users-list" scroll-chooser srph-infinite-scroll="c.usersPaging()" disable-touch ng-scrollbars ng-scrollbars-paging-function="c.usersPaging" ng-scrollbars-config="c.scrollSetting">
                         <section class="favorits">
                             <div class="header">
                                 @Html.Svg("~/images/site/icons.svg", "star")
@@ -76,7 +76,8 @@
                     </div>
                 </div>
                 <div class="chat-content">
-                    <ul class="messages" disable-thouch ng-scrollbars ng-scrollbars-paging="up" ng-scrollbars-paging-function="c.loadMoreMessages" ng-scrollbars-update="c.updateScrollbar" ng-scrollbars-config="c.scrollSetting">
+                    <ul class="messages" @*scroll-chooser*@ @*srph-infinite-scroll="c.loadMoreMessages()" paging-direction="up" threshold="200"*@ disable-touch ng-scrollbars @*ng-scrollbars-paging="up"*@ 
+                        @*ng-scrollbars-paging-function="c.loadMoreMessages"*@ ng-scrollbars-update="c.updateScrollbar" ng-scrollbars-config="c.scrollSetting">
                         <li class="message" ng-repeat="e in c.messages" ng-class="{partner: e.partner}">
                             <div ng-if="e.text" class="text" ng-bind-html="::e.text | linky:'_blank'"></div>
                             <div ng-if="e.blob" class="image" ng-click="c.dialog(e.blob, $event)" ga-track-event="['chat', 'opened-attachment']">

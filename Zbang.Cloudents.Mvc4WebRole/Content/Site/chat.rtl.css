@@ -319,6 +319,7 @@ html:not(.expanded-chat) .chat .error {
 .chat .content .tab-content .users-list .users-sub-list .user .member-name,
 .chat .content .tab-content .users-list .users-sub-list .user .comment-date {
   display: block;
+  width: 100%;
 }
 .chat .content .tab-content .users-list .users-sub-list .user .comment-date {
   font-size: 11px;

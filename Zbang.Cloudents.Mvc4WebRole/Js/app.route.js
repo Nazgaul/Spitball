@@ -29,8 +29,8 @@
                     },
                     "chat": {
                         templateProvider: [
-                            'user', 'ajaxService2', function (user, ajaxService2) {
-                                if (user.id && user.university.id > 0) {
+                            'user', 'ajaxService2', '$mdMedia', function (user, ajaxService2, $mdMedia) {
+                                if ($mdMedia('gt-xs') && user.id && user.university.id > 0) {
                                     return ajaxService2.getHtml("chat/indexpartial/");
                                 }
                             }

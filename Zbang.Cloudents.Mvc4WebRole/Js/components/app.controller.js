@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
-        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, $scope, realtimeFactotry, sbHistory, $state, $window, $timeout) {
+        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, sbHistory, $state, $window, $timeout) {
             var _this = this;
             this.$rootScope = $rootScope;
             this.$location = $location;
@@ -12,8 +12,6 @@ var app;
             this.$mdMenu = $mdMenu;
             this.resManager = resManager;
             this.cacheFactory = cacheFactory;
-            this.$scope = $scope;
-            this.realtimeFactotry = realtimeFactotry;
             this.sbHistory = sbHistory;
             this.$state = $state;
             this.$window = $window;
@@ -68,9 +66,6 @@ var app;
             this.showBoxAd = false;
             $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams) {
                 _this.showBoxAd = toState.parent === "box";
-                if (toState.name.startsWith("box")) {
-                    realtimeFactotry.assingBoxes(toParams.boxId);
-                }
                 if (toParams["pageYOffset"]) {
                     $timeout(function () {
                         $window.scrollTo(0, toParams["pageYOffset"]);
@@ -132,7 +127,7 @@ var app;
         ;
         AppController.$inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
-            "CacheFactory", "$scope", "realtimeFactotry",
+            "CacheFactory",
             "sbHistory", "$state", "$window", "$timeout"];
         return AppController;
     }());

@@ -42,7 +42,7 @@ module app {
     }
 
     class UserDetails implements IUserDetailsFactory {
-        static $inject = ["$rootScope", "$q", "ajaxService2", "Analytics"];
+        static $inject = ["$rootScope", "$q", "ajaxService2", "Analytics", "$timeout","$interval"];
 
         private isLogedIn = false;
         private userData: IUserData;
@@ -50,7 +50,10 @@ module app {
         private deferDetails = this.$q.defer();
 
         constructor(private $rootScope: angular.IRootScopeService, private $q: angular.IQService,
-            private ajaxService: IAjaxService2, private analytics: angular.google.analytics.AnalyticsService) {
+            private ajaxService: IAjaxService2,
+            private analytics: angular.google.analytics.AnalyticsService,
+            private $timeout: angular.ITimeoutService,
+            private $interval: angular.IIntervalService) {
         }
 
 
@@ -62,17 +65,20 @@ module app {
                 __insp.push(["identify", data.id]);
                 // ReSharper restore UseOfImplicitGlobalInFunctionScope
             }
-            this.analytics.set("dimension1", data.universityName || null);
-            this.analytics.set("dimension2", data.universityCountry || null);
-            this.analytics.set("dimension3", data.id || null);
-            this.analytics.set("dimension4", data.theme || "dark");
+            this.$timeout(() => {
+                //analytics doesnt work with timeout
+                this.analytics.set("dimension1", data.universityName || null);
+                this.analytics.set("dimension2", data.universityCountry || null);
+                this.analytics.set("dimension3", data.id || null);
+            });
+            //this.analytics.set("dimension4", data.theme || "dark");
 
 
-            var interval = window.setInterval(() => {
+            var interval = this.$interval(() => {
                 if (googletag.pubads !== undefined && googletag.pubads) {
                     googletag.pubads().setTargeting("gender", data.sex);
                     googletag.pubads().setTargeting("university", data.universityId);
-                    window.clearInterval(interval);
+                    this.$interval.cancel(interval);
                 }
             }, 20);
 
@@ -108,7 +114,7 @@ module app {
             if (!this.serverCall) {
                 this.serverCall = true;
 
-                this.ajaxService.get("/account/details/", null, "accountDetail").then((response:Object) => {
+                this.ajaxService.get("/account/details/", null, "accountDetail").then((response: Object) => {
                     this.setDetails(response);
                     this.deferDetails.resolve(this.userData);
                     this.serverCall = false;

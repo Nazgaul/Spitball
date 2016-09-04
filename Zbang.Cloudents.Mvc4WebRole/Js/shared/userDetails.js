@@ -2,12 +2,14 @@ var app;
 (function (app) {
     "use strict";
     var UserDetails = (function () {
-        function UserDetails($rootScope, $q, ajaxService, analytics) {
+        function UserDetails($rootScope, $q, ajaxService, analytics, $timeout, $interval) {
             var _this = this;
             this.$rootScope = $rootScope;
             this.$q = $q;
             this.ajaxService = ajaxService;
             this.analytics = analytics;
+            this.$timeout = $timeout;
+            this.$interval = $interval;
             this.isLogedIn = false;
             this.serverCall = false;
             this.deferDetails = this.$q.defer();
@@ -42,19 +44,21 @@ var app;
             };
         }
         UserDetails.prototype.setDetails = function (data) {
+            var _this = this;
             if (data.id) {
                 this.isLogedIn = true;
                 __insp.push(["identify", data.id]);
             }
-            this.analytics.set("dimension1", data.universityName || null);
-            this.analytics.set("dimension2", data.universityCountry || null);
-            this.analytics.set("dimension3", data.id || null);
-            this.analytics.set("dimension4", data.theme || "dark");
-            var interval = window.setInterval(function () {
+            this.$timeout(function () {
+                _this.analytics.set("dimension1", data.universityName || null);
+                _this.analytics.set("dimension2", data.universityCountry || null);
+                _this.analytics.set("dimension3", data.id || null);
+            });
+            var interval = this.$interval(function () {
                 if (googletag.pubads !== undefined && googletag.pubads) {
                     googletag.pubads().setTargeting("gender", data.sex);
                     googletag.pubads().setTargeting("university", data.universityId);
-                    window.clearInterval(interval);
+                    _this.$interval.cancel(interval);
                 }
             }, 20);
             this.userData = {
@@ -93,7 +97,7 @@ var app;
             }
             return this.deferDetails.promise;
         };
-        UserDetails.$inject = ["$rootScope", "$q", "ajaxService2", "Analytics"];
+        UserDetails.$inject = ["$rootScope", "$q", "ajaxService2", "Analytics", "$timeout", "$interval"];
         return UserDetails;
     }());
     angular.module("app").service("userDetailsFactory", UserDetails);

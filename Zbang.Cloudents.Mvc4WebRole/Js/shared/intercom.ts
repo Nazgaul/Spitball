@@ -8,7 +8,7 @@ declare var Intercom: any;
     intercom.$inject = ['userDetailsFactory', '$rootScope', '$mdMenu'];
     function intercom(userDetailsFactory: app.IUserDetailsFactory, $rootScope: ng.IRootScopeService, $mdMenu: any) {
         var started = false;
-        userDetailsFactory.init().then(function (data) {
+        userDetailsFactory.init().then(data => {
             start(data);
         });
         function start(data) {

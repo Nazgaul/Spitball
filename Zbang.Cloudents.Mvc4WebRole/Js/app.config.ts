@@ -74,7 +74,7 @@ module app {
     function config(analyticsProvider) {
 
         var analyticsObj = {
-            'siteSpeedSampleRate': 70,
+            //'siteSpeedSampleRate': 70,
             'cookieDomain': 'spitball.co',
             'alwaysSendReferrer': true
         }
@@ -84,11 +84,6 @@ module app {
         analyticsProvider.setAccount({
             tracker: 'UA-9850006-3',
             fields: analyticsObj
-            //set: {
-            //    'dimension1': data.universityName || null,
-            //    'dimension2': data.universityCountry || null,
-            //    'dimension3': data.id || null
-            //}
         });
         analyticsProvider.trackUrlParams(true);
         analyticsProvider.setPageEvent('$stateChangeSuccess');
@@ -102,7 +97,7 @@ module app {
     anylticsRun.$inject = ['Analytics', '$document'];
 
     function anylticsRun(analytics, $document) {
-        $document.ready(function () {
+        $document.ready(() => {
             analytics.createAnalyticsScriptTag();
         });
         //for run the app

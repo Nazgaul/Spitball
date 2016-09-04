@@ -8,7 +8,7 @@
     function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
         notificationService, resManager, $rootScope) {
-        var c = this, chunkSize = 100, page = 0,
+            var c = this, chunkSize = 2147483647, page = 0,
             connectionStatuses = {
                 connected: 1,
                 disconnected: 0
@@ -35,24 +35,11 @@
         c.lastSearch = c.term = '';
         c.loadMoreMessages = loadMoreMessages;
         c.focusSearch = false;
-        //c.soundHandler;
-
-        //userDetailsFactory.init().then(function (response) {
-        //    if (response.university.id > 0) {
-        //c.unread = response.unread;
+       
         var response = userDetailsFactory.get();
         chatBus.setUnread(response.unread);
-        //c.loadChat = response.university.id > 0;
         search();
-        //}
-        //});
-
-
-        //$scope.$on('change-university',
-        //    function () {
-        //        c.loadChat = userDetailsFactory.getUniversity() > 0;
-        //        search();
-        //    });
+       
 
         c.scrollSetting = {
             scrollbarPosition: 'outside',

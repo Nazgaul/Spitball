@@ -12,6 +12,7 @@ var app;
         };
         return Guid;
     }());
+    app.Guid = Guid;
     var RealTimeFactory = (function () {
         function RealTimeFactory(Hub, $rootScope, ajaxService) {
             var _this = this;
@@ -19,12 +20,14 @@ var app;
             this.$rootScope = $rootScope;
             this.ajaxService = ajaxService;
             this.commands = [];
+            this.boxIds = [];
             this.assingBoxes = function (boxIds) {
                 if (!boxIds) {
                     return;
                 }
                 if (!angular.isArray(boxIds)) {
                     boxIds = [boxIds];
+                    _this.boxIds = _this.boxIds.concat(boxIds);
                 }
                 if (_this.canSend) {
                     _this.hub.invoke('enterBoxes', boxIds);
@@ -106,6 +109,13 @@ var app;
                     }
                 }
             });
+            $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams) {
+                if (toParams.boxId) {
+                    if (_this.boxIds.indexOf(toParams.boxId) === -1) {
+                        _this.assingBoxes(toParams.boxId);
+                    }
+                }
+            });
             this.hub.connection.disconnected(function () {
                 setTimeout(function () {
                     _this.hub.connection.start();
@@ -119,7 +129,7 @@ var app;
             this.hub.invoke('changeUniversity');
         };
         ;
-        RealTimeFactory.$inject = ['Hub', '$rootScope', 'ajaxService2'];
+        RealTimeFactory.$inject = ["Hub", "$rootScope", "ajaxService2"];
         return RealTimeFactory;
     }());
     angular.module('app.chat').service('realtimeFactotry', RealTimeFactory);

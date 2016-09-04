@@ -50,7 +50,6 @@ var app;
     config.$inject = ['AnalyticsProvider'];
     function config(analyticsProvider) {
         var analyticsObj = {
-            'siteSpeedSampleRate': 70,
             'cookieDomain': 'spitball.co',
             'alwaysSendReferrer': true
         };

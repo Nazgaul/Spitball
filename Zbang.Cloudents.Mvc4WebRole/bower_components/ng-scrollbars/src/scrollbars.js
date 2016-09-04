@@ -97,7 +97,7 @@
                 };
 
                 function notNeedSlimScroll() {
-                    return Modernizr.touchevents && attrs.disableThouch !== undefined;
+                    return Modernizr.touchevents && attrs.disableTouch !== undefined;
                 }
             }
         };

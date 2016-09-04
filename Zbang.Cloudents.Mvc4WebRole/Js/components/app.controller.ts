@@ -9,18 +9,15 @@ module app {
     class AppController {
         static $inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
-            "CacheFactory", "$scope", "realtimeFactotry",
-            "sbHistory", "$state", "$window","$timeout"];
+            "CacheFactory", 
+            "sbHistory", "$state", "$window", "$timeout"];
 
         private menuOpened: boolean;
         private showMenu: boolean;
-        //private showSearch: boolean;
         private showChat: boolean;
         private showBoxAd: boolean;
-        //private loadChat: boolean;
         private theme: string;
 
-        // private expandSearch = false;
 
         constructor(private $rootScope: angular.IRootScopeService,
             private $location: angular.ILocationService,
@@ -30,21 +27,16 @@ module app {
             private $mdMenu: angular.material.IMenuService,
             private resManager: IResManager,
             private cacheFactory: CacheFactory.ICacheFactory,
-            private $scope: angular.IScope,
-            private realtimeFactotry: IRealtimeFactotry,
             private sbHistory: ISbHistory,
             private $state: angular.ui.IStateService,
             private $window: angular.IWindowService,
-            private $timeout : angular.ITimeoutService
+            private $timeout: angular.ITimeoutService
         ) {
 
-            //$rootScope.$on("$viewContentLoaded", () => {
-            //    console.log(this.$state);
-                
-            //    // ReSharper restore UndeclaredGlobalVariableUsing
 
-            //});
-            userDetails.init().then( () => {
+
+            //directive with menu
+            userDetails.init().then(() => {
                 this.setTheme();
             });
 
@@ -59,11 +51,11 @@ module app {
             $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState,
                 toParams: ISpitballStateParamsService) => {
                 this.showBoxAd = toState.parent === "box";
-              
+
                 // hub
-                if (toState.name.startsWith("box")) {
-                    realtimeFactotry.assingBoxes(toParams.boxId);
-                }
+                //if (toState.name.startsWith("box")) {
+                //    realtimeFactotry.assingBoxes(toParams.boxId);
+                //}
                 if (toParams["pageYOffset"]) {
                     $timeout(() => {
                         $window.scrollTo(0, toParams["pageYOffset"]);
@@ -151,7 +143,7 @@ module app {
         setTheme = () => {
             this.theme = `theme-${this.userDetails.get().theme}`;
         };
-        
+
         toggleMenu = () => {
             this.$rootScope.$broadcast("open-menu");
         };
@@ -172,7 +164,7 @@ module app {
                     .hideDelay(2000));
         };
 
-        
+
         openMenu = ($mdOpenMenu: any, ev: Event) => {
             this.menuOpened = true;
             if (!this.userDetails.isAuthenticated()) {
