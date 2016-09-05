@@ -1,4 +1,4 @@
-﻿declare var Modernizr: any;
+﻿//declare var Modernizr: any;
 module app {
     "use strict";
 

@@ -563,3 +563,17 @@ md-tooltip .md-content {
 .collapsible.collapsing {
   transition-duration: 0.30s;
 }
+.scrollbar::-webkit-scrollbar-track {
+  border: none;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 6px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(157, 153, 156, 0.5);
+}
+.scrollbar:hover::-webkit-scrollbar {
+  width: 1px;
+}

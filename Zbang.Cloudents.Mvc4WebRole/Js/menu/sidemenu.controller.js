@@ -13,11 +13,9 @@
         var userDetails = userDetailsFactory.get();
         d.userUrl = userDetails.url;
         if (userDetails.theme === 'dark') {
-
             d.updateScrollbar = {
-                theme: 'light-thin',
-                scrollbarPosition: 'outside'
-
+                theme: 'light-thin'
+                //scrollbarPosition: 'outside'
             };
         }
 
