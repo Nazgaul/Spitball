@@ -8,11 +8,11 @@
     function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
         notificationService, resManager, $rootScope) {
-            var c = this, chunkSize = 2147483647, page = 0,
-            connectionStatuses = {
-                connected: 1,
-                disconnected: 0
-            };
+        var c = this, chunkSize = 2147483647, page = 0,
+        connectionStatuses = {
+            connected: 1,
+            disconnected: 0
+        };
         c.states = {
             messages: 1,
             chat: 3
@@ -35,11 +35,11 @@
         c.lastSearch = c.term = '';
         c.loadMoreMessages = loadMoreMessages;
         c.focusSearch = false;
-       
+
         var response = userDetailsFactory.get();
         chatBus.setUnread(response.unread);
         search();
-       
+
 
         c.scrollSetting = {
             scrollbarPosition: 'outside',

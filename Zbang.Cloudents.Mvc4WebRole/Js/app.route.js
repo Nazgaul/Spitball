@@ -39,9 +39,9 @@
                     "search-bar": {
                         controller: "SearchTriggerController as st",
                         templateProvider: [
-                       'user', function (user) {
+                       'user', "$templateCache", function (user, $templateCache) {
                            if (user.id) {
-                               return "search-bar.html";
+                               return $templateCache.get("search-bar.html");
                            }
                        }]
                     },
