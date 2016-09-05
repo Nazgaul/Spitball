@@ -127,6 +127,10 @@ library-list {
   -ms-word-break: break-word;
   word-break: break-word;
 }
+.page-title.box-title.need-follow .invite-btn {
+  background: #f5f5f5;
+  color: #006072;
+}
 .add svg {
   fill: #f5f5f5;
 }

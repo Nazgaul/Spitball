@@ -336,6 +336,9 @@ md-menu-item.blue svg {
 .itemPage .comments-section .comment-info > span {
   display: block;
 }
+.itemPage .comments-section .comment-info .author a {
+  word-break: break-word;
+}
 .itemPage .comments-section .comment-info .date {
   font-size: 12px;
   color: #888b8e;
@@ -462,42 +465,41 @@ md-menu-item.blue svg {
 .itemPage .comments-wrapper .new-comment .new-comment-form {
   width: 100%;
 }
-.itemPage .arrows {
-  position: fixed;
-  top: 50vh;
-  max-width: 900px;
-  width: 100%;
-  left: 0;
-  padding: 0 10px;
-}
-@media (min-width: 890px) {
-  .itemPage .arrows {
-    margin-left: calc(50% - 457px);
-  }
-}
-.itemPage .arrows svg {
-  width: 40px;
-  height: 40px;
-}
-.itemPage .arrows .arrow {
+.itemPage .arrow {
   display: inherit;
   fill: #c2c2c2;
+  position: fixed;
+  top: 50vh;
 }
-.itemPage .right {
+.itemPage .arrow.next {
   -moz-transform: rotate(0) /*rtl:rotate(180deg)*/;
   -ms-transform: rotate(0) /*rtl:rotate(180deg)*/;
   -o-transform: rotate(0) /*rtl:rotate(180deg)*/;
   -webkit-transform: rotate(0) /*rtl:rotate(180deg)*/;
   transform: rotate(0) /*rtl:rotate(180deg)*/;
-  right: 20px;
+  right: calc(50% - 440px);
 }
-.itemPage .left {
+@media (max-width: 960px) {
+  .itemPage .arrow.next {
+    right: 5px;
+  }
+}
+.itemPage .arrow.prev {
   -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
   -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
   -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
   -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
   transform: rotate(180deg) /*rtl:rotate(0)*/;
-  left: 10px;
+  left: calc(50% - 450px);
+}
+@media (max-width: 960px) {
+  .itemPage .arrow.prev {
+    left: 5px;
+  }
+}
+.itemPage .arrow svg {
+  width: 40px;
+  height: 40px;
 }
 .itemPage .side-ad {
   position: fixed;

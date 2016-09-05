@@ -20,7 +20,7 @@
                     </div>
                     <form name="renameItem" class="rename-form" novalidate ng-submit="i.renameItem(renameItem)" ng-if="i.selectedState === i.state.rename">
                         <md-content>
-                            <md-input-container flex >
+                            <md-input-container flex>
                                 <label class="text-capitalize">@ItemsResources.Name</label>
                                 <input class="textTC30" focus-me="i.selectedState === i.state.rename" autocomplete="off" required ng-model="i.renameText" name="name" />
                                 <div ng-messages="renameItem.name.$error" ng-show="renameItem.name.$dirty">
@@ -101,18 +101,16 @@
         <div class="side-ad" data-ng-dfp-ad-container>
             <div data-ng-dfp-ad="div-gpt-ad-1461244713254-0" data-ng-dfp-ad-hide-when-empty></div>
         </div>
-        <div class="arrows" layout="row" layout-align="space-between center" hide-xs>
-            <div>
-                <a ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs keyboard-action="37" class="arrow left" ga-track-event="['itemPage', 'previous item']">
-                    @Html.Svg("~/images/site/icons.svg", "arrow")
-                </a>
-            </div>
-            <div>
-                <a ng-if="i.details.next" href="{{i.details.next}}" hide-xs class="arrow right" keyboard-action="39" ga-track-event="['itemPage', 'next item']">@Html.Svg("~/images/site/icons.svg", "arrow")</a>
-            </div>
-        </div>
         @{ Html.RenderPartial("_ItemComments");}
+
+        <a class="arrow prev" ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs keyboard-action="37" ga-track-event="['itemPage', 'previous item']">
+            @Html.Svg("~/images/site/icons.svg", "arrow")
+        </a>
         <div class="preview" ng-bind-html="i.preview"></div>
+        <a class="arrow next" ng-if="i.details.next" href="{{i.details.next}}" hide-xs keyboard-action="39" ga-track-event="['itemPage', 'next item']">
+            @Html.Svg("~/images/site/icons.svg", "arrow")
+        </a>
+
         <div class="raw-text" ng-if="i.document">
             <md-switch ng-model="i.showRawText">
                 @ItemsResources.ShowRawText
