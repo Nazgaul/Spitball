@@ -340,7 +340,7 @@
   }
 }
 .homePage .home-page-body section.main .form-wrapper form .form-group:not(:last-child) {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 @media (max-width: 600px) {
   .homePage .home-page-body section.main .form-wrapper form .form-group:not(:last-child) {
@@ -357,6 +357,7 @@
   height: 46px;
   width: 100%;
   box-sizing: border-box;
+  margin-bottom: 5px;
 }
 @media (max-width: 600px) {
   .homePage .home-page-body section.main .form-wrapper form .form-group:not(:last-child) .form-control {
@@ -598,9 +599,8 @@
   opacity: 1;
 }
 .homePage .home-page-body section.main .has-error .help-block {
-  margin-top: 5px;
-  margin-bottom: 5px;
   font-size: 13px;
+  padding: 0 14px;
 }
 .homePage .home-page-body section.main .has-error .help-block,
 .homePage .home-page-body section.main .has-error .help-inline,
