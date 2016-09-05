@@ -70,14 +70,10 @@
                 element: '=?'
             },
             link: function (scope, elem, attrs) {
-                if (!notNeedSlimScroll()) {
+                //if (!notNeedSlimScroll()) {
                     scope.elem = elem;
-
                     var defaults = ScrollBars.defaults;
                     var configuredDefaults = $.mCustomScrollbar.defaults;
-
-
-
                     scope.$watch('ngScrollbarsConfig', function (newVal, oldVal) {
                         if (newVal !== undefined) {
                             render(defaults, configuredDefaults, elem, scope);
@@ -85,20 +81,19 @@
                     });
 
                     render(defaults, configuredDefaults, elem, scope);
-                }
+                //}
                 scope.ngScrollbarsUpdate = function () {
-                    if (!notNeedSlimScroll()) {
+                    //if (!notNeedSlimScroll()) {
                         elem.mCustomScrollbar.apply(elem, arguments);
-                        return;
-                    }
-                    if (arguments[0] === "scrollTo" && arguments[1] === 'bottom') {
-                        elem[0].scrollTop = elem[0].scrollHeight;
-                    }
+                        //return;
+                    //}
+                    //if (arguments[0] === "scrollTo" && arguments[1] === 'bottom') {
+                    //    window.scrollTo(0, document.body.scrollHeight);// TODO quick and dirty
+                    //   // elem[0].scrollTop = elem[0].scrollHeight;
+                    //}
                 };
 
-                function notNeedSlimScroll() {
-                    return Modernizr.touchevents && attrs.disableTouch !== undefined;
-                }
+                
             }
         };
     }

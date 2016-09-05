@@ -13,9 +13,6 @@ var app;
         return Guid;
     }());
     app.Guid = Guid;
-    //interface ISbHub extends ngSignalr.Hub {
-    //    sendMsg(userId: number, message: string, conversationId: Guid, blob: string): void;
-    //}
     var RealTimeFactory = (function () {
         function RealTimeFactory(Hub, $rootScope, ajaxService) {
             var _this = this;
@@ -33,7 +30,6 @@ var app;
                     _this.boxIds = _this.boxIds.concat(boxIds);
                 }
                 if (_this.canSend) {
-                    // hub.invoke('enterBox', [boxId]);
                     _this.hub.invoke('enterBoxes', boxIds);
                 }
                 else {
@@ -72,19 +68,16 @@ var app;
                         $rootScope.$broadcast('update-thumbnail', itemId);
                     },
                     echo: function (i) {
-                        //console.log('echo', i);
                     }
                 },
                 errorHandler: function (error) {
                     ajaxService.logError('signalr', 'errorHandler', error);
-                    //console.error(error);
                 },
                 methods: ['send', 'changeUniversity', 'enterBoxes'],
                 stateChanged: function (state) {
                     switch (state.newState) {
                         case $.signalR.connectionState.connecting:
                             _this.canSend = false;
-                            //console.log('connecting');
                             $rootScope.$broadcast('connection-state', {
                                 status: 0
                             });
@@ -95,14 +88,12 @@ var app;
                                 _this.commands[i]();
                             }
                             _this.commands = [];
-                            //console.log('connected');
                             $rootScope.$broadcast('connection-state', {
                                 status: 1
                             });
                             break;
                         case $.signalR.connectionState.reconnecting:
                             _this.canSend = false;
-                            //console.log('reconnecting');
                             ajaxService.logError('signalr', 'reconnecting');
                             $rootScope.$broadcast('connection-state', {
                                 status: 0
@@ -110,7 +101,6 @@ var app;
                             break;
                         case $.signalR.connectionState.disconnected:
                             _this.canSend = false;
-                            //console.log('disconnected');
                             ajaxService.logError('signalr', 'disconnected');
                             $rootScope.$broadcast('connection-state', {
                                 status: 0
@@ -129,7 +119,7 @@ var app;
             this.hub.connection.disconnected(function () {
                 setTimeout(function () {
                     _this.hub.connection.start();
-                }, 5000); // Restart connection after 5 seconds.
+                }, 5000);
             });
         }
         RealTimeFactory.prototype.sendMsg = function (userId, message, conversationId, blob) {
@@ -144,4 +134,3 @@ var app;
     }());
     angular.module('app.chat').service('realtimeFactotry', RealTimeFactory);
 })(app || (app = {}));
-//# sourceMappingURL=hubFactory.js.map

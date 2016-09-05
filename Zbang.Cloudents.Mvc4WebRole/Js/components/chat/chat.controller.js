@@ -368,7 +368,9 @@
 
         function scrollToBotton() {
             $timeout(function () {
-                c.updateScrollbar('scrollTo', 'bottom', { scrollInertia: 0, timeout: 100 });
+                $scope.$broadcast('chat-scroll');
+                //$scope.scrollToBotton();
+                //        c.updateScrollbar('scrollTo', 'bottom', { scrollInertia: 0, timeout: 100 });
             });
         }
 

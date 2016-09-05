@@ -303,6 +303,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //new JsFileWithCdn("~/js/shared/soundAlert.directive.js"),
                         new JsFileWithCdn("~/js/shared/notification.js"),
                         new JsFileWithCdn("~/js/shared/pagingOnScroll.directive.js"),
+                        new JsFileWithCdn("~/js/shared/sbScroll.directive.js"),
 
                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),
                         new JsFileWithCdn("~/js/components/item/externalProviderUpload.service.js"),

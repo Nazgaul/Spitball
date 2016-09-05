@@ -1532,6 +1532,7 @@
     <TypeScriptCompile Include="Js\shared\history.ts" />
     <TypeScriptCompile Include="Js\shared\loader.ts" />
     <TypeScriptCompile Include="Js\shared\resourceManager.ts" />
+    <TypeScriptCompile Include="Js\shared\sbScroll.directive.ts" />
     <TypeScriptCompile Include="Js\shared\userDetails.ts" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
@@ -2596,6 +2597,7 @@
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\cachefactory\cachefactory.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\modernizr\modernizr.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\signalr\signalr.d.ts" />
   </ItemGroup>
   <ItemGroup>
