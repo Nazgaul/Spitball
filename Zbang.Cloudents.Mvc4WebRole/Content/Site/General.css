@@ -48,9 +48,15 @@ body .box-template .number {
   text-transform: capitalize;
 }
 .page-body {
+  margin-right: 95px;
   margin-top: 75px;
   padding: 0 10px;
   transition: margin-right 0.1s;
+}
+@media (max-width: 960px) {
+  .page-body {
+    margin-right: 0;
+  }
 }
 .page-body.loading-cursor:after {
   content: '';
@@ -423,7 +429,7 @@ body .box-template .number {
 .tabbable li:hover,
 .nav-tabs li:focus,
 .tabbable li:focus {
-  color: #2698D4;
+  color: #2698d4;
   background: transparent;
 }
 .nav-tabs li.active,
@@ -457,7 +463,7 @@ body .box-template .number {
 .nav-tabs li > a:hover,
 .tabbable li > a:hover {
   border: none;
-  color: #2698D4;
+  color: #2698d4;
 }
 .ribbon {
   position: absolute;
@@ -532,17 +538,17 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 md-switch.md-default-theme.md-checked .md-thumb,
 md-switch.md-checked .md-thumb {
-  background-color: #2698D4;
+  background-color: #2698d4;
 }
 md-switch.md-default-theme.md-checked .md-ink-ripple,
 md-switch.md-checked .md-ink-ripple {
-  color: #2698D4;
+  color: #2698d4;
 }
 md-switch.md-default-theme.md-checked .md-bar,
 md-switch.md-checked .md-bar,
 md-switch.md-default-theme.md-checked.md-focused .md-thumb:before,
 md-switch.md-checked.md-focused .md-thumb:before {
-  background-color: #2698D4;
+  background-color: #2698d4;
   opacity: 0.5;
 }
 md-tooltip .md-content {

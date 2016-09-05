@@ -36,8 +36,6 @@ body {
     //For header collapse in itemPage
     //margin-top: 0;
     //.transition(margin-top, 0.2s, ease);
-
-
     &.collapseHeader {
         margin-top: -70px;
 
@@ -80,9 +78,14 @@ body {
 }
 
 .page-body {
-    margin-top: @heightOfHeader + 5;
+    margin-right: @widthOfChat;
+    margin-top: @bodyGapFromTop;
     padding: 0 10px;
     transition: margin-right 0.1s;
+
+    @media (max-width: 960px) {
+        margin-right: 0;
+    }
 
     &.loading-cursor:after {
         content: '';
@@ -100,7 +103,7 @@ body {
     }
 
     @media (min-width: 960px) {
-        margin-left: 240px;
+        margin-left: @widthOfSideMenu;
         padding: 0;
     }
 }
@@ -349,7 +352,7 @@ body {
 //
 //    &.quizPage {
 //        top: 0;
-//        padding-bottom: 80px; 
+//        padding-bottom: 80px;
 //    }*/
 //
 //

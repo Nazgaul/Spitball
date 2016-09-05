@@ -40,64 +40,12 @@
     }
 }
 
-.exit-icon {
-    padding: 5px;
-    margin-left: 15px;
-    margin-top: 5px;
-    -moz-transform: scaleX(1) /*rtl: scaleX(-1)*/;
-    -o-transform: scaleX(1) /*rtl: scaleX(-1)*/;
-    -webkit-transform: scaleX(1) /*rtl: scaleX(-1)*/;
-    -ms-transform: scaleX(1) /*rtl: scaleX(-1)*/;
-    transform: scaleX(1) /*rtl: scaleX(-1)*/;
-    -ms-filter: none /*rtl: "FlipH"*/;
-    filter: none /*rtl: FlipH*/;
-
-    svg {
-        width: 24px;
-        height: 24px;
-        fill: @textColorWhite;
-    }
-}
-
-html:not(.expanded-chat) {
-    .chat {
-        @media(min-width: 960px) {
-            right: -265px;
-        }
-
-        @media(max-width: 960px) {
-            //right: -100vw;
-            //display: none;
-        }
-
-        .content .tab-content .search-friend .search-btn {
-            .justifyContet(center);
-        }
-    }
-}
-
-.expanded-chat, .expanded-chat body {
-    /*@media(max-width: 600px) {
-        overflow: scroll;
-        -webkit-overflow-scrolling: touch !important;
-        height: 100% !important;
-    }*/
-}
-
 .expanded-chat {
     .chat {
         .tab:after {
             border-width: 7px 0 7px 10px;
             border-color: transparent transparent transparent @textColorWhite;
             left: 6px;
-        }
-
-        .expanded-chat {
-            .chat {
-                .content .tab-content .users-list section:after {
-                    border-bottom-color: #323538;
-                }
-            }
         }
     }
 }
@@ -110,20 +58,7 @@ html:not(.expanded-chat) {
     border-bottom-color: #e9eaed;
 }
 
-.page-body {
-    @media (min-width: 960px) {
-        margin-right: 95px;
-    }
-}
-
-
-
-
-html:not(.expanded-chat) .chat .error {
-    display: none;
-}
-
-.chat {
+.chat-side-nav .chat {
     position: fixed;
     z-index: 10;
     top: @heightOfHeader;
@@ -134,12 +69,46 @@ html:not(.expanded-chat) .chat .error {
     transition: right 0.1s;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
 
-    @media(max-width: 600px) {
-        //width: 100vw;
-        position: static;
-        width: auto;
-    }
+    .content {
+        background: none;
+        position: relative;
+        height: ~"calc(100vh - @{heightOfHeader})";
+        overflow: hidden;
 
+        .tab-content {
+            .users-list {
+                height: ~"calc(100vh - 119px)";
+                width: ~"calc(100% - 20px)";
+                overflow: auto;
+            }
+        }
+
+
+        .conversasion, .menu-content {
+            position: absolute;
+            width: 100%;
+            height: ~"calc(100vh - @{heightOfHeader})";
+
+            .new-message {
+                position: absolute;
+            }
+        }
+    }
+}
+
+html:not(.expanded-chat) .chat-side-nav .error {
+    display: none;
+}
+
+.chatPage .chat {
+    margin: 0 -5px;
+
+    .tab {
+        display: none;
+    }
+}
+
+.chat {
     .stateChat ~ .tab {
         display: none;
     }
@@ -165,10 +134,6 @@ html:not(.expanded-chat) .chat .error {
             position: absolute;
             top: ~"calc(50% - 7px)";
             left: 4px;
-        }
-
-        @media(max-width: 600px) {
-            display: none;
         }
     }
 
@@ -198,18 +163,11 @@ html:not(.expanded-chat) .chat .error {
     }
 
     .content {
-        background: none;
-        position: relative;
-        height: 100vh;
-        overflow: hidden;
-
         .attach-menu {
             position: absolute;
         }
 
         .tab-content {
-            height: ~"calc(100vh - 113px)";
-
             .search-friend {
                 margin-top: 6px;
                 .displayFlex;
@@ -258,19 +216,17 @@ html:not(.expanded-chat) .chat .error {
             }
 
             .users-list {
-                height: ~"calc(100vh - 119px)";
-                width: ~"calc(100% - 20px)";
-                overflow: auto;
-
                 section {
                     margin-top: 16px;
 
                     &:not(:last-child):after {
                         content: '';
                         display: block;
-                        border-bottom: 2px solid transparent;
+                        border-bottom: 2px solid @textColorDarkGrey;
                         margin-left: 10px;
                         margin-top: 8px;
+                        width: ~"calc(100% - 20px)";
+                        margin: 0 auto;
                     }
 
                     .header {
@@ -350,7 +306,7 @@ html:not(.expanded-chat) .chat .error {
 
                         .member-name, .comment-date {
                             display: block;
-                            width:100%; // ios fix???
+                            width: 100%; // ios fix???
                         }
 
                         .comment-date {
@@ -439,10 +395,7 @@ html:not(.expanded-chat) .chat .error {
 
         .conversasion, .menu-content {
             transition: right 0.3s;
-            position: absolute;
             top: 0;
-            width: 100%;
-            height: ~"calc(100vh - @{heightOfHeader})";
         }
 
         .conversasion {
@@ -595,7 +548,6 @@ html:not(.expanded-chat) .chat .error {
                 }
 
                 .new-message {
-                    position: absolute;
                     bottom: 0;
                     width: 100%;
                     background: #CBDBE3;
@@ -604,7 +556,6 @@ html:not(.expanded-chat) .chat .error {
                     .justifyContet(space-between);
                     min-height: @newChatMessageHeight;
                     padding: 6px 6px 6px 10px;
-
                     /*@media(max-width: 600px) {
                         padding: 6px 6px 20px 10px;
                     }*/
@@ -658,7 +609,6 @@ html:not(.expanded-chat) .chat .error {
                             border: none !important;
                             line-height: 22px;
                             padding: 0 0 0 10px;
-
                             /*@media(max-width: 600px) {
                                 padding: 0 0 50px 10px;
                                 min-height: @newChatMessageHeightMobile;
@@ -833,6 +783,29 @@ html:not(.expanded-chat) .chat .error {
                 margin-bottom: 15px;
             }
         }
+    }
+}
+
+
+html:not(.expanded-chat) {
+    .chat {
+        @media(min-width: 960px) {
+            right: -265px;
+        }
+
+        @media(max-width: 960px) {
+            //right: -100vw;
+            //display: none;
+        }
+
+
+        .content .tab-content .search-friend .search-btn {
+            .justifyContet(center);
+        }
+    }
+
+    .chat-side-nav .chat .content .tab-content .users-list section:not(:last-child):after {
+        border-bottom-color: transparent;
     }
 }
 
@@ -1069,34 +1042,4 @@ html:not(.expanded-chat) .chat .error {
     //    -webkit-transform: translate3d(440px, 0, 0);
     //    transform: translate3d(440px, 0, 0);
     //}
-}
-
-.chatPage {
-    .chat .content {
-        background: inherit;
-        position: static;
-        height: auto;
-        overflow: auto;
-
-        .tab-content {
-            height: auto;
-
-            .users-list {
-                height: auto;
-                width: auto;
-                overflow: auto;
-            }
-        }
-
-        .conversasion, .menu-content {
-            position: static;
-            width: auto;
-            height: auto;
-
-            .chat-content .new-message {
-                position: static;
-                position: static;
-            }
-        }
-    }
 }
