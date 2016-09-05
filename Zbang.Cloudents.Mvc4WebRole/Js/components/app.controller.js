@@ -30,6 +30,10 @@ var app;
                 _this.cacheFactory.clearAll();
                 Intercom("shutdown");
             };
+            //initChat = () => {
+            //    var details = this.userDetails.get();
+            //    this.loadChat = details.university.id > 0;
+            //};
             this.setTheme = function () {
                 _this.theme = "theme-" + _this.userDetails.get().theme;
             };
@@ -57,23 +61,30 @@ var app;
                 }
                 $mdOpenMenu(ev);
             };
+            //directive with menu
             userDetails.init().then(function () {
                 _this.setTheme();
             });
+            //directive with menu
             $rootScope.$on("$mdMenuClose", function () {
                 _this.menuOpened = false;
             });
+            //this.showMenu = true;
             this.showBoxAd = false;
             $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams) {
                 _this.showBoxAd = toState.parent === "box";
+                // hub
+                //if (toState.name.startsWith("box")) {
+                //    realtimeFactotry.assingBoxes(toParams.boxId);
+                //}
                 if (toParams["pageYOffset"]) {
                     $timeout(function () {
                         $window.scrollTo(0, toParams["pageYOffset"]);
                     });
                 }
                 var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
-                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl });
-                __insp.push(["virtualPage"]);
+                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
+                __insp.push(["virtualPage"]); // inspectlet
             });
             $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
                 console.error(error);
@@ -82,12 +93,13 @@ var app;
                 if (!fromState.name) {
                     return;
                 }
+                // can't access anonymous user
                 if (toState.name === "user" && toParams.userId === 22886) {
                     event.preventDefault();
                     $rootScope.$broadcast("state-change-start-prevent");
                 }
-                $mdMenu.hide();
-                $mdToast.hide();
+                $mdMenu.hide(); // closes menu
+                $mdToast.hide(); // hide toasters
                 $rootScope.$broadcast("close-menu");
                 $rootScope.$broadcast("close-collapse");
                 var toStateName = toState.name;
@@ -133,3 +145,4 @@ var app;
     }());
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
+//# sourceMappingURL=app.controller.js.map

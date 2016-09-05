@@ -98,7 +98,6 @@
     function unregShow($window, $rootScope, userDetailsFactory, $timeout) {
         return {
             restrict: 'A',
-            priority: -1,
             link: function (scope, element, attrs) {
                 element.on(attrs.userNotRegisterPopup, function (e) {
                     if (userDetailsFactory.isAuthenticated()) {

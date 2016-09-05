@@ -26,7 +26,7 @@
         else {
             ud.signup = function(e) {
                 var url = getParameterByName('returnUrl', e.target.href);
-                e.target.href = e.target.href.replace(url, encodeURI(window.location.href));
+                e.target.href = e.target.href.replace(encodeURIComponent(url), encodeURIComponent(window.location.href));
             }
         }
 

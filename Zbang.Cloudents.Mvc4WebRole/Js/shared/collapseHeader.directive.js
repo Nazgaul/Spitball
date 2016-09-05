@@ -7,9 +7,9 @@
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                scope.app.collapsedHeader = false;
+                //scope.app.collapsedHeader = false;
                 var $container = angular.element($window);
-
+                var $body = angular.element('body');
                 //$container.on('scroll', onScroll);
 
                 var lastScrollTop = 0;
@@ -27,11 +27,13 @@
 
                     var st = $container.scrollTop();
                     if (st > lastScrollTop) {
+                        $body.addClass('collapseHeader');
                         //alert('scroll down');
-                        scope.app.collapsedHeader = true;
+                       // scope.app.collapsedHeader = true;
                     } else {
+                        $body.removeClass('collapseHeader');
                         //alert('scroll up');
-                        scope.app.collapsedHeader = false;
+                        //scope.app.collapsedHeader = false;
                     }
                     lastScrollTop = st;
 
@@ -46,6 +48,7 @@
                 }
 
                 scope.$on('$destroy', function () {
+                    $body.removeClass('collapseHeader');
                     $container.unbind('scroll', onScroll);
                 });
 

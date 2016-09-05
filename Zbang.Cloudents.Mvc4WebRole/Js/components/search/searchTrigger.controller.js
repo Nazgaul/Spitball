@@ -1,9 +1,9 @@
 ﻿'use strict';
 (function () {
     angular.module('app.search').controller('SearchTriggerController', searchTriggerController);
-    searchTriggerController.$inject = ['$state', '$rootScope', '$stateParams', '$location', 'userDetailsFactory'];
+    searchTriggerController.$inject = ['$state', '$rootScope', '$stateParams', '$location'];
 
-    function searchTriggerController($state, $rootScope, $stateParams, $location, userDetailsFactory) {
+    function searchTriggerController($state, $rootScope, $stateParams, $location) {
         var st = this;
 
         st.search = search;
@@ -11,9 +11,9 @@
 
         st.term = $location.search().q; //$state not yet loaded
 
-        userDetailsFactory.init().then(function () {
-            st.show = userDetailsFactory.isAuthenticated();
-        });
+        //userDetailsFactory.init().then(function () {
+        //    st.show = userDetailsFactory.isAuthenticated();
+        //});
 
         function search(isValid) {
             if (isValid) {

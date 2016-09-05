@@ -25,10 +25,6 @@
         self.back = function () {
             $rootScope.$broadcast('search-close');
             $scope.app.back('/dashboard/');
-            //if ($previousState.get()) {
-            //    $previousState.go();
-            //}
-            //$state.go('dashboard');
         }
 
         self.myPagingFunction = function () {

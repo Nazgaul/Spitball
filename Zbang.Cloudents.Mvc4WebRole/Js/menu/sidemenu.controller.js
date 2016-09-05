@@ -1,26 +1,26 @@
 ﻿'use strict';
 (function () {
     angular.module('app.dashboard').controller('SideMenu', sideMenu);
-    sideMenu.$inject = ['dashboardService', 'userDetailsFactory', '$rootScope',
+    sideMenu.$inject = ['dashboardService', 'userDetailsFactory', 
         '$mdSidenav', '$location', '$scope'];
 
-    function sideMenu(dashboardService, userDetailsFactory, $rootScope,
+    function sideMenu(dashboardService, userDetailsFactory, 
         $mdSidenav, $location, $scope) {
         var d = this, loaded = false;
         d.courses = [];
         d.privateBoxes = [];
 
-        userDetailsFactory.init().then(function (userDetails) {
-            d.userUrl = userDetails.url;
-            if (userDetails.theme === 'dark') {
+        var userDetails = userDetailsFactory.get();
+        d.userUrl = userDetails.url;
+        if (userDetails.theme === 'dark') {
 
-                d.updateScrollbar = {
-                    theme: 'light-thin',
-                    scrollbarPosition: 'outside'
+            d.updateScrollbar = {
+                theme: 'light-thin',
+                scrollbarPosition: 'outside'
 
-                };
-            }
-        });
+            };
+        }
+
         d.showBoxesNodes = true;
 
 
@@ -47,9 +47,7 @@
             }
             d.coursesOpen = !d.coursesOpen;
             d.boxesOpen = false;
-            //$timeout(function () {
-            //    $rootScope.$broadcast('updateScroll');
-            //}, 800);
+
         }
         function toggleBoxes() {
             if (!initOpen()) {
@@ -57,15 +55,8 @@
             }
             d.coursesOpen = false;
             d.boxesOpen = !d.boxesOpen;
-            //$timeout(function () {
-            //    $rootScope.$broadcast('updateScroll');
-            //}, 800);
         }
         function initOpen() {
-            if (!userDetailsFactory.isAuthenticated()) {
-                $rootScope.$broadcast('show-unregisterd-box');
-                return false;
-            }
             if (!loaded) {
                 getBoxes();
                 loaded = true;
@@ -99,9 +90,6 @@
         $scope.$on('open-menu', function () {
             $mdSidenav('left').toggle();
             $scope.app.menuOpened = !$scope.app.menuOpened;
-            //$timeout(function () {
-            //    $rootScope.$broadcast('updateScroll');
-            //});
         });
         $scope.$on('remove-box', function (e, arg) {
             arg = parseInt(arg, 10);
@@ -119,7 +107,7 @@
             }
         }
 
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        $scope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             if (fromState.parent === 'box') {
                 if (fromParams.boxtype === 'box') {
                     var box = d.privateBoxes.find(function (i) {

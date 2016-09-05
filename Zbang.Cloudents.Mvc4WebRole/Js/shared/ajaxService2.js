@@ -1,3 +1,4 @@
+/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 "use strict";
 var app;
 (function (app) {
@@ -198,3 +199,4 @@ var app;
     }());
     angular.module("app").service("ajaxService2", AjaxService2);
 })(app || (app = {}));
+//# sourceMappingURL=ajaxservice2.js.map
