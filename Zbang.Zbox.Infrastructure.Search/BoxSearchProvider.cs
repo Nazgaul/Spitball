@@ -60,10 +60,10 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public async Task<bool> UpdateDataAsync(IEnumerable<BoxSearchDto> boxToUpload, IEnumerable<long> boxToDelete)
         {
-            if (!m_CheckIndexExists)
-            {
-                await BuildIndexAsync();
-            }
+            //if (!m_CheckIndexExists)
+            //{
+            //    await BuildIndexAsync();
+            //}
             var t1 = Extensions.TaskExtensions.CompletedTask;
             var t2 = Extensions.TaskExtensions.CompletedTask;
             if (boxToUpload != null)

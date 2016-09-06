@@ -43,7 +43,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
         {
-            TraceLog.WriteWarning($"{ServiceName} starting with number of emails {m_LimitPerIp}");
             for (var i = 0; i < SpanGunNumberOfQueues; i++)
             {
                 m_Queues[i] = new Queue<SpamGunDto>();
@@ -69,13 +68,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             }
                             if (m_Queues[i].Count == 0)
                             {
-                                TraceLog.WriteWarning($"{ServiceName} queue {i} is empty");
                                 break;
                             }
                             var message = m_Queues[i].Dequeue();
                             if (message == null)
                             {
-                                TraceLog.WriteWarning($"{ServiceName} message is null {i}");
                                 break;
                             }
                             var t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),

@@ -42,5 +42,10 @@ namespace Zbang.Zbox.Infrastructure.Transport
         public string EmailAddress { get; private set; }
 
         public abstract string MailResover { get; }
+
+        public override string ToString()
+        {
+            return $"Culture {Culture} EmailAddress {EmailAddress}";
+        }
     }
 }
