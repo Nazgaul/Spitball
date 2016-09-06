@@ -9,8 +9,8 @@ module app {
     class AppController {
         static $inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
-            "CacheFactory", 
-            "sbHistory", "$state", "$window", "$timeout"];
+            "CacheFactory",
+            "sbHistory", "$state", "$window"];
 
         private menuOpened: boolean;
         private showMenu: boolean;
@@ -29,8 +29,7 @@ module app {
             private cacheFactory: CacheFactory.ICacheFactory,
             private sbHistory: ISbHistory,
             private $state: angular.ui.IStateService,
-            private $window: angular.IWindowService,
-            private $timeout: angular.ITimeoutService
+            private $window: angular.IWindowService
         ) {
 
 
@@ -48,25 +47,33 @@ module app {
             //this.showMenu = true;
             this.showBoxAd = false;
 
-            $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState,
-                toParams: ISpitballStateParamsService) => {
+            $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState
+               /* toParams: ISpitballStateParamsService*/) => {
                 this.showBoxAd = toState.parent === "box";
 
                 // hub
                 //if (toState.name.startsWith("box")) {
                 //    realtimeFactotry.assingBoxes(toParams.boxId);
                 //}
-                if (toParams["pageYOffset"]) {
-                    $timeout(() => {
-                        $window.scrollTo(0, toParams["pageYOffset"]);
-                    });
-                }
+                //if (toParams["pageYOffset"]) {
+                //    $timeout(() => {
+                //        $window.scrollTo(0, toParams["pageYOffset"]);
+                //    }, 10);
+                //}
                 var path = $location.path(),
                     absUrl = $location.absUrl(),
                     virtualUrl = absUrl.substring(absUrl.indexOf(path));
                 window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
                 __insp.push(["virtualPage"]); // inspectlet
             });
+
+            //$rootScope.$on("$viewContentLoaded",
+            //    () => {
+            //        var yOffsetParam = this.$state.params["pageYOffset"];
+            //        if (yOffsetParam) {
+            //            $window.scrollTo(0, yOffsetParam);
+            //        }
+            //});
 
             $rootScope.$on('$stateChangeError',
                 (event, toState, toParams, fromState, fromParams, error) => {
@@ -122,7 +129,6 @@ module app {
         }
         back = (defaultUrl: string) => {
             var element = this.sbHistory.popElement();
-            console.log(element);
             if (!element) {
                 this.$location.url(defaultUrl);
                 return;

@@ -25,8 +25,6 @@ var app;
          'app.box',
          'app.item',
          'app.quiz',
-         //'textAngular'
-         //'app.quiz.create',
          'app.upload',
          'app.search',
          'app.chat'

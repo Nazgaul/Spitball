@@ -43,6 +43,12 @@
     delete from Updates c where c.Quiz.Id = :QuizId
     ]]>
   </query>
+  <query name="DeleteUpdatesByQuizDiscussionId">
+    <![CDATA[
+    delete from Updates c where c.QuizDiscussion.Id = :QuizDiscussionId
+    and c.Quiz.Id = :QuizId
+    ]]>
+  </query>
 
   <query name="DeleteItemUpdatesByBoxIdUserId">
     <![CDATA[

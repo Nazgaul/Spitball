@@ -1,13 +1,15 @@
-﻿'use strict';
+﻿
 (function () {
+    'use strict';
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
-        'resManager', 'routerHelper', '$filter', 'feedData', 'updates'];
+        'resManager', 'routerHelper', '$filter', 'feedData', 'updates', "$q", "$window"];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
-        $mdDialog, $scope, $rootScope, resManager, routerHelper, $filter, feedData, updates) {
+        $mdDialog, $scope, $rootScope, resManager, routerHelper,
+        $filter, feedData, updates, $q, $window) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), top = 30;
 
         self.add = {
@@ -39,7 +41,7 @@
             userUpdatesService.deleteUpdates(boxId);
         }
         self.data = assignData(feedData);
-
+        scrollToPosition();
 
         function appendUpdates(postsList) {
             if (!feedUpdates) {
@@ -50,7 +52,7 @@
                 if (feedUpdates && feedUpdates[currentPost.id]) {
                     currentPost.isNew = true;
                 }
-                if (typeof currentPost !== 'undefined') {
+                if (angular.isDefined(currentPost) && currentPost !== null) {
                     for (var j = 0; j < currentPost.replies.length; j++) {
                         var currentreply = currentPost.replies[j];
                         if (feedUpdates[currentreply.id]) {
@@ -149,7 +151,7 @@
         function myPagingFunction() {
             //timestamp = currentTimestamp;
             if (disablePaging) {
-                return;
+                return $q.when();
             }
             return boxService.getFeed(boxId, top, self.data.length).then(function (response) {
                 if (!response.length) {
@@ -232,7 +234,6 @@
                   .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
-                disablePaging = false;
                 var index = self.data.indexOf(post);
                 self.data.splice(index, 1);
                 boxService.deleteComment(post.id, boxId);
@@ -251,7 +252,6 @@
                   .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
-                disablePaging = false;
                 var index = post.replies.indexOf(reply2);
                 post.replies.splice(index, 1);
                 boxService.deleteReply(reply2.id, boxId);
@@ -535,6 +535,15 @@
                 }
             }
         });
+
+        function scrollToPosition() {
+            var yOffsetParam = $stateParams.pageYOffset;
+            if (yOffsetParam) {
+                $timeout(function () {
+                    $window.scrollTo(0, yOffsetParam);
+                });
+            }
+        }
     }
 })();
 

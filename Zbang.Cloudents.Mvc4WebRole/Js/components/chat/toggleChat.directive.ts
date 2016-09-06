@@ -23,6 +23,10 @@
             element.on('click',
                 () => {
                     if (this.$mdMedia('xs')) {
+                        if (this.$state.current.name === "chat") {
+                            scope["app"].back("/dashboard/");
+                            return;
+                        }
                         this.$state.go("chat");
                         return;
                     }

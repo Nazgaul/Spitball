@@ -6,8 +6,8 @@
 
     function tabs(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, $q, resManager, $state) {
         var t = this,
-            boxId = $stateParams.boxId,
-            disablePaging = false;//, tabId = $stateParams.tabId;
+            boxId = $stateParams.boxId;
+            
         $scope.stateParams = $stateParams;
         //t.tabId = $stateParams.tabId,
         //item = $scope.i;
@@ -97,7 +97,6 @@
                  .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
-                $scope.$emit('enablePaging');
                 var index = t.tabs.indexOf(t.tabSelected);
                 t.tabs.splice(index, 1);
                 boxService.deleteTab($stateParams.tabId, boxId).then(function () {

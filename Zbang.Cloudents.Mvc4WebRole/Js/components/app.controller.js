@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
-        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, sbHistory, $state, $window, $timeout) {
+        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, sbHistory, $state, $window) {
             var _this = this;
             this.$rootScope = $rootScope;
             this.$location = $location;
@@ -15,10 +15,8 @@ var app;
             this.sbHistory = sbHistory;
             this.$state = $state;
             this.$window = $window;
-            this.$timeout = $timeout;
             this.back = function (defaultUrl) {
                 var element = _this.sbHistory.popElement();
-                console.log(element);
                 if (!element) {
                     _this.$location.url(defaultUrl);
                     return;
@@ -64,13 +62,8 @@ var app;
                 _this.menuOpened = false;
             });
             this.showBoxAd = false;
-            $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams) {
+            $rootScope.$on("$stateChangeSuccess", function (event, toState) {
                 _this.showBoxAd = toState.parent === "box";
-                if (toParams["pageYOffset"]) {
-                    $timeout(function () {
-                        $window.scrollTo(0, toParams["pageYOffset"]);
-                    });
-                }
                 var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
                 window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl });
                 __insp.push(["virtualPage"]);
@@ -128,7 +121,7 @@ var app;
         AppController.$inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory",
-            "sbHistory", "$state", "$window", "$timeout"];
+            "sbHistory", "$state", "$window"];
         return AppController;
     }());
     angular.module("app").controller("AppController", AppController);

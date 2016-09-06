@@ -1,6 +1,4 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-
-<div ui-view="menu"></div>
+﻿<div ui-view="menu"></div>
 @{ Html.RenderPartial("_Menu");}
 
 <div flex>
@@ -9,10 +7,6 @@
     <div ui-view animation-location></div>
 </div>
 <div ui-view="chat" class="chat-side-nav"></div>
-@*@if (User != null)
-{
-    Html.RenderPartial("_Chat");
-}*@
 @section scripts
 {
     @Html.AngularLocale()

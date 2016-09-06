@@ -238,11 +238,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         {
             try
             {
-                var token = CreateCancellationToken(cancellationToken);
-                var userId = User.GetUserId(false);
-                var query = new GetBoxSideBarQuery(id, userId);
-                var result = await ZboxReadService.GetBoxRecommendedCoursesAsync(query, token.Token);
-                return JsonOk(result);
+                using (var token = CreateCancellationToken(cancellationToken))
+                {
+                    var userId = User.GetUserId(false);
+                    var query = new GetBoxSideBarQuery(id, userId);
+                    var result = await ZboxReadService.GetBoxRecommendedCoursesAsync(query, token.Token);
+                    return JsonOk(result);
+                }
             }
             catch (Exception ex)
             {

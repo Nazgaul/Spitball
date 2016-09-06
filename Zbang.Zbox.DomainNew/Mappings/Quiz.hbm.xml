@@ -125,7 +125,7 @@
     <many-to-one name="Question" class="Question" column="QuestionId" not-null="true" foreign-key="QuestionIdSolvedQuestion"/>
     <property name="Text" not-null="true" length="8000"></property>
     <property name="CreationTime" not-null="true" type="DateTime2" ></property>
-    <bag name="Updates" inverse="true" lazy="true" cascade="delete-orphan" >
+    <bag name="Updates" inverse="true" lazy="true" cascade="none" >
       <key column="QuizDiscussionId" foreign-key="NewUpdatesQuizDiscussion"/>
       <one-to-many class="Updates"/>
     </bag>

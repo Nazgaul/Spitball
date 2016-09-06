@@ -3,10 +3,16 @@
     'use strict';
     angular.module('app').directive('ngScrollbarsPaging', ngScrollbarsPaging);
     var deepVal = function (path, obj) {
-        var ret = path.split('.').reduce(function (prev, curr) {
-            return prev[curr];
-        }, obj || this);
-        return ret;
+        if (path) {
+            var ret = path.split('.')
+                .reduce(function(prev, curr) {
+                        return prev[curr];
+                    },
+                    obj || this);
+            return ret;
+        }
+        return {};
+
     }
 
     //function doneScrolling(element, direction) {

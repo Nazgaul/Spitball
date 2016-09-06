@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly Lazy<IGoogleService> m_GoogleService;
         private readonly Lazy<IQueueProvider> m_QueueProvider;
         private readonly Lazy<IEncryptObject> m_EncryptObject;
-        private readonly ApplicationUserManager m_UserManager;
+        private readonly Lazy<ApplicationUserManager> m_UserManager;
         private readonly IAuthenticationManager m_AuthenticationManager;
         private readonly ICookieHelper m_CookieHelper;
         private readonly ILanguageCookieHelper m_LanguageCookie;
@@ -49,7 +49,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
            Lazy<IFacebookService> facebookService,
            Lazy<IQueueProvider> queueProvider,
            Lazy<IEncryptObject> encryptObject,
-           ApplicationUserManager userManager,
+           Lazy<ApplicationUserManager> userManager,
         IAuthenticationManager authenticationManager, ICookieHelper cookieHelper, ILanguageCookieHelper languageCookie, Lazy<IGoogleService> googleService)
         {
             m_FacebookService = facebookService;
@@ -326,7 +326,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 var query = new GetUserByEmailQuery(model.Email);
                 var tSystemData = ZboxReadService.GetUserDetailsByEmail(query);
-                var tUserIdentity = m_UserManager.FindByEmailAsync(model.Email);
+                var tUserIdentity = m_UserManager.Value.FindByEmailAsync(model.Email);
 
                 await Task.WhenAll(tSystemData, tUserIdentity);
 
@@ -347,11 +347,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         ModelState.AddModelError(string.Empty, AccountValidation.ErrorCodeToString(AccountValidation.AccountError.InvalidEmail));
                         return JsonError(GetErrorFromModelState());
                     }
-                    var loginStatus = await m_UserManager.CheckPasswordAsync(user, model.Password);
+                    var loginStatus = await m_UserManager.Value.CheckPasswordAsync(user, model.Password);
 
                     if (loginStatus)
                     {
-                        var identity = await user.GenerateUserIdentityAsync(m_UserManager, systemUser.Id,
+                        var identity = await user.GenerateUserIdentityAsync(m_UserManager.Value, systemUser.Id,
                             systemUser.UniversityId, systemUser.UniversityData);
                         m_AuthenticationManager.SignIn(new AuthenticationProperties
                         {
@@ -423,7 +423,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     UserName = model.NewEmail,
                     Email = model.NewEmail
                 };
-                createStatus = await m_UserManager.CreateAsync(user, model.Password);
+                createStatus = await m_UserManager.Value.CreateAsync(user, model.Password);
                 if (createStatus.Succeeded)
                 {
                     var lang = m_LanguageCookie.ReadCookie();
@@ -439,7 +439,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     m_LanguageCookie.InjectCookie(result.User.Culture);
 
                     var identity =
-                        await user.GenerateUserIdentityAsync(m_UserManager, result.User.Id, result.UniversityId,
+                        await user.GenerateUserIdentityAsync(m_UserManager.Value, result.User.Id, result.UniversityId,
                             result.UniversityData);
 
                     m_AuthenticationManager.SignIn(new AuthenticationProperties
@@ -490,9 +490,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             if (createStatus != null && createStatus.Succeeded)
             {
-                var user = await m_UserManager.FindByEmailAsync(model.NewEmail);
+                var user = await m_UserManager.Value.FindByEmailAsync(model.NewEmail);
 
-                await m_UserManager.DeleteAsync(user);
+                await m_UserManager.Value.DeleteAsync(user);
             }
             return JsonError(GetErrorFromModelState());
         }
@@ -736,7 +736,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 using (var source = CreateCancellationToken(cancellationToken))
                 {
                     var query = new GetUserByEmailQuery(model.Email);
-                    var tUser = m_UserManager.FindByEmailAsync(model.Email);
+                    var tUser = m_UserManager.Value.FindByEmailAsync(model.Email);
                     var tResult = ZboxReadService.GetForgotPasswordByEmailAsync(query, source.Token);
 
                     await Task.WhenAll(tUser, tResult);
@@ -751,7 +751,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     if (systemUser.IdentityId.HasValue)
                     {
                         var user = tUser.Result;
-                        var identitylinkData = await m_UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                        var identitylinkData = await m_UserManager.Value.GeneratePasswordResetTokenAsync(user.Id);
 
                         var data = new ForgotPasswordLinkData(Guid.Parse(user.Id), 1, identitylinkData);
 
@@ -821,18 +821,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 return RedirectToAction("index");
             }
-            var result = await m_UserManager.ResetPasswordAsync(data.MembershipUserId.ToString(), data.Hash, model.Password);
+            var result = await m_UserManager.Value.ResetPasswordAsync(data.MembershipUserId.ToString(), data.Hash, model.Password);
 
             if (result.Succeeded)
             {
                 var query = new GetUserByMembershipQuery(data.MembershipUserId);
                 var tSystemUser = ZboxReadService.GetUserDetailsByMembershipId(query);
 
-                var tUser = m_UserManager.FindByIdAsync(data.MembershipUserId.ToString());
+                var tUser = m_UserManager.Value.FindByIdAsync(data.MembershipUserId.ToString());
 
                 await Task.WhenAll(tSystemUser, tUser);
 
-                var identity = await tUser.Result.GenerateUserIdentityAsync(m_UserManager, tSystemUser.Result.Id,
+                var identity = await tUser.Result.GenerateUserIdentityAsync(m_UserManager.Value, tSystemUser.Result.Id,
                        tSystemUser.Result.UniversityId, tSystemUser.Result.UniversityData);
                 m_AuthenticationManager.SignIn(identity);
                 return RedirectToAction("Index", "Dashboard");

@@ -92,7 +92,6 @@
                  .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
-                disablePaging = false;
                 var index = self.files.indexOf(item);
                 self.files.splice(index, 1);
                 self.details.numItem--;
@@ -111,7 +110,7 @@
                 return returnEmptyPromise();
             }
             if (disablePaging) {
-                return;
+                return returnEmptyPromise();
             }
             self.itemsLoading = true;
             return userService.files(userData.id, itemsPage).then(function (response) {
@@ -206,9 +205,7 @@
         }
 
         function returnEmptyPromise() {
-            var defer = $q.defer();
-            defer.resolve();
-            return defer.promise;
+            return $q.when();
         }
     }
 })();

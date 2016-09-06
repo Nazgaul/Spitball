@@ -22,6 +22,10 @@ var app;
                 });
                 element.on('click', function () {
                     if (_this.$mdMedia('xs')) {
+                        if (_this.$state.current.name === "chat") {
+                            scope["app"].back("/dashboard/");
+                            return;
+                        }
                         _this.$state.go("chat");
                         return;
                     }

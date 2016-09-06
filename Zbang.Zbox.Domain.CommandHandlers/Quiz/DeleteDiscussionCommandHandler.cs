@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using Zbang.Zbox.Domain.Commands.Quiz;
+using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Repositories;
 
@@ -9,14 +9,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
     public class DeleteDiscussionCommandHandler : ICommandHandler<DeleteDiscussionCommand>
     {
         private readonly IRepository<QuizDiscussion> m_DiscussionRepository;
-       // private readonly IRepository<Domain.Quiz> m_QuizRepository;
+        private readonly IUpdatesRepository m_UpdatesRepository;
 
-        public DeleteDiscussionCommandHandler(IRepository<QuizDiscussion> discussionRepository
-            // IRepository<Domain.Quiz> quizRepository
+        public DeleteDiscussionCommandHandler(IRepository<QuizDiscussion> discussionRepository, IUpdatesRepository updatesRepository
             )
         {
             m_DiscussionRepository = discussionRepository;
-           // m_QuizRepository = quizRepository;
+            m_UpdatesRepository = updatesRepository;
         }
 
         public void Handle(DeleteDiscussionCommand message)
@@ -28,9 +27,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             {
                 throw new UnauthorizedAccessException("user is not owner of this item");
             }
-            //var noOfDiscussion = m_DiscussionRepository.GetQuerable().Count(w => w.Quiz == discussionItem.Quiz);
-            //discussionItem.Quiz.UpdateNumberOfComments(noOfDiscussion - 1); // the current one is not saved yet
-            //m_QuizRepository.Save(discussionItem.Quiz);
+            m_UpdatesRepository.DeleteQuizDiscussionUpdates(message.DiscussionId, discussionItem.Quiz.Id);
             m_DiscussionRepository.Delete(discussionItem);
         }
     }

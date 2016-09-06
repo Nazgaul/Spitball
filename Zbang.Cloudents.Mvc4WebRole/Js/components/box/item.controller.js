@@ -1,21 +1,20 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.box.items').controller('ItemsController', items);
-    items.$inject = ['boxService', '$stateParams', '$rootScope', 'itemThumbnailService', '$mdDialog',
-        '$scope', 'user', '$q', 'resManager', '$state'];
+    items.$inject = ['boxService', '$stateParams', '$rootScope',
+        'itemThumbnailService', '$mdDialog',
+        '$scope', 'user', '$q', 'resManager', '$state', "$window", "$timeout"];
 
     function items(boxService, $stateParams, $rootScope, itemThumbnailService,
-        $mdDialog, $scope, user, $q, resManager, $state) {
+        $mdDialog, $scope, user, $q, resManager, $state, $window, $timeout) {
         var i = this,
         boxId = $stateParams.boxId;
         i.items = [];
         i.uploadShow = true;
         $scope.stateParams = $stateParams;
-        //i.tabSelected = $stateParams.tabId;
         var page = 0, needToBringMore = true, disablePaging = false;;
 
 
-        //$previousState.memo('toItemPage');
         i.myPagingFunction = function () {
             if (i.term) {
                 return $q.when();
@@ -37,11 +36,14 @@
         }
         if ($stateParams.tabId) {
             getItems();
+            scrollToPosition();
         }
         else if ($stateParams.q) {
             getFilter();
+            scrollToPosition();
         } else {
             getItems();
+            scrollToPosition();
         }
 
 
@@ -82,6 +84,7 @@
             disablePaging = false;
         });
 
+
         //$scope.$on('resetParams', resetParams);
         $scope.$on('update-thumbnail', function (e, args) {
             var item = i.items.find(function (x) {
@@ -114,7 +117,6 @@
                  .cancel(resManager.get('dialogCancel'));
 
             $mdDialog.show(confirm).then(function () {
-                disablePaging = false;
                 var index = i.items.indexOf(item);
                 boxService.deleteItem(item.id).then(function () {
                     $scope.$broadcast('tab-item-remove');
@@ -131,7 +133,7 @@
                 return $q.when();
             }
             if (disablePaging) {
-                return;
+                return $q.when();
             }
             return boxService.items(boxId, $stateParams.tabId, page).then(function (response) {
                 angular.forEach(response, buildItem);
@@ -151,10 +153,7 @@
         function filter() {
 
             if (!i.term) {
-                //i.tabSelected = {};
-                //resetParams();
                 $state.go('box.items', { tabId: null, q: null });
-                //getItems();
             }
             $state.go('box.items', { tabId: null, q: i.term });
 
@@ -234,6 +233,15 @@
                 angular.forEach(response, buildItem);
                 i.items = response;
             });
+        }
+
+        function scrollToPosition() {
+            var yOffsetParam = $stateParams.pageYOffset;
+            if (yOffsetParam) {
+                $timeout(function() {
+                    $window.scrollTo(0, yOffsetParam);
+                });
+            }
         }
     }
 })();

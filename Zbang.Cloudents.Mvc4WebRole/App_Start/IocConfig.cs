@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
@@ -10,6 +11,7 @@ using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Search;
 using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
@@ -45,9 +47,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 var x = new ApplicationDbContext(ConfigFetcher.Fetch("Zbox"));
                 builder.Register(c => x).AsSelf().InstancePerRequest();
                 builder.RegisterType<ApplicationUserManager>().AsSelf().InstancePerRequest().As<IAccountService>().InstancePerRequest();
-                
-                builder.Register(c =>  new UserStore<ApplicationUser>(x))
-                    .AsImplementedInterfaces().InstancePerRequest();
+
+                try
+                {
+                    builder.Register(c => new UserStore<ApplicationUser>(x))
+                        .AsImplementedInterfaces().InstancePerRequest();
+                }
+                catch (Exception ex)
+                {
+                    TraceLog.WriteError(ex);
+                }
 
                 IocFactory.IocWrapper.ContainerBuilder.Register(
                     c => HttpContext.Current.GetOwinContext().Authentication);

@@ -153,7 +153,6 @@
 
 
             $mdDialog.show(confirm).then(function () {
-                $rootScope.$broadcast('enablePaging');
                 var index = c.comments.indexOf(comment);
                 c.comments.splice(index, 1);
                 itemService.deleteComment(comment.id, itemId);

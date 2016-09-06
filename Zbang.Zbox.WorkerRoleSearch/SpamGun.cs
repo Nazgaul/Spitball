@@ -24,7 +24,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         //public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromSeconds(2500);
         //public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromHours(1);
 
-        public const int SpanGunNumberOfQueues = 10;
+        public const int SpanGunNumberOfQueues = 13;
         private const int NumberOfIps = 3;
         private readonly Queue<SpamGunDto>[] m_Queues = new Queue<SpamGunDto>[SpanGunNumberOfQueues];
 

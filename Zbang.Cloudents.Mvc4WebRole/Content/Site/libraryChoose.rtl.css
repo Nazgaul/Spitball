@@ -1,6 +1,7 @@
 @media (min-width: 960px) {
   .library-choose {
-    margin-right: -250px;
+    margin-right: -240px;
+    margin-left: -95px;
   }
 }
 .library-choose .md-button {
