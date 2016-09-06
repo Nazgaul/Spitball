@@ -91,6 +91,9 @@
         }
 
         function search(term, loadNextPage) {
+            if (!loadNextPage) {
+                page = 0;
+            }
             chatBus.messages(term, page).then(function (response) {
                 if (loadNextPage) {
                     c.users = makeUniqueAndRemoveMySelf(c.users.concat(response));
