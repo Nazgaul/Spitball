@@ -1,13 +1,30 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
+using Microsoft.Practices.EnterpriseLibrary.WindowsAzure.TransientFaultHandling.SqlAzure;
 using Zbang.Zbox.Infrastructure.Extensions;
+using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Data.Dapper
 {
     public static class DapperConnection
     {
+        static DapperConnection()
+        {
+            const string defaultRetryStrategyName = "fixed";
+            const int retryCount = 10;
+            var retryInterval = TimeSpan.FromSeconds(3);
+
+            var strategy = new FixedInterval(defaultRetryStrategyName, retryCount, retryInterval);
+            var strategies = new List<RetryStrategy> { strategy };
+            var manager = new RetryManager(strategies, defaultRetryStrategyName);
+
+            RetryManager.SetDefault(manager);
+        }
         internal const string ConnectionStringKey = "Zbox";
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed")]
         public static async Task<IDbConnection> OpenConnectionAsync()
@@ -31,6 +48,19 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
             connection.Open();
             return connection;
 
+        }
+
+        public static Task<IDbConnection> OpenReliableConnectionAsync(CancellationToken cancellationToken)
+        {
+            var retryPolicy = RetryManager.Instance.GetDefaultSqlConnectionRetryPolicy();
+            retryPolicy.Retrying += (sender, args) =>
+            {
+                // Log details of the retry.
+                var msg = $"Retry - Count:{args.CurrentRetryCount}, Delay:{args.Delay}, Exception:{args.LastException}";
+                TraceLog.WriteInfo(msg);
+            };
+            return retryPolicy.ExecuteAsync(() => OpenConnectionAsync(cancellationToken), cancellationToken);
+            
         }
     }
 }

@@ -103,7 +103,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             try
             {
                 var client = new Client(ApiKey);
-                await client.GlobalSuppressions.Delete(email);
+                var result = await client.GlobalSuppressions.Delete(email);
+                TraceLog.WriteInfo($"result from delete unsubscribe {result.StatusCode}");
             }
             catch (Exception ex)
             {

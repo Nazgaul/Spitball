@@ -7,9 +7,8 @@
     function comments($stateParams, itemService, $scope, userDetailsFactory,
         $mdDialog, resManager, $mdSidenav, $rootScope) {
         var c = this, boxid = $stateParams.boxId, itemId = $stateParams.itemId;
-        //$scope.$on('itemData', function (e, arg) {
-        //    c.comments = arg.comments;
-        //});
+
+        c.scrollSetup = { scrollbarPosition: 'outside' };
 
         c.comments = [];
         c.currUser = userDetailsFactory.get();
@@ -36,9 +35,6 @@
                     c.comments = response;
                 });
             $mdSidenav('commentsMenu').toggle();
-            //$timeout(function () {
-            //    $rootScope.$broadcast('updateScroll');
-            //}, 50);
         }
 
         function displayUnregBox() {
@@ -97,7 +93,7 @@
         function cancelReply(form, comment) {
             c.newCommentReplyText = '';
             $scope.app.resetForm(form);
-            comment.showFrom = false
+            comment.showFrom = false;
         }
 
         function addCommentReply(comment, form) {

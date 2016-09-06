@@ -5,8 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Practices.EnterpriseLibrary.TransientFaultHandling;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
+using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Emails;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
@@ -18,65 +20,97 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadServiceWorkerRole : IZboxReadServiceWorkerRole
     {
+        private RetryPolicy GetRetryPolicy()
+        {
+            var retryPolicy = RetryManager.Instance.GetDefaultSqlCommandRetryPolicy();
+            retryPolicy.Retrying += (sender, args) =>
+            {
+                // Log details of the retry.
+                var msg = $"Retry - Count:{args.CurrentRetryCount}, Delay:{args.Delay}, Exception:{args.LastException}";
+                TraceLog.WriteInfo(msg);
+            };
+            return retryPolicy;
+        }
         public async Task<IEnumerable<UserDigestDto>> GetUsersByNotificationSettingsAsync(GetUserByNotificationQuery query, CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token))
             {
-                return await conn.QueryAsync<UserDigestDto>(Email.GetUserListByNotificationSettings,
-                    new
-                    {
-                        Notification = query.NotificationSettings,
-                        NotificationTime = query.MinutesPerNotificationSettings,
-                        currentDate = DateTime.UtcNow,
-                        query.PageNumber,
-                        query.RowsPerPage
-                    });
+                var policy = GetRetryPolicy();
+                return
+                    await
+                        policy.ExecuteAsync(
+                            // ReSharper disable once AccessToDisposedClosure
+                            async () => await conn.QueryAsync<UserDigestDto>(new CommandDefinition(Email.GetUserListByNotificationSettings,
+                                new
+                                {
+                                    Notification = query.NotificationSettings,
+                                    NotificationTime = query.MinutesPerNotificationSettings,
+                                    currentDate = DateTime.UtcNow,
+                                    query.PageNumber,
+                                    query.RowsPerPage
+                                }, cancellationToken: token)), token);
             }
 
         }
 
         public async Task<IEnumerable<UserUpdatesDigestDto>> GetUserUpdatesAsync(GetBoxesLastUpdateQuery query, CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token))
             {
-                return await conn.QueryAsync<UserUpdatesDigestDto>(Email.GetUserUpdates,
-                    new
-                    {
-                        NotificationTime = query.MinutesPerNotificationSettings,
-                        currentDate = DateTime.UtcNow,
-                        query.UserId
-                    });
+                var policy = GetRetryPolicy();
+                return
+                    await
+                        policy.ExecuteAsync(
+                            // ReSharper disable once AccessToDisposedClosure
+                            async () => await conn.QueryAsync<UserUpdatesDigestDto>(new CommandDefinition(Email.GetUserUpdates,
+                                new
+                                {
+                                    NotificationTime = query.MinutesPerNotificationSettings,
+                                    currentDate = DateTime.UtcNow,
+                                    query.UserId
+                                }, cancellationToken: token)), token);
             }
 
         }
 
         public async Task<BoxUpdatesDigestDto> GetUpdatesAsync(GetUpdatesQuery query, CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(token))
+            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token))
             {
-                using (var grid = await conn.QueryMultipleAsync($"{Email.GetBoxUpdates} {Email.GetItemUpdates} {Email.GetQuizUpdates} {Email.GetCommentUpdates} {Email.GetRepliesUpdates} {Email.GetQuizDiscussionUpdates}",
-                    new
-                    {
-                        query.BoxIds,
-                        query.CommentsIds,
-                        query.DiscussionIds,
-                        query.ItemIds,
-                        query.QuizIds,
-                        query.RepliesIds
-                    }))
-                {
-                    var retVal = new BoxUpdatesDigestDto
-                    {
-                        Boxes = await grid.ReadAsync<BoxDigestDto>(),
-                        Items = await grid.ReadAsync<ItemDigestDto>(),
-                        Quizzes = await grid.ReadAsync<QuizDigestDto>(),
-                        Comments = await grid.ReadAsync<QnADigestDto>(),
-                        Replies = await grid.ReadAsync<QnADigestDto>(),
-                        QuizDiscussions = await grid.ReadAsync<QuizDiscussionDigestDto>()
-                    };
-                    return retVal;
-                }
+                var policy = GetRetryPolicy();
+                return await policy.ExecuteAsync(async () =>
+                 {
+                     using (
+                         var grid =
+                             await
+                                 // ReSharper disable once AccessToDisposedClosure
+                                 conn.QueryMultipleAsync(
+                                     $"{Email.GetBoxUpdates} {Email.GetItemUpdates} {Email.GetQuizUpdates} {Email.GetCommentUpdates} {Email.GetRepliesUpdates} {Email.GetQuizDiscussionUpdates}",
+                                     new
+                                     {
+                                         query.BoxIds,
+                                         query.CommentsIds,
+                                         query.DiscussionIds,
+                                         query.ItemIds,
+                                         query.QuizIds,
+                                         query.RepliesIds
+                                     }))
+                     {
+                         var retVal = new BoxUpdatesDigestDto
+                         {
+                             Boxes = await grid.ReadAsync<BoxDigestDto>(),
+                             Items = await grid.ReadAsync<ItemDigestDto>(),
+                             Quizzes = await grid.ReadAsync<QuizDigestDto>(),
+                             Comments = await grid.ReadAsync<QnADigestDto>(),
+                             Replies = await grid.ReadAsync<QnADigestDto>(),
+                             QuizDiscussions = await grid.ReadAsync<QuizDiscussionDigestDto>()
+                         };
+                         return retVal;
+                     }
+                 }, token);
             }
+
+
         }
 
         public async Task<IEnumerable<BoxDigestDto>> GetBoxesLastUpdatesAsync(GetBoxesLastUpdateQuery query)

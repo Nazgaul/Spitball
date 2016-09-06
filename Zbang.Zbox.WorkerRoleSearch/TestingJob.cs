@@ -65,12 +65,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //} while (mails.Any() && page < 3000);
             //await m_MailComponent.GenerateSystemEmailAsync("stop populating", "stop " + page);
             //await Task.Delay(TimeSpan.FromDays(1), cancellationToken);
-            while (!cancellationToken.IsCancellationRequested)
-            {
-                var proxy = await SignalrClient.GetProxyAsync();
-                await proxy.Invoke("UpdateThumbnail", 1, 111239);
-                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-            }
+            //while (!cancellationToken.IsCancellationRequested)
+            //{
+            //    var proxy = await SignalrClient.GetProxyAsync();
+            //    await proxy.Invoke("UpdateThumbnail", 1, 111239);
+            //    await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+            //}
             //var amount = await m_ZboxWorkerRoleService.UpdateFileSizesAsync(() =>
             //{
 
@@ -82,11 +82,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //await y.GetUnsubscribersAsync(1, cancellationToken);
 
             //var x = new List<Task<bool>>();
-            //var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("digestOnceADay");
-            //if (process != null)
-            //{
-            //    await process.ExecuteAsync(0, p => Task.FromResult(true), cancellationToken);
-            //}
+            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<ISchedulerProcess>("digestOnceADay");
+            if (process != null)
+            {
+                await process.ExecuteAsync(0, p => Task.FromResult(true), cancellationToken);
+            }
 
             //process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<IMailProcess>("likesReport");
             //if (process != null)

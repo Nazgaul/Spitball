@@ -100,7 +100,7 @@ namespace Testing
 
         static void Main(string[] args)
         {
-            emailsVerify();
+           // emailsVerify();
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
@@ -154,12 +154,13 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
-            var service = iocFactory.Resolve<IEmailVerification>();
-            foreach (var email in emails())
-            {
-                var result = service.VerifyEmail(email);
-                Console.WriteLine($"{email} : {result}");
-            }
+            var service = iocFactory.Resolve<IZboxWorkerRoleService>();
+            service.OneTimeDbi();
+            //foreach (var email in emails())
+            //{
+            //    var result = service.VerifyEmail(email);
+            //    Console.WriteLine($"{email} : {result}");
+            //}
 
             //var clusterflunkFilesCopy = new ClusterflunkFilesCopy(iocFactory);
             //var t1 = clusterflunkFilesCopy.BuildBoxesAsync();

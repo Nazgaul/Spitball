@@ -135,7 +135,7 @@
                 realtimeFactotry.changeUniversity();
                 $rootScope.$broadcast('change-university');
                 if (!url) {
-                    $state.go('dashboard');
+                    $state.go('dashboard', null, { reload :true});
                     return;
                 }
                 $location.url(url);

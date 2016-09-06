@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
     const string svgUrl = "~/images/site/icons.svg";
-    var shouldPostBack = ViewBag.postBag == true ? "target=_self" : string.Empty;
+   // var shouldPostBack = ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 <script type="text/ng-template" id="menu.html">
     <md-sidenav class="main-md-sidenav backgroundTC36"
@@ -9,7 +9,7 @@
         <md-content role="navigation" class="scrollbar" >
             <ul class="side-menu" sb-scroll ng-scrollbars-config="d.updateScrollbar" ng-scrollbars>
                 <li class="dashboard nav-item">
-                    <a class="md-button" user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.Action("Index", "Dashboard")')}" @shouldPostBack href="@Url.Action("Index", "Dashboard")">
+                    <a class="md-button" user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.Action("Index", "Dashboard")')}" ui-sref="dashboard">
                         <span class="icon">@Html.Svg(svgUrl, "houseMenu", new {@class = "svgTC16"})</span>
                         <span>@IndexResources.Dashboard</span>
                     </a>
@@ -50,7 +50,7 @@
                 </li>
                 <li class="uni nav-item">
 
-                    <button type="button" ng-click="d.univeristyClick()" user-not-register-popup="click" class="md-button ellipsis" ng-class="{active: d.isSectionSelected('/university')}" @shouldPostBack @*href="@Url.RouteUrl("LibraryDesktop")"*@>
+                    <button type="button" ng-click="d.univeristyClick()" user-not-register-popup="click" class="md-button ellipsis" ng-class="{active: d.isSectionSelected('/university')}" @*href="@Url.RouteUrl("LibraryDesktop")"*@>
                         <div flex layout="row" layout-align="start center">
                             <span class="icon">
                                 @Html.Svg(svgUrl, "universityMenu", new { @class = "svgTC16" })
@@ -63,7 +63,7 @@
 
                 </li>
                 <li class="user nav-item">
-                    <a class="md-button" user-not-register-popup="click" ng-class="{active:d.isSectionSelected(d.userUrl)}" @shouldPostBack href="{{::d.userUrl}}">
+                    <a class="md-button" user-not-register-popup="click" ng-class="{active:d.isSectionSelected(d.userUrl)}" href="{{::d.userUrl}}">
                         <span class="icon">
                             @Html.Svg(svgUrl, "userMenu", new { @class = "svgTC16" })
                         </span>
@@ -71,7 +71,7 @@
                     </a>
                 </li>
                 <li class="settings nav-item">
-                    <a class="md-button" user-not-register-popup="click" ng-class="{active:d.isSectionSelected('@Url.RouteUrl("AccountSettings")')}" @shouldPostBack href="@Url.RouteUrl("AccountSettings")">
+                    <a class="md-button" user-not-register-popup="click" ng-class="{active:d.isSectionSelected('@Url.RouteUrl("AccountSettings")')}" href="@Url.RouteUrl("AccountSettings")">
                         <span class="icon">
                             @Html.Svg(svgUrl, "settingMenu", new { @class = "svgTC16" })
                         </span>

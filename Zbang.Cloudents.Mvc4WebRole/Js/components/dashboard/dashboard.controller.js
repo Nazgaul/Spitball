@@ -4,8 +4,8 @@
     dashboard.$inject = ['dashboardService', 'boxes', '$scope', '$mdDialog', 'boxService',
         '$rootScope', 'resManager', 'ajaxService2'];
 
-    function dashboard(dashboardService, boxes, $scope, $mdDialog, boxService, $rootScope,
-        resManager, ajaxService) {
+    function dashboard(dashboardService, boxes, $scope, $mdDialog,
+        boxService, $rootScope,resManager, ajaxService) {
         var d = this;
         d.inviteOpen = false;
         d.showLeaderboard = true;
@@ -23,6 +23,7 @@
             }
             d.suggested = response2;
         });
+        //$uiViewScroll($('.dashboard-stat2:last'));
 
         d.deleteBox = deleteBox;
         d.openCreate = openCreate;
