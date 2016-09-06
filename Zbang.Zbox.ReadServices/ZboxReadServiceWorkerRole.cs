@@ -265,37 +265,39 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdatesAsync(int index, int total, int top)
+        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdatesAsync(int index, int total, int top, CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token))
             {
-
-                using (var grid = await conn.QueryMultipleAsync
-                    (Search.GetBoxToUploadToSearch +
-                     Search.GetBoxUsersToUploadToSearch +
-                     Search.GetBoxDepartmentToUploadToSearch +
-                     Search.GetBoxToDeleteToSearch, new { index, count = total, top }))
-                {
-                    var retVal = new BoxToUpdateSearchDto
-                    {
-                        BoxesToUpdate = await grid.ReadAsync<BoxSearchDto>()
-                    };
-                    var usersInBoxes = grid.Read<UsersInBoxSearchDto>().ToList();
-                    var departmentsOfBoxes = grid.Read<DepartmentOfBoxSearchDto>().ToList();
-
-                    foreach (var box in retVal.BoxesToUpdate)
-                    {
-                        var boxid = box.Id;
-                        box.UserIds = usersInBoxes.Where(w => w.BoxId == boxid).Select(s => s.UserId);
-                    }
-                    foreach (var box in retVal.BoxesToUpdate)
-                    {
-                        var boxid = box.Id;
-                        box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Name);
-                    }
-                    retVal.BoxesToDelete = await grid.ReadAsync<long>();
-                    return retVal;
-                }
+                var retry = GetRetryPolicy();
+                return await retry.ExecuteAsync(async () =>
+                 {
+                     // ReSharper disable once AccessToDisposedClosure
+                     using (var grid = await conn.QueryMultipleAsync
+                         (Search.GetBoxToUploadToSearch +
+                          Search.GetBoxUsersToUploadToSearch +
+                          Search.GetBoxDepartmentToUploadToSearch +
+                          Search.GetBoxFeedToUploadToSearch +
+                          Search.GetBoxToDeleteToSearch, new { index, count = total, top }))
+                     {
+                         var retVal = new BoxToUpdateSearchDto
+                         {
+                             BoxesToUpdate = await grid.ReadAsync<BoxSearchDto>()
+                         };
+                         var usersInBoxes = grid.Read<UsersInBoxSearchDto>().ToList();
+                         var departmentsOfBoxes = grid.Read<DepartmentOfBoxSearchDto>().ToList();
+                         var feedOfBoxes = grid.Read<FeedOfBoxSearchDto>().ToList();
+                         foreach (var box in retVal.BoxesToUpdate)
+                         {
+                             var boxid = box.Id;
+                             box.UserIds = usersInBoxes.Where(w => w.BoxId == boxid).Select(s => s.UserId);
+                             box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Name);
+                             box.Feed = feedOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Text);
+                         }
+                         retVal.BoxesToDelete = await grid.ReadAsync<long>();
+                         return retVal;
+                     }
+                 }, token);
 
             }
         }

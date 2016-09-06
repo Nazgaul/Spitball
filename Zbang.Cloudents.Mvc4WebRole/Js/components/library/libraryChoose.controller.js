@@ -103,9 +103,9 @@
                 self.universities = self.universities.concat(data);
                 return;
             }
-            if (!data.length) {
+            //if (!data.length) {
 
-            }
+            //}
             self.showNoResult = !data.length;
             self.universities = data;
         }

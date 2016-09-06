@@ -66,7 +66,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         //}
 
-        protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount)
+        protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 100;
             var updates = await m_ZboxReadService.GetQuizzesDirtyUpdatesAsync(instanceId, instanceCount, top);

@@ -45,7 +45,7 @@
         interval = setInterval(function () {
             count++;
             if (!window.angular) {
-                if (count == 500) {
+                if (count === 500) {
                     clearInterval(interval);
                     window.location.reload();
                     return;

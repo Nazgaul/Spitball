@@ -52,7 +52,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             TraceLog.WriteError("On finish run");
         }
 
-        protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount)
+        protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int updatesPerCycle = 10;
             var updates = await m_ZboxReadService.GetUniversitiesDirtyUpdatesAsync(instanceId, instanceCount, updatesPerCycle);

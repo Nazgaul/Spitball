@@ -14,7 +14,7 @@ using ScoringProfile = Microsoft.Azure.Search.Models.ScoringProfile;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
-    class QuizSearchProvider2 : IQuizReadSearchProvider2, IQuizWriteSearchProvider2
+    public class QuizSearchProvider2 : IQuizReadSearchProvider2, IQuizWriteSearchProvider2
     {
         private readonly string m_IndexName = "quiz2";
         private readonly ISearchFilterProvider m_FilterProvider;

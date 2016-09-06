@@ -181,7 +181,7 @@
                     return;
                 }
                 // ReSharper disable once CoercedEqualsUsing
-                if (response.boxId != $stateParams.boxId) { // string an int comarison
+                if (response.boxId !== $stateParams.boxId) { 
                     return;
                 }
                 if (response.item.tabId !== $stateParams.tabId) {

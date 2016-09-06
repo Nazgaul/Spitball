@@ -15,7 +15,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             await Task.Delay(TimeSpan.FromSeconds(Interval), cancellationToken);
         }
 
-        protected abstract Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount);
+        protected abstract Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken);
 
         protected const double MinInterval = 5;
         protected double Interval = MinInterval;
@@ -31,7 +31,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         protected async Task DoProcessAsync(CancellationToken cancellationToken, int index, int count)
         {
-            var retVal = await UpdateAsync(index, count);
+            var retVal = await UpdateAsync(index, count, cancellationToken);
 
             switch (retVal)
             {

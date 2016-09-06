@@ -39,6 +39,7 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string UserIdsField = "userId";
         private const string DepartmentField = "department";
         private const string TypeFiled = "type";
+        private const string FeedField = "feed";
 
         private Index GetBoxIndex()
         {
@@ -52,7 +53,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(UniversityIdField, DataType.Int64) { IsFilterable = true, IsRetrievable = true },
                 new Field(UserIdsField, DataType.Collection(DataType.String)) { IsFilterable = true, IsRetrievable = true },
                 new Field(DepartmentField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true},
-                new Field(TypeFiled, DataType.Int32) { IsRetrievable = true}
+                new Field(TypeFiled, DataType.Int32) { IsRetrievable = true},
+                new Field(FeedField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true}
             });
         }
 
@@ -60,15 +62,17 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (!m_CheckIndexExists)
             {
-               // await BuildIndex();
+                await BuildIndexAsync();
             }
-
+            var t1 = Extensions.TaskExtensions.CompletedTask;
+            var t2 = Extensions.TaskExtensions.CompletedTask;
             if (boxToUpload != null)
             {
                 var uploadBatch = boxToUpload.Select(s => new BoxSearch
                     {
                         Course = s.CourseCode,
                         Department = s.Department.ToArray(),
+                        Feed = s.Feed.ToArray(),
                         Id = s.Id.ToString(CultureInfo.InvariantCulture),
                         Name = s.Name,
                         Professor = s.Professor,
@@ -82,7 +86,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var batch = IndexBatch.Upload(uploadBatch);
                 if (batch.Actions.Any())
                 {
-                    await m_IndexClient.Documents.IndexAsync(batch);
+                    t1 =  m_IndexClient.Documents.IndexAsync(batch);
                 }
             }
             if (boxToDelete != null)
@@ -95,13 +99,14 @@ namespace Zbang.Zbox.Infrastructure.Search
                 var batch = IndexBatch.Delete(deleteBatch);
                 if (batch.Actions.Any())
                 {
-                    await m_IndexClient.Documents.IndexAsync(batch);
+                    t2 =  m_IndexClient.Documents.IndexAsync(batch);
                 }
             }
+            await Task.WhenAll(t1, t2);
             return true;
         }
 
-        private async Task BuildIndex()
+        private async Task BuildIndexAsync()
         {
             try
             {

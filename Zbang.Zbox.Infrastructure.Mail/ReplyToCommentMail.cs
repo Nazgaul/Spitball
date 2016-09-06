@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             message.AddSubstitution("{BoxName}", new List<string> { mailParams.BoxName });
             message.AddSubstitution("{BoxUrl}", new List<string> { UrlConst.AppendCloudentsUrl(mailParams.BoxUrl) });
             message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "replyToComment");
-            message.Html = html.ToString();
+            message.Html = html;
 
         }
 

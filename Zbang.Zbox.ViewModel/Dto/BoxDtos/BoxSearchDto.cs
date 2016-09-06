@@ -18,11 +18,12 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
 
         public long UniversityId { get; set; }
 
-        //public Infrastructure.Enums.BoxPrivacySettings PrivacySettings { get; set; }
 
         public Infrastructure.Enums.BoxType Type { get; set; }
 
         public IEnumerable<string> Department { get; set; }
+
+        public IEnumerable<string> Feed { get; set; }
 
         public IEnumerable<long> UserIds { get; set; }
     }
@@ -37,6 +38,11 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
     {
         public long BoxId { get; set; }
         public string Name { get; set; }
+    }
+    public class FeedOfBoxSearchDto
+    {
+        public long BoxId { get; set; }
+        public string Text { get; set; }
     }
 
     public class BoxToUpdateSearchDto

@@ -68,13 +68,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
         //    await Task.Delay(TimeSpan.FromSeconds(m_Interval), cancellationToken);
         //}
 
-        protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount)
+        protected override async Task<TimeToSleep> UpdateAsync(int instanceId, int instanceCount, CancellationToken cancellationToken)
         {
             const int top = 100;
-            var updates = await m_ZboxReadService.GetBoxDirtyUpdatesAsync(instanceId, instanceCount, top);
+            var updates = await m_ZboxReadService.GetBoxDirtyUpdatesAsync(instanceId, instanceCount, top, cancellationToken);
             if (!updates.BoxesToUpdate.Any() && !updates.BoxesToDelete.Any()) return TimeToSleep.Increase;
-            //TraceLog.WriteInfo(PrefixLog,
-            //    $"box updating {updates.BoxesToUpdate.Count()} deleting {updates.BoxesToDelete.Count()}");
+
             var isSuccess = await m_BoxSearchProvider.UpdateDataAsync(updates.BoxesToUpdate, updates.BoxesToDelete);
             if (isSuccess)
             {

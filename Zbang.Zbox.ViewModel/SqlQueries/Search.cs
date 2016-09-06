@@ -25,6 +25,19 @@ select top (@top) b.boxid  from zbox.box b
   where isdirty = 1 and isdeleted = 0  and url is not null and b.boxid % @count  = @index
   order by b.BoxId);";
 
+        public const string GetBoxFeedToUploadToSearch = @"select text,boxid from zbox.question
+  where boxid in (select top (@top) b.boxid  from zbox.box b
+  where isdirty = 1 and isdeleted = 0  and url is not null and b.boxid % @count  = @index
+  order by b.BoxId)
+  and IsSystemGenerated = 0
+  and text is not null
+  union all
+  select text,boxid from zbox.answer
+  where boxid in (select top (@top) b.boxid  from zbox.box b
+  where isdirty = 1 and isdeleted = 0  and url is not null and b.boxid % @count  = @index
+  order by b.BoxId)
+  and text is not null;";
+
         public const string GetBoxDepartmentToUploadToSearch = @"  with c as (
 select l.*, b.boxid from zbox.library l join zbox.box b on l.libraryid = b.libraryid and b.boxid in 
 ( select top (@top) b.boxid  from zbox.box b
@@ -35,7 +48,7 @@ select l.*, b.boxid from zbox.library l join zbox.box b on l.libraryid = b.libra
 	select t.*, c.boxid from zbox.library t inner join c on c.parentid = t.libraryid
 )
 
-select Name,boxid from c";
+select Name,boxid from c;";
 
 
         public const string GetBoxToDeleteToSearch = @"

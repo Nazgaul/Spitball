@@ -14,6 +14,8 @@ namespace Zbang.Zbox.Infrastructure.Search
         public string[] UserId { get; set; }
         public string[] Department { get; set; }
 
+        public string[] Feed { get; set; }
+
         public int? Type { get; set; }
 
 
