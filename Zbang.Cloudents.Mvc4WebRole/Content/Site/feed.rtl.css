@@ -309,10 +309,10 @@
 .feed .posts-list .actions .like-icon svg {
   fill: #888b8e;
 }
-.feed .posts-list .actions .liked {
+.feed .posts-list .actions.liked {
   color: #4190b9;
 }
-.feed .posts-list .actions .liked svg {
+.feed .posts-list .actions.liked svg {
   fill: #4190b9;
 }
 .feed .quiz .top .first-letter {

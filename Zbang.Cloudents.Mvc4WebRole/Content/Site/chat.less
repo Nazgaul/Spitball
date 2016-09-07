@@ -725,7 +725,16 @@ html:not(.expanded-chat) .chat-side-nav .error {
             font-size: 18px;
             height: 40px !important;
             padding: 0;
+            .displayFlex;
+            .align-items(stretch);
+            .justifyContet(space-between);
+
+            > .md-button {
+                margin-right: 0;
+                margin-left: 0;
+            }
         }
+
 
         .download-btn {
             min-width: 0;
@@ -733,9 +742,7 @@ html:not(.expanded-chat) .chat-side-nav .error {
             .align-items(center);
             .justifyContet(center);
             width: 40px;
-            position: absolute;
             margin: 0;
-            left: 0;
 
             svg {
                 width: 18px;
@@ -748,7 +755,6 @@ html:not(.expanded-chat) .chat-side-nav .error {
             line-height: normal;
             padding: 0;
             width: 36px;
-            margin: 0;
 
             svg {
                 width: 16px;

@@ -128,11 +128,11 @@
                             </div>
                         </div>
                         <div class="indent actions-wrapper">
-                            <div class="like-btn actions" layout="row" layout-align="start center">
+                            <div class="like-btn actions" layout="row" ng-class="{liked :reply.isLiked}" layout-align="start center">
                                 <button type="button" ng-if="reply.likesCount" ng-click="f.likeReplyDialog(reply,$event)">
                                     <span class="like-count" ng-bind="reply.likesCount"></span>
                                 </button>
-                                <button type="button" ng-disabled="f.add.disabled" ng-click="f.likeReply(reply)" ng-class="{liked :reply.isLiked}" ga-track-event="['box-feed', 'comment-like-icon']" layout="row" layout-align="start center">
+                                <button type="button" ng-disabled="f.add.disabled" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']" layout="row" layout-align="start center">
                                     <span class="like-icon">@Html.Svg("~/images/site/box-icons.svg", "like")</span>
                                     <span>@GeneralResources.Like</span>
                                 </button>
