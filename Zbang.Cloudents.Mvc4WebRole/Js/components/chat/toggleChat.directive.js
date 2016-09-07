@@ -64,3 +64,4 @@ var app;
         .module("app.chat")
         .directive("toggleChat", ToggleChat.factory());
 })(app || (app = {}));
+//# sourceMappingURL=toggleChat.directive.js.map

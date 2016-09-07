@@ -1,3 +1,5 @@
+/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
+/// <reference path="userDetails.ts" />
 'use strict';
 (function () {
     angular.module('app').run(inlineManual);
@@ -18,3 +20,4 @@
         });
     }
 })();
+//# sourceMappingURL=inlineManual.js.map

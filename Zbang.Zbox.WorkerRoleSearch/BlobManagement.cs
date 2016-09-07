@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Zbang.Zbox.WorkerRoleSearch
 {
-    class BlobManagment
+    class BlobManagement
     {
     }
 }

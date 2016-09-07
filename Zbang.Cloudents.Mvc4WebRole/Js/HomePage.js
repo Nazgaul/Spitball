@@ -40,7 +40,7 @@ window.addEventListener("load", function load() {
         //var header = $('.static-page-header');
         var backgroundUrl = 'https://az779114.vo.msecnd.net/universities/cover/' +
                 encodeURIComponent(main.data('image')) +
-                '?mode=crop&anchor=topcenter&quality=80&scale=both&width=' +
+                '?mode=crop&anchor=topcenter&quality=70&scale=both&width=' +
                  main.outerWidth() +
                 '&height=' +
                 ($(window).outerHeight());
