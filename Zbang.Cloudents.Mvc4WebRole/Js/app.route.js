@@ -16,7 +16,7 @@
                     ]
                 },
                 views: {
-                    "": { template: "<div class=\"page-animation\" ui-view animation-class autoscroll></div>" },
+                    "": { template: "<div class=\"page-animation\" ui-view animation-class></div>" },
                     "user-profile": {
                         controller: "UserDetailsController as ud",
                         templateProvider: ['user', 'ajaxService2', function (user, ajaxService2) {

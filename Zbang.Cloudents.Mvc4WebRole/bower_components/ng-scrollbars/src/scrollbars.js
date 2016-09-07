@@ -62,7 +62,7 @@
         elem.mCustomScrollbar(config);
     }
 
-    function ScrollBarsDirective(ScrollBars) {
+    function ScrollBarsDirective(ScrollBars, $timeout) {
         return {
             scope: {
                 ngScrollbarsConfig: '=?',
@@ -71,21 +71,22 @@
             },
             link: function (scope, elem, attrs) {
                 //if (!notNeedSlimScroll()) {
-                    scope.elem = elem;
-                    var defaults = ScrollBars.defaults;
-                    var configuredDefaults = $.mCustomScrollbar.defaults;
-                    scope.$watch('ngScrollbarsConfig', function (newVal, oldVal) {
-                        if (newVal !== undefined) {
-                            render(defaults, configuredDefaults, elem, scope);
-                        }
-                    });
-
+                scope.elem = elem;
+                var defaults = ScrollBars.defaults;
+                var configuredDefaults = $.mCustomScrollbar.defaults;
+                scope.$watch('ngScrollbarsConfig', function (newVal, oldVal) {
+                    if (newVal !== undefined) {
+                        render(defaults, configuredDefaults, elem, scope);
+                    }
+                });
+                $timeout(function () {
                     render(defaults, configuredDefaults, elem, scope);
+                });
                 //}
                 scope.ngScrollbarsUpdate = function () {
                     //if (!notNeedSlimScroll()) {
-                        elem.mCustomScrollbar.apply(elem, arguments);
-                        //return;
+                    elem.mCustomScrollbar.apply(elem, arguments);
+                    //return;
                     //}
                     //if (arguments[0] === "scrollTo" && arguments[1] === 'bottom') {
                     //    window.scrollTo(0, document.body.scrollHeight);// TODO quick and dirty
@@ -93,7 +94,7 @@
                     //}
                 };
 
-                
+
             }
         };
     }
@@ -103,6 +104,6 @@
       .directive('ngScrollbars', ScrollBarsDirective);
 
     ScrollBarsProvider.$inject = [];
-    ScrollBarsDirective.$inject = ['ScrollBars'];
+    ScrollBarsDirective.$inject = ['ScrollBars', "$timeout"];
 
 })();
