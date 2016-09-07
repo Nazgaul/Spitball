@@ -41,12 +41,12 @@ module app {
 
 
             const dChat: string = window['dChat'];
-            //if (dChat.indexOf('develop') > -1) {
-            //    this.cacheCategories.html = {
-            //        maxAge: 1 * second,
-            //        storageMode: "localStorage"
-            //    }
-            //}
+            if (dChat.indexOf('develop') > -1) {
+                this.cacheCategories.html = {
+                    maxAge: 1 * second,
+                    storageMode: "localStorage"
+                }
+            }
             for (let cacheKey in this.cacheCategories) {
                 this.buildFactoryObject(cacheKey);
             }

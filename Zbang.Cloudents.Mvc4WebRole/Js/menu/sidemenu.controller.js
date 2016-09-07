@@ -1,10 +1,10 @@
 ﻿'use strict';
 (function () {
     angular.module('app.dashboard').controller('SideMenu', sideMenu);
-    sideMenu.$inject = ['dashboardService', 'userDetailsFactory', 
+    sideMenu.$inject = ['dashboardService', 'userDetailsFactory',
         '$mdSidenav', '$location', '$scope'];
 
-    function sideMenu(dashboardService, userDetailsFactory, 
+    function sideMenu(dashboardService, userDetailsFactory,
         $mdSidenav, $location, $scope) {
         var d = this, loaded = false;
         d.courses = [];
@@ -35,7 +35,7 @@
         function univeristyClick() {
             dashboardService.getUniversityMeta()
                 .then(function (response) {
-                    $location.path(response.url);
+                    $location.path(decodeURIComponent(response.url));
                 });
         }
 

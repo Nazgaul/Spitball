@@ -2,7 +2,6 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <a class="university" ga-track-event="['dashboard', 'to university']" ng-href="{{::u.info.url}}" univeristy-cover="{{::u.info.cover}}" ng-controller="UniversityController as u">
-    
     <img class="universityimg" ng-src="{{::u.info.logo}}" alt="univerisy picture" width="70" height="70"/>
     <div class="universityStats" ng-if="u.loaded">
         <div class="uni-name" ng-bind="::u.info.name"></div>
