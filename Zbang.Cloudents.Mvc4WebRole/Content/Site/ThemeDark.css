@@ -227,9 +227,6 @@ body.theme-dark {
   background-color: #f44336;
   color: #fff;
 }
-.upload .uploadSection svg {
-  fill: #f9f9f9;
-}
 .upload .uploadSection .link {
   fill: #64D0FF;
 }

@@ -558,9 +558,6 @@ Page Loading
   background-color: #f44336;
   color: #fff;
 }
-.theme-light .upload .uploadSection svg {
-  fill: #f9f9f9;
-}
 .theme-light .upload .uploadSection .link {
   fill: #64D0FF;
 }
