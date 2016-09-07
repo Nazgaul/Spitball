@@ -1,12 +1,12 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Dashboard.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<div id="create" class="dashboard-stat2">
-    <form name="createBox" class="create-txt" novalidate ng-submit="cb.create(createBox)" ng-if="d.createBoxOn" ng-controller="CreateBoxController as cb">
+<div id="create" class="dashboard-stat2" ng-controller="CreateBoxController as cb">
+    <form name="createBox" class="create-txt" novalidate ng-submit="cb.create(createBox)" >
         <div layout="column">
             <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>@DashboardResource.EnterGroupName</label>
-                    <input type="text" autofocus focus-me="d.createBoxFocus" autocomplete="off" required ng-model="cb.boxName" name="name" ng-change="createBox.name.$setValidity('server',true)">
+                    <input type="text" autofocus focus-me="cb.focus" autocomplete="off" required ng-model="cb.boxName" name="name" ng-change="createBox.name.$setValidity('server',true)">
                     <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
                         <div ng-message="required">@GeneralResources.RequiredField</div>
                         <div ng-message="server">{{cb.error}}</div>

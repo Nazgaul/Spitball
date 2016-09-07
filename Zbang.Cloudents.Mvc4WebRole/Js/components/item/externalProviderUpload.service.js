@@ -6,19 +6,6 @@
 
     function upload(dropboxService, googleService, $q, itemService) {
         var self = this;
-
-
-        //self.dropBoxLoaded = false;
-        //self.googleDriveLoaded = false;
-
-        //self.init = function () {
-
-
-        //    $q.all([googleService.initDrive(), googleService.initGApi()]).then(function () {
-        //        self.googleDriveLoaded = true;
-        //    });
-        //}
-
         self.dropboxInit = function () {
             return dropboxService.init();
         }

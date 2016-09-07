@@ -26,7 +26,6 @@
         //$uiViewScroll($('.dashboard-stat2:last'));
 
         d.deleteBox = deleteBox;
-        d.openCreate = openCreate;
         //$scope.math = Math;
 
         function inviteExpand() {
@@ -44,13 +43,15 @@
         }
 
         function createNewBox() {
-            d.createBoxOn = true;
-            d.inviteOpen = false;
+            if (!d.createBoxOn) {
+                d.createBoxOn = true;
+                d.inviteOpen = false;
+            }
         }
-        function openCreate() {
-            d.createBoxOn = true;
-            d.createBoxFocus = true;
-        }
+        //function openCreate() {
+        //    d.createBoxOn = true;
+        //    //d.createBoxFocus = true;
+        //}
 
         function deleteBox(ev, box) {
 

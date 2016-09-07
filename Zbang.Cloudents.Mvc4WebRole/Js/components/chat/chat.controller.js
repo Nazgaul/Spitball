@@ -3,12 +3,13 @@
     angular.module('app.chat').controller('ChatController', chat);
     chat.$inject = ['$timeout', '$scope', 'realtimeFactotry',
         'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService',
-        '$mdDialog', 'routerHelper', '$document', 'notificationService', 'resManager', '$rootScope'];
+        '$mdDialog', 'routerHelper', '$document',
+        'notificationService', 'resManager', '$rootScope', "$uiViewScroll"];
 
     function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
-        notificationService, resManager, $rootScope) {
-        var c = this, chunkSize = 2147483647, page = 0,
+        notificationService, resManager, $rootScope, $uiViewScroll) {
+        var c = this, chunkSize = 50, page = 0,
         connectionStatuses = {
             connected: 1,
             disconnected: 0
@@ -91,6 +92,9 @@
         }
 
         function search(term, loadNextPage) {
+            if (!loadNextPage) {
+                page = 0;
+            }
             chatBus.messages(term, page).then(function (response) {
                 if (loadNextPage) {
                     c.users = makeUniqueAndRemoveMySelf(c.users.concat(response));
@@ -152,13 +156,20 @@
             c.focusSearch = true;
         }
 
-        function loadMoreMessages() {
-            return chatBus.chat(c.userChat.conversation,
+        function loadMoreMessages(event) {
+            var firstMessage = c.messages[0];
+            if (!firstMessage.id) {
+                return;
+            }
+            chatBus.chat(c.userChat.conversation,
                 [c.userChat.id, userDetailsFactory.get().id],
                 c.messages[0].time,
                 chunkSize
                 ).then(function (response) {
                     c.messages = handleChatMessages(response).concat(c.messages);
+                    $timeout(function () {
+                        $uiViewScroll(angular.element('#chatMessage_' +firstMessage.id));
+                    });
                 });
         }
 

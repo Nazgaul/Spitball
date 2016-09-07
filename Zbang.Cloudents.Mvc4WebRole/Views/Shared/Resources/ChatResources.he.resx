@@ -147,4 +147,7 @@
   <data name="SchoolmatesHeader" xml:space="preserve">
     <value>סטודנטים</value>
   </data>
+  <data name="LoadMore" xml:space="preserve">
+    <value>הודעות נוספות</value>
+  </data>
 </root>

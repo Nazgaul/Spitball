@@ -20,7 +20,7 @@ namespace Zbang.Zbox.ReadServices
 {
     public class ZboxReadServiceWorkerRole : IZboxReadServiceWorkerRole
     {
-        private RetryPolicy GetRetryPolicy()
+        private static RetryPolicy GetRetryPolicy()
         {
             var retryPolicy = RetryManager.Instance.GetDefaultSqlCommandRetryPolicy();
             retryPolicy.Retrying += (sender, args) =>

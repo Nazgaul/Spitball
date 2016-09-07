@@ -8,11 +8,13 @@
         self.create = create;
         self.cancel = cancel;
         self.submitDisabled = false;
+        
+        self.focus = true;
 
         function create(myform) {
             self.submitDisabled = true;
             dashboardService.createPrivateBox(self.boxName).then(function (response) {
-                $scope.$parent.d.createBoxOn = false;
+                $scope.d.createBoxOn = false;
                 cancel(myform);
                 $rootScope.$broadcast('refresh-boxes');
                 $scope.app.showToaster(resManager.get('toasterCreateBox'));
@@ -28,7 +30,6 @@
         function cancel(myform) {
             self.boxName = '';
             $scope.app.resetForm(myform);
-            $scope.d.createBoxFocus = false;
             $scope.d.createBoxOn  = false;
         }
     }

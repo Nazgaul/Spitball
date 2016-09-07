@@ -170,6 +170,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private async Task<CloudBlockBlob> ReadBlobDataAsync(CancellationToken cancellationToken)
         {
+            
             // ReSharper disable once StringLiteralTypo
             var blob = m_CloudBlockProvider.GetFile("sendGridApiQuery", "zboxidgenerator");
             if (!await blob.ExistsAsync(cancellationToken))

@@ -1,8 +1,8 @@
 ﻿'use strict';
 (function() {
     angular.module('app').factory('dropboxService',
-    ['$document', '$q', '$timeout',
-    function ($document, $q, $timeout) {
+    ['$document', '$q', '$timeout',"$interval",
+    function ($document, $q, $timeout, $interval) {
         "use strict";
         var loaded;
         return {
@@ -14,22 +14,31 @@
                     return defer.promise;
                 }
 
-                var js = $document[0].createElement('script');
-                js.id = "dropboxjs";
-                js.setAttribute('data-app-key', 'cfqlue614nyj8k2');
-                js.src = "https://www.dropbox.com/static/api/1/dropins.js";
-                $document[0].getElementsByTagName('head')[0].appendChild(js);
+
+               
+
+                function load() {
+                    var js = $document[0].createElement('script');
+                    js.id = "dropboxjs";
+                    js.setAttribute('data-app-key', 'cfqlue614nyj8k2');
+                    js.src = "https://www.dropbox.com/static/api/1/dropins.js";
+                    $document[0].getElementsByTagName('head')[0].appendChild(js);
+                }
+                if (document.readyState === "complete") {
+                    load();
+                } else {
+                    window.addEventListener("load", load, false);
+                }
 
 
-
-                var interval = window.setInterval(function () {
+                var interval = $interval(function () {
                     if (window.Dropbox !== undefined && window.Dropbox) {
+                        loaded = true;
                         defer.resolve();
-                        window.clearInterval(interval);
+                        $interval.cancel(interval);
+                        //window.clearInterval(interval);
                     }
                 }, 20);
-
-
                 return defer.promise;
             },
             choose: function () {

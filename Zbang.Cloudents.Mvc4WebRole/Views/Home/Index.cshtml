@@ -368,7 +368,7 @@
 
     @Html.Script2("homePage")
     @Html.JqueryValidateLocale()
-    <script src="https://apis.google.com/js/platform.js" onload="googleLoad()" defer></script>
+
     <script defer type="text/template" id="box-template">
         <a href="{boxUrl}" class="box" ga-track-event="['home-page', 'box']">
             <h2 class="{boxClass}">{boxName}</h2>
@@ -381,8 +381,7 @@
                 <div>{boxItemCount} @IndexResources.Items</div>
             </div>
         </a>
-
     </script>
-    <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)"></script>
+    <script type="text/javascript" src="~/js/CDNFallbackWithoutAngular.js?v=@VersionHelper.CurrentVersion(true)" defer></script>
 </body>
 </html>

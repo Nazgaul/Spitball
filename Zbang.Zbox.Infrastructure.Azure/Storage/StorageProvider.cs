@@ -82,11 +82,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
         #region CreateStorage
         private static void CreateBlobStorage(CloudBlobClient blobClient)
         {
-           // var serviceProperties = blobClient.GetServiceProperties();
-            //serviceProperties.DefaultServiceVersion = "2014-02-14";
-            //blobClient.SetServiceProperties(serviceProperties);
             var container = blobClient.GetContainerReference(BlobProvider.AzureBlobContainer.ToLower());
-
             if (container.CreateIfNotExists())
             {
                 container.SetPermissions(new BlobContainerPermissions
