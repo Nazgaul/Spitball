@@ -43,4 +43,3 @@ var app;
         .module("app.chat")
         .service("chatBus", ChatBus);
 })(app || (app = {}));
-//# sourceMappingURL=chat.factory.js.map

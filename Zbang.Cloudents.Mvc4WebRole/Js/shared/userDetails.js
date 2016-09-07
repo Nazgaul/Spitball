@@ -1,6 +1,3 @@
-/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="../../scripts/typings/angular-google-analytics/angular-google-analytics.d.ts" />
-/// <reference path="ajaxservice2.ts" />
 var app;
 (function (app) {
     "use strict";
@@ -50,16 +47,13 @@ var app;
             var _this = this;
             if (data.id) {
                 this.isLogedIn = true;
-                // ReSharper disable UseOfImplicitGlobalInFunctionScope
                 __insp.push(["identify", data.id]);
             }
             this.$timeout(function () {
-                //analytics doesnt work with timeout
                 _this.analytics.set("dimension1", data.universityName || null);
                 _this.analytics.set("dimension2", data.universityCountry || null);
                 _this.analytics.set("dimension3", data.id || null);
             });
-            //this.analytics.set("dimension4", data.theme || "dark");
             var interval = this.$interval(function () {
                 if (googletag.pubads !== undefined && googletag.pubads) {
                     googletag.pubads().setTargeting("gender", data.sex);
@@ -108,4 +102,3 @@ var app;
     }());
     angular.module("app").service("userDetailsFactory", UserDetails);
 })(app || (app = {}));
-//# sourceMappingURL=userDetails.js.map

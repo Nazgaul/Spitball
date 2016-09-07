@@ -506,6 +506,7 @@ html:not(.expanded-chat) .chat-side-nav .error {
                     @media(max-width: 600px) {
                         //height: ~"calc(100vh - 10px - @{chatHeaderHeight} - @{heightOfHeader} - @{newChatMessageHeightMobile})";
                         height: auto;
+                        min-height: ~"calc(100vh + 25px - @{chatHeaderHeight} - @{heightOfHeader} - @{newChatMessageHeightMobile})";
                     }
 
                     .mCSB_outside + .mCSB_scrollTools {
@@ -804,10 +805,10 @@ html:not(.expanded-chat) {
             right: -265px;
         }
 
-        @media(max-width: 960px) {
+        //@media(max-width: 960px) {
             //right: -100vw;
             //display: none;
-        }
+        //}
 
 
         .content .tab-content .search-friend .search-btn {
