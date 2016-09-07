@@ -147,4 +147,7 @@
   <data name="ClassmatesHeader" xml:space="preserve">
     <value>Classmates</value>
   </data>
+  <data name="LoadMore" xml:space="preserve">
+    <value>load more</value>
+  </data>
 </root>

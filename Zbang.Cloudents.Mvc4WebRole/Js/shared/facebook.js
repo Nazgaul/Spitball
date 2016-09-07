@@ -1,16 +1,16 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app').factory('facebookService', facebook);
 
-    facebook.$inject = [ '$q',  '$timeout'];
-    function facebook( $q,  $timeout) {
+    facebook.$inject = ['$q', '$timeout', "$interval"];
+    function facebook($q, $timeout, $interval) {
         "use strict";
         var accessToken,
             facebookInit;
 
 
         window.fbAsyncInit = function () {
-// ReSharper disable once UseOfImplicitGlobalInFunctionScope
+            // ReSharper disable once UseOfImplicitGlobalInFunctionScope
             FB.init({
                 appId: '450314258355338',
                 status: true,
@@ -20,55 +20,50 @@
             });
             loginStatus();
         };
-        (function (d) {
-            var js, id = 'facebook-jssdk';
-            if (d.getElementById(id)) {
-                return;
+        (function (d, w) {
+            function load() {
+                var id = 'facebook-jssdk';
+                if (d.getElementById(id)) {
+                    return;
+                }
+                var js = d.createElement('script');
+                js.id = id;
+                js.async = true;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                d.getElementsByTagName('head')[0].appendChild(js);
             }
-            js = d.createElement('script');
-            js.id = id;
-            js.async = true;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            d.getElementsByTagName('head')[0].appendChild(js);
-        }(document));
-        function loginStatus() {
-            var retries = 0,
 
-                interval = setInterval(function () {
-// ReSharper disable once UseOfImplicitGlobalInFunctionScope
-                    if (!FB) {
-                        if (retries > 100) {
-                            clearInterval(interval);
-                        }
+            if (document.readyState === "complete") {
+                load();
+            } else {
+                w.addEventListener("load", load, false);
+            }
+
+        }(document, window));
+        function loginStatus() {
+            var interval = $interval(function () {
+                if (!FB) {
+                    return;
+                }
+                $interval.cancel(interval);
+
+                FB.getLoginStatus(function (response) {
+                    facebookInit = true;
+                    if (response.status === 'connected') {
+                        accessToken = response.authResponse.accessToken;
                         return;
                     }
-                    clearInterval(interval);
-
-// ReSharper disable once UseOfImplicitGlobalInFunctionScope
-                    FB.getLoginStatus(function (response) {
-                        facebookInit = true;
-                        if (response.status === 'connected') {
-                            accessToken = response.authResponse.accessToken;
-                            //isAuthenticated = true;
-                            //$rootScope.$broadcast('FacebookAuth', true);
-                            return;
-                        }
-                        //$rootScope.$broadcast('FacebookAuth', false);
-                    });
-
-                }, 20);
+                });
+            }, 20, 100);
         }
 
         return {
-            
             getToken: function () {
                 var defer = $q.defer();
-
                 if (accessToken) {
                     $timeout(function () {
                         defer.resolve(accessToken);
                     }, 0);
-
                     return defer.promise;
                 }
 

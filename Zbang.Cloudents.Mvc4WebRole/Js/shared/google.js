@@ -85,13 +85,19 @@
 
                 },
                 initAuth: function () {
-                    var js = document.createElement('script');
-                    js.src = "//apis.google.com/js/platform.js";
-                    //js.async = true;
-                    js.defer = true;
-                    document.getElementsByTagName('head')[0].appendChild(js);
-                    js.onload = function () { initAuthGapi(); }
-                    //<script src="https://apis.google.com/js/platform.js" onload="googleLoad()" async defer></script>
+                    function load() {
+                        var js = document.createElement('script');
+                        js.src = "//apis.google.com/js/platform.js";
+                        //js.async = true;
+                        js.defer = true;
+                        document.getElementsByTagName('head')[0].appendChild(js);
+                        js.onload = function() { initAuthGapi(); }
+                    }
+                    if (document.readyState === "complete") {
+                        load();
+                    } else {
+                        window.addEventListener("load", load, false);
+                    }
 
 
                     var defer = $q.defer();

@@ -9,6 +9,11 @@
   padding: 0;
   text-align: center;
 }
+#chatLoadMore {
+  display: block;
+  margin: 0 auto;
+  text-transform: capitalize;
+}
 .chat-icon {
   position: relative;
   height: 50px;
@@ -285,7 +290,7 @@ html:not(.expanded-chat) .chat-side-nav .error {
 }
 .chat .content .tab-content .users-list .users-sub-list .user .comment-date {
   font-size: 11px;
-  color: #9e9e9e;
+  color: #9E9E9E;
 }
 .chat .content .tab-content .empty-state {
   text-align: center;
@@ -356,7 +361,7 @@ html:not(.expanded-chat) .chat-side-nav .error {
   -webkit-justify-content: space-between;
   justify-content: space-between;
   height: 50px;
-  background: #042e5e;
+  background: #042E5E;
   position: relative;
 }
 .chat .content .conversasion .header .user {
@@ -368,7 +373,7 @@ html:not(.expanded-chat) .chat-side-nav .error {
 }
 .chat .content .conversasion .header .user.online:before {
   bottom: 2px;
-  box-shadow: 0 0 1px 2px #042e5e;
+  box-shadow: 0 0 1px 2px #042E5E;
 }
 .chat .content .conversasion .header md-fab-actions {
   margin-top: 20px;
@@ -413,7 +418,7 @@ html:not(.expanded-chat) .chat-side-nav .error {
   top: 50%;
   left: 0;
   margin-top: -1px;
-  background: #042e5e;
+  background: #042E5E;
   height: 2px;
 }
 .chat .content .conversasion .header .back .close:before {
@@ -466,7 +471,7 @@ html:not(.expanded-chat) .chat-side-nav .error {
   word-wrap: break-word;
 }
 .chat .content .conversasion .chat-content .messages .message .time {
-  color: #9e9e9e;
+  color: #9E9E9E;
   font-size: 11px;
   margin-top: 5px;
   padding: 0 12px 8px 12px;
@@ -690,6 +695,8 @@ html:not(.expanded-chat) .chat-side-nav .error {
   html:not(.expanded-chat) .chat {
     right: -265px;
   }
+}
+@media (max-width: 960px) {
 }
 html:not(.expanded-chat) .chat .content .tab-content .search-friend .search-btn {
   -webkit-justify-content: center;

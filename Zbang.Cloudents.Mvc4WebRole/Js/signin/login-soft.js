@@ -511,17 +511,32 @@ window.fbAsyncInit = function () {
         version: 'v2.4'
     });
 };
-(function (d) {
-    var js, id = 'facebook-jssdk';
-    if (d.getElementById(id)) {
-        return;
+(function (d, w) {
+    function load() {
+        var js, id = 'facebook-jssdk';
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement('script');
+        js.id = id;
+        js.async = true;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        d.getElementsByTagName('head')[0].appendChild(js);
     }
-    js = d.createElement('script');
-    js.id = id;
-    js.async = true;
-    js.src = "//connect.facebook.net/en_US/sdk.js";
-    d.getElementsByTagName('head')[0].appendChild(js);
-}(document));
 
+    w.addEventListener("load", load, false);
+}(document, window));
 
+(function (w) {
+    function load() {
+        var js = document.createElement('script');
+        js.src = "//apis.google.com/js/platform.js";
+        //js.async = true;
+        js.defer = true;
+        document.getElementsByTagName('head')[0].appendChild(js);
+        js.onload = function() { googleLoad(); }
+    }
+
+    w.addEventListener("load", load, false);
+})(window);
 Login.initExternalLogin();
