@@ -309,13 +309,6 @@ body {
         border-color: @borderColorLightGrey;
     }
 
-    &.create-box-show, &.create-deparment-show {
-        display: block !important; //override hide-xs
-        .dashboard-stat2 {
-            border: 2px solid @borderColorLightGrey;
-        }
-    }
-
     &.create-init {
         display: block !important; //override hide-xs
     }
@@ -324,7 +317,7 @@ body {
         margin-left: 15px;
     }
 
-    md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+    md-input-container.md-input-focused:not(.md-input-invalid) .md-input {
         border-bottom: 1px solid @textColorGrey;
         color: @textColorGrey;
     }

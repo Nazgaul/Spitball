@@ -638,6 +638,17 @@ html:not(.expanded-chat) .chat-side-nav .error {
   font-size: 18px;
   height: 40px !important;
   padding: 0;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+.chat-item-preview md-toolbar .md-toolbar-tools > .md-button {
+  margin-right: 0;
+  margin-left: 0;
 }
 .chat-item-preview md-toolbar .download-btn {
   min-width: 0;
@@ -649,9 +660,7 @@ html:not(.expanded-chat) .chat-side-nav .error {
   -webkit-justify-content: center;
   justify-content: center;
   width: 40px;
-  position: absolute;
   margin: 0;
-  left: 0;
 }
 .chat-item-preview md-toolbar .download-btn svg {
   width: 18px;
@@ -662,7 +671,6 @@ html:not(.expanded-chat) .chat-side-nav .error {
   line-height: normal;
   padding: 0;
   width: 36px;
-  margin: 0;
 }
 .chat-item-preview md-toolbar .close-btn svg {
   width: 16px;
