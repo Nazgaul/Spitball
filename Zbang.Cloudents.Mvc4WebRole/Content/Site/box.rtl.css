@@ -283,6 +283,9 @@ library-list {
 .member-wrapper .admin {
   min-width: 0;
 }
+.member-wrapper .user-section {
+  width: 100%;
+}
 .member-wrapper .admin {
   padding: 2px 10px;
   background: #73b435;

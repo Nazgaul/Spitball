@@ -1,5 +1,6 @@
-﻿'use strict';
+﻿
 (function () {
+    'use strict';
     angular.module('app.user.details').controller('UserDetailsController', userDetailsController);
     userDetailsController.$inject = ['accountService', '$scope', 'userDetailsFactory'];
 
@@ -14,14 +15,8 @@
                     assignValues(userDetails.get());
                 });
             
-
-            function assignValues(response) {
-                ud.id = response.id;
-                ud.name = response.name;
-                ud.image = response.image;
-                ud.score = response.score;
-                ud.url = response.url;
-            }
+            
+           
         }
         else {
             ud.signup = function(e) {
@@ -29,7 +24,13 @@
                 e.target.href = e.target.href.replace(encodeURIComponent(url), encodeURIComponent(window.location.href));
             }
         }
-
+        function assignValues(response) {
+            ud.id = response.id;
+            ud.name = response.name;
+            ud.image = response.image;
+            ud.score = response.score;
+            ud.url = response.url;
+        }
         function getParameterByName(name, url) {
             if (!url) url = window.location.href;
             name = name.replace(/[\[\]]/g, "\\$&");

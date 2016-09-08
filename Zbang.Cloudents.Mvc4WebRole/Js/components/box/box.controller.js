@@ -157,7 +157,7 @@
             b.showLeaderboard = false;
         });
 
-        $window.onbeforeunload = () => {
+        $window.onbeforeunload = function() {
             if (!b.user.id) {
                 return;
             }
