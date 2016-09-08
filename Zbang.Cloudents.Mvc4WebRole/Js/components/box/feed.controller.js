@@ -459,70 +459,78 @@
 
         self.add.fileUpload = {
             url: '/upload/file/',
-            options: {
+            callbacks:
+                 {
+                     filesAdded: function (uploader, files) {
+                         console.log(uploader, plupload);
+                         $scope.$emit('follow-box');
+                         for (var i = 0; i < files.length; i++) {
+                             var file = files[i];
+                             (function (file) {
+                                 file.sizeFormated = plupload.formatSize(file.size);
+                                 file.complete = false;
+                                 file.postId = postId;
+                                 file.remove = function () {
+                                     removeFile(file, uploader);
+                                     self.add.disabled = false;
+                                 };
+
+                                 self.add.files.push(file);
+
+                                 var img = new mOxie.Image();
+                                 img.onload = function () {
+                                     this.crop(95, 105, false);
+                                     file.content = this.getAsDataURL("image/jpeg", 80);
+                                 };
+                                 img.onembedded = function () {
+                                     this.destroy();
+                                 };
+
+                                 img.onerror = function () {
+                                     this.destroy();
+                                 };
+                                 img.load(file.getSource());
+                             })(file);
+                         }
+                         $timeout(function () {
+                             uploader.start();
+                         },
+                             1);
+                     },
+                     beforeUpload: function (up, file) {
+                         self.add.disabled = true;
+                         up.settings.multipart_params = {
+                             fileName: file.name,
+                             fileSize: file.size,
+                             boxId: boxId,
+                             comment: true
+                         };
+                     },
+                     fileUploaded: function (uploader, file, response) {
+                         file.complete = true;
+                         var obj = JSON.parse(response.response);
+                         if (obj.success) {
+                             file.system = obj.payload.item;
+                             //cacheFactory.clearAll();
+                         }
+                     },
+                     uploadComplete: function () {
+                         self.add.disabled = false;
+                     }
+                     //error: function (uploader, error) {
+                     //    u.alert = error.message;
+                     //}
+                 }
+        }
+        self.add.fileUpload.options = {
+                //someid:id,
+                //header: {
+                //    parentId:id
+                //},
                 chunk_size: '3mb'
-            },
-            callbacks: {
-                filesAdded: function (uploader, files) {
-                    $scope.$emit('follow-box');
-                    for (var i = 0; i < files.length; i++) {
-                        var file = files[i];
-                        (function (file) {
-                            file.sizeFormated = plupload.formatSize(file.size);
-                            file.complete = false;
-                            file.postId = postId;
-                            file.remove = function () {
-                                removeFile(file, uploader);
-                                self.add.disabled = false;
-                            };
+            
+        }
 
-                            self.add.files.push(file);
-
-                            var img = new mOxie.Image();
-                            img.onload = function () {
-                                this.crop(95, 105, false);
-                                file.content = this.getAsDataURL("image/jpeg", 80);
-                            };
-                            img.onembedded = function () {
-                                this.destroy();
-                            };
-
-                            img.onerror = function () {
-                                this.destroy();
-                            };
-                            img.load(file.getSource());
-                        })(file);
-                    }
-                    $timeout(function () {
-                        uploader.start();
-                    },
-                        1);
-                },
-                beforeUpload: function (up, file) {
-                    self.add.disabled = true;
-                    up.settings.multipart_params = {
-                        fileName: file.name,
-                        fileSize: file.size,
-                        boxId: boxId,
-                        comment: true
-                    };
-                },
-                fileUploaded: function (uploader, file, response) {
-                    file.complete = true;
-                    var obj = JSON.parse(response.response);
-                    if (obj.success) {
-                        file.system = obj.payload.item;
-                        //cacheFactory.clearAll();
-                    }
-                },
-                uploadComplete: function () {
-                    self.add.disabled = false;
-                }
-                //error: function (uploader, error) {
-                //    u.alert = error.message;
-                //}
-            }
-        };
         $scope.$on('update-thumbnail', function (e, args) {
             for (var i = 0; i < self.data.length; i++) {
                 var element = self.data[i];

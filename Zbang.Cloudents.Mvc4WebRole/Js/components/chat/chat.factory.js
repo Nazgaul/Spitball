@@ -3,6 +3,7 @@ var app;
     "use strict";
     var unreadCount = 0;
     var ChatBus = (function () {
+        //static $inject = ["ajaxService2"];
         function ChatBus(ajaxService) {
             this.ajaxService = ajaxService;
             this.setUnread = function (count) {
@@ -47,3 +48,4 @@ var app;
         .module("app.chat")
         .factory("chatBus", ChatBus.factory());
 })(app || (app = {}));
+//# sourceMappingURL=chat.factory.js.map
