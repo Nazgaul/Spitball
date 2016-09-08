@@ -80,7 +80,9 @@
                         "chat@": {
                             template: ''
                         }
-
+                    },
+                    params: {
+                        conversationData: null
                     }
 
                 },

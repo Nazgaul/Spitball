@@ -2,10 +2,11 @@
     'use strict';
     angular.module('app.user').controller('UserController', user);
     user.$inject = ['userService', 'userData', 'itemThumbnailService', '$q',
-        'userDetailsFactory', '$mdDialog', 'resManager', 'boxService', '$rootScope'];
+        'userDetailsFactory', '$mdDialog', 'resManager',
+        'boxService', '$rootScope', "$state", "$mdMedia"];
 
     function user(userService, userData, itemThumbnailService, $q, userDetailsFactory,
-        $mdDialog, resManager, boxService, $rootScope) {
+        $mdDialog, resManager, boxService, $rootScope, $state, $mdMedia) {
         var self = this;
         var boxesPage = 0, friendPage = 0, itemsPage = 0, commentPage = 0, quizzesPage = 0, disablePaging = false;
         self.friends = [];
@@ -67,14 +68,26 @@
 
 
         function sendMessage() {
-            $rootScope.$broadcast('open-chat-user', {
-                name: userData.name,
-                id: userData.id,
-                image: userData.image,
-                url: userData.url,
-                online: userData.online
-            });
-            //$mdSidenav('chat').open();
+            if ($mdMedia('gt-xs')) {
+                $rootScope.$broadcast('open-chat-user',
+                {
+                    name: userData.name,
+                    id: userData.id,
+                    image: userData.image,
+                    url: userData.url,
+                    online: userData.online
+                });
+            } else {
+                $state.go("chat", {
+                    conversationData: {
+                        name: userData.name,
+                        id: userData.id,
+                        image: userData.image,
+                        url: userData.url,
+                        online: userData.online
+                    }
+                });
+            }
         }
 
         $rootScope.$on('disablePaging', function () {

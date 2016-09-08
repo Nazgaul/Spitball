@@ -1,5 +1,6 @@
 ﻿module app {
     "use strict";
+    var unreadCount = 0;
     export interface IChatBus {
         setUnread(count: number): void;
         getUnread(): number;
@@ -10,17 +11,17 @@
     }
 
     class ChatBus implements IChatBus {
-        static $inject = ["ajaxService2"];
-        private unreadCount = 0;
+        //static $inject = ["ajaxService2"];
+        
         constructor(private ajaxService: IAjaxService2) {
 
         }
 
-        setUnread(count: number): void {
-            this.unreadCount = count;
+        setUnread = (count: number): void => {
+            unreadCount = count;
         };
         getUnread = (): number => {
-            return this.unreadCount;
+            return unreadCount;
         };
 
         messages(q: string, page: number): angular.IPromise<Array<any>> {
@@ -45,9 +46,17 @@
                 chatRoom: id
             });
         }
+        public static factory() {
+            const factory = (ajaxService2) => {
+                return new ChatBus(ajaxService2);
+            };
+
+            factory['$inject'] = ["ajaxService2"];
+            return factory;
+        }
     }
     angular
         .module("app.chat")
-        .service("chatBus", ChatBus);
+        .factory("chatBus", ChatBus.factory());
 }
 

@@ -1,19 +1,17 @@
 var app;
 (function (app) {
     "use strict";
+    var unreadCount = 0;
     var ChatBus = (function () {
         function ChatBus(ajaxService) {
-            var _this = this;
             this.ajaxService = ajaxService;
-            this.unreadCount = 0;
+            this.setUnread = function (count) {
+                unreadCount = count;
+            };
             this.getUnread = function () {
-                return _this.unreadCount;
+                return unreadCount;
             };
         }
-        ChatBus.prototype.setUnread = function (count) {
-            this.unreadCount = count;
-        };
-        ;
         ChatBus.prototype.messages = function (q, page) {
             return this.ajaxService.get("/chat/conversation", { q: q, page: page });
         };
@@ -36,10 +34,16 @@ var app;
                 chatRoom: id
             });
         };
-        ChatBus.$inject = ["ajaxService2"];
+        ChatBus.factory = function () {
+            var factory = function (ajaxService2) {
+                return new ChatBus(ajaxService2);
+            };
+            factory['$inject'] = ["ajaxService2"];
+            return factory;
+        };
         return ChatBus;
     }());
     angular
         .module("app.chat")
-        .service("chatBus", ChatBus);
+        .factory("chatBus", ChatBus.factory());
 })(app || (app = {}));

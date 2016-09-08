@@ -39,7 +39,7 @@
         l.renameNode = renameNode;
         l.openCreateBox = openCreateBox;
         l.openCreateDepartment = openCreateDepartment;
-        l.createShow = createShow;
+        //l.createShow = createShow;
 
         l.createFirstBox = createFirstBox;
         l.goToSubLib = goToSubLib;
@@ -104,16 +104,16 @@
 
         }
 
-        function createShow() {
-            l.createOn = true;
-            if (l.createClassShow) {
-                openCreateBox();
-            }
-            if (l.createDepartmentShow) {
-                openCreateDepartment();
-            }
+        //function createShow() {
+        //    l.createOn = true;
+        //    if (l.createClassShow) {
+        //        openCreateBox();
+        //    }
+        //    if (l.createDepartmentShow) {
+        //        openCreateDepartment();
+        //    }
 
-        }
+        //}
 
         function renameNode(myform) {
             if (!myform.$valid) {
@@ -151,11 +151,13 @@
         }
 
         function openCreateBox() {
+            l.createOn = true;
             l.settingsOpen = false;
             l.createBoxOn = true;
             l.focusCreateClass = true;
         }
         function openCreateDepartment() {
+            l.createOn = true;
             l.createDepartmentOn = true;
             l.settingsOpen = false;
             l.focusCreateDepartment = true;

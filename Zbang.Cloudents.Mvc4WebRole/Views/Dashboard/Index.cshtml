@@ -17,7 +17,7 @@
                 <span class="textTC35 text">@DashboardResource.InviteToSpitball&nbsp;<span>@ChatResources.FriendsHeader</span></span>
             </div>
         </button>
-        <button type="button" ng-click="d.createNewBox()" class="create-btn backgroundTC29 borderTC32 hoverBackgroundTC39" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="50" flex-gt-lg="50" ga-track-event="['dashboard', 'createbox']">
+        <button type="button" ng-click="d.createNewBox()" focus-upon-click="createBoxInput" class="create-btn backgroundTC29 borderTC32 hoverBackgroundTC39" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="50" flex-gt-lg="50" ga-track-event="['dashboard', 'createbox']">
             <div class="wrapper">
                 @Html.Svg("~/images/site/icons.svg", "add", new { @class = "svgTC35" })
                 <span class="textTC35">@DashboardResource.StudyGroupHeader</span>

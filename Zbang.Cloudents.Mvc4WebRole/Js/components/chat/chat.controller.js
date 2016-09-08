@@ -4,11 +4,11 @@
     chat.$inject = ['$timeout', '$scope', 'realtimeFactotry',
         'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService',
         '$mdDialog', 'routerHelper', '$document',
-        'notificationService', 'resManager', '$rootScope', "$uiViewScroll"];
+        'notificationService', 'resManager', '$rootScope', "$uiViewScroll","$stateParams"];
 
     function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
-        notificationService, resManager, $rootScope, $uiViewScroll) {
+        notificationService, resManager, $rootScope, $uiViewScroll, $stateParams) {
         var c = this, chunkSize = 50, page = 0,
         connectionStatuses = {
             connected: 1,
@@ -48,18 +48,7 @@
         };
 
 
-        $scope.$on('connection-state', function (e, args) {
-            if (args.status === connectionStatuses.disconnected) {
-                if (args.status !== lastConnectionStatus) {
-                    c.connected = false;
-                }
-            }
-            else {
-                c.connected = true;
-            }
-            lastConnectionStatus = args.status;
-
-        });
+        
 
         function backFromChat() {
             c.state = c.states.messages;
@@ -77,12 +66,13 @@
                 for (var i = 0; i < c.users.length; i++) {
                     x += c.users[i].unread || 0;
                 }
-                //c.unread = x;
-                chatBus.setUnread(x);
-            } else {
+                $timeout(function() { //give it some delay
+                    chatBus.setUnread(x);
+                });
+            } //else {
                 //c.unread = ++c.unread;
-                chatBus.setUnread(++c.unread);
-            }
+                //chatBus.setUnread(++c.unread);
+            //}
 
         }
 
@@ -156,7 +146,7 @@
             c.focusSearch = true;
         }
 
-        function loadMoreMessages(event) {
+        function loadMoreMessages() {
             var firstMessage = c.messages[0];
             if (!firstMessage.id) {
                 return;
@@ -186,7 +176,9 @@
             realtimeFactotry.sendMsg(c.userChat.id, c.newText, c.userChat.conversation);
             c.newText = '';
         }
-
+        if ($stateParams.conversationData) {
+            conversation($stateParams.conversationData);
+        }
         $scope.$on('open-chat-user', function (e, args) {
             conversation(args);
         });
@@ -197,6 +189,18 @@
             if (message) {
                 message.thumb += '&1=1';
             }
+        });
+        $scope.$on('connection-state', function (e, args) {
+            if (args.status === connectionStatuses.disconnected) {
+                if (args.status !== lastConnectionStatus) {
+                    c.connected = false;
+                }
+            }
+            else {
+                c.connected = true;
+            }
+            lastConnectionStatus = args.status;
+
         });
         $scope.$on('hub-chat', function (e, args) {
             //if its me

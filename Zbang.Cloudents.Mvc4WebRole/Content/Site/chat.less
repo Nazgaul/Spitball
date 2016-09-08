@@ -804,11 +804,12 @@ html:not(.expanded-chat) {
         @media(min-width: 960px) {
             right: -265px;
         }
-
-        //@media(max-width: 960px) {
-            //right: -100vw;
-            //display: none;
-        //}
+       
+        //for tablets
+        @media(min-width: 600px) and (max-width: 960px) {
+            right: -100vw;
+            display: none;
+        }
 
 
         .content .tab-content .search-friend .search-btn {

@@ -2,6 +2,7 @@
     "use scrict";
     declare var dChat: any;
 
+   // export type hubEvent = "hub-chat" | "hub-status" | "preview-ready" | "update-thumbnail" | "connection-state"
     export class Guid {
         static newGuid(): string {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
@@ -31,7 +32,7 @@
                 rootPath: (dChat || 'https://connect.spitball.co') + '/s',
                 listeners: {
                     chat(message, chatRoom, userId, blob) {
-                        $rootScope.$broadcast('hub-chat',
+                        $rootScope.$broadcast("hub-chat",
                             {
                                 message: message,
                                 chatRoom: chatRoom,

@@ -42,7 +42,7 @@ var app;
                 rootPath: (dChat || 'https://connect.spitball.co') + '/s',
                 listeners: {
                     chat: function (message, chatRoom, userId, blob) {
-                        $rootScope.$broadcast('hub-chat', {
+                        $rootScope.$broadcast("hub-chat", {
                             message: message,
                             chatRoom: chatRoom,
                             userId: userId,

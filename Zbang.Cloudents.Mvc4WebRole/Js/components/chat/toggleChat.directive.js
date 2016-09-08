@@ -13,11 +13,11 @@ var app;
                 var $html = $('html');
                 var className = 'expanded-chat';
                 if (!_this.userDetailsFactory.getUniversity()) {
-                    element.addClass('hidden');
+                    element.hide();
                 }
                 _this.$rootScope.$on('change-university', function () {
                     if (_this.userDetailsFactory.getUniversity()) {
-                        element.removeClass('hidden');
+                        element.show();
                     }
                 });
                 element.on('click', function () {
@@ -27,9 +27,10 @@ var app;
                             return;
                         }
                         _this.$state.go("chat");
-                        return;
                     }
-                    $html.toggleClass(className);
+                    else {
+                        $html.toggleClass(className);
+                    }
                 });
                 scope.$on('expandChat', function () {
                     $html.addClass(className);
@@ -45,6 +46,10 @@ var app;
                     else {
                         counterElem.hide();
                     }
+                });
+                scope.$on("hub-chat", function () {
+                    var unread = _this.chatBus.getUnread();
+                    _this.chatBus.setUnread(unread++);
                 });
                 scope.$on("$destroy", function () {
                     cleanUpFunc();

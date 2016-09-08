@@ -8,8 +8,6 @@
         self.create = create;
         self.cancel = cancel;
         self.submitDisabled = false;
-        
-        self.focus = true;
 
         function create(myform) {
             self.submitDisabled = true;

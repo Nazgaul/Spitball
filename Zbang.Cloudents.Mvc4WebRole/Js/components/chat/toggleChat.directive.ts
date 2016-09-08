@@ -2,22 +2,23 @@
     class ToggleChat implements angular.IDirective {
         restrict = 'A';
 
-        constructor(private chatBus, private $mdMedia: angular.material.IMedia,
+        constructor(private chatBus: IChatBus, private $mdMedia: angular.material.IMedia,
             private userDetailsFactory: IUserDetailsFactory,
             private $rootScope: angular.IRootScopeService,
             private $state: angular.ui.IStateService) {
         }
         link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery) => {
+            
             var $html = $('html');
             const className = 'expanded-chat';
             if (!this.userDetailsFactory.getUniversity()) {
-                element.addClass('hidden');
+                element.hide();
             }
 
             this.$rootScope.$on('change-university',
                 () => {
                     if (this.userDetailsFactory.getUniversity()) {
-                        element.removeClass('hidden');
+                        element.show();
                     }
                 });
             element.on('click',
@@ -28,11 +29,11 @@
                             return;
                         }
                         this.$state.go("chat");
-                        return;
+                    } else {
+                        $html.toggleClass(className);
                     }
-                    $html.toggleClass(className);
-
                 });
+
             scope.$on('expandChat', () => {
                 $html.addClass(className);
             });
@@ -48,6 +49,11 @@
                         counterElem.hide();
                     }
                 });
+
+            scope.$on("hub-chat", () => {
+                var unread = this.chatBus.getUnread();
+                this.chatBus.setUnread(unread++);
+            });
             scope.$on("$destroy",
                 () => {
                     cleanUpFunc();
@@ -61,7 +67,7 @@
                 return new ToggleChat(chatBus, $mdMedia, userDetailsFactory, $rootScope, $state);
             };
 
-            directive['$inject'] = ['chatBus', '$mdMedia', 'userDetailsFactory', '$rootScope',"$state"];
+            directive['$inject'] = ['chatBus', '$mdMedia', 'userDetailsFactory', '$rootScope', "$state"];
 
             return directive;
         }
