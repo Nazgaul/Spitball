@@ -160,8 +160,10 @@
     border-bottom: 5px solid @backgroundColor;
     align-items: center;
 
-    .logo-search {
+    .logo-search {        
         height: 100%;
+        flex-grow: 1;
+        min-width: 0; //fix login buttons overflowing from screen width (caused from flex)
 
         .search-form-wrapper {
             max-width: 350px;
