@@ -37,38 +37,21 @@
   top: 4px;
   left: 12px;
 }
-.expanded-chat .chat .tab:after {
-  border-width: 7px 10px 7px 0;
-  border-color: transparent #f5f5f5 transparent transparent;
-  right: 6px;
-}
-.theme-dark .expanded-chat .chat .content .tab-content .users-list section:after {
-  border-bottom-color: #323538;
-}
-.theme-light .expanded-chat .chat .content .tab-content .users-list section:after {
-  border-bottom-color: #e9eaed;
-}
 .chat-side-nav .chat {
   position: fixed;
   z-index: 10;
   top: 70px;
   bottom: 0;
-  background: #f9f9f9 !important;
   width: 320px;
   left: 0;
   transition: left 0.1s;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
 }
 .chat-side-nav .chat .content {
+  height: calc(100vh - 70px);
   background: none;
   position: relative;
-  height: calc(100vh - 70px);
   overflow: hidden;
-}
-.chat-side-nav .chat .content .tab-content .users-list {
-  height: calc(100vh - 119px);
-  width: calc(100% - 20px);
-  overflow: auto;
 }
 .chat-side-nav .chat .content .conversasion,
 .chat-side-nav .chat .content .menu-content {
@@ -80,19 +63,7 @@
 .chat-side-nav .chat .content .menu-content .new-message {
   position: absolute;
 }
-html:not(.expanded-chat) .chat-side-nav .error {
-  display: none;
-}
-.chatPage .chat {
-  margin: 0 -5px;
-}
-.chatPage .chat .tab {
-  display: none;
-}
-.chat .stateChat ~ .tab {
-  display: none;
-}
-.chat .tab {
+.chat-side-nav .chat .tab {
   position: absolute;
   top: 15px;
   right: -20px;
@@ -102,7 +73,7 @@ html:not(.expanded-chat) .chat-side-nav .error {
   background: #4190b9;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.69);
 }
-.chat .tab:after {
+.chat-side-nav .chat .tab:after {
   content: '';
   display: block;
   width: 0;
@@ -113,13 +84,35 @@ html:not(.expanded-chat) .chat-side-nav .error {
   position: absolute;
   top: calc(50% - 7px);
   right: 4px;
+  border-width: 7px 10px 7px 0;
+  border-color: transparent #f5f5f5 transparent transparent;
+  right: 6px;
+}
+.chatPage .chat {
+  margin: -5px;
+}
+.chatPage .chat .tab {
+  display: none;
+}
+.chatPage .chat .content .chat-content .messages {
+  height: calc(100vh + 25px - 50px - 70px - 90px);
+}
+.chatPage .chat .content .chat-content .new-message .menu {
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+.chat {
+  background: #f9f9f9 !important;
+}
+.chat .stateChat ~ .tab {
+  display: none;
 }
 .chat .error {
   z-index: 1;
   color: #f5f5f5;
   position: absolute;
   width: 100%;
-  top: 65px;
+  top: 50px;
   box-shadow: 0 0 3px black;
   text-align: center;
   background: #db4437;
@@ -159,6 +152,11 @@ html:not(.expanded-chat) .chat-side-nav .error {
 }
 .chat .content .attach-menu {
   position: absolute;
+}
+.chat .content .tab-content .users-list {
+  height: calc(100vh - 119px);
+  width: calc(100% - 20px);
+  overflow: auto;
 }
 .chat .content .tab-content .search-friend {
   margin-top: 6px;
@@ -213,11 +211,10 @@ html:not(.expanded-chat) .chat-side-nav .error {
 .chat .content .tab-content .users-list section:not(:last-child):after {
   content: '';
   display: block;
-  border-bottom: 2px solid #323538;
+  border-bottom: 2px solid rgba(136, 139, 142, 0.3);
   margin-right: 10px;
-  margin-top: 8px;
   width: calc(100% - 20px);
-  margin: 0 auto;
+  margin: 0 8px;
 }
 .chat .content .tab-content .users-list section .header {
   display: -webkit-flex;
@@ -444,12 +441,6 @@ html:not(.expanded-chat) .chat-side-nav .error {
   overflow: auto;
   color: #282828;
 }
-@media (max-width: 600px) {
-  .chat .content .conversasion .chat-content .messages {
-    height: auto;
-    min-height: calc(100vh + 25px - 50px - 70px - 90px);
-  }
-}
 .chat .content .conversasion .chat-content .messages .mCSB_outside + .mCSB_scrollTools {
   left: -5px;
 }
@@ -520,12 +511,6 @@ html:not(.expanded-chat) .chat-side-nav .error {
   display: flex;
   -webkit-align-items: flex-end;
   align-items: flex-end;
-}
-@media (max-width: 600px) {
-  .chat .content .conversasion .chat-content .new-message .menu {
-    -webkit-align-items: flex-start;
-    align-items: flex-start;
-  }
 }
 .chat .content .conversasion .chat-content .new-message .menu svg.attach {
   width: 26px;
@@ -700,11 +685,6 @@ html:not(.expanded-chat) .chat-side-nav .error {
 .chat-item-preview md-dialog-content .preview-faild img {
   margin-bottom: 15px;
 }
-@media (min-width: 960px) {
-  html:not(.expanded-chat) .chat {
-    left: -265px;
-  }
-}
 @media (min-width: 600px) and (max-width: 960px) {
   html:not(.expanded-chat) .chat {
     left: -100vw;
@@ -715,8 +695,19 @@ html:not(.expanded-chat) .chat .content .tab-content .search-friend .search-btn 
   -webkit-justify-content: center;
   justify-content: center;
 }
+html:not(.expanded-chat) .chat-side-nav .chat {
+  left: -265px;
+}
 html:not(.expanded-chat) .chat-side-nav .chat .content .tab-content .users-list section:not(:last-child):after {
   border-bottom-color: transparent;
+}
+html:not(.expanded-chat) .chat-side-nav .chat .tab:after {
+  border-width: 7px 0 7px 10px;
+  border-color: transparent transparent transparent #f5f5f5;
+  right: 4px;
+}
+html:not(.expanded-chat) .chat-side-nav .error {
+  display: none;
 }
 @keyframes fadein {
   from {
