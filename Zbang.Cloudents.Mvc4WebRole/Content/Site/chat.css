@@ -105,14 +105,7 @@
   top: 70px;
   left: 0;
   right: 0;
-  background: #282828;
   z-index: 1;
-}
-.chatPage .chat .content {
-  overflow-y: scroll;
-  /* has to be scroll, not auto */
-  -webkit-overflow-scrolling: touch;
-  height: calc(100vh - 70px);
 }
 .chatPage .chat .content.stateChat .conversasion .header {
   position: fixed;
@@ -187,13 +180,6 @@
 }
 .chat .content .attach-menu {
   position: absolute;
-}
-.chat .content .tab-content {
-  /*.users-list {
-
-                //height: ~"calc(100vh - 119px)";
-               
-            }*/
 }
 .chat .content .tab-content .search-friend {
   margin-top: 6px;

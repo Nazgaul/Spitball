@@ -122,14 +122,14 @@
         top: 70px;
         left: 0;
         right: 0;
-        background: @textColorBlack;
+       // background: @textColorBlack;
         z-index: 1;
     }
 
     .content {
-        overflow-y: scroll; /* has to be scroll, not auto */
-        -webkit-overflow-scrolling: touch;
-        height: ~"calc(100vh - @{heightOfHeader})";
+        //overflow-y: scroll; /* has to be scroll, not auto */
+        //-webkit-overflow-scrolling: touch;
+        //height: ~"calc(100vh - @{heightOfHeader})";
 
         &.stateChat {
             .conversasion {
@@ -207,12 +207,6 @@
         }
 
         .tab-content {
-            /*.users-list {
-
-                //height: ~"calc(100vh - 119px)";
-               
-            }*/
-
             .search-friend {
                 margin-top: 6px;
                 .displayFlex;
