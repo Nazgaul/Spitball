@@ -122,6 +122,8 @@
 }
 .nav-bar .logo-search {
   height: 100%;
+  flex-grow: 1;
+  min-width: 0;
 }
 .nav-bar .logo-search .search-form-wrapper {
   max-width: 350px;
