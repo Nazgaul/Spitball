@@ -31,7 +31,9 @@ namespace Zbang.Zbox.ReadServices
             };
             return retryPolicy;
         }
-        public async Task<IEnumerable<UserDigestDto>> GetUsersByNotificationSettingsAsync(GetUserByNotificationQuery query, CancellationToken token)
+
+        public async Task<IEnumerable<UserDigestDto>> GetUsersByNotificationSettingsAsync(
+            GetUserByNotificationQuery query, CancellationToken token)
         {
             using (var conn = await DapperConnection.OpenReliableConnectionAsync(token))
             {
@@ -40,20 +42,24 @@ namespace Zbang.Zbox.ReadServices
                     await
                         policy.ExecuteAsync(
                             // ReSharper disable once AccessToDisposedClosure
-                            async () => await conn.QueryAsync<UserDigestDto>(new CommandDefinition(Email.GetUserListByNotificationSettings,
-                                new
-                                {
-                                    Notification = query.NotificationSettings,
-                                    NotificationTime = query.MinutesPerNotificationSettings,
-                                    currentDate = DateTime.UtcNow,
-                                    query.PageNumber,
-                                    query.RowsPerPage
-                                }, cancellationToken: token)), token);
+                            async () =>
+                                await
+                                    conn.QueryAsync<UserDigestDto>(
+                                        new CommandDefinition(Email.GetUserListByNotificationSettings,
+                                            new
+                                            {
+                                                Notification = query.NotificationSettings,
+                                                NotificationTime = query.MinutesPerNotificationSettings,
+                                                currentDate = DateTime.UtcNow,
+                                                query.PageNumber,
+                                                query.RowsPerPage
+                                            }, cancellationToken: token)), token);
             }
 
         }
 
-        public async Task<IEnumerable<UserUpdatesDigestDto>> GetUserUpdatesAsync(GetBoxesLastUpdateQuery query, CancellationToken token)
+        public async Task<IEnumerable<UserUpdatesDigestDto>> GetUserUpdatesAsync(GetBoxesLastUpdateQuery query,
+            CancellationToken token)
         {
             using (var conn = await DapperConnection.OpenReliableConnectionAsync(token))
             {
@@ -62,13 +68,14 @@ namespace Zbang.Zbox.ReadServices
                     await
                         policy.ExecuteAsync(
                             // ReSharper disable once AccessToDisposedClosure
-                            async () => await conn.QueryAsync<UserUpdatesDigestDto>(new CommandDefinition(Email.GetUserUpdates,
-                                new
-                                {
-                                    NotificationTime = query.MinutesPerNotificationSettings,
-                                    currentDate = DateTime.UtcNow,
-                                    query.UserId
-                                }, cancellationToken: token)), token);
+                            async () =>
+                                await conn.QueryAsync<UserUpdatesDigestDto>(new CommandDefinition(Email.GetUserUpdates,
+                                    new
+                                    {
+                                        NotificationTime = query.MinutesPerNotificationSettings,
+                                        currentDate = DateTime.UtcNow,
+                                        query.UserId
+                                    }, cancellationToken: token)), token);
             }
 
         }
@@ -79,35 +86,35 @@ namespace Zbang.Zbox.ReadServices
             {
                 var policy = GetRetryPolicy();
                 return await policy.ExecuteAsync(async () =>
-                 {
-                     using (
-                         var grid =
-                             await
-                                 // ReSharper disable once AccessToDisposedClosure
-                                 conn.QueryMultipleAsync(
-                                     $"{Email.GetBoxUpdates} {Email.GetItemUpdates} {Email.GetQuizUpdates} {Email.GetCommentUpdates} {Email.GetRepliesUpdates} {Email.GetQuizDiscussionUpdates}",
-                                     new
-                                     {
-                                         query.BoxIds,
-                                         query.CommentsIds,
-                                         query.DiscussionIds,
-                                         query.ItemIds,
-                                         query.QuizIds,
-                                         query.RepliesIds
-                                     }))
-                     {
-                         var retVal = new BoxUpdatesDigestDto
-                         {
-                             Boxes = await grid.ReadAsync<BoxDigestDto>(),
-                             Items = await grid.ReadAsync<ItemDigestDto>(),
-                             Quizzes = await grid.ReadAsync<QuizDigestDto>(),
-                             Comments = await grid.ReadAsync<QnADigestDto>(),
-                             Replies = await grid.ReadAsync<QnADigestDto>(),
-                             QuizDiscussions = await grid.ReadAsync<QuizDiscussionDigestDto>()
-                         };
-                         return retVal;
-                     }
-                 }, token);
+                {
+                    using (
+                        var grid =
+                            await
+                                // ReSharper disable once AccessToDisposedClosure
+                                conn.QueryMultipleAsync(
+                                    $"{Email.GetBoxUpdates} {Email.GetItemUpdates} {Email.GetQuizUpdates} {Email.GetCommentUpdates} {Email.GetRepliesUpdates} {Email.GetQuizDiscussionUpdates}",
+                                    new
+                                    {
+                                        query.BoxIds,
+                                        query.CommentsIds,
+                                        query.DiscussionIds,
+                                        query.ItemIds,
+                                        query.QuizIds,
+                                        query.RepliesIds
+                                    }))
+                    {
+                        var retVal = new BoxUpdatesDigestDto
+                        {
+                            Boxes = await grid.ReadAsync<BoxDigestDto>(),
+                            Items = await grid.ReadAsync<ItemDigestDto>(),
+                            Quizzes = await grid.ReadAsync<QuizDigestDto>(),
+                            Comments = await grid.ReadAsync<QnADigestDto>(),
+                            Replies = await grid.ReadAsync<QnADigestDto>(),
+                            QuizDiscussions = await grid.ReadAsync<QuizDiscussionDigestDto>()
+                        };
+                        return retVal;
+                    }
+                }, token);
             }
 
 
@@ -265,39 +272,40 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdatesAsync(int index, int total, int top, CancellationToken token)
+        public async Task<BoxToUpdateSearchDto> GetBoxDirtyUpdatesAsync(int index, int total, int top,
+            CancellationToken token)
         {
             using (var conn = await DapperConnection.OpenReliableConnectionAsync(token))
             {
                 var retry = GetRetryPolicy();
                 return await retry.ExecuteAsync(async () =>
-                 {
-                     // ReSharper disable once AccessToDisposedClosure
-                     using (var grid = await conn.QueryMultipleAsync
-                         (Search.GetBoxToUploadToSearch +
-                          Search.GetBoxUsersToUploadToSearch +
-                          Search.GetBoxDepartmentToUploadToSearch +
-                          Search.GetBoxFeedToUploadToSearch +
-                          Search.GetBoxToDeleteToSearch, new { index, count = total, top }))
-                     {
-                         var retVal = new BoxToUpdateSearchDto
-                         {
-                             BoxesToUpdate = await grid.ReadAsync<BoxSearchDto>()
-                         };
-                         var usersInBoxes = grid.Read<UsersInBoxSearchDto>().ToList();
-                         var departmentsOfBoxes = grid.Read<DepartmentOfBoxSearchDto>().ToList();
-                         var feedOfBoxes = grid.Read<FeedOfBoxSearchDto>().ToList();
-                         foreach (var box in retVal.BoxesToUpdate)
-                         {
-                             var boxid = box.Id;
-                             box.UserIds = usersInBoxes.Where(w => w.BoxId == boxid).Select(s => s.UserId);
-                             box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Name);
-                             box.Feed = feedOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Text);
-                         }
-                         retVal.BoxesToDelete = await grid.ReadAsync<long>();
-                         return retVal;
-                     }
-                 }, token);
+                {
+                    // ReSharper disable once AccessToDisposedClosure
+                    using (var grid = await conn.QueryMultipleAsync
+                        (Search.GetBoxToUploadToSearch +
+                         Search.GetBoxUsersToUploadToSearch +
+                         Search.GetBoxDepartmentToUploadToSearch +
+                         Search.GetBoxFeedToUploadToSearch +
+                         Search.GetBoxToDeleteToSearch, new { index, count = total, top }))
+                    {
+                        var retVal = new BoxToUpdateSearchDto
+                        {
+                            BoxesToUpdate = await grid.ReadAsync<BoxSearchDto>()
+                        };
+                        var usersInBoxes = grid.Read<UsersInBoxSearchDto>().ToList();
+                        var departmentsOfBoxes = grid.Read<DepartmentOfBoxSearchDto>().ToList();
+                        var feedOfBoxes = grid.Read<FeedOfBoxSearchDto>().ToList();
+                        foreach (var box in retVal.BoxesToUpdate)
+                        {
+                            var boxid = box.Id;
+                            box.UserIds = usersInBoxes.Where(w => w.BoxId == boxid).Select(s => s.UserId);
+                            box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Name);
+                            box.Feed = feedOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Text);
+                        }
+                        retVal.BoxesToDelete = await grid.ReadAsync<long>();
+                        return retVal;
+                    }
+                }, token);
 
             }
         }
@@ -399,7 +407,7 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
         }
 
         public Task<IEnumerable<MarketingDto>> GetLowContributersUsersAsync(MarketingQuery query,
-           CancellationToken token)
+            CancellationToken token)
         {
             const string sql = @"select email,Culture,UserName as Name
 from zbox.users u 
@@ -492,7 +500,12 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync(token))
             {
-                using (var grid = await conn.QueryMultipleAsync($"{Email.GetLikesOnItem} {Email.GetLikesOnReplies} {Email.GetLikesOnComments}", new { timeDiff = -1 }))
+                using (
+                    var grid =
+                        await
+                            conn.QueryMultipleAsync(
+                                $"{Email.GetLikesOnItem} {Email.GetLikesOnReplies} {Email.GetLikesOnComments}",
+                                new { timeDiff = -1 }))
                 {
                     IEnumerable<LikesDto> items = await grid.ReadAsync<ItemLikesDto>();
                     IEnumerable<LikesDto> replies = await grid.ReadAsync<ReplyLikesDto>();
@@ -505,22 +518,23 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
 
         public async Task<IEnumerable<SpamGunDto>> GetSpamGunDataAsync(int universityId, CancellationToken token)
         {
-            using (var conn = await DapperConnection.OpenConnectionAsync(token, "SpamGun"))
+            using (var conn = await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun"))
             {
-                return
-                    await
-                        conn.QueryAsync<SpamGunDto>(
-                            new CommandDefinition(
-                                @"select top 1000 s.Id, FirstName, LastName, Email,mailbody as MailBody,
+                var policy = GetRetryPolicy();
+                return await policy.ExecuteAsync(async () => await
+                    conn.QueryAsync<SpamGunDto>(
+                        new CommandDefinition(
+                            @"select top 1000 s.Id, FirstName, LastName, Email,mailbody as MailBody,
 mailsubject as MailSubject, mailcategory as MailCategory,u.url as UniversityUrl 
 from students s join universities u on s.uniid = u.id
 where uniid = @UniId
 and mailbody is not null
 and mailsubject is not null
 and mailcategory is not null
-and shouldSend = 1", new { UniId = universityId }, cancellationToken: token));
+and shouldSend = 1", new { UniId = universityId }, cancellationToken: token)), token);
             }
-        }
 
+
+        }
     }
 }

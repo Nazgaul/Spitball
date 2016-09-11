@@ -50,7 +50,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
 
         }
 
-        public static Task<IDbConnection> OpenReliableConnectionAsync(CancellationToken cancellationToken)
+        public static Task<IDbConnection> OpenReliableConnectionAsync(CancellationToken cancellationToken, string connectionStringName = "Zbox")
         {
             var retryPolicy = RetryManager.Instance.GetDefaultSqlConnectionRetryPolicy();
             retryPolicy.Retrying += (sender, args) =>
@@ -59,8 +59,8 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
                 var msg = $"Retry - Count:{args.CurrentRetryCount}, Delay:{args.Delay}, Exception:{args.LastException}";
                 TraceLog.WriteInfo(msg);
             };
-            return retryPolicy.ExecuteAsync(() => OpenConnectionAsync(cancellationToken), cancellationToken);
-            
+            return retryPolicy.ExecuteAsync(() => OpenConnectionAsync(cancellationToken, connectionStringName), cancellationToken);
+
         }
     }
 }
