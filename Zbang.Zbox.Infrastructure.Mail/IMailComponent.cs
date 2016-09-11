@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             string name, string category, string universityUrl);
 
 
-        Task SendQuickStartMailAsync();
+
 
 
 

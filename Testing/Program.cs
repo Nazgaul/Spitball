@@ -155,10 +155,11 @@ namespace Testing
 
             var iocFactory = IocFactory.IocWrapper;
             var service = iocFactory.Resolve<IMailComponent>();
-            var t = service.SendSpanGunEmailAsync("ariel@cloudents.com", "1",
-                "Spitball, the free social studying app, has over 250,000 students across the world using our product to access class documents (including past exams, study guides, lecture notes, etc).You can also chat with your classmates, create quizzes, and more, all for free!    We’re live at Auburn this semester, and we have over 1,900 documents exclusively for Auburn students!    Sign up for free today, it takes less than a minute. Check us out!",
-                "Spitball has launched at Auburn!", "Cecily", "auburn_6272_s1", "https://www.spitball.co/auburn/");
-            t.Wait();
+            //var t = service.CheckEmailValidateAsync("exn5038@psu.edu");
+            //var t = service.SendSpanGunEmailAsync("ariel@cloudents.com", "1",
+            //    "Spitball, the free social studying app, has over 250,000 students across the world using our product to access class documents (including past exams, study guides, lecture notes, etc).You can also chat with your classmates, create quizzes, and more, all for free!    We’re live at Auburn this semester, and we have over 1,900 documents exclusively for Auburn students!    Sign up for free today, it takes less than a minute. Check us out!",
+            //    "Spitball has launched at Auburn!", "Cecily", "auburn_6272_s1", "https://www.spitball.co/auburn/");
+            //t.Wait();
             //foreach (var email in emails())
             //{
             //    var result = service.VerifyEmail(email);

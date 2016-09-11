@@ -129,10 +129,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
         public Task SendSpanGunEmailAsync(
             string recipient,
             string ipPool, // todo
-            string body, 
+            string body,
             string subject,
-            string name, 
-            string category, 
+            string name,
+            string category,
             string universityUrl)
         {
             var html = LoadMailTempate.LoadMailFromContentWithDot(new CultureInfo("en-US"), "Zbang.Zbox.Infrastructure.Mail.MailTemplate.SpamGun");
@@ -154,14 +154,15 @@ namespace Zbang.Zbox.Infrastructure.Mail
             };
             request.AddParameter("domain",
                                  "mg.spitball.co", ParameterType.UrlSegment);
-           
+
             request.AddParameter("from", "Michael Baker <michael@spitball.co>");
             request.AddParameter("to", ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
+            request.AddParameter("bcc", "ram@cloudents.com");
             request.AddParameter("subject", subject);
             request.AddParameter("html", html);
             request.AddParameter("o:tag", category);
             request.AddParameter("o:campaign", "spamgun");
-            
+
             return client.ExecuteTaskAsync(request);
 
 
@@ -182,35 +183,18 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             //sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
             //sendGridMail.SetCategory(category);
-           // sendGridMail.Subject = subject;
+            // sendGridMail.Subject = subject;
             //sendGridMail.SetIpPool(ipPool);
-           // sendGridMail.EnableClickTracking();
+            // sendGridMail.EnableClickTracking();
             //sendGridMail.EnableOpenTracking();
-           // await SendAsync(sendGridMail, new UsCredentials());
+            // await SendAsync(sendGridMail, new UsCredentials());
 
         }
 
 
-        public Task SendQuickStartMailAsync()
-        {
+       
 
-            RestClient client = new RestClient
-            {
-                BaseUrl = new Uri("https://api.mailgun.net/v3"),
-                Authenticator = new HttpBasicAuthenticator("api",
-                    "key-5aea4c42085523a28a112c96d7b016d4")
-            };
-            RestRequest request = new RestRequest();
-            request.AddParameter("domain",
-                                 "mg.spitball.co", ParameterType.UrlSegment);
-            request.Resource = "{domain}/messages";
-            request.AddParameter("from", "Excited User <mailgun@mg.spitball.co>");
-            request.AddParameter("to", "ram@cloudents.com");
-            request.AddParameter("subject", "Hello");
-            request.AddParameter("text", "Testing some Mailgun awesomness!");
-            request.Method = Method.POST;
-            return client.ExecuteTaskAsync(request);
-        }
+       
 
 
 
