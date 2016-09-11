@@ -63,6 +63,9 @@
 .chat-side-nav .chat .content .menu-content .new-message {
   position: absolute;
 }
+.chat-side-nav .chat .content .conversasion .chat-content .messages {
+  height: calc(100vh - 10px - 50px - 70px - 50px);
+}
 .chat-side-nav .chat .tab {
   position: absolute;
   top: 15px;
@@ -91,13 +94,36 @@
 .chatPage .chat {
   margin: -5px;
 }
+.chatPage .chat .users-list {
+  padding-top: 50px;
+}
 .chatPage .chat .tab {
   display: none;
 }
-.chatPage .chat .content .chat-content .messages {
-  height: calc(100vh + 25px - 50px - 70px - 90px);
+.chatPage .chat .search-friend {
+  position: fixed;
+  top: 70px;
+  right: 0;
+  left: 0;
+  background: #282828;
+  z-index: 1;
 }
-.chatPage .chat .content .chat-content .new-message .menu {
+.chatPage .chat .content.stateChat .conversasion .header {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+}
+.chatPage .chat .content.stateChat .chat-content {
+  padding-top: 50px;
+}
+.chatPage .chat .content.stateChat .chat-content .messages {
+  padding-bottom: 50px;
+}
+.chatPage .chat .content.stateChat .chat-content .new-message {
+  position: fixed !important;
+}
+.chatPage .chat .content.stateChat .chat-content .new-message .menu {
   -webkit-align-items: flex-start;
   align-items: flex-start;
 }
@@ -154,7 +180,6 @@
   position: absolute;
 }
 .chat .content .tab-content .users-list {
-  height: calc(100vh - 119px);
   width: calc(100% - 20px);
   overflow: auto;
 }
@@ -433,7 +458,6 @@
   transform: rotate(45deg);
 }
 .chat .content .conversasion .chat-content .messages {
-  height: calc(100vh - 10px - 50px - 70px - 50px);
   width: calc(100% - 5px);
   padding: 0;
   font-size: 15px;
@@ -500,10 +524,10 @@
   -webkit-align-items: stretch;
   align-items: stretch;
   border-radius: 8px;
-  overflow: hidden;
   margin-right: 8px;
   background: #ffffff;
   border: 1px solid #cbdbe3;
+  position: relative;
 }
 .chat .content .conversasion .chat-content .new-message .menu {
   display: -webkit-flex;

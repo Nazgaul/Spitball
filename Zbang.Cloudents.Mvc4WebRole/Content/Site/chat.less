@@ -71,6 +71,10 @@
                 position: absolute;
             }
         }
+
+        .conversasion .chat-content .messages {
+            height: ~"calc(100vh - 10px - @{chatHeaderHeight} - @{heightOfHeader} - @{newChatMessageHeight})";
+        }
     }
 
     .tab {
@@ -105,17 +109,49 @@
 .chatPage .chat {
     margin: -5px;
 
+    .users-list {
+        padding-top: @chatHeaderHeight;
+    }
+
     .tab {
         display: none;
     }
 
-    .content .chat-content {
-        .messages {
-            height: ~"calc(100vh + 25px - @{chatHeaderHeight} - @{heightOfHeader} - @{newChatMessageHeightMobile})";
+    .search-friend {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: @textColorBlack;
+        z-index: 1;
+    }
+
+    .content.stateChat {
+        .conversasion {
+
+            .header {
+                position: fixed;
+                top: @heightOfHeader;
+                right: 0;
+                left: 0;
+            }
         }
 
-        .new-message .menu {
-            .align-items(flex-start);
+        .chat-content {
+            padding-top: @chatHeaderHeight;
+
+            .messages {
+                padding-bottom: 50px;
+                // height: ~"calc(100vh + 25px - @{chatHeaderHeight} - @{heightOfHeader} - @{newChatMessageHeightMobile})";
+            }
+
+            .new-message {
+                position: fixed !important;
+
+                .menu {
+                    .align-items(flex-start);
+                }
+            }
         }
     }
 }
@@ -160,7 +196,7 @@
 
         .tab-content {
             .users-list {
-                height: ~"calc(100vh - 119px)";
+                //height: ~"calc(100vh - 119px)";
                 width: ~"calc(100% - 20px)";
                 overflow: auto;
             }
@@ -486,7 +522,6 @@
 
             .chat-content {
                 .messages {
-                    height: ~"calc(100vh - 10px - @{chatHeaderHeight} - @{heightOfHeader} - @{newChatMessageHeight})";
                     width: ~"calc(100% - 5px)";
                     padding: 0;
                     font-size: 15px;
@@ -561,10 +596,11 @@
                         .displayFlex;
                         .align-items(stretch);
                         border-radius: 8px;
-                        overflow: hidden;
+                        //overflow: hidden;
                         margin-left: 8px;
                         background: #ffffff;
                         border: 1px solid #cbdbe3;
+                        position: relative;
                     }
 
                     .menu {
