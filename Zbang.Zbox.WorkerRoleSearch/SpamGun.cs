@@ -25,7 +25,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
         //public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromHours(1);
 
         public const int SpanGunNumberOfQueues = 13;
-        private const int NumberOfIps = 3;
+        private const int NumberOfIps = 1;
         private readonly Queue<SpamGunDto>[] m_Queues = new Queue<SpamGunDto>[SpanGunNumberOfQueues];
 
         //295,413,579,810,1000,1587,2222,3111,4356,6098,8583,11953,16734,23427,32798,45917,64284,89998,125997,176395,246953,345735,484029,677640,948696,1328175,1859444,2603222,3644511,5102316,7143242,10000539,14000754,19601056
@@ -78,7 +78,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             var t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
                                 message.MailBody, message.MailSubject,
                                 message.FirstName.UppercaseFirst(), message.MailCategory, message.UniversityUrl);
-                            await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
+                            //await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
                             counter++;
                             emailsTask.Add(t1);
                         }

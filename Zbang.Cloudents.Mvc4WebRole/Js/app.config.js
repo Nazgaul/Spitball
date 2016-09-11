@@ -1,11 +1,9 @@
-//declare var Modernizr: any;
 var app;
 (function (app) {
     "use strict";
     angular.module('app').config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
         "$httpProvider", "$compileProvider", "$animateProvider"];
-    // ReSharper disable once Class
     function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider) {
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -13,7 +11,6 @@ var app;
                 'request': function (c) {
                     return c;
                 },
-                // optional method
                 'response': function (response) {
                     return response;
                 },
@@ -25,7 +22,6 @@ var app;
                             window.location.reload(true);
                             break;
                         case 401:
-                            //case 403:
                             window.open('/', '_self');
                             break;
                         case 403:
@@ -38,8 +34,6 @@ var app;
                             window.open('/error/', '_self');
                             break;
                         default:
-                            // somehow firefox in incognito crash and transfer to error page
-                            //   window.open('/error/', '_self');
                             break;
                     }
                     return response;
@@ -56,7 +50,6 @@ var app;
     config.$inject = ['AnalyticsProvider'];
     function config(analyticsProvider) {
         var analyticsObj = {
-            //'siteSpeedSampleRate': 70,
             'cookieDomain': 'spitball.co',
             'alwaysSendReferrer': true
         };
@@ -70,7 +63,6 @@ var app;
         analyticsProvider.trackUrlParams(true);
         analyticsProvider.setPageEvent('$stateChangeSuccess');
         analyticsProvider.delayScriptTag(true);
-        //AnalyticsProvider.setDomainName('XXX');
     }
     angular.module('app').run(anylticsRun);
     anylticsRun.$inject = ['Analytics', '$document'];
@@ -78,7 +70,6 @@ var app;
         $document.ready(function () {
             analytics.createAnalyticsScriptTag();
         });
-        //for run the app
     }
     ;
 })();
@@ -98,16 +89,8 @@ var app;
     angular.module('app').config(config);
     config.$inject = ['ScrollBarsProvider'];
     function config(ScrollBarsProvider) {
-        // the following settings are defined for all scrollbars unless the
-        // scrollbar has local scope configuration
         ScrollBarsProvider.defaults = {
-            //setHeight:500,
-            //scrollButtons: {
-            //    scrollAmount: 'auto', // scroll amount when button pressed
-            //    enable: true // enable scrolling buttons by default
-            //},
             scrollInertia: 400,
-            //axis: 'yx', // enable 2 axis scrollbars by default,
             scrollButtons: false,
             theme: 'dark-thin',
             autoHideScrollbar: true
@@ -115,4 +98,3 @@ var app;
     }
     ;
 })();
-//# sourceMappingURL=app.config.js.map

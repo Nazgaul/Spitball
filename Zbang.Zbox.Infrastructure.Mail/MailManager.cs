@@ -7,6 +7,8 @@ using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using RestSharp;
+using RestSharp.Authenticators;
 using SendGrid;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Ioc;
@@ -49,7 +51,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
                 if (!string.IsNullOrEmpty(category))
                 {
-                    
+
                     sendGridMail.SetCategory(category);
                 }
                 sendGridMail.EnableClickTracking();
@@ -124,39 +126,93 @@ namespace Zbang.Zbox.Infrastructure.Mail
             await SendAsync(sendGridMail, new Credentials());
         }
 
-        public async Task SendSpanGunEmailAsync(string recipient, string ipPool,
-            string body, string subject,
-            string name, string category, string universityUrl)
+        public Task SendSpanGunEmailAsync(
+            string recipient,
+            string ipPool, // todo
+            string body, 
+            string subject,
+            string name, 
+            string category, 
+            string universityUrl)
         {
-            var sendGridMail = new SendGridMessage
-            {
-                From = new MailAddress("michael@spitball.co", "Michael Baker")
-            };
-            
-
-            sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
-            //sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "jordan@spitball.co" : recipient);
-            //sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "shlomi@cloudents.com" : recipient);
-            //sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "eidan@cloudents.com" : recipient);
-
             var html = LoadMailTempate.LoadMailFromContentWithDot(new CultureInfo("en-US"), "Zbang.Zbox.Infrastructure.Mail.MailTemplate.SpamGun");
             html.Replace("{name}", name);
             html.Replace("{body}", body.Replace("\n", "<br>"));
             html.Replace("{email}", recipient);
             html.Replace("{uni_Url}", universityUrl);
-            sendGridMail.Html = html.ToString();
 
-            sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
-            sendGridMail.SetCategory(category);
-            sendGridMail.Subject = subject;
-            sendGridMail.SetIpPool(ipPool);
-            sendGridMail.EnableClickTracking();
-            sendGridMail.EnableOpenTracking();
-            await SendAsync(sendGridMail, new UsCredentials());
+            var client = new RestClient
+            {
+                BaseUrl = new Uri("https://api.mailgun.net/v3"),
+                Authenticator = new HttpBasicAuthenticator("api",
+                   "key-5aea4c42085523a28a112c96d7b016d4")
+            };
+            var request = new RestRequest
+            {
+                Resource = "{domain}/messages",
+                Method = Method.POST
+            };
+            request.AddParameter("domain",
+                                 "mg.spitball.co", ParameterType.UrlSegment);
+           
+            request.AddParameter("from", "Michael Baker <michael@spitball.co>");
+            request.AddParameter("to", ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
+            request.AddParameter("subject", subject);
+            request.AddParameter("html", html);
+            request.AddParameter("o:tag", category);
+            request.AddParameter("o:campaign", "spamgun");
+            
+            return client.ExecuteTaskAsync(request);
+
+
+            //var sendGridMail = new SendGridMessage
+            //{
+            //    From = new MailAddress("michael@spitball.co", "Michael Baker")
+            //};
+
+
+            //sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
+
+            //var html = LoadMailTempate.LoadMailFromContentWithDot(new CultureInfo("en-US"), "Zbang.Zbox.Infrastructure.Mail.MailTemplate.SpamGun");
+            //html.Replace("{name}", name);
+            //html.Replace("{body}", body.Replace("\n", "<br>"));
+            //html.Replace("{email}", recipient);
+            //html.Replace("{uni_Url}", universityUrl);
+            //sendGridMail.Html = html.ToString();
+
+            //sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
+            //sendGridMail.SetCategory(category);
+           // sendGridMail.Subject = subject;
+            //sendGridMail.SetIpPool(ipPool);
+           // sendGridMail.EnableClickTracking();
+            //sendGridMail.EnableOpenTracking();
+           // await SendAsync(sendGridMail, new UsCredentials());
 
         }
 
-        
+
+        public Task SendQuickStartMailAsync()
+        {
+
+            RestClient client = new RestClient
+            {
+                BaseUrl = new Uri("https://api.mailgun.net/v3"),
+                Authenticator = new HttpBasicAuthenticator("api",
+                    "key-5aea4c42085523a28a112c96d7b016d4")
+            };
+            RestRequest request = new RestRequest();
+            request.AddParameter("domain",
+                                 "mg.spitball.co", ParameterType.UrlSegment);
+            request.Resource = "{domain}/messages";
+            request.AddParameter("from", "Excited User <mailgun@mg.spitball.co>");
+            request.AddParameter("to", "ram@cloudents.com");
+            request.AddParameter("subject", "Hello");
+            request.AddParameter("text", "Testing some Mailgun awesomness!");
+            request.Method = Method.POST;
+            return client.ExecuteTaskAsync(request);
+        }
+
+
 
 
     }

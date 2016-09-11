@@ -154,8 +154,11 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
-            var service = iocFactory.Resolve<IZboxWorkerRoleService>();
-            service.OneTimeDbi();
+            var service = iocFactory.Resolve<IMailComponent>();
+            var t = service.SendSpanGunEmailAsync("ariel@cloudents.com", "1",
+                "Spitball, the free social studying app, has over 250,000 students across the world using our product to access class documents (including past exams, study guides, lecture notes, etc).You can also chat with your classmates, create quizzes, and more, all for free!    We’re live at Auburn this semester, and we have over 1,900 documents exclusively for Auburn students!    Sign up for free today, it takes less than a minute. Check us out!",
+                "Spitball has launched at Auburn!", "Cecily", "auburn_6272_s1", "https://www.spitball.co/auburn/");
+            t.Wait();
             //foreach (var email in emails())
             //{
             //    var result = service.VerifyEmail(email);
@@ -173,80 +176,80 @@ namespace Testing
 
         }
 
-        private static void emailsVerify()
-        {
-            LicensingManager.SetLicenseKey("FHbrz2C/8XTEPkmsVzPzPuYvZ2XNoMDfMEdJKJdvGlwPpkAgNwQMVT+Ae1ZSY8QbQpm+7g==");
-            var verifier = new VerificationEngine();
-            verifier.DefaultSettings.DnsServers.Clear();
-            verifier.DefaultSettings.DnsServers.Add(IPAddress.Parse("8.8.8.8"));
-            verifier.DefaultSettings.DnsServers.Add(IPAddress.Parse("8.8.4.4"));
-            verifier.DefaultSettings.SmtpConnectionTimeout = TimeSpan.FromHours(1);
-            foreach (var email in emails())
-            {
-                var result = verifier.Run(email, VerificationLevel.CatchAll);
-                Console.WriteLine($"{email} : {result.Result.LastStatus}");
-            }
+        //private static void emailsVerify()
+        //{
+        //    LicensingManager.SetLicenseKey("FHbrz2C/8XTEPkmsVzPzPuYvZ2XNoMDfMEdJKJdvGlwPpkAgNwQMVT+Ae1ZSY8QbQpm+7g==");
+        //    var verifier = new VerificationEngine();
+        //    verifier.DefaultSettings.DnsServers.Clear();
+        //    verifier.DefaultSettings.DnsServers.Add(IPAddress.Parse("8.8.8.8"));
+        //    verifier.DefaultSettings.DnsServers.Add(IPAddress.Parse("8.8.4.4"));
+        //    verifier.DefaultSettings.SmtpConnectionTimeout = TimeSpan.FromHours(1);
+        //    foreach (var email in emails())
+        //    {
+        //        var result = verifier.Run(email, VerificationLevel.CatchAll);
+        //        Console.WriteLine($"{email} : {result.Result.LastStatus}");
+        //    }
 
 
-        }
-        private static string[] emails()
-        {
-            return new[]
-            {
-                "yaari.ram@gmail.com",
-                "emo0002@auburn.edu",
-                "mab0076@auburn.edu",
-                "blb0037@auburn.edu",
-                "wsb0012@auburn.edu",
-                "anb0033@auburn.edu",
-                "rsb0013@auburn.edu",
-                "cjb0043@auburn.edu",
-                "hrb0009@auburn.edu",
-                "azb0059@auburn.edu",
-                "keb0067@auburn.edu",
-                "tlb0024@auburn.edu",
-                "wzb0019@auburn.edu",
-                "mbb0023@auburn.edu",
-                "aab0029@auburn.edu",
-                "jwb0032@auburn.edu",
-                "rzb0033@auburn.edu",
-                "wgb0010@auburn.edu",
-                "nmb0005@auburn.edu",
-                "azb0039@auburn.edu",
-                "gvb0002@auburn.edu",
-                "mab0045@auburn.edu",
-                "jzb0032@auburn.edu",
-                "krb0031@auburn.edu",
-                "deb0017@auburn.edu",
-                "jlb0073@auburn.edu",
-                "spa0001@auburn.edu",
-                "eab0046@auburn.edu",
-                "mtb0021@auburn.edu",
-                "bailegm@auburn.edu",
-                "grb0009@auburn.edu",
-                "fmb0005@auburn.edu",
-                "kga0004@auburn.edu",
-                "maa0043@auburn.edu",
-                "sra0016@auburn.edu",
-                "dza0016@auburn.edu",
-                "sla0018@auburn.edu",
-                "tla0006@auburn.edu",
-                "wta0007@auburn.edu",
-                "kma0018@auburn.edu",
-                "dba0005@auburn.edu",
-                "dma0008@auburn.edu",
-                "mca0003@auburn.edu",
-                "apa0003@auburn.edu",
-                "hra0005@auburn.edu",
-                "aja0019@auburn.edu",
-                "cwa0001@auburn.edu",
-                "ana0014@auburn.edu",
-                "bda0005@auburn.edu",
-                "gza0011@auburn.edu",
-                "mma0020@auburn.edu",
-                "cga0006@auburn.edu"
-            };
-        }
+        //}
+        //private static string[] emails()
+        //{
+        //    return new[]
+        //    {
+        //        "yaari.ram@gmail.com",
+        //        "emo0002@auburn.edu",
+        //        "mab0076@auburn.edu",
+        //        "blb0037@auburn.edu",
+        //        "wsb0012@auburn.edu",
+        //        "anb0033@auburn.edu",
+        //        "rsb0013@auburn.edu",
+        //        "cjb0043@auburn.edu",
+        //        "hrb0009@auburn.edu",
+        //        "azb0059@auburn.edu",
+        //        "keb0067@auburn.edu",
+        //        "tlb0024@auburn.edu",
+        //        "wzb0019@auburn.edu",
+        //        "mbb0023@auburn.edu",
+        //        "aab0029@auburn.edu",
+        //        "jwb0032@auburn.edu",
+        //        "rzb0033@auburn.edu",
+        //        "wgb0010@auburn.edu",
+        //        "nmb0005@auburn.edu",
+        //        "azb0039@auburn.edu",
+        //        "gvb0002@auburn.edu",
+        //        "mab0045@auburn.edu",
+        //        "jzb0032@auburn.edu",
+        //        "krb0031@auburn.edu",
+        //        "deb0017@auburn.edu",
+        //        "jlb0073@auburn.edu",
+        //        "spa0001@auburn.edu",
+        //        "eab0046@auburn.edu",
+        //        "mtb0021@auburn.edu",
+        //        "bailegm@auburn.edu",
+        //        "grb0009@auburn.edu",
+        //        "fmb0005@auburn.edu",
+        //        "kga0004@auburn.edu",
+        //        "maa0043@auburn.edu",
+        //        "sra0016@auburn.edu",
+        //        "dza0016@auburn.edu",
+        //        "sla0018@auburn.edu",
+        //        "tla0006@auburn.edu",
+        //        "wta0007@auburn.edu",
+        //        "kma0018@auburn.edu",
+        //        "dba0005@auburn.edu",
+        //        "dma0008@auburn.edu",
+        //        "mca0003@auburn.edu",
+        //        "apa0003@auburn.edu",
+        //        "hra0005@auburn.edu",
+        //        "aja0019@auburn.edu",
+        //        "cwa0001@auburn.edu",
+        //        "ana0014@auburn.edu",
+        //        "bda0005@auburn.edu",
+        //        "gza0011@auburn.edu",
+        //        "mma0020@auburn.edu",
+        //        "cga0006@auburn.edu"
+        //    };
+        //}
 
         //private static async Task GetValue()
         //{

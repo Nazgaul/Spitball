@@ -462,7 +462,6 @@
             callbacks:
                  {
                      filesAdded: function (uploader, files) {
-                         console.log(uploader, plupload);
                          $scope.$emit('follow-box');
                          for (var i = 0; i < files.length; i++) {
                              var file = files[i];
@@ -522,14 +521,16 @@
                      //}
                  }
         }
-        self.add.fileUpload.options = {
+        self.add.fileUpload.options =  {
+           // return {
                 //someid:id,
                 //header: {
                 //    parentId:id
                 //},
                 chunk_size: '3mb'
-            
-        }
+
+            //}
+        };
 
         $scope.$on('update-thumbnail', function (e, args) {
             for (var i = 0; i < self.data.length; i++) {
