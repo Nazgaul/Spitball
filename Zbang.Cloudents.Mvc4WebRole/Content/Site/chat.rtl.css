@@ -113,12 +113,16 @@
   top: 70px;
   left: 0;
   right: 0;
-}
-.chatPage .chat .content.stateChat .chat-content {
-  padding-top: 50px;
+  z-index: 1;
 }
 .chatPage .chat .content.stateChat .chat-content .messages {
+  padding-top: 50px;
   padding-bottom: 50px;
+  min-height: calc(100vh - 10px - 70px);
+  max-height: calc(100vh - 10px - 70px);
+  overflow-y: scroll;
+  /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
 }
 .chatPage .chat .content.stateChat .chat-content .new-message {
   position: fixed !important;

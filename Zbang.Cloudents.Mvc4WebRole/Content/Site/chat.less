@@ -4,6 +4,7 @@
 @newChatMessageHeight: 50px;
 @newChatMessageHeightMobile: 90px;
 @conversationHeaderColor: #042E5E;
+@messagesHeight: ~"calc(100vh - 10px - @{heightOfHeader})";
 
 .chat-counter {
     background: @textColorRed;
@@ -105,7 +106,6 @@
     }
 }
 
-
 .chatPage .chat {
     margin: -5px;
 
@@ -128,21 +128,24 @@
 
     .content.stateChat {
         .conversasion {
-
             .header {
                 position: fixed;
                 top: @heightOfHeader;
                 right: 0;
                 left: 0;
+                z-index: 1;
             }
         }
 
         .chat-content {
-            padding-top: @chatHeaderHeight;
 
             .messages {
+                padding-top: @chatHeaderHeight;
                 padding-bottom: 50px;
-                // height: ~"calc(100vh + 25px - @{chatHeaderHeight} - @{heightOfHeader} - @{newChatMessageHeightMobile})";
+                min-height: @messagesHeight;
+                max-height: @messagesHeight;
+                overflow-y: scroll; /* has to be scroll, not auto */
+                -webkit-overflow-scrolling: touch;
             }
 
             .new-message {
