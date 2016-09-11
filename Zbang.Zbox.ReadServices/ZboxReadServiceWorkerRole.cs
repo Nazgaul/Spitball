@@ -27,7 +27,7 @@ namespace Zbang.Zbox.ReadServices
             {
                 // Log details of the retry.
                 var msg = $"Retry - Count:{args.CurrentRetryCount}, Delay:{args.Delay}, Exception:{args.LastException}";
-                TraceLog.WriteInfo(msg);
+                TraceLog.WriteWarning(msg);
             };
             return retryPolicy;
         }
@@ -524,13 +524,14 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
                 return await policy.ExecuteAsync(async () => await
                     conn.QueryAsync<SpamGunDto>(
                         new CommandDefinition(
-                            @"select top 1000 s.Id, FirstName, LastName, Email,mailbody as MailBody,
+                            @"select top 500 s.Id, FirstName, LastName, Email,mailbody as MailBody,
 mailsubject as MailSubject, mailcategory as MailCategory,u.url as UniversityUrl 
 from students s join universities u on s.uniid = u.id
 where uniid = @UniId
 and mailbody is not null
 and mailsubject is not null
 and mailcategory is not null
+and EmailStatus is null
 and shouldSend = 1", new { UniId = universityId }, cancellationToken: token)), token);
             }
 

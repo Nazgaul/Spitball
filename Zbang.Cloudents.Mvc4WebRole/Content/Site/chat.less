@@ -161,7 +161,13 @@
         }
     }
 }
-
+.mdno-cssscrollbar {
+    .chat {
+        .users-list {
+            height: ~"calc(100vh - 119px)";
+        }
+    }
+}
 .chat {
     background: #f9f9f9 !important;
 
@@ -201,11 +207,11 @@
         }
 
         .tab-content {
-            .users-list {
+            /*.users-list {
+
                 //height: ~"calc(100vh - 119px)";
-                width: ~"calc(100% - 20px)";
-                overflow: auto;
-            }
+               
+            }*/
 
             .search-friend {
                 margin-top: 6px;
@@ -255,6 +261,8 @@
             }
 
             .users-list {
+                 width: ~"calc(100% - 20px)";
+                overflow: auto;
                 section {
                     margin-top: 16px;
 

@@ -133,6 +133,9 @@
   -webkit-align-items: flex-start;
   align-items: flex-start;
 }
+.mdno-cssscrollbar .chat .users-list {
+  height: calc(100vh - 119px);
+}
 .chat {
   background: #f9f9f9 !important;
 }
@@ -185,9 +188,12 @@
 .chat .content .attach-menu {
   position: absolute;
 }
-.chat .content .tab-content .users-list {
-  width: calc(100% - 20px);
-  overflow: auto;
+.chat .content .tab-content {
+  /*.users-list {
+
+                //height: ~"calc(100vh - 119px)";
+               
+            }*/
 }
 .chat .content .tab-content .search-friend {
   margin-top: 6px;
@@ -235,6 +241,10 @@
   height: 20px;
   display: block;
   fill: #4190b9;
+}
+.chat .content .tab-content .users-list {
+  width: calc(100% - 20px);
+  overflow: auto;
 }
 .chat .content .tab-content .users-list section {
   margin-top: 16px;

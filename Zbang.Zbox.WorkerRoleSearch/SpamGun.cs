@@ -47,7 +47,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 m_Queues[i] = new Queue<SpamGunDto>();
             }
-            var reachHourLimit = false;
+            //var reachHourLimit = false;
             var totalCount = 0;
             try
             {
@@ -63,7 +63,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             if (counter >= m_LimitPerIp)
                             {
                                 TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
-                                reachHourLimit = true;
+                                //reachHourLimit = true;
                                 break;
                             }
                             if (m_Queues[i].Count == 0)
@@ -78,7 +78,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             var t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
                                 message.MailBody, message.MailSubject,
                                 message.FirstName.UppercaseFirst(), message.MailCategory, message.UniversityUrl);
-                            //await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
+                            await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
                             counter++;
                             emailsTask.Add(t1);
                         }
@@ -90,23 +90,24 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
             catch (Exception ex)
             {
+                TraceLog.WriteError("spam gun error", ex);
                 await m_MailComponent.GenerateSystemEmailAsync("spam gun error", $"error {ex}");
             }
             if (totalCount > 0)
             {
                 await m_MailComponent.GenerateSystemEmailAsync("spam gun", $"send {totalCount} emails");
             }
-            if (reachHourLimit)
-            {
+            //if (reachHourLimit)
+            //{
 
-                TraceLog.WriteInfo($"{ServiceName} going to sleep for an hour");
-                //await Task.Delay(TimeSpan.FromHours(1), token);
-            }
-            else
-            {
-                TraceLog.WriteInfo($"{ServiceName} going to sleep for 2500 seconds");
-                //await Task.Delay(NumberOfTimeToSleep, token);
-            }
+            //    TraceLog.WriteInfo($"{ServiceName} going to sleep for an hour");
+            //    //await Task.Delay(TimeSpan.FromHours(1), token);
+            //}
+            //else
+            //{
+            //    TraceLog.WriteInfo($"{ServiceName} going to sleep for 2500 seconds");
+            //    //await Task.Delay(NumberOfTimeToSleep, token);
+            //}
             TraceLog.WriteInfo($"{ServiceName} going not running.");
             return true;
         }

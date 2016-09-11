@@ -105,8 +105,11 @@
 
     <property name="AdminScore" />
     <property name="AdminNoOfPeople" />
+    <property name="UtcOffset" />
+    <property name="Latitude" />
+    <property name="Longitude" />
     <many-to-one column="UniversityData" class="University" name="UniversityData" foreign-key="UniversityUniversityData"/>
-
+    
     <bag name="Libraries"  cascade="all-delete-orphan" inverse="true" lazy="true" >
       <key column="Id" foreign-key="LibraryUniversity2"/>
       <one-to-many class="Library"/>

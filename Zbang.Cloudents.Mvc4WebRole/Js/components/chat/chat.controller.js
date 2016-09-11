@@ -37,8 +37,7 @@
         c.loadMoreMessages = loadMoreMessages;
         c.focusSearch = false;
 
-        var response = userDetailsFactory.get();
-        chatBus.setUnread(response.unread);
+        
         search();
 
 

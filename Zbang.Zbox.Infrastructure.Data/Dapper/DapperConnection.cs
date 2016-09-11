@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Infrastructure.Data.Dapper
             {
                 // Log details of the retry.
                 var msg = $"Retry - Count:{args.CurrentRetryCount}, Delay:{args.Delay}, Exception:{args.LastException}";
-                TraceLog.WriteInfo(msg);
+                TraceLog.WriteWarning(msg);
             };
             return retryPolicy.ExecuteAsync(() => OpenConnectionAsync(cancellationToken, connectionStringName), cancellationToken);
 

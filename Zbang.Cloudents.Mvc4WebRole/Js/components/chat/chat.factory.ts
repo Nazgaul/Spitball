@@ -12,9 +12,10 @@
 
     class ChatBus implements IChatBus {
         //static $inject = ["ajaxService2"];
-        
-        constructor(private ajaxService: IAjaxService2) {
 
+        constructor(private ajaxService: IAjaxService2, private userDetailsFactory: IUserDetailsFactory) {
+            const response = userDetailsFactory.get();
+            this.setUnread(response.unread);
         }
 
         setUnread = (count: number): void => {
@@ -47,11 +48,11 @@
             });
         }
         public static factory() {
-            const factory = (ajaxService2) => {
-                return new ChatBus(ajaxService2);
+            const factory = (ajaxService2, userDetailsFactory) => {
+                return new ChatBus(ajaxService2, userDetailsFactory);
             };
 
-            factory['$inject'] = ["ajaxService2"];
+            factory['$inject'] = ["ajaxService2","userDetailsFactory"];
             return factory;
         }
     }

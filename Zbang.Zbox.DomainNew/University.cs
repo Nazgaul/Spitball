@@ -18,6 +18,7 @@ namespace Zbang.Zbox.Domain
             Id = id;
             UniversityName = name;
             Country = country;
+            CreateUtcBaseOnCountry();
             UserTime = new UserTimeDetails(userId);
             NoOfBoxes = 0;
             AdminNoOfPeople = 10;
@@ -25,19 +26,24 @@ namespace Zbang.Zbox.Domain
             UniversityData = this;
         }
 
+        private void CreateUtcBaseOnCountry()
+        {
+            if (Country == "IL")
+            {
+                UtcOffset = 3;
+            }
+            if (Country == "US")
+            {
+                UtcOffset = -6;
+            }
+        }
+
         public virtual long Id { get; set; }
         public string OrgName { get; set; }
         public string Url { get; set; }
         public string LargeImage { get; set; }
         public virtual string UniversityName { get; set; }
-        //public string WebSiteUrl { get; set; }
-        //public string MailAddress { get; set; }
-        //public string FacebookUrl { get; set; }
-        //public string TwitterUrl { get; set; }
-        //public long? TwitterWidgetId { get; set; }
-        //public string YouTubeUrl { get; set; }
-        //public string LetterUrl { get; set; }
-        //public string AdvertisementUrl { get; set; }
+        
         public virtual string Country { get; set; }
 
         public virtual UserTimeDetails UserTime { get; set; }
@@ -72,6 +78,11 @@ namespace Zbang.Zbox.Domain
         public string SignupColor { get; set; }
 
         public string MainSignupColor { get; set; }
+
+        public int UtcOffset { get; set; }
+
+        public float Latitude { get; set; }
+        public float Longitude { get; set; }
 
         public virtual void UpdateNumberOfBoxes(int boxesCount)
         {

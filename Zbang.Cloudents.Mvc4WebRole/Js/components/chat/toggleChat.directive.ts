@@ -8,7 +8,7 @@
             private $state: angular.ui.IStateService) {
         }
         link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery) => {
-            
+
             var $html = $('html');
             const className = 'expanded-chat';
             if (!this.userDetailsFactory.getUniversity()) {
@@ -50,13 +50,15 @@
                     }
                 });
 
-            scope.$on("hub-chat", () => {
+            var hubChatListener = scope.$on("hub-chat", () => {
                 var unread = this.chatBus.getUnread();
-                this.chatBus.setUnread(unread++);
+                this.chatBus.setUnread(++unread);
+                scope.$applyAsync();
             });
             scope.$on("$destroy",
                 () => {
                     cleanUpFunc();
+                    hubChatListener();
                 });
 
         };
