@@ -5,9 +5,11 @@
     function univeristyCover(itemThumbnailService, $timeout) {
 
         return {
+            //scope: {
+            //    univeristyCover : '@'
+            //},
             restrict: 'A',
             link: function (scope, element, attrs) {
-
                 function appenUrl() {
                     var url = itemThumbnailService
                                 .getUniversityPic(attrs.univeristyCover,
@@ -16,14 +18,14 @@
                 }
                 //need because the css height need to kicks in
                 $timeout(appenUrl);
-                scope.$watch(attrs.univeristyCover,
-                    function (newval, oldval) {
-                        if (newval !== oldval) {
-                            //console.log(newval, oldval);
-                            appenUrl(); // Sometimes trigger before the xhr
+                //scope.$watch(scope.univeristyCover,
+                //    function (newval, oldval) {
+                //        //if (newval !== oldval) {
+                //            console.log(newval, oldval);
+                //            appenUrl(); // Sometimes trigger before the xhr
 
-                        }
-                    });
+                //        //}
+                //    });
             }
         };
     }

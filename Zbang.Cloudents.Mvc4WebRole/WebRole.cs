@@ -148,9 +148,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
                             TraceLog.WriteInfo("breaking the on run task");
                             break;
                         }
-                        // ReSharper disable once EmptyGeneralCatchClause
-                        catch
+                        catch(Exception ex)
                         {
+                            TraceLog.WriteError("Run", ex);
                         }
                         TraceLog.WriteInfo("sleeping on run task");
                         System.Threading.Thread.Sleep(TimeSpan.FromSeconds(10));

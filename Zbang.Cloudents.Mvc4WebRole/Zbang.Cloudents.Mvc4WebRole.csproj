@@ -846,7 +846,6 @@
     <Content Include="bower_components\oclazyload\CHANGELOG.md" />
     <Content Include="bower_components\oclazyload\LICENSE.md" />
     <Content Include="bower_components\oclazyload\README.md" />
-    <None Include="bundleconfig.json" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>

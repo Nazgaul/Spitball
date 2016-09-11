@@ -7,6 +7,7 @@
 
     function universityMeta(dashboardService, itemThumbnailService) {
         var um = this;
+        um.info = {};
         um.loaded = false;
         dashboardService.getUniversityMeta().then(function (response) {
             if (!response.logo) {
@@ -14,6 +15,8 @@
             }
             um.loaded = true;
             um.info = response;
+
+           
         });
     }
 })();
