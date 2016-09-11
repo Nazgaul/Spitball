@@ -126,33 +126,36 @@
         z-index: 1;
     }
 
-    .content.stateChat {
-        .conversasion {
-            .header {
-                position: fixed;
-                top: @heightOfHeader;
-                right: 0;
-                left: 0;
-                z-index: 1;
-            }
-        }
+    .content {
+        overflow-y: scroll; /* has to be scroll, not auto */
+        -webkit-overflow-scrolling: touch;
+        height: ~"calc(100vh - @{heightOfHeader})";
 
-        .chat-content {
-
-            .messages {
-                padding-top: @chatHeaderHeight;
-                padding-bottom: 50px;
-                min-height: @messagesHeight;
-                max-height: @messagesHeight;
-                overflow-y: scroll; /* has to be scroll, not auto */
-                -webkit-overflow-scrolling: touch;
+        &.stateChat {
+            .conversasion {
+                .header {
+                    position: fixed;
+                    top: @heightOfHeader;
+                    right: 0;
+                    left: 0;
+                    z-index: 1;
+                }
             }
 
-            .new-message {
-                position: fixed !important;
+            .chat-content {
 
-                .menu {
-                    .align-items(flex-start);
+                .messages {
+                    padding-top: @chatHeaderHeight;
+                    padding-bottom: 50px;
+                    min-height: @messagesHeight;
+                }
+
+                .new-message {
+                    position: fixed !important;
+
+                    .menu {
+                        .align-items(flex-start);
+                    }
                 }
             }
         }
