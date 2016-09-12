@@ -52,7 +52,7 @@
 
             var hubChatListener = scope.$on("hub-chat", () => {
                 var unread = this.chatBus.getUnread();
-                this.chatBus.setUnread(++unread);
+                //this.chatBus.setUnread(++unread);
                 scope.$applyAsync();
             });
             scope.$on("$destroy",
