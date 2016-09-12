@@ -53,6 +53,9 @@
   position: relative;
   overflow: hidden;
 }
+.chat-side-nav .chat .content .users-list {
+  height: calc(100vh + 5px - 70px - 50px);
+}
 .chat-side-nav .chat .content .conversasion,
 .chat-side-nav .chat .content .menu-content {
   position: absolute;
