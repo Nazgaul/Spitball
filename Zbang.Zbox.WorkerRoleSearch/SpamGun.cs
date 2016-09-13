@@ -25,10 +25,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
         //public readonly TimeSpan NumberOfTimeToSleep = TimeSpan.FromHours(1);
 
         public const int SpanGunNumberOfQueues = 13;
-        private const int NumberOfIps = 1;
+        private const int NumberOfIps = 4;
         private readonly Queue<SpamGunDto>[] m_Queues = new Queue<SpamGunDto>[SpanGunNumberOfQueues];
 
-        //295,413,579,810,1000,1587,2222,3111,4356,6098,8583,11953,16734,23427,32798,45917,64284,89998,125997,176395,246953,345735,484029,677640,948696,1328175,1859444,2603222,3644511,5102316,7143242,10000539,14000754,19601056
+        //20,28,39,55,77,108,151,211,295,413,579,810,1000,1587,2222,3111,4356,6098,8583,11953,16734,23427,32798,45917,64284,89998,125997,176395,246953,345735,484029,677640,948696,1328175,1859444,2603222,3644511,5102316,7143242,10000539,14000754,19601056
         private readonly int m_LimitPerIp = int.Parse(ConfigFetcher.Fetch("NumberOfEmailsPerHour"));
         private const string ServiceName = "SpamGunService";
 
@@ -56,6 +56,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
                     var counter = 0;
                     for (var i = 0; i < SpanGunNumberOfQueues; i++)
                     {
+                        if (counter >= m_LimitPerIp)
+                        {
+                            TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
+                            // reachHourLimit = true;
+                            break;
+                        }
                         await BuildQueueDataAsync(m_Queues[i], i, token);
                         var emailsTask = new List<Task>();
                         for (var k = 0; k < NumberOfEmailPerSession; k++)
@@ -63,7 +69,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             if (counter >= m_LimitPerIp)
                             {
                                 TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
-                                //reachHourLimit = true;
+                               // reachHourLimit = true;
                                 break;
                             }
                             if (m_Queues[i].Count == 0)
@@ -97,17 +103,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 await m_MailComponent.GenerateSystemEmailAsync("spam gun", $"send {totalCount} emails");
             }
-            //if (reachHourLimit)
-            //{
-
-            //    TraceLog.WriteInfo($"{ServiceName} going to sleep for an hour");
-            //    //await Task.Delay(TimeSpan.FromHours(1), token);
-            //}
-            //else
-            //{
-            //    TraceLog.WriteInfo($"{ServiceName} going to sleep for 2500 seconds");
-            //    //await Task.Delay(NumberOfTimeToSleep, token);
-            //}
+           
             TraceLog.WriteInfo($"{ServiceName} going not running.");
             return true;
         }
@@ -124,7 +120,11 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         private static string BuildIpPool(int i)
         {
-            return $"ip{i + 1}";
+            if (i == 0)
+            {
+                return string.Empty;
+            }
+            return i.ToString();
         }
 
         //public static string BuidQueueName(int i)

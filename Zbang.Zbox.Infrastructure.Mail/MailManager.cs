@@ -128,7 +128,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         public Task SendSpanGunEmailAsync(
             string recipient,
-            string ipPool, // todo
+            string ipPool, 
             string body,
             string subject,
             string name,
@@ -153,10 +153,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 Method = Method.POST
             };
             request.AddParameter("domain",
-                                 "mg.spitball.co", ParameterType.UrlSegment);
+                                 $"mg{ipPool}.spitball.co", ParameterType.UrlSegment);
 
             request.AddParameter("from", "Michael Baker <michael@spitball.co>");
-            request.AddParameter("to", ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
+            request.AddParameter("to", ConfigFetcher.IsEmulated ? "yaari_r@yahoo.com" : recipient);
             request.AddParameter("bcc", "ram@cloudents.com");
             request.AddParameter("subject", subject);
             request.AddParameter("html", html);
