@@ -53,6 +53,11 @@
   margin: 0 auto;
   margin-bottom: 10px;
 }
+@media (max-width: 600px) {
+  .library-choose .no-result img {
+    height: 150px;
+  }
+}
 .library-choose .add-uni-btn {
   text-align: center;
   color: #fff;
@@ -85,6 +90,13 @@
   font-weight: bold;
   max-width: 470px;
   margin: 0 auto;
+}
+@media (max-width: 600px) {
+  .library-choose .add-univeristy h2 {
+    font-size: 18px;
+    padding: 40px 0 20px 0;
+    max-width: 280px;
+  }
 }
 .library-choose .add-univeristy form {
   max-width: 450px;
@@ -235,9 +247,21 @@
   line-height: 32px;
   font-weight: bold;
 }
+@media (max-width: 600px) {
+  .library-choose .search-form-wrapper .intro-text-wrapper {
+    font-size: 18px;
+    line-height: 20px;
+  }
+}
 .library-choose .search-form-wrapper .intro-text-wrapper .sub-text {
   color: #888b8e;
   font-size: 26px;
+}
+@media (max-width: 600px) {
+  .library-choose .search-form-wrapper .intro-text-wrapper .sub-text {
+    font-size: 16px;
+    margin-top: 10px;
+  }
 }
 .library-choose .search-form-wrapper form {
   border-radius: 15px;
