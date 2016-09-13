@@ -49,6 +49,9 @@ var app;
                 });
                 var hubChatListener = scope.$on("hub-chat", function () {
                     var unread = _this.chatBus.getUnread();
+                    if (_this.$state.current.name !== "chat") {
+                        _this.chatBus.setUnread(++unread);
+                    }
                     scope.$applyAsync();
                 });
                 scope.$on("$destroy", function () {
