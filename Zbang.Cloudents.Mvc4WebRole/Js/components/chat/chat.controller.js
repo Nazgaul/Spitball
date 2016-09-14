@@ -4,7 +4,7 @@
     chat.$inject = ['$timeout', '$scope', 'realtimeFactotry',
         'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService',
         '$mdDialog', 'routerHelper', '$document',
-        'notificationService', 'resManager', '$rootScope', "$uiViewScroll","$stateParams"];
+        'notificationService', 'resManager', '$rootScope', "$uiViewScroll", "$stateParams"];
 
     function chat($timeout, $scope, realtimeFactotry, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
@@ -36,8 +36,8 @@
         c.lastSearch = c.term = '';
         c.loadMoreMessages = loadMoreMessages;
         c.focusSearch = false;
+        c.lastPage = false;
 
-        
         search();
 
 
@@ -47,7 +47,7 @@
         };
 
 
-        
+
 
         function backFromChat() {
             c.state = c.states.messages;
@@ -65,12 +65,12 @@
                 for (var i = 0; i < c.users.length; i++) {
                     x += c.users[i].unread || 0;
                 }
-                $timeout(function() { //give it some delay
+                $timeout(function () { //give it some delay
                     chatBus.setUnread(x);
                 });
             } //else {
-                //c.unread = ++c.unread;
-                //chatBus.setUnread(++c.unread);
+            //c.unread = ++c.unread;
+            //chatBus.setUnread(++c.unread);
             //}
 
         }
@@ -121,6 +121,7 @@
         function conversation(user) {
             c.userChat = user;
             c.messages = [];
+            c.lastPage = false;
             chatBus.chat(c.userChat.conversation,
                 [c.userChat.id, userDetailsFactory.get().id],
                 '',
@@ -128,6 +129,10 @@
                 ).then(function (response) {
                     c.messages = handleChatMessages(response);
                     scrollToBotton();
+
+                    if (response.length < chunkSize) {
+                        c.lastPage = true;
+                    }
                 });
 
             if (c.userChat.unread) {
@@ -157,8 +162,11 @@
                 ).then(function (response) {
                     c.messages = handleChatMessages(response).concat(c.messages);
                     $timeout(function () {
-                        $uiViewScroll(angular.element('#chatMessage_' +firstMessage.id));
+                        $uiViewScroll(angular.element('#chatMessage_' + firstMessage.id));
                     });
+                    if (response.length < chunkSize) {
+                        c.lastPage = true;
+                    }
                 });
         }
 

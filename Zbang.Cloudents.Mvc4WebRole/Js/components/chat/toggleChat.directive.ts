@@ -52,9 +52,7 @@
 
             var hubChatListener = scope.$on("hub-chat", () => {
                 var unread = this.chatBus.getUnread();
-                if (this.$state.current.name !== "chat") {//Don't increment on current conversasion new messages
-                    this.chatBus.setUnread(++unread);
-                }
+                this.chatBus.setUnread(++unread);
                 scope.$applyAsync();
             });
             scope.$on("$destroy",
