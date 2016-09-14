@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.Connect
                     catch(Exception ex)
                     {
                         // Don't throw on background threads, it'll kill the entire process
-                        TraceLog.WriteError(ex.Message);
+                        TraceLog.WriteWarning(ex.Message);
                     }
                 },
                 null,

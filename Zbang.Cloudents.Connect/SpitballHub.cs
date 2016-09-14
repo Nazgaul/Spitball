@@ -86,8 +86,6 @@ namespace Zbang.Cloudents.Connect
             foreach (var boxId in boxIds)
             {
                 Groups.Add(Context.ConnectionId, $"box:{boxId}");
-                //Clients.Caller.echo(Context.User.GetUserId());
-                //Clients.Group($"box:{boxId}").echo($"box:{boxId}");
             }
            
         }
@@ -102,7 +100,8 @@ namespace Zbang.Cloudents.Connect
             if (Context.User.GetUniversityId().HasValue)
             {
                 Groups.Add(Context.ConnectionId, Context.User.GetUniversityId().ToString());
-                Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetUserId());
+                Clients.Others.online(Context.User.GetUserId());
+                //Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).online(Context.User.GetUserId());
             }
             try
             {
@@ -136,7 +135,8 @@ namespace Zbang.Cloudents.Connect
             }
             if (Context.User.GetUniversityId().HasValue)
             {
-                Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).offline(Context.User.GetUserId());
+                Clients.Others.offline(Context.User.GetUserId());
+                //Clients.OthersInGroup(Context.User.GetUniversityId().ToString()).offline(Context.User.GetUserId());
             }
             return base.OnDisconnected(stopCalled);
         }

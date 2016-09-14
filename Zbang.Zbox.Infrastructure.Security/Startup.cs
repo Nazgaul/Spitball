@@ -42,7 +42,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             // Configure the sign in cookie
             if (shouldUseCookie)
             {
-                var cookieDomain = string.Empty;// "spitball.co";
+                var cookieDomain = "spitball.co";
                 var cookieName = "dev-a4";
                 if (ConfigFetcher.IsRunningOnCloud) 
                 {

@@ -4,9 +4,11 @@ var app;
     var unreadCount = 0;
     var ChatBus = (function () {
         function ChatBus(ajaxService, userDetailsFactory) {
+            var _this = this;
             this.ajaxService = ajaxService;
             this.userDetailsFactory = userDetailsFactory;
             this.setUnread = function (count) {
+                _this.ajaxService.deleteCacheCategory("accountDetail");
                 unreadCount = count;
             };
             this.getUnread = function () {

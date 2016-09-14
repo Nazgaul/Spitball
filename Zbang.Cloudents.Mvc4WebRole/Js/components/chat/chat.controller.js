@@ -255,6 +255,7 @@
                     thumb: args.thumb
                 });
                 scrollToBotton();
+                updateUnread();
                 updateScope();
                 return;
             }

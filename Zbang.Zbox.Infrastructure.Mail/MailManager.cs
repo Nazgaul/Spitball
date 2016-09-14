@@ -157,7 +157,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             request.AddParameter("from", "Michael Baker <michael@spitball.co>");
             request.AddParameter("to", ConfigFetcher.IsEmulated ? "yaari_r@yahoo.com" : recipient);
-            request.AddParameter("bcc", "ram@cloudents.com");
+            //request.AddParameter("bcc", "ram@cloudents.com");
             request.AddParameter("subject", subject);
             request.AddParameter("html", html);
             request.AddParameter("o:tag", category);

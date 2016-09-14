@@ -13,12 +13,14 @@
     class ChatBus implements IChatBus {
         //static $inject = ["ajaxService2"];
 
-        constructor(private ajaxService: IAjaxService2, private userDetailsFactory: IUserDetailsFactory) {
+        constructor(private ajaxService: IAjaxService2,
+            private userDetailsFactory: IUserDetailsFactory) {
             const response = userDetailsFactory.get();
             this.setUnread(response.unread);
         }
 
         setUnread = (count: number): void => {
+            this.ajaxService.deleteCacheCategory("accountDetail");
             unreadCount = count;
         };
         getUnread = (): number => {
