@@ -3,13 +3,14 @@ using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class ErrorController : Controller
     {
-         [DonutOutputCache(CacheProfile = "FullPage")]
+        [DonutOutputCache(CacheProfile = "FullPage")]
         public ActionResult Index()
         {
             ViewBag.postBag = true;
@@ -46,11 +47,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View();
         }
 
-    
+
         [HttpPost]
         public JsonResult JsLog(JavaScriptError log)
         {
-            Trace.TraceWarning("js error: " + log);
+            Trace.TraceWarning($"userid: {User.GetUserId(false)} js error: {log}");
             return Json(true);
         }
     }
