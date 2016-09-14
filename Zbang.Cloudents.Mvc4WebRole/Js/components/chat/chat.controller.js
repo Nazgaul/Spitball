@@ -118,6 +118,7 @@
             return response;
         }
 
+
         function conversation(user) {
             c.userChat = user;
             c.messages = [];
