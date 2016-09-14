@@ -41,9 +41,8 @@ namespace Zbang.Zbox.ReadServices
                 return
                     await
                         policy.ExecuteAsync(
-                            // ReSharper disable once AccessToDisposedClosure
-                            async () =>
-                                await
+                             // ReSharper disable once AccessToDisposedClosure
+                             () =>
                                     conn.QueryAsync<UserDigestDto>(
                                         new CommandDefinition(Email.GetUserListByNotificationSettings,
                                             new
@@ -57,6 +56,8 @@ namespace Zbang.Zbox.ReadServices
             }
 
         }
+
+
 
         public async Task<IEnumerable<UserUpdatesDigestDto>> GetUserUpdatesAsync(GetBoxesLastUpdateQuery query,
             CancellationToken token)

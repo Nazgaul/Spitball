@@ -14,7 +14,7 @@
 	 and DATEADD(minute,-(@NotificationTime), getutcdate()) < nu.CreationTime)
 	 order by userid
 	  offset @pageNumber*@rowsperpage ROWS
-	  FETCH NEXT @rowsperpage ROWS ONLY option(MAXDOP  1 ,Recompile);";
+	  FETCH NEXT @rowsperpage ROWS ONLY option(Recompile);";
   //          @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
   //    from zbox.userboxrel ub 
   //    join zbox.users u on ub.userid = u.userid

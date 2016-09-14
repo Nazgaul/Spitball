@@ -1,4 +1,5 @@
 (function () {
+    //angular.module('textAngular');
     angular.module('app.quiz.create', ['textAngular', 'app.ajaxservice']);
 })();
 (function () {
@@ -44,3 +45,4 @@
             }]);
     }
 })();
+//# sourceMappingURL=quizCreate.module.js.map

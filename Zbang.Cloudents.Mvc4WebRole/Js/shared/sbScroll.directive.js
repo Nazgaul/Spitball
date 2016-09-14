@@ -69,3 +69,4 @@ var app;
         .module("app")
         .directive("chatScrollButtom", ChatScrollButtom.factory());
 })(app || (app = {}));
+//# sourceMappingURL=sbScroll.directive.js.map
