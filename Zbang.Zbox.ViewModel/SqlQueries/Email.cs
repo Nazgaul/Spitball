@@ -6,8 +6,11 @@
         public const string GetUserListByNotificationSettings =
             @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
      from zbox.users u 
-	 inner join  zbox.userboxrel ub  on u.userid = ub.userid and notificationSettings = @Notification
+	 inner join  zbox.userboxrel ub  
+	 on u.userid = ub.userid and notificationSettings = @Notification
+	 inner join zbox.university u2 on u2.id = u.universityid
      where u.emailsendsettings = 0
+	 and coalesce(u2.utcoffset,0) = @utcoffset
 	 and exists ( select top 1 * 
 	 from zbox.newupdates nu 
 	 where nu.boxid = ub.boxid and nu.userid = u.userid
@@ -15,31 +18,11 @@
 	 order by userid
 	  offset @pageNumber*@rowsperpage ROWS
 	  FETCH NEXT @rowsperpage ROWS ONLY option(Recompile);";
-  //          @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
-  //    from zbox.userboxrel ub 
-  //    join zbox.users u on ub.userid = u.userid
-	 // join zbox.NewUpdates nu on nu.BoxId = ub.BoxId and nu.UserId = ub.UserId
-  //    where notificationSettings = @Notification
-  //    and u.emailsendsettings = 0
-	 //and DATEADD(minute,-(@NotificationTime), @currentDate) < nu.CreationTime
-  //    order by userid
-	 // offset @pageNumber*@rowsperpage ROWS
-	 // FETCH NEXT @rowsperpage ROWS ONLY option(Recompile);";
-	
-   //         @"select distinct u.userid as UserId,u.email as Email, u.culture as Culture, u.UserName as UserName
-   //   from zbox.userboxrel ub 
-   //   join zbox.users u on ub.userid = u.userid
-   //   join zbox.box b on ub.boxid = b.boxid
-   //   where notificationSettings = @Notification
-	  //and ub.UserType in (2,3)
-   //   and u.emailsendsettings = 0
-   //   and DATEDIFF(MINUTE ,GETUTCDATE(),DATEADD(MINUTE,@NotificationTime,b.updateTime)) > 0;";
-
-
+  
         public const string GetUserUpdates = @"select boxid,QuestionId,AnswerId,ItemId,QuizId,QuizDiscussionId
 	from zbox.NewUpdates nu
 	where nu.UserId = @UserId 
-	and DATEADD(minute,-(@NotificationTime), @currentDate) < nu.CreationTime";
+	and DATEADD(minute,-(@NotificationTime), getutcdate()) < nu.CreationTime";
 
         public const string GetBoxUpdates = @"select boxid as BoxId, boxname as BoxName, Url
             from zbox.Box

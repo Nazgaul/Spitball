@@ -49,9 +49,9 @@ namespace Zbang.Zbox.ReadServices
                                             {
                                                 Notification = query.NotificationSettings,
                                                 NotificationTime = query.MinutesPerNotificationSettings,
-                                                currentDate = DateTime.UtcNow,
                                                 query.PageNumber,
-                                                query.RowsPerPage
+                                                query.RowsPerPage,
+                                                query.UtcOffset
                                             }, cancellationToken: token)), token);
             }
 
@@ -68,13 +68,12 @@ namespace Zbang.Zbox.ReadServices
                 return
                     await
                         policy.ExecuteAsync(
-                            // ReSharper disable once AccessToDisposedClosure
-                            async () =>
-                                await conn.QueryAsync<UserUpdatesDigestDto>(new CommandDefinition(Email.GetUserUpdates,
+                             // ReSharper disable once AccessToDisposedClosure
+                             () =>
+                                 conn.QueryAsync<UserUpdatesDigestDto>(new CommandDefinition(Email.GetUserUpdates,
                                     new
                                     {
                                         NotificationTime = query.MinutesPerNotificationSettings,
-                                        currentDate = DateTime.UtcNow,
                                         query.UserId
                                     }, cancellationToken: token)), token);
             }
