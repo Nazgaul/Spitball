@@ -78,7 +78,7 @@
                     <ul class="messages scrollbar" sb-scroll chat-scroll-buttom="scrollToBotton" @*scroll-chooser*@ @*srph-infinite-scroll="c.loadMoreMessages()" paging-direction="up" threshold="200" ng-scrollbars ng-scrollbars-paging="up"*@
                         @*ng-scrollbars-paging-function="c.loadMoreMessages"*@ ng-scrollbars ng-scrollbars-update="c.updateScrollbar" ng-scrollbars-config="c.scrollSetting" @*ng-scrollbars-paging="up"*@>
                         <li>
-                            <md-button id="chatLoadMore" ng-click="c.loadMoreMessages()">@ChatResources.LoadMore</md-button>
+                            <md-button id="chatLoadMore" ng-if="!c.lastPage" ng-click="c.loadMoreMessages()">@ChatResources.LoadMore</md-button>
                         </li>
                         <li ng-attr-id="{{::e.id ? 'chatMessage_' + e.id : undefined}}" @*id="chatMessage_{{::e.id}}"*@ class="message" ng-repeat="e in c.messages" ng-class="{partner: e.partner}">
                             <div ng-if="e.text" class="text" ng-bind-html="::e.text | linky:'_blank'"></div>
