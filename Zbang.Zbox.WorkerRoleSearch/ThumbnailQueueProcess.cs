@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Azure;
@@ -15,12 +12,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
     public class ThumbnailQueueProcess : IJob
     {
         private readonly IQueueProviderExtract m_QueueProviderExtract;
-        private readonly IFileProcessorFactory m_FileProcessorFactory;
         private const string Prefix = "ThumbnailProcess";
-        public ThumbnailQueueProcess(IQueueProviderExtract queueProviderExtract, IFileProcessorFactory fileProcessorFactory)
+        public ThumbnailQueueProcess(IQueueProviderExtract queueProviderExtract)
         {
             m_QueueProviderExtract = queueProviderExtract;
-            m_FileProcessorFactory = fileProcessorFactory;
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
