@@ -48,8 +48,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var box = m_BoxRepository.Load(message.BoxId);
 
             var question = m_QuestionRepository.Load(message.QuestionId);
-            //Decode the comment to html friendly
-            //var text = TextManipulation.EncodeComment(message.Text);
 
 
             var files = new List<Item>();
@@ -60,10 +58,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var answer = new CommentReply(user, message.Text, box, message.Id, question, files);
             var reputation = user.AddReputation(ReputationAction.AddReply);
             question.ReplyCount++;
-            //question.LastReplyId = answer.Id;
             question.DateTimeUser.UpdateUserTime(user.Id);
             box.UserTime.UpdateUserTime(user.Id);
-            box.ShouldMakeDirty = () => false;
             var t1 = m_QueueProvider.InsertMessageToTranactionAsync(new UpdateData(user.Id, box.Id, answerId: answer.Id));
             var t2 = m_QueueProvider.InsertMessageToTranactionAsync(new ReputationData(user.Id));
 

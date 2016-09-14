@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var box = answer.Box;
             var user = m_UserRepository.Load(message.UserId);
 
-            bool isAuthorize = answer.User.Id == message.UserId
+            var isAuthorize = answer.User.Id == message.UserId
                 || box.Owner.Id == message.UserId
                 || user.IsAdmin();
 

@@ -50,12 +50,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             var user = m_UserRepository.Load(userId);
             var box = m_BoxRepository.Load(command.BoxId);
-            //Decode the comment to html friendly
-            //var text = command.Text;
-            //if (command.ShouldEncode)
-            //{
-            //    text = TextManipulation.EncodeComment(command.Text);
-            //}
 
 
             var files = new List<Item>();

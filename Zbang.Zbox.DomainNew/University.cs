@@ -79,10 +79,10 @@ namespace Zbang.Zbox.Domain
 
         public string MainSignupColor { get; set; }
 
-        public int UtcOffset { get; set; }
+        public int? UtcOffset { get; set; }
 
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
+        public float? Latitude { get; set; }
+        public float? Longitude { get; set; }
 
         public virtual void UpdateNumberOfBoxes(int boxesCount)
         {
