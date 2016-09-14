@@ -100,7 +100,7 @@ namespace Testing
 
         static void Main(string[] args)
         {
-           // emailsVerify();
+            emailsVerify();
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
@@ -177,22 +177,26 @@ namespace Testing
 
         }
 
-        //private static void emailsVerify()
-        //{
-        //    LicensingManager.SetLicenseKey("FHbrz2C/8XTEPkmsVzPzPuYvZ2XNoMDfMEdJKJdvGlwPpkAgNwQMVT+Ae1ZSY8QbQpm+7g==");
-        //    var verifier = new VerificationEngine();
-        //    verifier.DefaultSettings.DnsServers.Clear();
-        //    verifier.DefaultSettings.DnsServers.Add(IPAddress.Parse("8.8.8.8"));
-        //    verifier.DefaultSettings.DnsServers.Add(IPAddress.Parse("8.8.4.4"));
-        //    verifier.DefaultSettings.SmtpConnectionTimeout = TimeSpan.FromHours(1);
-        //    foreach (var email in emails())
-        //    {
-        //        var result = verifier.Run(email, VerificationLevel.CatchAll);
-        //        Console.WriteLine($"{email} : {result.Result.LastStatus}");
-        //    }
+        private static void emailsVerify()
+        {
+            LicensingManager.SetLicenseKey("FHbrz2C/8XTEPkmsVzPzPuYvZ2XNoMDfMEdJKJdvGlwPpkAgNwQMVT+Ae1ZSY8QbQpm+7g==");
+            var verifier = new VerificationEngine();
+            var settings = new VerificationSettings
+            {
+                AllowDomainLiterals = false,
+                AllowComments = true,
+                AllowQuotedStrings = true
+            };
+
+            // The component will use just the provided DNS server for its lookups
+
+            settings.DnsServers.Clear();
+            settings.DnsServers.Add(IPAddress.Parse("8.8.8.8"));
+            settings.SmtpConnectionTimeout = TimeSpan.FromMinutes(5);
+            var result = verifier.Run("LEW0019@auburn.edu", VerificationLevel.CatchAll, settings).Result;
 
 
-        //}
+        }
         //private static string[] emails()
         //{
         //    return new[]
@@ -252,63 +256,63 @@ namespace Testing
         //    };
         //}
 
-        //private static async Task GetValue()
-        //{
-        //    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-        //    var httpClient = new HttpClient();
-        //    var iocFactory = IocFactory.IocWrapper;
-        //    var blobProvider = iocFactory.Resolve<ICloudBlockProvider>();
-        //    using (var conn = DapperConnection.OpenConnection())
-        //    {
-        //        var data = conn.Query("select Id, LargeImage from zbox.University where LargeImage not like 'https://az%' ");
-        //        foreach (var singleRow in data)
-        //        {
-        //            string extension = Path.GetExtension(singleRow.LargeImage);
-        //            try
-        //            {
-        //                using (var sr = await httpClient.GetAsync(singleRow.LargeImage))
-        //                {
+            //private static async Task GetValue()
+            //{
+            //    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            //    var httpClient = new HttpClient();
+            //    var iocFactory = IocFactory.IocWrapper;
+            //    var blobProvider = iocFactory.Resolve<ICloudBlockProvider>();
+            //    using (var conn = DapperConnection.OpenConnection())
+            //    {
+            //        var data = conn.Query("select Id, LargeImage from zbox.University where LargeImage not like 'https://az%' ");
+            //        foreach (var singleRow in data)
+            //        {
+            //            string extension = Path.GetExtension(singleRow.LargeImage);
+            //            try
+            //            {
+            //                using (var sr = await httpClient.GetAsync(singleRow.LargeImage))
+            //                {
 
-        //                    if (!sr.IsSuccessStatusCode)
-        //                    {
-        //                        conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
-        //                        {
-        //                            //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
-        //                            id = singleRow.Id
-        //                        });
-        //                        continue;
-        //                        //throw new UnauthorizedAccessException("Cannot access dropbox");
-        //                    }
-        //                    ////sr.Content.Headers.ContentType.
-        //                    CloudBlockBlob blob = blobProvider.GetFile(singleRow.Id.ToString() + extension,
-        //                        "universities");
-        //                    using (var stream = await blob.OpenWriteAsync())
-        //                    {
-        //                        await sr.Content.CopyToAsync(stream);
+            //                    if (!sr.IsSuccessStatusCode)
+            //                    {
+            //                        conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
+            //                        {
+            //                            //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+            //                            id = singleRow.Id
+            //                        });
+            //                        continue;
+            //                        //throw new UnauthorizedAccessException("Cannot access dropbox");
+            //                    }
+            //                    ////sr.Content.Headers.ContentType.
+            //                    CloudBlockBlob blob = blobProvider.GetFile(singleRow.Id.ToString() + extension,
+            //                        "universities");
+            //                    using (var stream = await blob.OpenWriteAsync())
+            //                    {
+            //                        await sr.Content.CopyToAsync(stream);
 
-        //                    }
-        //                    blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
-        //                    blob.Properties.CacheControl = "public  max-age=" + TimeConst.Week;
-        //                    await blob.SetPropertiesAsync();
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
-        //                {
-        //                    //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
-        //                    id = singleRow.Id
-        //                });
-        //                continue;
-        //            }
-        //            conn.Execute("update zbox.university set isdirty = 1, largeImage=@image where id=@id", new
-        //            {
-        //                image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
-        //                id = singleRow.Id
-        //            });
-        //        }
-        //    }
-        //}
+            //                    }
+            //                    blob.Properties.ContentType = sr.Content.Headers.ContentType.MediaType;
+            //                    blob.Properties.CacheControl = "public  max-age=" + TimeConst.Week;
+            //                    await blob.SetPropertiesAsync();
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                conn.Execute("update zbox.university set isdirty = 1, largeImage=null where id=@id", new
+            //                {
+            //                    //image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+            //                    id = singleRow.Id
+            //                });
+            //                continue;
+            //            }
+            //            conn.Execute("update zbox.university set isdirty = 1, largeImage=@image where id=@id", new
+            //            {
+            //                image = $"https://az32006.vo.msecnd.net/universities/{singleRow.Id}{extension}",
+            //                id = singleRow.Id
+            //            });
+            //        }
+            //    }
+            //}
 
 
         public static void ShowChars(char[] charArray)
