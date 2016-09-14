@@ -31,14 +31,14 @@
     <base href="/" />
 </head>
 <body @*md-layout-css*@ ng-controller="AppController as app"
-      class="{{app.theme}} clearfix" ng-class="{menuOpened: app.menuOpened}">
+      class="theme-light clearfix" ng-class="{menuOpened: app.menuOpened}">
     @{ Html.RenderPartial("_Body");}
 
     <div ng-spinner-bar class="sb-loader hide">
         <md-progress-circular md-mode="indeterminate" md-diameter="150"></md-progress-circular>
     </div>
 
-    <header id="main-nav" class="nav-bar backgroundTC19" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
+    <header id="main-nav" class="nav-bar" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
         <div class="logo-search" layout="row" layout-align="start center">
             <button hide-gt-sm type="button" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" hide-chat-on-mobile="click" ga-track-event="['header', 'open menu']">
                 @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu svgTC17 hoverSvgTC18" })

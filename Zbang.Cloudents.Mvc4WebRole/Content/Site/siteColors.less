@@ -96,7 +96,6 @@
     .need-follow {
         background: @backgroundColorFollow;
     }
-
     //add button
     .add-button {
         &:hover {
@@ -144,11 +143,9 @@
         }
 
         background: @backgroundColor;
-
         /*textarea {
             background: @backgroundColor;
         }*/
-
         ::-webkit-input-placeholder {
             color: @borderColorBottomGrey;
         }
@@ -462,7 +459,7 @@
         .leaderBoardTitle {
             color: @textColorDarkGrey;
         }
-        
+
         .content {
             .universityStats {
                 color: @textColorGrey;
@@ -1186,6 +1183,15 @@ Page Loading
             md-content {
                 .md-button {
                     color: @textColorWhite;
+
+                    &:hover {
+                        background: rgba(65,144,185,0.2);
+                        color: @buttonColorBlue;
+                    }
+
+                    svg {
+                        fill: @buttonColorBlue;
+                    }
                     //fill: @backgroundColorWhite;
                 }
             }
