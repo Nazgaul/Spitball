@@ -247,6 +247,7 @@
                 }
 
                 scrollToBotton();
+                updateUnread();
                 updateScope();
                 return;
             }

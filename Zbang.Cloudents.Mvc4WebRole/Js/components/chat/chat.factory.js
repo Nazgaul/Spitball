@@ -3,7 +3,6 @@ var app;
     "use strict";
     var unreadCount = 0;
     var ChatBus = (function () {
-        //static $inject = ["ajaxService2"];
         function ChatBus(ajaxService, userDetailsFactory) {
             var _this = this;
             this.ajaxService = ajaxService;
@@ -53,4 +52,3 @@ var app;
         .module("app.chat")
         .factory("chatBus", ChatBus.factory());
 })(app || (app = {}));
-//# sourceMappingURL=chat.factory.js.map
