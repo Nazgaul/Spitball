@@ -53,8 +53,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 ["site4"] = new[]
                     {
-                        
-                        "~/content/site/angularWithChanges2.css",
+
+                        "~/content/angular-material.css",
                         "~/bower_components/textAngular/dist/textAngular.css",
                         "~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
                         "~/content/site/inline-material.css",
@@ -163,7 +163,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/Scripts/angular-animate.js"),
                         new JsFileWithCdn("~/Scripts/angular-aria.js"),
-                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.0.9/angular-material.min.js"),
+                        new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"),
 
                         new JsFileWithCdn("~/scripts/angular-srph-infinite-scroll.js"),
 
