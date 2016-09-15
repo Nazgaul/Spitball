@@ -8,9 +8,9 @@
      from zbox.users u 
 	 inner join  zbox.userboxrel ub  
 	 on u.userid = ub.userid and notificationSettings = @Notification
-	 inner join zbox.university u2 on u2.id = u.universityid
+	-- inner join zbox.university u2 on u2.id = u.universityid
      where u.emailsendsettings = 0
-	 and coalesce(u2.utcoffset,0) = @utcoffset
+	-- and coalesce(u2.utcoffset,0) = @utcoffset
 	 and exists ( select top 1 * 
 	 from zbox.newupdates nu 
 	 where nu.boxid = ub.boxid and nu.userid = u.userid

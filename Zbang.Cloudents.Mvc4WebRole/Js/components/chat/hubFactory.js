@@ -101,7 +101,6 @@ var app;
                             break;
                         case $.signalR.connectionState.disconnected:
                             _this.canSend = false;
-                            ajaxService.logError('signalr', 'disconnected');
                             $rootScope.$broadcast('connection-state', {
                                 status: 0
                             });

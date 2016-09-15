@@ -77,19 +77,26 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.RegisterType<ISchedulerProcess, FollowLowActivityCourses>("followLowActivity");
             Ioc.RegisterType<ISchedulerProcess, LikesMailProcess>("likesReport");
 
-            var arrayOfUtcOfset = new[] { 0, 3, -5, -4 };
-            foreach (var i in arrayOfUtcOfset)
-            {
-                Ioc.ContainerBuilder.RegisterType<DigestEmail>()
-               .Named<ISchedulerProcess>($"digestOnceADay-{i}")
-               .WithParameter("hourForEmailDigest", NotificationSettings.OnceADay)
-               .WithParameter("utcTimeOffset", i);
+            Ioc.ContainerBuilder.RegisterType<DigestEmail>()
+               .Named<ISchedulerProcess>("digestOnceADay")
+               .WithParameter("hourForEmailDigest", NotificationSettings.OnceADay);
+            Ioc.ContainerBuilder.RegisterType<DigestEmail>()
+               .Named<ISchedulerProcess>("digestOnceAWeek")
+               .WithParameter("hourForEmailDigest", NotificationSettings.OnceAWeek);
 
-                Ioc.ContainerBuilder.RegisterType<DigestEmail>()
-                    .Named<ISchedulerProcess>($"digestOnceAWeek-{i}")
-                    .WithParameter("hourForEmailDigest", NotificationSettings.OnceAWeek)
-                    .WithParameter("utcTimeOffset", i);
-            }
+            //var arrayOfUtcOfset = new[] { 0, 3, -5, -4 };
+            //foreach (var i in arrayOfUtcOfset)
+            //{
+            //    Ioc.ContainerBuilder.RegisterType<DigestEmail>()
+            //   .Named<ISchedulerProcess>($"digestOnceADay-{i}")
+            //   .WithParameter("hourForEmailDigest", NotificationSettings.OnceADay)
+            //   .WithParameter("utcTimeOffset", i);
+
+            //    Ioc.ContainerBuilder.RegisterType<DigestEmail>()
+            //        .Named<ISchedulerProcess>($"digestOnceAWeek-{i}")
+            //        .WithParameter("hourForEmailDigest", NotificationSettings.OnceAWeek)
+            //        .WithParameter("utcTimeOffset", i);
+            //}
 
 
 
