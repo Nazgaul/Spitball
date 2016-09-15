@@ -1,4 +1,4 @@
-﻿@import "variables";
+﻿@import "themeLight";
 
 .headerMenu {
     width: 20px;
@@ -8,7 +8,7 @@
 
 .searchIcon {
     height: 100%;
-    fill: @textColorWhite;
+    fill: @textColorBlack;
 }
 
 .headerHelp {
@@ -160,11 +160,10 @@
     border-bottom: 5px solid @backgroundColor;
     align-items: center;
 
-    .logo-search {        
+    .logo-search {
         height: 100%;
         flex-grow: 1;
         min-width: 0; //fix login buttons overflowing from screen width (caused from flex)
-
         .search-form-wrapper {
             max-width: 350px;
             width: 100%;
@@ -194,8 +193,8 @@
                         .justifyContet(center);
 
                         span, svg {
-                            height: 24px;
-                            width: 24px;
+                            height: 22px;
+                            width: 22px;
                         }
 
                         span {
@@ -204,14 +203,14 @@
                     }
 
                     .text {
-                        background: @textColorWhite;
-                        color: @backgroundColor;
+                        background: @textColorBlack;
+                        color: @buttonColorBlue;
                         font-size: 13px;
                         height: 32px;
                         line-height: 32px;
                         padding: 0 15px;
                         border: 0;
-                        .placeHolder(@backgroundColor);
+                        .placeHolder(@textColorWhite);
                         width: 100%;
                     }
                 }
@@ -263,7 +262,7 @@
             display: none;
         }*/
         &:hover {
-            background: @backgroundColorMouseOver;
+            background: @textColorWhite;
         }
 
         .md-ripple-container {
@@ -292,7 +291,7 @@
                 height: 0;
                 border-style: solid;
                 border-width: 6px 6px 0 6px;
-                border-color: rgba(255, 255,255, 0.3) transparent transparent transparent;
+                border-color: @buttonColorBlue transparent transparent transparent;
                 right: 0;
                 margin-top: 2px;
                 margin-left: 8px;

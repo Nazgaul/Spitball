@@ -12,20 +12,21 @@
     <div class="content borderTC19">
         <div class="tabs" layout="row">
             <button class="spitball backgroundTC21" ng-if="i.inBox" ng-class="{active: i.tab === i.state.spitball}" ng-click="i.switchTab(i.state.spitball)" flex layout="row" layout-align="center center">
-                <span @*ng-if="i.tab === i.state.spitball"*@>@Html.Svg("~/images/site/icons.svg", "smallLogo", new { ng_class = "{svgTC22: i.tab !== i.state.spitball}" })</span>
+                <span class="mobile-icon" @*ng-if="i.tab === i.state.spitball"*@>@Html.Svg("~/images/site/icons.svg", "smallLogo")</span>
+                <span class="desktop-icon" @*ng-if="i.tab === i.state.spitball"*@>@Html.Svg("~/images/site/icons.svg", "logo")</span>
                 @*<span ng-if="i.tab !== i.state.spitball">@Html.Svg("~/images/site/icons.svg", "smallLogo", new { @class = "svgTC22" })</span>*@
             </button>
-            <button class="email backgroundTC21" ng-class="{active: i.tab === i.state.email}" ng-click="i.switchTab(i.state.email)" flex layout="row" layout-align="center center">
+            <button class="email" ng-class="{active: i.tab === i.state.email}" ng-click="i.switchTab(i.state.email)" flex layout="row" layout-align="center center">
                 <span ng-if="i.tab === i.state.email">@Html.Svg("~/images/site/icons.svg", "gmail")</span>
-                <span ng-if="i.tab !== i.state.email">@Html.Svg("~/images/site/icons.svg", "gmailgrey", new { @class = "svgTC22" })</span>
+                <span ng-if="i.tab !== i.state.email">@Html.Svg("~/images/site/icons.svg", "gmailgrey")</span>
             </button>
-            <button class="facebook backgroundTC21" ng-class="{active: i.tab === i.state.facebook}" ng-click="i.switchTab(i.state.facebook)" flex layout="row" layout-align="center center">
+            <button class="facebook" ng-class="{active: i.tab === i.state.facebook}" ng-click="i.switchTab(i.state.facebook)" flex layout="row" layout-align="center center">
                 <span ng-if="i.tab === i.state.facebook">@Html.Svg("~/images/site/social-icons.svg", "facebook-colored")</span>
-                <span ng-if="i.tab !== i.state.facebook">@Html.Svg("~/images/site/social-icons.svg", "fbgrey", new { @class = "svgTC22" })</span>
+                <span ng-if="i.tab !== i.state.facebook">@Html.Svg("~/images/site/social-icons.svg", "fbgrey")</span>
             </button>
         </div>
         <div class="center">
-            <div ng-if="i.allContacts.length || i.filterQuery !== ''">
+            <div class="contacts" ng-if="i.allContacts.length || i.filterQuery !== ''">
                 <div class="search-user">
                     <md-input-container class="md-block">
                         <label ng-if="i.tab === i.state.email">@IndexResources.AddMail</label>
@@ -52,33 +53,47 @@
                 </div>
                 <div class="empty-state" ng-if="i.tab === i.state.spitball && !i.allContacts.length">@IndexResources.EmptyStateSpitballInvite</div>
                 <div class="empty-state" ng-if="i.tab === i.state.email && !i.allContacts.length">@IndexResources.EmptyStateGmailInvite</div>
+                <div class="bottom">
+                    <md-button class="close btn btn-default" scroll-to-top ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">
+                        @GeneralResources.Cancel
+                    </md-button>
+                    <md-button class="btn button-Blue btn-primary send" ga-track-event="['invite', 'send']" ng-if="i.allContacts.length" ng-click="i.sendInvite()" ng-disabled="i.submitDisabled">
+                        @IndexResources.Send
+                    </md-button>
+                </div>
             </div>
             <div class="email" ng-if="!i.allContacts.length && !i.nonFilteredContacts.length && i.tab === i.state.email && i.filterQuery == ''">
-                <div><span class="text">@IndexResources.GmailContact</span></div>
-                <button class="btn button-Blue btn-primary gmail" ng-click="i.importGoogleContract()" type="button" ga-track-event="['invite', 'import gmail']">
-                    <span>
-                        @LogOnResources.ExternalProvider
-                    </span>
-                </button>
+                <div class="text-wrapper">
+                    <span class="text">@IndexResources.GmailContact</span>
+                </div>
+
+                <div class="bottom">
+                    <md-button class="close btn btn-default" scroll-to-top ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">
+                        @GeneralResources.Cancel
+                    </md-button>
+                    <button class="btn button-Blue btn-primary gmail" ng-click="i.importGoogleContract()" type="button" ga-track-event="['invite', 'import gmail']">
+                        <span>
+                            @LogOnResources.ExternalProvider
+                        </span>
+                    </button>
+                </div>
             </div>
             <div class="facebook" ng-if="i.tab === i.state.facebook">
-                <div><span class="text">@IndexResources.FacebookContact</span></div>
-                <button class="btn button-Blue btn-primary gmail" ng-click="i.fbShare()" type="button" ga-track-event="['invite', 'import gmail']">
-                    <span>
-                        @UserResources.Share
-                    </span>
-                </button>
+                <div class="text-wrapper">
+                    <span class="text">@IndexResources.FacebookContact</span>
+                </div>
+
+                <div class="bottom">
+                    <md-button class="close btn btn-default" scroll-to-top ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">
+                        @GeneralResources.Cancel
+                    </md-button>
+                    <button class="btn button-Blue btn-primary gmail" ng-click="i.fbShare()" type="button" ga-track-event="['invite', 'import gmail']">
+                        <span>
+                            @UserResources.Share
+                        </span>
+                    </button>
+                </div>
             </div>
-        </div>
-        <div class="bottom">
-            <md-button class="btn button-Blue btn-primary send" ga-track-event="['invite', 'send']" ng-if="i.allContacts.length" ng-click="i.sendInvite()" ng-disabled="i.submitDisabled">
-                @IndexResources.Send
-            </md-button>
-            <md-button class="close btn btn-default" scroll-to-top ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">
-                @GeneralResources.Cancel
-            </md-button>
-            @*<button type="button" class="close btn btn-default send" ng-click="i.closeInvite()" ga-track-event="['invite', 'cancel']">@GeneralResources.Cancel</button>*@
-            @*<button type="button" class="btn button-Blue btn-primary send" ga-track-event="['invite', 'send']" ng-if="i.allContacts.length" ng-click="i.sendInvite()" ng-disabled="i.submitDisabled">@IndexResources.Send</button>*@
         </div>
     </div>
 </div>

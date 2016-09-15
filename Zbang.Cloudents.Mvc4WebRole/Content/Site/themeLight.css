@@ -132,11 +132,10 @@ Page Loading
 .theme-light md-select-menu md-option:focus:not([disabled]):not([selected]) {
   background: #ffffff;
 }
-.theme-light md-input-container:not(.md-input-invalid) label {
-  color: #888b8e;
-}
+.theme-light md-input-container:not(.md-input-invalid) label,
 .theme-light md-input-container label {
-  color: #c3c3c3;
+  line-height: normal;
+  color: #212325;
 }
 .theme-light .md-select-value .md-select-icon,
 .theme-light md-select .md-select-value,
@@ -183,16 +182,12 @@ Page Loading
 .theme-light .close:hover {
   color: #212325;
 }
-.theme-light .create-box:hover .dashboard-stat2 {
-  border: 2px solid #4190b9;
-  color: #4190b9;
-}
 .theme-light .create-box:hover .plus svg {
   fill: #4190b9;
 }
 .theme-light .create-box .dashboard-stat2 {
-  border: 2px solid #888b8e;
-  color: #888b8e;
+  border: 2px solid #4190b9;
+  color: #4190b9;
 }
 .theme-light .create-box .plus svg {
   fill: #888b8e;
@@ -206,8 +201,8 @@ Page Loading
   border: 2px solid #8c99a6;
 }
 .theme-light .create-box md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-  border-bottom: 1px solid #888b8e;
-  color: #888b8e;
+  border-bottom: 1px solid #4190b9;
+  color: #212325;
 }
 .theme-light .tab-from-r > li > a {
   color: #ffffff;
@@ -299,9 +294,6 @@ Page Loading
 .theme-light .nav-bar {
   background: #323538;
   border-bottom: 5px solid #dadada;
-}
-.theme-light .nav-bar .user-md-menu:hover {
-  background: #dadce2;
 }
 .theme-light .accountPage-wrapper .section {
   background: #ffffff;
@@ -646,9 +638,9 @@ Page Loading
 }
 .theme-light .box-cube,
 .theme-light .unibox,
-.theme-light .leaderboard {
-  border: 1px solid transparent;
-  background: #ffffff;
+.theme-light .leaderboard,
+.theme-light .suggested a {
+  box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
 }
 .theme-light .table-scrollable > .table {
   background-color: #ffffff;
@@ -1214,15 +1206,13 @@ Page Loading
 .theme-light .page-body md-sidenav md-content .md-button {
   color: #212325;
 }
-.theme-light .page-body md-sidenav md-content .md-button:hover {
+.theme-light .page-body md-sidenav md-content .md-button:hover,
+.theme-light .page-body md-sidenav md-content .md-button.active {
   background: rgba(65, 144, 185, 0.2);
   color: #4190b9;
 }
 .theme-light .page-body md-sidenav md-content .md-button svg {
   fill: #4190b9;
-}
-.theme-light .side-menu .md-button.active {
-  background: #dadce2;
 }
 .theme-light .side-menu .md-button-toggle .arrow {
   color: darkgray;
@@ -1266,7 +1256,7 @@ Page Loading
   color: #ffffff;
 }
 .theme-light .search-text {
-  color: #3293F6;
+  color: #4190b9;
 }
 .theme-light .portlet.light.invite svg {
   fill: #f9f9f9;
@@ -1412,12 +1402,6 @@ Page Loading
 }
 .theme-light .need-follow.box-title h1 {
   color: #f5f5f5;
-}
-.theme-light .library-choose .search-form-wrapper form {
-  border: 1px solid #888b8e;
-}
-.theme-light .page-title > h1 {
-  color: #484F56;
 }
 .theme-light .box-nav-bar md-next-button svg,
 .theme-light .box-nav-bar md-prev-button svg {

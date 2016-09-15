@@ -1,4 +1,4 @@
-﻿@import "variables.less";
+﻿@import "themeLight.less";
 
 .dashboard {
     /*.unibox {
@@ -21,17 +21,30 @@
 
         .create-btn, .inviteBtn {
             //  width: 100%;
-            background: @borderColorDarkGrey;
+            background: @textColorBlack;
             padding: 8px 0;
             border-radius: 5px;
-            border: 1px solid;
             margin: 8px;
+            box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
 
             @media(min-width: 600px) {
                 max-width: ~"calc(50% - 16px)";
             }
 
-            &:hover {
+            &.active {
+                background: @buttonColorBlue;
+
+                .wrapper {
+                    .text {
+                        color: @textColorBlack;
+                    }
+                     svg {
+                        fill: @textColorBlack;
+                    }
+                }
+            }
+
+            &:not(.active):hover {
                 .wrapper {
                     svg {
                         fill: @buttonColorBlue !important;
@@ -49,7 +62,12 @@
                 .justifyContet(center);
 
                 svg {
+                    fill: @buttonColorBlue;
                     margin-right: 10px;
+                }
+
+                .text {
+                    color: @buttonColorBlue;
                 }
 
                 span {
@@ -108,6 +126,7 @@
         height: 100%;
         position: relative;
         height: @dashboardCubeHeight;
+        box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
 
         .universityStats {
             position: absolute;

@@ -317,9 +317,9 @@ body {
 }
 .box-cube,
 .unibox,
-.leaderboard {
-  border: 1px solid transparent;
-  background: #323538;
+.leaderboard,
+.suggested a {
+  box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
 }
 .table-scrollable > .table {
   background-color: #323538;
@@ -907,15 +907,13 @@ body {
 .page-body md-sidenav md-content .md-button {
   color: #f5f5f5;
 }
-.page-body md-sidenav md-content .md-button:hover {
+.page-body md-sidenav md-content .md-button:hover,
+.page-body md-sidenav md-content .md-button.active {
   background: rgba(65, 144, 185, 0.2);
   color: #4190b9;
 }
 .page-body md-sidenav md-content .md-button svg {
   fill: #4190b9;
-}
-.side-menu .md-button.active {
-  background: #212325;
 }
 .side-menu .md-button-toggle .arrow {
   color: darkgray;
@@ -963,7 +961,7 @@ body {
   color: #282828;
 }
 .search-text {
-  color: #3293F6;
+  color: #4190b9;
 }
 /*#endregion*/
 /*#region share.less*/
