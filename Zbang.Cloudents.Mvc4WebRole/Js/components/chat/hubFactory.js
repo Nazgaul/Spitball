@@ -131,5 +131,5 @@ var app;
         RealTimeFactory.$inject = ["Hub", "$rootScope", "ajaxService2"];
         return RealTimeFactory;
     }());
-    angular.module('app.chat').service('realtimeFactotry', RealTimeFactory);
+    angular.module('app.chat').service('realtimeFactory', RealTimeFactory);
 })(app || (app = {}));

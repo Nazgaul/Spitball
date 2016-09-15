@@ -12,7 +12,7 @@ module app {
         privateBoxes = [];
 
         constructor(private user: IUserData,
-            private dashboardService,
+            private dashboardService: IDashboardService,
             private $location: angular.ILocationService,
             private $scope: angular.IScope,
             private $mdSidenav: angular.material.ISidenavService) {
@@ -67,7 +67,7 @@ module app {
         boxesOpen = false;
 
         univeristyClick() {
-            this.dashboardService.getUniversityMeta((response) => {
+            this.dashboardService.getUniversityMeta().then((response) => {
                 this.$location.path(decodeURIComponent(response.url));
             });
         }

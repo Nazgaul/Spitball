@@ -61,7 +61,7 @@ var app;
         }
         SideMenu.prototype.univeristyClick = function () {
             var _this = this;
-            this.dashboardService.getUniversityMeta(function (response) {
+            this.dashboardService.getUniversityMeta().then(function (response) {
                 _this.$location.path(decodeURIComponent(response.url));
             });
         };

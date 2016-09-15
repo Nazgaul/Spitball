@@ -1,12 +1,12 @@
 ﻿'use strict';
 (function () {
     angular.module('app.chat').controller('ChatController', chat);
-    chat.$inject = ['$timeout', '$scope', 'realtimeFactotry',
+    chat.$inject = ['$timeout', '$scope', 'realtimeFactory',
         'searchService', 'userDetailsFactory', 'chatBus', 'itemThumbnailService',
         '$mdDialog', 'routerHelper', '$document',
         'notificationService', 'resManager', '$rootScope', "$uiViewScroll", "$stateParams"];
 
-    function chat($timeout, $scope, realtimeFactotry, searchService,
+    function chat($timeout, $scope, realtimeFactory, searchService,
         userDetailsFactory, chatBus, itemThumbnailService, $mdDialog, routerHelper, $document,
         notificationService, resManager, $rootScope, $uiViewScroll, $stateParams) {
         var c = this, chunkSize = 50, page = 0,
@@ -181,7 +181,7 @@
                 time: new Date().toISOString(),
                 partner: false
             });
-            realtimeFactotry.sendMsg(c.userChat.id, c.newText, c.userChat.conversation);
+            realtimeFactory.sendMsg(c.userChat.id, c.newText, c.userChat.conversation);
             c.newText = '';
         }
         if ($stateParams.conversationData) {
@@ -372,7 +372,7 @@
                             blob: obj.payload,
                             thumb: itemThumbnailService.getChat(obj.payload)
                         });
-                        realtimeFactotry.sendMsg(c.userChat.id, null, c.userChat.conversation, obj.payload);
+                        realtimeFactory.sendMsg(c.userChat.id, null, c.userChat.conversation, obj.payload);
 
                         //     u.filesCompleteCount++;
                         //     file.systemId = obj.payload.item.id;
