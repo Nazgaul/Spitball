@@ -101,7 +101,6 @@ var app;
                             break;
                         case $.signalR.connectionState.disconnected:
                             _this.canSend = false;
-                            ajaxService.logError('signalr', 'disconnected');
                             $rootScope.$broadcast('connection-state', {
                                 status: 0
                             });
@@ -132,5 +131,5 @@ var app;
         RealTimeFactory.$inject = ["Hub", "$rootScope", "ajaxService2"];
         return RealTimeFactory;
     }());
-    angular.module('app.chat').service('realtimeFactotry', RealTimeFactory);
+    angular.module('app.chat').service('realtimeFactory', RealTimeFactory);
 })(app || (app = {}));

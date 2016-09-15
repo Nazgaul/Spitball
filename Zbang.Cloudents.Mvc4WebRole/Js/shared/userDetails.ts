@@ -21,7 +21,6 @@ interface IUserData {
     email: string;
     url: string;
     isAdmin: boolean;
-    theme: string;
     culture: string;
     unread: number;
     createTime: Date;
@@ -38,7 +37,6 @@ module app {
         setImage(image: string): void;
         getUniversity(): number;
         setUniversity(name: string, id: number): angular.IPromise<IUserData>;
-        setTheme(theme: string): void;
     }
 
     class UserDetails implements IUserDetailsFactory {
@@ -91,7 +89,6 @@ module app {
                 url: data.url,
                 createTime: new Date(data.dateTime),
                 isAdmin: data.isAdmin,
-                theme: data.theme,
                 culture: data.culture,
                 email: data.email,
                 unread: data.unread,
@@ -147,9 +144,6 @@ module app {
             this.userData = null;
             this.deferDetails = this.$q.defer();
             return this.init();
-        };
-        setTheme = (theme: string) => {
-            this.userData.theme = theme;
         };
     }
     angular.module("app").service("userDetailsFactory", UserDetails);

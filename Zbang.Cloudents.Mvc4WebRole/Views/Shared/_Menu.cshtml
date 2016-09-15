@@ -7,7 +7,7 @@
     <md-sidenav class="main-md-sidenav"
                 md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" close-menu="left">
         <md-content role="navigation" class="scrollbar" >
-            <ul class="side-menu" sb-scroll ng-scrollbars-config="d.updateScrollbar" ng-scrollbars>
+            <ul class="side-menu" sb-scroll @*ng-scrollbars-config="d.updateScrollbar"*@ ng-scrollbars>
                 <li class="dashboard nav-item">
                     <a class="md-button" user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.Action("Index", "Dashboard")')}" ui-sref="dashboard">
                         <span class="icon">@Html.Svg(svgUrl, "houseMenu")</span>

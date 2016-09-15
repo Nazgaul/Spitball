@@ -48,7 +48,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
 
                 sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
-                sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
+                sendGridMail.AddSubstitution("{email}", new List<string> {recipient});
                 if (!string.IsNullOrEmpty(category))
                 {
 
@@ -61,7 +61,10 @@ namespace Zbang.Zbox.Infrastructure.Mail
             catch (FormatException ex)
             {
                 TraceLog.WriteError("recipient: " + recipient + " on trying to send mail", ex);
-                throw;
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("recipient: " + recipient + " on trying to send mail", ex);
             }
 
         }

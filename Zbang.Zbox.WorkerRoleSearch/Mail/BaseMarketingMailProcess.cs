@@ -40,7 +40,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 {
                     TraceLog.WriteInfo($"{ServiceName} running  mail page {page}");
                     needToContinueRun = false;
-                    int pageSize = 500;
+                    var pageSize = 100;
                     if (RoleIndexProcessor.IsEmulated)
                     {
                         pageSize = 10;
@@ -68,7 +68,6 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     }
                     await Task.WhenAll(list);
                     list.Clear();
-                    page++;
                     if (RoleIndexProcessor.IsEmulated)
                     {
                         needToContinueRun = false;
@@ -78,6 +77,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 {
                     TraceLog.WriteError($"{ServiceName} {ex}");
                 }
+                page++;
                 await progressAsync(page);
 
             }

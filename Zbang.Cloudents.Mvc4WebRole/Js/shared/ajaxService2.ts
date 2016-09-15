@@ -1,13 +1,6 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-"use strict";
 
-interface String {
-    startsWith(str: string): boolean;
-    endsWith(str: string): boolean;
-}
-interface IAnalytics extends angular.google.analytics.AnalyticsService {
-    trackTimings(timingCategory: string, timingVar: string, timingValue: number, timingLabel:string);
-}
+
 declare var version: any;
 
 module app {

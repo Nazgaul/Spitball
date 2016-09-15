@@ -705,18 +705,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk();
         }
 
-        [HttpPost]
-        public JsonResult ChangeTheme(Theme theme)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                var id = User.GetUserId();
-                var command = new UpdateUserThemeCommand(id, theme);
-                ZboxWriteService.UpdateUserTheme(command);
-            }
-            //m_ThemeCookieHelper.InjectCookie(theme);
-            return JsonOk();
-        }
+        //[HttpPost]
+        //public JsonResult ChangeTheme(Theme theme)
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        var id = User.GetUserId();
+        //        var command = new UpdateUserThemeCommand(id, theme);
+        //        ZboxWriteService.UpdateUserTheme(command);
+        //    }
+        //    //m_ThemeCookieHelper.InjectCookie(theme);
+        //    return JsonOk();
+        //}
 
 
 

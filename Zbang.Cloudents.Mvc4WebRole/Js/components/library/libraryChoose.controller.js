@@ -3,10 +3,10 @@
     angular.module('app.library').controller('LibraryChoose', libraryChoose);
 
     libraryChoose.$inject = ['libraryService', '$state', 'countryService',
-        'userDetailsFactory', '$scope', 'resManager', 'realtimeFactotry', '$location','$rootScope'];
+        'userDetailsFactory', '$scope', 'resManager', 'realtimeFactory', '$location', '$rootScope'];
 
     function libraryChoose(libraryService, $state, countryService, userDetailsFactory,
-        $scope, resManager, realtimeFactotry, $location, $rootScope) {
+        $scope, resManager, realtimeFactory, $location, $rootScope) {
         var self = this, page = 0;
         self.term = '';
         self.universities = [];
@@ -132,7 +132,7 @@
         function goToLibrary(url) {
             userDetailsFactory.setUniversity().then(function () {
                 //bug 5120/
-                realtimeFactotry.changeUniversity();
+                realtimeFactory.changeUniversity();
                 $rootScope.$broadcast('change-university');
                 if (!url) {
                     $state.go('dashboard', null, { reload :true});

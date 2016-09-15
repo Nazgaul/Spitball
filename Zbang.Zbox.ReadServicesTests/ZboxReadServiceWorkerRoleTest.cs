@@ -27,7 +27,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetUsersByNotificationSettings_Query_ReturnResult()
         {
-            var query = new GetUserByNotificationQuery(NotificationSettings.OnceADay);
+            var query = new GetUserByNotificationQuery(NotificationSettings.OnceADay,1,10,1);
             try
             {
                 m_ZboxReadService.GetUsersByNotificationSettingsAsync(query, default(CancellationToken));

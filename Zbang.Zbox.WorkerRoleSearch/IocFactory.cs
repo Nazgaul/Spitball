@@ -66,7 +66,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.RegisterType<IJob, ThumbnailQueueProcess>(nameof(ThumbnailQueueProcess));
             Ioc.RegisterType<IJob, MailQueueProcess>(nameof(MailQueueProcess));
             Ioc.RegisterType<IJob, TestingJob>(nameof(TestingJob));
-            
+
             Ioc.RegisterType<IJob, DeleteOldStuff>(nameof(DeleteOldStuff));
             Ioc.RegisterType<IJob, DeleteOldConnections>(nameof(DeleteOldConnections));
 
@@ -77,14 +77,27 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Ioc.RegisterType<ISchedulerProcess, FollowLowActivityCourses>("followLowActivity");
             Ioc.RegisterType<ISchedulerProcess, LikesMailProcess>("likesReport");
 
-
             Ioc.ContainerBuilder.RegisterType<DigestEmail>()
-                .Named<ISchedulerProcess>("digestOnceADay")
-                .WithParameter("hourForEmailDigest", NotificationSettings.OnceADay);
-
+               .Named<ISchedulerProcess>("digestOnceADay")
+               .WithParameter("hourForEmailDigest", NotificationSettings.OnceADay);
             Ioc.ContainerBuilder.RegisterType<DigestEmail>()
-                .Named<ISchedulerProcess>("digestOnceAWeek")
-                .WithParameter("hourForEmailDigest", NotificationSettings.OnceAWeek);
+               .Named<ISchedulerProcess>("digestOnceAWeek")
+               .WithParameter("hourForEmailDigest", NotificationSettings.OnceAWeek);
+
+            //var arrayOfUtcOfset = new[] { 0, 3, -5, -4 };
+            //foreach (var i in arrayOfUtcOfset)
+            //{
+            //    Ioc.ContainerBuilder.RegisterType<DigestEmail>()
+            //   .Named<ISchedulerProcess>($"digestOnceADay-{i}")
+            //   .WithParameter("hourForEmailDigest", NotificationSettings.OnceADay)
+            //   .WithParameter("utcTimeOffset", i);
+
+            //    Ioc.ContainerBuilder.RegisterType<DigestEmail>()
+            //        .Named<ISchedulerProcess>($"digestOnceAWeek-{i}")
+            //        .WithParameter("hourForEmailDigest", NotificationSettings.OnceAWeek)
+            //        .WithParameter("utcTimeOffset", i);
+            //}
+
 
 
             Ioc.RegisterType<ISchedulerProcess, SpamGun>("spamGun");

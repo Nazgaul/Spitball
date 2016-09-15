@@ -125,7 +125,6 @@
     </Compile>
     <Compile Include="Enums\Sex.cs" />
     <Compile Include="Enums\StatisticsAction.cs" />
-    <Compile Include="Enums\Theme.cs" />
     <Compile Include="Enums\UserLibraryRelationType.cs" />
     <Compile Include="Enums\UserType.cs" />
     <Compile Include="Exceptions\BoxAccessDeniedException.cs" />

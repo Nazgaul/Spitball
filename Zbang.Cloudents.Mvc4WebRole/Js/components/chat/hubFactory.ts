@@ -12,7 +12,7 @@
         }
     }
 
-    export interface IRealtimeFactotry {
+    export interface IRealtimeFactory {
         sendMsg(userId: number, message: string, conversationId: Guid, blob: string): void;
         changeUniversity(): void;
         assingBoxes(boxIds): void;
@@ -22,7 +22,7 @@
     //    sendMsg(userId: number, message: string, conversationId: Guid, blob: string): void;
     //}
 
-    class RealTimeFactory implements IRealtimeFactotry {
+    class RealTimeFactory implements IRealtimeFactory {
         static $inject = ["Hub", "$rootScope", "ajaxService2"];
         private commands: Array<Function> = [];
         private canSend: boolean;
@@ -97,8 +97,7 @@
                             break;
                         case $.signalR.connectionState.disconnected:
                             this.canSend = false;
-                            //console.log('disconnected');
-                            ajaxService.logError('signalr', 'disconnected');
+                            //ajaxService.logError('signalr', 'disconnected');
                             $rootScope.$broadcast('connection-state', {
                                 status: 0
                             });
@@ -151,7 +150,7 @@
             }
         }
     }
-    angular.module('app.chat').service('realtimeFactotry', RealTimeFactory);
+    angular.module('app.chat').service('realtimeFactory', RealTimeFactory);
 }
 
 

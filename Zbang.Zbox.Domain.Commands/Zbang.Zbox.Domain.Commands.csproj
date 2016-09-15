@@ -131,7 +131,6 @@
     <Compile Include="RegisterMobileDeviceCommand.cs" />
     <Compile Include="UpdateUserEmailSubscribeCommand.cs" />
     <Compile Include="UpdateUserProfileImageCommand.cs" />
-    <Compile Include="UpdateUserThemeCommand.cs" />
     <Compile Include="UpdateUserUniversityCommand.cs" />
     <Compile Include="UpdateUserLanguageCommand.cs" />
     <Compile Include="UpdateUserPasswordCommand.cs" />

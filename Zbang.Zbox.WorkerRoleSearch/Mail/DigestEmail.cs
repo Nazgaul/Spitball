@@ -24,7 +24,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         private readonly HashSet<string> m_EmailHash = new HashSet<string>();
 
         public DigestEmail(IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService,
-            NotificationSettings hourForEmailDigest)
+            NotificationSettings hourForEmailDigest/*, int utcTimeOffset*/)
         {
             m_MailComponent = mailComponent;
             m_ZboxReadService = zboxReadService;
@@ -52,12 +52,12 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                 {
                     TraceLog.WriteInfo($"{GetServiceName()} running  mail page {page}");
                     needToContinueRun = false;
-                    var pageSize = 500;
+                    var pageSize = 100;
                     if (RoleIndexProcessor.IsEmulated)
                     {
                         pageSize = 10;
                     }
-                    var usersquery = new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize);
+                    var usersquery = new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize, 0 /*utcTime*/);
                     var users =
                         (await
                             m_ZboxReadService.GetUsersByNotificationSettingsAsync(

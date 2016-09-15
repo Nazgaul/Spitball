@@ -1525,6 +1525,7 @@
     <TypeScriptCompile Include="Js\components\chat\chatTimeAgo.ts" />
     <TypeScriptCompile Include="Js\components\chat\hubFactory.ts" />
     <TypeScriptCompile Include="Js\components\chat\previewController.ts" />
+    <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quiz.service.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quizCreate.module.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quizCreate2.controller.ts" />
@@ -1532,6 +1533,7 @@
     <TypeScriptCompile Include="Js\components\chat\hideChatOnMobile.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\toggleChat.directive.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
+    <TypeScriptCompile Include="Js\menu\sidemenu.controller.ts" />
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
     <TypeScriptCompile Include="Js\shared\ajaxService2.ts" />
     <TypeScriptCompile Include="Js\shared\history.ts" />
@@ -2345,8 +2347,6 @@
     <Content Include="Js\components\box\item.controller.js" />
     <Content Include="Js\components\box\recommended.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
-    <Content Include="Js\components\dashboard\dashboard.service.js" />
-    <Content Include="Js\menu\sidemenu.controller.js" />
     <Content Include="Js\components\dashboard\university.controller.js" />
     <Content Include="Js\components\leaderboard.controller.js" />
     <Content Include="Js\components\quiz\popup\quiz.challenge.controller.js" />

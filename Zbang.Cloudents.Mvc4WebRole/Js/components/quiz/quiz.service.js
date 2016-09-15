@@ -1,6 +1,6 @@
 var app;
 (function (app) {
-    'use strict';
+    "use strict";
     var QuizService = (function () {
         function QuizService(ajaxService) {
             this.ajaxService = ajaxService;
@@ -65,7 +65,7 @@ var app;
                 id: quizId
             });
         };
-        QuizService.$inject = ['ajaxService2'];
+        QuizService.$inject = ["ajaxService2"];
         return QuizService;
     }());
     angular.module("app.quiz").service('quizService', QuizService);

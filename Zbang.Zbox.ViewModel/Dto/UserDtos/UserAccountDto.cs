@@ -1,7 +1,4 @@
-﻿
-using Zbang.Zbox.Infrastructure.Enums;
-
-namespace Zbang.Zbox.ViewModel.Dto.UserDtos
+﻿namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 {
     public class UserAccountDto
     {
@@ -20,7 +17,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
         public string Email { get; set; }
         public string Language { get; set; }
 
-        public Theme Theme { get; set; }
 
         public bool System { get; set; }
 
