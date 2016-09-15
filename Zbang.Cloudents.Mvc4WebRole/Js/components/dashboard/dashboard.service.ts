@@ -17,7 +17,7 @@
         constructor(private $q: angular.IQService,
             private ajaxService2: IAjaxService2,
             private realtimeFactotry: IRealtimeFactory,
-            private userUpdatesService,
+            private userUpdatesService: IUserUpdatesService,
             private $rootScope: angular.IRootScopeService) {
             defer = $q.defer();
 
