@@ -907,6 +907,13 @@ body {
 .page-body md-sidenav md-content .md-button {
   color: #f5f5f5;
 }
+.page-body md-sidenav md-content .md-button:hover {
+  background: rgba(65, 144, 185, 0.2);
+  color: #4190b9;
+}
+.page-body md-sidenav md-content .md-button svg {
+  fill: #4190b9;
+}
 .side-menu .md-button.active {
   background: #212325;
 }

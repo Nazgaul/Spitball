@@ -15,7 +15,7 @@
 @textColorOrange: #ffa500;
 
 //backgrounds
-@backgroundColor: #e9eaed;
+@backgroundColor: #dadada;
 @backgroundColor2: #9E9E9E;
 @backgroundColorWhite: #212325;
 @backgroundColorMenu: #ffffff;
@@ -28,6 +28,7 @@
 @backgroundColorGreen: #008000;
 @backgroundColorMenuSelect: #292d31;
 @backgroundColorMouseOver: #dadce2;
+@headerbackground: #323538;
 
 //borders
 @borderColorGrey: #3D4348;
@@ -81,7 +82,7 @@
 @import "siteColors.less";
 
 body.theme-light {
-    background: #eee;
+    background: @backgroundColor;
     color: @textColorWhite;
 }
 
@@ -348,7 +349,7 @@ body.theme-light {
     }
 
     .nav-bar {
-        background: @backgroundColorMenu;
+        background: @headerbackground;
         border-bottom: 5px solid @backgroundColor;
 
         .user-md-menu {

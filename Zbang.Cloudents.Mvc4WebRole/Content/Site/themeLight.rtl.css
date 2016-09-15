@@ -1,7 +1,7 @@
 /*#endregion*/
 /*#region general.less*/
 body.theme-light {
-  background: #eee;
+  background: #dadada;
   color: #212325;
 }
 .theme-light {
@@ -297,8 +297,8 @@ Page Loading
   color: #212325;
 }
 .theme-light .nav-bar {
-  background: #ffffff;
-  border-bottom: 5px solid #e9eaed;
+  background: #323538;
+  border-bottom: 5px solid #dadada;
 }
 .theme-light .nav-bar .user-md-menu:hover {
   background: #dadce2;
@@ -349,14 +349,14 @@ Page Loading
 .theme-light .folders .folder-name .content {
   background: #5d6063;
   border: 1px solid #ffffff;
-  box-shadow: 0 0 2px #e9eaed;
+  box-shadow: 0 0 2px #dadada;
 }
 .theme-light .folder-selected .folder-name .icon,
 .theme-light .folders .folder-name .icon {
   fill: #9E9E9E;
 }
 .theme-light .folder-selected .dots-3 {
-  fill: #e9eaed;
+  fill: #dadada;
 }
 .theme-light .search-box::-webkit-input-placeholder {
   color: #ffffff;
@@ -432,7 +432,7 @@ Page Loading
   fill: #888b8e;
 }
 .theme-light .add-comment {
-  background: #e9eaed;
+  background: #dadada;
   /*textarea {
             background: @backgroundColor;
         }*/
@@ -545,14 +545,14 @@ Page Loading
   color: #212325;
 }
 .theme-light .upload .form-body {
-  background: #e9eaed;
+  background: #dadada;
 }
 .theme-light .upload md-toast.md-default-theme .md-toast-content,
 .theme-light .upload md-toast .md-toast-content {
   background: #db4437;
 }
 .theme-light .upload .tab-content {
-  background: #e9eaed;
+  background: #dadada;
 }
 .theme-light .upload .tab-content .alert-danger {
   background-color: #f44336;
@@ -571,7 +571,7 @@ Page Loading
   background: #dadce2;
 }
 .theme-light .upload .actions {
-  background-color: #e9eaed;
+  background-color: #dadada;
 }
 .theme-light #dropElement h5 {
   color: #5d6063;
@@ -726,7 +726,7 @@ Page Loading
   }
 }
 .theme-light .page-header.navbar.navbar-fixed-top {
-  border-bottom: 5px solid #e9eaed;
+  border-bottom: 5px solid #dadada;
 }
 .theme-light .page-header.navbar .page-logo .logo-default {
   fill: #212325;
@@ -970,7 +970,7 @@ Page Loading
   color: #212325;
 }
 .theme-light body {
-  background: #e9eaed;
+  background: #dadada;
 }
 .theme-light .page-header.navbar {
   background: #ffffff;
@@ -1014,7 +1014,7 @@ Page Loading
 }
 .theme-light .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu {
   background: #ffffff;
-  box-shadow: 0 0 10px #e9eaed;
+  box-shadow: 0 0 10px #dadada;
 }
 .theme-light .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu:after {
   border-bottom-color: #ffffff;
@@ -1054,7 +1054,7 @@ Page Loading
   background: #3d4a53;
 }
 .theme-light .page-header.navbar .search-form .input-group {
-  background: #e9eaed;
+  background: #dadada;
 }
 .theme-light .page-header.navbar .search-form .input-group .form-control::-moz-placeholder {
   color: #c3c3c3;
@@ -1209,10 +1209,17 @@ Page Loading
   fill: #212325;
 }
 .theme-light .page-body md-sidenav {
-  background: #e9eaed;
+  background: #dadada;
 }
 .theme-light .page-body md-sidenav md-content .md-button {
   color: #212325;
+}
+.theme-light .page-body md-sidenav md-content .md-button:hover {
+  background: rgba(65, 144, 185, 0.2);
+  color: #4190b9;
+}
+.theme-light .page-body md-sidenav md-content .md-button svg {
+  fill: #4190b9;
 }
 .theme-light .side-menu .md-button.active {
   background: #dadce2;
@@ -1222,7 +1229,7 @@ Page Loading
 }
 .theme-light .profile-userpic img,
 .theme-light .profile-userpic span {
-  border: 4px solid #e9eaed;
+  border: 4px solid #dadada;
 }
 .theme-light .profile-usertitle-name {
   color: #212325;
@@ -1271,10 +1278,10 @@ Page Loading
   fill: #c3c3c3;
 }
 .theme-light .invite .body {
-  background: #e9eaed;
+  background: #dadada;
 }
 .theme-light .invite md-content {
-  background: #e9eaed;
+  background: #dadada;
 }
 .theme-light .invite md-content::-webkit-input-placeholder {
   color: #888b8e;
@@ -1380,7 +1387,7 @@ Page Loading
   border-color: #8c99a6;
 }
 .theme-light .userPage md-tab-content {
-  background: #e9eaed;
+  background: #dadada;
 }
 .theme-light .userPage md-tabs md-tab {
   color: #212325;
