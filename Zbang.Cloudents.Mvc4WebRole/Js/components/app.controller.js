@@ -28,9 +28,6 @@ var app;
                 _this.cacheFactory.clearAll();
                 Intercom("shutdown");
             };
-            this.setTheme = function () {
-                _this.theme = "theme-" + _this.userDetails.get().theme;
-            };
             this.toggleMenu = function () {
                 _this.$rootScope.$broadcast("open-menu");
             };
@@ -48,19 +45,12 @@ var app;
                     .hideDelay(2000));
             };
             this.openMenu = function ($mdOpenMenu, ev) {
-                _this.menuOpened = true;
                 if (!_this.userDetails.isAuthenticated()) {
                     _this.$rootScope.$broadcast("show-unregisterd-box");
                     return;
                 }
                 $mdOpenMenu(ev);
             };
-            userDetails.init().then(function () {
-                _this.setTheme();
-            });
-            $rootScope.$on("$mdMenuClose", function () {
-                _this.menuOpened = false;
-            });
             this.showBoxAd = false;
             $rootScope.$on("$stateChangeSuccess", function (event, toState) {
                 _this.showBoxAd = toState.parent === "box";
@@ -68,7 +58,7 @@ var app;
                 window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl });
                 __insp.push(["virtualPage"]);
             });
-            $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+            $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
                 console.error(error);
             });
             $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {

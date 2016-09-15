@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.Search;
 using Zbang.Zbox.Infrastructure.Enums;
-using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
 using Microsoft.Azure.Search.Models;
@@ -16,14 +15,14 @@ namespace Zbang.Zbox.Infrastructure.Search
     public class BoxSearchProvider : IBoxReadSearchProvider2, IBoxWriteSearchProvider2, IDisposable
     {
         private readonly string m_IndexName = "box2";
-        private bool m_CheckIndexExists;
-        private readonly ISearchConnection m_Connection;
+        //private bool m_CheckIndexExists;
+        //private readonly ISearchConnection m_Connection;
         private readonly SearchIndexClient m_IndexClient;
 
         public BoxSearchProvider(ISearchConnection connection)
         {
-            m_Connection = connection;
-            if (m_Connection.IsDevelop)
+            //m_Connection = connection;
+            if (connection.IsDevelop)
             {
                 m_IndexName = m_IndexName + "-dev";
             }
@@ -106,18 +105,18 @@ namespace Zbang.Zbox.Infrastructure.Search
             return true;
         }
 
-        private async Task BuildIndexAsync()
-        {
-            try
-            {
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetBoxIndex());
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("on box build index", ex);
-            }
-            m_CheckIndexExists = true;
-        }
+        //private async Task BuildIndexAsync()
+        //{
+        //    try
+        //    {
+        //        await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetBoxIndex());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("on box build index", ex);
+        //    }
+        //    m_CheckIndexExists = true;
+        //}
         public async Task<IEnumerable<SearchBoxes>> SearchBoxWithoutHighlightWithUrlAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {
             if (query == null) throw new ArgumentNullException(nameof(query));

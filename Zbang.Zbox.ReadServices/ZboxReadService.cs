@@ -752,8 +752,7 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var result = await conn.QueryFirstAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, new { query.UserId });
-                return result;
+                return await conn.QueryFirstAsync<User.UserAccountDto>(Sql.Sql.GetUserAccountData, new { query.UserId });
             }
         }
         /// <summary>

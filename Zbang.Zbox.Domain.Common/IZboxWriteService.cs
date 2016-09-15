@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateUserProfile(UpdateUserProfileCommand command);
         void UpdateUserImage(UpdateUserProfileImageCommand command);
         void UpdateUserLanguage(UpdateUserLanguageCommand command);
-        void UpdateUserTheme(UpdateUserThemeCommand command);
+       // void UpdateUserTheme(UpdateUserThemeCommand command);
         void UpdateUserUniversity(UpdateUserUniversityCommand command);
         void UpdateUserEmailSettings(UpdateUserEmailSubscribeCommand command);
         Task<CreateBoxCommandResult> CreateBoxAsync(CreateBoxCommand command);

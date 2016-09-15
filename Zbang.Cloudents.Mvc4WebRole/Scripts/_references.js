@@ -85,7 +85,6 @@
 /// <reference path="../Js/HomePage.js" />
 /// <reference path="../js/initangular.js" />
 /// <reference path="../js/menu/menulink.directive.js" />
-/// <reference path="../js/menu/sidemenu.controller.js" />
 /// <reference path="../js/polyfills.js" />
 /// <reference path="../js/shared/ajaxservice.js" />
 /// <reference path="../js/shared/animationclass.js" />

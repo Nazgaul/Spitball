@@ -1,8 +1,5 @@
-﻿interface Array<T> {
-    findIndex(predicate: (search: T) => boolean): number;
-}
-module app {
-
+﻿module app {
+    "use strict";
 
     interface ISerializable<T> {
         deserialize(input: Object): T;

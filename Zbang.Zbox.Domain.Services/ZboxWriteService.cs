@@ -88,16 +88,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
-        public void UpdateUserTheme(UpdateUserThemeCommand command)
-        {
-            using (UnitOfWork.Start())
-            {
-                m_CommandBus.Send(command);
-                UnitOfWork.Current.TransactionalFlush();
-            }
-        }
-
+       
         public async Task<CreateBoxCommandResult> CreateBoxAsync(CreateBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));

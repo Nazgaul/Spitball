@@ -12,7 +12,7 @@ module app {
             "CacheFactory",
             "sbHistory", "$state", "$window"];
 
-        private menuOpened: boolean;
+        //private menuOpened: boolean;
         private showMenu: boolean;
         private showChat: boolean;
         private showBoxAd: boolean;
@@ -32,17 +32,10 @@ module app {
             private $window: angular.IWindowService
         ) {
 
-
-
             //directive with menu
-            userDetails.init().then(() => {
-                this.setTheme();
-            });
-
-            //directive with menu
-            $rootScope.$on("$mdMenuClose", () => {
-                this.menuOpened = false;
-            });
+            //$rootScope.$on("$mdMenuClose", () => {
+            //    this.menuOpened = false;
+            //});
 
             //this.showMenu = true;
             this.showBoxAd = false;
@@ -50,16 +43,6 @@ module app {
             $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState
                /* toParams: ISpitballStateParamsService*/) => {
                 this.showBoxAd = toState.parent === "box";
-
-                // hub
-                //if (toState.name.startsWith("box")) {
-                //    realtimeFactotry.assingBoxes(toParams.boxId);
-                //}
-                //if (toParams["pageYOffset"]) {
-                //    $timeout(() => {
-                //        $window.scrollTo(0, toParams["pageYOffset"]);
-                //    }, 10);
-                //}
                 var path = $location.path(),
                     absUrl = $location.absUrl(),
                     virtualUrl = absUrl.substring(absUrl.indexOf(path));
@@ -67,15 +50,7 @@ module app {
                 __insp.push(["virtualPage"]); // inspectlet
             });
 
-            //$rootScope.$on("$viewContentLoaded",
-            //    () => {
-            //        var yOffsetParam = this.$state.params["pageYOffset"];
-            //        if (yOffsetParam) {
-            //            $window.scrollTo(0, yOffsetParam);
-            //        }
-            //});
-
-            $rootScope.$on('$stateChangeError',
+            $rootScope.$on("$stateChangeError",
                 (event, toState, toParams, fromState, fromParams, error) => {
                     console.error(error);
                 });
@@ -141,14 +116,6 @@ module app {
             this.cacheFactory.clearAll();
             Intercom("shutdown");
         };
-        //initChat = () => {
-        //    var details = this.userDetails.get();
-        //    this.loadChat = details.university.id > 0;
-        //};
-
-        setTheme = () => {
-            this.theme = `theme-${this.userDetails.get().theme}`;
-        };
 
         toggleMenu = () => {
             this.$rootScope.$broadcast("open-menu");
@@ -172,7 +139,7 @@ module app {
 
 
         openMenu = ($mdOpenMenu: any, ev: Event) => {
-            this.menuOpened = true;
+            //this.menuOpened = true;
             if (!this.userDetails.isAuthenticated()) {
                 this.$rootScope.$broadcast("show-unregisterd-box");
                 return;

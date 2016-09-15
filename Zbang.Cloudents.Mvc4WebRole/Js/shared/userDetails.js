@@ -39,9 +39,6 @@ var app;
                 _this.deferDetails = _this.$q.defer();
                 return _this.init();
             };
-            this.setTheme = function (theme) {
-                _this.userData.theme = theme;
-            };
         }
         UserDetails.prototype.setDetails = function (data) {
             var _this = this;
@@ -70,7 +67,6 @@ var app;
                 url: data.url,
                 createTime: new Date(data.dateTime),
                 isAdmin: data.isAdmin,
-                theme: data.theme,
                 culture: data.culture,
                 email: data.email,
                 unread: data.unread,

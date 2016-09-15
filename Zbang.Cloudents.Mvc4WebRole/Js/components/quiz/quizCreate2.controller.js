@@ -1,5 +1,6 @@
 var app;
 (function (app) {
+    "use strict";
     var ValidQuestion;
     (function (ValidQuestion) {
         ValidQuestion[ValidQuestion["AnswerNeedText"] = 1] = "AnswerNeedText";

@@ -83,7 +83,7 @@ namespace Zbang.Zbox.Domain
         public UserType UserType { get; set; }
         public virtual bool IsRegisterUser { get; set; }
         public virtual string Name { get; protected set; }
-        public virtual Theme Theme { get; set; }
+       // public virtual Theme Theme { get; set; }
 
         public virtual string FirstName { get; set; }
         //public virtual string MiddleName { get; set; }

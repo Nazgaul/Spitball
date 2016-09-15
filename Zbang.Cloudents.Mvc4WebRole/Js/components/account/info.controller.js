@@ -16,7 +16,7 @@
 
         self.submit = submitChangeName;
         self.changeLanguage = changeLanguage;
-        self.changeTheme = changeTheme;
+        //self.changeTheme = changeTheme;
 
         self.changeEmail = changeEmail;
         self.cancelChangeEmail = cancelChangeEmail;
@@ -106,17 +106,17 @@
             });
         }
 
-        function changeTheme(theme) {
-            if (theme === self.data.theme) {
-                return;
-            }
-            accountService.changeTheme(theme).then(function () {
-                userDetailsFactory.setTheme(theme);
-                $scope.app.setTheme();
-                self.data.theme = theme;
-                //location.reload(true);
-            });
-        }
+        //function changeTheme(theme) {
+        //    if (theme === self.data.theme) {
+        //        return;
+        //    }
+        //    accountService.changeTheme(theme).then(function () {
+        //        userDetailsFactory.setTheme(theme);
+        //        $scope.app.setTheme();
+        //        self.data.theme = theme;
+        //        //location.reload(true);
+        //    });
+        //}
 
         function showToast(message,location) {
             $scope.app.showToaster(message, location);
