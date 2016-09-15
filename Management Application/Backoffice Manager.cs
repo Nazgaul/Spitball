@@ -389,7 +389,7 @@ namespace Management_Application
                             if (dataTable.Rows[0]["UserImageLarge"].ToString() != "NULL" &&
                                 dataTable.Rows[0]["UserImageLarge"].ToString() != "")
                             {
-                                pictureBoxUser.Load(dataTable.Rows[0]["UserImageLarge"].ToString());
+                                pictureBoxUser.LoadAsync(dataTable.Rows[0]["UserImageLarge"].ToString());
                                 pictureBoxUser.SizeMode = PictureBoxSizeMode.Zoom;
                             }
                             string uniName = "-None-";
