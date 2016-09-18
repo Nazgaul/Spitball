@@ -5,7 +5,6 @@
 
     const string svgUrl = "~/images/site/icons.svg";
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
-
     var logoLink = Url.Action("Index", "dashboard"); //: Url.RouteUrl("homePage");
 }
 <!DOCTYPE html>
@@ -16,7 +15,7 @@
        }
    </script>
    <![endif]-->
-<html lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName" @*ng-app="app"*@ @*ng-strict-di*@>
+<html dir="@(System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "rtl" : "ltr")" lang="@System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName" @*ng-app="app"*@ @*ng-strict-di*@>
 
 <head>
     <style>

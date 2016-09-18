@@ -186,9 +186,6 @@
   <data name="Time" xml:space="preserve">
     <value>Time to</value>
   </data>
-  <data name="WriteComment" xml:space="preserve">
-    <value>Write a comment</value>
-  </data>
   <data name="Wrong" xml:space="preserve">
     <value>Incorrect</value>
   </data>

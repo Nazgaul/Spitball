@@ -17,10 +17,10 @@ var app;
             this.coursesOpen = false;
             this.boxesOpen = false;
             $scope.$on("close-menu", function () {
-                $mdSidenav('left').close();
+                $mdSidenav("left").close();
             });
             $scope.$on("open-menu", function () {
-                $mdSidenav('left').toggle();
+                $mdSidenav("left").toggle();
             });
             $scope.$on("remove-box", function (e, arg) {
                 arg = parseInt(arg, 10);
@@ -87,7 +87,7 @@ var app;
             this.boxesOpen = !this.boxesOpen;
         };
         SideMenu.prototype.isSectionSelected = function (section) {
-            return this.$location.url().startsWith(section);
+            return decodeURI(this.$location.url()).startsWith(section);
         };
         SideMenu.prototype.getBoxes = function () {
             var _this = this;

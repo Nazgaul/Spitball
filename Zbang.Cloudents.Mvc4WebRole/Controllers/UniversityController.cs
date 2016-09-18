@@ -398,7 +398,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (BoxNameAlreadyExistsException)
             {
-                return JsonError(LibraryControllerResources.course_already_exists);
+                return JsonError(BoxControllerResources.BoxExists);
 
             }
             catch (Exception ex)

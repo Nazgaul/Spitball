@@ -277,15 +277,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Write a comment.
-        /// </summary>
-        public static string WriteComment {
-            get {
-                return ResourceManager.GetString("WriteComment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enter the question here.
         /// </summary>
         public static string WriteQuestion {

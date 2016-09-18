@@ -126,9 +126,6 @@
   <data name="Follow" xml:space="preserve">
     <value>Follow</value>
   </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>Invite your classmates to get the most of this class</value>
-  </data>
   <data name="Items" xml:space="preserve">
     <value>Documents</value>
   </data>
@@ -179,9 +176,6 @@
   </data>
   <data name="Comments" xml:space="preserve">
     <value>more comments</value>
-  </data>
-  <data name="ViewComments" xml:space="preserve">
-    <value>View</value>
   </data>
   <data name="PrivacySwitchText" xml:space="preserve">
     <value>Set as private</value>

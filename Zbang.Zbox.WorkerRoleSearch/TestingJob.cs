@@ -82,7 +82,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
             //await y.GetUnsubscribersAsync(1, cancellationToken);
 
             //var x = new List<Task<bool>>();
-            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<ISchedulerProcess>("digestOnceADay");
+
+            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<ISchedulerProcess>("digestOnceADay_-4");
             if (process != null)
             {
                 await process.ExecuteAsync(0, p => Task.FromResult(true), cancellationToken);

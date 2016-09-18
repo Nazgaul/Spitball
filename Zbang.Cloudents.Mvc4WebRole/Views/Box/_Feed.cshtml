@@ -80,7 +80,7 @@
                     </div>
                     <div class="show-more" ng-if="post.repliesCount > 4 && !post.expandReplies">
                         <span ng-click="f.openReply(post)" ng-if="post.repliesCount === 5"> @BoxResources.SingleComment</span>
-                        <span ng-click="f.openReply(post)" ng-if="post.repliesCount > 5"> @BoxResources.ViewComments {{post.repliesCount-4}} @BoxResources.Comments</span>
+                        <span ng-click="f.openReply(post)" ng-if="post.repliesCount > 5"> @GeneralResources.View {{post.repliesCount-4}} @BoxResources.Comments</span>
                     </div>
                 </div>
                 <div class="actions-wrapper">

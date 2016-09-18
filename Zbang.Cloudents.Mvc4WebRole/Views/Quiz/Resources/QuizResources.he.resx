@@ -192,9 +192,6 @@
   <data name="Take" xml:space="preserve">
     <value>להיבחן</value>
   </data>
-  <data name="WriteComment" xml:space="preserve">
-    <value>הוסף תגובה</value>
-  </data>
   <data name="WriteQuestion" xml:space="preserve">
     <value>הכנס את נוסח השאלה כאן</value>
   </data>

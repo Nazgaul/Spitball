@@ -120,9 +120,6 @@
   <data name="BoxExists" xml:space="preserve">
     <value>קורס זה כבר קיים</value>
   </data>
-  <data name="Error" xml:space="preserve">
-    <value>שגיאה</value>
-  </data>
   <data name="LinkExists" xml:space="preserve">
     <value>הקישור ששיתפת כבר קיים</value>
   </data>

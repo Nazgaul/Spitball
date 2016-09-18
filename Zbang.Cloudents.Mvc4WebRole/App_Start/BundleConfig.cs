@@ -46,7 +46,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         public static string CdnEndpointUrl => CdnLocation;
 
         public static void RegisterBundle(
-            IEnumerable<KeyValuePair<string, IEnumerable<string>>> registeredCssBundles,
+            IEnumerable<KeyValuePair<string, IEnumerable<CssWithRtl>>> registeredCssBundles,
             IEnumerable<KeyValuePair<string, IEnumerable<JsFileWithCdn>>> registeredJsBundles
             )
         {
@@ -55,14 +55,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 foreach (var registeredCssBundle in registeredCssBundles)
                 {
-                    RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value);
-                    RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Where(w =>
-                    {
-                        var relativeLocation = $"{w.Replace(Path.GetExtension(w), string.Empty)}.rtl.css";
-                        var physicalLocation = HttpContext.Current.Server.MapPath(relativeLocation);
-                        return File.Exists(physicalLocation);
-                    }).Select(s => $"{s.Replace(Path.GetExtension(s), string.Empty)}.rtl.css"
-                        ));
+                    RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value.Select(s=>s.LeftCssFile));
+                    RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s=>s.RightCssFile));
+                    //RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Where(w =>
+                    //{
+                    //    var relativeLocation = $"{w.Replace(Path.GetExtension(w), string.Empty)}.rtl.css";
+                    //    var physicalLocation = HttpContext.Current.Server.MapPath(relativeLocation);
+                    //    return File.Exists(physicalLocation);
+                    //}).Select(s => $"{s.Replace(Path.GetExtension(s), string.Empty)}.rtl.css"
+                    //    ));
                 }
             }
             if (registeredJsBundles != null)
@@ -153,7 +154,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
             cssBundle.WithReleaseFileRenderer(new SquishItRenderer());
             foreach (var cssFile in cssFiles)
             {
-                cssBundle.Add(cssFile);
+                if (!string.IsNullOrEmpty(cssFile))
+                {
+                    cssBundle.Add(cssFile);
+                }
             }
 
             var cdnUrl = CdnLocation;
@@ -298,10 +302,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     }
 
                     cdnFilePath = Path.Combine(cdnRoot, relativePath);
-                    //if (File.Exists(Path.Combine(cdnRoot, relativePath)))
-                    //{
-                    //    continue;
-                    //}
+
+                    if (File.Exists(Path.Combine(cdnRoot, relativePath)))
+                    {
+                        continue;
+                    }
                     var directory = Path.GetDirectoryName(cdnFilePath);
                     if (directory != null) Directory.CreateDirectory(directory);
                     File.Copy(filePath, Path.Combine(cdnRoot, relativePath), true);
@@ -316,20 +321,5 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
 
-    }
-    public class JsFileWithCdn
-    {
-        public JsFileWithCdn(string localFile)
-        {
-            LocalFile = localFile;
-        }
-        // ReSharper disable once UnusedMember.Local
-        public JsFileWithCdn(string localFile, string cdnFile)
-        {
-            LocalFile = localFile;
-            CdnFile = cdnFile;
-        }
-        public string LocalFile { get; }
-        public string CdnFile { get; }
     }
 }

@@ -228,11 +228,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                         }
                     }));
             var t2 = ZboxReadService.GetItemDetailApiAsync(query);
-            var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
+           
             var userType = ViewBag.UserType as UserRelationshipType?;
             var t3 = Zbox.Infrastructure.Extensions.TaskExtensions.CompletedTask;
             if (!userType.HasValue || (int)userType.Value < 2)
             {
+                var autoFollowCommand = new SubscribeToSharedBoxCommand(userId, boxId);
                 t3 = ZboxWriteService.SubscribeToSharedBoxAsync(autoFollowCommand);
             }
 

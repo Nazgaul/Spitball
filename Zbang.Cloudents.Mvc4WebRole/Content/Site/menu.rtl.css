@@ -39,6 +39,7 @@
   display: flex;
 }
 .page-body .main-md-sidenav {
+  right: 0;
   position: fixed !important;
   top: 65px;
   border-radius: 5px;

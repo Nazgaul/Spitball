@@ -132,12 +132,6 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me</value>
   </data>
-  <data name="AlreadyHave" xml:space="preserve">
-    <value>Already have an account?</value>
-  </data>
-  <data name="CheckEmailTitle" xml:space="preserve">
-    <value>Check your email</value>
-  </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>Create an account</value>
   </data>
@@ -159,9 +153,6 @@
   <data name="LogIn" xml:space="preserve">
     <value>Log in</value>
   </data>
-  <data name="LoginToAccount" xml:space="preserve">
-    <value>Welcome back Spitballer</value>
-  </data>
   <data name="NoWorries" xml:space="preserve">
     <value>No worries, click</value>
   </data>
@@ -177,11 +168,4 @@
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>
-  <data name="ToResetPassword" xml:space="preserve">
-    <value>To reset your password</value>
-  </data>
-  <data name="CreateAccountFormHeader" xml:space="preserve">
-    <value>Let’s connect you with
-your study buddies</value>
-  <comment>NewShlomi</comment></data>
 </root>

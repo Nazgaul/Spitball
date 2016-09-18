@@ -132,9 +132,6 @@
   <data name="RememberMe" xml:space="preserve">
     <value>זכור אותי</value>
   </data>
-  <data name="AlreadyHave" xml:space="preserve">
-    <value>כבר יש לך חשבון?</value>
-  </data>
   <data name="CreateAccount" xml:space="preserve">
     <value>צור חשבון</value>
   </data>
@@ -156,9 +153,6 @@
   <data name="LogIn" xml:space="preserve">
     <value>התחבר</value>
   </data>
-  <data name="LoginToAccount" xml:space="preserve">
-    <value>התחבר לחשבון שלך</value>
-  </data>
   <data name="NoWorries" xml:space="preserve">
     <value>אל דאגה, לחץ</value>
   </data>
@@ -171,16 +165,7 @@
   <data name="SignUp" xml:space="preserve">
     <value>הרשם</value>
   </data>
-  <data name="ToResetPassword" xml:space="preserve">
-    <value>לאיפוס סיסמא</value>
-  </data>
-  <data name="CheckEmailTitle" xml:space="preserve">
-    <value>בדוק את תיבת המייל שלך</value>
-  </data>
   <data name="Submit" xml:space="preserve">
     <value>שלח</value>
-  </data>
-  <data name="CreateAccountFormHeader" xml:space="preserve">
-    <value>זה הזמן להצטרף לחבריך לספסל הלימודים</value>
   </data>
 </root>

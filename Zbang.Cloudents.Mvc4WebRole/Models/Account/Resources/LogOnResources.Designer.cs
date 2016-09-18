@@ -61,39 +61,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Already have an account?.
-        /// </summary>
-        public static string AlreadyHave {
-            get {
-                return ResourceManager.GetString("AlreadyHave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Check your email.
-        /// </summary>
-        public static string CheckEmailTitle {
-            get {
-                return ResourceManager.GetString("CheckEmailTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Create an account.
         /// </summary>
         public static string CreateAccount {
             get {
                 return ResourceManager.GetString("CreateAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Let’s connect you with
-        ///your study buddies.
-        /// </summary>
-        public static string CreateAccountFormHeader {
-            get {
-                return ResourceManager.GetString("CreateAccountFormHeader", resourceCulture);
             }
         }
         
@@ -157,15 +129,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         public static string LogIn {
             get {
                 return ResourceManager.GetString("LogIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome back Spitballer.
-        /// </summary>
-        public static string LoginToAccount {
-            get {
-                return ResourceManager.GetString("LoginToAccount", resourceCulture);
             }
         }
         
@@ -247,15 +210,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To reset your password.
-        /// </summary>
-        public static string ToResetPassword {
-            get {
-                return ResourceManager.GetString("ToResetPassword", resourceCulture);
             }
         }
     }

@@ -61,15 +61,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This class already exists.
-        /// </summary>
-        public static string course_already_exists {
-            get {
-                return ResourceManager.GetString("course_already_exists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This department already exists.
         /// </summary>
         public static string DepartmentAlreadyExists {
