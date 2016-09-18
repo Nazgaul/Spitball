@@ -15,14 +15,15 @@ module app {
             private dashboardService: IDashboardService,
             private $location: angular.ILocationService,
             private $scope: angular.IScope,
-            private $mdSidenav: angular.material.ISidenavService) {
+            private $mdSidenav: angular.material.ISidenavService
+           ) {
             $scope.$on("close-menu", () => {
-                $mdSidenav('left').close();
+                $mdSidenav("left").close();
                 //$scope.app.menuOpened = false;
                 //self.menuOpened = !self.menuOpened;
             });
             $scope.$on("open-menu", () => {
-                $mdSidenav('left').toggle();
+                $mdSidenav("left").toggle();
             });
             $scope.$on("remove-box", (e, arg) => {
                 arg = parseInt(arg, 10);
@@ -95,7 +96,8 @@ module app {
 
 
         isSectionSelected(section) {
-            return this.$location.url().startsWith(section);
+            
+            return decodeURI(this.$location.url()).startsWith(section);
         }
 
         private getBoxes() {
