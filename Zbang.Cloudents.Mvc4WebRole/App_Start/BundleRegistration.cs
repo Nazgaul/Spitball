@@ -10,82 +10,79 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         }
 
-        private static IEnumerable<KeyValuePair<string, IEnumerable<string>>> RegisterCss()
+        private static IEnumerable<KeyValuePair<string, IEnumerable<CssWithRtl>>> RegisterCss()
         {
-            var cssDictionary = new Dictionary<string, IEnumerable<string>>
+            var cssDictionary = new Dictionary<string, IEnumerable<CssWithRtl>>
             {
 
 
                 ["homePage"] = new[]
                     {
-
-                        "~/content/site/GeneralWithStatic.css",
-                        //"~/content/site/general.css",
-
-                        "~/content/homepage/homePage2.css",
-                        "~/content/site/staticPage.css",
-                        "~/content/site/layout.css",
-                        "~/content/signin/custom.css",
-                        "~/content/jquery.bxslider.css"
+                        new CssWithRtl("~/content/site/GeneralWithStatic.css","~/content/site/GeneralWithStatic.rtl.css"),
+                        new CssWithRtl("~/content/homepage/homePage2.css","~/content/homepage/homePage2.rtl.css"),
+                        new CssWithRtl("~/content/site/staticPage.css","~/content/site/staticPage.rtl.css"),
+                        new CssWithRtl("~/content/site/layout.css","~/content/site/layout.rtl.css"),
+                        new CssWithRtl("~/content/signin/custom.css","~/content/signin/custom.rtl.css"),
+                        new CssWithRtl("~/content/jquery.bxslider.css","~/content/jquery.bxslider.rtl.css")
                     },
 
 
                 ["staticPage"] = new[]
                     {
-                        "~/content/site/GeneralWithStatic.css",
-                        //"~/content/site/general.css",
-                        "~/content/site/staticPage.css",
-                        "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
-                        "~/content/site/layout.css",
-                        "~/content/site/itemGallery.css"
+                        new CssWithRtl("~/content/site/GeneralWithStatic.css"),
+                        new CssWithRtl("~/content/site/staticPage.css"),
+                        new CssWithRtl("~/Content/homepage/bootstrap.css"), //TODO: check if we need this.
+                        new CssWithRtl("~/content/site/layout.css"),
+                        new CssWithRtl("~/content/site/itemGallery.css")
                     },
 
                 ["signin"] = new[] // passwordUpdate uses it - this page will be modified in v4.
                     {
-                        "~/Content/homepage/bootstrap.css", //TODO: check if we need this.
-                        "~/Content/signin/login-soft.css",
-                        "~/Content/signin/components-md.css",
-                        "~/Content/signin/plugins-md.css",
-                        "~/Content/site/layout.css",
-                        "~/Content/signin/default.css",
-                        "~/Content/signin/custom.css"
+                        new CssWithRtl("~/Content/homepage/bootstrap.css"), //TODO: check if we need this.
+                        new CssWithRtl("~/Content/signin/login-soft.css"),
+                        new CssWithRtl("~/Content/signin/components-md.css"),
+                        new CssWithRtl("~/Content/signin/plugins-md.css"),
+                        new CssWithRtl("~/Content/site/layout.css"),
+                        new CssWithRtl("~/Content/signin/default.css"),
+                        new CssWithRtl("~/Content/signin/custom.css")
                     },
 
                 ["site4"] = new[]
                     {
 
-                        "~/content/angular-material.css",
-                        "~/bower_components/textAngular/dist/textAngular.css",
-                        "~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css",
-                        "~/content/site/inline-material.css",
-                        "~/content/bootstrap/bootstrap.css",
-                        "~/content/site/profile.css",//
-                        "~/content/site/components-rounded.css",//
-                        "~/content/site/layout.css",//
-                        "~/content/site/light.css",//
-                        "~/content/site/menu.css",
-                        "~/content/site/chat.css",
-                        "~/content/site/header.css",
-                        "~/content/site/GeneralWithStatic.css",
-                        "~/content/site/general.css", // this should be on top
-                        "~/content/site/angularMaterialOverride.css",
-                        "~/content/site/dashboard.css",
-                        "~/content/site/box.css",
-                        "~/content/site/feed.css",
-                        "~/content/site/user.css",
-                        "~/content/site/accountSettings.css",
-                        "~/content/site/library.css",
-                        "~/content/site/item.css",
-                        "~/content/site/quiz.css",
-                        "~/content/site/quizCreate.css",
-                        "~/content/site/share.css",
-                        "~/content/site/leaderboard.css",
-                        "~/content/site/search.css",
-                        "~/content/site/libraryChoose.css",
-                        "~/content/site/error.css",
-                        "~/content/site/accordion.css",
-                        "~/content/site/themedark.css",
-                        "~/content/site/themelight.css"
+                        new CssWithRtl("~/content/angular-material.css","~/content/angular-material.css"),
+                        new CssWithRtl(null,"~/content/angular-material-rtl-fixes.css"),
+                        new CssWithRtl("~/bower_components/textAngular/dist/textAngular.css"),
+                        new CssWithRtl("~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"),
+                        new CssWithRtl("~/content/site/inline-material.css"),
+                        new CssWithRtl("~/content/bootstrap/bootstrap.css"),
+                        new CssWithRtl("~/content/site/profile.css"),//
+                        new CssWithRtl("~/content/site/components-rounded.css"),//
+                        new CssWithRtl("~/content/site/layout.css"),//
+                        new CssWithRtl("~/content/site/light.css"),//
+                        new CssWithRtl("~/content/site/menu.css"),
+                        new CssWithRtl("~/content/site/chat.css"),
+                        new CssWithRtl("~/content/site/header.css"),
+                        new CssWithRtl("~/content/site/GeneralWithStatic.css"),
+                        new CssWithRtl("~/content/site/general.css"), // this should be on top
+                        new CssWithRtl("~/content/site/angularMaterialOverride.css"),
+                        new CssWithRtl("~/content/site/dashboard.css"),
+                        new CssWithRtl("~/content/site/box.css"),
+                        new CssWithRtl("~/content/site/feed.css"),
+                        new CssWithRtl("~/content/site/user.css"),
+                        new CssWithRtl("~/content/site/accountSettings.css"),
+                        new CssWithRtl("~/content/site/library.css"),
+                        new CssWithRtl("~/content/site/item.css"),
+                        new CssWithRtl("~/content/site/quiz.css"),
+                        new CssWithRtl("~/content/site/quizCreate.css"),
+                        new CssWithRtl("~/content/site/share.css"),
+                        new CssWithRtl("~/content/site/leaderboard.css"),
+                        new CssWithRtl("~/content/site/search.css"),
+                        new CssWithRtl("~/content/site/libraryChoose.css"),
+                        new CssWithRtl("~/content/site/error.css"),
+                        new CssWithRtl("~/content/site/accordion.css"),
+                        new CssWithRtl("~/content/site/themedark.css"),
+                        new CssWithRtl("~/content/site/themelight.css")
                     }
 
             };

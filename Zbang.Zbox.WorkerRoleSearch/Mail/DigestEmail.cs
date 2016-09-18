@@ -20,15 +20,17 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private const string ServiceName = "Digest email";
         private readonly NotificationSettings m_DigestEmailHourBack;
+        private readonly int m_UtcTimeOffset;
 
         private readonly HashSet<string> m_EmailHash = new HashSet<string>();
 
         public DigestEmail(IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService,
-            NotificationSettings hourForEmailDigest/*, int utcTimeOffset*/)
+            NotificationSettings hourForEmailDigest, int utcTimeOffset)
         {
             m_MailComponent = mailComponent;
             m_ZboxReadService = zboxReadService;
             m_DigestEmailHourBack = hourForEmailDigest;
+            m_UtcTimeOffset = utcTimeOffset;
         }
 
         private string GetServiceName()
@@ -57,7 +59,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     {
                         pageSize = 10;
                     }
-                    var usersquery = new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize, 0 /*utcTime*/);
+                    var usersquery = new GetUserByNotificationQuery(m_DigestEmailHourBack, page, pageSize, m_UtcTimeOffset);
                     var users =
                         (await
                             m_ZboxReadService.GetUsersByNotificationSettingsAsync(
@@ -217,10 +219,10 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     await progressAsync(page);
                     await SendEmailStatusAsync($"error digest email {ex}");
                     TraceLog.WriteError($"{GetServiceName()} error digest email {ex}");
-                    return false;
+                    //return false;
                 }
             }
-            await SendEmailStatusAsync($"finish to run  with page {page}");
+            await SendEmailStatusAsync($"finish to run  with page {page} utc {m_UtcTimeOffset} total: {m_EmailHash.Count}");
             TraceLog.WriteInfo($"{GetServiceName()} finish running  mail page {page}");
             return true;
         }

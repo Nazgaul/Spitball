@@ -263,6 +263,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\BundleRegistration.cs" />
     <Compile Include="App_Start\DisplayConfig.cs" />
+    <Compile Include="App_Start\JsFileWithCdn.cs" />
     <Compile Include="App_Start\SquishItRenderer.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\ViewConfig.cs" />
@@ -1566,6 +1567,7 @@
     <Content Include="Content\Site\GeneralWithStatic.less" />
     <Content Include="Scripts\angular-aria\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate\angular-animate.min.js.map" />
+    <Content Include="Content\angular-material-rtl-fixes.less" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />

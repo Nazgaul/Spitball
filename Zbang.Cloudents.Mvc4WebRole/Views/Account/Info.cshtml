@@ -17,7 +17,7 @@
             </div>
         </div>
         <div flex="50" flex-xs="100">
-            <h2>@AccountResource.ChangeTheme</h2>
+            @*<h2>@AccountResource.ChangeTheme</h2>
             <div layout="row" layout-align="space-between center" layout-wrap>
                 <button class="theme-section" ng-class="{selected:i.data.theme ==='@Theme.Dark.GetStringValueLowerCase()'}" type="button" ng-click="i.changeTheme('@Theme.Dark.GetStringValueLowerCase()')" ga-track-event="['settings', 'change theme dark']">
                     @AccountResource.ChangeThemeDark
@@ -27,7 +27,7 @@
                     @AccountResource.ChangeThemeLight
                     <div class="themeLight"></div>
                 </button>
-            </div>
+            </div>*@
         </div>
         <div flex layout="row" flex-xs="100" layout-align="start center" class="left-flex university">
             <img ng-src="{{::i.data.universityImage}}" class="uni-image" alt="university logo" width="50" height="50" />

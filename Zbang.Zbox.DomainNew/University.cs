@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Domain
             }
             if (Country == "US")
             {
-                UtcOffset = -6;
+                UtcOffset = -5;
             }
         }
 

@@ -83,7 +83,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             }
                             else
                             {
-                                list.Add(Task.FromResult(false));
+                                list.Add(Infrastructure.Extensions.TaskExtensions.CompletedTaskFalse);
                                 TraceLog.WriteWarning($"cant resolve {property.Name}");
                             }
 
@@ -93,7 +93,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                         TraceLog.WriteInfo($"schduler lister delete message: {result}");
                         return result;
 
-                    }, TimeSpan.FromMinutes(15), 2, cancellationToken);
+                    }, TimeSpan.FromMinutes(15), 3, cancellationToken);
                 }
                 catch (TaskCanceledException)
                 {
