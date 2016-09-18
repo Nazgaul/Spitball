@@ -1,4 +1,4 @@
-﻿@import "variables.less";
+﻿@import "themeLight.less";
 
 .search {
     //.fullScreen();
@@ -23,7 +23,6 @@
         overflow: hidden;
         padding-bottom: 0;
         display: block;
-        margin: 20px;
 
         .base {
             width: 40%;
@@ -41,9 +40,14 @@
             line-height: 16px;
 
             h5 {
-                margin: 7px 0;
+                margin: 7px 0 12px 0;
                 font-weight: 700;
-                color: @textColorGrey;
+                color: @headerbackground;
+            }
+
+            span {
+                font-size: 12px;
+                line-height: 18px;
             }
         }
     }

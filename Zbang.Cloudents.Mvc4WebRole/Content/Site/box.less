@@ -52,18 +52,21 @@
 
     .name-and-icon {
         width: 100%;
+
+        .name {
+            background: @buttonColorBlue;
+        }
     }
 }
 
 .folders .folder-name .content {
     //padding: 2px 6px;
     text-align: center;
-        color: @textColorWhite;
+    color: @textColorWhite;
 
     div:last-child {
         margin-top: 3px;
     }
-
 }
 
 .folder-selected {
@@ -102,12 +105,12 @@
     display: inline-block;
     //.placeHolder(@textColorBlack);
     input {
-        border: 5px solid;
+        border: 5px solid @buttonColorBlue;
         //border: 10px solid @backgroundColorMenu;
         background: #f5f5f5;
         color: @backgroundColorMouseOver;
-        margin-top: -5px;
-        border-radius: 0 0 5px 5px;
+        margin-top: -15px;
+        border-radius: 0 0 4px 4px;
         width: 200px;
         float: right;
         padding: 0 8px;
@@ -155,12 +158,11 @@
         word-break: break-word;
         //font-weight: bold;
     }
-    
+
     &.need-follow .invite-btn {
         background: @textColorWhite;
         color: @textColorFollow;
     }
-
 }
 
 .add svg {
@@ -289,7 +291,6 @@
         font-size: 18px;
         // color: @textColorGrey;
         text-align: center;
-        white-space: nowrap;
     }
 
     svg {
@@ -367,8 +368,9 @@
     .user-section, .admin {
         min-width: 0;
     }
+
     .user-section {
-        width:100%; // ios fix
+        width: 100%; // ios fix
     }
 
     .admin {
@@ -420,7 +422,7 @@
 .item, .quiz {
 
     .base {
-        padding: 5px;
+        padding: 5px 5px 2px 5px;
         display: inline-block;
         width: 100%;
     }
@@ -431,14 +433,25 @@
 
     .stats {
         font-size: 14px;
-        padding: 0 12px;
+        padding: 3px 12px 0 12px;
         //TODO:angular flex
         .displayFlex();
         .justifyContet(space-between);
 
+        .views, .likes {
+            .displayFlex;
+            .align-items(center);
+            .justifyContet(space-between);
+            width: 26px;
+        }
+
+        .likes svg {
+            margin-bottom: 2px;
+        }
+
         svg {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
         }
     }
 }
@@ -625,11 +638,6 @@
         height: 70px;
         background: rgba(24,28,29,0.75);
     }
-
-    svg {
-        vertical-align: top;
-        margin-top: 5px;
-    }
 }
 
 
@@ -766,10 +774,6 @@
         text-align: right;
         padding: 20px 10px 10px 0;
     }
-}
-
-md-tabs.box-nav-bar md-tabs-wrapper {
-    margin-bottom: 0;
 }
 
 #dropElement {

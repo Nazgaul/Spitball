@@ -210,6 +210,7 @@ body {
 
 .page-tabs {
     background: @buttonColorBlue;
+    margin-bottom: 10px;
 
     .md-tab.md-active span {
         color: @textColorLightWhite;
@@ -221,6 +222,10 @@ body {
 
     md-ink-bar {
         display: none;
+    }
+
+    md-tabs-wrapper {
+        margin-bottom: 0;
     }
 }
 
@@ -410,6 +415,7 @@ body {
 .md-dialog-container {
     z-index: 80;
 }
+
 md-input-container label:not(.md-container-ignore).md-required:after {
     content: none;
 }

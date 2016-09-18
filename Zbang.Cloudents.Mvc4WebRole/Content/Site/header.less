@@ -3,8 +3,12 @@
 .headerMenu {
     width: 20px;
     height: 20px;
+    fill: @textColorGrey;
 }
 
+.mdno-touchevents .headerMenu:hover {
+    fill: @textColorWhite;
+}
 
 .searchIcon {
     height: 100%;
@@ -149,7 +153,6 @@
 }
 
 .nav-bar {
-    padding-left: 10px;
     position: fixed;
     top: 0;
     right: 0;
@@ -167,7 +170,7 @@
         .search-form-wrapper {
             max-width: 350px;
             width: 100%;
-            margin: 0 60px;
+            margin: 0 36px;
 
             @media (max-width: 700px) {
                 margin: 0 15px;
@@ -248,6 +251,7 @@
 
     .menu-toggler {
         height: 20px;
+        margin-left: 8px;
         //align-self: center;
         @media (min-width: 990px) {
             display: none;

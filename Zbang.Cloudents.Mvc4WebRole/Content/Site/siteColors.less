@@ -25,7 +25,6 @@
 
             .content {
                 background: @borderColorBottomGrey;
-                border: 1px solid @textColorDarkGrey;
                 box-shadow: 0 0 2px @backgroundColor;
             }
 
@@ -233,10 +232,10 @@
         }
 
         .stats {
-            color: @textColorWhite;
+            color: @headerbackground;
 
             svg {
-                fill: @textColorWhite;
+                fill: @headerbackground;
             }
         }
     }
@@ -1175,7 +1174,7 @@ Page Loading
     }
 
     .page-body {
-        md-sidenav {
+        .main-md-sidenav {
             //background: none;
             background: @backgroundColor;
 
@@ -1220,7 +1219,7 @@ Page Loading
         .placeHolder(@textColorGrey);
 
         em {
-            color: @textColorOrange;
+            color: #ff4500;
         }
 
         .item, .quiz {

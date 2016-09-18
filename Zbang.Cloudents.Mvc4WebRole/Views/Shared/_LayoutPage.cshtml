@@ -41,7 +41,7 @@
     <header id="main-nav" class="nav-bar" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
         <div class="logo-search" layout="row" layout-align="start center">
             <button hide-gt-sm type="button" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" hide-chat-on-mobile="click" ga-track-event="['header', 'open menu']">
-                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu svgTC17 hoverSvgTC18" })
+                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
             </button>
             <div class="logo">
                 <div class="page-logo">
