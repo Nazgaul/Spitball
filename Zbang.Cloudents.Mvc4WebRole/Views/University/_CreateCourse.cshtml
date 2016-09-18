@@ -2,10 +2,6 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 <div class="dashboard-stat2" id="createCourse">
-    <button ng-hide="l.createBoxOn" type="button" ng-click="l.openCreateBox()" class="create-btn" ga-track-event="['university', 'add new class']">
-        <div class="plus">@Html.Svg("~/images/site/icons.svg", "add")</div>
-        <div class="title">@UniversityResources.AddClass</div>
-    </button>
     <form name="createBox" novalidate ng-submit="l.createBox(createBox)" ng-show="l.createBoxOn">
         <md-content flex>
             <md-input-container flex ng-if="!l.secondStep">

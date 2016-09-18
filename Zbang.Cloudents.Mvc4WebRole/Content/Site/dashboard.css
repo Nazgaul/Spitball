@@ -928,14 +928,10 @@ Page Loading
   color: #ffa500;
 }
 .theme-light .library .department {
-  border: 3px solid #c3c3c3;
-  color: #888b8e;
+  color: #212325;
 }
 .theme-light .library .dots-3 {
   fill: #212325;
-}
-.theme-light .library .course-nav .name {
-  background: #ffffff;
 }
 .theme-light .library-choose .univeristy {
   color: #888b8e;
@@ -1632,63 +1628,11 @@ Page Loading
     flex-wrap: wrap;
   }
 }
-.dashboard .dashboard-actions .actions-container .create-btn,
-.dashboard .dashboard-actions .actions-container .inviteBtn {
-  background: #ffffff;
-  padding: 8px 0;
-  border-radius: 5px;
-  margin: 8px;
-  box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
-}
 @media (min-width: 600px) {
   .dashboard .dashboard-actions .actions-container .create-btn,
   .dashboard .dashboard-actions .actions-container .inviteBtn {
     max-width: calc(50% - 16px);
   }
-}
-.dashboard .dashboard-actions .actions-container .create-btn.active,
-.dashboard .dashboard-actions .actions-container .inviteBtn.active {
-  background: #4190b9;
-}
-.dashboard .dashboard-actions .actions-container .create-btn.active .wrapper .text,
-.dashboard .dashboard-actions .actions-container .inviteBtn.active .wrapper .text {
-  color: #ffffff;
-}
-.dashboard .dashboard-actions .actions-container .create-btn.active .wrapper svg,
-.dashboard .dashboard-actions .actions-container .inviteBtn.active .wrapper svg {
-  fill: #ffffff;
-}
-.dashboard .dashboard-actions .actions-container .create-btn:not(.active):hover .wrapper svg,
-.dashboard .dashboard-actions .actions-container .inviteBtn:not(.active):hover .wrapper svg {
-  fill: #4190b9 !important;
-}
-.dashboard .dashboard-actions .actions-container .create-btn:not(.active):hover .wrapper span,
-.dashboard .dashboard-actions .actions-container .inviteBtn:not(.active):hover .wrapper span {
-  color: #4190b9 !important;
-}
-.dashboard .dashboard-actions .actions-container .create-btn .wrapper,
-.dashboard .dashboard-actions .actions-container .inviteBtn .wrapper {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-}
-.dashboard .dashboard-actions .actions-container .create-btn .wrapper svg,
-.dashboard .dashboard-actions .actions-container .inviteBtn .wrapper svg {
-  fill: #4190b9;
-  margin-right: 10px;
-}
-.dashboard .dashboard-actions .actions-container .create-btn .wrapper .text,
-.dashboard .dashboard-actions .actions-container .inviteBtn .wrapper .text {
-  color: #4190b9;
-}
-.dashboard .dashboard-actions .actions-container .create-btn .wrapper span,
-.dashboard .dashboard-actions .actions-container .inviteBtn .wrapper span {
-  line-height: normal;
-  padding-right: 6px;
 }
 .dashboard .dashboard-actions .actions-container .create-btn svg {
   width: 14px;

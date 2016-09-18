@@ -1,5 +1,5 @@
 ﻿/* Set default body */
-@import "variables.less";
+@import "themeLight.less";
 
 .library {
     margin-bottom: 50px;
@@ -43,12 +43,20 @@
 
     .department {
         border-radius: 0;
+        box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
+        padding: 15px;
+        .displayFlex;
+        flex-direction: column;
+        .align-items(stretch);
+        .justifyContet(space-between);
 
         .display {
             margin-bottom: 0;
+            flex-shrink: 0;
+            flex-grow: 1;
 
             h3 {
-                margin-top: 22px;
+                margin: 0;
                 height: 58px;
                 line-height: 29px;
             }
@@ -71,7 +79,7 @@
 
     .back-arrow {
         svg {
-            vertical-align: middle;
+            fill: @textColorWhite;
         }
     }
 
@@ -93,12 +101,15 @@
 
         h2 {
             margin: 0;
+            .displayFlex;
+            .align-items(center);
+            .justifyContet(center);
         }
 
         .name {
-            font-size: 16px;
-            padding: 10px;
+            font-size: 22px;
             width: 100%;
+            color: @textColorWhite;
         }
 
         button {
@@ -176,7 +187,6 @@
     .create-box {
         &.create-box-show, &.create-deparment-show {
             display: block !important; //override hide-xs
-
             .dashboard-stat2 {
                 border: 2px solid @borderColorLightGrey;
             }

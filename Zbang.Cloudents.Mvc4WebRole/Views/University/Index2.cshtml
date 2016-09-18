@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 
 <div class="page-title">
     <div class="university" layout="row" layout-align="start center" univeristy-cover="{{::l.university.image}}">
@@ -10,8 +11,8 @@
     <div class="course-nav" ng-if="l.nodeDetail && !l.settingsOpen" layout="row" layout-align="space-between center">
         <a href="{{::l.nodeDetail.parentUrl}}" ga-track-event="['university', 'back arrow']">
             <h2 layout="row">
-                <span class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow", new { @class = "svgTC11" })</span>
-                <span class="name ellipsis backgroundTC34 textTC4">
+                <span class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow")</span>
+                <span class="name ellipsis">
                     {{::l.nodeDetail.name}}
                 </span>
             </h2>
@@ -28,11 +29,9 @@
 <div ng-if="!l.state.emptyTopTree" layout="row" layout-padding layout-wrap class="library-list">
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat="dep in l.departments track by dep.id">
         <a ng-click="l.goToSubLib(dep,$event)" href="{{::dep.url}}" class="dashboard-stat2 department backgroundTC1" d-color="{{::dep.name.length}}" ga-track-event="['university', 'select department']">
-            <div class="corner" d-color="{{::dep.name.length}}">
-            </div>
             <div class="display">
                 <div class="number">
-                    <h3 class="multi-line-ellipsis limit-two">{{::dep.name}}</h3>
+                    <h3 class="multi-line-ellipsis limit-two" d-color="{{::dep.name.length}}">{{::dep.name}}</h3>
                 </div>
             </div>
             <div class="progress-info">
@@ -66,16 +65,29 @@
             </md-menu-content>
         </md-menu>
     </div>
+    <div layout="row" layout-padding layout-wrap flex="100">
+        <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" hide-xs
+             ng-class="{'create-deparment-show' : l.createDepartmentOn, 'create-init' : l.createDepartmentShow && l.createClassShow}"
+             class="create-box flex" ng-if="l.createDepartmentShow">
+            <button type="button" ng-click="l.openCreateDepartment()" class="create-btn" ga-track-event="['university', 'add new department']">
+                <div class="wrapper">
+                    @Html.Svg("~/images/site/icons.svg", "add")
+                    <span class="text">@UniversityResources.AddDepartment</span>
+                </div>
+            </button>
+            @*@{ Html.RenderPartial("_CreateDepartment");}*@
+        </div>
+        <button flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-hide="l.createBoxOn" type="button" ng-click="l.openCreateBox()" class="create-btn" ga-track-event="['university', 'add new class']">
+            <div class="wrapper">
+                @Html.Svg("~/images/site/icons.svg", "add")
+                <span class="text">@UniversityResources.AddClass</span>
+            </div>
+        </button>
+    </div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
-    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" hide-xs
-         ng-class="{'create-deparment-show' : l.createDepartmentOn, 'create-init' : l.createDepartmentShow && l.createClassShow}"
-         class="create-box flex" ng-if="l.createDepartmentShow">
-        @{ Html.RenderPartial("_CreateDepartment");}
-    </div>
-    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" hide-xs
-         ng-class="{'create-box-show' : l.createBoxOn, 'create-init' : l.createDepartmentShow && l.createClassShow}" class="create-box flex" ng-if="l.createClassShow">
-        @{ Html.RenderPartial("_CreateCourse");}
-    </div>
+
+
+
 </div>
 <button type="button" class="add" hide show-xs ng-click="l.openCreateBox()"
         focus-upon-click="createClassInput"

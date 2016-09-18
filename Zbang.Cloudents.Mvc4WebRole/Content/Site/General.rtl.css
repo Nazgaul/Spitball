@@ -928,14 +928,10 @@ Page Loading
   color: #ffa500;
 }
 .theme-light .library .department {
-  border: 3px solid #c3c3c3;
-  color: #888b8e;
+  color: #212325;
 }
 .theme-light .library .dots-3 {
   fill: #212325;
-}
-.theme-light .library .course-nav .name {
-  background: #ffffff;
 }
 .theme-light .library-choose .univeristy {
   color: #888b8e;
@@ -1735,6 +1731,59 @@ body .box-template .number {
 .page-tabs md-tabs-wrapper {
   margin-bottom: 0;
 }
+.create-btn,
+.inviteBtn {
+  width: 100%;
+  background: #ffffff;
+  padding: 8px 0;
+  border-radius: 5px;
+  margin: 8px;
+  box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
+}
+.create-btn.active,
+.inviteBtn.active {
+  background: #4190b9;
+}
+.create-btn.active .wrapper .text,
+.inviteBtn.active .wrapper .text {
+  color: #ffffff;
+}
+.create-btn.active .wrapper svg,
+.inviteBtn.active .wrapper svg {
+  fill: #ffffff;
+}
+.create-btn:not(.active):hover .wrapper svg,
+.inviteBtn:not(.active):hover .wrapper svg {
+  fill: #4190b9 !important;
+}
+.create-btn:not(.active):hover .wrapper span,
+.inviteBtn:not(.active):hover .wrapper span {
+  color: #4190b9 !important;
+}
+.create-btn .wrapper,
+.inviteBtn .wrapper {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.create-btn .wrapper svg,
+.inviteBtn .wrapper svg {
+  fill: #4190b9;
+  margin-left: 10px;
+}
+.create-btn .wrapper .text,
+.inviteBtn .wrapper .text {
+  color: #4190b9;
+}
+.create-btn .wrapper span,
+.inviteBtn .wrapper span {
+  line-height: normal;
+  padding-left: 6px;
+}
 .create-box:hover .dashboard-stat2 {
   border: 2px solid #4190b9;
   color: #4190b9;
@@ -1763,10 +1812,6 @@ body .box-template .number {
   position: absolute;
   bottom: 12px;
   left: 12px;
-}
-.create-box .create-btn {
-  width: 100%;
-  height: 100%;
 }
 .create-box .create-btn div {
   font-size: 14px;
