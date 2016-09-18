@@ -156,9 +156,6 @@
   <data name="Logout" xml:space="preserve">
     <value>התנתק</value>
   </data>
-  <data name="Members" xml:space="preserve">
-    <value>סטודנטים</value>
-  </data>
   <data name="Oops" xml:space="preserve">
     <value>אופס!</value>
   </data>

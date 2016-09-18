@@ -135,9 +135,6 @@
   <data name="Lang" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="Last" xml:space="preserve">
-    <value>Last Name</value>
-  </data>
   <data name="NewPassword" xml:space="preserve">
     <value>New password</value>
   </data>
@@ -158,9 +155,6 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
-  </data>
-  <data name="CheckYourEmail" xml:space="preserve">
-    <value>Check your email</value>
   </data>
   <data name="VerificationCode" xml:space="preserve">
     <value>A verification code was sent to your new email</value>

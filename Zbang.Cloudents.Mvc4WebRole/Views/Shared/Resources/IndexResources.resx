@@ -131,7 +131,7 @@
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Home</value>
-    <comment>need to remove</comment>
+    
   </data>
   <data name="Draft" xml:space="preserve">
     <value>Draft</value>
@@ -156,9 +156,6 @@
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Log Out</value>
-  </data>
-  <data name="Members" xml:space="preserve">
-    <value>Classmates</value>
   </data>
   <data name="Oops" xml:space="preserve">
     <value>Oops!</value>

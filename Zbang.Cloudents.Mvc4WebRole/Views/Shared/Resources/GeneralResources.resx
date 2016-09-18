@@ -196,9 +196,6 @@ but try checking the classes tab for related material</value>
     <value>There are no quizzes that match your search,
 but try checking the documents tab for related material</value>
   </data>
-  <data name="NoResults" xml:space="preserve">
-    <value>No results found</value>
-  </data>
   <data name="UnregHeader" xml:space="preserve">
     <value>Study with Spitball</value>
   </data>

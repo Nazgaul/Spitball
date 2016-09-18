@@ -172,9 +172,6 @@
   <data name="Search" xml:space="preserve">
     <value>חפש מסמכים, קורסים</value>
   </data>
-  <data name="NoResults" xml:space="preserve">
-    <value>לא נמצאו תוצאות</value>
-  </data>
   <data name="Download" xml:space="preserve">
     <value>הורד</value>
   </data>

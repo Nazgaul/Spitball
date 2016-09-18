@@ -322,15 +322,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 57,000 classes.
-        /// </summary>
-        public static string FeaturesSectionText3B {
-            get {
-                return ResourceManager.GetString("FeaturesSectionText3B", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to  available. Couldn’t find your course? It only takes a few seconds to open a new one. Now you can invite your classmates to join the course &amp; upload their material, and you will both be able to gain some sweet Spitball points..
         /// </summary>
         public static string FeaturesSectionText3C {

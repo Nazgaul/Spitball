@@ -302,11 +302,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             if (model.Id.HasValue)
             {
-                ModelState.AddModelError(string.Empty, "Id is invalid");
+                ModelState.AddModelError(string.Empty, BaseControllerResources.UnspecifiedError);
             }
             if (model.Answers.Any(a => a.Id.HasValue))
             {
-                ModelState.AddModelError(string.Empty, "Id is invalid");
+                ModelState.AddModelError(string.Empty, BaseControllerResources.UnspecifiedError);
             }
             if (!ModelState.IsValid)
             {
@@ -317,8 +317,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 answer.Id = m_GuidGenerator.GetId();
             }
-            
-            //var id = m_GuidGenerator.GetId();
             var command = new CreateQuestionCommand(quizId.Value, User.GetUserId(),
                 new Zbox.Domain.Commands.Quiz.Question(model.Id.Value,
                 model.Text,

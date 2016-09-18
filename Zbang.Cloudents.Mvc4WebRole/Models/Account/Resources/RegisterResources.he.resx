@@ -132,9 +132,6 @@
   <data name="PwdRequired" xml:space="preserve">
     <value>עליך למלא סיסמה</value>
   </data>
-  <data name="IAgree" xml:space="preserve">
-    <value>בהרשמה, אני מסכים</value>
-  </data>
   <data name="ofZbang" xml:space="preserve">
     <value>של ספיטבול</value>
   </data>
@@ -143,8 +140,5 @@
   </data>
   <data name="TermsOfServices" xml:space="preserve">
     <value>לתנאי שירות</value>
-  </data>
-  <data name="And" xml:space="preserve">
-    <value>ו</value>
   </data>
 </root>

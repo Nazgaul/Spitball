@@ -126,9 +126,6 @@
   <data name="Follow" xml:space="preserve">
     <value>עקוב</value>
   </data>
-  <data name="InviteFriends" xml:space="preserve">
-    <value>הזמן את חבריך לכיתה כדי שתוכלו להצליח ביחד</value>
-  </data>
   <data name="Items" xml:space="preserve">
     <value>מסמכים</value>
   </data>
@@ -156,9 +153,6 @@
   <data name="Unfollow" xml:space="preserve">
     <value>בטל מעקב</value>
   </data>
-  <data name="UploadFiles" xml:space="preserve">
-    <value>העלה קבצים</value>
-  </data>
   <data name="AddFolder" xml:space="preserve">
     <value>הוסף תיקיה</value>
   </data>
@@ -179,9 +173,6 @@
   </data>
   <data name="Comments" xml:space="preserve">
     <value>תגובות נוספות</value>
-  </data>
-  <data name="ViewComments" xml:space="preserve">
-    <value>הצג</value>
   </data>
   <data name="ItemRemoveFolder" xml:space="preserve">
     <value>העבר לתיקייה ראשית</value>

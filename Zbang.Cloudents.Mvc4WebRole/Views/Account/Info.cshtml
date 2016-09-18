@@ -58,7 +58,7 @@
                     </div>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>@AccountResource.Last</label>
+                    <label>@SharedResources.LastName</label>
                     <input required autocomplete="off" type="text" name="lastName" maxlength="35" ng-model="i.data.lastName" />
                     <div ng-messages="changeName.lastName.$error" ng-show="changeName.lastName.$dirty">
                         <div ng-message="required">@GeneralResources.RequiredField</div>
@@ -90,7 +90,7 @@
         <div class="icon">@Html.Svg("~/images/site/itemIcons.svg", "info")</div>
         <div class="content">
             <div class="text">
-                <span>@AccountResource.CheckYourEmail</span>
+                <span>@LogOnResources.CheckEmailTitle</span>
                 <br />@AccountResource.VerificationCode
             </div>
             <form ng-submit="ic.submitCode(insertCode)" novalidate name="insertCode">

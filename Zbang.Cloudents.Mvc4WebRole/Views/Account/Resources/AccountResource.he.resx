@@ -132,9 +132,6 @@
   <data name="Lang" xml:space="preserve">
     <value>שפה</value>
   </data>
-  <data name="Last" xml:space="preserve">
-    <value>שם משפחה</value>
-  </data>
   <data name="NewPassword" xml:space="preserve">
     <value>סיסמה חדשה</value>
   </data>
@@ -158,9 +155,6 @@
   </data>
   <data name="Settings" xml:space="preserve">
     <value>הגדרות</value>
-  </data>
-  <data name="CheckYourEmail" xml:space="preserve">
-    <value>בדוק את תיבת המייל שלך</value>
   </data>
   <data name="VerificationCode" xml:space="preserve">
     <value>קוד אימות נשלח לכתובת המייל החדשה שהזנת</value>

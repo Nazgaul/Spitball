@@ -132,12 +132,6 @@
   <data name="PwdRequired" xml:space="preserve">
     <value>Password required</value>
   </data>
-  <data name="And" xml:space="preserve">
-    <value>and</value>
-  </data>
-  <data name="IAgree" xml:space="preserve">
-    <value>By joining, I agree to Spitball</value>
-  </data>
   <data name="ofZbang" xml:space="preserve">
     <value></value>
   </data>
