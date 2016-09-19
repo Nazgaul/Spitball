@@ -17,36 +17,26 @@
             </div>
         </div>
         <div flex="50" flex-xs="100">
-            @*<h2>@AccountResource.ChangeTheme</h2>
-                <div layout="row" layout-align="space-between center" layout-wrap>
-                    <button class="theme-section" ng-class="{selected:i.data.theme ==='@Theme.Dark.GetStringValueLowerCase()'}" type="button" ng-click="i.changeTheme('@Theme.Dark.GetStringValueLowerCase()')" ga-track-event="['settings', 'change theme dark']">
-                        @AccountResource.ChangeThemeDark
-                        <div class="themeDark"></div>
-                    </button>
-                    <button class="theme-section" ng-class="{selected:i.data.theme ==='@Theme.Light.GetStringValueLowerCase()'}" type="button" ng-click="i.changeTheme('@Theme.Light.GetStringValueLowerCase()')" ga-track-event="['settings', 'change theme light']">
-                        @AccountResource.ChangeThemeLight
-                        <div class="themeLight"></div>
-                    </button>
-                </div>*@
-        </div>
-        <div flex layout="row" flex-xs="100" layout-align="start center" class="left-flex university">
-            <img ng-src="{{::i.data.universityImage}}" class="uni-image" alt="university logo" width="50" height="50" />
-            <div layout="column">
-                <a class="change-uni" ui-sref="universityChoose" ga-track-event="['settings', 'change university']">@AccountResource.changeUniversityBtn</a>
-                <span class="uni-name">{{::i.data.university}}</span>
+            <div flex layout="row" flex-xs="100" layout-align="start center" class="left-flex university">
+                <img ng-src="{{::i.data.universityImage}}" class="uni-image" alt="university logo" width="50" height="50" />
+                <div layout="column">
+                    <a class="change-uni" ui-sref="universityChoose" ga-track-event="['settings', 'change university']">@AccountResource.changeUniversityBtn</a>
+                    <span class="uni-name">{{::i.data.university}}</span>
+                </div>
             </div>
+            <md-input-container>
+                <label>@AccountResource.Lang</label>
+                <md-select name="notification" md-on-close="i.changeLanguage()" ng-model="i.data.language" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}" ga-track-event="['settings', 'change language']">
+                    @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures)
+                    {
+                        <md-option value="@lang.Culture.First()">@lang.Name</md-option>
+                    }
+                </md-select>
+            </md-input-container>
         </div>
-        <md-input-container flex="50" flex-xs="100">
-            <label>@AccountResource.Lang</label>
-            <md-select name="notification" md-on-close="i.changeLanguage()" ng-model="i.data.language" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}" ga-track-event="['settings', 'change language']">
-                @foreach (var lang in Zbang.Zbox.Infrastructure.Culture.Languages.SupportedCultures)
-                {
-                    <md-option value="@lang.Culture.First()">@lang.Name</md-option>
-                }
-            </md-select>
-        </md-input-container>
 
     </div>
+    <div>
     <div class="section" id="section-2">
         <form name="changeName" class="text-capitalize" ng-submit="i.submit()">
             <div layout layout-sm="column">

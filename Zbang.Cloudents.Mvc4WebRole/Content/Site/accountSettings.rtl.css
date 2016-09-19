@@ -42,6 +42,12 @@
 .accountPage-wrapper .theme-section:hover div {
   box-shadow: -2px 3px 3px #282828;
 }
+.accountPage-wrapper .page-tabs {
+  border-radius: 5px;
+}
+.accountPage-wrapper .page-tabs md-tabs-wrapper {
+  background: #4190b9;
+}
 .accountPage-wrapper .section {
   margin-bottom: 20px;
   padding: 20px;
