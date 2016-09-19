@@ -191,4 +191,7 @@
   <data name="IdLengthError" xml:space="preserve">
     <value>עליך להזין ת.ז בעל 9 ספרות</value>
   </data>
+  <data name="DepartmentSettings" xml:space="preserve">
+    <value>הגדרות מחלקה</value>
+  </data>
 </root>

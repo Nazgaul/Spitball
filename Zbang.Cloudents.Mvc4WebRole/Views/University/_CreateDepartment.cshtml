@@ -1,8 +1,8 @@
 ﻿
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
-<div class="dashboard-stat2" id="department">
-    <form name="createDepartment" class="create-department" novalidate ng-submit="l.createDepartment(createDepartment)" ng-show="l.createDepartmentOn">
+<div class="box-style box-style-form" id="department">
+    <form name="createDepartment" class="create-department" novalidate ng-submit="l.createDepartment(createDepartment)">
         <md-content>
             <md-input-container flex>
                 <label>@UniversityResources.EnterDepName</label>
@@ -13,9 +13,9 @@
                 </div>
             </md-input-container>
         </md-content>
-        <span layout="row" layout-align="end center text-capitalize">
+        <div class="buttons" layout="row" layout-align="end center text-capitalize">
             <button type="button" class="btn btn-default" ng-click="l.departmentCancel(createDepartment)" ga-track-event="['university', 'cancel new department']">@GeneralResources.Cancel</button>
             <button type="submit" class="btn button-Blue btn-primary" ng-disabled="!createDepartment.$valid || l.submitDisabled" ga-track-event="['university', 'create new department']">@GeneralResources.Create</button>
-        </span>
+        </div>
     </form>
 </div>

@@ -178,20 +178,12 @@ Page Loading
 .theme-light .create-box:hover .plus svg {
   fill: #4190b9;
 }
-.theme-light .create-box .dashboard-stat2 {
-  border: 2px solid #4190b9;
-  color: #4190b9;
-}
 .theme-light .create-box .plus svg {
   fill: #888b8e;
 }
 .theme-light .create-box md-input-container .md-input {
   color: #212325;
   border-color: #8c99a6;
-}
-.theme-light .create-box.create-box-show .dashboard-stat2,
-.theme-light .create-box.create-deparment-show .dashboard-stat2 {
-  border: 2px solid #8c99a6;
 }
 .theme-light .create-box md-input-container:not(.md-input-invalid).md-input-focused .md-input {
   border-bottom: 1px solid #4190b9;
@@ -626,12 +618,6 @@ Page Loading
 }
 .theme-light .portlet.light > .portlet-title > .caption {
   color: #212325;
-}
-.theme-light .box-cube,
-.theme-light .unibox,
-.theme-light .leaderboard,
-.theme-light .suggested a {
-  box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
 }
 .theme-light .table-scrollable > .table {
   background-color: #ffffff;
@@ -1731,37 +1717,36 @@ body .box-template .number {
 .page-tabs md-tabs-wrapper {
   margin-bottom: 0;
 }
-.create-btn,
-.inviteBtn {
-  width: 100%;
+.box-style {
   background: #ffffff;
-  padding: 8px 0;
-  border-radius: 5px;
-  margin: 8px;
   box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
+  padding: 15px 15px 30px 15px;
+  display: block;
+  width: 100%;
+  height: 179px;
+  line-height: 1;
 }
-.create-btn.active,
-.inviteBtn.active {
+.box-style.action {
+  border-radius: 4px;
+  height: auto;
+  padding: 8px 0;
+}
+.box-style.active {
   background: #4190b9;
 }
-.create-btn.active .wrapper .text,
-.inviteBtn.active .wrapper .text {
+.box-style.active .wrapper .text {
   color: #ffffff;
 }
-.create-btn.active .wrapper svg,
-.inviteBtn.active .wrapper svg {
+.box-style.active .wrapper .icon {
   fill: #ffffff;
 }
-.create-btn:not(.active):hover .wrapper svg,
-.inviteBtn:not(.active):hover .wrapper svg {
+.box-style:not(.active):hover .wrapper .icon {
   fill: #4190b9 !important;
 }
-.create-btn:not(.active):hover .wrapper span,
-.inviteBtn:not(.active):hover .wrapper span {
+.box-style:not(.active):hover .wrapper span {
   color: #4190b9 !important;
 }
-.create-btn .wrapper,
-.inviteBtn .wrapper {
+.box-style .wrapper {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -1770,120 +1755,115 @@ body .box-template .number {
   -webkit-justify-content: center;
   justify-content: center;
 }
-.create-btn .wrapper svg,
-.inviteBtn .wrapper svg {
+.box-style .wrapper .icon {
   fill: #4190b9;
   margin-right: 10px;
 }
-.create-btn .wrapper .text,
-.inviteBtn .wrapper .text {
+.box-style .wrapper .text {
   color: #4190b9;
+  font-size: 14px;
 }
-.create-btn .wrapper span,
-.inviteBtn .wrapper span {
+.box-style .wrapper span {
   line-height: normal;
   padding-right: 6px;
 }
-.create-box:hover .dashboard-stat2 {
-  border: 2px solid #4190b9;
-  color: #4190b9;
+.box-style .display .number {
+  float: left;
+  display: inline-block;
+  height: 110px;
+  width: 100%;
 }
-.create-box:hover .plus svg {
-  fill: #4190b9;
+.box-style .display .number h3,
+.box-style .display .number h5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 0 0 8px 0;
+  padding: 0;
+  font-size: 25px;
+  line-height: 29px;
+  height: 58px;
+  overflow: hidden;
+  width: calc(80%);
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
 }
-.create-box .dashboard-stat2 {
-  background: transparent;
+.box-style .display .number small {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  height: 16px;
+  display: inline-block;
+  max-width: 100%;
+}
+.box-style .progress-info {
+  clear: both;
+}
+.box-style .progress-info .progress {
+  margin: 0;
+  height: 1px;
+  clear: both;
+  display: block;
+}
+.box-style .progress-info .status {
+  margin-top: 15px;
+  font-size: 15px;
+}
+.box-style .progress-info .status .status-title {
+  float: left;
+  display: inline-block;
+}
+.box-style .progress-info .status .status-number {
+  float: right;
+  display: inline-block;
+}
+.box-style-form,
+.box-style-form md-content {
+  background: none;
+}
+.box-style-form {
+  background: none;
+  box-shadow: none;
+  position: relative;
   padding-bottom: 5px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
   padding-top: 0;
-  border: 2px solid #888b8e;
-  color: #888b8e;
+  border: 2px solid #4190b9;
+  color: #4190b9;
 }
-.create-box .dashboard-stat2 form {
+.box-style-form form {
   width: 100%;
   align-self: center;
 }
-.create-box .dashboard-stat2 form span {
+.box-style-form form span {
   margin: 0;
 }
-.create-box .dashboard-stat2 form .buttons {
+.box-style-form form .buttons {
   position: absolute;
   bottom: 12px;
   right: 12px;
 }
-.create-box .create-btn div {
-  font-size: 14px;
-  line-height: 16px;
-}
-.create-box .create-btn div:first-child {
-  font-size: 16px;
-}
-.create-box .create-btn .title {
-  max-width: 250px;
-  display: inline-block;
-  line-height: 22px;
-}
-.create-box .create-department {
-  padding-bottom: 12px;
-}
-.create-box .create-txt,
-.create-box .create-department {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  -ms-flex-direction: column;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-}
-.create-box .create-txt form,
-.create-box .create-department form {
-  width: 100%;
-  align-self: center;
-}
-.create-box .create-txt form span,
-.create-box .create-department form span {
-  margin: 0;
-}
-.create-box .plus {
-  margin-bottom: 25px;
-  margin-top: 20px;
-}
-.create-box .plus svg {
-  width: 50px;
-  height: 50px;
-  fill: #888b8e;
-}
-.create-box span {
-  margin-top: 15px;
-}
-.create-box md-content {
-  background: transparent;
-}
-.create-box md-input-container {
-  padding-bottom: 2px;
-  margin-bottom: 0;
-}
-.create-box md-input-container .md-input {
-  font-size: 18px;
-  color: #212325;
-  border-color: #8c99a6;
-}
-.create-box.create-init {
-  display: block !important;
-}
-.create-box .btn-primary {
-  margin-left: 15px;
-}
-.create-box md-input-container.md-input-focused:not(.md-input-invalid) .md-input {
-  border-bottom: 1px solid #888b8e;
-  color: #888b8e;
-}
+/*.create-box {
+
+    .create-btn {
+        div {
+            font-size: 14px;
+            line-height: 16px;
+
+            &:first-child {
+                font-size: 16px;
+            }
+        }
+
+        .title {
+            max-width: 250px;
+            display: inline-block;
+            line-height: 22px;
+        }
+    }
+}*/
 .md-dialog-container {
   z-index: 80;
 }

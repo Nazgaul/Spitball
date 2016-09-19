@@ -106,6 +106,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.University.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Department settings.
+        /// </summary>
+        public static string DepartmentSettings {
+            get {
+                return ResourceManager.GetString("DepartmentSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the class details and make Spitball more useful .
         /// </summary>
         public static string EmptyStateTopNodeText {

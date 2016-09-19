@@ -39,9 +39,13 @@
 
     .department-wrap {
         position: relative;
+
+        .status-title{
+            color: @textColorWhite;
+        }
     }
 
-    .department {
+    /*.department {
         border-radius: 0;
         box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
         padding: 15px;
@@ -75,7 +79,7 @@
                 fill: @textColorLightGrey;
             }
         }
-    }
+    }*/
 
     .back-arrow {
         svg {
@@ -187,9 +191,13 @@
     .create-box {
         &.create-box-show, &.create-deparment-show {
             display: block !important; //override hide-xs
-            .dashboard-stat2 {
-                border: 2px solid @borderColorLightGrey;
-            }
+        }
+    }
+
+    .box-style.action {
+        svg {
+            width: 20px;
+            height: 20px;
         }
     }
 }
