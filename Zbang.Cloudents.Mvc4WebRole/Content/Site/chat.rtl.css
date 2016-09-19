@@ -27,7 +27,7 @@
   padding-left: 14px;
   padding-right: 14px;
 }
-.chat-icon svg {
+.chat-icon md-icon {
   width: 30px;
   height: 30px;
   fill: #f5f5f5;
@@ -209,7 +209,7 @@
 .chat .content .tab-content .search-friend .reset-btn {
   padding: 10px 10px 0 10px;
 }
-.chat .content .tab-content .search-friend .reset-btn svg {
+.chat .content .tab-content .search-friend .reset-btn md-icon {
   width: 10px;
   height: 10px;
   display: block;
@@ -225,7 +225,7 @@
   margin: 0 16px;
   padding: 16px 0 6px 0;
 }
-.chat .content .tab-content .search-friend .search-btn svg {
+.chat .content .tab-content .search-friend .search-btn md-icon {
   width: 20px;
   height: 20px;
   display: block;
@@ -255,7 +255,7 @@
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-.chat .content .tab-content .users-list section .header svg {
+.chat .content .tab-content .users-list section .header md-icon {
   fill: #888b8e;
   width: 38px;
   margin: 0 9px;
@@ -266,13 +266,13 @@
   color: #888b8e;
   line-height: 25px;
 }
-.chat .content .tab-content .users-list section.favorits svg {
+.chat .content .tab-content .users-list section.favorits md-icon {
   height: 20px;
 }
-.chat .content .tab-content .users-list section.classmates svg {
+.chat .content .tab-content .users-list section.classmates md-icon {
   height: 28px;
 }
-.chat .content .tab-content .users-list section.schoolmates .header svg {
+.chat .content .tab-content .users-list section.schoolmates .header md-icon {
   height: 38px;
 }
 .chat .content .tab-content .users-list .users-sub-list {
@@ -322,7 +322,7 @@
 .chat .content .tab-content .empty-state {
   text-align: center;
 }
-.chat .content .tab-content .empty-state svg {
+.chat .content .tab-content .empty-state md-icon {
   width: 100px;
   height: 100px;
   display: block;
@@ -342,7 +342,7 @@
   color: #212325;
   font-size: 16px;
 }
-.chat .content.stateChat .menu-content svg,
+.chat .content.stateChat .menu-content md-icon,
 .chat .content.stateChat .menu-content .chat-counter {
   -moz-animation: fadeout 0.2s;
   /* Firefox */
@@ -352,7 +352,7 @@
   animation: fadeout 0.2s;
   /* Opera */
 }
-.chat .content:not(.stateChat) .menu-content svg,
+.chat .content:not(.stateChat) .menu-content md-icon,
 .chat .content:not(.stateChat) .menu-content .chat-counter {
   -moz-animation: fadein 0.2s;
   /* Firefox */
@@ -541,7 +541,7 @@
   -webkit-align-items: flex-end;
   align-items: flex-end;
 }
-.chat .content .conversasion .chat-content .new-message .menu svg.attach {
+.chat .content .conversasion .chat-content .new-message .menu md-icon.attach {
   width: 26px;
   height: 26px;
   display: block;
@@ -592,7 +592,7 @@
   filter: fliph;
   /*IE*/
 }
-.chat .content .conversasion .chat-content .new-message button svg {
+.chat .content .conversasion .chat-content .new-message button md-icon {
   width: 25px;
   height: 25px;
   display: block;
@@ -677,7 +677,7 @@
   width: 40px;
   margin: 0;
 }
-.chat-item-preview md-toolbar .download-btn svg {
+.chat-item-preview md-toolbar .download-btn md-icon {
   width: 18px;
   height: 18px;
 }
@@ -687,7 +687,7 @@
   padding: 0;
   width: 36px;
 }
-.chat-item-preview md-toolbar .close-btn svg {
+.chat-item-preview md-toolbar .close-btn md-icon {
   width: 16px;
   height: 16px;
 }

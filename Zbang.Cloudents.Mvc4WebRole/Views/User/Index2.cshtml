@@ -21,7 +21,8 @@
                 </h4>
                 <button class="message" ng-if="!u.isUserProfile" ng-click="u.sendMessage()" user-not-register-popup="click">
                     <div class="content">
-                        @Html.Svg("~/images/site/icons.svg", "chat")
+                        <md-icon md-svg-icon="t:chat"></md-icon>
+                        @*@Html.Svg("~/images/site/icons.svg", "chat")*@
                         <span>@UserResources.MessageButton</span>
                     </div>
                 </button>
@@ -82,7 +83,8 @@
                             <div ng-include="'item-template.html'"></div>
                             <md-menu class="item-menu">
                                 <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['user-uploads', 'deleteFile']">
-                                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                                    <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
+                                    @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3"})*@
                                 </md-button>
                                 <md-menu-content width="1">
                                     <md-menu-item>

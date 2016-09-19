@@ -8,7 +8,7 @@
     </div>
     <div layout="row" layout-align="space-between center" class="page-title">
         <h1 flex>@SearchResources.SearchTitle</h1>
-        <button flex="none" type="button" class="close" ng-click="s.back()" ga-track-event="['search', 'close search']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+        <button flex="none" type="button" class="close" ng-click="s.back()" ga-track-event="['search', 'close search']"><md-icon md-svg-icon="t:close"></md-icon></button>
     </div>
 </div>
 <div srph-infinite-scroll="s.myPagingFunction()">

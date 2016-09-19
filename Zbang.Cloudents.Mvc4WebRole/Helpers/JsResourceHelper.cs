@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 {
@@ -8,7 +9,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             var x = typeof(Js.Resources.JsResources);
             var sb = new StringBuilder();
-            
+
+            sb.Append("window.cdnPath='" + ConfigFetcher.Fetch("CdnEndpoint") + "';");
 
             sb.Append("window.JsResources={");
             foreach (var p in x.GetProperties())

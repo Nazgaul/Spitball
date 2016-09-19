@@ -1634,7 +1634,7 @@ Page Loading
     max-width: calc(50% - 16px);
   }
 }
-.dashboard .dashboard-actions .actions-container .create-btn svg {
+.dashboard .dashboard-actions .actions-container .create-btn md-icon {
   width: 14px;
   height: 14px;
 }
@@ -1643,7 +1643,7 @@ Page Loading
     display: none;
   }
 }
-.dashboard .dashboard-actions .actions-container .inviteBtn svg {
+.dashboard .dashboard-actions .actions-container .inviteBtn md-icon {
   width: 20px;
   height: 20px;
 }

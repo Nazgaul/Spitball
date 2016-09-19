@@ -12,17 +12,20 @@
                 <div class="tab-content" ng-if="c.state === 1" ng-controller="chatUsers as cu">
                     <form novalidate class="search-friend backgroundTC33" ng-submit="cu.search(cu.term)">
                         <button type="button" class="search-btn" ng-click="cu.expandSearch()">
-                            @Html.Svg("~/images/site/icons.svg", "searchIcon", new { @class = "searchIcon" })
+                            <md-icon md-svg-icon="t:searchIcon" class="searchIcon"></md-icon>
+                            @*@Html.Svg("~/images/site/icons.svg", "searchIcon", new {@class = "searchIcon"})*@
                         </button>
                         <input type="search" class="textTC30" focus-me="cu.focusSearch" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="cu.term" ng-change="cu.search(cu.term)" ng-model-options="{debounce : 300}" />
                         <button type="reset" ng-if="cu.term.length" class="reset-btn" ng-click="cu.search()">
-                            @Html.Svg("~/images/site/icons.svg", "close", new { @class = "resetIcon svgTC22" })
+                            <md-icon md-svg-icon="t:close" class="resetIcon svgTC22"></md-icon>
+                            @*@Html.Svg("~/images/site/icons.svg", "close", new {@class = "resetIcon svgTC22"})*@
                         </button>
                     </form>
                     <div class="users-list scrollbar" sb-scroll ng-scrollbars ng-scrollbars-paging ng-scrollbars-paging-function="cu.usersPaging" ng-scrollbars-config="c.scrollSetting" srph-infinite-scroll="cu.usersPaging()" container="true">
                         <section class="favorits">
                             <div class="header">
-                                @Html.Svg("~/images/site/icons.svg", "star")
+                                <md-icon md-svg-icon="t:star"></md-icon>
+                                @*@Html.Svg("~/images/site/icons.svg", "star")*@
                                 <h1>@ChatResources.FavoritsHeader</h1>
                             </div>
                             <ul class="users-sub-list">
@@ -32,7 +35,8 @@
                         </section>
                         <section class="classmates">
                             <div class="header">
-                                @Html.Svg("~/images/site/icons.svg", "group")
+                                <md-icon md-svg-icon="t:group"></md-icon>
+                                @*@Html.Svg("~/images/site/icons.svg", "group")*@
                                 <h1>@ChatResources.ClassmatesHeader</h1>
                             </div>
 
@@ -44,7 +48,8 @@
                         </section>
                         <section class="schoolmates">
                             <div class="header">
-                                @Html.Svg("~/images/site/icons.svg", "crowd")
+                                <md-icon md-svg-icon="t:crowd"></md-icon>
+                                @*@Html.Svg("~/images/site/icons.svg", "crowd")*@
                                 <h1>@ChatResources.SchoolmatesHeader</h1>
                             </div>
                             <ul class="users-sub-list" ng-if="cu.users.length">
@@ -56,7 +61,8 @@
                     </div>
                     <div class="empty-state" ng-if="!cu.users.length && cu.term">
                         <div>
-                            @Html.Svg("~/images/site/icons.svg", "sad-student-smiley")
+                            <md-icon md-svg-icon="t:sad-student-smiley"></md-icon>
+                            @*@Html.Svg("~/images/site/icons.svg", "sad-student-smiley")*@
                         </div>
                         <span class="title">@ChatResources.EmptyStateTitle</span>
                         <span class="subtitle">@ChatResources.EmptyStateSubtitle</span>

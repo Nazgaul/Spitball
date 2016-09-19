@@ -1,6 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
-    const string svgUrl = "~/images/site/icons.svg";
+   // const string svgUrl = "~/images/site/icons.svg";
    // var shouldPostBack = ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 <script type="text/ng-template" id="menu.html">
@@ -10,7 +10,7 @@
             <ul class="side-menu" sb-scroll @*ng-scrollbars-config="d.updateScrollbar"*@ ng-scrollbars>
                 <li class="dashboard nav-item">
                     <a class="md-button" user-not-register-popup="click" ng-class="{active: d.isSectionSelected('@Url.Action("Index", "Dashboard")')}" ui-sref="dashboard">
-                        <span class="icon">@Html.Svg(svgUrl, "houseMenu")</span>
+                        <span class="icon"><md-icon md-svg-icon="t:houseMenu"></md-icon></span>
                         <span>@IndexResources.Dashboard</span>
                     </a>
                 </li>
@@ -18,7 +18,7 @@
                     <button type="button" user-not-register-popup="click" class="md-button md-button-toggle" ng-click="d.toggleCourses()">
                         <div flex layout="row" layout-align="start center">
                             <span class="arrow icon" ng-class="{toggled:d.coursesOpen}">
-                                @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
+                                <md-icon md-svg-icon="t:sideMenuArrow"></md-icon>
                             </span>
                             <span class="title">
                                 @IndexResources.Classes
@@ -35,7 +35,7 @@
                     <button type="button" user-not-register-popup="click" class="md-button md-button-toggle" ng-click="d.toggleBoxes()">
                         <div flex layout="row" layout-align="start center">
                             <span class="arrow icon" ng-class="{toggled:d.boxesOpen}">
-                                @Html.Svg("~/images/site/icons.svg", "sideMenuArrow")
+                                <md-icon md-svg-icon="t:sideMenuArrow"></md-icon>
                             </span>
                             <span class="title">
                                 @IndexResources.Group
@@ -53,7 +53,7 @@
                     <button type="button" ng-click="d.univeristyClick()" user-not-register-popup="click" class="md-button ellipsis" ng-class="{active: d.isSectionSelected('/university')}" @*href="@Url.RouteUrl("LibraryDesktop")"*@>
                         <div flex layout="row" layout-align="start center">
                             <span class="icon">
-                                @Html.Svg(svgUrl, "universityMenu")
+                                <md-icon md-svg-icon="t:universityMenu"></md-icon>
                             </span>
                             <span class="title">
                                 @IndexResources.Uni
@@ -65,7 +65,7 @@
                 <li class="user nav-item">
                     <a class="md-button" user-not-register-popup="click" ng-class="{active:d.isSectionSelected(d.userUrl)}" href="{{::d.userUrl}}">
                         <span class="icon">
-                            @Html.Svg(svgUrl, "userMenu")
+                            <md-icon md-svg-icon="t:userMenu"></md-icon>
                         </span>
                         <span>@IndexResources.User</span>
                     </a>
@@ -73,7 +73,7 @@
                 <li class="settings nav-item">
                     <a class="md-button" user-not-register-popup="click" ng-class="{active:d.isSectionSelected('@Url.RouteUrl("AccountSettings")')}" href="@Url.RouteUrl("AccountSettings")">
                         <span class="icon">
-                            @Html.Svg(svgUrl, "settingMenu")
+                            <md-icon md-svg-icon="t:settingMenu"></md-icon>
                         </span>
                         <span>@IndexResources.Settings</span>
                     </a>
@@ -81,7 +81,7 @@
                 <li class="help nav-item" hide-gt-xs>
                     <a class="md-button" ng-class="{active: d.isSectionSelected('@Url.RouteUrl("Help")')}" target="_self" href="@Url.RouteUrl("Help")">
                         <span class="icon">
-                            @Html.Svg(svgUrl, "headerHelp")
+                            <md-icon md-svg-icon="t:headerHelp"></md-icon>
                         </span>
                         <span>@SharedResources.Help</span>
                     </a>
@@ -89,7 +89,7 @@
                 <li class="logout nav-item" hide-gt-xs>
                     <a class="md-button" user-not-register-popup="click" target="_self" ng-click="app.logOut()" href="@Url.Action("logoff", "account")">
                         <span class="icon">
-                            @Html.Svg(svgUrl, "logOffMenu")
+                            <md-icon md-svg-icon="t:logOffMenu"></md-icon>
                         </span>
                         <span>@IndexResources.Logout</span>
                     </a>

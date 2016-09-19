@@ -6,7 +6,8 @@
         <div>
             <div class="menu-toggler">
                 <button type="button" class="menu-icon" ng-click="c.toggleComments()">
-                    @Html.Svg("~/images/site/box-icons.svg", "comment", new { @class = "commentsMenu" })
+                    <md-icon md-svg-icon="b:comment" class="commentsMenu"></md-icon>
+                    @*@Html.Svg("~/images/site/box-icons.svg", "comment", new {@class = "commentsMenu"})*@
                 </button>
             </div>
             <md-content role="navigation">
@@ -47,7 +48,8 @@
                                 </div>
                                 <md-menu ng-if="::c.canDelete(comment.userId)">
                                     <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
-                                        @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                                        <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
+                                        @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3"})*@
                                     </md-button>
                                     <md-menu-content width="1">
                                         <md-menu-item>
@@ -73,7 +75,8 @@
                                             </div>
                                             <md-menu ng-if="::c.canDelete(reply.userId)">
                                                 <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
-                                                    @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                                                    <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
+                                                    @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })*@
                                                 </md-button>
                                                 <md-menu-content width="1">
                                                     <md-menu-item>

@@ -1684,7 +1684,7 @@ body .box-template .number {
   padding: 0 12px;
   background: #db4437;
 }
-.add svg {
+.add md-icon {
   width: 20px;
   height: 20px;
   margin: 0 auto;
@@ -1699,7 +1699,7 @@ body .box-template .number {
 .page-title .share-section button .text {
   display: none;
 }
-.page-title svg {
+.page-title md-icon {
   fill: #777777;
   width: 25px;
   height: 25px;
@@ -1710,7 +1710,7 @@ body .box-template .number {
 .close:hover {
   color: #212325;
 }
-.close svg {
+.close md-icon {
   width: 17px;
   height: 17px;
   fill: #212325;
@@ -1748,12 +1748,12 @@ body .box-template .number {
 .inviteBtn.active .wrapper .text {
   color: #ffffff;
 }
-.create-btn.active .wrapper svg,
-.inviteBtn.active .wrapper svg {
+.create-btn.active .wrapper md-icon,
+.inviteBtn.active .wrapper md-icon {
   fill: #ffffff;
 }
-.create-btn:not(.active):hover .wrapper svg,
-.inviteBtn:not(.active):hover .wrapper svg {
+.create-btn:not(.active):hover .wrapper md-icon,
+.inviteBtn:not(.active):hover .wrapper md-icon {
   fill: #4190b9 !important;
 }
 .create-btn:not(.active):hover .wrapper span,
@@ -1770,8 +1770,8 @@ body .box-template .number {
   -webkit-justify-content: center;
   justify-content: center;
 }
-.create-btn .wrapper svg,
-.inviteBtn .wrapper svg {
+.create-btn .wrapper md-icon,
+.inviteBtn .wrapper md-icon {
   fill: #4190b9;
   margin-right: 10px;
 }
@@ -1788,7 +1788,7 @@ body .box-template .number {
   border: 2px solid #4190b9;
   color: #4190b9;
 }
-.create-box:hover .plus svg {
+.create-box:hover .plus md-icon {
   fill: #4190b9;
 }
 .create-box .dashboard-stat2 {
@@ -1854,7 +1854,7 @@ body .box-template .number {
   margin-bottom: 25px;
   margin-top: 20px;
 }
-.create-box .plus svg {
+.create-box .plus md-icon {
   width: 50px;
   height: 50px;
   fill: #888b8e;

@@ -11,13 +11,13 @@
     <div class="course-nav" ng-if="l.nodeDetail && !l.settingsOpen" layout="row" layout-align="space-between center">
         <a href="{{::l.nodeDetail.parentUrl}}" ga-track-event="['university', 'back arrow']">
             <h2 layout="row">
-                <span class="arrow back-arrow">@Html.Svg("~/images/site/icons.svg", "arrow")</span>
+                <span class="arrow back-arrow"><md-icon md-svg-icon="t:arrow"></md-icon></span>
                 <span class="name ellipsis">
                     {{::l.nodeDetail.name}}
                 </span>
             </h2>
         </a>
-        <button type="button" ng-click="l.toggleSettings()" ga-track-event="['university', 'settings']">@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "svgTC15" })</button>
+        <button type="button" ng-click="l.toggleSettings()" ga-track-event="['university', 'settings']"><md-icon md-svg-icon="b:settings" class="svgTC15"></md-icon>@*@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "svgTC15" })*@</button>
     </div>
 </div>
 <div uib-collapse="!l.settingsOpen" compile-html="l.settingsHtml" class="collapsible settings" ng-if="l.nodeDetail" ng-cloak></div>
@@ -43,10 +43,12 @@
                     </div>
                     <div ng-if="::dep.state === 'closed'">
                         <div ng-if="::dep.userType !== 'subscribe' && dep.userType !== 'owner'">
-                            @Html.Svg("~/images/site/icons.svg", "closed-lock", new { @class = "lock" })
+                            <md-icon md-svg-icon="t:closed-lock" class="lock"></md-icon>
+                            @*@Html.Svg("~/images/site/icons.svg", "closed-lock", new {@class = "lock"})*@
                         </div>
                         <div ng-if="::dep.userType === 'subscribe' || dep.userType === 'owner'">
-                            @Html.Svg("~/images/site/icons.svg", "opened-lock", new { @class = "lock" })
+                            <md-icon md-svg-icon="t:opened-lock" class="lock"></md-icon>
+                            @*@Html.Svg("~/images/site/icons.svg", "opened-lock", new {@class = "lock"})*@
                         </div>
                     </div>
                 </div>
@@ -54,7 +56,8 @@
         </a>
         <md-menu ng-if="l.canDelete(dep)">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['university', 'delete department']">
-                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 svgTC44" })
+                <md-icon md-svg-icon="t:ThreeDots" class="dots-3 svgTC44"></md-icon>
+                @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3 svgTC44"})*@
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item>
@@ -71,7 +74,8 @@
              class="create-box flex" ng-if="l.createDepartmentShow">
             <button type="button" ng-click="l.openCreateDepartment()" class="create-btn" ga-track-event="['university', 'add new department']">
                 <div class="wrapper">
-                    @Html.Svg("~/images/site/icons.svg", "add")
+                    <md-icon md-svg-icon="t:add"></md-icon>
+                    @*@Html.Svg("~/images/site/icons.svg", "add")*@
                     <span class="text">@UniversityResources.AddDepartment</span>
                 </div>
             </button>
@@ -79,7 +83,8 @@
         </div>
         <button flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-hide="l.createBoxOn" type="button" ng-click="l.openCreateBox()" class="create-btn" ga-track-event="['university', 'add new class']">
             <div class="wrapper">
-                @Html.Svg("~/images/site/icons.svg", "add")
+                @*@Html.Svg("~/images/site/icons.svg", "add")*@
+                <md-icon md-svg-icon="t:add"></md-icon>
                 <span class="text">@UniversityResources.AddClass</span>
             </div>
         </button>
@@ -94,12 +99,14 @@
         ng-if="l.state.withBoxes"
         ng-hide="l.createOn || l.createDepartmentShow && l.createClassShow"
         ga-track-event="['dashboard', 'createbox', 'plus']">
-    @Html.Svg("~/images/site/icons.svg", "add")
+    <md-icon md-svg-icon="t:add"></md-icon>
+    @*@Html.Svg("~/images/site/icons.svg", "add")*@
 </button>
 <button type="button" class="add" hide show-xs ng-click="l.openCreateDepartment()"
         focus-upon-click="createDepartmentInput"
         ng-if="l.state.withDepartmentAdmin"
         ng-hide="l.createOn || l.createDepartmentShow && l.createClassShow"
         ga-track-event="['dashboard', 'createDepartment', 'plus']">
-    @Html.Svg("~/images/site/icons.svg", "add")
+    <md-icon md-svg-icon="t:add"></md-icon>
+    @*@Html.Svg("~/images/site/icons.svg", "add")*@
 </button>

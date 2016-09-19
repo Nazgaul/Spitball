@@ -3,7 +3,7 @@
 
 @{
 
-    const string svgUrl = "~/images/site/icons.svg";
+    //const string svgUrl = "~/images/site/icons.svg";
     var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
     var logoLink = Url.Action("Index", "dashboard"); //: Url.RouteUrl("homePage");
 }
@@ -40,13 +40,16 @@
     <header id="main-nav" class="nav-bar" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
         <div class="logo-search" layout="row" layout-align="start center">
             <button hide-gt-sm type="button" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" hide-chat-on-mobile="click" ga-track-event="['header', 'open menu']">
-                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
+                <md-icon md-svg-icon="t:headerMenu" class="headerMenu"></md-icon>
+                @*@Html.Svg(svgUrl, "headerMenu", new {@class = "headerMenu"})*@
             </button>
             <div class="logo">
                 <div class="page-logo">
                     <a href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']" hide-chat-on-mobile="click">
-                        @Html.Svg(svgUrl, "logo", new { @class = "logo-default", hide_xs = "" })
-                        @Html.Svg(svgUrl, "smallLogo", new { @class = "logo-small", hide = "", show_xs = "" })
+                        <md-icon md-svg-icon="t:logo" class="logo-default" hide-xs></md-icon>
+                        <md-icon md-svg-icon="t:smallLogo" class="logo-small" hide show-xs></md-icon>
+                        @*@Html.Svg(svgUrl, "logo", new {@class = "logo-default", hide_xs = ""})
+                        @Html.Svg(svgUrl, "smallLogo", new {@class = "logo-small", hide = "", show_xs = ""})*@
                     </a>
                 </div>
             </div>
@@ -78,7 +81,7 @@
                        type="search" class="text"
                        user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
                 <button type="submit" class="search-btn" ng-disabled="!st.term.length">
-                    <span>@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })</span>
+                    <span><md-icon md-svg-icon="t:searchIcon" class="searchIcon"></md-icon>@*@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })*@</span>
                 </button>
             </div>
         </form>

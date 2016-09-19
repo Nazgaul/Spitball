@@ -11,7 +11,8 @@
             <div class="option-wrapper" ng-class="{disabled: !b.canInvite}">
                 <button ng-disabled="!b.canInvite" type="button" ng-click="b.inviteToBox()" class="option invite" scroll-to-top ga-track-event="['box-feed', 'inviteFriends']">
                     <div>
-                        @Html.Svg("~/images/site/icons.svg", "invite", new { @class = "option-icon" })
+                        <md-icon md-svg-icon="t:invite" class="option-icon"></md-icon>
+                        @*@Html.Svg("~/images/site/icons.svg", "invite", new {@class = "option-icon"})*@
                         <span class="text">@BoxResources.InviteFriendsMember</span>
                     </div>
                 </button>
@@ -20,7 +21,8 @@
                 <input id="open-share" type="checkbox" user-not-register-popup="click" />
                 <label class="title" for="open-share" ng-click="b.settingsOpen = b.inviteOpen = false">
                     <span class="wrapper" scroll-to-top>
-                        @Html.Svg("~/images/site/icons.svg", "share", new { @class = "option-icon" })
+                        <md-icon md-svg-icon="t:chat" class="option-icon"></md-icon>
+                        @*@Html.Svg("~/images/site/icons.svg", "share", new {@class = "option-icon"})*@
                         <span class="text">@UserResources.Share</span>
                     </span>
                 </label>
@@ -30,7 +32,8 @@
             <div class="option-wrapper" ng-class="{disabled: b.needFollow}">
                 <button ng-disabled="b.needFollow" class="option box-settings" flex="none" type="button" ng-click="b.toggleSettings()" scroll-to-top ga-track-event="['box', 'settings']">
                     <div>
-                        @Html.Svg("/images/site/icons.svg", "settingMenu", new { @class = "option-icon" })
+                        <md-icon md-svg-icon="t:settingMenu" class="option-icon"></md-icon>
+                        @*@Html.Svg("/images/site/icons.svg", "settingMenu", new {@class = "option-icon"})*@
                         <span class="text">@IndexResources.Settings</span>
                     </div>
                 </button>
@@ -49,7 +52,8 @@
                     </div>
                     <md-menu ng-if="::b.canDelete(post.userId)">
                         <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
-                            @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 svgTC2" })
+                            <md-icon md-svg-icon="t:ThreeDots" class="dots-3 svgTC2"></md-icon>
+                            @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3 svgTC2"})*@
                         </md-button>
                         <md-menu-content width="1">
                             <md-menu-item>
@@ -64,7 +68,8 @@
                         <div class="items-container" max-element="post">
                             <div class="feed-item" ng-repeat="e in ::post.files | limitTo: post.limitFiles track by e.id" ng-include="f.postItemTemplate(e)"></div>
                             <a ui-sref="box.items" class="feed-item more-items" ng-if="::post.needMore">
-                                @Html.Svg("~/images/site/icons.svg", "documents")
+                                <md-icon md-svg-icon="t:documents"></md-icon>
+                                @*@Html.Svg("~/images/site/icons.svg", "documents")*@
                                 <div class="counter">+{{::post.needMore | megaNumber}}</div>
                             </a>
                         </div>
@@ -75,8 +80,9 @@
                 </div>
                 <div class="counters">
                     <div class="like-btn indent">
-                        @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "like-icon" })
-                        <input type="button" value="{{post.likesCount}}" class="like-count" user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)" />
+                        <md-icon md-svg-icon="b:like" class="like-icon"></md-icon>
+                        @*@Html.Svg("~/images/site/box-icons.svg", "like", new {@class = "like-icon"})*@
+                        <input type="button" value="{{post.likesCount}}" class="like-count" user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)"/>
                     </div>
                     <div class="show-more" ng-if="post.repliesCount > 4 && !post.expandReplies">
                         <span ng-click="f.openReply(post)" ng-if="post.repliesCount === 5"> @BoxResources.SingleComment</span>
@@ -86,11 +92,12 @@
                 <div class="actions-wrapper">
                     <div class="indent actions text-capitalize" layout="row" layout-align="start center">
                         <button class="comment-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-click="f.reply(post)" ga-track-event="['box-feed', 'comment-icons']">
-                            <span class="comment-icon">@Html.Svg("~/images/site/box-icons.svg", "comment")</span><span>@BoxResources.Comment</span>
+                            <span class="comment-icon"><md-icon md-svg-icon="b:comment"></md-icon>@*@Html.Svg("~/images/site/box-icons.svg", "comment")*@</span><span>@BoxResources.Comment</span>
                         </button>
                         <div layout="row" layout-align="start center">
                             <button class="like-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-disabled="f.add.disabled" ng-class="{liked :post.isLiked}" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
-                                @Html.Svg("~/images/site/box-icons.svg", "like", new { @class = "like-icon" }) @GeneralResources.Like
+                                <md-icon md-svg-icon="b:like" class="like-icon"></md-icon> @GeneralResources.Like
+                                @*@Html.Svg("~/images/site/box-icons.svg", "like", new {@class = "like-icon"})*@ 
                             </button>
                         </div>
                         @*<share-box></share-box>*@
@@ -107,7 +114,8 @@
                         </div>
                         <md-menu ng-if="::b.canDelete(reply.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
-                                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 svgTC2" })
+                                <md-icon md-svg-icon="t:ThreeDots" class="dots-3 svgTC2"></md-icon>
+                                @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3 svgTC2"})*@
                             </md-button>
                             <md-menu-content width="1">
                                 <md-menu-item>
@@ -122,7 +130,8 @@
                             <div class="items-container" max-element="reply">
                                 <div class="feed-item" ng-repeat="e in ::reply.files | limitTo: reply.limitFiles track by e.id" ng-include="f.postItemTemplate(e)"></div>
                                 <a ui-sref="box.items" class="feed-item more-items" ng-if="::reply.needMore">
-                                    @Html.Svg("~/images/site/icons.svg", "documents")
+                                    <md-icon md-svg-icon="t:documents"></md-icon>
+                                    @*@Html.Svg("~/images/site/icons.svg", "documents")*@
                                     <div class="counter">+{{::reply.needMore | megaNumber}}</div>
                                 </a>
                             </div>
@@ -133,7 +142,7 @@
                                     <span class="like-count" ng-bind="reply.likesCount"></span>
                                 </button>
                                 <button type="button" ng-disabled="f.add.disabled" ng-click="f.likeReply(reply)" ga-track-event="['box-feed', 'comment-like-icon']" layout="row" layout-align="start center">
-                                    <span class="like-icon">@Html.Svg("~/images/site/box-icons.svg", "like")</span>
+                                    <span class="like-icon"><md-icon md-svg-icon="b:like"></md-icon>@*@Html.Svg("~/images/site/box-icons.svg", "like")*@</span>
                                     <span>@GeneralResources.Like</span>
                                 </button>
                             </div>

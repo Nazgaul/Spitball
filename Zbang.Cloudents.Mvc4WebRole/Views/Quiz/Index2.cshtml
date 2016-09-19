@@ -8,14 +8,14 @@
 
 <header layout="row" layout-align="space-between center">
     <div class="ellipsis text-center textTC30" id="quiz-top" ng-bind-html="::q.name"></div>
-    <button type="button" ng-click="app.back(q.boxUrl)" class="close" ga-track-event="['quiz', 'close quiz']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+    <button type="button" ng-click="app.back(q.boxUrl)" class="close" ga-track-event="['quiz', 'close quiz']"><md-icon md-svg-icon="t:close"></md-icon></button>
 </header>
 
 <div md-swipe-left="q.swipeLeft()" md-swipe-right="q.swipeRight()">
     <div class="arrows prev" ng-if="q.state === 2 || q.state === 4">
         
         <button type="button" ng-click="q.back()" hide-xs ng-show="q.index > 0 && q.index < q.questions.length" ga-track-event="['quiz', 'previous question']">
-            @Html.Svg("~/images/site/icons.svg", "arrow")
+            <md-icon md-svg-icon="t:arrow"></md-icon>
         </button>
     </div>
     <div class="wrapper">
@@ -101,9 +101,9 @@
                             <time-ago class="comment-date" from-time="{{::post.creationTime }}" format="mediumDate"></time-ago>
                             @*<span class="comment-date">{{::post.creationTime | date : 'medium'}}</span>*@
                         </div>
-                        <md-menu  ng-if="post.userId === q.user.id">
+                        <md-menu ng-if="post.userId === q.user.id">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['quiz', 'deletePost']">
-                                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3 svgTC2" })
+                                <md-icon md-svg-icon="t:ThreeDots" class="dots-3 svgTC2"></md-icon>
                             </md-button>
                             <md-menu-content width="1">
                                 <md-menu-item>
@@ -113,7 +113,7 @@
                                 </md-menu-item>
                             </md-menu-content>
                         </md-menu>
-                        <div  ng-bind-html="::post.content | linky:'_blank'" class="indent content-text"></div>
+                        <div ng-bind-html="::post.content | linky:'_blank'" class="indent content-text"></div>
                     </li>
                 </ol>
             </div>
@@ -124,7 +124,7 @@
     </div>
     <div class="arrows next" ng-if="q.state === 2 || q.state === 4">
         <button type="button" hide-xs ng-show="(q.state === 2 && q.index < q.questions.length) || (q.state === 4 && q.index < q.questions.length - 1)" ng-click="q.next()" ga-track-event="['quiz', 'next question']">
-            @Html.Svg("~/images/site/icons.svg", "arrow")
+            <md-icon md-svg-icon="t:arrow"></md-icon>
         </button>
     </div>
 </div>
