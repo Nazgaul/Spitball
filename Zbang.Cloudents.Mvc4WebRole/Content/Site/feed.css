@@ -87,7 +87,8 @@
   -webkit-align-items: center;
   align-items: center;
 }
-.feed .box-options .option-wrapper:nth-child(2) label.title svg {
+.feed .box-options .option-wrapper:nth-child(2) label.title svg,
+.feed .box-options .option-wrapper:nth-child(2) label.title md-icon {
   width: 16px;
   height: 16px;
   fill: #4190b9;
@@ -132,7 +133,8 @@
   -webkit-align-items: center;
   align-items: center;
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .title svg {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .title svg,
+.feed .box-options .option-wrapper:nth-child(2) .option.share .title md-icon {
   width: 16px;
   height: 16px;
 }
@@ -161,14 +163,17 @@
     align-items: center;
   }
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg,
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon {
   margin: 0 auto;
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.whatsapp {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.whatsapp,
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon.whatsapp {
   width: 31px;
   height: 31px;
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.fb {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.fb,
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon.fb {
   width: 26px;
   height: 26px;
 }
@@ -196,23 +201,28 @@
   width: 100%;
   margin: 0;
 }
-.feed .box-options .option svg {
+.feed .box-options .option svg,
+.feed .box-options .option md-icon {
   fill: #4190b9;
   display: block;
 }
 .feed .box-options .option.invite {
   background: none;
 }
-.feed .box-options .option.invite svg {
+.feed .box-options .option.invite svg,
+.feed .box-options .option.invite md-icon {
   width: 20px;
   height: 20px;
 }
-.feed .box-options .option.box-settings svg {
+.feed .box-options .option.box-settings svg,
+.feed .box-options .option.box-settings md-icon {
   width: 18px;
   height: 18px;
 }
 .feed .box-options .option.invite svg,
-.feed .box-options .option.box-settings svg {
+.feed .box-options .option.box-settings svg,
+.feed .box-options .option.invite md-icon,
+.feed .box-options .option.box-settings md-icon {
   flex-shrink: 0;
 }
 .feed .userblock img {
@@ -264,7 +274,8 @@
   padding: 5px;
   position: relative;
 }
-.feed .items-container .feed-item.more-items svg {
+.feed .items-container .feed-item.more-items svg,
+.feed .items-container .feed-item.more-items md-icon {
   width: 100%;
   height: 100%;
   fill: rgba(93, 96, 99, 0.15);
@@ -413,20 +424,29 @@
 .feed .add-comment .upload-options button {
   padding: 0;
 }
-.feed .comment .google svg:first-child,
-.feed .add-comment .google svg:first-child {
+.feed .comment .google,
+.feed .add-comment .google {
+  /*svg:last-child,*/
+}
+.feed .comment .google md-icon:first-child,
+.feed .add-comment .google md-icon:first-child {
   display: none;
 }
-.feed .comment .google svg:last-child,
-.feed .add-comment .google svg:last-child {
+.feed .comment .google md-icon:last-child,
+.feed .add-comment .google md-icon:last-child {
   display: inline;
 }
-.feed .comment .google:hover svg:first-child,
-.feed .add-comment .google:hover svg:first-child {
+.feed .comment .google:hover,
+.feed .add-comment .google:hover {
+  /*svg:first-child,*/
+  /*svg:last-child,*/
+}
+.feed .comment .google:hover md-icon:first-child,
+.feed .add-comment .google:hover md-icon:first-child {
   display: inline;
 }
-.feed .comment .google:hover svg:last-child,
-.feed .add-comment .google:hover svg:last-child {
+.feed .comment .google:hover md-icon:last-child,
+.feed .add-comment .google:hover md-icon:last-child {
   display: none;
 }
 .feed .comment .anonymous,

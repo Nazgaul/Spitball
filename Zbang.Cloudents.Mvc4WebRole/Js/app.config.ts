@@ -4,7 +4,7 @@ module app {
 
     angular.module('app').config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
-        "$httpProvider", "$compileProvider", "$animateProvider"];
+        "$httpProvider", "$compileProvider", "$animateProvider", "$mdAriaProvider","$mdIconProvider"];
     // ReSharper disable once Class
     function config(
         $controllerProvider: angular.IControllerProvider,
@@ -12,7 +12,9 @@ module app {
         $provide,
         $httpProvider: angular.IHttpProvider,
         $compileProvider: angular.ICompileProvider,
-        $animateProvider: angular.animate.IAnimateProvider) {
+        $animateProvider: angular.animate.IAnimateProvider,
+        $mdAriaProvider,
+        $mdIconProvider) {
 
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -60,6 +62,16 @@ module app {
         $compileProvider.debugInfoEnabled(false);
         $animateProvider.classNameFilter(/angular-animate/);
         $provide.constant('$MD_THEME_CSS', '');
+
+        $mdAriaProvider.disableWarnings();
+
+
+        $mdIconProvider
+            .iconSet('t', '/images/site/icons.svg')
+            .iconSet('i', '/images/site/itemIcons.svg')
+            .iconSet('u', '/images/site/uploadIcons.svg')
+            .iconSet('lc', '/images/site/libChooseIcons.svg')
+            .iconSet('q', '/images/site/quizIcons.svg');
     }
 }
 
@@ -74,7 +86,6 @@ module app {
     function config(analyticsProvider) {
 
         var analyticsObj = {
-            //'siteSpeedSampleRate': 70,
             'cookieDomain': 'spitball.co',
             'alwaysSendReferrer': true
         }

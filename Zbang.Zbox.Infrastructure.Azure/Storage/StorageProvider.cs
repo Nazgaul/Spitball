@@ -10,18 +10,13 @@ using Zbang.Zbox.Infrastructure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using Zbang.Zbox.Infrastructure.Azure.Table;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Zbang.Zbox.Infrastructure.Azure.Storage
 {
     internal static class StorageProvider
     {
-        private static CloudStorageAccount _cloudStorageAccount;
-        private static LocalResource _localStorage;
-
         static StorageProvider()
         {
 
@@ -37,11 +32,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
             if (RoleEnvironment.IsAvailable)
             {
                 var azureLocalResource = RoleEnvironment.GetLocalResource("ItemPreviewStorage");
-                _localStorage = new LocalResource { LocalResourcePath = azureLocalResource.RootPath, LocalResourceSizeInMegaBytes = azureLocalResource.MaximumSizeInMegabytes };
+                LocalResource = new LocalResource { LocalResourcePath = azureLocalResource.RootPath, LocalResourceSizeInMegaBytes = azureLocalResource.MaximumSizeInMegabytes };
             }
             else
             {
-                _localStorage = new LocalResource { LocalResourcePath = "c:\\Temp\\Zbox", LocalResourceSizeInMegaBytes = 200 };
+                LocalResource = new LocalResource { LocalResourcePath = "c:\\Temp\\Zbox", LocalResourceSizeInMegaBytes = 200 };
                 Directory.CreateDirectory(LocalResource.LocalResourcePath);
             }
         }
@@ -54,11 +49,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
                 var connectionString = ConfigFetcher.Fetch("StorageConnectionString");
                 if (string.IsNullOrEmpty(connectionString))
                 {
-                    _cloudStorageAccount = CloudStorageAccount.DevelopmentStorageAccount;
+                    ZboxCloudStorage = CloudStorageAccount.DevelopmentStorageAccount;
                     CreateStorage();
                     return;
                 }
-                _cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
+                ZboxCloudStorage = CloudStorageAccount.Parse(connectionString);
                 CreateStorage();
             }
             catch (ArgumentNullException ex)
@@ -70,14 +65,14 @@ namespace Zbang.Zbox.Infrastructure.Azure.Storage
 
         private static void CreateStorage()
         {
-            CreateBlobStorage(_cloudStorageAccount.CreateCloudBlobClient());
-            CreateQueues(_cloudStorageAccount.CreateCloudQueueClient());
-            CreateTables(_cloudStorageAccount.CreateCloudTableClient());
+            CreateBlobStorage(ZboxCloudStorage.CreateCloudBlobClient());
+            CreateQueues(ZboxCloudStorage.CreateCloudQueueClient());
+            CreateTables(ZboxCloudStorage.CreateCloudTableClient());
         }
 
-        internal static LocalResource LocalResource => _localStorage;
+        internal static LocalResource LocalResource { get; private set; }
 
-        internal static CloudStorageAccount ZboxCloudStorage => _cloudStorageAccount;
+        internal static CloudStorageAccount ZboxCloudStorage { get; private set; }
 
         #region CreateStorage
         private static void CreateBlobStorage(CloudBlobClient blobClient)

@@ -238,12 +238,12 @@
   margin-right: 5px;
   fill: #007E01;
 }
-.quizPage .score-details .wrong svg {
+.quizPage .score-details .wrong md-icon {
   width: 45px;
   fill: #BE2A4A;
   margin-left: 5px;
 }
-.quizPage .score-details svg {
+.quizPage .score-details md-icon {
   width: 42px;
   height: 39px;
   margin-top: 20px;
@@ -267,7 +267,7 @@
   font-size: 36px;
   color: #2698D4;
 }
-.quizPage .time-taken svg {
+.quizPage .time-taken md-icon {
   fill: #2698D4;
   width: 46px;
   height: 52px;

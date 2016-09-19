@@ -202,11 +202,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.directive.js"),
 
                         new JsFileWithCdn("~/js/components/quiz/quizCreate1.config.js"),
-                       // new JsFileWithCdn("~/js/components/quiz/textAngular.config.js"),
-                        
-                        
-                        
-                        
 
                         new JsFileWithCdn("~/js/components/user/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.controller.js"),
@@ -320,6 +315,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                         new JsFileWithCdn("~/js/components/chat/chat.controller.js"),
+                        new JsFileWithCdn("~/js/components/chat/conversation.controller.js"),
+                        new JsFileWithCdn("~/js/components/chat/chatUsers.controller.js"),
+
                         new JsFileWithCdn("~/js/components/chat/chat.factory.js"),
                         new JsFileWithCdn("~/js/components/chat/hubFactory.js"),
                         new JsFileWithCdn("~/js/components/chat/chatTimeAgo.js"),

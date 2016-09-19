@@ -1464,8 +1464,6 @@
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
     <Content Include="Images\Site\social-icons.svg" />
-    <Content Include="Images\Site\themeDark.png" />
-    <Content Include="Images\Site\themeLight.png" />
     <Content Include="Images\Site\uploadIcons.svg" />
     <Content Include="Images\Site\user_0.png" />
     <Content Include="Images\Site\user_1.png" />
@@ -1477,7 +1475,6 @@
     <Content Include="Js\app.js" />
     <Content Include="Js\app.route.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
-    <Content Include="Js\components\chat\chat.controller.js" />
     <Content Include="Js\components\account\account.routes.js" />
     <Content Include="Js\components\account\account.service.js" />
     <Content Include="Js\components\account\department.controller.js" />
@@ -1522,8 +1519,11 @@
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\app.config.ts" />
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
+    <TypeScriptCompile Include="Js\components\chat\chat.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.factory.ts" />
     <TypeScriptCompile Include="Js\components\chat\chatTimeAgo.ts" />
+    <TypeScriptCompile Include="Js\components\chat\chatUsers.controller.ts" />
+    <TypeScriptCompile Include="Js\components\chat\conversation.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\hubFactory.ts" />
     <TypeScriptCompile Include="Js\components\chat\previewController.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
@@ -1567,7 +1567,6 @@
     <Content Include="Content\Site\GeneralWithStatic.less" />
     <Content Include="Scripts\angular-aria\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate\angular-animate.min.js.map" />
-    <Content Include="Content\angular-material-rtl-fixes.less" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />

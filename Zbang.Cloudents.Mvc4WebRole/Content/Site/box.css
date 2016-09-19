@@ -644,7 +644,7 @@ library-list {
 .upload .uploadSection > div {
   margin: 15px 0;
 }
-.upload .uploadSection svg {
+.upload .uploadSection md-icon {
   width: 50px;
   height: 50px;
 }

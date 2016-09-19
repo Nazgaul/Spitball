@@ -2,8 +2,8 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 <div ng-if="lc.needCode" class="code">
-
-    @Html.Svg("~/images/site/libChooseIcons.svg", "closedUni", new { @class = "closed-uni-i" })
+    <md-icon md-svg-icon="lc:closedUni" class="closed-uni-i"></md-icon>
+    @*@Html.Svg("~/images/site/libChooseIcons.svg", "closedUni", new { @class = "closed-uni-i" })*@
     <div class="content">
         <h4 class="text-capitalize">@UniversityResources.Hi {{::lc.code.userName}}</h4>
         <span class="uni-details" ng-bind-html="::lc.code.closedUniText1"></span>
@@ -11,7 +11,8 @@
         <form name="enterId" novalidate ng-submit="lc.selectUniversity(lc.code.university,enterId)">
             <input id="info" type="checkbox"/>
             <label for="info">
-                @Html.Svg("~/images/site/libChooseIcons.svg", "info", new { @class = "info-i" })
+                <md-icon md-svg-icon="lc:info" class="info-i"></md-icon>
+                @*@Html.Svg("~/images/site/libChooseIcons.svg", "info", new {@class = "info-i"})*@
             </label>
             <md-input-container>
                 <label class="text-capitalize">@UniversityResources.EnterID</label>
