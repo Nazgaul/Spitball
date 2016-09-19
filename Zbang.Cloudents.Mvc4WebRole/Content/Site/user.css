@@ -91,7 +91,12 @@
 }
 .userPage md-tabs-canvas,
 .userPage md-pagination-wrapper {
-  height: 75px;
+  height: 54px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
 }
 .userPage .tab-content {
   margin: 0 -12px;
@@ -109,21 +114,19 @@
   -webkit-animation: none !important;
   animation: none !important;
 }
-.userPage md-tabs .md-tab.md-active {
-  font-weight: bold;
-}
 .userPage md-tabs md-tab-item {
   padding: 0 10px;
   margin: 0 10px;
 }
 .userPage md-tabs md-tab-item .number {
-  font-size: 25px;
-  line-height: 30px;
-  padding-bottom: 10px;
+  font-size: 18px;
+  padding-bottom: 0;
+  font-weight: bold;
 }
 .userPage md-tabs h3 {
-  font-size: 13px;
-  margin: 13px 0 8px 0;
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 4px;
 }
 .userPage md-tabs md-tab {
   margin: 0 20px 0 10px;

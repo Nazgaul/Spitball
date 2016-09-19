@@ -117,7 +117,9 @@
     }
 
     md-tabs-canvas, md-pagination-wrapper {
-        height: 75px;
+        height: 54px;
+        .displayFlex;
+        .align-items(center);
     }
 
     .tab-content {
@@ -139,26 +141,21 @@
             animation: none !important;
         }
 
-
-
-        .md-tab.md-active {
-            font-weight: bold;
-        }
-
         md-tab-item {
             padding: 0 10px;
             margin: 0 10px;
 
             .number {
-                font-size: 25px;
-                line-height: 30px;
-                padding-bottom: 10px;
+                font-size: 18px;
+                padding-bottom: 0;
+                font-weight: bold;
             }
         }
 
         h3 {
-            font-size: 13px;
-            margin: 13px 0 8px 0;
+            font-size: 16px;
+            margin: 0;
+            margin-bottom: 4px;
         }
 
         md-tab {
