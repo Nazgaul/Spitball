@@ -49,10 +49,10 @@ var app;
             .iconSet('i', append('/images/site/itemIcons.svg'))
             .iconSet('u', append('/images/site/uploadIcons.svg'))
             .iconSet('lc', append('/images/site/libChooseIcons.svg'))
-            .iconSet('b', append('/site/box-icons.svg'))
+            .iconSet('b', append('/images/site/box-icons.svg'))
             .iconSet('q', append('/images/site/quizIcons.svg'));
         function append(str) {
-            return window["cdnPath"] + str + '?' + window["version"];
+            return window["cdnPath"] || '' + str + '?' + window["version"];
         }
     }
 })(app || (app = {}));

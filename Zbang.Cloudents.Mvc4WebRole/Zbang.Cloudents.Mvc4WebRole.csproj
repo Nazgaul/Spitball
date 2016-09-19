@@ -1016,9 +1016,6 @@
     <Content Include="Content\Site\General.rtl.min.css">
       <DependentUpon>General.rtl.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\General.rtl.rtl.css">
-      <DependentUpon>General.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\GeneralWithStatic.css">
       <DependentUpon>GeneralWithStatic.less</DependentUpon>
     </Content>
