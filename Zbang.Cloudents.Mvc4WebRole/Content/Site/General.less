@@ -1,4 +1,4 @@
-﻿@import "variables.less";
+﻿@import "themeLight.less";
 
 
 
@@ -115,7 +115,7 @@ body {
     text-align: center;
     text-transform: uppercase;
     font-size: 25px;
-    color: @textColorWhite;
+    color: @textColorBlack;
 }
 
 //ellipsis longer than 3 lines
@@ -168,6 +168,9 @@ body {
     }
 }
 
+
+
+
 //if page title have svg its settings
 .page-title {
     align-items: center;
@@ -190,7 +193,7 @@ body {
 }
 
 .close {
-    float: right;
+    //float: right;
     margin-top: 6px;
 
     &:hover {
@@ -203,6 +206,85 @@ body {
         fill: @textColorWhite;
     }
 }
+
+
+.page-tabs {
+    background: @buttonColorBlue;
+    margin-bottom: 10px;
+
+    .md-tab.md-active span {
+        color: @textColorLightWhite;
+    }
+
+    .md-tab span {
+        color: #0d3a52;
+    }
+
+    md-ink-bar {
+        display: none;
+    }
+
+    md-tabs-wrapper {
+        margin-bottom: 0;
+    }
+}
+
+.create-btn, .inviteBtn {
+    width: 100%;
+    background: @textColorBlack;
+    padding: 8px 0;
+    border-radius: 5px;
+    margin: 8px;
+    box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
+
+
+    &.active {
+        background: @buttonColorBlue;
+
+        .wrapper {
+            .text {
+                color: @textColorBlack;
+            }
+
+            svg {
+                fill: @textColorBlack;
+            }
+        }
+    }
+
+    &:not(.active):hover {
+        .wrapper {
+            svg {
+                fill: @buttonColorBlue !important;
+            }
+
+            span {
+                color: @buttonColorBlue !important;
+            }
+        }
+    }
+
+    .wrapper {
+        .displayFlex();
+        .align-items(center);
+        .justifyContet(center);
+
+        svg {
+            fill: @buttonColorBlue;
+            margin-right: 10px;
+        }
+
+        .text {
+            color: @buttonColorBlue;
+        }
+
+        span {
+            line-height: normal;
+            padding-right: 6px;
+        }
+    }
+}
+
 
 
 .create-box {
@@ -236,13 +318,16 @@ body {
             span {
                 margin: 0;
             }
+
+            .buttons {
+                position: absolute;
+                bottom: 12px;
+                right: 12px;
+            }
         }
     }
 
     .create-btn {
-        width: 100%;
-        height: 100%;
-
         div {
             font-size: 14px;
             line-height: 16px;
@@ -259,10 +344,13 @@ body {
         }
     }
 
+    .create-department {
+        padding-bottom: 12px;
+    }
+
     .create-txt, .create-department {
         .displayFlex();
         .justifyContet(center);
-        padding-bottom: 12px;
         width: 100%;
         height: 100%;
         -ms-flex-direction: column;
@@ -383,6 +471,10 @@ body {
     z-index: 80;
 }
 
+md-input-container label:not(.md-container-ignore).md-required:after {
+    content: none;
+}
+
 .r-table {
     display: table;
 }
@@ -497,7 +589,7 @@ body {
     // margin-left: 27px;
     height: 20px;
     width: 20px;
-    fill: @svgDots;
+    fill: @textColorLightGrey;
 }
 
 

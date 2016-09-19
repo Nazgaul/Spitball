@@ -13,11 +13,14 @@
 @textColorGreen: #8dc63f;
 @textColorRed: #db4437;
 @textColorOrange: #ffa500;
+@textColorLightWhite: #f5f5f5;
+@textColorPurple: #33076e;
 
 //backgrounds
 @backgroundColor: #dadada;
 @backgroundColor2: #9E9E9E;
 @backgroundColorWhite: #212325;
+@backgroundColorBlack: #ffffff;
 @backgroundColorMenu: #ffffff;
 @backgroundColorFollow: #006072;
 @backgroundColorItem: #6a737d;
@@ -29,6 +32,7 @@
 @backgroundColorMenuSelect: #292d31;
 @backgroundColorMouseOver: #dadce2;
 @headerbackground: #323538;
+@backgroundCalmGrey: #eeeeee;
 
 //borders
 @borderColorGrey: #3D4348;
@@ -66,6 +70,7 @@
 @svgQuizRanking: #F76446;
 @svgGmail: #ED1921;
 @svgDots: #5d6063;
+@svgInvite: #585f66;
 
 //scrollbar
 @scrollbarColor: rgba(157,153,156,.5);
@@ -128,12 +133,11 @@ body.theme-light {
         background: @backgroundColorMenu;
     }
 
-    md-input-container:not(.md-input-invalid) label {
-        color: @textColorGrey;
-    }
-
-    md-input-container label {
-        color: @textColorLightGrey;
+    md-input-container {
+        &:not(.md-input-invalid) label, label {
+            line-height: normal;
+            color: @textColorWhite;
+        }
     }
 
     .md-select-value .md-select-icon,
@@ -143,9 +147,9 @@ body.theme-light {
         color: @buttonColorBlue;
         border-color: @buttonColorBlue;
 
-        &:focus, &:active {
+        /*&:focus, &:active {
             color: @textColorBlue;
-        }
+        }*/
     }
 
     md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
@@ -189,10 +193,7 @@ body.theme-light {
 
     .create-box {
         &:hover {
-            .dashboard-stat2 {
-                border: 2px solid @buttonColorBlue;
-                color: @buttonColorBlue;
-            }
+
 
             .plus {
                 svg {
@@ -202,8 +203,8 @@ body.theme-light {
         }
 
         .dashboard-stat2 {
-            border: 2px solid @textColorGrey;
-            color: @textColorGrey;
+            border: 2px solid @buttonColorBlue;
+            color: @buttonColorBlue;
         }
 
         .plus {
@@ -224,8 +225,8 @@ body.theme-light {
         }
 
         md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-            border-bottom: 1px solid @textColorGrey;
-            color: @textColorGrey;
+            border-bottom: 1px solid @buttonColorBlue;
+            color: @textColorWhite;
         }
     }
 
@@ -351,12 +352,6 @@ body.theme-light {
     .nav-bar {
         background: @headerbackground;
         border-bottom: 5px solid @backgroundColor;
-
-        .user-md-menu {
-            &:hover {
-                background: @backgroundColorMouseOver;
-            }
-        }
     }
     /*#endregion*/
     /*#region accountSettings.less*/
@@ -405,7 +400,7 @@ body.theme-light {
     }
 
 
-    .accountPage-wrapper, .search {
+    .accountPage-wrapper {
         md-tabs-wrapper {
             background: #ffffff;
         }
@@ -454,8 +449,6 @@ body.theme-light {
     color-override hoverTextColor#
     color-override hoverSvgColor#
     */
-
-
     /*#region TODO*/
     // TODO: find a better way than leaving this css peace
     md-tabs {
@@ -472,15 +465,6 @@ body.theme-light {
     .need-follow.box-title h1 {
         color: @Color8;
     }
-
-    .library-choose .search-form-wrapper form {
-        border: 1px solid @textColorGrey;
-    }
-
-    .page-title > h1 {
-        color: @svgColorGrey;
-    }
-
 
     .box-nav-bar {
         md-next-button, md-prev-button {

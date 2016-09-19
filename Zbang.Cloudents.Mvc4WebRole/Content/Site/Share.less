@@ -1,4 +1,4 @@
-﻿@import "variables.less";
+﻿@import "themeLight.less";
 
 
 .invite-container {
@@ -37,7 +37,7 @@
 
                 button {
                     height: 55px;
-                    background: @backgroundColorMenu;
+                    background: @textColorGrey;
 
 
                     span {
@@ -46,14 +46,36 @@
                         text-align: center;
 
                         svg {
+                            fill: @svgInvite;
                             margin: 0;
                         }
                     }
 
                     &.spitball {
-                        svg {
-                            width: 50px;
-                            height: 25px;
+                        @media(max-width: 600px) {
+                            .desktop-icon {
+                                display: none;
+                            }
+
+                            svg {
+                                width: 50px;
+                                height: 25px;
+                            }
+                        }
+
+                        @media(min-width: 600px) {
+                            .mobile-icon {
+                                display: none;
+                            }
+
+                            svg {
+                                width: 140px;
+                                height: 40px;
+                                padding-top: 12px;
+                            }
+                        }
+
+                        &.active svg {
                             fill: @textColorSpitballBlue;
                         }
                     }
@@ -77,8 +99,7 @@
                     }
 
                     &.active {
-                        background: @textColorWhite !important;
-                        border-bottom: 3px solid @buttonColorBlue;
+                        background: @textColorBlack !important;
                     }
                     /*&:not(.active) svg {
                         fill: #585F66;
@@ -88,7 +109,11 @@
 
             .center {
                 min-height: 350px;
-                position: relative;
+                .displayFlex;
+
+                .contacts {
+                    width: 100%;
+                }
 
                 .search-user {
                     padding: 10px 15px;
@@ -99,13 +124,21 @@
                 }
 
                 .email, .facebook {
-                    position: absolute;
-                    top: 30%;
-                    text-align: center;
                     width: 100%;
+                    .displayFlex;
+                    flex-direction: column;
+                    .justifyContet(space-between);
+
+                    .text-wrapper {
+                        flex-grow: 1;
+                        .displayFlex;
+                        .align-items(center);
+                        .justifyContet(center);
+                    }
 
                     .text {
-                        color: @textColorGrey;
+                        text-align: center;
+                        color: @textColorWhite;
                         max-width: 300px;
                         font-size: 22px;
                         display: inline-block;
@@ -128,6 +161,10 @@
                     margin: 0 auto;
                     text-align: center;
                     white-space: pre-wrap;
+                }
+
+                .text, .empty-state {
+                    color: @textColorWhite;
                 }
 
                 md-list {
@@ -293,7 +330,7 @@
                 margin: 5px;
                 min-height: 35px;
 
-                .send, .close {
+                button {
                     margin: 5px;
                     // float: none;
                 }

@@ -15,18 +15,18 @@
 </div>
 <div uib-collapse="!b.settingsOpen" compile-html="b.settingsHtml" class="collapsible settings" ng-cloak></div>
 
-<md-tabs class="box-nav-bar backgroundTC19 borderTC19" md-enable-disconnect="true">
+<md-tabs class="box-nav-bar page-tabs" md-enable-disconnect="true">
     <md-tab ui-sref="box.feed" md-active="b.isActiveState('box.feed')">
-        <md-tab-label><span class="textTC20">@BoxResources.Feed</span></md-tab-label>
+        <md-tab-label><span>@BoxResources.Feed</span></md-tab-label>
     </md-tab>
     <md-tab ui-sref="box.items" md-active="b.isActiveState('box.items')">
-        <md-tab-label><span class="textTC20">@BoxResources.Items</span></md-tab-label>
+        <md-tab-label><span>@BoxResources.Items</span></md-tab-label>
     </md-tab>
     <md-tab ui-sref="box.quiz" md-active="b.isActiveState('box.quiz')">
-        <md-tab-label><span class="textTC20">@GeneralResources.Quizzes</span></md-tab-label>
+        <md-tab-label><span>@GeneralResources.Quizzes</span></md-tab-label>
     </md-tab>
     <md-tab ui-sref="box.members" md-active="b.isActiveState('box.members')">
-        <md-tab-label><span class="textTC20">@GeneralResources.Members</span></md-tab-label>
+        <md-tab-label><span>@GeneralResources.Members</span></md-tab-label>
     </md-tab>
 </md-tabs>
 <div @*class="page-animation"*@ ui-view @*autoscroll="false"*@></div>

@@ -40,7 +40,7 @@
     <header id="main-nav" class="nav-bar" ng-class="{'expand-search': app.expandSearch}" layout="row" ng-cloak>
         <div class="logo-search" layout="row" layout-align="start center">
             <button hide-gt-sm type="button" ng-click="app.toggleMenu()" class="menu-toggler responsive-toggler" hide-chat-on-mobile="click" ga-track-event="['header', 'open menu']">
-                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu svgTC17 hoverSvgTC18" })
+                @Html.Svg(svgUrl, "headerMenu", new { @class = "headerMenu" })
             </button>
             <div class="logo">
                 <div class="page-logo">
@@ -77,7 +77,7 @@
                        hide-chat-on-mobile="focus"
                        type="search" class="text"
                        user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
-                <button type="submit" class="search-btn backgroundTC43" ng-disabled="!st.term.length">
+                <button type="submit" class="search-btn" ng-disabled="!st.term.length">
                     <span>@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })</span>
                 </button>
             </div>

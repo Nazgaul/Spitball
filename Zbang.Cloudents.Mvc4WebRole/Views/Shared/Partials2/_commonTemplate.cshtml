@@ -39,10 +39,10 @@
                 </div>
             </div>
             <div class="stats" ng-hide="::e.numOfViews == undefined">
-                <div>
+                <div class="views">
                     {{::e.numOfViews}} @Html.Svg(svgUrl, "eye")
                 </div>
-                <div>
+                <div class="likes">
                     {{::e.likes}} @Html.Svg(svgUrl, "like")
                 </div>
             </div>
@@ -72,7 +72,7 @@
 
             </div>
             <div class="stats" ng-hide="::e.numOfViews === underfined">
-                <div>
+                <div class="views">
                     {{::e.numOfViews}} @Html.Svg(svgUrl, "eye")
                 </div>
             </div>

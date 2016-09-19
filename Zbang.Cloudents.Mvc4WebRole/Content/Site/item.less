@@ -1,4 +1,4 @@
-﻿@import "variables.less";
+﻿@import "themeLight.less";
 @actionsNavHeight: 60px;
 
 md-menu-item {
@@ -25,7 +25,7 @@ md-menu-item {
 
 
 .mdno-touchevents .itemPage .name-actions {
-    button, a, .info {
+    a, .info {
         &:hover {
             color: @buttonColorBlue;
 
@@ -57,6 +57,7 @@ md-menu-item {
         .displayFlex;
         flex-direction: column;
         .align-items(center);
+        background: @backgroundColor;
         /*.page-logo {
             svg {
                 width: 180px;
@@ -113,19 +114,15 @@ md-menu-item {
                 margin-right: 8px;
                 margin-bottom: -2px;
             }
-        }
 
-        button.fb-like.blue {
-            background: #4190b9;
-            color: @textColorWhite;
-            border-color: #4190b9;
+            &:hover, &.blue {
+                background: @buttonColorBlue;
+                border-color: @buttonColorBlue;
+                color: @textColorBlack;
 
-            svg {
-                fill: @textColorWhite;
-            }
-
-            span {
-                color: @textColorWhite;
+                svg {
+                    fill: @textColorBlack;
+                }
             }
         }
 
@@ -168,10 +165,6 @@ md-menu-item {
                     a svg {
                         display: inherit;
                     }
-                }
-
-                button.fb-like:hover {
-                    border-color: @buttonColorBlue;
                 }
 
                 md-menu button {
@@ -325,7 +318,7 @@ md-menu-item {
         }
 
         span {
-            color: @textColorGrey;
+            color: @backgroundColorWhite;
         }
     }
 
@@ -357,14 +350,14 @@ md-menu-item {
         z-index: 2;
     }
 
-    .comments-wrapper, .comments-wrapper md-input-container .md-input {
+    .comments-wrapper {
         color: @textColorBlack;
     }
 
     .commentsMenu {
         width: 20px;
         height: 20px;
-        fill: @textColorWhite;
+        fill: @textColorBlack;
     }
 
     .comments-wrapper .menu-toggler {
@@ -461,8 +454,8 @@ md-menu-item {
         }
 
         md-content {
-            background-color: @textColorWhite;
-            box-shadow: -10px 10px 34px @backgroundColorMenu;
+            background-color: @backgroundCalmGrey;
+            box-shadow: -10px 10px 34px rgba(0, 0, 0, 0.83);
             width: 300px;
             overflow: hidden;
         }
@@ -474,21 +467,32 @@ md-menu-item {
             line-height: 30px;
         }
 
-        .comments-list > li {
-            border: 1px solid @borderColorBlue;
-        }
+        .reply-btn {
+            color: @textColorBlue;
+            padding: 0 10px;
+            margin-top: 10px;
+            background: #d7dde0;
 
-        .comment-replies {
-            .reply-text {
-                border-top: 1px solid @borderColorLightGrey;
+            button {
+                margin-left: 35px;
+                padding: 0;
+                line-height: 28px;
             }
         }
 
-        .reply-btn {
-            border-top: 1px solid @borderColorLightGrey;
-            color: @textColorBlue;
-            padding-top: 10px;
-            margin-top: 10px;
+        .add-reply {
+            padding: 4px;
+            background: #d7dde0;
+        }
+
+        .add-reply-wrapper {
+            background: @textColorBlack;
+            border-radius: 0 0 5px 5px;
+            overflow: hidden;
+
+            md-input-container {
+                padding: 6px 6px 0 6px;
+            }
         }
 
         .comments {
@@ -505,6 +509,15 @@ md-menu-item {
 
             md-input-container {
                 margin: 0;
+
+                input {
+                    font-size: 14px;
+                    padding-left: 0;
+                }
+
+                .md-errors-spacer {
+                    display: none;
+                }
             }
 
             md-menu {
@@ -525,20 +538,37 @@ md-menu-item {
 
             .buttons {
                 text-align: right;
+                padding: 14px 5px;
+
+                button {
+                    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.39);
+                }
             }
 
             .comments-list > li {
                 border-radius: 5px;
-                padding: 10px;
-                margin: 10px 0;
+                margin: 16px 0;
+                background: @textColorBlack;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+            }
+
+            .comment-data, .reply-data {
+                padding: 10px 10px 0 10px;
             }
 
             .comment-replies {
                 .reply-data {
                     > div, > md-menu {
-                        margin-top: 10px;
                         padding-top: 10px;
                     }
+                }
+
+                .reply-wrapper {
+                    .displayFlex;
+                    .align-items(flex-start);
+                    .justifyContet(flex-start);
+                    width: 100%;
+                    border-top: 1px solid @borderColorLightGrey;
                 }
             }
 
@@ -594,6 +624,7 @@ md-menu-item {
         }
 
         svg {
+            fill: @textColorGrey;
             width: 40px;
             height: 40px;
         }

@@ -286,6 +286,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+<<<<<<< HEAD
         ///   Looks up a localized string similar to Upload Documents.
         /// </summary>
         public static string UploadFiles {
@@ -304,6 +305,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
+=======
+>>>>>>> f34c56cefce8281f81f831d04a8bbc90eab6eb42
         ///   Looks up a localized string similar to Ask a question, share study material....
         /// </summary>
         public static string Whats {

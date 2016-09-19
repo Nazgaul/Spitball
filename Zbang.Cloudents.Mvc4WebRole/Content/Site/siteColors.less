@@ -25,7 +25,6 @@
 
             .content {
                 background: @borderColorBottomGrey;
-                border: 1px solid @textColorDarkGrey;
                 box-shadow: 0 0 2px @backgroundColor;
             }
 
@@ -233,10 +232,10 @@
         }
 
         .stats {
-            color: @textColorWhite;
+            color: @headerbackground;
 
             svg {
-                fill: @textColorWhite;
+                fill: @headerbackground;
             }
         }
     }
@@ -408,9 +407,8 @@
         color: @textColorWhite;
     }
 
-    .box-cube, .unibox, .leaderboard {
-        border: 1px solid transparent;
-        background: @backgroundColorMenu;
+    .box-cube, .unibox, .leaderboard, .suggested a{
+        box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
     }
 
     .table-scrollable > .table {
@@ -834,19 +832,13 @@ Page Loading
     /*#region library.less*/
     .library {
         .department {
-            border: 3px solid @textColorLightGrey;
-            color: @textColorGrey;
+           // border: 3px solid @textColorLightGrey;
+            color: @textColorWhite;
         }
 
 
         .dots-3 {
             fill: @backgroundColorWhite;
-        }
-
-        .course-nav {
-            .name {
-                background: @textColorDarkGrey;
-            }
         }
     }
     /*#endregion*/
@@ -1176,7 +1168,7 @@ Page Loading
     }
 
     .page-body {
-        md-sidenav {
+        .main-md-sidenav {
             //background: none;
             background: @backgroundColor;
 
@@ -1184,7 +1176,7 @@ Page Loading
                 .md-button {
                     color: @textColorWhite;
 
-                    &:hover {
+                    &:hover, &.active {
                         background: rgba(65,144,185,0.2);
                         color: @buttonColorBlue;
                     }
@@ -1198,10 +1190,6 @@ Page Loading
         }
     }
 
-
-    .side-menu .md-button.active {
-        background: @backgroundColorMouseOver;
-    }
 
     .side-menu .md-button-toggle .arrow {
         color: darkgray;
@@ -1225,7 +1213,7 @@ Page Loading
         .placeHolder(@textColorGrey);
 
         em {
-            color: @textColorOrange;
+            color: #ff4500;
         }
 
         .item, .quiz {
@@ -1244,7 +1232,7 @@ Page Loading
     }
 
     .search-text {
-        color: @textColorSpitballBlue;
+        color: @buttonColorBlue;
     }
     /*#endregion*/
     /*#region share.less*/

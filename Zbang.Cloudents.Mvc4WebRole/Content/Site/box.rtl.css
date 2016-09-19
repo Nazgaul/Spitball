@@ -44,6 +44,10 @@
 .folders .name-and-icon {
   width: 100%;
 }
+.folder-selected .name-and-icon .name,
+.folders .name-and-icon .name {
+  background: #4190b9;
+}
 .folders .folder-name .content {
   text-align: center;
   color: #f5f5f5;
@@ -81,11 +85,11 @@
   display: inline-block;
 }
 .search-box input {
-  border: 5px solid;
+  border: 5px solid #4190b9;
   background: #f5f5f5;
   color: #212325;
-  margin-top: -5px;
-  border-radius: 0 0 5px 5px;
+  margin-top: -15px;
+  border-radius: 0 0 4px 4px;
   width: 200px;
   float: left;
   padding: 0 8px;
@@ -218,7 +222,6 @@ library-list {
 .add-button button {
   font-size: 18px;
   text-align: center;
-  white-space: nowrap;
 }
 .add-button svg {
   width: 40px;
@@ -327,7 +330,7 @@ library-list {
 }
 .item .base,
 .quiz .base {
-  padding: 5px;
+  padding: 5px 5px 2px 5px;
   display: inline-block;
   width: 100%;
 }
@@ -338,17 +341,34 @@ library-list {
 .item .stats,
 .quiz .stats {
   font-size: 14px;
-  padding: 0 12px;
+  padding: 3px 12px 0 12px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
+.item .stats .views,
+.quiz .stats .views,
+.item .stats .likes,
+.quiz .stats .likes {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  width: 26px;
+}
+.item .stats .likes svg,
+.quiz .stats .likes svg {
+  margin-bottom: 2px;
+}
 .item .stats svg,
 .quiz .stats svg {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
 }
 .quiz .quiz-ratio {
   position: relative;
@@ -545,10 +565,6 @@ library-list {
   height: 70px;
   background: rgba(24, 28, 29, 0.75);
 }
-.item svg {
-  vertical-align: top;
-  margin-top: 5px;
-}
 .i-q-wrapper {
   position: relative;
 }
@@ -647,9 +663,6 @@ library-list {
 .upload .actions {
   text-align: left;
   padding: 20px 0 10px 10px;
-}
-md-tabs.box-nav-bar md-tabs-wrapper {
-  margin-bottom: 0;
 }
 #dropElement h5 .completed {
   margin-left: 5px;

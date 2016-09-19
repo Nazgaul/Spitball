@@ -153,9 +153,12 @@
   <data name="Unfollow" xml:space="preserve">
     <value>Unfollow</value>
   </data>
+<<<<<<< HEAD
   <data name="UploadFiles" xml:space="preserve">
     <value>Upload Documents</value>
   </data>
+=======
+>>>>>>> f34c56cefce8281f81f831d04a8bbc90eab6eb42
   <data name="Whats" xml:space="preserve">
     <value>Ask a question, share study material...</value>
   </data>
