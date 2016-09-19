@@ -32,6 +32,7 @@
 }
 //.mixin-loop (0) {}
 .mixin-loop(@iterations);
+
 button {
     border: 0;
     background: transparent;
@@ -60,8 +61,18 @@ body {
     margin-top: 0;
     .transition(margin-top, 0.2s, ease);
 }
+
 .blue-button {
     .colored-button(@textColorLike, @textColorWhite)
+}
+
+.notificationButton {
+    .colored-button(@notificationColor, #fff);
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 4px;
+    min-width: 130px;
+    .colored-button-hover(@notificationColorHover, #fff);
 }
 
 .mdno-touchevents .blue-button {
@@ -79,19 +90,19 @@ body {
 
 
 //.mdno-touchevents {
-    ::-webkit-scrollbar-track {
-        border: none;
-    }
+::-webkit-scrollbar-track {
+    border: none;
+}
 
-    ::-webkit-scrollbar {
-        width: 10px;
-        height: 6px;
-    }
+::-webkit-scrollbar {
+    width: 10px;
+    height: 6px;
+}
 
-    ::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-        background: @scrollbarColor;
-    }
+::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: @scrollbarColor;
+}
 //}
 
 
@@ -100,6 +111,7 @@ body {
 #ssIFrame_google {
     left: -9999px !important;
 }
+
 .button-Blue {
     background: @buttonColorBlue !important;
     text-transform: initial;
@@ -126,6 +138,7 @@ body {
         }
     }
 }
+
 #intercom-container, #intercom-launcher {
     z-index: 120;
 }
