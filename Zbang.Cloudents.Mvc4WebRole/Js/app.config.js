@@ -3,8 +3,8 @@ var app;
     "use strict";
     angular.module('app').config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
-        "$httpProvider", "$compileProvider", "$animateProvider", "$mdAriaProvider"];
-    function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider) {
+        "$httpProvider", "$compileProvider", "$animateProvider", "$mdAriaProvider", "$mdIconProvider"];
+    function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider) {
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
         $provide.factory('requestinterceptor', [function () { return ({
@@ -44,6 +44,9 @@ var app;
         $animateProvider.classNameFilter(/angular-animate/);
         $provide.constant('$MD_THEME_CSS', '');
         $mdAriaProvider.disableWarnings();
+        $mdIconProvider
+            .iconSet('t', '/images/site/icons.svg')
+            .iconSet('u', '/images/site/uploadIcons.svg');
     }
 })(app || (app = {}));
 (function () {

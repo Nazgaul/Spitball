@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
-    const string url = "~/images/site/uploadIcons.svg";
+    //const string url = "~/images/site/uploadIcons.svg";
 }
 <form class="add-comment new-post" ng-submit="f.add.createComment()">
     <div class="user-comment" layout="row">
@@ -24,19 +24,26 @@
             <a plupload="f.add.fileUpload.url" ng-click="f.add.upload()"
                plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks"
                ga-track-event="['box-new-commnet', 'addFile']">
-                @Html.Svg(url, "file", new { @class = "file" })
+                <md-icon md-svg-icon="u:file" class="file"></md-icon>
+                @*@Html.Svg(url, "file", new {@class = "file"})*@
             </a>
             <button type="button" class="google" ng-mouseover="f.add.init()" @*ng-disabled="f.add.googleDisabled"*@ ng-click="f.add.google()" ga-track-event="['box-new-commnet', 'googleDrive']">
-                @Html.Svg(url, "googleDrive")
-                @Html.Svg(url, "googleDriveClean")
+                <md-icon md-svg-icon="u:googleDrive"></md-icon>
+                <md-icon md-svg-icon="u:googleDriveClean"></md-icon>
+                @*@Html.Svg(url, "googleDrive")
+                @Html.Svg(url, "googleDriveClean")*@
             </button>
-            <button type="button" ng-mouseover="f.add.init()" @*ng-disabled="f.add.dropboxDisabled"*@ ng-click="f.add.dropbox()" ga-track-event="['box-new-commnet', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
+            <button type="button" ng-mouseover="f.add.init()" @*ng-disabled="f.add.dropboxDisabled"*@ ng-click="f.add.dropbox()" ga-track-event="['box-new-commnet', 'dropbox']">
+                <md-icon md-svg-icon="u:dropbox" class="dropbox"></md-icon>
+                @*@Html.Svg(url, "dropbox", new {@class = "dropbox"})*@
+            </button>
         </div>
         <div layout="row" layout-align="space-between center">
             <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
             <label class="anonymous-wrapper" title="@BoxResources.Anonymous" for="anonymous" ga-track-event="['box-new-commnet', 'anonymous']"><span class="text">@BoxResources.Anonymous</span>@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })</label>
             <button type="submit" class="btn button-Blue btn-primary text-uppercase post-comment" ng-disabled="f.add.disabled" ga-track-event="['box-new-commnet', 'postComment']">
-                @Html.Svg(url, "post")
+                <md-icon md-svg-icon="u:post"></md-icon>
+                @*@Html.Svg(url, "post")*@
             </button>
         </div>
     </div>

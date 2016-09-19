@@ -4,7 +4,7 @@ module app {
 
     angular.module('app').config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
-        "$httpProvider", "$compileProvider", "$animateProvider","$mdAriaProvider"];
+        "$httpProvider", "$compileProvider", "$animateProvider", "$mdAriaProvider","$mdIconProvider"];
     // ReSharper disable once Class
     function config(
         $controllerProvider: angular.IControllerProvider,
@@ -13,7 +13,8 @@ module app {
         $httpProvider: angular.IHttpProvider,
         $compileProvider: angular.ICompileProvider,
         $animateProvider: angular.animate.IAnimateProvider,
-        $mdAriaProvider) {
+        $mdAriaProvider,
+        $mdIconProvider) {
 
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -63,6 +64,11 @@ module app {
         $provide.constant('$MD_THEME_CSS', '');
 
         $mdAriaProvider.disableWarnings();
+
+
+        $mdIconProvider
+            .iconSet('t', '/images/site/icons.svg')
+            .iconSet('u', '/images/site/uploadIcons.svg');
     }
 }
 

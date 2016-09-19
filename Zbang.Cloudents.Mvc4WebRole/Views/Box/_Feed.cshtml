@@ -3,7 +3,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 
 @{
-    const string url = "~/images/site/uploadIcons.svg";
+    //const string url = "~/images/site/uploadIcons.svg";
 }
 <div layout="row" layout-padding layout-wrap class="feed-wrapper">
     <div class="feed" flex="100" flex-md="66" flex-lg="60" flex-gt-lg="60">
@@ -155,16 +155,23 @@
                             <div class="upload-options feed-upload" layout="row" layout-wrap layout-align="space-between start">
                                 <a user-not-register-popup="click" plupload="f.add.fileUpload.url" ng-click="f.add.upload(post.id)"
                                    plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks" ga-track-event="['box-feed', 'addFile']">
-                                    @Html.Svg(url, "file", new { @class = "file" })
+                                    <md-icon md-svg-icon="u:file" class="file"></md-icon>
+                                    @*@Html.Svg(url, "file", new {@class = "file"})*@
                                 </a>
                                 <button user-not-register-popup="click" type="button" class="google" ng-mouseover="f.add.init()" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)" ga-track-event="['box-feed', 'googleDrive']">
-                                    @Html.Svg(url, "googleDrive")
-                                    @Html.Svg(url, "googleDriveClean")
+                                    <md-icon md-svg-icon="u:googleDrive"></md-icon>
+                                    <md-icon md-svg-icon="u:googleDriveClean"></md-icon>
+                                    @*@Html.Svg(url, "googleDrive")
+                                    @Html.Svg(url, "googleDriveClean")*@
                                 </button>
-                                <button user-not-register-popup="click" type="button" ng-mouseover="f.add.init()" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)" ga-track-event="['box-feed', 'dropbox']">@Html.Svg(url, "dropbox", new { @class = "dropbox" })</button>
+                                <button user-not-register-popup="click" type="button" ng-mouseover="f.add.init()" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)" ga-track-event="['box-feed', 'dropbox']">
+                                    <md-icon md-svg-icon="u:dropbox" class="dropbox"></md-icon>
+                                    @*@Html.Svg(url, "dropbox", new {@class = "dropbox"})*@
+                                </button>
                             </div>
                             <button type="submit" class="btn button-Blue btn-primary text-uppercase post-comment" ng-disabled="f.add.disabled" ga-track-event="['box-feed', 'postReply']">
-                                @Html.Svg(url, "post")
+                                <md-icon md-svg-icon="u:post"></md-icon>
+                                @*@Html.Svg(url, "post")*@
                             </button>
                         </div>
                     </form>
