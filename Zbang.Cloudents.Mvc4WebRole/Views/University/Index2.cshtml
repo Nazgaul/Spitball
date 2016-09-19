@@ -17,7 +17,6 @@
                 </span>
             </h2>
         </a>
-        <button type="button" ng-click="l.toggleSettings()" ga-track-event="['university', 'settings']"><md-icon md-svg-icon="b:settings" class="svgTC15"></md-icon>@*@Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "svgTC15" })*@</button>
     </div>
 </div>
 <div uib-collapse="!l.settingsOpen" compile-html="l.settingsHtml" class="collapsible settings" ng-if="l.nodeDetail" ng-cloak></div>
@@ -26,9 +25,37 @@
     Html.RenderPartial("_EmptyStateTopTree");
 }
 
+<div class="actions" layout="row" layout-padding layout-wrap flex="100">
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" hide-xs class="create-box flex" ng-if="l.createDepartmentShow">
+        <button type="button" ng-click="l.openCreateDepartment()" class="box-style action" ng-class="{'active':l.createDepartmentOn}" ga-track-event="['university', 'add new department']">
+            <div class="wrapper">
+                @Html.Svg("~/images/site/icons.svg", "add", new { @class = "icon" })
+                <span class="text">@UniversityResources.AddDepartment</span>
+            </div>
+        </button>
+    </div>
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" hide-xs class="create-box flex" ng-if="l.createClassShow">
+        <button type="button" ng-click="l.openCreateBox()" class="box-style action" ng-class="{'active':l.createBoxOn}" ga-track-event="['university', 'add new class']">
+            <div class="wrapper">
+                @Html.Svg("~/images/site/icons.svg", "add", new { @class = "icon" })
+                <span class="text">@UniversityResources.AddClass</span>
+            </div>
+        </button>
+    </div>
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" hide-xs class="create-box flex" ng-if="l.nodeDetail">
+        <button type="button" ng-click="l.toggleSettings()" class="settings-btn box-style action" ng-class="{'active':l.settingsOpen}" ga-track-event="['university', 'settings']">
+            <div class="wrapper">
+                @Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "icon" })
+                <span class="text">@UniversityResources.DepartmentSettings</span>
+            </div>
+        </button>
+    </div>
+</div>
 <div ng-if="!l.state.emptyTopTree" layout="row" layout-padding layout-wrap class="library-list">
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createDepartmentOn">@{ Html.RenderPartial("_CreateDepartment");}</div>
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createBoxOn">@{ Html.RenderPartial("_CreateCourse");}</div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat="dep in l.departments track by dep.id">
-        <a ng-click="l.goToSubLib(dep,$event)" href="{{::dep.url}}" class="dashboard-stat2 department backgroundTC1" d-color="{{::dep.name.length}}" ga-track-event="['university', 'select department']">
+        <a ng-click="l.goToSubLib(dep,$event)" href="{{::dep.url}}" class="box-style" ga-track-event="['university', 'select department']">
             <div class="display">
                 <div class="number">
                     <h3 class="multi-line-ellipsis limit-two" d-color="{{::dep.name.length}}">{{::dep.name}}</h3>
@@ -68,30 +95,9 @@
             </md-menu-content>
         </md-menu>
     </div>
-    <div layout="row" layout-padding layout-wrap flex="100">
-        <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" hide-xs
-             ng-class="{'create-deparment-show' : l.createDepartmentOn, 'create-init' : l.createDepartmentShow && l.createClassShow}"
-             class="create-box flex" ng-if="l.createDepartmentShow">
-            <button type="button" ng-click="l.openCreateDepartment()" class="create-btn" ga-track-event="['university', 'add new department']">
-                <div class="wrapper">
-                    <md-icon md-svg-icon="t:add"></md-icon>
                     @*@Html.Svg("~/images/site/icons.svg", "add")*@
-                    <span class="text">@UniversityResources.AddDepartment</span>
-                </div>
-            </button>
-            @*@{ Html.RenderPartial("_CreateDepartment");}*@
-        </div>
-        <button flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-hide="l.createBoxOn" type="button" ng-click="l.openCreateBox()" class="create-btn" ga-track-event="['university', 'add new class']">
-            <div class="wrapper">
-                @*@Html.Svg("~/images/site/icons.svg", "add")*@
                 <md-icon md-svg-icon="t:add"></md-icon>
-                <span class="text">@UniversityResources.AddClass</span>
-            </div>
-        </button>
-    </div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
-
-
 
 </div>
 <button type="button" class="add" hide show-xs ng-click="l.openCreateBox()"

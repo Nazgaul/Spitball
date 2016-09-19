@@ -134,6 +134,7 @@
 
 
         function toggleSettings() {
+            l.createBoxOn = false;
             if (l.settingsHtml) {
                 l.settingsOpen = true;
                 return;
