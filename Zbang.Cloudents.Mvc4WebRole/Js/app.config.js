@@ -46,7 +46,10 @@ var app;
         $mdAriaProvider.disableWarnings();
         $mdIconProvider
             .iconSet('t', '/images/site/icons.svg')
-            .iconSet('u', '/images/site/uploadIcons.svg');
+            .iconSet('i', '/images/site/itemIcons.svg')
+            .iconSet('u', '/images/site/uploadIcons.svg')
+            .iconSet('lc', '/images/site/libChooseIcons.svg')
+            .iconSet('q', '/images/site/quizIcons.svg');
     }
 })(app || (app = {}));
 (function () {

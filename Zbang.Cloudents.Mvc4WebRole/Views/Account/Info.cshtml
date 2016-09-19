@@ -18,16 +18,16 @@
         </div>
         <div flex="50" flex-xs="100">
             @*<h2>@AccountResource.ChangeTheme</h2>
-            <div layout="row" layout-align="space-between center" layout-wrap>
-                <button class="theme-section" ng-class="{selected:i.data.theme ==='@Theme.Dark.GetStringValueLowerCase()'}" type="button" ng-click="i.changeTheme('@Theme.Dark.GetStringValueLowerCase()')" ga-track-event="['settings', 'change theme dark']">
-                    @AccountResource.ChangeThemeDark
-                    <div class="themeDark"></div>
-                </button>
-                <button class="theme-section" ng-class="{selected:i.data.theme ==='@Theme.Light.GetStringValueLowerCase()'}" type="button" ng-click="i.changeTheme('@Theme.Light.GetStringValueLowerCase()')" ga-track-event="['settings', 'change theme light']">
-                    @AccountResource.ChangeThemeLight
-                    <div class="themeLight"></div>
-                </button>
-            </div>*@
+                <div layout="row" layout-align="space-between center" layout-wrap>
+                    <button class="theme-section" ng-class="{selected:i.data.theme ==='@Theme.Dark.GetStringValueLowerCase()'}" type="button" ng-click="i.changeTheme('@Theme.Dark.GetStringValueLowerCase()')" ga-track-event="['settings', 'change theme dark']">
+                        @AccountResource.ChangeThemeDark
+                        <div class="themeDark"></div>
+                    </button>
+                    <button class="theme-section" ng-class="{selected:i.data.theme ==='@Theme.Light.GetStringValueLowerCase()'}" type="button" ng-click="i.changeTheme('@Theme.Light.GetStringValueLowerCase()')" ga-track-event="['settings', 'change theme light']">
+                        @AccountResource.ChangeThemeLight
+                        <div class="themeLight"></div>
+                    </button>
+                </div>*@
         </div>
         <div flex layout="row" flex-xs="100" layout-align="start center" class="left-flex university">
             <img ng-src="{{::i.data.universityImage}}" class="uni-image" alt="university logo" width="50" height="50" />
@@ -87,7 +87,10 @@
 
 <script type="text/ng-template" id="change-email-template.html">
     <div class="change-email-dialog">
-        <div class="icon">@Html.Svg("~/images/site/itemIcons.svg", "info")</div>
+        <div class="icon">
+            <md-icon md-svg-icon="i:info"></md-icon>
+            @*@Html.Svg("~/images/site/itemIcons.svg", "info")*@
+        </div>
         <div class="content">
             <div class="text">
                 <span>@LogOnResources.CheckEmailTitle</span>

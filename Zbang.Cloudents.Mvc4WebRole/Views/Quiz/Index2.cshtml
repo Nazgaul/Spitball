@@ -2,9 +2,9 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Quiz.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
-@{
+@*@{
     const string svgUrl = "~/images/site/quizIcons.svg";
-}
+}*@
 
 <header layout="row" layout-align="space-between center">
     <div class="ellipsis text-center textTC30" id="quiz-top" ng-bind-html="::q.name"></div>
@@ -34,7 +34,8 @@
 
                 <div flex-xs="100" class="black-bullet score-details">
                     <div class="correct">
-                        @Html.Svg(svgUrl, "correct")
+                        <md-icon md-svg-icon="q:correct"></md-icon>
+                        @*@Html.Svg(svgUrl, "correct")*@
                         <div class="text">
                             <h6>@QuizResources.Correct</h6>
                             {{q.sheet.correct}}
@@ -46,12 +47,14 @@
                             {{q.sheet.wrong}}
 
                         </div>
-                        @Html.Svg(svgUrl, "wrong")
+                        <md-icon md-svg-icon="q:wrong"></md-icon>
+                        @*@Html.Svg(svgUrl, "wrong")*@
                     </div>
                 </div>
 
                 <div flex-xs="100" class="black-bullet time-taken" layout="row" layout-align="center center">
-                    @Html.Svg(svgUrl, "clock") <span class="text">{{q.sheet.timeTaken}}</span>
+                    <md-icon md-svg-icon="q:clock"></md-icon>
+                    @*@Html.Svg(svgUrl, "clock")*@ <span class="text">{{q.sheet.timeTaken}}</span>
                 </div>
             </div>
 
@@ -61,8 +64,10 @@
                 <stopwatch control="q.timerControl"></stopwatch>
 
                 <button type="button" class="stopwatch-btn" ng-click="q.timerControl.toggle()" ng-disabled="q.state === 1">
-                    @Html.Svg(svgUrl, "pause", new { @class = "pause", ng_if = "q.timerControl.isRunning" })
-                    @Html.Svg(svgUrl, "play", new { @class = "play", ng_if = "!q.timerControl.isRunning" })
+                    <md-icon md-svg-icon="q:pause" class="pause" ng-if="q.timerControl.isRunning"></md-icon>
+                    <md-icon md-svg-icon="q:play" class="play" ng-if="!q.timerControl.isRunning"></md-icon>
+                    @*@Html.Svg(svgUrl, "pause", new {@class = "pause", ng_if = "q.timerControl.isRunning"})*@
+                    @*@Html.Svg(svgUrl, "play", new {@class = "play", ng_if = "!q.timerControl.isRunning"})*@
                 </button>
 
             </div>

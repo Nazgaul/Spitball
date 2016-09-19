@@ -1,8 +1,8 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
-@{
+@*@{
     const string svgUrl = "~/images/site/itemIcons.svg";
-}
+}*@
 <div srph-infinite-scroll="i.loadMore()" unregister-scroll="true" collapse-header ng-class="{hideActions: i.selectedState === i.state.flag || i.selectedState === i.state.rename}">
     <header layout="row" layout-align="space-between center">
         <div class="progress-bar"><md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear></div>
@@ -12,7 +12,7 @@
                     <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
                         <h1 class="ellipsis textTC30">{{i.details.name}}</h1>
                         <div class="info">
-                            @Html.Svg(svgUrl, "info")
+                            <md-icon md-svg-icon="i:info"></md-icon>
                             <md-tooltip>
                                 @ItemsResources.CopyRight
                             </md-tooltip>
@@ -41,8 +41,8 @@
                         <span>@Html.Svg("~/images/site/box-icons.svg", "like")</span>
                         <span>{{i.details.likes}}</span>
                     </button>
-                    <a hide-xs target="_blank" ng-click="i.followBox()" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']">@Html.Svg(svgUrl, "download")</a>
-                    <a hide-xs target="_blank" user-not-register-popup="click" ng-click="i.followBox()" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']">@Html.Svg(svgUrl, "print")</a>
+                    <a hide-xs target="_blank" ng-click="i.followBox()" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']"><md-icon md-svg-icon="i:download"></md-icon>@*@Html.Svg(svgUrl, "download")*@</a>
+                    <a hide-xs target="_blank" user-not-register-popup="click" ng-click="i.followBox()" href="{{i.details.printUrl}}" ga-track-event="['itemPage', 'print']"><md-icon md-svg-icon="i:print"></md-icon>@*@Html.Svg(svgUrl, "print")*@</a>
                     <div class="item-menu">
                         <md-menu flex>
                             <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">

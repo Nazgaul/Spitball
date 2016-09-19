@@ -17,7 +17,8 @@
         </div>
         <div class="ready backgrounds">
             <div class="img-wrapper">
-                @Html.Svg("/images/site/quizicons.svg", "bald")
+                <md-icon md-svg-icon="q:bald"></md-icon>
+                @*@Html.Svg("/images/site/quizicons.svg", "bald")*@
             </div>
             <span class="text-capitalize">@QuizResources.TestYourself</span>
         </div>
@@ -35,11 +36,13 @@
     </div>
     <div class="completed-quiz" flex-xs="100" flex-gt-xs="50">
         <div layout="row" layout-align="space-between center" class="complete backgrounds">
-            @Html.Svg("/images/site/quizicons.svg", "checkmark")
+            <md-icon md-svg-icon="q:checkmark"></md-icon>
+            @*@Html.Svg("/images/site/quizicons.svg", "checkmark")*@
             <span>@QuizResources.CompletedQuiz</span>
         </div>
         <div layout="row" layout-align="space-between center" class="ranking backgrounds">
-            @Html.Svg("/images/site/quizicons.svg", "rank")
+            <md-icon md-svg-icon="q:rank"></md-icon>
+            @*@Html.Svg("/images/site/quizicons.svg", "rank")*@
             <span>@QuizResources.Answered {{q.answersCount}}/{{::q.questions.length}}</span>
         </div>
         <div class="buttons" layout="row" layout-align="center stretch">

@@ -8,7 +8,8 @@
                 @Html.Svg("~/images/site/icons.svg", "close", new { @class = "svgTC4" })
             </md-button>
             <md-button aria-label="download" download target="_blank" class="download-btn" ng-href="{{::lc.downloadLink}}" title="@ItemsResources.Download">
-                @Html.Svg("~/images/site/itemicons.svg", "download", new { @class = "svgTC4" })
+                <md-icon md-svg-icon="i:download" class="svgTC4"></md-icon>
+                @*@Html.Svg("~/images/site/itemicons.svg", "download", new {@class = "svgTC4"})*@
             </md-button>
         </div>
     </md-toolbar>
