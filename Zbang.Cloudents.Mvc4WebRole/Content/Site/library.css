@@ -8,6 +8,16 @@ body.theme-light {
 .theme-light {
   /*#region angularmaterial*/
   /*tabs*/
+  /*md-tabs {
+
+        .md-tab {
+            color: @textColorGrey;
+
+            &.md-active {
+                color: @textColorWhite;
+            }
+        }
+    }*/
   /*#endregion*/
   /*#region header.less*/
   /*#endregion*/
@@ -101,6 +111,11 @@ Page Loading
     color-override hoverSvgColor#
     */
   /*#region TODO*/
+  /*md-tabs {
+        .md-tab.md-active {
+            color: #4190b9;
+        }
+    }*/
   /*#endregion*/
   /*#endregion*/
 }
@@ -166,12 +181,6 @@ Page Loading
 .theme-light md-toast.md-default-theme .md-toast-content,
 .theme-light md-toast .md-toast-content {
   background: #26566e;
-}
-.theme-light md-tabs .md-tab {
-  color: #888b8e;
-}
-.theme-light md-tabs .md-tab.md-active {
-  color: #212325;
 }
 .theme-light .close:hover {
   color: #212325;
@@ -1342,7 +1351,7 @@ Page Loading
   background: #3293F6;
 }
 .theme-light .userPage .points-awards {
-  color: #888b8e;
+  color: #212325;
 }
 .theme-light .userPage .points-awards hr {
   border-color: #8c99a6;
@@ -1363,9 +1372,6 @@ Page Loading
   background: #4190b9;
 }
 .theme-light .color-1 {
-  color: #4190b9;
-}
-.theme-light md-tabs .md-tab.md-active {
   color: #4190b9;
 }
 .theme-light .dashboard .portlet md-chips .md-chip {
