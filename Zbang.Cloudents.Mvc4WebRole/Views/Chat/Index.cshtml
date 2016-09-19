@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div ng-controller="ChatController as c">
     <div class="chat">
-        <div class="content" ng-class="{stateChat: c.state === c.states.chat}">
+        <div class="content" ng-class="{stateChat: c.state === 3}">
             <div class="error" ng-class="{disconnected : !c.connected}">
                 <div>@ChatResources.DisconnectedHeader</div>
                 <div>
@@ -9,24 +9,24 @@
                 </div>
             </div>
             <div class="menu-content angular-animate backgroundTC33">
-                <div class="tab-content" ng-if="c.state === c.states.messages">
-                    <form novalidate class="search-friend backgroundTC33" ng-submit="c.search(c.term)">
-                        <button type="button" class="search-btn" ng-click="c.expandSearch()">
+                <div class="tab-content" ng-if="c.state === 1" ng-controller="chatUsers as cu">
+                    <form novalidate class="search-friend backgroundTC33" ng-submit="cu.search(cu.term)">
+                        <button type="button" class="search-btn" ng-click="cu.expandSearch()">
                             @Html.Svg("~/images/site/icons.svg", "searchIcon", new { @class = "searchIcon" })
                         </button>
-                        <input type="search" class="textTC30" focus-me="c.focusSearch" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="c.term" ng-change="c.search(c.term)" ng-model-options="{debounce : 300}" />
-                        <button type="reset" ng-if="c.term.length" class="reset-btn" ng-click="c.resetSearch()">
+                        <input type="search" class="textTC30" focus-me="cu.focusSearch" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="cu.term" ng-change="cu.search(cu.term)" ng-model-options="{debounce : 300}" />
+                        <button type="reset" ng-if="cu.term.length" class="reset-btn" ng-click="cu.search()">
                             @Html.Svg("~/images/site/icons.svg", "close", new { @class = "resetIcon svgTC22" })
                         </button>
                     </form>
-                    <div class="users-list scrollbar" sb-scroll ng-scrollbars ng-scrollbars-paging ng-scrollbars-paging-function="c.usersPaging" ng-scrollbars-config="c.scrollSetting" srph-infinite-scroll="c.usersPaging()" container="true">
+                    <div class="users-list scrollbar" sb-scroll ng-scrollbars ng-scrollbars-paging ng-scrollbars-paging-function="cu.usersPaging" ng-scrollbars-config="c.scrollSetting" srph-infinite-scroll="cu.usersPaging()" container="true">
                         <section class="favorits">
                             <div class="header">
                                 @Html.Svg("~/images/site/icons.svg", "star")
                                 <h1>@ChatResources.FavoritsHeader</h1>
                             </div>
                             <ul class="users-sub-list">
-                                <li ng-click="c.chat(e)" class="user" ng-repeat="e in c.users | filter: {section : 1 } track by e.id" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversation']" ng-include="'chat-user-template.html'">
+                                <li ng-click="cu.chat(e)" class="user" ng-repeat="e in cu.users | filter: {section : 1 } track by e.id" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversation']" ng-include="'chat-user-template.html'">
                                 </li>
                             </ul>
                         </section>
@@ -37,7 +37,7 @@
                             </div>
 
                             <ul class="users-sub-list">
-                                <li ng-click="c.chat(e)" class="user" ng-repeat="e in c.users | filter: {section : 2 } track by e.id" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversation']" ng-include="'chat-user-template.html'">
+                                <li ng-click="cu.chat(e)" class="user" ng-repeat="e in cu.users | filter: {section : 2 } track by e.id" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversation']" ng-include="'chat-user-template.html'">
                                 </li>
 
                             </ul>
@@ -47,14 +47,14 @@
                                 @Html.Svg("~/images/site/icons.svg", "crowd")
                                 <h1>@ChatResources.SchoolmatesHeader</h1>
                             </div>
-                            <ul class="users-sub-list" ng-if="c.users.length">
-                                <li ng-click="c.chat(e)" class="user" ng-repeat="e in c.users | filter: {section : 3 } track by e.id" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversation']" ng-include="'chat-user-template.html'">
+                            <ul class="users-sub-list" ng-if="cu.users.length">
+                                <li ng-click="cu.chat(e)" class="user" ng-repeat="e in cu.users | filter: {section : 3 } track by e.id" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversation']" ng-include="'chat-user-template.html'">
                                 </li>
 
                             </ul>
                         </section>
                     </div>
-                    <div class="empty-state" ng-if="!c.users.length && c.term">
+                    <div class="empty-state" ng-if="!cu.users.length && cu.term">
                         <div>
                             @Html.Svg("~/images/site/icons.svg", "sad-student-smiley")
                         </div>
@@ -63,11 +63,11 @@
                     </div>
                 </div>
             </div>
-            <div class="conversasion angular-animate" ng-if="c.state === c.states.chat">
+            <div class="conversasion angular-animate" ng-if="c.state === 3" ng-controller="conversation as cv">
                 <div class="header backgroundTC37">
-                    <a ng-href="{{c.userChat.url}}" ng-class="{online: c.userChat.online}" class="user" ga-track-event="['chat', 'opened-partners-profile']">
-                        <user-image class="img-circle" name="c.userChat.name" image="c.userChat.image" width="35" height="35" noremove="true"></user-image>
-                        <span class="member-name ellipsis" ng-bind="c.userChat.name"></span>
+                    <a ng-href="{{cv.userChat.url}}" ng-class="{online: cv.userChat.online}" class="user" ga-track-event="['chat', 'opened-partners-profile']">
+                        <user-image class="img-circle" name="cv.userChat.name" image="cv.userChat.image" width="35" height="35" noremove="true"></user-image>
+                        <span class="member-name ellipsis" ng-bind="cv.userChat.name"></span>
 
                     </a>
                     <div class="back" ng-click="c.backFromChat()">
@@ -75,27 +75,27 @@
                     </div>
                 </div>
                 <div class="chat-content">
-                    <ul class="messages scrollbar" sb-scroll chat-scroll-buttom="scrollToBotton" @*scroll-chooser*@ @*srph-infinite-scroll="c.loadMoreMessages()" paging-direction="up" threshold="200" ng-scrollbars ng-scrollbars-paging="up"*@
-                        @*ng-scrollbars-paging-function="c.loadMoreMessages"*@ ng-scrollbars ng-scrollbars-update="c.updateScrollbar" ng-scrollbars-config="c.scrollSetting" @*ng-scrollbars-paging="up"*@>
+                    <ul class="messages scrollbar" sb-scroll chat-scroll-buttom="scrollToBotton" 
+                         ng-scrollbars ng-scrollbars-update="c.updateScrollbar" ng-scrollbars-config="c.scrollSetting">
                         <li>
-                            <md-button id="chatLoadMore" ng-if="!c.lastPage" ng-click="c.loadMoreMessages()">@ChatResources.LoadMore</md-button>
+                            <md-button id="chatLoadMore" ng-if="!cv.lastPage" ng-click="cv.loadMoreMessages()">@ChatResources.LoadMore</md-button>
                         </li>
-                        <li ng-attr-id="{{::e.id ? 'chatMessage_' + e.id : undefined}}" @*id="chatMessage_{{::e.id}}"*@ class="message" ng-repeat="e in c.messages" ng-class="{partner: e.partner}">
+                        <li ng-attr-id="{{::e.id ? 'chatMessage_' + e.id : undefined}}" class="message" ng-repeat="e in cv.messages" ng-class="{partner: e.partner}">
                             <div ng-if="e.text" class="text" ng-bind-html="::e.text | linky:'_blank'"></div>
-                            <div ng-if="e.blob" class="image" ng-click="c.dialog(e.blob, $event)" ga-track-event="['chat', 'opened-attachment']">
+                            <div ng-if="e.blob" class="image" ng-click="cv.dialog(e.blob, $event)" ga-track-event="['chat', 'opened-attachment']">
                                 <img ng-src="{{e.thumb}}" width="256" height="138" alt="preview"/>
                             </div>
                             <time-ago class="time" from-time="{{::e.time}}" format="mediumDate"></time-ago>
                         </li>
                     </ul>
                     <div class="new-message">
-                        <a class="menu menu-item" plupload="c.upload.url" plupload-options="c.upload.options" plupload-callbacks="c.upload.callbacks" href="#" ga-track-event="['chat', 'upload-file']"> @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" }) </a>
+                        <a class="menu menu-item" plupload="cv.upload.url" plupload-options="cv.upload.options" plupload-callbacks="cv.upload.callbacks" href="#" ga-track-event="['chat', 'upload-file']"> @Html.Svg("~/images/site/uploadIcons.svg", "file", new { @class = "attach" }) </a>
 
-                        <form name="chatDialog" novalidate ng-submit="c.send()">
+                        <form name="chatDialog" novalidate ng-submit="cv.send()">
                             <md-input-container md-no-float="false">
-                                <textarea autofocus enter-submit="c.send()" autocomplete="off" type="text" maxlength="16000" required ng-model="c.newText" placeholder="@ChatResources.NewMessagePlaceholder"></textarea>
+                                <textarea md-no-asterisk autofocus enter-submit="cv.send()" autocomplete="off" type="text" maxlength="16000" required ng-model="cv.newText" placeholder="@ChatResources.NewMessagePlaceholder"></textarea>
                             </md-input-container>
-                            <button type="submit" class="btn blue-button" ng-disabled="c.disabled" ga-track-event="['chat', 'sent-message']">
+                            <button type="submit" class="btn blue-button" ng-disabled="cv.disabled" ga-track-event="['chat', 'sent-message']">
                                 @Html.Svg("~/images/site/uploadIcons.svg", "post")
                             </button>
                         </form>

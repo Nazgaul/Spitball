@@ -13,7 +13,7 @@
     }
 
     export interface IRealtimeFactory {
-        sendMsg(userId: number, message: string, conversationId: Guid, blob: string): void;
+        sendMsg(userId: number, message: string, conversationId: Guid, blob?: string): void;
         changeUniversity(): void;
         assingBoxes(boxIds): void;
     }

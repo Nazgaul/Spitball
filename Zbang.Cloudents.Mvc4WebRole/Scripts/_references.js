@@ -44,7 +44,6 @@
 /// <reference path="../js/components/box/sharebox.directive.js" />
 /// <reference path="../js/components/box/slideit.directive.js" />
 /// <reference path="../js/components/box/tab.controller.js" />
-/// <reference path="../js/components/chat/chat.controller.js" />
 /// <reference path="../js/components/dashboard/createbox.controller.js" />
 /// <reference path="../Js/components/dashboard/dashboard.controller.js" />
 /// <reference path="../js/components/dashboard/dashboard.routes.js" />

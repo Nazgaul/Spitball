@@ -1477,7 +1477,6 @@
     <Content Include="Js\app.js" />
     <Content Include="Js\app.route.js" />
     <Content Include="Js\CDNFallbackWithoutAngular.js" />
-    <Content Include="Js\components\chat\chat.controller.js" />
     <Content Include="Js\components\account\account.routes.js" />
     <Content Include="Js\components\account\account.service.js" />
     <Content Include="Js\components\account\department.controller.js" />
@@ -1522,8 +1521,11 @@
     <Content Include="Js\signin\staticPages.js" />
     <TypeScriptCompile Include="Js\app.config.ts" />
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
+    <TypeScriptCompile Include="Js\components\chat\chat.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.factory.ts" />
     <TypeScriptCompile Include="Js\components\chat\chatTimeAgo.ts" />
+    <TypeScriptCompile Include="Js\components\chat\chatUsers.controller.ts" />
+    <TypeScriptCompile Include="Js\components\chat\conversation.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\hubFactory.ts" />
     <TypeScriptCompile Include="Js\components\chat\previewController.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
