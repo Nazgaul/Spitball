@@ -12,7 +12,8 @@
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="item-animate add-button"  ng-click="i.openUpload()" ga-track-event="['box-items', 'addFile']">
         <div class="content ">
             <button type="button">
-                @Html.Svg("~/images/site/icons.svg", "add")
+                <md-icon md-svg-icon="t:add"></md-icon>
+                @*@Html.Svg("~/images/site/icons.svg", "add")*@
                 @IndexResources.UploadFiles
             </button>
         </div>
@@ -21,7 +22,8 @@
         <div ui-draggable="true" drag="e" drag-image-element-id="'drag' + $index" ng-include="'item-template.html'"></div>
         <md-menu class="item-menu">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-items', 'deleteFile']">
-                @Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })
+                <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
+                @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3"})*@
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item ng-if="b.canDelete(e.ownerId)">
@@ -45,5 +47,6 @@
     </li>
 </ul>
 <button type="button" class="add" hide show-xs ng-click="i.openUpload()" ng-show="i.uploadShow" ga-track-event="['box-items', 'addFile']">
-    @Html.Svg("~/images/site/icons.svg", "add")
+    <md-icon md-svg-icon="t:add"></md-icon>
+    @*@Html.Svg("~/images/site/icons.svg", "add")*@
 </button>

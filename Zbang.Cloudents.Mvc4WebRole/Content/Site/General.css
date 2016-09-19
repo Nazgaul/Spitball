@@ -1667,7 +1667,7 @@ body .box-template .number {
   padding: 0 12px;
   background: #db4437;
 }
-.add svg {
+.add md-icon {
   width: 20px;
   height: 20px;
   margin: 0 auto;
@@ -1682,7 +1682,7 @@ body .box-template .number {
 .page-title .share-section button .text {
   display: none;
 }
-.page-title svg {
+.page-title md-icon {
   fill: #777777;
   width: 25px;
   height: 25px;
@@ -1693,7 +1693,7 @@ body .box-template .number {
 .close:hover {
   color: #212325;
 }
-.close svg {
+.close md-icon {
   width: 17px;
   height: 17px;
   fill: #212325;

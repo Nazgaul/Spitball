@@ -45,11 +45,15 @@ var app;
         $provide.constant('$MD_THEME_CSS', '');
         $mdAriaProvider.disableWarnings();
         $mdIconProvider
-            .iconSet('t', '/images/site/icons.svg')
-            .iconSet('i', '/images/site/itemIcons.svg')
-            .iconSet('u', '/images/site/uploadIcons.svg')
-            .iconSet('lc', '/images/site/libChooseIcons.svg')
-            .iconSet('q', '/images/site/quizIcons.svg');
+            .iconSet('t', append('/images/site/icons.svg'))
+            .iconSet('i', append('/images/site/itemIcons.svg'))
+            .iconSet('u', append('/images/site/uploadIcons.svg'))
+            .iconSet('lc', append('/images/site/libChooseIcons.svg'))
+            .iconSet('b', append('/site/box-icons.svg'))
+            .iconSet('q', append('/images/site/quizIcons.svg'));
+        function append(str) {
+            return window["cdnPath"] + str + '?' + window["version"];
+        }
     }
 })(app || (app = {}));
 (function () {

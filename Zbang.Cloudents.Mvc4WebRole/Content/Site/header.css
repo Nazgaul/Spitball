@@ -1572,7 +1572,7 @@ Page Loading
   display: block;
   margin-top: -7px;
 }
-.top-menu svg {
+.top-menu md-icon {
   height: 20px;
   width: 20px;
   margin-top: 30px;
@@ -1584,11 +1584,11 @@ Page Loading
   padding-top: 10px !important;
   padding-bottom: 10px !important;
 }
-.top-menu .navbar-nav .open li a svg,
+.top-menu .navbar-nav .open li a md-icon,
 .top-menu .navbar-nav .open li a span {
   align-self: center;
 }
-.top-menu .navbar-nav .open li a svg {
+.top-menu .navbar-nav .open li a md-icon {
   margin-top: 0;
   fill: #212325;
 }
@@ -1641,7 +1641,7 @@ Page Loading
 .md-user-menu .user-menu-item {
   height: inherit;
 }
-.md-user-menu .user-menu-item svg {
+.md-user-menu .user-menu-item md-icon {
   width: 20px;
   height: 20px;
   fill: #212325;
@@ -1713,7 +1713,7 @@ Page Loading
   justify-content: center;
 }
 .nav-bar .logo-search .search-form-wrapper .search-form .search-area .search-btn span,
-.nav-bar .logo-search .search-form-wrapper .search-form .search-area .search-btn svg {
+.nav-bar .logo-search .search-form-wrapper .search-form .search-area .search-btn md-icon {
   height: 22px;
   width: 22px;
 }

@@ -38,7 +38,7 @@
                 </div>
                 <div class="item-actions" layout="row" layout-align="space-between center">
                     <button class="fb-like content-wrapper" hide show-gt-xs ng-class="{blue : i.details.like}" layout="row" layout-align="space-between center" user-not-register-popup="click" type="button" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
-                        <span>@Html.Svg("~/images/site/box-icons.svg", "like")</span>
+                        <span><md-icon md-svg-icon="b:like"></md-icon>@*@Html.Svg("~/images/site/box-icons.svg", "like")*@</span>
                         <span>{{i.details.likes}}</span>
                     </button>
                     <a hide-xs target="_blank" ng-click="i.followBox()" user-not-register-popup="click" href="{{i.details.downloadUrl}}" ga-track-event="['itemPage', 'download']"><md-icon md-svg-icon="i:download"></md-icon>@*@Html.Svg(svgUrl, "download")*@</a>
@@ -46,7 +46,8 @@
                     <div class="item-menu">
                         <md-menu flex>
                             <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
-                                @Html.Svg("~/images/site/icons.svg", "ThreeDots")
+                                <md-icon md-svg-icon="t:ThreeDots"></md-icon>
+                                @*@Html.Svg("~/images/site/icons.svg", "ThreeDots")*@
                             </md-button>
                             <md-menu-content width="1">
                                 <md-menu-item hide-gt-xs>
@@ -72,7 +73,8 @@
                                 <md-menu-item hide-gt-xs ng-class="{blue : i.details.like}">
                                     <md-button md-prevent-menu-close user-not-register-popup="click" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
                                         <div class="fb-like content-wrapper" layout="row" layout-align="start center" user-not-register-popup="click">
-                                            @Html.Svg("~/images/site/box-icons.svg", "like")
+                                            <md-icon md-svg-icon="b:like"></md-icon>
+                                            @*@Html.Svg("~/images/site/box-icons.svg", "like")*@
                                             <span>{{i.details.likes}}</span>
                                         </div>
                                     </md-button>
@@ -81,7 +83,7 @@
                         </md-menu>
                     </div>
                     {{i.boxUrl}}
-                    <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']">@Html.Svg("~/images/site/icons.svg", "close")</button>
+                    <button class="close-btn" type="button" ng-click="app.back(i.details.boxUrl)" ga-track-event="['itemPage', 'close']"><md-icon md-svg-icon="t:close"></md-icon>@*@Html.Svg("~/images/site/icons.svg", "close")*@</button>
 
                 </div>
             </div>
@@ -104,11 +106,13 @@
         @{ Html.RenderPartial("_ItemComments");}
 
         <a class="arrow prev" ng-if="i.details.previous" href="{{i.details.previous}}" hide-xs keyboard-action="37" ga-track-event="['itemPage', 'previous item']">
-            @Html.Svg("~/images/site/icons.svg", "arrow")
+            <md-icon md-svg-icon="t:arrow"></md-icon>
+            @*@Html.Svg("~/images/site/icons.svg", "arrow")*@
         </a>
         <div class="preview" ng-bind-html="i.preview"></div>
         <a class="arrow next" ng-if="i.details.next" href="{{i.details.next}}" hide-xs keyboard-action="39" ga-track-event="['itemPage', 'next item']">
-            @Html.Svg("~/images/site/icons.svg", "arrow")
+            <md-icon md-svg-icon="t:arrow"></md-icon>
+            @*@Html.Svg("~/images/site/icons.svg", "arrow")*@
         </a>
 
         <div class="raw-text" ng-if="i.document">

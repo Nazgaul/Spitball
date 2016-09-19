@@ -12,13 +12,12 @@
     <div class="content borderTC19">
         <div class="tabs" layout="row">
             <button class="spitball backgroundTC21" ng-if="i.inBox" ng-class="{active: i.tab === i.state.spitball}" ng-click="i.switchTab(i.state.spitball)" flex layout="row" layout-align="center center">
-                <span class="mobile-icon" @*ng-if="i.tab === i.state.spitball"*@>@Html.Svg("~/images/site/icons.svg", "smallLogo")</span>
-                <span class="desktop-icon" @*ng-if="i.tab === i.state.spitball"*@>@Html.Svg("~/images/site/icons.svg", "logo")</span>
-                @*<span ng-if="i.tab !== i.state.spitball">@Html.Svg("~/images/site/icons.svg", "smallLogo", new { @class = "svgTC22" })</span>*@
+                <span class="mobile-icon" @*ng-if="i.tab === i.state.spitball"*@><md-icon md-svg-icon="t:smallLogo"></md-icon></span>
+                <span class="desktop-icon" @*ng-if="i.tab === i.state.spitball"*@><md-icon md-svg-icon="t:logo"></md-icon></span>
             </button>
             <button class="email" ng-class="{active: i.tab === i.state.email}" ng-click="i.switchTab(i.state.email)" flex layout="row" layout-align="center center">
-                <span ng-if="i.tab === i.state.email">@Html.Svg("~/images/site/icons.svg", "gmail")</span>
-                <span ng-if="i.tab !== i.state.email">@Html.Svg("~/images/site/icons.svg", "gmailgrey")</span>
+                <span ng-if="i.tab === i.state.email"><md-icon md-svg-icon="t:gmail"></md-icon></span>
+                <span ng-if="i.tab !== i.state.email"><md-icon md-svg-icon="t:gmailgrey"></md-icon></span>
             </button>
             <button class="facebook" ng-class="{active: i.tab === i.state.facebook}" ng-click="i.switchTab(i.state.facebook)" flex layout="row" layout-align="center center">
                 <span ng-if="i.tab === i.state.facebook">@Html.Svg("~/images/site/social-icons.svg", "facebook-colored")</span>

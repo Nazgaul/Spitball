@@ -12,7 +12,8 @@
             <input spellcheck="false" autofocus required ng-disabled="lc.createUniversity" type="search" class="search-text" placeholder="@UniversityResources.UniversitySearchPlaceholder"
                    ng-model="lc.term" ng-model-options="{debounce : 350}" ng-change="lc.universitySearch(libraryChooseForm)" ng-minlength="2" />
             <button type="submit" class="search-button" ng-disabled="!lc.term.length">
-                @Html.Svg("~/images/site/icons.svg", "searchIcon")
+                <md-icon md-svg-icon="t:searchIcon"></md-icon>
+                @*@Html.Svg("~/images/site/icons.svg", "searchIcon")*@
             </button>
         </form>
     </div>

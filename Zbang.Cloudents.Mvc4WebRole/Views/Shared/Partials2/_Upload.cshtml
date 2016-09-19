@@ -12,7 +12,7 @@
         <md-icon md-svg-icon="u:checkMark"></md-icon>
         @*@Html.Svg(url, "checkMark")*@
     </span>
-    <span class="check-mark error" ng-if="file.error">@Html.Svg("~/images/site/icons.svg", "close")</span>
+    <span class="check-mark error" ng-if="file.error"><md-icon md-svg-icon="t:close"></md-icon>@*@Html.Svg("~/images/site/icons.svg", "close")*@</span>
     <div class="file" layout="column" layout-align="space-between center">
         <div class="file-name">
             <div ng-if="!file.content" class="multi-line-ellipsis limit-three">

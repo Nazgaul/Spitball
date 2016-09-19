@@ -1,13 +1,14 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
-    const string svgUrl = "~/images/site/icons.svg";
+    //const string svgUrl = "~/images/site/icons.svg";
     //var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
 }
 
 <div layout="row" layout-align="center center" flex="none">
-    
+
     <button type="button" toggle-chat user-not-register-popup="click" class="chat-icon" hide-gt-sm>
-        @Html.Svg("~/images/site/icons.svg", "chat")
+        <md-icon md-svg-icon="t:chat"></md-icon>
+        @*@Html.Svg("~/images/site/icons.svg", "chat")*@
         <div class="chat-counter"></div>
     </button>
     @*@if (ViewBag.errorPage == null || !ViewBag.errorPage)
@@ -26,31 +27,32 @@
         <md-menu-content md-menu-align-target class="md-user-menu">
             <md-menu-item class="user-menu-item">
                 <md-button href="{{::ud.url}}" ga-track-event="['header', 'user activities']">
-                    <md-icon md-menu-align-target>@Html.Svg(svgUrl, "userMenu", new {@class = "svgTC16"})</md-icon>
+                    <md-icon  md-menu-align-target md-svg-icon="t:userMenu" class = "svgTC16"></md-icon>
+                    @*<md-icon md-menu-align-target>@Html.Svg(svgUrl, "userMenu", new {@class = "svgTC16"})</md-icon>*@
                     @IndexResources.User
                 </md-button>
             </md-menu-item>
             <md-menu-item class="user-menu-item">
                 <md-button href="@Url.RouteUrl("AccountSettings")" ga-track-event="['header', 'settings']">
-                    <md-icon md-menu-align-target>@Html.Svg(svgUrl, "settingMenu", new {@class = "svgTC16"})</md-icon>
+                    <md-icon md-menu-align-target md-svg-icon="t:settingMenu" class="svgTC16"></md-icon>
                     @IndexResources.Settings
                 </md-button>
             </md-menu-item>
             <md-menu-item class="user-menu-item">
                 <md-button id="Intercom" href="mailto:njmpgayv@incoming.intercom.io">
-                    <md-icon md-menu-align-target>@Html.Svg(svgUrl, "intercom", new {@class = "svgTC16"})</md-icon>
+                    <md-icon md-menu-align-target md-svg-icon="t:intercom" class="svgTC16"></md-icon>
                     @IndexResources.Intercom
                 </md-button>
             </md-menu-item>
             <md-menu-item class="user-menu-item">
                 <md-button href="@Url.RouteUrl("Help")" target="_self" ga-track-event="['header', 'help']">
-                    <md-icon md-menu-align-target>@Html.Svg(svgUrl, "headerHelp", new {@class = "svgTC16"})</md-icon>
+                    <md-icon md-menu-align-target md-svg-icon="t:headerHelp" class="svgTC16"></md-icon>
                     @SharedResources.Help
                 </md-button>
             </md-menu-item>
             <md-menu-item class="user-menu-item">
                 <md-button ng-click="app.logOut()" target="_self" href="@Url.Action("logoff", "account")" ga-track-event="['header', 'logout']">
-                    <md-icon md-menu-align-target>@Html.Svg(svgUrl, "logOffMenu", new {@class = "svgTC16"})</md-icon>
+                    <md-icon md-menu-align-target md-svg-icon="t:logOffMenu" class="svgTC16"></md-icon>
                     @IndexResources.Logout
                 </md-button>
             </md-menu-item>
