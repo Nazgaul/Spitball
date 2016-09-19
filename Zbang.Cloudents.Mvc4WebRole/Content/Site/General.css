@@ -1877,6 +1877,9 @@ body .box-template .number {
 md-input-container label:not(.md-container-ignore).md-required:after {
   content: none;
 }
+md-icon {
+  margin: 0;
+}
 .r-table {
   display: table;
 }
