@@ -284,8 +284,8 @@ Page Loading
   background: #ffffff;
 }
 .theme-light .accountPage-wrapper .ontop {
-  background: #3293F6;
-  color: #212325;
+  background: #4190b9;
+  color: #ffffff;
 }
 .theme-light .accountPage-wrapper md-input-container:not(.md-input-invalid).md-input-focused .md-input {
   border-bottom: 1px solid #2698D4;
@@ -304,9 +304,6 @@ Page Loading
 }
 .theme-light .accountPage-wrapper .notification-list li .owner {
   color: #888b8e;
-}
-.theme-light .accountPage-wrapper md-tabs-wrapper {
-  background: #ffffff;
 }
 .theme-light .change-email-dialog svg {
   fill: #ffffff;
