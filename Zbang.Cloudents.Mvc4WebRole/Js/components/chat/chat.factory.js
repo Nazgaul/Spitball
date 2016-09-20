@@ -3,20 +3,22 @@ var app;
     "use strict";
     var unreadCount = 0;
     var ChatBus = (function () {
-        function ChatBus(ajaxService, userDetailsFactory) {
-            var _this = this;
+        function ChatBus(ajaxService) {
             this.ajaxService = ajaxService;
-            this.userDetailsFactory = userDetailsFactory;
             this.setUnread = function (count) {
-                _this.ajaxService.deleteCacheCategory("accountDetail");
                 unreadCount = count;
             };
             this.getUnread = function () {
                 return unreadCount;
             };
-            var response = userDetailsFactory.get();
-            this.setUnread(response.unread);
         }
+        ChatBus.prototype.getUnreadFromServer = function () {
+            var _this = this;
+            return this.ajaxService.get("/chat/unread")
+                .then(function (response) {
+                _this.setUnread(response);
+            });
+        };
         ChatBus.prototype.messages = function (q, page) {
             return this.ajaxService.get("/chat/conversation", { q: q, page: page });
         };
@@ -40,10 +42,10 @@ var app;
             });
         };
         ChatBus.factory = function () {
-            var factory = function (ajaxService2, userDetailsFactory) {
-                return new ChatBus(ajaxService2, userDetailsFactory);
+            var factory = function (ajaxService2) {
+                return new ChatBus(ajaxService2);
             };
-            factory['$inject'] = ["ajaxService2", "userDetailsFactory"];
+            factory['$inject'] = ["ajaxService2"];
             return factory;
         };
         return ChatBus;

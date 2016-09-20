@@ -60,6 +60,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(model);
         }
 
+        [HttpGet, ActionName("unread")]
+        public async Task<JsonResult> UnreadAsync()
+        {
+            var query = new GetUserDetailsQuery(User.GetUserId());
+            var model = await ZboxReadService.GetChatUnreadMessagesAsync(query);
+            return JsonOk(model);
+        }
+
         [HttpPost]
         public JsonResult MarkRead(Guid chatRoom)
         {

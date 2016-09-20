@@ -38,6 +38,7 @@ var app;
                 if (_this.$mdMedia('gt-sm')) {
                     return;
                 }
+                _this.chatBus.getUnreadFromServer();
                 var counterElem = $('.chat-counter');
                 var cleanUpFunc = scope.$watch(_this.chatBus.getUnread, function (value) {
                     if (value > 0) {

@@ -8,7 +8,7 @@ module app {
     import Factory = CacheFactory.ICacheFactory;
 
     export interface IAjaxService2 {
-        get(url: string, data?: Object, category?: cacheKeys, cancelCategory?: string): angular.IPromise<Object | Array<any>>;
+        get(url: string, data?: Object, category?: cacheKeys, cancelCategory?: string): angular.IPromise<Object | Array<any> | number>;
         post(url: string, data: Object, category?: cacheKeys | Array<cacheKeys>): angular.IPromise<Object | Array<any>>;
         getHtml(url: string): angular.IPromise<any>;
         deleteCacheCategory(category: cacheKeys): void;

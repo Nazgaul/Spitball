@@ -29,6 +29,6 @@ namespace Zbang.Zbox.ViewModel.Dto.UserDtos
 
         public Sex Sex { get; set; }
 
-        public int Unread { get; set; }
+       // public int Unread { get; set; }
     }
 }

@@ -40,6 +40,7 @@
             if (this.$mdMedia('gt-sm')) {
                 return;
             }
+            this.chatBus.getUnreadFromServer();
             var counterElem = $('.chat-counter');
             var cleanUpFunc = scope.$watch(this.chatBus.getUnread,
                 (value) => {

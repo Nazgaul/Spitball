@@ -55,21 +55,24 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateUnauthorizedResponse();
             }
-            var retVal = await m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
+            var t1 = m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
+            var t2 = m_ZboxReadService.GetChatUnreadMessagesAsync(new GetUserDetailsQuery(User.GetUserId()));
+            //var retVal = await m_ZboxReadService.GetUserDataAsync(new GetUserDetailsQuery(User.GetUserId()));
+            await Task.WhenAll(t1, t2);
             return Request.CreateResponse(new
             {
-                retVal.Id,
-                retVal.UniversityId,
-                retVal.Name,
-                retVal.Image,
-                retVal.IsAdmin,
-                retVal.UniversityCountry,
-                retVal.UniversityName,
-                tokenValid = retVal.UniversityId == User.GetUniversityId(),
-                retVal.Culture,
-                retVal.Email,
-                retVal.DateTime,
-                retVal.Unread
+                t1.Result.Id,
+                t1.Result.UniversityId,
+                t1.Result.Name,
+                t1.Result.Image,
+                t1.Result.IsAdmin,
+                t1.Result.UniversityCountry,
+                t1.Result.UniversityName,
+                tokenValid = t1.Result.UniversityId == User.GetUniversityId(),
+                t1.Result.Culture,
+                t1.Result.Email,
+                t1.Result.DateTime,
+                Unread = t2.Result
             });
         }
 
@@ -315,7 +318,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         }
 
 
-        
+
 
         private static string RandomString(int size)
         {

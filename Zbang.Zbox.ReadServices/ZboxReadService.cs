@@ -718,15 +718,23 @@ namespace Zbang.Zbox.ReadServices
         }
 
 
+        public async Task<int> GetChatUnreadMessagesAsync(GetUserDetailsQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                var result = await conn.QueryFirstOrDefaultAsync<int?>(Sql.Chat.GetUnreadMessages, new {query.UserId});
+                return result.GetValueOrDefault();
+            }
+        }
 
-        
         public async Task<User.UserDetailDto> GetUserDataAsync(GetUserDetailsQuery query)
         {
 
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
+                // {Sql.Chat.GetUnreadMessages}
                 using (
-                    var grid = await conn.QueryMultipleAsync($"{Sql.Sql.UserAuthenticationDetail} {Sql.Chat.GetUnreadMessages}",
+                    var grid = await conn.QueryMultipleAsync($"{Sql.Sql.UserAuthenticationDetail}",
                         new { query.UserId }))
                 {
                     var user = await grid.ReadFirstOrDefaultAsync<User.UserDetailDto>();
@@ -734,11 +742,11 @@ namespace Zbang.Zbox.ReadServices
                     {
                         throw new UserNotFoundException("user is null");
                     }
-                    var count = await grid.ReadFirstOrDefaultAsync<int?>();
-                    if (count != null)
-                    {
-                        user.Unread = count.Value;
-                    }
+                    //var count = await grid.ReadFirstOrDefaultAsync<int?>();
+                    //if (count != null)
+                    //{
+                    //    user.Unread = count.Value;
+                    //}
                     return user;
                 }
 
