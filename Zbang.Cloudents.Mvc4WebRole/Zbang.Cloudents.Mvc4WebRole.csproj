@@ -1536,6 +1536,7 @@
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
     <TypeScriptCompile Include="Js\shared\ajaxService2.ts" />
     <TypeScriptCompile Include="Js\shared\history.ts" />
+    <TypeScriptCompile Include="Js\shared\itemThumbnail.ts" />
     <TypeScriptCompile Include="Js\shared\loader.ts" />
     <TypeScriptCompile Include="Js\shared\resourceManager.ts" />
     <TypeScriptCompile Include="Js\shared\sbScroll.directive.ts" />
@@ -2336,7 +2337,6 @@
     <Content Include="Js\shared\facebook.js" />
     <Content Include="Js\shared\fileReader.js" />
     <Content Include="Js\shared\firstLetter.js" />
-    <Content Include="Js\shared\itemThumbnail.js" />
     <Content Include="Js\shared\removeKeyboard.js" />
     <Content Include="Js\components\box\box.service.js" />
     <Content Include="Js\components\box\quizzes.controller.js" />

@@ -95,7 +95,6 @@
 /// <reference path="../js/shared/focusme.js" />
 /// <reference path="../js/shared/google.js" />
 /// <reference path="../js/shared/inlinemanualnew.js" />
-/// <reference path="../js/shared/itemthumbnail.js" />
 /// <reference path="../js/shared/keyboardaction.directive.js" />
 /// <reference path="../js/shared/languagehandler.js" />
 /// <reference path="../js/shared/meganumbers.js" />
