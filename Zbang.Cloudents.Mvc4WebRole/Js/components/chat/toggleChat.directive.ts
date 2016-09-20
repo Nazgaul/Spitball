@@ -1,6 +1,7 @@
 ﻿module app {
+    "use strict";
     class ToggleChat implements angular.IDirective {
-        restrict = 'A';
+        restrict = "A";
 
         constructor(private chatBus: IChatBus, private $mdMedia: angular.material.IMedia,
             private userDetailsFactory: IUserDetailsFactory,
@@ -9,21 +10,21 @@
         }
         link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery) => {
 
-            var $html = $('html');
-            const className = 'expanded-chat';
+            var $html = $("html");
+            const className = "expanded-chat";
             if (!this.userDetailsFactory.getUniversity()) {
                 element.hide();
             }
 
-            this.$rootScope.$on('change-university',
+            this.$rootScope.$on("change-university",
                 () => {
                     if (this.userDetailsFactory.getUniversity()) {
                         element.show();
                     }
                 });
-            element.on('click',
+            element.on("click",
                 () => {
-                    if (this.$mdMedia('xs')) {
+                    if (this.$mdMedia("xs")) {
                         if (this.$state.current.name === "chat") {
                             scope["app"].back("/dashboard/");
                             return;
@@ -34,16 +35,16 @@
                     }
                 });
 
-            scope.$on('expandChat', () => {
+            scope.$on("expandChat", () => {
                 $html.addClass(className);
             });
-            if (this.$mdMedia('gt-sm')) {
+            if (this.$mdMedia("gt-sm")) {
                 return;
             }
             this.chatBus.getUnreadFromServer();
-            var counterElem = $('.chat-counter');
+            var counterElem = $(".chat-counter");
             var cleanUpFunc = scope.$watch(this.chatBus.getUnread,
-                (value) => {
+                (value: number) => {
                     if (value > 0) {
                         counterElem.text(value.toString()).show();
                     } else {
@@ -66,7 +67,7 @@
 
 
         public static factory(): angular.IDirectiveFactory {
-            const directive = (chatBus, $mdMedia, userDetailsFactory, $rootScope, $state) => {
+            const directive = (chatBus: IChatBus, $mdMedia: angular.material.IMedia, userDetailsFactory, $rootScope, $state) => {
                 return new ToggleChat(chatBus, $mdMedia, userDetailsFactory, $rootScope, $state);
             };
 

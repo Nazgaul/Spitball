@@ -46,7 +46,6 @@
 /// <reference path="../js/components/box/tab.controller.js" />
 /// <reference path="../js/components/dashboard/createbox.controller.js" />
 /// <reference path="../Js/components/dashboard/dashboard.controller.js" />
-/// <reference path="../js/components/dashboard/dashboard.routes.js" />
 /// <reference path="../js/components/dashboard/university.controller.js" />
 /// <reference path="../js/components/item/comments.controller.js" />
 /// <reference path="../js/components/item/externalproviderupload.service.js" />

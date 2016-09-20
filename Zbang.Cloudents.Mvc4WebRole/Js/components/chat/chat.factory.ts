@@ -12,16 +12,12 @@
     }
 
     class ChatBus implements IChatBus {
-        //static $inject = ["ajaxService2"];
+        // static $inject = ["ajaxService2"];
 
         constructor(private ajaxService: IAjaxService2
-        ) {
-            //const response = userDetailsFactory.get();
-            //this.setUnread(response.unread);
-        }
+        ) {}
 
         setUnread = (count: number): void => {
-            //this.ajaxService.deleteCacheCategory("accountDetail");
             unreadCount = count;
         };
         getUnread = (): number => {
@@ -58,11 +54,11 @@
             });
         }
         public static factory() {
-            const factory = (ajaxService2) => {
+            const factory = (ajaxService2: IAjaxService2) => {
                 return new ChatBus(ajaxService2);
             };
 
-            factory['$inject'] = ["ajaxService2"];
+            factory["$inject"] = ["ajaxService2"];
             return factory;
         }
     }

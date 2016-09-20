@@ -45,7 +45,7 @@ var app;
             var factory = function (ajaxService2) {
                 return new ChatBus(ajaxService2);
             };
-            factory['$inject'] = ["ajaxService2"];
+            factory["$inject"] = ["ajaxService2"];
             return factory;
         };
         return ChatBus;
