@@ -1,5 +1,5 @@
 ﻿
-@import "variables.less";
+@import "themeLight.less";
 
 
 body {
@@ -8,6 +8,7 @@ body {
     margin: 0 !important;
     font-size: 13px;
     direction: ltr;
+    color: @textColorWhite;
 }
 
 /*
@@ -2120,8 +2121,12 @@ Portlets
 /* Light Portlet */
 .portlet.light {
     padding: 12px 20px 15px 20px;
+    background-color: @backgroundColorMenu;
 }
 
+.portlet.light > .portlet-title > .caption {
+    color: @textColorWhite;
+}
 //.portlet.light.bordered {
 //    border: 1px solid #e1e1e1 !important;
 //}

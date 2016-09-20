@@ -20,22 +20,21 @@
         .displayFlex();
 
         .folder-name-inner {
-            //background: @backgroundColorMenu;
+            background: @backgroundColorMenu;
             padding: 0 6px;
             width: 100%;
         }
 
         .content {
-            //background: @textColorDarkGrey;
-            //border: 1px solid @textColorDarkGrey;
+            background: @borderColorBottomGrey;
+            box-shadow: 0 0 2px @backgroundColor;
             width: 100%;
-            //box-shadow: 0 0 2px @backgroundColor;
         }
 
         .icon {
             width: 18px;
             height: 18px;
-            //fill: @backgroundColor2;
+            fill: @backgroundColor2;
             margin: 0 7px;
             vertical-align: middle;
         }
@@ -73,6 +72,7 @@
     margin-bottom: 20px;
     margin-right: 8px;
     margin-left: 8px;
+
     .md-menu {
         padding: 0;
 
@@ -84,7 +84,7 @@
 
     .dots-3 {
         margin-left: 0;
-        //fill: @backgroundColor;
+        fill: @backgroundColor;
     }
 
     .arrow {
@@ -105,7 +105,8 @@
     width: 100%;
     display: inline-block;
     padding: 0 8px;
-    //.placeHolder(@textColorBlack);
+    .placeHolder(@textColorBlack);
+
     input {
         border: 5px solid @buttonColorBlue;
         //border: 10px solid @backgroundColorMenu;
@@ -159,7 +160,6 @@
         -ms-word-break: break-word;
         word-break: break-word;
         //font-weight: bold;
-
         @media(min-width: 600px) {
             &.multi-line-ellipsis.limit-two {
                 -webkit-line-clamp: 1;
@@ -173,33 +173,40 @@
 }
 
 .folders {
-    // md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
-    //     background: @buttonColorRed;
-    // }
+    md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
+        background: @buttonColorRed;
+    }
+
     .add-folder {
-        // &:hover {
-        //     .content {
-        //        // border: 1px solid @buttonColorBlue;
-        //
-        //        // svg {
-        //        //     fill: @buttonColorBlue;
-        //        // }
-        //
-        //        // span {
-        //        //     color: @buttonColorBlue;
-        //        // }
-        //     }
-        // }
+        ;
+
+        &:hover {
+            .content {
+                border: 1px solid @buttonColorBlue;
+
+                svg {
+                    fill: @buttonColorBlue;
+                }
+
+                span {
+                    color: @buttonColorBlue;
+                }
+            }
+        }
+
         .content {
+            border: 1px solid @textColorGrey;
             padding: 6px;
             background: none;
-            // border: 1px solid @textColorGrey;
-            // svg {
-            //     fill: @textColorGrey;
-            // }
-            // span {
-            //     color: @textColorGrey;
-            // }
+
+            svg {
+                fill: @textColorGrey;
+            }
+
+            span {
+                color: @textColorGrey;
+            }
+
             button {
                 .displayFlex();
 
@@ -214,12 +221,12 @@
             width: 15px;
             height: 15px;
             vertical-align: middle;
-            //fill: @borderColorGrey;
+            fill: @borderColorGrey;
         }
 
         span {
             font-weight: bold;
-            //color: @borderColorGrey;
+            color: @borderColorGrey;
             font-size: 16px;
             line-height: 20px;
             padding-left: 10px;
@@ -241,7 +248,7 @@
     width: 100%;
     background: none;
     border-width: 0 0 1px 0;
-    //border-color: @borderColorGrey;
+    border-color: @borderColorGrey;
     padding: 0 10px;
 }
 //dont think we need that
@@ -257,7 +264,7 @@
     }
 }
 
-.box-nav-bar ~ div{
+.box-nav-bar ~ div {
     margin: 0 -8px;
 }
 
@@ -271,22 +278,24 @@
 //add button
 .add-button {
     .aspect-ratio();
-    // &:hover {
-    //     .content {
-    //         border: 1px solid @buttonColorBlue;
-    //     }
-    //
-    //
-    //     a, button {
-    //         color: @buttonColorBlue;
-    //     }
-    //
-    //     svg {
-    //         fill: @buttonColorBlue;
-    //     }
-    // }
+
+    &:hover {
+        .content {
+            border: 1px solid @buttonColorBlue;
+        }
+
+
+        a, button {
+            color: @buttonColorBlue;
+        }
+
+        svg {
+            fill: @buttonColorBlue;
+        }
+    }
+
     .content {
-        // border: 1px solid @textColorGrey;
+        border: 1px solid @textColorGrey;
         padding: 15px;
         //TODO: angular flex
         .displayFlex();
@@ -301,12 +310,12 @@
 
     a, button {
         font-size: 18px;
-        // color: @textColorGrey;
+        color: @textColorGrey;
         text-align: center;
     }
 
     svg {
-        //  fill: @textColorGrey;
+        fill: @textColorGrey;
         width: 40px;
         height: 40px;
         display: block;
@@ -395,6 +404,90 @@
     }
 }
 
+
+.add-comment {
+    .placeHolder(@textColorDarkGrey);
+
+    .list-inline > li {
+        border: 1px solid @borderColorGrey;
+    }
+
+    background: @backgroundColor;
+    /*textarea {
+            background: @backgroundColor;
+        }*/
+    ::-webkit-input-placeholder {
+        color: @borderColorBottomGrey;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+        color: @borderColorBottomGrey;
+    }
+
+    ::-moz-placeholder { /* Firefox 19+ */
+        color: @borderColorBottomGrey;
+    }
+
+    :-ms-input-placeholder {
+        color: @borderColorBottomGrey;
+    }
+
+
+    input[type=checkbox] {
+        &:checked + label {
+            .text {
+                @media (min-width: 600px) {
+                    color: @anonymousColor;
+                }
+            }
+
+            svg {
+                fill: @anonymousColor;
+            }
+        }
+    }
+
+    .dropbox {
+        &:hover {
+            fill: @dropboxColor;
+        }
+    }
+
+    .link {
+        &:hover {
+            fill: @linkColor;
+        }
+    }
+
+    .new-comment-border, .reply-wrapper {
+        ::-webkit-input-placeholder {
+            color: @textColorGrey;
+        }
+
+        :-moz-placeholder {
+            color: @textColorGrey;
+        }
+
+        ::-moz-placeholder {
+            color: @textColorGrey;
+        }
+
+        :-ms-input-placeholder {
+            color: @textColorGrey;
+        }
+
+        :placeholder-shown {
+            color: @textColorGrey;
+        }
+    }
+
+    &.new-post {
+        .top img {
+            background: @borderColorDarkGrey;
+        }
+    }
+}
+
 .member {
     //TODO: angular flex
     .displayFlex();
@@ -410,6 +503,7 @@
         font-size: 15px;
         margin-left: 10px;
         width: ~"calc(100% - 45px)";
+        color: @textColorWhite;
     }
 }
 
@@ -449,6 +543,7 @@
         //TODO:angular flex
         .displayFlex();
         .justifyContet(space-between);
+        color: @headerbackground;
 
         .views, .likes {
             .displayFlex;
@@ -464,6 +559,7 @@
         svg {
             width: 14px;
             height: 14px;
+            fill: @headerbackground;
         }
     }
 }
@@ -477,6 +573,7 @@
 
     .top {
         height: @heightOfTop;
+        color: @textColorWhite;
         .displayFlex();
         .justifyContet(center);
         .align-items(center);
@@ -540,6 +637,7 @@
         }
 
         .first-letter {
+            border: 1px solid @textColorWhite;
         }
     }
 
@@ -573,6 +671,8 @@
         padding: 10px;
         direction: ltr /*rtl:ignore*/;
         position: relative;
+        background: @backgroundColorMenu;
+        color: @textColorWhite;
 
 
 
@@ -606,6 +706,9 @@
     }
 }
 
+.quiz-dots {
+    fill: @textColorWhite;
+}
 
 .item {
     display: block;
@@ -649,6 +752,7 @@
         overflow: hidden;
         height: 70px;
         background: rgba(24,28,29,0.75);
+        color: @textColorWhite;
     }
 }
 
@@ -720,9 +824,15 @@
         .displayFlex;
         border-radius: 4px;
         overflow: hidden;
+        background: @backgroundColor;
+    }
+
+    md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
+        background: @buttonColorRed;
     }
 
     .tab-content {
+        background: @backgroundColor;
         min-height: 300px;
         .displayFlex();
         -ms-flex-direction: column;
@@ -760,9 +870,21 @@
             height: 50px;
         }
 
+        .link {
+            fill: @linkColor;
+        }
 
+        .dropbox {
+            fill: @dropboxColor;
+        }
 
         span {
+            background: @backgroundColorMenu;
+
+            &:hover {
+                background: @backgroundColorMouseOver;
+            }
+
             display: block;
             border-radius: 50%;
             width: 80px;
@@ -784,17 +906,21 @@
     .actions {
         text-align: right;
         padding: 20px 10px 10px 0;
+        background-color: @backgroundColor;
     }
 }
 
 #dropElement {
     h5 {
+        color: @borderColorBottomGrey;
 
         .completed {
+            color: @textColorGreen;
             margin-right: 5px;
         }
 
         .failed {
+            color: @textColorRed;
             margin-left: 5px;
         }
     }
@@ -813,6 +939,7 @@
     }
 
     .file-upload {
+        background: @fileColor;
         color: @textColorDarkGrey;
         text-align: center;
         width: 115px;
@@ -835,6 +962,8 @@
         }
 
         .btn {
+            border: 1px solid @borderColorSpitballBlue;
+            color: @textColorSpitballBlue;
             padding: 5px 40px;
             font-size: 18px;
         }
@@ -851,6 +980,7 @@
             line-height: 30px;
 
             svg {
+                fill: @checkMarkColor;
                 margin: 0;
                 width: 20px;
                 height: 20px;
@@ -858,6 +988,12 @@
 
                 &:hover {
                     fill: @buttonColorBlue;
+                }
+            }
+
+            &.error {
+                svg {
+                    fill: @textColorRed;
                 }
             }
         }
@@ -877,6 +1013,10 @@
             bottom: 0;
             left: 0;
             right: 0;
+
+            .md-bar2 {
+                background-color: @progressbarColor;
+            }
         }
 
         .file-name {
@@ -885,6 +1025,7 @@
             position: relative;
             text-align: left;
             padding: 0 4px;
+            background: @textColorLightGrey;
 
             .multi-line-ellipsis {
                 line-height: 16px;
@@ -897,6 +1038,7 @@
             line-height: 20px;
             margin: 0;
             color: @textColorWhite;
+            background-color: @backgroundColorRed;
         }
     }
 }
