@@ -188,7 +188,7 @@
     <value>upload failed</value>
   </data>
   <data name="UploadFiles" xml:space="preserve">
-    <value>Upload Files</value>
+    <value>Upload documents</value>
   </data>
   <data name="UploadFromComputer" xml:space="preserve">
     <value>Upload from this device</value>

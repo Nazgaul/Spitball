@@ -389,9 +389,6 @@ Page Loading
 .theme-light .designed-input {
   border-color: #3D4348;
 }
-.theme-light .need-follow {
-  background: #006072;
-}
 .theme-light .add-button:hover .content {
   border: 1px solid #4190b9;
 }
@@ -1376,9 +1373,6 @@ Page Loading
 .theme-light .dashboard .portlet md-chips .md-chip {
   background: #c3c3c3;
 }
-.theme-light .need-follow.box-title h1 {
-  color: #f5f5f5;
-}
 .theme-light .box-nav-bar md-next-button svg,
 .theme-light .box-nav-bar md-prev-button svg {
   fill: #ffffff;
@@ -1876,6 +1870,9 @@ body .box-template .number {
 }
 md-input-container label:not(.md-container-ignore).md-required:after {
   content: none;
+}
+md-icon {
+  margin: 0;
 }
 .r-table {
   display: table;
