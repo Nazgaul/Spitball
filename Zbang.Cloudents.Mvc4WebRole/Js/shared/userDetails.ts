@@ -22,7 +22,7 @@ interface IUserData {
     url: string;
     isAdmin: boolean;
     culture: string;
-    unread: number;
+    //unread: number;
     createTime: Date;
     university: IUniversity;
 }
@@ -91,7 +91,7 @@ module app {
                 isAdmin: data.isAdmin,
                 culture: data.culture,
                 email: data.email,
-                unread: data.unread,
+                //unread: data.unread,
                 university: {
                     country: data.universityCountry, // for google analytics
                     name: data.universityName, // in library page

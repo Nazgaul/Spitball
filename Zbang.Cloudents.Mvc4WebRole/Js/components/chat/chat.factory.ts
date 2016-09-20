@@ -8,24 +8,28 @@
         chat(id: string, userIds: Array<number>, dateTime: Date, top: number): angular.IPromise<Array<any>>;
         preview(blob: string, i: number): angular.IPromise<Array<any>>;
         read(id: string): angular.IPromise<any>;
+        getUnreadFromServer(): angular.IPromise<any>; // can be number
     }
 
     class ChatBus implements IChatBus {
-        //static $inject = ["ajaxService2"];
+        // static $inject = ["ajaxService2"];
 
-        constructor(private ajaxService: IAjaxService2,
-            private userDetailsFactory: IUserDetailsFactory) {
-            const response = userDetailsFactory.get();
-            this.setUnread(response.unread);
-        }
+        constructor(private ajaxService: IAjaxService2
+        ) {}
 
         setUnread = (count: number): void => {
-            this.ajaxService.deleteCacheCategory("accountDetail");
             unreadCount = count;
         };
         getUnread = (): number => {
             return unreadCount;
         };
+
+        getUnreadFromServer() {
+            return this.ajaxService.get("/chat/unread")
+                .then((response: number) => {
+                    this.setUnread(response);
+                });
+        }
 
         messages(q: string, page: number): angular.IPromise<Array<any>> {
             return this.ajaxService.get("/chat/conversation", { q: q, page: page });
@@ -50,11 +54,11 @@
             });
         }
         public static factory() {
-            const factory = (ajaxService2, userDetailsFactory) => {
-                return new ChatBus(ajaxService2, userDetailsFactory);
+            const factory = (ajaxService2: IAjaxService2) => {
+                return new ChatBus(ajaxService2);
             };
 
-            factory['$inject'] = ["ajaxService2","userDetailsFactory"];
+            factory["$inject"] = ["ajaxService2"];
             return factory;
         }
     }

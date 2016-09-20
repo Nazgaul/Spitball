@@ -13,6 +13,9 @@ namespace Zbang.Zbox.Domain
 
         public virtual string Content { get; set; }
 
+        public virtual string Md5 { get; set; }
+
+        public virtual bool PreviewFailed { get; set; }
 
 
 

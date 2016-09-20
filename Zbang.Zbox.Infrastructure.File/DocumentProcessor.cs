@@ -100,7 +100,6 @@ namespace Zbang.Zbox.Infrastructure.File
             tasks.AddRange(parallelTask);
             tasks.Add(t);
             await Task.WhenAll(tasks);
-            //blobsNamesInCache.AddRange(parallelTask.Select(s => s.Result));
             return blobsNamesInCache;
         }
 

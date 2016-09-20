@@ -6,7 +6,7 @@
 declare var handleLanguage: any;
 declare var version: any;
 interface IRouterHelper {
-    configureStates(states: Array<any>, otherwisePath: string) : void;
+    configureStates(states: Array<any>, otherwisePath?: string) : void;
     getStates(): any;
     buildUrl(path: string):string;
 }

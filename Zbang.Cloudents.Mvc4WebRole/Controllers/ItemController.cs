@@ -436,6 +436,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             catch (Exception ex)
             {
                 TraceLog.WriteError($"GeneratePreview filename: {blobName}", ex);
+                ZboxWriteService.UpdatePreviewFailed(new PreviewFailedCommand(id));
                 if (index == 0)
                 {
                     return JsonOk(new

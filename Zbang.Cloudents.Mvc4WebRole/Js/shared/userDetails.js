@@ -69,7 +69,6 @@ var app;
                 isAdmin: data.isAdmin,
                 culture: data.culture,
                 email: data.email,
-                unread: data.unread,
                 university: {
                     country: data.universityCountry,
                     name: data.universityName,

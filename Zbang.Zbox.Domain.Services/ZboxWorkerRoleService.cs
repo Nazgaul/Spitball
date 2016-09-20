@@ -288,7 +288,7 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
         {
             using (var unitOfWork = UnitOfWork.Start())
             {
-                var i = 0;
+                //var i = 0;
                 //var query = UnitOfWork.CurrentSession.QueryOver<Question>()
                 //    //.Where(w => w.Quiz.Id == 13970)
                 //    .Where(w => w.Text.IsLike("%<%"));
@@ -334,37 +334,37 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
             }
         }
 
-        public async Task<long> UpdateFileSizesAsync(Action callback)
-        {
-            var count = 0;
-            using (var unitOfWork = UnitOfWork.Start())
-            {
-                var query = UnitOfWork.CurrentSession.GetNamedQuery("ItemWithNoSize");
-                query.SetMaxResults(100);
-                var itemIds = query.List<long>();
+        //public async Task<long> UpdateFileSizesAsync(Action callback)
+        //{
+        //    var count = 0;
+        //    using (var unitOfWork = UnitOfWork.Start())
+        //    {
+        //        var query = UnitOfWork.CurrentSession.GetNamedQuery("ItemWithNoSize");
+        //        query.SetMaxResults(100);
+        //        var itemIds = query.List<long>();
 
-                do
-                {
-                    count += itemIds.Count;
-                    try
-                    {
-                        var command = new UpdateItemWithNoSizeCommand(itemIds);
-                        await m_CommandBus.SendAsync(command);
-                        unitOfWork.TransactionalFlush();
-                    }
-                    catch (Exception ex)
-                    {
-                        TraceLog.WriteError(ex);
-                    }
-                    callback();
-                    query = UnitOfWork.CurrentSession.GetNamedQuery("ItemWithNoSize");
-                    query.SetMaxResults(100);
-                    itemIds = query.List<long>();
-                } while (itemIds.Any());
+        //        do
+        //        {
+        //            count += itemIds.Count;
+        //            try
+        //            {
+        //                var command = new UpdateItemWithNoSizeCommand(itemIds);
+        //                await m_CommandBus.SendAsync(command);
+        //                unitOfWork.TransactionalFlush();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                TraceLog.WriteError(ex);
+        //            }
+        //            callback();
+        //            query = UnitOfWork.CurrentSession.GetNamedQuery("ItemWithNoSize");
+        //            query.SetMaxResults(100);
+        //            itemIds = query.List<long>();
+        //        } while (itemIds.Any());
 
-            }
-            return count;
-        }
+        //    }
+        //    return count;
+        //}
 
 
 

@@ -349,10 +349,10 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUsersInBoxByTermAsync(query);
         }
 
-        public Task<IEnumerable<ChatUserDto>> GetUsersByTermAsync(UserSearchQuery query)
-        {
-            return m_ReadService.GetUsersByTermAsync(query);
-        }
+        //public Task<IEnumerable<ChatUserDto>> GetUsersByTermAsync(UserSearchQuery query)
+        //{
+        //    return m_ReadService.GetUsersByTermAsync(query);
+        //}
 
         public Task<IEnumerable<ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query)
         {
@@ -362,6 +362,11 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<ChatDto>> GetUserConversationAsync(GetChatRoomMessagesQuery query)
         {
             return m_ReadService.GetUserConversationAsync(query);
+        }
+
+        public Task<int> GetChatUnreadMessagesAsync(GetUserDetailsQuery query)
+        {
+            return m_ReadService.GetChatUnreadMessagesAsync(query);
         }
 
         public Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)

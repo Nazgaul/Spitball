@@ -94,6 +94,7 @@
     <Compile Include="LikeCommentCommandHandler.cs" />
     <Compile Include="LikeReplyCommandHandler.cs" />
     <Compile Include="ManageConnectionsCommandHandler.cs" />
+    <Compile Include="PreviewFailedCommandHandler.cs" />
     <Compile Include="Quiz\CreateDiscussionCommandHandler.cs" />
     <Compile Include="Quiz\CreateQuestionCommandHandler.cs" />
     <Compile Include="Quiz\CreateQuizCommandHandler.cs" />
@@ -107,7 +108,6 @@
     <Compile Include="RemoveOldConnectionCommandHandler.cs" />
     <Compile Include="RequestAccessLibraryNodeCommandHandler.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommandHandler.cs" />
-    <Compile Include="UpdateItemWithNoSizeCommandHandler.cs" />
     <Compile Include="UpdateNodeSettingsCommandHandler.cs" />
     <Compile Include="Resources\CommandHandlerResources.Designer.cs">
       <AutoGen>True</AutoGen>

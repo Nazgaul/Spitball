@@ -80,7 +80,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
 
             //item command
             ioc.RegisterType(typeof(ICommandHandlerAsync<RateItemCommand>), typeof(RateItemCommandHandler));
-            ioc.RegisterType(typeof(ICommandHandlerAsync<UpdateItemWithNoSizeCommand>), typeof(UpdateItemWithNoSizeCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandler<PreviewFailedCommand>), typeof(PreviewFailedCommandHandler));
 
 
             //statistics

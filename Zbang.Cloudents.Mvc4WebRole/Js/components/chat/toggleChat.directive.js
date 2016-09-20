@@ -1,5 +1,6 @@
 var app;
 (function (app) {
+    "use strict";
     var ToggleChat = (function () {
         function ToggleChat(chatBus, $mdMedia, userDetailsFactory, $rootScope, $state) {
             var _this = this;
@@ -8,20 +9,20 @@ var app;
             this.userDetailsFactory = userDetailsFactory;
             this.$rootScope = $rootScope;
             this.$state = $state;
-            this.restrict = 'A';
+            this.restrict = "A";
             this.link = function (scope, element) {
-                var $html = $('html');
-                var className = 'expanded-chat';
+                var $html = $("html");
+                var className = "expanded-chat";
                 if (!_this.userDetailsFactory.getUniversity()) {
                     element.hide();
                 }
-                _this.$rootScope.$on('change-university', function () {
+                _this.$rootScope.$on("change-university", function () {
                     if (_this.userDetailsFactory.getUniversity()) {
                         element.show();
                     }
                 });
-                element.on('click', function () {
-                    if (_this.$mdMedia('xs')) {
+                element.on("click", function () {
+                    if (_this.$mdMedia("xs")) {
                         if (_this.$state.current.name === "chat") {
                             scope["app"].back("/dashboard/");
                             return;
@@ -32,13 +33,14 @@ var app;
                         $html.toggleClass(className);
                     }
                 });
-                scope.$on('expandChat', function () {
+                scope.$on("expandChat", function () {
                     $html.addClass(className);
                 });
-                if (_this.$mdMedia('gt-sm')) {
+                if (_this.$mdMedia("gt-sm")) {
                     return;
                 }
-                var counterElem = $('.chat-counter');
+                _this.chatBus.getUnreadFromServer();
+                var counterElem = $(".chat-counter");
                 var cleanUpFunc = scope.$watch(_this.chatBus.getUnread, function (value) {
                     if (value > 0) {
                         counterElem.text(value.toString()).show();

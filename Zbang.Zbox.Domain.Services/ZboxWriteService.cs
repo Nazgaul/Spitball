@@ -271,6 +271,14 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+        public void UpdatePreviewFailed(PreviewFailedCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
 
         public async Task DeleteNodeLibraryAsync(DeleteNodeFromLibraryCommand command)
         {

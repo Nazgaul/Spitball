@@ -13,12 +13,10 @@ namespace Zbang.Zbox.Domain.Common
         void UpdateUserProfile(UpdateUserProfileCommand command);
         void UpdateUserImage(UpdateUserProfileImageCommand command);
         void UpdateUserLanguage(UpdateUserLanguageCommand command);
-       // void UpdateUserTheme(UpdateUserThemeCommand command);
         void UpdateUserUniversity(UpdateUserUniversityCommand command);
         void UpdateUserEmailSettings(UpdateUserEmailSubscribeCommand command);
         Task<CreateBoxCommandResult> CreateBoxAsync(CreateBoxCommand command);
         void ChangeBoxInfo(ChangeBoxInfoCommand command);
-        //void DeleteBox(DeleteBoxCommand command);
         Task UnFollowBoxAsync(UnFollowBoxCommand command);
         
         
@@ -33,16 +31,12 @@ namespace Zbang.Zbox.Domain.Common
 
         Task ShareBoxAsync(ShareBoxCommand command);
         Task InviteSystemAsync(InviteToSystemCommand command);
-       // void ShareBoxFacebook(ShareBoxFacebookCommand command);
-       // void InviteSystemFromFacebook(InviteToSystemFacebookCommand inviteCommand);
 
-        //Task SendMessageAsync(SendMessageCommand command);
         Task SubscribeToSharedBoxAsync(SubscribeToSharedBoxCommand command);
         ChangeFileNameCommandResult ChangeFileName(ChangeFileNameCommand command);
 
 
 
-        //void AddNodeToLibrary(AddNodeToLibraryCommand command);
         void UpdateNodeSettings(UpdateNodeSettingsCommand command);
         Task DeleteNodeLibraryAsync(DeleteNodeFromLibraryCommand command);
         Task RequestAccessToDepartmentAsync(RequestAccessLibraryNodeCommand command);
@@ -83,29 +77,23 @@ namespace Zbang.Zbox.Domain.Common
         Task AddReputationAsync(AddReputationCommand command);
         void DeleteUpdates(DeleteUpdatesCommand command);
 
-        //void MarkMessageAsRead(MarkMessagesAsReadCommand command);
-        //void DeleteNotification(DeleteNotificationCommand command);
 
         #region Quiz
         Task CreateQuizAsync(CreateQuizCommand command);
         void UpdateQuiz(UpdateQuizCommand command);
         Task DeleteQuizAsync(DeleteQuizCommand command);
         void CreateQuestion(CreateQuestionCommand command);
-        //void UpdateQuestion(UpdateQuestionCommand command);
         void DeleteQuestion(DeleteQuestionCommand command);
-        //void CreateAnswer(CreateAnswerCommand command);
-        //void DeleteAnswer(DeleteAnswerCommand command);
-        //void UpdateAnswer(UpdateAnswerCommand command);
         Task<SaveQuizCommandResult> SaveQuizAsync(SaveQuizCommand command);
         Task SaveUserAnswersAsync(SaveUserQuizCommand command);
         Task CreateItemInDiscussionAsync(CreateDiscussionCommand command);
         void DeleteItemInDiscussion(DeleteDiscussionCommand command);
 
-        //void MarkAnswerAsCorrect(MarkAnswerCorrectCommand command);
         void AddStudent(AddStudentCommand command);
 
         #endregion
 
+        void UpdatePreviewFailed(PreviewFailedCommand command);
 
 
 
@@ -121,7 +109,6 @@ namespace Zbang.Zbox.Domain.Common
 
 
         //chat
-        //void AddChatRoom(ChatCreateRoomCommand command);
         Task AddChatMessageAsync(ChatAddMessageCommand command);
         void MarkChatAsRead(ChatMarkAsReadCommand command);
 

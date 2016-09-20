@@ -104,6 +104,7 @@
     <Compile Include="LikeCommentCommand.cs" />
     <Compile Include="LikeReplyCommand.cs" />
     <Compile Include="ManageConnectionsCommand.cs" />
+    <Compile Include="PreviewFailedCommand.cs" />
     <Compile Include="Quiz\CreateDiscussionCommand.cs" />
     <Compile Include="Quiz\CreateQuestionCommand.cs" />
     <Compile Include="Quiz\CreateQuizCommand.cs" />
@@ -118,7 +119,6 @@
     <Compile Include="RemoveOldConnectionCommand.cs" />
     <Compile Include="RequestAccessLibraryNodeCommand.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommand.cs" />
-    <Compile Include="UpdateItemWithNoSizeCommand.cs" />
     <Compile Include="UpdateNodeSettingsCommand.cs" />
     <Compile Include="AddReputationCommand.cs" />
     <Compile Include="UnFollowBoxCommand.cs" />
