@@ -69,7 +69,6 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             if (counter >= m_LimitPerIp)
                             {
                                 TraceLog.WriteInfo($"{ServiceName} ip {j} reach hour peak");
-                               // reachHourLimit = true;
                                 break;
                             }
                             if (m_Queues[i].Count == 0)

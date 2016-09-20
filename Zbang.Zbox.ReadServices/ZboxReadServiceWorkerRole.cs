@@ -522,6 +522,7 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
             {
                 var policy = GetRetryPolicy();
                 return await policy.ExecuteAsync(async () => await
+                    // ReSharper disable once AccessToDisposedClosure
                     conn.QueryAsync<SpamGunDto>(
                         new CommandDefinition(
                             @"select top 500 s.Id, FirstName, LastName, Email,mailbody as MailBody,
@@ -532,7 +533,9 @@ and mailbody is not null
 and mailsubject is not null
 and mailcategory is not null
 and EmailStatus is null
-and shouldSend = 1", new { UniId = universityId }, cancellationToken: token)), token);
+and shouldSend = 1
+order by id
+OPTION (TABLE HINT(s, INDEX ([students_shouldsend])))", new { UniId = universityId }, cancellationToken: token)), token);
             }
 
 
