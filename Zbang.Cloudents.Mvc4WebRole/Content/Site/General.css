@@ -1691,12 +1691,12 @@ body .box-template .number {
   margin-top: 6px;
 }
 .close:hover {
-  color: #212325;
+  color: #ffffff;
 }
 .close md-icon {
   width: 17px;
   height: 17px;
-  fill: #212325;
+  fill: #ffffff;
 }
 .page-tabs {
   background: #4190b9;
@@ -1873,6 +1873,10 @@ md-input-container label:not(.md-container-ignore).md-required:after {
 }
 md-icon {
   margin: 0;
+  min-height: 0;
+  min-width: 0;
+  width: auto;
+  height: auto;
 }
 .r-table {
   display: table;

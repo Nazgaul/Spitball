@@ -1,7 +1,8 @@
-﻿@import "variables.less";
+﻿@import "themeLight.less";
 
 .full-screen {
     .fullScreen();
+    background: @backgroundColor;
     position: fixed;
     right: 0;
     left: 0;
@@ -13,9 +14,9 @@
 
     header {
         top: 0;
-        color: @textColorWhite;
-        background-color: @backgroundColorMenu;
-        border-bottom: 5px solid @borderColorBlack;
+        color: @textColorBlack;
+        background-color: @buttonColorBlue;
+        border-bottom: 5px solid @backgroundColor;
         height: @fullScreenHeaderHeight;
         line-height: @fullScreenHeaderHeight - 5;
         position: fixed;
@@ -100,12 +101,15 @@
 
     .supported {
         margin: @fullScreenHeaderHeight + 16px auto;
-        color: @textColorGrey;
+        color: @textColorBlack;
         width: 800px;
         padding: 10px 15px 0;
 
         .quiz-name {
             margin-top: 0;
+            input{
+                 .placeHolder(@textColorWhite);
+            }
 
             button {
                 position: absolute;
@@ -135,12 +139,12 @@
         }
 
         .add-question {
-            color: @textColorWhite;
+            color: @textColorBlack;
             border: 1px solid @textColorSpitballBlue;
             background: transparent;
 
             svg {
-                fill: @backgroundColorWhite;
+                fill: @textColorBlack;
                 margin-right: 10px;
                 width: 15px;
                 height: 15px;
@@ -180,8 +184,8 @@
 
 
     .form-control {
-        color: @textColorDarkGrey;
-        background-color: @backgroundColorWhite;
+        color: @textColorBlack;
+        background-color: @backgroundColor;
         border-radius: 0;
         margin-bottom: 20px;
         margin-top: 10px;
@@ -272,7 +276,7 @@
     .ta-toolbar {
         display: none;
         padding: 8px 0;
-        background: @backgroundColorWhite;
+        background: @textColorBlack;
         margin: 0; //override on bootstrap
         .btn-group {
             border: 1px solid @borderColorLightGrey;
@@ -284,7 +288,7 @@
             padding: 0;
             border-radius: 0;
             border: 0;
-            background: @backgroundColorWhite;
+            background: @textColorBlack;
         }
 
         &.focussed {
@@ -320,7 +324,7 @@
             top: 0;
             left: 0;
             pointer-events: none;
-            background: @backgroundColorWhite;
+            background: @textColorBlack;
             line-height: @heightContent;
         }
     }
@@ -338,7 +342,7 @@
         flex-shrink: 0;
 
         &:before {
-            color: @textColorWhite;
+            color: @textColorBlack;
             position: absolute;
             left: 0;
             top: 0;
@@ -505,7 +509,7 @@
 
     .modal-content {
         background: transparent;
-        color: @textColorWhite;
+        color: @textColorBlack;
         box-shadow: none;
         border: 0;
         text-align: center;

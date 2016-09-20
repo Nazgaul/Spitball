@@ -60,7 +60,7 @@
 
         </div>
         <div layout="row" class="quiz-take-stats" ng-class="{'no-progress': q.state === 1}" ng-show="q.state !== 4">
-            <div flex="none" layout="row" layout-align="start center" class="stop-watch-wrapper backgroundTC30">
+            <div flex="none" layout="row" layout-align="start center" class="stop-watch-wrapper">
                 <stopwatch control="q.timerControl"></stopwatch>
 
                 <button type="button" class="stopwatch-btn" ng-click="q.timerControl.toggle()" ng-disabled="q.state === 1">
