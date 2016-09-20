@@ -633,22 +633,22 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<User.ChatUserDto>> GetUsersByTermAsync(UserSearchQuery query)
-        {
-            using (var conn = await DapperConnection.OpenConnectionAsync())
-            {
-                return await conn.QueryAsync<User.ChatUserDto>(Sql.Search.GetUsersByTerm,
-                     new
-                     {
-                         query.Term,
-                         query.PageNumber,
-                         query.RowsPerPage,
-                         query.UniversityId,
-                         query.UserId
+        //public async Task<IEnumerable<User.ChatUserDto>> GetUsersByTermAsync(UserSearchQuery query)
+        //{
+        //    using (var conn = await DapperConnection.OpenConnectionAsync())
+        //    {
+        //        return await conn.QueryAsync<User.ChatUserDto>(Sql.Search.GetUsersByTerm,
+        //             new
+        //             {
+        //                 query.Term,
+        //                 query.PageNumber,
+        //                 query.RowsPerPage,
+        //                 query.UniversityId,
+        //                 query.UserId
 
-                     });
-            }
-        }
+        //             });
+        //    }
+        //}
 
         public async Task<IEnumerable<User.ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query)
         {

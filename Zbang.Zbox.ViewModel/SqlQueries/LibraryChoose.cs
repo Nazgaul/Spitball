@@ -2,11 +2,7 @@
 {
     public static class LibraryChoose
     {
-        public const string GetDepartmentsByTerm =
-            @"  select l.LibraryId as Id, l.Name as Name from zbox.library l
-  where l.Id = @universityId
-  and l.name like '%'+ @term +'%'
-  order by name";
+       
 
         public const string GetNeedId = @"select  top 1 UniversityId, u.MailAddress as Email, TextPopupUpper, TextPopupLower from zbox.student s inner join zbox.University u on s.UniversityId = u.Id
               where s.UniversityId = @universityId";
