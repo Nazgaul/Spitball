@@ -15,4 +15,10 @@
 
         public string UniversityUrl { get; set; }
     }
+
+    public class GreekPartnerDto : SpamGunDto
+    {
+        public string Chapter { get; set; }
+        public string School { get; set; }
+    }
 }

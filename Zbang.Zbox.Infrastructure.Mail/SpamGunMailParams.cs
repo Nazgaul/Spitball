@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Zbang.Zbox.Infrastructure.Mail
+﻿namespace Zbang.Zbox.Infrastructure.Mail
 {
 
     public class SpamGunMailParams : MailParameters
@@ -28,7 +22,36 @@ namespace Zbang.Zbox.Infrastructure.Mail
         public string Subject { get; private set; }
 
         public string Category { get; private set; }
-
         public override string MailResover => nameof(SpamGunMailParams);
+    }
+
+
+    public class GreekPartnerMailParams : MailParameters
+    {
+        public GreekPartnerMailParams(
+             string body,
+            string universityUrl, string name, string subject, string category, string school, string chapter)
+            : base(new System.Globalization.CultureInfo("en-US"), senderName: "Justin Liao <justin@spitball.co>")
+        {
+            Body = body;
+            UniversityUrl = universityUrl;
+            Name = name;
+            Subject = subject;
+            Category = category;
+            School = school;
+            Chapter = chapter;
+        }
+
+        public string Body { get; private set; }
+        public string Name { get; private set; }
+        public string UniversityUrl { get; private set; }
+
+        public string Subject { get; private set; }
+
+        public string School { get; private set; }
+        public string Chapter { get; private set; }
+
+        public string Category { get; private set; }
+        public override string MailResover => nameof(GreekPartnerMailParams);
     }
 }

@@ -212,6 +212,7 @@
     <EmbeddedResource Include="MailTemplate\ReplyToCommentMailTemplateHe.html" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MailTemplate\GreekHouseTemplate.html" />
     <Content Include="MailTemplate\ReplyToCommentMailTemplate.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

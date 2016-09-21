@@ -139,11 +139,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
         {
 
             var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover, new IocParameterOverride("parameters", parameters));
-            // mail.AddSubject(sendGridMail);
-            //mail.GenerateMail(sendGridMail, parameters);
-
-
-
 
             var client = new RestClient
             {
@@ -160,7 +155,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
                                  $"mg{ipPool}.spitball.co", ParameterType.UrlSegment);
 
             request.AddParameter("from", parameters.SenderName);
-            request.AddParameter("to", ConfigFetcher.IsEmulated ? "yaari_r@yahoo.com" : recipient);
+            request.AddParameter("to", ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
             request.AddParameter("subject", mail.AddSubject());
             request.AddParameter("html", mail.GenerateMail().Replace("{email}", recipient));
             request.AddParameter("o:tag", mail.AddCategory());
