@@ -186,13 +186,16 @@ namespace Testing
                 AllowDomainLiterals = false,
                 AllowComments = true,
                 AllowQuotedStrings = true
+                //LocalEndPoint = new IPEndPoint(new IPAddress())
             };
 
             // The component will use just the provided DNS server for its lookups
 
             settings.DnsServers.Clear();
+            settings.LocalSenderAddress = "michael@spitball.co";
             settings.DnsServers.Add(IPAddress.Parse("8.8.8.8"));
             settings.SmtpConnectionTimeout = TimeSpan.FromMinutes(5);
+            var x = verifier.Run("MHW0008@auburn.edu", VerificationLevel.CatchAll, settings).Result;
             var result = verifier.Run("LEW0019@auburn.edu", VerificationLevel.CatchAll, settings).Result;
 
 

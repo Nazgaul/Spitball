@@ -13,7 +13,7 @@
     }
 
     function getLangCookie() {
-        return getCookie(langCookie)
+        return getCookie(langCookie);
     }
 
     function changeLanguage($langElem) {

@@ -2373,7 +2373,6 @@
     <Content Include="Js\shared\google.js" />
     <Content Include="Js\shared\megaNumbers.js" />
     <Content Include="Js\shared\userimage.js" />
-    <Content Include="Js\shared\versionChecker.js" />
     <Content Include="Js\signin\bootstrap.min.js" />
     <Content Include="Js\signin\login-soft.js" />
     <Content Include="Js\signin\metronic.js" />
@@ -2591,6 +2590,7 @@
     <None Include="Views\Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <TypeScriptCompile Include="Js\shared\versionChecker.ts" />
     <TypeScriptCompile Include="Js\spitball.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-google-analytics\angular-google-analytics-service.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angular-google-analytics\angular-google-analytics.d.ts" />
@@ -2933,7 +2933,6 @@
     <Content Include="cdn\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Js\shared\inlineManual.ts" />
     <TypeScriptCompile Include="Js\shared\intercom.ts" />
   </ItemGroup>
   <ItemGroup>
