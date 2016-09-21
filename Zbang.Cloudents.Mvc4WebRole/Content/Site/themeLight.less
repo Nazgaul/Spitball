@@ -100,25 +100,7 @@ body.theme-light {
         background: @buttonColorRed;
     }
     /*#region angularmaterial*/
-    .dd-list {
-        md-content {
-            background: @backgroundColorMenu;
-            color: @textColorWhite;
-        }
-
-        md-option {
-            border-bottom: 1px solid @borderColorBlack;
-
-            &[selected] {
-                color: @textColorBlue;
-
-                &:focus {
-                    color: @textColorBlue;
-                }
-            }
-        }
-    }
-
+    
 
     md-select:not([disabled]):focus .md-select-value {
         color: @textColorWhite;
@@ -319,23 +301,6 @@ body.theme-light {
         &:before {
             border-bottom: 8px solid @backgroundColorMenu;
         }
-
-
-
-        .user-menu-item {
-
-            svg {
-                fill: @textColorWhite;
-            }
-
-
-
-            .md-button {
-                span {
-                    color: @textColorWhite;
-                }
-            }
-        }
     }
 
     .nav-bar {
@@ -394,13 +359,7 @@ body.theme-light {
         }
     }
     /*#endregion*/
-    /*#region box.less*/
-    .folder-selected {
-        .arrow {
-            fill: @backgroundColorMenu;
-        }
-    }
-    /*#endregion*/
+
     .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
         fill: @anonymousColor;
     }

@@ -1,4 +1,4 @@
-﻿@import "variables.less";
+﻿@import "themeLight.less";
 
 @chatHeaderHeight: 50px;
 @newChatMessageHeight: 50px;
@@ -8,7 +8,7 @@
 
 .chat-counter {
     background: @textColorRed;
-    color: @textColorWhite;
+    color: @textColorBlack;
     border-radius: 100%;
     width: 18px;
     height: 18px;
@@ -37,7 +37,7 @@
     md-icon {
         width: 30px;
         height: 30px;
-        fill: @textColorWhite;
+        fill: @textColorBlack;
     }
 
     .chat-counter {
@@ -62,7 +62,7 @@
         background: none;
         position: relative;
         overflow: hidden;
-        
+
         .users-list {
             height: ~"calc(100vh + 5px - @{heightOfHeader} - @{newChatMessageHeight})";
         }
@@ -99,12 +99,12 @@
             height: 0;
             border-style: solid;
             border-width: 7px 10px 7px 0;
-            border-color: transparent @textColorWhite transparent transparent;
+            border-color: transparent @textColorBlack transparent transparent;
             position: absolute;
             top: ~"calc(50% - 7px)";
             left: 4px;
             border-width: 7px 0 7px 10px;
-            border-color: transparent transparent transparent @textColorWhite;
+            border-color: transparent transparent transparent @textColorBlack;
             left: 6px;
         }
     }
@@ -182,7 +182,7 @@
 
     .error {
         z-index: 1;
-        color: @textColorWhite;
+        color: @textColorBlack;
         position: absolute;
         width: 100%;
         text-align: center;
@@ -226,7 +226,7 @@
                     flex-grow: 1;
                     border-bottom: 1px solid @buttonColorBlue;
                     max-width: ~"calc(100% - 85px)";
-                    color: @textColorBlack;
+                    color: @textColorWhite;
                     font-size: 16px;
                     padding-top: 16px;
                     margin-bottom: 4px;
@@ -239,7 +239,7 @@
                         width: 10px;
                         height: 10px;
                         display: block;
-                        fill: @textColorDarkGrey;
+                        fill: @headerbackground;
                     }
                 }
 
@@ -317,7 +317,7 @@
                 .users-sub-list {
                     padding: 0;
                     margin: 0;
-                    color: @textColorBlack;
+                    color: @textColorWhite;
                     overflow: auto;
 
                     .mCSB_container {
@@ -348,6 +348,7 @@
                             max-width: ~"calc(100% - 64px)";
                             font-size: 16px;
                             height: 54px;
+                            color: @textColorWhite;
                         }
 
                         .member-name, .comment-date {
@@ -440,6 +441,7 @@
         }
 
         .conversasion, .menu-content {
+            background: #f9f9f9;
             transition: right 0.3s;
             top: 0;
         }
@@ -455,7 +457,7 @@
 
                 .user {
                     max-width: ~"calc(100% - 40px)";
-                    color: @textColorWhite;
+                    color: @textColorBlack;
 
                     user-image {
                         display: none;
@@ -490,7 +492,7 @@
                 }
 
                 .back {
-                    background: @textColorWhite;
+                    background: @textColorBlack;
                     border-radius: 100%;
                     padding: 2px;
                     margin: 0 10px;
@@ -541,7 +543,7 @@
                     font-size: 15px;
                     padding-bottom: 6px;
                     overflow: auto;
-                    color: @textColorBlack;
+                    color: @textColorWhite;
                     //padding-bottom: 70px;
                     .mCSB_outside + .mCSB_scrollTools {
                         right: -5px;
@@ -642,7 +644,7 @@
                         margin-right: 50px;
 
                         textarea {
-                            color: @textColorBlack;
+                            color: @textColorWhite;
                             border: none !important;
                             line-height: 22px;
                             padding: 0 0 0 10px;
@@ -733,7 +735,7 @@
     }
 
     .user.online:before {
-        box-shadow: 0 0 1px 2px @textColorBlack;
+        box-shadow: 0 0 1px 2px @textColorWhite;
     }
 }
 
@@ -784,6 +786,7 @@
             md-icon {
                 width: 18px;
                 height: 18px;
+                fill: @textColorBlack;
             }
         }
 
@@ -796,6 +799,7 @@
             md-icon {
                 width: 16px;
                 height: 16px;
+                fill: @textColorBlack;
             }
         }
     }
@@ -854,7 +858,7 @@ html:not(.expanded-chat) {
 
             .tab:after {
                 border-width: 7px 10px 7px 0;
-                border-color: transparent @textColorWhite transparent transparent;
+                border-color: transparent @textColorBlack transparent transparent;
                 left: 4px;
             }
         }

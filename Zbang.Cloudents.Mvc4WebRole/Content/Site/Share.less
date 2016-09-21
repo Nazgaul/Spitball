@@ -15,7 +15,7 @@
     position: relative;
     margin-top: 10px;
     margin-bottom: 10px;
-    background: @borderColorDarkGrey;
+    background: @buttonColorBlue;
 
     button.btn-default {
         &:active:hover {
@@ -51,8 +51,12 @@
         max-width: 900px;
         background: none;
 
+        .caption{
+            color: @headerbackground;
+        }
+
         .content {
-            border: 1px solid;
+            border: 1px solid @buttonColorBlue;
             border-radius: 5px;
 
 

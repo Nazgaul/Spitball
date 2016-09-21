@@ -121,7 +121,8 @@
         md-icon {
             width: 20px;
             height: 20px;
-            fill: @textColorWhite;
+            margin: 8px 10px;
+            fill: @textColorGrey;
         }
 
 
@@ -131,15 +132,15 @@
             padding: 5px 0;
             width: 180px;
             text-align: left;
-            align-items: center;
+            .displayFlex;
+            .align-items(center);
+            .justifyContet(start);
+            color: @textColorWhite;
 
             span {
                 color: @textColorWhite;
+                line-height: normal;
             }
-        }
-
-        md-icon {
-            margin: 0 10px;
         }
     }
 }

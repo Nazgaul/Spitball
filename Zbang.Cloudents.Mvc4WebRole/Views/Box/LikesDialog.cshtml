@@ -1,15 +1,14 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
 <md-dialog class="like-dialog">
-    <md-toolbar layout="row" layout-align="space-between center" class="backgroundTC3">
+    <md-toolbar layout="row" layout-align="space-between center">
         <h2>@BoxResources.likeUsersDialogHeader</h2>
         <md-button aria-label="close" ng-click="lc.close()">
-            <md-icon md-svg-icon="t:close" class="svgTC4"></md-icon>
-            @*@Html.Svg("~/images/site/icons.svg", "close", new {@class = "svgTC4"})*@
+            <md-icon md-svg-icon="t:close"></md-icon>
         </md-button>
     </md-toolbar>
-    <md-dialog-content class="backgroundTC1">
+    <md-dialog-content>
         <ul class="list-unstyled" ng-scrollbars>
-            <li class="borderTC2" ng-repeat="e in ::lc.users" ng-include="'user-template.html'"></li>
+            <li ng-repeat="e in ::lc.users" ng-include="'user-template.html'"></li>
         </ul>
     </md-dialog-content>
 </md-dialog>

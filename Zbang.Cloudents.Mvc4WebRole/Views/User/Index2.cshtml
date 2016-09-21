@@ -16,7 +16,7 @@
                 <h3 class="profile-usertitle-name multi-line-ellipsis limit-two">
                     {{::u.details.name}}
                 </h3>
-                <h4 class="profile-usertitle-job textTC16">
+                <h4 class="profile-usertitle-job">
                     {{::u.details.universityName}}
                 </h4>
                 <button class="message" ng-if="!u.isUserProfile" ng-click="u.sendMessage()" user-not-register-popup="click">
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div class="points-container textTC26">
+        <div class="points-container">
             <h5 count-up id="points" end-val="{{u.details.score}}" duration="3"></h5>
             <h5>@UserResources.Points</h5>
         </div>

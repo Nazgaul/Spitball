@@ -22,8 +22,6 @@ body.theme-light {
   /*#endregion*/
   /*#region accountSettings.less*/
   /*#endregion*/
-  /*#region box.less*/
-  /*#endregion*/
   /*#endregion*/
   /*#region box.less*/
   /*#endregion*/
@@ -80,22 +78,9 @@ body.theme-light {
 .theme-light .add {
   background: #db4437;
 }
-.theme-light .dd-list md-content {
-  background: #ffffff;
-  color: #212325;
-}
-.theme-light .dd-list md-option {
-  border-bottom: 1px solid #282828;
-}
-.theme-light .dd-list md-option[selected] {
-  color: #2698D4;
-}
-.theme-light .dd-list md-option[selected]:focus {
-  color: #2698D4;
-}
 .theme-light md-select:not([disabled]):focus .md-select-value {
   color: #212325;
-  border-bottom: 1px solid #376E8C;
+  border-bottom: 1px solid #376e8c;
 }
 .theme-light md-select .md-select-value.md-select-placeholder {
   color: #212325;
@@ -172,7 +157,7 @@ body.theme-light {
 .theme-light .tabbable li:hover,
 .theme-light .nav-tabs li:focus,
 .theme-light .tabbable li:focus {
-  color: #2698D4;
+  color: #2698d4;
 }
 .theme-light .nav-tabs li.active,
 .theme-light .tabbable li.active,
@@ -195,7 +180,7 @@ body.theme-light {
 }
 .theme-light .nav-tabs li > a:hover,
 .theme-light .tabbable li > a:hover {
-  color: #2698D4;
+  color: #2698d4;
 }
 .theme-light .scroll-to-top svg {
   fill: #3598dc;
@@ -223,23 +208,17 @@ body.theme-light {
   background: #212325 !important;
 }
 .theme-light .login {
-  background: #3293F6;
+  background: #3293f6;
   color: #212325;
 }
 .theme-light .login:hover {
-  background: #3293F6 !important;
+  background: #3293f6 !important;
 }
 .theme-light .md-user-menu {
   background: #ffffff;
 }
 .theme-light .md-user-menu:before {
   border-bottom: 8px solid #ffffff;
-}
-.theme-light .md-user-menu .user-menu-item svg {
-  fill: #212325;
-}
-.theme-light .md-user-menu .user-menu-item .md-button span {
-  color: #212325;
 }
 .theme-light .nav-bar {
   background: #323538;
@@ -253,10 +232,10 @@ body.theme-light {
   color: #ffffff;
 }
 .theme-light .accountPage-wrapper md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-  border-bottom: 1px solid #2698D4;
+  border-bottom: 1px solid #2698d4;
 }
 .theme-light .accountPage-wrapper .tab-from-r > li:hover > a {
-  color: #2698D4;
+  color: #2698d4;
 }
 .theme-light .accountPage-wrapper .tab-from-r > li.active {
   border-bottom: 3px solid #3598dc;
@@ -271,9 +250,6 @@ body.theme-light {
   color: #888b8e;
 }
 .theme-light .change-email-dialog svg {
-  fill: #ffffff;
-}
-.theme-light .folder-selected .arrow {
   fill: #ffffff;
 }
 .theme-light .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
@@ -333,13 +309,13 @@ body.theme-light {
   border-color: #888b8e !important;
 }
 .theme-light .svgTC6 {
-  fill: #2698D4 !important;
+  fill: #2698d4 !important;
 }
 .theme-light .textTC7 {
   color: #f76446 !important;
 }
 .theme-light .textTC9 {
-  color: #F76446 !important;
+  color: #f76446 !important;
 }
 .theme-light .textTC10 {
   color: #888b8e !important;
@@ -354,7 +330,7 @@ body.theme-light {
   border-color: #c3c3c3 !important;
 }
 .theme-light .svgTC15 {
-  fill: #9E9E9E !important;
+  fill: #9e9e9e !important;
 }
 .theme-light .svgTC16 {
   fill: #888b8e !important;
@@ -429,10 +405,10 @@ body.theme-light {
   fill: #4190b9 !important;
 }
 .theme-light .backgroundTC36 {
-  background: #eee !important;
+  background: #eeeeee !important;
 }
 .theme-light .backgroundTC37 {
-  background: #042E5E !important;
+  background: #042e5e !important;
 }
 .theme-light .svgTC38 {
   fill: #c3c3c3 !important;
@@ -444,10 +420,10 @@ body.theme-light {
   fill: #c3c3c3 !important;
 }
 .theme-light .backgroundTC41 {
-  background: #eee !important;
+  background: #eeeeee !important;
 }
 .theme-light .svgTC42 {
-  fill: #2698D4 !important;
+  fill: #2698d4 !important;
 }
 .theme-light .backgroundTC43 {
   background: #26566e !important;
@@ -497,7 +473,7 @@ body.theme-light {
   margin-bottom: 0;
 }
 .profile-usertitle-job {
-  color: #212325;
+  color: #888b8e;
   margin-bottom: 7px;
   font-size: 15px;
 }

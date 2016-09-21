@@ -8,17 +8,16 @@
                     <span>@ChatResources.DisconnectedText</span>
                 </div>
             </div>
-            <div class="menu-content angular-animate backgroundTC33">
+            <div class="menu-content angular-animate">
                 <div class="tab-content" ng-if="c.state === 1" ng-controller="chatUsers as cu">
-                    <form novalidate class="search-friend backgroundTC33" ng-submit="cu.search(cu.term)">
+                    <form novalidate class="search-friend" ng-submit="cu.search(cu.term)">
                         <button type="button" class="search-btn" ng-click="cu.expandSearch()">
                             <md-icon md-svg-icon="t:searchIcon" class="searchIcon"></md-icon>
                             @*@Html.Svg("~/images/site/icons.svg", "searchIcon", new {@class = "searchIcon"})*@
                         </button>
-                        <input type="search" class="textTC30" focus-me="cu.focusSearch" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="cu.term" ng-change="cu.search(cu.term)" ng-model-options="{debounce : 300}" />
+                        <input type="search" focus-me="cu.focusSearch" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="cu.term" ng-change="cu.search(cu.term)" ng-model-options="{debounce : 300}" />
                         <button type="reset" ng-if="cu.term.length" class="reset-btn" ng-click="cu.search()">
-                            <md-icon md-svg-icon="t:close" class="resetIcon svgTC22"></md-icon>
-                            @*@Html.Svg("~/images/site/icons.svg", "close", new {@class = "resetIcon svgTC22"})*@
+                            <md-icon md-svg-icon="t:close" class="resetIcon"></md-icon>
                         </button>
                     </form>
                     <div class="users-list scrollbar" sb-scroll ng-scrollbars ng-scrollbars-paging ng-scrollbars-paging-function="cu.usersPaging" ng-scrollbars-config="c.scrollSetting" srph-infinite-scroll="cu.usersPaging()" container="true">
@@ -70,7 +69,7 @@
                 </div>
             </div>
             <div class="conversasion angular-animate" ng-if="c.state === 3" ng-controller="conversation as cv">
-                <div class="header backgroundTC37">
+                <div class="header">
                     <a ng-href="{{cv.userChat.url}}" ng-class="{online: cv.userChat.online}" class="user" ga-track-event="['chat', 'opened-partners-profile']">
                         <user-image class="img-circle" name="cv.userChat.name" image="cv.userChat.image" width="35" height="35" noremove="true"></user-image>
                         <span class="member-name ellipsis" ng-bind="cv.userChat.name"></span>
@@ -118,7 +117,7 @@
     <script type="text/ng-template" id="chat-user-template.html">
         <span ng-if="e.unread" class="chat-counter" ng-bind="e.unread"></span>
         <user-image class="img-circle" name="::e.name" image="::e.image" name-title width="40" height="40"></user-image>
-        <div class="name-date textTC30">
+        <div class="name-date">
             <span class="member-name ellipsis" ng-bind="::e.name"></span>
             <chat-time-ago ng-if="!e.online" class="comment-date" from-time="{{e.lastSeen }}" format="mediumDate"></chat-time-ago>
         </div>

@@ -7,7 +7,7 @@
 }*@
 
 <header layout="row" layout-align="space-between center">
-    <div class="ellipsis text-center textTC30" id="quiz-top" ng-bind-html="::q.name"></div>
+    <div class="ellipsis text-center" id="quiz-top" ng-bind-html="::q.name"></div>
     <button type="button" ng-click="app.back(q.boxUrl)" class="close" ga-track-event="['quiz', 'close quiz']"><md-icon md-svg-icon="t:close"></md-icon></button>
 </header>
 
@@ -103,7 +103,7 @@
                         </div>
                         <md-menu ng-if="post.userId === q.user.id">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['quiz', 'deletePost']">
-                                <md-icon md-svg-icon="t:ThreeDots" class="dots-3 svgTC2"></md-icon>
+                                <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
                             </md-button>
                             <md-menu-content width="1">
                                 <md-menu-item>

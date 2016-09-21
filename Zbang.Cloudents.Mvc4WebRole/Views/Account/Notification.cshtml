@@ -4,7 +4,7 @@
 <div class="tab-pane" id="notification">
     <div class="section">
         <ul class="list-unstyled notification-list">
-            <li ng-repeat="box in ::n.notifications track by box.id" class="clearfix borderTC24" layout-wrap>
+            <li ng-repeat="box in ::n.notifications track by box.id" class="clearfix" layout-wrap>
                 <div class="box-data" d-color="{{::box.name.length}}">
                     <div class="name ellipsis" ng-bind="::box.name"></div>
                     <div class="owner">@AccountResource.NotificationOwner: {{::box.userName}}</div>
@@ -18,8 +18,8 @@
                     </md-select>
                 </md-input-container>
             </li>
-            <li class="clearfix borderTC24 subscription" layout-wrap ng-if="n.emailNotification === '@EmailSend.CanSend.GetStringValueLowerCase()' || n.emailNotification === '@EmailSend.Unsubscribe.GetStringValueLowerCase()'">
-                <div class="box-data name textTC25 ellipsis">@AccountResource.EmailNotification</div>
+            <li class="clearfix subscription" layout-wrap ng-if="n.emailNotification === '@EmailSend.CanSend.GetStringValueLowerCase()' || n.emailNotification === '@EmailSend.Unsubscribe.GetStringValueLowerCase()'">
+                <div class="box-data name ellipsis">@AccountResource.EmailNotification</div>
                 <md-input-container flex-xs="100" flex-gt-xs="30">
                     <md-select md-container-class="dd-list" ng-model="n.emailNotification" ng-change="n.updateSubsription()" ga-track-event="['notifications', 'change email settings']">
                         <md-option value="@EmailSend.CanSend.GetStringValueLowerCase()">@AccountResource.EmailSettingsSubscribe</md-option>

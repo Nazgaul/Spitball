@@ -31,19 +31,19 @@
             </div>
             <div class="no-results" ng-show="s.noResults">
                 <div class="text-wrapper">
-                    <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
+                    <h2>@GeneralResources.NoResultsTitle</h2>
                     <div >@GeneralResources.SearchEmptyStateDocumentsText</div>
                 </div>
             </div>
         </div>
         <div ng-switch-when="box">
             <div layout="row" layout-padding layout-wrap>
-                <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in s.result" class="borderTC32" ng-include="'box-template.html'"></div>
+                <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in s.result" ng-include="'box-template.html'"></div>
             </div>
             <div class="no-results" ng-show="s.noResults">
                 <div class="text-wrapper">
-                    <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
-                    <div class="textTC2">@GeneralResources.SearchEmptyStateClassesText</div>
+                    <h2>@GeneralResources.NoResultsTitle</h2>
+                    <div class="text">@GeneralResources.SearchEmptyStateClassesText</div>
                     <p class="create-class">
                         @GeneralResources.SearchEmptyStateCreateCourse
                         &nbsp;<button type="button" ng-click="s.univeristyClick()" @*href="@Url.RouteUrl("LibraryDesktop")"*@>@GeneralResources.SearchEmptyStateCreateCourseLinkText</button>
@@ -57,7 +57,7 @@
             </div>
             <div class="no-results" ng-show="s.noResults">
                 <div class="text-wrapper">
-                    <h2 class="textTC9">@GeneralResources.NoResultsTitle</h2>
+                    <h2>@GeneralResources.NoResultsTitle</h2>
                     <div>@GeneralResources.SearchEmptyStateQuizzesText</div>
                 </div>
             </div>

@@ -3,10 +3,10 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 <form name="flagitem" class="flag-form" novalidate ng-submit="i.flagItem()" ng-if="i.selectedState === i.state.flag">
-    <div class="title text-capitalize textTC30">@ItemsResources.ReportAbuse</div>
+    <div class="title text-capitalize">@ItemsResources.ReportAbuse</div>
     <md-content>
         <md-input-container flex="100">
-            <md-select placeholder="@ItemsResources.FlagItemPlaceHolder" required name="flag" ng-model="i.flag" md-container-class="dd-list" class="textTC30" ng-model-options="{trackBy: '$value'}">
+            <md-select placeholder="@ItemsResources.FlagItemPlaceHolder" required name="flag" ng-model="i.flag" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
                 <md-option value="@BadItem.RightViolation">@BadItem.RightViolation.GetEnumDescription()</md-option>
                 <md-option value="@BadItem.Spam">@BadItem.Spam.GetEnumDescription()</md-option>
                 <md-option value="@BadItem.Porn">@BadItem.Porn.GetEnumDescription()</md-option>

@@ -2,12 +2,11 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 <div ng-controller="TabsController as t">
     <div class="folder-selected" layout="row" layout-align="start center" ng-if="stateParams.tabId" flex="100" flex-gt-xs="50">
-        <md-icon md-svg-icon="t:arrow" flex="none" class="arrow svgTC11" ng-click="t.upDir()"></md-icon>
-        @*@Html.Svg("~/images/site/icons.svg", "arrow", new {flex = "none", @class = "arrow svgTC11", ng_click = "t.upDir()"})*@
+        <md-icon md-svg-icon="t:arrow" flex="none" class="arrow" ng-click="t.upDir()"></md-icon>
         <div class="folder-name" flex="100">
-            <div layout="row" layout-align="start center" class="folder-name-inner backgroundTC34">
+            <div layout="row" layout-align="start center" class="folder-name-inner">
                 <div class="name-and-icon" layout="row" layout-align="start center">
-                    <div class="text ellipsis textTC4" ng-if="!t.openRenameTab" ng-bind="t.tabSelected.name">
+                    <div class="text ellipsis" ng-if="!t.openRenameTab" ng-bind="t.tabSelected.name">
                     </div>
                     <form class="content" ng-if="t.openRenameTab" ng-submit="t.renameTab()">
                         <input autofocus class="designed-input" type="text" required ng-model="t.tabNewName" ng-blur="t.renameTab()"/>
@@ -15,8 +14,7 @@
                 </div>
                 <md-menu ng-if="!b.needFollow">
                     <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-tabs', 'deleteTab']">
-                        <md-icon md-svg-icon="t:ThreeDots" class="dots-3 svgTC38"></md-icon>
-                        @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3 svgTC38"})*@
+                        <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
                     </md-button>
                     <md-menu-content width="1">
                         <md-menu-item>
@@ -50,7 +48,7 @@
                     @BoxResources.AddFolder
                 </span>
             </button>
-            <form class="content textTC16" ng-if="t.newFolderTabOpened" ng-submit="t.addTab()" name="addTabForm">
+            <form class="content" ng-if="t.newFolderTabOpened" ng-submit="t.addTab()" name="addTabForm">
                 <input required focus-me="t.newFolderTabOpened" type="text" class="designed-input" ng-model="t.newFolderName" ng-blur="t.addTab()"/>
             </form>
         </li>
