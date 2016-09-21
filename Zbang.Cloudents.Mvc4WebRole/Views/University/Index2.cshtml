@@ -83,8 +83,7 @@
         </a>
         <md-menu ng-if="l.canDelete(dep)">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['university', 'delete department']">
-                <md-icon md-svg-icon="t:ThreeDots" class="dots-3 svgTC44"></md-icon>
-                @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3 svgTC44"})*@
+                <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item>

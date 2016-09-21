@@ -5,11 +5,11 @@
 <a id="invite"></a>
 <div class="portlet invite invite-dialog" ng-cloak ng-controller="inviteController as i">
     <div class="portlet-title">
-        <div class="caption text-capitalize textTC25">
+        <div class="caption text-capitalize">
             @IndexResources.Invite {{i.title}}
         </div>
     </div>
-    <div class="content borderTC19">
+    <div class="content">
         <div class="tabs" layout="row">
             <button class="spitball backgroundTC21" ng-if="i.inBox" ng-class="{active: i.tab === i.state.spitball}" ng-click="i.switchTab(i.state.spitball)" flex layout="row" layout-align="center center">
                 <span class="mobile-icon" @*ng-if="i.tab === i.state.spitball"*@><md-icon md-svg-icon="t:smallLogo"></md-icon></span>

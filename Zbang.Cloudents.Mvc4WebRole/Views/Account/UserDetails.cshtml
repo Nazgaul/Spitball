@@ -27,32 +27,31 @@
         <md-menu-content md-menu-align-target class="md-user-menu">
             <md-menu-item class="user-menu-item">
                 <md-button href="{{::ud.url}}" ga-track-event="['header', 'user activities']">
-                    <md-icon  md-menu-align-target md-svg-icon="t:userMenu" class = "svgTC16"></md-icon>
-                    @*<md-icon md-menu-align-target>@Html.Svg(svgUrl, "userMenu", new {@class = "svgTC16"})</md-icon>*@
+                    <md-icon  md-menu-align-target md-svg-icon="t:userMenu"></md-icon>
                     @IndexResources.User
                 </md-button>
             </md-menu-item>
             <md-menu-item class="user-menu-item">
                 <md-button href="@Url.RouteUrl("AccountSettings")" ga-track-event="['header', 'settings']">
-                    <md-icon md-menu-align-target md-svg-icon="t:settingMenu" class="svgTC16"></md-icon>
+                    <md-icon md-menu-align-target md-svg-icon="t:settingMenu"></md-icon>
                     @IndexResources.Settings
                 </md-button>
             </md-menu-item>
             <md-menu-item class="user-menu-item">
                 <md-button id="Intercom" href="mailto:njmpgayv@incoming.intercom.io">
-                    <md-icon md-menu-align-target md-svg-icon="t:intercom" class="svgTC16"></md-icon>
+                    <md-icon md-menu-align-target md-svg-icon="t:intercom"></md-icon>
                     @IndexResources.Intercom
                 </md-button>
             </md-menu-item>
             <md-menu-item class="user-menu-item">
                 <md-button href="@Url.RouteUrl("Help")" target="_self" ga-track-event="['header', 'help']">
-                    <md-icon md-menu-align-target md-svg-icon="t:headerHelp" class="svgTC16"></md-icon>
+                    <md-icon md-menu-align-target md-svg-icon="t:headerHelp"></md-icon>
                     @SharedResources.Help
                 </md-button>
             </md-menu-item>
             <md-menu-item class="user-menu-item">
                 <md-button ng-click="app.logOut()" target="_self" href="@Url.Action("logoff", "account")" ga-track-event="['header', 'logout']">
-                    <md-icon md-menu-align-target md-svg-icon="t:logOffMenu" class="svgTC16"></md-icon>
+                    <md-icon md-menu-align-target md-svg-icon="t:logOffMenu"></md-icon>
                     @IndexResources.Logout
                 </md-button>
             </md-menu-item>

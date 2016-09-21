@@ -52,8 +52,7 @@
                     </div>
                     <md-menu ng-if="::b.canDelete(post.userId)">
                         <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
-                            <md-icon md-svg-icon="t:ThreeDots" class="dots-3 svgTC2"></md-icon>
-                            @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3 svgTC2"})*@
+                            <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
                         </md-button>
                         <md-menu-content width="1">
                             <md-menu-item>
@@ -114,8 +113,7 @@
                         </div>
                         <md-menu ng-if="::b.canDelete(reply.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
-                                <md-icon md-svg-icon="t:ThreeDots" class="dots-3 svgTC2"></md-icon>
-                                @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3 svgTC2"})*@
+                                <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
                             </md-button>
                             <md-menu-content width="1">
                                 <md-menu-item>
@@ -154,7 +152,7 @@
                     <form class="add-comment add-reply" ng-submit="f.add.createReply(post)">
                         <div class="reply-wrapper">
                             <md-input-container md-no-float>
-                                <textarea user-not-register-popup="focus" focus-me="post.focusReply" ng-model="f.add.newReplyText" placeholder="@BoxResources.replyPostPlaceholder" class="textTC34"></textarea>
+                                <textarea user-not-register-popup="focus" focus-me="post.focusReply" ng-model="f.add.newReplyText" placeholder="@BoxResources.replyPostPlaceholder"></textarea>
                             </md-input-container>
                             <ul class="list-inline file-upload-area" ng-if="f.add.files.length">
                                 <li class="file-upload" ng-repeat="file in f.add.files | filter:{postId: post.id}" ng-include="'file-upload.html'">

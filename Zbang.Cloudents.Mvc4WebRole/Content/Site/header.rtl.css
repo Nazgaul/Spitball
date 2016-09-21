@@ -22,8 +22,6 @@ body.theme-light {
   /*#endregion*/
   /*#region accountSettings.less*/
   /*#endregion*/
-  /*#region box.less*/
-  /*#endregion*/
   /*#endregion*/
   /*#region box.less*/
   /*#endregion*/
@@ -79,19 +77,6 @@ body.theme-light {
 }
 .theme-light .add {
   background: #db4437;
-}
-.theme-light .dd-list md-content {
-  background: #ffffff;
-  color: #212325;
-}
-.theme-light .dd-list md-option {
-  border-bottom: 1px solid #282828;
-}
-.theme-light .dd-list md-option[selected] {
-  color: #2698D4;
-}
-.theme-light .dd-list md-option[selected]:focus {
-  color: #2698D4;
 }
 .theme-light md-select:not([disabled]):focus .md-select-value {
   color: #212325;
@@ -235,12 +220,6 @@ body.theme-light {
 .theme-light .md-user-menu:before {
   border-bottom: 8px solid #ffffff;
 }
-.theme-light .md-user-menu .user-menu-item svg {
-  fill: #212325;
-}
-.theme-light .md-user-menu .user-menu-item .md-button span {
-  color: #212325;
-}
 .theme-light .nav-bar {
   background: #323538;
   border-bottom: 5px solid #dadada;
@@ -271,9 +250,6 @@ body.theme-light {
   color: #888b8e;
 }
 .theme-light .change-email-dialog svg {
-  fill: #ffffff;
-}
-.theme-light .folder-selected .arrow {
   fill: #ffffff;
 }
 .theme-light .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
@@ -553,20 +529,26 @@ body.theme-light {
 .md-user-menu .user-menu-item md-icon {
   width: 20px;
   height: 20px;
-  fill: #212325;
+  margin: 8px 10px;
+  fill: #888b8e;
 }
 .md-user-menu .user-menu-item .md-button {
   margin: 0;
   padding: 5px 0;
   width: 180px;
   text-align: right;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: start;
+  justify-content: start;
+  color: #212325;
 }
 .md-user-menu .user-menu-item .md-button span {
   color: #212325;
-}
-.md-user-menu .user-menu-item md-icon {
-  margin: 0 10px;
+  line-height: normal;
 }
 .login-buttons {
   padding: 10px;

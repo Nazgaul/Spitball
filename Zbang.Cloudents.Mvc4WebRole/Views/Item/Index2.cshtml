@@ -10,7 +10,7 @@
             <div class="name-actions" layout="row" layout-align="space-between center">
                 <div class="fileName">
                     <div class="name-info" layout="row" layout-align="center center" ng-if="i.selectedState === i.state.regular">
-                        <h1 class="ellipsis textTC30">{{i.details.name}}</h1>
+                        <h1 class="ellipsis">{{i.details.name}}</h1>
                         <div class="info">
                             <md-icon md-svg-icon="i:info"></md-icon>
                             <md-tooltip>
@@ -22,7 +22,7 @@
                         <md-content>
                             <md-input-container flex>
                                 <label class="text-capitalize">@ItemsResources.Name</label>
-                                <input class="textTC30" focus-me="i.selectedState === i.state.rename" autocomplete="off" required ng-model="i.renameText" name="name" />
+                                <input focus-me="i.selectedState === i.state.rename" autocomplete="off" required ng-model="i.renameText" name="name" />
                                 <div ng-messages="renameItem.name.$error" ng-show="renameItem.name.$dirty">
                                     <div ng-message="required">@GeneralResources.RequiredField</div>
                                 </div>

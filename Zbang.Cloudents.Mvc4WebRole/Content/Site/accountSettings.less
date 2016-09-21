@@ -1,4 +1,4 @@
-﻿@import "variables.less";
+﻿@import "themeLight.less";
 @import "themeSelector.png.less";
 
 .accountPage-wrapper {
@@ -183,10 +183,12 @@
         // background:#353A3F;
         color: #fff;
 
+
         li {
             display: flex;
             padding: 10px 0 10px 5px;
-            border-bottom: 1px solid;
+            border-bottom: 1px solid #e9eaed;
+
 
             select {
                 background: #353A3F;
@@ -210,6 +212,10 @@
 
             &:not(.subscription) .name {
                 max-width: 500px;
+            }
+
+            &.subscription .name {
+                color: @headerbackground;
             }
         }
     }

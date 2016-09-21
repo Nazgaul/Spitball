@@ -7,7 +7,7 @@
     <a ng-href="{{::e.url}}" class="box-template box-style" ga-track-event="['dashboard', 'box']">
         <span ng-if="e.recommended" class="ribbon background text-capitalize" d-color="{{::e.name.length}}">@IndexResources.Suggested</span>
         <div class="display">
-            <div class="number textTC30">
+            <div class="number">
                 <h5 d-color="{{::e.name.length}}" ng-bind="::e.name"></h5>
                 <small class="ellipsis" ng-bind="::e.professor"></small><br />
                 <small class="ellipsis" ng-bind="::e.courseCode"></small>
@@ -15,7 +15,7 @@
         </div>
         <div class="progress-info">
             <div class="progress background" d-color="{{::e.name.length}}"></div>
-            <div class="status textTC30">
+            <div class="status">
                 <div class="status-title" ng-hide="::e.membersCount === undefined">
                     {{::e.membersCount}} @GeneralResources.Members
                 </div>
@@ -28,13 +28,13 @@
 </script>
 
 <script defer type="text/ng-template" id="item-template.html">
-    <a class="clearfix item" ng-href="{{::e.url}}">
-        <div class="base borderTC5">
+    <a class="clearfix item item-template" ng-href="{{::e.url}}">
+        <div class="base">
             <div class="item-ratio">
                 <div class="content">
                     <img class="img-responsive" ng-src="{{e.thumbnail}}" width="368" height="520" alt="{{::e.nameExtension}}" />
                     <div class="extra" id="drag{{::$index}}">
-                        <h2 class="multi-line-ellipsis textTC26" ng-bind-html="::e.nameExtension"></h2>
+                        <h2 class="multi-line-ellipsis" ng-bind-html="::e.nameExtension"></h2>
                     </div>
                 </div>
             </div>
@@ -54,17 +54,17 @@
     </a>
 </script>
 <script defer type="text/ng-template" id="quiz-template.html">
-    <a class="quiz" ng-href="{{::e.url}}">
-        <div class="base borderTC5">
+    <a class="quiz quiz-template" ng-href="{{::e.url}}">
+        <div class="base">
             <div class="quiz-ratio">
                 <div class="content">
                     <div ng-if="::e.publish" class="top background" d-color="{{::e.name.length}}">
-                        <span class="first-letter textTC4 borderTC4" first-letter="{{::e.name}}"></span>
+                        <span class="first-letter" first-letter="{{::e.name}}"></span>
                     </div>
                     <div ng-if="::!e.publish" class="top draft-wpr">
                         <span class="draft">@IndexResources.Draft</span>
                     </div>
-                    <div class="bottom backgroundTC23">
+                    <div class="bottom">
                         <h2 class="name ellipsis" ng-bind-html="::e.name"></h2>
                     </div>
                 </div>

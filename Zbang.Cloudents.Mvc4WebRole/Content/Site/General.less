@@ -74,6 +74,57 @@ body {
         .number {
             text-transform: capitalize;
         }
+
+        .number, .status {
+            color: @textColorWhite;
+        }
+    }
+
+    .item-template, .quiz-template {
+        .base {
+            padding: 5px;
+            border: 1px solid @textColorGrey;
+        }
+    }
+
+    .item-template {
+        .extra h2 {
+            color: @textColorBlack;
+        }
+    }
+
+    .quiz-template {
+        .first-letter {
+            color: @textColorBlack;
+            border: 1px solid @textColorBlack;
+        }
+
+        .bottom {
+            background: #ffffff;
+
+            .name {
+                color: @textColorWhite;
+            }
+        }
+    }
+
+    .dd-list {
+        md-content {
+            background: @backgroundColorMenu;
+            color: @textColorWhite;
+        }
+
+        md-option {
+            border-bottom: 1px solid @borderColorBlack;
+
+            &[selected] {
+                color: @textColorBlue;
+
+                &:focus {
+                    color: @textColorBlue;
+                }
+            }
+        }
     }
 }
 
@@ -471,14 +522,15 @@ body {
 md-input-container label:not(.md-container-ignore).md-required:after {
     content: none;
 }
+
 md-icon {
-    margin:0;
+    margin: 0;
     min-height: 0;
     min-width: 0;
-    width:auto;
+    width: auto;
     height: auto;
-
 }
+
 .r-table {
     display: table;
 }

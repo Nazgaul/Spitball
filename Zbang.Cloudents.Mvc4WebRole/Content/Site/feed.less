@@ -503,8 +503,6 @@
             /*svg:first-child*/ {
                 display: none;
             }
-
-
             /*svg:last-child,*/ md-icon:last-child {
                 display: inline;
             }
@@ -513,7 +511,6 @@
                 /*svg:first-child,*/ md-icon:first-child {
                     display: inline;
                 }
-
                 /*svg:last-child,*/ md-icon:last-child {
                     display: none;
                 }
@@ -579,6 +576,7 @@
             md-icon {
                 width: 17px;
                 height: 17px;
+                fill: @textColorLightGrey;
             }
         }
     }
@@ -620,7 +618,7 @@
                 border: none;
                 padding: 14px 0 10px 10px;
 
-                &.ng-not-empty,&:focus { 
+                &.ng-not-empty, &:focus {
                     color: @headerbackground;
                 }
             }
@@ -909,6 +907,7 @@
     md-toolbar {
         min-height: 0;
         padding: 20px 25px;
+        background: @buttonColorBlue;
 
         h2 {
             margin: 0;
@@ -928,11 +927,14 @@
             md-icon {
                 width: @closeHeight;
                 height: @closeHeight;
+                fill: @textColorBlack;
             }
         }
     }
 
     md-dialog-content {
+        background: @backgroundColorMenu;
+
         ul {
             margin-bottom: 0;
             height: 400px;
@@ -942,7 +944,7 @@
                 margin: 0 25px;
 
                 &:not(:nth-last-child(1)) {
-                    border-bottom: 1px solid;
+                    border-bottom: 1px solid @textColorLightGrey;
                 }
 
                 a {

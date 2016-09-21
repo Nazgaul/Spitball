@@ -9,11 +9,11 @@
                 <div class="r-table-cell">
                     <a href="{{::l.url}}" ga-track-event="['leaderboard', 'userPage']">
                         <user-image class="img-circle" name="l.name" image="l.image" width="30" height="30"></user-image>
-                        <span class="user-name textTC30" ng-bind="::l.name"></span>
+                        <span class="user-name" ng-bind="::l.name"></span>
                     </a>
                 </div>
                 <div class="r-table-cell">{{::$index + 1}}</div>
-                <div class="textTC30 r-table-cell last">{{::l.score}} @IndexResources.Pts</div>
+                <div class="r-table-cell last">{{::l.score}} @IndexResources.Pts</div>
             </div>
         </div>
     </div>

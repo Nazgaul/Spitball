@@ -20,7 +20,7 @@
         .displayFlex();
 
         .folder-name-inner {
-            background: @backgroundColorMenu;
+            background: #8c99a6;
             padding: 0 6px;
             width: 100%;
         }
@@ -73,6 +73,10 @@
     margin-right: 8px;
     margin-left: 8px;
 
+    .text {
+        color: @textColorBlack;
+    }
+
     .md-menu {
         padding: 0;
 
@@ -84,7 +88,7 @@
 
     .dots-3 {
         margin-left: 0;
-        fill: @backgroundColor;
+        fill: @textColorLightGrey;
     }
 
     .arrow {
@@ -95,7 +99,7 @@
         -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
         -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
         transform: rotate(180deg) /*rtl:rotate(0)*/;
-        fill: @textColorWhite;
+        fill: @textColorGrey;
         opacity: .8;
         margin-right: 15px;
     }
@@ -198,6 +202,7 @@
             border: 1px solid @textColorGrey;
             padding: 6px;
             background: none;
+            color: @textColorGrey;
 
             svg {
                 fill: @textColorGrey;
@@ -636,9 +641,6 @@
             border: 1px solid #fff;
         }
 
-        .first-letter {
-            border: 1px solid @textColorWhite;
-        }
     }
 
     .bottom {
@@ -657,7 +659,6 @@
             font-size: 14px;
             line-height: 16px;
             width: 100%;
-            color: @textColorBlack;
         }
     }
 
@@ -868,6 +869,10 @@
         md-icon {
             width: 50px;
             height: 50px;
+        }
+
+        .file {
+            fill: @textColorBlue;
         }
 
         .link {
