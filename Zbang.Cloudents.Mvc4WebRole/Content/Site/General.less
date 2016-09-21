@@ -1,4 +1,4 @@
-﻿@import "themeLight.less";
+﻿@import "variables.less";
 
 
 
@@ -76,7 +76,7 @@ body {
         }
 
         .number, .status {
-            color: @textColorWhite;
+            color: @textColorBlack;
         }
     }
 
@@ -89,21 +89,21 @@ body {
 
     .item-template {
         .extra h2 {
-            color: @textColorBlack;
+            color: @textColorWhite;
         }
     }
 
     .quiz-template {
         .first-letter {
-            color: @textColorBlack;
-            border: 1px solid @textColorBlack;
+            color: @textColorWhite;
+            border: 1px solid @textColorWhite;
         }
 
         .bottom {
-            background: #ffffff;
+            background: @textColorWhite;
 
             .name {
-                color: @textColorWhite;
+                color: @textColorBlack;
             }
         }
     }
@@ -111,11 +111,11 @@ body {
     .dd-list {
         md-content {
             background: @backgroundColorMenu;
-            color: @textColorWhite;
+            color: @textColorBlack;
         }
 
         md-option {
-            border-bottom: 1px solid @borderColorBlack;
+            border-bottom: 1px solid @borderColorDarkGrey;
 
             &[selected] {
                 color: @textColorBlue;
@@ -166,7 +166,7 @@ body {
     text-align: center;
     text-transform: uppercase;
     font-size: 25px;
-    color: @textColorBlack;
+    color: @textColorWhite;
 }
 
 //ellipsis longer than 3 lines
@@ -215,7 +215,7 @@ body {
         width: 20px;
         height: 20px;
         margin: 0 auto;
-        fill: @textColorWhite;
+        fill: @textColorBlack;
     }
 }
 
@@ -248,13 +248,13 @@ body {
     margin-top: 6px;
 
     &:hover {
-        color: @textColorBlack;
+        color: @textColorWhite;
     }
 
     md-icon {
         width: 17px;
         height: 17px;
-        fill: @textColorBlack;
+        fill: @textColorWhite;
     }
 }
 
@@ -283,7 +283,7 @@ body {
 
 .box-style {
     width: 100%;
-    background: @textColorBlack;
+    background: @textColorWhite;
     box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
     padding: 15px 15px 30px 15px;
     display: block;
@@ -306,11 +306,11 @@ body {
 
         .wrapper {
             .text {
-                color: @textColorBlack;
+                color: @textColorWhite;
             }
 
             .icon {
-                fill: @textColorBlack;
+                fill: @textColorWhite;
             }
         }
     }
@@ -717,7 +717,7 @@ md-icon {
     font-size: 16px;
 
     li {
-        color: @textColorWhite;
+        color: @textColorBlack;
         margin: 0 20px 0 10px;
         background: transparent;
         outline: none;
@@ -729,7 +729,7 @@ md-icon {
 
         &.active, &:active {
             border-bottom: 3px solid @borderColorBlue;
-            color: @textColorWhite;
+            color: @textColorBlack;
             background: transparent;
             border: 0;
             font-weight: bold;
@@ -737,7 +737,7 @@ md-icon {
 
         &.active > a, &.active > a:hover, &.active > a:focus {
             background: transparent;
-            color: @textColorWhite;
+            color: @textColorBlack;
             border: 0;
             font-weight: bold;
             cursor: auto;
@@ -911,3 +911,308 @@ md-tooltip .md-content {
         }
     }
 }
+
+
+
+
+/*#region merged from themeLight.less*/
+
+    ::-webkit-scrollbar-thumb {
+        background: @scrollbarColor;
+    }
+    //add btn
+    .add {
+        background: @buttonColorRed;
+    }
+    /*#region angularmaterial*/
+    
+
+    md-select:not([disabled]):focus .md-select-value {
+        color: @textColorWhite;
+        border-bottom: 1px solid @borderColorDarkBlue;
+    }
+
+    md-select .md-select-value.md-select-placeholder {
+        color: @textColorWhite;
+    }
+
+    md-select-menu md-option:focus:not([disabled]):not([selected]) {
+        background: @backgroundColorMenu;
+    }
+
+    md-input-container {
+        &:not(.md-input-invalid) label, label {
+            line-height: normal;
+            color: @textColorWhite;
+        }
+    }
+
+    .md-select-value .md-select-icon,
+    md-select .md-select-value,
+    md-input-container .md-input,
+    .form-group.form-md-line-input .form-control {
+        color: @buttonColorBlue;
+        border-color: @buttonColorBlue;
+        /*&:focus, &:active {
+            color: @textColorBlue;
+        }*/
+    }
+
+    md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
+    md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+        border-color: @textColorLike;
+    }
+
+    .form-group.form-md-line-input .form-control.edited:not([readonly]) ~ label:after,
+    .form-group.form-md-line-input .form-control.edited:not([readonly]) ~ .form-control-focus:after,
+    .form-group.form-md-line-input .form-control:focus:not([readonly]) ~ label:after,
+    .form-group.form-md-line-input .form-control:focus:not([readonly]) ~ .form-control-focus:after,
+    .form-group.form-md-line-input .form-control.focus:not([readonly]) ~ label:after,
+    .form-group.form-md-line-input .form-control.focus:not([readonly]) ~ .form-control-focus:after {
+        background: @textColorLike;
+    }
+
+    md-input-container .md-input {
+        color: @textColorWhite;
+    }
+
+    md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
+        background: @buttonColorHover;
+    }
+    /*tabs*/
+    /*md-tabs {
+
+        .md-tab {
+            color: @textColorGrey;
+
+            &.md-active {
+                color: @textColorWhite;
+            }
+        }
+    }*/
+    /*#endregion*/
+    .close {
+        &:hover {
+            color: @textColorWhite;
+        }
+    }
+
+    .create-box {
+        &:hover {
+
+
+            .plus {
+                svg {
+                    fill: @buttonColorBlue;
+                }
+            }
+        }
+
+
+        .plus {
+            svg {
+                fill: @textColorGrey;
+            }
+        }
+
+        md-input-container .md-input {
+            color: @textColorWhite;
+            border-color: @borderColorLightGrey;
+        }
+
+        md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+            border-bottom: 1px solid @buttonColorBlue;
+            color: @textColorWhite;
+        }
+    }
+
+    .tab-from-r {
+        & > li {
+            & > a {
+                color: @textColorDarkGrey;
+            }
+
+            .overElement() {
+                color: @textColorWhite;
+            }
+
+            &.active {
+                border-bottom: 3px solid @borderColorBlue;
+            }
+        }
+    }
+
+    .nav-tabs, .tabbable {
+        background: @backgroundColorMenu;
+
+        li {
+            color: @textColorWhite;
+
+            &:hover, &:focus {
+                color: @textColorBlue;
+            }
+
+            &.active, &:active {
+                border-bottom: 3px solid @borderColorBlue;
+                color: @textColorWhite;
+            }
+
+            &.active > a, &.active > a:hover, &.active > a:focus {
+                color: @textColorWhite;
+            }
+
+            & > a {
+                color: @textColorGrey;
+
+                &:hover {
+                    color: @textColorBlue;
+                }
+            }
+        }
+    }
+    //footer arrow up
+    .scroll-to-top {
+        svg {
+            fill: @borderColorBlue;
+        }
+    }
+    //md-input colors override:
+    md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
+    md-input-container:not(.md-input-invalid).md-input-focused label {
+        color: @textColorLike;
+    }
+    /*#region header.less*/
+    .top-menu {
+        svg {
+            fill: @headerImagesColor;
+        }
+
+        .navbar-nav .open li {
+            a {
+                svg {
+                    fill: @backgroundColorBlack;
+                }
+            }
+        }
+
+        .badge-notifcation {
+            background-color: @backgroundColorRed;
+        }
+    }
+
+    .login, .signin {
+        background: @backgroundColorBlack;
+        color: @textColorBlack;
+
+        &:hover {
+            background: @backgroundColorBlack !important;
+        }
+    }
+
+    .login {
+        background: @backgroundColorSpitballBlue;
+        color: @textColorWhite;
+
+        &:hover {
+            background: @backgroundColorSpitballBlue !important;
+        }
+    }
+
+    .md-user-menu {
+        background: @backgroundColorMenu;
+
+
+
+        &:before {
+            border-bottom: 8px solid @backgroundColorMenu;
+        }
+    }
+
+    .nav-bar {
+        background: @headerbackground;
+        border-bottom: 5px solid @backgroundColor;
+    }
+    /*#endregion*/
+    /*#region accountSettings.less*/
+    .accountPage-wrapper {
+        //.profile-content {
+        .section {
+            background: @textColorDarkGrey;
+        }
+        //}
+        .ontop {
+            background: @buttonColorBlue;
+            color: @textColorBlack;
+        }
+
+        md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+            border-bottom: 1px solid @textColorBlue;
+        }
+
+        .tab-from-r > li {
+            &:hover {
+                > a {
+                    color: @textColorBlue;
+                }
+            }
+
+            &.active {
+                border-bottom: 3px solid @borderColorBlue;
+
+                > a {
+                    color: @textColorWhite;
+                }
+            }
+
+            > a {
+                color: @textColorGrey;
+            }
+        }
+
+        .notification-list {
+            li {
+                .owner {
+                    color: @textColorGrey;
+                }
+            }
+        }
+    }
+
+    .change-email-dialog {
+        svg {
+            fill: @backgroundColorMenu;
+        }
+    }
+    /*#endregion*/
+
+    .mdno-touchevents .feed .actions .anonymous-wrapper .anonymous:hover {
+        fill: @anonymousColor;
+    }
+    .dashboard .portlet md-chips .md-chip {
+        background: @textColorLightGrey;
+    }
+
+    .box-nav-bar {
+        md-next-button, md-prev-button {
+            svg {
+                fill: @textColorBlack;
+            }
+        }
+
+        md-ink-bar {
+            background: #ffffff;
+        }
+    }
+    /*#endregion*/
+    /*#endregion*/
+    @media(min-width: 600px) {
+        .library-choose .add-univeristy {
+            background-image: url('../../Images/Site/create_uni_w.png');
+
+            form {
+                background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAAAoBAMAAABqTK7TAAAAJFBMVEUAAADwJCTwJCTwJCTwJCTwJCTwJCTwJCTwJCTwJCTwJCTwJCTJcl+qAAAAC3RSTlMA9tgwfbTlWZvvyEGS8MIAAAPTSURBVHhe7Zexb9tGFMY/HiVaFpczWlcttFyLNosWpkMXLkyXovXCePDiRQ3QooAWec6izlm8ZMqiduiShaSt2Nb753rv7nBHQnaQQjZqA/qWI/h+fPcBT9TxQ1s77SSIrhDNsXc+HBMpaM2IJN4RNfiaqMYJACaM9hjqGVITI/xFtALA5Mr2EmOqGTY9Y00ilsDf2EqnBfIsJRXJRDrfFYD4OioaNMABE0DqipFd/2QCWr8CE16b0EtZKJV6TSoMZNxwfVuXR0X6xdp0NDJr3OSqQd11GdYZE+bCuaxDL9l1Kap7cylnLx+3y7npnNT34XL+UC5/APIsKjFUgogyAL0xr1dR8S30VYMXjGnCaKghaw5ENMWE6AYAk5XrRUTKkdP+Ej2JEfAWW+k04198CTEVEk78cl4Bh1gBz3DE1iPli30FnAG4hNbvsHobeh1XcBLTpNIu4xX3uoffpZuOk5vSxsTDa/4iTNyqDr0+qwMZJv5/uJx9xKV8M30KLsX63l0OgDwzLkURbsqWy2No7We+KJR1KTsu271mC08WuhcWwJfYSntEF3yaxSp2J2Sf3Kn2C0bA9xBEN+bFLwEkRB9g/33eE43wG6xGrV7ugHqnSYaAlJ+d4Qnoibj8GY9MO+2000477TQkWiMpAWlDtNZrIoV06RP3fiHI5ugBES1C4mZi1E3ciUsRz4GhConbk/tMnrgrUjbfvyG6trudEVHBeaMc8i62opUrRIuEpKhsiAb2LqCVKpe4KTsqgM9hb3YTNxPdxJ0XFsqVXkPi9uQrSzKx0ISo/OONUHq3DLzbN0AifcW3W91ol+5W/9IZqo3L00o/xzUDd1MiE93vXE0El+E7d4MMhO+VygPbw1CtSoBPX93l8qf6MbhcGrhf3+WyeD3+RJfzh3O5z3laTHWAtSEa6MkBLZCUPnFHFvdf4yFxM9FN3CkRFZakMiRuTx4CsCnekDbfz7jXoVA/4oiIYFwK8hWtvNQukym3uwSLr+ILdmkS90veu5Xsk0Urca82End+dg4rbhsS92oCeJcmxedzTZh8D60/Orv9AwgJwFa6owkT712GifMMQrLn+yFx1xspMf+ugVN34rnELRMH4F7zzm7P3MRN5dNdci24nH3EpZqUt7ocfPgPLusHdxld3eoSk+UWLgdAtLDtpP9Xjy/ucMlwK3HXG4k7VxhnngyJu0Zy7f/VjxFcMgFDdF0KvcBWWEQrc0Ke4304ITOkS5u4T+wDa7BShluJe7SRuJ+b7V3bkLiZOPAnJKd4JntLk+9Blgi7fQXw6aps5WnoX5sCDJ1qloS6AAAAAElFTkSuQmCC') /*../../Images/Site/create_uni_text_white.png*/;
+            }
+        }
+    }
+
+/*#endregion*/

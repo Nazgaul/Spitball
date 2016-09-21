@@ -1,4 +1,4 @@
-﻿@import "themeLight.less";
+﻿@import "variables.less";
 
 .full-screen {
     .fullScreen();
@@ -14,7 +14,7 @@
 
     header {
         top: 0;
-        color: @textColorBlack;
+        color: @textColorWhite;
         background-color: @buttonColorBlue;
         border-bottom: 5px solid @backgroundColor;
         height: @fullScreenHeaderHeight;
@@ -101,14 +101,14 @@
 
     .supported {
         margin: @fullScreenHeaderHeight + 16px auto;
-        color: @textColorBlack;
+        color: @textColorWhite;
         width: 800px;
         padding: 10px 15px 0;
 
         .quiz-name {
             margin-top: 0;
             input{
-                 .placeHolder(@textColorWhite);
+                 .placeHolder(@textColorBlack);
             }
 
             button {
@@ -139,12 +139,12 @@
         }
 
         .add-question {
-            color: @textColorBlack;
+            color: @textColorWhite;
             border: 1px solid @textColorSpitballBlue;
             background: transparent;
 
             svg {
-                fill: @textColorBlack;
+                fill: @textColorWhite;
                 margin-right: 10px;
                 width: 15px;
                 height: 15px;
@@ -184,7 +184,7 @@
 
 
     .form-control {
-        color: @textColorBlack;
+        color: @textColorWhite;
         background-color: @backgroundColor;
         border-radius: 0;
         margin-bottom: 20px;
@@ -276,7 +276,7 @@
     .ta-toolbar {
         display: none;
         padding: 8px 0;
-        background: @textColorBlack;
+        background: @textColorWhite;
         margin: 0; //override on bootstrap
         .btn-group {
             border: 1px solid @borderColorLightGrey;
@@ -288,7 +288,7 @@
             padding: 0;
             border-radius: 0;
             border: 0;
-            background: @textColorBlack;
+            background: @textColorWhite;
         }
 
         &.focussed {
@@ -324,7 +324,7 @@
             top: 0;
             left: 0;
             pointer-events: none;
-            background: @textColorBlack;
+            background: @textColorWhite;
             line-height: @heightContent;
         }
     }
@@ -342,7 +342,7 @@
         flex-shrink: 0;
 
         &:before {
-            color: @textColorBlack;
+            color: @textColorWhite;
             position: absolute;
             left: 0;
             top: 0;
@@ -393,7 +393,7 @@
         }
 
         .ng-dirty.ng-invalid {
-            background: @backgroundColorWhite;
+            background: @backgroundColorBlack;
         }
 
         md-radio-button {
@@ -509,7 +509,7 @@
 
     .modal-content {
         background: transparent;
-        color: @textColorBlack;
+        color: @textColorWhite;
         box-shadow: none;
         border: 0;
         text-align: center;
@@ -536,7 +536,7 @@
     }
 
     .save {
-        color: @textColorWhite;
+        color: @textColorBlack;
         background-color: @buttonColorBlue;
         border: none;
     }

@@ -1,4 +1,4 @@
-﻿@import "themeLight.less";
+﻿@import "variables.less";
 
 
 .invite-container {
@@ -128,7 +128,7 @@
                     }
 
                     &.active {
-                        background: @textColorBlack !important;
+                        background: @textColorWhite !important;
                     }
                     /*&:not(.active) svg {
                         fill: #585F66;
@@ -167,7 +167,7 @@
 
                     .text {
                         text-align: center;
-                        color: @textColorWhite;
+                        color: @textColorBlack;
                         max-width: 300px;
                         font-size: 22px;
                         display: inline-block;
@@ -193,7 +193,7 @@
                 }
 
                 .text, .empty-state {
-                    color: @textColorWhite;
+                    color: @textColorBlack;
                 }
 
                 md-list {
@@ -224,7 +224,7 @@
                         width: 40px;
                         height: 40px;
                         background: @buttonColorBlue;
-                        color: @textColorWhite;
+                        color: @textColorBlack;
                         text-align: center;
                         line-height: 40px;
                         border-radius: 100%;
@@ -390,7 +390,7 @@
     }*/
     &.upload {
         .portlet-title {
-            color: @textColorBlack;
+            color: @textColorWhite;
         }
 
         button.close {
@@ -406,7 +406,7 @@
             }
 
             svg {
-                fill: @textColorBlack;
+                fill: @textColorWhite;
                 width: 15px;
                 height: 15px;
             }
@@ -443,7 +443,7 @@
         text-transform: capitalize;
 
         &:hover {
-            color: @textColorWhite;
+            color: @textColorBlack;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@import "themeLight.less";
+﻿@import "variables.less";
 
 @chatHeaderHeight: 50px;
 @newChatMessageHeight: 50px;
@@ -8,7 +8,7 @@
 
 .chat-counter {
     background: @textColorRed;
-    color: @textColorBlack;
+    color: @textColorWhite;
     border-radius: 100%;
     width: 18px;
     height: 18px;
@@ -37,7 +37,7 @@
     md-icon {
         width: 30px;
         height: 30px;
-        fill: @textColorBlack;
+        fill: @textColorWhite;
     }
 
     .chat-counter {
@@ -99,12 +99,12 @@
             height: 0;
             border-style: solid;
             border-width: 7px 10px 7px 0;
-            border-color: transparent @textColorBlack transparent transparent;
+            border-color: transparent @textColorWhite transparent transparent;
             position: absolute;
             top: ~"calc(50% - 7px)";
             left: 4px;
             border-width: 7px 0 7px 10px;
-            border-color: transparent transparent transparent @textColorBlack;
+            border-color: transparent transparent transparent @textColorWhite;
             left: 6px;
         }
     }
@@ -182,7 +182,7 @@
 
     .error {
         z-index: 1;
-        color: @textColorBlack;
+        color: @textColorWhite;
         position: absolute;
         width: 100%;
         text-align: center;
@@ -317,7 +317,7 @@
                 .users-sub-list {
                     padding: 0;
                     margin: 0;
-                    color: @textColorWhite;
+                    color: @textColorBlack;
                     overflow: auto;
 
                     .mCSB_container {
@@ -348,7 +348,7 @@
                             max-width: ~"calc(100% - 64px)";
                             font-size: 16px;
                             height: 54px;
-                            color: @textColorWhite;
+                            color: @textColorBlack;
                         }
 
                         .member-name, .comment-date {
@@ -457,7 +457,7 @@
 
                 .user {
                     max-width: ~"calc(100% - 40px)";
-                    color: @textColorBlack;
+                    color: @textColorWhite;
 
                     user-image {
                         display: none;
@@ -492,7 +492,7 @@
                 }
 
                 .back {
-                    background: @textColorBlack;
+                    background: @textColorWhite;
                     border-radius: 100%;
                     padding: 2px;
                     margin: 0 10px;
@@ -543,7 +543,7 @@
                     font-size: 15px;
                     padding-bottom: 6px;
                     overflow: auto;
-                    color: @textColorWhite;
+                    color: @textColorBlack;
                     //padding-bottom: 70px;
                     .mCSB_outside + .mCSB_scrollTools {
                         right: -5px;
@@ -562,7 +562,7 @@
                         }
 
                         &.partner {
-                            background: #ffffff;
+                            background: @textColorWhite;
                         }
 
 
@@ -614,7 +614,7 @@
                         border-radius: 8px;
                         //overflow: hidden;
                         margin-left: 8px;
-                        background: #ffffff;
+                        background: @textColorWhite;
                         border: 1px solid #cbdbe3;
                         position: relative;
                     }
@@ -644,7 +644,7 @@
                         margin-right: 50px;
 
                         textarea {
-                            color: @textColorWhite;
+                            color: @textColorBlack;
                             border: none !important;
                             line-height: 22px;
                             padding: 0 0 0 10px;
@@ -735,7 +735,7 @@
     }
 
     .user.online:before {
-        box-shadow: 0 0 1px 2px @textColorWhite;
+        box-shadow: 0 0 1px 2px @textColorBlack;
     }
 }
 
@@ -786,7 +786,7 @@
             md-icon {
                 width: 18px;
                 height: 18px;
-                fill: @textColorBlack;
+                fill: @textColorWhite;
             }
         }
 
@@ -799,7 +799,7 @@
             md-icon {
                 width: 16px;
                 height: 16px;
-                fill: @textColorBlack;
+                fill: @textColorWhite;
             }
         }
     }
@@ -858,7 +858,7 @@ html:not(.expanded-chat) {
 
             .tab:after {
                 border-width: 7px 10px 7px 0;
-                border-color: transparent @textColorBlack transparent transparent;
+                border-color: transparent @textColorWhite transparent transparent;
                 left: 4px;
             }
         }

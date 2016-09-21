@@ -30,7 +30,7 @@
     <base href="/" />
 </head>
 <body @*md-layout-css*@ ng-controller="AppController as app"
-      class="theme-light clearfix" @*ng-class="{menuOpened: app.menuOpened}"*@>
+      class="clearfix" @*ng-class="{menuOpened: app.menuOpened}"*@>
     @{ Html.RenderPartial("_Body");}
 
     <div ng-spinner-bar class="sb-loader hide">

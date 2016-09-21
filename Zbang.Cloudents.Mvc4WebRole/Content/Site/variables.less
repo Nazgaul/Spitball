@@ -21,40 +21,44 @@
 //texts
 
 
-@textColorBlack: #282828;
-@textColorWhite: #f5f5f5;
+@textColorBlack: #212325;
+@textColorWhite: #ffffff;
 @textColorGrey: #888b8e;
-@textColorDarkGrey: #323538;
+@textColorDarkGrey: #ffffff;
 @textColorLightGrey: #c3c3c3;
 @textColorLike: #4190b9;
 @textColorBlue: #2698D4;
-//@textColorHover: #5B9CC2;
+@textColorHover: #5B9CC2;
 @textColorSpitballBlue: #3293F6;
-//@textColorGreen: #8dc63f;
+@textColorGreen: #8dc63f;
 @textColorRed: #db4437;
-//@textColorOrange: #ffa500;
-//
+@textColorOrange: #ffa500;
+@textColorLightWhite: #f5f5f5;
+@textColorPurple: #33076e;
+
 ////backgrounds
-@backgroundColor: #181c1d;
+@backgroundColor: #dadada;
 @backgroundColor2: #9E9E9E;
-@backgroundColorWhite: #f5f5f5;
-@backgroundColorMenu: #323538;
+@backgroundColorBlack: #212325;
+@backgroundColorMenu: #ffffff;
 @textColorFollow: #006072;
 @backgroundColorItem: #6a737d;
 @backgroundColorRed: #db4437;
 @backgroundColorSpitballBlue: #3293F6;
-//@backgroundColorDropdown: #536470;
-//@backgroundColorHover: #404346;
+@backgroundColorDropdown: #536470;
+@backgroundColorHover: #404346;
 @backgroundColorGreen: #008000;
-//@backgroundColorMenuSelect: #292d31;
-@backgroundColorMouseOver: #212325;
+@backgroundColorMenuSelect: #292d31;
+@backgroundColorMouseOver: #dadce2;
+@headerbackground: #323538;
+@backgroundCalmGrey: #eeeeee;
 //
 ////borders
-//@borderColorGrey: #3D4348;
+@borderColorGrey: #3D4348;
 @borderColorLightGrey: #8c99a6;
-@borderColorDarkGrey: #323538;
-@borderColorWhite: #f5f5f5;
-@borderColorBlack: #282828;
+@borderColorWhite: #ffffff;
+@borderColorBlack: #212325;
+@borderColorDarkGrey: #282828;
 @borderColorDarkBlue: #376E8C;
 @borderColorBlue: #3598dc;
 @borderColorSpitballBlue: #3293F6;
@@ -68,11 +72,11 @@
 //
 ////svg/images
 @fileColor: #f9f9f9;
-//@linkColor: #64D0FF;
+@linkColor: #64D0FF;
 @svgColorGrey: #484F56;
 @dropboxColor: #007EE5;
 @anonymousColor: #d39f10;
-//@checkMarkColor: #8dc63f;
+@checkMarkColor: #8dc63f;
 @headerImagesColor: #5f6871;
 @svgLightGrey: #c2c2c2;
 @svgQuizArrows: #c5c5c5;
@@ -83,18 +87,20 @@
 @svgQuizBald: #4190b9;
 @svgQuizCompleted: #9782B1;
 @svgQuizRanking: #F76446;
-//@svgGmail: #ED1921;
+@svgGmail: #ED1921;
 @svgDots: #5d6063;
-//
+@svgInvite: #585f66;
+
 ////scrollbar
 @scrollbarColor: rgba(157,153,156,.5);
 //
 ////progressbar
-//@progressbarColor: #8dc63f;
-//@progressbarColorQuiz: #85A7B8;
+@progressbarColor: #8dc63f;
+@progressbarColorQuiz: #85A7B8;
 @progressbarBackgroundColor: #dfe2e9;
 @notificationColor: #ec610d;
 @notificationColorHover: #c4510b;
+@color-beige: #f76446;
 
 //.buttonBlue() {
 //    background: @buttonColorBlue;
@@ -224,7 +230,7 @@
     bottom: 0;
     z-index: 20;
     overflow-y: auto;
-    background: @backgroundColorWhite;
+    background: @backgroundColorBlack;
     height: 100vh;
     width: 100vw;
 }
@@ -265,58 +271,4 @@
     -webkit-animation: @type @duration; /* Safari and Chrome */
     -o-animation: @type @duration;
     animation: @type @duration; /* Opera */
-}
-
-.themeClasses(@name, @Color, @attributes) {
-    .generateAttributes(@array) {
-        & {
-            .loop(@i: 1) when (@i =< length(@array)) {
-                @currentItem: extract(@array, @i);
-
-                .background@{name} when (@currentItem = background) {
-                    background: @Color !important;
-                }
-
-                .text@{name} when (@currentItem = text) {
-                    color: @Color !important;
-                }
-
-                .input@{name} when (@currentItem = input) {
-                    .placeHolder(@Color) !important;
-                }
-
-                .svg@{name} when (@currentItem = svg) {
-                    fill: @Color !important;
-                }
-
-                .border@{name} when (@currentItem = border) {
-                    border-color: @Color !important;
-                }
-
-                .hoverBackground@{name} when (@currentItem = hoverBackground) {
-                    &:hover {
-                        background: @Color !important;
-                    }
-                }
-
-                .hoverText@{name} when (@currentItem = hoverText) {
-                    &:hover {
-                        color: @Color !important;
-                    }
-                }
-
-                .hoverSvg@{name} when (@currentItem = hoverSvg) {
-                    &:hover {
-                        fill: @Color !important;
-                    }
-                }
-
-                .loop(@i + 1)
-            }
-
-            .loop();
-        }
-    }
-
-    .generateAttributes(@attributes);
 }

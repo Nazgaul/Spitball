@@ -1,4 +1,4 @@
-﻿@import "themeLight.less";
+﻿@import "variables.less";
 
 .library-choose {
     @media (min-width: 960px) {
@@ -32,7 +32,7 @@
 
         .img-circle {
             overflow: hidden;
-            background: @backgroundColorWhite;
+            background: @backgroundColorBlack;
         }
 
         .list-inline img {
@@ -42,7 +42,7 @@
 
     .code {
         h4 {
-            color: @textColorWhite;
+            color: @textColorBlack;
         }
 
         .closed-uni-i {
@@ -50,7 +50,7 @@
         }
 
         .uni-details {
-            color: @textColorWhite;
+            color: @textColorBlack;
         }
     }
 
@@ -365,13 +365,13 @@
             box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
 
             .search-text {
-                background: @backgroundColorBlack;
+                background: @textColorWhite;
                 font-size: 20px;
                 height: 37px;
                 padding: 0 10px 0 25px;
                 width: ~"calc(100% - @{buttonWidth})";
                 border: 0;
-                .placeHolder(@textColorWhite);
+                .placeHolder(@textColorBlack);
             }
 
             .search-button {
@@ -382,7 +382,7 @@
                 svg {
                     width: 22px;
                     height: 22px;
-                    fill: @backgroundColorBlack;
+                    fill: @textColorWhite;
                 }
             }
         }
