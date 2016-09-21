@@ -9,6 +9,7 @@ Theme Colors
 body {
     height: auto; //override angular material
     //min-height:~"calc(100% - 85px)";//override angular material
+    background: @backgroundColor;
 }
 
 /*body.page-md {
@@ -21,16 +22,266 @@ Page Header
 /* Header search bar, toggler button & top menu */
 
 
-/*.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle > i {
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle > i {
     color: #C0CDDC;
 }
 
-
-.page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu > li.external > a:hover {
-    text-decoration: none;
+.page-header.navbar .top-menu .navbar-nav > li.dropdown.open .dropdown-toggle,
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-toggle:hover {
+    background-color: @backgroundColorMouseOver;
 }
 
+.page-header.navbar .top-menu .navbar-nav > li.dropdown .dropdown-menu:before {
+    border-bottom-color: @borderColorWhite;
+}
 
+.page-header.navbar .top-menu .navbar-nav > li.separator {
+    background: @backgroundColorWhite;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu {
+    border: 1px solid @borderColorWhite;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu:before {
+    border-bottom-color: @borderColorWhite;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu:after {
+    border-bottom-color: @borderColorWhite;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu > li.external {
+    background: @backgroundColorWhite;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu > li.external > a {
+    color: @textColorBlue;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-extended .dropdown-menu > li.external > a:hover {
+    color: @textColorHover;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown-tasks .dropdown-menu .dropdown-menu-list .progress {
+        background-color: @progressbarBackgroundColor;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-user > .dropdown-toggle > .username {
+        color: @textColorWhite;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu {
+        background: @backgroundColorMenu;
+        box-shadow: 0 0 10px @backgroundColor;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu:after {
+        border-bottom-color: @backgroundColorMenu;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu > li.external {
+        background: #414f59;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu > li.external > h3 {
+        color: #c5ced4;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu > li.external > a:hover {
+        color: #87b6dd;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu.dropdown-menu-default > li a,
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu .dropdown-menu-list > li a {
+        color: #d4dadf;
+        border-bottom: 1px solid #607482 !important;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu.dropdown-menu-default > li a > i,
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu .dropdown-menu-list > li a > i {
+        color: #b6c2c9;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu.dropdown-menu-default > li a:hover,
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu .dropdown-menu-list > li a:hover {
+        background: @backgroundColorMouseOver;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu.dropdown-menu-default > li a {
+        border-bottom: 0 !important;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-dark .dropdown-menu.dropdown-menu-default > li.divider {
+        background: #607482;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-notification.dropdown-dark .dropdown-menu .dropdown-menu-list > li > a .time {
+        background: #485762;
+    }
+
+    .page-header.navbar .top-menu .navbar-nav > li.dropdown-notification.dropdown-dark .dropdown-menu .dropdown-menu-list > li > a:hover .time {
+        background: #3d4a53;
+    }
+
+    .page-header.navbar .search-form .input-group {
+        background: @backgroundColor;
+    }
+
+    .page-header.navbar .search-form .input-group .form-control::-moz-placeholder {
+        color: @textColorLightGrey;
+        opacity: 1;
+    }
+
+    .page-header.navbar .search-form .input-group .form-control:-ms-input-placeholder {
+        color: @textColorLightGrey;
+    }
+
+    .page-header.navbar .search-form .input-group .form-control::-webkit-input-placeholder {
+        color: @textColorLightGrey;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover,
+    .page-sidebar {
+        background-color: @backgroundColorMenu;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a,
+    .page-sidebar .page-sidebar-menu > li > a {
+        color: @textColorWhite;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a,
+    .page-sidebar .page-sidebar-menu > li:not(.open):hover > a {
+        background: @backgroundColorHover;
+        color: @textColorBlue;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a > i,
+    .page-sidebar .page-sidebar-menu > li:hover > a > i,
+    .page-sidebar .page-sidebar-menu > li.open > a > i {
+        color: @textColorBlue;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li:hover > a > .arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.open > a > .arrow.open:before,
+    .page-sidebar .page-sidebar-menu > li:hover > a > .arrow:before,
+    .page-sidebar .page-sidebar-menu > li:hover > a > .arrow.open:before,
+    .page-sidebar .page-sidebar-menu > li.open > a > .arrow:before,
+    .page-sidebar .page-sidebar-menu > li.open > a > .arrow.open:before {
+        color: @textColorBlue;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a,
+    .page-sidebar .page-sidebar-menu > li.active > a,
+    .page-sidebar .page-sidebar-menu > li.active.open > a {
+        background: @backgroundColorMouseOver;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > i,
+    .page-sidebar .page-sidebar-menu > li.active > a > i,
+    .page-sidebar .page-sidebar-menu > li.active.open > a > i {
+        color: @textColorBlue;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a > .arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active.open > a > .arrow.open:before,
+    .page-sidebar .page-sidebar-menu > li.active > a > .arrow:before,
+    .page-sidebar .page-sidebar-menu > li.active > a > .arrow.open:before,
+    .page-sidebar .page-sidebar-menu > li.active.open > a > .arrow:before,
+    .page-sidebar .page-sidebar-menu > li.active.open > a > .arrow.open:before {
+        color: @textColorBlue;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li.active > a,
+    .page-sidebar .page-sidebar-menu > li.active > a {
+        border-left: 3px solid @borderColorBlue !important;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li > a > .arrow.open:before,
+    .page-sidebar .page-sidebar-menu li > a > .arrow:before,
+    .page-sidebar .page-sidebar-menu li > a > .arrow.open:before {
+        color: @textColorWhite;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li:hover > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li:hover > a > .arrow.open:before,
+    .page-sidebar .page-sidebar-menu li:hover > a > .arrow:before,
+    .page-sidebar .page-sidebar-menu li:hover > a > .arrow.open:before {
+        color: @textColorBlue;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li.active > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu li.active > a > .arrow.open:before,
+    .page-sidebar .page-sidebar-menu li.active > a > .arrow:before,
+    .page-sidebar .page-sidebar-menu li.active > a > .arrow.open:before {
+        color: @textColorBlue;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li > a,
+    .page-sidebar .page-sidebar-menu .sub-menu > li > a {
+        color: @textColorWhite;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a,
+    .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a,
+    .page-sidebar .page-sidebar-menu .sub-menu > li.open > a,
+    .page-sidebar .page-sidebar-menu .sub-menu > li.active > a {
+        color: @textColorBlue;
+        background: @backgroundColorMouseOver;
+    }
+
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a,
+    .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a {
+        color: @textColorBlue;
+        background: @backgroundColorHover;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a > i, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a > i,
+    .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a > i,
+    .page-sidebar .page-sidebar-menu .sub-menu > li.open > a > i,
+    .page-sidebar .page-sidebar-menu .sub-menu > li.active > a > i {
+        color: @textColorBlue;
+    }
+
+    .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li:hover > a > .arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.open > a > .arrow.open:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a > .arrow:before, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu .sub-menu > li.active > a > .arrow.open:before,
+    .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a > .arrow:before,
+    .page-sidebar .page-sidebar-menu .sub-menu > li:hover > a > .arrow.open:before,
+    .page-sidebar .page-sidebar-menu .sub-menu > li.open > a > .arrow:before,
+    .page-sidebar .page-sidebar-menu .sub-menu > li.open > a > .arrow.open:before,
+    .page-sidebar .page-sidebar-menu .sub-menu > li.active > a > .arrow:before,
+    .page-sidebar .page-sidebar-menu .sub-menu > li.active > a > .arrow.open:before {
+        color: @textColorBlue;
+    }
+
+    @media (min-width: 992px) {
+        .page-sidebar-menu.page-sidebar-menu-hover-submenu li:hover > .sub-menu {
+            box-shadow: 5px 5px rgba(140, 178, 198, 0.2);
+        }
+
+        .page-sidebar-menu.page-sidebar-menu-closed > li:hover {
+            box-shadow: 5px 5px rgba(140, 178, 198, 0.2);
+        }
+
+        .page-sidebar-menu.page-sidebar-menu-closed > li:hover > .sub-menu {
+            box-shadow: 5px 5px rgba(140, 178, 198, 0.2);
+        }
+
+        .page-boxed .page-container {
+            background-color: #e9ecf3;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:hover {
+            background-color: @backgroundColorMouseOver;
+        }
+    }
+    /****
+ CSS3 Spinner Bar  
+****/
+    .page-spinner-bar > div,
+    .block-spinner-bar > div {
+        background: @backgroundColorSpitballBlue;
+    }
+/*
 
 
 .page-header.navbar .top-menu .navbar-nav > li.dropdown-user > .dropdown-toggle > .username {
@@ -174,13 +425,13 @@ Page Footer
         border-bottom: 0;
     }
 
-   
+
 
     /* Boxed Layout */
-   
 
-   // .page-boxed .page-container {
-        //background-color: #e9ecf3;
+
+    // .page-boxed .page-container {
+    //background-color: #e9ecf3;
     //}
 
     .page-boxed.page-sidebar-reversed .page-container {
@@ -197,7 +448,10 @@ Page Footer
         border-right: 0;
         border-bottom: 0;
     }
+}
 
+.page-header.navbar {
+    background: @backgroundColorMenu;
 }
 
 /*@media (max-width: 991px) {

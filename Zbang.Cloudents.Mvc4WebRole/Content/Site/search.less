@@ -1,6 +1,7 @@
 ﻿@import "themeLight.less";
 
 .search {
+    .placeHolder(@textColorGrey);
     //.fullScreen();
     @media (max-width: 450px) {
         margin-top: 60px;
@@ -12,6 +13,10 @@
                 fill: #888b8e;
             }
         }
+    }
+
+    em {
+        color: #ff4500;
     }
 
     .page-head .close svg {
@@ -38,6 +43,7 @@
             // text-align: justify;
             padding-left: 15px;
             line-height: 16px;
+            color: @textColorWhite;
 
             h5 {
                 margin: 7px 0 12px 0;
@@ -88,6 +94,12 @@
             margin-top: 80px;
         }
 
+        .wrapper {
+            div {
+                color: @textColorBlack;
+            }
+        }
+
         .text-wrapper {
             margin: 0 auto;
 
@@ -128,6 +140,10 @@
             }
         }
     }
+}
+
+.search-text {
+    color: @buttonColorBlue;
 }
 /*.search-text {
     font-size: 7vw;

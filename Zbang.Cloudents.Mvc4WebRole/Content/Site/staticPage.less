@@ -1,4 +1,4 @@
-﻿@import "variables.less";
+﻿@import "themeLight.less";
 @import "../../Images/HomePage2/apps.png.less";
 
 body {
@@ -162,7 +162,7 @@ iframe {
                 outline: none;
 
                 svg {
-                    fill: @textColorWhite;
+                    fill: @textColorBlack;
                     width: 20px;
                     height: 20px;
                 }
@@ -186,7 +186,7 @@ iframe {
         }
 
         li a, li button, li label, li span, .signin-btn, .signup-btn {
-            color: @textColorWhite;
+            color: @textColorBlack;
             text-decoration: none;
             align-items: center;
             line-height: 40px;
@@ -221,11 +221,11 @@ iframe {
                 line-height: 22px;
                 display: inline-block;
                 border-radius: 4px;
-                color: @textColorWhite;
+                color: @textColorBlack;
                 text-decoration: none;
 
                 &.signup-btn {
-                    color: @textColorWhite;
+                    color: @textColorBlack;
                     background-color: @textColorLightGrey;
                     margin-right: 15px;
 
@@ -236,7 +236,7 @@ iframe {
 
                 &.signin-btn {
                     background: @backgroundColorWhite;
-                    color: @textColorBlack;
+                    color: @textColorWhite;
 
                     &:hover {
                         background: @textColorLightGrey;
@@ -300,7 +300,7 @@ iframe {
                         border-style: solid;
                         border-width: 8px 7px 0 7px;
                         margin-left: 10px;
-                        border-color: @textColorWhite transparent transparent transparent;
+                        border-color: @textColorBlack transparent transparent transparent;
                     }
 
                     .language-toggle {
@@ -333,7 +333,7 @@ iframe {
 
                             button {
                                 padding: 8px 30px;
-                                color: @textColorBlack;
+                                color: @textColorWhite;
                                 -moz-box-sizing: border-box;
                                 -webkit-box-sizing: border-box;
                                 box-sizing: border-box;
@@ -494,7 +494,7 @@ iframe {
     .content {
         .displayFlex;
         justify-content: space-between;
-        color: @textColorWhite;
+        color: @textColorBlack;
         -ms-flex-wrap: wrap;
         -webkit-flex-wrap: wrap;
         flex-wrap: wrap;
@@ -670,7 +670,7 @@ iframe {
 }
 
 .static-page {
-    background: @textColorWhite;
+    background: @textColorBlack;
 
     > .content {
         margin-top: @heightOfstaticPageHeader;
@@ -748,7 +748,7 @@ iframe {
                         padding: 12px 0;
 
                         a:not(.active) {
-                            color: @textColorWhite;
+                            color: @textColorBlack;
                         }
 
                         a {
@@ -811,10 +811,10 @@ iframe {
 
             > .panel-heading {
                 background: @textColorGrey;
-                color: @textColorWhite;
+                color: @textColorBlack;
 
                 a:hover {
-                    color: @textColorWhite;
+                    color: @textColorBlack;
                 }
             }
 
@@ -842,7 +842,7 @@ iframe {
         align-items: flex-end;
         justify-content: center;
         text-transform: uppercase;
-        color: @textColorWhite;
+        color: @textColorBlack;
         background: linear-gradient(to top, #000000 0, transparent 200px, transparent 100%);
         font-size: 34px;
         padding-bottom: 20px;
@@ -862,6 +862,12 @@ iframe {
     margin-top: 5px;
 
     .advantages {
+        margin-bottom: 20px;
+        color: @textColorGrey;
+
+        > div {
+            padding: 15px;
+        }
 
         .portlet {
             border-radius: 0;
@@ -870,6 +876,7 @@ iframe {
             /* min-height: 240px; */
             position: relative;
             margin-top: 70px;
+            background-color: @backgroundColorWhite;
         }
 
         .card-icon {
@@ -885,6 +892,8 @@ iframe {
             left: ~"calc(50% - 41px)";
             top: -30px;
             border: 6px solid whitesmoke;
+            border: 1px solid @progressbarBackgroundColor;
+
 
             &.speech svg {
                 width: 40px;
@@ -918,6 +927,7 @@ iframe {
                 width: 65px;
                 height: 65px;
                 fill: white;
+                fill: @textColorBlack;
             }
         }
 
@@ -930,6 +940,7 @@ iframe {
 
         .card-title {
             font-weight: bold;
+            color: @textColorDarkGrey;
         }
 
         .card-desc span {
@@ -938,7 +949,13 @@ iframe {
         }
     }
 
+        .about-header {
+            color: @textColorWhite;
+        }
+
     .about-text {
+            color: @textColorWhite;
+            background: none;
         div {
             margin-bottom: 20px;
         }
@@ -947,6 +964,11 @@ iframe {
     .team-header {
         margin-top: 80px;
         text-align: center;
+            margin-bottom: 40px;
+
+            > div {
+                margin-top: 20px;
+            }
     }
 
     .team {
@@ -962,6 +984,8 @@ iframe {
             padding-top: 70px;
             background: #fff;
             padding-bottom: 15px;
+                background: @backgroundColorWhite;
+                color: @textColorBlack;
 
             .desc {
                 height: 44px;
@@ -991,9 +1015,11 @@ iframe {
         }
     }
 
+        .team, .advantages {
+            margin: -15px;
+        }
     .middle-area {
-        margin-right: 0;
-        margin-left: 0;
+        margin: 40px 0;
         text-align: center;
 
         .about-text-wrapper {
@@ -1026,6 +1052,7 @@ iframe {
         display: flex;
         align-items: center;
         text-align: center;
+        margin-bottom: 40px;
 
         h1 {
             font-weight: 600;
@@ -1089,7 +1116,7 @@ iframe {
                     margin-right: 50px /*rtl:ignore*/;
 
                     h1 {
-                        color: @textColorWhite;
+                        color: @textColorBlack;
                         font-weight: bold;
                         margin: 50px 0;
                         max-width: 600px;
@@ -1224,7 +1251,7 @@ iframe {
         &:nth-child(4), &:nth-child(5) {
             .wrapper .text {
                 h3, .description {
-                    color: @textColorWhite;
+                    color: @textColorBlack;
                 }
             }
         }
@@ -1322,7 +1349,7 @@ iframe {
 
 .product-page, .features-page, .courses-page, .class-notes-page {
     background: @backgroundColor;
-    color: @textColorWhite;
+    color: @textColorBlack;
 
     h1 {
         font-size: 42px;
@@ -1378,7 +1405,7 @@ iframe {
                 padding: 0 12px;
                 display: inline-block;
                 margin: 15px auto 0 auto;
-                color: @textColorWhite;
+                color: @textColorBlack;
                 text-decoration: none;
                 width: inherit;
                 -moz-box-sizing: content-box;
@@ -1457,7 +1484,7 @@ iframe {
             > img, > a img {
                 width: 100%;
                 margin-top: 20px;
-                border: 3px solid @borderColorWhite;
+                border: 3px solid @borderColorBlack;
             }
         }
     }
@@ -1498,7 +1525,7 @@ iframe {
         max-width: 400px;
         min-width: 250px;
         padding: 15px;
-        color: @textColorWhite;
+        color: @textColorBlack;
         background: @backgroundColorMenu;
         .displayFlex;
         -ms-flex-direction: column;
