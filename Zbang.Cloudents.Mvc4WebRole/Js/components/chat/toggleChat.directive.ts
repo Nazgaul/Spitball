@@ -66,12 +66,12 @@
         };
 
 
-        public static factory(): angular.IDirectiveFactory {
+        static factory(): angular.IDirectiveFactory {
             const directive = (chatBus: IChatBus, $mdMedia: angular.material.IMedia, userDetailsFactory, $rootScope, $state) => {
                 return new ToggleChat(chatBus, $mdMedia, userDetailsFactory, $rootScope, $state);
             };
 
-            directive['$inject'] = ['chatBus', '$mdMedia', 'userDetailsFactory', '$rootScope', "$state"];
+            directive["$inject"] = ["chatBus", "$mdMedia", "userDetailsFactory", "$rootScope", "$state"];
 
             return directive;
         }

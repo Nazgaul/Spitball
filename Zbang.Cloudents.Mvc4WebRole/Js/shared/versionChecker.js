@@ -16,7 +16,9 @@ var app;
             else {
                 window.addEventListener("load", function () {
                     _this.checkVersion();
-                    $interval(_this.checkVersion, timeInterval);
+                    $interval(function () {
+                        _this.checkVersion();
+                    }, timeInterval);
                 }, false);
             }
         }
@@ -29,9 +31,9 @@ var app;
                         return;
                     }
                     _this.cacheFactory.clearAll();
-                    var toast = _this.$mdToast.simple().textContent(_this.resManager.get('spitballUpdate')).action(_this.resManager.get('dialogOk'))
+                    var toast = _this.$mdToast.simple().textContent(_this.resManager.get("spitballUpdate")).action(_this.resManager.get('dialogOk'))
                         .highlightAction(false)
-                        .position('top');
+                        .position("top");
                     _this.$mdToast.show(toast).then(function () {
                         window.location.reload(true);
                     });

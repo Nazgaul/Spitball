@@ -1,7 +1,7 @@
 ﻿module app {
     "use strict";
     // clientVersion = window["version"],
-      var  timeInterval = 900000; //fifteen minutes
+    var timeInterval = 900000; //fifteen minutes
     class VerionChecker {
 
         constructor(
@@ -17,7 +17,9 @@
             } else {
                 window.addEventListener("load", () => {
                     this.checkVersion();
-                    $interval(this.checkVersion, timeInterval);
+                    $interval(() => {
+                         this.checkVersion();
+                    }, timeInterval);
                 }, false);
             }
 
@@ -30,9 +32,9 @@
                         return;
                     }
                     this.cacheFactory.clearAll();
-                    const toast = this.$mdToast.simple().textContent(this.resManager.get('spitballUpdate')).action(this.resManager.get('dialogOk'))
+                    const toast = this.$mdToast.simple().textContent(this.resManager.get("spitballUpdate")).action(this.resManager.get('dialogOk'))
                         .highlightAction(false)
-                        .position('top');
+                        .position("top");
                     this.$mdToast.show(toast).then(() => {
                         window.location.reload(true);
                     });
