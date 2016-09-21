@@ -15,7 +15,12 @@ module app {
         logError(url: string, data?: Object, payload?: Object): void;
     }
 
-    export type cacheKeys = "university" | "accountDetail" | "html" | "department" | "itemComment";
+    export type cacheKeys = "university" |
+        "accountDetail" |
+        "html" |
+        "department" |
+        "itemComment" |
+        "searchBox" | "searchItem" | "searchQuiz";
 
     const
         second = 1000,
@@ -34,16 +39,15 @@ module app {
 
 
             const dChat: string = window['dChat'];
-            if (dChat.indexOf('develop') > -1) {
+            if (dChat.indexOf("develop") > -1) {
                 this.cacheCategories.html = {
                     maxAge: 1 * second,
                     storageMode: "localStorage"
-                }
+                };
             }
             for (let cacheKey in this.cacheCategories) {
                 this.buildFactoryObject(cacheKey);
             }
-            
         }
         private cacheCategories = {
             university: {
@@ -51,6 +55,15 @@ module app {
             },
             accountDetail: {
                 maxAge: day
+            },
+            searchItem: {
+                maxAge: hour
+            },
+            searchBox: {
+                maxAge: hour
+            },
+            searchQuiz: {
+                maxAge: hour
             },
             html: {
                 maxAge: 30 * day,
@@ -63,10 +76,6 @@ module app {
                 maxAge: 15 * minute
             }
         };
-        
-
-
-
         buildFactoryObject(cacheKey: string) {
             var dst = {};
             angular.extend(dst,
@@ -94,7 +103,7 @@ module app {
                 this.trackTime(startTime, url, data, "post");
 
                 if (angular.isArray(category)) {
-                    (category as Array<cacheKeys>).forEach(e => {
+                    (category as Array<cacheKeys>).forEach((e:cacheKeys) => {
                         this.deleteCacheCategory(e);
                     });
                 }
@@ -220,7 +229,7 @@ module app {
                 data: data,
                 payload: payload
             };
-            console.error('eror ajax', url, data, payload);
+            console.error("eror ajax", url, data, payload);
             $.ajax({
                 type: "POST",
                 url: "/error/jslog/",

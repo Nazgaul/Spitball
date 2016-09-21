@@ -1,34 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using SendGrid;
-using Zbang.Zbox.Infrastructure.Mail.Resources;
+﻿using Zbang.Zbox.Infrastructure.Mail.Resources;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
-    internal class WelcomeMail : IMailBuilder
+    internal class WelcomeMail : MailBuilder
     {
         private const string Category = "Welcome";
 
+        private readonly WelcomeMailParams m_Parameters;
 
-        public void GenerateMail(ISendGrid message, MailParameters parameters)
+        public WelcomeMail(MailParameters parameters) : base(parameters)
         {
-            var welcomeParams = parameters as WelcomeMailParams;
-            if (welcomeParams == null)
-            {
-                throw new NullReferenceException("welcomeParams");
-            }
-
-            message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.Welcome");
-           
-            message.AddSubstitution("{Name}", new List<string> { welcomeParams.Name });
-
-            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "welcomeEmail");
+            m_Parameters = parameters as WelcomeMailParams;
         }
 
-        public void AddSubject(ISendGrid message)
+        public override string GenerateMail()
         {
-            message.Subject = EmailResource.WelcomeSubject; 
+            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.Welcome");
+            return html.Replace("{Name}", m_Parameters.Name);
+        }
+
+        public override string AddSubject()
+        {
+            return EmailResource.WelcomeSubject;
+        }
+
+        public override string AddCategory()
+        {
+            return Category;
         }
     }
 }

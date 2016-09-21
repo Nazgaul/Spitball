@@ -13,13 +13,13 @@
 </div>
 <div srph-infinite-scroll="s.myPagingFunction()">
     <md-tabs md-selected="s.tabIndex" md-enable-disconnect="true" class="page-tabs">
-        <md-tab md-on-select="s.changeTab(s.state.item)" md-active="s.tab === s.state.item" ga-track-event="['search', 'search items']">
+        <md-tab md-on-select="s.changeTab('doc')" md-active="s.tab === 'doc'" ga-track-event="['search', 'search items']">
             <md-tab-label>@BoxResources.Items</md-tab-label>
         </md-tab>
-        <md-tab md-on-select="s.changeTab(s.state.box)" md-active="s.tab === s.state.box" ga-track-event="['search', 'search classes']">
+        <md-tab md-on-select="s.changeTab('course')" md-active="s.tab === 'course'" ga-track-event="['search', 'search classes']">
             <md-tab-label>@GeneralResources.Classes</md-tab-label>
         </md-tab>
-        <md-tab md-on-select="s.changeTab(s.state.quiz)" md-active="s.tab === s.state.quiz" ga-track-event="['search', 'search quizzes']">
+        <md-tab md-on-select="s.changeTab('quiz')" md-active="s.tab === 'quiz'" ga-track-event="['search', 'search quizzes']">
             <md-tab-label>@GeneralResources.Quizzes</md-tab-label>
         </md-tab>
     </md-tabs>

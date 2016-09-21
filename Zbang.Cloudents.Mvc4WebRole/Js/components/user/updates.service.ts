@@ -16,7 +16,7 @@
         constructor(private ajaxService: IAjaxService2, private $q: angular.IQService,
             private userDetailsFactory: IUserDetailsFactory,
             private $rootScope: angular.IRootScopeService, private $window: angular.IWindowService,
-            private $stateParams: ISpitballStateParamsService) {
+            private $stateParams: spitaball.ISpitballStateParamsService) {
 
             this.deferred = $q.defer();
             userDetailsFactory.init()
@@ -31,9 +31,9 @@
                 });
 
             $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState:
-                angular.ui.IState, toParams: ISpitballStateParamsService,
+                angular.ui.IState, toParams: spitaball.ISpitballStateParamsService,
                 fromState: angular.ui.IState,
-                fromParams: ISpitballStateParamsService) => {
+                fromParams: spitaball.ISpitballStateParamsService) => {
                 if (fromState.parent === "box") {
                     this.deleteUpdates(fromParams.boxId);
                 }

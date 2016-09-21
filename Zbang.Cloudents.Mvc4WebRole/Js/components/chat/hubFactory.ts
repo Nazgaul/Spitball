@@ -106,7 +106,7 @@
                 }
             });
             $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState,
-                toParams: ISpitballStateParamsService) => {
+                toParams: spitaball.ISpitballStateParamsService) => {
                 if (toParams.boxId) {
                     if (this.boxIds.indexOf(toParams.boxId) === -1) {
                         this.assingBoxes(toParams.boxId);

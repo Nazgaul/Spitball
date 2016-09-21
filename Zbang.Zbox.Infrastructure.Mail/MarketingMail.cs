@@ -5,25 +5,34 @@ namespace Zbang.Zbox.Infrastructure.Mail
 {
     public abstract class MarketingMail : IMailBuilder
     {
-        public void GenerateMail(ISendGrid message, MailParameters parameters)
+        private readonly MarketingMailParams m_MarketingMailParams;
+        protected MarketingMail(MailParameters parameters)
         {
-            var marketingMailParams = parameters as MarketingMailParams;
-            if (marketingMailParams == null)
-            {
-                throw new NullReferenceException(nameof(marketingMailParams));
-            }
+            m_MarketingMailParams = parameters as MarketingMailParams;
+        }
+        public string GenerateMail()
+        {
+            //marketingMailParams = parameters as MarketingMailParams;
+            //if (marketingMailParams == null)
+            //{
+            //    throw new NullReferenceException(nameof(marketingMailParams));
+            //}
 
 
-            message.SetCategory(CategoryName);
-            var html = LoadMailTempate.LoadMailFromContentWithDot(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
-            html.Replace("{name}", marketingMailParams.Name);
+           // message.SetCategory(CategoryName);
+            var html = LoadMailTempate.LoadMailFromContentWithDot(m_MarketingMailParams.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.MarketingTemplate");
+            html.Replace("{name}", m_MarketingMailParams.Name);
             html.Replace("{body}", Text.Replace("\n", "<br><br>"));
-            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: CategoryName);
-            message.Html = html.ToString();
+           // message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: CategoryName);
+            return html.ToString();
         }
         protected abstract string Text { get; }
         protected abstract string CategoryName { get; }
-        public abstract void AddSubject(ISendGrid message);
+        public abstract string AddSubject();
+        public string AddCategory()
+        {
+            return CategoryName;
+        }
     }
 
     

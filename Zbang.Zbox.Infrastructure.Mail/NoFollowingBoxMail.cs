@@ -8,9 +8,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
         protected override string Text => EmailResource.NoFollowBoxText;
         protected override string CategoryName => "No Follow Box";
 
-        public override void AddSubject(ISendGrid message)
+        public override string AddSubject()
         {
-            message.Subject = EmailResource.NoFollowBoxSubject;
+            return EmailResource.NoFollowBoxSubject;
+        }
+
+        public NoFollowingBoxMail(MailParameters parameters) : base(parameters)
+        {
         }
     }
 
@@ -20,9 +24,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
         protected override string Text => EmailResource.LowContributionText;
         protected override string CategoryName => "Low Contribution";
 
-        public override void AddSubject(ISendGrid message)
+        public override string AddSubject()
         {
-            message.Subject = EmailResource.LowContributionSubject;
+            return EmailResource.LowContributionSubject;
+        }
+
+        public LowContributionMail(MailParameters parameters) : base(parameters)
+        {
         }
     }
 }

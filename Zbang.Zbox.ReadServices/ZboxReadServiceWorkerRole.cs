@@ -525,17 +525,17 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
                     // ReSharper disable once AccessToDisposedClosure
                     conn.QueryAsync<SpamGunDto>(
                         new CommandDefinition(
-                            @"select top 500 s.Id, FirstName, LastName, Email,mailbody as MailBody,
+                            @"select top 500 s.id, FirstName, LastName, Email,mailbody as MailBody,
 mailsubject as MailSubject, mailcategory as MailCategory,u.url as UniversityUrl 
 from students s join universities u on s.uniid = u.id
 where uniid = @UniId
-and mailbody is not null
-and mailsubject is not null
-and mailcategory is not null
-and EmailStatus is null
+--and mailbody is not null
+--and mailsubject is not null
+--and mailcategory is not null
+--and EmailStatus is null
 and shouldSend = 1
-order by id
-OPTION (TABLE HINT(s, INDEX ([students_shouldsend])))", new { UniId = universityId }, cancellationToken: token)), token);
+order by s.id
+OPTION (TABLE HINT(s, INDEX ([students_shouldsend])),Recompile);", new { UniId = universityId }, cancellationToken: token)), token);
             }
 
 

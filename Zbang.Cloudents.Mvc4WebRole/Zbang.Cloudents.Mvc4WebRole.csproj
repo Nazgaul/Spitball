@@ -1497,8 +1497,6 @@
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\components\quiz\quizCreate.config.js" />
-    <Content Include="Js\components\search\search.service.js" />
-    <Content Include="Js\components\search\searchTrigger.controller.js" />
     <Content Include="Js\components\user\user.routes.js" />
     <Content Include="Js\initAngular.js" />
     <Content Include="Js\shared\collapseHeader.directive.js" />
@@ -1528,6 +1526,9 @@
     <TypeScriptCompile Include="Js\components\quiz\quiz.service.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quizCreate.module.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quizCreate2.controller.ts" />
+    <TypeScriptCompile Include="Js\components\search\search.controller.ts" />
+    <TypeScriptCompile Include="Js\components\search\search.service.ts" />
+    <TypeScriptCompile Include="Js\components\search\searchTrigger.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\updates.service.ts" />
     <TypeScriptCompile Include="Js\components\chat\hideChatOnMobile.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\toggleChat.directive.ts" />

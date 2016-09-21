@@ -81,9 +81,13 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                 break;
                             }
                             var t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
-                                message.MailBody, message.MailSubject,
-                                message.FirstName.UppercaseFirst(), message.MailCategory, message.UniversityUrl);
-                            await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
+                                new SpamGunMailParams(message.MailBody,
+                                message.UniversityUrl, message.FirstName.UppercaseFirst(), message.MailSubject,
+                                message.MailCategory), token);
+                            //var t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
+                            //    message.MailBody, message.MailSubject,
+                            //    message.FirstName.UppercaseFirst(), message.MailCategory, message.UniversityUrl);
+                            //await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
                             counter++;
                             emailsTask.Add(t1);
                         }

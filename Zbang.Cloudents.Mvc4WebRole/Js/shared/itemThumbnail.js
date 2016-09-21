@@ -1,9 +1,9 @@
 var app;
 (function (app) {
-    'use strict';
+    "use strict";
     var ItemThumbnailService = (function () {
         function ItemThumbnailService() {
-            this.logo = 'https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/universityEmptyState.png';
+            this.logo = "https://az32006.vo.msecnd.net/zboxprofilepic/S100X100/universityEmptyState.png";
         }
         ItemThumbnailService.prototype.get = function (name, width, height) {
             return "https://az779114.vo.msecnd.net/preview/" + encodeURIComponent(name) + ".jpg?width=" + width + "&height=" + height + "&mode=crop&scale=both";
@@ -39,5 +39,5 @@ var app;
         };
         return ItemThumbnailService;
     }());
-    angular.module('app').service('itemThumbnailService', ItemThumbnailService);
+    angular.module("app").service("itemThumbnailService", ItemThumbnailService);
 })(app || (app = {}));

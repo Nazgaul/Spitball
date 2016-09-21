@@ -42,16 +42,19 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
                 sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
 
-                var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover);
-                mail.AddSubject(sendGridMail);
-                mail.GenerateMail(sendGridMail, parameters);
+                var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover, new IocParameterOverride("parameters", parameters));
+                sendGridMail.Html = mail.GenerateMail();
+                sendGridMail.Subject = mail.AddSubject();
+                sendGridMail.SetCategory(mail.AddCategory());
+                sendGridMail.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: mail.AddCategory());
+                //mail.AddSubject(sendGridMail);
+                //mail.GenerateMail(sendGridMail, parameters);
 
 
                 sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
-                sendGridMail.AddSubstitution("{email}", new List<string> {recipient});
+                sendGridMail.AddSubstitution("{email}", new List<string> { recipient });
                 if (!string.IsNullOrEmpty(category))
                 {
-
                     sendGridMail.SetCategory(category);
                 }
                 sendGridMail.EnableClickTracking();
@@ -129,20 +132,18 @@ namespace Zbang.Zbox.Infrastructure.Mail
             await SendAsync(sendGridMail, new Credentials());
         }
 
-        public Task SendSpanGunEmailAsync(
-            string recipient,
-            string ipPool, 
-            string body,
-            string subject,
-            string name,
-            string category,
-            string universityUrl)
+        public Task SendSpanGunEmailAsync(string recipient,
+            string ipPool,
+            MailParameters parameters,
+            CancellationToken cancellationToken)
         {
-            var html = LoadMailTempate.LoadMailFromContentWithDot(new CultureInfo("en-US"), "Zbang.Zbox.Infrastructure.Mail.MailTemplate.SpamGun");
-            html.Replace("{name}", name);
-            html.Replace("{body}", body.Replace("\n", "<br>"));
-            html.Replace("{email}", recipient);
-            html.Replace("{uni_Url}", universityUrl);
+
+            var mail = m_Container.Resolve<IMailBuilder>(parameters.MailResover, new IocParameterOverride("parameters", parameters));
+            // mail.AddSubject(sendGridMail);
+            //mail.GenerateMail(sendGridMail, parameters);
+
+
+
 
             var client = new RestClient
             {
@@ -158,49 +159,14 @@ namespace Zbang.Zbox.Infrastructure.Mail
             request.AddParameter("domain",
                                  $"mg{ipPool}.spitball.co", ParameterType.UrlSegment);
 
-            request.AddParameter("from", "Michael Baker <michael@spitball.co>");
+            request.AddParameter("from", parameters.SenderName);
             request.AddParameter("to", ConfigFetcher.IsEmulated ? "yaari_r@yahoo.com" : recipient);
-            //request.AddParameter("bcc", "ram@cloudents.com");
-            request.AddParameter("subject", subject);
-            request.AddParameter("html", html);
-            request.AddParameter("o:tag", category);
+            request.AddParameter("subject", mail.AddSubject());
+            request.AddParameter("html", mail.GenerateMail().Replace("{email}", recipient));
+            request.AddParameter("o:tag", mail.AddCategory());
             request.AddParameter("o:campaign", "spamgun");
 
-            return client.ExecuteTaskAsync(request);
-
-
-            //var sendGridMail = new SendGridMessage
-            //{
-            //    From = new MailAddress("michael@spitball.co", "Michael Baker")
-            //};
-
-
-            //sendGridMail.AddTo(ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
-
-            //var html = LoadMailTempate.LoadMailFromContentWithDot(new CultureInfo("en-US"), "Zbang.Zbox.Infrastructure.Mail.MailTemplate.SpamGun");
-            //html.Replace("{name}", name);
-            //html.Replace("{body}", body.Replace("\n", "<br>"));
-            //html.Replace("{email}", recipient);
-            //html.Replace("{uni_Url}", universityUrl);
-            //sendGridMail.Html = html.ToString();
-
-            //sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
-            //sendGridMail.SetCategory(category);
-            // sendGridMail.Subject = subject;
-            //sendGridMail.SetIpPool(ipPool);
-            // sendGridMail.EnableClickTracking();
-            //sendGridMail.EnableOpenTracking();
-            // await SendAsync(sendGridMail, new UsCredentials());
-
+            return client.ExecuteTaskAsync(request, cancellationToken);
         }
-
-
-       
-
-       
-
-
-
-
     }
 }

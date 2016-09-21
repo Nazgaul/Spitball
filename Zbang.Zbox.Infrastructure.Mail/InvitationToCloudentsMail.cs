@@ -1,33 +1,37 @@
-﻿using System;
-using SendGrid;
-
-namespace Zbang.Zbox.Infrastructure.Mail
+﻿namespace Zbang.Zbox.Infrastructure.Mail
 {
-    internal class InvitationToCloudentsMail : IMailBuilder
+    internal class InvitationToCloudentsMail : MailBuilder
     {
         private const string Category = "InvitationCloudents";
         private const string Subject = "Invite to Spitball";
 
-        public void GenerateMail(ISendGrid message, MailParameters parameters)
+        private readonly InvitationToCloudentsMailParams m_Parameters;
+
+        public InvitationToCloudentsMail(MailParameters parameters) : base(parameters)
         {
-            var inviteToCloudentsParams = parameters as InvitationToCloudentsMailParams;
-            if (inviteToCloudentsParams == null)
-            {
-                throw new NullReferenceException("inviteToCloudentsParams");
-            }
-            message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCloudents");
-            
-            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "InvitationCloudents");
-            message.Html = message.Html.Replace("{USERNAME}", inviteToCloudentsParams.SenderName);
-            message.Html = message.Html.Replace("{Image}", inviteToCloudentsParams.SenderImage);
-            message.Html = message.Html.Replace("{{Url}}", inviteToCloudentsParams.Url);
+            m_Parameters = parameters as InvitationToCloudentsMailParams;
+        }
+
+        public override string GenerateMail()
+        {
+            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCloudents");
+
+            html = html.Replace("{USERNAME}", m_Parameters.SenderName);
+            html = html.Replace("{Image}", m_Parameters.SenderImage);
+            html = html.Replace("{{Url}}", m_Parameters.Url);
+            return html;
 
         }
 
-        public void AddSubject(ISendGrid message)
+        public override string AddSubject()
         {
-            message.Subject = Subject;
+            return Subject;
+        }
+
+        public override string AddCategory()
+        {
+            return Category;
+
         }
     }
 }

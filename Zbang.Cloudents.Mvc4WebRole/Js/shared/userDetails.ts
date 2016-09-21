@@ -22,7 +22,7 @@ interface IUserData {
     url: string;
     isAdmin: boolean;
     culture: string;
-    //unread: number;
+    // unread: number;
     createTime: Date;
     university: IUniversity;
 }
@@ -69,7 +69,7 @@ module app {
                 this.analytics.set("dimension2", data.universityCountry || null);
                 this.analytics.set("dimension3", data.id || null);
             });
-            //this.analytics.set("dimension4", data.theme || "dark");
+            // this.analytics.set("dimension4", data.theme || "dark");
 
 
             var interval = this.$interval(() => {

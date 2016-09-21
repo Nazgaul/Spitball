@@ -31,7 +31,7 @@ var app;
                         return;
                     }
                     _this.cacheFactory.clearAll();
-                    var toast = _this.$mdToast.simple().textContent(_this.resManager.get("spitballUpdate")).action(_this.resManager.get('dialogOk'))
+                    var toast = _this.$mdToast.simple().textContent(_this.resManager.get("spitballUpdate")).action(_this.resManager.get("dialogOk"))
                         .highlightAction(false)
                         .position("top");
                     _this.$mdToast.show(toast).then(function () {
@@ -49,5 +49,5 @@ var app;
         };
         return VerionChecker;
     }());
-    angular.module('app').run(VerionChecker.factory());
+    angular.module("app").run(VerionChecker.factory());
 })(app || (app = {}));

@@ -11,9 +11,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
         }
         public string Name { get; private set; }
 
-        public override string MailResover
-        {
-            get { return WelcomeResolver; }
-        }
+        public override string MailResover => WelcomeResolver;
     }
 }

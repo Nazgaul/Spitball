@@ -29,7 +29,7 @@
                     },
                     "chat": {
                         templateProvider: [
-                            'user', 'ajaxService2', '$mdMedia', function (user, ajaxService2, $mdMedia) {
+                            "user", "ajaxService2", "$mdMedia", function (user, ajaxService2, $mdMedia) {
                                 if ($mdMedia('gt-xs') && user.id && user.university.id > 0) {
                                     return ajaxService2.getHtml("chat/indexpartial/");
                                 }
@@ -39,7 +39,7 @@
                     "search-bar": {
                         controller: "SearchTriggerController as st",
                         templateProvider: [
-                       'user', "$templateCache", function (user, $templateCache) {
+                       "user", "$templateCache", function (user, $templateCache) {
                            if (user.id) {
                                return $templateCache.get("search-bar.html");
                            }
@@ -66,15 +66,16 @@
         routerHelper.configureStates(getStates());
         routerHelper.configureStates([
             {
-
                 state: 'chat',
                 config: {
                     url: '/chat/',
-                    onEnter: ['$mdMedia', '$state', function ($mdMedia, $state) {
-                        if ($mdMedia('gt-xs')) {
-                            $state.go('dashboard');
+                    onEnter: [
+                        '$mdMedia', '$state', function($mdMedia, $state) {
+                            if ($mdMedia('gt-xs')) {
+                                $state.go('dashboard');
+                            }
                         }
-                    }],
+                    ],
                     data: { animateClass: 'chatPage' },
                     views: {
                         "chat@": {
@@ -88,8 +89,7 @@
                 },
                 templateUrl: '/chat/indexpartial/'
             }
-
-        ])
+        ]);
 
         function getStates() {
             return [

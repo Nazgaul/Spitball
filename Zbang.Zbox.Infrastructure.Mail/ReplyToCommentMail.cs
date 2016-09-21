@@ -9,31 +9,33 @@ using Zbang.Zbox.Infrastructure.Mail.Resources;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
-    public class ReplyToCommentMail : IMailBuilder
+    public class ReplyToCommentMail : MailBuilder
     {
-        public void GenerateMail(ISendGrid message, MailParameters parameters)
+        private readonly ReplyToCommentMailParams m_Parameters;
+
+        public ReplyToCommentMail(MailParameters parameters) : base(parameters)
         {
-            var mailParams = parameters as ReplyToCommentMailParams;
-            if (mailParams == null)
-            {
-                throw new NullReferenceException(nameof(mailParams));
-            }
-
-
-            message.SetCategory("Reply to comment");
-            var html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ReplyToCommentMailTemplate");
-            message.AddSubstitution("{name}", new List<string> { mailParams.UserName });
-            message.AddSubstitution("{UserWhoMadeActionName}", new List<string> { mailParams.UserWhoMadeActionName });
-            message.AddSubstitution("{BoxName}", new List<string> { mailParams.BoxName });
-            message.AddSubstitution("{BoxUrl}", new List<string> { UrlConst.AppendCloudentsUrl(mailParams.BoxUrl) });
-            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "replyToComment");
-            message.Html = html;
+            m_Parameters = parameters as ReplyToCommentMailParams;
+        }
+        public override string GenerateMail()
+        {
+            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ReplyToCommentMailTemplate");
+            html = html.Replace("{name}", m_Parameters.UserName);
+            html = html.Replace("{UserWhoMadeActionName}", m_Parameters.UserWhoMadeActionName);
+            html = html.Replace("{BoxName}", m_Parameters.BoxName);
+            html = html.Replace("{BoxUrl}", UrlConst.AppendCloudentsUrl(m_Parameters.BoxUrl));
+            return html;
 
         }
 
-        public void AddSubject(ISendGrid message)
+        public override string AddSubject()
         {
-            message.Subject = EmailResource.ReplyToCommentSubject;
+            return EmailResource.ReplyToCommentSubject;
+        }
+
+        public override string AddCategory()
+        {
+            return "replyToComment";
         }
     }
 }

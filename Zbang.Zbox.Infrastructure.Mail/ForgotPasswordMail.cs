@@ -1,36 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using SendGrid;
-
-namespace Zbang.Zbox.Infrastructure.Mail
+﻿namespace Zbang.Zbox.Infrastructure.Mail
 {
-    internal class ForgotPasswordMail : IMailBuilder
+    internal class ForgotPasswordMail : MailBuilder
     {
         private const string Category = "Password Recovery";
         private const string Subject = "Password Recovery";
 
+        private readonly ForgotPasswordMailParams2 m_Parameters;
 
-        public void GenerateMail(ISendGrid message, MailParameters parameters)
+        public ForgotPasswordMail(MailParameters parameters) : base(parameters)
         {
-           
-            var forgotParams2 = parameters as ForgotPasswordMailParams2;
-            if (forgotParams2 == null)
-            {
-                throw new NullReferenceException("forgotParams2");
-            }
-
-            
-            message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ResetPwd");
-           
-           
-            message.AddSubstitution("{NEW-PWD}", new List<string> { forgotParams2.Code });
-            message.AddSubstitution("{CHANGE-URL}", new List<string> { forgotParams2.Link });
+            m_Parameters = parameters as ForgotPasswordMailParams2;
         }
 
-        public void AddSubject(ISendGrid message)
+        public override string GenerateMail()
         {
-            message.Subject = Subject;
+            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ResetPwd");
+            html = html.Replace("{NEW-PWD}", m_Parameters.Code);
+            html = html.Replace("{CHANGE-URL}", m_Parameters.Link);
+            return html;
+        }
+
+        public override string AddSubject()
+        {
+            return Subject;
+        }
+
+        public override string AddCategory()
+        {
+            return Category;
         }
     }
 }
