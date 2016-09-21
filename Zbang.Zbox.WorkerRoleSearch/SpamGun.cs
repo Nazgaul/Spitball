@@ -62,6 +62,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             // reachHourLimit = true;
                             break;
                         }
+                        
                         await BuildQueueDataAsync(m_Queues[i], i, token);
                         var emailsTask = new List<Task>();
                         for (var k = 0; k < NumberOfEmailPerSession; k++)
@@ -80,10 +81,23 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             {
                                 break;
                             }
-                            var t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
-                                message.MailBody, message.MailSubject,
-                                message.FirstName.UppercaseFirst(), message.MailCategory, message.UniversityUrl);
-                            await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
+                            var greekMessage = message as GreekPartnerDto;
+                            Task t1;
+                            if (greekMessage == null)
+                            {
+                                t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
+                                    new SpamGunMailParams(message.MailBody,
+                                        message.UniversityUrl, message.FirstName.UppercaseFirst(), message.MailSubject,
+                                        message.MailCategory), token);
+                            }
+                            else
+                            {
+                                t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
+                                   new GreekPartnerMailParams(message.MailBody,
+                                       message.UniversityUrl, message.FirstName.UppercaseFirst(), message.MailSubject,
+                                       message.MailCategory, greekMessage.School, greekMessage.Chapter), token);
+                            }
+                            //await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
                             counter++;
                             emailsTask.Add(t1);
                         }
@@ -116,6 +130,8 @@ namespace Zbang.Zbox.WorkerRoleSearch
                 queue.Enqueue(val);
             }
         }
+
+       
 
         private static string BuildIpPool(int i)
         {

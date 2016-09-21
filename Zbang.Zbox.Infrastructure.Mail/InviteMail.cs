@@ -1,37 +1,37 @@
-﻿using System;
-using SendGrid;
-using Zbang.Zbox.Infrastructure.Mail.Resources;
+﻿using Zbang.Zbox.Infrastructure.Mail.Resources;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
-    internal class InviteMail : IMailBuilder
+    internal class InviteMail : MailBuilder
     {
-        const string Category = "Invite";
+        private const string Category = "Invite";
 
+        private readonly InviteMailParams m_Parameters;
 
-        public void GenerateMail(ISendGrid message, MailParameters parameters)
+        public InviteMail(MailParameters parameters) : base(parameters)
         {
-            var inviteParams = parameters as InviteMailParams;
-
-            message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCourse");
-            //message.Text = textBody;
-            if (inviteParams == null)
-            {
-                throw new NullReferenceException("inviteParams");
-            }
-            message.Subject = string.Format(EmailResource.InviteSubject, inviteParams.BoxName);
-            message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "InvitationToBox");
-            message.Html = message.Html.Replace("{INVITOR}", inviteParams.Invitor);
-            message.Html = message.Html.Replace("{BOXNAME}", inviteParams.BoxName);
-            message.Html = message.Html.Replace("{BoxUrl}", inviteParams.BoxUrl);
-            message.Html = message.Html.Replace("{ImgUrl}", inviteParams.InvitorImage);
+            m_Parameters = parameters as InviteMailParams;
         }
 
-        public void AddSubject(ISendGrid message)
+        public override string GenerateMail()
         {
-            message.Subject = string.Empty;
-            //message.Subject = string.Format(EmailResource.InviteSubject, inviteParams.BoxName);
+
+            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.InviteCourse");
+            html = html.Replace("{INVITOR}", m_Parameters.Invitor);
+            html = html.Replace("{BOXNAME}", m_Parameters.BoxName);
+            html = html.Replace("{BoxUrl}", m_Parameters.BoxUrl);
+            html = html.Replace("{ImgUrl}", m_Parameters.InvitorImage);
+            return html;
+        }
+
+        public override string AddSubject()
+        {
+            return string.Format(EmailResource.InviteSubject, m_Parameters.BoxName);
+        }
+
+        public override string AddCategory()
+        {
+            return Category;
         }
     }
 }

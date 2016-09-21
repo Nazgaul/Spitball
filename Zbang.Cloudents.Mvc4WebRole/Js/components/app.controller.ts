@@ -1,10 +1,4 @@
-﻿
-interface ISpitballStateParamsService extends angular.ui.IStateParamsService {
-    boxId: number;
-    itemId: number;
-    userId: number;
-}
-module app {
+﻿module app {
     "use strict";
     class AppController {
         static $inject = ["$rootScope", "$location",
@@ -57,7 +51,7 @@ module app {
 
             $rootScope.$on("$stateChangeStart",
                 (event: angular.IAngularEvent, toState: angular.ui.IState,
-                    toParams: ISpitballStateParamsService, fromState: angular.ui.IState, fromParams: ISpitballStateParamsService) => {
+                    toParams: spitaball.ISpitballStateParamsService, fromState: angular.ui.IState, fromParams: spitaball.ISpitballStateParamsService) => {
                     if (!fromState.name) {
                         return;
                     }

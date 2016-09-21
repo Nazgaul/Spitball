@@ -17,6 +17,15 @@ var app;
                 accountDetail: {
                     maxAge: day
                 },
+                searchItem: {
+                    maxAge: hour
+                },
+                searchBox: {
+                    maxAge: hour
+                },
+                searchQuiz: {
+                    maxAge: hour
+                },
                 html: {
                     maxAge: 30 * day,
                     storageMode: "localStorage"
@@ -29,7 +38,7 @@ var app;
                 }
             };
             var dChat = window['dChat'];
-            if (dChat.indexOf('develop') > -1) {
+            if (dChat.indexOf("develop") > -1) {
                 this.cacheCategories.html = {
                     maxAge: 1 * second,
                     storageMode: "localStorage"
@@ -175,7 +184,7 @@ var app;
                 data: data,
                 payload: payload
             };
-            console.error('eror ajax', url, data, payload);
+            console.error("eror ajax", url, data, payload);
             $.ajax({
                 type: "POST",
                 url: "/error/jslog/",

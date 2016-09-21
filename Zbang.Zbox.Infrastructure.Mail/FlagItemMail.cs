@@ -1,38 +1,42 @@
-﻿using System;
-using SendGrid;
-
+﻿
 namespace Zbang.Zbox.Infrastructure.Mail
 {
-    internal class FlagItemMail : IMailBuilder
+    internal class FlagItemMail : MailBuilder
     {
 
         private const string Category = "Flag Bad Item";
         private const string Subject = "Flag Bad Item";
 
+        private readonly FlagItemMailParams m_Parameters;
 
-        public void GenerateMail(ISendGrid message, MailParameters parameters)
+        public FlagItemMail(MailParameters parameters) : base(parameters)
         {
-            var flagItemsParams = parameters as FlagItemMailParams;
-            if (flagItemsParams == null)
-            {
-                throw new NullReferenceException("flagItemsParams");
-            }
-
-            message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.FlaggedItem");
-            
-
-            message.Html = message.Html.Replace("{ItemUrl}", flagItemsParams.Url);
-            message.Html = message.Html.Replace("{ITEM NAME}", flagItemsParams.ItemName);
-            message.Html = message.Html.Replace("{REASON}", flagItemsParams.Reason);
-            message.Html = message.Html.Replace("{FLAGGER-USERNAME}", flagItemsParams.UserName);
-            message.Html = message.Html.Replace("{FLAGGER-EMAIL}", flagItemsParams.Email);
-            
+            m_Parameters = parameters as FlagItemMailParams;
         }
 
-        public void AddSubject(ISendGrid message)
+        public override string GenerateMail()
         {
-            message.Subject = Subject;
+
+            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.FlaggedItem");
+
+
+            html = html.Replace("{ItemUrl}", m_Parameters.Url);
+            html = html.Replace("{ITEM NAME}", m_Parameters.ItemName);
+            html = html.Replace("{REASON}", m_Parameters.Reason);
+            html = html.Replace("{FLAGGER-USERNAME}", m_Parameters.UserName);
+            html = html.Replace("{FLAGGER-EMAIL}", m_Parameters.Email);
+            return html;
+
+        }
+
+        public override string AddSubject()
+        {
+            return Subject;
+        }
+
+        public override string AddCategory()
+        {
+            return Category;
         }
     }
 }

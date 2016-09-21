@@ -110,6 +110,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EmailResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="SpamGunMail.cs" />
+    <Compile Include="SpamGunMailParams.cs" />
     <Compile Include="UniversityLowActivityMail.cs" />
     <Compile Include="UniversityLowActivityMailParams.cs" />
     <Compile Include="UpdateMailParams.cs" />
@@ -210,6 +212,7 @@
     <EmbeddedResource Include="MailTemplate\ReplyToCommentMailTemplateHe.html" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MailTemplate\GreekHouseTemplate.html" />
     <Content Include="MailTemplate\ReplyToCommentMailTemplate.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

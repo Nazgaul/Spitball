@@ -4,35 +4,39 @@ using System;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
-    internal class MessageMail : IMailBuilder
+    internal class MessageMail : MailBuilder
     {
-        const string Category = "Personal Message";
-        const string Subject = "Message via Spitball from {0}";
+        private const string Category = "Personal Message";
+        private const string Subject = "Message via Spitball from {0}";
 
-        public void GenerateMail(ISendGrid message, MailParameters parameters)
+        private readonly MessageMailParams m_Parameters;
+
+        public MessageMail(MailParameters parameters) : base(parameters)
         {
-            var messageParams = parameters as MessageMailParams;
-            if (messageParams == null)
-            {
-                throw new NullReferenceException("messageParams");
-            }
-
-            message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.PersonalMsg");
-            message.Subject = string.Format(Subject, messageParams.SenderName);
-            var sb = new StringBuilder(message.Html);
-            sb.Replace("{USER_MSG}", messageParams.Message);
-            sb.Replace("{MSG_AUTHOR}", messageParams.SenderName);
-            sb.Replace("{ImgUrl}", messageParams.SenderImage);
-            //sb.Replace("{REPLY_URL}", messageParams.SenderEmail);
-
-            message.Html = sb.ToString();
-            
+            m_Parameters = parameters as MessageMailParams;
         }
 
-        public void AddSubject(ISendGrid message)
+        public override string GenerateMail()
         {
-            message.Subject = string.Empty;
+            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.PersonalMsg");
+            html = html.Replace("{USER_MSG}", m_Parameters.Message);
+            html = html.Replace("{MSG_AUTHOR}", m_Parameters.SenderName);
+            html = html.Replace("{ImgUrl}", m_Parameters.SenderImage);
+            //sb.Replace("{REPLY_URL}", messageParams.SenderEmail);
+
+            return html;
+
+
+        }
+
+        public override string AddCategory()
+        {
+            return Category;
+        }
+
+        public override string AddSubject()
+        {
+            return string.Format(Subject, m_Parameters.SenderName);
         }
     }
 }

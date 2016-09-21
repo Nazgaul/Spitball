@@ -83,7 +83,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
             //var x = new List<Task<bool>>();
 
-            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<ISchedulerProcess>("digestOnceADay_-4");
+            var process = Infrastructure.Ioc.IocFactory.IocWrapper.TryResolve<ISchedulerProcess>("spamGun");
             if (process != null)
             {
                 await process.ExecuteAsync(0, p => Task.FromResult(true), cancellationToken);

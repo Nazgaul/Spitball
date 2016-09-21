@@ -1,5 +1,4 @@
-﻿using SendGrid;
-using Zbang.Zbox.Infrastructure.Mail.Resources;
+﻿using Zbang.Zbox.Infrastructure.Mail.Resources;
 
 namespace Zbang.Zbox.Infrastructure.Mail
 {
@@ -7,9 +6,13 @@ namespace Zbang.Zbox.Infrastructure.Mail
     {
         protected override string Text => EmailResource.CoursesLowActivityText;
         protected override string CategoryName => "courses low activity";
-        public override void AddSubject(ISendGrid message)
+        public override string AddSubject()
         {
-            message.Subject = EmailResource.CoursesLowActivitySubject;
+            return EmailResource.CoursesLowActivitySubject;
+        }
+
+        public LowCoursesActivityMail(MailParameters parameters) : base(parameters)
+        {
         }
     }
 }

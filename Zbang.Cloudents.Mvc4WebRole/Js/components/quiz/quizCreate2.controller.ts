@@ -133,7 +133,7 @@
         submitDisabled = false;
         constructor(private $mdDialog: angular.material.IDialogService,
             private $state: angular.ui.IStateService,
-            private $stateParams: ISpitballStateParamsService,
+            private $stateParams: spitaball.ISpitballStateParamsService,
             private $scope: angular.IScope,
             private quizService: IQuizService,
             private quizData: QuizData,

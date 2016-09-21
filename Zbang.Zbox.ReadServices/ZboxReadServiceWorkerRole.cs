@@ -520,22 +520,35 @@ FETCH NEXT @RowsPerPage ROWS ONLY";
         {
             using (var conn = await DapperConnection.OpenReliableConnectionAsync(token, "SpamGun"))
             {
-                var policy = GetRetryPolicy();
-                return await policy.ExecuteAsync(async () => await
-                    // ReSharper disable once AccessToDisposedClosure
-                    conn.QueryAsync<SpamGunDto>(
-                        new CommandDefinition(
-                            @"select top 500 s.Id, FirstName, LastName, Email,mailbody as MailBody,
+                const string sql1 = @"select top 500 s.id, FirstName, Email,mailbody as MailBody,s.chapter,
+mailsubject as MailSubject, mailcategory as MailCategory,u.url as UniversityUrl, u.name as school 
+from students s join universities u on s.uniid = u.id
+where uniid = @UniId
+and shouldSend = 1
+and chapter is not null
+order by s.id
+OPTION (TABLE HINT(s, INDEX ([students_shouldsend])),Recompile);";
+                const string sql2 = @"select top 500 s.id, FirstName, LastName, Email,mailbody as MailBody,
 mailsubject as MailSubject, mailcategory as MailCategory,u.url as UniversityUrl 
 from students s join universities u on s.uniid = u.id
 where uniid = @UniId
-and mailbody is not null
-and mailsubject is not null
-and mailcategory is not null
-and EmailStatus is null
 and shouldSend = 1
-order by id
-OPTION (TABLE HINT(s, INDEX ([students_shouldsend])))", new { UniId = universityId }, cancellationToken: token)), token);
+and chapter is null
+order by s.id
+OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
+                var policy = GetRetryPolicy();
+                return await policy.ExecuteAsync(async () =>
+                {
+                    // ReSharper disable once AccessToDisposedClosure
+                    using (var grid = await conn.QueryMultipleAsync(
+                        new CommandDefinition(
+                            sql1 + sql2, new {UniId = universityId}, cancellationToken: token)))
+                    {
+                        var result = await grid.ReadAsync<GreekPartnerDto>();
+                        //result.Union(await grid.ReadAsync<GreekPartnerDto>());
+                        return result.Union(await grid.ReadAsync<SpamGunDto>()); ;
+                    }
+                }, token);
             }
 
 

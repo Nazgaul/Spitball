@@ -1,33 +1,30 @@
-﻿using System.Collections.Generic;
-using SendGrid;
-using System;
-
-namespace Zbang.Zbox.Infrastructure.Mail
+﻿namespace Zbang.Zbox.Infrastructure.Mail
 {
-    internal class ChangeEmailMail : IMailBuilder
+    internal class ChangeEmailMail : MailBuilder
     {
         private const string Category = "Change Email";
         private const string Subject = "Change Email";
 
+        private readonly ChangeEmailMailParams m_Parameters;
 
-        public void GenerateMail(ISendGrid message, MailParameters parameters)
+        public ChangeEmailMail(MailParameters parameters) : base(parameters)
         {
-            var changeMailParams = parameters as ChangeEmailMailParams;
-            if (changeMailParams == null)
-            {
-                throw new NullReferenceException("changeMailParams");
-            }
-
-
-            message.SetCategory(Category);
-            message.Html = LoadMailTempate.LoadMailFromContent(parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ChangeEmail");
-           
-            message.AddSubstitution("{CODE}", new List<string> { changeMailParams.Code });
+            m_Parameters = parameters as ChangeEmailMailParams;
+        }
+        public override string GenerateMail()
+        {
+            var html = LoadMailTempate.LoadMailFromContent(m_Parameters.UserCulture, "Zbang.Zbox.Infrastructure.Mail.MailTemplate.ChangeEmail");
+            return html.Replace("{CODE}", m_Parameters.Code);
         }
 
-        public void AddSubject(ISendGrid message)
+        public override string AddSubject()
         {
-            message.Subject = Subject;
+            return Subject;
+        }
+
+        public override string AddCategory()
+        {
+            return Category;
         }
     }
 }
