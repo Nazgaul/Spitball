@@ -64,7 +64,7 @@ var app;
             var directive = function (chatBus, $mdMedia, userDetailsFactory, $rootScope, $state) {
                 return new ToggleChat(chatBus, $mdMedia, userDetailsFactory, $rootScope, $state);
             };
-            directive['$inject'] = ['chatBus', '$mdMedia', 'userDetailsFactory', '$rootScope', "$state"];
+            directive["$inject"] = ["chatBus", "$mdMedia", "userDetailsFactory", "$rootScope", "$state"];
             return directive;
         };
         return ToggleChat;

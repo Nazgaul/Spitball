@@ -1,6 +1,6 @@
 var app;
 (function (app) {
-    'use strict';
+    "use strict";
     var AppRun = (function () {
         function AppRun(routerHelper) {
             this.routerHelper = routerHelper;
@@ -8,18 +8,16 @@ var app;
             function getStates() {
                 return [
                     {
-                        state: 'dashboard',
+                        state: "dashboard",
                         config: {
-                            url: '/dashboard/',
-                            controller: 'Dashboard as d',
-                            data: { animateClass: 'dashboard' },
+                            url: "/dashboard/",
+                            controller: "Dashboard as d",
+                            data: { animateClass: "dashboard" },
                             resolve: {
-                                boxes: ['dashboardService', function (dashboardService) {
-                                        return dashboardService.getBoxes();
-                                    }]
+                                boxes: ["dashboardService", function (dashboardService) { return dashboardService.getBoxes(); }]
                             }
                         },
-                        templateUrl: '/dashboard/indexpartial/'
+                        templateUrl: "/dashboard/indexpartial/"
                     }];
             }
         }

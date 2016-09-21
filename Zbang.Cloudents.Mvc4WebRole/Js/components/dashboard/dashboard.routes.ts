@@ -1,5 +1,5 @@
 ﻿module app {
-    'use strict';
+    "use strict";
 
     class AppRun {
 
@@ -8,23 +8,21 @@
             function getStates() {
                 return [
                     {
-                        state: 'dashboard',
+                        state: "dashboard",
                         config: {
-                            url: '/dashboard/',
-                            controller: 'Dashboard as d',
-                            data: { animateClass: 'dashboard' },
+                            url: "/dashboard/",
+                            controller: "Dashboard as d",
+                            data: { animateClass: "dashboard" },
                             resolve: {
-                                boxes: ['dashboardService', function (dashboardService) {
-                                    return dashboardService.getBoxes();
-                                }]
+                                boxes: ["dashboardService", dashboardService => dashboardService.getBoxes()]
                             }
                         },
-                        templateUrl: '/dashboard/indexpartial/'
+                        templateUrl: "/dashboard/indexpartial/"
                     }];
             }
         }
 
-        public static factory() {
+        static factory() {
             const factory = (routerHelper) => {
                 return new AppRun(routerHelper);
             };
@@ -37,29 +35,3 @@
 
     angular.module("app.dashboard").run(AppRun.factory());
 }
-//(function () {
-//    'use strict';
-//    angular.module('app.box').run(appRun);
-//    appRun.$inject = ['routerHelper'];
-//    function appRun(routerHelper) {
-//        routerHelper.configureStates(getStates());
-
-//        function getStates() {
-//            return [
-//                {
-//                    state: 'dashboard',
-//                    config: {
-//                        url: '/dashboard/',
-//                        controller: 'Dashboard as d',
-//                        data: { animateClass: 'dashboard' },
-//                        resolve: {
-//                            boxes: ['dashboardService', function (dashboardService) {
-//                                return dashboardService.getBoxes();
-//                            }]
-//                        }
-//                    },
-//                    templateUrl: '/dashboard/indexpartial/'
-//                }];
-//        }
-//    }
-//})();
