@@ -17,6 +17,31 @@
     margin-bottom: 10px;
     background: @borderColorDarkGrey;
 
+    button.btn-default {
+        &:active:hover {
+            svg {
+                fill: @backgroundColor2;
+            }
+        }
+
+        svg {
+            fill: @textColorLightGrey;
+        }
+    }
+
+    .body {
+        background: @backgroundColor;
+    }
+
+    md-content {
+        .placeHolder(@textColorGrey);
+        background: @backgroundColor;
+    }
+
+    .gmail {
+        background: @backgroundColor2;
+    }
+
     .invite-list-wrapper {
         height: 290px;
         width: 100%;
@@ -446,6 +471,7 @@
                 svg {
                     width: 30px;
                     height: 30px;
+                    fill: @fileColor;
                 }
 
                 span {

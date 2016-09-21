@@ -8,6 +8,7 @@
 
         md-icon {
             vertical-align: middle;
+            fill: @textColorWhite;
         }
     }
 
@@ -52,7 +53,7 @@
 
 .page-body {
     .main-md-sidenav {
-        left:0;
+        left: 0;
         position: fixed !important;
         top: @heightOfHeader - 5;
         border-radius: 5px;
@@ -60,6 +61,7 @@
         margin-left: 0;
         z-index: 10;
         height: ~"calc(100vh - @{heightOfHeader} + 5px)";
+        background: @backgroundColor;
 
         @media(min-width: 960px) {
             margin-top: 10px;
@@ -71,9 +73,19 @@
 
         md-content {
             .md-button {
+                color: @textColorWhite;
 
                 span {
                     text-transform: capitalize;
+                }
+
+                &:hover, &.active {
+                    background: rgba(65,144,185,0.2);
+                    color: @buttonColorBlue;
+                }
+
+                svg {
+                    fill: @buttonColorBlue;
                 }
             }
         }
