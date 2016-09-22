@@ -319,7 +319,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return Redirect(item.Source);
             }
 
-            var uri = new Uri(m_BlobProviderFiles.GetBlobUrl(item.Source));
+            var uri = m_BlobProviderFiles.GetBlobUrl(item.Source);
             IEnumerable<string> retVal = null;
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             if (processor != null)
@@ -388,7 +388,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
             {
-                uri = new Uri(m_BlobProviderFiles.GetBlobUrl(blobName));
+                uri = m_BlobProviderFiles.GetBlobUrl(blobName);
             }
             var processor = m_FileProcessorFactory.GetProcessor(uri);
             if (processor == null)

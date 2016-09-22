@@ -82,7 +82,12 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-
+                var blobName = GetBlobNameFromUri(blobUri);
+                var previewBlobName = blobName + ".jpg";
+                if (await m_BlobProviderPreview.ExistsAsync(previewBlobName))
+                {
+                    return null;
+                }
                 using (var stream = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
                 {
                     if (stream.Length == 0)
@@ -98,8 +103,8 @@ namespace Zbang.Zbox.Infrastructure.File
                             Format = "jpg"
                         };
                         ImageBuilder.Current.Build(stream, ms, settings2, false);
-                        var blobName = GetBlobNameFromUri(blobUri);
-                        await m_BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
+                        
+                        await m_BlobProviderPreview.UploadStreamAsync(previewBlobName, ms, "image/jpeg", cancelToken);
                     }
 
                 }

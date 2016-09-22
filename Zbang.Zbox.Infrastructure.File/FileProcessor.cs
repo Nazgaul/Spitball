@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -43,6 +42,10 @@ namespace Zbang.Zbox.Infrastructure.File
 
         protected string StripUnwantedChars(string input)
         {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
            // var spaceReg = new Regex(@"\s+", RegexOptions.Compiled);
             var eightOrNineDigitsId = new Regex(@"\b\d{8,9}\b", RegexOptions.Compiled);
             input = TextManipulation.SpaceReg.Replace(input, " ");
@@ -60,7 +63,7 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, token) ?? new Dictionary<string, string>();
             metaData = RemoveOldMetaTags(metaData, getCacheVersionPrefix);
-            metaData[PagesInDocsMetaKey] = pageCount.ToString(CultureInfo.InvariantCulture);
+            metaData[PagesInDocsMetaKey] = pageCount.ToString();
             await BlobProvider.SaveMetaDataToBlobAsync(blobUri, metaData, token);
         }
 

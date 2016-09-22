@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.Storage;
@@ -36,7 +37,10 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
             var blob = GetBlob(blobName);
             fileContent.Seek(0, SeekOrigin.Begin);
-            await blob.PutBlockAsync(ToBase64(currentIndex), fileContent, null);
+            await blob.PutBlockAsync(ToBase64(currentIndex), fileContent, null, null, new BlobRequestOptions
+            {
+                StoreBlobContentMD5 = true
+            }, null);
             return ++currentIndex;
         }
 
@@ -48,7 +52,11 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = GetBlob(blobName);
             blob.Properties.ContentType = contentType;
             blob.Properties.CacheControl = "private max-age=" + TimeConst.Week;
-            await blob.PutBlockListAsync(blockList);
+            await blob.PutBlockListAsync(blockList, null, new BlobRequestOptions
+            {
+                StoreBlobContentMD5 = true
+
+            }, null);
 
         }
 
@@ -65,9 +73,9 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return blob.UploadFromStreamAsync(content, token);
         }
 
-        public string GetBlobUrl(string blobName)
+        public Uri GetBlobUrl(string blobName)
         {
-            return GetBlob(blobName).Uri.AbsoluteUri;
+            return GetBlob(blobName).Uri;
         }
 
         public Task<bool> ExistsAsync(string blobName)
@@ -86,6 +94,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             var blob = GetBlob(blobName);
             await blob.FetchAttributesAsync();
             return blob.Properties.Length;
+        }
+
+        public async Task<string> Md5Async(string blobName)
+        {
+            var blob = GetBlob(blobName);
+            await blob.FetchAttributesAsync();
+            return blob.Properties.ContentMD5;
         }
 
         public string RelativePath()

@@ -109,7 +109,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 model.Users.Add(User.GetUserId());
             }
-            await m_QueueProvider.Value.InsertMessageToThumbnailAsync(new ChatFileProcessData(new Uri(uri), model.Users));
+            await m_QueueProvider.Value.InsertMessageToThumbnailAsync(new ChatFileProcessData(uri, model.Users));
             return Request.CreateResponse();
         }
 

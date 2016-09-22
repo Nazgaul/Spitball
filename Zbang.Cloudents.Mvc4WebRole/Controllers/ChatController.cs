@@ -98,7 +98,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             Uri uri;
             if (!Uri.TryCreate(blobName, UriKind.Absolute, out uri))
             {
-                uri = new Uri(m_BlobProviderChat.GetBlobUrl(blobName));
+                uri = m_BlobProviderChat.GetBlobUrl(blobName);
             }
             var processor = m_FileProcessorFactory.GetProcessor<PreviewChatContainerName, ChatCacheContainerName>(uri);
             if (processor == null)

@@ -70,7 +70,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                     {
                         try
                         {
-                            
+
                             needToContinueRun = true;
                             var email = user.Email;
                             if (RoleIndexProcessor.IsEmulated)
@@ -117,7 +117,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                                 }
                                 box.Url = UrlConst.AppendCloudentsUrl(box.Url);
                                 var itemsUpdates =
-                                    updatesData.Items.Where(w => w.BoxId == box.BoxId)
+                                    updatesData.Items.Where(w => w.BoxId == box.BoxId && !string.IsNullOrEmpty(w.Url))
                                         .Take(4)
                                         .Select(s => new UpdateMailParams.ItemUpdate(s.Name,
                                             s.Picture =
@@ -185,7 +185,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                                     UrlConst.AppendCloudentsUrl(box.Url),
                                     updatesList.Count(g => g.BoxId == box.BoxId) - 4));
                             }
-                            
+
                             list.Add(m_MailComponent.GenerateAndSendEmailAsync(
                                 email, new UpdateMailParams(updatesEmail,
                                     culture, user.UserName,
@@ -195,7 +195,7 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                                             !c.AnswerId.HasValue && !c.QuizDiscussionId.HasValue),
                                     updatesList.Count(c => c.AnswerId.HasValue),
                                     updatesList.Count(c => c.ItemId.HasValue),
-                                    updatesList.Count), token,$"update {m_DigestEmailHourBack.GetStringValue()} "));
+                                    updatesList.Count), token, $"update {m_DigestEmailHourBack.GetStringValue()} "));
                         }
                         catch (Exception ex)
                         {

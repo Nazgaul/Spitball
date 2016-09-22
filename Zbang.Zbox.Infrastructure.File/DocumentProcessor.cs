@@ -31,19 +31,21 @@ namespace Zbang.Zbox.Infrastructure.File
             Func<Stream> previewStream,
             Func<int> getPageCount,
             string getCacheVersionPrefix,
-            CancellationToken token
-
-            )
+            CancellationToken token)
         {
-
-            using (var msPreview = previewStream())
+            var t2 = UploadMetaDataAsync(blobUri, getPageCount(), getCacheVersionPrefix, token);
+            var blobName = GetBlobNameFromUri(blobUri) + ".jpg";
+            if (!await BlobProviderPreview.ExistsAsync(blobName))
             {
-                var blobName = GetBlobNameFromUri(blobUri);
-                var t2 = UploadMetaDataAsync(blobUri, getPageCount(), getCacheVersionPrefix, token);
-                var t3 = BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", msPreview, "image/jpeg", token);
-                await Task.WhenAll(t2, t3);
+                using (var msPreview = previewStream())
+                {
 
+                    var t3 = BlobProviderPreview.UploadStreamAsync(blobName, msPreview, "image/jpeg", token);
+                    await Task.WhenAll(t2, t3);
+                    return null;
+                }
             }
+            await t2;
             return null;
 
         }
