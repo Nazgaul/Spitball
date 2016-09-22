@@ -50,8 +50,8 @@
             </md-select>
         </md-input-container>
         <md-input-container layout="row" layout-align="end center" flex="100" flex-gt-md="33">
-            <button type="button" scroll-to-top class="btn btn-default" ng-click="b.settingsOpen = false" ga-track-event="['box-settings', 'cancel']">@GeneralResources.Cancel</button>
-            <button type="submit" class="btn button-Blue btn-primary" ng-disabled="b.settings.submitDisabled || !updateBoxForm.$valid" ga-track-event="['box-settings', 'save']">@GeneralResources.SaveChanges</button>
+            <button type="button" scroll-to-top class="cancel-btn" ng-click="b.settingsOpen = false" ga-track-event="['box-settings', 'cancel']">@GeneralResources.Cancel</button>
+            <button type="submit" class="action-btn space-left" ng-disabled="b.settings.submitDisabled || !updateBoxForm.$valid" ga-track-event="['box-settings', 'save']">@GeneralResources.SaveChanges</button>
         </md-input-container>
     </div>
 </form>

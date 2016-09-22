@@ -185,7 +185,7 @@ Login page
         margin-bottom: 55px;
         float: right;
 
-        .btn.blue {
+        .cancel {
             margin-left: 10px;
         }
     }
@@ -319,14 +319,36 @@ Login page
 }
 
 
-.login .content .form-actions .btn {
-    margin-top: 1px;
-    border-radius: 0;
-    box-shadow: none;
-    font-size: 17px;
-    font-weight: normal;
-    text-transform: none;
-    padding: 7px 24px;
+.login .content .form-actions {
+    .cancel-btn, .action-btn {
+        margin-top: 1px;
+        border-radius: 0;
+        box-shadow: none;
+        font-size: 17px;
+        font-weight: normal;
+        text-decoration: none;
+        padding: 7px 24px;
+        border: none;
+    }
+
+    .action-btn {
+        color: #fff;
+        background-color: #00BCD4;
+        margin-left: 10px;
+
+        &:hover {
+            background-color: #009cb0;
+        }
+    }
+    .cancel-btn {
+        color: #666666;
+        background-color: #E6E6E6;
+
+        &:hover {
+            background-color: #d4d4d4;
+        }
+    }
+
 }
 
 .login .content .create-account {

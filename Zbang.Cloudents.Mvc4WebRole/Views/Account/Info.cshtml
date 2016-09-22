@@ -37,71 +37,71 @@
 
     </div>
     <div>
-    <div class="section" id="section-2">
-        <form name="changeName" class="text-capitalize" ng-submit="i.submit()">
-            <div layout layout-sm="column">
-                <md-input-container flex class="left-flex">
-                    <label>@AccountResource.First</label>
-                    <input required autocomplete="off" type="text" name="firstName" maxlength="35" ng-model="i.data.firstName" />
-                    <div ng-messages="changeName.firstName.$error" ng-show="changeName.firstName.$dirty">
-                        <div ng-message="required">@GeneralResources.RequiredField</div>
-                    </div>
-                </md-input-container>
-                <md-input-container flex>
-                    <label>@SharedResources.LastName</label>
-                    <input required autocomplete="off" type="text" name="lastName" maxlength="35" ng-model="i.data.lastName" />
-                    <div ng-messages="changeName.lastName.$error" ng-show="changeName.lastName.$dirty">
-                        <div ng-message="required">@GeneralResources.RequiredField</div>
-                    </div>
-                </md-input-container>
-            </div>
-            <div class="text-right">
-                <button type="button" class="btn btn-default" ng-click="i.cancelChangeName()" ga-track-event="['settings', 'cancel changes']">@GeneralResources.Cancel</button>
-                <button type="submit" ng-disabled="!changeName.$valid || (i.data.lastName === i.original.lastName && i.data.firstName === i.original.firstName)" class="btn btn-primary button-Blue" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
-            </div>
-        </form>
-    </div>
-    <div class="section" id="section-3">
-        <form name="changeEmail" ng-submit="i.changeEmail()">
-            <md-input-container>
-                <label class="text-capitalize">@AccountResource.ChangeMail</label>
-                <input type="email" autocomplete="off" required ng-model="i.data.email" />
-            </md-input-container>
-            <div class="text-right text-capitalize">
-                <button type="button" class="btn btn-default" ng-click="i.cancelChangeEmail()" ga-track-event="['settings', 'cancel changes']">@GeneralResources.Cancel</button>
-                <button type="submit" class="btn button-Blue btn-primary" ng-disabled="!changeEmail.$valid || i.data.email === i.original.email" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<script type="text/ng-template" id="change-email-template.html">
-    <div class="change-email-dialog">
-        <div class="icon">
-            <md-icon md-svg-icon="i:info"></md-icon>
-            @*@Html.Svg("~/images/site/itemIcons.svg", "info")*@
-        </div>
-        <div class="content">
-            <div class="text">
-                <span>@LogOnResources.CheckEmailTitle</span>
-                <br />@AccountResource.VerificationCode
-            </div>
-            <form ng-submit="ic.submitCode(insertCode)" novalidate name="insertCode">
-                <md-input-container>
-                    <label>@AccountResource.EnterVerification</label>
-                    <input type="number" autocomplete="off" required ng-model="ic.code" name="code" ng-change="insertCode.code.$setValidity('server',true)" />
-                    <div ng-messages="insertCode.code.$error" ng-show="insertCode.code.$dirty">
-                        <div ng-message="required">@GeneralResources.RequiredField</div>
-                        <div ng-message="server">{{ic.error}}</div>
-                    </div>
-                </md-input-container>
+        <div class="section" id="section-2">
+            <form name="changeName" class="text-capitalize" ng-submit="i.submit()">
+                <div layout layout-sm="column">
+                    <md-input-container flex class="left-flex">
+                        <label>@AccountResource.First</label>
+                        <input required autocomplete="off" type="text" name="firstName" maxlength="35" ng-model="i.data.firstName" />
+                        <div ng-messages="changeName.firstName.$error" ng-show="changeName.firstName.$dirty">
+                            <div ng-message="required">@GeneralResources.RequiredField</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>@SharedResources.LastName</label>
+                        <input required autocomplete="off" type="text" name="lastName" maxlength="35" ng-model="i.data.lastName" />
+                        <div ng-messages="changeName.lastName.$error" ng-show="changeName.lastName.$dirty">
+                            <div ng-message="required">@GeneralResources.RequiredField</div>
+                        </div>
+                    </md-input-container>
+                </div>
                 <div class="text-right">
-                    <button type="button" ng-click="ic.cancel()" class="btn-default text-capitalize">@GeneralResources.Cancel</button>
-                    <button type="submit" class="button-Blue btn-primary text-capitalize" ng-disabled="!insertCode.$valid">@ItemsResources.Save</button>
+                    <button type="button" ng-disabled="!changeName.$valid || (i.data.lastName === i.original.lastName && i.data.firstName === i.original.firstName)" class="cancel-btn" ng-click="i.cancelChangeName()" ga-track-event="['settings', 'cancel changes']">@GeneralResources.Cancel</button>
+                    <button type="submit" ng-disabled="!changeName.$valid || (i.data.lastName === i.original.lastName && i.data.firstName === i.original.firstName)" class="action-btn space-left" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
+                </div>
+            </form>
+        </div>
+        <div class="section" id="section-3">
+            <form name="changeEmail" ng-submit="i.changeEmail()">
+                <md-input-container>
+                    <label class="text-capitalize">@AccountResource.ChangeMail</label>
+                    <input type="email" autocomplete="off" required ng-model="i.data.email" />
+                </md-input-container>
+                <div class="text-right text-capitalize">
+                    <button type="button" class="cancel-btn" ng-disabled="!changeEmail.$valid || i.data.email === i.original.email" ng-click="i.cancelChangeEmail()" ga-track-event="['settings', 'cancel changes']">@GeneralResources.Cancel</button>
+                    <button type="submit" class="action-btn space-left" ng-disabled="!changeEmail.$valid || i.data.email === i.original.email" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <script type="text/ng-template" id="change-email-template.html">
+        <div class="change-email-dialog">
+            <div class="icon">
+                <md-icon md-svg-icon="i:info"></md-icon>
+                @*@Html.Svg("~/images/site/itemIcons.svg", "info")*@
+            </div>
+            <div class="content">
+                <div class="text">
+                    <span>@LogOnResources.CheckEmailTitle</span>
+                    <br />@AccountResource.VerificationCode
+                </div>
+                <form ng-submit="ic.submitCode(insertCode)" novalidate name="insertCode">
+                    <md-input-container>
+                        <label>@AccountResource.EnterVerification</label>
+                        <input type="number" autocomplete="off" required ng-model="ic.code" name="code" ng-change="insertCode.code.$setValidity('server',true)" />
+                        <div ng-messages="insertCode.code.$error" ng-show="insertCode.code.$dirty">
+                            <div ng-message="required">@GeneralResources.RequiredField</div>
+                            <div ng-message="server">{{ic.error}}</div>
+                        </div>
+                    </md-input-container>
+                    <div class="text-right">
+                        <button type="button" ng-click="ic.cancel()" class="cancel-btn text-capitalize" ng-disabled="!insertCode.$valid">@GeneralResources.Cancel</button>
+                        <button type="submit" class="action-btn space-left text-capitalize" ng-disabled="!insertCode.$valid">@ItemsResources.Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-</script>
+
+    </script>

@@ -41,7 +41,7 @@
         <div layout="row" layout-align="space-between center">
             <input type="checkbox" ng-model="f.add.anonymous" id="anonymous" />
             <label class="anonymous-wrapper" title="@BoxResources.Anonymous" for="anonymous" ga-track-event="['box-new-commnet', 'anonymous']"><span class="text">@BoxResources.Anonymous</span><md-icon md-svg-icon="b:anonymous" class="anonymous"></md-icon>@*@Html.Svg("~/images/site/box-icons.svg", "anonymous", new { @class = "anonymous" })*@</label>
-            <button type="submit" class="btn button-Blue btn-primary text-uppercase post-comment" ng-disabled="f.add.disabled" ga-track-event="['box-new-commnet', 'postComment']">
+            <button type="submit" class="action-btn no-text post-comment" ng-disabled="f.add.disabled" ga-track-event="['box-new-commnet', 'postComment']">
                 <md-icon md-svg-icon="u:post"></md-icon>
                 @*@Html.Svg(url, "post")*@
             </button>

@@ -54,7 +54,7 @@ Login page
 }
 .login .content .create-account p,
 .login .content .login-account p {
-  color: #f5f5f5;
+  color: #ffffff;
   line-height: 40px;
   margin-bottom: 0;
 }
@@ -86,7 +86,7 @@ Login page
 .login .content .form-control {
   padding-left: 1em;
   background-color: #dde3ec;
-  color: #282828;
+  color: #212325;
   border: 1px solid #dde3ec;
   border-radius: 0;
   padding-right: 15px;
@@ -154,7 +154,7 @@ Login page
   margin-bottom: 55px;
   float: left;
 }
-.login .content .forgot-password-form .form-actions .btn.blue {
+.login .content .forgot-password-form .form-actions .cancel {
   margin-right: 10px;
 }
 .login .content .check-email-message {
@@ -266,14 +266,31 @@ Login page
   margin-bottom: 30px;
   padding-bottom: 0;
 }
-.login .content .form-actions .btn {
+.login .content .form-actions .cancel-btn,
+.login .content .form-actions .action-btn {
   margin-top: 1px;
   border-radius: 0;
   box-shadow: none;
   font-size: 17px;
   font-weight: normal;
-  text-transform: none;
+  text-decoration: none;
   padding: 7px 24px;
+  border: none;
+}
+.login .content .form-actions .action-btn {
+  color: #fff;
+  background-color: #00BCD4;
+  margin-right: 10px;
+}
+.login .content .form-actions .action-btn:hover {
+  background-color: #009cb0;
+}
+.login .content .form-actions .cancel-btn {
+  color: #666666;
+  background-color: #E6E6E6;
+}
+.login .content .form-actions .cancel-btn:hover {
+  background-color: #d4d4d4;
 }
 .login .content .create-account {
   padding-top: 10px;
@@ -293,7 +310,7 @@ Login page
 .login .content .login-account a {
   display: inline-block;
   margin-top: 5px;
-  color: #f5f5f5;
+  color: #ffffff;
 }
 /* select2 dropdowns */
 .login .content .select2-container i {

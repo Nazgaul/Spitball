@@ -644,10 +644,7 @@
         }
 
         .post-comment {
-            padding: 10px;
-            border-radius: 100%;
             margin-top: -40px;
-            line-height: normal;
             margin-right: 8px;
             z-index: 1;
             margin-right: 14px;
@@ -658,6 +655,7 @@
             transform: scaleX(1) /*rtl:scaleX(-1)*/;
             -ms-filter: none /*rtl:fliph*/; /*IE*/
             filter: none /*rtl:fliph*/; /*IE*/
+
             md-icon {
                 width: 22px;
                 height: 22px;
@@ -711,7 +709,7 @@
             }
         }
 
-        button {
+        button:not(.post-comment) {
             display: block;
             padding: 0;
         }
