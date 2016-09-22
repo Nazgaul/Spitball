@@ -14,8 +14,7 @@ namespace Zbang.Zbox.Infrastructure.File
 {
     public class ExcelProcessor : DocumentProcessor
     {
-
-        const string CacheVersion = CacheVersionPrefix + "5";
+        private const string CacheVersion = CacheVersionPrefix + "5";
         public ExcelProcessor(IBlobProvider blobProvider, 
             IBlobProvider2<IPreviewContainer> blobProviderPreview,
             IBlobProvider2<ICacheContainer> blobProviderCache)
@@ -130,41 +129,8 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            return Task.FromResult<string>(null);
+            return Extensions.TaskExtensions.CompletedTaskString;
         }
 
-        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
-        //{
-        //    try
-        //    {
-        //        var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
-        //        SetLicense();
-        //        var excel = new Workbook(path);
-        //        var wb = excel.Worksheets[0];
-
-
-        //        var imgOptions = new ImageOrPrintOptions { ImageFormat = ImageFormat.Jpeg, OnePagePerSheet = false };
-        //        var sr = new SheetRender(wb, imgOptions);
-        //        using (var img = sr.ToImage(0))
-        //        {
-        //            if (img == null)
-        //            {
-        //                return;
-        //            }
-        //            using (var ms = new MemoryStream())
-        //            {
-        //                img.Save(ms, ImageFormat.Jpeg);
-        //                var blobName = GetBlobNameFromUri(blobUri);
-        //                await
-        //                    BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
-        //            }
-
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("PreProcessFile excel", ex);
-        //    }
-        //}
     }
 }

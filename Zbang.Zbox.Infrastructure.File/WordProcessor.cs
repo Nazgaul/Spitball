@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         }
 
-        private void SetLicense()
+        private static void SetLicense()
         {
             var license = new License();
             license.SetLicense("Aspose.Total.lic");
@@ -72,7 +72,6 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-
                 var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
                 SetLicense();
                 var word = new Document(path);
@@ -126,34 +125,5 @@ namespace Zbang.Zbox.Infrastructure.File
             return ExtractDocumentText(word);
         }
 
-        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
-        //{
-        //    try
-        //    {
-
-        //        var blobName = GetBlobNameFromUri(blobUri);
-        //        var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
-        //        SetLicense();
-        //        var word = new Document(path);
-
-        //        var imgOptions = new ImageSaveOptions(SaveFormat.Jpeg)
-        //        {
-        //            JpegQuality = 80,
-        //            Resolution = 150
-        //        };
-
-        //        using (var ms = new MemoryStream())
-        //        {
-        //            word.Save(ms, imgOptions);
-        //            ms.Seek(0, SeekOrigin.Begin);
-        //            await BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("PreProcessFile word", ex);
-        //    }
-        //}
     }
 }

@@ -19,26 +19,24 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (command == null) throw new ArgumentNullException(nameof(command));
 
             var file = m_ItemRepository.Load(command.ItemId);
-            //if (file.ItemContentUrl != command.OldBlobName)
-            //{
-            //    throw new ArgumentException("file id does not match blob id");
-            //}
             file.ShouldMakeDirty = () => false;
             if (!string.IsNullOrWhiteSpace(command.BlobName))
             {
                 file.ItemContentUrl = command.BlobName;
                 file.Name = Path.GetFileNameWithoutExtension(file.Name) + Path.GetExtension(command.BlobName);
             }
-            if (string.IsNullOrWhiteSpace(command.FileContent))
-            {
-                command.FileContent = null;
-            }
-            else
+            if (!string.IsNullOrWhiteSpace(command.FileContent))
             {
                 file.Content = System.Net.WebUtility.HtmlEncode(command.FileContent).RemoveEndOfString(200);
-               
+                // command.FileContent = null;
             }
+            //else
+            //{
+                
+            //}
+            file.Md5 = command.Md5;
+            m_ItemRepository.Save(file);
         }
-      
+
     }
 }

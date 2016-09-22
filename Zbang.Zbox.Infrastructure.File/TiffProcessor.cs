@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 if (await m_BlobProviderCache.ExistsAsync(cacheblobName))
                 {
-                    blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName,30));
+                    blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName, 30));
                     continue;
                 }
                 //var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
@@ -133,28 +133,27 @@ namespace Zbang.Zbox.Infrastructure.File
         {
             try
             {
-                try
+                var blobName = GetBlobNameFromUri(blobUri);
+                if (await m_BlobProviderPreview.ExistsAsync(blobName + ".jpg"))
                 {
-                    var blobName = GetBlobNameFromUri(blobUri);
+                    return null;
+                }
 
-                    using (var stream = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
+
+                using (var stream = await BlobProvider.DownloadFileAsync(blobUri, cancelToken))
+                {
+                    using (var ms = new MemoryStream())
                     {
-                        using (var ms = new MemoryStream())
+                        var settings2 = new ResizeSettings
                         {
-                            var settings2 = new ResizeSettings
-                            {
-                                Format = "jpg"
-                            };
-                            ImageBuilder.Current.Build(stream, ms, settings2, false);
+                            Format = "jpg"
+                        };
+                        ImageBuilder.Current.Build(stream, ms, settings2, false);
 
-                            await m_BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
-                        }
+                        await m_BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
                     }
                 }
-                catch (Exception ex)
-                {
-                    TraceLog.WriteError("PreProcessFile tiff", ex);
-                }
+
                 return null;
             }
             catch (Exception ex)

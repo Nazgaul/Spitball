@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,11 +11,12 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
         Task CommitBlockListAsync(string blobName, int currentIndex, string contentType);
         Task UploadStreamAsync(string blobName, Stream content, string mimeType, CancellationToken token);
-        string GetBlobUrl(string blobName);
+        Uri GetBlobUrl(string blobName);
 
         Task<bool> ExistsAsync(string blobName);
         bool Exists(string blobName);
         Task<long> SizeAsync(string blobName);
+        Task<string> Md5Async(string blobName);
 
         string RelativePath();
 

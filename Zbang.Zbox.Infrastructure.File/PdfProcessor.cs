@@ -97,8 +97,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 SetLicense();
                 var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
 
-
-
                 using (var pdfDocument = new Document(path))
                 {
                     return await ProcessFileAsync(blobUri, () =>
@@ -128,9 +126,10 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private string ExtractPdfText(Document doc)
         {
+            var builder = new StringBuilder();
             try
             {
-                var builder = new StringBuilder();
+                
                 //string to hold extracted text
                 for (int i = 1; i <= Math.Min(doc.Pages.Count, 20); i++)
                 {
@@ -158,14 +157,13 @@ namespace Zbang.Zbox.Infrastructure.File
                     }
                     builder.Append(extractedText);
                 }
-                var str = StripUnwantedChars(builder.ToString());
-                return str;
             }
             catch (Exception ex)
             {
                 TraceLog.WriteError("trying to extract pdf text", ex);
-                return string.Empty;
             }
+            var str = StripUnwantedChars(builder.ToString());
+            return str;
         }
 
 
@@ -173,7 +171,6 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            var blobName = GetBlobNameFromUri(blobUri);
             SetLicense();
             var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
             using (var pdfDocument = new Document(path))

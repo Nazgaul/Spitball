@@ -1,6 +1,4 @@
 ﻿
-using System.Collections;
-
 namespace Zbang.Zbox.Infrastructure.Storage
 {
     public interface IStorageContainerName 

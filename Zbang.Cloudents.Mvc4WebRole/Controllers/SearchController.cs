@@ -108,14 +108,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 term = "";
             }
-            long? universityId = User.GetUniversityDataId();
+            var universityId = User.GetUniversityDataId();
             if (!universityId.HasValue)
                 return JsonError("need university");
             var query = new UserInBoxSearchQuery(term, universityId.Value, boxId, page, sizePerPage);
             var retVal = await ZboxReadService.GetUsersInBoxByTermAsync(query);
-
             return JsonOk(retVal);
-
         }
 
 

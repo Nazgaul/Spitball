@@ -137,14 +137,9 @@ namespace Zbang.Zbox.Infrastructure.File
             }
         }
 
-        //public override string GetDefaultThumbnailPicture()
-        //{
-        //    return DefaultPicture.PowerPointFileTypePicture;
-        //}
 
         public override async Task<string> ExtractContentAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            var blobName = GetBlobNameFromUri(blobUri);
             var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
             SetLicense();
             using (var pptx = new Presentation(path))
@@ -152,26 +147,6 @@ namespace Zbang.Zbox.Infrastructure.File
                 return ExtractStringFromPpt(pptx);
             }
         }
-
-        //public override async Task GenerateImagePreviewAsync(Uri blobUri, CancellationToken cancelToken)
-        //{
-            
-        //    var path = await BlobProvider.DownloadToLocalDiskAsync(blobUri, cancelToken);
-        //    SetLicense();
-        //    using (var pptx = new Presentation(path))
-        //    {
-        //            using (var img = pptx.Slides[0].GetThumbnail(1, 1))
-        //            {
-        //                using (var ms = new MemoryStream())
-        //                {
-        //                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-        //                    var blobName = GetBlobNameFromUri(blobUri);
-        //                    await
-        //                        BlobProviderPreview.UploadStreamAsync(blobName + ".jpg", ms, "image/jpeg", cancelToken);
-        //                }
-        //            }
-
-        //    }
-        //}
+        
     }
 }
