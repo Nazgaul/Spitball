@@ -25,9 +25,9 @@
 
         </md-content>
         <div class="buttons" layout="row" layout-align="end stretch" class="text-capitalize">
-            <button type="button" class="btn btn-default" ng-click="l.boxCancel()" ga-track-event="['university', 'cancel new class']">@GeneralResources.Cancel</button>
-            <button type="button" class="btn button-Blue btn-primary" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()" ga-track-event="['university', 'next step new class']">@UniversityResources.Next</button>
-            <button type="submit" class="btn button-Blue btn-primary" ng-if="l.secondStep" ng-disabled="!createBox.$valid || l.submitDisabled" ga-track-event="['university', 'create new class']">@GeneralResources.Create</button>
+            <button type="button" class="cancel-btn" ng-click="l.boxCancel()" ga-track-event="['university', 'cancel new class']">@GeneralResources.Cancel</button>
+            <button type="button" class="action-btn space-before" ng-if="!l.secondStep" ng-disabled="!l.boxName" ng-click="l.boxNext()" ga-track-event="['university', 'next step new class']">@UniversityResources.Next</button>
+            <button type="submit" class="action-btn space-before" ng-if="l.secondStep" ng-disabled="!createBox.$valid || l.submitDisabled" ga-track-event="['university', 'create new class']">@GeneralResources.Create</button>
         </div>
     </form>
 </div>

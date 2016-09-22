@@ -23,8 +23,8 @@
             <span class="text-capitalize">@QuizResources.TestYourself</span>
         </div>
         <div class="buttons" layout="row" layout-align="center stretch">
-            <button type="button" class="btn btn-default scared" ng-click="q.afraid()" ga-track-event="['quiz', 'scared']">@QuizResources.Scared</button>
-            <button type="button" class="btn button-Blue btn-primary chance" ng-click="q.start()" ga-track-event="['quiz', 'take a chance']">@QuizResources.Chance</button>
+            <button type="button" class="cancel-btn" ng-click="q.afraid()" ga-track-event="['quiz', 'scared']">@QuizResources.Scared</button>
+            <button type="button" class="action-btn space-before" ng-click="q.start()" ga-track-event="['quiz', 'take a chance']">@QuizResources.Chance</button>
         </div>
     </div>
 </script>
@@ -46,8 +46,8 @@
             <span>@QuizResources.Answered {{q.answersCount}}/{{::q.questions.length}}</span>
         </div>
         <div class="buttons" layout="row" layout-align="center stretch">
-            <button type="button" class="btn btn-default scared text-capitalize" ng-click="q.back()" ga-track-event="['quiz', 'go back']">@QuizResources.GoBack</button>
-            <button type="button" class="btn button-Blue btn-primary chance text-capitalize" ng-click="q.checkAnswers()" ga-track-event="['quiz', 'submit']">@QuizResources.Submit</button>
+            <button type="button" class="cancel-btn text-capitalize" ng-click="q.back()" ga-track-event="['quiz', 'go back']">@QuizResources.GoBack</button>
+            <button type="button" class="action-btn space-before text-capitalize" ng-click="q.checkAnswers()" ga-track-event="['quiz', 'submit']">@QuizResources.Submit</button>
         </div>
     </div>
 </script>

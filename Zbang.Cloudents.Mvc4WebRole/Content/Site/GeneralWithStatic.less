@@ -109,3 +109,20 @@ body {
 #intercom-container, #intercom-launcher {
     z-index: 120;
 }
+
+
+/*#region: new button classes*/
+.action-btn, .signin-header-btn {
+    .general-button();
+    .colored-button(@buttonColorBlue, @textColorWhite);
+    .colored-button-hover(@buttonColorBlueHover, @textColorWhite);
+    .colored-button-disabled(@buttonColorBlueHover, @textColorDisabledActionButton);
+}
+
+.cancel-btn, .signup-header-btn {
+    .general-button();
+    .colored-button(@buttonColorCancel, @textColorBlack);
+    .colored-button-hover(@buttonColorCancelHover, @textColorBlack);
+    .colored-button-disabled(@buttonColorCancelDisabled, @textColorDisabledCancelButton);
+}
+/*#endregion*/

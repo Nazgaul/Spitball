@@ -25,8 +25,8 @@
             </md-input-container>
             <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
             <div class="buttons" layout="row" layout-align="end center">
-                <button type="reset" ng-click="lc.needCode = false" class="btn btn-default">@GeneralResources.Cancel</button>
-                <button type="submit" class="btn button-Blue btn-primary" ng-disabled="!enterId.$valid || || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">@UniversityResources.Continue</button>
+                <button type="reset" ng-click="lc.needCode = false" class="cancel-btn">@GeneralResources.Cancel</button>
+                <button type="submit" class="action-btn space-before" ng-disabled="!enterId.$valid || || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">@UniversityResources.Continue</button>
             </div>
         </form>
     </div>

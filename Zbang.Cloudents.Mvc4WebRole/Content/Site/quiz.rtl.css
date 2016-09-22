@@ -121,9 +121,7 @@
   display: flex;
   padding: 11px 10px 9px 15px;
 }
-.quizPage .quiz-take-stats svg {
-  margin-top: 8px;
-  margin-right: 5px;
+.quizPage .quiz-take-stats md-icon {
   width: 36px;
   height: 36px;
   fill: #3598dc;
@@ -165,6 +163,11 @@
 }
 .quizPage .solveActions .col-sm-4 {
   padding: 0 5px;
+}
+@media (min-width: 600px) {
+  .quizPage .solveActions .action-btn {
+    max-width: 32%;
+  }
 }
 .quizPage .retake {
   width: 100%;

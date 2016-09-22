@@ -66,9 +66,6 @@
   color: #888b8e;
   opacity: 1;
 }
-.invite .gmail {
-  background: #9E9E9E;
-}
 .invite .invite-list-wrapper {
   height: 290px;
   width: 100%;
@@ -358,12 +355,16 @@
   transform: rotateY(-180deg);
 }
 .invite.invite-dialog .content .bottom {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
   text-align: right;
-  margin: 5px;
+  margin: 1px 5px;
   min-height: 35px;
-}
-.invite.invite-dialog .content .bottom button {
-  margin: 5px;
 }
 .invite .portlet-title {
   padding-right: 25px;
@@ -403,17 +404,6 @@
 .invite .tab-content .uploadFile .buttons {
   -webkit-justify-content: center;
   justify-content: center;
-}
-.invite .md-button,
-.invite .tab-content .buttons > a {
-  min-height: 0;
-  line-height: 25px;
-  margin-top: 0;
-  text-transform: capitalize;
-}
-.invite .md-button:hover,
-.invite .tab-content .buttons > a:hover {
-  color: #212325;
 }
 @media (max-width: 960px) {
   .invite-container {

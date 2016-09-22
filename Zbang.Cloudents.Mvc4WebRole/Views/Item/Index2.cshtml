@@ -29,8 +29,8 @@
                             </md-input-container>
                         </md-content>
                         <span layout="row" layout-align="end center  text-capitalize">
-                            <button type="button" class="btn grey btn-default" ng-click="i.selectedState = i.state.regular" ga-track-event="['itemPage', 'cancel rename']">@GeneralResources.Cancel</button>
-                            <button type="submit" class="btn blue" ng-disabled="!renameItem.$valid || i.submitDisabled" ga-track-event="['itemPage', 'save rename']">@ItemsResources.Save</button>
+                            <button type="button" class="cancel-btn" ng-click="i.selectedState = i.state.regular" ga-track-event="['itemPage', 'cancel rename']">@GeneralResources.Cancel</button>
+                            <button type="submit" class="action-btn space-before" ng-disabled="!renameItem.$valid || i.submitDisabled" ga-track-event="['itemPage', 'save rename']">@ItemsResources.Save</button>
                         </span>
                     </form>
 

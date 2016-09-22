@@ -175,9 +175,6 @@ body .dd-list md-option[selected]:focus {
   width: 25px;
   height: 25px;
 }
-.close {
-  margin-top: 6px;
-}
 .close:hover {
   color: #ffffff;
 }
@@ -901,90 +898,4 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
   }
 }
 /*#endregion*/
-/*#endregion*/
-/*#region: new button classes*/
-.action-btn,
-.signin-header-btn {
-  font-size: 14px;
-  line-height: normal;
-  text-align: center;
-  min-width: 92px;
-  min-height: 26px;
-  cursor: pointer;
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
-  margin: 4px 0;
-  padding: 5px 16px;
-  border-radius: 4px;
-  background: #4190b9;
-  color: #ffffff;
-}
-.action-btn.no-text,
-.signin-header-btn.no-text {
-  border-radius: 100%;
-  padding: 10px;
-  min-width: 0;
-  margin: 0;
-  box-shadow: none;
-}
-.action-btn.space-left,
-.signin-header-btn.space-left {
-  margin-left: 10px;
-}
-.action-btn.space-right,
-.signin-header-btn.space-right {
-  margin-right: 10px;
-}
-.action-btn:hover:not([disabled]),
-.signin-header-btn:hover:not([disabled]) {
-  background: #297095;
-  color: #ffffff;
-}
-.action-btn[disabled],
-.signin-header-btn[disabled] {
-  background: #297095;
-  color: #83b6d0;
-  cursor: default;
-}
-.cancel-btn,
-.signup-header-btn {
-  font-size: 14px;
-  line-height: normal;
-  text-align: center;
-  min-width: 92px;
-  min-height: 26px;
-  cursor: pointer;
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
-  margin: 4px 0;
-  padding: 5px 16px;
-  border-radius: 4px;
-  background: #ffffff;
-  color: #212325;
-}
-.cancel-btn.no-text,
-.signup-header-btn.no-text {
-  border-radius: 100%;
-  padding: 10px;
-  min-width: 0;
-  margin: 0;
-  box-shadow: none;
-}
-.cancel-btn.space-left,
-.signup-header-btn.space-left {
-  margin-left: 10px;
-}
-.cancel-btn.space-right,
-.signup-header-btn.space-right {
-  margin-right: 10px;
-}
-.cancel-btn:hover:not([disabled]),
-.signup-header-btn:hover:not([disabled]) {
-  background: #f0f0f0;
-  color: #212325;
-}
-.cancel-btn[disabled],
-.signup-header-btn[disabled] {
-  background: #b4b3b3;
-  color: #7d7d7d;
-  cursor: default;
-}
 /*#endregion*/

@@ -184,8 +184,10 @@ iframe {
         input[type="checkbox"] {
             display: none;
         }
-
-        li a, li button, li label, li span, .signin-btn, .signup-btn {
+        .signup-btn,.signin-btn{
+            min-width: 0;
+        }
+        li a, li button, li label, li span, .signup-btn {
             color: @textColorWhite;
             text-decoration: none;
             align-items: center;
@@ -213,15 +215,14 @@ iframe {
 
         .login-buttons {
             position: absolute;
-            top: 19px;
+            top: 13px;
             right: 15px;
 
             a {
                 padding: 0 12px;
-                line-height: 22px;
+                line-height: 26px;
                 display: inline-block;
                 border-radius: 4px;
-                color: @textColorWhite;
                 text-decoration: none;
 
                 &.signup-btn {
@@ -234,14 +235,6 @@ iframe {
                     }
                 }
 
-                &.signin-btn {
-                    background: @backgroundColorBlack;
-                    color: @textColorBlack;
-
-                    &:hover {
-                        background: @textColorLightGrey;
-                    }
-                }
             }
         }
 

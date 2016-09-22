@@ -203,6 +203,7 @@
     line-height: normal;
     text-align: center;
     min-width: 92px;
+    max-width: 180px;
     min-height: 26px;
     cursor: pointer;
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
@@ -210,7 +211,6 @@
     padding: 5px 16px;
     border-radius: 4px;
 
-    
     &.no-text {
         border-radius: 100%;
         padding: 10px;
@@ -219,11 +219,11 @@
         box-shadow: none;
     }
 
-    &.space-left {
+    &.space-before {
         margin-left: 10px;
     }
 
-    &.space-right {
+    &.space-after {
         margin-right: 10px;
     }
 }
@@ -231,21 +231,33 @@
 .colored-button(@bgColor, @textColor) {
     background: @bgColor;
     color: @textColor;
+
+    svg, md-icon {
+        fill: @textColor;
+    }
 }
 
 .colored-button-hover(@bgHover, @textHover) {
     &:hover:not([disabled]) {
         background: @bgHover;
         color: @textHover;
+
+        svg, md-icon {
+            fill: @textHover;
+        }
     }
 }
 
 
-.colored-button-disabled(@bgHover, @textHover) {
+.colored-button-disabled(@bgDisabled, @textDisabled) {
     &[disabled] {
-        background: @bgHover;
-        color: @textHover;
+        background: @bgDisabled;
+        color: @textDisabled;
         cursor: default;
+
+        svg, md-icon {
+            fill: @textDisabled;
+        }
     }
 }
 

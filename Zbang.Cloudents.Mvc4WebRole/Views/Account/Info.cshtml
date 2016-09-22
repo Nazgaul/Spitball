@@ -57,7 +57,7 @@
                 </div>
                 <div class="text-right">
                     <button type="button" ng-disabled="!changeName.$valid || (i.data.lastName === i.original.lastName && i.data.firstName === i.original.firstName)" class="cancel-btn" ng-click="i.cancelChangeName()" ga-track-event="['settings', 'cancel changes']">@GeneralResources.Cancel</button>
-                    <button type="submit" ng-disabled="!changeName.$valid || (i.data.lastName === i.original.lastName && i.data.firstName === i.original.firstName)" class="action-btn space-left" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
+                    <button type="submit" ng-disabled="!changeName.$valid || (i.data.lastName === i.original.lastName && i.data.firstName === i.original.firstName)" class="action-btn space-before" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
                 </div>
             </form>
         </div>
@@ -69,7 +69,7 @@
                 </md-input-container>
                 <div class="text-right text-capitalize">
                     <button type="button" class="cancel-btn" ng-disabled="!changeEmail.$valid || i.data.email === i.original.email" ng-click="i.cancelChangeEmail()" ga-track-event="['settings', 'cancel changes']">@GeneralResources.Cancel</button>
-                    <button type="submit" class="action-btn space-left" ng-disabled="!changeEmail.$valid || i.data.email === i.original.email" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
+                    <button type="submit" class="action-btn space-before" ng-disabled="!changeEmail.$valid || i.data.email === i.original.email" ga-track-event="['settings', 'save changes']">@GeneralResources.SaveChanges</button>
                 </div>
             </form>
         </div>
@@ -97,7 +97,7 @@
                     </md-input-container>
                     <div class="text-right">
                         <button type="button" ng-click="ic.cancel()" class="cancel-btn text-capitalize" ng-disabled="!insertCode.$valid">@GeneralResources.Cancel</button>
-                        <button type="submit" class="action-btn space-left text-capitalize" ng-disabled="!insertCode.$valid">@ItemsResources.Save</button>
+                        <button type="submit" class="action-btn space-before text-capitalize" ng-disabled="!insertCode.$valid">@ItemsResources.Save</button>
                     </div>
                 </form>
             </div>

@@ -121,3 +121,127 @@ body {
 #intercom-launcher {
   z-index: 120;
 }
+/*#region: new button classes*/
+.action-btn,
+.signin-header-btn {
+  font-size: 14px;
+  line-height: normal;
+  text-align: center;
+  min-width: 92px;
+  max-width: 180px;
+  min-height: 26px;
+  cursor: pointer;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
+  margin: 4px 0;
+  padding: 5px 16px;
+  border-radius: 4px;
+  background: #4190b9;
+  color: #ffffff;
+}
+.action-btn.no-text,
+.signin-header-btn.no-text {
+  border-radius: 100%;
+  padding: 10px;
+  min-width: 0;
+  margin: 0;
+  box-shadow: none;
+}
+.action-btn.space-before,
+.signin-header-btn.space-before {
+  margin-left: 10px;
+}
+.action-btn.space-after,
+.signin-header-btn.space-after {
+  margin-right: 10px;
+}
+.action-btn svg,
+.signin-header-btn svg,
+.action-btn md-icon,
+.signin-header-btn md-icon {
+  fill: #ffffff;
+}
+.action-btn:hover:not([disabled]),
+.signin-header-btn:hover:not([disabled]) {
+  background: #297095;
+  color: #ffffff;
+}
+.action-btn:hover:not([disabled]) svg,
+.signin-header-btn:hover:not([disabled]) svg,
+.action-btn:hover:not([disabled]) md-icon,
+.signin-header-btn:hover:not([disabled]) md-icon {
+  fill: #ffffff;
+}
+.action-btn[disabled],
+.signin-header-btn[disabled] {
+  background: #297095;
+  color: #83b6d0;
+  cursor: default;
+}
+.action-btn[disabled] svg,
+.signin-header-btn[disabled] svg,
+.action-btn[disabled] md-icon,
+.signin-header-btn[disabled] md-icon {
+  fill: #83b6d0;
+}
+.cancel-btn,
+.signup-header-btn {
+  font-size: 14px;
+  line-height: normal;
+  text-align: center;
+  min-width: 92px;
+  max-width: 180px;
+  min-height: 26px;
+  cursor: pointer;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
+  margin: 4px 0;
+  padding: 5px 16px;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #212325;
+}
+.cancel-btn.no-text,
+.signup-header-btn.no-text {
+  border-radius: 100%;
+  padding: 10px;
+  min-width: 0;
+  margin: 0;
+  box-shadow: none;
+}
+.cancel-btn.space-before,
+.signup-header-btn.space-before {
+  margin-left: 10px;
+}
+.cancel-btn.space-after,
+.signup-header-btn.space-after {
+  margin-right: 10px;
+}
+.cancel-btn svg,
+.signup-header-btn svg,
+.cancel-btn md-icon,
+.signup-header-btn md-icon {
+  fill: #212325;
+}
+.cancel-btn:hover:not([disabled]),
+.signup-header-btn:hover:not([disabled]) {
+  background: #f0f0f0;
+  color: #212325;
+}
+.cancel-btn:hover:not([disabled]) svg,
+.signup-header-btn:hover:not([disabled]) svg,
+.cancel-btn:hover:not([disabled]) md-icon,
+.signup-header-btn:hover:not([disabled]) md-icon {
+  fill: #212325;
+}
+.cancel-btn[disabled],
+.signup-header-btn[disabled] {
+  background: #b4b3b3;
+  color: #7d7d7d;
+  cursor: default;
+}
+.cancel-btn[disabled] svg,
+.signup-header-btn[disabled] svg,
+.cancel-btn[disabled] md-icon,
+.signup-header-btn[disabled] md-icon {
+  fill: #7d7d7d;
+}
+/*#endregion*/

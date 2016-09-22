@@ -28,8 +28,8 @@
                                 </div>
                             </md-input-container>
                             <div class="buttons" ng-if="c.showButtons">
-                                <button type="button" class="btn grey btn-default" ng-click="c.cancelComment(newComment);">@GeneralResources.Cancel</button>
-                                <button type="submit" ng-disabled="!newComment.$valid || c.commentDesabled" class="btn btn-primary"> @ItemsResources.NewComment</button>
+                                <button type="button" class="cancel-btn" ng-click="c.cancelComment(newComment);">@GeneralResources.Cancel</button>
+                                <button type="submit" ng-disabled="!newComment.$valid || c.commentDesabled" class="action-btn space-before"> @ItemsResources.NewComment</button>
                             </div>
                         </form>
                     </div>
@@ -103,8 +103,8 @@
                                         </div>
                                     </md-input-container>
                                     <div class="buttons">
-                                        <button type="button" class="btn grey btn-default" ng-click="c.cancelReply(newComment, comment);">@GeneralResources.Cancel</button>
-                                        <button type="submit" ng-disabled="!newReply.$valid || c.commentDesabled" class="btn btn-primary">@ItemsResources.NewComment</button>
+                                        <button type="button" class="cancel-btn" ng-click="c.cancelReply(newComment, comment);">@GeneralResources.Cancel</button>
+                                        <button type="submit" ng-disabled="!newReply.$valid || c.commentDesabled" class="action-btn space-before">@ItemsResources.NewComment</button>
                                     </div>
                                 </div>
                             </form>

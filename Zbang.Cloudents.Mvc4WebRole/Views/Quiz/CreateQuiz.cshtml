@@ -33,17 +33,18 @@
     <form novalidate name="createQuestions" id="create-question">
         <div class="quiz-wrapper" ng-repeat="question in q.quizData.questions" ng-include="q.template(question)"></div>
     </form>
-
-    <button type="button" class="btn button-Blue btn-primary text-capitalize add-question" ng-click="q.addQuestion()" ga-track-event="['createQuiz', 'add question']">
-        <div layout="row" layout-align="start center">
-            <md-icon md-svg-icon="t:add"></md-icon>
-            <span>@QuizResources.AddQuestion</span>
-        </div>
-    </button>
-    <button id="quiz-error" type="button" ng-click="q.publish()" ng-disabled="q.submitDisabled" class="btn button-Blue btn-primary text-capitalize pull-right"
-            ga-track-event="['createQuiz', 'publish quiz']">
-        @QuizResources.Publish
-    </button>
+    <div layout="row" layout-align="space-between center">
+        <button type="button" class="action-btn add-question" ng-click="q.addQuestion()" ga-track-event="['createQuiz', 'add question']">
+            <div layout="row" layout-align="start center">
+                <md-icon md-svg-icon="t:add"></md-icon>
+                <span>@QuizResources.AddQuestion</span>
+            </div>
+        </button>
+        <button id="quiz-error" type="button" ng-click="q.publish()" ng-disabled="q.submitDisabled" class="action-btn"
+                ga-track-event="['createQuiz', 'publish quiz']">
+            @QuizResources.Publish
+        </button>
+    </div>
 </div>
 
 <script type="text/ng-template" id="create-quiz-question-template.html">

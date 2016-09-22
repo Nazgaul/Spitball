@@ -247,9 +247,6 @@ body {
 }
 
 .close {
-    //float: right;
-    margin-top: 6px;
-
     &:hover {
         color: @textColorWhite;
     }
@@ -1220,19 +1217,3 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 /*#endregion*/
 /*#endregion*/
 
-
-/*#region: new button classes*/
-.action-btn, .signin-header-btn {
-    .general-button();
-    .colored-button(@buttonColorBlue, @textColorWhite);
-    .colored-button-hover(@buttonColorBlueHover, @textColorWhite);
-    .colored-button-disabled(@buttonColorBlueHover, @textColorDisabledActionButton);
-}
-
-.cancel-btn, .signup-header-btn {
-    .general-button();
-    .colored-button(@buttonColorCancel, @textColorBlack);
-    .colored-button-hover(@buttonColorCancelHover, @textColorBlack);
-    .colored-button-disabled(@buttonColorCancelDisabled, @textColorDisabledCancelButton);
-}
-/*#endregion*/

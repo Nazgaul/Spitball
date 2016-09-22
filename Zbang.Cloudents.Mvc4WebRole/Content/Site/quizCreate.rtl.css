@@ -132,13 +132,7 @@
   color: #323538;
   padding-right: 5px;
 }
-.quiz-create .supported .add-question {
-  color: #ffffff;
-  border: 1px solid #3293F6;
-  background: transparent;
-}
 .quiz-create .supported .add-question svg {
-  fill: #ffffff;
   margin-left: 10px;
   width: 15px;
   height: 15px;

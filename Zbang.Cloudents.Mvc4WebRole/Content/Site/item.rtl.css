@@ -462,9 +462,6 @@ md-menu-item.blue svg {
   text-align: left;
   padding: 14px 5px;
 }
-.itemPage .comments-wrapper .comments .buttons button {
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.39);
-}
 .itemPage .comments-wrapper .comments .comments-list > li {
   border-radius: 5px;
   margin: 16px 0;

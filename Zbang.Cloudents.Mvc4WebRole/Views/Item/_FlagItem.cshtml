@@ -19,8 +19,8 @@
     </md-content>
 
     <span layout="row" layout-align="end center">
-        <button type="button" class="btn grey btn-default text-capitalize" ng-click="i.cancelFlag()" ga-track-event="['itemPage', 'cancel']">@GeneralResources.Cancel</button>
-        <button type="submit" class="btn blue text-capitalize" ng-disabled="!flagitem.$valid" ga-track-event="['itemPage', 'report']">@ItemsResources.Report</button>
+        <button type="button" class="cancel-btn text-capitalize" ng-click="i.cancelFlag()" ga-track-event="['itemPage', 'cancel']">@GeneralResources.Cancel</button>
+        <button type="submit" class="action-btn space-before text-capitalize" ng-disabled="!flagitem.$valid" ga-track-event="['itemPage', 'report']">@ItemsResources.Report</button>
     </span>
 </form>
 
