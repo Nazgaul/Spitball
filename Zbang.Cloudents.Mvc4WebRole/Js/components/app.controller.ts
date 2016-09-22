@@ -1,16 +1,25 @@
 ﻿module app {
     "use strict";
-    class AppController {
+    export interface IAppController {
+        back(defaultUrl: string);
+        logOut();
+        toggleMenu();
+        showToaster(text: string, parentId: string, theme: string);
+        openMenu($mdOpenMenu: any, ev: Event);
+        resetForm(myform: angular.IFormController);
+    }
+
+    class AppController implements IAppController {
         static $inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory",
             "sbHistory", "$state", "$window"];
 
-        //private menuOpened: boolean;
-        private showMenu: boolean;
-        private showChat: boolean;
+        // private menuOpened: boolean;
+        // private showMenu: boolean;
+        // private showChat: boolean;
         private showBoxAd: boolean;
-        private theme: string;
+        // private theme: string;
 
 
         constructor(private $rootScope: angular.IRootScopeService,
@@ -26,12 +35,12 @@
             private $window: angular.IWindowService
         ) {
 
-            //directive with menu
-            //$rootScope.$on("$mdMenuClose", () => {
+            // directive with menu
+            // $rootScope.$on("$mdMenuClose", () => {
             //    this.menuOpened = false;
-            //});
+            // });
 
-            //this.showMenu = true;
+            // this.showMenu = true;
             this.showBoxAd = false;
 
             $rootScope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState
@@ -51,7 +60,8 @@
 
             $rootScope.$on("$stateChangeStart",
                 (event: angular.IAngularEvent, toState: angular.ui.IState,
-                    toParams: spitaball.ISpitballStateParamsService, fromState: angular.ui.IState, fromParams: spitaball.ISpitballStateParamsService) => {
+                    toParams: spitaball.ISpitballStateParamsService, fromState: angular.ui.IState,
+                    fromParams: spitaball.ISpitballStateParamsService) => {
                     if (!fromState.name) {
                         return;
                     }
@@ -133,7 +143,7 @@
 
 
         openMenu = ($mdOpenMenu: any, ev: Event) => {
-            //this.menuOpened = true;
+            // this.menuOpened = true;
             if (!this.userDetails.isAuthenticated()) {
                 this.$rootScope.$broadcast("show-unregisterd-box");
                 return;

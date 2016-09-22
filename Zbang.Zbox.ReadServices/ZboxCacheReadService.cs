@@ -349,11 +349,6 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUsersInBoxByTermAsync(query);
         }
 
-        //public Task<IEnumerable<ChatUserDto>> GetUsersByTermAsync(UserSearchQuery query)
-        //{
-        //    return m_ReadService.GetUsersByTermAsync(query);
-        //}
-
         public Task<IEnumerable<ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query)
         {
             return m_ReadService.GetUsersConversationAndFriendsAsync(query);

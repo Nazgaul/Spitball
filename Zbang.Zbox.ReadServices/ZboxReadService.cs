@@ -612,7 +612,7 @@ namespace Zbang.Zbox.ReadServices
         }
 
         /// <summary>
-        /// Used in api to private to box
+        /// Used in api to private to box / invite to box
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
@@ -620,7 +620,8 @@ namespace Zbang.Zbox.ReadServices
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                return await conn.QueryAsync<User.UserWithImageNameDto>(Sql.Search.GetUsersInBoxByTerm,
+                var sql = string.IsNullOrEmpty(query.Term) ? Sql.Search.GetUsersInBox : Sql.Search.GetUsersInBoxByTerm;
+                return await conn.QueryAsync<User.UserWithImageNameDto>(sql,
                      new
                      {
                          query.Term,

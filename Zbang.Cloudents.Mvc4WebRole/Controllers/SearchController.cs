@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Search;
@@ -46,11 +45,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index");
         }
 
-
-
-
-        [HttpGet]
-        public async Task<JsonResult> Boxes(string q, int page, CancellationToken cancellationToken)
+        [HttpGet,ActionName("Boxes")]
+        public async Task<JsonResult> BoxesAsync(string q, int page, CancellationToken cancellationToken)
         {
             var universityDataId = User.GetUniversityDataId();
             if (!universityDataId.HasValue) return JsonError();
@@ -58,8 +54,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ResultSizeRegularState);
             return await SearchQueryAsync(q, cancellationToken, query, m_BoxSearchService.SearchBoxAsync);
         }
-        [HttpGet]
-        public async Task<JsonResult> Items(string q, int page, CancellationToken cancellationToken)
+        [HttpGet,ActionName("Items")]
+        public async Task<JsonResult> ItemsAsync(string q, int page, CancellationToken cancellationToken)
         {
             var universityDataId = User.GetUniversityDataId();
             if (!universityDataId.HasValue) return JsonError();
@@ -67,8 +63,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 ResultSizeRegularState);
             return await SearchQueryAsync(q, cancellationToken, query, m_ItemSearchService.SearchItemAsync);
         }
-        [HttpGet]
-        public async Task<JsonResult> Quizzes(string q, int page, CancellationToken cancellationToken)
+        [HttpGet,ActionName("Quizzes")]
+        public async Task<JsonResult> QuizzesAsync(string q, int page, CancellationToken cancellationToken)
         {
             var universityDataId = User.GetUniversityDataId();
             if (!universityDataId.HasValue) return JsonError();
@@ -105,8 +101,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<JsonResult> MembersInBox(string term, long boxId, int page, int sizePerPage = 20)
+        [HttpGet,ActionName("MembersInBox")]
+        public async Task<JsonResult> MembersInBoxAsync(string term, long boxId, int page, int sizePerPage = 20)
         {
             if (string.IsNullOrEmpty(term))
             {
@@ -123,8 +119,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<JsonResult> ItemInBox(string term, long boxId, int page, CancellationToken cancellationToken, int sizePerPage = 20)
+        [HttpGet,ActionName("ItemInBox")]
+        public async Task<JsonResult> ItemInBoxAsync(string term, long boxId, int page, CancellationToken cancellationToken, int sizePerPage = 20)
         {
 
             if (string.IsNullOrEmpty(term))
@@ -146,24 +142,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonOk();
             }
         }
-
-
-        //[HttpGet]
-        //public async Task<JsonResult> Members(string q, int page)
-        //{
-        //    long? universityId = User.GetUniversityData();
-        //    if (!universityId.HasValue)
-        //        return JsonError("need university");
-        //    var query = new UserSearchQuery(q, universityId.Value, page, 50, User.GetUserId());
-        //    var retVal = await ZboxReadService.GetUsersByTermAsync(query);
-
-        //    return JsonOk(retVal);
-        //}
-
-
-
-
-
-
     }
 }
