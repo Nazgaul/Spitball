@@ -1,33 +1,30 @@
-﻿'use strict';
-(function () {
-    angular.module('app.search').controller('SearchTriggerController', searchTriggerController);
-    searchTriggerController.$inject = ['$state', '$rootScope', '$stateParams', '$location'];
-
-    function searchTriggerController($state, $rootScope, $stateParams, $location) {
-        var st = this;
-
-        st.search = search;
-        st.change = search;
-
-        st.term = $location.search().q; //$state not yet loaded
-
-        //userDetailsFactory.init().then(function () {
-        //    st.show = userDetailsFactory.isAuthenticated();
-        //});
-
-        function search(isValid) {
-            if (isValid) {
-                $state.go('searchinfo', { q: st.term, t: $stateParams.t });
-                if ($state.current.name === 'searchinfo') {
-                    $rootScope.$broadcast('search-query');
+var app;
+(function (app) {
+    "use strict";
+    var searchStateName = "searchinfo";
+    var SearchTriggerController = (function () {
+        function SearchTriggerController($scope, $state) {
+            var _this = this;
+            this.$scope = $scope;
+            this.$state = $state;
+            this.term = $state.params["q"];
+            $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState) {
+                if (fromState.name === searchStateName && toState.name !== searchStateName) {
+                    _this.term = "";
                 }
-            }
+            });
         }
-
-
-
-        $rootScope.$on('search-close', function () {
-            st.term = '';
-        });
-    }
-})()
+        SearchTriggerController.prototype.change = function () {
+            this.search();
+        };
+        SearchTriggerController.prototype.search = function () {
+            var form = this.$scope["searchTrigger"];
+            if (form.$valid) {
+                this.$state.go(searchStateName, { q: this.term, t: this.$state.params["t"] });
+            }
+        };
+        SearchTriggerController.$inject = ["$scope", "$state"];
+        return SearchTriggerController;
+    }());
+    angular.module("app.search").controller("SearchTriggerController", SearchTriggerController);
+})(app || (app = {}));

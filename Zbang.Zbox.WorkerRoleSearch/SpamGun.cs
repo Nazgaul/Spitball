@@ -97,7 +97,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                        message.UniversityUrl, message.FirstName.UppercaseFirst(), message.MailSubject,
                                        message.MailCategory, greekMessage.School, greekMessage.Chapter), token);
                             }
-                            //await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
+                            await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
                             counter++;
                             emailsTask.Add(t1);
                         }

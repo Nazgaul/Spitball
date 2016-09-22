@@ -24,8 +24,8 @@
         </md-tab>
     </md-tabs>
 
-    <div class="tab-content" ng-switch on="s.tab">
-        <div ng-switch-when="item">
+    <div class="tab-content" ng-switch="s.tab">
+        <div ng-switch-when="doc">
             <div layout="row" layout-padding layout-wrap>
                 <div flex-gt-lg="25" flex-lg="33" flex-md="50" flex-sm="50" flex-xs="100" ng-repeat="e in s.result" ng-include="'item-template.html'"></div>
             </div>
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div ng-switch-when="box">
+        <div ng-switch-when="course">
             <div layout="row" layout-padding layout-wrap>
                 <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in s.result" ng-include="'box-template.html'"></div>
             </div>

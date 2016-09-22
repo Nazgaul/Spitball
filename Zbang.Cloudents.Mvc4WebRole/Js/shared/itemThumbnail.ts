@@ -1,9 +1,13 @@
 ﻿module app {
     "use strict";
+
+    interface IThumbnail {
+        thumbnail: string;
+    }
     export interface IItemThumbnailService {
         get(name: string, width: number, height: number): string;
         assignValues(elements: Array<any>, widthElement: number, heightElement: number): Array<any>;
-        assignValue(source: string, widthElement: number, heightElement: number): Object;
+        assignValue(source: string, widthElement?: number, heightElement?: number): IThumbnail;
         getChat(name?: string): string;
         getUniversityPic(name: string, width: number, height: number): string;
         logo: string;

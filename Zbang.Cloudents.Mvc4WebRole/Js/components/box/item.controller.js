@@ -12,15 +12,15 @@
         i.items = [];
         i.uploadShow = true;
         $scope.stateParams = $stateParams;
-        var page = 0, needToBringMore = true, disablePaging = false;;
+        var page = 0, needToBringMore = true, disablePaging = false;
 
 
-        i.myPagingFunction = function () {
+        i.myPagingFunction = function() {
             if (i.term) {
                 return $q.when();
             }
             return getItems(true);
-        }
+        };
         i.filter = filter;
         i.openUpload = openUpload;
         i.deleteItem = deleteItem;

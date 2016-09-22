@@ -1,147 +1,142 @@
-﻿'use strict';
-(function () {
-    angular.module('app.search').controller('SearchController', search);
-
-    search.$inject = ['searchService', 'itemThumbnailService', '$q', '$rootScope', 'Analytics',
-        '$stateParams', '$location', '$state', '$timeout', 'dashboardService', '$scope'];
-    function search(searchService, itemThumbnailService, $q, $rootScope,
-        analytics, $stateParams, $location, $state, $timeout, dashboardService, $scope) {
-        var self = this, page = 0, needToBringMore = true, term;
-        self.state = {
-            box: 'box',
-            item: 'item',
-            quiz: 'quiz'
-        }
-        self.boxes = [];
-        self.items = [];
-        self.quizzes = [];
-        assignTab();
-        self.univeristyClick = univeristyClick;
-      
-
-        $rootScope.$on('search-query', searchElements);
-        self.changeTab = changeTab;
-
-        self.back = function () {
-            $rootScope.$broadcast('search-close');
-            $scope.app.back('/dashboard/');
-        }
-
-        self.myPagingFunction = function () {
-            return doQuery(true);
-        }
-
-        function searchElements() {
-            term = $state.params.q;// $location.search().q;
-            page = 0;
-            needToBringMore = true;
-            doQuery();
-        }
-
-        function assignTab() {
-            self.tab = self.state.item;
-            self.tabIndex = 0;
-            var index = 0;
-            for (var prop in self.state) {
-                if (self.state.hasOwnProperty(prop)) {
-                    if (self.state[prop] === $stateParams.t) {
-                        self.tab = self.state[prop];
-                        self.tabIndex = index;
-                    }
+var app;
+(function (app) {
+    "use strict";
+    var stateName = "searchinfo";
+    var tabs = ["doc", "course", "quiz"];
+    var page = 0, needToBringMore = true;
+    var SearchController = (function () {
+        function SearchController($scope, dashboardService, $location, $state, $stateParams, analytics, searchService, itemThumbnailService, $q) {
+            var _this = this;
+            this.$scope = $scope;
+            this.dashboardService = dashboardService;
+            this.$location = $location;
+            this.$state = $state;
+            this.$stateParams = $stateParams;
+            this.analytics = analytics;
+            this.searchService = searchService;
+            this.itemThumbnailService = itemThumbnailService;
+            this.$q = $q;
+            this.noResults = false;
+            this.result = [];
+            if (tabs.indexOf($stateParams["t"]) === -1) {
+                this.$state.go(stateName, { q: this.$stateParams["q"], t: tabs[0] });
+            }
+            this.tab = $stateParams["t"];
+            this.doQuery(false);
+            $scope.$watchCollection(function () { return [$state.params["q"], $state.params["t"]]; }, function (newParams, oldParams) {
+                if (newParams === oldParams) {
+                    return;
                 }
-                index++;
+                analytics.trackPage($location.url(), "Search");
+                _this.tab = newParams[1];
+                _this.doQuery(false);
+            });
+        }
+        SearchController.prototype.back = function () {
+            var appController = this.$scope["app"];
+            appController.back("/dashboard/");
+        };
+        SearchController.prototype.univeristyClick = function () {
+            var _this = this;
+            this.dashboardService.getUniversityMeta()
+                .then(function (response) {
+                _this.$location.path(response.url);
+            });
+        };
+        SearchController.prototype.changeTab = function (tab) {
+            if (tabs.indexOf(tab) === -1) {
+                return;
             }
-        }
-
-        function changeTab(tab) {
-            self.tab = tab;
-            $state.go('searchinfo', { q: $stateParams.q, t: self.tab });
-            self.result = [];
-            //bug 5411
-            $timeout(searchElements);
-        }
-        function createEmptyPromise() {
-            return $q.when();
-        }
-        function doQuery(needToAppend) {
+            if (this.$state.params["t"] === tab) {
+                return;
+            }
+            this.$state.go(stateName, { q: this.$stateParams["q"], t: tab });
+        };
+        SearchController.prototype.myPagingFunction = function () {
+            return this.doQuery(true);
+        };
+        SearchController.prototype.doQuery = function (needToAppend) {
+            if (!needToAppend) {
+                page = 0;
+                needToBringMore = true;
+            }
             if (!needToBringMore) {
-                return createEmptyPromise();
+                return this.$q.when();
             }
-            analytics.trackPage($location.url(), 'Search');
-            switch (self.tab) {
-                case self.state.item:
-                    return getItems(needToAppend);
-                case self.state.quiz:
-                    return getQuizzes(needToAppend);
+            switch (this.tab) {
+                case tabs[0]:
+                    return this.getItems(needToAppend);
+                case tabs[2]:
+                    return this.getQuizzes(needToAppend);
                 default:
-                    return getBoxes(needToAppend);
+                    return this.getBoxes(needToAppend);
             }
-
-        }
-
-        function getBoxes(needToAppend) {
-            return searchService.searchBox(term, page).then(function (response) {
-                self.noResults = false;
+        };
+        SearchController.prototype.getBoxes = function (needToAppend) {
+            var _this = this;
+            return this.searchService.searchBox(this.$state.params["q"], page)
+                .then(function (response) {
+                _this.noResults = false;
                 if (needToAppend) {
-                    self.result = self.result.concat(response);
-                } else {
-                    self.result = response;
+                    _this.result = _this.result.concat(response);
+                }
+                else {
+                    _this.result = response;
                 }
                 if (!response.length && page === 0) {
                     needToBringMore = false;
-                    self.noResults = true;
+                    _this.noResults = true;
                 }
                 page++;
             });
-        }
-        function getItems(needToAppend) {
-            return searchService.searchItems(term, page).then(function (response) {
-                self.noResults = false;
+        };
+        SearchController.prototype.getItems = function (needToAppend) {
+            var _this = this;
+            return this.searchService.searchItems(this.$state.params["q"], page)
+                .then(function (response) {
+                _this.noResults = false;
                 angular.forEach(response, function (value) {
-                    var retVal = itemThumbnailService.assignValue(value.source);
+                    var retVal = _this.itemThumbnailService.assignValue(value.source);
                     value.thumbnail = retVal.thumbnail;
                     value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
                 });
                 if (needToAppend) {
-                    self.result = self.result.concat(response);
-                } else {
-                    self.result = response;
+                    _this.result = _this.result.concat(response);
+                }
+                else {
+                    _this.result = response;
                 }
                 if (!response.length && page === 0) {
                     needToBringMore = false;
-                    self.noResults = true;
+                    _this.noResults = true;
                 }
                 page++;
             });
-        }
-        function getQuizzes(needToAppend) {
-            
-            return searchService.searchQuizzes(term, page).then(function (response) {
-                self.noResults = false;
+        };
+        SearchController.prototype.getQuizzes = function (needToAppend) {
+            var _this = this;
+            return this.searchService.searchQuizzes(this.$state.params["q"], page)
+                .then(function (response) {
+                _this.noResults = false;
                 for (var j = 0; j < response.length; j++) {
                     response[j].publish = true;
                 }
                 if (needToAppend) {
-                    self.result = self.result.concat(response);
-                } else {
-                    self.result = response;
+                    _this.result = _this.result.concat(response);
+                }
+                else {
+                    _this.result = response;
                 }
                 if (!response.length && page === 0) {
                     needToBringMore = false;
-                    self.noResults = true;
+                    _this.noResults = true;
                 }
                 page++;
             });
-        }
-
-        function univeristyClick() {
-            dashboardService.getUniversityMeta()
-                .then(function (response) {
-                    $location.path(response.url);
-                });
-        }
-
-
-    }
-})();
-
+        };
+        SearchController.$inject = ["$scope", "dashboardService", "$location",
+            "$state", "$stateParams", "Analytics", "searchService", "itemThumbnailService", "$q"];
+        return SearchController;
+    }());
+    angular.module("app.search").controller("SearchController", SearchController);
+})(app || (app = {}));
