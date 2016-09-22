@@ -60,6 +60,9 @@
 .accountPage-wrapper .section md-input-container label {
   font-size: 18px;
 }
+.accountPage-wrapper .section .action-btn {
+  margin-left: 10px;
+}
 .accountPage-wrapper .change-uni,
 .accountPage-wrapper h2 {
   font-size: 14px;
@@ -228,12 +231,6 @@
   -webkit-flex: 0 0 auto;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
-}
-.accountPage-wrapper .private-departments .requests button {
-  min-height: 0;
-  line-height: initial;
-  min-width: 0;
-  padding: 3px 15px;
 }
 .change-email-dialog {
   padding: 30px 50px 30px 30px;

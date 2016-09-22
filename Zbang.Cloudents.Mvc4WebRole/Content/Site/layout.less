@@ -781,22 +781,22 @@ Page Loading
         button.close {
             padding: 18px;
             border-radius: 50%;
-            background: black;
             position: absolute;
             top: -30px;
             right: 0;
+            background: @backgroundCalmGrey;
 
-            svg {
-                width: 30px;
-                height: 30px;
-                fill: white;
+            md-icon {
+                width: 24px;
+                height: 24px;
+                fill: @headerbackground;
             }
 
             @media(max-width: 600px) {
                 padding: 15px;
                 top: -18px;
 
-                svg {
+                md-icon {
                     width: 15px;
                     height: 15px;
                 }
@@ -807,7 +807,7 @@ Page Loading
     .content-wrapper {
         position: relative;
         display: block;
-        background: black;
+        background: @backgroundCalmGrey;
         /*.displayFlex();
         .align-items(center);*/
         .content-container {

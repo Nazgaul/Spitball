@@ -14,7 +14,7 @@
                                 <div class="user-name">{{::user.name}}</div>
                             </a>
                             <div>
-                                <md-button ng-disabled="ad.disabled" class="btn button-Blue btn-primary text-uppercase" ng-if="user.userType === 'pending'" ng-click="ad.approve(dep,user)">
+                                <md-button ng-disabled="ad.disabled" class="action-btn text-uppercase" ng-if="user.userType === 'pending'" ng-click="ad.approve(dep,user)">
                                     @AccountSettingsResources.AcceptUserRequest
                                 </md-button>
                             </div>

@@ -17,8 +17,8 @@
             </div>
         </div>
         <div class="buttons text-capitalize" layout="row" layout-align="end center">
-            <button type="submit" class="btn button-Blue btn-primary" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid || cb.submitDisabled">@GeneralResources.Create</button>
-            <button type="button" class="btn btn-default" ga-track-event="['dashboard', 'createbox', 'cancel']" ng-click="cb.cancel(createBox)">@GeneralResources.Cancel</button>
+            <button type="button" class="cancel-btn" ga-track-event="['dashboard', 'createbox', 'cancel']" ng-click="cb.cancel(createBox)">@GeneralResources.Cancel</button>
+            <button type="submit" class="action-btn space-left" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid || cb.submitDisabled">@GeneralResources.Create</button>
         </div>
     </form>
 </div>

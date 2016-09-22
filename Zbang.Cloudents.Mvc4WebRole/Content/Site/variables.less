@@ -35,6 +35,8 @@
 @textColorOrange: #ffa500;
 @textColorLightWhite: #f5f5f5;
 @textColorPurple: #33076e;
+@textColorDisabledActionButton: #83b6d0;
+@textColorDisabledCancelButton: #7d7d7d;
 
 ////backgrounds
 @backgroundColor: #dadada;
@@ -67,7 +69,10 @@
 @borderColorBottomGrey: #5d6063;
 ////buttons
 @buttonColorBlue: #4190b9;
-@buttonColorHover: #26566e;
+@buttonColorBlueHover: #297095;
+@buttonColorCancel: #ffffff;
+@buttonColorCancelHover: #f0f0f0;
+@buttonColorCancelDisabled: #b4b3b3;
 @buttonColorRed: #db4437;
 //
 ////svg/images
@@ -102,17 +107,6 @@
 @notificationColorHover: #c4510b;
 @color-beige: #f76446;
 
-//.buttonBlue() {
-//    background: @buttonColorBlue;
-//
-//    &:hover {
-//        background: @buttonColorHover;
-//        color: @textColorWhite;
-//    }
-//    /*&:focus {
-//        color: inherit;
-//    }*/
-//}
 @heightOfHeader: 70px;
 @bodyGapFromTop: @heightOfHeader + 5px;
 @heightOfstaticPageHeader: 60px;
@@ -204,22 +198,54 @@
 }
 
 
+.general-button() {
+    font-size: 14px;
+    line-height: normal;
+    text-align: center;
+    min-width: 92px;
+    min-height: 26px;
+    cursor: pointer;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
+    margin: 4px 0;
+    padding: 5px 16px;
+    border-radius: 4px;
+
+    
+    &.no-text {
+        border-radius: 100%;
+        padding: 10px;
+        min-width: 0;
+        margin: 0;
+        box-shadow: none;
+    }
+
+    &.space-left {
+        margin-left: 10px;
+    }
+
+    &.space-right {
+        margin-right: 10px;
+    }
+}
 
 .colored-button(@bgColor, @textColor) {
     background: @bgColor;
     color: @textColor;
-    padding: 0 16px;
-    line-height: 25px;
-    height: 25px;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
 }
 
 .colored-button-hover(@bgHover, @textHover) {
-    &:hover {
+    &:hover:not([disabled]) {
         background: @bgHover;
         color: @textHover;
+    }
+}
+
+
+.colored-button-disabled(@bgHover, @textHover) {
+    &[disabled] {
+        background: @bgHover;
+        color: @textHover;
+        cursor: default;
     }
 }
 

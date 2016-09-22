@@ -25,7 +25,7 @@
 }
 .userPage .message {
   font-size: 16px;
-  background: #f76446;
+  background: #F76446;
   color: #ffffff;
   padding: 3px 13px;
   border-radius: 8px;
@@ -51,7 +51,7 @@
 .userPage .points-container {
   text-align: center;
   margin-top: 7px;
-  background: #3293f6;
+  background: #3293F6;
   color: #ffffff;
 }
 .userPage h5 {

@@ -544,10 +544,7 @@
 }
 .feed .actions .post-comment,
 .feed .reply-actions .post-comment {
-  padding: 10px;
-  border-radius: 100%;
   margin-top: -40px;
-  line-height: normal;
   margin-right: 8px;
   z-index: 1;
   margin-right: 14px;
@@ -603,7 +600,7 @@
 .feed .actions .dropbox:hover {
   fill: #007EE5;
 }
-.feed .actions button {
+.feed .actions button:not(.post-comment) {
   display: block;
   padding: 0;
 }

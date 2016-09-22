@@ -91,51 +91,6 @@ body {
   -webkit-transition: margin-top 0.2s ease !important;
   transition: margin-top 0.2s ease !important;
 }
-.blue-button {
-  background: #4190b9;
-  color: #212325;
-  padding: 0 16px;
-  line-height: 25px;
-  height: 25px;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-}
-.notificationButton {
-  background: #ec610d;
-  color: #fff;
-  padding: 0 16px;
-  line-height: 25px;
-  height: 25px;
-  font-size: 14px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 4px;
-  min-width: 130px;
-}
-.notificationButton:hover {
-  background: #c4510b;
-  color: #fff;
-}
-.mdno-touchevents .blue-button:hover {
-  background: #26566e;
-  color: #212325;
-}
-.grey-button {
-  background: #c3c3c3;
-  color: #ffffff;
-  padding: 0 16px;
-  line-height: 25px;
-  height: 25px;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-}
-.mdno-touchevents .grey-button:hover {
-  background: #9E9E9E;
-  color: #ffffff;
-}
 ::-webkit-scrollbar-track {
   border: none;
 }
@@ -149,14 +104,6 @@ body {
 }
 #ssIFrame_google {
   right: -9999px !important;
-}
-.button-Blue {
-  background: #4190b9 !important;
-  text-transform: initial;
-}
-.button-Blue:hover {
-  background: #26566e !important;
-  color: #212325 !important;
 }
 .page-footer .scroll-to-top {
   -moz-transform: rotate(270deg) ;

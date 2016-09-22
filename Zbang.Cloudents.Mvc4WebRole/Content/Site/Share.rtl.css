@@ -37,7 +37,7 @@
     }*/
 }
 .invite button.btn-default:active:hover svg {
-  fill: #9e9e9e;
+  fill: #9E9E9E;
 }
 .invite button.btn-default svg {
   fill: #c3c3c3;
@@ -67,7 +67,7 @@
   opacity: 1;
 }
 .invite .gmail {
-  background: #9e9e9e;
+  background: #9E9E9E;
 }
 .invite .invite-list-wrapper {
   height: 290px;
@@ -124,7 +124,7 @@
   }
 }
 .invite.invite-dialog .content .tabs button.spitball.active svg {
-  fill: #3293f6;
+  fill: #3293F6;
 }
 .invite.invite-dialog .content .tabs button.email svg {
   width: 35px;
