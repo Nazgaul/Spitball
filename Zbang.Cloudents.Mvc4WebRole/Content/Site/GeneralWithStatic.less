@@ -1,4 +1,4 @@
-﻿@import "themeLight.less";
+﻿@import "variables.less";
 @boxColor0: #64A9F8;
 @boxColor1: #ff9853;
 @boxColor2: #e775ce;
@@ -63,7 +63,7 @@ body {
 }
 
 .blue-button {
-    .colored-button(@textColorLike, @textColorWhite)
+    .colored-button(@textColorLike, @textColorBlack)
 }
 
 .notificationButton {
@@ -76,16 +76,16 @@ body {
 }
 
 .mdno-touchevents .blue-button {
-    .colored-button-hover(@buttonColorHover, @textColorWhite);
+    .colored-button-hover(@buttonColorHover, @textColorBlack);
 }
 
 
 .grey-button {
-    .colored-button(@textColorLightGrey, @textColorBlack);
+    .colored-button(@textColorLightGrey, @textColorWhite);
 }
 
 .mdno-touchevents .grey-button {
-    .colored-button-hover(@backgroundColor2, @textColorBlack);
+    .colored-button-hover(@backgroundColor2, @textColorWhite);
 }
 
 
@@ -118,7 +118,7 @@ body {
 
     &:hover {
         background: @buttonColorHover !important;
-        color: @textColorWhite !important;
+        color: @textColorBlack !important;
     }
 }
 //footer arrow up

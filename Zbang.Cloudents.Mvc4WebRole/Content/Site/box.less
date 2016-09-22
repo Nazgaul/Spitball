@@ -1,4 +1,4 @@
-﻿@import "themeLight.less";
+﻿@import "variables.less";
 
 .folder-selected {
     .folder-name {
@@ -61,7 +61,7 @@
 .folders .folder-name .content {
     //padding: 2px 6px;
     text-align: center;
-    color: @textColorBlack;
+    color: @textColorWhite;
 
     div:last-child {
         margin-top: 3px;
@@ -74,7 +74,7 @@
     margin-left: 8px;
 
     .text {
-        color: @textColorBlack;
+        color: @textColorWhite;
     }
 
     .md-menu {
@@ -109,13 +109,13 @@
     width: 100%;
     display: inline-block;
     padding: 0 8px;
-    .placeHolder(@textColorBlack);
+    .placeHolder(@textColorWhite);
 
     input {
         border: 5px solid @buttonColorBlue;
         //border: 10px solid @backgroundColorMenu;
         background: #f5f5f5;
-        color: @textColorWhite;
+        color: @textColorBlack;
         margin-top: -15px;
         border-radius: 0 0 4px 4px;
         width: 200px;
@@ -147,10 +147,10 @@
 
 .members {
     .member-invite {
-        color: @textColorWhite;
+        color: @textColorBlack;
 
         svg {
-            fill: @textColorWhite;
+            fill: @textColorBlack;
         }
     }
 }
@@ -173,7 +173,7 @@
 }
 
 .add svg {
-    fill: @textColorWhite;
+    fill: @textColorBlack;
 }
 
 .folders {
@@ -404,7 +404,7 @@
         background: #73b435;
         border-radius: 10px;
         margin-left: 10px;
-        color: @textColorWhite;
+        color: @textColorBlack;
         flex-shrink: 0;
     }
 }
@@ -488,7 +488,7 @@
 
     &.new-post {
         .top img {
-            background: @borderColorDarkGrey;
+            background: @borderColorWhite;
         }
     }
 }
@@ -508,7 +508,7 @@
         font-size: 15px;
         margin-left: 10px;
         width: ~"calc(100% - 45px)";
-        color: @textColorWhite;
+        color: @textColorBlack;
     }
 }
 
@@ -578,7 +578,7 @@
 
     .top {
         height: @heightOfTop;
-        color: @textColorWhite;
+        color: @textColorBlack;
         .displayFlex();
         .justifyContet(center);
         .align-items(center);
@@ -673,7 +673,7 @@
         direction: ltr /*rtl:ignore*/;
         position: relative;
         background: @backgroundColorMenu;
-        color: @textColorWhite;
+        color: @textColorBlack;
 
 
 
@@ -708,7 +708,7 @@
 }
 
 .quiz-dots {
-    fill: @textColorWhite;
+    fill: @textColorBlack;
 }
 
 .item {
@@ -753,7 +753,7 @@
         overflow: hidden;
         height: 70px;
         background: rgba(24,28,29,0.75);
-        color: @textColorWhite;
+        color: @textColorBlack;
     }
 }
 
@@ -1008,7 +1008,7 @@
         .file-size {
             font-weight: bold;
             line-height: 20px;
-            color: @textColorBlack;
+            color: @textColorWhite;
         }
 
         .file-upload-progress {
@@ -1042,7 +1042,7 @@
             border-radius: 5px;
             line-height: 20px;
             margin: 0;
-            color: @textColorWhite;
+            color: @textColorBlack;
             background-color: @backgroundColorRed;
         }
     }
