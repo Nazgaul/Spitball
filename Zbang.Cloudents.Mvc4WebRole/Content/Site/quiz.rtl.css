@@ -120,6 +120,7 @@
   display: -ms-flex;
   display: flex;
   padding: 11px 10px 9px 15px;
+  background: #f5f5f5;
 }
 .quizPage .quiz-take-stats md-icon {
   width: 36px;
@@ -178,7 +179,7 @@
   font-size: 24px;
 }
 .quizPage .black-bullet {
-  background: #ffffff;
+  background: #323538;
   color: #ffffff;
   text-align: center;
   border-radius: 10px;
@@ -409,9 +410,9 @@
 }
 .quiz-challenge .backgrounds {
   margin: 25px auto;
-  background: #ffffff;
+  background: #323538;
   border-radius: 10px;
-  color: #212325;
+  color: #ffffff;
   padding: 10px 20px;
 }
 .quiz-challenge .backgrounds svg {

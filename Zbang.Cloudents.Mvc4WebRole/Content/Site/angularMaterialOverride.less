@@ -1,8 +1,9 @@
 ﻿@import "variables.less";
+
 .dd-list {
     md-content {
         background: @backgroundColorMenu;
-        color: @textColorWhite;
+        color: @textColorBlack;
     }
 
     md-option {
@@ -30,12 +31,12 @@
 }
 
 md-select:not([disabled]):focus .md-select-value {
-    color: @textColorWhite;
+    color: @textColorBlack;
     border-bottom: 1px solid @borderColorDarkBlue;
 }
 
 md-select .md-select-value.md-select-placeholder {
-    color: @textColorWhite;
+    color: @textColorBlack;
 }
 
 md-select-menu md-option:focus:not([disabled]):not([selected]) {
@@ -107,7 +108,7 @@ md-menu-content md-menu-item {
 }
 
 md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
-    background: @buttonColorBlue;
+    background: @notificationColor;
 }
 
 .layout-padding {

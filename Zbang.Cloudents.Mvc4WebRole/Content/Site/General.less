@@ -110,25 +110,6 @@ body {
             }
         }
     }
-
-    .dd-list {
-        md-content {
-            background: @backgroundColorMenu;
-            color: @textColorBlack;
-        }
-
-        md-option {
-            border-bottom: 1px solid @borderColorDarkGrey;
-
-            &[selected] {
-                color: @textColorBlue;
-
-                &:focus {
-                    color: @textColorBlue;
-                }
-            }
-        }
-    }
 }
 
 .page-body {
@@ -937,15 +918,6 @@ md-tooltip .md-content {
 /*#region angularmaterial*/
 
 
-md-select:not([disabled]):focus .md-select-value {
-    color: @textColorWhite;
-    border-bottom: 1px solid @borderColorDarkBlue;
-}
-
-md-select .md-select-value.md-select-placeholder {
-    color: @textColorWhite;
-}
-
 md-select-menu md-option:focus:not([disabled]):not([selected]) {
     background: @backgroundColorMenu;
 }
@@ -953,7 +925,7 @@ md-select-menu md-option:focus:not([disabled]):not([selected]) {
 md-input-container {
     &:not(.md-input-invalid) label, label {
         line-height: normal;
-        color: @textColorWhite;
+        color: @textColorBlack;
     }
 }
 
@@ -983,16 +955,12 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 }
 
 md-input-container .md-input {
-    color: @textColorWhite;
-}
-
-md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
-    background: @buttonColorBlueHover;
+    color: @textColorBlack;
 }
 
 .close {
     &:hover {
-        color: @textColorWhite;
+        color: @textColorBlack;
     }
 }
 
@@ -1015,13 +983,13 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
     }
 
     md-input-container .md-input {
-        color: @textColorWhite;
+        color: @textColorBlack;
         border-color: @borderColorLightGrey;
     }
 
     md-input-container:not(.md-input-invalid).md-input-focused .md-input {
         border-bottom: 1px solid @buttonColorBlue;
-        color: @textColorWhite;
+        color: @textColorBlack;
     }
 }
 
@@ -1032,7 +1000,7 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
         }
 
         .overElement() {
-            color: @textColorWhite;
+            color: @textColorBlack;
         }
 
         &.active {
@@ -1045,7 +1013,7 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
     background: @backgroundColorMenu;
 
     li {
-        color: @textColorWhite;
+        color: @textColorBlack;
 
         &:hover, &:focus {
             color: @textColorBlue;
@@ -1053,11 +1021,11 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
 
         &.active, &:active {
             border-bottom: 3px solid @borderColorBlue;
-            color: @textColorWhite;
+            color: @textColorBlack;
         }
 
         &.active > a, &.active > a:hover, &.active > a:focus {
-            color: @textColorWhite;
+            color: @textColorBlack;
         }
 
         & > a {
@@ -1101,7 +1069,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 
 .login, .signin {
     background: @backgroundColorBlack;
-    color: @textColorBlack;
+    color: @textColorWhite;
 
     &:hover {
         background: @backgroundColorBlack !important;
@@ -1110,7 +1078,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 
 .login {
     background: @backgroundColorSpitballBlue;
-    color: @textColorWhite;
+    color: @textColorBlack;
 
     &:hover {
         background: @backgroundColorSpitballBlue !important;
@@ -1141,7 +1109,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
     //}
     .ontop {
         background: @buttonColorBlue;
-        color: @textColorBlack;
+        color: @textColorWhite;
     }
 
     md-input-container:not(.md-input-invalid).md-input-focused .md-input {
@@ -1159,7 +1127,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
             border-bottom: 3px solid @borderColorBlue;
 
             > a {
-                color: @textColorWhite;
+                color: @textColorBlack;
             }
         }
 
@@ -1195,12 +1163,12 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 .box-nav-bar {
     md-next-button, md-prev-button {
         svg {
-            fill: @textColorBlack;
+            fill: @textColorWhite;
         }
     }
 
     md-ink-bar {
-        background: #ffffff;
+        background: @textColorWhite;
     }
 }
 

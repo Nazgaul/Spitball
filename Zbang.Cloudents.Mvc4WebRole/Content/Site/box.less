@@ -266,6 +266,14 @@
 
     .notificationButton {
         margin: 3px 0;
+        //.general-button();
+        font-weight: bold;
+        font-size: 16px;
+        padding: 0 30px;
+        line-height: 25px;
+        border-radius: 4px;
+        .colored-button(@notificationColor, @textColorWhite);
+        .colored-button-hover(@notificationColorHover, @textColorWhite);
     }
 }
 
@@ -640,7 +648,6 @@
         &.draft-wpr {
             border: 1px solid #fff;
         }
-
     }
 
     .bottom {

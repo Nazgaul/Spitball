@@ -363,8 +363,9 @@
   -webkit-justify-content: flex-end;
   justify-content: flex-end;
   text-align: right;
-  margin: 1px 5px;
+  margin: 1px 8px;
   min-height: 35px;
+  margin-bottom: 4px;
 }
 .invite .portlet-title {
   padding-right: 25px;

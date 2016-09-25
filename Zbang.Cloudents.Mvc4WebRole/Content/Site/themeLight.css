@@ -118,10 +118,6 @@ body.theme-light {
 .theme-light md-input-container .md-input {
   color: #212325;
 }
-.theme-light md-toast.md-default-theme .md-toast-content,
-.theme-light md-toast .md-toast-content {
-  background: #26566e;
-}
 .theme-light .close:hover {
   color: #212325;
 }

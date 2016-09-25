@@ -49,10 +49,11 @@
   background: #4190b9;
 }
 .accountPage-wrapper .section {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding: 20px;
   border-radius: 5px;
   background: #ffffff;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.42);
 }
 .accountPage-wrapper .section md-input-container {
   margin-bottom: 0;
