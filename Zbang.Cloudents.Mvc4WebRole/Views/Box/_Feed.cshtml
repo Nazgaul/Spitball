@@ -29,7 +29,7 @@
                 <share-box class="option share"></share-box>
                 <label class="backdrop" for="open-share"></label>
             </div>
-            <div class="option-wrapper" ng-class="{disabled: b.needFollow}">
+            <div class="option-wrapper" ng-class="{disabled: b.needFollow, active: b.settingsOpen}">
                 <button ng-disabled="b.needFollow" class="option box-settings" flex="none" type="button" ng-click="b.toggleSettings()" scroll-to-top ga-track-event="['box', 'settings']">
                     <div>
                         <md-icon md-svg-icon="t:settingMenu" class="option-icon"></md-icon>

@@ -52,7 +52,12 @@
             }
 
             if (b.settingsHtml) {
-                b.settingsOpen = true;
+                if (b.settingsOpen) {
+                    b.settingsOpen = false;
+                }
+                else {
+                    b.settingsOpen = true;
+                }
                 return;
             }
             return ajaxService.getHtml('/box/boxsettings/').then(function (response) {

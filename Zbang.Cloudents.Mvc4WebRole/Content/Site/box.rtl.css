@@ -17,7 +17,7 @@
 }
 .folder-selected .folder-name .folder-name-inner,
 .folders .folder-name .folder-name-inner {
-  background: #8c99a6;
+  background: #4190b9;
   padding: 0 6px;
   width: 100%;
 }
@@ -86,7 +86,7 @@
   -o-transform: rotate(0);
   -webkit-transform: rotate(0);
   transform: rotate(0);
-  fill: #888b8e;
+  fill: #212325;
   opacity: .8;
   margin-left: 15px;
 }
@@ -319,6 +319,11 @@ library-list {
   font-size: 18px;
   color: #888b8e;
   text-align: center;
+}
+.add-button a .text,
+.add-button button .text {
+  line-height: normal;
+  margin-top: 5px;
 }
 .add-button svg {
   fill: #888b8e;

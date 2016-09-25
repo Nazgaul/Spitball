@@ -98,7 +98,7 @@
   flex-direction: row;
   align-items: center;
 }
-@media (min-width: 600px) {
+@media (min-width: 900px) {
   .search .no-results {
     text-align: center;
     margin: 0 auto;
@@ -116,7 +116,14 @@
   color: #ffffff;
 }
 .search .no-results .text-wrapper {
+  color: #212325;
+  text-align: center;
   margin: 0 auto;
+}
+@media (min-width: 600px) {
+  .search .no-results .text-wrapper {
+    padding-left: 0;
+  }
 }
 .search .no-results .text-wrapper h2 {
   color: #F76446;
@@ -125,7 +132,7 @@
   margin-bottom: 30px;
 }
 .search .no-results .text-wrapper .text {
-  color: #c3c3c3;
+  color: #212325;
 }
 .search .no-results .text-wrapper div {
   font-size: 20px;

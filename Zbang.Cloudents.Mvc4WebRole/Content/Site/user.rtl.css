@@ -180,6 +180,9 @@
   margin: 0 12px;
   background: none;
 }
+.userPage .profile-content .user-box {
+  min-width: 300px;
+}
 @media (max-width: 599px) {
   .userPage .quiz .top .first-letter {
     font-size: 10vw;

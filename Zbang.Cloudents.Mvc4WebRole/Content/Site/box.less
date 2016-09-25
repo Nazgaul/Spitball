@@ -20,7 +20,7 @@
         .displayFlex();
 
         .folder-name-inner {
-            background: #8c99a6;
+            background: @buttonColorBlue;
             padding: 0 6px;
             width: 100%;
         }
@@ -99,7 +99,7 @@
         -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
         -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
         transform: rotate(180deg) /*rtl:rotate(0)*/;
-        fill: @textColorGrey;
+        fill: @textColorBlack;
         opacity: .8;
         margin-right: 15px;
     }
@@ -329,6 +329,11 @@
         font-size: 18px;
         color: @textColorGrey;
         text-align: center;
+
+        .text {
+            line-height: normal;
+            margin-top: 5px;
+        }
     }
 
     svg {
