@@ -124,13 +124,19 @@
         }
 
         function inviteToBox() {
-            if (!b.user.id) {
-                $rootScope.$broadcast('show-unregisterd-box');
-                return;
+            if (b.inviteOpen) {
+                b.inviteOpen = false;
+                $rootScope.$broadcast('close-collapse');
             }
-            $rootScope.$broadcast('close-collapse');
-            b.inviteOpen = true;
-            $scope.$broadcast('open_invite');
+            else {
+                if (!b.user.id) {
+                    $rootScope.$broadcast('show-unregisterd-box');
+                    return;
+                }
+                $rootScope.$broadcast('close-collapse');
+                b.inviteOpen = true;
+                $scope.$broadcast('open_invite');
+            }
         }
         function inviteExpand() {
             if (b.html) {
@@ -157,12 +163,12 @@
             b.showLeaderboard = false;
         });
 
-        $window.onbeforeunload = function() {
+        $window.onbeforeunload = function () {
             if (!b.user.id) {
                 return;
             }
             userUpdatesService.deleteUpdates(boxId);
-            
+
         };
         function follow() {
             if (!b.user.id) {

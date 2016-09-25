@@ -27,7 +27,7 @@
   -webkit-justify-content: center;
   justify-content: center;
   padding: 2px 0;
-  background: #fff;
+  background: #ffffff;
 }
 .feed .box-options .option-wrapper.disabled .option {
   opacity: 0.5;
@@ -49,8 +49,17 @@
     display: none;
   }
 }
-.feed .box-options .option-wrapper:not(.disabled):hover {
+.feed .box-options .option-wrapper:not(.disabled):not(.active):hover {
   background: #f5f5f5;
+}
+.feed .box-options .option-wrapper.active {
+  background: #4190b9;
+}
+.feed .box-options .option-wrapper.active .text {
+  color: #ffffff;
+}
+.feed .box-options .option-wrapper.active md-icon {
+  fill: #ffffff;
 }
 .feed .box-options .option-wrapper:first-child .option {
   border-right: 1px solid #c3c3c3;

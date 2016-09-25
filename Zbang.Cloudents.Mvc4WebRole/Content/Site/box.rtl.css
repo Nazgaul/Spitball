@@ -242,7 +242,7 @@ library-list {
   margin: 3px 0;
   font-weight: bold;
   font-size: 16px;
-  padding: 0 30px;
+  padding: 0 20px;
   line-height: 25px;
   border-radius: 4px;
   background: #ec610d;
@@ -259,6 +259,11 @@ library-list {
 .page-head .need-follow .notificationButton:hover:not([disabled]) svg,
 .page-head .need-follow .notificationButton:hover:not([disabled]) md-icon {
   fill: #ffffff;
+}
+@media (min-width: 600px) {
+  .page-head .need-follow .notificationButton {
+    white-space: nowrap;
+  }
 }
 .box-nav-bar ~ div {
   margin: 0 -8px;

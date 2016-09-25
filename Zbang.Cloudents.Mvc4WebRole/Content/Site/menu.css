@@ -83,6 +83,7 @@
 .page-body .main-md-sidenav li.nav-item {
   width: 100%;
   padding-right: 10px;
+  margin: 2px 0;
 }
 .page-body .main-md-sidenav .dashboard md-icon,
 .page-body .main-md-sidenav .help md-icon,

@@ -8,7 +8,7 @@
 <div layout="row" layout-padding layout-wrap class="feed-wrapper">
     <div class="feed" flex="100" flex-md="66" flex-lg="60" flex-gt-lg="60">
         <div class="box-options">
-            <div class="option-wrapper" ng-class="{disabled: !b.canInvite}">
+            <div class="option-wrapper" ng-class="{disabled: !b.canInvite, active: b.inviteOpen}">
                 <button ng-disabled="!b.canInvite" type="button" ng-click="b.inviteToBox()" class="option invite" scroll-to-top ga-track-event="['box-feed', 'inviteFriends']">
                     <div>
                         <md-icon md-svg-icon="t:invite" class="option-icon"></md-icon>

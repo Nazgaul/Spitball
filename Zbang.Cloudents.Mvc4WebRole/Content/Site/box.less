@@ -269,11 +269,15 @@
         //.general-button();
         font-weight: bold;
         font-size: 16px;
-        padding: 0 30px;
+        padding: 0 20px;
         line-height: 25px;
         border-radius: 4px;
         .colored-button(@notificationColor, @textColorWhite);
         .colored-button-hover(@notificationColorHover, @textColorWhite);
+
+        @media(min-width: 600px) {
+            white-space: nowrap;
+        }
     }
 }
 
