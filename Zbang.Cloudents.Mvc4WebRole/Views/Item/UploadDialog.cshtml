@@ -91,7 +91,7 @@
                             <md-input-container class="padding">
                                 <label>@IndexResources.Share</label>
                                 <input type="text" spellcheck="false" name="link" autocomplete="off" ng-model="u.link"
-                                       autofocus required ng-change="uploadLink.link.$setValidity('server',true)" />
+                                       autofocus required md-no-asterisk ng-change="uploadLink.link.$setValidity('server',true)" />
                                 <div ng-messages="uploadLink.link.$error">
                                     <div ng-message="required">@GeneralResources.RequiredField</div>
                                     <div ng-message="server">{{u.error}}</div>

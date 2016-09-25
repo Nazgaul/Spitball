@@ -97,25 +97,30 @@ md-menu-item {
         button.fb-like {
             white-space: nowrap;
             display: inline-table;
-            border: 1px solid @textColorGrey;
+            border: 1px solid @buttonColorBlue;
             border-radius: 5px;
-            padding: 0 6px;
-            line-height: 24px;
+            padding: 0 14px;
+            line-height: 22px;
             min-width: 56px;
             justify-content: space-around;
             align-items: center;
             font-size: 14px;
-            color: @textColorGrey;
+            color: @buttonColorBlue;
             margin: 0 8px;
 
             svg {
                 width: 16px;
                 height: 16px;
                 margin-right: 8px;
-                margin-bottom: -2px;
+                margin-bottom: 2px;
+                fill: @buttonColorBlue;
             }
 
-            &:hover, &.blue {
+            &:hover {
+                background: @buttonColorCancelHover;
+            }
+
+            &.blue {
                 background: @buttonColorBlue;
                 border-color: @buttonColorBlue;
                 color: @textColorWhite;

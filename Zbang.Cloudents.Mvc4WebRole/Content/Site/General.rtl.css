@@ -196,14 +196,23 @@ body .quiz-template .bottom .name {
   height: 179px;
   line-height: 1;
 }
-.box-style:not(.leaderboardbox):hover {
+.box-style:not(.leaderboardbox):not(.box-style-form):hover {
   background: #f0f0f0;
 }
-.box-style:not(.leaderboardbox):hover .wrapper .icon {
+.box-style:not(.leaderboardbox):not(.box-style-form):hover .wrapper .icon {
   fill: #4190b9;
 }
-.box-style:not(.leaderboardbox):hover .wrapper span {
+.box-style:not(.leaderboardbox):not(.box-style-form):hover .wrapper span {
   color: #4190b9;
+}
+.box-style#createCourse {
+  padding-bottom: 16px;
+}
+.box-style#createCourse md-input-container {
+  margin-bottom: 12px;
+}
+.box-style#createCourse .md-errors-spacer {
+  display: none;
 }
 .box-style.action {
   border-radius: 4px;
@@ -277,6 +286,7 @@ body .quiz-template .bottom .name {
 }
 .box-style .progress-info {
   clear: both;
+  position: relative;
 }
 .box-style .progress-info .progress {
   margin: 0;
@@ -285,7 +295,7 @@ body .quiz-template .bottom .name {
   display: block;
 }
 .box-style .progress-info .status {
-  margin-top: 15px;
+  margin-top: 20px;
   font-size: 15px;
 }
 .box-style .progress-info .status .status-title {
@@ -321,8 +331,8 @@ body .quiz-template .bottom .name {
 }
 .box-style-form form .buttons {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
+  bottom: 2px;
+  left: 6px;
 }
 /*.create-box {
 
@@ -345,9 +355,6 @@ body .quiz-template .bottom .name {
 }*/
 .md-dialog-container {
   z-index: 80;
-}
-md-input-container label:not(.md-container-ignore).md-required:after {
-  content: none;
 }
 md-icon {
   margin: 0;
@@ -529,7 +536,7 @@ md-icon {
 .tabbable li:hover,
 .nav-tabs li:focus,
 .tabbable li:focus {
-  color: #2698d4;
+  color: #2698D4;
   background: transparent;
 }
 .nav-tabs li.active,
@@ -563,7 +570,7 @@ md-icon {
 .nav-tabs li > a:hover,
 .tabbable li > a:hover {
   border: none;
-  color: #2698d4;
+  color: #2698D4;
 }
 .ribbon {
   position: absolute;
@@ -638,17 +645,17 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 }
 md-switch.md-default-theme.md-checked .md-thumb,
 md-switch.md-checked .md-thumb {
-  background-color: #2698d4;
+  background-color: #2698D4;
 }
 md-switch.md-default-theme.md-checked .md-ink-ripple,
 md-switch.md-checked .md-ink-ripple {
-  color: #2698d4;
+  color: #2698D4;
 }
 md-switch.md-default-theme.md-checked .md-bar,
 md-switch.md-checked .md-bar,
 md-switch.md-default-theme.md-checked.md-focused .md-thumb:before,
 md-switch.md-checked.md-focused .md-thumb:before {
-  background-color: #2698d4;
+  background-color: #2698D4;
   opacity: 0.5;
 }
 md-tooltip .md-content {
@@ -683,40 +690,6 @@ md-tooltip .md-content {
 }
 .add {
   background: #db4437;
-}
-/*#region angularmaterial*/
-md-select-menu md-option:focus:not([disabled]):not([selected]) {
-  background: #ffffff;
-}
-md-input-container:not(.md-input-invalid) label,
-md-input-container label {
-  line-height: normal;
-  color: #212325;
-}
-.md-select-value .md-select-icon,
-md-select .md-select-value,
-md-input-container .md-input,
-.form-group.form-md-line-input .form-control {
-  color: #4190b9;
-  border-color: #4190b9;
-  /*&:focus, &:active {
-            color: @textColorBlue;
-        }*/
-}
-md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
-md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-  border-color: #4190b9;
-}
-.form-group.form-md-line-input .form-control.edited:not([readonly]) ~ label:after,
-.form-group.form-md-line-input .form-control.edited:not([readonly]) ~ .form-control-focus:after,
-.form-group.form-md-line-input .form-control:focus:not([readonly]) ~ label:after,
-.form-group.form-md-line-input .form-control:focus:not([readonly]) ~ .form-control-focus:after,
-.form-group.form-md-line-input .form-control.focus:not([readonly]) ~ label:after,
-.form-group.form-md-line-input .form-control.focus:not([readonly]) ~ .form-control-focus:after {
-  background: #4190b9;
-}
-md-input-container .md-input {
-  color: #212325;
 }
 .close:hover {
   color: #212325;
@@ -753,7 +726,7 @@ md-input-container .md-input {
 .tabbable li:hover,
 .nav-tabs li:focus,
 .tabbable li:focus {
-  color: #2698d4;
+  color: #2698D4;
 }
 .nav-tabs li.active,
 .tabbable li.active,
@@ -776,14 +749,10 @@ md-input-container .md-input {
 }
 .nav-tabs li > a:hover,
 .tabbable li > a:hover {
-  color: #2698d4;
+  color: #2698D4;
 }
 .scroll-to-top svg {
   fill: #3598dc;
-}
-md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
-md-input-container:not(.md-input-invalid).md-input-focused label {
-  color: #4190b9;
 }
 /*#region header.less*/
 .top-menu svg {
@@ -805,11 +774,11 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
   background: #212325 !important;
 }
 .login {
-  background: #3293f6;
+  background: #3293F6;
   color: #212325;
 }
 .login:hover {
-  background: #3293f6 !important;
+  background: #3293F6 !important;
 }
 .md-user-menu {
   background: #ffffff;
@@ -831,10 +800,10 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
   color: #ffffff;
 }
 .accountPage-wrapper md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-  border-bottom: 1px solid #2698d4;
+  border-bottom: 1px solid #2698D4;
 }
 .accountPage-wrapper .tab-from-r > li:hover > a {
-  color: #2698d4;
+  color: #2698D4;
 }
 .accountPage-wrapper .tab-from-r > li.active {
   border-bottom: 3px solid #3598dc;

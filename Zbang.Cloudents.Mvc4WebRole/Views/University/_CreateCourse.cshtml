@@ -6,7 +6,7 @@
         <md-content flex>
             <md-input-container flex ng-if="!l.secondStep">
                 <label>@UniversityResources.EnterClassName</label>
-                <input id="createClassInput" focus-me="l.focusCreateClass" autocomplete="off" name="name" required ng-model="l.boxName" ng-change="createBox.professor.$setValidity('server',true)" />
+                <input id="createClassInput" focus-me="l.focusCreateClass" autocomplete="off" name="name" required md-no-asterisk ng-model="l.boxName" ng-change="createBox.professor.$setValidity('server',true)" />
                 <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
                     <div ng-message="required">@GeneralResources.RequiredField</div>
                 </div>

@@ -7,7 +7,7 @@
         <div layout="row" layout-wrap>
             <md-input-container flex="100">
                 <label>@UniversityResources.EnterClassName</label>
-                <input autofocus autocomplete="off" name="name" required ng-model="l.boxName"
+                <input autofocus autocomplete="off" name="name" required md-no-asterisk ng-model="l.boxName"
                        ng-change="createFirstBox.depName.$setValidity('server',true)" />
                 <div ng-messages="createFirstBox.name.$error">
                     <div ng-message="required">@GeneralResources.RequiredField</div>
@@ -25,7 +25,7 @@
             </md-input-container>
             <md-input-container flex="100">
                 <label>@UniversityResources.EnterDepName</label>
-                <input autocomplete="off" name="depName" required ng-model="l.departmentName"
+                <input autocomplete="off" name="depName" required md-no-asterisk ng-model="l.departmentName"
                        ng-change="createFirstBox.depName.$setValidity('server',true)" />
                 <div ng-messages="createFirstBox.depName.$error">
                     <div ng-message="required">@GeneralResources.RequiredField</div>

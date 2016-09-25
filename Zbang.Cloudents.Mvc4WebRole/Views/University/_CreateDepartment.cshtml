@@ -6,7 +6,7 @@
         <md-content>
             <md-input-container flex>
                 <label>@UniversityResources.EnterDepName</label>
-                <input id="createDepartmentInput" focus-me="l.focusCreateDepartment" autocomplete="off" name="name" required ng-model="l.departmentName" ng-change="createDepartment.name.$setValidity('server',true)" />
+                <input id="createDepartmentInput" focus-me="l.focusCreateDepartment" autocomplete="off" name="name" required md-no-asterisk ng-model="l.departmentName" ng-change="createDepartment.name.$setValidity('server',true)" />
                 <div ng-messages="createDepartment.name.$error" ng-show="createDepartment.name.$dirty">
                     <div ng-message="required">@GeneralResources.RequiredField</div>
                     <div ng-message="server">{{l.error}}</div>

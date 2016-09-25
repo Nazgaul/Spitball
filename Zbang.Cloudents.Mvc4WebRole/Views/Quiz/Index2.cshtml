@@ -82,7 +82,7 @@
             <div ng-if="q.state === 4" class="add-discussion">
                 <form class="clearfix" novalidate name="addDiscussion" ng-submit="q.postComment(q.questions[q.index],addDiscussion)">
                     <md-input-container md-no-float>
-                        <textarea required placeholder="@ItemsResources.CreateComment" name="newComment" ng-model="q.questions[q.index].newComment"></textarea>
+                        <textarea required md-no-asterisk placeholder="@ItemsResources.CreateComment" name="newComment" ng-model="q.questions[q.index].newComment"></textarea>
                         <div ng-messages="addDiscussion.newComment.$error">
                             <div ng-message="required">@GeneralResources.RequiredField</div>
                         </div>

@@ -43,14 +43,12 @@ md-select-menu md-option:focus:not([disabled]):not([selected]) {
     background: @backgroundColorMenu;
 }
 
-md-input-container:not(.md-input-invalid).md-input-has-value label {
-    color: @textColorGrey;
+md-input-container {
+    &:not(.md-input-invalid) label, label {
+        line-height: normal;
+        color: @textColorBlack;
+    }
 }
-
-md-input-container label {
-    color: @textColorLightGrey;
-}
-
 md-input-container {
     width: 100%;
     font-size: 18px;
@@ -72,11 +70,9 @@ md-dialog-actions {
 md-select .md-select-value,
 md-input-container .md-input,
 .form-group.form-md-line-input .form-control {
+    color: @buttonColorBlue;
     border-color: @buttonColorBlue;
 
-    &:active {
-        color: @textColorBlue;
-    }
 }
 
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
@@ -94,7 +90,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
 }
 
 md-input-container .md-input {
-    color: @textColorWhite;
+    color: @textColorBlack;
 }
 
 md-dialog {

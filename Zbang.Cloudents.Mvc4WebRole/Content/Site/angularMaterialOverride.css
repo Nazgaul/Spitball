@@ -30,11 +30,10 @@ md-select .md-select-value.md-select-placeholder {
 md-select-menu md-option:focus:not([disabled]):not([selected]) {
   background: #ffffff;
 }
-md-input-container:not(.md-input-invalid).md-input-has-value label {
-  color: #888b8e;
-}
+md-input-container:not(.md-input-invalid) label,
 md-input-container label {
-  color: #c3c3c3;
+  line-height: normal;
+  color: #212325;
 }
 md-input-container {
   width: 100%;
@@ -53,13 +52,8 @@ md-dialog-actions {
 md-select .md-select-value,
 md-input-container .md-input,
 .form-group.form-md-line-input .form-control {
+  color: #4190b9;
   border-color: #4190b9;
-}
-.md-select-value .md-select-icon:active,
-md-select .md-select-value:active,
-md-input-container .md-input:active,
-.form-group.form-md-line-input .form-control:active {
-  color: #2698d4;
 }
 md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
 md-input-container:not(.md-input-invalid).md-input-focused .md-input {
@@ -74,7 +68,7 @@ md-input-container:not(.md-input-invalid).md-input-focused .md-input {
   background: #4190b9;
 }
 md-input-container .md-input {
-  color: #ffffff;
+  color: #212325;
 }
 md-dialog {
   color: #212325;

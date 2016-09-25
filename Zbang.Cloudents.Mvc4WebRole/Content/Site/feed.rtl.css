@@ -117,7 +117,6 @@
   right: 0;
   height: 40px;
   top: 0;
-  background: #212325;
   width: calc(100% - 1px);
 }
 .feed .box-options .option-wrapper:nth-child(2) .option.share .title {
@@ -156,14 +155,14 @@
     align-items: center;
   }
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg {
   margin: 0 auto;
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon.whatsapp {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.whatsapp {
   width: 31px;
   height: 31px;
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon.fb {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.fb {
   width: 26px;
   height: 26px;
 }

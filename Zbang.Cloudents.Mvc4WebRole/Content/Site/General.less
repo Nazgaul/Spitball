@@ -272,7 +272,7 @@ body {
     height: 179px;
     line-height: 1;
 
-    &:not(.leaderboardbox):hover {
+    &:not(.leaderboardbox):not(.box-style-form):hover {
         background: #f0f0f0;
 
         .wrapper {
@@ -283,6 +283,18 @@ body {
             span {
                 color: @buttonColorBlue;
             }
+        }
+    }
+
+    &#createCourse {
+        padding-bottom: 16px;
+
+        md-input-container {
+            margin-bottom: 12px;
+        }
+
+        .md-errors-spacer {
+            display: none;
         }
     }
 
@@ -372,6 +384,7 @@ body {
 
     .progress-info {
         clear: both;
+        position: relative;
 
         .progress {
             margin: 0;
@@ -381,7 +394,7 @@ body {
         }
 
         .status {
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 15px;
 
             .status-title {
@@ -424,8 +437,8 @@ body {
 
         .buttons {
             position: absolute;
-            bottom: 12px;
-            right: 12px;
+            bottom: 2px;
+            right: 6px;
         }
     }
 }
@@ -508,10 +521,6 @@ body {
 // md-scroll-mask also got z-index of 99 for fixing the floating menu issue on scroll.
 .md-dialog-container {
     z-index: 80;
-}
-
-md-input-container label:not(.md-container-ignore).md-required:after {
-    content: none;
 }
 
 md-icon {
@@ -915,48 +924,6 @@ md-tooltip .md-content {
 .add {
     background: @buttonColorRed;
 }
-/*#region angularmaterial*/
-
-
-md-select-menu md-option:focus:not([disabled]):not([selected]) {
-    background: @backgroundColorMenu;
-}
-
-md-input-container {
-    &:not(.md-input-invalid) label, label {
-        line-height: normal;
-        color: @textColorBlack;
-    }
-}
-
-.md-select-value .md-select-icon,
-md-select .md-select-value,
-md-input-container .md-input,
-.form-group.form-md-line-input .form-control {
-    color: @buttonColorBlue;
-    border-color: @buttonColorBlue;
-    /*&:focus, &:active {
-            color: @textColorBlue;
-        }*/
-}
-
-md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
-md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-    border-color: @textColorLike;
-}
-
-.form-group.form-md-line-input .form-control.edited:not([readonly]) ~ label:after,
-.form-group.form-md-line-input .form-control.edited:not([readonly]) ~ .form-control-focus:after,
-.form-group.form-md-line-input .form-control:focus:not([readonly]) ~ label:after,
-.form-group.form-md-line-input .form-control:focus:not([readonly]) ~ .form-control-focus:after,
-.form-group.form-md-line-input .form-control.focus:not([readonly]) ~ label:after,
-.form-group.form-md-line-input .form-control.focus:not([readonly]) ~ .form-control-focus:after {
-    background: @textColorLike;
-}
-
-md-input-container .md-input {
-    color: @textColorBlack;
-}
 
 .close {
     &:hover {
@@ -1043,11 +1010,7 @@ md-input-container .md-input {
         fill: @borderColorBlue;
     }
 }
-//md-input colors override:
-md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
-md-input-container:not(.md-input-invalid).md-input-focused label {
-    color: @textColorLike;
-}
+
 /*#region header.less*/
 .top-menu {
     svg {

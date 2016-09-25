@@ -6,7 +6,7 @@
     <div class="title text-capitalize">@ItemsResources.ReportAbuse</div>
     <md-content>
         <md-input-container flex="100">
-            <md-select placeholder="@ItemsResources.FlagItemPlaceHolder" required name="flag" ng-model="i.flag" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
+            <md-select placeholder="@ItemsResources.FlagItemPlaceHolder" required md-no-asterisk name="flag" ng-model="i.flag" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
                 <md-option value="@BadItem.RightViolation">@BadItem.RightViolation.GetEnumDescription()</md-option>
                 <md-option value="@BadItem.Spam">@BadItem.Spam.GetEnumDescription()</md-option>
                 <md-option value="@BadItem.Porn">@BadItem.Porn.GetEnumDescription()</md-option>

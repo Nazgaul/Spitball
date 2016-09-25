@@ -16,7 +16,7 @@
             </label>
             <md-input-container>
                 <label class="text-capitalize">@UniversityResources.EnterID</label>
-                <input name="studentId" type="text" autocomplete="off" ng-model="lc.code.studentId" ng-pattern="/^[0-9]{9}$/" required ng-change="enterId.studentId.$setValidity('server',true)" />
+                <input name="studentId" type="text" autocomplete="off" ng-model="lc.code.studentId" ng-pattern="/^[0-9]{9}$/" required md-no-asterisk ng-change="enterId.studentId.$setValidity('server',true)" />
                 <div ng-messages="enterId.studentId.$error" ng-show="enterId.studentId.$dirty">
                     <div ng-message="required">@GeneralResources.RequiredField</div>
                     <div ng-message="server">{{lc.error}}</div>

@@ -5,7 +5,7 @@
 <form ng-submit="l.renameNode(nodeSettings)" novalidate name="nodeSettings" layout="row" layout-wrap>
     <md-input-container flex="100">
         <label class="text-capitalize">@GeneralResources.Rename</label>
-        <input type="text" autocomplete="off" name="name" required ng-model="l.settings.name" ng-change="nodeSettings.name.$setValidity('server',true)" />
+        <input type="text" autocomplete="off" name="name" required md-no-asterisk ng-model="l.settings.name" ng-change="nodeSettings.name.$setValidity('server',true)" />
         <div ng-messages="nodeSettings.name.$error">
             <div ng-message="required">@GeneralResources.RequiredField</div>
             <div ng-message="server">{{l.error}}</div>

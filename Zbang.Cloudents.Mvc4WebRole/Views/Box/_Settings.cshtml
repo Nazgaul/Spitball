@@ -5,7 +5,7 @@
 <form novalidate ng-submit="b.updateBox(updateBoxForm)" name="updateBoxForm" class="text-capitalize">
     <md-input-container>
         <label>@BoxResources.Name</label>
-        <input type="text" autocomplete="off" name="name" ng-model="b.settings.name" required />
+        <input type="text" autocomplete="off" name="name" ng-model="b.settings.name" required md-no-asterisk/>
         <div ng-messages="updateBoxForm.name.$error" ng-show="updateBoxForm.name.$dirty">
             <div ng-message="required">@GeneralResources.RequiredField</div>
         </div>

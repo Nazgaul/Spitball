@@ -89,30 +89,32 @@ md-menu-item.blue svg {
 .itemPage header button.fb-like {
   white-space: nowrap;
   display: inline-table;
-  border: 1px solid #888b8e;
+  border: 1px solid #4190b9;
   border-radius: 5px;
-  padding: 0 6px;
-  line-height: 24px;
+  padding: 0 14px;
+  line-height: 22px;
   min-width: 56px;
   justify-content: space-around;
   align-items: center;
   font-size: 14px;
-  color: #888b8e;
+  color: #4190b9;
   margin: 0 8px;
 }
 .itemPage header button.fb-like svg {
   width: 16px;
   height: 16px;
   margin-left: 8px;
-  margin-bottom: -2px;
+  margin-bottom: 2px;
+  fill: #4190b9;
 }
-.itemPage header button.fb-like:hover,
+.itemPage header button.fb-like:hover {
+  background: #f0f0f0;
+}
 .itemPage header button.fb-like.blue {
   background: #4190b9;
   border-color: #4190b9;
   color: #ffffff;
 }
-.itemPage header button.fb-like:hover svg,
 .itemPage header button.fb-like.blue svg {
   fill: #ffffff;
 }
