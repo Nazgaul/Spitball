@@ -199,4 +199,10 @@
   <data name="View" xml:space="preserve">
     <value>הצג</value>
   </data>
+  <data name="BrowseClasses" xml:space="preserve">
+    <value>צפה בקורסים</value>
+  </data>
+  <data name="SearchPartial" xml:space="preserve">
+    <value>חיפוש</value>
+  </data>
 </root>

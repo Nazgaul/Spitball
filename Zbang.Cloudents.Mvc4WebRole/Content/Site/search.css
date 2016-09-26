@@ -33,6 +33,9 @@
 .search .page-head .close svg {
   fill: #888b8e;
 }
+.search .tab-content {
+  margin: 0 -8px;
+}
 .search .item,
 .search .quiz {
   position: relative;

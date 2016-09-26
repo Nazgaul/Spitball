@@ -72,15 +72,6 @@
   width: 14px;
   height: 14px;
 }
-@media (max-width: 960px) {
-  .dashboard .dashboard-actions .actions-container .inviteBtn .text span {
-    display: none;
-  }
-}
-.dashboard .dashboard-actions .actions-container .inviteBtn .icon {
-  width: 20px;
-  height: 20px;
-}
 .dashboard .box-cube {
   position: relative;
 }
@@ -100,23 +91,56 @@
   color: #ffffff;
 }
 .dashboard .university {
-  display: block;
   height: 100%;
   position: relative;
   height: 179px;
   box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
+  text-align: center;
+  background: linear-gradient(to bottom, rgba(50, 53, 56, 0.6) 0, transparent 179px, transparent 100%);
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  flex-direction: column;
 }
-.dashboard .university .universityStats {
+.dashboard .university .top {
+  flex-grow: 1;
+}
+.dashboard .university .uni-name {
+  font-size: 22px;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 0 16px;
+  margin-top: 3px;
+}
+.dashboard .university .bottom {
+  margin-bottom: 30px;
+}
+.dashboard .university .bottom .stats-bg {
+  background: #212325;
+  opacity: 0.8;
+  width: 100%;
+  height: 30px;
   position: absolute;
   bottom: 0;
-  left: 0;
-  right: 0;
+  z-index: 0;
+}
+.dashboard .university .bottom .action-btn {
+  margin: 0 auto;
+  margin: 0 auto 16px auto;
   font-size: 12px;
-  background: rgba(4, 4, 4, 0.6);
+  line-height: normal;
+  min-height: 23px;
+  width: 162px;
+}
+.dashboard .university .bottom .universityStats {
+  font-size: 12px;
   color: #fff;
   padding: 0 20px 6px;
   color: #ffffff;
-  /*div {
+  padding: 6px 10px;
+  position: absolute;
+  bottom: 0;
+  width: 100% /*div {
                 height: 10px;
                 line-height: 10px;
                 display: inline-block;
@@ -125,14 +149,11 @@
             div:nth-child(2) {
                 padding: 0 6px;
                 margin: 0 6px;
-            }*/
-}
-.dashboard .university .universityStats .uni-name {
-  font-size: 24px;
+            }*/;
 }
 .dashboard .universityimg {
   background: #f5f5f5;
-  margin: 20px 0 0 20px;
+  margin-top: 15px;
   border: 1px solid #c3c3c3;
 }
 .dashboard .portlet {

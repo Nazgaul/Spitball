@@ -17,9 +17,10 @@
   width: calc( 100% - 85px);
 }
 .library-choose .univeristy span {
-  font-size: 18px;
+  font-size: 20px;
   display: inline-block;
   width: 100%;
+  color: #4190b9;
 }
 .library-choose .univeristy .img-circle {
   overflow: hidden;

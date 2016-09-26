@@ -61,6 +61,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse classes.
+        /// </summary>
+        public static string BrowseClasses {
+            get {
+                return ResourceManager.GetString("BrowseClasses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -250,6 +259,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string SearchEmptyStateQuizzesText {
             get {
                 return ResourceManager.GetString("SearchEmptyStateQuizzesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string SearchPartial {
+            get {
+                return ResourceManager.GetString("SearchPartial", resourceCulture);
             }
         }
         

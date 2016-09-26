@@ -79,7 +79,7 @@
                 </div>
                 <div ng-switch-when="u">
                     <div layout="row" layout-padding layout-fill layout-wrap srph-infinite-scroll="u.myPagingFunction()">
-                        <div flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="file item-animate i-q-wrapper" ng-repeat="e in u.files">
+                        <div flex-xs="50" flex-xl="15" flex="20" flex-sm="33" flex-md="33" class="file item-animate i-q-wrapper" ng-repeat="e in u.files">
                             <div ng-include="'item-template.html'"></div>
                             <md-menu class="item-menu">
                                 <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['user-uploads', 'deleteFile']">

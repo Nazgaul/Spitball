@@ -106,10 +106,7 @@
   align-items: center;
 }
 .userPage .tab-content {
-  margin: 0 -12px;
-}
-.userPage .tab-content .layout-padding > * {
-  padding: 12px;
+  margin: 0 -8px;
 }
 .userPage md-tab-content {
   background: #dadada;
