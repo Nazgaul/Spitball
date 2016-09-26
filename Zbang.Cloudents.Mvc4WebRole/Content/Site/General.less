@@ -110,25 +110,6 @@ body {
             }
         }
     }
-
-    .dd-list {
-        md-content {
-            background: @backgroundColorMenu;
-            color: @textColorBlack;
-        }
-
-        md-option {
-            border-bottom: 1px solid @borderColorDarkGrey;
-
-            &[selected] {
-                color: @textColorBlue;
-
-                &:focus {
-                    color: @textColorBlue;
-                }
-            }
-        }
-    }
 }
 
 .page-body {
@@ -247,9 +228,6 @@ body {
 }
 
 .close {
-    //float: right;
-    margin-top: 6px;
-
     &:hover {
         color: @textColorWhite;
     }
@@ -283,7 +261,10 @@ body {
         margin-bottom: 0;
     }
 }
+.suggested .box-style{
+    position: relative;
 
+}
 .box-style {
     width: 100%;
     background: @textColorWhite;
@@ -294,7 +275,7 @@ body {
     height: 179px;
     line-height: 1;
 
-    &:not(.leaderboardbox):hover {
+    &:not(.leaderboardbox):not(.box-style-form):hover {
         background: #f0f0f0;
 
         .wrapper {
@@ -305,6 +286,18 @@ body {
             span {
                 color: @buttonColorBlue;
             }
+        }
+    }
+
+    &#createCourse {
+        padding-bottom: 16px;
+
+        md-input-container {
+            margin-bottom: 12px;
+        }
+
+        .md-errors-spacer {
+            display: none;
         }
     }
 
@@ -394,6 +387,7 @@ body {
 
     .progress-info {
         clear: both;
+        position: relative;
 
         .progress {
             margin: 0;
@@ -403,7 +397,7 @@ body {
         }
 
         .status {
-            margin-top: 15px;
+            margin-top: 20px;
             font-size: 15px;
 
             .status-title {
@@ -446,8 +440,8 @@ body {
 
         .buttons {
             position: absolute;
-            bottom: 12px;
-            right: 12px;
+            bottom: 2px;
+            right: 6px;
         }
     }
 }
@@ -530,10 +524,6 @@ body {
 // md-scroll-mask also got z-index of 99 for fixing the floating menu issue on scroll.
 .md-dialog-container {
     z-index: 80;
-}
-
-md-input-container label:not(.md-container-ignore).md-required:after {
-    content: none;
 }
 
 md-icon {
@@ -937,65 +927,10 @@ md-tooltip .md-content {
 .add {
     background: @buttonColorRed;
 }
-/*#region angularmaterial*/
-
-
-md-select:not([disabled]):focus .md-select-value {
-    color: @textColorWhite;
-    border-bottom: 1px solid @borderColorDarkBlue;
-}
-
-md-select .md-select-value.md-select-placeholder {
-    color: @textColorWhite;
-}
-
-md-select-menu md-option:focus:not([disabled]):not([selected]) {
-    background: @backgroundColorMenu;
-}
-
-md-input-container {
-    &:not(.md-input-invalid) label, label {
-        line-height: normal;
-        color: @textColorWhite;
-    }
-}
-
-.md-select-value .md-select-icon,
-md-select .md-select-value,
-md-input-container .md-input,
-.form-group.form-md-line-input .form-control {
-    color: @buttonColorBlue;
-    border-color: @buttonColorBlue;
-    /*&:focus, &:active {
-            color: @textColorBlue;
-        }*/
-}
-
-md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused .md-input,
-md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-    border-color: @textColorLike;
-}
-
-.form-group.form-md-line-input .form-control.edited:not([readonly]) ~ label:after,
-.form-group.form-md-line-input .form-control.edited:not([readonly]) ~ .form-control-focus:after,
-.form-group.form-md-line-input .form-control:focus:not([readonly]) ~ label:after,
-.form-group.form-md-line-input .form-control:focus:not([readonly]) ~ .form-control-focus:after,
-.form-group.form-md-line-input .form-control.focus:not([readonly]) ~ label:after,
-.form-group.form-md-line-input .form-control.focus:not([readonly]) ~ .form-control-focus:after {
-    background: @textColorLike;
-}
-
-md-input-container .md-input {
-    color: @textColorWhite;
-}
-
-md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
-    background: @buttonColorBlueHover;
-}
 
 .close {
     &:hover {
-        color: @textColorWhite;
+        color: @textColorBlack;
     }
 }
 
@@ -1018,13 +953,13 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
     }
 
     md-input-container .md-input {
-        color: @textColorWhite;
+        color: @textColorBlack;
         border-color: @borderColorLightGrey;
     }
 
     md-input-container:not(.md-input-invalid).md-input-focused .md-input {
         border-bottom: 1px solid @buttonColorBlue;
-        color: @textColorWhite;
+        color: @textColorBlack;
     }
 }
 
@@ -1035,7 +970,7 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
         }
 
         .overElement() {
-            color: @textColorWhite;
+            color: @textColorBlack;
         }
 
         &.active {
@@ -1048,7 +983,7 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
     background: @backgroundColorMenu;
 
     li {
-        color: @textColorWhite;
+        color: @textColorBlack;
 
         &:hover, &:focus {
             color: @textColorBlue;
@@ -1056,11 +991,11 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
 
         &.active, &:active {
             border-bottom: 3px solid @borderColorBlue;
-            color: @textColorWhite;
+            color: @textColorBlack;
         }
 
         &.active > a, &.active > a:hover, &.active > a:focus {
-            color: @textColorWhite;
+            color: @textColorBlack;
         }
 
         & > a {
@@ -1078,11 +1013,7 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
         fill: @borderColorBlue;
     }
 }
-//md-input colors override:
-md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused label,
-md-input-container:not(.md-input-invalid).md-input-focused label {
-    color: @textColorLike;
-}
+
 /*#region header.less*/
 .top-menu {
     svg {
@@ -1104,7 +1035,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 
 .login, .signin {
     background: @backgroundColorBlack;
-    color: @textColorBlack;
+    color: @textColorWhite;
 
     &:hover {
         background: @backgroundColorBlack !important;
@@ -1113,7 +1044,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 
 .login {
     background: @backgroundColorSpitballBlue;
-    color: @textColorWhite;
+    color: @textColorBlack;
 
     &:hover {
         background: @backgroundColorSpitballBlue !important;
@@ -1144,7 +1075,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
     //}
     .ontop {
         background: @buttonColorBlue;
-        color: @textColorBlack;
+        color: @textColorWhite;
     }
 
     md-input-container:not(.md-input-invalid).md-input-focused .md-input {
@@ -1162,7 +1093,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
             border-bottom: 3px solid @borderColorBlue;
 
             > a {
-                color: @textColorWhite;
+                color: @textColorBlack;
             }
         }
 
@@ -1198,12 +1129,12 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 .box-nav-bar {
     md-next-button, md-prev-button {
         svg {
-            fill: @textColorBlack;
+            fill: @textColorWhite;
         }
     }
 
     md-ink-bar {
-        background: #ffffff;
+        background: @textColorWhite;
     }
 }
 
@@ -1220,19 +1151,3 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
 /*#endregion*/
 /*#endregion*/
 
-
-/*#region: new button classes*/
-.action-btn, .signin-header-btn {
-    .general-button();
-    .colored-button(@buttonColorBlue, @textColorWhite);
-    .colored-button-hover(@buttonColorBlueHover, @textColorWhite);
-    .colored-button-disabled(@buttonColorBlueHover, @textColorDisabledActionButton);
-}
-
-.cancel-btn, .signup-header-btn {
-    .general-button();
-    .colored-button(@buttonColorCancel, @textColorBlack);
-    .colored-button-hover(@buttonColorCancelHover, @textColorBlack);
-    .colored-button-disabled(@buttonColorCancelDisabled, @textColorDisabledCancelButton);
-}
-/*#endregion*/

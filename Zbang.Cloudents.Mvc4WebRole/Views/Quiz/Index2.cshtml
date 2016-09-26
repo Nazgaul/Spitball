@@ -3,8 +3,8 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @*@{
-    const string svgUrl = "~/images/site/quizIcons.svg";
-}*@
+        const string svgUrl = "~/images/site/quizIcons.svg";
+    }*@
 
 <header layout="row" layout-align="space-between center">
     <div class="ellipsis text-center" id="quiz-top" ng-bind-html="::q.name"></div>
@@ -13,17 +13,16 @@
 
 <div md-swipe-left="q.swipeLeft()" md-swipe-right="q.swipeRight()">
     <div class="arrows prev" ng-if="q.state === 2 || q.state === 4">
-        
+
         <button type="button" ng-click="q.back()" hide-xs ng-show="q.index > 0 && q.index < q.questions.length" ga-track-event="['quiz', 'previous question']">
             <md-icon md-svg-icon="t:arrow"></md-icon>
         </button>
     </div>
     <div class="wrapper">
         <div ng-if="q.state === 4" class="solveActions">
-            <div layout="row">
-                <div class="retake-wrapper" flex-gt-xs="33" flex-xs="100">
-                    <button class="retake" type="button" ng-click="q.retakeQuiz()" ga-track-event="['quiz', 'retake quiz']">@QuizResources.Retake</button>
-                </div>
+            <div layout="row" layout-align="center center">
+                    <button flex="100" class="action-btn" type="button" ng-click="q.retakeQuiz()" ga-track-event="['quiz', 'retake quiz']">@QuizResources.Retake</button>
+                
             </div>
 
             <div layout-wrap layout="row" layout-align="space-between stretch">
@@ -83,11 +82,11 @@
             <div ng-if="q.state === 4" class="add-discussion">
                 <form class="clearfix" novalidate name="addDiscussion" ng-submit="q.postComment(q.questions[q.index],addDiscussion)">
                     <md-input-container md-no-float>
-                        <textarea required placeholder="@ItemsResources.CreateComment" name="newComment" ng-model="q.questions[q.index].newComment"></textarea>
+                        <textarea required md-no-asterisk placeholder="@ItemsResources.CreateComment" name="newComment" ng-model="q.questions[q.index].newComment"></textarea>
                         <div ng-messages="addDiscussion.newComment.$error">
                             <div ng-message="required">@GeneralResources.RequiredField</div>
                         </div>
-                        <button class="btn button-Blue btn-primary pull-right" ng-disabled="!addDiscussion.$valid" type="submit" ga-track-event="['quiz', 'post comment']">@GeneralResources.Post</button>
+                        <button class="action-btn pull-right" ng-disabled="!addDiscussion.$valid" type="submit" ga-track-event="['quiz', 'post comment']">@GeneralResources.Post</button>
                     </md-input-container>
 
                 </form>

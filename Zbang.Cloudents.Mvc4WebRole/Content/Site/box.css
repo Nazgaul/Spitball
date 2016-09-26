@@ -17,7 +17,7 @@
 }
 .folder-selected .folder-name .folder-name-inner,
 .folders .folder-name .folder-name-inner {
-  background: #8c99a6;
+  background: #4190b9;
   padding: 0 6px;
   width: 100%;
 }
@@ -86,7 +86,7 @@
   -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
   -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
   transform: rotate(180deg) /*rtl:rotate(0)*/;
-  fill: #888b8e;
+  fill: #212325;
   opacity: .8;
   margin-right: 15px;
 }
@@ -240,6 +240,30 @@ library-list {
 }
 .page-head .need-follow .notificationButton {
   margin: 3px 0;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 0 20px;
+  line-height: 25px;
+  border-radius: 4px;
+  background: #ec610d;
+  color: #ffffff;
+}
+.page-head .need-follow .notificationButton svg,
+.page-head .need-follow .notificationButton md-icon {
+  fill: #ffffff;
+}
+.page-head .need-follow .notificationButton:hover:not([disabled]) {
+  background: #c4510b;
+  color: #ffffff;
+}
+.page-head .need-follow .notificationButton:hover:not([disabled]) svg,
+.page-head .need-follow .notificationButton:hover:not([disabled]) md-icon {
+  fill: #ffffff;
+}
+@media (min-width: 600px) {
+  .page-head .need-follow .notificationButton {
+    white-space: nowrap;
+  }
 }
 .box-nav-bar ~ div {
   margin: 0 -8px;
@@ -295,6 +319,11 @@ library-list {
   font-size: 18px;
   color: #888b8e;
   text-align: center;
+}
+.add-button a .text,
+.add-button button .text {
+  line-height: normal;
+  margin-top: 5px;
 }
 .add-button svg {
   fill: #888b8e;

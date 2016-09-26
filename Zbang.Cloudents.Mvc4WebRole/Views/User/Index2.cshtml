@@ -74,7 +74,7 @@
             <div class="tab-content" ng-switch on="u.tab">
                 <div ng-switch-when="b">
                     <div layout-padding layout="row" layout-wrap layout-align="start center" srph-infinite-scroll="u.myPagingFunction()">
-                        <div flex-xs="100" flex-xl="33" flex="33" flex-sm="100" flex-md="100" ng-repeat="e in u.boxes" ng-include="'box-template.html'"></div>
+                        <div class="user-box" flex-xs="100" flex-xl="33" flex="33" flex-sm="50" flex-md="50" ng-repeat="e in u.boxes" ng-include="'box-template.html'"></div>
                     </div>
                 </div>
                 <div ng-switch-when="u">

@@ -27,7 +27,7 @@
   -webkit-justify-content: center;
   justify-content: center;
   padding: 2px 0;
-  background: #fff;
+  background: #ffffff;
 }
 .feed .box-options .option-wrapper.disabled .option {
   opacity: 0.5;
@@ -49,8 +49,17 @@
     display: none;
   }
 }
-.feed .box-options .option-wrapper:not(.disabled):hover {
+.feed .box-options .option-wrapper:not(.disabled):not(.active):hover {
   background: #f5f5f5;
+}
+.feed .box-options .option-wrapper.active {
+  background: #4190b9;
+}
+.feed .box-options .option-wrapper.active .text {
+  color: #ffffff;
+}
+.feed .box-options .option-wrapper.active md-icon {
+  fill: #ffffff;
 }
 .feed .box-options .option-wrapper:first-child .option {
   border-right: 1px solid #c3c3c3;
@@ -117,7 +126,6 @@
   left: 0;
   height: 40px;
   top: 0;
-  background: #212325;
   width: calc(100% - 1px);
 }
 .feed .box-options .option-wrapper:nth-child(2) .option.share .title {
@@ -156,14 +164,14 @@
     align-items: center;
   }
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg {
   margin: 0 auto;
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon.whatsapp {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.whatsapp {
   width: 31px;
   height: 31px;
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon.fb {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.fb {
   width: 26px;
   height: 26px;
 }

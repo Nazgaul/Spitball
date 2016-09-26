@@ -28,20 +28,6 @@
   height: 75px;
   background: url('themeSelector.png') -1px -77px;
 }
-.accountPage-wrapper .theme-section {
-  text-align: right;
-  margin-bottom: 30px;
-}
-.accountPage-wrapper .theme-section.selected {
-  color: #2698D4;
-}
-.accountPage-wrapper .theme-section.selected div {
-  border: 1px solid #2698D4;
-  box-shadow: -2px 3px 3px #282828;
-}
-.accountPage-wrapper .theme-section:hover div {
-  box-shadow: -2px 3px 3px #282828;
-}
 .accountPage-wrapper .page-tabs {
   border-radius: 5px;
 }
@@ -49,10 +35,11 @@
   background: #4190b9;
 }
 .accountPage-wrapper .section {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding: 20px;
   border-radius: 5px;
   background: #ffffff;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.42);
 }
 .accountPage-wrapper .section md-input-container {
   margin-bottom: 0;
@@ -243,9 +230,6 @@
   width: 25px;
   height: 25px;
   fill: #ffffff;
-}
-.change-email-dialog md-input-container .md-input {
-  color: #4190b9;
 }
 .change-email-dialog .content {
   margin-right: 10px;

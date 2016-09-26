@@ -4,12 +4,6 @@
     margin-left: -95px;
   }
 }
-.library-choose .md-button {
-  padding: 0 17px;
-  border-radius: 5px;
-  line-height: 30px;
-  min-height: 30px;
-}
 .library-choose .univeristy {
   display: -webkit-flex;
   display: -ms-flex;
@@ -29,7 +23,7 @@
 }
 .library-choose .univeristy .img-circle {
   overflow: hidden;
-  background: #212325;
+  background: #ffffff;
 }
 .library-choose .univeristy .list-inline img {
   border-radius: 4px;
@@ -88,7 +82,7 @@
     margin: 0 auto;
     background-repeat: no-repeat;
     background-position: calc(100%-(50% + 350px)) 100%;
-    background-image: url('/Images/Site/create_uni_b.png?v=3');
+    background-image: url('/Images/Site/create_uni.png');
     max-width: 1150px;
     padding-left: 12vw;
     padding-right: 12vw;
@@ -136,7 +130,13 @@
   border-radius: 4px;
 }
 .library-choose .add-univeristy form .buttons {
-  display: inline-block;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
   width: 100%;
   padding-left: 20px;
 }

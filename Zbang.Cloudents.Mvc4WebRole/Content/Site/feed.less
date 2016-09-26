@@ -22,7 +22,7 @@
             .align-items(stretch);
             .justifyContet(center);
             padding: 2px 0;
-            background: #fff;
+            background: @textColorWhite;
 
             &.disabled {
                 .option {
@@ -50,10 +50,21 @@
                 }
             }
 
-            &:not(.disabled):hover {
+            &:not(.disabled):not(.active):hover {
                 background: #f5f5f5;
             }
+            
 
+            &.active {
+                background: @buttonColorBlue;
+
+                .text {
+                    color: @textColorWhite;
+                }
+                md-icon{
+                    fill: @textColorWhite;
+                }
+            }
 
             &:first-child .option {
                 border-right: 1px solid @textColorLightGrey;
@@ -138,7 +149,6 @@
                 left: 0;
                 height: 40px;
                 top: 0;
-                background: @textColorBlack;
                 width: ~"calc(100% - 1px)";
 
                 .title {
@@ -170,7 +180,7 @@
                         padding: 0 5px;
                         width: 100%;
 
-                        md-icon {
+                        svg {
                             margin: 0 auto;
 
                             &.whatsapp {
@@ -655,7 +665,6 @@
             transform: scaleX(1) /*rtl:scaleX(-1)*/;
             -ms-filter: none /*rtl:fliph*/; /*IE*/
             filter: none /*rtl:fliph*/; /*IE*/
-
             md-icon {
                 width: 22px;
                 height: 22px;

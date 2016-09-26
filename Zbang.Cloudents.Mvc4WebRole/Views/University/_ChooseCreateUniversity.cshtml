@@ -13,7 +13,7 @@
                 </md-select>
             </md-input-container>
             <md-input-container>
-                <md-autocomplete required md-input-name="name"
+                <md-autocomplete required md-no-asterisk md-input-name="name"
                                  md-delay="350"
                                  md-input-minlength="2"
                                  md-no-cache="false"
@@ -35,11 +35,11 @@
             </md-input-container>
         </div>
         <div class="buttons">
-            <md-button type="submit" class="btn button-Blue btn-primary" ng-disabled="!createUniversity.$valid || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">
-                @GeneralResources.Create
-            </md-button>
-            <md-button class="btn btn-default" ng-click="lc.createCancel()" ga-track-event="['universityChoose', 'cancel new university']">
+            <md-button class="cancel-btn" ng-click="lc.createCancel()" ga-track-event="['universityChoose', 'cancel new university']">
                 @GeneralResources.Cancel
+            </md-button>
+            <md-button type="submit" class="action-btn space-before" ng-disabled="!createUniversity.$valid || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">
+                @GeneralResources.Create
             </md-button>
         </div>
     </form>

@@ -19,26 +19,6 @@
         .sprite-Images-Site-themeLight();
     }
 
-    .theme-section {
-        text-align: left;
-        margin-bottom: 30px;
-
-        &.selected {
-            color: #2698D4;
-
-            div {
-                border: 1px solid #2698D4;
-                box-shadow: 2px 3px 3px #282828;
-            }
-        }
-
-        &:hover {
-            div {
-                box-shadow: 2px 3px 3px #282828;
-            }
-        }
-    }
-
     .page-tabs {
         border-radius: 5px;
 
@@ -49,10 +29,11 @@
 
     .section {
         //background: @textColorDarkGrey;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         padding: 20px;
         border-radius: 5px;
         background: @textColorDarkGrey;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.42);
 
         md-input-container {
             margin-bottom: 0;
@@ -305,10 +286,6 @@
         width: 25px;
         height: 25px;
         fill: @backgroundColorMenu;
-    }
-
-    md-input-container .md-input {
-        color: #4190b9;
     }
 
     .content {

@@ -140,11 +140,14 @@ iframe {
 .static-page-header nav input[type="checkbox"] {
   display: none;
 }
+.static-page-header nav .signup-btn,
+.static-page-header nav .signin-btn {
+  min-width: 0;
+}
 .static-page-header nav li a,
 .static-page-header nav li button,
 .static-page-header nav li label,
 .static-page-header nav li span,
-.static-page-header nav .signin-btn,
 .static-page-header nav .signup-btn {
   color: #ffffff;
   text-decoration: none;
@@ -171,15 +174,14 @@ iframe {
 }
 .static-page-header nav .login-buttons {
   position: absolute;
-  top: 19px;
+  top: 13px;
   left: 15px;
 }
 .static-page-header nav .login-buttons a {
   padding: 0 12px;
-  line-height: 22px;
+  line-height: 26px;
   display: inline-block;
   border-radius: 4px;
-  color: #ffffff;
   text-decoration: none;
 }
 .static-page-header nav .login-buttons a.signup-btn {
@@ -189,13 +191,6 @@ iframe {
 }
 .static-page-header nav .login-buttons a.signup-btn:hover {
   background-color: #9E9E9E;
-}
-.static-page-header nav .login-buttons a.signin-btn {
-  background: #212325;
-  color: #212325;
-}
-.static-page-header nav .login-buttons a.signin-btn:hover {
-  background: #c3c3c3;
 }
 .static-page-header nav li a:hover,
 .static-page-header nav li label:hover,

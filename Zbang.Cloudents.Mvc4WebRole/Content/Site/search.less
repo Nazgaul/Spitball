@@ -81,7 +81,7 @@
         flex-direction: row;
         align-items: center;
 
-        @media(min-width: 600px) {
+        @media(min-width: 900px) {
             text-align: center;
             margin: 0 auto;
             max-width: 750px;
@@ -101,7 +101,13 @@
         }
 
         .text-wrapper {
+            color: @textColorBlack;
+            text-align: center;
             margin: 0 auto;
+
+            @media (min-width: 600px) {
+                padding-left: 0;
+            }
 
             h2 {
                 color: #F76446;
@@ -111,9 +117,10 @@
             }
 
 
-            .text{
-                color: @textColorLightGrey;
+            .text {
+                color: @textColorBlack;
             }
+
             div {
                 font-size: 20px;
                 white-space: pre-wrap;

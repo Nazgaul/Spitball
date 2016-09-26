@@ -20,7 +20,7 @@
         .displayFlex();
 
         .folder-name-inner {
-            background: #8c99a6;
+            background: @buttonColorBlue;
             padding: 0 6px;
             width: 100%;
         }
@@ -99,7 +99,7 @@
         -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
         -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
         transform: rotate(180deg) /*rtl:rotate(0)*/;
-        fill: @textColorGrey;
+        fill: @textColorBlack;
         opacity: .8;
         margin-right: 15px;
     }
@@ -266,6 +266,18 @@
 
     .notificationButton {
         margin: 3px 0;
+        //.general-button();
+        font-weight: bold;
+        font-size: 16px;
+        padding: 0 20px;
+        line-height: 25px;
+        border-radius: 4px;
+        .colored-button(@notificationColor, @textColorWhite);
+        .colored-button-hover(@notificationColorHover, @textColorWhite);
+
+        @media(min-width: 600px) {
+            white-space: nowrap;
+        }
     }
 }
 
@@ -317,6 +329,11 @@
         font-size: 18px;
         color: @textColorGrey;
         text-align: center;
+
+        .text {
+            line-height: normal;
+            margin-top: 5px;
+        }
     }
 
     svg {
@@ -640,7 +657,6 @@
         &.draft-wpr {
             border: 1px solid #fff;
         }
-
     }
 
     .bottom {

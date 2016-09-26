@@ -16,7 +16,7 @@
             </label>
             <md-input-container>
                 <label class="text-capitalize">@UniversityResources.EnterID</label>
-                <input name="studentId" type="text" autocomplete="off" ng-model="lc.code.studentId" ng-pattern="/^[0-9]{9}$/" required ng-change="enterId.studentId.$setValidity('server',true)" />
+                <input name="studentId" type="text" autocomplete="off" ng-model="lc.code.studentId" ng-pattern="/^[0-9]{9}$/" required md-no-asterisk ng-change="enterId.studentId.$setValidity('server',true)" />
                 <div ng-messages="enterId.studentId.$error" ng-show="enterId.studentId.$dirty">
                     <div ng-message="required">@GeneralResources.RequiredField</div>
                     <div ng-message="server">{{lc.error}}</div>
@@ -25,8 +25,8 @@
             </md-input-container>
             <div class="arrow-up" ng-bind-html="::lc.code.closedUniText2"></div>
             <div class="buttons" layout="row" layout-align="end center">
-                <button type="reset" ng-click="lc.needCode = false" class="btn btn-default">@GeneralResources.Cancel</button>
-                <button type="submit" class="btn button-Blue btn-primary" ng-disabled="!enterId.$valid || || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">@UniversityResources.Continue</button>
+                <button type="reset" ng-click="lc.needCode = false" class="cancel-btn">@GeneralResources.Cancel</button>
+                <button type="submit" class="action-btn space-before" ng-disabled="!enterId.$valid || || lc.submitDisabled" ga-track-event="['universityChoose', 'create new university']">@UniversityResources.Continue</button>
             </div>
         </form>
     </div>

@@ -5,7 +5,7 @@
 <form novalidate ng-submit="b.updateBox(updateBoxForm)" name="updateBoxForm" class="text-capitalize">
     <md-input-container>
         <label>@BoxResources.Name</label>
-        <input type="text" autocomplete="off" name="name" ng-model="b.settings.name" required />
+        <input type="text" autocomplete="off" name="name" ng-model="b.settings.name" required md-no-asterisk/>
         <div ng-messages="updateBoxForm.name.$error" ng-show="updateBoxForm.name.$dirty">
             <div ng-message="required">@GeneralResources.RequiredField</div>
         </div>
@@ -51,7 +51,7 @@
         </md-input-container>
         <md-input-container layout="row" layout-align="end center" flex="100" flex-gt-md="33">
             <button type="button" scroll-to-top class="cancel-btn" ng-click="b.settingsOpen = false" ga-track-event="['box-settings', 'cancel']">@GeneralResources.Cancel</button>
-            <button type="submit" class="action-btn space-left" ng-disabled="b.settings.submitDisabled || !updateBoxForm.$valid" ga-track-event="['box-settings', 'save']">@GeneralResources.SaveChanges</button>
+            <button type="submit" class="action-btn space-before" ng-disabled="b.settings.submitDisabled || !updateBoxForm.$valid" ga-track-event="['box-settings', 'save']">@GeneralResources.SaveChanges</button>
         </md-input-container>
     </div>
 </form>

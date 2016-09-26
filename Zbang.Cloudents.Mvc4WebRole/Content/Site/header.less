@@ -1,4 +1,4 @@
-﻿@import "themeLight";
+﻿@import "variables.less";
 
 .headerMenu {
     width: 20px;
@@ -7,12 +7,12 @@
 }
 
 .mdno-touchevents .headerMenu:hover {
-    fill: @textColorWhite;
+    fill: @textColorBlack;
 }
 
 .searchIcon {
     height: 100%;
-    fill: @textColorBlack;
+    fill: @textColorWhite;
 }
 
 .headerHelp {
@@ -50,7 +50,7 @@
 
             md-icon {
                 margin-top: 0;
-                fill: @backgroundColorWhite;
+                fill: @backgroundColorBlack;
             }
         }
     }
@@ -75,17 +75,17 @@
     //background:#3293f6;
     font-size: 20px;
     text-transform: capitalize;
-    background: @backgroundColorWhite;
-    color: @textColorBlack;
+    background: @backgroundColorBlack;
+    color: @textColorWhite;
 
     &:hover {
-        background: @backgroundColorWhite !important;
+        background: @backgroundColorBlack !important;
     }
 }
 
 .login {
     background: @backgroundColorSpitballBlue;
-    color: @textColorWhite;
+    color: @textColorBlack;
 
     &:hover {
         background: @backgroundColorSpitballBlue !important;
@@ -135,10 +135,10 @@
             .displayFlex;
             .align-items(center);
             .justifyContet(start);
-            color: @textColorWhite;
+            color: @textColorBlack;
 
             span {
-                color: @textColorWhite;
+                color: @textColorBlack;
                 line-height: normal;
             }
         }
@@ -208,14 +208,14 @@
                     }
 
                     .text {
-                        background: @textColorBlack;
+                        background: @textColorWhite;
                         color: @buttonColorBlue;
                         font-size: 13px;
                         height: 32px;
                         line-height: 32px;
                         padding: 0 15px;
                         border: 0;
-                        .placeHolder(@textColorWhite);
+                        .placeHolder(@textColorBlack);
                         width: 100%;
                     }
                 }
@@ -229,7 +229,7 @@
                 width: 180px;
                 fill: #fff;
                 height: 35px;
-                margin-top: 15px;
+                margin-top: 8px;
 
                 @media (max-width: 600px) {
                     display: none;
@@ -268,7 +268,7 @@
             display: none;
         }*/
         &:hover {
-            background: @textColorWhite;
+            background: @textColorBlack;
         }
 
         .md-ripple-container {

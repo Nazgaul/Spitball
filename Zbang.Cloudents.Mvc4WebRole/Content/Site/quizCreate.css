@@ -38,10 +38,6 @@
 .quiz-create header {
   padding: 0 25px;
 }
-.quiz-create md-toast.md-default-theme .md-toast-content,
-.quiz-create md-toast .md-toast-content {
-  background: #db4437;
-}
 .quiz-create .not-supported {
   height: 100vh;
   padding: 0 15px;
@@ -132,13 +128,7 @@
   color: #323538;
   padding-left: 5px;
 }
-.quiz-create .supported .add-question {
-  color: #ffffff;
-  border: 1px solid #3293F6;
-  background: transparent;
-}
 .quiz-create .supported .add-question svg {
-  fill: #ffffff;
   margin-right: 10px;
   width: 15px;
   height: 15px;

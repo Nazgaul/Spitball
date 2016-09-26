@@ -7,7 +7,7 @@
                 <md-input-container flex>
                     <label>@DashboardResource.EnterGroupName</label>
                     <input id="createBoxInput" @*id="test"*@ @*autofocus*@ type="text" @*focus-me="cb.focus"*@ autocomplete="off" 
-                           required ng-model="cb.boxName" name="name" 
+                           required md-no-asterisk ng-model="cb.boxName" name="name" 
                            ng-change="createBox.name.$setValidity('server',true)">
                     <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">
                         <div ng-message="required">@GeneralResources.RequiredField</div>
@@ -18,7 +18,7 @@
         </div>
         <div class="buttons text-capitalize" layout="row" layout-align="end center">
             <button type="button" class="cancel-btn" ga-track-event="['dashboard', 'createbox', 'cancel']" ng-click="cb.cancel(createBox)">@GeneralResources.Cancel</button>
-            <button type="submit" class="action-btn space-left" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid || cb.submitDisabled">@GeneralResources.Create</button>
+            <button type="submit" class="action-btn space-before" ga-track-event="['dashboard', 'createbox', 'done']" ng-disabled="!createBox.$valid || cb.submitDisabled">@GeneralResources.Create</button>
         </div>
     </form>
 </div>

@@ -81,8 +81,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new CssWithRtl("~/content/site/libraryChoose.css"),
                         new CssWithRtl("~/content/site/error.css"),
                         new CssWithRtl("~/content/site/accordion.css"),
-                        new CssWithRtl("~/content/site/themedark.css"),
-                        new CssWithRtl("~/content/site/themelight.css")
+                        //new CssWithRtl("~/content/site/themedark.css"),
+                        //new CssWithRtl("~/content/site/themelight.css")
                     }
 
             };
