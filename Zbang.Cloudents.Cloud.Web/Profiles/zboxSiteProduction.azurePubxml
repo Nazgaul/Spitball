@@ -19,6 +19,6 @@
     <AzureStorageAccountName>zboxstorage</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
     <EnableRemoteDebugger>True</EnableRemoteDebugger>
-    <RemoteDebuggerConnectorCertificateThumbprint>9EAFFAAB064F47479A9619B44815DE4009C81A61</RemoteDebuggerConnectorCertificateThumbprint>
+    <RemoteDebuggerConnectorCertificateThumbprint>AD75D35E70CD23624C16BBB687F9C24E1556D531</RemoteDebuggerConnectorCertificateThumbprint>
   </PropertyGroup>
 </Project>

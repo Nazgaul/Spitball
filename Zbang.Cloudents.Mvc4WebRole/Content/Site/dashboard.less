@@ -34,19 +34,6 @@
                 height: 14px;
             }
         }
-
-        .inviteBtn {
-            .text span {
-                @media(max-width: 960px) {
-                    display: none;
-                }
-            }
-
-            .icon {
-                width: 20px;
-                height: 20px;
-            }
-        }
     }
 
     .box-cube {
@@ -73,29 +60,61 @@
     }
 
     .university {
-        display: block;
         height: 100%;
         position: relative;
         height: @dashboardCubeHeight;
         box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
+        text-align: center;
+        background: linear-gradient(to bottom, rgba(50,53,56,0.6) 0, transparent 179px, transparent 100%);
+        .displayFlex;
+        flex-direction: column;
 
-        .universityStats {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 12px;
-            //text-align: center;
-            background: rgba(4, 4, 4, .6);
-            color: #fff;
-            padding: 0 20px 6px;
-            //align-self: auto;
+        .top {
+            flex-grow: 1;
+        }
+
+        .uni-name {
+            font-size: 22px;
             color: @textColorWhite;
+            font-weight: bold;
+            padding: 0 16px;
+            margin-top: 3px;
+        }
 
-            .uni-name {
-                font-size: 24px;
+        .bottom {
+            margin-bottom: 30px;
+
+            .stats-bg {
+                background: @textColorBlack;
+                opacity: 0.8;
+                width: 100%;
+                height: 30px;
+                position: absolute;
+                bottom: 0;
+                z-index: 0;
             }
-            /*div {
+
+            .action-btn {
+                margin: 0 auto;
+                margin: 0 auto 16px auto;
+                font-size: 12px;
+                line-height: normal;
+                min-height: 23px;
+                width: 162px;
+            }
+
+            .universityStats {
+                font-size: 12px;
+                //text-align: center;
+                color: #fff;
+                padding: 0 20px 6px;
+                //align-self: auto;
+                color: @textColorWhite;
+                padding: 6px 10px;
+                position: absolute;
+                bottom: 0;
+                width: 100%
+                /*div {
                 height: 10px;
                 line-height: 10px;
                 display: inline-block;
@@ -105,6 +124,7 @@
                 padding: 0 6px;
                 margin: 0 6px;
             }*/
+            }
         }
     }
 
@@ -113,7 +133,7 @@
         background: #f5f5f5;
         //height: 60px;
         //width: 60px;
-        margin: 20px 0 0 20px;
+        margin-top: 15px;
         border: 1px solid @textColorLightGrey;
     }
 
