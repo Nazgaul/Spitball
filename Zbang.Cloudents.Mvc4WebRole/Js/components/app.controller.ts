@@ -4,7 +4,7 @@
         back(defaultUrl: string);
         logOut();
         toggleMenu();
-        showToaster(text: string, parentId: string, theme: string);
+        showToaster(text: string, parentId?: string, theme?: string);
         openMenu($mdOpenMenu: any, ev: Event);
         resetForm(myform: angular.IFormController);
     }

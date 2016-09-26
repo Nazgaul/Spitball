@@ -23,6 +23,7 @@ var app;
                 this.$state.go(searchStateName, { q: this.term, t: this.$state.params["t"] });
             }
         };
+        // state params is no good because this is no state controller 
         SearchTriggerController.$inject = ["$scope", "$state"];
         return SearchTriggerController;
     }());

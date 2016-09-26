@@ -12,6 +12,11 @@ namespace Zbang.Zbox.Infrastructure.Cache
             return Deserialize<T>(await cache.StringGetAsync(key));
         }
 
+        public static T Get<T>(this IDatabase cache, string key) where T : class
+        {
+            return Deserialize<T>(cache.StringGet(key));
+        }
+
         public static Task<bool> SetAsync<T>(this IDatabase cache, string key, T value, TimeSpan? expiry = null) where T : class
         {
             return cache.StringSetAsync(key, Serialize(value), expiry, flags: CommandFlags.FireAndForget);

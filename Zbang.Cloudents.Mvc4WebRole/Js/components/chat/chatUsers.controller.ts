@@ -30,6 +30,11 @@
                 user.online = args.online;
                 $scope.$applyAsync();
             });
+            $scope.$on("refresh-boxes", () => {
+                this.search().then(() => {
+                    $scope.$applyAsync();
+                });
+            });
             $scope.$on("hub-chat",
                 (e, args) => {
                     //im not in chat at all
@@ -78,7 +83,7 @@
                     $scope.$applyAsync();
 
 
-                   
+
                     function onNotificationClick() {
                         const partner = self.getConversationPartner(args.chatRoom);
                         self.chat(partner);
@@ -90,11 +95,11 @@
         private getConversationPartner(chatRoomId) {
             return this.users.find(f => (f.conversation === chatRoomId));
         }
-        search(term?: string, loadNextPage?: boolean) {
+        search(term?: string, loadNextPage?: boolean): angular.IPromise<any> {
             if (!loadNextPage) {
                 page = 0;
             }
-            this.chatBus.messages(term, page).then(response => {
+            return this.chatBus.messages(term, page).then(response => {
                 if (loadNextPage) {
                     this.users = this.makeUniqueAndRemoveMySelf(this.users.concat(response));
 

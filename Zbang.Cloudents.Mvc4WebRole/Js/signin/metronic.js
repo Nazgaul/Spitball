@@ -11,67 +11,11 @@ var Metronic = function () {
 
     var resizeHandlers = [];
 
-    //var assetsPath = '../../assets/';
-
-    //var globalImgPath = 'global/img/';
-
-    //var globalPluginsPath = 'global/plugins/';
-
-    //var globalCssPath = 'global/css/';
-
-    // theme layout color set
-
-    //var brandColors = {
-    //    'blue': '#89C4F4',
-    //    'red': '#F3565D',
-    //    'green': '#1bbc9b',
-    //    'purple': '#9b59b6',
-    //    'grey': '#95a5a6',
-    //    'yellow': '#F8CB00'
-    //};
-
-    // initializes main settings
-    //var handleInit = function() {
 
     if ($('body').css('direction') === 'rtl') {
          isRTL = true;
     }
 
-    //    //isIE8 = !!navigator.userAgent.match(/MSIE 8.0/);
-    //    //isIE9 = !!navigator.userAgent.match(/MSIE 9.0/);
-    //    //isIE10 = !!navigator.userAgent.match(/MSIE 10.0/);
-
-    //    //if (isIE10) {
-    //    //    $('html').addClass('ie10'); // detect IE10 version
-    //    //}
-
-    //    //if (isIE10 || isIE9 || isIE8) {
-    //    //    $('html').addClass('ie'); // detect IE10 version
-    //    //}
-    //};
-
-    // runs callback functions set by Metronic.addResponsiveHandler().
-    //var _runResizeHandlers = function () {
-    //    // reinitialize other subscribed elements
-    //    for (var i = 0; i < resizeHandlers.length; i++) {
-    //        var each = resizeHandlers[i];
-    //        each.call();
-    //    }
-    //};
-
-    // handle the layout reinitialization on window resize
-    //var handleOnResize = function () {
-    //    var resize;
-    //    $(window).resize(function () {
-    //        if (resize) {
-    //            clearTimeout(resize);
-    //        }
-    //        resize = setTimeout(function () {
-    //            _runResizeHandlers();
-    //        }, 50); // wait 50ms until window resize finishes.
-    //    });
-
-    //};
 
     // Handles portlet tools & actions
     var handlePortletTools = function () {

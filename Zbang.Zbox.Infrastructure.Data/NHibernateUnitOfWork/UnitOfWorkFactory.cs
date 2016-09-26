@@ -124,17 +124,11 @@ namespace Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork
             try
             {
                 var storage = IocFactory.IocWrapper.Resolve<ICache>();
-                var file = storage.GetFromCacheAsync<byte[]>("nhibernate", GetConfigurationFileName()).Result;
+                var file = storage.GetFromCache<byte[]>("nhibernate", GetConfigurationFileName());
                 if (file == null)
                 {
                     return null;
                 }
-
-                //var file = storage.ReadFileFromStorage(GetConfigurationFileName());
-                //if (file == null)
-                //{
-                //    return null;
-                //}
                 using (var ms = new MemoryStream(file))
                 {
                     var bf = new BinaryFormatter();

@@ -1,7 +1,7 @@
 var Login = function () {
     var queryString = getUrlVars();
     // in case we change class names in form triggers change here too:
-    var states = { 
+    var states = {
         'forgot-password': 0,
         'login': 1,
         'register': 2
@@ -204,18 +204,21 @@ var Login = function () {
     var animatonSpeed = 500;
 
 
-    $(document).on('click', '[data-form-action]', function (e) {
-        e.preventDefault();
-        $main.addClass('show-forms');
+    $(document)
+        .on('click',
+            '[data-form-action]',
+            function (e) {
+                e.preventDefault();
+                $main.addClass('show-forms');
 
-        var action = $(this).data('form-action');
-        pushState(states[action]);
-        ga('send', 'home-page', action);
+                var action = $(this).data('form-action');
+                pushState(states[action]);
+                ga('send', 'home-page', action);
 
-        var formClass = action + '-wrapper';
-        $('.form-wrapper:not(.' + formClass + ')').hide();
-        $('.' + formClass).fadeIn();
-    })
+                var formClass = action + '-wrapper';
+                $('.form-wrapper:not(.' + formClass + ')').hide();
+                $('.' + formClass).fadeIn();
+            });
 
     $('.close-form').click(function () {
         $main.removeClass('show-forms');
@@ -227,14 +230,14 @@ var Login = function () {
     });
     // #endregion
 
-    var handleExtenalLogin = function() {
+    var handleExtenalLogin = function () {
         $('.facebook')
-            .click(function() {
+            .click(function () {
                 facebookLogin();
             });
 
         $('.google')
-            .click(function() {
+            .click(function () {
                 googleLogIn();
             });
         window.Intercom('boot',
@@ -318,8 +321,9 @@ var Login = function () {
             }
 
             clearStorage();
-
             ga('send', 'event', 'Signin', 'Email');
+
+
 
             var returnUrl = queryString['returnUrl'];
             if (returnUrl) {
@@ -358,7 +362,7 @@ var Login = function () {
 
         }, { scope: 'email,user_friends' });
 
-        function processLogin(accessToken){ 
+        function processLogin(accessToken) {
             //trackConversion();
             $.post('/account/facebookLogin', {
                 token: accessToken
@@ -432,7 +436,7 @@ var Login = function () {
 
             // If the "search" string exists, then build params from it
             if (urlQueryString) {
-                keyRegex = new RegExp('([\?&])' + key + '[^&]*');
+                var keyRegex = new RegExp('([\?&])' + key + '[^&]*');
 
                 // If param exists already, update it
                 if (urlQueryString.match(keyRegex) !== null) {
@@ -482,9 +486,6 @@ var Login = function () {
             $.each($.validator.messages, function (key, value) {
                 if ($.type(value) === 'string') { $.validator.messages[key] = value.replace('.', ''); }
             });
-
-
-
             $('.content').show();
         },
         initExternalLogin: function () {
@@ -534,7 +535,7 @@ window.fbAsyncInit = function () {
         //js.async = true;
         js.defer = true;
         document.getElementsByTagName('head')[0].appendChild(js);
-        js.onload = function() { googleLoad(); }
+        js.onload = function () { googleLoad(); }
     }
 
     w.addEventListener("load", load, false);

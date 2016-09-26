@@ -1,5 +1,4 @@
-﻿using System;
-using Dapper;
+﻿using Dapper;
 using NHibernate;
 using System.Collections.Generic;
 using System.Linq;
@@ -527,7 +526,7 @@ where uniid = @UniId
 and shouldSend = 1
 and chapter is not null
 order by s.id
-OPTION (TABLE HINT(s, INDEX ([students_shouldsend])),Recompile);";
+OPTION (TABLE HINT(s, INDEX ([students_shouldsend2])),Recompile);";
                 const string sql2 = @"select top 500 s.id, FirstName, LastName, Email,mailbody as MailBody,
 mailsubject as MailSubject, mailcategory as MailCategory,u.url as UniversityUrl 
 from students s join universities u on s.uniid = u.id

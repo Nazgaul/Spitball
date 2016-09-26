@@ -12,11 +12,14 @@ var app;
             };
             this.restrict = "EA";
             this.link = function (scope, element) {
+                /*handle all your linking requirements here*/
                 var threeDaysInMilliseconds = 2.592e+8;
                 var fromTime;
+                // Track changes to fromTime
                 scope.$watch('fromTime', function () {
                     fromTime = _this.timeAgo.parse(scope.fromTime);
                 });
+                // Track changes to time difference
                 var unregister = scope.$watch(function () {
                     return _this.nowTime() - fromTime;
                 }, function (value) {

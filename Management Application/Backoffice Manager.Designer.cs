@@ -31,6 +31,9 @@
             System.Windows.Forms.Label label15;
             System.Windows.Forms.Label label16;
             System.Windows.Forms.Label label18;
+            System.Windows.Forms.Label label21;
+            System.Windows.Forms.Label label22;
+            System.Windows.Forms.Label label23;
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.tabUniversity = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -139,9 +142,21 @@
             this.buttonMerge = new System.Windows.Forms.Button();
             this.buttonMergeBoxes = new System.Windows.Forms.Button();
             this.openFileDialogReplaceItem = new System.Windows.Forms.OpenFileDialog();
+            this.PostComment = new System.Windows.Forms.TabPage();
+            this.buttonAddComment = new System.Windows.Forms.Button();
+            this.textBoxComment = new System.Windows.Forms.TextBox();
+            this.textBoxReply = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBoxBoxIds = new System.Windows.Forms.TextBox();
+            this.textBoxCommentUserId = new System.Windows.Forms.TextBox();
+            this.textBoxReplyUserId = new System.Windows.Forms.TextBox();
             label15 = new System.Windows.Forms.Label();
             label16 = new System.Windows.Forms.Label();
             label18 = new System.Windows.Forms.Label();
+            label21 = new System.Windows.Forms.Label();
+            label22 = new System.Windows.Forms.Label();
+            label23 = new System.Windows.Forms.Label();
             this.tabUniversity.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUni)).BeginInit();
@@ -157,6 +172,9 @@
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMergeBoxes)).BeginInit();
+            this.PostComment.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label15
@@ -205,6 +223,7 @@
             this.tabUniversity.Controls.Add(this.tabPageFlaggedPost);
             this.tabUniversity.Controls.Add(this.tabPageReplaceItem);
             this.tabUniversity.Controls.Add(this.tabPageMergeBoxes);
+            this.tabUniversity.Controls.Add(this.PostComment);
             this.tabUniversity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabUniversity.Location = new System.Drawing.Point(0, 0);
             this.tabUniversity.Name = "tabUniversity";
@@ -1339,6 +1358,118 @@
             // 
             this.openFileDialogReplaceItem.FileName = "openFileDialog1";
             // 
+            // PostComment
+            // 
+            this.PostComment.Controls.Add(label23);
+            this.PostComment.Controls.Add(this.textBoxBoxIds);
+            this.PostComment.Controls.Add(this.groupBox4);
+            this.PostComment.Controls.Add(this.groupBox3);
+            this.PostComment.Controls.Add(this.buttonAddComment);
+            this.PostComment.Location = new System.Drawing.Point(4, 25);
+            this.PostComment.Name = "PostComment";
+            this.PostComment.Size = new System.Drawing.Size(1086, 537);
+            this.PostComment.TabIndex = 6;
+            this.PostComment.Text = "AddPost";
+            this.PostComment.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddComment
+            // 
+            this.buttonAddComment.Location = new System.Drawing.Point(967, 500);
+            this.buttonAddComment.Name = "buttonAddComment";
+            this.buttonAddComment.Size = new System.Drawing.Size(107, 23);
+            this.buttonAddComment.TabIndex = 0;
+            this.buttonAddComment.Text = "Make it so";
+            this.buttonAddComment.UseVisualStyleBackColor = true;
+            this.buttonAddComment.Click += new System.EventHandler(this.buttonAddComment_Click);
+            // 
+            // textBoxComment
+            // 
+            this.textBoxComment.Location = new System.Drawing.Point(84, 21);
+            this.textBoxComment.Multiline = true;
+            this.textBoxComment.Name = "textBoxComment";
+            this.textBoxComment.Size = new System.Drawing.Size(423, 219);
+            this.textBoxComment.TabIndex = 1;
+            // 
+            // textBoxReply
+            // 
+            this.textBoxReply.Location = new System.Drawing.Point(84, 14);
+            this.textBoxReply.Multiline = true;
+            this.textBoxReply.Name = "textBoxReply";
+            this.textBoxReply.Size = new System.Drawing.Size(423, 219);
+            this.textBoxReply.TabIndex = 2;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(label21);
+            this.groupBox3.Controls.Add(this.textBoxCommentUserId);
+            this.groupBox3.Controls.Add(this.textBoxComment);
+            this.groupBox3.Location = new System.Drawing.Point(26, 31);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(694, 255);
+            this.groupBox3.TabIndex = 3;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Comment";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(label22);
+            this.groupBox4.Controls.Add(this.textBoxReplyUserId);
+            this.groupBox4.Controls.Add(this.textBoxReply);
+            this.groupBox4.Location = new System.Drawing.Point(26, 295);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(624, 239);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Reply";
+            // 
+            // textBoxBoxIds
+            // 
+            this.textBoxBoxIds.Location = new System.Drawing.Point(726, 42);
+            this.textBoxBoxIds.Name = "textBoxBoxIds";
+            this.textBoxBoxIds.Size = new System.Drawing.Size(331, 22);
+            this.textBoxBoxIds.TabIndex = 5;
+            // 
+            // textBoxCommentUserId
+            // 
+            this.textBoxCommentUserId.Location = new System.Drawing.Point(518, 108);
+            this.textBoxCommentUserId.Name = "textBoxCommentUserId";
+            this.textBoxCommentUserId.Size = new System.Drawing.Size(100, 22);
+            this.textBoxCommentUserId.TabIndex = 2;
+            // 
+            // textBoxReplyUserId
+            // 
+            this.textBoxReplyUserId.Location = new System.Drawing.Point(518, 91);
+            this.textBoxReplyUserId.Name = "textBoxReplyUserId";
+            this.textBoxReplyUserId.Size = new System.Drawing.Size(100, 22);
+            this.textBoxReplyUserId.TabIndex = 3;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new System.Drawing.Point(518, 89);
+            label21.Name = "label21";
+            label21.Size = new System.Drawing.Size(51, 16);
+            label21.TabIndex = 3;
+            label21.Text = "UserId:";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new System.Drawing.Point(518, 72);
+            label22.Name = "label22";
+            label22.Size = new System.Drawing.Size(51, 16);
+            label22.TabIndex = 4;
+            label22.Text = "UserId:";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new System.Drawing.Point(726, 23);
+            label23.Name = "label23";
+            label23.Size = new System.Drawing.Size(141, 16);
+            label23.TabIndex = 6;
+            label23.Text = "BoxIds (seperate by ,):";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1372,6 +1503,12 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMergeBoxes)).EndInit();
+            this.PostComment.ResumeLayout(false);
+            this.PostComment.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1487,6 +1624,15 @@
         private System.Windows.Forms.TextBox textBoxChangeDepartmentBoxId;
         private System.Windows.Forms.Button buttonChangeDepartment;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TabPage PostComment;
+        private System.Windows.Forms.TextBox textBoxBoxIds;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox textBoxReplyUserId;
+        private System.Windows.Forms.TextBox textBoxReply;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox textBoxCommentUserId;
+        private System.Windows.Forms.TextBox textBoxComment;
+        private System.Windows.Forms.Button buttonAddComment;
     }
 }
 

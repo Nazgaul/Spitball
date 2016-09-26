@@ -12,6 +12,12 @@ var app;
             this.$rootScope = $rootScope;
             this.boxes = null;
             defer = $q.defer();
+            $rootScope.$on("delete-updates", function (e, arg) {
+                var box = _this.boxes.find(function (v) { return (v.id === arg); });
+                if (box) {
+                    box.updates = 0;
+                }
+            });
             $rootScope.$on("remove-box", function (e, arg) {
                 arg = parseInt(arg, 10);
                 var box = _this.boxes.find(function (v) { return (v.id === arg); });
@@ -28,6 +34,7 @@ var app;
         Dashboard.prototype.getBoxes = function () {
             var _this = this;
             if (this.boxes) {
+                //defer.resolve(this.boxes);
                 return this.$q.when(this.boxes);
             }
             if (!serverCall) {

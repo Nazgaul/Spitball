@@ -21,6 +21,8 @@ using System.Threading.Tasks;
 using Microsoft.Win32;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Infrastructure.Cache;
+using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Url;
 
@@ -482,7 +484,7 @@ namespace Management_Application
             buttonSearch_Click(new int(), new EventArgs());
         }
 
-        private string LoadScript()
+        private static string LoadScript()
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Management_Application.DeleteUsers.sql"))
             {
@@ -531,9 +533,6 @@ namespace Management_Application
             foreach (UserrequestEntity entity in table.ExecuteQuery(query))
             {
                 flaggedItemsListBox.Items.Add(entity.ItemId);
-                //Console.WriteLine(entity.UserId);
-
-                //Console.WriteLine(entity.ItemId);
             }
         }
         public class UserrequestEntity : TableEntity
@@ -714,9 +713,6 @@ namespace Management_Application
             foreach (UserrequestEntity entity in table.ExecuteQuery(Query))
             {
                 listBoxFlaggedPosts.Items.Add(entity.PostId.ToString());
-                //Console.WriteLine(entity.UserId);
-
-                //Console.WriteLine(entity.PostId);
             }
         }
 
@@ -1234,6 +1230,51 @@ commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
             var command = new ChangeBoxLibraryCommand(boxIds, departmentId.Value);
             var writeService = IocFactory.IocWrapper.Resolve<IZboxWorkerRoleService>();
             writeService.ChangeBoxDepartment(command);
+            MessageBox.Show("Done");
+        }
+
+        private async void buttonAddComment_Click(object sender, EventArgs e)
+        {
+            var boxIdstr = textBoxBoxIds.Text?.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            if (boxIdstr == null)
+            {
+                return;
+            }
+            var boxIds = boxIdstr.Select(long.Parse);
+            var commentUserId = long.Parse(textBoxCommentUserId.Text);
+            var needReply = false;
+            var replyUserId = 0L;
+            if (!string.IsNullOrEmpty(textBoxReply.Text))
+            {
+                needReply = true;
+                replyUserId = long.Parse(textBoxReplyUserId.Text);
+
+            }
+
+
+            var writeService = IocFactory.IocWrapper.Resolve<IZboxWriteService>();
+            var idGenerator = IocFactory.IocWrapper.Resolve<IGuidIdGenerator>();
+            var cache = IocFactory.IocWrapper.Resolve<ICache>();
+
+            foreach (var boxId in boxIds)
+            {
+                var questionId = idGenerator.GetId();
+                var command = new AddCommentCommand(commentUserId, boxId, textBoxComment.Text, questionId, null, false);
+                var details = await writeService.AddCommentAsync(command);
+
+                if (needReply)
+                {
+                    var answerId = idGenerator.GetId();
+                    var replyCommand = new AddReplyToCommentCommand(replyUserId, boxId, textBoxReply.Text, answerId, questionId, null);
+                    await writeService.AddReplyAsync(replyCommand);
+                }
+               // await cache.RemoveFromCacheAsyncSlowAsync(CacheRegions.BuildFeedRegion(boxId));
+
+            }
+
+
+
+
             MessageBox.Show("Done");
         }
     }

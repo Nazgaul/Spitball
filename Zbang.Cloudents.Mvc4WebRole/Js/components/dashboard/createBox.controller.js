@@ -14,7 +14,7 @@
             dashboardService.createPrivateBox(self.boxName).then(function (response) {
                 $scope.d.createBoxOn = false;
                 cancel(myform);
-                $rootScope.$broadcast('refresh-boxes');
+                $rootScope.$broadcast("refresh-boxes");
                 $scope.app.showToaster(resManager.get('toasterCreateBox'));
                 $location.url(response.url);
             }, function (response) {

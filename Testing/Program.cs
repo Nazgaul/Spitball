@@ -21,6 +21,7 @@ using System.Windows.Forms;
 using Cobisi.EmailVerify;
 using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Url;
 using File = System.IO.File;
 
 namespace Testing
@@ -100,6 +101,7 @@ namespace Testing
 
         static void Main(string[] args)
         {
+            var id = GuidEncoder.TryParseNullableGuid("zBYBOZzcGE6-QqZ-AKl6tg");
             emailsVerify();
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
