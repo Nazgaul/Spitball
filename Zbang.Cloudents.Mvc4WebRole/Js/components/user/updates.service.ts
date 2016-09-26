@@ -62,7 +62,7 @@
                 }
                 this.deferred.resolve();
             }).catch(() => {
-                this.deferred.reject(); 
+                this.deferred.reject();
             });
         }
 
@@ -73,7 +73,7 @@
                 }
                 this.deleteFromServer(boxId);
                 delete this.allUpdates[boxId];
-                this.$rootScope.$broadcast("refresh-boxes");
+                this.$rootScope.$broadcast("delete-updates", boxId);
             });
         }
         deleteFromServer(boxId: number) {

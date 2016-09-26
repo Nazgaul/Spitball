@@ -61,7 +61,7 @@ var app;
                 }
                 _this.deleteFromServer(boxId);
                 delete _this.allUpdates[boxId];
-                _this.$rootScope.$broadcast("refresh-boxes");
+                _this.$rootScope.$broadcast("delete-updates", boxId);
             });
         };
         UserUpdatesService.prototype.deleteFromServer = function (boxId) {

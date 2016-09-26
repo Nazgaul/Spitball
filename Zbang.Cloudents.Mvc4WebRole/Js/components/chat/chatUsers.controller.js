@@ -27,6 +27,11 @@ var app;
                 user.online = args.online;
                 $scope.$applyAsync();
             });
+            $scope.$on("refresh-boxes", function () {
+                _this.search().then(function () {
+                    $scope.$applyAsync();
+                });
+            });
             $scope.$on("hub-chat", function (e, args) {
                 //im not in chat at all
                 var self = _this;
@@ -77,7 +82,7 @@ var app;
             if (!loadNextPage) {
                 page = 0;
             }
-            this.chatBus.messages(term, page).then(function (response) {
+            return this.chatBus.messages(term, page).then(function (response) {
                 if (loadNextPage) {
                     _this.users = _this.makeUniqueAndRemoveMySelf(_this.users.concat(response));
                 }

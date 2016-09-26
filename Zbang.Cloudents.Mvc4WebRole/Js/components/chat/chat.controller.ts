@@ -44,6 +44,7 @@
                 this.$scope.$broadcast("go-chat", $stateParams["conversationData"]);
 
             }
+           
             $scope.$on("open-chat-user", (e, args) => {
                 this.state = States.Chat;
                 this.$scope.$broadcast("go-chat", args);

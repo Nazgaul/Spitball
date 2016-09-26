@@ -28,8 +28,7 @@
             private $rootScope: angular.IRootScopeService,
             private user: IUserData,
             private resManager: IResManager,
-            //TODO
-            private boxService,
+            private boxService: IBoxService,
             private ajaxService2: IAjaxService2,
             private $timeout: angular.ITimeoutService,
             private $window: angular.IWindowService,
@@ -80,7 +79,7 @@
                 return;
             }
             const appController: IAppController = this.$scope["app"];
-            appController.showToaster(this.resManager.get('toasterFollowBox'));
+            appController.showToaster(this.resManager.get("toasterFollowBox"));
             this.boxService.follow(boxId);
             this.followBox();
 
@@ -88,14 +87,14 @@
 
         private followBox() {
             this.needFollow = false;
-            this.$rootScope.$broadcast('refresh-boxes');
+            this.$rootScope.$broadcast("refresh-boxes");
         }
 
 
         updateBox(updateBoxForm: angular.IFormController) {
             if (this.settings.needFollow) {
                 this.boxService.unfollow(boxId).then(() => {
-                    this.$rootScope.$broadcast('remove-box', boxId);
+                    this.$rootScope.$broadcast("remove-box", boxId);
                     this.$state.go('dashboard');
                 });
                 return;

@@ -33,7 +33,6 @@
 /// <reference path="../js/components/account/unregistershow.directive.js" />
 /// <reference path="../js/components/box/box.module.js" />
 /// <reference path="../js/components/box/box.routes.js" />
-/// <reference path="../js/components/box/box.service.js" />
 /// <reference path="../Js/components/box/feed.controller.js" />
 /// <reference path="../js/components/box/feed.likes.controller.js" />
 /// <reference path="../Js/components/box/item.controller.js" />

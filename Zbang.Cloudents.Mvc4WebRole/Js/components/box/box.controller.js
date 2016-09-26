@@ -3,9 +3,7 @@ var app;
     'use strict';
     var boxId;
     var BoxController = (function () {
-        function BoxController($state, $stateParams, boxData, $scope, $rootScope, user, resManager, 
-            //TODO
-            boxService, ajaxService2, $timeout, $window, userUpdatesService) {
+        function BoxController($state, $stateParams, boxData, $scope, $rootScope, user, resManager, boxService, ajaxService2, $timeout, $window, userUpdatesService) {
             var _this = this;
             this.$state = $state;
             this.$stateParams = $stateParams;
@@ -55,19 +53,19 @@ var app;
                 return;
             }
             var appController = this.$scope["app"];
-            appController.showToaster(this.resManager.get('toasterFollowBox'));
+            appController.showToaster(this.resManager.get("toasterFollowBox"));
             this.boxService.follow(boxId);
             this.followBox();
         };
         BoxController.prototype.followBox = function () {
             this.needFollow = false;
-            this.$rootScope.$broadcast('refresh-boxes');
+            this.$rootScope.$broadcast("refresh-boxes");
         };
         BoxController.prototype.updateBox = function (updateBoxForm) {
             var _this = this;
             if (this.settings.needFollow) {
                 this.boxService.unfollow(boxId).then(function () {
-                    _this.$rootScope.$broadcast('remove-box', boxId);
+                    _this.$rootScope.$broadcast("remove-box", boxId);
                     _this.$state.go('dashboard');
                 });
                 return;

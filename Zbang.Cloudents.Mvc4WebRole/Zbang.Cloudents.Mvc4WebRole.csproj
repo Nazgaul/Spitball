@@ -1515,6 +1515,7 @@
     <TypeScriptCompile Include="Js\app.config.ts" />
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\box.controller.ts" />
+    <TypeScriptCompile Include="Js\components\box\box.service.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.factory.ts" />
     <TypeScriptCompile Include="Js\components\chat\chatTimeAgo.ts" />
@@ -2340,7 +2341,6 @@
     <Content Include="Js\shared\fileReader.js" />
     <Content Include="Js\shared\firstLetter.js" />
     <Content Include="Js\shared\removeKeyboard.js" />
-    <Content Include="Js\components\box\box.service.js" />
     <Content Include="Js\components\box\quizzes.controller.js" />
     <Content Include="Js\components\box\members.controller.js" />
     <Content Include="Js\components\box\feed.controller.js" />
