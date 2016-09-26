@@ -34,11 +34,6 @@ var app;
             });
             $scope.$on("follow-box", function () {
                 _this.followBox();
-                if (b.settingsOpen) {
-                    b.settingsOpen = false;
-                }
-                else {
-                }
             });
             $scope.$on("close-collapse", function () {
                 _this.inviteOpen = false;
@@ -107,12 +102,8 @@ var app;
         BoxController.prototype.inviteToBox = function () {
             if (!this.user.id) {
                 this.$rootScope.$broadcast('show-unregisterd-box');
-                b.inviteOpen = false;
-                $rootScope.$broadcast('close-collapse');
+                return;
             }
-            else {
-                    return;
-                }
             this.$rootScope.$broadcast('close-collapse');
             this.inviteOpen = true;
             this.$scope.$broadcast('open_invite');
