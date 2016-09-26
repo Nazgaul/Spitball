@@ -150,4 +150,7 @@
   <data name="LoadMore" xml:space="preserve">
     <value>load more</value>
   </data>
+  <data name="ChatWith" xml:space="preserve">
+    <value>Chat with</value>
+  </data>
 </root>

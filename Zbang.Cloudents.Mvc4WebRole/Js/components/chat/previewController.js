@@ -2,11 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var PreviewController = (function () {
-        function PreviewController($mdDialog, 
-            // TODO
-            doc, blob, 
-            // $scope: angular.IScope,
-            $sce) {
+        function PreviewController($mdDialog, doc, blob, $sce) {
             this.$mdDialog = $mdDialog;
             this.downloadLink = "/chat/download/?blobName=" + blob;
             if (!doc || !doc.viewName) {
@@ -19,9 +15,6 @@ var app;
                 }
                 this.view = "chat-" + doc.viewName + ".html";
             }
-            //$scope.$on('$stateChangeStart', function () {
-            //    this.$mdDialog.hide();
-            //});
         }
         PreviewController.prototype.close = function () {
             this.$mdDialog.hide();

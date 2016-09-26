@@ -150,4 +150,7 @@
   <data name="LoadMore" xml:space="preserve">
     <value>הודעות נוספות</value>
   </data>
+  <data name="ChatWith" xml:space="preserve">
+    <value>שוחח עם</value>
+  </data>
 </root>

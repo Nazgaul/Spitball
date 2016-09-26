@@ -184,9 +184,11 @@ iframe {
         input[type="checkbox"] {
             display: none;
         }
-        .signup-btn,.signin-btn{
+
+        .signup-btn, .signin-btn {
             min-width: 0;
         }
+
         li a, li button, li label, li span, .signup-btn {
             color: @textColorWhite;
             text-decoration: none;
@@ -234,7 +236,6 @@ iframe {
                         background-color: @backgroundColor2;
                     }
                 }
-
             }
         }
 
@@ -455,7 +456,7 @@ iframe {
         a {
             display: inline-block;
             margin-bottom: 10px;
-            border: 1px solid @borderColorBlack;
+            border: 1px solid @textColorLightWhite;
             border-radius: 7px;
             overflow: hidden;
             margin: 0 10px;
@@ -566,7 +567,7 @@ iframe {
                 svg {
                     width: 30px;
                     height: 30px;
-                    fill: @backgroundColorBlack;
+                    fill: @textColorWhite;
                     margin-right: 10px;
                     display: inline-block;
                 }
@@ -663,7 +664,7 @@ iframe {
 }
 
 .static-page {
-    background: @textColorWhite;
+    background: @textColorLightWhite;
 
     > .content {
         margin-top: @heightOfstaticPageHeader;
@@ -869,7 +870,7 @@ iframe {
             /* min-height: 240px; */
             position: relative;
             margin-top: 70px;
-            background-color: @backgroundColorBlack;
+            background-color: @textColorWhite;
         }
 
         .card-icon {
@@ -925,7 +926,7 @@ iframe {
         }
 
         .card-data {
-            background: #fff;
+            background: @textColorWhite;
             padding: 40px 10px 25px 10px;
             min-height: 160px;
             .seo-link();
@@ -933,7 +934,7 @@ iframe {
 
         .card-title {
             font-weight: bold;
-            color: @textColorDarkGrey;
+            color: @svgDots;
         }
 
         .card-desc span {
@@ -942,13 +943,14 @@ iframe {
         }
     }
 
-        .about-header {
-            color: @textColorBlack;
-        }
+    .about-header {
+        color: @textColorBlack;
+    }
 
     .about-text {
-            color: @textColorBlack;
-            background: none;
+        color: @textColorBlack;
+        background: none;
+
         div {
             margin-bottom: 20px;
         }
@@ -957,11 +959,11 @@ iframe {
     .team-header {
         margin-top: 80px;
         text-align: center;
-            margin-bottom: 40px;
+        margin-bottom: 40px;
 
-            > div {
-                margin-top: 20px;
-            }
+        > div {
+            margin-top: 20px;
+        }
     }
 
     .team {
@@ -977,8 +979,8 @@ iframe {
             padding-top: 70px;
             background: #fff;
             padding-bottom: 15px;
-                background: @backgroundColorBlack;
-                color: @textColorWhite;
+            background: @textColorWhite;
+            color: @textColorBlack;
 
             .desc {
                 height: 44px;
@@ -1008,9 +1010,10 @@ iframe {
         }
     }
 
-        .team, .advantages {
-            margin: -15px;
-        }
+    .team, .advantages {
+        margin: -15px;
+    }
+
     .middle-area {
         margin: 40px 0;
         text-align: center;
@@ -1060,7 +1063,7 @@ iframe {
 }
 
 .apps-page {
-    background: @backgroundColor;
+    background: #181c1d;
 
     .top-image {
         background-position: 50% 10%;
@@ -1085,7 +1088,7 @@ iframe {
         width: 100%;
 
         &:nth-child(3) {
-            background: @backgroundColorBlack;
+            background: @textColorLightWhite;
         }
 
         &:nth-child(4) {
@@ -1093,7 +1096,7 @@ iframe {
         }
 
         &:nth-child(5) {
-            background: @backgroundColor;
+            background: #181c1d;
         }
 
 
@@ -1341,7 +1344,7 @@ iframe {
 }
 
 .product-page, .features-page, .courses-page, .class-notes-page {
-    background: @backgroundColor;
+    background: #181c1d;
     color: @textColorWhite;
 
     h1 {
@@ -1477,7 +1480,7 @@ iframe {
             > img, > a img {
                 width: 100%;
                 margin-top: 20px;
-                border: 3px solid @borderColorDarkGrey;
+                border: 3px solid @textColorLightWhite;
             }
         }
     }
@@ -1519,7 +1522,7 @@ iframe {
         min-width: 250px;
         padding: 15px;
         color: @textColorWhite;
-        background: @backgroundColorMenu;
+        background: @headerbackground;
         .displayFlex;
         -ms-flex-direction: column;
         -webkit-flex-direction: column;

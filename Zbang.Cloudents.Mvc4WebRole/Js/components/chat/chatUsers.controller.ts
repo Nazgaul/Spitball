@@ -99,6 +99,9 @@
             if (!loadNextPage) {
                 page = 0;
             }
+            if (!term) {
+                this.term = '';
+            }
             return this.chatBus.messages(term, page).then(response => {
                 if (loadNextPage) {
                     this.users = this.makeUniqueAndRemoveMySelf(this.users.concat(response));

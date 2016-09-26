@@ -643,6 +643,15 @@
 .theme-light .chat .content .conversasion .user.online:before {
   box-shadow: 0 0 1px 2px #042E5E;
 }
+.chat-tooltip {
+  text-align: center;
+}
+.chat-tooltip .md-content {
+  padding: 4px 10px;
+}
+.chat-tooltip .md-content div {
+  line-height: normal;
+}
 .chat-item-preview {
   max-height: 95vh;
   position: relative;
