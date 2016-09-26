@@ -28,7 +28,7 @@
             nextSelector: $('.nav-next'),
             prevSelector: $('.nav-prev'),
             hideControlOnEnd: true,
-            mode: 'horizontal',
+            mode: 'horizontal'
         });
 
         var currUrl = window.location.href.split("/")[3];
@@ -40,7 +40,7 @@
         handleLanguage.updateLangOnDropDown();
 
         window.Intercom('boot', {
-            app_id: "njmpgayv",
+            app_id: "njmpgayv"
         });
 
         (function (i, s, o, g, r, a, m) {

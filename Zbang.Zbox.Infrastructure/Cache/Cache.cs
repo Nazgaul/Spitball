@@ -18,46 +18,38 @@ namespace Zbang.Zbox.Infrastructure.Cache
         public static ConnectionMultiplexer Connection => LazyConnection.Value;
         private const string AppKey = "DataCache";
         private readonly string m_CachePrefix;
-        private readonly System.Web.Caching.Cache m_Cache;
-        private readonly bool m_IsCacheAvailable;
+
+        private readonly bool m_IsRedisCacheAvailable = IsAppFabricCache();
+        private readonly bool m_IsHttpCacheAvailable = HttpContext.Current != null;
+        private readonly bool m_CacheExists;
+
+
+        //private readonly System.Web.Caching.Cache m_Cache;
+        // private readonly bool m_IsCacheAvailable;
         public Cache()
         {
-            try
-            {
-                var domain = Assembly.Load("Zbang.Zbox.Domain");
-                var viewModel = Assembly.Load("Zbang.Zbox.ViewModel");
-                var domainBuildVersion = domain.GetName().Version.Revision;
-                var viewModelBuildVersion = viewModel.GetName().Version.Revision;
-
-                m_CachePrefix = $"{domainBuildVersion}_{viewModelBuildVersion}_{ConfigurationManager.AppSettings[AppKey]}";
-
-                if (HttpContext.Current == null)
-                {
-                    m_IsCacheAvailable = false;
-                    return;
-                }
-                m_Cache = HttpContext.Current.Cache;
-                m_IsCacheAvailable = IsAppFabricCache();
-            }
-            catch
-            {
-                m_IsCacheAvailable = false;
-            }
-
+            //try
+            //{
+            var domain = Assembly.Load("Zbang.Zbox.Domain");
+            var viewModel = Assembly.Load("Zbang.Zbox.ViewModel");
+            var domainBuildVersion = domain.GetName().Version.Revision;
+            var viewModelBuildVersion = viewModel.GetName().Version.Revision;
+            m_CachePrefix = $"{domainBuildVersion}_{viewModelBuildVersion}_{ConfigurationManager.AppSettings[AppKey]}";
+            m_CacheExists = m_IsRedisCacheAvailable || m_IsHttpCacheAvailable;
         }
 
         public Task AddToCacheAsync<T>(string region, string key, T value, TimeSpan expiration) where T : class
         {
             try
             {
-                if (!m_IsCacheAvailable)
+                if (!m_CacheExists)
                 {
                     return Extensions.TaskExtensions.CompletedTaskFalse;
                 }
                 var cacheKey = BuildCacheKey(region, key);
-                if (!IsAppFabricCache())
+                if (!m_IsRedisCacheAvailable && m_IsHttpCacheAvailable)
                 {
-                    m_Cache.Insert(cacheKey, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
+                    HttpContext.Current.Cache.Insert(cacheKey, value, null, System.Web.Caching.Cache.NoAbsoluteExpiration,
                         expiration);
                     return Extensions.TaskExtensions.CompletedTaskTrue;
                 }
@@ -85,17 +77,17 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         public async Task RemoveFromCacheAsync(string region)
         {
-            if (!m_IsCacheAvailable)
+            if (!m_CacheExists)
             {
                 return;
             }
-            if (!IsAppFabricCache())
+            if (!m_IsRedisCacheAvailable && m_IsHttpCacheAvailable)
             {
-                var enumerator = m_Cache.GetEnumerator();
+                var enumerator = HttpContext.Current.Cache.GetEnumerator();
 
                 while (enumerator.MoveNext())
                 {
-                    m_Cache.Remove(enumerator.Key.ToString());
+                    HttpContext.Current.Cache.Remove(enumerator.Key.ToString());
                 }
                 return;
             }
@@ -132,23 +124,54 @@ namespace Zbang.Zbox.Infrastructure.Cache
 
         public async Task<T> GetFromCacheAsync<T>(string region, string key) where T : class
         {
-            if (!m_IsCacheAvailable)
+            if (!m_CacheExists)
             {
                 return default(T);
             }
             try
             {
                 var cacheKey = BuildCacheKey(region, key);
-                if (!IsAppFabricCache())
-                    return m_Cache[cacheKey] as T;
+                if (!m_IsRedisCacheAvailable && m_IsHttpCacheAvailable)
+                    return HttpContext.Current.Cache[cacheKey] as T;
 
 
-                IDatabase cache = Connection.GetDatabase();
-               
+                var cache = Connection.GetDatabase();
+
                 var t = await cache.GetAsync<T>(cacheKey);
                 if (t != default(T))
                 {
                     await cache.StringAppendAsync(region, cacheKey + ";", CommandFlags.FireAndForget);
+                }
+                return t;
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceLog.WriteError($"GetFromCacheAsync key {key}", ex);
+                return null;
+            }
+
+        }
+
+
+        public T GetFromCache<T>(string region, string key) where T : class
+        {
+            if (!m_CacheExists)
+            {
+                return default(T);
+            }
+            try
+            {
+                var cacheKey = BuildCacheKey(region, key);
+                if (!m_IsRedisCacheAvailable && m_IsHttpCacheAvailable)
+                    return HttpContext.Current.Cache[cacheKey] as T;
+
+
+                var cache = Connection.GetDatabase();
+
+                var t = cache.Get<T>(cacheKey);
+                if (t != default(T))
+                {
+                    cache.StringAppend(region, cacheKey + ";", CommandFlags.FireAndForget);
                 }
                 return t;
             }
@@ -167,7 +190,7 @@ namespace Zbang.Zbox.Infrastructure.Cache
             bool shouldUseCacheFromConfig;
 
             bool.TryParse(ConfigFetcher.Fetch("CacheUse"), out shouldUseCacheFromConfig);
-            return shouldUseCacheFromConfig && ConfigFetcher.IsRunningOnCloud;
+            return shouldUseCacheFromConfig /*&& ConfigFetcher.IsRunningOnCloud*/;
         }
 
 

@@ -132,6 +132,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
             await SendAsync(sendGridMail, new Credentials());
         }
 
+
+        private const string MailGunApiKey = "key-5aea4c42085523a28a112c96d7b016d4";
+
         public Task SendSpanGunEmailAsync(string recipient,
             string ipPool,
             MailParameters parameters,
@@ -144,7 +147,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
             {
                 BaseUrl = new Uri("https://api.mailgun.net/v3"),
                 Authenticator = new HttpBasicAuthenticator("api",
-                   "key-5aea4c42085523a28a112c96d7b016d4")
+                   MailGunApiKey)
             };
             var request = new RestRequest
             {

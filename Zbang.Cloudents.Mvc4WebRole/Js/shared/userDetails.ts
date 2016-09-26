@@ -64,10 +64,10 @@ module app {
                 // ReSharper restore UseOfImplicitGlobalInFunctionScope
             }
             this.$timeout(() => {
-                //analytics doesnt work with timeout
-                this.analytics.set("dimension1", data.universityName || null);
-                this.analytics.set("dimension2", data.universityCountry || null);
-                this.analytics.set("dimension3", data.id || null);
+                //analytics doesnt work without timeout
+                this.analytics.set("dimension1", data.universityName || "null"); // analytics doesnt support null
+                this.analytics.set("dimension2", data.universityCountry || "null"); // analytics doesnt support null
+                this.analytics.set("dimension3", data.id || "null"); // analytics doesnt support null
             });
             // this.analytics.set("dimension4", data.theme || "dark");
 

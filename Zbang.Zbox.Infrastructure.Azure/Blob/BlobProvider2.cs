@@ -44,8 +44,6 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return ++currentIndex;
         }
 
-
-
         public async Task CommitBlockListAsync(string blobName, int currentIndex, string contentType)
         {
             var blockList = Enumerable.Range(0, currentIndex).Select(ToBase64);
