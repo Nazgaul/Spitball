@@ -24,7 +24,7 @@ var app;
         };
         ;
         BoxService.prototype.items = function (boxId, tabId, page) {
-            return this.ajaxService2.get('/box/items/', { id: boxId, tabId: tabId, page: page });
+            return this.ajaxService2.get('/box/items/', { id: boxId, tabId: tabId, page: page }, "boxItems");
         };
         ;
         BoxService.prototype.getTabs = function (boxid) {
@@ -36,7 +36,7 @@ var app;
                 boxId: boxId,
                 tabId: tabId,
                 itemId: itemId
-            });
+            }, "boxItems");
         };
         BoxService.prototype.createTab = function (name, boxId) {
             return this.ajaxService2.post('/box/createtab/', {
@@ -55,12 +55,12 @@ var app;
             return this.ajaxService2.post('/box/deletetab/', {
                 tabId: tabId,
                 boxId: boxId
-            });
+            }, "boxItems");
         };
         BoxService.prototype.deleteItem = function (itemId) {
             return this.ajaxService2.post('/item/delete/', {
                 itemId: itemId
-            });
+            }, "boxItems");
         };
         ;
         BoxService.prototype.filterItem = function (term, boxId, page) {

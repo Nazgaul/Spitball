@@ -1516,6 +1516,7 @@
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\box.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\box.service.ts" />
+    <TypeScriptCompile Include="Js\components\box\item.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.factory.ts" />
     <TypeScriptCompile Include="Js\components\chat\chatTimeAgo.ts" />
@@ -2344,7 +2345,6 @@
     <Content Include="Js\components\box\quizzes.controller.js" />
     <Content Include="Js\components\box\members.controller.js" />
     <Content Include="Js\components\box\feed.controller.js" />
-    <Content Include="Js\components\box\item.controller.js" />
     <Content Include="Js\components\box\recommended.controller.js" />
     <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\dashboard\university.controller.js" />
@@ -2357,7 +2357,6 @@
     <Content Include="Js\components\item\item.service.js" />
     <Content Include="Js\components\item\upload.controller.js" />
     <Content Include="Js\components\library\library.controller.js" />
-    <Content Include="Js\components\search\search.controller.js" />
     <Content Include="Js\components\quiz\stopwatch.filter.js" />
     <Content Include="Js\components\quiz\stopwatch.directive.js" />
     <Content Include="Js\components\quiz\stopwatch.module.js" />

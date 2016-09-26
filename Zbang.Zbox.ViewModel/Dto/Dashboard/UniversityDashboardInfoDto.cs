@@ -7,9 +7,12 @@ namespace Zbang.Zbox.ViewModel.Dto.Dashboard
         public string Name { get; set; }
         public string Cover { get; set; }
 
-        public int NumOfBoxes { get; set; }
-        public int NumOfUsers { get; set; }
-        public int NumOfItems { get; set; }
+        public int Boxes { get; set; }
+        public int Users { get; set; }
+        public int Items { get; set; }
+
+        public string BtnColor { get; set; }
+        public string BackColor { get; set; }
 
         public string Logo { get; set; }
 

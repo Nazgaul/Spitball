@@ -1,4 +1,3 @@
-/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 var app;
 (function (app) {
     "use strict";
@@ -32,6 +31,9 @@ var app;
                     storageMode: "localStorage"
                 },
                 department: {
+                    maxAge: 15 * minute
+                },
+                boxItems: {
                     maxAge: 15 * minute
                 },
                 itemComment: {

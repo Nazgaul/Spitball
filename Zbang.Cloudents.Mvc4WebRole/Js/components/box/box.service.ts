@@ -52,7 +52,7 @@
             return this.ajaxService2.get('/box/recommended/', { id: boxid });
         };
         items(boxId: number, tabId:Guid, page:number) {
-            return this.ajaxService2.get('/box/items/', { id: boxId, tabId: tabId, page: page });
+            return this.ajaxService2.get('/box/items/', { id: boxId, tabId: tabId, page: page }, "boxItems");
         };
         getTabs(boxid: number) {
             return this.ajaxService2.get('/box/tabs/', { id: boxid });
@@ -62,7 +62,7 @@
                 boxId: boxId,
                 tabId: tabId,
                 itemId: itemId
-            });
+            }, "boxItems");
         }
         createTab(name:string, boxId: number) {
             return this.ajaxService2.post('/box/createtab/', {
@@ -81,12 +81,12 @@
             return this.ajaxService2.post('/box/deletetab/', {
                 tabId: tabId,
                 boxId: boxId
-            });
+            }, "boxItems");
         }
         deleteItem(itemId: number) {
             return this.ajaxService2.post('/item/delete/', {
                 itemId: itemId
-            });
+            }, "boxItems");
         };
         filterItem(term: string, boxId: number, page: number) {
             return this.ajaxService2.get('/search/iteminbox/', {

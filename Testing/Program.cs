@@ -101,7 +101,6 @@ namespace Testing
 
         static void Main(string[] args)
         {
-            var id = GuidEncoder.TryParseNullableGuid("zBYBOZzcGE6-QqZ-AKl6tg");
             emailsVerify();
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
@@ -187,16 +186,17 @@ namespace Testing
             {
                 AllowDomainLiterals = false,
                 AllowComments = true,
-                AllowQuotedStrings = true
-                //LocalEndPoint = new IPEndPoint(new IPAddress())
-            };
+                AllowQuotedStrings = true,
+                LocalHostFqdn = "mg.spitball.co",
+                LocalSenderAddress = "michael@spitball.co",
+                LocalEndPoint = new IPEndPoint(IPAddress.Parse("184.173.153.166"),25)
+        };
 
             // The component will use just the provided DNS server for its lookups
 
             settings.DnsServers.Clear();
-            settings.LocalSenderAddress = "michael@spitball.co";
             settings.DnsServers.Add(IPAddress.Parse("8.8.8.8"));
-            settings.SmtpConnectionTimeout = TimeSpan.FromMinutes(5);
+           // settings.SmtpConnectionTimeout = TimeSpan.FromMinutes(5);
             var x = verifier.Run("MHW0008@auburn.edu", VerificationLevel.CatchAll, settings).Result;
             var result = verifier.Run("LEW0019@auburn.edu", VerificationLevel.CatchAll, settings).Result;
 
