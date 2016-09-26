@@ -33,6 +33,9 @@ var app;
                 department: {
                     maxAge: 15 * minute
                 },
+                boxItems: {
+                    maxAge: 15 * minute
+                },
                 itemComment: {
                     maxAge: 15 * minute
                 }

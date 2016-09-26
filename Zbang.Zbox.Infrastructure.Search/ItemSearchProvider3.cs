@@ -84,26 +84,26 @@ namespace Zbang.Zbox.Infrastructure.Search
             return index;
         }
 
-        private async Task BuildIndex()
-        {
-            try
-            {
-                // m_Connection.SearchClient.Indexes.Delete(m_IndexName);
-                await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure());
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError("on item build index", ex);
-            }
-            m_CheckIndexExists = true;
-        }
+        //private async Task BuildIndexAsync()
+        //{
+        //    try
+        //    {
+        //        // m_Connection.SearchClient.Indexes.Delete(m_IndexName);
+        //        await m_Connection.SearchClient.Indexes.CreateOrUpdateAsync(GetIndexStructure());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError("on item build index", ex);
+        //    }
+        //    m_CheckIndexExists = true;
+        //}
 
         public async Task UpdateDataAsync(ItemSearchDto itemToUpload, IEnumerable<long> itemToDelete)
         {
-            if (!m_CheckIndexExists)
-            {
+            //if (!m_CheckIndexExists)
+            //{
                 //  await BuildIndex();
-            }
+            //}
             //var listOfCommands = new List<IndexAction<ItemSearch>>();
             if (itemToUpload != null)
             {

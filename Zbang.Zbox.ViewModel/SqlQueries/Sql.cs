@@ -30,9 +30,11 @@ uWrap.id as id,
 uWrap.universityName as Name,
 uWrap.LargeImage as Logo,
 uWrap.BackgroundImage as Cover,
-uWrap.NoOfBoxes as NumOfBoxes,
-uWrap.NoOfUsers as NumOfUsers,
-uWrap.NoOfItems + uWrap.NoOfQuizzes as NumOfItems
+uWrap.NoOfBoxes as Boxes,
+uWrap.NoOfUsers as Users,
+uWrap.NoOfItems + uWrap.NoOfQuizzes as Items,
+uWrap.SignupColor as BtnColor,
+uWrap.VideoBackgroundColor as BackColor
 from zbox.university uWrap  
 where uWrap.Id = @UniversityId";
 

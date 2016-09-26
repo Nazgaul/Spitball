@@ -20,6 +20,7 @@ module app {
         "html" |
         "department" |
         "itemComment" |
+        "boxItems" |
         "searchBox" | "searchItem" | "searchQuiz";
 
     const
@@ -72,12 +73,15 @@ module app {
             department: {
                 maxAge: 15 * minute
             },
+            boxItems: {
+                maxAge: 15 * minute
+            },
             itemComment: {
                 maxAge: 15 * minute
             }
         };
         buildFactoryObject(cacheKey: string) {
-            var dst = {};
+            const dst = {};
             angular.extend(dst,
                 {
                     deleteOnExpire: "aggressive",
@@ -103,7 +107,7 @@ module app {
                 this.trackTime(startTime, url, data, "post");
 
                 if (angular.isArray(category)) {
-                    (category as Array<cacheKeys>).forEach((e:cacheKeys) => {
+                    (category as Array<cacheKeys>).forEach((e: cacheKeys) => {
                         this.deleteCacheCategory(e);
                     });
                 }
@@ -242,7 +246,7 @@ module app {
             });
         }
 
-        trackTime(startTime: number, url: string, data: Object, type:string) {
+        trackTime(startTime: number, url: string, data: Object, type: string) {
             const timeSpent = new Date().getTime() - startTime;
 
             this.analytics.trackTimings(url.toLowerCase() !== "/item/preview/" ? `ajax ${type}`

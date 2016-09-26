@@ -1,247 +1,225 @@
-﻿(function () {
+var app;
+(function (app) {
     'use strict';
-    angular.module('app.box.items').controller('ItemsController', items);
-    items.$inject = ['boxService', '$stateParams', '$rootScope',
-        'itemThumbnailService', '$mdDialog',
-        '$scope', 'user', '$q', 'resManager', '$state', "$window", "$timeout"];
-
-    function items(boxService, $stateParams, $rootScope, itemThumbnailService,
-        $mdDialog, $scope, user, $q, resManager, $state, $window, $timeout) {
-        var i = this,
-        boxId = $stateParams.boxId;
-        i.items = [];
-        i.uploadShow = true;
-        $scope.stateParams = $stateParams;
-        var page = 0, needToBringMore = true, disablePaging = false;
-
-
-        i.myPagingFunction = function() {
-            if (i.term) {
-                return $q.when();
-            }
-            return getItems(true);
-        };
-        i.filter = filter;
-        i.openUpload = openUpload;
-        i.deleteItem = deleteItem;
-        i.addItemToTab = addItemToTab;
-        //i.dropToTabSuccess = dropToTabSuccess;
-        i.downloadItem = followBox;
-        i.removeItemFromTab = removeItemFromTab;
-        //$scope.setTab = setTab;
-
-        if ($stateParams.tabId && $stateParams.q) {
-            $state.go('box.items', { tabId: $stateParams.tabId, q: null });
-            return;
-        }
-        if ($stateParams.tabId) {
-            getItems();
-            scrollToPosition();
-        }
-        else if ($stateParams.q) {
-            getFilter();
-            scrollToPosition();
-        } else {
-            getItems();
-            scrollToPosition();
-        }
-
-
-
-        function followBox() {
-            $scope.$emit('follow-box');
-        }
-
-        function removeItemFromTab(item) {
-            boxService.addItemToTab(boxId, null, item.id);
-            $scope.$broadcast('tab-item-remove');
-            var index = i.items.indexOf(item);
-            i.items.splice(index, 1);
-        }
-        function addItemToTab($data, tab) {
-            if (!user.id) {
-                $rootScope.$broadcast('show-unregisterd-box');
+    var page = 0, needToBringMore = true, disablePaging = false;
+    function resetParams() {
+        page = 0;
+        needToBringMore = true;
+    }
+    var ItemsController = (function () {
+        function ItemsController(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, user, $q, resManager, $state, $window, $timeout) {
+            var _this = this;
+            this.boxService = boxService;
+            this.$stateParams = $stateParams;
+            this.$rootScope = $rootScope;
+            this.itemThumbnailService = itemThumbnailService;
+            this.$mdDialog = $mdDialog;
+            this.$scope = $scope;
+            this.user = user;
+            this.$q = $q;
+            this.resManager = resManager;
+            this.$state = $state;
+            this.$window = $window;
+            this.$timeout = $timeout;
+            this.items = [];
+            this.uploadShow = true;
+            this.buildItem = function (value) {
+                value.downloadLink = value.url + 'download/';
+                var retVal = _this.itemThumbnailService.assignValue(value.source);
+                value.thumbnail = retVal.thumbnail;
+                value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
+            };
+            $scope["stateParams"] = $stateParams;
+            if ($stateParams["tabId"] && $stateParams["q"]) {
+                $state.go("box.items", { tabId: $stateParams["tabId"], q: null });
                 return;
             }
-            var item = i.items.find(function (x) {
-                return x.id === $data.id;
+            if ($stateParams["tabId"]) {
+                this.getItems().then(function () {
+                    _this.scrollToPosition();
+                });
+            }
+            else if ($stateParams["q"]) {
+                this.getFilter().then(function () {
+                    ;
+                    _this.scrollToPosition();
+                });
+            }
+            else {
+                this.getItems().then(function () {
+                    ;
+                    _this.scrollToPosition();
+                });
+            }
+            $rootScope.$on('disablePaging', function () {
+                disablePaging = true;
             });
-            if (item) {
-                var index = i.items.indexOf(item);
-                i.items.splice(index, 1);
+            $rootScope.$on('enablePaging', function () {
+                disablePaging = false;
+            });
+            $scope.$on('update-thumbnail', function (e, args) {
+                var item = _this.items.find(function (x) { return (x.id === args); });
+                if (item) {
+                    item.thumbnail += '&1=1';
+                }
+            });
+            $rootScope.$on('item_upload', function (event, response2) {
+                if (angular.isArray(response2)) {
+                    for (var j = 0; j < response2.length; j++) {
+                        pushItem(response2[j]);
+                    }
+                    return;
+                }
+                pushItem(response2);
+                function pushItem(response) {
+                    if (!response) {
+                        return;
+                    }
+                    if (response.boxId !== $stateParams.boxId) {
+                        return;
+                    }
+                    if (response.item.tabId !== $stateParams["tabId"]) {
+                        return;
+                    }
+                    this.followBox();
+                    var item = response.item;
+                    this.buildItem(item);
+                    this.items.unshift(item);
+                }
+            });
+            $rootScope.$on('close_upload', function () {
+                _this.uploadShow = true;
+            });
+            $rootScope.$on('item_delete', function (e, itemId) {
+                var item = _this.items.findIndex(function (x) { return (x.id === itemId); });
+                if (item >= 0) {
+                    _this.items.splice(item, 1);
+                }
+            });
+            $scope.$watchCollection(function () {
+                return [$state.params["tabId"], $state.params["q"]];
+            }, function (newParams, oldParams) {
+                if ($state.current.name !== 'box.items') {
+                    return;
+                }
+                if (newParams[0] !== oldParams[0]) {
+                    if ($stateParams["tabId"] && $stateParams["q"]) {
+                        $state.go('box.items', { tabId: $stateParams["tabId"], q: null });
+                        return;
+                    }
+                    resetParams();
+                    _this.getItems();
+                }
+                if (newParams[1] !== oldParams[1]) {
+                    resetParams();
+                    _this.getFilter();
+                }
+            });
+        }
+        ItemsController.prototype.myPagingFunction = function () {
+            if (this.term) {
+                return this.$q.when();
+            }
+            return this.getItems();
+        };
+        ;
+        ItemsController.prototype.followBox = function () {
+            this.$scope.$emit('follow-box');
+        };
+        ItemsController.prototype.removeItemFromTab = function (item) {
+            this.boxService.addItemToTab(this.$stateParams.boxId, null, item.id);
+            this.$scope.$broadcast('tab-item-remove');
+            var index = this.items.indexOf(item);
+            this.items.splice(index, 1);
+        };
+        ItemsController.prototype.addItemToTab = function ($data, tab) {
+            if (!this.user.id) {
+                this.$rootScope.$broadcast('show-unregisterd-box');
+                return;
+            }
+            var item = this.items.findIndex(function (x) { return (x.id === $data.id); });
+            if (item >= 0) {
+                this.items.splice(item, 1);
             }
             tab.count++;
-            followBox();
-            boxService.addItemToTab(boxId, tab.id, $data.id);
-
-        }
-
-
-        $rootScope.$on('disablePaging', function () {
-            disablePaging = true;
-        });
-        $rootScope.$on('enablePaging', function () {
-            disablePaging = false;
-        });
-
-
-        //$scope.$on('resetParams', resetParams);
-        $scope.$on('update-thumbnail', function (e, args) {
-            var item = i.items.find(function (x) {
-                return x.id === args;
-            });
-            if (item) {
-                item.thumbnail += '&1=1';
-            }
-        });
-        function resetParams() {
-            page = 0;
-            needToBringMore = true;
-        }
-
-        function openUpload() {
-            if (!user.id) {
-                $rootScope.$broadcast('show-unregisterd-box');
+            this.followBox();
+            this.boxService.addItemToTab(this.$stateParams.boxId, tab.id, $data.id);
+        };
+        ItemsController.prototype.openUpload = function () {
+            if (!this.user.id) {
+                this.$rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
-            $rootScope.$broadcast('open_upload', $stateParams.tabId);
-            i.uploadShow = false;
-        }
-
-        function deleteItem(ev, item) {
+            this.$rootScope.$broadcast('open_upload', this.$stateParams["tabId"]);
+            this.uploadShow = false;
+        };
+        ItemsController.prototype.deleteItem = function (ev, item) {
+            var _this = this;
             disablePaging = true;
-            var confirm = $mdDialog.confirm()
-                 .title(resManager.get('deleteItem'))
-                 .targetEvent(ev)
-                 .ok(resManager.get('dialogOk'))
-                 .cancel(resManager.get('dialogCancel'));
-
-            $mdDialog.show(confirm).then(function () {
-                var index = i.items.indexOf(item);
-                boxService.deleteItem(item.id).then(function () {
-                    $scope.$broadcast('tab-item-remove');
-                    i.items.splice(index, 1);
+            var confirm = this.$mdDialog.confirm()
+                .title(this.resManager.get('deleteItem'))
+                .targetEvent(ev)
+                .ok(this.resManager.get('dialogOk'))
+                .cancel(this.resManager.get('dialogCancel'));
+            this.$mdDialog.show(confirm).then(function () {
+                var index = _this.items.indexOf(item);
+                _this.boxService.deleteItem(item.id).then(function () {
+                    _this.$scope.$broadcast('tab-item-remove');
+                    _this.items.splice(index, 1);
                 });
             }).finally(function () {
                 disablePaging = false;
             });
-        }
-
-
-        function getItems() {
+        };
+        ItemsController.prototype.getItems = function () {
+            var _this = this;
             if (!needToBringMore) {
-                return $q.when();
+                return this.$q.when();
             }
             if (disablePaging) {
-                return $q.when();
+                return this.$q.when();
             }
-            return boxService.items(boxId, $stateParams.tabId, page).then(function (response) {
-                angular.forEach(response, buildItem);
+            return this.boxService.items(this.$stateParams.boxId, this.$stateParams["tabId"], page).then(function (response) {
+                angular.forEach(response, _this.buildItem);
                 if (page > 0) {
-                    i.items = i.items.concat(response);
-                } else {
-                    i.items = response;
+                    _this.items = _this.items.concat(response);
                 }
-
+                else {
+                    _this.items = response;
+                }
                 if (!response.length) {
                     needToBringMore = false;
                 }
                 page++;
             });
-
-        }
-        function filter() {
-
-            if (!i.term) {
-                $state.go('box.items', { tabId: null, q: null });
+        };
+        ItemsController.prototype.filter = function () {
+            if (!this.term) {
+                this.$state.go('box.items', { tabId: null, q: null });
             }
-            $state.go('box.items', { tabId: null, q: i.term });
-
-        }
-
-        function buildItem(value) {
-            value.downloadLink = value.url + 'download/';
-            var retVal = itemThumbnailService.assignValue(value.source);
-            value.thumbnail = retVal.thumbnail;
-            value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
-        }
-
-
-        //upload
-        $rootScope.$on('item_upload', function (event, response2) {
-            if (angular.isArray(response2)) {
-                for (var j = 0; j < response2.length; j++) {
-                    pushItem(response2[j]);
-                }
-                return;
-            }
-            pushItem(response2);
-            function pushItem(response) {
-                if (!response) {
-                    return;
-                }
-                // ReSharper disable once CoercedEqualsUsing
-                if (response.boxId !== $stateParams.boxId) { 
-                    return;
-                }
-                if (response.item.tabId !== $stateParams.tabId) {
-                    return; //not the same tab
-                }
-                followBox();
-                var item = response.item;
-                buildItem(item);
-                i.items.unshift(item);
-            }
-        });
-        $rootScope.$on('close_upload', function () {
-            i.uploadShow = true;
-        });
-        $rootScope.$on('item_delete', function (e, itemId) {
-            //TODO: use https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
-            var item = i.items.find(function (x) {
-                return x.id === itemId;
+            this.$state.go('box.items', { tabId: null, q: this.term });
+        };
+        ItemsController.prototype.getFilter = function () {
+            var _this = this;
+            this.term = this.$stateParams["q"];
+            return this.boxService.filterItem(this.$stateParams["q"], this.$stateParams.boxId, 0).then(function (response) {
+                angular.forEach(response, _this.buildItem);
+                _this.items = response;
             });
-            if (item) {
-                var index = i.items.indexOf(item);
-                i.items.splice(index, 1);
-            }
-        });
-
-        $scope.$watchCollection(function () {
-            return [$state.params.tabId, $state.params.q];
-        }, function (newParams, oldParams) {
-            if ($state.current.name !== 'box.items') {
-                return; //happen upon link
-            }
-            if (newParams[0] !== oldParams[0]) {
-                if ($stateParams.tabId && $stateParams.q) {
-                    $state.go('box.items', { tabId: $stateParams.tabId, q: null });
-                    return;
-                }
-                resetParams();
-                getItems();
-            }
-            if (newParams[1] !== oldParams[1]) {
-                resetParams();
-                getFilter();
-            }
-
-        });
-        function getFilter() {
-            i.term = $stateParams.q;
-            boxService.filterItem($stateParams.q, boxId, 0).then(function (response) {
-                angular.forEach(response, buildItem);
-                i.items = response;
-            });
-        }
-
-        function scrollToPosition() {
-            var yOffsetParam = $stateParams.pageYOffset;
+        };
+        ItemsController.prototype.scrollToPosition = function () {
+            var _this = this;
+            var yOffsetParam = this.$stateParams["pageYOffset"];
             if (yOffsetParam) {
-                $timeout(function() {
-                    $window.scrollTo(0, yOffsetParam);
+                this.$timeout(function () {
+                    _this.$window.scrollTo(0, yOffsetParam);
                 });
             }
-        }
-    }
-})();
+        };
+        ItemsController.$inject = ['boxService', '$stateParams', '$rootScope',
+            'itemThumbnailService', '$mdDialog',
+            '$scope', 'user', '$q', 'resManager', '$state', "$window", "$timeout"];
+        return ItemsController;
+    }());
+    angular.module('app.box.items').controller('ItemsController', ItemsController);
+})(app || (app = {}));
