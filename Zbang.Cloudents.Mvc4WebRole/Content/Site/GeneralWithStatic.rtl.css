@@ -135,6 +135,7 @@ body {
   margin: 4px 0;
   padding: 5px 16px;
   border-radius: 4px;
+  white-space: normal;
   background: #4190b9;
   color: #ffffff;
 }
@@ -196,6 +197,7 @@ body {
   margin: 4px 0;
   padding: 5px 16px;
   border-radius: 4px;
+  white-space: normal;
   background: #ffffff;
   color: #212325;
 }

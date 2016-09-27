@@ -4,15 +4,15 @@
     <a class="university" ga-track-event="['dashboard', 'to university']" ng-if="u.loaded" ng-href="{{::u.info.url}}">
         <div class="top">
             <img class="universityimg" ng-src="{{::u.info.logo}}" alt="univerisy picture" width="52" height="52" />
-            <div class="uni-name" ng-bind="::u.info.name"></div>
+            <div class="uni-name ellipsis" ng-bind="::u.info.name"></div>
         </div>
         <div class="bottom">
             <div class="action-btn">@GeneralResources.BrowseClasses</div>
             <div class="stats-bg"></div>
+            <div class="universityStats" layout="row" layout-align="space-between center">
                 <div>{{::u.info.boxes | megaNumber}} @GeneralResources.Classes</div>
                 <div>{{::u.info.users | megaNumber}} @GeneralResources.Members</div>
                 <div>{{::u.info.items | megaNumber}} @BoxResources.Items</div>
-            <div class="universityStats" layout="row" layout-align="space-between center">
             </div>
         </div>
     </a>

@@ -82,6 +82,9 @@ var app;
             if (!loadNextPage) {
                 page = 0;
             }
+            if (!term) {
+                this.term = '';
+            }
             return this.chatBus.messages(term, page).then(function (response) {
                 if (loadNextPage) {
                     _this.users = _this.makeUniqueAndRemoveMySelf(_this.users.concat(response));
