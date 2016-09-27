@@ -1,9 +1,7 @@
-var app;
-(function (app) {
+﻿module app {
     "use strict";
-    var AppRun = (function () {
-        function AppRun(routerHelper) {
-            this.routerHelper = routerHelper;
+    class AppRun {
+        constructor(private routerHelper: IRouterHelper) {
             routerHelper.configureStates(getStates());
             function getStates() {
                 return [
@@ -14,23 +12,26 @@ var app;
                             controller: "UserController as u",
                             resolve: {
                                 userData: [
-                                    "userService", "$stateParams", function (userService, $stateParams) { return userService.getDetails($stateParams.userId); }
+                                    "userService", "$stateParams", (userService, $stateParams) => userService.getDetails($stateParams.userId)
                                 ]
                             }
                         },
                         templateUrl: "/user/indexpartial/"
+
                     }
                 ];
             }
         }
-        AppRun.factory = function () {
-            var factory = function (routerHelper) {
+
+        static factory() {
+            const factory = (routerHelper) => {
                 return new AppRun(routerHelper);
             };
+
             factory["$inject"] = ["routerHelper"];
             return factory;
-        };
-        return AppRun;
-    }());
+        }
+
+    }
     angular.module('app.user').run(AppRun.factory());
-})(app || (app = {}));
+}

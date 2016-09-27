@@ -1,5 +1,5 @@
 ﻿module app {
-    'use strict';
+    "use strict";
     var boxId: number;
     class BoxController {
         static $inject = ["$state", "$stateParams", "boxData", "$scope",
@@ -72,7 +72,6 @@
 
             };
         }
-
         follow() {
             if (!this.user.id) {
                 this.$rootScope.$broadcast('show-unregisterd-box');

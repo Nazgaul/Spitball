@@ -1,6 +1,6 @@
 var app;
 (function (app) {
-    'use strict';
+    "use strict";
     var boxId;
     var BoxController = (function () {
         function BoxController($state, $stateParams, boxData, $scope, $rootScope, user, resManager, boxService, ajaxService2, $timeout, $window, userUpdatesService) {

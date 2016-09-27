@@ -69,7 +69,6 @@
 /// <reference path="../js/components/share/invite.controller.js" />
 /// <reference path="../js/components/share/share.service.js" />
 /// <reference path="../Js/components/user/user.controller.js" />
-/// <reference path="../js/components/user/user.routes.js" />
 /// <reference path="../js/components/user/user.service.js" />
 /// <reference path="../js/components/user/userdetails.controller.js" />
 /// <reference path="../Js/components/userdetails/userdetails.module.js" />
