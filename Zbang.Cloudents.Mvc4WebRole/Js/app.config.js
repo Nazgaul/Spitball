@@ -4,6 +4,7 @@ var app;
     angular.module("app").config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
         "$httpProvider", "$compileProvider", "$animateProvider", "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider"];
+    // ReSharper disable once Class
     function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider) {
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -11,6 +12,7 @@ var app;
                 "request": function (c) {
                     return c;
                 },
+                // optional method
                 "response": function (response) {
                     return response;
                 },
@@ -34,6 +36,8 @@ var app;
                             window.open("/error/", "_self");
                             break;
                         default:
+                            // somehow firefox in incognito crash and transfer to error page
+                            //   window.open('/error/', '_self');
                             break;
                     }
                     return response;
@@ -45,7 +49,9 @@ var app;
         $provide.constant("$MD_THEME_CSS", "");
         $mdAriaProvider.disableWarnings();
         $sceDelegateProvider.resourceUrlWhitelist([
+            // allow same origin resource loads.
             "self",
+            // allow loading from our assets domain.  Notice the difference between * and **.
             (window["cdnPath"] + "/**")
         ]);
         $mdIconProvider
@@ -56,7 +62,7 @@ var app;
             .iconSet("b", append("/images/site/box-icons.svg"))
             .iconSet("q", append("/images/site/quizIcons.svg"));
         function append(str) {
-            return window["cdnPath"] || "" + str + "?" + window["version"];
+            return (window["cdnPath"] || "") + str + "?" + window["version"];
         }
     }
 })(app || (app = {}));
@@ -85,6 +91,7 @@ var app;
         $document.ready(function () {
             analytics.createAnalyticsScriptTag();
         });
+        //for run the app
     }
     ;
 })();
@@ -104,6 +111,8 @@ var app;
     angular.module("app").config(config);
     config.$inject = ['ScrollBarsProvider'];
     function config(ScrollBarsProvider) {
+        // the following settings are defined for all scrollbars unless the
+        // scrollbar has local scope configuration
         ScrollBarsProvider.defaults = {
             scrollInertia: 400,
             scrollButtons: false,
@@ -113,3 +122,4 @@ var app;
     }
     ;
 })();
+//# sourceMappingURL=app.config.js.map

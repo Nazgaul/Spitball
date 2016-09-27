@@ -81,7 +81,7 @@
 
 
         function append(str:string) {
-            return window["cdnPath"] || "" + str + "?" + window["version"];
+            return (window["cdnPath"] || "") + str + "?" + window["version"];
         }
     }
 }
