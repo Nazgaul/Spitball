@@ -1,3 +1,4 @@
+/// <reference path="quizCreate2.controller.ts" />
 var app;
 (function (app) {
     "use strict";
@@ -50,6 +51,28 @@ var app;
                 text: text
             });
         };
+        //createAnswer(questionId: string, text: string) {
+        //    return this.ajaxService.post('/quiz/createanswer/', {
+        //        questionId: questionId,
+        //        text: text
+        //    });
+        //}
+        //updateAnswer(answerId: string, text: string) {
+        //    return this.ajaxService.post('/quiz/updateanswer/', {
+        //        Id: answerId,
+        //        text: text
+        //    });
+        //}
+        //markCorrect(answerId: string) {
+        //    return this.ajaxService.post('/quiz/markcorrect/', {
+        //        answerId: answerId
+        //    });
+        //}
+        //deleteAnswer(answerId: string) {
+        //    return this.ajaxService.post('/quiz/deleteanswer/', {
+        //        id: answerId
+        //    });
+        //}
         QuizService.prototype.deleteQuestion = function (questionId) {
             return this.ajaxService.post('/quiz/deletequestion/', {
                 id: questionId
@@ -70,3 +93,4 @@ var app;
     }());
     angular.module("app.quiz").service('quizService', QuizService);
 })(app || (app = {}));
+//# sourceMappingURL=quiz.service.js.map

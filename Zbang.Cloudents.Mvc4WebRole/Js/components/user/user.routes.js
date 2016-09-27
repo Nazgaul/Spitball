@@ -34,3 +34,4 @@ var app;
     }());
     angular.module('app.user').run(AppRun.factory());
 })(app || (app = {}));
+//# sourceMappingURL=user.routes.js.map
