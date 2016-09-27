@@ -6,7 +6,7 @@
             <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>@DashboardResource.EnterGroupName</label>
-                    <input id="createBoxInput" @*id="test"*@ @*autofocus*@ type="text" @*focus-me="cb.focus"*@ autocomplete="off" 
+                    <input id="createBoxInput" type="text" autocomplete="off" 
                            required md-no-asterisk ng-model="cb.boxName" name="name" 
                            ng-change="createBox.name.$setValidity('server',true)">
                     <div ng-messages="createBox.name.$error" ng-show="createBox.name.$dirty">

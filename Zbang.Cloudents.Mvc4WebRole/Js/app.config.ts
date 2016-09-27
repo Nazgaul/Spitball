@@ -4,7 +4,7 @@ module app {
 
     angular.module('app').config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
-        "$httpProvider", "$compileProvider", "$animateProvider", "$mdAriaProvider", "$mdIconProvider"];
+        "$httpProvider", "$compileProvider", "$animateProvider", "$mdAriaProvider", "$mdIconProvider","$sceDelegateProvider"];
     // ReSharper disable once Class
     function config(
         $controllerProvider: angular.IControllerProvider,
@@ -14,7 +14,8 @@ module app {
         $compileProvider: angular.ICompileProvider,
         $animateProvider: angular.animate.IAnimateProvider,
         $mdAriaProvider,
-        $mdIconProvider) {
+        $mdIconProvider: angular.material.IIconProvider,
+        $sceDelegateProvider: angular.ISCEDelegateProvider) {
 
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -65,6 +66,12 @@ module app {
 
         $mdAriaProvider.disableWarnings();
 
+        $sceDelegateProvider.resourceUrlWhitelist([
+            // Allow same origin resource loads.
+            'self',
+            // Allow loading from our assets domain.  Notice the difference between * and **.
+            window["cdnPath"] + '/**'
+        ]);
 
         $mdIconProvider
             .iconSet('t', append('/images/site/icons.svg'))
