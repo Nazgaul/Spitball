@@ -1494,7 +1494,7 @@
     <Content Include="Js\components\quiz\quiz.controller.js" />
     <Content Include="Js\components\quiz\quiz.routes.js" />
     <Content Include="Js\components\quiz\quizCreate.config.js" />
-    <Content Include="Js\components\user\user.routes.js" />
+    <Content Include="Js\components\user\user.service.js" />
     <Content Include="Js\initAngular.js" />
     <Content Include="Js\shared\collapseHeader.directive.js" />
     <Content Include="Js\shared\inlineManualNew.js" />
@@ -1532,6 +1532,7 @@
     <TypeScriptCompile Include="Js\components\user\updates.service.ts" />
     <TypeScriptCompile Include="Js\components\chat\hideChatOnMobile.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\toggleChat.directive.ts" />
+    <TypeScriptCompile Include="Js\components\user\user.routes.ts" />
     <TypeScriptCompile Include="Js\doubleclick.config.ts" />
     <TypeScriptCompile Include="Js\menu\sidemenu.controller.ts" />
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
@@ -2360,7 +2361,6 @@
     <Content Include="Js\components\share\invite.controller.js" />
     <Content Include="Js\components\account\account.controller.js" />
     <Content Include="Js\components\share\share.service.js" />
-    <Content Include="Js\components\user\user.service.js" />
     <Content Include="Js\components\user\userdetails.controller.js" />
     <Content Include="Js\components\userdetails\userdetails.module.js" />
     <Content Include="Js\components\user\user.controller.js" />

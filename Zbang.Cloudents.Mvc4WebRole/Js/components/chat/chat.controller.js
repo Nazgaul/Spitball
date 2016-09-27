@@ -1,6 +1,6 @@
 var app;
 (function (app) {
-    'use strict';
+    "use strict";
     var States;
     (function (States) {
         States[States["UserList"] = 1] = "UserList";
@@ -21,7 +21,7 @@ var app;
             this.state = States.UserList;
             this.connected = false;
             this.scrollSetting = {
-                scrollbarPosition: 'outside',
+                scrollbarPosition: "outside",
                 scrollInertia: 50
             };
             $scope.$on("connection-state", function (e, args) {
@@ -62,29 +62,3 @@ var app;
     }());
     angular.module("app.chat").controller("ChatController", ChatController);
 })(app || (app = {}));
-(function () {
-    'use strict';
-    angular.module('app.chat').controller('previewController', previewController);
-    previewController.$inject = ['$mdDialog', 'doc', 'blob', '$rootScope', '$sce'];
-    function previewController($mdDialog, doc, blob, $rootScope, $sce) {
-        var lc = this;
-        lc.close = close;
-        function close() {
-            $mdDialog.hide();
-        }
-        lc.downloadLink = "/chat/download/?blobName=" + blob;
-        if (!doc || !doc.viewName) {
-            lc.view = 'preview-faild.html';
-        }
-        else {
-            lc.items = doc.content;
-            if (doc.viewName === 'Text') {
-                lc.items[0] = $sce.trustAsResourceUrl(lc.items[0]);
-            }
-            lc.view = 'chat-' + doc.viewName + '.html';
-        }
-        $rootScope.$on('$stateChangeStart', function () {
-            $mdDialog.hide();
-        });
-    }
-})();

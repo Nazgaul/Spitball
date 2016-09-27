@@ -4,7 +4,7 @@ var app;
     var AppRun = (function () {
         function AppRun(routerHelper) {
             this.routerHelper = routerHelper;
-            this.routerHelper.configureStates(getStates());
+            routerHelper.configureStates(getStates());
             function getStates() {
                 return [
                     {

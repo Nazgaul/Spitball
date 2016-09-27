@@ -4,7 +4,7 @@
     class AppRun {
 
         constructor(private routerHelper: IRouterHelper) {
-            this.routerHelper.configureStates(getStates());
+            routerHelper.configureStates(getStates());
             function getStates() {
                 return [
                     {

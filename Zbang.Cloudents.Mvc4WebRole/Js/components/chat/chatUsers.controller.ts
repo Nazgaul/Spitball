@@ -14,14 +14,11 @@
             private $timeout: angular.ITimeoutService,
             private $rootScope: angular.IRootScopeService,
             private $scope: angular.IScope,
-            private notificationService /*TOD*/,
+            private notificationService /*TODO*/,
             private resManager: IResManager) {
             this.search();
 
             $scope.$on("hub-status", (e, args) => {
-                //if (!c.users) {
-                //    return;
-                //}
                 var user = this.users.find(f => (f.id === args.userId));
                 if (!user) {
                     return;

@@ -54,7 +54,9 @@
             });
 
             $rootScope.$on("$stateChangeError",
-                (event, toState, toParams, fromState, fromParams, error) => {
+                (event: angular.IAngularEvent,
+                    toState: angular.ui.IState, toParams: angular.ui.IStateParamsService,
+                    fromState: angular.ui.IState, fromParams: angular.ui.IStateParamsService, error) => {
                     console.error(error);
                 });
 
