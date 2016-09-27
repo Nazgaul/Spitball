@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="counters">
-                    <div class="like-btn indent">
+                    <div ng-if="post.likesCount" class="like-btn indent">
                         <md-icon md-svg-icon="b:like" class="like-icon"></md-icon>
                         @*@Html.Svg("~/images/site/box-icons.svg", "like", new {@class = "like-icon"})*@
                         <input type="button" value="{{post.likesCount}}" class="like-count" user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)"/>

@@ -136,7 +136,6 @@
             this.$mdToast.show(
                 this.$mdToast.simple()
                     .textContent(text)
-                    .capsule(true)
                     .position("top right")
                     .parent(element)
                     .theme(theme)

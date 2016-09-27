@@ -30,6 +30,9 @@
 .homePage.show-forms .home-page-body #main-wrapper {
   display: none !important;
 }
+.homePage.show-forms #intercom-container {
+  display: none;
+}
 .homePage .home-page-body {
   background-attachment: scroll;
   background-repeat: no-repeat;

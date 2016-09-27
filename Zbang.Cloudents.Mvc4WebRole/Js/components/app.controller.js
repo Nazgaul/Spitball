@@ -38,7 +38,6 @@ var app;
                 }
                 _this.$mdToast.show(_this.$mdToast.simple()
                     .textContent(text)
-                    .capsule(true)
                     .position("top right")
                     .parent(element)
                     .theme(theme)

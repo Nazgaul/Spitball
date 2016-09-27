@@ -426,9 +426,24 @@
 .quiz-challenge .classmates .classmates-images {
   width: 70px;
   margin-left: 10px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 .quiz-challenge .classmates .classmates-images .img-wrapper {
-  display: inline-block;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
   padding: 5px;
 }
 .quiz-challenge .ready {

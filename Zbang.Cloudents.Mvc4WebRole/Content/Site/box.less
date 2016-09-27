@@ -69,9 +69,7 @@
 }
 
 .folder-selected {
-    margin-bottom: 20px;
-    margin-right: 8px;
-    margin-left: 8px;
+    margin: 8px 8px 20px 8px;
 
     .text {
         color: @textColorWhite;
@@ -174,6 +172,10 @@
 
 .add svg {
     fill: @textColorBlack;
+}
+
+md-menu-item > a.md-button {
+    padding-top: 0;
 }
 
 .folders {
@@ -670,7 +672,7 @@
         .name {
             display: inline-block;
             margin-top: 5px;
-            padding: 0 6px;
+            padding: 0 25px 0 6px;
             max-height: 40px; /* Fallback for non-webkit */
             font-size: 14px;
             line-height: 16px;
@@ -903,7 +905,7 @@
             background: @backgroundColorMenu;
 
             &:hover {
-                background: @backgroundColorMouseOver;
+                background: @buttonColorCancelHover;
             }
 
             display: block;

@@ -80,7 +80,7 @@
 .page-body .main-md-sidenav .expendable menu-link span:not(.badge) {
   width: 100%;
 }
-.page-body .main-md-sidenav li.nav-item {
+.page-body .main-md-sidenav li {
   width: 100%;
   padding-left: 10px;
   margin: 2px 0;
@@ -213,7 +213,7 @@
   flex-shrink: 0;
   padding: 0 7px;
 }
-.menu-toggle-list {
+.main-md-sidenav .menu-toggle-list {
   background: #fff;
   max-height: 1300px;
   overflow: hidden;
@@ -227,6 +227,9 @@
   transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
   -o-transition-property: max-height;
   transition-property: max-height;
+}
+.main-md-sidenav .menu-toggle-list li {
+  padding: 0;
 }
 .side-menu menu-toggle span {
   padding-top: 12px;

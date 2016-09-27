@@ -117,7 +117,7 @@
         .stop-watch-wrapper {
             .displayFlex();
             padding: 11px 15px 9px 10px;
-            background: @textColorLightWhite
+            background: @textColorLightWhite;
         }
 
 
@@ -484,9 +484,16 @@
         .classmates-images {
             width: 70px;
             margin-right: 10px;
+            .displayFlex;
+            .align-items(center);
+            .justifyContet(center);
+            flex-wrap: wrap;
+            flex-direction: row;
 
             .img-wrapper {
-                display: inline-block;
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(center);
                 padding: 5px;
             }
         }

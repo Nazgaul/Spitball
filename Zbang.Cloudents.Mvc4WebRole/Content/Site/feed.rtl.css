@@ -523,6 +523,7 @@
 }
 .feed .new-comment-border md-input-container textarea.md-input,
 .feed .reply-wrapper md-input-container textarea.md-input {
+  font-size: 17px;
   min-height: 50px;
   background: none;
   width: 100%;
