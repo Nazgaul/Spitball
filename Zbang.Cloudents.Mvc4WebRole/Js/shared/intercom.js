@@ -1,5 +1,3 @@
-/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
-/// <reference path="../shared/userDetails.ts" />
 'use strict';
 (function () {
     angular.module('app').run(intercom);
@@ -14,7 +12,6 @@
                 return;
             }
             started = true;
-            // var dateCreate = new Date(data.createTime);
             if (data.id) {
                 Intercom('boot', {
                     app_id: "njmpgayv",
@@ -33,7 +30,7 @@
                     }
                 });
                 Intercom('onActivatorClick', function () {
-                    $mdMenu.hide(); //closes menu
+                    $mdMenu.hide();
                 });
             }
         }
@@ -43,4 +40,3 @@
         }
     }
 })();
-//# sourceMappingURL=intercom.js.map

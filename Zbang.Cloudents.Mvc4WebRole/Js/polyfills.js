@@ -1,7 +1,7 @@
-﻿'use strict';
-(function() {
+﻿(function() {
+    'use strict';
     if (!Array.prototype.find) {
-        Array.prototype.find = function (predicate) {
+        Array.prototype.find = function(predicate) {
             if (this === null) {
                 throw new TypeError('Array.prototype.find called on null or undefined');
             }
@@ -24,16 +24,19 @@
     }
 
     if (!String.prototype.startsWith) {
-        String.prototype.startsWith = function (searchString, position) {
+        String.prototype.startsWith = function(searchString, position) {
             position = position || 0;
             return this.indexOf(searchString, position) === position;
         };
     }
 
     if (!String.prototype.endsWith) {
-        String.prototype.endsWith = function (searchString, position) {
+        String.prototype.endsWith = function(searchString, position) {
             var subjectString = this.toString();
-            if (typeof position !== 'number' || !isFinite(position) || Math.floor(position) !== position || position > subjectString.length) {
+            if (typeof position !== 'number' ||
+                !isFinite(position) ||
+                Math.floor(position) !== position ||
+                position > subjectString.length) {
                 position = subjectString.length;
             }
             position -= searchString.length;
@@ -42,7 +45,7 @@
         };
     }
     if (!Array.prototype.findIndex) {
-        Array.prototype.findIndex = function (predicate) {
+        Array.prototype.findIndex = function(predicate) {
             'use strict';
             if (this == null) {
                 throw new TypeError('Array.prototype.findIndex called on null or undefined');
@@ -64,4 +67,4 @@
             return -1;
         };
     }
-})()
+})();

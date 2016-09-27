@@ -21,7 +21,7 @@
     }
 
     function javascriptFailCallback() {
-        var scripts = [], isBootstrap = false, count, interval;
+        var scripts = [], isBootstrap = false;
 
         if (!window.jQuery || !window.angular) {
             scripts = getCdnScripts(cdnGooglePath);
@@ -41,8 +41,8 @@
             return;
         }
 
-        count = 0;
-        interval = setInterval(function () {
+        var count = 0;
+        var interval = setInterval(function () {
             count++;
             if (!window.angular) {
                 if (count === 500) {

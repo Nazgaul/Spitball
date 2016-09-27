@@ -2374,9 +2374,6 @@
     <Content Include="Js\signin\login-soft.js" />
     <Content Include="Js\signin\metronic.js" />
     <Content Include="Js\staticCDNFallback.js" />
-    <Content Include="Js\staticCDNFallback.min.js">
-      <DependentUpon>staticCDNFallback.js</DependentUpon>
-    </Content>
     <Content Include="Js\HomePage.js" />
     <Content Include="Js\shared\ajaxService.js" />
     <Content Include="Js\CDNFallback.js" />

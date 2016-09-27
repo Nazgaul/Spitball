@@ -3,7 +3,7 @@ var app;
     "use strict";
     var chunkSize = 50;
     var Conversation = (function () {
-        function Conversation($scope, chatBus, userDetailsFactory, $timeout, itemThumbnailService, /*TODO*/ realtimeFactory, $uiViewScroll, routerHelper, $mdDialog) {
+        function Conversation($scope, chatBus, userDetailsFactory, $timeout, itemThumbnailService, realtimeFactory, $uiViewScroll, routerHelper, $mdDialog) {
             var _this = this;
             this.$scope = $scope;
             this.chatBus = chatBus;
@@ -14,7 +14,7 @@ var app;
             this.$uiViewScroll = $uiViewScroll;
             this.routerHelper = routerHelper;
             this.$mdDialog = $mdDialog;
-            this.lastPage = true;
+            this.lastPage = false;
             this.messages = [];
             this.upload = {
                 url: "/upload/chatfile/",
@@ -58,9 +58,7 @@ var app;
                 }
             });
             $scope.$on("hub-chat", function (e, args) {
-                //if its me
                 if (args.userId !== userDetailsFactory.get().id) {
-                    //can be from different platform
                     if (!_this.userChat) {
                         return;
                     }
@@ -69,8 +67,6 @@ var app;
                     }
                     var messages = _this.messages.filter(function (message) { return (message.text === args.message); });
                     var attachments = _this.messages.filter(function (message) { return (message.blob === args.blob); });
-                    // if there's no message with same text or there's one - but older than a minute ago
-                    //(meaning we are connected to the chatroom in other place and sent new message there): 
                     if (!args.blob && (!messages.length || messages[messages.length - 1].time < new Date(+new Date() - 60000).toISOString())) {
                         _this.messages.push({
                             text: args.message,
@@ -87,11 +83,9 @@ var app;
                         });
                     }
                     _this.scrollToBotton();
-                    // updateUnread();
                     $scope.$applyAsync();
                     return;
                 }
-                // im in the same chat
                 if (_this.userChat && _this.userChat.conversation === args.chatRoom) {
                     if (args.blob) {
                         args.thumb = itemThumbnailService.getChat(args.blob);
@@ -104,7 +98,6 @@ var app;
                         thumb: args.thumb
                     });
                     _this.scrollToBotton();
-                    //this.updateUnread();
                     $scope.$applyAsync();
                     return;
                 }
@@ -165,7 +158,6 @@ var app;
                 }
             });
         };
-        // dialog
         Conversation.prototype.dialog = function (blob, ev) {
             var _this = this;
             this.$scope.$broadcast("disablePaging");
@@ -192,4 +184,3 @@ var app;
     }());
     angular.module("app.chat").controller("conversation", Conversation);
 })(app || (app = {}));
-//# sourceMappingURL=conversation.controller.js.map

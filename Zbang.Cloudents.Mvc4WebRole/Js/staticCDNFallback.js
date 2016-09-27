@@ -1,6 +1,6 @@
 ﻿(function () {
     var cdnPath = '/cdn/gzip/', scriptsPath = '/Scripts/',
-    cdnCdPath = 'az414807.vo.msecnd.net';
+    cdnCdPath = window["cdnPath"];
 
     window.onload = function () {
         cssFailCallback();
@@ -19,7 +19,7 @@
     }
 
     function javascriptFailCallback() {
-        var scripts, isBootstrap, count, interval;
+        var scripts;
 
         if (!window.staticScript) {
             scripts = getCdnScripts(cdnCdPath);

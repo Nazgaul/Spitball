@@ -1,5 +1,4 @@
-﻿'use strict';
-var app;
+﻿var app;
 (function () {
     "use strict";
     app = angular.module('app', [

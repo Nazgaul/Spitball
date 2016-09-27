@@ -122,7 +122,7 @@
             const flags = [];
             const output = [];
             const l = array.length;
-            let i;
+            let i: number;
             for (i = 0; i < l; i++) {
                 if (array[i].id === this.userDetailsFactory.get().id) continue;
                 if (flags[array[i].id]) continue;

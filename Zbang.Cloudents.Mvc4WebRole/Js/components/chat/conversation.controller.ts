@@ -6,7 +6,7 @@
             "$timeout", "itemThumbnailService", "realtimeFactory",
             "$uiViewScroll", "routerHelper", "$mdDialog"];
         userChat;
-        lastPage = true;
+        lastPage = false;
         messages = [];
         newText: string;
         constructor(private $scope: angular.IScope,

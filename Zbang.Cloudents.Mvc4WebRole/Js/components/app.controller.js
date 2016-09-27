@@ -2,12 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
-        // private theme: string;
         function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, sbHistory, $state, $window) {
-            // directive with menu
-            // $rootScope.$on("$mdMenuClose", () => {
-            //    this.menuOpened = false;
-            // });
             var _this = this;
             this.$rootScope = $rootScope;
             this.$location = $location;
@@ -50,20 +45,18 @@ var app;
                     .hideDelay(2000));
             };
             this.openMenu = function ($mdOpenMenu, ev) {
-                // this.menuOpened = true;
                 if (!_this.userDetails.isAuthenticated()) {
                     _this.$rootScope.$broadcast("show-unregisterd-box");
                     return;
                 }
                 $mdOpenMenu(ev);
             };
-            // this.showMenu = true;
             this.showBoxAd = false;
             $rootScope.$on("$stateChangeSuccess", function (event, toState) {
                 _this.showBoxAd = toState.parent === "box";
                 var path = $location.path(), absUrl = $location.absUrl(), virtualUrl = absUrl.substring(absUrl.indexOf(path));
-                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl }); // google tag manger
-                __insp.push(["virtualPage"]); // inspectlet
+                window["dataLayer"].push({ event: "virtualPageView", virtualUrl: virtualUrl });
+                __insp.push(["virtualPage"]);
             });
             $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParams, error) {
                 console.error(error);
@@ -72,13 +65,12 @@ var app;
                 if (!fromState.name) {
                     return;
                 }
-                // can't access anonymous user
                 if (toState.name === "user" && toParams.userId === 22886) {
                     event.preventDefault();
                     $rootScope.$broadcast("state-change-start-prevent");
                 }
-                $mdMenu.hide(); // closes menu
-                $mdToast.hide(); // hide toasters
+                $mdMenu.hide();
+                $mdToast.hide();
                 $rootScope.$broadcast("close-menu");
                 $rootScope.$broadcast("close-collapse");
                 var toStateName = toState.name;
@@ -124,4 +116,3 @@ var app;
     }());
     angular.module("app").controller("AppController", AppController);
 })(app || (app = {}));
-//# sourceMappingURL=app.controller.js.map
