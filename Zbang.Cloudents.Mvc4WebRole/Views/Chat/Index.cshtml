@@ -140,7 +140,7 @@
     </div>
     <script type="text/ng-template" id="chat-user-template.html">
         <span ng-if="e.unread" class="chat-counter" ng-bind="e.unread"></span>
-        <user-image class="img-circle" name="::e.name" image="::e.image" name-title width="40" height="40"></user-image>
+        <user-image class="img-circle" name="::e.name" image="::e.image" width="40" height="40"></user-image>
         <div class="name-date">
             <span class="member-name ellipsis" ng-bind="::e.name"></span>
             <chat-time-ago ng-if="!e.online" class="comment-date" from-time="{{e.lastSeen }}" format="mediumDate"></chat-time-ago>

@@ -77,6 +77,7 @@
                     url: userData.url,
                     online: userData.online
                 });
+                $rootScope.$broadcast("expandChat");
             } else {
                 $state.go("chat", {
                     conversationData: {

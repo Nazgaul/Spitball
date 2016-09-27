@@ -7,8 +7,8 @@
             <div class="uni-name ellipsis" ng-bind="::u.info.name"></div>
         </div>
         <div class="bottom">
-            <div class="action-btn">@GeneralResources.BrowseClasses</div>
-            <div class="stats-bg"></div>
+            <div class="action-btn" style="background: {{::u.info.btnColor}}; color: {{::u.info.btnFontColor}}">@GeneralResources.BrowseClasses</div>
+            <div class="stats-bg" style="background: {{::u.info.stripColor}}"></div>
             <div class="universityStats" layout="row" layout-align="space-between center">
                 <div>{{::u.info.boxes | megaNumber}} @GeneralResources.Classes</div>
                 <div>{{::u.info.users | megaNumber}} @GeneralResources.Members</div>

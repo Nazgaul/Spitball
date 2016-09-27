@@ -33,8 +33,9 @@ uWrap.BackgroundImage as Cover,
 uWrap.NoOfBoxes as Boxes,
 uWrap.NoOfUsers as Users,
 uWrap.NoOfItems + uWrap.NoOfQuizzes as Items,
-uWrap.SignupColor as BtnColor,
-uWrap.VideoBackgroundColor as BackColor
+uWrap.VideoBackgroundColor as BtnColor,
+uWrap.VideoFontColor as BtnFontColor,
+uWrap.HeaderBackgroundColor as StripColor
 from zbox.university uWrap  
 where uWrap.Id = @UniversityId";
 

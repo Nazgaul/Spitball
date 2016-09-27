@@ -111,6 +111,7 @@
   top: 70px;
   left: 0;
   right: 0;
+  background: #f9f9f9;
   z-index: 1;
 }
 .chatPage .chat .content.stateChat .conversasion .header {
@@ -728,6 +729,9 @@
 }
 .chat-item-preview md-dialog-content .preview-faild img {
   margin-bottom: 15px;
+}
+html.expanded-chat .chat-tooltip {
+  display: none;
 }
 @media (min-width: 600px) and (max-width: 960px) {
   html:not(.expanded-chat) .chat {
