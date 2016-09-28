@@ -68,6 +68,7 @@
                 }
             });
             $rootScope.$on('item_upload', (event, response2) => {
+                var self = this;
                 if (angular.isArray(response2)) {
                     for (let j = 0; j < response2.length; j++) {
                         pushItem(response2[j]);
@@ -86,10 +87,10 @@
                     if (response.item.tabId !== $stateParams["tabId"]) {
                         return; //not the same tab
                     }
-                    this.followBox();
+                    self.followBox();
                     const item = response.item;
-                    this.buildItem(item);
-                    this.items.unshift(item);
+                    self.buildItem(item);
+                    self.items.unshift(item);
                 }
             });
             $rootScope.$on('close_upload', () => {
