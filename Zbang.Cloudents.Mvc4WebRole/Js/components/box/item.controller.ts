@@ -8,6 +8,7 @@
     function resetParams() {
         page = 0;
         needToBringMore = true;
+        disablePaging = false;
     }
 
     class ItemsController {
@@ -31,7 +32,7 @@
             private $state: angular.ui.IStateService,
             private $window: angular.IWindowService,
             private $timeout: angular.ITimeoutService) {
-
+            resetParams();
             $scope["stateParams"] = $stateParams;
 
             if ($stateParams["tabId"] && $stateParams["q"]) {
