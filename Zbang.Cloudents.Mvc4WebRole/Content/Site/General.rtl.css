@@ -146,7 +146,7 @@ body .quiz-template .bottom .name {
   width: 20px;
   height: 20px;
   margin: 0 auto;
-  fill: #212325;
+  fill: #ffffff;
 }
 .page-title {
   align-items: center;
@@ -199,13 +199,13 @@ body .quiz-template .bottom .name {
   height: 179px;
   line-height: 1;
 }
-.box-style:not(.leaderboardbox):not(.box-style-form):hover {
+.box-style:not(.leaderboardbox):not(.box-style-form):not(.active):hover {
   background: #f0f0f0;
 }
-.box-style:not(.leaderboardbox):not(.box-style-form):hover .wrapper .icon {
+.box-style:not(.leaderboardbox):not(.box-style-form):not(.active):hover .wrapper .icon {
   fill: #4190b9;
 }
-.box-style:not(.leaderboardbox):not(.box-style-form):hover .wrapper span {
+.box-style:not(.leaderboardbox):not(.box-style-form):not(.active):hover .wrapper span {
   color: #4190b9;
 }
 .box-style#createCourse {
@@ -590,6 +590,9 @@ md-icon {
 .md-button.md-icon-button .md-ripple-container {
   right: 10px;
   top: -5px;
+}
+.md-button {
+  text-transform: none;
 }
 md-menu-content {
   padding: 0;

@@ -56,7 +56,7 @@
 .quizPage .arrows svg {
   width: 30px;
   height: 30px;
-  fill: #c5c5c5;
+  fill: #888b8e;
 }
 .quizPage .arrows.prev {
   -moz-transform: rotate(0);

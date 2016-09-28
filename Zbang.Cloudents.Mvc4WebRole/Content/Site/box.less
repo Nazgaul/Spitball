@@ -71,6 +71,17 @@
 .folder-selected {
     margin: 8px 8px 20px 8px;
 
+    .folder-name .content {
+        background: @buttonColorBlue;
+        box-shadow: none;
+        width: 100%;
+
+        input {
+            color: @textColorWhite;
+            border-color: @textColorWhite;
+        }
+    }
+
     .text {
         color: @textColorWhite;
     }
@@ -171,7 +182,7 @@
 }
 
 .add svg {
-    fill: @textColorBlack;
+    fill: @textColorWhite;
 }
 
 md-menu-item > a.md-button {
@@ -184,8 +195,6 @@ md-menu-item > a.md-button {
     }
 
     .add-folder {
-        ;
-
         &:hover {
             .content {
                 border: 1px solid @buttonColorBlue;
@@ -204,7 +213,7 @@ md-menu-item > a.md-button {
             border: 1px solid @textColorGrey;
             padding: 6px;
             background: none;
-            color: @textColorGrey;
+            color: @textColorBlack;
 
             svg {
                 fill: @textColorGrey;
