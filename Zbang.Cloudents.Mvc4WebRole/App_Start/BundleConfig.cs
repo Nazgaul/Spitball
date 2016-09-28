@@ -55,15 +55,9 @@ namespace Zbang.Cloudents.Mvc4WebRole
             {
                 foreach (var registeredCssBundle in registeredCssBundles)
                 {
-                    RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value.Select(s=>s.LeftCssFile));
-                    RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s=>s.RightCssFile));
-                    //RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Where(w =>
-                    //{
-                    //    var relativeLocation = $"{w.Replace(Path.GetExtension(w), string.Empty)}.rtl.css";
-                    //    var physicalLocation = HttpContext.Current.Server.MapPath(relativeLocation);
-                    //    return File.Exists(physicalLocation);
-                    //}).Select(s => $"{s.Replace(Path.GetExtension(s), string.Empty)}.rtl.css"
-                    //    ));
+                    RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value.Select(s => s.LeftCssFile));
+                    RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s => s.RightCssFile));
+
                 }
             }
             if (registeredJsBundles != null)
@@ -72,25 +66,36 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 {
                     new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
                     new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
-                    //new JsFileWithCdn("~/js/components/quiz/quizCreate.module.js"),
                     new JsFileWithCdn("~/scripts/textAngularSetup.js"),
                     new JsFileWithCdn("~/js/components/quiz/quizCreate.module.js"),
                     new JsFileWithCdn("~/js/components/quiz/quizCreate2.controller.js")
                 });
 
-
-                var scriptToLoad = new List<string>();
-                var quizCreateScript = RelativePathContent("~/js/components/quiz/quizCreate.config.js");
-                foreach (Match match in Regex.Matches(JsBundles["quizCreate"], "<script.+?src=[\"'](.+?)[\"'].*?>", RegexOptions.IgnoreCase))
+                RegisterJs("box", new[]
                 {
-                    scriptToLoad.Add(match.Groups[1].Value);
-                }
-                //string matchString = Regex.Match(JsBundles["quizCreate"], "<img.+?src=[\"'](.+?)[\"'].*?>", RegexOptions.IgnoreCase).Groups[1].Value;
+                     new JsFileWithCdn("~/bower_components/plupload/js/moxie.min.js"),
+                     new JsFileWithCdn("~/bower_components/plupload/js/plupload.dev.js"),
+                     new JsFileWithCdn("~/bower_components/angular-plupload/src/angular-plupload.js"),
+                     new JsFileWithCdn("~/scripts/draganddrop.js"),
+                     new JsFileWithCdn("~/js/components/box/box.module.js"),
+                     new JsFileWithCdn("~/js/components/box/box.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/tab.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/shareBox.directive.js"),
+                        new JsFileWithCdn("~/js/components/box/feed.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/feed.likes.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/item.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/quizzes.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/members.controller.js"),
+                        
+                        new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
+                        new JsFileWithCdn("~/js/components/box/slideit.directive.js"),
+                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),
+                        new JsFileWithCdn("~/js/components/item/externalProviderUpload.service.js"),
+                });
 
-                quizCreateScript = quizCreateScript.Replace("{0}", string.Join(",", scriptToLoad.Select(
-                    s => $"'{s}'")));
-                File.WriteAllText(HttpContext.Current.Server.MapPath("~/js/components/quiz/quizCreate1.config.js"),
-                    quizCreateScript);
+
+                CreateLazyLoadScript("~/js/components/quiz/quizCreate.config.js", "quizCreate", "~/js/components/quiz/quizCreate1.config.js");
+                CreateLazyLoadScript("~/js/components/box/box.config.js", "box", "~/js/components/box/box1.config.js");
 
                 foreach (var registeredJsBundle in registeredJsBundles)
                 {
@@ -136,6 +141,25 @@ namespace Zbang.Cloudents.Mvc4WebRole
             CopyFilesToCdn("/gzip/", "*.*", options: SearchOption.TopDirectoryOnly);
 
         }
+
+        private static void CreateLazyLoadScript(string configFile,string bundleName,string outFile)
+        {
+            var scriptToLoad = new List<string>();
+            var quizCreateScript = RelativePathContent(configFile);
+            foreach (
+                Match match in
+                    Regex.Matches(JsBundles[bundleName], "<script.+?src=[\"'](.+?)[\"'].*?>", RegexOptions.IgnoreCase))
+            {
+                scriptToLoad.Add(match.Groups[1].Value);
+            }
+
+            quizCreateScript = quizCreateScript.Replace("{0}", string.Join(",", scriptToLoad.Select(
+                s => $"'{s}'")));
+            File.WriteAllText(HttpContext.Current.Server.MapPath(outFile),
+                quizCreateScript);
+        }
+
+
 
         private static string RelativePathContent(string relativePath)
         {

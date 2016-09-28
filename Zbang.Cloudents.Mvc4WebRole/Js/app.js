@@ -10,8 +10,7 @@
          'ngAnimate',
          'ngMessages',
          'ngMaterial',
-         'ang-drag-drop',
-         'angular-plupload',
+         
          'countUpModule',
          'srph.infinite-scroll',
          'ngScrollbars',
@@ -21,10 +20,10 @@
          'app.library',
          'app.user',
          'app.account',
-         'app.box',
+         //'app.box',
          'app.item',
          'app.quiz',
-         'app.upload',
+         //'app.upload',
          'app.search',
          'app.chat'
     ]);
