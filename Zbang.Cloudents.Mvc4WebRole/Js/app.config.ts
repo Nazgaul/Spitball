@@ -3,7 +3,8 @@
 
     angular.module("app").config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
-        "$httpProvider", "$compileProvider", "$animateProvider", "$mdAriaProvider", "$mdIconProvider","$sceDelegateProvider"];
+        "$httpProvider", "$compileProvider", "$animateProvider",
+        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider","$mdThemingProvider"];
     // ReSharper disable once Class
     function config(
         $controllerProvider: angular.IControllerProvider,
@@ -14,7 +15,8 @@
         $animateProvider: angular.animate.IAnimateProvider,
         $mdAriaProvider,
         $mdIconProvider: angular.material.IIconProvider,
-        $sceDelegateProvider: angular.ISCEDelegateProvider) {
+        $sceDelegateProvider: angular.ISCEDelegateProvider,
+        $mdThemingProvider/*: angular.material.IThemingProvider*/) {
 
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -60,7 +62,8 @@
         $httpProvider.interceptors.push("requestinterceptor");
         $compileProvider.debugInfoEnabled(false);
         $animateProvider.classNameFilter(/angular-animate/);
-        $provide.constant("$MD_THEME_CSS", "");
+        $mdThemingProvider.disableTheming();
+        //$provide.constant("$MD_THEME_CSS", "");
 
         $mdAriaProvider.disableWarnings();
 

@@ -3,8 +3,9 @@ var app;
     "use strict";
     angular.module("app").config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
-        "$httpProvider", "$compileProvider", "$animateProvider", "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider"];
-    function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider) {
+        "$httpProvider", "$compileProvider", "$animateProvider",
+        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider", "$mdThemingProvider"];
+    function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider, $mdThemingProvider) {
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
         $provide.factory("requestinterceptor", [function () { return ({
@@ -42,7 +43,7 @@ var app;
         $httpProvider.interceptors.push("requestinterceptor");
         $compileProvider.debugInfoEnabled(false);
         $animateProvider.classNameFilter(/angular-animate/);
-        $provide.constant("$MD_THEME_CSS", "");
+        $mdThemingProvider.disableTheming();
         $mdAriaProvider.disableWarnings();
         $sceDelegateProvider.resourceUrlWhitelist([
             "self",
