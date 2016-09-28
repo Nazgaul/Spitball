@@ -195,4 +195,7 @@
   <data name="SingleComment" xml:space="preserve">
     <value>הצג תגובה נוספת</value>
   </data>
+  <data name="JoinClass" xml:space="preserve">
+    <value>עקוב</value>
+  </data>
 </root>

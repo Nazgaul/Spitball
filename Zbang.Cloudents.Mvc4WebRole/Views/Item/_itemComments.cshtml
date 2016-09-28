@@ -91,7 +91,7 @@
                                 </li>
                             </ul>
                             <div class="reply-btn">
-                                <button type="button" class="text-capitalize margins" ng-click="c.replyClicked(comment)">@ItemsResources.NewReply</button>
+                                <button type="button" class="text-capitalize margins" ng-disabled="comment.showFrom" ng-click="c.replyClicked(comment)">@ItemsResources.NewReply</button>
                             </div>
                             <form name="newReply" class="add-comment-reply add-reply" novalidate ng-if="comment.showFrom" ng-submit="c.addCommentReply(comment, newReply)">
                                 <div class="add-reply-wrapper">
