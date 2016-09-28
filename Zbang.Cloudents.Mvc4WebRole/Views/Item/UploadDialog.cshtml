@@ -4,7 +4,7 @@
     //const string url = "~/images/site/uploadIcons.svg";
 }
 <a id="upload"></a>
-<div class="portlet invite box upload">
+<div class="portlet invite box upload" ng-controller="Upload as u">
     <div class="portlet-title">
         <div class="caption">
             @IndexResources.UploadFiles
@@ -14,7 +14,6 @@
         <div class="form-horizontal">
             <div class="form-body">
                 <div class="tab-content" flex="100">
-
                     <div layout-wrap layout="row" class="uploadSection" ng-if="u.uploadStep === 0">
                         <div flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="25" ng-click="u.uploadStep = 1">
                             <button type="button">

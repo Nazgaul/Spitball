@@ -51,7 +51,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
 
                         new CssWithRtl("~/content/angular-material.css","~/content/angular-material.css"),
-                        //new CssWithRtl(null,"~/content/angular-material-rtl-fixes.css"),
                         new CssWithRtl("~/bower_components/textAngular/dist/textAngular.css"),
                         new CssWithRtl("~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"),
                         //new CssWithRtl("~/content/site/inline-material.css"),
@@ -81,8 +80,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new CssWithRtl("~/content/site/libraryChoose.css"),
                         new CssWithRtl("~/content/site/error.css"),
                         new CssWithRtl("~/content/site/accordion.css"),
-                        //new CssWithRtl("~/content/site/themedark.css"),
-                        //new CssWithRtl("~/content/site/themelight.css")
                     }
 
             };
@@ -145,7 +142,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"),
                         new JsFileWithCdn("~/Scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/Scripts/angular-messages.js"),
-                        //new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular-rangy.min.js"),
                         new JsFileWithCdn("~/bower_components/angular-cache/dist/angular-cache.js"),
                         new JsFileWithCdn("~/Scripts/angular-sanitize.js"),
 
@@ -154,10 +150,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
                         new JsFileWithCdn("~/bower_components/oclazyload/dist/oclazyload.min.js"),
-
-                        //new JsFileWithCdn("~/scripts/textAngularSetup.js"),
-                        //new JsFileWithCdn("~/bower_components/textAngular/dist/textAngular.js"),
-
                         new JsFileWithCdn("~/Scripts/angular-animate.js"),
                         new JsFileWithCdn("~/Scripts/angular-aria.js"),
                         new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"),
@@ -168,16 +160,16 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/Scripts/angular-signalr-hub.js"),
 
                         //TODO: move to oclazy in box
-                        new JsFileWithCdn("~/scripts/plupload2/moxie.min.js"),
-                        new JsFileWithCdn("~/scripts/plupload2/plupload.dev.js"),
-                        new JsFileWithCdn("~/scripts/plupload2/angular-plupload2.js"),
+                        //new JsFileWithCdn("~/bower_components/plupload/js/moxie.min.js"),
+                        //new JsFileWithCdn("~/bower_components/plupload/js/plupload.dev.js"),
+                        //new JsFileWithCdn("~/bower_components/plupload/js/angular-plupload2.js"),
+                        //new JsFileWithCdn("~/scripts/draganddrop.js"),
 
                         new JsFileWithCdn("~/scripts/ui-bootstrap-custom-tpls-1.2.1.min.js"),
-                        new JsFileWithCdn("~/scripts/svg4everybodyAngular.js"),
+                        //new JsFileWithCdn("~/scripts/svg4everybodyAngular.js"),
                          //TODO: move to oclazy in user
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
-                         //TODO: move to oclazy in box
-                        new JsFileWithCdn("~/scripts/draganddrop.js"),
+                        
                         new JsFileWithCdn("~/scripts/angular-dfp.js"),
 
                         new JsFileWithCdn("~/bower_components/angular-timeago/dist/angular-timeago.min.js"),
@@ -195,13 +187,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/userdetails/userdetails.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.challenge.module.js"),
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.module.js"),
-                        new JsFileWithCdn("~/js/components/box/box.module.js"),
+                        //new JsFileWithCdn("~/js/components/box/box.module.js"),
 
 
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.filter.js"),
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.directive.js"),
 
                         new JsFileWithCdn("~/js/components/quiz/quizCreate1.config.js"),
+                        new JsFileWithCdn("~/js/components/box/box1.config.js"),
 
                         new JsFileWithCdn("~/js/components/user/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.controller.js"),
@@ -211,29 +204,26 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/user/updates.service.js"),
 
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.service.js"),
-
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/dashboard.routes.js"),
-
                         new JsFileWithCdn("~/js/components/dashboard/university.controller.js"),
                         new JsFileWithCdn("~/js/components/dashboard/createBox.controller.js"),
-
 
                         new JsFileWithCdn("~/js/menu/menulink.directive.js"),
                         new JsFileWithCdn("~/js/menu/sidemenu.controller.js"),
 
-                        new JsFileWithCdn("~/js/components/box/box.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/tab.controller.js"),
+                        //new JsFileWithCdn("~/js/components/box/box.controller.js"),
+                        //new JsFileWithCdn("~/js/components/box/tab.controller.js"),
                         new JsFileWithCdn("~/js/components/box/box.routes.js"),
-                        new JsFileWithCdn("~/js/components/box/shareBox.directive.js"),
-                        new JsFileWithCdn("~/js/components/box/feed.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/feed.likes.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/item.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/quizzes.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/members.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/box.service.js"),
-                        new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/slideit.directive.js"),
+                        //new JsFileWithCdn("~/js/components/box/shareBox.directive.js"),
+                        //new JsFileWithCdn("~/js/components/box/feed.controller.js"),
+                        //new JsFileWithCdn("~/js/components/box/feed.likes.controller.js"),
+                        //new JsFileWithCdn("~/js/components/box/item.controller.js"),
+                        //new JsFileWithCdn("~/js/components/box/quizzes.controller.js"),
+                        //new JsFileWithCdn("~/js/components/box/members.controller.js"),
+                        //new JsFileWithCdn("~/js/components/box/box.service.js"),
+                        //new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
+                        //new JsFileWithCdn("~/js/components/box/slideit.directive.js"),
 
 
                         new JsFileWithCdn("~/js/components/account/account.controller.js"),
@@ -297,8 +287,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/shared/pagingOnScroll.directive.js"),
                         new JsFileWithCdn("~/js/shared/sbScroll.directive.js"),
 
-                        new JsFileWithCdn("~/js/components/item/upload.controller.js"),
-                        new JsFileWithCdn("~/js/components/item/externalProviderUpload.service.js"),
+                        new JsFileWithCdn("~/js/components/box/box.service.js"),
+                        new JsFileWithCdn("~/js/components/uploadWrapper.controller.js"),
+                        //new JsFileWithCdn("~/js/components/item/upload.controller.js"),
+                        //new JsFileWithCdn("~/js/components/item/externalProviderUpload.service.js"),
 
                         new JsFileWithCdn("~/js/shared/dropbox.js"),
                         new JsFileWithCdn("~/js/shared/google.js"),

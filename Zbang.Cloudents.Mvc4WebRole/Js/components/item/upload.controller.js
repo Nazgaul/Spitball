@@ -1,13 +1,13 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.upload').controller('Upload', upload);
     upload.$inject = ['$scope', 'itemService', '$timeout', '$stateParams', '$rootScope',
         'externalUploadProvider', '$anchorScroll',
-        'boxService',  'resManager', 'ajaxService2'];
+        'boxService',  'resManager'];
 
     function upload($scope, itemService, $timeout, $stateParams, $rootScope, externalUploadProvider,
-        $anchorScroll, boxService, resManager, ajaxService) {
-        var u = this, tab = null, boxid = $stateParams.boxId;
+        $anchorScroll, boxService, resManager) {
+        var u = this, tab = $stateParams.tabId, boxid = $stateParams.boxId;
 
         var uploadChoose = {
             none: 0,
@@ -17,15 +17,15 @@
             link: 4
         };
 
-        $scope.$on('open_upload', function (e, args) {
-            tab = args;
+        $scope.$on('open_upload', function () {
+            tab = $stateParams.tabId;
             boxid = $stateParams.boxId;
-            $rootScope.$broadcast('close-collapse');
+            
             $anchorScroll.yOffset = 100;
             $timeout(function () {
                 $anchorScroll('upload');
             });
-            u.open = true;
+           // u.open = true;
 
             externalUploadProvider.dropboxInit().then(function () {
                 u.dropBoxLoaded = true;
@@ -33,8 +33,6 @@
             externalUploadProvider.googleDriveInit().then(function () {
                 u.googleDriveLoaded = true;
             });
-
-
         });
 
         $scope.$on('close-collapse', function () {
@@ -48,8 +46,8 @@
         u.uploadStep = uploadChoose.none;
         u.submitFormProcess = false;
         u.uploadLink = uploadLink;
-        u.uploadCollapsed = uploadCollapsed;
-        u.uploadOpen = uploadOpen;
+        //u.uploadCollapsed = uploadCollapsed;
+        //u.uploadOpen = uploadOpen;
 
         function google() {
             externalUploadProvider.google(boxid, tab).then(externalUploadCallback, function (response) {
@@ -69,30 +67,24 @@
         }
 
         function closeUpload() {
-            u.open = false;
+            //u.open = false;
             $rootScope.$broadcast('close_upload');
         }
 
-        function uploadCollapsed() {
-            u.files = u.files.filter(function (file) {
-                return !file.complete;
-            });
-            if (!u.files.length) {
-                u.files = [];
-                u.filesCompleteCount = 0;
-                u.filesErrorCount = 0;
-                u.uploadStep = uploadChoose.none;
-            }
-        }
 
-        function uploadOpen() {
-            if (u.html) {
-                return;
-            }
-            return ajaxService.getHtml('/item/uploaddialog/').then(function (response) {
-                u.html = response;
+        $scope.$on("uploadCollapsed",
+            function() {
+                u.files = u.files.filter(function(file) {
+                    return !file.complete;
+                });
+                if (!u.files.length) {
+                    u.files = [];
+                    u.filesCompleteCount = 0;
+                    u.filesErrorCount = 0;
+                    u.uploadStep = uploadChoose.none;
+                }
             });
-        }
+        
 
 
         //upload 
@@ -224,24 +216,3 @@
     }
 })();
 
-(function () {
-    angular.module('app').directive('compileHtml', compileHtml);
-    compileHtml.$inject = ['$sce', '$parse', '$compile'];
-    function compileHtml($sce, $parse, $compile) {
-        return {
-            link: function (scope, element, attr) {
-                var parsed = $parse(attr.compileHtml);
-
-                function getStringValue() {
-                    return (parsed(scope) || '').toString();
-                }
-
-                scope.$watch(getStringValue, function () {
-                    var el = $compile(parsed(scope) || '')(scope);
-                    element.empty();
-                    element.append(el);
-                });
-            }
-        };
-    }
-})();

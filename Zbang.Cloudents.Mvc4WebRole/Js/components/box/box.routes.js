@@ -1,6 +1,6 @@
-﻿'use strict';
-(function () {
-    angular.module('app.box').run(appRun);
+﻿(function () {
+    'use strict';
+    angular.module('app').run(appRun);
     appRun.$inject = ['routerHelper'];
     function appRun(routerHelper) {
         routerHelper.configureStates(getStates());
@@ -16,6 +16,11 @@
                             'boxService', '$stateParams', function (boxService, $stateParams) {
                                 return boxService.getBox($stateParams.boxId);
 
+                            }
+                        ],
+                        loadMyCtrl: [
+                            '$ocLazyLoad', function ($ocLazyLoad) {
+                                return $ocLazyLoad.load('box');
                             }
                         ]
                     },

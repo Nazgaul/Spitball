@@ -45,20 +45,6 @@
 
                             }
                         ],
-                        //boxUrl: [
-                        //    '$location', function ($location) {
-                        //        var path = $location.path().slice(0, -1),
-                        //            index = path.lastIndexOf('/');
-
-                        //        return path.substring(0, index) + '/' + 'quizzes';
-                        //    }
-                        //],
-                        //boxName: ['$location', '$stateParams', function ($location, $stateParams) {
-                        //    if ($location.search().name) {
-                        //        return $location.search().name;
-                        //    }
-                        //    return $stateParams.boxName;
-                        //}],
                         loadMyCtrl: [
                             '$ocLazyLoad', function($ocLazyLoad) {
                                 return $ocLazyLoad.load('quizCreate');
