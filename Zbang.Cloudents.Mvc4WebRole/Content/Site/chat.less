@@ -130,7 +130,7 @@
         top: 70px;
         left: 0;
         right: 0;
-        background: #f9f9f9;
+        background: @backgroundCalmGrey;
         z-index: 1;
     }
 
@@ -178,7 +178,8 @@
 }
 
 .chat {
-    background: #f9f9f9 !important;
+    background: @backgroundCalmGrey !important;
+    min-height: ~"calc(100vh - @{heightOfHeader})";
 
     .stateChat ~ .tab {
         display: none;
@@ -331,6 +332,10 @@
                         margin-top: 4px;
                         margin-bottom: 4px;
 
+                        &:hover {
+                            background: rgba(218,218,218,0.4);
+                        }
+
                         .chat-counter {
                             position: absolute;
                             left: 4px;
@@ -444,7 +449,7 @@
         }
 
         .conversasion, .menu-content {
-            background: #f9f9f9;
+            background: @backgroundCalmGrey;
             transition: right 0.3s;
             top: 0;
         }
@@ -848,8 +853,12 @@
     }
 }
 
-html.expanded-chat .chat-tooltip {
-    display: none;
+html {
+    &.expanded-chat, &.mdtouchevents {
+        .chat-tooltip {
+            display: none;
+        }
+    }
 }
 
 html:not(.expanded-chat) {

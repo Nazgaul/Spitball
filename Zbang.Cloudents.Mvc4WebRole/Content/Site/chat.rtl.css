@@ -111,7 +111,7 @@
   top: 70px;
   right: 0;
   left: 0;
-  background: #f9f9f9;
+  background: #eeeeee;
   z-index: 1;
 }
 .chatPage .chat .content.stateChat .conversasion .header {
@@ -137,7 +137,8 @@
   height: calc(100vh - 119px);
 }
 .chat {
-  background: #f9f9f9 !important;
+  background: #eeeeee !important;
+  min-height: calc(100vh - 70px);
 }
 .chat .stateChat ~ .tab {
   display: none;
@@ -291,6 +292,9 @@
   margin-top: 4px;
   margin-bottom: 4px;
 }
+.chat .content .tab-content .users-list .users-sub-list .user:hover {
+  background: rgba(218, 218, 218, 0.4);
+}
 .chat .content .tab-content .users-list .users-sub-list .user .chat-counter {
   position: absolute;
   right: 4px;
@@ -380,7 +384,7 @@
 }
 .chat .content .conversasion,
 .chat .content .menu-content {
-  background: #f9f9f9;
+  background: #eeeeee;
   transition: left 0.3s;
   top: 0;
 }
@@ -730,7 +734,8 @@
 .chat-item-preview md-dialog-content .preview-faild img {
   margin-bottom: 15px;
 }
-html.expanded-chat .chat-tooltip {
+html.expanded-chat .chat-tooltip,
+html.mdtouchevents .chat-tooltip {
   display: none;
 }
 @media (min-width: 600px) and (max-width: 960px) {

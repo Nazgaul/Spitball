@@ -62,6 +62,15 @@
 .folder-selected {
   margin: 8px 8px 20px 8px;
 }
+.folder-selected .folder-name .content {
+  background: #4190b9;
+  box-shadow: none;
+  width: 100%;
+}
+.folder-selected .folder-name .content input {
+  color: #ffffff;
+  border-color: #ffffff;
+}
 .folder-selected .text {
   color: #ffffff;
 }
@@ -164,7 +173,7 @@ library-list {
   }
 }
 .add svg {
-  fill: #212325;
+  fill: #ffffff;
 }
 md-menu-item > a.md-button {
   padding-top: 0;
@@ -186,7 +195,7 @@ md-menu-item > a.md-button {
   border: 1px solid #888b8e;
   padding: 6px;
   background: none;
-  color: #888b8e;
+  color: #212325;
 }
 .folders .add-folder .content svg {
   fill: #888b8e;

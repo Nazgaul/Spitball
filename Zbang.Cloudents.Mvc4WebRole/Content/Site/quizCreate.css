@@ -333,7 +333,7 @@
   color: #9E9E9E;
 }
 .create-question .answer .ng-dirty.ng-invalid {
-  background: #212325;
+  background: #ffffff;
 }
 .create-question .answer md-radio-button {
   display: inline-block;
