@@ -1,5 +1,4 @@
-﻿//using Zbang.Zbox.Infrastructure.Trace;
-using System;
+﻿using System;
 using System.Web;
 using Zbang.Zbox.Infrastructure.Trace;
 
@@ -12,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         {
             if (httpContext == null)
             {
-                throw new ArgumentNullException("httpContext");
+                throw new ArgumentNullException(nameof(httpContext));
             }
             m_HttpContext = httpContext;
         }
@@ -38,8 +37,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
         }
         public T ReadCookie<T>(string cookieName) where T : class
         {
-            HttpCookie cookie = m_HttpContext.Request.Cookies[cookieName];
-            if (cookie == null || string.IsNullOrEmpty(cookie.Value))
+            var cookie = m_HttpContext.Request.Cookies[cookieName];
+            if (string.IsNullOrEmpty(cookie?.Value))
             {
                 return default(T);
             }
@@ -55,24 +54,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         public  void RemoveCookie(string cookieName)
         {
-            HttpCookie cookie = m_HttpContext.Request.Cookies[cookieName];
-            if (cookie != null)
-            {
-                cookie.Expires = DateTime.Now.AddDays(-1d);
-                cookie.Value = String.Empty;
-                if (m_HttpContext.Response != null && m_HttpContext.Response.Cookies != null)
-                {
-                    HttpCookie responseCookie = m_HttpContext.Response.Cookies[cookieName];
-                    if (responseCookie != null)
-                    {
-                        responseCookie.Expires = DateTime.Now.AddDays(-1d);
-                        responseCookie.Value = String.Empty;
-                    }
-                }
-            }
+            var cookie = m_HttpContext.Request.Cookies[cookieName];
+            if (cookie == null) return;
+            cookie.Expires = DateTime.Now.AddDays(-1d);
+            cookie.Value = string.Empty;
+            var responseCookie = m_HttpContext.Response?.Cookies?[cookieName];
+            if (responseCookie == null) return;
+            responseCookie.Expires = DateTime.Now.AddDays(-1d);
+            responseCookie.Value = string.Empty;
         }
 
-        private string SerializeData<T>(T data) where T : class
+        private static string SerializeData<T>(T data) where T : class
         {
             var pFormatter = new Zbox.Infrastructure.Transport.ProtobufSerializer<T>();
 
@@ -81,7 +73,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
 
         }
 
-        private object DeSerialize<T>(string data) where T : class
+        private static object DeSerialize<T>(string data) where T : class
         {
             if (string.IsNullOrEmpty(data))
             {
@@ -100,12 +92,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
             }
 
         }
-    }
-
-    public interface ICookieHelper
-    {
-        void InjectCookie<T>(string cookieName, T cookieData, bool httpOnly = true) where T : class;
-        T ReadCookie<T>(string cookieName) where T : class;
-        void RemoveCookie(string cookieName);
     }
 }

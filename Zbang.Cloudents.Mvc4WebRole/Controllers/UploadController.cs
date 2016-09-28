@@ -40,7 +40,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_BlobProvider = blobProvider;
             m_QueueProvider = queueProvider;
         }
-
+        internal const string UploadcookieName = "upload";
 
         [HttpPost]
         [ZboxAuthorize]
@@ -66,15 +66,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var uploadedfile = HttpContext.Request.Files[0];
                 if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
 
-                const string cookieName = "upload";
-                var fileUploadedDetails = GetCookieUpload(cookieName, model.FileSize, model.FileName, uploadedfile);
+               
+                var fileUploadedDetails = GetCookieUpload(UploadcookieName, model.FileSize, model.FileName, uploadedfile);
 
 
                 string blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
 
 
                 fileUploadedDetails.CurrentIndex = await m_BlobProviderFiles.UploadFileBlockAsync(blobAddressUri, uploadedfile.InputStream, fileUploadedDetails.CurrentIndex);
-                m_CookieHelper.InjectCookie(cookieName, fileUploadedDetails);
+                m_CookieHelper.InjectCookie(UploadcookieName, fileUploadedDetails);
 
                 if (!FileFinishToUpload(fileUploadedDetails))
                 {
@@ -232,6 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(url);
         }
 
+        internal const string ChatCookieName = "uploadchat";
         [HttpPost, ZboxAuthorize, ActionName("ChatFile")]
         public async Task<JsonResult> ChatFileAsync(UploadChatFile model)
         {
@@ -250,15 +251,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             var uploadedfile = HttpContext.Request.Files[0];
             if (uploadedfile == null) throw new NullReferenceException("uploadedfile");
 
-            const string cookieName = "uploadchat";
-            FileUploadDetails fileUploadedDetails = GetCookieUpload(cookieName, model.FileSize, model.FileName, uploadedfile);
+           
+            FileUploadDetails fileUploadedDetails = GetCookieUpload(ChatCookieName, model.FileSize, model.FileName, uploadedfile);
 
 
             string blobAddressUri = fileUploadedDetails.BlobGuid.ToString().ToLower() + Path.GetExtension(fileUploadedDetails.FileName)?.ToLower();
 
 
             fileUploadedDetails.CurrentIndex = await m_BlobProvider2.UploadFileBlockAsync(blobAddressUri, uploadedfile.InputStream, fileUploadedDetails.CurrentIndex);
-            m_CookieHelper.InjectCookie(cookieName, fileUploadedDetails);
+            m_CookieHelper.InjectCookie(ChatCookieName, fileUploadedDetails);
 
             if (!FileFinishToUpload(fileUploadedDetails))
             {

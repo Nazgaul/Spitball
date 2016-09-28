@@ -7,6 +7,7 @@ using System.Web.Routing;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Cloudents.Mvc4WebRole.Controllers;
+using Zbang.Cloudents.Mvc4WebRole.Models.Account;
 
 //using Microsoft.AspNet.SignalR.ServiceBus;
 
@@ -58,19 +59,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         protected void Application_EndRequest()
         {
         }
-        ////for output cache
-        //protected void Application_AcquireRequestState()
-        //{
-        //    try
-        //    {
-        //        UserLanguage.ChangeLanguage(new HttpContextWrapper(HttpContext.Current),
-        //            new HttpServerUtilityWrapper(HttpContext.Current.Server), null);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("initialize", ex);
-        //    }
-        //}
+       
 
         public override string GetVaryByCustomString(HttpContext context, string custom)
         {
@@ -93,10 +82,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     {
                         value += Thread.CurrentThread.CurrentUICulture.Name;
                     }
-                    if (key == CustomCacheKeys.Url)
+                    if (key == CustomCacheKeys.University)
                     {
-                        value += context.Request.Url.AbsolutePath;
+                        
+                        value += context.Request.Cookies[UniversityCookie.CookieName]?.Value;
                     }
+                    //if (key == CustomCacheKeys.Url)
+                    //{
+                    //    value += context.Request.Url.AbsolutePath;
+                    //}
                 }
                 return string.IsNullOrWhiteSpace(value) ? base.GetVaryByCustomString(context, custom) : value;
             }

@@ -51,10 +51,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             var university = m_CookieHelper.ReadCookie<UniversityCookie>(UniversityCookie.CookieName);
 
+            if (university != null && string.IsNullOrEmpty(universityName))
+            {
+                return RedirectToRoute("UniversityLink", new { invId , universityName  = university.UniversityName});
+            }
+
             if (!string.IsNullOrEmpty(universityName) && university == null)
             {
                 return RedirectToRoute("homePage", new { invId });
             }
+
             //long? universityId = null;
 
             if (!string.IsNullOrEmpty(invId))
