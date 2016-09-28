@@ -1185,7 +1185,6 @@ iframe {
   text-align: center;
 }
 .courses-page .boxes .box:last-child {
-  background: #dadada;
   font-size: 20px;
   text-align: center;
   display: block;
@@ -1324,8 +1323,6 @@ iframe {
   max-width: 400px;
   min-width: 250px;
   padding: 15px;
-  color: #ffffff;
-  background: #323538;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;

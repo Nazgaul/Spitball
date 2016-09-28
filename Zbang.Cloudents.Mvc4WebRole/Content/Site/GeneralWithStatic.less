@@ -106,6 +106,158 @@ body {
     }
 }
 
+.suggested .box-style {
+    position: relative;
+}
+
+.box-style {
+    width: 100%;
+    background: @textColorWhite;
+    box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
+    padding: 15px 15px 30px 15px;
+    display: block;
+    width: 100%;
+    height: 179px;
+    line-height: 1;
+    color: @textColorBlack;
+
+    &:not(.leaderboardbox):not(.box-style-form):not(.active):hover {
+        background: #f0f0f0;
+
+        .wrapper {
+            .icon {
+                fill: @buttonColorBlue;
+            }
+
+            span {
+                color: @buttonColorBlue;
+            }
+        }
+    }
+
+    &#createCourse {
+        padding-bottom: 16px;
+
+        md-input-container {
+            margin-bottom: 12px;
+        }
+
+        .md-errors-spacer {
+            display: none;
+        }
+    }
+
+    &.action {
+        border-radius: 4px;
+        height: auto;
+        padding: 8px 0;
+    }
+    //.box-cube, .unibox, .leaderboard, .suggested a{
+    &.active {
+        background: @buttonColorBlue;
+
+        .wrapper {
+            .text {
+                color: @textColorWhite;
+            }
+
+            .icon {
+                fill: @textColorWhite;
+            }
+        }
+    }
+
+    &:not(.active):hover {
+        .wrapper {
+            .icon {
+                fill: @buttonColorBlue !important;
+            }
+
+            span {
+                color: @buttonColorBlue !important;
+            }
+        }
+    }
+
+    .wrapper {
+        .displayFlex();
+        .align-items(center);
+        .justifyContet(center);
+
+        .icon {
+            fill: @buttonColorBlue;
+            margin-right: 10px;
+        }
+
+        .text {
+            color: @buttonColorBlue;
+            font-size: 14px;
+        }
+
+        span {
+            line-height: normal;
+            padding-right: 6px;
+        }
+    }
+
+    .display .number {
+        float: left;
+        display: inline-block;
+        height: 116px;
+        width: 100%;
+
+        h3, h5 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            margin: 0 0 14px 0;
+            padding: 0;
+            font-size: 25px;
+            line-height: 29px;
+            height: 58px;
+            overflow: hidden;
+            width: calc(100% - 20px);
+            -ms-word-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        small {
+            font-size: 12px;
+            font-weight: 400;
+            text-transform: uppercase;
+            height: 16px;
+            display: inline-block;
+            max-width: 100%;
+        }
+    }
+
+    .progress-info {
+        clear: both;
+        position: relative;
+
+        .progress {
+            margin: 0;
+            height: 1px;
+            clear: both;
+            display: block;
+        }
+
+        .status {
+            margin-top: 18px;
+
+            .status-title {
+                float: left;
+                display: inline-block;
+            }
+
+            .status-number {
+                float: right;
+                display: inline-block;
+            }
+        }
+    }
+}
+
 #intercom-container, #intercom-launcher {
     z-index: 120;
 }
