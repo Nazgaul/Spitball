@@ -635,6 +635,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
   -webkit-align-items: center;
   align-items: center;
   z-index: 90;
+  stroke: #3f51b5;
 }
 .ads {
   padding: 4px;

@@ -39,14 +39,6 @@ namespace Zbang.Zbox.Domain
 
         public virtual University University { get; protected set; }
 
-        
-
-        //public virtual void UpdateDepartment(Library dep, University university)
-        //{
-        //    Department = dep;
-        //    University = university;
-        //}
-
         public void UpdateBoxInfo(string courseCode, string professorName)
         {
             CourseCode = courseCode;

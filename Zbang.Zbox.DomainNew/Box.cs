@@ -95,7 +95,7 @@ namespace Zbang.Zbox.Domain
             {
                 throw new ArgumentNullException(nameof(newBoxName));
             }
-            if (String.Equals(Name, newBoxName, StringComparison.CurrentCultureIgnoreCase))
+            if (string.Equals(Name, newBoxName, StringComparison.CurrentCultureIgnoreCase))
             {
                 return;
             }

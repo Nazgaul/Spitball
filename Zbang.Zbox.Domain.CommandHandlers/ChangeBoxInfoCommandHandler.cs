@@ -26,11 +26,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public void Handle(ChangeBoxInfoCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-            // 
 
-            var box = m_BoxRepository.Load(command.BoxId); // need to get not to get proxy
-            User user = m_UserRepository.Load(command.UserId);
-
+            var box = m_BoxRepository.Load(command.BoxId); 
+            var user = m_UserRepository.Load(command.UserId);
+            if (command.BoxName.Length > Box.NameLength)
+            {
+                throw new OverflowException("Box Name exceed " + Box.NameLength);
+            }
             var academicBox = box.Actual as AcademicBox;
             if (academicBox != null)
             {
@@ -38,10 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 m_AcademicBoxRepository.Save(academicBox);
             }
             
-            if (command.BoxName.Length > Box.NameLength)
-            {
-                throw new OverflowException("Box Name exceed " + Box.NameLength);
-            }
+           
             var boxNameExists = box.Owner.GetUserOwnedBoxes().FirstOrDefault(w => w.Name == command.BoxName.Trim() && w.Id != box.Id);
             if (boxNameExists != null)
                 throw new ArgumentException("box with that name already exists");
