@@ -591,6 +591,9 @@ md-icon {
   left: 10px;
   top: -5px;
 }
+.md-button {
+  text-transform: none;
+}
 md-menu-content {
   padding: 0;
   border-radius: 5px;

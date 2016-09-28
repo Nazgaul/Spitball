@@ -54,7 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //new CssWithRtl(null,"~/content/angular-material-rtl-fixes.css"),
                         new CssWithRtl("~/bower_components/textAngular/dist/textAngular.css"),
                         new CssWithRtl("~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"),
-                        //new CssWithRtl("~/content/site/inline-material.css"),
+                        new CssWithRtl("~/content/site/inline-material.css"),
                         new CssWithRtl("~/content/bootstrap/bootstrap.css"),
                         new CssWithRtl("~/content/site/profile.css"),//
                         new CssWithRtl("~/content/site/components-rounded.css"),//
