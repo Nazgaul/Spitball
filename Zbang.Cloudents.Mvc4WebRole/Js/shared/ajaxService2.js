@@ -36,6 +36,9 @@ var app;
                 boxItems: {
                     maxAge: 15 * minute
                 },
+                boxData: {
+                    maxAge: 15 * minute
+                },
                 itemComment: {
                     maxAge: 15 * minute
                 }

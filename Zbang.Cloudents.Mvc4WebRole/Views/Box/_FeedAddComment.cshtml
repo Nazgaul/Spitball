@@ -21,8 +21,8 @@
     </div>
     <div class="actions" layout="row" layout-align="space-between center">
         <div user-not-register-popup="click" class="upload-options feed-upload" layout="row" layout-wrap layout-align="space-between start">
-            <a plupload="f.add.fileUpload.url" ng-click="f.add.upload()"
-               plupload-options="f.add.fileUpload.options" plupload-callbacks="f.add.fileUpload.callbacks"
+            <a plupload="f.add.fileUpload.url" @*ng-click="f.add.upload()"*@
+               plupload-options="f.add.fileUpload.options()" plupload-callbacks="f.add.fileUpload.callbacks"
                ga-track-event="['box-new-commnet', 'addFile']">
                 <md-icon md-svg-icon="u:file" class="file"></md-icon>
                 @*@Html.Svg(url, "file", new {@class = "file"})*@

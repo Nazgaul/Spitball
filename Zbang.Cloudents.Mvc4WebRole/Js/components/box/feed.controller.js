@@ -348,16 +348,20 @@
                 self.add.disabled = false;
             });
         }
-        var postId;
+        //var postId;
         function google(post) {
-            postId = post;
-            externalUploadProvider.google(boxId, null, true).then(externalUploadComplete);
+            //postId = post;
+            externalUploadProvider.google(boxId, null, true).then(function (response2) {
+                externalUploadComplete(response2, post);
+            });
         }
         function dropbox(post) {
-            postId = post;
-            externalUploadProvider.dropBox(boxId, true).then(externalUploadComplete);
+            //postId = post;
+            externalUploadProvider.dropBox(boxId, true).then(function (response2) {
+                externalUploadComplete(response2, post);
+            });
         }
-        function externalUploadComplete(response2) {
+        function externalUploadComplete(response2, postId) {
             if (angular.isArray(response2)) {
                 for (var j = 0; j < response2.length; j++) {
                     pushItem2(response2[j]);
@@ -383,7 +387,7 @@
         }
 
 
-        self.add.upload = uploadFile;
+        //self.add.upload = uploadFile;
         self.openReply = openReply;
         self.reply = reply;
 
@@ -429,9 +433,9 @@
             }
 
         }
-        function uploadFile(post) {
-            postId = post;
-        }
+        //function uploadFile(post) {
+        //    postId = post;
+        //}
 
         function removeFile(file, uploader) {
             //var file = this;
@@ -462,13 +466,14 @@
             callbacks:
                  {
                      filesAdded: function (uploader, files) {
+                         console.log(uploader, files);
                          $scope.$emit('follow-box');
                          for (var i = 0; i < files.length; i++) {
                              var file = files[i];
                              (function (file) {
                                  file.sizeFormated = plupload.formatSize(file.size);
                                  file.complete = false;
-                                 file.postId = postId;
+                                 file.postId = uploader.settings.postId;
                                  file.remove = function () {
                                      removeFile(file, uploader);
                                      self.add.disabled = false;
@@ -521,16 +526,26 @@
                      //}
                  }
         }
-        self.add.fileUpload.options =  {
-           // return {
-                //someid:id,
+        self.add.fileUpload.options = function (postId) {
+            return {
+                postId: postId,
                 //header: {
                 //    parentId:id
                 //},
                 chunk_size: '3mb'
 
-            //}
+            }
         };
+        //self.add.fileUpload.options =  {
+        //   // return {
+        //        //someid:id,
+        //        //header: {
+        //        //    parentId:id
+        //        //},
+        //        chunk_size: '3mb'
+
+        //    //}
+        //};
 
         $scope.$on('update-thumbnail', function (e, args) {
             for (var i = 0; i < self.data.length; i++) {

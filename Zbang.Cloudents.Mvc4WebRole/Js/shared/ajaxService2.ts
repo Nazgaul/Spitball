@@ -21,6 +21,7 @@ module app {
         "department" |
         "itemComment" |
         "boxItems" |
+        "boxData" |
         "searchBox" | "searchItem" | "searchQuiz";
 
     const
@@ -74,6 +75,9 @@ module app {
                 maxAge: 15 * minute
             },
             boxItems: {
+                maxAge: 15 * minute
+            },
+            boxData: {
                 maxAge: 15 * minute
             },
             itemComment: {
