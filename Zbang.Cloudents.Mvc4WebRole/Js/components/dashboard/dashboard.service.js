@@ -34,6 +34,7 @@ var app;
         Dashboard.prototype.getBoxes = function () {
             var _this = this;
             if (this.boxes) {
+                //defer.resolve(this.boxes);
                 return this.$q.when(this.boxes);
             }
             if (!serverCall) {

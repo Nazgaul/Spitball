@@ -2,6 +2,7 @@ var app;
 (function (app) {
     'use strict';
     var ResManager = (function () {
+        //private jsResources = window['JsResources'];
         function ResManager(ajaxService) {
             this.ajaxService = ajaxService;
             return this;
