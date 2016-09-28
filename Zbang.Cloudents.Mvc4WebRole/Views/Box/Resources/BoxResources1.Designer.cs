@@ -115,7 +115,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Join class.
+        ///   Looks up a localized string similar to Follow.
         /// </summary>
         public static string Follow {
             get {
@@ -156,6 +156,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         public static string itemsInTab {
             get {
                 return ResourceManager.GetString("itemsInTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join class.
+        /// </summary>
+        public static string JoinClass {
+            get {
+                return ResourceManager.GetString("JoinClass", resourceCulture);
             }
         }
         

@@ -124,7 +124,7 @@
     <value>Class Feed</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>Join class</value>
+    <value>Follow</value>
   </data>
   <data name="Items" xml:space="preserve">
     <value>Documents</value>
@@ -197,5 +197,8 @@
   </data>
   <data name="SingleComment" xml:space="preserve">
     <value>View one more comment</value>
+  </data>
+  <data name="JoinClass" xml:space="preserve">
+    <value>Join class</value>
   </data>
 </root>

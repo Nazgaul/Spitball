@@ -78,12 +78,11 @@ var app;
                     if (!response) {
                         return;
                     }
-                    // ReSharper disable once CoercedEqualsUsing
                     if (response.boxId !== $stateParams.boxId) {
                         return;
                     }
                     if (response.item.tabId !== $stateParams["tabId"]) {
-                        return; //not the same tab
+                        return;
                     }
                     self.followBox();
                     var item = response.item;
@@ -104,7 +103,7 @@ var app;
                 return [$state.params["tabId"], $state.params["q"]];
             }, function (newParams, oldParams) {
                 if ($state.current.name !== 'box.items') {
-                    return; //happen upon link
+                    return;
                 }
                 if (newParams[0] !== oldParams[0]) {
                     if ($stateParams["tabId"] && $stateParams["q"]) {
@@ -130,12 +129,6 @@ var app;
         ItemsController.prototype.followBox = function () {
             this.$scope.$emit('follow-box');
         };
-        //i.filter = filter;
-        //i.openUpload = openUpload;
-        //i.deleteItem = deleteItem;
-        //i.addItemToTab = addItemToTab;
-        //i.downloadItem = followBox;
-        //i.removeItemFromTab = removeItemFromTab;
         ItemsController.prototype.removeItemFromTab = function (item) {
             this.boxService.addItemToTab(this.$stateParams.boxId, null, item.id);
             this.$scope.$broadcast('tab-item-remove');
@@ -209,7 +202,6 @@ var app;
             }
             this.$state.go('box.items', { tabId: null, q: this.term });
         };
-        //upload
         ItemsController.prototype.getFilter = function () {
             var _this = this;
             this.term = this.$stateParams["q"];

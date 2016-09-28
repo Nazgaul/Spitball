@@ -297,6 +297,7 @@ md-menu-item.blue svg {
   height: 50px;
   border-radius: 0 10px 10px 0;
 }
+.itemPage .comments-section .menu-icon md-icon,
 .itemPage .comments-section .menu-icon svg {
   width: 25px;
   height: 25px;
@@ -305,6 +306,7 @@ md-menu-item.blue svg {
   z-index: 2;
 }
 .itemPage .comments-wrapper {
+  left: 0;
   color: #ffffff;
 }
 .itemPage .commentsMenu {
