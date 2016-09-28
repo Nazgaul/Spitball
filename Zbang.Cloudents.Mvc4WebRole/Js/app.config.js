@@ -5,13 +5,15 @@ var app;
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
         "$httpProvider", "$compileProvider", "$animateProvider",
         "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider", "$mdThemingProvider"];
-    function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider, $mdThemingProvider) {
+    // ReSharper disable once Class
+    function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider, $mdThemingProvider /*: angular.material.IThemingProvider*/) {
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
         $provide.factory("requestinterceptor", [function () { return ({
                 "request": function (c) {
                     return c;
                 },
+                // optional method
                 "response": function (response) {
                     return response;
                 },
@@ -35,6 +37,8 @@ var app;
                             window.open("/error/", "_self");
                             break;
                         default:
+                            // somehow firefox in incognito crash and transfer to error page
+                            //   window.open('/error/', '_self');
                             break;
                     }
                     return response;
@@ -44,9 +48,12 @@ var app;
         $compileProvider.debugInfoEnabled(false);
         $animateProvider.classNameFilter(/angular-animate/);
         $mdThemingProvider.disableTheming();
+        //$provide.constant("$MD_THEME_CSS", "");
         $mdAriaProvider.disableWarnings();
         $sceDelegateProvider.resourceUrlWhitelist([
+            // allow same origin resource loads.
             "self",
+            // allow loading from our assets domain.  Notice the difference between * and **.
             (window["cdnPath"] + "/**")
         ]);
         $mdIconProvider
@@ -86,6 +93,7 @@ var app;
         $document.ready(function () {
             analytics.createAnalyticsScriptTag();
         });
+        //for run the app
     }
     ;
 })();
@@ -105,6 +113,8 @@ var app;
     angular.module("app").config(config);
     config.$inject = ['ScrollBarsProvider'];
     function config(ScrollBarsProvider) {
+        // the following settings are defined for all scrollbars unless the
+        // scrollbar has local scope configuration
         ScrollBarsProvider.defaults = {
             scrollInertia: 400,
             scrollButtons: false,
