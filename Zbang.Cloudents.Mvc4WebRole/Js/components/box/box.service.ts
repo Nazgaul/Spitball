@@ -37,7 +37,7 @@
 
         }
         getBox(boxid: number) {
-            return this.ajaxService2.get('/box/data/', { id: boxid });
+            return this.ajaxService2.get('/box/data/', { id: boxid },"boxData");
         };
         getFeed(boxid, top, skip) {
             return this.ajaxService2.get('/qna/', { id: boxid, top: top, skip: skip });
@@ -150,7 +150,7 @@
         follow(boxId: number) {
             return this.ajaxService2.post('/share/subscribetobox/', {
                 boxId: boxId
-            });
+            },"boxData");
 
         }
         notification(boxId: number) {
@@ -161,7 +161,7 @@
         unfollow(boxId: number) {
             return this.ajaxService2.post('/box/delete/', {
                 id: boxId
-            });
+            },"boxData");
 
         }
         updateBox(boxId: number, name: string, course: string, professor: string, privacy, notification) {
@@ -172,7 +172,7 @@
                 professor: professor,
                 boxPrivacy: privacy,
                 notification: notification
-            });
+            },"boxData");
         }
     }
     angular.module("app").service("boxService", BoxService);

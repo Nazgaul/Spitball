@@ -6,7 +6,7 @@ var app;
             this.ajaxService2 = ajaxService2;
         }
         BoxService.prototype.getBox = function (boxid) {
-            return this.ajaxService2.get('/box/data/', { id: boxid });
+            return this.ajaxService2.get('/box/data/', { id: boxid }, "boxData");
         };
         ;
         BoxService.prototype.getFeed = function (boxid, top, skip) {
@@ -128,7 +128,7 @@ var app;
         BoxService.prototype.follow = function (boxId) {
             return this.ajaxService2.post('/share/subscribetobox/', {
                 boxId: boxId
-            });
+            }, "boxData");
         };
         BoxService.prototype.notification = function (boxId) {
             return this.ajaxService2.get('/box/getnotification/', {
@@ -138,7 +138,7 @@ var app;
         BoxService.prototype.unfollow = function (boxId) {
             return this.ajaxService2.post('/box/delete/', {
                 id: boxId
-            });
+            }, "boxData");
         };
         BoxService.prototype.updateBox = function (boxId, name, course, professor, privacy, notification) {
             return this.ajaxService2.post('/box/updateinfo/', {
@@ -148,7 +148,7 @@ var app;
                 professor: professor,
                 boxPrivacy: privacy,
                 notification: notification
-            });
+            }, "boxData");
         };
         BoxService.$inject = ["ajaxService2"];
         return BoxService;

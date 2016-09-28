@@ -14,7 +14,7 @@
         flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
         silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
         runtimes: 'html5, flash, silverlight, html4',
-        max_file_size: '2mb',
+        max_file_size: '3mb',
         filters: [
           { title: 'Image files', extensions: 'jpg,jpeg,gif,png' }
         ]
@@ -38,7 +38,7 @@
         return {
           scope: {
             url:'=plupload',
-            options:'=pluploadOptions',
+            options:'&pluploadOptions',
             callbacks:'=pluploadCallbacks'
           },
           /* jshint camelcase: false */
@@ -47,7 +47,7 @@
             opts.url = scope.url || opts.url;
             /* jshint unused: false */
             opts.browse_button = element[0];
-            angular.extend(opts, scope.options);
+            angular.extend(opts, scope.options());
 
             var uploader = new plupload.Uploader(opts);
 

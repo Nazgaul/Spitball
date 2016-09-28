@@ -1,3 +1,4 @@
+/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 var app;
 (function (app) {
     "use strict";
@@ -34,6 +35,9 @@ var app;
                     maxAge: 15 * minute
                 },
                 boxItems: {
+                    maxAge: 15 * minute
+                },
+                boxData: {
                     maxAge: 15 * minute
                 },
                 itemComment: {
