@@ -27,19 +27,19 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
                   new MessageMailParams(parameters.Message, parameters.SenderUserName,
                       new CultureInfo(parameters.Culture), parameters.SenderUserEmail, userImage), token);
 
-            Task t2 = Infrastructure.Extensions.TaskExtensions.CompletedTask;
-            //if (string.IsNullOrEmpty(parameters.Message))
-            //{
-            //    t2 =
-            //        m_SendPush.SendChatFileNotificationAsync(parameters.SenderUserName, parameters.ConversationId,
-            //            new[] { parameters.UserId });
-            //}
-            //else
-            //{
+            Task t2;// = Infrastructure.Extensions.TaskExtensions.CompletedTask;
+            if (string.IsNullOrEmpty(parameters.Message))
+            {
+                t2 =
+                    m_SendPush.SendChatFileNotificationAsync(parameters.SenderUserName, parameters.ConversationId,
+                        new[] { parameters.UserId });
+            }
+            else
+            {
 
-            //    t2 = m_SendPush.SendChatMessageNotificationAsync(parameters.SenderUserName,
-            //        parameters.Message, parameters.ConversationId, new[] { parameters.UserId });
-            //}
+                t2 = m_SendPush.SendChatMessageNotificationAsync(parameters.SenderUserName,
+                    parameters.Message, parameters.ConversationId, new[] { parameters.UserId });
+            }
             await Task.WhenAll(t1, t2);
             return true;
 

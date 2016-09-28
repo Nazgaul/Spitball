@@ -15,7 +15,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
     {
         public long UniversityId { get; set; }
 
+        public string UniversityName { get; set; }
 
-        public const string CookieName = "uni";
+
+        public const string CookieName = "uni1";
     }
 }

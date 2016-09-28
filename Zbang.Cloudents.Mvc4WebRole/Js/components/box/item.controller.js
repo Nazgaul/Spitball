@@ -5,6 +5,7 @@ var app;
     function resetParams() {
         page = 0;
         needToBringMore = true;
+        disablePaging = false;
     }
     var ItemsController = (function () {
         function ItemsController(boxService, $stateParams, $rootScope, itemThumbnailService, $mdDialog, $scope, user, $q, resManager, $state, $window, $timeout) {
@@ -29,6 +30,7 @@ var app;
                 value.thumbnail = retVal.thumbnail;
                 value.nameExtension = value.name.replace(/\.[^/.]+$/, "");
             };
+            resetParams();
             $scope["stateParams"] = $stateParams;
             if ($stateParams["tabId"] && $stateParams["q"]) {
                 $state.go("box.items", { tabId: $stateParams["tabId"], q: null });
@@ -64,6 +66,7 @@ var app;
                 }
             });
             $rootScope.$on('item_upload', function (event, response2) {
+                var self = _this;
                 if (angular.isArray(response2)) {
                     for (var j = 0; j < response2.length; j++) {
                         pushItem(response2[j]);
@@ -75,17 +78,16 @@ var app;
                     if (!response) {
                         return;
                     }
-                    // ReSharper disable once CoercedEqualsUsing
                     if (response.boxId !== $stateParams.boxId) {
                         return;
                     }
                     if (response.item.tabId !== $stateParams["tabId"]) {
-                        return; //not the same tab
+                        return;
                     }
-                    this.followBox();
+                    self.followBox();
                     var item = response.item;
-                    this.buildItem(item);
-                    this.items.unshift(item);
+                    self.buildItem(item);
+                    self.items.unshift(item);
                 }
             });
             $rootScope.$on('close_upload', function () {
@@ -101,7 +103,7 @@ var app;
                 return [$state.params["tabId"], $state.params["q"]];
             }, function (newParams, oldParams) {
                 if ($state.current.name !== 'box.items') {
-                    return; //happen upon link
+                    return;
                 }
                 if (newParams[0] !== oldParams[0]) {
                     if ($stateParams["tabId"] && $stateParams["q"]) {
@@ -127,12 +129,6 @@ var app;
         ItemsController.prototype.followBox = function () {
             this.$scope.$emit('follow-box');
         };
-        //i.filter = filter;
-        //i.openUpload = openUpload;
-        //i.deleteItem = deleteItem;
-        //i.addItemToTab = addItemToTab;
-        //i.downloadItem = followBox;
-        //i.removeItemFromTab = removeItemFromTab;
         ItemsController.prototype.removeItemFromTab = function (item) {
             this.boxService.addItemToTab(this.$stateParams.boxId, null, item.id);
             this.$scope.$broadcast('tab-item-remove');
@@ -206,7 +202,6 @@ var app;
             }
             this.$state.go('box.items', { tabId: null, q: this.term });
         };
-        //upload
         ItemsController.prototype.getFilter = function () {
             var _this = this;
             this.term = this.$stateParams["q"];

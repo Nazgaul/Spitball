@@ -18,7 +18,7 @@
       <Setting name="ServiceBusHubName" value="cloudentshub" />
       <Setting name="platform" value="workerRole" />
       <Setting name="signalR" value="https://connect.spitball.co/" />
-      <Setting name="NumberOfEmailsPerHour" value="413" />
+      <Setting name="NumberOfEmailsPerHour" value="579" />
       <Setting name="NumberOfSpamGunEmailBatch" value="50" />
     </ConfigurationSettings>
     <Certificates>

@@ -13,12 +13,11 @@
         static $inject = ["$scope", "$timeout", "$stateParams"];
         state = States.UserList;
         connected = false;
-
         constructor(
             private $scope: angular.IScope,
             private $timeout: angular.ITimeoutService,
             private $stateParams: angular.ui.IStateParamsService) {
-
+            timeoutvalidate = null;
             $scope.$on("connection-state", (e:angular.IAngularEvent, args:any) => {
                 if (args.status === ConnectionStatuses.Disconnected) {
                     // firefox issue upon reload

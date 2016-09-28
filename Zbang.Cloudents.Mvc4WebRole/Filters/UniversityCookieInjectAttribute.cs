@@ -19,7 +19,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            CookieHelper.RemoveCookie(UniversityCookie.CookieName);
+            //CookieHelper.RemoveCookie(UniversityCookie.CookieName);
             var universityName = filterContext.ActionParameters[m_UniversityPrefix]?.ToString();
 
 
@@ -32,7 +32,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Filters
                     return;
                     //return RedirectToRoute("homePage", new { invId });
                 }
-                CookieHelper.InjectCookie(UniversityCookie.CookieName, new UniversityCookie { UniversityId = universityId.Value });
+                CookieHelper.InjectCookie(UniversityCookie.CookieName, 
+                    new UniversityCookie { UniversityId = universityId.Value, UniversityName = universityName });
             }
             base.OnActionExecuting(filterContext);
         }
