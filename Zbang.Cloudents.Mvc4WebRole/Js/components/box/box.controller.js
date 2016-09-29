@@ -102,9 +102,15 @@ var app;
                 this.$rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
-            this.$rootScope.$broadcast('close-collapse');
-            this.inviteOpen = true;
-            this.$scope.$broadcast('open_invite');
+            if (this.inviteOpen) {
+                this.$rootScope.$broadcast('close-collapse');
+                this.inviteOpen = false;
+            }
+            else {
+                this.$rootScope.$broadcast('close-collapse');
+                this.inviteOpen = true;
+                this.$scope.$broadcast('open_invite');
+            }
         };
         BoxController.prototype.closeCollapse = function () {
             this.$rootScope.$broadcast('close-collapse');
@@ -130,7 +136,12 @@ var app;
                 return;
             }
             if (this.settingsHtml) {
-                this.settingsOpen = true;
+                if (this.settingsOpen) {
+                    this.settingsOpen = false;
+                }
+                else {
+                    this.settingsOpen = true;
+                }
                 return;
             }
             return this.ajaxService2.getHtml('/box/boxsettings/').then(function (response) {
@@ -139,8 +150,6 @@ var app;
                     _this.$rootScope.$broadcast('close-collapse');
                     _this.settingsOpen = true;
                     _this.settings = _this.settings || {};
-                    //boxType
-                    //privacySetting
                     _this.settings.name = _this.data.name;
                     _this.settings.needFollow = _this.needFollow;
                     _this.settings.submitDisabled = false;
@@ -159,7 +168,6 @@ var app;
                 });
             });
         };
-        //stuff for child elements
         BoxController.prototype.canDelete = function (userId) {
             if (this.user.isAdmin || this.user.id === userId) {
                 return true;
@@ -172,36 +180,4 @@ var app;
     }());
     angular.module('app.box').controller('BoxController', BoxController);
 })(app || (app = {}));
-//(function () {
-//    //angular.module('app.box').controller('BoxController', box);
-//    //box.$inject = ['boxService', 'boxData', '$stateParams', '$scope',
-//    //    '$state', '$rootScope', 'userDetailsFactory',
-//    //    'resManager', '$timeout', 'userUpdatesService', '$window', 'ajaxService2'];
-//    //function box(boxService, boxData, $stateParams, $scope, $state,
-//    //    $rootScope, userDetailsFactory, resManager, $timeout, userUpdatesService, $window, ajaxService) {
-//    //if ($state.current.name === 'box') {
-//    //    $state.go('box.feed', $stateParams, { location: "replace" });
-//    //}
-//    //var b = this, boxId = $stateParams.boxId;
-//    // b.data = boxData;
-//    //b.showLeaderboard = b.isAcademic = boxData.boxType === 'academic' || boxData.boxType === 'academicClosed';
-//    //b.needFollow = boxData.userType === 'invite' || boxData.userType === 'none';
-//    //b.canInvite = boxData.boxType !== 'academicClosed' && b.isAcademic || (boxData.userType === 'owner' && !b.isAcademic);
-//    //b.canShare = boxData.boxType !== 'academicClosed' && b.isAcademic && !b.needFollow;
-//    //b.owner = boxData.userType === 'owner';
-//    //b.follow = follow;
-//    //b.updateBox = updateBox;
-//    //b.inviteToBox = inviteToBox;
-//    //b.closeCollapse = closeCollapse;
-//    //b.user = userDetailsFactory.get();
-//    ////b.url = b.user.url;
-//    ////b.image = b.user.image;
-//    //b.isActiveState = isActiveState;
-//    //b.inviteExpand = inviteExpand;
-//    //b.toggleSettings = toggleSettings;
-//    //
-//    ////stuff for child elements
-//    //b.canDelete = canDelete;
-//}
-//})();
 //# sourceMappingURL=box.controller.js.map

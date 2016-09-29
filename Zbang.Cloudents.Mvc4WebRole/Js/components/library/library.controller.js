@@ -136,7 +136,12 @@
         function toggleSettings() {
             l.createBoxOn = false;
             if (l.settingsHtml) {
-                l.settingsOpen = true;
+                if (l.settingsOpen) {
+                    l.settingsOpen = false;
+                }
+                else {
+                    l.settingsOpen = true;
+                }
                 return;
             }
             return ajaxService.getHtml('/library/unisettings').then(function (response) {
@@ -154,12 +159,24 @@
         function openCreateBox() {
             l.createOn = true;
             l.settingsOpen = false;
-            l.createBoxOn = true;
+            l.createDepartmentOn = false;
+            if (l.createBoxOn) {
+                l.createBoxOn = false;
+            }
+            else {
+                l.createBoxOn = true;
+            }
             l.focusCreateClass = true;
         }
         function openCreateDepartment() {
             l.createOn = true;
-            l.createDepartmentOn = true;
+            if (l.createDepartmentOn) {
+                l.createDepartmentOn = false;
+            }
+            else {
+                l.createDepartmentOn = true;
+            }
+            l.createBoxOn = false;
             l.settingsOpen = false;
             l.focusCreateDepartment = true;
 

@@ -204,8 +204,6 @@ body {
 }
 
 
-
-
 //if page title have svg its settings
 .page-title {
     align-items: center;
@@ -229,7 +227,7 @@ body {
 
 .close {
     &:hover {
-        color: @textColorWhite;
+        color: @textColorBlack;
     }
 
     md-icon {
@@ -251,6 +249,10 @@ body {
 
     .md-tab {
         color: #0d3a52;
+
+        &:hover {
+            color: @textColorDisabledActionButton;
+        }
     }
 
     md-ink-bar {
@@ -726,6 +728,7 @@ md-icon {
     padding: 10px 10px 0;
     margin-bottom: 20px;
     font-size: 16px;
+    background: @backgroundColorMenu;
 
     li {
         color: @textColorBlack;
@@ -782,9 +785,11 @@ md-icon {
     left: 10px;
     top: -5px;
 }
-.md-button{
+
+.md-button {
     text-transform: none;
 }
+
 md-menu-content {
     padding: 0;
     border-radius: 5px;
@@ -838,7 +843,7 @@ md-input-container:not(.md-input-invalid).md-input-focused label {
     .justifyContet(center);
     .align-items(center);
     z-index: 90;
-    stroke:#3f51b5;
+    stroke: #3f51b5;
 }
 
 
@@ -934,16 +939,6 @@ md-tooltip .md-content {
 ::-webkit-scrollbar-thumb {
     background: @scrollbarColor;
 }
-//add btn
-.add {
-    background: @buttonColorRed;
-}
-
-.close {
-    &:hover {
-        color: @textColorBlack;
-    }
-}
 
 .create-box {
     &:hover {
@@ -990,34 +985,6 @@ md-tooltip .md-content {
     }
 }
 
-.nav-tabs, .tabbable {
-    background: @backgroundColorMenu;
-
-    li {
-        color: @textColorBlack;
-
-        &:hover, &:focus {
-            color: @textColorBlue;
-        }
-
-        &.active, &:active {
-            border-bottom: 3px solid @borderColorBlue;
-            color: @textColorBlack;
-        }
-
-        &.active > a, &.active > a:hover, &.active > a:focus {
-            color: @textColorBlack;
-        }
-
-        & > a {
-            color: @textColorGrey;
-
-            &:hover {
-                color: @textColorBlue;
-            }
-        }
-    }
-}
 //footer arrow up
 .scroll-to-top {
     svg {
