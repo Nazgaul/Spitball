@@ -36,10 +36,6 @@ var app;
                     $scope.$applyAsync();
                 }
             });
-            if ($stateParams["conversationData"]) {
-                this.state = States.Chat;
-                this.$scope.$broadcast("go-chat", $stateParams["conversationData"]);
-            }
             $scope.$on("open-chat-user", function (e, args) {
                 _this.state = States.Chat;
                 _this.$scope.$broadcast("go-chat", args);
@@ -50,6 +46,10 @@ var app;
                     _this.$scope.$broadcast("go-conversation", args);
                 });
             });
+            if ($stateParams["conversationData"]) {
+                this.state = States.Chat;
+                this.$scope.$broadcast("go-chat", $stateParams["conversationData"]);
+            }
         }
         ChatController.prototype.backFromChat = function () {
             this.state = States.UserList;

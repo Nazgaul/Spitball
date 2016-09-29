@@ -36,27 +36,8 @@
                         $scope.$applyAsync();
                     }
                 });
-            //$scope.$on("connection-state", (e:angular.IAngularEvent, args:any) => {
-            //    if (args.status === ConnectionStatuses.Disconnected) {
-            //        // firefox issue upon reload
-            //        timeoutvalidate = this.$timeout(() => {
-            //            this.connected = false;
-            //            $scope.$applyAsync();
-            //        },50);
-            //    } else {
-            //        if (timeoutvalidate) {
-            //            this.$timeout.cancel(timeoutvalidate);
-            //        }
-            //        this.connected = true;
-            //        $scope.$applyAsync();
-            //    }
-            //});
 
-            if ($stateParams["conversationData"]) {
-                this.state = States.Chat;
-                this.$scope.$broadcast("go-chat", $stateParams["conversationData"]);
-
-            }
+            
             $scope.$on("open-chat-user", (e: angular.IAngularEvent, args:any) => {
                 this.state = States.Chat;
                 this.$scope.$broadcast("go-chat", args);
@@ -68,6 +49,12 @@
                         this.$scope.$broadcast("go-conversation", args);
                     });
                 });
+            //need to be after "go-chat" because it broadcast
+            if ($stateParams["conversationData"]) {
+                this.state = States.Chat;
+                this.$scope.$broadcast("go-chat", $stateParams["conversationData"]);
+
+            }
         }
         // TODO: get rid of
         scrollSetting = {

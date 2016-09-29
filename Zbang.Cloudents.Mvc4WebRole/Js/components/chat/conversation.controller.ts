@@ -13,7 +13,7 @@
             private chatBus: IChatBus,
             private userDetailsFactory: IUserDetailsFactory,
             private $timeout: angular.ITimeoutService,
-            private itemThumbnailService: any,  /*TODO*/
+            private itemThumbnailService: IItemThumbnailService, 
             private realtimeFactory: IRealtimeFactory,
             private $uiViewScroll: any,
             private routerHelper: IRouterHelper,
