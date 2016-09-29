@@ -20,7 +20,6 @@ var app;
             this.$stateParams = $stateParams;
             this.state = States.UserList;
             this.connected = false;
-            // TODO: get rid of
             this.scrollSetting = {
                 scrollbarPosition: "outside",
                 scrollInertia: 50
@@ -28,7 +27,6 @@ var app;
             timeoutvalidate = null;
             $scope.$on("connection-state", function (e, args) {
                 if (args.status === ConnectionStatuses.Disconnected) {
-                    // firefox issue upon reload
                     timeoutvalidate = _this.$timeout(function () {
                         _this.connected = false;
                         $scope.$applyAsync();

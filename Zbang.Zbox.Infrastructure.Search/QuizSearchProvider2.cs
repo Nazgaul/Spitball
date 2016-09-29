@@ -145,8 +145,8 @@ namespace Zbang.Zbox.Infrastructure.Search
             var filter = await m_FilterProvider.BuildFilterExpressionAsync(
               query.UniversityId, UniversityidField, UseridsField, query.UserId);
 
-            var term = query.Term + "*";
-            var result = await m_IndexClient.Documents.SearchAsync<QuizSearch>(term, new SearchParameters
+            //if we put asterisk highlight is not working
+            var result = await m_IndexClient.Documents.SearchAsync<QuizSearch>(query.Term, new SearchParameters
             {
                 Filter = filter,
                 Top = query.RowsPerPage,

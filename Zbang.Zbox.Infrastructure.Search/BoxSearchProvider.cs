@@ -141,28 +141,28 @@ namespace Zbang.Zbox.Infrastructure.Search
            
            
         }
-        public async Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
-        {
-            if (query == null) throw new ArgumentNullException(nameof(query));
-            var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
-            {
-                Filter =
-                    string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityIdField, UserIdsField,
-                        query.UniversityId, query.UserId),
-                Top = query.RowsPerPage,
-                Skip = query.RowsPerPage * query.PageNumber,
-                Select = new[] { IdField, NameField, ProfessorField, CourseField, TypeFiled },
-                HighlightFields = new[] { NameField },
-            }, cancellationToken: cancelToken);
-            return result.Results.Select(s => new SearchBoxes
-            {
-                Id = long.Parse(s.Document.Id),
-                Name = HighLightInField(s, NameField, s.Document.Name),
-                Professor = s.Document.Professor,
-                CourseCode = s.Document.Course,
-                Type = (BoxType)s.Document.Type.Value
-            });
-        }
+        //public async Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken)
+        //{
+        //    if (query == null) throw new ArgumentNullException(nameof(query));
+        //    var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term, new SearchParameters
+        //    {
+        //        Filter =
+        //            string.Format("{0} eq {2} or {1}/any(t: t eq '{3}')", UniversityIdField, UserIdsField,
+        //                query.UniversityId, query.UserId),
+        //        Top = query.RowsPerPage,
+        //        Skip = query.RowsPerPage * query.PageNumber,
+        //        Select = new[] { IdField, NameField, ProfessorField, CourseField, TypeFiled },
+        //        HighlightFields = new[] { NameField },
+        //    }, cancellationToken: cancelToken);
+        //    return result.Results.Select(s => new SearchBoxes
+        //    {
+        //        Id = long.Parse(s.Document.Id),
+        //        Name = HighLightInField(s, NameField, s.Document.Name),
+        //        Professor = s.Document.Professor,
+        //        CourseCode = s.Document.Course,
+        //        Type = (BoxType)s.Document.Type.Value
+        //    });
+        //}
 
         public async Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {

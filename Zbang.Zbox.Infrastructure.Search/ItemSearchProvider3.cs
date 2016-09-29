@@ -177,10 +177,12 @@ namespace Zbang.Zbox.Infrastructure.Search
         {
             if (query == null) throw new ArgumentNullException(nameof(query));
             var term = query.Term;
-            if (!query.Term.Contains(" "))
-            {
-                term += "*";
-            }
+            //if we put asterisk highlight is not working
+            //http://stackoverflow.com/questions/35769442/azure-search-highlights-not-returned-for-every-result/35778095
+            //if (!query.Term.Contains(" "))
+            //{
+            //    term += "*";
+            //}
             var filter = await m_FilterProvider.BuildFilterExpressionAsync(
                query.UniversityId, UniversityidField, UserIdsField, query.UserId);
 
