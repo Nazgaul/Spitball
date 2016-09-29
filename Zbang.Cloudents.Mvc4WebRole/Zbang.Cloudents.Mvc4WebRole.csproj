@@ -1545,6 +1545,7 @@
     <Content Include="Js\components\account\password.controller.js" />
     <Content Include="Js\components\account\unregister.controller.js" />
     <Content Include="Js\components\account\unregisterShow.directive.js" />
+    <Content Include="Js\components\box\box.config.js" />
     <Content Include="Js\components\box\box.module.js" />
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\box\feed.likes.controller.js" />
@@ -1596,6 +1597,7 @@
     <TypeScriptCompile Include="Js\components\search\search.controller.ts" />
     <TypeScriptCompile Include="Js\components\search\search.service.ts" />
     <TypeScriptCompile Include="Js\components\search\searchTrigger.controller.ts" />
+    <TypeScriptCompile Include="Js\components\uploadWrapper.controller.ts" />
     <TypeScriptCompile Include="Js\components\user\updates.service.ts" />
     <TypeScriptCompile Include="Js\components\chat\hideChatOnMobile.directive.ts" />
     <TypeScriptCompile Include="Js\components\chat\toggleChat.directive.ts" />

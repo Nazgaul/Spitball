@@ -126,7 +126,7 @@ namespace Zbang.Zbox.Infrastructure.Search
 
             var tResult = m_IndexClient.Documents.SearchAsync<UniversitySearch>(term + "*", searchParametes, cancellationToken: cancelToken);
 
-            var tSuggest = Task.FromResult<DocumentSuggestResult<UniversitySearch>>(null);
+            var tSuggest = CompletedTask;
             if (!string.IsNullOrEmpty(query.Term) && query.Term.Length >= 3 && query.PageNumber == 0)
             {
                 tSuggest = m_IndexClient.Documents.SuggestAsync<UniversitySearch>(query.Term, NameSuggest, new SuggestParameters
@@ -163,7 +163,7 @@ namespace Zbang.Zbox.Infrastructure.Search
             return result;
 
         }
-
+        private static readonly Task<DocumentSuggestResult<UniversitySearch>> CompletedTask = Task.FromResult<DocumentSuggestResult<UniversitySearch>>(null);
 
         public async Task<bool> UpdateDataAsync(IEnumerable<UniversitySearchDto> universityToUpload, IEnumerable<long> universityToDelete)
         {
