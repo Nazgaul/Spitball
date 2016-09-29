@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict';
-    angular.module('app').run(appRun);
+    angular.module('app.box').run(appRun);
     appRun.$inject = ['routerHelper'];
     function appRun(routerHelper) {
         routerHelper.configureStates(getStates());
@@ -19,8 +19,10 @@
                             }
                         ],
                         loadMyCtrl: [
-                            '$ocLazyLoad', function ($ocLazyLoad) {
-                                return $ocLazyLoad.load('box');
+                            '$ocLazyLoad', "user", function ($ocLazyLoad, user) {
+                                if (user.id) {
+                                    return $ocLazyLoad.load('upload');
+                                }
                             }
                         ]
                     },

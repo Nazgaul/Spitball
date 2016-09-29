@@ -1,4 +1,7 @@
-﻿(function () {
+﻿(function() {
+    angular.module("app", ["angular-plupload", "ang-drag-drop"]);
+})();
+(function () {
     'use strict';
     angular.module('app.upload').controller('Upload', upload);
     upload.$inject = ['$scope', 'itemService', '$timeout', '$stateParams', '$rootScope',

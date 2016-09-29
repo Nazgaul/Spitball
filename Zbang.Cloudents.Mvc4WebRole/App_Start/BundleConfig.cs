@@ -71,31 +71,18 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     new JsFileWithCdn("~/js/components/quiz/quizCreate2.controller.js")
                 });
 
-                RegisterJs("box", new[]
+                RegisterJs("upload", new[]
                 {
                      new JsFileWithCdn("~/bower_components/plupload/js/moxie.min.js"),
                      new JsFileWithCdn("~/bower_components/plupload/js/plupload.dev.js"),
                      new JsFileWithCdn("~/bower_components/angular-plupload/src/angular-plupload.js"),
                      new JsFileWithCdn("~/scripts/draganddrop.js"),
-                     new JsFileWithCdn("~/js/components/box/box.module.js"),
-                     new JsFileWithCdn("~/js/components/box/box.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/tab.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/shareBox.directive.js"),
-                        new JsFileWithCdn("~/js/components/box/feed.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/feed.likes.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/item.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/quizzes.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/members.controller.js"),
-                        
-                        new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
-                        new JsFileWithCdn("~/js/components/box/slideit.directive.js"),
-                         new JsFileWithCdn("~/js/components/item/upload.controller.js"),
-                        new JsFileWithCdn("~/js/components/item/externalProviderUpload.service.js"),
+                     new JsFileWithCdn("~/js/components/item/upload.controller.js")
                 });
 
 
                 CreateLazyLoadScript("~/js/components/quiz/quizCreate.config.js", "quizCreate", "~/js/components/quiz/quizCreate1.config.js");
-                CreateLazyLoadScript("~/js/components/box/box.config.js", "box", "~/js/components/box/box1.config.js");
+                CreateLazyLoadScript("~/js/components/box/upload.config.js", "upload", "~/js/components/box/upload1.config.js");
 
                 foreach (var registeredJsBundle in registeredJsBundles)
                 {

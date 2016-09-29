@@ -14,7 +14,9 @@ var app;
                             controller: "UserController as u",
                             resolve: {
                                 userData: [
-                                    "userService", "$stateParams", function (userService, $stateParams) { return userService.getDetails($stateParams.userId); }
+                                    "userService", "$stateParams", function (userService, $stateParams) {
+                                        return userService.getDetails($stateParams.userId);
+                                    }
                                 ]
                             }
                         },

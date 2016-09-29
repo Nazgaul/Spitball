@@ -20,7 +20,7 @@
          'app.library',
          'app.user',
          'app.account',
-         //'app.box',
+         'app.box',
          'app.item',
          'app.quiz',
          //'app.upload',

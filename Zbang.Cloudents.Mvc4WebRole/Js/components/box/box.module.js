@@ -17,6 +17,6 @@
 })();
 (function () {
     'use strict';
-    angular.module('app.box', ['app.ajaxservice', 'angular-plupload', 'ang-drag-drop', 'app.box.feed', 'app.box.quizzes', 'app.box.items', 'app.box.members']);
+    angular.module('app.box', ['app.ajaxservice',  'app.box.feed', 'app.box.quizzes', 'app.box.items', 'app.box.members']);
 })();
 

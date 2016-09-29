@@ -6,7 +6,7 @@
     function config($ocLazyLoadProvider) {
         $ocLazyLoadProvider.config({
             modules: [{
-                name: 'box',
+                name: 'upload',//angular-plupload',//, 'ang-drag-drop'',
                 serie: true,
                 files: [
                    {0}
