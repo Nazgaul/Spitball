@@ -149,7 +149,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/ng-scrollbars/src/scrollbars.js"),
 
                         new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
-                        new JsFileWithCdn("~/bower_components/oclazyload/dist/oclazyload.min.js"),
+                        new JsFileWithCdn("~/bower_components/oclazyload/dist/oclazyload.js"),
                         new JsFileWithCdn("~/Scripts/angular-animate.js"),
                         new JsFileWithCdn("~/Scripts/angular-aria.js"),
                         new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"),
@@ -169,7 +169,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         //new JsFileWithCdn("~/scripts/svg4everybodyAngular.js"),
                          //TODO: move to oclazy in user
                         new JsFileWithCdn("~/scripts/angular-countUp.js"),
-                        
+
                         new JsFileWithCdn("~/scripts/angular-dfp.js"),
 
                         new JsFileWithCdn("~/bower_components/angular-timeago/dist/angular-timeago.min.js"),
@@ -194,7 +194,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/quiz/stopwatch.directive.js"),
 
                         new JsFileWithCdn("~/js/components/quiz/quizCreate1.config.js"),
-                        new JsFileWithCdn("~/js/components/box/box1.config.js"),
+                        new JsFileWithCdn("~/js/components/box/upload1.config.js"),
 
                         new JsFileWithCdn("~/js/components/user/userdetails.controller.js"),
                         new JsFileWithCdn("~/js/components/user/user.controller.js"),
@@ -212,6 +212,21 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/menu/menulink.directive.js"),
                         new JsFileWithCdn("~/js/menu/sidemenu.controller.js"),
 
+
+                    new JsFileWithCdn("~/js/components/box/box.module.js"),
+                     new JsFileWithCdn("~/js/components/box/box.controller.js"),
+                     new JsFileWithCdn("~/js/components/box/tab.controller.js"),
+                     new JsFileWithCdn("~/js/components/box/shareBox.directive.js"),
+                     new JsFileWithCdn("~/js/components/box/feed.controller.js"),
+                     new JsFileWithCdn("~/js/components/box/feed.likes.controller.js"),
+                     new JsFileWithCdn("~/js/components/box/item.controller.js"),
+                     new JsFileWithCdn("~/js/components/box/quizzes.controller.js"),
+                     new JsFileWithCdn("~/js/components/box/members.controller.js"),
+
+                     new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
+                     new JsFileWithCdn("~/js/components/box/slideit.directive.js"),
+                     
+                     new JsFileWithCdn("~/js/components/item/externalProviderUpload.service.js"),
                         //new JsFileWithCdn("~/js/components/box/box.controller.js"),
                         //new JsFileWithCdn("~/js/components/box/tab.controller.js"),
                         new JsFileWithCdn("~/js/components/box/box.routes.js"),

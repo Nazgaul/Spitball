@@ -75,4 +75,3 @@ var app;
     }());
     angular.module("app.dashboard").service("dashboardService", Dashboard);
 })(app || (app = {}));
-//# sourceMappingURL=dashboard.service.js.map

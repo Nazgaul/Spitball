@@ -1545,7 +1545,7 @@
     <Content Include="Js\components\account\password.controller.js" />
     <Content Include="Js\components\account\unregister.controller.js" />
     <Content Include="Js\components\account\unregisterShow.directive.js" />
-    <Content Include="Js\components\box\box.config.js" />
+    <Content Include="Js\components\box\upload.config.js" />
     <Content Include="Js\components\box\box.module.js" />
     <Content Include="Js\components\box\box.routes.js" />
     <Content Include="Js\components\box\feed.likes.controller.js" />
@@ -3009,12 +3009,12 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
     <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
     <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
     <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptModuleKind>System</TypeScriptModuleKind>
     <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
     <TypeScriptOutFile />
     <TypeScriptOutDir />

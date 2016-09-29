@@ -20,6 +20,11 @@
                                     return accountService.getAccountDetails();
 
                                 }
+                            ],
+                            loadMyCtrl: [
+                                   '$ocLazyLoad', ($ocLazyLoad) => {
+                                       return $ocLazyLoad.load('upload');
+                                   }
                             ]
                         }
                     },

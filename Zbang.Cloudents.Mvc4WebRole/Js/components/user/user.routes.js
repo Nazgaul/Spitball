@@ -14,7 +14,9 @@ var app;
                             controller: "UserController as u",
                             resolve: {
                                 userData: [
-                                    "userService", "$stateParams", function (userService, $stateParams) { return userService.getDetails($stateParams.userId); }
+                                    "userService", "$stateParams", function (userService, $stateParams) {
+                                        return userService.getDetails($stateParams.userId);
+                                    }
                                 ]
                             }
                         },
@@ -34,4 +36,3 @@ var app;
     }());
     angular.module('app.user').run(AppRun.factory());
 })(app || (app = {}));
-//# sourceMappingURL=user.routes.js.map

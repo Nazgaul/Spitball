@@ -2,7 +2,7 @@
     "use scrict";
     declare var dChat: any;
 
-   // export type hubEvent = "hub-chat" | "hub-status" | "preview-ready" | "update-thumbnail" | "connection-state"
+    // export type hubEvent = "hub-chat" | "hub-status" | "preview-ready" | "update-thumbnail" | "connection-state"
     export class Guid {
         static newGuid(): string {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
@@ -12,10 +12,12 @@
         }
     }
 
+    var connectionStatus: boolean = false;
     export interface IRealtimeFactory {
         sendMsg(userId: number, message: string, conversationId: Guid, blob?: string): void;
         changeUniversity(): void;
         assingBoxes(boxIds): void;
+        isConnected(): boolean;
     }
 
     //interface ISbHub extends ngSignalr.Hub {
@@ -72,9 +74,7 @@
                     switch (state.newState) {
                         case $.signalR.connectionState.connecting:
                             this.canSend = false;
-                            $rootScope.$broadcast('connection-state', {
-                                status: 0
-                            });
+                            this.changeStatus(false);
                             break;
                         case $.signalR.connectionState.connected:
                             this.canSend = true;
@@ -82,25 +82,17 @@
                                 this.commands[i]();
                             }
                             this.commands = [];
-                            //console.log('connected');
-                            $rootScope.$broadcast('connection-state', {
-                                status: 1
-                            });
+                            this.changeStatus(true);
                             break;
                         case $.signalR.connectionState.reconnecting:
                             this.canSend = false;
-                            //console.log('reconnecting');
                             ajaxService.logError('signalr', 'reconnecting');
-                            $rootScope.$broadcast('connection-state', {
-                                status: 0
-                            });
+                            this.changeStatus(false);
                             break;
                         case $.signalR.connectionState.disconnected:
                             this.canSend = false;
-                            //ajaxService.logError('signalr', 'disconnected');
-                            $rootScope.$broadcast('connection-state', {
-                                status: 0
-                            });
+                            this.changeStatus(false);
+                            connectionStatus = false;
                             break;
                     }
                 }
@@ -123,6 +115,16 @@
             });
         }
 
+        private changeStatus = (isConnected: boolean): void => {
+            connectionStatus = isConnected;
+            this.$rootScope.$applyAsync();
+        };
+        isConnected = (): boolean => {
+            return connectionStatus;
+        };
+        //isConnected() {
+        //    return connectionStatus;
+        //};
         sendMsg(userId: number, message: string, conversationId: Guid, blob: string) {
             this.hub.invoke('send', userId, message, conversationId, blob);
         }

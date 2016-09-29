@@ -71,7 +71,7 @@
                             <input type="text" required ng-model="answer.text" @*ng-blur="q.saveAnswer(question,answer)"*@ placeholder="@QuizResources.Answer {{$index + 1}}" />
                         </div>
                         <md-radio-button aria-label="Correct Answer" required name="question-{{$parent.$index}}" ng-disabled="!answer.text.length" @*ng-click="q.markcorrect(question,answer)"*@ value="{{$index}}"></md-radio-button>
-                        <button type="button" ng-show="question.answers.length > 2" @*ng-click="q.deleteAnswer(question,answer)"*@ ga-track-event="['createQuiz', 'delete answer']"><md-icon md-svg-icon="t:delete"></md-icon>@*@Html.Svg("~/images/site/icons.svg", "delete")*@</button>
+                        <button type="button" ng-show="question.answers.length > 2" ng-click="question.removeAnswer($index)" ga-track-event="['createQuiz', 'delete answer']"><md-icon md-svg-icon="t:delete"></md-icon>@*@Html.Svg("~/images/site/icons.svg", "delete")*@</button>
                         <span class="error-answer-msg">@QuizResources.AddAnswer</span>
                     </li>
                     <li class="answer add-answer counter-inc">

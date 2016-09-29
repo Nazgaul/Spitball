@@ -12,8 +12,10 @@
                             controller: "UserController as u",
                             resolve: {
                                 userData: [
-                                    "userService", "$stateParams", (userService, $stateParams) => userService.getDetails($stateParams.userId)
+                                    "userService", "$stateParams", (userService, $stateParams) =>
+                                        userService.getDetails($stateParams.userId)
                                 ]
+                               
                             }
                         },
                         templateUrl: "/user/indexpartial/"

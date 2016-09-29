@@ -32,6 +32,11 @@
                     $scope.$applyAsync();
                 });
             });
+            $scope.$on("remove-box", () => {
+                this.search().then(() => {
+                    $scope.$applyAsync();
+                });
+            });
             $scope.$on("hub-chat",
                 (e, args) => {
                     //im not in chat at all

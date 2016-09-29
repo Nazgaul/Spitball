@@ -153,6 +153,5 @@ var app;
         BoxService.$inject = ["ajaxService2"];
         return BoxService;
     }());
-    angular.module("app").service("boxService", BoxService);
+    angular.module("app.box").service("boxService", BoxService);
 })(app || (app = {}));
-//# sourceMappingURL=box.service.js.map

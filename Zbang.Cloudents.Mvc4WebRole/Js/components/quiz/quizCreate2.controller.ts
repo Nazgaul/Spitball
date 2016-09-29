@@ -33,7 +33,7 @@
                 this.questions.push(new Question());
             }
         }
-        deserialize(input) {
+        deserialize(input: QuizData) {
             this.questions = [];
 
             this.id = input.id;
@@ -59,6 +59,9 @@
         }
         addAnswer() {
             this.answers.push(new Answer());
+        }
+        removeAnswer(index: number) {
+            this.answers.splice(index, 1);
         }
         validQuestion() {
             let emptyQuestion = true;
@@ -91,7 +94,7 @@
             return retVal[0];
         }
 
-        deserialize(input) {
+        deserialize(input: Question) {
             this.answers = [];
             this.id = input.id;
             this.text = input.text;
@@ -117,7 +120,7 @@
             }
             return ValidQuestion.AnswerNeedText;
         }
-        deserialize(input) {
+        deserialize(input:Answer) {
             this.id = input.id;
             this.text = input.text;
             return this;
@@ -156,12 +159,12 @@
                 for (let i = 0; i < this.quizData.questions.length; i++) {
                     const question = this.quizData.questions[i];
                     if (!question.id) {
-                        return this.resManager.get('quizLeaveTitle');
+                        return this.resManager.get("quizLeaveTitle");
                     }
 
                 }
             };
-            $scope.$on('$destroy', () => {
+            $scope.$on("$destroy", () => {
                 $window.onbeforeunload = undefined;
             });
             $scope.$on("$stateChangeStart",
@@ -171,7 +174,7 @@
                     }
                     if (!canNavigate()) {
                         event.preventDefault();
-                        $scope.$emit('state-change-start-prevent');
+                        $scope.$emit("state-change-start-prevent");
                     }
                 });
 
@@ -180,7 +183,7 @@
                 for (let i = 0; i < this.quizData.questions.length; i++) {
                     const question = this.quizData.questions[i];
                     if (!question.id) {
-                        if (!confirm('Are you sure you want to leave this page?')) {
+                        if (!confirm("Are you sure you want to leave this page?")) {
                             return false;
                         }
                     }
@@ -195,11 +198,11 @@
         private newName = () => {
             var self = this;
             this.$scope.$watch(() => { return this.quizData.name; },
-                (newVal: string, oldVal) => {
+                (newVal: string, oldVal: string) => {
                     if (newVal === oldVal) {
                         return;
                     }
-                    var form: angular.IFormController = self.$scope['quizName'];
+                    var form: angular.IFormController = self.$scope["quizName"];
 
                     if (!form.$valid) {
                         return;
@@ -223,31 +226,19 @@
                                 self.quizService.updateQuiz(quizId, newVal).finally(finishSaveName);
                             } else {
                                 self.createQuiz(newVal).finally(finishSaveName);
-                                //self.quizService.createQuiz(self.$stateParams.boxId, newVal).then((response) => {
-                                //    quizId = response;
-                                //    self.$state.go('quizCreate',
-                                //        {
-                                //            boxtype: self.$stateParams["boxtype"],
-                                //            universityType: self.$stateParams["universityType"],
-                                //            boxId: self.$stateParams.boxId,
-                                //            boxName: self.$stateParams["boxName"],
-                                //            quizid: response,
-                                //            name: self.$stateParams["name"]
-                                //        });
-                                //}).finally(finishSaveName);
                             }
                         }
                     }
 
                 });
-        }
+        };
 
 
         private createQuiz(name: string) {
             var self = this;
-            return self.quizService.createQuiz(self.$stateParams.boxId, name).then((response) => {
+            return self.quizService.createQuiz(self.$stateParams.boxId, name).then((response: number) => {
                 quizId = response;
-                this.$state.go('quizCreate',
+                this.$state.go("quizCreate",
                     {
                         boxtype: self.$stateParams["boxtype"],
                         universityType: self.$stateParams["universityType"],
@@ -445,7 +436,7 @@
                         .finally(() => {
                             this.submitDisabled = false;
                         })
-                        .catch(() => {});
+                        .catch(() => { });
                 });
         }
 

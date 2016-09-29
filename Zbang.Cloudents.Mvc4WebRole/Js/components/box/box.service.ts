@@ -175,6 +175,6 @@
             },"boxData");
         }
     }
-    angular.module("app").service("boxService", BoxService);
+    angular.module("app.box").service("boxService", BoxService);
 }
 

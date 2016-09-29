@@ -68,9 +68,11 @@
 
             $mdDialog.show(confirm).then(function () {
                 var index = d.boxes.indexOf(box);
-                $rootScope.$broadcast('remove-box', box.id);
+                
                 d.boxes.splice(index, 1);
-                boxService.unfollow(box.id);
+                boxService.unfollow(box.id).then(function() {
+                    $rootScope.$broadcast('remove-box', box.id);
+                });
             });
         }
 
