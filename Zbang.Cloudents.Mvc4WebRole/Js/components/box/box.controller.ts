@@ -79,8 +79,9 @@
             }
             const appController: IAppController = this.$scope["app"];
             appController.showToaster(this.resManager.get("toasterFollowBox"));
-            this.boxService.follow(boxId);
-            this.followBox();
+            this.boxService.follow(boxId).then(() => {
+                this.followBox();
+            });
 
         }
 

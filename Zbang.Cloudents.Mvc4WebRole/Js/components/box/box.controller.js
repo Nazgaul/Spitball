@@ -48,14 +48,16 @@ var app;
             };
         }
         BoxController.prototype.follow = function () {
+            var _this = this;
             if (!this.user.id) {
                 this.$rootScope.$broadcast("show-unregisterd-box");
                 return;
             }
             var appController = this.$scope["app"];
             appController.showToaster(this.resManager.get("toasterFollowBox"));
-            this.boxService.follow(boxId);
-            this.followBox();
+            this.boxService.follow(boxId).then(function () {
+                _this.followBox();
+            });
         };
         BoxController.prototype.followBox = function () {
             this.needFollow = false;
