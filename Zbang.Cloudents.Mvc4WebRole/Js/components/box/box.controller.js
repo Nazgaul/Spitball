@@ -17,16 +17,16 @@ var app;
             this.$timeout = $timeout;
             this.$window = $window;
             this.userUpdatesService = userUpdatesService;
-            if ($state.current.name === 'box') {
-                $state.go('box.feed', $stateParams, { location: "replace" });
+            if ($state.current.name === "box") {
+                $state.go("box.feed", $stateParams, { location: "replace" });
             }
             boxId = $stateParams.boxId;
             this.data = boxData;
-            this.showLeaderboard = this.isAcademic = boxData.boxType === 'academic' || boxData.boxType === 'academicClosed';
-            this.needFollow = boxData.userType === 'invite' || boxData.userType === 'none';
-            this.canInvite = boxData.boxType !== 'academicClosed' && this.isAcademic || (boxData.userType === 'owner' && !this.isAcademic);
-            this.canShare = boxData.boxType !== 'academicClosed' && this.isAcademic && !this.needFollow;
-            this.owner = boxData.userType === 'owner';
+            this.showLeaderboard = this.isAcademic = boxData.boxType === "academic" || boxData.boxType === "academicClosed";
+            this.needFollow = boxData.userType === "invite" || boxData.userType === "none";
+            this.canInvite = boxData.boxType !== "academicClosed" && this.isAcademic || (boxData.userType === "owner" && !this.isAcademic);
+            this.canShare = boxData.boxType !== "academicClosed" && this.isAcademic && !this.needFollow;
+            this.owner = boxData.userType === "owner";
             $scope.$on("close_invite", function () {
                 _this.inviteOpen = false;
             });
@@ -49,7 +49,7 @@ var app;
         }
         BoxController.prototype.follow = function () {
             if (!this.user.id) {
-                this.$rootScope.$broadcast('show-unregisterd-box');
+                this.$rootScope.$broadcast("show-unregisterd-box");
                 return;
             }
             var appController = this.$scope["app"];
@@ -66,7 +66,7 @@ var app;
             if (this.settings.needFollow) {
                 this.boxService.unfollow(boxId).then(function () {
                     _this.$rootScope.$broadcast("remove-box", boxId);
-                    _this.$state.go('dashboard');
+                    _this.$state.go("dashboard");
                 });
                 return;
             }
@@ -103,17 +103,17 @@ var app;
                 return;
             }
             if (this.inviteOpen) {
-                this.$rootScope.$broadcast('close-collapse');
+                this.$rootScope.$broadcast("close-collapse");
                 this.inviteOpen = false;
             }
             else {
-                this.$rootScope.$broadcast('close-collapse');
+                this.$rootScope.$broadcast("close-collapse");
                 this.inviteOpen = true;
-                this.$scope.$broadcast('open_invite');
+                this.$scope.$broadcast("open_invite");
             }
         };
         BoxController.prototype.closeCollapse = function () {
-            this.$rootScope.$broadcast('close-collapse');
+            this.$rootScope.$broadcast("close-collapse");
         };
         BoxController.prototype.isActiveState = function (state) {
             return state === this.$state.current.name;
