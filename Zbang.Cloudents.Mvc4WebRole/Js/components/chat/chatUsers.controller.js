@@ -29,6 +29,11 @@ var app;
                     $scope.$applyAsync();
                 });
             });
+            $scope.$on("remove-box", function () {
+                _this.search().then(function () {
+                    $scope.$applyAsync();
+                });
+            });
             $scope.$on("hub-chat", function (e, args) {
                 var self = _this;
                 if (!self.users.length) {
@@ -134,4 +139,3 @@ var app;
     }());
     angular.module("app.chat").controller("chatUsers", ChatUsers);
 })(app || (app = {}));
-//# sourceMappingURL=chatUsers.controller.js.map

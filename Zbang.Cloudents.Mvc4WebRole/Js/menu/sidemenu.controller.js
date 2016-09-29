@@ -115,4 +115,3 @@ var app;
     }());
     angular.module("app").controller("SideMenu", SideMenu);
 })(app || (app = {}));
-//# sourceMappingURL=sidemenu.controller.js.map

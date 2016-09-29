@@ -23,4 +23,3 @@ var app;
     }());
     angular.module("app").service("resManager", ResManager);
 })(app || (app = {}));
-//# sourceMappingURL=resourceManager.js.map

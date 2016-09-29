@@ -13,6 +13,7 @@ var app;
         return Guid;
     }());
     app.Guid = Guid;
+    var connectionStatus = false;
     var RealTimeFactory = (function () {
         function RealTimeFactory(Hub, $rootScope, ajaxService) {
             var _this = this;
@@ -20,6 +21,13 @@ var app;
             this.$rootScope = $rootScope;
             this.ajaxService = ajaxService;
             this.commands = [];
+            this.changeStatus = function (isConnected) {
+                connectionStatus = isConnected;
+                _this.$rootScope.$applyAsync();
+            };
+            this.isConnected = function () {
+                return connectionStatus;
+            };
             this.boxIds = [];
             this.assingBoxes = function (boxIds) {
                 if (!boxIds) {
@@ -78,9 +86,7 @@ var app;
                     switch (state.newState) {
                         case $.signalR.connectionState.connecting:
                             _this.canSend = false;
-                            $rootScope.$broadcast('connection-state', {
-                                status: 0
-                            });
+                            _this.changeStatus(false);
                             break;
                         case $.signalR.connectionState.connected:
                             _this.canSend = true;
@@ -88,22 +94,17 @@ var app;
                                 _this.commands[i]();
                             }
                             _this.commands = [];
-                            $rootScope.$broadcast('connection-state', {
-                                status: 1
-                            });
+                            _this.changeStatus(true);
                             break;
                         case $.signalR.connectionState.reconnecting:
                             _this.canSend = false;
                             ajaxService.logError('signalr', 'reconnecting');
-                            $rootScope.$broadcast('connection-state', {
-                                status: 0
-                            });
+                            _this.changeStatus(false);
                             break;
                         case $.signalR.connectionState.disconnected:
                             _this.canSend = false;
-                            $rootScope.$broadcast('connection-state', {
-                                status: 0
-                            });
+                            _this.changeStatus(false);
+                            connectionStatus = false;
                             break;
                     }
                 }
@@ -133,4 +134,3 @@ var app;
     }());
     angular.module('app.chat').service('realtimeFactory', RealTimeFactory);
 })(app || (app = {}));
-//# sourceMappingURL=hubFactory.js.map
