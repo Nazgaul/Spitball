@@ -245,4 +245,7 @@
   <data name="quizCreateBrowserBack" xml:space="preserve">
     <value>Are you sure you want to leave this page? The created quiz will NOT be saved</value>
   </data>
+  <data name="whiteSpaceError" xml:space="preserve">
+    <value>Password cannot contain spaces</value>
+  </data>
 </root>

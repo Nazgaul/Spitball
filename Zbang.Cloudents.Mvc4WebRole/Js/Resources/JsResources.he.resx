@@ -244,4 +244,7 @@
   <data name="quizCreateBrowserBack" xml:space="preserve">
     <value>האם ברצונך לעזוב את העמוד? המבחן המקוון שיצרת לא יישמר</value>
   </data>
+  <data name="whiteSpaceError" xml:space="preserve">
+    <value>על הסיסמה לא להכיל רווחים</value>
+  </data>
 </root>

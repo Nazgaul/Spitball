@@ -46,7 +46,7 @@
                     <div class="info" layout="row" align-items="start-center">
                         <a href="{{::post.url}}" class="userblock" layout="row" layout-align="start center" ga-track-event="['box-feed', 'userNameImage']">
                             <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
-                            <span class="user-name" ng-bind="::post.userName"></span>
+                            <span class="user-name ellipsis" ng-bind="::post.userName"></span>
                         </a>
                         <time-ago class="comment-date" from-time="{{::post.creationTime }}" format="mediumDate"></time-ago>
                     </div>
@@ -107,7 +107,7 @@
                         <div class="info">
                             <a href="{{::reply.url}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
                                 <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="52" height="52"></user-image>
-                                <span class="user-name" ng-bind="::reply.userName"></span>
+                                <span class="user-name ellipsis" ng-bind="::reply.userName"></span>
                             </a>
                             <time-ago class="comment-date" from-time="{{::reply.creationTime }}" format="mediumDate"></time-ago>
                         </div>

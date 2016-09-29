@@ -470,6 +470,7 @@
 .feed .comment .user-name,
 .feed .comment .reply .user-name {
   color: #212325;
+  padding-left: 25px;
 }
 .feed .comment .user-name {
   color: #212325;

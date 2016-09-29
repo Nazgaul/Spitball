@@ -439,5 +439,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
                 return ResourceManager.GetString("unfollowClass", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password cannot contain spaces.
+        /// </summary>
+        public static string whiteSpaceError {
+            get {
+                return ResourceManager.GetString("whiteSpaceError", resourceCulture);
+            }
+        }
     }
 }
