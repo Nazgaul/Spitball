@@ -47,11 +47,6 @@
             padding: 0 !important;
         }*/
 }
-@media (max-width: 600px) {
-  .homePage .home-page-body {
-    bottom: -58vh;
-  }
-}
 .homePage .home-page-body .loader {
   display: none;
   position: fixed;

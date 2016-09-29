@@ -414,6 +414,9 @@ md-menu-item.blue svg {
   padding: 0;
   line-height: 28px;
 }
+.itemPage .comments-wrapper .reply-btn button[disabled] {
+  color: #888b8e;
+}
 .itemPage .comments-wrapper .add-reply {
   padding: 4px;
   background: #d7dde0;

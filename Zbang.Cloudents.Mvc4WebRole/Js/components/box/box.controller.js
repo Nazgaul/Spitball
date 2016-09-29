@@ -102,9 +102,15 @@ var app;
                 this.$rootScope.$broadcast('show-unregisterd-box');
                 return;
             }
-            this.$rootScope.$broadcast('close-collapse');
-            this.inviteOpen = true;
-            this.$scope.$broadcast('open_invite');
+            if (this.inviteOpen) {
+                this.$rootScope.$broadcast('close-collapse');
+                this.inviteOpen = false;
+            }
+            else {
+                this.$rootScope.$broadcast('close-collapse');
+                this.inviteOpen = true;
+                this.$scope.$broadcast('open_invite');
+            }
         };
         BoxController.prototype.closeCollapse = function () {
             this.$rootScope.$broadcast('close-collapse');
@@ -130,7 +136,12 @@ var app;
                 return;
             }
             if (this.settingsHtml) {
-                this.settingsOpen = true;
+                if (this.settingsOpen) {
+                    this.settingsOpen = false;
+                }
+                else {
+                    this.settingsOpen = true;
+                }
                 return;
             }
             return this.ajaxService2.getHtml('/box/boxsettings/').then(function (response) {

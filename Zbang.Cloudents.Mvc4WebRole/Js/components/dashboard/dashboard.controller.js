@@ -48,6 +48,9 @@
                 d.createBoxOn = true;
                 d.inviteOpen = false;
             }
+            else {
+                d.createBoxOn = false;
+            }
         }
         //function openCreate() {
         //    d.createBoxOn = true;

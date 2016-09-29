@@ -13,12 +13,13 @@ var app;
             this.link = function (scope, element) {
                 var $html = $("html");
                 var className = "expanded-chat";
+                var hide = "hide";
                 if (!_this.userDetailsFactory.getUniversity()) {
-                    element.hide();
+                    element.addClass(hide);
                 }
                 _this.$rootScope.$on("change-university", function () {
                     if (_this.userDetailsFactory.getUniversity()) {
-                        element.show();
+                        element.removeClass(hide);
                     }
                 });
                 element.on("click", function () {

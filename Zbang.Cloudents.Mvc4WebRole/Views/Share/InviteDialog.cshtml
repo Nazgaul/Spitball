@@ -25,7 +25,7 @@
             </button>
         </div>
         <div class="center">
-            <div class="contacts" ng-if="i.allContacts.length || i.filterQuery !== ''">
+            <div class="contacts" ng-if="(i.tab === i.state.email || i.tab === i.state.spitball) && (i.allContacts.length || i.filterQuery !== '')">
                 <div class="search-user">
                     <md-input-container class="md-block">
                         <label ng-if="i.tab === i.state.email">@IndexResources.AddMail</label>

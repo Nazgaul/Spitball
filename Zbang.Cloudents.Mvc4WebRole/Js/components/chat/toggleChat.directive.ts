@@ -12,14 +12,15 @@
 
             var $html = $("html");
             const className = "expanded-chat";
+            const hide = "hide";
             if (!this.userDetailsFactory.getUniversity()) {
-                element.hide();
+                element.addClass(hide);
             }
 
             this.$rootScope.$on("change-university",
                 () => {
                     if (this.userDetailsFactory.getUniversity()) {
-                        element.show();
+                        element.removeClass(hide);
                     }
                 });
             element.on("click",
