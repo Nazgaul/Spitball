@@ -247,4 +247,10 @@
   <data name="whiteSpaceError" xml:space="preserve">
     <value>על הסיסמה לא להכיל רווחים</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>חפש מסמכים, קורסים</value>
+  </data>
+  <data name="SearchMobile" xml:space="preserve">
+    <value>חפש</value>
+  </data>
 </root>

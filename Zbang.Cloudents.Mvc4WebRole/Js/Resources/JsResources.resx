@@ -248,4 +248,10 @@
   <data name="whiteSpaceError" xml:space="preserve">
     <value>Password cannot contain spaces</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search for documents, classes</value>
+  </data>
+  <data name="SearchMobile" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

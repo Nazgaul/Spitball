@@ -112,7 +112,9 @@
                     page = 0;
                     this.users = this.makeUniqueAndRemoveMySelf(response);
                 }
-                this.$scope["c"].updateScrollbar("update");   
+                if (!Modernizr.cssscrollbar) {
+                    this.$scope["c"].updateScrollbar("update");
+                }
                 this.updateUnread();
             });
         }

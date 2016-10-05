@@ -1,8 +1,7 @@
 var app;
 (function (app) {
-    'use strict';
+    "use strict";
     var ResManager = (function () {
-        //private jsResources = window['JsResources'];
         function ResManager(ajaxService) {
             this.ajaxService = ajaxService;
             return this;
@@ -19,9 +18,8 @@ var app;
             }
             return resource;
         };
-        ResManager.$inject = ['ajaxService2'];
+        ResManager.$inject = ["ajaxService2"];
         return ResManager;
     }());
     angular.module("app").service("resManager", ResManager);
 })(app || (app = {}));
-//# sourceMappingURL=resourceManager.js.map

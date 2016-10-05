@@ -6,10 +6,6 @@ var app;
         States[States["UserList"] = 1] = "UserList";
         States[States["Chat"] = 3] = "Chat";
     })(States || (States = {}));
-    //enum ConnectionStatuses {
-    //    Connected = 1,
-    //    Disconnected = 0
-    //}
     var timeoutvalidate;
     var ChatController = (function () {
         function ChatController($scope, $timeout, $stateParams, realtimeFactory) {
@@ -20,16 +16,13 @@ var app;
             this.realtimeFactory = realtimeFactory;
             this.state = States.UserList;
             this.connected = false;
-            // TODO: get rid of
             this.scrollSetting = {
                 scrollbarPosition: "outside",
                 scrollInertia: 50
             };
             timeoutvalidate = null;
             $scope.$watch(realtimeFactory.isConnected, function (newValue, oldValue) {
-                //console.log(newValue, oldValue);
                 if (newValue === false) {
-                    // firefox issue upon reload
                     timeoutvalidate = _this.$timeout(function () {
                         _this.connected = false;
                         $scope.$applyAsync();
@@ -53,7 +46,6 @@ var app;
                     _this.$scope.$broadcast("go-conversation", args);
                 });
             });
-            //need to be after "go-chat" because it broadcast
             if ($stateParams["conversationData"]) {
                 this.state = States.Chat;
                 this.$scope.$broadcast("go-chat", $stateParams["conversationData"]);
@@ -67,4 +59,3 @@ var app;
     }());
     angular.module("app.chat").controller("ChatController", ChatController);
 })(app || (app = {}));
-//# sourceMappingURL=chat.controller.js.map
