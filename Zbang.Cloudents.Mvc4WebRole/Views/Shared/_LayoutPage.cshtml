@@ -79,7 +79,7 @@
                        ng-model-options="{debounce : 1000}"
                        hide-chat-on-mobile="focus"
                        type="search" class="text"
-                       user-not-register-popup="focus" placeholder="@GeneralResources.Search" />
+                       user-not-register-popup="focus" placeholder="{{::st.placeholder}}@*@GeneralResources.Search*@" />
                 <button type="submit" class="search-btn" ng-disabled="!st.term.length">
                     <span><md-icon md-svg-icon="t:searchIcon" class="searchIcon"></md-icon>@*@Html.Svg(svgUrl, "searchIcon", new { @class = "searchIcon" })*@</span>
                 </button>

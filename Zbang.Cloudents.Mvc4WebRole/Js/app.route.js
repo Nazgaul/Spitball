@@ -87,7 +87,7 @@
                     }
 
                 },
-                templateUrl: '/chat/indexpartial/'
+                templateUrl: '/chat/indexmobilepartial/'
             }
         ]);
 

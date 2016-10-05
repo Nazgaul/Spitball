@@ -1,12 +1,11 @@
-﻿
-module app {
-    'use strict';
+﻿module app {
+    "use strict";
     //declare var JsResources: any;
     export interface IResManager  {
         get(value: string): string;
     }
     class ResManager implements IResManager {
-        static $inject = ['ajaxService2'];
+        static $inject = ["ajaxService2"];
         //private jsResources = window['JsResources'];
         constructor(private ajaxService: IAjaxService2) {
             return this;

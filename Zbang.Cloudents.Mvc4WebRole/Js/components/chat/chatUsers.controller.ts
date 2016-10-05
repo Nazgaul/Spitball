@@ -112,6 +112,10 @@
                     page = 0;
                     this.users = this.makeUniqueAndRemoveMySelf(response);
                 }
+                // TODO: hack to fix
+                if (!Modernizr.cssscrollbar) {
+                    this.$scope["c"].updateScrollbar2("update");
+                }
                 this.updateUnread();
             });
         }
@@ -119,6 +123,7 @@
             this.$rootScope.$broadcast("expandChat");
             this.focusSearch = true;
         }
+        
 
         private makeUniqueAndRemoveMySelf(array) {
             const flags = [];

@@ -20,9 +20,10 @@
                         ],
                         loadMyCtrl: [
                             '$ocLazyLoad', "user", function ($ocLazyLoad, user) {
-                                if (user.id) {
+                                //TODO: unreg user doesn't need to get this. feed controller is dependant on it.
+                                //if (user.id) {
                                     return $ocLazyLoad.load('upload');
-                                }
+                                //}
                             }
                         ]
                     },

@@ -3,10 +3,19 @@
     var searchStateName = "searchinfo";
     class SearchTriggerController {
         // state params is no good because this is no state controller 
-        static $inject = ["$scope", "$state"];
+        static $inject = ["$scope", "$state", "$mdMedia","resManager"];
         term;
-        constructor(private $scope: angular.IScope, private $state: angular.ui.IStateService) {
+        placeholder;
+        constructor(private $scope: angular.IScope,
+            private $state: angular.ui.IStateService,
+            private $mdMedia: angular.material.IMedia,
+            private resManager: IResManager) {
             this.term = $state.params["q"];
+            if ($mdMedia('gt-xs')) {
+                this.placeholder = resManager.get("Search");
+            } else {
+                this.placeholder = resManager.get("SearchMobile");
+            }
             $scope.$on("$stateChangeStart",
                 (event: angular.IAngularEvent,
                     toState: angular.ui.IState,

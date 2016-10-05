@@ -41,7 +41,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult IndexPartial()
         {
-            return PartialView("Index");
+            return PartialView("Index",false);
+        }
+
+        public ActionResult IndexMobilePartial()
+        {
+            return PartialView("Index",true);
         }
 
         [HttpGet, ActionName("conversation")]

@@ -1,6 +1,6 @@
 var app;
 (function (app) {
-    'use strict';
+    "use strict";
     var ResManager = (function () {
         function ResManager(ajaxService) {
             this.ajaxService = ajaxService;
@@ -18,7 +18,7 @@ var app;
             }
             return resource;
         };
-        ResManager.$inject = ['ajaxService2'];
+        ResManager.$inject = ["ajaxService2"];
         return ResManager;
     }());
     angular.module("app").service("resManager", ResManager);
