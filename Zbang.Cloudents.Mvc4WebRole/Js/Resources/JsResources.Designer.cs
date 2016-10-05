@@ -378,7 +378,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You Are Following this Course.
+        ///   Looks up a localized string similar to You have joined this class.
         /// </summary>
         public static string toasterFollowBox {
             get {

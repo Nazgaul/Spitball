@@ -42,7 +42,7 @@
             </div>
         </button>
     </div>
-    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" hide-xs class="create-box flex" ng-if="l.nodeDetail">
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" class="create-box flex" ng-if="l.nodeDetail">
         <button type="button" ng-click="l.toggleSettings()" class="settings-btn box-style action" ng-class="{'active':l.settingsOpen}" ga-track-event="['university', 'settings']">
             <div class="wrapper">
                 @Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "icon" })
@@ -52,8 +52,8 @@
     </div>
 </div>
 <div ng-if="!l.state.emptyTopTree" layout="row" layout-padding layout-wrap class="library-list">
-    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createDepartmentOn">@{ Html.RenderPartial("_CreateDepartment");}</div>
-    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createBoxOn">@{ Html.RenderPartial("_CreateCourse");}</div>
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createDepartmentOn" ng-class="{'create-init' : l.createDepartmentShow && l.createClassShow}">@{ Html.RenderPartial("_CreateDepartment");}</div>
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createBoxOn" ng-class="{'create-init' : l.createDepartmentShow && l.createClassShow}">@{ Html.RenderPartial("_CreateCourse");}</div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat="dep in l.departments track by dep.id">
         <a ng-click="l.goToSubLib(dep,$event)" href="{{::dep.url}}" class="box-style" ga-track-event="['university', 'select department']">
             <div class="display">

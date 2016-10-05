@@ -181,7 +181,7 @@
                         padding: 0 5px;
                         width: 100%;
 
-                        svg {
+                        svg, md-icon {
                             margin: 0 auto;
 
                             &.whatsapp {
@@ -601,10 +601,33 @@
             margin-top: 0;
             border: none;
             padding: 5px 3px 8px 0;
+            .displayFlex;
+            .align-items(baseline);
+
+            span {
+                font-size: 12px;
+            }
+
+
+            .like-icon {
+                md-icon {
+                    width: 14px;
+                    height: 14px;
+                }
+            }
         }
 
         .c-img {
             top: -7px;
+
+            @media(min-width: 600px) {
+                margin-left: 12px;
+            }
+        }
+
+        .comment-date {
+            position: static;
+            margin-left: 10px;
         }
 
         .userblock {
@@ -612,11 +635,16 @@
 
             .user-name {
                 font-weight: normal;
+                padding-bottom: 0;
             }
         }
 
         > .content-text {
             margin-bottom: 0;
+
+            @media(min-width: 600px) {
+                margin-top: -8px;
+            }
         }
     }
 
@@ -870,6 +898,9 @@
         font-size: 14px;
 
         .like-btn {
+            flex-grow: 0;
+            flex-shrink: 1;
+
             .like-count {
                 margin-left: 8px;
                 border: 0;
@@ -887,6 +918,10 @@
 
         .show-more {
             color: @buttonColorBlue;
+            flex-grow: 1;
+            flex-shrink: 0;
+            text-align: right;
+            line-height: 20px;
         }
     }
 

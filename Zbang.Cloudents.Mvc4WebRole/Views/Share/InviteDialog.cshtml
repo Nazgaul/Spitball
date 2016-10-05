@@ -20,8 +20,8 @@
                 <span ng-if="i.tab !== i.state.email"><md-icon md-svg-icon="t:gmailgrey"></md-icon></span>
             </button>
             <button class="facebook" ng-class="{active: i.tab === i.state.facebook}" ng-click="i.switchTab(i.state.facebook)" flex layout="row" layout-align="center center">
-                <span ng-if="i.tab === i.state.facebook">@Html.Svg("~/images/site/social-icons.svg", "facebook-colored")</span>
-                <span ng-if="i.tab !== i.state.facebook">@Html.Svg("~/images/site/social-icons.svg", "fbgrey")</span>
+                <span ng-if="i.tab === i.state.facebook"><md-icon md-svg-icon="b:facebook-colored"></md-icon></span>
+                <span ng-if="i.tab !== i.state.facebook"><md-icon md-svg-icon="b:fbgrey"></md-icon></span>
             </button>
         </div>
         <div class="center">

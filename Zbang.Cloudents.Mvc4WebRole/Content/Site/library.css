@@ -170,9 +170,12 @@
   border-radius: 4px;
   margin-bottom: 10px;
 }
-.library .create-box.create-box-show,
-.library .create-box.create-deparment-show {
-  display: block !important;
+@media (max-width: 600px) {
+  .library .create-box.create-box-show,
+  .library .create-box.create-deparment-show,
+  .library .create-box.create-init {
+    display: block !important;
+  }
 }
 .library .box-style.action svg {
   width: 20px;

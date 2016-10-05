@@ -542,6 +542,7 @@
   background: #ffffff;
   border: 1px solid #cbdbe3;
   position: relative;
+  min-height: 38px;
 }
 .chat .content .conversasion .chat-content .new-message .menu {
   display: -webkit-flex;
@@ -590,7 +591,7 @@
   position: absolute;
   height: auto;
   top: -16px;
-  right: 15px;
+  right: 8px;
   -moz-transform: scaleX(1) /*rtl:scaleX(-1)*/;
   -webkit-transform: scaleX(1) /*rtl:scaleX(-1)*/;
   -o-transform: scaleX(1) /*rtl:scaleX(-1)*/;

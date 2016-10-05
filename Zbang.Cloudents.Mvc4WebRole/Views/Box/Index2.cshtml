@@ -37,10 +37,12 @@
     <div class="share-section">
         <div class="share-options">
             <button type="button" class="share-btn share-fb" aria-label="share" ga-track-event="['box-feed', 'share']">
-                @Html.Svg("~/images/site/social-icons.svg", "facebook-colored", new { @class = "fb" })
+                <md-icon class = "fb" md-svg-icon="b:facebook-colored"></md-icon>
+                @*@Html.Svg("~/images/site/social-icons.svg", "facebook-colored", new { @})*@
             </button>
             <a class="share-btn share-whatsapp" aria-label="share" target="_blank" href="" ga-track-event="['box-feed', 'share']">
-                @Html.Svg("~/images/site/social-icons.svg", "whatsapp", new { @class = "whatsapp" })
+                <md-icon class = "whatsapp" md-svg-icon="b:whatsapp"></md-icon>
+                @*@Html.Svg("~/images/site/social-icons.svg", "whatsapp", new { @ })*@
             </a>
         </div>
     </div>

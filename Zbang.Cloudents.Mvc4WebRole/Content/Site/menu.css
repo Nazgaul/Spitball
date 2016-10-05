@@ -7,20 +7,25 @@
   vertical-align: middle;
   fill: #212325;
 }
-.page-sidebar-menu .arrow.icon md-icon {
+.page-sidebar-menu .arrow.icon md-icon,
+.page-sidebar-menu .arrow.icon svg {
   width: 19px;
   height: 19px;
 }
-.page-sidebar-menu .dashboard.icon md-icon {
+.page-sidebar-menu .dashboard.icon md-icon,
+.page-sidebar-menu .dashboard.icon svg {
   width: 20px;
   height: 20px;
 }
-.page-sidebar-menu .settings.icon md-icon {
+.page-sidebar-menu .settings.icon md-icon,
+.page-sidebar-menu .settings.icon svg {
   width: 21px;
   height: 21px;
 }
 .page-sidebar-menu .uni.icon md-icon,
-.page-sidebar-menu .user.icon md-icon {
+.page-sidebar-menu .user.icon md-icon,
+.page-sidebar-menu .uni.icon svg,
+.page-sidebar-menu .user.icon svg {
   width: 22px;
   height: 22px;
 }
@@ -73,7 +78,8 @@
 .page-body .main-md-sidenav md-content .md-button svg {
   fill: #4190b9;
 }
-.page-body .main-md-sidenav .expendable md-icon {
+.page-body .main-md-sidenav .expendable md-icon,
+.page-body .main-md-sidenav .expendable svg {
   width: 19px;
   height: 19px;
 }
@@ -87,17 +93,24 @@
 }
 .page-body .main-md-sidenav .dashboard md-icon,
 .page-body .main-md-sidenav .help md-icon,
-.page-body .main-md-sidenav .logout md-icon {
+.page-body .main-md-sidenav .logout md-icon,
+.page-body .main-md-sidenav .dashboard svg,
+.page-body .main-md-sidenav .help svg,
+.page-body .main-md-sidenav .logout svg {
   width: 20px;
   height: 20px;
 }
 .page-body .main-md-sidenav .settings md-icon,
-.page-body .main-md-sidenav .blog md-icon {
+.page-body .main-md-sidenav .blog md-icon,
+.page-body .main-md-sidenav .settings svg,
+.page-body .main-md-sidenav .blog svg {
   width: 21px;
   height: 21px;
 }
 .page-body .main-md-sidenav .uni md-icon,
-.page-body .main-md-sidenav .user md-icon {
+.page-body .main-md-sidenav .user md-icon,
+.page-body .main-md-sidenav .uni svg,
+.page-body .main-md-sidenav .user svg {
   width: 22px;
   height: 22px;
 }

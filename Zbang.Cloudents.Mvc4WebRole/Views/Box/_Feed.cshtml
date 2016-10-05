@@ -106,10 +106,9 @@
                     <li ng-repeat="reply in post.replies track by reply.id" class="reply" ng-if="post.expandReplies || $index < 4" @*ng-if="$last || post.showReplies"*@>
                         <div class="info">
                             <a href="{{::reply.url}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['box-feed', 'replyUserNameImg']">
-                                <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="52" height="52"></user-image>
+                                <user-image class="c-img" name="::reply.userName" image="::reply.userImage" width="40" height="40"></user-image>
                                 <span class="user-name ellipsis" ng-bind="::reply.userName"></span>
                             </a>
-                            <time-ago class="comment-date" from-time="{{::reply.creationTime }}" format="mediumDate"></time-ago>
                         </div>
                         <md-menu ng-if="::b.canDelete(reply.userId)">
                             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-feed', 'deletePost']">
@@ -143,6 +142,7 @@
                                     <span class="like-icon"><md-icon md-svg-icon="b:like"></md-icon>@*@Html.Svg("~/images/site/box-icons.svg", "like")*@</span>
                                     <span>@GeneralResources.Like</span>
                                 </button>
+                                <time-ago class="comment-date" from-time="{{::reply.creationTime }}" format="mediumDate"></time-ago>
                             </div>
                             <span class="ribbon" ng-if="reply.isNew">@BoxResources.RibbonNew</span>
                         </div>

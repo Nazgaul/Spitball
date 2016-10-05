@@ -164,14 +164,17 @@
     align-items: center;
   }
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg,
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon {
   margin: 0 auto;
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.whatsapp {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.whatsapp,
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon.whatsapp {
   width: 31px;
   height: 31px;
 }
-.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.fb {
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn svg.fb,
+.feed .box-options .option-wrapper:nth-child(2) .option.share .share-options .share-btn md-icon.fb {
   width: 26px;
   height: 26px;
 }
@@ -507,9 +510,30 @@
   margin-top: 0;
   border: none;
   padding: 5px 3px 8px 0;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: baseline;
+  align-items: baseline;
+}
+.feed .reply .actions span {
+  font-size: 12px;
+}
+.feed .reply .actions .like-icon md-icon {
+  width: 14px;
+  height: 14px;
 }
 .feed .reply .c-img {
   top: -7px;
+}
+@media (min-width: 600px) {
+  .feed .reply .c-img {
+    margin-left: 12px;
+  }
+}
+.feed .reply .comment-date {
+  position: static;
+  margin-left: 10px;
 }
 .feed .reply .userblock {
   display: -webkit-flex;
@@ -518,9 +542,15 @@
 }
 .feed .reply .userblock .user-name {
   font-weight: normal;
+  padding-bottom: 0;
 }
 .feed .reply > .content-text {
   margin-bottom: 0;
+}
+@media (min-width: 600px) {
+  .feed .reply > .content-text {
+    margin-top: -8px;
+  }
 }
 .feed .new-comment-border md-input-container textarea.md-input,
 .feed .reply-wrapper md-input-container textarea.md-input {
@@ -735,6 +765,10 @@
   padding: 8px 15px;
   font-size: 14px;
 }
+.feed .counters .like-btn {
+  flex-grow: 0;
+  flex-shrink: 1;
+}
 .feed .counters .like-btn .like-count {
   margin-left: 8px;
   border: 0;
@@ -749,6 +783,10 @@
 }
 .feed .counters .show-more {
   color: #4190b9;
+  flex-grow: 1;
+  flex-shrink: 0;
+  text-align: right;
+  line-height: 20px;
 }
 @media (min-width: 600px) {
   .feed .indent {

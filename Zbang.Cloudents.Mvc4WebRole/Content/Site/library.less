@@ -201,9 +201,11 @@
         }
     }
 
-    .create-box {
-        &.create-box-show, &.create-deparment-show {
-            display: block !important; //override hide-xs
+    @media(max-width: 600px) {
+        .create-box {
+            &.create-box-show, &.create-deparment-show, &.create-init {
+                display: block !important; //override hide-xs
+            }
         }
     }
 

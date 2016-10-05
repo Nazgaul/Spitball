@@ -99,11 +99,6 @@
 .userPage md-tabs-canvas,
 .userPage md-pagination-wrapper {
   height: 54px;
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -webkit-align-items: center;
-  align-items: center;
 }
 .userPage .tab-content {
   margin: 0 -8px;
@@ -123,7 +118,7 @@
 }
 .userPage md-tabs md-tab-item {
   padding: 0 10px;
-  margin: 0 10px;
+  margin: 5px 10px;
 }
 .userPage md-tabs md-tab-item .number {
   font-size: 18px;

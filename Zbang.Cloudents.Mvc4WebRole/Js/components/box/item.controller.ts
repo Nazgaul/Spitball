@@ -221,7 +221,7 @@
         }
         filter() {
             if (!this.term) {
-                this.$state.go('box.items', { tabId: null, q: null });
+                this.getItems();
             }
             this.$state.go('box.items', { tabId: null, q: this.term });
 

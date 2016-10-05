@@ -187,7 +187,7 @@
     <value>You Have Created A Quiz</value>
   </data>
   <data name="toasterFollowBox" xml:space="preserve">
-    <value>You Are Following this Course</value>
+    <value>You have joined this class</value>
   </data>
   <data name="toasterInviteComplete" xml:space="preserve">
     <value>An Invite has been sent</value>
