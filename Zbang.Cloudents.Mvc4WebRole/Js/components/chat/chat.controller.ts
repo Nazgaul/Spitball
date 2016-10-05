@@ -36,7 +36,7 @@
                         $scope.$applyAsync();
                     }
                 });
-
+           
             
             $scope.$on("open-chat-user", (e: angular.IAngularEvent, args:any) => {
                 this.state = States.Chat;
@@ -55,6 +55,7 @@
                 this.$scope.$broadcast("go-chat", $stateParams["conversationData"]);
 
             }
+           
         }
         // TODO: get rid of
         scrollSetting = {

@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.account').run(appRun);
 
     appRun.$inject = ['routerHelper'];
@@ -22,7 +22,7 @@
                                 }
                             ],
                             loadMyCtrl: [
-                                   '$ocLazyLoad', ($ocLazyLoad) => {
+                                   '$ocLazyLoad', function ($ocLazyLoad) {
                                        return $ocLazyLoad.load('upload');
                                    }
                             ]

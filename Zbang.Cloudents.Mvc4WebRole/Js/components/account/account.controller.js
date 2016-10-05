@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.account').controller('AccountSettingsController', account);
     account.$inject = ['$stateParams', '$state', 'userData'];
 

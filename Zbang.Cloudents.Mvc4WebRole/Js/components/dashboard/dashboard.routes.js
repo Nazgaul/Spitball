@@ -32,3 +32,4 @@ var app;
     }());
     angular.module("app.dashboard").run(AppRun.factory());
 })(app || (app = {}));
+//# sourceMappingURL=dashboard.routes.js.map
