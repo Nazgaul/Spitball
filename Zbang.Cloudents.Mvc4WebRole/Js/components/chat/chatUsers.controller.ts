@@ -112,6 +112,7 @@
                     page = 0;
                     this.users = this.makeUniqueAndRemoveMySelf(response);
                 }
+                this.$scope["c"].updateScrollbar("update");   
                 this.updateUnread();
             });
         }
@@ -119,6 +120,7 @@
             this.$rootScope.$broadcast("expandChat");
             this.focusSearch = true;
         }
+        
 
         private makeUniqueAndRemoveMySelf(array) {
             const flags = [];
