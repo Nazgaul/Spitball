@@ -45,8 +45,6 @@
                     }
 
                     const messages = this.messages.filter(message => (message.text === args.message));
-
-
                     const attachments = this.messages.filter(message => (message.blob === args.blob));
                     // if there's no message with same text or there's one - but older than a minute ago
                     //(meaning we are connected to the chatroom in other place and sent new message there): 
@@ -66,13 +64,14 @@
                         });
                     }
 
-                    this.scrollToBotton();
+                    
                     // TODO: hack - do better
                     this.$timeout(() => { //give it some delay
                         var unread = this.chatBus.getUnread();
                         this.chatBus.setUnread(--unread);
                     });
-                    $scope.$applyAsync();
+                    $scope.$apply();
+                    this.scrollToBotton();
                     return;
                 }
                 // im in the same chat
@@ -87,13 +86,14 @@
                         blob: args.blob,
                         thumb: args.thumb
                     });
-                    this.scrollToBotton();
+                    
                     // TODO: hack - do better
                     this.$timeout(() => { //give it some delay
                         var unread = this.chatBus.getUnread();
                         this.chatBus.setUnread(--unread);
                     });
-                    $scope.$applyAsync();
+                    $scope.$apply();
+                    this.scrollToBotton();
                     return;
                 }
 

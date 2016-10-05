@@ -82,12 +82,12 @@ var app;
                             partner: false
                         });
                     }
-                    _this.scrollToBotton();
                     _this.$timeout(function () {
                         var unread = _this.chatBus.getUnread();
                         _this.chatBus.setUnread(--unread);
                     });
-                    $scope.$applyAsync();
+                    $scope.$apply();
+                    _this.scrollToBotton();
                     return;
                 }
                 if (_this.userChat && _this.userChat.conversation === args.chatRoom) {
@@ -101,12 +101,12 @@ var app;
                         blob: args.blob,
                         thumb: args.thumb
                     });
-                    _this.scrollToBotton();
                     _this.$timeout(function () {
                         var unread = _this.chatBus.getUnread();
                         _this.chatBus.setUnread(--unread);
                     });
-                    $scope.$applyAsync();
+                    $scope.$apply();
+                    _this.scrollToBotton();
                     return;
                 }
             });

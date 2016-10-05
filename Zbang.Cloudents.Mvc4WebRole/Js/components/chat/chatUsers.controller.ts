@@ -112,8 +112,9 @@
                     page = 0;
                     this.users = this.makeUniqueAndRemoveMySelf(response);
                 }
+                // TODO: hack to fix
                 if (!Modernizr.cssscrollbar) {
-                    this.$scope["c"].updateScrollbar("update");
+                    this.$scope["c"].updateScrollbar2("update");
                 }
                 this.updateUnread();
             });

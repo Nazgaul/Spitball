@@ -88,7 +88,7 @@ var app;
                     _this.users = _this.makeUniqueAndRemoveMySelf(response);
                 }
                 if (!Modernizr.cssscrollbar) {
-                    _this.$scope["c"].updateScrollbar("update");
+                    _this.$scope["c"].updateScrollbar2("update");
                 }
                 _this.updateUnread();
             });
