@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@model bool
 @{
     var direction = System.Threading.Thread.CurrentThread.CurrentUICulture.TextInfo.IsRightToLeft ? "right" : "left";
 }
@@ -18,7 +19,7 @@
                             <md-icon md-svg-icon="t:searchIcon" class="searchIcon"></md-icon>
                             @*@Html.Svg("~/images/site/icons.svg", "searchIcon", new {@class = "searchIcon"})*@
                         </button>
-                        <input type="search" focus-me="cu.focusSearch" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="cu.term" ng-change="cu.search(cu.term)" ng-model-options="{debounce : 300}" />
+                        <input type="search" focus-me="cu.focusSearch" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="cu.term" ng-change="cu.search(cu.term)" ng-model-options="{debounce : 300}"/>
                         <button type="reset" ng-if="cu.term.length" class="reset-btn" ng-click="cu.search()">
                             <md-icon md-svg-icon="t:close" class="resetIcon"></md-icon>
                         </button>
@@ -112,7 +113,7 @@
                         <li ng-attr-id="{{::e.id ? 'chatMessage_' + e.id : undefined}}" class="message" ng-repeat="e in cv.messages" ng-class="{partner: e.partner}">
                             <div ng-if="e.text" class="text" ng-bind-html="::e.text | linky:'_blank'"></div>
                             <div ng-if="e.blob" class="image" ng-click="cv.dialog(e.blob, $event)" ga-track-event="['chat', 'opened-attachment']">
-                                <img ng-src="{{e.thumb}}" width="256" height="138" alt="preview" />
+                                <img ng-src="{{e.thumb}}" width="256" height="138" alt="preview"/>
                             </div>
                             <time-ago class="time" from-time="{{::e.time}}" format="mediumDate"></time-ago>
                         </li>
@@ -136,14 +137,17 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="tab" toggle-chat></button>
+        @if (!Model)
+        {
+            <button type="button" class="tab" toggle-chat></button>
+        }
     </div>
     <script type="text/ng-template" id="chat-user-template.html">
         <span ng-if="e.unread" class="chat-counter" ng-bind="e.unread"></span>
         <user-image class="img-circle" name="::e.name" image="::e.image" width="40" height="40"></user-image>
         <div class="name-date">
             <span class="member-name ellipsis" ng-bind="::e.name"></span>
-            <chat-time-ago ng-if="!e.online" class="comment-date" from-time="{{e.lastSeen }}" format="mediumDate"></chat-time-ago>
+            <chat-time-ago ng-if="!e.online" class="comment-date" from-time="{{e.lastSeen}}" format="mediumDate"></chat-time-ago>
         </div>
 
     </script>

@@ -44,6 +44,7 @@
             }
             this.chatBus.getUnreadFromServer();
             var counterElem = $(".chat-counter");
+            
             var cleanUpFunc = scope.$watch(this.chatBus.getUnread,
                 (value: number) => {
                     if (value > 0) {
@@ -54,6 +55,7 @@
                 });
 
             var hubChatListener = scope.$on("hub-chat", () => {
+               
                 var unread = this.chatBus.getUnread();
                 this.chatBus.setUnread(++unread);
                 scope.$applyAsync();

@@ -67,7 +67,11 @@
                     }
 
                     this.scrollToBotton();
-                    // updateUnread();
+                    // TODO: hack - do better
+                    this.$timeout(() => { //give it some delay
+                        var unread = this.chatBus.getUnread();
+                        this.chatBus.setUnread(--unread);
+                    });
                     $scope.$applyAsync();
                     return;
                 }
@@ -84,7 +88,11 @@
                         thumb: args.thumb
                     });
                     this.scrollToBotton();
-                    //this.updateUnread();
+                    // TODO: hack - do better
+                    this.$timeout(() => { //give it some delay
+                        var unread = this.chatBus.getUnread();
+                        this.chatBus.setUnread(--unread);
+                    });
                     $scope.$applyAsync();
                     return;
                 }

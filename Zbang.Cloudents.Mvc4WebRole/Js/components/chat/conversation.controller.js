@@ -83,6 +83,10 @@ var app;
                         });
                     }
                     _this.scrollToBotton();
+                    _this.$timeout(function () {
+                        var unread = _this.chatBus.getUnread();
+                        _this.chatBus.setUnread(--unread);
+                    });
                     $scope.$applyAsync();
                     return;
                 }
@@ -98,6 +102,10 @@ var app;
                         thumb: args.thumb
                     });
                     _this.scrollToBotton();
+                    _this.$timeout(function () {
+                        var unread = _this.chatBus.getUnread();
+                        _this.chatBus.setUnread(--unread);
+                    });
                     $scope.$applyAsync();
                     return;
                 }
