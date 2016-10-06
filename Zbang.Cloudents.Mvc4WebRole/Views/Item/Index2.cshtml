@@ -89,9 +89,9 @@
             </div>
             <div class="second-line" layout="row" layout-align="space-between center" ng-if="i.selectedState === i.state.regular">
                 <div class="item-meta">
-                    <a href="{{::i.details.ownerUrl}}">{{::i.details.owner}}</a>
+                    <a class="ellipsis" href="{{::i.details.ownerUrl}}">{{::i.details.owner}}</a>
                     <span>&nbsp;-&nbsp;</span>
-                    <span>{{::i.details.date | date : 'mediumDate'}}</span>
+                    <span class="date">{{::i.details.date | date : 'mediumDate'}}</span>
                 </div>
             </div>
         </div>

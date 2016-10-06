@@ -756,6 +756,9 @@ md-tooltip .md-content {
 .md-user-menu:before {
   border-bottom: 8px solid #ffffff;
 }
+md-toast .md-toast-content span {
+  text-align: center;
+}
 .nav-bar {
   background: #323538;
   border-bottom: 5px solid #dadada;
