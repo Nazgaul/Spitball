@@ -17,15 +17,15 @@
                                 return boxService.getBox($stateParams.boxId);
 
                             }
-                        ],
-                        loadMyCtrl: [
-                            '$ocLazyLoad', "user", function ($ocLazyLoad, user) {
-                                //TODO: unreg user doesn't need to get this. feed controller is dependant on it.
-                                //if (user.id) {
-                                    return $ocLazyLoad.load('upload');
-                                //}
-                            }
                         ]
+                        //loadMyCtrl: [
+                        //    '$ocLazyLoad', "user", function ($ocLazyLoad, user) {
+                        //        //TODO: unreg user doesn't need to get this. feed controller is dependant on it.
+                        //        //if (user.id) {
+                        //            return $ocLazyLoad.load('upload');
+                        //        //}
+                        //    }
+                        //]
                     },
                     data: {
                         animateClass: 'class'

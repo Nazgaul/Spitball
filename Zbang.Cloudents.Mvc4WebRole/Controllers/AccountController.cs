@@ -316,7 +316,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [HttpPost]
         [/*ValidateAntiForgeryToken,*/ActionName("LogIn")]
         public async Task<JsonResult> LogInAsync(
-            [ModelBinder(typeof(TrimModelBinder))]LogOn model)
+            /*[ModelBinder(typeof(TrimModelBinder))]*/LogOn model)
         {
             if (!ModelState.IsValid)
             {
@@ -407,7 +407,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [/*ValidateAntiForgeryToken,*/ActionName("Register")]
-        public async Task<JsonResult> RegisterAsync([ModelBinder(typeof(TrimModelBinder))] Register model)
+        public async Task<JsonResult> RegisterAsync(/*[ModelBinder(typeof(TrimModelBinder))]*/ Register model)
         {
             model.BoxId = GetBoxIdRouteDataFromDifferentUrl();
             if (!ModelState.IsValid)
@@ -599,7 +599,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        public ActionResult ChangeProfile([ModelBinder(typeof(TrimModelBinder))]Profile model)
+        public ActionResult ChangeProfile(/*[ModelBinder(typeof(TrimModelBinder))]*/Profile model)
         {
             if (!ModelState.IsValid)
             {
@@ -727,7 +727,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpPost, ActionName("ResetPassword")]
-        public async Task<JsonResult> ResetPasswordAsync([ModelBinder(typeof(TrimModelBinder))]ForgotPassword model, CancellationToken cancellationToken)
+        public async Task<JsonResult> ResetPasswordAsync(/*[ModelBinder(typeof(TrimModelBinder))]*/ForgotPassword model, CancellationToken cancellationToken)
         {
 
             if (!ModelState.IsValid)
@@ -809,7 +809,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [/*ValidateAntiForgeryToken,*/ActionName("PasswordUpdate")]
-        public async Task<ActionResult> PasswordUpdateAsync([ModelBinder(typeof(TrimModelBinder))] NewPassword model, string key)
+        public async Task<ActionResult> PasswordUpdateAsync(/*[ModelBinder(typeof(TrimModelBinder))]*/ NewPassword model, string key)
         {
             if (!ModelState.IsValid)
             {

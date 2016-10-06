@@ -56,7 +56,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
                 return MvcHtmlString.Empty;
             }
 
-            return MvcHtmlString.Create("<script type='text/javascript' src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_" + isoLang + ".js'></script>");
+            return MvcHtmlString.Create("<script type='text/javascript' defer src='https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/localization/messages_" + isoLang + ".js'></script>");
         }
 
 

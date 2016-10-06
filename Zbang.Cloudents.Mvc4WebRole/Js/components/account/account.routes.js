@@ -20,12 +20,12 @@
                                     return accountService.getAccountDetails();
 
                                 }
-                            ],
-                            loadMyCtrl: [
-                                   '$ocLazyLoad', function ($ocLazyLoad) {
-                                       return $ocLazyLoad.load('upload');
-                                   }
                             ]
+                            //loadMyCtrl: [
+                            //       '$ocLazyLoad', function ($ocLazyLoad) {
+                            //           return $ocLazyLoad.load('upload');
+                            //       }
+                            //]
                         }
                     },
                     templateUrl: '/account/settingpartial/'

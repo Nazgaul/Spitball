@@ -71,18 +71,14 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     new JsFileWithCdn("~/js/components/quiz/quizCreate2.controller.js")
                 });
 
-                RegisterJs("upload", new[]
-                {
-                     new JsFileWithCdn("~/bower_components/plupload/js/moxie.min.js"),
-                     new JsFileWithCdn("~/bower_components/plupload/js/plupload.dev.js"),
-                     new JsFileWithCdn("~/bower_components/angular-plupload/src/angular-plupload.js"),
-                     new JsFileWithCdn("~/scripts/draganddrop.js"),
-                     new JsFileWithCdn("~/js/components/item/upload.controller.js")
-                });
+                //RegisterJs("upload", new[]
+                //{
+                    
+                //});
 
 
                 CreateLazyLoadScript("~/js/components/quiz/quizCreate.config.js", "quizCreate", "~/js/components/quiz/quizCreate1.config.js");
-                CreateLazyLoadScript("~/js/components/box/upload.config.js", "upload", "~/js/components/box/upload1.config.js");
+               // CreateLazyLoadScript("~/js/components/box/upload.config.js", "upload", "~/js/components/box/upload1.config.js");
 
                 foreach (var registeredJsBundle in registeredJsBundles)
                 {
