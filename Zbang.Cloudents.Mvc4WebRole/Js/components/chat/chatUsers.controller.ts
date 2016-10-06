@@ -161,6 +161,7 @@
         chat(user) {
 
             if (user.unread) {
+                user.unread = 0;
                 this.chatBus.read(user.conversation);
                 this.updateUnread();
             }

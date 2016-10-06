@@ -25,22 +25,16 @@
                         </button>
                     </form>
                     <div class="users-list scrollbar" sb-scroll ng-scrollbars ng-scrollbars-paging ng-scrollbars-paging-function="cu.usersPaging" ng-scrollbars-config="c.scrollSetting" ng-scrollbars-update="c.updateScrollbar2" srph-infinite-scroll="cu.usersPaging()" container="true">
-                        <section class="favorits" ng-show="favorits.length">
+                        <section class="favorits" ng-show="favorites.length">
                             <div class="header">
                                 <md-icon md-svg-icon="t:star"></md-icon>
-                                @*@Html.Svg("~/images/site/icons.svg", "star")*@
                                 <h1>@ChatResources.FavoritsHeader</h1>
                                 <md-tooltip class="chat-tooltip" md-direction="@direction">
                                     <div>@ChatResources.FavoritsHeader</div>
-                                    <div>{{e.name}}</div>
                                 </md-tooltip>
                             </div>
                             <ul class="users-sub-list">
-                                <li ng-click="cu.chat(e)" class="user" ng-repeat="e in favorits = (cu.users | filter: {section : 1 }) track by e.id" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversation']" ng-include="'chat-user-template.html'">
-                                    <md-tooltip class="chat-tooltip" md-direction="@direction">
-                                        <div>@ChatResources.ChatWith</div>
-                                        <div>{{e.name}}</div>
-                                    </md-tooltip>
+                                <li ng-click="cu.chat(e)" class="user" ng-repeat="e in favorites = (cu.users | filter: {section : 1 }) track by e.id" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversation']" ng-include="'chat-user-template.html'">
                                 </li>
                             </ul>
                         </section>
@@ -51,15 +45,10 @@
                                 <h1>@ChatResources.ClassmatesHeader</h1>
                                 <md-tooltip class="chat-tooltip" md-direction="@direction">
                                     <div>@ChatResources.ClassmatesHeader</div>
-                                    <div>{{e.name}}</div>
                                 </md-tooltip>
                             </div>
                             <ul class="users-sub-list">
                                 <li ng-click="cu.chat(e)" class="user" ng-repeat="e in classmates = (cu.users | filter: {section : 2 }) track by e.id" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversation']" ng-include="'chat-user-template.html'">
-                                    <md-tooltip class="chat-tooltip" md-direction="@direction">
-                                        <div>@ChatResources.ChatWith</div>
-                                        <div>{{e.name}}</div>
-                                    </md-tooltip>
                                 </li>
                             </ul>
                         </section>
@@ -75,10 +64,6 @@
                             </div>
                             <ul class="users-sub-list">
                                 <li ng-click="cu.chat(e)" class="user" ng-repeat="e in schoolmates = (cu.users | filter: {section : 3 }) track by e.id" ng-class="{online: e.online}" ga-track-event="['chat', 'started-conversation']" ng-include="'chat-user-template.html'">
-                                    <md-tooltip class="chat-tooltip" md-direction="@direction">
-                                        <div>@ChatResources.ChatWith</div>
-                                        <div>{{e.name}}</div>
-                                    </md-tooltip>
                                 </li>
                             </ul>
                         </section>
@@ -149,6 +134,10 @@
             <span class="member-name ellipsis" ng-bind="::e.name"></span>
             <chat-time-ago ng-if="!e.online" class="comment-date" from-time="{{e.lastSeen}}" format="mediumDate"></chat-time-ago>
         </div>
+        <md-tooltip class="chat-tooltip" md-direction="@direction">
+            <div>@ChatResources.ChatWith</div>
+            <div>{{::e.name}}</div>
+        </md-tooltip>
 
     </script>
 </div>

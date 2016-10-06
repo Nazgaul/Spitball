@@ -158,7 +158,7 @@
             $window.onbeforeunload = () => {
                 for (let i = 0; i < this.quizData.questions.length; i++) {
                     const question = this.quizData.questions[i];
-                    if (!question.id) {
+                    if (!question.id && question.validQuestion() !== ValidQuestion.EmptyQuestion) {
                         return this.resManager.get("quizLeaveTitle");
                     }
 
@@ -205,6 +205,7 @@
                     var form: angular.IFormController = self.$scope["quizName"];
 
                     if (!form.$valid) {
+                        console.log('her');
                         return;
                     }
                     form.$setPristine();
