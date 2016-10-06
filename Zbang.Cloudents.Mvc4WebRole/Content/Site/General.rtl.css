@@ -609,6 +609,10 @@ md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused labe
 md-input-container:not(.md-input-invalid).md-input-focused label {
   color: #4190b9;
 }
+md-input-container .md-input-message-animation:not(.ng-animate) {
+  opacity: 1;
+  margin-top: 0;
+}
 .back-arrow {
   margin-left: 10px;
   -moz-transform: rotate(0);

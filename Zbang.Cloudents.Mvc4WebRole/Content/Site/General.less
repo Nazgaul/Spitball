@@ -806,6 +806,11 @@ md-input-container.md-default-theme:not(.md-input-invalid).md-input-focused labe
 md-input-container:not(.md-input-invalid).md-input-focused label {
     color: @textColorLike;
 }
+//https://github.com/angular/material/issues/6767
+md-input-container .md-input-message-animation:not(.ng-animate) {
+    opacity: 1;
+    margin-top: 0;
+}
 
 //back arrow
 .back-arrow {
