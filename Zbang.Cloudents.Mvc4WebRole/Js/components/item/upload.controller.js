@@ -6,10 +6,10 @@
     angular.module('app.upload').controller('Upload', upload);
     upload.$inject = ['$scope', 'itemService', '$timeout', '$stateParams', '$rootScope',
         'externalUploadProvider', '$anchorScroll',
-        'boxService',  'resManager'];
+        'boxService',  'resManager', "ajaxService2"];
 
     function upload($scope, itemService, $timeout, $stateParams, $rootScope, externalUploadProvider,
-        $anchorScroll, boxService, resManager) {
+        $anchorScroll, boxService, resManager, ajaxService2) {
         var u = this, tab = $stateParams.tabId, boxid = $stateParams.boxId;
 
         var uploadChoose = {
@@ -64,7 +64,9 @@
             });
         };
         function externalUploadCallback(response) {
+            
             $rootScope.$broadcast('item_upload', response);
+            ajaxService2.deleteCacheCategory("boxItems");
             $scope.app.showToaster(resManager.get('toasterUploadComplete'));
             $timeout(closeUpload, 2000);
         }
@@ -96,6 +98,7 @@
             u.submitFormProcess = true;
             itemService.addLink(u.link, boxid, tab).then(function (response) {
                 $rootScope.$broadcast('item_upload', response);
+                ajaxService2.deleteCacheCategory("boxItems");
                 $scope.app.showToaster(resManager.get('toasterUploadComplete'));
                 u.uploadStep = uploadChoose.none;
                 u.link = '';
@@ -203,6 +206,7 @@
                         u.filesCompleteCount++;
                         file.systemId = obj.payload.item.id;
                         $rootScope.$broadcast('item_upload', obj.payload);
+                        ajaxService2.deleteCacheCategory("boxItems");
                     }
                 },
                 uploadComplete: function () {

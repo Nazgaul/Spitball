@@ -15,9 +15,9 @@
                     
                     return;
                 }
-
-                scope.maxElement.needMore = scope.maxElement.files.length - numberOfElements;
                 scope.maxElement.limitFiles = numberOfElements - 1;
+                scope.maxElement.needMore = scope.maxElement.files.length - scope.maxElement.limitFiles;
+                
 
             }
         }
