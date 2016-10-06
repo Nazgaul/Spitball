@@ -299,6 +299,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Performance\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -368,7 +369,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Performance\Microsoft.ServiceBus.MessagingPerformanceCounters.man" />
     <None Include="Properties\PublishProfiles\spitball - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>

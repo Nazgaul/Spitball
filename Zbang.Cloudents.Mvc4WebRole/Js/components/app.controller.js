@@ -36,12 +36,13 @@ var app;
                 if (parentId) {
                     element = _this.$document[0].querySelector("#" + parentId);
                 }
-                _this.$mdToast.show(_this.$mdToast.simple()
+                var toaster = _this.$mdToast.simple()
                     .textContent(text)
                     .position("top right")
                     .parent(element)
-                    .theme(theme)
-                    .hideDelay(2000));
+                    .hideDelay(2000);
+                toaster.toastClass("angular-animate");
+                _this.$mdToast.show(toaster);
             };
             this.openMenu = function ($mdOpenMenu, ev) {
                 if (!_this.userDetails.isAuthenticated()) {
