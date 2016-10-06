@@ -33,22 +33,24 @@
                         <input ng-model="i.filterQuery" ng-change="i.querySearch(i.filterQuery)">
                     </md-input-container>
                 </div>
-                <div class="invite-list-wrapper" ng-if="(i.tab === i.state.email || i.tab === i.state.spitball) && i.allContacts.length" ng-scrollbars>
-                    <md-list class="invite-list" flex="100" layout-wrap layout="row" layout-align="start start" @*ng-slimscroll watch-content="true" height="290px" width="100%" color="#BBB"*@>
-                        <md-list-item class="contact-item" flex-xs="100" flex-sm="50" flex="33" ng-repeat="contact in i.allContacts">
-                            <div class="item-wrapper" layout="row" layout-align="space-between center" flex="100">
-                                <div class="user" layout="row" layout-align="start center" ng-class="{selected: contact.isSelected}" ng-click="i.toggleContact(contact)">
-                                    <div class="flip-container">
-                                        <div class="flipper">
-                                            <div class="avatar"><user-image class="md-avatar" name-title name="contact.name" image="contact.image" width="40" height="40"></user-image></div>
-                                            <div class="checkbox"></div>
+                <div class="overflow-container">
+                    <div class="invite-list-wrapper" ng-if="(i.tab === i.state.email || i.tab === i.state.spitball) && i.allContacts.length" ng-scrollbars>
+                        <md-list class="invite-list" flex="100" layout-wrap layout="row" layout-align="start start" @*ng-slimscroll watch-content="true" height="290px" width="100%" color="#BBB"*@>
+                            <md-list-item class="contact-item" flex-xs="100" flex-sm="50" flex="33" ng-repeat="contact in i.allContacts">
+                                <div class="item-wrapper" layout="row" layout-align="space-between center" flex="100">
+                                    <div class="user" layout="row" layout-align="start center" ng-class="{selected: contact.isSelected}" ng-click="i.toggleContact(contact)">
+                                        <div class="flip-container">
+                                            <div class="flipper">
+                                                <div class="avatar"><user-image class="md-avatar" name-title name="contact.name" image="contact.image" width="40" height="40"></user-image></div>
+                                                <div class="checkbox"></div>
+                                            </div>
                                         </div>
+                                        <div class="md-list-item-text compact">{{contact.name}}</div>
                                     </div>
-                                    <div class="md-list-item-text compact">{{contact.name}}</div>
                                 </div>
-                            </div>
-                        </md-list-item>
-                    </md-list>
+                            </md-list-item>
+                        </md-list>
+                    </div>
                 </div>
                 <div class="empty-state" ng-if="i.tab === i.state.spitball && !i.allContacts.length">@IndexResources.EmptyStateSpitballInvite</div>
                 <div class="empty-state" ng-if="i.tab === i.state.email && !i.allContacts.length">@IndexResources.EmptyStateGmailInvite</div>

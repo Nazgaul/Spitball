@@ -66,6 +66,9 @@
   color: #888b8e;
   opacity: 1;
 }
+.invite .overflow-container {
+  overflow: hidden;
+}
 .invite .invite-list-wrapper {
   height: 290px;
   width: 100%;
