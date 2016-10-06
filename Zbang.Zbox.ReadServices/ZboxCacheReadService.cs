@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Cache;
@@ -162,6 +163,11 @@ namespace Zbang.Zbox.ReadServices
         public Task<IEnumerable<LikeDto>> GetReplyLikesAsync(GetFeedLikesQuery query)
         {
             return m_ReadService.GetReplyLikesAsync(query);
+        }
+
+        public Task<IEnumerable<Guid>> GetUserFeedLikesAsync(UserLikesQuery query)
+        {
+            return m_ReadService.GetUserFeedLikesAsync(query);
         }
 
         public Task<CommentDto> GetCommentAsync(GetQuestionQuery query)

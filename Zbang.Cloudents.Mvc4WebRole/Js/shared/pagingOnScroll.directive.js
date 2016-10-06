@@ -25,27 +25,6 @@
             restrict: 'A',
             link: function (scope, element, attrs) {
                 var callbacks, destroyed = false;
-                //if (mobileScroll()) {
-                //    element.bind('scroll', function () {
-                //        if (doneScrolling(element[0], attrs.ngScrollbarsPaging)) {
-                //            switch (attrs.ngScrollbarsPaging) {
-                //                case 'up':
-                //                    var oldContentHeight = element[0].scrollHeight;
-                //                    runAction().then(function () {
-                //                        $timeout(function () {
-                //                            var heightDiff = element[0].scrollHeight - oldContentHeight;
-                //                            element.scrollTop(heightDiff);
-                //                        })
-                //                    });
-                //                    break;
-                //                default: //down
-                //                    runAction();
-                //            }
-                //        }
-                //    });
-                //}
-
-                //else {
                 switch (attrs.ngScrollbarsPaging) {
                     case 'up':
                         callbacks = {
@@ -70,28 +49,17 @@
                             }
                         };
                 }
-
                 deepVal(attrs.ngScrollbarsConfig, scope)['callbacks'] = callbacks;
-                //}
-
                 function runAction() {
                     if (destroyed) {
                         return
                     }
                     return deepVal(attrs.ngScrollbarsPagingFunction, scope)();
                 }
-
-
-                //function mobileScroll() {
-                //    return Modernizr.touchevents && attrs.disableThouch !== undefined;
-                //}
-
                 scope.$on('$destroy', function () {
                     callbacks = null;
                     destroyed = true;
                 });
-
-
             }
         };
     }

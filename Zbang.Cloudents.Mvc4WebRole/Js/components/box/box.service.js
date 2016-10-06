@@ -150,6 +150,11 @@ var app;
                 notification: notification
             }, "boxData");
         };
+        BoxService.prototype.feedLikes = function (boxId) {
+            return this.ajaxService2.get("/qna/Likes/", {
+                id: boxId
+            });
+        };
         BoxService.$inject = ["ajaxService2"];
         return BoxService;
     }());

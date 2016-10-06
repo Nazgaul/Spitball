@@ -490,6 +490,20 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
+        public async Task<IEnumerable<Guid>> GetUserFeedLikesAsync(UserLikesQuery query)
+        {
+            using (var con = await DapperConnection.OpenConnectionAsync())
+            {
+                const string commentSql = @"select commentid from zbox.CommentLike
+where ownerid = @UserId and boxid = @BoxId;";
+
+                const string replySql = @"select ReplyId from zbox.ReplyLike
+where ownerid = @UserId and boxid = @BoxId;";
+
+                return await con.QueryAsync<Guid>(commentSql + replySql, new { query.UserId, query.BoxId });
+            }
+        }
+
         public async Task<IEnumerable<Qna.ReplyDto>> GetRepliesAsync(GetCommentRepliesQuery query)
         {
             using (var con = await DapperConnection.OpenConnectionAsync())

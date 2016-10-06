@@ -49,7 +49,12 @@
                             if (user.id) {
                                 return userUpdatesService.boxUpdates(stateParams.boxId);
                             }
-                        }]
+                        }],
+                        likes: ['boxService', '$stateParams', 'user', function (boxService, $stateParams, user) {
+                            if (user.id) {
+                                return boxService.feedLikes($stateParams.boxId);
+                            }
+                        }],
 
                     }
                 },

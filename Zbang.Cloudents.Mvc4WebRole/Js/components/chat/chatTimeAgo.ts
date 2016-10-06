@@ -5,13 +5,14 @@
         format: any;
     }
     class ChatTimeAgo implements angular.IDirective {
-        scope = {
+        scope: { [boundProperty: string]: string } = {
             fromTime: "@",
             format: "@"
         };
         restrict = "EA";
 
         constructor(private timeAgo: any, private nowTime: any) {
+            
         }
         link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery) => {
             /*handle all your linking requirements here*/

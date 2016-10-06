@@ -141,6 +141,7 @@ var app;
                     }
                     var form = self.$scope["quizName"];
                     if (!form.$valid) {
+                        console.log('her');
                         return;
                     }
                     form.$setPristine();
@@ -185,7 +186,7 @@ var app;
             $window.onbeforeunload = function () {
                 for (var i = 0; i < _this.quizData.questions.length; i++) {
                     var question = _this.quizData.questions[i];
-                    if (!question.id) {
+                    if (!question.id && question.validQuestion() !== ValidQuestion.EmptyQuestion) {
                         return _this.resManager.get("quizLeaveTitle");
                     }
                 }

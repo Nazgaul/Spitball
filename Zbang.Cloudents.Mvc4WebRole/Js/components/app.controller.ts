@@ -132,14 +132,16 @@
             if (parentId) {
                 element = this.$document[0].querySelector(`#${parentId}`);
             }
+            var toaster: any = this.$mdToast.simple()
+                .textContent(text)
+                .position("top right")
+                .parent(element)
 
-            this.$mdToast.show(
-                this.$mdToast.simple()
-                    .textContent(text)
-                    .position("top right")
-                    .parent(element)
-                    .theme(theme)
-                    .hideDelay(2000));
+                //.theme(theme)
+                .hideDelay(2000);
+            // typedef doesnt have definition of toastClass
+            toaster.toastClass("angular-animate");
+            this.$mdToast.show(toaster);
         };
 
 

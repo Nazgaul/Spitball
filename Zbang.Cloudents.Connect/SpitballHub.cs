@@ -61,6 +61,10 @@ namespace Zbang.Cloudents.Connect
         }
 
 
+        /// <summary>
+        /// use by worker role to disconnect user
+        /// </summary>
+        /// <param name="userId"></param>
         public void Offline(long userId)
         {
             Clients.Others.offline(userId);
@@ -88,6 +92,22 @@ namespace Zbang.Cloudents.Connect
                 Groups.Add(Context.ConnectionId, $"box:{boxId}");
             }
            
+        }
+        /// <summary>
+        /// Api to disconnect user from signalr - use by mobile api
+        /// </summary>
+        public void Disconnect()
+        {
+            Clients.Others.offline(Context.User.GetUserId());
+            var user = Context.User.GetUserId();
+            try
+            {
+                m_WriteService.ChangeOnlineStatus(new ChangeUserOnlineStatusCommand(user, false, Context.ConnectionId));
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError("OnDisconnected", ex);
+            }
         }
 
         public override Task OnConnected()

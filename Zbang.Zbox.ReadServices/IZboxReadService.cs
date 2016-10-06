@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Enums;
@@ -86,6 +87,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<LikeDto>> GetCommentLikesAsync(GetFeedLikesQuery query);
         Task<IEnumerable<LikeDto>> GetReplyLikesAsync(GetFeedLikesQuery query);
+        Task<IEnumerable<Guid>> GetUserFeedLikesAsync(UserLikesQuery query);
         Task<CommentDto> GetCommentAsync(GetQuestionQuery query);
         Task<bool> GetInviteAsync(GetInviteDetailQuery query);
 

@@ -14,6 +14,10 @@ var app;
             this.resManager = resManager;
             this.focusSearch = false;
             this.users = [];
+            this.usersPaging = function () {
+                page++;
+                _this.search(_this.term, true);
+            };
             this.search();
             $scope.$on("hub-status", function (e, args) {
                 var user = _this.users.find(function (f) { return (f.id === args.userId); });
@@ -124,12 +128,9 @@ var app;
                 });
             }
         };
-        ChatUsers.prototype.usersPaging = function () {
-            page++;
-            this.search(this.term, true);
-        };
         ChatUsers.prototype.chat = function (user) {
             if (user.unread) {
+                user.unread = 0;
                 this.chatBus.read(user.conversation);
                 this.updateUnread();
             }
