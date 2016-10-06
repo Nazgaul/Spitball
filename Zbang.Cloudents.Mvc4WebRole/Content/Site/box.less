@@ -285,9 +285,10 @@ md-menu-item > a.md-button {
         border-radius: 4px;
         .colored-button(@notificationColor, @textColorWhite);
         .colored-button-hover(@notificationColorHover, @textColorWhite);
+        white-space: nowrap;
 
-        @media(min-width: 600px) {
-            white-space: nowrap;
+        @media(max-width: 600px) {
+            padding: 0 10px;
         }
     }
 }

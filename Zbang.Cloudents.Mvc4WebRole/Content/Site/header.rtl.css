@@ -90,7 +90,7 @@
 .md-user-menu .user-menu-item {
   height: inherit;
 }
-.md-user-menu .user-menu-item md-icon {
+.md-user-menu .user-menu-item > .md-button md-icon {
   width: 20px;
   height: 20px;
   margin: 8px 10px;

@@ -257,6 +257,7 @@ md-menu-item > a.md-button {
   border-radius: 4px;
   background: #ec610d;
   color: #ffffff;
+  white-space: nowrap;
 }
 .page-head .need-follow .notificationButton svg,
 .page-head .need-follow .notificationButton md-icon {
@@ -270,9 +271,9 @@ md-menu-item > a.md-button {
 .page-head .need-follow .notificationButton:hover:not([disabled]) md-icon {
   fill: #ffffff;
 }
-@media (min-width: 600px) {
+@media (max-width: 600px) {
   .page-head .need-follow .notificationButton {
-    white-space: nowrap;
+    padding: 0 10px;
   }
 }
 .box-nav-bar ~ div {

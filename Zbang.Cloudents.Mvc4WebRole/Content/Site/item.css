@@ -271,10 +271,17 @@ md-menu-item.blue svg {
 .itemPage .second-line .item-meta {
   white-space: initial;
   text-align: left;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
 }
 .itemPage .second-line .item-meta a,
 .itemPage .second-line .item-meta span {
   display: inline-block;
+  white-space: nowrap;
+}
+.itemPage .second-line .item-meta .date {
+  padding-right: 5px;
 }
 .itemPage .second-line span {
   color: #212325;

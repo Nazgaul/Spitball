@@ -177,6 +177,7 @@
   flex-direction: column;
   -webkit-justify-content: space-between;
   justify-content: space-between;
+  min-height: inherit;
 }
 .invite.invite-dialog .content .center .email .text-wrapper,
 .invite.invite-dialog .content .center .facebook .text-wrapper {
