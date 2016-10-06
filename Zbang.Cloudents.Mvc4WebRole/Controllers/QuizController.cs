@@ -291,8 +291,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         #region question
         [HttpPost]
-        [ZboxAuthorize]
-        public ActionResult CreateQuestion(long? quizId, Models.Quiz.Question model)
+        [ZboxAuthorize,ActionName("CreateQuestion")]
+        public async Task<JsonResult> CreateQuestionAsync(long? quizId, Models.Quiz.Question model)
         {
             //return JsonOk(model);
             if (!quizId.HasValue)
@@ -316,6 +316,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             foreach (var answer in model.Answers)
             {
                 answer.Id = m_GuidGenerator.GetId();
+               await Task.Delay(1);
             }
             var command = new CreateQuestionCommand(quizId.Value, User.GetUserId(),
                 new Zbox.Domain.Commands.Quiz.Question(model.Id.Value,
