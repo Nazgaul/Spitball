@@ -1,6 +1,11 @@
 var app;
 (function (app) {
     "use strict";
+    // enum TabState {
+    //    Doc = 1,
+    //    Course = 2,
+    //    Quiz = 3
+    // }
     var stateName = "searchinfo";
     var tabs = ["doc", "course", "quiz"];
     var page = 0, needToBringMore = true;
@@ -44,6 +49,7 @@ var app;
             });
         };
         SearchController.prototype.changeTab = function (tab) {
+            // self.tab = tab;
             if (tabs.indexOf(tab) === -1) {
                 return;
             }
@@ -51,6 +57,9 @@ var app;
                 return;
             }
             this.$state.go(stateName, { q: this.$stateParams["q"], t: tab });
+            //self.result = [];
+            //bug 5411
+            //$timeout(searchElements);
         };
         SearchController.prototype.myPagingFunction = function () {
             return this.doQuery(true);
@@ -140,3 +149,4 @@ var app;
     }());
     angular.module("app.search").controller("SearchController", SearchController);
 })(app || (app = {}));
+//# sourceMappingURL=search.controller.js.map

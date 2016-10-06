@@ -40,9 +40,35 @@ namespace Zbang.Zbox.WorkerRoleSearch
             m_ZboxWriteService = zboxWriteService;
         }
 
+        private static bool NeedToProcess()
+        {
+            if (DateTime.UtcNow.DayOfWeek == DayOfWeek.Saturday)
+            {
+                return false;
+            }
+            if (DateTime.UtcNow.DayOfWeek == DayOfWeek.Friday)
+            {
+                if (DateTime.UtcNow.Hour > 22)
+                {
+                    return false;
+                }
+            }
+            if (DateTime.UtcNow.DayOfWeek == DayOfWeek.Sunday)
+            {
+                if (DateTime.UtcNow.Hour < 13)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
         {
+            if (!NeedToProcess())
+            {
+                return true;
+            }
             for (var i = 0; i < SpanGunNumberOfQueues; i++)
             {
                 m_Queues[i] = new Queue<SpamGunDto>();

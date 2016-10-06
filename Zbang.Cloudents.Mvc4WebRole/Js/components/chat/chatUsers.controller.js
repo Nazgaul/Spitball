@@ -3,7 +3,7 @@ var app;
     "use strict";
     var page = 0;
     var ChatUsers = (function () {
-        function ChatUsers(chatBus, userDetailsFactory, $timeout, $rootScope, $scope, notificationService, resManager) {
+        function ChatUsers(chatBus, userDetailsFactory, $timeout, $rootScope, $scope, notificationService /*TODO*/, resManager) {
             var _this = this;
             this.chatBus = chatBus;
             this.userDetailsFactory = userDetailsFactory;
@@ -39,29 +39,37 @@ var app;
                 });
             });
             $scope.$on("hub-chat", function (e, args) {
+                //im not in chat at all
                 var self = _this;
                 if (!self.users.length) {
                     _this.search();
                     notificationService.send(resManager.get('toasterChatMessage'), args.message, null, onNotificationClick);
+                    //soundsService.handlers.chat();
                     self.updateUnread();
                     $scope.$applyAsync();
                     return;
                 }
+                //got conversation with that user
                 var user = self.getConversationPartner(args.chatRoom);
                 if (user) {
                     notificationService.send(user.name, args.message, user.image, onNotificationClick);
+                    //soundsService.handlers.chat();
                     user.unread++;
                     self.updateUnread();
                     $scope.$applyAsync();
                     return;
                 }
+                //got no conversation with that user
                 user = self.users.find(function (f) { return (f.id === args.user); });
                 if (!user) {
                     notificationService.send(resManager.get('toasterChatMessage'), args.message, null, onNotificationClick);
+                    //soundsService.handlers.chat();
+                    //need to refresh data to find it.
                     self.search();
                     return;
                 }
                 notificationService.send(user.name, args.message, user.image);
+                //soundsService.handlers.chat();
                 user.unread++;
                 user.conversation = args.id;
                 self.updateUnread();
@@ -91,6 +99,7 @@ var app;
                     page = 0;
                     _this.users = _this.makeUniqueAndRemoveMySelf(response);
                 }
+                // TODO: hack to fix
                 if (!Modernizr.cssscrollbar) {
                     _this.$scope["c"].updateScrollbar2("update");
                 }
@@ -126,7 +135,10 @@ var app;
                 this.$timeout(function () {
                     _this.chatBus.setUnread(x);
                 });
-            }
+            } //else {
+            //c.unread = ++c.unread;
+            //chatBus.setUnread(++c.unread);
+            //}
         };
         ChatUsers.prototype.chat = function (user) {
             if (user.unread) {
@@ -136,6 +148,27 @@ var app;
             }
             this.$rootScope.$broadcast("expandChat");
             this.$scope.$emit("go-chat", user);
+            //            c.userChat = user;
+            //            c.messages = [];
+            //            c.lastPage = false;
+            //            chatBus.chat(c.userChat.conversation,
+            //                [c.userChat.id, userDetailsFactory.get().id],
+            //                '',
+            //                chunkSize
+            //            ).then(function (response) {
+            //                c.messages = handleChatMessages(response);
+            //                scrollToBotton();
+            //                if (response.length < chunkSize) {
+            //                    c.lastPage = true;
+            //                }
+            //            });
+            //            if (c.userChat.unread) {
+            //                chatBus.read(c.userChat.conversation);
+            //                c.userChat.unread = 0;
+            //                updateUnread();
+            //            }
+            //            $rootScope.$broadcast("expandChat");
+            //            c.state = c.states.chat;
         };
         ChatUsers.$inject = ["chatBus", "userDetailsFactory", "$timeout",
             "$rootScope", "$scope", "notificationService", "resManager"];
@@ -143,3 +176,4 @@ var app;
     }());
     angular.module("app.chat").controller("chatUsers", ChatUsers);
 })(app || (app = {}));
+//# sourceMappingURL=chatUsers.controller.js.map

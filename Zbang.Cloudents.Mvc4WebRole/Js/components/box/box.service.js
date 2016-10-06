@@ -160,3 +160,4 @@ var app;
     }());
     angular.module("app.box").service("boxService", BoxService);
 })(app || (app = {}));
+//# sourceMappingURL=box.service.js.map

@@ -17,7 +17,7 @@ public static class StringExtensions
             return string.Empty;
         }
         // Return char and concat substring.
-        return char.ToUpper(s[0]) + s.Substring(1);
+        return char.ToUpper(s[0]) + s.Substring(1).ToLowerInvariant();
     }
 
     //public static string TrimEnd(this string s, params string[] remove)
