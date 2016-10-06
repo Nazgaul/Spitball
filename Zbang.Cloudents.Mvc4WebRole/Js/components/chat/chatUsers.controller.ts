@@ -153,7 +153,7 @@
             //}
 
         }
-        usersPaging() {
+        usersPaging = ()=> {
             page++;
             this.search(this.term, true);
         }
