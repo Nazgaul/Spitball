@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.box.feed').directive('maxElement', maxElement);
     function maxElement() {
         //var elementWidth = 119;
@@ -12,12 +12,13 @@
                 var numberOfElements = parseInt(elm.width() / elementWidth, 10);
                 //console.log(numberOfElements, elementWidth, elm.width());
                 if (numberOfElements >= scope.maxElement.files.length) {
+                    
                     return;
                 }
 
                 scope.maxElement.needMore = scope.maxElement.files.length - numberOfElements;
-                scope.maxElement.limitFiles = numberOfElements -1;
-              
+                scope.maxElement.limitFiles = numberOfElements - 1;
+
             }
         }
     }

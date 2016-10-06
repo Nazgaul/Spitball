@@ -180,7 +180,7 @@
         function assignData(data) {
             for (var i = 0; i < data.length; i++) {
                 var currentPost = data[i];
-                currentPost.limitFiles = 2;
+                //currentPost.limitFiles = 2;
                 // currentPost.creationTime = $filter('date')(currentPost.creationTime, 'medium');
                 var files = currentPost.files;
                 currentPost.fileCount = files.length;
