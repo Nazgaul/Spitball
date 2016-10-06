@@ -23,7 +23,7 @@
   height: calc(100vh - 60px + 1px);
 }
 .homePage.show-forms .home-page-body section.main .forms {
-  max-height: 100vh;
+  max-height: inherit;
 }
 .homePage.show-forms .home-page-body section:not(.main),
 .homePage.show-forms .home-page-body .static-page-footer,
