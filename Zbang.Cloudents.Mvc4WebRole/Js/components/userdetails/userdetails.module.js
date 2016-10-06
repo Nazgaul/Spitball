@@ -1,12 +1,9 @@
-﻿'use strict';
-(function () {
+﻿(function () {
     angular.module('app.ajaxservice', ['angular-cache']);
 })();
 (function () {
     angular.module('app.dashboard', ['app.ajaxservice']);
 })();
-
-
 
 (function () {
     angular.module('app.user.details', ['app.ajaxservice']);
@@ -17,8 +14,6 @@
 (function () {
     angular.module('app.user', ['app.ajaxservice', 'app.user.details', 'app.user.account']);
 })();
-
-
 (function () {
     angular.module('app.library', ['app.ajaxservice']);
 })();
