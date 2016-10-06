@@ -570,6 +570,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\User\Resources\GamificationResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GamificationResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\User\Resources\UserResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1436,6 +1441,7 @@
     <Content Include="Audio\message.mp3" />
     <Content Include="Images\Site\no_search_results.png" />
     <Content Include="Images\Site\no_uni.png" />
+    <Content Include="Images\Site\profileIcons.svg" />
     <Content Include="Images\Site\search_uni.png" />
     <Content Include="Images\HomePage2\testimonial1_he.jpg" />
     <Content Include="Images\HomePage2\testimonial2_he.jpg" />
@@ -1504,6 +1510,7 @@
     <Content Include="Images\Site\itemIcons.svg" />
     <Content Include="Images\Site\icons.svg" />
     <Content Include="Images\Site\social-icons.svg" />
+    <Content Include="Images\Site\stars.png" />
     <Content Include="Images\Site\uploadIcons.svg" />
     <Content Include="Images\Site\user_0.png" />
     <Content Include="Images\Site\user_1.png" />
@@ -2940,6 +2947,11 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SharedResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\User\Resources\GamificationResources.he.resx" />
+    <EmbeddedResource Include="Views\User\Resources\GamificationResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GamificationResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\User\Resources\UserResources.he.resx" />
     <EmbeddedResource Include="Views\User\Resources\UserResources.resx">

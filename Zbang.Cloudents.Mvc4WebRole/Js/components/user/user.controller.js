@@ -18,14 +18,22 @@
         self.isUserProfile = userDetailsFactory.get().id === userData.id;
         self.details = userData;
         self.state = {
-            box: 'b',
+            //box: 'b',
+            badges: 'b',
             item: 'u',
             post: 'p',
             quiz: 'q',
             friend: 'f'
 
         }
-        self.tab = self.state.box;
+        self.badgesState = {
+            levels: 'l',
+            badges: 'b',
+            community: 'c'
+        }
+        //self.tab = self.state.box;
+        self.tab = self.state.badges;
+        self.badgesTab = self.badgesState.levels;
         //self.elements = [];
 
         self.changeTab = function (tab) {
@@ -43,8 +51,19 @@
                 case self.state.friend:
                     loadFriends(true);
                     break;
-                default:
-                    loadboxes(true);
+                    //default:
+                    //    loadboxes(true);
+            }
+        }
+        self.changeBadgesTab = function (tab) {
+            self.badgesTab = tab;
+            switch (self.badgesTab) {
+                case self.badgesState.levels:                    
+                    break;
+                case self.badgesState.badges:                    
+                    break;
+                case self.badgesState.community:                  
+                    break
             }
         }
         self.myPagingFunction = function () {
@@ -114,7 +133,7 @@
                 disablePaging = false;
             });
         }
-        
+
         //TODO: write this as one function.
         function loadItems(fromTab) {
             if (fromTab && self.files.length) {
@@ -163,7 +182,7 @@
             });
         }
         function loadboxes(fromTab) {
-            if (fromTab && self.boxes.length){
+            if (fromTab && self.boxes.length) {
                 return returnEmptyPromise();
             }
             if (self.boxesLoading) {

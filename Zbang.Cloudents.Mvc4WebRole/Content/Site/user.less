@@ -127,10 +127,94 @@
         height: 54px;
     }
 
+    .badges-tabs {
+        md-tabs-canvas, md-pagination-wrapper {
+            height: 90px;
+        }
+    }
+
     .tab-content {
         margin: 0 -8px;
         //bottom: 0;
         //TODO: need to fix that
+        .badges {
+            margin: 0 8px;
+            background: @textColorLightWhite;
+            border-radius: 10px;
+
+            .badges-bar {
+                .displayFlex;
+                .align-items(flex-start);
+                border-radius: 10px 10px 0 0;
+                background: @headerbackground;
+
+                md-icon {
+                    width: 28px;
+                    height: 28px;
+                    margin-top: 24px;
+                    margin-left: 32px;
+                }
+            }
+
+            .info {
+                flex-grow: 0;
+                flex-shrink: 1;
+            }
+
+            md-tabs {
+                flex-grow: 1;
+                flex-shrink: 0;
+
+                h4 {
+                    font-size: 20px;
+                    margin: 26px 0;
+                }
+
+                .md-tab.md-active {
+                    color: @badgesYellow;
+                }
+            }
+
+            .tab {
+                &.levels {
+                    position: relative;
+
+                    .bg {
+                        position: absolute;
+                    }
+
+                    ul {
+                        padding: 0;
+                    }
+
+                    .level {
+                        .displayFlex;
+                        .align-items(center);
+                        font-size: 18px;
+                        padding: 25px 50px;
+
+                        .title {
+                            text-align: center;
+                        }
+
+                        .body {
+                            padding-left: 50px;
+                        }
+                    }
+
+                    .image {
+                        width: 150px;
+                        height: 150px;
+                        background: rgba(255,206,47,0.5);
+                    }
+                }
+            }
+
+            md-ink-bar {
+                background: @badgesYellow;
+                height: 10px;
+            }
+        }
     }
 
     md-tab-content {
@@ -214,7 +298,8 @@
             margin: 0 12px;
             background: none;
         }
-        .user-box{
+
+        .user-box {
             min-width: 300px;
         }
     }
