@@ -8,6 +8,7 @@
     </id>
     <many-to-one name="Comment" class="Comment" column="CommentId" not-null="true" foreign-key="commentIdCommentLike" unique-key="commentLikeCommentIdOwnerId"/>
     <many-to-one name="User" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdCommentLike" unique-key="commentLikeCommentIdOwnerId"/>
+    <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdCommentLike"/>
     <property name="CreationTime" insert="true" update="false">
       <column name="CreationTime" not-null="true" sql-type="datetime2(2)"/>
     </property>
@@ -19,6 +20,7 @@
     </id>
     <many-to-one name="Reply" class="CommentReply" column="ReplyId" not-null="true" foreign-key="replyIdReplyLike" unique-key="replyLikeReplyIdOwnerId"/>
     <many-to-one name="User" class="User" column="OwnerId" not-null="true" foreign-key="ownerIdReplyLike" unique-key="replyLikeReplyIdOwnerId"/>
+    <many-to-one name="Box" class="Box" column="BoxId" not-null="true" foreign-key="boxIdCommentLike"/>
     <property name="CreationTime" insert="true" update="false">
       <column name="CreationTime" not-null="true" sql-type="datetime2(2)"/>
     </property>

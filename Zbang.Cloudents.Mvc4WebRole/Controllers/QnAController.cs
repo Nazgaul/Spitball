@@ -138,6 +138,14 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
+        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false), BoxPermission("id"), ActionName("Likes")]
+        public async Task<JsonResult> LikesAsync(long id)
+        {
+            var query = new UserLikesQuery(User.GetUserId(), id);
+            var retVal = await ZboxReadService.GetUserFeedLikesAsync(query);
+            return JsonOk(retVal);
+        }
+
 
         [ZboxAuthorize]
         [HttpPost]

@@ -4,12 +4,12 @@
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',
         'user', 'userUpdatesService', '$mdDialog', '$scope', '$rootScope',
-        'resManager', 'routerHelper', '$filter', 'feedData', 'updates', "$q", "$window"];
+        'resManager', 'routerHelper', '$filter', 'feedData', 'updates', "$q", "$window", "likes"];
 
     function feed(boxService, $stateParams, $timeout, externalUploadProvider,
         itemThumbnailService, user, userUpdatesService,
         $mdDialog, $scope, $rootScope, resManager, routerHelper,
-        $filter, feedData, updates, $q, $window) {
+        $filter, feedData, updates, $q, $window, likes) {
         var self = this, boxId = parseInt($stateParams.boxId, 10), top = 30;
 
         self.add = {
@@ -33,29 +33,51 @@
         self.likeReply = likeReply;
         self.likeReplyDialog = likeReplyDialog;
         self.likeCommentDialog = likeCommentDialog;
-        var feedUpdates = {};
+        // var feedUpdates = {};
         var disablePaging = false;
 
         if (user.id) {
-            feedUpdates = updates;
+            // feedUpdates = updates;
             userUpdatesService.deleteUpdates(boxId);
         }
         self.data = assignData(feedData);
         scrollToPosition();
 
-        function appendUpdates(postsList) {
-            if (!feedUpdates) {
+
+        function appendLikes(postsList) {
+            if (!likes) {
                 return postsList;
             }
             for (var i = 0; i < postsList.length; i++) {
                 var currentPost = postsList[i];
-                if (feedUpdates && feedUpdates[currentPost.id]) {
+                if (likes.indexOf(currentPost.id)) {
+                    currentPost.isLiked = true;
+                    //reply.isLiked
+                }
+
+                for (var j = 0; j < currentPost.replies.length; j++) {
+                    var currentreply = currentPost.replies[j];
+                    if (likes.indexOf(currentreply.id)) {
+                        currentreply.isLiked = true;
+                    }
+                }
+
+            }
+            return postsList;
+        }
+        function appendUpdates(postsList) {
+            if (!updates) {
+                return postsList;
+            }
+            for (var i = 0; i < postsList.length; i++) {
+                var currentPost = postsList[i];
+                if (updates && updates[currentPost.id]) {
                     currentPost.isNew = true;
                 }
                 if (angular.isDefined(currentPost) && currentPost !== null) {
                     for (var j = 0; j < currentPost.replies.length; j++) {
                         var currentreply = currentPost.replies[j];
-                        if (feedUpdates[currentreply.id]) {
+                        if (updates[currentreply.id]) {
                             currentreply.isNew = true;
                         }
                     }
@@ -180,8 +202,6 @@
         function assignData(data) {
             for (var i = 0; i < data.length; i++) {
                 var currentPost = data[i];
-                //currentPost.limitFiles = 2;
-                // currentPost.creationTime = $filter('date')(currentPost.creationTime, 'medium');
                 var files = currentPost.files;
                 currentPost.fileCount = files.length;
                 for (var j = 0; j < files.length; j++) {
@@ -207,6 +227,7 @@
                 }
             }
             appendUpdates(data);
+            appendLikes(data);
             return data;
 
             function buildItem(elem) {

@@ -173,6 +173,7 @@
     <Compile Include="Queries\QnA\GetCommentRepliesQuery.cs" />
     <Compile Include="Queries\QnA\GetFeedLikesQuery.cs" />
     <Compile Include="Queries\QnA\GetQuestionQuery.cs" />
+    <Compile Include="Queries\QnA\UserLikesQuery.cs" />
     <Compile Include="Queries\QueryBase.cs" />
     <Compile Include="Queries\GetBoxQuery.cs" />
     <Compile Include="Queries\GetBoxItemsPagedQuery.cs" />

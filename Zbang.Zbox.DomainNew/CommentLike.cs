@@ -16,6 +16,7 @@ namespace Zbang.Zbox.Domain
             User = user;
             Comment = comment;
             CreationTime = DateTime.UtcNow;
+            Box = comment.Box;
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
         }
 
@@ -25,5 +26,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual Comment Comment { get; protected set; }
         public virtual DateTime CreationTime { get; protected set; }
+
+        public virtual Box Box { get; protected set; }
     }
 }
