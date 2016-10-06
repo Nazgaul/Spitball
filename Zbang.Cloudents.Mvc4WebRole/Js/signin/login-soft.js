@@ -7,11 +7,6 @@ var Login = function () {
         'register': 2
     };
 
-
-    $.validator.addMethod("nowhitespace", function (value, element) {
-        return this.optional(element) || /^\S+$/i.test(value);
-    }, 'Password cannot contain spaces');
-
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
             (i[r].q = i[r].q || []).push(arguments)
@@ -157,8 +152,7 @@ var Login = function () {
                 },
                 Password: {
                     required: true,
-                    minlength: 6,
-                    nowhitespace: true
+                    minlength: 6
                 }
             },
             //invalidHandler: function (event, validator) { //display error alert on form submit   
