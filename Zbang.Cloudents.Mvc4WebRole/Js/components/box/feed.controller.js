@@ -44,19 +44,19 @@
 
 
         function appendLikes(postsList) {
-            if (!likes) {
+            if (!likes.length) {
                 return postsList;
             }
             for (var i = 0; i < postsList.length; i++) {
                 var currentPost = postsList[i];
-                if (likes.indexOf(currentPost.id)) {
+                if (likes.indexOf(currentPost.id) > -1) {
                     currentPost.isLiked = true;
                     //reply.isLiked
                 }
 
                 for (var j = 0; j < currentPost.replies.length; j++) {
                     var currentreply = currentPost.replies[j];
-                    if (likes.indexOf(currentreply.id)) {
+                    if (likes.indexOf(currentreply.id) > -1) {
                         currentreply.isLiked = true;
                     }
                 }

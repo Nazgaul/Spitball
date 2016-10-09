@@ -500,7 +500,13 @@ where ownerid = @UserId and boxid = @BoxId;";
                 const string replySql = @"select ReplyId from zbox.ReplyLike
 where ownerid = @UserId and boxid = @BoxId;";
 
-                return await con.QueryAsync<Guid>(commentSql + replySql, new { query.UserId, query.BoxId });
+                using (var grid = await con.QueryMultipleAsync(commentSql + replySql, new {query.UserId, query.BoxId}))
+                {
+                    var retVal = new List<Guid>();
+                    retVal.AddRange(await grid.ReadAsync<Guid>());
+                    retVal.AddRange(await grid.ReadAsync<Guid>());
+                    return retVal;
+                }
             }
         }
 
