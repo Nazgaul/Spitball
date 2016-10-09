@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
@@ -91,7 +92,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         public ActionResult Download(string blobName)
         {
-            var str = m_BlobProviderChat.GenerateSharedAccressReadPermission(blobName, 30);
+            var str = m_BlobProviderChat.GenerateSharedAccressReadPermission(blobName, 30, ContentDispositionUtil.GetHeaderValue(blobName));
             return Redirect(str);
         }
 

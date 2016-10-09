@@ -199,8 +199,15 @@
 
         //self.limitFiles = 100;
         function assignData(data) {
+            var flags = [];
+            var output = [];
             for (var i = 0; i < data.length; i++) {
                 var currentPost = data[i];
+                if (flags[currentPost.id]) continue;
+                flags[currentPost.id] = true;
+               
+
+
                 var files = currentPost.files;
                 currentPost.fileCount = files.length;
                 for (var j = 0; j < files.length; j++) {
@@ -224,10 +231,11 @@
                     var currentReply = currentPost.replies[k];
                     angular.forEach(currentReply.files, buildItem);
                 }
+                output.push(currentPost);
             }
-            appendUpdates(data);
-            appendLikes(data);
-            return data;
+            appendUpdates(output);
+            appendLikes(output);
+            return output;
 
             function buildItem(elem) {
                 var retVal2 = itemThumbnailService.assignValue(elem.source, 100, 141);

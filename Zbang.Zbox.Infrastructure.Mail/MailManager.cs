@@ -160,7 +160,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             request.AddParameter("from", parameters.SenderName);
             request.AddParameter("to", ConfigFetcher.IsEmulated ? "ram@cloudents.com" : recipient);
-            request.AddParameter("bcc", "sbtester82.5@gmail.com");
+            //request.AddParameter("bcc", "sbtester82.5@gmail.com");
             request.AddParameter("subject", mail.AddSubject());
             request.AddParameter("html", mail.GenerateMail().Replace("{email}", recipient));
             request.AddParameter("o:tag", mail.AddCategory());
