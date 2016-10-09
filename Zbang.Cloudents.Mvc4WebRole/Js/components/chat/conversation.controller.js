@@ -106,6 +106,7 @@ var app;
                         _this.chatBus.setUnread(--unread);
                     });
                     $scope.$apply();
+                    _this.chatBus.read(_this.userChat.conversation);
                     _this.scrollToBotton();
                     return;
                 }

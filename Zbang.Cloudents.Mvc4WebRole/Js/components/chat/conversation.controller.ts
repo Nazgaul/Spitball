@@ -70,6 +70,7 @@
                         var unread = this.chatBus.getUnread();
                         this.chatBus.setUnread(--unread);
                     });
+                    
                     $scope.$apply();
                     this.scrollToBotton();
                     return;
@@ -93,6 +94,7 @@
                         this.chatBus.setUnread(--unread);
                     });
                     $scope.$apply();
+                    this.chatBus.read(this.userChat.conversation);
                     this.scrollToBotton();
                     return;
                 }
