@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.account').controller('UnregisterShowController', unregister);
     unregister.$inject = ['facebookService', 'accountService',
         'googleService', '$state', '$rootScope', 'CacheFactory'];

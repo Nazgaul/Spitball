@@ -1,16 +1,15 @@
 ﻿(function () {
-
-
+    'use strict';
     angular.module('app').service('notificationService', desktopNotification);
-    desktopNotification.$inject = ['$document', '$mdToast', 'resManager', '$mdSidenav'];
+    desktopNotification.$inject = ['$document', '$mdToast', 'resManager'];
 
-    function desktopNotification($document, $mdToast, resManager, $mdSidenav) {
+    function desktopNotification($document, $mdToast, resManager) {
         requestPermission();
         function requestPermission() {
             if (!('Notification' in window)) {
                 return;
             }
-            Notification.requestPermission(function (permission) {
+            Notification.requestPermission(function () {
                 //var notification = new Notification("Title", { body: 'HTML5 Web Notification API', icon: 'http://i.stack.imgur.com/Jzjhz.png?s=48&g=1', dir: 'auto' });
                 //setTimeout(function () {
                 //    notification.close();

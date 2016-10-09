@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+'use strict';
     angular.module('app.account').controller('AccountSettingsNotificationController', notification);
 
     notification.$inject = ['accountService', '$document', 'resManager', '$scope'];

@@ -1,5 +1,4 @@
-﻿
-(function () {
+﻿(function () {
     'use strict';
     angular.module('app.box.feed').controller('FeedController', feed);
     feed.$inject = ['boxService', '$stateParams', '$timeout', 'externalUploadProvider', 'itemThumbnailService',

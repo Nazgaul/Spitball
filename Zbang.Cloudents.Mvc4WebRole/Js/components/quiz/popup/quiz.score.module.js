@@ -1,4 +1,4 @@
-﻿'use strict';
-(function () {
-    angular.module('app.quiz.score',[]);
+﻿(function () {
+    'use strict';
+    angular.module('app.quiz.score', []);
 })();

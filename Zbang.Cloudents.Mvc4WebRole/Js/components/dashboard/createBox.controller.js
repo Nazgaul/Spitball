@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.dashboard').controller('CreateBoxController', controller);
 
     controller.$inject = ['dashboardService', '$location', '$scope', '$rootScope', 'resManager'];

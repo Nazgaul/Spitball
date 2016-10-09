@@ -1,5 +1,4 @@
-﻿
-(function () {
+﻿(function () {
     'use strict';
     angular.module('app.user.details').controller('UserDetailsController', userDetailsController);
     userDetailsController.$inject = ['accountService', '$scope', 'userDetailsFactory'];

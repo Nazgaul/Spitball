@@ -24,6 +24,7 @@
 })();
 
 (function () {
+    //TODO different file
     // in order to raise keyboard we need user interaction in ios
     'use strict';
     angular.module('app').directive('focusUponClick', focusMe);

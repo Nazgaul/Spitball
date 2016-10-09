@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.ajaxservice').factory('ajaxService', ajaxService);
     ajaxService.$inject = ['$http', '$q', 'Analytics' ];
 

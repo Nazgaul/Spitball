@@ -52,7 +52,7 @@
                 deepVal(attrs.ngScrollbarsConfig, scope)['callbacks'] = callbacks;
                 function runAction() {
                     if (destroyed) {
-                        return
+                        return;
                     }
                     return deepVal(attrs.ngScrollbarsPagingFunction, scope)();
                 }

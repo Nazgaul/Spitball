@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+'use strict';
     angular.module('app.box.quizzes').controller('QuizzesController', quizzes);
     quizzes.$inject = ['boxService', '$stateParams', '$mdDialog', 'quizService', 'boxData', '$mdMedia', '$state', 'user', '$rootScope', 'resManager'];
 

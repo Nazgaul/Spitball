@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.library').service('libraryService', library);
     library.$inject = ['ajaxService2'];
 

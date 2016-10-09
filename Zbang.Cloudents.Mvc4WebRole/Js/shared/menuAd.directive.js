@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app').directive('menuAd', menuAd);
     menuAd.$inject = ['$compile', '$timeout'];
 

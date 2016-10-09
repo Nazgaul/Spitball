@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+'use strict';
     angular.module('app.account').controller('AccountSettingsDepartmentController', department);
     department.$inject = ['accountService', '$scope', 'resManager'];
 

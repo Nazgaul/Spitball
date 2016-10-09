@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.user').service('userService', user);
     user.$inject = ['ajaxService'];
 

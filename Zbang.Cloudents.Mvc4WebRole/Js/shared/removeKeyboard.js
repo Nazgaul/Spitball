@@ -1,5 +1,5 @@
-﻿'use strict';
-(function() {
+﻿(function() {
+    'use strict';
     angular.module('app').directive('removeKeyboard', removeKeyboard);
 
     function removeKeyboard() {
@@ -15,7 +15,9 @@
         };
     }
 })();
-(function() {
+(function () {
+    //TODO file
+    'use strict';
     angular.module('app').directive('enterSubmit', enterSubmit);
 
     function enterSubmit() {

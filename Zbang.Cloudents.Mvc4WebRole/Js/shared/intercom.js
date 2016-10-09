@@ -1,5 +1,5 @@
-'use strict';
 (function () {
+    'use strict';
     angular.module('app').run(intercom);
     intercom.$inject = ['userDetailsFactory', '$rootScope', '$mdMenu'];
     function intercom(userDetailsFactory, $rootScope, $mdMenu) {

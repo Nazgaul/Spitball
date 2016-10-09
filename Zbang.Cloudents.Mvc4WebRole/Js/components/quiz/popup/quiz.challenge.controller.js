@@ -1,6 +1,6 @@
-﻿'use strict';
-(function () {
-    angular.module('app.quiz.challenge',[]).controller('QuizChallengeController', popup);
+﻿(function () {
+    'use strict';
+    angular.module('app.quiz.challenge', []).controller('QuizChallengeController', popup);
 
     popup.$inject = ['$modalInstance', 'solvers'];
 

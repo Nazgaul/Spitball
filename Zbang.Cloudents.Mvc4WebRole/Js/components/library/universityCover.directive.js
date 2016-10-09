@@ -1,4 +1,5 @@
 ﻿(function () {
+    'use strict';
     angular.module('app').directive('univeristyCover', univeristyCover);
     univeristyCover.$inject = ['itemThumbnailService', '$timeout'];
 

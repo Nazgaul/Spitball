@@ -1,5 +1,5 @@
-﻿'use strict';
-(function() {
+﻿(function() {
+    'use strict';
     angular.module('app').factory('dropboxService',
     ['$document', '$q', '$timeout',"$interval",
     function ($document, $q, $timeout, $interval) {

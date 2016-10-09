@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.box.feed').controller('likesController', likesController);
     likesController.$inject = ['$mdDialog', 'users', '$rootScope'];
     function likesController($mdDialog, users, $rootScope) {

@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app').directive('animationClass', animClass);
     animClass.$inject = ['$state'];
 

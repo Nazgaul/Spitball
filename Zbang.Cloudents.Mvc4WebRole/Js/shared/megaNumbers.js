@@ -1,6 +1,6 @@
-﻿'use strict';
-(function() {
-    angular.module('app').filter("megaNumber", function() {
+﻿(function() {
+    'use strict';
+    angular.module('app').filter("megaNumber", function () {
         return function(number, fractionSize) {
             if (number === undefined) return null;
             if (number === null) return null;

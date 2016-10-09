@@ -1,5 +1,7 @@
-﻿'use strict';
+﻿
 (function () {
+    'use strict';
+    //TODO: on quiz directory
     angular.module('app.quiz').directive('appFilereader', appFilereader);
     appFilereader.$inject = ['$stateParams'];
     function appFilereader($stateParams) {

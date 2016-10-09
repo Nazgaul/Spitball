@@ -1,5 +1,5 @@
-﻿'use strict';
-(function () {
+﻿(function () {
+    'use strict';
     angular.module('app.account').controller('AccountSettingsPasswordController', password);
 
     password.$inject = ['accountService', '$mdToast', '$document', '$scope', 'resManager'];

@@ -1,4 +1,4 @@
-﻿'use strict';
-(function () {
-    angular.module('app.quiz.challenge',[]);
+﻿(function () {
+    'use strict';
+    angular.module('app.quiz.challenge', []);
 })();

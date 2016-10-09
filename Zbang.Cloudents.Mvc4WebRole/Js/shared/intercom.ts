@@ -1,9 +1,11 @@
 ﻿/// <reference path="../../scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="../shared/userDetails.ts" />
-'use strict';
 declare var Intercom: any;
 
 (() => {
+    //TODO: class
+    'use strict';
+
     angular.module('app').run(intercom);
     intercom.$inject = ['userDetailsFactory', '$rootScope', '$mdMenu'];
     function intercom(userDetailsFactory: app.IUserDetailsFactory, $rootScope: ng.IRootScopeService, $mdMenu: any) {
