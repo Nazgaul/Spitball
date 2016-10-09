@@ -1436,7 +1436,11 @@
     <Content Include="Images\HomePage2\HP_image.jpg" />
     <Content Include="Images\HomePage2\infographics_en.png" />
     <Content Include="Images\HomePage2\infographics_he.png" />
+    <Content Include="Images\Site\community-bg.png" />
     <Content Include="Images\Site\create_uni_text_blue.png" />
+    <Content Include="Images\Site\Leaderborad-bg-l.png" />
+    <Content Include="Images\Site\Leaderborad-bg-r.png" />
+    <Content Include="Images\Site\Leaderborad-title.png" />
     <Content Include="Images\Site\logo_spitball.png" />
     <Content Include="Audio\message.mp3" />
     <Content Include="Images\Site\no_search_results.png" />

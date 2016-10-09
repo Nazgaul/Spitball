@@ -377,6 +377,47 @@
                         }
                     }
                 }
+
+                &.community {
+                    .top {
+                        background-image: url(/Images/Site/community-bg.png);
+                        height: 160px;
+                        background: black;
+                        position: relative;
+                        text-align: center;
+
+                        .bg-r, .bg-l {
+                            background-repeat: no-repeat;
+                        }
+
+                        .bg-l {
+                            width: 388px;
+                            background-image: url(/Images/Site/Leaderborad-bg-l.png);
+                            background-position: -45px -12px;
+                            position: absolute;
+                            left: 0;
+                            height: 160px;
+                            bottom: 0;
+                            z-index: 0;
+                        }
+
+                        .bg-r {
+                            width: 290px;
+                            background-image: url(/Images/Site/Leaderborad-bg-r.png);
+                            position: absolute;
+                            height: 160px;
+                            right: 0;
+                            z-index: 0;
+                        }
+
+                        .title {
+                            margin: 0 auto;
+                            top: 40px;
+                            max-width: 100%;
+                            position: relative;
+                        }
+                    }
+                }
             }
 
             md-ink-bar {

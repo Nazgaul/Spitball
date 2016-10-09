@@ -319,6 +319,41 @@
   max-width: 140px;
   margin: 0 auto;
 }
+.userPage .tab-content .badges .tab.community .top {
+  background-image: url(/Images/Site/community-bg.png);
+  height: 160px;
+  background: black;
+  position: relative;
+  text-align: center;
+}
+.userPage .tab-content .badges .tab.community .top .bg-r,
+.userPage .tab-content .badges .tab.community .top .bg-l {
+  background-repeat: no-repeat;
+}
+.userPage .tab-content .badges .tab.community .top .bg-l {
+  width: 388px;
+  background-image: url(/Images/Site/Leaderborad-bg-l.png);
+  background-position: -45px -12px;
+  position: absolute;
+  right: 0;
+  height: 160px;
+  bottom: 0;
+  z-index: 0;
+}
+.userPage .tab-content .badges .tab.community .top .bg-r {
+  width: 290px;
+  background-image: url(/Images/Site/Leaderborad-bg-r.png);
+  position: absolute;
+  height: 160px;
+  left: 0;
+  z-index: 0;
+}
+.userPage .tab-content .badges .tab.community .top .title {
+  margin: 0 auto;
+  top: 40px;
+  max-width: 100%;
+  position: relative;
+}
 .userPage .tab-content .badges md-ink-bar {
   background: #ffce2f;
   height: 10px;
