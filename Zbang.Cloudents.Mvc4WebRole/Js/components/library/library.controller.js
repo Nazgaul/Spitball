@@ -183,10 +183,15 @@
         }
 
         function createBox(myform) {
+            if (!l.secondStep) {
+                l.secondStep = true;
+                return;
+            }
             l.submitDisabled = true;
             libraryService.createClass(l.boxName, l.code, l.professor, nodeId).then(function (response) {
+                boxCancel();
                 l.createClassShow = l.secondStep = false;
-                resetFiled(myform);
+                //resetFiled(myform);
                 $scope.app.showToaster(resManager.get('toasterCreateCourse'));
                 $location.url(response.url);
             }, function (response) {
