@@ -301,6 +301,20 @@
 .quizPage .feed .info.indent {
   margin: 0;
 }
+.quizPage .feed .userblock {
+  position: relative;
+}
+.quizPage .feed .userblock .user-name {
+  padding-bottom: 16px;
+}
+.quizPage .feed .comment-date {
+  margin-left: 12px;
+  position: absolute;
+  bottom: 14px;
+}
+.quizPage .feed .content-text {
+  margin-left: 74px;
+}
 .quiz-question p {
   margin: 0 0 0 10px;
 }
