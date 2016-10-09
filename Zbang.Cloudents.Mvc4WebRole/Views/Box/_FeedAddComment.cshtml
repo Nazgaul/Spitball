@@ -33,8 +33,8 @@
                 @*@Html.Svg(url, "googleDrive")
                 @Html.Svg(url, "googleDriveClean")*@
             </button>
-            <button type="button" ng-mouseover="f.add.init()" @*ng-disabled="f.add.dropboxDisabled"*@ ng-click="f.add.dropbox()" ga-track-event="['box-new-commnet', 'dropbox']">
-                <md-icon md-svg-icon="u:dropbox" class="dropbox"></md-icon>
+            <button type="button" class="dropbox" ng-mouseover="f.add.init()" @*ng-disabled="f.add.dropboxDisabled"*@ ng-click="f.add.dropbox()" ga-track-event="['box-new-commnet', 'dropbox']">
+                <md-icon md-svg-icon="u:dropbox"></md-icon>
                 @*@Html.Svg(url, "dropbox", new {@class = "dropbox"})*@
             </button>
         </div>
