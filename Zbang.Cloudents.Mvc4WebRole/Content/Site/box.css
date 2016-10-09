@@ -459,7 +459,7 @@ md-menu-item > a.md-button {
 .add-comment input[type=checkbox]:checked + label svg {
   fill: #d39f10;
 }
-.add-comment .dropbox:hover {
+.add-comment .dropbox:hover md-icon {
   fill: #007EE5;
 }
 .add-comment .link:hover {
