@@ -130,6 +130,14 @@
     .badges-tabs {
         md-tabs-canvas, md-pagination-wrapper {
             height: 90px;
+
+            @media(min-width: 600px) {
+                min-width: 100%;
+            }
+
+            @media(max-width: 600px) {
+                height: 40px;
+            }
         }
     }
 
@@ -144,21 +152,35 @@
 
             .badges-bar {
                 .displayFlex;
-                .align-items(flex-start);
+                .align-items(center);
                 border-radius: 10px 10px 0 0;
                 background: @headerbackground;
-
-                md-icon {
-                    width: 28px;
-                    height: 28px;
-                    margin-top: 24px;
-                    margin-left: 32px;
-                }
             }
 
             .info {
                 flex-grow: 0;
                 flex-shrink: 1;
+
+                md-icon {
+                    width: 28px;
+                    height: 28px;
+                    margin-left: 32px;
+                    margin-bottom: 14px;
+
+                    @media(max-width: 600px) {
+                        width: 16px;
+                        height: 16px;
+                        margin-bottom: 0;
+                        margin-left: 10px;
+                    }
+                }
+            }
+
+            md-tab-item {
+
+                @media(min-width: 600px) {
+                    min-width: 33%;
+                }
             }
 
             md-tabs {
@@ -168,6 +190,11 @@
                 h4 {
                     font-size: 20px;
                     margin: 26px 0;
+
+                    @media(max-width: 600px) {
+                        font-size: 12px;
+                        margin: 5px 0;
+                    }
                 }
 
                 .md-tab.md-active {
@@ -176,6 +203,27 @@
             }
 
             .tab {
+                .image {
+                    background: rgba(255,206,47,0.5);
+                }
+
+                md-progress-linear.md-default-theme .md-container,
+                md-progress-linear .md-container {
+                    background-color: @backgroundColor;
+                    border-radius: 5px;
+                }
+
+                md-progress-linear .md-bar {
+                    background: @badgesYellow;
+                }
+
+                md-progress-linear,
+                md-progress-linear .md-bar,
+                md-progress-linear.md-default-theme .md-container,
+                md-progress-linear .md-container {
+                    height: 10px;
+                }
+
                 &.levels {
                     position: relative;
 
@@ -192,20 +240,141 @@
                         .align-items(center);
                         font-size: 18px;
                         padding: 25px 50px;
+                        border-bottom: 1px solid @backgroundColor;
 
                         .title {
                             text-align: center;
                         }
 
+                        .name {
+                            margin-top: 10px;
+                        }
+
                         .body {
                             padding-left: 50px;
+                            width: 100%;
                         }
                     }
 
                     .image {
                         width: 150px;
                         height: 150px;
-                        background: rgba(255,206,47,0.5);
+                    }
+
+                    md-progress-linear {
+                        margin: 30px 0 10px 0;
+                    }
+
+                    .counter {
+                        text-align: right;
+                        color: @buttonColorBlue;
+                        margin-top: 16px;
+                    }
+                }
+
+                &.badges {
+                    .expanded {
+                        padding: 70px 0;
+                        position: relative;
+
+                        .badge-container {
+                            width: 290px;
+                            max-width: 100%;
+                            margin: 0 auto;
+                            display: block;
+
+                            .image {
+                                width: 126px;
+                                height: 110px;
+                            }
+
+                            md-icon {
+                                width: 36px;
+                                height: 36px;
+                                padding: 8px;
+                            }
+                        }
+
+                        .details {
+                            background: @badgesYellow;
+                            margin: 20px -10px -16px -10px;
+                            color: @textColorWhite;
+                            padding: 20px;
+                            font-size: 20px;
+
+                            .condition {
+                                margin-bottom: 26px;
+                            }
+
+                            .points {
+                                display: inline-block;
+                                margin: 0 auto;
+                                padding: 5px 10px;
+                                border: 1px solid @textColorWhite;
+                                border-radius: 9px;
+                            }
+                        }
+
+                        .next, .prev {
+                            position: absolute;
+                            top: 50%;
+                        }
+
+                        .next {
+                            right: 5px;
+                        }
+
+                        .prev {
+                            left: 5px;
+                        }
+
+                        .close {
+                            position: absolute;
+                            top: 5px;
+                            right: 5px;
+                        }
+                    }
+
+                    .badge-container {
+                        width: 160px;
+                        text-align: center;
+                        padding: 26px 8px 16px 8px;
+                        display: inline-block;
+                        border: 1px solid @backgroundColor2;
+                        margin: 15px;
+                        margin-top: 30px;
+                        font-size: 18px;
+                        position: relative;
+
+
+                        md-icon {
+                            width: 20px;
+                            height: 20px;
+                            border-radius: 100%;
+                            padding: 4px;
+                            position: absolute;
+                            right: 10px;
+                            top: 10px;
+                            background: @badgesYellow;
+                        }
+
+                        .image {
+                            width: 100px;
+                            height: 87px;
+                            margin: 0 auto;
+                        }
+
+                        .text {
+                            margin: 24px 0 6px 0;
+                        }
+
+                        .progress {
+                            padding: 10px;
+                            border: 2px solid @badgesYellow;
+                            border-radius: 10px;
+                            max-width: 140px;
+                            margin: 0 auto;
+                        }
                     }
                 }
             }
@@ -213,6 +382,10 @@
             md-ink-bar {
                 background: @badgesYellow;
                 height: 10px;
+
+                @media(max-width: 600px) {
+                    height: 3px;
+                }
             }
         }
     }
@@ -222,7 +395,7 @@
     }
 
 
-    md-tabs {
+    .page-tabs {
         padding: 0;
         /*Fixed color box overalying members and items*/
         md-tab-content.md-left:not(.md-active) {
