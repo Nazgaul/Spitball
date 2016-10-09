@@ -25,8 +25,8 @@
         //l.universityName = userDetailsFactory.get().university.name;
 
         //l.topTree = nodeId == null;
-        l.createDepartmentShow = l.state.withDepartmentAdmin || l.state.emptyNodeAdmin; //userDetailsFactory.get().isAdmin && (l.topTree || l.boxes.length === 0);
-        l.createClassShow = l.state.withBoxes || l.state.emptyNode || l.state.emptyNodeAdmin;// l.departments.length === 0 && !l.topTree;
+        l.createDepartmentShow = !l.state.withBoxes; //userDetailsFactory.get().isAdmin && (l.topTree || l.boxes.length === 0);
+        l.createClassShow = l.state.withBoxes || l.state.emptyNode;// || l.state.emptyNodeAdmin;// l.departments.length === 0 && !l.topTree;
 
         l.createDepartment = createDepartment;
         l.canDelete = canDelete;
@@ -70,7 +70,7 @@
             l.state = {
                 topTree: nodeId == null && l.departments.length,
                 emptyTopTree: nodeId == null && l.departments.length === 0,
-                withDepartmentAdmin: userDetailsFactory.get().isAdmin && l.departments.length,
+               // withDepartmentAdmin: userDetailsFactory.get().isAdmin && l.departments.length,
                 withBoxes: l.boxes.length,
                 emptyNode: nodeId != null && l.boxes.length === 0 && l.departments.length === 0,
                 emptyNodeAdmin: nodeId != null && l.boxes.length === 0 && l.departments.length === 0 && userDetailsFactory.get().isAdmin

@@ -88,7 +88,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
                             // reachHourLimit = true;
                             break;
                         }
-                        
+
                         await BuildQueueDataAsync(m_Queues[i], i, token);
                         var emailsTask = new List<Task>();
                         for (var k = 0; k < NumberOfEmailPerSession; k++)
@@ -114,14 +114,16 @@ namespace Zbang.Zbox.WorkerRoleSearch
                                 t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
                                     new SpamGunMailParams(message.MailBody,
                                         message.UniversityUrl, message.FirstName.UppercaseFirst(), message.MailSubject,
-                                        message.MailCategory), token);
+                                        message.MailCategory),
+                                    k, token);
                             }
                             else
                             {
                                 t1 = m_MailComponent.SendSpanGunEmailAsync(message.Email, BuildIpPool(j),
                                    new GreekPartnerMailParams(message.MailBody,
                                        message.UniversityUrl, message.FirstName.UppercaseFirst(), message.MailSubject,
-                                       message.MailCategory, greekMessage.School, greekMessage.Chapter), token);
+                                       message.MailCategory, greekMessage.School, greekMessage.Chapter),
+                                       k, token);
                             }
                             await m_ZboxWriteService.UpdateSpamGunSendAsync(message.Id, token);
                             counter++;
@@ -142,7 +144,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 await m_MailComponent.GenerateSystemEmailAsync("spam gun", $"send {totalCount} emails");
             }
-           
+
             TraceLog.WriteInfo($"{ServiceName} going not running.");
             return true;
         }
@@ -157,7 +159,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             }
         }
 
-       
+
 
         private static string BuildIpPool(int i)
         {

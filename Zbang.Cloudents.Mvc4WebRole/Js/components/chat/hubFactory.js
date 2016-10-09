@@ -1,7 +1,6 @@
 var app;
 (function (app) {
     "use scrict";
-    // export type hubEvent = "hub-chat" | "hub-status" | "preview-ready" | "update-thumbnail" | "connection-state"
     var Guid = (function () {
         function Guid() {
         }
@@ -15,9 +14,6 @@ var app;
     }());
     app.Guid = Guid;
     var connectionStatus = false;
-    //interface ISbHub extends ngSignalr.Hub {
-    //    sendMsg(userId: number, message: string, conversationId: Guid, blob: string): void;
-    //}
     var RealTimeFactory = (function () {
         function RealTimeFactory(Hub, $rootScope, ajaxService) {
             var _this = this;
@@ -42,7 +38,6 @@ var app;
                     _this.boxIds = _this.boxIds.concat(boxIds);
                 }
                 if (_this.canSend) {
-                    // hub.invoke('enterBox', [boxId]);
                     _this.hub.invoke('enterBoxes', boxIds);
                 }
                 else {
@@ -81,12 +76,10 @@ var app;
                         $rootScope.$broadcast('update-thumbnail', itemId);
                     },
                     echo: function (i) {
-                        //console.log('echo', i);
                     }
                 },
                 errorHandler: function (error) {
                     ajaxService.logError('signalr', 'errorHandler', error);
-                    //console.error(error);
                 },
                 methods: ['send', 'changeUniversity', 'enterBoxes'],
                 stateChanged: function (state) {
@@ -126,12 +119,9 @@ var app;
             this.hub.connection.disconnected(function () {
                 setTimeout(function () {
                     _this.hub.connection.start();
-                }, 5000); // Restart connection after 5 seconds.
+                }, 5000);
             });
         }
-        //isConnected() {
-        //    return connectionStatus;
-        //};
         RealTimeFactory.prototype.sendMsg = function (userId, message, conversationId, blob) {
             this.hub.invoke('send', userId, message, conversationId, blob);
         };
@@ -144,4 +134,3 @@ var app;
     }());
     angular.module('app.chat').service('realtimeFactory', RealTimeFactory);
 })(app || (app = {}));
-//# sourceMappingURL=hubFactory.js.map

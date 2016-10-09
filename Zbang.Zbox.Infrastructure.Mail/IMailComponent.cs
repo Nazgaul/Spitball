@@ -27,7 +27,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
         Task SendSpanGunEmailAsync(string recipient,
             string ipPool,
             MailParameters parameters,
-            CancellationToken cancellationToken);
+            int interVal,
+            CancellationToken cancellationToken
+            );
 
 
 

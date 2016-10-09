@@ -138,6 +138,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
         public Task SendSpanGunEmailAsync(string recipient,
             string ipPool,
             MailParameters parameters,
+            int interVal,
             CancellationToken cancellationToken)
         {
 
@@ -164,6 +165,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             request.AddParameter("html", mail.GenerateMail().Replace("{email}", recipient));
             request.AddParameter("o:tag", mail.AddCategory());
             request.AddParameter("o:campaign", "spamgun");
+            request.AddParameter("o:deliverytime",
+                DateTime.UtcNow.AddMinutes(interVal).ToString("ddd, dd MMM yyyy HH:mm:ss UTC"));
 
             return client.ExecuteTaskAsync(request, cancellationToken);
         }

@@ -58,9 +58,7 @@ var app;
                 }
             });
             $scope.$on("hub-chat", function (e, args) {
-                //if its me
                 if (args.userId !== userDetailsFactory.get().id) {
-                    //can be from different platform
                     if (!_this.userChat) {
                         return;
                     }
@@ -69,8 +67,6 @@ var app;
                     }
                     var messages = _this.messages.filter(function (message) { return (message.text === args.message); });
                     var attachments = _this.messages.filter(function (message) { return (message.blob === args.blob); });
-                    // if there's no message with same text or there's one - but older than a minute ago
-                    //(meaning we are connected to the chatroom in other place and sent new message there): 
                     if (!args.blob && (!messages.length || messages[messages.length - 1].time < new Date(+new Date() - 60000).toISOString())) {
                         _this.messages.push({
                             text: args.message,
@@ -86,7 +82,6 @@ var app;
                             partner: false
                         });
                     }
-                    // TODO: hack - do better
                     _this.$timeout(function () {
                         var unread = _this.chatBus.getUnread();
                         _this.chatBus.setUnread(--unread);
@@ -95,7 +90,6 @@ var app;
                     _this.scrollToBotton();
                     return;
                 }
-                // im in the same chat
                 if (_this.userChat && _this.userChat.conversation === args.chatRoom) {
                     if (args.blob) {
                         args.thumb = itemThumbnailService.getChat(args.blob);
@@ -107,7 +101,6 @@ var app;
                         blob: args.blob,
                         thumb: args.thumb
                     });
-                    // TODO: hack - do better
                     _this.$timeout(function () {
                         var unread = _this.chatBus.getUnread();
                         _this.chatBus.setUnread(--unread);
@@ -173,7 +166,6 @@ var app;
                 }
             });
         };
-        // dialog
         Conversation.prototype.dialog = function (blob, ev) {
             var _this = this;
             this.$scope.$broadcast("disablePaging");
@@ -200,4 +192,3 @@ var app;
     }());
     angular.module("app.chat").controller("conversation", Conversation);
 })(app || (app = {}));
-//# sourceMappingURL=conversation.controller.js.map

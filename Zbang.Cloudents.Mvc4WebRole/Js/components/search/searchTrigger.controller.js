@@ -31,10 +31,8 @@ var app;
                 this.$state.go(searchStateName, { q: this.term, t: this.$state.params["t"] });
             }
         };
-        // state params is no good because this is no state controller 
         SearchTriggerController.$inject = ["$scope", "$state", "$mdMedia", "resManager"];
         return SearchTriggerController;
     }());
     angular.module("app.search").controller("SearchTriggerController", SearchTriggerController);
 })(app || (app = {}));
-//# sourceMappingURL=searchTrigger.controller.js.map

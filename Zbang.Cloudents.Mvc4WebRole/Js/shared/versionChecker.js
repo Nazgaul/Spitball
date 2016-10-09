@@ -1,8 +1,7 @@
 var app;
 (function (app) {
     "use strict";
-    // clientVersion = window["version"],
-    var timeInterval = 900000; //fifteen minutes
+    var timeInterval = 900000;
     var VerionChecker = (function () {
         function VerionChecker($http, cacheFactory, $mdToast, resManager, $interval) {
             var _this = this;
@@ -52,4 +51,3 @@ var app;
     }());
     angular.module("app").run(VerionChecker.factory());
 })(app || (app = {}));
-//# sourceMappingURL=versionChecker.js.map
