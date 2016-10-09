@@ -13,4 +13,19 @@
     );
 })();
 
-
+(function() {
+    angular.module("app")
+        .directive("placeholderMobile", placeholderMobile);
+    placeholderMobile.$inject = ["$mdMedia"];
+    
+    function placeholderMobile($mdMedia) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                if ($mdMedia('xs')) {
+                    element.attr("placeholder", attrs.placeholderMobile);
+                }
+            }
+        };
+    };
+})();

@@ -208,4 +208,7 @@ but try checking the documents tab for related material</value>
   <data name="SearchPartial" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="SearchMobile" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

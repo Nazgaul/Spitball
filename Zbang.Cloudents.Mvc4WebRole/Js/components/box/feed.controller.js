@@ -494,7 +494,6 @@
             callbacks:
                  {
                      filesAdded: function (uploader, files) {
-                         console.log(uploader, files);
                          $scope.$emit('follow-box');
                          for (var i = 0; i < files.length; i++) {
                              var file = files[i];

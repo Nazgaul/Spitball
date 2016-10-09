@@ -265,6 +265,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
+        public static string SearchMobile {
+            get {
+                return ResourceManager.GetString("SearchMobile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
         public static string SearchPartial {
             get {
                 return ResourceManager.GetString("SearchPartial", resourceCulture);

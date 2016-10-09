@@ -244,10 +244,4 @@
   <data name="quizCreateBrowserBack" xml:space="preserve">
     <value>האם ברצונך לעזוב את העמוד? המבחן המקוון שיצרת לא יישמר</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>חפש מסמכים, קורסים</value>
-  </data>
-  <data name="SearchMobile" xml:space="preserve">
-    <value>חפש</value>
-  </data>
 </root>

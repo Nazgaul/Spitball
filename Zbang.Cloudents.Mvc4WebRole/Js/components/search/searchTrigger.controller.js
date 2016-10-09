@@ -3,19 +3,11 @@ var app;
     "use strict";
     var searchStateName = "searchinfo";
     var SearchTriggerController = (function () {
-        function SearchTriggerController($scope, $state, $mdMedia, resManager) {
+        function SearchTriggerController($scope, $state) {
             var _this = this;
             this.$scope = $scope;
             this.$state = $state;
-            this.$mdMedia = $mdMedia;
-            this.resManager = resManager;
             this.term = $state.params["q"];
-            if ($mdMedia('gt-xs')) {
-                this.placeholder = resManager.get("Search");
-            }
-            else {
-                this.placeholder = resManager.get("SearchMobile");
-            }
             $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState) {
                 if (fromState.name === searchStateName && toState.name !== searchStateName) {
                     _this.term = "";
@@ -31,7 +23,7 @@ var app;
                 this.$state.go(searchStateName, { q: this.term, t: this.$state.params["t"] });
             }
         };
-        SearchTriggerController.$inject = ["$scope", "$state", "$mdMedia", "resManager"];
+        SearchTriggerController.$inject = ["$scope", "$state"];
         return SearchTriggerController;
     }());
     angular.module("app.search").controller("SearchTriggerController", SearchTriggerController);
