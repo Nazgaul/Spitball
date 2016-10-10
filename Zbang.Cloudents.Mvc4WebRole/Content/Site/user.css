@@ -280,8 +280,11 @@
 }
 .userPage .tab-content .badges .tab.badges .expanded .close {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 20px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  fill: #323538;
 }
 .userPage .tab-content .badges .tab.badges .badge-container {
   width: 160px;
@@ -367,15 +370,16 @@
 .userPage .tab-content .badges .tab.community .content .filters .dates,
 .userPage .tab-content .badges .tab.community .content .filters button {
   max-width: 150px;
-  background: #4190b9;
   border-radius: 8px;
   width: 100%;
+  box-shadow: none;
 }
 .userPage .tab-content .badges .tab.community .content .filters button {
   color: #ffffff;
   line-height: 28px;
   font-size: 18px;
   margin-left: 30px;
+  padding: 1px;
 }
 .userPage .tab-content .badges .tab.community .content .filters .dates {
   padding: 0;
@@ -383,6 +387,7 @@
 .userPage .tab-content .badges .tab.community .content .filters .dates .md-text {
   padding-left: 10px;
   color: #ffffff;
+  font-size: 18px;
 }
 .userPage .tab-content .badges .tab.community .content .filters .dates .md-select-icon {
   color: #ffffff;
@@ -390,6 +395,27 @@
 .userPage .tab-content .badges .tab.community .content .filters .dates .md-select-value {
   border: none;
   padding: 2px;
+}
+.userPage .tab-content .badges .tab.community .content .users .user {
+  background: #ffffff;
+  border: 1px solid black;
+  text-align: center;
+  display: inline-block;
+}
+.userPage .tab-content .badges .tab.community .content .users .user .user-data {
+  padding: 10px;
+}
+.userPage .tab-content .badges .tab.community .content .users .user img {
+  border-radius: 100%;
+  width: 90px;
+  height: 90px;
+  border: 3px solid #212325;
+}
+.userPage .tab-content .badges .tab.community .content .users .user.top-user {
+  border: 3px solid #ffce2f;
+}
+.userPage .tab-content .badges .tab.community .content .users .user.top-user img {
+  border: 1px solid #ffffff;
 }
 .userPage .tab-content .badges md-ink-bar {
   background: #ffce2f;
