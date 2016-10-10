@@ -417,6 +417,48 @@
                             position: relative;
                         }
                     }
+
+                    .content {
+                        padding: 30px 45px;
+
+
+                        .filters {
+                            .displayFlex;
+                            .align-items(center);
+
+                            .dates, button {
+                                max-width: 150px;
+                                background: @buttonColorBlue;
+                                border-radius: 8px;
+                                width: 100%;
+                            }
+
+                            button {
+                                color: @textColorWhite;
+                                line-height: 28px;
+                                font-size: 18px;
+                                margin-left: 30px;
+                            }
+
+                            .dates {
+                                padding: 0;
+
+                                .md-text {
+                                    padding-left: 10px;
+                                    color: @textColorWhite;
+                                }
+
+                                .md-select-icon {
+                                    color: @textColorWhite;
+                                }
+
+                                .md-select-value {
+                                    border: none;
+                                    padding: 2px;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 

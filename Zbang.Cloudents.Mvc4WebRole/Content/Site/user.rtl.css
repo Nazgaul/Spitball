@@ -354,6 +354,43 @@
   max-width: 100%;
   position: relative;
 }
+.userPage .tab-content .badges .tab.community .content {
+  padding: 30px 45px;
+}
+.userPage .tab-content .badges .tab.community .content .filters {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.userPage .tab-content .badges .tab.community .content .filters .dates,
+.userPage .tab-content .badges .tab.community .content .filters button {
+  max-width: 150px;
+  background: #4190b9;
+  border-radius: 8px;
+  width: 100%;
+}
+.userPage .tab-content .badges .tab.community .content .filters button {
+  color: #ffffff;
+  line-height: 28px;
+  font-size: 18px;
+  margin-right: 30px;
+}
+.userPage .tab-content .badges .tab.community .content .filters .dates {
+  padding: 0;
+}
+.userPage .tab-content .badges .tab.community .content .filters .dates .md-text {
+  padding-right: 10px;
+  color: #ffffff;
+}
+.userPage .tab-content .badges .tab.community .content .filters .dates .md-select-icon {
+  color: #ffffff;
+}
+.userPage .tab-content .badges .tab.community .content .filters .dates .md-select-value {
+  border: none;
+  padding: 2px;
+}
 .userPage .tab-content .badges md-ink-bar {
   background: #ffce2f;
   height: 10px;

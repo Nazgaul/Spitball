@@ -85,6 +85,7 @@
         self.sendMessage = sendMessage;
         self.showBadge = showBadge;
         self.badgeInfo = null;
+        self.communityFilter = "This Month";
         self.badges = [
             {
                 name: 'Spitballer',
@@ -199,7 +200,18 @@
                 points: 500
             }
         ];
+        self.community = {
+            topUsers: [
+                {
+                    name: "Irena Dorfman",
+                    image: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/f2338ed9-d5be-4d39-8fca-2896ef836ef6.jpg",
+                    points: 50800
+                }],
+            regularUsers: [
+                {
 
+                }]
+        };
         function sendMessage() {
             if ($mdMedia('gt-xs')) {
                 $rootScope.$broadcast('open-chat-user',

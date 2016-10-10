@@ -203,8 +203,22 @@
                             </div>
                             <div class="content">
                                 <div class="filters">
-                                   
+                                    <md-input-container class="dates" flex-gt-sm>
+                                        <md-select ng-model="u.communityFilter">
+                                            <md-option value="This Month">This Month</md-option>
+                                            <md-option value="Filter 1">Filter 1</md-option>
+                                            <md-option value="Filter 2">Filter 2</md-option>
+                                            <md-option value="Filter 3">Filter 3</md-option>
+                                        </md-select>
+                                    </md-input-container>
                                     <button type="button">Show Myself</button>
+                                </div>
+                                <div class="users">
+                                    <div class="top-user" ng-repeat="topUser in u.community.topUsers">
+                                        <img src="{{topUser.image}}"/>
+                                        <div class="name">{{topUser.name}}</div>
+                                        <div class="points">{{topUser.points}}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
