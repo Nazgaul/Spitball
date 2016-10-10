@@ -44,6 +44,8 @@
         l.createFirstBox = createFirstBox;
         l.goToSubLib = goToSubLib;
         l.submitDisabled = false;
+        l.createDepartmenFocused = false;
+        l.createClassFocused = false;
 
         function goToSubLib(dep, $event) {
             if (dep.state === 'closed' && (dep.userType === 'pending' || dep.userType === 'none')) {
