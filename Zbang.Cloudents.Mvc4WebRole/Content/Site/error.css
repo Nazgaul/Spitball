@@ -42,6 +42,7 @@
 @media (min-width: 960px) {
   .members-only-page {
     margin-left: -250px;
+    margin-right: -95px;
   }
 }
 .members-only-page img {

@@ -95,7 +95,7 @@
                         <div class="indent info">
                             <a href="{{::post.userUrl}}" layout="row" layout-align="start center" class="userblock username" ga-track-event="['quiz', 'go to user page']">
                                 <user-image class="c-img" name="::post.userName" image="::post.userImage" width="52" height="52"></user-image>
-                                <span class="user-name">{{::post.userName}}</span>
+                                <span class="user-name ellipsis">{{::post.userName}}</span>
                             </a>
                             <time-ago class="comment-date" from-time="{{::post.creationTime }}" format="mediumDate"></time-ago>
                             @*<span class="comment-date">{{::post.creationTime | date : 'medium'}}</span>*@

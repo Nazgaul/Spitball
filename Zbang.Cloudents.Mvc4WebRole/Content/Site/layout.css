@@ -732,6 +732,7 @@ Page Loading
   .unreg-user .close-wrapper button.close md-icon {
     width: 15px;
     height: 15px;
+    display: block;
   }
 }
 .unreg-user .content-wrapper {

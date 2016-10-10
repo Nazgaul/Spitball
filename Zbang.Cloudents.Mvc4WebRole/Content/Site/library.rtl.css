@@ -181,3 +181,8 @@
   width: 20px;
   height: 20px;
 }
+@media (max-width: 600px) {
+  .library .box-style.action .text {
+    min-width: 160px;
+  }
+}
