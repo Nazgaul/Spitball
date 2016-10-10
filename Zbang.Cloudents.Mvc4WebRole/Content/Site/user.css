@@ -100,37 +100,334 @@
 .userPage md-pagination-wrapper {
   height: 54px;
 }
+.userPage .badges-tabs md-tabs-canvas,
+.userPage .badges-tabs md-pagination-wrapper {
+  height: 90px;
+}
+@media (min-width: 600px) {
+  .userPage .badges-tabs md-tabs-canvas,
+  .userPage .badges-tabs md-pagination-wrapper {
+    min-width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .userPage .badges-tabs md-tabs-canvas,
+  .userPage .badges-tabs md-pagination-wrapper {
+    height: 40px;
+  }
+}
 .userPage .tab-content {
   margin: 0 -8px;
+}
+.userPage .tab-content .badges {
+  margin: 0 8px;
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+.userPage .tab-content .badges .badges-bar {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  border-radius: 10px 10px 0 0;
+  background: #323538;
+}
+.userPage .tab-content .badges .info {
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+.userPage .tab-content .badges .info md-icon {
+  width: 28px;
+  height: 28px;
+  margin-left: 32px;
+  margin-bottom: 14px;
+}
+@media (max-width: 600px) {
+  .userPage .tab-content .badges .info md-icon {
+    width: 16px;
+    height: 16px;
+    margin-bottom: 0;
+    margin-left: 10px;
+  }
+}
+@media (min-width: 600px) {
+  .userPage .tab-content .badges md-tab-item {
+    min-width: 33%;
+  }
+}
+.userPage .tab-content .badges md-tabs {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.userPage .tab-content .badges md-tabs h4 {
+  font-size: 20px;
+  margin: 26px 0;
+}
+@media (max-width: 600px) {
+  .userPage .tab-content .badges md-tabs h4 {
+    font-size: 12px;
+    margin: 5px 0;
+  }
+}
+.userPage .tab-content .badges md-tabs .md-tab.md-active {
+  color: #ffce2f;
+}
+.userPage .tab-content .badges .tab .image {
+  background: rgba(255, 206, 47, 0.5);
+}
+.userPage .tab-content .badges .tab md-progress-linear.md-default-theme .md-container,
+.userPage .tab-content .badges .tab md-progress-linear .md-container {
+  background-color: #dadada;
+  border-radius: 5px;
+}
+.userPage .tab-content .badges .tab md-progress-linear .md-bar {
+  background: #ffce2f;
+}
+.userPage .tab-content .badges .tab md-progress-linear,
+.userPage .tab-content .badges .tab md-progress-linear .md-bar,
+.userPage .tab-content .badges .tab md-progress-linear.md-default-theme .md-container,
+.userPage .tab-content .badges .tab md-progress-linear .md-container {
+  height: 10px;
+}
+.userPage .tab-content .badges .tab.levels {
+  position: relative;
+}
+.userPage .tab-content .badges .tab.levels .bg {
+  position: absolute;
+}
+.userPage .tab-content .badges .tab.levels ul {
+  padding: 0;
+}
+.userPage .tab-content .badges .tab.levels .level {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  font-size: 18px;
+  padding: 25px 50px;
+  border-bottom: 1px solid #dadada;
+}
+.userPage .tab-content .badges .tab.levels .level .title {
+  text-align: center;
+}
+.userPage .tab-content .badges .tab.levels .level .name {
+  margin-top: 10px;
+}
+.userPage .tab-content .badges .tab.levels .level .body {
+  padding-left: 50px;
+  width: 100%;
+}
+.userPage .tab-content .badges .tab.levels .image {
+  width: 150px;
+  height: 150px;
+}
+.userPage .tab-content .badges .tab.levels md-progress-linear {
+  margin: 30px 0 10px 0;
+}
+.userPage .tab-content .badges .tab.levels .counter {
+  text-align: right;
+  color: #4190b9;
+  margin-top: 16px;
+}
+.userPage .tab-content .badges .tab.badges .expanded {
+  padding: 70px 0;
+  position: relative;
+}
+.userPage .tab-content .badges .tab.badges .expanded .badge-container {
+  width: 290px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+.userPage .tab-content .badges .tab.badges .expanded .badge-container .image {
+  width: 126px;
+  height: 110px;
+}
+.userPage .tab-content .badges .tab.badges .expanded .badge-container md-icon {
+  width: 36px;
+  height: 36px;
+  padding: 8px;
+}
+.userPage .tab-content .badges .tab.badges .expanded .details {
+  background: #ffce2f;
+  margin: 20px -10px -16px -10px;
+  color: #ffffff;
+  padding: 20px;
+  font-size: 20px;
+}
+.userPage .tab-content .badges .tab.badges .expanded .details .condition {
+  margin-bottom: 26px;
+}
+.userPage .tab-content .badges .tab.badges .expanded .details .points {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 5px 10px;
+  border: 1px solid #ffffff;
+  border-radius: 9px;
+}
+.userPage .tab-content .badges .tab.badges .expanded .next,
+.userPage .tab-content .badges .tab.badges .expanded .prev {
+  position: absolute;
+  top: 50%;
+}
+.userPage .tab-content .badges .tab.badges .expanded .next {
+  right: 5px;
+}
+.userPage .tab-content .badges .tab.badges .expanded .prev {
+  left: 5px;
+}
+.userPage .tab-content .badges .tab.badges .expanded .close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+.userPage .tab-content .badges .tab.badges .badge-container {
+  width: 160px;
+  text-align: center;
+  padding: 26px 8px 16px 8px;
+  display: inline-block;
+  border: 1px solid #9E9E9E;
+  margin: 15px;
+  margin-top: 30px;
+  font-size: 18px;
+  position: relative;
+}
+.userPage .tab-content .badges .tab.badges .badge-container md-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  padding: 4px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: #ffce2f;
+}
+.userPage .tab-content .badges .tab.badges .badge-container .image {
+  width: 100px;
+  height: 87px;
+  margin: 0 auto;
+}
+.userPage .tab-content .badges .tab.badges .badge-container .text {
+  margin: 24px 0 6px 0;
+}
+.userPage .tab-content .badges .tab.badges .badge-container .progress {
+  padding: 10px;
+  border: 2px solid #ffce2f;
+  border-radius: 10px;
+  max-width: 140px;
+  margin: 0 auto;
+}
+.userPage .tab-content .badges .tab.community .top {
+  background-image: url(/Images/Site/community-bg.png);
+  height: 160px;
+  background: black;
+  position: relative;
+  text-align: center;
+}
+.userPage .tab-content .badges .tab.community .top .bg-r,
+.userPage .tab-content .badges .tab.community .top .bg-l {
+  background-repeat: no-repeat;
+}
+.userPage .tab-content .badges .tab.community .top .bg-l {
+  width: 388px;
+  background-image: url(/Images/Site/Leaderborad-bg-l.png);
+  background-position: -45px -12px;
+  position: absolute;
+  left: 0;
+  height: 160px;
+  bottom: 0;
+  z-index: 0;
+}
+.userPage .tab-content .badges .tab.community .top .bg-r {
+  width: 290px;
+  background-image: url(/Images/Site/Leaderborad-bg-r.png);
+  position: absolute;
+  height: 160px;
+  right: 0;
+  z-index: 0;
+}
+.userPage .tab-content .badges .tab.community .top .title {
+  margin: 0 auto;
+  top: 40px;
+  max-width: 100%;
+  position: relative;
+}
+.userPage .tab-content .badges .tab.community .content {
+  padding: 30px 45px;
+}
+.userPage .tab-content .badges .tab.community .content .filters {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.userPage .tab-content .badges .tab.community .content .filters .dates,
+.userPage .tab-content .badges .tab.community .content .filters button {
+  max-width: 150px;
+  background: #4190b9;
+  border-radius: 8px;
+  width: 100%;
+}
+.userPage .tab-content .badges .tab.community .content .filters button {
+  color: #ffffff;
+  line-height: 28px;
+  font-size: 18px;
+  margin-left: 30px;
+}
+.userPage .tab-content .badges .tab.community .content .filters .dates {
+  padding: 0;
+}
+.userPage .tab-content .badges .tab.community .content .filters .dates .md-text {
+  padding-left: 10px;
+  color: #ffffff;
+}
+.userPage .tab-content .badges .tab.community .content .filters .dates .md-select-icon {
+  color: #ffffff;
+}
+.userPage .tab-content .badges .tab.community .content .filters .dates .md-select-value {
+  border: none;
+  padding: 2px;
+}
+.userPage .tab-content .badges md-ink-bar {
+  background: #ffce2f;
+  height: 10px;
+}
+@media (max-width: 600px) {
+  .userPage .tab-content .badges md-ink-bar {
+    height: 3px;
+  }
 }
 .userPage md-tab-content {
   background: #dadada;
 }
-.userPage md-tabs {
+.userPage .page-tabs {
   padding: 0;
   /*Fixed color box overalying members and items*/
 }
-.userPage md-tabs md-tab-content.md-left:not(.md-active) {
+.userPage .page-tabs md-tab-content.md-left:not(.md-active) {
   -webkit-transform: none !important;
   transform: none !important;
   -webkit-animation: none !important;
   animation: none !important;
 }
-.userPage md-tabs md-tab-item {
+.userPage .page-tabs md-tab-item {
   padding: 0 10px;
   margin: 5px 10px;
 }
-.userPage md-tabs md-tab-item .number {
+.userPage .page-tabs md-tab-item .number {
   font-size: 18px;
   padding-bottom: 0;
   font-weight: bold;
 }
-.userPage md-tabs h3 {
+.userPage .page-tabs h3 {
   font-size: 16px;
   margin: 0;
   margin-bottom: 4px;
 }
-.userPage md-tabs md-tab {
+.userPage .page-tabs md-tab {
   margin: 0 20px 0 10px;
   background: transparent;
   outline: none;

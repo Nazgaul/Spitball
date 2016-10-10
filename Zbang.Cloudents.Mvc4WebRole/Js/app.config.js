@@ -55,7 +55,8 @@ var app;
             .iconSet("u", append("/images/site/uploadIcons.svg"))
             .iconSet("lc", append("/images/site/libChooseIcons.svg"))
             .iconSet("b", append("/images/site/box-icons.svg"))
-            .iconSet("q", append("/images/site/quizIcons.svg"));
+            .iconSet("q", append("/images/site/quizIcons.svg"))
+            .iconSet("p", append("/images/site/profileIcons.svg"));
         function append(str) {
             return (window["cdnPath"] || "") + str + "?" + window["version"];
         }
