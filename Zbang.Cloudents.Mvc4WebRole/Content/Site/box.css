@@ -552,7 +552,12 @@ md-menu-item > a.md-button {
   align-items: center;
   -webkit-justify-content: space-between;
   justify-content: space-between;
-  width: 26px;
+}
+.item .stats .views md-icon,
+.quiz .stats .views md-icon,
+.item .stats .likes md-icon,
+.quiz .stats .likes md-icon {
+  margin-left: 4px;
 }
 .item .stats .likes svg,
 .quiz .stats .likes svg {
@@ -1000,6 +1005,6 @@ md-menu-item > a.md-button {
   border-radius: 5px;
   line-height: 20px;
   margin: 0;
-  color: #212325;
+  color: #ffffff;
   background-color: #db4437;
 }

@@ -363,6 +363,9 @@
 .userPage .tab-content .badges .tab.community .content .user,
 .userPage .tab-content .badges .tab.community .content .filter-wrapper {
   padding: 15px;
+  width: 100%;
+  max-width: 150px;
+  display: inline-block;
 }
 .userPage .tab-content .badges .tab.community .content .filters {
   display: -webkit-flex;
@@ -397,6 +400,13 @@
 .userPage .tab-content .badges .tab.community .content .filters .dates .md-select-value {
   border: none;
   padding: 2px;
+}
+.userPage .tab-content .badges .tab.community .content .users {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
 }
 .userPage .tab-content .badges .tab.community .content .users .user .user-data {
   background: #ffffff;
