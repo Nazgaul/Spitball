@@ -166,7 +166,7 @@
             else {
                 l.createBoxOn = true;
             }
-            l.focusCreateClass = true;
+            //l.focusCreateClass = true;
         }
         function openCreateDepartment() {
             l.createOn = true;
