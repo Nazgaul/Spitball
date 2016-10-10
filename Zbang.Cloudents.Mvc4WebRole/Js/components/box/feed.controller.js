@@ -44,7 +44,8 @@
 
 
         function appendLikes(postsList) {
-            if (likes && !likes.length) {
+            likes = likes || [];
+            if (!likes.length) {
                 return postsList;
             }
             for (var i = 0; i < postsList.length; i++) {
