@@ -577,9 +577,6 @@
                                 min-height: @newChatMessageHeightMobile;
                             }*/
 }
-.chat .content .conversasion .chat-content .new-message md-input-container textarea ::-webkit-scrollbar {
-  width: 4px;
-}
 .chat .content .conversasion .chat-content .new-message md-input-container .md-errors-spacer,
 .chat .content .conversasion .chat-content .new-message md-input-container .md-errors-space {
   display: none;
