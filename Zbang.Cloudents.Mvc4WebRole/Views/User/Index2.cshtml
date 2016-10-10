@@ -202,8 +202,8 @@
                                 <img class="title" src="~/Images/Site/Leaderborad-title.png" />
                             </div>
                             <div class="content">
-                                <div class="filters" layout="row" layout-wrap>
-                                    <div class="filter-wrapper" flex-gt-sm="20">
+                                <div class="filters">
+                                    <div class="filter-wrapper">
                                         <md-input-container class="dates action-btn">
                                             <md-select ng-model="u.communityFilter">
                                                 <md-option value="This Month">This Month</md-option>
@@ -217,8 +217,8 @@
                                         <button type="button" class="action-btn">Show Myself</button>
                                     </div>
                                 </div>
-                                <div class="users" layout="row" layout-wrap>
-                                    <div flex-gt-sm="20" class="user" ng-repeat="user in u.communityUsers | orderBy : '-points'" ng-class="{'top-user' : $index < 5}">
+                                <div class="users">
+                                    <div class="user" ng-repeat="user in u.communityUsers | orderBy : '-points'" ng-class="{'top-user' : $index < 5}">
                                         <div class="user-data">
                                             <img src="{{user.image}}" />
                                             <div class="name">{{user.name}}</div>

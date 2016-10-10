@@ -79,12 +79,18 @@ md-menu-item.blue svg {
 .itemPage header .close-btn svg {
   fill: #888b8e;
 }
+.itemPage header .item-actions md-icon,
+.itemPage header .close-btn md-icon,
 .itemPage header .item-actions svg,
 .itemPage header .close-btn svg,
 .itemPage header .item-actions a,
 .itemPage header .close-btn a {
   width: 16px;
   height: 16px;
+}
+.itemPage header .item-actions md-icon,
+.itemPage header .close-btn md-icon {
+  margin: 0 auto;
 }
 .itemPage header button.fb-like {
   white-space: nowrap;
