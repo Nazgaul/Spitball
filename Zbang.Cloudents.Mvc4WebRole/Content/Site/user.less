@@ -422,17 +422,18 @@
                     }
 
                     .content {
-                        padding: 30px 45px;
+                        padding: 30px;
 
+                        .user, .filter-wrapper {
+                            padding: 15px;
+                        }
 
                         .filters {
                             .displayFlex;
                             .align-items(center);
 
                             .dates, button {
-                                max-width: 150px;
                                 border-radius: 8px;
-                                width: 100%;
                                 box-shadow: none;
                             }
 
@@ -440,7 +441,7 @@
                                 color: @textColorWhite;
                                 line-height: 28px;
                                 font-size: 18px;
-                                margin-left: 30px;
+                                width: 100%;
                                 padding: 1px;
                             }
 
@@ -464,29 +465,47 @@
                             }
                         }
 
+
                         .users {
                             .user {
-                                background: @textColorWhite;
-                                border: 1px solid black;
-                                text-align: center;
-                                display: inline-block;
-
                                 .user-data {
-                                    padding: 10px;
-                                }
+                                    background: @textColorWhite;
+                                    border: 1px solid black;
+                                    text-align: center;
 
-                                img {
-                                    border-radius: 100%;
-                                    width: 90px;
-                                    height: 90px;
-                                    border: 3px solid @textColorBlack;
+
+                                    img {
+                                        border-radius: 100%;
+                                        width: 90px;
+                                        height: 90px;
+                                        border: 1px solid @textColorBlack;
+                                        margin: 8px;
+                                    }
                                 }
 
                                 &.top-user {
-                                    border: 3px solid @gamificationYellow;
+                                    .user-data {
+                                        border: 3px solid @gamificationYellow;
+                                        position: relative;
+                                        overflow: hidden;
 
-                                    img {
-                                        border: 1px solid @textColorWhite;
+                                        &:before {
+                                            content: '';
+                                            display: block;
+                                            width: ~"calc(100% + 50px)";
+                                            height: 100px;
+                                            background: @gamificationYellow;
+                                            position: relative;
+                                            border-radius: 0 0 100% 100%;
+                                            top: -40px;
+                                            left: -25px;
+                                            margin-bottom: -90px;
+                                        }
+
+                                        img {
+                                            position: relative;
+                                            border: 3px solid @textColorWhite;
+                                        }
                                     }
                                 }
                             }

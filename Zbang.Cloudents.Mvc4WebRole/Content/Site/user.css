@@ -358,7 +358,11 @@
   position: relative;
 }
 .userPage .tab-content .badges .tab.community .content {
-  padding: 30px 45px;
+  padding: 30px;
+}
+.userPage .tab-content .badges .tab.community .content .user,
+.userPage .tab-content .badges .tab.community .content .filter-wrapper {
+  padding: 15px;
 }
 .userPage .tab-content .badges .tab.community .content .filters {
   display: -webkit-flex;
@@ -369,16 +373,14 @@
 }
 .userPage .tab-content .badges .tab.community .content .filters .dates,
 .userPage .tab-content .badges .tab.community .content .filters button {
-  max-width: 150px;
   border-radius: 8px;
-  width: 100%;
   box-shadow: none;
 }
 .userPage .tab-content .badges .tab.community .content .filters button {
   color: #ffffff;
   line-height: 28px;
   font-size: 18px;
-  margin-left: 30px;
+  width: 100%;
   padding: 1px;
 }
 .userPage .tab-content .badges .tab.community .content .filters .dates {
@@ -396,26 +398,38 @@
   border: none;
   padding: 2px;
 }
-.userPage .tab-content .badges .tab.community .content .users .user {
+.userPage .tab-content .badges .tab.community .content .users .user .user-data {
   background: #ffffff;
   border: 1px solid black;
   text-align: center;
-  display: inline-block;
 }
-.userPage .tab-content .badges .tab.community .content .users .user .user-data {
-  padding: 10px;
-}
-.userPage .tab-content .badges .tab.community .content .users .user img {
+.userPage .tab-content .badges .tab.community .content .users .user .user-data img {
   border-radius: 100%;
   width: 90px;
   height: 90px;
-  border: 3px solid #212325;
+  border: 1px solid #212325;
+  margin: 8px;
 }
-.userPage .tab-content .badges .tab.community .content .users .user.top-user {
+.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data {
   border: 3px solid #ffce2f;
+  position: relative;
+  overflow: hidden;
 }
-.userPage .tab-content .badges .tab.community .content .users .user.top-user img {
-  border: 1px solid #ffffff;
+.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data:before {
+  content: '';
+  display: block;
+  width: calc(100% + 50px);
+  height: 100px;
+  background: #ffce2f;
+  position: relative;
+  border-radius: 0 0 100% 100%;
+  top: -40px;
+  left: -25px;
+  margin-bottom: -90px;
+}
+.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data img {
+  position: relative;
+  border: 3px solid #ffffff;
 }
 .userPage .tab-content .badges md-ink-bar {
   background: #ffce2f;

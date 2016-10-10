@@ -202,16 +202,20 @@
                                 <img class="title" src="~/Images/Site/Leaderborad-title.png" />
                             </div>
                             <div class="content">
-                                <div class="filters">
-                                    <md-input-container class="dates action-btn" flex-gt-sm>
-                                        <md-select ng-model="u.communityFilter">
-                                            <md-option value="This Month">This Month</md-option>
-                                            <md-option value="Filter 1">Filter 1</md-option>
-                                            <md-option value="Filter 2">Filter 2</md-option>
-                                            <md-option value="Filter 3">Filter 3</md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                    <button type="button" class="action-btn">Show Myself</button>
+                                <div class="filters" layout="row" layout-wrap>
+                                    <div class="filter-wrapper" flex-gt-sm="20">
+                                        <md-input-container class="dates action-btn">
+                                            <md-select ng-model="u.communityFilter">
+                                                <md-option value="This Month">This Month</md-option>
+                                                <md-option value="Filter 1">Filter 1</md-option>
+                                                <md-option value="Filter 2">Filter 2</md-option>
+                                                <md-option value="Filter 3">Filter 3</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                    <div class="filter-wrapper" flex-gt-sm="20">
+                                        <button type="button" class="action-btn">Show Myself</button>
+                                    </div>
                                 </div>
                                 <div class="users" layout="row" layout-wrap>
                                     <div flex-gt-sm="20" class="user" ng-repeat="user in u.communityUsers | orderBy : '-points'" ng-class="{'top-user' : $index < 5}">

@@ -637,7 +637,7 @@
   width: 15px;
   height: 15px;
 }
-.feed .actions .dropbox:hover md-icon {
+.feed .actions .dropbox:hover md-icon,
 .feed .actions .dropbox:hover svg {
   fill: #007EE5;
 }
