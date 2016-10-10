@@ -107,7 +107,7 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Docuemnt.
+        ///   Looks up a localized string similar to Document.
         /// </summary>
         internal static string item {
             get {
