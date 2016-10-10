@@ -83,7 +83,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return container.GetBlockBlobReference(blobName);
         }
 
-        public async Task<IDictionary<string, string>> FetchBlobMetaDataAsync(Uri blobUri, CancellationToken token)
+        public async Task<IDictionary<string, string>> FetchBlobmetaDataAsync(Uri blobUri, CancellationToken token)
         {
             var blob = GetBlob(blobUri);// GetFile(blobName);
             await blob.FetchAttributesAsync(token);
@@ -91,12 +91,12 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         }
 
-        public Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metaData, CancellationToken token)
+        public Task SaveMetaDataToBlobAsync(Uri blobUri, IDictionary<string, string> metadata, CancellationToken token)
         {
-            if (metaData == null) throw new ArgumentNullException(nameof(metaData));
+            if (metadata == null) throw new ArgumentNullException(nameof(metadata));
             var blob = GetBlob(blobUri);
             //var blob = GetFile(blobName);
-            foreach (var item in metaData)
+            foreach (var item in metadata)
             {
                 blob.Metadata[item.Key] = item.Value;
             }

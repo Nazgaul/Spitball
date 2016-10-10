@@ -1,54 +1,26 @@
 ﻿using System;
 
-
-// ReSharper disable once CheckNamespace -- this is extension
-public static class StringExtensions
+namespace Zbang.Zbox.Infrastructure.Extensions
 {
-    public static string RemoveEndOfString(this string word, int length)
+    public static class StringExtensions
     {
-        return word?.Substring(0, Math.Min(word.Length, length));
-    }
-
-    public static string UppercaseFirst(this string s)
-    {
-        // Check for empty string.
-        if (string.IsNullOrEmpty(s))
+        public static string RemoveEndOfString(this string word, int length)
         {
-            return string.Empty;
+            return word?.Substring(0, Math.Min(word.Length, length));
         }
-        // Return char and concat substring.
-        return char.ToUpper(s[0]) + s.Substring(1).ToLowerInvariant();
-    }
 
-    //public static string TrimEnd(this string s, params string[] remove)
-    //{
-    //    foreach (string item in remove)
-    //        if (s.EndsWith(item))
-    //        {
-    //            s = s.Substring(0, s.LastIndexOf(item, StringComparison.Ordinal));
-    //            break; //only allow one match at most
-    //        }
-    //    //if (!string.IsNullOrEmpty(value))
-    //    //{
-    //    //    while (!string.IsNullOrEmpty(s) && s.EndsWith(value, comparisonType))
-    //    //    {
-    //    //        s = s.Substring(0, (s.Length - value.Length));
-    //    //    }
-    //    //}
-
-    //    return s;
-    //}
-
-    //public static string Replace(this string s, char[] separators, string newVal)
-    //{
+        public static string UppercaseFirst(this string str)
+        {
+            // Check for empty string.
+            if (string.IsNullOrEmpty(str))
+            {
+                return string.Empty;
+            }
+            // Return char and concat substring.
+            return char.ToUpperInvariant(str[0]) + str.Substring(1).ToLowerInvariant();
+        }
         
-    //    if (s.IndexOf(separators[0]) > -1)
-    //    {
-            
-    //    }
-    //    string[] temp = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-    //    return string.Join(newVal, temp);
-    //}
+    }
 }
 
 

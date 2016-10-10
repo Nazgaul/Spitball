@@ -22,9 +22,9 @@ namespace Zbang.Zbox.Infrastructure.File
             m_MediaServiceProvider = mediaServiceProvider;
         }
 
-        public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
-            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, cancelToken);
+            var metaData = await BlobProvider.FetchBlobmetaDataAsync(blobUri, cancelToken);
             string value;
             if (!metaData.TryGetValue(MetadataConst.VideoStatus, out value))
             {
@@ -38,7 +38,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         public override async Task<PreProcessFileResult> PreProcessFileAsync(Uri blobUri, CancellationToken cancelToken = default(CancellationToken))
         {
-            var currentMetaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, cancelToken);
+            var currentMetaData = await BlobProvider.FetchBlobmetaDataAsync(blobUri, cancelToken);
             string value;
             if (currentMetaData.TryGetValue(MetadataConst.VideoStatus, out value))
             {

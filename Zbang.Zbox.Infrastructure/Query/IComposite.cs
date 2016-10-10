@@ -7,6 +7,6 @@ namespace Zbang.Zbox.Infrastructure.Query
     {
         long Id { get; }
         long? ParentId { get; }
-        List<T> Replies { get; set; }
+        List<T> Replies { get;  }
     }
 }

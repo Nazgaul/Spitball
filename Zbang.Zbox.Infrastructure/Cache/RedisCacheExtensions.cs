@@ -5,6 +5,7 @@ using StackExchange.Redis;
 
 namespace Zbang.Zbox.Infrastructure.Cache
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Redis")]
     public static class RedisCacheExtensions
     {
         public static async Task<T> GetAsync<T>(this IDatabase cache, string key) where T : class
@@ -17,8 +18,9 @@ namespace Zbang.Zbox.Infrastructure.Cache
             return Deserialize<T>(cache.StringGet(key));
         }
 
-        public static Task<bool> SetAsync<T>(this IDatabase cache, string key, T value, TimeSpan? expiry = null) where T : class
+        public static Task<bool> SetAsync<T>(this IDatabaseAsync cache, string key, T value, TimeSpan? expiry = null) where T : class
         {
+            if (cache == null) throw new ArgumentNullException(nameof(cache));
             return cache.StringSetAsync(key, Serialize(value), expiry, flags: CommandFlags.FireAndForget);
         }
 

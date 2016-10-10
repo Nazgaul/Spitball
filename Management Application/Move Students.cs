@@ -43,13 +43,12 @@ namespace Management_Application
                 command.Parameters.AddWithValue("@name", uniNameSearch.Text);
                 command.CommandText = "SELECT UniversityName FROM Zbox.University WHERE UniversityName like @name and IsDeleted != 1 or IsDeleted IS NULL";
                 SqlDataAdapter dataAdapter = new SqlDataAdapter(select, connectionString);
-                SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
-                DataSet ds = new DataSet();
-                DataTable dataTable = new DataTable();
+                //SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
+                var ds = new DataSet();
                 c.Open();
                 dataAdapter.Fill(ds);
                 c.Close();
-                dataTable = ds.Tables[0];
+                var dataTable = ds.Tables[0];
                 uniListBox.DisplayMember = "UniversityName";
                 uniListBox.ValueMember = "UniversityName";
                 uniListBox.DataSource = dataTable;

@@ -28,7 +28,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
 
 
-        public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri,
+        public override async Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri,
             int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);
@@ -45,7 +45,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
             if (await m_BlobProviderCache.ExistsAsync(cacheFileName))
             {
-                blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccressReadPermission(cacheFileName, 30));
+                blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheFileName, 30));
                 return new PreviewResult { ViewName = "Text", Content = blobsNamesInCache };
             }
             //if (IsFileExistsInCache(cacheBlobNameWithSharedAccessSignature))
@@ -76,7 +76,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var compressor = new Compress();
             var sr = compressor.CompressToGzip(stream);
             await m_BlobProviderCache.UploadByteArrayAsync(cacheFileName, sr, "text/plain", true, 30);
-            return m_BlobProviderCache.GenerateSharedAccressReadPermission(cacheFileName, 30);
+            return m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheFileName, 30);
             //var cacheName = await BlobProvider.UploadFileToCacheAsync(cacheFileName, sr, "text/plain", true);
             //return cacheName;
         }

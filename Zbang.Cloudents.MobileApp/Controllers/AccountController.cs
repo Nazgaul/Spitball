@@ -176,7 +176,9 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return Request.CreateBadRequestResponse();
             }
+#pragma warning disable CS0612 // 'UpdateUniversityRequest.Code' is obsolete
             model.StudentId = model.StudentId ?? model.Code; //due to ios bug
+#pragma warning restore CS0612 // 'UpdateUniversityRequest.Code' is obsolete
             var needId = await m_ZboxReadService.GetUniversityNeedIdAsync(model.UniversityId);
             if (needId != null && string.IsNullOrEmpty(model.StudentId))
             {

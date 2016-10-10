@@ -178,7 +178,7 @@ namespace Zbang.Zbox.ReadServices
                     if (grid.IsConsumed) return retVal;
                     retVal.Boxes = await grid.ReadAsync<BoxDto>();
                     retVal.Details = await grid.ReadFirstAsync<NodeDetails>();
-                    if (retVal.Details.State == LibraryNodeSettings.Closed)
+                    if (retVal.Details.State == LibraryNodeSetting.Closed)
                     {
                         if (retVal.Details.UserType == UserLibraryRelationType.Pending ||
                             retVal.Details.UserType == UserLibraryRelationType.None)
@@ -272,13 +272,13 @@ namespace Zbang.Zbox.ReadServices
         /// <param name="query"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<NotificationSettings> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId)
+        public async Task<NotificationSetting> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId)
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 const string getBoxNotification =
                     "select NotificationSettings from zbox.UserBoxRel where userid = @UserId and boxid = @BoxId";
-                var val = await conn.QueryFirstOrDefaultAsync<NotificationSettings>(getBoxNotification, new
+                var val = await conn.QueryFirstOrDefaultAsync<NotificationSetting>(getBoxNotification, new
                 {
                     UserId = userId,
                     query.BoxId

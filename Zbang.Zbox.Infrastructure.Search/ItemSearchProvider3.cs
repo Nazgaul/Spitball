@@ -10,6 +10,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.ViewModel.Dto.ItemDtos;
 using System.IO;
 using Microsoft.Rest.Azure;
+using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.ViewModel.Dto.Search;
 
 namespace Zbang.Zbox.Infrastructure.Search
@@ -17,7 +18,9 @@ namespace Zbang.Zbox.Infrastructure.Search
     public class ItemSearchProvider3 : IItemReadSearchProvider2, IItemWriteSearchProvider3
     {
         private readonly string m_IndexName = "item3";
+#pragma warning disable CS0169 // The field 'ItemSearchProvider3.m_CheckIndexExists' is never used
         private bool m_CheckIndexExists;
+#pragma warning restore CS0169 // The field 'ItemSearchProvider3.m_CheckIndexExists' is never used
         private readonly ISearchConnection m_Connection;
         private readonly SearchIndexClient m_IndexClient;
         private readonly ISearchFilterProvider m_FilterProvider;

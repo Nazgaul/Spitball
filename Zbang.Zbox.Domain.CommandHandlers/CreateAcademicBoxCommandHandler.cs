@@ -57,7 +57,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
             
 
-            if (department.Settings == LibraryNodeSettings.Closed)
+            if (department.Settings == LibraryNodeSetting.Closed)
             {
                 var topDepartmentId = m_DepartmentRepository.GetTopTreeNode(academicCommand.DepartmentId);
                 var topDepartment = m_DepartmentRepository.Load(topDepartmentId);

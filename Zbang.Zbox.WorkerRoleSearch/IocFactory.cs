@@ -90,12 +90,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             {
                 Ioc.ContainerBuilder.RegisterType<DigestEmail>()
                .Named<ISchedulerProcess>($"digestOnceADay_{i}")
-               .WithParameter("hourForEmailDigest", NotificationSettings.OnceADay)
+               .WithParameter("hourForEmailDigest", NotificationSetting.OnceADay)
                .WithParameter("utcTimeOffset", i);
 
                 Ioc.ContainerBuilder.RegisterType<DigestEmail>()
                     .Named<ISchedulerProcess>($"digestOnceAWeek_{i}")
-                    .WithParameter("hourForEmailDigest", NotificationSettings.OnceAWeek)
+                    .WithParameter("hourForEmailDigest", NotificationSetting.OnceAWeek)
                     .WithParameter("utcTimeOffset", i);
             }
 

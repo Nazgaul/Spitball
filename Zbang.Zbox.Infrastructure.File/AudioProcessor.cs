@@ -24,7 +24,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
       
 
-        public override Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var url = BlobProvider.GenerateSharedAccessReadPermissionInStorage(blobUri, 600);
             return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, url) } });

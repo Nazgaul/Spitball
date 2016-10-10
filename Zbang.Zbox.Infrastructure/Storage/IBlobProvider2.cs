@@ -21,8 +21,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
         string RelativePath();
 
         Task UploadByteArrayAsync(string blobName, byte[] fileContent, string mimeType, bool fileGziped, int cacheControlMinutes);
-        string GenerateSharedAccressReadPermission(string blobName, double expirationTimeInMinutes);
-        string GenerateSharedAccressWritePermission(string blobName, string mimeType);
+        string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes);
+        string GenerateSharedAccessWritePermission(string blobName, string mimeType);
 
         string GenerateSharedAccressReadPermission(string blobName, double expirationTimeInMinutes,
             string contentDisposition);

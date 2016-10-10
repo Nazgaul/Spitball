@@ -6,7 +6,7 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class UpdateNodeSettingsCommand : ICommand
     {
-        public UpdateNodeSettingsCommand(string newName, Guid nodeId, LibraryNodeSettings? settings, long userId)
+        public UpdateNodeSettingsCommand(string newName, Guid nodeId, LibraryNodeSetting? settings, long userId)
         {
             UserId = userId;
             Settings = settings;
@@ -17,6 +17,6 @@ namespace Zbang.Zbox.Domain.Commands
         public string NewName { get; private set; }
         public Guid NodeId { get; private set; }
         public long UserId { get; private set; }
-        public LibraryNodeSettings? Settings { get; private set; }
+        public LibraryNodeSetting? Settings { get; private set; }
     }
 }

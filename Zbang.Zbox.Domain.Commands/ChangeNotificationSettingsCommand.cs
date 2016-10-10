@@ -5,7 +5,7 @@ namespace Zbang.Zbox.Domain.Commands
 {
     public class ChangeNotificationSettingsCommand : ICommand
     {
-        public ChangeNotificationSettingsCommand(long boxId, long userId, NotificationSettings newNotificationSettings)
+        public ChangeNotificationSettingsCommand(long boxId, long userId, NotificationSetting newNotificationSettings)
         {
             BoxId = boxId;
             UserId = userId;
@@ -18,6 +18,6 @@ namespace Zbang.Zbox.Domain.Commands
         /// </summary>
         public long UserId { get; set; }
 
-        public  NotificationSettings NewNotificationSettings { get; set; }
+        public  NotificationSetting NewNotificationSettings { get; set; }
     }
 }

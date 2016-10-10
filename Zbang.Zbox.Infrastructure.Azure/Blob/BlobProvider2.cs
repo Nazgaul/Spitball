@@ -155,7 +155,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             await blob.UploadFromByteArrayAsync(fileContent, 0, fileContent.Length);
         }
 
-        public string GenerateSharedAccressReadPermission(string blobName, double expirationTimeInMinutes)
+        public string GenerateSharedAccessReadPermission(string blobName, double expirationTimeInMinutes)
         {
             var blob = GetBlob(blobName);
 
@@ -188,7 +188,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
             return url.AbsoluteUri;
         }
 
-        public string GenerateSharedAccressWritePermission(string blobName, string mimeType)
+        public string GenerateSharedAccessWritePermission(string blobName, string mimeType)
         {
             var blob = GetBlob(blobName);
             var queryString = blob.GetSharedAccessSignature(new SharedAccessBlobPolicy

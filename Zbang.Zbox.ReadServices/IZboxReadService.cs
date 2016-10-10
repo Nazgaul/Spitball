@@ -70,7 +70,7 @@ namespace Zbang.Zbox.ReadServices
 
         Task<UserAccountDto> GetUserAccountDetailsAsync(GetUserDetailsQuery query);
         Task<UserNotification> GetUserBoxesNotificationAsync(GetUserDetailsQuery query);
-        Task<NotificationSettings> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId);
+        Task<NotificationSetting> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId);
 
 
 

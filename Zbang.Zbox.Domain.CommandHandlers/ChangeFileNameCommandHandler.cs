@@ -3,6 +3,7 @@ using System.IO;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Domain.DataAccess;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {

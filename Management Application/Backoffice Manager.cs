@@ -295,7 +295,9 @@ namespace Management_Application
 
         }
 
+#pragma warning disable CS0114 // 'Form1.Refresh()' hides inherited member 'Control.Refresh()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.
         private void Refresh()
+#pragma warning restore CS0114 // 'Form1.Refresh()' hides inherited member 'Control.Refresh()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword.
         {
             String name;
             name = textBoxUniName.Text;

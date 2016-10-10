@@ -34,7 +34,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var license = new License();
             license.SetLicense("Aspose.Total.lic");
         }
-        public override async Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override async Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
             // var indexOfPageGenerate = CalculateTillWhenToDrawPictures(indexNum);
@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
                 if (await m_BlobProviderCache.ExistsAsync(cacheblobName))
                 {
-                    blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName, 30));
+                    blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheblobName, 30));
                     continue;
                 }
                 //var cacheBlobNameWithSharedAccessSignature = BlobProvider.GenerateSharedAccressReadPermissionInCache(cacheblobName, 20);
@@ -91,7 +91,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         var compressor = new Compress();
                         var gzipSr = compressor.CompressToGzip(ms);
                         parallelTask.Add(m_BlobProviderCache.UploadByteArrayAsync(cacheblobName, gzipSr, "image/jpg", true, 30));
-                        blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName, 30));
+                        blobsNamesInCache.Add(m_BlobProviderCache.GenerateSharedAccessReadPermission(cacheblobName, 30));
                         //parallelTask.Add(BlobProvider.UploadFileToCacheAsync(cacheblobName, gzipSr, "image/jpg", true));
                     }
                 }

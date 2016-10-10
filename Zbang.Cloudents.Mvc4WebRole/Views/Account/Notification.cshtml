@@ -11,19 +11,19 @@
                 </div>
                 <md-input-container flex-xs="100" flex-gt-xs="30">
                     <md-select aria-label="notification" md-container-class="dd-list" ng-model="box.notifications" ng-change="n.updateNotification(box)" ga-track-event="['notifications', 'change notification timing']">
-                        <md-option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</md-option>
+                        <md-option value="@NotificationSetting.Off.GetStringValueLowercase()">@NotificationSetting.Off.GetEnumDescription()</md-option>
                         @*<md-option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</md-option>*@
-                        <md-option value="@NotificationSettings.OnceADay.GetStringValueLowerCase()">@NotificationSettings.OnceADay.GetEnumDescription()</md-option>
-                        <md-option value="@NotificationSettings.OnceAWeek.GetStringValueLowerCase()">@NotificationSettings.OnceAWeek.GetEnumDescription()</md-option>
+                        <md-option value="@NotificationSetting.OnceADay.GetStringValueLowercase()">@NotificationSetting.OnceADay.GetEnumDescription()</md-option>
+                        <md-option value="@NotificationSetting.OnceAWeek.GetStringValueLowercase()">@NotificationSetting.OnceAWeek.GetEnumDescription()</md-option>
                     </md-select>
                 </md-input-container>
             </li>
-            <li class="clearfix subscription" layout-wrap ng-if="n.emailNotification === '@EmailSend.CanSend.GetStringValueLowerCase()' || n.emailNotification === '@EmailSend.Unsubscribe.GetStringValueLowerCase()'">
+            <li class="clearfix subscription" layout-wrap ng-if="n.emailNotification === '@EmailSend.CanSend.GetStringValueLowercase()' || n.emailNotification === '@EmailSend.Unsubscribe.GetStringValueLowercase()'">
                 <div class="box-data name ellipsis">@AccountResource.EmailNotification</div>
                 <md-input-container flex-xs="100" flex-gt-xs="30">
                     <md-select md-container-class="dd-list" ng-model="n.emailNotification" ng-change="n.updateSubsription()" ga-track-event="['notifications', 'change email settings']">
-                        <md-option value="@EmailSend.CanSend.GetStringValueLowerCase()">@AccountResource.EmailSettingsSubscribe</md-option>
-                        <md-option value="@EmailSend.Unsubscribe.GetStringValueLowerCase()">@AccountResource.EmailSettingsUnsubscribe</md-option>
+                        <md-option value="@EmailSend.CanSend.GetStringValueLowercase()">@AccountResource.EmailSettingsSubscribe</md-option>
+                        <md-option value="@EmailSend.Unsubscribe.GetStringValueLowercase()">@AccountResource.EmailSettingsUnsubscribe</md-option>
                     </md-select>
                 </md-input-container>
             </li>

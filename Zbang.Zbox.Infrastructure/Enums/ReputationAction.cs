@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Infrastructure.Enums
         Invite = 8,
         InviteToBox = 9,
         LikeDocument = 12,
-        UnLikeDocument = 105,
+        UnlikeDocument = 105,
         Register = 13
         //AddItemComment = 14,
         //AddItemReply = 15,

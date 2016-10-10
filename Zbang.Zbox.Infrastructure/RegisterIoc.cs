@@ -8,7 +8,7 @@ namespace Zbang.Zbox.Infrastructure
         {
             var ioc = IocFactory.IocWrapper;
 
-            ioc.RegisterType<Cache.ICache, Cache.Cache>(LifeTimeManager.Singleton);
+            ioc.RegisterType<Cache.ICache, Cache.SystemCache>(LifeTimeManager.Singleton);
             ioc.RegisterType<Cache.IWithCache, Cache.WithCache>(LifeTimeManager.Singleton);
             ioc.RegisterType<Url.IShortCodesCache, Url.ShortCodesCache>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<Url.IEncryptObject, Url.EncryptObject>(LifeTimeManager.PerHttpRequest);

@@ -7,7 +7,7 @@ using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure
 {
-    public class EmailVerification : IEmailVerification
+    public sealed class EmailVerification : IEmailVerification, IDisposable
     {
         private readonly VerificationEngine m_Engine;
         private readonly VerificationLevel m_VerificationLevel = VerificationLevel.Dns;
@@ -75,6 +75,11 @@ namespace Zbang.Zbox.Infrastructure
                 TraceLog.WriteError("On check email email : " + email, ex);
                 return true;
             }
+        }
+
+        public void Dispose()
+        {
+            m_Engine.Dispose();
         }
     }
 }

@@ -6,6 +6,6 @@ namespace Zbang.Zbox.Infrastructure.Enums
     {
         None = 0,
         Invite = 2,
-        InviteToCloudents = 3
+        InviteToSystem = 3
     }
 }

@@ -9,7 +9,7 @@ using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.ViewModel.Dto;
 using Zbang.Zbox.ViewModel.Dto.UserDtos;
 using Zbang.Zbox.ViewModel.Queries;
-using ExtensionTransformers = Zbang.Zbox.Infrastructure.Data.Transformers;
+//using ExtensionTransformers = Zbang.Zbox.Infrastructure.Data.Transformers;
 
 namespace Zbang.Zbox.ReadServices
 {

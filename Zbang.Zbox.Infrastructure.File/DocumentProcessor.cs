@@ -60,7 +60,7 @@ namespace Zbang.Zbox.Infrastructure.File
             var blobsNamesInCache = new List<string>();
             var parallelTask = new List<Task>();
 
-            var meta = await BlobProvider.FetchBlobMetaDataAsync(blobName, token);
+            var meta = await BlobProvider.FetchBlobmetaDataAsync(blobName, token);
             meta = RemoveOldMetaTags(meta, cacheVersion);
             string sPageCount;
             var pageCount = int.MaxValue;
@@ -83,7 +83,7 @@ namespace Zbang.Zbox.Infrastructure.File
                         var compressor = new Compress();
                         var sr = compressor.CompressToGzip(ms);
                         parallelTask.Add(BlobProviderCache.UploadByteArrayAsync(cacheblobName, sr, mimeType, true, 30));
-                        blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName, 30));
+                        blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccessReadPermission(cacheblobName, 30));
                         meta[metaDataKey] = DateTime.UtcNow.ToString(DatePattern);
                     }
                 }
@@ -114,7 +114,7 @@ namespace Zbang.Zbox.Infrastructure.File
             {
                 if (BlobProviderCache.Exists(cacheblobName))
                 {
-                    blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName, 20));
+                    blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccessReadPermission(cacheblobName, 20));
                     //blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
                     return true;
                 }
@@ -124,7 +124,7 @@ namespace Zbang.Zbox.Infrastructure.File
                 string value;
                 if (meta.TryGetValue(metaDataKey, out value))
                 {
-                    blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccressReadPermission(cacheblobName, 20));
+                    blobsNamesInCache.Add(BlobProviderCache.GenerateSharedAccessReadPermission(cacheblobName, 20));
                     //blobsNamesInCache.Add(BlobProvider.GenerateSharedAccressReadPermissionInCacheWithoutMeta(cacheblobName, 20));
                     meta[metaDataKey] = DateTime.UtcNow.ToString(DatePattern);
                     return true;

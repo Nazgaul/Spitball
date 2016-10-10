@@ -39,7 +39,7 @@ namespace Zbang.Zbox.Infrastructure.File
 
         private const string ContentFormat = "<iframe class=\"youtubeframe\" width=\"{0}\" height=\"{1}\" src=\"https://www.youtube.com/embed/{2}\" frameborder=\"0\" allowfullscreen></iframe>";
 
-        public override Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobName, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobName, int index, CancellationToken cancelToken = default(CancellationToken))
         {
             var match = YoutubeRegex.Match(blobName.AbsoluteUri);
             if (match.Groups.Count < 2 || string.IsNullOrEmpty(match.Groups[1].Value))

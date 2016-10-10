@@ -19,7 +19,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
         public Zbox.Infrastructure.Enums.BoxPrivacySetting? BoxPrivacy { get; set; }
 
-        public Zbox.Infrastructure.Enums.NotificationSettings Notification { get; set; }
+        public Zbox.Infrastructure.Enums.NotificationSetting Notification { get; set; }
 
 
         public override string ToString()
