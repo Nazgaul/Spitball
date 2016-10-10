@@ -35,7 +35,7 @@
       <property name="Read" column="IsRead" not-null="false" />
       <property name="New" not-null="false" />
      </subclass>
-    <subclass name="InviteToSystem" discriminator-value="InviteToCloudents" >
+    <subclass name="InviteToSystem" discriminator-value="InviteToSystem" >
     </subclass>
   </class>
 
