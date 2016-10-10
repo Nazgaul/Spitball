@@ -23,6 +23,7 @@ using Zbang.Zbox.Domain.Common;
 using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.Url;
 using File = System.IO.File;
+using System.Collections.Generic;
 
 namespace Testing
 {
@@ -101,6 +102,8 @@ namespace Testing
 
         static void Main(string[] args)
         {
+            Emails();
+            return;
             emailsVerify();
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
@@ -345,40 +348,20 @@ namespace Testing
             var x = mail.GetUnsubscribesAsync(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), 0);
             x.Wait();
 
-
-            var t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-                new WelcomeMailParams("אירנה", new CultureInfo("he")));
+            var z = new[] { new LikeData
+                {
+                    OnLikeText = "טקסט",
+                    UserName = "שם משתמש",
+                    Type = Zbang.Zbox.Infrastructure.Enums.LikeType.Comment
+                } };
+            var t = mail.GenerateAndSendEmailAsync("ariel@cloudents.com",
+                new LikesMailParams(new CultureInfo("he"), "אריאל", z));
             t.Wait();
 
-            t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-               new WelcomeMailParams("Irena", new CultureInfo("en")));
+            t = mail.GenerateAndSendEmailAsync("ariel@cloudents.com",
+               new ReplyToCommentMailParams(new CultureInfo("he"),"אריאל","משתמש מסויים","שם הקופסא", "/" ));
             t.Wait();
-
-            t = mail.GenerateAndSendEmailAsync("shlomi@cloudents.com",
-                new WelcomeMailParams("אירנה", new CultureInfo("he")));
-            t.Wait();
-
-            t = mail.GenerateAndSendEmailAsync("shlomi@cloudents.com",
-               new WelcomeMailParams("Irena", new CultureInfo("en")));
-            t.Wait();
-
-            t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-                new DepartmentRequestAccessMailParams(new CultureInfo("en"), "Ire", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", "woop"));
-            t.Wait();
-
-            t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-                new DepartmentRequestAccessMailParams(new CultureInfo("he"), "Ire", "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/c6f9a62f-0289-4e7f-a07a-ff7500945ee4.jpg", "woop"));
-            t.Wait();
-
-            t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-               new DepartmentApprovedMailParams(new CultureInfo("he"), "woop"));
-            t.Wait();
-
-            t = mail.GenerateAndSendEmailAsync("irena@cloudents.com",
-               new DepartmentApprovedMailParams(new CultureInfo("en"), "woop"));
-            t.Wait();
-
-
+            
             mail.GenerateAndSendEmailAsync("yaari.ram@gmail.com",
                 new FlagItemMailParams("דגכחלדיג", "חדיגחלכדיכ", "גלחכךדגחכך", "asdas", "asda")).Wait();
             //mail.GenerateAndSendEmail("yaari.ram@gmail.com", new StoreOrder("ram y", "הליכון משגע", 12341234));
