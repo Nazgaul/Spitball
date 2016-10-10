@@ -1,14 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 using Zbang.Zbox.Infrastructure;
 
 namespace Zbang.Cloudents.MobileApp.Filters
 {
     //Wont work since we not in the domain of spitball
-    public class EmailVerifyAttribute : ValidationAttribute
+    public class EmailVerifyAttribute : ValidationAttribute, IDisposable
     {
         
-        private readonly IEmailVerification m_EmailVerification;
+        private readonly EmailVerification m_EmailVerification;
         
        // public IEmailVerification EmailVerification { get; set; }
 
@@ -23,5 +24,11 @@ namespace Zbang.Cloudents.MobileApp.Filters
             
             return m_EmailVerification.VerifyEmail(value.ToString());
         }
+
+        public void Dispose()
+        {
+            m_EmailVerification.Dispose();
+        }
+       
     }
 }

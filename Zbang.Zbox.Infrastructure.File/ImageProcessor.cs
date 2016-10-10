@@ -25,7 +25,7 @@ namespace Zbang.Zbox.Infrastructure.File
             m_BlobProviderPreview = blobProviderPreview;
         }
 
-        public override Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum,
+        public override Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int indexNum,
             CancellationToken cancelToken = default(CancellationToken))
         {
             var blobName = GetBlobNameFromUri(blobUri);

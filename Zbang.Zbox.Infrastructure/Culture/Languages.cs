@@ -29,7 +29,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
             if (result == null)
             {
                 Trace.TraceLog.WriteError("GetLanguageDetailByName name" + name);
-                return GetDefaultSystemCulture();
+                return DefaultSystemCulture;
             }
             return result;
         }
@@ -40,7 +40,7 @@ namespace Zbang.Zbox.Infrastructure.Culture
             {
                 return new CultureInfo("en-US");
             }
-            switch (countryPrefix.ToLower())
+            switch (countryPrefix.ToLowerInvariant())
             {
                 case "il":
                     return new CultureInfo("he-IL");
@@ -70,9 +70,9 @@ namespace Zbang.Zbox.Infrastructure.Culture
         {
             if (string.IsNullOrEmpty(culture))
             {
-                return GetDefaultSystemCulture().Culture.First();
+                return DefaultSystemCulture.Culture.First();
             }
-            var supportCulture = SupportedCultures.FirstOrDefault(s => s.Culture.Any(a => a.ToLower().StartsWith(culture.ToLower())));
+            var supportCulture = SupportedCultures.FirstOrDefault(s => s.Culture.Any(a => a.ToLowerInvariant().StartsWith(culture.ToLower())));
             if (supportCulture == null)
             {
                 return CultureInfo.CurrentCulture.Name;
@@ -81,12 +81,8 @@ namespace Zbang.Zbox.Infrastructure.Culture
         }
 
 
-
-
-        public static LanguagesDetail GetDefaultSystemCulture()
-        {
-            return SupportedCultures[0];
-        }
+        public static LanguagesDetail DefaultSystemCulture => SupportedCultures[0];
+       
     }
     public class LanguagesDetail
     {

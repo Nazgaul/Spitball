@@ -30,7 +30,9 @@ namespace Zbang.Zbox.WorkerRoleSearch
         public async Task ListBlobsSegmentedInFlatListingAsync(CloudBlobContainer container)
         {
 
+#pragma warning disable CS0219 // The variable 'i' is assigned but its value is never used
             int i = 0;
+#pragma warning restore CS0219 // The variable 'i' is assigned but its value is never used
             BlobContinuationToken continuationToken = null;
 
             //Call ListBlobsSegmentedAsync and enumerate the result segment returned, while the continuation token is non-null.

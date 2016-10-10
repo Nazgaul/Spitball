@@ -111,7 +111,7 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUserBoxesNotificationAsync(query);
         }
 
-        public Task<NotificationSettings> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId)
+        public Task<NotificationSetting> GetUserBoxNotificationSettingsAsync(GetBoxQuery query, long userId)
         {
             return m_ReadService.GetUserBoxNotificationSettingsAsync(query, userId);
         }

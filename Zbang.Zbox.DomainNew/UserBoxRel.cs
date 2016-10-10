@@ -16,7 +16,7 @@ namespace Zbang.Zbox.Domain
         {
             User = user;
             Box = box;
-            NotificationSettings = NotificationSettings.OnceADay;
+            NotificationSettings = NotificationSetting.OnceADay;
             UserRelationshipType = userType;
             UserId = User.Id;
             BoxId = Box.Id;
@@ -26,7 +26,7 @@ namespace Zbang.Zbox.Domain
         }
         public virtual long Id { get; protected set; }
         public virtual UserRelationshipType UserRelationshipType { get; set; }
-        public virtual NotificationSettings NotificationSettings { get; set; }
+        public virtual NotificationSetting NotificationSettings { get; set; }
         public virtual UserTimeDetails UserTime { get; set; }
 
         public virtual User User { get; set; }

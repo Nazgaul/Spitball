@@ -4,7 +4,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
 {
     public class GetItemsLastUpdateQuery : BaseDigestLastUpdateQuery
     {
-       public GetItemsLastUpdateQuery(NotificationSettings notificationSettings, long boxid)
+       public GetItemsLastUpdateQuery(NotificationSetting notificationSettings, long boxid)
            :base(notificationSettings)
        {
            BoxId = boxid;

@@ -14,7 +14,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
 
         public int NoDepartment { get; set; }
 
-        public LibraryNodeSettings State { get; set; }
+        public LibraryNodeSetting State { get; set; }
 
         public UserLibraryRelationType UserType { get; set; }
     }

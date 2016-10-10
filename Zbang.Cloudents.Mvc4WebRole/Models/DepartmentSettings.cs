@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
 
-        public LibraryNodeSettings? Settings { get; set; }
+        public LibraryNodeSetting? Settings { get; set; }
 
 
         public override string ToString()

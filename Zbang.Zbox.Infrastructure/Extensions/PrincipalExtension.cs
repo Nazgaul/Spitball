@@ -9,6 +9,7 @@ namespace Zbang.Zbox.Infrastructure.Extensions
     {
         public static long GetUserId(this IPrincipal user, bool isAuthorize = true)
         {
+            if (user == null) throw new ArgumentNullException(nameof(user));
             long userId = -1;
 
             if (isAuthorize && !user.Identity.IsAuthenticated)

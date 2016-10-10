@@ -111,7 +111,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonOk();
             try
             {
-                var retVal = await processor.ConvertFileToWebSitePreviewAsync(uri, index * 3, cancellationToken);
+                var retVal = await processor.ConvertFileToWebsitePreviewAsync(uri, index * 3, cancellationToken);
                 if (retVal.Content == null)
                 {
                     return JsonOk();

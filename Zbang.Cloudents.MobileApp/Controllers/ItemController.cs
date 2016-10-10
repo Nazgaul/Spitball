@@ -91,7 +91,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/item/downloadLink")]
         public string Download(string blob)
         {
-            return m_BlobProviderFiles.GenerateSharedAccressReadPermission(blob, 20);
+            return m_BlobProviderFiles.GenerateSharedAccessReadPermission(blob, 20);
         }
 
         [HttpGet]
@@ -126,7 +126,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
             {
                 return item.Source;
             }
-            return m_BlobProviderFiles.GenerateSharedAccressReadPermission(item.Source, 120);
+            return m_BlobProviderFiles.GenerateSharedAccessReadPermission(item.Source, 120);
             //return BlobProvider.GenerateSharedAccressReadPermissionInStorage(new Uri(item.Source), 240);
             //return m_BlobUpload.GenerateReadAccessPermissionToBlob(item.Source);
 
@@ -152,7 +152,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/item/upload")]
         public string UploadLink(string blob, string mimeType)
         {
-           return m_BlobProviderFiles.GenerateSharedAccressWritePermission(blob, mimeType);
+           return m_BlobProviderFiles.GenerateSharedAccessWritePermission(blob, mimeType);
             //return m_BlobUpload.GenerateWriteAccessPermissionToBlob(blob, mimeType);
         }
         // ReSharper disable once ConsiderUsingAsyncSuffix - api call

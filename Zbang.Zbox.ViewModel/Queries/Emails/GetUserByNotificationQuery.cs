@@ -4,7 +4,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
 {
     public class GetUserByNotificationQuery : BaseDigestLastUpdateQuery, IPagedQuery
     {
-        public GetUserByNotificationQuery(NotificationSettings notificationSettings,  int pageNumber , int rowsPerPage, int utcOffset)
+        public GetUserByNotificationQuery(NotificationSetting notificationSettings,  int pageNumber , int rowsPerPage, int utcOffset)
             : base(notificationSettings)
         {
             NotificationSettings = notificationSettings;
@@ -13,7 +13,7 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
             RowsPerPage = rowsPerPage;
         }
 
-        public NotificationSettings NotificationSettings { get; }
+        public NotificationSetting NotificationSettings { get; }
 
         public int PageNumber { get; }
         public int RowsPerPage { get; }

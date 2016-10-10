@@ -26,8 +26,8 @@
         <md-input-container flex="100">
             <label>@BoxResources.Privacy</label>
             <md-select name="notification" ng-model="b.settings.privacy" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
-                <md-option value="@BoxPrivacySetting.AnyoneWithUrl.GetStringValueLowerCase()">@BoxPrivacySetting.AnyoneWithUrl.GetEnumDescription()</md-option>
-                <md-option value="@BoxPrivacySetting.MembersOnly.GetStringValueLowerCase()">@BoxPrivacySetting.MembersOnly.GetEnumDescription()</md-option>
+                <md-option value="@BoxPrivacySetting.AnyoneWithUrl.GetStringValueLowercase()">@BoxPrivacySetting.AnyoneWithUrl.GetEnumDescription()</md-option>
+                <md-option value="@BoxPrivacySetting.MembersOnly.GetStringValueLowercase()">@BoxPrivacySetting.MembersOnly.GetEnumDescription()</md-option>
             </md-select>
         </md-input-container>
     </div>
@@ -35,10 +35,10 @@
         <md-input-container flex="100" flex-gt-md="33" class="padding">
             <label>@BoxResources.Notify</label>
             <md-select name="notification" ng-model="b.settings.notificationSettings" md-container-class="dd-list" ng-model-options="{trackBy: '$value'}">
-                <md-option value="@NotificationSettings.Off.GetStringValueLowerCase()">@NotificationSettings.Off.GetEnumDescription()</md-option>
+                <md-option value="@NotificationSetting.Off.GetStringValueLowercase()">@NotificationSetting.Off.GetEnumDescription()</md-option>
                 @*<md-option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</md-option>*@
-                <md-option value="@NotificationSettings.OnceADay.GetStringValueLowerCase()">@NotificationSettings.OnceADay.GetEnumDescription()</md-option>
-                <md-option value="@NotificationSettings.OnceAWeek.GetStringValueLowerCase()">@NotificationSettings.OnceAWeek.GetEnumDescription()</md-option>
+                <md-option value="@NotificationSetting.OnceADay.GetStringValueLowercase()">@NotificationSetting.OnceADay.GetEnumDescription()</md-option>
+                <md-option value="@NotificationSetting.OnceAWeek.GetStringValueLowercase()">@NotificationSetting.OnceAWeek.GetEnumDescription()</md-option>
             </md-select>
         </md-input-container>
 

@@ -61,7 +61,7 @@ namespace Zbang.Zbox.Infrastructure.File
             string getCacheVersionPrefix, CancellationToken token
             )
         {
-            var metaData = await BlobProvider.FetchBlobMetaDataAsync(blobUri, token) ?? new Dictionary<string, string>();
+            var metaData = await BlobProvider.FetchBlobmetaDataAsync(blobUri, token) ?? new Dictionary<string, string>();
             metaData = RemoveOldMetaTags(metaData, getCacheVersionPrefix);
             metaData[PagesInDocsMetaKey] = pageCount.ToString();
             await BlobProvider.SaveMetaDataToBlobAsync(blobUri, metaData, token);

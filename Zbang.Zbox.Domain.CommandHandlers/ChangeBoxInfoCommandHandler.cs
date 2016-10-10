@@ -56,7 +56,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         }
 
 
-        private void ChangeNotificationSettings(long userId, long boxId, NotificationSettings? notificationSettings)
+        private void ChangeNotificationSettings(long userId, long boxId, NotificationSetting? notificationSettings)
         {
             if (!notificationSettings.HasValue)
             {

@@ -52,7 +52,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual User CreatedUser { get; set; }
 
-        public virtual LibraryNodeSettings Settings { get; protected set; }
+        public virtual LibraryNodeSetting Settings { get; protected set; }
 
         public virtual ICollection<Library> Children { get; protected set; }
 
@@ -119,13 +119,13 @@ namespace Zbang.Zbox.Domain
             //GenerateUrl();
         }
 
-        public void UpdateSettings(LibraryNodeSettings settings, User user, Guid id)
+        public void UpdateSettings(LibraryNodeSetting settings, User user, Guid id)
         {
             if (Settings == settings)
             {
                 return;
             }
-            if (Settings == LibraryNodeSettings.Closed)
+            if (Settings == LibraryNodeSetting.Closed)
             {
                 throw new ArgumentException();
             }

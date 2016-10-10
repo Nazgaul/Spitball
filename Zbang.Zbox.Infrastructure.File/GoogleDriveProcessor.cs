@@ -12,7 +12,7 @@ namespace Zbang.Zbox.Infrastructure.File
             : base(blobProvider, blobProviderPreview)
         {  }
         private const string ContentFormat = "<iframe class=\"iframeContent\" src=\"{0}\"></iframe>";
-        public override Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri contentUrl, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public override Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri contentUrl, int index, CancellationToken cancelToken = default(CancellationToken))
         {
             return Task.FromResult(new PreviewResult { Content = new List<string> { string.Format(ContentFormat, contentUrl.AbsoluteUri) } });
         }

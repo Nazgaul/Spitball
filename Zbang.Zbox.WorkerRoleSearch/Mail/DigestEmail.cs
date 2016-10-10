@@ -19,13 +19,13 @@ namespace Zbang.Zbox.WorkerRoleSearch.Mail
         private readonly IMailComponent m_MailComponent;
         private readonly IZboxReadServiceWorkerRole m_ZboxReadService;
         private const string ServiceName = "Digest email";
-        private readonly NotificationSettings m_DigestEmailHourBack;
+        private readonly NotificationSetting m_DigestEmailHourBack;
         private readonly int m_UtcTimeOffset;
 
         private readonly HashSet<string> m_EmailHash = new HashSet<string>();
 
         public DigestEmail(IMailComponent mailComponent, IZboxReadServiceWorkerRole zboxReadService,
-            NotificationSettings hourForEmailDigest, int utcTimeOffset)
+            NotificationSetting hourForEmailDigest, int utcTimeOffset)
         {
             m_MailComponent = mailComponent;
             m_ZboxReadService = zboxReadService;

@@ -27,7 +27,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetUsersByNotificationSettings_Query_ReturnResult()
         {
-            var query = new GetUserByNotificationQuery(NotificationSettings.OnceADay,1,10,1);
+            var query = new GetUserByNotificationQuery(NotificationSetting.OnceADay,1,10,1);
             try
             {
                 m_ZboxReadService.GetUsersByNotificationSettingsAsync(query, default(CancellationToken));
@@ -56,7 +56,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public void GetBoxesLastUpdates_Query_ReturnResult()
         {
-            var query = new GetBoxesLastUpdateQuery(NotificationSettings.OnceADay, 1);
+            var query = new GetBoxesLastUpdateQuery(NotificationSetting.OnceADay, 1);
             try
             {
                 m_ZboxReadService.GetBoxesLastUpdatesAsync(query);
@@ -71,7 +71,7 @@ namespace Zbang.Zbox.ReadServicesTests
         [TestMethod]
         public async Task GetItemsLastUpdates_Query_ReturnResult()
         {
-            var query = new GetBoxLastUpdateQuery(NotificationSettings.OnceADay, 4511);
+            var query = new GetBoxLastUpdateQuery(NotificationSetting.OnceADay, 4511);
             try
             {
                 await m_ZboxReadService.GetBoxLastUpdatesAsync(query);

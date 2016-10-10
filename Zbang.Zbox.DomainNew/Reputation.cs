@@ -53,13 +53,13 @@ namespace Zbang.Zbox.Domain
                 case ReputationAction.ShareFacebook:
                     return ReputationConst.ShareFacebookScore;
                 case ReputationAction.Invite:
-                    return ReputationConst.InviteToCloudentsScore;
+                    return ReputationConst.InviteToSystemScore;
                 case ReputationAction.InviteToBox:
                     return ReputationConst.InviteToBoxScore;
                 case ReputationAction.LikeDocument:
                     return ReputationConst.LikeItem;
-                case ReputationAction.UnLikeDocument:
-                    return ReputationConst.DisLikeItem;
+                case ReputationAction.UnlikeDocument:
+                    return ReputationConst.DislikeItem;
                 //case ReputationAction.LikeDocument:
                 //    return ReputationConst.LikeItem;
                 //case ReputationAction.UnRate3Stars:

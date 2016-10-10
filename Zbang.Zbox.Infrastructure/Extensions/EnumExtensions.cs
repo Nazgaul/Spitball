@@ -36,7 +36,7 @@ public static class EnumExtension
     }
 
 
-    public static string GetStringValueLowerCase(this Enum value)
+    public static string GetStringValueLowercase(this Enum value)
     {
         if (value == null) throw new ArgumentNullException(nameof(value));
         return value.ToString("G").Substring(0, 1).ToLower() + value.ToString("G").Substring(1);

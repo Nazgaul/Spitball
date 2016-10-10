@@ -1,6 +1,6 @@
 ﻿namespace Zbang.Zbox.Infrastructure.Enums
 {
-    public enum LibraryNodeSettings
+    public enum LibraryNodeSetting
     {
         Open = 0,
         Closed = 1

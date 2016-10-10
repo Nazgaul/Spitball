@@ -23,9 +23,9 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
         private const string ContentFormat = "<a target=\"_Blank\" href=\"{0}\"><img src=\"{1}\"/></a>";
-        public virtual Task<PreviewResult> ConvertFileToWebSitePreviewAsync(Uri blobUri, int indexNum, CancellationToken cancelToken = default(CancellationToken))
+        public virtual Task<PreviewResult> ConvertFileToWebsitePreviewAsync(Uri blobUri, int index, CancellationToken cancelToken = default(CancellationToken))
         {
-            if (indexNum > 0)
+            if (index > 0)
             {
                 return Task.FromResult(new PreviewResult { Content = new List<string>() });
             }

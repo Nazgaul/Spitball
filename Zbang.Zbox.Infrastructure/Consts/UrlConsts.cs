@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Globalization;
 using System.Text;
 using System.Web;
-using Zbang.Zbox.Infrastructure.Url;
 
 namespace Zbang.Zbox.Infrastructure.Consts
 {
     public static class UrlConst
     {
-        public const string CloudentsUrl = "https://www.spitball.co";
+        public const string SystemUrl = "https://www.spitball.co";
         private const string ItemUrl = "/item/{0}/{1}/{2}/{3}/{4}/";
         private const string QuizUrl = "/quiz/{0}/{1}/{2}/{3}/{4}/";
         private const string BoxUrl = "/box/my/{0}/{1}/";
@@ -28,12 +28,12 @@ namespace Zbang.Zbox.Infrastructure.Consts
             return "/" + ShortItem.Replace("{item62Id}", item62Id);
         }
 
-        public const string PasswordUpdate = CloudentsUrl + "/account/passwordupdate?key={0}";
+        public const string PasswordUpdate = SystemUrl + "/account/passwordupdate?key={0}";
         private const string BoxUrlInvite = "?invId={0}";
 
         public static string BuildInviteUrl(string boxUrl, string inviteId)
         {
-            return CloudentsUrl + boxUrl + string.Format(BoxUrlInvite, inviteId);
+            return SystemUrl + boxUrl + string.Format(BoxUrlInvite, inviteId);
         }
 
         public static string AppendCloudentsUrl(string relativeUrl)
@@ -42,14 +42,14 @@ namespace Zbang.Zbox.Infrastructure.Consts
             {
                 return relativeUrl;
             }
-            return HttpUtility.UrlPathEncode(CloudentsUrl + relativeUrl);
-            
+            return HttpUtility.UrlPathEncode(SystemUrl + relativeUrl);
+
         }
 
 
         public static string BuildInviteCloudentsUrl(string inviteId)
         {
-            return CloudentsUrl + string.Format(LogInUrl, inviteId);
+            return SystemUrl + string.Format(LogInUrl, inviteId);
         }
 
         public static string BuildUserUrl(long id, string name, bool fullUrl = false)
@@ -62,7 +62,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
             var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(UserUrl, id, NameToQueryString(name)));
             if (fullUrl)
             {
-                return CloudentsUrl + relativeUrl;
+                return SystemUrl + relativeUrl;
             }
             return relativeUrl;
         }
@@ -71,12 +71,12 @@ namespace Zbang.Zbox.Infrastructure.Consts
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new ArgumentException(nameof(name));
+                throw new ArgumentNullException(nameof(name));
             }
             string relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.IsNullOrEmpty(universityName) ? string.Format(BoxUrl, id, NameToQueryString(name)) : string.Format(CourseUrl, id, NameToQueryString(name), NameToQueryString(universityName)));
             if (fullUrl)
             {
-                return CloudentsUrl + relativeUrl;
+                return SystemUrl + relativeUrl;
             }
             return relativeUrl;
         }
@@ -89,11 +89,11 @@ namespace Zbang.Zbox.Infrastructure.Consts
         {
             if (string.IsNullOrEmpty(itemName))
             {
-                throw new ArgumentException("itemName");
+                throw new ArgumentNullException(nameof(itemName));
             }
             if (string.IsNullOrEmpty(boxName))
             {
-                throw new ArgumentException("boxName");
+                throw new ArgumentNullException(nameof(boxName));
             }
 
 
@@ -101,7 +101,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
                 NameToQueryString(universityName), boxId, NameToQueryString(boxName), itemId, NameToQueryString(itemName)));
             if (fullUrl)
             {
-                return CloudentsUrl + relativeUrl;
+                return SystemUrl + relativeUrl;
             }
             return relativeUrl;
         }
@@ -109,25 +109,25 @@ namespace Zbang.Zbox.Infrastructure.Consts
         {
             if (string.IsNullOrEmpty(quizName))
             {
-                throw new ArgumentException(nameof(quizName));
+                throw new ArgumentNullException(nameof(quizName));
             }
             if (string.IsNullOrEmpty(boxName))
             {
-                throw new ArgumentException(nameof(boxName));
+                throw new ArgumentNullException(nameof(boxName));
             }
 
 
-            var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(QuizUrl, NameToQueryString(universityName), boxId, NameToQueryString(boxName), quizId, NameToQueryString(quizName)));
+            var relativeUrl = VirtualPathUtility.AppendTrailingSlash(string.Format(CultureInfo.InvariantCulture, QuizUrl, NameToQueryString(universityName), boxId, NameToQueryString(boxName), quizId, NameToQueryString(quizName)));
             if (fullUrl)
             {
-                return CloudentsUrl + relativeUrl;
+                return SystemUrl + relativeUrl;
             }
             return relativeUrl;
         }
 
 
 
-       
+
 
         //public static string BuildLibraryUrl(Guid id, string name)
         //{
@@ -154,7 +154,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
             }
             char previousChar = '\0';
             var sb = new StringBuilder();
-           // name = name.Replace(Convert.ToChar(160), ' ');
+            // name = name.Replace(Convert.ToChar(160), ' ');
             //name = name.Replace("\n", string.Empty);
 
             foreach (var character in name)
@@ -212,7 +212,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
                         break;
                 }
             }
-            return sb.ToString().ToLower();
+            return sb.ToString().ToLowerInvariant();
 
         }
     }

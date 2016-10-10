@@ -11,7 +11,7 @@ namespace Zbang.Zbox.Infrastructure.Storage
             where TU : ICacheContainer;
 
 
-    IContentProcessor GetProcessor<T>(Uri contentUrl) where T : IPreviewContainer;
+        IContentProcessor GetProcessor<T>(Uri contentUrl) where T : IPreviewContainer;
 
         IContentProcessor GetProcessor(Uri contentUrl);
     }

@@ -36,7 +36,8 @@ namespace Zbang.Zbox.Infrastructure.Url
                 }
                 else
                 {
-                    throw new Exception(string.Format("The character '{0}' is not legal; only the characters 1-9, a-z and A-Z are legal.", c));
+                    throw new Exception(
+                        $"The character '{c}' is not legal; only the characters 1-9, a-z and A-Z are legal.");
                 }
 
                 m_Value += part * pos;
@@ -82,10 +83,7 @@ namespace Zbang.Zbox.Infrastructure.Url
             return ConvertToString(value / 62) + val;
         }
 
-        public long Value
-        {
-            get { return m_Value; }
-        }
+        public long Value => m_Value;
 
         public override string ToString()
         {
@@ -94,11 +92,7 @@ namespace Zbang.Zbox.Infrastructure.Url
 
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is Base62))
-            {
-                return false;
-            }
-            return ((Base62)obj).Value == Value;
+            return (obj as Base62?)?.Value == Value;
         }
 
         public override int GetHashCode()

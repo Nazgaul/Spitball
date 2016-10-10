@@ -11,7 +11,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
         public Guid? ParentId { get; set; }
         public string ParentName { get; set; }
 
-        public LibraryNodeSettings State { get; set; }
+        public LibraryNodeSetting State { get; set; }
 
         public UserLibraryRelationType UserType { get; set; }
     }

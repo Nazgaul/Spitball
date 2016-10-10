@@ -13,7 +13,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
         public const int DeleteAnswerScore = -AddAnswerScore;
         public const int DeleteQuizScore = -AddQuizScore;
         public const int ShareFacebookScore = 50;
-        public const int InviteToCloudentsScore = 150;
+        public const int InviteToSystemScore = 150;
         public const int InviteToBoxScore = 50;
         public const int Register = 500;
 
@@ -23,7 +23,7 @@ namespace Zbang.Zbox.Infrastructure.Consts
 
         //public const int Unrate3StarScore = -Rate3StarScore;
         //public const int Unrate4StarScore = -Rate4StarScore;
-        public const int DisLikeItem = -LikeItem;
+        public const int DislikeItem = -LikeItem;
 
         //public const int AddItemCommentScore = 30;
         //public const int AddItemReplyScore = 15;

@@ -6,12 +6,12 @@ namespace Zbang.Zbox.ViewModel.Queries.Emails
     public abstract class BaseDigestLastUpdateQuery
     {
         public const int OnEveryChangeTimeToQueryInMinutes = 15;
-        protected BaseDigestLastUpdateQuery(NotificationSettings notificationSettings)
+        protected BaseDigestLastUpdateQuery(NotificationSetting notificationSettings)
         {
             NotificationSettings = notificationSettings;
         }
 
-        private NotificationSettings NotificationSettings { get; }
+        private NotificationSetting NotificationSettings { get; }
 
         public int MinutesPerNotificationSettings
         {

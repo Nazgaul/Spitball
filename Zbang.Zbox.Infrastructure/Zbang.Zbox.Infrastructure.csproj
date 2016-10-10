@@ -53,8 +53,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.1.0\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=4.1.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cobisi.EmailVerify.Net45">
@@ -76,8 +76,8 @@
       <HintPath>..\packages\NHibernate.4.0.4.4000\lib\net40\NHibernate.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="StackExchange.Redis, Version=1.1.605.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StackExchange.Redis.1.1.605\lib\net45\StackExchange.Redis.dll</HintPath>
+    <Reference Include="StackExchange.Redis, Version=1.1.608.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.1.608\lib\net45\StackExchange.Redis.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -106,9 +106,8 @@
     <Compile Include="Enums\EmailSend.cs" />
     <Compile Include="Enums\FeedType.cs" />
     <Compile Include="Enums\ImageSize.cs" />
-    <Compile Include="Enums\LibraryNodeSettings.cs" />
+    <Compile Include="Enums\LibraryNodeSetting.cs" />
     <Compile Include="Enums\LikeType.cs" />
-    <Compile Include="Enums\LogInStatus.cs" />
     <Compile Include="Enums\MessageType.cs" />
     <Compile Include="Enums\MobileOperatingSystem.cs" />
     <Compile Include="Enums\PushNotificationSettings.cs" />
@@ -151,7 +150,6 @@
     <Compile Include="Profile\IProfileProcessor.cs" />
     <Compile Include="Profile\ProfileImages.cs" />
     <Compile Include="Profile\ProfilePictureProvider.cs" />
-    <Compile Include="Query\IComposite.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Query\IUniversityWithCode.cs" />
     <Compile Include="RegisterIoc.cs" />
@@ -185,13 +183,13 @@
     <Compile Include="Url\EncryptObject.cs" />
     <Compile Include="Url\GuidEncoder.cs" />
     <Compile Include="Url\InviteLinkProvider.cs" />
-    <Compile Include="Cache\Cache.cs" />
+    <Compile Include="Cache\SystemCache.cs" />
     <Compile Include="Cache\IWithCache.cs" />
     <Compile Include="Cache\WithCache.cs" />
     <Compile Include="CommandHandlers\CommandBus.cs" />
     <Compile Include="Cache\ICache.cs" />
     <Compile Include="Enums\BoxPrivacySettings.cs" />
-    <Compile Include="Enums\NotificationSettings.cs" />
+    <Compile Include="Enums\NotificationSetting.cs" />
     <Compile Include="Enums\UserRelationshipType.cs" />
     <Compile Include="Query\IQueryCache.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />

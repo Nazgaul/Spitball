@@ -14,7 +14,7 @@ namespace Zbang.Cloudents.Connect
     /// Using this class combined with the connection events SignalR raises will ensure
     /// that your database will always be in sync with what SignalR is seeing.
     /// </summary>
-    public class PresenceMonitor
+    public class PresenceMonitor : IDisposable
     {
         private readonly ITransportHeartbeat m_Heartbeat;
         private readonly IZboxWriteService m_ZboxWriteService;
@@ -65,6 +65,11 @@ namespace Zbang.Cloudents.Connect
             if (!connectionIds.Any()) return;
             var command = new ManageConnectionsCommand(connectionIds);
             m_ZboxWriteService.ManageConnections(command);
+        }
+
+        public void Dispose()
+        {
+            m_Timer?.Dispose();
         }
     }
 }

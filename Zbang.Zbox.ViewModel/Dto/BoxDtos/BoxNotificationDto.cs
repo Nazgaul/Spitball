@@ -7,7 +7,7 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
     {
         public long Id { get; set; }
         public string Name { get; set; }
-        public NotificationSettings Notifications { get; set; }
+        public NotificationSetting Notifications { get; set; }
         public string Url { get; set; }
 
         public string UserName { get; set; }

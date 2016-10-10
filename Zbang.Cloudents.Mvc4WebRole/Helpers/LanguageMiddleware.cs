@@ -54,7 +54,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Helpers
                     var language = m_ContextBase.Request.UserLanguages.FirstOrDefault(Languages.CheckIfLanguageIsSupported);
                     if (string.IsNullOrEmpty(language))
                     {
-                        language = Languages.GetDefaultSystemCulture().Culture.First();
+                        language = Languages.DefaultSystemCulture.Culture.First();
                     }
                     m_LanguageCookie.InjectCookie(language);
                     ChangeThreadLanguage(language);
