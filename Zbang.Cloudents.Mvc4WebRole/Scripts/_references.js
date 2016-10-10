@@ -122,7 +122,6 @@
 /// <reference path="angular-signalr-hub.min.js" />
 /// <reference path="angular-srph-infinite-scroll.js" />
 /// <reference path="angular-ui-router.min.js" />
-/// <reference path="browser-deeplink.js" />
 /// <reference path="countup.js" />
 /// <reference path="draganddrop.min.js" />
 /// <reference path="jquery.bxslider.js" />
