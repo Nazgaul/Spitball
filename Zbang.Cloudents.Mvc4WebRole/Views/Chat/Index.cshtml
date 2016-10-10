@@ -111,7 +111,7 @@
 
                         <form name="chatDialog" novalidate ng-submit="cv.send()">
                             <md-input-container md-no-float>
-                                <textarea md-no-asterisk autofocus enter-submit="cv.send()" autocomplete="off" type="text" maxlength="16000" required ng-model="cv.newText" placeholder="@ChatResources.NewMessagePlaceholder"></textarea>
+                                <textarea md-no-asterisk autofocus class="scrollbar _md" enter-submit="cv.send()" autocomplete="off" type="text" maxlength="16000" required ng-model="cv.newText" placeholder="@ChatResources.NewMessagePlaceholder"></textarea>
                             </md-input-container>
                             <button type="submit" class="action-btn no-text" ng-disabled="cv.disabled" ga-track-event="['chat', 'sent-message']">
                                 <md-icon md-svg-icon="u:post"></md-icon>

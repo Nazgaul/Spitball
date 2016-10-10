@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="next" ng-if="u.badgeInfo.next" ng-click="u.showBadge(u.badgeInfo.next)">></div>
                                 <div class="prev" ng-if="u.badgeInfo.prev" ng-click="u.showBadge(u.badgeInfo.prev)"><</div>
-                                <div class="close" ng-click="u.badgeInfo=false">X</div>
+                                <md-icon class="close" md-svg-icon="t:close" ng-click="u.badgeInfo=false"></md-icon>
                             </div>
                         </div>
                         <div ng-switch-when="c" class="tab community">
@@ -202,22 +202,28 @@
                                 <img class="title" src="~/Images/Site/Leaderborad-title.png" />
                             </div>
                             <div class="content">
-                                <div class="filters">
-                                    <md-input-container class="dates" flex-gt-sm>
-                                        <md-select ng-model="u.communityFilter">
-                                            <md-option value="This Month">This Month</md-option>
-                                            <md-option value="Filter 1">Filter 1</md-option>
-                                            <md-option value="Filter 2">Filter 2</md-option>
-                                            <md-option value="Filter 3">Filter 3</md-option>
-                                        </md-select>
-                                    </md-input-container>
-                                    <button type="button">Show Myself</button>
+                                <div class="filters" layout="row" layout-wrap>
+                                    <div class="filter-wrapper" flex-gt-sm="20">
+                                        <md-input-container class="dates action-btn">
+                                            <md-select ng-model="u.communityFilter">
+                                                <md-option value="This Month">This Month</md-option>
+                                                <md-option value="Filter 1">Filter 1</md-option>
+                                                <md-option value="Filter 2">Filter 2</md-option>
+                                                <md-option value="Filter 3">Filter 3</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                    </div>
+                                    <div class="filter-wrapper" flex-gt-sm="20">
+                                        <button type="button" class="action-btn">Show Myself</button>
+                                    </div>
                                 </div>
-                                <div class="users">
-                                    <div class="top-user" ng-repeat="topUser in u.community.topUsers">
-                                        <img src="{{topUser.image}}"/>
-                                        <div class="name">{{topUser.name}}</div>
-                                        <div class="points">{{topUser.points}}</div>
+                                <div class="users" layout="row" layout-wrap>
+                                    <div flex-gt-sm="20" class="user" ng-repeat="user in u.communityUsers | orderBy : '-points'" ng-class="{'top-user' : $index < 5}">
+                                        <div class="user-data">
+                                            <img src="{{user.image}}" />
+                                            <div class="name">{{user.name}}</div>
+                                            <div class="points">{{user.points}}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

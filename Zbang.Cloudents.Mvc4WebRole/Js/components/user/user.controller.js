@@ -200,18 +200,37 @@
                 points: 500
             }
         ];
-        self.community = {
-            topUsers: [
+        self.communityUsers = [
                 {
                     name: "Irena Dorfman",
                     image: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/f2338ed9-d5be-4d39-8fca-2896ef836ef6.jpg",
                     points: 50800
-                }],
-            regularUsers: [
+                },
                 {
-
-                }]
-        };
+                    name: "user 2",
+                    image: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/f2338ed9-d5be-4d39-8fca-2896ef836ef6.jpg",
+                    points: 800
+                },
+                {
+                    name: "user 3",
+                    image: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/f2338ed9-d5be-4d39-8fca-2896ef836ef6.jpg",
+                    points: 800000
+                },
+                {
+                    name: "user 4",
+                    image: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/f2338ed9-d5be-4d39-8fca-2896ef836ef6.jpg",
+                    points: 800000
+                },
+                {
+                    name: "user 5",
+                    image: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/f2338ed9-d5be-4d39-8fca-2896ef836ef6.jpg",
+                    points: 800000
+                },
+                {
+                    name: "user 6",
+                    image: "https://zboxstorage.blob.core.windows.net/zboxprofilepic/S100X100/f2338ed9-d5be-4d39-8fca-2896ef836ef6.jpg",
+                    points: 800000
+                }];
         function sendMessage() {
             if ($mdMedia('gt-xs')) {
                 $rootScope.$broadcast('open-chat-user',

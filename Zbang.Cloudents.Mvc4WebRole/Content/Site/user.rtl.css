@@ -280,8 +280,11 @@
 }
 .userPage .tab-content .badges .tab.badges .expanded .close {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 20px;
+  left: 12px;
+  width: 20px;
+  height: 20px;
+  fill: #323538;
 }
 .userPage .tab-content .badges .tab.badges .badge-container {
   width: 160px;
@@ -355,7 +358,11 @@
   position: relative;
 }
 .userPage .tab-content .badges .tab.community .content {
-  padding: 30px 45px;
+  padding: 30px;
+}
+.userPage .tab-content .badges .tab.community .content .user,
+.userPage .tab-content .badges .tab.community .content .filter-wrapper {
+  padding: 15px;
 }
 .userPage .tab-content .badges .tab.community .content .filters {
   display: -webkit-flex;
@@ -366,16 +373,15 @@
 }
 .userPage .tab-content .badges .tab.community .content .filters .dates,
 .userPage .tab-content .badges .tab.community .content .filters button {
-  max-width: 150px;
-  background: #4190b9;
   border-radius: 8px;
-  width: 100%;
+  box-shadow: none;
 }
 .userPage .tab-content .badges .tab.community .content .filters button {
   color: #ffffff;
   line-height: 28px;
   font-size: 18px;
-  margin-right: 30px;
+  width: 100%;
+  padding: 1px;
 }
 .userPage .tab-content .badges .tab.community .content .filters .dates {
   padding: 0;
@@ -383,6 +389,7 @@
 .userPage .tab-content .badges .tab.community .content .filters .dates .md-text {
   padding-right: 10px;
   color: #ffffff;
+  font-size: 18px;
 }
 .userPage .tab-content .badges .tab.community .content .filters .dates .md-select-icon {
   color: #ffffff;
@@ -390,6 +397,39 @@
 .userPage .tab-content .badges .tab.community .content .filters .dates .md-select-value {
   border: none;
   padding: 2px;
+}
+.userPage .tab-content .badges .tab.community .content .users .user .user-data {
+  background: #ffffff;
+  border: 1px solid black;
+  text-align: center;
+}
+.userPage .tab-content .badges .tab.community .content .users .user .user-data img {
+  border-radius: 100%;
+  width: 90px;
+  height: 90px;
+  border: 1px solid #212325;
+  margin: 8px;
+}
+.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data {
+  border: 3px solid #ffce2f;
+  position: relative;
+  overflow: hidden;
+}
+.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data:before {
+  content: '';
+  display: block;
+  width: calc(100% + 50px);
+  height: 100px;
+  background: #ffce2f;
+  position: relative;
+  border-radius: 0 0 100% 100%;
+  top: -40px;
+  right: -25px;
+  margin-bottom: -90px;
+}
+.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data img {
+  position: relative;
+  border: 3px solid #ffffff;
 }
 .userPage .tab-content .badges md-ink-bar {
   background: #ffce2f;
