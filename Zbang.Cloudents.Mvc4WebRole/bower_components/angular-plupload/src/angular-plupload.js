@@ -14,7 +14,7 @@
         flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
         silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
         runtimes: 'html5, flash, silverlight, html4',
-        max_file_size: '3mb'
+        chunk_size: '3mb'
         //filters: [
         //  { title: 'Image files', extensions: 'jpg,jpeg,gif,png' }
         //]

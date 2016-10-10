@@ -2529,8 +2529,6 @@
     <Content Include="Scripts\angular-countUp.js" />
     <Content Include="Scripts\angular-google-adsense.js" />
     <Content Include="Scripts\angular-srph-infinite-scroll.js" />
-    <Content Include="Scripts\browser-deeplink.js" />
-    <Content Include="Scripts\browser-deeplink.min.js" />
     <Content Include="Scripts\CountUp.js" />
     <Content Include="Scripts\draganddrop.js" />
     <Content Include="Scripts\draganddrop.min.js" />
