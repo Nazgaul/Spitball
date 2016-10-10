@@ -53,7 +53,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
             if (university != null && string.IsNullOrEmpty(universityName))
             {
-                return RedirectToRoute("UniversityLink", new { invId , universityName  = university.UniversityName});
+                return RedirectToRoute("UniversityLink", new { invId, universityName = university.UniversityName, step });
             }
 
             if (!string.IsNullOrEmpty(universityName) && university == null)
