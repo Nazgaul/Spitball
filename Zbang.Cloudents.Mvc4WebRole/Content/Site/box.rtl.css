@@ -552,7 +552,12 @@ md-menu-item > a.md-button {
   align-items: center;
   -webkit-justify-content: space-between;
   justify-content: space-between;
-  width: 26px;
+}
+.item .stats .views md-icon,
+.quiz .stats .views md-icon,
+.item .stats .likes md-icon,
+.quiz .stats .likes md-icon {
+  margin-right: 4px;
 }
 .item .stats .likes svg,
 .quiz .stats .likes svg {

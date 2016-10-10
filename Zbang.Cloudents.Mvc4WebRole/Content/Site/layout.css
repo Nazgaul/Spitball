@@ -704,6 +704,13 @@ Page Loading
   right: 0;
   z-index: -1;
 }
+@media (max-width: 600px) {
+  .unreg-user .close-wrapper:after {
+    width: 45px;
+    height: 45px;
+    top: -18px;
+  }
+}
 .unreg-user .close-wrapper button.close {
   padding: 18px;
   border-radius: 50%;
@@ -725,6 +732,7 @@ Page Loading
   .unreg-user .close-wrapper button.close md-icon {
     width: 15px;
     height: 15px;
+    display: block;
   }
 }
 .unreg-user .content-wrapper {
