@@ -79,6 +79,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Earn points and badges by contributing to your community through specific actions, and rise up through the levels to gain special privileges that control what you can do on Spitball..
+        /// </summary>
+        public static string InfoText {
+            get {
+                return ResourceManager.GetString("InfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What are point and levels and what are they good for....
+        /// </summary>
+        public static string InfoTitle {
+            get {
+                return ResourceManager.GetString("InfoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to People will forever remember your name. You are a Spitballing legend. You’ll receive a t-shirt exclusive for “Einstein” level Spitballers. (we should also mark their accounts with a little Einstein insignia or something).
         /// </summary>
         public static string LevelEinsteinBody {
@@ -228,6 +246,87 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.User.Resources {
         public static string LevelUpperclassmanTitle {
             get {
                 return ResourceManager.GetString("LevelUpperclassmanTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pts.
+        /// </summary>
+        public static string Points {
+            get {
+                return ResourceManager.GetString("Points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating a quiz.
+        /// </summary>
+        public static string PointsDescription1 {
+            get {
+                return ResourceManager.GetString("PointsDescription1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Each accepted invite.
+        /// </summary>
+        public static string PointsDescription2 {
+            get {
+                return ResourceManager.GetString("PointsDescription2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Each accepted class invite.
+        /// </summary>
+        public static string PointsDescription3 {
+            get {
+                return ResourceManager.GetString("PointsDescription3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload a document to a class.
+        /// </summary>
+        public static string PointsDescription4 {
+            get {
+                return ResourceManager.GetString("PointsDescription4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reply to a Class Feed comment.
+        /// </summary>
+        public static string PointsDescription5 {
+            get {
+                return ResourceManager.GetString("PointsDescription5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting a like.
+        /// </summary>
+        public static string PointsDescription6 {
+            get {
+                return ResourceManager.GetString("PointsDescription6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sharing on FB.
+        /// </summary>
+        public static string PointsDescription7 {
+            get {
+                return ResourceManager.GetString("PointsDescription7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit a Class Feed comment.
+        /// </summary>
+        public static string PointsDescription8 {
+            get {
+                return ResourceManager.GetString("PointsDescription8", resourceCulture);
             }
         }
     }

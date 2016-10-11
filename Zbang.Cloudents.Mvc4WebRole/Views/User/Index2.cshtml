@@ -58,7 +58,7 @@
                 <div ng-switch-when="b" class="badges">
                     <div class="badges-bar">
                         <div class="info">
-                            <md-icon md-svg-icon="p:q-mark" class=""></md-icon>
+                            <md-icon md-svg-icon="p:q-mark" class="" ng-click="u.showInfo()"></md-icon>
                         </div>
                         <md-tabs class="badges-tabs" md-dynamic-height="true">
                             <md-tab md-on-select="u.changeBadgesTab(u.badgesState.levels)" md-active="u.badgesTab === u.badgesState.levels">

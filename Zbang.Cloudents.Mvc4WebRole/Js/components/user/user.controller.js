@@ -34,6 +34,7 @@
         //self.tab = self.state.box;
         self.tab = self.state.badges;
         self.badgesTab = self.badgesState.levels;
+        self.showInfo = showInfo;
         //self.elements = [];
 
         self.changeTab = function (tab) {
@@ -396,5 +397,20 @@
 
         }
 
+        function showInfo() {
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: '/user/infodialog/',
+                parent: angular.element(document.body),
+                clickOutsideToClose: true,
+                //fullscreen: true
+            });
+        }
+
+        function DialogController($scope, $mdDialog) {
+            $scope.hide = function () {
+                $mdDialog.hide();
+            };
+        }
     }
 })();

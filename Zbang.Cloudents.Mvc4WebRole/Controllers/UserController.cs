@@ -174,7 +174,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }));
         }
 
-       
+
+        [HttpGet]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult infoDialog()
+        {
+            return PartialView();
+        }
 
 
 

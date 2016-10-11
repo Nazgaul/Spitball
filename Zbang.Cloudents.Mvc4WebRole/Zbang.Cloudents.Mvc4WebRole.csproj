@@ -2642,6 +2642,7 @@
     <Content Include="Views\Account\UnregisterView.cshtml" />
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Shared\_AudioNotifications.cshtml" />
+    <Content Include="Views\User\infoDialog.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
