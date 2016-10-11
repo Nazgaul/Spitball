@@ -305,8 +305,12 @@
   position: relative;
 }
 .quizPage .feed .userblock .user-name {
-  margin-left: 12px;
   padding-bottom: 16px;
+}
+@media (max-width: 600px) {
+  .quizPage .feed .userblock .user-name {
+    margin-left: 12px;
+  }
 }
 .quizPage .feed .comment-date {
   margin-left: 12px;
