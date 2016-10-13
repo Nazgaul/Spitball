@@ -4,7 +4,7 @@
     angular.module("app").config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
         "$httpProvider", "$compileProvider", "$animateProvider",
-        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider","$mdThemingProvider"];
+        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider", "$mdThemingProvider"];
     // ReSharper disable once Class
     function config(
         $controllerProvider: angular.IControllerProvider,
@@ -16,7 +16,8 @@
         $mdAriaProvider,
         $mdIconProvider: angular.material.IIconProvider,
         $sceDelegateProvider: angular.ISCEDelegateProvider,
-        $mdThemingProvider/*: angular.material.IThemingProvider*/) {
+        $mdThemingProvider/*: angular.material.IThemingProvider*/
+        ) {
 
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';

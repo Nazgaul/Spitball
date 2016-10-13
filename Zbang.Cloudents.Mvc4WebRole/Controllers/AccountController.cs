@@ -901,6 +901,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
                 user.AddClaim(new Claim(ClaimConst.UniversityDataClaim,
                     retVal.UniversityId?.ToString(CultureInfo.InvariantCulture) /*?? retVal.UniversityId.ToString(CultureInfo.InvariantCulture)*/));
+
+                m_AuthenticationManager.SignIn(user);
                 //retVal.Token = token;
                 return JsonOk(retVal);
             }

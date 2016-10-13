@@ -101,6 +101,7 @@ namespace Testing
 
         static void Main(string[] args)
         {
+            var guid = GuidEncoder.Decode("J_ILdSwNBEuEgaabAIK22g");
             emailsVerify();
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();

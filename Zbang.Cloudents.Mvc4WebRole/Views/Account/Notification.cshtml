@@ -12,7 +12,6 @@
                 <md-input-container flex-xs="100" flex-gt-xs="30">
                     <md-select aria-label="notification" md-container-class="dd-list" ng-model="box.notifications" ng-change="n.updateNotification(box)" ga-track-event="['notifications', 'change notification timing']">
                         <md-option value="@NotificationSetting.Off.GetStringValueLowercase()">@NotificationSetting.Off.GetEnumDescription()</md-option>
-                        @*<md-option value="@NotificationSettings.OnEveryChange.GetStringValueLowerCase()">@NotificationSettings.OnEveryChange.GetEnumDescription()</md-option>*@
                         <md-option value="@NotificationSetting.OnceADay.GetStringValueLowercase()">@NotificationSetting.OnceADay.GetEnumDescription()</md-option>
                         <md-option value="@NotificationSetting.OnceAWeek.GetStringValueLowercase()">@NotificationSetting.OnceAWeek.GetEnumDescription()</md-option>
                     </md-select>
