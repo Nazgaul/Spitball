@@ -174,4 +174,37 @@
   <data name="LevelEinsteinBody" xml:space="preserve">
     <value>People will forever remember your name. You are a Spitballing legend. You’ll receive a t-shirt exclusive for “Einstein” level Spitballers. (we should also mark their accounts with a little Einstein insignia or something)</value>
   </data>
+  <data name="InfoText" xml:space="preserve">
+    <value>Earn points and badges by contributing to your community through specific actions, and rise up through the levels to gain special privileges that control what you can do on Spitball.</value>
+  </data>
+  <data name="InfoTitle" xml:space="preserve">
+    <value>What are point and levels and what are they good for...</value>
+  </data>
+  <data name="PointsDescription1" xml:space="preserve">
+    <value>Creating a quiz</value>
+  </data>
+  <data name="PointsDescription2" xml:space="preserve">
+    <value>Each accepted invite</value>
+  </data>
+  <data name="PointsDescription3" xml:space="preserve">
+    <value>Each accepted class invite</value>
+  </data>
+  <data name="PointsDescription4" xml:space="preserve">
+    <value>Upload a document to a class</value>
+  </data>
+  <data name="PointsDescription5" xml:space="preserve">
+    <value>Reply to a Class Feed comment</value>
+  </data>
+  <data name="PointsDescription6" xml:space="preserve">
+    <value>Getting a like</value>
+  </data>
+  <data name="PointsDescription7" xml:space="preserve">
+    <value>Sharing on FB</value>
+  </data>
+  <data name="PointsDescription8" xml:space="preserve">
+    <value>Submit a Class Feed comment</value>
+  </data>
+  <data name="Points" xml:space="preserve">
+    <value>pts</value>
+  </data>
 </root>
