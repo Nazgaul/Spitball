@@ -1,5 +1,4 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
-@using Zbang.Zbox.Infrastructure.Enums
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources;
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
@@ -19,10 +18,10 @@
         <div flex="50" flex-xs="100">
             <div flex layout="row" flex-xs="100" layout-align="start center" class="left-flex university">
                 <img ng-src="{{::i.data.universityImage}}" class="uni-image" alt="university logo" width="50" height="50" />
-                <div layout="column">
-                    <a class="change-uni" ui-sref="universityChoose" ga-track-event="['settings', 'change university']">@AccountResource.changeUniversityBtn</a>
+                <a layout="column" ui-sref="universityChoose" ga-track-event="['settings', 'change university']">
+                    <span class="change-uni">@AccountResource.changeUniversityBtn</span>
                     <span class="uni-name">{{::i.data.university}}</span>
-                </div>
+                </a>
             </div>
             <md-input-container>
                 <label>@AccountResource.Lang</label>
@@ -74,34 +73,33 @@
             </form>
         </div>
     </div>
+</div>
 
-    <script type="text/ng-template" id="change-email-template.html">
-        <div class="change-email-dialog">
-            <div class="icon">
-                <md-icon md-svg-icon="i:info"></md-icon>
-                @*@Html.Svg("~/images/site/itemIcons.svg", "info")*@
-            </div>
-            <div class="content">
-                <div class="text">
-                    <span>@LogOnResources.CheckEmailTitle</span>
-                    <br />@AccountResource.VerificationCode
-                </div>
-                <form ng-submit="ic.submitCode(insertCode)" novalidate name="insertCode">
-                    <md-input-container>
-                        <label>@AccountResource.EnterVerification</label>
-                        <input type="number" autocomplete="off" required md-no-asterisk ng-model="ic.code" name="code" ng-change="insertCode.code.$setValidity('server',true)" />
-                        <div ng-messages="insertCode.code.$error" ng-show="insertCode.code.$dirty">
-                            <div ng-message="required">@GeneralResources.RequiredField</div>
-                            <div ng-message="server">{{ic.error}}</div>
-                        </div>
-                    </md-input-container>
-                    <div class="text-right">
-                        <button type="button" ng-click="ic.cancel()" class="cancel-btn text-capitalize" ng-disabled="!insertCode.$valid">@GeneralResources.Cancel</button>
-                        <button type="submit" class="action-btn space-before text-capitalize" ng-disabled="!insertCode.$valid">@ItemsResources.Save</button>
-                    </div>
-                </form>
-            </div>
+<script type="text/ng-template" id="change-email-template.html">
+    <div class="change-email-dialog">
+        <div class="icon">
+            <md-icon md-svg-icon="i:info"></md-icon>
+            @*@Html.Svg("~/images/site/itemIcons.svg", "info")*@
         </div>
-
-
-    </script>
+        <div class="content">
+            <div class="text">
+                <span>@LogOnResources.CheckEmailTitle</span>
+                <br />@AccountResource.VerificationCode
+            </div>
+            <form ng-submit="ic.submitCode(insertCode)" novalidate name="insertCode">
+                <md-input-container>
+                    <label>@AccountResource.EnterVerification</label>
+                    <input type="number" autocomplete="off" required md-no-asterisk ng-model="ic.code" name="code" ng-change="insertCode.code.$setValidity('server',true)" />
+                    <div ng-messages="insertCode.code.$error" ng-show="insertCode.code.$dirty">
+                        <div ng-message="required">@GeneralResources.RequiredField</div>
+                        <div ng-message="server">{{ic.error}}</div>
+                    </div>
+                </md-input-container>
+                <div class="text-right">
+                    <button type="button" ng-click="ic.cancel()" class="cancel-btn text-capitalize" ng-disabled="!insertCode.$valid">@GeneralResources.Cancel</button>
+                    <button type="submit" class="action-btn space-before text-capitalize" ng-disabled="!insertCode.$valid">@ItemsResources.Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</script>

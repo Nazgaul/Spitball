@@ -1,12 +1,15 @@
 ﻿(function () {
     'use strict';
     angular.module('app.library').controller('Library', library);
-    library.$inject = ['libraryService', '$stateParams', 'userDetailsFactory', 'nodeData', '$mdDialog',
-        '$location', '$scope', 'resManager', 'universityData', 'itemThumbnailService', 'ajaxService2', '$timeout'];
+    library.$inject = ['libraryService', '$stateParams', 'userDetailsFactory',
+        'nodeData', '$mdDialog',
+        '$location', '$scope', 'resManager', 'universityData',
+        'itemThumbnailService', 'ajaxService2', '$timeout', "$mdMedia", "$anchorScroll"];
 
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
-        $location, $scope, resManager, universityData, itemThumbnailService, ajaxService, $timeout) {
-
+        $location, $scope, resManager, universityData, itemThumbnailService, ajaxService, $timeout,
+        $mdMedia, $anchorScroll) {
+        $anchorScroll.yOffset = 70;
         var l = this, nodeId = $stateParams.id;
         l.departments = nodeData.nodes;
         l.boxes = nodeData.boxes || [];
@@ -25,8 +28,13 @@
         //l.universityName = userDetailsFactory.get().university.name;
 
         //l.topTree = nodeId == null;
-        l.createDepartmentShow = !l.state.withBoxes; //userDetailsFactory.get().isAdmin && (l.topTree || l.boxes.length === 0);
-        l.createClassShow = l.state.withBoxes || l.state.emptyNode;// || l.state.emptyNodeAdmin;// l.departments.length === 0 && !l.topTree;
+        //l.createDepartmentShow = !l.state.withBoxes; //userDetailsFactory.get().isAdmin && (l.topTree || l.boxes.length === 0);
+        l.createClassShow = l.state.emptyNode || l.state.withBoxes && $mdMedia('gt-xs');;// || l.state.emptyNodeAdmin;// l.departments.length === 0 && !l.topTree;
+        
+        l.createDepartmentShowButton = l.state.emptyNode ||  !l.state.withBoxes && $mdMedia('gt-xs');
+        //l.createDepartmentMobileButton = !l.state.withBoxes;
+
+
 
         l.createDepartment = createDepartment;
         l.canDelete = canDelete;
@@ -72,8 +80,8 @@
                 emptyTopTree: nodeId == null && l.departments.length === 0,
                // withDepartmentAdmin: userDetailsFactory.get().isAdmin && l.departments.length,
                 withBoxes: l.boxes.length,
-                emptyNode: nodeId != null && l.boxes.length === 0 && l.departments.length === 0,
-                emptyNodeAdmin: nodeId != null && l.boxes.length === 0 && l.departments.length === 0 && userDetailsFactory.get().isAdmin
+                emptyNode: nodeId != null && l.boxes.length === 0 && l.departments.length === 0
+               // emptyNodeAdmin: nodeId != null && l.boxes.length === 0 && l.departments.length === 0 && userDetailsFactory.get().isAdmin
             };
         }
 
@@ -103,17 +111,6 @@
             });
 
         }
-
-        //function createShow() {
-        //    l.createOn = true;
-        //    if (l.createClassShow) {
-        //        openCreateBox();
-        //    }
-        //    if (l.createDepartmentShow) {
-        //        openCreateDepartment();
-        //    }
-
-        //}
 
         function renameNode(myform) {
             if (!myform.$valid) {
@@ -166,7 +163,9 @@
             else {
                 l.createBoxOn = true;
             }
-            //l.focusCreateClass = true;
+            //$uiViewScroll(angular.element("#createCourse"));
+            //$location.hash('createCourse');
+            $anchorScroll("#createCourse");
         }
         function openCreateDepartment() {
             l.createOn = true;
@@ -179,7 +178,11 @@
             l.createBoxOn = false;
             l.settingsOpen = false;
             l.focusCreateDepartment = true;
-
+            //$uiViewScroll(angular.element("#createDepartment"));
+            //$location.hash('createDepartment');
+            $timeout(function() {
+                $anchorScroll("createDepartment");
+            });
         }
 
         function createBox(myform) {

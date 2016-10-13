@@ -26,7 +26,7 @@
 }
 
 <div class="actions" layout="row" layout-padding layout-wrap flex="100">
-    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" class="create-box flex" ng-if="l.createDepartmentShow">
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" class="create-box flex" ng-if="l.createDepartmentShowButton">
         <button type="button" ng-click="l.openCreateDepartment()" class="box-style action" ng-class="{'active':l.createDepartmentOn}" ga-track-event="['university', 'add new department']">
             <div class="wrapper">
                 @Html.Svg("~/images/site/icons.svg", "add", new { @class = "icon" })
@@ -52,8 +52,8 @@
     </div>
 </div>
 <div ng-if="!l.state.emptyTopTree" layout="row" layout-padding layout-wrap class="library-list">
-    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createDepartmentOn">@{ Html.RenderPartial("_CreateDepartment");}</div>
-    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createBoxOn">@{ Html.RenderPartial("_CreateCourse");}</div>
+    <div id="createDepartment" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createDepartmentOn">@{ Html.RenderPartial("_CreateDepartment");}</div>
+    <div id="createCourse" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createBoxOn">@{ Html.RenderPartial("_CreateCourse");}</div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat="dep in l.departments track by dep.id">
         <a ng-click="l.goToSubLib(dep,$event)" href="{{::dep.url}}" class="box-style" ga-track-event="['university', 'select department']">
             <div class="display">
@@ -71,11 +71,9 @@
                     <div ng-if="::dep.state === 'closed'">
                         <div ng-if="::dep.userType !== 'subscribe' && dep.userType !== 'owner'">
                             <md-icon md-svg-icon="t:closed-lock" class="lock"></md-icon>
-                            @*@Html.Svg("~/images/site/icons.svg", "closed-lock", new {@class = "lock"})*@
                         </div>
                         <div ng-if="::dep.userType === 'subscribe' || dep.userType === 'owner'">
                             <md-icon md-svg-icon="t:opened-lock" class="lock"></md-icon>
-                            @*@Html.Svg("~/images/site/icons.svg", "opened-lock", new {@class = "lock"})*@
                         </div>
                     </div>
                 </div>
@@ -94,22 +92,23 @@
             </md-menu-content>
         </md-menu>
     </div>
-                    @*@Html.Svg("~/images/site/icons.svg", "add")*@
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex" ng-repeat="e in l.boxes" ng-include="'box-template.html'"></div>
-
 </div>
 <button type="button" class="add" hide show-xs ng-click="l.openCreateBox()"
         focus-upon-click="createClassInput"
         ng-if="l.state.withBoxes"
-        ng-hide="l.createOn || l.createDepartmentShow && l.createClassShow"
+        @*|| l.createDepartmentShow && l.createClassShow*@
+        ng-hide="l.createOn"
         ga-track-event="['dashboard', 'createbox', 'plus']">
+    a
     <md-icon md-svg-icon="t:add"></md-icon>
-    @*@Html.Svg("~/images/site/icons.svg", "add")*@
 </button>
 <button type="button" class="add" hide show-xs ng-click="l.openCreateDepartment()"
         focus-upon-click="createDepartmentInput"
-        ng-hide="l.createOn || l.createDepartmentShow && l.createClassShow"
+        ng-if="!l.state.withBoxes && !l.state.emptyNode && !l.state.emptyTopTree"
+         @*|| l.createClassShow*@
+        ng-hide="l.createOn"
         ga-track-event="['dashboard', 'createDepartment', 'plus']">
+    b
     <md-icon md-svg-icon="t:add"></md-icon>
-    @*@Html.Svg("~/images/site/icons.svg", "add")*@
 </button>
