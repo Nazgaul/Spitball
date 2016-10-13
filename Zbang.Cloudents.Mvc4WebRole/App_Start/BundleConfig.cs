@@ -5,20 +5,75 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
+using System.Web.Optimization;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using SquishIt.Framework.JavaScript;
+using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Zbox.Infrastructure.Culture;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
+
     public static class BundleConfig
     {
         public const string Rtl = ".rtl";
+
+        public const string Rtl2 = "-rtl";
+
         private static readonly Dictionary<string, string> CssBundles = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> JsBundles = new Dictionary<string, string>();
 
         private static readonly string CdnLocation = GetValueFromCloudConfig();
+
+
+        public static void RegisterCssBundles(IEnumerable<KeyValuePair<string, IEnumerable<CssWithRtl>>> cssBundles)
+        {
+            var bundles = BundleTable.Bundles;
+            var cdnUrl = CdnEndpointUrl + "/{0}?" + VersionHelper.CurrentVersion(true);
+            bundles.UseCdn = true;
+            //BundleTable.EnableOptimizations = true;
+
+            foreach (var cssBundle in cssBundles)
+            {
+                var styleLeft = new StyleBundle("~/" + cssBundle.Key, string.Format(cdnUrl, cssBundle.Key))
+                    .IncludeFallback("~/" + cssBundle.Key, "cssCheck", "absolute", "-2000px");
+
+                var styleRight = new StyleBundle("~/" + cssBundle.Key + Rtl2, string.Format(cdnUrl, cssBundle.Key + Rtl2))
+                    .IncludeFallback("~/" + cssBundle.Key + Rtl2, "cssCheck", "absolute", "-2000px");
+
+                foreach (var bundle in cssBundle.Value)
+                {
+                    styleLeft.Include(bundle.LeftCssFile);
+                    styleRight.Include(bundle.RightCssFile);
+                }
+
+                bundles.Add(styleLeft);
+                bundles.Add(styleRight);
+            }
+            bundles.Add(new StyleBundle("~/angularMaterial",
+                "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css")
+                .IncludeFallback("~/angularMaterial", "md-display-4", "font-size","112px")
+                .Include("~/content/angular-material.css")
+                );
+
+            //bundles.Add(new StyleBundle("~/homePage", string.Format(cdnUrl, "homePage"))
+            //    .IncludeFallback("~/Content/css", "cssCheck", "absolute", "-2000px")
+            //    .Include(
+            //    "~/content/site/GeneralWithStatic.css",
+            //    "~/content/homepage/homePage2.css",
+            //    "~/content/site/staticPage.css",
+            //    "~/content/site/layout.css",
+            //    "~/content/signin/custom.css",
+            //    "~/content/jquery.bxslider.css"));
+            //bundles.Add(new StyleBundle("~/homePage-rtl", string.Format(cdnUrl, "homePage-rtl")).Include(
+            //   "~/content/site/GeneralWithStatic.rtl.css",
+            //   "~/content/homepage/homePage2.rtl.css",
+            //   "~/content/site/staticPage.rtl.css",
+            //   "~/content/site/layout.rtl.css",
+            //   "~/content/signin/custom.rtl.css",
+            //   "~/content/jquery.bxslider.rtl.css"));
+        }
 
         public static string CssLink(string key)
         {
@@ -51,15 +106,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
             )
         {
 
-            if (registeredCssBundles != null)
-            {
-                foreach (var registeredCssBundle in registeredCssBundles)
-                {
-                    RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value.Select(s => s.LeftCssFile));
-                    RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s => s.RightCssFile));
+            //if (registeredCssBundles != null)
+            //{
+            //    foreach (var registeredCssBundle in registeredCssBundles)
+            //    {
+            //        RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value.Select(s => s.LeftCssFile));
+            //        RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s => s.RightCssFile));
 
-                }
-            }
+            //    }
+            //}
             if (registeredJsBundles != null)
             {
                 RegisterJs("quizCreate", new[]
@@ -73,12 +128,12 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                 //RegisterJs("upload", new[]
                 //{
-                    
+
                 //});
 
 
                 CreateLazyLoadScript("~/js/components/quiz/quizCreate.config.js", "quizCreate", "~/js/components/quiz/quizCreate1.config.js");
-               // CreateLazyLoadScript("~/js/components/box/upload.config.js", "upload", "~/js/components/box/upload1.config.js");
+                // CreateLazyLoadScript("~/js/components/box/upload.config.js", "upload", "~/js/components/box/upload1.config.js");
 
                 foreach (var registeredJsBundle in registeredJsBundles)
                 {
@@ -98,22 +153,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             }
             RelativePathContent("~/js/components/quiz/quizCreate.config.js");
-
-
-
-
-            //var jsBundle = CreateJsBundle();
-            ////QuizCreate
-            //jsBundle.AddString(RelativePathContent("~/bower_components/textAngular/dist/textAngular-rangy.min.js"));
-            //jsBundle.AddString(RelativePathContent("~/scripts/textAngularSetup.js"));
-            //jsBundle.AddString(RelativePathContent("~/bower_components/textAngular/dist/textAngular.js"));
-            //jsBundle.AddString(RelativePathContent("~/js/components/quiz/quizCreate.module.js"));
-            //jsBundle.AddString(RelativePathContent("~/js/components/quiz/quizCreate.controller.js"));
-
-            //RenderBundles("quizCreate", jsBundle);
-
-
-
+            
             CopyFilesToCdn("/Content", "*.min.css");
             CopyFilesToCdn("/Content", "*.png");
             CopyFilesToCdn("/Content", "*.jpg");
@@ -125,7 +165,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
         }
 
-        private static void CreateLazyLoadScript(string configFile,string bundleName,string outFile)
+        private static void CreateLazyLoadScript(string configFile, string bundleName, string outFile)
         {
             var scriptToLoad = new List<string>();
             var quizCreateScript = RelativePathContent(configFile);

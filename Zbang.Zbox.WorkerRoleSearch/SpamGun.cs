@@ -65,10 +65,10 @@ namespace Zbang.Zbox.WorkerRoleSearch
 
         public async Task<bool> ExecuteAsync(int index, Func<int, Task> progressAsync, CancellationToken token)
         {
-            if (!NeedToProcess())
-            {
-                return true;
-            }
+            //if (!NeedToProcess())
+            //{
+            //    return true;
+            //}
             for (var i = 0; i < SpanGunNumberOfQueues; i++)
             {
                 m_Queues[i] = new Queue<SpamGunDto>();

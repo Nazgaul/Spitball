@@ -26,6 +26,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
             DisplayConfig.RegisterDisplays();
             ViewConfig.RegisterEngineAndViews();
             BundleRegistration.RegisterBundles();
+            //BundleConfig.RegisterBundles();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);

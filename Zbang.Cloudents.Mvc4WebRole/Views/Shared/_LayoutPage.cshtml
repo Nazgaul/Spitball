@@ -1,4 +1,5 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+﻿@using System.Web.Optimization
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Zbox.Infrastructure.Extensions
 
 @{
@@ -23,7 +24,8 @@
             display: none !important;
         }
     </style>
-    @Html.Css2("site4")
+    @Styles.Render("~/angularMaterial")
+    @Html.Css3("~/site4")
     @{Html.RenderPartial("_Head");}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />

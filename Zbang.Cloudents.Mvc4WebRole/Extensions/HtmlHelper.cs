@@ -1,5 +1,7 @@
 ﻿using System.Threading;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using SquishIt.Framework;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Extensions
@@ -46,7 +48,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             var cssLinks = BundleConfig.CssLink(key);
             return MvcHtmlString.Create(cssLinks);
         }
-        
+
+        public static IHtmlString Css3(this HtmlHelper html, string paths)
+        {
+            if (Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft)
+            {
+                return Styles.Render(paths + BundleConfig.Rtl2);
+            }
+            return Styles.Render(paths);
+        }
+
 
         public static MvcHtmlString JqueryValidateLocale(this HtmlHelper html)
         {

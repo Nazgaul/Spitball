@@ -7,7 +7,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         public static void RegisterBundles()
         {
             BundleConfig.RegisterBundle(RegisterCss(), RegisterJs());
-
+            BundleConfig.RegisterCssBundles(RegisterCss());
         }
 
         private static IEnumerable<KeyValuePair<string, IEnumerable<CssWithRtl>>> RegisterCss()
@@ -50,7 +50,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 ["site4"] = new[]
                     {
 
-                        new CssWithRtl("~/content/angular-material.css","~/content/angular-material.css"),
+                        //new CssWithRtl("~/content/angular-material.css","~/content/angular-material.css"),
                         new CssWithRtl("~/bower_components/textAngular/dist/textAngular.css"),
                         new CssWithRtl("~/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css"),
                         new CssWithRtl("~/content/site/inline-material.css"),
@@ -139,7 +139,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
                         new JsFileWithCdn("~/Scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/Modernizr.js"),
-                        new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"),
+                        new JsFileWithCdn("~/scripts/angular.js","https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"),
                         new JsFileWithCdn("~/Scripts/angular-ui-router.js"),
                         new JsFileWithCdn("~/Scripts/angular-messages.js"),
                         new JsFileWithCdn("~/bower_components/angular-cache/dist/angular-cache.js"),

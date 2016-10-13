@@ -1,4 +1,5 @@
 ﻿@model Zbang.Zbox.ViewModel.Dto.HomePageDataDto
+@using System.Web.Optimization
 @using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources;
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources;
 @{
@@ -11,7 +12,9 @@
 <!doctype html>
 <html>
 <head>
-    @Html.Css2("homePage")
+    @Html.Css3("~/homePage")
+    @*@Styles.Render("~/homePage")*@
+    
     @{Html.RenderPartial("_Head");}
 
     <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
