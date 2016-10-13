@@ -165,7 +165,9 @@
             }
             //$uiViewScroll(angular.element("#createCourse"));
             //$location.hash('createCourse');
-            $anchorScroll("#createCourse");
+            $timeout(function() {
+                $anchorScroll("createCourse");
+            });
         }
         function openCreateDepartment() {
             l.createOn = true;
