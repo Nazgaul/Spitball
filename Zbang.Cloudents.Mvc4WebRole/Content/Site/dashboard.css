@@ -1,8 +1,4 @@
 ﻿.dashboard {
-  /*.unibox {
-        height: @dashboardCubeHeight;
-        padding: 12px;
-    }*/
   /*.content {
         .displayFlex();
         -ms-flex-direction: column;

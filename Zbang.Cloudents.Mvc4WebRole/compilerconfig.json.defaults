@@ -4,7 +4,7 @@
       "strictMath": false,
       "strictUnits": false,
       "relativeUrls": true,
-      "rootPath": ""
+        "rootPath": ""
     },
     "sass": {
       "indentType": "space",

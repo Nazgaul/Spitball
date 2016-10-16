@@ -14,7 +14,6 @@ using Zbang.Zbox.Infrastructure.Culture;
 
 namespace Zbang.Cloudents.Mvc4WebRole
 {
-
     public static class BundleConfig
     {
         public const string Rtl = ".rtl";
@@ -30,16 +29,17 @@ namespace Zbang.Cloudents.Mvc4WebRole
         public static void RegisterCssBundles(IEnumerable<KeyValuePair<string, IEnumerable<CssWithRtl>>> cssBundles)
         {
             var bundles = BundleTable.Bundles;
+            bundles.IgnoreList.Ignore("*.min.css", OptimizationMode.Always);
             var cdnUrl = CdnEndpointUrl + "/{0}?" + VersionHelper.CurrentVersion(true);
             bundles.UseCdn = true;
-            //BundleTable.EnableOptimizations = true;
+           // BundleTable.EnableOptimizations = true;
 
             foreach (var cssBundle in cssBundles)
             {
-                var styleLeft = new StyleBundle("~/" + cssBundle.Key, string.Format(cdnUrl, cssBundle.Key))
+                var styleLeft = new YUIStyleBundle("~/" + cssBundle.Key, string.Format(cdnUrl, cssBundle.Key))
                     .IncludeFallback("~/" + cssBundle.Key, "cssCheck", "absolute", "-2000px");
-
-                var styleRight = new StyleBundle("~/" + cssBundle.Key + Rtl2, string.Format(cdnUrl, cssBundle.Key + Rtl2))
+               
+                var styleRight = new YUIStyleBundle("~/" + cssBundle.Key + Rtl2, string.Format(cdnUrl, cssBundle.Key + Rtl2))
                     .IncludeFallback("~/" + cssBundle.Key + Rtl2, "cssCheck", "absolute", "-2000px");
 
                 foreach (var bundle in cssBundle.Value)
@@ -56,23 +56,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 .IncludeFallback("~/angularMaterial", "md-display-4", "font-size","112px")
                 .Include("~/content/angular-material.css")
                 );
-
-            //bundles.Add(new StyleBundle("~/homePage", string.Format(cdnUrl, "homePage"))
-            //    .IncludeFallback("~/Content/css", "cssCheck", "absolute", "-2000px")
-            //    .Include(
-            //    "~/content/site/GeneralWithStatic.css",
-            //    "~/content/homepage/homePage2.css",
-            //    "~/content/site/staticPage.css",
-            //    "~/content/site/layout.css",
-            //    "~/content/signin/custom.css",
-            //    "~/content/jquery.bxslider.css"));
-            //bundles.Add(new StyleBundle("~/homePage-rtl", string.Format(cdnUrl, "homePage-rtl")).Include(
-            //   "~/content/site/GeneralWithStatic.rtl.css",
-            //   "~/content/homepage/homePage2.rtl.css",
-            //   "~/content/site/staticPage.rtl.css",
-            //   "~/content/site/layout.rtl.css",
-            //   "~/content/signin/custom.rtl.css",
-            //   "~/content/jquery.bxslider.rtl.css"));
         }
 
         public static string CssLink(string key)

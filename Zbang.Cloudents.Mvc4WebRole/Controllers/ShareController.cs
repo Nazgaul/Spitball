@@ -31,8 +31,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpPost, ZboxAuthorize]
-        public async Task<JsonResult> Invite(InviteSystem model)
+        [HttpPost, ZboxAuthorize,ActionName("Invite")]
+        public async Task<JsonResult> InviteAsync(InviteSystem model)
         {
             try
             {
@@ -60,8 +60,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         
 
         [HttpPost]
-        [ZboxAuthorize]
-        public async Task<JsonResult> InviteBox(Invite model)
+        [ZboxAuthorize,ActionName("InviteBox")]
+        public async Task<JsonResult> InviteBoxAsync(Invite model)
         {
             try
             {
@@ -97,8 +97,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         [HttpPost]
         [ZboxAuthorize]
-        [RemoveBoxCookie]
-        public async Task<JsonResult> SubscribeToBox(long boxId)
+        [RemoveBoxCookie,ActionName("SubscribeToBox")]
+        public async Task<JsonResult> SubscribeToBoxAsync(long boxId)
         {
             var userid = User.GetUserId();
             try
@@ -116,8 +116,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         //TODO: remove this
-        [HttpGet]
-        public async Task<ActionResult> FromEmail(string key, string email)
+        [HttpGet,ActionName("FromEmail")]
+        public async Task<ActionResult> FromEmailAsync(string key, string email)
         {
             var membersOnlyErrorPageRedirect = RedirectToAction("MembersOnly", "Error");
             if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(email))
@@ -139,8 +139,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return membersOnlyErrorPageRedirect;
                 }
                 if (!string.IsNullOrEmpty(values.BoxUrl)) return Redirect(values.BoxUrl);
-                var boxUid = m_ShortCodesCache.Value.LongToShortCode(values.BoxId);
-                var urlToRedirect = Url.ActionLinkWithParam("Index", "Box", new { boxUid });
+                var boxId = m_ShortCodesCache.Value.LongToShortCode(values.BoxId);
+                var urlToRedirect = Url.ActionLinkWithParam("Index", "Box", new { boxId });
                 return Redirect(urlToRedirect);
             }
             //we are here if user is not register to the system
@@ -164,8 +164,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView();
         }
 
-        [ZboxAuthorize,HttpPost]
-        public async Task<JsonResult> Index()
+        [ZboxAuthorize,HttpPost,ActionName("Index")]
+        public async Task<JsonResult> IndexAsync()
         {
             var command = new AddReputationCommand(User.GetUserId(),
                 Zbox.Infrastructure.Enums.ReputationAction.ShareFacebook);
