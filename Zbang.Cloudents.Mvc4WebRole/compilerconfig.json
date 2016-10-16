@@ -1,118 +1,137 @@
 ﻿[
   {
     "outputFile": "Content/Site/dashboard.css",
-    "inputFile": "Content/Site/dashboard.less"
+    "inputFile": "Content/Site/dashboard.less",
+    "minify": {"enabled": false}
   },
-  {
-    "outputFile": "Content/Site/components-rounded.css",
-    "inputFile": "Content/Site/components-rounded.less"
-  },
-  {
-    "outputFile": "Content/Site/box.css",
-    "inputFile": "Content/Site/box.less"
-  },
-  {
-    "outputFile": "Content/Site/master.css",
-    "inputFile": "Content/Site/master.less"
-  },
-  {
-    "outputFile": "Content/Site/layout.css",
-    "inputFile": "Content/Site/layout.less"
-  },
-  {
-    "outputFile": "Content/Site/Portfolio.css",
-    "inputFile": "Content/Site/Portfolio.less"
-  },
-  {
-    "outputFile": "Content/Site/profile.css",
-    "inputFile": "Content/Site/profile.less"
-  },
-  {
-    "outputFile": "Content/Site/user.css",
-    "inputFile": "Content/Site/user.less"
-  },
-  {
-    "outputFile": "Content/Site/General.css",
-    "inputFile": "Content/Site/General.less"
-  },
-  {
-    "outputFile": "Content/HomePage/homePage.css",
-    "inputFile": "Content/HomePage/homePage.less"
-  },
-  {
-    "outputFile": "Content/Site/header.css",
-    "inputFile": "Content/Site/header.less"
-  },
-  {
-    "outputFile": "Content/Site/item.css",
-    "inputFile": "Content/Site/item.less"
-  },
-  {
-    "outputFile": "Content/Site/staticPage.css",
-    "inputFile": "Content/Site/staticPage.less"
-  },
-  {
-    "outputFile": "Content/Site/themeLight.css",
-    "inputFile": "Content/Site/themeLight.less"
-  },
-  {
-    "outputFile": "Content/Site/ThemeDark.css",
-    "inputFile": "Content/Site/ThemeDark.less"
-  },
-  {
-    "outputFile": "Content/Site/menu.css",
-    "inputFile": "Content/Site/menu.less"
-  },
-  {
-    "outputFile": "Content/Site/Share.css",
-    "inputFile": "Content/Site/Share.less"
-  },
-  {
-    "outputFile": "Content/Site/library.css",
-    "inputFile": "Content/Site/library.less"
-  },
-  {
-    "outputFile": "Content/Site/quiz.css",
-    "inputFile": "Content/Site/quiz.less"
-  },
-  {
-    "outputFile": "Content/Site/accountSettings.css",
-    "inputFile": "Content/Site/accountSettings.less"
-  },
-  {
-    "outputFile": "Content/Site/search.css",
-    "inputFile": "Content/Site/search.less"
-  },
-  {
-    "outputFile": "Content/Site/feed.css",
-    "inputFile": "Content/Site/feed.less"
-  },
-  {
-    "outputFile": "Content/Site/siteColors.css",
-    "inputFile": "Content/Site/siteColors.less"
-  },
-  {
-    "outputFile": "Content/Site/libraryChoose.css",
-    "inputFile": "Content/Site/libraryChoose.less"
-  },
-  {
-    "outputFile": "Content/Site/chat.css",
-    "inputFile": "Content/Site/chat.less"
-  },
-  {
-    "outputFile": "Content/signin/layout.css",
-    "inputFile": "Content/signin/layout.less"
-  },
-  {
-    "outputFile": "Content/HomePage/homePage2.css",
-    "inputFile": "Content/HomePage/homePage2.less"
-  },
-  {
-    "outputFile": "Content/Site/quizCreate.css",
-    "inputFile": "Content/Site/quizCreate.less"
-  },
-  {
-    "outputFile": "Content/Site/GeneralWithStatic.css",
-    "inputFile": "Content/Site/GeneralWithStatic.less"
-  }
+    {
+        "outputFile": "Content/Site/components-rounded.css",
+        "inputFile": "Content/Site/components-rounded.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/box.css",
+        "inputFile": "Content/Site/box.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/layout.css",
+        "inputFile": "Content/Site/layout.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/profile.css",
+        "inputFile": "Content/Site/profile.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/user.css",
+        "inputFile": "Content/Site/user.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/General.css",
+        "inputFile": "Content/Site/General.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/HomePage/homePage.css",
+        "inputFile": "Content/HomePage/homePage.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/header.css",
+        "inputFile": "Content/Site/header.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/item.css",
+        "inputFile": "Content/Site/item.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/staticPage.css",
+        "inputFile": "Content/Site/staticPage.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/themeLight.css",
+        "inputFile": "Content/Site/themeLight.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/ThemeDark.css",
+        "inputFile": "Content/Site/ThemeDark.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/menu.css",
+        "inputFile": "Content/Site/menu.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/Share.css",
+        "inputFile": "Content/Site/Share.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/library.css",
+        "inputFile": "Content/Site/library.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/quiz.css",
+        "inputFile": "Content/Site/quiz.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/accountSettings.css",
+        "inputFile": "Content/Site/accountSettings.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/search.css",
+        "inputFile": "Content/Site/search.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/feed.css",
+        "inputFile": "Content/Site/feed.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/siteColors.css",
+        "inputFile": "Content/Site/siteColors.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/libraryChoose.css",
+        "inputFile": "Content/Site/libraryChoose.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/chat.css",
+        "inputFile": "Content/Site/chat.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/signin/layout.css",
+        "inputFile": "Content/signin/layout.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/HomePage/homePage2.css",
+        "inputFile": "Content/HomePage/homePage2.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/quizCreate.css",
+        "inputFile": "Content/Site/quizCreate.less",
+        "minify": { "enabled": false }
+    },
+    {
+        "outputFile": "Content/Site/GeneralWithStatic.css",
+        "inputFile": "Content/Site/GeneralWithStatic.less",
+        "minify": { "enabled": false }
+    }
 ]

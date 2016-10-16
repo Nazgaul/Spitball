@@ -169,7 +169,7 @@ md-icon.md-default-theme, md-icon {
 md-input-container.md-default-theme .md-input, md-input-container .md-input {
     color: rgba(0,0,0,0.87);
     border-color: rgba(0,0,0,0.12);
-    text-shadow:;
+    /*text-shadow:;*/
 }
 
     md-input-container.md-default-theme .md-input::-webkit-input-placeholder, md-input-container .md-input::-webkit-input-placeholder, md-input-container.md-default-theme .md-input::-moz-placeholder, md-input-container .md-input::-moz-placeholder, md-input-container.md-default-theme .md-input:-moz-placeholder, md-input-container .md-input:-moz-placeholder, md-input-container.md-default-theme .md-input:-ms-input-placeholder, md-input-container .md-input:-ms-input-placeholder {
@@ -181,7 +181,7 @@ md-input-container.md-default-theme > md-icon, md-input-container > md-icon {
 }
 
 md-input-container.md-default-theme label, md-input-container label, md-input-container.md-default-theme .md-placeholder, md-input-container .md-placeholder {
-    text-shadow:;
+    /*text-shadow:;*/
     color: rgba(0,0,0,0.26);
 }
 
@@ -296,9 +296,9 @@ md-radio-group.md-default-theme.md-primary .md-checked:not([disabled]) .md-ink-r
     color: rgba(63,81,181,0.26);
 }
 
-md-radio-group.md-default-theme .md-checked.md-primary .md-ink-ripple, md-radio-group .md-checked.md-primary .md-ink-ripple {
+/*md-radio-group.md-default-theme .md-checked.md-primary .md-ink-ripple, md-radio-group .md-checked.md-primary .md-ink-ripple {
     color: '-0.26';
-}
+}*/
 
 md-radio-group.md-default-theme.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-default-theme.md-focused:not(:empty) .md-checked.md-primary .md-container:before, md-radio-group.md-focused:not(:empty) .md-checked.md-primary .md-container:before {
     background-color: rgba(63,81,181,0.26);
@@ -639,7 +639,7 @@ md-icon.md-default-theme.md-hue-1, md-icon.md-hue-1 {
 md-input-container.md-default-theme.md-hue-1 .md-input, md-input-container.md-hue-1 .md-input {
     color: rgba(0,0,0,0.87);
     border-color: rgba(0,0,0,0.12);
-    text-shadow:;
+    /*text-shadow:;*/
 }
 
     md-input-container.md-default-theme.md-hue-1 .md-input::-webkit-input-placeholder, md-input-container.md-hue-1 .md-input::-webkit-input-placeholder, md-input-container.md-default-theme.md-hue-1 .md-input::-moz-placeholder, md-input-container.md-hue-1 .md-input::-moz-placeholder, md-input-container.md-default-theme.md-hue-1 .md-input:-moz-placeholder, md-input-container.md-hue-1 .md-input:-moz-placeholder, md-input-container.md-default-theme.md-hue-1 .md-input:-ms-input-placeholder, md-input-container.md-hue-1 .md-input:-ms-input-placeholder {
@@ -651,7 +651,7 @@ md-input-container.md-default-theme.md-hue-1 > md-icon, md-input-container.md-hu
 }
 
 md-input-container.md-default-theme.md-hue-1 label, md-input-container.md-hue-1 label, md-input-container.md-default-theme.md-hue-1 .md-placeholder, md-input-container.md-hue-1 .md-placeholder {
-    text-shadow:;
+    /*text-shadow:;*/
     color: rgba(0,0,0,0.26);
 }
 
@@ -766,9 +766,9 @@ md-radio-group.md-default-theme.md-hue-1.md-primary .md-checked:not([disabled]) 
     color: rgba(121,134,203,0.26);
 }
 
-md-radio-group.md-default-theme.md-hue-1 .md-checked.md-primary .md-ink-ripple, md-radio-group.md-hue-1 .md-checked.md-primary .md-ink-ripple {
+/*md-radio-group.md-default-theme.md-hue-1 .md-checked.md-primary .md-ink-ripple, md-radio-group.md-hue-1 .md-checked.md-primary .md-ink-ripple {
     color: '-0.26';
-}
+}*/
 
 md-radio-group.md-default-theme.md-hue-1.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-hue-1.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-default-theme.md-hue-1.md-focused:not(:empty) .md-checked.md-primary .md-container:before, md-radio-group.md-hue-1.md-focused:not(:empty) .md-checked.md-primary .md-container:before {
     background-color: rgba(121,134,203,0.26);
@@ -1109,7 +1109,7 @@ md-icon.md-default-theme.md-hue-2, md-icon.md-hue-2 {
 md-input-container.md-default-theme.md-hue-2 .md-input, md-input-container.md-hue-2 .md-input {
     color: rgba(0,0,0,0.87);
     border-color: rgba(0,0,0,0.12);
-    text-shadow:;
+    /*text-shadow:;*/
 }
 
     md-input-container.md-default-theme.md-hue-2 .md-input::-webkit-input-placeholder, md-input-container.md-hue-2 .md-input::-webkit-input-placeholder, md-input-container.md-default-theme.md-hue-2 .md-input::-moz-placeholder, md-input-container.md-hue-2 .md-input::-moz-placeholder, md-input-container.md-default-theme.md-hue-2 .md-input:-moz-placeholder, md-input-container.md-hue-2 .md-input:-moz-placeholder, md-input-container.md-default-theme.md-hue-2 .md-input:-ms-input-placeholder, md-input-container.md-hue-2 .md-input:-ms-input-placeholder {
@@ -1121,7 +1121,7 @@ md-input-container.md-default-theme.md-hue-2 > md-icon, md-input-container.md-hu
 }
 
 md-input-container.md-default-theme.md-hue-2 label, md-input-container.md-hue-2 label, md-input-container.md-default-theme.md-hue-2 .md-placeholder, md-input-container.md-hue-2 .md-placeholder {
-    text-shadow:;
+    /*text-shadow:;*/
     color: rgba(0,0,0,0.26);
 }
 
@@ -1236,9 +1236,9 @@ md-radio-group.md-default-theme.md-hue-2.md-primary .md-checked:not([disabled]) 
     color: rgba(40,53,147,0.26);
 }
 
-md-radio-group.md-default-theme.md-hue-2 .md-checked.md-primary .md-ink-ripple, md-radio-group.md-hue-2 .md-checked.md-primary .md-ink-ripple {
+/*md-radio-group.md-default-theme.md-hue-2 .md-checked.md-primary .md-ink-ripple, md-radio-group.md-hue-2 .md-checked.md-primary .md-ink-ripple {
     color: '-0.26';
-}
+}*/
 
 md-radio-group.md-default-theme.md-hue-2.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-hue-2.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-default-theme.md-hue-2.md-focused:not(:empty) .md-checked.md-primary .md-container:before, md-radio-group.md-hue-2.md-focused:not(:empty) .md-checked.md-primary .md-container:before {
     background-color: rgba(40,53,147,0.26);
@@ -1579,7 +1579,7 @@ md-icon.md-default-theme.md-hue-3, md-icon.md-hue-3 {
 md-input-container.md-default-theme.md-hue-3 .md-input, md-input-container.md-hue-3 .md-input {
     color: rgba(0,0,0,0.87);
     border-color: rgba(0,0,0,0.12);
-    text-shadow:;
+    /*text-shadow:;*/
 }
 
     md-input-container.md-default-theme.md-hue-3 .md-input::-webkit-input-placeholder, md-input-container.md-hue-3 .md-input::-webkit-input-placeholder, md-input-container.md-default-theme.md-hue-3 .md-input::-moz-placeholder, md-input-container.md-hue-3 .md-input::-moz-placeholder, md-input-container.md-default-theme.md-hue-3 .md-input:-moz-placeholder, md-input-container.md-hue-3 .md-input:-moz-placeholder, md-input-container.md-default-theme.md-hue-3 .md-input:-ms-input-placeholder, md-input-container.md-hue-3 .md-input:-ms-input-placeholder {
@@ -1591,7 +1591,7 @@ md-input-container.md-default-theme.md-hue-3 > md-icon, md-input-container.md-hu
 }
 
 md-input-container.md-default-theme.md-hue-3 label, md-input-container.md-hue-3 label, md-input-container.md-default-theme.md-hue-3 .md-placeholder, md-input-container.md-hue-3 .md-placeholder {
-    text-shadow:;
+    /*text-shadow:;*/
     color: rgba(0,0,0,0.26);
 }
 
@@ -1706,9 +1706,9 @@ md-radio-group.md-default-theme.md-hue-3.md-primary .md-checked:not([disabled]) 
     color: rgba(140,158,255,0.26);
 }
 
-md-radio-group.md-default-theme.md-hue-3 .md-checked.md-primary .md-ink-ripple, md-radio-group.md-hue-3 .md-checked.md-primary .md-ink-ripple {
+/*md-radio-group.md-default-theme.md-hue-3 .md-checked.md-primary .md-ink-ripple, md-radio-group.md-hue-3 .md-checked.md-primary .md-ink-ripple {
     color: '-0.26';
-}
+}*/
 
 md-radio-group.md-default-theme.md-hue-3.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-hue-3.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-default-theme.md-hue-3.md-focused:not(:empty) .md-checked.md-primary .md-container:before, md-radio-group.md-hue-3.md-focused:not(:empty) .md-checked.md-primary .md-container:before {
     background-color: rgba(140,158,255,0.26);

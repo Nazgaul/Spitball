@@ -290,6 +290,8 @@
     <Compile Include="App_Start\SquishItRenderer.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\ViewConfig.cs" />
+    <Compile Include="App_Start\YUIStyleBundle.cs" />
+    <Compile Include="App_Start\YUITransform.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BoxController.cs" />
@@ -802,9 +804,6 @@
     <Content Include="Content\HomePage\homePage2.css">
       <DependentUpon>homePage2.less</DependentUpon>
     </Content>
-    <Content Include="Content\HomePage\homePage2.min.css">
-      <DependentUpon>homePage2.css</DependentUpon>
-    </Content>
     <Content Include="Content\HomePage\homePage2.rtl.css" />
     <Content Include="Content\jquery.bxslider.css" />
     <Content Include="Content\jquery.bxslider.rtl.css">
@@ -859,14 +858,8 @@
     <Content Include="Content\HomePage\bootstrap.css">
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
-    <Content Include="Content\HomePage\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
     <Content Include="Content\HomePage\bootstrap.rtl.css">
       <DependentUpon>bootstrap.css</DependentUpon>
-    </Content>
-    <Content Include="Content\HomePage\bootstrap.rtl.min.css">
-      <DependentUpon>bootstrap.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\HomePage\bootstrap.less" />
     <Content Include="bower.json" />
@@ -931,41 +924,11 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="Content\signin\components-md.min.css">
-      <DependentUpon>components-md.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\components-md.rtl.min.css">
-      <DependentUpon>components-md.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\default.min.css">
-      <DependentUpon>default.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\default.rtl.min.css">
-      <DependentUpon>default.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\login-soft.min.css">
-      <DependentUpon>login-soft.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\login-soft.rtl.min.css">
-      <DependentUpon>login-soft.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\plugins-md.min.css">
-      <DependentUpon>plugins-md.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\plugins-md.rtl.min.css">
-      <DependentUpon>plugins-md.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\accountSettings.css">
       <DependentUpon>accountSettings.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\accountSettings.min.css">
-      <DependentUpon>accountSettings.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\accountSettings.rtl.css">
       <DependentUpon>accountSettings.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\accountSettings.rtl.min.css">
-      <DependentUpon>accountSettings.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\angularWithChanges2.css" />
     <Content Include="Content\Site\angularWithChanges2.rtl.css" />
@@ -978,12 +941,6 @@
     </Content>
     <Content Include="Content\signin\components-md.rtl.css">
       <DependentUpon>components-md.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\custom.min.css">
-      <DependentUpon>custom.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\custom.rtl.min.css">
-      <DependentUpon>custom.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\custom.css">
       <DependentUpon>custom.less</DependentUpon>
@@ -1000,14 +957,8 @@
     <Content Include="Content\signin\layout.css">
       <DependentUpon>layout.less</DependentUpon>
     </Content>
-    <Content Include="Content\signin\layout.min.css">
-      <DependentUpon>layout.css</DependentUpon>
-    </Content>
     <Content Include="Content\signin\layout.rtl.css">
       <DependentUpon>layout.css</DependentUpon>
-    </Content>
-    <Content Include="Content\signin\layout.rtl.min.css">
-      <DependentUpon>layout.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\signin\login-soft.css">
       <DependentUpon>login-soft.less</DependentUpon>
@@ -1021,20 +972,11 @@
     <Content Include="Content\signin\plugins-md.rtl.css">
       <DependentUpon>plugins-md.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\box.min.css">
-      <DependentUpon>box.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\box.rtl.css">
       <DependentUpon>box.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\box.rtl.min.css">
-      <DependentUpon>box.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\chat.css">
       <DependentUpon>chat.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\chat.min.css">
-      <DependentUpon>chat.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\chat.rtl.css">
       <DependentUpon>chat.css</DependentUpon>
@@ -1042,38 +984,17 @@
     <Content Include="Content\Site\components-rounded.css">
       <DependentUpon>components-rounded.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\components-rounded.min.css">
-      <DependentUpon>components-rounded.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\components-rounded.rtl.css">
       <DependentUpon>components-rounded.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\components-rounded.rtl.min.css">
-      <DependentUpon>components-rounded.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\dashboard.css">
       <DependentUpon>dashboard.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\dashboard.min.css">
-      <DependentUpon>dashboard.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\dashboard.rtl.css">
       <DependentUpon>dashboard.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\dashboard.rtl.min.css">
-      <DependentUpon>dashboard.rtl.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\error.min.css">
-      <DependentUpon>error.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\error.rtl.min.css">
-      <DependentUpon>error.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\feed.css">
       <DependentUpon>feed.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\feed.min.css">
-      <DependentUpon>feed.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\feed.rtl.css">
       <DependentUpon>feed.css</DependentUpon>
@@ -1081,20 +1002,11 @@
     <Content Include="Content\Site\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\General.min.css">
-      <DependentUpon>General.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\General.rtl.css">
       <DependentUpon>General.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\General.rtl.min.css">
-      <DependentUpon>General.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\GeneralWithStatic.css">
       <DependentUpon>GeneralWithStatic.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\GeneralWithStatic.min.css">
-      <DependentUpon>GeneralWithStatic.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\GeneralWithStatic.rtl.css" />
     <Content Include="Content\Site\inline-material.css" />
@@ -1104,14 +1016,8 @@
     <Content Include="Content\Site\item.css">
       <DependentUpon>item.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\item.min.css">
-      <DependentUpon>item.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\item.rtl.css">
       <DependentUpon>item.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\item.rtl.min.css">
-      <DependentUpon>item.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\itemGallery.css">
       <DependentUpon>itemGallery.less</DependentUpon>
@@ -1122,86 +1028,44 @@
     <Content Include="Content\Site\leaderboard.css">
       <DependentUpon>leaderboard.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\leaderboard.min.css">
-      <DependentUpon>leaderboard.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\leaderboard.rtl.css">
       <DependentUpon>leaderboard.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\leaderboard.rtl.min.css">
-      <DependentUpon>leaderboard.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\library.css">
       <DependentUpon>library.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\library.min.css">
-      <DependentUpon>library.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\library.rtl.css">
       <DependentUpon>library.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\library.rtl.min.css">
-      <DependentUpon>library.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\header.css">
       <DependentUpon>header.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\header.min.css">
-      <DependentUpon>header.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\header.rtl.css">
       <DependentUpon>header.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\header.rtl.min.css">
-      <DependentUpon>header.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\layout.css">
       <DependentUpon>layout.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\layout.min.css">
-      <DependentUpon>layout.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\layout.rtl.css">
       <DependentUpon>layout.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\layout.rtl.min.css">
-      <DependentUpon>layout.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\libraryChoose.css">
       <DependentUpon>libraryChoose.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\libraryChoose.min.css">
-      <DependentUpon>libraryChoose.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\libraryChoose.rtl.css">
       <DependentUpon>libraryChoose.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\libraryChoose.rtl.min.css">
-      <DependentUpon>libraryChoose.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\light.css">
       <DependentUpon>light.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\light.min.css">
-      <DependentUpon>light.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\light.rtl.css">
       <DependentUpon>light.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\light.rtl.min.css">
-      <DependentUpon>light.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\menu.css">
       <DependentUpon>menu.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\menu.min.css">
-      <DependentUpon>menu.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\menu.rtl.css">
       <DependentUpon>menu.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\menu.rtl.min.css">
-      <DependentUpon>menu.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\error.css">
       <DependentUpon>error.less</DependentUpon>
@@ -1212,68 +1076,35 @@
     <Content Include="Content\Site\profile.css">
       <DependentUpon>profile.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\profile.min.css">
-      <DependentUpon>profile.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\profile.rtl.css">
       <DependentUpon>profile.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\profile.rtl.min.css">
-      <DependentUpon>profile.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\quiz.css">
       <DependentUpon>quiz.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\quiz.min.css">
-      <DependentUpon>quiz.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\quiz.rtl.css">
       <DependentUpon>quiz.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\quiz.rtl.min.css">
-      <DependentUpon>quiz.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\quizCreate.css">
       <DependentUpon>quizCreate.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\quizCreate.min.css">
-      <DependentUpon>quizCreate.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\quizCreate.rtl.css">
       <DependentUpon>quizCreate.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\quizCreate.rtl.min.css">
-      <DependentUpon>quizCreate.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\search.css">
       <DependentUpon>search.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\search.min.css">
-      <DependentUpon>search.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\search.rtl.css">
       <DependentUpon>search.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\search.rtl.min.css">
-      <DependentUpon>search.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\Share.css">
       <DependentUpon>Share.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\Share.min.css">
-      <DependentUpon>Share.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\Share.rtl.css">
       <DependentUpon>Share.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\Share.rtl.min.css">
-      <DependentUpon>Share.rtl.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\siteColors.css">
       <DependentUpon>siteColors.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\siteColors.min.css">
-      <DependentUpon>siteColors.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\siteColors.rtl.css">
       <DependentUpon>siteColors.css</DependentUpon>
@@ -1281,17 +1112,11 @@
     <Content Include="Content\Site\staticPage.css">
       <DependentUpon>staticPage.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\staticPage.min.css">
-      <DependentUpon>staticPage.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\staticPage.rtl.css">
       <DependentUpon>staticPage.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\ThemeDark.css">
       <DependentUpon>ThemeDark.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\ThemeDark.min.css">
-      <DependentUpon>ThemeDark.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\ThemeDark.rtl.css">
       <DependentUpon>ThemeDark.css</DependentUpon>
@@ -1301,9 +1126,6 @@
     </Content>
     <Content Include="Content\Site\themeLight.css">
       <DependentUpon>themeLight.less</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\themeLight.min.css">
-      <DependentUpon>themeLight.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\themeLight.rtl.css">
       <DependentUpon>themeLight.css</DependentUpon>
@@ -1317,26 +1139,14 @@
     <Content Include="Content\Site\user.css">
       <DependentUpon>user.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\user.min.css">
-      <DependentUpon>user.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\user.rtl.css">
       <DependentUpon>user.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\user.rtl.min.css">
-      <DependentUpon>user.rtl.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\variables.css">
       <DependentUpon>variables.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\variables.min.css">
-      <DependentUpon>variables.css</DependentUpon>
-    </Content>
     <Content Include="Content\Site\variables.rtl.css">
       <DependentUpon>variables.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Site\variables.rtl.min.css">
-      <DependentUpon>variables.rtl.css</DependentUpon>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

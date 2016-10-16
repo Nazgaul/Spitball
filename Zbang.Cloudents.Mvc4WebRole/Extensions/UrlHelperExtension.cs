@@ -23,21 +23,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             return urlHelper.Content(cdnUrl);
         }
 
-        public static string ActionHash(this UrlHelper urlHelper, string action, object routeValues, string hash)
-        {
-            return $"{urlHelper.Action(action, routeValues)}#{hash}";
-        }
-        public static string ActionHash(this UrlHelper urlHelper, string action, string controller, string hash)
-        {
-            return $"{urlHelper.Action(action, controller)}#{hash}";
-        }
+        //public static string ActionHash(this UrlHelper urlHelper, string action, object routeValues, string hash)
+        //{
+        //    return $"{urlHelper.Action(action, routeValues)}#{hash}";
+        //}
+        //public static string ActionHash(this UrlHelper urlHelper, string action, string controller, string hash)
+        //{
+        //    return $"{urlHelper.Action(action, controller)}#{hash}";
+        //}
 
-        public static string GenerateUrl(this UrlHelper urlHelper, string actionName, string controllerName)
-        {
+        //public static string GenerateUrl(this UrlHelper urlHelper, string actionName, string controllerName)
+        //{
 
-            var urlHelperWithNewContext = new UrlHelper(new RequestContext(urlHelper.RequestContext.HttpContext, new RouteData()), urlHelper.RouteCollection);
-            return urlHelperWithNewContext.Action(actionName, controllerName);
-        }
+        //    var urlHelperWithNewContext = new UrlHelper(new RequestContext(urlHelper.RequestContext.HttpContext, new RouteData()), urlHelper.RouteCollection);
+        //    return urlHelperWithNewContext.Action(actionName, controllerName);
+        //}
 
         public static string RouteUrlCache(this UrlHelper urlHelper, string routeName,
             RouteValueDictionary routeValues)
@@ -63,24 +63,24 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
         
 
 
-        public static string ActionLinkWithParam(this UrlHelper urlHelper, string action, object routeValue)
-        {
-            var dictionary = new RouteValueDictionary(routeValue);
-            var url = urlHelper.Action(action, routeValue);
-            if (url == null)
-            {
-                throw new NullReferenceException("url");
-            }
-            foreach (var item in dictionary)
-            {
-                if (item.Value == null)
-                {
-                    continue;
-                }
-                url = url.Replace(item.Value.ToString().ToLower(), item.Value.ToString());
-            }
-            return url;
-        }
+        //public static string ActionLinkWithParam(this UrlHelper urlHelper, string action, object routeValue)
+        //{
+        //    var dictionary = new RouteValueDictionary(routeValue);
+        //    var url = urlHelper.Action(action, routeValue);
+        //    if (url == null)
+        //    {
+        //        throw new NullReferenceException("url");
+        //    }
+        //    foreach (var item in dictionary)
+        //    {
+        //        if (item.Value == null)
+        //        {
+        //            continue;
+        //        }
+        //        url = url.Replace(item.Value.ToString().ToLower(), item.Value.ToString());
+        //    }
+        //    return url;
+        //}
         
 
         public static string ActionLinkWithParam(this UrlHelper urlHelper, string action, string controller, object routeValue)
