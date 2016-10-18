@@ -388,12 +388,14 @@
         }
 
         function showBadge(badge) {
-            var badgeIndex = self.badges.indexOf(badge);
-            self.badgeInfo = {
-                data: badge,
-                next: self.badges[badgeIndex + 1],
-                prev: self.badges[badgeIndex - 1]
-            };
+            if (badge) {
+                var badgeIndex = self.badges.indexOf(badge);
+                self.badgeInfo = {
+                    data: badge,
+                    next: self.badges[badgeIndex + 1],
+                    prev: self.badges[badgeIndex - 1]
+                };
+            }
 
         }
 
