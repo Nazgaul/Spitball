@@ -1,4 +1,4 @@
-md-bottom-sheet.md-default-theme.md-list md-list-item, md-bottom-sheet.md-list md-list-item {
+/*md-bottom-sheet.md-default-theme.md-list md-list-item, md-bottom-sheet.md-list md-list-item {
     color: rgba(0,0,0,0.87);
 }
 
@@ -102,7 +102,6 @@ md-chips.md-default-theme .md-chip.md-focused, md-chips .md-chip.md-focused {
     md-chips.md-default-theme .md-chip.md-focused md-icon, md-chips .md-chip.md-focused md-icon {
         color: rgba(255,255,255,0.87);
     }
-/** Theme styles for mdCalendar. */
 
 .md-calendar.md-default-theme, .md-calendar {
     color: rgba(0,0,0,0.87);
@@ -155,7 +154,7 @@ md-divider.md-default-theme, md-divider {
 }
 
 .layout-row > md-divider.md-default-theme, .layout-row > md-divider {
-    border-left-color: rgba(0,0,0,0.12);
+    border-right-color: rgba(0,0,0,0.12);
 }
 
 md-icon.md-default-theme, md-icon {
@@ -169,8 +168,6 @@ md-icon.md-default-theme, md-icon {
 md-input-container.md-default-theme .md-input, md-input-container .md-input {
     color: rgba(0,0,0,0.87);
     border-color: rgba(0,0,0,0.12);
-    /*text-shadow:;*/
-}
 
     md-input-container.md-default-theme .md-input::-webkit-input-placeholder, md-input-container .md-input::-webkit-input-placeholder, md-input-container.md-default-theme .md-input::-moz-placeholder, md-input-container .md-input::-moz-placeholder, md-input-container.md-default-theme .md-input:-moz-placeholder, md-input-container .md-input:-moz-placeholder, md-input-container.md-default-theme .md-input:-ms-input-placeholder, md-input-container .md-input:-ms-input-placeholder {
         color: rgba(0,0,0,0.26);
@@ -181,7 +178,6 @@ md-input-container.md-default-theme > md-icon, md-input-container > md-icon {
 }
 
 md-input-container.md-default-theme label, md-input-container label, md-input-container.md-default-theme .md-placeholder, md-input-container .md-placeholder {
-    /*text-shadow:;*/
     color: rgba(0,0,0,0.26);
 }
 
@@ -293,9 +289,7 @@ md-radio-group.md-default-theme.md-primary .md-checked:not([disabled]) .md-ink-r
     color: rgba(63,81,181,0.26);
 }
 
-/*md-radio-group.md-default-theme .md-checked.md-primary .md-ink-ripple, md-radio-group .md-checked.md-primary .md-ink-ripple {
-    color: '-0.26';
-}*/
+
 
 md-radio-group.md-default-theme.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-default-theme.md-focused:not(:empty) .md-checked.md-primary .md-container:before, md-radio-group.md-focused:not(:empty) .md-checked.md-primary .md-container:before {
     background-color: rgba(63,81,181,0.26);
@@ -569,7 +563,6 @@ md-chips.md-default-theme.md-hue-1 .md-chip.md-focused, md-chips.md-hue-1 .md-ch
     md-chips.md-default-theme.md-hue-1 .md-chip.md-focused md-icon, md-chips.md-hue-1 .md-chip.md-focused md-icon {
         color: rgb(255,255,255);
     }
-/** Theme styles for mdCalendar. */
 
 .md-calendar.md-default-theme.md-hue-1, .md-calendar.md-hue-1 {
     color: rgba(0,0,0,0.87);
@@ -622,7 +615,7 @@ md-divider.md-default-theme.md-hue-1, md-divider.md-hue-1 {
 }
 
 .layout-row > md-divider.md-default-theme.md-hue-1, .layout-row > md-divider.md-hue-1 {
-    border-left-color: rgba(0,0,0,0.12);
+    border-right-color: rgba(0,0,0,0.12);
 }
 
 md-icon.md-default-theme.md-hue-1, md-icon.md-hue-1 {
@@ -636,7 +629,6 @@ md-icon.md-default-theme.md-hue-1, md-icon.md-hue-1 {
 md-input-container.md-default-theme.md-hue-1 .md-input, md-input-container.md-hue-1 .md-input {
     color: rgba(0,0,0,0.87);
     border-color: rgba(0,0,0,0.12);
-    /*text-shadow:;*/
 }
 
     md-input-container.md-default-theme.md-hue-1 .md-input::-webkit-input-placeholder, md-input-container.md-hue-1 .md-input::-webkit-input-placeholder, md-input-container.md-default-theme.md-hue-1 .md-input::-moz-placeholder, md-input-container.md-hue-1 .md-input::-moz-placeholder, md-input-container.md-default-theme.md-hue-1 .md-input:-moz-placeholder, md-input-container.md-hue-1 .md-input:-moz-placeholder, md-input-container.md-default-theme.md-hue-1 .md-input:-ms-input-placeholder, md-input-container.md-hue-1 .md-input:-ms-input-placeholder {
@@ -648,7 +640,6 @@ md-input-container.md-default-theme.md-hue-1 > md-icon, md-input-container.md-hu
 }
 
 md-input-container.md-default-theme.md-hue-1 label, md-input-container.md-hue-1 label, md-input-container.md-default-theme.md-hue-1 .md-placeholder, md-input-container.md-hue-1 .md-placeholder {
-    /*text-shadow:;*/
     color: rgba(0,0,0,0.26);
 }
 
@@ -707,16 +698,16 @@ md-progress-circular.md-default-theme.md-hue-1 .md-inner .md-gap, md-progress-ci
     border-bottom-color: rgb(121,134,203);
 }
 
-md-progress-circular.md-default-theme.md-hue-1 .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-1 .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme.md-hue-1 .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-1 .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme.md-hue-1 .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-1 .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme.md-hue-1 .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-1 .md-inner .md-right .md-half-circle {
     border-top-color: rgb(121,134,203);
 }
 
 md-progress-circular.md-default-theme.md-hue-1 .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-1 .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(121,134,203);
+    border-right-color: rgb(121,134,203);
 }
 
 md-progress-circular.md-default-theme.md-hue-1 .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-1 .md-inner .md-left .md-half-circle {
-    border-right-color: rgb(121,134,203);
+    border-left-color: rgb(121,134,203);
 }
 
 md-progress-linear.md-default-theme.md-hue-1 .md-container, md-progress-linear.md-hue-1 .md-container {
@@ -763,9 +754,6 @@ md-radio-group.md-default-theme.md-hue-1.md-primary .md-checked:not([disabled]) 
     color: rgba(121,134,203,0.26);
 }
 
-/*md-radio-group.md-default-theme.md-hue-1 .md-checked.md-primary .md-ink-ripple, md-radio-group.md-hue-1 .md-checked.md-primary .md-ink-ripple {
-    color: '-0.26';
-}*/
 
 md-radio-group.md-default-theme.md-hue-1.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-hue-1.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-default-theme.md-hue-1.md-focused:not(:empty) .md-checked.md-primary .md-container:before, md-radio-group.md-hue-1.md-focused:not(:empty) .md-checked.md-primary .md-container:before {
     background-color: rgba(121,134,203,0.26);
@@ -1038,8 +1026,7 @@ md-chips.md-default-theme.md-hue-2 .md-chip.md-focused, md-chips.md-hue-2 .md-ch
 
     md-chips.md-default-theme.md-hue-2 .md-chip.md-focused md-icon, md-chips.md-hue-2 .md-chip.md-focused md-icon {
         color: rgba(255,255,255,0.87);
-    }
-/** Theme styles for mdCalendar. */
+}
 
 .md-calendar.md-default-theme.md-hue-2, .md-calendar.md-hue-2 {
     color: rgba(0,0,0,0.87);
@@ -1092,7 +1079,7 @@ md-divider.md-default-theme.md-hue-2, md-divider.md-hue-2 {
 }
 
 .layout-row > md-divider.md-default-theme.md-hue-2, .layout-row > md-divider.md-hue-2 {
-    border-left-color: rgba(0,0,0,0.12);
+    border-right-color: rgba(0,0,0,0.12);
 }
 
 md-icon.md-default-theme.md-hue-2, md-icon.md-hue-2 {
@@ -1106,7 +1093,6 @@ md-icon.md-default-theme.md-hue-2, md-icon.md-hue-2 {
 md-input-container.md-default-theme.md-hue-2 .md-input, md-input-container.md-hue-2 .md-input {
     color: rgba(0,0,0,0.87);
     border-color: rgba(0,0,0,0.12);
-    /*text-shadow:;*/
 }
 
     md-input-container.md-default-theme.md-hue-2 .md-input::-webkit-input-placeholder, md-input-container.md-hue-2 .md-input::-webkit-input-placeholder, md-input-container.md-default-theme.md-hue-2 .md-input::-moz-placeholder, md-input-container.md-hue-2 .md-input::-moz-placeholder, md-input-container.md-default-theme.md-hue-2 .md-input:-moz-placeholder, md-input-container.md-hue-2 .md-input:-moz-placeholder, md-input-container.md-default-theme.md-hue-2 .md-input:-ms-input-placeholder, md-input-container.md-hue-2 .md-input:-ms-input-placeholder {
@@ -1118,7 +1104,6 @@ md-input-container.md-default-theme.md-hue-2 > md-icon, md-input-container.md-hu
 }
 
 md-input-container.md-default-theme.md-hue-2 label, md-input-container.md-hue-2 label, md-input-container.md-default-theme.md-hue-2 .md-placeholder, md-input-container.md-hue-2 .md-placeholder {
-    /*text-shadow:;*/
     color: rgba(0,0,0,0.26);
 }
 
@@ -1177,16 +1162,16 @@ md-progress-circular.md-default-theme.md-hue-2 .md-inner .md-gap, md-progress-ci
     border-bottom-color: rgb(40,53,147);
 }
 
-md-progress-circular.md-default-theme.md-hue-2 .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-2 .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme.md-hue-2 .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-2 .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme.md-hue-2 .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-2 .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme.md-hue-2 .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-2 .md-inner .md-right .md-half-circle {
     border-top-color: rgb(40,53,147);
 }
 
 md-progress-circular.md-default-theme.md-hue-2 .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-2 .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(40,53,147);
+    border-right-color: rgb(40,53,147);
 }
 
 md-progress-circular.md-default-theme.md-hue-2 .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-2 .md-inner .md-left .md-half-circle {
-    border-right-color: rgb(40,53,147);
+    border-left-color: rgb(40,53,147);
 }
 
 md-progress-linear.md-default-theme.md-hue-2 .md-container, md-progress-linear.md-hue-2 .md-container {
@@ -1232,10 +1217,6 @@ md-radio-group.md-default-theme.md-hue-2[disabled], md-radio-group.md-hue-2[disa
 md-radio-group.md-default-theme.md-hue-2.md-primary .md-checked:not([disabled]) .md-ink-ripple, md-radio-group.md-hue-2.md-primary .md-checked:not([disabled]) .md-ink-ripple, md-radio-group.md-default-theme.md-hue-2 .md-checked:not([disabled]).md-primary .md-ink-ripple, md-radio-group.md-hue-2 .md-checked:not([disabled]).md-primary .md-ink-ripple {
     color: rgba(40,53,147,0.26);
 }
-
-/*md-radio-group.md-default-theme.md-hue-2 .md-checked.md-primary .md-ink-ripple, md-radio-group.md-hue-2 .md-checked.md-primary .md-ink-ripple {
-    color: '-0.26';
-}*/
 
 md-radio-group.md-default-theme.md-hue-2.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-hue-2.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-default-theme.md-hue-2.md-focused:not(:empty) .md-checked.md-primary .md-container:before, md-radio-group.md-hue-2.md-focused:not(:empty) .md-checked.md-primary .md-container:before {
     background-color: rgba(40,53,147,0.26);
@@ -1509,7 +1490,6 @@ md-chips.md-default-theme.md-hue-3 .md-chip.md-focused, md-chips.md-hue-3 .md-ch
     md-chips.md-default-theme.md-hue-3 .md-chip.md-focused md-icon, md-chips.md-hue-3 .md-chip.md-focused md-icon {
         color: rgba(0,0,0,0.87);
     }
-/** Theme styles for mdCalendar. */
 
 .md-calendar.md-default-theme.md-hue-3, .md-calendar.md-hue-3 {
     color: rgba(0,0,0,0.87);
@@ -1562,7 +1542,7 @@ md-divider.md-default-theme.md-hue-3, md-divider.md-hue-3 {
 }
 
 .layout-row > md-divider.md-default-theme.md-hue-3, .layout-row > md-divider.md-hue-3 {
-    border-left-color: rgba(0,0,0,0.12);
+    border-right-color: rgba(0,0,0,0.12);
 }
 
 md-icon.md-default-theme.md-hue-3, md-icon.md-hue-3 {
@@ -1576,7 +1556,6 @@ md-icon.md-default-theme.md-hue-3, md-icon.md-hue-3 {
 md-input-container.md-default-theme.md-hue-3 .md-input, md-input-container.md-hue-3 .md-input {
     color: rgba(0,0,0,0.87);
     border-color: rgba(0,0,0,0.12);
-    /*text-shadow:;*/
 }
 
     md-input-container.md-default-theme.md-hue-3 .md-input::-webkit-input-placeholder, md-input-container.md-hue-3 .md-input::-webkit-input-placeholder, md-input-container.md-default-theme.md-hue-3 .md-input::-moz-placeholder, md-input-container.md-hue-3 .md-input::-moz-placeholder, md-input-container.md-default-theme.md-hue-3 .md-input:-moz-placeholder, md-input-container.md-hue-3 .md-input:-moz-placeholder, md-input-container.md-default-theme.md-hue-3 .md-input:-ms-input-placeholder, md-input-container.md-hue-3 .md-input:-ms-input-placeholder {
@@ -1588,7 +1567,6 @@ md-input-container.md-default-theme.md-hue-3 > md-icon, md-input-container.md-hu
 }
 
 md-input-container.md-default-theme.md-hue-3 label, md-input-container.md-hue-3 label, md-input-container.md-default-theme.md-hue-3 .md-placeholder, md-input-container.md-hue-3 .md-placeholder {
-    /*text-shadow:;*/
     color: rgba(0,0,0,0.26);
 }
 
@@ -1647,16 +1625,16 @@ md-progress-circular.md-default-theme.md-hue-3 .md-inner .md-gap, md-progress-ci
     border-bottom-color: rgb(140,158,255);
 }
 
-md-progress-circular.md-default-theme.md-hue-3 .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-3 .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme.md-hue-3 .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-3 .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme.md-hue-3 .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-3 .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme.md-hue-3 .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-3 .md-inner .md-right .md-half-circle {
     border-top-color: rgb(140,158,255);
 }
 
 md-progress-circular.md-default-theme.md-hue-3 .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-3 .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(140,158,255);
+    border-right-color: rgb(140,158,255);
 }
 
 md-progress-circular.md-default-theme.md-hue-3 .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-3 .md-inner .md-left .md-half-circle {
-    border-right-color: rgb(140,158,255);
+    border-left-color: rgb(140,158,255);
 }
 
 md-progress-linear.md-default-theme.md-hue-3 .md-container, md-progress-linear.md-hue-3 .md-container {
@@ -1703,9 +1681,6 @@ md-radio-group.md-default-theme.md-hue-3.md-primary .md-checked:not([disabled]) 
     color: rgba(140,158,255,0.26);
 }
 
-/*md-radio-group.md-default-theme.md-hue-3 .md-checked.md-primary .md-ink-ripple, md-radio-group.md-hue-3 .md-checked.md-primary .md-ink-ripple {
-    color: '-0.26';
-}*/
 
 md-radio-group.md-default-theme.md-hue-3.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-hue-3.md-focused:not(:empty).md-primary .md-checked .md-container:before, md-radio-group.md-default-theme.md-hue-3.md-focused:not(:empty) .md-checked.md-primary .md-container:before, md-radio-group.md-hue-3.md-focused:not(:empty) .md-checked.md-primary .md-container:before {
     background-color: rgba(140,158,255,0.26);
@@ -1978,16 +1953,16 @@ md-progress-circular.md-default-theme.md-accent .md-inner .md-gap, md-progress-c
     border-bottom-color: rgb(255,64,129);
 }
 
-md-progress-circular.md-default-theme.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-accent .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-accent .md-inner .md-right .md-half-circle {
     border-top-color: rgb(255,64,129);
 }
 
 md-progress-circular.md-default-theme.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-accent .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(255,64,129);
+    border-right-color: rgb(255,64,129);
 }
 
 md-progress-circular.md-default-theme.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-accent .md-inner .md-left .md-half-circle {
-    border-right-color: rgb(255,64,129);
+    border-left-color: rgb(255,64,129);
 }
 
 md-progress-linear.md-default-theme.md-accent .md-container, md-progress-linear.md-accent .md-container {
@@ -2256,16 +2231,16 @@ md-progress-circular.md-default-theme.md-hue-1.md-accent .md-inner .md-gap, md-p
     border-bottom-color: rgb(255,128,171);
 }
 
-md-progress-circular.md-default-theme.md-hue-1.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-1.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme.md-hue-1.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-1.md-accent .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme.md-hue-1.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-1.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme.md-hue-1.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-1.md-accent .md-inner .md-right .md-half-circle {
     border-top-color: rgb(255,128,171);
 }
 
 md-progress-circular.md-default-theme.md-hue-1.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-1.md-accent .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(255,128,171);
+    border-right-color: rgb(255,128,171);
 }
 
 md-progress-circular.md-default-theme.md-hue-1.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-1.md-accent .md-inner .md-left .md-half-circle {
-    border-right-color: rgb(255,128,171);
+    border-left-color: rgb(255,128,171);
 }
 
 md-progress-linear.md-default-theme.md-hue-1.md-accent .md-container, md-progress-linear.md-hue-1.md-accent .md-container {
@@ -2534,16 +2509,16 @@ md-progress-circular.md-default-theme.md-hue-2.md-accent .md-inner .md-gap, md-p
     border-bottom-color: rgb(245,0,87);
 }
 
-md-progress-circular.md-default-theme.md-hue-2.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-2.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme.md-hue-2.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-2.md-accent .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme.md-hue-2.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-2.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme.md-hue-2.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-2.md-accent .md-inner .md-right .md-half-circle {
     border-top-color: rgb(245,0,87);
 }
 
 md-progress-circular.md-default-theme.md-hue-2.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-2.md-accent .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(245,0,87);
+    border-right-color: rgb(245,0,87);
 }
 
 md-progress-circular.md-default-theme.md-hue-2.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-2.md-accent .md-inner .md-left .md-half-circle {
-    border-right-color: rgb(245,0,87);
+    border-left-color: rgb(245,0,87);
 }
 
 md-progress-linear.md-default-theme.md-hue-2.md-accent .md-container, md-progress-linear.md-hue-2.md-accent .md-container {
@@ -2812,16 +2787,16 @@ md-progress-circular.md-default-theme.md-hue-3.md-accent .md-inner .md-gap, md-p
     border-bottom-color: rgb(197,17,98);
 }
 
-md-progress-circular.md-default-theme.md-hue-3.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-3.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme.md-hue-3.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-3.md-accent .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme.md-hue-3.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-3.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme.md-hue-3.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-3.md-accent .md-inner .md-right .md-half-circle {
     border-top-color: rgb(197,17,98);
 }
 
 md-progress-circular.md-default-theme.md-hue-3.md-accent .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-3.md-accent .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(197,17,98);
+    border-right-color: rgb(197,17,98);
 }
 
 md-progress-circular.md-default-theme.md-hue-3.md-accent .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-3.md-accent .md-inner .md-left .md-half-circle {
-    border-right-color: rgb(197,17,98);
+    border-left-color: rgb(197,17,98);
 }
 
 md-progress-linear.md-default-theme.md-hue-3.md-accent .md-container, md-progress-linear.md-hue-3.md-accent .md-container {
@@ -3071,16 +3046,16 @@ md-progress-circular.md-default-theme.md-warn .md-inner .md-gap, md-progress-cir
     border-bottom-color: rgb(255,87,34);
 }
 
-md-progress-circular.md-default-theme.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-warn .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-warn .md-inner .md-right .md-half-circle {
     border-top-color: rgb(255,87,34);
 }
 
 md-progress-circular.md-default-theme.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-warn .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(255,87,34);
+    border-right-color: rgb(255,87,34);
 }
 
 md-progress-circular.md-default-theme.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-warn .md-inner .md-left .md-half-circle {
-    border-right-color: rgb(255,87,34);
+    border-left-color: rgb(255,87,34);
 }
 
 md-progress-linear.md-default-theme.md-warn .md-container, md-progress-linear.md-warn .md-container {
@@ -3304,16 +3279,16 @@ md-progress-circular.md-default-theme.md-hue-1.md-warn .md-inner .md-gap, md-pro
     border-bottom-color: rgb(255,138,101);
 }
 
-md-progress-circular.md-default-theme.md-hue-1.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-1.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme.md-hue-1.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-1.md-warn .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme.md-hue-1.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-1.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme.md-hue-1.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-1.md-warn .md-inner .md-right .md-half-circle {
     border-top-color: rgb(255,138,101);
 }
 
 md-progress-circular.md-default-theme.md-hue-1.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-1.md-warn .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(255,138,101);
+    border-right-color: rgb(255,138,101);
 }
 
 md-progress-circular.md-default-theme.md-hue-1.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-1.md-warn .md-inner .md-left .md-half-circle {
-    border-right-color: rgb(255,138,101);
+    border-left-color: rgb(255,138,101);
 }
 
 md-progress-linear.md-default-theme.md-hue-1.md-warn .md-container, md-progress-linear.md-hue-1.md-warn .md-container {
@@ -3537,16 +3512,16 @@ md-progress-circular.md-default-theme.md-hue-2.md-warn .md-inner .md-gap, md-pro
     border-bottom-color: rgb(216,67,21);
 }
 
-md-progress-circular.md-default-theme.md-hue-2.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-2.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme.md-hue-2.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-2.md-warn .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme.md-hue-2.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-2.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme.md-hue-2.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-2.md-warn .md-inner .md-right .md-half-circle {
     border-top-color: rgb(216,67,21);
 }
 
 md-progress-circular.md-default-theme.md-hue-2.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-2.md-warn .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(216,67,21);
+    border-right-color: rgb(216,67,21);
 }
 
 md-progress-circular.md-default-theme.md-hue-2.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-2.md-warn .md-inner .md-left .md-half-circle {
-    border-right-color: rgb(216,67,21);
+    border-left-color: rgb(216,67,21);
 }
 
 md-progress-linear.md-default-theme.md-hue-2.md-warn .md-container, md-progress-linear.md-hue-2.md-warn .md-container {
@@ -3770,16 +3745,16 @@ md-progress-circular.md-default-theme.md-hue-3.md-warn .md-inner .md-gap, md-pro
     border-bottom-color: rgb(255,158,128);
 }
 
-md-progress-circular.md-default-theme.md-hue-3.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-3.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-default-theme.md-hue-3.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-3.md-warn .md-inner .md-left .md-half-circle {
+md-progress-circular.md-default-theme.md-hue-3.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-3.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-default-theme.md-hue-3.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-3.md-warn .md-inner .md-right .md-half-circle {
     border-top-color: rgb(255,158,128);
 }
 
 md-progress-circular.md-default-theme.md-hue-3.md-warn .md-inner .md-right .md-half-circle, md-progress-circular.md-hue-3.md-warn .md-inner .md-right .md-half-circle {
-    border-left-color: rgb(255,158,128);
+    border-right-color: rgb(255,158,128);
 }
 
 md-progress-circular.md-default-theme.md-hue-3.md-warn .md-inner .md-left .md-half-circle, md-progress-circular.md-hue-3.md-warn .md-inner .md-left .md-half-circle {
-    border-right-color: rgb(255,158,128);
+    border-left-color: rgb(255,158,128);
 }
 
 md-progress-linear.md-default-theme.md-hue-3.md-warn .md-container, md-progress-linear.md-hue-3.md-warn .md-container {
@@ -3962,10 +3937,6 @@ md-bottom-sheet.md-default-theme, md-bottom-sheet {
         background-color: rgb(250,250,250);
     }
 
-a.md-button.md-default-theme:not([disabled]):hover, a.md-button:not([disabled]):hover, .md-button.md-default-theme:not([disabled]):hover, .md-button:not([disabled]):hover {
-    background-color: rgba(158,158,158,0.2);
-}
-
 a.md-button.md-default-theme:not([disabled]).md-focused, a.md-button:not([disabled]).md-focused, .md-button.md-default-theme:not([disabled]).md-focused, .md-button:not([disabled]).md-focused {
     background-color: rgba(158,158,158,0.2);
 }
@@ -4059,7 +4030,6 @@ md-content.md-default-theme, md-content {
 .md-default-theme .md-calendar-date-selection-indicator:hover, .md-calendar-date-selection-indicator:hover {
     background: rgb(224,224,224);
 }
-/** Theme styles for mdDatepicker. */
 
 md-datepicker.md-default-theme, md-datepicker {
     background: rgb(255,255,255);
@@ -4082,16 +4052,12 @@ md-datepicker.md-default-theme, md-datepicker {
     background: rgb(255,255,255);
 }
 
-md-dialog.md-default-theme, md-dialog {
-    border-radius: 4px;
-    background-color: rgb(255,255,255);
-}
 
 md-input-container.md-default-theme .md-input[disabled], md-input-container .md-input[disabled], md-input-container.md-default-theme .md-input [disabled], md-input-container .md-input [disabled] {
     border-bottom-color: transparent;
     color: rgba(0,0,0,0.26);
-    background-image: linear-gradient(to left, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
-    background-image: -ms-linear-gradient(right, transparent 0%, rgba(0,0,0,0.26) 100%);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
+    background-image: -ms-linear-gradient(left, transparent 0%, rgba(0,0,0,0.26) 100%);
 }
 
 md-list.md-default-theme .md-proxy-focus.md-focused div.md-no-style, md-list .md-proxy-focus.md-focused div.md-no-style {
@@ -4103,9 +4069,6 @@ md-list.md-default-theme md-list-item > .md-avatar-icon, md-list md-list-item > 
     color: rgb(255,255,255);
 }
 
-md-menu-content.md-default-theme, md-menu-content {
-    background-color: rgb(255,255,255);
-}
 
     md-menu-content.md-default-theme md-menu-divider, md-menu-content md-menu-divider {
         background-color: rgba(0,0,0,0.12);
@@ -4139,8 +4102,8 @@ md-progress-circular.md-default-theme, md-progress-circular {
 
 md-select.md-default-theme[disabled] .md-select-value, md-select[disabled] .md-select-value {
     border-bottom-color: transparent;
-    background-image: linear-gradient(to left, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
-    background-image: -ms-linear-gradient(right, transparent 0%, rgba(0,0,0,0.26) 100%);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
+    background-image: -ms-linear-gradient(left, transparent 0%, rgba(0,0,0,0.26) 100%);
 }
 
 md-select-menu.md-default-theme md-option:focus:not([disabled]):not([selected]), md-select-menu md-option:focus:not([disabled]):not([selected]) {
@@ -4368,7 +4331,7 @@ md-content.md-default-theme.md-hue-1, md-content.md-hue-1 {
 .md-default-theme.md-hue-1 .md-calendar-date-selection-indicator:hover, .md-hue-1 .md-calendar-date-selection-indicator:hover {
     background: rgb(224,224,224);
 }
-/** Theme styles for mdDatepicker. */
+
 
 md-datepicker.md-default-theme.md-hue-1, md-datepicker.md-hue-1 {
     background: rgb(224,224,224);
@@ -4399,8 +4362,8 @@ md-dialog.md-default-theme.md-hue-1, md-dialog.md-hue-1 {
 md-input-container.md-default-theme.md-hue-1 .md-input[disabled], md-input-container.md-hue-1 .md-input[disabled], md-input-container.md-default-theme.md-hue-1 .md-input [disabled], md-input-container.md-hue-1 .md-input [disabled] {
     border-bottom-color: transparent;
     color: rgba(0,0,0,0.26);
-    background-image: linear-gradient(to left, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
-    background-image: -ms-linear-gradient(right, transparent 0%, rgba(0,0,0,0.26) 100%);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
+    background-image: -ms-linear-gradient(left, transparent 0%, rgba(0,0,0,0.26) 100%);
 }
 
 md-list.md-default-theme.md-hue-1 .md-proxy-focus.md-focused div.md-no-style, md-list.md-hue-1 .md-proxy-focus.md-focused div.md-no-style {
@@ -4448,8 +4411,8 @@ md-progress-circular.md-default-theme.md-hue-1, md-progress-circular.md-hue-1 {
 
 md-select.md-default-theme.md-hue-1[disabled] .md-select-value, md-select.md-hue-1[disabled] .md-select-value {
     border-bottom-color: transparent;
-    background-image: linear-gradient(to left, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
-    background-image: -ms-linear-gradient(right, transparent 0%, rgba(0,0,0,0.26) 100%);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
+    background-image: -ms-linear-gradient(left, transparent 0%, rgba(0,0,0,0.26) 100%);
 }
 
 md-select-menu.md-default-theme.md-hue-1 md-option:focus:not([disabled]):not([selected]), md-select-menu.md-hue-1 md-option:focus:not([disabled]):not([selected]) {
@@ -4677,7 +4640,6 @@ md-content.md-default-theme.md-hue-2, md-content.md-hue-2 {
 .md-default-theme.md-hue-2 .md-calendar-date-selection-indicator:hover, .md-hue-2 .md-calendar-date-selection-indicator:hover {
     background: rgb(224,224,224);
 }
-/** Theme styles for mdDatepicker. */
 
 md-datepicker.md-default-theme.md-hue-2, md-datepicker.md-hue-2 {
     background: rgb(66,66,66);
@@ -4708,8 +4670,8 @@ md-dialog.md-default-theme.md-hue-2, md-dialog.md-hue-2 {
 md-input-container.md-default-theme.md-hue-2 .md-input[disabled], md-input-container.md-hue-2 .md-input[disabled], md-input-container.md-default-theme.md-hue-2 .md-input [disabled], md-input-container.md-hue-2 .md-input [disabled] {
     border-bottom-color: transparent;
     color: rgba(0,0,0,0.26);
-    background-image: linear-gradient(to left, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
-    background-image: -ms-linear-gradient(right, transparent 0%, rgba(0,0,0,0.26) 100%);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
+    background-image: -ms-linear-gradient(left, transparent 0%, rgba(0,0,0,0.26) 100%);
 }
 
 md-list.md-default-theme.md-hue-2 .md-proxy-focus.md-focused div.md-no-style, md-list.md-hue-2 .md-proxy-focus.md-focused div.md-no-style {
@@ -4757,8 +4719,8 @@ md-progress-circular.md-default-theme.md-hue-2, md-progress-circular.md-hue-2 {
 
 md-select.md-default-theme.md-hue-2[disabled] .md-select-value, md-select.md-hue-2[disabled] .md-select-value {
     border-bottom-color: transparent;
-    background-image: linear-gradient(to left, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
-    background-image: -ms-linear-gradient(right, transparent 0%, rgba(0,0,0,0.26) 100%);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
+    background-image: -ms-linear-gradient(left, transparent 0%, rgba(0,0,0,0.26) 100%);
 }
 
 md-select-menu.md-default-theme.md-hue-2 md-option:focus:not([disabled]):not([selected]), md-select-menu.md-hue-2 md-option:focus:not([disabled]):not([selected]) {
@@ -4986,7 +4948,6 @@ md-content.md-default-theme.md-hue-3, md-content.md-hue-3 {
 .md-default-theme.md-hue-3 .md-calendar-date-selection-indicator:hover, .md-hue-3 .md-calendar-date-selection-indicator:hover {
     background: rgb(224,224,224);
 }
-/** Theme styles for mdDatepicker. */
 
 md-datepicker.md-default-theme.md-hue-3, md-datepicker.md-hue-3 {
     background: rgb(33,33,33);
@@ -5017,8 +4978,8 @@ md-dialog.md-default-theme.md-hue-3, md-dialog.md-hue-3 {
 md-input-container.md-default-theme.md-hue-3 .md-input[disabled], md-input-container.md-hue-3 .md-input[disabled], md-input-container.md-default-theme.md-hue-3 .md-input [disabled], md-input-container.md-hue-3 .md-input [disabled] {
     border-bottom-color: transparent;
     color: rgba(0,0,0,0.26);
-    background-image: linear-gradient(to left, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
-    background-image: -ms-linear-gradient(right, transparent 0%, rgba(0,0,0,0.26) 100%);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
+    background-image: -ms-linear-gradient(left, transparent 0%, rgba(0,0,0,0.26) 100%);
 }
 
 md-list.md-default-theme.md-hue-3 .md-proxy-focus.md-focused div.md-no-style, md-list.md-hue-3 .md-proxy-focus.md-focused div.md-no-style {
@@ -5066,8 +5027,8 @@ md-progress-circular.md-default-theme.md-hue-3, md-progress-circular.md-hue-3 {
 
 md-select.md-default-theme.md-hue-3[disabled] .md-select-value, md-select.md-hue-3[disabled] .md-select-value {
     border-bottom-color: transparent;
-    background-image: linear-gradient(to left, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
-    background-image: -ms-linear-gradient(right, transparent 0%, rgba(0,0,0,0.26) 100%);
+    background-image: linear-gradient(to right, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
+    background-image: -ms-linear-gradient(left, transparent 0%, rgba(0,0,0,0.26) 100%);
 }
 
 md-select-menu.md-default-theme.md-hue-3 md-option:focus:not([disabled]):not([selected]), md-select-menu.md-hue-3 md-option:focus:not([disabled]):not([selected]) {
@@ -5152,8 +5113,8 @@ md-tooltip.md-default-theme.md-hue-3, md-tooltip.md-hue-3 {
 [uib-tooltip-popup].tooltip.top-left > .tooltip-arrow, [uib-tooltip-popup].tooltip.top-right > .tooltip-arrow, [uib-tooltip-popup].tooltip.bottom-left > .tooltip-arrow, [uib-tooltip-popup].tooltip.bottom-right > .tooltip-arrow, [uib-tooltip-popup].tooltip.left-top > .tooltip-arrow, [uib-tooltip-popup].tooltip.left-bottom > .tooltip-arrow, [uib-tooltip-popup].tooltip.right-top > .tooltip-arrow, [uib-tooltip-popup].tooltip.right-bottom > .tooltip-arrow, [uib-popover-popup].popover.top-left > .arrow, [uib-popover-popup].popover.top-right > .arrow, [uib-popover-popup].popover.bottom-left > .arrow, [uib-popover-popup].popover.bottom-right > .arrow, [uib-popover-popup].popover.left-top > .arrow, [uib-popover-popup].popover.left-bottom > .arrow, [uib-popover-popup].popover.right-top > .arrow, [uib-popover-popup].popover.right-bottom > .arrow {
     top: auto;
     bottom: auto;
-    right: auto;
     left: auto;
+    right: auto;
     margin: 0;
 }
 
@@ -5166,7 +5127,7 @@ md-tooltip.md-default-theme.md-hue-3, md-tooltip.md-hue-3 {
     visibility: hidden !important;
     position: absolute !important;
     top: -9999px !important;
-    right: -9999px !important;
+    left: -9999px !important;
 }
 
 .uib-position-scrollbar-measure {
@@ -5191,4 +5152,24 @@ ng\:form {
 
 .ng-anchor {
     position: absolute;
+}
+*/
+
+/************************/
+
+md-menu-content.md-default-theme, md-menu-content {
+    background-color: rgb(255,255,255);
+} 
+
+a.md-button.md-default-theme:not([disabled]):hover, a.md-button:not([disabled]):hover, .md-button.md-default-theme:not([disabled]):hover, .md-button:not([disabled]):hover {
+    background-color: rgba(158,158,158,0.2);
+}
+
+md-dialog.md-default-theme, md-dialog {
+    border-radius: 4px;
+    background-color: rgb(255,255,255);
+}
+
+md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
+    color: rgba(255,255,255,0.87);
 }
