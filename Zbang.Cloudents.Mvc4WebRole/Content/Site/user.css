@@ -195,6 +195,7 @@
 }
 .userPage .tab-content .badges .tab.levels .bg {
   position: absolute;
+  width: 230px;
 }
 @media (max-width: 600px) {
   .userPage .tab-content .badges .tab.levels .bg {
@@ -269,12 +270,18 @@
 .userPage .tab-content .badges .tab.badges .expanded {
   padding: 70px 0;
   position: relative;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
 }
 .userPage .tab-content .badges .tab.badges .expanded .badge-container {
-  width: 290px;
-  max-width: 100%;
-  margin: 0 auto;
-  display: block;
+  max-width: 290px;
+  width: 100%;
+  flex-grow: 0;
 }
 .userPage .tab-content .badges .tab.badges .expanded .badge-container .image {
   width: 126px;
@@ -287,7 +294,7 @@
 }
 .userPage .tab-content .badges .tab.badges .expanded .details {
   background: #ffce2f;
-  margin: 20px -10px -16px -10px;
+  margin: 20px -8px -16px -8px;
   color: #ffffff;
   padding: 20px;
   font-size: 20px;
@@ -304,14 +311,26 @@
 }
 .userPage .tab-content .badges .tab.badges .expanded .next,
 .userPage .tab-content .badges .tab.badges .expanded .prev {
-  position: absolute;
-  top: 50%;
+  flex-grow: 1;
+  flex-shrink: 0;
+  text-align: center;
 }
-.userPage .tab-content .badges .tab.badges .expanded .next {
-  right: 5px;
+.userPage .tab-content .badges .tab.badges .expanded .next md-icon,
+.userPage .tab-content .badges .tab.badges .expanded .prev md-icon {
+  width: 40px;
+  height: 40px;
 }
-.userPage .tab-content .badges .tab.badges .expanded .prev {
-  left: 5px;
+.userPage .tab-content .badges .tab.badges .expanded .next md-icon.disabled,
+.userPage .tab-content .badges .tab.badges .expanded .prev md-icon.disabled {
+  cursor: auto;
+  opacity: 0;
+}
+.userPage .tab-content .badges .tab.badges .expanded .prev md-icon {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .userPage .tab-content .badges .tab.badges .expanded .close {
   position: absolute;
@@ -431,7 +450,7 @@
 .userPage .tab-content .badges .tab.community .content .filter-wrapper {
   padding: 15px;
   width: 100%;
-  max-width: 150px;
+  max-width: 180px;
   display: inline-block;
 }
 @media (max-width: 600px) {
@@ -494,8 +513,11 @@
 }
 .userPage .tab-content .badges .tab.community .content .users .user .user-data {
   background: #ffffff;
-  border: 1px solid black;
+  border: 1px solid #5d6d7e;
   text-align: center;
+  height: 200px;
+  padding: 0 5px 25px 5px;
+  position: relative;
 }
 .userPage .tab-content .badges .tab.community .content .users .user .user-data img {
   border-radius: 100%;
@@ -503,6 +525,23 @@
   height: 90px;
   border: 1px solid #212325;
   margin: 8px;
+}
+.userPage .tab-content .badges .tab.community .content .users .user .user-data .name,
+.userPage .tab-content .badges .tab.community .content .users .user .user-data .points {
+  font-size: 20px;
+  line-height: normal;
+  color: #888b8e;
+}
+.userPage .tab-content .badges .tab.community .content .users .user .user-data .rank {
+  background: #5d6d7e;
+  font-weight: bold;
+  color: #ffffff;
+  line-height: 32px;
+  font-size: 22px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }
 .userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data {
   border: 3px solid #ffce2f;
@@ -521,9 +560,31 @@
   left: -25px;
   margin-bottom: -90px;
 }
-.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data img {
+.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data .name,
+.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data .points {
+  font-size: 22px;
+}
+.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data .img-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data .img-wrapper img {
   position: relative;
   border: 3px solid #ffffff;
+}
+.userPage .tab-content .badges .tab.community .content .users .user.top-user .user-data .rank {
+  background: #ffce2f;
+  width: 30px;
+  height: 30px;
+  line-height: 28px;
+  border-radius: 100%;
+  padding: 0 2px;
+  font-size: 20px;
+  right: 10px;
+  bottom: 10px;
+  border: 2px solid #888b8e;
+  position: absolute;
+  left: inherit;
 }
 .userPage .tab-content .badges md-ink-bar {
   background: #ffce2f;

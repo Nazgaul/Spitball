@@ -229,6 +229,7 @@
 
                     .bg {
                         position: absolute;
+                        width: 230px;
 
                         @media(max-width: 600px) {
                             width: 110px;
@@ -304,12 +305,14 @@
                     .expanded {
                         padding: 70px 0;
                         position: relative;
+                        .displayFlex;
+                        .align-items(center);
+                        .justifyContet(space-between);
 
                         .badge-container {
-                            width: 290px;
-                            max-width: 100%;
-                            margin: 0 auto;
-                            display: block;
+                            max-width: 290px;
+                            width: 100%;
+                            flex-grow: 0;
 
                             .image {
                                 width: 126px;
@@ -325,7 +328,7 @@
 
                         .details {
                             background: @gamificationYellow;
-                            margin: 20px -10px -16px -10px;
+                            margin: 20px -8px -16px -8px;
                             color: @textColorWhite;
                             padding: 20px;
                             font-size: 20px;
@@ -344,16 +347,27 @@
                         }
 
                         .next, .prev {
-                            position: absolute;
-                            top: 50%;
+                            flex-grow: 1;
+                            flex-shrink: 0;
+                            text-align: center;
+
+                            md-icon {
+                                width: 40px;
+                                height: 40px;
+
+                                &.disabled {
+                                    cursor: auto;
+                                    opacity: 0;
+                                }
+                            }
                         }
 
-                        .next {
-                            right: 5px;
-                        }
-
-                        .prev {
-                            left: 5px;
+                        .prev md-icon {
+                            -webkit-transform: rotate(180deg);
+                            -moz-transform: rotate(180deg);
+                            -o-transform: rotate(180deg);
+                            -ms-transform: rotate(180deg);
+                            transform: rotate(180deg);
                         }
 
                         .close {
@@ -480,7 +494,7 @@
                         .user, .filter-wrapper {
                             padding: 15px;
                             width: 100%;
-                            max-width: 150px;
+                            max-width: 180px;
                             display: inline-block;
 
                             @media(max-width: 600px) {
@@ -542,9 +556,11 @@
                             .user {
                                 .user-data {
                                     background: @textColorWhite;
-                                    border: 1px solid black;
+                                    border: 1px solid #5d6d7e;
                                     text-align: center;
-
+                                    height: 200px;
+                                    padding: 0 5px 25px 5px;
+                                    position: relative;
 
                                     img {
                                         border-radius: 100%;
@@ -552,6 +568,24 @@
                                         height: 90px;
                                         border: 1px solid @textColorBlack;
                                         margin: 8px;
+                                    }
+
+                                    .name, .points {
+                                        font-size: 20px;
+                                        line-height: normal;
+                                        color: @textColorGrey;
+                                    }
+
+                                    .rank {
+                                        background: #5d6d7e;
+                                        font-weight: bold;
+                                        color: @textColorWhite;
+                                        line-height: 32px;
+                                        font-size: 22px;
+                                        position: absolute;
+                                        left: 0;
+                                        bottom: 0;
+                                        width: 100%;
                                     }
                                 }
 
@@ -574,9 +608,33 @@
                                             margin-bottom: -90px;
                                         }
 
-                                        img {
+                                        .name, .points {
+                                            font-size: 22px;
+                                        }
+
+                                        .img-wrapper {
                                             position: relative;
-                                            border: 3px solid @textColorWhite;
+                                            display: inline-block;
+
+                                            img {
+                                                position: relative;
+                                                border: 3px solid @textColorWhite;
+                                            }
+                                        }
+
+                                        .rank {
+                                            background: @gamificationYellow;
+                                            width: 30px;
+                                            height: 30px;
+                                            line-height: 28px;
+                                            border-radius: 100%;
+                                            padding: 0 2px;
+                                            font-size: 20px;
+                                            right: 10px;
+                                            bottom: 10px;
+                                            border: 2px solid #888b8e;
+                                            position: absolute;
+                                            left: inherit;
                                         }
                                     }
                                 }
