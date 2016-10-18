@@ -167,13 +167,15 @@
                             </ul>
                         </div>
                         <div ng-switch-when="b" class="tab badges">
-                            <div ng-if="!u.badgeInfo">
-                                <div ng-repeat="badge in u.badges" class="badge-container" ng-click="u.showBadge(badge)">
-                                    <md-icon md-svg-icon="p:checkmark" ng-if="badge.progress === 100"></md-icon>
-                                    <div class="image"></div>
-                                    <div class="text">{{::badge.name}}</div>
-                                    <div class="progress">
-                                        <md-progress-linear ng-cloak md-mode="determinate" value="{{::badge.progress}}"></md-progress-linear>
+                            <div class="badges-container" ng-if="!u.badgeInfo" layout="row" layout-padding layout-wrap>
+                                <div class="wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="badge in u.badges" >
+                                    <div class="badge-container" ng-click="u.showBadge(badge)">
+                                        <md-icon md-svg-icon="p:checkmark" ng-if="badge.progress === 100"></md-icon>
+                                        <div class="image"></div>
+                                        <div class="text">{{::badge.name}}</div>
+                                        <div class="progress">
+                                            <md-progress-linear ng-cloak md-mode="determinate" value="{{::badge.progress}}"></md-progress-linear>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -206,8 +208,8 @@
                                 <img class="title" src="~/Images/Site/Leaderborad-title.png" />
                             </div>
                             <div class="content">
-                                <div class="filters">
-                                    <div class="filter-wrapper">
+                                <div class="filters" layout="row" layout-padding layout-wrap>
+                                    <div class="filter-wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" >
                                         <md-input-container class="dates action-btn">
                                             <md-select ng-model="u.communityFilter">
                                                 <md-option value="This Month">This Month</md-option>
@@ -217,12 +219,12 @@
                                             </md-select>
                                         </md-input-container>
                                     </div>
-                                    <div class="filter-wrapper" flex-gt-sm="20">
+                                    <div class="filter-wrapper" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" >
                                         <button type="button" class="action-btn">Show Myself</button>
                                     </div>
                                 </div>
-                                <div class="users">
-                                    <div class="user" ng-repeat="user in u.communityUsers | orderBy : '-points'" ng-class="{'top-user' : $index < 5}">
+                                <div class="users" layout="row" layout-padding layout-wrap>
+                                    <div class="user" flex-lg="20" flex-md="25" flex-gt-lg="20" flex-xs="50" flex-sm="25" ng-repeat="user in u.communityUsers | orderBy : '-points'" ng-class="{'top-user' : $index < 5}">
                                         <div class="user-data">
                                             <div class="img-wrapper">
                                                 <img src="{{user.image}}" />
