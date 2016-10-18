@@ -444,5 +444,4 @@
     }
 
     angular.module('app.quiz.create').controller('QuizCreateController', QuizCreateController);
-
 }

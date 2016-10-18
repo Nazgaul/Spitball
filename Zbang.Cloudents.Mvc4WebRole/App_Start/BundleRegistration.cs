@@ -7,7 +7,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
         public static void RegisterBundles()
         {
             BundleConfig.RegisterBundle(RegisterCss(), RegisterJs());
-            BundleConfig.RegisterCssBundles(RegisterCss());
+            //BundleConfig.RegisterBundles(RegisterCss(), RegisterJs());
         }
 
         private static IEnumerable<KeyValuePair<string, IEnumerable<CssWithRtl>>> RegisterCss()
@@ -93,7 +93,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
 
                 {
-                    "homePage", new[]
+                    "jsHomePage", new[]
                     {
                         new JsFileWithCdn("~/scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
                         new JsFileWithCdn("~/scripts/jquery.validate.js"),
@@ -134,7 +134,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 },
 
                 {
-                    "site4", new[]
+                    "jsSite4", new[]
                     {
 
                         new JsFileWithCdn("~/Scripts/jquery-2.2.0.js", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"),
