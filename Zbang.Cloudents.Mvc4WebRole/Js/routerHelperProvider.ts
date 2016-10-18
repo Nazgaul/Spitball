@@ -11,6 +11,7 @@ interface IRouterHelper {
     buildUrl(path: string):string;
 }
 (() => {
+
     angular.module('app').provider('routerHelper', routerHelperProvider);
 
     routerHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];

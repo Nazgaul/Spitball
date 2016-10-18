@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
-using System.Web.Optimization;
+//using System.Web.Optimization;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using SquishIt.Framework.JavaScript;
 using Zbang.Cloudents.Mvc4WebRole.Extensions;
@@ -18,45 +18,127 @@ namespace Zbang.Cloudents.Mvc4WebRole
     {
         public const string Rtl = ".rtl";
 
-        public const string Rtl2 = "-rtl";
+        //public const string Rtl2 = "-rtl";
 
         private static readonly Dictionary<string, string> CssBundles = new Dictionary<string, string>();
         private static readonly Dictionary<string, string> JsBundles = new Dictionary<string, string>();
 
         private static readonly string CdnLocation = GetValueFromCloudConfig();
 
+        //static BundleConfig()
+        //{
 
-        public static void RegisterCssBundles(IEnumerable<KeyValuePair<string, IEnumerable<CssWithRtl>>> cssBundles)
-        {
-            var bundles = BundleTable.Bundles;
-            bundles.IgnoreList.Ignore("*.min.css", OptimizationMode.Always);
-            var cdnUrl = CdnEndpointUrl + "/{0}?" + VersionHelper.CurrentVersion(true);
-            bundles.UseCdn = true;
-           // BundleTable.EnableOptimizations = true;
+        //}
+        //public static void RegisterBundles(
+        //    IEnumerable<KeyValuePair<string, IEnumerable<CssWithRtl>>> cssBundles,
+        //    IEnumerable<KeyValuePair<string, IEnumerable<JsFileWithCdn>>> jsBundles)
+        //{
+        //    var bundles = BundleTable.Bundles;
+        //    bundles.IgnoreList.Ignore("*.min.css", OptimizationMode.Always);
+        //    //bundles.IgnoreList.Ignore("*.min.js", OptimizationMode.Always);
+        //    var cdnUrl = CdnEndpointUrl + "/{0}?" + VersionHelper.CurrentVersion(true);
+        //    bundles.UseCdn = true;
+        //    RegisterCssBundles(bundles, cdnUrl, cssBundles);
+        //    RegisterJsBundle(bundles, cdnUrl, jsBundles);
+        //    //BundleTable.EnableOptimizations = true;
+        //}
+        //public static void RegisterCssBundles(BundleCollection bundles, string cdnUrl,
+        //    IEnumerable<KeyValuePair<string, IEnumerable<CssWithRtl>>> cssBundles)
+        //{
 
-            foreach (var cssBundle in cssBundles)
-            {
-                var styleLeft = new YUIStyleBundle("~/" + cssBundle.Key, string.Format(cdnUrl, cssBundle.Key))
-                    .IncludeFallback("~/" + cssBundle.Key, "cssCheck", "absolute", "-2000px");
-               
-                var styleRight = new YUIStyleBundle("~/" + cssBundle.Key + Rtl2, string.Format(cdnUrl, cssBundle.Key + Rtl2))
-                    .IncludeFallback("~/" + cssBundle.Key + Rtl2, "cssCheck", "absolute", "-2000px");
+        //    foreach (var cssBundle in cssBundles)
+        //    {
+        //        var styleLeft = new YUIStyleBundle("~/bundles/" + cssBundle.Key, string.Format(cdnUrl, "bundles/" + cssBundle.Key))
+        //            .IncludeFallback("~/" + cssBundle.Key, "cssCheck", "absolute", "-2000px");
 
-                foreach (var bundle in cssBundle.Value)
-                {
-                    styleLeft.Include(bundle.LeftCssFile);
-                    styleRight.Include(bundle.RightCssFile);
-                }
+        //        var styleRight = new YUIStyleBundle("~/bundles/" + cssBundle.Key + Rtl2, string.Format(cdnUrl, "bundles/" + cssBundle.Key + Rtl2))
+        //            .IncludeFallback("~/" + cssBundle.Key + Rtl2, "cssCheck", "absolute", "-2000px");
+                
+        //        foreach (var bundle in cssBundle.Value)
+        //        {
+        //            styleLeft.Include(bundle.LeftCssFile);
+        //            styleRight.Include(bundle.RightCssFile);
+        //        }
 
-                bundles.Add(styleLeft);
-                bundles.Add(styleRight);
-            }
-            bundles.Add(new StyleBundle("~/angularMaterial",
-                "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css")
-                .IncludeFallback("~/angularMaterial", "md-display-4", "font-size","112px")
-                .Include("~/content/angular-material.css")
-                );
-        }
+        //        bundles.Add(styleLeft);
+        //        bundles.Add(styleRight);
+        //    }
+        //    bundles.Add(new StyleBundle("~/bundles/angularMaterial",
+        //        "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.css")
+        //        .IncludeFallback("~/angularMaterial", "md-display-4", "font-size", "112px")
+        //        .Include("~/content/angular-material.css")
+        //        );
+        //}
+
+        //public static void RegisterJsBundle(BundleCollection bundles, string cdnUrl,
+        //    IEnumerable<KeyValuePair<string, IEnumerable<JsFileWithCdn>>> jsBundles)
+        //{
+
+        //    foreach (var jsBundle in jsBundles)
+        //    {
+        //        var scriptBundle = new ScriptBundle("~/bundles/" + jsBundle.Key, string.Format(cdnUrl, "bundles/" + jsBundle.Key));
+        //        foreach (var bundle in jsBundle.Value)
+        //        {
+        //            scriptBundle.Include(bundle.LocalFile);
+        //        }
+        //        bundles.Add(scriptBundle);
+
+        //        //scriptBundle
+        //    }
+        //    foreach (var language in Languages.SupportedCultures)
+        //    {
+        //        foreach (var culture in language.Culture)
+        //        {
+        //            ////"langText." + culture
+        //            var scriptBundle = new ScriptBundle("~/bundles/" + "langText-" + culture, string.Format(cdnUrl, "bundles/" + "langText-" + culture));
+
+        //            //foreach (var bundle in jsBundle.Value)
+        //            //{
+        //            //    scriptBundle.Include(bundle.LocalFile);
+        //            //}
+        //            //bundles.Add(scriptBundle);
+        //            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
+        //            //var angularResource =
+        //            //    $"{HttpContext.Current.Server.MapPath("/Scripts/i18n/angular-locale")}_{Thread.CurrentThread.CurrentUICulture.Name}.js";
+        //            scriptBundle.Include($"~/Scripts/i18n/angular-locale_{Thread.CurrentThread.CurrentUICulture.Name}.js");
+        //            string path = $"~/js/sbResources_{culture}.js";
+        //            File.WriteAllText(HttpContext.Current.Server.MapPath(path), JsResourceHelper.BuildResourceObject());
+        //            scriptBundle.Include(path);
+        //            bundles.Add(scriptBundle);
+        //            //RegisterLocaleJs(File.ReadAllText(angularResource),
+        //            //    JsResourceHelper.BuildResourceObject(), culture);
+        //        }
+
+        //    }
+
+        //    bundles.Add(new ScriptBundle("~/bundles/jquery", "https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js")
+        //    {
+        //        //CdnFallbackExpression = "window.jquery"
+        //    }
+        //        .Include("~/scripts/jquery-2.2.0.js"));
+        //    bundles.Add(new ScriptBundle("~/bundles/angular", "https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js")
+        //    {
+        //        CdnFallbackExpression = "window.angular"
+        //    }
+        //        .Include("~/scripts/angular.js"));
+
+        //    bundles.Add(new ScriptBundle("~/bundles/angularMaterialJs", "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js")
+        //    {
+        //        // CdnFallbackExpression = "window.angular"
+        //    }
+        //        .Include("~/scripts/angular-material/angular-material.js"));
+
+        //    var quizCreateBundle = new ScriptBundle("~/bundles/quizCreate")
+        //    {
+        //        // CdnFallbackExpression = "window.angular"
+        //    }
+        //        .Include("~/bower_components/textAngular/dist/textAngular-rangy.min.js")
+        //        .Include("~/bower_components/textAngular/dist/textAngular.js")
+        //        .Include("~/scripts/textAngularSetup.js")
+        //        .Include("~/js/components/quiz/quizCreate.module.js")
+        //        .Include("~/js/components/quiz/quizCreate2.controller.js");
+        //    bundles.Add(quizCreateBundle);
+        //}
 
         public static string CssLink(string key)
         {
@@ -89,15 +171,15 @@ namespace Zbang.Cloudents.Mvc4WebRole
             )
         {
 
-            //if (registeredCssBundles != null)
-            //{
-            //    foreach (var registeredCssBundle in registeredCssBundles)
-            //    {
-            //        RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value.Select(s => s.LeftCssFile));
-            //        RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s => s.RightCssFile));
+            if (registeredCssBundles != null)
+            {
+                foreach (var registeredCssBundle in registeredCssBundles)
+                {
+                    RegisterCss(registeredCssBundle.Key, registeredCssBundle.Value.Select(s => s.LeftCssFile));
+                    RegisterCss(registeredCssBundle.Key + Rtl, registeredCssBundle.Value.Select(s => s.RightCssFile));
 
-            //    }
-            //}
+                }
+            }
             if (registeredJsBundles != null)
             {
                 RegisterJs("quizCreate", new[]
@@ -108,12 +190,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     new JsFileWithCdn("~/js/components/quiz/quizCreate.module.js"),
                     new JsFileWithCdn("~/js/components/quiz/quizCreate2.controller.js")
                 });
-
-                //RegisterJs("upload", new[]
-                //{
-
-                //});
-
 
                 CreateLazyLoadScript("~/js/components/quiz/quizCreate.config.js", "quizCreate", "~/js/components/quiz/quizCreate1.config.js");
                 // CreateLazyLoadScript("~/js/components/box/upload.config.js", "upload", "~/js/components/box/upload1.config.js");
@@ -133,10 +209,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     RegisterLocaleJs(File.ReadAllText(angularResource),
                         JsResourceHelper.BuildResourceObject(), culture);
                 }
-
             }
+
             RelativePathContent("~/js/components/quiz/quizCreate.config.js");
-            
+
             CopyFilesToCdn("/Content", "*.min.css");
             CopyFilesToCdn("/Content", "*.png");
             CopyFilesToCdn("/Content", "*.jpg");
@@ -213,19 +289,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
             jsBundle.AddString(jsResourceString);
 
             RenderBundles("langText." + culture, jsBundle);
-            //jsBundle.WithDeferredLoad();
-            //var cdnUrl = CdnLocation;
-
-            //if (!string.IsNullOrWhiteSpace(cdnUrl))
-            //{
-            //    jsBundle.WithOutputBaseHref(cdnUrl);
-            //    CopyFilesToCdn("~/gzip/", "*.js", options: SearchOption.TopDirectoryOnly);
-
-            //    JsBundles.Add("langText." + culture, jsBundle.Render("~/gzip/j1#.js"));
-            //    return;
-            //}
-            //JsBundles.Add("langText." + culture, jsBundle.Render("~/cdn/gzip/j#.js"));
-
         }
 
         private static JavaScriptBundle CreateJsBundle()

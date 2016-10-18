@@ -47,14 +47,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Extensions
             var retVal = cache[key] as string;
             if (retVal != null) return retVal;
             retVal = urlHelper.RouteUrl(routeName, routeValues);
-            //foreach (var item in routeValues)
-            //{
-            //    if (item.Value == null)
-            //    {
-            //        continue;
-            //    }
-            //    retVal = retVal.Replace(item.Value.ToString().ToLower(), item.Value.ToString());
-            //}
+            if (string.IsNullOrEmpty(retVal))
+            {
+                throw new ArgumentNullException(retVal);
+            }
             cache.Add(key, retVal, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromDays(30),
                 System.Web.Caching.CacheItemPriority.Default, null);
             cache[key] = retVal;
