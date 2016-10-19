@@ -25,8 +25,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
         {
             lock (ThisLock)
             {
-
-
                 var builder = IocFactory.IocWrapper.ContainerBuilder;
 
                 Zbox.Infrastructure.RegisterIoc.Register();

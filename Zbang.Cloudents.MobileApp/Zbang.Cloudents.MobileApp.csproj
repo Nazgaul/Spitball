@@ -343,6 +343,10 @@
       <Project>{872878fa-a84a-4cd3-856a-4ee9018819c5}</Project>
       <Name>Zbang.Zbox.Infrastructure.Ioc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Mail\Zbang.Zbox.Infrastructure.Mail.csproj">
+      <Project>{F5E270CF-6B83-4879-9B04-773B87F80B0E}</Project>
+      <Name>Zbang.Zbox.Infrastructure.Mail</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Zbang.Zbox.Infrastructure.Search\Zbang.Zbox.Infrastructure.Search.csproj">
       <Project>{d79b5cec-09de-4337-873f-0c65b58d86d3}</Project>
       <Name>Zbang.Zbox.Infrastructure.Search</Name>

@@ -21,8 +21,6 @@ namespace Zbang.Zbox.Infrastructure
             ioc.RegisterType<Security.IGoogleService, Security.GoogleAuthenticationService>(LifeTimeManager.PerHttpRequest);
 
             ioc.RegisterType<IdGenerator.IGuidIdGenerator, IdGenerator.GuidIdGenerator>(LifeTimeManager.Singleton);
-            ioc.RegisterType<IEmailVerification, EmailVerification>(LifeTimeManager.Singleton);
-
         }
     }
 }

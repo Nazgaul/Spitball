@@ -4,8 +4,7 @@ using Zbang.Zbox.Infrastructure.Security;
 using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Domain.Common;
-using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Mail;
 
 namespace Zbang.Zbox.Domain.CommandHandlers
 {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Zbang.Zbox.Infrastructure
+namespace Zbang.Zbox.Infrastructure.Mail
 {
     public interface IEmailVerification
     {

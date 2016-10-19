@@ -57,9 +57,6 @@
       <HintPath>..\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Cobisi.EmailVerify.Net45">
-      <HintPath>..\Bin\CobisiEmailVerify\Cobisi.EmailVerify.Net45.dll</HintPath>
-    </Reference>
     <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Iesi.Collections.4.0.0.4000\lib\net40\Iesi.Collections.dll</HintPath>
@@ -100,7 +97,6 @@
     <Compile Include="Consts\TimeConsts.cs" />
     <Compile Include="Consts\UrlConsts.cs" />
     <Compile Include="Culture\Languages.cs" />
-    <Compile Include="EmailVerification.cs" />
     <Compile Include="Enums\BadItem.cs" />
     <Compile Include="Enums\BoxType.cs" />
     <Compile Include="Enums\EmailSend.cs" />
@@ -144,7 +140,6 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IdGenerator\GuidIdGenerator.cs" />
     <Compile Include="IdGenerator\IIdGenerator.cs" />
-    <Compile Include="IEmailVerification.cs" />
     <Compile Include="MediaServices\IMediaServicesProvider.cs" />
     <Compile Include="Profile\IProfilePictureProvider.cs" />
     <Compile Include="Profile\IProfileProcessor.cs" />

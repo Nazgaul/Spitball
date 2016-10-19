@@ -28,7 +28,8 @@ namespace Zbang.Zbox.Infrastructure.Mail
             ioc.RegisterType<IMailBuilder, ReplyToCommentMail>(nameof(ReplyToCommentMailParams), LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, SpamGunMail>(nameof(SpamGunMailParams), LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IMailBuilder, GreekPartnerMail>(nameof(GreekPartnerMailParams), LifeTimeManager.PerHttpRequest);
-            
+            ioc.RegisterType<IEmailVerification, EmailVerification>(LifeTimeManager.Singleton);
+
         }
     }
 }
