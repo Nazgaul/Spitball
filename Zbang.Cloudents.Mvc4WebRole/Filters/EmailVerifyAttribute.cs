@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using Zbang.Zbox.Infrastructure;
+using Zbang.Zbox.Infrastructure.Mail;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Filters
 {

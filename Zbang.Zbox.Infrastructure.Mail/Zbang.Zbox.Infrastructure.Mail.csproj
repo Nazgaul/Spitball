@@ -35,6 +35,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Cobisi.EmailVerify.Net45, Version=5.9.0.0, Culture=neutral, PublicKeyToken=b863a804c9b2bdb0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Bin\CobisiEmailVerify\Cobisi.EmailVerify.Net45.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -76,10 +80,12 @@
     <Compile Include="DepartmentApprovedMailParams.cs" />
     <Compile Include="DepartmentRequestAccessMail.cs" />
     <Compile Include="DepartmentRequestAccessMailParams.cs" />
+    <Compile Include="EmailVerification.cs" />
     <Compile Include="FlagItemMail.cs" />
     <Compile Include="FlagItemMailParams.cs" />
     <Compile Include="ForgotPasswordMail.cs" />
     <Compile Include="ForgotPasswordMailParams2.cs" />
+    <Compile Include="IEmailVerification.cs" />
     <Compile Include="IMailBuilder.cs" />
     <Compile Include="IMailComponent.cs" />
     <Compile Include="InvitationToCloudentsMail.cs" />

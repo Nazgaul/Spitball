@@ -47,9 +47,6 @@ namespace Zbang.Zbox.Infrastructure.Mail
                 sendGridMail.Subject = mail.AddSubject();
                 sendGridMail.SetCategory(mail.AddCategory());
                 sendGridMail.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: mail.AddCategory());
-                //mail.AddSubject(sendGridMail);
-                //mail.GenerateMail(sendGridMail, parameters);
-
 
                 sendGridMail.EnableUnsubscribe("{unsubscribeUrl}");
                 sendGridMail.AddSubstitution("{email}", new List<string> { recipient });

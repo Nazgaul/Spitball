@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
-using Zbang.Zbox.Infrastructure;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Consts;
 using Zbang.Zbox.Infrastructure.IdGenerator;
+using Zbang.Zbox.Infrastructure.Mail;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Storage;
 using Zbang.Zbox.Infrastructure.Transport;
@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public async Task HandleAsync(InviteToSystemCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
-            User sender = m_UserRepository.Load(command.SenderId);
+            var sender = m_UserRepository.Load(command.SenderId);
 
             var tasks = new List<Task>();
 
