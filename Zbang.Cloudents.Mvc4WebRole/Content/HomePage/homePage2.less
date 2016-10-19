@@ -383,6 +383,9 @@
                                 margin-bottom: 10px;
                             }
 
+                            a {
+                                color: @textColorGrey;
+                            }
 
                             .terms {
                                 color: @textColorGrey;
@@ -468,10 +471,13 @@
                             color: @textColorWhite;
                             margin: 0 auto 30px auto;
                             font-size: 20px;
-                            text-decoration: underline;
                             display: block;
                             cursor: pointer;
                             display: inline-block;
+
+                            :hover {
+                                color: @buttonColorBlue;
+                            }
 
                             @media(max-width: 600px) {
                                 margin: 0 auto 30px auto;

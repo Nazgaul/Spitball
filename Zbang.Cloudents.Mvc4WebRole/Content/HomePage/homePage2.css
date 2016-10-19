@@ -377,6 +377,9 @@
     margin-bottom: 10px;
   }
 }
+.homePage .home-page-body section.main .form-wrapper form .form-actions a {
+  color: #888b8e;
+}
 .homePage .home-page-body section.main .form-wrapper form .form-actions .terms {
   color: #888b8e;
   font-size: 11px;
@@ -450,10 +453,12 @@
   color: #ffffff;
   margin: 0 auto 30px auto;
   font-size: 20px;
-  text-decoration: underline;
   display: block;
   cursor: pointer;
   display: inline-block;
+}
+.homePage .home-page-body section.main .form-wrapper.register-wrapper label[for="show-fields"] :hover {
+  color: #4190b9;
 }
 @media (max-width: 600px) {
   .homePage .home-page-body section.main .form-wrapper.register-wrapper label[for="show-fields"] {

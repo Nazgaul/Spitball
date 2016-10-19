@@ -38,10 +38,24 @@
     }
 
     .department-wrap {
-        position: relative;
+        h3 {
+            margin: 0;
+            text-transform: capitalize;
+            width: 100%;
+        }
 
-        .status-title {
-            color: @textColorBlack;
+        .box-style {
+            .displayFlex;
+            flex-direction: column;
+            .align-items(flex-start);
+            .justifyContet(space-between);
+            padding: 10px;
+            height: 80px;
+            position: relative;
+
+            &:hover .status .lock {
+                background: #f0f0f0;
+            }
         }
     }
 
@@ -90,9 +104,10 @@
     .status .lock {
         width: 20px;
         position: absolute;
-        right: 0;
-        top: 18px;
+        right: 4px;
+        bottom: 6px;
         fill: @textColorGrey;
+        background: @textColorWhite;
     }
 
     .back-arrow {

@@ -1,35 +1,41 @@
-﻿(function () {
-    'use strict';
-    angular.module('app.dashboard').controller('CreateBoxController', controller);
-
-    controller.$inject = ['dashboardService', '$location', '$scope', '$rootScope', 'resManager'];
-    function controller(dashboardService, $location, $scope, $rootScope, resManager) {
-        var self = this;
-        self.create = create;
-        self.cancel = cancel;
-        self.submitDisabled = false;
-
-        function create(myform) {
-            self.submitDisabled = true;
-            dashboardService.createPrivateBox(self.boxName).then(function (response) {
-                $scope.d.createBoxOn = false;
-                cancel(myform);
-                $rootScope.$broadcast("refresh-boxes");
-                $scope.app.showToaster(resManager.get('toasterCreateBox'));
-                $location.url(response.url);
+var app;
+(function (app) {
+    "use strict";
+    var CreateBoxController = (function () {
+        function CreateBoxController(dashboardService, $location, $scope, $rootScope, resManager) {
+            this.dashboardService = dashboardService;
+            this.$location = $location;
+            this.$scope = $scope;
+            this.$rootScope = $rootScope;
+            this.resManager = resManager;
+            this.submitDisabled = false;
+        }
+        CreateBoxController.prototype.create = function (myform) {
+            var _this = this;
+            this.submitDisabled = true;
+            this.dashboardService.createPrivateBox(this.boxName).then(function (response) {
+                _this.$scope["d"].createBoxOn = false;
+                _this.cancel(myform);
+                _this.$rootScope.$broadcast("refresh-boxes");
+                var appController = _this.$scope["app"];
+                appController.showToaster(_this.resManager.get('toasterCreateBox'));
+                _this.$location.url(response.url);
             }, function (response) {
                 myform.name.$setValidity('server', false);
-                self.error = response;
-            }).finally(function() {
-                self.submitDisabled = false;
+                _this.error = response;
+            }).finally(function () {
+                _this.submitDisabled = false;
             });
         };
-
-        function cancel(myform) {
-            self.boxName = '';
-            $scope.app.resetForm(myform);
-            $scope.d.createBoxOn  = false;
-        }
-    }
-
-})()
+        ;
+        CreateBoxController.prototype.cancel = function (myform) {
+            this.boxName = '';
+            var appController = this.$scope["app"];
+            appController.resetForm(myform);
+            this.$scope["d"].createBoxOn = false;
+        };
+        CreateBoxController.$inject = ['dashboardService', '$location', '$scope', '$rootScope', 'resManager'];
+        return CreateBoxController;
+    }());
+    angular.module("app.dashboard").controller("CreateBoxController", CreateBoxController);
+})(app || (app = {}));
