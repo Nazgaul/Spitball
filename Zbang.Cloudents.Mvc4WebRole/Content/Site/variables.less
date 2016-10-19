@@ -145,6 +145,34 @@
 
 
 
+.custom-progress-bar(@color,@backgroundColor, @height, @radius) {
+    height: @height;
+    border-radius: @radius;
+    overflow: hidden;
+
+    &.md-default-theme .md-container,
+    .md-container {
+        border-radius: @radius;
+    }
+
+
+
+    &.md-default-theme .md-container,
+    .md-bar,
+    .md-container {
+        height: @height;
+    }
+
+    .md-container {
+        background: @backgroundColor;
+        height: @height;
+
+        .md-bar {
+            background: @color;
+        }
+    }
+}
+
 .aspect-ratio(@width: 1, @height: 1.4142) {
     position: relative;
 

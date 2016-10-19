@@ -144,7 +144,10 @@
     .tab-content {
         margin: 0 -8px;
         //bottom: 0;
-        //TODO: need to fix that
+        .custom-progress-bar {
+            .custom-progress-bar(@gamificationYellow,@backgroundCalmGrey,10px,5px);
+        }
+
         .badges {
             margin: 0 8px;
             background: @textColorLightWhite;
@@ -205,23 +208,6 @@
             .tab {
                 .image {
                     background: rgba(255,206,47,0.5);
-                }
-
-                md-progress-linear.md-default-theme .md-container,
-                md-progress-linear .md-container {
-                    background-color: @backgroundColor;
-                    border-radius: 5px;
-                }
-
-                md-progress-linear .md-bar {
-                    background: @gamificationYellow;
-                }
-
-                md-progress-linear,
-                md-progress-linear .md-bar,
-                md-progress-linear.md-default-theme .md-container,
-                md-progress-linear .md-container {
-                    height: 10px;
                 }
 
                 &.levels {
@@ -944,20 +930,15 @@
             }
         }
 
+        .custom-progress-bar {
+            .custom-progress-bar(@gamificationYellow,@backgroundCalmGrey,10px,5px);
+        }
+
         md-progress-linear {
             margin-top: 20px;
-            height: 20px;
 
             .md-container {
-                height: 20px;
-                background: @backgroundCalmGrey;
-                border-radius: 5px;
-
-
                 .md-bar {
-                    height: inherit;
-                    background: @gamificationYellow;
-
                     &.md-bar2:after {
                         content: '';
                         display: block;

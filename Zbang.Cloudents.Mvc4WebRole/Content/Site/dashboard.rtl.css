@@ -40,7 +40,7 @@
 }
 .dashboard .leaderboardbox {
   height: 179px;
-  padding: 10px;
+  padding: 0;
 }
 .dashboard .dashboard-actions .actions-container {
   display: -webkit-flex;

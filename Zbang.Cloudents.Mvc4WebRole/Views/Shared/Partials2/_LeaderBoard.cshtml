@@ -1,20 +1,51 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @model string
-<div class="light leaderboard leaderboardbox leaderboard box-style" ng-controller="LeaderboardController as lb">
-    <div class="portlet-body">
-        <h4 class="uppercase">@Model</h4>
-        @*<md-progress-circular ng-if="l.loading" md-mode="indeterminate" class="circle-loading"></md-progress-circular>*@
-        <div class="r-table">
-            <div class="r-table-row" ng-repeat="l in ::lb.leaderboard">
-                <div class="r-table-cell">
-                    <a href="{{::l.url}}" ga-track-event="['leaderboard', 'userPage']">
-                        <user-image class="img-circle" name="l.name" image="l.image" width="30" height="30"></user-image>
-                        <span class="user-name" ng-bind="::l.name"></span>
-                    </a>
+@*<div class="light leaderboard leaderboardbox box-style" ng-controller="LeaderboardController as lb">
+        <div class="portlet-body">
+            <h4 class="uppercase">@Model</h4>
+            <div class="r-table">
+                <div class="r-table-row" ng-repeat="l in ::lb.leaderboard">
+                    <div class="r-table-cell">
+                        <a href="{{::l.url}}" ga-track-event="['leaderboard', 'userPage']">
+                            <user-image class="img-circle" name="l.name" image="l.image" width="30" height="30"></user-image>
+                            <span class="user-name" ng-bind="::l.name"></span>
+                        </a>
+                    </div>
+                    <div class="r-table-cell">{{::$index + 1}}</div>
+                    <div class="r-table-cell last">{{::l.score}} @IndexResources.Pts</div>
                 </div>
-                <div class="r-table-cell">{{::$index + 1}}</div>
-                <div class="r-table-cell last">{{::l.score}} @IndexResources.Pts</div>
             </div>
         </div>
+    </div>*@
+<div class="leaderboardbox leaderboard box-style">
+    <div class="bg-l">
+        <md-icon md-svg-icon="p:stars" class="bg"></md-icon>
     </div>
+    <div class="bg-r">
+        <md-icon md-svg-icon="p:stars" class="bg"></md-icon>
+    </div>
+    <div class="top">
+        <div class="points">
+            <div class="points-wrapper">
+                <span class="number">1,002,800</span>
+                <span>points</span>
+            </div>
+        </div>
+        <div class="text">Next Level in 500 pts</div>
+        <md-progress-linear class="custom-progress-bar" ng-cloak md-mode="determinate" value="80"></md-progress-linear>
+    </div>
+    <div class="bottom">
+        <div class="level">
+            <div class="icon"></div>
+            <div class="description">
+                <div>Your level apprentice</div>
+                <div>Level 2</div>
+            </div>
+        </div>
+        <div class="badges">
+            <div class="icon"></div>
+            <div class="description">3 Badges</div>
+        </div>
+    </div>
+
 </div>

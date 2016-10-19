@@ -119,6 +119,27 @@
 .userPage .tab-content {
   margin: 0 -8px;
 }
+.userPage .tab-content .custom-progress-bar {
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.userPage .tab-content .custom-progress-bar.md-default-theme .md-container,
+.userPage .tab-content .custom-progress-bar .md-container {
+  border-radius: 5px;
+}
+.userPage .tab-content .custom-progress-bar.md-default-theme .md-container,
+.userPage .tab-content .custom-progress-bar .md-bar,
+.userPage .tab-content .custom-progress-bar .md-container {
+  height: 10px;
+}
+.userPage .tab-content .custom-progress-bar .md-container {
+  background: #eeeeee;
+  height: 10px;
+}
+.userPage .tab-content .custom-progress-bar .md-container .md-bar {
+  background: #ffce2f;
+}
 .userPage .tab-content .badges {
   margin: 0 8px;
   background: #f5f5f5;
@@ -175,20 +196,6 @@
 }
 .userPage .tab-content .badges .tab .image {
   background: rgba(255, 206, 47, 0.5);
-}
-.userPage .tab-content .badges .tab md-progress-linear.md-default-theme .md-container,
-.userPage .tab-content .badges .tab md-progress-linear .md-container {
-  background-color: #dadada;
-  border-radius: 5px;
-}
-.userPage .tab-content .badges .tab md-progress-linear .md-bar {
-  background: #ffce2f;
-}
-.userPage .tab-content .badges .tab md-progress-linear,
-.userPage .tab-content .badges .tab md-progress-linear .md-bar,
-.userPage .tab-content .badges .tab md-progress-linear.md-default-theme .md-container,
-.userPage .tab-content .badges .tab md-progress-linear .md-container {
-  height: 10px;
 }
 .userPage .tab-content .badges .tab.levels {
   position: relative;
@@ -897,18 +904,29 @@
     flex-shrink: 0;
   }
 }
-.info-dialog md-dialog-content md-progress-linear {
-  margin-top: 20px;
-  height: 20px;
+.info-dialog md-dialog-content .custom-progress-bar {
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
 }
-.info-dialog md-dialog-content md-progress-linear .md-container {
-  height: 20px;
-  background: #eeeeee;
+.info-dialog md-dialog-content .custom-progress-bar.md-default-theme .md-container,
+.info-dialog md-dialog-content .custom-progress-bar .md-container {
   border-radius: 5px;
 }
-.info-dialog md-dialog-content md-progress-linear .md-container .md-bar {
-  height: inherit;
+.info-dialog md-dialog-content .custom-progress-bar.md-default-theme .md-container,
+.info-dialog md-dialog-content .custom-progress-bar .md-bar,
+.info-dialog md-dialog-content .custom-progress-bar .md-container {
+  height: 10px;
+}
+.info-dialog md-dialog-content .custom-progress-bar .md-container {
+  background: #eeeeee;
+  height: 10px;
+}
+.info-dialog md-dialog-content .custom-progress-bar .md-container .md-bar {
   background: #ffce2f;
+}
+.info-dialog md-dialog-content md-progress-linear {
+  margin-top: 20px;
 }
 .info-dialog md-dialog-content md-progress-linear .md-container .md-bar.md-bar2:after {
   content: '';

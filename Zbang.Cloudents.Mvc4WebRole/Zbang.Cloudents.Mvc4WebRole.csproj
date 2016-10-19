@@ -1012,6 +1012,9 @@
     <Content Include="Content\Site\leaderboard.css">
       <DependentUpon>leaderboard.less</DependentUpon>
     </Content>
+    <Content Include="Content\Site\leaderboard.min.css">
+      <DependentUpon>leaderboard.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\leaderboard.rtl.css">
       <DependentUpon>leaderboard.css</DependentUpon>
     </Content>
