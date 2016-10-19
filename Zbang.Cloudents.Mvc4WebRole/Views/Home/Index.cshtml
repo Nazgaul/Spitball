@@ -11,7 +11,7 @@
 <!doctype html>
 <html>
 <head>
-    @Html.Css2("~/homePage")
+    @Html.Css2("homePage")
     @*@Styles.Render("~/homePage")*@
     
     @{Html.RenderPartial("_Head");}
@@ -368,7 +368,7 @@
     </div>
     <div id="cssCheck"></div>
 
-    @Html.Script2("homePage")
+    @Html.Script2("jsHomePage")
     @Html.JqueryValidateLocale()
 
     <script defer type="text/template" id="box-template">

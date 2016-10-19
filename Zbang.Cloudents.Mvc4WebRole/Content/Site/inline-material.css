@@ -4177,13 +4177,6 @@ md-toast.md-default-theme .md-toast-content, md-toast .md-toast-content {
         color: rgb(250,250,250);
     }
 
-md-tooltip.md-default-theme, md-tooltip {
-    color: rgb(255,255,255);
-}
-
-    md-tooltip.md-default-theme .md-content, md-tooltip .md-content {
-        background-color: rgba(0,0,0,0.54);
-    }
 
 md-autocomplete.md-default-theme.md-hue-1, md-autocomplete.md-hue-1 {
     background: rgb(250,250,250);
@@ -5159,7 +5152,7 @@ ng\:form {
 
 md-menu-content.md-default-theme, md-menu-content {
     background-color: rgb(255,255,255);
-} 
+}
 
 a.md-button.md-default-theme:not([disabled]):hover, a.md-button:not([disabled]):hover, .md-button.md-default-theme:not([disabled]):hover, .md-button:not([disabled]):hover {
     background-color: rgba(158,158,158,0.2);
@@ -5173,3 +5166,12 @@ md-dialog.md-default-theme, md-dialog {
 md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
     color: rgba(255,255,255,0.87);
 }
+
+
+md-tooltip.md-default-theme, md-tooltip {
+    color: rgb(255,255,255);
+}
+
+    md-tooltip.md-default-theme .md-content, md-tooltip .md-content {
+        background-color: rgba(0,0,0,0.54);
+    }
