@@ -1,71 +1,64 @@
-﻿/*.leaderboard {
-    width: 100%;
-
-    h4 {
-        font-size: 21px;
-        font-weight: 700;
-        margin-top: 0;
-        text-align: center;
-        margin-bottom: 10px;
-        color: @textColorGrey;
-
-        @media (min-width:960px) {
-            font-size: 1.2vw;
-        }
-
-        @media (min-width:1200px) {
-            font-size: 1.2vw;
-        }
-    }
-
-    .userLetter {
-        font-size: 17px;
-    }
-
-    .user-name {
-        -ms-text-overflow: ellipsis;
-        -o-text-overflow: ellipsis;
-        text-overflow: ellipsis;
-        width: ~"calc(100% - 50px)";
-        display: inline-block;
-        overflow: hidden;
-        white-space: nowrap;
-        vertical-align: middle;
-        color: @textColorBlack;
-    }
-
-    .img-circle {
-        margin-right: 10px;
-    }
-
-    .r-table {
-        text-align: center;
-        font-size: 12px;
-        width: 100%;
-    }
-
-    .r-table-row {
-        height: 40px;
-        line-height: 40px;
-    }
-
-    .r-table-cell {
-        width: ~"calc(100% - 75px)";
-        text-align: left;
-        color: @textColorOrange;
-
-        &:nth-child(even) {
-            width: 15px;
-            text-align: center;
-        }
-
-        &.last {
-            text-align: right;
-            white-space: nowrap;
-            color: @textColorBlack;
-        }
-    }
-}*/
+﻿.leaderboard {
+  width: 100%;
+}
+.leaderboard h4 {
+  font-size: 21px;
+  font-weight: 700;
+  margin-top: 0;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #888b8e;
+}
+@media (min-width: 960px) {
+  .leaderboard h4 {
+    font-size: 1.2vw;
+  }
+}
+@media (min-width: 1200px) {
+  .leaderboard h4 {
+    font-size: 1.2vw;
+  }
+}
+.leaderboard .userLetter {
+  font-size: 17px;
+}
+.leaderboard .user-name {
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  width: calc(100% - 50px);
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+  color: #212325;
+}
+.leaderboard .img-circle {
+  margin-right: 10px;
+}
+.leaderboard .r-table {
+  text-align: center;
+  font-size: 12px;
+  width: 100%;
+}
+.leaderboard .r-table-row {
+  height: 40px;
+  line-height: 40px;
+}
+.leaderboard .r-table-cell {
+  width: calc(100% - 75px);
+  text-align: left;
+  color: #ffa500;
+}
+.leaderboard .r-table-cell:nth-child(even) {
+  width: 15px;
+  text-align: center;
+}
+.leaderboard .r-table-cell.last {
+  text-align: right;
+  white-space: nowrap;
+  color: #212325;
+}
 .leaderboardbox {
   display: -webkit-flex;
   display: -ms-flex;

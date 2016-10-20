@@ -21,7 +21,7 @@ var app;
                 appController.showToaster(_this.resManager.get('toasterCreateBox'));
                 _this.$location.url(response.url);
             }, function (response) {
-                myform.name.$setValidity('server', false);
+                myform["name"].$setValidity('server', false);
                 _this.error = response;
             }).finally(function () {
                 _this.submitDisabled = false;

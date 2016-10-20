@@ -109,7 +109,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet, NoUniversity]
+        [HttpGet, NoUniversity(Order = 1)]
+        [DonutOutputCache(CacheProfile = "PartialPage", Order = 2)]
         public ActionResult IndexPartial()
         {
             return PartialView("Index2");
@@ -122,12 +123,30 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return View("Empty");
         }
 
+        [HttpGet]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult ClassChoosePartial()
+        {
+            return View("ClassChoose");
+        }
+
 
         [HttpGet, ActionName("ChoosePartial")]
         public async Task<PartialViewResult> ChoosePartialAsync()
         {
+            var userIp = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (string.IsNullOrWhiteSpace(userIp))
+            {
+                userIp = HttpContext.Request.ServerVariables["REMOTE_ADDR"];
+            }
+            if (HttpContext.Request.IsLocal)
+            {
+                userIp = "81.218.135.73";
+            }
+            var command = new AddUserLocationActivityCommand(userIp, User.GetUserId(), HttpContext.Request.UserAgent);
+            await ZboxWriteService.AddUserLocationActivityAsync(command);
             //TODO: remove that
-            ViewBag.country = await GetCountryByIpAsync(HttpContext);
+            ViewBag.country = command.Country;// await GetCountryByIpAsync(HttpContext);
             return PartialView("Choose");
         }
 
@@ -170,34 +189,34 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        private Task<string> GetCountryByIpAsync(HttpContextBase context)
-        {
-            string userIp = context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-            if (string.IsNullOrWhiteSpace(userIp))
-            {
-                userIp = context.Request.ServerVariables["REMOTE_ADDR"];
-            }
-            if (context.Request.IsLocal)
-            {
-                userIp = "81.218.135.73";
-            }
-            var ipNumber = Ip2Long(userIp);
-            return ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(ipNumber));
-        }
+        //private Task<string> GetCountryByIpAsync(/*HttpContextBase context*/)
+        //{
+        //    string userIp = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+        //    if (string.IsNullOrWhiteSpace(userIp))
+        //    {
+        //        userIp = HttpContext.Request.ServerVariables["REMOTE_ADDR"];
+        //    }
+        //    if (HttpContext.Request.IsLocal)
+        //    {
+        //        userIp = "81.218.135.73";
+        //    }
+        //    var ipNumber = Ip2Long(userIp);
+        //    return ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(ipNumber));
+        //}
 
-        private static long Ip2Long(string ip)
-        {
-            double num = 0;
-            if (!string.IsNullOrEmpty(ip))
-            {
-                string[] ipBytes = ip.Split('.');
-                for (int i = ipBytes.Length - 1; i >= 0; i--)
-                {
-                    num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
-                }
-            }
-            return (long)num;
-        }
+        //private static long Ip2Long(string ip)
+        //{
+        //    double num = 0;
+        //    if (!string.IsNullOrEmpty(ip))
+        //    {
+        //        string[] ipBytes = ip.Split('.');
+        //        for (int i = ipBytes.Length - 1; i >= 0; i--)
+        //        {
+        //            num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
+        //        }
+        //    }
+        //    return (long)num;
+        //}
 
 
         [HttpGet, ActionName("Nodes")]

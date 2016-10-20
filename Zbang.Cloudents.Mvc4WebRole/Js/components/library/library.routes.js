@@ -65,11 +65,30 @@
                             template: ''
                         },
                         "chat@": {
-                            template:''
+                            template: ''
                         }
                     }
                 },
                 templateUrl: '/university/choosepartial/'
+            },
+            {
+                state: 'ClassChoose', config: {
+                    url: '/course/choose/',
+                    controller: 'ClassChoose as cc',
+                    data: { animateClass: 'class-choose' },
+                    views: {
+                        "search-bar@": {
+                            template: ''
+                        },
+                        "menu@": {
+                            template: ''
+                        },
+                        "chat@": {
+                            template: ''
+                        }
+                    }
+                },
+                templateUrl: '/university/classchoosepartial/'
             }
 
 

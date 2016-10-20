@@ -19,7 +19,7 @@
         }
 
 
-        create(myform) {
+        create(myform: angular.IFormController) {
             this.submitDisabled = true;
             this.dashboardService.createPrivateBox(this.boxName).then(response => {
                 this.$scope["d"].createBoxOn = false;
@@ -28,15 +28,15 @@
                 const appController: IAppController = this.$scope["app"];
                 appController.showToaster(this.resManager.get('toasterCreateBox'));
                 this.$location.url(response.url);
-            },  response=>{
-                myform.name.$setValidity('server', false);
+            }, response => {
+                myform["name"].$setValidity('server', false);
                 this.error = response;
-            }).finally(() =>{
+            }).finally(() => {
                 this.submitDisabled = false;
             });
         };
 
-        cancel(myform) {
+        cancel(myform: angular.IFormController) {
             this.boxName = '';
             const appController: IAppController = this.$scope["app"];
             appController.resetForm(myform);

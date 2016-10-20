@@ -40,7 +40,6 @@
 /// <reference path="../js/components/box/sharebox.directive.js" />
 /// <reference path="../js/components/box/slideit.directive.js" />
 /// <reference path="../js/components/box/tab.controller.js" />
-/// <reference path="../Js/components/dashboard/dashboard.controller.js" />
 /// <reference path="../js/components/dashboard/university.controller.js" />
 /// <reference path="../js/components/item/comments.controller.js" />
 /// <reference path="../js/components/item/externalproviderupload.service.js" />

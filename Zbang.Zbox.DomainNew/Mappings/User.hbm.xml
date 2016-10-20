@@ -58,6 +58,24 @@
     </bag>
   </class>
 
+  <class name="UserLocationActivity" table="UserLocationActivity">
+    <id name="Id">
+      <generator class="assigned"></generator>
+    </id>
+    <many-to-one column="UserId" class="User" name="User" foreign-key="UserLocationActivityUser" />
+    <property name="CreationTime" type="DateTime2" />
+    <property name="Domain" />
+    <property name="Latitude" />
+    <property name="Longitude" />
+    <property name="ZipCode" />
+    <property name="Region" />
+    <property name="ISP" />
+    <property name="City" />
+    <property name="Country" />
+    <property name="CountryAbbreviation" />
+    <property name="BrowserUserAgent" />
+  </class>
+  
   <class name="Connection" table="SignalRConnection">
     <id name="Id">
       <generator class="assigned"></generator>

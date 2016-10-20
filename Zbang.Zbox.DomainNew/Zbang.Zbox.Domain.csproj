@@ -109,6 +109,7 @@
     <Compile Include="University.cs" />
     <Compile Include="Updates.cs" />
     <Compile Include="User.cs" />
+    <Compile Include="UserLocationActivity.cs" />
     <Compile Include="UserBoxRel.cs" />
     <Compile Include="UserLibraryRel.cs" />
     <Compile Include="UserTimeDetails.cs" />

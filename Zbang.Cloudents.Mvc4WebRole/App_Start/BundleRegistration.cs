@@ -256,7 +256,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/library/library.service.js"),
                         new JsFileWithCdn("~/js/components/library/countryService.service.js"),
                         new JsFileWithCdn("~/js/components/library/universityCover.directive.js"),
-
+                        new JsFileWithCdn("~/js/components/library/classChoose.controller.js"),
                         new JsFileWithCdn("~/js/components/share/invite.controller.js"),
                         new JsFileWithCdn("~/js/components/share/share.service.js"),
 
