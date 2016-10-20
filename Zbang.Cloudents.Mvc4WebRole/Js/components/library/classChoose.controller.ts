@@ -13,7 +13,7 @@
     }
     class ClassChoose {
         static $inject = ["searchService", "$scope"];
-        stepTitle = Steps.Start;
+        step = Steps.Start;
         term;
         constructor(private searchService: ISearchService, private $scope: angular.IScope) {
 
@@ -24,13 +24,13 @@
                 return;
             }
             if (this.term) {
-                this.stepTitle = Steps.SearchFirst;
+                this.step = Steps.SearchFirst;
                 this.searchService.searchBox(this.term, 0)
                     .then(response => {
                         console.log(response);
                     });
             } else {
-                this.stepTitle = Steps.Start;
+                this.step = Steps.Start;
             }
         }
     }

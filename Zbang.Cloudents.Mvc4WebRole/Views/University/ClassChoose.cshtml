@@ -1,4 +1,4 @@
-﻿<ng-pluralize class="title" count="cc.stepTitle" when="{
+﻿<ng-pluralize class="title" count="cc.step" when="{
                '1' : 'Let us help you find the classes you are taking',
                '2' : 'Select your first class',
                '3' : 'Good job!',
@@ -12,7 +12,7 @@
         <md-icon md-svg-icon="t:searchIcon"></md-icon>
     </button>
 </form>
-<div ng-switch="2">
+<div ng-switch="cc.step">
     <div ng-switch-when="1">
         <!--Artboard 1 copy / copy 7 / copy 8 -->
         <h1>Let us help you find the classes you are taking</h1><!-- header changes according to step (copy / copy 7 / copy 8) -->

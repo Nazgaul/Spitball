@@ -17,7 +17,7 @@ var app;
         function ClassChoose(searchService, $scope) {
             this.searchService = searchService;
             this.$scope = $scope;
-            this.stepTitle = Steps.Start;
+            this.step = Steps.Start;
         }
         ClassChoose.prototype.classSearch = function () {
             var formElement = this.$scope["classChooseFrom"];
@@ -25,14 +25,14 @@ var app;
                 return;
             }
             if (this.term) {
-                this.stepTitle = Steps.SearchFirst;
+                this.step = Steps.SearchFirst;
                 this.searchService.searchBox(this.term, 0)
                     .then(function (response) {
                     console.log(response);
                 });
             }
             else {
-                this.stepTitle = Steps.Start;
+                this.step = Steps.Start;
             }
         };
         ClassChoose.$inject = ["searchService", "$scope"];
