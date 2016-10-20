@@ -26,9 +26,6 @@
 
             return resource;
         }
-
-        //TODO: duplicate
-        
     }
     angular.module("app").service("resManager", ResManager);
 }
