@@ -1,96 +1,103 @@
-﻿<div>
-    <ng-pluralize class="title" count="cc.stepTitle" when="{
+﻿    <ng-pluralize class="title" count="cc.stepTitle" when="{
                '1' : 'Let us help you find the classes you are taking',
                '2' : 'Select your first class',
-               '3' : 'One done. One more to go' }">
-
+               '3' : 'Good job!',
+               '4' : 'One done. One more to go!',
+               '5' : '' }">
     </ng-pluralize>
-    <!--Artboard 1 copy / copy 7 / copy 8 -->
-    <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
-        <input spellcheck="false" autofocus type="search" placeholder="Search by class name or department"
-               ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" ng-minlength="2" required />
-        <button type="submit" class="search-button" ng-disabled="classChooseFrom.$invalid">
-            <md-icon md-svg-icon="t:searchIcon"></md-icon>
-        </button>
-    </form>
-    <div class="content">
-        <div>
-            <img src="@Url.CdnContent("/Images/Site/search_uni.png?v=3")" />
-            <div class="text"></div>
-        </div>
-        <div class="empty-state">
-            <div class="text">Advance to the next level...</div>
-            <button type="button" class="create-class"></button>
-        </div>
-    </div>
-</div>
+<form name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
+    <input spellcheck="false" autofocus type="search" placeholder="Search by class name or department"
+           ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" ng-minlength="2" required/>
+    <button type="submit" class="search-button" ng-disabled="classChooseFrom.$invalid">
+        <md-icon md-svg-icon="t:searchIcon"></md-icon>
+    </button>
+</form>
+<div ng-switch="2">
+    <div ng-switch-when="1">
+        <!--Artboard 1 copy / copy 7 / copy 8 -->
+        <h1>Let us help you find the classes you are taking</h1><!-- header changes according to step (copy / copy 7 / copy 8) -->
+        <h1></h1>
+        <h1></h1>
 
-<div>
-    <!--Artboard 1 copy 6-->
-    <h1></h1>
-    @*<form name="classChooseFrom" novalidate ng-submit="cc.universitySearch" layout="row" layout-wrap>
-        <input spellcheck="false" autofocus ng-disabled="cc.createUniversity" type="search" placeholder="Search by class name or department"
-               ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.universitySearch(libraryChooseForm)" ng-minlength="2" />
-        <button type="submit" class="search-button" ng-disabled="!cc.term.length">
-            <md-icon md-svg-icon="t:searchIcon"></md-icon>
-        </button>
-    </form>*@
-    <div class="result">
-        <h2 class="course-name"></h2>
-        <div class="instructor"></div>
-        <div class="number"></div>
-    </div>
-</div>
-
-<div>
-    <!--Artboard 1 copy 5-->
-    <h1></h1>
-    <h2></h2>
-    <div>
-        <div class="counter header">
-            <div class="text"></div>
-            <div class="progress"></div>
-        </div>
-        <div class="boxes">
-            <div class="selected">
-                <div class="name"></div>
+        <div class="content">
+            <div>
+                <img src="@Url.CdnContent("/Images/Site/search_uni.png?v=3")" />
+                <div class="text"></div>
             </div>
-            <div class="empty">
-                <div class="name"></div>
+            <div class="empty-state">
+                <div class="text">Advance to the next level...</div>
+                <button type="button" class="create-class"></button>
             </div>
         </div>
     </div>
-    <button class="select-more" type="button"></button>
-    <button class="done" type="submit"></button>
-</div>
+
+    <div ng-switch-when="2">
+        <!--Artboard 1 copy 6-->
+        <h1></h1>
+        @*<form name="classChooseFrom" novalidate ng-submit="cc.universitySearch" layout="row" layout-wrap>
+                <input spellcheck="false" autofocus ng-disabled="cc.createUniversity" type="search" placeholder="Search by class name or department"
+                       ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.universitySearch(libraryChooseForm)" ng-minlength="2" />
+                <button type="submit" class="search-button" ng-disabled="!cc.term.length">
+                    <md-icon md-svg-icon="t:searchIcon"></md-icon>
+                </button>
+            </form>*@
+        <div class="result">
+            <h2 class="course-name"></h2>
+            <div class="instructor"></div>
+            <div class="number"></div>
+        </div>
+    </div>
+
+    <div ng-switch-when="3">
+        <!--Artboard 1 copy 5-->
+        <h1></h1>
+        <h2></h2>
+        <div>
+            <div class="counter header">
+                <div class="text"></div>
+                <div class="progress"></div>
+            </div>
+            <div class="boxes">
+                <div class="selected">
+                    <div class="name"></div>
+                </div>
+                <div class="empty">
+                    <div class="name"></div>
+                </div>
+            </div>
+        </div>
+        <button class="select-more" type="button"></button>
+        <button class="done" type="submit"></button>
+    </div>
 
 
-<div>
-    <!--Artboard 1 copy 4-->
-    <h1></h1>
-    <div class="department"></div>
-    <form @*name="classChooseFrom"*@ novalidate @*ng-submit="cc.classSearch"*@ layout="row" layout-wrap>
+    <div ng-switch-when="4">
+        <!--Artboard 1 copy 4-->
+        <h1></h1>
+        <div class="department"></div>
+        <form @*name="classChooseFrom"*@ novalidate @*ng-submit="cc.classSearch"*@ layout="row" layout-wrap>
 
-        <div>
-            <div class="title"></div>
-            <input type="text" />
-        </div>
-        <div>
-            <div class="title"></div>
-            <input type="text" />
-        </div>
-        <div>
-            <div class="title"></div>
-            <input type="text" />
-        </div>
+            <div>
+                <div class="title"></div>
+                <input type="text" />
+            </div>
+            <div>
+                <div class="title"></div>
+                <input type="text" />
+            </div>
+            <div>
+                <div class="title"></div>
+                <input type="text" />
+            </div>
+            <button type="button"></button>
+            <button type="submit"></button>
+        </form>
+    </div>
+
+    <div ng-switch-when="5">
+        <!--Artboard 1 copy 3-->
+        <h1></h1>
+        <div class="department"></div>
         <button type="button"></button>
-        <button type="submit"></button>
-    </form>
-</div>
-
-<div>
-    <!--Artboard 1 copy 3-->
-    <h1></h1>
-    <div class="department"></div>
-    <button type="button"></button>
+    </div>
 </div>
