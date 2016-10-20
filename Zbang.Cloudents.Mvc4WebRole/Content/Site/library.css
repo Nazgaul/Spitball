@@ -63,11 +63,26 @@
   top: 0;
   right: 0;
 }
-.library .department-wrap {
+.library .department-wrap h3 {
+  margin: 0;
+  text-transform: capitalize;
+  width: 100%;
+}
+.library .department-wrap .box-style {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  flex-direction: column;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  padding: 10px;
+  height: 80px;
   position: relative;
 }
-.library .department-wrap .status-title {
-  color: #212325;
+.library .department-wrap .box-style:hover .status .lock {
+  background: #f0f0f0;
 }
 .library .department {
   color: #212325;
@@ -78,9 +93,10 @@
 .library .status .lock {
   width: 20px;
   position: absolute;
-  right: 0;
-  top: 18px;
+  right: 4px;
+  bottom: 6px;
   fill: #888b8e;
+  background: #ffffff;
 }
 .library .back-arrow svg {
   fill: #212325;

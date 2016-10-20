@@ -56,25 +56,17 @@
     <div id="createCourse" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createBoxOn">@{ Html.RenderPartial("_CreateCourse");}</div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat="dep in l.departments track by dep.id">
         <a ng-click="l.goToSubLib(dep,$event)" href="{{::dep.url}}" class="box-style" ga-track-event="['university', 'select department']">
-            <div class="display">
-                <div class="number">
-                    <h3 class="multi-line-ellipsis limit-two" d-color="{{::dep.name.length}}">{{::dep.name}}</h3>
+            <h3 class="name ellipsis" d-color="{{::dep.name.length}}">{{::dep.name}}</h3>
+            <div class="status" layout="row" layout-align="space-between center">
+                <div class="status-title">
+                    {{::dep.noBoxes}} @GeneralResources.Courses
                 </div>
-            </div>
-            <div class="progress-info">
-                <div class="progress background" d-color="{{::dep.name.length}}">
-                </div>
-                <div class="status" layout="row" layout-align="space-between center">
-                    <div class="status-title">
-                        {{::dep.noBoxes}} @GeneralResources.Courses
+                <div ng-if="::dep.state === 'closed'">
+                    <div ng-if="::dep.userType !== 'subscribe' && dep.userType !== 'owner'">
+                        <md-icon md-svg-icon="t:closed-lock" class="lock"></md-icon>
                     </div>
-                    <div ng-if="::dep.state === 'closed'">
-                        <div ng-if="::dep.userType !== 'subscribe' && dep.userType !== 'owner'">
-                            <md-icon md-svg-icon="t:closed-lock" class="lock"></md-icon>
-                        </div>
-                        <div ng-if="::dep.userType === 'subscribe' || dep.userType === 'owner'">
-                            <md-icon md-svg-icon="t:opened-lock" class="lock"></md-icon>
-                        </div>
+                    <div ng-if="::dep.userType === 'subscribe' || dep.userType === 'owner'">
+                        <md-icon md-svg-icon="t:opened-lock" class="lock"></md-icon>
                     </div>
                 </div>
             </div>
@@ -106,7 +98,7 @@
 <button type="button" class="add" hide show-xs ng-click="l.openCreateDepartment()"
         focus-upon-click="createDepartmentInput"
         ng-if="!l.state.withBoxes && !l.state.emptyNode && !l.state.emptyTopTree"
-         @*|| l.createClassShow*@
+        @*|| l.createClassShow*@
         ng-hide="l.createOn"
         ga-track-event="['dashboard', 'createDepartment', 'plus']">
     b
