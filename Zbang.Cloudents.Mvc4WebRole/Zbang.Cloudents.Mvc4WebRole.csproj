@@ -1389,6 +1389,7 @@
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\box.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\box.service.ts" />
+    <TypeScriptCompile Include="Js\components\box\boxSettings.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\item.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.factory.ts" />

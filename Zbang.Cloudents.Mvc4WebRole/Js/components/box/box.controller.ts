@@ -1,6 +1,16 @@
 ﻿module app {
     "use strict";
     var boxId: number;
+    export interface IBoxController {
+        canDelete(userId);
+        toggleSettings();
+        inviteExpand();
+        isActiveState(state: string);
+        closeCollapse();
+        inviteToBox();
+        follow();
+    }
+
     class BoxController {
         static $inject = ["$state", "$stateParams", "boxData", "$scope",
             "$rootScope", "user", "resManager", "boxService", "ajaxService2", "$timeout", "$window", "userUpdatesService"];
@@ -13,8 +23,7 @@
         owner;
         inviteOpen;
 
-        //TODO: remove to different controller
-        settings;
+        //TODO: To fix that
         settingsOpen;
         settingsHtml;
 
@@ -91,43 +100,43 @@
         }
 
 
-        updateBox(updateBoxForm: angular.IFormController) {
-            if (this.settings.needFollow) {
-                this.boxService.unfollow(boxId).then(() => {
-                    this.$rootScope.$broadcast("remove-box", boxId);
-                    this.$state.go("dashboard");
-                });
-                return;
-            }
-            var needToSave = false;
-            angular.forEach(updateBoxForm, (value, key) => {
-                if (key[0] === "$") return;
-                if (!needToSave) {
-                    needToSave = !value.$pristine;
-                }
-            });
-            if (needToSave) {
+        //updateBox(updateBoxForm: angular.IFormController) {
+        //    if (this.settings.needFollow) {
+        //        this.boxService.unfollow(boxId).then(() => {
+        //            this.$rootScope.$broadcast("remove-box", boxId);
+        //            this.$state.go("dashboard");
+        //        });
+        //        return;
+        //    }
+        //    var needToSave = false;
+        //    angular.forEach(updateBoxForm, (value, key) => {
+        //        if (key[0] === "$") return;
+        //        if (!needToSave) {
+        //            needToSave = !value.$pristine;
+        //        }
+        //    });
+        //    if (needToSave) {
 
-                this.data.name = this.settings.name;
-                this.data.privacySetting = this.settings.privacy;
-                if (this.isAcademic) {
-                    this.data.courseId = this.settings.courseId;
-                    this.data.professorName = this.settings.professorName;
-                }
-                this.settings.submitDisabled = true;
-                this.boxService.updateBox(boxId, this.data.name, this.settings.courseId, this.settings.professorName, this.settings.privacy, this.settings.notificationSettings).then(response => {
-                    this.settingsOpen = false;
-                    this.$stateParams["boxName"] = response.queryString;
-                    const appController: IAppController = this.$scope["app"];
-                    appController.showToaster(this.resManager.get("toasterBoxSettings"));
-                    this.$state.go('box.feed', this.$stateParams, { location: "replace" });
+        //        this.data.name = this.settings.name;
+        //        this.data.privacySetting = this.settings.privacy;
+        //        if (this.isAcademic) {
+        //            this.data.courseId = this.settings.courseId;
+        //            this.data.professorName = this.settings.professorName;
+        //        }
+        //        this.settings.submitDisabled = true;
+        //        this.boxService.updateBox(boxId, this.data.name, this.settings.courseId, this.settings.professorName, this.settings.privacy, this.settings.notificationSettings).then(response => {
+        //            this.settingsOpen = false;
+        //            this.$stateParams["boxName"] = response.queryString;
+        //            const appController: IAppController = this.$scope["app"];
+        //            appController.showToaster(this.resManager.get("toasterBoxSettings"));
+        //            this.$state.go('box.feed', this.$stateParams, { location: "replace" });
 
-                }).finally(() => {
-                    this.settings.submitDisabled = false;
-                });
+        //        }).finally(() => {
+        //            this.settings.submitDisabled = false;
+        //        });
 
-            }
-        }
+        //    }
+        //}
 
         inviteToBox() {
             if (!this.user.id) {
@@ -160,6 +169,8 @@
                 });
             });
         }
+
+
         toggleSettings() {
             if (this.needFollow) {
                 return;
@@ -176,33 +187,35 @@
             }
             return this.ajaxService2.getHtml('/box/boxsettings/').then(response => {
                 this.settingsHtml = response;
-                this.$timeout(() => {
-                    this.$rootScope.$broadcast('close-collapse');
-                    this.settingsOpen = true;
+        //        this.$timeout(() => {
+        //            this.$rootScope.$broadcast('close-collapse');
+        //            this.settingsOpen = true;
 
-                    this.settings = this.settings || {};
-                    //boxType
-                    //privacySetting
+        //            this.settings = this.settings || {};
+        //            //boxType
+        //            //privacySetting
 
-                    this.settings.name = this.data.name;
-                    this.settings.needFollow = this.needFollow;
-                    this.settings.submitDisabled = false;
-                    if (this.isAcademic) {
-                        this.settings.courseId = this.data.courseId;
-                        this.settings.professorName = this.data.professorName;
-                    } else if (this.owner) {
-                        this.settings.privacy = this.data.privacySetting;
-                    }
+        //            this.settings.name = this.data.name;
+        //            this.settings.needFollow = this.needFollow;
+        //            this.settings.submitDisabled = false;
+        //            if (this.isAcademic) {
+        //                this.settings.courseId = this.data.courseId;
+        //                this.settings.professorName = this.data.professorName;
+        //            } else if (this.owner) {
+        //                this.settings.privacy = this.data.privacySetting;
+        //            }
 
-                    if (!this.settings.notificationSettings) {
-                        this.boxService.notification(boxId).then(response2 => {
-                            this.settings.notificationSettings = response2;
-                        });
-                    }
-                });
+        //            if (!this.settings.notificationSettings) {
+        //                this.boxService.notification(boxId).then(response2 => {
+        //                    this.settings.notificationSettings = response2;
+        //                });
+        //            }
+        //        });
             });
 
         }
+
+
         //stuff for child elements
         canDelete(userId) {
             if (this.user.isAdmin || this.user.id === userId) {
