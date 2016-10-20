@@ -52,11 +52,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             {
                 throw new UnauthorizedAccessException("Department is not part of the university");
             }
-
-
-
-            
-
             if (department.Settings == LibraryNodeSetting.Closed)
             {
                 var topDepartmentId = m_DepartmentRepository.GetTopTreeNode(academicCommand.DepartmentId);
@@ -67,7 +62,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             }
             else
             {
-
                 box = new AcademicBox(academicCommand.BoxName, department,
                     academicCommand.CourseCode, academicCommand.Professor,
                     user, m_GuidGenerator.GetId());
