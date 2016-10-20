@@ -1360,7 +1360,6 @@
     <Content Include="Js\components\box\feed.likes.controller.js" />
     <Content Include="Js\components\box\slideit.directive.js" />
     <Content Include="Js\components\box\tab.controller.js" />
-    <Content Include="Js\components\dashboard\createBox.controllerOld.js" />
     <Content Include="Js\components\item\comments.controller.js" />
     <Content Include="Js\components\item\externalProviderUpload.service.js" />
     <Content Include="Js\components\library\countryService.service.js" />
@@ -1390,6 +1389,7 @@
     <TypeScriptCompile Include="Js\components\app.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\box.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\box.service.ts" />
+    <TypeScriptCompile Include="Js\components\box\boxSettings.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\item.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.factory.ts" />

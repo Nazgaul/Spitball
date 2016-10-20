@@ -1,9 +1,9 @@
 ﻿(function () {
     'use strict';
     angular.module('app').directive('collapseHeader', collapseHeader);
-    collapseHeader.$inject = ['$window'];
+    collapseHeader.$inject = ['$window', '$timeout'];
     //TODO: on item directory
-    function collapseHeader($window) {
+    function collapseHeader($window, $timeout) {
         return {
             restrict: 'A',
             link: function (scope) {
@@ -11,6 +11,7 @@
                 var $body = angular.element('body');
                 var className = 'collapseHeader';
                 var lastScrollTop = 0;
+                var promise;
                 $container.on('scroll', onScroll);
 
 
@@ -21,13 +22,16 @@
                 //});
                 //TODO: scroll is happen allot
                 function onScroll() {
-                    var st = $container.scrollTop();
-                    if (st > lastScrollTop) {
-                        $body.addClass(className);
-                    } else {
-                        $body.removeClass(className);
-                    }
-                    lastScrollTop = st;
+                    $timeout.cancel(promise);
+                    promise = $timeout(function () {
+                        var st = $container.scrollTop();
+                        if (st > lastScrollTop) {
+                            $body.addClass(className);
+                        } else {
+                            $body.removeClass(className);
+                        }
+                        lastScrollTop = st;
+                    }, 3000)
                 }
 
                 scope.$on('$destroy', function () {

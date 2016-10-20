@@ -63,42 +63,6 @@ var app;
             this.needFollow = false;
             this.$rootScope.$broadcast("refresh-boxes");
         };
-        BoxController.prototype.updateBox = function (updateBoxForm) {
-            var _this = this;
-            if (this.settings.needFollow) {
-                this.boxService.unfollow(boxId).then(function () {
-                    _this.$rootScope.$broadcast("remove-box", boxId);
-                    _this.$state.go("dashboard");
-                });
-                return;
-            }
-            var needToSave = false;
-            angular.forEach(updateBoxForm, function (value, key) {
-                if (key[0] === "$")
-                    return;
-                if (!needToSave) {
-                    needToSave = !value.$pristine;
-                }
-            });
-            if (needToSave) {
-                this.data.name = this.settings.name;
-                this.data.privacySetting = this.settings.privacy;
-                if (this.isAcademic) {
-                    this.data.courseId = this.settings.courseId;
-                    this.data.professorName = this.settings.professorName;
-                }
-                this.settings.submitDisabled = true;
-                this.boxService.updateBox(boxId, this.data.name, this.settings.courseId, this.settings.professorName, this.settings.privacy, this.settings.notificationSettings).then(function (response) {
-                    _this.settingsOpen = false;
-                    _this.$stateParams["boxName"] = response.queryString;
-                    var appController = _this.$scope["app"];
-                    appController.showToaster(_this.resManager.get("toasterBoxSettings"));
-                    _this.$state.go('box.feed', _this.$stateParams, { location: "replace" });
-                }).finally(function () {
-                    _this.settings.submitDisabled = false;
-                });
-            }
-        };
         BoxController.prototype.inviteToBox = function () {
             if (!this.user.id) {
                 this.$rootScope.$broadcast('show-unregisterd-box');
@@ -148,26 +112,6 @@ var app;
             }
             return this.ajaxService2.getHtml('/box/boxsettings/').then(function (response) {
                 _this.settingsHtml = response;
-                _this.$timeout(function () {
-                    _this.$rootScope.$broadcast('close-collapse');
-                    _this.settingsOpen = true;
-                    _this.settings = _this.settings || {};
-                    _this.settings.name = _this.data.name;
-                    _this.settings.needFollow = _this.needFollow;
-                    _this.settings.submitDisabled = false;
-                    if (_this.isAcademic) {
-                        _this.settings.courseId = _this.data.courseId;
-                        _this.settings.professorName = _this.data.professorName;
-                    }
-                    else if (_this.owner) {
-                        _this.settings.privacy = _this.data.privacySetting;
-                    }
-                    if (!_this.settings.notificationSettings) {
-                        _this.boxService.notification(boxId).then(function (response2) {
-                            _this.settings.notificationSettings = response2;
-                        });
-                    }
-                });
             });
         };
         BoxController.prototype.canDelete = function (userId) {

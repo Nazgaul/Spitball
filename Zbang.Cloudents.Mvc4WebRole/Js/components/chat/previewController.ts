@@ -11,7 +11,7 @@
         constructor(private $mdDialog: angular.material.IDialogService,
             // TODO
             doc: any,
-            blob: any,
+            blob: string,
             // $scope: angular.IScope,
             $sce: angular.ISCEService
         ) {
