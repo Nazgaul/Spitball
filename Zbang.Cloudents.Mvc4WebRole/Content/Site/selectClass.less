@@ -47,24 +47,39 @@
             }
         }
 
+        .box-style {
+            padding: 10px 15px;
+            text-align: left;
+            height: 86px;
+
+            .course-name {
+                margin: 0 auto 5px auto;
+            }
+
+            .number, .instructor {
+                min-height: 14px;
+                line-height: 14px;
+            }
+        }
+
         &.search-results {
             .wrapper {
-                padding: 8px;
-
                 .result {
                     height: auto;
                     padding: 10px 15px;
                     text-align: left;
-
-                    .course-name {
-                        margin: 0 auto 5px auto;
-                    }
-
-                    .number, .instructor {
-                        min-height: 14px;
-                        line-height: 14px;
-                    }
                 }
+            }
+        }
+
+        &.selected-boxes {
+            .empty {
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(center);
+                border: 1px dashed @textColorGrey;
+                background: @backgroundCalmGrey;
+                color: @textColorGrey;
             }
         }
     }
