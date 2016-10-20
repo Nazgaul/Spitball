@@ -744,6 +744,14 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
+        public async Task AddUserLocationActivityAsync(AddUserLocationActivityCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                await m_CommandBus.SendAsync(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
 
     }
 }

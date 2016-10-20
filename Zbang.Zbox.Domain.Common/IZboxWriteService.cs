@@ -114,5 +114,8 @@ namespace Zbang.Zbox.Domain.Common
 
         void ManageConnections(ManageConnectionsCommand command);
         void RemoveOldConnections(RemoveOldConnectionCommand command);
+
+
+        Task AddUserLocationActivityAsync(AddUserLocationActivityCommand command);
     }
 }
