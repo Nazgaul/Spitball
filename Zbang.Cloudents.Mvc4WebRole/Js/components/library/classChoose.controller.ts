@@ -1,24 +1,36 @@
 ﻿module app {
     "use strict";
-
+    enum Steps {
+        Start = 1,
+        SearchFirst,
+        SearchFirstComplete,
+        SearchSecond,
+        SearchSecondComplete,
+        SearchMore,
+        EmptyState,
+        ChooseDepartment,
+        CreateClass
+    }
     class ClassChoose {
         static $inject = ["searchService", "$scope"];
-        stepTitle = 1;
+        stepTitle = Steps.Start;
         term;
         constructor(private searchService: ISearchService, private $scope: angular.IScope) {
 
         }
         classSearch() {
             const formElement: angular.IFormController = this.$scope["classChooseFrom"];
-
-            if (formElement.$valid) {
-                console.log('ss');
+            if (formElement.$invalid) {
+                return;
             }
-            console.log('her')
             if (this.term) {
-                this.stepTitle = 2;
+                this.stepTitle = Steps.SearchFirst;
+                this.searchService.searchBox(this.term, 0)
+                    .then(response => {
+                        console.log(response);
+                    });
             } else {
-                this.stepTitle = 1;
+                this.stepTitle = Steps.Start;
             }
         }
     }
