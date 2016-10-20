@@ -1,16 +1,23 @@
 ﻿<div>
-    <!--Artboard 1 copy-->
+    <!--Artboard 1 copy / copy 7 / copy 8 -->
+    <h1></h1><!-- header changes according to step (copy / copy 7 / copy 8) -->
+    <h1></h1>
     <h1></h1>
     <form name="classChooseFrom" novalidate ng-submit="cc.classSearch" layout="row" layout-wrap>
         <input spellcheck="false" autofocus type="search" placeholder="Search by class name or department"
                ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch" ng-minlength="2" />
-        <div class="clear"></div>
         <button type="submit" class="search-button" ng-disabled="!cc.term.length">
             <md-icon md-svg-icon="t:searchIcon"></md-icon>
         </button>
     </form>
-    <img src="" />
-    <div></div>
+    <div>
+        <img src="" />
+        <div class="text"></div>
+    </div>
+    <div class="empty-state">
+        <div class="text"></div>
+        <button type="button" class="create-class"></button>
+    </div>
 </div>
 
 <div>
@@ -19,7 +26,6 @@
     <form name="classChooseFrom" novalidate ng-submit="cc.universitySearch" layout="row" layout-wrap>
         <input spellcheck="false" autofocus ng-disabled="cc.createUniversity" type="search" placeholder="Search by class name or department"
                ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.universitySearch(libraryChooseForm)" ng-minlength="2" />
-        <div class="clear"></div>
         <button type="submit" class="search-button" ng-disabled="!cc.term.length">
             <md-icon md-svg-icon="t:searchIcon"></md-icon>
         </button>
@@ -49,7 +55,8 @@
             </div>
         </div>
     </div>
-    <button type="submit"></button>
+    <button class="select-more" type="button"></button>
+    <button class="done" type="submit"></button>
 </div>
 
 
@@ -74,4 +81,11 @@
         <button type="button"></button>
         <button type="submit"></button>
     </form>
+</div>
+
+<div>
+    <!--Artboard 1 copy 3-->
+    <h1></h1>
+    <div class="department"></div>
+    <button type="button"></button>
 </div>
