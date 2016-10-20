@@ -1084,6 +1084,12 @@
     <Content Include="Content\Site\search.rtl.css">
       <DependentUpon>search.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\selectClass.css">
+      <DependentUpon>selectClass.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\selectClass.rtl.css">
+      <DependentUpon>selectClass.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\Share.css">
       <DependentUpon>Share.less</DependentUpon>
     </Content>
@@ -1450,6 +1456,7 @@
     <Content Include="Content\Site\GeneralWithStatic.less" />
     <Content Include="Scripts\angular-aria\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate\angular-animate.min.js.map" />
+    <Content Include="Content\Site\selectClass.less" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
