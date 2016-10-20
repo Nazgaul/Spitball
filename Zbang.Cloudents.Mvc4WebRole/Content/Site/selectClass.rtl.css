@@ -53,6 +53,11 @@
 .class-choose .content.search-results .wrapper .result .course-name {
   margin: 0 auto 5px auto;
 }
+.class-choose .content.search-results .wrapper .result .number,
+.class-choose .content.search-results .wrapper .result .instructor {
+  min-height: 14px;
+  line-height: 14px;
+}
 .class-choose .search-form {
   border-radius: 15px;
   overflow: hidden;
