@@ -1,4 +1,40 @@
-﻿.class-choose {
-  margin-left: -240px;
-  margin-right: -95px;
+﻿@media (min-width: 960px) {
+  .class-choose {
+    margin-left: -240px;
+    margin-right: -95px;
+  }
+}
+.class-choose .content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.class-choose .content img {
+  margin: 40px auto 0 auto;
+  display: block;
+}
+.class-choose .search-form {
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
+}
+.class-choose .search-form input {
+  background: #ffffff;
+  font-size: 20px;
+  height: 37px;
+  padding: 0 10px 0 25px;
+  width: calc(100% - 60px);
+  border: 0;
+}
+.class-choose .search-button {
+  background: #4190b9;
+  width: 60px;
+  line-height: 100%;
+}
+.class-choose .search-button svg {
+  width: 22px;
+  height: 22px;
+  fill: #ffffff;
 }

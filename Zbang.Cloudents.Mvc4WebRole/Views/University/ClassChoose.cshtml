@@ -4,7 +4,7 @@
                '3' : 'Good job!',
                '4' : 'One done. One more to go!',
                '5' : '' }">
-</ng-pluralize>
+    </ng-pluralize>
 <form name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
     <input spellcheck="false" autofocus type="search" placeholder="Search by class name or department"
            ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" ng-minlength="2" required/>
