@@ -25,13 +25,13 @@ var app;
                 _this.$state.go(element.name, element.params);
             };
             this.logOut = function () {
-                _this.cacheFactory.clearAll();
+                sessionStorage.clear();
                 Intercom("shutdown");
             };
             this.toggleMenu = function () {
                 _this.$rootScope.$broadcast("open-menu");
             };
-            this.showToaster = function (text, parentId, theme) {
+            this.showToaster = function (text, parentId) {
                 var element = _this.$document.find("header")[0];
                 if (parentId) {
                     element = _this.$document[0].querySelector("#" + parentId);

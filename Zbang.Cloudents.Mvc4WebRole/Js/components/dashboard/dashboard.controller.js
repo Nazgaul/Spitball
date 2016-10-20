@@ -1,93 +1,75 @@
-﻿(function () {
-    'use strict';
-    angular.module('app.dashboard').controller('Dashboard', dashboard);
-    dashboard.$inject = ['dashboardService', 'boxes', '$scope', '$mdDialog', 'boxService',
-        '$rootScope', 'resManager', 'ajaxService2'];
-
-    function dashboard(dashboardService, boxes, $scope, $mdDialog,
-        boxService, $rootScope,resManager, ajaxService) {
-        var d = this;
-        d.inviteOpen = false;
-        d.showLeaderboard = true;
-
-        d.inviteExpand = inviteExpand;
-        d.inviteToSpitabll = inviteToSpitabll;
-        d.createNewBox = createNewBox;
-
-        d.boxes = boxes;
-        dashboardService.recommended().then(function (response2) {
-            for (var i = 0; i < response2.length; i++) {
-                var retVal = response2[i];
-                retVal.recommended = true;
-                retVal.updates = 0;
-            }
-            d.suggested = response2;
-        });
-        //$uiViewScroll($('.dashboard-stat2:last'));
-
-        d.deleteBox = deleteBox;
-        //$scope.math = Math;
-
-        function inviteExpand() {
-            if (d.html) {
+var app;
+(function (app) {
+    "use strict";
+    var Dashboard = (function () {
+        function Dashboard(dashboardService, boxes, $scope, $mdDialog, boxService, $rootScope, resManager, ajaxService2) {
+            var _this = this;
+            this.dashboardService = dashboardService;
+            this.boxes = boxes;
+            this.$scope = $scope;
+            this.$mdDialog = $mdDialog;
+            this.boxService = boxService;
+            this.$rootScope = $rootScope;
+            this.resManager = resManager;
+            this.ajaxService2 = ajaxService2;
+            this.inviteOpen = false;
+            this.showLeaderboard = true;
+            dashboardService.recommended().then(function (response2) {
+                for (var i = 0; i < response2.length; i++) {
+                    var retVal = response2[i];
+                    retVal.recommended = true;
+                    retVal.updates = 0;
+                }
+                _this.suggested = response2;
+            });
+            $scope.$on("close_invite", function () {
+                _this.inviteOpen = false;
+            });
+            $scope.$on('hide-leader-board', function () {
+                _this.showLeaderboard = false;
+            });
+        }
+        Dashboard.prototype.inviteExpand = function () {
+            var _this = this;
+            if (this.html) {
                 return;
             }
-            return ajaxService.getHtml('/share/invitedialog/').then(function (response) {
-                d.html = response;
+            return this.ajaxService2.getHtml('/share/invitedialog/').then(function (response) {
+                _this.html = response;
             });
-        }
-        function inviteToSpitabll() {
-            d.inviteOpen = true;
-            $scope.$broadcast('open_invite');
-            d.createBoxOn = false;
-        }
-
-        function createNewBox() {
-            if (!d.createBoxOn) {
-                d.createBoxOn = true;
-                d.inviteOpen = false;
+        };
+        Dashboard.prototype.inviteToSpitabll = function () {
+            this.inviteOpen = true;
+            this.$scope.$broadcast('open_invite');
+            this.createBoxOn = false;
+        };
+        Dashboard.prototype.createNewBox = function () {
+            if (!this.createBoxOn) {
+                this.createBoxOn = true;
+                this.inviteOpen = false;
             }
             else {
-                d.createBoxOn = false;
+                this.createBoxOn = false;
             }
-        }
-        //function openCreate() {
-        //    d.createBoxOn = true;
-        //    //d.createBoxFocus = true;
-        //}
-
-        function deleteBox(ev, box) {
-
-            //boxType //userType
-            var confirm = $mdDialog.confirm()
-                  .title(resManager.get('unfollowClass'))
-                  .targetEvent(ev)
-                   .ok(resManager.get('dialogOk'))
-                 .cancel(resManager.get('dialogCancel'));
-
-            $mdDialog.show(confirm).then(function () {
-                var index = d.boxes.indexOf(box);
-                
-                d.boxes.splice(index, 1);
-                boxService.unfollow(box.id).then(function() {
-                    $rootScope.$broadcast('remove-box', box.id);
+        };
+        Dashboard.prototype.deleteBox = function (ev, box) {
+            var _this = this;
+            var confirm = this.$mdDialog.confirm()
+                .title(this.resManager.get('unfollowClass'))
+                .targetEvent(ev)
+                .ok(this.resManager.get('dialogOk'))
+                .cancel(this.resManager.get('dialogCancel'));
+            this.$mdDialog.show(confirm).then(function () {
+                var index = _this.boxes.indexOf(box);
+                _this.boxes.splice(index, 1);
+                _this.boxService.unfollow(box.id).then(function () {
+                    _this.$rootScope.$broadcast('remove-box', box.id);
                 });
             });
-        }
-
-        $scope.$on("close_invite", function () {
-            d.inviteOpen = false;
-        });
-
-        $scope.$on('hide-leader-board', function () {
-            d.showLeaderboard = false;
-        });
-
-    }
-})();
-
-
-
-
-
-
+        };
+        Dashboard.$inject = ["dashboardService", "boxes", "$scope", "$mdDialog", "boxService",
+            "$rootScope", "resManager", "ajaxService2"];
+        return Dashboard;
+    }());
+    angular.module("app.dashboard").controller("Dashboard", Dashboard);
+})(app || (app = {}));

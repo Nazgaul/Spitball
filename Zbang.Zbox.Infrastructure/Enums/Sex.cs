@@ -7,9 +7,9 @@ namespace Zbang.Zbox.Infrastructure.Enums
     public enum Sex : int 
     {
         NotKnown = 0,
-        [EnumDescriptionAttribute(typeof(EnumResources), "Male")]
+        [EnumDescription(typeof(EnumResources), "Male")]
         Male = 1,
-        [EnumDescriptionAttribute(typeof(EnumResources), "Female")]
+        [EnumDescription(typeof(EnumResources), "Female")]
         Female = 2,
         NotApplicable = 9
     }

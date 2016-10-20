@@ -13,16 +13,12 @@
         <button ng-if="d.boxes.length > 2" type="button" ng-click="d.inviteToSpitabll()" class="inviteBtn box-style action" ng-class="{'active' :d.inviteOpen}" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="50" flex-gt-lg="50" ga-track-event="['dashboard', 'invite open']">
             <div class="wrapper">
                 <md-icon md-svg-icon="t:invite" class="icon"></md-icon>
-                @*@Html.Svg("~/images/site/icons.svg", "invite")*@
-                @*@Html.Svg("~/images/site/icons.svg", "invite", new { @class = "icon" })*@
                 <span class="text">@DashboardResource.InviteToSpitball&nbsp;<span>@ChatResources.FriendsHeader</span></span>
             </div>
         </button>
         <button type="button" ng-click="d.createNewBox()" focus-upon-click="createBoxInput" class="create-btn box-style action" ng-class="{'active' :d.createBoxOn}" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="50" flex-gt-lg="50" ga-track-event="['dashboard', 'createbox']">
             <div class="wrapper">
                 <md-icon md-svg-icon="t:add" class="icon"></md-icon>
-                @*@Html.Svg("~/images/site/icons.svg", "add", new { @class = "icon" })*@
-                @*@Html.Svg("~/images/site/icons.svg", "add")*@
                 <span class="text">@DashboardResource.StudyGroupHeader</span>
             </div>
         </button>
@@ -39,6 +35,9 @@
         @* ReSharper disable once Mvc.PartialViewNotResolved *@
         @{ Html.RenderPartial("_Leaderboard", DashboardResource.LeaderboardTitle);}
     </div>
+    <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-sm="50" class="flex" flex="100">
+        @{ Html.RenderPartial("_Gamification");}
+    </div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" ng-repeat="e in d.boxes track by e.id" class="flex">
         <div class="box-cube">
             <div ng-include="'box-template.html'"></div>
@@ -46,7 +45,6 @@
             <md-menu>
                 <button type="button" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['dashboard', 'deleteBoxMenu']">
                     <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
-                    @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3"})*@
                 </button>
                 <md-menu-content width="1">
                     <md-menu-item>

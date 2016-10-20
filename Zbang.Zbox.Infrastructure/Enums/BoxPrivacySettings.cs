@@ -5,11 +5,10 @@ namespace Zbang.Zbox.Infrastructure.Enums
     //if you add another value you should update views
     public enum BoxPrivacySetting
     {
-        [EnumDescriptionAttribute(typeof(EnumResources), "BoxPrivacySettingsMembersOnly")]
+        [EnumDescription(typeof(EnumResources), "BoxPrivacySettingsMembersOnly")]
         MembersOnly = 2,
-        [EnumDescriptionAttribute(typeof(EnumResources), "BoxPrivacySettingsAnyoneWithUrl")]
+        [EnumDescription(typeof(EnumResources), "BoxPrivacySettingsAnyoneWithUrl")]
         AnyoneWithUrl = 3,
         PrivateUniversity = 4
-
     }
 }

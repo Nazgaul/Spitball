@@ -1360,7 +1360,6 @@
     <Content Include="Js\components\box\feed.likes.controller.js" />
     <Content Include="Js\components\box\slideit.directive.js" />
     <Content Include="Js\components\box\tab.controller.js" />
-    <Content Include="Js\components\dashboard\createBox.controllerOld.js" />
     <Content Include="Js\components\item\comments.controller.js" />
     <Content Include="Js\components\item\externalProviderUpload.service.js" />
     <Content Include="Js\components\library\countryService.service.js" />
@@ -1399,6 +1398,7 @@
     <TypeScriptCompile Include="Js\components\chat\hubFactory.ts" />
     <TypeScriptCompile Include="Js\components\chat\previewController.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\createBox.controller.ts" />
+    <TypeScriptCompile Include="Js\components\dashboard\dashboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.routes.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quiz.service.ts" />
@@ -2223,7 +2223,6 @@
     <Content Include="Js\components\box\members.controller.js" />
     <Content Include="Js\components\box\feed.controller.js" />
     <Content Include="Js\components\box\recommended.controller.js" />
-    <Content Include="Js\components\dashboard\dashboard.controller.js" />
     <Content Include="Js\components\dashboard\university.controller.js" />
     <Content Include="Js\components\leaderboard.controller.js" />
     <Content Include="Js\components\quiz\popup\quiz.challenge.controller.js" />
@@ -2456,6 +2455,7 @@
     <Content Include="Views\Chat\Index.cshtml" />
     <Content Include="Views\Shared\_AudioNotifications.cshtml" />
     <Content Include="Views\User\infoDialog.cshtml" />
+    <Content Include="Views\Dashboard\_Gamification.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
