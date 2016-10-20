@@ -191,5 +191,9 @@
   {
     "outputFile": "Content/Site/leaderboard.css",
     "inputFile": "Content/Site/leaderboard.less"
+  },
+  {
+    "outputFile": "Content/Site/selectClass.css",
+    "inputFile": "Content/Site/selectClass.less"
   }
 ]
