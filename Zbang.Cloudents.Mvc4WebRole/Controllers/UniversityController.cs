@@ -109,7 +109,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
 
-        [HttpGet, NoUniversity]
+        [HttpGet, NoUniversity(Order = 1)]
+        [DonutOutputCache(CacheProfile = "PartialPage", Order = 2)]
         public ActionResult IndexPartial()
         {
             return PartialView("Index2");
@@ -120,6 +121,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public ActionResult Choose()
         {
             return View("Empty");
+        }
+
+        [HttpGet]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public ActionResult ClassChoosePartial()
+        {
+            return View("ClassChoose");
         }
 
 

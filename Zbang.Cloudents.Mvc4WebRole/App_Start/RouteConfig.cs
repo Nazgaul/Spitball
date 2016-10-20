@@ -34,12 +34,11 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 new { controller = "Home", action = "IndexEmpty" },
                 new { universityId = new LongRouteConstraint() }
              );
-            //routes.MapRoute("universityLibrary",
-            //    "university/{universityId}/{universityName}",
-            //    new { controller = "Home", action = "Index" },
-            //    new { universityId = new LongRouteConstraint() }
-            // );
 
+            routes.MapRoute("ClassChoose",
+               "course/choose/",
+               new { controller = "Home", action = "IndexEmpty" }
+            );
 
             routes.MapRoute("resetpassword",
            "account/resetpassword",
@@ -58,12 +57,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
               new { controller = "Home", action = "SiteMap", index = UrlParameter.Optional }
               );
 
-
-
-
-
-            
-
             #region quiz
 
             routes.MapRoute("QuizCreate",
@@ -76,18 +69,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
 
             
             #endregion
-
-            //routes.MapRoute("LibraryDesktop",
-            //    "library",
-            //    new { controller = "University", action = "LibraryRedirect" }
-            //);
-
-            //routes.MapRoute("LibraryDesktop2",
-            //    "library/{LibId}/{LibName}",
-            //    new { controller = "University", action = "LibraryRedirectWithNode" }
-            //);
-           
-          
 
             routes.MapRoute("AccountSettings",
              "account/settings",

@@ -1401,6 +1401,8 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.routes.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
+    <TypeScriptCompile Include="Js\components\library\classChoose.controller.ts" />
+    <TypeScriptCompile Include="Js\components\library\library.service.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quiz.service.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quizCreate.module.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quizCreate2.controller.ts" />
@@ -2456,6 +2458,7 @@
     <Content Include="Views\Shared\_AudioNotifications.cshtml" />
     <Content Include="Views\User\infoDialog.cshtml" />
     <Content Include="Views\Dashboard\_Gamification.cshtml" />
+    <Content Include="Views\University\ClassChoose.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
