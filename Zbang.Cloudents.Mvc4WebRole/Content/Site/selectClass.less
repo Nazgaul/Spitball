@@ -6,13 +6,61 @@
         margin-right: -@widthOfChat;
     }
 
+    .title {
+        text-align: center;
+        margin: 0 auto;
+        width: 100%;
+        display: block;
+        font-size: 32px;
+        padding: 50px 0;
+        font-weight: bold;
+        color: @textColorPurple;
+
+        @media(max-width: 600px) {
+            font-size: 24px;
+            max-width: 360px;
+            padding: 0 0 10px 0;
+        }
+    }
+
     .content {
         max-width: 600px;
         margin: 0 auto;
+        text-align: center;
 
         img {
             margin: 40px auto 0 auto;
             display: block;
+        }
+
+        .search-image {
+            position: relative;
+            display: inline-block;
+
+            .text {
+                position: absolute;
+                bottom: 0;
+                text-align: center;
+                width: 100%;
+                font-size: 20px;
+                color: @buttonColorBlue;
+            }
+        }
+
+        &.search-results {
+            .wrapper {
+                padding: 8px;
+
+                .result {
+                    height: auto;
+                    padding: 10px 15px;
+                    text-align: left;
+
+                    .course-name {
+                        margin: 0 auto 5px auto;
+                    }
+                }
+            }
         }
     }
 
@@ -21,7 +69,7 @@
         overflow: hidden;
         margin-bottom: 30px;
         max-width: 600px;
-        margin: 0 auto;
+        margin: 0 auto 8px auto;
         box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
 
         input {
@@ -32,19 +80,17 @@
             width: ~"calc(100% - 60px)";
             border: 0;
         }
-    }
 
+        .search-button {
+            background: @buttonColorBlue;
+            width: 60px;
+            line-height: 100%;
 
-
-    .search-button {
-        background: @buttonColorBlue;
-        width: 60px;
-        line-height: 100%;
-
-        svg {
-            width: 22px;
-            height: 22px;
-            fill: @textColorWhite;
+            svg {
+                width: 22px;
+                height: 22px;
+                fill: @textColorWhite;
+            }
         }
     }
 }
