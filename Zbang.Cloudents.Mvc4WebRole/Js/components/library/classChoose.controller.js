@@ -18,8 +18,10 @@ var app;
             this.searchService = searchService;
             this.$scope = $scope;
             this.step = Steps.Start;
+            this.selectedCourses = [];
         }
         ClassChoose.prototype.classSearch = function () {
+            var _this = this;
             var formElement = this.$scope["classChooseFrom"];
             if (formElement.$invalid) {
                 return;
@@ -28,12 +30,19 @@ var app;
                 this.step = Steps.SearchFirst;
                 this.searchService.searchBox(this.term, 0)
                     .then(function (response) {
-                    console.log(response);
+                    _this.searchResult = response;
                 });
             }
             else {
                 this.step = Steps.Start;
             }
+        };
+        ClassChoose.prototype.getRemainingElement = function () {
+            return new Array(Math.max(0, 6 - this.selectedCourses.length));
+        };
+        ClassChoose.prototype.chose = function (course) {
+            this.selectedCourses.push(course);
+            this.step = Steps.SearchFirstComplete;
         };
         ClassChoose.$inject = ["searchService", "$scope"];
         return ClassChoose;
