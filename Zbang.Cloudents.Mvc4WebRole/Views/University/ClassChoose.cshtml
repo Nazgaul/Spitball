@@ -12,7 +12,7 @@
         <md-icon md-svg-icon="t:searchIcon"></md-icon>
     </button>
 </form>
-<div ng-switch="cc.step">
+<div ng-switch="2">
     <div ng-switch-when="1" class="content">
         <!--Artboard 1 copy / copy 7 / copy 8 -->
 
@@ -28,13 +28,6 @@
 
     <div ng-switch-multiple-when="[2,4]" layout="row" layout-padding layout-wrap class="content search-results">
         <!--Artboard 1 copy 6-->
-        <div class="wrapper" flex="50" flex-xs="100">
-            <div class="result box-style">
-                <h2 class="course-name" d-color="{{::box.name.length}}">Philosophy</h2>
-                <div class="number">123456</div>
-                <div class="instructor">instructor</div>
-            </div>
-        </div>
         <div class="wrapper" flex="50" flex-xs="100">
             <div class="resul box-stylet" ng-repeat="c in cc.searchResult track by c.id" ng-click="cc.chose(c)">
                 <h2 class="course-name" d-color="{{::box.name.length}}" ng-bind="::c.name"></h2>
