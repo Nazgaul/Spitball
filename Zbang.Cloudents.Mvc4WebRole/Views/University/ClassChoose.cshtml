@@ -1,4 +1,4 @@
-﻿<ng-pluralize class="title" count="cc.stepTitle" when="{
+﻿<ng-pluralize class="title" count="cc.step" when="{
                '1' : 'Let us help you find the classes you are taking',
                '2' : 'Select your first class',
                '3' : 'Good job!',
@@ -12,7 +12,7 @@
         <md-icon md-svg-icon="t:searchIcon"></md-icon>
     </button>
 </form>
-<div ng-switch="2">
+<div ng-switch="cc.step">
     <div ng-switch-when="1" class="content">
         <!--Artboard 1 copy / copy 7 / copy 8 -->
 
@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <div ng-switch-when="2" layout="row" layout-padding layout-wrap class="content search-results">
+    <div ng-switch-multiple-when="[2,4]" layout="row" layout-padding layout-wrap class="content search-results">
         <!--Artboard 1 copy 6-->
         <div class="wrapper" flex="50" flex-xs="100">
             <div class="result box-style">
@@ -36,10 +36,10 @@
             </div>
         </div>
         <div class="wrapper" flex="50" flex-xs="100">
-            <div class="result box-style">
-                <h2 class="course-name" d-color="{{::box.name.length}}">Philosophy</h2>
-                <div class="number">123456</div>
-                <div class="instructor">instructor</div>
+            <div class="resul box-stylet" ng-repeat="c in cc.searchResult track by c.id" ng-click="cc.chose(c)">
+                <h2 class="course-name" d-color="{{::box.name.length}}" ng-bind="::c.name"></h2>
+                <div class="number" ng-bind="::c.courseCode"></div>
+                <div class="instructor" ng-bind="::c.professor"></div>
             </div>
         </div>
     </div>
@@ -54,16 +54,16 @@
                 <div class="progress"></div>
             </div>
             <div class="boxes">
-                <div class="selected">
-                    <div class="name"></div>
+                <div class="selected" ng-repeat="c in ::cc.selectedCourses track by c.id">
+                    <div class="name" ng-bind="::c.name"></div>
                 </div>
-                <div class="empty">
-                    <div class="name"></div>
+                <div class="empty" ng-repeat="i in cc.getRemainingElement() track by $index">
+                    <div class="name">{{$index + cc.selectedCourses.length}}</div>
                 </div>
             </div>
         </div>
-        <button class="select-more" type="button"></button>
-        <button class="done" type="submit"></button>
+        <button class="select-more" type="button" ng-click="cc.step = cc.step + 1">Select another class</button>
+        <button class="done" type="submit" ng-if="cc.step === 5"></button>
     </div>
 
 
