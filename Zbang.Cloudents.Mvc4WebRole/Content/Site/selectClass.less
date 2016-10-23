@@ -33,17 +33,24 @@
             display: block;
         }
 
-        .search-image {
-            position: relative;
-            display: inline-block;
+        &.default {
+            .search-image {
+                position: relative;
+                display: inline-block;
 
-            .text {
-                position: absolute;
-                bottom: 0;
-                text-align: center;
-                width: 100%;
-                font-size: 20px;
-                color: @buttonColorBlue;
+                .text {
+                    position: absolute;
+                    bottom: 0;
+                    text-align: center;
+                    width: 100%;
+                    font-size: 20px;
+                    color: @buttonColorBlue;
+                }
+            }
+
+            .empty-state .text {
+                margin: 50px 0 14px 0;
+                font-size: 16px;
             }
         }
 
@@ -80,6 +87,42 @@
                 border: 1px dashed @textColorGrey;
                 background: @backgroundCalmGrey;
                 color: @textColorGrey;
+            }
+        }
+
+        &.add-class {
+            h1 {
+            }
+
+            .department {
+                margin-bottom: 30px;
+            }
+
+            .box-style, form {
+                margin: 0 auto;
+            }
+
+            .box-style {
+                height: 50px;
+            }
+
+            .form-field {
+                input {
+                    height: auto;
+                    border: none;
+                }
+
+                label {
+                    text-align: left;
+                    display: block;
+                    margin: 20px 0 4px 0;
+                    font-size: 14px;
+                }
+            }
+
+            .buttons {
+                text-align: right;
+                margin-top: 30px;
             }
         }
     }

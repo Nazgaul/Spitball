@@ -30,17 +30,21 @@
   margin: 40px auto 0 auto;
   display: block;
 }
-.class-choose .content .search-image {
+.class-choose .content.default .search-image {
   position: relative;
   display: inline-block;
 }
-.class-choose .content .search-image .text {
+.class-choose .content.default .search-image .text {
   position: absolute;
   bottom: 0;
   text-align: center;
   width: 100%;
   font-size: 20px;
   color: #4190b9;
+}
+.class-choose .content.default .empty-state .text {
+  margin: 50px 0 14px 0;
+  font-size: 16px;
 }
 .class-choose .content .box-style {
   padding: 10px 15px;
@@ -71,6 +75,30 @@
   border: 1px dashed #888b8e;
   background: #eeeeee;
   color: #888b8e;
+}
+.class-choose .content.add-class .department {
+  margin-bottom: 30px;
+}
+.class-choose .content.add-class .box-style,
+.class-choose .content.add-class form {
+  margin: 0 auto;
+}
+.class-choose .content.add-class .box-style {
+  height: 50px;
+}
+.class-choose .content.add-class .form-field input {
+  height: auto;
+  border: none;
+}
+.class-choose .content.add-class .form-field label {
+  text-align: left;
+  display: block;
+  margin: 20px 0 4px 0;
+  font-size: 14px;
+}
+.class-choose .content.add-class .buttons {
+  text-align: right;
+  margin-top: 30px;
 }
 .class-choose .search-form {
   border-radius: 15px;
