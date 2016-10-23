@@ -18,6 +18,7 @@ var app;
             this.$scope = $scope;
             this.step = Steps.Start;
             this.selectedCourses = [];
+            this.noresult = false;
         }
         ClassChoose.prototype.classSearch = function () {
             var _this = this;
@@ -26,6 +27,7 @@ var app;
             if (formElement.$invalid) {
                 return;
             }
+            this.noresult = false;
             if (this.term) {
                 if (step === Steps.Start) {
                     this.step = Steps.SearchFirst;
@@ -34,6 +36,9 @@ var app;
                 this.searchService.searchBox(this.term, 0)
                     .then(function (response) {
                     _this.searchResult = response.filter(function (f) { return selectedCourseId.indexOf(f.id) === -1; });
+                    if (!response.length) {
+                        _this.noresult = true;
+                    }
                 });
             }
             else {
@@ -45,7 +50,7 @@ var app;
         ClassChoose.prototype.getRemainingElement = function () {
             return new Array(Math.max(0, 6 - this.selectedCourses.length));
         };
-        ClassChoose.prototype.chose = function (course) {
+        ClassChoose.prototype.choose = function (course) {
             this.term = '';
             this.searchResult = [];
             this.selectedCourses.push(course);

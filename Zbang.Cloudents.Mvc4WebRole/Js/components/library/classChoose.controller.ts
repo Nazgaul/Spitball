@@ -17,6 +17,7 @@
         term;
         searchResult;
         selectedCourses = [];
+        noresult = false;
         constructor(private searchService: ISearchService, private $scope: angular.IScope) {
 
         }
@@ -26,7 +27,9 @@
             if (formElement.$invalid) {
                 return;
             }
+            this.noresult = false;
             if (this.term) {
+
                 if (step === Steps.Start) {
                     this.step = Steps.SearchFirst;
                 }
@@ -34,6 +37,10 @@
                 this.searchService.searchBox(this.term, 0)
                     .then((response: Array<any>) => {
                         this.searchResult = response.filter(f => selectedCourseId.indexOf(f.id) === -1);
+                        if (!response.length) {
+                            this.noresult = true;
+                        }
+                        
                     });
             } else {
                 if (step === Steps.SearchFirst) {
@@ -44,7 +51,7 @@
         getRemainingElement() {
             return new Array(Math.max(0, 6 - this.selectedCourses.length));
         }
-        chose(course) {
+        choose(course) {
             //TODO : ajax call
             this.term = '';
             this.searchResult = [];
