@@ -13,8 +13,8 @@
         <md-icon md-svg-icon="t:searchIcon"></md-icon>
     </button>
 </form>
-<div ng-switch="cc.step">
-    <div ng-switch-when="1" class="content">
+<div ng-switch="4">
+    <div ng-switch-when="1" class="content default">
         <!--Artboard 1 copy / copy 7 / copy 8 -->
 
         <div class="search-image">
@@ -22,8 +22,8 @@
             <div class="text">Advance to the next level...</div>
         </div>
         <div class="empty-state">
-            <div class="text"></div>
-            <button type="button" class="create-class"></button>
+            <div class="text">We could not find any Class or Department.<br />Try to search again or add this class to our listings.</div>
+            <button type="button" class="create-class action-btn">Create a new class</button>
         </div>
     </div>
 
@@ -32,33 +32,33 @@
         <div class="wrapper" ng-repeat="c in cc.searchResult track by c.id" flex="50" flex-xs="100">
             <div class="result box-style" ng-click="cc.chose(c)">
                 <h2 class="course-name ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name"></h2>
-                <div class="number" ng-bind="::c.courseCode"></div>
-                <div class="instructor" ng-bind="::c.professor"></div>
+                <div class="number ellipsis" ng-bind="::c.courseCode"></div>
+                <div class="instructor ellipsis" ng-bind="::c.professor"></div>
             </div>
         </div>
     </div>
 
     <div ng-switch-multiple-when="[3,5]" class="content selected-boxes">
         <!--Artboard 1 copy 5-->
-            <div class="counter header">
-                <div class="text"></div>
+        <div class="counter header">
+            <div class="text"></div>
                 <div class="progress">{{::cc.selectedCourses.length}}/2</div>
-            </div>
-            <div class="boxes" layout="row" layout-padding layout-wrap>
-                <div class="wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.selectedCourses track by c.id">
-                    <div class="selected box-style">
-                        <h2 class="course-name ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name"></h2>
-                        <div class="number" ng-bind="::c.courseCode"></div>
-                        <div class="instructor" ng-bind="::c.professor"></div>
-                    </div>
+        </div>
+        <div class="boxes" layout="row" layout-padding layout-wrap>
+            <div class="wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.selectedCourses track by c.id">
+                <div class="selected box-style">
+                    <h2 class="course-name ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name"></h2>
+                    <div class="number" ng-bind="::c.courseCode"></div>
+                    <div class="instructor" ng-bind="::c.professor"></div>
                 </div>
+            </div>
                 
                 <div class="wrapper" flex="50" flex-xs="100" ng-repeat="i in ::cc.getRemainingElement() track by $index">
-                    <div class="empty box-style">
+                <div class="empty box-style">
                         <h2 class="course-name ellipsis" ng-bind="::$index + cc.selectedCourses.length + 1"></h2>
-                    </div>
                 </div>
             </div>
+        </div>
         <div class="buttons">
             <button class="select-more action-btn" type="button" ng-click="cc.chooseMore()">Select another class</button>
             <button class="done action-btn" type="submit" ng-if="cc.step === 5"></button>
@@ -66,23 +66,25 @@
     </div>
     <div ng-switch-when="7" class="content">
         <!--Artboard 1 copy 4-->
-        <h1></h1>
-        <div class="department"></div>
-        <form @*name="classChooseFrom"*@ novalidate @*ng-submit="cc.classSearch"*@ layout="row" layout-wrap>
-            <div>
-                <div class="title"></div>
-                <input type="text" />
+        <h1 class="title">Add "" class to</h1>
+        <div class="department box-style" flex="50" flex-xs="100"></div>
+        <form flex="50" flex-xs="100" @*name="classChooseFrom"*@ novalidate @*ng-submit="cc.classSearch"*@>
+            <div class="form-field">
+                <label for="class-name">Class name:</label>
+                <input name="class-name" type="text" class="box-style" placeholder="Enter class name"/>
             </div>
-            <div>
-                <div class="title"></div>
-                <input type="text" />
+            <div class="form-field">
+                <label for="class-number">Class number (optional):</label>
+                <input name="class-number" type="text" class="box-style" placeholder="Enter class number" />
             </div>
-            <div>
-                <div class="title"></div>
-                <input type="text" />
+            <div class="form-field">
+                <label for="proffesor">Proffesor name (optional):</label>
+                <input name="proffesor" type="text" class="box-style" placeholder="Enter proffesor name" />
             </div>
-            <button type="button"></button>
-            <button type="submit"></button>
+            <div class="buttons">
+                <button class="cancel-btn" type="button">Cancel</button>
+                <button class="action-btn" type="submit">Add</button>
+            </div>
         </form>
     </div>
 
