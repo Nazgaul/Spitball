@@ -7,9 +7,9 @@
         SearchSecond = 4,
         SearchSecondComplete = 5,
         SearchMore = 6,
-        EmptyState,
-        ChooseDepartment,
-        CreateClass
+        //EmptyState,
+        ChooseDepartment = 7,
+        CreateClass = 8
     }
     class ClassChoose {
         static $inject = ["searchService", "$scope"];
@@ -30,9 +30,10 @@
                 if (step === Steps.Start) {
                     this.step = Steps.SearchFirst;
                 }
+                var selectedCourseId: Array<number> =  this.selectedCourses.map(f => { return f.id });
                 this.searchService.searchBox(this.term, 0)
-                    .then(response => {
-                        this.searchResult = response;
+                    .then((response: Array<any>) => {
+                        this.searchResult = response.filter(f => selectedCourseId.indexOf(f.id) === -1);
                     });
             } else {
                 if (step === Steps.SearchFirst) {
@@ -48,8 +49,14 @@
             this.term = '';
             this.searchResult = [];
             this.selectedCourses.push(course);
+            this.step++;
+        }
 
-            this.step = Math.min(6, this.step + 1);
+        chooseMore() {
+            if ([Steps.SearchFirstComplete, Steps.SearchSecondComplete].indexOf(this.step) !== -1) {
+                this.step++;
+            }
+
         }
     }
 
