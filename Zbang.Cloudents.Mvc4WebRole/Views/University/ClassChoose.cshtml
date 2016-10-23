@@ -5,6 +5,7 @@
                '4' : 'One done. One more to go!',
                '5' : '' }">
 </ng-pluralize>
+x
 <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
     <input spellcheck="false" autofocus type="search" placeholder="Search by class name or department"
            ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" ng-minlength="2" required />
@@ -37,7 +38,8 @@
         </div>
     </div>
 
-    <div ng-switch-when="3" class="content">
+    <div ng-switch-when="[3,5]" class="content">
+     yead
         <!--Artboard 1 copy 5-->
         <div>
             <div class="counter header">
@@ -56,14 +58,11 @@
         <button class="select-more" type="button" ng-click="cc.step = cc.step + 1">Select another class</button>
         <button class="done" type="submit" ng-if="cc.step === 5"></button>
     </div>
-
-
-    <div ng-switch-when="4" class="content">
+    <div ng-switch-when="6" class="content">
         <!--Artboard 1 copy 4-->
         <h1></h1>
         <div class="department"></div>
         <form @*name="classChooseFrom"*@ novalidate @*ng-submit="cc.classSearch"*@ layout="row" layout-wrap>
-
             <div>
                 <div class="title"></div>
                 <input type="text" />
@@ -81,7 +80,7 @@
         </form>
     </div>
 
-    <div ng-switch-when="5" class="content">
+    <div ng-switch-when="7" class="content">
         <!--Artboard 1 copy 3-->
         <h1></h1>
         <div class="department"></div>

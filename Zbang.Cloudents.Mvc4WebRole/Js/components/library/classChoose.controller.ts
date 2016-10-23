@@ -40,6 +40,8 @@
         }
         chose(course) {
             //TODO : ajax call
+            this.term = '';
+            this.searchResult = [];
             this.selectedCourses.push(course);
             this.step = Steps.SearchFirstComplete;
         }

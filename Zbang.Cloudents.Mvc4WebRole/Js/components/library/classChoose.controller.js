@@ -41,6 +41,8 @@ var app;
             return new Array(Math.max(0, 6 - this.selectedCourses.length));
         };
         ClassChoose.prototype.chose = function (course) {
+            this.term = '';
+            this.searchResult = [];
             this.selectedCourses.push(course);
             this.step = Steps.SearchFirstComplete;
         };
