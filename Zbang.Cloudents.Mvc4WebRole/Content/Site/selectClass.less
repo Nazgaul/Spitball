@@ -153,10 +153,21 @@
             .box-style {
                 height: 50px;
                 margin: 0 auto;
+
+                @media(max-width: 600px) {
+                    font-size: 28px;
+                    line-height: 30px;
+                }
             }
         }
 
         &.select-department {
+            @media(max-width: 600px) {
+                .department, .add-department {
+                    padding: 4px 8px;
+                }
+            }
+
             .add-department button {
                 width: 100%;
                 padding: 0 10px;
@@ -181,7 +192,6 @@
             .buttons {
                 text-align: right;
                 padding: 8px;
-                margin-top: 50px;
             }
         }
     }
