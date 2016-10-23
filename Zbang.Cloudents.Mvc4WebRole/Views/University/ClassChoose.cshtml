@@ -14,7 +14,7 @@
         <md-icon md-svg-icon="t:searchIcon"></md-icon>
     </button>
 </form>
-<div ng-switch="cc.step">
+<div @*ng-switch="cc.step"*@ ng-switch="7">
     <div ng-switch-when="1" class="content default">
         <!--Artboard 1 copy / copy 7 / copy 8 -->
 
@@ -66,10 +66,10 @@
             <button class="done action-btn" type="submit" ng-if="cc.step === 5">Done</button>
         </div>
     </div>
-    <div ng-switch-when="7" class="content add-class">
+    <div ng-switch-when="8" class="content add-class">
         <!--Artboard 1 copy 4-->
         <h1 class="title">Add "" class to</h1>
-        <div class="department box-style" flex="50" flex-xs="100"></div>
+        <div class="department box-style ellipsis" d-color="" flex="50" flex-xs="100">Department</div>
         <form flex="50" flex-xs="100" @*name="classChooseFrom"*@ novalidate @*ng-submit="cc.classSearch"*@>
             <div class="form-field">
                 <label for="class-name">Class name:</label>
@@ -90,10 +90,22 @@
         </form>
     </div>
 
-    <div ng-switch-when="7" class="content">
+    <div ng-switch-when="7" class="content select-department">
         <!--Artboard 1 copy 3-->
-        <h1></h1>
-        <div class="department"></div>
-        <button type="button"></button>
+        <h1 class="title">Select the department<br />for this new class</h1>
+        <div class="departments" layout="row" layout-padding layout-wrap>
+            <div class="department wrapper" flex="50" flex-xs="100">
+                <h2 class="box-style ellipsis" d-color="">aaa</h2>
+            </div>
+            <div class="add-department wrapper" flex="50" flex-xs="100">
+                <button type="button" class="box-style">
+                    <md-icon md-svg-icon="t:add"></md-icon>
+                    <h2>Add department</h2>
+                </button>
+            </div>
+        </div>
+        <div class="buttons">
+            <button class="cancel-btn" type="button">Cancel</button>
+        </div>
     </div>
 </div>

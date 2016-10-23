@@ -47,11 +47,6 @@
                     color: @buttonColorBlue;
                 }
             }
-
-            .empty-state .text {
-                margin: 50px 0 14px 0;
-                font-size: 16px;
-            }
         }
 
         .box-style {
@@ -75,6 +70,15 @@
                     height: auto;
                     padding: 10px 15px;
                     text-align: left;
+                }
+            }
+
+            .empty-state {
+                margin: 0 auto;
+
+                .text {
+                    margin: 50px 0 14px 0;
+                    font-size: 16px;
                 }
             }
         }
@@ -120,12 +124,8 @@
                 margin-bottom: 30px;
             }
 
-            .box-style, form {
+            form {
                 margin: 0 auto;
-            }
-
-            .box-style {
-                height: 50px;
             }
 
             .form-field {
@@ -145,6 +145,43 @@
             .buttons {
                 text-align: right;
                 margin-top: 30px;
+            }
+        }
+
+        &.add-class, &.select-department {
+
+            .box-style {
+                height: 50px;
+                margin: 0 auto;
+            }
+        }
+
+        &.select-department {
+            .add-department button {
+                width: 100%;
+                padding: 0 10px;
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(center);
+
+                md-icon {
+                    width: 16px;
+                    height: 16px;
+                    fill: @buttonColorBlue;
+                }
+
+                h2 {
+                    color: @buttonColorBlue;
+                    font-size: 16px;
+                    height: auto;
+                    margin: 0 10px;
+                }
+            }
+
+            .buttons {
+                text-align: right;
+                padding: 8px;
+                margin-top: 50px;
             }
         }
     }
