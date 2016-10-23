@@ -12,7 +12,7 @@
         <md-icon md-svg-icon="t:searchIcon"></md-icon>
     </button>
 </form>
-<div ng-switch="4">
+<div ng-switch="cc.step">
     <div ng-switch-when="1" class="content default">
         <!--Artboard 1 copy / copy 7 / copy 8 -->
 
@@ -63,7 +63,7 @@
             <button class="done action-btn" type="submit" ng-if="cc.step === 5"></button>
         </div>
     </div>
-    <div ng-switch-when="6" class="content">
+    <div ng-switch-when="6" class="content add-class">
         <!--Artboard 1 copy 4-->
         <h1 class="title">Add "" class to</h1>
         <div class="department box-style" flex="50" flex-xs="100"></div>
