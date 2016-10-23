@@ -14,7 +14,7 @@
         <md-icon md-svg-icon="t:searchIcon"></md-icon>
     </button>
 </form>
-<div @*ng-switch="cc.step"*@ ng-switch="8">
+<div ng-switch="cc.step">
     <div ng-switch-when="1" class="content default">
         <!--Artboard 1 copy / copy 7 / copy 8 -->
 
@@ -57,13 +57,13 @@
 
             <div class="wrapper" flex="50" flex-xs="100" ng-repeat="i in ::cc.getRemainingElement() track by $index">
                 <div class="empty box-style">
-                    <h2 class="course-name ellipsis" ng-bind="::$index + cc.selectedCourses.length + 1"></h2>
+                    <h2 class="ellipsis">Class&nbsp;<span ng-bind="::$index + cc.selectedCourses.length + 1"></span></h2>
                 </div>
             </div>
         </div>
         <div class="buttons">
             <button class="select-more action-btn" type="button" ng-click="cc.chooseMore()">Select another class</button>
-            <button class="done action-btn" type="submit" ng-if="cc.step === 5">Done</button>
+            <button class="done action-btn space-before" type="submit" ng-if="cc.step === 5">Done</button>
         </div>
     </div>
     <div ng-switch-when="8" class="content add-class">
@@ -85,7 +85,7 @@
             </div>
             <div class="buttons">
                 <button class="cancel-btn" type="button">Cancel</button>
-                <button class="action-btn" type="submit">Add</button>
+                <button class="action-btn space-before" type="submit">Add</button>
             </div>
         </form>
     </div>

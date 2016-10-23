@@ -92,8 +92,31 @@
                 background: @backgroundCalmGrey;
                 color: @textColorGrey;
 
+                h2 {
+                    margin: 0;
+                }
+
                 &:hover {
                     background: @backgroundCalmGrey;
+                }
+            }
+
+            @media(max-width: 600px) {
+                .selected {
+                    .instructor, .number {
+                        display: none;
+                    }
+                }
+
+                .box-style {
+                    height: 50px;
+                }
+
+                .buttons button {
+                    width: 80%;
+                    max-width: 100%;
+                    margin-left: auto;
+                    margin-right: auto;
                 }
             }
 
@@ -101,10 +124,9 @@
                 .displayFlex;
                 .align-items(center);
                 .justifyContet(flex-end);
+                flex-wrap: wrap;
 
                 button {
-                    margin: 8px;
-
                     &.done {
                         background: @notificationColor;
 
@@ -153,18 +175,18 @@
             .box-style {
                 height: 50px;
                 margin: 0 auto;
-
-                @media(max-width: 600px) {
-                    font-size: 28px;
-                    line-height: 30px;
-                }
             }
         }
 
-        &.select-department {
+        &.select-department, &.selected-boxes {
             @media(max-width: 600px) {
-                .department, .add-department {
+                .department, .add-department, .wrapper {
                     padding: 4px 8px;
+                }
+
+                .box-style, h2 {
+                    font-size: 28px;
+                    line-height: 30px;
                 }
             }
 

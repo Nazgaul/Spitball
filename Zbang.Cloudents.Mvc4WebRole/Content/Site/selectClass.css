@@ -79,8 +79,26 @@
   background: #eeeeee;
   color: #888b8e;
 }
+.class-choose .content.selected-boxes .empty h2 {
+  margin: 0;
+}
 .class-choose .content.selected-boxes .empty:hover {
   background: #eeeeee;
+}
+@media (max-width: 600px) {
+  .class-choose .content.selected-boxes .selected .instructor,
+  .class-choose .content.selected-boxes .selected .number {
+    display: none;
+  }
+  .class-choose .content.selected-boxes .box-style {
+    height: 50px;
+  }
+  .class-choose .content.selected-boxes .buttons button {
+    width: 80%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 .class-choose .content.selected-boxes .buttons {
   display: -webkit-flex;
@@ -90,9 +108,7 @@
   align-items: center;
   -webkit-justify-content: flex-end;
   justify-content: flex-end;
-}
-.class-choose .content.selected-boxes .buttons button {
-  margin: 8px;
+  flex-wrap: wrap;
 }
 .class-choose .content.selected-boxes .buttons button.done {
   background: #ec610d;
@@ -126,19 +142,24 @@
   margin: 0 auto;
 }
 @media (max-width: 600px) {
-  .class-choose .content.add-class .box-style,
-  .class-choose .content.select-department .box-style {
+  .class-choose .content.select-department .department,
+  .class-choose .content.selected-boxes .department,
+  .class-choose .content.select-department .add-department,
+  .class-choose .content.selected-boxes .add-department,
+  .class-choose .content.select-department .wrapper,
+  .class-choose .content.selected-boxes .wrapper {
+    padding: 4px 8px;
+  }
+  .class-choose .content.select-department .box-style,
+  .class-choose .content.selected-boxes .box-style,
+  .class-choose .content.select-department h2,
+  .class-choose .content.selected-boxes h2 {
     font-size: 28px;
     line-height: 30px;
   }
 }
-@media (max-width: 600px) {
-  .class-choose .content.select-department .department,
-  .class-choose .content.select-department .add-department {
-    padding: 4px 8px;
-  }
-}
-.class-choose .content.select-department .add-department button {
+.class-choose .content.select-department .add-department button,
+.class-choose .content.selected-boxes .add-department button {
   width: 100%;
   padding: 0 10px;
   display: -webkit-flex;
@@ -149,18 +170,21 @@
   -webkit-justify-content: center;
   justify-content: center;
 }
-.class-choose .content.select-department .add-department button md-icon {
+.class-choose .content.select-department .add-department button md-icon,
+.class-choose .content.selected-boxes .add-department button md-icon {
   width: 16px;
   height: 16px;
   fill: #4190b9;
 }
-.class-choose .content.select-department .add-department button h2 {
+.class-choose .content.select-department .add-department button h2,
+.class-choose .content.selected-boxes .add-department button h2 {
   color: #4190b9;
   font-size: 16px;
   height: auto;
   margin: 0 10px;
 }
-.class-choose .content.select-department .buttons {
+.class-choose .content.select-department .buttons,
+.class-choose .content.selected-boxes .buttons {
   text-align: right;
   padding: 8px;
 }
