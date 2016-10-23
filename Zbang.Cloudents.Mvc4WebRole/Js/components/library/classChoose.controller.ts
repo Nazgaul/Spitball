@@ -21,18 +21,23 @@
 
         }
         classSearch() {
+            const step = this.step;
             const formElement: angular.IFormController = this.$scope["classChooseFrom"];
             if (formElement.$invalid) {
                 return;
             }
             if (this.term) {
-                this.step = Steps.SearchFirst;
+                if (step === Steps.Start) {
+                    this.step = Steps.SearchFirst;
+                }
                 this.searchService.searchBox(this.term, 0)
                     .then(response => {
                         this.searchResult = response;
                     });
             } else {
-                this.step = Steps.Start;
+                if (step === Steps.SearchFirst) {
+                    this.step = Steps.Start;
+                }
             }
         }
         getRemainingElement() {
@@ -40,8 +45,11 @@
         }
         chose(course) {
             //TODO : ajax call
+            this.term = '';
+            this.searchResult = [];
             this.selectedCourses.push(course);
-            this.step = Steps.SearchFirstComplete;
+
+            this.step = Math.min(6, this.step + 1);
         }
     }
 

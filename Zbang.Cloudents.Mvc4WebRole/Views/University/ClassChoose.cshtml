@@ -5,7 +5,7 @@
                '4' : 'One done. One more to go!',
                '5' : '' }">
 </ng-pluralize>
-<form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
+<form ng-show="[1,2,4].indexOf(cc.step) !== -1" class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
     <input spellcheck="false" autofocus type="search" placeholder="Search by class name or department"
            ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" ng-minlength="2" required />
     <button type="submit" class="search-button" ng-disabled="classChooseFrom.$invalid">
@@ -37,11 +37,11 @@
         </div>
     </div>
 
-    <div ng-switch-when="3" class="content selected-boxes">
+    <div ng-switch-multiple-when="[3,5]" class="content selected-boxes">
         <!--Artboard 1 copy 5-->
         <div class="counter header">
             <div class="text"></div>
-            <div class="progress">/2</div>
+                <div class="progress">{{::cc.selectedCourses.length}}/2</div>
         </div>
         <div class="boxes" layout="row" layout-padding layout-wrap>
             <div class="wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.selectedCourses track by c.id">
@@ -51,9 +51,10 @@
                     <div class="instructor" ng-bind="::c.professor"></div>
                 </div>
             </div>
-            <div class="wrapper" flex="50" flex-xs="100" ng-repeat="i in cc.getRemainingElement() track by $index">
+                
+                <div class="wrapper" flex="50" flex-xs="100" ng-repeat="i in ::cc.getRemainingElement() track by $index">
                 <div class="empty box-style">
-                    <h2 class="course-name ellipsis">{{$index + cc.selectedCourses.length}}</h2>
+                        <h2 class="course-name ellipsis" ng-bind="::$index + cc.selectedCourses.length + 1"></h2>
                 </div>
             </div>
         </div>
@@ -62,14 +63,11 @@
             <button class="done action-btn" type="submit" ng-if="cc.step === 5"></button>
         </div>
     </div>
-
-
-    <div ng-switch-when="4" class="content add-class">
+    <div ng-switch-when="6" class="content">
         <!--Artboard 1 copy 4-->
         <h1 class="title">Add "" class to</h1>
         <div class="department box-style" flex="50" flex-xs="100"></div>
         <form flex="50" flex-xs="100" @*name="classChooseFrom"*@ novalidate @*ng-submit="cc.classSearch"*@>
-
             <div class="form-field">
                 <label for="class-name">Class name:</label>
                 <input name="class-name" type="text" class="box-style" placeholder="Enter class name"/>
@@ -89,7 +87,7 @@
         </form>
     </div>
 
-    <div ng-switch-when="5" class="content">
+    <div ng-switch-when="7" class="content">
         <!--Artboard 1 copy 3-->
         <h1></h1>
         <div class="department"></div>

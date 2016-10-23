@@ -22,27 +22,34 @@ var app;
         }
         ClassChoose.prototype.classSearch = function () {
             var _this = this;
+            var step = this.step;
             var formElement = this.$scope["classChooseFrom"];
             if (formElement.$invalid) {
                 return;
             }
             if (this.term) {
-                this.step = Steps.SearchFirst;
+                if (step === Steps.Start) {
+                    this.step = Steps.SearchFirst;
+                }
                 this.searchService.searchBox(this.term, 0)
                     .then(function (response) {
                     _this.searchResult = response;
                 });
             }
             else {
-                this.step = Steps.Start;
+                if (step === Steps.SearchFirst) {
+                    this.step = Steps.Start;
+                }
             }
         };
         ClassChoose.prototype.getRemainingElement = function () {
             return new Array(Math.max(0, 6 - this.selectedCourses.length));
         };
         ClassChoose.prototype.chose = function (course) {
+            this.term = '';
+            this.searchResult = [];
             this.selectedCourses.push(course);
-            this.step = Steps.SearchFirstComplete;
+            this.step = Math.min(6, this.step + 1);
         };
         ClassChoose.$inject = ["searchService", "$scope"];
         return ClassChoose;
