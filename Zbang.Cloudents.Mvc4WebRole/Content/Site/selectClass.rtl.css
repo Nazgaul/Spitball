@@ -39,7 +39,7 @@
   bottom: 0;
   text-align: center;
   width: 100%;
-  font-size: 20px;
+  font-size: 18px;
   color: #4190b9;
 }
 .class-choose .content .box-style {
@@ -48,7 +48,8 @@
   height: 86px;
 }
 .class-choose .content .box-style .course-name {
-  margin: 0 auto 5px auto;
+  margin: 0 auto 12px auto;
+  font-size: 25px;
 }
 .class-choose .content .box-style .number,
 .class-choose .content .box-style .instructor {
@@ -66,6 +67,23 @@
 .class-choose .content.search-results .empty-state .text {
   margin: 50px 0 14px 0;
   font-size: 16px;
+}
+.class-choose .content.selected-boxes .header {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+.class-choose .content.selected-boxes .header .text {
+  color: #4190b9;
+  font-weight: bold;
+}
+.class-choose .content.selected-boxes .header .progress {
+  color: #888b8e;
 }
 .class-choose .content.selected-boxes .empty {
   display: -webkit-flex;
@@ -154,7 +172,6 @@
   .class-choose .content.selected-boxes .box-style,
   .class-choose .content.select-department h2,
   .class-choose .content.selected-boxes h2 {
-    font-size: 28px;
     line-height: 30px;
   }
 }

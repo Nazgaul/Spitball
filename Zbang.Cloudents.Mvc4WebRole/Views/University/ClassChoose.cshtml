@@ -14,7 +14,7 @@
         <md-icon md-svg-icon="t:searchIcon"></md-icon>
     </button>
 </form>
-<div ng-switch="cc.step">
+<div @*ng-switch="cc.step"*@ ng-switch="8">
     <div ng-switch-when="1" class="content default">
         <!--Artboard 1 copy / copy 7 / copy 8 -->
 
@@ -43,7 +43,7 @@
     <div ng-switch-multiple-when="[3,5]" class="content selected-boxes">
         <!--Artboard 1 copy 5-->
         <div class="counter header">
-            <div class="text"></div>
+            <div class="text">Your selected classes</div>
             <div class="progress">{{::cc.selectedCourses.length}}/2</div>
         </div>
         <div class="boxes" layout="row" layout-padding layout-wrap>

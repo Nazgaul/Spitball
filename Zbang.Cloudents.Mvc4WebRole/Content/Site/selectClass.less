@@ -43,7 +43,7 @@
                     bottom: 0;
                     text-align: center;
                     width: 100%;
-                    font-size: 20px;
+                    font-size: 18px;
                     color: @buttonColorBlue;
                 }
             }
@@ -55,7 +55,8 @@
             height: 86px;
 
             .course-name {
-                margin: 0 auto 5px auto;
+                margin: 0 auto 12px auto;
+                font-size: 25px;
             }
 
             .number, .instructor {
@@ -84,6 +85,22 @@
         }
 
         &.selected-boxes {
+            .header {
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(space-between);
+                padding: 0 8px;
+
+                .text {
+                    color: @buttonColorBlue;
+                    font-weight: bold;
+                }
+
+                .progress {
+                    color: @textColorGrey;
+                }
+            }
+
             .empty {
                 .displayFlex;
                 .align-items(center);
@@ -185,7 +202,6 @@
                 }
 
                 .box-style, h2 {
-                    font-size: 28px;
                     line-height: 30px;
                 }
             }
