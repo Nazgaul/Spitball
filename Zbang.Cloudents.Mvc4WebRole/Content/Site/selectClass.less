@@ -87,6 +87,28 @@
                 border: 1px dashed @textColorGrey;
                 background: @backgroundCalmGrey;
                 color: @textColorGrey;
+
+                &:hover {
+                    background: @backgroundCalmGrey;
+                }
+            }
+
+            .buttons {
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(flex-end);
+
+                button {
+                    margin: 8px;
+
+                    &.done {
+                        background: @notificationColor;
+
+                        &:hover {
+                            background: #d5580c;
+                        }
+                    }
+                }
             }
         }
 
