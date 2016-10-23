@@ -9,9 +9,8 @@ var app;
         Steps[Steps["SearchSecond"] = 4] = "SearchSecond";
         Steps[Steps["SearchSecondComplete"] = 5] = "SearchSecondComplete";
         Steps[Steps["SearchMore"] = 6] = "SearchMore";
-        Steps[Steps["EmptyState"] = 7] = "EmptyState";
-        Steps[Steps["ChooseDepartment"] = 8] = "ChooseDepartment";
-        Steps[Steps["CreateClass"] = 9] = "CreateClass";
+        Steps[Steps["ChooseDepartment"] = 7] = "ChooseDepartment";
+        Steps[Steps["CreateClass"] = 8] = "CreateClass";
     })(Steps || (Steps = {}));
     var ClassChoose = (function () {
         function ClassChoose(searchService, $scope) {
@@ -31,9 +30,10 @@ var app;
                 if (step === Steps.Start) {
                     this.step = Steps.SearchFirst;
                 }
+                var selectedCourseId = this.selectedCourses.map(function (f) { return f.id; });
                 this.searchService.searchBox(this.term, 0)
                     .then(function (response) {
-                    _this.searchResult = response;
+                    _this.searchResult = response.filter(function (f) { return selectedCourseId.indexOf(f.id) === -1; });
                 });
             }
             else {
@@ -49,7 +49,12 @@ var app;
             this.term = '';
             this.searchResult = [];
             this.selectedCourses.push(course);
-            this.step = Math.min(6, this.step + 1);
+            this.step++;
+        };
+        ClassChoose.prototype.chooseMore = function () {
+            if ([Steps.SearchFirstComplete, Steps.SearchSecondComplete].indexOf(this.step) !== -1) {
+                this.step++;
+            }
         };
         ClassChoose.$inject = ["searchService", "$scope"];
         return ClassChoose;

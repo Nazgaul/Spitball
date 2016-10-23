@@ -3,7 +3,8 @@
                '2' : 'Select your first class',
                '3' : 'Good job!',
                '4' : 'One done. One more to go!',
-               '5' : '' }">
+               '5' : 'Good job!'
+               '6' : 'Continue searching for your classes' }">
 </ng-pluralize>
 <form ng-show="[1,2,4].indexOf(cc.step) !== -1" class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
     <input spellcheck="false" autofocus type="search" placeholder="Search by class name or department"
@@ -26,7 +27,7 @@
         </div>
     </div>
 
-    <div ng-switch-multiple-when="[2,4]" layout="row" layout-padding layout-wrap class="content search-results">
+    <div ng-switch-multiple-when="[2,4,6]" layout="row" layout-padding layout-wrap class="content search-results">
         <!--Artboard 1 copy 6-->
         <div class="wrapper" ng-repeat="c in cc.searchResult track by c.id" flex="50" flex-xs="100">
             <div class="result box-style" ng-click="cc.chose(c)">
@@ -59,11 +60,11 @@
                 </div>
             </div>
         <div class="buttons">
-            <button class="select-more action-btn" type="button" ng-click="cc.step = cc.step + 1">Select another class</button>
+            <button class="select-more action-btn" type="button" ng-click="cc.chooseMore()">Select another class</button>
             <button class="done action-btn" type="submit" ng-if="cc.step === 5"></button>
         </div>
     </div>
-    <div ng-switch-when="6" class="content">
+    <div ng-switch-when="7" class="content">
         <!--Artboard 1 copy 4-->
         <h1></h1>
         <div class="department"></div>
@@ -85,7 +86,7 @@
         </form>
     </div>
 
-    <div ng-switch-when="7" class="content">
+    <div ng-switch-when="8" class="content">
         <!--Artboard 1 copy 3-->
         <h1></h1>
         <div class="department"></div>
