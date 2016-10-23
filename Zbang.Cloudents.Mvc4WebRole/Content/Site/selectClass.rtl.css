@@ -42,21 +42,35 @@
   font-size: 20px;
   color: #4190b9;
 }
-.class-choose .content.search-results .wrapper {
-  padding: 8px;
+.class-choose .content .box-style {
+  padding: 10px 15px;
+  text-align: right;
+  height: 86px;
+}
+.class-choose .content .box-style .course-name {
+  margin: 0 auto 5px auto;
+}
+.class-choose .content .box-style .number,
+.class-choose .content .box-style .instructor {
+  min-height: 14px;
+  line-height: 14px;
 }
 .class-choose .content.search-results .wrapper .result {
   height: auto;
   padding: 10px 15px;
   text-align: right;
 }
-.class-choose .content.search-results .wrapper .result .course-name {
-  margin: 0 auto 5px auto;
-}
-.class-choose .content.search-results .wrapper .result .number,
-.class-choose .content.search-results .wrapper .result .instructor {
-  min-height: 14px;
-  line-height: 14px;
+.class-choose .content.selected-boxes .empty {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  border: 1px dashed #888b8e;
+  background: #eeeeee;
+  color: #888b8e;
 }
 .class-choose .search-form {
   border-radius: 15px;
