@@ -14,7 +14,7 @@
         <md-icon md-svg-icon="t:searchIcon"></md-icon>
     </button>
 </form>
-<div @*ng-switch="cc.step"*@ ng-switch="8">
+<div ng-switch="cc.step">
     <div ng-switch-when="1" class="content default">
         <!--Artboard 1 copy / copy 7 / copy 8 -->
 
@@ -36,7 +36,7 @@
         </div>
         <div class="empty-state" ng-if="cc.noresult">
             <div class="text">We could not find any Class or Department.<br />Try to search again or add this class to our listings.</div>
-            <button type="button" class="create-class action-btn" ng-click="cc.step = 7">Create a new class</button>
+            <button type="button" class="create-class action-btn" ng-click="cc.selectDepartment()">Create a new class</button>
         </div>
     </div>
 

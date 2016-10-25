@@ -13,9 +13,11 @@ var app;
         Steps[Steps["CreateClass"] = 8] = "CreateClass";
     })(Steps || (Steps = {}));
     var ClassChoose = (function () {
-        function ClassChoose(searchService, $scope) {
+        function ClassChoose(searchService, $scope, libraryService, user) {
             this.searchService = searchService;
             this.$scope = $scope;
+            this.libraryService = libraryService;
+            this.user = user;
             this.step = Steps.Start;
             this.selectedCourses = [];
             this.noresult = false;
@@ -56,12 +58,20 @@ var app;
             this.selectedCourses.push(course);
             this.step++;
         };
+        ClassChoose.prototype.selectDepartment = function () {
+            var _this = this;
+            this.libraryService.getDepartments(null, this.user.university.id)
+                .then(function (response) {
+                console.log(response);
+                _this.departmentlist = response;
+            });
+        };
         ClassChoose.prototype.chooseMore = function () {
             if ([Steps.SearchFirstComplete, Steps.SearchSecondComplete].indexOf(this.step) !== -1) {
                 this.step++;
             }
         };
-        ClassChoose.$inject = ["searchService", "$scope"];
+        ClassChoose.$inject = ["searchService", "$scope", "libraryService", "user"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);

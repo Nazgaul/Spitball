@@ -12,13 +12,17 @@
         CreateClass = 8
     }
     class ClassChoose {
-        static $inject = ["searchService", "$scope"];
+        static $inject = ["searchService", "$scope", "libraryService","user"];
         step = Steps.Start;
         term;
         searchResult;
         selectedCourses = [];
         noresult = false;
-        constructor(private searchService: ISearchService, private $scope: angular.IScope) {
+        departmentlist;
+        constructor(private searchService: ISearchService,
+            private $scope: angular.IScope,
+            private libraryService: ILibraryService,
+            private user: IUserData) {
 
         }
         classSearch() {
@@ -33,14 +37,14 @@
                 if (step === Steps.Start) {
                     this.step = Steps.SearchFirst;
                 }
-                var selectedCourseId: Array<number> =  this.selectedCourses.map(f => { return f.id });
+                var selectedCourseId: Array<number> = this.selectedCourses.map(f => { return f.id });
                 this.searchService.searchBox(this.term, 0)
                     .then((response: Array<any>) => {
                         this.searchResult = response.filter(f => selectedCourseId.indexOf(f.id) === -1);
                         if (!response.length) {
                             this.noresult = true;
                         }
-                        
+
                     });
             } else {
                 if (step === Steps.SearchFirst) {
@@ -57,6 +61,13 @@
             this.searchResult = [];
             this.selectedCourses.push(course);
             this.step++;
+        }
+        selectDepartment() {
+            this.libraryService.getDepartments(null, this.user.university.id)
+                .then(response => {
+                    console.log(response);
+                    this.departmentlist = response;
+                });
         }
 
         chooseMore() {
