@@ -11,7 +11,7 @@
         margin: 0 auto;
         width: 100%;
         display: block;
-        font-size: 32px;
+        font-size: 30px;
         padding-top: 50px;
         //padding: 50px 0;
         font-weight: bold;
@@ -64,10 +64,11 @@
 
             .course-name {
                 margin: 0 auto 12px auto;
-                font-size: 25px;
+                font-size: 20px;
             }
 
             .number, .instructor {
+                font-size: 12px;
                 min-height: 14px;
                 line-height: 14px;
             }
@@ -215,6 +216,10 @@
             .box-style {
                 height: 50px;
                 margin: 0 auto;
+
+                span {
+                    font-size: 25px;
+                }
             }
         }
 
@@ -229,24 +234,35 @@
                 }
             }
 
-            .add-department button {
-                width: 100%;
-                padding: 0 10px;
-                .displayFlex;
-                .align-items(center);
-                .justifyContet(center);
+            .add-department {
+                button {
+                    width: 100%;
+                    padding: 0 10px;
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(center);
 
-                md-icon {
-                    width: 16px;
-                    height: 16px;
-                    fill: @buttonColorBlue;
+                    md-icon {
+                        width: 16px;
+                        height: 16px;
+                        fill: @buttonColorBlue;
+                    }
+
+                    h2 {
+                        color: @buttonColorBlue;
+                        font-size: 16px;
+                        height: auto;
+                        margin: 0 10px;
+                    }
                 }
 
-                h2 {
-                    color: @buttonColorBlue;
+                form input {
+                    height: 100%;
+                    width: 100%;
+                    border: none;
+                    border-bottom: 1px solid @textColorGrey;
+                    background: none;
                     font-size: 16px;
-                    height: auto;
-                    margin: 0 10px;
                 }
             }
 
@@ -272,6 +288,7 @@
             padding: 0 10px 0 25px;
             width: ~"calc(100% - 60px)";
             border: 0;
+            .placeHolder(@headerbackground);
         }
 
         .search-button {

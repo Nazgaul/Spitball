@@ -71,7 +71,7 @@
             this.term = '';
             this.searchResult = [];
             this.selectedCourses.push(course);
-            this.step++;
+            this.step = Math.min(this.step + 1, 5);
         }
         selectDepartment(department) {
             this.term = '';
