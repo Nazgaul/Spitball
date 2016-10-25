@@ -98,6 +98,7 @@
   font-weight: bold;
   max-width: 470px;
   margin: 0 auto;
+  color: #33076e;
 }
 @media (max-width: 600px) {
   .library-choose .add-univeristy h2 {

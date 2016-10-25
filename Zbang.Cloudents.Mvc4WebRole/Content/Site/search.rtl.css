@@ -154,12 +154,6 @@
   color: #888b8e;
   padding-top: 10px;
 }
-.search .no-results .text-wrapper .create-class button {
-  color: #5b9bd1;
-}
-.search .no-results .text-wrapper .create-class button:hover {
-  color: #23527c;
-}
 .search-text {
   color: #4190b9;
 }

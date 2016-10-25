@@ -41,8 +41,7 @@
   }
 }
 .class-choose .content.default .search-image .text {
-  position: absolute;
-  bottom: 0;
+  margin-top: 10px;
   text-align: center;
   width: 100%;
   font-size: 18px;
@@ -54,7 +53,7 @@
   height: 86px;
 }
 .class-choose .content .box-style .course-name {
-  margin: 0 auto 12px auto;
+  margin: 0 auto 22px auto;
   font-size: 16px;
 }
 .class-choose .content .box-style .number,
@@ -70,9 +69,21 @@
 }
 .class-choose .content.search-results .empty-state {
   margin: 0 auto;
+  max-width: 750px;
+  background-image: url(../../Images/Site/no_search_results.png);
+  background-repeat: no-repeat;
+  padding: 0 128px 0 0 /*rtl:ignore*/;
+  background-position: 100% 0 /*rtl:ignore*/;
+  background-size: 128px;
+  min-height: 400px;
+}
+.class-choose .content.search-results .empty-state h2 {
+  margin-top: 80px;
+  color: #F76446;
+  font-weight: bold;
 }
 .class-choose .content.search-results .empty-state .text {
-  margin: 50px 0 14px 0;
+  margin: 26px 0 14px 0;
   font-size: 16px;
 }
 @media (max-width: 600px) {
@@ -160,8 +171,8 @@
   background: #d5580c;
 }
 .class-choose .content.add-class .department {
-  margin-bottom: 30px;
   font-size: 16px;
+  margin: 0;
 }
 .class-choose .content.add-class form {
   margin: 20px auto;
@@ -178,6 +189,13 @@
 }
 .class-choose .content.add-class .buttons {
   text-align: right;
+}
+.class-choose .content.add-class .box-style {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
 }
 .class-choose .content.add-class .box-style,
 .class-choose .content.select-department .box-style {
@@ -305,9 +323,6 @@
   .class-choose .add-class .title {
     padding-bottom: 30px;
   }
-}
-.class-choose .add-class .department {
-  line-height: 30px;
 }
 .class-choose .switch {
   position: relative;

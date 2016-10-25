@@ -21,7 +21,7 @@
         <!--Artboard 1 copy / copy 7 / copy 8 -->
 
         <div class="search-image">
-            <img src="@Url.CdnContent("/Images/Site/search_uni.png?v=3")" alt="lama searching" />
+            <img src="@Url.CdnContent("/Images/Site/llama_books.png")" alt="lama searching" />
             <div class="text">Advance to the next level...</div>
         </div>
 
@@ -37,6 +37,7 @@
             </div>
         </div>
         <div class="empty-state" ng-if="cc.noresult">
+            <h2>we came up short...</h2>
             <div class="text">We could not find any Class or Department.<br />Try to search again or add this class to our listings.</div>
             <button type="button" class="create-class action-btn" ng-click="cc.selectDepartment()">Create a new class</button>
         </div>
@@ -72,12 +73,14 @@
     <div ng-switch-when="8" class="content add-class">
         <!--Artboard 1 copy 4-->
         <h1 class="title">Add a new class to</h1>
-        <h2 class="department box-style ellipsis" d-color="::cc.selectedDepartment.name.length" flex="50" flex-xs="100" ng-bind="::cc.selectedDepartment.name"></h2>
+        <div class="box-style" flex="50" flex-xs="100">
+            <h2 class="department ellipsis" d-color="{{::cc.selectedDepartment.name.length}}" ng-bind="::cc.selectedDepartment.name"></h2>
+        </div>
         <form name="createBox" flex="50" flex-xs="100" novalidate ng-submit="cc.createClass(createBox)">
             <md-input-container class="form-field">
                 <label for="className">@UniversityResources.EnterClassName</label>
                 <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" />
-                <div ng-messages="createBox.name.$error" @*ng-show="createBox.name.$dirty"*@>
+                <div class="error" ng-messages="createBox.name.$error" @*ng-show="createBox.name.$dirty"*@>
                     <div ng-message="required">@GeneralResources.RequiredField</div>
                     <div ng-message="server">{{cc.create.error}}</div>
                 </div>
@@ -85,11 +88,11 @@
 
             <md-input-container class="form-field">
                 <label for="classNumber">@UniversityResources.EnterCode</label>
-                <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber"/>
+                <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" />
             </md-input-container>
             <md-input-container class="form-field">
                 <label for="proffesor">@UniversityResources.Instructor</label>
-                <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor"/>
+                <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" />
             </md-input-container>
             <div class="buttons">
                 <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>
