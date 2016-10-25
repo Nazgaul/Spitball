@@ -12,12 +12,14 @@
         width: 100%;
         display: block;
         font-size: 32px;
-        padding: 50px 0;
+        padding-top: 50px;
+        //padding: 50px 0;
         font-weight: bold;
         color: @textColorPurple;
 
         @media(max-width: 600px) {
             font-size: 24px;
+            line-height: normal;
             max-width: 360px;
             padding: 0 0 10px 0;
         }
@@ -37,6 +39,12 @@
             .search-image {
                 position: relative;
                 display: inline-block;
+
+                @media(max-width: 600px) {
+                    img {
+                        height: 275px;
+                    }
+                }
 
                 .text {
                     position: absolute;
@@ -80,24 +88,40 @@
                 .text {
                     margin: 50px 0 14px 0;
                     font-size: 16px;
+
+                    @media(max-width: 600px) {
+                        font-size: 15px;
+                    }
                 }
             }
         }
 
         &.selected-boxes {
+            .subtitle {
+                font-size: 16px;
+                margin: 0;
+            }
+
             .header {
                 .displayFlex;
                 .align-items(center);
                 .justifyContet(space-between);
-                padding: 0 8px;
+                padding: 40px 8px 0 8px;
+
+                @media(max-width:600px) {
+                    padding-top: 30px;
+                }
 
                 .text {
                     color: @buttonColorBlue;
-                    font-weight: bold;
                 }
 
                 .progress {
                     color: @textColorGrey;
+                }
+
+                .text, .progress {
+                    font-size: 16px;
                 }
             }
 
@@ -111,6 +135,7 @@
 
                 h2 {
                     margin: 0;
+                    font-size: 25px;
                 }
 
                 &:hover {
@@ -164,26 +189,24 @@
             }
 
             form {
-                margin: 0 auto;
+                margin: 20px auto;
             }
 
             .form-field {
-                input {
-                    height: auto;
-                    border: none;
-                }
+                text-align: left;
+                margin-bottom: 18px;
 
-                label {
-                    text-align: left;
-                    display: block;
-                    margin: 20px 0 4px 0;
-                    font-size: 14px;
+                .md-errors-spacer {
+                    display: none;
                 }
+            }
+
+            .md-errors-spacer {
+                display: none;
             }
 
             .buttons {
                 text-align: right;
-                margin-top: 30px;
             }
         }
 
@@ -261,6 +284,22 @@
                 height: 22px;
                 fill: @textColorWhite;
             }
+        }
+    }
+
+    .search-form, .select-department .departments {
+        margin-top: 50px;
+
+        @media(max-width: 600px) {
+            margin-top: 30px;
+        }
+    }
+
+    .add-class .title {
+        padding-bottom: 50px;
+
+        @media(max-width: 600px) {
+            padding-bottom: 30px;
         }
     }
 }
