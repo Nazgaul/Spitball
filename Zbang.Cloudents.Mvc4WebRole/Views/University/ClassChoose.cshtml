@@ -3,10 +3,10 @@
                '2' : 'Select your first class',
                '3' : 'Good job!',
                '4' : 'One done. One more to go!',
-               '5' : 'Good job!',
-               '6' : 'Continue searching for your classes' }">
+               '5' : 'Well done!',
+               '6' : 'Continue searching for your classes',
+               '7' : 'Select the department for this new class'}">
 </ng-pluralize>
-{{cc.step}}xx
 <form ng-show="[1,2,4].indexOf(cc.step) !== -1" class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
     <input spellcheck="false" autofocus type="search" placeholder="Search by class name or department"
            ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" ng-minlength="2" required />
@@ -42,6 +42,7 @@
 
     <div ng-switch-multiple-when="[3,5]" class="content selected-boxes">
         <!--Artboard 1 copy 5-->
+        <h2 class="subtitle" ng-if="cc.selectedCourses.length<2">You need at least 2 classes to continue</h2>
         <div class="counter header">
             <div class="text">Your selected classes</div>
             <div class="progress">{{::cc.selectedCourses.length}}/2</div>
@@ -68,21 +69,22 @@
     </div>
     <div ng-switch-when="8" class="content add-class">
         <!--Artboard 1 copy 4-->
-        <h1 class="title">Add "" class to</h1>
+        <h1 class="title">Add a new class to</h1>
         <h2 class="department box-style ellipsis" d-color="" flex="50" flex-xs="100">Department</h2>
         <form flex="50" flex-xs="100" @*name="classChooseFrom"*@ novalidate @*ng-submit="cc.classSearch"*@>
-            <div class="form-field">
-                <label for="class-name">Class name:</label>
-                <input name="class-name" type="text" class="box-style" placeholder="Enter class name" />
-            </div>
-            <div class="form-field">
-                <label for="class-number">Class number (optional):</label>
-                <input name="class-number" type="text" class="box-style" placeholder="Enter class number" />
-            </div>
-            <div class="form-field">
+            <md-input-container class="form-field">
+                <label for="className">Class name:</label>
+                <input required md-no-asterisk autocomplete="off" type="text" name="className" placeholder="Enter class name" maxlength="35" />
+            </md-input-container>
+
+            <md-input-container class="form-field">
+                <label for="classNumber">Class number (optional):</label>
+                <input required md-no-asterisk autocomplete="off" type="text" name="classNumber" placeholder="Enter class number" maxlength="35" />
+            </md-input-container>
+            <md-input-container class="form-field">
                 <label for="proffesor">Proffesor name (optional):</label>
-                <input name="proffesor" type="text" class="box-style" placeholder="Enter proffesor name" />
-            </div>
+                <input required md-no-asterisk autocomplete="off" type="text" name="proffesor" maxlength="35" placeholder="Enter proffesor name"/>
+            </md-input-container>
             <div class="buttons">
                 <button class="cancel-btn" type="button">Cancel</button>
                 <button class="action-btn space-before" type="submit">Add</button>
@@ -92,7 +94,6 @@
 
     <div ng-switch-when="7" class="content select-department">
         <!--Artboard 1 copy 3-->
-        <h1 class="title">Select the department<br />for this new class</h1>
         <div class="departments" layout="row" layout-padding layout-wrap>
             <div class="department wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.departmentlist track by c.id">
                 <h2 class="box-style ellipsis" d-color="{{c.name.length}}" ng-bind="::c.name" ng-click="cc.selectDepartment(c)"></h2>
