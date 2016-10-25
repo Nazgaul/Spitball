@@ -43,7 +43,7 @@
     <div ng-switch-multiple-when="[3,5]" class="content selected-boxes">
         <!--Artboard 1 copy 5-->
         <div class="counter header">
-            <div class="text"></div>
+            <div class="text">Your selected classes</div>
             <div class="progress">{{::cc.selectedCourses.length}}/2</div>
         </div>
         <div class="boxes" layout="row" layout-padding layout-wrap>
@@ -57,19 +57,19 @@
 
             <div class="wrapper" flex="50" flex-xs="100" ng-repeat="i in ::cc.getRemainingElement() track by $index">
                 <div class="empty box-style">
-                    <h2 class="course-name ellipsis" ng-bind="::$index + cc.selectedCourses.length + 1"></h2>
+                    <h2 class="ellipsis">Class&nbsp;<span ng-bind="::$index + cc.selectedCourses.length + 1"></span></h2>
                 </div>
             </div>
         </div>
         <div class="buttons">
             <button class="select-more action-btn" type="button" ng-click="cc.chooseMore()">Select another class</button>
-            <button class="done action-btn" type="submit" ng-if="cc.step === 5">Done</button>
+            <button class="done action-btn space-before" type="submit" ng-if="cc.step === 5">Done</button>
         </div>
     </div>
     <div ng-switch-when="8" class="content add-class">
         <!--Artboard 1 copy 4-->
         <h1 class="title">Add "" class to</h1>
-        <div class="department box-style ellipsis" d-color="" flex="50" flex-xs="100">Department</div>
+        <h2 class="department box-style ellipsis" d-color="" flex="50" flex-xs="100">Department</h2>
         <form flex="50" flex-xs="100" @*name="classChooseFrom"*@ novalidate @*ng-submit="cc.classSearch"*@>
             <div class="form-field">
                 <label for="class-name">Class name:</label>
@@ -85,7 +85,7 @@
             </div>
             <div class="buttons">
                 <button class="cancel-btn" type="button">Cancel</button>
-                <button class="action-btn" type="submit">Add</button>
+                <button class="action-btn space-before" type="submit">Add</button>
             </div>
         </form>
     </div>
@@ -100,7 +100,7 @@
             <div class="add-department wrapper" flex="50" flex-xs="100">
                 <button type="button" class="box-style">
                     <md-icon md-svg-icon="t:add"></md-icon>
-                    <h2>Add department</h2>
+                    <h2 class="ellipsis">Add department</h2>
                 </button>
             </div>
         </div>

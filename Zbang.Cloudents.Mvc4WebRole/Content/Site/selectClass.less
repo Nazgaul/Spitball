@@ -43,7 +43,7 @@
                     bottom: 0;
                     text-align: center;
                     width: 100%;
-                    font-size: 20px;
+                    font-size: 18px;
                     color: @buttonColorBlue;
                 }
             }
@@ -55,7 +55,8 @@
             height: 86px;
 
             .course-name {
-                margin: 0 auto 5px auto;
+                margin: 0 auto 12px auto;
+                font-size: 25px;
             }
 
             .number, .instructor {
@@ -84,6 +85,22 @@
         }
 
         &.selected-boxes {
+            .header {
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(space-between);
+                padding: 0 8px;
+
+                .text {
+                    color: @buttonColorBlue;
+                    font-weight: bold;
+                }
+
+                .progress {
+                    color: @textColorGrey;
+                }
+            }
+
             .empty {
                 .displayFlex;
                 .align-items(center);
@@ -92,8 +109,31 @@
                 background: @backgroundCalmGrey;
                 color: @textColorGrey;
 
+                h2 {
+                    margin: 0;
+                }
+
                 &:hover {
                     background: @backgroundCalmGrey;
+                }
+            }
+
+            @media(max-width: 600px) {
+                .selected {
+                    .instructor, .number {
+                        display: none;
+                    }
+                }
+
+                .box-style {
+                    height: 50px;
+                }
+
+                .buttons button {
+                    width: 80%;
+                    max-width: 100%;
+                    margin-left: auto;
+                    margin-right: auto;
                 }
             }
 
@@ -101,10 +141,9 @@
                 .displayFlex;
                 .align-items(center);
                 .justifyContet(flex-end);
+                flex-wrap: wrap;
 
                 button {
-                    margin: 8px;
-
                     &.done {
                         background: @notificationColor;
 
@@ -156,7 +195,17 @@
             }
         }
 
-        &.select-department {
+        &.select-department, &.selected-boxes {
+            @media(max-width: 600px) {
+                .department, .add-department, .wrapper {
+                    padding: 4px 8px;
+                }
+
+                .box-style, h2 {
+                    line-height: 30px;
+                }
+            }
+
             .add-department button {
                 width: 100%;
                 padding: 0 10px;
@@ -181,7 +230,6 @@
             .buttons {
                 text-align: right;
                 padding: 8px;
-                margin-top: 50px;
             }
         }
     }

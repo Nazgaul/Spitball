@@ -39,7 +39,7 @@
   bottom: 0;
   text-align: center;
   width: 100%;
-  font-size: 20px;
+  font-size: 18px;
   color: #4190b9;
 }
 .class-choose .content .box-style {
@@ -48,7 +48,8 @@
   height: 86px;
 }
 .class-choose .content .box-style .course-name {
-  margin: 0 auto 5px auto;
+  margin: 0 auto 12px auto;
+  font-size: 25px;
 }
 .class-choose .content .box-style .number,
 .class-choose .content .box-style .instructor {
@@ -67,6 +68,23 @@
   margin: 50px 0 14px 0;
   font-size: 16px;
 }
+.class-choose .content.selected-boxes .header {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+.class-choose .content.selected-boxes .header .text {
+  color: #4190b9;
+  font-weight: bold;
+}
+.class-choose .content.selected-boxes .header .progress {
+  color: #888b8e;
+}
 .class-choose .content.selected-boxes .empty {
   display: -webkit-flex;
   display: -ms-flex;
@@ -79,8 +97,26 @@
   background: #eeeeee;
   color: #888b8e;
 }
+.class-choose .content.selected-boxes .empty h2 {
+  margin: 0;
+}
 .class-choose .content.selected-boxes .empty:hover {
   background: #eeeeee;
+}
+@media (max-width: 600px) {
+  .class-choose .content.selected-boxes .selected .instructor,
+  .class-choose .content.selected-boxes .selected .number {
+    display: none;
+  }
+  .class-choose .content.selected-boxes .box-style {
+    height: 50px;
+  }
+  .class-choose .content.selected-boxes .buttons button {
+    width: 80%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 .class-choose .content.selected-boxes .buttons {
   display: -webkit-flex;
@@ -90,9 +126,7 @@
   align-items: center;
   -webkit-justify-content: flex-end;
   justify-content: flex-end;
-}
-.class-choose .content.selected-boxes .buttons button {
-  margin: 8px;
+  flex-wrap: wrap;
 }
 .class-choose .content.selected-boxes .buttons button.done {
   background: #ec610d;
@@ -125,7 +159,24 @@
   height: 50px;
   margin: 0 auto;
 }
-.class-choose .content.select-department .add-department button {
+@media (max-width: 600px) {
+  .class-choose .content.select-department .department,
+  .class-choose .content.selected-boxes .department,
+  .class-choose .content.select-department .add-department,
+  .class-choose .content.selected-boxes .add-department,
+  .class-choose .content.select-department .wrapper,
+  .class-choose .content.selected-boxes .wrapper {
+    padding: 4px 8px;
+  }
+  .class-choose .content.select-department .box-style,
+  .class-choose .content.selected-boxes .box-style,
+  .class-choose .content.select-department h2,
+  .class-choose .content.selected-boxes h2 {
+    line-height: 30px;
+  }
+}
+.class-choose .content.select-department .add-department button,
+.class-choose .content.selected-boxes .add-department button {
   width: 100%;
   padding: 0 10px;
   display: -webkit-flex;
@@ -136,21 +187,23 @@
   -webkit-justify-content: center;
   justify-content: center;
 }
-.class-choose .content.select-department .add-department button md-icon {
+.class-choose .content.select-department .add-department button md-icon,
+.class-choose .content.selected-boxes .add-department button md-icon {
   width: 16px;
   height: 16px;
   fill: #4190b9;
 }
-.class-choose .content.select-department .add-department button h2 {
+.class-choose .content.select-department .add-department button h2,
+.class-choose .content.selected-boxes .add-department button h2 {
   color: #4190b9;
   font-size: 16px;
   height: auto;
   margin: 0 10px;
 }
-.class-choose .content.select-department .buttons {
+.class-choose .content.select-department .buttons,
+.class-choose .content.selected-boxes .buttons {
   text-align: right;
   padding: 8px;
-  margin-top: 50px;
 }
 .class-choose .search-form {
   border-radius: 15px;
