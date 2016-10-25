@@ -57,7 +57,7 @@
             </div>
 
             <div class="wrapper" flex="50" flex-xs="100" ng-repeat="i in ::cc.getRemainingElement() track by $index">
-                <div class="empty box-style">
+                <div class="empty box-style" ng-click="cc.chooseMore()">
                     <h2 class="ellipsis">Class&nbsp;<span ng-bind="::$index + cc.selectedCourses.length + 1"></span></h2>
                 </div>
             </div>
@@ -96,7 +96,7 @@
         <!--Artboard 1 copy 3-->
         <div class="departments" layout="row" layout-padding layout-wrap>
             <div class="department wrapper" flex="50" flex-xs="100">
-                <h2 class="box-style ellipsis" d-color="">aaa</h2>
+                <button class="box-style ellipsis" d-color="">aaa</button>
             </div>
             <div class="add-department wrapper" flex="50" flex-xs="100">
                 <button type="button" class="box-style">
