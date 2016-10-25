@@ -9,7 +9,7 @@
   margin: 0 auto;
   width: 100%;
   display: block;
-  font-size: 32px;
+  font-size: 30px;
   padding-top: 50px;
   font-weight: bold;
   color: #33076e;
@@ -55,10 +55,11 @@
 }
 .class-choose .content .box-style .course-name {
   margin: 0 auto 12px auto;
-  font-size: 25px;
+  font-size: 20px;
 }
 .class-choose .content .box-style .number,
 .class-choose .content .box-style .instructor {
+  font-size: 12px;
   min-height: 14px;
   line-height: 14px;
 }
@@ -256,6 +257,24 @@
   padding: 0 10px 0 25px;
   width: calc(100% - 60px);
   border: 0;
+}
+.class-choose .search-form input::-webkit-input-placeholder {
+  color: #323538;
+  opacity: 1;
+}
+.class-choose .search-form input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #323538;
+  opacity: 1;
+}
+.class-choose .search-form input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #323538;
+  opacity: 1;
+}
+.class-choose .search-form input:-ms-input-placeholder {
+  color: #323538;
+  opacity: 1;
 }
 .class-choose .search-form .search-button {
   background: #4190b9;

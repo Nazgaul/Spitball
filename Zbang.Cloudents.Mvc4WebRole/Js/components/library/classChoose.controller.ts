@@ -12,7 +12,7 @@
         CreateClass = 8
     }
     class ClassChoose {
-        static $inject = ["searchService", "$scope", "libraryService","user"];
+        static $inject = ["searchService", "$scope", "libraryService", "user"];
         step = Steps.Start;
         term;
         searchResult;
@@ -61,7 +61,7 @@
             this.term = '';
             this.searchResult = [];
             this.selectedCourses.push(course);
-            this.step++;
+            this.step = Math.min(this.step + 1, 5);
         }
         selectDepartment(department) {
             department = department || {};
@@ -77,7 +77,7 @@
                     }
                 });
         }
-        
+
 
         chooseMore() {
             if ([Steps.SearchFirstComplete, Steps.SearchSecondComplete].indexOf(this.step) !== -1) {
