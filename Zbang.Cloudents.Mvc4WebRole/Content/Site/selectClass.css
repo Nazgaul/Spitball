@@ -55,7 +55,7 @@
 }
 .class-choose .content .box-style .course-name {
   margin: 0 auto 12px auto;
-  font-size: 20px;
+  font-size: 16px;
 }
 .class-choose .content .box-style .number,
 .class-choose .content .box-style .instructor {
@@ -123,7 +123,7 @@
 }
 .class-choose .content.selected-boxes .empty h2 {
   margin: 0;
-  font-size: 25px;
+  font-size: 16px;
 }
 .class-choose .content.selected-boxes .empty:hover {
   background: #eeeeee;
@@ -161,6 +161,7 @@
 }
 .class-choose .content.add-class .department {
   margin-bottom: 30px;
+  font-size: 16px;
 }
 .class-choose .content.add-class form {
   margin: 20px auto;
@@ -185,7 +186,8 @@
 }
 .class-choose .content.add-class .box-style span,
 .class-choose .content.select-department .box-style span {
-  font-size: 25px;
+  font-size: 16px;
+  display: block;
 }
 @media (max-width: 600px) {
   .class-choose .content.select-department .department,
@@ -303,4 +305,28 @@
   .class-choose .add-class .title {
     padding-bottom: 30px;
   }
+}
+.class-choose .add-class .department {
+  line-height: 30px;
+}
+.class-choose .switch {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+.class-choose .switch .content.ng-animate {
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.class-choose .switch .content.ng-leave.ng-leave-active,
+.class-choose .switch .content.ng-enter {
+  top: -50px;
+}
+.class-choose .switch .content.ng-leave,
+.class-choose .switch .content.ng-enter.ng-enter-active {
+  top: 0;
 }
