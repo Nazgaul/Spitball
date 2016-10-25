@@ -64,7 +64,7 @@
 
             .course-name {
                 margin: 0 auto 12px auto;
-                font-size: 20px;
+                font-size: 16px;
             }
 
             .number, .instructor {
@@ -136,7 +136,7 @@
 
                 h2 {
                     margin: 0;
-                    font-size: 25px;
+                    font-size: 16px;
                 }
 
                 &:hover {
@@ -187,6 +187,7 @@
 
             .department {
                 margin-bottom: 30px;
+                font-size: 16px;
             }
 
             form {
@@ -218,7 +219,8 @@
                 margin: 0 auto;
 
                 span {
-                    font-size: 25px;
+                    font-size: 16px;
+                    display: block;
                 }
             }
         }
@@ -312,11 +314,43 @@
         }
     }
 
-    .add-class .title {
-        padding-bottom: 50px;
+    .add-class {
+        .title {
+            padding-bottom: 50px;
 
-        @media(max-width: 600px) {
-            padding-bottom: 30px;
+            @media(max-width: 600px) {
+                padding-bottom: 30px;
+            }
         }
+
+        .department {
+            line-height: 30px;
+        }
+    }
+
+
+    .switch {
+        position: relative;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .switch .content.ng-animate {
+        transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .switch .content.ng-leave.ng-leave-active,
+    .switch .content.ng-enter {
+        top: -50px;
+    }
+
+    .switch .content.ng-leave,
+    .switch .content.ng-enter.ng-enter-active {
+        top: 0;
     }
 }
