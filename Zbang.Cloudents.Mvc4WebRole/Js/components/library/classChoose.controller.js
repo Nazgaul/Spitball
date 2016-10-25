@@ -58,12 +58,20 @@ var app;
             this.selectedCourses.push(course);
             this.step++;
         };
-        ClassChoose.prototype.selectDepartment = function () {
+        ClassChoose.prototype.selectDepartment = function (department) {
             var _this = this;
-            this.libraryService.getDepartments(null, this.user.university.id)
+            department = department || {};
+            this.step = Steps.ChooseDepartment;
+            this.libraryService.getDepartments(department.id, this.user.university.id, true)
                 .then(function (response) {
                 console.log(response);
-                _this.departmentlist = response;
+                if (response.nodes.length) {
+                    _this.departmentlist = response.nodes;
+                }
+                else {
+                    _this.selectedDepartment = department;
+                    _this.step = Steps.CreateClass;
+                }
             });
         };
         ClassChoose.prototype.chooseMore = function () {
