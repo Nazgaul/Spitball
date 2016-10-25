@@ -225,6 +225,7 @@
   justify-content: center;
   flex-shrink: 0;
   padding: 0 7px;
+  background-color: #F3565D;
 }
 .main-md-sidenav .menu-toggle-list {
   background: #fff;
