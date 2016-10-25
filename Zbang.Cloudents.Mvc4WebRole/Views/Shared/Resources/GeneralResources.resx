@@ -211,4 +211,7 @@ but try checking the documents tab for related material</value>
   <data name="SearchMobile" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="Class" xml:space="preserve">
+    <value>Class</value>
+  </data>
 </root>

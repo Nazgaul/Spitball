@@ -208,4 +208,7 @@
   <data name="SearchMobile" xml:space="preserve">
     <value>חפש</value>
   </data>
+  <data name="Class" xml:space="preserve">
+    <value>קורס</value>
+  </data>
 </root>

@@ -40,6 +40,9 @@
 }
 .dashboard .leaderboardbox {
   height: 179px;
+  padding: 10px;
+}
+.dashboard .score-board {
   padding: 0;
 }
 .dashboard .dashboard-actions .actions-container {

@@ -1,16 +1,28 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
-<ng-pluralize class="title" count="cc.step" when="{
+@using Zbang.Cloudents.Mvc4WebRole.Js.Resources
+@*<ng-pluralize class="title" count="cc.step" when="{
                '1' : 'Let us help you find the classes you are taking',
                '2' : 'Select your first class',
                '3' : 'Good job!',
                '4' : 'One done. One more to go!',
                '5' : 'Well done!',
                '6' : 'Continue searching for your classes',
-               '7' : 'Select the department for this new class'}">
-</ng-pluralize>
+               '7' : 'Select the department for this new class',
+               '8' : 'Add a new class to'}">
+</ng-pluralize>*@
+<div ng-switch="cc.step" class="title">
+    <h2 ng-switch-when="1">@UniversityResources.OnboardingHeaderStep1</h2>
+    <h2 ng-switch-when="2">@UniversityResources.OnboardingHeaderStep2</h2>
+    <h2 ng-switch-when="3">@UniversityResources.OnboardingHeaderStep3</h2>
+    <h2 ng-switch-when="4">@UniversityResources.OnboardingHeaderStep4</h2>
+    <h2 ng-switch-when="5">@UniversityResources.OnboardingHeaderStep5</h2>
+    <h2 ng-switch-when="6">@UniversityResources.OnboardingHeaderStep6</h2>
+    <h2 ng-switch-when="7">@UniversityResources.OnboardingHeaderStep7</h2>
+    <h2 ng-switch-when="8">@UniversityResources.OnboardingHeaderStep8</h2>
+</div>
 <form ng-show="[1,2,4,6].indexOf(cc.step) !== -1" class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
-    <input spellcheck="false" autofocus type="search" placeholder="Search by class name or department"
+    <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
            ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" ng-minlength="2" required />
     <button type="submit" class="search-button" ng-disabled="classChooseFrom.$invalid">
         <md-icon md-svg-icon="t:searchIcon"></md-icon>
@@ -19,8 +31,8 @@
 <div ng-switch="cc.step">
     <div ng-switch-when="1" class="content default">
         <div class="search-image">
-            <img src="@Url.CdnContent("/Images/Site/llama_books.png")" alt="lama searching" />
-            <div class="text">Advance to the next level...</div>
+            <img src="@Url.CdnContent("/Images/Site/llama_books.png?v=1")" alt="lama searching" />
+            <div class="text">@UniversityResources.OnboardingSelectCourseValue</div>
         </div>
     </div>
     <div ng-switch-multiple-when="[2,4,6]" layout="row" layout-padding layout-wrap class="content search-results">
@@ -32,16 +44,16 @@
             </div>
         </div>
         <div class="empty-state" ng-if="cc.noresult">
-            <h2>we came up short...</h2>
-            <div class="text">We could not find any Class or Department.<br />Try to search again or add this class to our listings.</div>
-            <button type="button" class="create-class action-btn" ng-click="cc.selectDepartment()">Create a new class</button>
+            <h2>@GeneralResources.NoResultsTitle</h2>
+            <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
+            <button type="button" class="create-class action-btn" ng-click="cc.selectDepartment()">@UniversityResources.OnboardingCreateClass</button>
         </div>
     </div>
 
     <div ng-switch-multiple-when="[3,5]" class="content selected-boxes">
-        <h2 class="subtitle" ng-if="cc.selectedCourses.length<2">You need at least 2 classes to continue</h2>
+        <h2 class="subtitle" ng-if="cc.selectedCourses.length<2">@UniversityResources.OnboardingMinClassNum</h2>
         <div class="counter header">
-            <div class="text">Your selected classes</div>
+            <div class="text">@UniversityResources.OnboardingSelectedClasses</div>
             <div class="progress">{{::cc.selectedCourses.length}}/2</div>
         </div>
         <div class="boxes" layout="row" layout-padding layout-wrap>
@@ -55,17 +67,16 @@
 
             <div class="wrapper" flex="50" flex-xs="100" ng-repeat="i in ::cc.getRemainingElement() track by $index">
                 <div class="empty box-style" ng-click="cc.chooseMore()">
-                    <h2 class="ellipsis">Class&nbsp;<span ng-bind="::$index + cc.selectedCourses.length + 1"></span></h2>
+                    <h2 class="ellipsis">@GeneralResources.Class&nbsp;<span ng-bind="::$index + cc.selectedCourses.length + 1"></span></h2>
                 </div>
             </div>
         </div>
         <div class="buttons">
-            <button class="select-more action-btn" type="button" ng-click="cc.chooseMore()">Select another class</button>
-            <button class="done action-btn space-before" type="submit" ng-if="cc.step === 5">Done</button>
+            <button class="select-more action-btn" type="button" ng-click="cc.chooseMore()">@UniversityResources.OnboardingSelectAnotherClass</button>
+            <button class="done action-btn space-before" type="submit" ng-if="cc.step === 5">@JsResources.settingsDone</button>
         </div>
     </div>
     <div ng-switch-when="8" class="content add-class">
-        <h1 class="title">Add a new class to</h1>
         <div class="box-style" flex="50" flex-xs="100">
             <h2 class="department ellipsis" d-color="{{::cc.selectedDepartment.name.length}}" ng-bind="::cc.selectedDepartment.name"></h2>
         </div>
@@ -107,8 +118,8 @@
                     <h2 class="ellipsis">@UniversityResources.AddDepartment</h2>
                 </button>
                 <form ng-show="cc.showCreateDepartment" class="box-style" ng-submit="cc.createDepartment(newDepartment)" name="newDepartment">
-                    <input id="createDepartment" name="name" ng-model="cc.create.department" required type="text" ng-blur="cc.createDepartment(newDepartment)"  ng-change="newDepartment.name.$setValidity('server',true)"/>
-                    <div ng-messages="newDepartment.name.$error" ng-show="newDepartment.name.$dirty">
+                    <input id="createDepartment" name="name" ng-model="cc.create.department" required type="text" ng-blur="cc.createDepartment(newDepartment)" ng-change="newDepartment.name.$setValidity('server',true)" />
+                    <div class="error" ng-messages="newDepartment.name.$error" ng-show="newDepartment.name.$dirty">
                         <div ng-message="required">@GeneralResources.RequiredField</div>
                         <div ng-message="server">{{cc.create.error}}</div>
                     </div>

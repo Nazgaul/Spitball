@@ -6,13 +6,13 @@
         margin-right: -@widthOfChat;
     }
 
-    .title {
+    .title h2 {
         text-align: center;
         margin: 0 auto;
         width: 100%;
         display: block;
         font-size: 30px;
-        padding-top: 50px;
+        padding-top: 47px;
         //padding: 50px 0;
         font-weight: bold;
         color: @textColorPurple;
@@ -31,7 +31,7 @@
         text-align: center;
 
         img {
-            margin: 40px auto 0 auto;
+            margin: 30px auto 0 auto;
             display: block;
         }
 
@@ -92,15 +92,21 @@
                 background-size: 128px;
                 min-height: 400px;
 
+                @media(max-width: 600px) {
+                    padding: 0;
+                    background-image: none;
+                }
+
                 h2 {
                     margin-top: 80px;
-                    color: #F76446;
+                    color: @svgQuizRanking;
                     font-weight: bold;
                 }
 
                 .text {
                     margin: 26px 0 14px 0;
                     font-size: 16px;
+                    white-space: pre-wrap;
 
                     @media(max-width: 600px) {
                         font-size: 15px;
@@ -194,8 +200,7 @@
         }
 
         &.add-class {
-            h1 {
-            }
+            padding-top: 40px;
 
             .department {
                 font-size: 16px;
@@ -238,6 +243,7 @@
                 span {
                     font-size: 16px;
                     display: block;
+                    line-height: normal;
                 }
             }
         }
@@ -275,25 +281,35 @@
                     }
                 }
 
-                form input {
-                    height: 100%;
-                    width: 100%;
-                    border: none;
-                    border-bottom: 1px solid @textColorGrey;
-                    background: none;
-                    font-size: 16px;
+                form {
+                    position: relative;
+
+                    input {
+                        height: 100%;
+                        width: 100%;
+                        border: none;
+                        border-bottom: 1px solid @textColorGrey;
+                        background: none;
+                        font-size: 16px;
+                    }
+
+                    .error {
+                        position: absolute;
+                        bottom: -16px;
+                        color: rgb(221,44,0);
+                    }
                 }
             }
 
             .buttons {
                 text-align: right;
-                padding: 8px;
+                padding: 16px 8px 8px 8px;
             }
         }
     }
 
     .search-form {
-        border-radius: 15px;
+        border-radius: 5px;
         overflow: hidden;
         margin-bottom: 30px;
         max-width: 600px;
@@ -308,6 +324,12 @@
             width: ~"calc(100% - 60px)";
             border: 0;
             .placeHolder(@headerbackground);
+            color: @buttonColorBlue;
+
+            @media(max-width: 600px) {
+                font-size: 16px;
+                padding: 0 10px;
+            }
         }
 
         .search-button {
@@ -324,7 +346,8 @@
     }
 
     .search-form, .select-department .departments {
-        margin-top: 50px;
+        margin-top: 46px;
+        margin-bottom: 0;
 
         @media(max-width: 600px) {
             margin-top: 30px;
