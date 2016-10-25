@@ -23,11 +23,12 @@ var app;
                 country: country
             }, 'university');
         };
-        Library.prototype.createDepartment = function (name, nodeId) {
-            return this.ajaxService.post('/university/create/', {
+        Library.prototype.createDepartment = function (name, nodeId, skipUrl) {
+            return this.ajaxService.post("/university/create/", {
                 name: name,
-                parentId: nodeId
-            }, 'department');
+                parentId: nodeId,
+                skipUrl: skipUrl
+            }, "department");
         };
         Library.prototype.deleteDepartment = function (id) {
             return this.ajaxService.post('/university/deletenode/', {

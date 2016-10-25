@@ -16,9 +16,15 @@
         id: number;
         name: string;
         courseCode: string;
-        professor:string;
+        professor: string;
 
     }
+    interface ISelectedDepartment {
+        name: string;
+        id: Guid;
+    }
+
+    var currentNodeId;
     class ClassChoose {
         static $inject = ["searchService", "$scope", "libraryService", "user"];
         step = Steps.Start;
@@ -27,9 +33,10 @@
         selectedCourses: Array<IBox> = [];
         noresult = false;
         departmentlist;
-        selectedDepartment;
+        selectedDepartment: ISelectedDepartment;
         submitDisabled = false;
         create = {};
+        showCreateDepartment: boolean;
         constructor(private searchService: ISearchService,
             private $scope: angular.IScope,
             private libraryService: ILibraryService,
@@ -48,7 +55,7 @@
                 if (step === Steps.Start) {
                     this.step = Steps.SearchFirst;
                 }
-                var selectedCourseId: Array<number> = this.selectedCourses.map(f => { return f.id });
+                var selectedCourseId = this.selectedCourses.map(f => { return f.id });
                 this.searchService.searchBox(this.term, 0)
                     .then((response: Array<any>) => {
                         this.searchResult = response.filter(f => selectedCourseId.indexOf(f.id) === -1);
@@ -76,8 +83,9 @@
         selectDepartment(department) {
             this.term = '';
             department = department || {};
+            currentNodeId = department.id;
             this.step = Steps.ChooseDepartment;
-            this.libraryService.getDepartments(department.id, this.user.university.id, true)
+            this.libraryService.getDepartments(currentNodeId, this.user.university.id, true)
                 .then(response => {
                     if (response.nodes.length) {
                         this.departmentlist = response.nodes;
@@ -106,6 +114,24 @@
             }
 
         }
+        createDepartment(newDepartment: angular.IFormController) {
+            const name = this.create["department"];
+            if (!name) {
+                this.showCreateDepartment = false;
+                return;
+            }
+            this.libraryService.createDepartment(name, currentNodeId, true)
+                .then(response => {
+                    this.selectedDepartment = {
+                        id: response.id,
+                        name: response.name
+                    }
+                    this.step = Steps.CreateClass;
+                }).catch(response => {
+                    newDepartment["name"].$setValidity('server', false);
+                    this.create["error"] = response;
+                });
+        }
         createClass(createBox: angular.IFormController) {
             if (createBox.$invalid) {
                 return;
@@ -124,8 +150,8 @@
                         professor: createObj.professor
                     });
                     angular.forEach(createObj,
-                    (value, key) => {
-                        this.create[key] = '';
+                        (value, key) => {
+                            this.create[key] = '';
                         });
                     if (this.selectedCourses.length === 1) {
                         this.step = Steps.SearchFirstComplete;
@@ -140,7 +166,7 @@
                 }).finally(() => {
                     this.submitDisabled = false;
                 });
-          
+
         }
     }
 
