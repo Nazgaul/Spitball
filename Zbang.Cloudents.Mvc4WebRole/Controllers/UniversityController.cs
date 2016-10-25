@@ -220,7 +220,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, ActionName("Nodes")]
-        public async Task<ActionResult> NodesAsync(string section, long universityId)
+        public async Task<ActionResult> NodesAsync(string section, long universityId, bool? skipUrl)
         {
             try
             {
@@ -230,6 +230,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     return JsonError();
 
                 }
+                var guid = GuidEncoder.TryParseNullableGuid(section);
+                var query = new GetLibraryNodeQuery(universityId, guid, User.GetUserId());
+                var result = await ZboxReadService.GetLibraryNodeAsync(query);
+                if (result.Nodes == null) return JsonOk(result);
+                if (skipUrl.GetValueOrDefault(true)) return JsonOk(result);
                 var route = BuildRouteDataFromUrl(Request.UrlReferrer.AbsoluteUri);
 
                 var universityName = route.Values["universityName"];
@@ -238,11 +243,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     universityNameDecoded = HttpUtility.UrlDecode(universityName.ToString());
                 }
-
-                var guid = GuidEncoder.TryParseNullableGuid(section);
-                var query = new GetLibraryNodeQuery(universityId, guid, User.GetUserId());
-                var result = await ZboxReadService.GetLibraryNodeAsync(query);
-                if (result.Nodes == null) return JsonOk(result);
                 foreach (var node in result.Nodes)
                 {
                     node.Url = Url.RouteUrlCache("universityLibraryNodes", new RouteValueDictionary

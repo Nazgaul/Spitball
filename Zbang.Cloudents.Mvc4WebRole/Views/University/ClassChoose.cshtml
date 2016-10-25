@@ -94,8 +94,8 @@
         <!--Artboard 1 copy 3-->
         <h1 class="title">Select the department<br />for this new class</h1>
         <div class="departments" layout="row" layout-padding layout-wrap>
-            <div class="department wrapper" flex="50" flex-xs="100">
-                <h2 class="box-style ellipsis" d-color="">aaa</h2>
+            <div class="department wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.departmentlist track by c.id">
+                <h2 class="box-style ellipsis" d-color="{{c.name.length}}" ng-bind="::c.name" ng-click="cc.selectDepartment(c)"></h2>
             </div>
             <div class="add-department wrapper" flex="50" flex-xs="100">
                 <button type="button" class="box-style">

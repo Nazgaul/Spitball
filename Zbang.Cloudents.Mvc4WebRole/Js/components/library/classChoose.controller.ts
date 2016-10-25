@@ -19,6 +19,7 @@
         selectedCourses = [];
         noresult = false;
         departmentlist;
+        selectedDepartment;
         constructor(private searchService: ISearchService,
             private $scope: angular.IScope,
             private libraryService: ILibraryService,
@@ -62,13 +63,21 @@
             this.selectedCourses.push(course);
             this.step++;
         }
-        selectDepartment() {
-            this.libraryService.getDepartments(null, this.user.university.id)
+        selectDepartment(department) {
+            department = department || {};
+            this.step = Steps.ChooseDepartment;
+            this.libraryService.getDepartments(department.id, this.user.university.id, true)
                 .then(response => {
                     console.log(response);
-                    this.departmentlist = response;
+                    if (response.nodes.length) {
+                        this.departmentlist = response.nodes;
+                    } else {
+                        this.selectedDepartment = department;
+                        this.step = Steps.CreateClass;
+                    }
                 });
         }
+        
 
         chooseMore() {
             if ([Steps.SearchFirstComplete, Steps.SearchSecondComplete].indexOf(this.step) !== -1) {
