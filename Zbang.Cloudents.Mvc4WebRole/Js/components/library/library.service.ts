@@ -5,7 +5,7 @@
         getUniversity(term: string, page: number): angular.IPromise<any>;
         chooseUniversity(universityId: number, studentId: string): angular.IPromise<any>;
         createUniversity(name: string, country: string): angular.IPromise<any>;
-        createDepartment(name: string, nodeId: Guid): angular.IPromise<any>;
+        createDepartment(name: string, nodeId: Guid, skipUrl?: boolean): angular.IPromise<any>;
         deleteDepartment(id: Guid): angular.IPromise<any>;
         createClass(name: string, code: string, professor: string, nodeId: Guid): angular.IPromise<any>;
         updateSettings(name: string, nodeId: Guid, settings): angular.IPromise<any>;
@@ -35,11 +35,12 @@
                 country: country
             }, 'university');
         }
-        createDepartment(name, nodeId) {
-            return this.ajaxService.post('/university/create/', {
+        createDepartment(name, nodeId, skipUrl?: boolean) {
+            return this.ajaxService.post("/university/create/", {
                 name: name,
-                parentId: nodeId
-            }, 'department');
+                parentId: nodeId,
+                skipUrl: skipUrl
+            }, "department");
         }
         deleteDepartment(id) {
             return this.ajaxService.post('/university/deletenode/', {

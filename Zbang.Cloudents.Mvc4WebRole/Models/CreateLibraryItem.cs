@@ -9,5 +9,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models
 
 
         public string ParentId { get; set; }
+
+        public bool SkipUrl { get; set; }
     }
 }

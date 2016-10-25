@@ -25,11 +25,6 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var user = m_UserRepository.Load(message.UserId);
-
-            //if (!user.IsAdmin())
-            //{
-            //    throw new UnauthorizedAccessException();
-            //}
             if (message.UniversityId != user.University.Id)
             {
                 throw new UnauthorizedAccessException();

@@ -12,6 +12,7 @@ var app;
         Steps[Steps["ChooseDepartment"] = 7] = "ChooseDepartment";
         Steps[Steps["CreateClass"] = 8] = "CreateClass";
     })(Steps || (Steps = {}));
+    var currentNodeId;
     var ClassChoose = (function () {
         function ClassChoose(searchService, $scope, libraryService, user) {
             this.searchService = searchService;
@@ -64,8 +65,9 @@ var app;
             var _this = this;
             this.term = '';
             department = department || {};
+            currentNodeId = department.id;
             this.step = Steps.ChooseDepartment;
-            this.libraryService.getDepartments(department.id, this.user.university.id, true)
+            this.libraryService.getDepartments(currentNodeId, this.user.university.id, true)
                 .then(function (response) {
                 if (response.nodes.length) {
                     _this.departmentlist = response.nodes;
@@ -92,6 +94,25 @@ var app;
             if ([Steps.SearchFirstComplete, Steps.SearchSecondComplete].indexOf(this.step) !== -1) {
                 this.step++;
             }
+        };
+        ClassChoose.prototype.createDepartment = function (newDepartment) {
+            var _this = this;
+            var name = this.create["department"];
+            if (!name) {
+                this.showCreateDepartment = false;
+                return;
+            }
+            this.libraryService.createDepartment(name, currentNodeId, true)
+                .then(function (response) {
+                _this.selectedDepartment = {
+                    id: response.id,
+                    name: response.name
+                };
+                _this.step = Steps.CreateClass;
+            }).catch(function (response) {
+                newDepartment["name"].$setValidity('server', false);
+                _this.create["error"] = response;
+            });
         };
         ClassChoose.prototype.createClass = function (createBox) {
             var _this = this;
