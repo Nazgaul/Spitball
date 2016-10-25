@@ -215,6 +215,10 @@
             .box-style {
                 height: 50px;
                 margin: 0 auto;
+
+                span {
+                    font-size: 25px;
+                }
             }
         }
 
@@ -229,24 +233,35 @@
                 }
             }
 
-            .add-department button {
-                width: 100%;
-                padding: 0 10px;
-                .displayFlex;
-                .align-items(center);
-                .justifyContet(center);
+            .add-department {
+                button {
+                    width: 100%;
+                    padding: 0 10px;
+                    .displayFlex;
+                    .align-items(center);
+                    .justifyContet(center);
 
-                md-icon {
-                    width: 16px;
-                    height: 16px;
-                    fill: @buttonColorBlue;
+                    md-icon {
+                        width: 16px;
+                        height: 16px;
+                        fill: @buttonColorBlue;
+                    }
+
+                    h2 {
+                        color: @buttonColorBlue;
+                        font-size: 16px;
+                        height: auto;
+                        margin: 0 10px;
+                    }
                 }
 
-                h2 {
-                    color: @buttonColorBlue;
+                form input {
+                    height: 100%;
+                    width: 100%;
+                    border: none;
+                    border-bottom: 1px solid @textColorGrey;
+                    background: none;
                     font-size: 16px;
-                    height: auto;
-                    margin: 0 10px;
                 }
             }
 

@@ -99,13 +99,19 @@
         <!--Artboard 1 copy 3-->
         <div class="departments" layout="row" layout-padding layout-wrap>
             <div class="department wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.departmentlist track by c.id">
-                <h2 class="box-style ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name" ng-click="cc.selectDepartment(c)"></h2>
+                <button class="box-style">
+                    <span class="ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name" ng-click="cc.selectDepartment(c)"></span>
+                </button>
             </div>
             <div class="add-department wrapper" flex="50" flex-xs="100">
                 <button type="button" class="box-style">
                     <md-icon md-svg-icon="t:add"></md-icon>
                     <h2 class="ellipsis">Add department</h2>
                 </button>
+
+                <form class="box-style" ng-submit="" name="newDepartment">
+                    <input required focus-me="" type="text" class="" ng-blur="" />
+                </form>
             </div>
         </div>
         <div class="buttons">

@@ -182,6 +182,10 @@
   height: 50px;
   margin: 0 auto;
 }
+.class-choose .content.add-class .box-style span,
+.class-choose .content.select-department .box-style span {
+  font-size: 25px;
+}
 @media (max-width: 600px) {
   .class-choose .content.select-department .department,
   .class-choose .content.selected-boxes .department,
@@ -222,6 +226,15 @@
   font-size: 16px;
   height: auto;
   margin: 0 10px;
+}
+.class-choose .content.select-department .add-department form input,
+.class-choose .content.selected-boxes .add-department form input {
+  height: 100%;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #888b8e;
+  background: none;
+  font-size: 16px;
 }
 .class-choose .content.select-department .buttons,
 .class-choose .content.selected-boxes .buttons {
