@@ -21,6 +21,8 @@ var app;
             this.step = Steps.Start;
             this.selectedCourses = [];
             this.noresult = false;
+            this.submitDisabled = false;
+            this.create = {};
         }
         ClassChoose.prototype.classSearch = function () {
             var _this = this;
@@ -60,11 +62,11 @@ var app;
         };
         ClassChoose.prototype.selectDepartment = function (department) {
             var _this = this;
+            this.term = '';
             department = department || {};
             this.step = Steps.ChooseDepartment;
             this.libraryService.getDepartments(department.id, this.user.university.id, true)
                 .then(function (response) {
-                console.log(response);
                 if (response.nodes.length) {
                     _this.departmentlist = response.nodes;
                 }
@@ -74,10 +76,53 @@ var app;
                 }
             });
         };
+        ClassChoose.prototype.backStep = function () {
+            var numberOfSelectedCourses = this.selectedCourses.length;
+            if (numberOfSelectedCourses > 2) {
+                this.step = Steps.SearchMore;
+                return;
+            }
+            if (numberOfSelectedCourses > 1) {
+                this.step = Steps.SearchSecond;
+                return;
+            }
+            this.step = Steps.SearchFirst;
+        };
         ClassChoose.prototype.chooseMore = function () {
             if ([Steps.SearchFirstComplete, Steps.SearchSecondComplete].indexOf(this.step) !== -1) {
                 this.step++;
             }
+        };
+        ClassChoose.prototype.createClass = function (createBox) {
+            var _this = this;
+            if (createBox.$invalid) {
+                return;
+            }
+            this.submitDisabled = true;
+            var createObj = this.create;
+            this.libraryService.createClass(createObj.name, createObj.number, createObj.professor, this.selectedDepartment.id)
+                .then(function (response) {
+                _this.selectedCourses.push({
+                    id: response.id,
+                    name: createObj.name,
+                    courseCode: createObj.number,
+                    professor: createObj.professor
+                });
+                angular.forEach(createObj, function (value, key) {
+                    _this.create[key] = '';
+                });
+                if (_this.selectedCourses.length === 1) {
+                    _this.step = Steps.SearchFirstComplete;
+                }
+                else {
+                    _this.step = Steps.SearchSecondComplete;
+                }
+            }).catch(function (response) {
+                createBox["name"].$setValidity('server', false);
+                _this.create["error"] = response;
+            }).finally(function () {
+                _this.submitDisabled = false;
+            });
         };
         ClassChoose.$inject = ["searchService", "$scope", "libraryService", "user"];
         return ClassChoose;

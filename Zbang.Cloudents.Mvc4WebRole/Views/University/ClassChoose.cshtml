@@ -1,4 +1,6 @@
-﻿<ng-pluralize class="title" count="cc.step" when="{
+﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
+<ng-pluralize class="title" count="cc.step" when="{
                '1' : 'Let us help you find the classes you are taking',
                '2' : 'Select your first class',
                '3' : 'Good job!',
@@ -71,26 +73,27 @@
         <!--Artboard 1 copy 4-->
         <h1 class="title">Add a new class to</h1>
         <h2 class="department box-style ellipsis" d-color="::cc.selectedDepartment.name.length" flex="50" flex-xs="100" ng-bind="::cc.selectedDepartment.name"></h2>
-        <form name="createBox" flex="50" flex-xs="100" novalidate @*ng-submit="cc.classSearch"*@>
+        <form name="createBox" flex="50" flex-xs="100" novalidate ng-submit="cc.createClass(createBox)">
             <md-input-container class="form-field">
-                <label for="className" >Class name:</label>
-                <input id="className" required md-no-asterisk autocomplete="off" type="text" name="className" placeholder="Enter class name" maxlength="35" />
+                <label for="className">@UniversityResources.EnterClassName</label>
+                <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" />
+                <div ng-messages="createBox.name.$error" @*ng-show="createBox.name.$dirty"*@>
+                    <div ng-message="required">@GeneralResources.RequiredField</div>
+                    <div ng-message="server">{{cc.create.error}}</div>
+                </div>
             </md-input-container>
 
             <md-input-container class="form-field">
-                <label for="classNumber">Class number (optional):</label>
-                <input id="classNumber" required md-no-asterisk autocomplete="off" type="text" name="classNumber" placeholder="Enter class number" maxlength="35" />
+                <label for="classNumber">@UniversityResources.EnterCode</label>
+                <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber"/>
             </md-input-container>
             <md-input-container class="form-field">
-                <label for="proffesor">Proffesor name (optional):</label>
-                <input id="proffesor" required md-no-asterisk autocomplete="off" type="text" name="proffesor" maxlength="35" placeholder="Enter proffesor name"/>
+                <label for="proffesor">@UniversityResources.Instructor</label>
+                <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor"/>
             </md-input-container>
-            <div ng-messages="createBox.$error">
-                <div ng-message="server">{{l.error}}</div>
-            </div>
             <div class="buttons">
-                <button class="cancel-btn" type="button">Cancel</button>
-                <button class="action-btn space-before" type="submit">Add</button>
+                <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>
+                <button class="action-btn space-before" type="submit" ng-disabled="cc.submitDisabled">@GeneralResources.Create</button>
             </div>
         </form>
     </div>
@@ -104,7 +107,7 @@
                 </button>
             </div>
             <div class="add-department wrapper" flex="50" flex-xs="100">
-                <button type="button" class="box-style">
+                <button type="button" class="box-style" @*ng-click="cc.addDepartment()"*@>
                     <md-icon md-svg-icon="t:add"></md-icon>
                     <h2 class="ellipsis">Add department</h2>
                 </button>
@@ -115,7 +118,7 @@
             </div>
         </div>
         <div class="buttons">
-            <button class="cancel-btn" type="button">Cancel</button>
+            <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>
         </div>
     </div>
 </div>
