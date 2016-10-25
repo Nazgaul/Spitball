@@ -13,7 +13,6 @@ namespace Zbang.Zbox.Domain.Commands
 
         public long Id { get; private set; }
         public string Url  { get; private set; }
-        //public Box NewBox { get; private set; }
 
     }
 }
