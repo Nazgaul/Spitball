@@ -5,8 +5,11 @@ var app;
         function Library(ajaxService) {
             this.ajaxService = ajaxService;
         }
-        Library.prototype.getDepartments = function (departmentId, universityId, skipUrl) {
-            return this.ajaxService.get("/university/nodes/", { section: departmentId, universityId: universityId, skipUrl: skipUrl });
+        Library.prototype.getDepartments = function (departmentId, universityId) {
+            return this.ajaxService.get("/university/nodes/", { section: departmentId, universityId: universityId });
+        };
+        Library.prototype.getAllDepartments = function () {
+            return this.ajaxService.get("/university/allnodes/");
         };
         Library.prototype.getUniversity = function (term, page) {
             return this.ajaxService.get("/university/search/", { term: term, page: page }, null, "uniSearch");

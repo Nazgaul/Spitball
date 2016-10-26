@@ -1092,6 +1092,9 @@
     <Content Include="Content\Site\selectClass.css">
       <DependentUpon>selectClass.less</DependentUpon>
     </Content>
+    <Content Include="Content\Site\selectClass.min.css">
+      <DependentUpon>selectClass.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\selectClass.rtl.css">
       <DependentUpon>selectClass.css</DependentUpon>
     </Content>

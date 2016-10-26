@@ -2,8 +2,8 @@
     "use strict";
 
     export interface ISearchService {
-        searchBox(term:string, page:number): angular.IPromise<any>;
-        searchBoxSelect(term:string, page:number): angular.IPromise<any>;
+        searchBox(term: string, page: number): angular.IPromise<any>;
+        searchBoxSelect(term: string, page: number): angular.IPromise<any>;
         searchItems(term: string, page: number): angular.IPromise<any>;
         searchQuizzes(term: string, page: number): angular.IPromise<any>;
     }
@@ -15,10 +15,10 @@
             private ajaxService2: IAjaxService2) {
         }
         searchBox(term: string, page: number) {
-            return this.ajaxService2.get("/search/boxes/", { q: term, page: page },"searchBox","search");
+            return this.ajaxService2.get("/search/boxes/", { q: term, page: page }, "searchBox", "search");
         }
         searchBoxSelect(term: string, page: number) {
-            return this.ajaxService2.get("/search/courseselect/", { q: term, page: page }, null, "search");
+            return this.ajaxService2.get("/search/courseselect/", { q: term, page: page }, "searchFirstBox", "search");
         }
         searchItems(term: string, page: number) {
             return this.ajaxService2.get("/search/items/", { q: term, page: page }, "searchItem", "search");

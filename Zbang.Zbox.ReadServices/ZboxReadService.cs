@@ -1142,5 +1142,14 @@ where ownerid = @UserId and boxid = @BoxId;";
                 return await conn.QueryAsync<long>(sql);
             }
         }
+
+        public async Task<IEnumerable<SmallNodeDto>>  GetUniversityNodesAsync(long universityId)
+        {
+            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = @"select LibraryId as Id,Name from zbox.Library where id = 11270";
+                return await conn.QueryAsync<SmallNodeDto>(sql);
+            }
+        }
     }
 }

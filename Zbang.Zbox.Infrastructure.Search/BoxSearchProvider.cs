@@ -8,6 +8,7 @@ using Microsoft.Azure.Search;
 using Zbang.Zbox.ViewModel.Dto.BoxDtos;
 using Zbang.Zbox.ViewModel.Dto.Search;
 using Microsoft.Azure.Search.Models;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Search
@@ -157,7 +158,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 Skip = query.RowsPerPage * query.PageNumber,
                 OrderBy = new[] { ParentDepartmentField },
                 SearchFields = new[] { NameField, DepartmentField, ProfessorField, CourseField },
-                Select = new[] { IdField, NameField, ProfessorField, CourseField }
+                Select = new[] { IdField, NameField, ProfessorField, CourseField, ParentDepartmentField }
             }, cancellationToken: cancelToken);
             return result.Results.Select(s => new SearchBoxes(
                 SeachConnection.ConvertToType<long>(s.Document.Id),
@@ -166,6 +167,9 @@ namespace Zbang.Zbox.Infrastructure.Search
                 s.Document.Course,
                 s.Document.Url
                 )
+            {
+                Department = s.Document.ParentDepartment
+            }
             ).ToList();
         }
 
@@ -186,7 +190,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 s.Document.Name,
                 s.Document.Professor,
                 s.Document.Course,
-                s.Document.Url
+                s.Document.Url,
+                (BoxType)s.Document.Type.GetValueOrDefault()
                 )
             ).ToList();
         }

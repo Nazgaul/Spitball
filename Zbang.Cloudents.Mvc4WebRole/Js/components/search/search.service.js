@@ -9,7 +9,7 @@ var app;
             return this.ajaxService2.get("/search/boxes/", { q: term, page: page }, "searchBox", "search");
         };
         SearchService.prototype.searchBoxSelect = function (term, page) {
-            return this.ajaxService2.get("/search/courseselect/", { q: term, page: page }, null, "search");
+            return this.ajaxService2.get("/search/courseselect/", { q: term, page: page }, "searchFirstBox", "search");
         };
         SearchService.prototype.searchItems = function (term, page) {
             return this.ajaxService2.get("/search/items/", { q: term, page: page }, "searchItem", "search");

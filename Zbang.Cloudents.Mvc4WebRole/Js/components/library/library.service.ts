@@ -1,7 +1,11 @@
 ﻿module app {
     'use strict';
+    export interface ISmallDepartment {
+        name: string;
+        id: Guid;
+    }
     export interface ILibraryService {
-        getDepartments(departmentId: Guid, universityId: number, skipUrl?: boolean): angular.IPromise<any>;
+        getDepartments(departmentId: Guid, universityId: number): angular.IPromise<any>;
         getUniversity(term: string, page: number): angular.IPromise<any>;
         chooseUniversity(universityId: number, studentId: string): angular.IPromise<any>;
         createUniversity(name: string, country: string): angular.IPromise<any>;
@@ -10,6 +14,7 @@
         createClass(name: string, code: string, professor: string, nodeId: Guid): angular.IPromise<any>;
         updateSettings(name: string, nodeId: Guid, settings): angular.IPromise<any>;
         requestAccess(nodeId: Guid): angular.IPromise<any>;
+        getAllDepartments(): angular.IPromise<Array<ISmallDepartment>>;
     }
 
     class Library {
@@ -17,8 +22,11 @@
         constructor(private ajaxService: IAjaxService2) {
 
         }
-        getDepartments(departmentId: Guid, universityId: number, skipUrl?: boolean) {
-            return this.ajaxService.get("/university/nodes/", { section: departmentId, universityId: universityId, skipUrl: skipUrl });
+        getDepartments(departmentId: Guid, universityId: number) {
+            return this.ajaxService.get("/university/nodes/", { section: departmentId, universityId: universityId });
+        }
+        getAllDepartments() {
+            return this.ajaxService.get("/university/allnodes/");
         }
         getUniversity(term, page) {
             return this.ajaxService.get("/university/search/", { term: term, page: page }, null, "uniSearch");

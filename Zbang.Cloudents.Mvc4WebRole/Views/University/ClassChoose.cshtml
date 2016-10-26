@@ -1,34 +1,94 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Js.Resources
-@*<ng-pluralize class="title" count="cc.step" when="{
-               '1' : 'Let us help you find the classes you are taking',
-               '2' : 'Select your first class',
-               '3' : 'Good job!',
-               '4' : 'One done. One more to go!',
-               '5' : 'Well done!',
-               '6' : 'Continue searching for your classes',
-               '7' : 'Select the department for this new class',
-               '8' : 'Add a new class to'}">
-</ng-pluralize>*@
-<div ng-switch="cc.step" class="title">
-    <h2 ng-switch-when="1">@UniversityResources.OnboardingHeaderStep1</h2>
-    <h2 ng-switch-when="2">@UniversityResources.OnboardingHeaderStep2</h2>
-    <h2 ng-switch-when="3">@UniversityResources.OnboardingHeaderStep3</h2>
-    <h2 ng-switch-when="4">@UniversityResources.OnboardingHeaderStep4</h2>
-    <h2 ng-switch-when="5">@UniversityResources.OnboardingHeaderStep5</h2>
-    <h2 ng-switch-when="6">@UniversityResources.OnboardingHeaderStep6</h2>
-    <h2 ng-switch-when="7">@UniversityResources.OnboardingHeaderStep7</h2>
-    <h2 ng-switch-when="8">@UniversityResources.OnboardingHeaderStep8</h2>
+
+<div @*ng-switch="cc.step"*@ class="title">
+    <h2 @*ng-switch-when="1"*@>@UniversityResources.OnboardingHeaderStep1</h2>
+    @*<h2 ng-switch-when="2">@UniversityResources.OnboardingHeaderStep2</h2>
+        <h2 ng-switch-when="3">@UniversityResources.OnboardingHeaderStep3</h2>
+        <h2 ng-switch-when="4">@UniversityResources.OnboardingHeaderStep4</h2>
+        <h2 ng-switch-when="5">@UniversityResources.OnboardingHeaderStep5</h2>
+        <h2 ng-switch-when="6">@UniversityResources.OnboardingHeaderStep6</h2>
+        <h2 ng-switch-when="7">@UniversityResources.OnboardingHeaderStep7</h2>
+        <h2 ng-switch-when="8">@UniversityResources.OnboardingHeaderStep8</h2>*@
 </div>
-<form ng-show="[1,2,4,6].indexOf(cc.step) !== -1" class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
-    <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
-           ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" ng-minlength="2" required />
-    <button type="submit" class="search-button" ng-disabled="classChooseFrom.$invalid">
-        <md-icon md-svg-icon="t:searchIcon"></md-icon>
-    </button>
-</form>
-<div ng-switch="cc.step">
+<div ng-if="!cc.showCreateClass">
+    <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
+        <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
+               ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
+        <button type="submit" class="search-button" @*ng-disabled="classChooseFrom.$invalid"*@>
+            <md-icon md-svg-icon="t:searchIcon"></md-icon>
+        </button>
+    </form>
+    <ol layout="row" layout-wrap>
+        <li flex="33" class="angular-animate animate-repeat" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
+            <div ng-bind="::key"></div>
+            <ol>
+                <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="c in value track by c.id">
+                    <div ng-bind="::c.name" ng-click="cc.choose(c)"></div>
+                </li>
+            </ol>
+        </li>
+    </ol>
+    <div class="empty-state" ng-if="cc.noresult">
+        <h2>@GeneralResources.NoResultsTitle</h2>
+        <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
+        <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass()">@UniversityResources.OnboardingCreateClass</button>
+    </div>
+</div>
+<div ng-if="cc.showCreateClass">
+    @*<div class="box-style" flex="50" flex-xs="100">
+        <h2 class="department ellipsis" d-color="{{::cc.selectedDepartment.name.length}}" ng-bind="::cc.selectedDepartment.name"></h2>
+    </div>*@
+    <form name="createBox" flex="50" flex-xs="100" novalidate ng-submit="cc.createClass(createBox)">
+        <md-autocomplete required md-no-asterisk md-input-name="department"
+                         md-delay="350"
+                         md-min-length="0"
+                         @*md-no-cache="false"*@
+                         md-selected-item-change="cc.selectedDepartment = item"
+                         md-select-on-match="true"
+                         md-search-text="cc.departmentName"
+                         md-items="item in cc.queryDepartments(cc.departmentName)"
+                         md-item-text="item.name"
+                         md-floating-label="@UniversityResources.SchoolName">
+            <md-item-template>
+                <span md-highlight-text="cc.departmentName" md-highlight-flags="^i">{{item.name}}</span>
+            </md-item-template>
+            @*<md-not-found>
+                    No states matching "{{ctrl.searchText}}" were found.
+                    <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
+                </md-not-found>*@
+            <div ng-messages="createBox.department.$error" ng-if="createBox.department.$touched">
+                <div ng-message="required">@GeneralResources.RequiredField</div>
+                @*<div ng-message="minlength">@UniversityResources.EntryLength</div>*@
+                <div ng-message="server">{{lc.error}}</div>
+            </div>
+        </md-autocomplete>
+        <md-input-container class="form-field">
+            <label for="className">@UniversityResources.EnterClassName</label>
+            <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" />
+            <div class="error" ng-messages="createBox.name.$error" @*ng-show="createBox.name.$dirty"*@>
+                <div ng-message="required">@GeneralResources.RequiredField</div>
+                <div ng-message="server">{{cc.create.error}}</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container class="form-field">
+            <label for="classNumber">@UniversityResources.EnterCode</label>
+            <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" />
+        </md-input-container>
+        <md-input-container class="form-field">
+            <label for="proffesor">@UniversityResources.Instructor</label>
+            <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" />
+        </md-input-container>
+        <div class="buttons">
+            <button class="cancel-btn" type="reset" ng-click="cc.showCreateClass = false;">@GeneralResources.Cancel</button>
+            <button class="action-btn space-before" type="submit" ng-disabled="cc.submitDisabled">@GeneralResources.Create</button>
+        </div>
+    </form>
+</div>
+
+@*<div ng-switch="cc.step">
     <div ng-switch-when="1" class="content default">
         <div class="search-image">
             <img src="@Url.CdnContent("/Images/Site/llama_books.png?v=1")" alt="lama searching" />
@@ -43,11 +103,7 @@
                 <div class="instructor ellipsis" ng-bind="::c.professor"></div>
             </div>
         </div>
-        <div class="empty-state" ng-if="cc.noresult">
-            <h2>@GeneralResources.NoResultsTitle</h2>
-            <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
-            <button type="button" class="create-class action-btn" ng-click="cc.selectDepartment()">@UniversityResources.OnboardingCreateClass</button>
-        </div>
+
     </div>
 
     <div ng-switch-multiple-when="[3,5]" class="content selected-boxes">
@@ -84,50 +140,50 @@
             <md-input-container class="form-field">
                 <label for="className">@UniversityResources.EnterClassName</label>
                 <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" />
-                <div class="error" ng-messages="createBox.name.$error" @*ng-show="createBox.name.$dirty"*@>
-                    <div ng-message="required">@GeneralResources.RequiredField</div>
-                    <div ng-message="server">{{cc.create.error}}</div>
-                </div>
-            </md-input-container>
-
-            <md-input-container class="form-field">
-                <label for="classNumber">@UniversityResources.EnterCode</label>
-                <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" />
-            </md-input-container>
-            <md-input-container class="form-field">
-                <label for="proffesor">@UniversityResources.Instructor</label>
-                <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" />
-            </md-input-container>
-            <div class="buttons">
-                <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>
-                <button class="action-btn space-before" type="submit" ng-disabled="cc.submitDisabled">@GeneralResources.Create</button>
-            </div>
-        </form>
-    </div>
-
-    <div ng-switch-when="7" class="content select-department" ng-init="cc.showCreateDepartment = false">
-        <div class="departments" layout="row" layout-padding layout-wrap>
-            <div class="department wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.departmentlist track by c.id">
-                <button class="box-style">
-                    <span class="ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name" ng-click="cc.selectDepartment(c)"></span>
-                </button>
-            </div>
-            <div class="add-department wrapper" flex="50" flex-xs="100">
-                <button focus-upon-click="createDepartment" type="button" class="box-style" ng-show="!cc.showCreateDepartment" ng-click="cc.showCreateDepartment = true">
-                    <md-icon md-svg-icon="t:add"></md-icon>
-                    <h2 class="ellipsis">@UniversityResources.AddDepartment</h2>
-                </button>
-                <form ng-show="cc.showCreateDepartment" class="box-style" ng-submit="cc.createDepartment(newDepartment)" name="newDepartment">
-                    <input id="createDepartment" name="name" ng-model="cc.create.department" required type="text" ng-blur="cc.createDepartment(newDepartment)" ng-change="newDepartment.name.$setValidity('server',true)" />
-                    <div class="error" ng-messages="newDepartment.name.$error" ng-show="newDepartment.name.$dirty">
+                <div class="error" ng-messages="createBox.name.$error" @*ng-show="createBox.name.$dirty"*@@*>
                         <div ng-message="required">@GeneralResources.RequiredField</div>
                         <div ng-message="server">{{cc.create.error}}</div>
                     </div>
-                </form>
+                </md-input-container>
+
+                <md-input-container class="form-field">
+                    <label for="classNumber">@UniversityResources.EnterCode</label>
+                    <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" />
+                </md-input-container>
+                <md-input-container class="form-field">
+                    <label for="proffesor">@UniversityResources.Instructor</label>
+                    <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" />
+                </md-input-container>
+                <div class="buttons">
+                    <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>
+                    <button class="action-btn space-before" type="submit" ng-disabled="cc.submitDisabled">@GeneralResources.Create</button>
+                </div>
+            </form>
+        </div>
+
+        <div ng-switch-when="7" class="content select-department" ng-init="cc.showCreateDepartment = false">
+            <div class="departments" layout="row" layout-padding layout-wrap>
+                <div class="department wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.departmentlist track by c.id">
+                    <button class="box-style">
+                        <span class="ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name" ng-click="cc.selectDepartment(c)"></span>
+                    </button>
+                </div>
+                <div class="add-department wrapper" flex="50" flex-xs="100">
+                    <button focus-upon-click="createDepartment" type="button" class="box-style" ng-show="!cc.showCreateDepartment" ng-click="cc.showCreateDepartment = true">
+                        <md-icon md-svg-icon="t:add"></md-icon>
+                        <h2 class="ellipsis">@UniversityResources.AddDepartment</h2>
+                    </button>
+                    <form ng-show="cc.showCreateDepartment" class="box-style" ng-submit="cc.createDepartment(newDepartment)" name="newDepartment">
+                        <input id="createDepartment" name="name" ng-model="cc.create.department" required type="text" ng-blur="cc.createDepartment(newDepartment)" ng-change="newDepartment.name.$setValidity('server',true)" />
+                        <div class="error" ng-messages="newDepartment.name.$error" ng-show="newDepartment.name.$dirty">
+                            <div ng-message="required">@GeneralResources.RequiredField</div>
+                            <div ng-message="server">{{cc.create.error}}</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>
             </div>
         </div>
-        <div class="buttons">
-            <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>
-        </div>
-    </div>
-</div>
+    </div>*@

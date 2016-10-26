@@ -370,6 +370,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetChatUnreadMessagesAsync(query);
         }
 
+        public Task<IEnumerable<SmallNodeDto>> GetUniversityNodesAsync(long universityId)
+        {
+            return m_ReadService.GetUniversityNodesAsync(universityId);
+        }
+
         public Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
         {
             return m_ReadService.GetQuizSolversAsync(query);

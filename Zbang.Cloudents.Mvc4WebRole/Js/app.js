@@ -17,6 +17,7 @@
          'ngScrollbars',
          'yaru22.angular-timeago',
          "oc.lazyLoad",
+         "vs-repeat",
          'app.dashboard',
          'app.library',
          'app.user',

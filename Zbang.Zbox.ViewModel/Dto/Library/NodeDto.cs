@@ -10,12 +10,18 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
 
         public string Url { get; set; }
 
-        public int NoBoxes { get; set; }
+        public int? NoBoxes { get; set; }
 
-        public int NoDepartment { get; set; }
+        public int? NoDepartment { get; set; }
 
-        public LibraryNodeSetting State { get; set; }
+        public LibraryNodeSetting? State { get; set; }
 
-        public UserLibraryRelationType UserType { get; set; }
+        public UserLibraryRelationType? UserType { get; set; }
+    }
+
+    public class SmallNodeDto
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }

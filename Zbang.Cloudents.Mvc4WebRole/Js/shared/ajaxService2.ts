@@ -22,7 +22,7 @@ module app {
         "itemComment" |
         "boxItems" |
         "boxData" |
-        "searchBox" | "searchItem" | "searchQuiz";
+        "searchBox" | "searchItem" | "searchQuiz" | "searchFirstBox";
 
     const
         second = 1000,
@@ -62,6 +62,9 @@ module app {
                 maxAge: hour
             },
             searchBox: {
+                maxAge: hour
+            },
+            searchFirstBox: {
                 maxAge: hour
             },
             searchQuiz: {

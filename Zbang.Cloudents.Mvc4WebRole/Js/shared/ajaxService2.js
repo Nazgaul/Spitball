@@ -23,6 +23,9 @@ var app;
                 searchBox: {
                     maxAge: hour
                 },
+                searchFirstBox: {
+                    maxAge: hour
+                },
                 searchQuiz: {
                     maxAge: hour
                 },

@@ -29,6 +29,8 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
 
         public string Url { get; set; }
 
+        public string Department { get; set; }
+
         public BoxType? Type { get; set; }
     }
 }

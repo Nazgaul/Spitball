@@ -220,7 +220,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         [HttpGet, ActionName("Nodes")]
-        public async Task<ActionResult> NodesAsync(string section, long universityId, bool? skipUrl)
+        public async Task<ActionResult> NodesAsync(string section, long universityId/*, bool? skipUrl*/)
         {
             try
             {
@@ -234,7 +234,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetLibraryNodeQuery(universityId, guid, User.GetUserId());
                 var result = await ZboxReadService.GetLibraryNodeAsync(query);
                 if (result.Nodes == null) return JsonOk(result);
-                if (skipUrl.GetValueOrDefault(true)) return JsonOk(result);
+                //if (skipUrl.GetValueOrDefault(true)) return JsonOk(result);
                 var route = BuildRouteDataFromUrl(Request.UrlReferrer.AbsoluteUri);
 
                 var universityName = route.Values["universityName"];
@@ -524,6 +524,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 })//,
                 //command.Id,
             });
+        }
+
+        [HttpGet, ActionName("AllNodes")]
+        public async Task<JsonResult> AllNodesAsync()
+        {
+            var universityId = User.GetUniversityId();
+            if (!universityId.HasValue)
+            {
+                return JsonError(LibraryControllerResources.LibraryController_Create_You_need_to_sign_up_for_university);
+            }
+            var retVal = await ZboxReadService.GetUniversityNodesAsync(universityId.Value);
+            return JsonOk(retVal);
         }
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
     }
