@@ -632,6 +632,8 @@
     <Content Include="bower_components\angular-timeago\karma-unit.conf.js" />
     <Content Include="bower_components\angular-timeago\protractor-e2e.conf.js" />
     <Content Include="bower_components\angular-timeago\src\timeAgo.js" />
+    <Content Include="bower_components\angular-vs-repeat\src\angular-vs-repeat.js" />
+    <Content Include="bower_components\angular-vs-repeat\src\angular-vs-repeat.min.js" />
     <Content Include="bower_components\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.concat.min.js" />
     <Content Include="bower_components\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.css" />
     <Content Include="bower_components\malihu-custom-scrollbar-plugin\jquery.mCustomScrollbar.js" />
@@ -904,6 +906,9 @@
     <Content Include="bower_components\angular-plupload\LICENSE" />
     <Content Include="bower_components\angular-plupload\package.json" />
     <Content Include="bower_components\angular-plupload\README.md" />
+    <Content Include="bower_components\angular-vs-repeat\.bower.json" />
+    <Content Include="bower_components\angular-vs-repeat\bower.json" />
+    <Content Include="bower_components\angular-vs-repeat\LICENSE" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
