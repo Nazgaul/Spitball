@@ -14,7 +14,7 @@
             private $timeout: angular.ITimeoutService,
             private $rootScope: angular.IRootScopeService,
             private $scope: angular.IScope,
-            private notificationService /*TODO*/,
+            private notificationService: INotificationService,
             private resManager: IResManager) {
             this.search();
 

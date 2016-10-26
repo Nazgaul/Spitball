@@ -89,7 +89,6 @@
 /// <reference path="../js/shared/languagehandler.js" />
 /// <reference path="../js/shared/meganumbers.js" />
 /// <reference path="../js/shared/menuad.directive.js" />
-/// <reference path="../js/shared/notification.js" />
 /// <reference path="../js/shared/pagingonscroll.directive.js" />
 /// <reference path="../js/shared/removekeyboard.js" />
 /// <reference path="../js/shared/scrolltotop.directive.js" />

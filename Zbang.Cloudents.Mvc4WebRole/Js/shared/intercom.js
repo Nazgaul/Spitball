@@ -1,13 +1,19 @@
-(function () {
-    'use strict';
-    angular.module('app').run(intercom);
-    intercom.$inject = ['userDetailsFactory', '$rootScope', '$mdMenu'];
-    function intercom(userDetailsFactory, $rootScope, $mdMenu) {
-        var started = false;
-        userDetailsFactory.init().then(function (data) {
-            start(data);
-        });
-        function start(data) {
+var app;
+(function (app) {
+    "use strict";
+    var started = false;
+    var IntercomComponent = (function () {
+        function IntercomComponent(userDetailsFactory, $rootScope, $mdMenu) {
+            var _this = this;
+            this.userDetailsFactory = userDetailsFactory;
+            this.$rootScope = $rootScope;
+            this.$mdMenu = $mdMenu;
+            userDetailsFactory.init().then(function (data) {
+                _this.start(data);
+            });
+        }
+        IntercomComponent.prototype.start = function (data) {
+            var _this = this;
             if (started) {
                 return;
             }
@@ -30,13 +36,23 @@
                     }
                 });
                 Intercom('onActivatorClick', function () {
-                    $mdMenu.hide();
+                    _this.$mdMenu.hide();
                 });
             }
-        }
-        function stop() {
+        };
+        IntercomComponent.prototype.stop = function () {
             started = false;
             Intercom('shutdown');
-        }
-    }
-})();
+        };
+        IntercomComponent.factory = function () {
+            var factory = function (userDetailsFactory, $rootScope, $mdMenu) {
+                return new IntercomComponent(userDetailsFactory, $rootScope, $mdMenu);
+            };
+            factory["$inject"] = ['userDetailsFactory', '$rootScope', '$mdMenu'];
+            return factory;
+        };
+        IntercomComponent.$inject = ['userDetailsFactory', '$rootScope', '$mdMenu'];
+        return IntercomComponent;
+    }());
+    angular.module("app").run(IntercomComponent.factory());
+})(app || (app = {}));
