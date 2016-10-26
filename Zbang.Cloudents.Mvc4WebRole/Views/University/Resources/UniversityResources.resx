@@ -194,4 +194,50 @@ Spitballing with your classmates</value>
   <data name="DepartmentSettings" xml:space="preserve">
     <value>Department settings</value>
   </data>
+  <data name="OnboardingHeaderStep1" xml:space="preserve">
+    <value>Let us help you find your classes</value>
+  </data>
+  <data name="OnboardingHeaderStep2" xml:space="preserve">
+    <value>Select your first class</value>
+  </data>
+  <data name="OnboardingHeaderStep3" xml:space="preserve">
+    <value>Good job!</value>
+  </data>
+  <data name="OnboardingHeaderStep4" xml:space="preserve">
+    <value>One down. One more to go.</value>
+  </data>
+  <data name="OnboardingHeaderStep5" xml:space="preserve">
+    <value>Well done!</value>
+  </data>
+  <data name="OnboardingHeaderStep6" xml:space="preserve">
+    <value>Continue searching for your classes</value>
+  </data>
+  <data name="OnboardingHeaderStep7" xml:space="preserve">
+    <value>Select the department for this new class</value>
+  </data>
+  <data name="OnboardingHeaderStep8" xml:space="preserve">
+    <value>Add a new class to</value>
+  </data>
+  <data name="OnboardingSearchContainer" xml:space="preserve">
+    <value>Search by class name or department</value>
+  </data>
+  <data name="OnboardingSearchEmptyState" xml:space="preserve">
+    <value>We could not find any Class or Department.
+Try to search again or add this class to our listings.</value>
+  </data>
+  <data name="OnboardingCreateClass" xml:space="preserve">
+    <value>Create a new class</value>
+  </data>
+  <data name="OnboardingMinClassNum" xml:space="preserve">
+    <value>You need at least 2 classes to continue</value>
+  </data>
+  <data name="OnboardingSelectedClasses" xml:space="preserve">
+    <value>Your selected classes</value>
+  </data>
+  <data name="OnboardingSelectAnotherClass" xml:space="preserve">
+    <value>Select another class</value>
+  </data>
+  <data name="OnboardingSelectCourseValue" xml:space="preserve">
+    <value>Select a class and earn 500 points</value>
+  </data>
 </root>

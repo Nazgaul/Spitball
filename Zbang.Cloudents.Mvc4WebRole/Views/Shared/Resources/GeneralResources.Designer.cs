@@ -79,6 +79,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Class.
+        /// </summary>
+        public static string Class {
+            get {
+                return ResourceManager.GetString("Class", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Classes.
         /// </summary>
         public static string Classes {

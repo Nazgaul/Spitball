@@ -85,9 +85,9 @@ a:hover {
 .uppercase {
   text-transform: uppercase !important;
 }
-.margin-bottom-15 {
-  margin-bottom: 15px !important;
-}
+/*.margin-bottom-15 {
+    margin-bottom: 15px !important;
+}*/
 /***
 Custom Bootstrap Badges
 ***/
@@ -101,20 +101,24 @@ Custom Bootstrap Badges
   text-align: center;
   vertical-align: middle;
 }
-.badge.badge-roundless {
-  border-radius: 0 !important;
+/*.badge.badge-roundless {
+    border-radius: 0 !important;
 }
+
 .badge.badge-empty {
-  display: inline-block;
-  padding: 0;
-  min-width: 8px;
-  height: 8px;
-  width: 8px;
+    display: inline-block;
+    padding: 0;
+    min-width: 8px;
+    height: 8px;
+    width: 8px;
 }
+
+
+
 .badge-danger {
-  background-color: #F3565D;
-  background-image: none;
-}
+    background-color: #F3565D;
+    background-image: none;
+}*/
 /***
 Customized Bootstrap Buttons
 ***/
