@@ -42,6 +42,11 @@
             private libraryService: ILibraryService,
             private user: IUserData) {
 
+            searchService.searchBoxSelect('', 0)
+                .then(response => {
+                    console.log(response);
+                });
+
         }
         classSearch() {
             const step = this.step;
@@ -158,8 +163,6 @@
                     } else {
                         this.step = Steps.SearchSecondComplete;
                     }
-                    //this.selectedCourses.push(response);
-                    //this.step++;
                 }).catch(response => {
                     createBox["name"].$setValidity('server', false);
                     this.create["error"] = response;

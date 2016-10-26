@@ -102,7 +102,7 @@ namespace Testing
 
         static void Main(string[] args)
         {
-            var guid = GuidEncoder.Decode("J_ILdSwNBEuEgaabAIK22g");
+            var guid = GuidEncoder.Decode("GX5xg44x2U2HwaaFAH4cbA");
             Emails();
             return;
             emailsVerify();
@@ -120,7 +120,6 @@ namespace Testing
                     .As<ISearchConnection>()
                     .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
                     .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
-                    .WithParameter("isDevelop", false) // this do nothing its only read only
                     .InstancePerLifetimeScope();
             Zbang.Zbox.Infrastructure.Search.RegisterIoc.Register();
 

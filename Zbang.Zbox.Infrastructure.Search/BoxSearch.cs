@@ -16,6 +16,8 @@ namespace Zbang.Zbox.Infrastructure.Search
 
         public string[] Feed { get; set; }
 
+        public string ParentDepartment { get; set; }
+
         public int? Type { get; set; }
 
 

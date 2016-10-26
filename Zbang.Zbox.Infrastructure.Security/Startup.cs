@@ -43,7 +43,7 @@ namespace Zbang.Zbox.Infrastructure.Security
             if (shouldUseCookie)
             {
                 var cookieDomain = "spitball.co";
-                var cookieName = "dev-a4";
+                var cookieName = "dev-a5";
                 if (ConfigFetcher.IsRunningOnCloud) 
                 {
                     cookieDomain = "spitball.co"; //DO NOT CHANGE THIS AT ALL TIME

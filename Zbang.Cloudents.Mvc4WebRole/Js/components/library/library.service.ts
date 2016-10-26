@@ -21,19 +21,19 @@
             return this.ajaxService.get("/university/nodes/", { section: departmentId, universityId: universityId, skipUrl: skipUrl });
         }
         getUniversity(term, page) {
-            return this.ajaxService.get('/university/search/', { term: term, page: page }, null, 'uniSearch');
+            return this.ajaxService.get("/university/search/", { term: term, page: page }, null, "uniSearch");
         }
         chooseUniversity(universityId, studentId) {
-            return this.ajaxService.post('/account/updateuniversity/', {
+            return this.ajaxService.post("/account/updateuniversity/", {
                 universityId: universityId,
                 studentId: studentId
-            }, ['university']);
+            }, ["university"]);
         }
         createUniversity(name, country) {
-            return this.ajaxService.post('/university/createuniversity/', {
+            return this.ajaxService.post("/university/createuniversity/", {
                 name: name,
                 country: country
-            }, 'university');
+            }, "university");
         }
         createDepartment(name, nodeId, skipUrl?: boolean) {
             return this.ajaxService.post("/university/create/", {
@@ -43,27 +43,27 @@
             }, "department");
         }
         deleteDepartment(id) {
-            return this.ajaxService.post('/university/deletenode/', {
+            return this.ajaxService.post("/university/deletenode/", {
                 id: id
-            }, 'department');
+            }, "department");
         }
         createClass(name, code, professor, nodeId) {
-            return this.ajaxService.post('/university/createbox/', {
+            return this.ajaxService.post("/university/createbox/", {
                 courseName: name,
                 courseId: code,
                 professor: professor,
                 departmentId: nodeId
-            }, 'department');
+            }, "department");
         };
         updateSettings(name, nodeId, settings) {
-            return this.ajaxService.post('/university/changesettings/', {
+            return this.ajaxService.post("/university/changesettings/", {
                 id: nodeId,
                 name: name,
                 settings: settings
-            }, 'department');
+            }, "department");
         }
         requestAccess(nodeId) {
-            return this.ajaxService.post('/university/requestaccess/', {
+            return this.ajaxService.post("/university/requestaccess/", {
                 id: nodeId
             });
         }

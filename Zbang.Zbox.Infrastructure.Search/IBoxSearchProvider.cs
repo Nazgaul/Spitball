@@ -14,9 +14,8 @@ namespace Zbang.Zbox.Infrastructure.Search
     public interface IBoxReadSearchProvider2
     {
         Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
-        //Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQueryMobile query, CancellationToken cancelToken);
 
-        Task<IEnumerable<SearchBoxes>> SearchBoxWithoutHighlightWithUrlAsync(ViewModel.Queries.Search.SearchQuery query,
-            CancellationToken cancelToken);
+        Task<IEnumerable<SearchBoxes>> SearchBoxClassChooseAsync(
+            ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
     }
 }

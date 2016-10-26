@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Azure.Search;
+using Zbang.Zbox.Infrastructure.Extensions;
 
 namespace Zbang.Zbox.Infrastructure.Search
 {
@@ -23,14 +24,20 @@ namespace Zbang.Zbox.Infrastructure.Search
         public SeachConnection(string serviceName, string serviceKey)
         {
             m_SearchServiceClient = new SearchServiceClient(serviceName, new SearchCredentials(serviceKey));
-          //  m_Connection = ApiConnection.Create(serviceName, serviceKey);
-          //  m_Connection = ApiConnection.Create(serviceName, serviceKey);
-            IsDevelop = IsDevelopEnvironment();
+           IsDevelop = !IsProductionEnvironment();
         }
 
-        private bool IsDevelopEnvironment()
+        private static bool IsProductionEnvironment()
         {
-            return false;
+            if (ConfigFetcher.IsRunningOnCloud)
+            {
+                return true;
+            }
+            bool shouldUseCacheFromConfig = true;
+            bool.TryParse(ConfigFetcher.Fetch("SearchProduction"), out shouldUseCacheFromConfig);
+            
+
+            return shouldUseCacheFromConfig;
             //try
             //{
             //    if (!RoleEnvironment.IsAvailable)

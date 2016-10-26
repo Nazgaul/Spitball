@@ -37,7 +37,6 @@ namespace Zbang.Cloudents.Mvc4WebRole
                     .As<ISearchConnection>()
                     .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
                     .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
-                    .WithParameter("isDevelop", false) // this do nothing its only read only
                     .InstancePerLifetimeScope();
 
                 RegisterIoc.Register();

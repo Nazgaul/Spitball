@@ -10,7 +10,7 @@
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2017-02-26T23:59:59.0000000+02:00" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
       <Setting name="CdnEndpoint" value="" />
-      <Setting name="ZBox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;Asynchronous Processing=True;" />
+      <Setting name="ZBox" value="Data Source=.\SQLEXPRESS;Initial Catalog=ZBox;Integrated Security=SSPI;Asynchronous Processing=True;" />
       <Setting name="CacheUse" value="true" />
       <Setting name="StorageCdnEndpoint" value="" />
       <Setting name="AzureSearchKey" value="5B0433BFBBE625C9D60F7330CFF103F0" />

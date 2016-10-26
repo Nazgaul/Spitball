@@ -141,16 +141,16 @@
             this.textBoxBoxFrom = new System.Windows.Forms.TextBox();
             this.buttonMerge = new System.Windows.Forms.Button();
             this.buttonMergeBoxes = new System.Windows.Forms.Button();
-            this.openFileDialogReplaceItem = new System.Windows.Forms.OpenFileDialog();
             this.PostComment = new System.Windows.Forms.TabPage();
-            this.buttonAddComment = new System.Windows.Forms.Button();
-            this.textBoxComment = new System.Windows.Forms.TextBox();
+            this.textBoxBoxIds = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.textBoxReplyUserId = new System.Windows.Forms.TextBox();
             this.textBoxReply = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.textBoxBoxIds = new System.Windows.Forms.TextBox();
             this.textBoxCommentUserId = new System.Windows.Forms.TextBox();
-            this.textBoxReplyUserId = new System.Windows.Forms.TextBox();
+            this.textBoxComment = new System.Windows.Forms.TextBox();
+            this.buttonAddComment = new System.Windows.Forms.Button();
+            this.openFileDialogReplaceItem = new System.Windows.Forms.OpenFileDialog();
             label15 = new System.Windows.Forms.Label();
             label16 = new System.Windows.Forms.Label();
             label18 = new System.Windows.Forms.Label();
@@ -173,8 +173,8 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMergeBoxes)).BeginInit();
             this.PostComment.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label15
@@ -185,7 +185,6 @@
             label15.Size = new System.Drawing.Size(42, 16);
             label15.TabIndex = 0;
             label15.Text = "From:";
-            label15.Visible = false;
             // 
             // label16
             // 
@@ -195,7 +194,6 @@
             label16.Size = new System.Drawing.Size(28, 16);
             label16.TabIndex = 1;
             label16.Text = "To:";
-            label16.Visible = false;
             // 
             // label18
             // 
@@ -206,6 +204,33 @@
             label18.Size = new System.Drawing.Size(49, 16);
             label18.TabIndex = 38;
             label18.Text = "Image:";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new System.Drawing.Point(518, 89);
+            label21.Name = "label21";
+            label21.Size = new System.Drawing.Size(51, 16);
+            label21.TabIndex = 3;
+            label21.Text = "UserId:";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new System.Drawing.Point(518, 72);
+            label22.Name = "label22";
+            label22.Size = new System.Drawing.Size(51, 16);
+            label22.TabIndex = 4;
+            label22.Text = "UserId:";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new System.Drawing.Point(726, 23);
+            label23.Name = "label23";
+            label23.Size = new System.Drawing.Size(141, 16);
+            label23.TabIndex = 6;
+            label23.Text = "BoxIds (seperate by ,):";
             // 
             // menuStrip1
             // 
@@ -1284,7 +1309,6 @@
             this.dataGridViewMergeBoxes.ReadOnly = true;
             this.dataGridViewMergeBoxes.Size = new System.Drawing.Size(646, 150);
             this.dataGridViewMergeBoxes.TabIndex = 4;
-            this.dataGridViewMergeBoxes.Visible = false;
             this.dataGridViewMergeBoxes.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewMergeBoxes_CellFormatting);
             // 
             // BoxId
@@ -1321,7 +1345,6 @@
             this.textBoxBoxTo.Name = "textBoxBoxTo";
             this.textBoxBoxTo.Size = new System.Drawing.Size(100, 22);
             this.textBoxBoxTo.TabIndex = 3;
-            this.textBoxBoxTo.Visible = false;
             // 
             // textBoxBoxFrom
             // 
@@ -1329,7 +1352,6 @@
             this.textBoxBoxFrom.Name = "textBoxBoxFrom";
             this.textBoxBoxFrom.Size = new System.Drawing.Size(100, 22);
             this.textBoxBoxFrom.TabIndex = 3;
-            this.textBoxBoxFrom.Visible = false;
             // 
             // buttonMerge
             // 
@@ -1340,7 +1362,6 @@
             this.buttonMerge.TabIndex = 2;
             this.buttonMerge.Text = "Make it so";
             this.buttonMerge.UseVisualStyleBackColor = true;
-            this.buttonMerge.Visible = false;
             this.buttonMerge.Click += new System.EventHandler(this.buttonMergeBoxesMakeItSo_Click);
             // 
             // buttonMergeBoxes
@@ -1351,12 +1372,7 @@
             this.buttonMergeBoxes.TabIndex = 2;
             this.buttonMergeBoxes.Text = "Submit";
             this.buttonMergeBoxes.UseVisualStyleBackColor = true;
-            this.buttonMergeBoxes.Visible = false;
             this.buttonMergeBoxes.Click += new System.EventHandler(this.buttonMergeBoxes_Click);
-            // 
-            // openFileDialogReplaceItem
-            // 
-            this.openFileDialogReplaceItem.FileName = "openFileDialog1";
             // 
             // PostComment
             // 
@@ -1372,23 +1388,31 @@
             this.PostComment.Text = "AddPost";
             this.PostComment.UseVisualStyleBackColor = true;
             // 
-            // buttonAddComment
+            // textBoxBoxIds
             // 
-            this.buttonAddComment.Location = new System.Drawing.Point(967, 500);
-            this.buttonAddComment.Name = "buttonAddComment";
-            this.buttonAddComment.Size = new System.Drawing.Size(107, 23);
-            this.buttonAddComment.TabIndex = 0;
-            this.buttonAddComment.Text = "Make it so";
-            this.buttonAddComment.UseVisualStyleBackColor = true;
-            this.buttonAddComment.Click += new System.EventHandler(this.buttonAddComment_Click);
+            this.textBoxBoxIds.Location = new System.Drawing.Point(726, 42);
+            this.textBoxBoxIds.Name = "textBoxBoxIds";
+            this.textBoxBoxIds.Size = new System.Drawing.Size(331, 22);
+            this.textBoxBoxIds.TabIndex = 5;
             // 
-            // textBoxComment
+            // groupBox4
             // 
-            this.textBoxComment.Location = new System.Drawing.Point(84, 21);
-            this.textBoxComment.Multiline = true;
-            this.textBoxComment.Name = "textBoxComment";
-            this.textBoxComment.Size = new System.Drawing.Size(423, 219);
-            this.textBoxComment.TabIndex = 1;
+            this.groupBox4.Controls.Add(label22);
+            this.groupBox4.Controls.Add(this.textBoxReplyUserId);
+            this.groupBox4.Controls.Add(this.textBoxReply);
+            this.groupBox4.Location = new System.Drawing.Point(26, 295);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(624, 239);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Reply";
+            // 
+            // textBoxReplyUserId
+            // 
+            this.textBoxReplyUserId.Location = new System.Drawing.Point(518, 91);
+            this.textBoxReplyUserId.Name = "textBoxReplyUserId";
+            this.textBoxReplyUserId.Size = new System.Drawing.Size(100, 22);
+            this.textBoxReplyUserId.TabIndex = 3;
             // 
             // textBoxReply
             // 
@@ -1410,25 +1434,6 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Comment";
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(label22);
-            this.groupBox4.Controls.Add(this.textBoxReplyUserId);
-            this.groupBox4.Controls.Add(this.textBoxReply);
-            this.groupBox4.Location = new System.Drawing.Point(26, 295);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(624, 239);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Reply";
-            // 
-            // textBoxBoxIds
-            // 
-            this.textBoxBoxIds.Location = new System.Drawing.Point(726, 42);
-            this.textBoxBoxIds.Name = "textBoxBoxIds";
-            this.textBoxBoxIds.Size = new System.Drawing.Size(331, 22);
-            this.textBoxBoxIds.TabIndex = 5;
-            // 
             // textBoxCommentUserId
             // 
             this.textBoxCommentUserId.Location = new System.Drawing.Point(518, 108);
@@ -1436,39 +1441,27 @@
             this.textBoxCommentUserId.Size = new System.Drawing.Size(100, 22);
             this.textBoxCommentUserId.TabIndex = 2;
             // 
-            // textBoxReplyUserId
+            // textBoxComment
             // 
-            this.textBoxReplyUserId.Location = new System.Drawing.Point(518, 91);
-            this.textBoxReplyUserId.Name = "textBoxReplyUserId";
-            this.textBoxReplyUserId.Size = new System.Drawing.Size(100, 22);
-            this.textBoxReplyUserId.TabIndex = 3;
+            this.textBoxComment.Location = new System.Drawing.Point(84, 21);
+            this.textBoxComment.Multiline = true;
+            this.textBoxComment.Name = "textBoxComment";
+            this.textBoxComment.Size = new System.Drawing.Size(423, 219);
+            this.textBoxComment.TabIndex = 1;
             // 
-            // label21
+            // buttonAddComment
             // 
-            label21.AutoSize = true;
-            label21.Location = new System.Drawing.Point(518, 89);
-            label21.Name = "label21";
-            label21.Size = new System.Drawing.Size(51, 16);
-            label21.TabIndex = 3;
-            label21.Text = "UserId:";
+            this.buttonAddComment.Location = new System.Drawing.Point(967, 500);
+            this.buttonAddComment.Name = "buttonAddComment";
+            this.buttonAddComment.Size = new System.Drawing.Size(107, 23);
+            this.buttonAddComment.TabIndex = 0;
+            this.buttonAddComment.Text = "Make it so";
+            this.buttonAddComment.UseVisualStyleBackColor = true;
+            this.buttonAddComment.Click += new System.EventHandler(this.buttonAddComment_Click);
             // 
-            // label22
+            // openFileDialogReplaceItem
             // 
-            label22.AutoSize = true;
-            label22.Location = new System.Drawing.Point(518, 72);
-            label22.Name = "label22";
-            label22.Size = new System.Drawing.Size(51, 16);
-            label22.TabIndex = 4;
-            label22.Text = "UserId:";
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Location = new System.Drawing.Point(726, 23);
-            label23.Name = "label23";
-            label23.Size = new System.Drawing.Size(141, 16);
-            label23.TabIndex = 6;
-            label23.Text = "BoxIds (seperate by ,):";
+            this.openFileDialogReplaceItem.FileName = "openFileDialog1";
             // 
             // Form1
             // 
@@ -1505,10 +1498,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewMergeBoxes)).EndInit();
             this.PostComment.ResumeLayout(false);
             this.PostComment.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

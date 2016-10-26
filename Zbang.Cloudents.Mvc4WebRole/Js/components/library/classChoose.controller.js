@@ -24,6 +24,10 @@ var app;
             this.noresult = false;
             this.submitDisabled = false;
             this.create = {};
+            searchService.searchBoxSelect('', 0)
+                .then(function (response) {
+                console.log(response);
+            });
         }
         ClassChoose.prototype.classSearch = function () {
             var _this = this;

@@ -29,12 +29,12 @@ namespace Zbang.Zbox.WorkerRoleSearch
             Infrastructure.File.RegisterIoc.Register();
             Infrastructure.Azure.Ioc.RegisterIoc.Register();
             Infrastructure.Mail.RegisterIoc.Register();
-
+            
             Ioc.ContainerBuilder.RegisterType<SeachConnection>()
              .As<ISearchConnection>()
              .WithParameter("serviceName", ConfigFetcher.Fetch("AzureSeachServiceName"))
              .WithParameter("serviceKey", ConfigFetcher.Fetch("AzureSearchKey"))
-             .WithParameter("isDevelop", false)
+
              .InstancePerLifetimeScope();
             Infrastructure.Search.RegisterIoc.Register();
             Domain.Services.RegisterIoc.Register();

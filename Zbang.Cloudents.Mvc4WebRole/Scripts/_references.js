@@ -3,6 +3,7 @@
 /// <reference path="../bower_components/angular-google-analytics/dist/angular-google-analytics.min.js" />
 /// <reference path="../bower_components/angular-plupload/dist/angular-plupload.min.js" />
 /// <reference path="../bower_components/angular-timeago/src/timeAgo.js" />
+/// <reference path="../bower_components/angular-vs-repeat/src/angular-vs-repeat.js" />
 /// <reference path="../bower_components/malihu-custom-scrollbar-plugin/jquery.mcustomscrollbar.js" />
 /// <reference path="../bower_components/ng-scrollbars/dist/scrollbars.min.js" />
 /// <reference path="../bower_components/oclazyload/dist/ocLazyLoad.js" />

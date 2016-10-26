@@ -14,7 +14,26 @@
                             return userDetails.init();
                         }
                     ]
+                    //boxes: ["dashboardService", function (dashboardService) {
+                    //    if (window.id > 0) {
+                    //        return dashboardService.getBoxes();
+
+                    //    }
+                    //}]
                 },
+                //onEnter: [
+                //        'user', '$state', 'boxes','$location', function (user, $state, boxes,$location) {
+                //            if (window.id > 0) {
+                //                if (!user.university.id && $state.current.name !== "universityChoose") {
+                //                    $state.go("universityChoose");
+                //                }
+                //                if (boxes.length < 3 && $state.href("classChoose") !== $location.url()) {
+                //                    $location.url($state.href("classChoose"));
+                //                }
+                //            }
+                           
+                //        }
+                //],
                 views: {
                     "": { template: "<div class=\"page-animation\" ui-view animation-class></div>" },
                     "user-profile": {
@@ -70,7 +89,7 @@
                 config: {
                     url: '/chat/',
                     onEnter: [
-                        '$mdMedia', '$state', function($mdMedia, $state) {
+                        '$mdMedia', '$state', function ($mdMedia, $state) {
                             if ($mdMedia('gt-xs')) {
                                 $state.go('dashboard');
                             }

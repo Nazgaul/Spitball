@@ -72,7 +72,7 @@
                 templateUrl: '/university/choosepartial/'
             },
             {
-                state: 'ClassChoose', config: {
+                state: 'classChoose', config: {
                     url: '/course/choose/',
                     controller: 'ClassChoose as cc',
                     data: { animateClass: 'class-choose' },

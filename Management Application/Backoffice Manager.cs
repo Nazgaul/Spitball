@@ -1147,8 +1147,9 @@ Select Userid from zbox.Userboxrel where boxid=@toid);
 Delete from zbox.UserBoxRel where boxid=@fromid;
 
 update zbox.Invite set BoxId =@toid where BoxId = @fromid;
+update zbox.item set [ItemTabId]=null, [IsDirty]=1, UpdatedUser = 'mergeTool' where boxid=@fromid;
 update zbox.item set boxid=@toid, [IsDirty]=1, UpdatedUser = 'mergeTool' where boxid=@fromid;
-update [Zbox].[Comment] set boxid=@toid where boxid=@fromid;
+--update [Zbox].[Comment] set boxid=@toid where boxid=@fromid;
 
 update [Zbox].[Quiz] set boxid=@toid, [IsDirty]=1, UpdatedUser = 'mergeTool' where boxid=@fromid;
 update [Zbox].[Question] set boxid=@toid, UpdatedUser = 'mergeTool' where boxid=@fromid;
@@ -1165,6 +1166,7 @@ update zbox.Message set BoxId = @toid where BoxId = @fromid;
 
 delete from [Zbox].[Question] where boxid = @fromid;
 delete from zbox.NewUpdates where BoxId = @fromid;
+delete from [Zbox].[ItemTab] where BoxId = @fromid;
 commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
 
                 MessageBox.Show("Done");

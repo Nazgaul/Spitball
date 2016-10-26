@@ -9,19 +9,19 @@ var app;
             return this.ajaxService.get("/university/nodes/", { section: departmentId, universityId: universityId, skipUrl: skipUrl });
         };
         Library.prototype.getUniversity = function (term, page) {
-            return this.ajaxService.get('/university/search/', { term: term, page: page }, null, 'uniSearch');
+            return this.ajaxService.get("/university/search/", { term: term, page: page }, null, "uniSearch");
         };
         Library.prototype.chooseUniversity = function (universityId, studentId) {
-            return this.ajaxService.post('/account/updateuniversity/', {
+            return this.ajaxService.post("/account/updateuniversity/", {
                 universityId: universityId,
                 studentId: studentId
-            }, ['university']);
+            }, ["university"]);
         };
         Library.prototype.createUniversity = function (name, country) {
-            return this.ajaxService.post('/university/createuniversity/', {
+            return this.ajaxService.post("/university/createuniversity/", {
                 name: name,
                 country: country
-            }, 'university');
+            }, "university");
         };
         Library.prototype.createDepartment = function (name, nodeId, skipUrl) {
             return this.ajaxService.post("/university/create/", {
@@ -31,28 +31,28 @@ var app;
             }, "department");
         };
         Library.prototype.deleteDepartment = function (id) {
-            return this.ajaxService.post('/university/deletenode/', {
+            return this.ajaxService.post("/university/deletenode/", {
                 id: id
-            }, 'department');
+            }, "department");
         };
         Library.prototype.createClass = function (name, code, professor, nodeId) {
-            return this.ajaxService.post('/university/createbox/', {
+            return this.ajaxService.post("/university/createbox/", {
                 courseName: name,
                 courseId: code,
                 professor: professor,
                 departmentId: nodeId
-            }, 'department');
+            }, "department");
         };
         ;
         Library.prototype.updateSettings = function (name, nodeId, settings) {
-            return this.ajaxService.post('/university/changesettings/', {
+            return this.ajaxService.post("/university/changesettings/", {
                 id: nodeId,
                 name: name,
                 settings: settings
-            }, 'department');
+            }, "department");
         };
         Library.prototype.requestAccess = function (nodeId) {
-            return this.ajaxService.post('/university/requestaccess/', {
+            return this.ajaxService.post("/university/requestaccess/", {
                 id: nodeId
             });
         };

@@ -3,7 +3,7 @@
   <Role name="Zbang.Cloudents.Connect">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Zbox" value="Data Source=(local);Initial Catalog=ZBox;Integrated Security=SSPI;Asynchronous Processing=True;" />
+      <Setting name="Zbox" value="Data Source=.\SQLEXPRESS;Initial Catalog=ZBox;Integrated Security=SSPI;Asynchronous Processing=True;" />
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=zboxdiagnostic;AccountKey=JragZe0lJsCWYvgdFNzgjit+YPpJUGhpJGNEE3CDFeZ++g2OaBVvAIyP0hIBcZbBUFt4fbzRwPPbeC7TGPNtpg==" />
       <Setting name="StorageConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
