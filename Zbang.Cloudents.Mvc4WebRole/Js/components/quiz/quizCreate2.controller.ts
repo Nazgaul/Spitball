@@ -254,7 +254,7 @@
         addQuestion() {
             var self = this;
             var $qArray = [this.$q.when()];
-            var promiseCreateQuiz = this.$q.when();
+            let promiseCreateQuiz = this.$q.when();
             if (!quizId) {
                 promiseCreateQuiz = this.createQuiz(this.quizData.name);
             }

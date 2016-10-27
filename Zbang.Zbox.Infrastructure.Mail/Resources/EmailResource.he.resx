@@ -191,4 +191,10 @@
   <data name="ReplyToCommentSubject" xml:space="preserve">
     <value>היי, מישהו הגיב על ההודעה שלך</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>עדכון</value>
+  </data>
+  <data name="Updates" xml:space="preserve">
+    <value>עדכונים</value>
+  </data>
 </root>

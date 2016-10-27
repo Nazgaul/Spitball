@@ -267,6 +267,24 @@ namespace Zbang.Zbox.Infrastructure.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updates.
+        /// </summary>
+        internal static string Updates {
+            get {
+                return ResourceManager.GetString("Updates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Welcome to Spitball.
         /// </summary>
         internal static string WelcomeSubject {

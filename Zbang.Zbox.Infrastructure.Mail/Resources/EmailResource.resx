@@ -194,4 +194,10 @@ Change that by inviting a classmate via Facebook or email and uploading a doc th
     <value>We have helped thousands of students make studying online easier and faster, but we are only as good as our user uploads! 
 Login into your Spitball account and invite classmates or post your notes to push our service to the next level.</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Updates" xml:space="preserve">
+    <value>Updates</value>
+  </data>
 </root>

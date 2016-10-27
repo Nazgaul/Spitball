@@ -28,7 +28,7 @@
 
     var selectedCourses: Array<IBox> = [];
     class ClassChoose {
-        static $inject = ["searchService", "$scope", "libraryService", "user"];
+        static $inject = ["searchService", "libraryService", "$mdToast", "$state","$mdDialog"];
         //step = Steps.Start;
         showCreateClass = false;
         //searchResult;
@@ -46,9 +46,10 @@
         departments: Array<ISmallDepartment> = [];
 
         constructor(private searchService: ISearchService,
-            private $scope: angular.IScope,
             private libraryService: ILibraryService,
-            private user: IUserData) {
+            private $mdToast: angular.material.IToastService,
+            private $state: angular.ui.IStateService,
+            private $mdDialog: angular.material.IDialogService) {
 
             this.classSearch();
         }
@@ -98,12 +99,36 @@
         //getRemainingElement() {
         //    return new Array(Math.max(0, 6 - this.selectedCourses.length));
         //}
+        status(ev) {
+            this.$mdDialog.show({
+                //controller: DialogController,
+                templateUrl: "dialog.tmpl.html",
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                fullscreen: true // Only for -xs, -sm breakpoints.
+            });
+            //.then(function (answer) {
+            //    //$scope.status = 'You said the information was "' + answer + '".';
+            //}, function () {
+            //    //$scope.status = 'You cancelled the dialog.';
+            //});
+        }
         choose(course) {
             //TODO : ajax call
             //this.term = '';
             //this.searchResult = [];
             selectedCourses.push(course);
             course.selected = true;
+            const toasterContent = this.$mdToast.simple()
+                .textContent("You have selected 3 classes")
+                .hideDelay(0)
+                .action("click here")
+                .position("top");
+            (toasterContent as any).toastClass("angular-animate");
+            this.$mdToast.show(toasterContent).then(() => {
+                this.$state.go("dashboard");
+            });
             //this.step = Math.min(this.step + 1, 5);
         }
         goCreateClass() {
