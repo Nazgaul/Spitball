@@ -56,7 +56,7 @@ var app;
                 .hideDelay(0)
                 .action("click here")
                 .position("top");
-            toasterContent.toastClass("angular-animate");
+            toasterContent.toastClass("angular-animate md-center");
             this.$mdToast.show(toasterContent).then(function () {
                 _this.$state.go("dashboard");
             });
