@@ -14,45 +14,25 @@
 
                     foreach (var category in Model)
                     {
-                        var active = i == 1 ? "in" : null;
-                        var expanded = i == 1 ? "expanded" : null;
                         var j = 1;
-
-                        <div class="panel panel-default @expanded">
-                            <div class="panel-heading" role="tab" id="heading-@i">
-                                <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#main-accordion" href="#collapse-@i" aria-expanded="true" aria-controls="collapse-@i">
-                                        @category.Name
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="collapse-@i" class="panel-collapse collapse @active" role="tabpanel" aria-labelledby="heading-@i">
-                                <div class="panel-body">
-                                    <div class="panel-group" id="accordion-@i" role="tablist" aria-multiselectable="true">
-                                        @foreach (var faq in category.QuestionNAnswers)
-                                        {
-                                            <div class="panel panel-default">
-                                                <div class="panel-heading" role="tab" id="heading-@i@j">
-                                                    <h4 class="panel-title">
-                                                        <a role="button" data-toggle="collapse" data-parent="#accordion-@i" href="#collapse-@i@j" aria-expanded="true" aria-controls="collapse-@i@j">
-                                                            @faq.Question
-                                                        </a>
-                                                    </h4>
-                                                </div>
-                                                <div id="collapse-@i@j" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-@i@j">
-                                                    <div class="panel-body">
-                                                        @Html.Raw(faq.Answer)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            j++;
-                                        }
+                        <div class="category-wrapper">
+                            <input id="toggle-@i" class="toggle-level-1" type="radio" name="toggle" />
+                            <label for="toggle-@i">@category.Name</label>
+                            <section id="content-@i" class="content-level-1">
+                                @foreach (var faq in category.QuestionNAnswers)
+                                {
+                                    <div class="category-wrapper">
+                                        <input id="toggle-@i@j" class="toggle-level-2" type="radio" name="toggle-inner" />
+                                        <label for="toggle-@i@j">@faq.Question</label>
+                                        <section id="content-@i@j" class="content-level-2">
+                                            <p><span>@Html.Raw(faq.Answer)</span></p>
+                                        </section>
                                     </div>
-                                </div>
-                            </div>
+                                    j++;
+                                }
+                            </section>
                         </div>
-
-                                        i++;
+                        i++;
                     }
                 }
             </div>
