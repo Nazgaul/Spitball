@@ -33,7 +33,7 @@
         }
     }
 
-    
+
 
 
     .title h2 {
@@ -336,11 +336,18 @@
             }
         }
     }*/
+    .top {
+        .displayFlex;
+        .align-items(center);
+        .justifyContet(center);
+        margin-top: 46px;
+    }
+
     .search-form {
         border-radius: 5px;
         overflow: hidden;
         max-width: 600px;
-        margin: 46px auto 0 auto;
+        width: 100%;
         box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
 
         @media(max-width: 600px) {
@@ -389,6 +396,18 @@
             padding: 10px;
         }
     }
+
+    .empty-state {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .create-box form{
+        margin: 0 auto;
+    }
+
     /*.search-form, .select-department .departments {
         margin-top: 46px;
         margin-bottom: 0;
