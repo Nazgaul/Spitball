@@ -20,12 +20,12 @@
             <md-icon md-svg-icon="t:searchIcon"></md-icon>
         </button>
     </form>
-    <ol layout="row" layout-wrap>
-        <li flex="33" class="angular-animate animate-repeat" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
-            <div ng-bind="::key"></div>
-            <ol>
+    <ol class="results" layout="row" layout-wrap flex="100" flex-gt-md="80" flex-xs="100" >
+        <li flex="33" flex-xs="100" class="angular-animate animate-repeat" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
+            <div class="department-name ellipsis" ng-bind="::key"></div>
+            <ol class="department-courses">
                 <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="c in value track by c.id">
-                    <div ng-bind="::c.name" ng-click="cc.choose(c)"></div>
+                    <div ng-bind="::c.name" ng-click="cc.choose(c)" class="ellipsis"></div>
                 </li>
             </ol>
         </li>

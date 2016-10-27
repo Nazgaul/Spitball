@@ -52,8 +52,7 @@
             padding: 0 0 10px 0;
         }
     }
-
-    .content {
+    /*.content {
         max-width: 600px;
         margin: 0 auto;
         text-align: center;
@@ -115,8 +114,8 @@
                 max-width: 750px;
                 background-image: url(../../Images/Site/no_search_results.png);
                 background-repeat: no-repeat;
-                padding: 0 128px 0 0 /*rtl:ignore*/;
-                background-position: 100% 0 /*rtl:ignore*/;
+                padding: 0 128px 0 0;
+                background-position: 100% 0;
                 background-size: 128px;
                 min-height: 400px;
 
@@ -334,15 +333,17 @@
                 padding: 16px 8px 8px 8px;
             }
         }
-    }
-
+    }*/
     .search-form {
         border-radius: 5px;
         overflow: hidden;
-        margin-bottom: 30px;
         max-width: 600px;
-        margin: 0 auto 8px auto;
+        margin: 46px auto 0 auto;
         box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
+
+        @media(max-width: 600px) {
+            margin-top: 30px;
+        }
 
         input {
             background: @textColorWhite;
@@ -373,16 +374,28 @@
         }
     }
 
-    .search-form, .select-department .departments {
+    .results {
+        margin: 0 auto;
+        padding: 20px;
+
+        .department-name {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        > li {
+            padding: 10px;
+        }
+    }
+    /*.search-form, .select-department .departments {
         margin-top: 46px;
         margin-bottom: 0;
 
         @media(max-width: 600px) {
             margin-top: 30px;
         }
-    }
-
-    .add-class {
+    }*/
+    /*.add-class {
         .title {
             padding-bottom: 50px;
 
@@ -416,5 +429,5 @@
     .switch .content.ng-leave,
     .switch .content.ng-enter.ng-enter-active {
         top: 0;
-    }
+    }*/
 }
