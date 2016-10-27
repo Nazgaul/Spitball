@@ -8,19 +8,20 @@
 
         if ($stateParams.boxtype.toLowerCase() === 'box') {
             r.isPrivate = true;
-        } else {
-            //r.boxes = [];
-            boxService.getRecommended($stateParams.boxId).then(function (response) {
-                iterateItemAndAssign(response);
-            });
         }
+        //else {
+        //    //r.boxes = [];
+        //    boxService.getRecommended($stateParams.boxId).then(function (response) {
+        //        iterateItemAndAssign(response);
+        //    });
+        //}
 
-        function iterateItemAndAssign(response) {
-            for (var i = 0; i < response.length; i++) {
-                response[i].recommended = true;
-            }
-            r.boxes = response;
-        }
+        //function iterateItemAndAssign(response) {
+        //    for (var i = 0; i < response.length; i++) {
+        //        response[i].recommended = true;
+        //    }
+        //    r.boxes = response;
+        //}
 
     }
 })();

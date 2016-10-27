@@ -124,8 +124,8 @@
                 .textContent("You have selected 3 classes")
                 .hideDelay(0)
                 .action("click here")
-                .position("top");
-            (toasterContent as any).toastClass("angular-animate md-center");
+                .position("top center");
+            (toasterContent as any).toastClass("angular-animate");
             this.$mdToast.show(toasterContent).then(() => {
                 this.$state.go("dashboard");
             });

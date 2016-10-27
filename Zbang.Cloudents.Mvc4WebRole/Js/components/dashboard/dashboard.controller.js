@@ -14,14 +14,6 @@ var app;
             this.ajaxService2 = ajaxService2;
             this.inviteOpen = false;
             this.showLeaderboard = true;
-            dashboardService.recommended().then(function (response2) {
-                for (var i = 0; i < response2.length; i++) {
-                    var retVal = response2[i];
-                    retVal.recommended = true;
-                    retVal.updates = 0;
-                }
-                _this.suggested = response2;
-            });
             $scope.$on("close_invite", function () {
                 _this.inviteOpen = false;
             });

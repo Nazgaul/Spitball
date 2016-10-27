@@ -26,10 +26,6 @@
   top: -50px;
   height: 0px;
 }
-.class-choose .md-center {
-  right: 50%;
-  transform: translate3d(50%, 0, 0);
-}
 .class-choose .title h2 {
   text-align: center;
   margin: 0 auto;
