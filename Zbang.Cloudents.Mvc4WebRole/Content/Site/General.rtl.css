@@ -4,6 +4,10 @@ ol {
 em {
   font-style: normal;
 }
+.vs-repeat-before-content,
+.vs-repeat-after-content {
+  display: block;
+}
 input[type="search"] {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
