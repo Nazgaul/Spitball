@@ -6,6 +6,8 @@
 
         $stateProvider
             .state("root", {
+                //controller: 'ClassChoose as cc',
+                //url: '^',
                 abstract: true,
                 resolve: {
                     user: [
@@ -21,25 +23,29 @@
                         }
                     }]
                 },
-                onEnter: [
-                        'user', '$state', 'boxes', '$location', '$timeout', function (user, $state, boxes, $location, $timeout) {
-                            if (window.id > 0) {
-                                //if (!user.university.id && $state.current.name !== "universityChoose") {
-                                //    $state.go("universityChoose");
-                                //}
-                                if (boxes.length < 3 && $state.href("classChoose") !== $location.url()) {
-                                    
-                                    //$timeout(function() {
-                                    //    $state.go("classChoose");
-                                    //});
-                                    $location.url($state.href("classChoose"));
-                                }
-                            }
-                           
-                        }
-                ],
                 views: {
-                    "": { template: "<div class=\"page-animation\" ui-view animation-class></div>" },
+                    "": {
+                        //controller: [
+                        //'user', '$state', 'boxes', '$location', '$window', function (user, $state, boxes, $location, $window) {
+                        //    if (window.id > 0) {
+                        //        //if (!user.university.id && $state.current.name !== "universityChoose") {
+                        //        //    $state.go("universityChoose");
+                        //        //}
+                        //        //console.log($state.params);
+                        //        //console.log($state);
+                        //        if (boxes.length < 3 && $state.href("classChoose") !== $location.url()) {
+                        //            //console.log('c')
+                        //            //$state.go("classChoose");
+                        //            //$location.url($state.href("classChoose"));
+                        //             location.href = $state.href("classChoose");
+                        //        }
+                        //        //console.log('d')
+                        //    }
+
+                        //}
+                        //],
+                        template: "<div class=\"page-animation\" ui-view animation-class></div>"
+                    },
                     "user-profile": {
                         controller: "UserDetailsController as ud",
                         templateProvider: ['user', 'ajaxService2', function (user, ajaxService2) {

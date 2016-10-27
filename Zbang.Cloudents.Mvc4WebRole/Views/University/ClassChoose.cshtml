@@ -16,7 +16,7 @@
     <div class="top">
         <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
             <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
-                   ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
+                   ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()"/>
             <button type="submit" class="search-button" @*ng-disabled="classChooseFrom.$invalid"*@>
                 <md-icon md-svg-icon="t:searchIcon"></md-icon>
             </button>
@@ -30,7 +30,34 @@
             <button type="button" ng-click="cc.status($event)">6</button>
         </div>
     </div>
-    <ol class="results list-unstyled" layout="row" layout-wrap flex="100" flex-gt-md="80" flex-xs="100" >
+   
+   
+        
+        <md-grid-list class="results" md-cols="4" md-row-height="72px"  md-gutter="12px"  @*md-gutter="8px"*@ @*md-cols-gt-md="12" md-cols="3" md-cols-md="8"
+                      md-row-height-gt-md="1:1" md-row-height="4:3"
+                      md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="4px"*@>
+            <md-grid-tile md-colspan="1" md-rowspan="{{value.length}}" @*flex="100" flex-xs="100" flex-gt-xs="50" flex-md="33" flex-gt-md="25"*@ @*class="angular-animate animate-repeat"*@ ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
+                <md-grid-tile-header class="title">
+                    <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}"></div>
+                    <div class="lock">
+                        <md-icon md-svg-icon="t:closed-lock" class="lock"></md-icon>
+                    </div>
+                </md-grid-tile-header>
+                <ol class="department-courses list-unstyled">
+                    <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="e in value track by e.id" ng-include="'slim-box-template.html'">
+                    </li>
+                </ol>
+            </md-grid-tile>
+            @*<md-grid-tile ng-repeat="(key,value) in cc.departmentWithBoxes track by key"
+                          ng-style="{
+            'background': tile.color
+          }"
+                          md-colspan-gt-sm="{{tile.colspan}}"
+                          md-rowspan-gt-sm="{{tile.rowspan}}">
+            </md-grid-tile>*@
+        </md-grid-list>
+
+    @*<ol class="results list-unstyled" layout="row" layout-wrap flex="100" flex-gt-md="80" flex-xs="100" >
         <li flex="100" flex-xs="100" flex-gt-xs="50" flex-md="33" flex-gt-md="25" class="angular-animate animate-repeat" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
             <div class="title">
                 <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}"></div>
@@ -39,12 +66,12 @@
                 </div>
             </div>
             <ol class="department-courses list-unstyled">
-                @*<div ng-bind="::c.name" ng-click="cc.choose(c)" class="ellipsis"></div>*@
+                @*<div ng-bind="::c.name" ng-click="cc.choose(c)" class="ellipsis"></div>*@@*
                 <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="e in value track by e.id" ng-include="'slim-box-template.html'">
                 </li>
             </ol>
         </li>
-    </ol>
+    </ol>*@
     <div class="empty-state" ng-if="cc.noresult">
         <h2>@GeneralResources.NoResultsTitle</h2>
         <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>

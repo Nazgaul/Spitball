@@ -15,7 +15,10 @@
                             data: { animateClass: "dashboard" },
                             resolve: {
                                 boxes: ["dashboardService", dashboardService => dashboardService.getBoxes()]
-                            }
+                            },
+                            onEnter: [function () {
+                                console.log('b');
+                            }]
                         },
                         templateUrl: "/dashboard/indexpartial/"
                     }];

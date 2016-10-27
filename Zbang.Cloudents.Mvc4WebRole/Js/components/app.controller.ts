@@ -13,13 +13,10 @@
         static $inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory",
-            "sbHistory", "$state", "$window"];
+            "sbHistory", "$state", "dashboardService", "$urlRouter"];
 
-        // private menuOpened: boolean;
-        // private showMenu: boolean;
-        // private showChat: boolean;
+
         private showBoxAd: boolean;
-        // private theme: string;
 
 
         constructor(private $rootScope: angular.IRootScopeService,
@@ -32,7 +29,8 @@
             private cacheFactory: CacheFactory.ICacheFactory,
             private sbHistory: ISbHistory,
             private $state: angular.ui.IStateService,
-            private $window: angular.IWindowService
+            private dashboardService: IDashboardService,
+            private $urlRouter: angular.ui.IUrlRouterService
         ) {
 
             // directive with menu
@@ -64,9 +62,11 @@
                 (event: angular.IAngularEvent, toState: angular.ui.IState,
                     toParams: spitaball.ISpitballStateParamsService, fromState: angular.ui.IState,
                     fromParams: spitaball.ISpitballStateParamsService) => {
-                    if (!fromState.name) {
-                        return;
-                    }
+                    //if (!fromState.name) {
+                    //    return;
+                    //}
+
+                    //$urlRouter.sync();
                     // can't access anonymous user
                     if (toState.name === "user" && toParams.userId === 22886) {
                         event.preventDefault();
@@ -99,15 +99,38 @@
                     }
                     // TODO remove that to university choose controller
                     var details = userDetails.get();
-                    if (details.university.id) {
-                        document.title = resManager.get("siteName");
+                    if (!details.university.id) {
+                        var userWithNoUniversityState = "universityChoose";
+                        if (toStateName !== userWithNoUniversityState) {
+                            $rootScope.$broadcast("state-change-start-prevent");
+                            event.preventDefault();
+                        }
                         return;
                     }
-                    var userWithNoUniversityState = "universityChoose";
-                    if (toStateName !== userWithNoUniversityState) {
-                        $rootScope.$broadcast("state-change-start-prevent");
+
+                    if (dashboardService.boxes) {
+                        if (dashboardService.boxes.length < 3 && toState.name !== "classChoose") {
+                            event.preventDefault();
+                            $rootScope.$broadcast("state-change-start-prevent");
+                            $state.go("classChoose");
+                        } else {
+                            document.title = resManager.get("siteName");
+                        }
+                    } else {
                         event.preventDefault();
+                        dashboardService.getBoxes()
+                            .then((boxes) => {
+                                $urlRouter.sync();
+                                //if (boxes.length < 3 && toState.name === "classChoose") {
+                                //    $urlRouter.sync();
+                                //    //console.log('c')
+                                //    //$state.go("classChoose");
+                                //    //$location.url($state.href("classChoose"));
+                                //}
+                            });
                     }
+                    //event.preventDefault();
+
                 });
 
         }

@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
-        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, sbHistory, $state, $window) {
+        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, sbHistory, $state, dashboardService, $urlRouter) {
             var _this = this;
             this.$rootScope = $rootScope;
             this.$location = $location;
@@ -14,7 +14,8 @@ var app;
             this.cacheFactory = cacheFactory;
             this.sbHistory = sbHistory;
             this.$state = $state;
-            this.$window = $window;
+            this.dashboardService = dashboardService;
+            this.$urlRouter = $urlRouter;
             this.back = function (defaultUrl) {
                 var element = _this.sbHistory.popElement();
                 if (!element) {
@@ -62,9 +63,6 @@ var app;
                 console.error(error);
             });
             $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
-                if (!fromState.name) {
-                    return;
-                }
                 if (toState.name === "user" && toParams.userId === 22886) {
                     event.preventDefault();
                     $rootScope.$broadcast("state-change-start-prevent");
@@ -89,14 +87,30 @@ var app;
                     return;
                 }
                 var details = userDetails.get();
-                if (details.university.id) {
-                    document.title = resManager.get("siteName");
+                if (!details.university.id) {
+                    var userWithNoUniversityState = "universityChoose";
+                    if (toStateName !== userWithNoUniversityState) {
+                        $rootScope.$broadcast("state-change-start-prevent");
+                        event.preventDefault();
+                    }
                     return;
                 }
-                var userWithNoUniversityState = "universityChoose";
-                if (toStateName !== userWithNoUniversityState) {
-                    $rootScope.$broadcast("state-change-start-prevent");
+                if (dashboardService.boxes) {
+                    if (dashboardService.boxes.length < 3 && toState.name !== "classChoose") {
+                        event.preventDefault();
+                        $rootScope.$broadcast("state-change-start-prevent");
+                        $state.go("classChoose");
+                    }
+                    else {
+                        document.title = resManager.get("siteName");
+                    }
+                }
+                else {
                     event.preventDefault();
+                    dashboardService.getBoxes()
+                        .then(function (boxes) {
+                        $urlRouter.sync();
+                    });
                 }
             });
         }
@@ -108,7 +122,7 @@ var app;
         AppController.$inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory",
-            "sbHistory", "$state", "$window"];
+            "sbHistory", "$state", "dashboardService", "$urlRouter"];
         return AppController;
     }());
     angular.module("app").controller("AppController", AppController);
