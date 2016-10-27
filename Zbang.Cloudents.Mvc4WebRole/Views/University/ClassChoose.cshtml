@@ -17,25 +17,21 @@
         <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
             <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
                    ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
-            <button type="submit" class="search-button" @*ng-disabled="classChooseFrom.$invalid"*@>
-                <md-icon md-svg-icon="t:searchIcon"></md-icon>
+            <button type="submit" class="search-button">
+                <md-icon md-svg-icon="lc:filter"></md-icon>
             </button>
         </form>
         <div class="selected-classes">
-            <button type="button" ng-click="cc.status($event)">1</button>
-            <button type="button" ng-click="cc.status($event)">2</button>
-            <button type="button" ng-click="cc.status($event)">3</button>
-            <button type="button" ng-click="cc.status($event)">4</button>
-            <button type="button" ng-click="cc.status($event)">5</button>
-            <button type="button" ng-click="cc.status($event)">6</button>
+            <button type="button" class="icon background" d-color="{{::sc.department.length}}" ng-click="cc.status($event)" ng-repeat="sc in cc.selectedCourses track by sc.id">{{::sc.name.substr(0,2)}}</button>
+            <div class="empty" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)">{{i}}</div>
         </div>
     </div>
-    <ol class="results list-unstyled" layout="row" layout-wrap flex="100" flex-gt-md="80" flex-xs="100" >
+    <ol class="results list-unstyled" layout="row" layout-wrap>
         <li flex="100" flex-xs="100" flex-gt-xs="50" flex-md="33" flex-gt-md="25" class="angular-animate animate-repeat" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
             <div class="title">
-                <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}"></div>
+                <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}" title="{{::key}}"></div>
                 <div class="lock">
-                    <md-icon md-svg-icon="t:closed-lock" class="lock"></md-icon>
+                    <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::key.length}}"></md-icon>
                 </div>
             </div>
             <ol class="department-courses list-unstyled">
@@ -53,8 +49,8 @@
 </div>
 <div ng-if="cc.showCreateClass">
     @*<div class="box-style" flex="50" flex-xs="100">
-        <h2 class="department ellipsis" d-color="{{::cc.selectedDepartment.name.length}}" ng-bind="::cc.selectedDepartment.name"></h2>
-    </div>*@
+            <h2 class="department ellipsis" d-color="{{::cc.selectedDepartment.name.length}}" ng-bind="::cc.selectedDepartment.name"></h2>
+        </div>*@
     <form name="createBox" flex="50" flex-xs="100" novalidate ng-submit="cc.createClass(createBox)">
         <md-autocomplete required md-no-asterisk md-input-name="department"
                          md-delay="350"
@@ -107,10 +103,10 @@
 </script>
 
 <script defer type="text/ng-template" id="slim-box-template.html">
-    <button class="box-template box-style slim" ga-track-event="['course-choose', 'box']">
+    <button class="box-template box-style slim" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e)">
         <div class="icon background" d-color="{{::key.length}}" ng-bind="::e.name.substr(0,2)"></div>
         <div class="data">
-            <h5 class="name ellipsis" d-color="{{::key.length}}" ng-bind="::e.name"></h5>
+            <h5 class="name ellipsis" d-color="{{::key.length}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
             <div class="metadata">
                 <div class="code ellipsis" ng-bind="::e.courseCode"></div>
                 <div class="professor ellipsis" ng-bind="::e.professor"></div>

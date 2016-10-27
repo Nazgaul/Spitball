@@ -26,11 +26,11 @@
 
     //var currentNodeId;
 
-    var selectedCourses: Array<IBox> = [];
     class ClassChoose {
-        static $inject = ["searchService", "libraryService", "$mdToast", "$state","$mdDialog"];
+        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog"];
         //step = Steps.Start;
         showCreateClass = false;
+        selectedCourses: Array<IBox> = [];
         //searchResult;
 
         noresult = false;
@@ -67,7 +67,7 @@
             //    this.step = Steps.SearchFirst;
             //}
             this.noresult = false;
-            var selectedCourseId = selectedCourses.map(f => { return f.id });
+            var selectedCourseId = this.selectedCourses.map(f => { return f.id });
             this.searchService.searchBoxSelect(this.term, 0)
                 .then(response => {
                     this.departmentWithBoxes = {};
@@ -118,7 +118,7 @@
             //TODO : ajax call
             //this.term = '';
             //this.searchResult = [];
-            selectedCourses.push(course);
+            this.selectedCourses.push(course);
             course.selected = true;
             const toasterContent = this.$mdToast.simple()
                 .textContent("You have selected 3 classes")

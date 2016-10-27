@@ -4,11 +4,17 @@
 .color10.background {
   background: #4faf61;
 }
+.color10.fill {
+  fill: #4faf61;
+}
 .color9 {
   color: #a27c22;
 }
 .color9.background {
   background: #a27c22;
+}
+.color9.fill {
+  fill: #a27c22;
 }
 .color8 {
   color: #a55fff;
@@ -16,11 +22,17 @@
 .color8.background {
   background: #a55fff;
 }
+.color8.fill {
+  fill: #a55fff;
+}
 .color7 {
   color: #73b435;
 }
 .color7.background {
   background: #73b435;
+}
+.color7.fill {
+  fill: #73b435;
 }
 .color6 {
   color: #f76446;
@@ -28,11 +40,17 @@
 .color6.background {
   background: #f76446;
 }
+.color6.fill {
+  fill: #f76446;
+}
 .color5 {
   color: #f36f6e;
 }
 .color5.background {
   background: #f36f6e;
+}
+.color5.fill {
+  fill: #f36f6e;
 }
 .color4 {
   color: #848fa6;
@@ -40,11 +58,17 @@
 .color4.background {
   background: #848fa6;
 }
+.color4.fill {
+  fill: #848fa6;
+}
 .color3 {
   color: #ffb933;
 }
 .color3.background {
   background: #ffb933;
+}
+.color3.fill {
+  fill: #ffb933;
 }
 .color2 {
   color: #e775ce;
@@ -52,17 +76,26 @@
 .color2.background {
   background: #e775ce;
 }
+.color2.fill {
+  fill: #e775ce;
+}
 .color1 {
   color: #ff9853;
 }
 .color1.background {
   background: #ff9853;
 }
+.color1.fill {
+  fill: #ff9853;
+}
 .color0 {
   color: #64A9F8;
 }
 .color0.background {
   background: #64A9F8;
+}
+.color0.fill {
+  fill: #64A9F8;
 }
 button {
   border: 0;
