@@ -74,9 +74,6 @@ var app;
                 $rootScope.$broadcast("close-menu");
                 $rootScope.$broadcast("close-collapse");
                 var toStateName = toState.name;
-                if (toStateName !== "searchinfo") {
-                    $rootScope.$broadcast("search-close");
-                }
                 if (fromParams.boxId && toParams.boxId) {
                     if (fromParams.boxId === toParams.boxId && toStateName === "box"
                         && fromState.name.startsWith("box")) {

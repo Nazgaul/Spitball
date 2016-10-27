@@ -9,10 +9,12 @@ using Dapper;
 using NHibernate.Criterion;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.Common;
+using Zbang.Zbox.Domain.DataAccess;
 using Zbang.Zbox.Infrastructure.Cache;
 using Zbang.Zbox.Infrastructure.CommandHandlers;
 using Zbang.Zbox.Infrastructure.Data.Dapper;
 using Zbang.Zbox.Infrastructure.Data.NHibernateUnitOfWork;
+using Zbang.Zbox.Infrastructure.Ioc;
 using Zbang.Zbox.Infrastructure.Trace;
 
 
@@ -284,6 +286,32 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
                 } while (universitiesIds.Any());
             }
         }
+
+        //public void AddParentIdToBox()
+        //{
+        //    using (var unitOfWork = UnitOfWork.Start())
+        //    {
+        //        var query =
+        //            UnitOfWork.CurrentSession.QueryOver<AcademicBox>()
+        //                .Where(w => w.ParentDepartment == null).Take(100);
+        //        var m_DepartmentRepository = IocFactory.IocWrapper.Resolve<ILibraryRepository>();
+        //        var list = query.List();
+        //        do
+        //        {
+        //            //var list = query.List();
+        //            foreach (var academicBox in list)
+        //            {
+        //                var topDepartmentId = m_DepartmentRepository.GetTopTreeNode(academicBox.Department.Id);
+        //                var topDepartment = m_DepartmentRepository.Load(topDepartmentId);
+        //                academicBox.ParentDepartment = topDepartment;
+        //                UnitOfWork.CurrentSession.Save(academicBox);
+        //                unitOfWork.TransactionalFlush();
+        //            }
+        //            list = query.List();
+        //        } while (list.Count > 0);
+        //        //.Where(Restrictions.On<CommentReply>(x => x.Text).IsLike("%quot;%")).Take(100);
+        //    }
+        //}
         public void RemoveHtmlTags()
         {
             using (var unitOfWork = UnitOfWork.Start())

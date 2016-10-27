@@ -77,9 +77,10 @@
                     $rootScope.$broadcast("close-menu");
                     $rootScope.$broadcast("close-collapse");
                     var toStateName = toState.name;
-                    if (toStateName !== "searchinfo") {
-                        $rootScope.$broadcast("search-close");
-                    }
+                    //if (toStateName !== "searchinfo") {
+                    //    $rootScope.$broadcast("search-close");
+                    //}
+                    // TODO remove this to box controller
                     if (fromParams.boxId && toParams.boxId) {
                         if (fromParams.boxId === toParams.boxId && toStateName === "box"
                             && fromState.name.startsWith("box")) {
@@ -88,6 +89,7 @@
                         }
                     }
 
+                    // TODO remove this to settings controller
                     if (toStateName === "settings" && fromState.name.startsWith("settings")) {
                         event.preventDefault();
                         $rootScope.$broadcast("state-change-start-prevent");
@@ -95,6 +97,7 @@
                     if (!userDetails.isAuthenticated()) {
                         return;
                     }
+                    // TODO remove that to university choose controller
                     var details = userDetails.get();
                     if (details.university.id) {
                         document.title = resManager.get("siteName");
