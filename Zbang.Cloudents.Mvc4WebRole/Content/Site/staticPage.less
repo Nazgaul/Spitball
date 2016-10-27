@@ -1691,6 +1691,62 @@ iframe {
     }
 }
 
+#main-accordion {
+    input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+
+        &:checked + label {
+            background-color: @buttonColorBlue;
+        }
+    }
+    // Style label/entry for accordion
+    label {
+        position: relative;
+        display: block;
+        cursor: pointer;
+    }
+    // Style accordion content
+    section {
+        max-height: 0;
+        transition: max-height 0.1s ease-out;
+        overflow: hidden;
+    }
+    // Open content when clicking label
+    .toggle-level-1:checked ~ .content-level-1,
+    .toggle-level-2:checked ~ .content-level-2 {
+        transition: max-height 0.1s ease-in;
+        max-height: 100vh;
+    }
+
+
+    .category-wrapper {
+        background: white;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+
+        label {
+            color: white;
+            padding: 10px;
+            background: #888b8e;
+            display: block;
+            border-radius: 10px;
+            margin-bottom: 0;
+        }
+
+        input:checked ~ section {
+            padding: 10px;
+        }
+
+        input:checked ~ label {
+            border-radius: 10px 10px 0 0;
+        }
+    }
+}
 
 /*#region cssCheck*/
 #cssCheck {
