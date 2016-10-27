@@ -1,7 +1,6 @@
 var app;
 (function (app) {
     "use strict";
-    var selectedCourses = [];
     var ClassChoose = (function () {
         function ClassChoose(searchService, libraryService, $mdToast, $state, $mdDialog) {
             this.searchService = searchService;
@@ -10,6 +9,7 @@ var app;
             this.$state = $state;
             this.$mdDialog = $mdDialog;
             this.showCreateClass = false;
+            this.selectedCourses = [];
             this.noresult = false;
             this.submitDisabled = false;
             this.create = {};
@@ -21,7 +21,7 @@ var app;
             var _this = this;
             this.noresult = false;
             this.noresult = false;
-            var selectedCourseId = selectedCourses.map(function (f) { return f.id; });
+            var selectedCourseId = this.selectedCourses.map(function (f) { return f.id; });
             this.searchService.searchBoxSelect(this.term, 0)
                 .then(function (response) {
                 _this.departmentWithBoxes = {};
@@ -49,7 +49,7 @@ var app;
         };
         ClassChoose.prototype.choose = function (course) {
             var _this = this;
-            selectedCourses.push(course);
+            this.selectedCourses.push(course);
             course.selected = true;
             var toasterContent = this.$mdToast.simple()
                 .textContent("You have selected 3 classes")

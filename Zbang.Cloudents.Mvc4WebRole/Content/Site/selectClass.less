@@ -348,17 +348,29 @@
 
         .selected-classes {
             flex-shrink: 0;
+            .displayFlex();
+            .align-items(center);
+            .justifyContet(flex-start);
 
             button {
+                color: @textColorWhite;
+            }
+
+            .empty {
+                border: 1px dashed @textColorGrey;
+                background: @backgroundCalmGrey;
+                color: @textColorGrey;
+                padding: 0;
+            }
+
+            button, .empty {
                 @selectedButtonSize: 40px;
                 width: @selectedButtonSize;
                 height: @selectedButtonSize;
                 line-height: @selectedButtonSize;
-                border: 1px dashed @textColorGrey;
-                background: @backgroundCalmGrey;
-                color: @textColorGrey;
+                margin-left: 6px;
                 font-size: 20px;
-                padding: 0;
+                text-align: center;
             }
         }
 
@@ -372,17 +384,17 @@
         overflow: hidden;
         width: 100%;
         box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
+        background: @textColorWhite;
 
         @media(max-width: 600px) {
             margin-top: 30px;
         }
 
         input {
-            background: @textColorWhite;
             font-size: 20px;
             height: 37px;
             padding: 0 10px 0 25px;
-            width: ~"calc(100% - 60px)";
+            width: ~"calc(100% - 40px)";
             border: 0;
             .placeHolder(@headerbackground);
             color: @buttonColorBlue;
@@ -394,14 +406,13 @@
         }
 
         .search-button {
-            background: @buttonColorBlue;
-            width: 60px;
+            width: 40px;
             line-height: 100%;
 
-            svg {
+            md-icon {
                 width: 22px;
                 height: 22px;
-                fill: @textColorWhite;
+                fill: @buttonColorBlue;
             }
         }
     }
