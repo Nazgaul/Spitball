@@ -2,9 +2,6 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.User.Resources
 
-@{
-    //const string url = "~/images/site/uploadIcons.svg";
-}
 <div layout="row" layout-padding layout-wrap class="feed-wrapper">
     <div class="feed" flex="100" flex-md="66" flex-lg="60" flex-gt-lg="60">
         <div class="box-options">
@@ -12,7 +9,6 @@
                 <button ng-disabled="!b.canInvite" type="button" ng-click="b.inviteToBox()" class="option invite" scroll-to-top ga-track-event="['box-feed', 'inviteFriends']">
                     <div>
                         <md-icon md-svg-icon="t:invite" class="option-icon"></md-icon>
-                        @*@Html.Svg("~/images/site/icons.svg", "invite", new {@class = "option-icon"})*@
                         <span class="text">@BoxResources.InviteFriendsMember</span>
                     </div>
                 </button>
@@ -22,7 +18,6 @@
                 <label class="title" for="open-share" ng-click="b.settingsOpen = b.inviteOpen = false">
                     <span class="wrapper" scroll-to-top>
                         <md-icon md-svg-icon="t:share" class="option-icon"></md-icon>
-                        @*@Html.Svg("~/images/site/icons.svg", "share", new {@class = "option-icon"})*@
                         <span class="text">@UserResources.Share</span>
                     </span>
                 </label>
@@ -33,7 +28,6 @@
                 <button ng-disabled="b.needFollow" class="option box-settings" flex="none" type="button" ng-click="b.toggleSettings()" scroll-to-top ga-track-event="['box', 'settings']">
                     <div>
                         <md-icon md-svg-icon="t:settingMenu" class="option-icon"></md-icon>
-                        @*@Html.Svg("/images/site/icons.svg", "settingMenu", new {@class = "option-icon"})*@
                         <span class="text">@IndexResources.Settings</span>
                     </div>
                 </button>
@@ -68,7 +62,6 @@
                             <div class="feed-item" ng-repeat="e in ::post.files | limitTo: post.limitFiles track by e.id" ng-include="f.postItemTemplate(e)"></div>
                             <a ui-sref="box.items" class="feed-item more-items" ng-if="::post.needMore">
                                 <md-icon md-svg-icon="t:documents"></md-icon>
-                                @*@Html.Svg("~/images/site/icons.svg", "documents")*@
                                 <div class="counter">+{{::post.needMore | megaNumber}}</div>
                             </a>
                         </div>
@@ -80,7 +73,6 @@
                 <div class="counters">
                     <div ng-if="post.likesCount" class="like-btn indent">
                         <md-icon md-svg-icon="b:like" class="like-icon"></md-icon>
-                        @*@Html.Svg("~/images/site/box-icons.svg", "like", new {@class = "like-icon"})*@
                         <input type="button" value="{{post.likesCount}}" class="like-count" user-not-register-popup="click" ng-click="f.likeCommentDialog(post,$event)"/>
                     </div>
                     <div class="show-more" ng-if="post.repliesCount > 4 && !post.expandReplies">
@@ -96,10 +88,8 @@
                         <div layout="row" layout-align="start center">
                             <button class="like-btn" user-not-register-popup="click" type="button" layout="row" layout-align="start center" ng-disabled="f.add.disabled" ng-class="{liked :post.isLiked}" ng-click="f.likeComment(post)" ga-track-event="['box-feed', 'comment-like-icon']">
                                 <md-icon md-svg-icon="b:like" class="like-icon"></md-icon> @GeneralResources.Like
-                                @*@Html.Svg("~/images/site/box-icons.svg", "like", new {@class = "like-icon"})*@ 
                             </button>
                         </div>
-                        @*<share-box></share-box>*@
                     </div>
                 </div>
                 <ol class="list-unstyled replies" ng-if="post.replies.length">
@@ -128,7 +118,6 @@
                                 <div class="feed-item" ng-repeat="e in ::reply.files | limitTo: reply.limitFiles track by e.id" ng-include="f.postItemTemplate(e)"></div>
                                 <a ui-sref="box.items" class="feed-item more-items" ng-if="::reply.needMore">
                                     <md-icon md-svg-icon="t:documents"></md-icon>
-                                    @*@Html.Svg("~/images/site/icons.svg", "documents")*@
                                     <div class="counter">+{{::reply.needMore | megaNumber}}</div>
                                 </a>
                             </div>
@@ -163,22 +152,17 @@
                                 <a user-not-register-popup="click" plupload="f.add.fileUpload.url" @*ng-click="f.add.upload(post.id)"*@
                                    plupload-options="f.add.fileUpload.options(post.id)" plupload-callbacks="f.add.fileUpload.callbacks" ga-track-event="['box-feed', 'addFile']">
                                     <md-icon md-svg-icon="u:file" class="file"></md-icon>
-                                    @*@Html.Svg(url, "file", new {@class = "file"})*@
                                 </a>
                                 <button user-not-register-popup="click" type="button" class="google" ng-mouseover="f.add.init()" ng-disabled="f.add.googleDisabled" ng-click="f.add.google(post.id)" ga-track-event="['box-feed', 'googleDrive']">
                                     <md-icon md-svg-icon="u:googleDrive"></md-icon>
                                     <md-icon md-svg-icon="u:googleDriveClean"></md-icon>
-                                    @*@Html.Svg(url, "googleDrive")
-                                    @Html.Svg(url, "googleDriveClean")*@
                                 </button>
                                 <button user-not-register-popup="click" class="dropbox" type="button" ng-mouseover="f.add.init()" ng-disabled="f.add.dropboxDisabled" ng-click="f.add.dropbox(post.id)" ga-track-event="['box-feed', 'dropbox']">
                                     <md-icon md-svg-icon="u:dropbox"></md-icon>
-                                    @*@Html.Svg(url, "dropbox", new {@class = "dropbox"})*@
                                 </button>
                             </div>
                             <button type="submit" class="action-btn no-text post-comment" ng-disabled="f.add.disabled" ga-track-event="['box-feed', 'postReply']">
                                 <md-icon md-svg-icon="u:post"></md-icon>
-                                @*@Html.Svg(url, "post")*@
                             </button>
                         </div>
                     </form>

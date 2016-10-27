@@ -13,27 +13,31 @@
                             //$q https://github.com/angular-ui/ui-router/issues/105
                             return userDetails.init();
                         }
-                    ]
-                    //boxes: ["dashboardService", function (dashboardService) {
-                    //    if (window.id > 0) {
-                    //        return dashboardService.getBoxes();
+                    ],
+                    boxes: ["dashboardService", function (dashboardService) {
+                        if (window.id > 0) {
+                            return dashboardService.getBoxes();
 
-                    //    }
-                    //}]
+                        }
+                    }]
                 },
-                //onEnter: [
-                //        'user', '$state', 'boxes','$location', function (user, $state, boxes,$location) {
-                //            if (window.id > 0) {
-                //                if (!user.university.id && $state.current.name !== "universityChoose") {
-                //                    $state.go("universityChoose");
-                //                }
-                //                if (boxes.length < 3 && $state.href("classChoose") !== $location.url()) {
-                //                    $location.url($state.href("classChoose"));
-                //                }
-                //            }
+                onEnter: [
+                        'user', '$state', 'boxes', '$location', '$timeout', function (user, $state, boxes, $location, $timeout) {
+                            if (window.id > 0) {
+                                //if (!user.university.id && $state.current.name !== "universityChoose") {
+                                //    $state.go("universityChoose");
+                                //}
+                                if (boxes.length < 3 && $state.href("classChoose") !== $location.url()) {
+                                    
+                                    //$timeout(function() {
+                                    //    $state.go("classChoose");
+                                    //});
+                                    $location.url($state.href("classChoose"));
+                                }
+                            }
                            
-                //        }
-                //],
+                        }
+                ],
                 views: {
                     "": { template: "<div class=\"page-animation\" ui-view animation-class></div>" },
                     "user-profile": {
