@@ -15,11 +15,12 @@
 <div ng-if="!cc.showCreateClass">
     <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
         <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
-               ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
+               ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()"/>
         <button type="submit" class="search-button" @*ng-disabled="classChooseFrom.$invalid"*@>
             <md-icon md-svg-icon="t:searchIcon"></md-icon>
         </button>
     </form>
+    <button type="button" ng-click="cc.status($event)">THIS IS PIC</button>
     <ol class="results" layout="row" layout-wrap flex="100" flex-gt-md="80" flex-xs="100" >
         <li flex="33" flex-xs="100" class="angular-animate animate-repeat" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
             <div class="department-name ellipsis" ng-bind="::key"></div>
@@ -87,7 +88,9 @@
         </div>
     </form>
 </div>
-
+<script type="text/ng-template" id="dialog.tmpl.html">
+    <div>hello</div>
+</script>
 @*<div ng-switch="cc.step">
     <div ng-switch-when="1" class="content default">
         <div class="search-image">

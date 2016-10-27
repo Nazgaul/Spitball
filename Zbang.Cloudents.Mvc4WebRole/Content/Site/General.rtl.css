@@ -343,6 +343,10 @@ body .quiz-template .bottom .name {
   width: 20px;
   height: 20px;
 }
+.md-center {
+  right: 50%;
+  transform: translate3d(50%, 0, 0);
+}
 /*.create-box {
 
     .create-btn {

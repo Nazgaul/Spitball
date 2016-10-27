@@ -3,11 +3,12 @@ var app;
     "use strict";
     var selectedCourses = [];
     var ClassChoose = (function () {
-        function ClassChoose(searchService, $scope, libraryService, user) {
+        function ClassChoose(searchService, libraryService, $mdToast, $state, $mdDialog) {
             this.searchService = searchService;
-            this.$scope = $scope;
             this.libraryService = libraryService;
-            this.user = user;
+            this.$mdToast = $mdToast;
+            this.$state = $state;
+            this.$mdDialog = $mdDialog;
             this.showCreateClass = false;
             this.noresult = false;
             this.submitDisabled = false;
@@ -37,9 +38,28 @@ var app;
                 }
             });
         };
+        ClassChoose.prototype.status = function (ev) {
+            this.$mdDialog.show({
+                templateUrl: "dialog.tmpl.html",
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                fullscreen: true
+            });
+        };
         ClassChoose.prototype.choose = function (course) {
+            var _this = this;
             selectedCourses.push(course);
             course.selected = true;
+            var toasterContent = this.$mdToast.simple()
+                .textContent("You have selected 3 classes")
+                .hideDelay(0)
+                .action("click here")
+                .position("top center");
+            toasterContent.toastClass("angular-animate");
+            this.$mdToast.show(toasterContent).then(function () {
+                _this.$state.go("dashboard");
+            });
         };
         ClassChoose.prototype.goCreateClass = function () {
             var _this = this;
@@ -80,7 +100,7 @@ var app;
                 _this.submitDisabled = false;
             });
         };
-        ClassChoose.$inject = ["searchService", "$scope", "libraryService", "user"];
+        ClassChoose.$inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);

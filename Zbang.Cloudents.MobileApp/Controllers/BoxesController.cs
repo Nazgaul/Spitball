@@ -57,31 +57,30 @@ namespace Zbang.Cloudents.MobileApp.Controllers
         [Route("api/boxes/recommend")]
         public async Task<HttpResponseMessage> Recommend()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return Request.CreateUnauthorizedResponse();
-            }
-            var university = User.GetUniversityDataId();
-            if (!university.HasValue)
-            {
-                return Request.CreateBadRequestResponse("user don't have university");
-            }
-            // ReSharper disable once PossibleInvalidOperationException - universityid have value because no university attribute
-            //var universityWrapper = userDetail.UniversityDataId.Value;
-
-            var query = new RecommendedCoursesQuery(university.Value, User.GetUserId());
-            var result = await m_ZboxReadService.GetRecommendedCoursesAsync(query);
-            return Request.CreateResponse(result.Select(s => new
-            {
-                Id = s.BoxId,
-                s.Professor,
-                s.CourseCode,
-                s.Name,
-                s.MembersCount,
-                s.ItemCount,
-                shortUrl = UrlConst.BuildShortBoxUrl(new Base62(s.BoxId).ToString())
-                //this is always a course
-            }));
+            return Request.CreateResponse();
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return Request.CreateUnauthorizedResponse();
+            //}
+            //var university = User.GetUniversityDataId();
+            //if (!university.HasValue)
+            //{
+            //    return Request.CreateBadRequestResponse("user don't have university");
+            //}
+            
+            //var query = new RecommendedCoursesQuery(university.Value, User.GetUserId());
+            //var result = await m_ZboxReadService.GetRecommendedCoursesAsync(query);
+            //return Request.CreateResponse(result.Select(s => new
+            //{
+            //    Id = s.BoxId,
+            //    s.Professor,
+            //    s.CourseCode,
+            //    s.Name,
+            //    s.MembersCount,
+            //    s.ItemCount,
+            //    shortUrl = UrlConst.BuildShortBoxUrl(new Base62(s.BoxId).ToString())
+            //    //this is always a course
+            //}));
         }
 
 

@@ -7,7 +7,7 @@
 
         inviteOpen = false;
         //boxes;
-        suggested;
+        //suggested;
         html;
         createBoxOn;
         showLeaderboard = true;
@@ -23,14 +23,14 @@
             private ajaxService2: IAjaxService2
         ) {
             //this.boxes2 = boxes;
-            dashboardService.recommended().then(response2 => {
-                for (let i = 0; i < response2.length; i++) {
-                    const retVal = response2[i];
-                    retVal.recommended = true;
-                    retVal.updates = 0;
-                }
-                this.suggested = response2;
-            });
+            //dashboardService.recommended().then(response2 => {
+            //    for (let i = 0; i < response2.length; i++) {
+            //        const retVal = response2[i];
+            //        retVal.recommended = true;
+            //        retVal.updates = 0;
+            //    }
+            //    this.suggested = response2;
+            //});
             $scope.$on("close_invite", () => {
                 this.inviteOpen = false;
             });

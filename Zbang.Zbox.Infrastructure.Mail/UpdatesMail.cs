@@ -37,7 +37,7 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
             html = html.Replace("{UPDATES}", sb.ToString());
             html = html.Replace("{USERNAME}", m_Parameters.UserName);
-            html = html.Replace("{NUM-UPDATES}", m_Parameters.NoOfUpdates.ToString(CultureInfo.InvariantCulture));
+            html = html.Replace("{NUM-UPDATES}", AggregateUpdates(m_Parameters.NoOfUpdates));
             html = html.Replace("{X-ANSWERS}", AggregateAnswers(m_Parameters.NoOfAnswers));
             html = html.Replace("{X-QUESTIONS}", AggregateQuestion(m_Parameters.NoOfQuestions));
             html = html.Replace("{X-NEW-ITEMS}", AggregateItems(m_Parameters.NoOfItems));
@@ -45,10 +45,9 @@ namespace Zbang.Zbox.Infrastructure.Mail
             var spaceInGmail = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
             html = html.Replace(spaceInGmail, string.Empty);
             return html;
-            //message.EnableGoogleAnalytics("cloudentsMail", "email", null, campaign: "updateEmail");
         }
 
-        public override string  AddSubject()
+        public override string AddSubject()
         {
             return Subject;
         }
@@ -59,6 +58,11 @@ namespace Zbang.Zbox.Infrastructure.Mail
 
         }
 
+        private static string AggregateUpdates(int numOfUpdates)
+        {
+            var str = AggregateWithString(numOfUpdates, EmailResource.Update, EmailResource.Updates);
+            return str.Remove(str.Length - 1, 1);
+        }
         private static string AggregateAnswers(int numOfAnswers)
         {
             return AggregateWithString(numOfAnswers, EmailResource.answer, EmailResource.answers);
