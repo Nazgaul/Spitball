@@ -34,9 +34,9 @@
                       md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="4px"*@>
             <md-grid-tile md-colspan="1" md-rowspan="{{value.length}}" @*flex="100" flex-xs="100" flex-gt-xs="50" flex-md="33" flex-gt-md="25"*@ @*class="angular-animate animate-repeat"*@ ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
                 <md-grid-tile-header class="title">
-                    <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}"></div>
+                    <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}" title="{{::key}}"></div>
                     <div class="lock">
-                        <md-icon md-svg-icon="t:closed-lock" class="lock"></md-icon>
+                        <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::key.length}}"></md-icon>
                     </div>
                 </md-grid-tile-header>
                 <ol class="department-courses list-unstyled">

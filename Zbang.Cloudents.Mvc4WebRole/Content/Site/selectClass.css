@@ -491,6 +491,9 @@
   width: 18px;
   height: 18px;
 }
+.class-choose .results .department-courses {
+  width: 100%;
+}
 .class-choose .results > li {
   padding: 10px 15px;
 }
