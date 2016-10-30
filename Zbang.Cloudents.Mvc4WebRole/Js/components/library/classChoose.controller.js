@@ -1,43 +1,34 @@
 var app;
 (function (app) {
     "use strict";
-    var allList = [];
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $mdToast, $state, $mdDialog, $filter) {
-            var _this = this;
+        function ClassChoose(searchService, libraryService, $mdToast, $state, $mdDialog, $filter, nodeData) {
             this.searchService = searchService;
             this.libraryService = libraryService;
             this.$mdToast = $mdToast;
             this.$state = $state;
             this.$mdDialog = $mdDialog;
             this.$filter = $filter;
+            this.nodeData = nodeData;
             this.showCreateClass = false;
             this.selectedCourses = [];
-            this.noresult = false;
             this.submitDisabled = false;
             this.create = {};
-            this.departmentWithBoxes = [];
-            this.departments = [];
-            this.libraryService.getAllDepartments()
-                .then(function (response) {
-                allList = response;
-                _this.classSearch();
-            });
+            this.data = [];
+            this.classSearch();
         }
         ClassChoose.prototype.classSearch = function () {
             var _this = this;
-            this.noresult = false;
             if (!this.term) {
-                this.departmentWithBoxes = allList;
+                this.data = this.nodeData;
                 return;
             }
-            var filterDepartment = this.$filter('filter')(allList, this.term);
-            this.departmentWithBoxes = this.$filter("filter")(filterDepartment, function (value, index, array) {
-                value.boxes = _this.$filter('filter')(value.boxes, _this.term);
+            var filterDepartment = this.$filter("filter")(this.nodeData, this.term);
+            this.data = this.$filter("filter")(filterDepartment, function (value) {
+                value.boxes = _this.$filter("filter")(value.boxes, _this.term);
                 return value;
             });
-            if (!this.departmentWithBoxes.length) {
-                this.noresult = true;
+            if (!this.data.length) {
             }
         };
         ClassChoose.prototype.status = function (ev, course) {
@@ -72,33 +63,46 @@ var app;
             });
         };
         ClassChoose.prototype.goCreateClass = function () {
-            var _this = this;
+            this.data = this.nodeData;
+            this.term = '';
             this.showCreateClass = true;
-            this.libraryService.getAllDepartments()
-                .then(function (response) {
-                _this.departments = response;
-            });
+            this.selectedDepartment = null;
+            this.departmentName = '';
         };
         ClassChoose.prototype.queryDepartments = function (text) {
-            return this.departments;
+            var result = this.$filter("filter")(this.nodeData, text);
+            return result;
         };
         ClassChoose.prototype.createClass = function (createBox) {
             var _this = this;
-            if (createBox.$invalid) {
+            this.submitDisabled = true;
+            if (!this.selectedDepartment) {
+                this.libraryService.createDepartment(this.departmentName, null, true)
+                    .then(function (response) {
+                    _this.nodeData.push(response);
+                    _this.selectedDepartment = response;
+                    _this.createClassCall(createBox);
+                });
                 return;
             }
-            this.submitDisabled = true;
+            this.createClassCall(createBox);
+        };
+        ClassChoose.prototype.createClassCall = function (createBox) {
+            var _this = this;
             var createObj = this.create;
             this.libraryService.createClass(createObj.name, createObj.number, createObj.professor, this.selectedDepartment.id)
                 .then(function (response) {
-                _this.departmentWithBoxes[_this.selectedDepartment.name] = _this.departmentWithBoxes[_this.selectedDepartment.name] || [];
-                _this.departmentWithBoxes[_this.selectedDepartment.name].push({
+                var department = _this.nodeData.find(function (f) { return f.id === _this.selectedDepartment.id; });
+                var box = {
                     id: response.id,
                     name: createObj.name,
                     courseCode: createObj.number,
-                    professor: createObj.professor,
-                    selected: true
-                });
+                    professor: createObj.professor
+                };
+                department.boxes = department.boxes || [];
+                department.boxes.push(box);
+                _this.selectedCourses.push(box);
+                _this.selectedDepartment = null;
                 angular.forEach(createObj, function (value, key) {
                     _this.create[key] = '';
                 });
@@ -110,7 +114,7 @@ var app;
                 _this.submitDisabled = false;
             });
         };
-        ClassChoose.$inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter"];
+        ClassChoose.$inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);

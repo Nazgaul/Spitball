@@ -21,15 +21,15 @@
             </button>
         </form>
         <div class="selected-classes">
-            <button type="button" class="icon background" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses track by sc.id">{{::sc.name.substr(0,2)}}</button>
-            <div class="empty" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)">{{i}}</div>
+            <button type="button" class="icon background" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses track by sc.id" ng-bind="::sc.name.substr(0,2)"></button>
+            <div class="empty" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
         </div>
     </div>
 
 
 
     @*<md-grid-list class="results" md-cols="4" md-row-height="72px"  md-gutter="12px">
-            <md-grid-tile md-colspan="1" md-rowspan="{{value.length}}" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
+            <md-grid-tile md-colspan="1" md-rowspan="{{value.length}}" ng-repeat="(key,value) in cc.data track by key">
                 <md-grid-tile-header class="title">
                     <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}" title="{{::key}}"></div>
                     <div class="lock">
@@ -47,7 +47,7 @@
 
     <div class="grid-container">
         <ol class="results list-unstyled" @*vs-repeat vs-scroll-parent="window" vs-size="department.boxes.length * 72"*@>
-            <li class="angular-animate animate-repeat" ng-repeat="department in cc.departmentWithBoxes track by department.id">
+            <li class="angular-animate animate-repeat" ng-repeat="department in cc.data track by department.id">
                 <div class="title">
                     <div class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>
                     <div class="lock">
@@ -63,7 +63,7 @@
     </div>
 
     @*<ol class="results list-unstyled" layout="row" layout-wrap flex="100" flex-gt-md="80" flex-xs="100" >
-        <li flex="100" flex-xs="100" flex-gt-xs="50" flex-md="33" flex-gt-md="25" class="angular-animate animate-repeat" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
+        <li flex="100" flex-xs="100" flex-gt-xs="50" flex-md="33" flex-gt-md="25" class="angular-animate animate-repeat" ng-repeat="(key,value) in cc.data track by key">
             <div class="title">
                 <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}" title="{{::key}}"></div>
                 <div class="lock">
@@ -77,7 +77,7 @@
                 </ol>
             </li>
         </ol>*@
-                <div class="empty-state" ng-if="cc.noresult">
+                <div class="empty-state" ng-if="cc.data.length===0">
                     <h2>@GeneralResources.NoResultsTitle</h2>
                     <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
                     <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass()">@UniversityResources.OnboardingCreateClass</button>
@@ -91,9 +91,9 @@
                     <md-autocomplete required md-no-asterisk md-input-name="department"
                                      md-delay="350"
                                      md-min-length="0"
-                                     @*md-no-cache="false"*@
-                                     md-selected-item-change="cc.selectedDepartment = item"
+                                     @*md-selected-item-change="cc.selectDepartment(item)"*@
                                      md-select-on-match="true"
+                                     md-match-case-insensitive="true"
                                      md-search-text="cc.departmentName"
                                      md-items="item in cc.queryDepartments(cc.departmentName)"
                                      md-item-text="item.name"
@@ -113,7 +113,7 @@
                     </md-autocomplete>
                     <md-input-container class="form-field">
                         <label for="className">@UniversityResources.EnterClassName</label>
-                        <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" />
+                        <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)" />
                         <div class="error" ng-messages="createBox.name.$error" @*ng-show="createBox.name.$dirty"*@>
                             <div ng-message="required">@GeneralResources.RequiredField</div>
                             <div ng-message="server">{{cc.create.error}}</div>
@@ -122,11 +122,11 @@
 
                     <md-input-container class="form-field">
                         <label for="classNumber">@UniversityResources.EnterCode</label>
-                        <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" />
+                        <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" ng-change="createBox.name.$setValidity('server',true)" />
                     </md-input-container>
                     <md-input-container class="form-field">
                         <label for="proffesor">@UniversityResources.Instructor</label>
-                        <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" />
+                        <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)" />
                     </md-input-container>
                     <div class="buttons">
                         <button class="cancel-btn" type="reset" ng-click="cc.showCreateClass = false;">@GeneralResources.Cancel</button>

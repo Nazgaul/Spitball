@@ -1,107 +1,49 @@
 ﻿module app {
     "use strict";
-    //enum Steps {
-    //    Start = 1,
-    //    SearchFirst = 2,
-    //    SearchFirstComplete = 3,
-    //    SearchSecond = 4,
-    //    SearchSecondComplete = 5,
-    //    SearchMore = 6,
-    //    //EmptyState,
-    //    ChooseDepartment = 7,
-    //    CreateClass = 8
-    //}
 
+    //var allList: Array<ISmallDepartment> = [];
 
-    //interface ISelectedDepartment {
-    //    name: string;
-    //    id: Guid;
-    //}
-
-    //var currentNodeId;
-    var allList: Array<ISmallDepartment> = [];
     class ClassChoose {
-        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter"];
-        //step = Steps.Start;
+        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData"];
         showCreateClass = false;
         selectedCourses: Array<ISmallBox> = [];
-        //searchResult;
 
-        noresult = false;
-        //departmentlist;
         selectedDepartment: ISmallDepartment;
         submitDisabled = false;
         create = {};
-        //showCreateDepartment: boolean;
-
-
         term;
-        departmentWithBoxes = [];
-        departments: Array<ISmallDepartment> = [];
+        data: Array<ISmallDepartment> = [];
+        //departments: Array<ISmallDepartment> = [];
 
         constructor(private searchService: ISearchService,
             private libraryService: ILibraryService,
             private $mdToast: angular.material.IToastService,
             private $state: angular.ui.IStateService,
             private $mdDialog: angular.material.IDialogService,
-            private $filter: angular.IFilterService) {
+            private $filter: angular.IFilterService,
+            private nodeData: Array<ISmallDepartment>) {
 
-            this.libraryService.getAllDepartments()
-                .then(response => {
-                    allList = response;
-                    this.classSearch();
-                });
+            this.classSearch();
+
+            //this.libraryService.getAllDepartments()
+            //    .then(response => {
+            //        allList = response;
+            //        this.classSearch();
+            //    });
 
         }
         classSearch() {
-            //const step = this.step;
-            //const formElement: angular.IFormController = this.$scope["classChooseFrom"];
-            //if (formElement.$invalid) {
-            //    return;
-            //}
-
-
-            this.noresult = false;
             if (!this.term) {
-                this.departmentWithBoxes = allList;
+                this.data = this.nodeData;
                 return;
             }
-            const filterDepartment = this.$filter('filter')(allList, this.term);
-            this.departmentWithBoxes = this.$filter("filter")(filterDepartment, (value, index, array) => {
-
-                value.boxes = this.$filter('filter')(value.boxes, this.term);
+            const filterDepartment = this.$filter("filter")(this.nodeData, this.term);
+            this.data = this.$filter("filter")(filterDepartment, (value) => {
+                value.boxes = this.$filter("filter")(value.boxes, this.term);
                 return value;// && value.name.indexOf(this.term) !== -1;
             });
-            if (!this.departmentWithBoxes.length) {
-                this.noresult = true;
+            if (!this.data.length) {
             }
-            //  currentPost.replies = $filter('orderBy')(currentPost.replies, 'creationTime', false);
-
-
-
-            //if (step === Steps.Start) {
-            //    this.step = Steps.SearchFirst;
-            //}
-            //this.noresult = false;
-            //var selectedCourseId = this.selectedCourses.map(f => { return f.id });
-
-            //        allList = response;
-            //        console.log(response);
-            //        this.departmentWithBoxes = response;
-
-            //    });
-
-            //this.searchService.searchBox(this.term, 0)
-            //    .then((response: Array<any>) => {
-            //        this.searchResult = response.filter(f => selectedCourseId.indexOf(f.id) === -1);
-
-
-            //    });
-            //} else {
-            //if (step === Steps.SearchFirst) {
-            //    this.step = Steps.Start;
-            //}
-            //}
         }
         //getRemainingElement() {
         //    return new Array(Math.max(0, 6 - this.selectedCourses.length));
@@ -146,111 +88,74 @@
             this.$mdToast.show(toasterContent).then(() => {
                 this.$state.go("dashboard");
             });
-            //this.step = Math.min(this.step + 1, 5);
         }
 
 
-
+        departmentName: string;
         goCreateClass() {
+            this.data = this.nodeData;
+            this.term = '';
             this.showCreateClass = true;
-            this.libraryService.getAllDepartments()
-                .then((response: Array<ISmallDepartment>) => {
-                    this.departments = response;
-                });
+            this.selectedDepartment = null;
+            this.departmentName = '';
         }
         queryDepartments(text: String) {
-            return this.departments;
+            const result = this.$filter("filter")(this.nodeData, text);//.map(m => { return { name: m.name, id: m.id } });
+            return result;
         }
         //selectDepartment(department) {
-        //    this.term = '';
-        //    department = department || {};
-        //    currentNodeId = department.id;
-        //    //this.step = Steps.ChooseDepartment;
-        //    this.libraryService.getDepartments(currentNodeId, this.user.university.id, true)
-        //        .then(response => {
-        //            if (response.nodes.length) {
-        //                this.departmentlist = response.nodes;
-        //            } else {
-        //                this.selectedDepartment = department;
-        //                //  this.step = Steps.CreateClass;
-        //            }
-        //        });
-        //}
-
-        //backStep() {
-        //    const numberOfSelectedCourses = this.selectedCourses.length;
-        //    if (numberOfSelectedCourses > 2) {
-        //        //this.step = Steps.SearchMore;
-        //        return;
-        //    }
-        //    if (numberOfSelectedCourses > 1) {
-        //        // this.step = Steps.SearchSecond;
-        //        return;
-        //    }
-        //    //this.step = Steps.SearchFirst;
-        //}
-        //chooseMore() {
-        //    //if ([Steps.SearchFirstComplete, Steps.SearchSecondComplete].indexOf(this.step) !== -1) {
-        //    //    this.step++;
-        //    //}
-
-        //}
-        //createDepartment(newDepartment: angular.IFormController) {
-        //    const name = this.create["department"];
-        //    if (!name) {
-        //        this.showCreateDepartment = false;
-        //        return;
-        //    }
-        //    this.libraryService.createDepartment(name, currentNodeId, true)
-        //        .then(response => {
-        //            this.selectedDepartment = {
-        //                id: response.id,
-        //                name: response.name
-        //            }
-        //            // this.step = Steps.CreateClass;
-        //        }).catch(response => {
-        //            newDepartment["name"].$setValidity('server', false);
-        //            this.create["error"] = response;
-        //        });
+        //    console.log(department);
         //}
         createClass(createBox: angular.IFormController) {
-            //console.log(this.selectedDepartment);
-            //return;
-            if (createBox.$invalid) {
+            //if (!this.selectDepartment) {
+            //}
+            //if (createBox.$invalid) {
+            //    return;
+            //}
+            this.submitDisabled = true;
+            if (!this.selectedDepartment) {
+                //cc.departmentName
+                this.libraryService.createDepartment(this.departmentName, null, true)
+                    .then(response => {
+                        this.nodeData.push(response);
+                        this.selectedDepartment = response;
+                        this.createClassCall(createBox);
+                    });
                 return;
             }
-            this.submitDisabled = true;
+            this.createClassCall(createBox);
+
+        }
+
+        private createClassCall(createBox: angular.IFormController) {
             const createObj: any = this.create;
             this.libraryService.createClass(createObj.name,
                 createObj.number,
                 createObj.professor,
                 this.selectedDepartment.id)
                 .then(response => {
-                    this.departmentWithBoxes[this.selectedDepartment.name] = this.departmentWithBoxes[this.selectedDepartment.name] || [];
-                    this.departmentWithBoxes[this.selectedDepartment.name].push({
+                    const department = this.nodeData.find(f => f.id === this.selectedDepartment.id);
+                    const box = {
                         id: response.id,
                         name: createObj.name,
                         courseCode: createObj.number,
-                        professor: createObj.professor,
-                        selected: true
-                    });
+                        professor: createObj.professor
+                    };
+                    department.boxes = department.boxes || [];
+                    department.boxes.push(box);
+                    this.selectedCourses.push(box);
+                    this.selectedDepartment = null;
                     angular.forEach(createObj,
                         (value, key) => {
                             this.create[key] = '';
                         });
                     this.showCreateClass = false;
-                    //if (this.selectedCourses.length === 1) {
-                    //    //  this.step = Steps.SearchFirstComplete;
-                    //} else {
-                    //    //  this.step = Steps.SearchSecondComplete;
-                    //}
                 }).catch(response => {
                     createBox["name"].$setValidity('server', false);
                     this.create["error"] = response;
                 }).finally(() => {
                     this.submitDisabled = false;
                 });
-
         }
     }
 
