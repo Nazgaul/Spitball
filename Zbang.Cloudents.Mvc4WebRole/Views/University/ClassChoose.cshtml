@@ -1,6 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
-@using Zbang.Cloudents.Mvc4WebRole.Js.Resources
 
 <div @*ng-switch="cc.step"*@ class="title">
     <h2 @*ng-switch-when="1"*@>@UniversityResources.OnboardingHeaderStep1</h2>
@@ -135,6 +134,7 @@
                     </div>
                 </form>
             </div>
+
             <script type="text/ng-template" id="dialog.tmpl.html">
                 <md-toolbar layout="row" layout-align="space-between center">
                     <h2>Selected class</h2>
@@ -148,7 +148,7 @@
 
             <script defer type="text/ng-template" id="slim-box-template.html">
                 <button class="box-template box-style slim" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e)">
-                    <div class="icon background" d-color="{{::department.name}}" ng-bind="::e.name.substr(0,2)"></div>
+                    <div class="icon background" d-color="{{::department.name}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
                     <div class="data">
                         <h5 class="name ellipsis" d-color="{{::department.name}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
                         <div class="metadata">
@@ -222,8 +222,8 @@
                                 <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" />
                             </md-input-container>
                             <md-input-container class="form-field">
-                                <label for="proffesor">@UniversityResources.Instructor</label>
-                                <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" />
+                                <label >@UniversityResources.Instructor</label>
+                                <input ng-model="cc.create.professor"  autocomplete="off" type="text" />
                             </md-input-container>
                             <div class="buttons">
                                 <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>

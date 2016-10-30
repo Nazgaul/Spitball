@@ -12,7 +12,7 @@
     //    CreateClass = 8
     //}
 
-    
+
     //interface ISelectedDepartment {
     //    name: string;
     //    id: Guid;
@@ -21,7 +21,7 @@
     //var currentNodeId;
     var allList: Array<ISmallDepartment> = [];
     class ClassChoose {
-        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog","$filter"];
+        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter"];
         //step = Steps.Start;
         showCreateClass = false;
         selectedCourses: Array<ISmallBox> = [];
@@ -51,7 +51,7 @@
                     allList = response;
                     this.classSearch();
                 });
-            
+
         }
         classSearch() {
             //const step = this.step;
@@ -59,22 +59,24 @@
             //if (formElement.$invalid) {
             //    return;
             //}
-           
-            
+
+
             this.noresult = false;
             if (!this.term) {
                 this.departmentWithBoxes = allList;
                 return;
             }
-            var x = this.$filter('filter')(allList, this.term);
-            this.departmentWithBoxes = this.$filter("filter")(x, (value, index, array) => {
+            const filterDepartment = this.$filter('filter')(allList, this.term);
+            this.departmentWithBoxes = this.$filter("filter")(filterDepartment, (value, index, array) => {
 
-                var retVal = this.$filter('filter')(value.boxes, this.term);
-                return retVal;// && value.name.indexOf(this.term) !== -1;
+                value.boxes = this.$filter('filter')(value.boxes, this.term);
+                return value;// && value.name.indexOf(this.term) !== -1;
             });
-
+            if (!this.departmentWithBoxes.length) {
+                this.noresult = true;
+            }
             //  currentPost.replies = $filter('orderBy')(currentPost.replies, 'creationTime', false);
-            
+
 
 
             //if (step === Steps.Start) {

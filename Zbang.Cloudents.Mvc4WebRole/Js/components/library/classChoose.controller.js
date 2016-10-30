@@ -31,11 +31,14 @@ var app;
                 this.departmentWithBoxes = allList;
                 return;
             }
-            var x = this.$filter('filter')(allList, this.term);
-            this.departmentWithBoxes = this.$filter("filter")(x, function (value, index, array) {
-                var retVal = _this.$filter('filter')(value.boxes, _this.term);
-                return retVal;
+            var filterDepartment = this.$filter('filter')(allList, this.term);
+            this.departmentWithBoxes = this.$filter("filter")(filterDepartment, function (value, index, array) {
+                value.boxes = _this.$filter('filter')(value.boxes, _this.term);
+                return value;
             });
+            if (!this.departmentWithBoxes.length) {
+                this.noresult = true;
+            }
         };
         ClassChoose.prototype.status = function (ev, course) {
             this.$mdDialog.show({
