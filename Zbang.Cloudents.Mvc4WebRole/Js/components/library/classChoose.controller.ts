@@ -2,14 +2,17 @@
     "use strict";
 
 
-
+    interface ISmallBoxClassChoose extends ISmallBox {
+        department: string;
+    }
     //var allList: Array<ISmallDepartment> = [];
 
     class ClassChoose {
-        //static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$scope"];
-        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "$scope"];
+        static $inject = ["searchService", "libraryService",    /*"$scope",*/
+            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager", "$scope"];
+        //static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "$scope"];
         showCreateClass = false;
-        selectedCourses: Array<ISmallBox> = [];
+        selectedCourses: Array<ISmallBoxClassChoose> = [];
 
         selectedDepartment: ISmallDepartment;
         submitDisabled = false;
@@ -19,14 +22,14 @@
 
         constructor(private searchService: ISearchService,
             private libraryService: ILibraryService,
-            private $mdToast: angular.material.IToastService,
-            private $state: angular.ui.IStateService,
             private $mdDialog: angular.material.IDialogService,
             private $filter: angular.IFilterService,
             private nodeData: Array<ISmallDepartment>,
             private boxService: IBoxService,
             private boxes: any,
-            private $scope: angular.IScope) {
+            private resManager: IResManager,
+            private $scope) {
+
             this.classSearch();
 
             var ids = [];
@@ -38,7 +41,8 @@
                         id: v.id,
                         courseCode: v.courseCode,
                         name: v.name,
-                        professor: v.professor
+                        professor: v.professor,
+                        department:null
                     });
                 });
             angular.forEach(nodeData,
@@ -49,6 +53,8 @@
                             if (ids.indexOf(x.id) !== -1) {
                                 //v.boxes.splice(i, 1);
                                 x["selected"] = true;
+                                const course = this.selectedCourses.find(f => f.id === x.id);
+                                course.department = v.name;
                             }
                         }
                     }
@@ -70,16 +76,21 @@
         }
 
         status(ev, course) {
+            const index = this.selectedCourses.indexOf(course);
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
-                parent: angular.element(document.body),
+                //parent: angular.element($(".class-choose")),
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 controller: 'ClassChooseDialog',
                 controllerAs: 'cd',
-                locals: { courseData: course },
+                locals: {
+                    currentCourseIndex: index
+                },
                 scope: this.$scope,
                 fullscreen: true // Only for -xs, -sm breakpoints.
+            }).then((response) => {
+                console.log(response);
             });
 
         }
@@ -97,10 +108,17 @@
         //    }
         //}
 
-        choose(course) {
+        choose(course,department) {
             this.boxService.follow(course.id);
             course["selected"] = true;
-            this.selectedCourses.push(course);
+
+            const pushOne = angular.extend({},
+                course,
+                {
+                    department: department.name
+                });
+            this.selectedCourses.push(
+                pushOne);
         }
 
 
@@ -115,6 +133,14 @@
         queryDepartments(text: String) {
             const result = this.$filter("filter")(this.nodeData, text);//.map(m => { return { name: m.name, id: m.id } });
             return result;
+        }
+        requestAccess(department) {
+            this.libraryService.requestAccess(department.id).then(() => {
+                this.$mdDialog.show(this.$mdDialog.alert()
+                    .title(this.resManager.get('privateDepPopupTitleOnSend'))
+                    .textContent(this.resManager.get('privateDepPopupContentOnSend'))
+                    .ok(this.resManager.get('dialogOk')));
+            });
         }
 
         createClass(createBox: angular.IFormController) {
@@ -143,7 +169,7 @@
                 this.selectedDepartment.id)
                 .then(response => {
                     const department = this.nodeData.find(f => f.id === this.selectedDepartment.id);
-                    const box = {
+                    let box = {
                         id: response.id,
                         name: createObj.name,
                         courseCode: createObj.number,
@@ -151,7 +177,8 @@
                     };
                     department.boxes = department.boxes || [];
                     department.boxes.push(box);
-                    this.selectedCourses.push(box);
+                    box["department"] = this.selectedDepartment.name;
+                    this.selectedCourses.push((box as ISmallBoxClassChoose));
                     this.selectedDepartment = null;
                     angular.forEach(createObj,
                         (value, key) => {

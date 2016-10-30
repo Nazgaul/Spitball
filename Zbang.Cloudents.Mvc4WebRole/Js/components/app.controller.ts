@@ -94,46 +94,61 @@
                         event.preventDefault();
                         $rootScope.$broadcast("state-change-start-prevent");
                     }
-                    if (!userDetails.isAuthenticated()) {
-                        return;
-                    }
-                    // TODO remove that to university choose controller
-                    var details = userDetails.get();
-                    if (!details.university.id) {
-                        var userWithNoUniversityState = "universityChoose";
-                        if (toStateName !== userWithNoUniversityState) {
-                            $rootScope.$broadcast("state-change-start-prevent");
+                    checkUniversityChoose();
+                    checkNumberOfBoxes();
+
+                    function checkUniversityChoose() {
+                        const details = userDetails.get();
+                        if (details) {
+                            if (!userDetails.isAuthenticated()) {
+                                return;
+                            }
+                             // TODO remove that to university choose controller
+                            if (!details.university.id) {
+                                var userWithNoUniversityState = "universityChoose";
+                                if (toStateName !== userWithNoUniversityState) {
+                                    $rootScope.$broadcast("state-change-start-prevent");
+                                    event.preventDefault();
+                                }
+                                return;
+                            }
+                        } else {
                             event.preventDefault();
+                            userDetails.init()
+                                .then(() => {
+                                    $urlRouter.sync();
+
+                                });
                         }
-                        return;
                     }
 
-                    if (dashboardService.boxes) {
-                        if (dashboardService.boxes.length < 3 && toState.name !== "classChoose") {
-                            event.preventDefault();
-                            $rootScope.$broadcast("state-change-start-prevent");
-                            $state.go("classChoose");
-                        } else {
-                            document.title = resManager.get("siteName");
+                    function checkNumberOfBoxes() {
+                        if (!userDetails.isAuthenticated()) {
+                            return;
                         }
-                    } else {
-                        event.preventDefault();
-                        dashboardService.getBoxes()
-                            .then((boxes) => {
-                                $urlRouter.sync();
-                                //if (boxes.length < 3 && toState.name === "classChoose") {
-                                //    $urlRouter.sync();
-                                //    //console.log('c')
-                                //    //$state.go("classChoose");
-                                //    //$location.url($state.href("classChoose"));
-                                //}
-                            });
+                        if (dashboardService.boxes) {
+                            if (dashboardService.boxes.length < 3 && toState.name !== "classChoose") {
+                                event.preventDefault();
+                                $rootScope.$broadcast("state-change-start-prevent");
+                                $state.go("classChoose");
+                            } else {
+                                document.title = resManager.get("siteName");
+                            }
+                        } else {
+                            event.preventDefault();
+                            dashboardService.getBoxes()
+                                .then(() => {
+                                    $urlRouter.sync();
+
+                                });
+                        }
                     }
                     //event.preventDefault();
 
                 });
 
         }
+        
         back = (defaultUrl: string) => {
             var element = this.sbHistory.popElement();
             if (!element) {

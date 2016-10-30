@@ -5,9 +5,9 @@
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-
-                    if (angular.isNumber(attrs.dColor)) {
-                        element.addClass('color' + attrs.dColor % 10);
+                    var x = parseInt(attrs.dColor, 10);
+                    if (!isNaN(x)){
+                        element.addClass('color' + x % 10);
                     } else {
                         element.addClass('color' + attrs.dColor.length % 10);
                     }

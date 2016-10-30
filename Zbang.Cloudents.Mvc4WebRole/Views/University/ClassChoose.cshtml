@@ -31,7 +31,7 @@
             </button>
         </form>
         <div class="selected-classes">
-            <button type="button" class="icon background" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses track by sc.id" ng-bind="::sc.name.substr(0,2)">{{::sc.department.length}}</button>
+            <button type="button" class="icon background" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id " ng-bind="::sc.name.substr(0,2)"></button>
             <div class="empty" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
         </div>
     </div>
@@ -139,18 +139,27 @@
     </ol>
 </script>
 <script type="text/ng-template" id="dialog.tmpl.html">
-    <md-dialog class="selected-class-dialog" ng-init="key = cd.selectedCourse.department">
+    <md-dialog class="selected-class-dialog" @*ng-init="key = cd.selectedCourse.department"*@>
         <md-toolbar layout="row" layout-align="space-between center">
             <h2>Selected class</h2>
         </md-toolbar>
         <md-dialog-content>
-            <div class="department-name" d-color="{{::key.length}}">{{cd.selectedCourse.department}}</div>
+            <div class="department-name" d-color="{{cd.course.department.length}}" ng-bind="cd.course.department"></div>
             <div class="center">
-                <button class="prev">
+                <button class="prev" ng-click="cd.prev()">
                     <md-icon md-svg-icon="p:arrow-right"></md-icon>
                 </button>
-                <div class="box-container" ng-init="e = cd.selectedCourse" ng-include="'slim-box-template.html'"></div>
-                <button class="next">
+                <div class="box-container">
+                    <div class="icon background" d-color="{{cd.course.department.length}}" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
+                    <div class="data">
+                        <h5 class="name ellipsis" d-color="{{cd.course.department.length}}" ng-bind="cd.course.name" title="{{::cd.course.name}}"></h5>
+                        <div class="metadata">
+                            <div class="code ellipsis" ng-bind="cd.course.courseId"></div>
+                            <div class="professor ellipsis" ng-bind="cd.course.professor"></div>
+                        </div>
+                    </div>
+                </div>
+                <button class="next" ng-click="cd.next()">
                     <md-icon md-svg-icon="p:arrow-right"></md-icon>
                 </button>
             </div>
@@ -163,7 +172,7 @@
 </script>
 
 <script defer type="text/ng-template" id="slim-box-template.html">
-    <button class="box-template box-style slim" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e)">
+    <button class="box-template box-style slim" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e,department)">
         <div class="icon background" d-color="{{::department.name}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
         <div class="data">
             <h5 class="name ellipsis" d-color="{{::department.name}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
