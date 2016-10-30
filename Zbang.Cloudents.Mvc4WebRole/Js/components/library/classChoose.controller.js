@@ -26,14 +26,22 @@ var app;
                 console.log(response);
             });
         };
-        ClassChoose.prototype.status = function (ev) {
+        ClassChoose.prototype.status = function (ev, course) {
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
+                controller: this.chosenCourseController,
+                locals: { courseData: course },
                 fullscreen: true
             });
+        };
+        ClassChoose.prototype.chosenCourseController = function ($scope, $mdDialog, courseData) {
+            $scope.courseData = courseData;
+            $scope.close = function () {
+                $mdDialog.hide();
+            };
         };
         ClassChoose.prototype.choose = function (course) {
             var _this = this;

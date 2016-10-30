@@ -94,13 +94,14 @@
         //getRemainingElement() {
         //    return new Array(Math.max(0, 6 - this.selectedCourses.length));
         //}
-        status(ev) {
+        status(ev, course) {
             this.$mdDialog.show({
-                //controller: DialogController,
                 templateUrl: "dialog.tmpl.html",
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
+                controller: this.chosenCourseController,
+                locals: { courseData: course },
                 fullscreen: true // Only for -xs, -sm breakpoints.
             });
             //.then(function (answer) {
@@ -109,6 +110,15 @@
             //    //$scope.status = 'You cancelled the dialog.';
             //});
         }
+
+        chosenCourseController($scope, $mdDialog, courseData) {
+            $scope.courseData = courseData;
+
+            $scope.close = function () {
+                $mdDialog.hide();
+            };
+        }
+
         choose(course) {
             //TODO : ajax call
             //this.term = '';
@@ -126,6 +136,9 @@
             });
             //this.step = Math.min(this.step + 1, 5);
         }
+
+
+
         goCreateClass() {
             this.showCreateClass = true;
             this.libraryService.getAllDepartments()

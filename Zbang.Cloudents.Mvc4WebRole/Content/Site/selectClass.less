@@ -1,5 +1,7 @@
 ﻿@import "variables.less";
-
+.md-toast-animating{
+    overflow: auto !important;
+}
 .class-choose {
     @media (min-width: 960px) {
         margin-left: -@widthOfSideMenu;
@@ -417,13 +419,31 @@
         }
     }
 
-    .results {
+    .grid-container {
+        width: 100%;
         margin: 0 auto;
+    }
+
+    .results {
+        -moz-column-count: 4;
+        -moz-column-gap: 0px;
+        -webkit-column-count: 4;
+        -webkit-column-gap: 0px;
+        column-count: 4;
+        column-gap: 0px;
+        width: 100%;
+
+        > li {
+            display: inline-block;
+            margin-bottom: 0px;
+            width: 100%;
+        }
 
         .title {
             .displayFlex;
             .align-items(center);
             .justifyContet(space-between);
+
 
             .department-name {
                 font-weight: bold;
@@ -434,6 +454,10 @@
                 width: 18px;
                 height: 18px;
             }
+        }
+
+        .department-courses {
+            width: 100%;
         }
 
         > li {
