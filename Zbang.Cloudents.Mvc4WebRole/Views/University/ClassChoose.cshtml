@@ -58,22 +58,16 @@
     <div class="grid-container">
         <ol class="results list-unstyled" @*vs-repeat vs-scroll-parent="window" vs-size="department.boxes.length * 72"*@>
             <li class="angular-animate animate-repeat" ng-repeat="department in cc.data track by department.id">
-                <div class="title">
-                    <div class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>
-                    <div class="lock">
-                        <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::department.name}}"></md-icon>
-                    </div>
+                <div ng-if="department.type === 'closed'" ng-include="'close-department.html'">
                 </div>
-                <ol class="department-courses list-unstyled">
-                    <li @*ng-style="{color: c.selected ? 'red' : 'initial'}"*@ class="angular-animate animate-repeat" ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected" ng-include="'slim-box-template.html'">
-                    </li>
-                </ol>
+                <div ng-if="department.type !== 'closed'" ng-include="'open-department.html'">
+                </div>
             </li>
         </ol>
     </div>
 
 
-    <div class="empty-state" ng-if="cc.data.length===0">
+    <div class="empty-state" ng-if="cc.data.length === 0">
         <h2>@GeneralResources.NoResultsTitle</h2>
         <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
         <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass()">@UniversityResources.OnboardingCreateClass</button>
@@ -99,7 +93,7 @@
         </md-autocomplete>
         <md-input-container class="form-field">
             <label for="className">@UniversityResources.EnterClassName</label>
-            <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)" />
+            <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)"/>
             <div class="error" ng-messages="createBox.name.$error">
                 <div ng-message="required">@GeneralResources.RequiredField</div>
                 <div ng-message="server">{{cc.create.error}}</div>
@@ -108,11 +102,11 @@
 
         <md-input-container class="form-field">
             <label for="classNumber">@UniversityResources.EnterCode</label>
-            <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" ng-change="createBox.name.$setValidity('server',true)" />
+            <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" ng-change="createBox.name.$setValidity('server',true)"/>
         </md-input-container>
         <md-input-container class="form-field">
             <label for="proffesor">@UniversityResources.Instructor</label>
-            <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)" />
+            <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)"/>
         </md-input-container>
         <div class="buttons">
             <button class="cancel-btn" type="reset" ng-click="cc.showCreateClass = false;">@GeneralResources.Cancel</button>
@@ -120,7 +114,29 @@
         </div>
     </form>
 </div>
+<script type="text/ng-template" id="close-department.html">
+    <div class="title">
+        <div class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>
+        <div class="lock">
+                <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::department.name}}"></md-icon>
+            </div>
+    </div>
+    <div>
+        <h5>you need permission to access this section</h5>
+        <div>want in? ask the owner for access</div>
+        <button type="button" ng-click="cc.requestAccess(department)">Request access</button>
+    </div>
 
+</script>
+<script type="text/ng-template" id="open-department.html">
+    <div class="title">
+        <div class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>
+    </div>
+    <ol class="department-courses list-unstyled">
+        <li class="angular-animate animate-repeat" ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected" ng-include="'slim-box-template.html'">
+        </li>
+    </ol>
+</script>
 <script type="text/ng-template" id="dialog.tmpl.html">
                 <md-dialog class="selected-class-dialog" ng-init="key = cd.selectedCourse.department">
                     <md-toolbar layout="row" layout-align="space-between center">
