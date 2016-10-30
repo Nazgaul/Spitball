@@ -47,12 +47,12 @@
 .page-body .main-md-sidenav {
   left: 0;
   position: fixed !important;
-  top: 65px;
+  top: 60px;
   border-radius: 5px;
   width: 235px;
   margin-left: 0;
   z-index: 10;
-  height: calc(100vh - 70px + 5px);
+  height: calc(100vh - 65px + 5px);
   background: #dadada;
 }
 @media (min-width: 960px) {

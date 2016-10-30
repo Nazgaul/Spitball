@@ -375,7 +375,7 @@ md-menu-item.blue svg {
 }
 .itemPage .comments-wrapper {
   position: fixed !important;
-  top: 70px;
+  top: 65px;
   width: 300px;
   z-index: 2;
   padding-left: 53px;
@@ -556,7 +556,7 @@ md-menu-item.blue svg {
 .itemPage .side-ad {
   position: fixed;
   left: calc(50% - 650px);
-  top: 135px;
+  top: 130px;
 }
 @media (max-width: 1279px) {
   .itemPage .side-ad {

@@ -79,7 +79,7 @@ body .quiz-template .bottom .name {
 }
 .page-body {
   margin-right: 95px;
-  margin-top: 75px;
+  margin-top: 65px;
   padding: 0 10px;
   transition: margin-right 0.1s;
 }
@@ -773,7 +773,6 @@ md-toast .md-toast-content span {
 }
 .nav-bar {
   background: #323538;
-  border-bottom: 5px solid #dadada;
 }
 /*#endregion*/
 /*#region accountSettings.less*/

@@ -6,6 +6,27 @@
         margin-right: -@widthOfChat;
     }
 
+
+    .status-strip {
+        .displayFlex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        background: #FF9900;
+        color: @textColorWhite;
+
+        h2, ng-pluralize {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        a {
+            color: @textColorWhite;
+            text-decoration: underline;
+        }
+    }
+
+
     .animate-repeat {
         &.ng-enter,
         &.ng-leave {
@@ -430,6 +451,26 @@
         column-count: 4;
         column-gap: 0px;
         width: 100%;
+
+        .closed-department .box-style {
+            .displayFlex;
+            .align-items(center);
+            .justifyContet(space-between);
+            flex-direction: column;
+            padding: 10px 15px;
+            text-align: center;
+
+            h5 {
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+                margin: 0;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+        }
 
         > li {
             display: inline-block;

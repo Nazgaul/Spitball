@@ -40,7 +40,7 @@
 .chat-side-nav .chat {
   position: fixed;
   z-index: 10;
-  top: 70px;
+  top: 65px;
   bottom: 0;
   width: 320px;
   left: 0;
@@ -48,26 +48,26 @@
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
 }
 .chat-side-nav .chat .content {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 65px);
   background: none;
   position: relative;
   overflow: hidden;
 }
 .chat-side-nav .chat .content .users-list {
-  height: calc(100vh + 5px - 70px - 50px);
+  height: calc(100vh + 5px - 65px - 50px);
 }
 .chat-side-nav .chat .content .conversasion,
 .chat-side-nav .chat .content .menu-content {
   position: absolute;
   width: 100%;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 65px);
 }
 .chat-side-nav .chat .content .conversasion .new-message,
 .chat-side-nav .chat .content .menu-content .new-message {
   position: absolute;
 }
 .chat-side-nav .chat .content .conversasion .chat-content .messages {
-  height: calc(100vh - 10px - 50px - 70px - 50px);
+  height: calc(100vh - 10px - 50px - 65px - 50px);
 }
 .chat-side-nav .chat .tab {
   position: absolute;
@@ -116,7 +116,7 @@
 }
 .chatPage .chat .content.stateChat .conversasion .header {
   position: fixed;
-  top: 70px;
+  top: 65px;
   left: 0;
   right: 0;
   z-index: 1;
@@ -124,7 +124,7 @@
 .chatPage .chat .content.stateChat .chat-content .messages {
   padding-top: 50px;
   padding-bottom: 50px;
-  min-height: calc(100vh - 10px - 70px);
+  min-height: calc(100vh - 10px - 65px);
 }
 .chatPage .chat .content.stateChat .chat-content .new-message {
   position: fixed !important;
@@ -138,7 +138,7 @@
 }
 .chat {
   background: #eeeeee !important;
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 65px);
 }
 .chat .stateChat ~ .tab {
   display: none;

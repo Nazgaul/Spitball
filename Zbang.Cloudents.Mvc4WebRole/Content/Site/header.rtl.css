@@ -123,10 +123,9 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 70px;
+  height: 65px;
   z-index: 10;
   background: #ffffff;
-  border-bottom: 5px solid #dadada;
   align-items: center;
 }
 .nav-bar .logo-search {
@@ -240,7 +239,7 @@
 .nav-bar .user-md-menu {
   display: inline-block;
   padding: 0;
-  height: 65px;
+  height: 60px;
   /*@media (max-width: 600px) {
             display: none;
         }*/
@@ -260,7 +259,7 @@
 }
 .nav-bar .user-md-menu .md-icon-button {
   width: inherit;
-  height: 65px;
+  height: 60px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;

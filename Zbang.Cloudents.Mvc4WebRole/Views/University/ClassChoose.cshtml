@@ -1,14 +1,14 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 
-<div ng-if="cc.selectedCourses.length">
-    <h2>You've added </h2><ng-pluralize count="cc.selectedCourses.length"
-                                        when="{
+<div class="status-strip" ng-if="cc.selectedCourses.length">
+    <h2>You've added&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
+                                             when="{
                      'one': '1 class,',
                      'other': '{} classes,'}">
     </ng-pluralize>
-    <h2 ng-if="cc.selectedCourses.length == 1">continue selecting classes</h2>
-    <h2 ng-if="cc.selectedCourses.length >= 2"><a ui-sref="dashboard">click here</a> if you're done</h2>
+    <h2 ng-if="cc.selectedCourses.length == 1">&nbsp;continue selecting classes</h2>
+    <h2 ng-if="cc.selectedCourses.length >= 2">&nbsp;<a ui-sref="dashboard">click here</a>&nbsp;if you're done</h2>
 </div>
 
 <div @*ng-switch="cc.step"*@ class="title">
@@ -31,7 +31,7 @@
             </button>
         </form>
         <div class="selected-classes">
-            <button type="button" class="icon background" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses track by sc.id" ng-bind="::sc.name.substr(0,2)"></button>
+            <button type="button" class="icon background" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses track by sc.id" ng-bind="::sc.name.substr(0,2)">{{::sc.department.length}}</button>
             <div class="empty" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
         </div>
     </div>
@@ -58,7 +58,7 @@
     <div class="grid-container">
         <ol class="results list-unstyled" @*vs-repeat vs-scroll-parent="window" vs-size="department.boxes.length * 72"*@>
             <li class="angular-animate animate-repeat" ng-repeat="department in cc.data track by department.id">
-                <div ng-if="department.type === 'closed'" ng-include="'close-department.html'">
+                <div class="closed-department" ng-if="department.type === 'closed'" ng-include="'close-department.html'">
                 </div>
                 <div ng-if="department.type !== 'closed'" ng-include="'open-department.html'">
                 </div>
@@ -93,7 +93,7 @@
         </md-autocomplete>
         <md-input-container class="form-field">
             <label for="className">@UniversityResources.EnterClassName</label>
-            <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)"/>
+            <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)" />
             <div class="error" ng-messages="createBox.name.$error">
                 <div ng-message="required">@GeneralResources.RequiredField</div>
                 <div ng-message="server">{{cc.create.error}}</div>
@@ -102,11 +102,11 @@
 
         <md-input-container class="form-field">
             <label for="classNumber">@UniversityResources.EnterCode</label>
-            <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" ng-change="createBox.name.$setValidity('server',true)"/>
+            <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" ng-change="createBox.name.$setValidity('server',true)" />
         </md-input-container>
         <md-input-container class="form-field">
             <label for="proffesor">@UniversityResources.Instructor</label>
-            <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)"/>
+            <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)" />
         </md-input-container>
         <div class="buttons">
             <button class="cancel-btn" type="reset" ng-click="cc.showCreateClass = false;">@GeneralResources.Cancel</button>
@@ -118,13 +118,14 @@
     <div class="title">
         <div class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>
         <div class="lock">
-                <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::department.name}}"></md-icon>
-            </div>
+            <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::department.name}}"></md-icon>
+        </div>
     </div>
-    <div>
-        <h5>you need permission to access this section</h5>
-        <div>want in? ask the owner for access</div>
-        <button type="button" ng-click="cc.requestAccess(department)">Request access</button>
+    <div class="box-style">
+        <h5 d-color="{{::department.name}}">you need permission to access this section</h5>
+        <div class="subtitle">want in? ask the owner for access</div>
+
+        <button type="button" class="action-btn" ng-click="cc.requestAccess(department)">Request access</button>
     </div>
 
 </script>
@@ -138,27 +139,27 @@
     </ol>
 </script>
 <script type="text/ng-template" id="dialog.tmpl.html">
-                <md-dialog class="selected-class-dialog" ng-init="key = cd.selectedCourse.department">
-                    <md-toolbar layout="row" layout-align="space-between center">
-                        <h2>Selected class</h2>
-    </md-toolbar>
-                    <md-dialog-content>
-                        <div class="department-name" d-color="{{::key.length}}">{{cd.selectedCourse.department}}</div>
-                        <div class="center">
-                            <button class="prev">
-                                <md-icon md-svg-icon="p:arrow-right"></md-icon>
-                            </button>
-                            <div class="box-container" ng-init="e = cd.selectedCourse" ng-include="'slim-box-template.html'"></div>
-                            <button class="next">
-                                <md-icon md-svg-icon="p:arrow-right"></md-icon>
-                            </button>
-                        </div>
-                        <div class="buttons">
-                            <button ng-click="cd.close()" class="cancel-btn">Cancel</button>
-                            <button ng-click="cd.remove()" class="action-btn">Remove Class</button>
-                        </div>
-                    </md-dialog-content>
-                </md-dialog>
+    <md-dialog class="selected-class-dialog" ng-init="key = cd.selectedCourse.department">
+        <md-toolbar layout="row" layout-align="space-between center">
+            <h2>Selected class</h2>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="department-name" d-color="{{::key.length}}">{{cd.selectedCourse.department}}</div>
+            <div class="center">
+                <button class="prev">
+                    <md-icon md-svg-icon="p:arrow-right"></md-icon>
+                </button>
+                <div class="box-container" ng-init="e = cd.selectedCourse" ng-include="'slim-box-template.html'"></div>
+                <button class="next">
+                    <md-icon md-svg-icon="p:arrow-right"></md-icon>
+                </button>
+            </div>
+            <div class="buttons">
+                <button ng-click="cd.close()" class="cancel-btn">Cancel</button>
+                <button ng-click="cd.remove()" class="action-btn">Remove Class</button>
+            </div>
+        </md-dialog-content>
+    </md-dialog>
 </script>
 
 <script defer type="text/ng-template" id="slim-box-template.html">
