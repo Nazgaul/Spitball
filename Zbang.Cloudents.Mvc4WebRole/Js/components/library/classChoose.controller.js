@@ -2,12 +2,13 @@ var app;
 (function (app) {
     "use strict";
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $mdToast, $state, $mdDialog) {
+        function ClassChoose(searchService, libraryService, $mdToast, $state, $mdDialog, $scope) {
             this.searchService = searchService;
             this.libraryService = libraryService;
             this.$mdToast = $mdToast;
             this.$state = $state;
             this.$mdDialog = $mdDialog;
+            this.$scope = $scope;
             this.showCreateClass = false;
             this.selectedCourses = [];
             this.noresult = false;
@@ -44,16 +45,12 @@ var app;
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
-                controller: this.chosenCourseController,
+                controller: 'ClassChooseDialog',
+                controllerAs: 'cd',
                 locals: { courseData: course },
+                scope: this.$scope,
                 fullscreen: true
             });
-        };
-        ClassChoose.prototype.chosenCourseController = function ($scope, $mdDialog, courseData) {
-            $scope.courseData = courseData;
-            $scope.close = function () {
-                $mdDialog.hide();
-            };
         };
         ClassChoose.prototype.choose = function (course) {
             var _this = this;
@@ -108,7 +105,7 @@ var app;
                 _this.submitDisabled = false;
             });
         };
-        ClassChoose.$inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog"];
+        ClassChoose.$inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$scope"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);

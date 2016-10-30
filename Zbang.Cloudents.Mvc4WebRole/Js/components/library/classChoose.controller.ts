@@ -27,7 +27,7 @@
     //var currentNodeId;
 
     class ClassChoose {
-        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog"];
+        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$scope"];
         //step = Steps.Start;
         showCreateClass = false;
         selectedCourses: Array<IBox> = [];
@@ -49,7 +49,8 @@
             private libraryService: ILibraryService,
             private $mdToast: angular.material.IToastService,
             private $state: angular.ui.IStateService,
-            private $mdDialog: angular.material.IDialogService) {
+            private $mdDialog: angular.material.IDialogService,
+            private $scope: angular.IScope) {
 
             this.classSearch();
         }
@@ -105,8 +106,10 @@
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
-                controller: this.chosenCourseController,
+                controller: 'ClassChooseDialog',
+                controllerAs: 'cd',
                 locals: { courseData: course },
+                scope: this.$scope,
                 fullscreen: true // Only for -xs, -sm breakpoints.
             });
             //.then(function (answer) {
@@ -116,13 +119,18 @@
             //});
         }
 
-        chosenCourseController($scope, $mdDialog, courseData) {
-            $scope.courseData = courseData;
+        //chosenCourseController($scope, $mdDialog, courseData) {
+        //    $scope.courseData = courseData;
 
-            $scope.close = function () {
-                $mdDialog.hide();
-            };
-        }
+        //    $scope.close = function () {
+        //        $mdDialog.hide();
+        //    };
+
+        //    $scope.remove = function () {
+        //        var index = this.selectedCourses.indexOf(courseData);
+        //        this.selectedCourses.splice(index, 1);
+        //    }
+        //}
 
         choose(course) {
             //TODO : ajax call
@@ -141,8 +149,7 @@
             });
             //this.step = Math.min(this.step + 1, 5);
         }
-
-
+        
 
         goCreateClass() {
             this.showCreateClass = true;

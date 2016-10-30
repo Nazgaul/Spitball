@@ -136,14 +136,27 @@
                 </form>
             </div>
             <script type="text/ng-template" id="dialog.tmpl.html">
-                <md-toolbar layout="row" layout-align="space-between center">
-                    <h2>Selected class</h2>
-                    <md-button aria-label="close" ng-click="close()">
-                        <md-icon md-svg-icon="t:close"></md-icon>
-                    </md-button>
-                </md-toolbar>
-                <div d-color="{{::key.length}}">{{courseData.department}}</div>
-                <div ng-init="e = courseData" ng-include="'slim-box-template.html'"></div>
+                <md-dialog class="selected-class-dialog" ng-init="key = cd.selectedCourse.department">
+                    <md-toolbar layout="row" layout-align="space-between center">
+                        <h2>Selected class</h2>
+                    </md-toolbar>
+                    <md-dialog-content>
+                        <div class="department-name" d-color="{{::key.length}}">{{cd.selectedCourse.department}}</div>
+                        <div class="center">
+                            <button class="prev">
+                                <md-icon md-svg-icon="p:arrow-right"></md-icon>
+                            </button>
+                            <div class="box-container" ng-init="e = cd.selectedCourse" ng-include="'slim-box-template.html'"></div>
+                            <button class="next">
+                                <md-icon md-svg-icon="p:arrow-right"></md-icon>
+                            </button>
+                        </div>
+                        <div class="buttons">
+                            <button ng-click="cd.close()" class="cancel-btn">Cancel</button>
+                            <button ng-click="cd.remove()" class="action-btn">Remove Class</button>
+                        </div>
+                    </md-dialog-content>
+                </md-dialog>
             </script>
 
             <script defer type="text/ng-template" id="slim-box-template.html">

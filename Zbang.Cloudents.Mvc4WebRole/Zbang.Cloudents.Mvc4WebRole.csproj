@@ -1414,6 +1414,7 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.routes.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
+    <TypeScriptCompile Include="Js\components\library\classChooseDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\library\classChoose.controller.ts" />
     <TypeScriptCompile Include="Js\components\library\library.service.ts" />
     <TypeScriptCompile Include="Js\components\quiz\quiz.service.ts" />
