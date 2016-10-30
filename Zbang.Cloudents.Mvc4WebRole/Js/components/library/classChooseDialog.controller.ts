@@ -1,11 +1,16 @@
 ﻿module app {
+    var index;
     class ClassChooseDialog {
-        static $inject = ["$mdDialog", "currentCourse", "$scope"];
+
+        course;
+        static $inject = ["$mdDialog", "currentCourseIndex", "$scope"];
         constructor(private $mdDialog: angular.material.IDialogService,
 
-            private courseData: any,
+            private currentCourseIndex: number,
             private $scope: angular.IScope) {
-            console.log(courseData);
+            index = currentCourseIndex;
+            this.course = this.getSelectedCourses()[index];
+
         }
 
         close() {
@@ -15,9 +20,22 @@
         remove() {
             //this.$mdDialog.hide(this.courseData);
             const classChooseController = this.$scope["cc"];
-            console.log(this.$scope["cc"]);
-            var index = classChooseController.selectedCourses.indexOf(this.courseData);
             classChooseController.selectedCourses.splice(index, 1);
+        }
+        next() {
+            if (index < this.getSelectedCourses().length) {
+                this.course = this.getSelectedCourses()[++index];
+            }
+        }
+        prev() {
+            if (index > 0) {
+                this.course = this.getSelectedCourses()[--index];
+            }
+        }
+
+        private getSelectedCourses() {
+            const classChooseController = this.$scope["cc"];
+            return classChooseController.selectedCourses;
         }
 
     }

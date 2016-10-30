@@ -76,6 +76,7 @@
         }
 
         status(ev, course) {
+            const index = this.selectedCourses.indexOf(course);
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
                 //parent: angular.element($(".class-choose")),
@@ -84,7 +85,7 @@
                 controller: 'ClassChooseDialog',
                 controllerAs: 'cd',
                 locals: {
-                    currentCourse: course
+                    currentCourseIndex: index
                 },
                 scope: this.$scope,
                 fullscreen: true // Only for -xs, -sm breakpoints.
@@ -108,15 +109,14 @@
         //}
 
         choose(course,department) {
-            //this.boxService.follow(course.id);
+            this.boxService.follow(course.id);
             course["selected"] = true;
 
-            var pushOne = angular.extend({},
+            const pushOne = angular.extend({},
                 course,
                 {
                     department: department.name
                 });
-            console.log(pushOne);
             this.selectedCourses.push(
                 pushOne);
         }

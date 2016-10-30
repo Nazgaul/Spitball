@@ -5,7 +5,6 @@
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-
                     var x = parseInt(attrs.dColor, 10);
                     if (!isNaN(x)){
                         element.addClass('color' + x % 10);

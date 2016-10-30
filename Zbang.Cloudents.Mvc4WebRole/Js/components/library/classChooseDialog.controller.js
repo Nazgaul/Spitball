@@ -1,11 +1,13 @@
 var app;
 (function (app) {
+    var index;
     var ClassChooseDialog = (function () {
-        function ClassChooseDialog($mdDialog, courseData, $scope) {
+        function ClassChooseDialog($mdDialog, currentCourseIndex, $scope) {
             this.$mdDialog = $mdDialog;
-            this.courseData = courseData;
+            this.currentCourseIndex = currentCourseIndex;
             this.$scope = $scope;
-            console.log(courseData);
+            index = currentCourseIndex;
+            this.course = this.getSelectedCourses()[index];
         }
         ClassChooseDialog.prototype.close = function () {
             this.$mdDialog.cancel();
@@ -13,11 +15,23 @@ var app;
         ;
         ClassChooseDialog.prototype.remove = function () {
             var classChooseController = this.$scope["cc"];
-            console.log(this.$scope["cc"]);
-            var index = classChooseController.selectedCourses.indexOf(this.courseData);
             classChooseController.selectedCourses.splice(index, 1);
         };
-        ClassChooseDialog.$inject = ["$mdDialog", "currentCourse", "$scope"];
+        ClassChooseDialog.prototype.next = function () {
+            if (index < this.getSelectedCourses().length) {
+                this.course = this.getSelectedCourses()[++index];
+            }
+        };
+        ClassChooseDialog.prototype.prev = function () {
+            if (index > 0) {
+                this.course = this.getSelectedCourses()[--index];
+            }
+        };
+        ClassChooseDialog.prototype.getSelectedCourses = function () {
+            var classChooseController = this.$scope["cc"];
+            return classChooseController.selectedCourses;
+        };
+        ClassChooseDialog.$inject = ["$mdDialog", "currentCourseIndex", "$scope"];
         return ClassChooseDialog;
     }());
     angular.module("app.library").controller("ClassChooseDialog", ClassChooseDialog);

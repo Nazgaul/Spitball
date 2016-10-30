@@ -59,6 +59,7 @@ var app;
             });
         };
         ClassChoose.prototype.status = function (ev, course) {
+            var index = this.selectedCourses.indexOf(course);
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
                 targetEvent: ev,
@@ -66,7 +67,7 @@ var app;
                 controller: 'ClassChooseDialog',
                 controllerAs: 'cd',
                 locals: {
-                    currentCourse: course
+                    currentCourseIndex: index
                 },
                 scope: this.$scope,
                 fullscreen: true
@@ -75,11 +76,11 @@ var app;
             });
         };
         ClassChoose.prototype.choose = function (course, department) {
+            this.boxService.follow(course.id);
             course["selected"] = true;
             var pushOne = angular.extend({}, course, {
                 department: department.name
             });
-            console.log(pushOne);
             this.selectedCourses.push(pushOne);
         };
         ClassChoose.prototype.goCreateClass = function () {

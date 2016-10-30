@@ -143,22 +143,22 @@
             <h2>Selected class</h2>
         </md-toolbar>
         <md-dialog-content>
-            <div class="department-name" d-color="{{::key.length}}">{{cd.selectedCourse.department}}</div>
+            <div class="department-name" d-color="{{cd.course.department.length}}" ng-bind="cd.course.department"></div>
             <div class="center">
-                <button class="prev">
+                <button class="prev" ng-click="cd.prev()">
                     <md-icon md-svg-icon="p:arrow-right"></md-icon>
                 </button>
                 <div class="box-container">
-                    <div class="icon background" d-color="{{::department.name}}" ng-bind="::cd.selectedCourse.name.substr(0,2) | lowercase"></div>
+                    <div class="icon background" d-color="{{cd.course.department.length}}" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
                     <div class="data">
-                        <h5 class="name ellipsis" d-color="{{::department.name}}" ng-bind="::cd.selectedCourse.name" title="{{::cd.selectedCourse.name}}"></h5>
+                        <h5 class="name ellipsis" d-color="{{cd.course.department.length}}" ng-bind="cd.course.name" title="{{::cd.course.name}}"></h5>
                         <div class="metadata">
-                            <div class="code ellipsis" ng-bind="::cd.selectedCourse.courseId"></div>
-                            <div class="professor ellipsis" ng-bind="::cd.selectedCourse.professor"></div>
+                            <div class="code ellipsis" ng-bind="cd.course.courseId"></div>
+                            <div class="professor ellipsis" ng-bind="cd.course.professor"></div>
                         </div>
                     </div>
                 </div>
-                <button class="next">
+                <button class="next" ng-click="cd.next()">
                     <md-icon md-svg-icon="p:arrow-right"></md-icon>
                 </button>
             </div>
