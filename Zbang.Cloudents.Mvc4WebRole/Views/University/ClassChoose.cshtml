@@ -47,7 +47,7 @@
 
 
     <div class="grid-container">
-        <ol class="results list-unstyled">
+        <ol class="results list-unstyled" @*vs-repeat vs-scroll-parent="window" vs-size="department.boxes.length * 72"*@>
             <li class="angular-animate animate-repeat" ng-repeat="department in cc.departmentWithBoxes track by department.id">
                 <div class="title">
                     <div class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>

@@ -1,31 +1,40 @@
 var app;
 (function (app) {
     "use strict";
+    var allList = [];
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $mdToast, $state, $mdDialog) {
+        function ClassChoose(searchService, libraryService, $mdToast, $state, $mdDialog, $filter) {
+            var _this = this;
             this.searchService = searchService;
             this.libraryService = libraryService;
             this.$mdToast = $mdToast;
             this.$state = $state;
             this.$mdDialog = $mdDialog;
+            this.$filter = $filter;
             this.showCreateClass = false;
             this.selectedCourses = [];
             this.noresult = false;
             this.submitDisabled = false;
             this.create = {};
-            this.departmentWithBoxes = {};
+            this.departmentWithBoxes = [];
             this.departments = [];
-            this.classSearch();
+            this.libraryService.getAllDepartments()
+                .then(function (response) {
+                allList = response;
+                _this.classSearch();
+            });
         }
         ClassChoose.prototype.classSearch = function () {
             var _this = this;
             this.noresult = false;
-            this.noresult = false;
-            var selectedCourseId = this.selectedCourses.map(function (f) { return f.id; });
-            this.libraryService.getAllDepartments()
-                .then(function (response) {
-                console.log(response);
-                _this.departmentWithBoxes = response;
+            if (!this.term) {
+                this.departmentWithBoxes = allList;
+                return;
+            }
+            var x = this.$filter('filter')(allList, this.term);
+            this.departmentWithBoxes = this.$filter("filter")(x, function (value, index, array) {
+                var retVal = _this.$filter('filter')(value.boxes, _this.term);
+                return retVal;
             });
         };
         ClassChoose.prototype.status = function (ev, course) {
@@ -98,7 +107,7 @@ var app;
                 _this.submitDisabled = false;
             });
         };
-        ClassChoose.$inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog"];
+        ClassChoose.$inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);

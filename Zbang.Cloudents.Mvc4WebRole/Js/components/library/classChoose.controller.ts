@@ -19,9 +19,9 @@
     //}
 
     //var currentNodeId;
-
+    var allList: Array<ISmallDepartment> = [];
     class ClassChoose {
-        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog"];
+        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog","$filter"];
         //step = Steps.Start;
         showCreateClass = false;
         selectedCourses: Array<ISmallBox> = [];
@@ -36,16 +36,22 @@
 
 
         term;
-        departmentWithBoxes = {};
+        departmentWithBoxes = [];
         departments: Array<ISmallDepartment> = [];
 
         constructor(private searchService: ISearchService,
             private libraryService: ILibraryService,
             private $mdToast: angular.material.IToastService,
             private $state: angular.ui.IStateService,
-            private $mdDialog: angular.material.IDialogService) {
+            private $mdDialog: angular.material.IDialogService,
+            private $filter: angular.IFilterService) {
 
-            this.classSearch();
+            this.libraryService.getAllDepartments()
+                .then(response => {
+                    allList = response;
+                    this.classSearch();
+                });
+            
         }
         classSearch() {
             //const step = this.step;
@@ -53,32 +59,35 @@
             //if (formElement.$invalid) {
             //    return;
             //}
-
+           
+            
             this.noresult = false;
-            //if (this.term) {
+            if (!this.term) {
+                this.departmentWithBoxes = allList;
+                return;
+            }
+            var x = this.$filter('filter')(allList, this.term);
+            this.departmentWithBoxes = this.$filter("filter")(x, (value, index, array) => {
+
+                var retVal = this.$filter('filter')(value.boxes, this.term);
+                return retVal;// && value.name.indexOf(this.term) !== -1;
+            });
+
+            //  currentPost.replies = $filter('orderBy')(currentPost.replies, 'creationTime', false);
+            
+
 
             //if (step === Steps.Start) {
             //    this.step = Steps.SearchFirst;
             //}
-            this.noresult = false;
-            var selectedCourseId = this.selectedCourses.map(f => { return f.id });
-            this.libraryService.getAllDepartments()
-                .then(response => {
-                    console.log(response);
-                    this.departmentWithBoxes = response;
-                    //this.departmentWithBoxes = {};
-                    //for (let i = 0; i < response.length; i++) {
-                    //    const box = response[i], department = box.department;
-                    //    this.departmentWithBoxes[department] = this.departmentWithBoxes[department] || [];
-                    //    if (selectedCourseId.indexOf(box.id) !== -1) {
-                    //        box.selected = true;
-                    //    }
-                    //    this.departmentWithBoxes[department].push(box);
-                    //}
-                    //if (!response.length) {
-                    //    this.noresult = true;
-                    //}
-                });
+            //this.noresult = false;
+            //var selectedCourseId = this.selectedCourses.map(f => { return f.id });
+
+            //        allList = response;
+            //        console.log(response);
+            //        this.departmentWithBoxes = response;
+
+            //    });
 
             //this.searchService.searchBox(this.term, 0)
             //    .then((response: Array<any>) => {
