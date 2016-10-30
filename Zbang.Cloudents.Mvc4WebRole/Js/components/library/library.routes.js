@@ -81,7 +81,10 @@
                             function (libraryService) {
                                 return libraryService.getAllDepartments();
                             }
-                        ]
+                        ],
+                        boxes: ["dashboardService", function (dashboardService) {
+                            return dashboardService.getBoxes();
+                        }]
                     },
                     views: {
                         "search-bar@": {

@@ -71,14 +71,14 @@
             return this.ajaxService2.get('dashboard/university', { universityId: universityId }, 'university');
         };
         createPrivateBox(boxName: string) {
-            return this.ajaxService2.post('dashboard/create', { boxName: boxName });
+            return this.ajaxService2.post("/dashboard/create/", { boxName: boxName });
         };
         leaderboard() {
-            return this.ajaxService2.get('dashboard/leaderboard');
+            return this.ajaxService2.get("/dashboard/leaderboard/");
         };
 
         recommended() {
-            return this.ajaxService2.get('dashboard/recommendedcourses');
+            return this.ajaxService2.get("/dashboard/recommendedcourses/");
         }
     }
     angular.module("app.dashboard").service("dashboardService", Dashboard);

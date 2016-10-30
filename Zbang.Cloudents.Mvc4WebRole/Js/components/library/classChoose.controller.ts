@@ -1,10 +1,13 @@
 ﻿module app {
     "use strict";
 
+
+
     //var allList: Array<ISmallDepartment> = [];
 
     class ClassChoose {
-        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData"];
+        static $inject = ["searchService", "libraryService", "$state",
+            "$mdDialog", "$filter", "nodeData", "boxService", "boxes"];
         showCreateClass = false;
         selectedCourses: Array<ISmallBox> = [];
 
@@ -13,23 +16,42 @@
         create = {};
         term;
         data: Array<ISmallDepartment> = [];
-        //departments: Array<ISmallDepartment> = [];
 
         constructor(private searchService: ISearchService,
             private libraryService: ILibraryService,
-            private $mdToast: angular.material.IToastService,
             private $state: angular.ui.IStateService,
             private $mdDialog: angular.material.IDialogService,
             private $filter: angular.IFilterService,
-            private nodeData: Array<ISmallDepartment>) {
-
+            private nodeData: Array<ISmallDepartment>,
+            private boxService: IBoxService,
+            private boxes: any) {
             this.classSearch();
 
-            //this.libraryService.getAllDepartments()
-            //    .then(response => {
-            //        allList = response;
-            //        this.classSearch();
-            //    });
+            var ids = [];
+            angular.forEach(boxes,
+
+                (v) => {
+                    ids.push(v.id);
+                    this.selectedCourses.push({
+                        id: v.id,
+                        courseCode: v.courseCode,
+                        name: v.name,
+                        professor: v.professor
+                    });
+                });
+            angular.forEach(nodeData,
+                v => {
+                    if (v.boxes) {
+                        for (let i = v.boxes.length - 1; i >= 0; i--) {
+                            const x = v.boxes[i];
+                            if (ids.indexOf(x.id) !== -1) {
+                                //v.boxes.splice(i, 1);
+                                x["selected"] = true;
+                            }
+                        }
+                    }
+                });
+            
 
         }
         classSearch() {
@@ -40,14 +62,11 @@
             const filterDepartment = this.$filter("filter")(this.nodeData, this.term);
             this.data = this.$filter("filter")(filterDepartment, (value) => {
                 value.boxes = this.$filter("filter")(value.boxes, this.term);
-                return value;// && value.name.indexOf(this.term) !== -1;
+                return value;
             });
-            if (!this.data.length) {
-            }
+
         }
-        //getRemainingElement() {
-        //    return new Array(Math.max(0, 6 - this.selectedCourses.length));
-        //}
+
         status(ev, course) {
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
@@ -58,11 +77,7 @@
                 locals: { courseData: course },
                 fullscreen: true // Only for -xs, -sm breakpoints.
             });
-            //.then(function (answer) {
-            //    //$scope.status = 'You said the information was "' + answer + '".';
-            //}, function () {
-            //    //$scope.status = 'You cancelled the dialog.';
-            //});
+
         }
 
         chosenCourseController($scope, $mdDialog, courseData) {
@@ -74,20 +89,9 @@
         }
 
         choose(course) {
-            //TODO : ajax call
-            //this.term = '';
-            //this.searchResult = [];
+            this.boxService.follow(course.id);
+            course["selected"] = true;
             this.selectedCourses.push(course);
-            course.selected = true;
-            const toasterContent = this.$mdToast.simple()
-                .textContent("You have selected 3 classes")
-                .hideDelay(0)
-                .action("click here")
-                .position("top center");
-            (toasterContent as any).toastClass("angular-animate");
-            this.$mdToast.show(toasterContent).then(() => {
-                this.$state.go("dashboard");
-            });
         }
 
 
@@ -103,18 +107,13 @@
             const result = this.$filter("filter")(this.nodeData, text);//.map(m => { return { name: m.name, id: m.id } });
             return result;
         }
-        //selectDepartment(department) {
-        //    console.log(department);
-        //}
+
         createClass(createBox: angular.IFormController) {
-            //if (!this.selectDepartment) {
-            //}
-            //if (createBox.$invalid) {
-            //    return;
-            //}
+            if (createBox.$invalid) {
+                return;
+            }
             this.submitDisabled = true;
             if (!this.selectedDepartment) {
-                //cc.departmentName
                 this.libraryService.createDepartment(this.departmentName, null, true)
                     .then(response => {
                         this.nodeData.push(response);

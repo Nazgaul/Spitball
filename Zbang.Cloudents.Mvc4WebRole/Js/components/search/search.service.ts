@@ -3,7 +3,6 @@
 
     export interface ISearchService {
         searchBox(term: string, page: number): angular.IPromise<any>;
-        //searchBoxSelect(term: string, page: number): angular.IPromise<any>;
         searchItems(term: string, page: number): angular.IPromise<any>;
         searchQuizzes(term: string, page: number): angular.IPromise<any>;
     }

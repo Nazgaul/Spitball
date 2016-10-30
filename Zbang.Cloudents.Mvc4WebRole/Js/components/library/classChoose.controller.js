@@ -2,20 +2,42 @@ var app;
 (function (app) {
     "use strict";
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $mdToast, $state, $mdDialog, $filter, nodeData) {
+        function ClassChoose(searchService, libraryService, $state, $mdDialog, $filter, nodeData, boxService, boxes) {
+            var _this = this;
             this.searchService = searchService;
             this.libraryService = libraryService;
-            this.$mdToast = $mdToast;
             this.$state = $state;
             this.$mdDialog = $mdDialog;
             this.$filter = $filter;
             this.nodeData = nodeData;
+            this.boxService = boxService;
+            this.boxes = boxes;
             this.showCreateClass = false;
             this.selectedCourses = [];
             this.submitDisabled = false;
             this.create = {};
             this.data = [];
             this.classSearch();
+            var ids = [];
+            angular.forEach(boxes, function (v) {
+                ids.push(v.id);
+                _this.selectedCourses.push({
+                    id: v.id,
+                    courseCode: v.courseCode,
+                    name: v.name,
+                    professor: v.professor
+                });
+            });
+            angular.forEach(nodeData, function (v) {
+                if (v.boxes) {
+                    for (var i = v.boxes.length - 1; i >= 0; i--) {
+                        var x = v.boxes[i];
+                        if (ids.indexOf(x.id) !== -1) {
+                            x["selected"] = true;
+                        }
+                    }
+                }
+            });
         }
         ClassChoose.prototype.classSearch = function () {
             var _this = this;
@@ -28,8 +50,6 @@ var app;
                 value.boxes = _this.$filter("filter")(value.boxes, _this.term);
                 return value;
             });
-            if (!this.data.length) {
-            }
         };
         ClassChoose.prototype.status = function (ev, course) {
             this.$mdDialog.show({
@@ -49,18 +69,9 @@ var app;
             };
         };
         ClassChoose.prototype.choose = function (course) {
-            var _this = this;
+            this.boxService.follow(course.id);
+            course["selected"] = true;
             this.selectedCourses.push(course);
-            course.selected = true;
-            var toasterContent = this.$mdToast.simple()
-                .textContent("You have selected 3 classes")
-                .hideDelay(0)
-                .action("click here")
-                .position("top center");
-            toasterContent.toastClass("angular-animate");
-            this.$mdToast.show(toasterContent).then(function () {
-                _this.$state.go("dashboard");
-            });
         };
         ClassChoose.prototype.goCreateClass = function () {
             this.data = this.nodeData;
@@ -75,6 +86,9 @@ var app;
         };
         ClassChoose.prototype.createClass = function (createBox) {
             var _this = this;
+            if (createBox.$invalid) {
+                return;
+            }
             this.submitDisabled = true;
             if (!this.selectedDepartment) {
                 this.libraryService.createDepartment(this.departmentName, null, true)
@@ -114,7 +128,8 @@ var app;
                 _this.submitDisabled = false;
             });
         };
-        ClassChoose.$inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData"];
+        ClassChoose.$inject = ["searchService", "libraryService", "$state",
+            "$mdDialog", "$filter", "nodeData", "boxService", "boxes"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);
