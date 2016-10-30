@@ -2,18 +2,16 @@ var app;
 (function (app) {
     "use strict";
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $mdToast, $state, $mdDialog, $filter, nodeData, boxService, boxes, $scope) {
+        function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager) {
             var _this = this;
             this.searchService = searchService;
             this.libraryService = libraryService;
-            this.$mdToast = $mdToast;
-            this.$state = $state;
             this.$mdDialog = $mdDialog;
             this.$filter = $filter;
             this.nodeData = nodeData;
             this.boxService = boxService;
             this.boxes = boxes;
-            this.$scope = $scope;
+            this.resManager = resManager;
             this.showCreateClass = false;
             this.selectedCourses = [];
             this.submitDisabled = false;
@@ -62,7 +60,6 @@ var app;
                 controller: 'ClassChooseDialog',
                 controllerAs: 'cd',
                 locals: { courseData: course },
-                scope: this.$scope,
                 fullscreen: true
             });
         };
@@ -135,7 +132,8 @@ var app;
                 _this.submitDisabled = false;
             });
         };
-        ClassChoose.$inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "$scope"];
+        ClassChoose.$inject = ["searchService", "libraryService",
+            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);

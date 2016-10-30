@@ -6,9 +6,9 @@
     //var allList: Array<ISmallDepartment> = [];
 
     class ClassChoose {
-        //static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$scope"];
+        static $inject = ["searchService", "libraryService",    /*"$scope",*/
             "$mdDialog", "$filter", "nodeData", "boxService", "boxes","resManager"];
-        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "$scope"];
+        //static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "$scope"];
         showCreateClass = false;
         selectedCourses: Array<ISmallBox> = [];
 
@@ -20,15 +20,13 @@
 
         constructor(private searchService: ISearchService,
             private libraryService: ILibraryService,
-            private $mdToast: angular.material.IToastService,
-            private $state: angular.ui.IStateService,
             private $mdDialog: angular.material.IDialogService,
             private $filter: angular.IFilterService,
             private nodeData: Array<ISmallDepartment>,
             private boxService: IBoxService,
             private boxes: any,
             private resManager: IResManager) {
-            private $scope: angular.IScope) {
+            
             this.classSearch();
 
             var ids = [];
@@ -80,7 +78,7 @@
                 controller: 'ClassChooseDialog',
                 controllerAs: 'cd',
                 locals: { courseData: course },
-                scope: this.$scope,
+               // scope: this.$scope,
                 fullscreen: true // Only for -xs, -sm breakpoints.
             });
 

@@ -83,34 +83,52 @@ var app;
                     event.preventDefault();
                     $rootScope.$broadcast("state-change-start-prevent");
                 }
-                if (!userDetails.isAuthenticated()) {
-                    return;
-                }
-                var details = userDetails.get();
-                if (!details.university.id) {
-                    var userWithNoUniversityState = "universityChoose";
-                    if (toStateName !== userWithNoUniversityState) {
-                        $rootScope.$broadcast("state-change-start-prevent");
-                        event.preventDefault();
-                    }
-                    return;
-                }
-                if (dashboardService.boxes) {
-                    if (dashboardService.boxes.length < 3 && toState.name !== "classChoose") {
-                        event.preventDefault();
-                        $rootScope.$broadcast("state-change-start-prevent");
-                        $state.go("classChoose");
+                checkUniversityChoose();
+                checkNumberOfBoxes();
+                function checkUniversityChoose() {
+                    var details = userDetails.get();
+                    if (details) {
+                        if (!userDetails.isAuthenticated()) {
+                            return;
+                        }
+                        if (!details.university.id) {
+                            var userWithNoUniversityState = "universityChoose";
+                            if (toStateName !== userWithNoUniversityState) {
+                                $rootScope.$broadcast("state-change-start-prevent");
+                                event.preventDefault();
+                            }
+                            return;
+                        }
                     }
                     else {
-                        document.title = resManager.get("siteName");
+                        event.preventDefault();
+                        userDetails.init()
+                            .then(function () {
+                            $urlRouter.sync();
+                        });
                     }
                 }
-                else {
-                    event.preventDefault();
-                    dashboardService.getBoxes()
-                        .then(function (boxes) {
-                        $urlRouter.sync();
-                    });
+                function checkNumberOfBoxes() {
+                    if (!userDetails.isAuthenticated()) {
+                        return;
+                    }
+                    if (dashboardService.boxes) {
+                        if (dashboardService.boxes.length < 3 && toState.name !== "classChoose") {
+                            event.preventDefault();
+                            $rootScope.$broadcast("state-change-start-prevent");
+                            $state.go("classChoose");
+                        }
+                        else {
+                            document.title = resManager.get("siteName");
+                        }
+                    }
+                    else {
+                        event.preventDefault();
+                        dashboardService.getBoxes()
+                            .then(function () {
+                            $urlRouter.sync();
+                        });
+                    }
                 }
             });
         }
