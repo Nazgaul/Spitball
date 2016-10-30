@@ -6,8 +6,9 @@
     //var allList: Array<ISmallDepartment> = [];
 
     class ClassChoose {
-        static $inject = ["searchService", "libraryService", "$state",
+        //static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$scope"];
             "$mdDialog", "$filter", "nodeData", "boxService", "boxes","resManager"];
+        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "$scope"];
         showCreateClass = false;
         selectedCourses: Array<ISmallBox> = [];
 
@@ -19,6 +20,7 @@
 
         constructor(private searchService: ISearchService,
             private libraryService: ILibraryService,
+            private $mdToast: angular.material.IToastService,
             private $state: angular.ui.IStateService,
             private $mdDialog: angular.material.IDialogService,
             private $filter: angular.IFilterService,
@@ -26,6 +28,7 @@
             private boxService: IBoxService,
             private boxes: any,
             private resManager: IResManager) {
+            private $scope: angular.IScope) {
             this.classSearch();
 
             var ids = [];
@@ -74,20 +77,27 @@
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
-                controller: this.chosenCourseController,
+                controller: 'ClassChooseDialog',
+                controllerAs: 'cd',
                 locals: { courseData: course },
+                scope: this.$scope,
                 fullscreen: true // Only for -xs, -sm breakpoints.
             });
 
         }
 
-        chosenCourseController($scope, $mdDialog, courseData) {
-            $scope.courseData = courseData;
+        //chosenCourseController($scope, $mdDialog, courseData) {
+        //    $scope.courseData = courseData;
 
-            $scope.close = function () {
-                $mdDialog.hide();
-            };
-        }
+        //    $scope.close = function () {
+        //        $mdDialog.hide();
+        //    };
+
+        //    $scope.remove = function () {
+        //        var index = this.selectedCourses.indexOf(courseData);
+        //        this.selectedCourses.splice(index, 1);
+        //    }
+        //}
 
         choose(course) {
             this.boxService.follow(course.id);

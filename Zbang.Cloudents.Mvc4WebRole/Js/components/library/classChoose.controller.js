@@ -2,17 +2,18 @@ var app;
 (function (app) {
     "use strict";
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $state, $mdDialog, $filter, nodeData, boxService, boxes, resManager) {
+        function ClassChoose(searchService, libraryService, $mdToast, $state, $mdDialog, $filter, nodeData, boxService, boxes, $scope) {
             var _this = this;
             this.searchService = searchService;
             this.libraryService = libraryService;
+            this.$mdToast = $mdToast;
             this.$state = $state;
             this.$mdDialog = $mdDialog;
             this.$filter = $filter;
             this.nodeData = nodeData;
             this.boxService = boxService;
             this.boxes = boxes;
-            this.resManager = resManager;
+            this.$scope = $scope;
             this.showCreateClass = false;
             this.selectedCourses = [];
             this.submitDisabled = false;
@@ -58,16 +59,12 @@ var app;
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
-                controller: this.chosenCourseController,
+                controller: 'ClassChooseDialog',
+                controllerAs: 'cd',
                 locals: { courseData: course },
+                scope: this.$scope,
                 fullscreen: true
             });
-        };
-        ClassChoose.prototype.chosenCourseController = function ($scope, $mdDialog, courseData) {
-            $scope.courseData = courseData;
-            $scope.close = function () {
-                $mdDialog.hide();
-            };
         };
         ClassChoose.prototype.choose = function (course) {
             this.boxService.follow(course.id);
@@ -138,8 +135,7 @@ var app;
                 _this.submitDisabled = false;
             });
         };
-        ClassChoose.$inject = ["searchService", "libraryService", "$state",
-            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager"];
+        ClassChoose.$inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "$scope"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);

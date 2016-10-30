@@ -1,7 +1,5 @@
 ﻿@import "variables.less";
-.md-toast-animating{
-    overflow: auto !important;
-}
+
 .class-choose {
     @media (min-width: 960px) {
         margin-left: -@widthOfSideMenu;
@@ -476,46 +474,6 @@
         margin: 0 auto;
     }
     /*#region new boxes styling*/
-    .slim.box-style {
-        height: auto;
-        padding: 6px;
-        .displayFlex();
-        .align-items(stretch);
-        .justifyContet(flex-start);
-        margin: 10px 0;
-
-        .icon {
-            @icon-size: 60px;
-            width: @icon-size;
-            height: @icon-size;
-            line-height: @icon-size;
-            text-align: center;
-            color: @textColorWhite;
-            font-size: 28px;
-            flex-shrink: 0;
-        }
-
-        .data {
-            padding-left: 6px;
-            text-align: left;
-            font-size: 12px;
-            overflow: hidden;
-            line-height: normal;
-            .displayFlex();
-            flex-direction: column;
-            .align-items(flex-start);
-            .justifyContet(space-between);
-
-            .name {
-                margin: 0;
-                font-size: 20px;
-                width: 100%;
-            }
-
-            .metadata {
-            }
-        }
-    }
     /*#endregion*/
     /*.search-form, .select-department .departments {
         margin-top: 46px;
@@ -560,4 +518,144 @@
     .switch .content.ng-enter.ng-enter-active {
         top: 0;
     }*/
+}
+
+
+.md-toast-animating {
+    overflow: auto !important;
+}
+
+.selected-class-dialog {
+    max-width: 500px;
+    width: 100%;
+    background: @backgroundColor;
+
+    .department-name {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    md-toolbar {
+        min-height: 0;
+        padding: 20px 25px;
+        background: @headerbackground;
+
+        h2 {
+            margin: 0;
+            font-size: 16px;
+            min-height: 0;
+        }
+
+        button {
+            @closeHeight: 15px;
+            min-width: 0;
+            min-height: 0;
+            margin: 0;
+            padding: 0;
+            line-height: 0;
+            height: @closeHeight;
+
+            md-icon {
+                width: @closeHeight;
+                height: @closeHeight;
+                fill: @textColorWhite;
+            }
+        }
+    }
+
+    md-dialog-content {
+        width: 100%;
+        margin: 18px auto;
+        padding: 10px;
+
+        .center {
+            .displayFlex;
+            .align-items(center);
+
+            .box-container {
+                flex-shrink: 0;
+                flex-grow: 1;
+                max-width: 300px;
+                width: 100%;
+            }
+
+            .next, .prev {
+                width: 100%;
+                flex-shrink: 1;
+                flex-grow: 0;
+
+                &.disabled md-icon {
+                    fill: @textColorLightGrey;
+                }
+
+                md-icon {
+                    width: 20px;
+                    height: 20px;
+                    fill: @textColorGrey;
+                }
+            }
+
+            .next {
+            }
+
+            .prev {
+                -webkit-transform: rotate(180deg);
+                -moz-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+                transform: rotate(180deg);
+            }
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 50px;
+
+            .action-btn {
+                background: #DB4437;
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+.slim.box-style {
+    height: auto;
+    padding: 6px;
+    .displayFlex();
+    .align-items(stretch);
+    .justifyContet(flex-start);
+    margin: 10px 0;
+
+    .icon {
+        @icon-size: 60px;
+        width: @icon-size;
+        height: @icon-size;
+        line-height: @icon-size;
+        text-align: center;
+        color: @textColorWhite;
+        font-size: 28px;
+        flex-shrink: 0;
+    }
+
+    .data {
+        padding-left: 6px;
+        text-align: left;
+        font-size: 12px;
+        overflow: hidden;
+        line-height: normal;
+        .displayFlex();
+        flex-direction: column;
+        .align-items(flex-start);
+        .justifyContet(space-between);
+
+        .name {
+            margin: 0;
+            font-size: 20px;
+            width: 100%;
+        }
+
+        .metadata {
+        }
+    }
 }
