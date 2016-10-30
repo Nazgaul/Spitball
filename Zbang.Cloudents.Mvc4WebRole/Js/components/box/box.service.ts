@@ -38,7 +38,7 @@
 
         }
         getBox(boxid: number) {
-            return this.ajaxService2.get('/box/data/', { id: boxid },"boxData");
+            return this.ajaxService2.get("/box/data/", { id: boxid }, "boxData");
         };
         getFeed(boxid, top, skip) {
             return this.ajaxService2.get('/qna/', { id: boxid, top: top, skip: skip });
@@ -52,20 +52,20 @@
         getRecommended(boxid: number) {
             return this.ajaxService2.get('/box/recommended/', { id: boxid });
         };
-        items(boxId: number, tabId:Guid, page:number) {
-            return this.ajaxService2.get('/box/items/', { id: boxId, tabId: tabId, page: page }, "boxItems");
+        items(boxId: number, tabId: Guid, page: number) {
+            return this.ajaxService2.get("/box/items/", { id: boxId, tabId: tabId, page: page }, "boxItems");
         };
         getTabs(boxid: number) {
             return this.ajaxService2.get('/box/tabs/', { id: boxid });
         };
         addItemToTab(boxId: number, tabId: Guid, itemId: number) {
-            return this.ajaxService2.post('/box/additemtotab/', {
+            return this.ajaxService2.post("/box/additemtotab/", {
                 boxId: boxId,
                 tabId: tabId,
                 itemId: itemId
             }, "boxItems");
         }
-        createTab(name:string, boxId: number) {
+        createTab(name: string, boxId: number) {
             return this.ajaxService2.post('/box/createtab/', {
                 name: name,
                 boxId: boxId
@@ -79,18 +79,18 @@
             });
         }
         deleteTab(tabId: Guid, boxId: number) {
-            return this.ajaxService2.post('/box/deletetab/', {
+            return this.ajaxService2.post("/box/deletetab/", {
                 tabId: tabId,
                 boxId: boxId
             }, "boxItems");
         }
         deleteItem(itemId: number) {
-            return this.ajaxService2.post('/item/delete/', {
+            return this.ajaxService2.post("/item/delete/", {
                 itemId: itemId
             }, "boxItems");
         };
         filterItem(term: string, boxId: number, page: number) {
-            return this.ajaxService2.get('/search/iteminbox/', {
+            return this.ajaxService2.get("/search/iteminbox/", {
                 term: term,
                 boxId: boxId,
                 page: page
@@ -103,7 +103,7 @@
             return this.ajaxService2.get('/box/quizes/', { id: boxid });
         };
         postComment(content: string, boxId: number, files: Array<number>, anonymously: boolean) {
-            return this.ajaxService2.post('/qna/addcomment/', { content: content, boxId: boxId, files: files, anonymously: anonymously });
+            return this.ajaxService2.post("/qna/addcomment/", { content: content, boxId: boxId, files: files, anonymously: anonymously });
         }
         deleteComment(commentId: Guid, boxId: number) {
             return this.ajaxService2.post('/qna/deletecomment/', {
@@ -149,9 +149,9 @@
             });
         }
         follow(boxId: number) {
-            return this.ajaxService2.post('/share/subscribetobox/', {
+            return this.ajaxService2.post("/share/subscribetobox/", {
                 boxId: boxId
-            },"boxData");
+            }, "boxData");
 
         }
         notification(boxId: number) {
@@ -160,27 +160,27 @@
             });
         }
         unfollow(boxId: number) {
-            return this.ajaxService2.post('/box/delete/', {
+            return this.ajaxService2.post("/box/delete/", {
                 id: boxId
-            },"boxData");
+            }, "boxData");
 
         }
         updateBox(boxId: number, name: string, course: string, professor: string, privacy, notification) {
-            return this.ajaxService2.post('/box/updateinfo/', {
+            return this.ajaxService2.post("/box/updateinfo/", {
                 id: boxId,
                 name: name,
                 courseCode: course,
                 professor: professor,
                 boxPrivacy: privacy,
                 notification: notification
-            },"boxData");
+            }, "boxData");
         }
 
         feedLikes(boxId: number): angular.IPromise<any> {
             return this.ajaxService2.get("/qna/Likes/",
-            {
-                id: boxId
-            });
+                {
+                    id: boxId
+                });
         }
     }
     angular.module("app.box").service("boxService", BoxService);

@@ -1,105 +1,74 @@
 ﻿module app {
     "use strict";
-    //enum Steps {
-    //    Start = 1,
-    //    SearchFirst = 2,
-    //    SearchFirstComplete = 3,
-    //    SearchSecond = 4,
-    //    SearchSecondComplete = 5,
-    //    SearchMore = 6,
-    //    //EmptyState,
-    //    ChooseDepartment = 7,
-    //    CreateClass = 8
-    //}
 
-    interface IBox {
-        id: number;
-        name: string;
-        courseCode: string;
-        professor: string;
 
-    }
-    //interface ISelectedDepartment {
-    //    name: string;
-    //    id: Guid;
-    //}
 
-    //var currentNodeId;
+    //var allList: Array<ISmallDepartment> = [];
 
     class ClassChoose {
-        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$scope"];
-        //step = Steps.Start;
+        //static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$scope"];
+        static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "$scope"];
         showCreateClass = false;
-        selectedCourses: Array<IBox> = [];
-        //searchResult;
+        selectedCourses: Array<ISmallBox> = [];
 
-        noresult = false;
-        //departmentlist;
         selectedDepartment: ISmallDepartment;
         submitDisabled = false;
         create = {};
-        //showCreateDepartment: boolean;
-
-
         term;
-        departmentWithBoxes = {};
-        departments: Array<ISmallDepartment> = [];
+        data: Array<ISmallDepartment> = [];
 
         constructor(private searchService: ISearchService,
             private libraryService: ILibraryService,
             private $mdToast: angular.material.IToastService,
             private $state: angular.ui.IStateService,
             private $mdDialog: angular.material.IDialogService,
+            private $filter: angular.IFilterService,
+            private nodeData: Array<ISmallDepartment>,
+            private boxService: IBoxService,
+            private boxes: any,
             private $scope: angular.IScope) {
-
             this.classSearch();
-        }
-        classSearch() {
-            //const step = this.step;
-            //const formElement: angular.IFormController = this.$scope["classChooseFrom"];
-            //if (formElement.$invalid) {
-            //    return;
-            //}
 
-            this.noresult = false;
-            //if (this.term) {
+            var ids = [];
+            angular.forEach(boxes,
 
-            //if (step === Steps.Start) {
-            //    this.step = Steps.SearchFirst;
-            //}
-            this.noresult = false;
-            var selectedCourseId = this.selectedCourses.map(f => { return f.id });
-            this.searchService.searchBoxSelect(this.term, 0)
-                .then(response => {
-                    this.departmentWithBoxes = {};
-                    for (let i = 0; i < response.length; i++) {
-                        const box = response[i], department = box.department;
-                        this.departmentWithBoxes[department] = this.departmentWithBoxes[department] || [];
-                        if (selectedCourseId.indexOf(box.id) !== -1) {
-                            box.selected = true;
+                (v) => {
+                    ids.push(v.id);
+                    this.selectedCourses.push({
+                        id: v.id,
+                        courseCode: v.courseCode,
+                        name: v.name,
+                        professor: v.professor
+                    });
+                });
+            angular.forEach(nodeData,
+                v => {
+                    if (v.boxes) {
+                        for (let i = v.boxes.length - 1; i >= 0; i--) {
+                            const x = v.boxes[i];
+                            if (ids.indexOf(x.id) !== -1) {
+                                //v.boxes.splice(i, 1);
+                                x["selected"] = true;
+                            }
                         }
-                        this.departmentWithBoxes[department].push(box);
-                    }
-                    if (!response.length) {
-                        this.noresult = true;
                     }
                 });
 
-            //this.searchService.searchBox(this.term, 0)
-            //    .then((response: Array<any>) => {
-            //        this.searchResult = response.filter(f => selectedCourseId.indexOf(f.id) === -1);
 
-
-            //    });
-            //} else {
-            //if (step === Steps.SearchFirst) {
-            //    this.step = Steps.Start;
-            //}
-            //}
         }
-        //getRemainingElement() {
-        //    return new Array(Math.max(0, 6 - this.selectedCourses.length));
-        //}
+        classSearch() {
+            if (!this.term) {
+                this.data = this.nodeData;
+                return;
+            }
+            const filterDepartment = this.$filter("filter")(this.nodeData, this.term);
+            this.data = this.$filter("filter")(filterDepartment, (value) => {
+                value.boxes = this.$filter("filter")(value.boxes, this.term);
+                return value;
+            });
+
+        }
+
         status(ev, course) {
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
@@ -112,11 +81,7 @@
                 scope: this.$scope,
                 fullscreen: true // Only for -xs, -sm breakpoints.
             });
-            //.then(function (answer) {
-            //    //$scope.status = 'You said the information was "' + answer + '".';
-            //}, function () {
-            //    //$scope.status = 'You cancelled the dialog.';
-            //});
+
         }
 
         //chosenCourseController($scope, $mdDialog, courseData) {
@@ -133,124 +98,72 @@
         //}
 
         choose(course) {
-            //TODO : ajax call
-            //this.term = '';
-            //this.searchResult = [];
+            this.boxService.follow(course.id);
+            course["selected"] = true;
             this.selectedCourses.push(course);
-            course.selected = true;
-            const toasterContent = this.$mdToast.simple()
-                .textContent("You have selected 3 classes")
-                .hideDelay(0)
-                .action("click here")
-                .position("top center");
-            (toasterContent as any).toastClass("angular-animate");
-            this.$mdToast.show(toasterContent).then(() => {
-                this.$state.go("dashboard");
-            });
-            //this.step = Math.min(this.step + 1, 5);
         }
-        
 
+
+        departmentName: string;
         goCreateClass() {
+            this.data = this.nodeData;
+            this.term = '';
             this.showCreateClass = true;
-            this.libraryService.getAllDepartments()
-                .then((response: Array<ISmallDepartment>) => {
-                    this.departments = response;
-                });
+            this.selectedDepartment = null;
+            this.departmentName = '';
         }
         queryDepartments(text: String) {
-            return this.departments;
+            const result = this.$filter("filter")(this.nodeData, text);//.map(m => { return { name: m.name, id: m.id } });
+            return result;
         }
-        //selectDepartment(department) {
-        //    this.term = '';
-        //    department = department || {};
-        //    currentNodeId = department.id;
-        //    //this.step = Steps.ChooseDepartment;
-        //    this.libraryService.getDepartments(currentNodeId, this.user.university.id, true)
-        //        .then(response => {
-        //            if (response.nodes.length) {
-        //                this.departmentlist = response.nodes;
-        //            } else {
-        //                this.selectedDepartment = department;
-        //                //  this.step = Steps.CreateClass;
-        //            }
-        //        });
-        //}
 
-        //backStep() {
-        //    const numberOfSelectedCourses = this.selectedCourses.length;
-        //    if (numberOfSelectedCourses > 2) {
-        //        //this.step = Steps.SearchMore;
-        //        return;
-        //    }
-        //    if (numberOfSelectedCourses > 1) {
-        //        // this.step = Steps.SearchSecond;
-        //        return;
-        //    }
-        //    //this.step = Steps.SearchFirst;
-        //}
-        //chooseMore() {
-        //    //if ([Steps.SearchFirstComplete, Steps.SearchSecondComplete].indexOf(this.step) !== -1) {
-        //    //    this.step++;
-        //    //}
-
-        //}
-        //createDepartment(newDepartment: angular.IFormController) {
-        //    const name = this.create["department"];
-        //    if (!name) {
-        //        this.showCreateDepartment = false;
-        //        return;
-        //    }
-        //    this.libraryService.createDepartment(name, currentNodeId, true)
-        //        .then(response => {
-        //            this.selectedDepartment = {
-        //                id: response.id,
-        //                name: response.name
-        //            }
-        //            // this.step = Steps.CreateClass;
-        //        }).catch(response => {
-        //            newDepartment["name"].$setValidity('server', false);
-        //            this.create["error"] = response;
-        //        });
-        //}
         createClass(createBox: angular.IFormController) {
-            //console.log(this.selectedDepartment);
-            //return;
             if (createBox.$invalid) {
                 return;
             }
             this.submitDisabled = true;
+            if (!this.selectedDepartment) {
+                this.libraryService.createDepartment(this.departmentName, null, true)
+                    .then(response => {
+                        this.nodeData.push(response);
+                        this.selectedDepartment = response;
+                        this.createClassCall(createBox);
+                    });
+                return;
+            }
+            this.createClassCall(createBox);
+
+        }
+
+        private createClassCall(createBox: angular.IFormController) {
             const createObj: any = this.create;
             this.libraryService.createClass(createObj.name,
                 createObj.number,
                 createObj.professor,
                 this.selectedDepartment.id)
                 .then(response => {
-                    this.departmentWithBoxes[this.selectedDepartment.name] = this.departmentWithBoxes[this.selectedDepartment.name] || [];
-                    this.departmentWithBoxes[this.selectedDepartment.name].push({
+                    const department = this.nodeData.find(f => f.id === this.selectedDepartment.id);
+                    const box = {
                         id: response.id,
                         name: createObj.name,
                         courseCode: createObj.number,
-                        professor: createObj.professor,
-                        selected: true
-                    });
+                        professor: createObj.professor
+                    };
+                    department.boxes = department.boxes || [];
+                    department.boxes.push(box);
+                    this.selectedCourses.push(box);
+                    this.selectedDepartment = null;
                     angular.forEach(createObj,
                         (value, key) => {
                             this.create[key] = '';
                         });
                     this.showCreateClass = false;
-                    //if (this.selectedCourses.length === 1) {
-                    //    //  this.step = Steps.SearchFirstComplete;
-                    //} else {
-                    //    //  this.step = Steps.SearchSecondComplete;
-                    //}
                 }).catch(response => {
                     createBox["name"].$setValidity('server', false);
                     this.create["error"] = response;
                 }).finally(() => {
                     this.submitDisabled = false;
                 });
-
         }
     }
 

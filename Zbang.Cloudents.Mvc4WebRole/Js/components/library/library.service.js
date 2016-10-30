@@ -9,7 +9,7 @@ var app;
             return this.ajaxService.get("/university/nodes/", { section: departmentId, universityId: universityId });
         };
         Library.prototype.getAllDepartments = function () {
-            return this.ajaxService.get("/university/allnodes/");
+            return this.ajaxService.get("/university/allnodes/", null, "searchFirstBox");
         };
         Library.prototype.getUniversity = function (term, page) {
             return this.ajaxService.get("/university/search/", { term: term, page: page }, null, "uniSearch");
@@ -31,7 +31,7 @@ var app;
                 name: name,
                 parentId: nodeId,
                 skipUrl: skipUrl
-            }, "department");
+            }, ["department", "searchFirstBox"]);
         };
         Library.prototype.deleteDepartment = function (id) {
             return this.ajaxService.post("/university/deletenode/", {
@@ -44,7 +44,7 @@ var app;
                 courseId: code,
                 professor: professor,
                 departmentId: nodeId
-            }, "department");
+            }, ["department", "searchFirstBox"]);
         };
         ;
         Library.prototype.updateSettings = function (name, nodeId, settings) {

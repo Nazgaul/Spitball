@@ -6,7 +6,7 @@ var app;
             this.ajaxService2 = ajaxService2;
         }
         BoxService.prototype.getBox = function (boxid) {
-            return this.ajaxService2.get('/box/data/', { id: boxid }, "boxData");
+            return this.ajaxService2.get("/box/data/", { id: boxid }, "boxData");
         };
         ;
         BoxService.prototype.getFeed = function (boxid, top, skip) {
@@ -24,7 +24,7 @@ var app;
         };
         ;
         BoxService.prototype.items = function (boxId, tabId, page) {
-            return this.ajaxService2.get('/box/items/', { id: boxId, tabId: tabId, page: page }, "boxItems");
+            return this.ajaxService2.get("/box/items/", { id: boxId, tabId: tabId, page: page }, "boxItems");
         };
         ;
         BoxService.prototype.getTabs = function (boxid) {
@@ -32,7 +32,7 @@ var app;
         };
         ;
         BoxService.prototype.addItemToTab = function (boxId, tabId, itemId) {
-            return this.ajaxService2.post('/box/additemtotab/', {
+            return this.ajaxService2.post("/box/additemtotab/", {
                 boxId: boxId,
                 tabId: tabId,
                 itemId: itemId
@@ -52,19 +52,19 @@ var app;
             });
         };
         BoxService.prototype.deleteTab = function (tabId, boxId) {
-            return this.ajaxService2.post('/box/deletetab/', {
+            return this.ajaxService2.post("/box/deletetab/", {
                 tabId: tabId,
                 boxId: boxId
             }, "boxItems");
         };
         BoxService.prototype.deleteItem = function (itemId) {
-            return this.ajaxService2.post('/item/delete/', {
+            return this.ajaxService2.post("/item/delete/", {
                 itemId: itemId
             }, "boxItems");
         };
         ;
         BoxService.prototype.filterItem = function (term, boxId, page) {
-            return this.ajaxService2.get('/search/iteminbox/', {
+            return this.ajaxService2.get("/search/iteminbox/", {
                 term: term,
                 boxId: boxId,
                 page: page
@@ -80,7 +80,7 @@ var app;
         };
         ;
         BoxService.prototype.postComment = function (content, boxId, files, anonymously) {
-            return this.ajaxService2.post('/qna/addcomment/', { content: content, boxId: boxId, files: files, anonymously: anonymously });
+            return this.ajaxService2.post("/qna/addcomment/", { content: content, boxId: boxId, files: files, anonymously: anonymously });
         };
         BoxService.prototype.deleteComment = function (commentId, boxId) {
             return this.ajaxService2.post('/qna/deletecomment/', {
@@ -126,7 +126,7 @@ var app;
             });
         };
         BoxService.prototype.follow = function (boxId) {
-            return this.ajaxService2.post('/share/subscribetobox/', {
+            return this.ajaxService2.post("/share/subscribetobox/", {
                 boxId: boxId
             }, "boxData");
         };
@@ -136,12 +136,12 @@ var app;
             });
         };
         BoxService.prototype.unfollow = function (boxId) {
-            return this.ajaxService2.post('/box/delete/', {
+            return this.ajaxService2.post("/box/delete/", {
                 id: boxId
             }, "boxData");
         };
         BoxService.prototype.updateBox = function (boxId, name, course, professor, privacy, notification) {
-            return this.ajaxService2.post('/box/updateinfo/', {
+            return this.ajaxService2.post("/box/updateinfo/", {
                 id: boxId,
                 name: name,
                 courseCode: course,

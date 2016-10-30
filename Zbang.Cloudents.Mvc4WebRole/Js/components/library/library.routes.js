@@ -76,6 +76,16 @@
                     url: '/course/choose/',
                     controller: 'ClassChoose as cc',
                     data: { animateClass: 'class-choose' },
+                    resolve: {
+                        nodeData: ['libraryService',
+                            function (libraryService) {
+                                return libraryService.getAllDepartments();
+                            }
+                        ],
+                        boxes: ["dashboardService", function (dashboardService) {
+                            return dashboardService.getBoxes();
+                        }]
+                    },
                     views: {
                         "search-bar@": {
                             template: ''

@@ -60,15 +60,15 @@ var app;
         };
         ;
         Dashboard.prototype.createPrivateBox = function (boxName) {
-            return this.ajaxService2.post('dashboard/create', { boxName: boxName });
+            return this.ajaxService2.post("/dashboard/create/", { boxName: boxName });
         };
         ;
         Dashboard.prototype.leaderboard = function () {
-            return this.ajaxService2.get('dashboard/leaderboard');
+            return this.ajaxService2.get("/dashboard/leaderboard/");
         };
         ;
         Dashboard.prototype.recommended = function () {
-            return this.ajaxService2.get('dashboard/recommendedcourses');
+            return this.ajaxService2.get("/dashboard/recommendedcourses/");
         };
         Dashboard.$inject = ["$q", "ajaxService2", "realtimeFactory", "userUpdatesService", "$rootScope"];
         return Dashboard;

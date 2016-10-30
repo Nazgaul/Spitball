@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Dto\ActivityDtos\AnnotationDto.cs" />
     <Compile Include="Dto\ActivityDtos\AnnotationReplyDto.cs" />
+    <Compile Include="Dto\BoxDtos\SmallBoxDto.cs" />
     <Compile Include="Dto\BoxSecurityDto.cs" />
     <Compile Include="Dto\ChatDto.cs" />
     <Compile Include="Dto\Emails\MarketingDto.cs" />

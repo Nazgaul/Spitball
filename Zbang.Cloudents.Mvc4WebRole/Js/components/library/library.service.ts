@@ -3,6 +3,15 @@
     export interface ISmallDepartment {
         name: string;
         id: Guid;
+        type: number;
+        boxes: Array<ISmallBox>;
+    }
+    export interface ISmallBox {
+        id: number;
+        name: string;
+        courseCode: string;
+        professor: string;
+
     }
     export interface ILibraryService {
         getDepartments(departmentId: Guid, universityId: number): angular.IPromise<any>;
@@ -26,7 +35,7 @@
             return this.ajaxService.get("/university/nodes/", { section: departmentId, universityId: universityId });
         }
         getAllDepartments() {
-            return this.ajaxService.get("/university/allnodes/");
+            return this.ajaxService.get("/university/allnodes/", null, "searchFirstBox");
         }
         getUniversity(term, page) {
             return this.ajaxService.get("/university/search/", { term: term, page: page }, null, "uniSearch");
@@ -48,7 +57,7 @@
                 name: name,
                 parentId: nodeId,
                 skipUrl: skipUrl
-            }, "department");
+            }, ["department","searchFirstBox"]);
         }
         deleteDepartment(id) {
             return this.ajaxService.post("/university/deletenode/", {
@@ -61,7 +70,7 @@
                 courseId: code,
                 professor: professor,
                 departmentId: nodeId
-            }, "department");
+            }, ["department", "searchFirstBox"]);
         };
         updateSettings(name, nodeId, settings) {
             return this.ajaxService.post("/university/changesettings/", {
