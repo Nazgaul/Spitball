@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager) {
+        function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager, $scope) {
             var _this = this;
             this.searchService = searchService;
             this.libraryService = libraryService;
@@ -12,6 +12,7 @@ var app;
             this.boxService = boxService;
             this.boxes = boxes;
             this.resManager = resManager;
+            this.$scope = $scope;
             this.showCreateClass = false;
             this.selectedCourses = [];
             this.submitDisabled = false;
@@ -25,16 +26,22 @@ var app;
                     id: v.id,
                     courseCode: v.courseCode,
                     name: v.name,
-                    professor: v.professor
+                    professor: v.professor,
+                    department: null
                 });
             });
             angular.forEach(nodeData, function (v) {
                 if (v.boxes) {
-                    for (var i = v.boxes.length - 1; i >= 0; i--) {
+                    var _loop_1 = function(i) {
                         var x = v.boxes[i];
                         if (ids.indexOf(x.id) !== -1) {
                             x["selected"] = true;
+                            var course = _this.selectedCourses.find(function (f) { return f.id === x.id; });
+                            course.department = v.name;
                         }
+                    };
+                    for (var i = v.boxes.length - 1; i >= 0; i--) {
+                        _loop_1(i);
                     }
                 }
             });
@@ -54,19 +61,26 @@ var app;
         ClassChoose.prototype.status = function (ev, course) {
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
-                parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 controller: 'ClassChooseDialog',
                 controllerAs: 'cd',
-                locals: { courseData: course },
+                locals: {
+                    currentCourse: course
+                },
+                scope: this.$scope,
                 fullscreen: true
+            }).then(function (response) {
+                console.log(response);
             });
         };
-        ClassChoose.prototype.choose = function (course) {
-            this.boxService.follow(course.id);
+        ClassChoose.prototype.choose = function (course, department) {
             course["selected"] = true;
-            this.selectedCourses.push(course);
+            var pushOne = angular.extend({}, course, {
+                department: department.name
+            });
+            console.log(pushOne);
+            this.selectedCourses.push(pushOne);
         };
         ClassChoose.prototype.goCreateClass = function () {
             this.data = this.nodeData;
@@ -119,6 +133,7 @@ var app;
                 };
                 department.boxes = department.boxes || [];
                 department.boxes.push(box);
+                box["department"] = _this.selectedDepartment.name;
                 _this.selectedCourses.push(box);
                 _this.selectedDepartment = null;
                 angular.forEach(createObj, function (value, key) {
@@ -133,7 +148,7 @@ var app;
             });
         };
         ClassChoose.$inject = ["searchService", "libraryService",
-            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager"];
+            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager", "$scope"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);
