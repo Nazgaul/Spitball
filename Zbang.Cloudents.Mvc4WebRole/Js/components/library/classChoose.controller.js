@@ -18,12 +18,14 @@ var app;
             this.classSearch();
         }
         ClassChoose.prototype.classSearch = function () {
+            var _this = this;
             this.noresult = false;
             this.noresult = false;
             var selectedCourseId = this.selectedCourses.map(function (f) { return f.id; });
             this.libraryService.getAllDepartments()
                 .then(function (response) {
                 console.log(response);
+                _this.departmentWithBoxes = response;
             });
         };
         ClassChoose.prototype.status = function (ev, course) {

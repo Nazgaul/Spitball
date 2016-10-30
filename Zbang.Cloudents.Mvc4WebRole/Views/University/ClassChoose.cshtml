@@ -48,15 +48,15 @@
 
     <div class="grid-container">
         <ol class="results list-unstyled">
-            <li class="angular-animate animate-repeat" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
+            <li class="angular-animate animate-repeat" ng-repeat="department in cc.departmentWithBoxes track by department.id">
                 <div class="title">
-                    <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}" title="{{::key}}"></div>
+                    <div class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>
                     <div class="lock">
-                        <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::key.length}}"></md-icon>
+                        <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::department.name}}"></md-icon>
                     </div>
                 </div>
                 <ol class="department-courses list-unstyled">
-                    <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="e in value track by e.id" ng-include="'slim-box-template.html'">
+                    <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="e in department.boxes track by e.id" ng-include="'slim-box-template.html'">
                     </li>
                 </ol>
             </li>
@@ -148,11 +148,11 @@
 
             <script defer type="text/ng-template" id="slim-box-template.html">
                 <button class="box-template box-style slim" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e)">
-                    <div class="icon background" d-color="{{::key.length}}" ng-bind="::e.name.substr(0,2)"></div>
+                    <div class="icon background" d-color="{{::department.name}}" ng-bind="::e.name.substr(0,2)"></div>
                     <div class="data">
-                        <h5 class="name ellipsis" d-color="{{::key.length}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
+                        <h5 class="name ellipsis" d-color="{{::department.name}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
                         <div class="metadata">
-                            <div class="code ellipsis" ng-bind="::e.courseCode"></div>
+                            <div class="code ellipsis" ng-bind="::e.courseId"></div>
                             <div class="professor ellipsis" ng-bind="::e.professor"></div>
                         </div>
                     </div>

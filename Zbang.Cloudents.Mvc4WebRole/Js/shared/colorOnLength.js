@@ -5,8 +5,12 @@
             return {
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-                    var length = attrs.dColor % 10;
-                    element.addClass('color' + length);
+
+                    if (angular.isNumber(attrs.dColor)) {
+                        element.addClass('color' + attrs.dColor % 10);
+                    } else {
+                        element.addClass('color' + attrs.dColor.length % 10);
+                    }
                 }
             };
         }

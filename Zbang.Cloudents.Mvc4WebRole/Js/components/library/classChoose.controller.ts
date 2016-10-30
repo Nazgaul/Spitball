@@ -24,7 +24,7 @@
         static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog"];
         //step = Steps.Start;
         showCreateClass = false;
-        selectedCourses: Array<IBox> = [];
+        selectedCourses: Array<ISmallBox> = [];
         //searchResult;
 
         noresult = false;
@@ -64,6 +64,7 @@
             var selectedCourseId = this.selectedCourses.map(f => { return f.id });
             this.libraryService.getAllDepartments()
                 .then(response => {
+                    console.log(response);
                     this.departmentWithBoxes = response;
                     //this.departmentWithBoxes = {};
                     //for (let i = 0; i < response.length; i++) {
