@@ -1,3 +1,6 @@
+.md-toast-animating {
+  overflow: auto !important;
+}
 .class-choose {
   /*.content {
         max-width: 600px;
@@ -471,8 +474,23 @@
   height: 22px;
   fill: #4190b9;
 }
-.class-choose .results {
+.class-choose .grid-container {
+  width: 100%;
   margin: 0 auto;
+}
+.class-choose .results {
+  -moz-column-count: 4;
+  -moz-column-gap: 0px;
+  -webkit-column-count: 4;
+  -webkit-column-gap: 0px;
+  column-count: 4;
+  column-gap: 0px;
+  width: 100%;
+}
+.class-choose .results > li {
+  display: inline-block;
+  margin-bottom: 0px;
+  width: 100%;
 }
 .class-choose .results .title {
   display: -webkit-flex;

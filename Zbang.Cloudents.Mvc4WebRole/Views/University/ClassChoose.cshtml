@@ -16,23 +16,21 @@
     <div class="top">
         <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
             <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
-                   ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()"/>
+                   ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
             <button type="submit" class="search-button">
                 <md-icon md-svg-icon="lc:filter"></md-icon>
             </button>
         </form>
         <div class="selected-classes">
-            <button type="button" class="icon background" d-color="{{::sc.department.length}}" ng-click="cc.status($event)" ng-repeat="sc in cc.selectedCourses track by sc.id">{{::sc.name.substr(0,2)}}</button>
+            <button type="button" class="icon background" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses track by sc.id">{{::sc.name.substr(0,2)}}</button>
             <div class="empty" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)">{{i}}</div>
         </div>
     </div>
-   
-   
-        
-        <md-grid-list class="results" md-cols="4" md-row-height="72px"  md-gutter="12px"  @*md-gutter="8px"*@ @*md-cols-gt-md="12" md-cols="3" md-cols-md="8"
-                      md-row-height-gt-md="1:1" md-row-height="4:3"
-                      md-gutter-gt-md="16px" md-gutter-md="8px" md-gutter="4px"*@>
-            <md-grid-tile md-colspan="1" md-rowspan="{{value.length}}" @*flex="100" flex-xs="100" flex-gt-xs="50" flex-md="33" flex-gt-md="25"*@ @*class="angular-animate animate-repeat"*@ ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
+
+
+
+    @*<md-grid-list class="results" md-cols="4" md-row-height="72px"  md-gutter="12px">
+            <md-grid-tile md-colspan="1" md-rowspan="{{value.length}}" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
                 <md-grid-tile-header class="title">
                     <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}" title="{{::key}}"></div>
                     <div class="lock">
@@ -44,14 +42,26 @@
                     </li>
                 </ol>
             </md-grid-tile>
-            @*<md-grid-tile ng-repeat="(key,value) in cc.departmentWithBoxes track by key"
-                          ng-style="{
-            'background': tile.color
-          }"
-                          md-colspan-gt-sm="{{tile.colspan}}"
-                          md-rowspan-gt-sm="{{tile.rowspan}}">
-            </md-grid-tile>*@
-        </md-grid-list>
+        </md-grid-list>*@
+
+
+
+    <div class="grid-container">
+        <ol class="results list-unstyled">
+            <li class="angular-animate animate-repeat" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
+                <div class="title">
+                    <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}" title="{{::key}}"></div>
+                    <div class="lock">
+                        <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::key.length}}"></md-icon>
+                    </div>
+                </div>
+                <ol class="department-courses list-unstyled">
+                    <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="e in value track by e.id" ng-include="'slim-box-template.html'">
+                    </li>
+                </ol>
+            </li>
+        </ol>
+    </div>
 
     @*<ol class="results list-unstyled" layout="row" layout-wrap flex="100" flex-gt-md="80" flex-xs="100" >
         <li flex="100" flex-xs="100" flex-gt-xs="50" flex-md="33" flex-gt-md="25" class="angular-animate animate-repeat" ng-repeat="(key,value) in cc.departmentWithBoxes track by key">
@@ -63,181 +73,188 @@
             </div>
             <ol class="department-courses list-unstyled">
                 @*<div ng-bind="::c.name" ng-click="cc.choose(c)" class="ellipsis"></div>*@@*
-                <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="e in value track by e.id" ng-include="'slim-box-template.html'">
-                </li>
-            </ol>
-        </li>
-    </ol>*@
-    <div class="empty-state" ng-if="cc.noresult">
-        <h2>@GeneralResources.NoResultsTitle</h2>
-        <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
-        <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass()">@UniversityResources.OnboardingCreateClass</button>
-    </div>
-</div>
-<div ng-if="cc.showCreateClass">
-    @*<div class="box-style" flex="50" flex-xs="100">
-            <h2 class="department ellipsis" d-color="{{::cc.selectedDepartment.name.length}}" ng-bind="::cc.selectedDepartment.name"></h2>
-        </div>*@
-    <form name="createBox" flex="50" flex-xs="100" novalidate ng-submit="cc.createClass(createBox)">
-        <md-autocomplete required md-no-asterisk md-input-name="department"
-                         md-delay="350"
-                         md-min-length="0"
-                         @*md-no-cache="false"*@
-                         md-selected-item-change="cc.selectedDepartment = item"
-                         md-select-on-match="true"
-                         md-search-text="cc.departmentName"
-                         md-items="item in cc.queryDepartments(cc.departmentName)"
-                         md-item-text="item.name"
-                         md-floating-label="@UniversityResources.SchoolName">
-            <md-item-template>
-                <span md-highlight-text="cc.departmentName" md-highlight-flags="^i">{{item.name}}</span>
-            </md-item-template>
-            @*<md-not-found>
-                    No states matching "{{ctrl.searchText}}" were found.
-                    <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
-                </md-not-found>*@
-            <div ng-messages="createBox.department.$error" ng-if="createBox.department.$touched">
-                <div ng-message="required">@GeneralResources.RequiredField</div>
-                @*<div ng-message="minlength">@UniversityResources.EntryLength</div>*@
-                <div ng-message="server">{{lc.error}}</div>
-            </div>
-        </md-autocomplete>
-        <md-input-container class="form-field">
-            <label for="className">@UniversityResources.EnterClassName</label>
-            <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" />
-            <div class="error" ng-messages="createBox.name.$error" @*ng-show="createBox.name.$dirty"*@>
-                <div ng-message="required">@GeneralResources.RequiredField</div>
-                <div ng-message="server">{{cc.create.error}}</div>
-            </div>
-        </md-input-container>
-
-        <md-input-container class="form-field">
-            <label for="classNumber">@UniversityResources.EnterCode</label>
-            <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" />
-        </md-input-container>
-        <md-input-container class="form-field">
-            <label for="proffesor">@UniversityResources.Instructor</label>
-            <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" />
-        </md-input-container>
-        <div class="buttons">
-            <button class="cancel-btn" type="reset" ng-click="cc.showCreateClass = false;">@GeneralResources.Cancel</button>
-            <button class="action-btn space-before" type="submit" ng-disabled="cc.submitDisabled">@GeneralResources.Create</button>
-        </div>
-    </form>
-</div>
-<script type="text/ng-template" id="dialog.tmpl.html">
-    <div>hello</div>
-</script>
-
-<script defer type="text/ng-template" id="slim-box-template.html">
-    <button class="box-template box-style slim" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e)">
-        <div class="icon background" d-color="{{::key.length}}" ng-bind="::e.name.substr(0,2)"></div>
-        <div class="data">
-            <h5 class="name ellipsis" d-color="{{::key.length}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
-            <div class="metadata">
-                <div class="code ellipsis" ng-bind="::e.courseCode"></div>
-                <div class="professor ellipsis" ng-bind="::e.professor"></div>
-            </div>
-        </div>
-    </button>
-</script>
-
-@*<div ng-switch="cc.step">
-    <div ng-switch-when="1" class="content default">
-        <div class="search-image">
-            <img src="@Url.CdnContent("/Images/Site/llama_books.png?v=1")" alt="lama searching" />
-            <div class="text">@UniversityResources.OnboardingSelectCourseValue</div>
-        </div>
-    </div>
-    <div ng-switch-multiple-when="[2,4,6]" layout="row" layout-padding layout-wrap class="content search-results">
-        <div class="wrapper" ng-repeat="c in cc.searchResult track by c.id" flex="50" flex-xs="100">
-            <div class="result box-style" ng-click="cc.choose(c)">
-                <h2 class="course-name ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name"></h2>
-                <div class="number ellipsis" ng-bind="::c.courseCode"></div>
-                <div class="instructor ellipsis" ng-bind="::c.professor"></div>
-            </div>
-        </div>
-
-    </div>
-
-    <div ng-switch-multiple-when="[3,5]" class="content selected-boxes">
-        <h2 class="subtitle" ng-if="cc.selectedCourses.length<2">@UniversityResources.OnboardingMinClassNum</h2>
-        <div class="counter header">
-            <div class="text">@UniversityResources.OnboardingSelectedClasses</div>
-            <div class="progress">{{::cc.selectedCourses.length}}/2</div>
-        </div>
-        <div class="boxes" layout="row" layout-padding layout-wrap>
-            <div class="wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.selectedCourses track by c.id">
-                <div class="selected box-style">
-                    <h2 class="course-name ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name"></h2>
-                    <div class="number" ng-bind="::c.courseCode"></div>
-                    <div class="instructor" ng-bind="::c.professor"></div>
+                    <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="e in value track by e.id" ng-include="'slim-box-template.html'">
+                    </li>
+                </ol>
+            </li>
+        </ol>*@
+                <div class="empty-state" ng-if="cc.noresult">
+                    <h2>@GeneralResources.NoResultsTitle</h2>
+                    <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
+                    <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass()">@UniversityResources.OnboardingCreateClass</button>
                 </div>
             </div>
-
-            <div class="wrapper" flex="50" flex-xs="100" ng-repeat="i in ::cc.getRemainingElement() track by $index">
-                <div class="empty box-style" ng-click="cc.chooseMore()">
-                    <h2 class="ellipsis">@GeneralResources.Class&nbsp;<span ng-bind="::$index + cc.selectedCourses.length + 1"></span></h2>
-                </div>
-            </div>
-        </div>
-        <div class="buttons">
-            <button class="select-more action-btn" type="button" ng-click="cc.chooseMore()">@UniversityResources.OnboardingSelectAnotherClass</button>
-            <button class="done action-btn space-before" type="submit" ng-if="cc.step === 5">@JsResources.settingsDone</button>
-        </div>
-    </div>
-    <div ng-switch-when="8" class="content add-class">
-        <div class="box-style" flex="50" flex-xs="100">
-            <h2 class="department ellipsis" d-color="{{::cc.selectedDepartment.name.length}}" ng-bind="::cc.selectedDepartment.name"></h2>
-        </div>
-        <form name="createBox" flex="50" flex-xs="100" novalidate ng-submit="cc.createClass(createBox)">
-            <md-input-container class="form-field">
-                <label for="className">@UniversityResources.EnterClassName</label>
-                <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" />
-                <div class="error" ng-messages="createBox.name.$error" @*ng-show="createBox.name.$dirty"*@@*>
-                        <div ng-message="required">@GeneralResources.RequiredField</div>
-                        <div ng-message="server">{{cc.create.error}}</div>
-                    </div>
-                </md-input-container>
-
-                <md-input-container class="form-field">
-                    <label for="classNumber">@UniversityResources.EnterCode</label>
-                    <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" />
-                </md-input-container>
-                <md-input-container class="form-field">
-                    <label for="proffesor">@UniversityResources.Instructor</label>
-                    <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" />
-                </md-input-container>
-                <div class="buttons">
-                    <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>
-                    <button class="action-btn space-before" type="submit" ng-disabled="cc.submitDisabled">@GeneralResources.Create</button>
-                </div>
-            </form>
-        </div>
-
-        <div ng-switch-when="7" class="content select-department" ng-init="cc.showCreateDepartment = false">
-            <div class="departments" layout="row" layout-padding layout-wrap>
-                <div class="department wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.departmentlist track by c.id">
-                    <button class="box-style">
-                        <span class="ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name" ng-click="cc.selectDepartment(c)"></span>
-                    </button>
-                </div>
-                <div class="add-department wrapper" flex="50" flex-xs="100">
-                    <button focus-upon-click="createDepartment" type="button" class="box-style" ng-show="!cc.showCreateDepartment" ng-click="cc.showCreateDepartment = true">
-                        <md-icon md-svg-icon="t:add"></md-icon>
-                        <h2 class="ellipsis">@UniversityResources.AddDepartment</h2>
-                    </button>
-                    <form ng-show="cc.showCreateDepartment" class="box-style" ng-submit="cc.createDepartment(newDepartment)" name="newDepartment">
-                        <input id="createDepartment" name="name" ng-model="cc.create.department" required type="text" ng-blur="cc.createDepartment(newDepartment)" ng-change="newDepartment.name.$setValidity('server',true)" />
-                        <div class="error" ng-messages="newDepartment.name.$error" ng-show="newDepartment.name.$dirty">
+            <div ng-if="cc.showCreateClass">
+                @*<div class="box-style" flex="50" flex-xs="100">
+                        <h2 class="department ellipsis" d-color="{{::cc.selectedDepartment.name.length}}" ng-bind="::cc.selectedDepartment.name"></h2>
+                    </div>*@
+                <form name="createBox" flex="50" flex-xs="100" novalidate ng-submit="cc.createClass(createBox)">
+                    <md-autocomplete required md-no-asterisk md-input-name="department"
+                                     md-delay="350"
+                                     md-min-length="0"
+                                     @*md-no-cache="false"*@
+                                     md-selected-item-change="cc.selectedDepartment = item"
+                                     md-select-on-match="true"
+                                     md-search-text="cc.departmentName"
+                                     md-items="item in cc.queryDepartments(cc.departmentName)"
+                                     md-item-text="item.name"
+                                     md-floating-label="@UniversityResources.SchoolName">
+                        <md-item-template>
+                            <span md-highlight-text="cc.departmentName" md-highlight-flags="^i">{{item.name}}</span>
+                        </md-item-template>
+                        @*<md-not-found>
+                                No states matching "{{ctrl.searchText}}" were found.
+                                <a ng-click="ctrl.newState(ctrl.searchText)">Create a new one!</a>
+                            </md-not-found>*@
+                        <div ng-messages="createBox.department.$error" ng-if="createBox.department.$touched">
+                            <div ng-message="required">@GeneralResources.RequiredField</div>
+                            @*<div ng-message="minlength">@UniversityResources.EntryLength</div>*@
+                            <div ng-message="server">{{lc.error}}</div>
+                        </div>
+                    </md-autocomplete>
+                    <md-input-container class="form-field">
+                        <label for="className">@UniversityResources.EnterClassName</label>
+                        <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" />
+                        <div class="error" ng-messages="createBox.name.$error" @*ng-show="createBox.name.$dirty"*@>
                             <div ng-message="required">@GeneralResources.RequiredField</div>
                             <div ng-message="server">{{cc.create.error}}</div>
                         </div>
-                    </form>
+                    </md-input-container>
+
+                    <md-input-container class="form-field">
+                        <label for="classNumber">@UniversityResources.EnterCode</label>
+                        <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" />
+                    </md-input-container>
+                    <md-input-container class="form-field">
+                        <label for="proffesor">@UniversityResources.Instructor</label>
+                        <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" />
+                    </md-input-container>
+                    <div class="buttons">
+                        <button class="cancel-btn" type="reset" ng-click="cc.showCreateClass = false;">@GeneralResources.Cancel</button>
+                        <button class="action-btn space-before" type="submit" ng-disabled="cc.submitDisabled">@GeneralResources.Create</button>
+                    </div>
+                </form>
+            </div>
+            <script type="text/ng-template" id="dialog.tmpl.html">
+                <md-toolbar layout="row" layout-align="space-between center">
+                    <h2>Selected class</h2>
+                    <md-button aria-label="close" ng-click="close()">
+                        <md-icon md-svg-icon="t:close"></md-icon>
+                    </md-button>
+                </md-toolbar>
+                <div d-color="{{::key.length}}">{{courseData.department}}</div>
+                <div ng-init="e = courseData" ng-include="'slim-box-template.html'"></div>
+            </script>
+
+            <script defer type="text/ng-template" id="slim-box-template.html">
+                <button class="box-template box-style slim" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e)">
+                    <div class="icon background" d-color="{{::key.length}}" ng-bind="::e.name.substr(0,2)"></div>
+                    <div class="data">
+                        <h5 class="name ellipsis" d-color="{{::key.length}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
+                        <div class="metadata">
+                            <div class="code ellipsis" ng-bind="::e.courseCode"></div>
+                            <div class="professor ellipsis" ng-bind="::e.professor"></div>
+                        </div>
+                    </div>
+                </button>
+            </script>
+
+            @*<div ng-switch="cc.step">
+                <div ng-switch-when="1" class="content default">
+                    <div class="search-image">
+                        <img src="@Url.CdnContent("/Images/Site/llama_books.png?v=1")" alt="lama searching" />
+                        <div class="text">@UniversityResources.OnboardingSelectCourseValue</div>
+                    </div>
                 </div>
-            </div>
-            <div class="buttons">
-                <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>
-            </div>
-        </div>
-    </div>*@
+                <div ng-switch-multiple-when="[2,4,6]" layout="row" layout-padding layout-wrap class="content search-results">
+                    <div class="wrapper" ng-repeat="c in cc.searchResult track by c.id" flex="50" flex-xs="100">
+                        <div class="result box-style" ng-click="cc.choose(c)">
+                            <h2 class="course-name ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name"></h2>
+                            <div class="number ellipsis" ng-bind="::c.courseCode"></div>
+                            <div class="instructor ellipsis" ng-bind="::c.professor"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div ng-switch-multiple-when="[3,5]" class="content selected-boxes">
+                    <h2 class="subtitle" ng-if="cc.selectedCourses.length<2">@UniversityResources.OnboardingMinClassNum</h2>
+                    <div class="counter header">
+                        <div class="text">@UniversityResources.OnboardingSelectedClasses</div>
+                        <div class="progress">{{::cc.selectedCourses.length}}/2</div>
+                    </div>
+                    <div class="boxes" layout="row" layout-padding layout-wrap>
+                        <div class="wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.selectedCourses track by c.id">
+                            <div class="selected box-style">
+                                <h2 class="course-name ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name"></h2>
+                                <div class="number" ng-bind="::c.courseCode"></div>
+                                <div class="instructor" ng-bind="::c.professor"></div>
+                            </div>
+                        </div>
+
+                        <div class="wrapper" flex="50" flex-xs="100" ng-repeat="i in ::cc.getRemainingElement() track by $index">
+                            <div class="empty box-style" ng-click="cc.chooseMore()">
+                                <h2 class="ellipsis">@GeneralResources.Class&nbsp;<span ng-bind="::$index + cc.selectedCourses.length + 1"></span></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button class="select-more action-btn" type="button" ng-click="cc.chooseMore()">@UniversityResources.OnboardingSelectAnotherClass</button>
+                        <button class="done action-btn space-before" type="submit" ng-if="cc.step === 5">@JsResources.settingsDone</button>
+                    </div>
+                </div>
+                <div ng-switch-when="8" class="content add-class">
+                    <div class="box-style" flex="50" flex-xs="100">
+                        <h2 class="department ellipsis" d-color="{{::cc.selectedDepartment.name.length}}" ng-bind="::cc.selectedDepartment.name"></h2>
+                    </div>
+                    <form name="createBox" flex="50" flex-xs="100" novalidate ng-submit="cc.createClass(createBox)">
+                        <md-input-container class="form-field">
+                            <label for="className">@UniversityResources.EnterClassName</label>
+                            <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" />
+                            <div class="error" ng-messages="createBox.name.$error" @*ng-show="createBox.name.$dirty"*@@*>
+                                    <div ng-message="required">@GeneralResources.RequiredField</div>
+                                    <div ng-message="server">{{cc.create.error}}</div>
+                                </div>
+                            </md-input-container>
+
+                            <md-input-container class="form-field">
+                                <label for="classNumber">@UniversityResources.EnterCode</label>
+                                <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" />
+                            </md-input-container>
+                            <md-input-container class="form-field">
+                                <label for="proffesor">@UniversityResources.Instructor</label>
+                                <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" />
+                            </md-input-container>
+                            <div class="buttons">
+                                <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>
+                                <button class="action-btn space-before" type="submit" ng-disabled="cc.submitDisabled">@GeneralResources.Create</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div ng-switch-when="7" class="content select-department" ng-init="cc.showCreateDepartment = false">
+                        <div class="departments" layout="row" layout-padding layout-wrap>
+                            <div class="department wrapper" flex="50" flex-xs="100" ng-repeat="c in ::cc.departmentlist track by c.id">
+                                <button class="box-style">
+                                    <span class="ellipsis" d-color="{{::c.name.length}}" ng-bind="::c.name" ng-click="cc.selectDepartment(c)"></span>
+                                </button>
+                            </div>
+                            <div class="add-department wrapper" flex="50" flex-xs="100">
+                                <button focus-upon-click="createDepartment" type="button" class="box-style" ng-show="!cc.showCreateDepartment" ng-click="cc.showCreateDepartment = true">
+                                    <md-icon md-svg-icon="t:add"></md-icon>
+                                    <h2 class="ellipsis">@UniversityResources.AddDepartment</h2>
+                                </button>
+                                <form ng-show="cc.showCreateDepartment" class="box-style" ng-submit="cc.createDepartment(newDepartment)" name="newDepartment">
+                                    <input id="createDepartment" name="name" ng-model="cc.create.department" required type="text" ng-blur="cc.createDepartment(newDepartment)" ng-change="newDepartment.name.$setValidity('server',true)" />
+                                    <div class="error" ng-messages="newDepartment.name.$error" ng-show="newDepartment.name.$dirty">
+                                        <div ng-message="required">@GeneralResources.RequiredField</div>
+                                        <div ng-message="server">{{cc.create.error}}</div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="buttons">
+                            <button class="cancel-btn" type="button" ng-click="cc.backStep()">@GeneralResources.Cancel</button>
+                        </div>
+                    </div>
+                </div>*@
