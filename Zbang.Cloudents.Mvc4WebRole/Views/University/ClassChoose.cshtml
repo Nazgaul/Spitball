@@ -131,9 +131,6 @@
 <script type="text/ng-template" id="open-department.html">
     <div class="title">
         <div class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>
-        @*<div class="lock">
-                <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::department.name}}"></md-icon>
-            </div>*@
     </div>
     <ol class="department-courses list-unstyled">
         <li class="angular-animate animate-repeat" ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected" ng-include="'slim-box-template.html'">
