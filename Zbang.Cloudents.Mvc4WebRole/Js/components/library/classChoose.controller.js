@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $state, $mdDialog, $filter, nodeData, boxService, boxes) {
+        function ClassChoose(searchService, libraryService, $state, $mdDialog, $filter, nodeData, boxService, boxes, resManager) {
             var _this = this;
             this.searchService = searchService;
             this.libraryService = libraryService;
@@ -12,6 +12,7 @@ var app;
             this.nodeData = nodeData;
             this.boxService = boxService;
             this.boxes = boxes;
+            this.resManager = resManager;
             this.showCreateClass = false;
             this.selectedCourses = [];
             this.submitDisabled = false;
@@ -84,6 +85,15 @@ var app;
             var result = this.$filter("filter")(this.nodeData, text);
             return result;
         };
+        ClassChoose.prototype.requestAccess = function (department) {
+            var _this = this;
+            this.libraryService.requestAccess(department.id).then(function () {
+                _this.$mdDialog.show(_this.$mdDialog.alert()
+                    .title(_this.resManager.get('privateDepPopupTitleOnSend'))
+                    .textContent(_this.resManager.get('privateDepPopupContentOnSend'))
+                    .ok(_this.resManager.get('dialogOk')));
+            });
+        };
         ClassChoose.prototype.createClass = function (createBox) {
             var _this = this;
             if (createBox.$invalid) {
@@ -129,7 +139,7 @@ var app;
             });
         };
         ClassChoose.$inject = ["searchService", "libraryService", "$state",
-            "$mdDialog", "$filter", "nodeData", "boxService", "boxes"];
+            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);

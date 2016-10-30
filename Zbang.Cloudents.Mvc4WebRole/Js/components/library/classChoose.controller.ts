@@ -7,7 +7,7 @@
 
     class ClassChoose {
         static $inject = ["searchService", "libraryService", "$state",
-            "$mdDialog", "$filter", "nodeData", "boxService", "boxes"];
+            "$mdDialog", "$filter", "nodeData", "boxService", "boxes","resManager"];
         showCreateClass = false;
         selectedCourses: Array<ISmallBox> = [];
 
@@ -24,7 +24,8 @@
             private $filter: angular.IFilterService,
             private nodeData: Array<ISmallDepartment>,
             private boxService: IBoxService,
-            private boxes: any) {
+            private boxes: any,
+            private resManager: IResManager) {
             this.classSearch();
 
             var ids = [];
@@ -51,7 +52,7 @@
                         }
                     }
                 });
-            
+
 
         }
         classSearch() {
@@ -106,6 +107,14 @@
         queryDepartments(text: String) {
             const result = this.$filter("filter")(this.nodeData, text);//.map(m => { return { name: m.name, id: m.id } });
             return result;
+        }
+        requestAccess(department) {
+            this.libraryService.requestAccess(department.id).then(() => {
+                this.$mdDialog.show(this.$mdDialog.alert()
+                    .title(this.resManager.get('privateDepPopupTitleOnSend'))
+                    .textContent(this.resManager.get('privateDepPopupContentOnSend'))
+                    .ok(this.resManager.get('dialogOk')));
+            });
         }
 
         createClass(createBox: angular.IFormController) {
