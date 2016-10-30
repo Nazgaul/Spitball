@@ -15,7 +15,7 @@ namespace Zbang.Zbox.Infrastructure.Search
     {
         Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
 
-        Task<IEnumerable<SearchBoxes>> SearchBoxClassChooseAsync(
-            ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
+        //Task<IEnumerable<SearchBoxes>> SearchBoxClassChooseAsync(
+        //    ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken);
     }
 }

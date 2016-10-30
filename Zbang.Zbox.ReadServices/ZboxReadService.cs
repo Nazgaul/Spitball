@@ -405,14 +405,14 @@ namespace Zbang.Zbox.ReadServices
             }
         }
 
-        public async Task<IEnumerable<Box.RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query,CancellationToken token)
+        public async Task<IEnumerable<Box.RecommendBoxDto>> GetBoxRecommendedCoursesAsync(GetBoxSideBarQuery query, CancellationToken token)
         {
             using (var con = await DapperConnection.OpenConnectionAsync(token))
             {
                 return await con.QueryAsync<Box.RecommendBoxDto>(
-                    new CommandDefinition(Sql.Box.RecommendedCourses, new { query.BoxId, query.UserId },commandTimeout:5,cancellationToken: token)
+                    new CommandDefinition(Sql.Box.RecommendedCourses, new { query.BoxId, query.UserId }, commandTimeout: 5, cancellationToken: token)
                 );
-                
+
             }
         }
         public async Task<IEnumerable<LeaderBoardDto>> GetBoxLeaderBoardAsync(GetLeaderBoardQuery query)
@@ -500,7 +500,7 @@ where ownerid = @UserId and boxid = @BoxId;";
                 const string replySql = @"select ReplyId from zbox.ReplyLike
 where ownerid = @UserId and boxid = @BoxId;";
 
-                using (var grid = await con.QueryMultipleAsync(commentSql + replySql, new {query.UserId, query.BoxId}))
+                using (var grid = await con.QueryMultipleAsync(commentSql + replySql, new { query.UserId, query.BoxId }))
                 {
                     var retVal = new List<Guid>();
                     retVal.AddRange(await grid.ReadAsync<Guid>());
@@ -723,7 +723,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         }
 
 
-        
+
 
 
         public async Task<UniversityWithCodeDto> GetUniversityNeedIdAsync(long universityId)
@@ -743,7 +743,7 @@ where ownerid = @UserId and boxid = @BoxId;";
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                var result = await conn.QueryFirstOrDefaultAsync<int?>(Sql.Chat.GetUnreadMessages, new {query.UserId});
+                var result = await conn.QueryFirstOrDefaultAsync<int?>(Sql.Chat.GetUnreadMessages, new { query.UserId });
                 return result.GetValueOrDefault();
             }
         }
@@ -1143,12 +1143,36 @@ where ownerid = @UserId and boxid = @BoxId;";
             }
         }
 
-        public async Task<IEnumerable<SmallNodeDto>>  GetUniversityNodesAsync(long universityId)
+        public async Task<IEnumerable<SmallNodeDto>> GetUniversityNodesAsync(long universityId)
         {
-            using (IDbConnection conn = await DapperConnection.OpenConnectionAsync())
+            using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                const string sql = @"select LibraryId as Id,Name from zbox.Library where id = 11270";
-                return await conn.QueryAsync<SmallNodeDto>(sql);
+                const string sql =
+                    @"select l.Name,l.LibraryId as id, l.Settings as type ,b.BoxName as Name ,b.boxid as Id,b.CourseCode as CourseId,b.ProfessorName as ProfessorName 
+from zbox.library l join zbox.box b on l.libraryid = b.libraryid where university = @UniversityId and isdeleted = 0 and Discriminator = 2";
+                const string sql2 = "select l.Name,l.LibraryId as id,l.Settings as type from zbox.library l where id = @UniversityId and settings = 1";
+                using (
+                   var grid = await conn.QueryMultipleAsync(sql + sql2,
+                       new { UniversityId = universityId }))
+                {
+                    var dic = new Dictionary<Guid, SmallNodeDto>();
+                    grid.Read<SmallNodeDto, Box.SmallBoxDto, Guid>((node, box) =>
+                    {
+                        if (dic.ContainsKey(node.Id))
+                            dic[node.Id].Boxes.Add(box);
+                        else
+                        {
+                            node.Boxes = new List<Box.SmallBoxDto> { box };
+                            dic.Add(node.Id, node);
+                        }
+                        return node.Id;
+                    });
+                    var nodes = dic.Select(s => s.Value)
+                        .Union(await grid.ReadAsync<SmallNodeDto>())
+                        .OrderBy(a => a.Name);
+                    return nodes;
+
+                }
             }
         }
     }

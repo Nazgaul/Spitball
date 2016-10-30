@@ -12,13 +12,7 @@
     //    CreateClass = 8
     //}
 
-    interface IBox {
-        id: number;
-        name: string;
-        courseCode: string;
-        professor: string;
-
-    }
+    
     //interface ISelectedDepartment {
     //    name: string;
     //    id: Guid;
@@ -68,20 +62,21 @@
             //}
             this.noresult = false;
             var selectedCourseId = this.selectedCourses.map(f => { return f.id });
-            this.searchService.searchBoxSelect(this.term, 0)
+            this.libraryService.getAllDepartments()
                 .then(response => {
-                    this.departmentWithBoxes = {};
-                    for (let i = 0; i < response.length; i++) {
-                        const box = response[i], department = box.department;
-                        this.departmentWithBoxes[department] = this.departmentWithBoxes[department] || [];
-                        if (selectedCourseId.indexOf(box.id) !== -1) {
-                            box.selected = true;
-                        }
-                        this.departmentWithBoxes[department].push(box);
-                    }
-                    if (!response.length) {
-                        this.noresult = true;
-                    }
+                    this.departmentWithBoxes = response;
+                    //this.departmentWithBoxes = {};
+                    //for (let i = 0; i < response.length; i++) {
+                    //    const box = response[i], department = box.department;
+                    //    this.departmentWithBoxes[department] = this.departmentWithBoxes[department] || [];
+                    //    if (selectedCourseId.indexOf(box.id) !== -1) {
+                    //        box.selected = true;
+                    //    }
+                    //    this.departmentWithBoxes[department].push(box);
+                    //}
+                    //if (!response.length) {
+                    //    this.noresult = true;
+                    //}
                 });
 
             //this.searchService.searchBox(this.term, 0)

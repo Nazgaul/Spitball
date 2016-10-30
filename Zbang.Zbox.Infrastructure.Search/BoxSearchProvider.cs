@@ -149,31 +149,31 @@ namespace Zbang.Zbox.Infrastructure.Search
         //}
 
 
-        public async Task<IEnumerable<SearchBoxes>> SearchBoxClassChooseAsync(
-            ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
-        {
-            if (query == null) throw new ArgumentNullException(nameof(query));
-            var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
-            {
-                Filter = $"{UniversityIdField} eq {query.UniversityId}",
-                Top = query.RowsPerPage,
-                Skip = query.RowsPerPage * query.PageNumber,
-                OrderBy = new[] { ParentDepartmentField },
-                SearchFields = new[] { NameField, DepartmentField, ProfessorField, CourseField },
-                Select = new[] { IdField, NameField, ProfessorField, CourseField, ParentDepartmentField }
-            }, cancellationToken: cancelToken);
-            return result.Results.Select(s => new SearchBoxes(
-                SeachConnection.ConvertToType<long>(s.Document.Id),
-                s.Document.Name,
-                s.Document.Professor,
-                s.Document.Course,
-                s.Document.Url
-                )
-            {
-                Department = s.Document.ParentDepartment
-            }
-            ).ToList();
-        }
+        //public async Task<IEnumerable<SearchBoxes>> SearchBoxClassChooseAsync(
+        //    ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
+        //{
+        //    if (query == null) throw new ArgumentNullException(nameof(query));
+        //    var result = await m_IndexClient.Documents.SearchAsync<BoxSearch>(query.Term + "*", new SearchParameters
+        //    {
+        //        Filter = $"{UniversityIdField} eq {query.UniversityId}",
+        //        Top = query.RowsPerPage,
+        //        Skip = query.RowsPerPage * query.PageNumber,
+        //        OrderBy = new[] { ParentDepartmentField },
+        //        SearchFields = new[] { NameField, DepartmentField, ProfessorField, CourseField },
+        //        Select = new[] { IdField, NameField, ProfessorField, CourseField, ParentDepartmentField }
+        //    }, cancellationToken: cancelToken);
+        //    return result.Results.Select(s => new SearchBoxes(
+        //        SeachConnection.ConvertToType<long>(s.Document.Id),
+        //        s.Document.Name,
+        //        s.Document.Professor,
+        //        s.Document.Course,
+        //        s.Document.Url
+        //        )
+        //    {
+        //        Department = s.Document.ParentDepartment
+        //    }
+        //    ).ToList();
+        //}
 
         public async Task<IEnumerable<SearchBoxes>> SearchBoxAsync(ViewModel.Queries.Search.SearchQuery query, CancellationToken cancelToken)
         {

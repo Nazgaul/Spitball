@@ -3,6 +3,15 @@
     export interface ISmallDepartment {
         name: string;
         id: Guid;
+        type: number;
+        boxes: Array<ISmallBox>;
+    }
+    export interface ISmallBox {
+        id: number;
+        name: string;
+        courseCode: string;
+        professor: string;
+
     }
     export interface ILibraryService {
         getDepartments(departmentId: Guid, universityId: number): angular.IPromise<any>;

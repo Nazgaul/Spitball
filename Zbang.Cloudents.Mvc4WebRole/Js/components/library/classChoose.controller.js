@@ -18,24 +18,12 @@ var app;
             this.classSearch();
         }
         ClassChoose.prototype.classSearch = function () {
-            var _this = this;
             this.noresult = false;
             this.noresult = false;
             var selectedCourseId = this.selectedCourses.map(function (f) { return f.id; });
-            this.searchService.searchBoxSelect(this.term, 0)
+            this.libraryService.getAllDepartments()
                 .then(function (response) {
-                _this.departmentWithBoxes = {};
-                for (var i = 0; i < response.length; i++) {
-                    var box = response[i], department = box.department;
-                    _this.departmentWithBoxes[department] = _this.departmentWithBoxes[department] || [];
-                    if (selectedCourseId.indexOf(box.id) !== -1) {
-                        box.selected = true;
-                    }
-                    _this.departmentWithBoxes[department].push(box);
-                }
-                if (!response.length) {
-                    _this.noresult = true;
-                }
+                console.log(response);
             });
         };
         ClassChoose.prototype.status = function (ev) {
