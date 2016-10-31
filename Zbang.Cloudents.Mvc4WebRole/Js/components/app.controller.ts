@@ -13,7 +13,7 @@
         static $inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory",
-            "sbHistory", "$state", "dashboardService", "$urlRouter"];
+            "sbHistory", "$state", "dashboardService"];
 
 
         private showBoxAd: boolean;
@@ -29,8 +29,7 @@
             private cacheFactory: CacheFactory.ICacheFactory,
             private sbHistory: ISbHistory,
             private $state: angular.ui.IStateService,
-            private dashboardService: IDashboardService,
-            private $urlRouter: angular.ui.IUrlRouterService
+            private dashboardService: IDashboardService
         ) {
 
             // directive with menu
@@ -118,8 +117,7 @@
                             event.preventDefault();
                             userDetails.init()
                                 .then(() => {
-                                    $urlRouter.sync();
-
+                                    $state.go(toState, toParams);
                                 });
                         }
                     }

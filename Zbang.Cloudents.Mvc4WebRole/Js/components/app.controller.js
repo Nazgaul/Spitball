@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var AppController = (function () {
-        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, sbHistory, $state, dashboardService, $urlRouter) {
+        function AppController($rootScope, $location, userDetails, $mdToast, $document, $mdMenu, resManager, cacheFactory, sbHistory, $state, dashboardService) {
             var _this = this;
             this.$rootScope = $rootScope;
             this.$location = $location;
@@ -15,7 +15,6 @@ var app;
             this.sbHistory = sbHistory;
             this.$state = $state;
             this.dashboardService = dashboardService;
-            this.$urlRouter = $urlRouter;
             this.back = function (defaultUrl) {
                 var element = _this.sbHistory.popElement();
                 if (!element) {
@@ -106,7 +105,7 @@ var app;
                         event.preventDefault();
                         userDetails.init()
                             .then(function () {
-                            $urlRouter.sync();
+                            $state.go(toState, toParams);
                         });
                     }
                 }
@@ -146,7 +145,7 @@ var app;
         AppController.$inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory",
-            "sbHistory", "$state", "dashboardService", "$urlRouter"];
+            "sbHistory", "$state", "dashboardService"];
         return AppController;
     }());
     angular.module("app").controller("AppController", AppController);
