@@ -57,7 +57,7 @@
                     fromState: angular.ui.IState, fromParams: angular.ui.IStateParamsService, error) => {
                     console.error(error);
                 });
-
+            
             $rootScope.$on("$stateChangeStart",
                 (event: angular.IAngularEvent, toState: angular.ui.IState,
                     toParams: spitaball.ISpitballStateParamsService, fromState: angular.ui.IState,
@@ -103,7 +103,7 @@
                             if (!userDetails.isAuthenticated()) {
                                 return;
                             }
-                             // TODO remove that to university choose controller
+                            // TODO remove that to university choose controller
                             if (!details.university.id) {
                                 var userWithNoUniversityState = "universityChoose";
                                 if (toStateName !== userWithNoUniversityState) {
@@ -112,7 +112,7 @@
                                 }
                                 return;
                             } else {
-                                checkNumberOfBoxes(); 
+                                checkNumberOfBoxes();
                             }
                         } else {
                             event.preventDefault();
@@ -132,7 +132,7 @@
                             return;
                         }
                         if (dashboardService.boxes) {
-                            if (dashboardService.boxes.length < 3 && toState.name !== "classChoose") {
+                            if (dashboardService.boxes.length < 2 && toState.name !== "classChoose") {
                                 event.preventDefault();
                                 $rootScope.$broadcast("state-change-start-prevent");
                                 $state.go("classChoose");
@@ -141,9 +141,11 @@
                             }
                         } else {
                             event.preventDefault();
+                            $rootScope.$broadcast("state-change-start-prevent");
                             dashboardService.getBoxes()
                                 .then(() => {
-                                    $urlRouter.sync();
+                                    $state.go(toState, toParams);
+                                    //$urlRouter.sync();
 
                                 });
                         }
@@ -153,7 +155,7 @@
                 });
 
         }
-        
+
         back = (defaultUrl: string) => {
             var element = this.sbHistory.popElement();
             if (!element) {

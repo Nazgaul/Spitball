@@ -118,7 +118,7 @@ var app;
                         return;
                     }
                     if (dashboardService.boxes) {
-                        if (dashboardService.boxes.length < 3 && toState.name !== "classChoose") {
+                        if (dashboardService.boxes.length < 2 && toState.name !== "classChoose") {
                             event.preventDefault();
                             $rootScope.$broadcast("state-change-start-prevent");
                             $state.go("classChoose");
@@ -129,9 +129,10 @@ var app;
                     }
                     else {
                         event.preventDefault();
+                        $rootScope.$broadcast("state-change-start-prevent");
                         dashboardService.getBoxes()
                             .then(function () {
-                            $urlRouter.sync();
+                            $state.go(toState, toParams);
                         });
                     }
                 }
