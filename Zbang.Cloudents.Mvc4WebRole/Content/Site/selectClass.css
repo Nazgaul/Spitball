@@ -366,12 +366,12 @@
 .class-choose .animate-repeat.ng-leave {
   opacity: 1;
   top: 0;
-  height: 30px;
+  height: 72px;
 }
 .class-choose .animate-repeat.ng-leave.ng-leave-active,
 .class-choose .animate-repeat.ng-enter {
   opacity: 0;
-  top: -50px;
+  top: -100px;
   height: 0px;
 }
 .class-choose .title {

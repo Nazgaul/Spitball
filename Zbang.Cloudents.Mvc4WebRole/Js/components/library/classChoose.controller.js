@@ -27,7 +27,9 @@ var app;
                     courseCode: v.courseCode,
                     name: v.name,
                     professor: v.professor,
-                    department: null
+                    department: null,
+                    items: v.itemCount,
+                    members: v.membersCount
                 });
             });
             angular.forEach(nodeData, function (v) {
@@ -59,7 +61,6 @@ var app;
             });
         };
         ClassChoose.prototype.status = function (ev, course) {
-            var index = this.selectedCourses.indexOf(course);
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
                 targetEvent: ev,
@@ -67,12 +68,10 @@ var app;
                 controller: 'ClassChooseDialog',
                 controllerAs: 'cd',
                 locals: {
-                    currentCourseIndex: index
+                    course: course,
+                    courses: this.selectedCourses
                 },
-                scope: this.$scope,
                 fullscreen: true
-            }).then(function (response) {
-                console.log(response);
             });
         };
         ClassChoose.prototype.choose = function (course, department) {
@@ -130,7 +129,9 @@ var app;
                     id: response.id,
                     name: createObj.name,
                     courseCode: createObj.number,
-                    professor: createObj.professor
+                    professor: createObj.professor,
+                    items: 0,
+                    members: 1
                 };
                 department.boxes = department.boxes || [];
                 department.boxes.push(box);

@@ -2,7 +2,7 @@
     "use strict";
 
 
-    interface ISmallBoxClassChoose extends ISmallBox {
+    export interface ISmallBoxClassChoose extends ISmallBox {
         department: string;
     }
     //var allList: Array<ISmallDepartment> = [];
@@ -42,7 +42,9 @@
                         courseCode: v.courseCode,
                         name: v.name,
                         professor: v.professor,
-                        department:null
+                        department: null,
+                        items: v.itemCount,
+                        members: v.membersCount
                     });
                 });
             angular.forEach(nodeData,
@@ -76,22 +78,22 @@
         }
 
         status(ev, course) {
-            const index = this.selectedCourses.indexOf(course);
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
-                //parent: angular.element($(".class-choose")),
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 controller: 'ClassChooseDialog',
                 controllerAs: 'cd',
                 locals: {
-                    currentCourseIndex: index
+                    course: course,
+                    courses: this.selectedCourses
                 },
-                scope: this.$scope,
+                //scope: this.$scope,
                 fullscreen: true // Only for -xs, -sm breakpoints.
-            }).then((response) => {
-                console.log(response);
             });
+            //.then((response) => {
+            //    console.log(response);
+            //});
 
         }
 
@@ -108,7 +110,7 @@
         //    }
         //}
 
-        choose(course,department) {
+        choose(course, department) {
             this.boxService.follow(course.id);
             course["selected"] = true;
 
@@ -169,11 +171,13 @@
                 this.selectedDepartment.id)
                 .then(response => {
                     const department = this.nodeData.find(f => f.id === this.selectedDepartment.id);
-                    let box = {
+                    const box = {
                         id: response.id,
                         name: createObj.name,
                         courseCode: createObj.number,
-                        professor: createObj.professor
+                        professor: createObj.professor,
+                        items: 0,
+                        members: 1
                     };
                     department.boxes = department.boxes || [];
                     department.boxes.push(box);

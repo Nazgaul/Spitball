@@ -11,6 +11,8 @@
         name: string;
         courseCode: string;
         professor: string;
+        items: number;
+        members: number;
 
     }
     export interface ILibraryService {
@@ -44,7 +46,7 @@
             return this.ajaxService.post("/account/updateuniversity/", {
                 universityId: universityId,
                 studentId: studentId
-            }, ["university"]);
+            }, ["university", "searchFirstBox"]);
         }
         createUniversity(name, country) {
             return this.ajaxService.post("/university/createuniversity/", {
@@ -57,7 +59,7 @@
                 name: name,
                 parentId: nodeId,
                 skipUrl: skipUrl
-            }, ["department","searchFirstBox"]);
+            }, ["department", "searchFirstBox"]);
         }
         deleteDepartment(id) {
             return this.ajaxService.post("/university/deletenode/", {
