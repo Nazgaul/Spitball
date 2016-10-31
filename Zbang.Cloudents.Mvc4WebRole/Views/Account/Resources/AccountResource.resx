@@ -183,9 +183,6 @@
   <data name="ChangeTheme" xml:space="preserve">
     <value>Change theme</value>
   </data>
-  <data name="ChangeThemeDark" xml:space="preserve">
-    <value>Dark theme</value>
-  </data>
   <data name="ChangeThemeLight" xml:space="preserve">
     <value>Light theme</value>
   </data>

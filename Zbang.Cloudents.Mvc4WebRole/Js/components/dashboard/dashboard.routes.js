@@ -15,10 +15,7 @@ var app;
                             data: { animateClass: "dashboard" },
                             resolve: {
                                 boxes: ["dashboardService", function (dashboardService) { return dashboardService.getBoxes(); }]
-                            },
-                            onEnter: [function () {
-                                    console.log('b');
-                                }]
+                            }
                         },
                         templateUrl: "/dashboard/indexpartial/"
                     }];

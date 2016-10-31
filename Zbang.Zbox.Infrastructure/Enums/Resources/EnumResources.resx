@@ -129,9 +129,6 @@
   <data name="NotificationSettingsOnceAWeek" xml:space="preserve">
     <value>Once a week</value>
   </data>
-  <data name="NotificationSettingsOnEveryChange" xml:space="preserve">
-    <value>For every update to this class</value>
-  </data>
   <data name="BoxPrivacySettingsMembersOnly" xml:space="preserve">
     <value>By invitation only</value>
   </data>

@@ -95,7 +95,7 @@
                         $rootScope.$broadcast("state-change-start-prevent");
                     }
                     checkUniversityChoose();
-                    checkNumberOfBoxes();
+                    //checkNumberOfBoxes();
 
                     function checkUniversityChoose() {
                         const details = userDetails.get();
@@ -111,6 +111,8 @@
                                     event.preventDefault();
                                 }
                                 return;
+                            } else {
+                                checkNumberOfBoxes(); 
                             }
                         } else {
                             event.preventDefault();
@@ -124,6 +126,9 @@
 
                     function checkNumberOfBoxes() {
                         if (!userDetails.isAuthenticated()) {
+                            return;
+                        }
+                        if (toState.name === "classChoose") {
                             return;
                         }
                         if (dashboardService.boxes) {

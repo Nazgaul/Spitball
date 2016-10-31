@@ -232,7 +232,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.University.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Let us help you find your classes.
+        ///   Looks up a localized string similar to Welcome to Spitball. Start by selecting your first class.
         /// </summary>
         public static string OnboardingHeaderStep1 {
             get {
@@ -241,74 +241,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.University.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Your Class.
+        ///   Looks up a localized string similar to Select another class.
         /// </summary>
         public static string OnboardingHeaderStep2 {
             get {
                 return ResourceManager.GetString("OnboardingHeaderStep2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Good job!.
-        /// </summary>
-        public static string OnboardingHeaderStep3 {
-            get {
-                return ResourceManager.GetString("OnboardingHeaderStep3", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to One down. One more to go..
-        /// </summary>
-        public static string OnboardingHeaderStep4 {
-            get {
-                return ResourceManager.GetString("OnboardingHeaderStep4", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Well done!.
-        /// </summary>
-        public static string OnboardingHeaderStep5 {
-            get {
-                return ResourceManager.GetString("OnboardingHeaderStep5", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Continue searching for your classes.
-        /// </summary>
-        public static string OnboardingHeaderStep6 {
-            get {
-                return ResourceManager.GetString("OnboardingHeaderStep6", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select the department for this new class.
-        /// </summary>
-        public static string OnboardingHeaderStep7 {
-            get {
-                return ResourceManager.GetString("OnboardingHeaderStep7", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add a new class to.
-        /// </summary>
-        public static string OnboardingHeaderStep8 {
-            get {
-                return ResourceManager.GetString("OnboardingHeaderStep8", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You need at least 2 classes to continue.
-        /// </summary>
-        public static string OnboardingMinClassNum {
-            get {
-                return ResourceManager.GetString("OnboardingMinClassNum", resourceCulture);
             }
         }
         
@@ -328,33 +265,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.University.Resources {
         public static string OnboardingSearchEmptyState {
             get {
                 return ResourceManager.GetString("OnboardingSearchEmptyState", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select another class.
-        /// </summary>
-        public static string OnboardingSelectAnotherClass {
-            get {
-                return ResourceManager.GetString("OnboardingSelectAnotherClass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select a class and earn 500 points.
-        /// </summary>
-        public static string OnboardingSelectCourseValue {
-            get {
-                return ResourceManager.GetString("OnboardingSelectCourseValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your selected classes.
-        /// </summary>
-        public static string OnboardingSelectedClasses {
-            get {
-                return ResourceManager.GetString("OnboardingSelectedClasses", resourceCulture);
             }
         }
         

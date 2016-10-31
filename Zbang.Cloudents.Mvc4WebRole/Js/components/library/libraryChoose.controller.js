@@ -135,7 +135,7 @@
                 realtimeFactory.changeUniversity();
                 $rootScope.$broadcast('change-university');
                 if (!url) {
-                    $state.go('dashboard', null, { reload :true});
+                    $state.go('classChoose', null, { reload: true });
                     return;
                 }
                 $location.url(url);

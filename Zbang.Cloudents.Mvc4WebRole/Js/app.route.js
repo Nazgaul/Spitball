@@ -15,13 +15,13 @@
                             //$q https://github.com/angular-ui/ui-router/issues/105
                             return userDetails.init();
                         }
-                    ],
-                    boxes: ["dashboardService", function (dashboardService) {
-                        if (window.id > 0) {
-                            return dashboardService.getBoxes();
+                    ]
+                    //boxes: ["dashboardService", function (dashboardService) {
+                    //    if (window.id > 0) {
+                    //        return dashboardService.getBoxes();
 
-                        }
-                    }]
+                    //    }
+                    //}]
                 },
                 views: {
                     "": {

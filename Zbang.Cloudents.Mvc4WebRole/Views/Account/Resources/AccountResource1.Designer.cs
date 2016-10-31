@@ -97,15 +97,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dark theme.
-        /// </summary>
-        public static string ChangeThemeDark {
-            get {
-                return ResourceManager.GetString("ChangeThemeDark", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Light theme.
         /// </summary>
         public static string ChangeThemeLight {
