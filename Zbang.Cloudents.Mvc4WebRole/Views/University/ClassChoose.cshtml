@@ -12,7 +12,7 @@
 </div>
 
 <h2 class="title">@UniversityResources.OnboardingHeaderStep1</h2>
-<div class="search-container" ng-if="!cc.showCreateClass">
+<div class="search-container" ng-if="!cc.showCreateClass" flex-gt-md="85">
     <div class="top">
         <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
             <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
@@ -165,10 +165,22 @@
     <button class="box-template box-style slim" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e,department)">
         <div class="icon background" d-color="{{::department.name}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
         <div class="data">
-            <h5 class="name ellipsis" dir="auto" d-color="{{::department.name}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
-            <div class="metadata">
-                <div class="code ellipsis" dir="auto" ng-bind="::e.courseId"></div>
-                <div class="professor ellipsis" dir="auto" ng-bind="::e.professor"></div>
+            <div class="details">
+                <h5 class="name ellipsis" dir="auto" d-color="{{::department.name}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
+                <div class="metadata">
+                    <div class="code ellipsis" dir="auto" ng-bind="::e.courseId"></div>
+                    <div class="professor ellipsis" dir="auto" ng-bind="::e.professor"></div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="users stat">
+                    <md-icon md-svg-icon="t:user"></md-icon>
+                    <div class="num">900</div>
+                </div>
+                <div class="docs stat">
+                    <md-icon md-svg-icon="t:docs"></md-icon>
+                    <div class="num">100</div>
+                </div>
             </div>
         </div>
     </button>
