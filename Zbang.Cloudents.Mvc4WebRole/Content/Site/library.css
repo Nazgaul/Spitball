@@ -67,6 +67,9 @@
   margin: 0;
   text-transform: capitalize;
   width: 100%;
+  flex-grow: 1;
+  border-bottom: 1px solid;
+  margin-bottom: 15px;
 }
 .library .department-wrap .box-style {
   display: -webkit-flex;
@@ -77,8 +80,7 @@
   align-items: flex-start;
   -webkit-justify-content: space-between;
   justify-content: space-between;
-  padding: 10px;
-  height: 80px;
+  padding: 15px;
   position: relative;
 }
 .library .department-wrap .box-style:hover .status .lock {

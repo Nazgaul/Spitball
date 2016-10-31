@@ -56,7 +56,7 @@
     <div id="createCourse" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createBoxOn">@{ Html.RenderPartial("_CreateCourse");}</div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat="dep in l.departments track by dep.id">
         <a ng-click="l.goToSubLib(dep,$event)" href="{{::dep.url}}" class="box-style" ga-track-event="['university', 'select department']">
-            <h3 class="name ellipsis" d-color="{{::dep.name.length}}">{{::dep.name}}</h3>
+            <h3 class="name ellipsis border" d-color="{{::dep.name.length}}">{{::dep.name}}</h3>
             <div class="status" layout="row" layout-align="space-between center">
                 <div class="status-title">
                     {{::dep.noBoxes}} @GeneralResources.Courses
