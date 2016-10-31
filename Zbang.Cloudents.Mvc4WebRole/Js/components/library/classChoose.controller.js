@@ -19,6 +19,7 @@ var app;
             this.create = {};
             this.data = [];
             this.classSearch();
+            console.log(this.nodeData.map(function (m) { return m.boxes; }));
             var ids = [];
             angular.forEach(boxes, function (v) {
                 ids.push(v.id);
@@ -54,7 +55,8 @@ var app;
                 this.data = this.nodeData;
                 return;
             }
-            var filterDepartment = this.$filter("filter")(this.nodeData, this.term);
+            var data = angular.copy(this.nodeData);
+            var filterDepartment = this.$filter("filter")(data, this.term);
             var departments = this.$filter("filter")(filterDepartment, function (value) {
                 value.boxes = _this.$filter("filter")(value.boxes, _this.term);
                 return value;

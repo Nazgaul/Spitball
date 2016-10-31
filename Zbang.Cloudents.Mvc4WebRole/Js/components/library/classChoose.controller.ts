@@ -31,7 +31,7 @@
             private $scope) {
 
             this.classSearch();
-
+            console.log(this.nodeData.map(m => m.boxes))
             var ids = [];
             angular.forEach(boxes,
 
@@ -66,10 +66,12 @@
         }
         classSearch() {
             if (!this.term) {
+
                 this.data = this.nodeData;
                 return;
             }
-            const filterDepartment = this.$filter("filter")(this.nodeData, this.term);
+            const data = angular.copy(this.nodeData);
+            const filterDepartment = this.$filter("filter")(data, this.term);
             const departments = this.$filter("filter")(filterDepartment, (value) => {
                 value.boxes = this.$filter("filter")(value.boxes, this.term);
                 return value;
