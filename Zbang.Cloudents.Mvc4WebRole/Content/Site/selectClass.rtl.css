@@ -374,7 +374,7 @@
   top: -50px;
   height: 0px;
 }
-.class-choose .title h2 {
+.class-choose .title {
   text-align: center;
   margin: 0 auto;
   width: 100%;
@@ -385,7 +385,7 @@
   color: #33076e;
 }
 @media (max-width: 600px) {
-  .class-choose .title h2 {
+  .class-choose .title {
     font-size: 24px;
     line-height: normal;
     max-width: 360px;
@@ -665,6 +665,7 @@
   color: #ffffff;
   font-size: 28px;
   flex-shrink: 0;
+  text-transform: capitalize;
 }
 .slim.box-style .data {
   padding-right: 6px;

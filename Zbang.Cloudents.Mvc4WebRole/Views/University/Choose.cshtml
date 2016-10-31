@@ -18,7 +18,7 @@
     </div>
     <div ng-if="!lc.createUniversity" srph-infinite-scroll="lc.paging()" class="results">
         <div ng-repeat="u in lc.universities track by u.id" ng-click="lc.selectUniversity(u)" class="univeristy" ga-track-event="['universityChoose', 'selected university']">
-            <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" />
+            <img class="img-circle" ng-src="{{::u.image}}" width="70" height="70" alt="university logo" />
             <div>
                 <span class="ellipsis color-1">{{::u.name}}</span>
                 <ul class="list-inline">
