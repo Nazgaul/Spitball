@@ -1,4 +1,5 @@
-﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+﻿@using Zbang.Cloudents.Mvc4WebRole.Js.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 
 <div class="status-strip" ng-if="cc.selectedCourses.length">
@@ -12,7 +13,8 @@
 </div>
 
 <div class="search-container" ng-if="!cc.showCreateClass" flex-gt-md="85">
-    <h2 class="title">@UniversityResources.OnboardingHeaderStep1</h2>
+    <h2 class="title" ng-if="!cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep1</h2>
+    <h2 class="title" ng-if="cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep2</h2>
     <div class="top">
         <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
             <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
@@ -26,37 +28,14 @@
             <div class="empty" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
         </div>
     </div>
-
-
-
-    @*<md-grid-list class="results" md-cols="4" md-row-height="72px"  md-gutter="12px">
-            <md-grid-tile md-colspan="1" md-rowspan="{{value.length}}" ng-repeat="(key,value) in cc.data track by key">
-                <md-grid-tile-header class="title">
-                    <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}" title="{{::key}}"></div>
-                    <div class="lock">
-                        <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::key.length}}"></md-icon>
-                    </div>
-                </md-grid-tile-header>
-                <ol class="department-courses list-unstyled">
-                    <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="e in value track by e.id" ng-include="'slim-box-template.html'">
-                    </li>
-                </ol>
-            </md-grid-tile>
-        </md-grid-list>*@
-
-
-
     <div class="grid-container">
-        <ol class="results list-unstyled" @*vs-repeat vs-scroll-parent="window" vs-size="department.boxes.length * 72"*@>
-            <li @*class="angular-animate animate-repeat"*@ ng-repeat="department in cc.data track by department.id">
-                <div class="closed-department" ng-if="department.type === 'closed'" ng-include="'close-department.html'">
-                </div>
+        <ol class="results list-unstyled">
+            <li ng-repeat="department in cc.data track by department.id">
+                <div class="closed-department" ng-if="department.type === 'closed'" ng-include="'close-department.html'"></div>
                 <div ng-if="department.type !== 'closed'" ng-include="'open-department.html'"></div>
             </li>
         </ol>
     </div>
-
-
     <div class="empty-state" ng-if="cc.data.length === 0">
         <h2>@GeneralResources.NoResultsTitle</h2>
         <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
@@ -74,7 +53,7 @@
                          md-search-text="cc.departmentName"
                          md-items="item in cc.queryDepartments(cc.departmentName)"
                          md-item-text="item.name"
-                         md-floating-label="@UniversityResources.SchoolName">
+                         md-floating-label="@UniversityResources.EnterDepName">
             <md-item-template>
                 <span md-highlight-text="cc.departmentName" md-highlight-flags="^i">{{item.name}}</span>
             </md-item-template>
@@ -113,10 +92,9 @@
         </div>
     </div>
     <div class="box-style">
-        <h5 d-color="{{::department.name}}">you need permission to access this section</h5>
-        <div class="subtitle">want in? ask the owner for access</div>
-
-        <button type="button" class="action-btn" ng-click="cc.requestAccess(department)">Request access</button>
+        <h5 d-color="{{::department.name}}">@JsResources.privateDepPopupTitle</h5>
+        <div class="subtitle">@JsResources.privateDepPopupContent</div>
+        <button type="button" class="action-btn" ng-click="cc.requestAccess(department)">@JsResources.privateDepPopupRequestButton</button>
     </div>
 
 </script>
@@ -170,8 +148,8 @@
                 </button>
             </div>
             <div class="buttons">
-                <button ng-click="cd.close()" class="cancel-btn">Cancel</button>
-                <button ng-click="cd.remove()" class="action-btn">Remove Class</button>
+                <button ng-click="cd.close()" class="cancel-btn">@GeneralResources.Cancel</button>
+                <button ng-click="cd.remove()" class="action-btn">@GeneralResources.Delete</button>
             </div>
         </md-dialog-content>
     </md-dialog>
@@ -201,3 +179,17 @@
 </script>
 
 
+@*<md-grid-list class="results" md-cols="4" md-row-height="72px"  md-gutter="12px">
+        <md-grid-tile md-colspan="1" md-rowspan="{{value.length}}" ng-repeat="(key,value) in cc.data track by key">
+            <md-grid-tile-header class="title">
+                <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}" title="{{::key}}"></div>
+                <div class="lock">
+                    <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::key.length}}"></md-icon>
+                </div>
+            </md-grid-tile-header>
+            <ol class="department-courses list-unstyled">
+                <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="e in value track by e.id" ng-include="'slim-box-template.html'">
+                </li>
+            </ol>
+        </md-grid-tile>
+    </md-grid-list>*@

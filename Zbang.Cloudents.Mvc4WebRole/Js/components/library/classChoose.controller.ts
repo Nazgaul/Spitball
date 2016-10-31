@@ -32,7 +32,7 @@
             private $timeout: angular.ITimeoutService) {
 
             this.classSearch();
-
+            console.log(this.nodeData.map(m => m.boxes))
             var ids = [];
             angular.forEach(boxes,
 
@@ -67,14 +67,18 @@
         }
         classSearch() {
             if (!this.term) {
+
                 this.data = this.nodeData;
                 return;
             }
-            const filterDepartment = this.$filter("filter")(this.nodeData, this.term);
-            this.data = this.$filter("filter")(filterDepartment, (value) => {
+            const data = angular.copy(this.nodeData);
+            const filterDepartment = this.$filter("filter")(data, this.term);
+            const departments = this.$filter("filter")(filterDepartment, (value) => {
                 value.boxes = this.$filter("filter")(value.boxes, this.term);
                 return value;
             });
+            this.data = departments.filter(f => f.boxes.length > 0);
+
 
         }
 
@@ -114,6 +118,7 @@
         choose(course, department) {
             this.$timeout(() => {
                 this.boxService.follow(course.id);
+            this.$scope.$emit("refresh-boxes");
                 course["selected"] = true;
 
                 const pushOne = angular.extend({},

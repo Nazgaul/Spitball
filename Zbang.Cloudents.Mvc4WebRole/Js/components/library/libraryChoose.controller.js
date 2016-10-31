@@ -1,9 +1,9 @@
 ﻿(function () {
-    'use strict';
-    angular.module('app.library').controller('LibraryChoose', libraryChoose);
+    "use strict";
+    angular.module("app.library").controller("LibraryChoose", libraryChoose);
 
-    libraryChoose.$inject = ['libraryService', '$state', 'countryService',
-        'userDetailsFactory', '$scope', 'resManager', 'realtimeFactory', '$location', '$rootScope'];
+    libraryChoose.$inject = ["libraryService", "$state", "countryService",
+        "userDetailsFactory", "$scope", "resManager", "realtimeFactory", "$location", "$rootScope"];
 
     function libraryChoose(libraryService, $state, countryService, userDetailsFactory,
         $scope, resManager, realtimeFactory, $location, $rootScope) {
@@ -135,7 +135,7 @@
                 realtimeFactory.changeUniversity();
                 $rootScope.$broadcast('change-university');
                 if (!url) {
-                    $state.go('dashboard', null, { reload :true});
+                    $state.go('classChoose', null, { reload: true });
                     return;
                 }
                 $location.url(url);

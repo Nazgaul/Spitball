@@ -346,7 +346,7 @@ md-menu-item {
         height: ~"calc(100vh - 175px)";
         width: ~"calc(100% - 155px)";
         max-width: 800px;
-
+        background:#fff;
         @media (max-width: 600px) {
             width: ~"calc(100% - 20px)";
         }
@@ -369,10 +369,9 @@ md-menu-item {
         z-index: 2;
     }
 
-    .comments-wrapper {
-        left: 0;
-        color: @textColorWhite;
-    }
+    /*.comments-wrapper {
+        
+    }*/
 
     .commentsMenu {
         width: 20px;
@@ -439,6 +438,8 @@ md-menu-item {
     }
 
     .comments-wrapper {
+        left: 0;
+        color: @textColorWhite;
         position: fixed !important;
         top: @heightOfHeader;
         width: 300px;

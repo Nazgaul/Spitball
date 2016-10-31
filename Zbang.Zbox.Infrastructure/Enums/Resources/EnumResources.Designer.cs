@@ -187,15 +187,6 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For every update to this class.
-        /// </summary>
-        internal static string NotificationSettingsOnEveryChange {
-            get {
-                return ResourceManager.GetString("NotificationSettingsOnEveryChange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Contains nudity or pornographic images.
         /// </summary>
         internal static string Nudity {

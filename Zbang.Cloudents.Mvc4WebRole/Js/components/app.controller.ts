@@ -13,7 +13,7 @@
         static $inject = ["$rootScope", "$location",
             "userDetailsFactory", "$mdToast", "$document", "$mdMenu", "resManager",
             "CacheFactory",
-            "sbHistory", "$state", "dashboardService", "$urlRouter"];
+            "sbHistory", "$state", "dashboardService"];
 
 
         private showBoxAd: boolean;
@@ -29,8 +29,7 @@
             private cacheFactory: CacheFactory.ICacheFactory,
             private sbHistory: ISbHistory,
             private $state: angular.ui.IStateService,
-            private dashboardService: IDashboardService,
-            private $urlRouter: angular.ui.IUrlRouterService
+            private dashboardService: IDashboardService
         ) {
 
             // directive with menu
@@ -57,7 +56,7 @@
                     fromState: angular.ui.IState, fromParams: angular.ui.IStateParamsService, error) => {
                     console.error(error);
                 });
-
+            
             $rootScope.$on("$stateChangeStart",
                 (event: angular.IAngularEvent, toState: angular.ui.IState,
                     toParams: spitaball.ISpitballStateParamsService, fromState: angular.ui.IState,
@@ -95,7 +94,7 @@
                         $rootScope.$broadcast("state-change-start-prevent");
                     }
                     checkUniversityChoose();
-                    checkNumberOfBoxes();
+                    //checkNumberOfBoxes();
 
                     function checkUniversityChoose() {
                         const details = userDetails.get();
@@ -103,7 +102,7 @@
                             if (!userDetails.isAuthenticated()) {
                                 return;
                             }
-                             // TODO remove that to university choose controller
+                            // TODO remove that to university choose controller
                             if (!details.university.id) {
                                 var userWithNoUniversityState = "universityChoose";
                                 if (toStateName !== userWithNoUniversityState) {
@@ -111,13 +110,14 @@
                                     event.preventDefault();
                                 }
                                 return;
+                            } else {
+                                checkNumberOfBoxes();
                             }
                         } else {
                             event.preventDefault();
                             userDetails.init()
                                 .then(() => {
-                                    $urlRouter.sync();
-
+                                    $state.go(toState, toParams);
                                 });
                         }
                     }
@@ -126,8 +126,11 @@
                         if (!userDetails.isAuthenticated()) {
                             return;
                         }
+                        if (toState.name === "classChoose") {
+                            return;
+                        }
                         if (dashboardService.boxes) {
-                            if (dashboardService.boxes.length < 3 && toState.name !== "classChoose") {
+                            if (dashboardService.boxes.length < 2 && toState.name !== "classChoose") {
                                 event.preventDefault();
                                 $rootScope.$broadcast("state-change-start-prevent");
                                 $state.go("classChoose");
@@ -136,9 +139,11 @@
                             }
                         } else {
                             event.preventDefault();
+                            $rootScope.$broadcast("state-change-start-prevent");
                             dashboardService.getBoxes()
                                 .then(() => {
-                                    $urlRouter.sync();
+                                    $state.go(toState, toParams);
+                                    //$urlRouter.sync();
 
                                 });
                         }
@@ -148,7 +153,7 @@
                 });
 
         }
-        
+
         back = (defaultUrl: string) => {
             var element = this.sbHistory.popElement();
             if (!element) {

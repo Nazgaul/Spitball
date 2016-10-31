@@ -183,9 +183,6 @@
   <data name="ChangeTheme" xml:space="preserve">
     <value>שנה צבע רקע</value>
   </data>
-  <data name="ChangeThemeDark" xml:space="preserve">
-    <value>צבע רקע כהה</value>
-  </data>
   <data name="ChangeThemeLight" xml:space="preserve">
     <value>צבע רקע בהיר</value>
   </data>

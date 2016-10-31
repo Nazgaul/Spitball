@@ -1,10 +1,10 @@
 ﻿(function () {
-    'use strict';
-    angular.module('app.library').controller('Library', library);
-    library.$inject = ['libraryService', '$stateParams', 'userDetailsFactory',
-        'nodeData', '$mdDialog',
-        '$location', '$scope', 'resManager', 'universityData',
-        'itemThumbnailService', 'ajaxService2', '$timeout', "$mdMedia", "$anchorScroll"];
+    "use strict";
+    angular.module("app.library").controller("Library", library);
+    library.$inject = ["libraryService", "$stateParams", "userDetailsFactory",
+        "nodeData", "$mdDialog",
+        "$location", "$scope", "resManager", "universityData",
+        "itemThumbnailService", "ajaxService2", "$timeout", "$mdMedia", "$anchorScroll"];
 
     function library(libraryService, $stateParams, userDetailsFactory, nodeData, $mdDialog,
         $location, $scope, resManager, universityData, itemThumbnailService, ajaxService, $timeout,

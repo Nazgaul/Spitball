@@ -144,9 +144,6 @@
   <data name="NotificationSettingsOnceAWeek" xml:space="preserve">
     <value>פעם בשבוע</value>
   </data>
-  <data name="NotificationSettingsOnEveryChange" xml:space="preserve">
-    <value>כל שינוי</value>
-  </data>
   <data name="Nudity" xml:space="preserve">
     <value>מכיל תוכן בלתי הולם</value>
   </data>

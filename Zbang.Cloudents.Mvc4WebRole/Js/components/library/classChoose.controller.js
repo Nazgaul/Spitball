@@ -20,6 +20,7 @@ var app;
             this.create = {};
             this.data = [];
             this.classSearch();
+            console.log(this.nodeData.map(function (m) { return m.boxes; }));
             var ids = [];
             angular.forEach(boxes, function (v) {
                 ids.push(v.id);
@@ -55,11 +56,13 @@ var app;
                 this.data = this.nodeData;
                 return;
             }
-            var filterDepartment = this.$filter("filter")(this.nodeData, this.term);
-            this.data = this.$filter("filter")(filterDepartment, function (value) {
+            var data = angular.copy(this.nodeData);
+            var filterDepartment = this.$filter("filter")(data, this.term);
+            var departments = this.$filter("filter")(filterDepartment, function (value) {
                 value.boxes = _this.$filter("filter")(value.boxes, _this.term);
                 return value;
             });
+            this.data = departments.filter(function (f) { return f.boxes.length > 0; });
         };
         ClassChoose.prototype.status = function (ev, course) {
             this.$mdDialog.show({
@@ -78,6 +81,7 @@ var app;
         ClassChoose.prototype.choose = function (course, department) {
             var _this = this;
             this.$timeout(function () {
+            this.$scope.$emit("refresh-boxes");
                 _this.boxService.follow(course.id);
                 course["selected"] = true;
                 var pushOne = angular.extend({}, course, {
