@@ -48,7 +48,7 @@
 
     <div class="grid-container">
         <ol class="results list-unstyled" @*vs-repeat vs-scroll-parent="window" vs-size="department.boxes.length * 72"*@>
-            <li class="" ng-repeat="department in cc.data track by department.id">
+            <li class="angular-animate animate-repeat" ng-repeat="department in cc.data track by department.id">
                 <div class="closed-department" ng-if="department.type === 'closed'" ng-include="'close-department.html'">
                 </div>
                 <div ng-if="department.type !== 'closed'" ng-include="'open-department.html'"></div>
@@ -124,7 +124,7 @@
         <div dir="auto" class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>
     </div>
     <ol class="department-courses list-unstyled">
-        <li class="" ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected" ng-include="'slim-box-template.html'">
+        <li class="angular-animate animate-repeat" ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected" ng-include="'slim-box-template.html'">
         </li>
     </ol>
 </script>
