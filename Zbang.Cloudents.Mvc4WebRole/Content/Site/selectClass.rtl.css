@@ -345,7 +345,7 @@
 }
 .class-choose .status-strip h2,
 .class-choose .status-strip ng-pluralize {
-  font-size: 20px;
+  font-size: 16px;
   margin: 0;
 }
 .class-choose .status-strip a {
@@ -380,7 +380,7 @@
   width: 100%;
   display: block;
   font-size: 30px;
-  padding-top: 47px;
+  padding-top: 20px;
   font-weight: bold;
   color: #33076e;
 }
@@ -528,10 +528,10 @@
 .class-choose .results .closed-department .box-style .subtitle {
   font-size: 16px;
 }
-.class-choose .results > li {
+.class-choose .results > li > div {
   display: inline-block;
-  margin-bottom: 0px;
   width: 100%;
+  padding: 10px 15px;
 }
 .class-choose .results .title {
   display: -webkit-flex;
@@ -544,7 +544,7 @@
 }
 .class-choose .results .title .department-name {
   font-weight: bold;
-  font-size: 24px;
+  font-size: 20px;
 }
 .class-choose .results .title .lock md-icon {
   width: 18px;
@@ -553,14 +553,31 @@
 .class-choose .results .department-courses {
   width: 100%;
 }
-.class-choose .results > li {
-  padding: 10px 15px;
-}
 .class-choose .empty-state {
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 40px auto 0 auto;
   text-align: center;
+  background-image: url(../../Images/Site/no_search_results.png);
+  background-repeat: no-repeat;
+  background-size: 150px;
+  background-position: 0% 50%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 140px;
+  padding-bottom: 100px;
+}
+.class-choose .empty-state h2 {
+  color: #f76446;
+  font-weight: bold;
+}
+.class-choose .empty-state .text {
+  font-size: 18px;
+  white-space: pre-wrap;
+  margin-top: 20px;
 }
 .class-choose .create-class {
   margin: 30px auto 0 auto;
@@ -608,6 +625,10 @@
   width: 100%;
   margin: 18px auto;
   padding: 10px;
+}
+.selected-class-dialog md-dialog-content .department-name {
+  margin: 0 auto;
+  max-width: 300px;
 }
 .selected-class-dialog md-dialog-content .center {
   display: -webkit-flex;
@@ -693,7 +714,8 @@
 }
 .slim.box-style .data .name {
   margin: 0;
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: bold;
   width: 100%;
   margin-bottom: 2px;
 }

@@ -125,7 +125,8 @@
         <div dir="auto" class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>
     </div>
     <ol class="department-courses list-unstyled">
-        <li class="angular-animate animate-repeat" ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected" ng-include="'slim-box-template.html'">
+        <li class="angular-animate animate-repeat" ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected">
+            <button class="box-template box-style slim" ga-track-event="['course-choose', 'box']" ng-include="'slim-box-template.html'" ng-click="cc.choose(e,department)"></button>
         </li>
     </ol>
 </script>
@@ -141,12 +142,26 @@
                     <md-icon md-svg-icon="p:arrow-right"></md-icon>
                 </button>
                 <div class="box-container">
-                    <div class="icon background" d-color-scope="cd.course.department.length" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
-                    <div class="data">
-                        <h5 class="name ellipsis" d-color-scope="cd.course.department.length" ng-bind="cd.course.name" title="{{::cd.course.name}}"></h5>
-                        <div class="metadata">
-                            <div class="code ellipsis" ng-bind="cd.course.courseId"></div>
-                            <div class="professor ellipsis" ng-bind="cd.course.professor"></div>
+                    <div class="box-container box-template box-style slim">
+                        <div class="icon background" d-color="{{cd.course.department.length}}" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
+                        <div class="data">
+                            <div class="details">
+                                <h5 class="name ellipsis" dir="auto" d-color="{{cd.course.department}}" ng-bind="cd.course.name" title="{{cd.course.name}}"></h5>
+                                <div class="metadata">
+                                    <div class="code ellipsis" dir="auto" ng-bind="cd.course.courseCode"></div>
+                                    <div class="professor ellipsis" dir="auto" ng-bind="cd.course.professor"></div>
+                                </div>
+                            </div>
+                            <div class="stats">
+                                <div class="users stat">
+                                    <md-icon md-svg-icon="t:user"></md-icon>
+                                    <div class="num" ng-bind="cd.course.members | megaNumber"></div>
+                                </div>
+                                <div class="docs stat">
+                                    <md-icon md-svg-icon="t:docs"></md-icon>
+                                    <div class="num" ng-bind="cd.course.items | megaNumber"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -163,28 +178,26 @@
 </script>
 
 <script defer type="text/ng-template" id="slim-box-template.html">
-    <button class="box-template box-style slim" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e,department)">
-        <div class="icon background" d-color="{{::department.name}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
-        <div class="data">
-            <div class="details">
-                <h5 class="name ellipsis" dir="auto" d-color="{{::department.name}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
-                <div class="metadata">
-                    <div class="code ellipsis" dir="auto" ng-bind="::e.courseId"></div>
-                    <div class="professor ellipsis" dir="auto" ng-bind="::e.professor"></div>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="users stat">
-                    <md-icon md-svg-icon="t:user"></md-icon>
-                    <div class="num" ng-bind="::e.members | megaNumber"></div>
-                </div>
-                <div class="docs stat">
-                    <md-icon md-svg-icon="t:docs"></md-icon>
-                    <div class="num" ng-bind="::e.items | megaNumber"></div>
-                </div>
+    <div class="icon background" d-color="{{::department.name}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
+    <div class="data">
+        <div class="details">
+            <h5 class="name ellipsis" dir="auto" d-color="{{::department.name}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
+            <div class="metadata">
+                <div class="code ellipsis" dir="auto" ng-bind="::e.courseId"></div>
+                <div class="professor ellipsis" dir="auto" ng-bind="::e.professor"></div>
             </div>
         </div>
-    </button>
+        <div class="stats">
+            <div class="users stat">
+                <md-icon md-svg-icon="t:user"></md-icon>
+                <div class="num" ng-bind="::e.members | megaNumber"></div>
+            </div>
+            <div class="docs stat">
+                <md-icon md-svg-icon="t:docs"></md-icon>
+                <div class="num" ng-bind="::e.items | megaNumber"></div>
+            </div>
+        </div>
+    </div>
 </script>
 
 
