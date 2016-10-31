@@ -81,8 +81,8 @@ var app;
         ClassChoose.prototype.choose = function (course, department) {
             var _this = this;
             this.$timeout(function () {
-            this.$scope.$emit("refresh-boxes");
                 _this.boxService.follow(course.id);
+                _this.$scope.$emit("refresh-boxes");
                 course["selected"] = true;
                 var pushOne = angular.extend({}, course, {
                     department: department.name

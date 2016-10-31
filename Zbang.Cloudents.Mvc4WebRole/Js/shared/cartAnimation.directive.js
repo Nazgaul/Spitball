@@ -28,6 +28,9 @@
                         'opacity: 0.3;' +
                         'transition: top ' + timing + ' linear' + ', left ' + timing + ' linear, opacity ' + timing + ' linear';
                         elemtClone.attr('style', style).addClass('cart-animated');
+                        $timeout(function () {
+                            elemtClone.remove();
+                        }, 500)
                     }, 0)
 
                 })

@@ -118,7 +118,7 @@
         choose(course, department) {
             this.$timeout(() => {
                 this.boxService.follow(course.id);
-            this.$scope.$emit("refresh-boxes");
+                this.$scope.$emit("refresh-boxes");
                 course["selected"] = true;
 
                 const pushOne = angular.extend({},
