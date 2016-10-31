@@ -1171,7 +1171,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                     });
                     var nodes = dic.Select(s => s.Value)
                         .Union(await grid.ReadAsync<SmallNodeDto>())
-                        .OrderBy(a => a.Name);
+                        .OrderByDescending(a => a.Boxes?.Count);
                     return nodes;
 
                 }

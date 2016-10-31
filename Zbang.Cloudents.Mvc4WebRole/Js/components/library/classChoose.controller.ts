@@ -70,10 +70,12 @@
                 return;
             }
             const filterDepartment = this.$filter("filter")(this.nodeData, this.term);
-            this.data = this.$filter("filter")(filterDepartment, (value) => {
+            const departments = this.$filter("filter")(filterDepartment, (value) => {
                 value.boxes = this.$filter("filter")(value.boxes, this.term);
                 return value;
             });
+            this.data = departments.filter(f => f.boxes.length > 0);
+
 
         }
 

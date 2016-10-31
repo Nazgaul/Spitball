@@ -55,10 +55,11 @@ var app;
                 return;
             }
             var filterDepartment = this.$filter("filter")(this.nodeData, this.term);
-            this.data = this.$filter("filter")(filterDepartment, function (value) {
+            var departments = this.$filter("filter")(filterDepartment, function (value) {
                 value.boxes = _this.$filter("filter")(value.boxes, _this.term);
                 return value;
             });
+            this.data = departments.filter(function (f) { return f.boxes.length > 0; });
         };
         ClassChoose.prototype.status = function (ev, course) {
             this.$mdDialog.show({

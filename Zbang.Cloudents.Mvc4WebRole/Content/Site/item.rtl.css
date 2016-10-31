@@ -26,6 +26,9 @@ md-menu-item.blue svg {
   /*md-select .md-select-value.md-select-placeholder {
         color: @textColorBlack;
     }*/
+  /*.comments-wrapper {
+        
+    }*/
 }
 @media (min-width: 960px) {
   .itemPage {
@@ -297,6 +300,7 @@ md-menu-item.blue svg {
   height: calc(100vh - 175px);
   width: calc(100% - 155px);
   max-width: 800px;
+  background: #fff;
 }
 @media (max-width: 600px) {
   .itemPage .iframeContent {
@@ -317,10 +321,6 @@ md-menu-item.blue svg {
 }
 .itemPage .comments-section > .menu-icon {
   z-index: 2;
-}
-.itemPage .comments-wrapper {
-  right: 0;
-  color: #ffffff;
 }
 .itemPage .commentsMenu {
   width: 20px;
@@ -374,6 +374,8 @@ md-menu-item.blue svg {
   display: none;
 }
 .itemPage .comments-wrapper {
+  right: 0;
+  color: #ffffff;
   position: fixed !important;
   top: 65px;
   width: 300px;
