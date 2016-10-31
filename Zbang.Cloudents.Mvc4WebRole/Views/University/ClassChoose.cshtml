@@ -11,16 +11,7 @@
     <h2 ng-if="cc.selectedCourses.length >= 2">&nbsp;<a ui-sref="dashboard">click here</a>&nbsp;if you're done</h2>
 </div>
 
-<div @*ng-switch="cc.step"*@ class="title">
-    <h2 @*ng-switch-when="1"*@>@UniversityResources.OnboardingHeaderStep1</h2>
-    @*<h2 ng-switch-when="2">@UniversityResources.OnboardingHeaderStep2</h2>
-        <h2 ng-switch-when="3">@UniversityResources.OnboardingHeaderStep3</h2>
-        <h2 ng-switch-when="4">@UniversityResources.OnboardingHeaderStep4</h2>
-        <h2 ng-switch-when="5">@UniversityResources.OnboardingHeaderStep5</h2>
-        <h2 ng-switch-when="6">@UniversityResources.OnboardingHeaderStep6</h2>
-        <h2 ng-switch-when="7">@UniversityResources.OnboardingHeaderStep7</h2>
-        <h2 ng-switch-when="8">@UniversityResources.OnboardingHeaderStep8</h2>*@
-</div>
+<h2 class="title">@UniversityResources.OnboardingHeaderStep1</h2>
 <div class="search-container" ng-if="!cc.showCreateClass" flex-gt-md="85">
     <div class="top">
         <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
@@ -60,8 +51,7 @@
             <li class="" ng-repeat="department in cc.data track by department.id">
                 <div class="closed-department" ng-if="department.type === 'closed'" ng-include="'close-department.html'">
                 </div>
-                <div ng-if="department.type !== 'closed'" ng-include="'open-department.html'">
-                </div>
+                <div ng-if="department.type !== 'closed'" ng-include="'open-department.html'"></div>
             </li>
         </ol>
     </div>
@@ -131,7 +121,7 @@
 </script>
 <script type="text/ng-template" id="open-department.html">
     <div class="title">
-        <div class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>
+        <div dir="auto" class="department-name ellipsis" ng-bind="::department.name" d-color="{{::department.name}}" title="{{::department.name}}"></div>
     </div>
     <ol class="department-courses list-unstyled">
         <li class="" ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected" ng-include="'slim-box-template.html'">
@@ -139,20 +129,20 @@
     </ol>
 </script>
 <script type="text/ng-template" id="dialog.tmpl.html">
-    <md-dialog class="selected-class-dialog" @*ng-init="key = cd.selectedCourse.department"*@>
+    <md-dialog class="selected-class-dialog">
         <md-toolbar layout="row" layout-align="space-between center">
             <h2>Selected class</h2>
         </md-toolbar>
         <md-dialog-content>
-            <div class="department-name" d-color="{{cd.course.department.length}}" ng-bind="cd.course.department"></div>
+            <div class="department-name" d-color-scope="cd.course.department.length" ng-bind="cd.course.department"></div>
             <div class="center">
                 <button class="prev" ng-click="cd.prev()">
                     <md-icon md-svg-icon="p:arrow-right"></md-icon>
                 </button>
                 <div class="box-container">
-                    <div class="icon background" d-color="{{cd.course.department.length}}" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
+                    <div class="icon background" d-color-scope="cd.course.department.length" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
                     <div class="data">
-                        <h5 class="name ellipsis" d-color="{{cd.course.department.length}}" ng-bind="cd.course.name" title="{{::cd.course.name}}"></h5>
+                        <h5 class="name ellipsis" d-color-scope="cd.course.department.length" ng-bind="cd.course.name" title="{{::cd.course.name}}"></h5>
                         <div class="metadata">
                             <div class="code ellipsis" ng-bind="cd.course.courseId"></div>
                             <div class="professor ellipsis" ng-bind="cd.course.professor"></div>
@@ -176,10 +166,10 @@
         <div class="icon background" d-color="{{::department.name}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
         <div class="data">
             <div class="details">
-                <h5 class="name ellipsis" d-color="{{::department.name}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
+                <h5 class="name ellipsis" dir="auto" d-color="{{::department.name}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
                 <div class="metadata">
-                    <div class="code ellipsis" ng-bind="::e.courseId"></div>
-                    <div class="professor ellipsis" ng-bind="::e.professor"></div>
+                    <div class="code ellipsis" dir="auto" ng-bind="::e.courseId"></div>
+                    <div class="professor ellipsis" dir="auto" ng-bind="::e.professor"></div>
                 </div>
             </div>
             <div class="stats">
@@ -192,7 +182,7 @@
                     <div class="num">100</div>
                 </div>
             </div>
-            </div>
+        </div>
     </button>
 </script>
 
