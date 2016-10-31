@@ -59,7 +59,6 @@ var app;
             });
         };
         ClassChoose.prototype.status = function (ev, course) {
-            var index = this.selectedCourses.indexOf(course);
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
                 targetEvent: ev,
@@ -67,12 +66,10 @@ var app;
                 controller: 'ClassChooseDialog',
                 controllerAs: 'cd',
                 locals: {
-                    currentCourseIndex: index
+                    course: course,
+                    courses: this.selectedCourses
                 },
-                scope: this.$scope,
                 fullscreen: true
-            }).then(function (response) {
-                console.log(response);
             });
         };
         ClassChoose.prototype.choose = function (course, department) {

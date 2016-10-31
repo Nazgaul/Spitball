@@ -2,7 +2,7 @@
     "use strict";
 
 
-    interface ISmallBoxClassChoose extends ISmallBox {
+    export interface ISmallBoxClassChoose extends ISmallBox {
         department: string;
     }
     //var allList: Array<ISmallDepartment> = [];
@@ -76,22 +76,22 @@
         }
 
         status(ev, course) {
-            const index = this.selectedCourses.indexOf(course);
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
-                //parent: angular.element($(".class-choose")),
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 controller: 'ClassChooseDialog',
                 controllerAs: 'cd',
                 locals: {
-                    currentCourseIndex: index
+                    course: course,
+                    courses: this.selectedCourses
                 },
-                scope: this.$scope,
+                //scope: this.$scope,
                 fullscreen: true // Only for -xs, -sm breakpoints.
-            }).then((response) => {
-                console.log(response);
             });
+            //.then((response) => {
+            //    console.log(response);
+            //});
 
         }
 
