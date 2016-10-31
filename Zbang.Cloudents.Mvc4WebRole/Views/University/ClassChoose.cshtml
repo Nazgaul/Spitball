@@ -48,7 +48,7 @@
 
     <div class="grid-container">
         <ol class="results list-unstyled" @*vs-repeat vs-scroll-parent="window" vs-size="department.boxes.length * 72"*@>
-            <li class="angular-animate animate-repeat" ng-repeat="department in cc.data track by department.id">
+            <li @*class="angular-animate animate-repeat"*@ ng-repeat="department in cc.data track by department.id">
                 <div class="closed-department" ng-if="department.type === 'closed'" ng-include="'close-department.html'">
                 </div>
                 <div ng-if="department.type !== 'closed'" ng-include="'open-department.html'"></div>
@@ -175,11 +175,11 @@
             <div class="stats">
                 <div class="users stat">
                     <md-icon md-svg-icon="t:user"></md-icon>
-                    <div class="num">900</div>
+                    <div class="num" ng-bind="::e.members | megaNumber"></div>
                 </div>
                 <div class="docs stat">
                     <md-icon md-svg-icon="t:docs"></md-icon>
-                    <div class="num">100</div>
+                    <div class="num" ng-bind="::e.items | megaNumber"></div>
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@ var app;
             return this.ajaxService.post("/account/updateuniversity/", {
                 universityId: universityId,
                 studentId: studentId
-            }, ["university"]);
+            }, ["university", "searchFirstBox"]);
         };
         Library.prototype.createUniversity = function (name, country) {
             return this.ajaxService.post("/university/createuniversity/", {

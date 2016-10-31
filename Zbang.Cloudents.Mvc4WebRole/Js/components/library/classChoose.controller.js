@@ -27,7 +27,9 @@ var app;
                     courseCode: v.courseCode,
                     name: v.name,
                     professor: v.professor,
-                    department: null
+                    department: null,
+                    items: v.itemCount,
+                    members: v.membersCount
                 });
             });
             angular.forEach(nodeData, function (v) {
@@ -127,7 +129,9 @@ var app;
                     id: response.id,
                     name: createObj.name,
                     courseCode: createObj.number,
-                    professor: createObj.professor
+                    professor: createObj.professor,
+                    items: 0,
+                    members: 1
                 };
                 department.boxes = department.boxes || [];
                 department.boxes.push(box);

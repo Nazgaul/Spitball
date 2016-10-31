@@ -1148,8 +1148,10 @@ where ownerid = @UserId and boxid = @BoxId;";
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
                 const string sql =
-                    @"select l.Name,l.LibraryId as id, l.Settings as type ,b.boxid as Id,b.BoxName as Name, b.CourseCode as CourseId,b.ProfessorName as ProfessorName 
-from zbox.library l join zbox.box b on l.libraryid = b.libraryid where university = @UniversityId and isdeleted = 0 and Discriminator = 2";
+                    @"select l.Name,l.LibraryId as id, l.Settings as type ,
+b.boxid as Id,b.BoxName as Name, b.CourseCode as CourseId,b.ProfessorName as ProfessorName , b.quizcount + b.itemcount as Items,
+                                b.MembersCount as Members
+from zbox.library l join zbox.box b on l.libraryid = b.libraryid where university = @UniversityId and isdeleted = 0 and Discriminator = 2;";
                 const string sql2 = "select l.Name,l.LibraryId as id,l.Settings as type from zbox.library l where id = @UniversityId and settings = 1 and ParentId is null";
                 using (
                    var grid = await conn.QueryMultipleAsync(sql + sql2,
