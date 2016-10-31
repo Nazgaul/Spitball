@@ -241,7 +241,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.University.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select your first class.
+        ///   Looks up a localized string similar to Add Your Class.
         /// </summary>
         public static string OnboardingHeaderStep2 {
             get {

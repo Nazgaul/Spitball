@@ -562,8 +562,11 @@
   margin: 0 auto;
   text-align: center;
 }
-.class-choose .create-box form {
-  margin: 0 auto;
+.class-choose .create-class {
+  margin: 30px auto 0 auto;
+}
+.class-choose .create-class .buttons {
+  text-align: left;
 }
 .md-toast-animating {
   overflow: auto !important;
@@ -576,6 +579,7 @@
 .selected-class-dialog .department-name {
   font-size: 22px;
   font-weight: bold;
+  text-transform: capitalize;
 }
 .selected-class-dialog md-toolbar {
   min-height: 0;

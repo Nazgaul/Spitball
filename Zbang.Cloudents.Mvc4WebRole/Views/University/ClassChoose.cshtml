@@ -11,8 +11,8 @@
     <h2 ng-if="cc.selectedCourses.length >= 2">&nbsp;<a ui-sref="dashboard">click here</a>&nbsp;if you're done</h2>
 </div>
 
-<h2 class="title">@UniversityResources.OnboardingHeaderStep1</h2>
 <div class="search-container" ng-if="!cc.showCreateClass" flex-gt-md="85">
+    <h2 class="title">@UniversityResources.OnboardingHeaderStep1</h2>
     <div class="top">
         <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
             <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
@@ -64,7 +64,8 @@
     </div>
 </div>
 <div ng-if="cc.showCreateClass">
-    <form name="createBox" flex="50" flex-xs="100" novalidate ng-submit="cc.createClass(createBox)">
+    <h2 class="title">@UniversityResources.OnboardingHeaderStep2</h2>
+    <form name="createBox" flex="100" flex-gt-xs="50" flex-gt-md="30" novalidate ng-submit="cc.createClass(createBox)" class="create-class">
         <md-autocomplete required md-no-asterisk md-input-name="department"
                          md-delay="350"
                          md-min-length="0"
