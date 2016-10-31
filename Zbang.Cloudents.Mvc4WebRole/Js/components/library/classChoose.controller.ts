@@ -9,7 +9,7 @@
 
     class ClassChoose {
         static $inject = ["searchService", "libraryService",    /*"$scope",*/
-            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager", "$scope"];
+            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager", "$scope", "$timeout"];
         //static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "$scope"];
         showCreateClass = false;
         selectedCourses: Array<ISmallBoxClassChoose> = [];
@@ -28,7 +28,8 @@
             private boxService: IBoxService,
             private boxes: any,
             private resManager: IResManager,
-            private $scope) {
+            private $scope,
+            private $timeout: angular.ITimeoutService) {
 
             this.classSearch();
 
@@ -111,16 +112,19 @@
         //}
 
         choose(course, department) {
-            this.boxService.follow(course.id);
-            course["selected"] = true;
+            this.$timeout(() => {
+                this.boxService.follow(course.id);
+                course["selected"] = true;
 
-            const pushOne = angular.extend({},
-                course,
-                {
-                    department: department.name
-                });
-            this.selectedCourses.push(
-                pushOne);
+                const pushOne = angular.extend({},
+                    course,
+                    {
+                        department: department.name
+                    });
+                this.selectedCourses.push(
+                    pushOne);
+
+            }, 500);
         }
 
 

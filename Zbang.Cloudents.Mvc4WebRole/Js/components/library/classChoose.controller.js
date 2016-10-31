@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager, $scope) {
+        function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager, $scope, $timeout) {
             var _this = this;
             this.searchService = searchService;
             this.libraryService = libraryService;
@@ -13,6 +13,7 @@ var app;
             this.boxes = boxes;
             this.resManager = resManager;
             this.$scope = $scope;
+            this.$timeout = $timeout;
             this.showCreateClass = false;
             this.selectedCourses = [];
             this.submitDisabled = false;
@@ -75,12 +76,15 @@ var app;
             });
         };
         ClassChoose.prototype.choose = function (course, department) {
-            this.boxService.follow(course.id);
-            course["selected"] = true;
-            var pushOne = angular.extend({}, course, {
-                department: department.name
-            });
-            this.selectedCourses.push(pushOne);
+            var _this = this;
+            this.$timeout(function () {
+                _this.boxService.follow(course.id);
+                course["selected"] = true;
+                var pushOne = angular.extend({}, course, {
+                    department: department.name
+                });
+                _this.selectedCourses.push(pushOne);
+            }, 500);
         };
         ClassChoose.prototype.goCreateClass = function () {
             this.data = this.nodeData;
@@ -150,7 +154,7 @@ var app;
             });
         };
         ClassChoose.$inject = ["searchService", "libraryService",
-            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager", "$scope"];
+            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager", "$scope", "$timeout"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);

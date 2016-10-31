@@ -1,4 +1,5 @@
 ﻿.class-choose {
+  padding-top: 40px;
   /*.content {
         max-width: 600px;
         margin: 0 auto;
@@ -342,6 +343,9 @@
   height: 40px;
   background: #FF9900;
   color: #ffffff;
+  position: absolute;
+  top: 65px;
+  width: 100%;
 }
 .class-choose .status-strip h2,
 .class-choose .status-strip ng-pluralize {
@@ -407,7 +411,7 @@
   justify-content: space-between;
   margin: 46px 0 30px 0;
 }
-.class-choose .top .selected-classes {
+.class-choose .top #selected-classes {
   flex-shrink: 0;
   display: -webkit-flex;
   display: -ms-flex;
@@ -417,25 +421,26 @@
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-.class-choose .top .selected-classes button {
+.class-choose .top #selected-classes button {
   color: #ffffff;
 }
-.class-choose .top .selected-classes .empty {
+.class-choose .top #selected-classes .empty {
   border: 1px dashed #888b8e;
   background: #eeeeee;
   color: #888b8e;
   padding: 0;
 }
-.class-choose .top .selected-classes button,
-.class-choose .top .selected-classes .empty {
+.class-choose .top #selected-classes button,
+.class-choose .top #selected-classes .empty {
   width: 40px;
   height: 40px;
   line-height: 40px;
   margin-left: 6px;
   font-size: 20px;
   text-align: center;
+  z-index: 1;
 }
-.class-choose .top .selected-classes,
+.class-choose .top #selected-classes,
 .class-choose .top .search-form {
   margin: 0 15px;
 }
@@ -686,6 +691,30 @@
 .selected-class-dialog md-dialog-content .buttons .action-btn {
   background: #DB4437;
   margin-left: 10px;
+}
+.class-choose .slim.box-style .icon,
+body > .icon {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  color: #ffffff;
+  font-size: 28px;
+  flex-shrink: 0;
+  text-transform: capitalize;
+}
+.class-choose #selected-classes button,
+.class-choose #selected-classes .empty,
+body > .cart-animated {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin-left: 6px;
+  font-size: 20px;
+  text-align: center;
+}
+body > .cart-animated {
+  margin: 0;
 }
 .slim.box-style {
   height: auto;

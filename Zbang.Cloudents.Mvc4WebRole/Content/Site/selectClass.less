@@ -6,6 +6,8 @@
         margin-right: -@widthOfChat;
     }
 
+    padding-top: 40px;
+
 
     .status-strip {
         .displayFlex;
@@ -14,6 +16,9 @@
         height: 40px;
         background: #FF9900;
         color: @textColorWhite;
+        position: absolute;
+        top: @heightOfHeader;
+        width: 100%;
 
         h2, ng-pluralize {
             font-size: 16px;
@@ -369,7 +374,7 @@
         .justifyContet(space-between);
         margin: 46px 0 30px 0;
 
-        .selected-classes {
+        #selected-classes {
             flex-shrink: 0;
             .displayFlex();
             .align-items(center);
@@ -394,10 +399,11 @@
                 margin-left: 6px;
                 font-size: 20px;
                 text-align: center;
+                z-index: 1;
             }
         }
 
-        .selected-classes, .search-form {
+        #selected-classes, .search-form {
             margin: 0 15px;
         }
     }
@@ -700,6 +706,34 @@
             }
         }
     }
+}
+
+.class-choose .slim.box-style .icon, body > .icon {
+    @icon-size: 60px;
+    width: @icon-size;
+    height: @icon-size;
+    line-height: @icon-size;
+    text-align: center;
+    color: @textColorWhite;
+    font-size: 28px;
+    flex-shrink: 0;
+    text-transform: capitalize;
+}
+
+.class-choose #selected-classes button,
+.class-choose #selected-classes .empty,
+body > .cart-animated {
+    @selectedButtonSize: 40px;
+    width: @selectedButtonSize;
+    height: @selectedButtonSize;
+    line-height: @selectedButtonSize;
+    margin-left: 6px;
+    font-size: 20px;
+    text-align: center;
+}
+
+body > .cart-animated {
+    margin: 0;
 }
 
 .slim.box-style {
