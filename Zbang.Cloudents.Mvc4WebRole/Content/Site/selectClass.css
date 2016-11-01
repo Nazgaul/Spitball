@@ -447,7 +447,7 @@
 }
 .class-choose .top #selected-classes button.ng-enter-stagger,
 .class-choose .top #selected-classes .empty.ng-enter-stagger {
-  transition-delay: 0.1s;
+  transition-delay: 0.5s;
   transition-duration: 0.5s;
 }
 .class-choose .top #selected-classes button.ng-enter.ng-enter-active,
