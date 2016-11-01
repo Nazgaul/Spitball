@@ -20,7 +20,6 @@ var app;
             this.create = {};
             this.data = [];
             this.classSearch();
-            console.log(this.nodeData.map(function (m) { return m.boxes; }));
             var ids = [];
             angular.forEach(boxes, function (v) {
                 ids.push(v.id);
@@ -31,7 +30,8 @@ var app;
                     professor: v.professor,
                     department: null,
                     items: v.itemCount,
-                    members: v.membersCount
+                    members: v.membersCount,
+                    departmentId: v.departmentId
                 });
             });
             angular.forEach(nodeData, function (v) {
@@ -85,10 +85,11 @@ var app;
                 _this.$scope.$emit("refresh-boxes");
                 course["selected"] = true;
                 var pushOne = angular.extend({}, course, {
-                    department: department.name
+                    department: department.name,
+                    departmentId: department.id
                 });
                 _this.selectedCourses.push(pushOne);
-            }, 500);
+            });
         };
         ClassChoose.prototype.goCreateClass = function () {
             this.data = this.nodeData;

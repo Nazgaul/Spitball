@@ -2,43 +2,45 @@ var app;
 (function (app) {
     "use strict";
     var CartAnimation = (function () {
-        function CartAnimation($timeout) {
+        function CartAnimation($timeout, $animate) {
             var _this = this;
             this.$timeout = $timeout;
+            this.$animate = $animate;
             this.restrict = 'A';
             this.link = function (scope, element, attrs) {
                 element.on('click', function () {
-                    var placeHolder = $('#' + attrs['cartAnimationTo'] + ' .empty:first');
-                    var cart = placeHolder.length ? placeHolder : $('#' + attrs['cartAnimationTo'] + ' .icon:last-of-type');
-                    var destTop = cart.offset().top;
-                    var destLeft = cart.offset().left;
-                    var elem = $(element).find('.' + attrs['cartAnimation']);
-                    var elemtClone = elem.clone().css({
-                        'position': 'absolute',
-                        'top': elem.offset().top,
-                        'left': elem.offset().left,
-                        'opacity': 1
-                    }).appendTo($('body'));
-                    _this.$timeout(function () {
-                        var timing = "0.5s";
-                        var style = elemtClone.attr('style') +
-                            'top: ' + destTop + 'px; ' +
-                            'left: ' + destLeft + 'px; ' +
-                            'opacity: 0.3;' +
-                            'transition: top ' + timing + ' linear' + ', left ' + timing + ' linear, opacity ' + timing + ' linear';
-                        elemtClone.attr('style', style).addClass('cart-animated');
-                        _this.$timeout(function () {
-                            elemtClone.remove();
-                        }, 500);
-                    }, 0);
+                    var cart = $(attrs['cartAnimationTo']);
+                    if (!cart.length) {
+                        return;
+                    }
+                    var dest = cart.offset();
+                    var elem = $(element).find(attrs['cartAnimation']);
+                    var elemtClone = elem.clone().addClass("angular-animate cart-animated")
+                        .css({
+                        'position': 'absolute'
+                    })
+                        .appendTo($('body'));
+                    var offeset = elem.offset();
+                    console.log(offeset, cart.offset());
+                    _this.$animate.animate(elemtClone, {
+                        top: offeset.top,
+                        left: offeset.left,
+                        opacity: 1
+                    }, {
+                        top: dest.top,
+                        left: dest.left,
+                        opacity: 0.3
+                    }).then(function () {
+                        elemtClone.remove();
+                    });
                 });
             };
         }
         CartAnimation.factory = function () {
-            var directive = function ($timeout) {
-                return new CartAnimation($timeout);
+            var directive = function ($timeout, $animate) {
+                return new CartAnimation($timeout, $animate);
             };
-            directive["$inject"] = ["$timeout"];
+            directive["$inject"] = ["$timeout", "$animate"];
             return directive;
         };
         return CartAnimation;

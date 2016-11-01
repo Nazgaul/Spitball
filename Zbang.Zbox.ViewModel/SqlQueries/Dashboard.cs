@@ -11,7 +11,8 @@
                                 b.CourseCode,
                                 b.ProfessorName,
                                 b.Discriminator as boxType,
-								b.Url as Url
+								b.Url as Url,
+                                b.LibraryId as departmentId
     from Zbox.box b join zbox.UserBoxRel ub on b.BoxId = ub.BoxId  
     where ub.UserId = @UserId
     and ub.usertype in (2,3)

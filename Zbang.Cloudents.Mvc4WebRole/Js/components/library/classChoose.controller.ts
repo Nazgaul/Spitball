@@ -4,6 +4,7 @@
 
     export interface ISmallBoxClassChoose extends ISmallBox {
         department: string;
+        departmentId: Guid;
     }
     //var allList: Array<ISmallDepartment> = [];
 
@@ -32,7 +33,7 @@
             private $timeout: angular.ITimeoutService) {
 
             this.classSearch();
-            console.log(this.nodeData.map(m => m.boxes))
+
             var ids = [];
             angular.forEach(boxes,
 
@@ -45,7 +46,8 @@
                         professor: v.professor,
                         department: null,
                         items: v.itemCount,
-                        members: v.membersCount
+                        members: v.membersCount,
+                        departmentId: v.departmentId
                     });
                 });
             angular.forEach(nodeData,
@@ -54,7 +56,6 @@
                         for (let i = v.boxes.length - 1; i >= 0; i--) {
                             const x = v.boxes[i];
                             if (ids.indexOf(x.id) !== -1) {
-                                //v.boxes.splice(i, 1);
                                 x["selected"] = true;
                                 const course = this.selectedCourses.find(f => f.id === x.id);
                                 course.department = v.name;
@@ -124,12 +125,13 @@
                 const pushOne = angular.extend({},
                     course,
                     {
-                        department: department.name
+                        department: department.name,
+                        departmentId: department.id
                     });
                 this.selectedCourses.push(
                     pushOne);
+            });
 
-            }, 500);
         }
 
 
