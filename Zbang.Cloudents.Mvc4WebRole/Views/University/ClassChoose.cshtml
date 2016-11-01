@@ -2,50 +2,54 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 <div collapse-header>
-    <div class="top-container" ng-if="!cc.showCreateClass">
-        <div class="status-strip" ng-if="cc.selectedCourses.length && !cc.showCreateClass">
-            <h2>You've added&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
-                                                     when="{
+    <div ng-if="!cc.showCreateClass">
+        <div class="top-container">
+            <div class="status-strip" ng-if="cc.selectedCourses.length && !cc.showCreateClass">
+                <h2>You've added&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
+                                                         when="{
                      'one': '1 @GeneralResources.Class,',
                      'other': '{} @GeneralResources.Classes,'}">
-            </ng-pluralize>
-            <h2 ng-if="cc.selectedCourses.length == 1">&nbsp;continue selecting classes</h2>
-            <h2 ng-if="cc.selectedCourses.length >= 2">&nbsp;<a ui-sref="dashboard">click here</a>&nbsp;if you're done</h2>
-        </div>
-        <div class="title-strip">
-            <h2 ng-if="!cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep1</h2>
-        </div>
-        <div class="wrapper" flex-gt-md="85">
-            <h2 class="title" ng-if="!cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep1</h2>
-            <h2 class="title" ng-if="cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep2</h2>
-            <div class="top">
-                <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
-                    <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
-                           ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
-                    <button type="submit" class="search-button">
-                        <md-icon md-svg-icon="t:searchIcon"></md-icon>
-                    </button>
-                </form>
-                <div id="selected-classes">
-                <button type="button" class="icon background angular-animate" color="{{::sc.departmentId}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id " ng-bind="::sc.name.substr(0,2)"></button>
-                    <div class="empty angular-animate" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
+                </ng-pluralize>
+                <h2 ng-if="cc.selectedCourses.length == 1">&nbsp;continue selecting classes</h2>
+                <h2 ng-if="cc.selectedCourses.length >= 2">
+                    &nbsp;<a ui-sref="dashboard">click here</a>&nbsp;if you're done
+                </h2>
+            </div>
+            <div class="title-strip">
+                <h2 ng-if="!cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep1</h2>
+            </div>
+            <div class="wrapper" flex-gt-md="85">
+                <h2 class="title" ng-if="!cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep1</h2>
+                <h2 class="title" ng-if="cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep2</h2>
+                <div class="top">
+                    <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
+                        <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
+                               ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
+                        <button type="submit" class="search-button">
+                            <md-icon md-svg-icon="t:searchIcon"></md-icon>
+                        </button>
+                    </form>
+                    <div id="selected-classes">
+                        <button type="button" class="icon background angular-animate" color="{{::sc.departmentId}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id " ng-bind="::sc.name.substr(0,2)"></button>
+                        <div class="empty angular-animate" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="search-container" flex-gt-md="85">
-        <div class="grid-container">
-            <ol class="results list-unstyled">
-                <li @*class="angular-animate animate-repeat"*@ ng-repeat="department in cc.data track by department.id">
-                    <div class="closed-department" ng-if="::department.type === 'closed'" ng-include="'close-department.html'"></div>
-                    <div ng-if="::department.type !== 'closed'" ng-include="'open-department.html'"></div>
-                </li>
-            </ol>
-        </div>
-        <div class="empty-state" ng-if="cc.data.length === 0">
-            <h2>@GeneralResources.NoResultsTitle</h2>
-            <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
-            <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass()">@UniversityResources.OnboardingCreateClass</button>
+        <div class="search-container" flex-gt-md="85">
+            <div class="grid-container">
+                <ol class="results list-unstyled">
+                    <li @*class="angular-animate animate-repeat"*@ ng-repeat="department in cc.data track by department.id">
+                        <div class="closed-department" ng-if="::department.type === 'closed'" ng-include="'close-department.html'"></div>
+                        <div ng-if="::department.type !== 'closed'" ng-include="'open-department.html'"></div>
+                    </li>
+                </ol>
+            </div>
+            <div class="empty-state" ng-if="cc.data.length === 0">
+                <h2>@GeneralResources.NoResultsTitle</h2>
+                <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
+                <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass()">@UniversityResources.OnboardingCreateClass</button>
+            </div>
         </div>
     </div>
     <div ng-if="cc.showCreateClass">
@@ -69,7 +73,7 @@
             </md-autocomplete>
             <md-input-container class="form-field">
                 <label for="className">@UniversityResources.EnterClassName</label>
-                <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)" />
+                <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)"/>
                 <div class="error" ng-messages="createBox.name.$error">
                     <div ng-message="required">@GeneralResources.RequiredField</div>
                     <div ng-message="server">{{cc.create.error}}</div>
@@ -78,11 +82,11 @@
 
             <md-input-container class="form-field">
                 <label for="classNumber">@UniversityResources.EnterCode</label>
-                <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" ng-change="createBox.name.$setValidity('server',true)" />
+                <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" ng-change="createBox.name.$setValidity('server',true)"/>
             </md-input-container>
             <md-input-container class="form-field">
                 <label for="proffesor">@UniversityResources.Instructor</label>
-                <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)" />
+                <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)"/>
             </md-input-container>
             <div class="buttons">
                 <button class="cancel-btn" type="reset" ng-click="cc.showCreateClass = false;">@GeneralResources.Cancel</button>
