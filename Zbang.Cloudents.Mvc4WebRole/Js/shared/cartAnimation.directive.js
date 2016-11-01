@@ -2,13 +2,13 @@ var app;
 (function (app) {
     "use strict";
     var CartAnimation = (function () {
-        function CartAnimation($timeout, $animate) {
+        function CartAnimation($animate) {
             var _this = this;
-            this.$timeout = $timeout;
             this.$animate = $animate;
             this.restrict = 'A';
+            this.priority = -1;
             this.link = function (scope, element, attrs) {
-                element.on('click', function () {
+                element.click(function () {
                     var cart = $(attrs['cartAnimationTo']);
                     if (!cart.length) {
                         return;
@@ -37,10 +37,10 @@ var app;
             };
         }
         CartAnimation.factory = function () {
-            var directive = function ($timeout, $animate) {
-                return new CartAnimation($timeout, $animate);
+            var directive = function ($animate) {
+                return new CartAnimation($animate);
             };
-            directive["$inject"] = ["$timeout", "$animate"];
+            directive["$inject"] = ["$animate"];
             return directive;
         };
         return CartAnimation;

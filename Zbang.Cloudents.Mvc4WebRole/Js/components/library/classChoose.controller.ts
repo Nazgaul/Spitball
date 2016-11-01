@@ -9,9 +9,7 @@
     //var allList: Array<ISmallDepartment> = [];
 
     class ClassChoose {
-        static $inject = ["searchService", "libraryService",    /*"$scope",*/
-            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager", "$scope", "$timeout"];
-        //static $inject = ["searchService", "libraryService", "$mdToast", "$state", "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "$scope"];
+        static $inject = ["searchService", "libraryService","$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager", "$scope"];
         showCreateClass = false;
         selectedCourses: Array<ISmallBoxClassChoose> = [];
 
@@ -29,8 +27,8 @@
             private boxService: IBoxService,
             private boxes: any,
             private resManager: IResManager,
-            private $scope,
-            private $timeout: angular.ITimeoutService) {
+            private $scope
+           ) {
 
             this.classSearch();
 
@@ -103,21 +101,10 @@
 
         }
 
-        //chosenCourseController($scope, $mdDialog, courseData) {
-        //    $scope.courseData = courseData;
-
-        //    $scope.close = function () {
-        //        $mdDialog.hide();
-        //    };
-
-        //    $scope.remove = function () {
-        //        var index = this.selectedCourses.indexOf(courseData);
-        //        this.selectedCourses.splice(index, 1);
-        //    }
-        //}
+    
 
         choose(course, department) {
-            this.$timeout(() => {
+            //this.$timeout(() => {
                 this.boxService.follow(course.id);
                 this.$scope.$emit("refresh-boxes");
                 course["selected"] = true;
@@ -130,7 +117,7 @@
                     });
                 this.selectedCourses.push(
                     pushOne);
-            });
+            //});
 
         }
 

@@ -4,15 +4,14 @@ module app {
 
     class CartAnimation implements angular.IDirective {
         constructor(
-            private $timeout: angular.ITimeoutService,
             private $animate: angular.animate.IAnimateService
-
         ) {
         }
 
         restrict = 'A';
+        priority = -1;
         link = (scope, element: JQuery, attrs: ng.IAttributes) => {
-            element.on('click',
+            element.click(
                 () => {
                     var cart = $(attrs['cartAnimationTo']);
                     if (!cart.length) {
@@ -77,10 +76,10 @@ module app {
         }
 
         static factory(): angular.IDirectiveFactory {
-            const directive = ($timeout, $animate) => {
-                return new CartAnimation($timeout, $animate);
+            const directive = ($animate) => {
+                return new CartAnimation($animate);
             };
-            directive["$inject"] = ["$timeout", "$animate"];
+            directive["$inject"] = ["$animate"];
             return directive;
         }
     }

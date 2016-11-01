@@ -2,7 +2,7 @@ var app;
 (function (app) {
     "use strict";
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager, $scope, $timeout) {
+        function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager, $scope) {
             var _this = this;
             this.searchService = searchService;
             this.libraryService = libraryService;
@@ -13,7 +13,6 @@ var app;
             this.boxes = boxes;
             this.resManager = resManager;
             this.$scope = $scope;
-            this.$timeout = $timeout;
             this.showCreateClass = false;
             this.selectedCourses = [];
             this.submitDisabled = false;
@@ -79,17 +78,14 @@ var app;
             });
         };
         ClassChoose.prototype.choose = function (course, department) {
-            var _this = this;
-            this.$timeout(function () {
-                _this.boxService.follow(course.id);
-                _this.$scope.$emit("refresh-boxes");
-                course["selected"] = true;
-                var pushOne = angular.extend({}, course, {
-                    department: department.name,
-                    departmentId: department.id
-                });
-                _this.selectedCourses.push(pushOne);
+            this.boxService.follow(course.id);
+            this.$scope.$emit("refresh-boxes");
+            course["selected"] = true;
+            var pushOne = angular.extend({}, course, {
+                department: department.name,
+                departmentId: department.id
             });
+            this.selectedCourses.push(pushOne);
         };
         ClassChoose.prototype.goCreateClass = function () {
             this.data = this.nodeData;
@@ -158,8 +154,7 @@ var app;
                 _this.submitDisabled = false;
             });
         };
-        ClassChoose.$inject = ["searchService", "libraryService",
-            "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager", "$scope", "$timeout"];
+        ClassChoose.$inject = ["searchService", "libraryService", "$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager", "$scope"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);

@@ -5,8 +5,8 @@
     <div class="status-strip" ng-if="cc.selectedCourses.length && !cc.showCreateClass">
         <h2>You've added&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
                                                  when="{
-                     'one': '1 @GeneralResources.Class,',
-                     'other': '{} @GeneralResources.Classes,'}">
+                     'one': '1 class,',
+                     'other': '{} classes,'}">
         </ng-pluralize>
         <h2 ng-if="cc.selectedCourses.length == 1">&nbsp;continue selecting classes</h2>
         <h2 ng-if="cc.selectedCourses.length >= 2">&nbsp;<a ui-sref="dashboard">click here</a>&nbsp;if you're done</h2>
@@ -24,8 +24,13 @@
                 </button>
             </form>
             <div id="selected-classes">
-                <button type="button" class="icon background angular-animate" color="{{::sc.departmentId}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id " ng-bind="::sc.name.substr(0,2)"></button>
+<<<<<<< HEAD
+                <button type="button" class="icon background" color="{{::sc.departmentId}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id " ng-bind="::sc.name.substr(0,2)"></button>
+                <div class="empty" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
+=======
+                <button type="button" class="icon background angular-animate" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id " ng-bind="::sc.name.substr(0,2)"></button>
                 <div class="empty angular-animate" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
+>>>>>>> 18ffb823e54783daabf5fc666882f5fbfa577d03
             </div>
         </div>
         <div class="grid-container">
