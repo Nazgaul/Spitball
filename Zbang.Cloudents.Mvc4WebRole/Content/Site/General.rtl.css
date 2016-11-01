@@ -391,6 +391,7 @@ body .quiz-template .bottom .name {
 }*/
 .md-dialog-container {
   z-index: 80;
+  background: rgba(0, 0, 0, 0.6);
 }
 md-icon {
   margin: 0;
