@@ -2,7 +2,7 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
 @*<div collapse-header>*@
-    <div class="status-strip" ng-if="cc.selectedCourses.length">
+    <div class="status-strip" ng-if="cc.selectedCourses.length && !cc.showCreateClass">
         <h2>You've added&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
                                                  when="{
                      'one': '1 class,',
@@ -24,8 +24,8 @@
                 </button>
             </form>
             <div id="selected-classes">
-                <button type="button" class="icon background" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id " ng-bind="::sc.name.substr(0,2)"></button>
-                <div class="empty" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
+                <button type="button" class="icon background angular-animate" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id " ng-bind="::sc.name.substr(0,2)"></button>
+                <div class="empty angular-animate" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
             </div>
         </div>
         <div class="grid-container">
