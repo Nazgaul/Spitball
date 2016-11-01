@@ -45,6 +45,10 @@ body.collapseHeader {
             line-height: normal;
             margin: 0;
             white-space: nowrap;
+
+            @media(max-width: 600px) {
+                font-size: 14px;
+            }
         }
 
         a {
@@ -104,10 +108,10 @@ body.collapseHeader {
         color: @textColorPurple;
 
         @media(max-width: 600px) {
-            font-size: 24px;
             line-height: normal;
             max-width: 360px;
-            padding: 0 0 10px 0;
+            font-size: 18px;
+            padding-top: 20px;
         }
     }
     /*.content {
@@ -418,6 +422,9 @@ body.collapseHeader {
 
         @media(max-width: 600px) {
             flex-wrap: wrap;
+            .justifyContet(center);
+            margin: 20px 0 0 0;
+
         }
 
         #selected-classes {
@@ -442,7 +449,7 @@ body.collapseHeader {
                 width: @selectedButtonSize;
                 height: @selectedButtonSize;
                 line-height: @selectedButtonSize;
-                margin: 6px 3px;
+                margin: 16px 3px;
                 font-size: 20px;
                 text-align: center;
                 z-index: 1;
@@ -562,7 +569,6 @@ body.collapseHeader {
             .displayFlex;
             .align-items(center);
             .justifyContet(space-between);
-
 
             .department-name {
                 font-weight: bold;
@@ -778,7 +784,7 @@ body > .cart-animated {
 
 body > .cart-animated {
     margin: 0;
-    transition:all 0.5s linear;
+    transition: all 0.5s linear;
 }
 
 .slim.box-style {

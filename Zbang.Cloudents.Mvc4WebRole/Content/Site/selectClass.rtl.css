@@ -374,6 +374,14 @@ body.collapseHeader .title-strip {
   margin: 0;
   white-space: nowrap;
 }
+@media (max-width: 600px) {
+  .class-choose .status-strip h2,
+  .class-choose .title-strip h2,
+  .class-choose .status-strip ng-pluralize,
+  .class-choose .title-strip ng-pluralize {
+    font-size: 14px;
+  }
+}
 .class-choose .status-strip a,
 .class-choose .title-strip a {
   color: #ffffff;
@@ -423,10 +431,10 @@ body.collapseHeader .title-strip {
 }
 @media (max-width: 600px) {
   .class-choose .title {
-    font-size: 24px;
     line-height: normal;
     max-width: 360px;
-    padding: 0 0 10px 0;
+    font-size: 18px;
+    padding-top: 20px;
   }
 }
 .class-choose .search-container {
@@ -460,6 +468,9 @@ body.collapseHeader .title-strip {
 @media (max-width: 600px) {
   .class-choose .top {
     flex-wrap: wrap;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin: 20px 0 0 0;
   }
 }
 .class-choose .top #selected-classes {
@@ -486,7 +497,7 @@ body.collapseHeader .title-strip {
   width: 40px;
   height: 40px;
   line-height: 40px;
-  margin: 6px 3px;
+  margin: 16px 3px;
   font-size: 20px;
   text-align: center;
   z-index: 1;
