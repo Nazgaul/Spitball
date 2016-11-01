@@ -41,6 +41,8 @@ namespace Zbang.Zbox.Infrastructure.Search
         private const string DepartmentField = "department";
         private const string TypeFiled = "type";
         private const string FeedField = "feed";
+        private const string DepartmentIdField = "departmentId";
+
         private const string ParentDepartmentField = "parentDepartment";
 
         private Index GetBoxIndex()
@@ -57,7 +59,8 @@ namespace Zbang.Zbox.Infrastructure.Search
                 new Field(DepartmentField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true},
                 new Field(TypeFiled, DataType.Int32) { IsRetrievable = true},
                 new Field(FeedField, DataType.Collection(DataType.String)) { IsSearchable = true, IsRetrievable = true},
-                new Field(ParentDepartmentField, DataType.String) { IsRetrievable = true ,IsSortable = true, IsSearchable = true}
+                new Field(ParentDepartmentField, DataType.String) { IsRetrievable = true ,IsSortable = true, IsSearchable = true},
+                new Field(DepartmentIdField, DataType.String) { IsFilterable = true, IsRetrievable = true }
             });
         }
 
@@ -76,7 +79,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                     Course = s.CourseCode,
                     Department = s.Department.ToArray(),
                     Feed = s.Feed.ToArray(),
-                    ParentDepartment = s.ParentDepartment,
+                    DepartmentId = s.DepartmentId.ToString(),
                     Id = s.Id.ToString(CultureInfo.InvariantCulture),
                     Name = s.Name,
                     Professor = s.Professor,
@@ -185,7 +188,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                         query.UniversityId, query.UserId),
                 Top = query.RowsPerPage,
                 Skip = query.RowsPerPage * query.PageNumber,
-                Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField, TypeFiled },
+                Select = new[] { IdField, NameField, ProfessorField, CourseField, UrlField, TypeFiled,DepartmentIdField },
             }, cancellationToken: cancelToken);
             return result.Results.Select(s => new SearchBoxes(
                 SeachConnection.ConvertToType<long>(s.Document.Id),
@@ -193,6 +196,7 @@ namespace Zbang.Zbox.Infrastructure.Search
                 s.Document.Professor,
                 s.Document.Course,
                 s.Document.Url,
+                s.Document.DepartmentId,
                 (BoxType)s.Document.Type.GetValueOrDefault()
                 )
             ).ToList();

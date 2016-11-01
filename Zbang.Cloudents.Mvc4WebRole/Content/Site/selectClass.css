@@ -767,6 +767,7 @@ body > .cart-animated {
 }
 body > .cart-animated {
   margin: 0;
+  transition: all 0.5s linear;
 }
 .slim.box-style {
   height: auto;

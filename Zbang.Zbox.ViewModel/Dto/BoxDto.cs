@@ -12,7 +12,7 @@ namespace Zbang.Zbox.ViewModel.Dto
         } 
         public BoxDto(long id, string boxName,
             UserRelationshipType userType, int itemCount, int membersCount, int commentCount,
-            string courseCode, string professorName, BoxType boxType, string url)
+            string courseCode, string professorName, BoxType boxType, string url, Guid departmentId)
         {
             Id = id;
             Name = boxName;
@@ -24,14 +24,15 @@ namespace Zbang.Zbox.ViewModel.Dto
             CourseCode = courseCode;
             Professor = professorName;
             Url = url;
+            DepartmentId = departmentId;
         }
-        public BoxDto(long id, string boxName,
-            UserRelationshipType userType, int itemCount, int membersCount, int commentCount,
-           string courseCode, string professorName, BoxType boxType, string url, int updates)
-            : this(id, boxName, userType, itemCount, membersCount, commentCount, courseCode, professorName, boxType, url)
-        {
-            Updates = updates;
-        }
+        //public BoxDto(long id, string boxName,
+        //    UserRelationshipType userType, int itemCount, int membersCount, int commentCount,
+        //   string courseCode, string professorName, BoxType boxType, string url, int updates)
+        //    : this(id, boxName, userType, itemCount, membersCount, commentCount, courseCode, professorName, boxType, url)
+        //{
+        //    Updates = updates;
+        //}
 
 
         public string Name { get; set; }
@@ -39,8 +40,9 @@ namespace Zbang.Zbox.ViewModel.Dto
         public BoxType BoxType { get; set; }
         public int ItemCount { get; set; }
 
+        public Guid DepartmentId { get; set; }
         //obsolete
-        public int? Updates { get; set; }
+        //public int? Updates { get; set; }
 
         public int MembersCount { get; set; }
         public int CommentCount { get; set; }

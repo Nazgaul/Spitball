@@ -5,12 +5,12 @@
 }*@
 <script defer type="text/ng-template" id="box-template.html">
     <a ng-href="{{::e.url}}" class="box-template box-style" ga-track-event="['dashboard', 'box']">
-        <span ng-if="e.recommended" class="ribbon background text-capitalize" d-color="{{::e.name.length}}">@IndexResources.Suggested</span>
+        @*<span ng-if="e.recommended" class="ribbon background text-capitalize" d-color="{{::e.name.length}}">@IndexResources.Suggested</span>*@
         <div class="display">
             <div class="number">
                 <div class="title">
-                    <div class="icon background" d-color="{{::e.name.length}}" ng-bind="::e.name.substr(0,2)"></div>
-                    <h5 d-color="{{::e.name.length}}" ng-bind="::e.name"></h5>
+                    <div class="icon background" color="{{::e.departmentId}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
+                    <h5 color="{{::e.departmentId}}" ng-bind="::e.name"></h5>
                 </div>
                 <small class="ellipsis" ng-bind="::e.professor"></small><br />
                 <small class="ellipsis" ng-bind="::e.courseCode"></small>

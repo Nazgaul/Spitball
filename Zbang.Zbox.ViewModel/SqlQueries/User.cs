@@ -58,7 +58,8 @@ b.BoxName as Name,
         b.MembersCount as MembersCount,
         b.CourseCode,
         b.ProfessorName,
-        b.Url as Url
+        b.Url as Url,
+b.LibraryId as departmentId
         from 
     zbox.UserBoxRel uFriend
     join zbox.box b on b.BoxId = uFriend.BoxId and b.IsDeleted = 0
