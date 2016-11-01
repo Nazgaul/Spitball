@@ -1385,7 +1385,6 @@
     <Content Include="Js\components\quiz\quizCreate.config.js" />
     <Content Include="Js\components\user\user.service.js" />
     <Content Include="Js\initAngular.js" />
-    <Content Include="Js\shared\cartAnimation.directive.js" />
     <Content Include="Js\shared\collapseHeader.directive.js" />
     <Content Include="Js\shared\inlineManualNew.js" />
     <Content Include="Js\shared\sounds.js" />
@@ -1433,6 +1432,7 @@
     <TypeScriptCompile Include="Js\menu\sidemenu.controller.ts" />
     <TypeScriptCompile Include="Js\routerHelperProvider.ts" />
     <TypeScriptCompile Include="Js\shared\ajaxService2.ts" />
+    <TypeScriptCompile Include="Js\shared\cartAnimation.directive.ts" />
     <TypeScriptCompile Include="Js\shared\history.ts" />
     <TypeScriptCompile Include="Js\shared\itemThumbnail.ts" />
     <TypeScriptCompile Include="Js\shared\loader.ts" />

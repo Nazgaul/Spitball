@@ -37,9 +37,9 @@
         <div class="portlet light">
 
             <md-tabs class="page-tabs" md-dynamic-height="true">
-                <md-tab md-on-select="u.changeTab(u.state.badges)" md-active="u.tab === u.state.levels || u.tab === u.state.badges || u.tab === u.state.community">
+                @*<md-tab md-on-select="u.changeTab(u.state.badges)" md-active="u.tab === u.state.levels || u.tab === u.state.badges || u.tab === u.state.community">
                     <md-tab-label><h3>@GamificationResources.Badges</h3> <div class="number">4</div></md-tab-label>
-                </md-tab>
+                </md-tab>*@
                 <md-tab md-on-select="u.changeTab(u.state.item)" md-active="u.tab === u.state.item">
                     <md-tab-label><h3>@UserResources.Uploads</h3> <div class="number">{{u.details.numItem | megaNumber}}</div></md-tab-label>
                 </md-tab>

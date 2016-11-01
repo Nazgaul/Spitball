@@ -76,7 +76,6 @@
 /// <reference path="../js/shared/ajaxservice.js" />
 /// <reference path="../js/shared/animationclass.js" />
 /// <reference path="../js/shared/animationlocation.js" />
-/// <reference path="../js/shared/cartanimation.directive.js" />
 /// <reference path="../js/shared/collapseheader.directive.js" />
 /// <reference path="../Js/shared/colorOnLength.js" />
 /// <reference path="../js/shared/dropbox.js" />
