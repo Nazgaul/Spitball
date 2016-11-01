@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 
 namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
@@ -22,7 +23,7 @@ namespace Zbang.Zbox.ViewModel.Dto.BoxDtos
         public Infrastructure.Enums.BoxType Type { get; set; }
 
         public IEnumerable<string> Department { get; set; }
-        public string ParentDepartment { get; set; }
+        public Guid DepartmentId { get; set; }
 
         public IEnumerable<string> Feed { get; set; }
 

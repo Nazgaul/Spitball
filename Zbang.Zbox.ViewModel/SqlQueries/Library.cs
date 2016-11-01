@@ -12,7 +12,8 @@
     b.CourseCode as CourseCode,
     b.ProfessorName as ProfessorName,    
     b.Discriminator as BoxType,
-    b.Url as Url
+    b.Url as Url,
+    b.LibraryId as departmentId
     from zbox.box b 
     where b.IsDeleted = 0  and b.discriminator in (2,3)
     and  b.LibraryId = @ParentId

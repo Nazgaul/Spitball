@@ -234,7 +234,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 var query = new GetLibraryNodeQuery(universityId, guid, User.GetUserId());
                 var result = await ZboxReadService.GetLibraryNodeAsync(query);
                 if (result.Nodes == null) return JsonOk(result);
-                //if (skipUrl.GetValueOrDefault(true)) return JsonOk(result);
                 var route = BuildRouteDataFromUrl(Request.UrlReferrer.AbsoluteUri);
 
                 var universityName = route.Values["universityName"];

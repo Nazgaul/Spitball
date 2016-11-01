@@ -11,7 +11,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
 
         }
 
-        public SearchBoxes(long id, string name,  string professor, string courseCode, string url , 
+        public SearchBoxes(long id, string name,  string professor, string courseCode, string url , string departmentId,
              BoxType? type = null)
         {
             Id = id;
@@ -19,6 +19,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
             Professor = professor;
             CourseCode = courseCode;
             Url = url;
+            DepartmentId = departmentId;
             Type = type;
         }
         public string Name { get; set; }
@@ -29,8 +30,10 @@ namespace Zbang.Zbox.ViewModel.Dto.Search
 
         public string Url { get; set; }
 
-        public string Department { get; set; }
+        public string DepartmentId { get; set; }
 
         public BoxType? Type { get; set; }
+
+        
     }
 }

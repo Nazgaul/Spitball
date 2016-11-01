@@ -299,7 +299,7 @@ namespace Zbang.Zbox.ReadServices
                             var boxid = box.Id;
                             box.UserIds = usersInBoxes.Where(w => w.BoxId == boxid).Select(s => s.UserId);
                             box.Department = departmentsOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Name);
-                            box.ParentDepartment = box.Department.LastOrDefault();
+                            //box.ParentDepartment = box.Department.LastOrDefault();
                             box.Feed = feedOfBoxes.Where(w => w.BoxId == boxid).Select(s => s.Text);
                         }
                         retVal.BoxesToDelete = await grid.ReadAsync<long>();
