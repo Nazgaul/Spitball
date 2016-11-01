@@ -1,5 +1,21 @@
+body #main-nav {
+  -moz-transition: all 0.1s ease !important;
+  -o-transition: all 0.1s ease !important;
+  -webkit-transition: all 0.1s ease !important;
+  transition: all 0.1s ease !important;
+}
+body.collapseHeader .title {
+  display: none;
+}
+body.collapseHeader .class-choose .top-container {
+  top: 0;
+  box-shadow: 0 1px 5px #888b8e;
+}
+body.collapseHeader .title-strip {
+  opacity: 1;
+}
 .class-choose {
-  padding-top: 40px;
+  padding-top: 205px;
   /*.content {
         max-width: 600px;
         margin: 0 auto;
@@ -334,7 +350,8 @@
     margin-left: -95px;
   }
 }
-.class-choose .status-strip {
+.class-choose .status-strip,
+.class-choose .title-strip {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -344,18 +361,33 @@
   background: #FF9900;
   color: #ffffff;
   position: absolute;
-  top: 65px;
+  top: 0;
+  margin: 0;
   width: 100%;
 }
 .class-choose .status-strip h2,
-.class-choose .status-strip ng-pluralize {
+.class-choose .title-strip h2,
+.class-choose .status-strip ng-pluralize,
+.class-choose .title-strip ng-pluralize {
   font-size: 16px;
   line-height: normal;
   margin: 0;
+  white-space: nowrap;
 }
-.class-choose .status-strip a {
+.class-choose .status-strip a,
+.class-choose .title-strip a {
   color: #ffffff;
   text-decoration: underline;
+}
+.class-choose .status-strip {
+  z-index: 1;
+}
+.class-choose .title-strip {
+  opacity: 0;
+  -moz-transition: all 0.1s ease !important;
+  -o-transition: all 0.1s ease !important;
+  -webkit-transition: all 0.1s ease !important;
+  transition: all 0.1s ease !important;
 }
 .class-choose .animate-repeat.ng-enter,
 .class-choose .animate-repeat.ng-leave {
@@ -398,7 +430,21 @@
   }
 }
 .class-choose .search-container {
-  padding: 0 20px;
+  margin: 0 auto;
+}
+.class-choose .top-container {
+  position: fixed;
+  top: 65px;
+  right: 0;
+  left: 0;
+  padding-top: 40px;
+  background: #dadada;
+  -moz-transition: all 0.1s ease !important;
+  -o-transition: all 0.1s ease !important;
+  -webkit-transition: all 0.1s ease !important;
+  transition: all 0.1s ease !important;
+}
+.class-choose .top-container .wrapper {
   margin: 0 auto;
 }
 .class-choose .top {
@@ -410,6 +456,11 @@
   -webkit-justify-content: space-between;
   justify-content: space-between;
   margin: 46px 0 30px 0;
+}
+@media (max-width: 600px) {
+  .class-choose .top {
+    flex-wrap: wrap;
+  }
 }
 .class-choose .top #selected-classes {
   flex-shrink: 0;
@@ -435,7 +486,7 @@
   width: 40px;
   height: 40px;
   line-height: 40px;
-  margin-right: 6px;
+  margin: 6px 3px;
   font-size: 20px;
   text-align: center;
   z-index: 1;
@@ -621,9 +672,8 @@
   overflow: auto !important;
 }
 .selected-class-dialog {
-  max-width: 500px;
-  width: 100%;
   background: #dadada;
+  max-width: 90%;
 }
 .selected-class-dialog .department-name {
   font-size: 22px;
@@ -632,79 +682,67 @@
 }
 .selected-class-dialog md-toolbar {
   min-height: 0;
-  padding: 20px 25px;
-  background: #323538;
 }
-.selected-class-dialog md-toolbar h2 {
-  margin: 0;
-  font-size: 16px;
-  min-height: 0;
+.selected-class-dialog md-toolbar .title {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 24px;
+  text-align: center;
+  font-weight: bold;
+  color: #323538;
+  font-size: 22px;
 }
-.selected-class-dialog md-toolbar button {
-  min-width: 0;
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-  line-height: 0;
-  height: 15px;
-}
-.selected-class-dialog md-toolbar button md-icon {
-  width: 15px;
-  height: 15px;
-  fill: #ffffff;
+@media (max-width: 600px) {
+  .selected-class-dialog md-toolbar .title {
+    font-size: 3.7vw;
+  }
 }
 .selected-class-dialog md-dialog-content {
   width: 100%;
-  margin: 18px auto;
   padding: 10px;
 }
-.selected-class-dialog md-dialog-content .department-name {
-  margin: 0 auto;
+.selected-class-dialog md-dialog-content .data-wrapper .department-name,
+.selected-class-dialog md-dialog-content .data-wrapper .box-container {
+  margin: 0 auto 10px auto;
   max-width: 300px;
 }
-.selected-class-dialog md-dialog-content .center {
+.selected-class-dialog md-dialog-content .data-wrapper .center {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-.selected-class-dialog md-dialog-content .center .box-container {
+.selected-class-dialog md-dialog-content .data-wrapper .center .box-container {
   flex-shrink: 0;
   flex-grow: 1;
   max-width: 300px;
   width: 100%;
 }
-.selected-class-dialog md-dialog-content .center .next,
-.selected-class-dialog md-dialog-content .center .prev {
-  width: 100%;
-  flex-shrink: 1;
-  flex-grow: 0;
-}
-.selected-class-dialog md-dialog-content .center .next.disabled md-icon,
-.selected-class-dialog md-dialog-content .center .prev.disabled md-icon {
-  fill: #c3c3c3;
-}
-.selected-class-dialog md-dialog-content .center .next md-icon,
-.selected-class-dialog md-dialog-content .center .prev md-icon {
-  width: 20px;
-  height: 20px;
-  fill: #888b8e;
-}
-.selected-class-dialog md-dialog-content .center .prev {
-  -webkit-transform: rotate(-180deg);
-  -moz-transform: rotate(-180deg);
-  -o-transform: rotate(-180deg);
-  -ms-transform: rotate(-180deg);
-  transform: rotate(-180deg);
+.selected-class-dialog md-dialog-content .data-wrapper .buttons .action-btn {
+  background: #DB4437;
 }
 .selected-class-dialog md-dialog-content .buttons {
   text-align: center;
-  margin-top: 50px;
+  margin: 20px 0 10px 0;
 }
 .selected-class-dialog md-dialog-content .buttons .action-btn {
-  background: #DB4437;
   margin-right: 10px;
+}
+.selected-class-dialog md-dialog-content .confirm {
+  text-align: center;
+}
+.selected-class-dialog md-dialog-content .confirm md-icon {
+  width: 30px;
+  height: 30px;
+  fill: #ffb918;
+  margin: 10px;
+}
+.selected-class-dialog md-dialog-content .confirm .text {
+  font-size: 16px;
+  max-width: 200px;
+  margin: 0 auto;
 }
 .class-choose .slim.box-style .icon,
 body > .icon {
@@ -800,6 +838,9 @@ body > .cart-animated {
   align-items: center;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
+}
+.slim.box-style .data .stats .stat .num {
+  margin-top: 2px;
 }
 .slim.box-style .data .stats md-icon {
   width: 12px;

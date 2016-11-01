@@ -20,7 +20,6 @@ var app;
             this.create = {};
             this.data = [];
             this.classSearch();
-            console.log(this.nodeData.map(function (m) { return m.boxes; }));
             var ids = [];
             angular.forEach(boxes, function (v) {
                 ids.push(v.id);
@@ -75,7 +74,7 @@ var app;
                     course: course,
                     courses: this.selectedCourses
                 },
-                fullscreen: true
+                fullscreen: false
             });
         };
         ClassChoose.prototype.choose = function (course, department) {

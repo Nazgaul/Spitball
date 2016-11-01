@@ -1,15 +1,34 @@
 ﻿@import "variables.less";
 
+body #main-nav {
+    .transition(all, 0.1s, ease);
+}
+
+body.collapseHeader {
+    .title {
+        display: none;
+    }
+
+    .class-choose .top-container {
+        top: 0;
+        box-shadow: 0 1px 5px @textColorGrey;
+    }
+
+    .title-strip {
+        opacity: 1;
+    }
+}
+
 .class-choose {
     @media (min-width: 960px) {
         margin-left: -@widthOfSideMenu;
         margin-right: -@widthOfChat;
     }
 
-    padding-top: 40px;
+    padding-top: 205px;
 
 
-    .status-strip {
+    .status-strip, .title-strip {
         .displayFlex;
         align-items: center;
         justify-content: center;
@@ -17,13 +36,15 @@
         background: #FF9900;
         color: @textColorWhite;
         position: absolute;
-        top: @heightOfHeader;
+        top: 0;
+        margin: 0;
         width: 100%;
 
         h2, ng-pluralize {
             font-size: 16px;
             line-height: normal;
             margin: 0;
+            white-space: nowrap;
         }
 
         a {
@@ -32,6 +53,14 @@
         }
     }
 
+    .status-strip {
+        z-index: 1;
+    }
+
+    .title-strip {
+        opacity: 0;
+        .transition(all, 0.1s, ease);
+    }
 
     .animate-repeat {
         &.ng-enter,
@@ -364,8 +393,21 @@
         }
     }*/
     .search-container {
-        padding: 0 20px;
         margin: 0 auto;
+    }
+
+    .top-container {
+        position: fixed;
+        top: 65px;
+        left: 0;
+        right: 0;
+        padding-top: 40px;
+        background: #dadada;
+        .transition(all, 0.1s, ease);
+
+        .wrapper {
+            margin: 0 auto;
+        }
     }
 
     .top {
@@ -373,6 +415,10 @@
         .align-items(center);
         .justifyContet(space-between);
         margin: 46px 0 30px 0;
+
+        @media(max-width: 600px) {
+            flex-wrap: wrap;
+        }
 
         #selected-classes {
             flex-shrink: 0;
@@ -382,7 +428,6 @@
 
             button {
                 color: @textColorWhite;
-
             }
 
             .empty {
@@ -397,7 +442,7 @@
                 width: @selectedButtonSize;
                 height: @selectedButtonSize;
                 line-height: @selectedButtonSize;
-                margin-left: 6px;
+                margin: 6px 3px;
                 font-size: 20px;
                 text-align: center;
                 z-index: 1;
@@ -624,9 +669,8 @@
 }
 
 .selected-class-dialog {
-    max-width: 500px;
-    width: 100%;
     background: @backgroundColor;
+    max-width: 90%;
 
     .department-name {
         font-size: 22px;
@@ -636,88 +680,73 @@
 
     md-toolbar {
         min-height: 0;
-        padding: 20px 25px;
-        background: @headerbackground;
 
-        h2 {
-            margin: 0;
-            font-size: 16px;
-            min-height: 0;
-        }
+        .title {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 24px;
+            text-align: center;
+            font-weight: bold;
+            color: @headerbackground;
+            font-size: 22px;
 
-        button {
-            @closeHeight: 15px;
-            min-width: 0;
-            min-height: 0;
-            margin: 0;
-            padding: 0;
-            line-height: 0;
-            height: @closeHeight;
-
-            md-icon {
-                width: @closeHeight;
-                height: @closeHeight;
-                fill: @textColorWhite;
+            @media(max-width: 600px) {
+                font-size: 3.7vw;
             }
         }
     }
 
     md-dialog-content {
         width: 100%;
-        margin: 18px auto;
         padding: 10px;
 
-        .department-name {
-            margin: 0 auto;
-            max-width: 300px;
-        }
-
-        .center {
-            .displayFlex;
-            .align-items(center);
-
-            .box-container {
-                flex-shrink: 0;
-                flex-grow: 1;
+        .data-wrapper {
+            .department-name, .box-container {
+                margin: 0 auto 10px auto;
                 max-width: 300px;
-                width: 100%;
             }
 
-            .next, .prev {
-                width: 100%;
-                flex-shrink: 1;
-                flex-grow: 0;
+            .center {
+                .displayFlex;
+                .align-items(center);
 
-                &.disabled md-icon {
-                    fill: @textColorLightGrey;
-                }
-
-                md-icon {
-                    width: 20px;
-                    height: 20px;
-                    fill: @textColorGrey;
+                .box-container {
+                    flex-shrink: 0;
+                    flex-grow: 1;
+                    max-width: 300px;
+                    width: 100%;
                 }
             }
 
-            .next {
-            }
-
-            .prev {
-                -webkit-transform: rotate(180deg);
-                -moz-transform: rotate(180deg);
-                -o-transform: rotate(180deg);
-                -ms-transform: rotate(180deg);
-                transform: rotate(180deg);
+            .buttons .action-btn {
+                background: #DB4437;
             }
         }
 
         .buttons {
             text-align: center;
-            margin-top: 50px;
+            margin: 20px 0 10px 0;
 
             .action-btn {
-                background: #DB4437;
                 margin-left: 10px;
+            }
+        }
+
+        .confirm {
+            text-align: center;
+
+            md-icon {
+                width: 30px;
+                height: 30px;
+                fill: #ffb918;
+                margin: 10px;
+            }
+
+            .text {
+                font-size: 16px;
+                max-width: 200px;
+                margin: 0 auto;
             }
         }
     }
@@ -809,6 +838,10 @@ body > .cart-animated {
                 .displayFlex;
                 .align-items(center);
                 .justifyContet(flex-start);
+
+                .num {
+                    margin-top: 2px;
+                }
             }
 
             md-icon {

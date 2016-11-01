@@ -1,33 +1,39 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Js.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.University.Resources
-@*<div collapse-header>*@
-    <div class="status-strip" ng-if="cc.selectedCourses.length && !cc.showCreateClass">
-        <h2>You've added&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
-                                                 when="{
+<div collapse-header>
+    <div class="top-container" ng-if="!cc.showCreateClass">
+        <div class="status-strip" ng-if="cc.selectedCourses.length && !cc.showCreateClass">
+            <h2>You've added&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
+                                                     when="{
                      'one': '1 class,',
                      'other': '{} classes,'}">
-        </ng-pluralize>
-        <h2 ng-if="cc.selectedCourses.length == 1">&nbsp;continue selecting classes</h2>
-        <h2 ng-if="cc.selectedCourses.length >= 2">&nbsp;<a ui-sref="dashboard">click here</a>&nbsp;if you're done</h2>
-    </div>
-
-    <div class="search-container" ng-if="!cc.showCreateClass" flex-gt-md="85">
-        <h2 class="title" ng-if="!cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep1</h2>
-        <h2 class="title" ng-if="cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep2</h2>
-        <div class="top">
-            <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
-                <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
-                       ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
-                <button type="submit" class="search-button">
-                    <md-icon md-svg-icon="lc:filter"></md-icon>
-                </button>
-            </form>
-            <div id="selected-classes">
-                <button type="button" class="icon background angular-animate" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id " ng-bind="::sc.name.substr(0,2)"></button>
-                <div class="empty angular-animate" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
+            </ng-pluralize>
+            <h2 ng-if="cc.selectedCourses.length == 1">&nbsp;continue selecting classes</h2>
+            <h2 ng-if="cc.selectedCourses.length >= 2">&nbsp;<a ui-sref="dashboard">click here</a>&nbsp;if you're done</h2>
+        </div>
+        <div class="title-strip">
+            <h2 ng-if="!cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep1</h2>
+        </div>
+        <div class="wrapper" flex-gt-md="85">
+            <h2 class="title" ng-if="!cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep1</h2>
+            <h2 class="title" ng-if="cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep2</h2>
+            <div class="top">
+                <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
+                    <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
+                           ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
+                    <button type="submit" class="search-button">
+                        <md-icon md-svg-icon="t:searchIcon"></md-icon>
+                    </button>
+                </form>
+                <div id="selected-classes">
+                    <button type="button" class="icon background angular-animate" d-color="{{::sc.department.length}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id " ng-bind="::sc.name.substr(0,2)"></button>
+                    <div class="empty angular-animate" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="search-container" flex-gt-md="85">
         <div class="grid-container">
             <ol class="results list-unstyled">
                 <li ng-repeat="department in cc.data track by department.id">
@@ -111,45 +117,46 @@
     <script type="text/ng-template" id="dialog.tmpl.html">
         <md-dialog class="selected-class-dialog">
             <md-toolbar layout="row" layout-align="space-between center">
-                <h2>Selected class</h2>
+                <img src="@Url.CdnContent("/Images/Site/course_choose_popup.png")" />
+                <div class="title">Selected Class</div>
             </md-toolbar>
             <md-dialog-content>
-                <div class="department-name" d-color-scope="cd.course.department.length" ng-bind="cd.course.department"></div>
-                <div class="center">
-                    <button class="prev" ng-click="cd.prev()">
-                        <md-icon md-svg-icon="p:arrow-right"></md-icon>
-                    </button>
-                    <div class="box-container">
-                        <div class="box-container box-template box-style slim">
-                            <div class="icon background" d-color="{{cd.course.department.length}}" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
-                            <div class="data">
-                                <div class="details">
-                                    <h5 class="name ellipsis" dir="auto" d-color="{{cd.course.department}}" ng-bind="cd.course.name" title="{{cd.course.name}}"></h5>
-                                    <div class="metadata">
-                                        <div class="code ellipsis" dir="auto" ng-bind="cd.course.courseCode"></div>
-                                        <div class="professor ellipsis" dir="auto" ng-bind="cd.course.professor"></div>
-                                    </div>
+                <div class="data-wrapper" ng-if="!cd.confirmStep">
+                    <div class="department-name" d-color-scope="cd.course.department.length" ng-bind="cd.course.department"></div>
+                    <div class="box-container box-template box-style slim">
+                        <div class="icon background" d-color="{{cd.course.department.length}}" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
+                        <div class="data">
+                            <div class="details">
+                                <h5 class="name ellipsis" dir="auto" d-color="{{cd.course.department}}" ng-bind="cd.course.name" title="{{cd.course.name}}"></h5>
+                                <div class="metadata">
+                                    <div class="code ellipsis" dir="auto" ng-bind="cd.course.courseCode"></div>
+                                    <div class="professor ellipsis" dir="auto" ng-bind="cd.course.professor"></div>
                                 </div>
-                                <div class="stats">
-                                    <div class="users stat">
-                                        <md-icon md-svg-icon="t:user"></md-icon>
-                                        <div class="num" ng-bind="cd.course.members | megaNumber"></div>
-                                    </div>
-                                    <div class="docs stat">
-                                        <md-icon md-svg-icon="t:docs"></md-icon>
-                                        <div class="num" ng-bind="cd.course.items | megaNumber"></div>
-                                    </div>
+                            </div>
+                            <div class="stats">
+                                <div class="users stat">
+                                    <md-icon md-svg-icon="t:user"></md-icon>
+                                    <div class="num" ng-bind="cd.course.members | megaNumber"></div>
+                                </div>
+                                <div class="docs stat">
+                                    <md-icon md-svg-icon="t:docs"></md-icon>
+                                    <div class="num" ng-bind="cd.course.items | megaNumber"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button class="next" ng-click="cd.next()">
-                        <md-icon md-svg-icon="p:arrow-right"></md-icon>
-                    </button>
+                    <div class="buttons">
+                        <button ng-click="cd.close()" class="cancel-btn">@GeneralResources.Cancel</button>
+                        <button ng-click="cd.confirmStep = true" class="action-btn">@GeneralResources.Delete</button>
+                    </div>
                 </div>
-                <div class="buttons">
-                    <button ng-click="cd.close()" class="cancel-btn">@GeneralResources.Cancel</button>
-                    <button ng-click="cd.remove()" class="action-btn">@GeneralResources.Delete</button>
+                <div class="confirm" ng-if="cd.confirmStep">
+                    <md-icon md-svg-icon="t:alert"></md-icon>
+                    <div class="text">Are you sure you want to delete this class</div>
+                    <div class="buttons">
+                        <button ng-click="cd.close()" class="cancel-btn">No</button>
+                        <button ng-click="cd.remove()" class="action-btn">Yes</button>
+                    </div>
                 </div>
             </md-dialog-content>
         </md-dialog>
@@ -177,7 +184,7 @@
             </div>
         </div>
     </script>
-@*</div>*@
+</div>
 
 @*<md-grid-list class="results" md-cols="4" md-row-height="72px"  md-gutter="12px">
         <md-grid-tile md-colspan="1" md-rowspan="{{value.length}}" ng-repeat="(key,value) in cc.data track by key">

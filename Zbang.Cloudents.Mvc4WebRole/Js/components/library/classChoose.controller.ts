@@ -32,7 +32,7 @@
             private $timeout: angular.ITimeoutService) {
 
             this.classSearch();
-            console.log(this.nodeData.map(m => m.boxes))
+            //console.log(this.nodeData.map(m => m.boxes))
             var ids = [];
             angular.forEach(boxes,
 
@@ -94,7 +94,7 @@
                     courses: this.selectedCourses
                 },
                 //scope: this.$scope,
-                fullscreen: true // Only for -xs, -sm breakpoints.
+                fullscreen: false // Only for -xs, -sm breakpoints.
             });
             //.then((response) => {
             //    console.log(response);
