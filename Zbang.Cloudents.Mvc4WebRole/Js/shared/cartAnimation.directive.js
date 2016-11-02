@@ -21,7 +21,6 @@ var app;
                     })
                         .appendTo($('body'));
                     var offeset = elem.offset();
-                    console.log(offeset, cart.offset());
                     _this.$animate.animate(elemtClone, {
                         top: offeset.top,
                         left: offeset.left,

@@ -10,14 +10,16 @@
         confirmStep = false;
         close() {
             this.confirmStep = false;
-            this.$mdDialog.hide(this.courses);
+            this.$mdDialog.cancel();
         };
         
         remove() {
             this.boxService.unfollow(this.course.id);
-            var index = this.courses.indexOf(this.course);
+            const index = this.courses.indexOf(this.course);
             this.courses.splice(index, 1); 
-            this.close();
+            this.confirmStep = false;
+            this.$mdDialog.hide(this.course);
+            
         }
 
     }

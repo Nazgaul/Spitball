@@ -57,7 +57,11 @@ var app;
                 return;
             }
             var boxes = this.$filter("filter")(angular.copy(this.nodeData), function (value) {
-                value.boxes = _this.$filter("filter")(value.boxes, _this.term);
+                value.boxes = _this.$filter("filter")(value.boxes, {
+                    name: _this.term,
+                    courseCode: _this.term,
+                    professor: _this.term
+                });
                 if (value.boxes && value.boxes.length) {
                     return value.boxes;
                 }
@@ -80,6 +84,7 @@ var app;
             return output;
         };
         ClassChoose.prototype.status = function (ev, course) {
+            var _this = this;
             this.$mdDialog.show({
                 templateUrl: "dialog.tmpl.html",
                 targetEvent: ev,
@@ -91,6 +96,10 @@ var app;
                     courses: this.selectedCourses
                 },
                 fullscreen: false
+            }).then(function (response) {
+                var department = _this.nodeData.find(function (f) { return f.id === response.departmentId; });
+                var box = department.boxes.find(function (f) { return f.id === response.id; });
+                box["selected"] = false;
             });
         };
         ClassChoose.prototype.choose = function (course, department) {

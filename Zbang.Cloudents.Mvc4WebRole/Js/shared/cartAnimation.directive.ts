@@ -26,7 +26,6 @@ module app {
                         .appendTo($('body'));
                     //var timing = "0.5s";
                     var offeset = elem.offset();
-                    console.log(offeset, cart.offset());
                     this.$animate.animate(elemtClone,
                         {
                             //position: 'absolute',

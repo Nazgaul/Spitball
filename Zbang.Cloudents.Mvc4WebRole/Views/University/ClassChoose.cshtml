@@ -118,7 +118,7 @@
             <div dir="auto" class="department-name ellipsis" ng-bind="::department.name" color="{{::department.id}}" title="{{::department.name}}"></div>
         </div>
         <ol class="department-courses list-unstyled">
-            <li class="" ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected">
+            <li ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected">
                 <button class="angular-animate" cart-animation-to=".empty" cart-animation=".icon" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e,department)">
                     <div class="box-template box-style slim" ng-include="'slim-box-template.html'"></div>
                 </button>
@@ -129,7 +129,7 @@
         <md-dialog class="selected-class-dialog">
             <md-toolbar layout="row" layout-align="space-between center">
                 <img src="@Url.CdnContent("/Images/Site/course_choose_popup.png?v=1")" />
-                <div class="title">Selected Class</div>
+                <div class="title">@UniversityResources.classChoosePopupTitle</div>
             </md-toolbar>
             <md-dialog-content>
                 <div class="data-wrapper" ng-if="!cd.confirmStep">

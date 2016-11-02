@@ -77,7 +77,12 @@
 
             // we manipulate the boxes inorder to remove them
             const boxes = this.$filter("filter")(angular.copy(this.nodeData), (value) => {
-                value.boxes = this.$filter("filter")(value.boxes, this.term);
+                //value.boxes = this.$filter("filter")(value.boxes, this.term);
+                value.boxes = this.$filter("filter")(value.boxes, {
+                    name: this.term,
+                    courseCode: this.term,
+                    professor: this.term
+                });
                 if (value.boxes && value.boxes.length) {
                     return value.boxes;
                 }
@@ -114,10 +119,12 @@
                 },
                 //scope: this.$scope,
                 fullscreen: false // Only for -xs, -sm breakpoints.
+            }).then((response: ISmallBoxClassChoose) => {
+                var department = this.nodeData.find(f => f.id === response.departmentId);
+                var box = department.boxes.find(f => f.id === response.id);
+                box["selected"] = false;
+                //console.log(response);
             });
-            //.then((response) => {
-            //    console.log(response);
-            //});
 
         }
 
