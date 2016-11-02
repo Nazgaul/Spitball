@@ -56,14 +56,28 @@ var app;
                 this.data = this.nodeData;
                 return;
             }
-            var data = angular.copy(this.nodeData);
-            var filterDepartment = this.$filter("filter")(data, this.term);
-            var departments = this.$filter("filter")(filterDepartment, function (value) {
+            var boxes = this.$filter("filter")(angular.copy(this.nodeData), function (value) {
                 value.boxes = _this.$filter("filter")(value.boxes, _this.term);
-                return value;
+                if (value.boxes && value.boxes.length) {
+                    return value.boxes;
+                }
             });
-            this.data = departments.filter(function (f) { return f.boxes.length > 0; });
+            var department = this.$filter("filter")(this.nodeData, { name: this.term });
+            this.data = this.makeUnique(department.concat(boxes));
             this.$anchorScroll();
+        };
+        ClassChoose.prototype.makeUnique = function (array) {
+            var flags = [];
+            var output = [];
+            var l = array.length;
+            var i;
+            for (i = 0; i < l; i++) {
+                if (flags[array[i].id])
+                    continue;
+                flags[array[i].id] = true;
+                output.push(array[i]);
+            }
+            return output;
         };
         ClassChoose.prototype.status = function (ev, course) {
             this.$mdDialog.show({

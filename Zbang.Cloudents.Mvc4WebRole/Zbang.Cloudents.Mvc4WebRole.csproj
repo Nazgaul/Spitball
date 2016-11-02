@@ -2773,6 +2773,7 @@
     <EmbeddedResource Include="Views\Shared\Resources\GeneralResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>GeneralResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.he.resx" />
     <EmbeddedResource Include="Views\Shared\Resources\IndexResources.resx">

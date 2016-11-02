@@ -88,6 +88,42 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.University.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to click here.
+        /// </summary>
+        public static string ClassChooseYellowClickHere {
+            get {
+                return ResourceManager.GetString("ClassChooseYellowClickHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You&apos;ve added.
+        /// </summary>
+        public static string ClassChooseYellowTitle1 {
+            get {
+                return ResourceManager.GetString("ClassChooseYellowTitle1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to continue selecting classes.
+        /// </summary>
+        public static string ClassChooseYellowTitle2 {
+            get {
+                return ResourceManager.GetString("ClassChooseYellowTitle2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to if you&apos;re done.
+        /// </summary>
+        public static string ClassChooseYellowTitle3 {
+            get {
+                return ResourceManager.GetString("ClassChooseYellowTitle3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string Continue {
@@ -232,7 +268,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.University.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to Spitball. Start by selecting your first class.
+        ///   Looks up a localized string similar to Welcome to Spitball! Start by selecting your first class..
         /// </summary>
         public static string OnboardingHeaderStep1 {
             get {

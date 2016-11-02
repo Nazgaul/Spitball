@@ -30,7 +30,7 @@
             private resManager: IResManager,
             private $scope: angular.IScope,
             private $anchorScroll: angular.IAnchorScrollService
-           ) {
+        ) {
 
             this.classSearch();
             //console.log(this.nodeData.map(m => m.boxes))
@@ -72,15 +72,33 @@
                 this.data = this.nodeData;
                 return;
             }
-            const data = angular.copy(this.nodeData);
-            const filterDepartment = this.$filter("filter")(data, this.term);
-            const departments = this.$filter("filter")(filterDepartment, (value) => {
+            //const data = angular.copy(this.nodeData);
+            //console.log(data.length);
+
+            // we manipulate the boxes inorder to remove them
+            const boxes = this.$filter("filter")(angular.copy(this.nodeData), (value) => {
                 value.boxes = this.$filter("filter")(value.boxes, this.term);
-                return value;
+                if (value.boxes && value.boxes.length) {
+                    return value.boxes;
+                }
+
             });
-            this.data = departments.filter(f => f.boxes.length > 0);
+            const department = this.$filter("filter")(this.nodeData, { name: this.term });
+            this.data = this.makeUnique(department.concat(boxes));
             this.$anchorScroll(); //scroll to the top
 
+        }
+        private makeUnique(array) {
+            const flags = [];
+            const output = [];
+            const l = array.length;
+            let i: number;
+            for (i = 0; i < l; i++) {
+                if (flags[array[i].id]) continue;
+                flags[array[i].id] = true;
+                output.push(array[i]);
+            }
+            return output;
         }
 
         status(ev, course) {
@@ -103,22 +121,22 @@
 
         }
 
-    
+
 
         choose(course, department) {
             //this.$timeout(() => {
-                this.boxService.follow(course.id);
-                this.$scope.$emit("refresh-boxes");
-                course["selected"] = true;
+            this.boxService.follow(course.id);
+            this.$scope.$emit("refresh-boxes");
+            course["selected"] = true;
 
-                const pushOne = angular.extend({},
-                    course,
-                    {
-                        department: department.name,
-                        departmentId: department.id
-                    });
-                this.selectedCourses.push(
-                    pushOne);
+            const pushOne = angular.extend({},
+                course,
+                {
+                    department: department.name,
+                    departmentId: department.id
+                });
+            this.selectedCourses.push(
+                pushOne);
             //});
 
         }
