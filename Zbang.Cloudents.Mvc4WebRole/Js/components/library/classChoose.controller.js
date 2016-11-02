@@ -57,7 +57,11 @@ var app;
                 return;
             }
             var boxes = this.$filter("filter")(angular.copy(this.nodeData), function (value) {
-                value.boxes = _this.$filter("filter")(value.boxes, _this.term);
+                value.boxes = _this.$filter("filter")(value.boxes, {
+                    name: _this.term,
+                    courseCode: _this.term,
+                    professor: _this.term
+                });
                 if (value.boxes && value.boxes.length) {
                     return value.boxes;
                 }

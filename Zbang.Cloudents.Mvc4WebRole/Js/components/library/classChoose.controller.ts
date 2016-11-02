@@ -77,7 +77,12 @@
 
             // we manipulate the boxes inorder to remove them
             const boxes = this.$filter("filter")(angular.copy(this.nodeData), (value) => {
-                value.boxes = this.$filter("filter")(value.boxes, this.term);
+                //value.boxes = this.$filter("filter")(value.boxes, this.term);
+                value.boxes = this.$filter("filter")(value.boxes, {
+                    name: this.term,
+                    courseCode: this.term,
+                    professor: this.term
+                });
                 if (value.boxes && value.boxes.length) {
                     return value.boxes;
                 }
