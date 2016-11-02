@@ -31,7 +31,7 @@
                             $body.removeClass(className);
                         }
                         lastScrollTop = st;
-                    }, 100)
+                    }, 10)
                 }
 
                 scope.$on('$destroy', function () {
