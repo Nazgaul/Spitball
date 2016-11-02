@@ -812,6 +812,9 @@ md-menu-item > a.md-button {
 .item-animate.ng-enter.ng-enter-active {
   opacity: 1;
 }
+.drop {
+  border: 5px dashed red;
+}
 .upload .form-body {
   display: -webkit-flex;
   display: -ms-flex;
