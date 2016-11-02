@@ -570,7 +570,7 @@ body.collapseHeader .title-strip {
 @media (max-width: 600px) {
   .class-choose .search-form input {
     font-size: 16px;
-    padding: 0 10px;
+    padding: 0 10px 0 40px;
   }
 }
 .class-choose .search-form input:focus {
@@ -667,6 +667,10 @@ body.collapseHeader .title-strip {
   width: 18px;
   height: 18px;
 }
+.class-choose .results .title .add-class md-icon {
+  width: 16px;
+  height: 16px;
+}
 .class-choose .results .department-courses {
   width: 100%;
 }
@@ -738,14 +742,56 @@ body.collapseHeader .title-strip {
   font-size: 16px;
 }
 .create-class-dialog {
+  max-width: 450px;
+  max-height: 100vh;
+}
+.create-class-dialog md-toolbar {
+  display: block;
+  text-align: center;
+}
+.create-class-dialog form {
   width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px;
+}
+.create-class-dialog form .form-field:last-of-type .md-errors-spacer {
+  display: none;
+}
+.create-class-dialog form md-input-container {
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+.create-class-dialog form md-input-container.md-input-focused label:not(.md-no-float),
+.create-class-dialog form md-input-container.md-input-has-placeholder label:not(.md-no-float),
+.create-class-dialog form md-input-container.md-input-has-value label:not(.md-no-float) {
+  -moz-transform: translate3d(0, 6px, 0) scale(0.65);
+  -ms-transform: translate3d(0, 6px, 0) scale(0.65);
+  -o-transform: translate3d(0, 6px, 0) scale(0.65);
+  -webkit-transform: translate3d(0, 6px, 0) scale(0.65);
+  transform: translate3d(0, 6px, 0) scale(0.65);
+}
+.create-class-dialog form md-input-container .md-input-message-animation:not(.ng-animate) {
+  font-size: 11px;
+  text-align: left;
+}
+.create-class-dialog .buttons {
+  text-align: left;
+  margin-top: 10px;
 }
 .md-toast-animating {
   overflow: auto !important;
 }
+.create-class-dialog,
 .selected-class-dialog {
   background: #dadada;
   max-width: 90%;
+}
+.create-class-dialog .title,
+.selected-class-dialog .title {
+  font-weight: bold;
+  color: #323538;
+  font-size: 22px;
 }
 .selected-class-dialog .department-name {
   font-size: 22px;
@@ -761,9 +807,6 @@ body.collapseHeader .title-strip {
   left: 0;
   bottom: 24px;
   text-align: center;
-  font-weight: bold;
-  color: #323538;
-  font-size: 22px;
 }
 @media (max-width: 600px) {
   .selected-class-dialog md-toolbar .title {

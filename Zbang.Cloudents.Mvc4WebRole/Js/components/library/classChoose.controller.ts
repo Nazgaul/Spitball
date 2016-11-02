@@ -160,7 +160,7 @@
                     //    courses: this.selectedCourses
                 },
                 //scope: this.$scope,
-                fullscreen: true // Only for -xs, -sm breakpoints.
+                fullscreen: false // Only for -xs, -sm breakpoints.
             }).then((response) => {
                 this.nodeData = response.nodeData;
                 this.selectedCourses.push((response.box as ISmallBoxClassChoose));

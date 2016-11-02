@@ -121,7 +121,7 @@ var app;
                     selectedDepartment: department,
                     nodeData: this.nodeData
                 },
-                fullscreen: true
+                fullscreen: false
             }).then(function (response) {
                 _this.nodeData = response.nodeData;
                 _this.selectedCourses.push(response.box);
