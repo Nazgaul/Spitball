@@ -460,6 +460,15 @@ body.collapseHeader .title-strip {
   -o-transition: all 0.1s ease !important;
   -webkit-transition: all 0.1s ease !important;
   transition: all 0.1s ease !important;
+  /*&:after {
+            content: '';
+            display: block;
+            width: 100%;
+            background: @headerbackground;
+            height: @heightOfHeader;
+            position: absolute;
+            top: -@heightOfHeader;
+        }*/
 }
 .class-choose .top-container .wrapper {
   margin: 0 auto;
