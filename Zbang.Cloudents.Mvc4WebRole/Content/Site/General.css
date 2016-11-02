@@ -20,10 +20,10 @@ body {
   background: #dadada;
 }
 body.collapseHeader {
-  margin-top: -70px;
+  margin-top: -65px;
 }
 body.collapseHeader #main-nav {
-  margin-top: -70px;
+  margin-top: -65px;
 }
 body.collapseHeader .itemPage header {
   top: 0;
