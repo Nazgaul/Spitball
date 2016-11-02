@@ -72,7 +72,7 @@ namespace Zbang.Zbox.WorkerRoleSearch
             catch (Exception ex)
             {
                 TraceLog.WriteError(ex);
-                await Task.Delay(TimeSpan.FromHours(1), cancellationToken);
+                await Task.Delay(TimeSpan.FromHours(2), cancellationToken);
             }
         }
 
