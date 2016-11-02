@@ -210,6 +210,9 @@ Try to search again or add this class to our listings.</value>
   <data name="OnboardingCreateClass" xml:space="preserve">
     <value>Create a new class</value>
   </data>
+  <data name="classChoosePopupTitle" xml:space="preserve">
+    <value>Selected Class</value>
+  </data>
   <data name="ClassChooseYellowClickHere" xml:space="preserve">
     <value>click here</value>
   </data>

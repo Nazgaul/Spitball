@@ -10,14 +10,15 @@ var app;
         }
         ClassChooseDialog.prototype.close = function () {
             this.confirmStep = false;
-            this.$mdDialog.hide(this.courses);
+            this.$mdDialog.cancel();
         };
         ;
         ClassChooseDialog.prototype.remove = function () {
             this.boxService.unfollow(this.course.id);
             var index = this.courses.indexOf(this.course);
             this.courses.splice(index, 1);
-            this.close();
+            this.confirmStep = false;
+            this.$mdDialog.hide(this.course);
         };
         ClassChooseDialog.$inject = ["$mdDialog", "course", "courses", "boxService"];
         return ClassChooseDialog;
