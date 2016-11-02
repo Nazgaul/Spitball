@@ -15,7 +15,6 @@ body.collapseHeader .title-strip {
   opacity: 1;
 }
 .class-choose {
-  padding-top: 205px;
   /*.content {
         max-width: 600px;
         margin: 0 auto;
@@ -350,6 +349,12 @@ body.collapseHeader .title-strip {
     margin-left: -95px;
   }
 }
+.class-choose md-input-container {
+  margin: 5px 0;
+}
+.class-choose .explore {
+  padding-top: 205px;
+}
 .class-choose .status-strip,
 .class-choose .title-strip {
   display: -webkit-flex;
@@ -509,7 +514,7 @@ body.collapseHeader .title-strip {
 }
 .class-choose .top #selected-classes button.ng-enter-stagger,
 .class-choose .top #selected-classes .empty.ng-enter-stagger {
-  transition-delay: 0.5s;
+  transition-delay: 1s;
   transition-duration: 0.5s;
 }
 .class-choose .top #selected-classes button.ng-enter.ng-enter-active,
@@ -664,17 +669,39 @@ body.collapseHeader .title-strip {
   padding-left: 140px;
   padding-bottom: 100px;
 }
+@media (max-width: 600px) {
+  .class-choose .empty-state {
+    background-image: none;
+    padding: 0;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+    height: auto;
+    margin-top: 0;
+  }
+}
 .class-choose .empty-state h2 {
   color: #f76446;
   font-weight: bold;
+}
+@media (max-width: 600px) {
+  .class-choose .empty-state h2 {
+    font-size: 26px;
+  }
 }
 .class-choose .empty-state .text {
   font-size: 18px;
   white-space: pre-wrap;
   margin-top: 20px;
 }
+@media (max-width: 600px) {
+  .class-choose .empty-state .text {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+}
 .class-choose .create-class {
   margin: 30px auto 0 auto;
+  padding: 0 10px;
 }
 .class-choose .create-class .buttons {
   text-align: left;

@@ -1271,6 +1271,7 @@
     <Content Include="Images\HomePage2\infographics_en.png" />
     <Content Include="Images\HomePage2\infographics_he.png" />
     <Content Include="Images\Site\community-bg.png" />
+    <Content Include="Images\Site\course_choose_popup.png" />
     <Content Include="Images\Site\create_uni_text_blue.png" />
     <Content Include="Images\Site\Leaderborad-bg-l.png" />
     <Content Include="Images\Site\Leaderborad-bg-r.png" />
