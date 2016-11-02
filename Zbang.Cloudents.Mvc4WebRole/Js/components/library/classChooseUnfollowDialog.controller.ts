@@ -1,5 +1,6 @@
 ﻿module app {
-    class ClassChooseDialog {
+    "use strict";
+    class ClassChooseUnfollowDialog {
         static $inject = ["$mdDialog", "course", "courses", "boxService"];
         constructor(private $mdDialog: angular.material.IDialogService,
             private course: ISmallBoxClassChoose,
@@ -24,5 +25,5 @@
 
     }
 
-    angular.module("app.library").controller("ClassChooseDialog", ClassChooseDialog);
+    angular.module("app.library").controller("classChooseUnfollowDialog", ClassChooseUnfollowDialog);
 }

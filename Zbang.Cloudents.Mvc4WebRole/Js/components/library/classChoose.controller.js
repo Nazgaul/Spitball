@@ -14,10 +14,7 @@ var app;
             this.resManager = resManager;
             this.$scope = $scope;
             this.$anchorScroll = $anchorScroll;
-            this.showCreateClass = false;
             this.selectedCourses = [];
-            this.submitDisabled = false;
-            this.create = {};
             this.data = [];
             this.classSearch();
             var ids = [];
@@ -89,7 +86,7 @@ var app;
                 templateUrl: "dialog.tmpl.html",
                 targetEvent: ev,
                 clickOutsideToClose: true,
-                controller: 'ClassChooseDialog',
+                controller: 'classChooseUnfollowDialog',
                 controllerAs: 'cd',
                 locals: {
                     course: course,
@@ -112,16 +109,23 @@ var app;
             });
             this.selectedCourses.push(pushOne);
         };
-        ClassChoose.prototype.goCreateClass = function () {
-            this.data = this.nodeData;
-            this.term = '';
-            this.showCreateClass = true;
-            this.selectedDepartment = null;
-            this.departmentName = '';
-        };
-        ClassChoose.prototype.queryDepartments = function (text) {
-            var result = this.$filter("filter")(this.nodeData, text);
-            return result;
+        ClassChoose.prototype.goCreateClass = function (ev, department) {
+            var _this = this;
+            this.$mdDialog.show({
+                templateUrl: "createClass.html",
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                controller: 'ClassChooseDialog',
+                controllerAs: 'cd',
+                locals: {
+                    selectedDepartment: department,
+                    nodeData: this.nodeData
+                },
+                fullscreen: true
+            }).then(function (response) {
+                _this.nodeData = response.nodeData;
+                _this.selectedCourses.push(response.box);
+            });
         };
         ClassChoose.prototype.requestAccess = function (department) {
             var _this = this;
@@ -130,59 +134,6 @@ var app;
                     .title(_this.resManager.get('privateDepPopupTitleOnSend'))
                     .textContent(_this.resManager.get('privateDepPopupContentOnSend'))
                     .ok(_this.resManager.get('dialogOk')));
-            });
-        };
-        ClassChoose.prototype.createClass = function (createBox) {
-            var _this = this;
-            if (createBox.$invalid) {
-                return;
-            }
-            this.submitDisabled = true;
-            if (!this.selectedDepartment) {
-                this.libraryService.createDepartment(this.departmentName, null, true)
-                    .then(function (response) {
-                    _this.nodeData.push(response);
-                    _this.selectedDepartment = response;
-                    _this.createClassCall(createBox);
-                }).catch(function (response) {
-                    createBox["name"].$setValidity('server', false);
-                    _this.create["error"] = response;
-                }).finally(function () {
-                    _this.submitDisabled = false;
-                });
-                ;
-                return;
-            }
-            this.createClassCall(createBox);
-        };
-        ClassChoose.prototype.createClassCall = function (createBox) {
-            var _this = this;
-            var createObj = this.create;
-            this.libraryService.createClass(createObj.name, createObj.number, createObj.professor, this.selectedDepartment.id)
-                .then(function (response) {
-                var department = _this.nodeData.find(function (f) { return f.id === _this.selectedDepartment.id; });
-                var box = {
-                    id: response.id,
-                    name: createObj.name,
-                    courseCode: createObj.number,
-                    professor: createObj.professor,
-                    items: 0,
-                    members: 1
-                };
-                department.boxes = department.boxes || [];
-                department.boxes.push(box);
-                box["department"] = _this.selectedDepartment.name;
-                _this.selectedCourses.push(box);
-                _this.selectedDepartment = null;
-                angular.forEach(createObj, function (value, key) {
-                    _this.create[key] = '';
-                });
-                _this.showCreateClass = false;
-            }).catch(function (response) {
-                createBox["name"].$setValidity('server', false);
-                _this.create["error"] = response;
-            }).finally(function () {
-                _this.submitDisabled = false;
             });
         };
         ClassChoose.$inject = ["searchService", "libraryService", "$mdDialog", "$filter",
