@@ -185,21 +185,21 @@
   width: 100%;
 }
 .nav-bar .logo-search .search-form-wrapper .search-form .search-area .text::-webkit-input-placeholder {
-  color: #212325;
+  color: #888b8e;
   opacity: 1;
 }
 .nav-bar .logo-search .search-form-wrapper .search-form .search-area .text:-moz-placeholder {
   /* Firefox 18- */
-  color: #212325;
+  color: #888b8e;
   opacity: 1;
 }
 .nav-bar .logo-search .search-form-wrapper .search-form .search-area .text::-moz-placeholder {
   /* Firefox 19+ */
-  color: #212325;
+  color: #888b8e;
   opacity: 1;
 }
 .nav-bar .logo-search .search-form-wrapper .search-form .search-area .text:-ms-input-placeholder {
-  color: #212325;
+  color: #888b8e;
   opacity: 1;
 }
 .nav-bar .logo-search .logo {

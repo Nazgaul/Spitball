@@ -55,7 +55,9 @@ body.collapseHeader {
                 font-size: 14px;
             }
         }
-
+        ng-pluralize{
+            text-transform: lowercase;
+        }
         a {
             color: @textColorWhite;
             text-decoration: underline;
@@ -439,6 +441,13 @@ body.collapseHeader {
 
             button {
                 color: @textColorWhite;
+                padding: 0;
+                text-align: center;
+
+                span {
+                    width: 100%;
+                    line-height: inherit;
+                }
             }
 
             .empty {
@@ -485,6 +494,8 @@ body.collapseHeader {
         width: 100%;
         box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
         background: @textColorWhite;
+        position: relative;
+        overflow: visible;
 
         @media(max-width: 600px) {
             margin-top: 30px;
@@ -493,21 +504,31 @@ body.collapseHeader {
         input {
             font-size: 20px;
             height: 37px;
-            padding: 0 10px 0 25px;
-            width: ~"calc(100% - 40px)";
+            padding: 0 40px 0 25px;
+            width: 100%;
             border: 0;
-            .placeHolder(@headerbackground);
+            .placeHolder(@textColorGrey);
             color: @buttonColorBlue;
+            border-radius: 5px;
 
             @media(max-width: 600px) {
                 font-size: 16px;
                 padding: 0 10px;
+            }
+
+            &:focus {
+                box-shadow: 0 0 3px 1px @buttonColorBlue;
             }
         }
 
         .search-button {
             width: 40px;
             line-height: 100%;
+            position: absolute;
+            z-index: 6;
+            right: 0;
+            top: 0;
+            height: 38px;
 
             md-icon {
                 width: 22px;
@@ -587,6 +608,11 @@ body.collapseHeader {
 
         .department-courses {
             width: 100%;
+
+            li > button {
+                width: 100%;
+                padding: 0;
+            }
         }
     }
 
@@ -634,14 +660,25 @@ body.collapseHeader {
                 font-size: 16px;
             }
         }
+
+
+        .create-class {
+            margin: 30px auto 0 auto;
+            padding: 0 10px;
+
+            .buttons {
+                text-align: right;
+            }
+        }
     }
 
-    .create-class {
-        margin: 30px auto 0 auto;
-        padding: 0 10px;
+    .create-class-wrapper {
+        text-align: center;
+        padding-top: 40px;
 
-        .buttons {
-            text-align: right;
+        .text {
+            margin-bottom: 8px;
+            font-size: 16px;
         }
     }
     /*#region new boxes styling*/
