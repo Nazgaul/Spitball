@@ -9,7 +9,8 @@
     //var allList: Array<ISmallDepartment> = [];
 
     class ClassChoose {
-        static $inject = ["searchService", "libraryService","$mdDialog", "$filter", "nodeData", "boxService", "boxes", "resManager", "$scope"];
+        static $inject = ["searchService", "libraryService", "$mdDialog", "$filter",
+            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
         showCreateClass = false;
         selectedCourses: Array<ISmallBoxClassChoose> = [];
 
@@ -27,7 +28,8 @@
             private boxService: IBoxService,
             private boxes: any,
             private resManager: IResManager,
-            private $scope
+            private $scope: angular.IScope,
+            private $anchorScroll: angular.IAnchorScrollService
            ) {
 
             this.classSearch();
@@ -77,7 +79,7 @@
                 return value;
             });
             this.data = departments.filter(f => f.boxes.length > 0);
-
+            this.$anchorScroll(); //scroll to the top
 
         }
 

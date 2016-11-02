@@ -151,7 +151,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.University.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter department name.
+        ///   Looks up a localized string similar to Enter Department Name.
         /// </summary>
         public static string EnterDepName {
             get {

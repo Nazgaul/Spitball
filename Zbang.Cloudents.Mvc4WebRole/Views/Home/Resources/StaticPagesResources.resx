@@ -150,9 +150,6 @@
   <data name="FeaturesSectionTitle2" xml:space="preserve">
     <value>Quizzes </value>
   </data>
-  <data name="FeaturesSectionTitle3" xml:space="preserve">
-    <value>Courses</value>
-  </data>
   <data name="FeaturesSectionTitle4" xml:space="preserve">
     <value>Class Feed</value>
   </data>
@@ -248,9 +245,6 @@
   </data>
   <data name="AppsSectionTitle3A" xml:space="preserve">
     <value>Browse through thousands of </value>
-  </data>
-  <data name="AppsSectionTitle3B" xml:space="preserve">
-    <value>class notes</value>
   </data>
   <data name="ProductTextA" xml:space="preserve">
     <value>Open a free Spitball account and pick your school - there are more than </value>

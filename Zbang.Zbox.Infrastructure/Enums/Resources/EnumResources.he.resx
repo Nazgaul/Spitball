@@ -132,9 +132,6 @@
   <data name="Infringe" xml:space="preserve">
     <value>מפר את הזכויות שלי</value>
   </data>
-  <data name="LockedOut" xml:space="preserve">
-    <value>הדואר האלקטרוני ננעל. בחר ב"שכחתי סיסמה", על מנת ליצור סיסמה חדשה.</value>
-  </data>
   <data name="NotificationSettingsOff" xml:space="preserve">
     <value>כבוי</value>
   </data>
@@ -152,12 +149,6 @@
   </data>
   <data name="Spam" xml:space="preserve">
     <value>ספאם או תוכן מטעה</value>
-  </data>
-  <data name="UserNotExists" xml:space="preserve">
-    <value>כתובת המייל או הסיסמה שהקלדת לא קיימים במערכת או שאינם נכונים. אנא נסה שנית.</value>
-  </data>
-  <data name="WrongPassword" xml:space="preserve">
-    <value>הסיסמה שהקלדת אינה נכונה, אנא נסה שנית.</value>
   </data>
   <data name="Female" xml:space="preserve">
     <value>נקבה</value>

@@ -151,9 +151,6 @@
   <data name="Items" xml:space="preserve">
     <value>Documents</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Log In</value>
-  </data>
   <data name="Logout" xml:space="preserve">
     <value>Log Out</value>
   </data>

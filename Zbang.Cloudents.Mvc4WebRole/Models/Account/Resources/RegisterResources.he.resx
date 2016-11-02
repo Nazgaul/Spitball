@@ -127,18 +127,9 @@
     <value>שדה זה הינו חובה</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>סיסמה</value>
+    <value>סיסמא</value>
   </data>
   <data name="PwdRequired" xml:space="preserve">
     <value>עליך למלא סיסמה</value>
-  </data>
-  <data name="ofZbang" xml:space="preserve">
-    <value>של ספיטבול</value>
-  </data>
-  <data name="PrivacyPolicy" xml:space="preserve">
-    <value>ומדיניות פרטיות</value>
-  </data>
-  <data name="TermsOfServices" xml:space="preserve">
-    <value>לתנאי שירות</value>
   </data>
 </root>

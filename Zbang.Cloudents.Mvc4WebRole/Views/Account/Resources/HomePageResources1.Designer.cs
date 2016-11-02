@@ -61,15 +61,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log In.
-        /// </summary>
-        public static string A1 {
-            get {
-                return ResourceManager.GetString("A1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Shared Documents.
         /// </summary>
         public static string A10 {

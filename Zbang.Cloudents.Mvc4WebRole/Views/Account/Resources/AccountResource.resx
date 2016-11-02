@@ -180,12 +180,6 @@
   <data name="NotificationOwner" xml:space="preserve">
     <value>Owner</value>
   </data>
-  <data name="ChangeTheme" xml:space="preserve">
-    <value>Change theme</value>
-  </data>
-  <data name="ChangeThemeLight" xml:space="preserve">
-    <value>Light theme</value>
-  </data>
   <data name="Department" xml:space="preserve">
     <value>Department</value>
   </data>

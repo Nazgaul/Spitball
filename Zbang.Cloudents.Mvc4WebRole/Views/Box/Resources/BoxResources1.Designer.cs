@@ -142,24 +142,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Documents.
-        /// </summary>
-        public static string Items {
-            get {
-                return ResourceManager.GetString("Items", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to items.
-        /// </summary>
-        public static string itemsInTab {
-            get {
-                return ResourceManager.GetString("itemsInTab", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Join class.
         /// </summary>
         public static string JoinClass {
@@ -291,15 +273,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources {
         public static string Unfollow {
             get {
                 return ResourceManager.GetString("Unfollow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Upload Documents.
-        /// </summary>
-        public static string UploadFiles {
-            get {
-                return ResourceManager.GetString("UploadFiles", resourceCulture);
             }
         }
         

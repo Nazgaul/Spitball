@@ -90,15 +90,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to courses.
-        /// </summary>
-        public static string DescriptionA1d {
-            get {
-                return ResourceManager.GetString("DescriptionA1d", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to  as needed are all part of the freedom within our application. This freedom has allowed 250,000 students to upload .
         /// </summary>
         public static string DescriptionA1e {

@@ -153,9 +153,6 @@
   <data name="FeaturesSectionText4" xml:space="preserve">
     <value>הכירו את החברים שלכם, חלקו סיכומים, רעיונות, שאלו שאלות ודברו עם החברים שלכם על כל נושא הקשור ללימודים. למדו ביחד ותוכלו לקבל ציונים טובים יותר! קבלו תשובות לשאלות שלכם ישירות מחבריכם לכיתה - הם יוכלו לעזור לכם לפתור בעיות בקלות במקום שתאלצו לחכות לשעות קבלה של המרצה או המתרגל.</value>
   </data>
-  <data name="FeaturesSectionTitle3" xml:space="preserve">
-    <value>קורסים</value>
-  </data>
   <data name="FeaturesSectionTitle5" xml:space="preserve">
     <value>מכללות ואוניברסיטאות</value>
   </data>
@@ -279,9 +276,6 @@
   </data>
   <data name="ProductTextJ" xml:space="preserve">
     <value>פתחו חשבון חינמי בספיטבול עוד היום!</value>
-  </data>
-  <data name="AppsSectionTitle3B" xml:space="preserve">
-    <value />
   </data>
   <data name="ClassNotesSubtitleB" xml:space="preserve">
     <value>וקבלו גישה מלאה!</value>

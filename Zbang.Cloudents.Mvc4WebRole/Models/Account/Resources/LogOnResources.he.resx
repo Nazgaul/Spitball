@@ -123,49 +123,7 @@
   <data name="NotValidEmail" xml:space="preserve">
     <value>כתובת המייל שהזנת אינה חוקית</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>סיסמא</value>
-  </data>
   <data name="PwdAtLeast6Chars" xml:space="preserve">
     <value>הסיסמה חייבת להיות מורכבת מ-6 תווים לכל הפחות</value>
-  </data>
-  <data name="RememberMe" xml:space="preserve">
-    <value>זכור אותי</value>
-  </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>צור חשבון</value>
-  </data>
-  <data name="DontHaveAnAccount" xml:space="preserve">
-    <value>עדיין אין לך חשבון?</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>דוא"ל</value>
-  </data>
-  <data name="ExternalProvider" xml:space="preserve">
-    <value>התחבר</value>
-  </data>
-  <data name="ForgotYourPassword" xml:space="preserve">
-    <value>שכחת סיסמא?</value>
-  </data>
-  <data name="Here" xml:space="preserve">
-    <value>כאן</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>התחבר</value>
-  </data>
-  <data name="NoWorries" xml:space="preserve">
-    <value>אל דאגה, לחץ</value>
-  </data>
-  <data name="OrLoginWith" xml:space="preserve">
-    <value>או התחבר באמצעות</value>
-  </data>
-  <data name="OrSignupWith" xml:space="preserve">
-    <value>או הירשם באמצעות</value>
-  </data>
-  <data name="SignUp" xml:space="preserve">
-    <value>הרשם</value>
-  </data>
-  <data name="Submit" xml:space="preserve">
-    <value>שלח</value>
   </data>
 </root>

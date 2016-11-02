@@ -136,7 +136,7 @@
     <value>Add a department</value>
   </data>
   <data name="EnterDepName" xml:space="preserve">
-    <value>Enter department name</value>
+    <value>Enter Department Name</value>
   </data>
   <data name="AddClass" xml:space="preserve">
     <value>Add a class</value>

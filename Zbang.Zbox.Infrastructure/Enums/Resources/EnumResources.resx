@@ -132,15 +132,6 @@
   <data name="BoxPrivacySettingsMembersOnly" xml:space="preserve">
     <value>By invitation only</value>
   </data>
-  <data name="UserNotExists" xml:space="preserve">
-    <value>The email or password you entered is either incorrect or not registered to Spitball. Please try again</value>
-  </data>
-  <data name="WrongPassword" xml:space="preserve">
-    <value>The password you entered is incorrect. Please try again</value>
-  </data>
-  <data name="LockedOut" xml:space="preserve">
-    <value>This email has been locked out. To retrieve your password, go to Forgot Password</value>
-  </data>
   <data name="Attacks" xml:space="preserve">
     <value>Attacks a group or individual</value>
   </data>
