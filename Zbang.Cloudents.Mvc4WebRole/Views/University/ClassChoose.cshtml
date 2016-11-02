@@ -22,7 +22,7 @@
                 <h2 class="title" ng-if="!cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep1</h2>
                 <h2 class="title" ng-if="cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep2</h2>
                 <div class="top">
-                    <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()" layout="row" layout-wrap>
+                    <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()">
                         <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
                                ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
                         <button type="submit" class="search-button">
@@ -30,7 +30,7 @@
                         </button>
                     </form>
                     <div id="selected-classes">
-                        <button type="button" class="icon background angular-animate" color="{{::sc.departmentId}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id " ng-bind="::sc.name.substr(0,2)"></button>
+                        <button type="button" class="icon background angular-animate" color="{{::sc.departmentId}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id "><span ng-bind="::sc.name.substr(0,2)"></span></button>
                         <div class="empty angular-animate" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
                     </div>
                 </div>
@@ -44,6 +44,10 @@
                         <div ng-if="::department.type !== 'closed'" ng-include="'open-department.html'"></div>
                     </li>
                 </ol>
+            </div>
+            <div class="create-class-wrapper" ng-if="cc.data.length !== 0">
+                <div class="text">Dont see your class? Create it.</div>
+                <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass()">@UniversityResources.OnboardingCreateClass</button>
             </div>
             <div class="empty-state" ng-if="cc.data.length === 0">
                 <h2>@GeneralResources.NoResultsTitle</h2>
@@ -115,7 +119,9 @@
         </div>
         <ol class="department-courses list-unstyled">
             <li class="" ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected">
-                <button class="box-template box-style slim angular-animate" cart-animation-to=".empty" cart-animation=".icon" ga-track-event="['course-choose', 'box']" ng-include="'slim-box-template.html'" ng-click="cc.choose(e,department)"></button>
+                <button class="angular-animate" cart-animation-to=".empty" cart-animation=".icon" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e,department)">
+                    <div class="box-template box-style slim" ng-include="'slim-box-template.html'"></div>
+                </button>
             </li>
         </ol>
     </script>
@@ -127,7 +133,7 @@
             </md-toolbar>
             <md-dialog-content>
                 <div class="data-wrapper" ng-if="!cd.confirmStep">
-                <div class="department-name ellipsis" color="{{::cd.course.departmentId}}" ng-bind="cd.course.department"></div>
+                <div class="department-name ellipsis" dir="auto" color="{{::cd.course.departmentId}}" ng-bind="cd.course.department"></div>
                     <div class="box-container box-template box-style slim">
                             <div class="icon background" color="{{cd.course.departmentId}}" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
                         <div class="data">
@@ -152,12 +158,12 @@
                     </div>
                     <div class="buttons">
                         <button ng-click="cd.close()" class="cancel-btn">@GeneralResources.Cancel</button>
-                        <button ng-click="cd.confirmStep = true" class="action-btn">@GeneralResources.Delete</button>
+                        <button ng-click="cd.confirmStep = true" class="action-btn">Remove</button>
                     </div>
                 </div>
                 <div class="confirm" ng-if="cd.confirmStep">
                     <md-icon md-svg-icon="t:alert"></md-icon>
-                    <div class="text">Are you sure you want to delete this class</div>
+                    <div class="text">Are you sure you want to remove this class?</div>
                     <div class="buttons">
                         <button ng-click="cd.close()" class="cancel-btn">No</button>
                         <button ng-click="cd.remove()" class="action-btn">Yes</button>

@@ -387,6 +387,10 @@ body.collapseHeader .title-strip {
     font-size: 14px;
   }
 }
+.class-choose .status-strip ng-pluralize,
+.class-choose .title-strip ng-pluralize {
+  text-transform: lowercase;
+}
 .class-choose .status-strip a,
 .class-choose .title-strip a {
   color: #ffffff;
@@ -490,6 +494,12 @@ body.collapseHeader .title-strip {
 }
 .class-choose .top #selected-classes button {
   color: #ffffff;
+  padding: 0;
+  text-align: center;
+}
+.class-choose .top #selected-classes button span {
+  width: 100%;
+  line-height: inherit;
 }
 .class-choose .top #selected-classes .empty {
   border: 1px dashed #888b8e;
@@ -531,6 +541,8 @@ body.collapseHeader .title-strip {
   width: 100%;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.42);
   background: #ffffff;
+  position: relative;
+  overflow: visible;
 }
 @media (max-width: 600px) {
   .class-choose .search-form {
@@ -540,27 +552,28 @@ body.collapseHeader .title-strip {
 .class-choose .search-form input {
   font-size: 20px;
   height: 37px;
-  padding: 0 25px 0 10px;
-  width: calc(100% - 40px);
+  padding: 0 25px 0 40px;
+  width: 100%;
   border: 0;
   color: #4190b9;
+  border-radius: 5px;
 }
 .class-choose .search-form input::-webkit-input-placeholder {
-  color: #323538;
+  color: #888b8e;
   opacity: 1;
 }
 .class-choose .search-form input:-moz-placeholder {
   /* Firefox 18- */
-  color: #323538;
+  color: #888b8e;
   opacity: 1;
 }
 .class-choose .search-form input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #323538;
+  color: #888b8e;
   opacity: 1;
 }
 .class-choose .search-form input:-ms-input-placeholder {
-  color: #323538;
+  color: #888b8e;
   opacity: 1;
 }
 @media (max-width: 600px) {
@@ -569,9 +582,17 @@ body.collapseHeader .title-strip {
     padding: 0 10px;
   }
 }
+.class-choose .search-form input:focus {
+  box-shadow: 0 0 3px 1px #4190b9;
+}
 .class-choose .search-form .search-button {
   width: 40px;
   line-height: 100%;
+  position: absolute;
+  z-index: 6;
+  left: 0;
+  top: 0;
+  height: 38px;
 }
 .class-choose .search-form .search-button md-icon {
   width: 22px;
@@ -652,6 +673,10 @@ body.collapseHeader .title-strip {
 .class-choose .results .department-courses {
   width: 100%;
 }
+.class-choose .results .department-courses li > button {
+  width: 100%;
+  padding: 0;
+}
 .class-choose .empty-state {
   width: 100%;
   max-width: 600px;
@@ -699,12 +724,20 @@ body.collapseHeader .title-strip {
     font-size: 16px;
   }
 }
-.class-choose .create-class {
+.class-choose .empty-state .create-class {
   margin: 30px auto 0 auto;
   padding: 0 10px;
 }
-.class-choose .create-class .buttons {
+.class-choose .empty-state .create-class .buttons {
   text-align: left;
+}
+.class-choose .create-class-wrapper {
+  text-align: center;
+  padding-top: 40px;
+}
+.class-choose .create-class-wrapper .text {
+  margin-bottom: 8px;
+  font-size: 16px;
 }
 .md-toast-animating {
   overflow: auto !important;

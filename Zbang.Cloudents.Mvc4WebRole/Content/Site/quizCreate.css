@@ -91,21 +91,21 @@
   margin-top: 0;
 }
 .quiz-create .supported .quiz-name input::-webkit-input-placeholder {
-  color: #212325;
+  color: #888b8e;
   opacity: 1;
 }
 .quiz-create .supported .quiz-name input:-moz-placeholder {
   /* Firefox 18- */
-  color: #212325;
+  color: #888b8e;
   opacity: 1;
 }
 .quiz-create .supported .quiz-name input::-moz-placeholder {
   /* Firefox 19+ */
-  color: #212325;
+  color: #888b8e;
   opacity: 1;
 }
 .quiz-create .supported .quiz-name input:-ms-input-placeholder {
-  color: #212325;
+  color: #888b8e;
   opacity: 1;
 }
 .quiz-create .supported .quiz-name button {
