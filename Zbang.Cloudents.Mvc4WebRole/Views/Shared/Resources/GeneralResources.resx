@@ -208,4 +208,7 @@ but try checking the documents tab for related material</value>
   <data name="Class" xml:space="preserve">
     <value>Class</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>remove</value>
+  </data>
 </root>

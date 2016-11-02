@@ -157,7 +157,7 @@
     <value>Please provide questions</value>
   </data>
   <data name="unfollowClass" xml:space="preserve">
-    <value>Would you like to unfollow this class?</value>
+    <value>Are you sure you want to remove this class?</value>
   </data>
   <data name="spitballUpdate" xml:space="preserve">
     <value>Spitball has updated</value>

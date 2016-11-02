@@ -55,9 +55,11 @@ body.collapseHeader {
                 font-size: 14px;
             }
         }
-        ng-pluralize{
+
+        ng-pluralize {
             text-transform: lowercase;
         }
+
         a {
             color: @textColorWhite;
             text-decoration: underline;
@@ -109,7 +111,7 @@ body.collapseHeader {
         width: 100%;
         display: block;
         font-size: 30px;
-        padding-top: 20px;
+        padding: 20px 10px 0 10px;
         //padding: 50px 0;
         font-weight: bold;
         color: @textColorPurple;
@@ -118,7 +120,7 @@ body.collapseHeader {
             line-height: normal;
             max-width: 360px;
             font-size: 18px;
-            padding-top: 20px;
+            padding-top: 10px;
         }
     }
     /*.content {
@@ -519,6 +521,10 @@ body.collapseHeader {
             &:focus {
                 box-shadow: 0 0 3px 1px @buttonColorBlue;
             }
+
+            &::-ms-clear {
+                display: none;
+            }
         }
 
         .search-button {
@@ -795,6 +801,10 @@ body.collapseHeader {
 
             .action-btn {
                 margin-left: 10px;
+            }
+
+            button {
+                text-transform: capitalize;
             }
         }
 

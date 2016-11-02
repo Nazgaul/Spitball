@@ -434,7 +434,7 @@ body.collapseHeader .title-strip {
   width: 100%;
   display: block;
   font-size: 30px;
-  padding-top: 20px;
+  padding: 20px 10px 0 10px;
   font-weight: bold;
   color: #33076e;
 }
@@ -443,7 +443,7 @@ body.collapseHeader .title-strip {
     line-height: normal;
     max-width: 360px;
     font-size: 18px;
-    padding-top: 20px;
+    padding-top: 10px;
   }
 }
 .class-choose .search-container {
@@ -584,6 +584,9 @@ body.collapseHeader .title-strip {
 }
 .class-choose .search-form input:focus {
   box-shadow: 0 0 3px 1px #4190b9;
+}
+.class-choose .search-form input::-ms-clear {
+  display: none;
 }
 .class-choose .search-form .search-button {
   width: 40px;
@@ -800,6 +803,9 @@ body.collapseHeader .title-strip {
 }
 .selected-class-dialog md-dialog-content .buttons .action-btn {
   margin-left: 10px;
+}
+.selected-class-dialog md-dialog-content .buttons button {
+  text-transform: capitalize;
 }
 .selected-class-dialog md-dialog-content .confirm {
   text-align: center;

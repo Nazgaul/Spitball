@@ -158,12 +158,12 @@
                     </div>
                     <div class="buttons">
                         <button ng-click="cd.close()" class="cancel-btn">@GeneralResources.Cancel</button>
-                        <button ng-click="cd.confirmStep = true" class="action-btn">@GeneralResources.Delete</button>
+                        <button ng-click="cd.confirmStep = true" class="action-btn">@GeneralResources.Remove</button>
                     </div>
                 </div>
                 <div class="confirm" ng-if="cd.confirmStep">
                     <md-icon md-svg-icon="t:alert"></md-icon>
-                    <div class="text">Are you sure you want to remove this class?</div>
+                    <div class="text">@JsResources.unfollowClass</div>
                     <div class="buttons">
                         <button ng-click="cd.close()" class="cancel-btn">No</button>
                         <button ng-click="cd.remove()" class="action-btn">Yes</button>
