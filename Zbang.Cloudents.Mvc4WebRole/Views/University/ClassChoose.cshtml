@@ -6,7 +6,7 @@
         <div class="top-container">
             <div class="status-strip" ng-if="cc.selectedCourses.length && !cc.showCreateClass">
                 <h2>@UniversityResources.ClassChooseYellowTitle1&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
-                                                         when="{
+                                                                                         when="{
                      'one': '1 @GeneralResources.Class,',
                      'other': '{} @GeneralResources.Classes,'}">
                 </ng-pluralize>
@@ -78,7 +78,7 @@
             </md-autocomplete>
             <md-input-container class="form-field">
                 <label for="className">@UniversityResources.EnterClassName</label>
-                <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)"/>
+                <input ng-model="cc.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)" />
                 <div class="error" ng-messages="createBox.name.$error">
                     <div ng-message="required">@GeneralResources.RequiredField</div>
                     <div ng-message="server">{{cc.create.error}}</div>
@@ -87,11 +87,11 @@
 
             <md-input-container class="form-field">
                 <label for="classNumber">@UniversityResources.EnterCode</label>
-                <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" ng-change="createBox.name.$setValidity('server',true)"/>
+                <input ng-model="cc.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" ng-change="createBox.name.$setValidity('server',true)" />
             </md-input-container>
             <md-input-container class="form-field">
                 <label for="proffesor">@UniversityResources.Instructor</label>
-                <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)"/>
+                <input ng-model="cc.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)" />
             </md-input-container>
             <div class="buttons">
                 <button class="cancel-btn" type="reset" ng-click="cc.showCreateClass = false;">@GeneralResources.Cancel</button>
@@ -133,25 +133,27 @@
             </md-toolbar>
             <md-dialog-content>
                 <div class="data-wrapper" ng-if="!cd.confirmStep">
-                <div class="department-name ellipsis" dir="auto" color="{{::cd.course.departmentId}}" ng-bind="cd.course.department"></div>
-                    <div class="box-container box-template box-style slim">
+                    <div class="content">
+                        <div class="department-name ellipsis" dir="auto" color="{{::cd.course.departmentId}}" ng-bind="cd.course.department"></div>
+                        <div class="box-container box-template box-style slim">
                             <div class="icon background" color="{{cd.course.departmentId}}" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
-                        <div class="data">
-                            <div class="details">
+                            <div class="data">
+                                <div class="details">
                                     <h5 class="name ellipsis" dir="auto" color="{{cd.course.departmentId}}" ng-bind="cd.course.name" title="{{cd.course.name}}"></h5>
-                                <div class="metadata">
-                                    <div class="code ellipsis" dir="auto" ng-bind="cd.course.courseCode"></div>
-                                    <div class="professor ellipsis" dir="auto" ng-bind="cd.course.professor"></div>
+                                    <div class="metadata">
+                                        <div class="code ellipsis" dir="auto" ng-bind="cd.course.courseCode"></div>
+                                        <div class="professor ellipsis" dir="auto" ng-bind="cd.course.professor"></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="stats">
-                                <div class="users stat">
-                                    <md-icon md-svg-icon="t:user"></md-icon>
-                                    <div class="num" ng-bind="cd.course.members | megaNumber"></div>
-                                </div>
-                                <div class="docs stat">
-                                    <md-icon md-svg-icon="t:docs"></md-icon>
-                                    <div class="num" ng-bind="cd.course.items | megaNumber"></div>
+                                <div class="stats">
+                                    <div class="users stat">
+                                        <md-icon md-svg-icon="t:user"></md-icon>
+                                        <div class="num" ng-bind="cd.course.members | megaNumber"></div>
+                                    </div>
+                                    <div class="docs stat">
+                                        <md-icon md-svg-icon="t:docs"></md-icon>
+                                        <div class="num" ng-bind="cd.course.items | megaNumber"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -162,8 +164,10 @@
                     </div>
                 </div>
                 <div class="confirm" ng-if="cd.confirmStep">
-                    <md-icon md-svg-icon="t:alert"></md-icon>
-                    <div class="text">@JsResources.unfollowClass</div>
+                    <div class="content">
+                        <md-icon md-svg-icon="t:alert"></md-icon>
+                        <div class="text">@JsResources.unfollowClass</div>
+                    </div>
                     <div class="buttons">
                         <button ng-click="cd.close()" class="cancel-btn">@JsResources.dialogCancel</button>
                         <button ng-click="cd.remove()" class="action-btn">@JsResources.dialogOk</button>
