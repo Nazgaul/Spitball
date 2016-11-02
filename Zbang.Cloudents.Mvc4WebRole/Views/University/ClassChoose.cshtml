@@ -5,14 +5,14 @@
     <div class="explore" ng-if="!cc.showCreateClass">
         <div class="top-container">
             <div class="status-strip" ng-if="cc.selectedCourses.length && !cc.showCreateClass">
-                <h2>You've added&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
+                <h2>@UniversityResources.ClassChooseYellowTitle1&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
                                                          when="{
                      'one': '1 @GeneralResources.Class,',
                      'other': '{} @GeneralResources.Classes,'}">
                 </ng-pluralize>
-                <h2 ng-if="cc.selectedCourses.length == 1">&nbsp;continue selecting classes</h2>
+                <h2 ng-if="cc.selectedCourses.length == 1">&nbsp;@UniversityResources.ClassChooseYellowTitle2</h2>
                 <h2 ng-if="cc.selectedCourses.length >= 2">
-                    &nbsp;<a ui-sref="dashboard">click here</a>&nbsp;if you're done
+                    &nbsp;@UniversityResources.ClassChooseYellowTitle3&nbsp;<a ui-sref="dashboard">@UniversityResources.ClassChooseYellowClickHere</a>
                 </h2>
             </div>
             <div class="title-strip">
@@ -158,7 +158,7 @@
                     </div>
                     <div class="buttons">
                         <button ng-click="cd.close()" class="cancel-btn">@GeneralResources.Cancel</button>
-                        <button ng-click="cd.confirmStep = true" class="action-btn">Remove</button>
+                        <button ng-click="cd.confirmStep = true" class="action-btn">@GeneralResources.Delete</button>
                     </div>
                 </div>
                 <div class="confirm" ng-if="cd.confirmStep">

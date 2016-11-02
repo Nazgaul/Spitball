@@ -195,7 +195,7 @@ Spitballing with your classmates</value>
     <value>Department settings</value>
   </data>
   <data name="OnboardingHeaderStep1" xml:space="preserve">
-    <value>Welcome to Spitball. Start by selecting your first class</value>
+    <value>Welcome to Spitball! Start by selecting your first class.</value>
   </data>
   <data name="OnboardingHeaderStep2" xml:space="preserve">
     <value>Select another class</value>
@@ -209,5 +209,17 @@ Try to search again or add this class to our listings.</value>
   </data>
   <data name="OnboardingCreateClass" xml:space="preserve">
     <value>Create a new class</value>
+  </data>
+  <data name="ClassChooseYellowClickHere" xml:space="preserve">
+    <value>click here</value>
+  </data>
+  <data name="ClassChooseYellowTitle1" xml:space="preserve">
+    <value>You've added</value>
+  </data>
+  <data name="ClassChooseYellowTitle2" xml:space="preserve">
+    <value>continue selecting classes</value>
+  </data>
+  <data name="ClassChooseYellowTitle3" xml:space="preserve">
+    <value>if you're done</value>
   </data>
 </root>
