@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @{
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
 }
@@ -27,7 +28,7 @@
             <img src="@Url.CdnContent("/images/Features/uni_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName + ".png?v=3")" alt="Spitball's Schools" />
         </section>
         <section id="courses">
-            <h3>@StaticPagesResources.FeaturesSectionTitle3</h3>
+            <h3>@GeneralResources.Courses</h3>
             <div class="intro-text">
                 @StaticPagesResources.FeaturesSectionText3A
                 <a href="@Url.RouteUrl("Courses")">@StaticPagesResources.ProductTextD</a>

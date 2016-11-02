@@ -142,15 +142,6 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This email has been locked out. To retrieve your password, go to Forgot Password.
-        /// </summary>
-        internal static string LockedOut {
-            get {
-                return ResourceManager.GetString("LockedOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Male.
         /// </summary>
         internal static string Male {
@@ -210,24 +201,6 @@ namespace Zbang.Zbox.Infrastructure.Enums.Resources {
         internal static string Spam {
             get {
                 return ResourceManager.GetString("Spam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The email or password you entered is either incorrect or not registered to Spitball. Please try again.
-        /// </summary>
-        internal static string UserNotExists {
-            get {
-                return ResourceManager.GetString("UserNotExists", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The password you entered is incorrect. Please try again.
-        /// </summary>
-        internal static string WrongPassword {
-            get {
-                return ResourceManager.GetString("WrongPassword", resourceCulture);
             }
         }
     }

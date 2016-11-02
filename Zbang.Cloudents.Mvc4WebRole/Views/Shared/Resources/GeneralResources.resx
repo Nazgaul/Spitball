@@ -175,9 +175,6 @@
     <value>we came up short...
 </value>
   </data>
-  <data name="Download" xml:space="preserve">
-    <value>Download</value>
-  </data>
   <data name="SearchEmptyStateClassesText" xml:space="preserve">
     <value>There are no courses in your school that match your search,
 but try checking the quizzes tab for related material</value>
@@ -204,9 +201,6 @@ but try checking the documents tab for related material</value>
   </data>
   <data name="BrowseClasses" xml:space="preserve">
     <value>Browse classes</value>
-  </data>
-  <data name="SearchPartial" xml:space="preserve">
-    <value>Search</value>
   </data>
   <data name="SearchMobile" xml:space="preserve">
     <value>Search</value>

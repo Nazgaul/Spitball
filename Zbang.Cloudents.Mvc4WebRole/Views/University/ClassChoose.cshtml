@@ -38,7 +38,7 @@
         </div>
         <div class="search-container" flex-gt-md="85">
             <div class="grid-container">
-                <ol class="results list-unstyled">
+                <ol class="results list-unstyled" id="results">
                     <li @*class="angular-animate animate-repeat"*@ ng-repeat="department in cc.data track by department.id">
                         <div class="closed-department" ng-if="::department.type === 'closed'" ng-include="'close-department.html'"></div>
                         <div ng-if="::department.type !== 'closed'" ng-include="'open-department.html'"></div>
@@ -53,7 +53,7 @@
         </div>
     </div>
     <div ng-if="cc.showCreateClass">
-        <h2 class="title">@UniversityResources.OnboardingHeaderStep2</h2>
+        <h2 class="title">@UniversityResources.OnboardingCreateClass</h2>
         <form name="createBox" flex="100" flex-gt-xs="50" flex-gt-md="30" novalidate ng-submit="cc.createClass(createBox)" class="create-class">
             <md-autocomplete required md-no-asterisk md-input-name="department"
                              md-delay="350"

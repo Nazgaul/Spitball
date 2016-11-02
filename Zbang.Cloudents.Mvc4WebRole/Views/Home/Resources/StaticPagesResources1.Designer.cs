@@ -133,15 +133,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to class notes.
-        /// </summary>
-        public static string AppsSectionTitle3B {
-            get {
-                return ResourceManager.GetString("AppsSectionTitle3B", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Download the Spitball App!.
         /// </summary>
         public static string AppsSubtitle {
@@ -426,15 +417,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         public static string FeaturesSectionTitle2 {
             get {
                 return ResourceManager.GetString("FeaturesSectionTitle2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Courses.
-        /// </summary>
-        public static string FeaturesSectionTitle3 {
-            get {
-                return ResourceManager.GetString("FeaturesSectionTitle3", resourceCulture);
             }
         }
         

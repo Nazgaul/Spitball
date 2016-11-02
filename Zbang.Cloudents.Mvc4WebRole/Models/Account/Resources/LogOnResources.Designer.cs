@@ -61,74 +61,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create an account.
-        /// </summary>
-        public static string CreateAccount {
-            get {
-                return ResourceManager.GetString("CreateAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Don&apos;t have an account?.
-        /// </summary>
-        public static string DontHaveAnAccount {
-            get {
-                return ResourceManager.GetString("DontHaveAnAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Email.
-        /// </summary>
-        public static string Email {
-            get {
-                return ResourceManager.GetString("Email", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Please enter your email address.
         /// </summary>
         public static string EmailRequired {
             get {
                 return ResourceManager.GetString("EmailRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Connect.
-        /// </summary>
-        public static string ExternalProvider {
-            get {
-                return ResourceManager.GetString("ExternalProvider", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Forgot password?.
-        /// </summary>
-        public static string ForgotYourPassword {
-            get {
-                return ResourceManager.GetString("ForgotYourPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Here.
-        /// </summary>
-        public static string Here {
-            get {
-                return ResourceManager.GetString("Here", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in.
-        /// </summary>
-        public static string LogIn {
-            get {
-                return ResourceManager.GetString("LogIn", resourceCulture);
             }
         }
         
@@ -142,74 +79,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No worries, click.
-        /// </summary>
-        public static string NoWorries {
-            get {
-                return ResourceManager.GetString("NoWorries", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Or login with.
-        /// </summary>
-        public static string OrLoginWith {
-            get {
-                return ResourceManager.GetString("OrLoginWith", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Or signup with.
-        /// </summary>
-        public static string OrSignupWith {
-            get {
-                return ResourceManager.GetString("OrSignupWith", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password.
-        /// </summary>
-        public static string Password {
-            get {
-                return ResourceManager.GetString("Password", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Your password must be at least 6 characters.
         /// </summary>
         public static string PwdAtLeast6Chars {
             get {
                 return ResourceManager.GetString("PwdAtLeast6Chars", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remember me.
-        /// </summary>
-        public static string RememberMe {
-            get {
-                return ResourceManager.GetString("RememberMe", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sign up.
-        /// </summary>
-        public static string SignUp {
-            get {
-                return ResourceManager.GetString("SignUp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Submit.
-        /// </summary>
-        public static string Submit {
-            get {
-                return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
     }

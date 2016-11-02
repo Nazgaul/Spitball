@@ -133,15 +133,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download.
-        /// </summary>
-        public static string Download {
-            get {
-                return ResourceManager.GetString("Download", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Like.
         /// </summary>
         public static string Like {
@@ -277,15 +268,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         public static string SearchMobile {
             get {
                 return ResourceManager.GetString("SearchMobile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search.
-        /// </summary>
-        public static string SearchPartial {
-            get {
-                return ResourceManager.GetString("SearchPartial", resourceCulture);
             }
         }
         

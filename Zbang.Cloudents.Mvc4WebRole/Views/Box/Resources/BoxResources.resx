@@ -126,9 +126,6 @@
   <data name="Follow" xml:space="preserve">
     <value>Follow</value>
   </data>
-  <data name="Items" xml:space="preserve">
-    <value>Documents</value>
-  </data>
   <data name="Lecturer" xml:space="preserve">
     <value>Professor</value>
   </data>
@@ -153,9 +150,6 @@
   <data name="Unfollow" xml:space="preserve">
     <value>Unfollow</value>
   </data>
-  <data name="UploadFiles" xml:space="preserve">
-    <value>Upload Documents</value>
-  </data>
   <data name="Whats" xml:space="preserve">
     <value>Ask a question, share study material...</value>
   </data>
@@ -164,9 +158,6 @@
   </data>
   <data name="Anonymous" xml:space="preserve">
     <value>Anonymous</value>
-  </data>
-  <data name="itemsInTab" xml:space="preserve">
-    <value>items</value>
   </data>
   <data name="replyPostPlaceholder" xml:space="preserve">
     <value>What's on your mind?</value>

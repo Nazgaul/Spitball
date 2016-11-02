@@ -3,7 +3,8 @@
 }
 
 <div class="static-page">
-    @{Html.RenderPartial("_StaticPageNav");}
+    @{ // ReSharper disable once Mvc.PartialViewNotResolved
+Html.RenderPartial("_StaticPageNav");}
     <div class="privacy page-content">
         <h1 class="headline">Privacy Policy</h1>
         <div class="content">

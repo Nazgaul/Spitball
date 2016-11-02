@@ -88,24 +88,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change theme.
-        /// </summary>
-        public static string ChangeTheme {
-            get {
-                return ResourceManager.GetString("ChangeTheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Light theme.
-        /// </summary>
-        public static string ChangeThemeLight {
-            get {
-                return ResourceManager.GetString("ChangeThemeLight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Change university.
         /// </summary>
         public static string changeUniversityBtn {

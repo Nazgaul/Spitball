@@ -126,9 +126,6 @@
   <data name="Follow" xml:space="preserve">
     <value>עקוב</value>
   </data>
-  <data name="Items" xml:space="preserve">
-    <value>מסמכים</value>
-  </data>
   <data name="Lecturer" xml:space="preserve">
     <value>מרצה</value>
   </data>
@@ -158,9 +155,6 @@
   </data>
   <data name="Anonymous" xml:space="preserve">
     <value>אנונימי</value>
-  </data>
-  <data name="itemsInTab" xml:space="preserve">
-    <value>מסמכים</value>
   </data>
   <data name="Whats" xml:space="preserve">
     <value>שאלו שאלות או שתפו קבצים</value>

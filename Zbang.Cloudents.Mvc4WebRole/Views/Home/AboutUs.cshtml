@@ -1,5 +1,6 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 @{
     Layout = "~/Views/Shared/_LayoutStatic.cshtml";
@@ -18,7 +19,7 @@
                             <span style="white-space:pre-line;">@AboutUsResources.DescriptionA1a</span>
                             <a href="@Url.RouteUrl("Features")">@AboutUsResources.DescriptionA1b</a>
                             @AboutUsResources.DescriptionA1c
-                            <a href="@Url.RouteUrl("Courses")">@AboutUsResources.DescriptionA1d</a>
+                            <a href="@Url.RouteUrl("Courses")">@GeneralResources.Courses</a>
                             @AboutUsResources.DescriptionA1e
                             <a href="@Url.RouteUrl("ClassNotes")">@AboutUsResources.DescriptionA1f</a>
                             @AboutUsResources.DescriptionA1g

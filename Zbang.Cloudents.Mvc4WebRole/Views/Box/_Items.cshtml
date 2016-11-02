@@ -1,4 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Box.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 
 
@@ -40,7 +41,7 @@
                 </md-menu-item>
                 <md-menu-item>
                     <md-button aria-label="download" ng-href="{{::e.downloadLink}}" target="_blank" ga-track-event="['box-items', 'download']">
-                        <span ng-if="e.type!=='Link'">@GeneralResources.Download</span>
+                        <span ng-if="e.type!=='Link'">@ItemsResources.Download</span>
                         <span ng-if="e.type==='Link'">@GeneralResources.View</span>
                     </md-button>
                 </md-menu-item>

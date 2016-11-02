@@ -807,10 +807,6 @@
     <Content Include="Content\Site\angularMaterialOverride.rtl.css">
       <DependentUpon>angularMaterialOverride.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\angularWithChanges.css" />
-    <Content Include="Content\Site\angularWithChanges.rtl.css">
-      <DependentUpon>angularWithChanges.css</DependentUpon>
-    </Content>
     <Content Include="bower_components\rangy\rangy-classapplier.js" />
     <Content Include="bower_components\rangy\rangy-classapplier.min.js" />
     <Content Include="bower_components\rangy\rangy-core.js" />
@@ -919,8 +915,6 @@
     <Content Include="Content\Site\accountSettings.rtl.css">
       <DependentUpon>accountSettings.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\angularWithChanges2.css" />
-    <Content Include="Content\Site\angularWithChanges2.rtl.css" />
     <Content Include="Content\Site\box.css">
       <DependentUpon>box.less</DependentUpon>
     </Content>
@@ -2753,6 +2747,7 @@
     <EmbeddedResource Include="Views\University\Resources\UniversityResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>UniversityResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.he.resx" />
     <EmbeddedResource Include="Views\Quiz\Resources\QuizResources.resx">

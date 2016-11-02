@@ -150,9 +150,6 @@
   <data name="Items" xml:space="preserve">
     <value>מסמכים</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>התחבר</value>
-  </data>
   <data name="Logout" xml:space="preserve">
     <value>התנתק</value>
   </data>

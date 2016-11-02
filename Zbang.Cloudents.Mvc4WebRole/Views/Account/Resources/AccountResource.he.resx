@@ -180,12 +180,6 @@
   <data name="NotificationOwner" xml:space="preserve">
     <value>יצר/ה</value>
   </data>
-  <data name="ChangeTheme" xml:space="preserve">
-    <value>שנה צבע רקע</value>
-  </data>
-  <data name="ChangeThemeLight" xml:space="preserve">
-    <value>צבע רקע בהיר</value>
-  </data>
   <data name="Department" xml:space="preserve">
     <value>מחלקה</value>
   </data>

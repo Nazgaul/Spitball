@@ -132,13 +132,4 @@
   <data name="PwdRequired" xml:space="preserve">
     <value>Password required</value>
   </data>
-  <data name="ofZbang" xml:space="preserve">
-    <value></value>
-  </data>
-  <data name="PrivacyPolicy" xml:space="preserve">
-    <value>Privacy Policy</value>
-  </data>
-  <data name="TermsOfServices" xml:space="preserve">
-    <value>Terms of Services</value>
-  </data>
 </root>
