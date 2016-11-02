@@ -1,5 +1,7 @@
 ﻿@import "variables.less";
 
+@animationDuration: 0.5s;
+
 body #main-nav {
     .transition(all, 0.1s, ease);
 }
@@ -75,43 +77,13 @@ body.collapseHeader {
         .transition(all, 0.1s, ease);
     }
 
-    .animate-repeat {
-        &.ng-enter,
-        &.ng-leave {
-            -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-            -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-            -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-            -o-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-            transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-            position: relative;
-            display: block;
-        }
-
-        &.ng-enter.ng-enter-active,
-        &.ng-leave {
-            opacity: 1;
-            top: 0;
-            height: 72px;
-        }
-
-        &.ng-leave.ng-leave-active,
-        &.ng-enter {
-            opacity: 0;
-            top: -100px;
-            height: 0px;
-        }
-    }
-
-
-
-
     .title {
         text-align: center;
         margin: 0 auto;
         width: 100%;
         display: block;
         font-size: 30px;
-        padding: 20px 10px 0 10px;
+        padding-top: 20px;
         //padding: 50px 0;
         font-weight: bold;
         color: @textColorPurple;
@@ -417,7 +389,6 @@ body.collapseHeader {
         padding-top: 40px;
         background: #dadada;
         .transition(all, 0.1s, ease);
-        
         /*&:after {
             content: '';
             display: block;
@@ -429,6 +400,11 @@ body.collapseHeader {
         }*/
         .wrapper {
             margin: 0 auto;
+        }
+
+        .title {
+            padding-right: 10px;
+            padding-left: 10px;
         }
     }
 
@@ -477,15 +453,20 @@ body.collapseHeader {
                 font-size: 20px;
                 text-align: center;
                 z-index: 1;
+            }
 
+            .icon {
                 &.ng-enter {
-                    transition: 0.5s linear all;
+                    transition: 1s linear all;
+                    /*transition: 1s linear all;*/
                     opacity: 0;
                 }
 
                 &.ng-enter-stagger {
-                    transition-delay: 1s;
-                    transition-duration: 0.5s;
+                    transition-delay: 0.1s;
+                    transition-duration: 0s;
+                    /*transition-delay: 0.3s;
+                    transition-duration: 0s;*/
                 }
 
                 &.ng-enter.ng-enter-active {
@@ -864,7 +845,7 @@ body > .cart-animated {
 
 body > .cart-animated {
     margin: 0;
-    transition: all 0.5s linear;
+    transition: all @animationDuration linear;
 }
 
 .slim.box-style {
