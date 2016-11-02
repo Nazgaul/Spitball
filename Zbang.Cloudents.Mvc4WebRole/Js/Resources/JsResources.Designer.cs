@@ -432,7 +432,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Would you like to unfollow this class?.
+        ///   Looks up a localized string similar to Are you sure you want to remove this class?.
         /// </summary>
         public static string unfollowClass {
             get {

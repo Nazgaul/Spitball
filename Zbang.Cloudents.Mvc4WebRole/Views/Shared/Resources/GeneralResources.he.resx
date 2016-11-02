@@ -211,4 +211,7 @@
   <data name="Class" xml:space="preserve">
     <value>קורס</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>הסר</value>
+  </data>
 </root>
