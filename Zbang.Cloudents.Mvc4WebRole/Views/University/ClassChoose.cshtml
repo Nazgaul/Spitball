@@ -63,6 +63,7 @@
                              md-delay="350"
                              md-min-length="0"
                              md-select-on-match="true"
+                             md-selected-item-change="cc.selectedDepartment = item"
                              md-match-case-insensitive="true"
                              md-search-text="cc.departmentName"
                              md-items="item in cc.queryDepartments(cc.departmentName)"

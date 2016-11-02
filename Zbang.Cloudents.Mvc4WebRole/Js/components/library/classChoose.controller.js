@@ -119,7 +119,13 @@ var app;
                     _this.nodeData.push(response);
                     _this.selectedDepartment = response;
                     _this.createClassCall(createBox);
+                }).catch(function (response) {
+                    createBox["name"].$setValidity('server', false);
+                    _this.create["error"] = response;
+                }).finally(function () {
+                    _this.submitDisabled = false;
                 });
+                ;
                 return;
             }
             this.createClassCall(createBox);

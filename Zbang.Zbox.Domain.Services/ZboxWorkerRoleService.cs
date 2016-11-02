@@ -168,6 +168,11 @@ select answerid from zbox.answer where boxid in (
 select questionid from Zbox.Question where boxid in (
 	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 )) option (maxdop 1)",
+                        @"delete from Zbox.CommentLike where commentid in (
+select questionid from Zbox.Question where boxid in (
+	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
+) 
+)option (maxdop 1)",
                         @"delete from Zbox.Question where boxid in (
 	select top(3)  boxid  from zbox.box where isdeleted = 1 and updatetime < getutcdate() - 120 and isdirty = 0
 ) option (maxdop 1)",
@@ -233,7 +238,7 @@ select top(3) id from zbox.university where isdeleted = 1 and updatetime < getut
                             await Task.Delay(TimeSpan.FromSeconds(1), token);
                         }
                         //var i = await conn.ExecuteAsync(new CommandDefinition(sql, cancellationToken: token));
-                        await Task.Delay(TimeSpan.FromSeconds(1), token);
+                        //await Task.Delay(TimeSpan.FromSeconds(1), token);
                         needToLoop = i > 0;
                         counter += i;
                     }

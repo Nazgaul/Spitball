@@ -154,7 +154,12 @@
                         this.nodeData.push(response);
                         this.selectedDepartment = response;
                         this.createClassCall(createBox);
-                    });
+                    }).catch(response => {
+                        createBox["name"].$setValidity('server', false);
+                        this.create["error"] = response;
+                    }).finally(() => {
+                        this.submitDisabled = false;
+                    });;
                 return;
             }
             this.createClassCall(createBox);
