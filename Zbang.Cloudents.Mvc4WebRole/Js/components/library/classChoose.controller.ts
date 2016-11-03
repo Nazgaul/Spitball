@@ -7,15 +7,11 @@
         departmentId: Guid;
         // animate: boolean;
     }
-    //var allList: Array<ISmallDepartment> = [];
     var selectedCourses: Array<ISelectedBoxClassChoose> = [];
     class ClassChoose {
         static $inject = ["searchService", "libraryService", "$mdDialog", "$filter",
             "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
-        //showCreateClass = false;
         selectedCoursesView: Array<ISelectedBoxClassChoose> = [];
-        //selectedDepartment: ISmallDepartment;
-        //submitDisabled = false;
         //create = {};
         term;
         data: Array<ISmallDepartment> = [];
@@ -33,7 +29,6 @@
         ) {
 
             this.classSearch();
-            //console.log(this.nodeData.map(m => m.boxes))
             var ids = [];
             angular.forEach(boxes,
 
@@ -56,26 +51,17 @@
                 v => {
                     if (v.boxes) {
                         for (let i = v.boxes.length - 1; i >= 0; i--) {
-                            const x = v.boxes[i];
-                            if (ids.indexOf(x.id) !== -1) {
-                                x["selected"] = true;
-                                const course = selectedCourses.find(f => f.id === x.id);
+                            const box = v.boxes[i];
+
+                            
+                            if (ids.indexOf(box.id) !== -1) {
+                                box["selected"] = true;
+                                const course = selectedCourses.find(f => f.id === box.id);
                                 course.department = v.name;
                             }
                         }
                     }
                 });
-
-            //$scope.$on("cart-animation-done",
-            //    (e, args: string) => {
-            //        var strId = args.replace("box_", "");
-            //        var id = parseInt(strId, 10);
-            //        var box = this.selectedCourses.find(f => f.id === id);
-            //        if (box) {
-            //            box.animate = true;
-            //            $scope.$apply();
-            //        }
-            //    });
         }
         classSearch() {
             if (!this.term) {
@@ -83,9 +69,6 @@
                 this.data = this.nodeData;
                 return;
             }
-            //const data = angular.copy(this.nodeData);
-            //console.log(data.length);
-
             // we manipulate the boxes inorder to remove them
             const boxes = this.$filter("filter")(angular.copy(this.nodeData), (value) => {
                 //value.boxes = this.$filter("filter")(value.boxes, this.term);
@@ -160,7 +143,7 @@
         animationEnd(id) {
             //var strId = args.replace("box_", "");
             //var id = parseInt(strId, 10);
-            var box = selectedCourses.find(f => f.id === id);
+            const box = selectedCourses.find(f => f.id === id);
             if (box) {
                 this.selectedCoursesView.push(box);
                 //box.animate = true;

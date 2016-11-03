@@ -8,7 +8,9 @@
             private nodeData: Array<ISmallDepartment>,
             private libraryService: ILibraryService
         ) {
-            this.departmentName = selectedDepartment.name;
+            if (selectedDepartment) {
+                this.departmentName = selectedDepartment.name;
+            }
             //console.log(department)
         }
         departmentName;

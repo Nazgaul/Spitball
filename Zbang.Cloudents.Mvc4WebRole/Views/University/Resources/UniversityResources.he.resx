@@ -224,4 +224,7 @@
   <data name="OnboardingSearchEmptyState" xml:space="preserve">
     <value>לא נמצאו תוצאות חיפוש תואמות </value>
   </data>
+  <data name="ClassChooseBottomSearchResultTitle" xml:space="preserve">
+    <value>לא מצאת את הקורס שלך? הוסף אותו.</value>
+  </data>
 </root>

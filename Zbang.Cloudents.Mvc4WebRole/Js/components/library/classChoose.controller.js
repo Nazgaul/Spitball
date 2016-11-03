@@ -35,10 +35,10 @@ var app;
             angular.forEach(nodeData, function (v) {
                 if (v.boxes) {
                     var _loop_1 = function(i) {
-                        var x = v.boxes[i];
-                        if (ids.indexOf(x.id) !== -1) {
-                            x["selected"] = true;
-                            var course = selectedCourses.find(function (f) { return f.id === x.id; });
+                        var box = v.boxes[i];
+                        if (ids.indexOf(box.id) !== -1) {
+                            box["selected"] = true;
+                            var course = selectedCourses.find(function (f) { return f.id === box.id; });
                             course.department = v.name;
                         }
                     };

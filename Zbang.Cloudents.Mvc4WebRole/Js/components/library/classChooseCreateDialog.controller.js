@@ -10,7 +10,9 @@ var app;
             this.libraryService = libraryService;
             this.submitDisabled = false;
             this.create = {};
-            this.departmentName = selectedDepartment.name;
+            if (selectedDepartment) {
+                this.departmentName = selectedDepartment.name;
+            }
         }
         ClassChooseDialog.prototype.close = function () {
             this.$mdDialog.cancel();

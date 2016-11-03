@@ -48,10 +48,10 @@
                     </li>
                 </ol>
             </div>
-            @*<div class="create-class-wrapper" ng-if="cc.data.length !== 0">
-                    <div class="text">Don't see your class? Create it.</div>
-                    <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass()">@UniversityResources.OnboardingCreateClass</button>
-                </div>*@
+            <div class="create-class-wrapper" ng-if="cc.data.length !== 0">
+                    <div class="text">@UniversityResources.ClassChooseBottomSearchResultTitle</div>
+                    <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass($event)">@UniversityResources.OnboardingCreateClass</button>
+                </div>
             <div class="empty-state" ng-if="cc.data.length === 0">
                 <h2>@GeneralResources.NoResultsTitle</h2>
                 <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
@@ -102,7 +102,7 @@
                         <input ng-model="cd.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)" />
                     </md-input-container>
                     <div class="buttons">
-                        <button class="cancel-btn" type="reset" ng-click="cd.showCreateClass = false;">@GeneralResources.Cancel</button>
+                        <button class="cancel-btn" type="reset" ng-click="cd.close()">@GeneralResources.Cancel</button>
                         <button class="action-btn space-before" type="submit" ng-disabled="cd.submitDisabled">@GeneralResources.Create</button>
                     </div>
                 </form>
