@@ -3,7 +3,7 @@
     export interface ISmallDepartment {
         name: string;
         id: Guid;
-        type: number;
+        type: string;
         boxes: Array<ISmallBox>;
     }
     export interface ISmallBox {

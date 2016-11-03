@@ -41,7 +41,7 @@
         <div class="search-container" flex-gt-md="85">
             <div class="grid-container">
                 <ol class="results list-unstyled" id="results">
-                    <li color-parent="{{::department.id}}" ng-repeat="department in cc.data track by department.id">
+                    <li color-parent="{{::department.id}}" ng-repeat="department in cc.data |limitTo:cc.limit track by department.id">
                         <div class="closed-department" ng-if="::department.type === 'closed'" ng-include="'close-department.html'"></div>
                         <div ng-if="::department.type !== 'closed'" ng-include="'open-department.html'"></div>
                     </li>
@@ -130,7 +130,7 @@
             </button>
         </div>
         <ol class="department-courses list-unstyled">
-            <li ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected">
+            <li ng-repeat="e in department.boxes track by e.id" @*ng-if="!e.selected"*@>
             <button class="angular-animate" cart-animation-to=".empty" cart-animation=".icon" ga-track-event="['course-choose', 'box']" ng-attr-id="{{::'box_' + e.id}}"  ng-click="cc.choose(e,department)">
                     <div class="box-template box-style slim" ng-include="'slim-box-template.html'"></div>
                 </button>

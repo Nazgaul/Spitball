@@ -3,7 +3,7 @@ var app;
     "use strict";
     var selectedCourses = [];
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager, $scope, $anchorScroll) {
+        function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager, $scope, $anchorScroll, $mdMedia) {
             this.searchService = searchService;
             this.libraryService = libraryService;
             this.$mdDialog = $mdDialog;
@@ -14,7 +14,9 @@ var app;
             this.resManager = resManager;
             this.$scope = $scope;
             this.$anchorScroll = $anchorScroll;
+            this.$mdMedia = $mdMedia;
             this.selectedCoursesView = [];
+            this.limit = 0;
             this.data = [];
             this.classSearch();
             var ids = [];
@@ -32,15 +34,23 @@ var app;
                 });
             });
             this.selectedCoursesView = selectedCourses.slice();
+            if ($mdMedia("gt-xs")) {
+                this.limit = 1e09;
+            }
+            else {
+                this.limit = 2;
+            }
             angular.forEach(nodeData, function (v) {
                 if (v.boxes) {
                     var _loop_1 = function(i) {
                         var box = v.boxes[i];
-                        box["twoLetter"] = box.name.substr(0, 2).toLowerCase();
                         if (ids.indexOf(box.id) !== -1) {
-                            box["selected"] = true;
+                            v.boxes.splice(i, 1);
                             var course = selectedCourses.find(function (f) { return f.id === box.id; });
                             course.department = v.name;
+                        }
+                        else {
+                            box["twoLetter"] = box.name.substr(0, 2).toLowerCase();
                         }
                     };
                     for (var i = v.boxes.length - 1; i >= 0; i--) {
@@ -107,14 +117,28 @@ var app;
             }).then(function (response) {
                 _this.selectedCoursesView = selectedCourses.slice();
                 var department = _this.nodeData.find(function (f) { return f.id === response.departmentId; });
-                var box = department.boxes.find(function (f) { return f.id === response.id; });
-                box["selected"] = false;
+                if (!department) {
+                    department = {
+                        id: response.departmentId,
+                        name: response.name,
+                        type: 'open',
+                        boxes: []
+                    };
+                }
+                department.boxes.push({
+                    courseCode: response.courseCode,
+                    id: response.id,
+                    items: response.items,
+                    members: response.members,
+                    name: response.name,
+                    professor: response.professor
+                });
             });
         };
         ClassChoose.prototype.choose = function (course, department) {
             this.boxService.follow(course.id);
             this.$scope.$emit("refresh-boxes");
-            course["selected"] = true;
+            department.boxes.splice(department.boxes.indexOf(course), 1);
             var pushOne = angular.extend({}, course, {
                 department: department.name,
                 departmentId: department.id
@@ -156,7 +180,7 @@ var app;
             });
         };
         ClassChoose.$inject = ["searchService", "libraryService", "$mdDialog", "$filter",
-            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
+            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll", "$mdMedia"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);
