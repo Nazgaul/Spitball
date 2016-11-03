@@ -501,7 +501,7 @@ body.collapseHeader {
 
             @media(max-width: 600px) {
                 font-size: 16px;
-                padding: 0 10px;
+                padding: 0 40px 0 10px;
             }
 
             &:focus {
@@ -552,6 +552,9 @@ body.collapseHeader {
             -moz-column-count: 4;
             -webkit-column-count: 4;
             column-count: 4;
+            -moz-column-gap: 0;
+            -webkit-column-gap: 0;
+            column-gap: 0;
         }
 
         width: 100%;
@@ -596,6 +599,11 @@ body.collapseHeader {
                 width: 18px;
                 height: 18px;
             }
+
+            .add-class md-icon {
+                width: 16px;
+                height: 16px;
+            }
         }
 
         .department-courses {
@@ -604,6 +612,7 @@ body.collapseHeader {
             li > button {
                 width: 100%;
                 padding: 0;
+                margin: 5px 0;
             }
         }
     }
@@ -719,17 +728,69 @@ body.collapseHeader {
         top: 0;
     }*/
 }
-.create-class-dialog{
-    width:100%;
+
+.create-class-dialog {
+    max-width: 450px;
+    max-height: 100vh;
+
+    md-toolbar {
+        display: block;
+        text-align: center;
+    }
+
+    form {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 10px;
+
+        .form-field:last-of-type .md-errors-spacer {
+            display: none;
+        }
+
+        md-input-container {
+            margin-bottom: 0;
+            margin-top: 8px;
+
+            &.md-input-focused label:not(.md-no-float),
+            &.md-input-has-placeholder label:not(.md-no-float),
+            &.md-input-has-value label:not(.md-no-float) {
+                -moz-transform: translate3d(0,6px,0) scale(.65);
+                -ms-transform: translate3d(0,6px,0) scale(.65);
+                -o-transform: translate3d(0,6px,0) scale(.65);
+                -webkit-transform: translate3d(0,6px,0) scale(.65);
+                transform: translate3d(0,6px,0) scale(.65);
+            }
+
+            .md-input-message-animation:not(.ng-animate) {
+                font-size: 11px;
+                text-align: right;
+            }
+        }
+    }
+
+    .buttons {
+        text-align: right;
+        margin-top: 10px;
+    }
 }
 
 .md-toast-animating {
     overflow: auto !important;
 }
 
-.selected-class-dialog {
+.create-class-dialog, .selected-class-dialog {
     background: @backgroundColor;
     max-width: 90%;
+
+    .title {
+        font-weight: bold;
+        color: @headerbackground;
+        font-size: 22px;
+    }
+}
+
+.selected-class-dialog {
 
     .department-name {
         font-size: 22px;
@@ -746,9 +807,6 @@ body.collapseHeader {
             right: 0;
             bottom: 24px;
             text-align: center;
-            font-weight: bold;
-            color: @headerbackground;
-            font-size: 22px;
 
             @media(max-width: 600px) {
                 font-size: 3.7vw;
@@ -764,6 +822,7 @@ body.collapseHeader {
             .department-name, .box-container {
                 margin: 0 auto 10px auto;
                 max-width: 300px;
+                width: 100%;
             }
 
             .center {
@@ -812,6 +871,23 @@ body.collapseHeader {
                 margin: 0 auto;
             }
         }
+
+        .confirm, .data-wrapper {
+            .content {
+                flex-grow: 1;
+                flex-shrink: 0;
+                .displayFlex;
+                flex-direction: column;
+                .align-items(center);
+                .justifyContet(center);
+            }
+
+            min-height: 200px;
+            .displayFlex;
+            flex-direction: column;
+            .align-items(stretch);
+            .justifyContet(space-between);
+        }
     }
 }
 
@@ -850,7 +926,6 @@ body > .cart-animated {
     .displayFlex();
     .align-items(stretch);
     .justifyContet(flex-start);
-    margin: 10px 0;
 
     .icon {
         @icon-size: 60px;

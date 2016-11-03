@@ -6,201 +6,212 @@
         <div class="top-container">
             <div class="status-strip" ng-if="cc.selectedCoursesView.length ">
                 @*&& !cc.showCreateClass*@
-            <h2>@UniversityResources.ClassChooseYellowTitle1&nbsp;</h2><ng-pluralize count="cc.selectedCoursesView.length"
-                                                                                     when="{
+                <h2>@UniversityResources.ClassChooseYellowTitle1&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
+                                                                                         when="{
                      'one': '1 @GeneralResources.Class,',
                      'other': '{} @GeneralResources.Classes,'}">
-            </ng-pluralize>
+                </ng-pluralize>
             <h2 ng-if="cc.selectedCoursesView.length == 1">&nbsp;@UniversityResources.ClassChooseYellowTitle2</h2>
             <h2 ng-if="cc.selectedCoursesView.length >= 2">
-                &nbsp;@UniversityResources.ClassChooseYellowTitle3&nbsp;<a ui-sref="dashboard">@UniversityResources.ClassChooseYellowClickHere</a>
-            </h2>
-        </div>
-        <div class="title-strip">
+                    &nbsp;@UniversityResources.ClassChooseYellowTitle3&nbsp;<a ui-sref="dashboard">@UniversityResources.ClassChooseYellowClickHere</a>
+                </h2>
+            </div>
+            <div class="title-strip">
             <h2 ng-if="!cc.selectedCoursesView.length">@UniversityResources.OnboardingHeaderStep1</h2>
-        </div>
-        <div class="wrapper" flex-gt-md="85">
+            </div>
+            <div class="wrapper" flex-gt-md="85">
             <h2 class="title" ng-if="!cc.selectedCoursesView.length">@UniversityResources.OnboardingHeaderStep1</h2>
             <h2 class="title" ng-if="cc.selectedCoursesView.length">@UniversityResources.OnboardingHeaderStep2</h2>
-            <div class="top">
-                <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()">
-                    <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
-                           ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
-                    <button type="submit" class="search-button">
-                        <md-icon md-svg-icon="t:searchIcon"></md-icon>
-                    </button>
-                </form>
-                <div id="selected-classes">
+                <div class="top">
+                    <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()">
+                        <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
+                               ng-model="cc.term" ng-model-options="{debounce : 350}" ng-change="cc.classSearch()" />
+                        <button type="submit" class="search-button">
+                            <md-icon md-svg-icon="t:searchIcon"></md-icon>
+                        </button>
+                    </form>
+                    <div id="selected-classes">
                     @*track by sc.id | filter: { animate: true }*@
 
                     <button type="button" class="icon background" color="{{::sc.departmentId}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCoursesView | limitTo:6 track by sc.id  "><span ng-bind="::sc.name.substr(0,2)"></span></button>
                     <div class="empty angular-animate" ng-if="cc.selectedCoursesView.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCoursesView.length - 6)" ng-bind="::i"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="search-container" flex-gt-md="85">
-        <div class="grid-container">
-            <ol class="results list-unstyled" id="results">
-                <li @*class="angular-animate x"*@ ng-repeat="department in cc.data track by department.id">
-                    <div class="closed-department" ng-if="::department.type === 'closed'" ng-include="'close-department.html'"></div>
-                    <div ng-if="::department.type !== 'closed'" ng-include="'open-department.html'"></div>
-                </li>
-            </ol>
-        </div>
-        @*<div class="create-class-wrapper" ng-if="cc.data.length !== 0">
-            <div class="text">Don't see your class? Create it.</div>
-            <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass()">@UniversityResources.OnboardingCreateClass</button>
-        </div>*@
-        <div class="empty-state" ng-if="cc.data.length === 0">
-            <h2>@GeneralResources.NoResultsTitle</h2>
-            <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
-            <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass($event)">@UniversityResources.OnboardingCreateClass</button>
-        </div>
-    </div>
-</div>
-<script type="text/ng-template" id="createClass.html">
-    <md-dialog class="create-class-dialog">
-        <h2 class="title">@UniversityResources.OnboardingCreateClass</h2>
-        <form name="createBox" flex="100" flex-gt-xs="50" flex-gt-md="30" novalidate ng-submit="cd.createClass(createBox)" class="create-class">
-            <md-autocomplete required md-no-asterisk md-input-name="department"
-                             md-delay="350"
-                             md-min-length="0"
-                             md-select-on-match="true"
-                             md-selected-item-change="cd.selectedDepartment = item"
-                             md-match-case-insensitive="true"
-                             md-search-text="cd.departmentName"
-                             md-items="item in cd.queryDepartments(cd.departmentName)"
-                             md-item-text="item.name"
-                             md-floating-label="@UniversityResources.EnterDepName">
-                <md-item-template>
-                    <span md-highlight-text="cd.departmentName" md-highlight-flags="^i">{{item.name}}</span>
-                </md-item-template>
-                <div ng-messages="createBox.department.$error" ng-if="createBox.department.$touched">
-                    <div ng-message="required">@GeneralResources.RequiredField</div>
-                </div>
-            </md-autocomplete>
-            <md-input-container class="form-field">
-                <label for="className">@UniversityResources.EnterClassName</label>
-                <input ng-model="cd.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)" />
-                <div class="error" ng-messages="createBox.name.$error">
-                    <div ng-message="required">@GeneralResources.RequiredField</div>
-                    <div ng-message="server">{{cc.create.error}}</div>
-                </div>
-            </md-input-container>
-
-            <md-input-container class="form-field">
-                <label for="classNumber">@UniversityResources.EnterCode</label>
-                <input ng-model="cd.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" ng-change="createBox.name.$setValidity('server',true)" />
-            </md-input-container>
-            <md-input-container class="form-field">
-                <label for="proffesor">@UniversityResources.Instructor</label>
-                <input ng-model="cd.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)" />
-            </md-input-container>
-            <div class="buttons">
-                <button class="cancel-btn" type="reset" ng-click="cd.showCreateClass = false;">@GeneralResources.Cancel</button>
-                <button class="action-btn space-before" type="submit" ng-disabled="cd.submitDisabled">@GeneralResources.Create</button>
+        <div class="search-container" flex-gt-md="85">
+            <div class="grid-container">
+                <ol class="results list-unstyled" id="results">
+                    <li ng-repeat="department in cc.data track by department.id">
+                        <div class="closed-department" ng-if="::department.type === 'closed'" ng-include="'close-department.html'"></div>
+                        <div ng-if="::department.type !== 'closed'" ng-include="'open-department.html'"></div>
+                    </li>
+                </ol>
             </div>
-        </form>
-    </md-dialog>
-</script>
-<script type="text/ng-template" id="close-department.html">
-    <div class="title">
-        <div class="department-name ellipsis" ng-bind="::department.name" color="{{::department.id}}" title="{{::department.name}}"></div>
-        <div class="lock">
-            <md-icon md-svg-icon="t:closed-lock" class="lock fill" color="{{::department.id}}"></md-icon>
+            @*<div class="create-class-wrapper" ng-if="cc.data.length !== 0">
+                    <div class="text">Don't see your class? Create it.</div>
+                    <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass()">@UniversityResources.OnboardingCreateClass</button>
+                </div>*@
+            <div class="empty-state" ng-if="cc.data.length === 0">
+                <h2>@GeneralResources.NoResultsTitle</h2>
+                <div class="text">@UniversityResources.OnboardingSearchEmptyState</div>
+                <button type="button" class="create-class action-btn" ng-click="cc.goCreateClass($event)">@UniversityResources.OnboardingCreateClass</button>
+            </div>
         </div>
     </div>
-    <div class="box-style">
-        <h5 color="{{::department.id}}">@JsResources.privateDepPopupTitle</h5>
-        <div class="subtitle">@JsResources.privateDepPopupContent</div>
-        <button type="button" class="action-btn" ng-click="cc.requestAccess(department)">@JsResources.privateDepPopupRequestButton</button>
-    </div>
-
-</script>
-    <script type="text/ng-template" id="open-department.html">
-    <div class="title">
-        <div dir="auto" class="department-name ellipsis" ng-bind="::department.name" color="{{::department.id}}" title="{{::department.name}}"></div>
-        <button type="button" ng-click="cc.goCreateClass($event,department)">+</button>
-    </div>
-    <ol class="department-courses list-unstyled">
-        <li ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected">
-            <button class="angular-animate" cart-animation-to=".empty" cart-animation=".icon" ga-track-event="['course-choose', 'box']" ng-attr-id="{{::'box_' + e.id}}"  ng-click="cc.choose(e,department)">
-                <div class="box-template box-style slim" ng-include="'slim-box-template.html'"></div>
-            </button>
-        </li>
-    </ol>
-</script>
-<script type="text/ng-template" id="dialog.tmpl.html">
-    <md-dialog class="selected-class-dialog">
-        <md-toolbar layout="row" layout-align="space-between center">
-            <img src="@Url.CdnContent("/Images/Site/course_choose_popup.png?v=1")" />
-            <div class="title">@UniversityResources.classChoosePopupTitle</div>
-        </md-toolbar>
-        <md-dialog-content>
-            <div class="data-wrapper" ng-if="!cd.confirmStep">
-                <div class="department-name ellipsis" dir="auto" color="{{::cd.course.departmentId}}" ng-bind="cd.course.department"></div>
-                <div class="box-container box-template box-style slim">
-                    <div class="icon background" color="{{cd.course.departmentId}}" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
-                    <div class="data">
-                        <div class="details">
-                            <h5 class="name ellipsis" dir="auto" color="{{cd.course.departmentId}}" ng-bind="cd.course.name" title="{{cd.course.name}}"></h5>
-                            <div class="metadata">
-                                <div class="code ellipsis" dir="auto" ng-bind="cd.course.courseCode"></div>
-                                <div class="professor ellipsis" dir="auto" ng-bind="cd.course.professor"></div>
-                            </div>
+    <script type="text/ng-template" id="createClass.html">
+        <md-dialog class="create-class-dialog">
+            <md-toolbar layout="row" layout-align="space-between center">
+                <img src="@Url.CdnContent("/Images/Site/add_class.png")" />
+                <h2 class="title">@UniversityResources.OnboardingCreateClass</h2>
+            </md-toolbar>
+            <md-dialog-content>
+                <form name="createBox" flex="100" flex-gt-xs="50" flex-gt-md="30" novalidate ng-submit="cd.createClass(createBox)" class="create-class">
+                    <md-autocomplete required md-no-asterisk md-input-name="department"
+                                     md-delay="350"
+                                     md-min-length="0"
+                                     md-select-on-match="true"
+                                     md-selected-item-change="cd.selectedDepartment = item"
+                                     md-match-case-insensitive="true"
+                                     md-search-text="cd.departmentName"
+                                     md-items="item in cd.queryDepartments(cd.departmentName)"
+                                     md-item-text="item.name"
+                                     md-floating-label="@UniversityResources.EnterDepName">
+                        <md-item-template>
+                            <span md-highlight-text="cd.departmentName" md-highlight-flags="^i">{{item.name}}</span>
+                        </md-item-template>
+                        <div ng-messages="createBox.department.$error" ng-if="createBox.department.$touched">
+                            <div ng-message="required">@GeneralResources.RequiredField</div>
                         </div>
-                        <div class="stats">
-                            <div class="users stat">
-                                <md-icon md-svg-icon="t:user"></md-icon>
-                                <div class="num" ng-bind="cd.course.members | megaNumber"></div>
-                            </div>
-                            <div class="docs stat">
-                                <md-icon md-svg-icon="t:docs"></md-icon>
-                                <div class="num" ng-bind="cd.course.items | megaNumber"></div>
+                    </md-autocomplete>
+                    <md-input-container class="form-field">
+                        <label for="className">@UniversityResources.EnterClassName</label>
+                        <input ng-model="cd.create.name" id="className" required md-no-asterisk autocomplete="off" type="text" name="name" ng-change="createBox.name.$setValidity('server',true)" />
+                        <div class="error" ng-messages="createBox.name.$error">
+                            <div ng-message="required">@GeneralResources.RequiredField</div>
+                            <div ng-message="server">{{cc.create.error}}</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="form-field">
+                        <label for="classNumber">@UniversityResources.EnterCode</label>
+                        <input ng-model="cd.create.number" id="classNumber" autocomplete="off" type="text" name="classNumber" ng-change="createBox.name.$setValidity('server',true)" />
+                    </md-input-container>
+                    <md-input-container class="form-field">
+                        <label for="proffesor">@UniversityResources.Instructor</label>
+                        <input ng-model="cd.create.professor" id="proffesor" autocomplete="off" type="text" name="proffesor" ng-change="createBox.name.$setValidity('server',true)" />
+                    </md-input-container>
+                    <div class="buttons">
+                        <button class="cancel-btn" type="reset" ng-click="cd.showCreateClass = false;">@GeneralResources.Cancel</button>
+                        <button class="action-btn space-before" type="submit" ng-disabled="cd.submitDisabled">@GeneralResources.Create</button>
+                    </div>
+                </form>
+            </md-dialog-content>
+        </md-dialog>
+    </script>
+    <script type="text/ng-template" id="close-department.html">
+        <div class="title">
+            <div class="department-name ellipsis" ng-bind="::department.name" color="{{::department.id}}" title="{{::department.name}}"></div>
+            <div class="lock">
+                <md-icon md-svg-icon="t:closed-lock" class="lock fill" color="{{::department.id}}"></md-icon>
+            </div>
+        </div>
+        <div class="box-style">
+            <h5 color="{{::department.id}}">@JsResources.privateDepPopupTitle</h5>
+            <div class="subtitle">@JsResources.privateDepPopupContent</div>
+            <button type="button" class="action-btn" ng-click="cc.requestAccess(department)">@JsResources.privateDepPopupRequestButton</button>
+        </div>
+
+    </script>
+    <script type="text/ng-template" id="open-department.html">
+        <div class="title">
+            <div dir="auto" class="department-name ellipsis" ng-bind="::department.name" color="{{::department.id}}" title="{{::department.name}}"></div>
+            <button type="button" class="add-class" ng-click="cc.goCreateClass($event,department)">
+                <md-icon md-svg-icon="t:add" class="fill" color="{{::department.id}}"></md-icon>
+            </button>
+        </div>
+        <ol class="department-courses list-unstyled">
+            <li ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected">
+            <button class="angular-animate" cart-animation-to=".empty" cart-animation=".icon" ga-track-event="['course-choose', 'box']" ng-attr-id="{{::'box_' + e.id}}"  ng-click="cc.choose(e,department)">
+                    <div class="box-template box-style slim" ng-include="'slim-box-template.html'"></div>
+                </button>
+            </li>
+        </ol>
+    </script>
+    <script type="text/ng-template" id="dialog.tmpl.html">
+        <md-dialog class="selected-class-dialog">
+            <md-toolbar layout="row" layout-align="space-between center">
+                <img src="@Url.CdnContent("/Images/Site/course_choose_popup.png?v=1")" />
+                <div class="title">@UniversityResources.classChoosePopupTitle</div>
+            </md-toolbar>
+            <md-dialog-content>
+                <div class="data-wrapper" ng-if="!cd.confirmStep">
+                    <div class="content">
+                        <div class="department-name ellipsis" dir="auto" color="{{::cd.course.departmentId}}" ng-bind="cd.course.department"></div>
+                        <div class="box-container box-template box-style slim">
+                            <div class="icon background" color="{{cd.course.departmentId}}" ng-bind="cd.course.name.substr(0,2) | lowercase"></div>
+                            <div class="data">
+                                <div class="details">
+                                    <h5 class="name ellipsis" dir="auto" color="{{cd.course.departmentId}}" ng-bind="cd.course.name" title="{{cd.course.name}}"></h5>
+                                    <div class="metadata">
+                                        <div class="code ellipsis" dir="auto" ng-bind="cd.course.courseCode"></div>
+                                        <div class="professor ellipsis" dir="auto" ng-bind="cd.course.professor"></div>
+                                    </div>
+                                </div>
+                                <div class="stats">
+                                    <div class="users stat">
+                                        <md-icon md-svg-icon="t:user"></md-icon>
+                                        <div class="num" ng-bind="cd.course.members | megaNumber"></div>
+                                    </div>
+                                    <div class="docs stat">
+                                        <md-icon md-svg-icon="t:docs"></md-icon>
+                                        <div class="num" ng-bind="cd.course.items | megaNumber"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="buttons">
+                        <button ng-click="cd.close()" class="cancel-btn">@GeneralResources.Cancel</button>
+                        <button ng-click="cd.confirmStep = true" class="action-btn">@GeneralResources.Remove</button>
+                    </div>
                 </div>
-                <div class="buttons">
-                    <button ng-click="cd.close()" class="cancel-btn">@GeneralResources.Cancel</button>
-                    <button ng-click="cd.confirmStep = true" class="action-btn">@GeneralResources.Remove</button>
+                <div class="confirm" ng-if="cd.confirmStep">
+                    <div class="content">
+                        <md-icon md-svg-icon="t:alert"></md-icon>
+                        <div class="text">@JsResources.unfollowClass</div>
+                    </div>
+                    <div class="buttons">
+                        <button ng-click="cd.close()" class="cancel-btn">@JsResources.dialogCancel</button>
+                        <button ng-click="cd.remove()" class="action-btn">@JsResources.dialogOk</button>
+                    </div>
                 </div>
-            </div>
-            <div class="confirm" ng-if="cd.confirmStep">
-                <md-icon md-svg-icon="t:alert"></md-icon>
-                <div class="text">@JsResources.unfollowClass</div>
-                <div class="buttons">
-                    <button ng-click="cd.close()" class="cancel-btn">@JsResources.dialogCancel</button>
-                    <button ng-click="cd.remove()" class="action-btn">@JsResources.dialogOk</button>
-                </div>
-            </div>
-        </md-dialog-content>
-    </md-dialog>
-</script>
+            </md-dialog-content>
+        </md-dialog>
+    </script>
 
-<script defer type="text/ng-template" id="slim-box-template.html">
-    <div class="icon background" color="{{::department.id}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
-    <div class="data">
-        <div class="details">
-            <h5 class="name ellipsis" dir="auto" color="{{::department.id}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
-            <div class="metadata">
-                <div class="code ellipsis" dir="auto" ng-bind="::e.courseId"></div>
-                <div class="professor ellipsis" dir="auto" ng-bind="::e.professor"></div>
+    <script defer type="text/ng-template" id="slim-box-template.html">
+        <div class="icon background" color="{{::department.id}}" ng-bind="::e.name.substr(0,2) | lowercase"></div>
+        <div class="data">
+            <div class="details">
+                <h5 class="name ellipsis" dir="auto" color="{{::department.id}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
+                <div class="metadata">
+                    <div class="code ellipsis" dir="auto" ng-bind="::e.courseId"></div>
+                    <div class="professor ellipsis" dir="auto" ng-bind="::e.professor"></div>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="users stat">
+                    <md-icon md-svg-icon="t:user"></md-icon>
+                    <div class="num" ng-bind="::e.members | megaNumber"></div>
+                </div>
+                <div class="docs stat">
+                    <md-icon md-svg-icon="t:docs"></md-icon>
+                    <div class="num" ng-bind="::e.items | megaNumber"></div>
+                </div>
             </div>
         </div>
-        <div class="stats">
-            <div class="users stat">
-                <md-icon md-svg-icon="t:user"></md-icon>
-                <div class="num" ng-bind="::e.members | megaNumber"></div>
-            </div>
-            <div class="docs stat">
-                <md-icon md-svg-icon="t:docs"></md-icon>
-                <div class="num" ng-bind="::e.items | megaNumber"></div>
-            </div>
-        </div>
-    </div>
-</script>
+    </script>
 </div>
 
 @*<md-grid-list class="results" md-cols="4" md-row-height="72px"  md-gutter="12px">
