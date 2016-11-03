@@ -26,11 +26,33 @@
         &.border {
             border-color: @@colorSet;
         }
+
         &.background {
             background: @@colorSet;
         }
+
         &.fill {
             fill: @@colorSet;
+        }
+    }
+
+    .color-parent@{index} {
+        .define(@index);
+
+        .child-color {
+            color: @@colorSet;
+
+            &.border {
+                border-color: @@colorSet;
+            }
+
+            &.background {
+                background: @@colorSet;
+            }
+
+            &.fill {
+                fill: @@colorSet;
+            }
         }
     }
 

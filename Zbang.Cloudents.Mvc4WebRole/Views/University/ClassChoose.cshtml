@@ -41,7 +41,7 @@
         <div class="search-container" flex-gt-md="85">
             <div class="grid-container">
                 <ol class="results list-unstyled" id="results">
-                    <li ng-repeat="department in cc.data track by department.id">
+                    <li color-parent="{{::department.id}}" ng-repeat="department in cc.data track by department.id">
                         <div class="closed-department" ng-if="::department.type === 'closed'" ng-include="'close-department.html'"></div>
                         <div ng-if="::department.type !== 'closed'" ng-include="'open-department.html'"></div>
                     </li>
@@ -110,13 +110,13 @@
     </script>
     <script type="text/ng-template" id="close-department.html">
         <div class="title">
-            <div class="department-name ellipsis" ng-bind="::department.name" color="{{::department.id}}" title="{{::department.name}}"></div>
+            <div class="department-name ellipsis child-color" ng-bind="::department.name"  title="{{::department.name}}"></div>
             <div class="lock">
-                <md-icon md-svg-icon="t:closed-lock" class="lock fill" color="{{::department.id}}"></md-icon>
+                <md-icon md-svg-icon="t:closed-lock" class="lock fill child-color"></md-icon>
             </div>
         </div>
         <div class="box-style">
-            <h5 color="{{::department.id}}">@JsResources.privateDepPopupTitle</h5>
+            <h5 class="child-color">@JsResources.privateDepPopupTitle</h5>
             <div class="subtitle">@JsResources.privateDepPopupContent</div>
             <button type="button" class="action-btn" ng-click="cc.requestAccess(department)">@JsResources.privateDepPopupRequestButton</button>
         </div>
@@ -124,9 +124,9 @@
     </script>
     <script type="text/ng-template" id="open-department.html">
         <div class="title">
-            <div dir="auto" class="department-name ellipsis" ng-bind="::department.name" color="{{::department.id}}" title="{{::department.name}}"></div>
+            <div dir="auto" class="department-name ellipsis child-color" ng-bind="::department.name" title="{{::department.name}}"></div>
             <button type="button" class="add-class" ng-click="cc.goCreateClass($event,department)">
-                <md-icon md-svg-icon="t:add" class="fill" color="{{::department.id}}"></md-icon>
+                <md-icon md-svg-icon="t:add" class="fill child-color"></md-icon>
             </button>
         </div>
         <ol class="department-courses list-unstyled">
@@ -189,11 +189,11 @@
         </md-dialog>
     </script>
 
-    <script defer type="text/ng-template" id="slim-box-template.html">
-        <div class="icon background" color="{{::department.id}}" ng-bind="::(e.twoLetter || e.name.substr(0,2) | lowercase)"></div>
+    <script type="text/ng-template" id="slim-box-template.html">
+        <div class="icon background child-color" ng-bind="::e.twoLetter || (e.name.substr(0,2) | lowercase)"></div>
         <div class="data">
             <div class="details">
-                <h5 class="name ellipsis" dir="auto" color="{{::department.id}}" ng-bind="::e.name" title="{{::e.name}}"></h5>
+                <h5 class="name ellipsis child-color" dir="auto" ng-bind="::e.name" title="{{::e.name}}"></h5>
                 <div class="metadata">
                     <div class="code ellipsis" dir="auto" ng-bind="::e.courseId"></div>
                     <div class="professor ellipsis" dir="auto" ng-bind="::e.professor"></div>
@@ -213,17 +213,3 @@
     </script>
 </div>
 
-@*<md-grid-list class="results" md-cols="4" md-row-height="72px"  md-gutter="12px">
-        <md-grid-tile md-colspan="1" md-rowspan="{{value.length}}" ng-repeat="(key,value) in cc.data track by key">
-            <md-grid-tile-header class="title">
-                <div class="department-name ellipsis" ng-bind="::key" d-color="{{::key.length}}" title="{{::key}}"></div>
-                <div class="lock">
-                    <md-icon md-svg-icon="t:closed-lock" class="lock fill" d-color="{{::key.length}}"></md-icon>
-                </div>
-            </md-grid-tile-header>
-            <ol class="department-courses list-unstyled">
-                <li ng-style="{color: c.selected ? 'red' : 'initial'}" class="angular-animate animate-repeat" ng-repeat="e in value track by e.id" ng-include="'slim-box-template.html'">
-                </li>
-            </ol>
-        </md-grid-tile>
-    </md-grid-list>*@

@@ -29,9 +29,30 @@
                     }
                     element[0].className += (' color' + num % 10);
                     //element.addClass('color' + num % 10);
-                    if (attrs.colorOn) {
-                        element.find(attrs.colorOn).addClass('color' + num % 10);
+                    //if (attrs.colorOn) {
+                    //    element.find(attrs.colorOn).addClass('color' + num % 10);
+                    //}
+                }
+            };
+        }
+    );
+    angular.module('app').directive('colorParent',
+        function () {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                    var num = 0, attr = attrs.colorParent;
+                    for (var i = 0; i < attr.length; i++) {
+                        var temp = parseInt(attr[i], 16);
+                        if (!isNaN(temp)) {
+                            num += temp;
+                        }
                     }
+                    //element[0].className += (' colorParent' + num % 10);
+                    element.addClass('color-parent' + num % 10);
+                    //if (attrs.colorOn) {
+                    //    element.find(attrs.colorOn).addClass('color' + num % 10);
+                    //}
                 }
             };
         }

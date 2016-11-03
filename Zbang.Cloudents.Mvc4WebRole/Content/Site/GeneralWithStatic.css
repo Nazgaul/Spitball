@@ -10,6 +10,18 @@
 .color10.fill {
   fill: #4faf61;
 }
+.color-parent10 .child-color {
+  color: #4faf61;
+}
+.color-parent10 .child-color.border {
+  border-color: #4faf61;
+}
+.color-parent10 .child-color.background {
+  background: #4faf61;
+}
+.color-parent10 .child-color.fill {
+  fill: #4faf61;
+}
 .color9 {
   color: #a27c22;
 }
@@ -20,6 +32,18 @@
   background: #a27c22;
 }
 .color9.fill {
+  fill: #a27c22;
+}
+.color-parent9 .child-color {
+  color: #a27c22;
+}
+.color-parent9 .child-color.border {
+  border-color: #a27c22;
+}
+.color-parent9 .child-color.background {
+  background: #a27c22;
+}
+.color-parent9 .child-color.fill {
   fill: #a27c22;
 }
 .color8 {
@@ -34,6 +58,18 @@
 .color8.fill {
   fill: #a55fff;
 }
+.color-parent8 .child-color {
+  color: #a55fff;
+}
+.color-parent8 .child-color.border {
+  border-color: #a55fff;
+}
+.color-parent8 .child-color.background {
+  background: #a55fff;
+}
+.color-parent8 .child-color.fill {
+  fill: #a55fff;
+}
 .color7 {
   color: #73b435;
 }
@@ -44,6 +80,18 @@
   background: #73b435;
 }
 .color7.fill {
+  fill: #73b435;
+}
+.color-parent7 .child-color {
+  color: #73b435;
+}
+.color-parent7 .child-color.border {
+  border-color: #73b435;
+}
+.color-parent7 .child-color.background {
+  background: #73b435;
+}
+.color-parent7 .child-color.fill {
   fill: #73b435;
 }
 .color6 {
@@ -58,6 +106,18 @@
 .color6.fill {
   fill: #f76446;
 }
+.color-parent6 .child-color {
+  color: #f76446;
+}
+.color-parent6 .child-color.border {
+  border-color: #f76446;
+}
+.color-parent6 .child-color.background {
+  background: #f76446;
+}
+.color-parent6 .child-color.fill {
+  fill: #f76446;
+}
 .color5 {
   color: #f36f6e;
 }
@@ -68,6 +128,18 @@
   background: #f36f6e;
 }
 .color5.fill {
+  fill: #f36f6e;
+}
+.color-parent5 .child-color {
+  color: #f36f6e;
+}
+.color-parent5 .child-color.border {
+  border-color: #f36f6e;
+}
+.color-parent5 .child-color.background {
+  background: #f36f6e;
+}
+.color-parent5 .child-color.fill {
   fill: #f36f6e;
 }
 .color4 {
@@ -82,6 +154,18 @@
 .color4.fill {
   fill: #848fa6;
 }
+.color-parent4 .child-color {
+  color: #848fa6;
+}
+.color-parent4 .child-color.border {
+  border-color: #848fa6;
+}
+.color-parent4 .child-color.background {
+  background: #848fa6;
+}
+.color-parent4 .child-color.fill {
+  fill: #848fa6;
+}
 .color3 {
   color: #10b2c1;
 }
@@ -92,6 +176,18 @@
   background: #10b2c1;
 }
 .color3.fill {
+  fill: #10b2c1;
+}
+.color-parent3 .child-color {
+  color: #10b2c1;
+}
+.color-parent3 .child-color.border {
+  border-color: #10b2c1;
+}
+.color-parent3 .child-color.background {
+  background: #10b2c1;
+}
+.color-parent3 .child-color.fill {
   fill: #10b2c1;
 }
 .color2 {
@@ -106,6 +202,18 @@
 .color2.fill {
   fill: #e775ce;
 }
+.color-parent2 .child-color {
+  color: #e775ce;
+}
+.color-parent2 .child-color.border {
+  border-color: #e775ce;
+}
+.color-parent2 .child-color.background {
+  background: #e775ce;
+}
+.color-parent2 .child-color.fill {
+  fill: #e775ce;
+}
 .color1 {
   color: #ff9853;
 }
@@ -118,6 +226,18 @@
 .color1.fill {
   fill: #ff9853;
 }
+.color-parent1 .child-color {
+  color: #ff9853;
+}
+.color-parent1 .child-color.border {
+  border-color: #ff9853;
+}
+.color-parent1 .child-color.background {
+  background: #ff9853;
+}
+.color-parent1 .child-color.fill {
+  fill: #ff9853;
+}
 .color0 {
   color: #64A9F8;
 }
@@ -128,6 +248,18 @@
   background: #64A9F8;
 }
 .color0.fill {
+  fill: #64A9F8;
+}
+.color-parent0 .child-color {
+  color: #64A9F8;
+}
+.color-parent0 .child-color.border {
+  border-color: #64A9F8;
+}
+.color-parent0 .child-color.background {
+  background: #64A9F8;
+}
+.color-parent0 .child-color.fill {
   fill: #64A9F8;
 }
 button {
