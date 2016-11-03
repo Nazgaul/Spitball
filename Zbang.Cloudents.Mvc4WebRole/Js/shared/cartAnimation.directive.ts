@@ -24,7 +24,8 @@ module app {
                     }
                     var dest = cart.offset();
                     var elem = $(element).find(attrs['cartAnimation']);
-                    var elemtClone = elem.clone().addClass("angular-animate cart-animated")
+                    var color = elem.parents('[color-parent]').attr('class').replace("-parent","");
+                    var elemtClone = elem.clone().addClass("angular-animate cart-animated " + color)
                         .css({
                             'position': 'absolute'
                         })

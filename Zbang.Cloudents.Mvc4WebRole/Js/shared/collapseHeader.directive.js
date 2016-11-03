@@ -13,6 +13,7 @@
                 var lastScrollTop = 0;
                 var promise;
                 $container.on('scroll', onScroll);
+                $container.on('touchmove', onScroll);
 
 
                 //var timeout;
@@ -21,10 +22,14 @@
                 //    timeout = setTimeout(setBackground, 1000);
                 //});
                 //TODO: scroll is happen allot
-                function onScroll() {
+
+                function onScroll(e) {
                     $timeout.cancel(promise);
                     promise = $timeout(function () {
-                        var st = $container.scrollTop();
+                        var st = Math.max($body.scrollTop() - 10, 0);
+                        if (st === lastScrollTop) {
+                            return;
+                        }
                         if (st > lastScrollTop) {
                             $body.addClass(className);
                         } else {
@@ -37,6 +42,7 @@
                 scope.$on('$destroy', function () {
                     $body.removeClass(className);
                     $container.unbind('scroll', onScroll);
+                    $container.unbind('touchmove', onScroll);
                 });
 
             }

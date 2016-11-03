@@ -42,10 +42,11 @@ body {
     //margin-top: 0;
     //.transition(margin-top, 0.2s, ease);
     &.collapseHeader {
-        margin-top: -@heightOfHeader;
+        //margin-top: -@heightOfHeader;
 
         #main-nav {
-            margin-top: -@heightOfHeader;
+            transform: translate(0, -@heightOfHeader);
+            //margin-top: -@heightOfHeader;
         }
 
         .itemPage header {
@@ -58,7 +59,7 @@ body {
 
     #main-nav {
         margin-top: 0;
-        .transition(margin-top, 0.2s, ease);
+        .transition(transform, 0.2s, ease);
         // display: none;
     }
 

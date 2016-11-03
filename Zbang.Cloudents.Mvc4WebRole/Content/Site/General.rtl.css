@@ -19,11 +19,8 @@ body {
   height: auto;
   background: #dadada;
 }
-body.collapseHeader {
-  margin-top: -65px;
-}
 body.collapseHeader #main-nav {
-  margin-top: -65px;
+  transform: translate(0, -65px);
 }
 body.collapseHeader .itemPage header {
   top: 0;
@@ -33,10 +30,10 @@ body.collapseHeader .itemPage header {
 }
 body #main-nav {
   margin-top: 0;
-  -moz-transition: margin-top 0.2s ease !important;
-  -o-transition: margin-top 0.2s ease !important;
-  -webkit-transition: margin-top 0.2s ease !important;
-  transition: margin-top 0.2s ease !important;
+  -moz-transition: transform 0.2s ease !important;
+  -o-transition: transform 0.2s ease !important;
+  -webkit-transition: transform 0.2s ease !important;
+  transition: transform 0.2s ease !important;
 }
 body .itemPage header {
   position: fixed;
