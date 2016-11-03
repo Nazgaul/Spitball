@@ -41,7 +41,7 @@
         <div class="search-container" flex-gt-md="85">
             <div class="grid-container">
                 <ol class="results list-unstyled" id="results">
-                    <li color-parent="{{::department.id}}" ng-repeat="department in cc.data |limitTo:cc.limit track by department.id">
+                    <li color-parent="{{::department.id}}" ng-repeat="department in cc.data  track by department.id">
                         <div class="closed-department" ng-if="::department.type === 'closed'" ng-include="'close-department.html'"></div>
                         <div ng-if="::department.type !== 'closed'" ng-include="'open-department.html'"></div>
                     </li>
