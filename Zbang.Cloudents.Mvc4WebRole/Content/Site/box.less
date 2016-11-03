@@ -850,7 +850,7 @@ md-menu-item > a.md-button {
 
 
 .drop {
-    border:5px dashed red;
+    border: 5px dashed red;
 }
 
 .upload {
@@ -873,7 +873,21 @@ md-menu-item > a.md-button {
         -webkit-flex-direction: column;
         flex-direction: column;
         .justifyContet(center);
-        padding: 0 20px;
+        padding: 0 10px;
+
+        .uploadFile {
+            .displayFlex();
+            .align-items(center);
+            .justifyContet(center);
+            position: relative;
+            flex-grow: 1;
+            flex-shrink: 0;
+            margin: 10px 0;
+
+            &.drop {
+                border: 2px dashed #888b8e;
+            }
+        }
 
         .alert-danger {
             background-color: #f44336;
@@ -985,7 +999,7 @@ md-menu-item > a.md-button {
         font-size: 14px;
         position: relative;
         //override bootstrap
-        margin: 0 10px;
+        margin: 10px;
         border: none;
         padding: 5px 5px 0;
 

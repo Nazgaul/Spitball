@@ -838,7 +838,23 @@ md-menu-item > a.md-button {
   flex-direction: column;
   -webkit-justify-content: center;
   justify-content: center;
-  padding: 0 20px;
+  padding: 0 10px;
+}
+.upload .tab-content .uploadFile {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  position: relative;
+  flex-grow: 1;
+  flex-shrink: 0;
+  margin: 10px 0;
+}
+.upload .tab-content .uploadFile.drop {
+  border: 2px dashed #888b8e;
 }
 .upload .tab-content .alert-danger {
   background-color: #f44336;
@@ -922,7 +938,7 @@ md-menu-item > a.md-button {
   height: 165px;
   font-size: 14px;
   position: relative;
-  margin: 0 10px;
+  margin: 10px;
   border: none;
   padding: 5px 5px 0;
 }
