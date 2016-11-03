@@ -30,7 +30,7 @@
                     }
                     element.addClass('color' + num % 10);
                     if (attrs.colorOn) {
-                        element.find(attrs.dColorOn).addClass('color' + num % 10);
+                        element.find(attrs.colorOn).addClass('color' + num % 10);
                     }
                     //var x = parseInt(attrs.dColor, 10);
                     //if (!isNaN(x)) {

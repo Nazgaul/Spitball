@@ -36,6 +36,7 @@ var app;
                 if (v.boxes) {
                     var _loop_1 = function(i) {
                         var box = v.boxes[i];
+                        box["twoLetter"] = box.name.substr(0, 2).toLowerCase();
                         if (ids.indexOf(box.id) !== -1) {
                             box["selected"] = true;
                             var course = selectedCourses.find(function (f) { return f.id === box.id; });
@@ -55,16 +56,25 @@ var app;
                 return;
             }
             var boxes = this.$filter("filter")(angular.copy(this.nodeData), function (value) {
-                value.boxes = _this.$filter("filter")(value.boxes, {
-                    name: _this.term,
-                    courseCode: _this.term,
-                    professor: _this.term
-                });
+                value.boxes = _this.$filter("filter")(value.boxes, (function (v1) {
+                    var lower = _this.term.toLowerCase();
+                    if (v1.name.toLowerCase().indexOf(lower) !== -1) {
+                        return v1;
+                    }
+                    if (v1.courseCode && v1.courseCode.toLowerCase().indexOf(lower) !== -1) {
+                        return v1;
+                    }
+                    if (v1.professor && v1.professor.toLowerCase().indexOf(lower) !== -1) {
+                        return v1;
+                    }
+                }));
                 if (value.boxes && value.boxes.length) {
                     return value.boxes;
                 }
+                ;
             });
             var department = this.$filter("filter")(this.nodeData, { name: this.term });
+            console.log(boxes, department);
             this.data = this.makeUnique(department.concat(boxes));
             this.$anchorScroll();
         };

@@ -53,7 +53,7 @@
                         for (let i = v.boxes.length - 1; i >= 0; i--) {
                             const box = v.boxes[i];
 
-                            
+                            box["twoLetter"] = box.name.substr(0, 2).toLowerCase();
                             if (ids.indexOf(box.id) !== -1) {
                                 box["selected"] = true;
                                 const course = selectedCourses.find(f => f.id === box.id);
@@ -72,17 +72,30 @@
             // we manipulate the boxes inorder to remove them
             const boxes = this.$filter("filter")(angular.copy(this.nodeData), (value) => {
                 //value.boxes = this.$filter("filter")(value.boxes, this.term);
-                value.boxes = this.$filter("filter")(value.boxes, {
-                    name: this.term,
-                    courseCode: this.term,
-                    professor: this.term
-                });
+                value.boxes = this.$filter("filter")(value.boxes,
+                    ((v1: ISmallBox) => {
+                        var lower = this.term.toLowerCase();
+                        if (v1.name.toLowerCase().indexOf(lower) !== -1) {
+                            return v1;
+                        }
+                        if (v1.courseCode && v1.courseCode.toLowerCase().indexOf(lower) !== -1) {
+                            return v1;
+                        }
+                        if (v1.professor && v1.professor.toLowerCase().indexOf(lower) !== -1) {
+                            return v1;
+                        }
+
+                    }));
+
+
                 if (value.boxes && value.boxes.length) {
                     return value.boxes;
-                }
+                };
 
             });
             const department = this.$filter("filter")(this.nodeData, { name: this.term });
+            console.log(boxes, department);
+
             this.data = this.makeUnique(department.concat(boxes));
             this.$anchorScroll(); //scroll to the top
 
