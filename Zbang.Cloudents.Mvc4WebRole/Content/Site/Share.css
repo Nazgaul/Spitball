@@ -12,6 +12,8 @@
   margin-top: 10px;
   margin-bottom: 10px;
   background: #4190b9;
+  display: inline-block;
+  width: 100%;
   /*.nav-tabs {
         list-style: none;
         margin-top: 15px;
@@ -390,8 +392,8 @@
   top: 0;
   position: absolute;
   right: 0;
-  padding: 7px 15px;
-  margin: 6px auto;
+  padding: 8px 15px;
+  margin: 0 auto;
 }
 .invite.upload button.close:active:hover {
   background: transparent;
