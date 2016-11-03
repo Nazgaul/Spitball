@@ -52,18 +52,23 @@
                 this.selectedDepartment.id)
                 .then(response => {
                     const department = this.nodeData.find(f => f.id === this.selectedDepartment.id);
-                    const box = {
+                    const box: ISelectedBoxClassChoose = {
                         id: response.id,
                         name: createObj.name,
                         courseCode: createObj.number,
                         professor: createObj.professor,
                         items: 0,
                         members: 1,
-                        selected: true
+                        //selected: true,
+                        animate: true,
+                        department: this.selectedDepartment.name,
+                        departmentId: this.selectedDepartment.id
                     };
                     department.boxes = department.boxes || [];
-                    department.boxes.push(box);
-                    box["department"] = this.selectedDepartment.name;
+
+                    var z = angular.extend({}, box, { selected: true });
+                    department.boxes.push(z);
+                    //box["department"] = this.selectedDepartment.name;
                     //this.selectedCourses.push((box as ISmallBoxClassChoose));
                     //this.selectedDepartment = null;
                     angular.forEach(createObj,

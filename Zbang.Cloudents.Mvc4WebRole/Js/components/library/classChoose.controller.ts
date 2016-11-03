@@ -2,18 +2,18 @@
     "use strict";
 
 
-    export interface ISmallBoxClassChoose extends ISmallBox {
+    export interface ISelectedBoxClassChoose extends ISmallBox {
         department: string;
         departmentId: Guid;
+        // animate: boolean;
     }
     //var allList: Array<ISmallDepartment> = [];
-
+    var selectedCourses: Array<ISelectedBoxClassChoose> = [];
     class ClassChoose {
         static $inject = ["searchService", "libraryService", "$mdDialog", "$filter",
             "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
         //showCreateClass = false;
-        selectedCourses: Array<ISmallBoxClassChoose> = [];
-
+        selectedCoursesView: Array<ISelectedBoxClassChoose> = [];
         //selectedDepartment: ISmallDepartment;
         //submitDisabled = false;
         //create = {};
@@ -39,7 +39,7 @@
 
                 (v) => {
                     ids.push(v.id);
-                    this.selectedCourses.push({
+                    selectedCourses.push({
                         id: v.id,
                         courseCode: v.courseCode,
                         name: v.name,
@@ -50,6 +50,8 @@
                         departmentId: v.departmentId
                     });
                 });
+            this.selectedCoursesView = selectedCourses.slice();
+
             angular.forEach(nodeData,
                 v => {
                     if (v.boxes) {
@@ -57,14 +59,23 @@
                             const x = v.boxes[i];
                             if (ids.indexOf(x.id) !== -1) {
                                 x["selected"] = true;
-                                const course = this.selectedCourses.find(f => f.id === x.id);
+                                const course = selectedCourses.find(f => f.id === x.id);
                                 course.department = v.name;
                             }
                         }
                     }
                 });
 
-
+            //$scope.$on("cart-animation-done",
+            //    (e, args: string) => {
+            //        var strId = args.replace("box_", "");
+            //        var id = parseInt(strId, 10);
+            //        var box = this.selectedCourses.find(f => f.id === id);
+            //        if (box) {
+            //            box.animate = true;
+            //            $scope.$apply();
+            //        }
+            //    });
         }
         classSearch() {
             if (!this.term) {
@@ -115,11 +126,12 @@
                 controllerAs: 'cd',
                 locals: {
                     course: course,
-                    courses: this.selectedCourses
+                    courses: selectedCourses //this.selectedCoursesView
                 },
                 //scope: this.$scope,
                 fullscreen: false // Only for -xs, -sm breakpoints.
-            }).then((response: ISmallBoxClassChoose) => {
+            }).then((response: ISelectedBoxClassChoose) => {
+                this.selectedCoursesView = selectedCourses.slice();
                 var department = this.nodeData.find(f => f.id === response.departmentId);
                 var box = department.boxes.find(f => f.id === response.id);
                 box["selected"] = false;
@@ -141,11 +153,21 @@
                     department: department.name,
                     departmentId: department.id
                 });
-            this.selectedCourses.push(
+            selectedCourses.push(
                 pushOne);
-            //});
 
         }
+        animationEnd(id) {
+            //var strId = args.replace("box_", "");
+            //var id = parseInt(strId, 10);
+            var box = selectedCourses.find(f => f.id === id);
+            if (box) {
+                this.selectedCoursesView.push(box);
+                //box.animate = true;
+                //$scope.$apply();
+            }
+        }
+
         //departmentName: string;
         goCreateClass(ev, department) {
             this.$mdDialog.show({
@@ -163,7 +185,8 @@
                 fullscreen: true // Only for -xs, -sm breakpoints.
             }).then((response) => {
                 this.nodeData = response.nodeData;
-                this.selectedCourses.push((response.box as ISmallBoxClassChoose));
+                selectedCourses.push((response.box as ISelectedBoxClassChoose));
+                this.selectedCoursesView = selectedCourses.slice();
             });
 
             //this.data = this.nodeData;

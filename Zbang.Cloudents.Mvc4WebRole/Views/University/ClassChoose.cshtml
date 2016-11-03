@@ -4,24 +4,24 @@
 <div collapse-header>
     <div class="explore" @*ng-if="!cc.showCreateClass"*@>
         <div class="top-container">
-            <div class="status-strip" ng-if="cc.selectedCourses.length ">
+            <div class="status-strip" ng-if="cc.selectedCoursesView.length ">
                 @*&& !cc.showCreateClass*@
-            <h2>@UniversityResources.ClassChooseYellowTitle1&nbsp;</h2><ng-pluralize count="cc.selectedCourses.length"
+            <h2>@UniversityResources.ClassChooseYellowTitle1&nbsp;</h2><ng-pluralize count="cc.selectedCoursesView.length"
                                                                                      when="{
                      'one': '1 @GeneralResources.Class,',
                      'other': '{} @GeneralResources.Classes,'}">
             </ng-pluralize>
-            <h2 ng-if="cc.selectedCourses.length == 1">&nbsp;@UniversityResources.ClassChooseYellowTitle2</h2>
-            <h2 ng-if="cc.selectedCourses.length >= 2">
+            <h2 ng-if="cc.selectedCoursesView.length == 1">&nbsp;@UniversityResources.ClassChooseYellowTitle2</h2>
+            <h2 ng-if="cc.selectedCoursesView.length >= 2">
                 &nbsp;@UniversityResources.ClassChooseYellowTitle3&nbsp;<a ui-sref="dashboard">@UniversityResources.ClassChooseYellowClickHere</a>
             </h2>
         </div>
         <div class="title-strip">
-            <h2 ng-if="!cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep1</h2>
+            <h2 ng-if="!cc.selectedCoursesView.length">@UniversityResources.OnboardingHeaderStep1</h2>
         </div>
         <div class="wrapper" flex-gt-md="85">
-            <h2 class="title" ng-if="!cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep1</h2>
-            <h2 class="title" ng-if="cc.selectedCourses.length">@UniversityResources.OnboardingHeaderStep2</h2>
+            <h2 class="title" ng-if="!cc.selectedCoursesView.length">@UniversityResources.OnboardingHeaderStep1</h2>
+            <h2 class="title" ng-if="cc.selectedCoursesView.length">@UniversityResources.OnboardingHeaderStep2</h2>
             <div class="top">
                 <form class="search-form" name="classChooseFrom" novalidate ng-submit="cc.classSearch()">
                     <input spellcheck="false" autofocus type="search" placeholder="@UniversityResources.OnboardingSearchContainer"
@@ -31,8 +31,10 @@
                     </button>
                 </form>
                 <div id="selected-classes">
-                    <button type="button" class="icon background angular-animate" color="{{::sc.departmentId}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCourses | limitTo:6 track by sc.id "><span ng-bind="::sc.name.substr(0,2)"></span></button>
-                    <div class="empty angular-animate" ng-if="cc.selectedCourses.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCourses.length - 6)" ng-bind="::i"></div>
+                    @*track by sc.id | filter: { animate: true }*@
+
+                    <button type="button" class="icon background" color="{{::sc.departmentId}}" ng-click="cc.status($event, sc)" ng-repeat="sc in cc.selectedCoursesView | limitTo:6 track by sc.id  "><span ng-bind="::sc.name.substr(0,2)"></span></button>
+                    <div class="empty angular-animate" ng-if="cc.selectedCoursesView.length<6" ng-repeat="i in [1,2,3,4,5,6] | limitTo: (cc.selectedCoursesView.length - 6)" ng-bind="::i"></div>
                 </div>
             </div>
         </div>
@@ -40,7 +42,7 @@
     <div class="search-container" flex-gt-md="85">
         <div class="grid-container">
             <ol class="results list-unstyled" id="results">
-                <li ng-repeat="department in cc.data track by department.id">
+                <li @*class="angular-animate x"*@ ng-repeat="department in cc.data track by department.id">
                     <div class="closed-department" ng-if="::department.type === 'closed'" ng-include="'close-department.html'"></div>
                     <div ng-if="::department.type !== 'closed'" ng-include="'open-department.html'"></div>
                 </li>
@@ -123,7 +125,7 @@
     </div>
     <ol class="department-courses list-unstyled">
         <li ng-repeat="e in department.boxes track by e.id" ng-if="!e.selected">
-            <button class="angular-animate" cart-animation-to=".empty" cart-animation=".icon" ga-track-event="['course-choose', 'box']" ng-click="cc.choose(e,department)">
+            <button class="angular-animate" cart-animation-to=".empty" cart-animation=".icon" ga-track-event="['course-choose', 'box']" ng-attr-id="{{::'box_' + e.id}}"  ng-click="cc.choose(e,department)">
                 <div class="box-template box-style slim" ng-include="'slim-box-template.html'"></div>
             </button>
         </li>

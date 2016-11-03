@@ -482,6 +482,20 @@ body.collapseHeader .title-strip {
   align-items: center;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
+  /*.icon {
+                &.ng-enter {
+                    opacity: 0;
+                }
+
+                &.ng-enter-stagger {
+                    transition-delay: 0.1s;
+                    transition-duration: 0s;
+                }
+
+                &.ng-enter.ng-enter-active {
+                    opacity: 1;
+                }
+            }*/
 }
 .class-choose .top #selected-classes button {
   color: #ffffff;
@@ -507,20 +521,6 @@ body.collapseHeader .title-strip {
   font-size: 20px;
   text-align: center;
   z-index: 1;
-}
-.class-choose .top #selected-classes .icon.ng-enter {
-  transition: 1s linear all;
-  /*transition: 1s linear all;*/
-  opacity: 0;
-}
-.class-choose .top #selected-classes .icon.ng-enter-stagger {
-  transition-delay: 0.1s;
-  transition-duration: 0s;
-  /*transition-delay: 0.3s;
-                    transition-duration: 0s;*/
-}
-.class-choose .top #selected-classes .icon.ng-enter.ng-enter-active {
-  opacity: 1;
 }
 .class-choose .top #selected-classes,
 .class-choose .top .search-form {
