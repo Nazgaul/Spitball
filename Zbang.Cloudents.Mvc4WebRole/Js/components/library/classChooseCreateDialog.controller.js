@@ -52,7 +52,6 @@ var app;
                     professor: createObj.professor,
                     items: 0,
                     members: 1,
-                    animate: true,
                     department: _this.selectedDepartment.name,
                     departmentId: _this.selectedDepartment.id
                 };

@@ -60,7 +60,6 @@
                         items: 0,
                         members: 1,
                         //selected: true,
-                        animate: true,
                         department: this.selectedDepartment.name,
                         departmentId: this.selectedDepartment.id
                     };

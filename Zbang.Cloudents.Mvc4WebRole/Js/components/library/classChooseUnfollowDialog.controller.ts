@@ -3,8 +3,8 @@
     class ClassChooseUnfollowDialog {
         static $inject = ["$mdDialog", "course", "courses", "boxService"];
         constructor(private $mdDialog: angular.material.IDialogService,
-            private course: ISmallBoxClassChoose,
-            private courses: Array<ISmallBoxClassChoose>,
+            private course: ISelectedBoxClassChoose,
+            private courses: Array<ISelectedBoxClassChoose>,
             private boxService: IBoxService) {
         }
 

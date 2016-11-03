@@ -123,4 +123,7 @@
   <data name="UnspecifiedError" xml:space="preserve">
     <value>אופס..קרתה שגיאה. אנא נסה שוב</value>
   </data>
+  <data name="QuizController_SaveAnswers_Answers_is_requeried" xml:space="preserve">
+    <value>אנא ספק תשובות</value>
+  </data>
 </root>
