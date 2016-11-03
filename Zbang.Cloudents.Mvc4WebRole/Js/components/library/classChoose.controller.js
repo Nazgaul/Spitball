@@ -1,9 +1,9 @@
 var app;
 (function (app) {
     "use strict";
+    var selectedCourses = [];
     var ClassChoose = (function () {
         function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager, $scope, $anchorScroll) {
-            var _this = this;
             this.searchService = searchService;
             this.libraryService = libraryService;
             this.$mdDialog = $mdDialog;
@@ -14,13 +14,13 @@ var app;
             this.resManager = resManager;
             this.$scope = $scope;
             this.$anchorScroll = $anchorScroll;
-            this.selectedCourses = [];
+            this.selectedCoursesView = [];
             this.data = [];
             this.classSearch();
             var ids = [];
             angular.forEach(boxes, function (v) {
                 ids.push(v.id);
-                _this.selectedCourses.push({
+                selectedCourses.push({
                     id: v.id,
                     courseCode: v.courseCode,
                     name: v.name,
@@ -31,13 +31,14 @@ var app;
                     departmentId: v.departmentId
                 });
             });
+            this.selectedCoursesView = selectedCourses.slice();
             angular.forEach(nodeData, function (v) {
                 if (v.boxes) {
                     var _loop_1 = function(i) {
-                        var x = v.boxes[i];
-                        if (ids.indexOf(x.id) !== -1) {
-                            x["selected"] = true;
-                            var course = _this.selectedCourses.find(function (f) { return f.id === x.id; });
+                        var box = v.boxes[i];
+                        if (ids.indexOf(box.id) !== -1) {
+                            box["selected"] = true;
+                            var course = selectedCourses.find(function (f) { return f.id === box.id; });
                             course.department = v.name;
                         }
                     };
@@ -90,10 +91,11 @@ var app;
                 controllerAs: 'cd',
                 locals: {
                     course: course,
-                    courses: this.selectedCourses
+                    courses: selectedCourses
                 },
                 fullscreen: false
             }).then(function (response) {
+                _this.selectedCoursesView = selectedCourses.slice();
                 var department = _this.nodeData.find(function (f) { return f.id === response.departmentId; });
                 var box = department.boxes.find(function (f) { return f.id === response.id; });
                 box["selected"] = false;
@@ -107,7 +109,13 @@ var app;
                 department: department.name,
                 departmentId: department.id
             });
-            this.selectedCourses.push(pushOne);
+            selectedCourses.push(pushOne);
+        };
+        ClassChoose.prototype.animationEnd = function (id) {
+            var box = selectedCourses.find(function (f) { return f.id === id; });
+            if (box) {
+                this.selectedCoursesView.push(box);
+            }
         };
         ClassChoose.prototype.goCreateClass = function (ev, department) {
             var _this = this;
@@ -124,7 +132,8 @@ var app;
                 fullscreen: false
             }).then(function (response) {
                 _this.nodeData = response.nodeData;
-                _this.selectedCourses.push(response.box);
+                selectedCourses.push(response.box);
+                _this.selectedCoursesView = selectedCourses.slice();
             });
         };
         ClassChoose.prototype.requestAccess = function (department) {

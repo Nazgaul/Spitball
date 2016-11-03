@@ -9,8 +9,11 @@ var app;
             this.priority = -1;
             this.link = function (scope, element, attrs) {
                 element.click(function () {
+                    var strId = element[0].id.replace("box_", "");
+                    var id = parseInt(strId, 10);
                     var cart = $(attrs['cartAnimationTo']);
                     if (!cart.length) {
+                        scope["cc"].animationEnd(id);
                         return;
                     }
                     var dest = cart.offset();
@@ -31,6 +34,7 @@ var app;
                         opacity: 0.3
                     }).then(function () {
                         elemtClone.remove();
+                        scope["cc"].animationEnd(id);
                     });
                 });
             };

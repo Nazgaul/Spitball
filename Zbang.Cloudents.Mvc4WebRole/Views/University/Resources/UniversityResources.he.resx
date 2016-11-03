@@ -194,4 +194,37 @@
   <data name="DepartmentSettings" xml:space="preserve">
     <value>הגדרות מחלקה</value>
   </data>
+  <data name="ClassChooseYellowClickHere" xml:space="preserve">
+    <value>לחץ כאן</value>
+  </data>
+  <data name="ClassChooseYellowTitle3" xml:space="preserve">
+    <value>לסיום התהליך</value>
+  </data>
+  <data name="ClassChooseYellowTitle1" xml:space="preserve">
+    <value>הוספת קורס</value>
+  </data>
+  <data name="OnboardingHeaderStep1" xml:space="preserve">
+    <value>להשלמת תהליך ההרשמה עליך לבחור קורסים</value>
+  </data>
+  <data name="OnboardingSearchContainer" xml:space="preserve">
+    <value>חפש קורס או מחלקה</value>
+  </data>
+  <data name="classChoosePopupTitle" xml:space="preserve">
+    <value>הקורס שלך</value>
+  </data>
+  <data name="OnboardingCreateClass" xml:space="preserve">
+    <value>צור קורס חדש</value>
+  </data>
+  <data name="ClassChooseYellowTitle2" xml:space="preserve">
+    <value>המשך לחפש קורסים נוספים</value>
+  </data>
+  <data name="OnboardingHeaderStep2" xml:space="preserve">
+    <value>חפש קורס נוסף</value>
+  </data>
+  <data name="OnboardingSearchEmptyState" xml:space="preserve">
+    <value>לא נמצאו תוצאות חיפוש תואמות </value>
+  </data>
+  <data name="ClassChooseBottomSearchResultTitle" xml:space="preserve">
+    <value>לא מצאת את הקורס שלך? הוסף אותו.</value>
+  </data>
 </root>

@@ -88,6 +88,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.University.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t see your class? Create it..
+        /// </summary>
+        public static string ClassChooseBottomSearchResultTitle {
+            get {
+                return ResourceManager.GetString("ClassChooseBottomSearchResultTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selected Class.
         /// </summary>
         public static string classChoosePopupTitle {

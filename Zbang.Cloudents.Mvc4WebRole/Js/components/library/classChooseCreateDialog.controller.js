@@ -10,7 +10,9 @@ var app;
             this.libraryService = libraryService;
             this.submitDisabled = false;
             this.create = {};
-            this.departmentName = selectedDepartment.name;
+            if (selectedDepartment) {
+                this.departmentName = selectedDepartment.name;
+            }
         }
         ClassChooseDialog.prototype.close = function () {
             this.$mdDialog.cancel();
@@ -52,11 +54,12 @@ var app;
                     professor: createObj.professor,
                     items: 0,
                     members: 1,
-                    selected: true
+                    department: _this.selectedDepartment.name,
+                    departmentId: _this.selectedDepartment.id
                 };
                 department.boxes = department.boxes || [];
-                department.boxes.push(box);
-                box["department"] = _this.selectedDepartment.name;
+                var z = angular.extend({}, box, { selected: true });
+                department.boxes.push(z);
                 angular.forEach(createObj, function (value, key) {
                     _this.create[key] = '';
                 });

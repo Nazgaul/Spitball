@@ -7,14 +7,19 @@ module app {
             private $animate: angular.animate.IAnimateService
         ) {
         }
-
+        // scope = true;
         restrict = 'A';
         priority = -1;
-        link = (scope, element: JQuery, attrs: ng.IAttributes) => {
+        link = (scope: angular.IScope, element: JQuery, attrs: ng.IAttributes) => {
             element.click(
                 () => {
+                    var strId = element[0].id.replace("box_", "");
+                    var id = parseInt(strId, 10);
                     var cart = $(attrs['cartAnimationTo']);
                     if (!cart.length) {
+
+                        scope["cc"].animationEnd(id);
+                        //scope.$emit("cart-animation-done", element[0].id);
                         return;
                     }
                     var dest = cart.offset();
@@ -39,7 +44,11 @@ module app {
                             opacity: 0.3
                         }).then(() => {
                             elemtClone.remove();
-                    });
+                            scope["cc"].animationEnd(id);
+                            //scope.$emit("cart-animation-done", element[0].id);
+                            // scope.$emit("cart-animation-done", element[0].id);
+
+                        });
                     //elemtClone.bind("transitionend",
                     //    () => {
                     //        elemtClone.remove();

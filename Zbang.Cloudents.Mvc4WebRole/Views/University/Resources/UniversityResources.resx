@@ -225,4 +225,7 @@ Try to search again or add this class to our listings.</value>
   <data name="ClassChooseYellowTitle3" xml:space="preserve">
     <value>if you're done</value>
   </data>
+  <data name="ClassChooseBottomSearchResultTitle" xml:space="preserve">
+    <value>Don't see your class? Create it.</value>
+  </data>
 </root>
