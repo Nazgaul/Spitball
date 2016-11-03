@@ -10,7 +10,7 @@
     var selectedCourses: Array<ISelectedBoxClassChoose> = [];
     class ClassChoose {
         static $inject = ["searchService", "libraryService", "$mdDialog", "$filter",
-            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"/*,"$mdMedia"*/];
+            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll","$mdMedia"];
         selectedCoursesView: Array<ISelectedBoxClassChoose> = [];
         //create = {};
         term;
@@ -26,8 +26,8 @@
             private boxes: any,
             private resManager: IResManager,
             private $scope: angular.IScope,
-            private $anchorScroll: angular.IAnchorScrollService
-            //private $mdMedia: angular.material.IMedia
+            private $anchorScroll: angular.IAnchorScrollService,
+            private $mdMedia: angular.material.IMedia
         ) {
 
             this.classSearch();
@@ -49,11 +49,11 @@
                 });
             this.selectedCoursesView = selectedCourses.slice();
 
-            //if ($mdMedia("gt-xs")) {
-            //    this.limit = 1e09;
-            //} else {
-            //    this.limit = 2;
-            //}
+            if ($mdMedia("gt-xs")) {
+                this.limit = 1e09;
+            } else {
+                this.limit = 2;
+            }
             angular.forEach(nodeData,
                 v => {
                     if (v.boxes) {
@@ -72,7 +72,15 @@
                     }
                 });
         }
+        loadMore() {
+            if (this.$mdMedia("xs")) {
+                this.limit += 2;
+            }
+        }
         classSearch() {
+            if (this.$mdMedia("xs")) {
+                this.limit = 2;
+            }
             if (!this.term) {
 
                 this.data = this.nodeData;
