@@ -26,27 +26,48 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 
         public async Task HandleAsync(AddUserLocationActivityCommand message)
         {
-            var result = await m_LocationProvider.GetLocationDataAsync(message.IpAddress);
-            if (result == null)
+            if (!string.IsNullOrEmpty(message.IpAddress))
             {
-                return;
+                var result = await m_LocationProvider.GetLocationDataAsync(message.IpAddress);
+                if (result == null)
+                {
+                    return;
+                }
+                var user = m_UserRepository.Load(message.UserId);
+                var locationActivity = new UserLocationActivity(
+                    m_GuidGeneratory.GetId(),
+                    user,
+                    result.Domain,
+                    result.Latitude,
+                    result.Longitude,
+                    result.ZipCode,
+                    result.Region,
+                    result.ISP,
+                    result.City,
+                    result.Country,
+                    result.CountryAbbreviation, message.UserAgent);
+                m_UserLocationActivityRepository.Save(locationActivity);
+                message.Country = result.CountryAbbreviation;
             }
-            var user = m_UserRepository.Load(message.UserId);
-            var locationActivity = new UserLocationActivity(
-                m_GuidGeneratory.GetId(),
-                user,
-                result.Domain,
-                result.Latitude,
-                result.Longitude,
-                result.ZipCode,
-                result.Region,
-                result.ISP,
-                result.City,
-                result.Country,
-                result.CountryAbbreviation, message.UserAgent);
-            m_UserLocationActivityRepository.Save(locationActivity);
+            else
+            {
+                var user = m_UserRepository.Load(message.UserId);
+                var locationActivity = new UserLocationActivity(
+                    m_GuidGeneratory.GetId(),
+                    user,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null, message.UserAgent);
+                m_UserLocationActivityRepository.Save(locationActivity);
+            }
 
-            message.Country = result.CountryAbbreviation;
+            
 
         }
     }

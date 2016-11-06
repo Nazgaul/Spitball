@@ -42,6 +42,14 @@
             if (this.$mdMedia("gt-sm")) {
                 return;
             }
+            scope.$on("$stateChangeSuccess", (event: angular.IAngularEvent, toState: angular.ui.IState
+               /* toParams: ISpitballStateParamsService*/) => {
+                if (toState.name === "classChoose") {
+                    element.addClass(hide);
+                } else {
+                    element.removeClass(hide);
+                }
+            });
             this.chatBus.getUnreadFromServer();
             var counterElem = $(".chat-counter");
             

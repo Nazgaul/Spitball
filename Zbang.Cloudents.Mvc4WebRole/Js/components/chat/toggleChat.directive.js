@@ -40,6 +40,14 @@ var app;
                 if (_this.$mdMedia("gt-sm")) {
                     return;
                 }
+                scope.$on("$stateChangeSuccess", function (event, toState) {
+                    if (toState.name === "classChoose") {
+                        element.addClass(hide);
+                    }
+                    else {
+                        element.removeClass(hide);
+                    }
+                });
                 _this.chatBus.getUnreadFromServer();
                 var counterElem = $(".chat-counter");
                 var cleanUpFunc = scope.$watch(_this.chatBus.getUnread, function (value) {
