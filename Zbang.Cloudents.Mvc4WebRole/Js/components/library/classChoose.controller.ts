@@ -38,7 +38,7 @@
                     ids.push(v.id);
                     selectedCourses.push({
                         id: v.id,
-                        courseCode: v.courseCode,
+                        courseId: v.courseCode,
                         name: v.name,
                         professor: v.professor,
                         department: null,
@@ -95,7 +95,7 @@
                         if (v1.name.toLowerCase().indexOf(lower) !== -1) {
                             return v1;
                         }
-                        if (v1.courseCode && v1.courseCode.toLowerCase().indexOf(lower) !== -1) {
+                        if (v1.courseId && v1.courseId.toLowerCase().indexOf(lower) !== -1) {
                             return v1;
                         }
                         if (v1.professor && v1.professor.toLowerCase().indexOf(lower) !== -1) {
@@ -154,7 +154,7 @@
                     };
                 }
                 department.boxes.push({
-                    courseCode: response.courseCode,
+                    courseId: response.courseId,
                     id: response.id,
                     items: response.items,
                     members: response.members,

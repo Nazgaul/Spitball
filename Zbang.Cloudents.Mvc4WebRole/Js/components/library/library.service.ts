@@ -9,7 +9,7 @@
     export interface ISmallBox {
         id: number;
         name: string;
-        courseCode: string;
+        courseId: string;
         professor: string;
         items: number;
         members: number;

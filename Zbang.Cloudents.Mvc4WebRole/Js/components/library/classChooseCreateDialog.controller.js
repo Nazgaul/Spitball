@@ -50,7 +50,7 @@ var app;
                 var box = {
                     id: response.id,
                     name: createObj.name,
-                    courseCode: createObj.number,
+                    courseId: createObj.number,
                     professor: createObj.professor,
                     items: 0,
                     members: 1,
