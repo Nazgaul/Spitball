@@ -151,7 +151,7 @@
     <value>Quizzes</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
-    <value>This is Required!</value>
+    <value>This is required!</value>
   </data>
   <data name="TooShort" xml:space="preserve">
     <value>That's too short!</value>

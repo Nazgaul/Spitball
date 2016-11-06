@@ -74,7 +74,6 @@
             {
                 state: "classChoose", config: {
                     url: "/course/choose/",
-                    controller: "ClassChoose as cc",
                     data: { animateClass: "class-choose" },
                     resolve: {
                         nodeData: ["libraryService",
@@ -95,10 +94,31 @@
                         },
                         "chat@": {
                             template: ''
+                        },
+                        "": {
+                            controller: "ClassChoose as cc",
+                            templateProvider: [
+                                "ajaxService2", "$mdMedia", function (ajaxService2, $mdMedia) {
+                                    if ($mdMedia('gt-xs')) {
+                                        return ajaxService2.getHtml("/university/classchoosepartial/");
+                                    } else {
+                                        return ajaxService2.getHtml("/university/classchoosemobilepartial/");
+                                    }
+                                }
+                            ]
                         }
                     }
-                },
-                templateUrl: "/university/classchoosepartial/"
+                    //templateProvider: [
+                    //        "ajaxService2", "$mdMedia", function (ajaxService2, $mdMedia) {
+                    //            if ($mdMedia('gt-xs')) {
+                    //                return ajaxService2.getHtml("/university/classchoosepartial/");
+                    //            } else {
+                    //                return ajaxService2.getHtml("/university/classchoosemobilepartial/");
+                    //            }
+                    //        }
+                    //]
+                }
+                //templateUrl: "/university/classchoosepartial/"
             }
 
 

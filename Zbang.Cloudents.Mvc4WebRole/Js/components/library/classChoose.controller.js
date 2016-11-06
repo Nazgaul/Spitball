@@ -3,7 +3,7 @@ var app;
     "use strict";
     var selectedCourses = [];
     var ClassChoose = (function () {
-        function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager, $scope, $anchorScroll, $mdMedia) {
+        function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager, $scope, $anchorScroll) {
             this.searchService = searchService;
             this.libraryService = libraryService;
             this.$mdDialog = $mdDialog;
@@ -14,9 +14,7 @@ var app;
             this.resManager = resManager;
             this.$scope = $scope;
             this.$anchorScroll = $anchorScroll;
-            this.$mdMedia = $mdMedia;
             this.selectedCoursesView = [];
-            this.limit = 0;
             this.data = [];
             this.classSearch();
             var ids = [];
@@ -34,12 +32,6 @@ var app;
                 });
             });
             this.selectedCoursesView = selectedCourses.slice();
-            if ($mdMedia("gt-xs")) {
-                this.limit = 1e09;
-            }
-            else {
-                this.limit = 2;
-            }
             angular.forEach(nodeData, function (v) {
                 if (v.boxes) {
                     var _loop_1 = function(i) {
@@ -59,16 +51,8 @@ var app;
                 }
             });
         }
-        ClassChoose.prototype.loadMore = function () {
-            if (this.$mdMedia("xs")) {
-                this.limit += 2;
-            }
-        };
         ClassChoose.prototype.classSearch = function () {
             var _this = this;
-            if (this.$mdMedia("xs")) {
-                this.limit = 2;
-            }
             if (!this.term) {
                 this.data = this.nodeData;
                 return;
@@ -192,7 +176,7 @@ var app;
             });
         };
         ClassChoose.$inject = ["searchService", "libraryService", "$mdDialog", "$filter",
-            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll", "$mdMedia"];
+            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
         return ClassChoose;
     }());
     angular.module("app.library").controller("ClassChoose", ClassChoose);

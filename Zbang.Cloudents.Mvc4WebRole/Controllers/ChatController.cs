@@ -24,10 +24,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IBlobProvider2<ChatContainerName> m_BlobProviderChat;
         private readonly IFileProcessorFactory m_FileProcessorFactory;
 
-
-        
-
-
         public ChatController(IBlobProvider2<ChatContainerName> blobProviderChat, IFileProcessorFactory fileProcessorFactory)
         {
             m_BlobProviderChat = blobProviderChat;

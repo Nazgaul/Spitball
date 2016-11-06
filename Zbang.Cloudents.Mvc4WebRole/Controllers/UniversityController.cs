@@ -127,7 +127,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [DonutOutputCache(CacheProfile = "PartialPage")]
         public ActionResult ClassChoosePartial()
         {
-            return View("ClassChoose");
+            return View("ClassChoose", false);
+        }
+        public ActionResult ClassChooseMobilePartial()
+        {
+            return PartialView("ClassChoose", true);
         }
 
 

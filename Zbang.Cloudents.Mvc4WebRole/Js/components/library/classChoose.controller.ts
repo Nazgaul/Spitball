@@ -10,11 +10,11 @@
     var selectedCourses: Array<ISelectedBoxClassChoose> = [];
     class ClassChoose {
         static $inject = ["searchService", "libraryService", "$mdDialog", "$filter",
-            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll","$mdMedia"];
+            "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
         selectedCoursesView: Array<ISelectedBoxClassChoose> = [];
         //create = {};
         term;
-        limit = 0;
+        //limit = 0;
         data: Array<ISmallDepartment> = [];
 
         constructor(private searchService: ISearchService,
@@ -26,8 +26,7 @@
             private boxes: any,
             private resManager: IResManager,
             private $scope: angular.IScope,
-            private $anchorScroll: angular.IAnchorScrollService,
-            private $mdMedia: angular.material.IMedia
+            private $anchorScroll: angular.IAnchorScrollService
         ) {
 
             this.classSearch();
@@ -49,11 +48,8 @@
                 });
             this.selectedCoursesView = selectedCourses.slice();
 
-            if ($mdMedia("gt-xs")) {
-                this.limit = 1e09;
-            } else {
-                this.limit = 2;
-            }
+
+
             angular.forEach(nodeData,
                 v => {
                     if (v.boxes) {
@@ -72,15 +68,8 @@
                     }
                 });
         }
-        loadMore() {
-            if (this.$mdMedia("xs")) {
-                this.limit += 2;
-            }
-        }
+
         classSearch() {
-            if (this.$mdMedia("xs")) {
-                this.limit = 2;
-            }
             if (!this.term) {
 
                 this.data = this.nodeData;
@@ -150,7 +139,7 @@
                         id: response.departmentId,
                         name: response.name,
                         type: 'open',
-                        boxes : []
+                        boxes: []
                     };
                     this.nodeData.push(department);
                 }
@@ -174,7 +163,7 @@
             this.boxService.follow(course.id);
             this.$scope.$emit("refresh-boxes");
 
-            
+
             department.boxes.splice(department.boxes.indexOf(course), 1);
             if (!department.boxes.length) {
                 this.nodeData.splice(this.nodeData.indexOf(department), 1);

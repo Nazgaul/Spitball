@@ -197,7 +197,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is Required!.
+        ///   Looks up a localized string similar to This is required!.
         /// </summary>
         public static string RequiredField {
             get {
