@@ -132,6 +132,7 @@ var app;
                         type: 'open',
                         boxes: []
                     };
+                    _this.nodeData.push(department);
                 }
                 department.boxes.push({
                     courseId: response.courseId,
@@ -147,6 +148,9 @@ var app;
             this.boxService.follow(course.id);
             this.$scope.$emit("refresh-boxes");
             department.boxes.splice(department.boxes.indexOf(course), 1);
+            if (!department.boxes.length) {
+                this.nodeData.splice(this.nodeData.indexOf(department), 1);
+            }
             var pushOne = angular.extend({}, course, {
                 department: department.name,
                 departmentId: department.id

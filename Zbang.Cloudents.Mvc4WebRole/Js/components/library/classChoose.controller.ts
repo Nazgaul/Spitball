@@ -152,6 +152,7 @@
                         type: 'open',
                         boxes : []
                     };
+                    this.nodeData.push(department);
                 }
                 department.boxes.push({
                     courseId: response.courseId,
@@ -170,12 +171,14 @@
 
 
         choose(course: ISmallBox, department: ISmallDepartment) {
-            //this.$timeout(() => {
             this.boxService.follow(course.id);
             this.$scope.$emit("refresh-boxes");
 
             
             department.boxes.splice(department.boxes.indexOf(course), 1);
+            if (!department.boxes.length) {
+                this.nodeData.splice(this.nodeData.indexOf(department), 1);
+            }
             //course["selected"] = true;
 
             const pushOne = angular.extend({},
