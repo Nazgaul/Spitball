@@ -280,9 +280,8 @@ body.collapseHeader .class-choose .top-container {
   flex-direction: column;
   padding: 10px 15px;
   text-align: center;
-  margin-top: 5px;
 }
-.class-choose .results .closed-department .box-style h5 {
+.class-choose .results .closed-department .box-style margin-top h5 {
   font-size: 20px;
   font-weight: bold;
   text-align: center;
@@ -381,7 +380,7 @@ body.collapseHeader .class-choose .top-container {
 }
 .class-choose .create-class-wrapper {
   text-align: center;
-  margin-top: 40px;
+  margin: 80px 0 ;
 }
 .class-choose .create-class-wrapper .text {
   margin-bottom: 8px;
