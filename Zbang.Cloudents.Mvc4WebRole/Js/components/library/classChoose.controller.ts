@@ -7,7 +7,7 @@
         departmentId: Guid;
         // animate: boolean;
     }
-    var selectedCourses: Array<ISelectedBoxClassChoose> = [];
+
     class ClassChoose {
         static $inject = ["searchService", "libraryService", "$mdDialog", "$filter",
             "nodeData", "boxService", "boxes", "resManager", "$scope", "$anchorScroll"];
@@ -16,7 +16,7 @@
         term;
         //limit = 0;
         data: Array<ISmallDepartment> = [];
-
+        private selectedCourses: Array<ISelectedBoxClassChoose> = [];
         constructor(private searchService: ISearchService,
             private libraryService: ILibraryService,
             private $mdDialog: angular.material.IDialogService,
@@ -35,7 +35,7 @@
 
                 (v) => {
                     ids.push(v.id);
-                    selectedCourses.push({
+                    this.selectedCourses.push({
                         id: v.id,
                         courseId: v.courseCode,
                         name: v.name,
@@ -46,7 +46,7 @@
                         departmentId: v.departmentId
                     });
                 });
-            this.selectedCoursesView = selectedCourses.slice();
+            this.selectedCoursesView = this.selectedCourses.slice();
 
 
 
@@ -58,7 +58,7 @@
                             if (ids.indexOf(box.id) !== -1) {
                                 //box["selected"] = true;
                                 v.boxes.splice(i, 1);
-                                const course = selectedCourses.find(f => f.id === box.id);
+                                const course = this.selectedCourses.find(f => f.id === box.id);
                                 course.department = v.name;
                             } else {
                                 box["twoLetter"] = box.name.substr(0, 2).toLowerCase();
@@ -128,11 +128,11 @@
                 controllerAs: 'cd',
                 locals: {
                     course: course,
-                    courses: selectedCourses //this.selectedCoursesView
+                    courses: this.selectedCourses //this.selectedCoursesView
                 },
                 fullscreen: false // Only for -xs, -sm breakpoints.
             }).then((response: ISelectedBoxClassChoose) => {
-                this.selectedCoursesView = selectedCourses.slice();
+                this.selectedCoursesView = this.selectedCourses.slice();
                 var department = this.nodeData.find(f => f.id === response.departmentId);
                 if (!department) {
                     department = {
@@ -176,12 +176,12 @@
                     department: department.name,
                     departmentId: department.id
                 });
-            selectedCourses.push(
+            this.selectedCourses.push(
                 pushOne);
 
         }
         animationEnd(id) {
-            const box = selectedCourses.find(f => f.id === id);
+            const box = this.selectedCourses.find(f => f.id === id);
             if (box) {
                 this.selectedCoursesView.push(box);
             }
@@ -204,8 +204,8 @@
                 fullscreen: false // Only for -xs, -sm breakpoints.
             }).then((response) => {
                 this.nodeData = response.nodeData;
-                selectedCourses.push((response.box as ISelectedBoxClassChoose));
-                this.selectedCoursesView = selectedCourses.slice();
+                this.selectedCourses.push((response.box as ISelectedBoxClassChoose));
+                this.selectedCoursesView = this.selectedCourses.slice();
             });
         }
 

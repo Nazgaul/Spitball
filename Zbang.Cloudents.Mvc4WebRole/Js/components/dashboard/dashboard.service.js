@@ -1,7 +1,6 @@
 var app;
 (function (app) {
     "use strict";
-    var defer, serverCall = false;
     var Dashboard = (function () {
         function Dashboard($q, ajaxService2, realtimeFactotry, userUpdatesService, $rootScope) {
             var _this = this;
@@ -10,8 +9,9 @@ var app;
             this.realtimeFactotry = realtimeFactotry;
             this.userUpdatesService = userUpdatesService;
             this.$rootScope = $rootScope;
+            this.serverCall = false;
             this.boxes = null;
-            defer = $q.defer();
+            this.defer = $q.defer();
             $rootScope.$on("delete-updates", function (e, arg) {
                 var box = _this.boxes.find(function (v) { return (v.id === arg); });
                 if (box) {
@@ -28,7 +28,7 @@ var app;
             });
             $rootScope.$on("refresh-boxes", function () {
                 _this.boxes = null;
-                defer = $q.defer();
+                _this.defer = $q.defer();
             });
         }
         Dashboard.prototype.getBoxes = function () {
@@ -36,11 +36,11 @@ var app;
             if (this.boxes) {
                 return this.$q.when(this.boxes);
             }
-            if (!serverCall) {
-                serverCall = true;
+            if (!this.serverCall) {
+                this.serverCall = true;
                 this.ajaxService2.get("dashboard/boxlist/")
                     .then(function (response) {
-                    serverCall = false;
+                    _this.serverCall = false;
                     _this.realtimeFactotry.assingBoxes(response.map(function (val) { return val.id; }));
                     _this.boxes = response;
                     for (var i = 0; i < _this.boxes.length; i++) {
@@ -50,10 +50,10 @@ var app;
                             });
                         })(_this.boxes[i]);
                     }
-                    defer.resolve(_this.boxes);
+                    _this.defer.resolve(_this.boxes);
                 });
             }
-            return defer.promise;
+            return this.defer.promise;
         };
         Dashboard.prototype.getUniversityMeta = function (universityId) {
             return this.ajaxService2.get('dashboard/university', { universityId: universityId }, 'university');

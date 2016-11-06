@@ -1,9 +1,9 @@
 var app;
 (function (app) {
     "use strict";
-    var selectedCourses = [];
     var ClassChoose = (function () {
         function ClassChoose(searchService, libraryService, $mdDialog, $filter, nodeData, boxService, boxes, resManager, $scope, $anchorScroll) {
+            var _this = this;
             this.searchService = searchService;
             this.libraryService = libraryService;
             this.$mdDialog = $mdDialog;
@@ -16,11 +16,12 @@ var app;
             this.$anchorScroll = $anchorScroll;
             this.selectedCoursesView = [];
             this.data = [];
+            this.selectedCourses = [];
             this.classSearch();
             var ids = [];
             angular.forEach(boxes, function (v) {
                 ids.push(v.id);
-                selectedCourses.push({
+                _this.selectedCourses.push({
                     id: v.id,
                     courseId: v.courseCode,
                     name: v.name,
@@ -31,14 +32,14 @@ var app;
                     departmentId: v.departmentId
                 });
             });
-            this.selectedCoursesView = selectedCourses.slice();
+            this.selectedCoursesView = this.selectedCourses.slice();
             angular.forEach(nodeData, function (v) {
                 if (v.boxes) {
                     var _loop_1 = function(i) {
                         var box = v.boxes[i];
                         if (ids.indexOf(box.id) !== -1) {
                             v.boxes.splice(i, 1);
-                            var course = selectedCourses.find(function (f) { return f.id === box.id; });
+                            var course = _this.selectedCourses.find(function (f) { return f.id === box.id; });
                             course.department = v.name;
                         }
                         else {
@@ -103,11 +104,11 @@ var app;
                 controllerAs: 'cd',
                 locals: {
                     course: course,
-                    courses: selectedCourses
+                    courses: this.selectedCourses
                 },
                 fullscreen: false
             }).then(function (response) {
-                _this.selectedCoursesView = selectedCourses.slice();
+                _this.selectedCoursesView = _this.selectedCourses.slice();
                 var department = _this.nodeData.find(function (f) { return f.id === response.departmentId; });
                 if (!department) {
                     department = {
@@ -139,10 +140,10 @@ var app;
                 department: department.name,
                 departmentId: department.id
             });
-            selectedCourses.push(pushOne);
+            this.selectedCourses.push(pushOne);
         };
         ClassChoose.prototype.animationEnd = function (id) {
-            var box = selectedCourses.find(function (f) { return f.id === id; });
+            var box = this.selectedCourses.find(function (f) { return f.id === id; });
             if (box) {
                 this.selectedCoursesView.push(box);
             }
@@ -162,8 +163,8 @@ var app;
                 fullscreen: false
             }).then(function (response) {
                 _this.nodeData = response.nodeData;
-                selectedCourses.push(response.box);
-                _this.selectedCoursesView = selectedCourses.slice();
+                _this.selectedCourses.push(response.box);
+                _this.selectedCoursesView = _this.selectedCourses.slice();
             });
         };
         ClassChoose.prototype.requestAccess = function (department) {

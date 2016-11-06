@@ -10,16 +10,18 @@
         boxes: any;
     }
 
-    var defer: angular.IDeferred<any>, serverCall = false;
+    //var defer: angular.IDeferred<any>, serverCall = false;
 
     class Dashboard implements IDashboardService {
         static $inject = ["$q", "ajaxService2", "realtimeFactory", "userUpdatesService", "$rootScope"];
+        private defer: angular.IDeferred<any>;
+        private serverCall = false;
         constructor(private $q: angular.IQService,
             private ajaxService2: IAjaxService2,
             private realtimeFactotry: IRealtimeFactory,
             private userUpdatesService: IUserUpdatesService,
             private $rootScope: angular.IRootScopeService) {
-            defer = $q.defer();
+            this.defer = $q.defer();
 
 
             $rootScope.$on("delete-updates",
@@ -39,7 +41,7 @@
             });
             $rootScope.$on("refresh-boxes", () => {
                 this.boxes = null;
-                defer = $q.defer();
+                this.defer = $q.defer();
             });
         }
         boxes = null;
@@ -48,11 +50,11 @@
                 //defer.resolve(this.boxes);
                 return this.$q.when(this.boxes);
             }
-            if (!serverCall) {
-                serverCall = true;
+            if (!this.serverCall) {
+                this.serverCall = true;
                 this.ajaxService2.get("dashboard/boxlist/")
                     .then((response: Array<any>) => {
-                        serverCall = false;
+                        this.serverCall = false;
                         this.realtimeFactotry.assingBoxes(response.map(val => val.id));
                         this.boxes = response;
                         for (let i = 0; i < this.boxes.length; i++) {
@@ -62,10 +64,10 @@
                                 });
                             })(this.boxes[i]);
                         }
-                        defer.resolve(this.boxes);
+                        this.defer.resolve(this.boxes);
                     });
             }
-            return defer.promise;
+            return this.defer.promise;
         }
         getUniversityMeta(universityId?: number) {
             return this.ajaxService2.get('dashboard/university', { universityId: universityId }, 'university');
