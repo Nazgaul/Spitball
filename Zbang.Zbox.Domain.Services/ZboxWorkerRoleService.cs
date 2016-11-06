@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -50,8 +51,10 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-
-            RemoveHtmlTags();
+            DeleteOldLibrary();
+            //UpdateNumberOfBoxesInDepartmentNode();
+            //UpdateUrl();
+            //RemoveHtmlTags();
 
         }
 
@@ -517,48 +520,87 @@ where id = @id";
             using (var unitOfWork = UnitOfWork.Start())
             {
 
+                //var items = UnitOfWork.CurrentSession.QueryOver<Item>().Where(w => w.Url == null && !w.IsDeleted).List();
+                //foreach (var item in items)
+                //{
+                //    item.GenerateUrl();
+                //    UnitOfWork.CurrentSession.Save(item);
+                //}
+                //unitOfWork.TransactionalFlush();
+
+                var items2 = UnitOfWork.CurrentSession.CreateSQLQuery(@"select itemid from zbox.item
+where  CHARINDEX(CAST(boxid as varchar(max)), URL) = 0
+and isdeleted = 0").List();
+                foreach (var itemId in items2)
+                {
+                    var item = UnitOfWork.CurrentSession.Load<Item>(itemId);
+                    item.GenerateUrl();
+                    UnitOfWork.CurrentSession.Save(item);
+                }
+                unitOfWork.TransactionalFlush();
             }
         }
 
-        //        private void UpdateNumberOfBoxesInDepartmentNode()
-        //        {
-        //            var i = 0;
-        //            using (var unitOfWork = UnitOfWork.Start())
-        //            {
-        //                while (true)
-        //                {
-        //                    var libs = UnitOfWork.CurrentSession.Connection.Query<Guid>(
-        //                        @"select LibraryId from zbox.Library l 
-        //where l.LibraryId not in ( select l.ParentId from zbox.Library)
-        //and id = 166100
-        //order by LibraryId
-        //offset @pageNumber*50 ROWS
-        //    FETCH NEXT 50 ROWS ONLY", new { pageNumber = i });
-        //                    var libraryIds = libs as IList<Guid> ?? libs.ToList();
-        //                    if (libraryIds.Count == 0)
-        //                    {
-        //                        break;
-        //                    }
-        //                    foreach (var libraryId in libraryIds)
-        //                    {
-        //                        var library = UnitOfWork.CurrentSession.Load<Library>(libraryId);
-        //                        var libBoxes = library.UpdateNumberOfBoxes();
-        //                        var libNodes = library.UpdateNumberOfNodes();
-        //                        UnitOfWork.CurrentSession.Save(library);
-        //                        foreach (var libBox in libBoxes)
-        //                        {
-        //                            UnitOfWork.CurrentSession.Save(libBox);
-        //                        }
-        //                        foreach (var libBox in libNodes)
-        //                        {
-        //                            UnitOfWork.CurrentSession.Save(libBox);
-        //                        }
-        //                    }
-        //                    unitOfWork.TransactionalFlush();
-        //                    i++;
-        //                }
-        //            }
-        //        }
+        private void DeleteOldLibrary()
+        {
+            using (var con = DapperConnection.OpenConnection())
+            {
+                var guids = con.Query<Guid>("select libraryid from zbox.library where name like '%~%'");
+                var i = 0;
+                foreach (var guid in guids)
+                {
+                    try
+                    {
+                        con.Execute("delete from zbox.library where parentid = @id", new { id = guid });
+                        con.Execute("delete from zbox.library where libraryid = @id", new {id = guid});
+                        i++;
+                    }
+                    catch (Exception ex)
+                    {
+                        
+                    }
+                }
+            }
+        }
+
+        private void UpdateNumberOfBoxesInDepartmentNode()
+        {
+            var i = 0;
+            using (var unitOfWork = UnitOfWork.Start())
+            {
+                while (true)
+                {
+                    var libs = UnitOfWork.CurrentSession.Connection.Query<Guid>(
+                        @"select LibraryId from zbox.Library l 
+        where l.LibraryId not in ( select l.ParentId from zbox.Library)
+        order by LibraryId
+        offset @pageNumber*50 ROWS
+            FETCH NEXT 50 ROWS ONLY", new { pageNumber = i });
+                    var libraryIds = libs as IList<Guid> ?? libs.ToList();
+                    if (libraryIds.Count == 0)
+                    {
+                        break;
+                    }
+                    foreach (var libraryId in libraryIds)
+                    {
+                        var library = UnitOfWork.CurrentSession.Load<Library>(libraryId);
+                        var libBoxes = library.UpdateNumberOfBoxes();
+                        var libNodes = library.UpdateNumberOfNodes();
+                        UnitOfWork.CurrentSession.Save(library);
+                        foreach (var libBox in libBoxes)
+                        {
+                            UnitOfWork.CurrentSession.Save(libBox);
+                        }
+                        foreach (var libBox in libNodes)
+                        {
+                            UnitOfWork.CurrentSession.Save(libBox);
+                        }
+                    }
+                    unitOfWork.TransactionalFlush();
+                    i++;
+                }
+            }
+        }
 
 
 

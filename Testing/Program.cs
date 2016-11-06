@@ -102,10 +102,6 @@ namespace Testing
 
         static void Main(string[] args)
         {
-            var guid = GuidEncoder.Decode("HY7W3m0ayUa5g6aPAI_Jhw");
-            Emails();
-            return;
-            emailsVerify();
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();
@@ -158,7 +154,8 @@ namespace Testing
             //log4net.Config.XmlConfigurator.Configure();
 
             var iocFactory = IocFactory.IocWrapper;
-            var service = iocFactory.Resolve<IMailComponent>();
+            var service = iocFactory.Resolve<IZboxWorkerRoleService>();
+            service.OneTimeDbi();
             //var t = service.CheckEmailValidateAsync("exn5038@psu.edu");
             //var t = service.SendSpanGunEmailAsync("ariel@cloudents.com", "1",
             //    "Spitball, the free social studying app, has over 250,000 students across the world using our product to access class documents (including past exams, study guides, lecture notes, etc).You can also chat with your classmates, create quizzes, and more, all for free!    We’re live at Auburn this semester, and we have over 1,900 documents exclusively for Auburn students!    Sign up for free today, it takes less than a minute. Check us out!",
