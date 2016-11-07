@@ -18,7 +18,7 @@ namespace Zbang.Zbox.ViewModel.Dto.Library
 
         public LibraryNodeSetting? State { get; set; }
 
-        public UserLibraryRelationType? UserType { get; set; }
+        public UserLibraryRelationType UserType { get; set; }
     }
 
     public class SmallNodeDto

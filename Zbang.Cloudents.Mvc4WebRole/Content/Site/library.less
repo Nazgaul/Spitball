@@ -45,6 +45,7 @@
     }
 
     .department-wrap {
+        position:relative;
         h3 {
             margin: 0;
             text-transform: capitalize;
@@ -60,7 +61,6 @@
             .align-items(flex-start);
             .justifyContet(space-between);
             padding: 15px;
-            position: relative;
 
             &:hover .status .lock {
                 background: #f0f0f0;
@@ -72,9 +72,9 @@
         color: @textColorBlack;
     }
 
-    .dots-3 {
+    /*.dots-3 {
         fill: @textColorLightGrey;
-    }
+    }*/
     /*.department {
         border-radius: 0;
         box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
@@ -113,8 +113,8 @@
     .status .lock {
         width: 20px;
         position: absolute;
-        right: 4px;
-        bottom: 6px;
+        right: 20px;
+        bottom: 20px;
         fill: @textColorGrey;
         background: @textColorWhite;
     }
