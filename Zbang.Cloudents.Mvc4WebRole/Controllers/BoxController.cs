@@ -36,6 +36,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [Route("course/{universityName}/{boxId:long}/{boxName}", Name = "CourseBox")]
         public ActionResult RedirectToFeed(long boxId, string boxName, string invId, string universityName)
         {
+
             if (string.IsNullOrEmpty(universityName))
             {
                 return RedirectToRoutePermanent("PrivateBoxWithSub", new RouteValueDictionary
@@ -59,8 +60,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "BoxPage")]
         [BoxPermission("boxId", Order = 3), ActionName("Index")]
-        [Route("box/my/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members))}", Name = "PrivateBoxWithSub")]
-        [Route("course/{universityName}/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members))}", Name = "CourseBoxWithSub")]
+        [Route("box/my/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "PrivateBoxWithSub")]
+        [Route("course/{universityName}/{boxId:long}/{boxName}/{part:regex(^(feed|items|quizzes|members|flashcards))}", Name = "CourseBoxWithSub")]
         public async Task<ActionResult> IndexAsync(long boxId, string boxName, string invId, string part)
         {
 
@@ -171,6 +172,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public PartialViewResult MembersPartial()
         {
             return PartialView("_Members2");
+        }
+
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public PartialViewResult FlashcardsPartial()
+        {
+            return PartialView("_Flashcards");
         }
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]

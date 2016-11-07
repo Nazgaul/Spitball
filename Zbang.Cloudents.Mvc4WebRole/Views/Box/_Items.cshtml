@@ -21,7 +21,7 @@
             </button>
         </div>
     </li>
-    <li flex-gt-lg="10" flex flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="item-animate i-q-wrapper" ng-repeat="e in i.items track by e.id ">
+    <li flex-gt-lg="10" flex flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="angular-animate item-animate i-q-wrapper" ng-repeat="e in i.items track by e.id ">
         <div ui-draggable="true" drag="e" drag-image-element-id="'drag' + $index" ng-include="'item-template.html'"></div>
         <md-menu class="item-menu">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-items', 'deleteFile']">
@@ -29,20 +29,20 @@
                 @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3"})*@
             </md-button>
             <md-menu-content width="1">
-                <md-menu-item ng-if="b.canDelete(e.ownerId)">
+                <md-menu-item ng-if="::b.canDelete(e.ownerId)">
                     <md-button ng-click="i.deleteItem($event,e)" ga-track-event="['box-items', 'didDelete']">
                         @GeneralResources.Delete
                     </md-button>
                 </md-menu-item>
-                <md-menu-item ng-if="stateParams.tabId">
+                <md-menu-item ng-if="::stateParams.tabId">
                     <md-button ng-click="i.removeItemFromTab(e)" ga-track-event="['box-tabs', 'didDelete']">
                         @BoxResources.ItemRemoveFolder
                     </md-button>
                 </md-menu-item>
                 <md-menu-item>
                     <md-button aria-label="download" ng-href="{{::e.downloadLink}}" target="_blank" ga-track-event="['box-items', 'download']">
-                        <span ng-if="e.type!=='Link'">@ItemsResources.Download</span>
-                        <span ng-if="e.type==='Link'">@GeneralResources.View</span>
+                        <span ng-if="::e.type!=='Link'">@ItemsResources.Download</span>
+                        <span ng-if="::e.type==='Link'">@GeneralResources.View</span>
                     </md-button>
                 </md-menu-item>
             </md-menu-content>

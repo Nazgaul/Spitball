@@ -96,6 +96,7 @@ delete from Zbox.CommentLike where [OwnerId]=@userid
  
 delete from Zbox.ReplyLike where [OwnerId]=@userid
 
+delete from zbox.UserLocationActivity where UserId = @userid
 
 -- chat
 DECLARE vend_cursor CURSOR  

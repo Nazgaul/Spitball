@@ -55,7 +55,7 @@ namespace Zbang.Cloudents.MobileApp.Controllers
 
         [HttpGet]
         [Route("api/boxes/recommend")]
-        public async Task<HttpResponseMessage> Recommend()
+        public HttpResponseMessage Recommend()
         {
             return Request.CreateResponse();
             //if (!User.Identity.IsAuthenticated)

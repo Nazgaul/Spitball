@@ -51,8 +51,8 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            DeleteOldLibrary();
-            //UpdateNumberOfBoxesInDepartmentNode();
+            //DeleteOldLibrary();
+            UpdateNumberOfBoxesInDepartmentNode();
             //UpdateUrl();
             //RemoveHtmlTags();
 

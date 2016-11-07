@@ -29,20 +29,45 @@ body.collapseHeader .class-choose .top-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
   background: #FF9900;
   color: #ffffff;
   position: absolute;
   top: 0;
   margin: 0;
   width: 100%;
+  z-index: 1;
+  transition: all linear 0.5s;
+}
+.class-choose .status-strip.ng-enter,
+.class-choose .status-strip.ng-leave-active {
+  height: 0;
+  opacity: 0;
+}
+.class-choose .status-strip.ng-enter-active,
+.class-choose .status-strip.ng-leave {
+  height: 40px;
+  opacity: 1;
+}
+.class-choose .status-strip div {
+  position: relative;
+  width: 270px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  overflow-y: hidden;
+}
+@media (max-width: 600px) {
+  .class-choose .status-strip div {
+    width: 170px;
+  }
 }
 .class-choose .status-strip h2,
 .class-choose .status-strip ng-pluralize {
-  font-size: 16px;
+  font-size: 20px;
   line-height: normal;
   margin: 0;
   white-space: nowrap;
+  transition: all linear 0.5s;
 }
 @media (max-width: 600px) {
   .class-choose .status-strip h2,
@@ -50,15 +75,35 @@ body.collapseHeader .class-choose .top-container {
     font-size: 14px;
   }
 }
+.class-choose .status-strip h2.ng-enter,
+.class-choose .status-strip ng-pluralize.ng-enter,
+.class-choose .status-strip h2.ng-leave,
+.class-choose .status-strip ng-pluralize.ng-leave {
+  position: absolute;
+  top: 10px;
+}
+.class-choose .status-strip h2.ng-enter,
+.class-choose .status-strip ng-pluralize.ng-enter {
+  transform: translateY(-150%);
+}
+.class-choose .status-strip h2.ng-enter-active,
+.class-choose .status-strip ng-pluralize.ng-enter-active {
+  transform: translateY(0%);
+}
+.class-choose .status-strip h2.ng-leave,
+.class-choose .status-strip ng-pluralize.ng-leave {
+  transform: translateY(0%);
+}
+.class-choose .status-strip h2.ng-leave-active,
+.class-choose .status-strip ng-pluralize.ng-leave-active {
+  transform: translateY(150%);
+}
 .class-choose .status-strip ng-pluralize {
   text-transform: lowercase;
 }
 .class-choose .status-strip a {
   color: #ffffff;
   text-decoration: underline;
-}
-.class-choose .status-strip {
-  z-index: 1;
 }
 .class-choose .title-strip {
   opacity: 0;
@@ -280,8 +325,9 @@ body.collapseHeader .class-choose .top-container {
   flex-direction: column;
   padding: 10px 15px;
   text-align: center;
+  margin-top: 5px;
 }
-.class-choose .results .closed-department .box-style margin-top h5 {
+.class-choose .results .closed-department .box-style h5 {
   font-size: 20px;
   font-weight: bold;
   text-align: center;
@@ -380,7 +426,7 @@ body.collapseHeader .class-choose .top-container {
 }
 .class-choose .create-class-wrapper {
   text-align: center;
-  margin: 80px 0 ;
+  margin: 80px 0;
 }
 .class-choose .create-class-wrapper .text {
   margin-bottom: 8px;

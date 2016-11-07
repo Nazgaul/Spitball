@@ -2474,6 +2474,7 @@
     <Content Include="Views\User\infoDialog.cshtml" />
     <Content Include="Views\Dashboard\_Gamification.cshtml" />
     <Content Include="Views\University\ClassChoose.cshtml" />
+    <Content Include="Views\Box\_Flashcards.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

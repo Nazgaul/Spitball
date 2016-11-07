@@ -173,8 +173,8 @@ namespace Testing
             //var t = clusterflunkFilesCopy.BuildFilesAsync();
             //t.Wait();
             //Application.Run(new Form1());
-            //Console.WriteLine("Finish");
-            //Console.ReadLine();
+            Console.WriteLine("Finish");
+            Console.ReadLine();
 
         }
 

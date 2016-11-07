@@ -79,6 +79,15 @@
                 },
                 templateUrl: '/box/quizpartial/'
             },
+            {
+                state: 'box.flashcards',
+                config: {
+                    url: 'flashcards/',
+                    controller: 'QuizzesController as q',
+                    parent: 'box'
+                },
+                templateUrl: '/box/quizpartial/'
+            },
                 {
                     state: 'box.members',
                     config: {

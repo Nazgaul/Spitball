@@ -275,6 +275,68 @@ md-menu-item > a.md-button {
     padding: 0 10px;
   }
 }
+.page-head .need-follow .notificationButton.ng-enter {
+  animation-name: breathing;
+  animation-duration: 3s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 1;
+}
+@-webkit-keyframes breathing {
+  0% {
+    transform: scale(0);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-moz-keyframes breathing {
+  0% {
+    transform: scale(0);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@-o-keyframes breathing {
+  0% {
+    transform: scale(0);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes breathing {
+  0% {
+    transform: scale(0);
+  }
+  25% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 .box-nav-bar ~ div {
   margin: 0 -8px;
 }
@@ -794,22 +856,20 @@ md-menu-item > a.md-button {
   fill: #c5c5c5;
   margin-top: 0;
 }
-.item-animate.ng-move,
-.item-animate.ng-enter,
-.item-animate.ng-leave {
-  -moz-transition: all linear 0.5s;
-  -o-transition: all linear 0.5s;
-  -webkit-transition: all linear 0.5s;
-  transition: all linear 0.5s;
-}
-.item-animate.ng-leave.ng-leave-active,
-.item-animate.ng-move,
 .item-animate.ng-enter {
+  /* standard transition code */
+  transition: 1s linear all;
   opacity: 0;
 }
-.item-animate.ng-leave,
-.item-animate.ng-move.ng-move-active,
+.item-animate.ng-enter-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  transition-delay: 0.1s;
+  /* As of 1.4.4, this must always be set: it signals ngAnimate
+    to not accidentally inherit a delay property from another CSS class */
+  transition-duration: 0s;
+}
 .item-animate.ng-enter.ng-enter-active {
+  /* standard transition styles */
   opacity: 1;
 }
 .drop {
