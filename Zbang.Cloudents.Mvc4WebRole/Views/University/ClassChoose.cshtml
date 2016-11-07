@@ -5,16 +5,18 @@
 <div collapse-header>
     <div class="explore" @*ng-if="!cc.showCreateClass"*@>
         <div class="top-container">
-            <div class="status-strip" ng-if="cc.selectedCoursesView.length ">
+            <div class="status-strip angular-animate" ng-if="cc.selectedCoursesView.length ">
                 <h2>@UniversityResources.ClassChooseYellowTitle1&nbsp;</h2><ng-pluralize count="cc.selectedCoursesView.length"
                                                                                          when="{
                      'one': '1 @GeneralResources.Class,',
                      'other': '{} @GeneralResources.Classes,'}">
                 </ng-pluralize>
-                <h2 ng-if="cc.selectedCoursesView.length == 1">&nbsp;@UniversityResources.ClassChooseYellowTitle2</h2>
-                <h2 ng-if="cc.selectedCoursesView.length >= 2">
-                    &nbsp;@UniversityResources.ClassChooseYellowTitle3&nbsp;<a ui-sref="dashboard">@UniversityResources.ClassChooseYellowClickHere</a>
-                </h2>
+                <div>
+                    <h2 class="angular-animate" ng-if="cc.selectedCoursesView.length == 1">&nbsp;@UniversityResources.ClassChooseYellowTitle2</h2>
+                    <h2 class="angular-animate" ng-if="cc.selectedCoursesView.length >= 2">
+                        &nbsp;@UniversityResources.ClassChooseYellowTitle3&nbsp;<a ui-sref="dashboard">@UniversityResources.ClassChooseYellowClickHere</a>
+                    </h2>
+                </div>
             </div>
             <div class="wrapper" flex-gt-md="85">
                 <h2 class="title" ng-if="!cc.selectedCoursesView.length">@UniversityResources.OnboardingHeaderStep1</h2>
