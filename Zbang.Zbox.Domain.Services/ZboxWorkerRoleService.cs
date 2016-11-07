@@ -554,6 +554,7 @@ and isdeleted = 0").List();
                         con.Execute("delete from zbox.library where parentid = @id", new { id = guid });
                         con.Execute("delete from zbox.library where libraryid = @id", new {id = guid});
                         i++;
+
                     }
                     catch (Exception ex)
                     {

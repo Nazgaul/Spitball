@@ -1,6 +1,9 @@
 /* Set default body */
 .library {
   margin-bottom: 50px;
+  /*.dots-3 {
+        fill: @textColorLightGrey;
+    }*/
   /*.department {
         border-radius: 0;
         box-shadow: 0px 1px 5px 0 rgba(0, 0, 0, 0.34);
@@ -70,6 +73,9 @@
   top: 0;
   left: 0;
 }
+.library .department-wrap {
+  position: relative;
+}
 .library .department-wrap h3 {
   margin: 0;
   text-transform: capitalize;
@@ -88,7 +94,6 @@
   -webkit-justify-content: space-between;
   justify-content: space-between;
   padding: 15px;
-  position: relative;
 }
 .library .department-wrap .box-style:hover .status .lock {
   background: #f0f0f0;
@@ -96,14 +101,11 @@
 .library .department {
   color: #212325;
 }
-.library .dots-3 {
-  fill: #c3c3c3;
-}
 .library .status .lock {
   width: 20px;
   position: absolute;
-  left: 4px;
-  bottom: 6px;
+  left: 20px;
+  bottom: 20px;
   fill: #888b8e;
   background: #ffffff;
 }

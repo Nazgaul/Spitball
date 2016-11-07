@@ -55,6 +55,11 @@
   height: calc(100vh - 65px);
   background: #dadada;
 }
+@media (max-width: 960px) {
+  .page-body .main-md-sidenav {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+  }
+}
 @media (min-width: 960px) {
   .page-body .main-md-sidenav {
     margin-top: 10px;

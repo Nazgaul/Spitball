@@ -68,6 +68,21 @@ body.collapseHeader .class-choose .top-container {
             }
         }
 
+        &.ng-enter-active, &.ng-leave {
+            height: 40px;
+            opacity:1;
+        }
+        div {
+            position: relative;
+            width: 270px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            overflow-y: hidden;
+            @media(max-width: 600px) {
+                width: 170px;
+            }
+        }
         h2, ng-pluralize {
             font-size: 20px;
             line-height: normal;
