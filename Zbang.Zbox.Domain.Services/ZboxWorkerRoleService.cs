@@ -51,8 +51,8 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            //DeleteOldLibrary();
-            UpdateNumberOfBoxesInDepartmentNode();
+            DeleteOldLibrary();
+            //UpdateNumberOfBoxesInDepartmentNode();
             //UpdateUrl();
             //RemoveHtmlTags();
 
@@ -549,11 +549,12 @@ and isdeleted = 0").List();
                 var i = 0;
                 foreach (var guid in guids)
                 {
+                    Console.WriteLine(guid);
                     try
                     {
-                        con.Execute("delete from zbox.library where parentid = @id", new { id = guid });
-                        con.Execute("delete from zbox.library where libraryid = @id", new {id = guid});
-                        i++;
+                        i += con.Execute("delete from zbox.library where parentid = @id", new { id = guid });
+                        i += con.Execute("delete from zbox.library where libraryid = @id", new {id = guid});
+                        
 
                     }
                     catch (Exception ex)
@@ -561,6 +562,8 @@ and isdeleted = 0").List();
                         
                     }
                 }
+                Console.WriteLine(i);
+                
             }
         }
 
