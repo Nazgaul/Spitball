@@ -13,8 +13,8 @@
     </md-input-container>
     <div class="set-private" ng-if="l.nodeDetail.state === 'open' && l.state.emptyNodeAdmin && l.nodeDetail.parentUrl.indexOf('?id') === -1">
         <md-input-container flex="100" class="private-switch">
-            <md-switch ng-model="l.settings.privacy" ng-true-value="'@LibraryNodeSettings.Closed.GetStringValueLowerCase()'"
-                       ng-false-value="'@LibraryNodeSettings.Open.GetStringValueLowerCase()'">@BoxResources.PrivacySwitchText</md-switch>
+            <md-switch ng-model="l.settings.privacy" ng-true-value="'@LibraryNodeSetting.Closed.GetStringValueLowercase()'"
+                       ng-false-value="'@LibraryNodeSetting.Open.GetStringValueLowercase()'">@BoxResources.PrivacySwitchText</md-switch>
                 </md-input-container>
                 <div class="warning">@BoxResources.PrivacyOneWayClick</div>
             </div>
