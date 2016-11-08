@@ -23,18 +23,11 @@
         l.university = {
             name: universityData.name,
             image: universityData.cover,
-            logo: universityData.logo || itemThumbnailService.logo
+            logo: universityData.logo || itemThumbnailService.logo,
+            id: universityData.id
         };
-        //l.universityName = userDetailsFactory.get().university.name;
-
-        //l.topTree = nodeId == null;
-        //l.createDepartmentShow = !l.state.withBoxes; //userDetailsFactory.get().isAdmin && (l.topTree || l.boxes.length === 0);
         l.createClassShow = l.state.emptyNode || l.state.withBoxes && $mdMedia('gt-xs');;// || l.state.emptyNodeAdmin;// l.departments.length === 0 && !l.topTree;
-        
         l.createDepartmentShowButton = l.state.emptyNode ||  !l.state.withBoxes && $mdMedia('gt-xs');
-        //l.createDepartmentMobileButton = !l.state.withBoxes;
-
-
 
         l.createDepartment = createDepartment;
         l.canDelete = canDelete;
@@ -47,7 +40,6 @@
         l.renameNode = renameNode;
         l.openCreateBox = openCreateBox;
         l.openCreateDepartment = openCreateDepartment;
-        //l.createShow = createShow;
 
         l.createFirstBox = createFirstBox;
         l.goToSubLib = goToSubLib;

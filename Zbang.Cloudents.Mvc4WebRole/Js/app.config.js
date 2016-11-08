@@ -4,8 +4,8 @@ var app;
     angular.module("app").config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
         "$httpProvider", "$compileProvider", "$animateProvider",
-        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider", "$mdThemingProvider"];
-    function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider, $mdThemingProvider) {
+        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider", "$mdThemingProvider", "$urlMatcherFactoryProvider"];
+    function config($controllerProvider, $locationProvider, $provide, $httpProvider, $compileProvider, $animateProvider, $mdAriaProvider, $mdIconProvider, $sceDelegateProvider, $mdThemingProvider, $urlMatcherFactoryProvider) {
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
         $provide.factory("requestinterceptor", [function () { return ({
@@ -60,6 +60,41 @@ var app;
         function append(str) {
             return (window["cdnPath"] || "") + str + "?" + window["version"];
         }
+        $urlMatcherFactoryProvider.strictMode(true);
+        $urlMatcherFactoryProvider.type('encodeStr', {
+            encode: function (item) {
+                if (!item) {
+                    return item;
+                }
+                item = item.replace(/[<>*%&:\\/;?@=+$,{}|^[\]`"#'()]/g, "");
+                item = item.replace(/[ _-]/g, "-");
+                item = item.replace(/-{2,999}/g, "-");
+                return item;
+            },
+            decode: function (item) {
+                console.log('decode', item);
+                return item;
+            },
+            is: function (val) {
+                return (val == null || typeof val === "string");
+            },
+            pattern: /[^/]*/
+        });
+        $urlMatcherFactoryProvider.type('encodeGuid', {
+            encode: function (item) {
+                var enc = app.Guid.toBase64(item);
+                enc = enc.replace("/", "_").replace("+", "-");
+                return enc.substring(0, 22);
+            },
+            decode: function (item) {
+                var enc = item.replace("_", "/").replace("-", "+");
+                return app.Guid.fromBase64(enc + "==");
+            },
+            is: function (val) {
+                return val == null || (typeof val === "string" && val.match(/-/g).length === 4);
+            },
+            pattern: /[^/]*/
+        });
     }
 })(app || (app = {}));
 (function () {

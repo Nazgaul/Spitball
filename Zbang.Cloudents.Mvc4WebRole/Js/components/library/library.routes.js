@@ -13,7 +13,7 @@
             {
                 state: "department",
                 config: {
-                    url: "/university/:universityId:int/:universityName/",
+                    url: "/university/{universityId:int}/{universityName:encodeStr}/",
                     controller: 'Library as l',
                     resolve: {
                         nodeData: [
@@ -34,7 +34,7 @@
             },
             {
                 state: "departmentWithNode", config: {
-                    url: "/university/:universityId:int/:universityName/:nodeName/?id",
+                    url: "/university/{universityId:int}/{universityName:encodeStr}/{nodeName:encodeStr}/?{id:encodeGuid}",
                     controller: "Library as l",
                     resolve: {
                         nodeData: [
@@ -108,21 +108,8 @@
                             ]
                         }
                     }
-                    //templateProvider: [
-                    //        "ajaxService2", "$mdMedia", function (ajaxService2, $mdMedia) {
-                    //            if ($mdMedia('gt-xs')) {
-                    //                return ajaxService2.getHtml("/university/classchoosepartial/");
-                    //            } else {
-                    //                return ajaxService2.getHtml("/university/classchoosemobilepartial/");
-                    //            }
-                    //        }
-                    //]
                 }
-                //templateUrl: "/university/classchoosepartial/"
-            }
-
-
-            ];
+            }];
         }
     }
 })();

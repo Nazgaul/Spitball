@@ -9,7 +9,7 @@
             {
                 state: 'box',
                 config: {
-                    url: '/{boxtype:box|course}/{universityType}/{boxId:int}/{boxName}/?{invId}',
+                    url: '/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/?{invId}',
                     controller: 'BoxController as b',
                     resolve: {
                         boxData: [

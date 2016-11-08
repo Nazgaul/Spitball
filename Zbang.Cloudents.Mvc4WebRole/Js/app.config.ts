@@ -4,7 +4,7 @@
     angular.module("app").config(config);
     config.$inject = ["$controllerProvider", "$locationProvider", "$provide",
         "$httpProvider", "$compileProvider", "$animateProvider",
-        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider", "$mdThemingProvider"];
+        "$mdAriaProvider", "$mdIconProvider", "$sceDelegateProvider", "$mdThemingProvider", "$urlMatcherFactoryProvider"];
     // ReSharper disable once Class
     function config(
         $controllerProvider: angular.IControllerProvider,
@@ -16,8 +16,9 @@
         $mdAriaProvider,
         $mdIconProvider: angular.material.IIconProvider,
         $sceDelegateProvider: angular.ISCEDelegateProvider,
-        $mdThemingProvider/*: angular.material.IThemingProvider*/
-        ) {
+        $mdThemingProvider/*: angular.material.IThemingProvider*/,
+        $urlMatcherFactoryProvider: angular.ui.IUrlMatcherFactory
+    ) {
 
         $controllerProvider.allowGlobals();
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -85,9 +86,55 @@
             .iconSet("p", append("/images/site/profileIcons.svg"));
 
 
-        function append(str:string) {
+        function append(str: string) {
             return (window["cdnPath"] || "") + str + "?" + window["version"];
         }
+
+        $urlMatcherFactoryProvider.strictMode(true);
+        $urlMatcherFactoryProvider.type('encodeStr', {
+            encode: (item: string) => {
+                if (!item) {
+                    return item;
+                }
+                item = item.replace(/[<>*%&:\\/;?@=+$,{}|^[\]`"#'()]/g, "");
+                item = item.replace(/[ _-]/g, "-");
+                item = item.replace(/-{2,999}/g, "-");
+                return item;
+            },
+            decode: item => {
+                console.log('decode', item);
+                // Look up the list item by index
+                return item;//list[parseInt(item, 10)];
+            },
+            is: val => {
+                return (val == null || typeof val === "string");
+            },
+            pattern: /[^/]*/
+        });
+        $urlMatcherFactoryProvider.type('encodeGuid', {
+            encode: (item: string) => {
+                var enc = Guid.toBase64(item);
+                enc = enc.replace("/", "_").replace("+", "-");
+                return enc.substring(0, 22);// list.indexOf(item);
+            },
+            decode: item => {
+                var enc = item.replace("_", "/").replace("-", "+");
+                return Guid.fromBase64(enc + "==");
+                //return str;//list[parseInt(item, 10)];
+            },
+            is: val => {
+
+                return val == null || (typeof val === "string" && val.match(/-/g).length === 4);
+            },
+            pattern: /[^/]*/
+        });
+
+        //$stateProvider.state('list', {
+        //    url: "/list/{item:listItem}",
+        //    controller: function ($scope, $stateParams) {
+        //        console.log($stateParams.item);
+        //    }
+        //});
     }
 }
 
@@ -153,7 +200,7 @@
         // the following settings are defined for all scrollbars unless the
         // scrollbar has local scope configuration
         ScrollBarsProvider.defaults = {
-           
+
             scrollInertia: 400, // adjust however you want
             scrollButtons: false,
             theme: "dark-thin",

@@ -29,7 +29,7 @@
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" class="create-box flex" ng-if="l.createDepartmentShowButton">
         <button type="button" ng-click="l.openCreateDepartment()" class="box-style action" ng-class="{'active':l.createDepartmentOn}" ga-track-event="['university', 'add new department']">
             <div class="wrapper">
-                @Html.Svg("~/images/site/icons.svg", "add", new { @class = "icon" })
+                <md-icon md-svg-icon="t:add" class="icon"></md-icon>
                 <span class="text">@UniversityResources.AddDepartment</span>
             </div>
         </button>
@@ -37,7 +37,7 @@
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" class="create-box flex" ng-if="l.createClassShow">
         <button focus-upon-click="createClassInput" type="button" ng-click="l.openCreateBox()" class="box-style action" ng-class="{'active':l.createBoxOn}" ga-track-event="['university', 'add new class']">
             <div class="wrapper">
-                @Html.Svg("~/images/site/icons.svg", "add", new { @class = "icon" })
+                <md-icon md-svg-icon="t:add" class="icon"></md-icon>
                 <span class="text">@UniversityResources.AddClass</span>
             </div>
         </button>
@@ -45,7 +45,7 @@
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" flex-order="10" class="create-box flex" ng-if="l.nodeDetail">
         <button type="button" ng-click="l.toggleSettings()" class="settings-btn box-style action" ng-class="{'active':l.settingsOpen}" ga-track-event="['university', 'settings']">
             <div class="wrapper">
-                @Html.Svg("/images/site/box-icons.svg", "settings", new { @class = "icon" })
+                <md-icon md-svg-icon="t:settings" class="icon"></md-icon>
                 <span class="text">@UniversityResources.DepartmentSettings</span>
             </div>
         </button>
@@ -55,7 +55,7 @@
     <div id="createDepartment" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createDepartmentOn">@{ Html.RenderPartial("_CreateDepartment");}</div>
     <div id="createCourse" flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex create-box" ng-show="l.createBoxOn">@{ Html.RenderPartial("_CreateCourse");}</div>
     <div flex-lg="33" flex-gt-lg="25" flex-md="50" flex-xs="100" flex-sm="50" class="flex department-wrap" ng-repeat="dep in l.departments track by dep.id">
-        <a ng-click="l.goToSubLib(dep,$event)" href="{{::dep.url}}" class="box-style" ga-track-event="['university', 'select department']">
+        <a ng-click="l.goToSubLib(dep,$event)" @*href="{{::dep.url}}"*@ ui-sref="departmentWithNode({ universityId : l.university.id, universityName: l.university.name, nodeName: dep.name , id:dep.id})" class="box-style" ga-track-event="['university', 'select department']">
             <h3 class="name ellipsis border" color="{{::dep.id}}">{{::dep.name}}</h3>
             <div class="status" layout="row" layout-align="space-between center">
                 <div class="status-title">
@@ -71,7 +71,7 @@
                 </div>
             </div>
         </a>
-        <md-menu ng-if="l.canDelete(dep)">
+        <md-menu ng-if="::l.canDelete(dep)">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['university', 'delete department']">
                 <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
             </md-button>
@@ -89,7 +89,6 @@
 <button type="button" class="add" hide show-xs ng-click="l.openCreateBox()"
         focus-upon-click="createClassInput"
         ng-if="l.state.withBoxes"
-        @*|| l.createDepartmentShow && l.createClassShow*@
         ng-hide="l.createOn"
         ga-track-event="['dashboard', 'createbox', 'plus']">
     <md-icon md-svg-icon="t:add"></md-icon>
@@ -97,7 +96,6 @@
 <button type="button" class="add" hide show-xs ng-click="l.openCreateDepartment()"
         focus-upon-click="createDepartmentInput"
         ng-if="!l.state.withBoxes && !l.state.emptyNode && !l.state.emptyTopTree"
-        @*|| l.createClassShow*@
         ng-hide="l.createOn"
         ga-track-event="['dashboard', 'createDepartment', 'plus']">
     <md-icon md-svg-icon="t:add"></md-icon>

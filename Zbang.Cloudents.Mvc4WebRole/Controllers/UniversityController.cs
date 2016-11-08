@@ -193,34 +193,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
 
-        //private Task<string> GetCountryByIpAsync(/*HttpContextBase context*/)
-        //{
-        //    string userIp = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-        //    if (string.IsNullOrWhiteSpace(userIp))
-        //    {
-        //        userIp = HttpContext.Request.ServerVariables["REMOTE_ADDR"];
-        //    }
-        //    if (HttpContext.Request.IsLocal)
-        //    {
-        //        userIp = "81.218.135.73";
-        //    }
-        //    var ipNumber = Ip2Long(userIp);
-        //    return ZboxReadService.GetLocationByIpAsync(new GetCountryByIpQuery(ipNumber));
-        //}
-
-        //private static long Ip2Long(string ip)
-        //{
-        //    double num = 0;
-        //    if (!string.IsNullOrEmpty(ip))
-        //    {
-        //        string[] ipBytes = ip.Split('.');
-        //        for (int i = ipBytes.Length - 1; i >= 0; i--)
-        //        {
-        //            num += ((int.Parse(ipBytes[i]) % 256) * Math.Pow(256, (3 - i)));
-        //        }
-        //    }
-        //    return (long)num;
-        //}
+       
 
 
         [HttpGet, ActionName("Nodes")]
@@ -246,16 +219,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 {
                     universityNameDecoded = HttpUtility.UrlDecode(universityName.ToString());
                 }
-                foreach (var node in result.Nodes)
-                {
-                    node.Url = Url.RouteUrlCache("universityLibraryNodes", new RouteValueDictionary
-                    {
-                        ["universityId"] = universityId,
-                        ["universityName"] = universityNameDecoded,
-                        ["id"] = GuidEncoder.Encode(node.Id),
-                        ["libraryname"] = UrlConst.NameToQueryString(node.Name)
-                    });
-                }
+                //foreach (var node in result.Nodes)
+                //{
+                //    node.Url = Url.RouteUrlCache("universityLibraryNodes", new RouteValueDictionary
+                //    {
+                //        ["universityId"] = universityId,
+                //        ["universityName"] = universityNameDecoded,
+                //        ["id"] = GuidEncoder.Encode(node.Id),
+                //        ["libraryname"] = UrlConst.NameToQueryString(node.Name)
+                //    });
+                //}
                 if (result.Details == null) return JsonOk(result);
                 if (result.Details.ParentId.HasValue)
                 {

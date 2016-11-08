@@ -102,6 +102,9 @@ namespace Testing
 
         static void Main(string[] args)
         {
+            
+            var z = GuidEncoder.Encode("0114F1D3-85E3-40D6-B6FA-A5D7000465CA");
+           var v =  GuidEncoder.Decode(z);
             var unity = IocFactory.IocWrapper;
             Zbang.Zbox.Infrastructure.RegisterIoc.Register();
             Zbang.Zbox.Infrastructure.Data.RegisterIoc.Register();

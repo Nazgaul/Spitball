@@ -10,6 +10,64 @@
                 return v.toString(16);
             });
         }
+
+        static toBase64(guid: string): string {
+            var binary = '';
+            var bytes = new Uint8Array(guidToBytes(guid));
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
+
+            function guidToBytes(guid) {
+                var bytes = [];
+                guid.split('-').map((number, index) => {
+                    var bytesInChar = index < 3 ? number.match(/.{1,2}/g).reverse() : number.match(/.{1,2}/g);
+                    bytesInChar.map((byte) => { bytes.push(parseInt(byte, 16)); });
+                });
+                return bytes;
+            }
+        }
+        static fromBase64(base64: string): string {
+            var raw = window.atob(base64);
+            var rawLength = raw.length;
+            var array = new Uint8Array(new ArrayBuffer(rawLength));
+
+            for (let i = 0; i < rawLength; i++) {
+                array[i] = raw.charCodeAt(i);
+            }
+
+            var arr = new Array(36);
+            a2hs(array, 0, 3, false, arr, 0, true); arr[8] = "-";
+            a2hs(array, 4, 5, false, arr, 9, true); arr[13] = "-";
+            a2hs(array, 6, 7, false, arr, 14, true); arr[18] = "-";
+            a2hs(array, 8, 9, false, arr, 19, false); arr[23] = "-";
+            a2hs(array, 10, 15, false, arr, 24, false);
+            var str = arr.join("");
+            return str;
+
+            function a2hs(bytes, begin, end, uppercase, str, pos, needReplace) {
+                var mkNum = (num, uppercase) => {
+                    var base16 = num.toString(16);
+                    if (base16.length < 2)
+                        base16 = "0" + base16;
+                    if (uppercase)
+                        base16 = base16.toUpperCase();
+                    return base16;
+                };
+                if (needReplace) {
+                    for (let i = end; i >= begin; i--)
+                        str[pos++] = mkNum(bytes[i], uppercase);
+                } else {
+                    for (let i = begin; i <= end; i++)
+                        str[pos++] = mkNum(bytes[i], uppercase);
+                }
+                return str;
+            };
+
+
+        }
     }
 
     var connectionStatus: boolean = false;

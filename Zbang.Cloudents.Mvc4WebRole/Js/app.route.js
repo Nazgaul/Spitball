@@ -16,34 +16,10 @@
                             return userDetails.init();
                         }
                     ]
-                    //boxes: ["dashboardService", function (dashboardService) {
-                    //    if (window.id > 0) {
-                    //        return dashboardService.getBoxes();
-
-                    //    }
-                    //}]
+                   
                 },
                 views: {
                     "": {
-                        //controller: [
-                        //'user', '$state', 'boxes', '$location', '$window', function (user, $state, boxes, $location, $window) {
-                        //    if (window.id > 0) {
-                        //        //if (!user.university.id && $state.current.name !== "universityChoose") {
-                        //        //    $state.go("universityChoose");
-                        //        //}
-                        //        //console.log($state.params);
-                        //        //console.log($state);
-                        //        if (boxes.length < 3 && $state.href("classChoose") !== $location.url()) {
-                        //            //console.log('c')
-                        //            //$state.go("classChoose");
-                        //            //$location.url($state.href("classChoose"));
-                        //             location.href = $state.href("classChoose");
-                        //        }
-                        //        //console.log('d')
-                        //    }
-
-                        //}
-                        //],
                         template: "<div class=\"page-animation\" ui-view animation-class></div>"
                     },
                     "user-profile": {
@@ -125,7 +101,7 @@
                    {
                        state: 'item',
                        config: {
-                           url: '/item/{universityName}/{boxId:int}/{boxName}/{itemId:int}/{itemName}/',
+                           url: '/item/{universityName:encodeStr}/{boxId:int}/{boxName:encodeStr}/{itemId:int}/{itemName:encodeStr}/',
                            controller: 'ItemController as i',
                            resolve: {
                                itemData: ['itemService', '$stateParams', 'sbHistory', function (itemService, $stateParams, sbHistory) {

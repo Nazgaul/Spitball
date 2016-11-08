@@ -17,7 +17,6 @@
                     <form novalidate class="search-friend" ng-submit="cu.search(cu.term)">
                         <button type="button" class="search-btn" ng-click="cu.expandSearch()">
                             <md-icon md-svg-icon="t:searchIcon" class="searchIcon"></md-icon>
-                            @*@Html.Svg("~/images/site/icons.svg", "searchIcon", new {@class = "searchIcon"})*@
                         </button>
                         <input type="search" focus-me="cu.focusSearch" placeholder="@ChatResources.FriendSearchPlaceholder" ng-model="cu.term" ng-change="cu.search(cu.term)" ng-model-options="{debounce : 300}"/>
                         <button type="reset" ng-if="cu.term.length" class="reset-btn" ng-click="cu.search()">
@@ -41,7 +40,6 @@
                         <section class="classmates" ng-show="classmates.length">
                             <div class="header">
                                 <md-icon md-svg-icon="t:group"></md-icon>
-                                @*@Html.Svg("~/images/site/icons.svg", "group")*@
                                 <h1>@ChatResources.ClassmatesHeader</h1>
                                 <md-tooltip class="chat-tooltip" md-direction="@direction">
                                     <div>@ChatResources.ClassmatesHeader</div>
@@ -55,7 +53,6 @@
                         <section class="schoolmates" ng-show="schoolmates.length">
                             <div class="header">
                                 <md-icon md-svg-icon="t:crowd"></md-icon>
-                                @*@Html.Svg("~/images/site/icons.svg", "crowd")*@
                                 <h1>@ChatResources.SchoolmatesHeader</h1>
                                 <md-tooltip class="chat-tooltip" md-direction="@direction">
                                     <div>@ChatResources.SchoolmatesHeader</div>
@@ -71,7 +68,6 @@
                     <div class="empty-state" ng-if="!cu.users.length && cu.term">
                         <div>
                             <md-icon md-svg-icon="t:sad-student-smiley"></md-icon>
-                            @*@Html.Svg("~/images/site/icons.svg", "sad-student-smiley")*@
                         </div>
                         <span class="title">@ChatResources.EmptyStateTitle</span>
                         <span class="subtitle">@ChatResources.EmptyStateSubtitle</span>
@@ -106,7 +102,6 @@
                     <div class="new-message">
                         <a class="menu menu-item" plupload="cv.upload.url" plupload-options="cv.upload.options" plupload-callbacks="cv.upload.callbacks" href="#" ga-track-event="['chat', 'upload-file']">
                             <md-icon md-svg-icon="u:file" class="attach"></md-icon>
-                            @*@Html.Svg("~/images/site/uploadIcons.svg", "file", new {@class = "attach"})*@
                         </a>
 
                         <form name="chatDialog" novalidate ng-submit="cv.send()">
@@ -115,7 +110,6 @@
                             </md-input-container>
                             <button type="submit" class="action-btn no-text" ng-disabled="cv.disabled" ga-track-event="['chat', 'sent-message']">
                                 <md-icon md-svg-icon="u:post"></md-icon>
-                                @*@Html.Svg("~/images/site/uploadIcons.svg", "post")*@
                             </button>
                         </form>
                     </div>
