@@ -1,0 +1,28 @@
+.flashcard form {
+  margin: 86px auto;
+  max-width: 800px;
+  padding: 10px 15px 0;
+}
+.flashcard form input::-webkit-input-placeholder {
+  color: #888b8e;
+  opacity: 1;
+}
+.flashcard form input:-moz-placeholder {
+  /* Firefox 18- */
+  color: #888b8e;
+  opacity: 1;
+}
+.flashcard form input::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #888b8e;
+  opacity: 1;
+}
+.flashcard form input:-ms-input-placeholder {
+  color: #888b8e;
+  opacity: 1;
+}
+.flashcard form svg {
+  width: 16px;
+  height: 16px;
+  fill: #484F56;
+}

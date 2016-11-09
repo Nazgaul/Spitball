@@ -81,6 +81,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new CssWithRtl("~/content/site/error.css"),
                         new CssWithRtl("~/content/site/accordion.css"),
                         new CssWithRtl("~/content/site/selectClass.css"),
+                        new CssWithRtl("~/content/site/flashcard.css")
                     }
 
             };
@@ -225,7 +226,8 @@ namespace Zbang.Cloudents.Mvc4WebRole
                      new JsFileWithCdn("~/js/components/box/item.controller.js"),
                      new JsFileWithCdn("~/js/components/box/quizzes.controller.js"),
                      new JsFileWithCdn("~/js/components/box/members.controller.js"),
-
+                     new JsFileWithCdn("~/js/components/box/flashcards.controller.js"),
+                     
                      new JsFileWithCdn("~/js/components/box/recommended.controller.js"),
                      new JsFileWithCdn("~/js/components/box/slideit.directive.js"),
 
@@ -274,6 +276,10 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/js/components/quiz/popup/quiz.score.controller.js"),
                         new JsFileWithCdn("~/js/components/quiz/quiz.service.js"),
                         new JsFileWithCdn("~/js/components/quiz/quiz.routes.js"),
+
+                        new JsFileWithCdn("~/js/components/flashcard/flashcard.routes.js"),
+                        new JsFileWithCdn("~/js/components/flashcard/flashcard.controller.js"),
+
 
                         new JsFileWithCdn("~/js/components/app.controller.js"),
                         new JsFileWithCdn("~/js/shared/ajaxService.js"),

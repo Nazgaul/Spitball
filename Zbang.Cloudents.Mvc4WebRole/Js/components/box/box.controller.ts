@@ -48,7 +48,6 @@
             }
             boxId = $stateParams.boxId;
             this.data = boxData;
-
             this.showLeaderboard = this.isAcademic = boxData.boxType === "academic" || boxData.boxType === "academicClosed";
             this.needFollow = boxData.userType === "invite" || boxData.userType === "none";
             this.canInvite = boxData.boxType !== "academicClosed" && this.isAcademic || (boxData.userType === "owner" && !this.isAcademic);

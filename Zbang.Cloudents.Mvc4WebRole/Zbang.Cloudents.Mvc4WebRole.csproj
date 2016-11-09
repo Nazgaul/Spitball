@@ -283,6 +283,7 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FlashcardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\UniversityController.cs" />
@@ -982,6 +983,12 @@
     <Content Include="Content\Site\feed.rtl.css">
       <DependentUpon>feed.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\flashcard.css">
+      <DependentUpon>flashcard.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Site\flashcard.min.css">
+      <DependentUpon>flashcard.css</DependentUpon>
+    </Content>
     <Content Include="Content\Site\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
@@ -1398,6 +1405,7 @@
     <TypeScriptCompile Include="Js\components\box\box.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\box.service.ts" />
     <TypeScriptCompile Include="Js\components\box\boxSettings.controller.ts" />
+    <TypeScriptCompile Include="Js\components\box\flashcards.controller.ts" />
     <TypeScriptCompile Include="Js\components\box\item.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.controller.ts" />
     <TypeScriptCompile Include="Js\components\chat\chat.factory.ts" />
@@ -1410,6 +1418,8 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.routes.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
+    <TypeScriptCompile Include="Js\components\flashcard\flashcard.controller.ts" />
+    <TypeScriptCompile Include="Js\components\flashcard\flashcard.routes.ts" />
     <TypeScriptCompile Include="Js\components\item\dropFileClass.directive.ts" />
     <TypeScriptCompile Include="Js\components\library\classChooseCreateDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\library\classChooseUnfollowDialog.controller.ts" />
@@ -1464,6 +1474,7 @@
     <Content Include="Scripts\angular-aria\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate\angular-animate.min.js.map" />
     <Content Include="Content\Site\selectClass.less" />
+    <Content Include="Content\Site\flashcard.less" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
@@ -2475,6 +2486,7 @@
     <Content Include="Views\Dashboard\_Gamification.cshtml" />
     <Content Include="Views\University\ClassChoose.cshtml" />
     <Content Include="Views\Box\_Flashcards.cshtml" />
+    <Content Include="Views\Flashcard\CreatePartial.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

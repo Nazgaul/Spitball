@@ -1097,8 +1097,8 @@ namespace Management_Application
 
         private async void buttonMergeBoxes_Click(object sender, EventArgs e)
         {
-            var boxIdFrom = Int64.Parse(textBoxBoxFrom.Text);
-            var boxIdTo = Int64.Parse(textBoxBoxTo.Text);
+            var boxIdFrom = long.Parse(textBoxBoxFrom.Text);
+            var boxIdTo = long.Parse(textBoxBoxTo.Text);
 
             const string sql1 =
                 "Select Boxid as id, boxname as name,[MembersCount] as memberCount, [ItemCount] as itemCount from zbox.box where boxid in (@fromid, @toid) and isdeleted = 0 ";
@@ -1149,7 +1149,6 @@ Delete from zbox.UserBoxRel where boxid=@fromid;
 update zbox.Invite set BoxId =@toid where BoxId = @fromid;
 update zbox.item set [ItemTabId]=null, [IsDirty]=1, UpdatedUser = 'mergeTool' where boxid=@fromid;
 update zbox.item set boxid=@toid, [IsDirty]=1, UpdatedUser = 'mergeTool' where boxid=@fromid;
---update [Zbox].[Comment] set boxid=@toid where boxid=@fromid;
 
 update [Zbox].[Quiz] set boxid=@toid, [IsDirty]=1, UpdatedUser = 'mergeTool' where boxid=@fromid;
 update [Zbox].[Question] set boxid=@toid, UpdatedUser = 'mergeTool' where boxid=@fromid;
@@ -1168,7 +1167,8 @@ delete from [Zbox].[Question] where boxid = @fromid;
 delete from zbox.NewUpdates where BoxId = @fromid;
 delete from [Zbox].[ItemTab] where BoxId = @fromid;
 commit transaction", new { fromid = boxIdFrom, toid = boxIdTo });
-
+                var iocService = IocFactory.IocWrapper.Resolve<IZboxWorkerRoleService>();
+                iocService.UpdateItemUrl();
                 MessageBox.Show("Done");
 
                 dataGridViewMergeBoxes.Visible = false;

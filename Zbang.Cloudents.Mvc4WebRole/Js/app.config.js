@@ -72,7 +72,6 @@ var app;
                 return item;
             },
             decode: function (item) {
-                console.log('decode', item);
                 return item;
             },
             is: function (val) {

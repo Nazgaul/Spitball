@@ -83,10 +83,10 @@
                 state: 'box.flashcards',
                 config: {
                     url: 'flashcards/',
-                    controller: 'QuizzesController as q',
+                    controller: 'FlashcardsController as f',
                     parent: 'box'
                 },
-                templateUrl: '/box/quizpartial/'
+                templateUrl: '/box/flashcardspartial/'
             },
                 {
                     state: 'box.members',

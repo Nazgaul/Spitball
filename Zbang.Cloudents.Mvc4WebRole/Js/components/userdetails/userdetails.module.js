@@ -4,6 +4,9 @@
 (function () {
     angular.module('app.dashboard', ['app.ajaxservice']);
 })();
+(function () {
+    angular.module('app.flashcard', ['app.ajaxservice']);
+})();
 
 (function () {
     angular.module('app.user.details', ['app.ajaxservice']);

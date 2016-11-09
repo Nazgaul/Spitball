@@ -67,7 +67,21 @@ namespace Zbang.Cloudents.Mvc4WebRole
                 "course/{universityName}/{boxId}/{boxName}/quizcreate",
                 new { controller = "Home", action = "IndexEmpty" });
 
-            
+
+            #endregion
+
+
+            #region flashcard
+
+            routes.MapRoute("FlashcardCreate",
+                "box/my/{boxId}/{boxName}/flashcardcreate",
+                new { controller = "Home", action = "IndexEmpty" });
+
+            routes.MapRoute("FlashcardCreate2",
+                "course/{universityName}/{boxId}/{boxName}/flashcardcreate",
+                new { controller = "Home", action = "IndexEmpty" });
+
+
             #endregion
 
             routes.MapRoute("AccountSettings",

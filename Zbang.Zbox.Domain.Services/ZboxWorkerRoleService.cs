@@ -51,9 +51,9 @@ namespace Zbang.Zbox.Domain.Services
 
         public void OneTimeDbi()
         {
-            DeleteOldLibrary();
+           // DeleteOldLibrary();
             //UpdateNumberOfBoxesInDepartmentNode();
-            //UpdateUrl();
+            UpdateItemUrl();
             //RemoveHtmlTags();
 
         }
@@ -515,7 +515,7 @@ where id = @id";
             }
         }
 
-        private void UpdateUrl()
+        public void UpdateItemUrl()
         {
             using (var unitOfWork = UnitOfWork.Start())
             {
@@ -535,6 +535,7 @@ and isdeleted = 0").List();
                 {
                     var item = UnitOfWork.CurrentSession.Load<Item>(itemId);
                     item.GenerateUrl();
+                    item.IsDirty = true;
                     UnitOfWork.CurrentSession.Save(item);
                 }
                 unitOfWork.TransactionalFlush();

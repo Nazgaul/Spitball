@@ -27,7 +27,8 @@
          'app.quiz',
          'app.upload',
          'app.search',
-         'app.chat'
+         'app.chat',
+         "app.flashcard"
     ]);
 
 })();

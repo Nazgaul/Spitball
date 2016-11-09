@@ -195,5 +195,9 @@
   {
     "outputFile": "Content/Site/selectClass.css",
     "inputFile": "Content/Site/selectClass.less"
+  },
+  {
+    "outputFile": "Content/Site/flashcard.css",
+    "inputFile": "Content/Site/flashcard.less"
   }
 ]

@@ -49,7 +49,6 @@
                                 <md-menu ng-if="::c.canDelete(comment.userId)">
                                     <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
                                         <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
-                                        @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3"})*@
                                     </md-button>
                                     <md-menu-content width="1">
                                         <md-menu-item>
@@ -76,7 +75,6 @@
                                             <md-menu ng-if="::c.canDelete(reply.userId)">
                                                 <md-button aria-label="open menu" class="md-icon-button" ng-click="app.openMenu($mdOpenMenu, $event)">
                                                     <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
-                                                    @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new { @class = "dots-3" })*@
                                                 </md-button>
                                                 <md-menu-content width="1">
                                                     <md-menu-item>

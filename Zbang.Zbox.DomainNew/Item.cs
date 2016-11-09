@@ -67,6 +67,7 @@ namespace Zbang.Zbox.Domain
             }
             var universityName = Box.GetUniversityName() ?? "my";
             Url = UrlConst.BuildItemUrl(Box.Id, Box.Name, Id, Name, universityName);
+            IsDirty = true;
         }
 
         public virtual int LikeCount { get; set; }

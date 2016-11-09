@@ -31,7 +31,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual bool Publish { get; set; }
 
-        public virtual string Banner { get; set; }
+        //public virtual string Banner { get; set; }
 
         public virtual User Owner { get; private set; }
         public virtual Box Box { get; private set; }

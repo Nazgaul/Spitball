@@ -1,7 +1,7 @@
 ﻿module app {
     "use strict";
 
-    interface ISerializable<T> {
+    export interface ISerializable<T> {
         deserialize(input: Object): T;
     }
 

@@ -7,6 +7,10 @@
     }
 
     function determineEffectAllowed(e) {
+        if (e.originalEvent) {
+            e.dataTransfer = e.originalEvent.dataTransfer;
+        }
+
         // Chrome doesn't set dropEffect, so we have to work it out ourselves
         if (typeof e.dataTransfer !== 'undefined' && e.dataTransfer.dropEffect === 'none') {
             if (e.dataTransfer.effectAllowed === 'copy' ||
@@ -23,15 +27,11 @@
         return;
     }
 
-    if (window.jQuery && (-1 === window.jQuery.event.props.indexOf('dataTransfer'))) {
-        window.jQuery.event.props.push('dataTransfer');
-    }
-
     var module = angular.module('ang-drag-drop', []);
 
     module.directive('uiDraggable', ['$parse', '$rootScope', '$dragImage', function ($parse, $rootScope, $dragImage) {
         return function (scope, element, attrs) {
-            var isDragHandleUsed = false, stop = true,
+            var isDragHandleUsed = false,
                 dragHandleClass,
                 draggingClass = attrs.draggingClass || 'on-dragging',
                 dragTarget;
@@ -43,13 +43,11 @@
                     element.attr('draggable', newValue);
                     element.bind('dragend', dragendHandler);
                     element.bind('dragstart', dragstartHandler);
-                    element.bind('drag', dragHandler);
                 }
                 else {
                     element.removeAttr('draggable');
                     element.unbind('dragend', dragendHandler);
                     element.unbind('dragstart', dragstartHandler);
-                    element.unbind('drag', dragHandler);
                 }
 
             });
@@ -64,8 +62,10 @@
             }
 
             function dragendHandler(e) {
-                console.log('here');
-                stop = true;
+                if (e.originalEvent) {
+                    e.dataTransfer = e.originalEvent.dataTransfer;
+                }
+
                 setTimeout(function () {
                     element.unbind('$destroy', dragendHandler);
                 }, 0);
@@ -95,8 +95,8 @@
             function setDragElement(e, dragImageElementId) {
                 var dragImageElementFn;
 
-                if (!(e && e.dataTransfer && e.dataTransfer.setDragImage)) {
-                    return;
+                if (e.originalEvent) {
+                    e.dataTransfer = e.originalEvent.dataTransfer;
                 }
 
                 dragImageElementFn = $parse(dragImageElementId);
@@ -120,6 +120,10 @@
             }
 
             function dragstartHandler(e) {
+                if (e.originalEvent) {
+                    e.dataTransfer = e.originalEvent.dataTransfer;
+                }
+
                 var isDragAllowed = !isDragHandleUsed || dragTarget.classList.contains(dragHandleClass);
 
                 if (isDragAllowed) {
@@ -157,7 +161,7 @@
                         setDragElement(e, attrs.dragImageElementId);
                     }
 
-                    var offset = { x: e.originalEvent.offsetX, y: e.originalEvent.offsetY };
+                    var offset = { x: e.offsetX, y: e.offsetY };
                     var transferDataObject = { data: dragData, channel: sendChannel, offset: offset };
                     var transferDataText = angular.toJson(transferDataObject);
 
@@ -168,31 +172,6 @@
                 }
                 else {
                     e.preventDefault();
-                }
-            }
-
-
-            function dragHandler(e) {
-                stop = true;
-
-                if (e.originalEvent.clientY < 150) {
-                    stop = false;
-                    scroll(-1);
-                }
-
-                if (e.originalEvent.clientY > ($(window).height() - 150)) {
-                    stop = false;
-                    scroll(1);
-                }
-            }
-            //http://stackoverflow.com/questions/18809678/make-html5-draggable-items-scroll-the-page
-            function scroll(step) {
-                var scrollY = $(window).scrollTop();
-                $(window).scrollTop(scrollY + step);
-                if (!stop) {
-                    setTimeout(function () {
-                        scroll(step);
-                    }, 20);
                 }
             }
         };
@@ -211,10 +190,10 @@
 
             function calculateDropOffset(e) {
                 var offset = {
-                    x: e.originalEvent.offsetX,
-                    y: e.originalEvent.offsetY
+                    x: e.offsetX,
+                    y: e.offsetY
                 };
-                var target = e.originalEvent.target;
+                var target = e.target;
 
                 while (target !== element[0]) {
                     offset.x = offset.x + target.offsetLeft;
@@ -297,6 +276,10 @@
             }
 
             function onDrop(e) {
+                if (e.originalEvent) {
+                    e.dataTransfer = e.originalEvent.dataTransfer;
+                }
+
                 if (e.preventDefault) {
                     e.preventDefault(); // Necessary. Allows us to drop.
                 }
@@ -335,6 +318,10 @@
             }
 
             function preventNativeDnD(e) {
+                if (e.originalEvent) {
+                    e.dataTransfer = e.originalEvent.dataTransfer;
+                }
+
                 if (e.preventDefault) {
                     e.preventDefault();
                 }

@@ -14,7 +14,6 @@
         <div class="content ">
             <button type="button">
                 <md-icon md-svg-icon="t:add"></md-icon>
-                @*@Html.Svg("~/images/site/icons.svg", "add")*@
                 <div class="text">
                     @IndexResources.UploadFiles
                 </div>
@@ -26,7 +25,6 @@
         <md-menu class="item-menu">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-items', 'deleteFile']">
                 <md-icon md-svg-icon="t:ThreeDots" class="dots-3"></md-icon>
-                @*@Html.Svg("~/images/site/icons.svg", "ThreeDots", new {@class = "dots-3"})*@
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item ng-if="::b.canDelete(e.ownerId)">
@@ -51,5 +49,4 @@
 </ul>
 <button type="button" class="add" hide show-xs ng-click="i.openUpload()" ng-show="i.uploadShow" ga-track-event="['box-items', 'addFile']">
     <md-icon md-svg-icon="t:add"></md-icon>
-    @*@Html.Svg("~/images/site/icons.svg", "add")*@
 </button>

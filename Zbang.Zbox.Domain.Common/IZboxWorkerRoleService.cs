@@ -38,5 +38,7 @@ namespace Zbang.Zbox.Domain.Common
 
 
         Task UpdateSpamGunSendAsync(int id, CancellationToken token);
+
+        void UpdateItemUrl();
     }
 }

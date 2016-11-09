@@ -102,7 +102,6 @@
                 return item;
             },
             decode: item => {
-                console.log('decode', item);
                 // Look up the list item by index
                 return item;//list[parseInt(item, 10)];
             },
