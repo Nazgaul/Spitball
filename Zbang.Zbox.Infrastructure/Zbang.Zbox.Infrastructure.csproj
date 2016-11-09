@@ -180,7 +180,6 @@
     <Compile Include="Url\Base62.cs" />
     <Compile Include="Url\EncryptObject.cs" />
     <Compile Include="Url\GuidEncoder.cs" />
-    <Compile Include="Url\InviteLinkProvider.cs" />
     <Compile Include="Cache\SystemCache.cs" />
     <Compile Include="Cache\IWithCache.cs" />
     <Compile Include="Cache\WithCache.cs" />
@@ -191,9 +190,6 @@
     <Compile Include="Enums\UserRelationshipType.cs" />
     <Compile Include="Query\IQueryCache.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
-    <Compile Include="Url\IShortCodesCache.cs" />
-    <Compile Include="Url\ShortCodes.cs" />
-    <Compile Include="Url\ShortCodesCache.cs" />
     <Compile Include="Trace\TraceLog.cs" />
     <Compile Include="Storage\IBlobProvider.cs" />
     <Compile Include="CommandHandlers\ICommandBus.cs" />

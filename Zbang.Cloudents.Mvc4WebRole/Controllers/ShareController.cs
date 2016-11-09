@@ -3,32 +3,29 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Controllers.Resources;
-using Zbang.Cloudents.Mvc4WebRole.Extensions;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models.Share;
 using Zbang.Zbox.Domain.Commands;
-using Zbang.Zbox.Infrastructure.Exceptions;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Trace;
 using Zbang.Zbox.Infrastructure.Url;
-using Zbang.Zbox.ViewModel.Queries;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 {
     [SessionState(System.Web.SessionState.SessionStateBehavior.Disabled)]
     public class ShareController : BaseController
     {
-        private readonly Lazy<IInviteLinkDecrypt> m_InviteLinkDecrypt;
-        private readonly Lazy<IShortCodesCache> m_ShortCodesCache;
+        //private readonly Lazy<IInviteLinkDecrypt> m_InviteLinkDecrypt;
+        //private readonly Lazy<IShortCodesCache> m_ShortCodesCache;
 
 
-        public ShareController(
-            Lazy<IShortCodesCache> shortToLongCache,
-            Lazy<IInviteLinkDecrypt> inviteLinkDecrypt)
-        {
-            m_InviteLinkDecrypt = inviteLinkDecrypt;
-            m_ShortCodesCache = shortToLongCache;
-        }
+        //public ShareController(
+        //    Lazy<IShortCodesCache> shortToLongCache,
+        //    Lazy<IInviteLinkDecrypt> inviteLinkDecrypt)
+        //{
+        //    m_InviteLinkDecrypt = inviteLinkDecrypt;
+        //    m_ShortCodesCache = shortToLongCache;
+        //}
 
 
         [HttpPost, ZboxAuthorize,ActionName("Invite")]
@@ -115,46 +112,45 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
         }
 
-        //TODO: remove this
-        [HttpGet,ActionName("FromEmail")]
-        public async Task<ActionResult> FromEmailAsync(string key, string email)
-        {
-            var membersOnlyErrorPageRedirect = RedirectToAction("MembersOnly", "Error");
-            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(email))
-            {
-                return membersOnlyErrorPageRedirect;
-            }
-            try
-            {
-                var values = m_InviteLinkDecrypt.Value.DecryptInviteUrl(key, email);
+        //[HttpGet,ActionName("FromEmail")]
+        //public async Task<ActionResult> FromEmailAsync(string key, string email)
+        //{
+        //    var membersOnlyErrorPageRedirect = RedirectToAction("MembersOnly", "Error");
+        //    if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(email))
+        //    {
+        //        return membersOnlyErrorPageRedirect;
+        //    }
+        //    try
+        //    {
+        //        var values = m_InviteLinkDecrypt.Value.DecryptInviteUrl(key, email);
 
 
-                if (values.ExpireTime < DateTime.UtcNow || values.RecipientEmail != email)
-                {
-                    return membersOnlyErrorPageRedirect;
-                }
-                var inviteExists = await ZboxReadService.GetInviteAsync(new GetInviteDetailQuery(values.Id));
-                if (!inviteExists)
-                {
-                    return membersOnlyErrorPageRedirect;
-                }
-                if (!string.IsNullOrEmpty(values.BoxUrl)) return Redirect(values.BoxUrl);
-                var boxId = m_ShortCodesCache.Value.LongToShortCode(values.BoxId);
-                var urlToRedirect = Url.ActionLinkWithParam("Index", "Box", new { boxId });
-                return Redirect(urlToRedirect);
-            }
-            //we are here if user is not register to the system
-            catch (UserNotFoundException)
-            {
-                return membersOnlyErrorPageRedirect;
-            }
-            catch (Exception ex)
-            {
-                TraceLog.WriteError($"FromEmail key:{key} email:{email}", ex);
-                return membersOnlyErrorPageRedirect;
+        //        if (values.ExpireTime < DateTime.UtcNow || values.RecipientEmail != email)
+        //        {
+        //            return membersOnlyErrorPageRedirect;
+        //        }
+        //        var inviteExists = await ZboxReadService.GetInviteAsync(new GetInviteDetailQuery(values.Id));
+        //        if (!inviteExists)
+        //        {
+        //            return membersOnlyErrorPageRedirect;
+        //        }
+        //        if (!string.IsNullOrEmpty(values.BoxUrl)) return Redirect(values.BoxUrl);
+        //        var boxId = m_ShortCodesCache.Value.LongToShortCode(values.BoxId);
+        //        var urlToRedirect = Url.ActionLinkWithParam("Index", "Box", new { boxId });
+        //        return Redirect(urlToRedirect);
+        //    }
+        //    //we are here if user is not register to the system
+        //    catch (UserNotFoundException)
+        //    {
+        //        return membersOnlyErrorPageRedirect;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        TraceLog.WriteError($"FromEmail key:{key} email:{email}", ex);
+        //        return membersOnlyErrorPageRedirect;
 
-            }
-        }
+        //    }
+        //}
         
 
         [ZboxAuthorize, HttpGet]
