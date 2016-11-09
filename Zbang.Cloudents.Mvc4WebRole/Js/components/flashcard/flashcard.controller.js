@@ -75,7 +75,11 @@ var app;
         FlashcardCreateController.prototype.flip = function () {
             this.data.flip();
         };
-        FlashcardCreateController.prototype.add = function () {
+        FlashcardCreateController.prototype.add = function ($index) {
+            if (angular.isNumber($index)) {
+                this.data.cards.splice($index + 1, 0, new Card());
+                return;
+            }
             this.data.cards.push(new Card());
         };
         FlashcardCreateController.prototype.move = function (dropCardIndex, card) {

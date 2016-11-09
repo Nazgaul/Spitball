@@ -27,7 +27,7 @@
     <ol ui-on-drop="true">
         <li id="drag{{$index}}"  ui-on-drop="f.move($data,card)" layout="row" ng-repeat="card in f.data.cards">
             <button type="button" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index">move</button>
-            <button type="button">add</button>
+            <button type="button" ng-click="f.add($index)">add</button>
             <card-form flex="50" slide="card.front"></card-form>
             <card-form flex="50" slide="card.cover"></card-form>
         </li>

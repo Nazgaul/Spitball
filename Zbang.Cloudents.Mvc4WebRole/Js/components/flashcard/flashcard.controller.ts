@@ -79,7 +79,11 @@
         flip() {
             this.data.flip();
         }
-        add() {
+        add($index: number) {
+            if (angular.isNumber($index)) {
+                this.data.cards.splice($index + 1, 0, new Card());
+                return;
+            }
             this.data.cards.push(new Card());
         }
         move(dropCardIndex: number, card: Card) {
