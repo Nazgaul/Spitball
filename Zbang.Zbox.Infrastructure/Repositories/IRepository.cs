@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Zbang.Zbox.Infrastructure.Repositories
 {
@@ -39,4 +41,7 @@ namespace Zbang.Zbox.Infrastructure.Repositories
         }
         public string CollectionId { get; private set; }
     }
+   
+    
+ 
 }

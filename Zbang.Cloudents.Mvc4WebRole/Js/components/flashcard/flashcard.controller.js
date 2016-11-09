@@ -25,6 +25,7 @@ var app;
             this.cards = [new Card(), new Card(), new Card(), new Card(), new Card()];
         }
         FlashCard.prototype.deserialize = function (input) {
+            this.cards = [];
             this.id = input.id;
             this.name = input.name;
             for (var i = 0; i < input.cards.length; i++) {
@@ -66,13 +67,30 @@ var app;
         return CardSlide;
     }());
     var FlashcardCreateController = (function () {
-        function FlashcardCreateController(flashcardService) {
+        function FlashcardCreateController(flashcardService, $stateParams, $state, flashcard) {
             this.flashcardService = flashcardService;
-            this.data = new FlashCard();
+            this.$stateParams = $stateParams;
+            this.$state = $state;
+            this.flashcard = flashcard;
+            if (flashcard) {
+                this.data = new FlashCard().deserialize(flashcard);
+            }
+            else {
+                this.data = new FlashCard();
+            }
         }
         FlashcardCreateController.prototype.create = function () {
-            this.flashcardService.create(this.data).then(function (response) {
-                console.log(response);
+            var _this = this;
+            var self = this;
+            this.flashcardService.create(this.data, this.$stateParams.boxId).then(function (response) {
+                _this.data.id = response;
+                _this.$state.go("flashcardCreate", {
+                    boxtype: self.$stateParams["boxtype"],
+                    universityType: self.$stateParams["universityType"],
+                    boxId: self.$stateParams.boxId,
+                    boxName: self.$stateParams["boxName"],
+                    id: response
+                });
             });
         };
         FlashcardCreateController.prototype.flip = function () {
@@ -89,7 +107,7 @@ var app;
             var cardIndex = this.data.cards.indexOf(card);
             this.data.cards.splice(cardIndex, 0, this.data.cards.splice(dropCardIndex, 1)[0]);
         };
-        FlashcardCreateController.$inject = ["flashcardService"];
+        FlashcardCreateController.$inject = ["flashcardService", "$stateParams", "$state", "flashcard"];
         return FlashcardCreateController;
     }());
     angular.module("app.flashcard").controller("flashcardCreate", FlashcardCreateController);

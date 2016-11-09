@@ -62,7 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseReadService.cs" />
+    <Compile Include="DocumentDbReadService.cs" />
     <Compile Include="IBaseReadService.cs" />
+    <Compile Include="IDocumentDbReadService.cs" />
     <Compile Include="IZboxCacheReadService.cs" />
     <Compile Include="IZboxReadSecurityReadService.cs" />
     <Compile Include="IZboxReadService.cs" />

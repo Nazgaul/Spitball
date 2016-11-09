@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.ModelBinding;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Models
 {
     public class Flashcard
     {
-        public long Id { get; set; }
+        [BindNever]
+        public long? Id { get; set; }
         public string Name { get; set; }
 
         public IEnumerable<Card> Cards { get; set; }

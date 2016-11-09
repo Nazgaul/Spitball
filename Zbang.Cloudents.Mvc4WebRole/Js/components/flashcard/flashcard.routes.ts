@@ -10,18 +10,18 @@
                     {
                         state: "flashcardCreate",
                         config: {
-                            url: "/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/flashcardcreate/?{id:int}&name",
+                            url: "/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/flashcardcreate/?{id:int}",
                             controller: "flashcardCreate as f",
-                            //resolve: {
-                            //    quizData: [
-                            //        "quizService", "$stateParams", (quizService, $stateParams) => {
-                            //            if ($stateParams.quizid) {
-                            //                return quizService.draft($stateParams.quizid);
-                            //            }
+                            resolve: {
+                                flashcard: [
+                                    "flashcardService", "$stateParams", (flashcardService: IFlashcardService, $stateParams: angular.ui.IStateParamsService) => {
+                                        if ($stateParams["id"]) {
+                                            return flashcardService.draft($stateParams["id"]);
+                                        }
 
-                            //        }
-                            //    ]
-                            //},
+                                    }
+                                ]
+                            },
 
                             data: { animateClass: "full-screen flashcard" },
                             reloadOnSearch: false

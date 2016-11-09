@@ -205,7 +205,6 @@
                     var form: angular.IFormController = self.$scope["quizName"];
 
                     if (!form.$valid) {
-                        console.log('her');
                         return;
                     }
                     form.$setPristine();

@@ -72,10 +72,10 @@ var app;
             var dataCache = this.cacheFactory.get(category);
             dataCache.removeAll();
         };
-        AjaxService2.prototype.post = function (url, data, category) {
+        AjaxService2.prototype.insertUpdate = function (func, url, data, category) {
             var _this = this;
             var dfd = this.$q.defer(), startTime = new Date().getTime();
-            this.$http.post(this.buildUrl(url), data).then(function (response) {
+            func(this.buildUrl(url), data).then(function (response) {
                 var retVal = response.data;
                 _this.trackTime(startTime, url, data, "post");
                 if (angular.isArray(category)) {
@@ -101,6 +101,12 @@ var app;
                 _this.logError(url, data, response);
             });
             return dfd.promise;
+        };
+        AjaxService2.prototype.put = function (url, data, category) {
+            return this.insertUpdate(this.$http.put, url, data, category);
+        };
+        AjaxService2.prototype.post = function (url, data, category) {
+            return this.insertUpdate(this.$http.post, url, data, category);
         };
         AjaxService2.prototype.getHtml = function (url) {
             var _this = this;

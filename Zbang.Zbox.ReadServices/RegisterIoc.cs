@@ -10,6 +10,7 @@ namespace Zbang.Zbox.ReadServices
             var ioc = IocFactory.IocWrapper;
 
             ioc.RegisterType<IZboxCacheReadService, ZboxCacheReadService>(LifeTimeManager.PerHttpRequest);
+            ioc.RegisterType<IDocumentDbReadService, DocumentDbReadService>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IZboxReadService, ZboxReadService>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IUniversityWithCode, ZboxReadService>(LifeTimeManager.PerHttpRequest);
             ioc.RegisterType<IZboxReadServiceWorkerRole, ZboxReadServiceWorkerRole>(LifeTimeManager.PerHttpRequest);

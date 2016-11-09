@@ -27,6 +27,7 @@
         name: string;
         cards: Array<Card> = [new Card(), new Card(), new Card(), new Card(), new Card()];
         deserialize(input: FlashCard) {
+            this.cards = [];
             this.id = input.id;
             this.name = input.name;
             for (let i = 0; i < input.cards.length; i++) {
@@ -70,13 +71,32 @@
 
     class FlashcardCreateController {
         data: FlashCard;
-        static $inject = ["flashcardService"];
-        constructor(private flashcardService: IFlashcardService) {
-            this.data = new FlashCard();
+        static $inject = ["flashcardService", "$stateParams", "$state","flashcard"];
+        constructor(private flashcardService: IFlashcardService,
+            private $stateParams: spitaball.ISpitballStateParamsService,
+            private $state: angular.ui.IStateService,
+            private flashcard: FlashCard) {
+
+            if (flashcard) {
+                this.data = new FlashCard().deserialize(flashcard);
+            } else {
+                this.data = new FlashCard();
+            }
+          
         }
         create() {
-            this.flashcardService.create(this.data).then(response => {
-                console.log(response);
+            const self = this;
+            this.flashcardService.create(this.data, this.$stateParams.boxId).then(response => {
+                this.data.id = response;
+
+                this.$state.go("flashcardCreate",
+                    {
+                        boxtype: self.$stateParams["boxtype"],
+                        universityType: self.$stateParams["universityType"],
+                        boxId: self.$stateParams.boxId,
+                        boxName: self.$stateParams["boxName"],
+                        id: response
+                    });
             });
         }
         flip() {

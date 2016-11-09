@@ -141,7 +141,6 @@ var app;
                     }
                     var form = self.$scope["quizName"];
                     if (!form.$valid) {
-                        console.log('her');
                         return;
                     }
                     form.$setPristine();

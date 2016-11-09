@@ -755,11 +755,11 @@ namespace Zbang.Zbox.Domain.Services
 
         public async Task AddFlashcardAsync(AddFlashcardCommand command)
         {
-            //using (UnitOfWork.Start())
-            //{
-            await m_CommandBus.SendAsync(command);
-            //UnitOfWork.Current.TransactionalFlush();
-            //}
+            using (UnitOfWork.Start())
+            {
+                await m_CommandBus.SendAsync(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
         }
 
     }

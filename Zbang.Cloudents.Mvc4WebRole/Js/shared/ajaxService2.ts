@@ -10,6 +10,7 @@ module app {
     export interface IAjaxService2 {
         get(url: string, data?: Object, category?: cacheKeys, cancelCategory?: string): angular.IPromise<Object | Array<any> | number>;
         post(url: string, data: Object, category?: cacheKeys | Array<cacheKeys>): angular.IPromise<Object | Array<any>>;
+        put(url: string, data: Object, category: cacheKeys | Array<cacheKeys>): angular.IPromise<any>;
         getHtml(url: string): angular.IPromise<any>;
         deleteCacheCategory(category: cacheKeys): void;
         logError(url: string, data?: Object, payload?: Object): void;
@@ -104,12 +105,11 @@ module app {
             const dataCache = this.cacheFactory.get(category);
             dataCache.removeAll();
         }
-
-        post(url: string, data: Object, category: cacheKeys | Array<cacheKeys>): angular.IPromise<any> {
+        private insertUpdate(func, url: string, data: Object, category: cacheKeys | Array<cacheKeys>): angular.IPromise<any> {
             var dfd = this.$q.defer(),
                 startTime = new Date().getTime();
 
-            this.$http.post(this.buildUrl(url), data).then((response: angular.IHttpPromiseCallbackArg<{}>) => {
+            func(this.buildUrl(url), data).then((response: angular.IHttpPromiseCallbackArg<{}>) => {
                 var retVal: any = response.data;
                 this.trackTime(startTime, url, data, "post");
 
@@ -139,6 +139,47 @@ module app {
                 this.logError(url, data, response);
             });
             return dfd.promise;
+        }
+
+        put(url: string, data: Object, category: cacheKeys | Array<cacheKeys>): angular.IPromise<any> {
+            return this.insertUpdate(this.$http.put, url, data, category);
+        }
+
+        post(url: string, data: Object, category: cacheKeys | Array<cacheKeys>): angular.IPromise<any> {
+            return this.insertUpdate(this.$http.post, url, data, category);
+            //var dfd = this.$q.defer(),
+            //    startTime = new Date().getTime();
+
+            //this.$http.post(this.buildUrl(url), data).then((response: angular.IHttpPromiseCallbackArg<{}>) => {
+            //    var retVal: any = response.data;
+            //    this.trackTime(startTime, url, data, "post");
+
+            //    if (angular.isArray(category)) {
+            //        (category as Array<cacheKeys>).forEach((e: cacheKeys) => {
+            //            this.deleteCacheCategory(e);
+            //        });
+            //    }
+            //    if (angular.isString(category)) {
+            //        this.deleteCacheCategory(category as cacheKeys);
+            //    }
+
+            //    if (!retVal) {
+            //        this.logError(url, data, retVal);
+            //        dfd.reject();
+            //        return;
+            //    }
+            //    if (retVal.success) {
+            //        dfd.resolve(retVal.payload);
+            //        return;
+            //    }
+
+            //    dfd.reject(retVal.payload);
+
+            //}).catch((response: any) => {
+            //    dfd.reject(response);
+            //    this.logError(url, data, response);
+            //});
+            //return dfd.promise;
         }
 
         getHtml(url: string): angular.IPromise<any> {

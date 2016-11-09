@@ -356,79 +356,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
         #endregion
 
-        //#region Answer
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //public ActionResult CreateAnswer(Answer model)
-        //{
-
-        //    if (model.QuestionId == Guid.Empty)
-        //    {
-        //        ModelState.AddModelError(string.Empty, @"No Question Given");
-        //    }
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(GetErrorFromModelState());
-        //    }
-        //    var id = m_GuidGenerator.GetId();
-        //    var command = new CreateAnswerCommand(User.GetUserId(), id, model.Text, model.QuestionId);
-        //    ZboxWriteService.CreateAnswer(command);
-        //    return JsonOk(id);
-        //}
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //public ActionResult UpdateAnswer(UpdateAnswer model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(GetErrorFromModelState());
-        //    }
-
-        //    var command = new UpdateAnswerCommand(User.GetUserId(), model.Text, model.Id);
-        //    ZboxWriteService.UpdateAnswer(command);
-        //    return JsonOk();
-        //}
-        //[HttpPost, ZboxAuthorize]
-        //public ActionResult MarkCorrect(MarkAnswer model)
-        //{
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(GetErrorFromModelState());
-        //    }
-        //    if (!model.AnswerId.HasValue)
-        //    {
-        //        return JsonError("Guid is empty");
-        //    }
-        //    try
-        //    {
-        //        var command = new MarkAnswerCorrectCommand(model.AnswerId.Value, User.GetUserId());
-        //        ZboxWriteService.MarkAnswerAsCorrect(command);
-        //        return JsonOk();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        TraceLog.WriteError("On mark answer", ex);
-        //        return JsonError();
-        //    }
-        //}
-
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //public ActionResult DeleteAnswer(Guid id)
-        //{
-        //    var command = new DeleteAnswerCommand(User.GetUserId(), id);
-        //    ZboxWriteService.DeleteAnswer(command);
-        //    return JsonOk();
-        //}
-
-
-        //#endregion
+       
 
         #region Discussion
-        [HttpPost, ZboxAuthorize]
-        // ReSharper disable once ConsiderUsingAsyncSuffix
-        public async Task<JsonResult> CreateDiscussion(Discussion model)
+        [HttpPost, ZboxAuthorize,ActionName("CreateDiscussion")]
+        public async Task<JsonResult> CreateDiscussionAsync(Discussion model)
         {
             if (!ModelState.IsValid)
             {

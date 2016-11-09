@@ -1,20 +1,71 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    [DocumentDbModel("Flashcard")]
-    public class Flashcard //: IDirty
+    public class FlashCardMeta : IDirty
     {
-        
+        protected FlashCardMeta()
+        {
+            ShouldMakeDirty = () => true;
+        }
+
+        public FlashCardMeta(long id, string name, User user, Box box) : this()
+        {
+            Id = id;
+            Name = name?.Trim();
+            User = user;
+            Box = box;
+            DateTimeUser = new UserTimeDetails(user.Id);
+        }
         public long Id { get; set; }
         public string Name { get; set; }
         public bool Publish { get; set; }
+
+        public User User { get; set; }
+        public int LikeCount { get; set; }
+        public int NumberOfViews { get; set; }
+
+        public int CardCount { get; set; }
+
+        public bool IsDeleted { get; set; }
+        public void DeleteAssociation()
+        {
+            //throw new NotImplementedException();
+        }
+
+
+        public bool IsDirty { get; set; }
+        public Func<bool> ShouldMakeDirty { get; }
+
+        public virtual UserTimeDetails DateTimeUser { get; private set; }
+
+        public Box Box { get; set; }
+
+    }
+    [DocumentDbModel("Flashcard")]
+    public class Flashcard //: IDirty
+    {
+        protected Flashcard()
+        {
+            
+        }
+        public Flashcard(long identifier)
+        {
+            Id = identifier;
+            id = Id.ToString();
+        }
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public bool Publish { get; set; }
+
+        public long UserId { get; set; }
+
+        public long BoxId { get; set; }
+
+        
+        public string id { get; set; }
         //public int LikeCount { get; set; }
         //public int CardCount { get; set; }
 

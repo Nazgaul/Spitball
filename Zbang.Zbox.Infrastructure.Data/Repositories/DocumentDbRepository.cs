@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.Repositories;
 using Zbang.Zbox.Infrastructure.Trace;
 
 namespace Zbang.Zbox.Infrastructure.Data.Repositories
 {
-    
+
     public class DocumentDbRepository<T> : IDocumentDbRepository<T> where T : class
     {
 
@@ -69,14 +71,16 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
 
         public Task CreateItemAsync(T item)
         {
+            var z = JObject.FromObject(item);
+            string json = JsonConvert.SerializeObject(item);
             return DocumentDbUnitOfWork.Client.CreateDocumentAsync(
                 DocumentDbUnitOfWork.BuildCollectionUri(GetCollectionId()), item);
         }
 
         public Task UpdateItemAsync(string id, T item)
         {
-           return DocumentDbUnitOfWork.Client.ReplaceDocumentAsync(
-               DocumentDbUnitOfWork.BuildDocumentUri(GetCollectionId(), id), item);
+            return DocumentDbUnitOfWork.Client.ReplaceDocumentAsync(
+                DocumentDbUnitOfWork.BuildDocumentUri(GetCollectionId(), id), item);
             //UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id), item);
         }
 

@@ -10,8 +10,17 @@ var app;
                     {
                         state: "flashcardCreate",
                         config: {
-                            url: "/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/flashcardcreate/?{id:int}&name",
+                            url: "/{boxtype:box|course}/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/flashcardcreate/?{id:int}",
                             controller: "flashcardCreate as f",
+                            resolve: {
+                                flashcard: [
+                                    "flashcardService", "$stateParams", function (flashcardService, $stateParams) {
+                                        if ($stateParams["id"]) {
+                                            return flashcardService.draft($stateParams["id"]);
+                                        }
+                                    }
+                                ]
+                            },
                             data: { animateClass: "full-screen flashcard" },
                             reloadOnSearch: false
                         },
