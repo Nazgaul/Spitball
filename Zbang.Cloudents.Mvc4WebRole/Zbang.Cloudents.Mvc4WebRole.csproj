@@ -425,6 +425,7 @@
     <Compile Include="Models\CreateBox.cs" />
     <Compile Include="Models\CreateLibraryItem.cs" />
     <Compile Include="Models\CreateUniversity.cs" />
+    <Compile Include="Models\Flashcard.cs" />
     <Compile Include="Models\InsertUser.cs" />
     <Compile Include="Models\ItemPreview.cs" />
     <Compile Include="Models\JavaScriptError.cs" />
@@ -1420,6 +1421,7 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.controller.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.routes.ts" />
+    <TypeScriptCompile Include="Js\components\flashcard\flashcard.service.ts" />
     <TypeScriptCompile Include="Js\components\item\dropFileClass.directive.ts" />
     <TypeScriptCompile Include="Js\components\library\classChooseCreateDialog.controller.ts" />
     <TypeScriptCompile Include="Js\components\library\classChooseUnfollowDialog.controller.ts" />

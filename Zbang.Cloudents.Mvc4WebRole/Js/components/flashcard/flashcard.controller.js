@@ -66,11 +66,14 @@ var app;
         return CardSlide;
     }());
     var FlashcardCreateController = (function () {
-        function FlashcardCreateController() {
+        function FlashcardCreateController(flashcardService) {
+            this.flashcardService = flashcardService;
             this.data = new FlashCard();
         }
         FlashcardCreateController.prototype.create = function () {
-            console.log(this.data);
+            this.flashcardService.create(this.data).then(function (response) {
+                console.log(response);
+            });
         };
         FlashcardCreateController.prototype.flip = function () {
             this.data.flip();
@@ -86,6 +89,7 @@ var app;
             var cardIndex = this.data.cards.indexOf(card);
             this.data.cards.splice(cardIndex, 0, this.data.cards.splice(dropCardIndex, 1)[0]);
         };
+        FlashcardCreateController.$inject = ["flashcardService"];
         return FlashcardCreateController;
     }());
     angular.module("app.flashcard").controller("flashcardCreate", FlashcardCreateController);

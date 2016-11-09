@@ -70,11 +70,14 @@
 
     class FlashcardCreateController {
         data: FlashCard;
-        constructor() {
+        static $inject = ["flashcardService"];
+        constructor(private flashcardService: IFlashcardService) {
             this.data = new FlashCard();
         }
         create() {
-            console.log(this.data);
+            this.flashcardService.create(this.data).then(response => {
+                console.log(response);
+            });
         }
         flip() {
             this.data.flip();

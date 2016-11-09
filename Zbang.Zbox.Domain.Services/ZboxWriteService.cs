@@ -88,7 +88,7 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-       
+
         public async Task<CreateBoxCommandResult> CreateBoxAsync(CreateBoxCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
@@ -751,6 +751,15 @@ namespace Zbang.Zbox.Domain.Services
                 await m_CommandBus.SendAsync(command);
                 UnitOfWork.Current.TransactionalFlush();
             }
+        }
+
+        public async Task AddFlashcardAsync(AddFlashcardCommand command)
+        {
+            //using (UnitOfWork.Start())
+            //{
+            await m_CommandBus.SendAsync(command);
+            //UnitOfWork.Current.TransactionalFlush();
+            //}
         }
 
     }

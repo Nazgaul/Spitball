@@ -151,8 +151,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
 
             ioc.RegisterType(typeof(ICommandHandler<ChatMarkAsReadCommand>),
                typeof(ChatMarkAsReadCommandHandler));
-            
 
+            //flashcard
+            ioc.RegisterType(typeof(ICommandHandlerAsync<AddFlashcardCommand>),
+              typeof(AddFlashcardCommandHandler));
         }
     }
 }

@@ -8,38 +8,42 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class Flashcard : IDirty
+    [DocumentDbModel("Flashcard")]
+    public class Flashcard //: IDirty
     {
+        
         public long Id { get; set; }
         public string Name { get; set; }
         public bool Publish { get; set; }
-        public int LikeCount { get; set; }
-        public int CardCount { get; set; }
+        //public int LikeCount { get; set; }
+        //public int CardCount { get; set; }
 
-        public bool IsDeleted { get; set; }
+        //public bool IsDeleted { get; set; }
 
         //public ICollection<Card> Cards { get; set; }
-        public void DeleteAssociation()
-        {
-            //throw new NotImplementedException();
-        }
 
-        public bool IsDirty { get; set; }
-        public Func<bool> ShouldMakeDirty { get; }
+        //public bool IsDirty { get; set; }
+        //public Func<bool> ShouldMakeDirty { get; }
 
-        public virtual UserTimeDetails DateTimeUser { get; private set; }
+
+        public IEnumerable<Card> Cards { get; set; }
+        public DateTime DateTime { get; set; }
     }
 
-    //public class Card
-    //{
-    //    public Guid Id { get; set; }
-    //    public string Text { get; set; }
-    //    public bool Front { get; set; }
-    //    public string Image { get; set; }
-    //    public int Order { get; set; }
+    public class Card
+    {
+        public CardSlide Front { get; set; }
+        public CardSlide Cover { get; set; }
+    }
 
-    //    public Flashcard Flashcard { get; set; }
-    //}
+    public class CardSlide
+    {
+        public string Text { get; set; }
+        public string Image { get; set; }
+
+
+        //public Flashcard Flashcard { get; set; }
+    }
 
     public class PinnedCard
     {

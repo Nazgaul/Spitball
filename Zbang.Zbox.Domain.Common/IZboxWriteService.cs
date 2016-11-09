@@ -117,5 +117,8 @@ namespace Zbang.Zbox.Domain.Common
 
 
         Task AddUserLocationActivityAsync(AddUserLocationActivityCommand command);
+
+
+        Task AddFlashcardAsync(AddFlashcardCommand command);
     }
 }
