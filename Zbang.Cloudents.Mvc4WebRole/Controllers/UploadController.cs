@@ -232,6 +232,28 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(url);
         }
 
+        [HttpPost, ZboxAuthorize, ActionName("FlashcardImage")]
+        public async Task<JsonResult> FlashcardImageAsync(long boxId)
+        {
+
+            if (HttpContext.Request.Files == null)
+            {
+                return JsonError("No files");
+            }
+            if (HttpContext.Request.Files.Count == 0)
+            {
+                return JsonError("No files");
+            }
+            var file = HttpContext.Request.Files[0];
+            if (file == null)
+            {
+                return JsonError("No files");
+            }
+            return JsonOk();
+            //var url = await m_BlobProvider.UploadQuizImageAsync(file.InputStream, file.ContentType, boxId, file.FileName);
+            //return JsonOk(url);
+        }
+
         internal const string ChatCookieName = "uploadchat";
         [HttpPost, ZboxAuthorize, ActionName("ChatFile")]
         public async Task<JsonResult> ChatFileAsync(UploadChatFile model)
