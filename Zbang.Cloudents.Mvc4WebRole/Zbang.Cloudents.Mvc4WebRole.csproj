@@ -987,6 +987,7 @@
     <Content Include="Content\Site\flashcardCreate.min.css">
       <DependentUpon>flashcardCreate.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\flashcard.rtl.css" />
     <Content Include="Content\Site\General.css">
       <DependentUpon>General.less</DependentUpon>
     </Content>
