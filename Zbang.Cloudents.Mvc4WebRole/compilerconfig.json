@@ -199,5 +199,9 @@
   {
     "outputFile": "Content/Site/flashcard.css",
     "inputFile": "Content/Site/flashcard.less"
+  },
+  {
+    "outputFile": "Content/Site/flashcardCreate.css",
+    "inputFile": "Content/Site/flashcardCreate.less"
   }
 ]

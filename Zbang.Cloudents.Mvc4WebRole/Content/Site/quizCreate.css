@@ -15,8 +15,7 @@
   top: 0;
   color: #ffffff;
   background-color: #323538;
-  border-bottom: 5px solid #dadada;
-  height: 70px;
+  height: 65px;
   line-height: 65px;
   position: fixed;
   left: 0;
@@ -31,7 +30,7 @@
   opacity: 1;
 }
 .full-screen .full-screen-body {
-  margin-top: 70px;
+  margin-top: 65px;
   min-height: calc( 100% - 80px);
   margin-bottom: 80px;
 }
@@ -82,7 +81,7 @@
   border-color: transparent transparent #dadada #dadada;
 }
 .quiz-create .supported {
-  margin: 86px auto;
+  margin: 81px auto;
   color: #ffffff;
   width: 800px;
   padding: 10px 15px 0;

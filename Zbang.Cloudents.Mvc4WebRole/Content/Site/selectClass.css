@@ -61,6 +61,24 @@ body.collapseHeader .class-choose .top-container {
     width: 170px;
   }
 }
+.class-choose .status-strip.ng-enter-active,
+.class-choose .status-strip.ng-leave {
+  height: 40px;
+  opacity: 1;
+}
+.class-choose .status-strip div {
+  position: relative;
+  width: 270px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  overflow-y: hidden;
+}
+@media (max-width: 600px) {
+  .class-choose .status-strip div {
+    width: 170px;
+  }
+}
 .class-choose .status-strip h2,
 .class-choose .status-strip ng-pluralize {
   font-size: 20px;
