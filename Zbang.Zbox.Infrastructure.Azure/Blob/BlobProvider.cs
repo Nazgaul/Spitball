@@ -18,7 +18,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
     public class BlobProvider : IBlobProvider, ICloudBlockProvider
     {
         protected const string LastAccessTimeMetaDataKey = "LastTimeAccess";
-        private readonly string m_StorageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
+        protected readonly string StorageCdnEndpoint = ConfigFetcher.Fetch("StorageCdnEndpoint");
 
         public const string AzureBlobContainer = "zboxfiles";
         public const string AzureCacheContainer = "zboxCahce";
@@ -48,7 +48,8 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         public string StorageContainerUrl { get; private set; }
 
-        
+        //public string CdnContainerUrl => string.IsNullOrEmpty(StorageCdnEndpoint) ? StorageContainerUrl : StorageCdnEndpoint;
+
 
         private CloudBlobClient m_BlobClient;
 
@@ -204,7 +205,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
         private string TransferToCdnEndpoint(Uri uri)
         {
-            if (string.IsNullOrEmpty(m_StorageCdnEndpoint))
+            if (string.IsNullOrEmpty(StorageCdnEndpoint))
             {
                 return uri.AbsoluteUri;
             }
@@ -215,7 +216,7 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
 
             }
 
-            return VirtualPathUtility.AppendTrailingSlash(m_StorageCdnEndpoint) + path;
+            return VirtualPathUtility.AppendTrailingSlash(StorageCdnEndpoint) + path;
         }
 
        

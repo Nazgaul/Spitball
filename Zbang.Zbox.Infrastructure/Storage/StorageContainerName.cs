@@ -71,5 +71,10 @@ namespace Zbang.Zbox.Infrastructure.Storage
         public override string RelativePath => "chat";
     }
 
+    public class FlashcardContainerName : StorageContainerName
+    {
+        public override string Name => AzureQuizContainer;
+        public override string RelativePath => "flashcard";
+    }
 
 }
