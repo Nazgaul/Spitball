@@ -233,9 +233,9 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize, ActionName("FlashcardImage")]
-        public async Task<JsonResult> FlashcardImageAsync(long boxId)
+        public async Task<JsonResult> FlashcardImageAsync()
         {
-
+            await Task.Delay(TimeSpan.FromSeconds(10));
             if (HttpContext.Request.Files == null)
             {
                 return JsonError("No files");

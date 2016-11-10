@@ -71,13 +71,14 @@ var app;
         return CardSlide;
     }());
     var FlashcardCreateController = (function () {
-        function FlashcardCreateController(flashcardService, $stateParams, $state, flashcard, $scope) {
+        function FlashcardCreateController(flashcardService, $stateParams, $state, flashcard, $scope, $timeout) {
             var _this = this;
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
             this.$state = $state;
             this.flashcard = flashcard;
             this.$scope = $scope;
+            this.$timeout = $timeout;
             this.upload = {
                 url: "/upload/flashcardimage/",
                 options: function (slide) {
@@ -100,8 +101,9 @@ var app;
                             (function (file, slide, self) {
                                 var img = new mOxie.Image();
                                 img.onload = function () {
-                                    this.crop(95, 105, false);
+                                    this.crop(105, 105, false);
                                     slide.img = this.getAsDataURL("image/jpeg", 80);
+                                    slide.uploadProgress = 50;
                                     self.$scope.$apply();
                                 };
                                 img.onembedded = function () {
@@ -113,11 +115,20 @@ var app;
                                 img.load(file.getSource());
                             })(files[i], uploader.settings.slide, _this);
                         }
+                        _this.$timeout(function () {
+                            uploader.start();
+                        }, 1);
                     },
                     error: function (uploader, error) {
                         if (error.code === plupload.FILE_EXTENSION_ERROR) {
                             alert("file error");
                         }
+                    },
+                    uploadProgress: function (uploader, file) {
+                        uploader.settings.slide.uploadProgress = file.percent;
+                    },
+                    fileUploaded: function (uploader, file) {
+                        uploader.settings.slide.uploadProgress = null;
                     }
                 }
             };
@@ -156,7 +167,7 @@ var app;
             var cardIndex = this.data.cards.indexOf(card);
             this.data.cards.splice(cardIndex, 0, this.data.cards.splice(dropCardIndex, 1)[0]);
         };
-        FlashcardCreateController.$inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope"];
+        FlashcardCreateController.$inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope", "$timeout"];
         return FlashcardCreateController;
     }());
     angular.module("app.flashcard").controller("flashcardCreate", FlashcardCreateController);

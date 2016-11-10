@@ -73,17 +73,19 @@ module app {
             this.img = input.img;// || "http://lorempixel.com/400/200/";
             return this;
         }
+        uploadProgress: number;
 
     }
 
     class FlashcardCreateController {
         data: FlashCard;
-        static $inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope"];
+        static $inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope","$timeout"];
         constructor(private flashcardService: IFlashcardService,
             private $stateParams: spitaball.ISpitballStateParamsService,
             private $state: angular.ui.IStateService,
             private flashcard: FlashCard,
-            private $scope: angular.IScope) {
+            private $scope: angular.IScope,
+            private $timeout: angular.ITimeoutService) {
 
             if (flashcard) {
                 this.data = new FlashCard().deserialize(flashcard);
@@ -140,14 +142,13 @@ module app {
             },
             callbacks: {
                 filesAdded: (uploader, files) => {
-
                     for (let i = 0; i < files.length; i++) {
                         ((file, slide: CardSlide, self: FlashcardCreateController) => {
                             var img = new mOxie.Image();
                             img.onload = function () {
-                                this.crop(95, 105, false);
-                                //console.log(this.getAsDataURL("image/jpeg", 80));
+                                this.crop(105, 105, false);
                                 slide.img = this.getAsDataURL("image/jpeg", 80);
+                                slide.uploadProgress = 50;
                                 self.$scope.$apply();
 
                             };
@@ -161,9 +162,9 @@ module app {
                             img.load(file.getSource());
                         })(files[i], uploader.settings.slide, this);
                     }
-                    //$timeout(function () {
-                    //    uploader.start();
-                    //},1);
+                    this.$timeout(() => {
+                        uploader.start();
+                    },1);
                 },
                 error: (uploader, error: plupload_error) => {
                     if (error.code === plupload.FILE_EXTENSION_ERROR) {
@@ -171,6 +172,13 @@ module app {
 
                         alert("file error");
                     }
+                },
+                uploadProgress: (uploader, file) => {
+                    (uploader.settings.slide as CardSlide).uploadProgress = file.percent;
+                    //console.log(file);
+                },
+                fileUploaded: (uploader, file) => {
+                    (uploader.settings.slide as CardSlide).uploadProgress = null;
                 }
             }
         }

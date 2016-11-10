@@ -47,12 +47,14 @@
 <script type="text/ng-template" id="card-form.html">
 
     {{f.data.name}}
-    @*<img ng-src="{{slide.img}}" />*@
     <md-input-container class="md-icon-right">
         <textarea ng-model="slide.text"></textarea>
         <md-icon md-svg-icon="b:image-icon" plupload="upload.url"
                  plupload-options="upload.options(slide)"
                  plupload-callbacks="upload.callbacks"></md-icon>
+        <md-progress-circular style="stroke:black;" ng-if="slide.uploadProgress" md-mode="determinate" value="{{slide.uploadProgress}}"></md-progress-circular>
+        <img ng-src="{{slide.img}}" ng-if="slide.img" />
+
     </md-input-container>
 
 
