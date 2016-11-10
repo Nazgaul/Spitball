@@ -1,4 +1,6 @@
-﻿module app {
+﻿declare var mOxie: any;
+module app {
+
     "use strict";
 
     class CardDirective implements angular.IDirective {
@@ -6,8 +8,12 @@
         restrict = "E";
         templateUrl = "card-form.html";
         scope: { [boundProperty: string]: string } = {
-            slide: "="
+            slide: "=",
+            upload: "="
         }
+        link = (scope: angular.IScope) => {
+        }
+        transclude = true;
 
         static factory(): angular.IDirectiveFactory {
             const directive = () => {
@@ -47,42 +53,44 @@
     class Card implements ISerializable<Card> {
         front: CardSlide;
         cover: CardSlide;
+
         flip() {
             const temp = this.front;
             this.front = this.cover;
             this.cover = temp;
         }
         deserialize(input: Card) {
-            this.front = input.front;
-            this.cover = input.cover;
+            this.front = new CardSlide().deserialize(input.front);
+            this.cover = new CardSlide().deserialize(input.cover);
             return this;
         }
     }
     class CardSlide implements ISerializable<CardSlide> {
         text: string;
         img: string;
-
         deserialize(input: CardSlide) {
             this.text = input.text;
-            this.img = input.img;
+            this.img = input.img;// || "http://lorempixel.com/400/200/";
             return this;
         }
+
     }
 
     class FlashcardCreateController {
         data: FlashCard;
-        static $inject = ["flashcardService", "$stateParams", "$state","flashcard"];
+        static $inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope"];
         constructor(private flashcardService: IFlashcardService,
             private $stateParams: spitaball.ISpitballStateParamsService,
             private $state: angular.ui.IStateService,
-            private flashcard: FlashCard) {
+            private flashcard: FlashCard,
+            private $scope: angular.IScope) {
 
             if (flashcard) {
                 this.data = new FlashCard().deserialize(flashcard);
             } else {
                 this.data = new FlashCard();
             }
-          
+
         }
         create() {
             const self = this;
@@ -112,6 +120,59 @@
         move(dropCardIndex: number, card: Card) {
             const cardIndex = this.data.cards.indexOf(card);
             this.data.cards.splice(cardIndex, 0, this.data.cards.splice(dropCardIndex, 1)[0]);
+        }
+
+        upload = {
+            url: "/upload/flashcardimage/",
+            options: (slide) => {
+                return {
+                    slide: slide,
+                    multi_selection: false,
+                    filters: {
+                        mime_types: [
+                            { title: "Image files", extensions: "jpg,gif,png,jpeg" }
+                        ]
+                    },
+                    resize: {
+                        preserve_headers: false
+                    }
+                }
+            },
+            callbacks: {
+                filesAdded: (uploader, files) => {
+
+                    for (let i = 0; i < files.length; i++) {
+                        ((file, slide: CardSlide, self: FlashcardCreateController) => {
+                            var img = new mOxie.Image();
+                            img.onload = function () {
+                                this.crop(95, 105, false);
+                                //console.log(this.getAsDataURL("image/jpeg", 80));
+                                slide.img = this.getAsDataURL("image/jpeg", 80);
+                                self.$scope.$apply();
+
+                            };
+                            img.onembedded = function () {
+                                this.destroy();
+                            };
+
+                            img.onerror = function () {
+                                this.destroy();
+                            };
+                            img.load(file.getSource());
+                        })(files[i], uploader.settings.slide, this);
+                    }
+                    //$timeout(function () {
+                    //    uploader.start();
+                    //},1);
+                },
+                error: (uploader, error: plupload_error) => {
+                    if (error.code === plupload.FILE_EXTENSION_ERROR) {
+                        // TODO: continue
+
+                        alert("file error");
+                    }
+                }
+            }
         }
     }
     angular.module("app.flashcard").controller("flashcardCreate", FlashcardCreateController);

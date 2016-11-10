@@ -29,8 +29,8 @@
         </div>
         <ol ui-on-drop="true">
             <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" ng-repeat="card in f.data.cards">
-                <card-form flex="50" slide="card.front"></card-form>
-                <card-form flex="50" slide="card.cover"></card-form>
+            <card-form flex="50" slide="card.front" upload="f.upload"></card-form>
+            <card-form flex="50" slide="card.cover" upload="f.upload"></card-form>
                 <button type="button" class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu"></md-icon></button>
                 <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add"></md-icon></button>
             </li>
@@ -40,8 +40,17 @@
     </div>
 </div>
 <script type="text/ng-template" id="card-form.html">
+    
+   a {{f.data.name}}
+    @*<img ng-src="{{slide.img}}" />*@
     <md-input-container class="md-icon-right">
-        <textarea ng-model="slide.text">a</textarea>
+        <textarea ng-model="slide.text"></textarea>
         <md-icon md-svg-icon="b:image-icon"></md-icon>
+        <md-icon md-svg-icon="t:edit" plupload="upload.url"
+                 plupload-options="upload.options(slide)"
+                 plupload-callbacks="upload.callbacks"></md-icon>
     </md-input-container>
+
+
+
 </script>

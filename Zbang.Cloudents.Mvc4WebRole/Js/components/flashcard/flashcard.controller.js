@@ -6,8 +6,12 @@ var app;
             this.restrict = "E";
             this.templateUrl = "card-form.html";
             this.scope = {
-                slide: "="
+                slide: "=",
+                upload: "="
             };
+            this.link = function (scope) {
+            };
+            this.transclude = true;
         }
         CardDirective.factory = function () {
             var directive = function () {
@@ -50,8 +54,8 @@ var app;
             this.cover = temp;
         };
         Card.prototype.deserialize = function (input) {
-            this.front = input.front;
-            this.cover = input.cover;
+            this.front = new CardSlide().deserialize(input.front);
+            this.cover = new CardSlide().deserialize(input.cover);
             return this;
         };
         return Card;
@@ -67,11 +71,56 @@ var app;
         return CardSlide;
     }());
     var FlashcardCreateController = (function () {
-        function FlashcardCreateController(flashcardService, $stateParams, $state, flashcard) {
+        function FlashcardCreateController(flashcardService, $stateParams, $state, flashcard, $scope) {
+            var _this = this;
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
             this.$state = $state;
             this.flashcard = flashcard;
+            this.$scope = $scope;
+            this.upload = {
+                url: "/upload/flashcardimage/",
+                options: function (slide) {
+                    return {
+                        slide: slide,
+                        multi_selection: false,
+                        filters: {
+                            mime_types: [
+                                { title: "Image files", extensions: "jpg,gif,png,jpeg" }
+                            ]
+                        },
+                        resize: {
+                            preserve_headers: false
+                        }
+                    };
+                },
+                callbacks: {
+                    filesAdded: function (uploader, files) {
+                        for (var i = 0; i < files.length; i++) {
+                            (function (file, slide, self) {
+                                var img = new mOxie.Image();
+                                img.onload = function () {
+                                    this.crop(95, 105, false);
+                                    slide.img = this.getAsDataURL("image/jpeg", 80);
+                                    self.$scope.$apply();
+                                };
+                                img.onembedded = function () {
+                                    this.destroy();
+                                };
+                                img.onerror = function () {
+                                    this.destroy();
+                                };
+                                img.load(file.getSource());
+                            })(files[i], uploader.settings.slide, _this);
+                        }
+                    },
+                    error: function (uploader, error) {
+                        if (error.code === plupload.FILE_EXTENSION_ERROR) {
+                            alert("file error");
+                        }
+                    }
+                }
+            };
             if (flashcard) {
                 this.data = new FlashCard().deserialize(flashcard);
             }
@@ -107,7 +156,7 @@ var app;
             var cardIndex = this.data.cards.indexOf(card);
             this.data.cards.splice(cardIndex, 0, this.data.cards.splice(dropCardIndex, 1)[0]);
         };
-        FlashcardCreateController.$inject = ["flashcardService", "$stateParams", "$state", "flashcard"];
+        FlashcardCreateController.$inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope"];
         return FlashcardCreateController;
     }());
     angular.module("app.flashcard").controller("flashcardCreate", FlashcardCreateController);

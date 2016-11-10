@@ -557,9 +557,6 @@
         self.add.fileUpload.options = function (postId) {
             return {
                 postId: postId,
-                //header: {
-                //    parentId:id
-                //},
                 chunk_size: '3mb'
 
             }
