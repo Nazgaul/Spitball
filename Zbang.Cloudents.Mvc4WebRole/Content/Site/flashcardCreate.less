@@ -1,0 +1,58 @@
+﻿@import "variables.less";
+
+.flashcard {
+    .content {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .flashcard-top {
+        margin-top: @heightOfHeader;
+
+        form {
+            //color: @textColorWhite;
+            max-width: 800px;
+            padding-top: 10px;
+
+
+            input {
+                right: 0;
+                .placeHolder(@textColorGrey);
+            }
+
+            svg {
+                width: 16px;
+                height: 16px;
+                fill: @svgColorGrey;
+            }
+        }
+    }
+
+    .flashcard-body {
+        .flip-btn {
+            min-height: 0;
+            line-height: normal;
+            min-width: 0;
+            padding: 5px 10px;
+
+            md-icon {
+                width: 20px;
+                height: 16px;
+            }
+        }
+
+        card-form {
+            .md-resize-wrapper {
+                min-height: 60px;
+                border: 1px solid #b7b7b7;
+                background: @textColorWhite;
+                .displayFlex;
+                .align-items(center);
+
+                textarea {
+                    border: none;
+                }
+            }
+        }
+    }
+}

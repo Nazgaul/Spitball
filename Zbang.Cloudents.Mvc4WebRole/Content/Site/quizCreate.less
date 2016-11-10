@@ -16,9 +16,8 @@
         top: 0;
         color: @textColorWhite;
         background-color: @headerbackground;
-        border-bottom: 5px solid @backgroundColor;
-        height: @fullScreenHeaderHeight;
-        line-height: @fullScreenHeaderHeight - 5;
+        height: @heightOfHeader;
+        line-height: @heightOfHeader;
         position: fixed;
         left: 0;
         right: 0;
@@ -35,7 +34,7 @@
     }
 
     .full-screen-body {
-        margin-top: @fullScreenHeaderHeight;
+        margin-top: @heightOfHeader;
         min-height: ~"calc( 100% - 80px)";
         margin-bottom: 80px; //so intercom icon wont clash with page's items
     }
@@ -96,7 +95,7 @@
     }
 
     .supported {
-        margin: @fullScreenHeaderHeight + 16px auto;
+        margin: @heightOfHeader + 16px auto;
         color: @textColorWhite;
         width: 800px;
         padding: 10px 15px 0;

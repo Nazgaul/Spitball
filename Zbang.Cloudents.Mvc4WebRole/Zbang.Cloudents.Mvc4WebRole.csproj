@@ -981,11 +981,11 @@
     <Content Include="Content\Site\feed.rtl.css">
       <DependentUpon>feed.css</DependentUpon>
     </Content>
-    <Content Include="Content\Site\flashcard.css">
-      <DependentUpon>flashcard.less</DependentUpon>
+    <Content Include="Content\Site\flashcardCreate.css">
+      <DependentUpon>flashcardCreate.less</DependentUpon>
     </Content>
-    <Content Include="Content\Site\flashcard.min.css">
-      <DependentUpon>flashcard.css</DependentUpon>
+    <Content Include="Content\Site\flashcardCreate.min.css">
+      <DependentUpon>flashcardCreate.css</DependentUpon>
     </Content>
     <Content Include="Content\Site\General.css">
       <DependentUpon>General.less</DependentUpon>
@@ -1473,7 +1473,7 @@
     <Content Include="Scripts\angular-aria\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate\angular-animate.min.js.map" />
     <Content Include="Content\Site\selectClass.less" />
-    <Content Include="Content\Site\flashcard.less" />
+    <Content Include="Content\Site\flashcardCreate.less" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />

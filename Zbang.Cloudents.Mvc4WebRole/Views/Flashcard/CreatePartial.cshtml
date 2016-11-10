@@ -3,37 +3,41 @@
     <div flex class="text-center text-capitalize">Create a Flashcard</div>
     <button flex="none" type="button" ng-click="f.close($event)" class="close" ga-track-event="['createFlashcard', 'close']"><md-icon md-svg-icon="t:close"></md-icon></button>
 </header>
-<div layout="row">
-    <form name="quizName" novalidate flex="50">
-        <md-input-container class="md-icon-right">
-            <input @*class="form-control"*@ name="name" @*ng-disabled="q.quizNameDisabled && q.quizData.name"*@ type="text"
-                                            placeholder="Enter flashcard name" autocomplete="off" autofocus required md-no-asterisk ng-model="f.data.name"
-                                            @*ng-model-options="{ updateOn: 'blur', debounce: {  blur: 0 } }" ng-blur="q.quizNameDisabled = true"*@/>
-            @*<button type="button" ng-click="q.quizNameDisabled = false">*@<md-icon md-svg-icon="t:edit"></md-icon>@*</button>*@
-            @*<div class="error-message" ng-messages="quizName.name.$error" ng-show="quizName.name.$touched">
-                    <div ng-message="required">@GeneralResources.RequiredField</div>
-                </div>*@
-        </md-input-container>
-    </form>
-    <md-button ng-click="f.create()">Create</md-button>
-</div>
-<div>
-    <div layout="row">
-
-        <div flex="50">front</div>
-        <md-button ng-click="f.flip()">flip</md-button>
-        <div flex="50">back</div>
+<div class="content">
+    <div layout="row" layout-align="space-between center" class="flashcard-top">
+        <form name="quizName" novalidate flex="50">
+            <md-input-container flex="50">
+                <input @*class="form-control"*@ name="name" @*ng-disabled="q.quizNameDisabled && q.quizData.name"*@ type="text"
+                       placeholder="Enter flashcard name" autocomplete="off" autofocus required md-no-asterisk ng-model="f.data.name"
+                       @*ng-model-options="{ updateOn: 'blur', debounce: {  blur: 0 } }" ng-blur="q.quizNameDisabled = true"*@ />
+                @*<button type="button" ng-click="q.quizNameDisabled = false">*@@*</button>*@
+                @*<div class="error-message" ng-messages="quizName.name.$error" ng-show="quizName.name.$touched">
+                        <div ng-message="required">@GeneralResources.RequiredField</div>
+                    </div>*@
+            </md-input-container>
+        </form>
+        <button type="button" ng-click="f.create()" class="action-btn">Create</button>
     </div>
-    <ol ui-on-drop="true">
-        <li id="drag{{$index}}"  ui-on-drop="f.move($data,card)" layout="row" ng-repeat="card in f.data.cards">
-            <button type="button" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index">move</button>
-            <button type="button" ng-click="f.add($index)">add</button>
-            <card-form flex="50" slide="card.front"></card-form>
-            <card-form flex="50" slide="card.cover"></card-form>
-        </li>
-        <li ng-click="f.add()">add</li>
-       
-    </ol>
+    <div class="flashcard-body">
+        <div layout="row" layout-align="space-between center">
+
+            <div flex="50">front</div>
+            <md-button type="button" ng-click="f.flip()" class="flip-btn">
+                <md-icon md-svg-icon="b:flashcard-arrow"></md-icon>
+            </md-button>
+            <div flex="50">back</div>
+        </div>
+        <ol ui-on-drop="true">
+            <li id="drag{{$index}}" ui-on-drop="f.move($data,card)" layout="row" ng-repeat="card in f.data.cards">
+                <button type="button" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index">move</button>
+                <button type="button" ng-click="f.add($index)">add</button>
+                <card-form flex="50" slide="card.front"></card-form>
+                <card-form flex="50" slide="card.cover"></card-form>
+            </li>
+            <li ng-click="f.add()">add</li>
+
+        </ol>
+    </div>
 </div>
 <script type="text/ng-template" id="card-form.html">
     <md-input-container>
