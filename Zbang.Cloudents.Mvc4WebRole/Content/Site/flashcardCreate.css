@@ -45,16 +45,62 @@
   width: 20px;
   height: 16px;
 }
-.flashcard .flashcard-body card-form .md-resize-wrapper {
-  min-height: 60px;
+.flashcard .flashcard-body .card-container {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+  position: relative;
+}
+.flashcard .flashcard-body .card-container card-form {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+}
+.flashcard .flashcard-body .card-container card-form md-input-container {
   border: 1px solid #b7b7b7;
   background: #ffffff;
+  margin: 7px 0;
+}
+.flashcard .flashcard-body .card-container card-form md-input-container .md-errors-spacer {
+  display: none;
+}
+.flashcard .flashcard-body .card-container card-form md-input-container.md-input-focused md-icon {
+  display: block;
+}
+.flashcard .flashcard-body .card-container card-form md-input-container md-icon {
+  display: none;
+  width: 23px;
+  height: 19px;
+  margin-right: 4px;
+}
+.flashcard .flashcard-body .card-container card-form .md-resize-wrapper {
+  min-height: 60px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
-.flashcard .flashcard-body card-form .md-resize-wrapper textarea {
+.flashcard .flashcard-body .card-container card-form .md-resize-wrapper textarea {
   border: none;
+}
+.flashcard .flashcard-body .card-container .drag-btn {
+  position: absolute;
+  left: -26px;
+  top: calc(50% - 10px);
+}
+.flashcard .flashcard-body .card-container .drag-btn md-icon {
+  width: 14px;
+  height: 14px;
+}
+.flashcard .flashcard-body .card-container .add-btn {
+  position: absolute;
+  bottom: -10px;
+  left: -28px;
+}
+.flashcard .flashcard-body .card-container .add-btn md-icon {
+  width: 19px;
+  height: 19px;
 }
