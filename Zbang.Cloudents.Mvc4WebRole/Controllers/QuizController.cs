@@ -326,18 +326,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.CreateQuestion(command);
             return JsonOk(model);
         }
-        //[HttpPost]
-        //[ZboxAuthorize]
-        //public ActionResult UpdateQuestion(UpdateQuestion model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return JsonError(GetErrorFromModelState());
-        //    }
-        //    var command = new UpdateQuestionCommand(User.GetUserId(), model.Id, model.Text);
-        //    ZboxWriteService.UpdateQuestion(command);
-        //    return JsonOk();
-        //}
+        
         [HttpPost]
         [ZboxAuthorize]
         public ActionResult DeleteQuestion(Guid id)
