@@ -98,5 +98,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             await ZboxWriteService.AddFlashcardAsync(command);
             return JsonOk(id);
         }
+        [HttpPut, ZboxAuthorize, ActionName("Index")]
+        public async Task<JsonResult> UpdateAsync(long id, Flashcard model, long boxId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            var flashCard = new Zbox.Domain.Flashcard(id)
+            {
+                BoxId = boxId,
+                UserId = User.GetUserId(),
+                Name = model.Name,
+                Publish = false,
+                DateTime = DateTime.UtcNow,
+                Cards = model.Cards.Select(s => new Zbox.Domain.Card
+                {
+                    Cover = new Zbox.Domain.CardSlide
+                    {
+                        Text = s.Cover.Text,
+                        Image = s.Cover.Image
+                    },
+                    Front = new Zbox.Domain.CardSlide
+                    {
+                        Image = s.Front.Image,
+                        Text = s.Front.Text
+                    }
+                })
+            };
+
+            var command = new UpdateFlashcardCommand(flashCard);
+            await ZboxWriteService.UpdateFlashcardAsync(command);
+            return JsonOk();
+        }
     }
 }

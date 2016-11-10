@@ -699,16 +699,6 @@ namespace Zbang.Zbox.Domain.Services
                 UnitOfWork.Current.TransactionalFlush();
             }
         }
-
-
-        //public void AddChatRoom(ChatCreateRoomCommand command)
-        //{
-        //    using (UnitOfWork.Start())
-        //    {
-        //        m_CommandBus.Send(command);
-        //        UnitOfWork.Current.TransactionalFlush();
-        //    }
-        //}
         public async Task AddChatMessageAsync(ChatAddMessageCommand command)
         {
             using (UnitOfWork.Start())
@@ -754,6 +744,17 @@ namespace Zbang.Zbox.Domain.Services
         }
 
         public async Task AddFlashcardAsync(AddFlashcardCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                var autoFollowCommand = new SubscribeToSharedBoxCommand(command.Flashcard.UserId, command.Flashcard.BoxId);
+                var t1 = m_CommandBus.SendAsync(autoFollowCommand);
+                var t2 = m_CommandBus.SendAsync(command);
+                await Task.WhenAll(t1, t2);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+        public async Task UpdateFlashcardAsync(UpdateFlashcardCommand command)
         {
             using (UnitOfWork.Start())
             {

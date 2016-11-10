@@ -3,7 +3,7 @@
     <div flex class="text-center text-capitalize">Create a Flashcard</div>
     <button flex="none" type="button" ng-click="f.close($event)" class="close" ga-track-event="['createFlashcard', 'close']"><md-icon md-svg-icon="t:close"></md-icon></button>
 </header>
-<div class="content">
+<div class="content" interaction-done>
     <div layout="row" layout-align="space-between center" class="flashcard-top">
         <form name="quizName" novalidate flex="50">
             <md-input-container flex="50">
@@ -45,18 +45,12 @@
     </div>
 </div>
 <script type="text/ng-template" id="card-form.html">
-
-    {{f.data.name}}
     <md-input-container class="md-icon-right">
         <textarea ng-model="slide.text"></textarea>
-        <md-icon md-svg-icon="b:image-icon" plupload="upload.url"
+        <md-icon ng-if="!slide.image" md-svg-icon="b:image-icon" plupload="upload.url"
                  plupload-options="upload.options(slide)"
                  plupload-callbacks="upload.callbacks"></md-icon>
         <md-progress-circular style="stroke:black;" ng-if="slide.uploadProgress" md-mode="determinate" value="{{slide.uploadProgress}}"></md-progress-circular>
-        <img ng-src="{{slide.img}}" ng-if="slide.img" />
-
+        <img width="100" height="100" ng-src="{{slide.image}}" ng-if="slide.image" />
     </md-input-container>
-
-
-
 </script>

@@ -1,6 +1,34 @@
 var app;
 (function (app) {
     "use strict";
+    var InteractionDone = (function () {
+        function InteractionDone($timeout) {
+            var _this = this;
+            this.$timeout = $timeout;
+            this.restrict = "A";
+            this.scope = true;
+            this.link = function (scope, element) {
+                var x;
+                element.on("click keydown", function () {
+                    _this.$timeout.cancel(x);
+                    x = _this.$timeout(function () {
+                        scope.$emit("update-model");
+                    }, 2500);
+                });
+            };
+        }
+        InteractionDone.factory = function () {
+            var directive = function ($timeout) {
+                return new InteractionDone($timeout);
+            };
+            directive["$inject"] = ["$timeout"];
+            return directive;
+        };
+        return InteractionDone;
+    }());
+    angular
+        .module("app.flashcard")
+        .directive("interactionDone", InteractionDone.factory());
     var CardDirective = (function () {
         function CardDirective() {
             this.restrict = "E";
@@ -65,7 +93,7 @@ var app;
         }
         CardSlide.prototype.deserialize = function (input) {
             this.text = input.text;
-            this.img = input.img;
+            this.image = input.image;
             return this;
         };
         return CardSlide;
@@ -79,6 +107,7 @@ var app;
             this.flashcard = flashcard;
             this.$scope = $scope;
             this.$timeout = $timeout;
+            this.serviceCalled = false;
             this.upload = {
                 url: "/upload/flashcardimage/",
                 options: function (slide) {
@@ -102,7 +131,7 @@ var app;
                                 var img = new mOxie.Image();
                                 img.onload = function () {
                                     this.crop(105, 105, false);
-                                    slide.img = this.getAsDataURL("image/jpeg", 80);
+                                    slide.image = this.getAsDataURL("image/jpeg", 80);
                                     slide.uploadProgress = 50;
                                     self.$scope.$apply();
                                 };
@@ -131,23 +160,39 @@ var app;
                         uploader.settings.slide.uploadProgress = null;
                         var obj = JSON.parse(response.response);
                         if (obj.success) {
-                            uploader.settings.slide.img = obj.payload;
+                            uploader.settings.slide.image = obj.payload;
+                            _this.create();
                         }
                     }
                 }
             };
             if (flashcard) {
                 this.data = new FlashCard().deserialize(flashcard);
+                this.data.id = $stateParams["id"];
             }
             else {
                 this.data = new FlashCard();
             }
+            $scope.$on("update-model", function () {
+                _this.create();
+            });
         }
         FlashcardCreateController.prototype.create = function () {
             var _this = this;
             var self = this;
+            if (self.serviceCalled) {
+                return;
+            }
+            self.serviceCalled = true;
+            if (this.data.id) {
+                this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(function () {
+                    self.serviceCalled = false;
+                });
+                return;
+            }
             this.flashcardService.create(this.data, this.$stateParams.boxId).then(function (response) {
                 _this.data.id = response;
+                self.serviceCalled = false;
                 _this.$state.go("flashcardCreate", {
                     boxtype: self.$stateParams["boxtype"],
                     universityType: self.$stateParams["universityType"],

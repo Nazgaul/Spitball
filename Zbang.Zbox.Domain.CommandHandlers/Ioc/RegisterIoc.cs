@@ -155,6 +155,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             //flashcard
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddFlashcardCommand>),
               typeof(AddFlashcardCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<UpdateFlashcardCommand>),
+             typeof(UpdateFlashcardCommandHandler));
         }
     }
 }

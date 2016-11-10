@@ -110,6 +110,7 @@
     <Compile Include="RemoveOldConnectionCommandHandler.cs" />
     <Compile Include="RequestAccessLibraryNodeCommandHandler.cs" />
     <Compile Include="UnsubscribeUsersFromEmailCommandHandler.cs" />
+    <Compile Include="UpdateFlashcardCommandHandler.cs" />
     <Compile Include="UpdateNodeSettingsCommandHandler.cs" />
     <Compile Include="Resources\CommandHandlerResources.Designer.cs">
       <AutoGen>True</AutoGen>

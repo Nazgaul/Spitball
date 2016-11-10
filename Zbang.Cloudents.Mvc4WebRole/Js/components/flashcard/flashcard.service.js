@@ -10,6 +10,9 @@ var app;
         Flashcard.prototype.draft = function (id) {
             return this.ajaxService2.get("/flashcard/draft/", { id: id });
         };
+        Flashcard.prototype.update = function (id, model, boxId) {
+            return this.ajaxService2.put("/flashcard/", { id: id, model: model, boxId: boxId });
+        };
         Flashcard.$inject = ["ajaxService2"];
         return Flashcard;
     }());

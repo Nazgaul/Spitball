@@ -19,11 +19,11 @@ namespace Zbang.Zbox.Domain
             Box = box;
             DateTimeUser = new UserTimeDetails(user.Id);
         }
-        public long Id { get; set; }
-        public string Name { get; set; }
+        public virtual long Id { get; set; }
+        public virtual string Name { get; set; }
         public bool Publish { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public int LikeCount { get; set; }
         public int NumberOfViews { get; set; }
 
@@ -41,7 +41,7 @@ namespace Zbang.Zbox.Domain
 
         public virtual UserTimeDetails DateTimeUser { get; private set; }
 
-        public Box Box { get; set; }
+        public virtual Box Box { get; set; }
 
     }
     [DocumentDbModel("Flashcard")]

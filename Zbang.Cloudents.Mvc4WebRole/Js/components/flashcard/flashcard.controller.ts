@@ -3,6 +3,38 @@ module app {
 
     "use strict";
 
+    class InteractionDone implements angular.IDirective {
+
+        constructor(private $timeout: angular.ITimeoutService) {
+
+        }
+        restrict = "A";
+        scope = true;
+
+        link = (scope: angular.IScope, element: JQuery) => {
+            var x;
+            element.on("click keydown",
+                () => {
+                    this.$timeout.cancel(x);
+                    x = this.$timeout(() => {
+                        scope.$emit("update-model");
+                    }, 2500);
+                });
+        }
+
+
+        static factory(): angular.IDirectiveFactory {
+            const directive = ($timeout) => {
+                return new InteractionDone($timeout);
+            };
+            directive["$inject"] = ["$timeout"];
+            return directive;
+        }
+    }
+    angular
+        .module("app.flashcard")
+        .directive("interactionDone", InteractionDone.factory());
+
     class CardDirective implements angular.IDirective {
 
         restrict = "E";
@@ -67,10 +99,10 @@ module app {
     }
     class CardSlide implements ISerializable<CardSlide> {
         text: string;
-        img: string;
+        image: string;
         deserialize(input: CardSlide) {
             this.text = input.text;
-            this.img = input.img;// || "http://lorempixel.com/400/200/";
+            this.image = input.image;// || "http://lorempixel.com/400/200/";
             return this;
         }
         uploadProgress: number;
@@ -79,7 +111,7 @@ module app {
 
     class FlashcardCreateController {
         data: FlashCard;
-        static $inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope","$timeout"];
+        static $inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope", "$timeout"];
         constructor(private flashcardService: IFlashcardService,
             private $stateParams: spitaball.ISpitballStateParamsService,
             private $state: angular.ui.IStateService,
@@ -89,16 +121,33 @@ module app {
 
             if (flashcard) {
                 this.data = new FlashCard().deserialize(flashcard);
+                this.data.id = $stateParams["id"];
             } else {
                 this.data = new FlashCard();
             }
+            $scope.$on("update-model",
+                () => {
+                    this.create();
+                });
 
         }
+        private serviceCalled = false;
         create() {
             const self = this;
+            if (self.serviceCalled) {
+                return;
+            }
+            self.serviceCalled = true;
+            if (this.data.id) {
+
+                this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(() => {
+                    self.serviceCalled = false;
+                });
+                return;
+            }
             this.flashcardService.create(this.data, this.$stateParams.boxId).then(response => {
                 this.data.id = response;
-
+                self.serviceCalled = false;
                 this.$state.go("flashcardCreate",
                     {
                         boxtype: self.$stateParams["boxtype"],
@@ -147,7 +196,7 @@ module app {
                             var img = new mOxie.Image();
                             img.onload = function () {
                                 this.crop(105, 105, false);
-                                slide.img = this.getAsDataURL("image/jpeg", 80);
+                                slide.image = this.getAsDataURL("image/jpeg", 80);
                                 slide.uploadProgress = 50;
                                 self.$scope.$apply();
 
@@ -164,7 +213,7 @@ module app {
                     }
                     this.$timeout(() => {
                         uploader.start();
-                    },1);
+                    }, 1);
                 },
                 error: (uploader, error: plupload_error) => {
                     if (error.code === plupload.FILE_EXTENSION_ERROR) {
@@ -175,13 +224,13 @@ module app {
                 },
                 uploadProgress: (uploader, file) => {
                     (uploader.settings.slide as CardSlide).uploadProgress = file.percent;
-                    //console.log(file);
                 },
                 fileUploaded: (uploader, file, response) => {
                     (uploader.settings.slide as CardSlide).uploadProgress = null;
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
-                        (uploader.settings.slide as CardSlide).img = obj.payload;
+                        (uploader.settings.slide as CardSlide).image = obj.payload;
+                        this.create();
                     }
                 }
             }

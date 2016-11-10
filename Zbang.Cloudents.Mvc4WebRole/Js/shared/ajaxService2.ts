@@ -10,7 +10,7 @@ module app {
     export interface IAjaxService2 {
         get(url: string, data?: Object, category?: cacheKeys, cancelCategory?: string): angular.IPromise<Object | Array<any> | number>;
         post(url: string, data: Object, category?: cacheKeys | Array<cacheKeys>): angular.IPromise<Object | Array<any>>;
-        put(url: string, data: Object, category: cacheKeys | Array<cacheKeys>): angular.IPromise<any>;
+        put(url: string, data: Object, category?: cacheKeys, cancelCategory?: string): angular.IPromise<any>;
         getHtml(url: string): angular.IPromise<any>;
         deleteCacheCategory(category: cacheKeys): void;
         logError(url: string, data?: Object, payload?: Object): void;
