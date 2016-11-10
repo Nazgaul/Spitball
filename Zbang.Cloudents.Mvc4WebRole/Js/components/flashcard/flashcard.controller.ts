@@ -177,8 +177,12 @@ module app {
                     (uploader.settings.slide as CardSlide).uploadProgress = file.percent;
                     //console.log(file);
                 },
-                fileUploaded: (uploader, file) => {
+                fileUploaded: (uploader, file, response) => {
                     (uploader.settings.slide as CardSlide).uploadProgress = null;
+                    var obj = JSON.parse(response.response);
+                    if (obj.success) {
+                        (uploader.settings.slide as CardSlide).img = obj.payload;
+                    }
                 }
             }
         }

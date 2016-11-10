@@ -127,8 +127,12 @@ var app;
                     uploadProgress: function (uploader, file) {
                         uploader.settings.slide.uploadProgress = file.percent;
                     },
-                    fileUploaded: function (uploader, file) {
+                    fileUploaded: function (uploader, file, response) {
                         uploader.settings.slide.uploadProgress = null;
+                        var obj = JSON.parse(response.response);
+                        if (obj.success) {
+                            uploader.settings.slide.img = obj.payload;
+                        }
                     }
                 }
             };

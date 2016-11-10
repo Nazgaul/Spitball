@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -74,6 +75,25 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
         public Uri GetBlobUrl(string blobName)
         {
             return GetBlob(blobName).Uri;
+        }
+
+        public Uri GetBlobUrl(string blobName, bool useCdn)
+        {
+            var uri = GetBlobUrl(blobName);
+            if (string.IsNullOrEmpty(StorageCdnEndpoint))
+            {
+                return uri;
+            }
+            var path = uri.PathAndQuery;
+            if (path.StartsWith("/"))
+            {
+                path = path.Remove(0, 1);
+
+            }
+            var uriBuilder = new UriBuilder(StorageCdnEndpoint) {Path = path};
+
+            return uriBuilder.Uri;
+
         }
 
         public Task<bool> ExistsAsync(string blobName)
