@@ -7,13 +7,16 @@
     }
 
     .flashcard-top {
-        margin-top: @heightOfHeader;
+        margin-top: @heightOfHeader + 30px;
 
         form {
             //color: @textColorWhite;
             max-width: 800px;
             padding-top: 10px;
 
+            md-input-container {
+                margin-bottom: 0;
+            }
 
             input {
                 right: 0;
@@ -29,6 +32,15 @@
     }
 
     .flashcard-body {
+        @cardHeight: 60px;
+
+        .header {
+            text-transform: capitalize;
+            color: @textColorGrey;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
         .flip-btn {
             min-height: 0;
             line-height: normal;
@@ -48,22 +60,23 @@
 
             card-form {
                 .displayFlex;
-
+                /*&:focus md-icon {
+                    display: block;
+                }*/
                 md-input-container {
                     border: 1px solid #b7b7b7;
                     background: @textColorWhite;
-                    margin: 7px 0;
+                    padding-top: 0;
+                    padding-bottom: 0;
+                    padding-left: 10px;
+                    margin: 0;
 
                     .md-errors-spacer {
                         display: none;
                     }
 
-                    &.md-input-focused md-icon {
-                        display: block;
-                    }
-
                     md-icon {
-                        display: none;
+                        /*display: none;*/
                         width: 23px;
                         height: 19px;
                         margin-right: 4px;
@@ -71,7 +84,7 @@
                 }
 
                 .md-resize-wrapper {
-                    min-height: 60px;
+                    min-height: @cardHeight;
                     .displayFlex;
                     .align-items(center);
 
@@ -94,7 +107,7 @@
 
             .add-btn {
                 position: absolute;
-                bottom: -10px;
+                bottom: -16px;
                 left: -28px;
 
                 md-icon {
@@ -102,6 +115,24 @@
                     height: 19px;
                 }
             }
+        }
+
+        .add-card div {
+            background: @backgroundCalmGrey;
+            height: @cardHeight;
+            line-height: @cardHeight;
+            padding-left: 10px;
+            border: 1px solid #b7b7b7;
+
+            md-icon {
+                width: 19px;
+                height: 19px;
+            }
+        }
+
+
+        .card-container, .add-card {
+            margin: 14px 0;
         }
     }
 }
