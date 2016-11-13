@@ -29,9 +29,9 @@
             <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" ng-repeat="card in f.data.cards" tabindex="1">
                 <card-form flex="50" slide="card.front" upload="f.upload"></card-form>
                 <card-form flex="50" slide="card.cover" upload="f.upload"></card-form>
-                <div class="settings-btn" hide-gt-xs>
+                <button type="button" class="settings-btn" hide-gt-xs>
                     <md-icon md-svg-icon="t:settingMenu"></md-icon>
-                </div>
+                </button>
                 <button type="button" class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu" tabindex="0"></md-icon></button>
                 <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add" tabindex="0"></md-icon></button>
                 <button type="button" class="remove-btn" ng-click="f.removeCard($index)"><md-icon md-svg-icon="t:close" tabindex="0"></md-icon></button>
