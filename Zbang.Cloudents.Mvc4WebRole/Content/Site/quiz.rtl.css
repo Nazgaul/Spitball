@@ -10,8 +10,8 @@
 }
 @media (min-width: 960px) {
   .quizPage {
-    margin-right: -270px;
-    width: calc(100% + 290px);
+    margin-right: -240px;
+    width: calc(100% + 260px);
   }
 }
 .quizPage header {

@@ -32,8 +32,8 @@ md-menu-item.blue svg {
 }
 @media (min-width: 960px) {
   .itemPage {
-    margin-right: -270px;
-    width: calc(100% + 290px);
+    margin-right: -240px;
+    width: calc(100% + 260px);
   }
 }
 .itemPage .progress-bar {
