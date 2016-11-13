@@ -34,6 +34,7 @@
 
     .flashcard-body {
         @cardHeight: 60px;
+        @mobileCardHeight: 40px;
 
         .header {
             text-transform: capitalize;
@@ -54,10 +55,56 @@
             }
         }
 
+        ol {
+            counter-reset: counter;
+        }
+
+        .card-container, .add-card {
+            &:before {
+                content: counter(counter,decimal);
+                counter-increment: counter;
+                align-self: center;
+                margin-left: -20px;
+                margin-right: 12px;
+            }
+        }
+
         .card-container {
             .displayFlex;
             .align-items(stretch);
             position: relative;
+
+
+            &:focus {
+                .drag-btn, .add-btn, .remove-btn {
+                    display: block;
+                }
+            }
+
+
+            .drag-btn, .add-btn, .remove-btn {
+                display: none;
+
+                &:focus {
+                    display: block;
+                }
+            }
+
+            .settings-btn {
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(center);
+                width: @mobileCardHeight;
+                background: @backgroundCalmGrey;
+                border: 1px solid #b7b7b7;
+                border-left: none;
+
+                md-icon {
+                    width: 20px;
+                    height: 20px;
+                    fill: @textColorLightGrey;
+                }
+            }
 
             card-form {
                 .displayFlex;
@@ -72,22 +119,38 @@
                     padding-left: 10px;
                     margin: 0;
 
+                    &:focus, &.md-input-focused {
+                        md-icon {
+                            display: block;
+                            outline: none;
+                        }
+                    }
+
                     .md-errors-spacer {
                         display: none;
                     }
 
                     md-icon {
-                        // display: none;
+                        display: none;
                         width: 23px;
                         height: 19px;
                         margin-right: 4px;
                     }
+
+                    md-icon:focus {
+                        display: block;
+                        outline: none;
+                    }
                 }
 
                 .md-resize-wrapper {
-                    min-height: @cardHeight;
+                    min-height: @mobileCardHeight;
                     .displayFlex;
                     .align-items(center);
+
+                    @media(min-width: 600px) {
+                        min-height: @cardHeight;
+                    }
 
                     textarea {
                         border: none;
@@ -137,6 +200,7 @@
                 md-icon {
                     width: 14px;
                     height: 14px;
+                    background: @backgroundColor;
                 }
             }
 
@@ -166,10 +230,15 @@
 
         .add-card div {
             background: @backgroundCalmGrey;
-            height: @cardHeight;
-            line-height: @cardHeight;
+            height: @mobileCardHeight;
+            line-height: @mobileCardHeight;
             padding-left: 10px;
             border: 1px solid #b7b7b7;
+
+            @media(min-width: 600px) {
+                height: @cardHeight;
+                line-height: @cardHeight;
+            }
 
             md-icon {
                 width: 19px;

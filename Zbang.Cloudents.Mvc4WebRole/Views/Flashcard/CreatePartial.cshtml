@@ -21,12 +21,15 @@
             <div flex="50">back</div>
         </div>
         <ol ui-on-drop="true">
-            <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" ng-repeat="card in f.data.cards">
+            <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" ng-repeat="card in f.data.cards" tabindex="1">
                 <card-form flex="50" slide="card.front" upload="f.upload"></card-form>
                 <card-form flex="50" slide="card.cover" upload="f.upload"></card-form>
-                <button type="button" class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu"></md-icon></button>
-                <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add"></md-icon></button>
-                <button type="button" class="remove-btn" ng-click="f.removeCard($index)"><md-icon md-svg-icon="t:close"></md-icon></button>
+                <button type="button" class="settings-btn" hide-gt-xs>
+                    <md-icon md-svg-icon="t:settingMenu"></md-icon>
+                </button>
+                <button type="button" class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu" tabindex="0"></md-icon></button>
+                <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add" tabindex="0"></md-icon></button>
+                <button type="button" class="remove-btn" ng-click="f.removeCard($index)"><md-icon md-svg-icon="t:close" tabindex="0"></md-icon></button>
             </li>
             <li layout="row" class="add-card" ng-click="f.add()">
                 <div flex="50">
@@ -40,10 +43,10 @@
 </form>
 <script type="text/ng-template" id="card-form.html">
     <md-input-container class="md-icon-right">
-        <textarea ng-model="slide.text"></textarea>
+        <textarea ng-model="slide.text" tabindex="-1"></textarea>
         <md-icon ng-if="!slide.image" md-svg-icon="b:image-icon" plupload="upload.url"
                  plupload-options="upload.options(slide)"
-                 plupload-callbacks="upload.callbacks"></md-icon>
+                 plupload-callbacks="upload.callbacks" tabindex="0"></md-icon>
         <div class="image-container">
             <md-progress-circular ng-if="slide.uploadProgress" md-mode="determinate" md-diameter="50" value="{{slide.uploadProgress}}"></md-progress-circular>
             <img width="100" height="100" ng-src="{{slide.image}}" ng-if="slide.image" />
