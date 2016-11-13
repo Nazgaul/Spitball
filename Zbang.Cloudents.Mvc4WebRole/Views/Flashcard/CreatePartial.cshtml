@@ -5,12 +5,15 @@
 </header>
 <div class="content" interaction-done>
     <div layout="row" layout-align="space-between center" class="flashcard-top">
-        <form name="quizName" novalidate flex="50">
-            <md-input-container flex="50">
-                <input name="name" type="text"
-                       placeholder="Enter flashcard name" autocomplete="off" autofocus required md-no-asterisk ng-model="f.data.name"/>
-            </md-input-container>
-        </form>
+        <md-input-container flex="50">
+            <input @*class="form-control"*@ name="name" @*ng-disabled="q.quizNameDisabled && q.quizData.name"*@ type="text"
+                   placeholder="Enter flashcard name" autocomplete="off" autofocus required md-no-asterisk ng-model="f.data.name"
+                   @*ng-model-options="{ updateOn: 'blur', debounce: {  blur: 0 } }" ng-blur="q.quizNameDisabled = true"*@ />
+            @*<button type="button" ng-click="q.quizNameDisabled = false">*@@*</button>*@
+            @*<div class="error-message" ng-messages="quizName.name.$error" ng-show="quizName.name.$touched">
+                    <div ng-message="required">@GeneralResources.RequiredField</div>
+                </div>*@
+        </md-input-container>
         <button type="button" ng-click="f.create()" class="action-btn">Create</button>
     </div>
     <div class="flashcard-body">
@@ -28,6 +31,7 @@
                 <card-form flex="50" slide="card.cover" upload="f.upload"></card-form>
                 <button type="button" class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu"></md-icon></button>
                 <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add"></md-icon></button>
+                <button type="button" class="remove-btn" ng-click=""><md-icon md-svg-icon="t:close"></md-icon></button>
             </li>
             <li layout="row" class="add-card" ng-click="f.add()">
                 <div flex="50">
