@@ -28,7 +28,7 @@ module app {
     class Card implements ISerializable<Card> {
         front = new CardSlide();
         cover = new CardSlide();
-        
+
         flip() {
             const temp = this.front;
             this.front = this.cover;
@@ -73,12 +73,21 @@ module app {
                 () => {
                     this.create();
                 });
-           
+
 
         }
         private serviceCalled = false;
         publish() {
-            
+            this.flashcardService.publish(this.data.id, this.data, this.$stateParams.boxId)
+                .then(() => {
+                    this.$state.go("box.flashcards",
+                    {
+                        boxtype: this.$stateParams["boxtype"],
+                        universityType: this.$stateParams["universityType"],
+                        boxId: this.$stateParams.boxId,
+                        boxName: this.$stateParams["boxName"]
+                    });
+                });
         }
         create() {
             const self = this;
@@ -86,7 +95,7 @@ module app {
                 self.serviceCalled = false;
                 self.form.$setPristine();
             }
-            
+
             if (!this.form.$dirty) {
                 return;
             }
@@ -111,17 +120,12 @@ module app {
                         id: response
                     });
             });
-
-            
         }
         flip() {
             this.data.flip();
         }
         removeCard(index) {
             this.data.cards.splice(index, 1);
-
-        }
-        removeImage(cardSlide) {
 
         }
         add($index: number) {
@@ -180,7 +184,7 @@ module app {
                         })(files[i], uploader.settings.slide, this);
                     }
                     this.$timeout(() => {
-                    //    uploader.start();
+                        //    uploader.start();
                     }, 1);
                 },
                 error: (uploader, error: plupload_error) => {

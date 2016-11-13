@@ -134,6 +134,16 @@ var app;
             });
         }
         FlashcardCreateController.prototype.publish = function () {
+            var _this = this;
+            this.flashcardService.publish(this.data.id, this.data, this.$stateParams.boxId)
+                .then(function () {
+                _this.$state.go("box.flashcards", {
+                    boxtype: _this.$stateParams["boxtype"],
+                    universityType: _this.$stateParams["universityType"],
+                    boxId: _this.$stateParams.boxId,
+                    boxName: _this.$stateParams["boxName"]
+                });
+            });
         };
         FlashcardCreateController.prototype.create = function () {
             var _this = this;
@@ -170,8 +180,6 @@ var app;
         };
         FlashcardCreateController.prototype.removeCard = function (index) {
             this.data.cards.splice(index, 1);
-        };
-        FlashcardCreateController.prototype.removeImage = function (cardSlide) {
         };
         FlashcardCreateController.prototype.add = function ($index) {
             if (angular.isNumber($index)) {

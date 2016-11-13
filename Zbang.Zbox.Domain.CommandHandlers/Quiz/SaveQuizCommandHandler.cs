@@ -81,7 +81,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Quiz
             var sb = new StringBuilder();
             foreach (var question in quiz.Questions)
             {
-                sb.AppendFormat("{0} ", question.Text);
+                sb.Append($"{question.Text} ");
             }
 
             quiz.Content = sb.ToString().Substring(0, Math.Min(sb.Length, 254));

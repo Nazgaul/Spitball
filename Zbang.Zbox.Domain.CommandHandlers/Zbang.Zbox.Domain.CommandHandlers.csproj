@@ -97,6 +97,7 @@
     <Compile Include="LikeReplyCommandHandler.cs" />
     <Compile Include="ManageConnectionsCommandHandler.cs" />
     <Compile Include="PreviewFailedCommandHandler.cs" />
+    <Compile Include="PublishFlashcardCommandHandler.cs" />
     <Compile Include="Quiz\CreateDiscussionCommandHandler.cs" />
     <Compile Include="Quiz\CreateQuestionCommandHandler.cs" />
     <Compile Include="Quiz\CreateQuizCommandHandler.cs" />

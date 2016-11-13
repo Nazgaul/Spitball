@@ -71,8 +71,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
 
         public Task CreateItemAsync(T item)
         {
-            var z = JObject.FromObject(item);
-            string json = JsonConvert.SerializeObject(item);
             return DocumentDbUnitOfWork.Client.CreateDocumentAsync(
                 DocumentDbUnitOfWork.BuildCollectionUri(GetCollectionId()), item);
         }
@@ -81,7 +79,6 @@ namespace Zbang.Zbox.Infrastructure.Data.Repositories
         {
             return DocumentDbUnitOfWork.Client.ReplaceDocumentAsync(
                 DocumentDbUnitOfWork.BuildDocumentUri(GetCollectionId(), id), item);
-            //UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id), item);
         }
 
         public Task DeleteItemAsync(string id)

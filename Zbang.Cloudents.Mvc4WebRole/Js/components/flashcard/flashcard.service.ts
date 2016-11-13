@@ -5,6 +5,7 @@
         draft(id: number): angular.IPromise<number>;
         update(id: number, model, boxId: number): angular.IPromise<number>;
         deleteImage(id: number, image: string): angular.IPromise<any>;
+        publish(id: number, model, boxId: number): angular.IPromise<any>;
     }
 
     class Flashcard {
@@ -24,6 +25,10 @@
         }
         deleteImage(id: number, image: string) {
             return this.ajaxService2.delete("/flashcard/image/", { id: id, image: image });
+        }
+
+        publish(id: number, model, boxId: number) {
+            return this.ajaxService2.post("/flashcard/publish/", { id: id, model: model, boxId: boxId });
         }
     }
     angular.module("app.flashcard").service("flashcardService", Flashcard);
