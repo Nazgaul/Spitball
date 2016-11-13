@@ -33,15 +33,15 @@
                 </li>
                 <li class="pipe"></li>
                 <li id="features">
-                    <a href="@Url.RouteUrl("Features")">@HomePageResources.A9</a>
+                    <a href="@Url.RouteUrl("Features")">@Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources.StaticPagesResources.FeaturesTitle</a>
                 </li>
                 <li class="pipe"></li>
                 <li id="notes">
-                    <a href="@Url.RouteUrl("ClassNotes")">@HomePageResources.A10</a>
+                    <a href="@Url.RouteUrl("ClassNotes")">@Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources.StaticPagesResources.ClassNotesTitle</a>
                 </li>
                 <li class="pipe"></li>
                 <li id="courses">
-                    <a href="@Url.RouteUrl("Courses")">@HomePageResources.A12</a>
+                    <a href="@Url.RouteUrl("Courses")">@Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources.StaticPagesResources.CoursesTitle</a>
                 </li>
                 <li class="pipe"></li>
                 <li id="apps">
@@ -66,7 +66,7 @@
         @if (!User.Identity.IsAuthenticated)
         {
             <div class="login-buttons">
-                <a style="background:@ViewBag.signupColor" class="signup-btn action-btn toggle login-option signup os-animation" href="@Url.RouteUrl("HomePage", new { step = "signup" })" data-form-action="register">@IndexResources.Signup</a>
+                <a style="background:@ViewBag.signupColor" class="signup-btn action-btn toggle login-option signup os-animation" href="@Url.RouteUrl("HomePage", new { step = "signup" })" data-form-action="register">@LogOnResources.SignUp</a>
                 <a class="cancel-btn signin-btn toggle login-option os-animation" href="@Url.RouteUrl("HomePage", new { step = "signin" })" data-form-action="login">@SharedResources.SignIn</a>
             </div>
         }

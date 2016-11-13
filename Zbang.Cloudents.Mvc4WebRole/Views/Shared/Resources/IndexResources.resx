@@ -172,9 +172,6 @@
   <data name="Share" xml:space="preserve">
     <value>Please enter the URL you wish to share here</value>
   </data>
-  <data name="Signup" xml:space="preserve">
-    <value>Sign Up</value>
-  </data>
   <data name="Suggested" xml:space="preserve">
     <value>Suggested</value>
   </data>

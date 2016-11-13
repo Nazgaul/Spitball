@@ -165,9 +165,6 @@
   <data name="ExternalProvider" xml:space="preserve">
     <value>התחבר</value>
   </data>
-  <data name="Submit" xml:space="preserve">
-    <value>שלח</value>
-  </data>
   <data name="CheckEmailTitle" xml:space="preserve">
     <value>בדוק את תיבת המייל שלך</value>
   </data>

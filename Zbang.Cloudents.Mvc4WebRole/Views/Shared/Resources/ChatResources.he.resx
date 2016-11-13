@@ -120,9 +120,6 @@
   <data name="FriendSearchPlaceholder" xml:space="preserve">
     <value>חפשו את חברכם</value>
   </data>
-  <data name="FriendsHeader" xml:space="preserve">
-    <value>חברים</value>
-  </data>
   <data name="NewMessagePlaceholder" xml:space="preserve">
     <value>הקלידו הודעה</value>
   </data>

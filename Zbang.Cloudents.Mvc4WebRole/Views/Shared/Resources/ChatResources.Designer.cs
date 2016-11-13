@@ -133,15 +133,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to classmates.
-        /// </summary>
-        public static string FriendsHeader {
-            get {
-                return ResourceManager.GetString("FriendsHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to load more.
         /// </summary>
         public static string LoadMore {

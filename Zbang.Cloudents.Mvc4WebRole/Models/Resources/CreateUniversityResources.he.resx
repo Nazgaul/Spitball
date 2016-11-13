@@ -120,7 +120,4 @@
   <data name="CreateDept" xml:space="preserve">
     <value>צור מחלקה</value>
   </data>
-  <data name="FieldRequired" xml:space="preserve">
-    <value>חובה למלא שדה זה</value>
-  </data>
 </root>

@@ -22,7 +22,7 @@
                 @StaticPagesResources.FeaturesSectionText5A
                 @StaticPagesResources.FeaturesSectionText5B
                 @StaticPagesResources.FeaturesSectionText5C
-                <a href="@Url.RouteUrl("Courses")">@StaticPagesResources.FeaturesSectionText5D</a>
+                <a href="@Url.RouteUrl("Courses")" class="lowercase">@GeneralResources.Courses</a>
                 @StaticPagesResources.FeaturesSectionText5E
             </div>
             <img src="@Url.CdnContent("/images/Features/uni_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName + ".png?v=3")" alt="Spitball's Schools" />
@@ -46,7 +46,7 @@
             <a href="@Url.RouteUrl("ClassNotes")"><img src="@Url.CdnContent("/images/Features/doc_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName + ".png?v=2")" alt="Spitball's Class Notes" /></a>
         </section>
         <section id="quizzes">
-            <h3>@StaticPagesResources.FeaturesSectionTitle2</h3>
+            <h3>@GeneralResources.Quizzes</h3>
             <div class="intro-text">@StaticPagesResources.FeaturesSectionText2</div>
             <img src="@Url.CdnContent("/images/Features/quiz_" + System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName + ".png?v=2")" alt="Spitball's Quizzes" />
         </section>

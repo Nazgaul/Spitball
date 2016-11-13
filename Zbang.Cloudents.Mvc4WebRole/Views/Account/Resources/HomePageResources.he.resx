@@ -237,12 +237,6 @@
     <value>שיתוף חומרי לימוד בין חברים. 
 שיחות קבוצתיות. תירגול מבחנים אונליין.</value>
   </data>
-  <data name="A9" xml:space="preserve">
-    <value>מה זה ספיטבול?</value>
-  </data>
-  <data name="A10" xml:space="preserve">
-    <value>חומרי לימוד</value>
-  </data>
   <data name="A11" xml:space="preserve">
     <value>אפליקציה</value>
   </data>
@@ -251,9 +245,6 @@
   </data>
   <data name="resetPassEmailSent" xml:space="preserve">
     <value>בקשה נוספת נשלחה</value>
-  </data>
-  <data name="A12" xml:space="preserve">
-    <value>קורסים</value>
   </data>
   <data name="B4b" xml:space="preserve">
     <value>במחשב, בנייד או בטאבלט</value>
