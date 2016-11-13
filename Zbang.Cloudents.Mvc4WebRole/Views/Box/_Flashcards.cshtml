@@ -1,5 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-<ul layout="row" layout-padding layout-wrap layout-align="start stretch" class="list-unstyled quizzes-list">
+<ul layout="row" layout-padding layout-wrap layout-align="start stretch" class="list-unstyled quizzes-list flashcards-list">
     <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs hide-sm class="add-button i-q-wrapper">
         @*TODO: use directive user-not-register-click - its not working somehow *@
         <a class="content" ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName})" ga-track-event="['box-flashcards', 'addFlashcard']">
@@ -13,13 +13,18 @@
     </li>
 
     <li flex flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50"
-        class="i-q-wrapper quizzes" ng-repeat="e in f.flashcards">
+        class="i-q-wrapper flashcards" ng-repeat="e in f.flashcards">
         <div ng-include="'flashcard-template.html'"></div>
-        <md-menu ng-if="b.canDelete(e.ownerId)" class="quiz-menu">
+        <md-menu @*ng-if="b.canDelete(e.ownerId)"*@ class="quiz-menu">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-flashcard', 'delete']">
                 <md-icon md-svg-icon="t:ThreeDots" class="dots-3 quiz-dots"></md-icon>
             </md-button>
             <md-menu-content width="1">
+                <md-menu-item>
+                    <md-button @*ng-click="q.deleteQuiz($event,e)"*@ ga-track-event="['box-flashcard', 'didDelete']">
+                        Edit
+                    </md-button>
+                </md-menu-item>
                 <md-menu-item>
                     <md-button @*ng-click="q.deleteQuiz($event,e)"*@ ga-track-event="['box-flashcard', 'didDelete']">
                         @GeneralResources.Delete
@@ -29,14 +34,13 @@
         </md-menu>
     </li>
 </ul>
-{{f.flashcards.length}}
 <script defer type="text/ng-template" id="flashcard-template.html">
     <a class="quiz quiz-template" ng-href="{{::e.url}}">
         <div class="base">
             <div class="quiz-ratio">
                 <div class="content">
                     <div ng-if="::e.publish" class="top background" d-color="{{::e.name.length}}">
-                        <span class="first-letter" first-letter="{{::e.name}}"></span>
+                        <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                     </div>
                     <div ng-if="::!e.publish" class="top draft-wpr">
                         <span class="draft">@IndexResources.Draft</span>
