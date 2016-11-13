@@ -3,6 +3,11 @@
   padding: 10px 30px 0 30px;
   margin: 0 auto;
 }
+@media (max-width: 600px) {
+  .flashcard .content {
+    padding: 10px;
+  }
+}
 .flashcard .flashcard-top {
   margin-top: 95px;
 }
@@ -44,12 +49,18 @@
   color: #888b8e;
   font-size: 16px;
   font-weight: bold;
+  padding-left: 40px;
 }
 .flashcard .flashcard-body .flip-btn {
   min-height: 0;
   line-height: normal;
   min-width: 0;
   padding: 5px 10px;
+}
+@media (max-width: 600px) {
+  .flashcard .flashcard-body .flip-btn {
+    display: none;
+  }
 }
 .flashcard .flashcard-body .flip-btn md-icon {
   width: 20px;
@@ -73,21 +84,6 @@
   -webkit-align-items: stretch;
   align-items: stretch;
   position: relative;
-}
-.flashcard .flashcard-body .card-container:focus .drag-btn,
-.flashcard .flashcard-body .card-container:focus .add-btn,
-.flashcard .flashcard-body .card-container:focus .remove-btn {
-  display: block;
-}
-.flashcard .flashcard-body .card-container .drag-btn,
-.flashcard .flashcard-body .card-container .add-btn,
-.flashcard .flashcard-body .card-container .remove-btn {
-  display: none;
-}
-.flashcard .flashcard-body .card-container .drag-btn:focus,
-.flashcard .flashcard-body .card-container .add-btn:focus,
-.flashcard .flashcard-body .card-container .remove-btn:focus {
-  display: block;
 }
 .flashcard .flashcard-body .card-container .settings-btn {
   display: -webkit-flex;
@@ -123,10 +119,12 @@
   padding-right: 10px;
   margin: 0;
 }
-.flashcard .flashcard-body .card-container card-form md-input-container:focus md-icon,
-.flashcard .flashcard-body .card-container card-form md-input-container.md-input-focused md-icon {
-  display: block;
-  outline: none;
+@media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container card-form md-input-container:focus md-icon,
+  .flashcard .flashcard-body .card-container card-form md-input-container.md-input-focused md-icon {
+    display: block;
+    outline: none;
+  }
 }
 .flashcard .flashcard-body .card-container card-form md-input-container .md-errors-spacer {
   display: none;
@@ -186,32 +184,46 @@
   width: 10px;
   height: 10px;
 }
-.flashcard .flashcard-body .card-container .drag-btn {
+.flashcard .flashcard-body .card-container .card-settings {
+  display: none;
   position: absolute;
-  right: -26px;
-  top: calc(50% - 10px);
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
 }
-.flashcard .flashcard-body .card-container .drag-btn md-icon {
+@media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container .card-settings .drag-btn {
+    position: absolute;
+    right: -26px;
+    top: calc(50% - 10px);
+  }
+}
+.flashcard .flashcard-body .card-container .card-settings .drag-btn md-icon {
   width: 14px;
   height: 14px;
   background: #dadada;
 }
-.flashcard .flashcard-body .card-container .add-btn {
-  position: absolute;
-  bottom: -16px;
-  right: -28px;
+@media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container .card-settings .add-btn {
+    position: absolute;
+    bottom: -16px;
+    right: -28px;
+  }
 }
-.flashcard .flashcard-body .card-container .add-btn md-icon {
+.flashcard .flashcard-body .card-container .card-settings .add-btn md-icon {
   width: 19px;
   height: 19px;
 }
-.flashcard .flashcard-body .card-container .remove-btn {
-  position: absolute;
-  left: -30px;
-  top: 0;
-  bottom: 0;
+@media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container .card-settings .remove-btn {
+    position: absolute;
+    left: -30px;
+    top: 0;
+    bottom: 0;
+  }
 }
-.flashcard .flashcard-body .card-container .remove-btn md-icon {
+.flashcard .flashcard-body .card-container .card-settings .remove-btn md-icon {
   width: 15px;
   height: 15px;
 }
@@ -234,5 +246,11 @@
 }
 .flashcard .flashcard-body .card-container,
 .flashcard .flashcard-body .add-card {
-  margin: 14px 0;
+  margin: 8px 0;
+}
+@media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container,
+  .flashcard .flashcard-body .add-card {
+    margin: 14px 0;
+  }
 }
