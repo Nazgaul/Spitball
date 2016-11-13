@@ -157,6 +157,7 @@ var app;
             this.data.flip();
         };
         FlashcardCreateController.prototype.removeCard = function (index) {
+            this.data.cards.splice(index, 1);
         };
         FlashcardCreateController.prototype.add = function ($index) {
             if (angular.isNumber($index)) {

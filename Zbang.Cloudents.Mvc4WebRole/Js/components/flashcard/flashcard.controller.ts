@@ -105,8 +105,7 @@ module app {
             this.data.flip();
         }
         removeCard(index) {
-           // angular.
-           // this.data.cards.splice()
+            this.data.cards.splice(index, 1);
 
         }
         add($index: number) {

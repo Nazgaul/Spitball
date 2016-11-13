@@ -31,7 +31,7 @@
                 <card-form flex="50" slide="card.cover" upload="f.upload"></card-form>
                 <button type="button" class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu"></md-icon></button>
                 <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add"></md-icon></button>
-                <button type="button" class="remove-btn" ng-click=""><md-icon md-svg-icon="t:close"></md-icon></button>
+                <button type="button" class="remove-btn" ng-click="f.removeCard($index)"><md-icon md-svg-icon="t:close"></md-icon></button>
             </li>
             <li layout="row" class="add-card" ng-click="f.add()">
                 <div flex="50">
