@@ -26,9 +26,9 @@ module app {
 
     }
     class Card implements ISerializable<Card> {
-        front: CardSlide = new CardSlide();
-        cover: CardSlide = new CardSlide();
-
+        front = new CardSlide();
+        cover = new CardSlide();
+        
         flip() {
             const temp = this.front;
             this.front = this.cover;
@@ -54,6 +54,7 @@ module app {
 
     class FlashcardCreateController {
         data: FlashCard;
+        form: angular.IFormController;
         static $inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope", "$timeout"];
         constructor(private flashcardService: IFlashcardService,
             private $stateParams: spitaball.ISpitballStateParamsService,
@@ -72,34 +73,46 @@ module app {
                 () => {
                     this.create();
                 });
+           
 
         }
         private serviceCalled = false;
+        publish() {
+            
+        }
         create() {
             const self = this;
-            if (self.serviceCalled) {
+            function afterCall() {
+                self.serviceCalled = false;
+                self.form.$setPristine();
+            }
+            
+            if (!this.form.$dirty) {
                 return;
             }
-            self.serviceCalled = true;
+            if (this.serviceCalled) {
+                return;
+            }
+            this.serviceCalled = true;
             if (this.data.id) {
 
-                this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(() => {
-                    self.serviceCalled = false;
-                });
+                this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(afterCall);
                 return;
             }
             this.flashcardService.create(this.data, this.$stateParams.boxId).then(response => {
                 this.data.id = response;
-                self.serviceCalled = false;
+                afterCall();
                 this.$state.go("flashcardCreate",
                     {
-                        boxtype: self.$stateParams["boxtype"],
-                        universityType: self.$stateParams["universityType"],
-                        boxId: self.$stateParams.boxId,
-                        boxName: self.$stateParams["boxName"],
+                        boxtype: this.$stateParams["boxtype"],
+                        universityType: this.$stateParams["universityType"],
+                        boxId: this.$stateParams.boxId,
+                        boxName: this.$stateParams["boxName"],
                         id: response
                     });
             });
+
+            
         }
         flip() {
             this.data.flip();
@@ -128,6 +141,7 @@ module app {
             removeImage: (slide: CardSlide) => {
                 this.flashcardService.deleteImage(this.data.id, slide.image);
                 slide.image = null;
+                this.form.$setDirty();
                 this.create();
             },
             options: (slide) => {
@@ -151,7 +165,7 @@ module app {
                             var img = new mOxie.Image();
                             img.onload = function () {
                                 this.crop(105, 105, false);
-                                slide.image = this.getAsDataURL("image/jpeg", 80);
+                                slide.image = this.getAsDataURL(file.type, 80);
                                 self.$scope.$apply();
 
                             };
@@ -166,7 +180,7 @@ module app {
                         })(files[i], uploader.settings.slide, this);
                     }
                     this.$timeout(() => {
-                        uploader.start();
+                    //    uploader.start();
                     }, 1);
                 },
                 error: (uploader, error: plupload_error) => {
@@ -182,11 +196,11 @@ module app {
                     var obj = JSON.parse(response.response);
                     if (obj.success) {
                         (uploader.settings.slide as CardSlide).image = obj.payload;
+                        this.form.$setDirty();
                         this.create();
                     }
                 }
             }
-
         }
     }
     angular.module("app.flashcard").controller("flashcardCreate", FlashcardCreateController);

@@ -64,6 +64,7 @@ var app;
                 removeImage: function (slide) {
                     _this.flashcardService.deleteImage(_this.data.id, slide.image);
                     slide.image = null;
+                    _this.form.$setDirty();
                     _this.create();
                 },
                 options: function (slide) {
@@ -87,7 +88,7 @@ var app;
                                 var img = new mOxie.Image();
                                 img.onload = function () {
                                     this.crop(105, 105, false);
-                                    slide.image = this.getAsDataURL("image/jpeg", 80);
+                                    slide.image = this.getAsDataURL(file.type, 80);
                                     self.$scope.$apply();
                                 };
                                 img.onembedded = function () {
@@ -100,7 +101,6 @@ var app;
                             })(files[i], uploader.settings.slide, _this);
                         }
                         _this.$timeout(function () {
-                            uploader.start();
                         }, 1);
                     },
                     error: function (uploader, error) {
@@ -116,6 +116,7 @@ var app;
                         var obj = JSON.parse(response.response);
                         if (obj.success) {
                             uploader.settings.slide.image = obj.payload;
+                            _this.form.$setDirty();
                             _this.create();
                         }
                     }
@@ -132,27 +133,34 @@ var app;
                 _this.create();
             });
         }
+        FlashcardCreateController.prototype.publish = function () {
+        };
         FlashcardCreateController.prototype.create = function () {
             var _this = this;
             var self = this;
-            if (self.serviceCalled) {
+            function afterCall() {
+                self.serviceCalled = false;
+                self.form.$setPristine();
+            }
+            if (!this.form.$dirty) {
                 return;
             }
-            self.serviceCalled = true;
+            if (this.serviceCalled) {
+                return;
+            }
+            this.serviceCalled = true;
             if (this.data.id) {
-                this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(function () {
-                    self.serviceCalled = false;
-                });
+                this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(afterCall);
                 return;
             }
             this.flashcardService.create(this.data, this.$stateParams.boxId).then(function (response) {
                 _this.data.id = response;
-                self.serviceCalled = false;
+                afterCall();
                 _this.$state.go("flashcardCreate", {
-                    boxtype: self.$stateParams["boxtype"],
-                    universityType: self.$stateParams["universityType"],
-                    boxId: self.$stateParams.boxId,
-                    boxName: self.$stateParams["boxName"],
+                    boxtype: _this.$stateParams["boxtype"],
+                    universityType: _this.$stateParams["universityType"],
+                    boxId: _this.$stateParams.boxId,
+                    boxName: _this.$stateParams["boxName"],
                     id: response
                 });
             });
