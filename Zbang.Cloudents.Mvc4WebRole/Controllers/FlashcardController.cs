@@ -33,7 +33,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_BlobProvider = blobProvider;
         }
 
-      
+
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public PartialViewResult IndexPartial()
+        {
+            return PartialView("Index");
+        }
 
         [ZboxAuthorize]
         [DonutOutputCache(CacheProfile = "PartialPage")]

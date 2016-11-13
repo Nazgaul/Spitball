@@ -12,7 +12,14 @@
             angular.forEach(flashcards,
                 val => {
                     if (val.publish) {
-
+                        val.url = $state.href("flashcard",
+                        {
+                            universityName: $stateParams["universityType"],
+                            boxId: $stateParams["boxId"],
+                            boxName: $stateParams["boxName"],
+                            id: val.id,
+                            name: val.name
+                        });
                     } else {
                         val.url = $state
                             .href("flashcardCreate", angular.extend({}, $stateParams, { id: val.id }));
