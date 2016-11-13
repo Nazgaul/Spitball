@@ -1,8 +1,4 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-
-@*@{
-    const string svgUrl = "~/images/site/box-icons.svg";
-}*@
 <script defer type="text/ng-template" id="box-template.html">
     <a ng-href="{{::e.url}}" class="box-template box-style" ga-track-event="['dashboard', 'box']">
         @*<span ng-if="e.recommended" class="ribbon background text-capitalize" d-color="{{::e.name.length}}">@IndexResources.Suggested</span>*@
@@ -76,7 +72,7 @@
             </div>
             <div class="stats" ng-hide="::e.numOfViews === underfined">
                 <div class="views">
-                    {{::e.numOfViews}} <md-icon md-svg-icon="b:eye"></md-icon>@*@Html.Svg(svgUrl, "eye")*@
+                    {{::e.numOfViews}} <md-icon md-svg-icon="b:eye"></md-icon>
                 </div>
             </div>
         </div>
@@ -86,6 +82,7 @@
         </div>
     </a>
 </script>
+
 <script defer type="text/ng-template" id="user-template.html">
     <a ng-href="{{::e.url}}" class="member">
         <user-image class="img-circle" name="::e.name" image="::e.image" width="35" height="35"></user-image>
@@ -95,6 +92,5 @@
 <script defer type="text/ng-template" id="scrollToTopTemplate.html">
     <div class="scroll-to-top">
         <md-icon md-svg-icon="t:arrow"></md-icon>
-        @*@Html.Svg("~/images/site/icons.svg", "arrow")*@
     </div>
 </script>

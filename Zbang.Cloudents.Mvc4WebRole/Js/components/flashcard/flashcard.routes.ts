@@ -29,7 +29,28 @@
                         },
                         templateUrl: "/flashcard/createpartial/"
 
-                    }
+                    },
+                    {
+                        state: 'flashcard',
+                        config: {
+                            url: '/flashcard/{universityName:encodeStr}/{boxId:int}/{boxName:encodeStr}/{id:int}/{name:encodeStr}/',
+                            controller: 'flashcard as f',
+                            //resolve: {
+                            //    itemData: ['itemService', '$stateParams', 'sbHistory', function (itemService, $stateParams, sbHistory) {
+                            //        return itemService.getDetails($stateParams.boxId, $stateParams.itemId, sbHistory.firstState());
+                            //    }]
+                            //},
+                            //reloadOnSearch: false,
+                            data: { animateClass: 'flashcardPage' },
+                            views: {
+                                "menu@": {
+                                    template: ''
+                                }
+
+                            }
+                        },
+                        templateUrl: '/flashcard/indexpartial/'
+                    },
                 ];
             }
         }

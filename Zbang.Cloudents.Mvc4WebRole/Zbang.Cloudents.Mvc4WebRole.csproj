@@ -1420,6 +1420,7 @@
     <TypeScriptCompile Include="Js\components\flashcard\cardSettings.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\card.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.controller.ts" />
+    <TypeScriptCompile Include="Js\components\flashcard\flashcardCreate.controller.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.routes.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.service.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\interaction.directive.ts" />
@@ -2490,6 +2491,7 @@
     <Content Include="Views\University\ClassChoose.cshtml" />
     <Content Include="Views\Box\_Flashcards.cshtml" />
     <Content Include="Views\Flashcard\CreatePartial.cshtml" />
+    <Content Include="Views\Flashcard\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

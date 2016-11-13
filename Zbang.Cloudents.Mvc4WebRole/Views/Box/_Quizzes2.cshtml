@@ -13,7 +13,7 @@
         </a>
     </li>
 
-    <li flex flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="i-q-wrapper quizzes" ng-repeat="e in q.quizzes">
+    <li flex flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="i-q-wrapper quizzes" ng-repeat="e in ::q.quizzes">
         <div ng-include="'quiz-template.html'"></div>
         <md-menu ng-if="b.canDelete(e.ownerId)" class="quiz-menu">
             <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-quizzes', 'deleteQuiz']">

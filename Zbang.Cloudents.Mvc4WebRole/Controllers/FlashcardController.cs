@@ -33,11 +33,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_BlobProvider = blobProvider;
         }
 
-        // GET: Flashcard
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [DonutOutputCache(CacheProfile = "PartialPage")]
+        public PartialViewResult IndexPartial()
+        {
+            return PartialView("Index");
+        }
 
         [ZboxAuthorize]
         [DonutOutputCache(CacheProfile = "PartialPage")]
@@ -50,15 +52,22 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [ZboxAuthorize, ActionName("Draft")]
         public async Task<ActionResult> DraftAsync(long id)
         {
-            //var query = new GetQuizDraftQuery(quizId);
             var values = await m_DocumentDbReadService.FlashcardAsync(id);
             if (values.Publish)
             {
                 throw new ArgumentException("Flashcard is published");
             }
+            if (values.IsDeleted)
+            {
+                throw new ArgumentException("Flashcard is deleted");
+            }
             if (values.UserId != User.GetUserId())
             {
                 throw new ArgumentException("This is not the owner");
+            }
+            if (values.IsDeleted)
+            {
+                throw new ArgumentException("Flashcard is deleted");
             }
             return JsonOk(new
             {
@@ -104,7 +113,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize, ActionName("publish")]
-        public async Task<JsonResult> PublishAsync(long id,Flashcard model, long boxId)
+        public async Task<JsonResult> PublishAsync(long id, Flashcard model, long boxId)
         {
             if (!ModelState.IsValid)
             {
@@ -188,6 +197,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 await m_FlashcardBlob.RemoveBlobAsync(blobName, source.Token);
                 return JsonOk();
             }
+        }
+        [HttpDelete, ZboxAuthorize, ActionName("Index")]
+        public async Task<JsonResult> DeleteAsync(long id)
+        {
+            var command = new DeleteFlashcardCommand(id, User.GetUserId());
+            await ZboxWriteService.DeleteFlashcardAsync(command);
+            //var values = await m_DocumentDbReadService.FlashcardAsync(id);
+            //if (values.Publish)
+            //{
+            //    throw new ArgumentException("Flashcard is published");
+            //}
+            //if (values.UserId != User.GetUserId())
+            //{
+            //    throw new ArgumentException("This is not the owner");
+            //}
+            //var images = values.Cards.Select(s => s?.Cover?.Image).Union(values.Cards.Select(s => s?.Front?.Image));
+            //var tasks = new List<Task>();
+            //foreach (var image in images)
+            //{
+
+            //    var blobName = m_BlobProvider.Value.GetBlobNameFromUri(new Uri(image));
+            //    tasks.Add(m_FlashcardBlob.RemoveBlobAsync(blobName, default(CancellationToken)));
+            //}
+
+            //await Task.WhenAll(tasks);
+
+            return JsonOk();
         }
 
         [HttpPost, ZboxAuthorize, ActionName("Image")]

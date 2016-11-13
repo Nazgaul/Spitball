@@ -84,7 +84,12 @@
                 config: {
                     url: 'flashcards/',
                     controller: 'FlashcardsController as f',
-                    parent: 'box'
+                    parent: 'box',
+                    resolve: {
+                        flashcards: ['boxService', '$stateParams',function(boxService, $stateParams) {
+                            return boxService.flashcards($stateParams.boxId);
+                        }]
+                    }
                 },
                 templateUrl: '/box/flashcardspartial/'
             },

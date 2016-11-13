@@ -25,7 +25,21 @@ var app;
                             reloadOnSearch: false
                         },
                         templateUrl: "/flashcard/createpartial/"
-                    }
+                    },
+                    {
+                        state: 'flashcard',
+                        config: {
+                            url: '/flashcard/{universityName:encodeStr}/{boxId:int}/{boxName:encodeStr}/{id:int}/{name:encodeStr}/',
+                            controller: 'flashcard as f',
+                            data: { animateClass: 'flashcardPage' },
+                            views: {
+                                "menu@": {
+                                    template: ''
+                                }
+                            }
+                        },
+                        templateUrl: '/flashcard/indexpartial/'
+                    },
                 ];
             }
         }
