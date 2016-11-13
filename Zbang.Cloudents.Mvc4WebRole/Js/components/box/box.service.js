@@ -155,6 +155,11 @@ var app;
                 id: boxId
             });
         };
+        BoxService.prototype.flashcards = function (boxId) {
+            return this.ajaxService2.get("/box/flashcards/", {
+                id: boxId
+            });
+        };
         BoxService.$inject = ["ajaxService2"];
         return BoxService;
     }());

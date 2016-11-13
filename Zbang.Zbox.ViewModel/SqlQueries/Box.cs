@@ -34,8 +34,8 @@ where boxid = @BoxId
 order by name;";
 
 
-       
-      
+
+
 
         //used for reply view in mobile app
         public const string GetCommentForMobile = @" SELECT q.[QuestionId] as id
@@ -170,8 +170,23 @@ union
     order by i.itemid desc
     offset @pageNumber*@rowsperpage ROWS
     FETCH NEXT @rowsperpage ROWS ONLY;";
+
+        public const string Flashcards = @" select 
+    id as Id, 
+    f.userid as OwnerId,
+    name as Name,
+    Publish,
+    NumberOfViews as NumOfViews
+    from zbox.Flashcard f
+    where boxid = @BoxId
+    and f.isdeleted = 0
+	order by f.Id desc
+	";
     }
 
 
-   
+
+
+
+
 }

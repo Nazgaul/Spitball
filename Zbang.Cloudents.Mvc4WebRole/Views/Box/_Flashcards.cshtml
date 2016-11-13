@@ -12,19 +12,51 @@
         </a>
     </li>
 
-    @*<li flex flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50" class="i-q-wrapper quizzes" ng-repeat="e in q.quizzes">
-        <div ng-include="'quiz-template.html'"></div>
+    <li flex flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" flex-xs="50"
+        class="i-q-wrapper quizzes" ng-repeat="e in f.flashcards">
+        <div ng-include="'flashcard-template.html'"></div>
         <md-menu ng-if="b.canDelete(e.ownerId)" class="quiz-menu">
-            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-quizzes', 'deleteQuiz']">
+            <md-button aria-label="open menu" class="md-icon-button delete" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['box-flashcard', 'delete']">
                 <md-icon md-svg-icon="t:ThreeDots" class="dots-3 quiz-dots"></md-icon>
             </md-button>
             <md-menu-content width="1">
                 <md-menu-item>
-                    <md-button ng-click="q.deleteQuiz($event,e)" ga-track-event="['box-quizzes', 'didDelete']">
+                    <md-button @*ng-click="q.deleteQuiz($event,e)"*@ ga-track-event="['box-flashcard', 'didDelete']">
                         @GeneralResources.Delete
                     </md-button>
                 </md-menu-item>
             </md-menu-content>
         </md-menu>
-    </li>*@
+    </li>
 </ul>
+{{f.flashcards.length}}
+<script defer type="text/ng-template" id="flashcard-template.html">
+    <a class="quiz quiz-template" ng-href="{{::e.url}}">
+        <div class="base">
+            <div class="quiz-ratio">
+                <div class="content">
+                    <div ng-if="::e.publish" class="top background" d-color="{{::e.name.length}}">
+                        <span class="first-letter" first-letter="{{::e.name}}"></span>
+                    </div>
+                    <div ng-if="::!e.publish" class="top draft-wpr">
+                        <span class="draft">@IndexResources.Draft</span>
+                    </div>
+                    <div class="bottom">
+                        <h2 class="name ellipsis" ng-bind-html="::e.name"></h2>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="stats" ng-hide="::e.numOfViews === underfined">
+                <div class="views">
+                    {{::e.numOfViews}} <md-icon md-svg-icon="b:eye"></md-icon>
+                </div>
+            </div>
+        </div>
+        @*<div class="extra-details">
+            <h5 ng-bind-html="::e.name"></h5>
+            <span ng-bind-html="::e.content"></span>
+        </div>*@
+    </a>
+</script>

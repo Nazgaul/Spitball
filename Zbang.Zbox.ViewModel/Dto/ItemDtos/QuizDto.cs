@@ -14,7 +14,6 @@ namespace Zbang.Zbox.ViewModel.Dto.ItemDtos
        public double Rate { get; set; }
        public int NumOfViews { get; set; }
        public string Description { get; set; }
-       //public int CommentsCount { get; set; }
        public DateTime Date
        {
            get { return m_Date; }

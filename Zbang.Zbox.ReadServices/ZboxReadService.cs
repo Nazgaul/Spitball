@@ -347,6 +347,18 @@ namespace Zbang.Zbox.ReadServices
 
         }
 
+        public async Task<IEnumerable<Item.FlashcardDto>> GetBoxFlashcardsAsync(GetFlashCardsQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                return await conn.QueryAsync<Item.FlashcardDto>(Sql.Box.Flashcards, new
+                {
+                    query.BoxId,
+                });
+            }
+
+        }
+
 
 
 
@@ -1179,6 +1191,8 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                 }
             }
         }
+
+        
 
        
     }

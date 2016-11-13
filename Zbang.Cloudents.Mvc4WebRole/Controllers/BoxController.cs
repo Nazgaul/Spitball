@@ -348,7 +348,33 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             catch (Exception ex)
             {
-                TraceLog.WriteError($"Box Items BoxId {id} ", ex);
+                TraceLog.WriteError($"Box Quiz BoxId {id} ", ex);
+                return JsonError();
+            }
+        }
+
+        [HttpGet, ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("id"), ActionName("FlashCards")]
+        public async Task<JsonResult> FlashcardsAsync(long id)
+        {
+            try
+            {
+                var query = new GetFlashCardsQuery(id);
+                var result = await ZboxReadService.GetBoxFlashcardsAsync(query);
+                var userid = User.GetUserId(false);
+                var data = result.Where(w => w.Publish || w.OwnerId == userid).Select(s => new
+                {
+                    s.Id,
+                    s.Name,
+                    s.NumOfViews,
+                    s.Publish
+                });
+
+                return JsonOk(data);
+            }
+            catch (Exception ex)
+            {
+                TraceLog.WriteError($"Box Flashcards BoxId {id} ", ex);
                 return JsonError();
             }
         }

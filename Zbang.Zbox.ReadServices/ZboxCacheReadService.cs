@@ -67,6 +67,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetBoxQuizesAsync(query);
         }
 
+        public Task<IEnumerable<FlashcardDto>> GetBoxFlashcardsAsync(GetFlashCardsQuery query)
+        {
+            return m_ReadService.GetBoxFlashcardsAsync(query);
+        }
+
 
         public Task<ItemDetailDto> GetItem2Async(GetItemQuery query)
         {

@@ -498,6 +498,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BoxResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Flashcard\Resources\FlashcardResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FlashcardResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Home\Resources\AboutUsResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1417,8 +1422,10 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.controller.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.routes.ts" />
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
+    <TypeScriptCompile Include="Js\components\flashcard\cardSettings.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\card.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.controller.ts" />
+    <TypeScriptCompile Include="Js\components\flashcard\flashcardCreate.controller.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.routes.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.service.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\interaction.directive.ts" />
@@ -2489,6 +2496,7 @@
     <Content Include="Views\University\ClassChoose.cshtml" />
     <Content Include="Views\Box\_Flashcards.cshtml" />
     <Content Include="Views\Flashcard\CreatePartial.cshtml" />
+    <Content Include="Views\Flashcard\Index.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2695,6 +2703,10 @@
     <EmbeddedResource Include="Models\Resources\ValidatePasswordResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ValidatePasswordResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Flashcard\Resources\FlashcardResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>FlashcardResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.he.resx" />
     <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.resx">

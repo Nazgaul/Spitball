@@ -772,5 +772,14 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+        public async Task DeleteFlashcardAsync(DeleteFlashcardCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                await m_CommandBus.SendAsync(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
     }
 }
