@@ -61,29 +61,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shared Documents.
-        /// </summary>
-        public static string A10 {
-            get {
-                return ResourceManager.GetString("A10", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mobile App.
         /// </summary>
         public static string A11 {
             get {
                 return ResourceManager.GetString("A11", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Top Courses.
-        /// </summary>
-        public static string A12 {
-            get {
-                return ResourceManager.GetString("A12", resourceCulture);
             }
         }
         
@@ -131,15 +113,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Account.Resources {
         public static string A8 {
             get {
                 return ResourceManager.GetString("A8", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Key Features.
-        /// </summary>
-        public static string A9 {
-            get {
-                return ResourceManager.GetString("A9", resourceCulture);
             }
         }
         

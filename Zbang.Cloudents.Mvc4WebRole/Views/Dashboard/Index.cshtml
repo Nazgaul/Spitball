@@ -13,7 +13,7 @@
         <button ng-if="d.boxes.length > 2" type="button" ng-click="d.inviteToSpitabll()" class="inviteBtn box-style action" ng-class="{'active' :d.inviteOpen}" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="50" flex-gt-lg="50" ga-track-event="['dashboard', 'invite open']">
             <div class="wrapper">
                 <md-icon md-svg-icon="t:invite" class="icon"></md-icon>
-                <span class="text">@DashboardResource.InviteToSpitball&nbsp;<span>@ChatResources.FriendsHeader</span></span>
+                <span class="text">@DashboardResource.InviteToSpitball&nbsp;<span class="lowercase">@ChatResources.ClassmatesHeader</span></span>
             </div>
         </button>
         <button type="button" ng-click="d.createNewBox()" focus-upon-click="createBoxInput" class="create-btn box-style action" ng-class="{'active' :d.createBoxOn}" flex-xs="100" flex-sm="50" flex-md="50" flex-lg="50" flex-gt-lg="50" ga-track-event="['dashboard', 'createbox']">

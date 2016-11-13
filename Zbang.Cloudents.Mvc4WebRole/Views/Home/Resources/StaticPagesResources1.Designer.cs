@@ -358,15 +358,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to courses.
-        /// </summary>
-        public static string FeaturesSectionText5D {
-            get {
-                return ResourceManager.GetString("FeaturesSectionText5D", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to  and class materials are uploaded everyday so you can get the most recent class material. Help build your school’s online community and get all the study materials you are looking for in one cool place. Couldn’t find your school? You can always access relevant class material from other schools, or be the first to use Spitball in your school and start the revolution!.
         /// </summary>
         public static string FeaturesSectionText5E {
@@ -408,15 +399,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Home.Resources {
         public static string FeaturesSectionTitle1 {
             get {
                 return ResourceManager.GetString("FeaturesSectionTitle1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Quizzes .
-        /// </summary>
-        public static string FeaturesSectionTitle2 {
-            get {
-                return ResourceManager.GetString("FeaturesSectionTitle2", resourceCulture);
             }
         }
         

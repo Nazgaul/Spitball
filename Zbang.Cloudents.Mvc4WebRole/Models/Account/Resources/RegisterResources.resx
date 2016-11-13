@@ -126,9 +126,6 @@
   <data name="FieldRequired" xml:space="preserve">
     <value>This field is required</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
   <data name="PwdRequired" xml:space="preserve">
     <value>Password required</value>
   </data>

@@ -11,7 +11,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Account
         public string Password { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "PwdRequired")]
-        [Compare("Password", ErrorMessageResourceType = typeof(RegisterResources), ErrorMessageResourceName = "ConfirmPasswordComapre")]
+        [Compare("Password", ErrorMessageResourceType = typeof(LogOnResources), ErrorMessageResourceName = "ConfirmPasswordComapre")]
         public string ConfirmPassword { get; set; }
     }
 }

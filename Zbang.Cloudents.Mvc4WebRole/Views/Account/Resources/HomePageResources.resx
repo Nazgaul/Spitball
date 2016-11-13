@@ -233,23 +233,14 @@
     <value>Spitball's study platform enables students to find and share study materials, 
 chat with their classmates, create online quizzes and get better grades. </value>
   </data>
-  <data name="A10" xml:space="preserve">
-    <value>Shared Documents</value>
-  </data>
   <data name="A11" xml:space="preserve">
     <value>Mobile App</value>
-  </data>
-  <data name="A9" xml:space="preserve">
-    <value>Key Features</value>
   </data>
   <data name="Free" xml:space="preserve">
     <value>All for free!</value>
   </data>
   <data name="resetPassEmailSent" xml:space="preserve">
     <value>Another request was sent</value>
-  </data>
-  <data name="A12" xml:space="preserve">
-    <value>Top Courses</value>
   </data>
   <data name="B4b" xml:space="preserve">
     <value>download to your phone, laptop and tablet</value>
