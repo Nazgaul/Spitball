@@ -98,6 +98,35 @@
 .flashcard .flashcard-body .card-container card-form .md-resize-wrapper textarea {
   border: none;
 }
+.flashcard .flashcard-body .card-container card-form .image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.flashcard .flashcard-body .card-container card-form .image-container md-progress-circular {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  stroke: #4190b9;
+}
+.flashcard .flashcard-body .card-container card-form .image-container img {
+  max-width: 58px;
+  max-height: 58px;
+}
+.flashcard .flashcard-body .card-container card-form .image-container .remove-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  text-align: center;
+  line-height: 0;
+  padding: 6px;
+  z-index: 1;
+}
+.flashcard .flashcard-body .card-container card-form .image-container .remove-img md-icon {
+  margin: 0;
+  width: 10px;
+  height: 10px;
+}
 .flashcard .flashcard-body .card-container .drag-btn {
   position: absolute;
   right: -26px;

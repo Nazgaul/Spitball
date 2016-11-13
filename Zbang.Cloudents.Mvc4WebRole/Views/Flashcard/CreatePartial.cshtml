@@ -49,10 +49,10 @@
         <md-icon ng-if="!slide.image" md-svg-icon="b:image-icon" plupload="upload.url"
                  plupload-options="upload.options(slide)"
                  plupload-callbacks="upload.callbacks"></md-icon>
-        <md-progress-circular style="stroke:black;" ng-if="slide.uploadProgress" md-mode="determinate" value="{{slide.uploadProgress}}"></md-progress-circular>
         <div class="image-container">
+            <md-progress-circular ng-if="slide.uploadProgress" md-mode="determinate" md-diameter="50" value="{{slide.uploadProgress}}"></md-progress-circular>
             <img width="100" height="100" ng-src="{{slide.image}}" ng-if="slide.image" />
-            <button type="button" class="remove-btn" ng-click=""><md-icon md-svg-icon="t:close"></md-icon></button>
+            <button type="button" class="remove-img" ng-click="" ng-if="slide.image"><md-icon md-svg-icon="t:close"></md-icon></button>
         </div>
     </md-input-container>
 </script>
