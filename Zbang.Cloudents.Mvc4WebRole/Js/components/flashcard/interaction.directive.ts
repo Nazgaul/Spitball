@@ -14,7 +14,7 @@
                 () => {
                     this.$timeout.cancel(x);
                     x = this.$timeout(() => {
-                        scope.$emit("update-model");
+                      //  scope.$emit("update-model");
                     }, 2500);
                 });
         }

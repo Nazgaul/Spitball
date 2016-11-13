@@ -50,6 +50,9 @@
                  plupload-options="upload.options(slide)"
                  plupload-callbacks="upload.callbacks"></md-icon>
         <md-progress-circular style="stroke:black;" ng-if="slide.uploadProgress" md-mode="determinate" value="{{slide.uploadProgress}}"></md-progress-circular>
-        <img width="100" height="100" ng-src="{{slide.image}}" ng-if="slide.image" />
+        <div class="image-container">
+            <img width="100" height="100" ng-src="{{slide.image}}" ng-if="slide.image" />
+            <button type="button" class="remove-btn" ng-click=""><md-icon md-svg-icon="t:close"></md-icon></button>
+        </div>
     </md-input-container>
 </script>
