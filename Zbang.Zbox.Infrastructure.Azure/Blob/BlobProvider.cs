@@ -64,7 +64,13 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 return m_BlobClient;
             }
         }
-        
+
+        public string GetBlobNameFromUri(Uri blobUri)
+        {
+            var blobName = blobUri.Segments[blobUri.Segments.Length - 1];
+            return blobName;
+        }
+
         private CloudBlockBlob ProfilePictureFile(string blobName)
         {
             return BlobClient.GetContainerReference(AzureProfilePicContainer.ToLower()).GetBlockBlobReference(blobName);

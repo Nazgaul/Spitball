@@ -52,7 +52,7 @@
         <md-progress-circular style="stroke:black;" ng-if="slide.uploadProgress" md-mode="determinate" value="{{slide.uploadProgress}}"></md-progress-circular>
         <div class="image-container">
             <img width="100" height="100" ng-src="{{slide.image}}" ng-if="slide.image" />
-            <button type="button" class="remove-btn" ng-click=""><md-icon md-svg-icon="t:close"></md-icon></button>
+            <button type="button" class="remove-btn" ng-click="upload.removeImage(slide)"><md-icon md-svg-icon="t:close"></md-icon></button>
         </div>
     </md-input-container>
 </script>

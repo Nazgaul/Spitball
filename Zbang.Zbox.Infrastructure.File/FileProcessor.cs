@@ -28,6 +28,7 @@ namespace Zbang.Zbox.Infrastructure.File
         }
 
 
+        
         protected string GetBlobNameFromUri(Uri blobUri)
         {
             var blobName = blobUri.Segments[blobUri.Segments.Length - 1];

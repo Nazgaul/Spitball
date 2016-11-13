@@ -105,6 +105,9 @@ var app;
         AjaxService2.prototype.put = function (url, data, category) {
             return this.insertUpdate(this.$http.put, url, data, category);
         };
+        AjaxService2.prototype.delete = function (url, data, category) {
+            return this.insertUpdate(this.$http.delete, url, { params: data }, category);
+        };
         AjaxService2.prototype.post = function (url, data, category) {
             return this.insertUpdate(this.$http.post, url, data, category);
         };

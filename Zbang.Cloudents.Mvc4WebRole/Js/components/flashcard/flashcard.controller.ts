@@ -108,6 +108,9 @@ module app {
             this.data.cards.splice(index, 1);
 
         }
+        removeImage(cardSlide) {
+
+        }
         add($index: number) {
             if (angular.isNumber($index)) {
                 this.data.cards.splice($index + 1, 0, new Card());
@@ -121,7 +124,12 @@ module app {
         }
 
         upload = {
-            url: "/upload/flashcardimage/",
+            url: "/flashcard/image/",
+            removeImage: (slide: CardSlide) => {
+                this.flashcardService.deleteImage(this.data.id, slide.image);
+                slide.image = null;
+                this.create();
+            },
             options: (slide) => {
                 return {
                     slide: slide,
@@ -144,7 +152,6 @@ module app {
                             img.onload = function () {
                                 this.crop(105, 105, false);
                                 slide.image = this.getAsDataURL("image/jpeg", 80);
-                                slide.uploadProgress = 50;
                                 self.$scope.$apply();
 
                             };
@@ -179,6 +186,7 @@ module app {
                     }
                 }
             }
+
         }
     }
     angular.module("app.flashcard").controller("flashcardCreate", FlashcardCreateController);

@@ -11,6 +11,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
         Task<int> UploadFileBlockAsync(string blobName, Stream fileContent, int currentIndex);
         Task CommitBlockListAsync(string blobName, int currentIndex, string contentType);
         Task UploadStreamAsync(string blobName, Stream content, string mimeType, CancellationToken token);
+
+        Task RemoveBlobAsync(string blobName, CancellationToken token);
         Uri GetBlobUrl(string blobName);
         Uri GetBlobUrl(string blobName , bool useCdn);
 

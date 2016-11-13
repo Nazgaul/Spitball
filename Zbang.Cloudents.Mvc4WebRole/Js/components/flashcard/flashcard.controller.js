@@ -60,7 +60,12 @@ var app;
             this.$timeout = $timeout;
             this.serviceCalled = false;
             this.upload = {
-                url: "/upload/flashcardimage/",
+                url: "/flashcard/image/",
+                removeImage: function (slide) {
+                    _this.flashcardService.deleteImage(_this.data.id, slide.image);
+                    slide.image = null;
+                    _this.create();
+                },
                 options: function (slide) {
                     return {
                         slide: slide,
@@ -83,7 +88,6 @@ var app;
                                 img.onload = function () {
                                     this.crop(105, 105, false);
                                     slide.image = this.getAsDataURL("image/jpeg", 80);
-                                    slide.uploadProgress = 50;
                                     self.$scope.$apply();
                                 };
                                 img.onembedded = function () {
@@ -158,6 +162,8 @@ var app;
         };
         FlashcardCreateController.prototype.removeCard = function (index) {
             this.data.cards.splice(index, 1);
+        };
+        FlashcardCreateController.prototype.removeImage = function (cardSlide) {
         };
         FlashcardCreateController.prototype.add = function ($index) {
             if (angular.isNumber($index)) {

@@ -29,13 +29,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly ICookieHelper m_CookieHelper;
         private readonly IBlobProvider2<ChatContainerName> m_BlobProvider2;
         private readonly IBlobProvider2<FilesContainerName> m_BlobProviderFiles;
-        private readonly IBlobProvider2<FlashcardContainerName> m_FlashcardBlob;
+        
         public UploadController(
             Lazy<IQueueProvider> queueProvider,
-            IProfilePictureProvider profilePicture, ICookieHelper cookieHelper, IBlobProvider2<ChatContainerName> blobProvider2, IBlobProvider2<FilesContainerName> blobProviderFiles, IBlobProvider blobProvider, IBlobProvider2<FlashcardContainerName> flashcardBlob)
+            IProfilePictureProvider profilePicture, ICookieHelper cookieHelper, IBlobProvider2<ChatContainerName> blobProvider2, IBlobProvider2<FilesContainerName> blobProviderFiles, IBlobProvider blobProvider)
         {
             m_BlobProvider = blobProvider;
-            m_FlashcardBlob = flashcardBlob;
             m_ProfilePicture = profilePicture;
             m_CookieHelper = cookieHelper;
             m_BlobProvider2 = blobProvider2;
@@ -235,26 +234,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(url);
         }
 
-        [HttpPost, ZboxAuthorize, ActionName("FlashcardImage")]
-        public async Task<JsonResult> FlashcardImageAsync(CancellationToken cancellationToken)
-        {
-            var file = HttpContext.Request.Files?[0];
-            if (file == null)
-            {
-                return JsonError("No files");
-            }
-
-            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-            using (var source = CreateCancellationToken(cancellationToken))
-            {
-                await m_FlashcardBlob.UploadStreamAsync(fileName, file.InputStream, file.ContentType, source.Token);
-                var url = m_FlashcardBlob.GetBlobUrl(fileName, true);
-                return JsonOk(url);
-            }
-            
-            //var url = await m_BlobProvider.UploadQuizImageAsync(file.InputStream, file.ContentType, boxId, file.FileName);
-            //return JsonOk(url);
-        }
+        
+       
 
         internal const string ChatCookieName = "uploadchat";
         [HttpPost, ZboxAuthorize, ActionName("ChatFile")]
@@ -426,5 +407,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
 
 
         }
+
+        
     }
 }
