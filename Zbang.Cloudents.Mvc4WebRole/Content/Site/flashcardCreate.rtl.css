@@ -6,8 +6,8 @@
   margin-top: 95px;
 }
 .flashcard .flashcard-top form {
-  max-width: 800px;
-  padding-top: 10px;
+  max-width: 860px;
+  padding: 10px 30px 0 30px;
 }
 .flashcard .flashcard-top form md-input-container {
   margin-bottom: 0;
@@ -82,7 +82,6 @@
   display: none;
 }
 .flashcard .flashcard-body .card-container card-form md-input-container md-icon {
-  /*display: none;*/
   width: 23px;
   height: 19px;
   margin-left: 4px;
@@ -115,6 +114,16 @@
 .flashcard .flashcard-body .card-container .add-btn md-icon {
   width: 19px;
   height: 19px;
+}
+.flashcard .flashcard-body .card-container .remove-btn {
+  position: absolute;
+  left: -30px;
+  top: 0;
+  bottom: 0;
+}
+.flashcard .flashcard-body .card-container .remove-btn md-icon {
+  width: 15px;
+  height: 15px;
 }
 .flashcard .flashcard-body .add-card div {
   background: #eeeeee;
