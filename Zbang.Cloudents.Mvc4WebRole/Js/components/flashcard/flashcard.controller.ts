@@ -39,10 +39,15 @@
         }
         prev() {
             this.slidepos = Math.max(0, --this.slidepos);
+            this.step = Steps.Memo;
             this.slide = this.flashcard.cards[this.slidepos];
         }
         next() {
             this.slidepos = Math.min(this.flashcard.cards.length, ++this.slidepos);
+            if (this.slidepos === this.flashcard.cards.length) {
+                this.step = Steps.End;
+                return;
+            }
             this.slide = this.flashcard.cards[this.slidepos];
         }
     }

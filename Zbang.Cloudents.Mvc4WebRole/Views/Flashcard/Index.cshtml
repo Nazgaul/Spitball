@@ -16,7 +16,6 @@
         <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.flashcard.cards.length * 100}}"></md-progress-linear>
         <span>progress</span>
         <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
-
         <button type="button" ng-click="f.style=null">front</button>
         <button type="button" ng-click="f.style=2">back</button>
         <button type="button" ng-click="f.style=3">both</button>
@@ -37,9 +36,22 @@
         </div>
         <button type="button" ng-click="f.prev()">left</button>
         <button type="button" ng-click="f.next()">right</button>
-
     </div>
     <div ng-switch-when="2">
-        bye
+        <h1>Nice work!</h1>
+        <h4>You just studied </h4>
+        <ng-pluralize count="::f.flashcard.cards.length"
+                      when="{
+                        '1': '1 card!',
+                        'other': '{} cards!'
+                      }"></ng-pluralize>
+        <button type="button">Start over</button>
+        <button type="button">Study 2 pinned card</button>
+        <md-switch ng-model="f.shuffle">
+            shuffle cards
+        </md-switch>
+        <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()">like</button>
+        <button type="button" ng-click="f.prev()">left</button>
+        <button type="button" disabled>right</button>
     </div>
 </div>
