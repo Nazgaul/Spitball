@@ -104,6 +104,11 @@ module app {
         flip() {
             this.data.flip();
         }
+        removeCard(index) {
+           // angular.
+           // this.data.cards.splice()
+
+        }
         add($index: number) {
             if (angular.isNumber($index)) {
                 this.data.cards.splice($index + 1, 0, new Card());
@@ -160,9 +165,7 @@ module app {
                 },
                 error: (uploader, error: plupload_error) => {
                     if (error.code === plupload.FILE_EXTENSION_ERROR) {
-                        // TODO: continue
-
-                        alert("file error");
+                        (this.$scope["app"] as IAppController).showToaster("file error");
                     }
                 },
                 uploadProgress: (uploader, file) => {

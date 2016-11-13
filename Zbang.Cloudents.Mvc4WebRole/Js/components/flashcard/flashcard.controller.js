@@ -99,7 +99,7 @@ var app;
                     },
                     error: function (uploader, error) {
                         if (error.code === plupload.FILE_EXTENSION_ERROR) {
-                            alert("file error");
+                            _this.$scope["app"].showToaster("file error");
                         }
                     },
                     uploadProgress: function (uploader, file) {
@@ -153,6 +153,8 @@ var app;
         };
         FlashcardCreateController.prototype.flip = function () {
             this.data.flip();
+        };
+        FlashcardCreateController.prototype.removeCard = function (index) {
         };
         FlashcardCreateController.prototype.add = function ($index) {
             if (angular.isNumber($index)) {
