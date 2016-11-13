@@ -22,6 +22,7 @@ var app;
         };
         return FlashCard;
     }());
+    app.FlashCard = FlashCard;
     var Card = (function () {
         function Card() {
             this.front = new CardSlide();
@@ -39,6 +40,7 @@ var app;
         };
         return Card;
     }());
+    app.Card = Card;
     var CardSlide = (function () {
         function CardSlide() {
         }
@@ -49,6 +51,7 @@ var app;
         };
         return CardSlide;
     }());
+    app.CardSlide = CardSlide;
     var FlashcardCreateController = (function () {
         function FlashcardCreateController(flashcardService, $stateParams, $state, flashcard, $scope, $timeout, $window, resManager, $mdDialog, $q) {
             var _this = this;

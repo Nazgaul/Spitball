@@ -26,7 +26,6 @@
                     }
                 });
             this.flashcards = flashcards;
-
         }
     }
     angular.module('app.box.flashcards').controller('FlashcardsController', Flashcards);
