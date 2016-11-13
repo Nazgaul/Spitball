@@ -1,57 +1,6 @@
 var app;
 (function (app) {
     "use strict";
-    var InteractionDone = (function () {
-        function InteractionDone($timeout) {
-            var _this = this;
-            this.$timeout = $timeout;
-            this.restrict = "A";
-            this.scope = true;
-            this.link = function (scope, element) {
-                var x;
-                element.on("click keydown", function () {
-                    _this.$timeout.cancel(x);
-                    x = _this.$timeout(function () {
-                        scope.$emit("update-model");
-                    }, 2500);
-                });
-            };
-        }
-        InteractionDone.factory = function () {
-            var directive = function ($timeout) {
-                return new InteractionDone($timeout);
-            };
-            directive["$inject"] = ["$timeout"];
-            return directive;
-        };
-        return InteractionDone;
-    }());
-    angular
-        .module("app.flashcard")
-        .directive("interactionDone", InteractionDone.factory());
-    var CardDirective = (function () {
-        function CardDirective() {
-            this.restrict = "E";
-            this.templateUrl = "card-form.html";
-            this.scope = {
-                slide: "=",
-                upload: "="
-            };
-            this.link = function (scope) {
-            };
-            this.transclude = true;
-        }
-        CardDirective.factory = function () {
-            var directive = function () {
-                return new CardDirective();
-            };
-            return directive;
-        };
-        return CardDirective;
-    }());
-    angular
-        .module("app.flashcard")
-        .directive("cardForm", CardDirective.factory());
     var FlashCard = (function () {
         function FlashCard() {
             this.cards = [new Card(), new Card(), new Card(), new Card(), new Card()];
