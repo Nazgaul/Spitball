@@ -45,28 +45,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return PartialView("Index");
         }
 
-        //[HttpGet, ActionName("CourseSelect")]
-        //public async Task<JsonResult> CourseSelectAsync(string q, int page, CancellationToken cancellationToken)
-        //{
-        //    var universityDataId = User.GetUniversityDataId();
-        //    if (!universityDataId.HasValue) return JsonError();
-        //    var query = new SearchBoxesQuery(q, User.GetUserId(), universityDataId.Value, page,
-        //        1000);
-
-        //    using (var source = CreateCancellationToken(cancellationToken))
-        //    {
-        //        try
-        //        {
-        //            var retVal = await m_BoxSearchService.SearchBoxClassChooseAsync(query, source.Token);
-        //            return JsonOk(retVal);
-        //        }
-        //        catch (OperationCanceledException)
-        //        {
-        //            TraceLog.WriteInfo("search - abort");
-        //            return JsonOk();
-        //        }
-        //    }
-        //}
+       
 
         [HttpGet,ActionName("Boxes")]
         public async Task<JsonResult> BoxesAsync(string q, int page, CancellationToken cancellationToken)

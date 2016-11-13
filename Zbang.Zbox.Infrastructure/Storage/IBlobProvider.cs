@@ -24,6 +24,8 @@ namespace Zbang.Zbox.Infrastructure.Storage
 
         string StorageContainerUrl { get; }
 
+        string GetBlobNameFromUri(Uri blobUri);
+
         /// <summary>
         /// Upload image to quiz in create quiz page
         /// </summary>

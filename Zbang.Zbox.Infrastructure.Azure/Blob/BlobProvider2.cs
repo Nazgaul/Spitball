@@ -66,10 +66,15 @@ namespace Zbang.Zbox.Infrastructure.Azure.Blob
                 content.Seek(0, SeekOrigin.Begin);
             }
             var blob = GetBlob(blobName);
-            //var blob = BlobClient.GetContainerReference(AzurePreviewContainer).GetBlockBlobReference(blobName);
             blob.Properties.ContentType = mimeType;
             blob.Properties.CacheControl = "public, max-age=" + TimeConst.Year;
             return blob.UploadFromStreamAsync(content, token);
+        }
+
+        public Task RemoveBlobAsync(string blobName, CancellationToken token)
+        {
+            var blob = GetBlob(blobName);
+            return blob.DeleteIfExistsAsync(token);
         }
 
         public Uri GetBlobUrl(string blobName)

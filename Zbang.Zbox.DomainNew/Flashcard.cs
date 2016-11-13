@@ -21,7 +21,7 @@ namespace Zbang.Zbox.Domain
         }
         public virtual long Id { get; set; }
         public virtual string Name { get; set; }
-        public bool Publish { get; set; }
+        public virtual bool Publish { get; set; }
 
         public virtual User User { get; set; }
         public int LikeCount { get; set; }
@@ -36,7 +36,7 @@ namespace Zbang.Zbox.Domain
         }
 
 
-        public bool IsDirty { get; set; }
+        public virtual bool IsDirty { get; set; }
         public Func<bool> ShouldMakeDirty { get; }
 
         public virtual UserTimeDetails DateTimeUser { get; private set; }

@@ -126,7 +126,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandler<AddStudentCommand>), typeof(AddStudentCommandHandler));
             ioc.RegisterType(typeof(ICommandHandlerAsync<AddUserLocationActivityCommand>), typeof(AddUserLocationActivityCommandHandler));
 
-   
+
             //library
             ioc.RegisterType(typeof(ICommandHandler<AddNodeToLibraryCommand>),
                 typeof(AddNodeToLibraryCommandHandler));
@@ -147,7 +147,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
               typeof(ManageConnectionsCommandHandler));
             ioc.RegisterType(typeof(ICommandHandler<RemoveOldConnectionCommand>),
                 typeof(RemoveOldConnectionCommandHandler));
-            
+
 
             ioc.RegisterType(typeof(ICommandHandler<ChatMarkAsReadCommand>),
                typeof(ChatMarkAsReadCommandHandler));
@@ -157,6 +157,8 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
               typeof(AddFlashcardCommandHandler));
             ioc.RegisterType(typeof(ICommandHandlerAsync<UpdateFlashcardCommand>),
              typeof(UpdateFlashcardCommandHandler));
+            ioc.RegisterType(typeof(ICommandHandlerAsync<PublishFlashcardCommand>),
+           typeof(PublishFlashcardCommandHandler));
         }
     }
 }

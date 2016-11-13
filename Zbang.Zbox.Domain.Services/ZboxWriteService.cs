@@ -763,5 +763,14 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+        public async Task PublishFlashcardAsync(PublishFlashcardCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                await m_CommandBus.SendAsync(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
     }
 }
