@@ -12,7 +12,6 @@ var app;
                 element.on("click keydown", function () {
                     _this.$timeout.cancel(x);
                     x = _this.$timeout(function () {
-                        scope.$emit("update-model");
                     }, 2500);
                 });
             };

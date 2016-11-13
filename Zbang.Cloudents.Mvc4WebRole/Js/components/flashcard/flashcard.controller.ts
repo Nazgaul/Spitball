@@ -26,8 +26,8 @@ module app {
 
     }
     class Card implements ISerializable<Card> {
-        front: CardSlide;
-        cover: CardSlide;
+        front: CardSlide = new CardSlide();
+        cover: CardSlide = new CardSlide();
 
         flip() {
             const temp = this.front;
