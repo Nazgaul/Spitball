@@ -82,6 +82,7 @@
     <Compile Include="CreateMembershipUserCommandHandler.cs" />
     <Compile Include="CreateUniversityCommandHandler.cs" />
     <Compile Include="DeleteBoxCommandHandler.cs" />
+    <Compile Include="DeleteFlashcardCommandHandler.cs" />
     <Compile Include="DeleteItemCommentCommandHandler.cs" />
     <Compile Include="DeleteItemCommentReplyCommandHandler.cs" />
     <Compile Include="DeleteItemTabCommandHandler.cs" />

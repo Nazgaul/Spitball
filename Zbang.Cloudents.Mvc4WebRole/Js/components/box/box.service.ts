@@ -31,6 +31,9 @@
         addItemToTab(boxId: number, tabId: Guid, itemId: number): angular.IPromise<any>;
         createTab(name: string, boxId: number): angular.IPromise<any>;
         feedLikes(boxId: number): angular.IPromise<any>;
+        flashcards(boxId: number): angular.IPromise<any>;
+
+
     }
     class BoxService implements IBoxService {
         static $inject = ["ajaxService2"];
@@ -178,6 +181,12 @@
 
         feedLikes(boxId: number): angular.IPromise<any> {
             return this.ajaxService2.get("/qna/Likes/",
+                {
+                    id: boxId
+                });
+        }
+        flashcards(boxId: number): angular.IPromise<any> {
+            return this.ajaxService2.get("/box/flashcards/",
                 {
                     id: boxId
                 });

@@ -122,5 +122,6 @@ namespace Zbang.Zbox.Domain.Common
         Task AddFlashcardAsync(AddFlashcardCommand command);
         Task UpdateFlashcardAsync(UpdateFlashcardCommand command);
         Task PublishFlashcardAsync(PublishFlashcardCommand command);
+        void DeleteFlashcard(DeleteFlashcardCommand command);
     }
 }

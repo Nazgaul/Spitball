@@ -245,4 +245,7 @@
   <data name="quizCreateBrowserBack" xml:space="preserve">
     <value>Are you sure you want to leave this page? The created quiz will NOT be saved</value>
   </data>
+  <data name="flashcardLeaveTitle" xml:space="preserve">
+    <value>You haven't finished this flashcard. Do you want to leave?</value>
+  </data>
 </root>

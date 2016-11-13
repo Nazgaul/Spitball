@@ -183,7 +183,7 @@
                 for (let i = 0; i < this.quizData.questions.length; i++) {
                     const question = this.quizData.questions[i];
                     if (!question.id) {
-                        if (!confirm("Are you sure you want to leave this page?")) {
+                        if (!confirm(this.resManager.get("quizLeaveTitle"))) {
                             return false;
                         }
                     }

@@ -50,7 +50,7 @@ var app;
         return CardSlide;
     }());
     var FlashcardCreateController = (function () {
-        function FlashcardCreateController(flashcardService, $stateParams, $state, flashcard, $scope, $timeout) {
+        function FlashcardCreateController(flashcardService, $stateParams, $state, flashcard, $scope, $timeout, $window, resManager, $mdDialog, $q) {
             var _this = this;
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
@@ -58,6 +58,10 @@ var app;
             this.flashcard = flashcard;
             this.$scope = $scope;
             this.$timeout = $timeout;
+            this.$window = $window;
+            this.resManager = resManager;
+            this.$mdDialog = $mdDialog;
+            this.$q = $q;
             this.serviceCalled = false;
             this.upload = {
                 url: "/flashcard/image/",
@@ -132,17 +136,33 @@ var app;
             $scope.$on("update-model", function () {
                 _this.create();
             });
+            $window.onbeforeunload = function () {
+                if (_this.form.$dirty) {
+                    return _this.resManager.get("flashcardLeaveTitle");
+                }
+            };
+            $scope.$on("$destroy", function () {
+                $window.onbeforeunload = undefined;
+            });
+            $scope.$on("$stateChangeStart", function (event) {
+                if (_this.form.$dirty) {
+                    if (!confirm(_this.resManager.get("flashcardLeaveTitle"))) {
+                        event.preventDefault();
+                        $scope.$emit("state-change-start-prevent");
+                    }
+                }
+            });
         }
         FlashcardCreateController.prototype.publish = function () {
-            var _this = this;
             this.flashcardService.publish(this.data.id, this.data, this.$stateParams.boxId)
-                .then(function () {
-                _this.$state.go("box.flashcards", {
-                    boxtype: _this.$stateParams["boxtype"],
-                    universityType: _this.$stateParams["universityType"],
-                    boxId: _this.$stateParams.boxId,
-                    boxName: _this.$stateParams["boxName"]
-                });
+                .then(this.navigateBackToBox);
+        };
+        FlashcardCreateController.prototype.navigateBackToBox = function () {
+            this.$state.go("box.flashcards", {
+                boxtype: this.$stateParams["boxtype"],
+                universityType: this.$stateParams["universityType"],
+                boxId: this.$stateParams.boxId,
+                boxName: this.$stateParams["boxName"]
             });
         };
         FlashcardCreateController.prototype.create = function () {
@@ -153,17 +173,16 @@ var app;
                 self.form.$setPristine();
             }
             if (!this.form.$dirty) {
-                return;
+                return this.$q.when();
             }
             if (this.serviceCalled) {
-                return;
+                return this.$q.when();
             }
             this.serviceCalled = true;
             if (this.data.id) {
-                this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(afterCall);
-                return;
+                return this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(afterCall);
             }
-            this.flashcardService.create(this.data, this.$stateParams.boxId).then(function (response) {
+            return this.flashcardService.create(this.data, this.$stateParams.boxId).then(function (response) {
                 _this.data.id = response;
                 afterCall();
                 _this.$state.go("flashcardCreate", {
@@ -188,11 +207,29 @@ var app;
             }
             this.data.cards.push(new Card());
         };
+        FlashcardCreateController.prototype.close = function (ev) {
+            var _this = this;
+            if (!this.data.id) {
+                this.navigateBackToBox();
+                return;
+            }
+            var confirm = this.$mdDialog.confirm()
+                .title(this.resManager.get('quizLeaveTitle'))
+                .textContent(this.resManager.get('quizLeaveContent'))
+                .targetEvent(ev)
+                .ok(this.resManager.get('quizDelete'))
+                .cancel(this.resManager.get('quizSaveAsDraft'));
+            this.$mdDialog.show(confirm).then(function () {
+            }, function () {
+                _this.create().then(_this.navigateBackToBox);
+            });
+        };
         FlashcardCreateController.prototype.move = function (dropCardIndex, card) {
             var cardIndex = this.data.cards.indexOf(card);
             this.data.cards.splice(cardIndex, 0, this.data.cards.splice(dropCardIndex, 1)[0]);
         };
-        FlashcardCreateController.$inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope", "$timeout"];
+        FlashcardCreateController.$inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope",
+            "$timeout", "$window", "resManager", "$mdDialog", "$q"];
         return FlashcardCreateController;
     }());
     angular.module("app.flashcard").controller("flashcardCreate", FlashcardCreateController);

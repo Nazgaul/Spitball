@@ -8,11 +8,10 @@
         publish(id: number, model, boxId: number): angular.IPromise<any>;
     }
 
-    class Flashcard {
+    class Flashcard implements IFlashcardService {
         static $inject = ["ajaxService2"];
-
         constructor(private ajaxService2: IAjaxService2) {
-
+        
         }
         create(model, boxId: number) {
             return this.ajaxService2.post("/flashcard/", { model: model, boxId: boxId });

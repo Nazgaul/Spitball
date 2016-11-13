@@ -69,7 +69,7 @@ namespace Zbang.Zbox.Domain
         //public int LikeCount { get; set; }
         //public int CardCount { get; set; }
 
-        //public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
 
         //public ICollection<Card> Cards { get; set; }
 

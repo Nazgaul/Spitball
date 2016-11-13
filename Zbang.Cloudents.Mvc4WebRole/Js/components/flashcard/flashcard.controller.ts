@@ -55,38 +55,60 @@ module app {
     class FlashcardCreateController {
         data: FlashCard;
         form: angular.IFormController;
-        static $inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope", "$timeout"];
+        static $inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope",
+            "$timeout", "$window", "resManager", "$mdDialog", "$q"];
         constructor(private flashcardService: IFlashcardService,
             private $stateParams: spitaball.ISpitballStateParamsService,
             private $state: angular.ui.IStateService,
             private flashcard: FlashCard,
             private $scope: angular.IScope,
-            private $timeout: angular.ITimeoutService) {
-
+            private $timeout: angular.ITimeoutService,
+            private $window: angular.IWindowService,
+            private resManager: IResManager,
+            private $mdDialog: angular.material.IDialogService,
+            private $q: angular.IQService) {
             if (flashcard) {
                 this.data = new FlashCard().deserialize(flashcard);
                 this.data.id = $stateParams["id"];
             } else {
                 this.data = new FlashCard();
             }
+            
             $scope.$on("update-model",
                 () => {
                     this.create();
                 });
+            $window.onbeforeunload = () => {
+                if (this.form.$dirty) {
+                    return this.resManager.get("flashcardLeaveTitle");
+                }
+            };
+            $scope.$on("$destroy", () => {
+                $window.onbeforeunload = undefined;
+            });
+            $scope.$on("$stateChangeStart",
+                (event: angular.IAngularEvent) => {
+                    if (this.form.$dirty) {
+                        if (!confirm(this.resManager.get("flashcardLeaveTitle"))) {
+                            event.preventDefault();
+                            $scope.$emit("state-change-start-prevent");
+                        }
+                    }
 
-
+                });
         }
         private serviceCalled = false;
         publish() {
             this.flashcardService.publish(this.data.id, this.data, this.$stateParams.boxId)
-                .then(() => {
-                    this.$state.go("box.flashcards",
-                    {
-                        boxtype: this.$stateParams["boxtype"],
-                        universityType: this.$stateParams["universityType"],
-                        boxId: this.$stateParams.boxId,
-                        boxName: this.$stateParams["boxName"]
-                    });
+                .then(this.navigateBackToBox);
+        }
+        private navigateBackToBox() {
+            this.$state.go("box.flashcards",
+                {
+                    boxtype: this.$stateParams["boxtype"],
+                    universityType: this.$stateParams["universityType"],
+                    boxId: this.$stateParams.boxId,
+                    boxName: this.$stateParams["boxName"]
                 });
         }
         create() {
@@ -95,20 +117,17 @@ module app {
                 self.serviceCalled = false;
                 self.form.$setPristine();
             }
-
             if (!this.form.$dirty) {
-                return;
+                return this.$q.when();
             }
             if (this.serviceCalled) {
-                return;
+                return this.$q.when();
             }
             this.serviceCalled = true;
             if (this.data.id) {
-
-                this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(afterCall);
-                return;
+                return this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(afterCall);
             }
-            this.flashcardService.create(this.data, this.$stateParams.boxId).then(response => {
+            return this.flashcardService.create(this.data, this.$stateParams.boxId).then(response => {
                 this.data.id = response;
                 afterCall();
                 this.$state.go("flashcardCreate",
@@ -134,6 +153,25 @@ module app {
                 return;
             }
             this.data.cards.push(new Card());
+        }
+        close(ev) {
+            if (!this.data.id) {
+                this.navigateBackToBox();
+                return;
+            }
+            
+            const confirm = this.$mdDialog.confirm()
+                .title(this.resManager.get('quizLeaveTitle'))
+                .textContent(this.resManager.get('quizLeaveContent'))
+                .targetEvent(ev)
+                .ok(this.resManager.get('quizDelete'))
+                .cancel(this.resManager.get('quizSaveAsDraft'));
+
+            this.$mdDialog.show(confirm).then(() => {
+                // this.quizService.deleteQuiz(quizId).then(this.navigateBackToBox);
+            }, () => {
+                this.create().then(this.navigateBackToBox);
+            });
         }
         move(dropCardIndex: number, card: Card) {
             const cardIndex = this.data.cards.indexOf(card);

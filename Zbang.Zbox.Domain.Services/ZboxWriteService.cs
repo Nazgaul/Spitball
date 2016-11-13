@@ -772,5 +772,14 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+        public void DeleteFlashcard(DeleteFlashcardCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
     }
 }

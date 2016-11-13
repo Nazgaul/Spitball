@@ -142,6 +142,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You haven&apos;t finished this flashcard. Do you want to leave?.
+        /// </summary>
+        public static string flashcardLeaveTitle {
+            get {
+                return ResourceManager.GetString("flashcardLeaveTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The new password was saved.
         /// </summary>
         public static string passwordChangeSuccess {
