@@ -20,15 +20,25 @@ var app;
     var Flashcard = (function () {
         function Flashcard(flashcard) {
             this.step = Steps.Start;
+            this.slidepos = 0;
             console.log(flashcard);
             this.flashcard = flashcard;
         }
         Flashcard.prototype.start = function () {
             if (shuffle) {
                 shuffle(this.flashcard.cards);
-                console.log(this.flashcard.cards);
             }
+            this.slidepos = 0;
+            this.slide = this.flashcard.cards[this.slidepos];
             this.step = Steps.Memo;
+        };
+        Flashcard.prototype.prev = function () {
+            this.slidepos = Math.max(0, --this.slidepos);
+            this.slide = this.flashcard.cards[this.slidepos];
+        };
+        Flashcard.prototype.next = function () {
+            this.slidepos = Math.min(this.flashcard.cards.length, ++this.slidepos);
+            this.slide = this.flashcard.cards[this.slidepos];
         };
         Flashcard.$inject = ["flashcard"];
         return Flashcard;
