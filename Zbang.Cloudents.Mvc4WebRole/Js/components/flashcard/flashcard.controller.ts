@@ -22,6 +22,8 @@
         flashcard: FlashCard;
         shuffle: boolean;
         step = Steps.Start;
+        slidepos = 0;
+        slide: Card;
         constructor(flashcard: FlashCard) {
             console.log(flashcard);
             this.flashcard = flashcard;
@@ -30,9 +32,23 @@
         start() {
             if (shuffle) {
                 shuffle(this.flashcard.cards);
-                console.log(this.flashcard.cards);
             }
+            this.slidepos = 0;
+            this.slide = this.flashcard.cards[this.slidepos];
             this.step = Steps.Memo;
+        }
+        prev() {
+            this.slidepos = Math.max(0, --this.slidepos);
+            this.step = Steps.Memo;
+            this.slide = this.flashcard.cards[this.slidepos];
+        }
+        next() {
+            this.slidepos = Math.min(this.flashcard.cards.length, ++this.slidepos);
+            if (this.slidepos === this.flashcard.cards.length) {
+                this.step = Steps.End;
+                return;
+            }
+            this.slide = this.flashcard.cards[this.slidepos];
         }
     }
 

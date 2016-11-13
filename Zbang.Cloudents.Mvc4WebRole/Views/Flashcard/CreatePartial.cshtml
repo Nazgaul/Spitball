@@ -1,24 +1,26 @@
 ﻿
+@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
+@using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 <header layout="row">
-    <div flex class="text-center text-capitalize">Create a Flashcard</div>
+    <div flex class="text-center text-capitalize">@FlashcardResources.flashCardTitle</div>
     <button flex="none" type="button" ng-click="f.close($event)" class="close" ga-track-event="['createFlashcard', 'close']"><md-icon md-svg-icon="t:close"></md-icon></button>
 </header>
 <form name="f.form" class="content" interaction-done>
     <div layout="row" layout-align="space-between center" class="flashcard-top">
         <md-input-container flex="50">
             <input name="name" type="text"
-                   placeholder="Enter flashcard name" autocomplete="off" autofocus required md-no-asterisk ng-model="f.data.name" />
+                   placeholder="@FlashcardResources.flashcardPlaceholder" autocomplete="off" autofocus required md-no-asterisk ng-model="f.data.name" />
         </md-input-container>
-        <button type="button" ng-click="f.publish()" class="action-btn">Create</button>
+        <button type="button" ng-click="f.publish()" class="action-btn">@GeneralResources.Create</button>
     </div>
     <div class="flashcard-body">
         <div layout="row" layout-align="space-between center" class="header">
 
-            <div flex="50">front</div>
+            <div flex="50">@FlashcardResources.front</div>
             <md-button type="button" ng-click="f.flip()" class="flip-btn">
                 <md-icon md-svg-icon="b:flashcard-arrow"></md-icon>
             </md-button>
-            <div flex="50">back</div>
+            <div flex="50">@FlashcardResources.back</div>
         </div>
         <ol ui-on-drop="true">
             <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" card-settings="#settings{{$index}}" card-settings-event="click" ng-repeat="card in f.data.cards">
