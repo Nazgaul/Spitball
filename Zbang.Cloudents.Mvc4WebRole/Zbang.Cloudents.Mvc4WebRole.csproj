@@ -2705,7 +2705,7 @@
       <LastGenOutput>ValidatePasswordResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Flashcard\Resources\FlashcardResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FlashcardResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Home\Resources\AboutUsResources.he.resx" />
