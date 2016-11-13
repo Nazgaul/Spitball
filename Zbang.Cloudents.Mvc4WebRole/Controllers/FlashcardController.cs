@@ -51,6 +51,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 throw new ArgumentException("Flashcard is published");
             }
+            if (values.IsDeleted)
+            {
+                throw new ArgumentException("Flashcard is deleted");
+            }
             if (values.UserId != User.GetUserId())
             {
                 throw new ArgumentException("This is not the owner");
@@ -189,10 +193,10 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
         }
         [HttpDelete, ZboxAuthorize, ActionName("Index")]
-        public JsonResult Delete(long id)
+        public async Task<JsonResult> DeleteAsync(long id)
         {
             var command = new DeleteFlashcardCommand(id, User.GetUserId());
-            ZboxWriteService.DeleteFlashcard(command);
+            await ZboxWriteService.DeleteFlashcardAsync(command);
             //var values = await m_DocumentDbReadService.FlashcardAsync(id);
             //if (values.Publish)
             //{

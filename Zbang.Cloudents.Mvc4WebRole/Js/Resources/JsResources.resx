@@ -248,4 +248,8 @@
   <data name="flashcardLeaveTitle" xml:space="preserve">
     <value>You haven't finished this flashcard. Do you want to leave?</value>
   </data>
+  <data name="flashcardLeaveContent" xml:space="preserve">
+    <value>Save this flashcard as a draft for future editing
+(Only you are able to see and edit the draft)</value>
+  </data>
 </root>

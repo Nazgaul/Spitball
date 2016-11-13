@@ -63,6 +63,14 @@ var app;
             this.$mdDialog = $mdDialog;
             this.$q = $q;
             this.serviceCalled = false;
+            this.navigateBackToBox = function () {
+                _this.$state.go("box.flashcards", {
+                    boxtype: _this.$stateParams["boxtype"],
+                    universityType: _this.$stateParams["universityType"],
+                    boxId: _this.$stateParams.boxId,
+                    boxName: _this.$stateParams["boxName"]
+                });
+            };
             this.upload = {
                 url: "/flashcard/image/",
                 removeImage: function (slide) {
@@ -157,14 +165,6 @@ var app;
             this.flashcardService.publish(this.data.id, this.data, this.$stateParams.boxId)
                 .then(this.navigateBackToBox);
         };
-        FlashcardCreateController.prototype.navigateBackToBox = function () {
-            this.$state.go("box.flashcards", {
-                boxtype: this.$stateParams["boxtype"],
-                universityType: this.$stateParams["universityType"],
-                boxId: this.$stateParams.boxId,
-                boxName: this.$stateParams["boxName"]
-            });
-        };
         FlashcardCreateController.prototype.create = function () {
             var _this = this;
             var self = this;
@@ -214,12 +214,13 @@ var app;
                 return;
             }
             var confirm = this.$mdDialog.confirm()
-                .title(this.resManager.get('quizLeaveTitle'))
-                .textContent(this.resManager.get('quizLeaveContent'))
+                .title(this.resManager.get('flashcardLeaveTitle'))
+                .textContent(this.resManager.get('flashcardLeaveContent'))
                 .targetEvent(ev)
                 .ok(this.resManager.get('quizDelete'))
                 .cancel(this.resManager.get('quizSaveAsDraft'));
             this.$mdDialog.show(confirm).then(function () {
+                _this.flashcardService.delete(_this.data.id).then(_this.navigateBackToBox);
             }, function () {
                 _this.create().then(_this.navigateBackToBox);
             });

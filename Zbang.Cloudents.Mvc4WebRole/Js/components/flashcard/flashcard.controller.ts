@@ -73,7 +73,7 @@ module app {
             } else {
                 this.data = new FlashCard();
             }
-            
+
             $scope.$on("update-model",
                 () => {
                     this.create();
@@ -102,7 +102,7 @@ module app {
             this.flashcardService.publish(this.data.id, this.data, this.$stateParams.boxId)
                 .then(this.navigateBackToBox);
         }
-        private navigateBackToBox() {
+        private navigateBackToBox = () => {
             this.$state.go("box.flashcards",
                 {
                     boxtype: this.$stateParams["boxtype"],
@@ -159,16 +159,16 @@ module app {
                 this.navigateBackToBox();
                 return;
             }
-            
+
             const confirm = this.$mdDialog.confirm()
-                .title(this.resManager.get('quizLeaveTitle'))
-                .textContent(this.resManager.get('quizLeaveContent'))
+                .title(this.resManager.get('flashcardLeaveTitle'))
+                .textContent(this.resManager.get('flashcardLeaveContent'))
                 .targetEvent(ev)
                 .ok(this.resManager.get('quizDelete'))
                 .cancel(this.resManager.get('quizSaveAsDraft'));
 
             this.$mdDialog.show(confirm).then(() => {
-                // this.quizService.deleteQuiz(quizId).then(this.navigateBackToBox);
+                this.flashcardService.delete(this.data.id).then(this.navigateBackToBox);
             }, () => {
                 this.create().then(this.navigateBackToBox);
             });

@@ -22,7 +22,7 @@ namespace Zbang.Zbox.Domain.Commands
         public Flashcard Flashcard { get; private set; }
     }
 
-    public class DeleteFlashcardCommand : ICommand
+    public class DeleteFlashcardCommand : ICommandAsync
     {
         public DeleteFlashcardCommand(long id, long userId)
         {

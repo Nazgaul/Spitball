@@ -19,6 +19,9 @@ var app;
         Flashcard.prototype.publish = function (id, model, boxId) {
             return this.ajaxService2.post("/flashcard/publish/", { id: id, model: model, boxId: boxId });
         };
+        Flashcard.prototype.delete = function (id) {
+            return this.ajaxService2.delete("/flashcard/", { id: id });
+        };
         Flashcard.$inject = ["ajaxService2"];
         return Flashcard;
     }());

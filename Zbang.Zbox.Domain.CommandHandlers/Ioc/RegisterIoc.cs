@@ -160,7 +160,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers.Ioc
             ioc.RegisterType(typeof(ICommandHandlerAsync<PublishFlashcardCommand>),
            typeof(PublishFlashcardCommandHandler));
 
-            ioc.RegisterType(typeof(ICommandHandler<DeleteFlashcardCommand>),
+            ioc.RegisterType(typeof(ICommandHandlerAsync<DeleteFlashcardCommand>),
            typeof(DeleteFlashcardCommandHandler));
         }
     }
