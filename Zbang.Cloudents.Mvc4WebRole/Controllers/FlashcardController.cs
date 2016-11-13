@@ -116,17 +116,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 Name = model.Name,
                 Publish = false,
                 DateTime = DateTime.UtcNow,
-                Cards = model.Cards.Select(s => new Zbox.Domain.Card
+                Cards = model.Cards?.Select(s => new Zbox.Domain.Card
                 {
                     Cover = new Zbox.Domain.CardSlide
                     {
-                        Text = s.Cover.Text,
-                        Image = s.Cover.Image
+                        Text = s?.Cover?.Text,
+                        Image = s?.Cover?.Image
                     },
                     Front = new Zbox.Domain.CardSlide
                     {
-                        Image = s.Front.Image,
-                        Text = s.Front.Text
+                        Image = s?.Front?.Image,
+                        Text = s?.Front?.Text
                     }
                 })
             };
