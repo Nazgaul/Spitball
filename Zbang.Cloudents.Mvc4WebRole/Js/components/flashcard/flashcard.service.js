@@ -7,6 +7,9 @@ var app;
         Flashcard.prototype.create = function (model, boxId) {
             return this.ajaxService2.post("/flashcard/", { model: model, boxId: boxId });
         };
+        Flashcard.prototype.get = function (id, boxId) {
+            return this.ajaxService2.get("/flashcard/data/", { id: id, boxId: boxId });
+        };
         Flashcard.prototype.draft = function (id) {
             return this.ajaxService2.get("/flashcard/draft/", { id: id });
         };

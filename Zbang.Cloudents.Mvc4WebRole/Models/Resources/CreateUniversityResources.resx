@@ -120,7 +120,4 @@
   <data name="CreateDept" xml:space="preserve">
     <value>Create a department</value>
   </data>
-  <data name="FieldRequired" xml:space="preserve">
-    <value>This field is required</value>
-  </data>
 </root>

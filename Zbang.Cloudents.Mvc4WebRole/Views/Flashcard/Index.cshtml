@@ -1,1 +1,27 @@
-﻿<div>hi</div>
+﻿<div ng-switch="f.step">
+    <div ng-switch-when="0">
+        <h1 ng-bind="::f.flashcard.name"></h1>
+        <ng-pluralize count="::f.flashcard.cards.length"
+                      when="{
+                        '1': '1 card',
+                        'other': '{} cards'
+                      }"></ng-pluralize>
+        <button type="button" ng-click="f.start()">start</button>
+        <md-switch ng-model="f.shuffle">
+            shuffle cards
+        </md-switch>
+    </div>
+    <div ng-switch-when="1">
+        <h4>cards</h4>
+        <md-progress-linear md-mode="determinate" value="f.slidepos / f.flashcard.cards.length * 100"></md-progress-linear>
+        <span>progress</span>
+        <span>f.slidepos/{{::f.flashcard.cards.length}}</span>
+        
+        <button type="button" ng-click="f.">front</button>
+        <button type="button">back</button>
+        <button type="button">both</button>
+    </div>
+    <div ng-switch-when="2">
+        bye
+    </div>
+</div>

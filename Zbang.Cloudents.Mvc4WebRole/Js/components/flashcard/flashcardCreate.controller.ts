@@ -2,7 +2,7 @@
 module app {
     "use strict";
 
-    class FlashCard implements ISerializable<FlashCard> {
+    export class FlashCard implements ISerializable<FlashCard> {
 
         id: number;
         name: string;
@@ -25,7 +25,7 @@ module app {
 
 
     }
-    class Card implements ISerializable<Card> {
+    export class Card implements ISerializable<Card> {
         front = new CardSlide();
         cover = new CardSlide();
 
@@ -40,7 +40,7 @@ module app {
             return this;
         }
     }
-    class CardSlide implements ISerializable<CardSlide> {
+    export class CardSlide implements ISerializable<CardSlide> {
         text: string;
         image: string;
         deserialize(input: CardSlide) {

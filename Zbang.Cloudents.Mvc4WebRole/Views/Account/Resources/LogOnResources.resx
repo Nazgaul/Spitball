@@ -165,9 +165,6 @@
   <data name="ExternalProvider" xml:space="preserve">
     <value>Connect</value>
   </data>
-  <data name="Submit" xml:space="preserve">
-    <value>Submit</value>
-  </data>
   <data name="CheckEmailTitle" xml:space="preserve">
     <value>Check your email</value>
   </data>

@@ -68,14 +68,5 @@ namespace Zbang.Cloudents.Mvc4WebRole.Models.Resources {
                 return ResourceManager.GetString("CreateDept", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This field is required.
-        /// </summary>
-        public static string FieldRequired {
-            get {
-                return ResourceManager.GetString("FieldRequired", resourceCulture);
-            }
-        }
     }
 }

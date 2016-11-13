@@ -33,6 +33,12 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             m_BlobProvider = blobProvider;
         }
 
+        [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{itemid:long}/{itemName}", Name = "Flashcard")]
+        public ActionResult Index()
+        {
+            return View("Empty");
+        }
+
 
         [ZboxAuthorize(IsAuthenticationRequired = false)]
         [DonutOutputCache(CacheProfile = "PartialPage")]
@@ -57,13 +63,31 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 throw new ArgumentException("Flashcard is published");
             }
+            if (values.UserId != User.GetUserId())
+            {
+                throw new ArgumentException("This is not the owner");
+            }
             if (values.IsDeleted)
             {
                 throw new ArgumentException("Flashcard is deleted");
             }
-            if (values.UserId != User.GetUserId())
+            return JsonOk(new
             {
-                throw new ArgumentException("This is not the owner");
+                values.Cards,
+                values.Name
+
+            });
+        }
+        [ActionName("Data")]
+        [HttpGet]
+        [ZboxAuthorize(IsAuthenticationRequired = false)]
+        [BoxPermission("boxId")]
+        public async Task<ActionResult> DataAsync(long id, long boxId)
+        {
+            var values = await m_DocumentDbReadService.FlashcardAsync(id);
+            if (!values.Publish)
+            {
+                throw new ArgumentException("Flashcard is not published");
             }
             if (values.IsDeleted)
             {

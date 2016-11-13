@@ -262,6 +262,9 @@
 .color-parent0 .child-color.fill {
   fill: #64A9F8;
 }
+.lowercase {
+  text-transform: lowercase;
+}
 button {
   border: 0;
   background: transparent;

@@ -120,9 +120,6 @@
   <data name="FriendSearchPlaceholder" xml:space="preserve">
     <value>Search for a classmate</value>
   </data>
-  <data name="FriendsHeader" xml:space="preserve">
-    <value>classmates</value>
-  </data>
   <data name="NewMessagePlaceholder" xml:space="preserve">
     <value>Type a message</value>
   </data>

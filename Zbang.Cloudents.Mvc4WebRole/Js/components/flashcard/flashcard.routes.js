@@ -31,6 +31,9 @@ var app;
                         config: {
                             url: '/flashcard/{universityName:encodeStr}/{boxId:int}/{boxName:encodeStr}/{id:int}/{name:encodeStr}/',
                             controller: 'flashcard as f',
+                            resolve: {
+                                flashcard: ['flashcardService', '$stateParams', function (flashcardService, $stateParams) { return flashcardService.get($stateParams["id"], $stateParams.boxId); }]
+                            },
                             data: { animateClass: 'flashcardPage' },
                             views: {
                                 "menu@": {

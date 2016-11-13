@@ -132,9 +132,6 @@
   <data name="Lang" xml:space="preserve">
     <value>שפה</value>
   </data>
-  <data name="NewPassword" xml:space="preserve">
-    <value>סיסמה חדשה</value>
-  </data>
   <data name="Notifications" xml:space="preserve">
     <value>התראות</value>
   </data>
@@ -152,9 +149,6 @@
   </data>
   <data name="changeUniversityBtn" xml:space="preserve">
     <value>החלף מוסד אקדמי</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>הגדרות</value>
   </data>
   <data name="VerificationCode" xml:space="preserve">
     <value>קוד אימות נשלח לכתובת המייל החדשה שהזנת</value>
