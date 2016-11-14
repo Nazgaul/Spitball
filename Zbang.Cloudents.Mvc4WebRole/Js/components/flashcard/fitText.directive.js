@@ -20,13 +20,11 @@ var app;
                     }
                     if (element[0].scrollHeight > element.parent()[0].offsetHeight) {
                         while (element[0].scrollHeight > element.parent()[0].offsetHeight) {
-                            console.log("small");
                             resizeTextSmall();
                         }
                     }
                     else {
                         while (element[0].scrollHeight < element.parent()[0].offsetHeight) {
-                            console.log("large");
                             resizeTextHeight();
                         }
                     }
