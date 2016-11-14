@@ -5,13 +5,34 @@
                 <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                 <h4>cards</h4>
             </div>
-            <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.fc.length * 100}}"></md-progress-linear>
-            <div class="progress-text">
+            <div class="progress-settings">
+                <md-menu hide-gt-xs>
+                    <md-button class="md-icon-button sides" ng-click="app.openMenu($mdOpenMenu, $event)">
+                        <md-icon md-svg-icon="t:settingMenu"></md-icon>
+                    </md-button>
+                    <md-menu-content width="1">
+                        <md-menu-item>
+                            <md-button ng-click="f.style=true">front</md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="f.style=false">back</md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="f.style=null">both</md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+                <div class="progress-line">
+                    <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.fc.length * 100}}"></md-progress-linear>
+                    <span hide-gt-xs>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
+                </div>
+            </div>
+            <div class="progress-text" hide-xs>
                 <span>progress</span>
                 <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
             </div>
         </div>
-        <div multiswitch-when="1" class="card-sides">
+        <div multiswitch-when="1" class="card-sides" hide-xs>
             <button type="button" ng-click="f.style=true" ng-class="{active:f.style===true}">
                 <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                 front

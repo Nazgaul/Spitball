@@ -5,6 +5,7 @@
 .flashcardPage {
     .fullPageElelment();
     border-top: 1px solid rgba(0, 0, 0, 0);
+    padding: 0 10px;
 
     .header {
         min-height: 160px;
@@ -12,14 +13,26 @@
         .align-items(center);
         .justifyContet(space-between);
 
+        @media(max-width: 600px) {
+            min-height: 80px;
+        }
+
         .progress-wrapper {
-            max-width: 240px;
             width: 100%;
+            position: relative;
+
+            @media(min-width: 600px) {
+                max-width: 240px;
+            }
 
             .title {
                 .displayFlex;
                 .align-items(center);
                 .justifyContet(flex-start);
+
+                @media(max-width: 600px) {
+                    display: none;
+                }
 
                 h4 {
                     font-size: 20px;
@@ -34,10 +47,45 @@
                 }
             }
 
-            md-progress-linear {
-                .custom-progress-bar(@buttonColorBlue, #d9e9f1, 16px, 8px);
-                box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.43);
-                margin-top: 16px;
+            .progress-settings {
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(center);
+
+                @media(min-width: 600px) {
+                    margin-top: 16px;
+                }
+
+                .sides {
+                    width: auto;
+                    height: auto;
+
+                    md-icon {
+                        width: 16px;
+                        height: 16px;
+                        fill: @buttonColorBlue;
+                        margin: 0;
+                    }
+                }
+
+                .progress-line {
+                    width: 100%;
+                    position: relative;
+
+                    span {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        text-align: center;
+                    }
+                }
+
+                md-progress-linear {
+                    .custom-progress-bar(@buttonColorBlue, #d9e9f1, 16px, 8px);
+                    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.43);
+                }
             }
 
             .progress-text {
@@ -46,6 +94,10 @@
                 .justifyContet(space-between);
                 text-transform: capitalize;
                 margin-top: 4px;
+
+                @media(max-width: 600px) {
+                    display: none;
+                }
             }
         }
 
@@ -69,6 +121,10 @@
             .displayFlex;
             .align-items(flex-start);
 
+            @media(max-width: 600px) {
+                display: none;
+            }
+
             .num {
                 font-size: 32px;
                 line-height: 32px;
@@ -89,8 +145,15 @@
     }
 
     nav.buttons {
+        .displayFlex;
+        .align-items(center);
+        .justifyContet(center);
         text-align: center;
         margin-top: 24px;
+
+        @media(max-width: 600px) {
+            .justifyContet(space-between);
+        }
 
         .prev {
             -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
@@ -153,11 +216,15 @@
             font-size: 50px;
             font-weight: bold;
             margin: 0;
+
+            @media(max-width: 600px) {
+                font-size: 32px;
+            }
         }
 
         .subtitle {
             display: block;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             color: @textColorGrey;
             font-size: 16px;
             .displayFlex;
@@ -175,6 +242,10 @@
             .justifyContet(center);
             margin-top: 30px;
             color: @textColorGrey;
+
+            @media(max-width: 600px) {
+                margin-top: 8px;
+            }
 
             md-switch {
                 margin: 0;
@@ -201,17 +272,18 @@
             .displayFlex;
             .align-items(center);
             .justifyContet(center);
+            flex-wrap: wrap;
             margin: 0 auto;
-
+            width: 100%;
 
             .action-btn {
-                width: 256px;
-                max-width: 100%;
+                width: 100%;
+                max-width: 256px;
                 height: 55px;
                 font-size: 20px;
                 font-weight: bold;
                 text-transform: capitalize;
-                margin: 0 10px;
+                margin: 10px;
 
                 &.pinned-cards {
                     background: @pinColor;
@@ -253,27 +325,33 @@
         .card-template {
             position: relative;
 
-            &.front .card-content {
+            &.front .card-content, &.back .card-content {
                 .side {
                     flex-direction: row;
 
-                    &.back {
-                        display: none;
+                    @media(max-width: 600px) {
+                        flex-direction: column;
                     }
+                }
+            }
+
+            &.front .card-content {
+                .side.back {
+                    display: none;
                 }
             }
 
             &.back .card-content {
-                .side {
-                    flex-direction: row;
-
-                    &.front {
-                        display: none;
-                    }
+                .side.front {
+                    display: none;
                 }
             }
 
             &.both .card-content {
+                @media(max-width: 600px) {
+                    flex-direction: column;
+                }
+
                 .card-content .side {
                     width: 50%;
 
@@ -294,6 +372,7 @@
 
                 .side {
                     width: 100%;
+                    flex-grow: 1;
                     padding: 50px;
                     .displayFlex;
                     .align-items(center);
@@ -302,6 +381,15 @@
 
                     &.front {
                         border-right: 1px solid @textColorLightGrey;
+                    }
+
+                    @media(max-width: 600px) {
+                        padding: 10px 50px;
+
+                        &.front {
+                            border-right: none;
+                            border-bottom: 1px solid @textColorLightGrey;
+                        }
                     }
 
                     .img-container {

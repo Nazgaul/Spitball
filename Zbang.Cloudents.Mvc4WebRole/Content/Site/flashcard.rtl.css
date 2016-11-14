@@ -1,5 +1,6 @@
 .flashcardPage {
   border-top: 1px solid rgba(0, 0, 0, 0);
+  padding: 0 10px;
 }
 @media (min-width: 960px) {
   .flashcardPage {
@@ -17,9 +18,19 @@
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
+@media (max-width: 600px) {
+  .flashcardPage .header {
+    min-height: 80px;
+  }
+}
 .flashcardPage .header .progress-wrapper {
-  max-width: 240px;
   width: 100%;
+  position: relative;
+}
+@media (min-width: 600px) {
+  .flashcardPage .header .progress-wrapper {
+    max-width: 240px;
+  }
 }
 .flashcardPage .header .progress-wrapper .title {
   display: -webkit-flex;
@@ -29,6 +40,11 @@
   align-items: center;
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
+}
+@media (max-width: 600px) {
+  .flashcardPage .header .progress-wrapper .title {
+    display: none;
+  }
 }
 .flashcardPage .header .progress-wrapper .title h4 {
   font-size: 20px;
@@ -40,27 +56,62 @@
   fill: #4190b9;
   margin-left: 10px;
 }
-.flashcardPage .header .progress-wrapper md-progress-linear {
+.flashcardPage .header .progress-wrapper .progress-settings {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+@media (min-width: 600px) {
+  .flashcardPage .header .progress-wrapper .progress-settings {
+    margin-top: 16px;
+  }
+}
+.flashcardPage .header .progress-wrapper .progress-settings .sides {
+  width: auto;
+  height: auto;
+}
+.flashcardPage .header .progress-wrapper .progress-settings .sides md-icon {
+  width: 16px;
+  height: 16px;
+  fill: #4190b9;
+  margin: 0;
+}
+.flashcardPage .header .progress-wrapper .progress-settings .progress-line {
+  width: 100%;
+  position: relative;
+}
+.flashcardPage .header .progress-wrapper .progress-settings .progress-line span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+}
+.flashcardPage .header .progress-wrapper .progress-settings md-progress-linear {
   height: 16px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.43);
-  margin-top: 16px;
 }
-.flashcardPage .header .progress-wrapper md-progress-linear.md-default-theme .md-container,
-.flashcardPage .header .progress-wrapper md-progress-linear .md-container {
+.flashcardPage .header .progress-wrapper .progress-settings md-progress-linear.md-default-theme .md-container,
+.flashcardPage .header .progress-wrapper .progress-settings md-progress-linear .md-container {
   border-radius: 8px;
 }
-.flashcardPage .header .progress-wrapper md-progress-linear.md-default-theme .md-container,
-.flashcardPage .header .progress-wrapper md-progress-linear .md-bar,
-.flashcardPage .header .progress-wrapper md-progress-linear .md-container {
+.flashcardPage .header .progress-wrapper .progress-settings md-progress-linear.md-default-theme .md-container,
+.flashcardPage .header .progress-wrapper .progress-settings md-progress-linear .md-bar,
+.flashcardPage .header .progress-wrapper .progress-settings md-progress-linear .md-container {
   height: 16px;
 }
-.flashcardPage .header .progress-wrapper md-progress-linear .md-container {
+.flashcardPage .header .progress-wrapper .progress-settings md-progress-linear .md-container {
   background: #d9e9f1;
   height: 16px;
 }
-.flashcardPage .header .progress-wrapper md-progress-linear .md-container .md-bar {
+.flashcardPage .header .progress-wrapper .progress-settings md-progress-linear .md-container .md-bar {
   background: #4190b9;
 }
 .flashcardPage .header .progress-wrapper .progress-text {
@@ -73,6 +124,11 @@
   justify-content: space-between;
   text-transform: capitalize;
   margin-top: 4px;
+}
+@media (max-width: 600px) {
+  .flashcardPage .header .progress-wrapper .progress-text {
+    display: none;
+  }
 }
 .flashcardPage .header .card-sides button.active md-icon {
   fill: #4190b9;
@@ -91,6 +147,11 @@
   -webkit-align-items: flex-start;
   align-items: flex-start;
 }
+@media (max-width: 600px) {
+  .flashcardPage .header .pinned-counter {
+    display: none;
+  }
+}
 .flashcardPage .header .pinned-counter .num {
   font-size: 32px;
   line-height: 32px;
@@ -106,8 +167,21 @@
   margin-bottom: 5px;
 }
 .flashcardPage nav.buttons {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
   text-align: center;
   margin-top: 24px;
+}
+@media (max-width: 600px) {
+  .flashcardPage nav.buttons {
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+  }
 }
 .flashcardPage nav.buttons .prev {
   -moz-transform: rotate(0);
@@ -166,9 +240,14 @@
   font-weight: bold;
   margin: 0;
 }
+@media (max-width: 600px) {
+  .flashcardPage .cards-info h1 {
+    font-size: 32px;
+  }
+}
 .flashcardPage .cards-info .subtitle {
   display: block;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   color: #888b8e;
   font-size: 16px;
   display: -webkit-flex;
@@ -192,6 +271,11 @@
   justify-content: center;
   margin-top: 30px;
   color: #888b8e;
+}
+@media (max-width: 600px) {
+  .flashcardPage .cards-info .shuffle {
+    margin-top: 8px;
+  }
 }
 .flashcardPage .cards-info .shuffle md-switch {
   margin: 0;
@@ -222,16 +306,18 @@
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center;
+  flex-wrap: wrap;
   margin: 0 auto;
+  width: 100%;
 }
 .flashcardPage .cards-info .action-buttons .action-btn {
-  width: 256px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 256px;
   height: 55px;
   font-size: 20px;
   font-weight: bold;
   text-transform: capitalize;
-  margin: 0 10px;
+  margin: 10px;
 }
 .flashcardPage .cards-info .action-buttons .action-btn.pinned-cards {
   background: #ebbc18;
@@ -268,17 +354,26 @@
 .flashcardPage .card-player .card-template {
   position: relative;
 }
-.flashcardPage .card-player .card-template.front .card-content .side {
+.flashcardPage .card-player .card-template.front .card-content .side,
+.flashcardPage .card-player .card-template.back .card-content .side {
   flex-direction: row;
+}
+@media (max-width: 600px) {
+  .flashcardPage .card-player .card-template.front .card-content .side,
+  .flashcardPage .card-player .card-template.back .card-content .side {
+    flex-direction: column;
+  }
 }
 .flashcardPage .card-player .card-template.front .card-content .side.back {
   display: none;
 }
-.flashcardPage .card-player .card-template.back .card-content .side {
-  flex-direction: row;
-}
 .flashcardPage .card-player .card-template.back .card-content .side.front {
   display: none;
+}
+@media (max-width: 600px) {
+  .flashcardPage .card-player .card-template.both .card-content {
+    flex-direction: column;
+  }
 }
 .flashcardPage .card-player .card-template.both .card-content .card-content .side {
   width: 50%;
@@ -301,6 +396,7 @@
 }
 .flashcardPage .card-player .card-template .card-content .side {
   width: 100%;
+  flex-grow: 1;
   padding: 50px;
   display: -webkit-flex;
   display: -ms-flex;
@@ -313,6 +409,15 @@
 }
 .flashcardPage .card-player .card-template .card-content .side.front {
   border-left: 1px solid #c3c3c3;
+}
+@media (max-width: 600px) {
+  .flashcardPage .card-player .card-template .card-content .side {
+    padding: 10px 50px;
+  }
+  .flashcardPage .card-player .card-template .card-content .side.front {
+    border-left: none;
+    border-bottom: 1px solid #c3c3c3;
+  }
 }
 .flashcardPage .card-player .card-template .card-content .side .img-container {
   display: -webkit-flex;
