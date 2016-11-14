@@ -1,4 +1,5 @@
-﻿using Zbang.Zbox.Infrastructure.Commands;
+﻿using System;
+using Zbang.Zbox.Infrastructure.Commands;
 
 namespace Zbang.Zbox.Domain.Commands
 {
@@ -13,6 +14,7 @@ namespace Zbang.Zbox.Domain.Commands
         public long UserId { get; private set; }
         public long FlashcardId { get; private set; }
 
+        public Guid Id { get; set; }
 
     }
 }

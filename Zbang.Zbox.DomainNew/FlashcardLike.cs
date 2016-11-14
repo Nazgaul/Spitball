@@ -19,9 +19,9 @@ namespace Zbang.Zbox.Domain
         }
         public Guid Id { get; set; }
 
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
-        public FlashcardMeta Flashcard { get; set; }
+        public virtual FlashcardMeta Flashcard { get; set; }
 
         public DateTime DateTime { get; set; }
 

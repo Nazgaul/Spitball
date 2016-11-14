@@ -30,6 +30,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             var like = new FlashcardLike(m_GuidGenerator.GetId(), user, flashcard);
             m_FlashcardLikeRepository.Save(like);
             m_FlashcardRepository.Save(flashcard);
+            message.Id = like.Id;
         }
     }
 }

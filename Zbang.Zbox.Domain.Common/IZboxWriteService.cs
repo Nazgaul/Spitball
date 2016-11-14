@@ -128,6 +128,8 @@ namespace Zbang.Zbox.Domain.Common
         void AddPinFlashcard(AddFlashcardPinCommand command);
         void DeletePinFlashcard(DeleteFlashcardPinCommand command);
         void AddFlashcardLike(AddFlashcardLikeCommand command);
+        void DeleteFlashcardLike(DeleteFlashcardLikeCommand command);
+
         #endregion
     }
 }

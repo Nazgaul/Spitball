@@ -91,6 +91,7 @@
     <Compile Include="CreateMembershipUserCommandResult.cs" />
     <Compile Include="CreateUniversityCommand.cs" />
     <Compile Include="DeleteBoxCommand.cs" />
+    <Compile Include="DeleteFlashcardLikeCommand.cs" />
     <Compile Include="DeleteFlashcardPinCommand.cs" />
     <Compile Include="DeleteItemCommentCommand.cs" />
     <Compile Include="DeleteItemCommentReplyCommand.cs" />
