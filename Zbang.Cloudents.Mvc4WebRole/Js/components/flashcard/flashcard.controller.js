@@ -36,6 +36,8 @@ var app;
             this.step = Steps.Start;
             this.slidepos = 0;
             this.disabled = false;
+            this.styleLegend = true;
+            this.style = true;
             this.pinCount = 0;
             angular.forEach(flashcard.cards, function (v, k) {
                 if (flashcard.pins.indexOf(k) !== -1) {
@@ -65,6 +67,7 @@ var app;
         FlashcardController.prototype.prev = function () {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
+            this.style = this.styleLegend;
             this.slide = this.fc[this.slidepos];
         };
         FlashcardController.prototype.next = function () {
@@ -73,7 +76,11 @@ var app;
                 this.step = Steps.End;
                 return;
             }
+            this.style = this.styleLegend;
             this.slide = this.fc[this.slidepos];
+        };
+        FlashcardController.prototype.changeStyle = function (s) {
+            this.style = this.styleLegend = s;
         };
         FlashcardController.prototype.pin = function () {
             this.slide.pin = !this.slide.pin;

@@ -69,21 +69,21 @@
                 </div>
             </div>
             <div class="card-sides">
-                <button type="button" ng-click="f.style=true" ng-class="{active:f.style===true}">
+                <button type="button" ng-click="f.changeStyle(true)" ng-class="{active:f.styleLegend===true}">
                     <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                     front
                 </button>
-                <button type="button" ng-click="f.style=false" ng-class="{active:f.style===false}">
+                <button type="button" ng-click="f.changeStyle(false)" ng-class="{active:f.styleLegend===false}">
                     <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                     back
                 </button>
-                <button type="button" ng-click="f.style=null" ng-class="{active:f.style===null}">
+                <button type="button" ng-click="f.changeStyle(null)" ng-class="{active:f.styleLegend===null}">
                     <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                     both
                 </button>
             </div>
         </div>*@
-        <div class="card-template" ng-init="f.style=true" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}">
+        <div class="card-template" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}">
             <button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:f.slide.pin}">
                 <md-icon md-svg-icon="b:pin"></md-icon>
             </button>
@@ -100,7 +100,7 @@
                     <div class="img-container" ng-if="f.slide.cover.image">
                         <img ng-src="{{f.slide.cover.image}}" alt="font image" />
                     </div>
-                    <div class="text-container" @*fit-text ng-bind="f.slide.cover.text"*@>
+                    <div class="text-container">
                         <p ng-bind="f.slide.cover.text" fit-text></p>
                     </div>
                 </div>

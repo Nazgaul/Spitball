@@ -56,6 +56,8 @@
         slidepos = 0;
         slide: Card;
         disabled = false;
+        styleLegend = true;
+        style = true;
 
         pinCount = 0;
         constructor(flashcard: Flashcard,
@@ -92,6 +94,7 @@
         prev() {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
+            this.style = this.styleLegend;
             this.slide = this.fc[this.slidepos];
         }
         next() {
@@ -100,7 +103,11 @@
                 this.step = Steps.End;
                 return;
             }
+            this.style = this.styleLegend;
             this.slide = this.fc[this.slidepos];
+        }
+        changeStyle(s) {
+            this.style = this.styleLegend = s;
         }
         pin() {
             //const index = this.flashcard.cards.indexOf(this.slide);
