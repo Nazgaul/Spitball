@@ -117,6 +117,7 @@ var app;
                             })(files[i], uploader.settings.slide, _this);
                         }
                         _this.$timeout(function () {
+                            uploader.start();
                         }, 1);
                     },
                     error: function (uploader, error) {

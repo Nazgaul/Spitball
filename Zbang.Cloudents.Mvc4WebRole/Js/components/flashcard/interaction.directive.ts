@@ -9,7 +9,7 @@
         scope = true;
 
         link = (scope: angular.IScope, element: JQuery) => {
-            var x;
+            var x: angular.IPromise<void>;
             element.on("click keydown",
                 () => {
                     this.$timeout.cancel(x);

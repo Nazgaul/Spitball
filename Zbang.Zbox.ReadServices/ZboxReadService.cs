@@ -1204,7 +1204,7 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
                     var result = new FlashcardUserDto
                     {
                         Pins = await grid.ReadAsync<int>(),
-                        Like = await grid.ReadFirstAsync<Guid>()
+                        Like = await grid.ReadFirstOrDefaultAsync<Guid?>()
                         
                     };
                     return result;

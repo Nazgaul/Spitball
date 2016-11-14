@@ -235,7 +235,7 @@ module app {
                         })(files[i], uploader.settings.slide, this);
                     }
                     this.$timeout(() => {
-                        //    uploader.start();
+                        uploader.start();
                     }, 1);
                 },
                 error: (uploader, error: plupload_error) => {
