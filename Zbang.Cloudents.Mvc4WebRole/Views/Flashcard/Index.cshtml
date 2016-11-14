@@ -25,8 +25,12 @@
                 both
             </button>
         </div>
-        <div multiswitch-when="2" class="card-sides">
-            pinned counter
+        <div multiswitch-when="2" class="pinned-counter">
+            <div class="num" ng-bind="::f.pinCount"></div>
+            <div class="icon">
+                <md-icon md-svg-icon="b:pin"></md-icon>
+                <div>pinned</div>
+            </div>
         </div>
     </div>
     <div multiswitch-when="0|2" class="cards-info">
@@ -60,7 +64,8 @@
                 </md-switch>
             </div>
             <div ng-if="f.step==2" class="like-wrapper">
-                <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()" ng-class="{liked:f.flashcard.like}">like</button>
+                <span>Enjoy this set? give it a like:</span>&nbsp;
+                <button ng-click="f.like()" ng-class="{liked:f.flashcard.like}"><md-icon md-svg-icon="b:like"></md-icon>Like</button>
             </div>
         </div>
     </div>
@@ -95,10 +100,10 @@
     </div>
 
     <nav multiswitch-when="1|2" class="buttons">
-        <button type="button" class="prev" ng-click="f.prev()" ng-disabled="f.slidepos == 0">
+        <button type="button" class="prev" keyboard-action="37" ng-click="f.prev()" ng-disabled="f.slidepos == 0">
             <md-icon md-svg-icon="t:arrow"></md-icon>
         </button>
-        <button type="button" class="next" ng-click="f.next()" ng-disabled="f.slidepos == f.flashcard.cards.length">
+        <button type="button" class="next" ng-click="f.next()" keyboard-action="39" ng-disabled="f.slidepos == f.flashcard.cards.length">
             <md-icon md-svg-icon="t:arrow"></md-icon>
         </button>
     </nav>

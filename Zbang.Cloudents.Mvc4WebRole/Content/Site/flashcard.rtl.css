@@ -84,6 +84,27 @@
   display: block;
   margin-left: 10px;
 }
+.flashcardPage .header .pinned-counter {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+.flashcardPage .header .pinned-counter .num {
+  font-size: 32px;
+  line-height: 32px;
+}
+.flashcardPage .header .pinned-counter .icon {
+  text-align: center;
+  font-size: 12px;
+}
+.flashcardPage .header .pinned-counter .icon md-icon {
+  width: 30px;
+  height: 30px;
+  fill: #ebbc18;
+  margin-bottom: 5px;
+}
 .flashcardPage nav.buttons {
   text-align: center;
   margin-top: 24px;
@@ -143,7 +164,7 @@
 .flashcardPage .cards-info h1 {
   font-size: 50px;
   font-weight: bold;
-  margin: 0 0 18px 0;
+  margin: 0;
 }
 .flashcardPage .cards-info .subtitle {
   display: block;
@@ -221,10 +242,28 @@
 }
 .flashcardPage .cards-info .like-wrapper {
   position: absolute;
-  bottom: 18px;
+  bottom: 10px;
   right: 0;
   left: 0;
   margin: 0 auto;
+  color: #888b8e;
+}
+.flashcardPage .cards-info .like-wrapper md-icon {
+  width: 20px;
+  height: 20px;
+  fill: #888b8e;
+  margin-bottom: 7px;
+  margin-left: 5px;
+}
+.flashcardPage .cards-info .like-wrapper,
+.flashcardPage .cards-info .like-wrapper button {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 .flashcardPage .card-player .card-template {
   position: relative;
