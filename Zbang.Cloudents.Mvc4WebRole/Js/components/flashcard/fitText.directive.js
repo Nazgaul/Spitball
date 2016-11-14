@@ -5,27 +5,25 @@ var app;
         function FitText() {
             this.restrict = "A";
             this.link = function (scope, element, attrs) {
-                var resizeTextSmall = function () {
-                    var elNewFontSize = (parseInt($(element).css('font-size').slice(0, -2)) - 1) + 'px';
-                    return $(element).css('font-size', elNewFontSize);
-                };
-                var resizeTextHeight = function () {
-                    var elNewFontSize = (parseInt($(element).css('font-size').slice(0, -2)) + 1) + 'px';
-                    return $(element).css('font-size', elNewFontSize);
+                var attributeToChange = "font-size";
+                var changeFontSize = function (isPositive) {
+                    var change = isPositive ? 1 : -1;
+                    var elNewFontSize = (parseInt($(element).css(attributeToChange).slice(0, -2)) + change) + 'px';
+                    return $(element).css(attributeToChange, elNewFontSize);
                 };
                 scope.$watchGroup([attrs["ngBind"], "f.style"], function (newValue) {
-                    $(element).css('font-size', "");
-                    if (!newValue) {
+                    $(element).css(attributeToChange, "");
+                    if (!newValue[0]) {
                         return;
                     }
-                    var resizeOccured;
-                    while (element[0].scrollHeight > element.parent()[0].offsetHeight && element[0].scrollWidth > element.parent()[0].offsetWidth) {
-                        resizeTextSmall();
+                    var resizeOccured = false;
+                    while (element[0].scrollHeight > element.parent()[0].offsetHeight || element[0].scrollWidth > element.parent()[0].offsetWidth) {
+                        changeFontSize(false);
                         resizeOccured = true;
                     }
                     if (!resizeOccured) {
-                        while (element[0].scrollHeight < element.parent()[0].offsetHeight && element[0].scrollWidth < element.parent()[0].offsetWidth) {
-                            resizeTextHeight();
+                        while (element[0].scrollHeight < element.parent()[0].offsetHeight || element[0].scrollWidth < element.parent()[0].offsetWidth) {
+                            changeFontSize(true);
                         }
                     }
                 });
