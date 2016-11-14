@@ -1,6 +1,7 @@
 ﻿@import "variables.less";
 
 @spaceFromTop: 160px;
+@pinColor: #ebbc18;
 
 .flashcardPage {
     .fullPageElelment();
@@ -90,6 +91,26 @@
                 height: 20px;
                 fill: @textColorGrey;
                 margin-right: 8px;
+            }
+        }
+
+        .buttons {
+            .displayFlex;
+            .align-items(center);
+            .justifyContet(center);
+            margin: 0 auto;
+
+            button {
+                margin: 0 10px;
+
+                &.pinned-cards {
+                    background: @pinColor;
+
+                    ng-pluralize {
+                        display: inline-block;
+                        margin: 0;
+                    }
+                }
             }
         }
     }
@@ -237,7 +258,7 @@
                 right: 5px;
 
                 &.pinned md-icon {
-                    fill: #ebbc18;
+                    fill: @pinColor;
                 }
 
                 md-icon {
@@ -264,7 +285,7 @@
     }
 
     .step-2, .step-3 {
-        .buttons {
+        nav.buttons {
             text-align: center;
             margin-top: 24px;
 

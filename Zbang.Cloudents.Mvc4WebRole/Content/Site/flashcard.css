@@ -102,6 +102,30 @@
   fill: #888b8e;
   margin-right: 8px;
 }
+.flashcardPage .step-1 .buttons,
+.flashcardPage .step-3 .buttons {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.flashcardPage .step-1 .buttons button,
+.flashcardPage .step-3 .buttons button {
+  margin: 0 10px;
+}
+.flashcardPage .step-1 .buttons button.pinned-cards,
+.flashcardPage .step-3 .buttons button.pinned-cards {
+  background: #ebbc18;
+}
+.flashcardPage .step-1 .buttons button.pinned-cards ng-pluralize,
+.flashcardPage .step-3 .buttons button.pinned-cards ng-pluralize {
+  display: inline-block;
+  margin: 0;
+}
 .flashcardPage .step-2 .header {
   min-height: 160px;
   display: -webkit-flex;
@@ -278,25 +302,25 @@
   height: 19px;
   fill: #c3c3c3;
 }
-.flashcardPage .step-2 .buttons,
-.flashcardPage .step-3 .buttons {
+.flashcardPage .step-2 nav.buttons,
+.flashcardPage .step-3 nav.buttons {
   text-align: center;
   margin-top: 24px;
 }
-.flashcardPage .step-2 .buttons .prev,
-.flashcardPage .step-3 .buttons .prev {
+.flashcardPage .step-2 nav.buttons .prev,
+.flashcardPage .step-3 nav.buttons .prev {
   -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
   -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
   -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
   -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
   transform: rotate(180deg) /*rtl:rotate(0)*/;
 }
-.flashcardPage .step-2 .buttons button[disabled] md-icon,
-.flashcardPage .step-3 .buttons button[disabled] md-icon {
+.flashcardPage .step-2 nav.buttons button[disabled] md-icon,
+.flashcardPage .step-3 nav.buttons button[disabled] md-icon {
   fill: #888b8e;
 }
-.flashcardPage .step-2 .buttons md-icon,
-.flashcardPage .step-3 .buttons md-icon {
+.flashcardPage .step-2 nav.buttons md-icon,
+.flashcardPage .step-3 nav.buttons md-icon {
   fill: #4190b9;
   width: 40px;
   height: 40px;
