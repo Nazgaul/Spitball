@@ -34,6 +34,7 @@
   -webkit-justify-content: center;
   justify-content: center;
   flex-direction: column;
+  position: relative;
 }
 .flashcardPage .step-1 .card-template,
 .flashcardPage .step-3 .card-template {
