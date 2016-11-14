@@ -1,15 +1,20 @@
 ﻿<div ng-switch="f.step">
-    <div ng-switch-when="0">
-        <h1 ng-bind="::f.flashcard.name"></h1>
-        <ng-pluralize count="::f.flashcard.cards.length"
-                      when="{
+    <div ng-switch-when="0" class="card-template step-1">
+        <div class="content">
+            <h1 ng-bind="::f.flashcard.name"></h1>
+            <ng-pluralize count="::f.flashcard.cards.length"
+                          when="{
                         '1': '1 card',
                         'other': '{} cards'
                       }"></ng-pluralize>
-        <button type="button" ng-click="f.start()">start</button>
-        <md-switch ng-model="f.shuffle">
-            shuffle cards
-        </md-switch>
+            <button type="button" class="action-btn" ng-click="f.start()">start</button>
+            <div class="shuffle">
+                <md-icon md-svg-icon="b:shuffle"></md-icon>
+                <md-switch ng-model="f.shuffle">
+                    shuffle cards
+                </md-switch>
+            </div>
+        </div>
     </div>
     <div ng-switch-when="1">
         <h4>cards</h4>
@@ -19,16 +24,16 @@
         <button type="button" ng-click="f.style=true">front</button>
         <button type="button" ng-click="f.style=false">back</button>
         <button type="button" ng-click="f.style=null">both</button>
-        <div ng-init="f.style=true" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}">
+        <div class="card-template" ng-init="f.style=true" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}">
             <button type="button" ng-click="f.pin()" ng-class="{pinned:f.slide.pin}">pin</button>
             <div>
-                <img ng-src="{{f.slide.front.image}}" ng-if="f.slide.front.image" alt="font image"/>
+                <img ng-src="{{f.slide.front.image}}" ng-if="f.slide.front.image" alt="font image" />
                 <p>
                     {{f.slide.front.text}}
                 </p>
             </div>
             <div>
-                <img ng-src="{{f.slide.cover.image}}" ng-if="f.slide.cover.image" alt="font image"/>
+                <img ng-src="{{f.slide.cover.image}}" ng-if="f.slide.cover.image" alt="font image" />
                 <p>
                     {{f.slide.cover.text}}
                 </p>
