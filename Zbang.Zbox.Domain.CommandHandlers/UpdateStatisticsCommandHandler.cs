@@ -11,9 +11,9 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
-        private readonly IRepository<FlashCardMeta> m_FlashcardRepository;
+        private readonly IRepository<FlashcardMeta> m_FlashcardRepository;
         public UpdateStatisticsCommandHandler(IRepository<Item> itemRepository, 
-            IRepository<Domain.Quiz> quizRepository, IRepository<FlashCardMeta> flashcardRepository)
+            IRepository<Domain.Quiz> quizRepository, IRepository<FlashcardMeta> flashcardRepository)
         {
             m_ItemRepository = itemRepository;
             m_QuizRepository = quizRepository;

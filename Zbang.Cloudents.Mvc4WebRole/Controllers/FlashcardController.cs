@@ -279,8 +279,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 return JsonOk(url);
             }
 
-            //var url = await m_BlobProvider.UploadQuizImageAsync(file.InputStream, file.ContentType, boxId, file.FileName);
-            //return JsonOk(url);
+        }
+
+        [HttpPost, ZboxAuthorize]
+        public JsonResult Pin(Pin model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            var command = new AddFlashcardPinCommand(User.GetUserId(), model.Id.GetValueOrDefault(), model.Index.GetValueOrDefault());
+            ZboxWriteService.AddPinFlashcard(command);
+            return JsonOk();
         }
     }
 }

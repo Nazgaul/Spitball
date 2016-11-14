@@ -430,6 +430,7 @@
     <Compile Include="Models\ItemPreview.cs" />
     <Compile Include="Models\JavaScriptError.cs" />
     <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\Pin.cs" />
     <Compile Include="Models\Quiz\Answer.cs" />
     <Compile Include="Models\Quiz\Discussion.cs" />
     <Compile Include="Models\Quiz\Question.cs" />

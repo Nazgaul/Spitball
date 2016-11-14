@@ -11,11 +11,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class PublishFlashcardCommandHandler : ICommandHandlerAsync<PublishFlashcardCommand>
     {
         private readonly IDocumentDbRepository<Flashcard> m_FlashcardRepository;
-        private readonly IRepository<FlashCardMeta> m_FlashcardMetaRepository;
+        private readonly IRepository<FlashcardMeta> m_FlashcardMetaRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
 
-        public PublishFlashcardCommandHandler(IDocumentDbRepository<Flashcard> flashcardRepository, IRepository<FlashCardMeta> flashcardMetaRepository, IUserRepository userRepository, IBoxRepository boxRepository)
+        public PublishFlashcardCommandHandler(IDocumentDbRepository<Flashcard> flashcardRepository, IRepository<FlashcardMeta> flashcardMetaRepository, IUserRepository userRepository, IBoxRepository boxRepository)
         {
             m_FlashcardRepository = flashcardRepository;
             m_FlashcardMetaRepository = flashcardMetaRepository;
@@ -40,6 +40,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             flashcard.Name = message.Flashcard.Name;
             flashcard.CardCount = message.Flashcard.Cards.Count();
             flashcard.DateTimeUser.UpdateUserTime(message.Flashcard.Id);
+            flashcard.Pins?.Clear();
             flashcard.Publish = true;
             m_FlashcardMetaRepository.Save(flashcard);
             await m_FlashcardRepository.UpdateItemAsync(message.Flashcard.id, message.Flashcard);
