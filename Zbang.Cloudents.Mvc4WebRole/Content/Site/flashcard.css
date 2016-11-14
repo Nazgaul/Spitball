@@ -266,6 +266,25 @@
   height: 19px;
   fill: #c3c3c3;
 }
+.flashcardPage .step-2 .buttons {
+  text-align: center;
+  margin-top: 24px;
+}
+.flashcardPage .step-2 .buttons .prev {
+  -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
+  -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
+  -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
+  -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
+  transform: rotate(180deg) /*rtl:rotate(0)*/;
+}
+.flashcardPage .step-2 .buttons button[disabled] md-icon {
+  fill: #888b8e;
+}
+.flashcardPage .step-2 .buttons md-icon {
+  fill: #4190b9;
+  width: 40px;
+  height: 40px;
+}
 .flashcardPage .md-thumb {
   background-color: #ffffff;
 }
