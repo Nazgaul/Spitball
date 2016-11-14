@@ -35,7 +35,8 @@
   justify-content: center;
   flex-direction: column;
 }
-.flashcardPage .step-1 {
+.flashcardPage .step-1 .card-template,
+.flashcardPage .step-3 .card-template {
   padding: 15px;
   margin-top: 160px;
   text-align: center;
@@ -43,25 +44,30 @@
   background-position: 0 100%;
   background-repeat: no-repeat;
 }
-.flashcardPage .step-1 h1 {
+.flashcardPage .step-1 h1,
+.flashcardPage .step-3 h1 {
   font-size: 50px;
   font-weight: bold;
   margin: 0 0 18px 0;
 }
-.flashcardPage .step-1 ng-pluralize {
+.flashcardPage .step-1 ng-pluralize,
+.flashcardPage .step-3 ng-pluralize {
   display: block;
   margin-bottom: 30px;
   color: #888b8e;
 }
-.flashcardPage .step-1 button {
+.flashcardPage .step-1 .action-btn,
+.flashcardPage .step-3 .action-btn {
   width: 256px;
   max-width: 100%;
   height: 55px;
   font-size: 20px;
   font-weight: bold;
   text-transform: capitalize;
+  margin: 0 auto;
 }
-.flashcardPage .step-1 .shuffle {
+.flashcardPage .step-1 .shuffle,
+.flashcardPage .step-3 .shuffle {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -72,7 +78,8 @@
   margin-top: 10px;
   color: #888b8e;
 }
-.flashcardPage .step-1 .shuffle md-switch {
+.flashcardPage .step-1 .shuffle md-switch,
+.flashcardPage .step-3 .shuffle md-switch {
   margin: 0;
   flex-direction: row-reverse;
   display: -webkit-flex;
@@ -83,11 +90,13 @@
   -webkit-justify-content: center;
   justify-content: center;
 }
-.flashcardPage .step-1 .shuffle md-switch .md-container {
+.flashcardPage .step-1 .shuffle md-switch .md-container,
+.flashcardPage .step-3 .shuffle md-switch .md-container {
   margin-right: 0;
   margin-left: 8px;
 }
-.flashcardPage .step-1 .shuffle md-icon {
+.flashcardPage .step-1 .shuffle md-icon,
+.flashcardPage .step-3 .shuffle md-icon {
   width: 22px;
   height: 20px;
   fill: #888b8e;
@@ -266,24 +275,52 @@
   height: 19px;
   fill: #c3c3c3;
 }
-.flashcardPage .step-2 .buttons {
+.flashcardPage .step-2 .buttons,
+.flashcardPage .step-3 .buttons {
   text-align: center;
   margin-top: 24px;
 }
-.flashcardPage .step-2 .buttons .prev {
+.flashcardPage .step-2 .buttons .prev,
+.flashcardPage .step-3 .buttons .prev {
   -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
   -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
   -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
   -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
   transform: rotate(180deg) /*rtl:rotate(0)*/;
 }
-.flashcardPage .step-2 .buttons button[disabled] md-icon {
+.flashcardPage .step-2 .buttons button[disabled] md-icon,
+.flashcardPage .step-3 .buttons button[disabled] md-icon {
   fill: #888b8e;
 }
-.flashcardPage .step-2 .buttons md-icon {
+.flashcardPage .step-2 .buttons md-icon,
+.flashcardPage .step-3 .buttons md-icon {
   fill: #4190b9;
   width: 40px;
   height: 40px;
+}
+.flashcardPage .subtitle {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.flashcardPage .subtitle h4,
+.flashcardPage .subtitle ng-pluralize {
+  margin: 0;
+  color: #888b8e;
+}
+.flashcardPage md-switch.md-checked .md-thumb {
+  background-color: #ffffff;
+}
+.flashcardPage md-switch.md-checked .md-ink-ripple {
+  color: #35cb63;
+}
+.flashcardPage md-switch.md-checked .md-bar {
+  background-color: #35cb63;
+  opacity: 1;
 }
 .flashcardPage .md-thumb {
   background-color: #ffffff;
