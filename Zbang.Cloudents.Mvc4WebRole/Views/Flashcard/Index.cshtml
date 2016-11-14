@@ -8,6 +8,13 @@
                         'other': '{} cards'
                       }"></ng-pluralize>
             <button type="button" class="action-btn" ng-click="f.start()">start</button>
+            <button type="button" class="action-btn" ng-if="::f.pinCount" ng-click="f.startPin()">
+                Study <ng-pluralize count="::f.pinCount"
+                                    when="{
+                        '1': '1 pin',
+                        'other': '{} pinned'
+                      }"></ng-pluralize>
+            </button>
             <div class="shuffle">
                 <md-icon md-svg-icon="b:shuffle"></md-icon>
                 <md-switch ng-model="f.shuffle">
@@ -23,7 +30,7 @@
                     <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                     <h4>cards</h4>
                 </div>
-                <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.flashcard.cards.length * 100}}"></md-progress-linear>
+                <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.fc.length * 100}}"></md-progress-linear>
                 <div class="progress-text">
                     <span>progress</span>
                     <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
@@ -53,7 +60,7 @@
                     <div class="img-container" ng-if="f.slide.front.image">
                         <img ng-src="{{f.slide.front.image}}" alt="font image" />
                     </div>
-                    <div class="text-container" >
+                    <div class="text-container">
                         <p ng-bind="f.slide.front.text" fit-text></p>
                     </div>
                 </div>
@@ -77,17 +84,23 @@
     <div ng-switch-when="2">
         <h1>Nice work!</h1>
         <h4>You just studied </h4>
-        <ng-pluralize count="::f.flashcard.cards.length"
+        <ng-pluralize count="::f.fc.length"
                       when="{
                         '1': '1 card!',
                         'other': '{} cards!'
                       }"></ng-pluralize>
         <button type="button" ng-click="f.start()">Start over</button>
-        <button type="button">Study 2 pinned card</button>
+        <button type="button" class="action-btn" ng-if="::f.pinCount" ng-click="f.startPin()">
+            Study <ng-pluralize count="::f.pinCount"
+                                when="{
+                        '1': '1 pin',
+                        'other': '{} pinned'
+                      }"></ng-pluralize>
+        </button>
         <md-switch ng-model="f.shuffle">
             shuffle cards
         </md-switch>
-        <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()" ng-class="{liked:f.fc.like}">like</button>
+        <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()" ng-class="{liked:f.flashcard.like}">like</button>
         <button type="button" ng-click="f.prev()">left</button>
         <button type="button" disabled>right</button>
     </div>

@@ -49,13 +49,16 @@
     }
     class FlashcardController {
         static $inject = ["flashcard", "flashcardService", "$stateParams"];
-        fc: Flashcard;
+        fc: Array<Card>;
+        flashcard: Flashcard;
         shuffle: boolean;
         step = Steps.Start;
         slidepos = 0;
         slide: Card;
         disabled = false;
-        constructor(private flashcard: Flashcard,
+
+        pinCount = 0;
+        constructor(flashcard: Flashcard,
             private flashcardService: IFlashcardService,
             private $stateParams: angular.ui.IStateParamsService) {
             angular.forEach(flashcard.cards,
@@ -66,29 +69,38 @@
                     v.index = k;
 
                 });
-            this.fc = flashcard;
+            this.flashcard = flashcard;
+            this.pinCount = flashcard.pins.length;
         }
 
         start() {
+            this.fc = this.flashcard.cards.slice(0);
+            this.goToStep2();
+        }
+        private goToStep2() {
             if (this.shuffle) {
-                shuffle(this.fc.cards);
+                shuffle(this.fc);
             }
             this.slidepos = 0;
-            this.slide = this.fc.cards[this.slidepos];
+            this.slide = this.fc[this.slidepos];
             this.step = Steps.Memo;
+        }
+        startPin() {
+            this.fc = this.flashcard.cards.filter(f => f.pin);
+            this.goToStep2();
         }
         prev() {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
-            this.slide = this.fc.cards[this.slidepos];
+            this.slide = this.fc[this.slidepos];
         }
         next() {
-            this.slidepos = Math.min(this.fc.cards.length, ++this.slidepos);
-            if (this.slidepos === this.fc.cards.length) {
+            this.slidepos = Math.min(this.fc.length, ++this.slidepos);
+            if (this.slidepos === this.fc.length) {
                 this.step = Steps.End;
                 return;
             }
-            this.slide = this.fc.cards[this.slidepos];
+            this.slide = this.fc[this.slidepos];
         }
         pin() {
             //const index = this.flashcard.cards.indexOf(this.slide);
@@ -102,10 +114,10 @@
         }
         like() {
             this.disabled = true;
-            if (!this.fc.like) {
-                this.flashcardService.like(this.$stateParams["id"]).then(response => this.fc.like = response).finally(() => this.disabled = false);
+            if (!this.flashcard.like) {
+                this.flashcardService.like(this.$stateParams["id"]).then(response => this.flashcard.like = response).finally(() => this.disabled = false);
             } else {
-                this.flashcardService.likeDelete(this.fc.like).then(() => this.fc.like = null).finally(() => this.disabled = false);
+                this.flashcardService.likeDelete(this.flashcard.like).then(() => this.flashcard.like = null).finally(() => this.disabled = false);
             }
         }
     }
