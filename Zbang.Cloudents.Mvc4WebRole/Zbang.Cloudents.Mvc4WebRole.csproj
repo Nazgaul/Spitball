@@ -1402,6 +1402,7 @@
     <Content Include="Js\initAngular.js" />
     <Content Include="Js\shared\collapseHeader.directive.js" />
     <Content Include="Js\shared\inlineManualNew.js" />
+    <Content Include="Js\shared\multiswitchWhen.directive.js" />
     <Content Include="Js\shared\sounds.js" />
     <Content Include="Js\shared\soundAlert.directive.js" />
     <Content Include="Js\shared\languageHandler.js" />
