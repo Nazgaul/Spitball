@@ -993,6 +993,7 @@
     <Content Include="Content\Site\flashcard.min.css">
       <DependentUpon>flashcard.css</DependentUpon>
     </Content>
+    <Content Include="Content\Site\flashcard.rtl.css" />
     <Content Include="Content\Site\flashcardCreate.css">
       <DependentUpon>flashcardCreate.less</DependentUpon>
     </Content>
