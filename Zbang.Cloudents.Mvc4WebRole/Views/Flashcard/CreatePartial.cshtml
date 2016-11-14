@@ -2,34 +2,37 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 <header layout="row">
-    <div flex class="text-center text-capitalize">@FlashcardResources.flashCardTitle</div>
+    <div flex class="text-center text-capitalize">@FlashcardResources.FlashcardTitle</div>
     <button flex="none" type="button" ng-click="f.close($event)" class="close" ga-track-event="['createFlashcard', 'close']"><md-icon md-svg-icon="t:close"></md-icon></button>
 </header>
 <form name="f.form" class="content" interaction-done>
     <div layout="row" layout-align="space-between center" class="flashcard-top">
         <md-input-container flex="50">
             <input name="name" type="text"
-                   placeholder="@FlashcardResources.flashcardPlaceholder" autocomplete="off" autofocus required md-no-asterisk ng-model="f.data.name" />
+                   placeholder="@FlashcardResources.FlashcardPlaceholder" autocomplete="off" required md-no-asterisk ng-model="f.data.name"/>
+            <div class="error-message" ng-messages="f.form.name.$error" ng-show="f.form.name.$touched">
+                <div ng-message="required">@GeneralResources.RequiredField</div>
+            </div>
         </md-input-container>
         <button type="button" ng-click="f.publish()" class="action-btn">@GeneralResources.Create</button>
     </div>
     <div class="flashcard-body">
         <div layout="row" layout-align="space-between center" class="header">
 
-            <div flex="50">@FlashcardResources.front</div>
+            <div flex="50">@FlashcardResources.Front</div>
             <md-button type="button" ng-click="f.flip()" class="flip-btn">
                 <md-icon md-svg-icon="b:flashcard-arrow"></md-icon>
             </md-button>
-            <div flex="50">@FlashcardResources.back</div>
+            <div flex="50">@FlashcardResources.Back</div>
         </div>
         <ol ui-on-drop="true">
-            <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" card-settings="#settings{{$index}}" card-settings-event="click" ng-repeat="card in f.data.cards">
+            <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" card-settings="gt-xs" @*card-settings-event="click"*@ ng-repeat="card in f.data.cards">
                 <card-form flex="50" slide="card.front" upload="f.upload"></card-form>
                 <card-form flex="50" slide="card.cover" upload="f.upload"></card-form>
-                <button type="button" class="settings-btn" hide-gt-xs card-settings-toggler card-settings="#settings{{$index}}" card-settings-event="click">
+                <button type="button" class="settings-btn" hide-gt-xs @*card-settings-toggler*@ card-settings="xs" @*card-settings-event="click"*@>
                     <md-icon md-svg-icon="t:settingMenu"></md-icon>
                 </button>
-                <div class="card-settings" id="settings{{$index}}">
+                <div class="card-settings">
                     <button type="button" class="drag-btn desktop" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu" tabindex="0"></md-icon></button>
                     <button type="button" class="add-btn desktop" ng-click="f.add($index)"><md-icon md-svg-icon="t:add" tabindex="0"></md-icon></button>
                     <button type="button" class="remove-btn desktop" ng-click="f.removeCard($index)"><md-icon md-svg-icon="t:close" tabindex="0"></md-icon></button>

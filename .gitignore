@@ -79,6 +79,9 @@ DocProject/Help/*.hhp
 DocProject/Help/Html2
 DocProject/Help/html
 
+#vs
+.vs
+
 # Click-Once directory
 publish
 
@@ -114,4 +117,4 @@ Backup*/
 UpgradeLog*.XML
 
 Zbang.Cloudents.MobileApp2/Properties/PublishProfiles/mobile-cloudents.pubxml
-Zbang.Cloudents.MobileApp2/Zbang.Cloudents.MobileApp2.csproj
+

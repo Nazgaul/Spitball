@@ -22,7 +22,6 @@ interface IUserData {
     url: string;
     isAdmin: boolean;
     culture: string;
-    // unread: number;
     createTime: Date;
     university: IUniversity;
 }

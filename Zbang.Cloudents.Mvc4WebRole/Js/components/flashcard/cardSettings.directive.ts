@@ -5,19 +5,18 @@
         constructor(private $mdMedia) {
         }
         link = (scope: angular.IScope, element: JQuery, attrs: ng.IAttributes) => {
-
-            var allCardsSettings = $(".card-settings");
-            var currentCardSettings = $(attrs["cardSettings"]);
-            element.on(attrs["cardSettingsEvent"], () => {
-                if (!this.$mdMedia('xs')) {
-                    allCardsSettings.hide();
-                    currentCardSettings.show();
-                }
-            });
-
+            element.on("click",
+                () => {
+                    var selector = ".card-settings";
+                    var settings = element.closest("li").find(selector);
+                    $(selector).not(settings).hide();
+                    if (this.$mdMedia(attrs["cardSettings"])) {
+                        settings.toggle();
+                    }
+                });
         }
-        public static factory(): angular.IDirectiveFactory {
-            var directive = ($mdMedia) => {
+        static factory(): angular.IDirectiveFactory {
+            const directive = ($mdMedia) => {
                 return new CardSettingsDirective($mdMedia);
             };
 

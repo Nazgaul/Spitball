@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -9,9 +10,11 @@ using Zbang.Cloudents.Mvc4WebRole.Filters;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
+using Zbang.Zbox.Infrastructure.Enums;
 using Zbang.Zbox.Infrastructure.Extensions;
 using Zbang.Zbox.Infrastructure.IdGenerator;
 using Zbang.Zbox.Infrastructure.Storage;
+using Zbang.Zbox.Infrastructure.Transport;
 using Zbang.Zbox.ReadServices;
 
 namespace Zbang.Cloudents.Mvc4WebRole.Controllers
@@ -24,13 +27,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         private readonly IIdGenerator m_IdGenerator;
         private readonly IDocumentDbReadService m_DocumentDbReadService;
         private readonly IBlobProvider2<FlashcardContainerName> m_FlashcardBlob;
+        private readonly IQueueProvider m_QueueProvider;
         private readonly Lazy<IBlobProvider> m_BlobProvider;
-        public FlashcardController(IIdGenerator idGenerator, IDocumentDbReadService documentDbReadService, IBlobProvider2<FlashcardContainerName> flashcardBlob, Lazy<IBlobProvider> blobProvider)
+        public FlashcardController(IIdGenerator idGenerator, IDocumentDbReadService documentDbReadService, IBlobProvider2<FlashcardContainerName> flashcardBlob, Lazy<IBlobProvider> blobProvider, IQueueProvider queueProvider)
         {
             m_IdGenerator = idGenerator;
             m_DocumentDbReadService = documentDbReadService;
             m_FlashcardBlob = flashcardBlob;
             m_BlobProvider = blobProvider;
+            m_QueueProvider = queueProvider;
         }
 
         [Route("flashcard/{universityName}/{boxId:long}/{boxName}/{itemid:long}/{itemName}", Name = "Flashcard")]
@@ -59,10 +64,6 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         public async Task<ActionResult> DraftAsync(long id)
         {
             var values = await m_DocumentDbReadService.FlashcardAsync(id);
-            if (values.Publish)
-            {
-                throw new ArgumentException("Flashcard is published");
-            }
             if (values.UserId != User.GetUserId())
             {
                 throw new ArgumentException("This is not the owner");
@@ -84,7 +85,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         [BoxPermission("boxId")]
         public async Task<ActionResult> DataAsync(long id, long boxId)
         {
-            var values = await m_DocumentDbReadService.FlashcardAsync(id);
+            var tTransAction = m_QueueProvider.InsertMessageToTranactionAsync(
+                      new StatisticsData4(new List<StatisticsData4.StatisticItemData>
+                    {
+                        new StatisticsData4.StatisticItemData
+                        {
+                            Id = id,
+                            Action = (int)StatisticsAction.Flashcard
+                        }
+                    }));
+            var tValues = m_DocumentDbReadService.FlashcardAsync(id);
+            await Task.WhenAll(tTransAction, tValues);
+            var values = tValues.Result;
             if (!values.Publish)
             {
                 throw new ArgumentException("Flashcard is not published");

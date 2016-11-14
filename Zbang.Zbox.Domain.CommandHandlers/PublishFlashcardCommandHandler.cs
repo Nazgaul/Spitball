@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Domain.DataAccess;
@@ -37,6 +38,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException();
             }
             flashcard.Name = message.Flashcard.Name;
+            flashcard.CardCount = message.Flashcard.Cards.Count();
             flashcard.DateTimeUser.UpdateUserTime(message.Flashcard.Id);
             flashcard.Publish = true;
             m_FlashcardMetaRepository.Save(flashcard);

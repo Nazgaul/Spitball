@@ -67,6 +67,7 @@ var app;
             this.$q = $q;
             this.serviceCalled = false;
             this.navigateBackToBox = function () {
+                _this.form.$setPristine();
                 _this.$state.go("box.flashcards", {
                     boxtype: _this.$stateParams["boxtype"],
                     universityType: _this.$stateParams["universityType"],
@@ -165,8 +166,21 @@ var app;
             });
         }
         FlashcardCreateController.prototype.publish = function () {
-            this.flashcardService.publish(this.data.id, this.data, this.$stateParams.boxId)
-                .then(this.navigateBackToBox);
+            var self = this;
+            if (this.form.$invalid) {
+                return;
+            }
+            else {
+                if (!this.data.id) {
+                    this.create().then(publish2);
+                    return;
+                }
+                publish2();
+            }
+            function publish2() {
+                self.flashcardService.publish(self.data.id, self.data, self.$stateParams.boxId)
+                    .then(self.navigateBackToBox);
+            }
         };
         FlashcardCreateController.prototype.create = function () {
             var _this = this;

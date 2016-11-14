@@ -2,9 +2,13 @@ var app;
 (function (app) {
     "use strict";
     var Flashcards = (function () {
-        function Flashcards($stateParams, flashcards, $state) {
+        function Flashcards($stateParams, flashcards, $state, $mdDialog, resManager, flashcardService, user) {
             this.$stateParams = $stateParams;
             this.$state = $state;
+            this.$mdDialog = $mdDialog;
+            this.resManager = resManager;
+            this.flashcardService = flashcardService;
+            this.user = user;
             this.params = $stateParams;
             angular.forEach(flashcards, function (val) {
                 if (val.publish) {
@@ -23,7 +27,23 @@ var app;
             });
             this.flashcards = flashcards;
         }
-        Flashcards.$inject = ["$stateParams", "flashcards", "$state"];
+        Flashcards.prototype.deleteFlashcard = function (ev, flashcard) {
+            var _this = this;
+            var confirm = this.$mdDialog.confirm()
+                .title(this.resManager.get('deleteQuiz'))
+                .targetEvent(ev)
+                .ok(this.resManager.get('dialogOk'))
+                .cancel(this.resManager.get('dialogCancel'));
+            this.$mdDialog.show(confirm).then(function () {
+                var index = _this.flashcards.IndexOf(flashcard);
+                _this.flashcards.splice(index, 1);
+                _this.flashcardService.delete(flashcard.id);
+            });
+        };
+        Flashcards.prototype.canEdit = function (flashcard) {
+            return this.user.id === flashcard.ownerId;
+        };
+        Flashcards.$inject = ["$stateParams", "flashcards", "$state", "$mdDialog", "resManager", "flashcardService", "user"];
         return Flashcards;
     }());
     angular.module('app.box.flashcards').controller('FlashcardsController', Flashcards);

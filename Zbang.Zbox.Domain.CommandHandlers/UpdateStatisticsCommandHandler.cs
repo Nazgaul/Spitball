@@ -12,13 +12,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     {
         private readonly IRepository<Item> m_ItemRepository;
         private readonly IRepository<Domain.Quiz> m_QuizRepository;
-        private readonly IUserRepository m_UserRepository;
-        public UpdateStatisticsCommandHandler(IRepository<Item> itemRepository, IUserRepository userRepository,
-            IRepository<Domain.Quiz> quizRepository)
+        private readonly IRepository<FlashCardMeta> m_FlashcardRepository;
+        public UpdateStatisticsCommandHandler(IRepository<Item> itemRepository, 
+            IRepository<Domain.Quiz> quizRepository, IRepository<FlashCardMeta> flashcardRepository)
         {
             m_ItemRepository = itemRepository;
-            m_UserRepository = userRepository;
             m_QuizRepository = quizRepository;
+            m_FlashcardRepository = flashcardRepository;
         }
         public void Handle(UpdateStatisticsCommand message)
         {
@@ -40,20 +40,34 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                     TraceLog.WriteInfo("itemId is 0 " + itemId);
                     continue;
                 }
-                if (itemId.Action == Infrastructure.Enums.StatisticsAction.Quiz)
+                switch (itemId.Action)
                 {
-                    try
-                    {
-                        var quiz = m_QuizRepository.Load(itemId.ItemId);
-                        quiz.UpdateNumberOfViews();
-                        quiz.ShouldMakeDirty = () => false;
-                        m_QuizRepository.Save(quiz);
-                    }
-                    catch (ApplicationException ex)
-                    {
-                        TraceLog.WriteError("On update quiz views itemid:" + itemId.ItemId, ex);
-                    }
-                    continue;
+                    case Infrastructure.Enums.StatisticsAction.Flashcard:
+                        try
+                        {
+                            var flashcard = m_FlashcardRepository.Load(itemId.ItemId);
+                            flashcard.UpdateNumberOfViews();
+                            flashcard.ShouldMakeDirty = () => false;
+                            m_FlashcardRepository.Save(flashcard);
+                        }
+                        catch (ApplicationException ex)
+                        {
+                            TraceLog.WriteError("On update quiz views itemid:" + itemId.ItemId, ex);
+                        }
+                        continue;
+                    case Infrastructure.Enums.StatisticsAction.Quiz:
+                        try
+                        {
+                            var quiz = m_QuizRepository.Load(itemId.ItemId);
+                            quiz.UpdateNumberOfViews();
+                            quiz.ShouldMakeDirty = () => false;
+                            m_QuizRepository.Save(quiz);
+                        }
+                        catch (ApplicationException ex)
+                        {
+                            TraceLog.WriteError("On update quiz views itemid:" + itemId.ItemId, ex);
+                        }
+                        continue;
                 }
                 var item = m_ItemRepository.Get(itemId.ItemId);// we use get because we need to cast to File and get proxy
                 if (item == null)

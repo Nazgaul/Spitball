@@ -99,10 +99,23 @@ module app {
         }
         private serviceCalled = false;
         publish() {
-            this.flashcardService.publish(this.data.id, this.data, this.$stateParams.boxId)
-                .then(this.navigateBackToBox);
+            var self = this;
+            if (this.form.$invalid) {
+                return;
+            } else {
+                if (!this.data.id) {
+                    this.create().then(publish2);
+                    return;
+                }
+                publish2();
+            }
+            function publish2() {
+                self.flashcardService.publish(self.data.id, self.data, self.$stateParams.boxId)
+                    .then(self.navigateBackToBox);
+            }
         }
         private navigateBackToBox = () => {
+            this.form.$setPristine();
             this.$state.go("box.flashcards",
                 {
                     boxtype: this.$stateParams["boxtype"],

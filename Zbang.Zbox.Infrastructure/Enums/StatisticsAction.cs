@@ -6,6 +6,7 @@ namespace Zbang.Zbox.Infrastructure.Enums
     {
         View = 1,
         Download = 2,
-        Quiz = 3
+        Quiz = 3,
+        Flashcard = 4
     }
 }

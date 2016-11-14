@@ -6,12 +6,12 @@ var app;
             this.$mdMedia = $mdMedia;
             this.restrict = "A";
             this.link = function (scope, element, attrs) {
-                var allCardsSettings = $(".card-settings");
-                var currentCardSettings = $(attrs["cardSettings"]);
-                element.on(attrs["cardSettingsEvent"], function () {
-                    if (!_this.$mdMedia('xs')) {
-                        allCardsSettings.hide();
-                        currentCardSettings.show();
+                element.on("click", function () {
+                    var selector = ".card-settings";
+                    var settings = element.closest("li").find(selector);
+                    $(selector).not(settings).hide();
+                    if (_this.$mdMedia(attrs["cardSettings"])) {
+                        settings.toggle();
                     }
                 });
             };

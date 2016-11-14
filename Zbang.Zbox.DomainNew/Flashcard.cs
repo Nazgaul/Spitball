@@ -25,9 +25,9 @@ namespace Zbang.Zbox.Domain
 
         public virtual User User { get; set; }
         public int LikeCount { get; set; }
-        public int NumberOfViews { get; set; }
+        public virtual int NumberOfViews { get; set; }
 
-        public int CardCount { get; set; }
+        public virtual int CardCount { get; set; }
 
         public bool IsDeleted { get; set; }
         public void DeleteAssociation()
@@ -35,9 +35,14 @@ namespace Zbang.Zbox.Domain
             //throw new NotImplementedException();
         }
 
+        public virtual void UpdateNumberOfViews()
+        {
+            NumberOfViews++;
+        }
+
 
         public virtual bool IsDirty { get; set; }
-        public Func<bool> ShouldMakeDirty { get; }
+        public Func<bool> ShouldMakeDirty { get; set; }
 
         public virtual UserTimeDetails DateTimeUser { get; private set; }
 
