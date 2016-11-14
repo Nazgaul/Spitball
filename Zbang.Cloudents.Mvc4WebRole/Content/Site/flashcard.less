@@ -155,7 +155,27 @@
         .card-template {
             position: relative;
 
-            &.both {
+            &.front .card-content {
+                .side {
+                    flex-direction: row;
+
+                    &.back {
+                        display: none;
+                    }
+                }
+            }
+
+            &.back .card-content {
+                .side {
+                    flex-direction: row;
+
+                    &.front {
+                        display: none;
+                    }
+                }
+            }
+
+            &.both .card-content {
                 .card-content .side {
                     img {
                         width: initial;
@@ -173,7 +193,7 @@
                 flex-grow: 1;
 
                 .side {
-                    width: 50%;
+                    width: 100%;
                     padding: 50px;
                     .displayFlex;
                     .align-items(center);
