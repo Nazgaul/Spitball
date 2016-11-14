@@ -2,7 +2,7 @@
     <div ng-switch-when="0" class="step-1">
         <div class="content card-template">
             <h1 ng-bind="::f.flashcard.name"></h1>
-            <ng-pluralize count="::f.flashcard.cards.length"
+            <ng-pluralize class="subtitle" count="::f.flashcard.cards.length"
                           when="{
                         '1': '1 card',
                         'other': '{} cards'
@@ -11,7 +11,7 @@
                 <button type="button" class="action-btn" ng-click="f.start()">start</button>
                 <button type="button" class="action-btn pinned-cards" ng-if="::f.pinCount" ng-click="f.startPin()">
                     Study&nbsp;<ng-pluralize count="::f.pinCount"
-                                        when="{
+                                             when="{
                         '1': '1 pin',
                         'other': '{} pinned'
                       }"></ng-pluralize>
@@ -94,25 +94,31 @@
             <h1>Nice work!</h1>
             <div class="subtitle">
                 <h4>You just studied</h4>&nbsp;
-        <ng-pluralize count="::f.fc.length"
+                <ng-pluralize count="::f.fc.length"
                               when="{
                         '1': '1 card!',
                         'other': '{} cards!'
                       }"></ng-pluralize>
             </div>
-            <button type="button" ng-click="f.start()">Start over</button>
-            <button type="button">Study 2 pinned card</button>
-        <button type="button" class="action-btn" ng-if="::f.pinCount" ng-click="f.startPin()">
-            Study <ng-pluralize count="::f.pinCount"
-                                when="{
+            <div class="buttons">
+                <button type="button" class="action-btn" ng-click="f.start()">Start over</button>
+                <button type="button" class="action-btn pinned-cards" ng-if="::f.pinCount" ng-click="f.startPin()">
+                    Study&nbsp;<ng-pluralize count="::f.pinCount"
+                                             when="{
                         '1': '1 pin',
                         'other': '{} pinned'
                       }"></ng-pluralize>
-        </button>
-            <md-switch ng-model="f.shuffle">
-                shuffle cards
-            </md-switch>
-        <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()" ng-class="{liked:f.flashcard.like}">like</button>
+                </button>
+            </div>
+            <div class="shuffle">
+                <md-icon md-svg-icon="b:shuffle"></md-icon>
+                <md-switch ng-model="f.shuffle">
+                    shuffle cards
+                </md-switch>
+            </div>
+            <div class="like-wrapper">
+                <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()" ng-class="{liked:f.flashcard.like}">like</button>
+            </div>
         </div>
         <nav class="buttons">
             <button type="button" class="prev" ng-click="f.prev()">

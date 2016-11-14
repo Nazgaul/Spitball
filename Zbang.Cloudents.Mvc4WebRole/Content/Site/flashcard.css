@@ -50,11 +50,12 @@
   font-weight: bold;
   margin: 0 0 18px 0;
 }
-.flashcardPage .step-1 ng-pluralize,
-.flashcardPage .step-3 ng-pluralize {
+.flashcardPage .step-1 .subtitle,
+.flashcardPage .step-3 .subtitle {
   display: block;
   margin-bottom: 30px;
   color: #888b8e;
+  font-size: 16px;
 }
 .flashcardPage .step-1 .action-btn,
 .flashcardPage .step-3 .action-btn {
@@ -75,7 +76,7 @@
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 30px;
   color: #888b8e;
 }
 .flashcardPage .step-1 .shuffle md-switch,
@@ -325,7 +326,7 @@
   width: 40px;
   height: 40px;
 }
-.flashcardPage .subtitle {
+.flashcardPage .step-3 .subtitle {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -334,10 +335,15 @@
   -webkit-justify-content: center;
   justify-content: center;
 }
-.flashcardPage .subtitle h4,
-.flashcardPage .subtitle ng-pluralize {
+.flashcardPage .step-3 .subtitle h4 {
   margin: 0;
-  color: #888b8e;
+}
+.flashcardPage .step-3 .like-wrapper {
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 .flashcardPage md-switch.md-checked .md-thumb {
   background-color: #ffffff;
