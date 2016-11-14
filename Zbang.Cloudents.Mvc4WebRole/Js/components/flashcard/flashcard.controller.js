@@ -17,35 +17,58 @@ var app;
             a[j] = x;
         }
     }
+    var FlashCard = (function () {
+        function FlashCard() {
+        }
+        return FlashCard;
+    }());
+    var Card = (function () {
+        function Card() {
+            this.front = new app.CardSlide();
+            this.cover = new app.CardSlide();
+        }
+        return Card;
+    }());
     var Flashcard = (function () {
-        function Flashcard(flashcard) {
+        function Flashcard(flashcard, flashcardService, $stateParams) {
+            this.flashcard = flashcard;
+            this.flashcardService = flashcardService;
+            this.$stateParams = $stateParams;
             this.step = Steps.Start;
             this.slidepos = 0;
-            console.log(flashcard);
-            this.flashcard = flashcard;
+            angular.forEach(flashcard.cards, function (v, k) {
+                v.index = k;
+            });
+            this.fc = flashcard;
         }
         Flashcard.prototype.start = function () {
             if (shuffle) {
-                shuffle(this.flashcard.cards);
+                shuffle(this.fc.cards);
             }
             this.slidepos = 0;
-            this.slide = this.flashcard.cards[this.slidepos];
+            this.slide = this.fc.cards[this.slidepos];
             this.step = Steps.Memo;
         };
         Flashcard.prototype.prev = function () {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
-            this.slide = this.flashcard.cards[this.slidepos];
+            this.slide = this.fc.cards[this.slidepos];
         };
         Flashcard.prototype.next = function () {
-            this.slidepos = Math.min(this.flashcard.cards.length, ++this.slidepos);
-            if (this.slidepos === this.flashcard.cards.length) {
+            this.slidepos = Math.min(this.fc.cards.length, ++this.slidepos);
+            if (this.slidepos === this.fc.cards.length) {
                 this.step = Steps.End;
                 return;
             }
-            this.slide = this.flashcard.cards[this.slidepos];
+            this.slide = this.fc.cards[this.slidepos];
         };
-        Flashcard.$inject = ["flashcard"];
+        Flashcard.prototype.pin = function () {
+            this.slide.pin = !this.slide.pin;
+            if (this.slide.pin) {
+                this.flashcardService.pin(this.$stateParams["id"], this.slide.index);
+            }
+        };
+        Flashcard.$inject = ["flashcard", "flashcardService", "$stateParams"];
         return Flashcard;
     }());
     angular.module("app.flashcard").controller("flashcard", Flashcard);

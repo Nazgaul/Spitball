@@ -9,11 +9,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
 {
     public class DeleteFlashcardCommandHandler : ICommandHandlerAsync<DeleteFlashcardCommand>
     {
-        private readonly IRepository<FlashCardMeta> m_FlashcardMetaRepository;
+        private readonly IRepository<FlashcardMeta> m_FlashcardMetaRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IDocumentDbRepository<Flashcard> m_FlashcardRepository;
 
-        public DeleteFlashcardCommandHandler(IRepository<FlashCardMeta> flashcardMetaRepository,
+        public DeleteFlashcardCommandHandler(IRepository<FlashcardMeta> flashcardMetaRepository,
             IUserRepository userRepository, IDocumentDbRepository<Flashcard> flashcardRepository)
         {
             m_FlashcardMetaRepository = flashcardMetaRepository;

@@ -10,11 +10,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class AddFlashcardCommandHandler : ICommandHandlerAsync<AddFlashcardCommand>
     {
         private readonly IDocumentDbRepository<Flashcard> m_FlashcardRepository;
-        private readonly IRepository<FlashCardMeta> m_FlashcardMetaRepository;
+        private readonly IRepository<FlashcardMeta> m_FlashcardMetaRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
 
-        public AddFlashcardCommandHandler(IDocumentDbRepository<Flashcard> flashcardRepository, IRepository<FlashCardMeta> flashcardMetaRepository, IUserRepository userRepository, IBoxRepository boxRepository)
+        public AddFlashcardCommandHandler(IDocumentDbRepository<Flashcard> flashcardRepository, IRepository<FlashcardMeta> flashcardMetaRepository, IUserRepository userRepository, IBoxRepository boxRepository)
         {
             m_FlashcardRepository = flashcardRepository;
             m_FlashcardMetaRepository = flashcardMetaRepository;
@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
             if (message == null) throw new ArgumentNullException(nameof(message));
             var user = m_UserRepository.Load(message.Flashcard.UserId);
             var box = m_BoxRepository.Load(message.Flashcard.BoxId);
-            var flashcard = new FlashCardMeta(message.Flashcard.Id, message.Flashcard.Name, user, box);
+            var flashcard = new FlashcardMeta(message.Flashcard.Id, message.Flashcard.Name, user, box);
             m_FlashcardMetaRepository.Save(flashcard);
             await m_FlashcardRepository.CreateItemAsync(message.Flashcard);
         }

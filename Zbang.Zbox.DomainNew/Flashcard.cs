@@ -4,51 +4,6 @@ using Zbang.Zbox.Infrastructure.Repositories;
 
 namespace Zbang.Zbox.Domain
 {
-    public class FlashCardMeta : IDirty
-    {
-        protected FlashCardMeta()
-        {
-            ShouldMakeDirty = () => true;
-        }
-
-        public FlashCardMeta(long id, string name, User user, Box box) : this()
-        {
-            Id = id;
-            Name = name?.Trim();
-            User = user;
-            Box = box;
-            DateTimeUser = new UserTimeDetails(user.Id);
-        }
-        public virtual long Id { get; set; }
-        public virtual string Name { get; set; }
-        public virtual bool Publish { get; set; }
-
-        public virtual User User { get; set; }
-        public int LikeCount { get; set; }
-        public virtual int NumberOfViews { get; set; }
-
-        public virtual int CardCount { get; set; }
-
-        public bool IsDeleted { get; set; }
-        public void DeleteAssociation()
-        {
-            //throw new NotImplementedException();
-        }
-
-        public virtual void UpdateNumberOfViews()
-        {
-            NumberOfViews++;
-        }
-
-
-        public virtual bool IsDirty { get; set; }
-        public Func<bool> ShouldMakeDirty { get; set; }
-
-        public virtual UserTimeDetails DateTimeUser { get; private set; }
-
-        public virtual Box Box { get; set; }
-
-    }
     [DocumentDbModel("Flashcard")]
     public class Flashcard //: IDirty
     {
@@ -70,16 +25,10 @@ namespace Zbang.Zbox.Domain
         public long BoxId { get; set; }
 
         
+        // ReSharper disable once InconsistentNaming Need for document db
         public string id { get; set; }
-        //public int LikeCount { get; set; }
-        //public int CardCount { get; set; }
 
         public bool IsDeleted { get; set; }
-
-        //public ICollection<Card> Cards { get; set; }
-
-        //public bool IsDirty { get; set; }
-        //public Func<bool> ShouldMakeDirty { get; }
 
 
         public IEnumerable<Card> Cards { get; set; }
@@ -101,20 +50,20 @@ namespace Zbang.Zbox.Domain
         //public Flashcard Flashcard { get; set; }
     }
 
-    public class PinnedCard
-    {
-        public Guid Id { get; set; }
-        public User User { get; set; }
-        public int Order { get; set; }
-        //public Card Card { get; set; }
-        public Flashcard Flashcard { get; set; }
-    }
+    //public class PinnedCard
+    //{
+    //    public Guid Id { get; set; }
+    //    public User User { get; set; }
+    //    public int Order { get; set; }
+    //    //public Card Card { get; set; }
+    //    public Flashcard Flashcard { get; set; }
+    //}
 
-    public class FlashcardLike
-    {
-        public Guid Id { get; set; }
-        public User User { get; set; }
-        public Flashcard Flashcard { get; set; }
-        public DateTime CreationTime { get; protected set; }
-    }
+    //public class FlashcardLike
+    //{
+    //    public Guid Id { get; set; }
+    //    public User User { get; set; }
+    //    public Flashcard Flashcard { get; set; }
+    //    public DateTime CreationTime { get; protected set; }
+    //}
 }

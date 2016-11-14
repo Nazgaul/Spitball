@@ -19,8 +19,8 @@
         <button type="button" ng-click="f.style=true">front</button>
         <button type="button" ng-click="f.style=false">back</button>
         <button type="button" ng-click="f.style=null">both</button>
-        <div ng-init="f.style=true" ng-class="{font: f.style==true,back:f.style==false,both:f.style==null}">
-            <button type="button">pin</button>
+        <div ng-init="f.style=true" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}">
+            <button type="button" ng-click="f.pin()">pin</button>
             <div>
                 <img ng-src="{{f.slide.front.image}}" ng-if="f.slide.front.image" alt="font image"/>
                 <p>

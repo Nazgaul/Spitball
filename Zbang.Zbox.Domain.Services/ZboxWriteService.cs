@@ -781,5 +781,14 @@ namespace Zbang.Zbox.Domain.Services
             }
         }
 
+        public  void AddPinFlashcard(AddFlashcardPinCommand command)
+        {
+            using (UnitOfWork.Start())
+            {
+                m_CommandBus.Send(command);
+                UnitOfWork.Current.TransactionalFlush();
+            }
+        }
+
     }
 }

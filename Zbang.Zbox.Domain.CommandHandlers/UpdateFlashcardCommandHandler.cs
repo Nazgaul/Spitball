@@ -10,11 +10,11 @@ namespace Zbang.Zbox.Domain.CommandHandlers
     public class UpdateFlashcardCommandHandler : ICommandHandlerAsync<UpdateFlashcardCommand>
     {
         private readonly IDocumentDbRepository<Flashcard> m_FlashcardRepository;
-        private readonly IRepository<FlashCardMeta> m_FlashcardMetaRepository;
+        private readonly IRepository<FlashcardMeta> m_FlashcardMetaRepository;
         private readonly IUserRepository m_UserRepository;
         private readonly IBoxRepository m_BoxRepository;
 
-        public UpdateFlashcardCommandHandler(IDocumentDbRepository<Flashcard> flashcardRepository, IRepository<FlashCardMeta> flashcardMetaRepository, IUserRepository userRepository, IBoxRepository boxRepository)
+        public UpdateFlashcardCommandHandler(IDocumentDbRepository<Flashcard> flashcardRepository, IRepository<FlashcardMeta> flashcardMetaRepository, IUserRepository userRepository, IBoxRepository boxRepository)
         {
             m_FlashcardRepository = flashcardRepository;
             m_FlashcardMetaRepository = flashcardMetaRepository;
