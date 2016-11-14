@@ -12,8 +12,8 @@
                 var elNewFontSize = (parseInt($(element).css('font-size').slice(0, -2)) + 1) + 'px';
                 return $(element).css('font-size', elNewFontSize);
             };
-            
-            scope.$watch(attrs["ngBind"], (newValue) => {
+
+            scope.$watchGroup([attrs["ngBind"], "f.style"], (newValue) => {
                 $(element).css('font-size', "");
                 if (!newValue) {
                     return;
@@ -27,7 +27,8 @@
                         resizeTextHeight();
                     }
                 }
-            }); 
+            });
+            
         }
         static factory(): angular.IDirectiveFactory {
             const directive = () => {
