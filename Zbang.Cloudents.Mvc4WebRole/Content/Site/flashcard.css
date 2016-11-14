@@ -194,6 +194,9 @@
 .flashcardPage .step-2 .card-template.back .card-content .side.front {
   display: none;
 }
+.flashcardPage .step-2 .card-template.both .card-content .card-content .side {
+  width: 50%;
+}
 .flashcardPage .step-2 .card-template.both .card-content .card-content .side img {
   width: initial;
   max-width: 100%;

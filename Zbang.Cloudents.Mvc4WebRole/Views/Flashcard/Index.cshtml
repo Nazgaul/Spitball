@@ -7,14 +7,16 @@
                         '1': '1 card',
                         'other': '{} cards'
                       }"></ng-pluralize>
-            <button type="button" class="action-btn" ng-click="f.start()">start</button>
-            <button type="button" class="action-btn" ng-if="::f.pinCount" ng-click="f.startPin()">
-                Study <ng-pluralize count="::f.pinCount"
-                                    when="{
+            <div class="buttons">
+                <button type="button" class="action-btn" ng-click="f.start()">start</button>
+                <button type="button" class="action-btn" ng-if="::f.pinCount" ng-click="f.startPin()">
+                    Study <ng-pluralize count="::f.pinCount"
+                                        when="{
                         '1': '1 pin',
                         'other': '{} pinned'
                       }"></ng-pluralize>
-            </button>
+                </button>
+            </div>
             <div class="shuffle">
                 <md-icon md-svg-icon="b:shuffle"></md-icon>
                 <md-switch ng-model="f.shuffle">

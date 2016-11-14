@@ -18,13 +18,13 @@ var app;
                     if (!newValue) {
                         return;
                     }
-                    if (element[0].scrollHeight > element.parent()[0].offsetHeight) {
-                        while (element[0].scrollHeight > element.parent()[0].offsetHeight) {
-                            resizeTextSmall();
-                        }
+                    var resizeOccured;
+                    while (element[0].scrollHeight > element.parent()[0].offsetHeight && element[0].scrollWidth > element.parent()[0].offsetWidth) {
+                        resizeTextSmall();
+                        resizeOccured = true;
                     }
-                    else {
-                        while (element[0].scrollHeight < element.parent()[0].offsetHeight) {
+                    if (!resizeOccured) {
+                        while (element[0].scrollHeight < element.parent()[0].offsetHeight && element[0].scrollWidth < element.parent()[0].offsetWidth) {
                             resizeTextHeight();
                         }
                     }
