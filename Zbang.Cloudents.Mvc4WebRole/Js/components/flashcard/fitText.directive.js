@@ -5,14 +5,28 @@ var app;
         function FitText() {
             this.restrict = "A";
             this.link = function (scope, element, attrs) {
-                var resizeText = function () {
+                var resizeTextSmall = function () {
                     var elNewFontSize = (parseInt($(element).css('font-size').slice(0, -2)) - 1) + 'px';
                     return $(element).css('font-size', elNewFontSize);
                 };
-                scope.$watch(attrs["ngBind"], function () {
+                var resizeTextHeight = function () {
+                    var elNewFontSize = (parseInt($(element).css('font-size').slice(0, -2)) + 1) + 'px';
+                    return $(element).css('font-size', elNewFontSize);
+                };
+                scope.$watch(attrs["ngBind"], function (newValue) {
                     $(element).css('font-size', "");
-                    while (element[0].scrollHeight > element[0].offsetHeight) {
-                        resizeText();
+                    if (!newValue) {
+                        return;
+                    }
+                    if (element[0].scrollHeight > element.parent()[0].offsetHeight) {
+                        while (element[0].scrollHeight > element.parent()[0].offsetHeight) {
+                            resizeTextSmall();
+                        }
+                    }
+                    else {
+                        while (element[0].scrollHeight < element.parent()[0].offsetHeight) {
+                            resizeTextHeight();
+                        }
                     }
                 });
             };

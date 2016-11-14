@@ -4,15 +4,28 @@
         restrict = "A";
         link = (scope: angular.IScope, element: JQuery, attrs: ng.IAttributes) => {
            // var resizeText, _results1;
-            var resizeText = () => {
+            var resizeTextSmall = () => {
                 var elNewFontSize = (parseInt($(element).css('font-size').slice(0, -2)) - 1) + 'px';
                 return $(element).css('font-size', elNewFontSize);
             };
+            var resizeTextHeight = () => {
+                var elNewFontSize = (parseInt($(element).css('font-size').slice(0, -2)) + 1) + 'px';
+                return $(element).css('font-size', elNewFontSize);
+            };
             
-            scope.$watch(attrs["ngBind"], () => {
+            scope.$watch(attrs["ngBind"], (newValue) => {
                 $(element).css('font-size', "");
-                while (element[0].scrollHeight > element[0].offsetHeight) {
-                    resizeText();
+                if (!newValue) {
+                    return;
+                }
+                if (element[0].scrollHeight > element.parent()[0].offsetHeight) {
+                    while (element[0].scrollHeight > element.parent()[0].offsetHeight) {
+                        resizeTextSmall();
+                    }
+                } else {
+                    while (element[0].scrollHeight < element.parent()[0].offsetHeight) {
+                        resizeTextHeight();
+                    }
                 }
             }); 
         }
