@@ -31,6 +31,9 @@ var app;
         Flashcard.prototype.pinDelete = function (id, index) {
             return this.ajaxService2.delete("/flashcard/pin", { id: id, index: index });
         };
+        Flashcard.prototype.like = function (id) {
+            return this.ajaxService2.post("/flashcard/like", { id: id });
+        };
         Flashcard.$inject = ["ajaxService2"];
         return Flashcard;
     }());

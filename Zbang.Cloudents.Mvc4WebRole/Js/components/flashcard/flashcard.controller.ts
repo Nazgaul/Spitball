@@ -19,6 +19,7 @@
         name: string;
         cards: Array<Card>;
         pins: Array<number>;
+        like: boolean;
         //deserialize(input: FlashCard) {
         //    this.cards = [];
         //    this.id = input.id;
@@ -98,6 +99,10 @@
             } else {
                 this.flashcardService.pinDelete(this.$stateParams["id"], this.slide.index);
             }
+        }
+        like() {
+            this.fc.like = !this.fc.like;
+            this.flashcardService.like(this.$stateParams["id"]);
         }
     }
 

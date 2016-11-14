@@ -72,7 +72,9 @@
     </Compile>
     <Compile Include="Connection.cs" />
     <Compile Include="Flashcard.cs" />
+    <Compile Include="FlashcardLike.cs" />
     <Compile Include="FlashcardMeta.cs" />
+    <Compile Include="FlashcardPin.cs" />
     <Compile Include="Resources\DomainResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

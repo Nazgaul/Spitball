@@ -97,6 +97,7 @@
     <Compile Include="Ioc\RegisterIoc.cs" />
     <Compile Include="LibraryNodeApproveAccessCommandHandler.cs" />
     <Compile Include="LikeCommentCommandHandler.cs" />
+    <Compile Include="AddFlashcardLikeCommandHandler.cs" />
     <Compile Include="LikeReplyCommandHandler.cs" />
     <Compile Include="ManageConnectionsCommandHandler.cs" />
     <Compile Include="PreviewFailedCommandHandler.cs" />

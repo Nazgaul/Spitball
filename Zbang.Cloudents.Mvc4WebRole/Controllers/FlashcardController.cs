@@ -308,5 +308,13 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             ZboxWriteService.DeletePinFlashcard(command);
             return JsonOk();
         }
+
+        [HttpPost, ZboxAuthorize,ActionName("like")]
+        public JsonResult AddLike(long id)
+        {
+            var command = new AddFlashcardLikeCommand(User.GetUserId(), id);
+            ZboxWriteService.AddFlashcardLike(command);
+            return JsonOk();
+        }
     }
 }

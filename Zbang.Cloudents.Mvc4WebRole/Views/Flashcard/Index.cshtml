@@ -56,7 +56,7 @@
         <md-switch ng-model="f.shuffle">
             shuffle cards
         </md-switch>
-        <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()">like</button>
+        <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()" ng-class="{liked:f.fc.like}">like</button>
         <button type="button" ng-click="f.prev()">left</button>
         <button type="button" disabled>right</button>
     </div>

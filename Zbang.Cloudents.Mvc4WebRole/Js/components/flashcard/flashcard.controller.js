@@ -75,6 +75,10 @@ var app;
                 this.flashcardService.pinDelete(this.$stateParams["id"], this.slide.index);
             }
         };
+        FlashcardController.prototype.like = function () {
+            this.fc.like = !this.fc.like;
+            this.flashcardService.like(this.$stateParams["id"]);
+        };
         FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams"];
         return FlashcardController;
     }());
