@@ -1,4 +1,4 @@
-﻿<div ng-switch="f.step"* class="flashcard-wrapper">
+﻿<div ng-switch="f.step" * class="flashcard-wrapper">
     <div ng-switch-when="0" class="card-template step-1">
         <div class="content">
             <h1 ng-bind="::f.flashcard.name"></h1>
@@ -30,35 +30,50 @@
                 </div>
             </div>
             <div class="card-sides">
-                <button type="button" ng-click="f.style=true" ng-class="{'active':f.style===true}">
+                <button type="button" ng-click="f.style=true" ng-class="{active:f.style===true}">
                     <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                     front
                 </button>
-                <button type="button" ng-click="f.style=false" ng-class="{'active':f.style===false}">
+                <button type="button" ng-click="f.style=false" ng-class="{active:f.style===false}">
                     <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                     back
                 </button>
-                <button type="button" ng-click="f.style=null" ng-class="{'active':f.style===null}">
+                <button type="button" ng-click="f.style=null" ng-class="{active:f.style===null}">
                     <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                     both
                 </button>
             </div>
         </div>
         <div class="card-template" ng-init="f.style=true" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}">
-            <button type="button" ng-click="f.pin()" ng-class="{pinned:f.slide.pin}">pin</button>
-            <div>
-                <img ng-src="{{f.slide.front.image}}" ng-if="f.slide.front.image" alt="font image" />
-                <p data-fittext style="width:100px;height:100px;">
-                    {{f.slide.front.text}}
-                </p>
+            <button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:f.slide.pin}">
+                <md-icon md-svg-icon="b:pin"></md-icon>
+            </button>
+            <div class="card-content">
+                <div class="side front">
+                    <div class="img-container" ng-if="f.slide.front.image">
+                        <img ng-src="{{f.slide.front.image}}" alt="font image" />
+                    </div>
+                    <div class="text-container">
+                        <p data-fittext style="width:100px;height:100px;">
+                            {{f.slide.front.text}}
+                        </p>
+                    </div>
+                </div>
+                <div class="side back">
+                    <div class="img-container" ng-if="f.slide.cover.image">
+                        <img ng-src="{{f.slide.cover.image}}" alt="font image" />
+                    </div>
+                    <div class="text-container">
+                        <p data-fittext style="width:100px;height:100px;">
+                            {{f.slide.cover.text}}
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div>
-                <img ng-src="{{f.slide.cover.image}}" ng-if="f.slide.cover.image" alt="font image" />
-                <p data-fittext style="width:100px;height:100px;">
-                    {{f.slide.cover.text}}
-                </p>
-            </div>
-            <button type="button" ng-if="f.style !== null" ng-click="f.style = !f.style">flip</button>
+            <button type="button" class="flip-btn" ng-if="f.style !== null" ng-click="f.style = !f.style">
+                <md-icon md-svg-icon="b:flip"></md-icon>
+                Click to flip
+            </button>
         </div>
         <button type="button" ng-click="f.prev()">left</button>
         <button type="button" ng-click="f.next()">right</button>
