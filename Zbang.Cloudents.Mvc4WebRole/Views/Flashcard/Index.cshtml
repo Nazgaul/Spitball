@@ -1,4 +1,4 @@
-﻿<div ng-switch="f.step">
+﻿<div ng-switch="f.step"* class="flashcard-wrapper">
     <div ng-switch-when="0" class="card-template step-1">
         <div class="content">
             <h1 ng-bind="::f.flashcard.name"></h1>
@@ -16,14 +16,34 @@
             </div>
         </div>
     </div>
-    <div ng-switch-when="1">
-        <h4>cards</h4>
-        <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.flashcard.cards.length * 100}}"></md-progress-linear>
-        <span>progress</span>
-        <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
-        <button type="button" ng-click="f.style=true">front</button>
-        <button type="button" ng-click="f.style=false">back</button>
-        <button type="button" ng-click="f.style=null">both</button>
+    <div ng-switch-when="1" class="step-2">
+        <div class="header">
+            <div class="progress-wrapper">
+                <div class="title">
+                    <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+                    <h4>cards</h4>
+                </div>
+                <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.flashcard.cards.length * 100}}"></md-progress-linear>
+                <div class="progress-text">
+                    <span>progress</span>
+                    <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
+                </div>
+            </div>
+            <div class="card-sides">
+                <button type="button" ng-click="f.style=true" ng-class="{'active':f.style===true}">
+                    <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+                    front
+                </button>
+                <button type="button" ng-click="f.style=false" ng-class="{'active':f.style===false}">
+                    <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+                    back
+                </button>
+                <button type="button" ng-click="f.style=null" ng-class="{'active':f.style===null}">
+                    <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+                    both
+                </button>
+            </div>
+        </div>
         <div class="card-template" ng-init="f.style=true" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}">
             <button type="button" ng-click="f.pin()" ng-class="{pinned:f.slide.pin}">pin</button>
             <div>
