@@ -65,6 +65,7 @@ var app;
             this.resManager = resManager;
             this.$mdDialog = $mdDialog;
             this.$q = $q;
+            this.disabled = false;
             this.serviceCalled = false;
             this.navigateBackToBox = function () {
                 _this.form.$setPristine();
@@ -117,6 +118,7 @@ var app;
                             })(files[i], uploader.settings.slide, _this);
                         }
                         _this.$timeout(function () {
+                            _this.disabled = true;
                             uploader.start();
                         }, 1);
                     },
@@ -124,6 +126,9 @@ var app;
                         if (error.code === plupload.FILE_EXTENSION_ERROR) {
                             _this.$scope["app"].showToaster("file error");
                         }
+                    },
+                    UploadComplete: function () {
+                        _this.disabled = false;
                     },
                     uploadProgress: function (uploader, file) {
                         uploader.settings.slide.uploadProgress = file.percent;
@@ -188,6 +193,7 @@ var app;
             var self = this;
             function afterCall() {
                 self.serviceCalled = false;
+                self.disabled = false;
                 self.form.$setPristine();
             }
             if (!this.form.$dirty) {
@@ -196,6 +202,7 @@ var app;
             if (this.serviceCalled) {
                 return this.$q.when();
             }
+            this.disabled = true;
             this.serviceCalled = true;
             if (this.data.id) {
                 return this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(afterCall);

@@ -5,7 +5,6 @@
 /// <reference path="../bower_components/angular-timeago/src/timeAgo.js" />
 /// <reference path="../bower_components/angular-vs-repeat/src/angular-vs-repeat.js" />
 /// <reference path="../bower_components/malihu-custom-scrollbar-plugin/jquery.mcustomscrollbar.js" />
-/// <reference path="../bower_components/ngfittext/dist/ng-FitText.min.js" />
 /// <reference path="../bower_components/ng-scrollbars/dist/scrollbars.min.js" />
 /// <reference path="../bower_components/oclazyload/dist/ocLazyLoad.js" />
 /// <reference path="../bower_components/rangy/rangy-classapplier.js" />

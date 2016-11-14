@@ -55,6 +55,7 @@ module app {
     class FlashcardCreateController {
         data: FlashCard;
         form: angular.IFormController;
+        disabled = false;
         static $inject = ["flashcardService", "$stateParams", "$state", "flashcard", "$scope",
             "$timeout", "$window", "resManager", "$mdDialog", "$q"];
         constructor(private flashcardService: IFlashcardService,
@@ -126,8 +127,10 @@ module app {
         }
         create() {
             const self = this;
+            
             function afterCall() {
                 self.serviceCalled = false;
+                self.disabled = false;
                 self.form.$setPristine();
             }
             if (!this.form.$dirty) {
@@ -136,6 +139,7 @@ module app {
             if (this.serviceCalled) {
                 return this.$q.when();
             }
+            this.disabled = true;
             this.serviceCalled = true;
             if (this.data.id) {
                 return this.flashcardService.update(this.data.id, this.data, this.$stateParams.boxId).then(afterCall);
@@ -235,6 +239,7 @@ module app {
                         })(files[i], uploader.settings.slide, this);
                     }
                     this.$timeout(() => {
+                        this.disabled = true;
                         uploader.start();
                     }, 1);
                 },
@@ -242,6 +247,9 @@ module app {
                     if (error.code === plupload.FILE_EXTENSION_ERROR) {
                         (this.$scope["app"] as IAppController).showToaster("file error");
                     }
+                },
+                UploadComplete: () => {
+                    this.disabled = false;
                 },
                 uploadProgress: (uploader, file) => {
                     (uploader.settings.slide as CardSlide).uploadProgress = file.percent;

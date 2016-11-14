@@ -5,7 +5,7 @@
     angular.module('app.dashboard', ['app.ajaxservice']);
 })();
 (function () {
-    angular.module('app.flashcard', ['app.ajaxservice', "ngFitText"]);
+    angular.module('app.flashcard', ['app.ajaxservice']);
 })();
 
 (function () {

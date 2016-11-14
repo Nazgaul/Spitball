@@ -48,13 +48,13 @@
             <button type="button" ng-click="f.pin()" ng-class="{pinned:f.slide.pin}">pin</button>
             <div>
                 <img ng-src="{{f.slide.front.image}}" ng-if="f.slide.front.image" alt="font image" />
-                <p data-fittext style="width:100px;height:100px;">
+                <p fit-text style="width:100px;height:100px;">
                     {{f.slide.front.text}}
                 </p>
             </div>
             <div>
                 <img ng-src="{{f.slide.cover.image}}" ng-if="f.slide.cover.image" alt="font image" />
-                <p data-fittext style="width:100px;height:100px;">
+                <p fit-text  style="width:100px;height:100px;">
                     {{f.slide.cover.text}}
                 </p>
             </div>

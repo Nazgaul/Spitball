@@ -71,7 +71,7 @@
         }
 
         start() {
-            if (shuffle) {
+            if (this.shuffle) {
                 shuffle(this.fc.cards);
             }
             this.slidepos = 0;
