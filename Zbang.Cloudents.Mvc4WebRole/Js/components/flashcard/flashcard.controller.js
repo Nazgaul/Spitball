@@ -36,6 +36,7 @@ var app;
             this.$stateParams = $stateParams;
             this.step = Steps.Start;
             this.slidepos = 0;
+            this.disabled = false;
             console.log(flashcard);
             angular.forEach(flashcard.cards, function (v, k) {
                 if (flashcard.pins.indexOf(k) !== -1) {
@@ -73,6 +74,16 @@ var app;
             }
             else {
                 this.flashcardService.pinDelete(this.$stateParams["id"], this.slide.index);
+            }
+        };
+        FlashcardController.prototype.like = function () {
+            var _this = this;
+            this.disabled = true;
+            if (!this.fc.like) {
+                this.flashcardService.like(this.$stateParams["id"]).then(function (response) { return _this.fc.like = response; }).finally(function () { return _this.disabled = false; });
+            }
+            else {
+                this.flashcardService.likeDelete(this.fc.like).then(function () { return _this.fc.like = null; }).finally(function () { return _this.disabled = false; });
             }
         };
         FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams"];

@@ -154,6 +154,7 @@ namespace Zbang.Cloudents.Mvc4WebRole
                         new JsFileWithCdn("~/bower_components/angular-google-analytics/dist/angular-google-analytics.js"),
                         new JsFileWithCdn("~/bower_components/oclazyload/dist/oclazyload.js"),
                         new JsFileWithCdn("~/bower_components/angular-vs-repeat/src/angular-vs-repeat.js"),
+                        new JsFileWithCdn("~/bower_components/ngFitText/dist/ng-FitText.min.js"),
                         new JsFileWithCdn("~/Scripts/angular-animate.js"),
                         new JsFileWithCdn("~/Scripts/angular-aria.js"),
                         new JsFileWithCdn("~/Scripts/angular-material/angular-material.js", "https://ajax.googleapis.com/ajax/libs/angular_material/1.1.1/angular-material.min.js"),

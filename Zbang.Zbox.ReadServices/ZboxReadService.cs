@@ -1196,13 +1196,16 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
         {
             using (var conn = await DapperConnection.OpenConnectionAsync())
             {
-                const string sql = "SELECT position FROM [Zbox].[FlashcardPin] where flashcardid = @FlashcardId and userid = @UserId";
+                const string sql = "SELECT position FROM [Zbox].[FlashcardPin] where flashcardid = @FlashcardId and userid = @UserId;";
+                const string sqlLike = "SELECT  [Id] FROM[Zbox].[FlashcardLike] where flashcardid = @FlashcardId and userid = @UserId;";
                 using (
-                    var grid = await conn.QueryMultipleAsync(sql,query))
+                    var grid = await conn.QueryMultipleAsync(sql + sqlLike, query))
                 {
                     var result = new FlashcardUserDto
                     {
-                        Pins = await grid.ReadAsync<int>()
+                        Pins = await grid.ReadAsync<int>(),
+                        Like = await grid.ReadFirstAsync<Guid>()
+                        
                     };
                     return result;
                 }

@@ -112,7 +112,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 values.Cards,
                 values.Name,
-                tUserValues.Result.Pins
+                tUserValues.Result.Pins,
+                tUserValues.Result.Like
 
             });
         }
@@ -306,6 +307,21 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var command = new DeleteFlashcardPinCommand(User.GetUserId(), model.Id.GetValueOrDefault(), model.Index.GetValueOrDefault());
             ZboxWriteService.DeletePinFlashcard(command);
+            return JsonOk();
+        }
+
+        [HttpPost, ZboxAuthorize,ActionName("like")]
+        public JsonResult AddLike(long id)
+        {
+            var command = new AddFlashcardLikeCommand(User.GetUserId(), id);
+            ZboxWriteService.AddFlashcardLike(command);
+            return JsonOk(command.Id);
+        }
+        [HttpDelete, ZboxAuthorize, ActionName("like")]
+        public JsonResult DeleteLike(Guid id)
+        {
+            var command = new DeleteFlashcardLikeCommand(User.GetUserId(), id);
+            ZboxWriteService.DeleteFlashcardLike(command);
             return JsonOk();
         }
     }

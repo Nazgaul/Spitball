@@ -19,6 +19,7 @@
         name: string;
         cards: Array<Card>;
         pins: Array<number>;
+        like: Guid;
         //deserialize(input: FlashCard) {
         //    this.cards = [];
         //    this.id = input.id;
@@ -47,12 +48,13 @@
         //}
     }
     class FlashcardController {
-        static $inject = ["flashcard", "flashcardService","$stateParams"];
+        static $inject = ["flashcard", "flashcardService", "$stateParams"];
         fc: Flashcard;
         shuffle: boolean;
         step = Steps.Start;
         slidepos = 0;
         slide: Card;
+        disabled = false;
         constructor(private flashcard: Flashcard,
             private flashcardService: IFlashcardService,
             private $stateParams: angular.ui.IStateParamsService) {
@@ -97,6 +99,14 @@
                 this.flashcardService.pin(this.$stateParams["id"], this.slide.index);
             } else {
                 this.flashcardService.pinDelete(this.$stateParams["id"], this.slide.index);
+            }
+        }
+        like() {
+            this.disabled = true;
+            if (!this.fc.like) {
+                this.flashcardService.like(this.$stateParams["id"]).then(response => this.fc.like = response).finally(() => this.disabled = false);
+            } else {
+                this.flashcardService.likeDelete(this.fc.like).then(() => this.fc.like = null).finally(() => this.disabled = false);
             }
         }
     }

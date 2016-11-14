@@ -84,6 +84,7 @@
     <Compile Include="CreateUniversityCommandHandler.cs" />
     <Compile Include="DeleteBoxCommandHandler.cs" />
     <Compile Include="DeleteFlashcardCommandHandler.cs" />
+    <Compile Include="DeleteFlashcardLikeCommandHandler.cs" />
     <Compile Include="DeleteFlashcardPinCommandHandler.cs" />
     <Compile Include="DeleteItemCommentCommandHandler.cs" />
     <Compile Include="DeleteItemCommentReplyCommandHandler.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Ioc\RegisterIoc.cs" />
     <Compile Include="LibraryNodeApproveAccessCommandHandler.cs" />
     <Compile Include="LikeCommentCommandHandler.cs" />
+    <Compile Include="AddFlashcardLikeCommandHandler.cs" />
     <Compile Include="LikeReplyCommandHandler.cs" />
     <Compile Include="ManageConnectionsCommandHandler.cs" />
     <Compile Include="PreviewFailedCommandHandler.cs" />
