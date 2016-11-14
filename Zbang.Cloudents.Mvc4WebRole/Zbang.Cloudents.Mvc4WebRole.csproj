@@ -648,6 +648,7 @@
     <Content Include="bower_components\ng-scrollbars\gulpfile.js" />
     <Content Include="bower_components\ng-scrollbars\LICENSE.txt" />
     <Content Include="bower_components\ng-scrollbars\src\scrollbars.js" />
+    <Content Include="bower_components\ngFitText\dist\ng-FitText.min.js" />
     <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.core.js" />
     <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.directive.js" />
     <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.common.js" />
@@ -910,6 +911,12 @@
     <Content Include="bower_components\angular-vs-repeat\.bower.json" />
     <Content Include="bower_components\angular-vs-repeat\bower.json" />
     <Content Include="bower_components\angular-vs-repeat\LICENSE" />
+    <Content Include="bower_components\ngFitText\.bower.json" />
+    <Content Include="bower_components\ngFitText\.gitignore" />
+    <Content Include="bower_components\ngFitText\.npmignore" />
+    <Content Include="bower_components\ngFitText\bower.json" />
+    <Content Include="bower_components\ngFitText\LICENSE" />
+    <Content Include="bower_components\ngFitText\README.md" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
