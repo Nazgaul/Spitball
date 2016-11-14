@@ -1,5 +1,4 @@
 ﻿.flashcardPage {
-  margin-top: -5px;
   border-top: 1px solid rgba(0, 0, 0, 0);
 }
 @media (min-width: 960px) {
@@ -15,4 +14,83 @@
   border-radius: 10px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.43);
   margin: 0 auto;
+}
+.flashcardPage .card-template {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.43);
+  max-width: 800px;
+  width: 100%;
+  min-height: 400px;
+  margin: 0 auto;
+  padding: 15px;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+  -webkit-justify-content: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.flashcardPage .step-1 {
+  text-align: center;
+  background-image: url('data:image/png;base64,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') /*/Images/Site/card-bg.png*/;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+}
+.flashcardPage .step-1 h1 {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0 0 18px 0;
+}
+.flashcardPage .step-1 ng-pluralize {
+  display: block;
+  margin-bottom: 30px;
+  color: #888b8e;
+}
+.flashcardPage .step-1 button {
+  width: 256px;
+  height: 55px;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+.flashcardPage .step-1 .shuffle {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  margin-top: 10px;
+  color: #888b8e;
+}
+.flashcardPage .step-1 .shuffle md-switch {
+  margin: 0;
+  flex-direction: row-reverse;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.flashcardPage .step-1 .shuffle md-switch .md-container {
+  margin-right: 0;
+  margin-left: 8px;
+}
+.flashcardPage .step-1 .shuffle md-icon {
+  width: 22px;
+  height: 20px;
+  fill: #888b8e;
+  margin-right: 8px;
+}
+.flashcardPage .md-thumb {
+  background-color: #ffffff;
+}
+.flashcardPage .md-bar {
+  background-color: #c3c3c3;
 }
