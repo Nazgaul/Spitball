@@ -75,9 +75,11 @@
     <Compile Include="ChatUserRepository.cs" />
     <Compile Include="CommentLikeRepository.cs" />
     <Compile Include="ConnectionRepository.cs" />
+    <Compile Include="FlashcardPinRepository.cs" />
     <Compile Include="IAcademicBoxRepository.cs" />
     <Compile Include="IBoxRepository.cs" />
     <Compile Include="ICommentLikeRepository.cs" />
+    <Compile Include="IFlashcardPinRepository.cs" />
     <Compile Include="IInviteRepository.cs" />
     <Compile Include="IItemRateRepository.cs" />
     <Compile Include="IItemRepository.cs" />

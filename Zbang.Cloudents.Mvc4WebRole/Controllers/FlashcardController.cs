@@ -94,8 +94,11 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                             Action = (int)StatisticsAction.Flashcard
                         }
                     }));
+            var tUserValues =
+                ZboxReadService.GetUserFlashcardAsync(new Zbox.ViewModel.Queries.GetUserFlashcardQuery(
+                    User.GetUserId(), id));
             var tValues = m_DocumentDbReadService.FlashcardAsync(id);
-            await Task.WhenAll(tTransAction, tValues);
+            await Task.WhenAll(tTransAction, tValues, tUserValues);
             var values = tValues.Result;
             if (!values.Publish)
             {
@@ -108,7 +111,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             return JsonOk(new
             {
                 values.Cards,
-                values.Name
+                values.Name,
+                tUserValues.Result.Pins
 
             });
         }
@@ -290,6 +294,18 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             }
             var command = new AddFlashcardPinCommand(User.GetUserId(), model.Id.GetValueOrDefault(), model.Index.GetValueOrDefault());
             ZboxWriteService.AddPinFlashcard(command);
+            return JsonOk();
+        }
+
+        [HttpDelete, ZboxAuthorize,ActionName("Pin")]
+        public JsonResult DeletePin(Pin model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return JsonError(GetErrorFromModelState());
+            }
+            var command = new DeleteFlashcardPinCommand(User.GetUserId(), model.Id.GetValueOrDefault(), model.Index.GetValueOrDefault());
+            ZboxWriteService.DeletePinFlashcard(command);
             return JsonOk();
         }
     }

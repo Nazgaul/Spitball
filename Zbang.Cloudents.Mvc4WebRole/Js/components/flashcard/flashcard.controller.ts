@@ -15,9 +15,10 @@
             a[j] = x;
         }
     }
-    class FlashCard {
+    class Flashcard {
         name: string;
         cards: Array<Card>;
+        pins: Array<number>;
         //deserialize(input: FlashCard) {
         //    this.cards = [];
         //    this.id = input.id;
@@ -45,19 +46,24 @@
         //    return this;
         //}
     }
-    class Flashcard {
+    class FlashcardController {
         static $inject = ["flashcard", "flashcardService","$stateParams"];
-        fc: FlashCard;
+        fc: Flashcard;
         shuffle: boolean;
         step = Steps.Start;
         slidepos = 0;
         slide: Card;
-        constructor(private flashcard: FlashCard,
+        constructor(private flashcard: Flashcard,
             private flashcardService: IFlashcardService,
             private $stateParams: angular.ui.IStateParamsService) {
+            console.log(flashcard);
             angular.forEach(flashcard.cards,
                 (v, k) => {
+                    if (flashcard.pins.indexOf(k) !== -1) {
+                        v.pin = true;
+                    }
                     v.index = k;
+
                 });
             this.fc = flashcard;
         }
@@ -89,9 +95,11 @@
             this.slide.pin = !this.slide.pin;
             if (this.slide.pin) {
                 this.flashcardService.pin(this.$stateParams["id"], this.slide.index);
+            } else {
+                this.flashcardService.pinDelete(this.$stateParams["id"], this.slide.index);
             }
         }
     }
 
-    angular.module("app.flashcard").controller("flashcard", Flashcard);
+    angular.module("app.flashcard").controller("flashcard", FlashcardController);
 }

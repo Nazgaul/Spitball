@@ -7,9 +7,4 @@ namespace Zbang.Zbox.Domain.DataAccess
     {
         ReplyLike GetUserLike(long userId, Guid replyId);
     }
-
-    //public interface IFlashCardPinRepository : IRepository<FlashcardPin>
-    //{
-    //    FlashcardPin GetUserPin(long userId, Guid id, int index);
-    //}
 }

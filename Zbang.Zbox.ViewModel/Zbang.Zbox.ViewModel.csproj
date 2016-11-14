@@ -65,6 +65,7 @@
     <Compile Include="Dto\ChatDto.cs" />
     <Compile Include="Dto\Emails\MarketingDto.cs" />
     <Compile Include="Dto\Emails\SpamGunDto.cs" />
+    <Compile Include="Dto\FlashcardUserDto.cs" />
     <Compile Include="Dto\HomePageDataDto.cs" />
     <Compile Include="Dto\BoxDtos\BoxDto2.cs" />
     <Compile Include="Dto\BoxDtos\BoxNotificationDto.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Queries\GetUserByIdQuery.cs" />
     <Compile Include="Queries\GetUserByMembershipQuery.cs" />
     <Compile Include="Queries\GetUserConversationAndFriends.cs" />
+    <Compile Include="Queries\GetUserFlashcardQuery.cs" />
     <Compile Include="Queries\GetUserMinProfileQuery.cs" />
     <Compile Include="Queries\IPagedQuery.cs" />
     <Compile Include="Queries\IUserQuery.cs" />

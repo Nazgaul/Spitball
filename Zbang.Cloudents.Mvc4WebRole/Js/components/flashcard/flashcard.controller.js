@@ -17,10 +17,10 @@ var app;
             a[j] = x;
         }
     }
-    var FlashCard = (function () {
-        function FlashCard() {
+    var Flashcard = (function () {
+        function Flashcard() {
         }
-        return FlashCard;
+        return Flashcard;
     }());
     var Card = (function () {
         function Card() {
@@ -29,19 +29,23 @@ var app;
         }
         return Card;
     }());
-    var Flashcard = (function () {
-        function Flashcard(flashcard, flashcardService, $stateParams) {
+    var FlashcardController = (function () {
+        function FlashcardController(flashcard, flashcardService, $stateParams) {
             this.flashcard = flashcard;
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
             this.step = Steps.Start;
             this.slidepos = 0;
+            console.log(flashcard);
             angular.forEach(flashcard.cards, function (v, k) {
+                if (flashcard.pins.indexOf(k) !== -1) {
+                    v.pin = true;
+                }
                 v.index = k;
             });
             this.fc = flashcard;
         }
-        Flashcard.prototype.start = function () {
+        FlashcardController.prototype.start = function () {
             if (shuffle) {
                 shuffle(this.fc.cards);
             }
@@ -49,12 +53,12 @@ var app;
             this.slide = this.fc.cards[this.slidepos];
             this.step = Steps.Memo;
         };
-        Flashcard.prototype.prev = function () {
+        FlashcardController.prototype.prev = function () {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
             this.slide = this.fc.cards[this.slidepos];
         };
-        Flashcard.prototype.next = function () {
+        FlashcardController.prototype.next = function () {
             this.slidepos = Math.min(this.fc.cards.length, ++this.slidepos);
             if (this.slidepos === this.fc.cards.length) {
                 this.step = Steps.End;
@@ -62,14 +66,17 @@ var app;
             }
             this.slide = this.fc.cards[this.slidepos];
         };
-        Flashcard.prototype.pin = function () {
+        FlashcardController.prototype.pin = function () {
             this.slide.pin = !this.slide.pin;
             if (this.slide.pin) {
                 this.flashcardService.pin(this.$stateParams["id"], this.slide.index);
             }
+            else {
+                this.flashcardService.pinDelete(this.$stateParams["id"], this.slide.index);
+            }
         };
-        Flashcard.$inject = ["flashcard", "flashcardService", "$stateParams"];
-        return Flashcard;
+        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams"];
+        return FlashcardController;
     }());
-    angular.module("app.flashcard").controller("flashcard", Flashcard);
+    angular.module("app.flashcard").controller("flashcard", FlashcardController);
 })(app || (app = {}));

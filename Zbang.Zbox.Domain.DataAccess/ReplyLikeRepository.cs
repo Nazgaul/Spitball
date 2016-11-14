@@ -14,13 +14,4 @@ namespace Zbang.Zbox.Domain.DataAccess
                 .FirstOrDefault(w => w.Reply.Id == replyId && w.User.Id == userId);
         }
     }
-
-    //public class FlashcardPinRepository : NHibernateRepository<FlashcardPin>, IFlashCardPinRepository
-    //{
-    //    public FlashcardPin GetUserPin(long userId, Guid id, int index);
-    //    {
-    //        return UnitOfWork.CurrentSession.Query<ReplyLike>()
-    //            .FirstOrDefault(w => w.Reply.Id == replyId && w.User.Id == userId);
-    //    }
-    //}
 }

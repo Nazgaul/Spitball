@@ -28,6 +28,7 @@ namespace Zbang.Zbox.Domain.DataAccess
             ioc.RegisterType<ILibraryRepository, LibraryRepository>();
             ioc.RegisterType<IChatUserRepository, ChatUserRepository>();
             ioc.RegisterType<IConnectionRepository, ConnectionRepository>();
+            ioc.RegisterType<IFlashcardPinRepository, FlashcardPinRepository>();
         }
     }
 }

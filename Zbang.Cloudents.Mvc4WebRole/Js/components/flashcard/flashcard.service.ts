@@ -9,6 +9,7 @@
         delete(id: number): angular.IPromise<any>;
         get(id: number, boxId: number): angular.IPromise<any>;
         pin(id: number, index: number): angular.IPromise<any>;
+        pinDelete(id: number, index: number): angular.IPromise<any>;
     }
 
     class Flashcard implements IFlashcardService {
@@ -40,6 +41,9 @@
         }
         pin(id: number,index:number) {
             return this.ajaxService2.post("/flashcard/pin", { id: id ,index:index});
+        }
+        pinDelete(id: number, index: number) {
+            return this.ajaxService2.delete("/flashcard/pin", { id: id, index: index });
         }
     }
     angular.module("app.flashcard").service("flashcardService", Flashcard);

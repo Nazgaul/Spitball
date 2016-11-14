@@ -1192,8 +1192,21 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             }
         }
 
-        
-
-       
+        public async Task<FlashcardUserDto> GetUserFlashcardAsync(GetUserFlashcardQuery query)
+        {
+            using (var conn = await DapperConnection.OpenConnectionAsync())
+            {
+                const string sql = "SELECT position FROM [Zbox].[FlashcardPin] where flashcardid = @FlashcardId and userid = @UserId";
+                using (
+                    var grid = await conn.QueryMultipleAsync(sql,query))
+                {
+                    var result = new FlashcardUserDto
+                    {
+                        Pins = await grid.ReadAsync<int>()
+                    };
+                    return result;
+                }
+            }
+        }
     }
 }

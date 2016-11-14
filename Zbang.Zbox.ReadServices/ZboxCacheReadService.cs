@@ -380,6 +380,11 @@ namespace Zbang.Zbox.ReadServices
             return m_ReadService.GetUniversityNodesAsync(universityId);
         }
 
+        public Task<FlashcardUserDto> GetUserFlashcardAsync(GetUserFlashcardQuery query)
+        {
+            return m_ReadService.GetUserFlashcardAsync(query);
+        }
+
         public Task<QuizSolversWithCountDto> GetQuizSolversAsync(GetQuizBestSolvers query)
         {
             return m_ReadService.GetQuizSolversAsync(query);

@@ -131,14 +131,17 @@ namespace Zbang.Zbox.ReadServices
 
         Task<IEnumerable<UniversityByPrefixDto>> GetUniversityByIpAddressAsync(UniversityByIpQuery query);
         Task<IEnumerable<UserWithImageNameDto>> GetUsersInBoxByTermAsync(UserInBoxSearchQuery query);
-        //Task<IEnumerable<ChatUserDto>> GetUsersByTermAsync(UserSearchQuery query);
 
-        //chat
+        #region chat
         Task<IEnumerable<ChatUserDto>> GetUsersConversationAndFriendsAsync(GetUserConversationAndFriends query);
         Task<IEnumerable<ChatDto>> GetUserConversationAsync(GetChatRoomMessagesQuery query);
         Task<int> GetChatUnreadMessagesAsync(GetUserDetailsQuery query);
-        //Task<int> GetUnreadChatMessagesAsync(QueryBase query);
+        #endregion
         Task<IEnumerable<SmallNodeDto>> GetUniversityNodesAsync(long universityId);
+
+        #region flashcard
+        Task<FlashcardUserDto> GetUserFlashcardAsync(GetUserFlashcardQuery query);
+        #endregion
 
     }
 }
