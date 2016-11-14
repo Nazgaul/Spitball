@@ -16,13 +16,13 @@ var app;
                     if (!newValue[0]) {
                         return;
                     }
-                    if (element[0].scrollHeight > element.parent()[0].offsetHeight) {
-                        while (element[0].scrollHeight > element.parent()[0].offsetHeight) {
+                    var resizeOccured;
+                    while (element[0].scrollHeight > element.parent()[0].offsetHeight && element[0].scrollWidth > element.parent()[0].offsetWidth) {
                             changeFontSize(false);
-                        }
+                        resizeOccured = true;
                     }
-                    else {
-                        while (element[0].scrollHeight < element.parent()[0].offsetHeight) {
+                    if (!resizeOccured) {
+                        while (element[0].scrollHeight < element.parent()[0].offsetHeight && element[0].scrollWidth < element.parent()[0].offsetWidth) {
                             changeFontSize(true);
                         }
                     }

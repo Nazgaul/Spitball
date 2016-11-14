@@ -3,7 +3,7 @@
     class FitText implements angular.IDirective {
         restrict = "A";
         link = (scope: angular.IScope, element: JQuery, attrs: ng.IAttributes) => {
-           // var resizeText, _results1;
+            // var resizeText, _results1;
             //var resizeTextSmall = () => {
             //    var elNewFontSize = (parseInt($(element).css('font-size').slice(0, -2)) - 1) + 'px';
             //    return $(element).css('font-size', elNewFontSize);
@@ -24,18 +24,18 @@
                 if (!newValue[0]) {
                     return;
                 }
-                if (element[0].scrollHeight > element.parent()[0].offsetHeight) {
-                    while (element[0].scrollHeight > element.parent()[0].offsetHeight) {
+                var resizeOccured: boolean;
+                while (element[0].scrollHeight > element.parent()[0].offsetHeight && element[0].scrollWidth > element.parent()[0].offsetWidth) {
                         changeFontSize(false);
-                        
-                    }
-                } else {
-                    while (element[0].scrollHeight < element.parent()[0].offsetHeight) {
+                    resizeOccured = true;
+                }
+                if (!resizeOccured) {
+                    while (element[0].scrollHeight < element.parent()[0].offsetHeight && element[0].scrollWidth < element.parent()[0].offsetWidth) {
                         changeFontSize(true);
                     }
                 }
             });
-            
+
         }
         static factory(): angular.IDirectiveFactory {
             const directive = () => {
