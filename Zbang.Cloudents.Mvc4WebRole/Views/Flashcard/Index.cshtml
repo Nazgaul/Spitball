@@ -1,6 +1,6 @@
-﻿<div ng-switch="f.step" * class="flashcard-wrapper">
-    <div ng-switch-when="0" class="card-template step-1">
-        <div class="content">
+﻿<div @*ng-switch="f.step"*@ ng-switch="f.step" class="flashcard-wrapper">
+    <div ng-switch-when="0" class="step-1">
+        <div class="content card-template">
             <h1 ng-bind="::f.flashcard.name"></h1>
             <ng-pluralize count="::f.flashcard.cards.length"
                           when="{
@@ -53,7 +53,7 @@
                     <div class="img-container" ng-if="f.slide.front.image">
                         <img ng-src="{{f.slide.front.image}}" alt="font image" />
                     </div>
-                    <div class="text-container" >
+                    <div class="text-container">
                         <p ng-bind="f.slide.front.text" fit-text></p>
                     </div>
                 </div>
@@ -80,21 +80,31 @@
             </button>
         </nav>
     </div>
-    <div ng-switch-when="2">
-        <h1>Nice work!</h1>
-        <h4>You just studied </h4>
-        <ng-pluralize count="::f.flashcard.cards.length"
-                      when="{
+    <div ng-switch-when="2" class="step-3">
+        <div class="card-template">
+            <h1>Nice work!</h1>
+            <div class="subtitle">
+                <h4>You just studied</h4>&nbsp;
+                <ng-pluralize count="::f.flashcard.cards.length"
+                              when="{
                         '1': '1 card!',
                         'other': '{} cards!'
                       }"></ng-pluralize>
-        <button type="button" ng-click="f.start()">Start over</button>
-        <button type="button">Study 2 pinned card</button>
-        <md-switch ng-model="f.shuffle">
-            shuffle cards
-        </md-switch>
-        <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()" ng-class="{liked:f.fc.like}">like</button>
-        <button type="button" ng-click="f.prev()">left</button>
-        <button type="button" disabled>right</button>
+            </div>
+            <button type="button" ng-click="f.start()">Start over</button>
+            <button type="button">Study 2 pinned card</button>
+            <md-switch ng-model="f.shuffle">
+                shuffle cards
+            </md-switch>
+            <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()" ng-class="{liked:f.fc.like}">like</button>
+        </div>
+        <nav class="buttons">
+            <button type="button" class="prev" ng-click="f.prev()">
+                <md-icon md-svg-icon="t:arrow"></md-icon>
+            </button>
+            <button type="button" class="next" disabled>
+                <md-icon md-svg-icon="t:arrow"></md-icon>
+            </button>
+        </nav>
     </div>
 </div>
