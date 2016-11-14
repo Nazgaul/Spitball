@@ -35,12 +35,6 @@
         position: relative;
     }
 
-    .step-1 {
-        .card-template {
-            margin-top: @spaceFromTop;
-        }
-    }
-
     .step-1, .step-3 {
         .card-template {
             padding: 15px;
@@ -123,24 +117,6 @@
     }
 
     .step-2 {
-        .header {
-
-            .card-sides button {
-                &.active {
-                    md-icon {
-                        fill: @buttonColorBlue;
-                    }
-                }
-
-                md-icon {
-                    fill: @textColorLightGrey;
-                    width: 40px;
-                    height: 40px;
-                    display: block;
-                    margin-right: 10px;
-                }
-            }
-        }
 
         .card-template {
             position: relative;
@@ -249,78 +225,92 @@
             }
         }
     }
+    //.step-2, .step-3 {
+    .header {
+        min-height: @spaceFromTop;
+        .displayFlex;
+        .align-items(center);
+        .justifyContet(space-between);
 
-    .step-2, .step-3 {
-        .header {
-            min-height: @spaceFromTop;
-            .displayFlex;
-            .align-items(center);
-            .justifyContet(space-between);
+        .progress-wrapper {
+            max-width: 240px;
+            width: 100%;
 
-            .progress-wrapper {
-                max-width: 240px;
-                width: 100%;
+            .title {
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(flex-start);
 
-                .title {
-                    .displayFlex;
-                    .align-items(center);
-                    .justifyContet(flex-start);
-
-                    h4 {
-                        font-size: 20px;
-                        font-weight: bold;
-                    }
-
-                    md-icon {
-                        width: 48px;
-                        height: 40px;
-                        fill: @buttonColorBlue;
-                        margin-right: 10px;
-                    }
+                h4 {
+                    font-size: 20px;
+                    font-weight: bold;
                 }
 
-                md-progress-linear {
-                    .custom-progress-bar(@buttonColorBlue, #d9e9f1, 16px, 8px);
-                    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.43);
-                    margin-top: 16px;
+                md-icon {
+                    width: 48px;
+                    height: 40px;
+                    fill: @buttonColorBlue;
+                    margin-right: 10px;
                 }
+            }
 
-                .progress-text {
-                    .displayFlex;
-                    .align-items(center);
-                    .justifyContet(space-between);
-                    text-transform: capitalize;
-                    margin-top: 4px;
-                }
+            md-progress-linear {
+                .custom-progress-bar(@buttonColorBlue, #d9e9f1, 16px, 8px);
+                box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.43);
+                margin-top: 16px;
+            }
+
+            .progress-text {
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(space-between);
+                text-transform: capitalize;
+                margin-top: 4px;
             }
         }
 
-
-        nav.buttons {
-            text-align: center;
-            margin-top: 24px;
-
-            .prev {
-                -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
-                -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
-                -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
-                -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
-                transform: rotate(180deg) /*rtl:rotate(0)*/;
-            }
-
-            button[disabled] md-icon {
-                fill: @textColorGrey;
-                margin: 0;
+        .card-sides button {
+            &.active {
+                md-icon {
+                    fill: @buttonColorBlue;
+                }
             }
 
             md-icon {
-                fill: @buttonColorBlue;
+                fill: @textColorLightGrey;
                 width: 40px;
                 height: 40px;
+                display: block;
+                margin-right: 10px;
             }
         }
     }
 
+
+    nav.buttons {
+        text-align: center;
+        margin-top: 24px;
+
+        .prev {
+            -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
+            -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
+            -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
+            -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
+            transform: rotate(180deg) /*rtl:rotate(0)*/;
+        }
+
+        button[disabled] md-icon {
+            fill: @textColorGrey;
+            margin: 0;
+        }
+
+        md-icon {
+            fill: @buttonColorBlue;
+            width: 40px;
+            height: 40px;
+        }
+    }
+    //}
     .step-3 {
         .subtitle {
             .displayFlex;

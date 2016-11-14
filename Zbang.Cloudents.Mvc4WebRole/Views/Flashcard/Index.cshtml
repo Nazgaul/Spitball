@@ -1,5 +1,35 @@
 ﻿<div @*ng-switch="f.step"*@ ng-switch="f.step" class="flashcard-wrapper">
-    <div ng-switch-when="0" class="step-1">
+    <div class="header">
+        <div multiswitch-when="1|2" class="progress-wrapper">
+            <div class="title">
+                <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+                <h4>cards</h4>
+            </div>
+            <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.fc.length * 100}}"></md-progress-linear>
+            <div class="progress-text">
+                <span>progress</span>
+                <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
+            </div>
+        </div>
+        <div multiswitch-when="1" class="card-sides">
+            <button type="button" ng-click="f.style=true" ng-class="{active:f.style===true}">
+                <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+                front
+            </button>
+            <button type="button" ng-click="f.style=false" ng-class="{active:f.style===false}">
+                <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+                back
+            </button>
+            <button type="button" ng-click="f.style=null" ng-class="{active:f.style===null}">
+                <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+                both
+            </button>
+        </div>
+        <div multiswitch-when="2" class="card-sides">
+            pinned counter
+        </div>
+    </div>
+    <div multiswitch-when="0" class="step-1">
         <div class="content card-template">
             <h1 ng-bind="::f.flashcard.name"></h1>
             <ng-pluralize class="subtitle" count="::f.flashcard.cards.length"
@@ -25,8 +55,8 @@
             </div>
         </div>
     </div>
-    <div ng-switch-when="1" class="step-2">
-        <div class="header">
+    <div multiswitch-when="1" class="step-2">
+        @*<div class="header">
             <div class="progress-wrapper">
                 <div class="title">
                     <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
@@ -52,7 +82,7 @@
                     both
                 </button>
             </div>
-        </div>
+        </div>*@
         <div class="card-template" ng-init="f.style=true" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}">
             <button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:f.slide.pin}">
                 <md-icon md-svg-icon="b:pin"></md-icon>
@@ -89,20 +119,7 @@
             </button>
         </nav>
     </div>
-    <div ng-switch-when="2" class="step-3">
-        <div class="header">
-            <div class="progress-wrapper">
-                <div class="title">
-                    <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
-                    <h4>cards</h4>
-                </div>
-                <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.fc.length * 100}}"></md-progress-linear>
-                <div class="progress-text">
-                    <span>progress</span>
-                    <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
-                </div>
-            </div>
-        </div>
+    <div multiswitch-when="2" class="step-3">
         <div class="card-template">
             <h1>Nice work!</h1>
             <div class="subtitle">

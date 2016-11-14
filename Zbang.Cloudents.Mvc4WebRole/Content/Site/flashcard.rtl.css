@@ -36,9 +36,6 @@
   flex-direction: column;
   position: relative;
 }
-.flashcardPage .step-1 .card-template {
-  margin-top: 160px;
-}
 .flashcardPage .step-1 .card-template,
 .flashcardPage .step-3 .card-template {
   padding: 15px;
@@ -129,16 +126,6 @@
 .flashcardPage .step-3 .action-buttons button.pinned-cards ng-pluralize {
   display: inline-block;
   margin: 0;
-}
-.flashcardPage .step-2 .header .card-sides button.active md-icon {
-  fill: #4190b9;
-}
-.flashcardPage .step-2 .header .card-sides button md-icon {
-  fill: #c3c3c3;
-  width: 40px;
-  height: 40px;
-  display: block;
-  margin-left: 10px;
 }
 .flashcardPage .step-2 .card-template {
   position: relative;
@@ -239,8 +226,7 @@
   height: 19px;
   fill: #c3c3c3;
 }
-.flashcardPage .step-2 .header,
-.flashcardPage .step-3 .header {
+.flashcardPage .header {
   min-height: 160px;
   display: -webkit-flex;
   display: -ms-flex;
@@ -250,13 +236,11 @@
   -webkit-justify-content: space-between;
   justify-content: space-between;
 }
-.flashcardPage .step-2 .header .progress-wrapper,
-.flashcardPage .step-3 .header .progress-wrapper {
+.flashcardPage .header .progress-wrapper {
   max-width: 240px;
   width: 100%;
 }
-.flashcardPage .step-2 .header .progress-wrapper .title,
-.flashcardPage .step-3 .header .progress-wrapper .title {
+.flashcardPage .header .progress-wrapper .title {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -265,51 +249,40 @@
   -webkit-justify-content: flex-start;
   justify-content: flex-start;
 }
-.flashcardPage .step-2 .header .progress-wrapper .title h4,
-.flashcardPage .step-3 .header .progress-wrapper .title h4 {
+.flashcardPage .header .progress-wrapper .title h4 {
   font-size: 20px;
   font-weight: bold;
 }
-.flashcardPage .step-2 .header .progress-wrapper .title md-icon,
-.flashcardPage .step-3 .header .progress-wrapper .title md-icon {
+.flashcardPage .header .progress-wrapper .title md-icon {
   width: 48px;
   height: 40px;
   fill: #4190b9;
   margin-left: 10px;
 }
-.flashcardPage .step-2 .header .progress-wrapper md-progress-linear,
-.flashcardPage .step-3 .header .progress-wrapper md-progress-linear {
+.flashcardPage .header .progress-wrapper md-progress-linear {
   height: 16px;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.43);
   margin-top: 16px;
 }
-.flashcardPage .step-2 .header .progress-wrapper md-progress-linear.md-default-theme .md-container,
-.flashcardPage .step-3 .header .progress-wrapper md-progress-linear.md-default-theme .md-container,
-.flashcardPage .step-2 .header .progress-wrapper md-progress-linear .md-container,
-.flashcardPage .step-3 .header .progress-wrapper md-progress-linear .md-container {
+.flashcardPage .header .progress-wrapper md-progress-linear.md-default-theme .md-container,
+.flashcardPage .header .progress-wrapper md-progress-linear .md-container {
   border-radius: 8px;
 }
-.flashcardPage .step-2 .header .progress-wrapper md-progress-linear.md-default-theme .md-container,
-.flashcardPage .step-3 .header .progress-wrapper md-progress-linear.md-default-theme .md-container,
-.flashcardPage .step-2 .header .progress-wrapper md-progress-linear .md-bar,
-.flashcardPage .step-3 .header .progress-wrapper md-progress-linear .md-bar,
-.flashcardPage .step-2 .header .progress-wrapper md-progress-linear .md-container,
-.flashcardPage .step-3 .header .progress-wrapper md-progress-linear .md-container {
+.flashcardPage .header .progress-wrapper md-progress-linear.md-default-theme .md-container,
+.flashcardPage .header .progress-wrapper md-progress-linear .md-bar,
+.flashcardPage .header .progress-wrapper md-progress-linear .md-container {
   height: 16px;
 }
-.flashcardPage .step-2 .header .progress-wrapper md-progress-linear .md-container,
-.flashcardPage .step-3 .header .progress-wrapper md-progress-linear .md-container {
+.flashcardPage .header .progress-wrapper md-progress-linear .md-container {
   background: #d9e9f1;
   height: 16px;
 }
-.flashcardPage .step-2 .header .progress-wrapper md-progress-linear .md-container .md-bar,
-.flashcardPage .step-3 .header .progress-wrapper md-progress-linear .md-container .md-bar {
+.flashcardPage .header .progress-wrapper md-progress-linear .md-container .md-bar {
   background: #4190b9;
 }
-.flashcardPage .step-2 .header .progress-wrapper .progress-text,
-.flashcardPage .step-3 .header .progress-wrapper .progress-text {
+.flashcardPage .header .progress-wrapper .progress-text {
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -320,26 +293,32 @@
   text-transform: capitalize;
   margin-top: 4px;
 }
-.flashcardPage .step-2 nav.buttons,
-.flashcardPage .step-3 nav.buttons {
+.flashcardPage .header .card-sides button.active md-icon {
+  fill: #4190b9;
+}
+.flashcardPage .header .card-sides button md-icon {
+  fill: #c3c3c3;
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin-left: 10px;
+}
+.flashcardPage nav.buttons {
   text-align: center;
   margin-top: 24px;
 }
-.flashcardPage .step-2 nav.buttons .prev,
-.flashcardPage .step-3 nav.buttons .prev {
+.flashcardPage nav.buttons .prev {
   -moz-transform: rotate(0);
   -ms-transform: rotate(0);
   -o-transform: rotate(0);
   -webkit-transform: rotate(0);
   transform: rotate(0);
 }
-.flashcardPage .step-2 nav.buttons button[disabled] md-icon,
-.flashcardPage .step-3 nav.buttons button[disabled] md-icon {
+.flashcardPage nav.buttons button[disabled] md-icon {
   fill: #888b8e;
   margin: 0;
 }
-.flashcardPage .step-2 nav.buttons md-icon,
-.flashcardPage .step-3 nav.buttons md-icon {
+.flashcardPage nav.buttons md-icon {
   fill: #4190b9;
   width: 40px;
   height: 40px;
