@@ -53,20 +53,18 @@
                     <div class="img-container" ng-if="f.slide.front.image">
                         <img ng-src="{{f.slide.front.image}}" alt="font image" />
                     </div>
-                    <div class="text-container">
-                        <p data-fittext style="width:100px;height:100px;">
-                            {{f.slide.front.text}}
-                        </p>
+                    <div class="text-container" fit-text ng-bind="f.slide.front.text">
+                            @*{{f.slide.front.text}}*@
                     </div>
                 </div>
                 <div class="side back">
                     <div class="img-container" ng-if="f.slide.cover.image">
                         <img ng-src="{{f.slide.cover.image}}" alt="font image" />
                     </div>
-                    <div class="text-container">
-                        <p data-fittext style="width:100px;height:100px;">
-                            {{f.slide.cover.text}}
-                        </p>
+                    <div class="text-container" fit-text ng-bind="f.slide.cover.text">
+                        @*<p fit-text style="overflow: hidden;">*@
+                            @*{{f.slide.cover.text}}*@
+                        @*</p>*@
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ var app;
                     return $(element).css('font-size', elNewFontSize);
                 };
                 scope.$watch(attrs["ngBind"], function () {
+                    $(element).css('font-size', "");
                     while (element[0].scrollHeight > element[0].offsetHeight) {
                         resizeText();
                     }
