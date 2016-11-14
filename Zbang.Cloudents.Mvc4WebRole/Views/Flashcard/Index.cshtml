@@ -7,7 +7,7 @@
                         '1': '1 card',
                         'other': '{} cards'
                       }"></ng-pluralize>
-            <div class="buttons">
+            <div class="action-buttons">
                 <button type="button" class="action-btn" ng-click="f.start()">start</button>
                 <button type="button" class="action-btn pinned-cards" ng-if="::f.pinCount" ng-click="f.startPin()">
                     Study&nbsp;<ng-pluralize count="::f.pinCount"
@@ -90,6 +90,19 @@
         </nav>
     </div>
     <div ng-switch-when="2" class="step-3">
+        <div class="header">
+            <div class="progress-wrapper">
+                <div class="title">
+                    <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+                    <h4>cards</h4>
+                </div>
+                <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.fc.length * 100}}"></md-progress-linear>
+                <div class="progress-text">
+                    <span>progress</span>
+                    <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
+                </div>
+            </div>
+        </div>
         <div class="card-template">
             <h1>Nice work!</h1>
             <div class="subtitle">
@@ -100,7 +113,7 @@
                         'other': '{} cards!'
                       }"></ng-pluralize>
             </div>
-            <div class="buttons">
+            <div class="action-buttons">
                 <button type="button" class="action-btn" ng-click="f.start()">Start over</button>
                 <button type="button" class="action-btn pinned-cards" ng-if="::f.pinCount" ng-click="f.startPin()">
                     Study&nbsp;<ng-pluralize count="::f.pinCount"
