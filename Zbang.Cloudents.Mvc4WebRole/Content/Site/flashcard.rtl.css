@@ -173,7 +173,19 @@
 .flashcardPage .step-2 .card-template {
   position: relative;
 }
-.flashcardPage .step-2 .card-template.both .card-content .side img {
+.flashcardPage .step-2 .card-template.front .card-content .side {
+  flex-direction: row;
+}
+.flashcardPage .step-2 .card-template.front .card-content .side.back {
+  display: none;
+}
+.flashcardPage .step-2 .card-template.back .card-content .side {
+  flex-direction: row;
+}
+.flashcardPage .step-2 .card-template.back .card-content .side.front {
+  display: none;
+}
+.flashcardPage .step-2 .card-template.both .card-content .card-content .side img {
   width: initial;
   max-width: 100%;
   margin: 0 auto;
@@ -190,7 +202,7 @@
   flex-grow: 1;
 }
 .flashcardPage .step-2 .card-template .card-content .side {
-  width: 50%;
+  width: 100%;
   padding: 50px;
   display: -webkit-flex;
   display: -ms-flex;
