@@ -1,5 +1,6 @@
 var app;
 (function (app) {
+    "use strict";
     var CardSettingsDirective = (function () {
         function CardSettingsDirective($mdMedia) {
             var _this = this;

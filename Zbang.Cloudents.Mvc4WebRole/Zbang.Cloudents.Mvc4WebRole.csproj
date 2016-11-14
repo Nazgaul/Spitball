@@ -648,7 +648,6 @@
     <Content Include="bower_components\ng-scrollbars\gulpfile.js" />
     <Content Include="bower_components\ng-scrollbars\LICENSE.txt" />
     <Content Include="bower_components\ng-scrollbars\src\scrollbars.js" />
-    <Content Include="bower_components\ngFitText\dist\ng-FitText.min.js" />
     <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.core.js" />
     <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.directive.js" />
     <Content Include="bower_components\oclazyload\dist\modules\ocLazyLoad.loaders.common.js" />
@@ -911,12 +910,6 @@
     <Content Include="bower_components\angular-vs-repeat\.bower.json" />
     <Content Include="bower_components\angular-vs-repeat\bower.json" />
     <Content Include="bower_components\angular-vs-repeat\LICENSE" />
-    <Content Include="bower_components\ngFitText\.bower.json" />
-    <Content Include="bower_components\ngFitText\.gitignore" />
-    <Content Include="bower_components\ngFitText\.npmignore" />
-    <Content Include="bower_components\ngFitText\bower.json" />
-    <Content Include="bower_components\ngFitText\LICENSE" />
-    <Content Include="bower_components\ngFitText\README.md" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1438,6 +1431,7 @@
     <TypeScriptCompile Include="Js\components\dashboard\dashboard.service.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\cardSettings.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\card.directive.ts" />
+    <TypeScriptCompile Include="Js\components\flashcard\fitText.directive.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.controller.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcardCreate.controller.ts" />
     <TypeScriptCompile Include="Js\components\flashcard\flashcard.routes.ts" />

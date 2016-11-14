@@ -47,7 +47,7 @@ var app;
             this.fc = flashcard;
         }
         FlashcardController.prototype.start = function () {
-            if (shuffle) {
+            if (this.shuffle) {
                 shuffle(this.fc.cards);
             }
             this.slidepos = 0;

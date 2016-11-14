@@ -1,4 +1,5 @@
 ﻿module app {
+    "use strict";
     class CardSettingsDirective implements angular.IDirective {
         restrict = "A";
 
