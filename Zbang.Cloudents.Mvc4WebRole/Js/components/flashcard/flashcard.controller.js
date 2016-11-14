@@ -37,7 +37,6 @@ var app;
             this.step = Steps.Start;
             this.slidepos = 0;
             this.disabled = false;
-            console.log(flashcard);
             angular.forEach(flashcard.cards, function (v, k) {
                 if (flashcard.pins.indexOf(k) !== -1) {
                     v.pin = true;

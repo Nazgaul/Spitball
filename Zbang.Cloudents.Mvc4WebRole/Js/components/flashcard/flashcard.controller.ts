@@ -58,7 +58,6 @@
         constructor(private flashcard: Flashcard,
             private flashcardService: IFlashcardService,
             private $stateParams: angular.ui.IStateParamsService) {
-            console.log(flashcard);
             angular.forEach(flashcard.cards,
                 (v, k) => {
                     if (flashcard.pins.indexOf(k) !== -1) {
