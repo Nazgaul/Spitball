@@ -20,7 +20,7 @@
                 <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                 back
             </button>
-            <button type="button" ng-click="f.style=null" ng-class="{active:f.style===null}">
+            <button type="button" ng-click="f.style=null" ng-class="{active:f.style==null}">
                 <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
                 both
             </button>
@@ -29,16 +29,22 @@
             pinned counter
         </div>
     </div>
-    <div multiswitch-when="0" class="step-1">
+    <div multiswitch-when="0|2" class="cards-info">
         <div class="content card-template">
-            <h1 ng-bind="::f.flashcard.name"></h1>
-            <ng-pluralize class="subtitle" count="::f.flashcard.cards.length"
-                          when="{
-                        '1': '1 card',
-                        'other': '{} cards'
+            <h1 ng-if="f.step==0" ng-bind="::f.flashcard.name"></h1>
+            <h1 ng-if="f.step==2">Nice work!</h1>
+            <div class="subtitle">
+                <h4 ng-if="f.step==2">You just studied&nbsp;</h4>
+                <ng-pluralize count="::f.flashcard.cards.length"
+                              when="{
+                        '1': '1 card!',
+                        'other': '{} cards!'
                       }"></ng-pluralize>
+            </div>
             <div class="action-buttons">
-                <button type="button" class="action-btn" ng-click="f.start()">start</button>
+                <button type="button" class="action-btn" ng-click="f.start()">
+                    <span>start</span><span ng-if="f.step==2">&nbsp;over</span>
+                </button>
                 <button type="button" class="action-btn pinned-cards" ng-if="::f.pinCount" ng-click="f.startPin()">
                     Study&nbsp;<ng-pluralize count="::f.pinCount"
                                              when="{
@@ -53,36 +59,12 @@
                     shuffle cards
                 </md-switch>
             </div>
+            <div ng-if="f.step==2" class="like-wrapper">
+                <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()" ng-class="{liked:f.flashcard.like}">like</button>
+            </div>
         </div>
     </div>
-    <div multiswitch-when="1" class="step-2">
-        @*<div class="header">
-            <div class="progress-wrapper">
-                <div class="title">
-                    <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
-                    <h4>cards</h4>
-                </div>
-                <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.fc.length * 100}}"></md-progress-linear>
-                <div class="progress-text">
-                    <span>progress</span>
-                    <span>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
-                </div>
-            </div>
-            <div class="card-sides">
-                <button type="button" ng-click="f.changeStyle(true)" ng-class="{active:f.styleLegend===true}">
-                    <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
-                    front
-                </button>
-                <button type="button" ng-click="f.changeStyle(false)" ng-class="{active:f.styleLegend===false}">
-                    <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
-                    back
-                </button>
-                <button type="button" ng-click="f.changeStyle(null)" ng-class="{active:f.styleLegend===null}">
-                    <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
-                    both
-                </button>
-            </div>
-        </div>*@
+    <div multiswitch-when="1" class="card-player">
         <div class="card-template" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}">
             <button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:f.slide.pin}">
                 <md-icon md-svg-icon="b:pin"></md-icon>
@@ -110,53 +92,14 @@
                 Click to flip
             </button>
         </div>
-        <nav class="buttons">
-            <button type="button" class="prev" ng-click="f.prev()" ng-disabled="f.slidepos === 0">
-                <md-icon md-svg-icon="t:arrow"></md-icon>
-            </button>
-            <button type="button" class="next" ng-click="f.next()" ng-disabled="f.slidepos === f.flashcard.cards.length">
-                <md-icon md-svg-icon="t:arrow"></md-icon>
-            </button>
-        </nav>
     </div>
-    <div multiswitch-when="2" class="step-3">
-        <div class="card-template">
-            <h1>Nice work!</h1>
-            <div class="subtitle">
-                <h4>You just studied</h4>&nbsp;
-                <ng-pluralize count="::f.fc.length"
-                              when="{
-                        '1': '1 card!',
-                        'other': '{} cards!'
-                      }"></ng-pluralize>
-            </div>
-            <div class="action-buttons">
-                <button type="button" class="action-btn" ng-click="f.start()">Start over</button>
-                <button type="button" class="action-btn pinned-cards" ng-if="::f.pinCount" ng-click="f.startPin()">
-                    Study&nbsp;<ng-pluralize count="::f.pinCount"
-                                             when="{
-                        '1': '1 pin',
-                        'other': '{} pinned'
-                      }"></ng-pluralize>
-                </button>
-            </div>
-            <div class="shuffle">
-                <md-icon md-svg-icon="b:shuffle"></md-icon>
-                <md-switch ng-model="f.shuffle">
-                    shuffle cards
-                </md-switch>
-            </div>
-            <div class="like-wrapper">
-                <span>Enjoy this set? give it a like:</span>&nbsp;<button ng-click="f.like()" ng-class="{liked:f.flashcard.like}">like</button>
-            </div>
-        </div>
-        <nav class="buttons">
-            <button type="button" class="prev" ng-click="f.prev()">
-                <md-icon md-svg-icon="t:arrow"></md-icon>
-            </button>
-            <button type="button" class="next" disabled>
-                <md-icon md-svg-icon="t:arrow"></md-icon>
-            </button>
-        </nav>
-    </div>
+
+    <nav multiswitch-when="1|2" class="buttons">
+        <button type="button" class="prev" ng-click="f.prev()" ng-disabled="f.slidepos == 0">
+            <md-icon md-svg-icon="t:arrow"></md-icon>
+        </button>
+        <button type="button" class="next" ng-click="f.next()" ng-disabled="f.slidepos == f.flashcard.cards.length">
+            <md-icon md-svg-icon="t:arrow"></md-icon>
+        </button>
+    </nav>
 </div>

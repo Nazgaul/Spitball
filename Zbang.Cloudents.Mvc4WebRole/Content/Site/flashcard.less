@@ -7,6 +7,90 @@
     .fullPageElelment();
     border-top: 1px solid rgba(0, 0, 0, 0);
 
+    .header {
+        min-height: @spaceFromTop;
+        .displayFlex;
+        .align-items(center);
+        .justifyContet(space-between);
+
+        .progress-wrapper {
+            max-width: 240px;
+            width: 100%;
+
+            .title {
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(flex-start);
+
+                h4 {
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+
+                md-icon {
+                    width: 48px;
+                    height: 40px;
+                    fill: @buttonColorBlue;
+                    margin-right: 10px;
+                }
+            }
+
+            md-progress-linear {
+                .custom-progress-bar(@buttonColorBlue, #d9e9f1, 16px, 8px);
+                box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.43);
+                margin-top: 16px;
+            }
+
+            .progress-text {
+                .displayFlex;
+                .align-items(center);
+                .justifyContet(space-between);
+                text-transform: capitalize;
+                margin-top: 4px;
+            }
+        }
+
+        .card-sides button {
+            &.active {
+                md-icon {
+                    fill: @buttonColorBlue;
+                }
+            }
+
+            md-icon {
+                fill: @textColorLightGrey;
+                width: 40px;
+                height: 40px;
+                display: block;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    nav.buttons {
+        text-align: center;
+        margin-top: 24px;
+
+        .prev {
+            -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
+            -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
+            -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
+            -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
+            transform: rotate(180deg) /*rtl:rotate(0)*/;
+        }
+
+        button[disabled] md-icon {
+            fill: @textColorGrey;
+            margin: 0;
+        }
+
+        md-icon {
+            fill: @buttonColorBlue;
+            width: 40px;
+            height: 40px;
+        }
+    }
+
     .card-wrapper-cover {
         background: @textColorWhite;
         max-width: 800px;
@@ -35,7 +119,7 @@
         position: relative;
     }
 
-    .step-1, .step-3 {
+    .cards-info {
         .card-template {
             padding: 15px;
             text-align: center;
@@ -55,16 +139,13 @@
             margin-bottom: 30px;
             color: @textColorGrey;
             font-size: 16px;
-        }
+            .displayFlex;
+            .align-items(center);
+            .justifyContet(center);
 
-        .action-btn {
-            width: 256px;
-            max-width: 100%;
-            height: 55px;
-            font-size: 20px;
-            font-weight: bold;
-            text-transform: capitalize;
-            margin: 0 auto;
+            h4 {
+                margin: 0;
+            }
         }
 
         .shuffle {
@@ -101,7 +182,14 @@
             .justifyContet(center);
             margin: 0 auto;
 
-            button {
+
+            .action-btn {
+                width: 256px;
+                max-width: 100%;
+                height: 55px;
+                font-size: 20px;
+                font-weight: bold;
+                text-transform: capitalize;
                 margin: 0 10px;
 
                 &.pinned-cards {
@@ -114,9 +202,17 @@
                 }
             }
         }
+
+        .like-wrapper {
+            position: absolute;
+            bottom: 18px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
     }
 
-    .step-2 {
+    .card-player {
 
         .card-template {
             position: relative;
@@ -225,111 +321,7 @@
             }
         }
     }
-    //.step-2, .step-3 {
-    .header {
-        min-height: @spaceFromTop;
-        .displayFlex;
-        .align-items(center);
-        .justifyContet(space-between);
 
-        .progress-wrapper {
-            max-width: 240px;
-            width: 100%;
-
-            .title {
-                .displayFlex;
-                .align-items(center);
-                .justifyContet(flex-start);
-
-                h4 {
-                    font-size: 20px;
-                    font-weight: bold;
-                }
-
-                md-icon {
-                    width: 48px;
-                    height: 40px;
-                    fill: @buttonColorBlue;
-                    margin-right: 10px;
-                }
-            }
-
-            md-progress-linear {
-                .custom-progress-bar(@buttonColorBlue, #d9e9f1, 16px, 8px);
-                box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.43);
-                margin-top: 16px;
-            }
-
-            .progress-text {
-                .displayFlex;
-                .align-items(center);
-                .justifyContet(space-between);
-                text-transform: capitalize;
-                margin-top: 4px;
-            }
-        }
-
-        .card-sides button {
-            &.active {
-                md-icon {
-                    fill: @buttonColorBlue;
-                }
-            }
-
-            md-icon {
-                fill: @textColorLightGrey;
-                width: 40px;
-                height: 40px;
-                display: block;
-                margin-right: 10px;
-            }
-        }
-    }
-
-
-    nav.buttons {
-        text-align: center;
-        margin-top: 24px;
-
-        .prev {
-            -moz-transform: rotate(180deg) /*rtl:rotate(0)*/;
-            -ms-transform: rotate(180deg) /*rtl:rotate(0)*/;
-            -o-transform: rotate(180deg) /*rtl:rotate(0)*/;
-            -webkit-transform: rotate(180deg) /*rtl:rotate(0)*/;
-            transform: rotate(180deg) /*rtl:rotate(0)*/;
-        }
-
-        button[disabled] md-icon {
-            fill: @textColorGrey;
-            margin: 0;
-        }
-
-        md-icon {
-            fill: @buttonColorBlue;
-            width: 40px;
-            height: 40px;
-        }
-    }
-    //}
-    .step-3 {
-        .subtitle {
-            .displayFlex;
-            .align-items(center);
-            .justifyContet(center);
-
-            h4 {
-                margin: 0;
-            }
-        }
-
-        .like-wrapper {
-            position: absolute;
-            bottom: 18px;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-        }
-    }
 
     md-switch.md-checked .md-thumb {
         background-color: @textColorWhite;
