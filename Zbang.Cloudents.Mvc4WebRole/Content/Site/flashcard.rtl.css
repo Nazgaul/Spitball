@@ -456,6 +456,7 @@
   -webkit-justify-content: space-between;
   justify-content: space-between;
   flex-grow: 1;
+  height: inherit;
 }
 .flashcardPage .card-player .card-template .card-content .side {
   width: 100%;
@@ -475,7 +476,7 @@
 }
 @media (max-width: 600px) {
   .flashcardPage .card-player .card-template .card-content .side {
-    padding: 10px 50px;
+    padding: 10px 50px 35px 50px;
   }
   .flashcardPage .card-player .card-template .card-content .side.front {
     border-left: none;
