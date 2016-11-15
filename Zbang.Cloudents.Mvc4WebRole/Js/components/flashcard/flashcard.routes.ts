@@ -33,7 +33,7 @@
                     {
                         state: 'flashcard',
                         config: {
-                            url: '/flashcard/{universityName:encodeStr}/{boxId:int}/{boxName:encodeStr}/{id:int}/{name:encodeStr}/',
+                            url: '/flashcard/{universityType:encodeStr}/{boxId:int}/{boxName:encodeStr}/{id:int}/{name:encodeStr}/',
                             controller: 'flashcard as f',
                             resolve: {
                                 flashcard: ['flashcardService', '$stateParams', (flashcardService: IFlashcardService, $stateParams: spitaball.ISpitballStateParamsService) => flashcardService.get($stateParams["id"], $stateParams.boxId)]
