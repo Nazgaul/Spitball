@@ -26,7 +26,7 @@
                     </md-menu-content>
                 </md-menu>
                 <div class="progress-line">
-                    <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.fc.length * 100}}"></md-progress-linear>
+                    <md-progress-linear md-mode="determinate" value="{{f.slidepos / f.cards.length * 100}}"></md-progress-linear>
                     <span hide-gt-xs>{{f.slidepos}}/{{::f.flashcard.cards.length}}</span>
                 </div>
             </div>
@@ -93,26 +93,26 @@
             </div>
         </div>
     </div>
-    <div multiswitch-when="1" class="card-player">
-        <div class="card-template" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}">
-            <button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:f.slide.pin}">
+    <div multiswitch-when="1" class="card-player" card-scroll>
+        <div ng-attr-id="card{{::$index}}" class="card-template" ng-hide="::$index !== f.slidepos" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
+            <button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:slide.pin}">
                 <md-icon md-svg-icon="b:pin"></md-icon>
             </button>
             <div class="card-content">
                 <div class="side front">
-                    <div class="img-container" ng-if="f.slide.front.image">
-                        <img ng-src="{{f.slide.front.image}}" alt="font image" />
+                    <div class="img-container" ng-if="::slide.front.image">
+                        <img ng-src="{{::slide.front.image}}" alt="font image"/>
                     </div>
                     <div class="text-container">
-                        <p ng-bind="f.slide.front.text" fit-text></p>
+                        <p dir="auto" ng-bind="::slide.front.text" fit-text></p>
                     </div>
                 </div>
                 <div class="side back">
-                    <div class="img-container" ng-if="f.slide.cover.image">
-                        <img ng-src="{{f.slide.cover.image}}" alt="font image" />
+                    <div class="img-container" ng-if="::slide.cover.image">
+                        <img ng-src="{{::slide.cover.image}}" alt="font image"/>
                     </div>
                     <div class="text-container">
-                        <p ng-bind="f.slide.cover.text" fit-text></p>
+                        <p dir="auto" ng-bind="::slide.cover.text" fit-text></p>
                     </div>
                 </div>
             </div>
@@ -120,6 +120,7 @@
                 <md-icon md-svg-icon="b:flip"></md-icon>
                 Click to flip
             </button>
+            
         </div>
     </div>
 

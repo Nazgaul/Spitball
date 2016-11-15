@@ -234,6 +234,12 @@
         .justifyContet(center);
         flex-direction: column;
         position: relative;
+
+        @media(max-width:600px) {
+            &.ng-hide {
+                display:block !important;
+            }
+        }
     }
 
     .cards-info {

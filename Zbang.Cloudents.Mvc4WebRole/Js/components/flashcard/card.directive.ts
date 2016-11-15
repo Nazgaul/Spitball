@@ -8,8 +8,8 @@
             slide: "=",
             upload: "="
         }
-        link = (scope: angular.IScope) => {
-        }
+        //link = (scope: angular.IScope) => {
+        //}
         transclude = true;
 
         static factory(): angular.IDirectiveFactory {

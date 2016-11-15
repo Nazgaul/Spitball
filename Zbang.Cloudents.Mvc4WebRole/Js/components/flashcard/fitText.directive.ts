@@ -3,15 +3,6 @@
     class FitText implements angular.IDirective {
         restrict = "A";
         link = (scope: angular.IScope, element: JQuery, attrs: ng.IAttributes) => {
-            // var resizeText, _results1;
-            //var resizeTextSmall = () => {
-            //    var elNewFontSize = (parseInt($(element).css('font-size').slice(0, -2)) - 1) + 'px';
-            //    return $(element).css('font-size', elNewFontSize);
-            //};
-            //var resizeTextHeight = () => {
-            //    var elNewFontSize = (parseInt($(element).css('font-size').slice(0, -2)) + 1) + 'px';
-            //    return $(element).css('font-size', elNewFontSize);
-            //};
             var attributeToChange = "font-size";
             var changeFontSize = (isPositive) => {
                 var change = isPositive ? 1 : -1;

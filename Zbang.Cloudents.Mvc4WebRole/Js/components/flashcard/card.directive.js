@@ -9,8 +9,6 @@ var app;
                 slide: "=",
                 upload: "="
             };
-            this.link = function (scope) {
-            };
             this.transclude = true;
         }
         CardDirective.factory = function () {
