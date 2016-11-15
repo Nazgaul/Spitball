@@ -61,7 +61,7 @@
         <div class="content card-template">
             <h1 ng-if="f.step==0" ng-bind="::f.flashcard.name"></h1>
             <h1 ng-if="f.step==2">Nice work!</h1>
-            <h4 ng-if="f.step==0" ng-bind="::f.flashcard.ownerName"></h4>
+            <h4 ng-if="f.step==0">Created by&nbsp;<span ng-bind="::f.flashcard.ownerName"></span></h4>
             <div class="subtitle">
                 <h4 ng-if="f.step==2">You just studied&nbsp;</h4>
                 <ng-pluralize count="::f.flashcard.cards.length"
@@ -71,10 +71,10 @@
                       }"></ng-pluralize>
             </div>
             <div class="action-buttons">
-                <button type="button" class="action-btn" ng-click="f.start()">
+                <button type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()">
                     <span>start</span><span ng-if="f.step==2">&nbsp;over</span>
                 </button>
-                <button type="button" class="action-btn pinned-cards" ng-if="::f.pinCount" ng-click="f.startPin()">
+                <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="::f.pinCount" ng-click="f.startPin()">
                     Study&nbsp;<ng-pluralize count="::f.pinCount"
                                              when="{
                         '1': '1 pin',
@@ -82,7 +82,7 @@
                       }"></ng-pluralize>
                 </button>
             </div>
-            <div class="shuffle">
+            <div class="shuffle" user-not-register-popup="click">
                 <md-icon md-svg-icon="b:shuffle"></md-icon>
                 <md-switch ng-model="f.shuffle">
                     shuffle cards
@@ -95,7 +95,7 @@
         </div>
     </div>
     <div multiswitch-when="1" class="card-player angular-animate" card-scroll>
-        <div ng-attr-id="card{{::$index}}" class="card-template" ng-hide="$index !== f.slidepos" ng-click="f.flip()" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
+        <div ng-attr-id="card{{::$index}}" class="card-template angular-animate" ng-hide="$index !== f.slidepos" ng-click="f.flip()" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
             <button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:slide.pin}">
                 <md-icon md-svg-icon="b:pin"></md-icon>
             </button>

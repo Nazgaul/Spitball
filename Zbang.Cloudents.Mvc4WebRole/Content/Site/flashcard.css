@@ -1,44 +1,4 @@
-﻿@-moz-keyframes cardIn {
-  from {
-    opacity: 0;
-    transform: rotate(-45deg) translate(-80%, -45%);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@-webkit-keyframes cardIn {
-  from {
-    opacity: 0;
-    transform: rotate(-45deg) translate(-80%, -45%);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes cardIn {
-  from {
-    opacity: 0;
-    transform: rotate(-45deg) translate(-80%, -45%);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes cardOut {
-  from {
-    transform: none;
-    opacity: 1;
-  }
-  to {
-    transform: translate(70%, 85%) rotate(45deg);
-    opacity: 0;
-  }
-}
-.flashcardPage {
+﻿.flashcardPage {
   border-top: 1px solid rgba(0, 0, 0, 0);
   padding: 0 10px;
 }
@@ -417,33 +377,6 @@
   justify-content: center;
   flex-direction: column;
   position: relative;
-  /*&.ng-hide-add, &.ng-hide-remove {
-            transition: 0s linear all;
-        }*/
-  /*.my-element.ng-hide-add { ... }
-.my-element.ng-hide-add.ng-hide-add-active { ... }
-.my-element.ng-hide-remove { ... }
-.my-element.ng-hide-remove.ng-hide-remove-active { ... }*/
-}
-.flashcardPage .card-template.ng-hide-add {
-  animation-name: cardOut;
-  animation-duration: 3s;
-  animation-timing-function: ease-out;
-  animation-iteration-count: 1;
-  height: 400px;
-  width: 800px;
-  position: absolute !important;
-  /* the transition is defined in the active class */
-}
-.flashcardPage .card-template.ng-hide-remove {
-  animation-name: cardIn;
-  animation-duration: 3s;
-  animation-timing-function: ease-out;
-  animation-iteration-count: 1;
-  height: 400px;
-  width: 800px;
-  position: absolute !important;
-  /* the transition is defined in the active class */
 }
 @media (max-width: 600px) {
   .flashcardPage .card-template.ng-hide {
@@ -596,9 +529,6 @@
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center;
-}
-.flashcardPage .card-player {
-  position: relative;
 }
 .flashcardPage .card-player .card-template {
   position: relative;
