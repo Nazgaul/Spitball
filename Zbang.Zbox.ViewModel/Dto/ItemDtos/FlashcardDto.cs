@@ -8,5 +8,7 @@
         public string Name { get; set; }
         public bool Publish { get; set; }
         public int NumOfViews { get; set; }
+
+        public int Likes { get; set; }
     }
 }

@@ -37,6 +37,9 @@ var app;
                         _this.$anchorScroll("card" + ctrl.slidepos);
                     }
                 });
+                scope.$on("$destroy", function () {
+                    $(window).unbind("touchstart touchend touchmove");
+                });
             };
         }
         CardScroll.factory = function () {

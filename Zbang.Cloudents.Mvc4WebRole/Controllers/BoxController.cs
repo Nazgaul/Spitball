@@ -368,7 +368,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     s.Name,
                     s.NumOfViews,
                     s.Publish,
-                    s.OwnerId
+                    s.OwnerId,
+                    s.Likes
                 });
 
                 return JsonOk(data);
