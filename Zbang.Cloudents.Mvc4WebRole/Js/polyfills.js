@@ -44,6 +44,13 @@
             return lastIndex !== -1 && lastIndex === position;
         };
     }
+    String.prototype.format = function (obj) {
+        var str = this;
+        for (var i = 0; i < arguments.length; i++) {
+            str = str.replace('{' + (i) + '}', arguments[i]);
+        }
+        return str;
+    }
     if (!Array.prototype.findIndex) {
         Array.prototype.findIndex = function(predicate) {
             'use strict';

@@ -30,18 +30,18 @@ var app;
         Flashcards.prototype.deleteFlashcard = function (ev, flashcard) {
             var _this = this;
             var confirm = this.$mdDialog.confirm()
-                .title(this.resManager.get('deleteQuiz'))
+                .title(this.resManager.get("deleteObj").format(this.resManager.get("flashcard")))
                 .targetEvent(ev)
-                .ok(this.resManager.get('dialogOk'))
-                .cancel(this.resManager.get('dialogCancel'));
+                .ok(this.resManager.get("dialogOk"))
+                .cancel(this.resManager.get("dialogCancel"));
             this.$mdDialog.show(confirm).then(function () {
-                var index = _this.flashcards.IndexOf(flashcard);
+                var index = _this.flashcards.indexOf(flashcard);
                 _this.flashcards.splice(index, 1);
                 _this.flashcardService.delete(flashcard.id);
             });
         };
         Flashcards.prototype.canEdit = function (flashcard) {
-            return this.user.id === flashcard.ownerId;
+            return this.user.id === flashcard.ownerId && flashcard.publish;
         };
         Flashcards.$inject = ["$stateParams", "flashcards", "$state", "$mdDialog", "resManager", "flashcardService", "user"];
         return Flashcards;

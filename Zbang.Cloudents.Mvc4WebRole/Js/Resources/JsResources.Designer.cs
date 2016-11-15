@@ -88,6 +88,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Would you like to delete this {0}?.
+        /// </summary>
+        public static string deleteObj {
+            get {
+                return ResourceManager.GetString("deleteObj", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Would you like to delete this post?.
         /// </summary>
         public static string deletePost {
@@ -138,6 +147,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Js.Resources {
         public static string dialogOk {
             get {
                 return ResourceManager.GetString("dialogOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to flashcard.
+        /// </summary>
+        public static string flashcard {
+            get {
+                return ResourceManager.GetString("flashcard", resourceCulture);
             }
         }
         

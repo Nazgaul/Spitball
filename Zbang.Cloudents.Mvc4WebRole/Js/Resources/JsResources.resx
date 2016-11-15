@@ -252,4 +252,10 @@
     <value>Save this flashcard as a draft for future editing
 (Only you are able to see and edit the draft)</value>
   </data>
+  <data name="deleteObj" xml:space="preserve">
+    <value>Would you like to delete this {0}?</value>
+  </data>
+  <data name="flashcard" xml:space="preserve">
+    <value>flashcard</value>
+  </data>
 </root>

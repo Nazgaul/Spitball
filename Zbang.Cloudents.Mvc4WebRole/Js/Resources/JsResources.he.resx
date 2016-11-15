@@ -244,4 +244,7 @@
   <data name="quizCreateBrowserBack" xml:space="preserve">
     <value>האם ברצונך לעזוב את העמוד? המבחן המקוון שיצרת לא יישמר</value>
   </data>
+  <data name="deleteObj" xml:space="preserve">
+    <value>האם ברצונך למחוק {0} זו?</value>
+  </data>
 </root>

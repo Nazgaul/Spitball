@@ -11,6 +11,7 @@ module app {
             this.cards = [];
             this.id = input.id;
             this.name = input.name;
+            input.cards = input.cards || [];
             for (let i = 0; i < input.cards.length; i++) {
                 this.cards.push(new Card().deserialize(input.cards[i]));
             }
@@ -45,7 +46,7 @@ module app {
         image: string;
         deserialize(input: CardSlide) {
             this.text = input.text;
-            this.image = input.image;// || "http://lorempixel.com/400/200/";
+            this.image = input.image;
             return this;
         }
         uploadProgress: number;
@@ -127,7 +128,7 @@ module app {
         }
         create() {
             const self = this;
-            
+
             function afterCall() {
                 self.serviceCalled = false;
                 self.disabled = false;
@@ -213,7 +214,9 @@ module app {
                         ]
                     },
                     resize: {
-                        preserve_headers: false
+                        preserve_headers: false,
+                        width: 350,
+                        height: 350
                     }
                 }
             },

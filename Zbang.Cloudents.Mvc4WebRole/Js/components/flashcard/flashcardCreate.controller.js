@@ -9,6 +9,7 @@ var app;
             this.cards = [];
             this.id = input.id;
             this.name = input.name;
+            input.cards = input.cards || [];
             for (var i = 0; i < input.cards.length; i++) {
                 this.cards.push(new Card().deserialize(input.cards[i]));
             }
@@ -94,7 +95,9 @@ var app;
                             ]
                         },
                         resize: {
-                            preserve_headers: false
+                            preserve_headers: false,
+                            width: 350,
+                            height: 350
                         }
                     };
                 },
