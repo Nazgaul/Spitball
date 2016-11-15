@@ -126,13 +126,14 @@
 .flashcard .flashcard-body .card-container card-form md-input-container {
   border: 1px solid #b7b7b7;
   background: #ffffff;
-  padding-top: 0;
-  padding-bottom: 0;
   padding-left: 10px;
   margin: 0;
-  padding-right: 65px;
+  padding: 0 0 65px 0;
 }
 @media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container card-form md-input-container {
+    padding: 0 65px 0 0;
+  }
   .flashcard .flashcard-body .card-container card-form md-input-container:focus md-icon,
   .flashcard .flashcard-body .card-container card-form md-input-container.md-input-focused md-icon {
     display: block;
@@ -180,8 +181,9 @@
 }
 @media (max-width: 600px) {
   .flashcard .flashcard-body .card-container card-form .image-container {
-    position: static;
-    margin: 10px 0;
+    bottom: 0;
+    top: initial;
+    left: 0;
   }
 }
 .flashcard .flashcard-body .card-container card-form .image-container md-progress-circular {

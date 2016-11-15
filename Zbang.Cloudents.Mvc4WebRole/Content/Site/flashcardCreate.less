@@ -120,13 +120,13 @@
                 md-input-container {
                     border: 1px solid #b7b7b7;
                     background: @textColorWhite;
-                    padding-top: 0;
-                    padding-bottom: 0;
                     padding-left: 10px;
                     margin: 0;
-                    padding-right: 65px;
+                    padding: 0 0 65px 0;
 
                     @media(min-width: 600px) {
+                        padding: 0 65px 0 0;
+
                         &:focus, &.md-input-focused {
                             md-icon {
                                 display: block;
@@ -177,8 +177,9 @@
                     margin: 5px;
 
                     @media(max-width: 600px) {
-                        position: static;
-                        margin: 10px 0;
+                        bottom: 0;
+                        top: initial;
+                        left: 0;
                     }
 
 
