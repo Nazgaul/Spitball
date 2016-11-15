@@ -18,7 +18,7 @@
                     if (val.publish) {
                         val.url = $state.href("flashcard",
                             {
-                                universityName: $stateParams["universityType"],
+                                universityType: $stateParams["universityType"],
                                 boxId: $stateParams["boxId"],
                                 boxName: $stateParams["boxName"],
                                 id: val.id,
