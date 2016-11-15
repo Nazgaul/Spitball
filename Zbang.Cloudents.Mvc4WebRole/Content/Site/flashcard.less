@@ -418,8 +418,13 @@
                         flex-direction: column;
                     }
 
-                    .card-content .side {
+                    .side {
+                        @media(min-width: 600px) {
                         width: 50%;
+                        }
+                        @media(max-width: 600px) {
+                            height: 50%;
+                        }
 
                         img {
                             width: initial;
