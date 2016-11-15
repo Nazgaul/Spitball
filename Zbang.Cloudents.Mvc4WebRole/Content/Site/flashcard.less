@@ -67,11 +67,9 @@
                     font-weight: bold;
                 }
 
-                md-icon {
-                    width: 48px;
-                    height: 40px;
-                    fill: @buttonColorBlue;
+                .flashcard-icon {
                     margin-right: 10px;
+                    .flashcard-icon(42px, #4190b9, #4190b9, #dadada);
                 }
             }
 
@@ -134,18 +132,27 @@
         }
 
         .card-sides button {
-            &.active {
-                md-icon {
-                    fill: @buttonColorBlue;
-                }
+            .flashcard-icon {
+                margin-right: 10px;
             }
 
-            md-icon {
-                fill: @textColorLightGrey;
-                width: 40px;
-                height: 40px;
-                display: block;
+            &:not(.active) .flashcard-icon {
                 margin-right: 10px;
+                .flashcard-icon(36px, @textColorLightGrey, @textColorLightGrey, @backgroundColor);
+            }
+
+            &.active {
+                &.front .flashcard-icon {
+                    .flashcard-icon(36px, @buttonColorBlue, @headerbackground, @backgroundColor);
+                }
+
+                &.back .flashcard-icon {
+                    .flashcard-icon(36px, @headerbackground, @buttonColorBlue, @backgroundColor);
+                }
+
+                &.both .flashcard-icon {
+                    .flashcard-icon(36px, @buttonColorBlue, @buttonColorBlue, @backgroundColor);
+                }
             }
         }
 
@@ -420,8 +427,9 @@
 
                     .side {
                         @media(min-width: 600px) {
-                        width: 50%;
+                            width: 50%;
                         }
+
                         @media(max-width: 600px) {
                             height: 50%;
                         }
@@ -544,5 +552,35 @@
 
     .md-bar {
         background-color: @textColorLightGrey;
+    }
+}
+
+.flashcard-icon(@width, @frontColor, @backColor, @borderColor) {
+    @height: 0.88*@width;
+    position: relative;
+    width: @width;
+    height: @height;
+
+    &:before, &:after {
+        content: '';
+        display: block;
+        width: 0.8*@width;
+        height: 0.72*@height;
+        border-radius: @height/6;
+        border: @height/17 solid @borderColor;
+        position: absolute;
+    }
+
+    &:before {
+        bottom: 0;
+        left: @width/4;
+        background: @backColor;
+    }
+
+    &:after {
+        transform: rotate(-20deg);
+        bottom: @height/4;
+        left: 0;
+        background: @frontColor;
     }
 }

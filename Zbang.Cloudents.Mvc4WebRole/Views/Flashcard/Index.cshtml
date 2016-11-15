@@ -5,7 +5,7 @@
         </button>
         <div multiswitch-when="1|2" class="progress-wrapper">
             <div class="title">
-                <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+                <div class="flashcard-icon"></div>
                 <h4>cards</h4>
             </div>
             <div class="progress-settings">
@@ -36,16 +36,16 @@
             </div>
         </div>
         <div multiswitch-when="1" class="card-sides" hide-xs>
-            <button type="button" ng-click="f.style=true" ng-class="{active:f.style===true}">
-                <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+            <button type="button" class="front" ng-click="f.style=true" ng-class="{active:f.style===true}">
+                <div class="flashcard-icon"></div>
                 front
             </button>
-            <button type="button" ng-click="f.style=false" ng-class="{active:f.style===false}">
-                <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+            <button type="button" class="back" ng-click="f.style=false" ng-class="{active:f.style===false}">
+                <div class="flashcard-icon"></div>
                 back
             </button>
-            <button type="button" ng-click="f.style=null" ng-class="{active:f.style==null}">
-                <md-icon md-svg-icon="b:flashcard-icon"></md-icon>
+            <button type="button" class="both" ng-click="f.style=null" ng-class="{active:f.style==null}">
+                <div class="flashcard-icon"></div>
                 both
             </button>
         </div>

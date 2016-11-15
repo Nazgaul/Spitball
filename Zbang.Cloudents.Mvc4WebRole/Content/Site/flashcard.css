@@ -75,11 +75,32 @@
   font-size: 20px;
   font-weight: bold;
 }
-.flashcardPage .header .progress-wrapper .title md-icon {
-  width: 48px;
-  height: 40px;
-  fill: #4190b9;
+.flashcardPage .header .progress-wrapper .title .flashcard-icon {
   margin-right: 10px;
+  position: relative;
+  width: 42px;
+  height: 36.96px;
+}
+.flashcardPage .header .progress-wrapper .title .flashcard-icon:before,
+.flashcardPage .header .progress-wrapper .title .flashcard-icon:after {
+  content: '';
+  display: block;
+  width: 33.6px;
+  height: 26.6112px;
+  border-radius: 6.16px;
+  border: 2.17411765px solid #dadada;
+  position: absolute;
+}
+.flashcardPage .header .progress-wrapper .title .flashcard-icon:before {
+  bottom: 0;
+  left: 10.5px;
+  background: #4190b9;
+}
+.flashcardPage .header .progress-wrapper .title .flashcard-icon:after {
+  transform: rotate(-20deg);
+  bottom: 9.24px;
+  left: 0;
+  background: #4190b9;
 }
 .flashcardPage .header .progress-wrapper .progress-settings {
   display: -webkit-flex;
@@ -160,15 +181,113 @@
     display: none;
   }
 }
-.flashcardPage .header .card-sides button.active md-icon {
-  fill: #4190b9;
-}
-.flashcardPage .header .card-sides button md-icon {
-  fill: #c3c3c3;
-  width: 40px;
-  height: 40px;
-  display: block;
+.flashcardPage .header .card-sides button .flashcard-icon {
   margin-right: 10px;
+}
+.flashcardPage .header .card-sides button:not(.active) .flashcard-icon {
+  margin-right: 10px;
+  position: relative;
+  width: 36px;
+  height: 31.68px;
+}
+.flashcardPage .header .card-sides button:not(.active) .flashcard-icon:before,
+.flashcardPage .header .card-sides button:not(.active) .flashcard-icon:after {
+  content: '';
+  display: block;
+  width: 28.8px;
+  height: 22.8096px;
+  border-radius: 5.28px;
+  border: 1.86352941px solid #dadada;
+  position: absolute;
+}
+.flashcardPage .header .card-sides button:not(.active) .flashcard-icon:before {
+  bottom: 0;
+  left: 9px;
+  background: #c3c3c3;
+}
+.flashcardPage .header .card-sides button:not(.active) .flashcard-icon:after {
+  transform: rotate(-20deg);
+  bottom: 7.92px;
+  left: 0;
+  background: #c3c3c3;
+}
+.flashcardPage .header .card-sides button.active.front .flashcard-icon {
+  position: relative;
+  width: 36px;
+  height: 31.68px;
+}
+.flashcardPage .header .card-sides button.active.front .flashcard-icon:before,
+.flashcardPage .header .card-sides button.active.front .flashcard-icon:after {
+  content: '';
+  display: block;
+  width: 28.8px;
+  height: 22.8096px;
+  border-radius: 5.28px;
+  border: 1.86352941px solid #dadada;
+  position: absolute;
+}
+.flashcardPage .header .card-sides button.active.front .flashcard-icon:before {
+  bottom: 0;
+  left: 9px;
+  background: #323538;
+}
+.flashcardPage .header .card-sides button.active.front .flashcard-icon:after {
+  transform: rotate(-20deg);
+  bottom: 7.92px;
+  left: 0;
+  background: #4190b9;
+}
+.flashcardPage .header .card-sides button.active.back .flashcard-icon {
+  position: relative;
+  width: 36px;
+  height: 31.68px;
+}
+.flashcardPage .header .card-sides button.active.back .flashcard-icon:before,
+.flashcardPage .header .card-sides button.active.back .flashcard-icon:after {
+  content: '';
+  display: block;
+  width: 28.8px;
+  height: 22.8096px;
+  border-radius: 5.28px;
+  border: 1.86352941px solid #dadada;
+  position: absolute;
+}
+.flashcardPage .header .card-sides button.active.back .flashcard-icon:before {
+  bottom: 0;
+  left: 9px;
+  background: #4190b9;
+}
+.flashcardPage .header .card-sides button.active.back .flashcard-icon:after {
+  transform: rotate(-20deg);
+  bottom: 7.92px;
+  left: 0;
+  background: #323538;
+}
+.flashcardPage .header .card-sides button.active.both .flashcard-icon {
+  position: relative;
+  width: 36px;
+  height: 31.68px;
+}
+.flashcardPage .header .card-sides button.active.both .flashcard-icon:before,
+.flashcardPage .header .card-sides button.active.both .flashcard-icon:after {
+  content: '';
+  display: block;
+  width: 28.8px;
+  height: 22.8096px;
+  border-radius: 5.28px;
+  border: 1.86352941px solid #dadada;
+  position: absolute;
+}
+.flashcardPage .header .card-sides button.active.both .flashcard-icon:before {
+  bottom: 0;
+  left: 9px;
+  background: #4190b9;
+}
+.flashcardPage .header .card-sides button.active.both .flashcard-icon:after {
+  transform: rotate(-20deg);
+  bottom: 7.92px;
+  left: 0;
+  background: #4190b9;
 }
 .flashcardPage .header .pinned-counter {
   display: -webkit-flex;
