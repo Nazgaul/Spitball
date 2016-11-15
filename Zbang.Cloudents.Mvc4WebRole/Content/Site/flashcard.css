@@ -228,6 +228,11 @@
   flex-direction: column;
   position: relative;
 }
+@media (max-width: 600px) {
+  .flashcardPage .card-template.ng-hide {
+    display: block !important;
+  }
+}
 .flashcardPage .cards-info .card-template {
   padding: 15px;
   text-align: center;

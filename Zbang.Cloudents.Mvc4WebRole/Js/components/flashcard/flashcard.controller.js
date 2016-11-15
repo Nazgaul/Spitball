@@ -49,46 +49,43 @@ var app;
             this.pinCount = flashcard.pins.length;
         }
         FlashcardController.prototype.start = function () {
-            this.fc = this.flashcard.cards.slice(0);
+            this.cards = this.flashcard.cards.slice(0);
             this.goToStep2();
         };
         FlashcardController.prototype.goToStep2 = function () {
             if (this.shuffle) {
-                shuffle(this.fc);
+                shuffle(this.cards);
             }
             this.slidepos = 0;
-            this.slide = this.fc[this.slidepos];
             this.step = Steps.Memo;
         };
         FlashcardController.prototype.startPin = function () {
-            this.fc = this.flashcard.cards.filter(function (f) { return f.pin; });
+            this.cards = this.flashcard.cards.filter(function (f) { return f.pin; });
             this.goToStep2();
         };
         FlashcardController.prototype.prev = function () {
             this.slidepos = Math.max(0, --this.slidepos);
             this.step = Steps.Memo;
             this.style = this.styleLegend;
-            this.slide = this.fc[this.slidepos];
         };
         FlashcardController.prototype.next = function () {
-            this.slidepos = Math.min(this.fc.length, ++this.slidepos);
-            if (this.slidepos === this.fc.length) {
+            this.slidepos = Math.min(this.cards.length, ++this.slidepos);
+            if (this.slidepos === this.cards.length) {
                 this.step = Steps.End;
                 return;
             }
             this.style = this.styleLegend;
-            this.slide = this.fc[this.slidepos];
         };
         FlashcardController.prototype.changeStyle = function (s) {
             this.style = this.styleLegend = s;
         };
-        FlashcardController.prototype.pin = function () {
-            this.slide.pin = !this.slide.pin;
-            if (this.slide.pin) {
-                this.flashcardService.pin(this.$stateParams["id"], this.slide.index);
+        FlashcardController.prototype.pin = function (slide) {
+            slide.pin = !slide.pin;
+            if (slide.pin) {
+                this.flashcardService.pin(this.$stateParams["id"], slide.index);
             }
             else {
-                this.flashcardService.pinDelete(this.$stateParams["id"], this.slide.index);
+                this.flashcardService.pinDelete(this.$stateParams["id"], slide.index);
             }
         };
         FlashcardController.prototype.like = function () {
@@ -104,5 +101,6 @@ var app;
         FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams"];
         return FlashcardController;
     }());
+    app.FlashcardController = FlashcardController;
     angular.module("app.flashcard").controller("flashcard", FlashcardController);
 })(app || (app = {}));

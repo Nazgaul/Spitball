@@ -6,9 +6,9 @@ var app;
             this.$mdMedia = $mdMedia;
             this.restrict = 'A';
             this.link = function (scope, element, attrs) {
-                if (_this.$mdMedia('xs')) {
-                    element.on(attrs['hideChatOnMobile'], function () {
-                        $('html').removeClass('expanded-chat');
+                if (_this.$mdMedia("xs")) {
+                    element.on(attrs["hideChatOnMobile"], function () {
+                        $("html").removeClass("expanded-chat");
                     });
                 }
             };
@@ -17,7 +17,7 @@ var app;
             var directive = function ($mdMedia) {
                 return new HideChatOnMobile($mdMedia);
             };
-            directive['$inject'] = ['$mdMedia'];
+            directive["$inject"] = ["$mdMedia"];
             return directive;
         };
         return HideChatOnMobile;

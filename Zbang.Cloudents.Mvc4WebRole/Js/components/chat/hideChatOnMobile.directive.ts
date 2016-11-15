@@ -5,9 +5,9 @@
         constructor(private $mdMedia) {
         }
         link = (scope: IChatTimeAgo, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
-            if (this.$mdMedia('xs')) {
-                element.on(attrs['hideChatOnMobile'], () => {
-                    $('html').removeClass('expanded-chat');
+            if (this.$mdMedia("xs")) {
+                element.on(attrs["hideChatOnMobile"], () => {
+                    $("html").removeClass("expanded-chat");
                 });
             }
         };
@@ -18,7 +18,7 @@
                 return new HideChatOnMobile($mdMedia);
             };
 
-            directive['$inject'] = ['$mdMedia'];
+            directive["$inject"] = ["$mdMedia"];
 
             return directive;
         }
