@@ -67,10 +67,10 @@
             //            10);
 
             //    });
-            //scope.$on("$destroy",
-            //    () => {
-            //        $(window).unbind("touchstart touchend");
-            //    });
+            scope.$on("$destroy",
+                () => {
+                    $(window).unbind("touchstart touchend touchmove");
+                });
 
 
         }

@@ -176,6 +176,7 @@ union
     f.userid as OwnerId,
     name as Name,
     Publish,
+    LikeCount as likes,
     NumberOfViews as NumOfViews
     from zbox.Flashcard f
     where boxid = @BoxId
