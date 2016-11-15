@@ -21,6 +21,7 @@
         pins: Array<number>;
         like: Guid;
         userId: number;
+        ownerName: string;
 
         //deserialize(input: FlashCard) {
         //    this.cards = [];

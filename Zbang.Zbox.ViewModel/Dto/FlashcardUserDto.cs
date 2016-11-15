@@ -7,5 +7,7 @@ namespace Zbang.Zbox.ViewModel.Dto
     {
         public IEnumerable<int> Pins { get; set; }
         public Guid? Like { get; set; }
+
+        public string OwnerName { get; set; }
     }
 }

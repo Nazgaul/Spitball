@@ -61,7 +61,7 @@
         <div class="content card-template">
             <h1 ng-if="f.step==0" ng-bind="::f.flashcard.name"></h1>
             <h1 ng-if="f.step==2">Nice work!</h1>
-            <h4 ng-if="f.step==0">Created by </h4>
+            <h4 ng-if="f.step==0" ng-bind="::f.flashcard.ownerName"></h4>
             <div class="subtitle">
                 <h4 ng-if="f.step==2">You just studied&nbsp;</h4>
                 <ng-pluralize count="::f.flashcard.cards.length"
