@@ -112,6 +112,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             {
                 values.Cards,
                 values.Name,
+                values.UserId,
                 tUserValues.Result.Pins,
                 tUserValues.Result.Like
 

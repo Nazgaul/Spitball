@@ -1,6 +1,6 @@
 ﻿<div @*ng-switch="f.step"*@ ng-switch="f.step" class="flashcard-wrapper">
     <div class="header">
-        <button class="close-btn">
+        <button ng-click="app.back(f.backUrl)" class="close-btn">
             <md-icon md-svg-icon="t:close"></md-icon>
         </button>
         <div multiswitch-when="1|2" class="progress-wrapper">
@@ -87,7 +87,7 @@
                     shuffle cards
                 </md-switch>
             </div>
-            <div ng-if="f.step==2" class="like-wrapper">
+            <div ng-if="f.step==2 && f.canLike()" class="like-wrapper">
                 <span>Enjoy this set? give it a like:</span>&nbsp;
                 <button ng-click="f.like()" ng-class="{liked:f.flashcard.like}"><md-icon md-svg-icon="b:like"></md-icon>Like</button>
             </div>

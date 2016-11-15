@@ -30,9 +30,11 @@ var app;
         return Card;
     }());
     var FlashcardController = (function () {
-        function FlashcardController(flashcard, flashcardService, $stateParams) {
+        function FlashcardController(flashcard, flashcardService, $stateParams, user, $state) {
             this.flashcardService = flashcardService;
             this.$stateParams = $stateParams;
+            this.user = user;
+            this.$state = $state;
             this.step = Steps.Start;
             this.slidepos = 0;
             this.disabled = false;
@@ -47,6 +49,7 @@ var app;
             });
             this.flashcard = flashcard;
             this.pinCount = flashcard.pins.length;
+            this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
         }
         FlashcardController.prototype.start = function () {
             this.cards = this.flashcard.cards.slice(0);
@@ -98,7 +101,10 @@ var app;
                 this.flashcardService.likeDelete(this.flashcard.like).then(function () { return _this.flashcard.like = null; }).finally(function () { return _this.disabled = false; });
             }
         };
-        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams"];
+        FlashcardController.prototype.canLike = function () {
+            return this.user.id !== this.flashcard.userId;
+        };
+        FlashcardController.$inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state"];
         return FlashcardController;
     }());
     app.FlashcardController = FlashcardController;

@@ -20,6 +20,8 @@
         cards: Array<Card>;
         pins: Array<number>;
         like: Guid;
+        userId: number;
+
         //deserialize(input: FlashCard) {
         //    this.cards = [];
         //    this.id = input.id;
@@ -48,7 +50,7 @@
         //}
     }
     export class FlashcardController {
-        static $inject = ["flashcard", "flashcardService", "$stateParams"];
+        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state"];
         cards: Array<Card>;
         flashcard: Flashcard;
         shuffle: boolean;
@@ -58,11 +60,14 @@
         disabled = false;
         styleLegend = true;
         style = true;
+        backUrl;
 
         pinCount = 0;
         constructor(flashcard: Flashcard,
             private flashcardService: IFlashcardService,
-            private $stateParams: angular.ui.IStateParamsService) {
+            private $stateParams: angular.ui.IStateParamsService,
+            private user: IUserData,
+            private $state: angular.ui.IStateService) {
             angular.forEach(flashcard.cards,
                 (v, k) => {
                     if (flashcard.pins.indexOf(k) !== -1) {
@@ -73,6 +78,7 @@
                 });
             this.flashcard = flashcard;
             this.pinCount = flashcard.pins.length;
+            this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
         }
 
         start() {
@@ -84,7 +90,7 @@
                 shuffle(this.cards);
             }
             this.slidepos = 0;
-           // this.slide = this.cards[this.slidepos];
+            // this.slide = this.cards[this.slidepos];
             this.step = Steps.Memo;
         }
         startPin() {
@@ -126,6 +132,9 @@
             } else {
                 this.flashcardService.likeDelete(this.flashcard.like).then(() => this.flashcard.like = null).finally(() => this.disabled = false);
             }
+        }
+        canLike() {
+            return this.user.id !== this.flashcard.userId;
         }
     }
 

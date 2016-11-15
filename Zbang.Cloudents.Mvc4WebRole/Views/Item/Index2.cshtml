@@ -1,8 +1,5 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Item.Resources
-@*@{
-    const string svgUrl = "~/images/site/itemIcons.svg";
-}*@
 <div srph-infinite-scroll="i.loadMore()" unregister-scroll="true" collapse-header ng-class="{hideActions: i.selectedState === i.state.flag || i.selectedState === i.state.rename}">
     <header layout="row" layout-align="space-between center">
         <div class="progress-bar"><md-progress-linear ng-if="i.loader" md-mode="indeterminate"></md-progress-linear></div>
@@ -47,7 +44,6 @@
                         <md-menu flex>
                             <md-button aria-label="open menu" class="md-icon-button" user-not-register-popup="click" ng-click="app.openMenu($mdOpenMenu, $event)" ga-track-event="['itemPage', 'delete']">
                                 <md-icon md-svg-icon="t:ThreeDots"></md-icon>
-                                @*@Html.Svg("~/images/site/icons.svg", "ThreeDots")*@
                             </md-button>
                             <md-menu-content width="1">
                                 <md-menu-item hide-gt-xs>
@@ -74,7 +70,6 @@
                                     <md-button md-prevent-menu-close user-not-register-popup="click" ng-click="i.like()" ga-track-event="['itemPage', 'like item']">
                                         <div class="fb-like content-wrapper" layout="row" layout-align="start center" user-not-register-popup="click">
                                             <md-icon md-svg-icon="b:like"></md-icon>
-                                            @*@Html.Svg("~/images/site/box-icons.svg", "like")*@
                                             <span>{{i.details.likes}}</span>
                                         </div>
                                     </md-button>
