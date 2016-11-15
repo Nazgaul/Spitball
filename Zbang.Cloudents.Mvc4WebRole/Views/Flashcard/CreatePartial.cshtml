@@ -48,7 +48,7 @@
                         <button type="button" hide-xs class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu" tabindex="0"></md-icon></button>
                     </div>
                 </div>
-                <button type="button" class="settings-btn" hide-gt-xs card-settings="xs">
+                <button type="button" class="settings-btn" card-settings="xs">
                     <md-icon md-svg-icon="t:settingMenu"></md-icon>
                 </button>
             </li>
@@ -68,7 +68,7 @@
 <script type="text/ng-template" id="card-form.html">
     <md-input-container class="md-icon-right">
         <textarea ng-model="slide.text" @*tabindex="-1"*@></textarea>
-        <md-icon ng-if="!slide.image" md-svg-icon="b:image-icon" plupload="upload.url"
+        <md-icon ng-if="!slide.image" class="add-image-btn" md-svg-icon="b:image-icon" plupload="upload.url"
                  plupload-options="upload.options(slide)"
                  plupload-callbacks="upload.callbacks" tabindex="0" hide-xs></md-icon>
         <div class="image-container">

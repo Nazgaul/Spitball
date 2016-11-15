@@ -101,6 +101,10 @@
                 border: 1px solid #b7b7b7;
                 border-left: none;
 
+                @media(min-width: 600px) {
+                    display: none;
+                }
+
                 md-icon {
                     width: 20px;
                     height: 20px;
@@ -120,6 +124,7 @@
                     padding-bottom: 0;
                     padding-left: 10px;
                     margin: 0;
+                    padding-right: 65px;
 
                     @media(min-width: 600px) {
                         &:focus, &.md-input-focused {
@@ -134,7 +139,7 @@
                         display: none;
                     }
 
-                    md-icon {
+                    .add-image-btn {
                         display: none;
                         width: 23px;
                         height: 19px;
@@ -142,7 +147,7 @@
                         fill: @svgColorGrey;
                     }
 
-                    md-icon:focus {
+                    .add-image-btn:focus {
                         display: block;
                         outline: none;
                     }
@@ -152,6 +157,8 @@
                     min-height: @mobileCardHeight;
                     .displayFlex;
                     .align-items(center);
+                    flex-direction: column;
+                    height: 100%;
 
                     @media(min-width: 600px) {
                         min-height: @cardHeight;
@@ -159,6 +166,7 @@
 
                     textarea {
                         border: none;
+                        flex: 1;
                     }
                 }
 
@@ -166,6 +174,13 @@
                     position: absolute;
                     top: 0;
                     right: 0;
+                    margin: 5px;
+
+                    @media(max-width: 600px) {
+                        position: static;
+                        margin: 10px 0;
+                    }
+
 
                     md-progress-circular {
                         position: absolute;
@@ -177,9 +192,16 @@
                     img {
                         max-width: 58px;
                         max-height: 58px;
+                        width: 100%;
+                        height: auto;
+                    }
+
+                    &:hover .remove-img {
+                        display: block;
                     }
 
                     .remove-img {
+                        display: none;
                         position: absolute;
                         right: 0;
                         top: 0;
@@ -253,7 +275,7 @@
                 button {
                     @media(max-width: 600px) {
                         border: none;
-                        min-width: 35px;
+                        min-width: 30px;
                         padding: 0;
                         margin: 5px;
                         display: flex;

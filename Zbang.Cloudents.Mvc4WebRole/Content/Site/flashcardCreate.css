@@ -105,6 +105,11 @@
   border: 1px solid #b7b7b7;
   border-left: none;
 }
+@media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container .settings-btn {
+    display: none;
+  }
+}
 .flashcard .flashcard-body .card-container .settings-btn md-icon {
   width: 20px;
   height: 20px;
@@ -125,6 +130,7 @@
   padding-bottom: 0;
   padding-left: 10px;
   margin: 0;
+  padding-right: 65px;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container card-form md-input-container:focus md-icon,
@@ -136,14 +142,14 @@
 .flashcard .flashcard-body .card-container card-form md-input-container .md-errors-spacer {
   display: none;
 }
-.flashcard .flashcard-body .card-container card-form md-input-container md-icon {
+.flashcard .flashcard-body .card-container card-form md-input-container .add-image-btn {
   display: none;
   width: 23px;
   height: 19px;
   margin-right: 4px;
   fill: #484F56;
 }
-.flashcard .flashcard-body .card-container card-form md-input-container md-icon:focus {
+.flashcard .flashcard-body .card-container card-form md-input-container .add-image-btn:focus {
   display: block;
   outline: none;
 }
@@ -154,6 +160,8 @@
   display: flex;
   -webkit-align-items: center;
   align-items: center;
+  flex-direction: column;
+  height: 100%;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container card-form .md-resize-wrapper {
@@ -162,11 +170,19 @@
 }
 .flashcard .flashcard-body .card-container card-form .md-resize-wrapper textarea {
   border: none;
+  flex: 1;
 }
 .flashcard .flashcard-body .card-container card-form .image-container {
   position: absolute;
   top: 0;
   right: 0;
+  margin: 5px;
+}
+@media (max-width: 600px) {
+  .flashcard .flashcard-body .card-container card-form .image-container {
+    position: static;
+    margin: 10px 0;
+  }
 }
 .flashcard .flashcard-body .card-container card-form .image-container md-progress-circular {
   position: absolute;
@@ -177,8 +193,14 @@
 .flashcard .flashcard-body .card-container card-form .image-container img {
   max-width: 58px;
   max-height: 58px;
+  width: 100%;
+  height: auto;
+}
+.flashcard .flashcard-body .card-container card-form .image-container:hover .remove-img {
+  display: block;
 }
 .flashcard .flashcard-body .card-container card-form .image-container .remove-img {
+  display: none;
   position: absolute;
   right: 0;
   top: 0;
@@ -251,7 +273,7 @@
 @media (max-width: 600px) {
   .flashcard .flashcard-body .card-container .card-settings button {
     border: none;
-    min-width: 35px;
+    min-width: 30px;
     padding: 0;
     margin: 5px;
     display: flex;
