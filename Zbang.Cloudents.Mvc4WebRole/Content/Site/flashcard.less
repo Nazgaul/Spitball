@@ -237,7 +237,7 @@
 
         @media(max-width:600px) {
             &.ng-hide {
-                display:block !important;
+                display: block !important;
             }
         }
     }
@@ -259,6 +259,10 @@
             @media(max-width: 600px) {
                 font-size: 28px;
             }
+        }
+
+        h4 {
+            color: @textColorGrey;
         }
 
         .subtitle {
@@ -406,19 +410,23 @@
                 }
             }
 
-            &.both .card-content {
-                @media(max-width: 600px) {
-                    flex-direction: column;
-                }
+            &.both {
+                cursor: auto;
 
-                .card-content .side {
-                    width: 50%;
+                .card-content {
+                    @media(max-width: 600px) {
+                        flex-direction: column;
+                    }
 
-                    img {
-                        width: initial;
-                        max-width: 100%;
-                        margin: 0 auto;
-                        display: block;
+                    .card-content .side {
+                        width: 50%;
+
+                        img {
+                            width: initial;
+                            max-width: 100%;
+                            margin: 0 auto;
+                            display: block;
+                        }
                     }
                 }
             }
@@ -463,7 +471,7 @@
                     }
 
                     .img-container ~ .text-container {
-                        .align-items(flex-start);
+                        .align-items(center);
                     }
 
                     .img-container, .text-container {
@@ -494,7 +502,7 @@
                 }
             }
 
-            .flip-btn {
+            .flip {
                 color: @textColorLightGrey;
                 position: absolute;
                 right: 10px;

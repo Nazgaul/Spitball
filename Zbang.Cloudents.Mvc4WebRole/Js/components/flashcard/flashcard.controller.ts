@@ -106,6 +106,11 @@
             this.style = this.styleLegend;
             //this.slide = this.fc[this.slidepos];
         }
+        flip() {
+            if (this.style !== null) {
+                this.style = !this.style;
+            }
+        }
         changeStyle(s) {
             this.style = this.styleLegend = s;
         }

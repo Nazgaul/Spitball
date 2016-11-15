@@ -76,6 +76,11 @@ var app;
             }
             this.style = this.styleLegend;
         };
+        FlashcardController.prototype.flip = function () {
+            if (this.style !== null) {
+                this.style = !this.style;
+            }
+        };
         FlashcardController.prototype.changeStyle = function (s) {
             this.style = this.styleLegend = s;
         };

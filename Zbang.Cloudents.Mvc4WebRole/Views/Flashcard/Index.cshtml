@@ -61,6 +61,7 @@
         <div class="content card-template">
             <h1 ng-if="f.step==0" ng-bind="::f.flashcard.name"></h1>
             <h1 ng-if="f.step==2">Nice work!</h1>
+            <h4 ng-if="f.step==0">Created by </h4>
             <div class="subtitle">
                 <h4 ng-if="f.step==2">You just studied&nbsp;</h4>
                 <ng-pluralize count="::f.flashcard.cards.length"
@@ -94,7 +95,7 @@
         </div>
     </div>
     <div multiswitch-when="1" class="card-player" card-scroll>
-        <div ng-attr-id="card{{::$index}}" class="card-template" ng-hide="::$index !== f.slidepos" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
+        <div ng-attr-id="card{{::$index}}" class="card-template" ng-click="f.flip()" ng-hide="::$index !== f.slidepos" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
             <button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:slide.pin}">
                 <md-icon md-svg-icon="b:pin"></md-icon>
             </button>
@@ -116,10 +117,10 @@
                     </div>
                 </div>
             </div>
-            <button type="button" class="flip-btn" ng-if="f.style !== null" ng-click="f.style = !f.style">
+            <div class="flip" ng-if="f.style !== null">
                 <md-icon md-svg-icon="b:flip"></md-icon>
                 Click to flip
-            </button>
+            </div>
             
         </div>
     </div>
