@@ -94,7 +94,7 @@
             </div>
         </div>
     </div>
-    <div multiswitch-when="1" class="card-player" card-scroll>
+    <div multiswitch-when="1" class="card-player angular-animate" card-scroll>
         <div ng-attr-id="card{{::$index}}" class="card-template" ng-hide="$index !== f.slidepos" ng-click="f.flip()" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
             <button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:slide.pin}">
                 <md-icon md-svg-icon="b:pin"></md-icon>
