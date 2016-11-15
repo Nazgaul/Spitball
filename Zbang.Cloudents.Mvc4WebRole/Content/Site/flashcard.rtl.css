@@ -10,6 +10,8 @@
 }
 .flashcardPage .header {
   min-height: 160px;
+  padding-top: 40px;
+  position: relative;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -21,6 +23,29 @@
 @media (max-width: 600px) {
   .flashcardPage .header {
     min-height: 80px;
+    padding-top: 0;
+  }
+}
+.flashcardPage .header .close-btn {
+  position: absolute;
+  top: 26px;
+  left: 10px;
+  line-height: 0;
+}
+.flashcardPage .header .close-btn md-icon {
+  fill: #888b8e;
+  width: 20px;
+  height: 20px;
+}
+@media (max-width: 600px) {
+  .flashcardPage .header .close-btn {
+    top: 32px;
+    left: 0;
+  }
+  .flashcardPage .header .close-btn md-icon {
+    fill: #888b8e;
+    width: 14px;
+    height: 14px;
   }
 }
 .flashcardPage .header .progress-wrapper {
@@ -68,6 +93,11 @@
 @media (min-width: 600px) {
   .flashcardPage .header .progress-wrapper .progress-settings {
     margin-top: 16px;
+  }
+}
+@media (max-width: 600px) {
+  .flashcardPage .header .progress-wrapper .progress-settings {
+    padding-left: 34px;
   }
 }
 .flashcardPage .header .progress-wrapper .progress-settings .sides {
@@ -146,6 +176,7 @@
   display: flex;
   -webkit-align-items: flex-start;
   align-items: flex-start;
+  margin-left: 15px;
 }
 @media (max-width: 600px) {
   .flashcardPage .header .pinned-counter {
