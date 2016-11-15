@@ -29,7 +29,7 @@
             <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" card-settings="gt-xs" @*card-settings-event="click"*@ ng-repeat="card in f.data.cards">
                 <card-form flex="50" slide="card.front" upload="f.upload"></card-form>
                 <card-form flex="50" slide="card.cover" upload="f.upload"></card-form>
-                <button type="button" class="settings-btn" hide-gt-xs @*card-settings-toggler*@ card-settings="xs" @*card-settings-event="click"*@>
+                <button type="button" class="settings-btn" hide-gt-xs card-settings="xs">
                     <md-icon md-svg-icon="t:settingMenu"></md-icon>
                 </button>
                 <div class="card-settings">
@@ -50,7 +50,7 @@
 </form>
 <script type="text/ng-template" id="card-form.html">
     <md-input-container class="md-icon-right">
-        <textarea ng-model="slide.text" tabindex="-1"></textarea>
+        <textarea ng-model="slide.text" @*tabindex="-1"*@></textarea>
         <md-icon ng-if="!slide.image" md-svg-icon="b:image-icon" plupload="upload.url"
                  plupload-options="upload.options(slide)"
                  plupload-callbacks="upload.callbacks" tabindex="0" hide-xs></md-icon>

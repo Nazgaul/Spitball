@@ -103,6 +103,9 @@ module app {
         publish() {
             var self = this;
             if (this.form.$invalid) {
+                if ((this.form["name"] as angular.INgModelController).$invalid) {
+                    (this.form["name"] as angular.INgModelController).$setTouched();
+                }
                 return;
             } else {
                 if (!this.data.id) {
@@ -173,7 +176,7 @@ module app {
             this.data.cards.push(new Card());
         }
         close(ev) {
-            if (!this.data.id) {
+            if (!this.data.id && !this.form.$dirty) {
                 this.navigateBackToBox();
                 return;
             }
@@ -186,7 +189,11 @@ module app {
                 .cancel(this.resManager.get('quizSaveAsDraft'));
 
             this.$mdDialog.show(confirm).then(() => {
-                this.flashcardService.delete(this.data.id).then(this.navigateBackToBox);
+                if (this.data.id) {
+                    this.flashcardService.delete(this.data.id).then(this.navigateBackToBox);
+                } else {
+                    this.navigateBackToBox();
+                }
             }, () => {
                 this.create().then(this.navigateBackToBox);
             });
