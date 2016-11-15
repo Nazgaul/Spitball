@@ -114,7 +114,8 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                 values.Name,
                 values.UserId,
                 tUserValues.Result.Pins,
-                tUserValues.Result.Like
+                tUserValues.Result.Like,
+                tUserValues.Result.OwnerName
 
             });
         }

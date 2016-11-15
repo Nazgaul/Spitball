@@ -1198,13 +1198,16 @@ from zbox.library l join zbox.box b on l.libraryid = b.libraryid where universit
             {
                 const string sql = "SELECT position FROM [Zbox].[FlashcardPin] where flashcardid = @FlashcardId and userid = @UserId;";
                 const string sqlLike = "SELECT  [Id] FROM[Zbox].[FlashcardLike] where flashcardid = @FlashcardId and userid = @UserId;";
+                const string sqlOwnerName =
+                    "select username from zbox.users u join zbox.Flashcard f on f.UserId = u.UserId where id = @FlashcardId";
                 using (
-                    var grid = await conn.QueryMultipleAsync(sql + sqlLike, query))
+                    var grid = await conn.QueryMultipleAsync(sql + sqlLike + sqlOwnerName, query))
                 {
                     var result = new FlashcardUserDto
                     {
                         Pins = await grid.ReadAsync<int>(),
-                        Like = await grid.ReadFirstOrDefaultAsync<Guid?>()
+                        Like = await grid.ReadFirstOrDefaultAsync<Guid?>(),
+                        OwnerName = await grid.ReadFirstAsync<string>()
                         
                     };
                     return result;
