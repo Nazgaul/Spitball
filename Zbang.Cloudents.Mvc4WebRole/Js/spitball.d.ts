@@ -13,6 +13,7 @@
 interface String {
     startsWith(str: string): boolean;
     endsWith(str: string): boolean;
+    format(obj: any): string;
 }
 interface IAnalytics extends angular.google.analytics.AnalyticsService {
     trackTimings(timingCategory: string, timingVar: string, timingValue: number, timingLabel: string);

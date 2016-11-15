@@ -9,6 +9,7 @@ var app;
             this.cards = [];
             this.id = input.id;
             this.name = input.name;
+            input.cards = input.cards || [];
             for (var i = 0; i < input.cards.length; i++) {
                 this.cards.push(new Card().deserialize(input.cards[i]));
             }
@@ -94,7 +95,9 @@ var app;
                             ]
                         },
                         resize: {
-                            preserve_headers: false
+                            preserve_headers: false,
+                            width: 350,
+                            height: 350
                         }
                     };
                 },
@@ -174,6 +177,9 @@ var app;
         FlashcardCreateController.prototype.publish = function () {
             var self = this;
             if (this.form.$invalid) {
+                if (this.form["name"].$invalid) {
+                    this.form["name"].$setTouched();
+                }
                 return;
             }
             else {
@@ -234,7 +240,7 @@ var app;
         };
         FlashcardCreateController.prototype.close = function (ev) {
             var _this = this;
-            if (!this.data.id) {
+            if (!this.data.id && !this.form.$dirty) {
                 this.navigateBackToBox();
                 return;
             }
@@ -245,7 +251,12 @@ var app;
                 .ok(this.resManager.get('quizDelete'))
                 .cancel(this.resManager.get('quizSaveAsDraft'));
             this.$mdDialog.show(confirm).then(function () {
-                _this.flashcardService.delete(_this.data.id).then(_this.navigateBackToBox);
+                if (_this.data.id) {
+                    _this.flashcardService.delete(_this.data.id).then(_this.navigateBackToBox);
+                }
+                else {
+                    _this.navigateBackToBox();
+                }
             }, function () {
                 _this.create().then(_this.navigateBackToBox);
             });

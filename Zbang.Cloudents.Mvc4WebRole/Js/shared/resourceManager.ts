@@ -20,7 +20,7 @@
             const resource = window["JsResources"][value];
 
             if (!resource) {
-                this.ajaxService.logError('missing resource', value);
+                this.ajaxService.logError("missing resource", value);
                 return result;
             }
 

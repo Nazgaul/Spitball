@@ -38,7 +38,10 @@ namespace Zbang.Zbox.Domain.CommandHandlers
                 throw new UnauthorizedAccessException();
             }
             flashcard.Name = message.Flashcard.Name;
-            flashcard.CardCount = message.Flashcard.Cards.Count();
+            if (message.Flashcard.Cards != null)
+            {
+                flashcard.CardCount = message.Flashcard.Cards.Count();
+            }
             flashcard.DateTimeUser.UpdateUserTime(message.Flashcard.Id);
             flashcard.Pins?.Clear();
             flashcard.Publish = true;
