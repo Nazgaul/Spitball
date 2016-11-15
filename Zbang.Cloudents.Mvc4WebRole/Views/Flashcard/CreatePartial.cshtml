@@ -9,7 +9,7 @@
     <div layout="row" layout-align="space-between center" class="flashcard-top">
         <md-input-container flex="50">
             <input name="name" type="text"
-                   placeholder="@FlashcardResources.FlashcardPlaceholder" autocomplete="off" required md-no-asterisk ng-model="f.data.name"/>
+                   placeholder="@FlashcardResources.FlashcardPlaceholder" autocomplete="off" required md-no-asterisk ng-model="f.data.name" />
             <div class="error-message" ng-messages="f.form.name.$error" ng-show="f.form.name.$touched">
                 <div ng-message="required">@GeneralResources.RequiredField</div>
             </div>
@@ -29,14 +29,28 @@
             <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" card-settings="gt-xs" @*card-settings-event="click"*@ ng-repeat="card in f.data.cards">
                 <card-form flex="50" slide="card.front" upload="f.upload"></card-form>
                 <card-form flex="50" slide="card.cover" upload="f.upload"></card-form>
-                <button type="button" class="settings-btn" hide-gt-xs @*card-settings-toggler*@ card-settings="xs" @*card-settings-event="click"*@>
+                <div class="card-settings">
+                    <div class="content">
+                        <button type="button" class="remove-btn desktop" ng-click="f.removeCard($index)">
+                            <md-icon hide-gt-xs md-svg-icon="t:delete"></md-icon>
+                            <md-icon hide-xs md-svg-icon="t:close" tabindex="0"></md-icon>
+                        </button>
+                        <button type="button" class="flip" hide-gt-xs ng-click=""><md-icon md-svg-icon="b:flashcard-arrow" tabindex="0"></md-icon></button>
+                        <button type="button" class="move-up" hide-gt-xs ng-click=""></button>
+                        <button type="button" class="move-down" hide-gt-xs ng-click=""></button>
+                        <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add" tabindex="0"></md-icon></button>
+                        <button type="button" class="add-image" hide-gt-xs>
+                            <md-icon ng-if="!slide.image" md-svg-icon="b:image-icon" plupload="upload.url"
+                                     plupload-options="upload.options(slide)"
+                                     plupload-callbacks="upload.callbacks">
+                            </md-icon>
+                        </button>
+                        <button type="button" hide-xs class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu" tabindex="0"></md-icon></button>
+                    </div>
+                </div>
+                <button type="button" class="settings-btn" hide-gt-xs card-settings="xs">
                     <md-icon md-svg-icon="t:settingMenu"></md-icon>
                 </button>
-                <div class="card-settings">
-                    <button type="button" class="drag-btn desktop" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu" tabindex="0"></md-icon></button>
-                    <button type="button" class="add-btn desktop" ng-click="f.add($index)"><md-icon md-svg-icon="t:add" tabindex="0"></md-icon></button>
-                    <button type="button" class="remove-btn desktop" ng-click="f.removeCard($index)"><md-icon md-svg-icon="t:close" tabindex="0"></md-icon></button>
-                </div>
             </li>
             <li layout="row" class="add-card" ng-click="f.add()">
                 <div flex="50" flex-xs="100">
@@ -46,6 +60,9 @@
             </li>
 
         </ol>
+    </div>
+    <div class="bottom">
+        <button type="button" ng-click="f.publish()" ng-disabled="f.disabled" class="action-btn">@GeneralResources.Create</button>
     </div>
 </form>
 <script type="text/ng-template" id="card-form.html">

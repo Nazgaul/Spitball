@@ -218,18 +218,22 @@
             margin: 0;
 
             @media(max-width: 600px) {
-                font-size: 32px;
+                font-size: 28px;
             }
         }
 
         .subtitle {
             display: block;
-            margin-bottom: 20px;
             color: @textColorGrey;
-            font-size: 16px;
+            font-size: 14px;
             .displayFlex;
             .align-items(center);
             .justifyContet(center);
+
+            @media(min-width: 600px) {
+                margin-bottom: 20px;
+                font-size: 16px;
+            }
 
             h4 {
                 margin: 0;
@@ -240,11 +244,10 @@
             .displayFlex;
             .align-items(center);
             .justifyContet(center);
-            margin-top: 30px;
             color: @textColorGrey;
 
-            @media(max-width: 600px) {
-                margin-top: 8px;
+            @media(min-width: 600px) {
+                margin-top: 30px;
             }
 
             md-switch {
@@ -276,6 +279,10 @@
             margin: 0 auto;
             width: 100%;
 
+            @media(max-width:600px) {
+                max-width: 200px;
+            }
+
             .action-btn {
                 width: 100%;
                 max-width: 256px;
@@ -284,6 +291,11 @@
                 font-weight: bold;
                 text-transform: capitalize;
                 margin: 10px;
+
+                @media(max-width:600px) {
+                    height: 42px;
+                    font-size: 16px;
+                }
 
                 &.pinned-cards {
                     background: @pinColor;
@@ -310,6 +322,14 @@
                 fill: @textColorGrey;
                 margin-bottom: 7px;
                 margin-right: 5px;
+            }
+
+            .liked {
+                color: @buttonColorBlue;
+
+                md-icon {
+                    fill: @buttonColorBlue;
+                }
             }
         }
 
@@ -427,6 +447,11 @@
                     width: 26px;
                     height: 27px;
                     fill: @textColorLightGrey;
+
+                    @media(max-width: 600px) {
+                        width: 20px;
+                        height: 20px;
+                    }
                 }
             }
 

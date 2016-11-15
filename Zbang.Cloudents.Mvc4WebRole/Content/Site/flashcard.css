@@ -242,14 +242,13 @@
 }
 @media (max-width: 600px) {
   .flashcardPage .cards-info h1 {
-    font-size: 32px;
+    font-size: 28px;
   }
 }
 .flashcardPage .cards-info .subtitle {
   display: block;
-  margin-bottom: 20px;
   color: #888b8e;
-  font-size: 16px;
+  font-size: 14px;
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
@@ -257,6 +256,12 @@
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center;
+}
+@media (min-width: 600px) {
+  .flashcardPage .cards-info .subtitle {
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
 }
 .flashcardPage .cards-info .subtitle h4 {
   margin: 0;
@@ -269,12 +274,11 @@
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center;
-  margin-top: 30px;
   color: #888b8e;
 }
-@media (max-width: 600px) {
+@media (min-width: 600px) {
   .flashcardPage .cards-info .shuffle {
-    margin-top: 8px;
+    margin-top: 30px;
   }
 }
 .flashcardPage .cards-info .shuffle md-switch {
@@ -310,6 +314,11 @@
   margin: 0 auto;
   width: 100%;
 }
+@media (max-width: 600px) {
+  .flashcardPage .cards-info .action-buttons {
+    max-width: 200px;
+  }
+}
 .flashcardPage .cards-info .action-buttons .action-btn {
   width: 100%;
   max-width: 256px;
@@ -318,6 +327,12 @@
   font-weight: bold;
   text-transform: capitalize;
   margin: 10px;
+}
+@media (max-width: 600px) {
+  .flashcardPage .cards-info .action-buttons .action-btn {
+    height: 42px;
+    font-size: 16px;
+  }
 }
 .flashcardPage .cards-info .action-buttons .action-btn.pinned-cards {
   background: #ebbc18;
@@ -340,6 +355,12 @@
   fill: #888b8e;
   margin-bottom: 7px;
   margin-right: 5px;
+}
+.flashcardPage .cards-info .like-wrapper .liked {
+  color: #4190b9;
+}
+.flashcardPage .cards-info .like-wrapper .liked md-icon {
+  fill: #4190b9;
 }
 .flashcardPage .cards-info .like-wrapper,
 .flashcardPage .cards-info .like-wrapper button {
@@ -456,6 +477,12 @@
   width: 26px;
   height: 27px;
   fill: #c3c3c3;
+}
+@media (max-width: 600px) {
+  .flashcardPage .card-player .card-template .pin-btn md-icon {
+    width: 20px;
+    height: 20px;
+  }
 }
 .flashcardPage .card-player .card-template .flip-btn {
   color: #c3c3c3;

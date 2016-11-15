@@ -6,8 +6,17 @@
         padding: 10px 30px 0 30px;
         margin: 0 auto;
 
+        .bottom {
+            display: none;
+        }
+
         @media(max-width: 600px) {
             padding: 10px;
+
+            .bottom {
+                display: block;
+                text-align: right;
+            }
         }
     }
 
@@ -130,6 +139,7 @@
                         width: 23px;
                         height: 19px;
                         margin-right: 4px;
+                        fill: @svgColorGrey;
                     }
 
                     md-icon:focus {
@@ -188,19 +198,85 @@
             }
 
             .card-settings {
-                display: none;
                 position: absolute;
                 left: 0;
                 right: 0;
-                top: 0;
-                bottom: 0;
+                top: 1px;
+                bottom: 1px;
 
+                @media(min-width: 600px) {
+                    visibility: hidden;
+                }
+
+                @media(max-width: 600px) {
+                    left: ~"calc(100% - 36px)";
+                    right: 36px;
+                    overflow: hidden;
+                    .transition(left, 0.2s, ease);
+                    background: @backgroundCalmGrey;
+                }
+
+                &.active {
+
+                    @media(min-width: 600px) {
+                        visibility: visible;
+                    }
+
+                    @media(max-width: 600px) {
+                        left: 0;
+
+                        ~ .settings-btn {
+                            md-icon {
+                                fill: @buttonColorBlue;
+                            }
+                        }
+                    }
+                }
+
+                .content {
+                    @media(max-width: 600px) {
+                        .displayFlex;
+                        .align-items(stretch);
+                        .justifyContet(flex-end);
+                        background: @backgroundCalmGrey;
+                        height: 100%;
+                        padding: 0 10px;
+                    }
+
+                    @media(max-width: 600px) {
+                        button md-icon {
+                            fill: @buttonColorBlue;
+                        }
+                    }
+                }
+
+                button {
+                    @media(max-width: 600px) {
+                        border: none;
+                        min-width: 35px;
+                        padding: 0;
+                        margin: 5px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        md-icon {
+                            fill: @buttonColorBlue;
+                        }
+                    }
+
+                    md-icon {
+                        fill: @svgColorGrey;
+                    }
+                }
 
                 .drag-btn {
-                    @media(min-width: 600px) {
-                        position: absolute;
-                        left: -26px;
-                        top: ~"calc(50% - 10px)";
+                    position: absolute;
+                    left: -26px;
+                    top: ~"calc(50% - 10px)";
+
+                    @media(max-width: 600px) {
+                        display: none;
                     }
 
                     md-icon {
@@ -220,6 +296,11 @@
                     md-icon {
                         width: 19px;
                         height: 19px;
+
+                        @media(max-width: 600px) {
+                            width: 16px;
+                            height: 16px;
+                        }
                     }
                 }
 
@@ -234,6 +315,45 @@
                     md-icon {
                         width: 15px;
                         height: 15px;
+                    }
+                }
+
+                .add-image {
+                    md-icon {
+                        width: 18px;
+                        height: 15px;
+                    }
+                }
+
+                .flip {
+                    md-icon {
+                        width: 16px;
+                        height: 12px;
+                    }
+                }
+
+                .move-up, .move-down {
+                    &:after {
+                        content: '';
+                        display: block;
+                        width: 0;
+                        height: 0;
+                        border-style: solid;
+                        margin: 0 auto;
+                    }
+                }
+
+                .move-up {
+                    &:after {
+                        border-width: 0 7px 10px 7px;
+                        border-color: transparent transparent @buttonColorBlue transparent;
+                    }
+                }
+
+                .move-down {
+                    &:after {
+                        border-width: 10px 7px 0 7px;
+                        border-color: @buttonColorBlue transparent transparent transparent;
                     }
                 }
             }
@@ -254,6 +374,12 @@
             md-icon {
                 width: 19px;
                 height: 19px;
+                fill: @svgColorGrey;
+
+                @media(max-width: 600px) {
+                    width: 14px;
+                    height: 14px;
+                }
             }
         }
 

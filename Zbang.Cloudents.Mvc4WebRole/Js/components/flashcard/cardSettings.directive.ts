@@ -10,9 +10,11 @@
                 () => {
                     var selector = ".card-settings";
                     var settings = element.closest("li").find(selector);
-                    $(selector).not(settings).hide();
+                    //$(selector).not(settings).hide();
+                    $(selector).not(settings).removeClass("active");
                     if (this.$mdMedia(attrs["cardSettings"])) {
-                        settings.toggle();
+                        //settings.toggle();
+                        settings.toggleClass("active");
                     }
                 });
         }

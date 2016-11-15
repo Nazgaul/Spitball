@@ -10,9 +10,9 @@ var app;
                 element.on("click", function () {
                     var selector = ".card-settings";
                     var settings = element.closest("li").find(selector);
-                    $(selector).not(settings).hide();
+                    $(selector).not(settings).removeClass("active");
                     if (_this.$mdMedia(attrs["cardSettings"])) {
-                        settings.toggle();
+                        settings.toggleClass("active");
                     }
                 });
             };
