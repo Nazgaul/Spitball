@@ -7,14 +7,42 @@
     border-top: 1px solid rgba(0, 0, 0, 0);
     padding: 0 10px;
 
+
     .header {
         min-height: 160px;
+        padding-top: 40px;
+        position: relative;
         .displayFlex;
         .align-items(center);
         .justifyContet(space-between);
 
         @media(max-width: 600px) {
             min-height: 80px;
+            padding-top: 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 26px;
+            right: 10px;
+            line-height: 0;
+
+            md-icon {
+                fill: @textColorGrey;
+                width: 20px;
+                height: 20px;
+            }
+
+            @media(max-width: 600px) {
+                top: 32px;
+                right: 0;
+
+                md-icon {
+                    fill: #888b8e;
+                    width: 14px;
+                    height: 14px;
+                }
+            }
         }
 
         .progress-wrapper {
@@ -54,6 +82,10 @@
 
                 @media(min-width: 600px) {
                     margin-top: 16px;
+                }
+
+                @media(max-width: 600px) {
+                    padding-right: 34px;
                 }
 
                 .sides {
@@ -120,6 +152,7 @@
         .pinned-counter {
             .displayFlex;
             .align-items(flex-start);
+            margin-right: 15px;
 
             @media(max-width: 600px) {
                 display: none;
