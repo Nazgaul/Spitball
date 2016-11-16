@@ -92,6 +92,9 @@
   align-items: stretch;
   position: relative;
 }
+.flashcard .flashcard-body .card-container.on-drag-hover:not(.focused) {
+  padding-top: 100px;
+}
 .flashcard .flashcard-body .card-container .settings-btn {
   display: -webkit-flex;
   display: -ms-flex;
@@ -118,11 +121,6 @@
 }
 .flashcard .flashcard-body .card-container .add-btn {
   display: none;
-  /*@media(min-width: 600px) {
-                        position: absolute;
-                        bottom: -16px;
-                        left: -28px;
-                    }*/
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container .add-btn {
@@ -134,10 +132,6 @@
 .flashcard .flashcard-body .card-container .add-btn md-icon {
   width: 19px;
   height: 19px;
-  /*@media(max-width: 600px) {
-                            width: 16px;
-                            height: 16px;
-                        }*/
 }
 .flashcard .flashcard-body .card-container .drag-btn {
   display: none;
@@ -170,8 +164,11 @@
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container.focused .drag-btn,
+  .flashcard .flashcard-body .card-container:hover .drag-btn,
   .flashcard .flashcard-body .card-container.focused .remove-btn,
-  .flashcard .flashcard-body .card-container.focused .add-btn {
+  .flashcard .flashcard-body .card-container:hover .remove-btn,
+  .flashcard .flashcard-body .card-container.focused .add-btn,
+  .flashcard .flashcard-body .card-container:hover .add-btn {
     display: inline-block;
   }
 }
@@ -179,30 +176,19 @@
   display: -webkit-flex;
   display: -ms-flex;
   display: flex;
-  /*&:focus md-icon {
-                    display: block;
-                }*/
 }
 .flashcard .flashcard-body .card-container card-form md-input-container {
   border: 1px solid #b7b7b7;
   background: #ffffff;
   padding-right: 10px;
   margin: 0;
+}
+.flashcard .flashcard-body .card-container card-form md-input-container.has-image {
   padding: 0 0 65px 0;
-  /*.add-image-btn:focus {
-                        display: block;
-                        outline: none;
-                    }*/
 }
 @media (min-width: 600px) {
-  .flashcard .flashcard-body .card-container card-form md-input-container {
+  .flashcard .flashcard-body .card-container card-form md-input-container.has-image {
     padding: 0 0 0 65px;
-    /*&:focus, &.md-input-focused {
-                            md-icon {
-                                display: block;
-                                outline: none;
-                            }
-                        }*/
   }
 }
 .flashcard .flashcard-body .card-container card-form md-input-container .md-errors-spacer {
@@ -264,8 +250,12 @@
   stroke: #4190b9;
 }
 .flashcard .flashcard-body .card-container card-form .image-container img {
+  object-fit: cover;
   width: 100%;
-  height: auto;
+  height: 100%;
+}
+.flashcard .flashcard-body .card-container card-form .image-container:hover img {
+  opacity: 0.4;
 }
 .flashcard .flashcard-body .card-container card-form .image-container:hover .remove-img {
   display: block;
@@ -291,9 +281,6 @@
   left: 0;
   top: 1px;
   bottom: 1px;
-  /*@media(min-width: 600px) {
-                    visibility: hidden;
-                }*/
 }
 @media (max-width: 600px) {
   .flashcard .flashcard-body .card-container .card-settings {
@@ -306,11 +293,6 @@
     transition: right 0.2s ease !important;
     background: #eeeeee;
   }
-}
-.flashcard .flashcard-body .card-container .card-settings.active {
-  /*@media(min-width: 600px) {
-                        visibility: visible;
-                    }*/
 }
 @media (max-width: 600px) {
   .flashcard .flashcard-body .card-container .card-settings.active {
@@ -384,11 +366,6 @@
 .flashcard .flashcard-body .card-container .settings-toggler {
   display: none;
 }
-.flashcard .flashcard-body .card-container .settings-toggler:checked ~ .card-settings {
-  /*@media(min-width: 600px) {
-                        visibility: visible;
-                    }*/
-}
 @media (max-width: 600px) {
   .flashcard .flashcard-body .card-container .settings-toggler:checked ~ .card-settings {
     right: 0;
@@ -430,4 +407,8 @@
   .flashcard .flashcard-body .add-card {
     margin: 14px 0;
   }
+}
+.mdno-object-fit .flashcard .flashcard-body .card-container card-form .image-container img {
+  width: 100%;
+  height: auto;
 }

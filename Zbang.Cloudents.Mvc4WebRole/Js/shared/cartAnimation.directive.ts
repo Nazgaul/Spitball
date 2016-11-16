@@ -19,67 +19,32 @@ module app {
                     if (!cart.length) {
 
                         scope["cc"].animationEnd(id);
-                        //scope.$emit("cart-animation-done", element[0].id);
                         return;
                     }
                     var dest = cart.offset();
                     var elem = $(element).find(attrs['cartAnimation']);
                     var color = elem.parents('[color-parent]').attr('class').replace("-parent","");
+                    var offeset = elem.offset();
                     var elemtClone = elem.clone().addClass("angular-animate cart-animated " + color)
                         .css({
-                            'position': 'absolute'
+                            'position': 'absolute',
+                            'top': offeset.top,
+                            'left': offeset.left
                         })
                         .appendTo($('body'));
-                    //var timing = "0.5s";
-                    var offeset = elem.offset();
                     this.$animate.animate(elemtClone,
                         {
-                            //position: 'absolute',
-                            top: offeset.top,
-                            left: offeset.left,
-                            opacity: 1
+                            transform: "translate(" + 0 + 'px,' + 0 + "px)"
                         },
                         {
-                            top: dest.top,
-                            left: dest.left,
+                            transform: "translate(" + (dest.left - offeset.left) + "px," + (dest.top - offeset.top) + "px)",
                             opacity: 0.3
-                        }).then(() => {
+                        })
+                        .then(() => {
                             elemtClone.remove();
                             scope["cc"].animationEnd(id);
-                            //scope.$emit("cart-animation-done", element[0].id);
-                            // scope.$emit("cart-animation-done", element[0].id);
 
                         });
-                    //elemtClone.bind("transitionend",
-                    //    () => {
-                    //        elemtClone.remove();
-                    //    });
-
-                    //this.$timeout(() => {
-
-
-                    //    var style = elemtClone.attr('style') +
-                    //        'top: ' +
-                    //        destTop +
-                    //        'px; ' +
-                    //        'left: ' +
-                    //        destLeft +
-                    //        'px; ' +
-                    //        'opacity: 0.3;' +
-                    //        'transition: top ' +
-                    //        timing +
-                    //        ' linear' +
-                    //        ', left ' +
-                    //        timing +
-                    //        ' linear, opacity ' +
-                    //        timing +
-                    //        ' linear';
-                    //    elemtClone.attr('style', style).addClass('cart-animated');
-
-                    //    //this.$timeout(() => {
-                    //    //    elemtClone.remove();
-                    //    //}, 500)
-                    //});
 
                 });
         }
@@ -96,43 +61,3 @@ module app {
         .module("app")
         .directive("cartAnimation", CartAnimation.factory());
 }
-//(function () {
-//    'use strict';
-
-//    angular.module('app').directive('cartAnimation', cartAnimation);
-//    cartAnimation.$inject = ['$timeout'];
-//    function cartAnimation($timeout) {
-//        return {
-//            restrict: 'A',
-//            link: function (scope, element, attrs) {
-//                element.on('click', function () {
-//                    var placeHolder = $('#' + attrs.cartAnimationTo + ' .empty:first');
-//                    var cart = placeHolder.length ? placeHolder : $('#' + attrs.cartAnimationTo + ' .icon:last-of-type');
-//                    var destTop = cart.offset().top;
-//                    var destLeft = cart.offset().left;
-//                    var elem = $(element).find('.' + attrs.cartAnimation);
-//                    var elemtClone = elem.clone().css({
-//                        'position': 'absolute',
-//                        'top': elem.offset().top,
-//                        'left': elem.offset().left,
-//                        'opacity': 1
-//                    }).appendTo($('body'));
-
-//                    $timeout(function () {
-//                        var timing = "0.5s";
-//                        var style = elemtClone.attr('style') +
-//                        'top: ' + destTop + 'px; ' +
-//                        'left: ' + destLeft + 'px; ' +
-//                        'opacity: 0.3;' +
-//                        'transition: top ' + timing + ' linear' + ', left ' + timing + ' linear, opacity ' + timing + ' linear';
-//                        elemtClone.attr('style', style).addClass('cart-animated');
-//                        $timeout(function () {
-//                            elemtClone.remove();
-//                        }, 500)
-//                    }, 0)
-
-//                })
-//            }
-//        };
-//    }
-//})();

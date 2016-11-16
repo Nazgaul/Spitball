@@ -24,7 +24,6 @@
         margin-top: @heightOfHeader + 30px;
 
         form {
-            //color: @textColorWhite;
             max-width: 800px;
             padding-top: 10px;
 
@@ -92,6 +91,10 @@
             .align-items(stretch);
             position: relative;
 
+            &.on-drag-hover:not(.focused) {
+                padding-top: 100px;
+            }
+
             .settings-btn {
                 .displayFlex;
                 .align-items(center);
@@ -121,18 +124,10 @@
                     left: -31px;
                     bottom: -18px;
                 }
-                /*@media(min-width: 600px) {
-                        position: absolute;
-                        bottom: -16px;
-                        left: -28px;
-                    }*/
+
                 md-icon {
                     width: 19px;
                     height: 19px;
-                    /*@media(max-width: 600px) {
-                            width: 16px;
-                            height: 16px;
-                        }*/
                 }
             }
 
@@ -170,7 +165,7 @@
 
 
             @media(min-width:600px) {
-                &.focused {
+                &.focused, &:hover {
                     .drag-btn, .remove-btn, .add-btn {
                         display: inline-block;
                     }
@@ -179,24 +174,19 @@
 
             card-form {
                 .displayFlex;
-                /*&:focus md-icon {
-                    display: block;
-                }*/
+
                 md-input-container {
                     border: 1px solid #b7b7b7;
                     background: @textColorWhite;
                     padding-left: 10px;
                     margin: 0;
-                    padding: 0 0 65px 0;
 
-                    @media(min-width: 600px) {
-                        padding: 0 65px 0 0;
-                        /*&:focus, &.md-input-focused {
-                            md-icon {
-                                display: block;
-                                outline: none;
-                            }
-                        }*/
+                    &.has-image {
+                        padding: 0 0 65px 0;
+
+                        @media(min-width: 600px) {
+                            padding: 0 65px 0 0;
+                        }
                     }
 
                     .md-errors-spacer {
@@ -211,10 +201,6 @@
                         fill: @svgColorGrey;
                         cursor: pointer;
                     }
-                    /*.add-image-btn:focus {
-                        display: block;
-                        outline: none;
-                    }*/
                 }
 
 
@@ -268,12 +254,19 @@
                     }
 
                     img {
+                        object-fit: cover;
                         width: 100%;
-                        height: auto;
+                        height: 100%;
                     }
 
-                    &:hover .remove-img {
-                        display: block;
+                    &:hover {
+                        img {
+                            opacity: 0.4;
+                        }
+
+                        .remove-img {
+                            display: block;
+                        }
                     }
 
                     .remove-img {
@@ -301,9 +294,7 @@
                 right: 0;
                 top: 1px;
                 bottom: 1px;
-                /*@media(min-width: 600px) {
-                    visibility: hidden;
-                }*/
+
                 @media(max-width: 600px) {
                     left: ~"calc(100% - 36px)";
                     right: 36px;
@@ -313,9 +304,6 @@
                 }
 
                 &.active {
-                    /*@media(min-width: 600px) {
-                        visibility: visible;
-                    }*/
                     @media(max-width: 600px) {
                         left: 0;
 
@@ -414,9 +402,6 @@
                 display: none;
 
                 &:checked ~ .card-settings {
-                    /*@media(min-width: 600px) {
-                        visibility: visible;
-                    }*/
                     @media(max-width: 600px) {
                         left: 0;
 
@@ -463,4 +448,9 @@
             }
         }
     }
+}
+
+.mdno-object-fit .flashcard .flashcard-body .card-container card-form .image-container img {
+    width: 100%;
+    height: auto;
 }

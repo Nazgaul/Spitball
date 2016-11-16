@@ -266,6 +266,9 @@
   text-transform: lowercase;
 }
 .capitalize {
+  text-transform: capitalize;
+}
+.upper-case {
   text-transform: uppercase;
 }
 button {

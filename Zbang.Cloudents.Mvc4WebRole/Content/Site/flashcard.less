@@ -79,6 +79,12 @@
         @media(max-width: 600px) {
             min-height: 80px;
             padding-top: 0;
+            position: fixed;
+            top: @heightOfHeader;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            background: @backgroundColor;
         }
 
         .close-btn {
@@ -589,6 +595,10 @@
     .card-player {
         position: relative;
 
+        @media(max-width: 600px) {
+            margin-top: 80px;
+        }
+
         .card-template {
             position: relative;
 
@@ -742,6 +752,11 @@
         }
     }
 
+    .card-player, .cards-info {
+        @media(max-width: 600px) {
+            margin-top: 80px;
+        }
+    }
 
     md-switch.md-checked .md-thumb {
         background-color: @textColorWhite;
