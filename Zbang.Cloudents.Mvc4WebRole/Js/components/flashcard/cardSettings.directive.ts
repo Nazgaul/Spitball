@@ -23,7 +23,7 @@
                 return new CardSettingsDirective($mdMedia);
             };
 
-            directive['$inject'] = ['$mdMedia'];
+            directive["$inject"] = ["$mdMedia"];
 
             return directive;
         }

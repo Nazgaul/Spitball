@@ -1,7 +1,7 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 <ul layout="row" layout-padding layout-wrap layout-align="start stretch" class="list-unstyled quizzes-list flashcards-list">
-    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs hide-sm class="add-button i-q-wrapper">
+    <li flex-gt-lg="10" flex-lg="20" flex-md="25" flex-sm="33" hide-xs class="add-button i-q-wrapper">
         @*TODO: use directive user-not-register-click - its not working somehow *@
         <a class="content" ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName})" ga-track-event="['box-flashcards', 'addFlashcard']">
             <div class="quizCreate">
@@ -35,6 +35,9 @@
         </md-menu>
     </li>
 </ul>
+<a ui-sref="flashcardCreate({boxtype: f.params.boxtype, universityType:f.params.universityType, boxId: f.params.boxId, boxName:f.params.boxName})" class="add" hide show-xs ng-click="i.openUpload()" hide-gt-xs>
+    <md-icon md-svg-icon="t:add"></md-icon>
+</a>
 <script type="text/ng-template" id="flashcard-template.html">
     <a class="quiz quiz-template" ng-href="{{::e.url}}">
         <div class="base">
