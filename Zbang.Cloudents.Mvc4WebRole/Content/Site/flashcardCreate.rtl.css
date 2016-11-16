@@ -104,6 +104,7 @@
   background: #eeeeee;
   border: 1px solid #b7b7b7;
   border-right: none;
+  height: 100%;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container .settings-btn {
@@ -357,6 +358,22 @@
 .flashcard .flashcard-body .card-container .card-settings .move-down:after {
   border-width: 10px 7px 0 7px;
   border-color: #4190b9 transparent transparent transparent;
+}
+.flashcard .flashcard-body .card-container .settings-toggler {
+  display: none;
+}
+.flashcard .flashcard-body .card-container .settings-toggler:checked ~ .card-settings {
+  /*@media(min-width: 600px) {
+                        visibility: visible;
+                    }*/
+}
+@media (max-width: 600px) {
+  .flashcard .flashcard-body .card-container .settings-toggler:checked ~ .card-settings {
+    right: 0;
+  }
+  .flashcard .flashcard-body .card-container .settings-toggler:checked ~ .card-settings ~ .settings-btn md-icon {
+    fill: #4190b9;
+  }
 }
 .flashcard .flashcard-body .add-card div {
   background: #eeeeee;

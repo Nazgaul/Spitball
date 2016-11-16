@@ -100,6 +100,7 @@
                 background: @backgroundCalmGrey;
                 border: 1px solid #b7b7b7;
                 border-left: none;
+                height: 100%;
 
                 @media(min-width: 600px) {
                     display: none;
@@ -277,7 +278,6 @@
                 }
             }
 
-
             .card-settings {
                 position: absolute;
                 left: 0;
@@ -389,6 +389,25 @@
                     &:after {
                         border-width: 10px 7px 0 7px;
                         border-color: @buttonColorBlue transparent transparent transparent;
+                    }
+                }
+            }
+
+            .settings-toggler {
+                display: none;
+
+                &:checked ~ .card-settings {
+                    /*@media(min-width: 600px) {
+                        visibility: visible;
+                    }*/
+                    @media(max-width: 600px) {
+                        left: 0;
+
+                        ~ .settings-btn {
+                            md-icon {
+                                fill: @buttonColorBlue;
+                            }
+                        }
                     }
                 }
             }
