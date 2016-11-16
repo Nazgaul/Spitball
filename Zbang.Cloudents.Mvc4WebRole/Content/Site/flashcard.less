@@ -268,6 +268,13 @@
         .justifyContet(center);
         text-align: center;
         margin-top: 24px;
+        position: absolute;
+
+        @media(min-width: 600px) {
+            top: 560px;
+            left: 50%;
+            right: 50%;
+        }
 
         @media(max-width: 600px) {
             .justifyContet(space-between);
@@ -306,6 +313,7 @@
         max-width: 800px;
         width: 100%;
         margin: 0 auto;
+        position: relative;
     }
 
 
@@ -334,9 +342,6 @@
         flex-direction: column;
         position: relative;
 
-        &.ng-hide-add, &.ng-hide-remove {
-            transition: 10s linear all;
-        }
         //.my-element.ng-hide-add-active,
         &.ng-hide-add {
             animation-name: cardOut;
