@@ -17,11 +17,11 @@ var app;
                 }
                 var ctrl = scope["f"];
                 var startY;
-                $(window)
+                $(element)
                     .on("touchmove", function (ev) {
                     ev.preventDefault();
                 });
-                $(window)
+                $(element)
                     .on('touchstart', function (ev) {
                     startY = getCoord(ev, 'Y');
                 })

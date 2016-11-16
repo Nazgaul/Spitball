@@ -18,12 +18,12 @@
             var ctrl: FlashcardController = scope["f"];
 
             var startY;
-            $(window)
+            $(element)
                 .on("touchmove",
                 (ev) => {
                     ev.preventDefault();
                 });
-            $(window)
+            $(element)
                 .on('touchstart',
                     ev => {
                         startY = getCoord(ev, 'Y');

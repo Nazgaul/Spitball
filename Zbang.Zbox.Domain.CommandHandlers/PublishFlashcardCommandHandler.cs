@@ -27,7 +27,7 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
             var box = m_BoxRepository.Load(message.Flashcard.BoxId);
-            var flashCardWithSameName = box.Flashcards.FirstOrDefault(w => w.Name == message.Flashcard.Name && w.Publish);
+            var flashCardWithSameName = box.Flashcards.FirstOrDefault(w => w.Name == message.Flashcard.Name && w.Publish && w.Id != message.Flashcard.Id);
             if (flashCardWithSameName != null)
             {
                 throw new ArgumentException("same flashcard name");
