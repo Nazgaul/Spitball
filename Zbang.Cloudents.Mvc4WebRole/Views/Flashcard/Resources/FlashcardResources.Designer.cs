@@ -79,7 +79,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to cards.
+        ///   Looks up a localized string similar to flashcards.
         /// </summary>
         public static string CardsLabel {
             get {

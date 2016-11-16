@@ -8,7 +8,7 @@
         <div multiswitch-when="1|2" class="progress-wrapper">
             <div class="title">
                 <div class="flashcard-icon"></div>
-                <h4>@FlashcardResources.CardsLabel</h4>
+                <h4 class="capitalize">@FlashcardResources.CardsLabel</h4>
             </div>
             <div class="progress-settings">
                 <md-menu hide-gt-xs>
@@ -38,15 +38,15 @@
             </div>
         </div>
         <div multiswitch-when="1" class="card-sides" hide-xs>
-            <button type="button" class="front" ng-click="f.style=true" ng-class="{active:f.style===true}">
+            <button type="button" class="front capitalize" ng-click="f.style=true" ng-class="{active:f.style===true}">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Front
             </button>
-            <button type="button" class="back" ng-click="f.style=false" ng-class="{active:f.style===false}">
+            <button type="button" class="back capitalize" ng-click="f.style=false" ng-class="{active:f.style===false}">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Back
             </button>
-            <button type="button" class="both" ng-click="f.style=null" ng-class="{active:f.style==null}">
+            <button type="button" class="both capitalize" ng-click="f.style=null" ng-class="{active:f.style==null}">
                 <div class="flashcard-icon"></div>
                 @FlashcardResources.Both
             </button>
