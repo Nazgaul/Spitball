@@ -19,11 +19,11 @@
     <div class="flashcard-body">
         <div layout="row" layout-align="space-between center" class="header">
 
-            <div flex="50">@FlashcardResources.Front</div>
+            <div flex="50" class="capitalize">@FlashcardResources.Front</div>
             <md-button type="button" ng-click="f.flip()" class="flip-btn">
                 <md-icon md-svg-icon="b:flashcard-arrow"></md-icon>
             </md-button>
-            <div flex="50">@FlashcardResources.Back</div>
+            <div flex="50" class="capitalize">@FlashcardResources.Back</div>
         </div>
         <ol ui-on-drop="true">
             <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" card-settings="gt-xs" @*card-settings-event="click"*@ ng-repeat="card in f.data.cards">

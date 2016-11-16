@@ -61,11 +61,38 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back.
+        ///   Looks up a localized string similar to back.
         /// </summary>
         public static string Back {
             get {
                 return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to both.
+        /// </summary>
+        public static string Both {
+            get {
+                return ResourceManager.GetString("Both", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to cards.
+        /// </summary>
+        public static string CardsLabel {
+            get {
+                return ResourceManager.GetString("CardsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
@@ -79,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create A Flashcard.
+        ///   Looks up a localized string similar to Create a flashcard.
         /// </summary>
         public static string FlashcardTitle {
             get {
@@ -88,11 +115,74 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Front.
+        ///   Looks up a localized string similar to front.
         /// </summary>
         public static string Front {
             get {
                 return ResourceManager.GetString("Front", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nice work!.
+        /// </summary>
+        public static string GoodWork {
+            get {
+                return ResourceManager.GetString("GoodWork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to flip.
+        /// </summary>
+        public static string InstructionFlip {
+            get {
+                return ResourceManager.GetString("InstructionFlip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You just studied.
+        /// </summary>
+        public static string JustStudied {
+            get {
+                return ResourceManager.GetString("JustStudied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enjoy this set? give it a like:.
+        /// </summary>
+        public static string LikeLabel {
+            get {
+                return ResourceManager.GetString("LikeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to pinned.
+        /// </summary>
+        public static string Pinned {
+            get {
+                return ResourceManager.GetString("Pinned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to progress.
+        /// </summary>
+        public static string Progress {
+            get {
+                return ResourceManager.GetString("Progress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to shuffle cards.
+        /// </summary>
+        public static string Shuffle {
+            get {
+                return ResourceManager.GetString("Shuffle", resourceCulture);
             }
         }
     }

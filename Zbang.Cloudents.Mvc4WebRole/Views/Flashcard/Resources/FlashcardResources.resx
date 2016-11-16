@@ -118,15 +118,45 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>back</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>both</value>
+  </data>
+  <data name="CardsLabel" xml:space="preserve">
+    <value>cards</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="FlashcardPlaceholder" xml:space="preserve">
     <value>Enter flashcard name</value>
   </data>
   <data name="FlashcardTitle" xml:space="preserve">
-    <value>Create A Flashcard</value>
+    <value>Create a flashcard</value>
   </data>
   <data name="Front" xml:space="preserve">
-    <value>Front</value>
+    <value>front</value>
+  </data>
+  <data name="GoodWork" xml:space="preserve">
+    <value>Nice work!</value>
+  </data>
+  <data name="InstructionFlip" xml:space="preserve">
+    <value>Click to flip</value>
+  </data>
+  <data name="JustStudied" xml:space="preserve">
+    <value>You just studied</value>
+  </data>
+  <data name="LikeLabel" xml:space="preserve">
+    <value>Enjoy this set? give it a like:</value>
+  </data>
+  <data name="Pinned" xml:space="preserve">
+    <value>pinned</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>progress</value>
+  </data>
+  <data name="Shuffle" xml:space="preserve">
+    <value>shuffle cards</value>
   </data>
 </root>
