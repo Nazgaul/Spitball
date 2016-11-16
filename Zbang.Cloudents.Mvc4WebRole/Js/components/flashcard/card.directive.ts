@@ -12,24 +12,6 @@
             upload: "=",
             index: "="
         }
-        link = (scope: angular.IScope, element: JQuery) => {
-            element.on("focusin",
-                (e) => {
-                    $(".focused").removeClass("focused");
-                    element.addClass("focused");
-                    element.closest("li").addClass("focused");
-                })
-                .on("focusout",
-                () => {
-                    // :focus need some timeout since the first element is document
-                    this.$timeout(() => {
-                        if ($(":focus").parents(".focused").length) {
-                            return;
-                        }
-                        $(".focused").removeClass("focused");
-                    });
-                });
-        }
         transclude = true;
 
         static factory(): angular.IDirectiveFactory {
