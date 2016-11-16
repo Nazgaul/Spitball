@@ -156,6 +156,9 @@
   <data name="Progress" xml:space="preserve">
     <value>progress</value>
   </data>
+  <data name="SameName" xml:space="preserve">
+    <value>flashcard with the same name already exists</value>
+  </data>
   <data name="Shuffle" xml:space="preserve">
     <value>shuffle cards</value>
   </data>

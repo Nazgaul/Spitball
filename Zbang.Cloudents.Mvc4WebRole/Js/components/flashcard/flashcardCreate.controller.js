@@ -192,7 +192,13 @@ var app;
             }
             function publish2() {
                 self.flashcardService.publish(self.data.id, self.data, self.$stateParams.boxId)
-                    .then(self.navigateBackToBox);
+                    .then(self.navigateBackToBox)
+                    .catch(function (response) {
+                    if (response.status === 409) {
+                        self.form["name"].$setValidity('duplicate', false);
+                        self.form["name"].$setTouched();
+                    }
+                });
             }
         };
         FlashcardCreateController.prototype.create = function () {

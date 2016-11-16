@@ -26,8 +26,13 @@ namespace Zbang.Zbox.Domain.CommandHandlers
         public async Task HandleAsync(PublishFlashcardCommand message)
         {
             if (message == null) throw new ArgumentNullException(nameof(message));
-            var user = m_UserRepository.Load(message.Flashcard.UserId);
             var box = m_BoxRepository.Load(message.Flashcard.BoxId);
+            var flashCardWithSameName = box.Flashcards.FirstOrDefault(w => w.Name == message.Flashcard.Name && w.Publish);
+            if (flashCardWithSameName != null)
+            {
+                throw new ArgumentException("same flashcard name");
+            }
+            var user = m_UserRepository.Load(message.Flashcard.UserId);
             var flashcard = m_FlashcardMetaRepository.Load(message.Flashcard.Id);
             if (flashcard.User != user)
             {

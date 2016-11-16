@@ -74,6 +74,7 @@ namespace Zbang.Zbox.Domain
         public virtual ICollection<UserBoxRel> UserBoxRelationship { get; protected set; }
         public virtual ICollection<Item> Items { get; protected set; }
         public virtual ICollection<Quiz> Quizzes { get; protected set; }
+        public virtual ICollection<FlashcardMeta> Flashcards { get; protected set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
         protected virtual ICollection<ItemTab> ItemTabs { get; set; }
