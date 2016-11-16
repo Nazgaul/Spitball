@@ -118,14 +118,18 @@
 }
 .flashcard .flashcard-body .card-container .add-btn {
   display: none;
-  position: absolute;
-  left: -31px;
-  bottom: -18px;
   /*@media(min-width: 600px) {
                         position: absolute;
                         bottom: -16px;
                         left: -28px;
                     }*/
+}
+@media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container .add-btn {
+    position: absolute;
+    left: -31px;
+    bottom: -18px;
+  }
 }
 .flashcard .flashcard-body .card-container .add-btn md-icon {
   width: 19px;
@@ -137,9 +141,13 @@
 }
 .flashcard .flashcard-body .card-container .drag-btn {
   display: none;
-  position: absolute;
-  left: -26px;
-  top: calc(50% - 10px);
+}
+@media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container .drag-btn {
+    position: absolute;
+    left: -26px;
+    top: calc(50% - 10px);
+  }
 }
 .flashcard .flashcard-body .card-container .drag-btn md-icon {
   width: 14px;
@@ -148,9 +156,13 @@
 }
 .flashcard .flashcard-body .card-container .remove-btn {
   display: none;
-  position: absolute;
-  right: -27px;
-  top: calc(50% - 10px);
+}
+@media (min-width: 600px) {
+  .flashcard .flashcard-body .card-container .remove-btn {
+    position: absolute;
+    right: -27px;
+    top: calc(50% - 10px);
+  }
 }
 .flashcard .flashcard-body .card-container .remove-btn md-icon {
   width: 15px;
