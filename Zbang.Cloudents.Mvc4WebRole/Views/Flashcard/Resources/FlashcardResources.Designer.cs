@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a flashcard.
+        ///   Looks up a localized string similar to Create a Flashcard.
         /// </summary>
         public static string FlashcardTitle {
             get {
@@ -174,6 +174,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         public static string Progress {
             get {
                 return ResourceManager.GetString("Progress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to flashcard with the same name already exists.
+        /// </summary>
+        public static string SameName {
+            get {
+                return ResourceManager.GetString("SameName", resourceCulture);
             }
         }
         

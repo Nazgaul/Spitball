@@ -46,7 +46,7 @@
             </button>
             <div class="logo">
                 <div class="page-logo">
-                    <a href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']" hide-chat-on-mobile="click">
+                    <a tabindex="-1" href="@logoLink" @shouldPostBack ga-track-event="['header', 'logo']" hide-chat-on-mobile="click">
                         <md-icon md-svg-icon="t:logo" class="logo-default" hide-xs></md-icon>
                         <md-icon md-svg-icon="t:smallLogo" class="logo-small" hide show-xs></md-icon>
                         @*@Html.Svg(svgUrl, "logo", new {@class = "logo-default", hide_xs = ""})

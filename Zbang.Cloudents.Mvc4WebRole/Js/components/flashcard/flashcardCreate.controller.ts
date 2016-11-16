@@ -15,9 +15,12 @@ module app {
             for (let i = 0; i < input.cards.length; i++) {
                 this.cards.push(new Card().deserialize(input.cards[i]));
             }
-            if (!this.cards.length) {
-                this.cards.push(new Card(), new Card(), new Card(), new Card(), new Card());
+            for (let j = this.cards.length; j < 5; j++) {
+                this.cards.push(new Card());
             }
+            //if (this.cards.length < 5) {
+            //    this.cards.push(new Card(), new Card(), new Card(), new Card(), new Card());
+            //}
             return this;
         }
         flip() {
@@ -29,11 +32,12 @@ module app {
     export class Card implements ISerializable<Card> {
         front = new CardSlide();
         cover = new CardSlide();
-
+        checked: boolean;
         flip() {
             const temp = this.front;
             this.front = this.cover;
             this.cover = temp;
+            this.checked = false;
         }
         deserialize(input: Card) {
             this.front = new CardSlide().deserialize(input.front);
@@ -116,7 +120,13 @@ module app {
             }
             function publish2() {
                 self.flashcardService.publish(self.data.id, self.data, self.$stateParams.boxId)
-                    .then(self.navigateBackToBox);
+                    .then(self.navigateBackToBox)
+                    .catch((response: angular.IHttpPromiseCallbackArg<{}>) => {
+                        if (response.status === 409) {
+                            self.form["name"].$setValidity('duplicate', false);
+                            (self.form["name"] as angular.INgModelController).$setTouched();
+                        }
+                    });
             }
         }
         private navigateBackToBox = () => {
@@ -199,6 +209,11 @@ module app {
             });
         }
         move(dropCardIndex: number, card: Card) {
+            card.checked = false;
+            if (dropCardIndex < 0 || dropCardIndex > this.data.cards.length) {
+               
+                return;
+            }
             const cardIndex = this.data.cards.indexOf(card);
             this.data.cards.splice(cardIndex, 0, this.data.cards.splice(dropCardIndex, 1)[0]);
         }

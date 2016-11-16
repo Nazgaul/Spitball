@@ -13,8 +13,8 @@ var app;
             for (var i = 0; i < input.cards.length; i++) {
                 this.cards.push(new Card().deserialize(input.cards[i]));
             }
-            if (!this.cards.length) {
-                this.cards.push(new Card(), new Card(), new Card(), new Card(), new Card());
+            for (var j = this.cards.length; j < 5; j++) {
+                this.cards.push(new Card());
             }
             return this;
         };
@@ -33,6 +33,7 @@ var app;
             var temp = this.front;
             this.front = this.cover;
             this.cover = temp;
+            this.checked = false;
         };
         Card.prototype.deserialize = function (input) {
             this.front = new CardSlide().deserialize(input.front);
@@ -191,7 +192,13 @@ var app;
             }
             function publish2() {
                 self.flashcardService.publish(self.data.id, self.data, self.$stateParams.boxId)
-                    .then(self.navigateBackToBox);
+                    .then(self.navigateBackToBox)
+                    .catch(function (response) {
+                    if (response.status === 409) {
+                        self.form["name"].$setValidity('duplicate', false);
+                        self.form["name"].$setTouched();
+                    }
+                });
             }
         };
         FlashcardCreateController.prototype.create = function () {
@@ -262,6 +269,10 @@ var app;
             });
         };
         FlashcardCreateController.prototype.move = function (dropCardIndex, card) {
+            card.checked = false;
+            if (dropCardIndex < 0 || dropCardIndex > this.data.cards.length) {
+                return;
+            }
             var cardIndex = this.data.cards.indexOf(card);
             this.data.cards.splice(cardIndex, 0, this.data.cards.splice(dropCardIndex, 1)[0]);
         };

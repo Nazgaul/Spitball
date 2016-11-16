@@ -75,7 +75,8 @@ var app;
         AjaxService2.prototype.insertUpdate = function (func, url, data, category) {
             var _this = this;
             var dfd = this.$q.defer(), startTime = new Date().getTime();
-            func(this.buildUrl(url), data).then(function (response) {
+            func(this.buildUrl(url), data)
+                .then(function (response) {
                 var retVal = response.data;
                 _this.trackTime(startTime, url, data, "post");
                 if (angular.isArray(category)) {
@@ -95,7 +96,11 @@ var app;
                     dfd.resolve(retVal.payload);
                     return;
                 }
-                dfd.reject(retVal.payload);
+                if (response.status === 200) {
+                    dfd.reject(retVal.payload);
+                    return;
+                }
+                dfd.reject(response);
             }).catch(function (response) {
                 dfd.reject(response);
                 _this.logError(url, data, response);

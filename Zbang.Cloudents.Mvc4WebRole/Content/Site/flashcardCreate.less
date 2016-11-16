@@ -100,6 +100,7 @@
                 background: @backgroundCalmGrey;
                 border: 1px solid #b7b7b7;
                 border-left: none;
+                height: 100%;
 
                 @media(min-width: 600px) {
                     display: none;
@@ -109,6 +110,70 @@
                     width: 20px;
                     height: 20px;
                     fill: @textColorLightGrey;
+                }
+            }
+
+            .add-btn {
+                display: none;
+
+                @media(min-width: 600px) {
+                    position: absolute;
+                    left: -31px;
+                    bottom: -18px;
+                }
+                /*@media(min-width: 600px) {
+                        position: absolute;
+                        bottom: -16px;
+                        left: -28px;
+                    }*/
+                md-icon {
+                    width: 19px;
+                    height: 19px;
+                    /*@media(max-width: 600px) {
+                            width: 16px;
+                            height: 16px;
+                        }*/
+                }
+            }
+
+
+            .drag-btn {
+                display: none;
+
+                @media(min-width: 600px) {
+                    position: absolute;
+                    left: -26px;
+                    top: ~"calc(50% - 10px)";
+                }
+
+                md-icon {
+                    width: 14px;
+                    height: 14px;
+                    background: @backgroundColor;
+                }
+            }
+
+            .remove-btn {
+                display: none;
+
+                @media(min-width: 600px) {
+                    position: absolute;
+                    right: -27px;
+                    top: ~"calc(50% - 10px)";
+                }
+
+                md-icon {
+                    width: 15px;
+                    height: 15px;
+                }
+            }
+
+
+            @media(min-width:600px) {
+                &.focused {
+                    .drag-btn, .remove-btn, .add-btn {
+                        display: inline-block;
+                    }
                 }
             }
 
@@ -126,13 +191,12 @@
 
                     @media(min-width: 600px) {
                         padding: 0 65px 0 0;
-
-                        &:focus, &.md-input-focused {
+                        /*&:focus, &.md-input-focused {
                             md-icon {
                                 display: block;
                                 outline: none;
                             }
-                        }
+                        }*/
                     }
 
                     .md-errors-spacer {
@@ -145,11 +209,21 @@
                         height: 19px;
                         margin-right: 4px;
                         fill: @svgColorGrey;
+                        cursor: pointer;
                     }
-
-                    .add-image-btn:focus {
+                    /*.add-image-btn:focus {
                         display: block;
                         outline: none;
+                    }*/
+                }
+
+
+                @media(min-width:600px) {
+                    &.focused {
+                        .add-image-btn {
+                            display: block;
+                            outline: none;
+                        }
                     }
                 }
 
@@ -175,6 +249,9 @@
                     top: 0;
                     right: 0;
                     margin: 5px;
+                    width: 50px;
+                    height: 50px;
+                    overflow: hidden;
 
                     @media(max-width: 600px) {
                         bottom: 0;
@@ -191,8 +268,6 @@
                     }
 
                     img {
-                        max-width: 58px;
-                        max-height: 58px;
                         width: 100%;
                         height: auto;
                     }
@@ -226,11 +301,9 @@
                 right: 0;
                 top: 1px;
                 bottom: 1px;
-
-                @media(min-width: 600px) {
+                /*@media(min-width: 600px) {
                     visibility: hidden;
-                }
-
+                }*/
                 @media(max-width: 600px) {
                     left: ~"calc(100% - 36px)";
                     right: 36px;
@@ -240,11 +313,9 @@
                 }
 
                 &.active {
-
-                    @media(min-width: 600px) {
+                    /*@media(min-width: 600px) {
                         visibility: visible;
-                    }
-
+                    }*/
                     @media(max-width: 600px) {
                         left: 0;
 
@@ -293,53 +364,11 @@
                     }
                 }
 
-                .drag-btn {
-                    position: absolute;
-                    left: -26px;
-                    top: ~"calc(50% - 10px)";
 
-                    @media(max-width: 600px) {
-                        display: none;
-                    }
 
-                    md-icon {
-                        width: 14px;
-                        height: 14px;
-                        background: @backgroundColor;
-                    }
-                }
 
-                .add-btn {
-                    @media(min-width: 600px) {
-                        position: absolute;
-                        bottom: -16px;
-                        left: -28px;
-                    }
 
-                    md-icon {
-                        width: 19px;
-                        height: 19px;
 
-                        @media(max-width: 600px) {
-                            width: 16px;
-                            height: 16px;
-                        }
-                    }
-                }
-
-                .remove-btn {
-                    @media(min-width: 600px) {
-                        position: absolute;
-                        right: -30px;
-                        top: 0;
-                        bottom: 0;
-                    }
-
-                    md-icon {
-                        width: 15px;
-                        height: 15px;
-                    }
-                }
 
                 .add-image {
                     md-icon {
@@ -377,6 +406,25 @@
                     &:after {
                         border-width: 10px 7px 0 7px;
                         border-color: @buttonColorBlue transparent transparent transparent;
+                    }
+                }
+            }
+
+            .settings-toggler {
+                display: none;
+
+                &:checked ~ .card-settings {
+                    /*@media(min-width: 600px) {
+                        visibility: visible;
+                    }*/
+                    @media(max-width: 600px) {
+                        left: 0;
+
+                        ~ .settings-btn {
+                            md-icon {
+                                fill: @buttonColorBlue;
+                            }
+                        }
                     }
                 }
             }

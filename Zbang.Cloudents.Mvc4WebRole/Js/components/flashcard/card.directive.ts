@@ -2,21 +2,23 @@
     "use strict";
     class CardDirective implements angular.IDirective {
 
+        constructor(private $timeout: angular.ITimeoutService) {
+
+        }
         restrict = "E";
         templateUrl = "card-form.html";
         scope: { [boundProperty: string]: string } = {
             slide: "=",
-            upload: "="
+            upload: "=",
+            index: "="
         }
-        //link = (scope: angular.IScope) => {
-        //}
         transclude = true;
 
         static factory(): angular.IDirectiveFactory {
-            const directive = () => {
-                return new CardDirective();
+            const directive = ($timeout) => {
+                return new CardDirective($timeout);
             };
-            // directive["$inject"] = ["$timeout"];
+            directive["$inject"] = ["$timeout"];
             return directive;
         }
     }

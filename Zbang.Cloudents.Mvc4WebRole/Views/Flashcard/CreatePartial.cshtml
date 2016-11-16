@@ -2,23 +2,24 @@
 @using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
 @using Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources
 <header layout="row">
-    <div flex class="text-center text-capitalize">@FlashcardResources.FlashcardTitle</div>
+    <div flex class="text-center">@FlashcardResources.FlashcardTitle</div>
     <button flex="none" type="button" ng-click="f.close($event)" class="close" ga-track-event="['createFlashcard', 'close']"><md-icon md-svg-icon="t:close"></md-icon></button>
 </header>
 <form name="f.form" class="content" interaction-done>
     <div layout="row" layout-align="space-between center" class="flashcard-top">
         <md-input-container flex="50">
             <input name="name" type="text"
-                   placeholder="@FlashcardResources.FlashcardPlaceholder" autocomplete="off" required md-no-asterisk ng-model="f.data.name" />
+                   placeholder="@FlashcardResources.FlashcardPlaceholder" autocomplete="off"
+                    required md-no-asterisk ng-model="f.data.name" ng-change="f.form['name'].$setValidity('duplicate', true)"/>
             <div class="error-message" ng-messages="f.form.name.$error" ng-show="f.form.name.$touched">
                 <div ng-message="required">@GeneralResources.RequiredField</div>
+                <div ng-message="duplicate">@FlashcardResources.SameName</div>
             </div>
         </md-input-container>
         <button type="button" ng-click="f.publish()" ng-disabled="f.disabled" class="action-btn">@GeneralResources.Create</button>
     </div>
     <div class="flashcard-body">
         <div layout="row" layout-align="space-between center" class="header">
-
             <div flex="50" class="capitalize">@FlashcardResources.Front</div>
             <md-button type="button" ng-click="f.flip()" class="flip-btn">
                 <md-icon md-svg-icon="b:flashcard-arrow"></md-icon>
@@ -26,31 +27,37 @@
             <div flex="50" class="capitalize">@FlashcardResources.Back</div>
         </div>
         <ol ui-on-drop="true">
-            <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" card-settings="gt-xs" @*card-settings-event="click"*@ ng-repeat="card in f.data.cards">
-                <card-form flex="50" slide="card.front" upload="f.upload"></card-form>
-                <card-form flex="50" slide="card.cover" upload="f.upload"></card-form>
-                <div class="card-settings">
+            <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" line-focus @*card-settings="gt-xs"*@ ng-repeat="card in f.data.cards">
+                <button type="button" hide-xs class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu"></md-icon></button>
+                <card-form flex="50" index="$index*2 + 1" slide="card.front" upload="f.upload"></card-form>
+                <card-form flex="50" index="$index*2 + 2" slide="card.cover" upload="f.upload"></card-form>
+                <button type="button" hidex-xs class="remove-btn desktop" ng-click="f.removeCard($index)">
+                    <md-icon hide-xs md-svg-icon="t:close"></md-icon>
+                </button>
+                <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add"></md-icon></button>
+                <input type="checkbox" id="settings-toggler{{$index}}" ng-model="card.checked" ng-checked="card.checked" class="settings-toggler"/>
+                <div class="card-settings" hide-gt-xs>
                     <div class="content">
                         <button type="button" class="remove-btn desktop" ng-click="f.removeCard($index)">
-                            <md-icon hide-gt-xs md-svg-icon="t:delete"></md-icon>
-                            <md-icon hide-xs md-svg-icon="t:close" tabindex="0"></md-icon>
+                            <md-icon md-svg-icon="t:delete"></md-icon>
                         </button>
-                        <button type="button" class="flip" hide-gt-xs ng-click=""><md-icon md-svg-icon="b:flashcard-arrow" tabindex="0"></md-icon></button>
-                        <button type="button" class="move-up" hide-gt-xs ng-click=""></button>
-                        <button type="button" class="move-down" hide-gt-xs ng-click=""></button>
-                        <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add" tabindex="0"></md-icon></button>
-                        <button type="button" class="add-image" hide-gt-xs>
-                            <md-icon ng-if="!slide.image" md-svg-icon="b:image-icon" plupload="upload.url"
-                                     plupload-options="upload.options(slide)"
-                                     plupload-callbacks="upload.callbacks">
-                            </md-icon>
-                        </button>
-                        <button type="button" hide-xs class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu" tabindex="0"></md-icon></button>
+                        <button type="button" class="flip" ng-click="card.flip()"><md-icon md-svg-icon="b:flashcard-arrow"></md-icon></button>
+                        <button type="button" class="move-up" ng-click="f.move($index-1,card)"></button>
+                        <button type="button" class="move-down" ng-click="f.move($index+1,card)"></button>
+                        <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add"></md-icon></button>
+                        @*<button type="button" class="add-image">
+                                <md-icon ng-if="!slide.image" md-svg-icon="b:image-icon" plupload="upload.url"
+                                         plupload-options="upload.options(slide)"
+                                         plupload-callbacks="upload.callbacks">
+                                </md-icon>
+                            </button>*@
                     </div>
                 </div>
-                <button type="button" class="settings-btn" card-settings="xs">
-                    <md-icon md-svg-icon="t:settingMenu"></md-icon>
-                </button>
+                <label for="settings-toggler{{$index}}">
+                    <span class="settings-btn" @*card-settings="xs"*@>
+                        <md-icon md-svg-icon="t:settingMenu"></md-icon>
+                    </span>
+                </label>
             </li>
             <li layout="row" class="add-card" ng-click="f.add()">
                 <div flex="50" flex-xs="100">
@@ -67,10 +74,10 @@
 </form>
 <script type="text/ng-template" id="card-form.html">
     <md-input-container class="md-icon-right">
-        <textarea ng-model="slide.text" @*tabindex="-1"*@></textarea>
-        <md-icon ng-if="!slide.image" class="add-image-btn" md-svg-icon="b:image-icon" plupload="upload.url"
+        <textarea tabindex="{{index}}" ng-model="slide.text"></textarea>
+        <md-icon tabindex="-1" ng-if="!slide.image" class="add-image-btn" md-svg-icon="b:image-icon" plupload="upload.url"
                  plupload-options="upload.options(slide)"
-                 plupload-callbacks="upload.callbacks" tabindex="0" hide-xs></md-icon>
+                 plupload-callbacks="upload.callbacks" hide-xs></md-icon>
         <div class="image-container">
             <md-progress-circular ng-if="slide.uploadProgress" md-mode="determinate" md-diameter="50" value="{{slide.uploadProgress}}"></md-progress-circular>
             <img width="100" height="100" ng-src="{{slide.image}}" ng-if="slide.image" />

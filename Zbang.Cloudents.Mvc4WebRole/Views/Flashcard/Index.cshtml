@@ -68,9 +68,10 @@
                 <h4 ng-if="f.step==2">@FlashcardResources.JustStudied&nbsp;</h4>
                 <ng-pluralize count="::f.flashcard.cards.length"
                               when="{
-                        '1': '1 card!',
-                        'other': '{} cards!'
+                        '1': '1 card',
+                        'other': '{} cards'
                       }"></ng-pluralize>
+                <span ng-if="f.step==2">!</span>
             </div>
             <div class="action-buttons">
                 <button type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()">
@@ -97,33 +98,55 @@
         </div>
     </div>
     <div multiswitch-when="1" class="card-player angular-animate" card-scroll>
-        <div ng-attr-id="card{{::$index}}" class="card-template angular-animate" ng-hide="$index !== f.slidepos" ng-click="f.flip()" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
-            <button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:slide.pin}">
-                <md-icon md-svg-icon="b:pin"></md-icon>
-            </button>
-            <div class="card-content">
-                <div class="side front">
-                    <div class="img-container" ng-if="::slide.front.image">
-                        <img ng-src="{{::slide.front.image}}" alt="font image"/>
-                    </div>
-                    <div class="text-container">
-                        <p dir="auto" ng-bind="::slide.front.text" fit-text></p>
-                    </div>
-                </div>
-                <div class="side back">
-                    <div class="img-container" ng-if="::slide.cover.image">
-                        <img ng-src="{{::slide.cover.image}}" alt="font image"/>
-                    </div>
-                    <div class="text-container">
-                        <p dir="auto" ng-bind="::slide.cover.text" fit-text></p>
+        <div ng-attr-id="card{{::$index}}" class="card-template angular-animate" ng-hide="$index !== f.slidepos" ng-class="{front: f.style==true,back:f.style==false,both:f.style==null}" ng-repeat="slide in ::f.cards">
+            <div class="flip-container">
+                @*<button type="button" class="pin-btn" ng-click="f.pin()" ng-class="{pinned:slide.pin}">
+                        <md-icon md-svg-icon="b:pin"></md-icon>
+                    </button>*@
+                <div class="flipper">
+                    <div class="card-content">
+                        <div class="side front">
+                            <button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}">
+                                <md-icon md-svg-icon="b:pin"></md-icon>
+                            </button>
+                            <div class="data-wrapper" ng-click="f.flip()">
+                                <div class="img-container" ng-if="::slide.front.image">
+                                    <img ng-src="{{::slide.front.image}}" alt="font image" />
+                                </div>
+                                <div class="text-container">
+                                    <p dir="auto" ng-bind="::slide.front.text" fit-text></p>
+                                </div>
+                                <div class="flip" ng-if="f.style !== null">
+                                    <md-icon md-svg-icon="b:flip"></md-icon>
+                                    Click to flip
+                                </div>
+                            </div>
+                        </div>
+                        <div class="side back">
+                            <button type="button" class="pin-btn" ng-click="f.pin(slide)" ng-class="{pinned:slide.pin}">
+                                <md-icon md-svg-icon="b:pin"></md-icon>
+                            </button>
+                            <div class="data-wrapper" ng-click="f.flip()">
+                                <div class="img-container" ng-if="::slide.cover.image">
+                                    <img ng-src="{{::slide.cover.image}}" alt="font image" />
+                                </div>
+                                <div class="text-container">
+                                    <p dir="auto" ng-bind="::slide.cover.text" fit-text></p>
+                                </div>
+                                <div class="flip" ng-if="f.style !== null">
+                                    <md-icon md-svg-icon="b:flip"></md-icon>
+                                    @FlashcardResources.InstructionFlip
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="flip" ng-if="f.style !== null">
-                <md-icon md-svg-icon="b:flip"></md-icon>
-                @FlashcardResources.InstructionFlip
-            </div>
-            
+            @*<div class="flip" ng-if="f.style !== null">
+                    <md-icon md-svg-icon="b:flip"></md-icon>
+                    Click to flip
+                </div>*@
+
         </div>
     </div>
 

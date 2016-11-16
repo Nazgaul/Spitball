@@ -110,32 +110,37 @@ module app {
             var dfd = this.$q.defer(),
                 startTime = new Date().getTime();
 
-            func(this.buildUrl(url), data).then((response: angular.IHttpPromiseCallbackArg<{}>) => {
-                var retVal: any = response.data;
-                this.trackTime(startTime, url, data, "post");
+            func(this.buildUrl(url), data)
+                .then((response: angular.IHttpPromiseCallbackArg<{}>) => {
+                    var retVal: any = response.data;
+                    this.trackTime(startTime, url, data, "post");
 
-                if (angular.isArray(category)) {
-                    (category as Array<cacheKeys>).forEach((e: cacheKeys) => {
-                        this.deleteCacheCategory(e);
-                    });
-                }
-                if (angular.isString(category)) {
-                    this.deleteCacheCategory(category as cacheKeys);
-                }
+                    if (angular.isArray(category)) {
+                        (category as Array<cacheKeys>).forEach((e: cacheKeys) => {
+                            this.deleteCacheCategory(e);
+                        });
+                    }
+                    if (angular.isString(category)) {
+                        this.deleteCacheCategory(category as cacheKeys);
+                    }
 
-                if (!retVal) {
-                    this.logError(url, data, retVal);
-                    dfd.reject();
-                    return;
-                }
-                if (retVal.success) {
-                    dfd.resolve(retVal.payload);
-                    return;
-                }
+                    if (!retVal) {
+                        this.logError(url, data, retVal);
+                        dfd.reject();
+                        return;
+                    }
+                    if (retVal.success) {
+                        dfd.resolve(retVal.payload);
+                        return;
+                    }
+                    if (response.status === 200) {
+                        dfd.reject(retVal.payload);
+                        return;
+                    }
+                    dfd.reject(response)
+                ;
 
-                dfd.reject(retVal.payload);
-
-            }).catch((response: any) => {
+        }).catch((response: any) => {
                 dfd.reject(response);
                 this.logError(url, data, response);
             });
