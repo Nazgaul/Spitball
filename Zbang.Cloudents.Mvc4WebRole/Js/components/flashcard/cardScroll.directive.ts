@@ -32,6 +32,7 @@
                 .on('touchend',
                 ev => {
                     ev.preventDefault();
+                    this.$anchorScroll.yOffset = 150; 
                     if (startY > getCoord(ev, 'Y')) {
                         //down
                         ctrl.next();

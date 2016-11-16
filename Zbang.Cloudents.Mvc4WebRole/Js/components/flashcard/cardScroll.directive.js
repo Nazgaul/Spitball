@@ -27,6 +27,7 @@ var app;
                 })
                     .on('touchend', function (ev) {
                     ev.preventDefault();
+                    _this.$anchorScroll.yOffset = 150;
                     if (startY > getCoord(ev, 'Y')) {
                         ctrl.next();
                         _this.$anchorScroll("card" + ctrl.slidepos);

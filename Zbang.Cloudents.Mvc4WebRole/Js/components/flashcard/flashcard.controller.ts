@@ -51,7 +51,7 @@
         //}
     }
     export class FlashcardController {
-        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state"];
+        static $inject = ["flashcard", "flashcardService", "$stateParams", "user", "$state","$mdMedia"];
         cards: Array<Card>;
         flashcard: Flashcard;
         shuffle: boolean;
@@ -62,13 +62,15 @@
         styleLegend = true;
         style = true;
         backUrl;
+        notMobile: boolean
 
         pinCount = 0;
         constructor(flashcard: Flashcard,
             private flashcardService: IFlashcardService,
             private $stateParams: angular.ui.IStateParamsService,
             private user: IUserData,
-            private $state: angular.ui.IStateService) {
+            private $state: angular.ui.IStateService,
+            private $mdMedia: angular.material.IMedia) {
             angular.forEach(flashcard.cards,
                 (v, k) => {
                     if (flashcard.pins.indexOf(k) !== -1) {
@@ -77,6 +79,7 @@
                     v.index = k;
 
                 });
+            this.notMobile = $mdMedia("gt-xs");
             this.flashcard = flashcard;
             this.pinCount = flashcard.pins.length;
             this.backUrl = $state.href("box.flashcards", angular.extend({}, $stateParams, { boxtype: "course" }));
