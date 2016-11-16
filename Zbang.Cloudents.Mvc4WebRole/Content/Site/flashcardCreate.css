@@ -250,8 +250,12 @@
   stroke: #4190b9;
 }
 .flashcard .flashcard-body .card-container card-form .image-container img {
+  object-fit: cover;
   width: 100%;
-  height: auto;
+  height: 100%;
+}
+.flashcard .flashcard-body .card-container card-form .image-container:hover img {
+  opacity: 0.4;
 }
 .flashcard .flashcard-body .card-container card-form .image-container:hover .remove-img {
   display: block;
@@ -403,4 +407,8 @@
   .flashcard .flashcard-body .add-card {
     margin: 14px 0;
   }
+}
+.mdno-object-fit .flashcard .flashcard-body .card-container card-form .image-container img {
+  width: 100%;
+  height: auto;
 }

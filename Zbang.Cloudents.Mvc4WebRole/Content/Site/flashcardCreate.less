@@ -254,12 +254,19 @@
                     }
 
                     img {
+                        object-fit: cover;
                         width: 100%;
-                        height: auto;
+                        height: 100%;
                     }
 
-                    &:hover .remove-img {
-                        display: block;
+                    &:hover {
+                        img {
+                            opacity: 0.4;
+                        }
+
+                        .remove-img {
+                            display: block;
+                        }
                     }
 
                     .remove-img {
@@ -441,4 +448,9 @@
             }
         }
     }
+}
+
+.mdno-object-fit .flashcard .flashcard-body .card-container card-form .image-container img {
+    width: 100%;
+    height: auto;
 }
