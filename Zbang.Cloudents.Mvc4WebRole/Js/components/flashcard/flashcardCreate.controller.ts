@@ -120,7 +120,13 @@ module app {
             }
             function publish2() {
                 self.flashcardService.publish(self.data.id, self.data, self.$stateParams.boxId)
-                    .then(self.navigateBackToBox);
+                    .then(self.navigateBackToBox)
+                    .catch((response: angular.IHttpPromiseCallbackArg<{}>) => {
+                        if (response.status === 409) {
+                            self.form["name"].$setValidity('duplicate', false);
+                            (self.form["name"] as angular.INgModelController).$setTouched();
+                        }
+                    });
             }
         }
         private navigateBackToBox = () => {

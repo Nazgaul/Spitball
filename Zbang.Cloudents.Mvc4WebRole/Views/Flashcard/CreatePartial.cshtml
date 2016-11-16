@@ -9,16 +9,17 @@
     <div layout="row" layout-align="space-between center" class="flashcard-top">
         <md-input-container flex="50">
             <input name="name" type="text"
-                   placeholder="@FlashcardResources.FlashcardPlaceholder" autocomplete="off" required md-no-asterisk ng-model="f.data.name" />
+                   placeholder="@FlashcardResources.FlashcardPlaceholder" autocomplete="off"
+                    required md-no-asterisk ng-model="f.data.name" ng-change="f.form['name'].$setValidity('duplicate', true)"/>
             <div class="error-message" ng-messages="f.form.name.$error" ng-show="f.form.name.$touched">
                 <div ng-message="required">@GeneralResources.RequiredField</div>
+                <div ng-message="duplicate">@FlashcardResources.SameName</div>
             </div>
         </md-input-container>
         <button type="button" ng-click="f.publish()" ng-disabled="f.disabled" class="action-btn">@GeneralResources.Create</button>
     </div>
     <div class="flashcard-body">
         <div layout="row" layout-align="space-between center" class="header">
-
             <div flex="50" class="capitalize">@FlashcardResources.Front</div>
             <md-button type="button" ng-click="f.flip()" class="flip-btn">
                 <md-icon md-svg-icon="b:flashcard-arrow"></md-icon>

@@ -178,6 +178,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to flashcard with the same name already exists.
+        /// </summary>
+        public static string SameName {
+            get {
+                return ResourceManager.GetString("SameName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to shuffle cards.
         /// </summary>
         public static string Shuffle {

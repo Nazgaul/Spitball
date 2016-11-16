@@ -19,21 +19,21 @@ var app;
                     var dest = cart.offset();
                     var elem = $(element).find(attrs['cartAnimation']);
                     var color = elem.parents('[color-parent]').attr('class').replace("-parent", "");
+                    var offeset = elem.offset();
                     var elemtClone = elem.clone().addClass("angular-animate cart-animated " + color)
                         .css({
-                        'position': 'absolute'
+                        'position': 'absolute',
+                        'top': offeset.top,
+                        'left': offeset.left
                     })
                         .appendTo($('body'));
-                    var offeset = elem.offset();
                     _this.$animate.animate(elemtClone, {
-                        top: offeset.top,
-                        left: offeset.left,
-                        opacity: 1
+                        transform: "translate(" + 0 + 'px,' + 0 + "px)"
                     }, {
-                        top: dest.top,
-                        left: dest.left,
+                        transform: "translate(" + (dest.left - offeset.left) + "px," + (dest.top - offeset.top) + "px)",
                         opacity: 0.3
-                    }).then(function () {
+                    })
+                        .then(function () {
                         elemtClone.remove();
                         scope["cc"].animationEnd(id);
                     });

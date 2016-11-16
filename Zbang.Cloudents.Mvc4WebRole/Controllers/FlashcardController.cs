@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -156,7 +157,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
         }
 
         [HttpPost, ZboxAuthorize, ActionName("publish")]
-        public async Task<JsonResult> PublishAsync(long id, Flashcard model, long boxId)
+        public async Task<ActionResult> PublishAsync(long id, Flashcard model, long boxId)
         {
             if (!ModelState.IsValid)
             {
@@ -183,10 +184,17 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
                     }
                 })
             };
-
-            var command = new PublishFlashcardCommand(flashCard);
-            await ZboxWriteService.PublishFlashcardAsync(command);
-            return JsonOk();
+            try
+            {
+                var command = new PublishFlashcardCommand(flashCard);
+                await ZboxWriteService.PublishFlashcardAsync(command);
+                return JsonOk();
+            }
+            catch (ArgumentException)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Conflict);
+                //return JsonError("flashcard with the same name already exists");
+            }
         }
         [HttpPut, ZboxAuthorize, ActionName("Index")]
         public async Task<JsonResult> UpdateAsync(long id, Flashcard model, long boxId)
