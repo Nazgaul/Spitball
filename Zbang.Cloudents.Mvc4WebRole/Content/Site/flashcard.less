@@ -2,21 +2,13 @@
 
 @pinColor: #ebbc18;
 
-@-moz-keyframes cardIn {
-    from {
-        opacity: 0;
-        transform: rotate(-45deg) translate(-80%,-45%);
-    }
-
-
-
-    to {
-        opacity: 1;
-        transform: none;
-    }
+.card-style() {
+    background-color: @textColorWhite;
+    border-radius: 10px;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.43);
 }
 
-@-webkit-keyframes cardIn {
+.cardInAnimation() {
     from {
         opacity: 0;
         transform: rotate(-45deg) translate(-80%,-45%);
@@ -28,28 +20,40 @@
     }
 }
 
-@keyframes cardIn {
+.cardOutAnimation() {
     from {
-        opacity: 0;
-        transform: rotate(-45deg) translate(-80%,-45%);
-    }
-
-    to {
+        transform: none;
         opacity: 1;
-        transform: none;
-    }
-}
-
-@keyframes cardOut {
-    from {
-        transform: none;
-        opacity:1;
     }
 
     to {
         transform: translate(70%, 85%) rotate(45deg);
         opacity: 0;
     }
+}
+
+@-moz-keyframes cardIn {
+    .cardInAnimation();
+}
+
+@-webkit-keyframes cardIn {
+    .cardInAnimation();
+}
+
+@keyframes cardIn {
+    .cardInAnimation();
+}
+
+@-moz-keyframes cardOut {
+    .cardOutAnimation();
+}
+
+@-webkit-keyframes cardOut {
+    .cardOutAnimation();
+}
+
+@keyframes cardOut {
+    .cardOutAnimation();
 }
 
 .flashcardPage {
@@ -123,6 +127,11 @@
                     fill: @buttonColorBlue;
                     margin-right: 10px;
                 }
+
+                .flashcard-icon {
+                    margin-right: 10px;
+                    .flashcard-icon(42px, #4190b9, #4190b9, #dadada);
+                }
             }
 
             .progress-settings {
@@ -184,18 +193,31 @@
         }
 
         .card-sides button {
-            &.active {
-                md-icon {
-                    fill: @buttonColorBlue;
-                }
+            .flashcard-icon {
+                margin-right: 10px;
             }
 
-            md-icon {
-                fill: @textColorLightGrey;
-                width: 40px;
-                height: 40px;
-                display: block;
+            &:not(.active) .flashcard-icon {
                 margin-right: 10px;
+                .flashcard-icon(36px, @textColorLightGrey, @textColorLightGrey, @backgroundColor);
+            }
+
+            &.active {
+                &.front .flashcard-icon {
+                    .flashcard-icon(36px, @buttonColorBlue, @headerbackground, @backgroundColor);
+                }
+
+                &.back .flashcard-icon {
+                    .flashcard-icon(36px, @headerbackground, @buttonColorBlue, @backgroundColor);
+
+                    md-icon {
+                        fill: @buttonColorBlue;
+                    }
+                }
+
+                &.both .flashcard-icon {
+                    .flashcard-icon(36px, @buttonColorBlue, @buttonColorBlue, @backgroundColor);
+                }
             }
         }
 
@@ -275,9 +297,14 @@
 
 
     .card-template {
-        background: @textColorWhite;
-        border-radius: 10px;
-        box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.43);
+        &.both {
+            .card-style;
+
+            .side.back .pinned {
+                display: none;
+            }
+        }
+
         width: 100%;
         height: 400px;
         .displayFlex;
@@ -285,38 +312,117 @@
         .justifyContet(center);
         flex-direction: column;
         position: relative;
-        /*&.ng-hide-add, &.ng-hide-remove {
-            transition: 0s linear all;
-        }*/
+
+        &.ng-hide-add, &.ng-hide-remove {
+            transition: 10s linear all;
+        }
         //.my-element.ng-hide-add-active,
         &.ng-hide-add {
             animation-name: cardOut;
             animation-duration: 3s;
             animation-timing-function: ease-out;
             animation-iteration-count: 1;
-            height:400px;
-            width:800px;
-            position:absolute !important;
+            height: 400px;
+            width: 800px;
+            position: absolute !important;
             /* the transition is defined in the active class */
         }
+
         &.ng-hide-remove {
             animation-name: cardIn;
             animation-duration: 3s;
             animation-timing-function: ease-out;
             animation-iteration-count: 1;
-            height:400px;
-            width:800px;
-            position:absolute !important;
+            height: 400px;
+            width: 800px;
+            position: absolute !important;
             /* the transition is defined in the active class */
         }
-        /*.my-element.ng-hide-add { ... }
-.my-element.ng-hide-add.ng-hide-add-active { ... }
-.my-element.ng-hide-remove { ... }
-.my-element.ng-hide-remove.ng-hide-remove-active { ... }*/
+        /*&.front, &.back {
+            .transition(5s, all, ease);
+            .flip-container {
+                perspective: 1000px;
+            }
+
+            .flip-container, .front, .back {
+                width: 800px;
+                height: 400px;
+            }
+
+            .flipper {
+                transition: 0.6s;
+                transform-style: preserve-3d;
+                position: relative;
+            }
+
+            .front, .back {
+                backface-visibility: hidden;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            .front {
+                z-index: 2;
+                transform: rotateY(0deg);
+            }
+
+            .back {
+                transform: rotateY(180deg);
+            }
+        }
+
+        &.back-add-active {
+            .flip-container .flipper {
+                transform: rotateY(180deg);
+            }
+        }*/
         @media(max-width:600px) {
             &.ng-hide {
                 display: block !important;
             }
+        }
+    }
+
+    .front, .back {
+
+        .flip-container {
+            perspective: 1000px;
+        }
+
+        .flip-container, .front, .back {
+            width: 800px;
+            height: 400px;
+        }
+
+        .flipper {
+            transition: 0.6s;
+            transform-style: preserve-3d;
+            position: relative;
+            .card-style;
+            height: 400px;
+        }
+
+        .front, .back {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .front {
+            z-index: 2;
+            transform: rotateY(0deg);
+        }
+
+        .back {
+            transform: rotateY(180deg);
+        }
+    }
+
+    .back {
+        .flip-container .flipper {
+            transform: rotateY(180deg);
         }
     }
 
@@ -327,6 +433,7 @@
             background-image: url('data:image/png;base64,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') /*/Images/Site/card-bg.png*/;
             background-position: 0 100%;
             background-repeat: no-repeat;
+            .card-style;
         }
 
         h1 {
@@ -462,21 +569,22 @@
     }
 
     .card-player {
-        position:relative;
+        position: relative;
+
         .card-template {
             position: relative;
 
             &.front .card-content, &.back .card-content {
                 .side {
                     flex-direction: row;
+                    .card-style;
 
                     @media(max-width: 600px) {
                         flex-direction: column;
                     }
                 }
             }
-
-            &.front .card-content {
+            /*&.front .card-content {
                 .side.back {
                     display: none;
                 }
@@ -486,8 +594,7 @@
                 .side.front {
                     display: none;
                 }
-            }
-
+            }*/
             &.both {
                 cursor: auto;
 
@@ -498,10 +605,15 @@
 
                     .side {
                         @media(min-width: 600px) {
-                        width: 50%;
+                            width: 50%;
                         }
+
                         @media(max-width: 600px) {
                             height: 50%;
+                        }
+
+                        .data-wrapper {
+                            flex-direction: column;
                         }
 
                         img {
@@ -524,13 +636,21 @@
                 .side {
                     width: 100%;
                     flex-grow: 1;
-                    padding: 50px;
                     .displayFlex;
                     .align-items(center);
                     .justifyContet(space-between);
                     flex-direction: column;
 
-                    &.front {
+                    .data-wrapper {
+                        padding: 50px;
+                        .displayFlex;
+                        .align-items(center);
+                        .justifyContet(space-between);
+                        flex-grow: 1;
+                        height: 100%;
+                    }
+
+                    &.both {
                         border-right: 1px solid @textColorLightGrey;
                     }
 
@@ -622,5 +742,35 @@
 
     .md-bar {
         background-color: @textColorLightGrey;
+    }
+
+    .flashcard-icon(@width, @frontColor, @backColor, @borderColor) {
+        @height: 0.88*@width;
+        position: relative;
+        width: @width;
+        height: @height;
+
+        &:before, &:after {
+            content: '';
+            display: block;
+            width: 0.8*@width;
+            height: 0.72*@height;
+            border-radius: @height/6;
+            border: @height/17 solid @borderColor;
+            position: absolute;
+        }
+
+        &:before {
+            bottom: 0;
+            left: @width/4;
+            background: @backColor;
+        }
+
+        &:after {
+            transform: rotate(-20deg);
+            bottom: @height/4;
+            left: 0;
+            background: @frontColor;
+        }
     }
 }
