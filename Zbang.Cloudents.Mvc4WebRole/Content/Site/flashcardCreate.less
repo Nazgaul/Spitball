@@ -115,6 +115,9 @@
 
             .add-btn {
                 display: none;
+                position: absolute;
+                left: -31px;
+                bottom: -18px;
                 /*@media(min-width: 600px) {
                         position: absolute;
                         bottom: -16px;
@@ -133,9 +136,10 @@
 
             .drag-btn {
                 display: none;
-                //position: absolute;
-                //left: -26px;
-                //top: ~"calc(50% - 10px)";
+                position: absolute;
+                left: -26px;
+                top: ~"calc(50% - 10px)";
+
                 md-icon {
                     width: 14px;
                     height: 14px;
@@ -145,6 +149,9 @@
 
             .remove-btn {
                 display: none;
+                position: absolute;
+                right: -27px;
+                top: ~"calc(50% - 10px)";
 
                 md-icon {
                     width: 15px;
@@ -193,6 +200,7 @@
                         height: 19px;
                         margin-right: 4px;
                         fill: @svgColorGrey;
+                        cursor: pointer;
                     }
                     /*.add-image-btn:focus {
                         display: block;
