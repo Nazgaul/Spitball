@@ -41,8 +41,8 @@
                             <md-icon md-svg-icon="t:delete"></md-icon>
                         </button>
                         <button type="button" class="flip" ng-click="card.flip()"><md-icon md-svg-icon="b:flashcard-arrow"></md-icon></button>
-                        <button type="button" class="move-up" ng-click=""></button>
-                        <button type="button" class="move-down" ng-click=""></button>
+                        <button type="button" class="move-up" ng-click="f.move($index-1,card)"></button>
+                        <button type="button" class="move-down" ng-click="f.move($index+1,card)"></button>
                         <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add"></md-icon></button>
                         @*<button type="button" class="add-image">
                                 <md-icon ng-if="!slide.image" md-svg-icon="b:image-icon" plupload="upload.url"

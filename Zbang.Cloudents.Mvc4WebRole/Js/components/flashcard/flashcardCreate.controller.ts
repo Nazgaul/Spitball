@@ -203,6 +203,11 @@ module app {
             });
         }
         move(dropCardIndex: number, card: Card) {
+            card.checked = false;
+            if (dropCardIndex < 0 || dropCardIndex > this.data.cards.length) {
+               
+                return;
+            }
             const cardIndex = this.data.cards.indexOf(card);
             this.data.cards.splice(cardIndex, 0, this.data.cards.splice(dropCardIndex, 1)[0]);
         }
