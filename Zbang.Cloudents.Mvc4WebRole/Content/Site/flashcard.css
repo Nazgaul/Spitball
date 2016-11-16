@@ -101,6 +101,7 @@
   .flashcardPage .header .close-btn {
     top: 32px;
     right: 0;
+    z-index: 1;
   }
   .flashcardPage .header .close-btn md-icon {
     fill: #888b8e;
@@ -503,7 +504,7 @@
 }
 .flashcardPage .card-template.ng-hide-add {
   animation-name: cardOut;
-  animation-duration: 3s;
+  animation-duration: 0.3s;
   animation-timing-function: ease-out;
   animation-iteration-count: 1;
   position: absolute !important;
@@ -514,7 +515,7 @@
 }
 .flashcardPage .card-template.ng-hide-remove {
   animation-name: cardIn;
-  animation-duration: 3s;
+  animation-duration: 0.3s;
   animation-timing-function: ease-out;
   animation-iteration-count: 1;
   position: absolute !important;
@@ -564,14 +565,20 @@
 .flashcardPage .front .front,
 .flashcardPage .back .front {
   z-index: 2;
-  transform: rotateY(0deg);
+  transform: rotateX(0deg);
 }
 .flashcardPage .front .back,
 .flashcardPage .back .back {
-  transform: rotateY(180deg);
+  transform: rotateX(-180deg);
+}
+@media (max-width: 600px) {
+  .flashcardPage .front .data-wrapper,
+  .flashcardPage .back .data-wrapper {
+    flex-direction: column;
+  }
 }
 .flashcardPage .back .flip-container .flipper {
-  transform: rotateY(180deg);
+  transform: rotateX(-180deg);
 }
 .flashcardPage .cards-info .card-template {
   padding: 15px;
@@ -830,6 +837,10 @@
   align-items: center;
   -webkit-justify-content: center;
   justify-content: center;
+}
+.flashcardPage .card-player .card-template .card-content .side .img-container img {
+  max-width: 100%;
+  max-height: 100%;
 }
 .flashcardPage .card-player .card-template .card-content .side .text-container {
   display: -webkit-flex;

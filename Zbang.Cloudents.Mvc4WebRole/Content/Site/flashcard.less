@@ -96,6 +96,7 @@
             @media(max-width: 600px) {
                 top: 32px;
                 right: 0;
+                z-index: 1;
 
                 md-icon {
                     fill: #888b8e;
@@ -333,7 +334,7 @@
         //.my-element.ng-hide-add-active,
         &.ng-hide-add {
             animation-name: cardOut;
-            animation-duration: 3s;
+            animation-duration: 0.3s;
             animation-timing-function: ease-out;
             animation-iteration-count: 1;
             position: absolute !important;
@@ -343,7 +344,7 @@
 
         &.ng-hide-remove {
             animation-name: cardIn;
-            animation-duration: 3s;
+            animation-duration: 0.3s;
             animation-timing-function: ease-out;
             animation-iteration-count: 1;
             position: absolute !important;
@@ -423,17 +424,23 @@
 
         .front {
             z-index: 2;
-            transform: rotateY(0deg);
+            transform: rotateX(0deg);
         }
 
         .back {
-            transform: rotateY(180deg);
+            transform: rotateX(-180deg);
+        }
+
+        @media(max-width: 600px) {
+            .data-wrapper {
+                flex-direction: column;
+            }
         }
     }
 
     .back {
         .flip-container .flipper {
-            transform: rotateY(180deg);
+            transform: rotateX(-180deg);
         }
     }
 
@@ -674,6 +681,11 @@
                         .displayFlex;
                         .align-items(center);
                         .justifyContet(center);
+
+                        img {
+                            max-width: 100%;
+                            max-height: 100%;
+                        }
                     }
 
                     .text-container {
