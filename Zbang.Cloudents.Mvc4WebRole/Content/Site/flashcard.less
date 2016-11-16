@@ -1,6 +1,9 @@
 ﻿@import "variables.less";
 
 @pinColor: #ebbc18;
+@cardHeight: 400px;
+@cardWidth: 800px;
+
 
 .card-style() {
     background-color: @textColorWhite;
@@ -9,8 +12,8 @@
 }
 
 .card-size() {
-    height: 400px;
-    max-width: 800px;
+    height: @cardHeight;
+    max-width: @cardWidth;
     width: 100%;
 }
 
@@ -302,7 +305,7 @@
 
     .card-wrapper-cover {
         background: @textColorWhite;
-        max-width: 800px;
+        max-width: @cardWidth;
         width: 100%;
         border-radius: 10px;
         box-shadow: 0 0 4px rgba(0, 0, 0, 0.43);
@@ -310,7 +313,7 @@
     }
 
     .flashcard-wrapper {
-        max-width: 800px;
+        max-width: @cardWidth;
         width: 100%;
         margin: 0 auto;
         position: relative;
@@ -335,13 +338,12 @@
         }
 
         width: 100%;
-        height: 400px;
+        height: @cardHeight;
         .displayFlex;
         .align-items(stretch);
         .justifyContet(center);
         flex-direction: column;
         position: relative;
-
         //.my-element.ng-hide-add-active,
         &.ng-hide-add {
             animation-name: cardOut;
@@ -423,7 +425,7 @@
             transform-style: preserve-3d;
             position: relative;
             .card-style;
-            height: 400px;
+            height: @cardHeight;
         }
 
         .front, .back {
@@ -679,6 +681,7 @@
                         flex-grow: 1;
                         width: 100%;
                         height: 100%;
+                        max-height: @cardHeight;
                     }
 
                     @media(max-width: 600px) {
