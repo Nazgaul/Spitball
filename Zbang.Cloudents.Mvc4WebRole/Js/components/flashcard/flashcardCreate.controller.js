@@ -13,8 +13,8 @@ var app;
             for (var i = 0; i < input.cards.length; i++) {
                 this.cards.push(new Card().deserialize(input.cards[i]));
             }
-            if (!this.cards.length) {
-                this.cards.push(new Card(), new Card(), new Card(), new Card(), new Card());
+            for (var j = this.cards.length; j < 5; j++) {
+                this.cards.push(new Card());
             }
             return this;
         };
@@ -33,6 +33,7 @@ var app;
             var temp = this.front;
             this.front = this.cover;
             this.cover = temp;
+            this.checked = false;
         };
         Card.prototype.deserialize = function (input) {
             this.front = new CardSlide().deserialize(input.front);

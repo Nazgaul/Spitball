@@ -26,7 +26,7 @@
             <div flex="50" class="capitalize">@FlashcardResources.Back</div>
         </div>
         <ol ui-on-drop="true">
-            <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" @*card-settings="gt-xs"*@ ng-repeat="card in f.data.cards">
+            <li id="drag{{$index}}" class="card-container" ui-on-drop="f.move($data,card)" layout="row" line-focus @*card-settings="gt-xs"*@ ng-repeat="card in f.data.cards">
                 <button type="button" hide-xs class="drag-btn" drag="{{$index}}" ui-draggable="true" drag-image-element-id="'drag' + $index"><md-icon md-svg-icon="t:headerMenu"></md-icon></button>
                 <card-form flex="50" index="$index*2 + 1" slide="card.front" upload="f.upload"></card-form>
                 <card-form flex="50" index="$index*2 + 2" slide="card.cover" upload="f.upload"></card-form>
@@ -34,7 +34,7 @@
                     <md-icon hide-xs md-svg-icon="t:close"></md-icon>
                 </button>
                 <button type="button" class="add-btn" ng-click="f.add($index)"><md-icon md-svg-icon="t:add"></md-icon></button>
-                <input type="checkbox" id="settings-toggler{{$index}}" class="settings-toggler"/>
+                <input type="checkbox" id="settings-toggler{{$index}}" ng-model="card.checked" ng-checked="card.checked" class="settings-toggler"/>
                 <div class="card-settings" hide-gt-xs>
                     <div class="content">
                         <button type="button" class="remove-btn desktop" ng-click="f.removeCard($index)">

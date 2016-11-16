@@ -15,9 +15,12 @@ module app {
             for (let i = 0; i < input.cards.length; i++) {
                 this.cards.push(new Card().deserialize(input.cards[i]));
             }
-            if (!this.cards.length) {
-                this.cards.push(new Card(), new Card(), new Card(), new Card(), new Card());
+            for (let j = this.cards.length; j < 5; j++) {
+                this.cards.push(new Card());
             }
+            //if (this.cards.length < 5) {
+            //    this.cards.push(new Card(), new Card(), new Card(), new Card(), new Card());
+            //}
             return this;
         }
         flip() {
@@ -29,11 +32,12 @@ module app {
     export class Card implements ISerializable<Card> {
         front = new CardSlide();
         cover = new CardSlide();
-
+        checked: boolean;
         flip() {
             const temp = this.front;
             this.front = this.cover;
             this.cover = temp;
+            this.checked = false;
         }
         deserialize(input: Card) {
             this.front = new CardSlide().deserialize(input.front);

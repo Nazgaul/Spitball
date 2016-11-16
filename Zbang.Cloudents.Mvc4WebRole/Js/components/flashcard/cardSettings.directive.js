@@ -1,32 +1,39 @@
 var app;
 (function (app) {
     "use strict";
-    var CardSettingsDirective = (function () {
-        function CardSettingsDirective($mdMedia) {
+    var LineFocus = (function () {
+        function LineFocus($timeout) {
             var _this = this;
-            this.$mdMedia = $mdMedia;
+            this.$timeout = $timeout;
             this.restrict = "A";
-            this.link = function (scope, element, attrs) {
-                element.on("click", function () {
-                    var selector = ".card-settings";
-                    var settings = element.closest("li").find(selector);
-                    $(selector).not(settings).removeClass("active");
-                    if (_this.$mdMedia(attrs["cardSettings"])) {
-                        settings.toggleClass("active");
-                    }
+            this.link = function (scope, element) {
+                element.on("focusin click", function (e) {
+                    var currentCheckBox = element.find(":checkbox");
+                    $(":checked").not(currentCheckBox).prop("checked", false);
+                    $(".focused").removeClass("focused");
+                    element.addClass("focused");
+                    $(e.target).closest("card-form").addClass("focused");
+                })
+                    .on("focusout", function () {
+                    _this.$timeout(function () {
+                        if ($(":focus").parents(".focused").length) {
+                            return;
+                        }
+                        $(".focused").removeClass("focused");
+                    });
                 });
             };
         }
-        CardSettingsDirective.factory = function () {
-            var directive = function ($mdMedia) {
-                return new CardSettingsDirective($mdMedia);
+        LineFocus.factory = function () {
+            var directive = function ($timeout) {
+                return new LineFocus($timeout);
             };
-            directive["$inject"] = ["$mdMedia"];
+            directive["$inject"] = ["$timeout"];
             return directive;
         };
-        return CardSettingsDirective;
+        return LineFocus;
     }());
     angular
         .module("app.flashcard")
-        .directive("cardSettings", CardSettingsDirective.factory());
+        .directive("lineFocus", LineFocus.factory());
 })(app || (app = {}));
