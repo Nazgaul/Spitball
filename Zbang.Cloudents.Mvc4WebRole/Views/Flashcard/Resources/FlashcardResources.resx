@@ -126,8 +126,11 @@
   <data name="CardsLabel" xml:space="preserve">
     <value>cards</value>
   </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Created by</value>
+  </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>edit</value>
   </data>
   <data name="FlashcardPlaceholder" xml:space="preserve">
     <value>Enter flashcard name</value>
@@ -150,6 +153,9 @@
   <data name="LikeLabel" xml:space="preserve">
     <value>Enjoy this set? give it a like:</value>
   </data>
+  <data name="Over" xml:space="preserve">
+    <value>over</value>
+  </data>
   <data name="Pinned" xml:space="preserve">
     <value>pinned</value>
   </data>
@@ -161,5 +167,8 @@
   </data>
   <data name="Shuffle" xml:space="preserve">
     <value>shuffle cards</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>start</value>
   </data>
 </root>

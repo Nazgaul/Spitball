@@ -88,7 +88,16 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to Created by.
+        /// </summary>
+        public static string CreatedBy {
+            get {
+                return ResourceManager.GetString("CreatedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to edit.
         /// </summary>
         public static string Edit {
             get {
@@ -160,6 +169,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to over.
+        /// </summary>
+        public static string Over {
+            get {
+                return ResourceManager.GetString("Over", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to pinned.
         /// </summary>
         public static string Pinned {
@@ -192,6 +210,15 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         public static string Shuffle {
             get {
                 return ResourceManager.GetString("Shuffle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to start.
+        /// </summary>
+        public static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
             }
         }
     }

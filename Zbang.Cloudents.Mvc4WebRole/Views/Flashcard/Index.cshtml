@@ -63,7 +63,7 @@
         <div class="content card-template">
             <h1 ng-if="f.step==0" ng-bind="::f.flashcard.name"></h1>
             <h1 ng-if="f.step==2">@FlashcardResources.GoodWork</h1>
-            <h4 ng-if="f.step==0">Created by&nbsp;<span ng-bind="::f.flashcard.ownerName"></span></h4>
+            <h4 ng-if="f.step==0">@FlashcardResources.CreatedBy&nbsp;<span ng-bind="::f.flashcard.ownerName"></span></h4>
             <div class="subtitle">
                 <h4 ng-if="f.step==2">@FlashcardResources.JustStudied&nbsp;</h4>
                 <ng-pluralize count="::f.flashcard.cards.length"
@@ -75,7 +75,7 @@
             </div>
             <div class="action-buttons">
                 <button type="button" class="action-btn" user-not-register-popup="click" ng-click="f.start()">
-                    <span>start</span><span ng-if="f.step==2">&nbsp;over</span>
+                    <span>@FlashcardResources.Start</span><span ng-if="f.step==2">&nbsp;@FlashcardResources.Over</span>
                 </button>
                 <button type="button" class="action-btn pinned-cards" user-not-register-popup="click" ng-if="::f.pinCount" ng-click="f.startPin()">
                     Study&nbsp;<ng-pluralize count="::f.pinCount"
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="flip" ng-if="f.style !== null">
                                     <md-icon md-svg-icon="b:flip"></md-icon>
-                                    Click to flip
+                                    @FlashcardResources.InstructionFlip
                                 </div>
                             </div>
                         </div>
