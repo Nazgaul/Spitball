@@ -72,7 +72,7 @@
     </div>
 </form>
 <script type="text/ng-template" id="card-form.html">
-    <md-input-container class="md-icon-right">
+    <md-input-container class="md-icon-right" ng-class="{'has-image' : slide.image}">
         <textarea tabindex="{{index}}" ng-model="slide.text"></textarea>
         <md-icon tabindex="-1" ng-if="!slide.image" class="add-image-btn" md-svg-icon="b:image-icon" plupload="upload.url"
                  plupload-options="upload.options(slide)"

@@ -84,6 +84,12 @@
   .flashcardPage .header {
     min-height: 80px;
     padding-top: 0;
+    position: fixed;
+    top: 65px;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    background: #dadada;
   }
 }
 .flashcardPage .header .close-btn {
@@ -733,6 +739,11 @@
 .flashcardPage .card-player {
   position: relative;
 }
+@media (max-width: 600px) {
+  .flashcardPage .card-player {
+    margin-top: 80px;
+  }
+}
 .flashcardPage .card-player .card-template {
   position: relative;
   /*&.front .card-content {
@@ -889,6 +900,12 @@
   width: 20px;
   height: 19px;
   fill: #c3c3c3;
+}
+@media (max-width: 600px) {
+  .flashcardPage .card-player,
+  .flashcardPage .cards-info {
+    margin-top: 80px;
+  }
 }
 .flashcardPage md-switch.md-checked .md-thumb {
   background-color: #ffffff;
