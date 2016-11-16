@@ -106,7 +106,7 @@ namespace Zbang.Cloudents.Mvc4WebRole.Views.Flashcard.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a flashcard.
+        ///   Looks up a localized string similar to Create a Flashcard.
         /// </summary>
         public static string FlashcardTitle {
             get {

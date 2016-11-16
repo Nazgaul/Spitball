@@ -118,6 +118,9 @@
 }
 .flashcard .flashcard-body .card-container .add-btn {
   display: none;
+  position: absolute;
+  left: -31px;
+  bottom: -18px;
   /*@media(min-width: 600px) {
                         position: absolute;
                         bottom: -16px;
@@ -134,6 +137,9 @@
 }
 .flashcard .flashcard-body .card-container .drag-btn {
   display: none;
+  position: absolute;
+  left: -26px;
+  top: calc(50% - 10px);
 }
 .flashcard .flashcard-body .card-container .drag-btn md-icon {
   width: 14px;
@@ -142,6 +148,9 @@
 }
 .flashcard .flashcard-body .card-container .remove-btn {
   display: none;
+  position: absolute;
+  right: -27px;
+  top: calc(50% - 10px);
 }
 .flashcard .flashcard-body .card-container .remove-btn md-icon {
   width: 15px;
@@ -193,6 +202,7 @@
   height: 19px;
   margin-right: 4px;
   fill: #484F56;
+  cursor: pointer;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container card-form.focused .add-image-btn {
