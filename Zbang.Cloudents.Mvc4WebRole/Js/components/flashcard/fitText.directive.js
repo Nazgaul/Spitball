@@ -20,7 +20,7 @@ var app;
                     });
                     _this.$animate.removeClass(element.parents("angular-animate"), "front back both")
                         .then(function () {
-                        console.log("x");
+                        changeFont();
                     });
                     changeFont();
                     function changeFont() {
