@@ -180,15 +180,16 @@
 .flashcard .flashcard-body .card-container card-form md-input-container {
   border: 1px solid #b7b7b7;
   background: #ffffff;
-  padding-right: 10px;
   margin: 0;
 }
 .flashcard .flashcard-body .card-container card-form md-input-container.has-image {
-  padding: 0 0 65px 0;
+  padding-left: 0;
+  padding-bottom: 60px;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container card-form md-input-container.has-image {
-    padding: 0 0 0 65px;
+    padding-left: 60px;
+    padding-bottom: 0;
   }
 }
 .flashcard .flashcard-body .card-container card-form md-input-container .md-errors-spacer {
@@ -217,10 +218,11 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
+  padding: 0 3px 5px 0;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container card-form .md-resize-wrapper {
-    min-height: 60px;
+    min-height: 55px;
   }
 }
 .flashcard .flashcard-body .card-container card-form .md-resize-wrapper textarea {
