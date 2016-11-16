@@ -181,6 +181,7 @@
   border: 1px solid #b7b7b7;
   background: #ffffff;
   margin: 0;
+  padding-top: 0;
 }
 .flashcard .flashcard-body .card-container card-form md-input-container.has-image {
   padding-left: 0;
@@ -218,16 +219,17 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
-  padding: 0 3px 5px 0;
+  padding: 0 5px 5px 0;
 }
 @media (min-width: 600px) {
   .flashcard .flashcard-body .card-container card-form .md-resize-wrapper {
-    min-height: 55px;
+    min-height: 58px;
   }
 }
 .flashcard .flashcard-body .card-container card-form .md-resize-wrapper textarea {
   border: none;
   flex: 1;
+  padding: 0;
 }
 .flashcard .flashcard-body .card-container card-form .image-container {
   position: absolute;

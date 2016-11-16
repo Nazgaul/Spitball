@@ -320,95 +320,7 @@
     }
 
 
-    .card-template {
-        &.both {
-            .card-style;
 
-            .front {
-                border-right: 1px solid @textColorLightGrey;
-            }
-
-            .data-wrapper {
-                cursor: auto;
-            }
-
-            .side.back .pinned {
-                display: none;
-            }
-        }
-
-        width: 100%;
-        height: @cardHeight;
-        .displayFlex;
-        .align-items(stretch);
-        .justifyContet(center);
-        flex-direction: column;
-        position: relative;
-        //.my-element.ng-hide-add-active,
-        &.ng-hide-add {
-            animation-name: cardOut;
-            animation-duration: 0.3s;
-            animation-timing-function: ease-out;
-            animation-iteration-count: 1;
-            position: absolute !important;
-            .card-size();
-            /* the transition is defined in the active class */
-        }
-
-        &.ng-hide-remove {
-            animation-name: cardIn;
-            animation-duration: 0.3s;
-            animation-timing-function: ease-out;
-            animation-iteration-count: 1;
-            position: absolute !important;
-            .card-size();
-            /* the transition is defined in the active class */
-        }
-        /*&.front, &.back {
-            .transition(5s, all, ease);
-            .flip-container {
-                perspective: 1000px;
-            }
-
-            .flip-container, .front, .back {
-                width: 800px;
-                height: 400px;
-            }
-
-            .flipper {
-                transition: 0.6s;
-                transform-style: preserve-3d;
-                position: relative;
-            }
-
-            .front, .back {
-                backface-visibility: hidden;
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-
-            .front {
-                z-index: 2;
-                transform: rotateY(0deg);
-            }
-
-            .back {
-                transform: rotateY(180deg);
-            }
-        }
-
-        &.back-add-active {
-            .flip-container .flipper {
-                transform: rotateY(180deg);
-            }
-        }*/
-        @media(max-width:600px) {
-            &.ng-hide {
-                display: block !important;
-            }
-        }
-    }
 
     .front, .back {
 
@@ -608,6 +520,78 @@
 
         .card-template {
             position: relative;
+            width: 100%;
+            height: @cardHeight;
+            .displayFlex;
+            .align-items(stretch);
+            .justifyContet(center);
+            flex-direction: column;
+            position: relative;
+            //.my-element.ng-hide-add-active,
+            &.ng-hide-add {
+                animation-name: cardOut;
+                animation-duration: 0.3s;
+                animation-timing-function: ease-out;
+                animation-iteration-count: 1;
+                position: absolute !important;
+                .card-size();
+                /* the transition is defined in the active class */
+            }
+
+            &.ng-hide-remove {
+                animation-name: cardIn;
+                animation-duration: 0.3s;
+                animation-timing-function: ease-out;
+                animation-iteration-count: 1;
+                position: absolute !important;
+                .card-size();
+                /* the transition is defined in the active class */
+            }
+            /*&.front, &.back {
+            .transition(5s, all, ease);
+            .flip-container {
+                perspective: 1000px;
+            }
+
+            .flip-container, .front, .back {
+                width: 800px;
+                height: 400px;
+            }
+
+            .flipper {
+                transition: 0.6s;
+                transform-style: preserve-3d;
+                position: relative;
+            }
+
+            .front, .back {
+                backface-visibility: hidden;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            .front {
+                z-index: 2;
+                transform: rotateY(0deg);
+            }
+
+            .back {
+                transform: rotateY(180deg);
+            }
+        }
+
+        &.back-add-active {
+            .flip-container .flipper {
+                transform: rotateY(180deg);
+            }
+        }*/
+            @media(max-width:600px) {
+                &.ng-hide {
+                    display: block !important;
+                }
+            }
+
 
             &.front .card-content, &.back .card-content {
                 .side {
@@ -654,6 +638,27 @@
                         margin: 0 auto;
                         display: block;
                     }
+                }
+            }
+
+            &.both {
+                .card-style;
+
+                .front {
+                    border-right: 1px solid @textColorLightGrey;
+                }
+
+                .card-content .side .data-wrapper {
+                    cursor: auto;
+
+
+                    @media(max-width: 600px) {
+                        max-height: @cardHeight/2;
+                    }
+                }
+
+                .side.back .pinned {
+                    display: none;
                 }
             }
 

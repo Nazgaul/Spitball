@@ -179,6 +179,7 @@
                     border: 1px solid #b7b7b7;
                     background: @textColorWhite;
                     margin: 0;
+                    padding-top: 0;
 
                     &.has-image {
                         padding-right: 0;
@@ -220,15 +221,16 @@
                     .align-items(center);
                     flex-direction: column;
                     height: 100%;
-                    padding: 0 0 5px 3px;
+                    padding: 0 0 5px 5px;
 
                     @media(min-width: 600px) {
-                        min-height: @cardHeight - 5px;
+                        min-height: @cardHeight - 2px;
                     }
 
                     textarea {
                         border: none;
                         flex: 1;
+                        padding: 0;
                     }
                 }
 
