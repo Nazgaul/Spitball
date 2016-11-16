@@ -142,11 +142,11 @@ body .quiz-template .bottom .name {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), 0 0 1px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   padding: 0 12px;
   background: #db4437;
+  display: flex;
+  align-items: center;
+  align-content: center;
 }
 .add md-icon {
-  width: 20px;
-  height: 20px;
-  margin: 0 auto;
   fill: #ffffff;
 }
 .page-title {

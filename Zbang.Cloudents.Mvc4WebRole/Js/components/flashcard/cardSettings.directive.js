@@ -21,7 +21,7 @@ var app;
             var directive = function ($mdMedia) {
                 return new CardSettingsDirective($mdMedia);
             };
-            directive['$inject'] = ['$mdMedia'];
+            directive["$inject"] = ["$mdMedia"];
             return directive;
         };
         return CardSettingsDirective;

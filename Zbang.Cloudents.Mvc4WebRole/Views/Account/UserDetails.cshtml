@@ -1,20 +1,10 @@
 ﻿@using Zbang.Cloudents.Mvc4WebRole.Views.Shared.Resources
-@{
-    //const string svgUrl = "~/images/site/icons.svg";
-    //var shouldPostBack = @ViewBag.postBag == true ? "target=_self" : string.Empty;
-}
 
 <div layout="row" layout-align="center center" flex="none">
-
     <button type="button" toggle-chat user-not-register-popup="click" class="chat-icon" hide-gt-sm>
         <md-icon md-svg-icon="t:chat"></md-icon>
-        @*@Html.Svg("~/images/site/icons.svg", "chat")*@
         <div class="chat-counter"></div>
     </button>
-    @*@if (ViewBag.errorPage == null || !ViewBag.errorPage)
-            {*@
-
-    @*}*@
     <md-menu class="user-md-menu" hide-xs md-offset="10 80">
         <md-button ng-click="$mdOpenMenu($event)" aria-label="Open menu">
             <div class="md-icon-button">
