@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevTrends.MvcDonutCaching;
 using Zbang.Cloudents.Mvc4WebRole.Filters;
+using Zbang.Cloudents.Mvc4WebRole.Helpers;
 using Zbang.Cloudents.Mvc4WebRole.Models;
 using Zbang.Zbox.Domain.Commands;
 using Zbang.Zbox.Infrastructure.Consts;
@@ -162,6 +163,20 @@ namespace Zbang.Cloudents.Mvc4WebRole.Controllers
             if (!ModelState.IsValid)
             {
                 return JsonError(GetErrorFromModelState());
+            }
+            if (model.Cards != null)
+            {
+                for (var i = model.Cards.Count - 1; i >= 0; --i)
+                {
+                    if (model.Cards[i].IsEmpty())
+                    {
+                        model.Cards.RemoveAt(i);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
             }
             var flashCard = new Zbox.Domain.Flashcard(id)
             {

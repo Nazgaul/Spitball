@@ -28,6 +28,7 @@ var app;
         function Card() {
             this.front = new CardSlide();
             this.cover = new CardSlide();
+            this.index = "";
         }
         Card.prototype.flip = function () {
             var temp = this.front;

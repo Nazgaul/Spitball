@@ -33,6 +33,7 @@ module app {
         front = new CardSlide();
         cover = new CardSlide();
         checked: boolean;
+        index: string = "";
         flip() {
             const temp = this.front;
             this.front = this.cover;
