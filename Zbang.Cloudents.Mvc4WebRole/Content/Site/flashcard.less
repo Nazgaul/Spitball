@@ -527,6 +527,10 @@
             .justifyContet(center);
             flex-direction: column;
             position: relative;
+
+            @media(max-width: 600px) {
+                margin: 16px 0;
+            }
             //.my-element.ng-hide-add-active,
             &.ng-hide-add {
                 animation-name: cardOut;
@@ -586,13 +590,6 @@
                 transform: rotateY(180deg);
             }
         }*/
-            @media(max-width:600px) {
-                &.ng-hide {
-                    display: block !important;
-                }
-            }
-
-
             &.front .card-content, &.back .card-content {
                 .side {
                     flex-direction: row;

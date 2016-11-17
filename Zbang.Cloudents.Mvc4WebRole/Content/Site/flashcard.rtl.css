@@ -719,6 +719,11 @@
                 }
             }*/
 }
+@media (max-width: 600px) {
+  .flashcardPage .card-player .card-template {
+    margin: 16px 0;
+  }
+}
 .flashcardPage .card-player .card-template.ng-hide-add {
   animation-name: cardOut;
   animation-duration: 0.3s;
@@ -740,11 +745,6 @@
   max-width: 800px;
   width: 100%;
   /* the transition is defined in the active class */
-}
-@media (max-width: 600px) {
-  .flashcardPage .card-player .card-template.ng-hide {
-    display: block !important;
-  }
 }
 .flashcardPage .card-player .card-template.front .card-content .side,
 .flashcardPage .card-player .card-template.back .card-content .side {
